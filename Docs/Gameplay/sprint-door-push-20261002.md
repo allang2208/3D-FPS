@@ -1,12 +1,20 @@
 # 左拳冲刺撞门接入（2026-10-02）
 
-持续按住 Shift 向前冲刺、正对需要交互打开的关闭门时，左手从当前握姿释放，握拳举起护在身前，完整保持 0.30 秒，然后直接回到当前装备或空手的实时动作。保持结束时打开门，同时播放单次撞门声和短促镜头抖动。沿用原有门的开启方向、碰撞和自动关闭逻辑。
+持续按住 Shift 向前冲刺、正对需要交互打开的关闭门时，左手从当前握姿释放，握拳举起护在身前，完整保持 0.25 秒，然后直接回到当前装备或空手的实时动作。保持结束时打开门，同时播放单次撞门声和短促镜头抖动。沿用原有门的开启方向、碰撞和自动关闭逻辑。
 
-## 当前反馈与全武器接入 V10
+## 当前保持时长调整
 
-当前动作反馈为 V10：屏幕抖动各轴幅度提高 60%，左臂护拳晃动幅度翻倍，保持当前完整拳形与 0.30 秒护拳停留。枪械、双持、剑、法杖、斧镐和空手继续共用同一动作层；补齐弓的同帧收放／恢复及无手臂工具的 V7 备用左臂。详见 [当前反馈与武器接入](door-push-feedback-all-weapons-v10-20261002.md)，实际制作与构建状态以本轮 completion 回执为准，未实机测试。
+按用户要求，revision `2026100212` 将护拳停顿由 0.30 秒缩短为 0.25 秒。起势仍为 0.06 秒，开门／音效／抖动共用时点改为 0.31 秒；恢复仍为 0.197 秒，总长为 0.507 秒。保持段轻摆关键帧按比例压缩，拳形、手臂轨迹及轻摆振幅沿用现有版本。作者脚本、姿态 JSON、运行头和可编辑 Blend 同步；无需重新导入音效或 AnimSequence。构建状态见 `SourceAssets/DoorPush20261002/integration-completion.json`，未运行游戏测试。
 
-## 当前 M16 自然腕部修订
+本轮正式 Editor 和 Game 后台链接已完成，日志分别为 `Saved/BuildEditor/build-20261002-234440.log` 与 `Saved/DoorPushHold250ms20261002/FPSGAME-20261002-234533.log`。未启动 UE 或进行游戏测试。
+
+下方版本记录保留各轮原始时长，本轮覆盖其中 0.30 秒保持的设置。
+
+## V10 全武器接入（保持时长修订前记录）
+
+V10 初次交付反馈：屏幕抖动各轴幅度提高 60%，左臂护拳晃动幅度翻倍，保持当前完整拳形与 0.30 秒护拳停留。枪械、双持、剑、法杖、斧镐和空手继续共用同一动作层；补齐弓的同帧收放／恢复及无手臂工具的 V7 备用左臂。详见 [当前反馈与武器接入](door-push-feedback-all-weapons-v10-20261002.md)，实际制作与构建状态以本轮 completion 回执为准，未实机测试。
+
+## M16 自然腕部修订（原始制作记录）
 
 M16 腕部已改用共同 M4 V7 的自然 mesh-local 绑定，受影响表面重新制作，并同步导入完整 M4 奔跑左链与握把差量。上一版分数 twist 特例已撤掉；拳形、整臂轻摆与 0.30 秒保持时钟沿用。详见 [M16 奔跑左臂与撞门腕部修订](../Weapons/m16-sprint-door-wrist-20261002.md)。已保存资产与正常构建记录位于 `SourceAssets/M16SprintDoorWrist20261002/integration-completion.json`。
 
@@ -41,7 +49,7 @@ M16 腕部已改用共同 M4 V7 的自然 mesh-local 绑定，受影响表面重
 | 保持结束／撞门事件 | 0.36 s | 完整保持 0.30 s，成功打开原目标门时播放声音与抖动 |
 | 实时回接完成 | 0.557 s | 0.197 s 直接回接当帧持握／空手走跑动作 |
 
-该版动作源 revision 为 `2026100206`，take 为 `A_DoorPush_LeftFist_V7_20261002_GuardV5Hold300msRecover`，1000 Hz、558 帧。作者备份位于 `GuardOnlyV5_20261002/BeforeAuthored`，运行源备份位于该目录的 `BeforeRuntime`。当前使用文首 GuardWristSwayV6 的修正与轻摆，时间预算保持该版数值；本节与下方 GuardPoseV4、FixV3 保留为历史记录。
+该版动作源 revision 为 `2026100206`，take 为 `A_DoorPush_LeftFist_V7_20261002_GuardV5Hold300msRecover`，1000 Hz、558 帧。作者备份位于 `GuardOnlyV5_20261002/BeforeAuthored`，运行源备份位于该目录的 `BeforeRuntime`。本节与下方 GuardPoseV4、FixV3 保留原始制作时长；当前采用文首 revision 2026100212 的 0.25 秒保持时序。
 
 ## 触发和门行为
 
@@ -49,7 +57,7 @@ M16 腕部已改用共同 M4 V7 的自然 mesh-local 绑定，受影响表面重
 
 本地单机第一人称角色在地面持续按住 Shift 并向前输入至少 0.21 秒，且正对关闭的门面时触发。沿用 E 交互的视点和第一处可见阻挡，保留可回收箭矢的交互优先级。最大视线探测距离为 210 cm，没有最小距离或接近速度要求；抵住门叶、实际速度为零时也能触发。
 
-0.36 秒保持结束时仍保持 Shift 前进冲刺、门仍关闭、视线仍命中原目标，才执行一次 `OpenDoor()` 或双扇门的 `OpenWindow()`，不调用 Toggle 或造成伤害。保持阶段是拳姿停留，角色运动仍沿用既有逻辑；即使被关闭门叶挡停，只要仍持续按住 Shift 前进，此时仍可开门。短按 Shift 的闪避、原有动作占用与取消规则保持既有接入。
+0.31 秒保持结束时仍保持 Shift 前进冲刺、门仍关闭、视线仍命中原目标，才执行一次 `OpenDoor()` 或双扇门的 `OpenWindow()`，不调用 Toggle 或造成伤害。保持阶段是拳姿停留，角色运动仍沿用既有逻辑；即使被关闭门叶挡停，只要仍持续按住 Shift 前进，此时仍可开门。短按 Shift 的闪避、原有动作占用与取消规则保持既有接入。
 
 ## GuardPoseV4：参考护拳与 0.50 秒停留（上一版）
 
@@ -65,7 +73,7 @@ M16 腕部已改用共同 M4 V7 的自然 mesh-local 绑定，受影响表面重
 | 短回弹 | 0.663 s | 衔接现有回收 |
 | 实时回接 | 0.86 s | 0.197 s 回接当帧持握／空手步频动作 |
 
-该版运行备份位于 `SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeRuntime`，作者备份已归档到 `trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored`。参考照片存于同目录的 `Reference/user-left-fist-guard.jpg`。历史 revision 为 `2026100205`，可编辑 take 为 `A_DoorPush_LeftFist_V7_20261002_GuardV4PhotoHold500ms`，保存 1000 Hz、861 帧 Blend 与生成的 C++ 作者表。M16 本地轴适配、整臂插值及回接保留，无需额外手型运行层或 AnimSequence 导入。当前动作使用文首 GuardWristSwayV6 时序，本节与下节 FixV3 仅保留为历史记录。
+该版运行备份位于 `SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeRuntime`，作者备份已归档到 `trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored`。参考照片存于同目录的 `Reference/user-left-fist-guard.jpg`。历史 revision 为 `2026100205`，可编辑 take 为 `A_DoorPush_LeftFist_V7_20261002_GuardV4PhotoHold500ms`，保存 1000 Hz、861 帧 Blend 与生成的 C++ 作者表。M16 本地轴适配、整臂插值及回接保留，无需额外手型运行层或 AnimSequence 导入。本节与下节 FixV3 仅保留原始制作记录；当前采用文首 revision 2026100212 时序。
 
 ## FixV3：完整动作复用与冲击（上一版）
 
@@ -114,7 +122,7 @@ M4/V7 原生手模直接读取完整作者 local 变换。用户确认失败测�
 
 用户给定参考视频及已有观察资料保留在 `References`，本次修订采用项目现有法杖 F 动作完整姿态作为实际复用来源。没有改写 Staff 源动作。
 
-## 当前制作与构建状态
+## 历史制作与构建状态（V4–V6）
 
 GuardOnlyV5 的作者源、声音资产及正常 Game／Editor 构建已完成，日志位于 `Saved/DoorPushGuardOnlyV5_20261002`。本轮 GuardWristSwayV6 的轻摆作者源、Blend 和 M16 腕部适配代码已保存，Game 与 Editor 正常后台构建均已完成，Editor DLL 已更新。当前日志位于 `Saved/DoorPushGuardWristSwayV6_20261002`。未自动打开或重启编辑器，也未运行游戏测试。
 
@@ -136,9 +144,9 @@ GuardPoseV4 构建日志位于 `Saved/DoorPushGuardV4_20261002`。前一轮音�
 
 撞门声音已替换为用户提供的 `D:/FPS3D/资产/音效/撞门.mp3`。完整转换为 0.672000 s、48 kHz、16-bit PCM、2 声道 WAV，保留录音长度和原声道，不裁剪、不归一化。来源按用户提供记录，不继承旧候选的 CC0 声明。
 
-同一个 SoundWave `/Game/Audio/Interactions/DoorPush20261002/S_DoorPushImpact` 已通过现有编辑器 Python 连接导入并保存；保留原音量、音高、加载方式及音频分类。运行逻辑仍为成功开门后的 0.36 s 事件播放一次，音量倍率 0.85，独立于镜头抖动设置。制作源、旧资产备份和本次回执位于 `SourceAssets/DoorPush20261002/UserAudio20261002/`；导入输出为 `Saved/DoorPushUserAudio20261002/import-live-editor-02.txt`。本次只替换资产，不需要原生编译；未试听、未运行游戏测试。
+同一个 SoundWave `/Game/Audio/Interactions/DoorPush20261002/S_DoorPushImpact` 已通过现有编辑器 Python 连接导入并保存；保留原音量、音高、加载方式及音频分类。当前运行逻辑为 0.31 s 成功开门事件播放一次，音量倍率 0.85，独立于镜头抖动设置。制作源、旧资产备份和本次回执位于 `SourceAssets/DoorPush20261002/UserAudio20261002/`；导入输出为 `Saved/DoorPushUserAudio20261002/import-live-editor-02.txt`。本次只替换资产，不需要原生编译；未试听、未运行游戏测试。
 
-## 护拳腕掌与拇指 V8（当前，2026-10-02）
+## 护拳腕掌与拇指 V8（原始制作记录，2026-10-02）
 
 保留现有完整腕臂和中立腕骨，只调整护拳三根拇指局部旋转：减小根部过量轴向拧转，沿原生关节屈曲使指腹贴靠食指／中指外侧。M16 的 9 个网格同步收回腕侧过量拇指权重，平滑过渡到真实拇指根部；不改几何、UV、材质、骨长、缩放、公共 Skeleton 或其他动作。保留 0.30 s 停顿、轻摆、0.36 s 开门反馈和本轮用户 MP3。
 

@@ -70,7 +70,7 @@ def sample(age, name):
     return result
 
 
-action = bpy.data.actions.new('A_DoorPush_LeftFist_V7_20261002_GuardV10Sway300msRecover')
+action = bpy.data.actions.new('A_DoorPush_LeftFist_V7_20261002_GuardV10Sway250msRecover')
 action.use_fake_user = True
 action['revision'] = data['revision']
 action['source'] = 'SourceAssets/DoorPush20261002/full-pose.json'
@@ -154,7 +154,7 @@ bpy.ops.wm.save_as_mainfile(filepath=str(output))
     runtime_entry_and_recovery='Current loaded weapon or unarmed live left chain; Blender shows an unarmed example',
     rendered=False, runtime_tested=False, ue_asset_import_required=False), indent=2) + '\n', encoding='utf-8')
 (P / 'authored-source-completion.json').write_text(json.dumps(dict(
-    status='guard_v10_increased_rigid_whole_arm_sway_300ms_hold_direct_recovery_actual_editable_blend_saved',
+    status='guard_v10_increased_rigid_whole_arm_sway_250ms_hold_direct_recovery_actual_editable_blend_saved',
     revision=data['revision'], header='Source/FPSGAME/Movement/DoorPushAuthored20261002.h',
     editable_source=output.relative_to(ROOT).as_posix(), take=action.name,
     backup='SourceAssets/DoorPush20261002/FeedbackAllWeaponsV10_20261002/BeforeAuthored',

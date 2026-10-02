@@ -1,0 +1,534 @@
+{
+  "date": "2026-10-03",
+  "base": "1db05dc37b3c775ef33942febd27fafb8ed90a6b",
+  "scope": "Current conversation original weapon/arms/material/weather/breathing sources only",
+  "fileCountIncludingThisManifest": 88,
+  "hashScope": "Index blobs for all changed files except this self-referential manifest. Shared files contain only selected task hunks.",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 102914,
+      "sha256": "c5ec689f78bfb15adb10a866403c18729a96b1744a5035e78a8b055a517d2532",
+      "gitBlob": "cb592568c1cc7f6ea7c49e2ac4cef57655e9190d"
+    },
+    {
+      "path": "Content/ColdSteelData/stamina.json",
+      "bytes": 229,
+      "sha256": "2d145c043cb7df0845ba1bb48bcea5a125e02e690795c6ad3508f536762bb95d",
+      "gitBlob": "06cabcc31c2e6a0d8ce1a37cf1525d17e59d4c01"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 72825,
+      "sha256": "e7e1cdcff5e944617b6a156c5dc87211f1c69c3145924641b2cb0c11e0891fb4",
+      "gitBlob": "eae028a9b5d5f4076fc8021903394b561635d7d6"
+    },
+    {
+      "path": "Docs/Gameplay/sprint-door-push-20261002.md",
+      "bytes": 19253,
+      "sha256": "f238c9b59402624c4975b289185a00f441259d32c390031605b5ab70cb42c9f9",
+      "gitBlob": "178256740e4e5880f6978364a68aad31618a4ad9"
+    },
+    {
+      "path": "Docs/Monsters/idle-breathing-20261002.md",
+      "bytes": 5162,
+      "sha256": "619f70db310146f9c4a6ae239568a98cc3de238252802172ace856d3b4f5a1d9",
+      "gitBlob": "8c25df95b3927935bc60845997af0e16268a7c50"
+    },
+    {
+      "path": "Docs/Weapons/firearm-inspect-interruption-20261002.md",
+      "bytes": 6929,
+      "sha256": "5f7c3d76fa3ea80df1b3a8a4ec97b05ac915a8802650e92ba5ff3fb15d7fa8a5",
+      "gitBlob": "f1378dd3282fe5386119ced502754e84d5b9f8f4"
+    },
+    {
+      "path": "Docs/Weapons/fps-arms-publication-20261002.md",
+      "bytes": 3927,
+      "sha256": "ead572979655f8b353685de79c35c646626d78843e30a534013d18008276c2b3",
+      "gitBlob": "bd90cb294db6af922c4c498f6ee89070c17e7bbf"
+    },
+    {
+      "path": "Docs/Weapons/unarmed-punch-20261002.md",
+      "bytes": 4568,
+      "sha256": "1dc79dc723896489b7cfa2bd317247681b2784c519b3b8185316ad6baca24c3e",
+      "gitBlob": "8d949621066801475297ac46995e82953a366c55"
+    },
+    {
+      "path": "Docs/Weapons/weapon-arms-publication-20261003.md",
+      "bytes": 5244,
+      "sha256": "2ba22dc49a13579d99462448b4364f585310bc8d83ec8734305d89e3a35bab18",
+      "gitBlob": "1002fb3249f02cd0284492968ca5408752fe5e04"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildComponent.cpp",
+      "bytes": 82680,
+      "sha256": "22c0bdb9ac9c1cb4b7fa77a719bbc283b612da3adeb8beeb61e0deb6d9099e9b",
+      "gitBlob": "5fe33d77435d2171e764be5b1f92e6a8af2c9f89"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "bytes": 11053,
+      "sha256": "ed1d6aa864dbe0e7c467595c7a6200661d459206498d28544074c61d9c524c34",
+      "gitBlob": "93f7f0ad3f31886ae4ed233c91eca0e08ddbd5a7"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "bytes": 28453,
+      "sha256": "09376d7eae438bb418da2e3cf0a4c650e94b7fb18a94b44c1dff454810d96ac0",
+      "gitBlob": "2eb3afb98db7c8fa72c39b4b31d2004dd4f29a1c"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "bytes": 219990,
+      "sha256": "39c031dc71362330796e051bcc20b3122125a33a8624309570a1a5ad8ac7a3a0",
+      "gitBlob": "f8934f9d53c89db7b26feed14dcc412583625b1d"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "bytes": 44921,
+      "sha256": "9f1b49b1eaba153defd501b8c975cb2112810b202d756cd5bd085df5d27b9e63",
+      "gitBlob": "89343307efb412e005f1df85bdd63b43de72c646"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+      "bytes": 5268,
+      "sha256": "3c0bcc32de5659572ce77ff91bd8ecd3aca44e242bea1d341b82fb5466a1aada",
+      "gitBlob": "01aa405173e33262974aa60ec45097fc94ff7b0f"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "bytes": 12433,
+      "sha256": "c26cfe278e2ba17ef3a8c47e8f0157bd948c11e28c11f1d5088c6c75b82ee22d",
+      "gitBlob": "cfbeb431ef2fe445ba7557a443044b0b4f4295d4"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandMonster.cpp",
+      "bytes": 37862,
+      "sha256": "a5cd90768cd0f1d9a4de0ca24bc7f7650fd3d9dca6bded69a079c7da3054b681",
+      "gitBlob": "9e12585ccb180f7f26af38b4047c94ca2d8a1a5e"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainMonster.cpp",
+      "bytes": 21841,
+      "sha256": "5100b2db96befbf320a03632170a44a7ba32f929b3197f64ea9f13a0fe049976",
+      "gitBlob": "c8766225d4c6eabb188eef3cbc7606d59e1c4022"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp",
+      "bytes": 33821,
+      "sha256": "99b3ba0e160826172c6c8fc5511878335b11a5f2adaf363dff9ed90c001f48c8",
+      "gitBlob": "2e0c480fd927feb4ac0a4aface711a6172746d05"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.cpp",
+      "bytes": 11047,
+      "sha256": "01b483bfc0133836537165e9292b308bfaf7a3e970228e89e4547c8a068efc1d",
+      "gitBlob": "c7497dbd7a4cfa67ff590a1ff274653cffc6ce30"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.h",
+      "bytes": 1294,
+      "sha256": "418648c5225ece9381f1501905190958861c1712c8a71126172c594c61fc1538",
+      "gitBlob": "bbd6cc06d34910d323930191e9435161df619130"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.cpp",
+      "bytes": 14546,
+      "sha256": "527140a38453231e107e1940ef6ea7732b6b20423e8beb729033a59a6e801924",
+      "gitBlob": "e6df66370f02a3fe75865634d0085f56e328ad1a"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotMonster.cpp",
+      "bytes": 15553,
+      "sha256": "24d5aa11f7f43ff0f960bdb8d4399fc81bacbd2bd6bd633f91635d47ae002291",
+      "gitBlob": "7bd86bf070eab525fefea8deaa33b8226b4cf9ae"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WolfMonster.cpp",
+      "bytes": 26589,
+      "sha256": "9f8cb42d23669daff21fd58e87d2d981d737a640556cd3ab96835f63a6806982",
+      "gitBlob": "94d44a637a674aeb3bbf5170b03cf2d320dedc01"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+      "bytes": 6217,
+      "sha256": "d5876e9a1dcd54f906f829207ecb7cea33b96586ddd477b0ad69179e266e02c7",
+      "gitBlob": "81ed2d906e4aa8bde01b7caee89832fa47ba8504"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSStaminaTuning.h",
+      "bytes": 517,
+      "sha256": "0f926042c7774692ea2b67d9b033f55ef4eb8fe7bd2a3b716c91c64c833e1e2a",
+      "gitBlob": "43cf037acb18860fc95c338701a0ddd5fa8d9dec"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalAir.cpp",
+      "bytes": 856,
+      "sha256": "286dea5642d5cda0a8e3c33603a2b8671acbd1b49550af2f2fd2027df56c3e58",
+      "gitBlob": "f5b1c89e28e2463c67cd5d1cafa3e380ebb73785"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalExecution.cpp",
+      "bytes": 16621,
+      "sha256": "14c12b3f3ac9f23b1ab7a844d587122df2d57d497d1e2e9a4d7cad8af6acf751",
+      "gitBlob": "4d58e3c491617e76abaa1c62f9fe5d6100f55e6c"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "bytes": 30766,
+      "sha256": "3ee7136a98aa7236c86a95dc51de23375a68035db1dd79ba685ec7937ca73f10",
+      "gitBlob": "10829f7d5198930e76c26efcdcb0c395b3cddf18"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+      "bytes": 4823,
+      "sha256": "9e88ed7cf48e66c0c76d3a3894b26b7826a97e5b891c1fa3d2276928190109d1",
+      "gitBlob": "cd68738fb8d9eb5dace0d285293d624d84127068"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4FoldingSights.cpp",
+      "bytes": 5771,
+      "sha256": "7e8dd47e965eae521cc37fae948c51ea8ecd7d3d54e18121a8ec1aff4b00cee1",
+      "gitBlob": "fd87ab4c379b6088868316227b5784cece94cf56"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+      "bytes": 24343,
+      "sha256": "cc142a908fef3576505da904e15344b8bdcfb8eb85b1686a06739ec7b3e48648",
+      "gitBlob": "6d65d6c829ad5ff80ee9fa259a77a2ac55451b48"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "bytes": 5632,
+      "sha256": "2e911d310b5c3708ac937c5673e70942bb426419c5c3b7d5891d5629d492921e",
+      "gitBlob": "bf55aa12b82fd81f01fcc19b4b13b08c3f13e4f5"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.h",
+      "bytes": 1331,
+      "sha256": "c5281168d9baaff6e3601f2a76f713823a9f6a08e08d6d396d5801b1c06acb09",
+      "gitBlob": "bfc5b6423b22b632c4da450f803bcdfd645a3be3"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.cpp",
+      "bytes": 17071,
+      "sha256": "c0c5ccc4801ca1550f59f6c20a75fce88f71d488506f0abd9b9e0dca7b6f1d0d",
+      "gitBlob": "e60f5a8f1aa3307b53d6fb36a999ef1e0728e65c"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.h",
+      "bytes": 3262,
+      "sha256": "c902660fcb02bc2cbfd84d45bdbe3de65dbfb0c89e60d44568cc46436b861417",
+      "gitBlob": "705364a5f03b5399c271da397c5d8f80e3c9aecd"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedPunchPose.cpp",
+      "bytes": 4499,
+      "sha256": "a6009554ab9d41d9eb6806d4aadde047bdfad1b76b67e48db4b1a490a05c34e2",
+      "gitBlob": "6082fc6f1ffb6b719063473bf4bda76064132d2a"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/UnarmedPunchTuning.h",
+      "bytes": 472,
+      "sha256": "94093d0450fbda1ca6d9004646341fa67d09b5fae5758fd3200c4f4f840a73c2",
+      "gitBlob": "0423f9733073a1495a5457ca5db61b25ac783bf3"
+    },
+    {
+      "path": "Source/FPSGAME/WeatherViewEffectsComponent.cpp",
+      "bytes": 19317,
+      "sha256": "430a8d481c37e9f8abacd96669ae57539ea8eaa1be2a994a4c96362752293b1e",
+      "gitBlob": "377fc2bd2f9be92adf0b2c0cd992348666624873"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/README.md",
+      "bytes": 2461,
+      "sha256": "a983266a09086e83f8456985a03e8b7dccb059fc1a19c94ca7c362fe44a8dd87",
+      "gitBlob": "b39de895cf45d83f5f422cd429475cdc58eec1a7"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/author_motion.py",
+      "bytes": 22293,
+      "sha256": "48830a29e5663f0e449b2cf025a443c5dbd190f180fb0d6944a549c20ece4914",
+      "gitBlob": "5485d00f53805aee08d9c362e09b9a3b01494617"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/save_editable.py",
+      "bytes": 9715,
+      "sha256": "a80f763939cdfcc95915d90408f5a255674987e0b7b3d0bd459630a947c504d7",
+      "gitBlob": "032debd158bbe3e8286d0b0425ce814529b6fb31"
+    },
+    {
+      "path": "SourceAssets/FPSArmsPublication20261002/runtime-handoff.json",
+      "bytes": 1315,
+      "sha256": "9fab2dd67246dab09e74fe7efe5bed69a8e5bc14dc79424fecc3df35c41e653e",
+      "gitBlob": "dfa1b26c0b3c5c25613ce2525db5f301f3868395"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/ClovenSurface20261002/BladeMetal20261002/README.md",
+      "bytes": 2505,
+      "sha256": "7bf42cd9dbe5c2a5f7d74d4d23eb8d41ab15211e0890983cec15710caf6f6ae0",
+      "gitBlob": "a6f0245b7e8e82b2210e73befe109b8e26e39d92"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/ClovenSurface20261002/BladeMetal20261002/author_blade_metal.py",
+      "bytes": 3667,
+      "sha256": "48cad3c3a32cf9e5f87e725d99370433b94e2ac21c30cda807ab124cc062d1dd",
+      "gitBlob": "65c72704bd4968d9cd971f9ca3329bd91495d924"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/ClovenSurface20261002/BladeMetal20261002/author_textures.py",
+      "bytes": 7299,
+      "sha256": "e3563bd1bb12ea127f7451bebc834330a74011405650f25c387c37f317c1b3d2",
+      "gitBlob": "ca483b343d07787c5704dbb72112c83a4e50b2ac"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/ClovenSurface20261002/BladeMetal20261002/install_blade_metal.py",
+      "bytes": 5361,
+      "sha256": "f9cdc68bd87a8cfe0c4c74c2a80725ccd6096f3afd3b585db486c774b55cbf22",
+      "gitBlob": "94d23854223b06d47624d815ec649f1bc8111bfb"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/ClovenSurface20261002/README.md",
+      "bytes": 4167,
+      "sha256": "a68e4319d9cf2195520de921f5a244ae45458eda86159ce9a101b4a9ee8f79cb",
+      "gitBlob": "785dfa7526046102d895fb5b292f6f9d92b2f1e5"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/ClovenSurface20261002/author_surface.py",
+      "bytes": 7350,
+      "sha256": "52caa24dfa326e469f4b9ddc38ff10ad36f0d3e0f64385af3bf6b913e60bb5b4",
+      "gitBlob": "1781362de9cec23e6486282993d844b2496bc77d"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/ClovenSurface20261002/author_textures.py",
+      "bytes": 6371,
+      "sha256": "ccbbc89c7e87db0bf03f25dc7eb3ffe232b4dd3276a71c7b6a56ec26cc93e3b7",
+      "gitBlob": "8707a33544809fa04fe5658b8622f2d17baffabb"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/ClovenSurface20261002/install_background.ps1",
+      "bytes": 2636,
+      "sha256": "ac0354385a0151972ba60daa721914e2f0b804a7a9d751d8c35bd45ca34bbf2b",
+      "gitBlob": "8d89a92060e369cea0b9487612162193f9ed6240"
+    },
+    {
+      "path": "SourceAssets/HighlandClaymoreMeshy20260922/ClovenSurface20261002/install_surface.py",
+      "bytes": 10366,
+      "sha256": "55a1521401c74d61fbb816b154fd2d75cdce8ea8493a0132811115dd8977aec0",
+      "gitBlob": "7a35f59d5c2a764de3638b53934889a76adcc875"
+    },
+    {
+      "path": "SourceAssets/M16Repair20261002/NeutralBind/README.md",
+      "bytes": 3121,
+      "sha256": "d909c710006b8ad59e28a6552e97047292c09d9aaa10300f6bb112ceefe8c2f4",
+      "gitBlob": "e6cae27c28d4813ff0d08a66bd561408e16e0100"
+    },
+    {
+      "path": "SourceAssets/M16Repair20261002/NeutralBind/author_neutral_bind.py",
+      "bytes": 13464,
+      "sha256": "a56326e0b57e1cdbed2f4cad9a0a763dc9f361f00185528edfa750ce529cd559",
+      "gitBlob": "72c2674c7a258e35f12032a1558ac02b70bc94ff"
+    },
+    {
+      "path": "SourceAssets/M16Repair20261002/NeutralBind/install_neutral_bind.py",
+      "bytes": 6289,
+      "sha256": "4960185468ec3d03817de8dfc891b73251030b244781f45b1907dea4c9fa4060",
+      "gitBlob": "89f5cdfcd4459d0c5cf6d1539dc1e60bf1c44157"
+    },
+    {
+      "path": "SourceAssets/M16Repair20261002/NeutralBind/read_animation_contract.py",
+      "bytes": 954,
+      "sha256": "65ec055155ba44ee58a1ad7056de09657d40587ef2db688397971cebd7a7a683",
+      "gitBlob": "1826f682ed08f9033e27484266777718322e0eff"
+    },
+    {
+      "path": "SourceAssets/M16Repair20261002/NeutralBind/save_editable.py",
+      "bytes": 382,
+      "sha256": "f2ea01eeb506f1056885a88c7f0f116ccb9ef56809a4b6d74f9ed2e5634f00d4",
+      "gitBlob": "fade2101309e7c3ef9088ece3cd831ddd4a8bb72"
+    },
+    {
+      "path": "SourceAssets/M16Repair20261002/README.md",
+      "bytes": 4017,
+      "sha256": "cb7e16b96950c71ee83f36b1e8e439f427b5ec617f38d302ef87067f4e028087",
+      "gitBlob": "95d3b0f6702e35214cf27dcd025b6d626980b616"
+    },
+    {
+      "path": "SourceAssets/M16Repair20261002/read_display_geometry.py",
+      "bytes": 3396,
+      "sha256": "c7a15d74865d5e11f95b7fc320e306643138f5bef7f1a7d8fab578d76e0731ed",
+      "gitBlob": "1381335f46e2d51f4e6b7e4e9386b046d4da143a"
+    },
+    {
+      "path": "SourceAssets/M16Repair20261002/read_hand_sources.py",
+      "bytes": 3760,
+      "sha256": "e32e009c2605cab74bddb6a7c25a0e596627adf70dfe552c8adc851d8f420396",
+      "gitBlob": "333a4f5308f8c59309175882640aac8b0842b1d9"
+    },
+    {
+      "path": "SourceAssets/M16Repair20261002/read_outfit_geometry.py",
+      "bytes": 2123,
+      "sha256": "b03310b6baee55e1557a6e469208ab09f23dde89cd25d03617a8fb224ceef5d6",
+      "gitBlob": "74ac57299b8d9b82bad44cab75133083cdeedd73"
+    },
+    {
+      "path": "SourceAssets/M16Repair20261002/read_pose_sources.py",
+      "bytes": 3563,
+      "sha256": "c7caf134a4f8b35dca586a90182949302668bf7b21fc307ab79dfb36ab64da04",
+      "gitBlob": "0f1152b16fd75f0f7fcacefec4ae807c07c225cd"
+    },
+    {
+      "path": "SourceAssets/MeleeRainWetness20261002/README.md",
+      "bytes": 2344,
+      "sha256": "0cac4aeee174e89d1b0eb61e31cd0c12d93afa62900fc46ea2366b23033ebda4",
+      "gitBlob": "2576d3a67dae8ed8c8250d137a4105bae3dd709b"
+    },
+    {
+      "path": "SourceAssets/MeleeRainWetness20261002/audit_materials.py",
+      "bytes": 6563,
+      "sha256": "a9c733d384bfb0e721dd1116b83638931f99981e3fe9eb4403a331f5b3d72ae9",
+      "gitBlob": "ca47fa2ba6a9dbd72d2b5e85a05860bff42d438a"
+    },
+    {
+      "path": "SourceAssets/MeleeRainWetness20261002/install_wetness.py",
+      "bytes": 9100,
+      "sha256": "81d0144fb75f5d7fee874ac939c08cd4be2e5d0f2c771c04a80367117e5625c2",
+      "gitBlob": "79bc3dfbf911d0f5638183a9c6960747035716ad"
+    },
+    {
+      "path": "SourceAssets/MeleeRainWetness20261002/queue_install.ps1",
+      "bytes": 1585,
+      "sha256": "9ccc6391b340f9d8ecf7ab189ac86a95e9b553527440ec19c981ffef5b5e90fd",
+      "gitBlob": "7669a99115ac7d8dcd51e1d9f53da8739fe26e4b"
+    },
+    {
+      "path": "SourceAssets/SightResidualDiagnosis20261002/README.md",
+      "bytes": 5245,
+      "sha256": "c013d92296fba3cb799514beb5dfbc2514d265228769abce4ee452a68b30dc9a",
+      "gitBlob": "a209754d955665c0f1000abb44dd04afec1236dd"
+    },
+    {
+      "path": "SourceAssets/SightResidualDiagnosis20261002/read_runtime_sights.py",
+      "bytes": 2261,
+      "sha256": "ed71a62ef204e9d249a45bc2a73eed56704fdeecbb55df2cbc23b70fadeb03ec",
+      "gitBlob": "4d4325be560dd5b35ed2472437b136bf174c40c6"
+    },
+    {
+      "path": "SourceAssets/UnarmedPunch20261002/README.md",
+      "bytes": 2914,
+      "sha256": "5dd174b85875d09c86994366affd24fa53b5974a092019d3f9d16a524bf18545",
+      "gitBlob": "da9c35cae9a42aae54ca361f08c42022bda0535b"
+    },
+    {
+      "path": "SourceAssets/UnarmedPunch20261002/author_punch.py",
+      "bytes": 9995,
+      "sha256": "5b41c5f4b7d5a523d6f5722e4ab31cd7566574738da2a1fd822607fb55eefd16",
+      "gitBlob": "75e8187c5e4b0327751c3a794b5ac61307b9ab45"
+    },
+    {
+      "path": "SourceAssets/UnarmedPunch20261002/build.ps1",
+      "bytes": 2113,
+      "sha256": "5497b3d2f6dcfc92319c17815c73de6e64961dcaf1ec6dac06b94b21636f2f80",
+      "gitBlob": "a41dc411a653e3cfb35db7d62c86954c0d1f045c"
+    },
+    {
+      "path": "SourceAssets/UnarmedPunch20261002/save_editable.py",
+      "bytes": 5929,
+      "sha256": "0abf12f82fe14d028665c57d91ea586bf744dd137768b0c18e36d505375aa4cf",
+      "gitBlob": "413e036c68a5393432aabd57a89d5968e4dc8470"
+    },
+    {
+      "path": "SourceAssets/WeaponArmsPublication20261003/archive-manifest.json",
+      "bytes": 4287,
+      "sha256": "67bd2f67816cce28dd7d0d9c2b05a8fb81a080faf6493745b207d35f2a39d000",
+      "gitBlob": "af06a09ccbb07b5078f0ad7bf96358917eb3a80f"
+    },
+    {
+      "path": "SourceAssets/WeaponArmsPublication20261003/runtime-handoff.json",
+      "bytes": 1556,
+      "sha256": "74d9257c3c2b527bc29c99a96e77de3a41c1853c98885b2bc3873d13b5030d41",
+      "gitBlob": "8a91afc8b0af1446b406c9c17d2012a0134e4c90"
+    },
+    {
+      "path": "SourceAssets/WeaponArmsPublication20261003/unarmed-server-integration.patch",
+      "bytes": 1899,
+      "sha256": "e22c4981a548b6c7c01e4b20eedc15fdab6e904b73d420fd6d66ba12305e0d54",
+      "gitBlob": "0abaa8d46693e2d3ee506176088032801578a363"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "bytes": 19514,
+      "sha256": "38d35d13ab5e2aab10cd81ecbcae4a6e3c97d45989d512ce966558b0fb1a2f5c",
+      "gitBlob": "aeaf4e4ef1acd5a55bc2e5e54b8dbc0fd3a4bb94"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/door-guard-native-binding.md",
+      "bytes": 4664,
+      "sha256": "3c30369def6eca1c15c94a209655e4c4370282fc764da29b4a12834065f2f168",
+      "gitBlob": "c77dffb459963367a9cd793761dc1ba5aa947943"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/m16-left-digit-binding.md",
+      "bytes": 1564,
+      "sha256": "358480c3b222ff41e320a5f908df5513468c29853b961e9652c4af8d82cff820",
+      "gitBlob": "fec539065f87cd4a183fbfc052b31d6151b464ec"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/unarmed-idle.md",
+      "bytes": 6559,
+      "sha256": "f5d11fc028da466cef6da3a58a10171c5b2a7460c2383a6bc3986d77b6f687b7",
+      "gitBlob": "efb80ae71e6fc796b5293b263452bfa255f7c258"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/unarmed-punch.md",
+      "bytes": 4777,
+      "sha256": "0b40853e981b9d510534cdf338a610933f27764021f1541c2c5eed1e921fa5d7",
+      "gitBlob": "60e824a7895ddcb72e6639e3985a135d3f018133"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/SKILL.md",
+      "bytes": 18374,
+      "sha256": "7ba1701bba85c17c06541eca7b0e40b67657dd70a4173adae462d4ca098e0ff2",
+      "gitBlob": "b785dc201be4570435e383ad6c4d0e813569e195"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/references/idle-breathing.md",
+      "bytes": 1960,
+      "sha256": "bc33fa1ece78798c91d2d53ae37f185bb4782c91c0ec90c589b2b3b87043b7b7",
+      "gitBlob": "3ef36cf3f17067c003457f4077d8ccca0a71dfdd"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/SKILL.md",
+      "bytes": 16112,
+      "sha256": "b6be4e6227e82124961ce355a35487929bc3aca4bbd064bf6d3aeca3aecbcc92",
+      "gitBlob": "c1fa4f5a71eba000e4ec2a68fe3fc11bf84ab576"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/cloven-metal-and-sight-lifecycle.md",
+      "bytes": 1943,
+      "sha256": "1df644fe1f106dc03a6fa82edf81ddf0be0efeb7b59a95ec824389ffbcff350e",
+      "gitBlob": "11e045edc9c0c1a6a94ca07b07202e1b3196fe48"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/weapon-state-refresh.md",
+      "bytes": 4548,
+      "sha256": "cd4214f3d5421e5a39be9e30d9bf8b4919e34a1847ee2b3f5b1146f1df5c5e6b",
+      "gitBlob": "845086b82fc3c217079322687e23df39bfc0381c"
+    },
+    {
+      "path": "skills/ue5-weather-workflow/SKILL.md",
+      "bytes": 7718,
+      "sha256": "3d3093b96e861dfe8c9fc2e0d696ea5d5c20a4bf228519304ccebd6abea02b7d",
+      "gitBlob": "4ef79703f3a5663f05c0a1d5e769d42d64cb26c5"
+    },
+    {
+      "path": "skills/ue5-weather-workflow/references/melee-weapon-wetness.md",
+      "bytes": 1646,
+      "sha256": "be1d8e12c2bdaabbb5c4e3a4af820a363587532f3b1764eb0a9e7fc230039f05",
+      "gitBlob": "437759ddacc8ef864dbf042ae5ab80ba9795bbb3"
+    }
+  ],
+  "binaryAssetsPublished": false,
+  "densePoseTablesPublished": false,
+  "serverIntegrationBoundary": "Matching unpublished multiplayer base is required before applying the source-only punch patch."
+}

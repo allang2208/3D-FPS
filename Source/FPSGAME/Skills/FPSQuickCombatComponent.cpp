@@ -16,6 +16,9 @@
 #include "../Weapons/Bow/BowQuickCombatMotion.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Weapons/Staff/StaffQuickCombatMotion.h"
+#include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+#include "../Weapons/Unarmed/UnarmedPunchTuning.h"
+#include "../Weapons/MeleeWeaponStats.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
@@ -91,6 +94,12 @@ void UFPSQuickCombatComponent::ConfigureForStaffOffhandPistol(float Length)
     Style=EQuickCombatStyle::StaffOffhandPistol;
 }
 
+void UFPSQuickCombatComponent::ConfigureForUnarmedPunch()
+{
+    ConfigureForStaffPunch();
+    Style=EQuickCombatStyle::UnarmedPunch;
+}
+
 EQuickCombatBashPhase UFPSQuickCombatComponent::PhaseForAge(float Age) const
 {
     if(Age<ReleaseEnd)return EQuickCombatBashPhase::Release;
@@ -123,8 +132,15 @@ bool UFPSQuickCombatComponent::BeginAction()
     auto* Profile=Model();if(!Profile)return false;
     if(IsOccupyingLeftHand())return false;
     // Start the bar with the real playback duration, including weapon-specific rates.
-    if(!Profile->CommitQuickCombatCast(ActionDuration()))return false;
-    Profile->TrainQuickCombat(Profile->QuickCombatDefinition().UseExperience);
+    if(Style==EQuickCombatStyle::UnarmedPunch)
+    {
+        if(!Profile->SpendStamina(ColdSteelMelee::UnarmedAttackStamina(Profile)))return false;
+    }
+    else
+    {
+        if(!Profile->CommitQuickCombatCast(ActionDuration()))return false;
+        Profile->TrainQuickCombat(Profile->QuickCombatDefinition().UseExperience);
+    }
     ++Serial;ActionAge=0.f;Phase=EQuickCombatBashPhase::Release;
     bContactDone=bKillPending=false;
     ImpactAge=1.f;ImpactStrength=0.f;
@@ -225,7 +241,7 @@ void UFPSQuickCombatComponent::GetCameraMotion(FVector& Location,FRotator& Rotat
         AddImpact();
         return;
     }
-    if(Style==EQuickCombatStyle::StaffPunch)
+    if(Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::UnarmedPunch)
     {
         const float T=PhaseFraction(),K=FMath::SmoothStep(0.f,1.f,T);
         switch(Phase)
@@ -244,6 +260,9 @@ void UFPSQuickCombatComponent::GetCameraMotion(FVector& Location,FRotator& Rotat
         default:
             Location=FVector(.25f,.1f,-.1f)*(1.f-K);Rotation=FRotator(-.15f,-.15f,-.1f)*(1.f-K);break;
         }
+        if(Style==EQuickCombatStyle::UnarmedPunch)
+            if(const auto* Hands=GetOwner()->FindComponentByClass<UFPSUnarmedIdleComponent>();Hands&&Hands->GetPunchSide()==1)
+            {Location.Y=-Location.Y;Rotation.Yaw=-Rotation.Yaw;Rotation.Roll=-Rotation.Roll;}
         AddImpact();return;
     }
     if(Style==EQuickCombatStyle::Bow)
@@ -348,6 +367,7 @@ void UFPSQuickCombatComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     // The character advances ASH before sampling its pose and camera. Never
     // advance twice or let the wall-clock state finish through a hit stop.
     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+    if(Style==EQuickCombatStyle::UnarmedPunch&&Player)return; // advanced once before the character camera
     if(Player&&Player->HasOffhandPistol()&&(Style==EQuickCombatStyle::DualPistol||Style==EQuickCombatStyle::StaffOffhandPistol))return;
     if(Style==EQuickCombatStyle::StaffPunch&&Player)
         if(const auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())return;
@@ -367,8 +387,13 @@ void UFPSQuickCombatComponent::AdvanceAction(float Delta)
     const auto* Bow=Player?Player->FindComponentByClass<UBowWeaponComponent>():nullptr;
     const auto* Staff=Player?Player->FindComponentByClass<UStaffWeaponComponent>():nullptr;
     const auto* Dual=Player?Player->FindComponentByClass<UPistolDualWieldComponent>():nullptr;
+    const auto* Hands=Player?Player->FindComponentByClass<UFPSUnarmedIdleComponent>():nullptr;
     const bool bStaff=Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::StaffOffhandPistol;
-    const bool bWeaponMatches=Player&&(bStaff
+    const bool bUnarmed=Style==EQuickCombatStyle::UnarmedPunch;
+    const bool bWeaponMatches=Player&&(bUnarmed
+        ?(Hands&&Hands->IsEquipped()&&!Player->IsTraversing()
+            &&!AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Player->GetController())))
+        :bStaff
         ?(Staff&&Staff->IsEquipped()&&(Style==EQuickCombatStyle::StaffPunch?!Player->HasOffhandPistol():Dual&&Dual->IsOffhandOnly())
             &&!Player->IsTraversing()&&!AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Player->GetController())))
         :Style==EQuickCombatStyle::Bow
@@ -444,7 +469,7 @@ void UFPSQuickCombatComponent::AdvanceAction(float Delta)
         ActionAge+=Remaining*ASH12RecoveryRate;
         Phase=PhaseForAge(ActionAge);
     }
-    else if(bStaff)
+    else if(bStaff||bUnarmed)
     {
         const float NextAge=ActionAge+Delta;
         if(!bContactDone&&NextAge>=ContactTime)
@@ -462,14 +487,16 @@ void UFPSQuickCombatComponent::AdvanceAction(float Delta)
         if(!bContactDone&&ActionAge>=ContactTime){bContactDone=true;ContactHit();}
     }
     if(ActionAge>=AttackEnd)FinishAction();
-    else if(auto* Profile=Model())Profile->UpdateQuickCombatAction(ActionRemaining(),ActionDuration());
+    else if(!bUnarmed)if(auto* Profile=Model())Profile->UpdateQuickCombatAction(ActionRemaining(),ActionDuration());
 }
 
 void UFPSQuickCombatComponent::ContactHit()
 {
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* Profile=Model();
     if(!Player||!Profile||!GetWorld())return;
-    const auto Stats=Profile->QuickCombatStats();
+    auto Stats=Profile->QuickCombatStats();
+    const bool bUnarmed=Style==EQuickCombatStyle::UnarmedPunch;
+    if(bUnarmed){Stats.Damage=UnarmedPunch::Damage(Profile);Stats.RangeCM=UnarmedPunch::ReachCM;Stats.KnockbackCM=0.f;}
     // 打击射线：起点用握把底（与作者源 clip 的接触位置一致），方向用玩家瞄准
     // （与其它武器/技能同一合同）；不再从眼位沿视线前扫，也不再取实时姿态方向。
     const auto Aim=Player->GetMeleeAimTransform();
@@ -491,13 +518,16 @@ void UFPSQuickCombatComponent::ContactHit()
     }
     // 手枪：握把底（手骨 + 相机空间偏移）；步枪：枪身前段（枪口沿枪轴回撤，跟随实际挥击姿态）。
     const bool bBow=Style==EQuickCombatStyle::Bow;
-    const bool bPunch=Style==EQuickCombatStyle::StaffPunch;
+    const bool bPunch=Style==EQuickCombatStyle::StaffPunch||bUnarmed;
     const bool bOffhand=Style==EQuickCombatStyle::StaffOffhandPistol;
     const bool bRifle=IsRifleStyle();
     auto* Dual=Player->FindComponentByClass<UPistolDualWieldComponent>();
     auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();
     auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();
-    const bool bProbe=bPunch
+    auto* Hands=Player->FindComponentByClass<UFPSUnarmedIdleComponent>();
+    const bool bProbe=bUnarmed
+        ?(Hands&&Hands->GetStrikeProbe(ProbeOrigin))
+        :bPunch
         ?(Staff&&Staff->GetQuickCombatStrikeProbe(ProbeOrigin,ContactTime))
         :bBow
         ?(Bow&&Bow->GetQuickCombatStrikeProbe(ProbeOrigin,ContactTime))
@@ -520,8 +550,8 @@ void UFPSQuickCombatComponent::ContactHit()
     const FString TargetName=Target?Target->GetName():FString(TEXT("无"));
     // R0 诊断：一次动作只打一行，标出射线来源、起点与命中对象，方便对实机反馈。
     UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 接触 武器=%s 射线=%s 起点=%s 方向=%s 距离=%.0f 目标=%s"),
-        bPunch?TEXT("法杖左拳"):bOffhand?TEXT("法杖副手枪"):bBow?TEXT("弓"):bRifle?TEXT("步枪"):TEXT("手枪"),
-        bProbe?(bPunch?TEXT("左拳指节"):bOffhand?TEXT("左手持枪拳"):bBow?TEXT("弓身下段"):bRifle?(Style==EQuickCombatStyle::M4ReferenceRifle?TEXT("M4枪托"):TEXT("枪身前段")):TEXT("握把底")):TEXT("眼位回退"),
+        bUnarmed?TEXT("空手拳击"):bPunch?TEXT("法杖左拳"):bOffhand?TEXT("法杖副手枪"):bBow?TEXT("弓"):bRifle?TEXT("步枪"):TEXT("手枪"),
+        bProbe?(bUnarmed?(Hands->GetPunchSide()==1?TEXT("右拳指节"):TEXT("左拳指节")):bPunch?TEXT("左拳指节"):bOffhand?TEXT("左手持枪拳"):bBow?TEXT("弓身下段"):bRifle?(Style==EQuickCombatStyle::M4ReferenceRifle?TEXT("M4枪托"):TEXT("枪身前段")):TEXT("握把底")):TEXT("眼位回退"),
         *Start.ToCompactString(),*Direction.ToCompactString(),Stats.RangeCM,*TargetName);
     if(bHit && UWardBreakableGlass::BreakHit(Hit,Direction))
     {ImpactAge=0.f;ImpactStrength=1.f;return;}
@@ -541,6 +571,7 @@ void UFPSQuickCombatComponent::ContactHit()
     // 握把底/枪身砸击是钝器动作，按钝器折算削韧；同时标记为手持枪械发动的近战打击，
     // 使其不受「枪械默认不硬直」闸门约束。
     Shot.AttackForm=EMonsterAttackForm::Blunt;Shot.bMeleeStrike=true;
+    Shot.AttackMeta=bUnarmed?UnarmedPunch::AttackMeta:uint8(Shot.AttackMeta|0x80);
     FWeaponDamageResult DamageResult;
     const float Applied=ColdSteelSkills::ApplyHit(Player,Hit,Stats.Damage,Direction,Shot,&DamageResult);
     const bool bKilled=Combat->IsDead();
@@ -551,7 +582,7 @@ void UFPSQuickCombatComponent::ContactHit()
     if(Applied>0.f||bKilled)Combat->ReceiveMeleeKnockback(Player,Stats.KnockbackCM);
     // 有效命中控制 ASH／弓的短停顿；镜头冲量已在伤害查询帧触发。
     if(Applied>0.f||bKilled){ImpactAge=0.f;ImpactStrength=1.f;}
-    if(Eligible&&bKilled)bKillPending=true;
+    if(!bUnarmed&&Eligible&&bKilled)bKillPending=true;
     if((Applied>0.f||bKilled)&&ImpactSound)
     {
         UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,Hit.ImpactPoint,bBow?1.f:.9f,bBow?.88f:.9f);
@@ -566,7 +597,7 @@ void UFPSQuickCombatComponent::ContactHit()
 
 void UFPSQuickCombatComponent::FinishAction()
 {
-    if(auto* Profile=Model())
+    if(Style!=EQuickCombatStyle::UnarmedPunch)if(auto* Profile=Model())
     {
         // Complete recovery unlocks the next strike immediately.
         Profile->FinishQuickCombatCast();

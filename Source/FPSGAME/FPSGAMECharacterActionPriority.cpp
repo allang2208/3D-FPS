@@ -19,6 +19,26 @@
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 
+void AFPSGAMECharacter::InterruptWeaponInspection()
+{
+    if(WeaponState!=EAKMWeaponState::Inspecting)return;
+    // FinishWeaponAction advances the shot deadline to the original clip end.
+    // An interrupted inspect must release its pose and input gate immediately.
+    StopMechanicalAudio();
+    WeaponState=EAKMWeaponState::Idle;
+    WeaponStateElapsed=WeaponStateDuration=ActionElapsed=ActionDuration=0.f;
+    ActiveActionAnimation=nullptr;
+    ActionStartPosition=0.f;ActionPlayRate=1.f;
+    M4ActionFramingAlpha=0.f;
+    if(GunplayAnimation)
+    {
+        GunplayAnimation->ActionClip=nullptr;
+        GunplayAnimation->ActionTime=GunplayAnimation->ActionAlpha=0.f;
+    }
+    SetAimingState(bAimHeld);
+    ResumeWeaponPose();
+}
+
 bool AFPSGAMECharacter::IsSwitchingWeapon() const
 {
     if(WeaponState==EAKMWeaponState::Equipping)return true;

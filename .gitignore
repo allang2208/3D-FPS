@@ -2026,3 +2026,23 @@ __pycache__/
 !/SourceAssets/PracticeTarget20261002/**/*.ps1
 !/SourceAssets/PracticeTarget20261002/**/*.md
 !/SourceAssets/PracticeTarget20261002/**/*.json
+
+# Scoped weapon/arms publication 2026-10-03: recipes public, licensed dense data local.
+!/SourceAssets/HighlandClaymoreMeshy20260922/ClovenSurface20261002/install_background.ps1
+/Source/FPSGAME/Weapons/Unarmed/UnarmedAuthoredPunch20261002.h
+/SourceAssets/UnarmedPunch20261002/**
+!/SourceAssets/UnarmedPunch20261002/*.py
+!/SourceAssets/UnarmedPunch20261002/*.ps1
+!/SourceAssets/UnarmedPunch20261002/*.md
+/SourceAssets/MeleeRainWetness20261002/**
+!/SourceAssets/MeleeRainWetness20261002/*.py
+!/SourceAssets/MeleeRainWetness20261002/*.ps1
+!/SourceAssets/MeleeRainWetness20261002/*.md
+/SourceAssets/SightResidualDiagnosis20261002/**
+!/SourceAssets/SightResidualDiagnosis20261002/*.py
+!/SourceAssets/SightResidualDiagnosis20261002/*.md
+/SourceAssets/WeaponArmsPublication20261003/**
+!/SourceAssets/WeaponArmsPublication20261003/archive-manifest.json
+!/SourceAssets/WeaponArmsPublication20261003/runtime-handoff.json
+!/SourceAssets/WeaponArmsPublication20261003/published-files.json
+!/SourceAssets/WeaponArmsPublication20261003/unarmed-server-integration.patch

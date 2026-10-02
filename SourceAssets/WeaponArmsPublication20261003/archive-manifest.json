@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-03",
+  "scope": "Current conversation weapon/arms cleanup",
+  "archiveRoot": "trash/weapon-arms-publication-20261003",
+  "fileCount": 8,
+  "totalBytes": 25956717.0,
+  "files": [
+    {
+      "source": "SourceAssets/M16Repair20261002/author_left_hand.py",
+      "target": "trash/weapon-arms-publication-20261003/SourceAssets/M16Repair20261002/author_left_hand.py",
+      "bytes": 8205,
+      "sha256": "88c2efe064b95b8262fd799f368ea1a993c2ae54e97d6db9f1e2802c8129fc0b",
+      "reason": "User-rejected first M16 position-only repair; NeutralBind no longer consumes these scripts or editable outputs."
+    },
+    {
+      "source": "SourceAssets/M16Repair20261002/hand_binding.py",
+      "target": "trash/weapon-arms-publication-20261003/SourceAssets/M16Repair20261002/hand_binding.py",
+      "bytes": 1690,
+      "sha256": "926c5e8bef1f0784e78d63c748d615c0dc8fbb1947197d7d2dcac4845efdbfd8",
+      "reason": "User-rejected first M16 position-only repair; NeutralBind no longer consumes these scripts or editable outputs."
+    },
+    {
+      "source": "SourceAssets/M16Repair20261002/install_left_hand.py",
+      "target": "trash/weapon-arms-publication-20261003/SourceAssets/M16Repair20261002/install_left_hand.py",
+      "bytes": 4861,
+      "sha256": "0d46ebf48808a8db3881ebdb89d0eef763b5f7ecc1a658013dc64d6e5e3be1e7",
+      "reason": "User-rejected first M16 position-only repair; NeutralBind no longer consumes these scripts or editable outputs."
+    },
+    {
+      "source": "SourceAssets/M16Repair20261002/save_editable.py",
+      "target": "trash/weapon-arms-publication-20261003/SourceAssets/M16Repair20261002/save_editable.py",
+      "bytes": 559,
+      "sha256": "c74c2cb32a9e078d8b246897155bd3077f8442e0df6958895e86cd388a8da061",
+      "reason": "User-rejected first M16 position-only repair; NeutralBind no longer consumes these scripts or editable outputs."
+    },
+    {
+      "source": "SourceAssets/M16Repair20261002/manifest.json",
+      "target": "trash/weapon-arms-publication-20261003/SourceAssets/M16Repair20261002/manifest.json",
+      "bytes": 148,
+      "sha256": "e2de5a60efaaf8f9c27626e014a870277ceb9901a1492dd3a659b94d126776e6",
+      "reason": "User-rejected first M16 position-only repair; NeutralBind no longer consumes these scripts or editable outputs."
+    },
+    {
+      "source": "SourceAssets/M16Repair20261002/Authored/authoring.json",
+      "target": "trash/weapon-arms-publication-20261003/SourceAssets/M16Repair20261002/Authored/authoring.json",
+      "bytes": 5441,
+      "sha256": "f979d8392adad6c20a65421e7d9c93720fe777a12d794204f4a91f32fe23c6cb",
+      "reason": "User-rejected first M16 position-only repair; NeutralBind no longer consumes these scripts or editable outputs."
+    },
+    {
+      "source": "SourceAssets/M16Repair20261002/Authored/M16_BareArmsV7_Editable.json",
+      "target": "trash/weapon-arms-publication-20261003/SourceAssets/M16Repair20261002/Authored/M16_BareArmsV7_Editable.json",
+      "bytes": 23481261,
+      "sha256": "5280937961240c1d12e10ec38bf8a7fedb0ea0bfe72f715577d25f8cddf9620d",
+      "reason": "User-rejected first M16 position-only repair; NeutralBind no longer consumes these scripts or editable outputs."
+    },
+    {
+      "source": "SourceAssets/M16Repair20261002/Editable/M16_BareArmsLeftHandBind20261002.blend",
+      "target": "trash/weapon-arms-publication-20261003/SourceAssets/M16Repair20261002/Editable/M16_BareArmsLeftHandBind20261002.blend",
+      "bytes": 2454552,
+      "sha256": "5ec6d0161e22e679cc38f0ec939bc61829e282ac37adea9875b88730bb42a24b",
+      "reason": "User-rejected first M16 position-only repair; NeutralBind no longer consumes these scripts or editable outputs."
+    }
+  ],
+  "retained": [
+    "SourceAssets/M16Repair20261002/Input",
+    "SourceAssets/M16Repair20261002/Authored/*.position_patch.json",
+    "SourceAssets/M16Repair20261002/installed.json",
+    "SourceAssets/M16Repair20261002/Before/Packages",
+    "SourceAssets/M16Repair20261002/NeutralBind",
+    "SourceAssets/HighlandClaymoreMeshy20260922/ClovenSurface20261002 (active UV and material source dependency)",
+    "SourceAssets/DoorPush20261002/GuardWristThumbV8_20261002 (active author input)"
+  ],
+  "destructiveDeletePerformed": false,
+  "ueStarted": false,
+  "runtimeTestsPerformed": false
+}

@@ -242,7 +242,6 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
     }
     if(LPVORing){LPVORing->SetVisibility(LPVO&&bHolographic);LPVORing->SetRelativeRotation(FRotator(0,0,(LPVOMagnification-1.f)*24.f));}
     if(HolographicOptic)HolographicOptic->SetVisibility(bHolographic);
-    for(auto Head:FoldingSightHeads)Head->SetVisibility(bUsingM4Infima&&bInventoryWeaponReady);
 }
 FVector AFPSGAMECharacter::HolographicAimPoint() const
 {

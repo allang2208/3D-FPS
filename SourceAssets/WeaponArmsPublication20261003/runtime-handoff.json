@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-03",
+  "remote": "https://github.com/allang2208/3D-FPS.git",
+  "branch": "main",
+  "scope": [
+    "cloven blade metal",
+    "M16 left digit binding",
+    "melee rain wetness",
+    "retained M4 sight visibility",
+    "monster idle breathing except blind supplicant",
+    "inspection action classification",
+    "alternating unarmed punch",
+    "door hold .25s"
+  ],
+  "door": {
+    "revision": 2026100212,
+    "prepareSeconds": 0.06,
+    "holdSeconds": 0.25,
+    "eventSeconds": 0.31,
+    "recoverySeconds": 0.197,
+    "durationSeconds": 0.507
+  },
+  "sourceSaved": true,
+  "priorFullWorkspaceBuilds": {
+    "editor": "Saved/BuildEditor/build-20261002-234440.log",
+    "game": "Saved/DoorPushHold250ms20261002/FPSGAME-20261002-234533.log"
+  },
+  "publishedSnapshotIndependentlyBuilt": false,
+  "newBuildPerformed": false,
+  "runtimeTested": false,
+  "ueStarted": false,
+  "binaryAssetsPublished": false,
+  "densePoseTablesPublished": false,
+  "localGeneratedHeaders": [
+    "Source/FPSGAME/Weapons/Unarmed/UnarmedAuthoredPunch20261002.h",
+    "Source/FPSGAME/Movement/DoorPushAuthored20261002.h"
+  ],
+  "parallelSourceBoundary": "Unpublished multiplayer base remains local; unarmed-server-integration.patch preserves this task increment for integration after its matching base is published. Existing later monster gun feedback, netcode, corpse physics, guns and UI work are excluded.",
+  "archive": "archive-manifest.json",
+  "publicFiles": "published-files.json",
+  "restoreGuide": "Docs/Weapons/weapon-arms-publication-20261003.md"
+}

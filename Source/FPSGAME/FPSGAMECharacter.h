@@ -52,6 +52,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UWeaponBipodDeploymentComponent;
     friend class UBowWeaponComponent;
     friend class UStaffWeaponComponent;
+    friend class UFPSUnarmedIdleComponent;
     friend class UFPSElectricMagicComponent;
     friend struct FStaffLocomotion;
 
@@ -99,6 +100,8 @@ bool TriggerPistolQuickCombat();
     bool IsSwitchingWeapon() const;
     bool CanStartQuickCombatPriority() const;
     void InterruptActionsForPriority(bool bWeaponSwitch);
+    /** Leave firearm inspection before dispatching a new command, without changing shot cooldowns. */
+    void InterruptWeaponInspection();
     bool IsResolvingActionInterrupt() const { return bResolvingActionInterrupt; }
     // Single-weapon hip cone, or the real per-hand dual cone while both pistols
     // are out; the reticle and the shot direction must share this one value.
@@ -226,6 +229,7 @@ protected:
     // 第一人称弓：与双手工具同族，由库存实例驱动；动作时钟在相机合成之前推进。
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UBowWeaponComponent> Bow;
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UStaffWeaponComponent> Staff;
+    UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UFPSUnarmedIdleComponent> UnarmedIdle;
     void SetAngledForegrip(bool bEnabled);
     void InitializeForegripAnimations();
     void InitializePrismGripAnimations();
@@ -558,7 +562,8 @@ private:
     int32 RevolverReloadCommitted = 0;
     USoundBase* LoadAKMSound(const TCHAR* AssetName);
     bool CanStand() const;
-    bool IsWeaponBusy() const;
+    // Traversal may replace inspection after accepting a valid hand-supported route.
+    bool IsWeaponBusy(bool bAllowInspection = false) const;
     float HorizontalSpeed() const;
     float VerticalToHorizontalFOV(float VerticalFOV) const;
     static void AdvanceSpring(FVector& Position, FVector& Velocity, float Stiffness, float Damping, float DeltaSeconds);

@@ -5,6 +5,7 @@
 #include "MonsterCombatTuning.h"
 #include "MonsterAIController.h"
 #include "MonsterCharacterMovementComponent.h"
+#include "MonsterIdleBreathingMeshComponent.h"
 #include "FPSCombatHealthComponent.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
@@ -26,7 +27,7 @@
 #include "UObject/ConstructorHelpers.h"
 
 AWolfMonster::AWolfMonster(const FObjectInitializer& ObjectInitializer)
-    : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(CharacterMovementComponentName))
+    : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(CharacterMovementComponentName).SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
     PrimaryActorTick.bCanEverTick = true;
     Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));

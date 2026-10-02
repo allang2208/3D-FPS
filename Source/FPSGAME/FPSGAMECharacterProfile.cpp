@@ -152,9 +152,11 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     {DamagePerShot=RuneSword->EquippedDamage();FireInterval=RuneSword->AttackSeconds();MagazineCapacity=0;ReloadDuration=EmptyReloadDuration=0;}
     if (bUseDanWesson715 && I)
         RevolverCaseCount = FMath::Clamp(static_cast<int32>(ColdSteelInventory::Number(*I, TEXT("revolver_case_count"), I->Magazine)), MagazineAmmo, 6);
-    // Attachment setters above own each child's equipped visibility. Propagating
-    // here would resurrect optics and tactical bodies just switched to factory.
-    AKMViewmodel->SetVisibility(bInventoryWeaponReady && !IsTraversing());
+    // Attachment setters own visibility while the gun is equipped. On stowing,
+    // hide their children after those setters finish as well: a retained rifle
+    // must not leave a sight or another camera-space part on the next weapon.
+    const bool bShowRifle=bInventoryWeaponReady && !IsTraversing();
+    AKMViewmodel->SetVisibility(bShowRifle,!bShowRifle);
     // Reapply held input only after the new pistol's magazine and stats exist.
     // A held trigger starts one semiautomatic shot, then still requires release.
     if(DualPistols)DualPistols->RefreshEquipment(Profile);

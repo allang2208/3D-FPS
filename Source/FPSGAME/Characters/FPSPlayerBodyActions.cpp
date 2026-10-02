@@ -10,6 +10,7 @@
 #include "../Skills/FPSFireballComponent.h"
 #include "../Skills/FPSQuickCombatComponent.h"
 #include "../Weapons/DualPistolQuickCombatMotion.h"
+#include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -127,6 +128,12 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleLocalState() const
         State.ContactFraction=Bash->GetContactFraction();
         State.ActionVariant=State.Family==TEXT("Rifle")?TEXT("RifleBash"):TEXT("PistolBash");
         if(State.bDual)State.ActionVariant=DualPistolQuickCombatMotion::StrikingHand(Bash->GetActionSerial())==1?TEXT("PistolBashLeft"):TEXT("PistolBashRight");
+        if(Bash->GetStyle()==EQuickCombatStyle::UnarmedPunch)
+        {
+            State.Family=TEXT("Unarmed");
+            const auto* Hands=Pawn->FindComponentByClass<UFPSUnarmedIdleComponent>();
+            State.ActionVariant=Hands&&Hands->GetPunchSide()==0?TEXT("PunchLeft"):TEXT("PunchRight");
+        }
     }
     // IsCastingWithLeftHand intentionally includes gun bash for input arbitration.
     // Presentation must ask the spell owner, not reinterpret that shared busy flag.

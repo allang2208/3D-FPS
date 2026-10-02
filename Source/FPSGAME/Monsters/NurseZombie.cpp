@@ -5,6 +5,7 @@
 #include "../Skills/EnemyAttackDamage.h"
 #include "../Skills/IceWallCombat.h"
 #include "MonsterCharacterMovementComponent.h"
+#include "MonsterIdleBreathingMeshComponent.h"
 #include "MonsterCombatComponent.h"
 #include "HumanoidKnockdownComponent.h"
 #include "MonsterCombatTuning.h"
@@ -30,7 +31,7 @@
 #include "Kismet/GameplayStatics.h"
 
 ANurseZombie::ANurseZombie(const FObjectInitializer& ObjectInitializer)
-    : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
+    : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName).SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
     PrimaryActorTick.bCanEverTick = true;
     Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));

@@ -215,7 +215,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     RuneOrbBlades=CreateDefaultSubobject<URuneOrbBladesComponent>(TEXT("RuneOrbBlades"));
     Bow=CreateDefaultSubobject<UBowWeaponComponent>(TEXT("Bow"));
     Staff=CreateDefaultSubobject<UStaffWeaponComponent>(TEXT("Staff"));
-    CreateDefaultSubobject<UFPSUnarmedIdleComponent>(TEXT("UnarmedIdle"));
+    UnarmedIdle=CreateDefaultSubobject<UFPSUnarmedIdleComponent>(TEXT("UnarmedIdle"));
     DoorPush=CreateDefaultSubobject<UFPSDoorPushComponent>(TEXT("SprintDoorPush"));
     CreateDefaultSubobject<UFPSCombatHealthComponent>(TEXT("CombatHealth"));
     CreateDefaultSubobject<UFPSFireballComponent>(TEXT("FireballSkill"));
@@ -923,7 +923,7 @@ void AFPSGAMECharacter::JumpPressed()
     if (IsMeleeSkillMovementLocked() || IsDodging()) return;
     Traversal->SetJumpHeld(true);
     if (IsTraversing()) return;
-    if (Traversal->TryStart(!bIsSliding && !IsWeaponBusy())) { JumpBufferRemaining=0.f; StopJumping(); return; }
+    if (Traversal->TryStart(!bIsSliding && !IsWeaponBusy(true))) { JumpBufferRemaining=0.f; StopJumping(); return; }
     JumpBufferRemaining = JumpInputBufferTime;
     TryBufferedJump();
 }
@@ -935,6 +935,7 @@ void AFPSGAMECharacter::JumpReleased()
 
 void AFPSGAMECharacter::FirePressed()
 {
+    InterruptWeaponInspection();
     if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;
     if(IsDualWieldingPistols()){DualPistols->Trigger(0,true);return;}
     // 手枪砸击进行中不接开火（枪已离姿态，动作结束才恢复）。
@@ -962,6 +963,7 @@ void AFPSGAMECharacter::FirePressed()
     if(Bow&&Bow->IsEquipped()){ExitSprintForWeapon();Bow->SetTriggerHeld(true);Bow->BeginPrimaryAttack();return;}
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())
     {ExitSprintForWeapon();Tools->BeginUse();return;}
+    if(UnarmedIdle&&UnarmedIdle->IsEquipped()){UnarmedIdle->SetTriggerHeld(true);return;}
     if (bUseM16)
     {
         if (bBurstTriggerHeld) return;
@@ -984,6 +986,8 @@ void AFPSGAMECharacter::FirePressed()
 
 void AFPSGAMECharacter::FireInputReleased()
 {
+    // Releasing a tap completes its punch; only priority interruption cancels it.
+    if(UnarmedIdle&&UnarmedIdle->IsEquipped()){UnarmedIdle->SetTriggerHeld(false);return;}
     if(Staff&&Staff->IsEquipped())return;
     // Only the physical input release may commit a charged sword attack.
     // Menu/traversal/equipment callers still use FireReleased to stop actions.
@@ -996,6 +1000,7 @@ void AFPSGAMECharacter::FireInputReleased()
 
 void AFPSGAMECharacter::FireReleased()
 {
+    if(UnarmedIdle)UnarmedIdle->CancelAttack();
     if(Staff)Staff->CancelAction();
     bFireHeld=false;bPistolShotPending=false;GetWorldTimerManager().ClearTimer(FireTimerHandle);
     bBurstTriggerHeld=false;BurstShotsRemaining=0;
@@ -1011,6 +1016,7 @@ void AFPSGAMECharacter::FireReleased()
 
 void AFPSGAMECharacter::AimPressed()
 {
+    InterruptWeaponInspection();
     if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;
     if(HasOffhandPistol()){DualPistols->Trigger(1,true);return;}
     if(Staff&&Staff->IsEquipped())return;
@@ -1037,6 +1043,7 @@ void AFPSGAMECharacter::AimReleased()
 
 void AFPSGAMECharacter::ReloadPressed()
 {
+    InterruptWeaponInspection();
     if(IsChoosingAmmo())return;
     if(HasOffhandPistol()){DualPistols->Reload();return;}
     if(Staff&&Staff->IsEquipped())return;
@@ -1378,6 +1385,8 @@ void AFPSGAMECharacter::ReloadPressed()
 
 void AFPSGAMECharacter::InspectPressed()
 {
+    // Repeated inspection is a new action with a fresh clip/state clock.
+    InterruptWeaponInspection();
     // Dual inspect is disabled by user choice. Its clocks do not advance the
     // single-weapon Inspecting state.
     if(IsDualWieldingPistols())return;
@@ -1399,12 +1408,14 @@ void AFPSGAMECharacter::InspectPressed()
     WeaponStateElapsed = 0.0f;
     WeaponStateDuration = Clip->GetPlayLength();
     PlayWeaponAnimation(Clip, false);
+    if(!GunplayAnimation)AKMViewmodel->SetPosition(0.f,false);
 }
 
 // 「快速进战」F 键入口：转交状态模型，由其按当前武器路由（剑 → 配重锤 / 手枪 → 握把砸击 /
 // 其余枪械 → 步枪枪托砸击）。武器类型锁已于 2026-09-18 按用户要求取消。
 void AFPSGAMECharacter::QuickCombatPressed()
 {
+    InterruptWeaponInspection();
     if(auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
         Profile->TriggerQuickCombat();
 }
@@ -1413,6 +1424,7 @@ void AFPSGAMECharacter::QuickCombatPressed()
 // 2D 合同"攻击动画未播完不触发"：剑在做任何动作（挥砍/格挡/旋刃/收刀）期间不响应。
 void AFPSGAMECharacter::RuneBladesPressed()
 {
+    InterruptWeaponInspection();
     // G is the equipped weapon's fixed special-function key.
     if(Staff&&Staff->IsEquipped()){Staff->ToggleIllumination();return;}
     if(RuneSword && RuneSword->IsInspecting())RuneSword->CancelAction();
@@ -1807,6 +1819,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     // 弓的拉距时钟与镜头同帧：先推进动作，再合成相机，抖动与释放冲量读到同一个 age。
     if(Bow)Bow->AdvanceActionBeforeCamera(DeltaSeconds);
     if(Staff)Staff->AdvanceActionBeforeCamera(DeltaSeconds);
+    if(UnarmedIdle)UnarmedIdle->AdvanceActionBeforeCamera(DeltaSeconds);
     UpdateADSProgress();
     CameraADSFactor = FMath::SmoothStep(0.0f, 1.0f, ADSProgress);
     WeaponADSFactor = CameraADSFactor;
@@ -3105,6 +3118,7 @@ bool AFPSGAMECharacter::IsCastingWithLeftHand() const
 bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return HasOffhandPistol(); }
 void AFPSGAMECharacter::SuspendWeaponForMenu()
 {
+    InterruptWeaponInspection();
     if(DoorPush)DoorPush->Cancel();
     if(auto* Potion=FindComponentByClass<UFPSPotionUseComponent>())Potion->Cancel();
     if(BipodDeployment)BipodDeployment->Release(true);
@@ -3187,7 +3201,14 @@ bool AFPSGAMECharacter::HasOffhandPistol() const { return DualPistols && DualPis
 bool AFPSGAMECharacter::IsWeaponFireHeld() const { return HasOffhandPistol()?DualPistols->HasHeldTrigger():bFireHeld; }
 bool AFPSGAMECharacter::IsReloading() const { return HasOffhandPistol()?DualPistols->IsReloading():WeaponState == EAKMWeaponState::Reloading || WeaponState == EAKMWeaponState::ReloadingEmpty; }
 bool AFPSGAMECharacter::IsDoorPushActive() const {return DoorPush&&DoorPush->IsActive();}
-bool AFPSGAMECharacter::IsWeaponBusy() const { return IsDoorPushActive() || IsTraversing() || (RuneSword && RuneSword->IsBusy()) || (Staff && Staff->IsEquipped() && Staff->IsBusy()) || (HasOffhandPistol()?DualPistols->IsReloading():WeaponState != EAKMWeaponState::Idle) || (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand()); }
+bool AFPSGAMECharacter::IsWeaponBusy(bool bAllowInspection) const
+{
+    const bool bGunBusy=HasOffhandPistol()?DualPistols->IsReloading():
+        (WeaponState!=EAKMWeaponState::Idle && !(bAllowInspection && WeaponState==EAKMWeaponState::Inspecting));
+    return IsDoorPushActive() || IsTraversing() || (RuneSword && RuneSword->IsBusy()) ||
+        (Staff && Staff->IsEquipped() && Staff->IsBusy()) || bGunBusy ||
+        (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand());
+}
 float AFPSGAMECharacter::HorizontalSpeed() const { return FVector(GetVelocity().X, GetVelocity().Y, 0.0f).Size(); }
 
 float AFPSGAMECharacter::VerticalToHorizontalFOV(float VerticalFOV) const

@@ -3,6 +3,7 @@
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "MonsterCharacterMovementComponent.h"
+#include "MonsterIdleBreathingMeshComponent.h"
 #include "PoisonMaggotProjectile.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCombatTuning.h"
@@ -32,7 +33,7 @@
 #include "ShaderCompiler.h"
 #endif
 APoisonMaggotMonster::APoisonMaggotMonster(const FObjectInitializer& ObjectInitializer)
- : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
+ : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName).SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
  PrimaryActorTick.bCanEverTick=true;Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
  Combat->StaggerDuration=.45f;

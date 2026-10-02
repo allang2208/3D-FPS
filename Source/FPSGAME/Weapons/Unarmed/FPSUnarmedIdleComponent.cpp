@@ -1,6 +1,9 @@
 #include "FPSUnarmedIdleComponent.h"
 #include "UnarmedAuthoredLocomotion20261001.h"
 #include "../../FPSGAMECharacter.h"
+#include "../../FPSGAMEPlayerController.h"
+#include "../../Skills/FPSQuickCombatComponent.h"
+#include "../../Items/FPSPotionUseComponent.h"
 #include "../../Characters/FPSPlayerBodyComponent.h"
 #include "../../Monsters/FPSCombatHealthComponent.h"
 #include "../../Movement/FPSFootstepAudioComponent.h"
@@ -17,7 +20,7 @@
 
 namespace
 {
-const FSoftObjectPath ArmsPath(TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7"));
+const FSoftObjectPath UnarmedArmsAssetPath(TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7"));
 }
 
 void UFPSUnarmedArmsMeshComponent::SetMotionSample(float Weight,float EnterWeight,float Phase,float Move,float Run)
@@ -107,9 +110,11 @@ void UFPSUnarmedArmsMeshComponent::FinalizeBoneTransform()
                     const double Run=FMath::Lerp(Value(Motion::CycleJoints[1][A][Side]),Value(Motion::CycleJoints[1][B][Side]),Alpha);
                     return FMath::Lerp(Idle,FMath::Lerp(Walk,Run,RunWeight),MoveWeight);
                 };
-                Pose[I].SetRotation((FQuat(Definition.ElbowHinge,Joint(false))*Definition.LowerRestRotation*
-                    FQuat(Definition.ForearmAxis,Joint(true))).GetNormalized());
+                CurrentJoints[Side]=FVector2D(Joint(false),Joint(true));
+                Pose[I].SetRotation((FQuat(Definition.ElbowHinge,CurrentJoints[Side].X)*Definition.LowerRestRotation*
+                    FQuat(Definition.ForearmAxis,CurrentJoints[Side].Y)).GetNormalized());
             }
+            ApplyPunchPose(Pose);
             for(int32 I=0;I<Pose.Num();++I)
             {
                 const int32 Parent=Skeleton.GetParentIndex(I);
@@ -137,6 +142,7 @@ void UFPSUnarmedIdleComponent::BeginPlay()
     Super::BeginPlay();auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
     if(!Pawn||GetNetMode()==NM_DedicatedServer){SetComponentTickEnabled(false);return;}
     Camera=Pawn->FindComponentByClass<UCameraComponent>();if(!Camera.IsValid())return;
+    Combat=Pawn->FindComponentByClass<UFPSQuickCombatComponent>();
     AddTickPrerequisiteActor(Pawn);AddTickPrerequisiteComponent(Pawn->GetCharacterMovement());
     Footsteps=Pawn->FindComponentByClass<UFPSFootstepAudioComponent>();
     if(Footsteps.IsValid())AddTickPrerequisiteComponent(Footsteps.Get());
@@ -154,6 +160,7 @@ void UFPSUnarmedIdleComponent::BeginPlay()
 
 void UFPSUnarmedIdleComponent::RefreshEquipment()
 {
+    const bool WasEmpty=bHandsEmpty;
     bHandsEmpty=false;bEquipmentResolved=false;
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
     if(Model.IsValid()&&Pawn&&Pawn->IsLocallyControlled())
@@ -163,6 +170,8 @@ void UFPSUnarmedIdleComponent::RefreshEquipment()
         bHandsEmpty=!Model->Equipped(State.ActiveWeaponSlot)&&!Model->Equipped(Offhand)&&!Model->ActiveProductionTool();
         bEquipmentResolved=true;
     }
+    if(!bHandsEmpty)CancelAttack();
+    if(WasEmpty!=bHandsEmpty)NextPunchSide=1;
     if(Arms)
     {
         if(bHandsEmpty)Arms->ComponentTags.AddUnique(TEXT("PreloadModularOutfit"));
@@ -174,14 +183,14 @@ void UFPSUnarmedIdleComponent::RefreshEquipment()
 void UFPSUnarmedIdleComponent::LoadArms()
 {
     if(bLoadRequested)return;bLoadRequested=true;
-    if(ArmsPath.ResolveObject()){ApplyLoadedArms();return;}
-    Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(ArmsPath,
+    if(UnarmedArmsAssetPath.ResolveObject()){ApplyLoadedArms();return;}
+    Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(UnarmedArmsAssetPath,
         FStreamableDelegate::CreateUObject(this,&UFPSUnarmedIdleComponent::ApplyLoadedArms));
 }
 
 void UFPSUnarmedIdleComponent::ApplyLoadedArms()
 {
-    auto* Mesh=Cast<USkeletalMesh>(ArmsPath.ResolveObject());if(!Arms||!Mesh)return;
+    auto* Mesh=Cast<USkeletalMesh>(UnarmedArmsAssetPath.ResolveObject());if(!Arms||!Mesh)return;
     Arms->SetSkeletalMesh(Mesh);
     // V7's native M4 mesh contains weapon sections; this view exposes only arms.
     if(const auto* Render=Mesh->GetResourceForRendering())for(int32 L=0;L<Render->LODRenderData.Num();++L)
@@ -221,6 +230,7 @@ void UFPSUnarmedIdleComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());if(!Pawn||!Pawn->IsLocallyControlled())return;
     if(!bEquipmentResolved)RefreshEquipment();
     if(!bLoadRequested)LoadArms();UpdateVisibility();
+    RefreshPunchSample();
     if(!Arms||!Arms->IsVisible()||Arms->bHiddenInGame)return;
     CycleTime=FMath::Fmod(CycleTime+Delta,UnarmedAuthoredLocomotion20261001::PeriodSeconds);VisibleAge+=Delta;
     const float Breath=.5f-.5f*FMath::Cos(2.f*PI*CycleTime/UnarmedAuthoredLocomotion20261001::PeriodSeconds);
@@ -244,6 +254,86 @@ void UFPSUnarmedIdleComponent::TickComponent(float Delta,ELevelTick Type,FActorC
 
 void UFPSUnarmedIdleComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    CancelAttack();
     if(Model.IsValid()&&EquipmentChanged.IsValid())Model->OnChanged.Remove(EquipmentChanged);
     if(Load)Load->CancelHandle();Super::EndPlay(Reason);
+}
+
+bool UFPSUnarmedIdleComponent::IsPunching() const
+{
+    const auto* Quick=Combat.Get();
+    return Quick&&Quick->GetStyle()==EQuickCombatStyle::UnarmedPunch&&Quick->IsOccupyingLeftHand();
+}
+
+bool UFPSUnarmedIdleComponent::CanPunch() const
+{
+    const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
+    if(!IsEquipped()||!Pawn||!Pawn->IsLocallyControlled()||!Arms||!Arms->GetSkeletalMeshAsset()
+        ||Pawn->IsResolvingActionInterrupt()||Pawn->IsSwitchingWeapon()||Pawn->IsTraversing()
+        ||Pawn->IsDodging()||Pawn->IsSliding()||Pawn->IsSpellGestureBlocking())return false;
+    if(const auto* Potion=Pawn->FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return false;
+    if(AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Pawn->GetController())))return false;
+    if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
+    const auto* PC=Cast<APlayerController>(Pawn->GetController());
+    return PC&&PC->GetViewTarget()==Pawn;
+}
+
+bool UFPSUnarmedIdleComponent::BeginPunch()
+{
+    auto* Quick=Combat.Get();
+    if(!CanPunch()||!Quick||Quick->IsOccupyingLeftHand())return false;
+    Arms->CapturePunchEntry();
+    Quick->ConfigureForUnarmedPunch();
+    if(!Quick->BeginAction())return false;
+    PunchSide=NextPunchSide;NextPunchSide=1-NextPunchSide;
+    Cast<AFPSGAMECharacter>(GetOwner())->ExitSprintForWeapon();
+    RefreshPunchSample();
+    return true;
+}
+
+void UFPSUnarmedIdleComponent::SetTriggerHeld(bool Held)
+{
+    bTriggerHeld=Held;
+    if(Held&&!IsPunching()&&!BeginPunch())bTriggerHeld=false;
+}
+
+void UFPSUnarmedIdleComponent::CancelAttack()
+{
+    bTriggerHeld=false;
+    if(auto* Quick=Combat.Get();
+        Quick&&Quick->GetStyle()==EQuickCombatStyle::UnarmedPunch)Quick->Cancel();
+    if(Arms)Arms->SetPunchSample(-1.f,PunchSide);
+}
+
+void UFPSUnarmedIdleComponent::RefreshPunchSample()
+{
+    const auto* Quick=Combat.Get();
+    if(Arms)Arms->SetPunchSample(IsPunching()?Quick->GetActionAge():-1.f,PunchSide);
+}
+
+void UFPSUnarmedIdleComponent::AdvanceActionBeforeCamera(float Delta)
+{
+    if(Delta<=0.f)return;
+    auto* Quick=Combat.Get();
+    if(!Quick||Quick->GetStyle()!=EQuickCombatStyle::UnarmedPunch)return;
+    if(IsPunching()&&!CanPunch()){CancelAttack();return;}
+    const bool WasPunching=IsPunching();
+    Quick->AdvanceAction(Delta);
+    RefreshPunchSample();
+    if(WasPunching&&!IsPunching()&&bTriggerHeld)
+    {
+        // Finish recovery before capturing the next fist's entry. No hitch catch-up hits.
+        if(Arms&&Arms->IsVisible()){Arms->TickAnimation(0.f,false);Arms->RefreshBoneTransforms();}
+        if(!BeginPunch())bTriggerHeld=false;
+    }
+}
+
+bool UFPSUnarmedIdleComponent::GetStrikeProbe(FVector& Origin)
+{
+    if(!IsPunching()||!Arms||!Arms->IsVisible()||Arms->bHiddenInGame)return false;
+    const FName Bone=PunchSide==1?TEXT("middle_01_r"):TEXT("middle_01_l");
+    if(Arms->GetBoneIndex(Bone)==INDEX_NONE)return false;
+    RefreshPunchSample();Arms->TickAnimation(0.f,false);Arms->RefreshBoneTransforms();
+    Origin=Arms->GetSocketLocation(Bone);
+    return true;
 }

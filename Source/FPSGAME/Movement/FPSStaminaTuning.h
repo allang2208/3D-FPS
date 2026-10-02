@@ -5,6 +5,7 @@ struct FColdSteelStaminaTuning
 {
     float BaseMaximum=100.f, PerConstitution=0.f;
     float SprintPerSecond=12.f, MeleeCost=15.f, HarvestCost=10.f, DodgeCost=25.f;
+    float PunchCost=8.f;
     float RecoveryPerSecond=20.f, RecoveryDelay=1.f, SprintRestartRatio=.2f;
 };
 

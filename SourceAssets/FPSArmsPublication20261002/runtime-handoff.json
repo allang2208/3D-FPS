@@ -3,13 +3,13 @@
   "branch": "main",
   "remote": "https://github.com/allang2208/3D-FPS.git",
   "scope": "本对话法杖、空手、枪械抓握、撞门及 ASH-12/弓姿态交接",
-  "door_revision": 2026100211,
+  "door_revision": 2026100212,
   "timing_seconds": {
     "entry": 0.06,
-    "guard": 0.3,
-    "contact": 0.36,
+    "guard": 0.25,
+    "contact": 0.31,
     "recovery": 0.197,
-    "total": 0.557
+    "total": 0.507
   },
   "source_saved": true,
   "assets_saved_in_prior_production": true,

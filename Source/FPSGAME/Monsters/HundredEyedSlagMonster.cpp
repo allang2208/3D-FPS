@@ -2,6 +2,7 @@
 #include "SlagBlackMist.h"
 #include "MonsterAIController.h"
 #include "MonsterCharacterMovementComponent.h"
+#include "MonsterIdleBreathingMeshComponent.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCombatTuning.h"
 #include "FatZombieAnimInstance.h"
@@ -35,7 +36,7 @@
 #include "PhysicsEngine/ConstraintInstance.h"
 
 AHundredEyedSlagMonster::AHundredEyedSlagMonster(const FObjectInitializer& Initializer)
-    : Super(Initializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(CharacterMovementComponentName))
+    : Super(Initializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(CharacterMovementComponentName).SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
     PrimaryActorTick.bCanEverTick = true;
     Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));

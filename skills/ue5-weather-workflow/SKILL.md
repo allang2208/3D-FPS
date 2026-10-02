@@ -33,6 +33,8 @@ old Godot implementation.
 
 ## Effects integration
 
+剑、法杖、工具或第三人称武器没有雨天湿润时，读取 [近战武器湿润接入](references/melee-weapon-wetness.md)：扩展真实武器分支、保留活跃 MID 指针和透明／发光参数，分离皮肤与物理武器槽。
+
 下方云海粗糙、染色、黑屏或隐藏后又出现时，读取 [云海失败边界与持久配置](references/cloud-sea-failure-boundaries.md)。主神空间云海当前按用户要求隐藏，不能作为已认可方案自动恢复。
 
 For cloud/solar conflicts, coarse rain particles, pooled wet surfaces or transition

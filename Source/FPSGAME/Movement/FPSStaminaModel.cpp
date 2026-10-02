@@ -35,6 +35,7 @@ void UColdSteelStatusModel::LoadStaminaTuning()
     auto Read=[&](const TCHAR* Key,float& Field,float Min,float Max){double V=Field;if(Root->TryGetNumberField(Key,V)&&FMath::IsFinite(V))Field=FMath::Clamp(float(V),Min,Max);};
     Read(TEXT("baseMaximum"),StaminaTuning.BaseMaximum,1,10000);Read(TEXT("perConstitution"),StaminaTuning.PerConstitution,0,1000);
     Read(TEXT("sprintPerSecond"),StaminaTuning.SprintPerSecond,0,1000);Read(TEXT("meleeCost"),StaminaTuning.MeleeCost,0,1000);
+    Read(TEXT("punchCost"),StaminaTuning.PunchCost,0,1000);
     Read(TEXT("harvestCost"),StaminaTuning.HarvestCost,0,1000);Read(TEXT("dodgeCost"),StaminaTuning.DodgeCost,0,1000);
     Read(TEXT("recoveryPerSecond"),StaminaTuning.RecoveryPerSecond,0,1000);Read(TEXT("recoveryDelay"),StaminaTuning.RecoveryDelay,0,60);
     Read(TEXT("sprintRestartRatio"),StaminaTuning.SprintRestartRatio,.01f,1);
@@ -46,7 +47,10 @@ float UColdSteelStatusModel::StaminaRecoveryRate() const
 FColdSteelMeleeStaminaReadout UColdSteelStatusModel::MeleeStaminaReadout(const AFPSGAMECharacter* Pawn) const
 {
     FColdSteelMeleeStaminaReadout Result;
-    const float Available=FMath::Max(0.f,Current.Stamina),Cost=ColdSteelMelee::AttackStamina(Equipped(),this);
+    const int32 Offhand=Current.ActiveWeaponSlot==6?8:11;
+    const bool Empty=!Equipped(Current.ActiveWeaponSlot)&&!Equipped(Offhand)&&!ActiveProductionTool();
+    const float Available=FMath::Max(0.f,Current.Stamina);
+    const float Cost=Empty?ColdSteelMelee::UnarmedAttackStamina(this):ColdSteelMelee::AttackStamina(Equipped(),this);
     Result.bUnlimitedAttacks=Cost==0.f;
     if(Cost>0.f)Result.AvailableAttacks=FMath::FloorToInt(double(Available)/double(Cost));
     const float Missing=FMath::Max(0.f,MaxStamina()-Available);

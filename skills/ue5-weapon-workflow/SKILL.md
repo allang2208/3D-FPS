@@ -25,6 +25,8 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 ## 按任务读取
 
+- 裂角护手改用剑身金属、切武器后独立机瞄悬浮：[护手金属与瞄具生命周期](references/cloven-metal-and-sight-lifecycle.md)。同源金属先适配 UV；附件先确认实际归属，再同步宿主可见性。
+
 - 新版改造图标默认使用已认可的金属方框、四角铆钉、内圆环及部件主体；原厂件不加禁止标识。制作、覆盖与接入见 [改造配件图标标准](references/attachment-icons.md)。
 
 - 长杖系列、免费六槽改造、主手法杖配副手枪、G 键照明、异步加载及水晶预览缺失：[长杖模块化制作](references/staff-modular-production.md)。真实部件配方与握点合同共用，世界透光和 UI 覆盖率分别处理。

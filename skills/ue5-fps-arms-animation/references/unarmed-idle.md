@@ -47,3 +47,7 @@
 运动相位直接读 `UFPSFootstepAudioComponent::GetStridePhaseRadians()`，与相机和法杖使用同一脚步距离时钟。停启及走跑切换只淡入淡出幅度，不重置相位；空中、滑铲与闪避淡出，蹲伏减幅。运行先混合 Idle/Walk/Run 的肘屈伸和前臂 roll 标量，以 `Q(hinge,flex)*LowerRest*Q(forearmAxis,roll)` 重组下臂，再一次局部 FK。其他骨骼采用局部位置与最短路径四元数混合；原有左手施法/药水与服饰覆盖顺序保留。
 
 空栏选择需要贯穿切换和存档整理：`CycleWeapon()` 直接切换主手槽 6/9，即使目标为空；`RemoveRetiredWeapons()` 仅在实际移除活跃退役武器时回退，不能因为当前空栏就自动选另一栏。仍以主副槽都为空且无生产工具决定空手视模。制作、源码接入、Game/Editor 常规构建及未测状态分别见作者目录 `integration-completion.json` 和 `Docs/Weapons/unarmed-locomotion-20261001.md`；构建完成不等于动作观感已获认可。
+
+## 后续普通挥拳入口（2026-10-02）
+
+用户另行授权空手攻击后，现有 `UFPSUnarmedIdleComponent` 增加左右拳与持键续拳职责，待机／步态仍是底层姿态。动作迁移、进入／实时收拳、每拳体力结算及联机权威伤害见 [空手左右交替挥拳](unarmed-punch.md)。上文“待机只补外观”约束待机本身；普通挥拳是独立授权接入，不能将闭拳可见状态直接当成攻击资格，亦不能复用法杖的技能消耗与伤害身份。

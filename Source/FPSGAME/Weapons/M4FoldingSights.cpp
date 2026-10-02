@@ -18,6 +18,8 @@ void AFPSGAMECharacter::InitializeFoldingSights()
     for(auto Head:FoldingSightHeads)Head->DestroyComponent();
     FoldingSightHeads.Reset();FoldingSightMounts.Reset();FoldingSightAxes.Reset();FoldingSightAngles.Reset();
     const auto* WeaponMesh=AKMViewmodel->GetSkeletalMeshAsset();
+    // Profile application can hide the retained rifle before its sights are created.
+    const bool bShowSights=bInventoryWeaponReady&&AKMViewmodel->IsVisible()&&!AKMViewmodel->bHiddenInGame;
     if (A762WeaponAssets::Matches(AKMViewmodel) || LMG201WeaponAssets::Matches(AKMViewmodel))
     {
         for (int32 I=0;I<2;++I)
@@ -26,6 +28,7 @@ void AFPSGAMECharacter::InitializeFoldingSights()
             if (!Part) continue;
             auto* Head=NewObject<UStaticMeshComponent>(this);
             Head->SetStaticMesh(Part);Head->SetCollisionEnabled(ECollisionEnabled::NoCollision);Head->SetCastShadow(false);Head->bReceivesDecals=false;
+            Head->SetVisibility(bShowSights);
             Head->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));Head->RegisterComponent();
             const FTransform Mount(FQuat::Identity,LMG201WeaponAssets::Matches(AKMViewmodel)?LMG201WeaponAssets::SightHinges[I]:A762WeaponAssets::SightHinges[I],FVector(.01f));
             Head->SetRelativeTransform(Mount);FoldingSightHeads.Add(Head);FoldingSightMounts.Add(Mount);
@@ -44,6 +47,7 @@ void AFPSGAMECharacter::InitializeFoldingSights()
         if(!Part){UE_LOG(LogTemp,Error,TEXT("WEAPON_FOLDING: missing %s"),*Name);continue;}
         auto* Head=NewObject<UStaticMeshComponent>(this);
         Head->SetStaticMesh(Part);Head->SetCollisionEnabled(ECollisionEnabled::NoCollision);Head->SetCastShadow(false);Head->bReceivesDecals=false;
+        Head->SetVisibility(bShowSights);
         Head->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));Head->RegisterComponent();
         // QBZ head vertices are centimetres relative to their own hinge in the
         // WPN_root frame. That private bone uses metres, as do its optic mounts.
@@ -60,6 +64,9 @@ void AFPSGAMECharacter::InitializeFoldingSights()
 }
 void AFPSGAMECharacter::UpdateFoldingSights(float /*DeltaSeconds*/)
 {
+    // Independent components must follow the rifle's current presentation state.
+    const bool bShowSights=bInventoryWeaponReady&&AKMViewmodel->IsVisible()&&!AKMViewmodel->bHiddenInGame;
+    for(auto Head:FoldingSightHeads)Head->SetVisibility(bShowSights);
     if(FoldingSightHeads.Num()!=2)return;
     // Folding is an attachment state, including when rebuilding a switched weapon.
     SightFoldAlpha=bHolographicOptic?1.f:0.f;

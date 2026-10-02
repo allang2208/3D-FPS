@@ -94,6 +94,8 @@ bool UFPSTraversalComponent::TryStart(bool bAvailable, bool bLogRejection)
     }
     ActiveClip=bVault?VaultClip:(bHigh?ClimbClip:MantleClip);
     if (!ActiveClip || ActiveClip->GetPlayLength()<=0.f || ActiveClip->GetSkeleton()!=Arms->GetSkeletalMeshAsset()->GetSkeleton()) return false;
+    // A normal jump leaves inspection playing. Only a committed grasp/push needs the hands.
+    C->InterruptWeaponInspection();
     ClipDuration=ActiveClip->GetPlayLength(); Elapsed=0;
     bReturningCamera=false; bLastTraversalSucceeded=false;
     PlaybackRate=bVault?GetDefault<UFPSTraversalSettings>()->VaultPlaybackRate:1.f;

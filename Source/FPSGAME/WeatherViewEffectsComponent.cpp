@@ -38,6 +38,22 @@ UObject* SourceMesh(UMeshComponent* Mesh)
     if(auto* Static=Cast<UStaticMeshComponent>(Mesh))return Static->GetStaticMesh();
     return nullptr;
 }
+bool IsArmMaterialSlot(FName Slot)
+{
+    const FString Name=Slot.ToString().ToLower();
+    // Imported tool/sword viewmodels combine hands and weapon geometry. Keep
+    // only the physical weapon slots; "Handguard" is still a weapon part.
+    return Name.Contains(TEXT("manny"))||Name==TEXT("hand")||Name==TEXT("hands")
+        ||Name.EndsWith(TEXT("_hand"))||Name.EndsWith(TEXT("_hands"))
+        ||Name.Contains(TEXT("glove"))||Name.Contains(TEXT("sleeve"))||Name==TEXT("skin");
+}
+bool IsMeleeWetnessItem(const FColdSteelItem& Item)
+{
+    // Use the current definition keys without parsing the item's JSON each tick.
+    return Item.Definition==TEXT("ue_rune_sword")||Item.Definition==TEXT("ue_frost_crystal_sword")
+        ||Item.Definition==TEXT("ue_highland_claymore")||Item.Definition==TEXT("ue_apprentice_staff")
+        ||ColdSteelInventory::IsEquippedProductionTool(Item)||Item.Definition==TEXT("tool_shovel");
+}
 void RestoreBinding(FWeatherViewMaterial& Binding)
 {
     auto* Mesh=Binding.Mesh.Get();
@@ -100,6 +116,11 @@ void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAsse
     if(Assets)
         if(const auto* SVDMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,SVDAttachments::WetMaterialsPath))
             for(const auto& Entry:SVDMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    // Melee originals carry their own wet layer. The dedicated table maps each
+    // asset to itself, preserving rune/guard/crystal parameters when copied to a MID.
+    if(Assets)
+        if(const auto* MeleeMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,TEXT("/Game/Weather/MeleeWetness20261002/DA_MeleeWetMaterials.DA_MeleeWetMaterials")))
+            for(const auto& Entry:MeleeMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
     // Extended-magazine seam blending must also survive the wet-material swap.
     if(Assets)
         if(const auto* M16Materials=LoadObject<UWeatherPresentationAssets>(nullptr,TEXT("/Game/Weapons/M16A2/UniversalAttachments20260920/DA_M16_AttachmentWetMaterials")))
@@ -143,6 +164,15 @@ void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAsse
     address and hand out the wrong instance. */
 UMaterialInstanceDynamic* UWeatherViewEffectsComponent::AcquireWet(UMaterialInterface* Original,UMaterialInterface* Replacement)
 {
+    // Self-mapped melee surfaces already contain the wet layer. Keep the same
+    // live MID so staff illumination and animated rune/guard parameters keep
+    // reaching the material whose pointer their components retained.
+    if(auto* Dynamic=Cast<UMaterialInstanceDynamic>(Original))
+        if(Dynamic->GetBaseMaterial()==Replacement->GetBaseMaterial())
+        {
+            Dynamic->SetScalarParameterValue(WetnessName,0.f);
+            return Dynamic;
+        }
     const bool bPoolable=Original&&Original->IsAsset();
     if(bPoolable)
         for(auto& Shared:SharedWet)
@@ -177,22 +207,49 @@ void UWeatherViewEffectsComponent::BindWeapon(AFPSGAMECharacter* Pawn,bool bScan
         {RestoreBinding(B);Bindings.RemoveAtSwap(I);bPruned=true;}
     }
     if(!bScanAll&&!bPruned)return;
-    USkeletalMeshComponent* Main=nullptr;
-    for(auto* M:TInlineComponentArray<USkeletalMeshComponent*>(Pawn))
-        if(M->GetFName()==TEXT("AKMViewmodel")){Main=M;break;}
-    if(!Main)return;
-    for(auto* Mesh:TInlineComponentArray<UMeshComponent*>(Pawn))
+    const TInlineComponentArray<UMeshComponent*> Meshes(Pawn);
+    TArray<UMeshComponent*,TInlineAllocator<6>> Roots;
+    for(auto* Mesh:Meshes)
     {
-        if(Mesh!=Main&&!Mesh->IsAttachedTo(Main))continue;
+        const FName Name=Mesh->GetFName();
+        if(Name==TEXT("AKMViewmodel")||Name==TEXT("RuneSwordViewmodel")
+            ||Name==TEXT("ProductionToolMesh")||Name==TEXT("ProductionToolHands")
+            ||Name==TEXT("StaffV7")||Name==TEXT("StaffAssembly")||Mesh->ComponentHasTag(TEXT("StaffAssembly")))
+            Roots.Add(Mesh);
+    }
+    const auto* Body=Pawn->GetMesh();
+    for(auto* Mesh:Meshes)
+    {
+        if(Mesh->GetFName()==TEXT("StaffV7Arms")||Mesh->GetFName()==TEXT("RuneSwordRift")
+            ||Mesh->ComponentHasTag(TEXT("ModularOutfit")))continue;
+        bool bWeaponMesh=Roots.ContainsByPredicate([Mesh](const auto* Root){return Mesh==Root||Mesh->IsAttachedTo(Root);});
+        // FPSPlayerBodyEquipment creates WorldWeapons/WorldParts without tags.
+        // Their roots attach to a body hand socket; outfits attach to the body
+        // without one. Following that branch includes copied modular parts only.
+        if(!bWeaponMesh&&Body)
+        {
+            const USceneComponent* Branch=Mesh;
+            while(Branch->GetAttachParent()&&Branch->GetAttachParent()!=Body)Branch=Branch->GetAttachParent();
+            const FName Socket=Branch->GetAttachSocketName();
+            bWeaponMesh=Branch->GetAttachParent()==Body&&(Socket==TEXT("hand_r")||Socket==TEXT("hand_l"));
+        }
+        if(!bWeaponMesh)continue;
+        const auto SlotNames=Mesh->GetMaterialSlotNames();
         for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
         {
+            if(SlotNames.IsValidIndex(Slot)&&IsArmMaterialSlot(SlotNames[Slot]))continue;
             if(Bindings.ContainsByPredicate([Mesh,Slot](const auto& B){return B.Mesh==Mesh&&B.Slot==Slot;}))continue;
             auto* Original=Mesh->GetMaterial(Slot);if(!Original)continue;
             auto* Source=Original;
             auto* Replacement=WetByPath.Find(FName(*Source->GetPathName()));
             // A gunsmith may already have a MID. Preserve its texture/color values.
-            if(!Replacement)if(auto* MID=Cast<UMaterialInstanceDynamic>(Source))
-                if(MID->Parent)Replacement=WetByPath.Find(FName(*MID->Parent->GetPathName()));
+            while(!Replacement)
+            {
+                auto* MID=Cast<UMaterialInstanceDynamic>(Source);
+                if(!MID||!MID->Parent)break;
+                Source=MID->Parent;
+                Replacement=WetByPath.Find(FName(*Source->GetPathName()));
+            }
             UMaterialInterface* Target=Replacement&&*Replacement?*Replacement:WeaponSurfaceStandard::SelfWetSource(Source);
             if(!Target)continue;
             auto* Wet=AcquireWet(Original,Target);
@@ -219,11 +276,15 @@ void UWeatherViewEffectsComponent::TickComponent(float Delta,ELevelTick Type,FAc
     const float Facing=Camera?FMath::Clamp(.7f+Camera->GetCameraRotation().Vector().Z*.45f,.3f,1.1f):.7f;
     ScreenWetness=FMath::Clamp(ScreenWetness+Delta*(Rain*.22f*Facing-1.f/32.f),0.f,1.f);
     FString Key;
-    if(Pawn&&Pawn->HasInventoryWeapon())
+    if(Pawn)
     {
+        const bool bInventoryWeapon=Pawn->HasInventoryWeapon();
         if(auto* Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
-            if(const auto* Item=Model->Equipped())Key=Item->InstanceId;
-        if(Key.IsEmpty())Key=Pawn->bUseM4Infima?TEXT("PreviewM4"):TEXT("PreviewAKM");
+        {
+            if(const auto* Tool=Model->ActiveProductionTool())Key=Tool->InstanceId;
+            else if(const auto* Item=Model->Equipped();Item&&(bInventoryWeapon||IsMeleeWetnessItem(*Item)))Key=Item->InstanceId;
+        }
+        if(Key.IsEmpty()&&bInventoryWeapon)Key=Pawn->bUseM4Infima?TEXT("PreviewM4"):TEXT("PreviewAKM");
     }
     for(auto& Pair:WeaponWetness)Pair.Value=FMath::Max(0.f,Pair.Value-Delta/120.f);
     if(!Key.IsEmpty())

@@ -3,6 +3,7 @@
 #include "FleshHandChargeFX.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCharacterMovementComponent.h"
+#include "MonsterIdleBreathingMeshComponent.h"
 #include "MonsterAIController.h"
 #include "MonsterReactionTiming.h"
 #include "FatZombieAnimInstance.h"
@@ -67,7 +68,7 @@ void UFleshHandPushComponent::TickComponent(float Dt,ELevelTick Type,FActorCompo
  if(Hit.bBlockingHit||Age>=.16f)SetComponentTickEnabled(false);
 }
 AFleshHandMonster::AFleshHandMonster(const FObjectInitializer& I)
- :Super(I.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
+ :Super(I.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName).SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
  PrimaryActorTick.bCanEverTick=true;
  Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));

@@ -274,6 +274,17 @@ struct FControls : FAnimNode_Base
             else if(bLeftGrip&&!FreeLeft&&!PistolBash)Targets[1]=LeftGrip*Targets[0];
             if(PistolBash&&!State.bDual)
                 Targets[1].SetLocation(FVector(30,18,110-40*Crouch));
+            if(State.Family==TEXT("Unarmed")&&State.Action==EFPSBodyAction::GunBash)
+            {
+                for(int32 I=0;I<2;++I)
+                {
+                    const float Side=I==0?-1.f:1.f;
+                    const bool Striking=(State.ActionVariant==TEXT("PunchLeft"))==(I==1);
+                    const float Drive=Striking?FPSBodyPoses::Pulse(T,State.ContactFraction):0.f;
+                    Targets[I].SetLocation(FVector(Side*(24.f-12.f*Drive),32.f+36.f*Drive,118.f-40.f*Crouch+12.f*Drive));
+                    AdjustHand[I]=true;
+                }
+            }
             const bool RecoveringCast=State.Action==EFPSBodyAction::Cast&&State.ActionVariant==TEXT("Recover");
             if(RecoveringCast)
             {

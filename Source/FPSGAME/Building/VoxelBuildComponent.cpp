@@ -342,6 +342,7 @@ void UVoxelBuildComponent::SetPanelOpen(bool Open)
     {
         if(Open)
         {
+            if(auto* C=Cast<AFPSGAMECharacter>(PC->GetPawn()))C->SuspendWeaponForMenu();
             // The drawer owns cursor and keyboard; the world keeps running without gameplay input.
             PC->SetIgnoreMoveInput(true);PC->SetIgnoreLookInput(true);PC->bShowMouseCursor=true;
             FInputModeUIOnly Mode;Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);

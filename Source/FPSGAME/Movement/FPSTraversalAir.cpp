@@ -15,7 +15,7 @@ void UFPSTraversalComponent::TryAirCatch()
     auto* C=Cast<AFPSGAMECharacter>(GetOwner());
     if (!C || !C->Controller || C->Controller->IsMoveInputIgnored())
     { bJumpHeld=false; return; }
-    if (!C->GetCharacterMovement()->IsFalling() || C->bIsCrouched || C->bIsSliding || C->IsWeaponBusy()) return;
+    if (!C->GetCharacterMovement()->IsFalling() || C->bIsCrouched || C->bIsSliding || C->IsWeaponBusy(true)) return;
     // Failed air probes leave gravity and jump untouched. Cheap wall rays gate
     // the support/path checks; no scanning on the ground or after key release.
     TryStart(true,false);

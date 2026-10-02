@@ -5,6 +5,7 @@
 #include "../Skills/FireballDamage.h"
 #include "../Skills/IceWallCombat.h"
 #include "MonsterCharacterMovementComponent.h"
+#include "MonsterIdleBreathingMeshComponent.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCombatTuning.h"
 #include "MonsterAIController.h"
@@ -40,7 +41,7 @@
 #endif
 
 AHandBrainMonster::AHandBrainMonster(const FObjectInitializer& ObjectInitializer)
- : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
+ : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName).SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
  Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
  Combat->StaggerDuration=.6f;

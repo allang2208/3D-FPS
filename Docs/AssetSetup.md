@@ -470,3 +470,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 恢复本机 `Content/Monsters/HundredEyedSlag` 的 V1 骨架与基础动作、PolishV2 跑动／死亡／材质、ArticulationV12 三档网格、原路径下的 RampageV8 横扫与 V9 下劈收势、ThreeAttacksV13 激光片段、EyeLaserJumpV11 激光材质、EyeChargeV14 眼部蓄能、RagdollGroundV16 物理资产、WorldSmokeV19 目盲材质与 SmokeVisibilityFixV21 浓烟系统／材质。当前三攻击、伤害和状态以运行源码为准。
 
 公开本次原创玩法、作者配方和恢复说明；Meshy 模型／PBR、Epic Rampage 网格与供体动画／逐帧采样、复用 MayuOrbs／ElectricMagic／Niagara Examples 材质、Mantaflow 图集、UE 包、DLL 和导入回执留在本机。旧日期不能作为判废理由，当前作者仍读 V1–V9 的模型／蒙皮输入和 V17 噪声。归档清单、最新路径、来源与未测试边界见 [百目炉渣整理与发布](Monsters/hundred-eyed-slag-publication-20261002.md)。
+
+## 武器、手臂与呼吸增量（2026-10-03）
+
+恢复裂角护手连续 UV 和剑身金属输入、M16 左指中立绑定、近战湿润材质、空手左右拳生成表，以及撞门 0.25 秒保持的本机作者源。公开原创实现与配方；完整采样、网格、材质包、Blend 和用户音效保持本机。未发布联机基线上的拳击增量以接入补丁保留，不夹带整套联机改动。当前恢复顺序、8 份 M16 废案归档与公开快照未独立构建／未测试边界见 [本轮整理发布](Weapons/weapon-arms-publication-20261003.md)。

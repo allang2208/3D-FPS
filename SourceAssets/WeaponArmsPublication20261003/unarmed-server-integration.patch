@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -30,0 +31,2 @@
++#include "../Weapons/Unarmed/UnarmedPunchTuning.h"
++#include "../Weapons/Staff/StaffQuickCombatMotion.h"
+@@ -540,1 +542,9 @@
+-    // Quick combat allows an empty declaration.
++    // Quick combat allows an empty declaration; ordinary punches require both active hands empty.
++    const bool bUnarmed=Report.AttackMeta==UnarmedPunch::AttackMeta&&Report.ItemDefinition.IsEmpty();
++    if(bUnarmed)
++    {
++        const int32 Primary=ShadowModel->Snapshot().ActiveWeaponSlot;
++        const int32 Offhand=Primary==6?8:11;
++        if(ShadowModel->Equipped(Primary)||ShadowModel->Equipped(Offhand)||ShadowModel->ActiveProductionTool())
++        {OutReason=TEXT("unarmed equipment mismatch");return false;}
++    }
+@@ -546,1 +556,1 @@
+-    if (!OutDeclaredItem && !((Report.AttackMeta & 0x80) && Report.ItemDefinition.IsEmpty()))
++    if (!OutDeclaredItem && !bUnarmed && !((Report.AttackMeta & 0x80) && Report.ItemDefinition.IsEmpty()))
+@@ -551,1 +561,1 @@
+-    const double Interval = FMath::Max(0.05, Shooter->EffectiveFireInterval());
++    const double Interval = bUnarmed?double(StaffQuickCombatMotion::Length):FMath::Max(0.05, Shooter->EffectiveFireInterval());
+@@ -561,1 +571,1 @@
+-    const bool bProjectile = (Report.AttackMeta & 0x40) != 0
++    const bool bProjectile = !bUnarmed&&((Report.AttackMeta & 0x40) != 0
+@@ -564,1 +574,1 @@
+-        || Shooter->ProjectileSpeedCM > 0.f;
++        || Shooter->ProjectileSpeedCM > 0.f);
+@@ -570,1 +580,1 @@
+-    const float MaxRange = Shooter->TraceDistance*1.25f;
++    const float MaxRange = bUnarmed?UnarmedPunch::ReachCM+120.f:Shooter->TraceDistance*1.25f;
+@@ -634,0 +645,3 @@
++    if(Report.AttackMeta==UnarmedPunch::AttackMeta&&Report.ItemDefinition.IsEmpty())
++        return UnarmedPunch::Damage(ShadowModel);
++

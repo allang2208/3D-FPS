@@ -25,6 +25,7 @@ namespace ColdSteelMelee
     FMeleeModifiers TemporaryModifiers(const UColdSteelStatusModel* Profile);
     FMeleeWeaponStats Evaluate(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile,const FGunsmithParts* Preview=nullptr);
     double AttackStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile);
+    double UnarmedAttackStamina(const UColdSteelStatusModel* Profile);
     // 防御受击耐力只吃 BlockStamina 独立乘区，不再跟随全局 Stamina。
     double BlockStamina(const FMeleeModifiers& Modifiers);
 }

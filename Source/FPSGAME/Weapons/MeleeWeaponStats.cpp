@@ -78,6 +78,12 @@ double ColdSteelMelee::AttackStamina(const FColdSteelItem* Item,const UColdSteel
     return Item&&Gunsmith&&ColdSteelInventory::IsMeleeWeapon(*Item)?Base*Gunsmith->Calculate(Item->Definition,Gunsmith->Installed(*Item)).Melee.Stamina*TemporaryModifiers(Profile).Stamina*MeleeStaminaScale(Profile):Base;
 }
 
+double ColdSteelMelee::UnarmedAttackStamina(const UColdSteelStatusModel* Profile)
+{
+    const double Base=Profile?Profile->StaminaSettings().PunchCost:FColdSteelStaminaTuning{}.PunchCost;
+    return Base*TemporaryModifiers(Profile).Stamina*MeleeStaminaScale(Profile);
+}
+
 FMeleeModifiers ColdSteelMelee::TemporaryModifiers(const UColdSteelStatusModel* Profile)
 {
     FMeleeModifiers R;
