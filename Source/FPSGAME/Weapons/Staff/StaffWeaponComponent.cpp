@@ -5,6 +5,11 @@
 #include "StaffCatalog.h"
 #include "StaffGripPose.h"
 #include "StaffPrimaryAttackMotion.h"
+#include "StaffQuickCombatPose.h"
+#include "StaffQuickCombatMotion.h"
+#include "../../Skills/FPSQuickCombatComponent.h"
+#include "../../Skills/QuickCombatPistolMotion.h"
+#include "../MeleeSmallTargetQuery.h"
 #include "../WeaponStatEvaluation.h"
 #include "../../Combat/WeaponDamageTypes.h"
 #include "../../FPSGAMECharacter.h"
@@ -216,6 +221,8 @@ void UStaffWeaponComponent::BeginPrimaryAttack()
 }
 void UStaffWeaponComponent::CancelAction()
 {
+    if(IsQuickCombatActive())
+        if(auto* Quick=GetOwner()->FindComponentByClass<UFPSQuickCombatComponent>())Quick->Cancel();
     IlluminationGestureAge=-1.f;
     Age=-1;HitActors.Reset();bBlocked=false;HitStopRemaining=0;ImpactAge=-1;ImpactStrength=0;
     bSwingSoundPlayed=false;bAirImpulse=false;bImpactConfirmed=false;
@@ -237,16 +244,29 @@ void UStaffWeaponComponent::ConfirmImpact(const FHitResult& Hit,bool bWorld)
 void UStaffWeaponComponent::TraceSwing(const FTransform& From,const FTransform& To)
 {
     if(bBlocked)return;
+    auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());if(!Pawn)return;
+    const FTransform Aim=Pawn->GetMeleeAimTransform();
+    const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    // QuickCombatStats copies this cached definition's range unchanged. Read
+    // the range alone, without recomputing damage/modifiers for every substep.
+    const float Reach=Profile?Profile->QuickCombatDefinition().QuickCombat.RangeCM:FQuickCombatTuning{}.RangeCM;
+    const float Radius=Pawn->HasOffhandPistol()?QuickCombatPistolMotion::QueryRadiusCM:StaffQuickCombatMotion::QueryRadiusCM;
+    const FVector Start=To.TransformPosition(StaffGripPose::HoldPoint());
     FCollisionQueryParams Q(SCENE_QUERY_STAT(StaffSwing),false,GetOwner());
     for(const auto& Actor:HitActors)if(Actor.IsValid())Q.AddIgnoredActor(Actor.Get());
     TArray<FHitResult,TInlineAllocator<8>> Contacts;
-    // Upper shaft and crystal tip (model Z=32..80), including the old missing
-    // last eight cm. Sweep substeps use aim, never the cosmetic impact shake.
+    // Use quick melee's forward sphere and low-target coverage, while retaining
+    // the ordinary swing's per-target cleave. A rear windup is not a strike.
+    if(FVector::DotProduct(Start-Aim.GetLocation(),Aim.GetUnitAxis(EAxis::X))>=0.f)
+        Contacts.Append(MeleeSmallTargets::QueryQuickAreaContacts(GetWorld(),Pawn,Aim,Start,Reach,Radius));
+    // Keep actual shaft/tip contact with scenery and its blocked recovery.
+    // Monster damage now comes exclusively from the shared range query above.
     for(int32 Segment=0;Segment<=6;++Segment)
     {
         const FVector Local(0,0,32.f+Segment*8.f),A=From.TransformPosition(Local),B=To.TransformPosition(Local);
         FHitResult Hit;
-        if(GetWorld()->SweepSingleByChannel(Hit,A,B,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(Segment==6?6.f:4.5f),Q))Contacts.Add(Hit);
+        if(GetWorld()->SweepSingleByChannel(Hit,A,B,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(Segment==6?6.f:4.5f),Q))
+            if(const auto* Actor=Hit.GetActor();Actor&&!Actor->FindComponentByClass<UMonsterCombatComponent>())Contacts.Add(Hit);
     }
     Contacts.Sort([](const FHitResult& A,const FHitResult& B){return A.Time<B.Time;});
     for(const auto& Hit:Contacts)
@@ -266,7 +286,7 @@ void UStaffWeaponComponent::TraceSwing(const FTransform& From,const FTransform& 
         if(Applied>0.f||Combat->IsDead())
         {
             ConfirmImpact(Hit,false);
-            if(auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner()))Pawn->NotifyConfirmedWeaponHit(Actor,Applied,&Receipt,false);
+            Pawn->NotifyConfirmedWeaponHit(Actor,Applied,&Receipt,false);
         }
     }
 }
@@ -279,6 +299,8 @@ void UStaffWeaponComponent::AdvanceActionBeforeCamera(float Delta)
     if(Health&&Health->IsDead()){bIlluminationOn=false;IlluminationBlend=0.f;}
     UpdateIllumination(Delta);
     if((PC&&PC->bShowMouseCursor)||(Health&&Health->IsDead())){CancelAction();return;}
+    if(auto* Quick=Pawn->FindComponentByClass<UFPSQuickCombatComponent>();Quick&&Quick->GetStyle()==EQuickCombatStyle::StaffPunch)
+        Quick->AdvanceAction(Delta);
     float Remaining=Delta;
     const FTransform Aim=Pawn->GetMeleeAimTransform();
     while(Remaining>UE_SMALL_NUMBER&&Age>=0.f)

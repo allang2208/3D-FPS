@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-02",
+  "branch": "main",
+  "remote": "https://github.com/allang2208/3D-FPS.git",
+  "scope": "本对话法杖、空手、枪械抓握、撞门及 ASH-12/弓姿态交接",
+  "door_revision": 2026100211,
+  "timing_seconds": {
+    "entry": 0.06,
+    "guard": 0.3,
+    "contact": 0.36,
+    "recovery": 0.197,
+    "total": 0.557
+  },
+  "source_saved": true,
+  "assets_saved_in_prior_production": true,
+  "builds": "此前完整本机工作区 Game/Editor 常规后台构建完成；本次不重新构建发布快照",
+  "publication_checks_only": true,
+  "game_tested_in_this_closeout": false,
+  "editor_opened": false,
+  "binary_assets_published": false,
+  "native_binding_exports_published": false,
+  "dense_pose_tables_published": false,
+  "generated_headers_restore": "以合法本机 pose/native 输入运行作者配方生成 DoorPush、Staff Charge/QuickPunch/Release 与 Unarmed 表；原有 Staff LeftGaitV16/PrimaryV28 也由其既有公开配方恢复",
+  "audio": "用户指定撞门.mp3，全长 0.672 秒双声道 ForceInline，仅本机保存",
+  "dependencies": "合法 V7 网格/服饰、各武器原生包、作者 donor/native/pose 数据及用户音频需本机恢复，见 Docs/AssetSetup.md",
+  "archive": "archive-manifest.json",
+  "source_manifest": "published-files.json"
+}

@@ -4,6 +4,7 @@
 #include "ColdSteelSkillRules.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../FPSGAMECharacter.h"
+#include "../FPSGAMEPlayerController.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "FPSCastingMeshComponent.h"
@@ -13,6 +14,8 @@
 #include "../Weapons/DualPistolQuickCombatMotion.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
 #include "../Weapons/Bow/BowQuickCombatMotion.h"
+#include "../Weapons/Staff/StaffWeaponComponent.h"
+#include "../Weapons/Staff/StaffQuickCombatMotion.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
@@ -72,6 +75,22 @@ void UFPSQuickCombatComponent::ConfigureForBow(float Length)
     AttackEnd=ClipLength;
 }
 
+void UFPSQuickCombatComponent::ConfigureForStaffPunch()
+{
+    Style=EQuickCombatStyle::StaffPunch;
+    ClipLength=AttackEnd=StaffQuickCombatMotion::Length;
+    ReleaseEnd=StaffQuickCombatMotion::Release;
+    CockEnd=StaffQuickCombatMotion::Cock;
+    ContactTime=StaffQuickCombatMotion::Contact;
+    FollowEnd=StaffQuickCombatMotion::Follow;
+}
+
+void UFPSQuickCombatComponent::ConfigureForStaffOffhandPistol(float Length)
+{
+    ConfigureForClipLength(Length,true);
+    Style=EQuickCombatStyle::StaffOffhandPistol;
+}
+
 EQuickCombatBashPhase UFPSQuickCombatComponent::PhaseForAge(float Age) const
 {
     if(Age<ReleaseEnd)return EQuickCombatBashPhase::Release;
@@ -118,7 +137,7 @@ float UFPSQuickCombatComponent::ActionDuration() const
         return BowQuickCombatMotion::PlaybackSeconds(AttackEnd,ClipLength)
             +(IsOccupyingLeftHand()&&ImpactStrength>0.f?BowQuickCombatMotion::HitStopSeconds:0.f);
     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
-    if(Player&&Player->bUseASH12&&!IsPistolStyle()&&Style!=EQuickCombatStyle::Bow)
+    if(Player&&Player->bUseASH12&&IsRifleStyle())
         return ContactTime/QuickCombatRifleMotion::ASH12EntryRate
             +(AttackEnd-ContactTime)/QuickCombatRifleMotion::ASH12RecoveryRate
             +(IsOccupyingLeftHand()&&ImpactStrength>0.f?QuickCombatRifleMotion::ASH12HitStopSeconds:0.f);
@@ -132,7 +151,7 @@ float UFPSQuickCombatComponent::ActionRemaining() const
             -BowQuickCombatMotion::PlaybackSeconds(ActionAge,ClipLength))
             +(ImpactStrength>0.f?FMath::Max(0.f,BowQuickCombatMotion::HitStopSeconds-ImpactAge):0.f);
     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
-    if(Player&&Player->bUseASH12&&!IsPistolStyle()&&Style!=EQuickCombatStyle::Bow)
+    if(Player&&Player->bUseASH12&&IsRifleStyle())
         return FMath::Max(0.f,ContactTime-ActionAge)/QuickCombatRifleMotion::ASH12EntryRate
             +FMath::Max(0.f,AttackEnd-FMath::Max(ContactTime,ActionAge))/QuickCombatRifleMotion::ASH12RecoveryRate
             +(ImpactStrength>0.f?FMath::Max(0.f,QuickCombatRifleMotion::ASH12HitStopSeconds-ImpactAge):0.f);
@@ -151,7 +170,7 @@ bool UFPSQuickCombatComponent::IsImpactPaused() const
         return Phase!=EQuickCombatBashPhase::None&&ImpactStrength>0.f
             &&ImpactAge<BowQuickCombatMotion::HitStopSeconds;
     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
-    return Player&&Player->bUseASH12&&!IsPistolStyle()&&Style!=EQuickCombatStyle::Bow
+    return Player&&Player->bUseASH12&&IsRifleStyle()
         &&Phase!=EQuickCombatBashPhase::None&&ImpactStrength>0.f
         &&ImpactAge<QuickCombatRifleMotion::ASH12HitStopSeconds;
 }
@@ -206,6 +225,27 @@ void UFPSQuickCombatComponent::GetCameraMotion(FVector& Location,FRotator& Rotat
         AddImpact();
         return;
     }
+    if(Style==EQuickCombatStyle::StaffPunch)
+    {
+        const float T=PhaseFraction(),K=FMath::SmoothStep(0.f,1.f,T);
+        switch(Phase)
+        {
+        case EQuickCombatBashPhase::Release:
+            Location=FVector(-.15f,-.1f,.12f)*K;Rotation=FRotator(.1f,.15f,.12f)*K;break;
+        case EQuickCombatBashPhase::Cock:
+            Location=FMath::Lerp(FVector(-.15f,-.1f,.12f),FVector(-.65f,-.2f,.2f),K);
+            Rotation=FMath::Lerp(FRotator(.1f,.15f,.12f),FRotator(.35f,.4f,.3f),K);break;
+        case EQuickCombatBashPhase::Smash:
+            Location=FMath::Lerp(FVector(-.65f,-.2f,.2f),FVector(2.6f,.35f,-.35f),T*T);
+            Rotation=FMath::Lerp(FRotator(.35f,.4f,.3f),FRotator(-.8f,-.9f,-.4f),T*T);break;
+        case EQuickCombatBashPhase::Follow:
+            Location=FMath::Lerp(FVector(2.6f,.35f,-.35f),FVector(.25f,.1f,-.1f),K);
+            Rotation=FMath::Lerp(FRotator(-.8f,-.9f,-.4f),FRotator(-.15f,-.15f,-.1f),K);break;
+        default:
+            Location=FVector(.25f,.1f,-.1f)*(1.f-K);Rotation=FRotator(-.15f,-.15f,-.1f)*(1.f-K);break;
+        }
+        AddImpact();return;
+    }
     if(Style==EQuickCombatStyle::Bow)
     {
         // Short backward loading, a straight forward drive, then recoil.
@@ -232,11 +272,11 @@ void UFPSQuickCombatComponent::GetCameraMotion(FVector& Location,FRotator& Rotat
         AddImpact();
         return;
     }
-    if(Style==EQuickCombatStyle::DualPistol)
+    if(Style==EQuickCombatStyle::DualPistol||Style==EQuickCombatStyle::StaffOffhandPistol)
     {
         // Follow the lateral whip, leaving the gun roll to the authored bones.
         // The sign follows the same accepted action as the contact probe.
-        const float Sign=DualPistolQuickCombatMotion::StrikingHand(Serial)==0?1.f:-1.f;
+        const float Sign=Style==EQuickCombatStyle::StaffOffhandPistol?-1.f:DualPistolQuickCombatMotion::StrikingHand(Serial)==0?1.f:-1.f;
         const float U=ActionAge/FMath::Max(ClipLength,.001f);
         const float Contact=DualPistolQuickCombatMotion::ContactFraction;
         const float Follow=DualPistolQuickCombatMotion::FollowFraction;
@@ -308,9 +348,11 @@ void UFPSQuickCombatComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     // The character advances ASH before sampling its pose and camera. Never
     // advance twice or let the wall-clock state finish through a hit stop.
     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
-    if(Player&&Player->IsDualWieldingPistols()&&Style==EQuickCombatStyle::DualPistol)return;
+    if(Player&&Player->HasOffhandPistol()&&(Style==EQuickCombatStyle::DualPistol||Style==EQuickCombatStyle::StaffOffhandPistol))return;
+    if(Style==EQuickCombatStyle::StaffPunch&&Player)
+        if(const auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())return;
     if(Style==EQuickCombatStyle::Bow&&IsOccupyingLeftHand())return;
-    if(Player&&Player->bUseASH12&&!IsPistolStyle()&&IsOccupyingLeftHand())return;
+    if(Player&&Player->bUseASH12&&IsRifleStyle()&&IsOccupyingLeftHand())return;
     AdvanceAction(Delta);
 }
 
@@ -323,14 +365,20 @@ void UFPSQuickCombatComponent::AdvanceAction(float Delta)
     // 单双持切换、换枪或死亡结束本次动作，体力不退还，保留已发生的修炼。
     const auto* Health=Player?Player->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
     const auto* Bow=Player?Player->FindComponentByClass<UBowWeaponComponent>():nullptr;
-    const bool bWeaponMatches=Player&&(Style==EQuickCombatStyle::Bow
+    const auto* Staff=Player?Player->FindComponentByClass<UStaffWeaponComponent>():nullptr;
+    const auto* Dual=Player?Player->FindComponentByClass<UPistolDualWieldComponent>():nullptr;
+    const bool bStaff=Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::StaffOffhandPistol;
+    const bool bWeaponMatches=Player&&(bStaff
+        ?(Staff&&Staff->IsEquipped()&&(Style==EQuickCombatStyle::StaffPunch?!Player->HasOffhandPistol():Dual&&Dual->IsOffhandOnly())
+            &&!Player->IsTraversing()&&!AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Player->GetController())))
+        :Style==EQuickCombatStyle::Bow
         ?(Bow&&Bow->IsEquipped())
         :Style==EQuickCombatStyle::DualPistol
         ?Player->IsDualWieldingPistols()
         :(!IsPistolStyle()?!Player->IsPistolWeapon()
             :(Player->IsPistolWeapon()&&!Player->IsDualWieldingPistols())));
     if(!Player||!bWeaponMatches||(Health&&Health->IsDead())){Cancel();return;}
-    const bool bASH12=Player->bUseASH12&&!IsPistolStyle()&&Style!=EQuickCombatStyle::Bow;
+    const bool bASH12=Player->bUseASH12&&IsRifleStyle();
     if(Style==EQuickCombatStyle::Bow)
     {
         using namespace BowQuickCombatMotion;
@@ -396,6 +444,17 @@ void UFPSQuickCombatComponent::AdvanceAction(float Delta)
         ActionAge+=Remaining*ASH12RecoveryRate;
         Phase=PhaseForAge(ActionAge);
     }
+    else if(bStaff)
+    {
+        const float NextAge=ActionAge+Delta;
+        if(!bContactDone&&NextAge>=ContactTime)
+        {
+            // Contact reads the same authored frame even when a hitch crosses it.
+            ActionAge=ContactTime;Phase=PhaseForAge(ActionAge);
+            bContactDone=true;ContactHit();
+        }
+        ActionAge=NextAge;Phase=PhaseForAge(ActionAge);
+    }
     else
     {
         ActionAge+=Delta;
@@ -418,7 +477,7 @@ void UFPSQuickCombatComponent::ContactHit()
     FVector Start=Aim.GetLocation();
     FVector ProbeOrigin=FVector::ZeroVector;
     auto* Viewmodel=Player->FindComponentByClass<UFPSCastingMeshComponent>();
-    if(Player->bUseASH12&&Viewmodel&&Style!=EQuickCombatStyle::Bow)
+    if(Player->bUseASH12&&Viewmodel&&IsRifleStyle())
     {
         // Evaluate the exact contact pose once before the sweep. The faster
         // entry must not trace from the previous frame's wind-up position.
@@ -432,12 +491,17 @@ void UFPSQuickCombatComponent::ContactHit()
     }
     // 手枪：握把底（手骨 + 相机空间偏移）；步枪：枪身前段（枪口沿枪轴回撤，跟随实际挥击姿态）。
     const bool bBow=Style==EQuickCombatStyle::Bow;
-    const bool bRifle=!IsPistolStyle()&&!bBow;
+    const bool bPunch=Style==EQuickCombatStyle::StaffPunch;
+    const bool bOffhand=Style==EQuickCombatStyle::StaffOffhandPistol;
+    const bool bRifle=IsRifleStyle();
     auto* Dual=Player->FindComponentByClass<UPistolDualWieldComponent>();
     auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();
-    const bool bProbe=bBow
+    auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();
+    const bool bProbe=bPunch
+        ?(Staff&&Staff->GetQuickCombatStrikeProbe(ProbeOrigin,ContactTime))
+        :bBow
         ?(Bow&&Bow->GetQuickCombatStrikeProbe(ProbeOrigin,ContactTime))
-        :Style==EQuickCombatStyle::DualPistol
+        :(Style==EQuickCombatStyle::DualPistol||bOffhand)
         ?(Dual&&Dual->GetQuickCombatStrikeProbe(ProbeOrigin,ContactTime))
         :(bRifle
             ?(Viewmodel&&Viewmodel->GetRifleStockMeleeProbe(ProbeOrigin,Style==EQuickCombatStyle::M4ReferenceRifle))
@@ -445,7 +509,7 @@ void UFPSQuickCombatComponent::ContactHit()
     if(bProbe)Start=ProbeOrigin;
     FHitResult Hit;
     // 单目标：实际接触优先；小手低位范围补充共用同一次伤害结算。
-    const float Radius=bBow?BowQuickCombatMotion::QueryRadiusCM
+    const float Radius=bPunch?StaffQuickCombatMotion::QueryRadiusCM:bBow?BowQuickCombatMotion::QueryRadiusCM
         :bRifle?QuickCombatRifleMotion::QueryRadiusCM:QuickCombatPistolMotion::QueryRadiusCM;
     const bool bHit=MeleeSmallTargets::QueryQuickContact(GetWorld(),Player,Aim,Start,Stats.RangeCM,Radius,Hit);
     // One impulse per damage query, including misses. Keep hit confirmation
@@ -456,15 +520,22 @@ void UFPSQuickCombatComponent::ContactHit()
     const FString TargetName=Target?Target->GetName():FString(TEXT("无"));
     // R0 诊断：一次动作只打一行，标出射线来源、起点与命中对象，方便对实机反馈。
     UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 接触 武器=%s 射线=%s 起点=%s 方向=%s 距离=%.0f 目标=%s"),
-        bBow?TEXT("弓"):bRifle?TEXT("步枪"):TEXT("手枪"),
-        bProbe?(bBow?TEXT("弓身下段"):bRifle?(Style==EQuickCombatStyle::M4ReferenceRifle?TEXT("M4枪托"):TEXT("枪身前段")):TEXT("握把底")):TEXT("眼位回退"),
+        bPunch?TEXT("法杖左拳"):bOffhand?TEXT("法杖副手枪"):bBow?TEXT("弓"):bRifle?TEXT("步枪"):TEXT("手枪"),
+        bProbe?(bPunch?TEXT("左拳指节"):bOffhand?TEXT("左手持枪拳"):bBow?TEXT("弓身下段"):bRifle?(Style==EQuickCombatStyle::M4ReferenceRifle?TEXT("M4枪托"):TEXT("枪身前段")):TEXT("握把底")):TEXT("眼位回退"),
         *Start.ToCompactString(),*Direction.ToCompactString(),Stats.RangeCM,*TargetName);
     if(bHit && UWardBreakableGlass::BreakHit(Hit,Direction))
     {ImpactAge=0.f;ImpactStrength=1.f;return;}
     auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
     if(!Combat||Combat->IsDead())return;
     const bool Eligible=!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining"));
-    auto Shot=ColdSteelSkills::Snapshot(Player,bBow?Profile->ActiveBow():Profile->Equipped());
+    FColdSteelSkillShot Shot;
+    if(bPunch)
+    {
+        // A bare fist must not inherit the held staff's rune/ammo/mastery effects.
+        Shot.CriticalChance=Profile->Derived(TEXT("crit"));
+        Shot.CriticalDamageBonus=Profile->CriticalStrikeEffect().CriticalDamageBonus;
+    }
+    else Shot=ColdSteelSkills::Snapshot(Player,bOffhand&&Dual?&Dual->Hand(1).Item:bBow?Profile->ActiveBow():Profile->Equipped());
     // 步枪版走 rifleMastery 修炼（与枪械命中同一口径），手枪版走 pistolMastery。
     Shot.bRifle=bRifle;Shot.bPistol=IsPistolStyle();Shot.WeakpointPercent=0;
     // 握把底/枪身砸击是钝器动作，按钝器折算削韧；同时标记为手持枪械发动的近战打击，

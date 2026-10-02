@@ -1,7 +1,11 @@
 #include "StaffArmsMeshComponent.h"
 #include "StaffWeaponComponent.h"
 #include "StaffGripPose.h"
+#include "StaffChargeFlow.h"
 #include "StaffFreeHandPose.h"
+#include "StaffQuickCombatPose.h"
+#include "../../Skills/FPSQuickCombatComponent.h"
+#include "../../Skills/FPSFireballComponent.h"
 #include "../../FPSGAMECharacter.h"
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
@@ -16,11 +20,11 @@ void UStaffArmsMeshComponent::CacheReferencePose()
     for(int32 I=0;I<RefComponent.Num();++I)
     {const int32 P=Skeleton.GetParentIndex(I);if(P>=0)RefComponent[I]=RefComponent[I]*RefComponent[P];}
 }
-FTransform UStaffArmsMeshComponent::AuthoredContactInCamera(const FStaffCastPose& Motion,int32 Variant)
+FTransform UStaffArmsMeshComponent::AuthoredContactInCamera(const FStaffCastPose& Motion,int32 Variant,bool bCharge)
 {
     auto* Mesh=GetSkeletalMeshAsset();if(!Mesh)return Motion.Contact;
     CacheReferencePose();
-    return StaffGripPose::ContactFromArm(StaffGripPose::Get(Mesh,RefComponent,Variant),Motion);
+    return StaffGripPose::ContactFromArm(StaffGripPose::Get(Mesh,RefComponent,Variant,bCharge),Motion,bCharge);
 }
 
 void UStaffArmsMeshComponent::FinalizeBoneTransform()
@@ -45,13 +49,15 @@ void UStaffArmsMeshComponent::FinalizeBoneTransform()
         auto& Pose=GetEditableComponentSpaceTransforms();
         if(Pose.Num()==RefComponent.Num())
         {
-            const auto& Authored=StaffGripPose::Get(Mesh,RefComponent,Weapon->GripVariant());
             const auto Motion=Weapon->ActionPoseInCamera();
+            const bool bCharge=!Weapon->IsPrimaryAttacking()&&StaffChargeFlow::UsesKeys(Motion);
+            const auto& Authored=StaffGripPose::Get(Mesh,RefComponent,Weapon->GripVariant(),bCharge);
             const auto& Carry=Weapon->CarryPose();
+            const auto* Magic=GetOwner()->FindComponentByClass<UFPSFireballComponent>();
             // Blend complete LOCAL transforms so interpolation preserves native
             // segment lengths and wrist/helper relationships across cast phases.
-            for(int32 I=0;I<Pose.Num();++I)Pose[I]=StaffGripPose::BlendLocal(Authored,Motion,I);
-            if(Authored.Lower>=0&&!Weapon->IsPrimaryAttacking())
+            for(int32 I=0;I<Pose.Num();++I)Pose[I]=StaffGripPose::BlendLocal(Authored,Motion,I,bCharge);
+            if(Authored.Lower>=0&&!Weapon->IsPrimaryAttacking()&&!bCharge&&(!Magic||!Magic->IsStaffCasting()))
             {
                 const float CarryWeight=Motion.ArmWeights[0]+Motion.ArmWeights[5];
                 const double Bend=FMath::DegreesToRadians(FMath::Clamp(Carry.RightElbow.X*.6+Carry.RightElbow.Z*.5,-3.,3.)*CarryWeight);
@@ -61,6 +67,9 @@ void UStaffArmsMeshComponent::FinalizeBoneTransform()
             const float FreeHandWeight=Carry.MoveWeight()*(Character&&Character->bIsCrouched?.6f:1.f);
             if(!OffhandPistol)
                 StaffFreeHandPose::Apply(Mesh,RefComponent,Pose,Carry.StridePhase(),FreeHandWeight,Carry.RunWeight(),Carry.MotionTime());
+            if(!OffhandPistol&&Weapon->IsQuickCombatActive())
+                if(const auto* Quick=GetOwner()->FindComponentByClass<UFPSQuickCombatComponent>();Quick&&Quick->GetStyle()==EQuickCombatStyle::StaffPunch)
+                    StaffQuickCombatPose::Apply(*this,RefComponent,Pose,Quick->GetActionAge(),Quick->GetActionSerial());
             for(int32 I=0;I<Pose.Num();++I)
             {const int32 P=Skeleton.GetParentIndex(I);if(P>=0)Pose[I]=Pose[I]*Pose[P];}
 

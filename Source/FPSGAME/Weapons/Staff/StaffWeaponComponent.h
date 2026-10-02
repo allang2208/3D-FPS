@@ -30,7 +30,11 @@ public:
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
     void RefreshEquipment(UColdSteelStatusModel* Profile);
     bool IsEquipped()const{return !Instance.IsEmpty();}
-    bool IsBusy()const{return Age>=0||EquipAge<.35f;}
+    bool IsBusy()const{return Age>=0||EquipAge<.35f||IsQuickCombatActive();}
+    bool IsEquipping()const{return IsEquipped()&&EquipAge<.35f;}
+    bool IsQuickCombatActive()const;
+    bool BeginQuickCombat();
+    bool GetQuickCombatStrikeProbe(FVector& Origin,float ContactTime);
     bool IsPrimaryAttacking()const{return Age>=0.f;}
     bool CanBeginCast()const;
     void BeginPrimaryAttack();

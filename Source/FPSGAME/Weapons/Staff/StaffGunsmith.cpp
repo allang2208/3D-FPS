@@ -24,7 +24,8 @@ void UGunsmithSystem::LoadStaffCatalog()
         const auto D=V->AsObject();FGunsmithWeapon W;W.Id=D->GetStringField(TEXT("id"));
         const auto I=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->CreateItem(W.Id);
         W.Model=TEXT("staff");W.Name=ColdSteelInventory::Text(I,TEXT("name"));W.Source=D;W.Allowed=StaffSlotKeys;W.Options=Options;
-        W.Base.Damage=ColdSteelInventory::Number(I,TEXT("melee_damage"),3);W.Base.Interval=.5;W.Base.Range=1.65;
+        W.Base.Damage=ColdSteelInventory::Number(I,TEXT("melee_damage"),3);W.Base.Interval=.5;
+        W.Base.Range=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->QuickCombatDefinition().QuickCombat.RangeCM/100.f;
         W.Base.Capacity=0;W.Base.Speed=W.Base.ADS=W.Base.Reload=W.Base.EmptyReload=0;
         StaffWeapons.Add(W.Id,MoveTemp(W));
     }

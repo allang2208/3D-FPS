@@ -1,5 +1,6 @@
 #include "FPSCastingMeshComponent.h"
 #include "../Items/FPSPotionUseComponent.h"
+#include "../Movement/FPSDoorPushComponent.h"
 #include "FPSFireballComponent.h"
 #include "QuickCombatPistolMotion.h"
 #include "QuickCombatRifleMotion.h"
@@ -48,6 +49,8 @@ void UFPSCastingMeshComponent::FinalizeBoneTransform()
     LMG201BeltDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
     if(bApplyLeftHandCast&&IsVisible()&&!bHiddenInGame&&GetOwner())
         if(auto* Potion=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())Potion->ApplyHandPose(*this);
+    if(bApplyLeftHandCast&&IsVisible()&&!bHiddenInGame&&GetOwner())
+        if(auto* Push=GetOwner()->FindComponentByClass<UFPSDoorPushComponent>();Push&&Push->IsActive())Push->ApplyHandPose(*this);
     OutfitArmClearance.Apply(*this, GetEditableComponentSpaceTransforms());
     Super::FinalizeBoneTransform();
 }

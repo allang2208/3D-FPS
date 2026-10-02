@@ -16,6 +16,8 @@
 #include "Weapons/RuneOrbBladesComponent.h"
 #include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/Staff/StaffWeaponComponent.h"
+#include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+#include "Movement/FPSDoorPushComponent.h"
 #include "Weapons/FrostRuneVisualDiagnosis.h"
 #include "Weapons/RuneSwordGuardTuning.h"
 #include "Skills/ColdSteelSkillRules.h"
@@ -213,6 +215,8 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     RuneOrbBlades=CreateDefaultSubobject<URuneOrbBladesComponent>(TEXT("RuneOrbBlades"));
     Bow=CreateDefaultSubobject<UBowWeaponComponent>(TEXT("Bow"));
     Staff=CreateDefaultSubobject<UStaffWeaponComponent>(TEXT("Staff"));
+    CreateDefaultSubobject<UFPSUnarmedIdleComponent>(TEXT("UnarmedIdle"));
+    DoorPush=CreateDefaultSubobject<UFPSDoorPushComponent>(TEXT("SprintDoorPush"));
     CreateDefaultSubobject<UFPSCombatHealthComponent>(TEXT("CombatHealth"));
     CreateDefaultSubobject<UFPSFireballComponent>(TEXT("FireballSkill"));
     CreateDefaultSubobject<UFPSPotionUseComponent>(TEXT("PotionUse"));
@@ -572,6 +576,11 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     if (bUsingReplacement) EquipAnimation = LoadAKMAnimation(TEXT("A_AKM_equip"));
     DrumSupportAnimations.Reset();
     WeaponGripProfiles.Reset();
+    if (LMG201WeaponAssets::Matches(AKMViewmodel))
+    {
+        TMap<TObjectPtr<UAnimSequence>, TObjectPtr<UAnimSequence>> BaseSupport;
+        InitializeWeaponGripFamily(TEXT("base"), BaseSupport);
+    }
     const bool bSharedDrum=InitializeWeaponGripFamily(TEXT("drum"),DrumSupportAnimations);
     if(!bSharedDrum && IsHK416Weapon())
     {
@@ -787,8 +796,10 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     UpdateWeaponFeedback(DeltaSeconds);
     // Camera, ground sway and held rigs consume the same takeoff state this frame.
     UpdateWeaponJumpPose(DeltaSeconds);
+    if(DoorPush)DoorPush->Advance(DeltaSeconds);
     UpdateCamera(DeltaSeconds);
     UpdateViewmodel(DeltaSeconds);
+    if(DoorPush)DoorPush->UpdatePresentation();
     UpdateScopePresentation();
     Traversal->UpdatePresentation(DeltaSeconds);
     if(BipodDeployment)BipodDeployment->ApplyPresentation();
@@ -892,7 +903,7 @@ void AFPSGAMECharacter::SprintReleased()
     bSprintHeld=false;
     if(RuneSword)RuneSword->ResetDashReadiness();
     SprintPressedAt=-1.0;
-    if (bTap) TryDodge();
+    if (bTap && !IsDoorPushActive()) TryDodge();
 }
 
 void AFPSGAMECharacter::SlidePressed()
@@ -1989,7 +2000,7 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     const bool bPKMReloadFraming = PKMLowpolyWeaponAssets::Matches(AKMViewmodel);
     const bool bClothReloadFraming=HasLMG201ClothBox()&&IsReloading();
     const bool bUseActionFraming = (bUsingM4Infima||bClothReloadFraming||RifleHipFraming.IsReady())
-        && !IsPistolWeapon() && !IsTraversing() && IsWeaponBusy() && WeaponState != EAKMWeaponState::Equipping;
+        && !IsPistolWeapon() && !IsTraversing() && !IsDoorPushActive() && IsWeaponBusy() && WeaponState != EAKMWeaponState::Equipping;
     float ActionFramingTarget = bUseActionFraming ? 1.0f : 0.0f;
     if(!QuickCombatPistol||!QuickCombatPistol->IsImpactPaused())
         M4ActionFramingAlpha = FMath::Lerp(M4ActionFramingAlpha, ActionFramingTarget,
@@ -3068,11 +3079,13 @@ bool AFPSGAMECharacter::IsSpellHandHeld() const
 }
 bool AFPSGAMECharacter::IsSpellHandBusy() const
 {
+    if(IsDoorPushActive())return true;
     if(Staff&&Staff->IsEquipped())return IsTraversing()||!Staff->CanBeginCast();
     return IsLeftHandBusyForCast();
 }
 bool AFPSGAMECharacter::IsLeftHandBusyForCast() const
 {
+    if(IsDoorPushActive())return true;
     if(Staff&&Staff->IsEquipped()&&!Staff->CanBeginCast())return true;
     if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
     if(HasOffhandPistol() && DualPistols->LeftBusy())return true;
@@ -3083,6 +3096,7 @@ bool AFPSGAMECharacter::IsLeftHandBusyForCast() const
 }
 bool AFPSGAMECharacter::IsCastingWithLeftHand() const
 {
+    if(IsDoorPushActive())return true;
     if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
     const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
     const auto* Bash=FindComponentByClass<UFPSQuickCombatComponent>();
@@ -3091,6 +3105,7 @@ bool AFPSGAMECharacter::IsCastingWithLeftHand() const
 bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return HasOffhandPistol(); }
 void AFPSGAMECharacter::SuspendWeaponForMenu()
 {
+    if(DoorPush)DoorPush->Cancel();
     if(auto* Potion=FindComponentByClass<UFPSPotionUseComponent>())Potion->Cancel();
     if(BipodDeployment)BipodDeployment->Release(true);
     CancelAmmoSelection();
@@ -3109,6 +3124,7 @@ void AFPSGAMECharacter::SuspendWeaponForMenu()
 }
 bool AFPSGAMECharacter::IsCastBlockingLeftHandAction() const
 {
+    if(IsDoorPushActive())return true;
     if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
     if(const auto* Bash=FindComponentByClass<UFPSQuickCombatComponent>();Bash&&Bash->IsOccupyingLeftHand())return true;
     // Staff gestures and their queued requests reserve the right hand. Keep
@@ -3122,6 +3138,7 @@ bool AFPSGAMECharacter::IsCastBlockingLeftHandAction() const
 }
 bool AFPSGAMECharacter::IsSpellGestureBlocking() const
 {
+    if(IsDoorPushActive())return true;
     const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
     const auto* Ice=FindComponentByClass<UFPSIceSpikeComponent>();
     if(const auto* IceWall=FindComponentByClass<UFPSIceWallComponent>();IceWall&&IceWall->HasQueuedAction())return true;
@@ -3169,7 +3186,8 @@ bool AFPSGAMECharacter::IsDualWieldingPistols() const { return DualPistols && Du
 bool AFPSGAMECharacter::HasOffhandPistol() const { return DualPistols && DualPistols->IsActive(); }
 bool AFPSGAMECharacter::IsWeaponFireHeld() const { return HasOffhandPistol()?DualPistols->HasHeldTrigger():bFireHeld; }
 bool AFPSGAMECharacter::IsReloading() const { return HasOffhandPistol()?DualPistols->IsReloading():WeaponState == EAKMWeaponState::Reloading || WeaponState == EAKMWeaponState::ReloadingEmpty; }
-bool AFPSGAMECharacter::IsWeaponBusy() const { return IsTraversing() || (RuneSword && RuneSword->IsBusy()) || (Staff && Staff->IsEquipped() && Staff->IsBusy()) || (HasOffhandPistol()?DualPistols->IsReloading():WeaponState != EAKMWeaponState::Idle) || (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand()); }
+bool AFPSGAMECharacter::IsDoorPushActive() const {return DoorPush&&DoorPush->IsActive();}
+bool AFPSGAMECharacter::IsWeaponBusy() const { return IsDoorPushActive() || IsTraversing() || (RuneSword && RuneSword->IsBusy()) || (Staff && Staff->IsEquipped() && Staff->IsBusy()) || (HasOffhandPistol()?DualPistols->IsReloading():WeaponState != EAKMWeaponState::Idle) || (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand()); }
 float AFPSGAMECharacter::HorizontalSpeed() const { return FVector(GetVelocity().X, GetVelocity().Y, 0.0f).Size(); }
 
 float AFPSGAMECharacter::VerticalToHorizontalFOV(float VerticalFOV) const

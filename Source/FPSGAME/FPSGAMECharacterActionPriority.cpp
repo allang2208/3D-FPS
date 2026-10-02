@@ -9,9 +9,11 @@
 #include "Weapons/WeaponBipodDeploymentComponent.h"
 #include "Weapons/RuneSwordComponent.h"
 #include "Weapons/Bow/BowWeaponComponent.h"
+#include "Weapons/Staff/StaffWeaponComponent.h"
 #include "Weapons/RuneOrbBladesComponent.h"
 #include "Production/ProductionToolComponent.h"
 #include "Movement/FPSTraversalComponent.h"
+#include "Movement/FPSDoorPushComponent.h"
 #include "Movement/FPSCharacterMovementComponent.h"
 #include "Monsters/FPSCombatHealthComponent.h"
 #include "Engine/GameInstance.h"
@@ -23,18 +25,19 @@ bool AFPSGAMECharacter::IsSwitchingWeapon() const
     if(HasOffhandPistol() && DualPistols->IsEquipping())return true;
     if(RuneSword && RuneSword->IsEquipped() && RuneSword->IsEquipping())return true;
     if(Bow && Bow->IsEquipped() && Bow->GetStage()==EBowStage::Equip)return true;
+    if(Staff && Staff->IsEquipping())return true;
     const auto* Tool=FindComponentByClass<UProductionToolComponent>();
     return Tool && Tool->IsEquipped() && Tool->IsEquipping();
 }
 
 bool AFPSGAMECharacter::CanStartQuickCombatPriority() const
 {
-    if(IsSwitchingWeapon() || bResolvingActionInterrupt || !IsLocallyControlled())return false;
+    if(IsDoorPushActive() || IsSwitchingWeapon() || bResolvingActionInterrupt || !IsLocallyControlled())return false;
     if(AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(GetController())))return false;
     if(const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();Health && Health->IsDead())return false;
     if(QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand())return false;
     if(RuneSword && RuneSword->IsQuickCombatActive())return false;
-    return bInventoryWeaponReady || (RuneSword && RuneSword->IsEquipped()) || (Bow && Bow->IsEquipped());
+    return bInventoryWeaponReady || (RuneSword && RuneSword->IsEquipped()) || (Bow && Bow->IsEquipped()) || (Staff && Staff->IsEquipped());
 }
 
 void AFPSGAMECharacter::InterruptActionsForPriority(bool bWeaponSwitch)
@@ -47,11 +50,13 @@ void AFPSGAMECharacter::InterruptActionsForPriority(bool bWeaponSwitch)
     if(Profile && !bWeaponSwitch)Profile->SyncRuntime();
     {
         TGuardValue<bool> Resolving(bResolvingActionInterrupt,true);
+        if(DoorPush)DoorPush->Cancel();
         if(auto* Potion=FindComponentByClass<UFPSPotionUseComponent>())Potion->Cancel();
         if(auto* Magic=FindComponentByClass<UFPSFireballComponent>())Magic->InterruptForPriority();
         if(QuickCombatPistol)QuickCombatPistol->Cancel();
         // Cancel the draw before FireReleased: priority interrupts never loose an arrow.
         if(Bow && Bow->IsEquipped())Bow->CancelAction();
+        if(Staff && Staff->IsEquipped())Staff->CancelAction();
         if(RuneSword && (RuneSword->IsBusy() || RuneSword->IsInspecting()))RuneSword->CancelAction();
         if(bWeaponSwitch && RuneOrbBlades)RuneOrbBlades->EndOrbit();
         if(auto* Tool=FindComponentByClass<UProductionToolComponent>())Tool->CancelUse();

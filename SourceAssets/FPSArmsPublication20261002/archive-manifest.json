@@ -1,0 +1,584 @@
+{
+  "date": "2026-10-02",
+  "scope": "本对话明确否定或替代的法杖左拳、积蓄及撞门作者动作和音效",
+  "archive_root": "trash/fps-arms-door-20261002",
+  "note": "归档历史仅供恢复，不直接执行旧脚本；当前作者输入、原生绑定及回退快照继续保留。",
+  "files": [
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/author_motion.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/author_motion.py",
+      "bytes": 13889,
+      "sha256": "b8cc95c46541086d4ee08c3e858023682203da09f5670deaafe36ec8b66aa892",
+      "reason": "初版作者动作已被完整握拳及原生整链复用替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/authored-parameters.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/authored-parameters.json",
+      "bytes": 5522,
+      "sha256": "226e78ae60ea08de626312633831065689de43046a5a48774ac0d141bddccdfa",
+      "reason": "初版作者动作已被完整握拳及原生整链复用替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/authored-source-completion.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/authored-source-completion.json",
+      "bytes": 446,
+      "sha256": "a5f547a04c06cd11612571aa139624c36ba130da794483448496e98103f72cfb",
+      "reason": "初版作者动作已被完整握拳及原生整链复用替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/DoorPush_LeftFist_V7_20261002.blend",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/DoorPush_LeftFist_V7_20261002.blend",
+      "bytes": 2437531,
+      "sha256": "72311c46319ed7368894022fc12996c8967ca7d20b024d5df7dbb1098921f026",
+      "reason": "初版作者动作已被完整握拳及原生整链复用替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/DoorPushAuthored20261002.h",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/DoorPushAuthored20261002.h",
+      "bytes": 24524,
+      "sha256": "acab5e53027163bd961790dea19981990ff96417e7fb3db6e173dba7765c78b3",
+      "reason": "初版作者动作已被完整握拳及原生整链复用替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/editable-source.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/editable-source.json",
+      "bytes": 880,
+      "sha256": "8b69a212252ed7bca5dc101ba893bb847c5d800360b3ee5fbaade7fcb7be5d97",
+      "reason": "初版作者动作已被完整握拳及原生整链复用替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/full-pose.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/full-pose.json",
+      "bytes": 325439,
+      "sha256": "e9c0b290b163dbe3405e0b0afa4484e2566b3e104edbc208c0f5317b708fc5c0",
+      "reason": "初版作者动作已被完整握拳及原生整链复用替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/README.md",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/README.md",
+      "bytes": 2920,
+      "sha256": "9dafa073add617c0fa2003fdf811f283a01a60490425ae24cb85cfaa8236df7a",
+      "reason": "初版作者动作已被完整握拳及原生整链复用替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/save_editable.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV2/BeforeAuthored/save_editable.py",
+      "bytes": 5500,
+      "sha256": "2c1020af0d4a76929c022e893d626c46ce30f31eb59cd36137a11a23ebf601f6",
+      "reason": "初版作者动作已被完整握拳及原生整链复用替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/author_motion.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/author_motion.py",
+      "bytes": 14687,
+      "sha256": "1a44d425a1891a2d2b81e1e5ff61242aaccbb1bc409a0bd5cbbfc8d11fca93c2",
+      "reason": "旧空手待机拳形和推搡动作已被否定",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/authored-parameters.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/authored-parameters.json",
+      "bytes": 15188,
+      "sha256": "0d7126377d6b774018f8f985c5658551b497d5675fa57a6c159869d31d73b072",
+      "reason": "旧空手待机拳形和推搡动作已被否定",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/authored-source-completion.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/authored-source-completion.json",
+      "bytes": 1073,
+      "sha256": "70b11ab6bcee834dd9a57fab832132502e5c9c556a486b3e79725f062a88b82c",
+      "reason": "旧空手待机拳形和推搡动作已被否定",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/DoorPush_LeftFist_V7_20261002.blend",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/DoorPush_LeftFist_V7_20261002.blend",
+      "bytes": 2526928,
+      "sha256": "73869fcc3a4e0e7c4de14b4ee4b49aac231c369d2e6e14781c969e5922ebefb3",
+      "reason": "旧空手待机拳形和推搡动作已被否定",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/DoorPushAuthored20261002.h",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/DoorPushAuthored20261002.h",
+      "bytes": 27296,
+      "sha256": "57e39ffce5ad4b0e794f8d99a218443204b720d8fae76eb09939bc49324318d6",
+      "reason": "旧空手待机拳形和推搡动作已被否定",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/editable-source.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/editable-source.json",
+      "bytes": 1245,
+      "sha256": "7daa33771bfca959e40df68ee0013ba400934cde9616fc06beb6ecb658e55fb9",
+      "reason": "旧空手待机拳形和推搡动作已被否定",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/full-pose.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/full-pose.json",
+      "bytes": 370357,
+      "sha256": "1617ea6e0ead8464835a48b039c97ea4d7d954c749118f023ebb9fb837589bb3",
+      "reason": "旧空手待机拳形和推搡动作已被否定",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/README.md",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/README.md",
+      "bytes": 2715,
+      "sha256": "640f63755671c04ceaba09e3a3c0eed3ba6f91145b0bdb0d1b7416d067da9d68",
+      "reason": "旧空手待机拳形和推搡动作已被否定",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/save_editable.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeAuthored/save_editable.py",
+      "bytes": 6043,
+      "sha256": "19e8df3debacbed134372f52b98700e52e24e31b595bbc77c6ef50eccd1be117",
+      "reason": "旧空手待机拳形和推搡动作已被否定",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/author_motion.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/author_motion.py",
+      "bytes": 16133,
+      "sha256": "19141e86cd3ebd4bec0601e99ebf53fd2a0fd260ce570edf6c16fdd7816d86c9",
+      "reason": "中间动作尝试已被完整法杖快速近战来源替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/authored-parameters.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/authored-parameters.json",
+      "bytes": 15789,
+      "sha256": "5885f550c38504cca71345f75a06358565b318c28d677d8828440eeb202765c0",
+      "reason": "中间动作尝试已被完整法杖快速近战来源替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/authored-source-completion.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/authored-source-completion.json",
+      "bytes": 1418,
+      "sha256": "62becb9dd9ffd674b080ffc6cede36b76fdd082a133655d913882851bf11a923",
+      "reason": "中间动作尝试已被完整法杖快速近战来源替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/DoorPush_LeftFist_V7_20261002.blend",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/DoorPush_LeftFist_V7_20261002.blend",
+      "bytes": 3513870,
+      "sha256": "b6cd365a290da90e9cecf4202048b37f4b0ee31ca45bd474a53cb5eca54d7f07",
+      "reason": "中间动作尝试已被完整法杖快速近战来源替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/DoorPushAuthored20261002.h",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/DoorPushAuthored20261002.h",
+      "bytes": 27926,
+      "sha256": "fa66bdb6fd7e8dfccc99ad3312c67226eec5f093fcae4c5f9e7e34d29ec8325a",
+      "reason": "中间动作尝试已被完整法杖快速近战来源替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/editable-source.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/editable-source.json",
+      "bytes": 1658,
+      "sha256": "5aa3a65924fb9c450d4d34dd90db6b2546fb3fc1341b0b15170d122e54780bad",
+      "reason": "中间动作尝试已被完整法杖快速近战来源替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/full-pose.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/full-pose.json",
+      "bytes": 370953,
+      "sha256": "7cbf68bc42d9b595dc6a679a7adbaae2af8a1f790f9862027b56ba6bd96aed6d",
+      "reason": "中间动作尝试已被完整法杖快速近战来源替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/README.md",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/README.md",
+      "bytes": 3740,
+      "sha256": "3d57a704345937db712e008f8f432ed601619e775cb6e8b979ad49592b8da3cf",
+      "reason": "中间动作尝试已被完整法杖快速近战来源替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/save_editable.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/FixV3/BeforeFullActionReuse/save_editable.py",
+      "bytes": 6788,
+      "sha256": "b1ed68f6b7288edf6933eec9fecd9dc9dd679b1786dc3ec7d375eedd81d70590",
+      "reason": "中间动作尝试已被完整法杖快速近战来源替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/author_motion.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/author_motion.py",
+      "bytes": 14820,
+      "sha256": "5a4978b89a9dcc6e782b3d17f5bca121d8df8bd70b6859c8f34eb89a4af0f411",
+      "reason": "向前推、制动及回弹版本已取消",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/authored-parameters.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/authored-parameters.json",
+      "bytes": 16220,
+      "sha256": "92201314b81b97c37356a2fc37eaae23fc16ecb5ed5b5a1f3c4e30915dcafa00",
+      "reason": "向前推、制动及回弹版本已取消",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/authored-source-completion.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/authored-source-completion.json",
+      "bytes": 2088,
+      "sha256": "538e80998346a1da16d2ac40d84b056c518fdea885230ae7fb9a61fa2514e995",
+      "reason": "向前推、制动及回弹版本已取消",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/DoorPush_LeftFist_V7_20261002.blend",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/DoorPush_LeftFist_V7_20261002.blend",
+      "bytes": 3515039,
+      "sha256": "350e32af96d71f4ee14ca6d1e724dae2f4fe69a181e91351f6ca1fdcfc1fa365",
+      "reason": "向前推、制动及回弹版本已取消",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/DoorPushAuthored20261002.h",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/DoorPushAuthored20261002.h",
+      "bytes": 28044,
+      "sha256": "653fa800789eafc98577da8908e38f47fd26cc3b860f88ad8354a297aa1100a2",
+      "reason": "向前推、制动及回弹版本已取消",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/editable-source.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/editable-source.json",
+      "bytes": 1669,
+      "sha256": "e838b4a46c9dfa741239784344c8b73d424295f94ccf9607ce37d0bec68f39cb",
+      "reason": "向前推、制动及回弹版本已取消",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/full-pose.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/full-pose.json",
+      "bytes": 371409,
+      "sha256": "590ee61d2d22c11c60ad9f34cf4741622e6b0a42e28016b6e044120007417441",
+      "reason": "向前推、制动及回弹版本已取消",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/README.md",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/README.md",
+      "bytes": 3758,
+      "sha256": "064ba6e430927016c6fb06d4373e096c23edfade80756cc18f5c3ab9afb31920",
+      "reason": "向前推、制动及回弹版本已取消",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/save_editable.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardPoseV4_20261002/BeforeAuthored/save_editable.py",
+      "bytes": 8500,
+      "sha256": "e8099fbe4c55d8c20c29e9231ba919f7bf118e851bd81e43abb82ebdfc261b30",
+      "reason": "向前推、制动及回弹版本已取消",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/author_motion.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/author_motion.py",
+      "bytes": 20457,
+      "sha256": "82ad03c0215d0f92911eb4abcf318aa57952812033dd943a89874c514af6c5bb",
+      "reason": "0.5 秒护拳后前推版本已被 0.3 秒直接恢复替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/authored-parameters.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/authored-parameters.json",
+      "bytes": 18225,
+      "sha256": "c53aca3b86f56178079382371cc189c56b071ffce46d54242b6afb77d5ac875a",
+      "reason": "0.5 秒护拳后前推版本已被 0.3 秒直接恢复替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/authored-source-completion.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/authored-source-completion.json",
+      "bytes": 3681,
+      "sha256": "3ae5f390460b113f436517d334daf2e48140cb5e8b7eacf7e8138eeae8374198",
+      "reason": "0.5 秒护拳后前推版本已被 0.3 秒直接恢复替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/DoorPush_LeftFist_V7_20261002.blend",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/DoorPush_LeftFist_V7_20261002.blend",
+      "bytes": 4160365,
+      "sha256": "5d0fcc55ee797f417bd1137dd7a3c998fd2ca8fb96fb225b41c35f6aed3011e7",
+      "reason": "0.5 秒护拳后前推版本已被 0.3 秒直接恢复替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/DoorPushAuthored20261002.h",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/DoorPushAuthored20261002.h",
+      "bytes": 28169,
+      "sha256": "27e7b7573424f988f8330fc7468cd3b6c86a98d79ed90b6428ad0a1eac959649",
+      "reason": "0.5 秒护拳后前推版本已被 0.3 秒直接恢复替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/editable-source.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/editable-source.json",
+      "bytes": 3268,
+      "sha256": "3e34afd9c2066392ec261e6061df9eefac2f8ba9f98889ffb51b1508dba358d5",
+      "reason": "0.5 秒护拳后前推版本已被 0.3 秒直接恢复替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/full-pose.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/full-pose.json",
+      "bytes": 373912,
+      "sha256": "6e5ea2bf711f4e540f4e9850b10cea2ef7af782339e85be3ebb6d29244def218",
+      "reason": "0.5 秒护拳后前推版本已被 0.3 秒直接恢复替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/README.md",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/README.md",
+      "bytes": 3882,
+      "sha256": "4d6cf5a85d1d537289a3b386981018dac29b184e95d8a571be9b53e8e3b8b29b",
+      "reason": "0.5 秒护拳后前推版本已被 0.3 秒直接恢复替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/save_editable.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/GuardOnlyV5_20261002/BeforeAuthored/save_editable.py",
+      "bytes": 8838,
+      "sha256": "d2c847a8037a8beacaa2b1c04d60cc56970f6a88e4d57c582c44e8ef61b19af6",
+      "reason": "0.5 秒护拳后前推版本已被 0.3 秒直接恢复替代",
+      "replacement": "SourceAssets/DoorPush20261002/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/Audio20261002/256857_2276808-hq.mp3",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/Audio20261002/256857_2276808-hq.mp3",
+      "bytes": 45709,
+      "sha256": "1d573aada618eddd84cd63658f9e9bce60109c1ab922fdb9f904daf05eb7eb8d",
+      "reason": "外网候选音效已被用户指定完整撞门 MP3 替代",
+      "replacement": "SourceAssets/DoorPush20261002/UserAudio20261002"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/Audio20261002/author_audio.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/Audio20261002/author_audio.py",
+      "bytes": 3203,
+      "sha256": "064b9938a677a52e76d7736314aaf0725d8f46ac4f0028fb74b2018c4801f7a5",
+      "reason": "外网候选音效已被用户指定完整撞门 MP3 替代",
+      "replacement": "SourceAssets/DoorPush20261002/UserAudio20261002"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/Audio20261002/BeforeRuntime/FPSDoorPushComponent.cpp",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/Audio20261002/BeforeRuntime/FPSDoorPushComponent.cpp",
+      "bytes": 11392,
+      "sha256": "7ca5c5506ecb405c66663de234c5e68de7e4a2b9a03b77146e0476c378b0d81e",
+      "reason": "外网候选音效已被用户指定完整撞门 MP3 替代",
+      "replacement": "SourceAssets/DoorPush20261002/UserAudio20261002"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/Audio20261002/cc0-deed.html",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/Audio20261002/cc0-deed.html",
+      "bytes": 30248,
+      "sha256": "abb4d48fc8b85de52b377dd105532c6c549f515d492a8e1712bc99e7316a1f12",
+      "reason": "外网候选音效已被用户指定完整撞门 MP3 替代",
+      "replacement": "SourceAssets/DoorPush20261002/UserAudio20261002"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/Audio20261002/decoded-mono48.wav",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/Audio20261002/decoded-mono48.wav",
+      "bytes": 174206,
+      "sha256": "59e2f2151e484994bd075b5c09556ed4d235d5b02cc41b287d4244f43e7d4b33",
+      "reason": "外网候选音效已被用户指定完整撞门 MP3 替代",
+      "replacement": "SourceAssets/DoorPush20261002/UserAudio20261002"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/Audio20261002/import-receipt.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/Audio20261002/import-receipt.json",
+      "bytes": 563,
+      "sha256": "379cbf26265949128fb83e79dbca4ab37bb8482d5fc7a9605b7d28ebc224ad67",
+      "reason": "外网候选音效已被用户指定完整撞门 MP3 替代",
+      "replacement": "SourceAssets/DoorPush20261002/UserAudio20261002"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/Audio20261002/import_audio.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/Audio20261002/import_audio.py",
+      "bytes": 2810,
+      "sha256": "933fd3c5505d6d5f4eb3a6c840b5ec273306a2ca14bf408807447a2a5cbbd284",
+      "reason": "外网候选音效已被用户指定完整撞门 MP3 替代",
+      "replacement": "SourceAssets/DoorPush20261002/UserAudio20261002"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/Audio20261002/import_background.ps1",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/Audio20261002/import_background.ps1",
+      "bytes": 1420,
+      "sha256": "03c2db026ce8b092f57b06138e3521b97908ff6990b94d2ef6a2351627fe6789",
+      "reason": "外网候选音效已被用户指定完整撞门 MP3 替代",
+      "replacement": "SourceAssets/DoorPush20261002/UserAudio20261002"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/Audio20261002/production-receipt.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/Audio20261002/production-receipt.json",
+      "bytes": 1441,
+      "sha256": "30cc9abbbbdc2e3e8fe068a4d1bca4038ee90f842d5b5c48a875946f0360bd01",
+      "reason": "外网候选音效已被用户指定完整撞门 MP3 替代",
+      "replacement": "SourceAssets/DoorPush20261002/UserAudio20261002"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/Audio20261002/provenance.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/Audio20261002/provenance.json",
+      "bytes": 1569,
+      "sha256": "6baca3351b82587fdd7107d5905f5f6598341aa67b744513fa350693e9dcf751",
+      "reason": "外网候选音效已被用户指定完整撞门 MP3 替代",
+      "replacement": "SourceAssets/DoorPush20261002/UserAudio20261002"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/Audio20261002/README.md",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/Audio20261002/README.md",
+      "bytes": 1224,
+      "sha256": "16d683ebeb3ba0be385037b3f644f5b473a07f75318c5321dc322c77f8635042",
+      "reason": "外网候选音效已被用户指定完整撞门 MP3 替代",
+      "replacement": "SourceAssets/DoorPush20261002/UserAudio20261002"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/Audio20261002/S_DoorPushImpact.wav",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/Audio20261002/S_DoorPushImpact.wav",
+      "bytes": 62060,
+      "sha256": "227c5075651d51fe35d387d7942c4ac6977254a409bdf43ea7675e02c9fb3e36",
+      "reason": "外网候选音效已被用户指定完整撞门 MP3 替代",
+      "replacement": "SourceAssets/DoorPush20261002/UserAudio20261002"
+    },
+    {
+      "original": "SourceAssets/DoorPush20261002/Audio20261002/source-page.html",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/DoorPush20261002/Audio20261002/source-page.html",
+      "bytes": 44725,
+      "sha256": "c743193e946ad880a4e11f9eafbab6bfa2d77bc65b4cfd5882e676483bc23a55",
+      "reason": "外网候选音效已被用户指定完整撞门 MP3 替代",
+      "replacement": "SourceAssets/DoorPush20261002/UserAudio20261002"
+    },
+    {
+      "original": "SourceAssets/StaffQuickCombat20261001/FixV2/Before/author_punch.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/StaffQuickCombat20261001/FixV2/Before/author_punch.py",
+      "bytes": 10655,
+      "sha256": "b09c09e65973a1b7cebb2ce183237d9a7176a46f6ce0ab9f6e78f7579837615f",
+      "reason": "已否定的初版左拳姿态及制作输出",
+      "replacement": "SourceAssets/StaffQuickCombat20261001/author_punch.py"
+    },
+    {
+      "original": "SourceAssets/StaffQuickCombat20261001/FixV2/Before/DELIVERY.md",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/StaffQuickCombat20261001/FixV2/Before/DELIVERY.md",
+      "bytes": 1942,
+      "sha256": "dbffa28eb3763d35cad601e9d71dc2fb05603a9c0d79a60f299536d26fac178f",
+      "reason": "已否定的初版左拳姿态及制作输出",
+      "replacement": "SourceAssets/StaffQuickCombat20261001/author_punch.py"
+    },
+    {
+      "original": "SourceAssets/StaffQuickCombat20261001/FixV2/Before/full-pose.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/StaffQuickCombat20261001/FixV2/Before/full-pose.json",
+      "bytes": 327943,
+      "sha256": "5c72576e88bafd6bb0941e5caedc9f4bf7e505f17602ab39cd2b6bed175ea88b",
+      "reason": "已否定的初版左拳姿态及制作输出",
+      "replacement": "SourceAssets/StaffQuickCombat20261001/author_punch.py"
+    },
+    {
+      "original": "SourceAssets/StaffQuickCombat20261001/FixV2/Before/save_editable.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/StaffQuickCombat20261001/FixV2/Before/save_editable.py",
+      "bytes": 4235,
+      "sha256": "4c01ce15bc349c8c5690c3e19906d5c0f5905fa760faac3c31a0b937cbdd87ad",
+      "reason": "已否定的初版左拳姿态及制作输出",
+      "replacement": "SourceAssets/StaffQuickCombat20261001/author_punch.py"
+    },
+    {
+      "original": "SourceAssets/StaffQuickCombat20261001/FixV2/Before/Staff_FreeLeft_QuickPunch_20261001.blend",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/StaffQuickCombat20261001/FixV2/Before/Staff_FreeLeft_QuickPunch_20261001.blend",
+      "bytes": 27695336,
+      "sha256": "521d7f966739148e505d94877b8982a909a7ddde53f4ac0fb04869d2aaf2f5d9",
+      "reason": "已否定的初版左拳姿态及制作输出",
+      "replacement": "SourceAssets/StaffQuickCombat20261001/author_punch.py"
+    },
+    {
+      "original": "SourceAssets/StaffQuickCombat20261001/FixV2/Before/StaffAuthoredQuickPunch20261001.h",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/StaffQuickCombat20261001/FixV2/Before/StaffAuthoredQuickPunch20261001.h",
+      "bytes": 25997,
+      "sha256": "d043decc21290cdb0260d5ce55d317e91c1186461d4404e738543bb57ea0be9c",
+      "reason": "已否定的初版左拳姿态及制作输出",
+      "replacement": "SourceAssets/StaffQuickCombat20261001/author_punch.py"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/author_motion.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/author_motion.py",
+      "bytes": 11046,
+      "sha256": "85b569fd2fdf1e7898243e2fe6d05199adba1efa69577a1313a0f9dd002ff5b1",
+      "reason": "已否定的积蓄腕臂初版；同目录 full-pose.json 仍是当前作者输入，保留原位",
+      "replacement": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/save_editable.py",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/save_editable.py",
+      "bytes": 6160,
+      "sha256": "85fa697ad3c4f972be0863024ff8630d95db922590c64fdc3e533355c3b8e08e",
+      "reason": "已否定的积蓄腕臂初版；同目录 full-pose.json 仍是当前作者输入，保留原位",
+      "replacement": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/Staff_ChargeFlow20261001.blend",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/Staff_ChargeFlow20261001.blend",
+      "bytes": 37221672,
+      "sha256": "8938118cb9fe93bec39916b5df21b141b5664e8a2568fbb8d596bdbf3aa157a9",
+      "reason": "已否定的积蓄腕臂初版；同目录 full-pose.json 仍是当前作者输入，保留原位",
+      "replacement": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/StaffAuthoredChargeFlow20261001.h",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/StaffAuthoredChargeFlow20261001.h",
+      "bytes": 67253,
+      "sha256": "f1e4f1ebbaa778141a44e665d1539e61e70851d1384a97b71b31257c66e4803c",
+      "reason": "已否定的积蓄腕臂初版；同目录 full-pose.json 仍是当前作者输入，保留原位",
+      "replacement": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/StaffArmsMeshComponent.cpp",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/StaffArmsMeshComponent.cpp",
+      "bytes": 6540,
+      "sha256": "f2f61e5b743851e48bbf3d4581b4e6c99adfa8755759ea9141b4b36637fb4e32",
+      "reason": "已否定的积蓄腕臂初版；同目录 full-pose.json 仍是当前作者输入，保留原位",
+      "replacement": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/StaffGripPose.cpp",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/StaffGripPose.cpp",
+      "bytes": 6023,
+      "sha256": "7aba030e56c3145887a4aff675189656d6e62e1400cafade9ae0bde962b2b696",
+      "reason": "已否定的积蓄腕臂初版；同目录 full-pose.json 仍是当前作者输入，保留原位",
+      "replacement": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/editable-source.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/editable-source.json",
+      "bytes": 909,
+      "sha256": "6fc03de391d6f0a5c50c68649269b31a9cf67f150f83698db8e6aa6dc642fb7f",
+      "reason": "已否定的积蓄腕臂初版；同目录 full-pose.json 仍是当前作者输入，保留原位",
+      "replacement": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/author_motion.py"
+    },
+    {
+      "original": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/integration-completion.json",
+      "destination": "trash/fps-arms-door-20261002/SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/BeforeElbowRepair/integration-completion.json",
+      "bytes": 752,
+      "sha256": "98c7874472b0953598b1aed10bf81d040b285546cf34092de7aa9d9840d082d9",
+      "reason": "已否定的积蓄腕臂初版；同目录 full-pose.json 仍是当前作者输入，保留原位",
+      "replacement": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/author_motion.py"
+    }
+  ]
+}

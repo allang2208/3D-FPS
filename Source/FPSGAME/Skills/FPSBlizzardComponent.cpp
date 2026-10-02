@@ -10,6 +10,7 @@
 #include "../Building/VoxelBuildComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
+#include "../Weapons/Staff/StaffChargeFlow.h"
 #include "Camera/CameraComponent.h"
 #include "Engine/AssetManager.h"
 #include "Engine/StreamableManager.h"
@@ -228,7 +229,8 @@ FVector UFPSBlizzardComponent::CloudOrigin() const
     if(bStaffCloud)
     {
         const auto* Staff=GetOwner()->FindComponentByClass<UStaffWeaponComponent>();
-        FVector Focus=StaffCastMotion::Focus(StaffCastMotion::Raised());
+        FVector Focus=StaffCastMotion::Focus(Staff&&Staff->IsEquipped()?
+            StaffChargeFlow::Settled(*Staff):StaffCastMotion::Raised());
         if(!bGathered&&H&&H->IsSpellGesture(this)&&H->IsStaffCasting())
             if(Staff&&Staff->IsEquipped())
                 Focus=StaffCastMotion::Focus(H->SampleStaffMotion(Staff->CarryPoseInCamera()));

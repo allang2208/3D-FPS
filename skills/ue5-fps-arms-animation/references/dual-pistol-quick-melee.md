@@ -38,3 +38,9 @@ V5 已导入，必要 Live Coding 当时成功，尚未完成新一轮游戏／�
 ## 转枪检视派生已否定（2026-09-27）
 
 `SourceAssets/PistolSpinInspect20260927` 的 1.80 s 转枪检视已被用户否定并撤回，不作为认可基线。用户明确双持恢复改动前、不播放检视；单持左轮恢复 Upgrade20260914 的原版 4.966667 s 检视，M1911 复用原动作并适配自身握点与正常／空仓机械状态。新源在 `SourceAssets/M1911RevolverInspect20260927`，见宿主 `Docs/Weapons/m1911-original-revolver-inspect-20260927.md`。快速近战收尾转枪未改动；新 M1911 适配未做游戏或视觉验收。
+
+## 法杖副手 M1911 前伸腕臂修订（2026-10-01）
+
+用户反馈的法杖副手枪为 M1911。V5 只在 recover 的 `swing_weight` 窗口执行 `natural_hand` 与 `support_twist`；0.125 s 的蓄势和 0.18 s 接触此前没有完整腕臂支撑。只读源计算发现早段腕轴夹角超过 100°，固定肩腕后任意肘极仍不能充分修正。共享 Profile 重建局部差值和全 rig 瞄准并非缺陷起点。
+
+修订限定法杖副手 M1911 的六条左主攻片段：compact／fitted／long，各自正常与空仓。持枪组掌向与完整肩肘链一起调整，保留原生骨长、抓握关系、0.80／0.18 s 时钟及独立完整转枪；不改双持组合的原动作。新源 `SourceAssets/StaffQuickCombatFix20261001/M1911LeftArmV6`、新资产 `/Game/Weapons/StaffQuickCombatFix20261001/M1911/l`。完整记录见宿主 `Docs/Weapons/staff-quick-combat-20261001.md`，未据此宣称游戏视觉验收通过。

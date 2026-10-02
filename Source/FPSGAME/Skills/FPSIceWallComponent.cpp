@@ -10,6 +10,7 @@
 #include "../Combat/CombatStatusFormula.h"
 #include "../Building/VoxelBuildComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
+#include "../Weapons/Staff/StaffChargeFlow.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/GameInstance.h"
@@ -214,7 +215,9 @@ FVector UFPSIceWallComponent::SeedOrigin() const
             return Camera->GetComponentTransform().TransformPosition(StaffCastMotion::Focus(H->SampleStaffMotion(Staff->CarryPoseInCamera())));
     }
     // Same camera-space focus as a staff-gathered fireball, including its release windup.
-    return Camera->GetComponentTransform().TransformPosition(StaffCastMotion::Focus(StaffCastMotion::Raised()));
+    const auto* Staff=GetOwner()->FindComponentByClass<UStaffWeaponComponent>();
+    return Camera->GetComponentTransform().TransformPosition(StaffCastMotion::Focus(
+        Staff&&Staff->IsEquipped()?StaffChargeFlow::Settled(*Staff):StaffCastMotion::Raised()));
 }
 void UFPSIceWallComponent::InterruptPending(bool bCancelSeed)
 {bQueuedGather=false;SuspendPreview();if(bCancelSeed)Cancel();}

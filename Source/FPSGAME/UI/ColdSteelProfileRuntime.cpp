@@ -51,6 +51,8 @@ bool IsRetiredWeapon(const FString& Id)
 }
 bool RemoveRetiredWeapons(FColdSteelProfile& P)
 {
+    const int32 ActiveIndex=Owner(P.Items,1,P.ActiveWeaponSlot);
+    const bool RemovedActiveWeapon=ActiveIndex>=0&&IsRetiredWeapon(P.Items[ActiveIndex].Definition);
     TSet<FString> Removed;
     for (const auto& I : P.Items) if (IsRetiredWeapon(I.Definition)) Removed.Add(I.InstanceId);
     bool Changed = P.Items.RemoveAll([](const auto& I){ return IsRetiredWeapon(I.Definition); }) > 0;
@@ -67,7 +69,9 @@ bool RemoveRetiredWeapons(FColdSteelProfile& P)
         }
     }
     Changed |= P.AmmoPouch.Remove(TEXT("ammo_762x54r")) > 0;
-    if (Owner(P.Items,1,P.ActiveWeaponSlot)<0) {
+    // An intentionally selected empty loadout is a persistent unarmed state.
+    // Only removal of its active retired weapon should select the other loadout.
+    if (RemovedActiveWeapon) {
         const int32 Other=P.ActiveWeaponSlot==6?9:6;
         if (Owner(P.Items,1,Other)>=0) { P.ActiveWeaponSlot=Other; Changed=true; }
     }
@@ -556,7 +560,15 @@ const FColdSteelItem* UColdSteelStatusModel::FindItem(const FString& Id)const{re
 const FColdSteelItem* UColdSteelStatusModel::Equipped(int32 S)const{int32 N=Owner(Current.Items,1,S<0?Current.ActiveWeaponSlot:S);return N>=0?&Current.Items[N]:nullptr;}
 bool UColdSteelStatusModel::HasEquippedStaff() const
 {const auto* Item=Equipped();return Item&&!ActiveProductionTool()&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff");}
-bool UColdSteelStatusModel::CycleWeapon(){if(!Current.ActiveProductionTool.IsEmpty())return StowProductionTool();SyncRuntime();auto P=Snapshot();int32 Other=P.ActiveWeaponSlot==6?9:6;if(Owner(P.Items,1,Other)<0){Message=TEXT("另一组武器槽为空");return false;}P.ActiveWeaponSlot=Other;return CommitState(P);}
+bool UColdSteelStatusModel::CycleWeapon()
+{
+    if(!Current.ActiveProductionTool.IsEmpty())return StowProductionTool();
+    SyncRuntime();auto P=Snapshot();
+    // Cycle the two equipment loadouts even when the destination has no weapon.
+    // CommitState saves the selected slot and applies the existing unarmed path.
+    P.ActiveWeaponSlot=P.ActiveWeaponSlot==6?9:6;
+    return CommitState(P);
+}
 FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)const
 {
     FColdSteelItem I;I.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);I.Definition=Def;I.Count=Count;

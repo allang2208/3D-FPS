@@ -1,0 +1,777 @@
+{
+  "date": "2026-10-02",
+  "base_commit": "e8fa8a6018a606e4879fda0b9f1dd3a61171bcb4",
+  "note": "共享文件的 SHA-256 为精确提交候选；完整工作区含保留的其他改动。本清单自身不递归计散列。",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 101131,
+      "sha256": "9a2f46e290c109f1989b17cc34b24d9002f8dbce8e23e783b8bff7d25f5a2629"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 12466,
+      "sha256": "e21cd9d5a424b324058059d53efeaac9587f9d0fb39b0b794b4ba3d323816f50"
+    },
+    {
+      "path": "Content/ColdSteelData/staffs.json",
+      "bytes": 3028,
+      "sha256": "0e901f698cbd101788adbd6fee3851578aae81ead22d15892cf1820a4c327602"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 72241,
+      "sha256": "87056c6ab5ffd3330458b30c65756f3f3652d8f9a81e8200b9c738fca9ef344c"
+    },
+    {
+      "path": "Docs/Gameplay/ash12-door-guard-native-chain-fix-20261002.md",
+      "bytes": 2191,
+      "sha256": "c6fe8720ac8da17401a0957225eccbb6c1bf786099e9c451bd8ee3c7cc76c7dc"
+    },
+    {
+      "path": "Docs/Gameplay/bow-door-guard-handoff-fix-20261002.md",
+      "bytes": 1821,
+      "sha256": "4daa6f37dae7fad61807a89a16e4c994e3996bb81df01fc24b598855d1cc1a86"
+    },
+    {
+      "path": "Docs/Gameplay/door-other-weapons-binding-diagnosis-20261002.md",
+      "bytes": 6112,
+      "sha256": "6ad4435adbf43ff9ecfed2c774059b497ab2d8ffe79edd19f6160b52afd9c207"
+    },
+    {
+      "path": "Docs/Gameplay/door-push-audio-candidates-20261002.md",
+      "bytes": 4596,
+      "sha256": "3534a04b08d1c47ae76f79e332f91f958eee95523e5d469c95948e05c15dd56c"
+    },
+    {
+      "path": "Docs/Gameplay/door-push-feedback-all-weapons-v10-20261002.md",
+      "bytes": 2330,
+      "sha256": "02ea9bd112169a71cbe0e8d9664e06b48803e54a762d4997fdeb85e1db058829"
+    },
+    {
+      "path": "Docs/Gameplay/door-push-thumb-surface-contact-v9-20261002.md",
+      "bytes": 1355,
+      "sha256": "396d264ba40944d9d0e6684e8e5bb4b804bba97875250fa9da0933318d139e7a"
+    },
+    {
+      "path": "Docs/Gameplay/sprint-door-push-20261002.md",
+      "bytes": 18352,
+      "sha256": "f29d2023a6cd0009b50c984cc523a06ede4db4d9dbb4a97dbb0272fa7ad8a158"
+    },
+    {
+      "path": "Docs/Weapons/fps-arms-publication-20261002.md",
+      "bytes": 3777,
+      "sha256": "504499c998d3f8709fa245580a0fb4fc03e190019b0358a9c464b48d4dc3bbd2"
+    },
+    {
+      "path": "Docs/Weapons/hk416-reload-grip-20261001.md",
+      "bytes": 3411,
+      "sha256": "1432c5f119db15a74dab596829fd9afe343d04154c0fd7b5bc92d78008bdf273"
+    },
+    {
+      "path": "Docs/Weapons/lmg201-support-grasp-20261001.md",
+      "bytes": 2612,
+      "sha256": "98fd8fcb7664a6190b2c5d36f32739403793558e2ee88aa474a8ac53fa16f61f"
+    },
+    {
+      "path": "Docs/Weapons/m16-sprint-door-wrist-20261002.md",
+      "bytes": 2993,
+      "sha256": "a7b5a197aaef919fe561e322203932311945764f765d6a646a46c9d7d3150747"
+    },
+    {
+      "path": "Docs/Weapons/staff-charge-flow-20261001.md",
+      "bytes": 6675,
+      "sha256": "93f207f65c689fd3a621faefb6d6bfa31eb62680d2a7afbdc60f76c3a02b44a8"
+    },
+    {
+      "path": "Docs/Weapons/staff-primary-quick-range-20261001.md",
+      "bytes": 2932,
+      "sha256": "3ca49110d72cccb602c3775a527a5ae7bb4afa48f9871a744c46ca44d806ac8b"
+    },
+    {
+      "path": "Docs/Weapons/staff-quick-combat-20261001.md",
+      "bytes": 5025,
+      "sha256": "a4a09383b15bc5a8b12a6c6f2486340f4a23d9c90621d0df7cffbabe081a58ee"
+    },
+    {
+      "path": "Docs/Weapons/staff-release-anatomy-20261001.md",
+      "bytes": 5846,
+      "sha256": "bce9b89d5dc8e4a968cdd3ebab84ccc19ba0c407b5b2f09d001e81e962a51210"
+    },
+    {
+      "path": "Docs/Weapons/unarmed-idle-20261001.md",
+      "bytes": 4493,
+      "sha256": "7a836447250c2aabb4dec736d3d3c9d76c457701c576cfc7d037c5cc4172b402"
+    },
+    {
+      "path": "Docs/Weapons/unarmed-locomotion-20261001.md",
+      "bytes": 3818,
+      "sha256": "8719ca01e64c92422ba780f25749e8b427196314e06feaa7486ecf62ffddf334"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "bytes": 219072,
+      "sha256": "a8b293e70851f861e47955a9e0eba9646a810433f4dee609645dc57e1a1f0530"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "bytes": 44516,
+      "sha256": "a84fdac3715c5ff9295e6473ed4ed83b0b555bab3ad6d2c86ce3fd769e562db1"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+      "bytes": 4531,
+      "sha256": "52be86a812b49f6252691405c76efe8bd97fef1895edf02a4b2d2ca284ead026"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/DoorPushCameraShake.cpp",
+      "bytes": 1454,
+      "sha256": "98034bb5656fb3d027698990168440a7f62274a256c762e6381c261201b55a84"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/DoorPushCameraShake.h",
+      "bytes": 1091,
+      "sha256": "36c0d216911f714c1c60e2ed8c482648fde530ce7841997885ea0a40dfcaf7a9"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/DoorPushPoseLayer.cpp",
+      "bytes": 13445,
+      "sha256": "4ed09b103bef22e99bc1b19fbefa5e092cbfc1d237290d7d9e08c03727ec97f5"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/DoorPushPoseLayer.h",
+      "bytes": 916,
+      "sha256": "f16ef16f3d392acd5e1b27f1288064781f93c30a7b9839010bb25edfd7162a60"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSDoorPushComponent.cpp",
+      "bytes": 12082,
+      "sha256": "ac3a0dd3014ada795b85c80484ee80eb62eee5fd2d238111ca44d11373cf66a1"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSDoorPushComponent.h",
+      "bytes": 1326,
+      "sha256": "33edc320258d0cad09a6aeb1da1edbcb04f9477d24589d5e0d81aef15210b6e5"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "bytes": 18332,
+      "sha256": "9df86455dbd41059b88ab75892427255b28da688205c3f8af8f3b62f1416bbf8"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSBlizzardComponent.cpp",
+      "bytes": 17446,
+      "sha256": "f36952aec117ae61e63528b13a8f1c5eb1bc5b62635935bb5adf32b043d74559"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSCastingMeshComponent.cpp",
+      "bytes": 21372,
+      "sha256": "3a24f681dedaa3d7ef1f65d9a8fa1a3b60c47aa41144fc659a1724c8de1415f3"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.cpp",
+      "bytes": 28889,
+      "sha256": "11b80922ba68f39e26d3c695b1c5f4715c75785cec75a2d2ed4fd67554798fbf"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceWallComponent.cpp",
+      "bytes": 15765,
+      "sha256": "2dc57ba1242aedb9e39534d23f80219d095acd9652a150ccbffea54ef83e74e9"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "bytes": 28928,
+      "sha256": "7f496ecc8d8685267be584b88fbb65285579385b9fabca6ea2255c43d76f3e23"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+      "bytes": 4677,
+      "sha256": "d1ec1854e2be89d1b02056fc62e7645203ef565f2b080fe18735b2d36751f372"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSStaffCasting.cpp",
+      "bytes": 4870,
+      "sha256": "2c3d00d6ead982bbe1da3eea70410ee25212f0870a64bbc688ff7c1883fd132b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "bytes": 60487,
+      "sha256": "90825e780dfc6051c58716ecf33264328d528a473d7e76dbc86b3d010700d192"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "bytes": 84480,
+      "sha256": "3d9c82b48fd712e1e4a8eb7f3d2f8e0996149510b670ad3d356a8c550c8b7863"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+      "bytes": 15576,
+      "sha256": "037692a47f604befcab953521de4ed5029684d232f575c4f927acd8735e14a8b"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+      "bytes": 38269,
+      "sha256": "06108ce3b313961b1d7c8d3e5037c56b5ff4c1ea685b4179efb716bb085bbb78"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SVDGripProfiles.cpp",
+      "bytes": 1940,
+      "sha256": "090a4c8c1c311acb89adf314b6198e97ac6d752755d7d432903074440fb056ce"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffArmsMeshComponent.cpp",
+      "bytes": 6672,
+      "sha256": "ee74f529296472f7ac00bf315010bdcdb1ae11bc6e289022c517324e1fddaff2"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffArmsMeshComponent.h",
+      "bytes": 629,
+      "sha256": "c8ccaf7c132b861bfae73c6917629e05e3850b32dcdb0585158ae60074dbd3c1"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffCastMotion.h",
+      "bytes": 4889,
+      "sha256": "3aecd01dd40727e43be8ccb72b5b8152e5f08b65af0d8e4a99c08b2612562ef3"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffChargeFlow.cpp",
+      "bytes": 4225,
+      "sha256": "1f28a57d39b988ea4b74274011b8e7fc6aa9b08150bcfcdab06c8b2fbec31785"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffChargeFlow.h",
+      "bytes": 915,
+      "sha256": "bfc2173d55fa17b98464b8c57ab5aba0cfa93e31369380792855a2db7eacdbd1"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffGripPose.cpp",
+      "bytes": 8053,
+      "sha256": "41b245f04c4967ed656b189267eb12e9749666e8de0d79c246dc08116c25e93e"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffGripPose.h",
+      "bytes": 1024,
+      "sha256": "bfec038e78895212e69c6bb59705fb8fc303ee5675b575e86435124e6728dc2f"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffGunsmith.cpp",
+      "bytes": 1968,
+      "sha256": "097ecb649f8886e5dd4cd1f0e33cab68c778fb4351cf2e6af6e2695c4fff8730"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffQuickCombat.cpp",
+      "bytes": 2082,
+      "sha256": "2cd342d25546829ed94abbe32cec584810ccb3246b420b443a95c34e8da2c34a"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffQuickCombatMotion.h",
+      "bytes": 485,
+      "sha256": "e63b2f32baec11903a97889570a280695c731f40e44678a8ab55ee3e71d48180"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffQuickCombatPose.cpp",
+      "bytes": 4712,
+      "sha256": "f78cd60761d7c7ac56b7f88ede52aeef27122b59cf6337f6aa04269c37edeaee"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffQuickCombatPose.h",
+      "bytes": 337,
+      "sha256": "15c585dd10757b9b34af4feb8c581b16c1a34155958f100d67b123039359fd1f"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp",
+      "bytes": 21042,
+      "sha256": "8b18aa437d74f6dd8245812d08ce073d86ab29030c34b1f3a8f00ae8b0f3634b"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h",
+      "bytes": 4112,
+      "sha256": "4a43bbfb55b2d54fee9c14bc9fe2b09cf46f5b598fab4dd017a618b938453d7b"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.cpp",
+      "bytes": 13390,
+      "sha256": "d9952cc02b22059e458a6c8a254b25eb88007011d566b7d1c296823d2d8a04ae"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.h",
+      "bytes": 2135,
+      "sha256": "ffea63f2637d44ef64d53babdbc5a9f921e934da0c2f18ca0cda27c13603f2a9"
+    },
+    {
+      "path": "SourceAssets/ASH12DoorDiagnosis20261002/compare_binding_transfer.py",
+      "bytes": 4959,
+      "sha256": "9a29fc010693c0b5e30466252d58a21d0856920c5ac41bd5340634cfd620715b"
+    },
+    {
+      "path": "SourceAssets/ASH12DoorDiagnosis20261002/diagnosis.md",
+      "bytes": 2860,
+      "sha256": "8c3e5a7fd891fddce1a8e5dedf1987a125a3bdfeab64e4be37557607b3780243"
+    },
+    {
+      "path": "SourceAssets/ASH12DoorDiagnosis20261002/read_current_bindings.py",
+      "bytes": 1981,
+      "sha256": "a945e443ea110129d7174e1c96882f9624946f7a3f7b89b6dddcf5327bf7277d"
+    },
+    {
+      "path": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/DELIVERY.md",
+      "bytes": 1649,
+      "sha256": "e02cd9eccea4de6d7e81c881374955405fa0bf5ad1f0d909e2d118767a5fc177"
+    },
+    {
+      "path": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/ElbowRepair/build.ps1",
+      "bytes": 1377,
+      "sha256": "f2c2a94460172391ebd0d655b36deab3078dbf977208926e8b0669be451081b1"
+    },
+    {
+      "path": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/author_motion.py",
+      "bytes": 11017,
+      "sha256": "96bd3fa1ad33b802c0a6c03d3a6f14483149c03f0cbe4ec9ce2a24579c0d4d20"
+    },
+    {
+      "path": "SourceAssets/ApprenticeStaff20260927/ChargeFlow20261001/save_editable.py",
+      "bytes": 7103,
+      "sha256": "30514bed96e27ae0466f17d0fe0193ed9aae1ae8f96f4d329612d0ec8b53a1e4"
+    },
+    {
+      "path": "SourceAssets/ApprenticeStaff20260927/ReleaseAnatomy20261001/README.md",
+      "bytes": 2238,
+      "sha256": "de25122ea8c2b024156ba23443f41dec99f9a7436a2a8e31e481323b2d3e71b9"
+    },
+    {
+      "path": "SourceAssets/ApprenticeStaff20260927/ReleaseAnatomy20261001/author_motion.py",
+      "bytes": 14621,
+      "sha256": "f92ba8c5a761e1173bbf518cc91c08d0e4e509e29cee93fc3be6eba023e46f9e"
+    },
+    {
+      "path": "SourceAssets/ApprenticeStaff20260927/ReleaseAnatomy20261001/save_editable.py",
+      "bytes": 7242,
+      "sha256": "f1fe9bbf99a1d17e7f39adccb9c2d984d6775630f2436aaf34d23637ac8623e8"
+    },
+    {
+      "path": "SourceAssets/DoorOtherWeaponsDiagnosis20261002/compare_binding_transfer.py",
+      "bytes": 8777,
+      "sha256": "33cae79f96ee21567f1728ad65ca5a6497818d89b6a87debb167dd6c7eb6fcfb"
+    },
+    {
+      "path": "SourceAssets/DoorOtherWeaponsDiagnosis20261002/read_current_bindings.py",
+      "bytes": 2548,
+      "sha256": "2b9235ff019787de86798c089f2b96b7e9cba1f773b2f1a58832b0cda5c9b6c4"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/FeedbackAllWeaponsV10_20261002/finish_revision.py",
+      "bytes": 4496,
+      "sha256": "0f7ad2ed11b9e6f1f1fcae4147d25bdcb311d3ef1d72a8b8d5c8f760b2fe0386"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/GuardWristThumbV8_20261002/README.md",
+      "bytes": 1561,
+      "sha256": "73a5f5123d29b26a40a1ed0069aa115ae4f7a5cfb477371f1250fd9065100c37"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/GuardWristThumbV8_20261002/Thumb/README.md",
+      "bytes": 1937,
+      "sha256": "a672b9caa6316c50e2eb14fe15bb084eeae4fb3576b5405c7bdffd52a25681f8"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/GuardWristThumbV8_20261002/Thumb/author_thumb.py",
+      "bytes": 11622,
+      "sha256": "d013f8b609dec20c4ba0c9acdd64ca594751fef4dde84186e0210801ed3c649c"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/GuardWristThumbV8_20261002/Wrist/README.md",
+      "bytes": 2170,
+      "sha256": "0f3fd05c9ddce350a1f0e95f9f3d84a151a846fa56862f3e4cf2b292df69c583"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/GuardWristThumbV8_20261002/Wrist/author_wrist_weight_partition.py",
+      "bytes": 7966,
+      "sha256": "f571a5e50eedaf52cacc4735a5e01777c774b23c4393c4cadade036d95ae5595"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/GuardWristThumbV8_20261002/Wrist/install_wrist_weight_partition.py",
+      "bytes": 7017,
+      "sha256": "01c462954b595c8239b67198a778939bf00509c62677c74499fd5138e7c27e9f"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/GuardWristThumbV8_20261002/Wrist/save_editable.py",
+      "bytes": 384,
+      "sha256": "3fd6c71a08a45cfa3bd74e9de08fb42276cf66c620c63f143cbf8d3a96241cd6"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/GuardWristThumbV8_20261002/apply_revision.py",
+      "bytes": 4267,
+      "sha256": "369a3a6d4bbe50ea3e1f34d72ff16bebf9c35cbb93a69d7f6b222944431123a8"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/GuardWristThumbV8_20261002/finish_records.py",
+      "bytes": 4511,
+      "sha256": "ecd392fb83d25f8437002dfae780c76becca3b8143424bc2fa0c906fe1da186c"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/README.md",
+      "bytes": 2434,
+      "sha256": "c1668ee12c6b2cf0428a3cceaf403c1ed11a5fcf7314611fb056ef3e3a01f417"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/References/observations.md",
+      "bytes": 1687,
+      "sha256": "b20c9618940c0f48a2c7ebad440b314329330be0588116e6b5079e7e42d150b4"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/ThumbSurfaceContactV9_20261002/Surface/README.md",
+      "bytes": 2213,
+      "sha256": "9bf8316d993a81a8bc2c3c93994bcab864434e3f54d6e1f3db31233f326bfa0b"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/ThumbSurfaceContactV9_20261002/Surface/author_thumb_surface.py",
+      "bytes": 8073,
+      "sha256": "8d1e9f19e597ded65c52ce9a69eac46154d667761748f1d709e1319a245789fc"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/ThumbSurfaceContactV9_20261002/Surface/skin_surface_thumb_v9.hlsl",
+      "bytes": 8207,
+      "sha256": "1dbb23f0e2d284f7dca6b3e96e1d8727f5a15f77318cf25e5937f0899d524e05"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/ThumbSurfaceContactV9_20261002/install_thumb_surface.py",
+      "bytes": 7244,
+      "sha256": "24b3314ea07e46d3e855e5e969c14fc6d645ee7b52ef9a67b31a747ac43ef159"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/ThumbSurfaceContactV9_20261002/read_current_material.py",
+      "bytes": 2049,
+      "sha256": "a8a010b04f0679d0970f7bc8b1eaf1d81050d3a220851f6aab5905ef3a5e6ef6"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/UserAudio20261002/README.md",
+      "bytes": 1048,
+      "sha256": "e65768ec7de75e5175880e2545214b031bc5ec8cce3b17c96d04a1fe7d1f3029"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/UserAudio20261002/finish_receipts.py",
+      "bytes": 4908,
+      "sha256": "04273eb6260091bd656defaebaefb4ab9c3e1d9076999b5bcd89d660963c2755"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/UserAudio20261002/import_audio.py",
+      "bytes": 3387,
+      "sha256": "266aa48c48991e6283d16dbf725e3f31f2b26cd1228c3623cfee4320e6433675"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/UserAudio20261002/prepare_audio.ps1",
+      "bytes": 1762,
+      "sha256": "88be2a3b5f298114025b61b9df151fe595682d8cf4508918be0fa9c50933b575"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/author_motion.py",
+      "bytes": 22290,
+      "sha256": "e2b0fc7ba2a35e035f5e495a75acb42a36bd33f6102c339d1f7908ae3868f378"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/fetch_reference.py",
+      "bytes": 2537,
+      "sha256": "853e125c3de5ea4c28bceffc3dfbfa061a55fd9736647fbae92187429b646237"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/focus_reference.py",
+      "bytes": 2389,
+      "sha256": "dd366131515cfe7da40dd9aa31a40f521f4c42442d05ad149ad485d99dc99a57"
+    },
+    {
+      "path": "SourceAssets/DoorPush20261002/save_editable.py",
+      "bytes": 9715,
+      "sha256": "ffb93be8fe7817cefb5baae75d090458a7a97c9a5cc69d1be67946247f14987d"
+    },
+    {
+      "path": "SourceAssets/FPSArmsPublication20261002/archive-manifest.json",
+      "bytes": 36580,
+      "sha256": "e8ae5ee1a868e4709d03c303f230acdd21ecf1b8948b2ae328bb4e1093569f22"
+    },
+    {
+      "path": "SourceAssets/FPSArmsPublication20261002/runtime-handoff.json",
+      "bytes": 1314,
+      "sha256": "d44ece2dc6c51815aa4db060880939390e1398b139987a7885f72bd5f2c58450"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/README.md",
+      "bytes": 1242,
+      "sha256": "27dad5c5e43fa77b1c7832d84c971671ab196494e765258b1925dd9beabbbb8b"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/author_drum.py",
+      "bytes": 12896,
+      "sha256": "70d73c56c2c2522c240c25beef6e90325cf820024c3f7d5a780a20dd989d8988"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/author_standard.py",
+      "bytes": 11816,
+      "sha256": "e7009f81f7d893023e093dd712b4e65b5c35c9e8b138d1c453c0695dbd81c03e"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/collect.py",
+      "bytes": 4191,
+      "sha256": "2c17eb5c4edcccd602b9bccd62e96a9df12360e7f022b0312872d642bf61052d"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/collect_all.py",
+      "bytes": 203,
+      "sha256": "4a66e3cac3d276e0785185bb04b69803050a374df82f8713e76604d9d5f3adc4"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/collect_base.py",
+      "bytes": 167,
+      "sha256": "ba1af21e4ca139813f5a734044db3c9cc201ccd35baf067a598f75b06be96fc8"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/collect_full.py",
+      "bytes": 1555,
+      "sha256": "64420790145be3b1c87df980fc821d98bd4f120f869cba7a0b9c2b997fb2928b"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/collect_geometry.py",
+      "bytes": 2026,
+      "sha256": "7fef53e853d9207ac579b60ce8e9daaf6c12c8a9ff7a8fb5e40b0452e8edde3c"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/collect_prism_angled.py",
+      "bytes": 155,
+      "sha256": "cf69da3c1e297be67dcef136e6efda169173620104f386acc8780f29412300bb"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/collect_vertical_canted.py",
+      "bytes": 158,
+      "sha256": "5103312764bfe26b1389ce8102416c66be13835dfdaa2b5cd1d86661734c7006"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/convert_geometry.py",
+      "bytes": 646,
+      "sha256": "9246e4e547d280cf0bd89f74b7cec12ab1707cd3aad6ada3baf61b46cdc28561"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/dump_geometry.py",
+      "bytes": 1592,
+      "sha256": "be21959e60d64c6e66354aa1e1a1e362f3e9eb77158da8d3eb32fb66fd056041"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/export_editable.py",
+      "bytes": 8118,
+      "sha256": "63debec1edebc5c531d79931d1a2a489734e18fab49e53882b32fbcc76e0c5f0"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/extract_donor.py",
+      "bytes": 2019,
+      "sha256": "ac1dff4f1e59f9e4b1975c02edf1b04feb8bbbe113e934a0f2b0c1dfac7cd3bb"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/install.py",
+      "bytes": 5072,
+      "sha256": "054d52aedc4a0e5879e1b60fbb5ecdce678bda12f731056b1b36fa1e8947c7fd"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/install_staging.py",
+      "bytes": 140,
+      "sha256": "871118bfaaa616171c96c8ab8777669489d4b4d4b05937f878462a286452d6d2"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/prepare_staging.ps1",
+      "bytes": 2618,
+      "sha256": "6d2c7fe53ce0a9e22303f71f48c11b41865ab399f2f54846332ebcffbe2a42e3"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/publish.py",
+      "bytes": 2534,
+      "sha256": "b66c1759db5d681f9fa6af1d58b2c4218ed19d42ba65d2de9ad5f5cc5da7105a"
+    },
+    {
+      "path": "SourceAssets/HK416ReloadGrip20261001/retire_staging.py",
+      "bytes": 1228,
+      "sha256": "f9b0e88342df110335fe2520bdf509294553df9e122afc9d5dd9fba813961c2d"
+    },
+    {
+      "path": "SourceAssets/LMG20120260927/SupportGrasp20261001/author.py",
+      "bytes": 9352,
+      "sha256": "8d6a4e5842cb85cdc0f524a9c30f3486b3098e1992b07aece1c07ccca664c422"
+    },
+    {
+      "path": "SourceAssets/LMG20120260927/SupportGrasp20261001/bake.py",
+      "bytes": 5539,
+      "sha256": "9bcc6fab66f870633dfe45d749b097678016be83c539fdee5adaaae85be0ceb1"
+    },
+    {
+      "path": "SourceAssets/LMG20120260927/SupportGrasp20261001/collect.py",
+      "bytes": 3877,
+      "sha256": "ed8736e5cb0991120b4bc1d87b29e90ce0fb5728c578fbffb8c639293c02c3c0"
+    },
+    {
+      "path": "SourceAssets/LMG20120260927/SupportGrasp20261001/install.py",
+      "bytes": 3719,
+      "sha256": "b624b923d7c09bbf4386d89c72d05d6056834698893f2f89dddeaffe51999ff7"
+    },
+    {
+      "path": "SourceAssets/M16SprintDoorWrist20261002/Sprint/README.md",
+      "bytes": 2207,
+      "sha256": "6163c638bf7f8241c1a738599471909bcc8d8ba94eab60612e41c4d860634a92"
+    },
+    {
+      "path": "SourceAssets/M16SprintDoorWrist20261002/Sprint/author_sprint_copy.py",
+      "bytes": 10712,
+      "sha256": "e0e288f070083acb75bde42adf619000a93db51e459cb43a936190097bd79db3"
+    },
+    {
+      "path": "SourceAssets/M16SprintDoorWrist20261002/Sprint/import_sprint_only.py",
+      "bytes": 5888,
+      "sha256": "7eac65669bae0ee41f74a00dbc4440041784463fe077f70734ec58a00c7dcb7a"
+    },
+    {
+      "path": "SourceAssets/M16SprintDoorWrist20261002/Wrist/README.md",
+      "bytes": 2905,
+      "sha256": "d9d772ea624d1134a44094547f8fe174e90c002e5b81fbbc8efecba80eefdc70"
+    },
+    {
+      "path": "SourceAssets/M16SprintDoorWrist20261002/Wrist/author_common_wrist_bind.py",
+      "bytes": 15113,
+      "sha256": "24933b396fbb4182b4a57e47e1254a748735dd25281ca6c2484716f7f67f4f2d"
+    },
+    {
+      "path": "SourceAssets/M16SprintDoorWrist20261002/Wrist/install_common_wrist_bind.py",
+      "bytes": 9211,
+      "sha256": "b5debd22e9da5387834f8dec37ec5ead4f0a4ef6982ea5f54ee74c88cbc87099"
+    },
+    {
+      "path": "SourceAssets/M16SprintDoorWrist20261002/Wrist/record_author_completion.py",
+      "bytes": 2523,
+      "sha256": "766b5695e550ac45ffb4ae1b798e8694687b65c7b0f6189996a7b7f62f0c9249"
+    },
+    {
+      "path": "SourceAssets/M16SprintDoorWrist20261002/Wrist/save_editable.py",
+      "bytes": 390,
+      "sha256": "903d0d09d18f11dc351409dcd4592c5bab9af4d880d75ff0d13e99e46859f55c"
+    },
+    {
+      "path": "SourceAssets/M16SprintDoorWrist20261002/install_m16.py",
+      "bytes": 1504,
+      "sha256": "8c115ea73eb500da8ff6139f9b82194329da2e0a41f12b3a6830ddbe49d62199"
+    },
+    {
+      "path": "SourceAssets/M16SprintDoorWrist20261002/read_current_rigs.py",
+      "bytes": 1930,
+      "sha256": "dfd455a2bb202abd5372e39ce5120626f35e33c165c21cd845c510673fb73376"
+    },
+    {
+      "path": "SourceAssets/StaffQuickCombat20261001/DELIVERY.md",
+      "bytes": 4343,
+      "sha256": "59f5d625fb0b189a1026f00a60d097a356ce5e6cd06bc783978e03f76d98e437"
+    },
+    {
+      "path": "SourceAssets/StaffQuickCombat20261001/FixV2/REPAIR_NOTES.md",
+      "bytes": 2461,
+      "sha256": "478637fd34c96ded2b43ea6f6227dd9ca0bbb672a24c05991d0e130d978e893b"
+    },
+    {
+      "path": "SourceAssets/StaffQuickCombat20261001/FixV2/fist-profile-v2.json",
+      "bytes": 712,
+      "sha256": "25d223a338eea3bfbf4831af196edfe092472a9c0038c5c1990be0ff56956ed2"
+    },
+    {
+      "path": "SourceAssets/StaffQuickCombat20261001/FixV2/fit_v7_fist.py",
+      "bytes": 7429,
+      "sha256": "2477d55a22e3e38f7234aedf9c75b095c6c2541394d6000bb91b22e3c13b4ae9"
+    },
+    {
+      "path": "SourceAssets/StaffQuickCombat20261001/FixV2/measure_fist_surfaces.py",
+      "bytes": 10202,
+      "sha256": "966eea3ec5f66be1a3e24ec8bad5dd8235fa8de1613965e757995bd37f0991b6"
+    },
+    {
+      "path": "SourceAssets/StaffQuickCombat20261001/author_punch.py",
+      "bytes": 9945,
+      "sha256": "2b8e186fc4d39a3daa5c4d7cd4b9aa83e56ab228fe2479ac46e51d271f04e0b8"
+    },
+    {
+      "path": "SourceAssets/StaffQuickCombat20261001/save_editable.py",
+      "bytes": 4966,
+      "sha256": "ee08616ec3a77d220e02f018634492d8eaaec54cff70ce8cd2feae819d4f8659"
+    },
+    {
+      "path": "SourceAssets/StaffQuickCombatFix20261001/M1911LeftArmV6/DELIVERY.md",
+      "bytes": 2398,
+      "sha256": "8d9d41e3b5246d39367d2f9138e4622597a5abd99306bf5ff0e1f9a904fa736b"
+    },
+    {
+      "path": "SourceAssets/StaffQuickCombatFix20261001/M1911LeftArmV6/author_actions.py",
+      "bytes": 15000,
+      "sha256": "8f2bb7509c56bf70fc519c2c8fbd3b0840fd0db2126557fa5c332292a9dd4416"
+    },
+    {
+      "path": "SourceAssets/StaffQuickCombatFix20261001/M1911LeftArmV6/import_assets.py",
+      "bytes": 2830,
+      "sha256": "d4b30b167f45c26ef8f42432b19e8386e2b59bd6ae5c2d73c7630150d95f973e"
+    },
+    {
+      "path": "SourceAssets/UnarmedIdle20261001/author_idle.py",
+      "bytes": 12473,
+      "sha256": "9551e252f75fb41404676793aa3c05d6257194e9d2680a17a5486c8307368c0b"
+    },
+    {
+      "path": "SourceAssets/UnarmedIdle20261001/build.ps1",
+      "bytes": 1679,
+      "sha256": "bd610a413158a542c75626ac23ba2d40b6d20b9261fea87dd732f4caa814c36b"
+    },
+    {
+      "path": "SourceAssets/UnarmedIdle20261001/save_editable.py",
+      "bytes": 4588,
+      "sha256": "9e178815a8a74546a2fbec409e03a0c2c1ae10083cfb46bf4aa0909e2d19fa6d"
+    },
+    {
+      "path": "SourceAssets/UnarmedLocomotion20261001/README.md",
+      "bytes": 2960,
+      "sha256": "4e3f17065ed6fc8b47b93bd32cd2f7fc109550debd73aa291bd754e061589687"
+    },
+    {
+      "path": "SourceAssets/UnarmedLocomotion20261001/author_locomotion.py",
+      "bytes": 14748,
+      "sha256": "b2c2b47899d2124d68368a22d03f29a8ca56249aa1a8632ff3b6934ba38d273f"
+    },
+    {
+      "path": "SourceAssets/UnarmedLocomotion20261001/save_editable.py",
+      "bytes": 6227,
+      "sha256": "4d09a920207bc6da2bb9caa754335aeba2784a4e69d19a252cf0432d7c82cd42"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "bytes": 18985,
+      "sha256": "c35ed7301b8920cd9ef724f80c853553ba60057a6f09cc9580b0911514a821ca"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/door-guard-native-binding.md",
+      "bytes": 3506,
+      "sha256": "f08caf3d5521954435fc9a877369e485734c36c735870ea5268a967c07cbdf28"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/dual-pistol-quick-melee.md",
+      "bytes": 5558,
+      "sha256": "ecf0b6e3f0adbb382ead45424424c7f99c3c98aa1c96bfc53c44a843b681d79e"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/magazine-grip-registration.md",
+      "bytes": 5943,
+      "sha256": "74ee08a02e509b583a757db1ae4948e4614e4b11ce76904bbeea5389d4f3dbfb"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/staff-grip-camera-space.md",
+      "bytes": 11941,
+      "sha256": "d9695fe4436b207c8ff7010c878915063b429d514bf863ac7fa35255a8afba7f"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/unarmed-idle.md",
+      "bytes": 6043,
+      "sha256": "b84c4f8ad2a93cb07d888358c5e190b142e2e6f864f3072b80f83025f98f5d6a"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/staff-modular-production.md",
+      "bytes": 8160,
+      "sha256": "210d78dcffbe6f27909d9770e492391d0db1cc4aa1bce665a88494cb9b3e1e48"
+    }
+  ]
+}

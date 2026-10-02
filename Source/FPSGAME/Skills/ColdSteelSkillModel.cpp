@@ -10,6 +10,7 @@
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
+#include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
@@ -135,6 +136,7 @@ bool UColdSteelStatusModel::TriggerQuickCombat()
     }
     auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
     if(!Player)return false;
+    if(auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())return Staff->BeginQuickCombat();
     if(auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();Bow && Bow->IsEquipped())return Bow->BeginQuickCombat();
     if(auto* Sword=Player->FindComponentByClass<URuneSwordComponent>())
         if(Sword->IsEquipped())return Sword->BeginQuickCombatStrike();

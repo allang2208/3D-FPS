@@ -6,7 +6,8 @@ struct FStaffCastPose
 {
     FTransform Contact=FTransform::Identity;
     FVector Shoulder=FVector(1,20,-24),Elbow=FVector(16,35,-39);
-    // Idle, raised, windup, release, follow-through, run, then five primary-smash keys.
+    // Idle, raised, windup, release, follow-through, run, then five action-bank
+    // keys: primary smash or charge flow selected by the active staff action.
     static constexpr int32 ArmPoseCount=11;
     float ArmWeights[ArmPoseCount]={1,0,0,0,0,0};
 };

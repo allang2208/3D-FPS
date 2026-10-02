@@ -1,14 +1,18 @@
 #include "FPSFireballComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
+#include "../Weapons/Staff/StaffChargeFlow.h"
 #include "Camera/CameraComponent.h"
 
 void UFPSFireballComponent::BeginStaffGesture()
 {
     auto* Staff=GetOwner()->FindComponentByClass<UStaffWeaponComponent>();
+    // A queued release can begin during gather/recovery. Capture the current
+    // full pose while the old phase is still selected, including its grip.
+    const auto Entry=Staff&&bStaffGesture&&CastingStaff.Get()==Staff?
+        SampleStaffMotion(Staff->CarryPoseInCamera()):Staff?Staff->CarryPoseInCamera():FStaffCastPose();
     bStaffGesture=false;CastingStaff.Reset();
     if(!Staff||!Staff->CanBeginCast())return;
-    // Capture the actual carry/sprint pose before selecting the new gesture.
-    StaffEntry=Staff->CarryPoseInCamera();CastingStaff=Staff;bStaffGesture=true;
+    StaffEntry=Entry;CastingStaff=Staff;bStaffGesture=true;
     bPowerFistGesture=false; // Self-cast magic also uses the held staff.
 }
 
@@ -20,20 +24,30 @@ void UFPSFireballComponent::CaptureStaffRecovery()
 
 FStaffCastPose UFPSFireballComponent::SampleStaffMotion(const FStaffCastPose& Current) const
 {
-    if(!IsStaffCasting())return Current;
+    if(!IsStaffCasting()||!CastingStaff.IsValid())return Current;
     switch(HandPhase)
     {
     case EFireballHandPhase::Raising:
+    {
+        float EntryWeight;auto Pose=StaffChargeFlow::Raise(StaffEntry,HandPhaseFraction(),EntryWeight);
+        return StaffChargeFlow::ResolveEntry(*CastingStaff.Get(),Pose,StaffEntry,EntryWeight);
+    }
     case EFireballHandPhase::ReadyingRelease:
-        return StaffCastMotion::Raise(StaffEntry,HandPhaseFraction());
+    {
+        float EntryWeight;auto Pose=StaffChargeFlow::Ready(StaffEntry,HandPhaseFraction(),EntryWeight);
+        return StaffChargeFlow::ResolveEntry(*CastingStaff.Get(),Pose,StaffEntry,EntryWeight);
+    }
     case EFireballHandPhase::Releasing:
     {
-        auto Pose=StaffCastMotion::Swing(PhaseAge);
+        auto Pose=StaffChargeFlow::ResolveRelease(*CastingStaff.Get(),StaffCastMotion::Swing(PhaseAge));
         for(const float Contact:ReleaseImpactAges)Pose=StaffCastMotion::WithImpact(Pose,PhaseAge-Contact);
         return Pose;
     }
     case EFireballHandPhase::Recovering:
-        return StaffCastMotion::Recover(StaffRecoveryEntry,Current,HandPhaseFraction());
+    {
+        auto Pose=StaffCastMotion::Recover(StaffRecoveryEntry,Current,HandPhaseFraction());
+        return StaffChargeFlow::ResolveRecovery(*CastingStaff.Get(),Pose,StaffRecoveryEntry,Current,HandPhaseFraction());
+    }
     default:return Current;
     }
 }

@@ -1,10 +1,11 @@
-﻿#include "BowWeaponComponent.h"
+#include "BowWeaponComponent.h"
 #include "BowArrow.h"
 #include "BowArmsMeshComponent.h"
 #include "BowPartComponent.h"
 #include "BowQuickCombatMotion.h"
 #include "BowStats.h"
 #include "../../Skills/FPSQuickCombatComponent.h"
+#include "../../Movement/FPSDoorPushComponent.h"
 #include "../WeaponStatEvaluation.h"
 #include "../GunsmithSystem.h"
 #include "../../FPSGAMECharacter.h"
@@ -608,7 +609,7 @@ void UBowWeaponComponent::ApplyParts(const FColdSteelItem* Item)
     CollectPartAssets(Item);
 }
 
-bool UBowWeaponComponent::CanUse() const
+bool UBowWeaponComponent::CanUse(bool bAllowDoorPushPresentation) const
 {
     auto* Pawn = Character.Get();
     if (!Pawn) return false;
@@ -618,8 +619,9 @@ bool UBowWeaponComponent::CanUse() const
     const auto* Bash = Pawn->QuickCombatPistol.Get();
     const bool bOwnQuickCombat = Stage == EBowStage::QuickCombat && Bash
         && Bash->GetStyle() == EQuickCombatStyle::Bow && Bash->IsOccupyingLeftHand();
+    const bool bDoorPushPresentation = bAllowDoorPushPresentation && Pawn->IsDoorPushActive();
     return bPresentationReady && !AFPSGAMEPlayerController::BlocksOngoingActions(PC) && !Pawn->IsTraversing()
-        && (!Pawn->IsCastBlockingLeftHandAction() || bOwnQuickCombat)
+        && (!Pawn->IsCastBlockingLeftHandAction() || bOwnQuickCombat || bDoorPushPresentation)
         && (!Health || !Health->IsDead()) && (!Building || !Building->IsBuilding());
 }
 
@@ -815,6 +817,9 @@ const TCHAR* UBowWeaponComponent::DrawEntryClip() const
 
 void UBowWeaponComponent::ReleasePrimaryAttack()
 {
+    // Door push starts only from Ready. A physical release during its gesture
+    // must not turn that retained/nocked carry pose into a new equip cycle.
+    if (Character.IsValid() && Character->IsDoorPushActive() && CanUse(true)) return;
     if (!IsEquipped() || !CanUse()) { CancelAction(); return; }
     // Releasing before reaching the string cancels without firing or spending.
     if (Stage == EBowStage::DrawEntry) { CancelAction(); return; }
@@ -1133,7 +1138,9 @@ void UBowWeaponComponent::AdvanceActionBeforeCamera(float Delta)
 {
     // A contact query refreshes the camera with Delta=0. Do not re-enter the action clock.
     if (!IsEquipped() || Delta <= 0.f) return;
-    const bool bUsable = CanUse();
+    // Door push owns input and its separate V7 fist, but the original bow
+    // pose/locomotion clocks remain live for the shared return trajectory.
+    const bool bUsable = CanUse(true);
     // Aim is advanced once before the camera reads its shaped weight.
     const auto AdvanceWeight = [Delta](float& Weight, bool bTarget, float In, float Out)
     {
@@ -1420,6 +1427,33 @@ void UBowWeaponComponent::UpdatePoseLayers()
     Pivot->SetRelativeTransform(FTransform(Rotation, Location));
 }
 
+void UBowWeaponComponent::UpdateDoorPushPresentation()
+{
+    if (!Pivot) return;
+    const auto* Pawn = Character.Get();
+    const auto* DoorPush = Pawn ? Pawn->DoorPush.Get() : nullptr;
+    const float Weight = DoorPush ? FMath::Clamp(DoorPush->GetPresentationWeight(), 0.f, 1.f) : 0.f;
+    if (Weight > 0.f)
+    {
+        // Apply one camera-space rigid delta to the freshly sampled assembly.
+        // The holding arm, bow parts, string and reserved arrow retain their
+        // native contacts; the fallback fist never drives hand_l/bow_grip.
+        const FTransform Base = Pivot->GetRelativeTransform();
+        const FVector Grip = Base.TransformPosition(bHasGripMarker
+            ? AnimatedRiserMount().GetLocation() : BowLocationCM);
+        const FQuat LowerRotation = FRotator(-12.f * Weight, 0.f, -22.f * Weight).Quaternion();
+        const FVector LowerOffset = FVector(-10.f, -8.f, -90.f) * Weight;
+        Pivot->SetRelativeTransform(FTransform(
+            (LowerRotation * Base.GetRotation()).GetNormalized(),
+            Grip + LowerRotation.RotateVector(Base.GetLocation() - Grip) + LowerOffset,
+            Base.GetScale3D()));
+    }
+    // Keep sampling even while completely below the view. HiddenInGame is a
+    // render flag here, so socket geometry and the live recovery target keep
+    // updating with the original clips instead of freezing on the entry pose.
+    Pivot->SetHiddenInGame(Weight >= 1.f - UE_KINDA_SMALL_NUMBER, true);
+}
+
 void UBowWeaponComponent::UpdateBowGeometry()
 {
     // 弓体部件是挂点：它的局部空间就是锚点空间，弦与弦上箭作为子部件自动跟随。
@@ -1594,7 +1628,7 @@ void UBowWeaponComponent::SampleArms()
 void UBowWeaponComponent::TickComponent(float Delta, ELevelTick Type, FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta, Type, Tick);
-    const bool Usable = IsEquipped() && CanUse();
+    const bool Usable = IsEquipped() && CanUse(true);
     if (!Usable)
     {
         if (Stage != EBowStage::Stowed) CancelAction();
@@ -1608,6 +1642,7 @@ void UBowWeaponComponent::TickComponent(float Delta, ELevelTick Type, FActorComp
         SampleArms();
         UpdatePoseLayers();
         UpdateBowGeometry();
+        UpdateDoorPushPresentation();
     }
     FeedbackSeconds = FMath::Max(0.f, FeedbackSeconds - Delta);
     HintCountdown -= Delta;

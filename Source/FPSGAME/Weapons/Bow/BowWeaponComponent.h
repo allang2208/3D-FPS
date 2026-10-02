@@ -183,7 +183,8 @@ private:
     static const TCHAR* ClipRelease;
     static const TCHAR* ClipNock;
 
-    bool CanUse() const;
+    /** Door push may keep the held pose sampling while its input remains blocked. */
+    bool CanUse(bool bAllowDoorPushPresentation = false) const;
     void SetStage(EBowStage Next, float Seconds, float StartSeconds = 0.f);
     void ApplyNumbers(const FColdSteelItem* Item);
     /** 按 `bow_part_slots` 建／补部件，并读每件的 `_rods`／`_radius_cm`；资源路径见 `CollectPartAssets`。 */
@@ -252,6 +253,8 @@ private:
     FRotator AimBowRotation = FRotator::ZeroRotator;
     FVector CrouchOffsetCM = FVector(-1.5f, -2.f, -.5f);
     void UpdatePoseLayers();
+    /** Rigidly lower/recover the live bow assembly; never layer a fist onto bow_grip. */
+    void UpdateDoorPushPresentation();
     /** Animated riser in the unlayered pivot space, shared by aim and geometry. */
     FTransform AnimatedRiserMount() const;
 

@@ -17,7 +17,7 @@ namespace StaffGripPose
         FTransform HandInGrip=FTransform::Identity;
     };
     int32 VariantForMesh(const FString& MeshPath);
-    const FGripData& Get(USkeletalMesh* Mesh,const TArray<FTransform>& Reference,int32 Variant);
-    FTransform BlendLocal(const FGripData& Data,const FStaffCastPose& Motion,int32 Bone);
-    FTransform ContactFromArm(const FGripData& Data,const FStaffCastPose& Motion);
+    const FGripData& Get(USkeletalMesh* Mesh,const TArray<FTransform>& Reference,int32 Variant,bool bCharge=false);
+    FTransform BlendLocal(const FGripData& Data,const FStaffCastPose& Motion,int32 Bone,bool bCharge=false);
+    FTransform ContactFromArm(const FGripData& Data,const FStaffCastPose& Motion,bool bCharge=false);
 }

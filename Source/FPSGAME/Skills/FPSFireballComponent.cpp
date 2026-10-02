@@ -1,6 +1,7 @@
 #include "FPSFireballComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
+#include "../Weapons/Staff/StaffChargeFlow.h"
 #include "FPSFireballProjectile.h"
 #include "FPSIceSpikeComponent.h"
 #include "FPSIceWallComponent.h"
@@ -283,7 +284,9 @@ void UFPSFireballComponent::TryBeginQueuedCast()
     if(auto* Status=Player->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
     Active=Ball;
     bQueuedLaunch=bLaunchCommitted=false;SetHandPhase(EFireballHandPhase::Raising);
-    bStaffOrb=IsStaffCasting();StaffOrbHover=StaffCastMotion::Focus(StaffCastMotion::Raised());
+    bStaffOrb=IsStaffCasting();
+    StaffOrbHover=StaffCastMotion::Focus(bStaffOrb&&CastingStaff.IsValid()?
+        StaffChargeFlow::Settled(*CastingStaff.Get()):StaffCastMotion::Raised());
     Ball->Prepare(this,Player,Snapshot,Core,Trail,Explosion,Shockwave,ImpactSound);
     LastMessage.Reset();MessageUntil=0;
 }

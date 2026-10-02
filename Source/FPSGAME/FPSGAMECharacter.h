@@ -95,6 +95,7 @@ bool TriggerPistolQuickCombat();
     bool IsLeftHandHeldForCast() const;
     bool IsCastingWithLeftHand() const;
     bool IsCastBlockingLeftHandAction() const;
+    bool IsDoorPushActive() const;
     bool IsSwitchingWeapon() const;
     bool CanStartQuickCombatPriority() const;
     void InterruptActionsForPriority(bool bWeaponSwitch);
@@ -789,4 +790,5 @@ private:
     FRifleHipFraming RifleHipFraming;
     // Transient success feedback in the existing hint row above stamina.
     UPROPERTY(Transient) double CowboyReloadHintUntil = -1.0;
+    UPROPERTY(VisibleAnywhere, Category="Movement|Door") TObjectPtr<class UFPSDoorPushComponent> DoorPush;
 };

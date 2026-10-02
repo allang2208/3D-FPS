@@ -105,6 +105,13 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
     }
     const auto SharedQuickClip=[&](const FString& Kind)->UAnimSequence*
     {
+        // V5 supported the wrist only during the recovery flourish. The left
+        // M1911 strike now carries its held group through the full arm solve.
+        if(bOffhandOnly&&Index==1&&Item.Definition==TEXT("ue_m1911")&&Kind.StartsWith(TEXT("quickcombat_left")))
+        {
+            const FString Path=TEXT("/Game/Weapons/StaffQuickCombatFix20261001/M1911/l/Animations/A_Dual_M1911_l_")+Kind;
+            if(auto* Revised=LoadObject<UAnimSequence>(nullptr,*Path,nullptr,LOAD_NoWarn))return Revised;
+        }
         const auto* Layer=H.PoseProfiles.FindRef(PistolPoseFamily(Kind)).Get();
         if(!Layer)return nullptr;
         const FString BaseKind=Kind.Replace(TEXT("_fitted"),TEXT("")).Replace(TEXT("_long"),TEXT(""));
@@ -387,8 +394,8 @@ UAnimSequence* UPistolDualWieldComponent::SingleEmptyInspect() const
 
 bool UPistolDualWieldComponent::IsQuickCombatActive() const
 {
-    return IsPair() && Player && Player->QuickCombatPistol
-        && Player->QuickCombatPistol->GetStyle()==EQuickCombatStyle::DualPistol
+    return bActive && Player && Player->QuickCombatPistol
+        && Player->QuickCombatPistol->GetStyle()==(bOffhandOnly?EQuickCombatStyle::StaffOffhandPistol:EQuickCombatStyle::DualPistol)
         && Player->QuickCombatPistol->IsOccupyingLeftHand();
 }
 
@@ -423,11 +430,11 @@ FString UPistolDualWieldComponent::QuickCombatClipKind(int32 Side,bool LeftStrik
 
 const TCHAR* UPistolDualWieldComponent::QuickCombatBlockReason() const
 {
-    if(!IsPair() || !Player || !Player->QuickCombatPistol)return TEXT("双持控制器未就绪");
+    if(!bActive || !Player || !Player->QuickCombatPistol)return TEXT("双持/副手控制器未就绪");
     if(!Player->CanStartQuickCombatPriority())return TEXT("切换武器或输入不可用");
-    const bool LeftStrike=DualPistolQuickCombatMotion::StrikingHand(Player->QuickCombatPistol->GetActionSerial()+1u)==1;
+    const bool LeftStrike=bOffhandOnly||DualPistolQuickCombatMotion::StrikingHand(Player->QuickCombatPistol->GetActionSerial()+1u)==1;
     UAnimSequence* Clips[2]={nullptr,nullptr};
-    for(int32 Side=0;Side<2;++Side)
+    for(int32 Side=FirstHand();Side<2;++Side)
     {
         const auto& H=Hands[Side];
         if(!H.Mesh || !H.Anim)return TEXT("单手视模/动画实例缺失");
@@ -435,7 +442,7 @@ const TCHAR* UPistolDualWieldComponent::QuickCombatBlockReason() const
         Clips[Side]=H.Clips.FindRef(Kind);
         if(!Clips[Side])return TEXT("当前出手侧/空仓近战动画缺失");
     }
-    if(!FMath::IsNearlyEqual(Clips[0]->GetPlayLength(),Clips[1]->GetPlayLength(),.001f))return TEXT("左右近战动画时长不一致");
+    if(!bOffhandOnly&&!FMath::IsNearlyEqual(Clips[0]->GetPlayLength(),Clips[1]->GetPlayLength(),.001f))return TEXT("左右近战动画时长不一致");
     return nullptr;
 }
 
@@ -451,8 +458,8 @@ bool UPistolDualWieldComponent::BeginQuickCombat()
     }
     FString Kinds[2];
     UAnimSequence* Clips[2]={nullptr,nullptr};
-    const bool LeftStrike=DualPistolQuickCombatMotion::StrikingHand(Player->QuickCombatPistol->GetActionSerial()+1u)==1;
-    for(int32 Side=0;Side<2;++Side)
+    const bool LeftStrike=bOffhandOnly||DualPistolQuickCombatMotion::StrikingHand(Player->QuickCombatPistol->GetActionSerial()+1u)==1;
+    for(int32 Side=FirstHand();Side<2;++Side)
     {
         const auto& H=Hands[Side];
         Kinds[Side]=QuickCombatClipKind(Side,LeftStrike);
@@ -460,10 +467,11 @@ bool UPistolDualWieldComponent::BeginQuickCombat()
     }
     Player->InterruptActionsForPriority(false);
     Player->ExitSprintForWeapon();
-    Player->QuickCombatPistol->ConfigureForClipLength(Clips[0]->GetPlayLength(),true);
+    if(bOffhandOnly)Player->QuickCombatPistol->ConfigureForStaffOffhandPistol(Clips[1]->GetPlayLength());
+    else Player->QuickCombatPistol->ConfigureForClipLength(Clips[0]->GetPlayLength(),true);
     if(!Player->QuickCombatPistol->BeginAction())return false;
     const double Started=GetWorld()->GetTimeSeconds();
-    for(int32 Side=0;Side<2;++Side)
+    for(int32 Side=FirstHand();Side<2;++Side)
     {
         // Pending mechanical reload state lives on the item and is resumed
         // after melee; the interrupted exchange itself is never queued again.
@@ -483,7 +491,7 @@ bool UPistolDualWieldComponent::GetQuickCombatStrikeProbe(FVector& OutOrigin,flo
     if(!IsQuickCombatActive())return false;
     // Resolve both meshes at the shared contact frame before tracing, even if
     // this frame crossed 0.18 s. Only the current striking hand supplies a hit.
-    for(int32 Side=0;Side<2;++Side)
+    for(int32 Side=FirstHand();Side<2;++Side)
     {
         auto& H=Hands[Side];
         if(!IsQuickCombatClip(Side) || !H.Mesh || !H.Anim)return false;
@@ -492,7 +500,7 @@ bool UPistolDualWieldComponent::GetQuickCombatStrikeProbe(FVector& OutOrigin,flo
         H.Mesh->TickAnimation(0.f,false);
         H.Mesh->RefreshBoneTransforms();
     }
-    const int32 Strike=DualPistolQuickCombatMotion::StrikingHand(Player->QuickCombatPistol->GetActionSerial());
+    const int32 Strike=bOffhandOnly?1:DualPistolQuickCombatMotion::StrikingHand(Player->QuickCombatPistol->GetActionSerial());
     const auto* Mesh=Hands[Strike].Mesh.Get();
     const FName ContactBone=Strike?TEXT("middle_01_l"):TEXT("middle_01_r");
     // This transverse whip contacts with the gun-holding fist. Sample the
@@ -560,10 +568,10 @@ void UPistolDualWieldComponent::Advance(float Delta)
         if(const auto* H=Player->FindComponentByClass<UFPSCombatHealthComponent>();H && H->IsDead())for(int32 Side=0;Side<2;++Side)StopAction(Side);
     }
     auto* Bash=Player->QuickCombatPistol.Get();
-    if(IsPair() && Bash && Bash->GetStyle()==EQuickCombatStyle::DualPistol)
+    if(bActive && Bash && Bash->GetStyle()==(bOffhandOnly?EQuickCombatStyle::StaffOffhandPistol:EQuickCombatStyle::DualPistol))
     {
-        if(IsQuickCombatActive() && (!IsQuickCombatClip(0) || !IsQuickCombatClip(1)))Bash->Cancel();
-        const float SinceStart=float(FMath::Max(0.0,GetWorld()->GetTimeSeconds()-Hands[0].ActionStarted));
+        if(IsQuickCombatActive() && ((!bOffhandOnly&&!IsQuickCombatClip(0)) || !IsQuickCombatClip(1)))Bash->Cancel();
+        const float SinceStart=float(FMath::Max(0.0,GetWorld()->GetTimeSeconds()-Hands[FirstHand()].ActionStarted));
         Bash->AdvanceAction(IsQuickCombatActive()?FMath::Min(Delta,SinceStart):Delta);
         Player->RefreshQuickCombatCamera();
     }

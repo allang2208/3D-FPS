@@ -1,6 +1,7 @@
 #include "../FPSGAMECharacter.h"
 #include "WeaponGripProfile.h"
 #include "SVDWeaponAssets.h"
+#include "LMG201WeaponAssets.h"
 #include "Animation/AnimSequence.h"
 
 bool AFPSGAMECharacter::InitializeWeaponGripFamily(FName Family,TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>>& Map)
@@ -24,5 +25,9 @@ UWeaponGripProfile* AFPSGAMECharacter::WeaponGripProfileFor(EM4SprintGrip Grip) 
         :Grip==EM4SprintGrip::Canted?TEXT("canted"):Grip==EM4SprintGrip::Prism?TEXT("prism")
         :Grip==EM4SprintGrip::Drum?TEXT("drum"):TEXT("base");
     const auto* Found=WeaponGripProfiles.Find(Family);
+    // The 201 drum changes its feed, while an unmodified handguard keeps the
+    // same underside support grasp. Attachment families use their own layers.
+    if(!Found&&Grip==EM4SprintGrip::Drum&&LMG201WeaponAssets::Matches(AKMViewmodel))
+        Found=WeaponGripProfiles.Find(TEXT("base"));
     return Found?Found->Get():nullptr;
 }

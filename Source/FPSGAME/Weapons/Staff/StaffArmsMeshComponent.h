@@ -10,7 +10,7 @@ class FPSGAME_API UStaffArmsMeshComponent : public UFPSCastingMeshComponent
     GENERATED_BODY()
 public:
     virtual void FinalizeBoneTransform() override;
-    FTransform AuthoredContactInCamera(const FStaffCastPose& Motion,int32 Variant);
+    FTransform AuthoredContactInCamera(const FStaffCastPose& Motion,int32 Variant,bool bCharge=false);
 private:
     void CacheReferencePose();
     TWeakObjectPtr<USkeletalMesh> CachedMesh;
