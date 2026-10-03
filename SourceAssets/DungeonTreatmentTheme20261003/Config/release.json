@@ -1,0 +1,9 @@
+{
+  "revision": "treatment_theme_accepted_20261003",
+  "route_id": "treatment",
+  "sequence": ["ShoredBreach", "AbandonedIncineratorHall", "AbandonedFlueGasStation"],
+  "container_source": "IncineratorContainers20261003",
+  "chest_source": "FlueUnderPlatformChest20261003",
+  "shared_chest_source": "GamedevTreasureChestDetail20261003",
+  "retained_subject": "/Game/GameMaps/Design/L_Incinerator_Theme_Subject"
+}

@@ -1,0 +1,1790 @@
+{
+  "revision": "treatment_wall_bays_v1_20261003",
+  "preview_seed": 20261003,
+  "outline": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_ContainerOutline_V4",
+  "groups": {
+    "ShoredBreach": [
+      {
+        "id": "Treatment.ShoredBreach.ToolBox",
+        "pick_count": [
+          3,
+          4
+        ],
+        "slots": [
+          {
+            "id": "Treatment.ShoredBreach.ToolBox.1",
+            "variants": [
+              {
+                "id": "ToolBox",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      18.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "检修工具箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      1802.282,
+                      -872.29,
+                      0.3
+                    ],
+                    "yaw": -90,
+                    "container_id": "Treatment.ShoredBreach.ToolBox.1.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                1687.0321158369482,
+                -924.9608649465729,
+                1.3
+              ],
+              "max": [
+                1839.935546875,
+                -824.7904642517419,
+                73.8854831376269
+              ]
+            },
+            "floor_z": 0.0
+          },
+          {
+            "id": "Treatment.ShoredBreach.ToolBox.2",
+            "variants": [
+              {
+                "id": "ToolBox",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      18.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "检修工具箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      962.0,
+                      -1182.637,
+                      0.3
+                    ],
+                    "yaw": 180,
+                    "container_id": "Treatment.ShoredBreach.ToolBox.2.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                909.3296013620209,
+                -1220.2906494140625,
+                1.2999980926513672
+              ],
+              "max": [
+                1009.5000020568519,
+                -1067.3872183760107,
+                73.88548123027827
+              ]
+            },
+            "floor_z": -1.9073486328125e-06
+          },
+          {
+            "id": "Treatment.ShoredBreach.ToolBox.3",
+            "variants": [
+              {
+                "id": "ToolBox",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      18.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "检修工具箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      1642.0,
+                      -1182.637,
+                      0.3
+                    ],
+                    "yaw": 180,
+                    "container_id": "Treatment.ShoredBreach.ToolBox.3.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                1589.3296013620209,
+                -1220.2906494140625,
+                1.3
+              ],
+              "max": [
+                1689.5000020568518,
+                -1067.3872183760107,
+                73.8854831376269
+              ]
+            },
+            "floor_z": 0.0
+          },
+          {
+            "id": "Treatment.ShoredBreach.ToolBox.4",
+            "variants": [
+              {
+                "id": "ToolBox",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      18.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "检修工具箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      56.653,
+                      -617.29,
+                      0.3
+                    ],
+                    "yaw": 90,
+                    "container_id": "Treatment.ShoredBreach.ToolBox.4.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                18.999945640563965,
+                -664.7904683654457,
+                1.2999980926513672
+              ],
+              "max": [
+                171.90337667861587,
+                -564.6200676706146,
+                73.88548123027827
+              ]
+            },
+            "floor_z": -1.9073486328125e-06
+          },
+          {
+            "id": "Treatment.ShoredBreach.ToolBox.5",
+            "variants": [
+              {
+                "id": "ToolBox",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      18.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "检修工具箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      2202.282,
+                      -617.29,
+                      0.3
+                    ],
+                    "yaw": -90,
+                    "container_id": "Treatment.ShoredBreach.ToolBox.5.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                2087.032115836948,
+                -669.9608649465729,
+                1.3
+              ],
+              "max": [
+                2239.935546875,
+                -569.7904642517419,
+                73.8854831376269
+              ]
+            },
+            "floor_z": 0.0
+          },
+          {
+            "id": "Treatment.ShoredBreach.ToolBox.6",
+            "variants": [
+              {
+                "id": "ToolBox",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      18.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "检修工具箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      2067.0,
+                      -812.992,
+                      0.3
+                    ],
+                    "yaw": 180,
+                    "container_id": "Treatment.ShoredBreach.ToolBox.6.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                2014.3296013620209,
+                -850.6453857421875,
+                1.3000019073486329
+              ],
+              "max": [
+                2114.500002056852,
+                -697.7419547041355,
+                73.88548504497554
+              ]
+            },
+            "floor_z": 1.9073486328125e-06
+          }
+        ]
+      },
+      {
+        "id": "Treatment.ShoredBreach.PPELocker",
+        "pick_count": [
+          1,
+          1
+        ],
+        "slots": [
+          {
+            "id": "Treatment.ShoredBreach.PPELocker.1",
+            "variants": [
+              {
+                "id": "PPELocker",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+                    "hinge": [
+                      -30.7,
+                      -23.299999999999997,
+                      9
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -105,
+                    "caption": "防护用品柜",
+                    "storage_pages": 2,
+                    "type": "scene_container",
+                    "position": [
+                      452.0,
+                      -1194.791,
+                      0.3
+                    ],
+                    "yaw": 180,
+                    "container_id": "Treatment.ShoredBreach.PPELocker.1.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                407.99999589040283,
+                -1220.29052734375,
+                1.3
+              ],
+              "max": [
+                517.4017903052126,
+                -1074.5405242235622,
+                175.3000047683716
+              ]
+            },
+            "floor_z": 0.0
+          },
+          {
+            "id": "Treatment.ShoredBreach.PPELocker.2",
+            "variants": [
+              {
+                "id": "PPELocker",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+                    "hinge": [
+                      -30.7,
+                      -23.299999999999997,
+                      9
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -105,
+                    "caption": "防护用品柜",
+                    "storage_pages": 2,
+                    "type": "scene_container",
+                    "position": [
+                      1982.0,
+                      -414.145,
+                      0.3
+                    ],
+                    "yaw": 0,
+                    "container_id": "Treatment.ShoredBreach.PPELocker.2.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                1916.5982096947873,
+                -534.3953888623753,
+                1.3
+              ],
+              "max": [
+                2026.0000041095973,
+                -388.6453857421875,
+                175.3000047683716
+              ]
+            },
+            "floor_z": 0.0
+          },
+          {
+            "id": "Treatment.ShoredBreach.PPELocker.3",
+            "variants": [
+              {
+                "id": "PPELocker",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+                    "hinge": [
+                      -30.7,
+                      -23.299999999999997,
+                      9
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -105,
+                    "caption": "防护用品柜",
+                    "storage_pages": 2,
+                    "type": "scene_container",
+                    "position": [
+                      622.0,
+                      730.057,
+                      0.3
+                    ],
+                    "yaw": 0,
+                    "container_id": "Treatment.ShoredBreach.PPELocker.3.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                556.5982096947874,
+                609.8065154344997,
+                1.3
+              ],
+              "max": [
+                666.0000041095972,
+                755.5565185546875,
+                175.3000047683716
+              ]
+            },
+            "floor_z": 0.0
+          }
+        ]
+      }
+    ],
+    "AbandonedIncineratorHall": [
+      {
+        "id": "Treatment.AbandonedIncineratorHall.RecordsCabinet",
+        "pick_count": [
+          1,
+          1
+        ],
+        "slots": [
+          {
+            "id": "Treatment.AbandonedIncineratorHall.RecordsCabinet.1",
+            "variants": [
+              {
+                "id": "RecordsCabinet",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32.994,
+                      0
+                    ],
+                    "caption": "停尸档案·登记记录",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      -1352.0,
+                      -185.0,
+                      -348.7
+                    ],
+                    "yaw": 90,
+                    "container_id": "Treatment.AbandonedIncineratorHall.RecordsCabinet.1.0"
+                  },
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32.994,
+                      0
+                    ],
+                    "caption": "停尸档案·交接记录",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      -1352.0,
+                      -185.0,
+                      -314.7
+                    ],
+                    "yaw": 90,
+                    "container_id": "Treatment.AbandonedIncineratorHall.RecordsCabinet.1.1"
+                  },
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32.994,
+                      0
+                    ],
+                    "caption": "停尸档案·设备记录",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      -1352.0,
+                      -185.0,
+                      -280.7
+                    ],
+                    "yaw": 90,
+                    "container_id": "Treatment.AbandonedIncineratorHall.RecordsCabinet.1.2"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                -1379.0,
+                -234.000002452592,
+                -358.7
+              ],
+              "max": [
+                -1230.499996383094,
+                -135.999997547408,
+                -238.69999141693114
+              ]
+            },
+            "floor_z": -360.0
+          }
+        ]
+      },
+      {
+        "id": "Treatment.AbandonedIncineratorHall.PPELocker",
+        "pick_count": [
+          2,
+          2
+        ],
+        "slots": [
+          {
+            "id": "Treatment.AbandonedIncineratorHall.PPELocker.1",
+            "variants": [
+              {
+                "id": "PPELocker",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+                    "hinge": [
+                      -30.7,
+                      -23.299999999999997,
+                      9
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -105,
+                    "caption": "防护用品柜",
+                    "storage_pages": 2,
+                    "type": "scene_container",
+                    "position": [
+                      -1353.5,
+                      -610.0,
+                      0.3
+                    ],
+                    "yaw": 90,
+                    "container_id": "Treatment.AbandonedIncineratorHall.PPELocker.1.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                -1379.0,
+                -675.4017903052126,
+                1.2999980926513672
+              ],
+              "max": [
+                -1233.2499968798122,
+                -565.9999958904028,
+                175.30000286102296
+              ]
+            },
+            "floor_z": -1.9073486328125e-06
+          },
+          {
+            "id": "Treatment.AbandonedIncineratorHall.PPELocker.2",
+            "variants": [
+              {
+                "id": "PPELocker",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+                    "hinge": [
+                      -30.7,
+                      -23.299999999999997,
+                      9
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -105,
+                    "caption": "防护用品柜",
+                    "storage_pages": 2,
+                    "type": "scene_container",
+                    "position": [
+                      -1353.5,
+                      -865.0,
+                      0.3
+                    ],
+                    "yaw": 90,
+                    "container_id": "Treatment.AbandonedIncineratorHall.PPELocker.2.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                -1379.0,
+                -930.4017903052126,
+                1.2999980926513672
+              ],
+              "max": [
+                -1233.2499968798122,
+                -820.9999958904028,
+                175.30000286102296
+              ]
+            },
+            "floor_z": -1.9073486328125e-06
+          },
+          {
+            "id": "Treatment.AbandonedIncineratorHall.PPELocker.3",
+            "variants": [
+              {
+                "id": "PPELocker",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+                    "hinge": [
+                      -30.7,
+                      -23.299999999999997,
+                      9
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -105,
+                    "caption": "防护用品柜",
+                    "storage_pages": 2,
+                    "type": "scene_container",
+                    "position": [
+                      -225.0,
+                      -1003.5,
+                      -359.7
+                    ],
+                    "yaw": 180,
+                    "container_id": "Treatment.AbandonedIncineratorHall.PPELocker.3.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                -269.00000410959717,
+                -1029.0,
+                -358.7
+              ],
+              "max": [
+                -159.5982096947874,
+                -883.2499968798122,
+                -184.6999952316284
+              ]
+            },
+            "floor_z": -360.0
+          }
+        ]
+      },
+      {
+        "id": "Treatment.AbandonedIncineratorHall.HeatCabinet",
+        "pick_count": [
+          2,
+          2
+        ],
+        "slots": [
+          {
+            "id": "Treatment.AbandonedIncineratorHall.HeatCabinet.1",
+            "variants": [
+              {
+                "id": "HeatCabinet",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatCabinet_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatCabinet_Door",
+                    "hinge": [
+                      -38.7,
+                      -26.5,
+                      10
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -103,
+                    "caption": "耐热器材柜",
+                    "storage_pages": 2,
+                    "type": "scene_container",
+                    "position": [
+                      1350.5,
+                      -610.0,
+                      0.3
+                    ],
+                    "yaw": -90,
+                    "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.1.0"
+                  },
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatDrawer_Frame",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatDrawer_Tray",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -34.71,
+                      0
+                    ],
+                    "caption": "耐热柜上层抽屉",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      1350.5,
+                      -610.0,
+                      0.3
+                    ],
+                    "yaw": -90,
+                    "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.1.1"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                1226.9998739909083,
+                -662.0000027029355,
+                1.3000019073486329
+              ],
+              "max": [
+                1378.9998779296875,
+                -534.6191003113188,
+                113.2999942779541
+              ]
+            },
+            "floor_z": 1.9073486328125e-06
+          },
+          {
+            "id": "Treatment.AbandonedIncineratorHall.HeatCabinet.2",
+            "variants": [
+              {
+                "id": "HeatCabinet",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatCabinet_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatCabinet_Door",
+                    "hinge": [
+                      -38.7,
+                      -26.5,
+                      10
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -103,
+                    "caption": "耐热器材柜",
+                    "storage_pages": 2,
+                    "type": "scene_container",
+                    "position": [
+                      834.5,
+                      -865.0,
+                      -359.7
+                    ],
+                    "yaw": -90,
+                    "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.2.0"
+                  },
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatDrawer_Frame",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatDrawer_Tray",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -34.71,
+                      0
+                    ],
+                    "caption": "耐热柜上层抽屉",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      834.5,
+                      -865.0,
+                      -359.7
+                    ],
+                    "yaw": -90,
+                    "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.2.1"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                710.9998739909084,
+                -917.0000027029355,
+                -358.7
+              ],
+              "max": [
+                862.9998779296875,
+                -789.6191003113188,
+                -246.70000762939452
+              ]
+            },
+            "floor_z": -360.0
+          },
+          {
+            "id": "Treatment.AbandonedIncineratorHall.HeatCabinet.3",
+            "variants": [
+              {
+                "id": "HeatCabinet",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatCabinet_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatCabinet_Door",
+                    "hinge": [
+                      -38.7,
+                      -26.5,
+                      10
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -103,
+                    "caption": "耐热器材柜",
+                    "storage_pages": 2,
+                    "type": "scene_container",
+                    "position": [
+                      -1350.5,
+                      325.0,
+                      -359.7
+                    ],
+                    "yaw": 90,
+                    "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.3.0"
+                  },
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatDrawer_Frame",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatDrawer_Tray",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -34.71,
+                      0
+                    ],
+                    "caption": "耐热柜上层抽屉",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      -1350.5,
+                      325.0,
+                      -359.7
+                    ],
+                    "yaw": 90,
+                    "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.3.1"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                -1378.9998779296875,
+                249.61910031131885,
+                -358.7
+              ],
+              "max": [
+                -1226.9998739909083,
+                377.0000027029355,
+                -246.70000762939452
+              ]
+            },
+            "floor_z": -360.0
+          }
+        ]
+      },
+      {
+        "id": "Treatment.AbandonedIncineratorHall.ToolBox",
+        "pick_count": [
+          1,
+          2
+        ],
+        "slots": [
+          {
+            "id": "Treatment.AbandonedIncineratorHall.ToolBox.1",
+            "variants": [
+              {
+                "id": "ToolBox",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      18.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "检修工具箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      464.053,
+                      -525.0,
+                      -359.7
+                    ],
+                    "yaw": 90,
+                    "container_id": "Treatment.AbandonedIncineratorHall.ToolBox.1.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                426.3998718261719,
+                -572.5000020568519,
+                -358.7
+              ],
+              "max": [
+                579.3033028642237,
+                -472.32960136202087,
+                -286.1145168623731
+              ]
+            },
+            "floor_z": -360.0
+          },
+          {
+            "id": "Treatment.AbandonedIncineratorHall.ToolBox.2",
+            "variants": [
+              {
+                "id": "ToolBox",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      18.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "检修工具箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      115.0,
+                      -574.653,
+                      -359.7
+                    ],
+                    "yaw": 0,
+                    "container_id": "Treatment.AbandonedIncineratorHall.ToolBox.2.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                67.49999794314812,
+                -689.903431038052,
+                -358.7
+              ],
+              "max": [
+                167.67039863797913,
+                -537.0,
+                -286.1145168623731
+              ]
+            },
+            "floor_z": -360.0
+          },
+          {
+            "id": "Treatment.AbandonedIncineratorHall.ToolBox.3",
+            "variants": [
+              {
+                "id": "ToolBox",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      18.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "检修工具箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      -565.0,
+                      991.347,
+                      -359.7
+                    ],
+                    "yaw": 0,
+                    "container_id": "Treatment.AbandonedIncineratorHall.ToolBox.3.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                -612.5000020568518,
+                876.096568961948,
+                -358.7
+              ],
+              "max": [
+                -512.3296013620209,
+                1029.0,
+                -286.1145168623731
+              ]
+            },
+            "floor_z": -360.0
+          },
+          {
+            "id": "Treatment.AbandonedIncineratorHall.ToolBox.4",
+            "variants": [
+              {
+                "id": "ToolBox",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      18.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "检修工具箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      795.0,
+                      -574.653,
+                      -359.7
+                    ],
+                    "yaw": 0,
+                    "container_id": "Treatment.AbandonedIncineratorHall.ToolBox.4.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                747.4999979431482,
+                -689.9034920732082,
+                -358.7
+              ],
+              "max": [
+                847.6703986379791,
+                -537.0000610351562,
+                -286.1145168623731
+              ]
+            },
+            "floor_z": -360.0
+          }
+        ]
+      }
+    ],
+    "AbandonedFlueGasStation": [
+      {
+        "id": "Treatment.AbandonedFlueGasStation.PPELocker",
+        "pick_count": [
+          1,
+          1
+        ],
+        "slots": [
+          {
+            "id": "Treatment.AbandonedFlueGasStation.PPELocker.1",
+            "variants": [
+              {
+                "id": "PPELocker",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+                    "hinge": [
+                      -30.7,
+                      -23.299999999999997,
+                      9
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -105,
+                    "caption": "防护用品柜",
+                    "storage_pages": 2,
+                    "type": "scene_container",
+                    "position": [
+                      130.0,
+                      -1153.5,
+                      0.5
+                    ],
+                    "yaw": 180,
+                    "container_id": "Treatment.AbandonedFlueGasStation.PPELocker.1.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                85.99999589040283,
+                -1179.0,
+                1.5000007629394532
+              ],
+              "max": [
+                195.4017903052126,
+                -1033.2499968798122,
+                175.50000553131105
+              ]
+            },
+            "floor_z": 0.20000076293945312
+          },
+          {
+            "id": "Treatment.AbandonedFlueGasStation.PPELocker.2",
+            "variants": [
+              {
+                "id": "PPELocker",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+                    "hinge": [
+                      -30.7,
+                      -23.299999999999997,
+                      9
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -105,
+                    "caption": "防护用品柜",
+                    "storage_pages": 2,
+                    "type": "scene_container",
+                    "position": [
+                      1150.0,
+                      1153.5,
+                      0.5
+                    ],
+                    "yaw": 0,
+                    "container_id": "Treatment.AbandonedFlueGasStation.PPELocker.2.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                1084.5982096947873,
+                1033.2498748094997,
+                1.5000007629394532
+              ],
+              "max": [
+                1194.0000041095973,
+                1178.9998779296875,
+                175.50000553131105
+              ]
+            },
+            "floor_z": 0.20000076293945312
+          }
+        ]
+      },
+      {
+        "id": "Treatment.AbandonedFlueGasStation.HeatCabinet",
+        "pick_count": [
+          1,
+          1
+        ],
+        "slots": [
+          {
+            "id": "Treatment.AbandonedFlueGasStation.HeatCabinet.1",
+            "variants": [
+              {
+                "id": "HeatCabinet",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatCabinet_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatCabinet_Door",
+                    "hinge": [
+                      -38.7,
+                      -26.5,
+                      10
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -103,
+                    "caption": "耐热器材柜",
+                    "storage_pages": 2,
+                    "type": "scene_container",
+                    "position": [
+                      -125.0,
+                      1150.5,
+                      0.5
+                    ],
+                    "yaw": 0,
+                    "container_id": "Treatment.AbandonedFlueGasStation.HeatCabinet.1.0"
+                  },
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatDrawer_Frame",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatDrawer_Tray",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -34.71,
+                      0
+                    ],
+                    "caption": "耐热柜上层抽屉",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      -125.0,
+                      1150.5,
+                      0.5
+                    ],
+                    "yaw": 0,
+                    "container_id": "Treatment.AbandonedFlueGasStation.HeatCabinet.1.1"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                -200.38089968868115,
+                1026.9999960612208,
+                1.5000007629394532
+              ],
+              "max": [
+                -72.99999729706454,
+                1179.0,
+                113.49999313354492
+              ]
+            },
+            "floor_z": 0.20000076293945312
+          },
+          {
+            "id": "Treatment.AbandonedFlueGasStation.HeatCabinet.2",
+            "variants": [
+              {
+                "id": "HeatCabinet",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatCabinet_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatCabinet_Door",
+                    "hinge": [
+                      -38.7,
+                      -26.5,
+                      10
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -103,
+                    "caption": "耐热器材柜",
+                    "storage_pages": 2,
+                    "type": "scene_container",
+                    "position": [
+                      1350.5,
+                      -914.0,
+                      0.5
+                    ],
+                    "yaw": -90,
+                    "container_id": "Treatment.AbandonedFlueGasStation.HeatCabinet.2.0"
+                  },
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatDrawer_Frame",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatDrawer_Tray",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -34.71,
+                      0
+                    ],
+                    "caption": "耐热柜上层抽屉",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      1350.5,
+                      -914.0,
+                      0.5
+                    ],
+                    "yaw": -90,
+                    "container_id": "Treatment.AbandonedFlueGasStation.HeatCabinet.2.1"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                1226.9998739909083,
+                -966.0000027029355,
+                1.500002670288086
+              ],
+              "max": [
+                1378.9998779296875,
+                -838.6191003113188,
+                113.49999504089355
+              ]
+            },
+            "floor_z": 0.20000267028808594
+          }
+        ]
+      },
+      {
+        "id": "Treatment.AbandonedFlueGasStation.FilterCase",
+        "pick_count": [
+          3,
+          4
+        ],
+        "slots": [
+          {
+            "id": "Treatment.AbandonedFlueGasStation.FilterCase.1",
+            "variants": [
+              {
+                "id": "FilterCase",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Lid",
+                    "hinge": [
+                      0,
+                      21.0,
+                      36.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "滤芯运输箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      980.0,
+                      1137.083,
+                      0.5
+                    ],
+                    "yaw": 0,
+                    "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.1.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                935.3999958363066,
+                1018.0827673544386,
+                1.500002670288086
+              ],
+              "max": [
+                1029.870399098927,
+                1178.9998779296875,
+                84.1698464837777
+              ]
+            },
+            "floor_z": 0.20000267028808594
+          },
+          {
+            "id": "Treatment.AbandonedFlueGasStation.FilterCase.2",
+            "variants": [
+              {
+                "id": "FilterCase",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Lid",
+                    "hinge": [
+                      0,
+                      21.0,
+                      36.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "滤芯运输箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      -1337.083,
+                      -829.0,
+                      0.5
+                    ],
+                    "yaw": 90,
+                    "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.2.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                -1379.0001220703125,
+                -873.6000041636934,
+                1.5000007629394532
+              ],
+              "max": [
+                -1218.0830114950636,
+                -779.1296009010731,
+                84.16984457642907
+              ]
+            },
+            "floor_z": 0.20000076293945312
+          },
+          {
+            "id": "Treatment.AbandonedFlueGasStation.FilterCase.3",
+            "variants": [
+              {
+                "id": "FilterCase",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Lid",
+                    "hinge": [
+                      0,
+                      21.0,
+                      36.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "滤芯运输箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      895.0,
+                      -1137.083,
+                      240.3
+                    ],
+                    "yaw": 180,
+                    "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.3.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                845.1296009010731,
+                -1179.0001220703125,
+                241.30001525878907
+              ],
+              "max": [
+                939.6000041636934,
+                -1018.0830114950636,
+                323.9698590722787
+              ]
+            },
+            "floor_z": 240.00001525878906
+          },
+          {
+            "id": "Treatment.AbandonedFlueGasStation.FilterCase.4",
+            "variants": [
+              {
+                "id": "FilterCase",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Lid",
+                    "hinge": [
+                      0,
+                      21.0,
+                      36.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "滤芯运输箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      -635.0,
+                      1137.083,
+                      0.5
+                    ],
+                    "yaw": 0,
+                    "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.4.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                -679.6000041636934,
+                1018.0828894247511,
+                1.5000007629394532
+              ],
+              "max": [
+                -585.1296009010731,
+                1179.0,
+                84.16984457642907
+              ]
+            },
+            "floor_z": 0.20000076293945312
+          },
+          {
+            "id": "Treatment.AbandonedFlueGasStation.FilterCase.5",
+            "variants": [
+              {
+                "id": "FilterCase",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Lid",
+                    "hinge": [
+                      0,
+                      21.0,
+                      36.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "滤芯运输箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      1337.083,
+                      446.0,
+                      0.5
+                    ],
+                    "yaw": -90,
+                    "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.5.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                1218.082889424751,
+                396.12960090107305,
+                1.5000007629394532
+              ],
+              "max": [
+                1379.0,
+                490.60000416369337,
+                84.16984457642907
+              ]
+            },
+            "floor_z": 0.20000076293945312
+          },
+          {
+            "id": "Treatment.AbandonedFlueGasStation.FilterCase.6",
+            "variants": [
+              {
+                "id": "FilterCase",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Lid",
+                    "hinge": [
+                      0,
+                      21.0,
+                      36.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "滤芯运输箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      -380.0,
+                      1137.083,
+                      0.5
+                    ],
+                    "yaw": 0,
+                    "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.6.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                -424.60000416369337,
+                1018.0828894247511,
+                1.5000007629394532
+              ],
+              "max": [
+                -330.1296009010731,
+                1179.0,
+                84.16984457642907
+              ]
+            },
+            "floor_z": 0.20000076293945312
+          }
+        ]
+      },
+      {
+        "id": "Treatment.AbandonedFlueGasStation.ToolBox",
+        "pick_count": [
+          2,
+          2
+        ],
+        "slots": [
+          {
+            "id": "Treatment.AbandonedFlueGasStation.ToolBox.1",
+            "variants": [
+              {
+                "id": "ToolBox",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      18.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "检修工具箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      -380.0,
+                      -1141.347,
+                      0.5
+                    ],
+                    "yaw": 180,
+                    "container_id": "Treatment.AbandonedFlueGasStation.ToolBox.1.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                -432.67039863797913,
+                -1179.0,
+                1.5000007629394532
+              ],
+              "max": [
+                -332.4999979431481,
+                -1026.0965689619482,
+                74.08548390056636
+              ]
+            },
+            "floor_z": 0.20000076293945312
+          },
+          {
+            "id": "Treatment.AbandonedFlueGasStation.ToolBox.2",
+            "variants": [
+              {
+                "id": "ToolBox",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      18.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "检修工具箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      1341.347,
+                      21.0,
+                      0.5
+                    ],
+                    "yaw": -90,
+                    "container_id": "Treatment.AbandonedFlueGasStation.ToolBox.2.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                1226.0965689619482,
+                -31.670398637979126,
+                1.4999988555908204
+              ],
+              "max": [
+                1379.0,
+                68.50000205685188,
+                74.08548199321773
+              ]
+            },
+            "floor_z": 0.1999988555908203
+          },
+          {
+            "id": "Treatment.AbandonedFlueGasStation.ToolBox.3",
+            "variants": [
+              {
+                "id": "ToolBox",
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+                    "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      18.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "caption": "检修工具箱",
+                    "storage_pages": 1,
+                    "type": "scene_container",
+                    "position": [
+                      640.0,
+                      -1141.347,
+                      240.3
+                    ],
+                    "yaw": 180,
+                    "container_id": "Treatment.AbandonedFlueGasStation.ToolBox.3.0"
+                  }
+                ]
+              }
+            ],
+            "clearance_cm": {
+              "min": [
+                587.3296013620209,
+                -1179.0,
+                241.30001525878907
+              ],
+              "max": [
+                687.5000020568519,
+                -1026.0965689619482,
+                313.885498396416
+              ]
+            },
+            "floor_z": 240.00001525878906
+          }
+        ]
+      }
+    ]
+  },
+  "fixed_parts": {
+    "ShoredBreach": [],
+    "AbandonedIncineratorHall": [
+      {
+        "mesh": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsCabinet_Carcass",
+        "position": [
+          -1352.0,
+          -185.0,
+          -359.7
+        ],
+        "yaw": 90,
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "collision": true,
+        "materials": [],
+        "fluid": false,
+        "treatment_container_fixed": true
+      }
+    ],
+    "AbandonedFlueGasStation": []
+  },
+  "count_ranges": {
+    "ShoredBreach": [
+      4,
+      5
+    ],
+    "AbandonedIncineratorHall": [
+      10,
+      11
+    ],
+    "AbandonedFlueGasStation": [
+      8,
+      9
+    ]
+  },
+  "physical_count_ranges": {
+    "ShoredBreach": [
+      4,
+      5
+    ],
+    "AbandonedIncineratorHall": [
+      6,
+      7
+    ],
+    "AbandonedFlueGasStation": [
+      7,
+      8
+    ]
+  },
+  "authoring_policy": "actual FBX triangle clearance; full opening envelope and 90cm front access; floor support and port/walk masks",
+  "tests_run": false,
+  "game_run": false,
+  "rewards_deferred": true
+}

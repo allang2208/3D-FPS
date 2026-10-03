@@ -1,0 +1,42 @@
+{
+  "revision": "flue_under_platform_chest_20261003",
+  "module": "AbandonedFlueGasStation",
+  "chest": {
+    "skeletal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+    "closed_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose",
+    "material_overrides": {},
+    "position": [
+      300,
+      -1095,
+      0.5
+    ],
+    "yaw": 90,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "role": "flue_under_platform",
+    "collision_extent": [
+      59.47500228881836,
+      74.26250076293945,
+      55.087501525878906
+    ],
+    "collision_center": [
+      6.174999237060547,
+      5.167499542236328,
+      55.087501525878906
+    ],
+    "identity": "flue_under_platform",
+    "opening_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.A_TreasureChest_Opening",
+    "flue_under_platform_chest": true
+  },
+  "preview_blueprint": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Blueprints/BP_StationUpperTreasure",
+  "placement": {
+    "location": "Below rear upper gallery between x=0 and x=600 support rows",
+    "floor_z_cm": 0.2,
+    "platform_top_cm": 240,
+    "beam_underside_cm": 202,
+    "player_approach": "Open side facing the hall; clear of both stairs and fan equipment"
+  }
+}

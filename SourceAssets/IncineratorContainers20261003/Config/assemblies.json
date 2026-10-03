@@ -1,0 +1,260 @@
+{
+  "prototypes": {
+    "ToolBox": {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Body",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_ToolBox_Lid",
+      "hinge": [
+        0,
+        18.0,
+        32.0
+      ],
+      "opening_motion": "Lid",
+      "opened_roll": 108,
+      "caption": "检修工具箱",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.7649999999999999,
+        0.425,
+        0.43
+      ],
+      "type": "scene_container"
+    },
+    "PPELocker": {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+      "hinge": [
+        -30.7,
+        -23.299999999999997,
+        9
+      ],
+      "opening_motion": "Swing",
+      "opened_yaw": -105,
+      "caption": "防护用品柜",
+      "storage_pages": 2,
+      "dimensions_m": [
+        0.64,
+        0.525,
+        1.7
+      ],
+      "type": "scene_container"
+    },
+    "HeatCabinet": {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatCabinet_Body",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatCabinet_Door",
+      "hinge": [
+        -38.7,
+        -26.5,
+        10
+      ],
+      "opening_motion": "Swing",
+      "opened_yaw": -103,
+      "caption": "耐热器材柜",
+      "storage_pages": 2,
+      "dimensions_m": [
+        0.8,
+        0.59,
+        1.08
+      ],
+      "type": "scene_container"
+    },
+    "HeatDrawer": {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatDrawer_Frame",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_HeatDrawer_Tray",
+      "hinge": [
+        0,
+        0,
+        0
+      ],
+      "opening_motion": "Drawer",
+      "drawer_travel": [
+        0,
+        -34.71,
+        0
+      ],
+      "caption": "耐热柜上层抽屉",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.786,
+        0.535,
+        0.25
+      ],
+      "type": "scene_container"
+    },
+    "RecordsDrawer": {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+      "hinge": [
+        0,
+        0,
+        0
+      ],
+      "opening_motion": "Drawer",
+      "drawer_travel": [
+        0,
+        -32.994,
+        0
+      ],
+      "caption": "停尸间档案抽屉",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.71,
+        0.513,
+        0.29
+      ],
+      "type": "scene_container"
+    },
+    "FilterCase": {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Body",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_FilterCase_Lid",
+      "hinge": [
+        0,
+        21.0,
+        36.0
+      ],
+      "opening_motion": "Lid",
+      "opened_roll": 108,
+      "caption": "滤芯运输箱",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.704,
+        0.5,
+        0.45999999999999996
+      ],
+      "type": "scene_container"
+    }
+  },
+  "assemblies": {
+    "HeatCabinet": {
+      "containers": [
+        {
+          "prototype": "HeatCabinet",
+          "position_cm": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "prototype": "HeatDrawer",
+          "position_cm": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "caption": "耐热器材柜",
+      "dimensions_m": [
+        0.8,
+        0.59,
+        1.08
+      ]
+    },
+    "RecordsCabinet": {
+      "caption": "停尸间档案柜",
+      "dimensions_m": [
+        0.74,
+        0.55,
+        1.16
+      ],
+      "static_parts": [
+        {
+          "mesh": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsCabinet_Carcass",
+          "position_cm": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "containers": [
+        {
+          "prototype": "RecordsDrawer",
+          "position_cm": [
+            0,
+            0,
+            11
+          ],
+          "caption": "停尸档案·登记记录"
+        },
+        {
+          "prototype": "RecordsDrawer",
+          "position_cm": [
+            0,
+            0,
+            45
+          ],
+          "caption": "停尸档案·交接记录"
+        },
+        {
+          "prototype": "RecordsDrawer",
+          "position_cm": [
+            0,
+            0,
+            79
+          ],
+          "caption": "停尸档案·设备记录"
+        }
+      ]
+    },
+    "ToolBox": {
+      "caption": "检修工具箱",
+      "dimensions_m": [
+        0.7649999999999999,
+        0.425,
+        0.43
+      ],
+      "containers": [
+        {
+          "prototype": "ToolBox",
+          "position_cm": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "PPELocker": {
+      "caption": "防护用品柜",
+      "dimensions_m": [
+        0.64,
+        0.525,
+        1.7
+      ],
+      "containers": [
+        {
+          "prototype": "PPELocker",
+          "position_cm": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "FilterCase": {
+      "caption": "滤芯运输箱",
+      "dimensions_m": [
+        0.704,
+        0.5,
+        0.45999999999999996
+      ],
+      "containers": [
+        {
+          "prototype": "FilterCase",
+          "position_cm": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "coordinate_contract": "Blender metres x,y,z -> UE cm x,-y,z",
+  "outline": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_ContainerOutline_V4",
+  "scene_placement_completed": true,
+  "rewards_deferred": true,
+  "tests_run": false
+}

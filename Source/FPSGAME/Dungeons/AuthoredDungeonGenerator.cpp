@@ -40,6 +40,7 @@
 #include "DungeonBossEncounter.h"
 #include "DungeonProgressionGate.h"
 #include "WardRoomAssembly.h"
+#include "CargoWarehouseContainers.h"
 #include "DungeonWallArt.h"
 #include "DungeonRunSubsystem.h"
 #include "DungeonSpawnDirector.h"
@@ -680,7 +681,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     TArray<JObject> SceneModules;
     TMap<FString,FString> PreviousSceneRecipes,PreviousSceneStates;
     for(int32 I=0;I<Plan.Pieces.Num();++I)
-        SceneModules.Add(DungeonRoomScenes::Compose(Plan.Modules[Plan.Pieces[I].Module].Data,Seed,I,PreviousSceneRecipes,PreviousSceneStates));
+        SceneModules.Add(CargoWarehouseContainers::Compose(DungeonRoomScenes::Compose(Plan.Modules[Plan.Pieces[I].Module].Data,Seed,I,PreviousSceneRecipes,PreviousSceneStates),Seed,I));
     JObject Graph=MakeShared<FJsonObject>();Graph->SetNumberField(TEXT("seed"),Seed);
     Graph->SetNumberField(TEXT("generator_version"),Plan.bThemedRoutes?8:5);
     if(Plan.bThemedRoutes)
@@ -998,6 +999,16 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         if(D->TryGetArrayField(TEXT("runtime_actors"),WardActors))for(int32 WI=0;WI<WardActors->Num();++WI)
         {
             const JObject Spec=(*WardActors)[WI]->AsObject();
+            if(Spec->GetStringField(TEXT("type"))==TEXT("scene_container"))
+            {
+                QueueAsset(Spec->GetStringField(TEXT("body")));
+                QueueAsset(Spec->GetStringField(TEXT("door")));
+                for(const TCHAR* Key:{TEXT("body_materials"),TEXT("door_materials")})
+                {
+                    const TArray<TSharedPtr<FJsonValue>>* Materials=nullptr;
+                    if(Spec->TryGetArrayField(Key,Materials))for(const auto& Material:*Materials)QueueAsset(Material->AsString());
+                }
+            }
             auto Spawned=MakeShared<TWeakObjectPtr<AActor>>();
             State->Jobs.Add({TEXT("Dungeon.WardActors"),[this,State,Spec,Piece,Index,Spawned]()
             {

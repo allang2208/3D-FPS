@@ -2,6 +2,8 @@
 #include "WardBedScatter.h"
 #include "WardBreakableGlass.h"
 #include "DungeonBloodScatter.h"
+#include "../UI/ColdSteelSceneContainer.h"
+#include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
 #include "Components/DecalComponent.h"
 #include "Components/PostProcessComponent.h"
@@ -30,7 +32,42 @@ AActor* WardRoomAssembly::Spawn(UWorld* World,AActor* Owner,const J& S,
     const FTransform At=FTransform(FRotator(Pitch,S->GetNumberField(TEXT("yaw")),Roll),Vec(S,TEXT("position")))*Room;
     AActor* Result=nullptr;
     UWardBreakableGlass* Pane=nullptr;
-    if(Type==TEXT("glass_door"))
+    if(Type==TEXT("scene_container"))
+    {
+        auto* Container=World->SpawnActorDeferred<AColdSteelSceneContainer>(AColdSteelSceneContainer::StaticClass(),At,Owner,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+        if(!Container)return nullptr;
+        Container->ContainerId=S->GetStringField(TEXT("container_id"));
+        S->TryGetStringField(TEXT("caption"),Container->Caption);
+        Container->StoragePages=S->GetIntegerField(TEXT("storage_pages"));
+        double OpenedYaw=100.;S->TryGetNumberField(TEXT("opened_yaw"),OpenedYaw);Container->OpenedYaw=OpenedYaw;
+        FString Motion;S->TryGetStringField(TEXT("opening_motion"),Motion);
+        Container->OpeningMotion=Motion==TEXT("Drawer")?EColdSteelContainerMotion::Drawer:
+            Motion==TEXT("Lid")?EColdSteelContainerMotion::Lid:EColdSteelContainerMotion::Swing;
+        double OpenedRoll=105.;S->TryGetNumberField(TEXT("opened_roll"),OpenedRoll);Container->OpenedRoll=OpenedRoll;
+        double InitialFraction=0.;S->TryGetNumberField(TEXT("initial_open_fraction"),InitialFraction);Container->InitialOpenFraction=InitialFraction;
+        if(S->HasField(TEXT("drawer_travel")))Container->DrawerTravel=Vec(S,TEXT("drawer_travel"));
+        // Runtime modules may be assembled after BeginPlay. Set mobility before
+        // assigning meshes, otherwise UE refuses the stationary container body.
+        Container->GetRootComponent()->SetMobility(EComponentMobility::Movable);
+        Container->Body->SetMobility(EComponentMobility::Movable);
+        Container->Body->SetStaticMesh(Cast<UStaticMesh>(Resolve(S->GetStringField(TEXT("body")))));
+        Container->Door->SetStaticMesh(Cast<UStaticMesh>(Resolve(S->GetStringField(TEXT("door")))));
+        for(const auto& Entry:{TPair<const TCHAR*,UStaticMeshComponent*>(TEXT("body_materials"),Container->Body.Get()),
+                              TPair<const TCHAR*,UStaticMeshComponent*>(TEXT("door_materials"),Container->Door.Get())})
+        {
+            const TArray<TSharedPtr<FJsonValue>>* Materials=nullptr;
+            if(S->TryGetArrayField(Entry.Key,Materials))for(int32 I=0;I<Materials->Num();++I)
+                Entry.Value->SetMaterial(I,Cast<UMaterialInterface>(Resolve((*Materials)[I]->AsString())));
+        }
+        Container->Body->SetCollisionProfileName(TEXT("BlockAll"));
+        Container->Door->SetCollisionProfileName(TEXT("NoCollision"));
+        Container->Door->SetCanEverAffectNavigation(false);
+        Container->DoorHinge->SetRelativeLocation(Vec(S,TEXT("hinge")));
+        bool RandomOpen=false;S->TryGetBoolField(TEXT("initial_random_open"),RandomOpen);
+        if(RandomOpen)Container->Tags.Add(TEXT("ColdSteel.SceneContainer.RandomOpen"));
+        Result=Container;
+    }
+    else if(Type==TEXT("glass_door"))
     {
         auto* Door=World->SpawnActorDeferred<AWardGlassDoor>(AWardGlassDoor::StaticClass(),At,Owner,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
         if(!Door)return nullptr;

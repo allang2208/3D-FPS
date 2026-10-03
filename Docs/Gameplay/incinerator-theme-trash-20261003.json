@@ -1,0 +1,515 @@
+{
+  "revision": "incinerator-theme-archive-20261003",
+  "retained_maps": [
+    "/Game/GameMaps/Design/L_Incinerator_Theme_Subject",
+    "hospital_line",
+    "station_line"
+  ],
+  "files": [
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/authoring.json",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/authoring.json",
+      "sha256": "100f352bcefbddd8e4e6282712a769c21b25d4f730e65b8278aa37250c1f0478",
+      "bytes": 24421,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/boundary_edges.json",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/boundary_edges.json",
+      "sha256": "9461231017f1629a197675db4e67664ad1b372a5d7f3c68749337cb32648829b",
+      "bytes": 296,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/inspect_boundary.py",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/inspect_boundary.py",
+      "sha256": "da5bd289b0afc5eee061244dfa909a88a5102a8fed18638ea4e7f2437f04cb78",
+      "bytes": 602,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/install-engine.log",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/install-engine.log",
+      "sha256": "f6a82b1374b205e5fce0276ac7cac3530f86c6b4c299fefb4a25ded93b333789",
+      "bytes": 302684,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/install-engine2.log",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/install-engine2.log",
+      "sha256": "acfbb18208c58768e35d74598fe8e0404900017fe2c66c04d701e20ac2199b2c",
+      "bytes": 306781,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/install_receipt.json",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/install_receipt.json",
+      "sha256": "f8a67b7aa0b1293ce2d005ecae11c5afaac39640542f566b247f7cb45a2207f1",
+      "bytes": 2334,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/install_refined_chest.py",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/install_refined_chest.py",
+      "sha256": "12881fc28a3f3b831666601df101439e201efbfd357743cc92ee64ab7c607e84",
+      "bytes": 11715,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/make_surface_maps.py",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/make_surface_maps.py",
+      "sha256": "4a7b69804bfe14a0f105ddc1a0eb09ec9f0b29bab297fb9247bb88da0c2e9986",
+      "bytes": 3582,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/README.md",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/README.md",
+      "sha256": "2ff783755edd9184e37e84dde6972884f912d0311d38a0428db373b5a101d107",
+      "bytes": 4400,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/refine_chest.py",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/refine_chest.py",
+      "sha256": "261975a979dd1522f8c562f3d2e898d22ab3577dcb5d8da7df6115d61c801d31",
+      "bytes": 22726,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/run_refine.ps1",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/run_refine.ps1",
+      "sha256": "57b2b8703149971cf6d7a2fa46775e88013f5dd71435cc52b5bf40cb26b9b4af",
+      "bytes": 1196,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/surface_stats.json",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/surface_stats.json",
+      "sha256": "6c3f9f1f5b2701f5bdffaa92eec4dc35be32c165d8421b86c60d2774e86b7329",
+      "bytes": 261,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/Authored/GamedevTreasureChest_Refined.blend",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/Authored/GamedevTreasureChest_Refined.blend",
+      "sha256": "4c0d3f86e62c9ecedd8c563a71fe05541f89d3a31744ea9ad28cff8492f5b3b5",
+      "bytes": 2682471,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/Authored/GamedevTreasureChest_Refined.blend1",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/Authored/GamedevTreasureChest_Refined.blend1",
+      "sha256": "885204aff0a2c985e441972b0e86355a66bba8338e94e127ade2bc0f83cf52cf",
+      "bytes": 2683621,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/Authored/GamedevTreasureChest_Refined_Opening.blend",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/Authored/GamedevTreasureChest_Refined_Opening.blend",
+      "sha256": "548400ba2bc35739ff018852852565fefeb4447cd481c44297a569deef142cc6",
+      "bytes": 2684159,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/Authored/GamedevTreasureChest_Refined_Opening.blend1",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/Authored/GamedevTreasureChest_Refined_Opening.blend1",
+      "sha256": "25e8cfbb5a3811eb7838883895ed0125dc2aae46ed793d531f31157c24d5ca9e",
+      "bytes": 2685310,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/Authored/SK_GamedevTreasureChest.fbx",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/Authored/SK_GamedevTreasureChest.fbx",
+      "sha256": "b03e7221c02d0dde3c8bee623db4b0afaf8f0d20b40b3977cb43e3f3781dad6f",
+      "bytes": 3011580,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/Authored/SM_TreasureChest_Closed.fbx",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/Authored/SM_TreasureChest_Closed.fbx",
+      "sha256": "9f43022447012fc60c87e6ce40b9a9257dd8cf3aa0ae8d979b162f009e19959f",
+      "bytes": 2933628,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/Authored/SM_TreasureChest_Open.fbx",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/Authored/SM_TreasureChest_Open.fbx",
+      "sha256": "29ed2c647f56e3055a2ec5dbc431a4a3754d3a71c0cea368a293a69d6fde0414",
+      "bytes": 2961372,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/SK_GamedevTreasureChest.uasset",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/SK_GamedevTreasureChest.uasset",
+      "sha256": "1bc86dfa182b1e1c359e3b8068e00d6c044f8765d92387eaf2e111f27523d1ea",
+      "bytes": 23325135,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/SM_TreasureChest_Closed.uasset",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/SM_TreasureChest_Closed.uasset",
+      "sha256": "6adeb8be7745514c867f6a06e6a03cfbbfc27fbcdcfbe057d83537ab5b31498d",
+      "bytes": 1799525,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/SM_TreasureChest_Open.uasset",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/SM_TreasureChest_Open.uasset",
+      "sha256": "6a1cf214242f5e042b709198edb7746d72bde8698673cf9d7112e0f4c6e8637d",
+      "bytes": 1829114,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Materials/M_Treasure_AntiqueGold.uasset",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Materials/M_Treasure_AntiqueGold.uasset",
+      "sha256": "89b097cbcc3e3654e39159ac47805a2aeb5a5e03587b896576ff8503594eaff9",
+      "bytes": 17470,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Materials/M_Treasure_BlackIron.uasset",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Materials/M_Treasure_BlackIron.uasset",
+      "sha256": "5b697668827858a3a2e669a765291dd3546f79282663989ba242bcb1772c433f",
+      "bytes": 16236,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Materials/M_Treasure_Interior.uasset",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Materials/M_Treasure_Interior.uasset",
+      "sha256": "8a341079cd28d9f2b3d2ad18b81eebc78a0cdf068648db39919c1a4a22a72821",
+      "bytes": 14526,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Textures/T_Treasure_Gold_Normal.uasset",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Textures/T_Treasure_Gold_Normal.uasset",
+      "sha256": "7a5c57c3b8274ff61d43c2e75dc40880fe959e74868a230bb0f0963dfaa1d3e7",
+      "bytes": 1107243,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Textures/T_Treasure_Gold_Surface.uasset",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Textures/T_Treasure_Gold_Surface.uasset",
+      "sha256": "12b71633c73aeea41ae976c9bded15bc8e26bb53ad5a3ef36eedca95316f3ebd",
+      "bytes": 1984535,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Textures/T_Treasure_Iron_Normal.uasset",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Textures/T_Treasure_Iron_Normal.uasset",
+      "sha256": "1928635bc07e870820558882e6fa314caa751dd2eb58ecbc7271510cb0df4b74",
+      "bytes": 1566831,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Textures/T_Treasure_Iron_Surface.uasset",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/BeforeRepair/Textures/T_Treasure_Iron_Surface.uasset",
+      "sha256": "b9fedfde8c5dcac29b4df88659e5436f083deabe014ae5f646defaee432c2bfc",
+      "bytes": 1997109,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/Textures/T_Treasure_Gold_Normal.png",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/Textures/T_Treasure_Gold_Normal.png",
+      "sha256": "1dd89344b54b418b3ff58cb7d1807e92937a595648316bcb84893a52fd11de33",
+      "bytes": 1790249,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/Textures/T_Treasure_Gold_Surface.png",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/Textures/T_Treasure_Gold_Surface.png",
+      "sha256": "9369a4890776cd662fa457bb594bad3157d9a086ab5121467d3f1c149216eac6",
+      "bytes": 2437638,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/Textures/T_Treasure_Iron_Normal.png",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/Textures/T_Treasure_Iron_Normal.png",
+      "sha256": "1176fc983d8f1f167690cc3d7d7786183cb7cbf9a66dd1d76011ed05e9214aaf",
+      "bytes": 1971035,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestRefine20261002/Textures/T_Treasure_Iron_Surface.png",
+      "original": "SourceAssets/GamedevTreasureChestRefine20261002/Textures/T_Treasure_Iron_Surface.png",
+      "sha256": "e1c145153e1b71b0002b9b9c197c2d37650c9bc79d502f70c60e99a1341444e6",
+      "bytes": 2386997,
+      "reason": "Superseded coarse chest; active helper snapshot and new authoring live in GamedevTreasureChestDetail20261003; original rig and animations retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorContainers20261003/Authored/IncineratorContainers_Source.blend1",
+      "original": "SourceAssets/IncineratorContainers20261003/Authored/IncineratorContainers_Source.blend1",
+      "sha256": "f23fc8b3774565ccc28a4107cbb54b1ad49dfdbc214a7fef8daad26ce56b3d87",
+      "bytes": 3614682,
+      "reason": "Superseded Blender automatic backup; adopted .blend retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestDetail20261003/Authored/TreasureChest_Detail.blend1",
+      "original": "SourceAssets/GamedevTreasureChestDetail20261003/Authored/TreasureChest_Detail.blend1",
+      "sha256": "78c9e0ef2881c7305d7f88698df7ce03b08ac1525fb8a0445bfbc4fc49409453",
+      "bytes": 6624900,
+      "reason": "Superseded Blender automatic backup; adopted .blend retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestDetail20261003/Authored/TreasureChest_Detail_Components.blend1",
+      "original": "SourceAssets/GamedevTreasureChestDetail20261003/Authored/TreasureChest_Detail_Components.blend1",
+      "sha256": "35fe95ae6cb016e69ff50a6b7fe4ff83b952da3c45eac5186064070a39fb83db",
+      "bytes": 3128882,
+      "reason": "Superseded Blender automatic backup; adopted .blend retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestDetail20261003/Authored/TreasureChest_Detail_Opening.blend1",
+      "original": "SourceAssets/GamedevTreasureChestDetail20261003/Authored/TreasureChest_Detail_Opening.blend1",
+      "sha256": "ed35c9c6793306fcbb8f6086c20426eb454b69b5db1dbafaea0491203e170df7",
+      "bytes": 6626748,
+      "reason": "Superseded Blender automatic backup; adopted .blend retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Scripts/capture_all_parts.py",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Scripts/capture_all_parts.py",
+      "sha256": "8c7ec33156f21a81178f2a6bf1cc507127f12fdca79491c545a9537b6cb75693",
+      "bytes": 1150,
+      "reason": "Completed stair investigation; final subject_layout.py and incremental saved-map installer retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Scripts/capture_scene.py",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Scripts/capture_scene.py",
+      "sha256": "9b13a3815d9e3394e48808dc9649a3449f4abb420582d71c1dc3328dafe69bd1",
+      "bytes": 2658,
+      "reason": "Completed stair investigation; final subject_layout.py and incremental saved-map installer retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Scripts/identify_structure.py",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Scripts/identify_structure.py",
+      "sha256": "566a0ad801458ed1e4b13109db8f12c2b2312d19fcc43ea98487ce4877e6b885",
+      "bytes": 3597,
+      "reason": "Completed stair investigation; final subject_layout.py and incremental saved-map installer retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Scripts/read_components.py",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Scripts/read_components.py",
+      "sha256": "6f31abc1c7c80cba651367a335341b26e43cc6b039ac1443aaa11963512bc038",
+      "bytes": 1904,
+      "reason": "Completed stair investigation; final subject_layout.py and incremental saved-map installer retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Config/structural-components.json",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Config/structural-components.json",
+      "sha256": "89e467a19bbb07bfb93b49ca8822c8c0301ba13945b70e07637fa8484d022482",
+      "bytes": 66064,
+      "reason": "Completed stair investigation; final subject_layout.py and incremental saved-map installer retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Receipts/all-scene-components.json",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Receipts/all-scene-components.json",
+      "sha256": "642ee35245901d24b361fdaa768e142bf3ca79b2e82e7680ecb312a1e6ac2c5b",
+      "bytes": 166790,
+      "reason": "Completed stair investigation; final subject_layout.py and incremental saved-map installer retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Receipts/scene-source.json",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Receipts/scene-source.json",
+      "sha256": "12c7d9d45e00d0c7c76fd3cc8991c71e877af6f040b444d7a5d4fd48a4b319cb",
+      "bytes": 49003,
+      "reason": "Completed stair investigation; final subject_layout.py and incremental saved-map installer retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_AshReceiver_MorgueB1.fbx",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_AshReceiver_MorgueB1.fbx",
+      "sha256": "c3a41e958afba2964f853fc0d556b16cbc2870f7ca1dc7ebe8be520f83c95180",
+      "bytes": 821872,
+      "reason": "Temporary geometry extraction for resolved stair intrusion; original authoring assets retained locally."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_B1Structure_OpenB1V2.fbx",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_B1Structure_OpenB1V2.fbx",
+      "sha256": "7161c3343abc6e59bdd317bea89d4fe10277487bdc1a35b1f1f98b9e19fbbe5f",
+      "bytes": 24272,
+      "reason": "Temporary geometry extraction for resolved stair intrusion; original authoring assets retained locally."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_B1Walls_OpenB1V2.fbx",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_B1Walls_OpenB1V2.fbx",
+      "sha256": "dac12be017cf0f914479c370bb7d83889d41d16887d2048a8c257daff0889606",
+      "bytes": 21904,
+      "reason": "Temporary geometry extraction for resolved stair intrusion; original authoring assets retained locally."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_FurnaceMasonry.fbx",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_FurnaceMasonry.fbx",
+      "sha256": "59ebbb2ce00ce0e51bd3d55761fd5e34f9bdc88634430a7c87372dbaa88b70cc",
+      "bytes": 75680,
+      "reason": "Temporary geometry extraction for resolved stair intrusion; original authoring assets retained locally."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_ObservationDeck.fbx",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_ObservationDeck.fbx",
+      "sha256": "bf60366fa1114c2c13583785b9491b724b093cc53236a5955e00dd6bb7b97de1",
+      "bytes": 23200,
+      "reason": "Temporary geometry extraction for resolved stair intrusion; original authoring assets retained locally."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_ObservationSupports.fbx",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_ObservationSupports.fbx",
+      "sha256": "6b70a21860cf1dfced582c196980ed9700d072610cc5d347ed74ace62ee343e0",
+      "bytes": 26304,
+      "reason": "Temporary geometry extraction for resolved stair intrusion; original authoring assets retained locally."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_Stairs_OpenB1V2.fbx",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_Stairs_OpenB1V2.fbx",
+      "sha256": "97edb6d54664b866575adb894bdf765f4ed2a32cffbc9ff0366b51b225264742",
+      "bytes": 246032,
+      "reason": "Temporary geometry extraction for resolved stair intrusion; original authoring assets retained locally."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_Walls.fbx",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Authored/CurrentGeometry/SM_Incinerator_Walls.fbx",
+      "sha256": "4fa3d4dd061bc071811b78a33a92d684e851af9a2872d84ca6500c49c6b2a0af",
+      "bytes": 102816,
+      "reason": "Temporary geometry extraction for resolved stair intrusion; original authoring assets retained locally."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Receipts/bridge-identify-01.json",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Receipts/bridge-identify-01.json",
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "bytes": 210,
+      "reason": "Superseded diagnostic or failed/repeated attempt; final install receipt and log retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Receipts/bridge-identify-02.json",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Receipts/bridge-identify-02.json",
+      "sha256": "6f8c14ae6ea14f08981ce775ed3ee763137bf4741599607807232613f1635dc7",
+      "bytes": 628,
+      "reason": "Superseded diagnostic or failed/repeated attempt; final install receipt and log retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Receipts/bridge-identify-03.json",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Receipts/bridge-identify-03.json",
+      "sha256": "24c0ceca72ff7bf0efd574c1fc51c21dba60a1cf35c918dd71f31d4f9c9cfadb",
+      "bytes": 864,
+      "reason": "Superseded diagnostic or failed/repeated attempt; final install receipt and log retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Receipts/bridge-identify-04.json",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Receipts/bridge-identify-04.json",
+      "sha256": "7d8695c8f232b26fdd08deaaf3c243cb535692da0c8ef01c4cd323b423e362d1",
+      "bytes": 1016,
+      "reason": "Superseded diagnostic or failed/repeated attempt; final install receipt and log retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Receipts/bridge-identify-05.json",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Receipts/bridge-identify-05.json",
+      "sha256": "e54c7bb294e85fc349f848a98f7840901be297184b3af01d8827cdd84deefdb1",
+      "bytes": 1014,
+      "reason": "Superseded diagnostic or failed/repeated attempt; final install receipt and log retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Receipts/capture-background-backup-2026.10.03-12.08.15.log",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Receipts/capture-background-backup-2026.10.03-12.08.15.log",
+      "sha256": "f5ee3806e5c33ab74df09fe7d780fcb5e87144a6abfc7a7d7cb39b8e59f83d9c",
+      "bytes": 300988,
+      "reason": "Superseded diagnostic or failed/repeated attempt; final install receipt and log retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Receipts/scenes-background-attempt1.log",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Receipts/scenes-background-attempt1.log",
+      "sha256": "7d926f43bfb12570e8d96475846287d51e78a2639a9b2bf1108de082df3d3b38",
+      "bytes": 315596,
+      "reason": "Superseded diagnostic or failed/repeated attempt; final install receipt and log retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Receipts/scenes-background-attempt2.log",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Receipts/scenes-background-attempt2.log",
+      "sha256": "252bdeda203bc5c561d9bc937a377f8e10521e433bf799eae5e621f3ea26a226",
+      "bytes": 102331,
+      "reason": "Superseded diagnostic or failed/repeated attempt; final install receipt and log retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Receipts/scenes-background-backup-2026.10.03-12.33.08.log",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Receipts/scenes-background-backup-2026.10.03-12.33.08.log",
+      "sha256": "7d926f43bfb12570e8d96475846287d51e78a2639a9b2bf1108de082df3d3b38",
+      "bytes": 315596,
+      "reason": "Superseded diagnostic or failed/repeated attempt; final install receipt and log retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorStairClearance20261003/Receipts/scenes-background-backup-2026.10.03-12.35.23.log",
+      "original": "SourceAssets/IncineratorStairClearance20261003/Receipts/scenes-background-backup-2026.10.03-12.35.23.log",
+      "sha256": "252bdeda203bc5c561d9bc937a377f8e10521e433bf799eae5e621f3ea26a226",
+      "bytes": 102331,
+      "reason": "Superseded diagnostic or failed/repeated attempt; final install receipt and log retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestDetail20261003/Receipts/bridge-install-1.json",
+      "original": "SourceAssets/GamedevTreasureChestDetail20261003/Receipts/bridge-install-1.json",
+      "sha256": "faaa8d292228d62b428547e3ff00e2fdc59190578987d8773c37942920463903",
+      "bytes": 1367,
+      "reason": "Failed/superseded bridge output; successful background save receipt retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/GamedevTreasureChestDetail20261003/Receipts/bridge-install-2.json",
+      "original": "SourceAssets/GamedevTreasureChestDetail20261003/Receipts/bridge-install-2.json",
+      "sha256": "533886239a2935546b2a0fc36491ebfdd4852f8e712a8e64a7aa5abbd476332f",
+      "bytes": 688,
+      "reason": "Failed/superseded bridge output; successful background save receipt retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorContainers20261003/Receipts/bridge-placement-source-01.json",
+      "original": "SourceAssets/IncineratorContainers20261003/Receipts/bridge-placement-source-01.json",
+      "sha256": "544d894379e29c465c79096cc9597e82c276abb676da18ba46150206cd5802d1",
+      "bytes": 586,
+      "reason": "Failed/superseded bridge output; successful background save receipt retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/DungeonTreatmentTheme20261003/Receipts/bridge-theme-01.json",
+      "original": "SourceAssets/DungeonTreatmentTheme20261003/Receipts/bridge-theme-01.json",
+      "sha256": "282c22d7341b27fd47bbc5783efcbe96ff86211cfa1cae5867d72f25bb5b9ba4",
+      "bytes": 434,
+      "reason": "Failed/superseded bridge output; successful background save receipt retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/DungeonTreatmentTheme20261003/Receipts/bridge-theme-02.json",
+      "original": "SourceAssets/DungeonTreatmentTheme20261003/Receipts/bridge-theme-02.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "reason": "Failed/superseded bridge output; successful background save receipt retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorContainers20261003/Receipts/blender-author.log",
+      "original": "SourceAssets/IncineratorContainers20261003/Receipts/blender-author.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "reason": "Empty superseded log; actual export output and receipts retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorContainers20261003/Receipts/blender-author-final.log",
+      "original": "SourceAssets/IncineratorContainers20261003/Receipts/blender-author-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "reason": "Empty superseded log; actual export output and receipts retained."
+    },
+    {
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/IncineratorContainers20261003/Receipts/blender-final-export.log",
+      "original": "SourceAssets/IncineratorContainers20261003/Receipts/blender-final-export.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "reason": "Empty superseded log; actual export output and receipts retained."
+    },
+    {
+      "original": "Content/Props/GamedevTreasureChestDetail20261003/Materials/M_TreasureDetail_Iron.uasset",
+      "archived": "trash/incinerator-theme-20261003/Content/Props/GamedevTreasureChestDetail20261003/Materials/M_TreasureDetail_Iron.uasset",
+      "bytes": 12384,
+      "sha256": "ccb55a1bee94beb4d7f3f6f72105fb7734fbfa92b05b7727fd409592669d1812",
+      "reason": "Unused failed material graph; empty referencers and no unsaved changes; adopted Iron_R2 retained. Copied with hash then removed through the existing editor asset API."
+    },
+    {
+      "original": "SourceAssets/DungeonTreatmentTheme20261003/Scripts/archive_material_background.ps1",
+      "archived": "trash/incinerator-theme-20261003/SourceAssets/DungeonTreatmentTheme20261003/Scripts/archive_material_background.ps1",
+      "bytes": 1750,
+      "sha256": "22eff7d537b3789763f50b868ef4787e55082641937ded51e87abd288bb654ff",
+      "reason": "Completed temporary archive inspection launcher; authoring and save entry points retained."
+    }
+  ],
+  "mode": "recoverable_move"
+}

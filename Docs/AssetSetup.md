@@ -502,3 +502,13 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## RSH-12：五发单动与暂停修订（2026-10-03）
 
 恢复本枪需要 Medji 的 CC BY 4.0 原始包、合法 715／V7 手臂供体、原生姿态与本机已保存的 RSH 资产。最新握持／ADS 拨锤源码未完整烘焙和保存，旧导入回执不能代表当前候选。作者入口、十个目标资产、废案散列、保留输入与恢复顺序见 [RSH-12 暂停与发布](Weapons/rsh12-pause-publication-20261003.md) 和 [待办](Backlog.md)；署名见 [Medji 来源记录](ThirdParty/RSH12-Medji-CCBY4.md)。本轮公开源码／配方／参数，二进制、密集姿态、日志与 trash 留在本机，不新增游戏测试。
+
+## 焚化炉主题与共用宝箱细节版（2026-10-03）
+
+采用的正式主题为 `ShoredBreach → AbandonedIncineratorHall → AbandonedFlueGasStation`，正式地图仍为 `/Game/GameMaps/L_Dungeon_Randomized`。五类原创可动箱柜的建模、标签、材质、候选位和接入配方见 `SourceAssets/IncineratorContainers20261003`；三房为 17–20 件实体、22–25 个独立搜寻入口。平台下宝箱位置见 `FlueUnderPlatformChest20261003`，最终采用入口见 `DungeonTreatmentTheme20261003`。
+
+共用探险宝箱细节制作见 `GamedevTreasureChestDetail20261003`：原创金属 PBR 与内外结构，通过 GeometryScript 写回原正式网格；原 `GamedevTreasureChest20260922` 骨架、动作和本地上游源继续使用，Normandy 木材纹理按已有许可恢复。旧粗糙版本已经可恢复地归档；新版 helper 自包含，不依赖旧版本目录。
+
+公开原创建模/PBR/组装配方、参数、容器通用运行支持和说明；UE 包、Blender/FBX、生成贴图、完整运行快照、第三方源与恢复包留在本机。钢、橡胶、描边材质继续引用本地员工生活区已保存资产；线路测试图的宝箱碰撞蓝图继续引用本地 StationWorkshop，正式运行不依赖该预览蓝图。恢复配方前需具备这些 Content 依赖，不手写资产安装成功回执。
+
+按用户要求保留医院、车站和焚化炉线路测试地图；只归档本轮废案。详情及公开归档摘要见 [采用与发布](Gameplay/incinerator-theme-publication-20261003.md) 和 [归档清单](Gameplay/incinerator-theme-trash-20261003.json)。本轮后台保存完成，未运行游戏、PIE、渲染或测试。

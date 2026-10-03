@@ -13,7 +13,8 @@ enum class EColdSteelContainerMotion : uint8
 {
     Swing,
     Drawer,
-    OpenShelf // Legacy serialized value; new shelves use Drawer with a real moving part.
+    OpenShelf, // Legacy serialized value; new shelves use Drawer with a real moving part.
+    Lid
 };
 
 /** Searchable scenery. Door and searched state last for this level visit;
@@ -59,4 +60,7 @@ public:
     // Appended to preserve the layout of existing reflected/runtime members.
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Container") EColdSteelContainerMotion OpeningMotion=EColdSteelContainerMotion::Swing;
     UPROPERTY(EditAnywhere, Category="Container") FVector DrawerTravel=FVector(0,29,0);
+    UPROPERTY(EditAnywhere, Category="Container") float OpenedRoll=105.f;
+    /** Authored seeded ajar pose; the container remains unsearched. */
+    UPROPERTY(EditAnywhere, Category="Container", meta=(ClampMin="0",ClampMax="1")) float InitialOpenFraction=0.f;
 };

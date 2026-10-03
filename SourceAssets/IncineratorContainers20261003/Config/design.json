@@ -1,0 +1,96 @@
+{
+  "families": [
+    {
+      "id": "ToolBox",
+      "caption": "检修工具箱",
+      "dimensions_cm": [
+        70,
+        36,
+        32
+      ],
+      "opening": "Lid",
+      "details": [
+        "folded shell",
+        "removable tray",
+        "hand tools",
+        "rear hinge",
+        "latches"
+      ]
+    },
+    {
+      "id": "PPELocker",
+      "caption": "防护用品柜",
+      "dimensions_cm": [
+        64,
+        43,
+        170
+      ],
+      "opening": "Swing",
+      "details": [
+        "vent gaps",
+        "fixed shelves",
+        "protection packs",
+        "respirators",
+        "lock"
+      ]
+    },
+    {
+      "id": "HeatCabinet",
+      "caption": "耐热器材柜",
+      "dimensions_cm": [
+        80,
+        49,
+        108
+      ],
+      "opening": "Swing + Drawer",
+      "details": [
+        "ceramic door lining",
+        "ceramic handle",
+        "runner frame",
+        "independent upper tray"
+      ]
+    },
+    {
+      "id": "RecordsCabinet",
+      "caption": "停尸间档案柜",
+      "dimensions_cm": [
+        74,
+        46,
+        116
+      ],
+      "opening": "3 independent drawers",
+      "details": [
+        "reusable runner frames",
+        "file folders",
+        "label frames",
+        "three searches"
+      ]
+    },
+    {
+      "id": "FilterCase",
+      "caption": "滤芯运输箱",
+      "dimensions_cm": [
+        64,
+        42,
+        36
+      ],
+      "opening": "Lid",
+      "details": [
+        "rubber seal",
+        "pleated cartridges",
+        "hollow sleeve",
+        "end caps",
+        "cradle rails"
+      ]
+    }
+  ],
+  "label_panel_pixels": [
+    800,
+    400
+  ],
+  "label_width_height_ratio": 2,
+  "label_policy": "native font drawing, equal physical and UV aspect, no image resize",
+  "scope": "models and saved UE assets; room placement is separate",
+  "tests_run": false,
+  "rendered": false
+}

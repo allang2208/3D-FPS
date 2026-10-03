@@ -1,0 +1,150 @@
+{
+  "map": "/Game/GameMaps/Design/L_Incinerator_Theme_Subject",
+  "sequence": [
+    "ShoredBreach",
+    "AbandonedIncineratorHall",
+    "AbandonedFlueGasStation"
+  ],
+  "placements": [
+    {
+      "id": "ShoredBreach",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "Transit",
+      "name": "SupportHallLink",
+      "position": [
+        1084.3791748397052,
+        154.55655345693228,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "Transit",
+      "name": "SupportHallLink_Extension1",
+      "position": [
+        1484.3791748397052,
+        154.55655345693225,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "Transit",
+      "name": "SupportHallLink_Extension2",
+      "position": [
+        1884.3791748397052,
+        154.55655345693222,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "Threshold",
+      "name": "SupportHallLink_Extension3",
+      "position": [
+        2284.3791748397052,
+        154.5565534569322,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "Threshold",
+      "name": "SupportHallLink_Extension4",
+      "position": [
+        2364.3791748397052,
+        154.5565534569322,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "AbandonedIncineratorHall",
+      "position": [
+        4044.3791748397052,
+        154.5565534569322,
+        0
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "Transit",
+      "name": "HallPurificationLink",
+      "position": [
+        5644.379174839705,
+        154.5565534569322,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "AbandonedFlueGasStation",
+      "position": [
+        7644.379174839705,
+        -645.4434465430678,
+        0.0
+      ],
+      "yaw": 0
+    }
+  ],
+  "player_start": [
+    140.0,
+    0.0,
+    105
+  ],
+  "source_map": "/Game/GameMaps/L_Dungeon_Randomized",
+  "source_catalog_sha256": "9f45ed1698162da3ec56bd099c465a1fa3c43c9d8d46ade21e94d2261eda0cb7",
+  "seed": 20261003,
+  "blood_generation": "native BeginPlay, fixed seeds for repeatable refinement",
+  "monster_spawning": false,
+  "encounter_gates": false,
+  "return_map": "/Game/GameMaps/DayNight_Lighting",
+  "keep_maps": [
+    "/Game/GameMaps/Design/L_Hospital_Theme_Subject",
+    "/Game/GameMaps/Design/L_FreightTransit_Theme_Subject"
+  ],
+  "treatment_container_revision": "treatment_wall_bays_v1_20261003",
+  "treatment_container_count_ranges": {
+    "ShoredBreach": [
+      4,
+      5
+    ],
+    "AbandonedIncineratorHall": [
+      10,
+      11
+    ],
+    "AbandonedFlueGasStation": [
+      8,
+      9
+    ]
+  },
+  "treatment_physical_container_count_ranges": {
+    "ShoredBreach": [
+      4,
+      5
+    ],
+    "AbandonedIncineratorHall": [
+      6,
+      7
+    ],
+    "AbandonedFlueGasStation": [
+      7,
+      8
+    ]
+  },
+  "authored_container_count": 22,
+  "container_preview_seed": 20261003,
+  "container_rewards_deferred": true,
+  "layout_revision": "full_room_footprints_20261003",
+  "stair_intrusion_removed": true,
+  "layout_reason": "First room discovery wing overlapped second room observation stairs in the fixed subject layout",
+  "flue_under_platform_chest_revision": "flue_under_platform_chest_20261003",
+  "flue_under_platform_chest_count": 1
+}

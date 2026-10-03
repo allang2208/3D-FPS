@@ -74,7 +74,12 @@ def extend(catalog):
     if (split/'Receipts/install.json').exists() and read(split/'Receipts/install.json').get('stage')=='map_saved':
         import runpy
         result=runpy.run_path(str(split/'Scripts/extend_catalog.py'))['extend'](result)
-    return restrict_freight_to_theme(result)
+    result=restrict_freight_to_theme(result)
+    treatment=ROOT.parent/'DungeonTreatmentTheme20261003'
+    if (treatment/'Receipts/install.json').exists() and read(treatment/'Receipts/install.json').get('stage')=='map_saved':
+        import runpy
+        result=runpy.run_path(str(treatment/'Scripts/extend_catalog.py'))['extend'](result)
+    return result
 
 def asset_paths(v):
     if isinstance(v,str) and v.startswith(('/Game/','/Script/')):yield v

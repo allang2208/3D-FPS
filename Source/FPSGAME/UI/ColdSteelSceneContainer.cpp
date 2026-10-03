@@ -42,7 +42,20 @@ void AColdSteelSceneContainer::BeginPlay()
     MapName.RemoveFromStart(GetWorld()->StreamingLevelsPrefix);
     RuntimeStorageKey=TEXT("SceneSearch.")+MapName+TEXT(".")
         +(ContainerId.IsEmpty()?GetName():ContainerId);
-    if(OpeningMotion==EColdSteelContainerMotion::Swing&&ActorHasTag(TEXT("ColdSteel.SceneContainer.RandomOpen"))&&FMath::FRand()<.32f)
+    const float InitialFraction=FMath::Clamp(InitialOpenFraction,0.f,1.f);
+    if(InitialFraction>0.f)
+    {
+        if(OpeningMotion==EColdSteelContainerMotion::Drawer||OpeningMotion==EColdSteelContainerMotion::OpenShelf)
+            DoorHinge->SetRelativeLocation(ClosedMovingPartLocation+DrawerTravel*InitialFraction);
+        else
+        {
+            FRotator Initial=ClosedDoorRotation;
+            if(OpeningMotion==EColdSteelContainerMotion::Lid)Initial.Roll+=OpenedRoll*InitialFraction;
+            else Initial.Yaw+=OpenedYaw*InitialFraction;
+            DoorHinge->SetRelativeRotation(Initial);
+        }
+    }
+    else if(OpeningMotion==EColdSteelContainerMotion::Swing&&ActorHasTag(TEXT("ColdSteel.SceneContainer.RandomOpen"))&&FMath::FRand()<.32f)
     {
         FRotator Initial=ClosedDoorRotation;
         Initial.Yaw+=FMath::FRandRange(38.f,78.f);
@@ -104,6 +117,18 @@ bool AColdSteelSceneContainer::TrySearch(APlayerController* Controller)
         OpenedYaw-=Start.Yaw-ClosedDoorRotation.Yaw;
         ClosedDoorRotation=Start;
     }
+    else if(OpeningMotion==EColdSteelContainerMotion::Lid)
+    {
+        const FRotator Start=DoorHinge->GetRelativeRotation();
+        OpenedRoll-=Start.Roll-ClosedDoorRotation.Roll;
+        ClosedDoorRotation=Start;
+    }
+    else
+    {
+        const FVector Start=DoorHinge->GetRelativeLocation();
+        DrawerTravel-=Start-ClosedMovingPartLocation;
+        ClosedMovingPartLocation=Start;
+    }
     bOpening=true;
     OpeningElapsed=0.f;
     OpeningController=Controller;
@@ -122,7 +147,8 @@ void AColdSteelSceneContainer::Tick(float DeltaSeconds)
     else
     {
         FRotator Rotation=ClosedDoorRotation;
-        Rotation.Yaw+=OpenedYaw*Ease;
+        if(OpeningMotion==EColdSteelContainerMotion::Lid)Rotation.Roll+=OpenedRoll*Ease;
+        else Rotation.Yaw+=OpenedYaw*Ease;
         DoorHinge->SetRelativeRotation(Rotation);
     }
     if(T>=1.f)
