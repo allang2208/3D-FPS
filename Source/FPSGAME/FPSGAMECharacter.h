@@ -68,6 +68,8 @@ public:
     // inheriting any of the pistol framing, movement or dual-wield behaviour.
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bSingleShotTrigger = false;
     bool IsPistolWeapon() const { return bUseM1911 || bUseDanWesson715; }
+    bool IsRSH12Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_rsh12"); }
+    bool SampleRSH12Presentation(UAnimSequence* Clip);
     bool IsG18Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_g18"); }
     bool IsHK416Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_hk416"); }
     bool UsesSingleShotTrigger() const { return !IsG18Weapon() && (IsPistolWeapon() || bSingleShotTrigger); }

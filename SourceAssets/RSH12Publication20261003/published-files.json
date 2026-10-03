@@ -1,0 +1,596 @@
+{
+  "task": "RSH-12 paused source publication",
+  "base_commit": "7292041ddb079d6910ffd5c3d06f1fa9b3e9a4b7",
+  "scope": "Exact RSH source edits; unrelated working changes preserved",
+  "latest_grip_source_revision": "registered-mechanical-axes-v3-full-skin",
+  "latest_fire_source_baked": false,
+  "latest_grip_assets_saved": false,
+  "new_game_tests": false,
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 113045,
+      "sha256": "24f58009e933fdec3f148197f6b7d1b11c018fb0a1dcabd3107b50cd7ceb398e"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 12896,
+      "sha256": "945cda33762f62be579fa13ff967d32ae9c613e7f8cda54b1d74dcb5266b6bd1"
+    },
+    {
+      "path": "Content/ColdSteelData/combat-weapon-formulas.json",
+      "bytes": 5566,
+      "sha256": "961a9331576cf5fc30df409ce8e21fb3c45530016b26ea312c1f7d406e3d6faa"
+    },
+    {
+      "path": "Content/ColdSteelData/gunsmith.json",
+      "bytes": 245550,
+      "sha256": "9f02bf407c9813bf28766240f86c087a5d4e516f52b61c4dbdc16f20a0a5053b"
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "bytes": 114608,
+      "sha256": "b51a33fba38a3962f592eaf81d22b22bb85fab87fabd9cd4624593e7846489f6"
+    },
+    {
+      "path": "Content/ColdSteelData/modular_outfits.json",
+      "bytes": 72685,
+      "sha256": "19e812d32afc3c7183048afa192e4bab48e6795e2807db959d258c7318223bb9"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 77270,
+      "sha256": "458068472b81668c5f31694bc76d33f5fe4e28a9393e9d99643391990a3c86e6"
+    },
+    {
+      "path": "Docs/Backlog.md",
+      "bytes": 20845,
+      "sha256": "72a80379fa8bde40004fd399034b6335fbe67cb338992773a9e90e2bff01cac3"
+    },
+    {
+      "path": "Docs/ThirdParty/RSH12-Medji-CCBY4.md",
+      "bytes": 844,
+      "sha256": "5bb77395843279eb9f27ea09e3f73aeae54f999b57dfd541752ba573448ec097"
+    },
+    {
+      "path": "Docs/Weapons/rsh12-cylinder-fit-20261003.md",
+      "bytes": 3340,
+      "sha256": "4ebf90a60326d464c9c1af0553482cddd808e604afdac90e2829a83b4fef2f72"
+    },
+    {
+      "path": "Docs/Weapons/rsh12-fire-pose-fix-20261003.md",
+      "bytes": 2091,
+      "sha256": "26304f60ac87f9a97f9b4ac5ba6561a1254daded286c0aba47797adaefd01019"
+    },
+    {
+      "path": "Docs/Weapons/rsh12-grip-cock-fix-20261003.md",
+      "bytes": 5332,
+      "sha256": "aa898438cc7f50f3210027f95928b4908ecd7573f97bc1464f1f1f800ae19061"
+    },
+    {
+      "path": "Docs/Weapons/rsh12-integration-20261003.md",
+      "bytes": 3316,
+      "sha256": "00ecf5465d6212e70e3f1301faae5b44a92f5a365c03604210d0f5665b54f7f5"
+    },
+    {
+      "path": "Docs/Weapons/rsh12-pause-publication-20261003.md",
+      "bytes": 3417,
+      "sha256": "50d0a6855f97a6c8ea1c2fd27f2402dd5b69ce2802b0b553bc664705ddaf819f"
+    },
+    {
+      "path": "Docs/Weapons/rsh12-single-action-20261003.md",
+      "bytes": 3000,
+      "sha256": "5723bd961cdb93c22e61fe3a345b18042536da59fb610d09967393166969824d"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "bytes": 224282,
+      "sha256": "1dd0d086de0189a9fc11669d08e3d3c2bbe8953914e682cc2362a268d0863ea0"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "bytes": 45071,
+      "sha256": "0cd26b06a30e52eeb27385047711448496103043325c2639cc59e59fcf815751"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+      "bytes": 5322,
+      "sha256": "0c492c937697d3ad43310877d7c7c7c2e508f1964e2d9a4b19d653b4b21424d2"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "bytes": 12700,
+      "sha256": "6b6edd5c3157cfef6f6268f4ebaffb1e5b104313be1bf5d792385e972a61e952"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAmmoRuntime.cpp",
+      "bytes": 11537,
+      "sha256": "3df1238d252d6bd87bd8d4fd746fc70449ded646e1ec4d5f26e507a3ac4b6c23"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+      "bytes": 19871,
+      "sha256": "9ec72f700c48734d126e49aef5dcb97102368a6882b02e7034b5cacc891f3d38"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "bytes": 17346,
+      "sha256": "026225dd6f85aabc824a896ab0ca44ba94145e4e0f7c951362232ec50ff92a45"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+      "bytes": 3791,
+      "sha256": "9d7bab59d093bc843294e7aec3978b5a2280957cab6258cd2780b7e1ceca5281"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+      "bytes": 7356,
+      "sha256": "2a2580508b391591230a8be28560b2c7ad08a1a463417cc67f7bff3c79e4cfd9"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "bytes": 68236,
+      "sha256": "1c30acd2877e91bdf0af534d1ac8fffc44690be873df87b3518ec49084ba47dc"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "bytes": 13925,
+      "sha256": "4405677efce2a961664604ebd5c66f56fb21cb363fcf18ec2eec065714cdbfc4"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+      "bytes": 35127,
+      "sha256": "cc576e57bef0dcbfb1df6025b2db24ba3e2b3cc578804ba42da8cca74f5ab027"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4StandalonePreview.cpp",
+      "bytes": 4352,
+      "sha256": "a2c94e168e07887b049676d9800f39aa23030ae975f4a640a6d65dbe0cde1b96"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "bytes": 21893,
+      "sha256": "71feb94b9232f2edddaa7c7d4850c56cbf2736a6574ba45255e2bcd1637addf6"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp",
+      "bytes": 15228,
+      "sha256": "8d494eb6d878d5dba0edb4230e83de873616e2d63f0a23f79b98de60cafa7bb1"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+      "bytes": 41422,
+      "sha256": "cab9ef4d330e57beb627d62e0a42980ebf8bf209890e5f0efaaa2f45ff18994a"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+      "bytes": 7156,
+      "sha256": "75fd02297d2e1dbeb5ae110e38bde24392467eaf4d534c5461d3a046bca515bb"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RSH12Presentation.cpp",
+      "bytes": 953,
+      "sha256": "de2ea46378238075a0770590878a329c6cc2c7d0560a1d35656cafc52ba7f476"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RSH12WeaponAssets.h",
+      "bytes": 2314,
+      "sha256": "0eaf1742146a9694bc65f71051b97246bd26240781cd137180edcbc828a45dfe"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SVDGripProfiles.cpp",
+      "bytes": 2058,
+      "sha256": "b065b28a3d0f611e98043988457f16650c5191fbacf37306bf4987d23ce00871"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponGripProfile.cpp",
+      "bytes": 7942,
+      "sha256": "600a455ea6c04dc0585cef7865f63e06b7835af9e16ba7459a8b2d331236c6fd"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponGripProfile.h",
+      "bytes": 2325,
+      "sha256": "c2b62de50f5859684a47bc5753e9072671e69480acbe92a5bf9b7e5e15faa790"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponReloadStages.cpp",
+      "bytes": 3731,
+      "sha256": "d1f9725cecd09eea8a7c8d69d6dd5d5c963b86841d0c9415e12a7a7db5967ac5"
+    },
+    {
+      "path": "Source/FPSGAME/WeatherViewEffectsComponent.cpp",
+      "bytes": 19606,
+      "sha256": "cbec2da196d4ee826d801bc7bd16ed7782ac1a53929fcc03dbe363682848a6ca"
+    },
+    {
+      "path": "SourceAssets/RSH12FireFix20261003/finalize_delivery.py",
+      "bytes": 900,
+      "sha256": "d54d30c5b66673030b0ad1f13cf25c9fedeb09d0b7a48895c3ac9a309cfda752"
+    },
+    {
+      "path": "SourceAssets/RSH12FireFix20261003/import_fire_fix.py",
+      "bytes": 802,
+      "sha256": "2d87b31c6ed35d11e6033ddcec14adf826ac002be70a8519c630afe17323798b"
+    },
+    {
+      "path": "SourceAssets/RSH12FireFix20261003/read_blender_inputs.py",
+      "bytes": 1477,
+      "sha256": "a96ff1e814682df3acfbbff372c4baf37f4572db92c70b7d62eb180da5781569"
+    },
+    {
+      "path": "SourceAssets/RSH12FireFix20261003/read_installed_clips.py",
+      "bytes": 1954,
+      "sha256": "2c3b00d4d8df3f50548aab6e4868d70b0e56d3cd4ffba55a7aa54235712e128d"
+    },
+    {
+      "path": "SourceAssets/RSH12Fit20261003/diagnose_geometry.py",
+      "bytes": 3920,
+      "sha256": "09220ee1219596b425c3ecc1946a565044faf7616f17ef0bb52f754a836a7b12"
+    },
+    {
+      "path": "SourceAssets/RSH12Fit20261003/diagnose_pose_fit.py",
+      "bytes": 5906,
+      "sha256": "da307a50a43406511a241a7dfbe101048bbbc3a00552240c8b56542bca2a86e4"
+    },
+    {
+      "path": "SourceAssets/RSH12Fit20261003/finalize_delivery.py",
+      "bytes": 2433,
+      "sha256": "a794b284ba72035adc91d1aae42db253ede654a11606b36d070285092e49be69"
+    },
+    {
+      "path": "SourceAssets/RSH12Fit20261003/fit_contract.json",
+      "bytes": 7348,
+      "sha256": "cd453fdaa435cffd1c981295d6d29b9f63eb8703cedcd706e0b9bd7d67bd7469"
+    },
+    {
+      "path": "SourceAssets/RSH12Fit20261003/import_fit_assets.py",
+      "bytes": 5577,
+      "sha256": "e81f2385f4fb21f766bdbcc3a7e82a4021ff3fd14b7141f6211c22c9fa5a0ae5"
+    },
+    {
+      "path": "SourceAssets/RSH12Fit20261003/inspect_parts.py",
+      "bytes": 2855,
+      "sha256": "8d662cb2547b91c5a9c5046b94eb65db40a134cd00eb8ff48efb6b44ffa9f112"
+    },
+    {
+      "path": "SourceAssets/RSH12Fit20261003/measure_fit.py",
+      "bytes": 2649,
+      "sha256": "70f03dc30280eba47023a3c43c29bc08a73c71666a4ffe21cf5405a013a4f2bd"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/README.md",
+      "bytes": 1306,
+      "sha256": "b7d4be78a5d56584e5d6eb51237bb16c7e33588dc40f2cc21333c3c6a94f8366"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/build_editor.ps1",
+      "bytes": 1445,
+      "sha256": "dd3b2a0ecee5367844fea30cb537b5833a3f2521cf516c80eda731da24e4acbd"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/check_cock_surfaces.py",
+      "bytes": 3109,
+      "sha256": "1f7a45b2645928ea1dc6ad030e59b85d0bea8ea723f00e2ecbfa4a19a30387af"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/cock_contact_l.json",
+      "bytes": 2471,
+      "sha256": "54c34ef5f4026ccaa3de9784637e73da08dc039f349d7ea97a4e526bfdd36c41"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/cock_contact_r.json",
+      "bytes": 2520,
+      "sha256": "c39d246006aa69811929d0642fa1ce061cf679941131bf87812472d6558ff196"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/cock_contact_single.json",
+      "bytes": 2568,
+      "sha256": "51ae689f76397b98cb5bfe42ca5984c6ccfe9b52bb6f76a72422fce8b57b8fbd"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/cock_fit_geometry.py",
+      "bytes": 3813,
+      "sha256": "90d8a448d7f26d75482ddd2008730cecdfb1a885f1df846790f7c65b1eeedc84"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/compare_cock_bake.py",
+      "bytes": 1991,
+      "sha256": "2d6f0e43714111d636e3519671068ca27348a2b1e76129de1ef49792d7a4110e"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/compare_held_profile.py",
+      "bytes": 1901,
+      "sha256": "8a3e632eb8f978bdd6fb89b7abe21f14987f1915d4a5e1ed5122e9b9a9c13407"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/compile_existing_editor.py",
+      "bytes": 531,
+      "sha256": "61401e96a13f000bbc31103d9ebd037d17df8a450c49bde4cba4a07857dada26"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/contact_profile.py",
+      "bytes": 1308,
+      "sha256": "6a20245c92b3846f6f35c70ba13e7c529226e24ebdfbc3903a87f339e93395ce"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/diagnose_grip.py",
+      "bytes": 2502,
+      "sha256": "539a916882f40f3c48545a1da61708d9afaf946800b227c48a697cdd04b944cd"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/end_pie.py",
+      "bytes": 322,
+      "sha256": "7d295105116eeab5a142ded61bb9f2da886f91bc20c95d2fc4e605172f6a70b0"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/export_contacts.py",
+      "bytes": 1216,
+      "sha256": "f30f0272714d71711779269b16930ee76deba22000525751f477dcfe90928551"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/fit_cock_contact.py",
+      "bytes": 5432,
+      "sha256": "0f69dafb3ea7effb8e62a006ec28f971468aa4aa6db7363c62e03d3fb67c7c0a"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/fit_hand_contact.py",
+      "bytes": 8055,
+      "sha256": "e24d1eab2ccbfae6e26d2596803f9201ebdd427ee0af8973dcb2b264fdbb584f"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/fit_registration.py",
+      "bytes": 2311,
+      "sha256": "a1b1cd9a2d2a23e850f6fe8f90f9faa2afa87cc59e05e95f70030c9b9f48a98a"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/fit_trigger_contact.py",
+      "bytes": 2919,
+      "sha256": "abe5c6e2dfb77c953506f3d23004de321db1efaaee2996af8508eb22c67b8d50"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/grip_registration.json",
+      "bytes": 2529,
+      "sha256": "dbfa9001c2578b8e4101c60b2482062a45b148453471c60d0cc8b86859ebb2cf"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/hand_contact_l_idle.json",
+      "bytes": 7269,
+      "sha256": "27b13bf512e2809d0a82386b5a00aa7cffb04be716ad13288067ba2407f37008"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/hand_contact_r_idle.json",
+      "bytes": 7221,
+      "sha256": "2b7b4291eb812ea95fccc0b02ae4aaee72e8acb799df9978b24eebfed164bf67"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/hand_contact_single_aim.json",
+      "bytes": 13869,
+      "sha256": "a66e3eae461de0eadaed7d1589d15cc7c7f655ecf10fe104e7d3c8e95294ec64"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/hand_contact_single_idle.json",
+      "bytes": 14100,
+      "sha256": "d7e7652a0c10b3ca46294ad12e831ff71bfb4164c00ec63158ada97af52d27f4"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/import_grip_assets.py",
+      "bytes": 4803,
+      "sha256": "4565958e4e8970265c2a8d02f6af062538b7a2c9b41f22fe6b12dff06a8220fe"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/inspect_action.py",
+      "bytes": 1116,
+      "sha256": "8a9193fceaaec9f24f2a19bfa7803bc30537786e31f86fc499be59b8a021b87e"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/pose_geometry.py",
+      "bytes": 5223,
+      "sha256": "fb4300c36b581f2173275b7e737c8d328be986f0f4107c49375df939f857870a"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/preview_contact.py",
+      "bytes": 1856,
+      "sha256": "0d818aa8807ddcb78ad1da8bc40a0cde0ac3ba68615b4af7eddad0f9861aeea8"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/read_runtime.py",
+      "bytes": 1600,
+      "sha256": "6cd00f703579762545c2781cd826ee3f806fe7e779cee6d89ead19961929b907"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/side_view.py",
+      "bytes": 1490,
+      "sha256": "9901700242f8a82c5b0751c7c0000235fe3b67d76e0189a8fbac27911c3b478d"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/trigger_contact_l_idle.json",
+      "bytes": 284,
+      "sha256": "b49a7c3f4d7cdf4a9f84a47a71fc82ef49d614600afef23337539ffe14d9867b"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/trigger_contact_r_idle.json",
+      "bytes": 296,
+      "sha256": "d497501d67babd7b20288f0ab67a683b6d4f10a69c5ddacbd89505a80d105403"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/trigger_contact_single_aim.json",
+      "bytes": 298,
+      "sha256": "102dd6dfad2401ee59e3a656c479f046ccdc7673d8b2cc443afa5fb1adab8440"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/trigger_contact_single_idle.json",
+      "bytes": 301,
+      "sha256": "5834116fb9effe8e9e34c18e87f75a89b89d4462a01d572f59876cec0d754753"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/README.md",
+      "bytes": 3181,
+      "sha256": "ffe030fd4e48a363d4af603fcece3b30c8c2dce4c3525e4e4445f6d2124cd9c3"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/acquire_source.py",
+      "bytes": 5560,
+      "sha256": "77d7afc7a6496b800c86cd556bfd053a00758d3d80c7227b5ae9a908bfd6297a"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/author_rsh12.py",
+      "bytes": 17684,
+      "sha256": "063017ab01c62eb6a2622c4102f72f126c1df5c863878fbaed83724a77137319"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/binding_inputs.py",
+      "bytes": 961,
+      "sha256": "f13a1ca9233f736c73c2c3357501ff23bfec1fb3ac0ab6cff99dfd423dfc9520"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/build_editor.ps1",
+      "bytes": 2169,
+      "sha256": "ea51a1c5b2604e07783489e5fd94259ae81fe6f62f43b36b0b49145305a1d789"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/connect_runtime.py",
+      "bytes": 11086,
+      "sha256": "9ab6555d5e10a418a006b370123f872e5dc5b10478eb0541b6faebd0c512c8ca"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/export_donor_inputs.py",
+      "bytes": 4386,
+      "sha256": "025d0abf124123830ba60c8761b91e14f90f1c38180c15d4fc1c1860513e733d"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/finalize_delivery.py",
+      "bytes": 4264,
+      "sha256": "c653efa54ab7543f8be8f8aa03e741d469bb4a6f8f25eb797f03906c11886fc7"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/import_assets.py",
+      "bytes": 9416,
+      "sha256": "e6309437a3a1ba3d5b7359354dd955c49a037b9368316f28f7c5b35e2b3cabd9"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/prepare_delivery.py",
+      "bytes": 3072,
+      "sha256": "8ff4fd02645ad04bee5937a815ef3b3f4c4fa64ae99f4db4a84f290ee45b9c27"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/production_recipe.json",
+      "bytes": 3842,
+      "sha256": "a722fb559c3075295488b63fafd48c5e3c1487d380fad660ed2d0fc7d7de7f27"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/publish_catalog.py",
+      "bytes": 4621,
+      "sha256": "1c4667d8341a6a6c663e12f184c2023d16973aeee68b3de30a7cb8ed5cbd4235"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/read_source.py",
+      "bytes": 2544,
+      "sha256": "1d8f9cf60319540b48552624aa331d4bf3530047282c7001bdb9d3a838eba5d8"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/run_authoring.ps1",
+      "bytes": 1361,
+      "sha256": "91311be50de32280a37edbfdeda685c34473d07672a33ec3b6584acfc151ff15"
+    },
+    {
+      "path": "SourceAssets/RSH12Publication20261003/README.md",
+      "bytes": 1505,
+      "sha256": "94d4f9d75eed79d6e36b42dfda15a7acb4a27492a344add4b0b93b6d8eb9f82f"
+    },
+    {
+      "path": "SourceAssets/RSH12Publication20261003/archive-manifest.json",
+      "bytes": 64057,
+      "sha256": "de226839bb2d0cfc4ad6173b86c2a2f8f5d3fd9f99c7fd8dbc3fa9e19e7eda59"
+    },
+    {
+      "path": "SourceAssets/RSH12Publication20261003/archive_retired.ps1",
+      "bytes": 2399,
+      "sha256": "d0150d0cfb2567a55143bd36643e49eac27bbc23a8d10cfd3de7cb908efbd1ef"
+    },
+    {
+      "path": "SourceAssets/RSH12Publication20261003/prepare_archive.py",
+      "bytes": 4700,
+      "sha256": "6fa40e273324cdeed4ec80a1c82fa2b37eb0efc3fb1096d0821e03b6fa3138ad"
+    },
+    {
+      "path": "SourceAssets/RSH12Publication20261003/prepare_publication.py",
+      "bytes": 10939,
+      "sha256": "d0406deda564b7618c49997222103cd292f0f9ab5795a14ce18b25c818346f8b"
+    },
+    {
+      "path": "SourceAssets/RSH12Publication20261003/retained-recovery-dependencies.json",
+      "bytes": 3455,
+      "sha256": "774e02bcc3b61a64976e1d40d73fcfc15a8fe788c18a0a79a95c741072db04b5"
+    },
+    {
+      "path": "SourceAssets/RSH12SingleAction20261003/README.md",
+      "bytes": 2947,
+      "sha256": "d9999879187d8c4aef1598a86cd442bdb530ce921eb3a6cfa94e959d30cd7e0e"
+    },
+    {
+      "path": "SourceAssets/RSH12SingleAction20261003/author_single_action.py",
+      "bytes": 17086,
+      "sha256": "5f57fe1ca1a2e2875568d2ab403dc3f8ecbf7bcd24703e8a884c58e783c10cd1"
+    },
+    {
+      "path": "SourceAssets/RSH12SingleAction20261003/build_editor.ps1",
+      "bytes": 2184,
+      "sha256": "0e751aa336504acd9ef4774fcd24506661414ef51b6d10237a723fa128180ef3"
+    },
+    {
+      "path": "SourceAssets/RSH12SingleAction20261003/connect_runtime.py",
+      "bytes": 9117,
+      "sha256": "625cb800a977f7458ccd0c9967aa27e16dc0681db2a40628ed7fa727c2f41593"
+    },
+    {
+      "path": "SourceAssets/RSH12SingleAction20261003/export_sources.py",
+      "bytes": 1662,
+      "sha256": "8275a014514d1d242e52daf295b375c991f38c7a8464de5e3752eae6a24be030"
+    },
+    {
+      "path": "SourceAssets/RSH12SingleAction20261003/finalize_delivery.py",
+      "bytes": 1718,
+      "sha256": "3015ea6e23a46c251aa989f7605ffade1eaa5b81bab06759d6d1f85c0c5ada07"
+    },
+    {
+      "path": "SourceAssets/RSH12SingleAction20261003/import_assets.py",
+      "bytes": 4007,
+      "sha256": "4705e654412e12f594cbfb635a0f14d4e796463286a318c756041d2da841b6e0"
+    },
+    {
+      "path": "SourceAssets/RSH12SingleAction20261003/install_rebuild_entry.py",
+      "bytes": 1595,
+      "sha256": "8769467da2b9c6be1c9c9f6bcd7941bdb3953700675873d59fb4e9be90a73d96"
+    },
+    {
+      "path": "SourceAssets/RSH12SingleAction20261003/prepare_build.py",
+      "bytes": 419,
+      "sha256": "c4d87d4e9dcd94a97f83b10600ec155d7a1c7e195d63a7b5abe471d5b930c995"
+    },
+    {
+      "path": "SourceAssets/RSH12SingleAction20261003/publish_catalog.py",
+      "bytes": 2545,
+      "sha256": "89c229ca5af7adc4ff9c87e0144e8532bca76f5df47fbb86eaf22d2cc0f4c306"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "bytes": 19980,
+      "sha256": "10087f40fb6b3fb23cd21e9d6fa4197be27137dc7102da3a9526efecece5a322"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/revolver-grip-cock.md",
+      "bytes": 3236,
+      "sha256": "841b0eb3ed1cb3822c0cfb86c2d7cfc0c51e0fa7270e33b2f5b4617a7be3788c"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/SKILL.md",
+      "bytes": 16639,
+      "sha256": "2a8940fda2f97dd19d3580ad8936d377658784ac6e571f8abbd49a0fe438e035"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/revolver-mechanical-binding.md",
+      "bytes": 2330,
+      "sha256": "e74f76a519823b92c5076c3a6fa652e3323da6cf85707ecaf30a76015b16a279"
+    }
+  ]
+}

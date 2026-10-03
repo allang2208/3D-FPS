@@ -8097,7 +8097,118 @@
           }
         ]
       }
-    }
+    },
+{
+  "id": "ue_rsh12",
+  "model": "RSH12",
+  "name": "RSH-12",
+  "allowed": [
+    "trigger",
+    "reload_device",
+    "optic",
+    "muzzle",
+    "reargrip",
+    "tactical"
   ],
+  "options": {
+    "trigger": [
+      {
+        "id": "false",
+        "name": "原厂单动扳机",
+        "description": "一次扣动发射一发；射后拇指拨回击锤，完成拨锤回握才解锁下一枪。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "rsh12_lightweight_fast",
+        "name": "轻型快速扳机",
+        "description": "保持单动击发；开火、拨锤和回握循环同步加速20%。",
+        "effects": [
+          {
+            "text": "射击间隔降低20%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "fire_interval_mult": 0.8
+        }
+      }
+    ],
+    "reload_device": [
+      {
+        "id": "false",
+        "name": "逐发装填",
+        "description": "五发弹巢；非空仓保留余弹，空仓先退壳。",
+        "effects": [],
+        "stats": {}
+      }
+    ],
+    "optic": [
+      {
+        "id": "false",
+        "name": "原厂机械瞄具",
+        "description": "使用原厂照门和准星。",
+        "effects": [],
+        "stats": {}
+      }
+    ],
+    "muzzle": [
+      {
+        "id": "false",
+        "name": "原厂枪口",
+        "description": "保留低轴线枪管。",
+        "effects": [],
+        "stats": {}
+      }
+    ],
+    "reargrip": [
+      {
+        "id": "false",
+        "name": "原厂握柄",
+        "description": "保留黑色聚合物握柄。",
+        "effects": [],
+        "stats": {}
+      }
+    ],
+    "tactical": [
+      {
+        "id": "false",
+        "name": "无战术挂件",
+        "description": "保持原厂导轨外形。",
+        "effects": [],
+        "stats": {}
+      }
+    ]
+  },
+  "base": {
+    "ammo_item_id": "ammo_127",
+    "mag_size": 5,
+    "ads_smooth": 13.616964,
+    "recoil": 180,
+    "camera_shake": 140,
+    "fire_interval": 1.0,
+    "reload_time": 5.7,
+    "empty_reload_time": 7.7,
+    "damage": 90,
+    "bullet_speed": 300,
+    "effective_range": 60,
+    "automatic": false
+  },
+  "traits": [
+    {
+      "icon": "mechanic",
+      "text": "单动左轮；射后拇指拨锤；12.7毫米弹药；五发弹巢"
+    },
+    {
+      "icon": "special",
+      "text": "下置枪管；逐发装填，非空仓保留余弹"
+    },
+    {
+      "icon": "neutral",
+      "text": "支持单持、双持和法杖副手；每手独立装填"
+    }
+  ]
+}
+],
   "common_options": {}
 }

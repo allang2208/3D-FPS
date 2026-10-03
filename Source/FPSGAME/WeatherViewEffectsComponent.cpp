@@ -16,6 +16,7 @@
 #include "Engine/GameInstance.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Weapons/DanWesson715WeaponAssets.h"
+#include "Weapons/RSH12WeaponAssets.h"
 #include "Weapons/DanWesson715FittedParts.h"
 #include "Weapons/M1911WeaponAssets.h"
 #include "Weapons/G18WeaponAssets.h"
@@ -78,6 +79,9 @@ UWeatherViewEffectsComponent::UWeatherViewEffectsComponent()
 void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAssets)
 {
     Assets=InAssets;
+    if(Assets)
+        if(const auto* RSH12Materials=LoadObject<UWeatherPresentationAssets>(nullptr,RSH12WeaponAssets::WetMaterialsPath))
+            for(const auto& Entry:RSH12Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
     // The 715's material-only revision supplies its dry/wet pairs separately
     // from the shared weather profiles, which may be open in another editor.
     if(Assets)

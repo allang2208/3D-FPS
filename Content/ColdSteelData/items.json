@@ -3860,5 +3860,35 @@
     "icon_fallback": "汽水",
     "ue_icon": "Icons/soda_can.png",
     "world_mesh": "/Game/Items/Consumables/SodaCan20261003/SM_SodaCan.SM_SodaCan"
-  }
+  },
+"ue_rsh12": {
+  "id": "ue_rsh12",
+  "name": "RSH-12",
+  "icon": "Icons/ue_rsh12.png",
+  "ue_icon": "Icons/ue_rsh12.png",
+  "icon_fallback": "RSH12",
+  "category": "weapon",
+  "weaponType": "pistol",
+  "rangedType": "pistol",
+  "weaponTypeTag": "左轮手枪",
+  "equipSlot": "weapon",
+  "isTwoHanded": false,
+  "rarity": "common",
+  "stack_max": 1,
+  "grid_w": 3,
+  "grid_h": 2,
+  "type": "武器",
+  "gunsmith_base_mag": 5,
+  "desc": "俄罗斯大口径单动左轮，使用12.7毫米弹药，五发弹巢。每次击发后由右手拇指拨回击锤，完成拨锤与回握后才能再次射击。下置枪管，逐发装填；非空仓保留余弹，空仓先退壳再补弹。",
+  "stats": [
+    {
+      "name": "物理攻击",
+      "value": "90"
+    },
+    {
+      "name": "弹巢容量",
+      "value": "5"
+    }
+  ]
+}
 }

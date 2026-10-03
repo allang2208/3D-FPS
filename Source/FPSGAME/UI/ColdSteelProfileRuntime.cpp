@@ -788,7 +788,7 @@ void UColdSteelStatusModel::SyncRuntime()
     {
         I.VirtualMagazineAmmo=FMath::Clamp(I.VirtualMagazineAmmo-FMath::Max(0,I.Magazine-CurrentPawn->GetMagazineAmmo()),0,CurrentPawn->GetMagazineAmmo());
         I.Magazine=CurrentPawn->GetMagazineAmmo();
-        if(I.Definition==TEXT("ue_dan_wesson715") && Number(I,TEXT("revolver_case_count"),-1)!=CurrentPawn->GetRevolverCaseCount())
+        if((I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")) && Number(I,TEXT("revolver_case_count"),-1)!=CurrentPawn->GetRevolverCaseCount())
         {
             StoreRevolverCaseCount(I,CurrentPawn->GetRevolverCaseCount());
         }
@@ -894,7 +894,7 @@ int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested, bool bCompletedReload,
         I.Magazine+=Taken;
         if(Taken>0 && !WeaponReloadStages::SetNeedsCycle(I,NeedsCycle))return 0;
         if(Infinite)I.VirtualMagazineAmmo+=Taken;
-        if(I.Definition==TEXT("ue_dan_wesson715"))
+        if((I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")))
         {
             StoreRevolverCaseCount(I,bReloadStep?FMath::Max(I.Magazine,CurrentPawn->GetRevolverCaseCount()):I.Magazine);
         }
@@ -905,7 +905,7 @@ int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested, bool bCompletedReload,
 bool UColdSteelStatusModel::ClearRevolverSpentCases(bool bDiscardLiveRounds)
 {
     if (!CurrentPawn.IsValid() || !CurrentPawn->HasInventoryWeapon() || !Equipped()
-        || Equipped()->Definition != TEXT("ue_dan_wesson715")) return false;
+        || (Equipped()->Definition != TEXT("ue_dan_wesson715") && Equipped()->Definition != TEXT("ue_rsh12"))) return false;
     const int32 RetainedRounds = bDiscardLiveRounds ? 0 : CurrentPawn->GetMagazineAmmo();
     if (CurrentPawn->GetRevolverCaseCount() == RetainedRounds
         && CurrentPawn->GetMagazineAmmo() == RetainedRounds) return true;

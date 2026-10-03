@@ -75,12 +75,12 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
         W.Base.Reload=Num(B,TEXT("reload_time"),1.5);W.Base.EmptyReload=Num(B,TEXT("empty_reload_time"));if(W.Base.EmptyReload<=0)W.Base.EmptyReload=W.Base.Reload;
         // M1911 uses its imported action lengths as the base for both stats and
         // playback. Attachment reload multipliers still scale the whole action.
-        if(W.Id==DanWesson715WeaponAssets::Definition)
+        if(W.Id==DanWesson715WeaponAssets::Definition || W.Id==TEXT("ue_rsh12"))
         {
-            W.Base.Reload=DanWesson715WeaponAssets::SingleDuration(5);
-            W.Base.EmptyReload=DanWesson715WeaponAssets::SingleDuration(6, true);
-            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*DanWesson715WeaponAssets::SingleAnimationPath(1,5)))W.Base.Reload=Clip->GetPlayLength();
-            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*DanWesson715WeaponAssets::SingleAnimationPath(0,6)))W.Base.EmptyReload=Clip->GetPlayLength();
+            W.Base.Reload=DanWesson715WeaponAssets::SingleDuration(W.Base.Capacity-1);
+            W.Base.EmptyReload=DanWesson715WeaponAssets::SingleDuration(W.Base.Capacity, true);
+            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*DanWesson715WeaponAssets::SingleAnimationPath(1,W.Base.Capacity-1)))W.Base.Reload=Clip->GetPlayLength();
+            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*DanWesson715WeaponAssets::SingleAnimationPath(0,W.Base.Capacity)))W.Base.EmptyReload=Clip->GetPlayLength();
         }
         if(W.Id==TEXT("ue_m1911") || W.Id==G18WeaponAssets::Definition)
         {

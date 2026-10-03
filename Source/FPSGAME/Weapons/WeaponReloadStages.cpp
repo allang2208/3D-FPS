@@ -10,7 +10,7 @@
 
 FWeaponReloadStages WeaponReloadStages::ForWeapon(const FString& Definition, bool Empty, bool Drum, bool SingleRound, int32 RoundCount)
 {
-    if (Definition == TEXT("ue_dan_wesson715"))
+    if ((Definition == TEXT("ue_dan_wesson715") || Definition == TEXT("ue_rsh12")))
     {
         using namespace DanWesson715WeaponAssets;
         if (SingleRound)

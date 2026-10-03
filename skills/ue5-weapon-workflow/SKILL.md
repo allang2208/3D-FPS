@@ -25,6 +25,8 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 ## 按任务读取
 
+- 左轮更换枪体后机构轴错、弹巢旁残留、子弹入座偏孔或五发容量仍混入六发常量：[左轮机构与膛孔绑定](references/revolver-mechanical-binding.md)。手部握持与单动拨锤转手臂技能，RSH 最新动作仍为暂停候选。
+
 - 裂角护手改用剑身金属、切武器后独立机瞄悬浮：[护手金属与瞄具生命周期](references/cloven-metal-and-sight-lifecycle.md)。同源金属先适配 UV；附件先确认实际归属，再同步宿主可见性。
 
 - 新版改造图标默认使用已认可的金属方框、四角铆钉、内圆环及部件主体；原厂件不加禁止标识。制作、覆盖与接入见 [改造配件图标标准](references/attachment-icons.md)。

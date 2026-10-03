@@ -47,4 +47,8 @@ public:
     bool BakeClip(UAnimSequence* Base, UAnimSequence* Authored);
     UFUNCTION(BlueprintCallable, Category="Grip|Authoring")
     void KeepClip(UAnimSequence* Base,UAnimSequence* Authored);
+    // Background production of shared clips whose sparse deltas were authored
+    // outside Unreal. VisibleAnywhere track fields stay read-only to game logic.
+    UFUNCTION(BlueprintCallable, Category="Grip|Authoring")
+    bool SetSharedClipsFromJson(const FString& Json);
 };

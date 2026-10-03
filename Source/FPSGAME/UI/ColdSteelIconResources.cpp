@@ -26,6 +26,7 @@
 #include "../Weapons/PitViper2011WeaponAssets.h"
 #include "../Weapons/PitViper2011SICompensator.h"
 #include "../Weapons/DanWesson715WeaponAssets.h"
+#include "../Weapons/RSH12WeaponAssets.h"
 #include "../Weapons/PistolGripSurface.h"
 #include "../Weapons/DanWesson715FittedParts.h"
 #include "../Production/ProductionHarvestAssets.h"
@@ -132,6 +133,7 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         else if(D==PitViper2011WeaponAssets::Definition){Add(PitViper2011WeaponAssets::MeshPath,true);Add(PitViper2011WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==G18WeaponAssets::Definition){Add(G18WeaponAssets::MeshPath,true);Add(G18WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_m1911")){Add(TEXT("/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny"),true);Add(M1911WeaponAssets::AnimationPath(TEXT("idle")),true);}
+        else if(D==RSH12WeaponAssets::Definition){Add(RSH12WeaponAssets::MeshPath,true);Add(RSH12WeaponAssets::AnimationPath(TEXT("idle")),true);Add(RSH12WeaponAssets::ProfilePath,true);}
         else if(D==TEXT("ue_dan_wesson715")){Add(DanWesson715WeaponAssets::MeshPath,true);Add(DanWesson715WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_qbz191"))
         {

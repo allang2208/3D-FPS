@@ -498,3 +498,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 生存状态与食水消耗品（2026-10-03）
 
 恢复本机水瓶、Quixel 面包／法棍、Fab Soda Can、四个用户吞咽音效和 V7 手模输入。公开生存／赐福／SAN 归零源码、消耗品参数、作者配方及对应 SKILL；模型、PBR、图标、音频、UE 包和导入回执保留本机。8 个旧候选／备份已归档到 trash，体质型耐力与联机合并的未发布依赖另列，不夹带其他功能。恢复顺序、当前数值与构建／未测试边界见 [生存与消耗品整理发布](UI/survival-consumables-publication-20261003.md)。
+
+## RSH-12：五发单动与暂停修订（2026-10-03）
+
+恢复本枪需要 Medji 的 CC BY 4.0 原始包、合法 715／V7 手臂供体、原生姿态与本机已保存的 RSH 资产。最新握持／ADS 拨锤源码未完整烘焙和保存，旧导入回执不能代表当前候选。作者入口、十个目标资产、废案散列、保留输入与恢复顺序见 [RSH-12 暂停与发布](Weapons/rsh12-pause-publication-20261003.md) 和 [待办](Backlog.md)；署名见 [Medji 来源记录](ThirdParty/RSH12-Medji-CCBY4.md)。本轮公开源码／配方／参数，二进制、密集姿态、日志与 trash 留在本机，不新增游戏测试。

@@ -978,7 +978,70 @@
       "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
       "native_bare_arms": true,
       "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M4_OriginalGlovedArms.SK_M4_OriginalGlovedArms"
-    }
-  },
+    },
+"/Game/Weapons/RSH12/SK_RSH12_Manny.SK_RSH12_Manny": {
+  "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715/SK_DW715_BareArmsV7.SK_DW715_BareArmsV7",
+  "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/DW715/SK_DW715_FittedSleevesV1.SK_DW715_FittedSleevesV1",
+  "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/DW715/SK_DW715_FittedFieldGlovesV1.SK_DW715_FittedFieldGlovesV1",
+  "hide_source_materials": [
+    0,
+    1
+  ],
+  "shirt_covers": [
+    0,
+    1
+  ],
+  "glove_covers": [
+    2
+  ],
+  "rig_profile": "DW715",
+  "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715/SK_DW715_83f511493d_WristCoverage.SK_DW715_83f511493d_WristCoverage",
+  "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715/SK_DW715_BareArmsV7.SK_DW715_BareArmsV7",
+  "native_bare_arms": true,
+  "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_DW715_OriginalGlovedArms.SK_DW715_OriginalGlovedArms"
+},
+"/Game/Weapons/RSH12/Dual/r/SK_Dual_RSH12_r.SK_Dual_RSH12_r": {
+  "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715_r/SK_DW715_r_BareArmsV7.SK_DW715_r_BareArmsV7",
+  "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/DW715_r/SK_DW715_r_FittedSleevesV1.SK_DW715_r_FittedSleevesV1",
+  "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/DW715_r/SK_DW715_r_FittedFieldGlovesV1.SK_DW715_r_FittedFieldGlovesV1",
+  "hide_source_materials": [
+    0,
+    1
+  ],
+  "shirt_covers": [
+    0,
+    1
+  ],
+  "glove_covers": [
+    2
+  ],
+  "rig_profile": "DW715_r",
+  "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_r/SK_DW715_r_c0668d4b17_WristCoverage.SK_DW715_r_c0668d4b17_WristCoverage",
+  "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715_r/SK_DW715_r_BareArmsV7.SK_DW715_r_BareArmsV7",
+  "native_bare_arms": true,
+  "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_DW715_r_OriginalGlovedArms.SK_DW715_r_OriginalGlovedArms"
+},
+"/Game/Weapons/RSH12/Dual/l/SK_Dual_RSH12_l.SK_Dual_RSH12_l": {
+  "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715_l/SK_DW715_l_BareArmsV7.SK_DW715_l_BareArmsV7",
+  "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/DW715_l/SK_DW715_l_FittedSleevesV1.SK_DW715_l_FittedSleevesV1",
+  "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/DW715_l/SK_DW715_l_FittedFieldGlovesV1.SK_DW715_l_FittedFieldGlovesV1",
+  "hide_source_materials": [
+    0,
+    1
+  ],
+  "shirt_covers": [
+    0,
+    1
+  ],
+  "glove_covers": [
+    2
+  ],
+  "rig_profile": "DW715_l",
+  "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_l/SK_DW715_l_056bc315cb_WristCoverage.SK_DW715_l_056bc315cb_WristCoverage",
+  "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715_l/SK_DW715_l_BareArmsV7.SK_DW715_l_BareArmsV7",
+  "native_bare_arms": true,
+  "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_DW715_l_OriginalGlovedArms.SK_DW715_l_OriginalGlovedArms"
+}
+},
   "native_bare_hands_default": false
 }

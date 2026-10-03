@@ -2234,3 +2234,26 @@ __pycache__/
 /SourceAssets/SodaCanGrip20261003/Export/
 !/SourceAssets/FoodGrip20261003/grip_profiles.json
 !/SourceAssets/SodaCanGrip20261003/grip_profile.json
+
+# RSH-12 pause: public recipes/prose/author parameters only; licensed payloads,
+# dense source samples, rollback snapshots, import/build receipts and trash stay local.
+/SourceAssets/RSH12*/**
+!/SourceAssets/RSH12*/**/
+!/SourceAssets/RSH12*/**/*.py
+!/SourceAssets/RSH12*/**/*.ps1
+!/SourceAssets/RSH12*/**/*.md
+/SourceAssets/RSH12*/**/Before*/
+/SourceAssets/RSH12*/**/Donor/
+/SourceAssets/RSH12*/**/Original/
+/SourceAssets/RSH12*/**/Reference/
+/SourceAssets/RSH12*/**/__pycache__/
+/SourceAssets/RSH12Publication20261003/Local/
+!/SourceAssets/RSH12Integration20261003/production_recipe.json
+!/SourceAssets/RSH12Fit20261003/fit_contract.json
+!/SourceAssets/RSH12Grip20261003/grip_registration.json
+!/SourceAssets/RSH12Grip20261003/hand_contact_*.json
+!/SourceAssets/RSH12Grip20261003/cock_contact_*.json
+!/SourceAssets/RSH12Grip20261003/trigger_contact_*.json
+!/SourceAssets/RSH12Publication20261003/archive-manifest.json
+!/SourceAssets/RSH12Publication20261003/retained-recovery-dependencies.json
+!/SourceAssets/RSH12Publication20261003/published-files.json

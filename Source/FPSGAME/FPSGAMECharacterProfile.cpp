@@ -45,7 +45,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     const FString ToolId=Tool?Tool->InstanceId:FString();
     const bool WasWeaponReady=bInventoryWeaponReady;
     const bool WasDual=HasOffhandPistol();
-    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&((I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"))||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_a762")||I->Definition==TEXT("ue_lmg201")||I->Definition==TEXT("ue_svd")||I->Definition==TEXT("ue_pkm_lowpoly")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18"))||I->Definition==TEXT("ue_dan_wesson715")));
+    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&((I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"))||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_a762")||I->Definition==TEXT("ue_lmg201")||I->Definition==TEXT("ue_svd")||I->Definition==TEXT("ue_pkm_lowpoly")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18"))||(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12"))));
     const bool ChangedDual=DualPistols && !DualPistols->MatchesEquipment(Profile,bInventoryWeaponReady);
     const bool ChangedWeapon=ActiveInventoryWeapon!=Id||ActiveInventoryWeaponDefinition!=Definition
         ||WasWeaponReady!=bInventoryWeaponReady||ChangedDual||ActiveProductionToolInstance!=ToolId;
@@ -62,7 +62,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
     // A single-pistol swap retains its existing held-input behavior. Changing
     // between single and dual input mappings requires fresh trigger edges.
-    const bool PistolInput=ChangedWeapon&&!WasDual&&!ChangedDual&&bInventoryWeaponReady&&((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18"))||I->Definition==TEXT("ue_dan_wesson715"));
+    const bool PistolInput=ChangedWeapon&&!WasDual&&!ChangedDual&&bInventoryWeaponReady&&((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18"))||(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12")));
     const bool ResumePistolAim=PistolInput&&bAimHeld;
     const bool ResumePistolFire=PistolInput&&bFireHeld;
     if(ChangedWeapon){
@@ -85,7 +85,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         ActiveInventoryWeapon=Id;
         ActiveInventoryWeaponDefinition=Definition;
         bWeaponVisualPartsApplied=false;
-        if(bInventoryWeaponReady){bUseM4Infima=(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"));bUseQBZ191=I->Definition==TEXT("ue_qbz191");bUseASH12=I->Definition==TEXT("ue_ash12");bUseM16=I->Definition==TEXT("ue_m16a2");bUseM1911=(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18"));bUseDanWesson715=I->Definition==TEXT("ue_dan_wesson715");InitializeWeaponVisuals();}
+        if(bInventoryWeaponReady){bUseM4Infima=(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"));bUseQBZ191=I->Definition==TEXT("ue_qbz191");bUseASH12=I->Definition==TEXT("ue_ash12");bUseM16=I->Definition==TEXT("ue_m16a2");bUseM1911=(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18"));bUseDanWesson715=(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12"));InitializeWeaponVisuals();}
         else {WeaponState=EAKMWeaponState::Idle;WeaponStateElapsed=WeaponStateDuration=0;}
     }
     AKMViewmodel->SetVisibility(bInventoryWeaponReady && !IsTraversing(),ChangedWeapon);
@@ -153,7 +153,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     if(RuneSword && RuneSword->IsEquipped())
     {DamagePerShot=RuneSword->EquippedDamage();FireInterval=RuneSword->AttackSeconds();MagazineCapacity=0;ReloadDuration=EmptyReloadDuration=0;}
     if (bUseDanWesson715 && I)
-        RevolverCaseCount = FMath::Clamp(static_cast<int32>(ColdSteelInventory::Number(*I, TEXT("revolver_case_count"), I->Magazine)), MagazineAmmo, 6);
+        RevolverCaseCount = FMath::Clamp(static_cast<int32>(ColdSteelInventory::Number(*I, TEXT("revolver_case_count"), I->Magazine)), MagazineAmmo, MagazineCapacity);
     // Attachment setters own visibility while the gun is equipped. On stowing,
     // hide their children after those setters finish as well: a retained rifle
     // must not leave a sight or another camera-space part on the next weapon.

@@ -59,6 +59,7 @@
 #include "Weapons/M1911WeaponAssets.h"
 #include "Weapons/G18WeaponAssets.h"
 #include "Weapons/DanWesson715WeaponAssets.h"
+#include "Weapons/RSH12WeaponAssets.h"
 #include "Weapons/ASH12WeaponAssets.h"
 #include "Weapons/SVDWeaponAssets.h"
 #include "Weapons/SVDAttachments.h"
@@ -472,7 +473,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     }
     if (bUseDanWesson715)
     {
-        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, DanWesson715WeaponAssets::MeshPath);
+        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, IsRSH12Weapon() ? RSH12WeaponAssets::MeshPath : DanWesson715WeaponAssets::MeshPath);
         bUsingM4Infima = ViewmodelMesh != nullptr;
         HipViewmodelLocation = RevolverHipViewmodelLocation;
         ADSRearEyeDistance = 38.f;
@@ -578,7 +579,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     if (bUsingReplacement) EquipAnimation = LoadAKMAnimation(TEXT("A_AKM_equip"));
     DrumSupportAnimations.Reset();
     WeaponGripProfiles.Reset();
-    if (LMG201WeaponAssets::Matches(AKMViewmodel))
+    if (LMG201WeaponAssets::Matches(AKMViewmodel) || IsRSH12Weapon())
     {
         TMap<TObjectPtr<UAnimSequence>, TObjectPtr<UAnimSequence>> BaseSupport;
         InitializeWeaponGripFamily(TEXT("base"), BaseSupport);
@@ -652,11 +653,13 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     GunplayAnimation = Cast<UFPSGunplayAnimInstance>(AKMViewmodel->GetAnimInstance());
     if (GunplayAnimation)
     {
+        if(IsRSH12Weapon())GunplayAnimation->GripProfile=WeaponGripProfileFor(EM4SprintGrip::Base);
         GunplayAnimation->IdleClip = IdleAnimation;
         GunplayAnimation->AimClip = AimAnimation;
     }
     WeaponFX->Initialize(AKMViewmodel, FirstPersonCamera);
     FireSound = LoadAKMSound(TEXT("S_AKM_Fire"));
+    if(IsRSH12Weapon())FireSound=LoadObject<USoundBase>(nullptr,ASH12WeaponAssets::FireSoundPath);
     // PKM owns its fire one-shot; the AKM family fallback above stays untouched
     // for every other rifle and remains the fallback if this asset is absent.
     if (PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
@@ -1057,7 +1060,7 @@ void AFPSGAMECharacter::ReloadPressed()
         return;
     }
     const bool ResumeCycle=PendingAmmoType.IsEmpty() && NeedsReloadCycle();
-    if (!bInventoryWeaponReady || IsWeaponBusy() || (!ResumeCycle && PendingAmmoType.IsEmpty() && (MagazineAmmo >= MagazineCapacity || (!HasInfiniteReserveAmmo() && ReserveAmmo <= 0)))) return;
+    if (!bInventoryWeaponReady || (IsWeaponBusy() && !IsRevolverFireActionPlaying()) || (!ResumeCycle && PendingAmmoType.IsEmpty() && (MagazineAmmo >= MagazineCapacity || (!HasInfiniteReserveAmmo() && ReserveAmmo <= 0)))) return;
     if (IsRevolverFireActionPlaying())
     {
         // A fired round makes the magazine empty while the recoil clip is
@@ -1780,6 +1783,20 @@ void AFPSGAMECharacter::UpdateWeaponFeedback(float DeltaSeconds)
 
 void AFPSGAMECharacter::UpdateADSProgress()
 {
+    if (IsRSH12Weapon() && ActiveActionAnimation
+        && (ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation)
+        && WeaponState == EAKMWeaponState::Idle)
+    {
+        // Preserve the aimed shot, lower out of ADS before thumb contact, then
+        // return only while the player still holds aim. Pose and FOV use one clock.
+        const float SourceTime = ActionStartPosition
+            + static_cast<float>(FMath::Max(0.0, GetWorld()->GetTimeSeconds() - LastShotWorldTime)) * ActionPlayRate;
+        ADSProgress = bAimHeld && ActiveActionAnimation == AimFireAnimation
+            ? RSH12WeaponAssets::CockAimProgress(SourceTime) : 0.f;
+        ADSStartProgress = ADSProgress;
+        ADSStartedAt = GetWorld()->GetTimeSeconds();
+        return;
+    }
     const double Elapsed = FMath::Max(0.0, GetWorld()->GetTimeSeconds() - ADSStartedAt);
     const float Duration = FMath::Max(0.05f, bIsAiming ? ADSInDuration : ADSOutDuration);
     ADSProgress = FMath::Clamp(ADSStartProgress + (bIsAiming ? 1.0f : -1.0f) * static_cast<float>(Elapsed) / Duration, 0.0f, 1.0f);
@@ -2328,7 +2345,15 @@ void AFPSGAMECharacter::FireShot()
     float ShotAnimationRate = 1.0f;
     if (Animation && ActiveInventoryWeaponDefinition == PKMLowpolyWeaponAssets::Definition)
         ShotAnimationRate = FMath::Max(1.0f, Animation->GetPlayLength() / FMath::Max(0.01f, static_cast<float>(ShotInterval)));
+    if(Animation && IsRSH12Weapon())
+        ShotAnimationRate=Animation->GetPlayLength()/FMath::Max(.01f,float(ShotInterval));
     PlayWeaponAnimation(Animation, false, ShotAnimationRate);
+    if(IsRSH12Weapon())
+    {
+        // The whole source action is one single-action cycle, including the thumb return.
+        NextAllowedShotTime=Now+FMath::Max(ShotInterval,double(ActionDuration));
+        NextMechanicalCue=0;
+    }
     GetWorldTimerManager().ClearTimer(WeaponPoseTimerHandle);
     USoundBase* ShotSound=IsMuzzleSuppressed()&&SuppressedFireSound?SuppressedFireSound.Get():FireSound.Get();
     const auto& RifleVariants = IsMuzzleSuppressed() ? RifleSuppressedVariants : RifleFireVariants;
@@ -2951,7 +2976,7 @@ UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
     {
         FString Clip(AssetName); Clip.RemoveFromStart(TEXT("A_AKM_"));
         if (Clip == TEXT("equip") || Clip == TEXT("equip_charge_empty")) Clip = TEXT("equip_charge");
-        return LoadObject<UAnimSequence>(nullptr, *DanWesson715WeaponAssets::AnimationPath(*Clip));
+        return LoadObject<UAnimSequence>(nullptr, *(IsRSH12Weapon()?RSH12WeaponAssets::AnimationPath(*Clip):DanWesson715WeaponAssets::AnimationPath(*Clip)));
     }
     if (bUseM1911)
     {
@@ -3221,7 +3246,8 @@ bool AFPSGAMECharacter::IsWeaponBusy(bool bAllowInspection) const
 {
     const bool bGunBusy=HasOffhandPistol()?DualPistols->IsReloading():
         (WeaponState!=EAKMWeaponState::Idle && !(bAllowInspection && WeaponState==EAKMWeaponState::Inspecting));
-    return IsDoorPushActive() || IsTraversing() || (RuneSword && RuneSword->IsBusy()) ||
+    return (IsRSH12Weapon() && IsRevolverFireActionPlaying()) || (DualPistols && DualPistols->IsSingleActionCocking())
+        || IsDoorPushActive() || IsTraversing() || (RuneSword && RuneSword->IsBusy()) ||
         (Staff && Staff->IsEquipped() && Staff->IsBusy()) || bGunBusy ||
         (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand());
 }
@@ -3277,6 +3303,8 @@ void AFPSGAMECharacter::UpdateADSPose()
     const int32 RearIndex = Ref.FindBoneIndex(TEXT("WPN_RearSight"));
     const int32 FrontIndex = Ref.FindBoneIndex(TEXT("WPN_FrontSight"));
     if (RearIndex == INDEX_NONE || FrontIndex == INDEX_NONE) return;
+    const auto* SightProfile=IsRSH12Weapon()?WeaponGripProfileFor(EM4SprintGrip::Base):nullptr;
+    const auto* SightLayer=SightProfile?SightProfile->Find(AimAnimation):nullptr;
     const auto PositionAtRestAim = [&](int32 BoneIndex)
     {
         FTransform Transform = FTransform::Identity;
@@ -3284,6 +3312,7 @@ void AFPSGAMECharacter::UpdateADSPose()
         {
             FTransform Local;
             AimAnimation->GetBoneTransform(Local, FSkeletonPoseBoneIndex(Index), FAnimExtractContext(0.0, false), false);
+            if(SightLayer)SightLayer->ApplyLocal(Ref.GetBoneName(Index),0.f,Local);
             Transform = Transform * Local;
         }
         // Accumulating the full hierarchy includes the FBX root's unit conversion.
@@ -3575,15 +3604,31 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         // unit's slot. Fading indexed bones back to idle would reverse the feed.
         // The source starts at idle and finishes its recoil before the handoff.
         if (bPKMFeedAction) GunplayAnimation->ActionAlpha=1.0f;
+        // The fitted thumb path already starts and ends at the held pose.
+        // An extra idle crossfade would pull the contacting hand through the grip.
+        if (IsRSH12Weapon() && bFireAction) GunplayAnimation->ActionAlpha=1.0f;
         float SourceTime = ActionStartPosition + ActionElapsed * ActionPlayRate;
+        if(IsRSH12Weapon() && bFireAction && SourceTime>=RSH12WeaponAssets::CockLatch && NextMechanicalCue==0)
+        {
+            PlaySound2D(DryClickSound,.65f);
+            NextMechanicalCue=1;
+        }
         if (IsReloading()) SourceTime = ReloadSourceTime(WeaponStateElapsed);
         else if (WeaponState == EAKMWeaponState::Equipping && !EquipAnimation)
             SourceTime = ActionStartPosition + FMath::Max(0.0f, ActionElapsed - 0.18f);
         GunplayAnimation->ActionTime = FMath::Min(SourceTime, ActiveActionAnimation->GetPlayLength());
         if (!IsReloading() && ActionElapsed >= ActionDuration)
         {
+            if(IsRSH12Weapon() && bFireAction && WeaponState==EAKMWeaponState::Idle)
+                UpdateADSProgress();
             ActiveActionAnimation = nullptr;
             GunplayAnimation->ActionAlpha = 0.0f;
+            if(IsRSH12Weapon() && bFireAction && WeaponState==EAKMWeaponState::Idle)
+            {
+                ADSStartProgress=ADSProgress;
+                ADSStartedAt=GetWorld()->GetTimeSeconds();
+                SetAimingState(bAimHeld);ResumeWeaponPose();
+            }
         }
     }
     else GunplayAnimation->ActionAlpha = 0.0f;
@@ -3603,8 +3648,8 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         GunplayAnimation->bGripActionAim = ActionBase && (ActionBase == AimAnimation || ActionBase == AimFireAnimation);
     }
     GunplayAnimation->bRevolver = bUseDanWesson715;
-    GunplayAnimation->RevolverLiveRounds = bPistolWorkbench ? 6 : MagazineAmmo;
-    GunplayAnimation->RevolverCartridges = bPistolWorkbench ? 6 : RevolverCaseCount;
+    GunplayAnimation->RevolverLiveRounds = bPistolWorkbench ? MagazineCapacity : MagazineAmmo;
+    GunplayAnimation->RevolverCartridges = bPistolWorkbench ? MagazineCapacity : RevolverCaseCount;
     if (bUseDanWesson715 && IsReloading() && !bPistolWorkbench && !bReloadCycleOnly)
     {
         const float SourceSeconds = ReloadSourceTime(WeaponStateElapsed);
@@ -3625,7 +3670,7 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
             const float NormalSeconds = SourceSeconds * (bPendingEmptyReload ? DanWesson715WeaponAssets::NormalReload / DanWesson715WeaponAssets::EmptyReload : 1.f);
             if (NormalSeconds >= DanWesson715WeaponAssets::RoundsVisible)
             {
-                const int32 Loaded = HasInfiniteReserveAmmo() ? 6 : FMath::Min(6, MagazineAmmo + ReserveAmmo);
+                const int32 Loaded = HasInfiniteReserveAmmo() ? MagazineCapacity : FMath::Min(MagazineCapacity, MagazineAmmo + ReserveAmmo);
                 GunplayAnimation->RevolverLiveRounds = Loaded;
                 GunplayAnimation->RevolverCartridges = Loaded;
             }

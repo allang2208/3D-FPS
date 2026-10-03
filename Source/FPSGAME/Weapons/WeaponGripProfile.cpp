@@ -1,6 +1,40 @@
 #include "WeaponGripProfile.h"
 #include "Animation/AnimSequence.h"
 #include "Animation/Skeleton.h"
+#include "Dom/JsonObject.h"
+#include "Serialization/JsonSerializer.h"
+
+bool UWeaponGripProfile::SetSharedClipsFromJson(const FString& Json)
+{
+#if WITH_EDITOR
+    TSharedPtr<FJsonObject> Root;
+    if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root)||!Root)return false;
+    const TArray<TSharedPtr<FJsonValue>>* Rows=nullptr;
+    if(!Root->TryGetArrayField(TEXT("clips"),Rows))return false;
+    TArray<FWeaponGripClip> Imported;
+    for(const auto& Row:*Rows)
+    {
+        const auto Spec=Row->AsObject();if(!Spec)return false;
+        FWeaponGripClip Clip;
+        Clip.Base=LoadObject<UAnimSequence>(nullptr,*Spec->GetStringField(TEXT("base")));
+        if(!Clip.Base)return false;
+        Clip.Duration=Spec->GetNumberField(TEXT("duration"));
+        for(const auto& Value:Spec->GetArrayField(TEXT("tracks")))
+        {
+            const auto TrackSpec=Value->AsObject();if(!TrackSpec)return false;
+            FWeaponGripTrack Track;Track.Bone=*TrackSpec->GetStringField(TEXT("bone"));
+            for(const auto& Time:TrackSpec->GetArrayField(TEXT("times")))Track.Times.Add(Time->AsNumber());
+            for(const auto& Key:TrackSpec->GetArrayField(TEXT("values")))Track.Values.Add(Key->AsNumber());
+            if(Track.Times.IsEmpty()||Track.Values.Num()!=Track.Times.Num()*10)return false;
+            Clip.Tracks.Add(MoveTemp(Track));
+        }
+        Imported.Add(MoveTemp(Clip));
+    }
+    Modify();Family=*Root->GetStringField(TEXT("family"));Clips=MoveTemp(Imported);MarkPackageDirty();return true;
+#else
+    return false;
+#endif
+}
 
 namespace
 {

@@ -1,0 +1,75 @@
+{
+  "task": "RSH-12 paused 2026-10-03",
+  "latest_revision_saved": false,
+  "latest_fire_source_baked": false,
+  "required_local_inputs": [
+    {
+      "path": "SourceAssets/RSH12Integration20261003/Original",
+      "reason": "Medji CC BY 4.0 original archive, FBX and PBR; retained legally acquired input"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/sketchfab_metadata.json",
+      "reason": "Official source/license evidence; not a credential store"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/Donor",
+      "reason": "Native 715/V7 arms, complete binding and licensed sampled motion"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/{Single,Dual/r,Dual/l}",
+      "reason": "Latest static candidate Blend/FBX/profile, needed by the fire/cock author"
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/RSH12_Original.blend",
+      "reason": "Source geometry normalization/closed-parts authoring"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/native_{single,r,l}.json",
+      "reason": "Complete native rest geometry, weights and poses required for full-skin contact fitting"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/BeforeAuthored/Integration",
+      "reason": "Unmodified profile and mesh bind baseline required for absolute fitting; not obsolete"
+    },
+    {
+      "path": "SourceAssets/RSH12SingleAction20261003/{single,r,l}_sources.json",
+      "reason": "Native source idle/aim/fire poses for rebuilding the four private clips"
+    },
+    {
+      "path": "SourceAssets/RSH12Grip20261003/{grip_registration,hand_contact_*,cock_contact_*,trigger_contact_*}.json",
+      "reason": "Current author parameters; latest grip/cock remains an unfinished candidate"
+    }
+  ],
+  "rollback_and_history": [
+    {
+      "paths": "SourceAssets/RSH12{Integration,SingleAction,Fit,FireFix,Grip}20261003/Before*",
+      "reason": "Task-owned source, catalog, authoring and UE snapshots; retain recovery boundaries"
+    },
+    {
+      "paths": "SourceAssets/RSH12{Integration,SingleAction,Fit,FireFix,Grip}20261003/import_receipt.json",
+      "reason": "Actual historical asset saves; no receipt proves latest full-skin grip revision saved"
+    },
+    {
+      "paths": "SourceAssets/RSH12Grip20261003/build_editor_{02,03}.log",
+      "reason": "Existing native build evidence; no new build or game test during pause"
+    }
+  ],
+  "installed_packages": {
+    "mesh_paths": [
+      "/Game/Weapons/RSH12/SK_RSH12_Manny",
+      "/Game/Weapons/RSH12/Dual/r/SK_Dual_RSH12_r",
+      "/Game/Weapons/RSH12/Dual/l/SK_Dual_RSH12_l"
+    ],
+    "fire_profile_root": "/Game/Weapons/RSH12/SingleAction20261003",
+    "other_dependencies": "RSH materials, cartridge, weather binding, initial shared profiles, 715/V7/Epic assets and project WS/ASH sound resources",
+    "public_git_contains_packages": false,
+    "status": "Historical installed assets retained; newest source/exports/installed packages are not one revision"
+  },
+  "resume_order": [
+    "Complete held contact and trigger-pad fit first",
+    "Complete thumb approach/cock/return and right dual-hand transition contact",
+    "Rebuild four fire clips and three profiles from current static author sources",
+    "Save three meshes and seven animation/profile assets using appropriate background/existing-editor workflow",
+    "Record the actual saved revision; user tests visual result and input behavior"
+  ]
+}

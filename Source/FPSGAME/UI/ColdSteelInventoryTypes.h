@@ -258,7 +258,7 @@ struct FColdSteelProposal
 
 namespace ColdSteelInventory
 {
-    inline bool IsDualPistol(const FColdSteelItem& I) { return (I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011")) || I.Definition==TEXT("ue_dan_wesson715"); }
+    inline bool IsDualPistol(const FColdSteelItem& I) { return (I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011")) || (I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")); }
     FPSGAME_API FString Text(const FColdSteelItem& Item, const TCHAR* Key);
     FPSGAME_API double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default = 0);
     FPSGAME_API bool Flag(const FColdSteelItem& Item, const TCHAR* Key);

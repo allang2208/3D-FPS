@@ -41,7 +41,7 @@
 #include "Serialization/JsonSerializer.h"
 #endif
 
-bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||FPSBodyEquipment::StaticOutfitMesh(I.Definition).IsValid()||(I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_hk416"))||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_lmg201")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||((I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011"))||I.Definition==TEXT("ue_dan_wesson715"));}
+bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||FPSBodyEquipment::StaticOutfitMesh(I.Definition).IsValid()||(I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_hk416"))||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_lmg201")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||((I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011"))||(I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")));}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
     if(ColdSteelStaff::IsStaff(I)){const FGunsmithParts Factory;return I.Definition+TEXT("|")+ColdSteelStaff::Resolve(I,bCatalogExport?&Factory:nullptr).Data;}
@@ -154,7 +154,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     if(RigDefinition!=I.Definition){
         TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Icon_InitializeVisuals);
         FFPSPerformanceScope VisualScope(bCatalogExport?nullptr:GetGameInstance(),TEXT("Icon.InitializeVisuals"));
-        Rig->ActiveInventoryWeaponDefinition=I.Definition;Rig->bUseM4Infima=(I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_hk416"));Rig->bUseQBZ191=I.Definition==TEXT("ue_qbz191");Rig->bUseASH12=I.Definition==TEXT("ue_ash12");Rig->bUseM16=I.Definition==TEXT("ue_m16a2");Rig->bUseM1911=(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011"));Rig->bUseDanWesson715=I.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals(true);RigDefinition=I.Definition;
+        Rig->ActiveInventoryWeaponDefinition=I.Definition;Rig->bUseM4Infima=(I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_hk416"));Rig->bUseQBZ191=I.Definition==TEXT("ue_qbz191");Rig->bUseASH12=I.Definition==TEXT("ue_ash12");Rig->bUseM16=I.Definition==TEXT("ue_m16a2");Rig->bUseM1911=(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011"));Rig->bUseDanWesson715=(I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12"));Rig->InitializeWeaponVisuals(true);RigDefinition=I.Definition;
         // Canvas follows the authored footprint: a fixed table keyed on definition names silently
         // shrinks any weapon whose slot aspect differs (QBZ-191 and ASH-12 rendered ~25% narrow).
         const FIntPoint Grid=ColdSteelInventory::BaseFootprint(I);IconCanvasWidth=FMath::Max(256,FMath::RoundToInt(320.f*float(Grid.X)/FMath::Max(1,Grid.Y)));
@@ -171,7 +171,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     if(PrepareStep==3){
     if(AttachmentStep==0){
     Mesh->SetRelativeTransform(FTransform::Identity);Mesh->SetVisibility(true,true);
-    Mesh->PlayAnimation(Rig->IdleAnimation,false);Mesh->SetPosition(0.f,false);Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();Mesh->UpdateComponentToWorld();
+    if(!Rig->SampleRSH12Presentation(Rig->IdleAnimation)){Mesh->PlayAnimation(Rig->IdleAnimation,false);Mesh->SetPosition(0.f,false);}Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();Mesh->UpdateComponentToWorld();
     }
     const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);
     // One fitting per tick; the game-thread component APIs are not thread safe.

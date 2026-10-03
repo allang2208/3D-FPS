@@ -84,6 +84,7 @@ public:
     bool HasHeldTrigger() const { return bActive && ((!bOffhandOnly && Hands[0].Held) || Hands[1].Held); }
     bool IsReloading() const { return bActive && ((!bOffhandOnly && Hands[0].Reloading) || Hands[1].Reloading); }
     bool IsEquipping() const;
+    bool IsSingleActionCocking() const;
     // Reuse the pistol controller's GC-tracked cache for the single M1911
     // empty-slide variant; dual wield itself has no inspect action.
     void PrepareSingleInspect();

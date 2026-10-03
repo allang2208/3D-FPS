@@ -1,6 +1,7 @@
 #include "../FPSGAMECharacter.h"
 #include "WeaponGripProfile.h"
 #include "SVDWeaponAssets.h"
+#include "RSH12WeaponAssets.h"
 #include "LMG201WeaponAssets.h"
 #include "Animation/AnimSequence.h"
 
@@ -11,6 +12,7 @@ bool AFPSGAMECharacter::InitializeWeaponGripFamily(FName Family,TMap<TObjectPtr<
     // 裸角色（未装备武器）时定义为空：拼出的包路径含双斜杠会触发 UObjectGlobals Fatal（闪退）。
     if(!bSVD&&ActiveInventoryWeaponDefinition.IsEmpty())return false;
     const FString Path=bSVD?TEXT("/Game/Weapons/SVDDragunov20260922/GripProfiles20261001/DA_SVD_Grip_")+Family.ToString()
+        :IsRSH12Weapon()&&Family==TEXT("base")?FString(RSH12WeaponAssets::ProfilePath)
         :TEXT("/Game/Weapons/AnimationProfiles20261001/")+ActiveInventoryWeaponDefinition+TEXT("/DA_")+Family.ToString();
     UWeaponGripProfile* Profile=LoadObject<UWeaponGripProfile>(nullptr,*Path,nullptr,LOAD_NoWarn);
     if(!Profile||Profile->Family!=Family||Profile->Clips.IsEmpty())return false;

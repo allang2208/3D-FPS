@@ -13,6 +13,8 @@
 #include "FPSBallisticsComponent.h"
 #include "WeaponStatEvaluation.h"
 #include "DanWesson715WeaponAssets.h"
+#include "RSH12WeaponAssets.h"
+#include "ASH12WeaponAssets.h"
 #include "DanWesson715FittedParts.h"
 #include "M1911MagazineVisual.h"
 #include "M1911WeaponAssets.h"
@@ -74,7 +76,7 @@ bool UPistolDualWieldComponent::InputAvailable() const
 
 void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
 {
-    auto& H=Hands[Index];H.Item=Item;H.Revolver=Item.Definition==TEXT("ue_dan_wesson715");
+    auto& H=Hands[Index];H.Item=Item;H.Revolver=(Item.Definition==TEXT("ue_dan_wesson715")||Item.Definition==TEXT("ue_rsh12"));
     const bool G18=Item.Definition==G18WeaponAssets::Definition;
     const bool PitViper=Item.Definition==PitViper2011WeaponAssets::Definition;
     const FString Base=PitViper?PitViper2011WeaponAssets::DualRoot(Index):G18?G18WeaponAssets::DualRoot(Index):Root(H.Revolver,Index),Name=PitViper?PitViper2011WeaponAssets::DualStem(Index):G18?G18WeaponAssets::DualStem(Index):Stem(H.Revolver,Index);
@@ -92,7 +94,7 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
         H.Mesh->AddTickPrerequisiteActor(Player);
     }
     H.Mesh->EmptyOverrideMaterials();
-    H.Mesh->SetSkeletalMesh(LoadObject<USkeletalMesh>(nullptr,*(Base+TEXT("/SK_")+Name)));
+    H.Mesh->SetSkeletalMesh(LoadObject<USkeletalMesh>(nullptr,*(Item.Definition==RSH12WeaponAssets::Definition ? RSH12WeaponAssets::DualMeshPath(Index) : Base+TEXT("/SK_")+Name)));
     H.Mesh->SetBoundsScale(7.f);
     if(auto* CastMesh=Cast<UFPSCastingMeshComponent>(H.Mesh))CastMesh->bApplyLeftHandCast=Index==1;
     H.Mesh->SetAnimationMode(EAnimationMode::AnimationBlueprint);
@@ -101,9 +103,10 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
     if(Index==0)Player->GunplayAnimation=H.Anim;
     H.Clips.Empty();
     H.PoseProfiles.Reset();H.ActionPoseProfile=NAME_None;
-    for(const TCHAR* Family:{TEXT("fitted"),TEXT("long")})
+    for(const TCHAR* Family:{TEXT("base"),TEXT("fitted"),TEXT("long")})
     {
-        const FString Path=FString::Printf(TEXT("/Game/Weapons/AnimationProfiles20261001/%s/Dual_%s/DA_%s"),*Item.Definition,Index?TEXT("l"):TEXT("r"),Family);
+        const FString Path=Item.Definition==RSH12WeaponAssets::Definition && FString(Family)==TEXT("base")
+            ?RSH12WeaponAssets::DualProfilePath(Index):FString::Printf(TEXT("/Game/Weapons/AnimationProfiles20261001/%s/Dual_%s/DA_%s"),*Item.Definition,Index?TEXT("l"):TEXT("r"),Family);
         if(auto* Layer=LoadObject<UWeaponGripProfile>(nullptr,*Path,nullptr,LOAD_NoWarn);Layer&&Layer->Family==Family)
             H.PoseProfiles.Add(Family,Layer);
     }
@@ -125,6 +128,7 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
     auto Clip=[&](const FString& Kind)
     {
         if(auto* Shared=SharedQuickClip(Kind)){H.Clips.Add(Kind,Shared);return;}
+        if(Item.Definition==RSH12WeaponAssets::Definition && Kind==TEXT("fire")){H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*RSH12WeaponAssets::DualFirePath(Index)));return;}
         if(PitViper){H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*PitViper2011WeaponAssets::DualAnimationPath(Index,Kind)));return;}
         if(G18){H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*G18WeaponAssets::DualAnimationPath(Index,Kind)));return;}
         const TCHAR* Revision=Kind.StartsWith(TEXT("sprint"))?TEXT("/SprintSmoothV5/Animations/A_"):TEXT("/NaturalAimV3/Animations/A_");
@@ -136,7 +140,7 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
     if(H.Revolver)
     {
         Clip(TEXT("speed_0"));
-        for(int32 Start=0;Start<6;++Start)for(int32 Count=1;Count<=6-Start;++Count)Clip(FString::Printf(TEXT("single_%d_%d"),Start,Count));
+        for(int32 Start=0,Capacity=Item.Definition==RSH12WeaponAssets::Definition?5:6;Start<Capacity;++Start)for(int32 Count=1;Count<=Capacity-Start;++Count)Clip(FString::Printf(TEXT("single_%d_%d"),Start,Count));
     }
     else for(const TCHAR* Kind:{TEXT("idle_empty"),TEXT("sprint_empty"),TEXT("fire_last"),TEXT("reload"),TEXT("reload_empty")})Clip(Kind);
     for(const TCHAR* Kind:{TEXT("quickcombat"),TEXT("quickcombat_empty"),TEXT("quickcombat_left"),TEXT("quickcombat_left_empty"),
@@ -159,6 +163,7 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
             :FString::Printf(TEXT("/Game/Weapons/AKM/Audio/S_AKM_%s"),CueName);
         if(!H.Revolver && FString(CueName).StartsWith(TEXT("Mag")))Path=FString::Printf(TEXT("/Game/Weapons/M4HK416Audio/S_HK416_%s"),CueName);
         if(!H.Revolver && FString(CueName)==TEXT("Equip"))Path=TEXT("/Game/Weapons/M4AnimationAuditFinal/S_HK416_Equip");
+        if(Item.Definition==RSH12WeaponAssets::Definition && FString(CueName)==TEXT("Fire"))Path=ASH12WeaponAssets::FireSoundPath;
         if(PitViper)Path=PitViper2011WeaponAssets::SoundPath(CueName);
         if(G18)Path=G18WeaponAssets::SoundPath(CueName);
         H.Sounds.Add(CueName,LoadObject<USoundBase>(nullptr,*Path));
@@ -258,7 +263,7 @@ void UPistolDualWieldComponent::RefreshEquipment(UColdSteelStatusModel* Model)
         H.Stats.Reload=ColdSteelWeaponStats::Reload(&H.Item,Profile,H.Stats.Reload);
         H.Stats.EmptyReload=ColdSteelWeaponStats::Reload(&H.Item,Profile,H.Stats.EmptyReload);
         H.Rounds=FMath::Clamp(H.Item.Magazine,0,H.Stats.Capacity);
-        H.Cases=H.Revolver?FMath::Clamp(int32(ColdSteelInventory::Number(H.Item,TEXT("revolver_case_count"),H.Rounds)),H.Rounds,6):H.Rounds;
+        H.Cases=H.Revolver?FMath::Clamp(int32(ColdSteelInventory::Number(H.Item,TEXT("revolver_case_count"),H.Rounds)),H.Rounds,H.Stats.Capacity):H.Rounds;
         H.Speedloader=H.Revolver && Parts.FindRef(TEXT("reload_device"))==TEXT("dw715_speedloader");
         H.Suppressed=Parts.FindRef(TEXT("muzzle"))==TEXT("tactical_suppressor") || Parts.FindRef(TEXT("muzzle"))==TEXT("true") || Parts.FindRef(TEXT("muzzle"))==TEXT("multi_caliber_suppressor");
         // Right FX uses the primary attachment interface, left FX uses its own copied exit.
@@ -339,6 +344,17 @@ void UPistolDualWieldComponent::StartAction(int32 Index,const FString& Name,floa
     auto& H=Hands[Index];H.Action=H.Clips.FindRef(Name);H.ActionTime=0;H.ActionRate=Rate;H.ActionStarted=GetWorld()->GetTimeSeconds();H.PlayedCues.Empty();
     H.ActionBlendStarted=H.ActionStarted;
     H.ActionPoseProfile=PistolPoseFamily(Name);
+}
+bool UPistolDualWieldComponent::IsSingleActionCocking() const
+{
+    if(!bActive)return false;
+    for(int32 Side=FirstHand();Side<Hands.Num();++Side)
+    {
+        const auto& H=Hands[Side];
+        if(H.Item.Definition==RSH12WeaponAssets::Definition && H.Action && H.Action==H.Clips.FindRef(TEXT("fire"))
+            && GetWorld()->GetTimeSeconds()<H.ActionStarted+H.Action->GetPlayLength()/FMath::Max(.01f,H.ActionRate))return true;
+    }
+    return false;
 }
 void UPistolDualWieldComponent::StopAction(int32 Index)
 {
@@ -439,6 +455,7 @@ FString UPistolDualWieldComponent::QuickCombatClipKind(int32 Side,bool LeftStrik
 const TCHAR* UPistolDualWieldComponent::QuickCombatBlockReason() const
 {
     if(!bActive || !Player || !Player->QuickCombatPistol)return TEXT("双持/副手控制器未就绪");
+    if(IsSingleActionCocking())return TEXT("RSH-12正在拨回击锤");
     if(!Player->CanStartQuickCombatPriority())return TEXT("切换武器或输入不可用");
     const bool LeftStrike=bOffhandOnly||DualPistolQuickCombatMotion::StrikingHand(Player->QuickCombatPistol->GetActionSerial()+1u)==1;
     UAnimSequence* Clips[2]={nullptr,nullptr};
@@ -608,6 +625,12 @@ void UPistolDualWieldComponent::Advance(float Delta)
         {
             const float Previous=H.ActionTime/FMath::Max(.001f,H.Action->GetPlayLength())*H.SourceLength;
             H.ActionTime=FMath::Max(H.ActionTime,float(GetWorld()->GetTimeSeconds()-H.ActionStarted)*H.ActionRate);
+            if(H.Item.Definition==RSH12WeaponAssets::Definition && H.Action==H.Clips.FindRef(TEXT("fire"))
+                && H.ActionTime>=RSH12WeaponAssets::CockLatch && !H.PlayedCues.Contains(TEXT("RSH12CockLatch")))
+            {
+                if(auto* Sound=H.Sounds.FindRef(TEXT("DryClick")).Get())UGameplayStatics::PlaySound2D(this,Sound,.65f);
+                H.PlayedCues.Add(TEXT("RSH12CockLatch"));
+            }
             if(H.Reloading)AdvanceReload(Side,Previous);
             if(H.Action && H.ActionTime>=H.Action->GetPlayLength())
             {
@@ -637,6 +660,7 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
 {
     auto& H=Hands[Index];if(!H.Mesh || !H.Anim)return;
     H.Anim->GripProfile=H.Action?H.PoseProfiles.FindRef(H.ActionPoseProfile).Get():nullptr;
+    if(!H.Anim->GripProfile && H.Item.Definition==RSH12WeaponAssets::Definition)H.Anim->GripProfile=H.PoseProfiles.FindRef(TEXT("base")).Get();
     // Quick melee occupies the left hand, but it continues holding its gun.
     // Only spell casting uses the hidden off-hand weapon presentation.
     const bool Cast=Player->IsCastingWithLeftHand() && !IsQuickCombatActive();

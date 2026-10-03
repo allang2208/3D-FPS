@@ -33,7 +33,7 @@ void UM4GunsmithWidget::SetStandaloneItem(const FColdSteelItem& Item)
     }
     if(!StandaloneRig)return;
     auto* Rig=StandaloneRig.Get();Rig->SetActorTickEnabled(false);Rig->SetActorEnableCollision(false);
-    Rig->ActiveInventoryWeaponDefinition=Item.Definition;Rig->bUseM4Infima=(Item.Definition==TEXT("ue_m4a1")||Item.Definition==TEXT("ue_hk416"));Rig->bUseQBZ191=Item.Definition==TEXT("ue_qbz191");Rig->bUseASH12=Item.Definition==TEXT("ue_ash12");Rig->bUseM16=Item.Definition==TEXT("ue_m16a2");Rig->bUseM1911=(Item.Definition==TEXT("ue_m1911")||Item.Definition==TEXT("ue_g18"));Rig->bUseDanWesson715=Item.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals();
+    Rig->ActiveInventoryWeaponDefinition=Item.Definition;Rig->bUseM4Infima=(Item.Definition==TEXT("ue_m4a1")||Item.Definition==TEXT("ue_hk416"));Rig->bUseQBZ191=Item.Definition==TEXT("ue_qbz191");Rig->bUseASH12=Item.Definition==TEXT("ue_ash12");Rig->bUseM16=Item.Definition==TEXT("ue_m16a2");Rig->bUseM1911=(Item.Definition==TEXT("ue_m1911")||Item.Definition==TEXT("ue_g18"));Rig->bUseDanWesson715=(Item.Definition==TEXT("ue_dan_wesson715")||Item.Definition==TEXT("ue_rsh12"));Rig->InitializeWeaponVisuals();
     Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithMagazineAttachment(Parts.FindRef(TEXT("magazine")));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->SetGunsmithStock(Parts.FindRef(TEXT("stock")));Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")),G->Weapon(Item.Definition));Rig->SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));Rig->SetGunsmithHandstop(Parts.FindRef(TEXT("underbarrel")));Rig->UpdateFoldingSights(1.f);
     Rig->SetGunsmithBipod(Parts.FindRef(TEXT("bipod")));
     StandaloneKey=Key;StandaloneParts=Parts;PreviewBoundsCache.Empty();SetSidePreview(true);
@@ -42,7 +42,7 @@ void UM4GunsmithWidget::PoseStandalone()
 {
     if(StandaloneMelee){if(ColdSteelBowAssembly::IsBowRoot(StandaloneMelee))SyncStandaloneBowPreview();else SyncStandaloneMeleePreview();return;}
     if(!StandaloneRig)return;auto* Rig=StandaloneRig.Get();auto* Mesh=Rig->AKMViewmodel.Get();
-    Mesh->SetVisibility(true);Mesh->PlayAnimation(bAimPreview?Rig->AimAnimation:Rig->IdleAnimation,false);Mesh->SetPosition(0.f,false);Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();
+    Mesh->SetVisibility(true);if(!Rig->SampleRSH12Presentation(bAimPreview?Rig->AimAnimation:Rig->IdleAnimation)){Mesh->PlayAnimation(bAimPreview?Rig->AimAnimation:Rig->IdleAnimation,false);Mesh->SetPosition(0.f,false);}Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();
     Rig->FirstPersonCamera->SetFieldOfView(Rig->VerticalToHorizontalFOV(bAimPreview?Rig->EffectiveADSVerticalFOV():Rig->BaseVerticalFieldOfView));
     Rig->SetGunsmithInspection(!bAimPreview);
     // SyncStudioPreview applies the same arm mask to standalone and equipped guns.

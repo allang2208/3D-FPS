@@ -304,5 +304,22 @@
         "perEnhance": 0.6
       }
     ]
-  }
+  },
+"ue_rsh12": {
+  "source": "RSH12_IMPORT_INITIAL",
+  "base": 36,
+  "enhanceFlat": 1.0,
+  "attrs": [
+    {
+      "key": "dex",
+      "base": 0.8,
+      "perEnhance": 0.1
+    },
+    {
+      "key": "wis",
+      "base": 1.6,
+      "perEnhance": 0.15
+    }
+  ]
+}
 }

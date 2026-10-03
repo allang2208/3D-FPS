@@ -1,0 +1,98 @@
+{
+  "weapon": "RSH-12",
+  "proposed_definition": "ue_rsh12",
+  "source_uid": "177cd570002d4e89bd378ec328a47f9c",
+  "source_author": "Medji",
+  "source_license": "CC BY 4.0",
+  "capacity": 5,
+  "ammo_group": "ammo_127",
+  "use_package_cartridge_if_available": true,
+  "animation_donor": "Source/FPSGAME/Weapons/DanWesson715WeaponAssets.h",
+  "donor_mesh": "/Game/Weapons/DanWesson715/Chrome20260914/SK_DW715_Manny.SK_DW715_Manny",
+  "default_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715/SK_DW715_BareArmsV7.SK_DW715_BareArmsV7",
+  "single_reload_empty_donor": "/Game/Weapons/DanWesson715/PalmClearance20260915/Animations",
+  "single_reload_partial_donor": "/Game/Weapons/DanWesson715/LeftRecovery20260914/Animations",
+  "action_donor": "/Game/Weapons/DanWesson715/Upgrade20260914/Animations",
+  "animation_policy": "Reuse installed 715 clips. Adapt native rest pose/contact and five-chamber mechanics without duplicating the complete animation family.",
+  "mechanical_parts": [
+    "frame",
+    "crane",
+    "cylinder",
+    "extractor",
+    "trigger",
+    "hammer",
+    "five_cartridges"
+  ],
+  "cylinder_step_degrees": 72,
+  "source_dependent_work": [
+    "Import the actual package and retain its UVs, normals, PBR maps and separate mechanical parts.",
+    "Measure grip, muzzle, sight line, cylinder axis and cartridge contact from the actual model.",
+    "Adapt the six-chamber donor motion to five chambers and cap reload/count/state operations at five.",
+    "Register held, inventory, warehouse, gunsmith preview, world pickup, save and Cook references only after assets are saved."
+  ],
+  "source_acquired": true,
+  "assets_imported": true,
+  "runtime_connected": true,
+  "native_build_completed": true,
+  "runtime_tested": false,
+  "assets": {
+    "single": {
+      "asset": "/Game/Weapons/RSH12/SK_RSH12_Manny.SK_RSH12_Manny",
+      "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+      "arm_slots": [
+        0,
+        1
+      ]
+    },
+    "r": {
+      "asset": "/Game/Weapons/RSH12/Dual/r/SK_Dual_RSH12_r.SK_Dual_RSH12_r",
+      "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+      "arm_slots": [
+        0,
+        1
+      ]
+    },
+    "l": {
+      "asset": "/Game/Weapons/RSH12/Dual/l/SK_Dual_RSH12_l.SK_Dual_RSH12_l",
+      "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+      "arm_slots": [
+        0,
+        1
+      ]
+    }
+  },
+  "profiles": {
+    "single": {
+      "asset": "/Game/Weapons/AnimationProfiles20261001/ue_rsh12/DA_base.DA_base",
+      "shared_sequences": 23,
+      "duplicated_sequences": 0
+    },
+    "r": {
+      "asset": "/Game/Weapons/AnimationProfiles20261001/ue_rsh12/Dual_r/DA_base.DA_base",
+      "shared_sequences": 21,
+      "duplicated_sequences": 0
+    },
+    "l": {
+      "asset": "/Game/Weapons/AnimationProfiles20261001/ue_rsh12/Dual_l/DA_base.DA_base",
+      "shared_sequences": 21,
+      "duplicated_sequences": 0
+    }
+  },
+  "native_build": {
+    "runtimeTested": false,
+    "dllBytes": 20846080,
+    "log": "D:\\FPS3D\\FPSGAME\\Saved\\BuildEditor\\rsh12-20261003.log",
+    "dllSavedAtUtc": "2026-10-03T06:08:06.0324788Z",
+    "dll": "D:\\FPS3D\\FPSGAME\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll",
+    "status": "Succeeded",
+    "target": "FPSGAMEEditor Win64 Development -Module=FPSGAME"
+  },
+  "pause_20261003": {
+    "status": "paused_by_user",
+    "latest_grip_revision": "registered-mechanical-axes-v3-full-skin",
+    "latest_revision_saved": false,
+    "latest_fire_source_baked": false,
+    "historical_status_fields": "Initial integration only; see later single-action and paused-grip documents",
+    "resume_document": "Docs/Weapons/rsh12-pause-publication-20261003.md"
+  }
+}

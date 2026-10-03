@@ -175,7 +175,7 @@ bool UColdSteelStatusModel::CommitAmmoSwitch(const FString& WeaponId,const FStri
     State.AmmoPouch.FindOrAdd(Target)-=Loaded;
     Gun->Magazine=Loaded;Gun->VirtualMagazineAmmo=0;Gun->LoadedAmmoType=Target;
     if(!WeaponReloadStages::SetNeedsCycle(*Gun,NeedsCycle))return false;
-    if(Gun->Definition==TEXT("ue_dan_wesson715"))
+    if((Gun->Definition==TEXT("ue_dan_wesson715")||Gun->Definition==TEXT("ue_rsh12")))
     {
         TSharedPtr<FJsonObject> Data;
         if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Gun->Data),Data))

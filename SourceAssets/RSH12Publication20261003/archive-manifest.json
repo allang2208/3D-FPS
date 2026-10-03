@@ -1,0 +1,1057 @@
+{
+  "task": "RSH-12 pause 2026-10-03",
+  "state": "moved_and_hash_verified",
+  "trash": "trash/rsh12-pause-20261003",
+  "count": 131,
+  "bytes": 88010065,
+  "entries": [
+    {
+      "original": "SourceAssets/RSH12Grip20261003/action_inspection.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/action_inspection.json",
+      "bytes": 586,
+      "sha256": "c1354e5925ff5aaa9fdc4eb764ba3a9288addbce20b6c8b7e4971e85ecde4bb2",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/after_aim.png",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/after_aim.png",
+      "bytes": 912762,
+      "sha256": "ad2e253a152b579fb7f8e1c7d1ff05253dfe018b962370a79a4db24447060ec5",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/after_idle.png",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/after_idle.png",
+      "bytes": 894707,
+      "sha256": "143144c40427cbaab6d248ba085220cdf686b1c944159ae9e5706aaa6573fe9a",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/after_idle_side.png",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/after_idle_side.png",
+      "bytes": 1061686,
+      "sha256": "ccd796218708803ffc921c17747e6f4501ab5048a62fb2b62d3a566ad0c4ad7a",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_action_l.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_action_l.log",
+      "bytes": 707,
+      "sha256": "fd0fb07ed9bdfcee1dd7a6221a3f6e51913f5ca98ee54aa2be07643db3279651",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_action_r.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_action_r.log",
+      "bytes": 707,
+      "sha256": "b910d0d1f5bc15ee7f1dba6e8c986917e33b9cd672a7d17e4dfa2d8d1569ad78",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_action_single.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_action_single.log",
+      "bytes": 970,
+      "sha256": "aa780e9c24a2379b99f1a1b1e87602d593f169f97c5583d495d10b5770b16ced",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_cock_l_surface.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_cock_l_surface.log",
+      "bytes": 707,
+      "sha256": "2c0bc6c467249f9bdab98bda84a3dfdcd8ec04acc7c3920f6970377bedeaaa7b",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_cock_r_surface.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_cock_r_surface.log",
+      "bytes": 707,
+      "sha256": "78ce2c2347a19b045b94d4fde4dec0d4b3478cb3a81200262ee9043d778f5aeb",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_cock_single_final.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_cock_single_final.log",
+      "bytes": 970,
+      "sha256": "98ca6bf91b2d5aec90a2f1eebf59011ee4634f27a43776d4a26a75b23d61f438",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_cock_single_surface.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_cock_single_surface.log",
+      "bytes": 970,
+      "sha256": "ad3f60e4416f61a76495416efc66d4230aa8e206aec43647b5e571b70fb8b621",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_held_l_blendskin.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_held_l_blendskin.log",
+      "bytes": 1905,
+      "sha256": "c65548afc8ae79b279101e5fc257681f2e1c62f0a0e39c7bc54878a225e83421",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_held_l_final.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_held_l_final.log",
+      "bytes": 1905,
+      "sha256": "25f87790c803d1f1547cf9d5f9e1289e1dc551ad1ff1843e22c8c3cd670f71a2",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_held_r_blendskin.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_held_r_blendskin.log",
+      "bytes": 1905,
+      "sha256": "0ba1f1150930aa305af81dd08ca971df0c8fa3e036ac68bb22700c79f75dbdc0",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_held_r_final.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_held_r_final.log",
+      "bytes": 1905,
+      "sha256": "4068396c70da23b3149d2545f47c8fde34f93ee9f1d225b812b8dac94d9392e9",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_held_single_absolute.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_held_single_absolute.log",
+      "bytes": 2254,
+      "sha256": "7601def756a01cddc064b821e044c4214d0f142a21de7a0635bd1eada5314eaa",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_held_single_blendskin.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_held_single_blendskin.log",
+      "bytes": 2254,
+      "sha256": "f7abd61714e41d9ffbc23143b539bf7c370ef3d9725e98fd2f3ae1638c665e5d",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_held_single_final.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_held_single_final.log",
+      "bytes": 2254,
+      "sha256": "71a18e9fec6321a2ef9f801d7ddbb47113f813cfa755435805ed361d82ea024e",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_l.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_l.log",
+      "bytes": 1905,
+      "sha256": "41076186ca0cd7b9d774b1aab74099855c1f3848fb619bb92c90bcd9e16b76f7",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_r.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_r.log",
+      "bytes": 1905,
+      "sha256": "cb179ea1275cefd97315c08a05cab90f2cc39cbc90d390ef692d77b4e0bbe9a9",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/author_single.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/author_single.log",
+      "bytes": 2254,
+      "sha256": "fc5405232c98539fd07ecbf8c0688ac6c8ccc2e068eba14769fe585af218ca03",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/before_aim.png",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/before_aim.png",
+      "bytes": 892367,
+      "sha256": "e2d62e91c8da26c1ab588604237c7a127e4645506b4c41e448a76b784d9e0477",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/before_contact_side.png",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/before_contact_side.png",
+      "bytes": 905383,
+      "sha256": "2fdee616990449daadb24bbb2d87f51eb9ccde1b0667b6a3b473f116e8ad6e8f",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/before_idle.png",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/before_idle.png",
+      "bytes": 883539,
+      "sha256": "f58594b52c6f054482543c863294e1ad25baed46f3633affe5f7d63d82b583f9",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/build_editor.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/build_editor.json",
+      "bytes": 80801,
+      "sha256": "da645df502361d7021b540365a2cbeb2637a2df223afba560c8e49b60ee9c486",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/build_editor.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/build_editor.log",
+      "bytes": 28708,
+      "sha256": "389155f7dcf5f9926b3e339943dcce5b4f77c91b81cc96c1f6014c4eca8feca4",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/build_editor_02.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/build_editor_02.json",
+      "bytes": 67724,
+      "sha256": "2d1d91eeca4049cff0dda464f46155aca5778a11d94b744d305d5d3826760333",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/build_editor_console.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/build_editor_console.log",
+      "bytes": 16920,
+      "sha256": "9b7866bf19a8c1e83361ce4387bcfe15807a58fa9e859ed2df8c7b32130b733d",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/build_editor_console_02.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/build_editor_console_02.log",
+      "bytes": 14038,
+      "sha256": "9b5ad29c069fea5970f484bfb72bb5071be945aeb4e45e5f7eb5e3d7d7638de1",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/check_cock_surfaces.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/check_cock_surfaces.log",
+      "bytes": 4551,
+      "sha256": "56d497429d22dc7aa28f3ef135c30de2b3d16f86a51b6e01b03d3a1b88279de9",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/cock_0000.png",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/cock_0000.png",
+      "bytes": 916571,
+      "sha256": "12acd0d573adf068d7f4fd17a1903f5ad335139affe8ea1d0b5ac96a19c74b75",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/cock_0060.png",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/cock_0060.png",
+      "bytes": 919173,
+      "sha256": "0da1b96247647eeb0ca4f1b01c181ef6511f9591abe8445e493c2187dd4ce1fa",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/cock_0300.png",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/cock_0300.png",
+      "bytes": 897870,
+      "sha256": "0dae9156c3125cb1cd6b6e687404930b50597725e36e2e5b0b472dddb0179e50",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/cock_0450.png",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/cock_0450.png",
+      "bytes": 898363,
+      "sha256": "398683dad91afb3d4c3d778482647f87ca391d487ff6f222f938874a5184f72c",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/cock_0600.png",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/cock_0600.png",
+      "bytes": 898924,
+      "sha256": "689d1b6ec82c3b61c034b69915d596a09cfb60538f521eb960fbd334b7a1faab",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/cock_0850.png",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/cock_0850.png",
+      "bytes": 901404,
+      "sha256": "e009143e3e0ff940c4c8fee25e774cf841cd018d0aec7f2088d7a96995baa037",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/cock_1000.png",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/cock_1000.png",
+      "bytes": 917092,
+      "sha256": "a377dd6fbeeee45291bc40b5f80ced8b3a46beb5b128d6658eb9ca9074bca744",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/cock_fit_setup.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/cock_fit_setup.log",
+      "bytes": 1682,
+      "sha256": "8fd3a78623100370319f063773b52f93382d15bfcc21c68f571e02951dc4f071",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/cock_surface_after.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/cock_surface_after.log",
+      "bytes": 6769,
+      "sha256": "17030f6b6738c9d8e31e07b9b44967a34a6efe8198a2180e3c25d1a40780c6da",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/cock_surface_contacts.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/cock_surface_contacts.json",
+      "bytes": 6661,
+      "sha256": "4e1fcf3bfad50b16399afe89811607f275fde8f7fa8bbd81c3cd76d3d2b2b47c",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/cock_surface_final.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/cock_surface_final.log",
+      "bytes": 5969,
+      "sha256": "64d88354ea29e26e69af5a2eb6ce2d659de448593182f52905d440b2f093b3a9",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/cock_view_after.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/cock_view_after.log",
+      "bytes": 2037,
+      "sha256": "2ae7de32f9670fdb8615c60494a0468b82faa777d199184442ade6ca7a231a5e",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/cock_view_final.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/cock_view_final.log",
+      "bytes": 2037,
+      "sha256": "615d68bb6693e205a4ebe2fbb2667fbccfda733f4d145498571ba62c7620149d",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/compare_cock_bake.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/compare_cock_bake.log",
+      "bytes": 2058,
+      "sha256": "047f3deaa9f5105d06611269aea528a7168746659aaa8985a868066db34c5add",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/compile_bridge_01.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/compile_bridge_01.json",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/compile_bridge_console.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/compile_bridge_console.log",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/diagnose_after.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/diagnose_after.log",
+      "bytes": 4654,
+      "sha256": "b059ba65d78d66c0608e9816d330c3899c113c95937350c5516a7be186be2428",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/diagnose_grip.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/diagnose_grip.log",
+      "bytes": 5019,
+      "sha256": "494320123ddba5adec9a917a42441563d523c9eb3873fc399fcd29d0b4e493ea",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/end_pie_bridge_01.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/end_pie_bridge_01.json",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/end_pie_console.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/end_pie_console.log",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/export_contacts_console.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/export_contacts_console.log",
+      "bytes": 35944,
+      "sha256": "61180544b096d8dac50faaee0d0c25f63f5e08d391b924eebe8c6b33574bd8e0",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/export_contacts_ue.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/export_contacts_ue.log",
+      "bytes": 294894,
+      "sha256": "d4bee16f40aceb916cf9343912fdf8331b80022391e1832f4eb0a8cd74b7c5c3",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_l_blendskin.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_l_blendskin.log",
+      "bytes": 5830,
+      "sha256": "6b440f2b7253a6d78dba1a76170d31b4a8c5632bb514880e360d0cb32ca738d3",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_l_full.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_l_full.log",
+      "bytes": 3883,
+      "sha256": "4d6d46f4bc42ace9f7594764d9bdefae48779d41e389461c11760ae2bc63217d",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_l_newgrip.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_l_newgrip.log",
+      "bytes": 6145,
+      "sha256": "0cbd947b6e360c41b9d6d69db5431ced1c32f39e7554950ea5f05137ff98bbb9",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_l_refine.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_l_refine.log",
+      "bytes": 5786,
+      "sha256": "481ee5cb9a8a5334a4ad22850810a699c3cbafcdd47e41b551d445036fad589d",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_l_release.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_l_release.log",
+      "bytes": 6379,
+      "sha256": "87615effce849efdf574a3065983c407c24989714e8f1eb85820c5b47b08342a",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_l_skin.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_l_skin.log",
+      "bytes": 5276,
+      "sha256": "9f207ef90fff7f297df2dbeea41d5558c918631a97798221aed49d7ae1e7887d",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_r_blendskin.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_r_blendskin.log",
+      "bytes": 6420,
+      "sha256": "1fa0e8f600f48042a3009d478cd106cf42f495ed20576aa34683fc384a269467",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_r_full.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_r_full.log",
+      "bytes": 3966,
+      "sha256": "7b611dc675f65047cb70fc2892be0d2ba8da43085546e3bbf0bd8fc7613e2ea7",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_r_newgrip.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_r_newgrip.log",
+      "bytes": 6264,
+      "sha256": "92dcc38b7279a6f9b2f8cce384de01966b10ec0b77e2fa8d3081ae3090c4f1f5",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_r_refine.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_r_refine.log",
+      "bytes": 6162,
+      "sha256": "17dd45fa2619b0b978bb470c4228ecaf44ae902a8c5dc9e06478b64ae19cfb56",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_r_release.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_r_release.log",
+      "bytes": 6414,
+      "sha256": "28a6d1c0a2e68c024290ed7100444f3cd8eedf0e7debd767933e5f4c65974038",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_r_skin.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_r_skin.log",
+      "bytes": 5451,
+      "sha256": "2301f446b4b7967444b9d4be3527110ca500ac73ba48f775cbb78fa1ed0faf2a",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_single.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_single.log",
+      "bytes": 3401,
+      "sha256": "45c897915d76048db51065c00c37d7fd4e4365c65e5907f6d30313d7b05dfd6b",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_single_blendskin.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_single_blendskin.log",
+      "bytes": 6297,
+      "sha256": "544a4edfca09e042886e31101ae58d4131a16aa7a6f51b08412150f136803ac7",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_single_full.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_single_full.log",
+      "bytes": 4298,
+      "sha256": "0f3a0d759031dcf2b97e2f549c0a11ff0dea8cd791222b762373de2de0c0d4af",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_single_newgrip.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_single_newgrip.log",
+      "bytes": 6487,
+      "sha256": "a03c73ad3b2dbf2d1e961d1c5820f6fb0d9a65ca78344edadd44e6b48e65fea9",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_single_refine.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_single_refine.log",
+      "bytes": 6115,
+      "sha256": "cde11bfdf4771fdcb8684018333d72a32b874100e52a4c5bd3ef7ebffcfe50a5",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_cock_single_skin.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_cock_single_skin.log",
+      "bytes": 5589,
+      "sha256": "e67d56290778593acf6fba665ffca33f0bdce0f43ff9f7e8325185338e567788",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_hand_contact.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_hand_contact.log",
+      "bytes": 933,
+      "sha256": "b5738df6f0ad1c6298cab8074c088216c53b1f8ff1819d8eced66fd8adf8406c",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_held_l_idle_absolute.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_held_l_idle_absolute.log",
+      "bytes": 873,
+      "sha256": "b00910075d3888db5c561bd14b6b1b2f8b1c28016498b13f79a6ecef9efd0f11",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_held_l_idle_blendskin.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_held_l_idle_blendskin.log",
+      "bytes": 866,
+      "sha256": "7b68782aef613e71ba55d60b6cb0596c8454d844f6195ab57c94a36eb7e3f90e",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_held_l_idle_clearance.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_held_l_idle_clearance.log",
+      "bytes": 865,
+      "sha256": "5f0590955dd80e52664ec2a84140bdf9d9002bea0e0dd0f54d6a53e763a7df4f",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_held_l_idle_nativejoint.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_held_l_idle_nativejoint.log",
+      "bytes": 882,
+      "sha256": "64b1f12f19faf3e5d568e15b2e532649666ddb7fb5342613f4f287c3ee32858f",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_held_r_idle_absolute.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_held_r_idle_absolute.log",
+      "bytes": 855,
+      "sha256": "2387c8acee2fd8e9c3bd1656653717f3cd19e80eff0c4377cd51b2e63947633c",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_held_r_idle_blendskin.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_held_r_idle_blendskin.log",
+      "bytes": 864,
+      "sha256": "27d6cbd097237fc22a69123e264e5f362f90b3aaed031c91ab2480fc3e4b6aa6",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_held_single_aim_absolute.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_held_single_aim_absolute.log",
+      "bytes": 1111,
+      "sha256": "2bd7f8c30f87965755b2be1361b565861a519649cf4b24fb94c904707c1395b9",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_held_single_aim_blendskin.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_held_single_aim_blendskin.log",
+      "bytes": 1118,
+      "sha256": "d60c462a00b05f42b320e22a648ad5aa476718401f4a4999100f11a320e59596",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_held_single_aim_clearance.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_held_single_aim_clearance.log",
+      "bytes": 1116,
+      "sha256": "059a6ba6978657e2f4ec8fa8d59391821861a05d8ecb902bedac62b8e3c1239e",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_held_single_idle_absolute.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_held_single_idle_absolute.log",
+      "bytes": 1127,
+      "sha256": "57d3370d121aad62217b0fd7de40ba7573dfed7d5ed114eaa9dad68c593a9786",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_held_single_idle_blendskin.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_held_single_idle_blendskin.log",
+      "bytes": 1126,
+      "sha256": "6d155333d94d264ddc4dc7d641c72d802496bc734e84001c16404cc8d71f2492",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_held_single_idle_clearance.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_held_single_idle_clearance.log",
+      "bytes": 1113,
+      "sha256": "fac9519ca2282761a3d44ba25e161124bf12cac64a63c7aaa4e093b5d2a230ce",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_l_idle.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_l_idle.log",
+      "bytes": 865,
+      "sha256": "fb489b68e74ac077cfe83b92c03ea242a7eec2ccf0c251381194e4d04fb5a809",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_r_idle.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_r_idle.log",
+      "bytes": 872,
+      "sha256": "20293c7ebe381528866904576d98320c5c882ee47ccb9afda8923fd64ae750a5",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_registration.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_registration.log",
+      "bytes": 3364,
+      "sha256": "e1e32cf1068e9ad3a958c0d6dd7c287a8fe79fc7dd76a61c0a797b66cafe9606",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_single_aim.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_single_aim.log",
+      "bytes": 1108,
+      "sha256": "290b3ecc85a0d5517209ff1b8a1d4d6150c97def0449c633b7abc60ccc574fdc",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_single_idle.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_single_idle.log",
+      "bytes": 1127,
+      "sha256": "0257eddcf4fc4bef121d5a16a337d9d2d431a845dd5625dd5d9352a0930c2636",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_trigger_l_idle.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_trigger_l_idle.log",
+      "bytes": 766,
+      "sha256": "0e94d7cb64980cc4bf1a34dc3dc591aa9db5cc9ae2ab551877aa7055cd790abc",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_trigger_r_idle.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_trigger_r_idle.log",
+      "bytes": 746,
+      "sha256": "da5e0f490cce3951ac98f85d303e60bf77bbbdc43a6641ea7b152e5246fd6d09",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_trigger_single_aim.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_trigger_single_aim.log",
+      "bytes": 752,
+      "sha256": "1e17912bde836557d67948641df61b0522893394915eab69a970daa3b4ab12fa",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/fit_trigger_single_idle.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/fit_trigger_single_idle.log",
+      "bytes": 754,
+      "sha256": "fa858c39c4ae196be8ea766f416b3259d1a3dd5ba0fcb558513074cbaf549ca3",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/grip_after.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/grip_after.json",
+      "bytes": 27696,
+      "sha256": "bde548879083efc8cb8a55979a13812515560a791f41f35a9647d611ce0903ea",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/hand_contact.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/hand_contact.json",
+      "bytes": 13899,
+      "sha256": "cede4301f3e99e3952198c1c7851167da726789a1dcaeeaf391c57cb397d0eaf",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/import_bridge_02.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/import_bridge_02.json",
+      "bytes": 1110,
+      "sha256": "4b8b89088a6f3221c6a1f6ede2d24859bdfda0b61c8255e9e1ee4b623185a5dd",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/import_bridge_console_02.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/import_bridge_console_02.log",
+      "bytes": 1110,
+      "sha256": "4b8b89088a6f3221c6a1f6ede2d24859bdfda0b61c8255e9e1ee4b623185a5dd",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/import_grip_assets_console.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/import_grip_assets_console.log",
+      "bytes": 45130,
+      "sha256": "b3ea5444cfb7145a63c5bb7a19f100a9827837218a65b786ebd185bf2d09aa7d",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/import_grip_assets_console_02.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/import_grip_assets_console_02.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/import_grip_assets_ue.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/import_grip_assets_ue.log",
+      "bytes": 320511,
+      "sha256": "47b3b892bdb76142df3084d7dc4a552c4f829a6fc02b107cfe9de057266665b9",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/import_receipt_initial.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/import_receipt_initial.json",
+      "bytes": 2217,
+      "sha256": "a68906f627bbc199a392380bf19582acfc63185188470dba35141353ac6fa017",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/inspect_action.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/inspect_action.log",
+      "bytes": 2037,
+      "sha256": "874c8280c1f7b501fc7125dc32ad8df8e2042e6a822bcba6cb82c0d2aad3dcc5",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/preview_contact.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/preview_contact.log",
+      "bytes": 689,
+      "sha256": "8730467646c0de10f04fd9ec145df2d2d082ceef33db11add3f209dc57deaa85",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/registration_candidates.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/registration_candidates.json",
+      "bytes": 145758,
+      "sha256": "b32beff8fd099fccfdaa27e9ac17303908a766f175e378727578f17eea1076b6",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/scipy.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/scipy.log",
+      "bytes": 465,
+      "sha256": "4c9ef8df9002efba738413fd248cc86263ffa8e7fdf435b3867fdd171ed01736",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Grip20261003/side_view.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Grip20261003/side_view.log",
+      "bytes": 2330,
+      "sha256": "d1a23d022985bc86d9f08c9fc2b141dc409c720c76770b13b2fc6ab9d8b1bcc5",
+      "reason": "Superseded grip/cock experiment or failed transport attempt",
+      "replacement": "Current author sources/contact recipes; latest source is unbaked, see pause document"
+    },
+    {
+      "original": "SourceAssets/RSH12Integration20261003/Dual/l/RSH12_l_Editable.blend1",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Integration20261003/Dual/l/RSH12_l_Editable.blend1",
+      "bytes": 1451269,
+      "sha256": "c5c42af594eb872d1157b60a23812b703ee7f323b13564ebc8a3e32c9f77ba99",
+      "reason": "Superseded automatic Blender backup",
+      "replacement": "Current editable source and retained BeforeAuthored"
+    },
+    {
+      "original": "SourceAssets/RSH12Integration20261003/Dual/r/RSH12_r_Editable.blend1",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Integration20261003/Dual/r/RSH12_r_Editable.blend1",
+      "bytes": 1454344,
+      "sha256": "40a6efed837bb486d440ec650d3003bce40b642a3a0f5d6a3c2188d491b3af5e",
+      "reason": "Superseded automatic Blender backup",
+      "replacement": "Current editable source and retained BeforeAuthored"
+    },
+    {
+      "original": "SourceAssets/RSH12Integration20261003/Single/RSH12_single_Editable.blend1",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Integration20261003/Single/RSH12_single_Editable.blend1",
+      "bytes": 2513267,
+      "sha256": "47e58a4ffd99f2bf244a35cc81c7a7f9dd08bb2904a7c6566797351b1a6c9677",
+      "reason": "Superseded automatic Blender backup",
+      "replacement": "Current editable source and retained BeforeAuthored"
+    },
+    {
+      "original": "SourceAssets/RSH12Integration20261003/bind_failure.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Integration20261003/bind_failure.log",
+      "bytes": 297942,
+      "sha256": "80625646ec16d4b0d65758c693e6203983ee96c71f131e26953193a51cb433b6",
+      "reason": "Rejected FBX parent-bind/import attempt; corrected full native binding retained",
+      "replacement": "author_rsh12.py, binding_inputs.py and import_assets.py"
+    },
+    {
+      "original": "SourceAssets/RSH12Integration20261003/failed_parent_r.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Integration20261003/failed_parent_r.json",
+      "bytes": 3968,
+      "sha256": "7e9713c564b2761cd1e6f5e30499b5c8dd58db43bcaa64182182b040a816c6e9",
+      "reason": "Rejected FBX parent-bind/import attempt; corrected full native binding retained",
+      "replacement": "author_rsh12.py, binding_inputs.py and import_assets.py"
+    },
+    {
+      "original": "SourceAssets/RSH12Integration20261003/failed_parent_single.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Integration20261003/failed_parent_single.json",
+      "bytes": 3976,
+      "sha256": "020231dc2374f4a7c7b8e62623194d66100e89cbd2a1f566e2605287efb6d582",
+      "reason": "Rejected FBX parent-bind/import attempt; corrected full native binding retained",
+      "replacement": "author_rsh12.py, binding_inputs.py and import_assets.py"
+    },
+    {
+      "original": "SourceAssets/RSH12Integration20261003/import_assets-backup-2026.10.03-06.00.30.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Integration20261003/import_assets-backup-2026.10.03-06.00.30.log",
+      "bytes": 306383,
+      "sha256": "94c86a56cb767909bcf95f6a70f019e4824603e618e6d0362915b9e9ac142b45",
+      "reason": "Rejected FBX parent-bind/import attempt; corrected full native binding retained",
+      "replacement": "author_rsh12.py, binding_inputs.py and import_assets.py"
+    },
+    {
+      "original": "SourceAssets/RSH12Integration20261003/import_assets-backup-2026.10.03-06.01.44.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Integration20261003/import_assets-backup-2026.10.03-06.01.44.log",
+      "bytes": 311706,
+      "sha256": "8c56d7fd70c963bd4725c5df79fd3f7b4637a479ef86a90c5225474287ee5e1f",
+      "reason": "Rejected FBX parent-bind/import attempt; corrected full native binding retained",
+      "replacement": "author_rsh12.py, binding_inputs.py and import_assets.py"
+    },
+    {
+      "original": "SourceAssets/RSH12Integration20261003/import_assets-backup-2026.10.03-06.02.47.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Integration20261003/import_assets-backup-2026.10.03-06.02.47.log",
+      "bytes": 446824,
+      "sha256": "3a30b62ce286cbb38f51ef598000af2e8c9023a79fd9a1fdc4f83120447543ae",
+      "reason": "Rejected FBX parent-bind/import attempt; corrected full native binding retained",
+      "replacement": "author_rsh12.py, binding_inputs.py and import_assets.py"
+    },
+    {
+      "original": "SourceAssets/RSH12Integration20261003/import_assets-backup-2026.10.03-06.09.06.log",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Integration20261003/import_assets-backup-2026.10.03-06.09.06.log",
+      "bytes": 742953,
+      "sha256": "25b8662921863c7e7ed79432ed6902ee7222b60bfc052f18753d9c5f7bb719e3",
+      "reason": "Rejected FBX parent-bind/import attempt; corrected full native binding retained",
+      "replacement": "author_rsh12.py, binding_inputs.py and import_assets.py"
+    },
+    {
+      "original": "SourceAssets/RSH12Integration20261003/read_bind_failure.py",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Integration20261003/read_bind_failure.py",
+      "bytes": 1338,
+      "sha256": "054ce1b43219fa2ce80861246531c2eea8cdf9205bad4cfe0760f02f275f316a",
+      "reason": "Rejected FBX parent-bind/import attempt; corrected full native binding retained",
+      "replacement": "author_rsh12.py, binding_inputs.py and import_assets.py"
+    },
+    {
+      "original": "SourceAssets/RSH12Integration20261003/read_fbx_binding.py",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12Integration20261003/read_fbx_binding.py",
+      "bytes": 753,
+      "sha256": "65c3c2f8038bb9d20703a0a5d76915fdef3f17542dbc49362d4c5ac0513db122",
+      "reason": "Rejected FBX parent-bind/import attempt; corrected full native binding retained",
+      "replacement": "author_rsh12.py, binding_inputs.py and import_assets.py"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/l/A_RSH12_l_fire.fbx",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/l/A_RSH12_l_fire.fbx",
+      "bytes": 1550652,
+      "sha256": "7d997101239af1494d8ee405b21d38086016de14dbc1f2d72318a9d91a5582a9",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/l/A_RSH12_l_fire_Editable.blend",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/l/A_RSH12_l_fire_Editable.blend",
+      "bytes": 2408060,
+      "sha256": "a7abca1d8fc7be7bcd109b7648f336b9030eafac34d80f6443e6d401fc7c3daf",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/l/authoring.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/l/authoring.json",
+      "bytes": 4103,
+      "sha256": "27a558a8de1b2c10c5fb7f13f5a42abd5b9f5fdd5d6e6f7bb2973f0c521d0a73",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/l/profile.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/l/profile.json",
+      "bytes": 14555074,
+      "sha256": "b36d22750ae143b214192ab0145ef9e2152b8f267d4702e9e9ff53f510f3916d",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/r/A_RSH12_r_fire.fbx",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/r/A_RSH12_r_fire.fbx",
+      "bytes": 1549548,
+      "sha256": "1e77fa0a4db4a653df8d27b4a20969f7ff11e81c26879f89dfaadfeb94db3821",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/r/A_RSH12_r_fire_Editable.blend",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/r/A_RSH12_r_fire_Editable.blend",
+      "bytes": 2408895,
+      "sha256": "fc4da099c37172e0d54dcfcc3a5ca39b22911e7002e7efe6d27569607b78144a",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/r/authoring.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/r/authoring.json",
+      "bytes": 4198,
+      "sha256": "2888757663b09b5640451464efbc5b192d8ccb428ea5bd3b3842eead32a1c4f6",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/r/profile.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/r/profile.json",
+      "bytes": 13241094,
+      "sha256": "93f8721b6f99d910b99907038d1ba4838048d9e537e92ddf15b06d8f5f878d5d",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/single/A_RSH12_aim_fire.fbx",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/single/A_RSH12_aim_fire.fbx",
+      "bytes": 1642444,
+      "sha256": "957c4782c2035ab05bbf8d5855a4537b2f91bb3e0c43dbf62448749f8f8be2af",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/single/A_RSH12_aim_fire_Editable.blend",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/single/A_RSH12_aim_fire_Editable.blend",
+      "bytes": 4888341,
+      "sha256": "c4311f7644082b549a8ddd0c01425431e173381c60ad013d83bc0f7927872d62",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/single/A_RSH12_fire.fbx",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/single/A_RSH12_fire.fbx",
+      "bytes": 1579356,
+      "sha256": "d00c9b100630d9885283a381fd75f9c3b1c93a3e7f607aace5d3b33d9f60ef0f",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/single/A_RSH12_fire_Editable.blend",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/single/A_RSH12_fire_Editable.blend",
+      "bytes": 3593157,
+      "sha256": "d06fe4c1fc3ff335f301f2db0e1e6d939767f252e1a640ad17483c522afa8fff",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/single/authoring.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/single/authoring.json",
+      "bytes": 4877,
+      "sha256": "f25fc16eb0b210664568246e7f19deea74b4c044a62b66ddd77927667fa945d3",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    },
+    {
+      "original": "SourceAssets/RSH12SingleAction20261003/single/profile.json",
+      "archived": "trash/rsh12-pause-20261003/SourceAssets/RSH12SingleAction20261003/single/profile.json",
+      "bytes": 19851308,
+      "sha256": "216abf55c338201c799370ec5731c621e9567d8d0984bb32455934c52ddca5bd",
+      "reason": "Fire/cock bake precedes latest complete-skin, common-grasp and thumb-path source",
+      "replacement": "author_single_action.py; regenerate four clips and three profiles before importing"
+    }
+  ]
+}

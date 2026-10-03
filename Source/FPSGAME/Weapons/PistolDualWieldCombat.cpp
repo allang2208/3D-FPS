@@ -1,4 +1,6 @@
 #include "G18WeaponAssets.h"
+#include "RSH12WeaponAssets.h"
+#include "PitViper2011WeaponAssets.h"
 #include "PistolDualWieldComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -39,6 +41,7 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
     auto& H=Hands[Index];const double Now=GetWorld()->GetTimeSeconds();
     if((!H.Pending && H.Item.Definition!=G18WeaponAssets::Definition) || !H.Held || !InputAvailable() || (IsEquipping() && H.Item.Definition!=G18WeaponAssets::Definition) || Player->IsAmmoWheelOpen() || H.Reloading || Player->IsSprinting()
         || Now<Player->SprintFireUnlockTime || Now<H.NextShot || (Index==1 && Player->IsCastBlockingLeftHandAction()))return;
+    if(H.Item.Definition==RSH12WeaponAssets::Definition && H.Action && H.Action==H.Clips.FindRef(TEXT("fire")))return;
     H.Pending=false;
     if(WeaponReloadStages::NeedsCycle(H.Item)){BeginReload(Index);return;}
     if(H.Rounds<=0)
@@ -63,7 +66,11 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
     H.NextShot=H.Item.Definition==G18WeaponAssets::Definition
         ? (Now-H.NextShot>.15?Now:H.NextShot)+ShotInterval : Now+ShotInterval;
     H.Pattern=Now-H.LastShot>.4?0:FMath::Min(H.Pattern+1,FWeaponHandling::PatternCount-1);H.LastShot=Now;
-    StartAction(Index,!H.Revolver && H.Rounds==0?TEXT("fire_last"):TEXT("fire"));
+    const float FireRate=H.Item.Definition==RSH12WeaponAssets::Definition && H.Clips.FindRef(TEXT("fire"))
+        ?H.Clips.FindRef(TEXT("fire"))->GetPlayLength()/float(ShotInterval):1.f;
+    StartAction(Index,!H.Revolver && H.Rounds==0?TEXT("fire_last"):TEXT("fire"),FireRate);
+    if(H.Item.Definition==RSH12WeaponAssets::Definition && H.Action)
+        H.NextShot=Now+FMath::Max(ShotInterval,double(H.Action->GetPlayLength()/FireRate));
     if(!bOffhandOnly){Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;}
     // A blocked-muzzle hit may award XP and commit the profile synchronously.
     // Publish the consumed round before entering that callback, from the hand
@@ -133,7 +140,7 @@ bool UPistolDualWieldComponent::SwitchAmmo(const FString& WeaponId,const FString
     if(!bActive||!InputAvailable()||!Profile->CanSwitchAmmo(WeaponId,AmmoType))return false;
     for(int32 Index=FirstHand();Index<Hands.Num();++Index)if(Hands[Index].Item.InstanceId==WeaponId)
     {
-        auto& H=Hands[Index];if(H.Reloading||(Index==1&&Player->IsCastBlockingLeftHandAction()))return false;
+        auto& H=Hands[Index];if(H.Reloading || (H.Item.Definition==RSH12WeaponAssets::Definition && H.Action && H.Action==H.Clips.FindRef(TEXT("fire"))) || (Index==1&&Player->IsCastBlockingLeftHandAction()))return false;
         CancelInputs();StopAction(Index);H.PendingAmmoType=AmmoType;BeginReload(Index);
         if(!H.Reloading)H.PendingAmmoType.Reset();return H.Reloading;
     }
