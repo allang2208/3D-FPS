@@ -1,0 +1,77 @@
+{
+  "id": "tengyun_dragon",
+  "weapon": "ue_tang_dao",
+  "slot": "blade_1",
+  "name": "腾云游龙刀身",
+  "ue_root": "/Game/Weapons/TangDao20261002/TengyunBlade20261002",
+  "mesh_name": "SM_TangDao_Blade_tengyun_dragon",
+  "mesh": "/Game/Weapons/TangDao20261002/TengyunBlade20261002/Meshes/SM_TangDao_Blade_tengyun_dragon_SolidV4.SM_TangDao_Blade_tengyun_dragon_SolidV4",
+  "surface_ue_root": "/Game/Weapons/TangDao20261002/TengyunBlade20261002/JointRepair20261002",
+  "material_name": "M_TangDaoBladeRuneSurface_CloudTengyunJoint",
+  "reuse_saved_surface": true,
+  "preserve_ui_icon": true,
+  "interface": "tang_dao_hilt_v1",
+  "location_cm": [
+    0,
+    0,
+    0
+  ],
+  "trace_base_cm": [
+    0,
+    0,
+    3
+  ],
+  "trace_tip_cm": [
+    9.505,
+    0,
+    88
+  ],
+  "rune_dimensions_cm": [
+    14,
+    12,
+    74
+  ],
+  "materials": {
+    "M_TangDaoTengyunSteel": "/Game/Weapons/TangDao20261002/TengyunBlade20261002/JointRepair20261002/Materials/M_TangDaoBladeRuneSurface_CloudTengyunJoint.M_TangDaoBladeRuneSurface_CloudTengyunJoint"
+  },
+  "lod_triangles": [
+    118664,
+    65264,
+    30852
+  ],
+  "uv_z_cm": [
+    1.4,
+    88
+  ],
+  "base_z_cm": 1.34,
+  "guard_seat_overlap_mm": 0.6,
+  "original_geometry_retained": false,
+  "mounting_root_unchanged": false,
+  "original_surface_material_retained": false,
+  "body_thickness_mm": 7.0,
+  "body_faces_parallel": true,
+  "longitudinal_thickness_taper": "none; only final 2mm tip bevel",
+  "tip_bevel_z_cm": [
+    87.8,
+    88
+  ],
+  "fuller_depth_mm": 0.7,
+  "fuller_centers_across_blade": [
+    0.855
+  ],
+  "fuller_z_cm": [
+    16.5,
+    75.5
+  ],
+  "blade_tip_cm": [
+    9.505,
+    0,
+    88
+  ],
+  "dragon_relief": "existing baked normal map; planar geometry",
+  "repair_revision": "TangDaoTengyunPlanarSolidV4_20261002",
+  "reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TangDaoMeshy20261002\\TengyunBlade20261002\\Reference\\TengyunBlade_UserReference.png",
+  "repair_reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TangDaoMeshy20261002\\TengyunBlade20261002\\PlanarRepair20261002\\Reference\\ReportedWarpedRoot.png",
+  "scope": "Uniform-thickness planar blade and clean hilt seat; original silhouette, atlas, native/cloud runes and gameplay retained",
+  "runtime_tested": false
+}

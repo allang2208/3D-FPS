@@ -228,6 +228,7 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     {
         const auto Was=ColdSteelMelee::Evaluate(*Item,Profile,&WithoutPart);
         const auto Now=ColdSteelMelee::Evaluate(*Item,Profile,&Gunsmith->Draft());
+        const bool OverheadFinisher=ColdSteelModularSword::UsesOverheadFinisher(*Item,&Gunsmith->Draft());
         const auto& M=Option->Melee;
         auto Percent=[](double Mult){return (Mult-1.)*100.;};
         AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage,Now.Damage,2,TEXT(""));
@@ -235,14 +236,15 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         AddValue(ColdSteelWeaponText::AddedPhysical,Was.DamageParts.AddedPhysical,Now.DamageParts.AddedPhysical,2,TEXT(""));
         AddValue(ColdSteelWeaponText::AddedMagic,Was.DamageParts.AddedMagic,Now.DamageParts.AddedMagic,2,TEXT(""));
         AddValue(TEXT("第二段横斩伤害"),Was.ComboSecondDamage,Now.ComboSecondDamage,2,TEXT(""),false,Percent(M.ComboSecond));
-        AddValue(TEXT("第三段突刺伤害"),Was.ComboThirdDamage,Now.ComboThirdDamage,2,TEXT(""),false,Percent(M.ComboThird));
-        AddValue(TEXT("第三段突刺韧性伤害倍率"),Was.Modifiers.ThirdThrustToughnessMultiplier(),Now.Modifiers.ThirdThrustToughnessMultiplier(),2,TEXT("×"),false,Percent(M.ComboThirdToughness));
+        AddValue(OverheadFinisher?TEXT("第三段竖劈伤害"):TEXT("第三段突刺伤害"),Was.ComboThirdDamage,Now.ComboThirdDamage,2,TEXT(""),false,Percent(M.ComboThird));
+        AddValue(OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),Was.Modifiers.ThirdThrustToughnessMultiplier(),Now.Modifiers.ThirdThrustToughnessMultiplier(),2,TEXT("×"),false,Percent(M.ComboThirdToughness));
         AddValue(TEXT("攻击速度倍率"),Was.AttackRate,Now.AttackRate,2,TEXT("×"),false,Percent(M.AttackSpeed));
         AddValue(TEXT("普通攻击耗时"),Was.AttackSeconds,Now.AttackSeconds,2,TEXT(" s"),true);
-        AddValue(TEXT("突刺耗时"),Was.ThrustSeconds,Now.ThrustSeconds,2,TEXT(" s"),true);
+        AddValue(OverheadFinisher?TEXT("竖劈耗时"):TEXT("突刺耗时"),Was.ThrustSeconds,Now.ThrustSeconds,2,TEXT(" s"),true);
         AddValue(TEXT("普通挥砍距离"),Was.SlashReach/100,Now.SlashReach/100,2,TEXT(" m"),false,Percent(M.Range));
         AddValue(ColdSteelWeaponText::AttackDistance,Was.ThrustReach/100,Now.ThrustReach/100,2,TEXT(" m"),false,Percent(M.Range));
         AddValue(ColdSteelWeaponText::StaminaCost,Was.AttackStamina,Now.AttackStamina,2,TEXT(""),true,Percent(M.Stamina));
+        AddValue(TEXT("击杀恢复体力（最大值占比）"),Was.Modifiers.KillStaminaMaxRatio*100,Now.Modifiers.KillStaminaMaxRatio*100,0,TEXT("%"));
         AddValue(ColdSteelWeaponText::BlockStaminaCost,Was.BlockStamina,Now.BlockStamina,2,TEXT(""),true,Percent(M.BlockStamina));
         AddValue(TEXT("格挡伤害减免"),Was.BlockReduction*100,Now.BlockReduction*100,1,TEXT("%"),false,Percent(M.BlockReduction));
         AddValue(TEXT("命中硬直时间倍率"),Was.Modifiers.HitReaction,Now.Modifiers.HitReaction,2,TEXT("×"),false,Percent(M.HitReaction));

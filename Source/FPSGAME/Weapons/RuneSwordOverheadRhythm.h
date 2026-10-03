@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "RuneSwordThrustRhythm.h"
 
 // Sprint overhead chop: the accepted heavy attack's raise and slam retimed, so
 // no pose is re-solved.  See Docs/Weapons/runesword-overhead-20260916.md and
@@ -14,6 +15,21 @@ namespace RuneSwordOverheadRhythm
     inline constexpr float ContactEnd=1.40f;
     // Dash-only carry-to-strike transition, played before the shared hit window.
     inline constexpr float DashWindupSeconds=.25f;
+    // The Yanling finisher reuses this same release and recovery as combo stage 3.
+    inline constexpr float AttackEnd=2.60f;
+    inline constexpr float FinisherEntry=ContactStart-DashWindupSeconds;
+    inline constexpr float FinisherSeconds=AttackEnd-FinisherEntry;
+    inline constexpr float FinisherRectangleHalfWidthCM=45.f;
+    // Preserve the thrust's stride distance/curve and its timing relative to
+    // first contact, translated into the overhead animation's source clock.
+    inline constexpr float FinisherLungeStart=ContactStart-
+        (RuneSwordThrustRhythm::ContactStart-RuneSwordThrustRhythm::LungeStart);
+    inline constexpr float FinisherLungeEnd=FinisherLungeStart+
+        (RuneSwordThrustRhythm::LungeEnd-RuneSwordThrustRhythm::LungeStart);
+    inline float FinisherLungeAlpha(float Time)
+    {
+        return RuneSwordThrustRhythm::LungeAlpha(Time-FinisherLungeStart+RuneSwordThrustRhythm::LungeStart);
+    }
     // The slam is the heavy release slowed 2x; sample it at the release's own
     // density rather than the slash's 240 Hz.
     inline constexpr float SampleRate=480.f;

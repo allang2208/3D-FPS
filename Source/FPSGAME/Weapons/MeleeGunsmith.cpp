@@ -53,6 +53,7 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("attack_speed_mult"),Part.Melee.AttackSpeed);
             Stats->TryGetNumberField(TEXT("range_mult"),Part.Melee.Range);
             Stats->TryGetNumberField(TEXT("stamina_mult"),Part.Melee.Stamina);
+            Stats->TryGetNumberField(TEXT("kill_stamina_max_ratio"),Part.Melee.KillStaminaMaxRatio);
             Stats->TryGetNumberField(TEXT("hit_reaction_mult"),Part.Melee.HitReaction);
             Stats->TryGetNumberField(TEXT("toughness_damage_mult"),Part.Melee.ToughnessDamage);
             Stats->TryGetNumberField(TEXT("physical_armor_penetration"),Part.Melee.PhysicalArmorPenetration);

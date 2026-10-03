@@ -177,6 +177,7 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             const auto& M=Option(D,Pair.Key,Pair.Value)->Melee;
             R.Melee.Damage*=M.Damage;R.Melee.AttackSpeed*=M.AttackSpeed;R.Melee.Range*=M.Range;
             R.Melee.Stamina*=M.Stamina;R.Melee.BlockStamina*=M.BlockStamina;R.Melee.HitReaction*=M.HitReaction;R.Melee.BlockReduction*=M.BlockReduction;
+            R.Melee.KillStaminaMaxRatio=FMath::Clamp(R.Melee.KillStaminaMaxRatio+M.KillStaminaMaxRatio,0.,1.);
             R.Melee.ToughnessDamage*=M.ToughnessDamage;
             R.Melee.PhysicalArmorPenetration=FMath::Clamp(R.Melee.PhysicalArmorPenetration+M.PhysicalArmorPenetration,0.,1.);
             R.Melee.ComboSecond*=M.ComboSecond;R.Melee.ComboThird*=M.ComboThird;

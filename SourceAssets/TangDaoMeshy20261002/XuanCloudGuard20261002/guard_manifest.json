@@ -1,0 +1,50 @@
+{
+  "id": "xuan_cloud_dragon",
+  "name": "璇云龙璧护手",
+  "weapon": "ue_tang_dao",
+  "slot": "guard",
+  "interface": "tang_dao_hilt_v1",
+  "ue_root": "/Game/Weapons/TangDao20261002/XuanCloudGuard20261002",
+  "mesh_name": "SM_TangDao_Guard_xuan_cloud_dragon",
+  "mesh": "/Game/Weapons/TangDao20261002/XuanCloudGuard20261002/Meshes/SM_TangDao_Guard_xuan_cloud_dragon.SM_TangDao_Guard_xuan_cloud_dragon",
+  "materials": {
+    "M_TangDaoXuanCloudGuard": "/Game/Weapons/TangDao20261002/XuanCloudGuard20261002/Materials/M_TangDaoXuanCloudGuard.M_TangDaoXuanCloudGuard"
+  },
+  "location_cm": [
+    0,
+    0,
+    0
+  ],
+  "rotation_deg": [
+    0,
+    0,
+    0
+  ],
+  "scale": [
+    1,
+    1,
+    1
+  ],
+  "lod_triangles": [
+    485600,
+    257366,
+    111688
+  ],
+  "plate_width_cm": 14.399999999999999,
+  "plate_height_cm": 16.400000000000002,
+  "core_thickness_mm": 8.0,
+  "relief_height_mm": 2.5,
+  "front_blade_seat_z_cm": 1.4,
+  "rear_grip_seat_z_cm": -5.0,
+  "texture_resolution": 4096,
+  "features": [
+    "四瓣璇云层叠外廓",
+    "双面实体龙云浮雕",
+    "云纹贯通镂空及封闭内壁",
+    "鎏金凸纹与暗铜凹底",
+    "龙鳞蚀刻",
+    "承力芯与雕纹止滑环"
+  ],
+  "stats": {},
+  "runtime_tested": false
+}

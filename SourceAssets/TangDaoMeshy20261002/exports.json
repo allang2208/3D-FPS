@@ -1,0 +1,253 @@
+{
+  "weapon": "ue_tang_dao",
+  "ue_root": "/Game/Weapons/TangDao20261002",
+  "parts": [
+    {
+      "slot": "blade_1",
+      "id": "factory",
+      "mesh": "SM_TangDao_Blade_factory",
+      "location_cm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "triangles": 55388,
+      "trace_base_cm": [
+        0,
+        0,
+        3
+      ],
+      "trace_tip_cm": [
+        11.389727890491486,
+        -0.012784003047272563,
+        87.99999952316284
+      ],
+      "rune_dimensions_cm": [
+        14.0,
+        12,
+        74
+      ]
+    },
+    {
+      "slot": "guard",
+      "id": "factory",
+      "mesh": "SM_TangDao_Guard_factory",
+      "location_cm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "triangles": 116684
+    },
+    {
+      "slot": "grip",
+      "id": "factory",
+      "mesh": "SM_TangDao_Grip_factory",
+      "location_cm": [
+        0.0,
+        0.0,
+        -5.000000074505806
+      ],
+      "triangles": 91162,
+      "pommel_offset_cm": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "slot": "pommel",
+      "id": "factory",
+      "mesh": "SM_TangDao_Pommel_factory",
+      "location_cm": [
+        0.0,
+        0.0,
+        -22.699999809265137
+      ],
+      "triangles": 31078
+    },
+    {
+      "slot": "blade_1",
+      "id": "extended_edge",
+      "mesh": "SM_TangDao_Blade_extended_edge",
+      "location_cm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "triangles": 55388,
+      "trace_base_cm": [
+        0,
+        0,
+        3
+      ],
+      "trace_tip_cm": [
+        11.389727890491486,
+        -0.012784003047272563,
+        87.99999952316284
+      ],
+      "rune_dimensions_cm": [
+        14.0,
+        12,
+        85.1
+      ]
+    },
+    {
+      "slot": "blade_1",
+      "id": "heavy_spine",
+      "mesh": "SM_TangDao_Blade_heavy_spine",
+      "location_cm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "triangles": 55388,
+      "trace_base_cm": [
+        0,
+        0,
+        3
+      ],
+      "trace_tip_cm": [
+        11.389727890491486,
+        -0.012784003047272563,
+        87.99999952316284
+      ],
+      "rune_dimensions_cm": [
+        15.959999999999999,
+        12,
+        74
+      ]
+    },
+    {
+      "slot": "blade_1",
+      "id": "feather_edge",
+      "mesh": "SM_TangDao_Blade_feather_edge",
+      "location_cm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "triangles": 55388,
+      "trace_base_cm": [
+        0,
+        0,
+        3
+      ],
+      "trace_tip_cm": [
+        11.389727890491486,
+        -0.012784003047272563,
+        87.99999952316284
+      ],
+      "rune_dimensions_cm": [
+        11.969999999999999,
+        12,
+        74
+      ]
+    },
+    {
+      "slot": "guard",
+      "id": "bastion_guard",
+      "mesh": "SM_TangDao_Guard_bastion_guard",
+      "location_cm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "triangles": 116684
+    },
+    {
+      "slot": "guard",
+      "id": "riposte_guard",
+      "mesh": "SM_TangDao_Guard_riposte_guard",
+      "location_cm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "triangles": 116684
+    },
+    {
+      "slot": "guard",
+      "id": "light_guard",
+      "mesh": "SM_TangDao_Guard_light_guard",
+      "location_cm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "triangles": 116684
+    },
+    {
+      "slot": "grip",
+      "id": "shock_wrap",
+      "mesh": "SM_TangDao_Grip_shock_wrap",
+      "location_cm": [
+        0.0,
+        0.0,
+        -5.000000074505806
+      ],
+      "triangles": 91162,
+      "pommel_offset_cm": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "slot": "grip",
+      "id": "swift_grip",
+      "mesh": "SM_TangDao_Grip_swift_grip",
+      "location_cm": [
+        0.0,
+        0.0,
+        -5.000000074505806
+      ],
+      "triangles": 91162,
+      "pommel_offset_cm": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "slot": "grip",
+      "id": "long_twohand",
+      "mesh": "SM_TangDao_Grip_long_twohand",
+      "location_cm": [
+        0.0,
+        0.0,
+        -5.000000074505806
+      ],
+      "triangles": 91162,
+      "pommel_offset_cm": [
+        0,
+        0,
+        -2.8
+      ],
+      "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations"
+    }
+  ],
+  "adapters": {
+    "shared_sword_pommel_v1": {
+      "mesh": "SM_TangDaoMount_Shared",
+      "scale": 0.9,
+      "depth_cm": 0.8
+    },
+    "frost_hilt_v1": {
+      "mesh": "SM_TangDaoMount_Frost",
+      "scale": 0.85,
+      "depth_cm": 0.8
+    }
+  },
+  "world_mesh": "SM_TangDao",
+  "source": "SourceAssets\\TangDaoMeshy20261002\\Original\\Meshy_AI_Dragonforged_Saber_1002040045_texture.glb",
+  "arms_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+  "animation_folder": "/Game/Weapons/AzureRunesword20260913",
+  "fit": {
+    "grip_top_cm": -5,
+    "grip_bottom_cm": -22.7,
+    "blade_tip_cm": 88,
+    "native_triangle_count": 291676
+  },
+  "testing": "Not run; user will test."
+}

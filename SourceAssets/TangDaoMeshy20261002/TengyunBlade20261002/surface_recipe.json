@@ -1,0 +1,32 @@
+{
+  "resolution": [
+    4096,
+    4096
+  ],
+  "uv_channel": 0,
+  "uv_z_cm": [
+    1.4,
+    88.0
+  ],
+  "normal_convention": "OpenGL; Unreal flips green",
+  "orm_channels": [
+    "ambient_occlusion",
+    "roughness",
+    "metallic"
+  ],
+  "ornament_source": "Tengyun_GildedDragon_Ornament.png",
+  "ornament_generation": "ornament_generation.json",
+  "dragon_inlay_relief_mm": [
+    0.13,
+    0.195
+  ],
+  "steel_linear_albedo": 0.345,
+  "gold_linear_albedo": [
+    0.63,
+    0.405,
+    0.16
+  ],
+  "long_fuller_depth_mm": 0.7,
+  "steel_surface": "waterwave folded steel, flowing cloud etching, fine honing scratches",
+  "runtime_tested": false
+}

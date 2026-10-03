@@ -1,0 +1,68 @@
+{
+  "id": "yanling_breaker",
+  "name": "破锋燕翎配重锤",
+  "weapon": "ue_tang_dao",
+  "slot": "pommel",
+  "interface": "tang_dao_hilt_v1",
+  "ue_root": "/Game/Weapons/TangDao20261002/YanlingPommel20261002/ConeV3",
+  "mesh_name": "SM_TangDao_Pommel_yanling_breaker_ConeV3",
+  "mesh": "/Game/Weapons/TangDao20261002/YanlingPommel20261002/ConeV3/Meshes/SM_TangDao_Pommel_yanling_breaker_ConeV3.SM_TangDao_Pommel_yanling_breaker_ConeV3",
+  "materials": {
+    "M_TangDaoYanlingConeV3_Steel": "/Game/Weapons/TangDao20261002/YanlingPommel20261002/ConeV3/Materials/M_TangDaoYanlingConeV3_Steel.M_TangDaoYanlingConeV3_Steel",
+    "M_TangDaoYanlingConeV3_Gilt": "/Game/Weapons/TangDao20261002/YanlingPommel20261002/ConeV3/Materials/M_TangDaoYanlingConeV3_Gilt.M_TangDaoYanlingConeV3_Gilt",
+    "M_TangDaoYanlingConeV3_Lacquer": "/Game/Weapons/TangDao20261002/YanlingPommel20261002/ConeV3/Materials/M_TangDaoYanlingConeV3_Lacquer.M_TangDaoYanlingConeV3_Lacquer"
+  },
+  "location_cm": [
+    0,
+    0,
+    -22.7
+  ],
+  "rotation_deg": [
+    0,
+    0,
+    0
+  ],
+  "scale": [
+    1,
+    1,
+    1
+  ],
+  "lod_triangles": [
+    278776,
+    144962,
+    64118
+  ],
+  "length_cm": 16.45,
+  "head_base_diameter_cm": 7.12,
+  "cone_base_z_cm": -5.5,
+  "cone_tip_z_cm": -16.3,
+  "cone_profile": "regular octagonal planar cone; maximum width at ring-side base, monotonic taper to one apex",
+  "relief_height_mm": [
+    0.14,
+    0.27
+  ],
+  "pbr_resolution": {
+    "Steel": 4096,
+    "Gilt": 4096,
+    "Lacquer": 512
+  },
+  "source_revision": "ConeV3",
+  "revision": "TangDaoYanlingPommelConeV3_20261002",
+  "appearance": "环侧宽端直接收向尖端的八面锥；连续折线鎏金甲框、后段小型龙云浮雕、锻钢水波纹与磨亮棱线。",
+  "effects_text": [
+    "八面收尖锥体 · 连续折线鎏金甲框",
+    "后段龙云浮雕 · 分区锻钢与古金材质"
+  ],
+  "features": [
+    "单一八面收尖锥形",
+    "紧凑圆角八角环",
+    "连续倒角折线甲框",
+    "贴面镂空冠饰",
+    "后段小型龙云实体浮雕",
+    "钢层水波微刻",
+    "分材质反光与粗糙度",
+    "原握柄精确安装座"
+  ],
+  "stats": {},
+  "runtime_tested": false
+}

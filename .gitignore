@@ -109,6 +109,25 @@ __pycache__/
 /SourceAssets/**/*.glb
 /SourceAssets/**/*.gltf
 /SourceAssets/**/*.bin
+
+# TangDao: publish recipes and small author parameters, retain licensed source media locally.
+/SourceAssets/TangDaoMeshy20261002/**
+!/SourceAssets/TangDaoMeshy20261002/**/
+!/SourceAssets/TangDaoMeshy20261002/**/*.py
+!/SourceAssets/TangDaoMeshy20261002/**/*.ps1
+!/SourceAssets/TangDaoMeshy20261002/**/*.md
+!/SourceAssets/TangDaoMeshy20261002/**/*_manifest.json
+!/SourceAssets/TangDaoMeshy20261002/**/bindings.json
+!/SourceAssets/TangDaoMeshy20261002/**/authoring_recipe.json
+!/SourceAssets/TangDaoMeshy20261002/**/surface_recipe.json
+!/SourceAssets/TangDaoMeshy20261002/**/imagegen_prompts.json
+!/SourceAssets/TangDaoMeshy20261002/**/prompts.json
+!/SourceAssets/TangDaoMeshy20261002/**/*_prompt.json
+!/SourceAssets/TangDaoMeshy20261002/exports.json
+!/SourceAssets/TangDaoMeshy20261002/holding_orientation.json
+/SourceAssets/TangDaoMeshy20261002/**/Before/
+/SourceAssets/TangDaoMeshy20261002/**/Before_*
+/SourceAssets/TangDaoMeshy20261002/**/__pycache__/
 /Config/DefaultEditorPerProjectUserSettings.ini
 
 # Local migration audits and external source package

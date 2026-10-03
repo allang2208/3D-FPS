@@ -1,0 +1,12 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "use": "production modification menu icon",
+  "transparent_background": true,
+  "inputs": [
+    "D:/FPS3D/FPSGAME/SourceAssets/FirearmFramedIcons20260930/muzzle_brake_framed_v2.png",
+    "D:/FPS3D/FPSGAME/SourceAssets/TangDaoMeshy20261002/YanlingBlade20261002/Icons/ue_tang_dao_blade_1_yanling_edge_source.png"
+  ],
+  "prompt": "Create one square game modification inventory icon. First image is the exact accepted metal frame style to preserve: thick beveled gunmetal square frame, four corner rivets, recessed charcoal backing plate, silver circular inner ring, extremely thin transparent outer margin. Replace ONLY its central muzzle brake with the single actual saber BLADE from reference image 2. Reference 2 is the actual modeled blade, whose silhouette, pointed faceted swallow-wing tip, TWO recessed parallel fuller grooves, and unchanged dragon relief at the root must be faithfully retained, not redesigned. Show only that blade component, no grip, no guard, no pommel, no other objects. Blade horizontal, pointed tip left and dragon/root attachment at right. Keep it entirely inside the circular ring with generous clear margin. Silver gray and dark gray monochrome only, retain layered forged-steel grain, groove recess shading, sharpened edge and relief details, crisp readable metallic relief, neutral studio lighting. No lettering, logos, watermark or status badge. All inside the frame is opaque dark gray, outside the very edge transparent. This is UI artwork for the delivered model, not a new weapon concept.",
+  "generated_source": "C:/Users/allan/.codex/generated_images/01a0fac7-5db8-7c71-9676-89462fa1c1fa/exec-5d044371-bc25-4d0b-a156-4efd55e38492.png",
+  "saved_output": "Icons/ue_tang_dao_blade_1_yanling_edge.png"
+}

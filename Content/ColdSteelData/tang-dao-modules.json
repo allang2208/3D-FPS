@@ -1,0 +1,504 @@
+{
+  "version": 1,
+  "weapon": "ue_tang_dao",
+  "interface": "tang_dao_hilt_v1",
+  "drive_bone": "WPN_root",
+  "arms_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+  "bone_mount": {
+    "location_cm": [
+      2.2488592227634334e-08,
+      4.251949004085439e-08,
+      -4.767004840075173e-08
+    ],
+    "scale": [
+      0.009999999098201857,
+      0.010000002674481073,
+      0.010000000290294644
+    ],
+    "rotation_xyzw": [
+      -1.471765408433967e-07,
+      -9.694049930993584e-08,
+      -0.999999999999984,
+      2.965553125000755e-08
+    ]
+  },
+  "trace_from_animation": false,
+  "slots": {
+    "blade_1": {
+      "factory": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          11.389727890491486,
+          -0.012784003047272563,
+          87.99999952316284
+        ],
+        "rune_dimensions_cm": [
+          14.0,
+          12,
+          74
+        ],
+        "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Blade_factory.SM_TangDao_Blade_factory",
+        "interface": "tang_dao_hilt_v1",
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+        }
+      },
+      "extended_edge": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          11.389727890491486,
+          -0.012784003047272563,
+          87.99999952316284
+        ],
+        "rune_dimensions_cm": [
+          14.0,
+          12,
+          85.1
+        ],
+        "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Blade_extended_edge.SM_TangDao_Blade_extended_edge",
+        "interface": "tang_dao_hilt_v1",
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+        }
+      },
+      "heavy_spine": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          11.389727890491486,
+          -0.012784003047272563,
+          87.99999952316284
+        ],
+        "rune_dimensions_cm": [
+          15.959999999999999,
+          12,
+          74
+        ],
+        "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Blade_heavy_spine.SM_TangDao_Blade_heavy_spine",
+        "interface": "tang_dao_hilt_v1",
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+        }
+      },
+      "feather_edge": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          11.389727890491486,
+          -0.012784003047272563,
+          87.99999952316284
+        ],
+        "rune_dimensions_cm": [
+          11.969999999999999,
+          12,
+          74
+        ],
+        "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Blade_feather_edge.SM_TangDao_Blade_feather_edge",
+        "interface": "tang_dao_hilt_v1",
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+        }
+      },
+      "yanling_edge": {
+        "mesh": "/Game/Weapons/TangDao20261002/YanlingBlade20261002/Meshes/SM_TangDao_Blade_yanling_edge.SM_TangDao_Blade_yanling_edge",
+        "interface": "tang_dao_hilt_v1",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          11.389727890491486,
+          -0.012784003047272563,
+          87.99999952316284
+        ],
+        "rune_dimensions_cm": [
+          14,
+          12,
+          74
+        ],
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase",
+          "M_TangDaoYanlingSteel": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudYanling.M_TangDaoBladeRuneSurface_CloudYanling"
+        },
+        "appearance": "燕翎折面刀尖、双导槽与层叠锻钢纹；保留原有龙纹。",
+        "combo_third_attack": "sprint_overhead_rectangle"
+      },
+      "tengyun_dragon": {
+        "mesh": "/Game/Weapons/TangDao20261002/TengyunBlade20261002/Meshes/SM_TangDao_Blade_tengyun_dragon_SolidV4.SM_TangDao_Blade_tengyun_dragon_SolidV4",
+        "interface": "tang_dao_hilt_v1",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          3
+        ],
+        "trace_tip_cm": [
+          9.505,
+          0,
+          88
+        ],
+        "rune_dimensions_cm": [
+          14,
+          12,
+          74
+        ],
+        "materials": {
+          "M_TangDaoTengyunSteel": "/Game/Weapons/TangDao20261002/TengyunBlade20261002/JointRepair20261002/Materials/M_TangDaoBladeRuneSurface_CloudTengyunJoint.M_TangDaoBladeRuneSurface_CloudTengyunJoint"
+        },
+        "appearance": "弧形轻量刀尖、龙脊长导槽与鎏金游龙浮雕，流云暗纹融合水波锻钢纹。"
+      }
+    },
+    "guard": {
+      "factory": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Guard_factory.SM_TangDao_Guard_factory",
+        "interface": "tang_dao_hilt_v1",
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+        }
+      },
+      "bastion_guard": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Guard_bastion_guard.SM_TangDao_Guard_bastion_guard",
+        "interface": "tang_dao_hilt_v1",
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+        }
+      },
+      "riposte_guard": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Guard_riposte_guard.SM_TangDao_Guard_riposte_guard",
+        "interface": "tang_dao_hilt_v1",
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+        }
+      },
+      "light_guard": {
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Guard_light_guard.SM_TangDao_Guard_light_guard",
+        "interface": "tang_dao_hilt_v1",
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+        }
+      },
+      "xuan_cloud_dragon": {
+        "mesh": "/Game/Weapons/TangDao20261002/XuanCloudGuard20261002/Meshes/SM_TangDao_Guard_xuan_cloud_dragon.SM_TangDao_Guard_xuan_cloud_dragon",
+        "interface": "tang_dao_hilt_v1",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "materials": {
+          "M_TangDaoXuanCloudGuard": "/Game/Weapons/TangDao20261002/XuanCloudGuard20261002/Materials/M_TangDaoXuanCloudGuard.M_TangDaoXuanCloudGuard"
+        },
+        "appearance": "四瓣璇云层叠轮廓，双面龙云实体浮雕、贯通云纹镂空与雕纹止滑环。"
+      },
+      "phoenix_feather": {
+        "mesh": "/Game/Weapons/TangDao20261002/PhoenixFeatherGuard20261002/Meshes/SM_TangDao_Guard_phoenix_feather.SM_TangDao_Guard_phoenix_feather",
+        "interface": "tang_dao_hilt_v1",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "materials": {
+          "M_TangDaoPhoenixFeatherGuard_Gilt": "/Game/Weapons/TangDao20261002/PhoenixFeatherGuard20261002/Materials/M_TangDaoPhoenixFeatherGuard_Gilt.M_TangDaoPhoenixFeatherGuard_Gilt",
+          "M_TangDaoPhoenixFeatherGuard_Garnet": "/Game/Weapons/TangDao20261002/PhoenixFeatherGuard20261002/Materials/M_TangDaoPhoenixFeatherGuard_Garnet.M_TangDaoPhoenixFeatherGuard_Garnet"
+        },
+        "appearance": "凤羽层叠外缘、双面凤首与羽脊实体浮雕、卷云及羽隙贯通镂空，两处红石嵌饰与雕纹止滑环。"
+      }
+    },
+    "grip": {
+      "factory": {
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ],
+        "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Grip_factory.SM_TangDao_Grip_factory",
+        "interface": "tang_dao_hilt_v1",
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+        }
+      },
+      "shock_wrap": {
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ],
+        "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Grip_shock_wrap.SM_TangDao_Grip_shock_wrap",
+        "interface": "tang_dao_hilt_v1",
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+        }
+      },
+      "swift_grip": {
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ],
+        "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Grip_swift_grip.SM_TangDao_Grip_swift_grip",
+        "interface": "tang_dao_hilt_v1",
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+        }
+      },
+      "long_twohand": {
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "pommel_offset_cm": [
+          0,
+          0,
+          -2.8
+        ],
+        "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations",
+        "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Grip_long_twohand.SM_TangDao_Grip_long_twohand",
+        "interface": "tang_dao_hilt_v1",
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+        }
+      }
+    },
+    "pommel": {
+      "factory": {
+        "location_cm": [
+          0.0,
+          0.0,
+          -22.699999809265137
+        ],
+        "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Pommel_factory.SM_TangDao_Pommel_factory",
+        "interface": "tang_dao_hilt_v1",
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+        }
+      },
+      "yanling_breaker": {
+        "mesh": "/Game/Weapons/TangDao20261002/YanlingPommel20261002/ConeV3/Meshes/SM_TangDao_Pommel_yanling_breaker_ConeV3.SM_TangDao_Pommel_yanling_breaker_ConeV3",
+        "interface": "tang_dao_hilt_v1",
+        "location_cm": [
+          0,
+          0,
+          -22.7
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "materials": {
+          "M_TangDaoYanlingConeV3_Steel": "/Game/Weapons/TangDao20261002/YanlingPommel20261002/ConeV3/Materials/M_TangDaoYanlingConeV3_Steel.M_TangDaoYanlingConeV3_Steel",
+          "M_TangDaoYanlingConeV3_Gilt": "/Game/Weapons/TangDao20261002/YanlingPommel20261002/ConeV3/Materials/M_TangDaoYanlingConeV3_Gilt.M_TangDaoYanlingConeV3_Gilt",
+          "M_TangDaoYanlingConeV3_Lacquer": "/Game/Weapons/TangDao20261002/YanlingPommel20261002/ConeV3/Materials/M_TangDaoYanlingConeV3_Lacquer.M_TangDaoYanlingConeV3_Lacquer"
+        },
+        "appearance": "环侧宽端直接收向尖端的八面锥；连续折线鎏金甲框、后段小型龙云浮雕、锻钢水波纹与磨亮棱线。"
+      },
+      "tiger_mountain": {
+        "mesh": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Meshes/SM_TangDao_Pommel_tiger_mountain_ConnectorV4.SM_TangDao_Pommel_tiger_mountain_ConnectorV4",
+        "interface": "tang_dao_hilt_v1",
+        "location_cm": [
+          0,
+          0,
+          -22.7
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "materials": {
+          "M_TangDaoTigerPommel_BronzeFace": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_BronzeFace.M_TangDaoTigerPommel_BronzeFace",
+          "M_TangDaoTigerPommel_Gilt": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Gilt.M_TangDaoTigerPommel_Gilt",
+          "M_TangDaoTigerPommel_Garnet": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Garnet.M_TangDaoTigerPommel_Garnet",
+          "M_TangDaoTigerPommel_Mouth": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Mouth.M_TangDaoTigerPommel_Mouth",
+          "M_TangDaoTigerPommel_ChasedBody": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_ChasedBody.M_TangDaoTigerPommel_ChasedBody",
+          "M_TangDaoTigerPommel_Connector": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Connector.M_TangDaoTigerPommel_Connector"
+        },
+        "appearance": "上部圆厚、下颌折面收束的虎首与卷云鬃纹实体浮雕、封闭口腔内壁和独立獠牙、红石虎目与冠带、云环尾扣、分层云纹套筒及红石止口边带。"
+      }
+    }
+  },
+  "pommel_profile": {
+    "library": "shared-sword-pommels.json",
+    "finish": "tang_dao_surface_v2",
+    "interfaces": {
+      "shared_sword_pommel_v1": {
+        "location_cm": [
+          0,
+          0,
+          -23.5
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9,
+          0.9,
+          0.9
+        ],
+        "adapter": {
+          "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDaoMount_Shared.SM_TangDaoMount_Shared",
+          "location_cm": [
+            0,
+            0,
+            -22.7
+          ],
+          "interface": "tang_dao_hilt_v1_to_shared_sword_pommel_v1",
+          "materials": {
+            "M_TangDaoMountMetal": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoMountMetal.M_TangDaoMountMetal"
+          }
+        }
+      },
+      "frost_hilt_v1": {
+        "location_cm": [
+          0,
+          0,
+          -23.5
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.85,
+          0.85,
+          0.85
+        ],
+        "adapter": {
+          "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDaoMount_Frost.SM_TangDaoMount_Frost",
+          "location_cm": [
+            0,
+            0,
+            -22.7
+          ],
+          "interface": "tang_dao_hilt_v1_to_frost_hilt_v1",
+          "materials": {
+            "M_TangDaoMountMetal": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoMountMetal.M_TangDaoMountMetal"
+          }
+        }
+      }
+    }
+  },
+  "surface_revision": "TangDao_RegionalSurfaceV2_20261002",
+  "rune_surface_revision": "TangDaoNativeBladeRune20261002",
+  "yanling_surface_revision": "TangDaoYanlingBlade20261002",
+  "tengyun_surface_revision": "TangDaoTengyunBlade20261002",
+  "yanling_pommel_revision": "TangDaoYanlingPommelConeV3_20261002",
+  "cloud_rune_revision": "TangDaoAuspiciousCloudRune20261002",
+  "xuan_cloud_guard_revision": "TangDaoXuanCloudGuard20261002",
+  "phoenix_feather_guard_revision": "TangDaoPhoenixFeatherGuard20261002",
+  "tiger_pommel_revision": "TangDaoTigerPommel20261002"
+}

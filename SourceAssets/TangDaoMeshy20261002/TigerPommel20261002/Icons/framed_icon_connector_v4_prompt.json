@@ -1,0 +1,13 @@
+{
+  "revision": "SteppedSocketV4_20261003",
+  "mode": "precise-object-edit",
+  "prompt": "Edit the existing square game attachment icon in image 2. Image 1 is the exact FINAL actual 3D tiger pommel render and is the definitive component geometry, proportions, engraving, orientation and composition. Use image 2 only as the frame/edit-target reference: retain its thick bevelled square metal border, four rivets, silver inner circular ring and recessed scratched dark backplate. Fully replace the old central object in image 2 with the exact object from image 1. This revision has a new carved short hilt-end sleeve, cloud-relief curved shoulder, narrow connecting shanks on both sides of the single rear ring, and a stepped decorated head-side socket with an inset gem band. Preserve those actual NEW connectors and carved hilt-end cap as shown in image 1; do not keep the old smooth mushroom/funnel connectors or plain dome cap from image 2. Preserve the full round upper tiger head, tapered angular lower jaw with small chin point, lowered oval inset eyes, short triangular nose, deep open mouth and teeth, crown and all actual cloud/mane relief from image 1. Preserve the image-1 camera angle and object proportions; do not rotate, stretch, flatten or invent parts. Fit the entire object inside the inner silver ring with a small gap. All object materials and all gemstones remain neutral grayscale silver/charcoal, with readable relief, dark grooves and controlled highlights. No color, glow, text, labels, logos, watermark, extra attachments or redesign. Frame interior stays opaque dark gray; holes show the backplate naturally. Only an extremely narrow margin outside the outer square frame is transparent. Return one finished square icon.",
+  "referenced_image_paths": [
+    "D:/FPS3D/FPSGAME/SourceAssets/TangDaoMeshy20261002/TigerPommel20261002/Icons/ue_tang_dao_pommel_tiger_mountain_source.png",
+    "D:/FPS3D/FPSGAME/SourceAssets/TangDaoMeshy20261002/TigerPommel20261002/Icons/frame_style_reference.png"
+  ],
+  "transparent_background": true,
+  "builtin": true,
+  "reference_path_relocated_from": "D:/FPS3D/FPSGAME/SourceAssets/TangDaoMeshy20261002/TigerPommel20261002/ConnectorV4/Before/ue_tang_dao_pommel_tiger_mountain.png",
+  "relocation_date": "2026-10-03"
+}

@@ -1,0 +1,128 @@
+{
+  "slots": {
+    "blade_1": {
+      "factory": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+      },
+      "extended_edge": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+      },
+      "heavy_spine": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+      },
+      "feather_edge": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+      },
+      "yanling_edge": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase",
+        "M_TangDaoYanlingSteel": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudYanling.M_TangDaoBladeRuneSurface_CloudYanling"
+      },
+      "tengyun_dragon": {
+        "M_TangDaoTengyunSteel": "/Game/Weapons/TangDao20261002/TengyunBlade20261002/JointRepair20261002/Materials/M_TangDaoBladeRuneSurface_CloudTengyunJoint.M_TangDaoBladeRuneSurface_CloudTengyunJoint"
+      }
+    },
+    "guard": {
+      "factory": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+      },
+      "bastion_guard": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+      },
+      "riposte_guard": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+      },
+      "light_guard": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+      },
+      "xuan_cloud_dragon": {
+        "M_TangDaoXuanCloudGuard": "/Game/Weapons/TangDao20261002/XuanCloudGuard20261002/Materials/M_TangDaoXuanCloudGuard.M_TangDaoXuanCloudGuard"
+      },
+      "phoenix_feather": {
+        "M_TangDaoPhoenixFeatherGuard_Gilt": "/Game/Weapons/TangDao20261002/PhoenixFeatherGuard20261002/Materials/M_TangDaoPhoenixFeatherGuard_Gilt.M_TangDaoPhoenixFeatherGuard_Gilt",
+        "M_TangDaoPhoenixFeatherGuard_Garnet": "/Game/Weapons/TangDao20261002/PhoenixFeatherGuard20261002/Materials/M_TangDaoPhoenixFeatherGuard_Garnet.M_TangDaoPhoenixFeatherGuard_Garnet"
+      }
+    },
+    "grip": {
+      "factory": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+      },
+      "shock_wrap": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+      },
+      "swift_grip": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+      },
+      "long_twohand": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+      }
+    },
+    "pommel": {
+      "factory": {
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoSurface.M_TangDaoSurface"
+      },
+      "yanling_breaker": {
+        "M_TangDaoYanlingConeV3_Steel": "/Game/Weapons/TangDao20261002/YanlingPommel20261002/ConeV3/Materials/M_TangDaoYanlingConeV3_Steel.M_TangDaoYanlingConeV3_Steel",
+        "M_TangDaoYanlingConeV3_Gilt": "/Game/Weapons/TangDao20261002/YanlingPommel20261002/ConeV3/Materials/M_TangDaoYanlingConeV3_Gilt.M_TangDaoYanlingConeV3_Gilt",
+        "M_TangDaoYanlingConeV3_Lacquer": "/Game/Weapons/TangDao20261002/YanlingPommel20261002/ConeV3/Materials/M_TangDaoYanlingConeV3_Lacquer.M_TangDaoYanlingConeV3_Lacquer"
+      },
+      "tiger_mountain": {
+        "M_TangDaoTigerPommel_BronzeFace": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_BronzeFace.M_TangDaoTigerPommel_BronzeFace",
+        "M_TangDaoTigerPommel_Gilt": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Gilt.M_TangDaoTigerPommel_Gilt",
+        "M_TangDaoTigerPommel_Garnet": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Garnet.M_TangDaoTigerPommel_Garnet",
+        "M_TangDaoTigerPommel_Mouth": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Mouth.M_TangDaoTigerPommel_Mouth",
+        "M_TangDaoTigerPommel_ChasedBody": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_ChasedBody.M_TangDaoTigerPommel_ChasedBody",
+        "M_TangDaoTigerPommel_Connector": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Connector.M_TangDaoTigerPommel_Connector"
+      }
+    }
+  },
+  "adapters": {
+    "shared_sword_pommel_v1": {
+      "M_TangDaoMountMetal": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoMountMetal.M_TangDaoMountMetal"
+    },
+    "frost_hilt_v1": {
+      "M_TangDaoMountMetal": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoMountMetal.M_TangDaoMountMetal"
+    }
+  },
+  "pommel_finish": {
+    "ballast_hardened": {
+      "materials": {
+        "M_RunePommel_meteor_Opaque": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/MI_TangDaoPommel_meteor.MI_TangDaoPommel_meteor"
+      }
+    },
+    "ballast_rune": {
+      "materials": {
+        "M_RunePommel_jade_core_Opaque": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/MI_TangDaoPommel_jade_core.MI_TangDaoPommel_jade_core"
+      }
+    },
+    "ballast_magic_orb": {
+      "materials": {
+        "M_RunePommel_swift_Opaque": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/MI_TangDaoPommel_swift.MI_TangDaoPommel_swift"
+      }
+    },
+    "pommel_hardened": {
+      "materials": {
+        "M_FrostPommel_Collar": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_hardened_M_FrostPommel_Collar.M_TangDao_pommel_hardened_M_FrostPommel_Collar",
+        "M_FrostPommel_Bronze": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_hardened_M_FrostPommel_Bronze.M_TangDao_pommel_hardened_M_FrostPommel_Bronze"
+      }
+    },
+    "pommel_runic": {
+      "materials": {
+        "M_FrostPommel_Collar": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_hardened_M_FrostPommel_Collar.M_TangDao_pommel_hardened_M_FrostPommel_Collar",
+        "M_FrostPommel_Bronze": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_runic_M_FrostPommel_Bronze.M_TangDao_pommel_runic_M_FrostPommel_Bronze",
+        "M_FrostPommel_InlayBorder": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_runic_M_FrostPommel_InlayBorder.M_TangDao_pommel_runic_M_FrostPommel_InlayBorder"
+      }
+    },
+    "pommel_mana_orb": {
+      "materials": {
+        "M_FrostPommel_Collar": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_hardened_M_FrostPommel_Collar.M_TangDao_pommel_hardened_M_FrostPommel_Collar",
+        "M_FrostPommel_Bronze": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_mana_orb_M_FrostPommel_Bronze.M_TangDao_pommel_mana_orb_M_FrostPommel_Bronze"
+      }
+    }
+  },
+  "world_mesh": "/Game/Weapons/TangDao20261002/SurfaceV2/Meshes/SM_TangDao.SM_TangDao",
+  "revision": "TangDao_RegionalSurfaceV2_20261002",
+  "inventory_icon": "Icons/ue_tang_dao_surface_v2.png",
+  "rune_surface_revision": "TangDaoNativeBladeRune20261002",
+  "cloud_rune_revision": "TangDaoAuspiciousCloudRune20261002",
+  "inventory_icon_source": "InventoryIconRules20261002/export_icon.ps1"
+}

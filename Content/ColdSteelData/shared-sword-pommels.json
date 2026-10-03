@@ -71,6 +71,42 @@
           "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_mana_orb.M_SixPommel_RuneSilver_pommel_mana_orb"
         }
       }
+    },
+    "tang_dao_surface_v2": {
+      "ballast_hardened": {
+        "materials": {
+          "M_RunePommel_meteor_Opaque": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/MI_TangDaoPommel_meteor.MI_TangDaoPommel_meteor"
+        }
+      },
+      "ballast_rune": {
+        "materials": {
+          "M_RunePommel_jade_core_Opaque": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/MI_TangDaoPommel_jade_core.MI_TangDaoPommel_jade_core"
+        }
+      },
+      "ballast_magic_orb": {
+        "materials": {
+          "M_RunePommel_swift_Opaque": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/MI_TangDaoPommel_swift.MI_TangDaoPommel_swift"
+        }
+      },
+      "pommel_hardened": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_hardened_M_FrostPommel_Collar.M_TangDao_pommel_hardened_M_FrostPommel_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_hardened_M_FrostPommel_Bronze.M_TangDao_pommel_hardened_M_FrostPommel_Bronze"
+        }
+      },
+      "pommel_runic": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_hardened_M_FrostPommel_Collar.M_TangDao_pommel_hardened_M_FrostPommel_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_runic_M_FrostPommel_Bronze.M_TangDao_pommel_runic_M_FrostPommel_Bronze",
+          "M_FrostPommel_InlayBorder": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_runic_M_FrostPommel_InlayBorder.M_TangDao_pommel_runic_M_FrostPommel_InlayBorder"
+        }
+      },
+      "pommel_mana_orb": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_hardened_M_FrostPommel_Collar.M_TangDao_pommel_hardened_M_FrostPommel_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_mana_orb_M_FrostPommel_Bronze.M_TangDao_pommel_mana_orb_M_FrostPommel_Bronze"
+        }
+      }
     }
   },
   "interfaces": [

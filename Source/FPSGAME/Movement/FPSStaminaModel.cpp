@@ -86,6 +86,23 @@ void UColdSteelStatusModel::DelayStaminaRecovery()
     Current.StaminaRecoveryDelay=FMath::Max(Current.StaminaRecoveryDelay,StaminaTuning.RecoveryDelay);
     OnStaminaChanged.Broadcast();
 }
+void UColdSteelStatusModel::ApplyKillStaminaRecovery(AActor* Victim)
+{
+    if(!IsValid(Victim)||!Victim->HasAuthority()||KillStaminaVictims.Contains(Victim))return;
+    for(auto It=KillStaminaVictims.CreateIterator();It;++It)
+        if(!It->IsValid())It.RemoveCurrent();
+    KillStaminaVictims.Add(Victim);
+    if(const auto* Health=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;Health&&Health->IsDead())return;
+    const double Ratio=ColdSteelMelee::EquippedModifiers(this).KillStaminaMaxRatio;
+    if(Ratio<=0)return;
+    const float Maximum=MaxStamina(),Before=Current.Stamina;
+    const bool WasExhausted=Current.bSprintExhausted;
+    Current.Stamina=FMath::Clamp(Current.Stamina+Maximum*float(Ratio),0.f,Maximum);
+    if(Current.bSprintExhausted&&Current.Stamina>=Maximum*StaminaTuning.SprintRestartRatio)
+        Current.bSprintExhausted=false;
+    // Instant kill recovery does not change the ordinary recovery-delay clock.
+    if(Before!=Current.Stamina||WasExhausted!=Current.bSprintExhausted)OnStaminaChanged.Broadcast();
+}
 void UColdSteelStatusModel::TickStamina(float Delta,AFPSGAMECharacter* Pawn)
 {
     if(Delta<=0||!Pawn)return;

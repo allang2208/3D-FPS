@@ -1,0 +1,25 @@
+{
+  "revision": "TangDao_RegionalSurfaceV2_20261002",
+  "resolution": [
+    4096,
+    4096
+  ],
+  "uv_channel": 0,
+  "regions_rgba": [
+    "steel",
+    "bronze",
+    "cloth",
+    "edge_bevel"
+  ],
+  "normal_source": "Image_2.png, structural normal unchanged and physical micro-bump baked over it",
+  "weave_pitch_mm": 1.2,
+  "weave_height_mm": 0.012,
+  "steel_grind_pitch_mm": 0.45,
+  "steel_grind_height_mm": 0.0004,
+  "metallic": "Bare steel/bronze 1, cloth 0; filtered boundaries only",
+  "ao": "Original Image_1 R preserved",
+  "material_samples": 3,
+  "shared_atlas": "All TangDao original and variant modules",
+  "geometry": "Unchanged",
+  "tested": false
+}

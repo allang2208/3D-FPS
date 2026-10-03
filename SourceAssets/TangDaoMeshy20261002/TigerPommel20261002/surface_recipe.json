@@ -1,0 +1,35 @@
+{
+  "route": "imagegen relief source + local Blender volumetric sculpt and precise interface",
+  "face_geometry_relief_m": 0.0032,
+  "head_width_m": 0.082,
+  "head_height_m": 0.09,
+  "families": {
+    "BronzeFace": {
+      "resolution": 4096,
+      "metallic": 1
+    },
+    "Gilt": {
+      "resolution": 2048,
+      "metallic": 1
+    },
+    "Garnet": {
+      "resolution": 512,
+      "metallic": 0
+    },
+    "Mouth": {
+      "resolution": 512,
+      "metallic": 0
+    },
+    "ChasedBody": {
+      "resolution": 2048,
+      "metallic": 1
+    },
+    "Connector": {
+      "resolution": 2048,
+      "metallic": 1
+    }
+  },
+  "runtime_tested": false,
+  "connector_revision": "SteppedSocketV4_20261003",
+  "connector_geometry_relief_mm": 0.55
+}

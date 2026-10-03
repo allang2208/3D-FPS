@@ -318,6 +318,11 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     // Explicitly approved identity pairs; compatibility alone does not imply exclusivity.
     const FString Weapon=Model()->Definition();
     const bool Exclusive=
+        (Weapon==TEXT("ue_tang_dao") &&
+            ((SlotKey==TEXT("blade_1") && (Id==TEXT("yanling_edge")||Id==TEXT("tengyun_dragon"))) ||
+             (SlotKey==TEXT("blade_2") && Id==TEXT("auspicious_cloud_rune")) ||
+             (SlotKey==TEXT("guard") && (Id==TEXT("xuan_cloud_dragon")||Id==TEXT("phoenix_feather"))) ||
+             (SlotKey==TEXT("pommel") && (Id==TEXT("yanling_breaker")||Id==TEXT("tiger_mountain"))))) ||
         (Weapon==TEXT("ue_highland_claymore") &&
             ((SlotKey==TEXT("blade_1") && (Id==TEXT("highland_broadblade")||Id==TEXT("highland_ridge_piercer"))) ||
              (SlotKey==TEXT("blade_2") && Id==TEXT("wild_rune")) ||

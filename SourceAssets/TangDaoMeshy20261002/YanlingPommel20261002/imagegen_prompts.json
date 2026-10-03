@@ -1,0 +1,16 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "date": "2026-10-02",
+  "ornament": {
+    "reference": "Reference/YanlingPommel_Detail.png",
+    "output": "Ornament/DragonCloud_Alpha.png",
+    "transparent_background": true,
+    "prompt": "Production game texture ornament sheet derived from the decorative style of the supplied sword-pommel references. Create a SINGLE flat front-facing, unlit, clean antique-gold line-art relief motif on genuine transparent alpha background: a beautiful serpentine Chinese dragon curving among fine auspicious cloud curls, with carefully drawn whiskers, horns, claws and rows of scales. Compact horizontally elongated composition, width about 2.2 times height, fitting within a clipped-corner octagonal panel. Also delicate wave curls beneath the dragon. The linework should be crisply resolved, thin but substantial embossed metal ribbon paths, with small open spaces between scales and cloud spirals. Antique brass/gold tonal detail, NO cast shadow, NO black fill or background, NO black steel surface, NO sword, NO handle, NO ring, NO pommel body, NO border frame, NO perspective, NO text. This is an alpha ornament asset to place into multiple black folded-steel facets of a separately modeled pommel; preserve the visual vocabulary of the gold cloud inlays in the closeup reference. High-resolution and centered with 5 percent empty margin."
+  },
+  "icon": {
+    "inputs": ["Icons/ue_tang_dao_pommel_yanling_breaker_source.png", "../TengyunBlade20261002/Icons/ue_tang_dao_blade_1_tengyun_dragon.png"],
+    "output": "Icons/ue_tang_dao_pommel_yanling_breaker.png",
+    "transparent_background": true,
+    "prompt": "Create the final FPS weapon-modification inventory icon by precise compositing. Input 1 is the exact grayscale actual 3D pommel render to insert; preserve its entire silhouette, octagonal hollow ring, collar, pointed folded-facet hammer head, dragon relief, armor ribs and open square crown tabs. Input 2 is the approved icon frame/style: keep its dark scratched metal square frame, four corner rivets, inner circular steel ring and textured inner background. REMOVE the long curved sword blade currently inside input 2. Insert ONLY the exact pommel from input 1, centered horizontally inside the inner ring, attachment collar at LEFT and hammer point at RIGHT, fitting completely inside the circle with 8 percent breathing room. Keep the interior hole of its mounting ring see-through onto the dark icon background. Grayscale silver/charcoal only; no gold, red, color or glow. Do not change the modeled part into a concept weapon, do not add/remove features or new parts. Preserve texture relief and metallic highlights. No text, labels, watermark. The frame exterior has genuine transparent alpha; the interior remains opaque dark textured metal. Square output."
+  }
+}

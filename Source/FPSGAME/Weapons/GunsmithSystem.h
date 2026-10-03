@@ -39,6 +39,8 @@ struct FMeleeModifiers
     // Heavy releases only, including a guard-converted heavy attack.
     double HeavyToughness=1;
     double HeavyToughnessMultiplier() const {return ToughnessDamage*HeavyToughness;}
+    // A confirmed owned kill restores this fraction of current maximum stamina.
+    double KillStaminaMaxRatio=0;
 };
 /**
  * 采集工具（伐木斧、矿镐）改造倍率：倍率相乘、绝对值相加，1／0 = 未改造。

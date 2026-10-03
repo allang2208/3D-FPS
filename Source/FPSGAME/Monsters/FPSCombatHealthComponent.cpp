@@ -10,6 +10,7 @@
 #include "../Skills/CorrosivePusDamage.h"
 #include "../Skills/LightningDamage.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Skills/ColdSteelSkillRules.h"
 #include "Engine/GameInstance.h"
 #include "Engine/Engine.h"
 #include "Engine/World.h"
@@ -107,6 +108,7 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
         Character->SetActorTickEnabled(false); // Stops held-fire and movement updates until the new pawn exists.
         GetWorld()->GetTimerManager().SetTimer(RespawnTimer, this, &UFPSCombatHealthComponent::Respawn, 2.f, false);
     }
+    if(IsDead())ColdSteelSkills::NotifyKillByOwner(GetWorld()->GetGameInstance(),Instigator,Actor);
 }
 
 void UFPSCombatHealthComponent::Respawn()

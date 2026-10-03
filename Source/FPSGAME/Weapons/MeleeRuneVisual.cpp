@@ -20,6 +20,12 @@ bool IsNativeGold(UMaterialInterface* Material)
     return Base&&Base->GetName()==TEXT("M_AzureRunesword_NativeGold");
 }
 
+bool IsTangDaoRuneSurface(UMaterialInterface* Material)
+{
+    const auto* Base=Material?Material->GetBaseMaterial():nullptr;
+    return Base&&Base->GetName().StartsWith(TEXT("M_TangDaoBladeRuneSurface"));
+}
+
 UMaterialInterface* FactoryMaterial(UMeshComponent* Mesh,int32 Slot)
 {
     if(const auto* Static=Cast<UStaticMeshComponent>(Mesh))
@@ -50,7 +56,8 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
     const bool bGolden=VisualRune==TEXT("golden_glow_rune");
     const bool bSpirit=bFrost&&VisualRune==ColdSteelFrostRunes::SpiritBurst;
     const bool bWild=Definition==TEXT("ue_highland_claymore")&&VisualRune==TEXT("wild_rune");
-    const int32 Mode=bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:VisualRune==TEXT("conduction_rune")?2:-1;
+    const bool bCloud=Definition==ColdSteelFrostRunes::TangDao&&VisualRune==ColdSteelFrostRunes::AuspiciousCloud;
+    const int32 Mode=bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:VisualRune==TEXT("conduction_rune")?2:-1;
     auto IsOurs=[](UMaterialInterface* M){auto* Base=M?M->GetBaseMaterial():nullptr;return Base&&(Base->GetName().StartsWith(TEXT("M_SilverRuneSurface"))||Base->GetName()==TEXT("M_SilverRuneSurfaceV2"));};
     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
     {
@@ -96,7 +103,28 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
         }
         // A transient MID has an arbitrary object name; classify its source material.
         const FString Name=Base?Base->GetBaseMaterial()->GetName():FString();
-        const bool Blade=Name.Contains(TEXT("FrostCrystalSword"))||Name.Contains(TEXT("AzureRunesword"))||Name==TEXT("M_HighlandClaymoreSurface");
+        if(IsTangDaoRuneSurface(Base))
+        {
+            // TangDao's refined Substrate surface draws its own rune emission.
+            // Both held and workbench blades use this material, with no second
+            // translucent draw on the same steel faces.
+            if(IsOurs(Current))Mesh->SetOverlayMaterial(nullptr,true,Slot);
+            auto* SurfaceMID=Cast<UMaterialInstanceDynamic>(Base);
+            if(!SurfaceMID){SurfaceMID=UMaterialInstanceDynamic::Create(Base,Mesh);Mesh->SetMaterial(Slot,SurfaceMID);}
+            const bool Changed=SurfaceMID->K2_GetScalarParameterValue(TEXT("RuneMode"))!=Mode;
+            SurfaceMID->SetScalarParameterValue(TEXT("RuneMode"),Mode);
+            SurfaceMID->SetScalarParameterValue(TEXT("GoldenTint"),0.f);
+            SurfaceMID->SetScalarParameterValue(TEXT("BaseBrightness"),bCloud?.60f:.85f);
+            SurfaceMID->SetScalarParameterValue(TEXT("GlowStrength"),bCloud?1.05f:1.25f);
+            if(Mode>=0&&(Changed||!SurfaceMID->K2_GetTextureParameterValue(TEXT("RuneTexture"))))
+            {
+                const FString Mask=bCloud?FString(ColdSteelFrostRunes::CloudMask):TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+VisualRune;
+                auto* Texture=LoadObject<UTexture>(nullptr,*Mask);
+                SurfaceMID->SetTextureParameterValue(TEXT("RuneTexture"),Texture);
+            }
+            continue;
+        }
+        const bool Blade=Name.Contains(TEXT("FrostCrystalSword"))||Name.Contains(TEXT("AzureRunesword"))||Name==TEXT("M_HighlandClaymoreSurface")||Name==TEXT("M_TangDaoSurface");
         if(Mode<0||!Blade){if(IsOurs(Current))Mesh->SetOverlayMaterial(nullptr,true,Slot);continue;}
         auto* MID=IsOurs(Current)?Cast<UMaterialInstanceDynamic>(Current):nullptr;
         const FString DesiredBase=bWild?TEXT("M_SilverRuneSurface_HighlandWild"):bSpirit?TEXT("M_SilverRuneSurface_FrostSpirit"):TEXT("M_SilverRuneSurfaceV2");
@@ -143,8 +171,16 @@ bool ColdSteelMeleeRune::UpdatePose(UMeshComponent* Mesh,double PreviewTime)
             Native->SetScalarParameterValue(TEXT("PreviewTime"),PreviewTime);
             Active=true;
         }
-        auto* MID=Cast<UMaterialInstanceDynamic>(Mesh->GetOverlayMaterial(true,Slot));
-        if(!MID||!MID->GetBaseMaterial()->GetName().StartsWith(TEXT("M_SilverRuneSurface")))continue;
+        auto* MID=Cast<UMaterialInstanceDynamic>(Mesh->GetMaterial(Slot));
+        if(IsTangDaoRuneSurface(MID))
+        {
+            if(MID->K2_GetScalarParameterValue(TEXT("RuneMode"))<0.f)continue;
+        }
+        else
+        {
+            MID=Cast<UMaterialInstanceDynamic>(Mesh->GetOverlayMaterial(true,Slot));
+            if(!MID||!MID->GetBaseMaterial()->GetName().StartsWith(TEXT("M_SilverRuneSurface")))continue;
+        }
         Active=true;
         // The current skinned frame also works with GPU skin cache. The shader
         // uses component-space positions and normals, without new UVs or bones.

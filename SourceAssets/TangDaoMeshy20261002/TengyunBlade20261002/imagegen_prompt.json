@@ -1,0 +1,11 @@
+{
+  "provider": "builtin_imagegen",
+  "purpose": "official grayscale modification icon derived from actual authored blade",
+  "prompt": "Create the final square grayscale game weapon-modification icon. Image 1 is the EXACT new Tengyun dragon blade to insert; preserve its flowing curved cutting edge, gently curved point, single long fuller, elongated dragon relief distributed along the blade face, small root collar, and proportions. Image 2 is the existing approved metal icon-frame template and is the edit target for frame/style. Replace ONLY the OLD ANGULAR Yanling blade in image 2 with the actual curved blade from image 1. Keep the same heavy scratched dark-steel square frame, four corner rivets, circular inner metal ring and black textured inner backing. Place the new blade horizontally with the tip on the LEFT and mounting root on the RIGHT, centered within the inner circle, same visual width as the old blade. Improve neutral lighting for legibility of the new fuller and long dragon engraving while preserving the actual blade geometry; do not retain the old angular tip or old two slots. Entire icon is neutral gray/silver, including dragon ornament; no gold, no coloured light. Transparent alpha OUTSIDE the square metal frame only; retain dark opaque interior. No handle, no guard, no text, no labels, no UI overlays. This is a 1024 by 1024 game UI asset.",
+  "inputs": [
+    "Icons/ue_tang_dao_blade_1_tengyun_dragon_source.png",
+    "../YanlingBlade20261002/Icons/ue_tang_dao_blade_1_yanling_edge.png"
+  ],
+  "output": "Icons/ue_tang_dao_blade_1_tengyun_dragon.png",
+  "transparent_background": true
+}

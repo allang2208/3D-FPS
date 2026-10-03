@@ -4,6 +4,7 @@
 #include "ColdSteelEnhancementSystem.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "../Weapons/Bow/BowStats.h"
 #include "../Weapons/RuneSwordRhythm.h"
@@ -68,6 +69,7 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
     else if(ColdSteelInventory::IsTwoHandedSword(Item))
     {
         const auto S=ColdSteelMelee::Evaluate(Item,Model);
+        const bool OverheadFinisher=ColdSteelModularSword::UsesOverheadFinisher(Item);
         Add(TEXT("damage"),ColdSteelWeaponText::TotalDamage,S.Damage,TEXT(""),2);
         Add(TEXT("combo_second_damage"),TEXT("三连击第二段伤害"),S.ComboSecondDamage,TEXT(""),2,false,false);
         Add(TEXT("base_physical_damage"),ColdSteelWeaponText::BasePhysical,S.DamageParts.BasePhysical,TEXT(""),2,false,false);
@@ -89,7 +91,7 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
         Add(TEXT("cloven_physical"),ColdSteelWeaponText::ClovenPhysicalDamage,(S.Modifiers.ClovenPhysical-1)*100,TEXT("%"),0,false,false);
         Add(TEXT("cloven_toughness"),ColdSteelWeaponText::ClovenToughnessDamage,(S.Modifiers.ClovenToughness-1)*100,TEXT("%"),0,false,false);
         Add(TEXT("combo_third_damage"),TEXT("三连击第三段伤害"),S.ComboThirdDamage,TEXT(""),2,false,false);
-        Add(TEXT("combo_third_toughness"),TEXT("第三段突刺韧性伤害倍率"),S.Modifiers.ThirdThrustToughnessMultiplier(),TEXT("×"),2,false,false);
+        Add(TEXT("combo_third_toughness"),OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),S.Modifiers.ThirdThrustToughnessMultiplier(),TEXT("×"),2,false,false);
         Add(TEXT("attack_interval"),ColdSteelWeaponText::AttackInterval,S.AttackSeconds*1000,TEXT(" ms"),0,true);
         Add(TEXT("melee_stamina"),ColdSteelWeaponText::StaminaCost,S.AttackStamina,TEXT(""),2,true);
         Add(TEXT("block_stamina"),ColdSteelWeaponText::BlockStaminaCost,S.BlockStamina,TEXT(""),2,true,false);

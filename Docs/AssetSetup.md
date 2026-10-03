@@ -474,3 +474,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 武器、手臂与呼吸增量（2026-10-03）
 
 恢复裂角护手连续 UV 和剑身金属输入、M16 左指中立绑定、近战湿润材质、空手左右拳生成表，以及撞门 0.25 秒保持的本机作者源。公开原创实现与配方；完整采样、网格、材质包、Blend 和用户音效保持本机。未发布联机基线上的拳击增量以接入补丁保留，不夹带整套联机改动。当前恢复顺序、8 份 M16 废案归档与公开快照未独立构建／未测试边界见 [本轮整理发布](Weapons/weapon-arms-publication-20261003.md)。
+
+## 唐刀与专属改造（2026-10-03）
+
+当前唐刀保留燕翎刀身、游龙 SolidV4 刀身、两款龙凤护手、燕翎 ConeV3 和虎首 ConnectorV4 配重，以及祥云符文与金色限定卡。公开源码、运行目录、小型配方和 SKILL 技法；完整模型、纹理、高度图、参考图、图标与 UE 资产保持本机。废案和旧备份移至 `trash/tang-dao-retired-20261003`，仍在使用的游龙 JointRepair 符文材质保留。恢复顺序、许可和本次未进行游戏测试的边界见 [唐刀源码发布与恢复](Weapons/tang-dao-publication-20261003.md)。

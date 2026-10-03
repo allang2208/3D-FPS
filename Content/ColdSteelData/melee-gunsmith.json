@@ -142,6 +142,56 @@
           "weapons": [
             "ue_highland_claymore"
           ]
+        },
+        {
+          "id": "yanling_edge",
+          "name": "破锋燕翎刀身",
+          "weapons": [
+            "ue_tang_dao"
+          ],
+          "description": "唐刀专属刀身。燕翎折锋与双槽导势强化连段收尾，第三段改为过顶竖劈，打击前方矩形区域；连续进攻更耗耐力，格挡能力略有降低。",
+          "effects": [
+            {
+              "text": "第三段改为冲刺竖劈动作 · 前方矩形判定",
+              "benefit": 0
+            },
+            {
+              "text": "第三段攻击伤害 +40%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击耐力消耗 +10%",
+              "benefit": -1
+            },
+            {
+              "text": "格挡减伤倍率 ×0.90",
+              "benefit": -1
+            }
+          ],
+          "stats": {
+            "combo_third_damage_mult": 1.4,
+            "stamina_mult": 1.1,
+            "block_reduction_mult": 0.9
+          }
+        },
+        {
+          "id": "tengyun_dragon",
+          "name": "腾云游龙刀身",
+          "weapons": [
+            "ue_tang_dao"
+          ],
+          "description": "唐刀专属刀身。弧形刀尖接修长龙脊导槽，鎏金游龙沿刃面腾行，流云暗纹与层叠水波锻纹交织。",
+          "effects": [
+            {
+              "text": "弧形刀尖 · 龙脊长导槽",
+              "benefit": 0
+            },
+            {
+              "text": "鎏金游龙浮雕 · 流云水波锻纹",
+              "benefit": 0
+            }
+          ],
+          "stats": {}
         }
       ]
     },
@@ -170,7 +220,8 @@
           "name": "侵蚀符文",
           "weapons": [
             "ue_rune_sword",
-            "ue_highland_claymore"
+            "ue_highland_claymore",
+            "ue_tang_dao"
           ],
           "description": "紫色侵蚀裂纹沿刃面闪烁。智力与精神转为附加魔法伤害，随连击和重击倍率放大，再按魔法防御结算。寒晶已自带此效果。",
           "effects": [
@@ -263,6 +314,39 @@
             "toughness_damage_mult": 1.3,
             "physical_armor_penetration": 0.2
           }
+        },
+        {
+          "id": "auspicious_cloud_rune",
+          "name": "祥云符文",
+          "weapons": [
+            "ue_tang_dao"
+          ],
+          "description": "唐刀专属。卷云主印向刀尖收成流云，淡金云纹间流转玉青微光。云气托刃，出手更快、更省耐力，击杀时回收体力，削弱攻击造成的韧性伤害。",
+          "appearance": "卷云主印 · 淡金云纹 · 玉青流光",
+          "effects": [
+            {
+              "text": "攻击速度 +10%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击耐力消耗 -15%",
+              "benefit": 1
+            },
+            {
+              "text": "击杀任何目标后，恢复最大体力值的15%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击韧性伤害 -10%",
+              "benefit": -1
+            }
+          ],
+          "stats": {
+            "attack_speed_mult": 1.1,
+            "stamina_mult": 0.85,
+            "toughness_damage_mult": 0.9,
+            "kill_stamina_max_ratio": 0.15
+          }
         }
       ]
     },
@@ -278,7 +362,8 @@
           "weapons": [
             "ue_frost_crystal_sword",
             "ue_rune_sword",
-            "ue_highland_claymore"
+            "ue_highland_claymore",
+            "ue_tang_dao"
           ],
           "description": "宽厚防护翼，偏重格挡减伤和稳固招架。",
           "effects": [
@@ -307,7 +392,8 @@
           "weapons": [
             "ue_frost_crystal_sword",
             "ue_rune_sword",
-            "ue_highland_claymore"
+            "ue_highland_claymore",
+            "ue_tang_dao"
           ],
           "description": "上挑护翼，偏重招架反击。扩大弹反判定窗口；成功弹反获得攻速与耐力激励，再次弹反刷新持续时间。",
           "effects": [
@@ -337,7 +423,8 @@
           "weapons": [
             "ue_frost_crystal_sword",
             "ue_rune_sword",
-            "ue_highland_claymore"
+            "ue_highland_claymore",
+            "ue_tang_dao"
           ],
           "description": "收窄轻翼，偏重灵活出手和耐力续航。",
           "effects": [
@@ -386,6 +473,44 @@
             "cloven_physical_mult": 1.25,
             "cloven_toughness_mult": 1.4
           }
+        },
+        {
+          "id": "xuan_cloud_dragon",
+          "name": "璇云龙璧护手",
+          "weapons": [
+            "ue_tang_dao"
+          ],
+          "description": "唐刀专属护手。璇云四瓣层叠边框环绕龙云浮雕，暗铜凹底映衬鎏金凸纹，贯通云孔与雕纹止滑环延续唐风。",
+          "effects": [
+            {
+              "text": "璇云层叠边框 · 双面龙云浮雕",
+              "benefit": 0
+            },
+            {
+              "text": "云纹贯通镂空 · 雕纹止滑环",
+              "benefit": 0
+            }
+          ],
+          "stats": {}
+        },
+        {
+          "id": "phoenix_feather",
+          "name": "凤仪华羽护手",
+          "weapons": [
+            "ue_tang_dao"
+          ],
+          "description": "唐刀专属护手。层叠凤羽与凤首浮雕形成不对称外缘，卷云羽隙贯通镂空，暖鎏金凸纹配暗铜凹底和红石嵌饰。",
+          "effects": [
+            {
+              "text": "层叠凤羽护缘 · 双面凤纹实体浮雕",
+              "benefit": 0
+            },
+            {
+              "text": "卷云羽隙镂空 · 红石嵌饰与止滑环",
+              "benefit": 0
+            }
+          ],
+          "stats": {}
         }
       ]
     },
@@ -684,6 +809,44 @@
             "attack_speed_mult": 1.15,
             "heavy_damage_add": -0.25
           }
+        },
+        {
+          "id": "yanling_breaker",
+          "name": "破锋燕翎配重锤",
+          "weapons": [
+            "ue_tang_dao"
+          ],
+          "description": "唐刀专属柄尾。环侧宽端直接收向尖端的八面锥；连续折线鎏金甲框、后段小型龙云浮雕、锻钢水波纹与磨亮棱线。",
+          "effects": [
+            {
+              "text": "八面收尖锥体 · 连续折线鎏金甲框",
+              "benefit": 0
+            },
+            {
+              "text": "后段龙云浮雕 · 分区锻钢与古金材质",
+              "benefit": 0
+            }
+          ],
+          "stats": {}
+        },
+        {
+          "id": "tiger_mountain",
+          "name": "虎啸镇岳配重锤",
+          "weapons": [
+            "ue_tang_dao"
+          ],
+          "description": "唐刀专属柄尾。上部圆厚、下颌折面收束的虎首与卷云鬃纹实体浮雕、封闭口腔内壁和独立獠牙、红石虎目与冠带、云环尾扣、分层云纹套筒及红石止口边带。",
+          "effects": [
+            {
+              "text": "张口虎首 · 深腔与独立獠牙",
+              "benefit": 0
+            },
+            {
+              "text": "卷云鬃纹浮雕 · 红石虎目和冠带",
+              "benefit": 0
+            }
+          ],
+          "stats": {}
         }
       ]
     }
@@ -745,6 +908,23 @@
         {
           "icon": "neutral",
           "text": "剑刃、护手、握把、配重与刃面符文可独立改造"
+        }
+      ]
+    },
+    {
+      "id": "ue_tang_dao",
+      "traits": [
+        {
+          "icon": "mechanic",
+          "text": "双手持刀，占用副手；普通攻击按两次横斩与一次突刺循环"
+        },
+        {
+          "icon": "mechanic",
+          "text": "支持蓄力重击、格挡与既有近战技能"
+        },
+        {
+          "icon": "neutral",
+          "text": "刀刃、护手、握柄、柄尾与刃面符文可独立改造"
         }
       ]
     }

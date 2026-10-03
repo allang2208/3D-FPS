@@ -98,6 +98,13 @@ void ColdSteelModularSword::ResetCatalogCache()
 bool ColdSteelModularSword::Supports(const FColdSteelItem& Item)
 {return Catalog(Item).IsValid();}
 
+bool ColdSteelModularSword::UsesOverheadFinisher(const FColdSteelItem& Item,const FGunsmithParts* Draft)
+{
+    const auto Spec=Part(Item,TEXT("blade_1"),Installed(Item,Draft));
+    FString Attack;
+    return Spec&&Spec->TryGetStringField(TEXT("combo_third_attack"),Attack)&&Attack==TEXT("sprint_overhead_rectangle");
+}
+
 void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TArray<FSoftObjectPath>& Out,const FGunsmithParts* Draft)
 {
     // Resolve the same selected specs as Apply, including shared pommel adapters and finishes.
@@ -106,6 +113,8 @@ void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TAr
     {
         if(!Path.IsEmpty())Out.AddUnique(FSoftObjectPath(Path.Contains(TEXT("."))?Path:Path+TEXT(".")+FPaths::GetCleanFilename(Path)));
     };
+    if(Item.Definition==ColdSteelFrostRunes::TangDao&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::AuspiciousCloud)
+        Add(ColdSteelFrostRunes::CloudMask);
     const auto Gather=[&Add](const TSharedPtr<FJsonObject>& Spec)
     {
         FString Mesh; if(Spec->TryGetStringField(TEXT("mesh"),Mesh))Add(Mesh);
@@ -248,8 +257,12 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
     if(TraceFromAnimation)Blade->ComponentTags.AddUnique(TraceTag);else Blade->ComponentTags.Remove(TraceTag);
     const auto Spec=Part(Item,TEXT("blade_1"),Parts);
     for(int32 Slot=0;Slot<Blade->GetNumMaterials();++Slot)
+    {
         if(auto* M=Cast<UMaterialInstanceDynamic>(Blade->GetOverlayMaterial(true,Slot)))
         {const FVector D=Vector(Spec,TEXT("rune_dimensions_cm"),FVector(12,10,63));M->SetVectorParameterValue(TEXT("Dimensions"),FLinearColor(D.X,D.Y,D.Z,0));}
+        if(auto* M=Cast<UMaterialInstanceDynamic>(Blade->GetMaterial(Slot));M&&M->GetBaseMaterial()->GetName().StartsWith(TEXT("M_TangDaoBladeRuneSurface")))
+        {const FVector D=Vector(Spec,TEXT("rune_dimensions_cm"),FVector(12,10,63));M->SetVectorParameterValue(TEXT("Dimensions"),FLinearColor(D.X,D.Y,D.Z,0));}
+    }
     Blade->ComponentTags.RemoveAll([](FName Tag){return Tag.ToString().StartsWith(KeyPrefix);});
     Blade->ComponentTags.Add(FName(*(KeyPrefix+VisualKey)));return true;
 }
@@ -277,6 +290,8 @@ FString ColdSteelModularSword::Appearance(const FColdSteelItem& Item,const FStri
 {
     if(!Supports(Item))return {};
     const bool Factory=Option.IsEmpty()||Option==TEXT("false")||Option==TEXT("factory");
+    if(Slot==TEXT("blade_2")&&Item.Definition==ColdSteelFrostRunes::TangDao&&Option==ColdSteelFrostRunes::AuspiciousCloud)
+        return TEXT("卷云主印 · 淡金云纹 · 玉青流光");
     if(Slot==TEXT("blade_2"))return Factory?TEXT("保留原有刃面纹样"):TEXT("剑刃表面符文");
     const TSharedPtr<FJsonObject>* Slots=nullptr,*Choices=nullptr,*Spec=nullptr;
     const auto Root=Catalog(Item);

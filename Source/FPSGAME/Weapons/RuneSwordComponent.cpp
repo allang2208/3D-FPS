@@ -348,7 +348,7 @@ void URuneSwordComponent::BeginAttack()
     if(bEquipping){bQueuedAttack=true;return;}
     if(bAttacking){if(Elapsed>=ContactEnd)bQueuedAttack=true;return;}
     if(GetWorld()->GetTimeSeconds()-LastAttackEnd>.85)NextSlash=0;
-    // Repeat the three-stage loop: right-to-left slash, left-to-right slash, thrust.
+    // Repeat two slashes and the installed blade's third-stage finisher.
     NextSlash%=3;
     const FName Clip=NextSlash==0?TEXT("Slash1"):(NextSlash==1?TEXT("Slash2"):TEXT("Thrust"));
     if(StartSwing(Clip,false))NextSlash=(NextSlash+1)%3;
@@ -406,13 +406,20 @@ void URuneSwordComponent::ReleasePrimaryAttack()
 
 bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride)
 {
+    // Keep stage identity when a blade replaces the thrust's motion. Damage and
+    // server reports must still use stage 3 rather than a sprint/heavy skill.
+    const int32 ComboStage=Clip==TEXT("Slash2")?2:Clip==TEXT("Thrust")?3:1;
+    auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const auto* Item=Profile?Profile->Equipped():nullptr;
+    const bool OverheadFinisher=!Heavy&&ComboStage==3&&Item&&ColdSteelModularSword::UsesOverheadFinisher(*Item);
+    if(OverheadFinisher)Clip=TEXT("Overhead");
     if(!Animations.FindRef(Clip))return false;
     SwingWaveRange=SwingWaveScale=0.f;
     bool bRuneSwordCooldownTrait=false;
     bQueuedQuickCombat=false;bQuickCombatStrike=false;bQuickCombatContactDone=false;
-    if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+    if(Profile)
     {
-        if(const auto* Item=Profile->Equipped())
+        if(Item)
         {
             const auto Stats=ColdSteelMelee::Evaluate(*Item,Profile);
             Damage=Stats.Damage;AttackRate=Stats.AttackRate;Reach=Stats.BaseReach;MeleeModifiers=Stats.Modifiers;
@@ -440,10 +447,9 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     LungeDirection=FVector::ZeroVector;
     // Snapshot the current action's combo bonus once, not the number of targets hit.
     // The independent quick-combat strike supplies its own skill damage below.
-    const int32 ComboStage=Clip==TEXT("Slash2")?2:Clip==TEXT("Thrust")?3:1;
     HitActors.Reset();SwingDamage=Damage*(Heavy?MeleeModifiers.HeavyMultiplier(ChargedMultiplier):MeleeModifiers.ComboMultiplier(ComboStage));
     bHeavyTrainingPending=Heavy;HeavyTrainingHits=HeavyTrainingKills=0;bAutoHeavyRelease=false;
-    SwingRate=AttackRate;SwingReach=RuneSwordCombatTuning::ScaledReach(Reach,bThrustAttack?RuneSwordThrustRhythm::ReachBonus:0.f)*MeleeModifiers.Range;
+    SwingRate=AttackRate;SwingReach=RuneSwordCombatTuning::ScaledReach(Reach,ComboStage==3?RuneSwordThrustRhythm::ReachBonus:0.f)*MeleeModifiers.Range;
     SwingRangeMultiplier=RuneSwordCombatTuning::RangeMultiplier*MeleeModifiers.Range;
     SwingHitReactionMultiplier=MeleeModifiers.HitReaction;
     // 两条独立通道：剑刃攻击（导魔符文）与配重锤快速近战（凝碧星核），互不混用。
@@ -456,8 +462,9 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison;
     SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
     SwingSkills.bRifle=false;SwingSkills.bPistol=false;SwingSkills.WeakpointPercent=0;
-    // Third-stage thrust only; other attacks keep the snapshot's global poise multiplier.
-    if(bThrustAttack&&!Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.ComboThirdToughness;
+    SwingSkills.AttackMeta = uint8(Heavy ? 0x10 : (ComboStage & 0x0F));
+    // The stage keeps its existing grip/global poise modifiers when its motion changes.
+    if(ComboStage==3&&!Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.ComboThirdToughness;
     if(Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.HeavyToughness;
     // 命中形式：配重锤是钝器，其余挥砍与突刺按锐器结算削韧。
     SwingSkills.AttackForm=bPommelAttack?EMonsterAttackForm::Blunt:EMonsterAttackForm::Blade;
@@ -465,8 +472,10 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     // 基础 0.5 秒；剑身Ⅱ的金色符文强化再追加装备值（合计 1.0 秒），同一挥只结算一次。
     SwingCooldownReduceSeconds=bRuneSwordCooldownTrait?.5f+static_cast<float>(MeleeModifiers.CooldownReduceSecondsPerHit):0.f;bSwingCooldownReduced=false;
     SetClip(Clip,false);
+    if(OverheadFinisher)Elapsed=RuneSwordOverheadRhythm::FinisherEntry;
     if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
-        Arms->LimitLocomotionEntry(ContactStart/FMath::Max(.01f,SwingRate));
+        Arms->LimitLocomotionEntry((ContactStart-Elapsed)/FMath::Max(.01f,SwingRate));
+    if(OverheadFinisher)SamplePose(Elapsed);
     return true;
 }
 
@@ -591,15 +600,21 @@ void URuneSwordComponent::QuickCombatContractHit()
 
 FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
 {
-    // The thrust strides a metre; the counterweight strike only steps in far enough
-    // to reach with a striking end that sits one pommel-length past the hands.
-    if(!bDashAttack && !bThrustAttack && !bPommelAttack)return FVector::ZeroVector;
+    // The thrust and stage-3 overhead finisher share the metre-long stride.
+    // The counterweight only steps far enough to reach past the hands.
+    const bool bOverheadFinisher=bOverheadAttack&&!bDashAttack&&(SwingSkills.AttackMeta&0x0F)==3;
+    if(!bDashAttack && !bThrustAttack && !bPommelAttack && !bOverheadFinisher)return FVector::ZeroVector;
     float Distance;
     if(bDashAttack)
     {
         // Release advances one metre during the existing windup, without retiming the hit.
         const float Start=ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds;
         Distance=DashCast.DistanceCM*(FMath::SmoothStep(Start,ContactStart,ToTime)-FMath::SmoothStep(Start,ContactStart,FromTime));
+    }
+    else if(bOverheadFinisher)
+    {
+        Distance=RuneSwordThrustRhythm::LungeDistance*
+            (RuneSwordOverheadRhythm::FinisherLungeAlpha(ToTime)-RuneSwordOverheadRhythm::FinisherLungeAlpha(FromTime));
     }
     else Distance=bThrustAttack?
         RuneSwordThrustRhythm::LungeDistance*(RuneSwordThrustRhythm::LungeAlpha(ToTime)-RuneSwordThrustRhythm::LungeAlpha(FromTime)):
@@ -1176,6 +1191,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     const float End=CurrentAnimation->GetPlayLength();
     if(bAttacking)
     {
+        const bool bOverheadFinisher=bOverheadAttack&&!bDashAttack&&(SwingSkills.AttackMeta&0x0F)==3;
         // Map through real playback time so a frame crossing the windup boundary
         // spends only its remaining time on the original-speed strike/recovery.
         const float Next=FMath::Min(End,bQuickCombatStrike
@@ -1185,9 +1201,9 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
         const FTransform AimBeforeLunge=Character->GetMeleeAimTransform();
         const FVector LungeMoved=AdvanceThrustLunge(Elapsed,Next);
         const FTransform AimNow=Character->GetMeleeAimTransform();
-        if((bThrustAttack || bPommelAttack) && bRiftActive)
+        if((bThrustAttack || bPommelAttack || bOverheadFinisher) && bRiftActive)
         {
-            // Carry the narrow rift with the actual step, including collision stops.
+            // Carry the strike rift with the actual step, including collision stops.
             RiftOrigin.AddToTranslation(LungeMoved);TickRift(0.f);
         }
         if(!bSwingCuePlayed && Next>=ContactStart)
@@ -1229,6 +1245,19 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
         if(bDashAttack)
         {
             if(HitEnd>HitStart)DashAttackContractHit();
+        }
+        else if(bOverheadFinisher)
+        {
+            // A single oriented box query per active frame replaces BOTH the
+            // swept blade and the low sector. Nothing outside this rectangle
+            // can be added by the ordinary slash/thrust fallback.
+            if(HitEnd>HitStart)
+            {
+                const FVector Forward=AimNow.GetUnitAxis(EAxis::X).GetSafeNormal2D();
+                const auto Hits=RuneSwordCombat::QueryRectangle(GetWorld(),Character.Get(),Character->GetActorLocation(),Forward,
+                    SwingReach,RuneSwordOverheadRhythm::FinisherRectangleHalfWidthCM,HitActors);
+                ApplySwingHits(Hits,Forward);
+            }
         }
         else if(bQuickCombatStrike)
         {

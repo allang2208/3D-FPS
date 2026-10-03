@@ -4,6 +4,7 @@
 #include "ColdSteelEnhancementSystem.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "../Weapons/RuneSwordRhythm.h"
 #include "../Weapons/RuneSwordThrustRhythm.h"
@@ -29,6 +30,7 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     const auto Parts=bCompareFactory?FGunsmithParts():Model()->Installed(Item);
     const auto Before=ColdSteelMelee::Evaluate(Item,Profile,&Parts);
     const auto After=ColdSteelMelee::Evaluate(Item,Profile,&Model()->Draft());
+    const bool OverheadFinisher=ColdSteelModularSword::UsesOverheadFinisher(Item,&Model()->Draft());
     auto Row=[this](const TCHAR* Name,double Base,double Final,int32 Digits,const TCHAR* Unit,bool Lower=false)
     {
         const double Delta=Final-Base;const bool Same=FMath::Abs(Delta)<.00001;
@@ -42,8 +44,8 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     if(ColdSteelInventory::Number(Item,TEXT("innate_erosion_intelligence"))>0||ColdSteelInventory::Number(Item,TEXT("innate_erosion_wisdom"))>0)
         Row(TEXT("自带侵蚀伤害倍率"),Before.Modifiers.InnateErosionMultiplier,After.Modifiers.InnateErosionMultiplier,2,TEXT("×"));
     Row(TEXT("第二段横斩伤害"),Before.ComboSecondDamage,After.ComboSecondDamage,2,TEXT(""));
-    Row(TEXT("第三段突刺伤害"),Before.ComboThirdDamage,After.ComboThirdDamage,2,TEXT(""));
-    Row(TEXT("第三段突刺韧性伤害倍率"),Before.Modifiers.ThirdThrustToughnessMultiplier(),After.Modifiers.ThirdThrustToughnessMultiplier(),2,TEXT("×"));
+    Row(OverheadFinisher?TEXT("第三段竖劈伤害"):TEXT("第三段突刺伤害"),Before.ComboThirdDamage,After.ComboThirdDamage,2,TEXT(""));
+    Row(OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),Before.Modifiers.ThirdThrustToughnessMultiplier(),After.Modifiers.ThirdThrustToughnessMultiplier(),2,TEXT("×"));
     Row(TEXT("重击伤害倍率"),Before.HeavyMultiplier,After.HeavyMultiplier,2,TEXT("×"));
     Row(TEXT("重击总伤害"),Before.Damage*Before.HeavyMultiplier,After.Damage*After.HeavyMultiplier,2,TEXT(""));
     Row(TEXT("重击韧性伤害倍率"),Before.Modifiers.HeavyToughnessMultiplier(),After.Modifiers.HeavyToughnessMultiplier(),2,TEXT("×"));
@@ -63,7 +65,7 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     Row(ColdSteelWeaponText::RuneVulnerability,Before.Modifiers.RuneVulnerability*100,After.Modifiers.RuneVulnerability*100,0,TEXT("%"));
     Row(TEXT("剑刃易伤持续时间"),Before.Modifiers.RuneVulnerabilitySeconds,After.Modifiers.RuneVulnerabilitySeconds,0,TEXT(" s"));
     Row(ColdSteelWeaponText::AttackInterval,Before.AttackSeconds*1000,After.AttackSeconds*1000,0,TEXT(" ms"),true);
-    Row(TEXT("突刺时间"),Before.ThrustSeconds,After.ThrustSeconds,2,TEXT(" s"),true);
+    Row(OverheadFinisher?TEXT("竖劈时间"):TEXT("突刺时间"),Before.ThrustSeconds,After.ThrustSeconds,2,TEXT(" s"),true);
     Row(TEXT("普通挥砍距离"),Before.SlashReach/100,After.SlashReach/100,2,TEXT(" m"));
     Row(ColdSteelWeaponText::AttackDistance,Before.ThrustReach/100,After.ThrustReach/100,2,TEXT(" m"));
     Row(ColdSteelWeaponText::StaminaCost,Before.AttackStamina,After.AttackStamina,2,TEXT(""),true);

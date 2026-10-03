@@ -1,0 +1,30 @@
+{
+  "resolution": [
+    4096,
+    4096
+  ],
+  "uv_channel": 0,
+  "steel_atlas": "two sides at physical blade scale",
+  "root": "Existing TangDao SurfaceV2 geometry, UV, normal, dragon/cloud detail and material retained",
+  "orm_channels": [
+    "ambient_occlusion",
+    "roughness",
+    "metallic"
+  ],
+  "normal_convention": "OpenGL; Unreal import flips green",
+  "forged_layer_relief_micrometres": [
+    2.6,
+    1.1
+  ],
+  "grind_pitch_mm": 0.21,
+  "cutting_edge_roughness": [
+    0.155,
+    0.2
+  ],
+  "body_roughness": [
+    0.25,
+    0.35
+  ],
+  "fullers": "Geometry supplies depth; atlas supplies conservative AO and roughness",
+  "runtime_tested": false
+}

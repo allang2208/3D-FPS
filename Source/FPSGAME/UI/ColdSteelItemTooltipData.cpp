@@ -6,6 +6,7 @@
 #include "Engine/GameInstance.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "../Weapons/Bow/BowStats.h"
 #include "../Weapons/RuneSwordRhythm.h"
@@ -272,6 +273,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     if(ColdSteelInventory::IsTwoHandedSword(I)){
         Section(Main,ColdSteelWeaponText::CombatParameters);AppendColdSteelTooltipAttackFormula(I,Model,Number(O,TEXT("melee_damage"),55),Main);
         const auto Melee=ColdSteelMelee::Evaluate(I,Model);
+        const bool OverheadFinisher=ColdSteelModularSword::UsesOverheadFinisher(I);
         DamageRows(Main,Melee.DamageParts);
         Row(Main,TEXT("快速近战伤害倍率"),N(Melee.QuickCombat.DamageMultiplier)+TEXT("×"));
         Row(Main,TEXT("快速近战伤害"),N(Melee.QuickCombat.Damage));
@@ -281,13 +283,14 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,TEXT("快速近战命中方式"),Melee.QuickCombat.bAreaHit?TEXT("范围多目标 · 判定范围不变"):TEXT("单目标"));
         Row(Main,TEXT("三连击第二段伤害"),N(Melee.ComboSecondDamage));
         Row(Main,TEXT("三连击第三段伤害"),N(Melee.ComboThirdDamage));
-        if(!FMath::IsNearlyEqual(Melee.Modifiers.ComboThirdToughness,1.))Row(Main,TEXT("第三段突刺韧性伤害倍率"),N(Melee.Modifiers.ThirdThrustToughnessMultiplier())+TEXT("×"));
+        if(!FMath::IsNearlyEqual(Melee.Modifiers.ComboThirdToughness,1.))Row(Main,OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),N(Melee.Modifiers.ThirdThrustToughnessMultiplier())+TEXT("×"));
         if(Melee.Modifiers.MagicCooldown!=1)Row(Main,TEXT("魔法技能冷却倍率"),N(Melee.Modifiers.MagicCooldown)+TEXT("×"));
         if(Melee.Modifiers.MagicDamage!=1)Row(Main,TEXT("魔法伤害倍率"),N(Melee.Modifiers.MagicDamage)+TEXT("×"));
         if(Melee.Modifiers.CooldownReduceSecondsPerHit>0)Row(Main,ColdSteelWeaponText::CooldownReducePerHit,N(.5f+Melee.Modifiers.CooldownReduceSecondsPerHit)+TEXT(" s / 挥"));
         if(Melee.Modifiers.RuneVulnerability>0)Row(Main,ColdSteelWeaponText::RuneVulnerability,N(Melee.Modifiers.RuneVulnerability*100)+TEXT("% · ")+N(Melee.Modifiers.RuneVulnerabilitySeconds)+TEXT(" s"));
         Row(Main,ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(Melee.AttackSeconds*1000))+TEXT(" ms"));
-        Row(Main,TEXT("突刺时间"),N(Melee.ThrustSeconds)+TEXT(" s"));
+        Row(Main,OverheadFinisher?TEXT("竖劈时间"):TEXT("突刺时间"),N(Melee.ThrustSeconds)+TEXT(" s"));
+        if(OverheadFinisher)Row(Main,TEXT("第三段命中区域"),TEXT("前方矩形"));
         Row(Main,ColdSteelWeaponText::AttackDistance,N(Melee.ThrustReach/100)+TEXT(" m"));
         Row(Main,TEXT("普通挥砍距离"),N(Melee.SlashReach/100)+TEXT(" m"));
         Row(Main,ColdSteelWeaponText::StaminaCost,N(Melee.AttackStamina));

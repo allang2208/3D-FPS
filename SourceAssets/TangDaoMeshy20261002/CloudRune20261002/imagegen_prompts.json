@@ -1,0 +1,17 @@
+{
+  "mode": "built-in image_gen",
+  "mask": {
+    "file": "Artwork/CloudRune_Alpha.png",
+    "transparent_background": true,
+    "prompt": "Create a production rune alpha-mask artwork for a Chinese Tang Dao sword blade. Pure WHITE fine luminous linework on genuine transparent background, flat orthographic view, no shadows, no lighting gradient, no metal, no sword, no text. Tall vertical portrait canvas, about 1:4 aspect ratio. A coherent Chinese auspicious cloud (xiangyun) calligraphic rune composition: near the bottom/hilt a substantial but delicate layered curling cloud main seal with three linked spiral lobes; above it, three smaller irregularly staggered flowing-cloud curls connected by thin tapering ribbons; at the top a small featherlike cloud curl closes the composition toward the sword tip. Traditional carved Chinese cloud scroll vocabulary, elegant curving strokes with clearly open negative spaces, fine double contour outlines and tiny cloud droplets, NOT spiral circles alone, NOT letters or generic magical symbols. Use an asymmetrical flowing composition, never repeat the same glyph evenly. All visible strokes must be confined to the middle 38 percent of the canvas width and between 8 and 90 percent of the canvas height, with wide transparent margins on both sides. Clear and crisp white strokes of consistent legible thickness, subtle thinner inner details, suitable as an R-channel emissive mask fitted to a narrow 3 cm sword surface. The main motif should read as auspicious flowing clouds even when reduced. Preserve transparency."
+  },
+  "icon": {
+    "file": "Icons/ue_tang_dao_blade_2_auspicious_cloud_rune.png",
+    "transparent_background": true,
+    "references": [
+      "Artwork/CloudRune_Alpha.png",
+      "../TengyunBlade20261002/Icons/ue_tang_dao_blade_1_tengyun_dragon.png"
+    ],
+    "prompt": "Produce the matching inventory modification icon for this newly authored auspicious-cloud rune. Input 1 is the actual white alpha rune design; use its large lower three-lobed auspicious-cloud main seal as the central emblem, preserving its curling contour strokes, spiral cavities and long curved tapering tips. Input 2 is the approved grayscale metal-framed icon. Preserve the entire square scratched-steel frame, four corner rivets, silver circular inner rim and dark textured background. Remove the blade from input 2, and place ONE raised silver engraved cloud-rune main seal from input 1 in the center; no sword, handle, pommel, other weapon or extra emblem. The cloud glyph should occupy 62 percent of the inner circular diameter, with neutral silver/charcoal lighting from upper-left, subtle physically carved line relief and readable negative spaces. Grayscale only, no colored gold or blue glow. No text, labels or watermark. Genuine transparent alpha outside the square frame; opaque dark metal inside. Square high-resolution output, visually identical frame vocabulary to the prior modification icons."
+  }
+}

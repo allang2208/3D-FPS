@@ -1,0 +1,56 @@
+{
+  "id": "phoenix_feather",
+  "name": "凤仪华羽护手",
+  "weapon": "ue_tang_dao",
+  "slot": "guard",
+  "interface": "tang_dao_hilt_v1",
+  "ue_root": "/Game/Weapons/TangDao20261002/PhoenixFeatherGuard20261002",
+  "mesh_name": "SM_TangDao_Guard_phoenix_feather",
+  "mesh": "/Game/Weapons/TangDao20261002/PhoenixFeatherGuard20261002/Meshes/SM_TangDao_Guard_phoenix_feather.SM_TangDao_Guard_phoenix_feather",
+  "materials": {
+    "M_TangDaoPhoenixFeatherGuard_Gilt": "/Game/Weapons/TangDao20261002/PhoenixFeatherGuard20261002/Materials/M_TangDaoPhoenixFeatherGuard_Gilt.M_TangDaoPhoenixFeatherGuard_Gilt",
+    "M_TangDaoPhoenixFeatherGuard_Garnet": "/Game/Weapons/TangDao20261002/PhoenixFeatherGuard20261002/Materials/M_TangDaoPhoenixFeatherGuard_Garnet.M_TangDaoPhoenixFeatherGuard_Garnet"
+  },
+  "location_cm": [
+    0,
+    0,
+    0
+  ],
+  "rotation_deg": [
+    0,
+    0,
+    0
+  ],
+  "scale": [
+    1,
+    1,
+    1
+  ],
+  "lod_triangles": [
+    564588,
+    299230,
+    129854
+  ],
+  "plate_width_cm": 13.4,
+  "plate_height_cm": 17.8,
+  "core_thickness_mm": 8.0,
+  "relief_height_mm": 3.1,
+  "front_blade_seat_z_cm": 1.4,
+  "rear_grip_seat_z_cm": -5.0,
+  "texture_resolution": {
+    "Gilt": 4096,
+    "Garnet": 512
+  },
+  "art_offset_x_cm": 2.0,
+  "gemstones_per_side": 2,
+  "features": [
+    "非对称凤羽层叠外廓",
+    "双面凤首与羽脊实体浮雕",
+    "羽隙与卷云贯通镂空及实体孔壁",
+    "暖鎏金凸纹与暗铜凹底",
+    "双面红石独立嵌饰",
+    "精确承力芯与雕纹止滑环"
+  ],
+  "stats": {},
+  "runtime_tested": false
+}

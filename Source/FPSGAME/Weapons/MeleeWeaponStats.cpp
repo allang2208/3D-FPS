@@ -2,6 +2,8 @@
 #include "WeaponDamagePanel.h"
 #include "RuneSwordRhythm.h"
 #include "RuneSwordThrustRhythm.h"
+#include "RuneSwordOverheadRhythm.h"
+#include "ModularSwordVisual.h"
 #include "RuneSwordCombatTuning.h"
 #include "RuneSwordGuardTuning.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -17,7 +19,9 @@ FMeleeWeaponStats ColdSteelMelee::Evaluate(const FColdSteelItem& Item,const UCol
     const auto* GI=Profile?Profile->GetGameInstance():nullptr;
     const auto* Gunsmith=GI?GI->GetSubsystem<UGunsmithSystem>():nullptr;
     const auto* Enhance=GI?GI->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
-    if(Gunsmith)R.Modifiers=Gunsmith->Calculate(Item.Definition,Preview?*Preview:Gunsmith->Installed(Item)).Melee;
+    const FGunsmithParts Parts=Preview?*Preview:Gunsmith?Gunsmith->Installed(Item):FGunsmithParts{};
+    if(Gunsmith)R.Modifiers=Gunsmith->Calculate(Item.Definition,Parts).Melee;
+    const bool OverheadFinisher=ColdSteelModularSword::UsesOverheadFinisher(Item,&Parts);
     if(Profile)R.QuickCombat=Profile->QuickCombatStats(-1,&R.Modifiers);
     const auto Temporary=TemporaryModifiers(Profile);
     R.ParrySeconds=RuneSwordGuardTuning::ParrySeconds*R.Modifiers.ParryWindow;
@@ -32,7 +36,8 @@ FMeleeWeaponStats ColdSteelMelee::Evaluate(const FColdSteelItem& Item,const UCol
     R.AttackRate=FMath::Clamp((Profile?double(Profile->Derived(TEXT("aspd"))):1.)*R.Modifiers.AttackSpeed*Temporary.AttackSpeed/
         FMath::Max(.1,Enhance?Enhance->Effect(Item,TEXT("attackIntervalMul"),1):1.)/
         (Profile?1-Profile->MasteryEffect(TEXT("swordMastery")).CooldownReduction:1.),.2,4.);
-    R.AttackSeconds=RuneSwordRhythm::AttackEnd/R.AttackRate;R.ThrustSeconds=RuneSwordThrustRhythm::AttackEnd/R.AttackRate;
+    R.AttackSeconds=RuneSwordRhythm::AttackEnd/R.AttackRate;
+    R.ThrustSeconds=(OverheadFinisher?RuneSwordOverheadRhythm::FinisherSeconds:RuneSwordThrustRhythm::AttackEnd)/R.AttackRate;
     R.BaseReach=ColdSteelInventory::Number(Item,TEXT("melee_reach_cm"),180);
     R.SlashReach=RuneSwordCombatTuning::ScaledReach(R.BaseReach)*R.Modifiers.Range;
     R.ThrustReach=RuneSwordCombatTuning::ScaledReach(R.BaseReach,RuneSwordThrustRhythm::ReachBonus)*R.Modifiers.Range;

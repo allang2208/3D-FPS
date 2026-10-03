@@ -1,0 +1,58 @@
+{
+  "id": "yanling_edge",
+  "weapon": "ue_tang_dao",
+  "slot": "blade_1",
+  "name": "破锋燕翎刀身",
+  "ue_root": "/Game/Weapons/TangDao20261002/YanlingBlade20261002",
+  "mesh_name": "SM_TangDao_Blade_yanling_edge",
+  "mesh": "/Game/Weapons/TangDao20261002/YanlingBlade20261002/Meshes/SM_TangDao_Blade_yanling_edge.SM_TangDao_Blade_yanling_edge",
+  "interface": "tang_dao_hilt_v1",
+  "location_cm": [
+    0,
+    0,
+    0
+  ],
+  "trace_base_cm": [
+    0,
+    0,
+    3
+  ],
+  "trace_tip_cm": [
+    11.389727890491486,
+    -0.012784003047272563,
+    87.99999952316284
+  ],
+  "rune_dimensions_cm": [
+    14,
+    12,
+    74
+  ],
+  "materials": {
+    "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDaoBladeRuneSurface.M_TangDaoBladeRuneSurface",
+    "M_TangDaoYanlingSteel": "/Game/Weapons/TangDao20261002/YanlingBlade20261002/Materials/M_TangDaoBladeRuneSurface_Yanling.M_TangDaoBladeRuneSurface_Yanling"
+  },
+  "lod_triangles": [
+    121480,
+    66814,
+    31584
+  ],
+  "root_retained_to_cm": 34.0,
+  "fuller_depth_mm": 0.55,
+  "fuller_centers_across_blade": [
+    0.64,
+    0.8
+  ],
+  "fuller_z_cm": [
+    40.5,
+    78.5
+  ],
+  "blade_tip_cm": [
+    11.4,
+    0,
+    88
+  ],
+  "reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TangDaoMeshy20261002\\YanlingBlade20261002\\Reference\\YanlingBlade_UserReference.png",
+  "scope": "Blade geometry and steel PBR only; existing dragon, guard, grip, pommel, mounting and gameplay retained",
+  "runtime_tested": false,
+  "reference_original": "C:\\Users\\allan\\AppData\\Local\\Temp\\codex-clipboard-11a3ba82-08a8-4cb5-83e6-c02cbfb5a94a.png"
+}
