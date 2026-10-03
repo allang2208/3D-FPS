@@ -1,4 +1,5 @@
 #include "FPSCombatHealthComponent.h"
+#include "../Survival/FPSSurvivalComponent.h"
 #include "../Combat/CoreCombatFormula.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Combat/CombatFormulaRuntime.h"
@@ -66,9 +67,10 @@ float UFPSCombatHealthComponent::DamageAfterArmor(float Damage,const UDamageType
 void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDamageType* Type, AController* Instigator, AActor* Causer)
 {
     if (!Actor->HasAuthority() || IsDead() || Damage <= 0.f) return;
+    const bool bSurvivalLoss=Type&&Type->IsA<UFPSSurvivalDamage>();
     auto* Model=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     // 月影庇护：参战（首次受击）触发短暂无敌，窗口内全部承伤无效（旧 moonstone special）。
-    if(Model)
+    if(Model&&!bSurvivalLoss)
     {
         if(Model->IsMoonshadowActive())return;
         const double A=Model->TryActivateMoonshadow();
@@ -78,10 +80,12 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
             return;
         }
     }
-    if(IsInvulnerable() && (!(Type&&Type->IsA<UCombatDirectDamage>())||UDevelopmentTuningSubsystem::IsPlayerOptionEnabled(Cast<APawn>(Actor),EDevelopmentTuningOption::Invincible)))return;
+    if(bSurvivalLoss?UDevelopmentTuningSubsystem::IsPlayerOptionEnabled(Cast<APawn>(Actor),EDevelopmentTuningOption::Invincible):
+        IsInvulnerable() && (!(Type&&Type->IsA<UCombatDirectDamage>())||UDevelopmentTuningSubsystem::IsPlayerOptionEnabled(Cast<APawn>(Actor),EDevelopmentTuningOption::Invincible)))return;
     AActor* Attacker=Causer?Causer:(Instigator?Instigator->GetPawn():nullptr);
     if(!Actor->IsA<AFPSGAMECharacter>())Damage=DamageAfterArmor(Damage,Type,Attacker);
     Health = FMath::Max(0.f, Health - Damage);
+    if(!bSurvivalLoss)if(auto* Survival=Actor->FindComponentByClass<UFPSSurvivalComponent>())Survival->ApplySanityAttack(Attacker);
     UE_LOG(LogTemp, Display, TEXT("PLAYER_DAMAGE amount=%.1f health=%.1f"), Damage, Health);
     if (GEngine) GEngine->AddOnScreenDebugMessage(91401, 3.f, FColor::Red,
         FString::Printf(TEXT("HP %.0f / %.0f%s"), Health, MaxHealth, IsDead() ? TEXT(" - Respawning...") : TEXT("")));
@@ -96,6 +100,12 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
         if(Model&&Model->ConsumePeachRevive(ReviveRatio))
         {
             Health=FMath::Max(1.f,FMath::FloorToFloat(MaxHealth*(ReviveRatio>0?ReviveRatio:.3f)));
+            if(auto* Survival=Actor->FindComponentByClass<UFPSSurvivalComponent>())
+            {
+                auto State=Survival->GetState();
+                State.Hunger=State.Hydration=State.Sanity=60.f;
+                Survival->RestoreState(State);
+            }
             if(auto* Poison=Actor->FindComponentByClass<UMaggotPoisonComponent>())Poison->ClearPoison();
             if(auto* S=Actor->FindComponentByClass<UCombatStatusFormula>())S->PurgeTransient();
             UE_LOG(LogTemp, Display, TEXT("PEACH_REVIVE hp=%.0f ratio=%.2f"), Health, ReviveRatio);
@@ -109,6 +119,12 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
         GetWorld()->GetTimerManager().SetTimer(RespawnTimer, this, &UFPSCombatHealthComponent::Respawn, 2.f, false);
     }
     if(IsDead())ColdSteelSkills::NotifyKillByOwner(GetWorld()->GetGameInstance(),Instigator,Actor);
+}
+
+void UFPSCombatHealthComponent::ApplySurvivalDamage(float Amount)
+{
+    if(GetOwner()&&FMath::IsFinite(Amount)&&Amount>0.f)
+        OnDamage(GetOwner(),Amount,GetDefault<UFPSSurvivalDamage>(),nullptr,nullptr);
 }
 
 void UFPSCombatHealthComponent::Respawn()

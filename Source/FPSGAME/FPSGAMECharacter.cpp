@@ -53,6 +53,7 @@
 #include "Building/VoxelBuildComponent.h"
 #include "Engine/GameInstance.h"
 #include "Monsters/FPSCombatHealthComponent.h"
+#include "Survival/FPSSurvivalComponent.h"
 #include "Weapons/FPSGunplayAnimInstance.h"
 #include "Weapons/M4DrumReloadTiming.h"
 #include "Weapons/M1911WeaponAssets.h"
@@ -218,6 +219,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     UnarmedIdle=CreateDefaultSubobject<UFPSUnarmedIdleComponent>(TEXT("UnarmedIdle"));
     DoorPush=CreateDefaultSubobject<UFPSDoorPushComponent>(TEXT("SprintDoorPush"));
     CreateDefaultSubobject<UFPSCombatHealthComponent>(TEXT("CombatHealth"));
+    CreateDefaultSubobject<UFPSSurvivalComponent>(TEXT("SurvivalResources"));
     CreateDefaultSubobject<UFPSFireballComponent>(TEXT("FireballSkill"));
     CreateDefaultSubobject<UFPSPotionUseComponent>(TEXT("PotionUse"));
     CreateDefaultSubobject<UFPSIceSpikeComponent>(TEXT("IceSpikeSkill"));

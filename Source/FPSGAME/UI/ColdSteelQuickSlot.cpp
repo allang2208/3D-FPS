@@ -162,10 +162,11 @@ void UColdSteelQuickSlot::Refresh()
     const auto Binding=FixedSkill.IsNone()?Model->QuickBinding(Index):[&]
     {FColdSteelQuickBinding B;B.Skill=FixedSkill==TEXT("runeBlades")&&Staff&&Staff->HasIlluminationSpecial()?FName(TEXT("staffLight")):FixedSkill;return B;}();
     const auto* Item=Model->ResolveQuickItem(Index);
-    const bool BindingChanged=!bLoaded||!(Binding==Displayed);
+    const FString WaterIcon=Item&&Item->Definition==TEXT("mineral_water")?ColdSteelInventory::Text(*Item,TEXT("ue_icon")):FString();
+    const bool BindingChanged=!bLoaded||!(Binding==Displayed)||WaterIcon!=DisplayedWaterIcon;
     if(BindingChanged)
     {
-        bLoaded=true;Displayed=Binding;FString Path,Name;
+        bLoaded=true;Displayed=Binding;DisplayedWaterIcon=WaterIcon;FString Path,Name;
         if(const auto* D=Model->QuickSkillDefinition(Binding.Skill)){Path=D->Icon;Name=D->Name;}
         else if(!Binding.ItemDefinition.IsEmpty())
         {const auto Template=Item?*Item:Model->CreateItem(Binding.ItemDefinition);Path=ColdSteelInventory::Text(Template,TEXT("ue_icon"));Name=ColdSteelInventory::Text(Template,TEXT("name"));}
@@ -323,6 +324,7 @@ void UColdSteelQuickSlot::Refresh()
     {
         // 背包+夹层合并计数：槽位显示同类消耗品总数；消耗目标由 ResolveQuickItem 优先取背包堆。
         const int64 Quantity=Model->QuickItemCount(Index);Count->SetText(FText::FromString(FString::Printf(TEXT("%lld"),Quantity)));Count->SetColorAndOpacity(Quantity>0?ColdSteelUI::Success:ColdSteelUI::Danger);Dim=Quantity==0;
+        if(Item&&Item->Definition==TEXT("mineral_water"))Count->SetText(FText::FromString(FString::Printf(TEXT("%d/2"),FMath::Clamp(int32(ColdSteelInventory::Number(*Item,TEXT("remainingUses"),2)),1,2))));
         if(Item&&Item->Cooldown>0){Remaining=Item->Cooldown;Fraction=FMath::Clamp(Remaining/FMath::Max(.1f,float(ColdSteelInventory::Number(*Item,TEXT("useCooldown")))),0.f,1.f);}
     }
     if(Remaining>0)Message=FString::Printf(TEXT("%.1f"),Remaining);

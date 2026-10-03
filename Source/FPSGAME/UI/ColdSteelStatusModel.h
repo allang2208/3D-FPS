@@ -207,6 +207,8 @@ public:
     virtual void Deinitialize() override;
     double Attribute(FName Key) const;
     double InfectionAttributeMultiplier() const { return Current.Infection.AttributeMultiplier(); }
+    double EffectiveAttributeMultiplier() const;
+    void SetSurvivalState(const FFPSSurvivalState& State,AActor* Source);
     void SetInfectionState(const FInfectionState& State, bool bStageChanged);
     UFUNCTION(BlueprintCallable, Category="Character") bool AllocateAttribute(FName Key);
     UFUNCTION(BlueprintCallable, Category="Character") void GrantAttributePoints(int32 Amount);

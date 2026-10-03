@@ -10,6 +10,24 @@
       "group": "combat"
     },
     {
+      "type": "fountainBlessing",
+      "icon": "💧",
+      "name": "清泉赐福",
+      "color": "#9EB9AC",
+      "description": "在主神空间喷泉饮水后获得，持续12分钟。缺水度立即补满；赐福期间饥饿度、缺水度的下降速度减慢10%（按原速率的90%消耗）。重复饮水刷新至12分钟，减速效果不叠加。进入地牢继续生效；暂停、死亡及离线时不消耗剩余时间。",
+      "kind": "buff",
+      "group": "triggered"
+    },
+    {
+      "type": "sanityCollapse",
+      "icon": "乱",
+      "name": "精神崩溃",
+      "color": "#AD9BBE",
+      "description": "SAN 归零时，饥饿度、缺水度下降速度翻倍，力量、敏捷、智力、体质、精神、幸运的总属性降低50%。装备与技能提供的六维加成同样受影响；与清泉赐福及感染倍率相乘。SAN 恢复到0以上后解除。",
+      "kind": "debuff",
+      "group": "triggered"
+    },
+    {
       "type": "stun",
       "icon": "💫",
       "name": "眩晕",

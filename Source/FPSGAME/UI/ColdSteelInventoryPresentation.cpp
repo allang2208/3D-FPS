@@ -166,7 +166,7 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
             const FString Title=P?P->Name:I.Definition;const auto Font=GunsmithUI::TextFont(12/Scale);const float Width=FMath::Min(float(Measure->Measure(Title,Font).X*Scale)+8,TitleSpace);
             Box(X+Left,Y+3,Width,16,GunsmithUI::Gray(20,190),FLinearColor::Transparent,3,0,3);Label(Title,X+Left+3,Y+3,12,GunsmithUI::Text,TitleSpace-6);
         }
-        if(I.Count>1){const FString Count=FString::Printf(TEXT("%lld"),I.Count);const float FontSize=12;const float Width=FMath::Min(W-4-(!Hotbar&&P&&P->Crafted?CornerSize+1:0),float(Measure->Measure(Count,GunsmithUI::NumberFont(FontSize/Scale)).X*Scale)+5);
+        if(I.Count>1||I.Definition==TEXT("mineral_water")){const FString Count=I.Definition==TEXT("mineral_water")?FString::Printf(TEXT("%d/2"),FMath::Clamp(int32(Number(I,TEXT("remainingUses"),2)),1,2)):FString::Printf(TEXT("%lld"),I.Count);const float FontSize=12;const float Width=FMath::Min(W-4-(!Hotbar&&P&&P->Crafted?CornerSize+1:0),float(Measure->Measure(Count,GunsmithUI::NumberFont(FontSize/Scale)).X*Scale)+5);
             const float CountX=Hotbar?X+(W-Width)/2:X+W-Width-2-(P&&P->Crafted?CornerSize+1:0),CountY=Hotbar?Y+2:Y+H-FontSize-4;
             Box(CountX,CountY,Width,FontSize+2,GunsmithUI::Gray(10,220),FLinearColor::Transparent,2,0,3);Label(Count,CountX+2,CountY,FontSize,GunsmithUI::Text,Width-2,true);}
         if(I.Cooldown>0){DrawCard(Fade(ColdSteelUI::GlassTint,.65f),FLinearColor::Transparent,3);Label(FString::Printf(TEXT("%.1f"),I.Cooldown),X+4,Y+H/2-6,12,ColdSteelUI::Warning,W-8,true);}

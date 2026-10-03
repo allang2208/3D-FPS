@@ -5,6 +5,7 @@
 #include "ColdSteelQuickBarTypes.h"
 #include "../Dungeon/DungeonTypes.h"
 #include "../Combat/ProgressiveInfectionComponent.h"
+#include "../Survival/FPSSurvivalTypes.h"
 #include "ColdSteelInventoryTypes.generated.h"
 
 USTRUCT(BlueprintType)
@@ -235,6 +236,7 @@ struct FColdSteelProfile
     UPROPERTY() TMap<FName,float> ElectricCooldowns;
     UPROPERTY() TMap<FName,float> ElectricCooldownDurations;
     UPROPERTY() TMap<FName,float> ElectricReservedMana;
+    UPROPERTY() FFPSSurvivalState Survival;
 };
 
 UCLASS()

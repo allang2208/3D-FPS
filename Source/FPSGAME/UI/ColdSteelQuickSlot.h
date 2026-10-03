@@ -45,4 +45,5 @@ private:
     UPROPERTY(Transient) TObjectPtr<class UImage> ReadyFlash;
     UPROPERTY(Transient) TObjectPtr<class UTexture2D> Texture;
     UPROPERTY(Transient) TMap<FString,TObjectPtr<UTexture2D>> Textures;
+    FString DisplayedWaterIcon;
 };

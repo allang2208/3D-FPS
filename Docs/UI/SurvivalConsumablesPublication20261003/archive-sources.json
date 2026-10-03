@@ -1,0 +1,74 @@
+[
+  {
+    "source": "SourceAssets/SurvivalHUD20261003/survival-ui-A-B.png",
+    "target": "trash/survival-consumables-retired-20261003/SourceAssets/SurvivalHUD20261003/survival-ui-A-B.png",
+    "bytes": 118939,
+    "sha256": "4edaa72b4a4bd123f02c6f9ef891e8f222dfb2ce027b3588ae4a2a5b653bc450",
+    "reason": "Historical A/B or depleted candidate; accepted reference and production author retained.",
+    "replacement": "SourceAssets/SurvivalHUD20261003/survival-ui-A-refined-reference.png; Tools/UI/render_survival_hud_reference.py; Source/FPSGAME/UI/ColdSteelTopVitals.cpp",
+    "readback": "sha256 matched"
+  },
+  {
+    "source": "SourceAssets/SurvivalHUD20261003/survival-ui-A-depleted.png",
+    "target": "trash/survival-consumables-retired-20261003/SourceAssets/SurvivalHUD20261003/survival-ui-A-depleted.png",
+    "bytes": 13143,
+    "sha256": "42145df4c87662e7c2e7a759782af01b296a01d6fb724bf31b150f1dd10fb055",
+    "reason": "Historical A/B or depleted candidate; accepted reference and production author retained.",
+    "replacement": "SourceAssets/SurvivalHUD20261003/survival-ui-A-refined-reference.png; Tools/UI/render_survival_hud_reference.py; Source/FPSGAME/UI/ColdSteelTopVitals.cpp",
+    "readback": "sha256 matched"
+  },
+  {
+    "source": "SourceAssets/SurvivalHUD20261003/survival-ui-A-selected-depleted.png",
+    "target": "trash/survival-consumables-retired-20261003/SourceAssets/SurvivalHUD20261003/survival-ui-A-selected-depleted.png",
+    "bytes": 14059,
+    "sha256": "0fba8fd2d789b6614c52027e71555464107f35618fc19769dd05eb38ad4fb011",
+    "reason": "Historical A/B or depleted candidate; accepted reference and production author retained.",
+    "replacement": "SourceAssets/SurvivalHUD20261003/survival-ui-A-refined-reference.png; Tools/UI/render_survival_hud_reference.py; Source/FPSGAME/UI/ColdSteelTopVitals.cpp",
+    "readback": "sha256 matched"
+  },
+  {
+    "source": "SourceAssets/SurvivalHUD20261003/survival-ui-A-selected.png",
+    "target": "trash/survival-consumables-retired-20261003/SourceAssets/SurvivalHUD20261003/survival-ui-A-selected.png",
+    "bytes": 10873,
+    "sha256": "545a95e65a8fec3be6c0333117fbe601eb9317412af75ed7e50d2ef127ccbb7d",
+    "reason": "Historical A/B or depleted candidate; accepted reference and production author retained.",
+    "replacement": "SourceAssets/SurvivalHUD20261003/survival-ui-A-refined-reference.png; Tools/UI/render_survival_hud_reference.py; Source/FPSGAME/UI/ColdSteelTopVitals.cpp",
+    "readback": "sha256 matched"
+  },
+  {
+    "source": "SourceAssets/SurvivalHUD20261003/survival-ui-A.png",
+    "target": "trash/survival-consumables-retired-20261003/SourceAssets/SurvivalHUD20261003/survival-ui-A.png",
+    "bytes": 9945,
+    "sha256": "de2832d14986fb84cf775ea8cc2df2ab2aaa04287e465b911dc7759f3cc49db0",
+    "reason": "Historical A/B or depleted candidate; accepted reference and production author retained.",
+    "replacement": "SourceAssets/SurvivalHUD20261003/survival-ui-A-refined-reference.png; Tools/UI/render_survival_hud_reference.py; Source/FPSGAME/UI/ColdSteelTopVitals.cpp",
+    "readback": "sha256 matched"
+  },
+  {
+    "source": "SourceAssets/SurvivalHUD20261003/survival-ui-B-depleted.png",
+    "target": "trash/survival-consumables-retired-20261003/SourceAssets/SurvivalHUD20261003/survival-ui-B-depleted.png",
+    "bytes": 15377,
+    "sha256": "9f1ba147332ecb02186d985ab506c49af3558478d09fabee0b65d3b447e55c4d",
+    "reason": "Historical A/B or depleted candidate; accepted reference and production author retained.",
+    "replacement": "SourceAssets/SurvivalHUD20261003/survival-ui-A-refined-reference.png; Tools/UI/render_survival_hud_reference.py; Source/FPSGAME/UI/ColdSteelTopVitals.cpp",
+    "readback": "sha256 matched"
+  },
+  {
+    "source": "SourceAssets/SurvivalHUD20261003/survival-ui-B.png",
+    "target": "trash/survival-consumables-retired-20261003/SourceAssets/SurvivalHUD20261003/survival-ui-B.png",
+    "bytes": 12574,
+    "sha256": "ec9a5e42103b121bee330ab6d0282cd12744abb69b74f58a2a4feae42a14aa33",
+    "reason": "Historical A/B or depleted candidate; accepted reference and production author retained.",
+    "replacement": "SourceAssets/SurvivalHUD20261003/survival-ui-A-refined-reference.png; Tools/UI/render_survival_hud_reference.py; Source/FPSGAME/UI/ColdSteelTopVitals.cpp",
+    "readback": "sha256 matched"
+  },
+  {
+    "source": "SourceAssets/Baguette20261003/Baguette_Authored.blend1",
+    "target": "trash/survival-consumables-retired-20261003/SourceAssets/Baguette20261003/Baguette_Authored.blend1",
+    "bytes": 28795821,
+    "sha256": "9b48b2028fcf2d7fb5afaa9cd767f02bc9772efb69fa11b541f07f50b2656bbb",
+    "reason": "Superseded automatic backup; current editable Blend and export retained.",
+    "replacement": "SourceAssets/Baguette20261003/Baguette_Authored.blend",
+    "readback": "sha256 matched"
+  }
+]

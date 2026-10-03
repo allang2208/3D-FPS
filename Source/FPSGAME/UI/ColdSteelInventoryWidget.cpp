@@ -89,17 +89,18 @@ void UColdSteelInventoryWidget::LoadIcons()
     if(!Model)return;for(const auto& I:Model->Items()) {
         if(WeaponIcons&&WeaponIcons->Supports(I)){if(bWarehouse?(Model->InOpenStorage(I)&&I.Cell>=StorageStart()&&I.Cell<StorageStart()+ColdSteelWarehouse::CellsPerPage):(I.Place==0||I.Place==1))WeaponIcons->Request(I);}
         // Keep the catalog image available while a live weapon preview is pending or failed.
-        if(Icons.Contains(I.Definition)||FailedIcons.Contains(I.Definition))continue;
+        const FString IconKey=I.Definition==TEXT("mineral_water")?I.Definition+TEXT(":")+Text(I,TEXT("ue_icon")):I.Definition;
+        if(Icons.Contains(IconKey)||FailedIcons.Contains(IconKey))continue;
         // Weapon artwork follows the current catalog even when an older saved item has no icon field.
         const FString File=WeaponIcons&&WeaponIcons->Supports(I)?TEXT("Icons/")+I.Definition+TEXT(".png"):Text(I,TEXT("ue_icon"));if(File.IsEmpty())continue;
         auto* Texture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/File);
         // A failed import must be remembered: the source file is missing, so
         // retrying it on every refresh only repeats the disk probe, the engine
         // warning and a transient UTexture2D allocation that GC then has to reap.
-        if(!Texture){FailedIcons.Add(I.Definition);continue;}
-        Icons.Add(I.Definition,Texture);FSlateBrush Brush;Brush.SetResourceObject(Texture);Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;
+        if(!Texture){FailedIcons.Add(IconKey);continue;}
+        Icons.Add(IconKey,Texture);FSlateBrush Brush;Brush.SetResourceObject(Texture);Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;
         if(const auto* P=Presentation.Find(I.InstanceId);P&&P->StaffArt)ColdSteelStaffIcon::FrameImportedTexture(Brush,Texture);
-        IconBrushes.Add(I.Definition,Brush);
+        IconBrushes.Add(IconKey,Brush);
     }
     // Item data and asynchronous images are painted directly, outside child-widget bindings.
     if(auto Slate=GetCachedWidget();Slate.IsValid())Slate->Invalidate(EInvalidateWidgetReason::Paint);
@@ -107,7 +108,8 @@ void UColdSteelInventoryWidget::LoadIcons()
 const FSlateBrush* UColdSteelInventoryWidget::ItemBrush(const FColdSteelItem& I) const
 {
     if(WeaponIcons&&WeaponIcons->Supports(I))if(const auto* Preview=WeaponIcons->Find(I))return Preview;
-    return IconBrushes.Find(I.Definition);
+    const FString IconKey=I.Definition==TEXT("mineral_water")?I.Definition+TEXT(":")+Text(I,TEXT("ue_icon")):I.Definition;
+    return IconBrushes.Find(IconKey);
 }
 FIntPoint UColdSteelInventoryWidget::PendingFootprint(const FColdSteelItem& Item,const UColdSteelItemDrag& Drag)const
 {
@@ -222,7 +224,13 @@ FReply UColdSteelInventoryWidget::NativeOnMouseButtonDown(const FGeometry& G,con
         FocusPlace=PressPlace;FocusCell=PressCell;Selected=IdAt(PressPlace,PressCell);bConfirmDrop=false;InteractionMessage.Empty();
         if(E.GetEffectingButton()==EKeys::RightMouseButton){
             if(E.IsShiftDown()&&!Selected.IsEmpty())OpenItemMenu(E.GetScreenSpacePosition());
-            else if(!Selected.IsEmpty())Model->DefaultAction(Selected);
+            else if(!Selected.IsEmpty())
+            {
+                const auto* Item=Model->FindItem(Selected);
+                if(Item&&(Item->Place==0||Item->Place==ColdSteelCompartment::Place)&&Text(*Item,TEXT("category"))==TEXT("consumable"))
+                    Model->UseItem(Selected);
+                else Model->DefaultAction(Selected);
+            }
             InteractionMessage=Model->ResultMessage();return FReply::Handled();
         }
         if(!Selected.IsEmpty()&&E.GetEffectingButton()==EKeys::LeftMouseButton){PressedItem=Selected;PressPosition=E.GetScreenSpacePosition();bPendingClick=true;return FReply::Handled().DetectDrag(TakeWidget(),EKeys::LeftMouseButton);}

@@ -11,6 +11,7 @@ class FPSGAME_API UColdSteelResourceMeter : public UWidget
 public:
     void SetValue(float InRatio, bool bInMana);
     void SetStaminaValue(float InRatio);
+    void SetSemanticValue(float InRatio,const FLinearColor& Fill,const FLinearColor& Deep);
     float Ratio() const { return Value; }
     virtual void ReleaseSlateResources(bool bReleaseChildren) override;
 protected:
@@ -20,4 +21,6 @@ private:
     bool bMana=false;
     bool bStamina=false;
     TSharedPtr<class SColdSteelResourceMeter> Meter;
+    bool bSemantic=false;
+    FLinearColor SemanticFill=FLinearColor::White,SemanticDeep=FLinearColor::White;
 };

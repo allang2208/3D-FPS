@@ -39,6 +39,13 @@ namespace ColdSteelUI
     inline const FLinearColor ManaDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("36566EFF")));
     inline const FLinearColor Stamina = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("A1A44FFF")));
     inline const FLinearColor StaminaDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("666B35FF")));
+    // Survival identities stay on the data tracks; the glass and borders remain neutral.
+    inline const FLinearColor Hunger = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("BEA06EFF")));
+    inline const FLinearColor HungerDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("75613FFF")));
+    inline const FLinearColor Hydration = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("8AAFA8FF")));
+    inline const FLinearColor HydrationDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("466660FF")));
+    inline const FLinearColor Sanity = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("AD9BBEFF")));
+    inline const FLinearColor SanityDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("655773FF")));
     inline const FLinearColor Danger = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FF8193FF")));
     inline const FLinearColor Success = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("68D5ADFF")));
     inline FLinearColor ActionProgressColor(float Progress)

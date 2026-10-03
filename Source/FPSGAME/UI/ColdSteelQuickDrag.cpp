@@ -76,7 +76,7 @@ bool UColdSteelHUDWidget::DropInventoryOnQuickBar(UColdSteelItemDrag* Drag,int32
         Model->BindQuickItem(Target,Drag->ItemId);
         if(Drag->SourceBoard.IsValid())Drag->SourceBoard->InteractionMessage=Model->ResultMessage();
     }
-    else if(Drag->SourceBoard.IsValid())Drag->SourceBoard->InteractionMessage=TEXT("仅可绑定背包消耗品；物品变化后请重新拖动");
+    else if(Drag->SourceBoard.IsValid())Drag->SourceBoard->InteractionMessage=TEXT("仅可绑定背包或夹层中的消耗品；物品变化后请重新拖动");
     EndInventoryDrag();RefreshQuickBar();return true;
 }
 void UColdSteelHUDWidget::EndQuickDrag()

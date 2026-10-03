@@ -10,6 +10,9 @@ struct FPotionTierVisual
     FString Shell, Liquid, Stopper, Closed;
     float HeightCm=18.f;
     float GripHeightCm=13.2f;
+    // Reusable drinks share the motion pipeline but retain their own water surface.
+    FString LiquidMaterial, HalfClosed;
+    float LiquidBottomCm=.35f, LiquidFullCm=18.4f;
 };
 
 namespace PotionVisuals

@@ -11,6 +11,8 @@ public:
     float Ratio=0;
     bool bMana=false;
     bool bStamina=false;
+    bool bSemantic=false;
+    FLinearColor SemanticFill=FLinearColor::White,SemanticDeep=FLinearColor::White;
     virtual FVector2D ComputeDesiredSize(float) const override {return FVector2D(160,9);}
     virtual int32 OnPaint(const FPaintArgs&,const FGeometry& G,const FSlateRect&,FSlateWindowElementList& Out,int32 Layer,const FWidgetStyle& Style,bool) const override
     {
@@ -23,15 +25,22 @@ public:
         FSlateDrawElement::MakeBox(Out,Layer+1,G.ToPaintGeometry(InnerSize,FSlateLayoutTransform(FVector2D(Unit))),&Inner,ESlateDrawEffect::None,ColdSteelUI::Content*Tint);
         const FVector2D Size(FMath::Max(0.f,float(G.GetLocalSize().X-2*Unit))*Ratio,FMath::Max(0.f,float(G.GetLocalSize().Y-2*Unit)));
         if(Size.X>0&&Size.Y>0){
-            const auto Deep=bStamina?ColdSteelUI::StaminaDeep:bMana?ColdSteelUI::ManaDeep:ColdSteelUI::HealthDeep;
-            const auto Light=bStamina?(Ratio<=.25f?ColdSteelUI::Warning:ColdSteelUI::Stamina):bMana?ColdSteelUI::Mana:ColdSteelUI::Health;
+            const auto Deep=bSemantic?SemanticDeep:bStamina?ColdSteelUI::StaminaDeep:bMana?ColdSteelUI::ManaDeep:ColdSteelUI::HealthDeep;
+            const auto Light=bSemantic?(Ratio<=.25f?ColdSteelUI::Warning:SemanticFill):bStamina?(Ratio<=.25f?ColdSteelUI::Warning:ColdSteelUI::Stamina):bMana?ColdSteelUI::Mana:ColdSteelUI::Health;
             TArray<FSlateGradientStop> Stops;Stops.Emplace(FVector2f(0,0),Deep*Tint);Stops.Emplace(FVector2f(Size.X,0),Light*Tint);
             FSlateDrawElement::MakeGradient(Out,Layer+2,G.ToPaintGeometry(Size,FSlateLayoutTransform(FVector2D(Unit))),Stops,Orient_Vertical,ESlateDrawEffect::None,FVector4f(2*Unit));
         }
         return Layer+2;
     }
 };
-TSharedRef<SWidget> UColdSteelResourceMeter::RebuildWidget(){SAssignNew(Meter,SColdSteelResourceMeter);Meter->Ratio=Value;Meter->bMana=bMana;Meter->bStamina=bStamina;return Meter.ToSharedRef();}
+TSharedRef<SWidget> UColdSteelResourceMeter::RebuildWidget(){SAssignNew(Meter,SColdSteelResourceMeter);Meter->Ratio=Value;Meter->bMana=bMana;Meter->bStamina=bStamina;Meter->bSemantic=bSemantic;Meter->SemanticFill=SemanticFill;Meter->SemanticDeep=SemanticDeep;return Meter.ToSharedRef();}
+void UColdSteelResourceMeter::SetSemanticValue(float InRatio,const FLinearColor& Fill,const FLinearColor& Deep)
+{
+    const float Next=FMath::IsFinite(InRatio)?FMath::Clamp(InRatio,0.f,1.f):0.f;
+    if(bSemantic&&Value==Next&&SemanticFill==Fill&&SemanticDeep==Deep)return;
+    bSemantic=true;Value=Next;SemanticFill=Fill;SemanticDeep=Deep;
+    if(Meter){Meter->Ratio=Value;Meter->bSemantic=true;Meter->SemanticFill=Fill;Meter->SemanticDeep=Deep;Meter->Invalidate(EInvalidateWidgetReason::Paint);}
+}
 void UColdSteelResourceMeter::SetStaminaValue(float InRatio){bStamina=true;SetValue(InRatio,false);if(Meter&&!Meter->bStamina){Meter->bStamina=true;Meter->Invalidate(EInvalidateWidgetReason::Paint);}}
 void UColdSteelResourceMeter::SetValue(float InRatio,bool bInMana){const float Next=FMath::IsFinite(InRatio)?FMath::Clamp(InRatio,0.f,1.f):0.f;if(Value==Next&&bMana==bInMana)return;Value=Next;bMana=bInMana;if(Meter){Meter->Ratio=Value;Meter->bMana=bMana;Meter->Invalidate(EInvalidateWidgetReason::Paint);}}
 void UColdSteelResourceMeter::ReleaseSlateResources(bool bReleaseChildren){Super::ReleaseSlateResources(bReleaseChildren);Meter.Reset();}

@@ -53,6 +53,22 @@
       "liquid": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Special_Liquid.SM_Potion_Special_Liquid",
       "stopper": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Special_Stopper.SM_Potion_Special_Stopper",
       "closed": "/Game/Items/Consumables/PotionTiersV1/SM_Potion_Special_Closed.SM_Potion_Special_Closed"
+    },
+    {
+      "tier": "mineral_water",
+      "definitions": [
+        "mineral_water"
+      ],
+      "height_cm": 22,
+      "grip_height_cm": 17.2,
+      "shell": "/Game/Items/Consumables/MineralWater20261003/SM_MineralWater_Shell.SM_MineralWater_Shell",
+      "liquid": "/Game/Items/Consumables/MineralWater20261003/SM_MineralWater_Liquid.SM_MineralWater_Liquid",
+      "stopper": "/Game/Items/Consumables/MineralWater20261003/SM_MineralWater_Cap.SM_MineralWater_Cap",
+      "closed": "/Game/Items/Consumables/MineralWater20261003/SM_MineralWater_Full.SM_MineralWater_Full",
+      "half_closed": "/Game/Items/Consumables/MineralWater20261003/SM_MineralWater_Half.SM_MineralWater_Half",
+      "liquid_material": "/Game/Items/Consumables/MineralWater20261003/Materials/M_MineralWater_Liquid.M_MineralWater_Liquid",
+      "liquid_bottom_cm": 0.35,
+      "liquid_full_cm": 18.4
     }
   ]
 }

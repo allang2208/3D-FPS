@@ -184,3 +184,7 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 ## 常规工作台与枪械组装
 
 处理制作栏规格、直接制作、分件配方、下拉行 GC 崩溃或完成后返料时，读取 [工作台面板与结算](references/crafting-workbenches.md)。
+
+## 生存与消耗品（2026-10-03）
+
+[冷钢生存状态栏](references/survival-status-layout.md)：等级框与资源区的独立 Grid、语义轨道、状态提示和历史方案归档。

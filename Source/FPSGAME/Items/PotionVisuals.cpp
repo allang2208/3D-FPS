@@ -32,6 +32,10 @@ namespace
                 O->TryGetStringField(TEXT("closed"),V.Closed);
                 O->TryGetNumberField(TEXT("height_cm"),V.HeightCm);
                 O->TryGetNumberField(TEXT("grip_height_cm"),V.GripHeightCm);
+                O->TryGetStringField(TEXT("liquid_material"),V.LiquidMaterial);
+                O->TryGetStringField(TEXT("half_closed"),V.HalfClosed);
+                O->TryGetNumberField(TEXT("liquid_bottom_cm"),V.LiquidBottomCm);
+                O->TryGetNumberField(TEXT("liquid_full_cm"),V.LiquidFullCm);
                 if(!V.Definitions.IsEmpty()&&!V.Shell.IsEmpty()&&!V.Liquid.IsEmpty()&&!V.Stopper.IsEmpty()&&!V.Closed.IsEmpty())
                     Tiers.Add(MoveTemp(V));
             }

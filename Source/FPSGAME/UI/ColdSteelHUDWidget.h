@@ -577,4 +577,12 @@ private:
     FIntVector ForgingCell=FIntVector::ZeroValue;
     bool bForgingOpen=false,bForgeRiding=false;
     float ForgeMotion=0,ForgeSlidePx=0,ForgeWidth=0;
+    // Append reflected members: preserve existing offsets when rebuilding the shared project.
+    UPROPERTY(Transient) TObjectPtr<class UGridPanel> SurvivalGrid;
+    UPROPERTY(Transient) TArray<TObjectPtr<UBorder>> SurvivalCards;
+    UPROPERTY(Transient) TArray<TObjectPtr<USizeBox>> SurvivalMeterSizes;
+    UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> SurvivalValues;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UColdSteelResourceMeter>> SurvivalMeters;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> SurvivalWarning;
+    int32 SurvivalLayoutVariant=-1;
 };

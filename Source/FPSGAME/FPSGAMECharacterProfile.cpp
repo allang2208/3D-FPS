@@ -7,6 +7,7 @@
 #include "UI/ColdSteelStatusModel.h"
 #include "UI/ColdSteelEnhancementSystem.h"
 #include "Monsters/FPSCombatHealthComponent.h"
+#include "Survival/FPSSurvivalComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/GameInstance.h"
 #include "Weapons/FPSWeaponFXComponent.h"
@@ -57,6 +58,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         ActiveProductionToolInstance=ToolId;
     }
     const auto P=Profile->Snapshot();
+    if(auto* Survival=FindComponentByClass<UFPSSurvivalComponent>())Survival->RestoreState(P.Survival);
     if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
     // A single-pistol swap retains its existing held-input behavior. Changing
     // between single and dual input mappings requires fresh trigger edges.

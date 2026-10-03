@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Movement/FPSStaminaModel.cpp
++++ b/Source/FPSGAME/Movement/FPSStaminaModel.cpp
+@@ -42,7 +42,7 @@
+ }
+ double UColdSteelStatusModel::StaminaMaximum(const FColdSteelProfile& State,const FColdSteelStaminaTuning& Tuning)
+ {
+-    const double Con=(State.Attributes.FindRef(TEXT("con"))+EquipmentBonusFor(State,TEXT("con")))*State.Infection.AttributeMultiplier();
++    const double Con=(State.Attributes.FindRef(TEXT("con"))+EquipmentBonusFor(State,TEXT("con")))*State.Infection.AttributeMultiplier()*State.Survival.AttributeMultiplier();
+     return Tuning.BaseMaximum+Con*Tuning.PerConstitution+EquipmentBonusFor(State,TEXT("maxStamina"));
+ }
+ float UColdSteelStatusModel::MaxStamina() const

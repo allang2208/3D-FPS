@@ -1,0 +1,629 @@
+{
+  "target": "https://github.com/allang2208/3D-FPS.git",
+  "branch": "main",
+  "base": "34911c3006b83a5c1e3517d77bfad668fd844008",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 111989,
+      "sha256": "dd31ad3dda7d5f4ec14dc41cb54dbf2d566aecbedcf1a6ba108143a154118ef2",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 12651,
+      "sha256": "4d69e9b6f137619971d8bca37452675f30c3e847863f49235bd2295c8d6cb1df",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "bytes": 113781,
+      "sha256": "bce793911076f6689e862a676a7d83f81a56bba43cb633e4abb6fe8af327f473",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Content/ColdSteelData/potion_use_motion.json",
+      "bytes": 18045,
+      "sha256": "b866efb6b2a8d78f4c4c825f75639b949b5e3eddfe227fcfc439e6caf5480f8c",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Content/ColdSteelData/potion_visuals.json",
+      "bytes": 3469,
+      "sha256": "fa0600a20565b70ee647b06c44ea3fa6761b6c1c289a5364b932adf3e89fbf23",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Content/ColdSteelData/status_effects.json",
+      "bytes": 32398,
+      "sha256": "1497778ae3894724b60c027c1e272c739df5a5d209cafd19f9f61107cb826436",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Content/ColdSteelData/survival.json",
+      "bytes": 195,
+      "sha256": "dfd68302860e30dd1b27927c3652bd5fefa665528fa8d4773bcfb6d1ef5c0ccc",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 76616,
+      "sha256": "5cc2850a866e6fb295afe15b25ac424fc34a2b5eb5a672af382dd6f91ebce20a",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Docs/Characters/san-zero-penalty-20261003.md",
+      "bytes": 2311,
+      "sha256": "bf44a745786f3b30429ffa11be3d5703179ae045b4530daa17c46c840ae411b5",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Docs/UI/SurvivalConsumablesPublication20261003/archive-sources.json",
+      "bytes": 4913,
+      "sha256": "4ce37e260afd0badf23c5dd558ad92d4ec80823defbc0e5a8361a6aff87a0b42",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Docs/UI/SurvivalConsumablesPublication20261003/multiplayer-survival-overlay.patch",
+      "bytes": 1489,
+      "sha256": "1665803459090321a06969eb6c611a0dab2daeb7ced40629ee892201d0413d0c",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Docs/UI/SurvivalConsumablesPublication20261003/stamina-san-overlay.patch",
+      "bytes": 708,
+      "sha256": "773d8e65ccb66ee7d041be9b1c93cef0554b6e9d1d3632aa14013a3718be4d55",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Docs/UI/fountain-blessing-plan-20261003.md",
+      "bytes": 2885,
+      "sha256": "192606523438443ad9ebca9ad052e5acb4416eed90750e49d97f78f824718aff",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Docs/UI/survival-consumables-publication-20261003.md",
+      "bytes": 6192,
+      "sha256": "c84c6ee3d7f765667af19a6e776d4d3b02f24f2adc8875ae83b86745256f6052",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Docs/UI/survival-hud-plan-20261003.md",
+      "bytes": 9259,
+      "sha256": "153db057a1dab2858ee85464fcc3cacb5cfb38d3a27998d5f2d79256fe814ac5",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAME.Build.cs",
+      "bytes": 3133,
+      "sha256": "11de1de702e1c3c86645fdbff5d6492d0baf580c866f1a3fcaa116494dcc69fb",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "bytes": 221432,
+      "sha256": "5c26f73cf6df7ec690a948c6582818fd6b7c1c5ebfae2a8d8181f262ab1a44dc",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "bytes": 12580,
+      "sha256": "ff1827b9079c1348f06bf4fa1b9fed48a406b69e262b2089663b8fd51b5e997e",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "bytes": 34404,
+      "sha256": "1eabd3abf38974fdb9ca68f811641d10ab448253974c9a29d5e3923c8f2a0cf8",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/Items/FPSPotionUseAudio.cpp",
+      "bytes": 2383,
+      "sha256": "785472d805d971d704f73f53748808e87d66052d1c67dbd9e026fae7792e58c6",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/Items/FPSPotionUseComponent.cpp",
+      "bytes": 19748,
+      "sha256": "b7a7a3a621b97f6a9a30353177482495684a33bb5e9c38fe4ec20e84c4e58db0",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/Items/FPSPotionUseComponent.h",
+      "bytes": 3433,
+      "sha256": "2331c3fc6df13c10357c3d00f0fda83de1a187b5cab906e805678e4c46b3c8be",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/Items/PotionArmPose.cpp",
+      "bytes": 6213,
+      "sha256": "cd14f10466a4e66850a3f6d68e08a0f5f2f402513b3a50a0b5efb6ad13313971",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/Items/PotionUseMotion.cpp",
+      "bytes": 4173,
+      "sha256": "fde31b15e23f999e3e14c84ead12d4f2a30cade87ec7c13c739d89141cd781e3",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/Items/PotionUseMotion.h",
+      "bytes": 1234,
+      "sha256": "8cedabcf8d4b8e91d6037136793485b5f92426b5104b339a5e9015b998d70c96",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/Items/PotionVisuals.cpp",
+      "bytes": 2842,
+      "sha256": "09254529ea2bd6db403c82056b15534987358e3f46df6a8a951915188ed7aedd",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/Items/PotionVisuals.h",
+      "bytes": 643,
+      "sha256": "fdbc85aa8ca7f776e2006619d23421bda2a68d55bb453cc72bc67b01495342ae",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+      "bytes": 8289,
+      "sha256": "c715ced3a73ccd548175cb4891dd98cfad6d396b70702edb10b954a636275215",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.h",
+      "bytes": 1094,
+      "sha256": "17243f7e28fb378bb9fcc8bfed8fe428c7f105caa7f2d0e81734550de5f25358",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/Survival/FPSSurvivalComponent.cpp",
+      "bytes": 9280,
+      "sha256": "a9652ce54bd75ef63967ce69bc6cc699590a7d618c91ceb3bcb2deea68db1204",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/Survival/FPSSurvivalComponent.h",
+      "bytes": 1969,
+      "sha256": "7fbfbd884adc6b7220fa966a944f00a9021e1cd53776601ad85dbca2ba7d6511",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/Survival/FPSSurvivalTypes.h",
+      "bytes": 1629,
+      "sha256": "5ab5211d4bd28787317694201e22190dd8e5a77aa8541dcdd1055c3d8294080c",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp",
+      "bytes": 30435,
+      "sha256": "0e2ff18bb96edc036902d7a2c51c44582df01e8f862951abbec71f57237314fe",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+      "bytes": 13818,
+      "sha256": "fb20b6ef46e261ec0a08a5b9240a2e331db276e8d5deef15640675e01d002654",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "bytes": 29769,
+      "sha256": "1064c494e85035dcf65f535d43384c3319119980bd1589cb37a83098a5d0b68d",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp",
+      "bytes": 23405,
+      "sha256": "6279fc9218ee24b75df0e1d879ea571fdb521277562e951a1ca1282be07a0ca6",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "bytes": 33090,
+      "sha256": "8611de238cc17e2b7377ccb157f216cc2cd4ce33819846c6ffdb0f6473fbce53",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "bytes": 17312,
+      "sha256": "e57fbfbc28f22c420fe000dbd1a21f3c273caa08795b228ffb48e9e85b63f728",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+      "bytes": 34910,
+      "sha256": "6cbe0520db160de5fde3f8c48e4f2aae7ec6fadc176473d34889212e8c398a6b",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "bytes": 46892,
+      "sha256": "57d448b1977e5dd46437c0bed514114f72ac15bcbf4c20cc31afe9daa952d2e8",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "bytes": 5460,
+      "sha256": "c2b63f70303165e4c6728c3bfe2dfa8f3d771aa42180ff6148b16531cce9957f",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "bytes": 68120,
+      "sha256": "c8ddc793abefe7620fb8453ea4bf1cc13e02667b2755f6c1c51c75c425297e4f",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+      "bytes": 13056,
+      "sha256": "fa4909236a1a1cc19b9c9f3c6641877333b666220492314570e43f9a54f07423",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickDrag.cpp",
+      "bytes": 6226,
+      "sha256": "601c4dc310803faa95a2dbc5ba5b6236503f43f0f3c1e626ae1e5000127fbe00",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "bytes": 25015,
+      "sha256": "4b48c413dafa9d73aef4adcbc0f33b90568260ec97e6feb9b0179748385f94de",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickSlot.h",
+      "bytes": 2347,
+      "sha256": "8b2a51fb7cedfeb611ebbe61d2efc3108a013ab35d5faf16be200c7280caace4",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelResourceMeter.cpp",
+      "bytes": 3779,
+      "sha256": "75e57aa9d20c91a321a233fdbd4fb5384d652150f972f4f07be9815d09076bf1",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelResourceMeter.h",
+      "bytes": 905,
+      "sha256": "55a1102110820b83c1f7b78f8604f00190d9d9630c8640ed470c5505046adffa",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.cpp",
+      "bytes": 7788,
+      "sha256": "8676b064d960e72ff2954715641e026e4158ed900c4cff706c0c39cc80eb57f2",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "bytes": 34868,
+      "sha256": "02d61e551d99398b28581ad9f7b007888dc39758193efcdd884e2b93f8a8c8e2",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelTopVitals.cpp",
+      "bytes": 16504,
+      "sha256": "7e0c80487d268ff91184b7dc1d7bf4a027e446aecf3f57c908514d58e6db4226",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+      "bytes": 11190,
+      "sha256": "5d43f694b5ee1305696f90fdf552f7900dea091e18f2e1bb2576601853da48f0",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+      "bytes": 16320,
+      "sha256": "ac62172165e391f63645d9e5d54a2eeae3f030bb7e875f3bbaa3da76afb25ee6",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.h",
+      "bytes": 2624,
+      "sha256": "1f708f49e1b6c2c42d107d2656e131dab772ac923c005c4bc3ab3dcf569f6a03",
+      "working_tree_subset": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/StatusEffectsComponent.cpp",
+      "bytes": 8398,
+      "sha256": "a3aa5831973b392fd891fc19cc58481289d6f8a0fec4934ce1fae0010ae82fb5",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/StatusEffectsHUD.cpp",
+      "bytes": 10824,
+      "sha256": "5c573462f567313dd3b7589314544e7a2f8ac0575d1c096c6c20744dae8318dd",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponStatEvaluation.cpp",
+      "bytes": 3895,
+      "sha256": "0d446432bdae838a302b39b79c0d3a3d133191c076788e90e4e456f4dfd63107",
+      "working_tree_subset": true
+    },
+    {
+      "path": "SourceAssets/Baguette20261003/author_baguette.py",
+      "bytes": 8664,
+      "sha256": "b8d5c6eefc4cd364aaad2baf689b98037b8a07f0fbed0fef5645fab92952e424",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/Baguette20261003/build_and_save.ps1",
+      "bytes": 1934,
+      "sha256": "31f3d68e2135afca15fb1fe33437c78b09c517dce17ecb4cd00a87229ede8ba2",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/Baguette20261003/configure_food.py",
+      "bytes": 1708,
+      "sha256": "0ff199fc0c75dd1402905ef833f8510b0689557183dd19a44f2ff8b8ff93307c",
+      "working_tree_subset": true
+    },
+    {
+      "path": "SourceAssets/Baguette20261003/import_baguette.py",
+      "bytes": 5283,
+      "sha256": "bcb68461043c24906d858a4c1ed406b40e8388decaf3d7e7d18a5e362c60f13e",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/Baguette20261003/read_fit_source.py",
+      "bytes": 817,
+      "sha256": "142b9e222e8ec158171fefb5bc34fc85f191339f396ee7e734e9db975d4a45e6",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/Baguette20261003/read_imported_assets.py",
+      "bytes": 466,
+      "sha256": "616edd4eed871b8c6ecd3dc3365740d334d4ef44d369b1780fcc69da93c0aae1",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/Bread20261003/author_bread.py",
+      "bytes": 8569,
+      "sha256": "b91391813f1bfbeb39e9e686d039534d6efa393ada0f4700acc32285fac0f2b5",
+      "working_tree_subset": true
+    },
+    {
+      "path": "SourceAssets/Bread20261003/build_and_save.ps1",
+      "bytes": 1916,
+      "sha256": "4d658646ce7da3b100d0d26219befa6d2d2a099a3e2e6792767ed157f7eb7eae",
+      "working_tree_subset": true
+    },
+    {
+      "path": "SourceAssets/Bread20261003/configure_food.py",
+      "bytes": 1487,
+      "sha256": "4423418811caa81b40fb5d39a6177ef6a23aa528d6a97366146cffefce40c55c",
+      "working_tree_subset": true
+    },
+    {
+      "path": "SourceAssets/Bread20261003/import_bread.py",
+      "bytes": 5244,
+      "sha256": "2836c45a3d22b3dc98f2be40647aa7fab7db06bb6e755fc32c4067057bde9cdd",
+      "working_tree_subset": true
+    },
+    {
+      "path": "SourceAssets/Bread20261003/prepare_sources.py",
+      "bytes": 2310,
+      "sha256": "7d77282667386826307d3ed29c7338ad24ac6e1cdd0e647ac825078bff2e89b0",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/ConsumableAudio20261003/README.md",
+      "bytes": 1659,
+      "sha256": "ef228f209ef4a0a9a16722109ddcb4720c275ed3bcf48cc256cb83c411dd7580",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/ConsumableAudio20261003/build_and_import.ps1",
+      "bytes": 2147,
+      "sha256": "1178b8ffd98ca41a5df65650b271f470782cbf03e2105e6326dcae0452e34f5a",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/ConsumableAudio20261003/import_audio.py",
+      "bytes": 1958,
+      "sha256": "f60963f0b206e33c8935311be6f25848d045ca53d500e805897ea94ed49780ab",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/ConsumableAudio20261003/prepare_audio.py",
+      "bytes": 1515,
+      "sha256": "58d7bb17e65d6021c340a9e9b954644c6e4431050a23f2842c69cf525f9cf0da",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/FoodGrip20261003/README.md",
+      "bytes": 2118,
+      "sha256": "13ca0a6937e8bb8756f452b30ec72435faf74a4ab9edd2413a196a6f34eb58af",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/FoodGrip20261003/author_grips.py",
+      "bytes": 8852,
+      "sha256": "0bc778e34fd27975a1ab7917a6b79654fcca5c8b8a0da59af57b5f80bace1db7",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/FoodGrip20261003/grip_profiles.json",
+      "bytes": 8180,
+      "sha256": "0d6708ba4a31f51bdbd4d8600eab217c55be675b1f40790766aaeecc9d90705b",
+      "working_tree_subset": true
+    },
+    {
+      "path": "SourceAssets/FoodGrip20261003/natural_food_motion.py",
+      "bytes": 2620,
+      "sha256": "211a2345b2f2245fa7b895fc63a5e85b650d85a0a09aa760e9b053266f75d0f7",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/FoodGrip20261003/publish_food_motion.py",
+      "bytes": 2635,
+      "sha256": "00fafc29372e89959d5438e64f654fc814cba1186f2d3890e014ee85f39b5457",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/FoodGrip20261003/read_contact_geometry.py",
+      "bytes": 2452,
+      "sha256": "0cbdbbb76d1b59dffaf3e401781ea95de234f56dd919ef7b6b1b826def8acad5",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/MineralWater20261003/author_water.py",
+      "bytes": 9655,
+      "sha256": "d3e46dd6fc75eeda85759cf6c9e220952efd01aa228edfa5553902415c409afa",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/MineralWater20261003/configure_item.py",
+      "bytes": 2449,
+      "sha256": "644158520422ed4e9ba2a973245e53cb2a1e240a57f93f3f531c27512016410d",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/MineralWater20261003/import_water.py",
+      "bytes": 7683,
+      "sha256": "5edff66cf9cc044eeb8fb29dee5358e5b0180d672956ccb8216b9f951a254749",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/MineralWater20261003/make_label.py",
+      "bytes": 1144,
+      "sha256": "3a91fe8fec5f9a844b8b2a2fdba0437b4e1f7aae8aca74b8d670fb31d561518b",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/MineralWater20261003/read_loaded_bottle.py",
+      "bytes": 2937,
+      "sha256": "9709134139c3b6f0efb39caddef6bd87040acb6b64581c045fe5655f58d237e6",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/MineralWater20261003/read_source.py",
+      "bytes": 918,
+      "sha256": "aa4d3b257559e4fdae9777f3699e1664f3e536d805cac746e52f2d507208e2a1",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/SodaCan20261003/README.md",
+      "bytes": 2464,
+      "sha256": "d5fb1ca84a1c82333f8fedca1359bb28e83554ba3b84d15a406a51c7aac69c2b",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/SodaCan20261003/author_soda.py",
+      "bytes": 5666,
+      "sha256": "a0287d9976d9dce3073efc3bba6b0cfbe6576f9a53c595810b39ec26b2a2f31d",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/SodaCan20261003/configure_soda.py",
+      "bytes": 2760,
+      "sha256": "98af15ca035396340bcf265ed33fd6169c1894644db8556bdb36818912f12807",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/SodaCan20261003/import_soda.py",
+      "bytes": 4524,
+      "sha256": "a88931f341f5601e830407a8c4189703e12ff09b8d6fe329f23029ccad9bd017",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/SodaCan20261003/render_icon.py",
+      "bytes": 3087,
+      "sha256": "9acdebac34039c2adbfcd39e7a0720694533566f235d43af674c34dbce390b8a",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/SodaCan20261003/save_assets.ps1",
+      "bytes": 1886,
+      "sha256": "ceba119c5195dcd75559325a08ca5d63f982d84bd4092502ad65e7e31bd7843e",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/SodaCanGrip20261003/README.md",
+      "bytes": 1511,
+      "sha256": "d635da2efeb9ce4442979bb7a251558de54062967855e28be580e0593639ae8a",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/SodaCanGrip20261003/author_grip.py",
+      "bytes": 9979,
+      "sha256": "25e862ddadc40fc9c460ddd3703ba1d9d0cd9d1cc9a5ddd696cd0460a87adb30",
+      "working_tree_subset": false
+    },
+    {
+      "path": "SourceAssets/SodaCanGrip20261003/grip_profile.json",
+      "bytes": 1334,
+      "sha256": "449f78637b68b5f68039e3d41e796d3e535d3b8f281b50bb413c0b80a6e44058",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Tools/Build/Build-SurvivalHUD20261003.ps1",
+      "bytes": 1766,
+      "sha256": "3c4aad817fd576faef910476d86b7c793becd4abece8fcc2d9c1f949e591150c",
+      "working_tree_subset": true
+    },
+    {
+      "path": "Tools/UI/render_survival_hud_reference.py",
+      "bytes": 11133,
+      "sha256": "ab6be00027af60214fa95ede2de58aae6b2986c6ebc506c7fbab631ca06c6db5",
+      "working_tree_subset": false
+    },
+    {
+      "path": "skills/ue5-cpp-gameplay/SKILL.md",
+      "bytes": 10048,
+      "sha256": "e9f4c65ddafbe85a544132bd321f8f61e8aa0af0f80505a8051dd67898b6dc14",
+      "working_tree_subset": true
+    },
+    {
+      "path": "skills/ue5-cpp-gameplay/references/survival-state-and-attribute-penalties.md",
+      "bytes": 2326,
+      "sha256": "65186816cd8333116502523e17a95211b1105ecd37e3bdfd6ca3dbe6808bd100",
+      "working_tree_subset": false
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "bytes": 19713,
+      "sha256": "094c63873244da33b8b9653157886a1caad5e8e90f382cff586b8a623b8f9a75",
+      "working_tree_subset": true
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/food-and-drink-grasp.md",
+      "bytes": 2123,
+      "sha256": "5a82f8473aee0ae965e3dfe7b4581b38e38c487a8e3f0a40f0471aa4751ee62f",
+      "working_tree_subset": false
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/SKILL.md",
+      "bytes": 14194,
+      "sha256": "15346fa5436fa2c68395706deba2323f724edd7e37d12b731b39a381e946d5dc",
+      "working_tree_subset": true
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/references/survival-consumables.md",
+      "bytes": 2648,
+      "sha256": "c26a7aeee15d35e0d52f2f9e3933a63041987d52755a6af5f5966321ebb531d8",
+      "working_tree_subset": false
+    },
+    {
+      "path": "skills/ue5-ui-umg-slate/SKILL.md",
+      "bytes": 13713,
+      "sha256": "0ab8739177b5f0e8829d3f3ae7f6fa66509f243ad7b1c7279096d02417cf35f7",
+      "working_tree_subset": true
+    },
+    {
+      "path": "skills/ue5-ui-umg-slate/references/survival-status-layout.md",
+      "bytes": 1408,
+      "sha256": "17062421f6af9a8c7709ac073b7da15f1fa16160427e33e65daa93c24d09644e",
+      "working_tree_subset": false
+    }
+  ],
+  "binary_payloads_published": false,
+  "gameplay_tests_run": false,
+  "public_subset_built": false,
+  "native_working_project_editor_and_game_builds": "completed before cleanup"
+}

@@ -30,7 +30,7 @@ double UColdSteelStatusModel::EquipmentBonusFor(const FColdSteelProfile& State,F
 }
 double UColdSteelStatusModel::ResourceMaximum(const FColdSteelProfile& State,bool Mana)
 {
-    auto Raw=[&](FName Key){return (State.Attributes.FindRef(Key)+EquipmentBonusFor(State,Key))*State.Infection.AttributeMultiplier();};
+    auto Raw=[&](FName Key){return (State.Attributes.FindRef(Key)+EquipmentBonusFor(State,Key))*State.Infection.AttributeMultiplier()*State.Survival.AttributeMultiplier();};
     return 100+(State.Level-1)*10+(Mana?Raw(TEXT("wis"))*10+Raw(TEXT("intt"))*5:Raw(TEXT("con"))*10)+EquipmentBonusFor(State,Mana?TEXT("maxMp"):TEXT("maxHp"));
 }
 double UColdSteelStatusModel::Attribute(FName Key) const
@@ -42,7 +42,28 @@ double UColdSteelStatusModel::Attribute(FName Key) const
         +(Key==TEXT("wis")?RifleEffect().Wisdom:0)
         +(Key==TEXT("dex")?DexterousHandsEffect().Dexterity+PistolEffect().Dexterity+MasteryEffect(TEXT("bowMastery")).Dexterity:0)
         +(Key==TEXT("luck")?CriticalStrikeEffect().Luck:0);
-    return Base*InfectionAttributeMultiplier();
+    return Base*EffectiveAttributeMultiplier();
+}
+double UColdSteelStatusModel::EffectiveAttributeMultiplier() const
+{return InfectionAttributeMultiplier()*Current.Survival.AttributeMultiplier();}
+
+void UColdSteelStatusModel::SetSurvivalState(const FFPSSurvivalState& State,AActor* Source)
+{
+    if(!Source||Source!=CurrentPawn.Get())return;
+    const bool WasDepleted=Current.Survival.IsSanityDepleted();
+    Current.Survival=State;bTrainingDirty=true;
+    if(WasDepleted==Current.Survival.IsSanityDepleted())return;
+    // Derived penalties never overwrite the allocated or equipped attributes.
+    if(auto* Health=Source->FindComponentByClass<UFPSCombatHealthComponent>())
+    {
+        Health->MaxHealth=Derived(TEXT("maxHp"));
+        Health->Health=FMath::Min(Health->Health,Health->MaxHealth);Current.Health=Health->Health;
+    }
+    Current.Mana=FMath::Min(Current.Mana,Derived(TEXT("maxMp")));
+    const float Before=Current.Stamina;
+    Current.Stamina=FMath::Min(Current.Stamina,MaxStamina());
+    if(Before!=Current.Stamina)OnStaminaChanged.Broadcast();
+    OnChanged.Broadcast();
 }
 void UColdSteelStatusModel::SetInfectionState(const FInfectionState& State,bool bStageChanged)
 {
@@ -80,8 +101,8 @@ float UColdSteelStatusModel::Derived(FName Key) const
     const CoreCombatFormula::Attributes A{Total(TEXT("str")),Total(TEXT("dex")),Total(TEXT("intt")),
         Total(TEXT("con")),Total(TEXT("wis")),Total(TEXT("luck"))};
     const auto S=CoreCombatFormula::Player(A,Level);
-    const double Infection=InfectionAttributeMultiplier();
-    auto Raw=A;Raw.Str-=(MasteryEffect(TEXT("machineGunMastery")).Strength+MasteryEffect(TEXT("heavyStrike")).Strength+MasteryEffect(TEXT("whirlwind")).Strength)*Infection;Raw.Con-=MasteryEffect(TEXT("shotgunMastery")).Constitution*Infection;Raw.Dex-=(DexterousHandsEffect().Dexterity+PistolEffect().Dexterity+MasteryEffect(TEXT("bowMastery")).Dexterity)*Infection;Raw.Wis-=RifleEffect().Wisdom*Infection;Raw.Luck-=CriticalStrikeEffect().Luck*Infection;
+    const double AttributeScale=EffectiveAttributeMultiplier();
+    auto Raw=A;Raw.Str-=(MasteryEffect(TEXT("machineGunMastery")).Strength+MasteryEffect(TEXT("heavyStrike")).Strength+MasteryEffect(TEXT("whirlwind")).Strength)*AttributeScale;Raw.Con-=MasteryEffect(TEXT("shotgunMastery")).Constitution*AttributeScale;Raw.Dex-=(DexterousHandsEffect().Dexterity+PistolEffect().Dexterity+MasteryEffect(TEXT("bowMastery")).Dexterity)*AttributeScale;Raw.Wis-=RifleEffect().Wisdom*AttributeScale;Raw.Luck-=CriticalStrikeEffect().Luck*AttributeScale;
     const auto Resources=CoreCombatFormula::Player(Raw,Level);
     if (Key == TEXT("atk")) return AdjustCombatStat(Key,S.Atk+CoreCombatFormula::Round(EquipmentBonus(Key)));
     if (Key == TEXT("def")) {float Equipment=0;if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())for(const auto& Item:Current.Items)if(Item.Place==1&&(ColdSteelInventory::Text(Item,TEXT("weaponType"))!=TEXT("shield")||Item.Cell==(Current.ActiveWeaponSlot==6?8:11)))Equipment+=E->Defense(Item);double Value=S.Def+Equipment;if(const auto* I=Equipped())if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())Value=std::floor(Value*(1+E->CraftEffect(*I,TEXT("defensePercent"))));return AdjustCombatStat(Key,Value);}

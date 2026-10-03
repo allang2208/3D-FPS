@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -2,6 +2,7 @@
+ #include "../FPSGAMECharacter.h"
+ #include "../Characters/FPSPlayerBodyComponent.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
++#include "../Survival/FPSSurvivalComponent.h"
+ #include "../Skills/ColdSteelSkillTypes.h"
+ #include "../Skills/ColdSteelSkillRules.h"
+ #include "../Skills/WhirlwindTypes.h"
+@@ -264,6 +265,10 @@
+         // 任一侧的增量都不会被对方旧快照回滚。
+         const FColdSteelProfile Prev = ShadowModel->Snapshot();
+         FColdSteelProfile Adopted = GuestProfile;
++        // Ongoing survival is server-owned; inventory uploads must not refill or rewind it.
++        Adopted.Survival=Prev.Survival;
++        if(const auto* Character=Cast<AFPSGAMECharacter>(GetPawn()))
++            if(const auto* Survival=Character->FindComponentByClass<UFPSSurvivalComponent>())Adopted.Survival=Survival->GetState();
+         Adopted.Level      = FMath::Max(Adopted.Level, Prev.Level);
+         Adopted.Experience = FMath::Max(Adopted.Experience, Prev.Experience);
+         Adopted.Kills      = FMath::Max(Adopted.Kills, Prev.Kills);
+@@ -478,6 +483,7 @@
+     else
+     {
+         FColdSteelProfile Merged = Model->Snapshot();
++        Merged.Survival=Save->Profile.Survival;
+         Merged.Level = Save->Profile.Level;
+         Merged.Experience = Save->Profile.Experience;
+         Merged.Points = Save->Profile.Points;

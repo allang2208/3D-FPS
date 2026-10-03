@@ -338,6 +338,15 @@ static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool Allo
         {Reason=TEXT("拼装成品已在背包中，不能重复领取");return false;}
     }
     if(P.StaminaVersion<0||P.StaminaVersion>1||!FMath::IsFinite(P.Stamina)||P.Stamina<0||!FMath::IsFinite(P.StaminaRecoveryDelay)||P.StaminaRecoveryDelay<0||P.StaminaRecoveryDelay>60){Reason=TEXT("体力数据无效");return false;}
+    const auto& Survival=P.Survival;
+    const float Values[]={Survival.Hunger,Survival.Hydration,Survival.Sanity},Maxima[]={Survival.MaxHunger,Survival.MaxHydration,Survival.MaxSanity};
+    for(int32 Index=0;Index<3;++Index)
+        if(!FMath::IsFinite(Values[Index])||!FMath::IsFinite(Maxima[Index])||Maxima[Index]<=0.f||Values[Index]<0.f||Values[Index]>Maxima[Index])
+        {Reason=TEXT("生存状态数据无效，保留原存档");return false;}
+    if(!FMath::IsFinite(Survival.DeprivationSeconds)||Survival.DeprivationSeconds<0.f||Survival.DeprivationSeconds>=1.f)
+    {Reason=TEXT("生存损血计时无效，保留原存档");return false;}
+    if(!FMath::IsFinite(Survival.FountainBlessingSeconds)||Survival.FountainBlessingSeconds<0.f||Survival.FountainBlessingSeconds>FFPSSurvivalState::FountainBlessingDuration)
+    {Reason=TEXT("喷泉赐福计时无效，保留原存档");return false;}
     Reason=TEXT("存档数据未通过校验，保留原文件");
     if((P.Version!=1&&P.Version!=2)||P.WarehouseLayoutVersion<0||P.WarehouseLayoutVersion>1||P.WarehousePages<1||P.WarehousePages>(P.WarehouseLayoutVersion?ColdSteelWarehouse::MaxPages:500)||P.Level<1||P.Level>10000||P.Experience<0||P.Points<0||P.Kills<0||P.Generation<0||P.Items.Num()>10000||P.Hotbar.Num()!=4||P.HotbarDefinitions.Num()!=4||!FMath::IsFinite(P.Health)||!FMath::IsFinite(P.Mana)||P.Health<0||P.Mana<0)return false;
     if(P.Experience >= (20ll+P.Level*20ll+P.Level*int64(P.Level)*12)*8)return false;

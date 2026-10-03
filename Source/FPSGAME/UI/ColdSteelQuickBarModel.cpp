@@ -112,7 +112,11 @@ bool UColdSteelStatusModel::BindQuickItem(int32 Index,const FString& Id)
     if(!Current.QuickBindings.IsValidIndex(Index))return false;
     if(Id.IsEmpty())return ClearQuickBinding(Index);
     const auto* Item=FindItem(Id);
-    if(!Item||Item->Place!=0||ColdSteelInventory::Text(*Item,TEXT("category"))!=TEXT("consumable"))return false;
+    // Match the drag preview: equipped backpack compartments are carried inventory too.
+    if(!Item||(Item->Place!=0&&Item->Place!=ColdSteelInventory::ColdSteelCompartment::Place)||ColdSteelInventory::Text(*Item,TEXT("category"))!=TEXT("consumable"))
+    {
+        Message=TEXT("仅可绑定背包或夹层中的消耗品");return false;
+    }
     int32 Existing=INDEX_NONE;
     for(int32 I=0;I<ColdSteelQuickBar::Count;++I)
     {const auto* Bound=ResolveQuickItem(I);if(Current.QuickBindings[I].ItemId==Id||(Bound&&Bound->InstanceId==Id)){Existing=I;break;}}

@@ -38,6 +38,7 @@ public class FPSGAME : ModuleRules
         PrivateDependencyModuleNames.Add("MoviePlayer");
         PrivateDependencyModuleNames.Add("ImageCore"); // Bounded expedition thumbnails decoded off the game thread.
         RuntimeDependencies.Add("$(ProjectDir)/Content/UI/TransitLoading/...", StagedFileType.UFS);
+        PrivateDependencyModuleNames.Add("NetCore"); // Packed body-motion vectors link UE::Net quantization helpers.
         PrivateDependencyModuleNames.Add("PhysicsCore");
         PrivateDependencyModuleNames.Add("Chaos");
         PrivateDependencyModuleNames.Add("ChaosCore"); // TAABB methods used by dungeon geometry are exported by ChaosCore in UE 5.8.

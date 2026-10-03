@@ -448,6 +448,7 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         {
             auto* Target=ColdSteelWorldInteraction::TraceTarget(this);
             if(ColdSteelWorldInteraction::IsExpeditionAltar(Target)){OpenExpedition();return true;}
+            if(ColdSteelWorldInteraction::IsBlessingFountain(Target)){InterruptInspection();ColdSteelWorldInteraction::DrinkFromFountain(this,Target);return true;}
             if(auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&Run->IsShrine(Target)){InterruptInspection();Run->ClaimShrine(this,Target);return true;}
             if(ColdSteelWorldInteraction::IsTreasureChest(Target)){InterruptInspection();ColdSteelWorldInteraction::OpenTreasureChest(this,Target);return true;}
             if(auto* Container=ColdSteelWorldInteraction::FocusedSceneContainer(this)){InterruptInspection();Container->TrySearch(this);return true;}

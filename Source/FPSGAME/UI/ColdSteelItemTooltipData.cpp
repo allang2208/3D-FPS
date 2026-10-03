@@ -455,8 +455,23 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     if(auto Special=Object(O,TEXT("specialAttack"))){Section(Main,TEXT("特殊攻击"));Row(Main,TEXT("伤害类型"),String(Special,TEXT("damageType")));Row(Main,TEXT("伤害公式"),String(Special,TEXT("damageFormula")));for(const auto& F:TArray<TPair<FString,FString>>{{TEXT("duration"),TEXT("持续时间")},{TEXT("cooldown"),TEXT("冷却时间")}})if(Special->HasField(F.Key))Row(Main,F.Value,N(Number(Special,*F.Key))+TEXT("秒"));}
     if(Cat==TEXT("consumable")){const auto Effect=Object(O,TEXT("useEffect"));if(Effect&&!Effect->Values.IsEmpty()){
         Section(Main,TEXT("使用效果"));if(Effect->HasField(TEXT("hp")))Row(Main,TEXT("恢复生命"),Signed(Number(Effect,TEXT("hp"))),1);if(Effect->HasField(TEXT("mp")))Row(Main,TEXT("恢复魔法"),Signed(Number(Effect,TEXT("mp"))),1);
+        if(Effect->HasField(TEXT("hydration")))
+        {
+            const double Water=Number(Effect,TEXT("hydration"));
+            Row(Main,Water<0?TEXT("消耗水分"):TEXT("恢复水分"),Signed(Water),Water<0?-1:1);
+        }
+        if(Effect->HasField(TEXT("hunger")))Row(Main,TEXT("恢复饥饿度"),Signed(Number(Effect,TEXT("hunger"))),1);
+        if(Effect->HasField(TEXT("sanity")))Row(Main,TEXT("恢复 SAN"),Signed(Number(Effect,TEXT("sanity"))),1);
         if(Effect->HasField(TEXT("maxHpPercent")))Row(Main,TEXT("恢复最大生命"),Signed(Number(Effect,TEXT("maxHpPercent")),TEXT("%")),1);if(Effect->HasField(TEXT("maxMpPercent")))Row(Main,TEXT("恢复最大魔法"),Signed(Number(Effect,TEXT("maxMpPercent")),TEXT("%")),1);}
-        if(Number(O,TEXT("useCooldown"))>0)Row(Main,TEXT("冷却时间"),N(Number(O,TEXT("useCooldown")))+TEXT("秒"));Row(Main,TEXT("使用方式"),TEXT("双击 / Enter / 拖入快捷栏"));}
+        if(I.Definition==TEXT("mineral_water"))
+        {
+            const int32 Uses=FMath::Clamp(int32(Number(O,TEXT("remainingUses"),2)),1,2);
+            Row(Main,TEXT("剩余次数"),FString::Printf(TEXT("%d / 2"),Uses));
+            Row(Main,TEXT("瓶内水量"),Uses==2?TEXT("满瓶"):TEXT("半瓶"));
+        }
+        if(I.Definition==TEXT("baguette_bread")||I.Definition==TEXT("bread"))Row(Main,TEXT("食用次数"),TEXT("单次使用"));
+        if(Number(O,TEXT("useDuration"))>0)Row(Main,TEXT("使用时长"),N(Number(O,TEXT("useDuration")))+TEXT("秒"));
+        if(Number(O,TEXT("useCooldown"))>0)Row(Main,TEXT("冷却时间"),N(Number(O,TEXT("useCooldown")))+TEXT("秒"));Row(Main,TEXT("使用方式"),TEXT("右键 / 双击 / Enter / 快捷栏"));}
     if(I.Count>1)Row(Main,TEXT("堆叠数量"),FString::Printf(TEXT("%lld / %lld"),I.Count,I.StackMax));
     if(I.Place==4)Row(Main,TEXT("取出方式"),TEXT("右键 / 双击 / Enter / 拖入背包"));
     // 武器特殊性质取自枪匠目录，而不是物品实例快照：目录每次读盘解析，

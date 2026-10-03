@@ -494,3 +494,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## 唐刀与专属改造（2026-10-03）
 
 当前唐刀保留燕翎刀身、游龙 SolidV4 刀身、两款龙凤护手、燕翎 ConeV3 和虎首 ConnectorV4 配重，以及祥云符文与金色限定卡。公开源码、运行目录、小型配方和 SKILL 技法；完整模型、纹理、高度图、参考图、图标与 UE 资产保持本机。废案和旧备份移至 `trash/tang-dao-retired-20261003`，仍在使用的游龙 JointRepair 符文材质保留。恢复顺序、许可和本次未进行游戏测试的边界见 [唐刀源码发布与恢复](Weapons/tang-dao-publication-20261003.md)。
+
+## 生存状态与食水消耗品（2026-10-03）
+
+恢复本机水瓶、Quixel 面包／法棍、Fab Soda Can、四个用户吞咽音效和 V7 手模输入。公开生存／赐福／SAN 归零源码、消耗品参数、作者配方及对应 SKILL；模型、PBR、图标、音频、UE 包和导入回执保留本机。8 个旧候选／备份已归档到 trash，体质型耐力与联机合并的未发布依赖另列，不夹带其他功能。恢复顺序、当前数值与构建／未测试边界见 [生存与消耗品整理发布](UI/survival-consumables-publication-20261003.md)。

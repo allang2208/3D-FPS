@@ -8,6 +8,11 @@
 #include "../Building/VoxelBuildWorld.h"
 #include "../Building/SmeltingSystem.h"
 #include "../Building/ColdSteelDoorInteraction.h"
+#include "../Building/ColdSteelFountain.h"
+#include "../Survival/FPSSurvivalComponent.h"
+#include "../Items/FPSPotionUseComponent.h"
+#include "ColdSteelStatusModel.h"
+#include "Kismet/GameplayStatics.h"
 #include "ColdSteelWarehouseChest.h"
 #include "ColdSteelSceneContainer.h"
 #include "ColdSteelPickup.h"
@@ -100,6 +105,31 @@ bool ColdSteelWorldInteraction::IsExpeditionAltar(const AActor* Target)
 {
     static const FName AltarTag(TEXT("ColdSteel.ExpeditionAltar"));
     return IsValid(Target) && Target->ActorHasTag(AltarTag);
+}
+
+bool ColdSteelWorldInteraction::IsBlessingFountain(const AActor* Target)
+{
+    return IsValid(Target)&&Cast<AColdSteelFountain>(Target)
+        &&UGameplayStatics::GetCurrentLevelName(Target,true)==TEXT("DayNight_Lighting");
+}
+
+bool ColdSteelWorldInteraction::DrinkFromFountain(const APlayerController* PC,AActor* Target)
+{
+    // The existing use trace enforces cursor mode, walls and eye reach. Never use actor-centre distance:
+    // the basin itself is almost ten metres wide and is approached at its rim.
+    if(!IsBlessingFountain(Target)||TraceTarget(PC)!=Target)return false;
+    APawn* Pawn=PC->GetPawn();
+    if(!Pawn||!Pawn->HasAuthority())return false;
+    auto* Survival=Pawn->FindComponentByClass<UFPSSurvivalComponent>();
+    if(!Survival||!Survival->DrinkBlessedWater())return false;
+    if(auto* Consumable=Pawn->FindComponentByClass<UFPSPotionUseComponent>())Consumable->PlayHydrationAudio();
+    if(auto* Game=PC->GetGameInstance())if(auto* Profile=Game->GetSubsystem<UColdSteelStatusModel>())
+    {
+        // SaveNow captures the live resources and blessing before publishing the profile.
+        Profile->SaveNow();
+        Profile->PostNotice(TEXT("清泉赐福"),TEXT("缺水度已补满 · 12 分钟内饥饿、缺水消耗减慢 10%"),TEXT("💧"));
+    }
+    return true;
 }
 
 bool ColdSteelWorldInteraction::IsTreasureChest(const AActor* Target)
@@ -266,6 +296,7 @@ ColdSteelWorldInteraction::FInteractionHint ColdSteelWorldInteraction::ResolveIn
     FInteractionHint Hint;
     if(!IsValid(Target))return Hint;
     if(IsExpeditionAltar(Target)){Hint.Text=TEXT("祭坛 · 打开出征面板");return Hint;}
+    if(IsBlessingFountain(Target)){Hint.Text=TEXT("喷泉 · 补满水分并获得 12 分钟赐福");return Hint;}
     if(const auto* Run=UDungeonRunSubsystem::Get(Target->GetWorld());Run&&Run->IsShrine(Target))
     {Hint.Text=Run->ShrinePrompt();Hint.bAction=Run->CanClaimShrine();return Hint;}
     if(IsTreasureChest(Target))

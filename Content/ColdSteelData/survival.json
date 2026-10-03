@@ -1,0 +1,8 @@
+{
+  "hungerPerSecond": 0.05,
+  "hydrationPerSecond": 0.075,
+  "dungeonSanityPerSecond": 0.02,
+  "monsterSanityMultiplier": 1.0,
+  "monsterSanityLossByTag": {},
+  "monsterSanityLossByClass": {}
+}

@@ -7,12 +7,17 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/Pawn.h"
 #include "../Dungeons/DungeonRunSubsystem.h"
+#include "../Survival/FPSSurvivalComponent.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "Serialization/JsonSerializer.h"
 
 FString FStatusEffectView::TimeText() const
-{return Persistent?(DurationText.IsEmpty()?TEXT("持续"):DurationText):Battles>=0?FString::Printf(TEXT("%d场"),Battles):FString::Printf(TEXT("%ds"),FMath::CeilToInt(FMath::Max(0.f,Remaining)));}
+{
+ if(Type==TEXT("fountainBlessing"))
+ {const int32 Seconds=FMath::CeilToInt(FMath::Max(0.f,Remaining));return FString::Printf(TEXT("%d:%02d"),Seconds/60,Seconds%60);}
+ return Persistent?(DurationText.IsEmpty()?TEXT("持续"):DurationText):Battles>=0?FString::Printf(TEXT("%d场"),Battles):FString::Printf(TEXT("%ds"),FMath::CeilToInt(FMath::Max(0.f,Remaining)));
+}
 FStatusEffectView UStatusEffectsComponent::Definition(FName Type)
 {
  static TMap<FName,FStatusEffectView> Catalog;
@@ -46,6 +51,14 @@ void UStatusEffectsComponent::Notify(AActor* Owner){if(auto* C=GetOrCreate(Owner
 TArray<FStatusEffectView> UStatusEffectsComponent::Snapshot() const
 {
  TArray<FStatusEffectView> Result;if(auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>())if(H->IsDead())return Result;
+ if(const auto* Survival=GetOwner()->FindComponentByClass<UFPSSurvivalComponent>())
+ {
+  const auto State=Survival->GetState();
+  if(State.FountainBlessingSeconds>0.f)
+  {auto V=Definition(TEXT("fountainBlessing"));V.Duration=FFPSSurvivalState::FountainBlessingDuration;V.Remaining=State.FountainBlessingSeconds;Result.Add(V);}
+  if(State.IsSanityDepleted())
+  {auto V=Definition(TEXT("sanityCollapse"));V.Persistent=true;V.DurationText=TEXT("恢复 SAN 后解除");Result.Add(V);}
+ }
  if(const auto* Pawn=Cast<APawn>(GetOwner());Pawn&&Pawn->IsPlayerControlled())
   if(const auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&!Run->ActiveShrineBlessing().IsNone())
   {auto V=Definition(Run->ActiveShrineBlessing());V.Persistent=true;V.DurationText=TEXT("本次地牢");Result.Add(V);}

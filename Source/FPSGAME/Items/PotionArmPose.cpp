@@ -68,7 +68,7 @@ bool FPotionArmPose::Apply(USkeletalMeshComponent& Mesh,const FPotionUseMotion& 
                 const FVector Direction=Next>=0?Rest[Next].GetLocation()-Rest[I].GetLocation():
                     Rest[I].GetRotation().RotateVector(Rest[P].GetRotation().UnrotateVector(Rest[I].GetLocation()-Rest[P].GetLocation()));
                 float Closure=Closed;
-                if(Digit.Key==TEXT("thumb"))
+                if(Digit.Key==TEXT("thumb")&&Motion.bOpensContainer)
                 {
                     // Thumb lifts the stopper while the four fingers keep their hold.
                     const float Pop=FPotionUseMotion::Ease((Age-.47f)/.12f)*(1.f-FPotionUseMotion::Ease((Age-Motion.Uncap)/.13f));

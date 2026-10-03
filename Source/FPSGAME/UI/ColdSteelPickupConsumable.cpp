@@ -50,17 +50,29 @@ bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
         Body->SetBoxExtent(Bounds.BoxExtent.ComponentMax(FVector(1)));
         return true;
     }
+    if(Id==TEXT("baguette_bread")||Id==TEXT("bread")||Id==TEXT("soda_can"))
+    {
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,*ColdSteelInventory::Text(Item,TEXT("world_mesh")));
+        if(!Asset)return false;
+        const auto Bounds=Asset->GetBounds();
+        Mesh->EmptyOverrideMaterials();Mesh->SetStaticMesh(Asset);
+        Mesh->SetRelativeScale3D(FVector(1));Mesh->SetRelativeLocation(-Bounds.Origin);
+        Body->SetBoxExtent(Bounds.BoxExtent.ComponentMax(FVector(1)));
+        return true;
+    }
     const bool bMaterial=Id==TEXT("enhancement_stone")||Id==TEXT("magic_dust");
     const bool bScroll=Id.StartsWith(TEXT("enchant_scroll_"));
     const bool bHealthPotion=Id==TEXT("hp_potion")||Id.StartsWith(TEXT("hp_potion_"));
     const bool bManaPotion=Id==TEXT("mp_potion")||Id.StartsWith(TEXT("mp_potion_"));
-    if(bHealthPotion||bManaPotion)
+    const bool bWater=Id==TEXT("mineral_water");
+    if(bHealthPotion||bManaPotion||bWater)
     {
         const int32 TierIndex=PotionVisuals::FindTier(Id);
         if(TierIndex==INDEX_NONE)return false;
         const auto& Visual=PotionVisuals::Tiers()[TierIndex];
-        auto* Asset=LoadObject<UStaticMesh>(nullptr,*Visual.Closed);
-        auto* LiquidMaterial=LoadObject<UMaterialInterface>(nullptr,*PotionVisuals::LiquidMaterial(bManaPotion));
+        const FString& Closed=bWater&&ColdSteelInventory::Number(Item,TEXT("remainingUses"),2)==1&&!Visual.HalfClosed.IsEmpty()?Visual.HalfClosed:Visual.Closed;
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,*Closed);
+        auto* LiquidMaterial=LoadObject<UMaterialInterface>(nullptr,*(Visual.LiquidMaterial.IsEmpty()?PotionVisuals::LiquidMaterial(bManaPotion):Visual.LiquidMaterial));
         if(!Asset||!LiquidMaterial)return false;
         const auto Bounds=Asset->GetBounds();
         const float Scale=Visual.HeightCm/FMath::Max(2.f*Bounds.BoxExtent.Z,.01f);

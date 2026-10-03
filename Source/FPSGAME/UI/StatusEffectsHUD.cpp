@@ -47,6 +47,9 @@ void UStatusEffectTile::Update(const FStatusEffectView& V)
 {
  View=V;Surface->SetBrush(ColdSteelUI::RoundedBrush(Hover?ColdSteelUI::ButtonHover:ColdSteelUI::StatusCard,7,Hover?ColdSteelUI::Accent:V.Color,2));
  Icon->SetText(FText::FromString(V.Icon));StackText->SetText(FText::FromString(V.Stacks>=0?FString::Printf(TEXT("×%d"),V.Stacks):TEXT("")));TimeText->SetText(FText::FromString(V.TimeText()));
+ // Five-character mm:ss uses the unused stack space on the non-stacking fountain blessing.
+ auto* TimeSlot=CastChecked<UCanvasPanelSlot>(TimeText->Slot);const bool IsFountain=V.Type==TEXT("fountainBlessing");
+ TimeSlot->SetPosition({IsFountain?6.:20.,30});TimeSlot->SetSize({IsFountain?44.:30.,11});
  const float Ratio=V.Persistent?1.f:V.Battles>=0?0.f:V.Duration>0?FMath::Clamp(V.Remaining/V.Duration,0.f,1.f):0.f;
  CastChecked<UCanvasPanelSlot>(Progress->Slot)->SetSize({50*Ratio,2});Progress->SetColorAndOpacity(V.Color.CopyWithNewOpacity(.7f));
 }
@@ -94,6 +97,7 @@ void UStatusEffectsHUD::ShowTip(UStatusEffectTile* Tile)
  if(!Tile)return;HoverTile=Tile;const auto& V=Tile->View;
  TipTitle->SetText(FText::FromString(V.Name));TipDescription->SetText(FText::FromString(V.Description));TipStacks->SetText(FText::FromString(V.Stacks>=0?FString::Printf(TEXT("层数：x%d"),V.Stacks):TEXT("")));TipStacks->SetVisibility(V.Stacks>=0?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
  TipTime->SetText(FText::FromString(V.Persistent?(V.DurationText.IsEmpty()?TEXT("持续至来源结束"):V.DurationText):V.Battles>=0?FString::Printf(TEXT("剩余 %d 场"),V.Battles):FString::Printf(TEXT("剩余 %d 秒"),FMath::CeilToInt(V.Remaining))));
+ if(V.Type==TEXT("fountainBlessing"))TipTime->SetText(FText::FromString(TEXT("剩余 ")+V.TimeText()+TEXT(" · 总时长 12 分钟")));
  const float Height=V.Stacks>=0?160:142;const FVector2D Viewport=Root->GetCachedGeometry().GetLocalSize();const auto& G=Tile->GetCachedGeometry();FVector2D P=Root->GetCachedGeometry().AbsoluteToLocal(G.LocalToAbsolute({G.GetLocalSize().X+10,0}));
  if(P.X+260>Viewport.X-8)P.X-=G.GetLocalSize().X+280;P.X=FMath::Clamp(P.X,8.,FMath::Max(8.,Viewport.X-268));P.Y=FMath::Clamp(P.Y,8.,FMath::Max(8.,Viewport.Y-Height-8));auto* TipSlot=CastChecked<UCanvasPanelSlot>(Tooltip->Slot);TipSlot->SetPosition(P);TipSlot->SetSize({260,Height});Tooltip->SetVisibility(ESlateVisibility::HitTestInvisible);
 }

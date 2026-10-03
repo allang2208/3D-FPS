@@ -137,3 +137,7 @@ FPSGAME traversal geometry, camera handoff and surface IK: [traversal contact](.
 FPSGAME directional dodge, Shift tap/hold and invulnerability: [player dodge](references/player-dodge.md).
 
 FPSGAME first/third person animation, world equipment and outfits: [player world body](references/player-world-body.md).
+
+## 生存与消耗品（2026-10-03）
+
+[饥饿、水分与 SAN](references/survival-state-and-attribute-penalties.md)：组件真源、分段消耗、组合属性倍率、归零边界通知与存档保持。

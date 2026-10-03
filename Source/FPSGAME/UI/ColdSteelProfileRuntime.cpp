@@ -8,6 +8,7 @@
 #include "ColdSteelPickup.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
+#include "../Survival/FPSSurvivalComponent.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/MonsterCoreStats.h"
 #include "Dom/JsonObject.h"
@@ -187,6 +188,7 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
     ColdSteelQuickBar::Migrate(State);
     ColdSteelQuickBar::MirrorLegacy(State);
     NormalizeStamina(State);
+    State.Survival.Normalize();
     // Original updateMaxStats preserves the missing HP/MP amount when maxima grow.
     if(State.Health>0)State.Health=FMath::Clamp(double(State.Health)+ResourceMaximum(State,false)-ResourceMaximum(Current,false),0.,ResourceMaximum(State,false));
     State.Mana=FMath::Clamp(double(State.Mana)+ResourceMaximum(State,true)-ResourceMaximum(Current,true),0.,ResourceMaximum(State,true));
@@ -274,6 +276,7 @@ bool UColdSteelStatusModel::ReloadProfile()
     const bool SkillsMigrated=ColdSteelSkills::Migrate(Clean);
     const bool QuickBarMigrated=ColdSteelQuickBar::Migrate(Clean);
     const bool StaminaMigrated=NormalizeStamina(Clean);
+    Clean.Survival.Normalize();
     const bool AbandonedFireball=Clean.bFireballReserved;Clean.bFireballReserved=false;
     const bool AbandonedIce=Clean.bIceSpikeReserved;Clean.bIceSpikeReserved=false;
     const bool AbandonedIceWall=Clean.bIceWallReserved;Clean.bIceWallReserved=false;
@@ -483,13 +486,13 @@ bool UColdSteelStatusModel::ReloadProfile()
                     I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
                 }
             }
-            // Potion balance follows the catalog for existing stacks as well as
-            // newly created bottles. Keep instance identity, quantity and place.
-            if(UFPSPotionUseComponent::IsPotion(I.Definition)&&CatalogData&&
+            // Animated consumable effects and display timings follow the catalog
+            // for existing stacks too. Keep instance identity, quantity and place.
+            if(UFPSPotionUseComponent::IsAnimatedConsumable(I.Definition)&&CatalogData&&
                 FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
             {
                 bool PotionUpdated=false;
-                for(const TCHAR* Key:{TEXT("useEffect"),TEXT("stats")})
+                for(const TCHAR* Key:{TEXT("useEffect"),TEXT("stats"),TEXT("useDuration")})
                 {
                     const auto* CatalogValue=CatalogData->Values.Find(Key);
                     const auto* StoredValue=ItemData->Values.Find(Key);
@@ -531,11 +534,20 @@ bool UColdSteelStatusModel::ReloadProfile()
             }
         }
         const bool Material=I.Definition==TEXT("enhancement_stone")||I.Definition==TEXT("magic_dust");
-        if(!Material&&I.Definition!=TEXT("enchant_scroll_heavy")&&I.Definition!=TEXT("enchant_scroll_sharp")&&I.Definition!=TEXT("enchant_scroll_skeleton")&&I.Definition!=TEXT("enchant_scroll_tarantula"))continue;
+        const bool Scroll=I.Definition.StartsWith(TEXT("enchant_scroll_"));
+        if(!Material&&!Scroll)continue;
         const FString* Definition=Definitions.Find(I.Definition);if(!Definition)continue;
         TSharedPtr<FJsonObject> CurrentData,DefinitionData;
         if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),CurrentData)||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),DefinitionData))continue;
         bool Updated=false;
+        // Old instances retain their own count and enchantment payload; only
+        // synchronize the scroll's classification with the current catalog.
+        if(Scroll)for(const TCHAR* Key:{TEXT("category"),TEXT("type")})
+        {
+            FString CatalogValue,StoredValue;CurrentData->TryGetStringField(Key,StoredValue);
+            if(DefinitionData->TryGetStringField(Key,CatalogValue)&&!CatalogValue.IsEmpty()&&StoredValue!=CatalogValue)
+            {CurrentData->SetStringField(Key,CatalogValue);Updated=true;}
+        }
         for(const TCHAR* Key:{TEXT("icon"),TEXT("ue_icon"),TEXT("rarity"),TEXT("grade")})
         {
             if(Material&&FString(Key)!=TEXT("rarity")&&FString(Key)!=TEXT("grade"))continue;
@@ -712,14 +724,38 @@ bool UColdSteelStatusModel::UseConsumableAtContact(const FString& Id,bool bPotio
     auto* Health=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>();if(!Health||Health->IsDead())return false;
     const float HP=Num(TEXT("hp"))+Health->MaxHealth*Num(TEXT("maxHpPercent"))*.01;
     const float MP=Num(TEXT("mp"))+Derived(TEXT("maxMp"))*Num(TEXT("maxMpPercent"))*.01;
-    if((HP<=0||P.Health>=Health->MaxHealth)&&(MP<=0||Mana()>=Derived(TEXT("maxMp")))){Message=TEXT("当前资源已满或效果不可用");return false;}
-    if(!bPotionContact&&UFPSPotionUseComponent::IsPotion(I.Definition))
+    const float Water=Num(TEXT("hydration"));
+    const float Food=Num(TEXT("hunger"));
+    const float Sanity=Num(TEXT("sanity"));
+    if((HP<=0||P.Health>=Health->MaxHealth)&&(MP<=0||Mana()>=Derived(TEXT("maxMp")))&&
+        (Water<=0||P.Survival.Hydration>=P.Survival.MaxHydration)&&
+        (Food<=0||P.Survival.Hunger>=P.Survival.MaxHunger)&&
+        (Sanity<=0||P.Survival.Sanity>=P.Survival.MaxSanity)){Message=TEXT("当前资源已满或效果不可用");return false;}
+    if(!bPotionContact&&UFPSPotionUseComponent::IsAnimatedConsumable(I.Definition))
     {
         auto* Potion=CurrentPawn->FindComponentByClass<UFPSPotionUseComponent>();
         return Potion&&Potion->TryBegin(Id,I.Definition);
     }
     P.Health=FMath::Clamp(P.Health+FMath::Max(0.f,HP),0.f,Health->MaxHealth);P.Mana=FMath::Clamp(P.Mana+FMath::Max(0.f,MP),0.f,Derived(TEXT("maxMp")));
-    I.Cooldown=Number(I,TEXT("useCooldown"));if(--I.Count<=0)P.Items.RemoveAt(N);return CommitState(P);
+    // Food's hydration cost is part of the same successful use transaction.
+    P.Survival.Hydration=FMath::Clamp(P.Survival.Hydration+Water,0.f,P.Survival.MaxHydration);
+    P.Survival.Hunger=FMath::Clamp(P.Survival.Hunger+FMath::Max(0.f,Food),0.f,P.Survival.MaxHunger);
+    P.Survival.Sanity=FMath::Clamp(P.Survival.Sanity+Sanity,0.f,P.Survival.MaxSanity);
+    if(!P.Survival.IsDeprived())P.Survival.DeprivationSeconds=0.f;
+    I.Cooldown=Number(I,TEXT("useCooldown"));
+    if(I.Definition==TEXT("mineral_water"))
+    {
+        const int32 Uses=FMath::Clamp(int32(Number(I,TEXT("remainingUses"),2)),1,2)-1;
+        if(Uses>0)
+        {
+            O->SetNumberField(TEXT("remainingUses"),Uses);
+            O->SetStringField(TEXT("ue_icon"),Text(I,TEXT("half_icon")));
+            I.Data.Reset();FJsonSerializer::Serialize(O.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));
+        }
+        else if(--I.Count<=0)P.Items.RemoveAt(N);
+    }
+    else if(--I.Count<=0)P.Items.RemoveAt(N);
+    return CommitState(P);
 }
 bool UColdSteelStatusModel::DefaultAction(const FString& Id)
 {
@@ -728,6 +764,11 @@ bool UColdSteelStatusModel::DefaultAction(const FString& Id)
     if(bWarehouseOpen&&(I.Place==0||I.Place==1||I.Place==ColdSteelCompartment::Place))return TransferWarehouse(Id,4);
     if(I.Place==1)return MoveItem(Id,0,-1);
     if(Text(I,TEXT("category"))==TEXT("consumable")||(Text(I,TEXT("category"))==TEXT("tool")&&!IsEquippedProductionTool(I)))return UseItem(Id);
+    if(Text(I,TEXT("category"))==TEXT("enhancement"))
+    {
+        Message=I.Definition.StartsWith(TEXT("enchant_scroll_"))?TEXT("附魔卷轴请在强化台的附魔页使用"):TEXT("强化道具请在强化台使用");
+        return false;
+    }
     for(int32 S=0;S<15;++S)if(CanEquip(I,S)&&!Equipped(S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
     for(int32 S=0;S<15;++S)if(CanEquip(I,S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
     Message=TEXT("该物品不能穿戴或使用");return false;
@@ -739,6 +780,7 @@ void UColdSteelStatusModel::SyncRuntime()
     const bool DualActive=Dual && Dual->IsActive();
     if(DualActive)Dual->SyncInventory(Current.Items);
     if(auto* H=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>())Current.Health=H->Health;
+    if(const auto* Survival=CurrentPawn->FindComponentByClass<UFPSSurvivalComponent>())Current.Survival=Survival->GetState();
     if(const auto* Infection=CurrentPawn->FindComponentByClass<UProgressiveInfectionComponent>())Current.Infection=Infection->GetState();
     // Dual hand counters are authoritative even inside a synchronous hit/reward
     // callback, before the character's main-hand display cache has been updated.
@@ -757,7 +799,14 @@ void UColdSteelStatusModel::ApplyToPawn(){if(CurrentPawn.IsValid())CurrentPawn->
 void UColdSteelStatusModel::AttachPawn(AFPSGAMECharacter* Pawn)
 {
     CurrentPawn=Pawn;
+    const bool bRespawning=Current.Health<=0.f;
     if(Current.Health<=0){Current.Infection=FInfectionState{};Current.Health=Derived(TEXT("maxHp"));Current.Stamina=MaxStamina();Current.StaminaRecoveryDelay=0;Current.bSprintExhausted=false;}
+    // Death respawn starts each resource at 60; travel/save keep the remaining resources.
+    if(bRespawning)
+    {
+        Current.Survival=FFPSSurvivalState{};
+        Current.Survival.Hunger=Current.Survival.Hydration=Current.Survival.Sanity=60.f;
+    }
     ApplyToPawn();
     if(Pawn)UProgressiveInfectionComponent::GetOrAdd(Pawn)->Restore(Current.Infection);
     RefreshDrops();OnStaminaChanged.Broadcast();
@@ -813,6 +862,12 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
             Current.Mana=FMath::Clamp(Current.Mana+KillProcMp*Step,0.f,Derived(TEXT("maxMp")));}
     }
     TickTreeGrowthClock(Delta);
+    if(const auto* Survival=Pawn->FindComponentByClass<UFPSSurvivalComponent>())
+    {
+        const auto Next=Survival->GetState();
+        if(Current.Survival.Hunger!=Next.Hunger||Current.Survival.Hydration!=Next.Hydration||Current.Survival.Sanity!=Next.Sanity||Current.Survival.DeprivationSeconds!=Next.DeprivationSeconds||Current.Survival.FountainBlessingSeconds!=Next.FountainBlessingSeconds)
+        {SetSurvivalState(Next,Pawn);}
+    }
     // 修行经验与击杀奖励已经落在实时档案里（StageTraining），这里只负责把「有未写盘增量」的档案
     // 按可配置周期落盘一次；没有增量就不空写。旧口径的 1 秒补写与无条件 5 秒写盘见文件顶部的说明。
     const float AutosaveSeconds=SaveAutosaveSeconds.GetValueOnGameThread();

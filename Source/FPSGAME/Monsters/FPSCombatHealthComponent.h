@@ -13,6 +13,7 @@ public:
     UFUNCTION(BlueprintPure, Category="Combat") bool IsDead() const { return Health <= 0.f; }
     UFUNCTION(BlueprintPure, Category="Combat") bool IsInvulnerable() const;
     float DamageAfterArmor(float Damage,const UDamageType* Type,AActor* Attacker=nullptr) const;
+    void ApplySurvivalDamage(float Amount);
 protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;

@@ -23,9 +23,10 @@ struct FPotionUseMotion
     // preserving the bottle path and the rim's drinking contact.
     FVector GripInPalm{5.3,-2.,5.1};
     float GripHeight=13.2f;
+    bool bOpensContainer=true;
     TArray<FPotionMotionKey> Keys;
     TMap<FName,FPotionDigitPose> Digits;
-    void Load(bool bMana);
+    void Load(bool bMana,const TCHAR* Definition=nullptr);
     static float Ease(float X) { X=FMath::Clamp(X,0.f,1.f);return X*X*X*(X*(X*6.f-15.f)+10.f); }
     FTransform GripAt(float Age) const;
     FTransform BottleAt(float Age) const;

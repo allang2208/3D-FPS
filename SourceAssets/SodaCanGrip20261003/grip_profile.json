@@ -1,0 +1,80 @@
+{
+  "grip_height": 6.1,
+  "grip_in_palm": [
+    7.7438,
+    -0.9,
+    4.7875
+  ],
+  "digits": {
+    "index": {
+      "spread": [
+        -3,
+        -3,
+        -3
+      ],
+      "flex": [
+        28.0,
+        100.0,
+        140.25
+      ]
+    },
+    "middle": {
+      "spread": [
+        -1,
+        -1,
+        -1
+      ],
+      "flex": [
+        58.75,
+        111.25,
+        137.25
+      ]
+    },
+    "ring": {
+      "spread": [
+        -2,
+        -2,
+        -2
+      ],
+      "flex": [
+        46.25,
+        101.25,
+        123.75
+      ]
+    },
+    "pinky": {
+      "spread": [
+        -3,
+        -3,
+        -3
+      ],
+      "flex": [
+        56.5,
+        86.5,
+        97.0
+      ]
+    },
+    "thumb": {
+      "spread": [
+        -36.0,
+        -24,
+        -35.5
+      ],
+      "flex": [
+        27.75,
+        51.75,
+        79.75
+      ]
+    }
+  },
+  "recover_at_release": true,
+  "authoring": "Independent can-body wrap against accepted V7 palmar skin; cumulative phalanx flex angles.",
+  "source_hand": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ModularOutfit20260925\\BarePalmV7\\Authored\\M4.json",
+  "source_can": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SodaCan20261003\\SodaCan_Authored.blend",
+  "can_dimensions_cm": [
+    6.0977654457092285,
+    6.09776496887207,
+    12.199999809265137
+  ],
+  "runtime_tested": false
+}

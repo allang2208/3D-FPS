@@ -122,3 +122,7 @@ For independent third-person animation alongside the accepted first-person arms,
 处理第一人称锻造锤击、钳握、双腕肘变形或淬火镜头动作时，读取 [锤钳抓握与淬火](references/forge-tool-contact.md)。
 
 - 步枪拍击／检视迁移、旧握把差值覆盖新动作、源时钟与屏幕反馈：[拍击、检视与运行握把层](references/rifle-inspect-and-release.md)。含 HK416 案例与 UE Python 结构体数组视图失效风险。
+
+## 生存与消耗品（2026-10-03）
+
+[进食、饮水与易拉罐抓握](references/food-and-drink-grasp.md)：对象握点转换、最终掌心跟随、收势保握与非线性送入口动作。

@@ -1285,7 +1285,7 @@
   },
   "enchant_scroll_convergence": {
     "rarity": "rare",
-    "category": "consumable",
+    "category": "enhancement",
     "desc": "可以给狙击步枪附魔后缀「汇聚」。",
     "grade": "rare",
     "grid_w": 1,
@@ -1301,7 +1301,7 @@
   },
   "enchant_scroll_heavy": {
     "rarity": "common",
-    "category": "consumable",
+    "category": "enhancement",
     "desc": "可以给近战武器附魔前缀「沉重」。",
     "grade": "common",
     "grid_w": 1,
@@ -1317,7 +1317,7 @@
   },
   "enchant_scroll_sharp": {
     "rarity": "common",
-    "category": "consumable",
+    "category": "enhancement",
     "desc": "可以给剑类武器附魔前缀「锋利的」。",
     "grade": "common",
     "grid_w": 1,
@@ -1333,7 +1333,7 @@
   },
   "enchant_scroll_boundless_strength": {
     "rarity": "epic",
-    "category": "consumable",
+    "category": "enhancement",
     "desc": "为近战武器附魔前缀「力大无穷」。力量 +15，重击蓄力速度 +30%；与改造件的蓄力速度加成相加。改造件 +15% 与本附魔 +30% 合计 +45%，蓄力时间为基础时间 ÷ 1.45。",
     "grade": "epic",
     "grid_w": 1,
@@ -1349,7 +1349,7 @@
   },
   "enchant_scroll_big_blind": {
     "rarity": "mythic",
-    "category": "consumable",
+    "category": "enhancement",
     "desc": "为手枪类武器附魔后缀「大盲注」。每次命中敌人获得 1 层赌注，每层使暴击伤害倍率增加 0.5，最多 5 层。持续 30 秒，命中刷新，到期清除全部层数。仅带「大盲注」的手枪暴击使用并消耗全部赌注；暴击这一击新增的层数也计入伤害。附魔后枪口持续脉冲金色光芒。",
     "grade": "mythic",
     "grid_w": 1,
@@ -1365,7 +1365,7 @@
   },
   "enchant_scroll_berserk": {
     "rarity": "mythic",
-    "category": "consumable",
+    "category": "enhancement",
     "desc": "为近战武器附魔前缀「狂暴的」。使用当前附魔武器攻击命中敌人时获得 1 层狂暴，普通攻击、快速近战、旋风及武器特殊攻击均可触发。每层攻击速度 +5%，最多 20 层；首次获得后每 5 秒减少 1 层，命中只增加层数，不刷新减层倒计时。",
     "grade": "mythic",
     "grid_w": 1,
@@ -1381,7 +1381,7 @@
   },
   "enchant_scroll_cowboy": {
     "rarity": "epic",
-    "category": "consumable",
+    "category": "enhancement",
     "desc": "为手枪附魔后缀「牛仔」。进入滑铲状态 0.25 秒后，扣除弹药袋中当前对应弹药并瞬间补满弹匣；不足时补入剩余数量，无对应弹药或弹匣已满时不触发。每次滑铲仅一次，双持时仅对附魔枪生效。不播放换弹动画，只播放一次开弹巢声（左轮）或插弹匣声（其他手枪）。",
     "grade": "epic",
     "grid_w": 1,
@@ -1397,7 +1397,7 @@
   },
   "enchant_scroll_rift_slash": {
     "rarity": "epic",
-    "category": "consumable",
+    "category": "enhancement",
     "desc": "为剑类武器附魔后缀「裂空」。蓄满重击挥出时，向前发射一道中间宽厚、两端收尖的蓝白剑气，射程 12 米，造成本次重击 100% 的伤害。穿透敌人，每个敌人仅命中一次，遇墙消散；未蓄满不触发，剑气不再触发附魔连锁，不额外消耗法力。",
     "grade": "epic",
     "grid_w": 1,
@@ -1413,7 +1413,7 @@
   },
   "enchant_scroll_electrified": {
     "rarity": "epic",
-    "category": "consumable",
+    "category": "enhancement",
     "desc": "为所有近战武器附魔前缀「感电的」。近战命中后有 25% 概率向 5 米内随机一名其他敌人释放闪电；本次近战击杀敌人时，放电概率为 100%。闪电击杀后向被击杀者周围 5 米内所有敌人继续放电，可重复连锁。闪电等级取 10 与玩家当前闪电等级中的较高值，逐跳沿用技能伤害衰减。同一轮不重复命中，受墙体遮挡；不消耗法力、不占用主动技能冷却。刃部附带环绕电弧。",
     "grade": "epic",
     "grid_w": 1,
@@ -1429,7 +1429,7 @@
   },
   "enchant_scroll_shatter_bullet": {
     "rarity": "epic",
-    "category": "consumable",
+    "category": "enhancement",
     "desc": "为所有枪械附魔后缀「碎裂子弹」。命中敌人后向 5 米内随机一名其他敌人弹射；击杀时向范围内所有其他敌人各弹射一颗。弹射造成原命中 100% 的伤害，仅弹射一次，受墙体遮挡。",
     "grade": "epic",
     "grid_w": 1,
@@ -1445,7 +1445,7 @@
   },
   "enchant_scroll_skeleton": {
     "rarity": "rare",
-    "category": "consumable",
+    "category": "enhancement",
     "desc": "可以给枪械类武器附魔后缀「骷髅射手」。",
     "grade": "rare",
     "grid_w": 1,
@@ -1461,7 +1461,7 @@
   },
   "enchant_scroll_tarantula": {
     "rarity": "uncommon",
-    "category": "consumable",
+    "category": "enhancement",
     "desc": "可以给任意武器附魔后缀「狼蛛」。",
     "grade": "uncommon",
     "grid_w": 1,
@@ -1477,7 +1477,7 @@
   },
   "enchant_scroll_turbocharger": {
     "rarity": "rare",
-    "category": "consumable",
+    "category": "enhancement",
     "desc": "可以给轻机枪类武器附魔前缀「涡轮增压」。",
     "grade": "rare",
     "grid_w": 1,
@@ -3679,31 +3679,186 @@
     "modular_sword_catalog": "tang-dao-modules.json"
   },
   "ue_pit_viper2011": {
-  "id": "ue_pit_viper2011",
-  "name": "Pit Viper 2011",
-  "icon": "Icons/ue_pit_viper2011.png",
-  "ue_icon": "Icons/ue_pit_viper2011.png",
-  "category": "weapon",
-  "weaponType": "pistol",
-  "rangedType": "pistol",
-  "weaponTypeTag": "手枪",
-  "equipSlot": "weapon",
-  "isTwoHanded": false,
-  "rarity": "common",
-  "stack_max": 1,
-  "grid_w": 3,
-  "grid_h": 2,
-  "type": "武器",
-  "desc": "双排弹匣半自动手枪，使用9mm弹药。铜色枪管、黑色套筒与前端补偿结构保留原厂外形，装配15发弹匣。支持单持、双持和法杖副手。",
-  "stats": [
-    {
-      "name": "物理攻击",
-      "value": "22"
+    "id": "ue_pit_viper2011",
+    "name": "Pit Viper 2011",
+    "icon": "Icons/ue_pit_viper2011.png",
+    "ue_icon": "Icons/ue_pit_viper2011.png",
+    "category": "weapon",
+    "weaponType": "pistol",
+    "rangedType": "pistol",
+    "weaponTypeTag": "手枪",
+    "equipSlot": "weapon",
+    "isTwoHanded": false,
+    "rarity": "common",
+    "stack_max": 1,
+    "grid_w": 3,
+    "grid_h": 2,
+    "type": "武器",
+    "desc": "双排弹匣半自动手枪，使用9mm弹药。铜色枪管、黑色套筒与前端补偿结构保留原厂外形，装配15发弹匣。支持单持、双持和法杖副手。",
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "22"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "15"
+      }
+    ]
+  },
+  "mineral_water": {
+    "id": "mineral_water",
+    "name": "矿泉水",
+    "category": "consumable",
+    "type": "消耗品",
+    "desc": "清澈的瓶装矿泉水。每次恢复30点水分，一瓶可饮用两次；喝完半瓶后拧盖收回。",
+    "rarity": "common",
+    "level": 1,
+    "price": 30,
+    "grid_w": 1,
+    "grid_h": 2,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "remainingUses": 2,
+    "maxUses": 2,
+    "useEffect": {
+      "hydration": 30
     },
-    {
-      "name": "弹匣容量",
-      "value": "15"
-    }
-  ]
-}
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复水分",
+        "value": "+30 / 次"
+      },
+      {
+        "name": "可饮用次数",
+        "value": "2次"
+      }
+    ],
+    "icon": "",
+    "icon_fallback": "💧",
+    "ue_icon": "Icons/mineral_water_full.png",
+    "half_icon": "Icons/mineral_water_half.png"
+  },
+  "bread": {
+    "id": "bread",
+    "name": "普通面包",
+    "category": "consumable",
+    "type": "食物",
+    "desc": "小麦面团烘烤成的日常食物，金黄外皮包着松软内里。个头小巧，适合随身携带，在探索途中直接食用充饥。",
+    "rarity": "common",
+    "level": 1,
+    "price": 12,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "maxUses": 1,
+    "useEffect": {
+      "hunger": 15,
+      "hydration": -10
+    },
+    "useCooldown": 0,
+    "useDuration": 2.4,
+    "stats": [
+      {
+        "name": "恢复饥饿度",
+        "value": "+15"
+      },
+      {
+        "name": "消耗水分",
+        "value": "-10"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ],
+    "icon": "",
+    "icon_fallback": "面包",
+    "ue_icon": "Icons/bread.png",
+    "world_mesh": "/Game/Items/Consumables/Bread20261003/SM_Bread.SM_Bread"
+  },
+  "baguette_bread": {
+    "id": "baguette_bread",
+    "name": "法棍面包",
+    "category": "consumable",
+    "type": "食物",
+    "desc": "表皮酥脆、内部松软的细长面包，可握住中部直接食用。随身携带能在探索途中充饥，细长外形会占用较多背包空间。",
+    "rarity": "common",
+    "level": 1,
+    "price": 35,
+    "grid_w": 1,
+    "grid_h": 3,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "maxUses": 1,
+    "useEffect": {
+      "hunger": 60,
+      "hydration": -30
+    },
+    "useCooldown": 0,
+    "useDuration": 2.7,
+    "stats": [
+      {
+        "name": "恢复饥饿度",
+        "value": "+60"
+      },
+      {
+        "name": "消耗水分",
+        "value": "-30"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ],
+    "icon": "",
+    "icon_fallback": "🥖",
+    "ue_icon": "Icons/baguette_bread.png",
+    "world_mesh": "/Game/Items/Consumables/Baguette20261003/SM_Baguette.SM_Baguette"
+  },
+  "soda_can": {
+    "id": "soda_can",
+    "name": "罐装汽水",
+    "category": "consumable",
+    "type": "饮料",
+    "desc": "铝罐密封的碳酸饮料，轻便包装适合随身携带。饮用后补充水分，清甜口感让紧绷的精神稍作放松；一罐饮用后即消耗。",
+    "rarity": "common",
+    "level": 1,
+    "price": 25,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "maxUses": 1,
+    "useEffect": {
+      "hydration": 20,
+      "sanity": 10
+    },
+    "useCooldown": 0,
+    "useDuration": 2.0,
+    "stats": [
+      {
+        "name": "恢复水分",
+        "value": "+20"
+      },
+      {
+        "name": "恢复 SAN",
+        "value": "+10"
+      },
+      {
+        "name": "饮用方式",
+        "value": "单次使用"
+      }
+    ],
+    "icon": "",
+    "icon_fallback": "汽水",
+    "ue_icon": "Icons/soda_can.png",
+    "world_mesh": "/Game/Items/Consumables/SodaCan20261003/SM_SodaCan.SM_SodaCan"
+  }
 }

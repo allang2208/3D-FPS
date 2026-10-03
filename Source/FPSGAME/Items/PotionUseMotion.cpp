@@ -4,7 +4,7 @@
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 
-void FPotionUseMotion::Load(bool bMana)
+void FPotionUseMotion::Load(bool bMana,const TCHAR* Definition)
 {
     FString Text;TSharedPtr<FJsonObject> Root;
     if(!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/potion_use_motion.json"))) ||
@@ -14,14 +14,15 @@ void FPotionUseMotion::Load(bool bMana)
         const TArray<TSharedPtr<FJsonValue>>* A=nullptr;
         if(O->TryGetArrayField(Name,A)&&A->Num()==3)V=FVector((*A)[0]->AsNumber(),(*A)[1]->AsNumber(),(*A)[2]->AsNumber());
     };
-    const auto Times=Root->GetObjectField(TEXT("times"));
+    const auto Family=Root->GetObjectField(Definition?Definition:(bMana?TEXT("mp_potion"):TEXT("hp_potion")));
+    const auto Times=Family->HasField(TEXT("times"))?Family->GetObjectField(TEXT("times")):Root->GetObjectField(TEXT("times"));
     Grab=Times->GetNumberField(TEXT("grab"));Uncap=Times->GetNumberField(TEXT("uncap"));
     DrinkStart=Times->GetNumberField(TEXT("drink_start"));DrinkEnd=Times->GetNumberField(TEXT("drink_end"));
     Contact=Times->GetNumberField(TEXT("contact"));Release=Times->GetNumberField(TEXT("release"));
     Recover=Times->GetNumberField(TEXT("recover"));Duration=Times->GetNumberField(TEXT("duration"));
     Vec(Root,TEXT("shoulder"),Shoulder);Vec(Root,TEXT("elbow_pole"),Pole);
-    const auto Family=Root->GetObjectField(bMana?TEXT("mp_potion"):TEXT("hp_potion"));
     Vec(Family,TEXT("grip_in_palm"),GripInPalm);GripHeight=Family->GetNumberField(TEXT("grip_height"));
+    bOpensContainer=true;Family->TryGetBoolField(TEXT("opens_container"),bOpensContainer);
     Digits.Reset();
     for(const auto& Pair:Family->GetObjectField(TEXT("digits"))->Values)
     {
@@ -29,7 +30,7 @@ void FPotionUseMotion::Load(bool bMana)
         Digits.Add(FName(*Pair.Key),D);
     }
     Keys.Reset();
-    for(const auto& Value:Root->GetArrayField(TEXT("keys")))
+    for(const auto& Value:(Family->HasField(TEXT("keys"))?Family->GetArrayField(TEXT("keys")):Root->GetArrayField(TEXT("keys"))))
     {
         const auto O=Value->AsObject();FPotionMotionKey K;FVector Euler;
         K.Time=O->GetNumberField(TEXT("time"));Vec(O,TEXT("grip"),K.Grip);Vec(O,TEXT("rotation"),Euler);
