@@ -1,4 +1,4 @@
-param([ValidateSet('Build','Assets','Navigation','All')][string]$Stage='All')
+﻿param([ValidateSet('Build','Assets','Navigation','All')][string]$Stage='All')
 $ErrorActionPreference='Stop'
 $taskProject='D:/FPS3D/FPSGAME'
 $taskEngine='E:/Program Files (x86)/UE_5.8'
