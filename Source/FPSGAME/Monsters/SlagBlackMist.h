@@ -5,6 +5,7 @@
 
 class USceneComponent;
 class UNiagaraComponent;
+class UMaterialInterface;
 
 /** Body-born soot which rises in world space with a bounded exposure history. */
 UCLASS()
@@ -25,6 +26,11 @@ public:
     void StopEmission();
     bool ContainsExposedEye(const FVector& Eye, const AActor* Player) const;
     static void Gather(UWorld* World, TArray<ASlagBlackMist*>& Out);
+    UMaterialInterface* GetBlindViewOverride() const { return BlindViewOverride; }
+protected:
+    virtual void GetEmissionSources(FVector (&Origins)[3], FVector& Drift) const;
+    virtual bool ShouldEmit() const;
+    UNiagaraComponent* GetSmokeComponent() const { return Smoke; }
 private:
     struct FWakePuff { FVector Origins[3], Drift; double Born; };
     TArray<FWakePuff, TInlineAllocator<32>> Trail;
@@ -33,4 +39,8 @@ private:
     UPROPERTY(ReplicatedUsing=OnRep_Cloud) bool bEmitting = true;
     UPROPERTY(VisibleAnywhere) TObjectPtr<USceneComponent> Root;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UNiagaraComponent> Smoke;
+protected:
+    UPROPERTY(EditDefaultsOnly, Category="Slag|Mist") TObjectPtr<UMaterialInterface> BlindViewOverride;
+    /** Radius growth clock only; retention, fading and buoyancy keep real age. */
+    virtual float GetDiffusionSpeed() const { return 1.f; }
 };

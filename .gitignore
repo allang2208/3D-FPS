@@ -2172,3 +2172,12 @@ __pycache__/
 !/SourceAssets/PitViper2011Publication20261003/archive-manifest.json
 !/SourceAssets/PitViper2011Publication20261003/retained-recovery-dependencies.json
 !/SourceAssets/PitViper2011Publication20261003/published-files.json
+
+# M10: public recipes/prose only; original media, dense geometry/weights,
+# UE packages, build/transport receipts and publication candidates stay local.
+/SourceAssets/M10ChenXia20261003/**
+!/SourceAssets/M10ChenXia20261003/**/
+!/SourceAssets/M10ChenXia20261003/**/*.py
+!/SourceAssets/M10ChenXia20261003/**/*.ps1
+!/SourceAssets/M10ChenXia20261003/**/*.md
+/SourceAssets/M10ChenXia20261003/Publication20261003/

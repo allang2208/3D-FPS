@@ -1,4 +1,5 @@
 #include "MonsterCoreStats.h"
+#include "M10Mawcrawler.h"
 #include "HandBrainMonster.h"
 #include "FleshHandMonster.h"
 #include "PoisonMaggotMonster.h"
@@ -43,7 +44,8 @@ bool Get(const AActor* Target,FMonsterCoreStats& Out)
     FMonsterCoreStats S;bool bKnown=false;
     auto Fill=[&](int32 Def,int32 Mdef,int32 CritRes,double Weight,int32 Level,EMonsterRank Rank,EMonsterToughnessClass TClass)
     {S.Def=Def;S.Mdef=Mdef;S.CritRes=CritRes;S.AttrWeight=Weight;S.Level=Level;S.Rank=Rank;S.ToughnessClass=TClass;bKnown=true;};
-    if(const auto* Slag=Cast<AHundredEyedSlagMonster>(Target))Fill(55,40,30,10.5,Slag->Level,Slag->Rank,EMonsterToughnessClass::Heavy);
+    if(const auto* M10=Cast<AM10Mawcrawler>(Target))Fill(FMath::RoundToInt(M10->PhysicalDefense),FMath::RoundToInt(M10->MagicDefense),25,10.0,M10->Level,M10->Rank,EMonsterToughnessClass::Colossal);
+    else if(const auto* Slag=Cast<AHundredEyedSlagMonster>(Target))Fill(55,40,30,10.5,Slag->Level,Slag->Rank,EMonsterToughnessClass::Heavy);
     else if(const auto* Hand=Cast<AFleshHandMonster>(Target))
     {
         if(Hand->bMinion)Fill(21,55,10,6.6,Hand->Level,Hand->Rank,EMonsterToughnessClass::Light);   // 小手 {20,30,5,10,10,10}

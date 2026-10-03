@@ -1,0 +1,168 @@
+{
+  "task": "M10 publication 20261003",
+  "count": 20,
+  "bytes": 391004827,
+  "retained": "V1 through V5 editable dependency chain; current V7 animation; V6/V8/V10 smoke recovery assets; all actual receipts",
+  "files": [
+    {
+      "source": "SourceAssets/M10ChenXia20261003/HowlV4/Delivery/M10_HowlV4_Editable.blend1",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/HowlV4/Delivery/M10_HowlV4_Editable.blend1",
+      "bytes": 87218588,
+      "sha256": "d5f2f02e8fc73903130c4466841b594da2d1065b67e02d79ee06010b5a817c1b",
+      "reason": "Blender automatic backup superseded by retained editable source",
+      "replacement": "SourceAssets/M10ChenXia20261003/HowlV4/Delivery/M10_HowlV4_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/RigV1/Delivery/M10_Rigged_Editable.blend1",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/RigV1/Delivery/M10_Rigged_Editable.blend1",
+      "bytes": 85878012,
+      "sha256": "b99c1ded2b976d840b0625f485e322c1d1c1f33b082982ecca2e0c8b29d30c83",
+      "reason": "Blender automatic backup superseded by retained editable source",
+      "replacement": "SourceAssets/M10ChenXia20261003/RigV1/Delivery/M10_Rigged_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/SurfaceRigV5/Delivery/M10_SurfaceRigV5_Editable.blend1",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/SurfaceRigV5/Delivery/M10_SurfaceRigV5_Editable.blend1",
+      "bytes": 108244672,
+      "sha256": "5ff455796fef7fe31a594e99c3f0800013dd03986445ea9707da8ccb9714cfdc",
+      "reason": "Blender automatic backup superseded by retained editable source",
+      "replacement": "SourceAssets/M10ChenXia20261003/SurfaceRigV5/Delivery/M10_SurfaceRigV5_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/RigV1/read_editor_save_state.py",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/RigV1/read_editor_save_state.py",
+      "bytes": 548,
+      "sha256": "2ac8955648154370e03207f2d78b76866ad933235f667711682379cb12e48350",
+      "reason": "Completed one-session editor/PIE helper; not a current reconstruction entrypoint",
+      "replacement": "Retained per-revision finish_production.ps1 and Tools/AssetPipeline/mcp_call_codex.ps1 under fresh task authorization"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/TurningV2/close_clean_editor.py",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/TurningV2/close_clean_editor.py",
+      "bytes": 914,
+      "sha256": "3b8012f800789564eb9410750987d4cd43070983171178a395341ed1c5cfc7df",
+      "reason": "Completed one-session editor/PIE helper; not a current reconstruction entrypoint",
+      "replacement": "Retained per-revision finish_production.ps1 and Tools/AssetPipeline/mcp_call_codex.ps1 under fresh task authorization"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/SurfaceRigV5/end_pie_authorized.py",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/SurfaceRigV5/end_pie_authorized.py",
+      "bytes": 186,
+      "sha256": "c82716b692dffdee8adce7ac10ac56a5fc99dd3b7dc1555618afea4da4676ecd",
+      "reason": "Completed one-session editor/PIE helper; not a current reconstruction entrypoint",
+      "replacement": "Retained per-revision finish_production.ps1 and Tools/AssetPipeline/mcp_call_codex.ps1 under fresh task authorization"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/SurfaceRigV5/finish_existing_editor.ps1",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/SurfaceRigV5/finish_existing_editor.ps1",
+      "bytes": 1067,
+      "sha256": "320170410ae17b0fe5beeedf559d2ffa292d922c2f2fd134d2e339f18a02bcc2",
+      "reason": "Completed one-session editor/PIE helper; not a current reconstruction entrypoint",
+      "replacement": "Retained per-revision finish_production.ps1 and Tools/AssetPipeline/mcp_call_codex.ps1 under fresh task authorization"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/SurfaceRigV5/release_editor_for_native.py",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/SurfaceRigV5/release_editor_for_native.py",
+      "bytes": 847,
+      "sha256": "c86a847546aa35165f1ae6b96be28908cd67bd406b6dc67fdf965ddc8bf2c005",
+      "reason": "Completed one-session editor/PIE helper; not a current reconstruction entrypoint",
+      "replacement": "Retained per-revision finish_production.ps1 and Tools/AssetPipeline/mcp_call_codex.ps1 under fresh task authorization"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/RearGasV6/close_clean_editor.py",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/RearGasV6/close_clean_editor.py",
+      "bytes": 973,
+      "sha256": "e73d779ea81484b8c3c3f4afe53cac5aa510c85dc70ce29cb2fabfbbc308e135",
+      "reason": "Completed one-session editor/PIE helper; not a current reconstruction entrypoint",
+      "replacement": "Retained per-revision finish_production.ps1 and Tools/AssetPipeline/mcp_call_codex.ps1 under fresh task authorization"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/LocalGasV8/close_clean_editor.py",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/LocalGasV8/close_clean_editor.py",
+      "bytes": 977,
+      "sha256": "715ec8cd4e22fc9ad385b232bc9b7e39ac2f915db3d248a4f3f244ccd6d439eb",
+      "reason": "Completed one-session editor/PIE helper; not a current reconstruction entrypoint",
+      "replacement": "Retained per-revision finish_production.ps1 and Tools/AssetPipeline/mcp_call_codex.ps1 under fresh task authorization"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/LocalGasV8/end_pie_for_assets.py",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/LocalGasV8/end_pie_for_assets.py",
+      "bytes": 430,
+      "sha256": "1790cd5684143f9ce9c7e655f7cf845133d775640743d5f0b56f231610065baf",
+      "reason": "Completed one-session editor/PIE helper; not a current reconstruction entrypoint",
+      "replacement": "Retained per-revision finish_production.ps1 and Tools/AssetPipeline/mcp_call_codex.ps1 under fresh task authorization"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/CombatPaceV10/close_clean_editor.py",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/CombatPaceV10/close_clean_editor.py",
+      "bytes": 980,
+      "sha256": "6114b1a4de79215697c8aa3d9014080033c5adddf5ed2ec64df72f4f3885af03",
+      "reason": "Completed one-session editor/PIE helper; not a current reconstruction entrypoint",
+      "replacement": "Retained per-revision finish_production.ps1 and Tools/AssetPipeline/mcp_call_codex.ps1 under fresh task authorization"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/CombatPaceV10/end_pie_for_assets.py",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/CombatPaceV10/end_pie_for_assets.py",
+      "bytes": 433,
+      "sha256": "9f97613faa8563c847598288a82619cc279f70d92719d563b58515692926c9fc",
+      "reason": "Completed one-session editor/PIE helper; not a current reconstruction entrypoint",
+      "replacement": "Retained per-revision finish_production.ps1 and Tools/AssetPipeline/mcp_call_codex.ps1 under fresh task authorization"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/LocalGasV8/editor-author-1.txt",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/LocalGasV8/editor-author-1.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Empty transport output; not a successful receipt",
+      "replacement": "LocalGasV8/asset_receipt.json and delivery.json"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/LocalGasV8/end-pie-1.txt",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/LocalGasV8/end-pie-1.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Empty transport output; not a successful receipt",
+      "replacement": "LocalGasV8/asset_receipt.json and delivery.json"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/RearGasV6/author_rear_gas.py",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/RearGasV6/author_rear_gas.py",
+      "bytes": 4906,
+      "sha256": "9afb99972adf835093d2a1395eb59c9fe887eec6ac17f10f9feee54b70c3f0dc",
+      "reason": "Four-second V6 attack replaced by eight-second V7; mixed V6 importer retained here before FX-only split",
+      "replacement": "RearGasV7 author/animation; RearGasV6/import_rear_gas.py recreated as smoke-only recovery input"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/RearGasV6/Delivery/M10_RearGasV6_Editable.blend",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/RearGasV6/Delivery/M10_RearGasV6_Editable.blend",
+      "bytes": 108802492,
+      "sha256": "d83309117dd792a7f88257e2de3d8cc0402c96b12a4d6903980105441399fab8",
+      "reason": "Four-second V6 attack replaced by eight-second V7; mixed V6 importer retained here before FX-only split",
+      "replacement": "RearGasV7 author/animation; RearGasV6/import_rear_gas.py recreated as smoke-only recovery input"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/RearGasV6/Delivery/A_M10_RearGas_V6.fbx",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/RearGasV6/Delivery/A_M10_RearGas_V6.fbx",
+      "bytes": 841068,
+      "sha256": "4cc74752ca9f3e86464b3bd2d614eb597b44da043e20d97e3f4a58e87b6b4130",
+      "reason": "Four-second V6 attack replaced by eight-second V7; mixed V6 importer retained here before FX-only split",
+      "replacement": "RearGasV7 author/animation; RearGasV6/import_rear_gas.py recreated as smoke-only recovery input"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/RearGasV6/export_contract.json",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/RearGasV6/export_contract.json",
+      "bytes": 519,
+      "sha256": "0a52a232a219ca390b942c9cd20d6cb3f1c4846848ae71c42b82baec84a84b76",
+      "reason": "Four-second V6 attack replaced by eight-second V7; mixed V6 importer retained here before FX-only split",
+      "replacement": "RearGasV7 author/animation; RearGasV6/import_rear_gas.py recreated as smoke-only recovery input"
+    },
+    {
+      "source": "SourceAssets/M10ChenXia20261003/RearGasV6/import_rear_gas.py",
+      "destination": "trash/m10-retired-20261003/SourceAssets/M10ChenXia20261003/RearGasV6/import_rear_gas.py",
+      "bytes": 7215,
+      "sha256": "f99e51328f8c427824006be6ae1ad9099a410c438cb37c54437816cf377923f9",
+      "reason": "Four-second V6 attack replaced by eight-second V7; mixed V6 importer retained here before FX-only split",
+      "replacement": "RearGasV7 author/animation; RearGasV6/import_rear_gas.py recreated as smoke-only recovery input"
+    }
+  ]
+}

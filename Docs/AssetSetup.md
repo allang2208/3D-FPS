@@ -1,5 +1,9 @@
 # 高地改造与幽蓝飞剑增量（2026-09-27）
 
+## M-10 沉匣制作与接地整理（2026-10-03）
+
+保留 SurfaceRigV5 的 62 骨模型与十段动作、RearGasV7 八秒动作、HowlV4 音波及手脑声音、LocalGasV8／CombatPaceV10 毒雾、原 F6 蓝图和大体型导航。公开 M10 源码、原创制作配方、SKILL 与散列归档说明；Meshy 原始媒体、几何／权重采样、UE／Blend／FBX 与构建产物留本机。20 份废案已移入 `trash/m10-retired-20261003`。玩家 SAN 生存模块尚未公开，嚎叫受击接入以补丁保存，公共源码不具备该完整效果。恢复顺序、依赖和未测边界见 [M10 整理发布](Monsters/m10-publication-20261003.md)。
+
 ## 怪物布娃娃、巫婆与飞扑修订（2026-10-03）
 
 恢复连体巫婆 CorpseFollow、专用完整法杖碰撞、巨手死亡 Physics Asset，以及突变体 V3 空中／V4 落地／V5 蓄力动画。公开运行源码、原创制作脚本、ALS 固定修订与 MIT 许可、制作及归档说明；Meshy／Epic／第三方模型、采样姿势、UE／Blender／FBX 包和构建产物留本机。115 个退役文件（约 98.57 MiB）已带散列移入 `trash/monster-ragdoll-retired-20261003`。完整输入、重建顺序和本轮未测试范围见 [怪物布娃娃整理发布](Monsters/monster-ragdoll-publication-20261003.md)。纯源码克隆不包含这些运行内容。

@@ -41,7 +41,7 @@ void ASlagBlackMist::BeginPlay()
 {
     Super::BeginPlay(); Clouds.AddUnique(this);
     if (GetOwner()) AddTickPrerequisiteActor(GetOwner());
-    if (const auto* Monster = Cast<AHundredEyedSlagMonster>(GetOwner()))
+    if (const auto* Monster = Cast<ACharacter>(GetOwner()))
         AddTickPrerequisiteComponent(Monster->GetMesh());
     Smoke->AddTickPrerequisiteActor(this);
     UpdateWake(); OnRep_Cloud();
@@ -53,6 +53,7 @@ void ASlagBlackMist::OnRep_Cloud()
     if (!Smoke->GetAsset()) Smoke->SetAsset(LoadObject<UNiagaraSystem>(nullptr,
         TEXT("/Game/Monsters/HundredEyedSlag/SmokeVisibilityFixV21/NS_SlagBodySmoke.NS_SlagBodySmoke")));
     Smoke->SetVariableFloat(TEXT("User.Radius"), Radius * CoverageScale);
+    Smoke->SetVariableFloat(TEXT("User.DiffusionSpeed"), GetDiffusionSpeed());
     Smoke->SetVariableFloat(TEXT("User.SmokeHoldTime"), SmokeLifetime);
     Smoke->SetVariableFloat(TEXT("User.SmokeLifetime"), SmokeLifetime + DissipationSeconds);
     Smoke->SetVariableFloat(TEXT("User.EmissionRate"), bEmitting ? 8.f : 0.f);
@@ -85,7 +86,7 @@ bool ASlagBlackMist::ContainsExposedEye(const FVector& Eye, const AActor* Player
     {
         const float Age = Now - Puff.Born;
         if (Age < .18f || Age >= Lifetime) continue;
-        const float N = FMath::Clamp(Age / Lifetime, 0.f, 1.f);
+        const float N = FMath::Clamp(Age * GetDiffusionSpeed() / Lifetime, 0.f, 1.f);
         // Only the visible, dense core applies blindness; fading fringes do not.
         const float Fade = FMath::Clamp((Lifetime - Age) / DissipationSeconds, 0.f, 1.f);
         const float Core = Radius * CoverageScale * (.18f + .23f * FMath::Sqrt(N)) * FMath::Sqrt(Fade);
@@ -108,22 +109,14 @@ void ASlagBlackMist::UpdateWake()
     {
         // Animated body locations affect new smoke only. Old particles retain
         // their birth positions and rise independently of movement or facing.
-        const auto* Monster = Cast<AHundredEyedSlagMonster>(GetOwner());
-        const auto* Mesh = Monster ? Monster->GetMesh() : nullptr;
-        static const FName Bones[] = {TEXT("carapace"), TEXT("shell_L"), TEXT("shell_R")};
         static const FName Origins[] = {TEXT("User.EmitOrigin0"), TEXT("User.EmitOrigin1"), TEXT("User.EmitOrigin2")};
-        const FVector Offsets[] = {FVector(-4, 0, 8), FVector(0, 12, 18), FVector(0, -12, 18)};
-        const FVector Drift(4, -3, 18);
         FWakePuff NewPuff;
-        NewPuff.Drift = Drift; NewPuff.Born = Now;
+        GetEmissionSources(NewPuff.Origins, NewPuff.Drift); NewPuff.Born = Now;
         for (int32 I = 0; I < 3; ++I)
         {
-            NewPuff.Origins[I] = Mesh && Mesh->GetBoneIndex(Bones[I]) != INDEX_NONE
-                ? Mesh->GetSocketLocation(Bones[I]) + Monster->GetActorTransform().TransformVectorNoScale(Offsets[I])
-                : GetActorLocation();
             Smoke->SetVariablePosition(Origins[I], NewPuff.Origins[I]);
         }
-        Smoke->SetVariableVec3(TEXT("User.EmitDrift"), Drift);
+        Smoke->SetVariableVec3(TEXT("User.EmitDrift"), NewPuff.Drift);
         if (Now >= NextWake)
         {
             // Three body origins per 0.3 s group cover the full 9.5 s life.
@@ -140,6 +133,23 @@ void ASlagBlackMist::UpdateWake()
     if (WorldBounds.IsValid)
         Smoke->SetSystemFixedBounds(WorldBounds.TransformBy(Smoke->GetComponentTransform().ToInverseMatrixWithScale()));
 }
+void ASlagBlackMist::GetEmissionSources(FVector (&Origins)[3], FVector& Drift) const
+{
+    const auto* Monster = Cast<AHundredEyedSlagMonster>(GetOwner());
+    const auto* Mesh = Monster ? Monster->GetMesh() : nullptr;
+    static const FName Bones[] = {TEXT("carapace"), TEXT("shell_L"), TEXT("shell_R")};
+    const FVector Offsets[] = {FVector(-4,0,8), FVector(0,12,18), FVector(0,-12,18)};
+    for (int32 I=0; I<3; ++I)
+        Origins[I] = Mesh && Mesh->GetBoneIndex(Bones[I]) != INDEX_NONE
+            ? Mesh->GetSocketLocation(Bones[I]) + Monster->GetActorTransform().TransformVectorNoScale(Offsets[I])
+            : GetActorLocation();
+    Drift = FVector(4,-3,18);
+}
+bool ASlagBlackMist::ShouldEmit() const
+{
+    const auto* Monster = Cast<AHundredEyedSlagMonster>(GetOwner());
+    return IsValid(Monster) && !Monster->Dead();
+}
 void ASlagBlackMist::StopEmission()
 {
     if (!bEmitting) return;
@@ -153,8 +163,7 @@ void ASlagBlackMist::StopEmission()
 void ASlagBlackMist::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
-    const auto* Monster = Cast<AHundredEyedSlagMonster>(GetOwner());
-    if (!IsValid(Monster) || Monster->Dead()) StopEmission();
+    if (!ShouldEmit()) StopEmission();
     UpdateWake();
     // Each pawn owns one post-process layer, even with several monsters/clouds.
     // A new possession/respawn gets its own component, without altering player defaults.

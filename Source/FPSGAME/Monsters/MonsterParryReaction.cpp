@@ -1,4 +1,5 @@
 #include "MonsterCombatComponent.h"
+#include "M10Mawcrawler.h"
 #include "MonsterObstacleCollision.h"
 #include "MonsterAIController.h"
 #include "NurseZombie.h"
@@ -25,7 +26,8 @@ void UMonsterCombatComponent::ReceiveParry(APawn* Defender,float Seconds,float K
     const float Remaining=IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f;
     RegisterExplicitStun(Seconds);
     Seconds=FMath::Max(StunSecondsRemaining(),Remaining);Toughness=0.f;SinceHit=0.f;
-    if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->InterruptAttack(Seconds);
+    if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))M10->InterruptAttack(Seconds);
+    else if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->InterruptAttack(Seconds);
     else if(auto* F=Cast<AFleshHandMonster>(GetOwner()))F->InterruptAttack(Seconds);
     else if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(Seconds);
     else if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->InterruptAttack(Seconds);

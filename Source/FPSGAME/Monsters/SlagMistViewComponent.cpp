@@ -79,24 +79,34 @@ void USlagMistViewComponent::TickComponent(float Dt, ELevelTick Type, FActorComp
     { Eye = PC->PlayerCameraManager->GetCameraLocation(); Rotation = PC->PlayerCameraManager->GetCameraRotation(); }
     TArray<ASlagBlackMist*> All; ASlagBlackMist::Gather(GetWorld(), All);
     bool InSmoke = false;
+    UMaterialInterface* SelectedMaterial = nullptr;
     for (auto* Cloud : All)
     {
         const bool Exposed = Cloud->ContainsExposedEye(Eye, Pawn);
-        if (Exposed) { InSmoke = true; RefreshBlindness(Cloud->BlindSeconds); }
+        if (Exposed)
+        {
+            InSmoke = true; RefreshBlindness(Cloud->BlindSeconds);
+            // Keep one layer. Black soot takes priority in overlapping mixed clouds.
+            auto* Candidate = Cloud->GetBlindViewOverride();
+            if (!Candidate) SelectedMaterial = ViewMaterial;
+            else if (!SelectedMaterial) SelectedMaterial = Candidate;
+        }
     }
     // The latest contract is strictly in-smoke: no lingering screen lock on exit.
     if (!InSmoke) ClearBlindness();
     const float Remaining = BlindRemaining();
     if (Remaining <= 0.f && bShowBlindTile) ClearBlindness();
-    if (PC && PC->IsLocalController() && InSmoke && Remaining > 0.f && ViewMaterial)
+    if (PC && PC->IsLocalController() && InSmoke && Remaining > 0.f && SelectedMaterial)
     {
         UCameraComponent* Camera = nullptr;
         TInlineComponentArray<UCameraComponent*> Cameras(Pawn);
         for (auto* Candidate : Cameras) if (Candidate->IsActive()) { Camera = Candidate; break; }
-        if (Camera && Camera != BoundCamera.Get())
+        if (Camera && (Camera != BoundCamera.Get() || ActiveViewMaterial != SelectedMaterial))
         {
             RemoveViewLayer();
-            if (!ViewInstance) ViewInstance = UMaterialInstanceDynamic::Create(ViewMaterial, this);
+            if (!ViewInstance || ActiveViewMaterial != SelectedMaterial)
+                ViewInstance = UMaterialInstanceDynamic::Create(SelectedMaterial, this);
+            ActiveViewMaterial = SelectedMaterial;
             Camera->AddOrUpdateBlendable(ViewInstance, 1.f); BoundCamera = Camera;
         }
         if (BoundCamera.IsValid() && ViewInstance)

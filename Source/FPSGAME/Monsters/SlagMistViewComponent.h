@@ -28,4 +28,5 @@ private:
     double BlindUntil = 0., NextDisplayRefresh = 0.;
     float BlurStrength = 0.f;
     bool bShowBlindTile = false;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> ActiveViewMaterial;
 };

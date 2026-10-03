@@ -3,6 +3,7 @@
 #include "MonsterCombatComponent.h"
 #include "Mutant3.h"
 #include "WolfMonster.h"
+#include "M10Mawcrawler.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -26,7 +27,15 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
   const FVector Feet=AI->GetPawn()->GetNavAgentLocation();
   const bool SameLevel=FMath::Abs(Dest.Z-Feet.Z)<=50.f;
   const float Stop=Returning?55.f:(B->GetValueAsBool(TEXT("Visible"))&&SameLevel?C->StopRange():40.f);
-  if(auto* Mutant=Cast<AMutant3>(AI->GetPawn()))
+  auto* M10=Cast<AM10Mawcrawler>(AI->GetPawn());
+  auto* M10Victim=Cast<APawn>(B->GetValueAsObject(TEXT("Target")));
+  if(M10&&!Returning&&B->GetValueAsBool(TEXT("Visible"))&&M10->PrefersRearAttack(M10Victim))
+  {
+   // Hold a rear target only inside gas range, including during cooldown.
+   // Beyond that range, normal navigation turns the M10 and resumes pursuit.
+   AI->StopMovement();C->SetLocomotion(false);
+  }
+  else if(auto* Mutant=Cast<AMutant3>(AI->GetPawn()))
   {
    APawn* Victim=!Returning&&B->GetValueAsBool(TEXT("Visible"))?Cast<APawn>(B->GetValueAsObject(TEXT("Target"))):nullptr;
    const float FeralStop=Victim?FMath::Max(25.f,Mutant->GetClawStartDistance()-15.f):Stop;

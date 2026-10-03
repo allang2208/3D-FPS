@@ -9,6 +9,7 @@
 #include "../Weapons/ColdSteelEnchantmentCombat.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/HandBrainMonster.h"
+#include "../Monsters/M10Mawcrawler.h"
 #include "../Props/FPSPracticeTarget.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
@@ -360,6 +361,7 @@ bool ColdSteelSkills::IsPistol(const FColdSteelItem* I)
 { return I && ColdSteelInventory::Text(*I,TEXT("weaponType"))==TEXT("pistol"); }
 bool ColdSteelSkills::IsCriticalHit(const FHitResult& Hit)
 {
+    if(const auto* M10=Cast<AM10Mawcrawler>(Hit.GetActor()))return M10->IsWeakpointHit(Hit);
     // 手脑怪要害自定义：只有释放吼叫（Howl）期间命中张开的口部才算弱点；其余时间头部
     // （cranium）一律不触发要害必暴。随机暴击是角色属性驱动（见 Snapshot 的 crit chance），
     // 不经此处，所以近战/枪械仍可按概率对其暴击，符合"平时无固定弱点、可被随机暴击"的口径。

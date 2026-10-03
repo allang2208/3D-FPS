@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
++++ b/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
+@@ -1,4 +1,6 @@
+ #include "FPSCombatHealthComponent.h"
++#include "../Survival/FPSSurvivalComponent.h"
++#include "M10HowlDamage.h"
+ #include "../Combat/CoreCombatFormula.h"
+ #include "../Combat/CombatStatusFormula.h"
+ #include "../Combat/CombatFormulaRuntime.h"
+@@ -82,6 +84,16 @@
+     AActor* Attacker=Causer?Causer:(Instigator?Instigator->GetPawn():nullptr);
+     if(!Actor->IsA<AFPSGAMECharacter>())Damage=DamageAfterArmor(Damage,Type,Attacker);
+     Health = FMath::Max(0.f, Health - Damage);
++    if(Type&&Type->IsA<UM10HowlDamage>())
++    {
++        // Exactly five SAN per accepted pulse; replaces the attacker's generic
++        // SAN loss, and cannot fire on a dodged/immune hit rejected above.
++        if(auto* Survival=Actor->FindComponentByClass<UFPSSurvivalComponent>())Survival->ApplySanityDamage(UM10HowlDamage::SanityLoss);
++        if(!IsDead())if(auto* Status=UCombatStatusFormula::GetOrAdd(Actor);Status&&!Status->IsImmune())
++        {
++            Status->AddCripple(UM10HowlDamage::CrippleSeconds);
++        }
++    }
+     UE_LOG(LogTemp, Display, TEXT("PLAYER_DAMAGE amount=%.1f health=%.1f"), Damage, Health);
+     if (GEngine) GEngine->AddOnScreenDebugMessage(91401, 3.f, FColor::Red,
+         FString::Printf(TEXT("HP %.0f / %.0f%s"), Health, MaxHealth, IsDead() ? TEXT(" - Respawning...") : TEXT("")));

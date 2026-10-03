@@ -129,3 +129,5 @@ description: 制作与接入 UE5 怪物，支持 Meshy 已蒙皮绑骨的人形�
 - 读图与视觉判读：需要自己看渲染、截图或候选图时**直接用会话内挂载的 `read_image` 工具**读本地图片路径；批量、headless 或不想让图片进会话历史时才用 `D:/FPS3D/FPSGAME/Tools/deepseek-vision.ps1`（用法与边界见 `D:/FPS3D/FPSGAME/Docs/deepseek-vision.md`）。读图只做定性确认和列差异；角度、朝向、偏移、接触位置和尺寸用像素测量；最终视觉验收由用户决定。
 
 枪械默认无硬直但需要局部身体回弹时，读 [枪击反馈与控制分离](references/gun-hit-feedback.md)；不把姿态脉冲当成击倒或布娃娃。布娃娃与飞扑修订的保留输入、归档和公开源码边界见工程 `Docs/Monsters/monster-ragdoll-publication-20261003.md`。
+
+宽体多足怪物的坡地悬空、锁脚扭曲、眼口组织变形与前后方攻击选择，读 [M-10 沉匣：八足接地与攻击](references/m10-mawcrawler.md)。V12 已完成原生构建，实机地形／形变未验收；保留源动作依赖链和已认可身份。
