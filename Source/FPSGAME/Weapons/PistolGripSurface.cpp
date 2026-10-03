@@ -9,12 +9,32 @@
 
 namespace PistolGripSurface
 {
+namespace
+{
+const FJsonObject* Variant(const FGunsmithWeapon* Weapon, const FString& Part)
+{
+    const TSharedPtr<FJsonObject>* Binding = nullptr;
+    const TSharedPtr<FJsonObject>* Variants = nullptr;
+    const TSharedPtr<FJsonObject>* Entry = nullptr;
+    if (Weapon && Weapon->Source.IsValid()
+        && Weapon->Source->TryGetObjectField(TEXT("pistol_grip_surface"), Binding)
+        && (*Binding)->TryGetObjectField(TEXT("variants"), Variants)
+        && (*Variants)->TryGetObjectField(Part, Entry)) return Entry->Get();
+    return nullptr;
+}
+}
 bool IsPart(const FString& Part)
 {
-    return Part == TEXT("pistol_grip_granular") || Part == TEXT("pistol_grip_diamond") || Part == TEXT("pistol_grip_quickdot");
+    return Part == TEXT("pistol_grip_granular") || Part == TEXT("pistol_grip_diamond")
+        || Part == TEXT("pistol_grip_quickdot") || Part == TEXT("pit_viper_vip_scales");
 }
-FString MeshPath(const FGunsmithWeapon* Weapon)
+FString MeshPath(const FGunsmithWeapon* Weapon, const FString& Part)
 {
+    if (const auto* Entry = Variant(Weapon, Part))
+    {
+        FString Path; Entry->TryGetStringField(TEXT("mesh"), Path); return Path;
+    }
+    if (Part == TEXT("pit_viper_vip_scales")) return FString();
     const TSharedPtr<FJsonObject>* Binding = nullptr;
     FString Path;
     if (Weapon && Weapon->Source.IsValid() && Weapon->Source->TryGetObjectField(TEXT("pistol_grip_surface"), Binding))
@@ -22,8 +42,13 @@ FString MeshPath(const FGunsmithWeapon* Weapon)
     return Path;
 }
 bool Supports(const FGunsmithWeapon* Weapon) { return !MeshPath(Weapon).IsEmpty(); }
-FString MaterialPath(const FString& Part)
+FString MaterialPath(const FString& Part, const FGunsmithWeapon* Weapon)
 {
+    if (const auto* Entry = Variant(Weapon, Part))
+    {
+        FString Path; Entry->TryGetStringField(TEXT("material"), Path); return Path;
+    }
+    if (Part == TEXT("pit_viper_vip_scales")) return FString();
     return IsPart(Part) ? TEXT("/Game/Weapons/PistolGripSurface20260927/Materials/M_") + Part : FString();
 }
 void MergeOptions(const TSharedPtr<FJsonObject>& Catalog, const TSharedPtr<FJsonObject>& Weapon, TArray<FString>& Allowed)
@@ -36,7 +61,11 @@ void MergeOptions(const TSharedPtr<FJsonObject>& Catalog, const TSharedPtr<FJson
         || !Catalog->TryGetArrayField(TEXT("pistol_grip_surface_options"), Shared)) return;
     // Explicit host binding only: never broadcast the family to every firearm.
     // A surface-treatment slot does not merge in full replacement grips.
-    Weapon->GetObjectField(TEXT("options"))->SetArrayField(TEXT("reargrip"), *Shared);
+    TArray<TSharedPtr<FJsonValue>> Options = *Shared;
+    const TArray<TSharedPtr<FJsonValue>>* Exclusive = nullptr;
+    if ((*Binding)->TryGetArrayField(TEXT("exclusive_options"), Exclusive))
+        Options.Append(*Exclusive);
+    Weapon->GetObjectField(TEXT("options"))->SetArrayField(TEXT("reargrip"), Options);
     Allowed.AddUnique(TEXT("reargrip"));
 }
 UStaticMeshComponent* Configure(AActor* Owner, USkeletalMeshComponent* Host,
@@ -55,8 +84,8 @@ UStaticMeshComponent* Configure(AActor* Owner, USkeletalMeshComponent* Host,
     const FName Bone(*BoneName);
     const auto& Ref = Asset->GetRefSkeleton();
     if (Ref.FindBoneIndex(Bone) == INDEX_NONE) return Remove();
-    auto* Mesh = LoadObject<UStaticMesh>(nullptr, *MeshPath(Weapon));
-    auto* Material = LoadObject<UMaterialInterface>(nullptr, *MaterialPath(Part));
+    auto* Mesh = LoadObject<UStaticMesh>(nullptr, *MeshPath(Weapon, Part));
+    auto* Material = LoadObject<UMaterialInterface>(nullptr, *MaterialPath(Part, Weapon));
     if (!Mesh || !Material)
     {
         UE_LOG(LogTemp, Error, TEXT("Missing pistol grip surface for %s / %s"), *Weapon->Id, *Part);

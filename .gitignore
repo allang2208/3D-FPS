@@ -2156,3 +2156,19 @@ __pycache__/
 !/SourceAssets/MonsterRagdollCore20261002/provenance.json
 !/SourceAssets/MonsterRagdollCore20261002/Reference/AlsCharacter_Actions.cpp
 /SourceAssets/MonsterRagdollPublication20261003/Candidates/
+
+# Pit Viper 2011 closeout: owned recipes/prose public; source geometry, native
+# poses, media, UE packages and local production/rollback receipts stay local.
+/SourceAssets/PitViper*/**
+!/SourceAssets/PitViper*/**/
+!/SourceAssets/PitViper*/**/*.py
+!/SourceAssets/PitViper*/**/*.ps1
+!/SourceAssets/PitViper*/**/*.md
+/SourceAssets/PitViper*/**/Before*/
+/SourceAssets/PitViper*/**/Backup/
+/SourceAssets/PitViper*/**/History/
+/SourceAssets/PitViper*/**/Inputs/
+/SourceAssets/PitViper*/**/__pycache__/
+!/SourceAssets/PitViper2011Publication20261003/archive-manifest.json
+!/SourceAssets/PitViper2011Publication20261003/retained-recovery-dependencies.json
+!/SourceAssets/PitViper2011Publication20261003/published-files.json

@@ -1,0 +1,629 @@
+{
+  "date": "2026-10-03",
+  "base_commit": "67e72977a9f9097e0a46a1cb659f618c51bd7f4f",
+  "public_scope": "Owned 2011 recipes, records, skill, exact catalog row and runtime integration; no source binary payloads",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 109415,
+      "sha256": "fd185c082ed0cb9bba9cf89c3865943589003a3654ba9cae7b51853531d51d8c"
+    },
+    {
+      "path": "Content/ColdSteelData/gunsmith.json",
+      "bytes": 243029,
+      "sha256": "c39d86b816880ecbaa804714d58dd77a860a4417220ceae49abe0ac2f903ea8b"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 75369,
+      "sha256": "3ba78c1f12e30f9c6a29b782c1468082ba39a615d1a2df59deaa5fc2b3c9a8ce"
+    },
+    {
+      "path": "Docs/Weapons/pistol-shared-suppressed-and-pit-viper-normal-20261002.md",
+      "bytes": 3176,
+      "sha256": "2d8ba092bba75eb233a489151426a4438ba96c018b6ec58753fea48fb71addfd"
+    },
+    {
+      "path": "Docs/Weapons/pit-viper2011-common-attachments-20261002.md",
+      "bytes": 3097,
+      "sha256": "43c4fc22dc2d3900b9b6f202ef96cf61e8d999f258c19c96eea1131bdfd61156"
+    },
+    {
+      "path": "Docs/Weapons/pit-viper2011-fire-audio-20261002.md",
+      "bytes": 3276,
+      "sha256": "c5163d4685814d181e4d2e40891261b49f9fbfd4958e09e6056a539b319fe913"
+    },
+    {
+      "path": "Docs/Weapons/pit-viper2011-fire-upgrade-20261002.md",
+      "bytes": 4107,
+      "sha256": "58e2433b7bb2aae86177308735b90cbaab8521223b1b96c54b5fa3e9fcb95791"
+    },
+    {
+      "path": "Docs/Weapons/pit-viper2011-integration-20261002.md",
+      "bytes": 6050,
+      "sha256": "e14e2058adeab3135a745da0501eb3f60707d22e53877fb467f22fcdcea45341"
+    },
+    {
+      "path": "Docs/Weapons/pit-viper2011-optic-preview-fix-20261002.md",
+      "bytes": 3037,
+      "sha256": "44a6e1f778f5130049ef2c514ad43d160445cda33371e4a452f57e3454c3337b"
+    },
+    {
+      "path": "Docs/Weapons/pit-viper2011-publication-20261003.md",
+      "bytes": 4529,
+      "sha256": "af60c373757832c995ed650994af48e5279619ce5efa615c476f9781745fb4cf"
+    },
+    {
+      "path": "Docs/Weapons/pit-viper2011-vip-viper-grip-20261002.md",
+      "bytes": 1107,
+      "sha256": "f38d5582cf19b13169676a7db04e881a324def2f34b70156398b01303ba96116"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+      "bytes": 19641,
+      "sha256": "a3379fe5e854ed8763a0f61a23462443ff46482583878298abec92edea54c471"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+      "bytes": 33178,
+      "sha256": "53ac7f54d43406e941384081cb6d8d0003a7359bb71e1990b25e6e9fc0c2feee"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/CommonHK416Parts.h",
+      "bytes": 1745,
+      "sha256": "2983b1f4dbe4892eb767f23e7d77d9d5e6bd7e569cc8bedff8b6f5ca547dfec1"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M1911AttachmentVisual.cpp",
+      "bytes": 7821,
+      "sha256": "dede6c47492f442f082e2827a895ef293d1d3c276d7f7a555fc618869b8e126b"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolAudioAssets.h",
+      "bytes": 265,
+      "sha256": "a2dff1a80ebe1104c349c03d99c1dd729e789843809c97d837316f627de513cb"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+      "bytes": 39579,
+      "sha256": "2b027fc40be520ac7bbbc854fe28639ea3240827d9f488f1af116d6cb9c7b3de"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolGripSurface.cpp",
+      "bytes": 5304,
+      "sha256": "d6492102a8c6eb3e710cd7ca78f969aa8d672904204c34e3fb3cc78eb208885f"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolGripSurface.h",
+      "bytes": 909,
+      "sha256": "5c35eaa0090e1221e2f317fb25994030281ff0d01e823dd3a666d8477afe48d5"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PitViper2011SICompensator.cpp",
+      "bytes": 966,
+      "sha256": "9dfe5a44d292c5c99fcf696f476dfdead8c92545490d8792279930d05df64372"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PitViper2011SICompensator.h",
+      "bytes": 442,
+      "sha256": "d29df53ff1f36c88d86abb1dd2ecfb79b9480c2b9503ed0fc77ec0c09d891de1"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Attachments20261002/README.md",
+      "bytes": 1915,
+      "sha256": "2cb151d3484a784dbe8467224c79c12a3dcf2f052b3b7a1ae6ddb22be4549fef"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Attachments20261002/author_parts.py",
+      "bytes": 15775,
+      "sha256": "04a31b87e77bfc57b4f9abc018d98ca6797bfafb4f20917c42ba73988c2800f7"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Attachments20261002/build_editor.ps1",
+      "bytes": 2159,
+      "sha256": "ae6f4e0fa56f4c038f0b3cfaa3d54c6860be0c5bf425028a7bd53fc6ee4a8df0"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Attachments20261002/import_assets.py",
+      "bytes": 7154,
+      "sha256": "c423d9d03d0d482d712d53ca3b8e263485ac1009be5a9304a79cf34d8106836d"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Attachments20261002/publish_catalog.py",
+      "bytes": 4884,
+      "sha256": "46a746fd81bf8b2b87d18bcbaf149c2e70d5bd133d9dfe642118da3bcb253b11"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Attachments20261002/run_import.ps1",
+      "bytes": 1170,
+      "sha256": "1a1c7f5f5bf7be3d4ffdaa1621375ca296a2186ee7014a6aa0ead4eae7906915"
+    },
+    {
+      "path": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/README.md",
+      "bytes": 1824,
+      "sha256": "601665d8a2bf8b0b180f4f1700504498a62c7eb70d9f09f9aecdb5e76acafcec"
+    },
+    {
+      "path": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/author_grip.py",
+      "bytes": 5847,
+      "sha256": "3fa62dc2b9b68d36f6be56b6edfc4a206812d38a638145790c86758946f03c07"
+    },
+    {
+      "path": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/import_grip.py",
+      "bytes": 4336,
+      "sha256": "211db41816aed0cc85b180051a577db6d77633773d88ebbdb71c61af5ee99930"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Fire20261002/README.md",
+      "bytes": 1822,
+      "sha256": "f3fad80700cf5dbd7d5c3e11b65791bc9690bb092cf4f8f199faee22c3963930"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Fire20261002/author_fire.py",
+      "bytes": 1097,
+      "sha256": "18dede884ec7ec64d9055c71e6111d02355568479c3603c1126d82bd4642a8d3"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Fire20261002/build_editor.ps1",
+      "bytes": 2152,
+      "sha256": "6eec54732076041a362f60e63f82866612e0229d306dc8e262af1ac58717a4c5"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Fire20261002/finalize_delivery.py",
+      "bytes": 1615,
+      "sha256": "797458051889bf8d1d4548c17b79d877f3ea3423b967ccf22e43b70bbce68223"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Fire20261002/import_fire.py",
+      "bytes": 5603,
+      "sha256": "a93841636c1504bf723ed02580074f89a53acadc981f1815a590ae6a73097e8f"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Fire20261002/publish_sources.py",
+      "bytes": 1996,
+      "sha256": "1240c236e77311ca173171609b24ed4e0453b7558adcb2d16ce9de3cb9428506"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Fire20261002/read_reference.py",
+      "bytes": 2504,
+      "sha256": "548d10b5ede26063982644e962605ee494b55b555e47dad14094c84c03b62b95"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Fire20261002/run_authoring.ps1",
+      "bytes": 492,
+      "sha256": "2bcd73fe2f6fdd94a05b82b19d9b62a601639f7fec24667b0879e4ef8820ff35"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Fire20261002/run_import.ps1",
+      "bytes": 1165,
+      "sha256": "9b60e99aace86506e57081954872e0be197ab610fd63160ed949b75b7a1c66f4"
+    },
+    {
+      "path": "SourceAssets/PitViper2011FireAudio20261002/author_audio.py",
+      "bytes": 8413,
+      "sha256": "dba9f4d7c8ba6d2cd2d70b34d44b1aa75bd8a20e30d4dc361981ec91975c900e"
+    },
+    {
+      "path": "SourceAssets/PitViper2011FireAudio20261002/build_editor.ps1",
+      "bytes": 2367,
+      "sha256": "472771bb6969e2652dde1aff0e54aef0703053b56f4f620053f6d4ff3b60d5b0"
+    },
+    {
+      "path": "SourceAssets/PitViper2011FireAudio20261002/end_play_for_import.py",
+      "bytes": 383,
+      "sha256": "40a94f34411336194fe828e856375ce37c32a925769254ec1188baf6d5c7899f"
+    },
+    {
+      "path": "SourceAssets/PitViper2011FireAudio20261002/import_audio.py",
+      "bytes": 4461,
+      "sha256": "0c615116e9244255b939c3f7358a5c7f54b1c5c9c5cb1921be71bb41c72615e5"
+    },
+    {
+      "path": "SourceAssets/PitViper2011FireAudio20261002/import_suppressed.py",
+      "bytes": 3180,
+      "sha256": "0015fc60fd3755d685b6e82ba1f1301dd52364b29b0f57ad718100be1d3b489a"
+    },
+    {
+      "path": "SourceAssets/PitViper2011FireAudio20261002/record_delivery.py",
+      "bytes": 1384,
+      "sha256": "c9e9c06e13f7c0d41f0f9790673010985fbae339708126293121c5788cfeaf72"
+    },
+    {
+      "path": "SourceAssets/PitViper2011FireAudio20261002/run_background_install.ps1",
+      "bytes": 829,
+      "sha256": "835505fb21d57fe411ca93bede04b1063d1298e1e6cd43decef41566ddfc3ebf"
+    },
+    {
+      "path": "SourceAssets/PitViper2011FireAudio20261002/run_import.ps1",
+      "bytes": 1174,
+      "sha256": "f257b42481bbeac7f6cd599cba8c0d6db4a15bace5db706faccf28e3952c24df"
+    },
+    {
+      "path": "SourceAssets/PitViper2011GripRebuild20261003/README.md",
+      "bytes": 4882,
+      "sha256": "45d22b43636120b2f62f63d0b18d146a32dc24495b7c18e3800b829e5bea2cbc"
+    },
+    {
+      "path": "SourceAssets/PitViper2011GripRebuild20261003/author_grips.py",
+      "bytes": 327,
+      "sha256": "7f0035317b11fe729b9f3b66e8ea1d1ec97ed02fadff778c598b126866bd23cd"
+    },
+    {
+      "path": "SourceAssets/PitViper2011GripRebuild20261003/author_icon.py",
+      "bytes": 237,
+      "sha256": "33e5097efa8c4cd10fd3e860bdaa64272ba7a721a1fc14f31e2375c9f44c2e97"
+    },
+    {
+      "path": "SourceAssets/PitViper2011GripRebuild20261003/diagnose_assets.py",
+      "bytes": 1398,
+      "sha256": "70f578ede3080e0f638e27f49800ab6c3774fcd31f00e38f547bbd71d6ee1dc2"
+    },
+    {
+      "path": "SourceAssets/PitViper2011GripRebuild20261003/import_icon.py",
+      "bytes": 2395,
+      "sha256": "b3f072346f450da86b0622b5c6c7ed2f01774e9744d724c5c32cebc536c79fd0"
+    },
+    {
+      "path": "SourceAssets/PitViper2011GripRebuild20261003/import_rebuilt.py",
+      "bytes": 383,
+      "sha256": "f3f6484136f6d547c6168cef0e628a839bfd382929412e50160f219ad633df47"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002/README.md",
+      "bytes": 3817,
+      "sha256": "50ad811cb5c2964a8b858df93da31e53f94830d68254ec01cd075d88f55dca0b"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002/acquire_official.py",
+      "bytes": 4105,
+      "sha256": "45278daa51f62ee780e5101bf1943fc2caf151e83d795bb07c71b8e8682ebb62"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002/author_pit_viper.py",
+      "bytes": 21014,
+      "sha256": "498fff87737b4923800ce9b7e3ba886fb433bc83efc0cbb2e3bf05e097be2c45"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002/build_editor.ps1",
+      "bytes": 2184,
+      "sha256": "ca6e270dac8adace0a9b9de5fe1819fc162cb5e7331ea526ccfba0bc4dd1e182"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002/connect_runtime.py",
+      "bytes": 9854,
+      "sha256": "45b33cb5438af68e547b787dbbafd73abd7447fb1cdaf9c730d2f49bf1680022"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002/finalize_delivery.py",
+      "bytes": 4263,
+      "sha256": "f18a5dd39fbbce959072a1e59a73ca75b74b0300c65cbd67a7429bf00a1f4c09"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002/fire_motion.py",
+      "bytes": 1281,
+      "sha256": "660e4e9c3d4ed571c9f99a2e1466142f6e28acab3643479e8e14fda6ac0163bf"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002/import_assets.py",
+      "bytes": 11408,
+      "sha256": "c9dd2d2e97321e2f294f43e3e75121a1d00cc36ee111655644c7cc2334b9faf8"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002/prepare_delivery.py",
+      "bytes": 4371,
+      "sha256": "22ca5c2db72df66a4f818e34a4f04a72dfa35e15f047503432b735990e09cddc"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002/prepare_geometry.py",
+      "bytes": 2133,
+      "sha256": "eaf222e9ed5c16a2d3aca8b3294ed4e7f2a6e5a7e485ea89ef9dfaa6605810f0"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002/publish_catalog.py",
+      "bytes": 4254,
+      "sha256": "bf42bc41f7a2d3f927341eabafbb9b747e59f904ad13b86ae47e2d6e457bc83e"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002/read_download.py",
+      "bytes": 1871,
+      "sha256": "c275c8d2ddd2dd50c04d47e0d5c89a2eb820869cd7c88a01547064cdc33b0763"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002/run_import.ps1",
+      "bytes": 1969,
+      "sha256": "6ca93be16c569f22a8976d2fd82b2056a43c510e13d7cf6a7803275f6706c457"
+    },
+    {
+      "path": "SourceAssets/PitViper2011OpticPreviewFix20261002/author_optics.py",
+      "bytes": 6895,
+      "sha256": "cdc116cc80c56fc8d0465c4b7d805d2bb8a7f803a568b369c4ba7ac7e9eb438f"
+    },
+    {
+      "path": "SourceAssets/PitViper2011OpticPreviewFix20261002/build_editor.ps1",
+      "bytes": 2357,
+      "sha256": "f9e6fecfc2e100769b1aa6a58cb6b1b99e8b89d1aaaec04e9a8cd0188a66ea2b"
+    },
+    {
+      "path": "SourceAssets/PitViper2011OpticPreviewFix20261002/diagnose_blender.py",
+      "bytes": 2890,
+      "sha256": "f8dc9161229535fea5a4a7ebd69fdf89e5562527f0bb9093aa2bdae5307d1a9c"
+    },
+    {
+      "path": "SourceAssets/PitViper2011OpticPreviewFix20261002/import_assets.py",
+      "bytes": 6382,
+      "sha256": "8869e0cf9dd9e1198046024363973d08111e75e91fb1be698d2de3671d3b4535"
+    },
+    {
+      "path": "SourceAssets/PitViper2011OpticPreviewFix20261002/read_materials.py",
+      "bytes": 2789,
+      "sha256": "0b02b41b6b65f0859729cf05b75581a2bdb74bed8484eeaa653cbb4a5d33a833"
+    },
+    {
+      "path": "SourceAssets/PitViper2011OpticPreviewFix20261002/run_import.ps1",
+      "bytes": 1179,
+      "sha256": "f1887abfbfadd9de29f396a19a581b5040ac4c33300d6e648c6d86b7762ecfee"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Publication20261003/archive-manifest.json",
+      "bytes": 162892,
+      "sha256": "964c563df7a4073f1ee091df7308bd7157640540b21250333103083549ac5a20"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Publication20261003/retained-recovery-dependencies.json",
+      "bytes": 3540,
+      "sha256": "e908cc4bb10c0e4d0a28310218fec70492f56653d00de3783376b00c9b855b29"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SIBodyExtension20261003/README.md",
+      "bytes": 1875,
+      "sha256": "feb486da5dfd0c33ee41ac6697c6885abb243c90a45019d9574cb4bde201fd9d"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SIBodyExtension20261003/finalize_delivery.py",
+      "bytes": 1374,
+      "sha256": "ab22d12bf4a63743b61dc9bbf4c7420ad8bb4e66c4f0a75317024964efa4f111"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SIBodyExtension20261003/import_mesh.py",
+      "bytes": 4551,
+      "sha256": "888858fc664b2ef2eec582468786b1d3048b708c95c0cddde1c079a28da2f957"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SIBodyExtension20261003/measure_host_interface.py",
+      "bytes": 2114,
+      "sha256": "a78648febbabfae73b3947329a9361a8df430205004cc8f7486095fb1f9156eb"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SIBodyExtension20261003/produce.py",
+      "bytes": 1062,
+      "sha256": "25ac9fb12cd90560cb6725263586deaac260f94425ab8095b5e40a0082343627"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SICompensator20261002/README.md",
+      "bytes": 6349,
+      "sha256": "29fe3eb1345d4daf405ce09184d844b7253e48da044a5c35fd60b7f8d950b3c2"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SICompensator20261002/author_body_sections.py",
+      "bytes": 3513,
+      "sha256": "374b77b784cdc426bf6cd1ff101bbf89df2c94cae024d891903639990f79a509"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SICompensator20261002/author_icon.py",
+      "bytes": 2301,
+      "sha256": "589975c32790fefc873dba8c9c338c07d3e3c00ada9f7d34ccfdca0f096f2970"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SICompensator20261002/author_si_compensator.py",
+      "bytes": 18812,
+      "sha256": "27c60650b963d0254ce4063f4246d873a94bb26b655e73a8503f2eb112f93f84"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SICompensator20261002/build_native.ps1",
+      "bytes": 2568,
+      "sha256": "83ed4bec2116756d28726ea5a7b1775f1d3062bd6768b2406fa0dfc8497274cd"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SICompensator20261002/finalize_delivery.py",
+      "bytes": 1588,
+      "sha256": "dad7ab6cded895780e25fb82d1f13b0ecfbdecdeb4695f74e107f73f29f72fa6"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SICompensator20261002/import_icon.py",
+      "bytes": 2745,
+      "sha256": "aa6b580f0e622b0de8d995d39d6d3f89d8e03709959a2256815758121794390f"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SICompensator20261002/import_si_compensator.py",
+      "bytes": 8921,
+      "sha256": "f7e34a861b8c4c2bf655e647098aff51a81cb6cf1bb4c0f3bf0a3cb6b83b072d"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SICompensator20261002/publish_catalog.py",
+      "bytes": 2648,
+      "sha256": "7fa8b73ebb3a2106a654a35a37914643ee4f4b4bfa8188ab8055edfc143fb479"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SICompensator20261002/run_import.ps1",
+      "bytes": 765,
+      "sha256": "99ad0004abb3b600aa75ed91f15f4692b4564b4886f9c1ceca9e7b090e515503"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SurfaceRefine20261003/README.md",
+      "bytes": 2903,
+      "sha256": "60c5d6ac7b554ee908c25b9110e233fb5aac5a31a4aa8d17aa2463418bb44d85"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SurfaceRefine20261003/capture_inputs.py",
+      "bytes": 3426,
+      "sha256": "2175aba78dd5a33c0a4e10bfbbd9df999c9cac19a4a4bad77927516eb54e11c4"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SurfaceRefine20261003/finalize_surface_graphs.py",
+      "bytes": 1896,
+      "sha256": "3cfa5cbd0cf69efff02db247b34d6536ffb9b88899cff19848298832e3cdbaac"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SurfaceRefine20261003/import_surfaces.py",
+      "bytes": 6843,
+      "sha256": "c6b0f579ef7b3ae1e8edfaf48dac6de413106722d9657e0933185a22f547b05c"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SurfaceRefine20261003/produce_textures.py",
+      "bytes": 4337,
+      "sha256": "2f5ab4cbfbe82a334947965d6d26fdfa8610b2c4bbea47721e3d93bf8ddc5827"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SurfaceRefine20261003/restore_saved_finish.py",
+      "bytes": 346,
+      "sha256": "e9e8822bb9d6c0641e1db0e41a0277916fa96f6d2aa68eca03184acbad11b0d9"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SurfaceRefine20261003/run_import.ps1",
+      "bytes": 705,
+      "sha256": "ac2b90058a3b256c98338d043f17961ff1192f0c272914ba1b0c3b43745a4f0c"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SurfaceRefine20261003/surface_contract.py",
+      "bytes": 4426,
+      "sha256": "8e84625e8d89f07699dfdcf1c698a2625f65784cdb74af9d4342010751b893a6"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SurfaceRefine20261003/write_finish_recipe.py",
+      "bytes": 1012,
+      "sha256": "1a4af37032d81f45e7b37e53451219000890d20eac0209d76b5bb456a0ad7375"
+    },
+    {
+      "path": "SourceAssets/PitViper2011VipGrip20261002/README.md",
+      "bytes": 4392,
+      "sha256": "62868dd65d3ec34770a6361c4c22cbe8cdf1014c012cd8265a422601955ea259"
+    },
+    {
+      "path": "SourceAssets/PitViper2011VipGrip20261002/author_grip.py",
+      "bytes": 237,
+      "sha256": "b389be8995d5dd38d65a39c147be7fa36c112e6e0809b94eb50039a00cbdd8ca"
+    },
+    {
+      "path": "SourceAssets/PitViper2011VipGrip20261002/author_icon.py",
+      "bytes": 237,
+      "sha256": "33e5097efa8c4cd10fd3e860bdaa64272ba7a721a1fc14f31e2375c9f44c2e97"
+    },
+    {
+      "path": "SourceAssets/PitViper2011VipGrip20261002/build_editor.ps1",
+      "bytes": 2348,
+      "sha256": "cd46c87522881ef35141e298a761157aa4c32b15a9e8e2f1bfb7383466f1037e"
+    },
+    {
+      "path": "SourceAssets/PitViper2011VipGrip20261002/complete_import.ps1",
+      "bytes": 791,
+      "sha256": "fe0d8d4ed6eff7de392fb27c88ee7e8aaef490888f5983ea8e1b33459a4254b5"
+    },
+    {
+      "path": "SourceAssets/PitViper2011VipGrip20261002/import_assets.py",
+      "bytes": 9387,
+      "sha256": "8f3f2f96264e25efb229f9408d2abd73de4a95ed1819e9404399ddbd5b09e5e5"
+    },
+    {
+      "path": "SourceAssets/PitViper2011VipGrip20261002/publish_catalog.py",
+      "bytes": 2874,
+      "sha256": "6b02cd28138b8eb56d6453672059bf68b3a2be18c69b07a563d198da794402fd"
+    },
+    {
+      "path": "SourceAssets/PitViper2011VipGrip20261002/resume_import.py",
+      "bytes": 508,
+      "sha256": "17b2ebb2adaecf9c848bd886060d4a1d1959237945bae346111a2a6a0def8852"
+    },
+    {
+      "path": "SourceAssets/PitViper2011VipGrip20261002/run_import.ps1",
+      "bytes": 1161,
+      "sha256": "4107be0aa237c446d2c8cc1461f48b5b682f22059104ae68ba43327ebe64b1a3"
+    },
+    {
+      "path": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/README.md",
+      "bytes": 2202,
+      "sha256": "688f721f2b8c2582657c5a0f974f3b2c0c530312168a7037d70cb3a168c71e23"
+    },
+    {
+      "path": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/author_grip.py",
+      "bytes": 9372,
+      "sha256": "9a40b8c01f6cabf1678959162c41a030e23c5fed844ebb68ea533fecc60fb57b"
+    },
+    {
+      "path": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/author_icon.py",
+      "bytes": 3047,
+      "sha256": "f3e7c70f14a9a312a7c9c217670746e8dbe5dde289d50f764a4b9f52c6c59e11"
+    },
+    {
+      "path": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/finalize_delivery.py",
+      "bytes": 1023,
+      "sha256": "566d6b996c292bd0f7b1929aff3288783593413c175663810e999cc777af7b58"
+    },
+    {
+      "path": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/import_assets.py",
+      "bytes": 6759,
+      "sha256": "e2b6d2fb65fad566ae112b1e50993f75ae4e318bafc4acf7dcb74cef94a2ead3"
+    },
+    {
+      "path": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/produce_textures.py",
+      "bytes": 2100,
+      "sha256": "4977efa6c66fca2057ab41e828db379ed5f98afb832fd8e983fb348b7d2743ac"
+    },
+    {
+      "path": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/publish_description.py",
+      "bytes": 2217,
+      "sha256": "9f34a686babbc94eabc1ece48c8aa6762ee0fcf6114ddb1cdbaa844325e90173"
+    },
+    {
+      "path": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/surface_recipe.py",
+      "bytes": 1734,
+      "sha256": "9af1e9c717569010c1c2e953417c8489511ee7ffc0ae6721091ea2e806337c0b"
+    },
+    {
+      "path": "Tools/Publication/archive_pit_viper_closeout_20261003.ps1",
+      "bytes": 4238,
+      "sha256": "fbc7231b98752eb1d771ee8d8fffed53de9c7d4437d0d0ae558a035af760d906"
+    },
+    {
+      "path": "Tools/Publication/prepare_pit_viper_closeout_20261003.py",
+      "bytes": 4985,
+      "sha256": "13210a87f9144b688427b63c9e37504754741620142c9d1ba66fda8d8ee8d5ea"
+    },
+    {
+      "path": "Tools/Publication/stage_pit_viper_closeout_20261003.py",
+      "bytes": 7095,
+      "sha256": "e186c853a0ad6ad0a90fa49c5895bdf1bfb79e06a5adff0efd2d6ab48a865569"
+    },
+    {
+      "path": "Tools/Weapons/pit_viper_grip_fitting.py",
+      "bytes": 4800,
+      "sha256": "9183b9296d38ab7bb1956524837af3832e6b81532253e518ba3bb11ede33bcaf"
+    },
+    {
+      "path": "Tools/Weapons/pit_viper_longitudinal_grip.py",
+      "bytes": 5958,
+      "sha256": "1392da491a0e0b93d20dbe09e70a00fcdccacf705c9aaa4ce3a049f3773d33b3"
+    },
+    {
+      "path": "Tools/Weapons/pit_viper_si_extension.py",
+      "bytes": 5607,
+      "sha256": "703bdf44df11d229386fde0e3e52ce2bc21dacf11efade7ffbe50783b049d857"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/SKILL.md",
+      "bytes": 16367,
+      "sha256": "01edadcc8219607ac399f314730c2e7aace50402777553ebf5a66f3dcd558dea"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/pistol-surface-and-optic-refinement.md",
+      "bytes": 6965,
+      "sha256": "db7bb764e487a78bbe0ff7e86817d4fd8a6d80be6cb0916fd040557dfbfdbad1"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Publication20261003/published-files.json",
+      "self_manifest": true
+    }
+  ],
+  "game_tested": false,
+  "acceptance_rendered": false,
+  "native_rebuilt_for_publication": false
+}

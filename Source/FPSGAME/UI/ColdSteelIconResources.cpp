@@ -24,6 +24,7 @@
 #include "../Weapons/M1911WeaponAssets.h"
 #include "../Weapons/G18WeaponAssets.h"
 #include "../Weapons/PitViper2011WeaponAssets.h"
+#include "../Weapons/PitViper2011SICompensator.h"
 #include "../Weapons/DanWesson715WeaponAssets.h"
 #include "../Weapons/PistolGripSurface.h"
 #include "../Weapons/DanWesson715FittedParts.h"
@@ -155,6 +156,11 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         {
             FString Key=Part.Value;
             if(Key.IsEmpty()||Key==TEXT("false")||Key==TEXT("factory"))continue;
+            if(D==PitViper2011WeaponAssets::Definition && Part.Key==TEXT("muzzle") && Key==PitViper2011SICompensator::Part)
+            {
+                Add(PitViper2011SICompensator::MeshPath,true);
+                continue;
+            }
             if(AR416Furniture::IsPart(Key)&&AR416Furniture::Supports(D))
             {
                 Add(AR416Furniture::MeshPath(D,Key),true);

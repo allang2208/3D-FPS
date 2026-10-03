@@ -1,5 +1,7 @@
 #include "PistolDualWieldComponent.h"
 #include "G18WeaponAssets.h"
+#include "PitViper2011WeaponAssets.h"
+#include "PitViper2011SICompensator.h"
 #include "Staff/StaffCatalog.h"
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
@@ -14,6 +16,7 @@
 #include "DanWesson715FittedParts.h"
 #include "M1911MagazineVisual.h"
 #include "M1911WeaponAssets.h"
+#include "PistolAudioAssets.h"
 #include "WeaponReloadStages.h"
 #include "TacticalDeviceComponent.h"
 #include "../Skills/FPSCastingMeshComponent.h"
@@ -73,7 +76,8 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
 {
     auto& H=Hands[Index];H.Item=Item;H.Revolver=Item.Definition==TEXT("ue_dan_wesson715");
     const bool G18=Item.Definition==G18WeaponAssets::Definition;
-    const FString Base=G18?G18WeaponAssets::DualRoot(Index):Root(H.Revolver,Index),Name=G18?G18WeaponAssets::DualStem(Index):Stem(H.Revolver,Index);
+    const bool PitViper=Item.Definition==PitViper2011WeaponAssets::Definition;
+    const FString Base=PitViper?PitViper2011WeaponAssets::DualRoot(Index):G18?G18WeaponAssets::DualRoot(Index):Root(H.Revolver,Index),Name=PitViper?PitViper2011WeaponAssets::DualStem(Index):G18?G18WeaponAssets::DualStem(Index):Stem(H.Revolver,Index);
     if(Index==0)H.Mesh=Player->AKMViewmodel;
     else if(!H.Mesh)
     {
@@ -121,6 +125,7 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
     auto Clip=[&](const FString& Kind)
     {
         if(auto* Shared=SharedQuickClip(Kind)){H.Clips.Add(Kind,Shared);return;}
+        if(PitViper){H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*PitViper2011WeaponAssets::DualAnimationPath(Index,Kind)));return;}
         if(G18){H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*G18WeaponAssets::DualAnimationPath(Index,Kind)));return;}
         const TCHAR* Revision=Kind.StartsWith(TEXT("sprint"))?TEXT("/SprintSmoothV5/Animations/A_"):TEXT("/NaturalAimV3/Animations/A_");
         if(H.Revolver && (Kind.StartsWith(TEXT("single_")) || Kind.StartsWith(TEXT("speed_"))))
@@ -139,7 +144,7 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
         TEXT("quickcombat_long"),TEXT("quickcombat_long_empty"),TEXT("quickcombat_left_long"),TEXT("quickcombat_left_long_empty")})
     {
         if(auto* Shared=SharedQuickClip(Kind)){H.Clips.Add(Kind,Shared);continue;}
-        if(G18){Clip(Kind);continue;}
+        if(G18 || PitViper){Clip(Kind);continue;}
         if(H.Revolver && FString(Kind).EndsWith(TEXT("_empty")))continue;
         const TCHAR* Revision=TEXT("SpinRecoveryV5");
         const FString Path=FString::Printf(TEXT("/Game/Weapons/DualPistolQuickCombat20260920/%s/%s/%s/Animations/A_%s_%s"),
@@ -154,19 +159,19 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
             :FString::Printf(TEXT("/Game/Weapons/AKM/Audio/S_AKM_%s"),CueName);
         if(!H.Revolver && FString(CueName).StartsWith(TEXT("Mag")))Path=FString::Printf(TEXT("/Game/Weapons/M4HK416Audio/S_HK416_%s"),CueName);
         if(!H.Revolver && FString(CueName)==TEXT("Equip"))Path=TEXT("/Game/Weapons/M4AnimationAuditFinal/S_HK416_Equip");
+        if(PitViper)Path=PitViper2011WeaponAssets::SoundPath(CueName);
         if(G18)Path=G18WeaponAssets::SoundPath(CueName);
         H.Sounds.Add(CueName,LoadObject<USoundBase>(nullptr,*Path));
     }
     H.Sounds.Add(TEXT("BoltRelease"),H.Sounds.FindRef(TEXT("ChargeRelease")));
+    if(!H.Revolver)H.Sounds.Add(TEXT("Suppressed"),LoadObject<USoundBase>(nullptr,PistolAudioAssets::Suppressed));
     if(G18)
     {
         for(int32 Variant=1;Variant<=4;++Variant)
-            for(const TCHAR* Group:{TEXT("Fire"),TEXT("Suppressed")})
             {
-                const FString Key=FString::Printf(TEXT("%s_%02d"),Group,Variant);
+                const FString Key=FString::Printf(TEXT("Fire_%02d"),Variant);
                 H.Sounds.Add(Key,LoadObject<USoundBase>(nullptr,*G18WeaponAssets::SoundPath(Key)));
             }
-        H.Sounds.Add(TEXT("Suppressed"),LoadObject<USoundBase>(nullptr,*G18WeaponAssets::SoundPath(TEXT("Suppressed"))));
     }
     H.Sounds.Add(TEXT("SingleOpen"),H.Sounds.FindRef(TEXT("MagOut")));
     H.Sounds.Add(TEXT("SingleEject"),H.Sounds.FindRef(TEXT("ChargePull")));
@@ -255,7 +260,7 @@ void UPistolDualWieldComponent::RefreshEquipment(UColdSteelStatusModel* Model)
         H.Rounds=FMath::Clamp(H.Item.Magazine,0,H.Stats.Capacity);
         H.Cases=H.Revolver?FMath::Clamp(int32(ColdSteelInventory::Number(H.Item,TEXT("revolver_case_count"),H.Rounds)),H.Rounds,6):H.Rounds;
         H.Speedloader=H.Revolver && Parts.FindRef(TEXT("reload_device"))==TEXT("dw715_speedloader");
-        H.Suppressed=Parts.FindRef(TEXT("muzzle"))==TEXT("tactical_suppressor") || Parts.FindRef(TEXT("muzzle"))==TEXT("true");
+        H.Suppressed=Parts.FindRef(TEXT("muzzle"))==TEXT("tactical_suppressor") || Parts.FindRef(TEXT("muzzle"))==TEXT("true") || Parts.FindRef(TEXT("muzzle"))==TEXT("multi_caliber_suppressor");
         // Right FX uses the primary attachment interface, left FX uses its own copied exit.
         H.FX->IndependentSuppressed=H.Suppressed;
         if(Side==0){H.FX->bUseCharacterMuzzle=true;H.Sounds.Add(TEXT("Suppressed"),Player->SuppressedFireSound);}
@@ -288,6 +293,9 @@ void UPistolDualWieldComponent::CopyLeftAttachments(const FColdSteelItem& Item,c
     if (Hands[1].Revolver)
         DanWesson715FittedParts::ShowFactoryGrip(Hands[1].Mesh,
             !(Rig->RearGripAttachment && Rig->RearGripAttachment->IsVisible()));
+    PitViper2011SICompensator::ShowFactory(Hands[1].Mesh,
+        !(Parts.FindRef(TEXT("muzzle")) == PitViper2011SICompensator::Part
+            && Rig->MuzzleAttachment && Rig->MuzzleAttachment->IsVisible()));
     TMap<USceneComponent*,USceneComponent*> Copies;Copies.Add(Rig->AKMViewmodel,Hands[1].Mesh);
     TFunction<USceneComponent*(USceneComponent*)> Copy=[&](USceneComponent* Source)->USceneComponent*
     {
@@ -321,7 +329,7 @@ void UPistolDualWieldComponent::CopyLeftAttachments(const FColdSteelItem& Item,c
     {
         Hands[1].Tactical=NewObject<UTacticalDeviceComponent>(Player);Player->AddInstanceComponent(Hands[1].Tactical);Hands[1].Tactical->RegisterComponent();
     }
-    Hands[1].Tactical->Configure(Hands[1].Item.Definition==G18WeaponAssets::Definition?TEXT("G18"):Hands[1].Revolver?TEXT("DanWesson715"):TEXT("M1911"),Parts.FindRef(TEXT("tactical")),Hands[1].Mesh,true);
+    Hands[1].Tactical->Configure(Hands[1].Item.Definition==PitViper2011WeaponAssets::Definition?TEXT("PitViper2011"):Hands[1].Item.Definition==G18WeaponAssets::Definition?TEXT("G18"):Hands[1].Revolver?TEXT("DanWesson715"):TEXT("M1911"),Parts.FindRef(TEXT("tactical")),Hands[1].Mesh,true);
     Hands[1].Sounds.Add(TEXT("Suppressed"),Rig->SuppressedFireSound);
     Hands[0].Sounds.Add(TEXT("Suppressed"),Player->SuppressedFireSound);
 }
@@ -384,7 +392,7 @@ void UPistolDualWieldComponent::PrepareSingleInspect()
     // Single-weapon setup runs again after leaving dual wield (LoadHand clears
     // the old clip map). Keep this small variant alive without loading on L.
     const auto* OwnerPlayer=Cast<AFPSGAMECharacter>(GetOwner());
-    Hands[0].Clips.Add(TEXT("single_inspect_empty"),LoadObject<UAnimSequence>(nullptr,*(OwnerPlayer && OwnerPlayer->IsG18Weapon() ? G18WeaponAssets::AnimationPath(TEXT("inspect_empty")) : M1911WeaponAssets::AnimationPath(TEXT("inspect_empty")))));
+    Hands[0].Clips.Add(TEXT("single_inspect_empty"),LoadObject<UAnimSequence>(nullptr,*(OwnerPlayer && OwnerPlayer->IsPitViperWeapon() ? PitViper2011WeaponAssets::AnimationPath(TEXT("inspect_empty")) : OwnerPlayer && OwnerPlayer->IsG18Weapon() ? G18WeaponAssets::AnimationPath(TEXT("inspect_empty")) : M1911WeaponAssets::AnimationPath(TEXT("inspect_empty")))));
 }
 
 UAnimSequence* UPistolDualWieldComponent::SingleEmptyInspect() const
@@ -420,8 +428,8 @@ FString UPistolDualWieldComponent::QuickCombatClipKind(int32 Side,bool LeftStrik
         const FString Optic=Parts.FindRef(TEXT("optic")),Muzzle=Parts.FindRef(TEXT("muzzle")),Tactical=Parts.FindRef(TEXT("tactical"));
         // Every profile retains the full recovery revolution. Long cans use
         // the most canted axis, including when an optic/tactical is also fitted.
-        if(Muzzle==TEXT("true") || Muzzle==TEXT("tactical_suppressor"))Kind+=TEXT("_long");
-        else if(Optic==TEXT("holographic") || Optic==TEXT("panoramic_red_dot")
+        if(Muzzle==TEXT("true") || Muzzle==TEXT("tactical_suppressor") || Muzzle==TEXT("multi_caliber_suppressor"))Kind+=TEXT("_long");
+        else if(Optic==TEXT("holographic") || Optic==TEXT("panoramic_red_dot") || Optic==TEXT("eoth_holographic")
             || Tactical==TEXT("laser") || Tactical==TEXT("flashlight"))Kind+=TEXT("_fitted");
     }
     if(!H.Revolver && H.Rounds==0)Kind+=TEXT("_empty");
@@ -514,7 +522,7 @@ void UPistolDualWieldComponent::Trigger(int32 Index,bool Pressed)
     if(!bActive || Index<FirstHand() || Index>=2)return;
     auto& H=Hands[Index];
     if(!Pressed){H.Held=H.Pending=false;return;}
-    if(!InputAvailable() || (IsEquipping() && H.Item.Definition!=G18WeaponAssets::Definition) || (Index==1 && Player->IsCastBlockingLeftHandAction()))return;
+    if(!InputAvailable() || (IsEquipping() && H.Item.Definition!=G18WeaponAssets::Definition && H.Item.Definition!=PitViper2011WeaponAssets::Definition) || (Index==1 && Player->IsCastBlockingLeftHandAction()))return;
     if(!H.Held)H.Pending=true;H.Held=true;
     Player->ExitSprintForWeapon();
     if(H.Action==H.Clips.FindRef(TEXT("equip")))StopAction(Index);
@@ -657,11 +665,14 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
     H.Anim->SprintAlpha=H.Sprint;
     H.Anim->ActionClip=H.Action;H.Anim->ActionTime=H.ActionTime;
     const float BlendAge=float(GetWorld()->GetTimeSeconds()-H.ActionBlendStarted)*H.ActionRate;
-    H.Anim->ActionAlpha=H.Action?FMath::Min(FMath::Clamp(BlendAge/.025f,0.f,1.f),FMath::Clamp((H.Action->GetPlayLength()-H.ActionTime)/.035f,0.f,1.f)):0;
+    const bool FireAction=H.Action && (H.Action==H.Clips.FindRef(TEXT("fire")) || H.Action==H.Clips.FindRef(TEXT("fire_last")));
+    // Match the single-hand fire entrance so the 12 ms slide impulse remains
+    // visible while each hand retains its independent aim and recoil clocks.
+    const float BlendIn=FireAction && H.Item.Definition==PitViper2011WeaponAssets::Definition?.008f:.025f;
+    H.Anim->ActionAlpha=H.Action?FMath::Min(FMath::Clamp(BlendAge/BlendIn,0.f,1.f),FMath::Clamp((H.Action->GetPlayLength()-H.ActionTime)/.035f,0.f,1.f)):0;
     const bool QuickAction=IsQuickCombatClip(Index);
     if(QuickAction)H.Anim->ActionAlpha=FMath::Min(FMath::Clamp(H.ActionTime/.025f,0.f,1.f),
         QuickCombatRecovery::RemainingWeight(H.ActionTime,H.Action->GetPlayLength(),DualPistolQuickCombatMotion::IdleHandoffStart));
-    const bool FireAction=H.Action && (H.Action==H.Clips.FindRef(TEXT("fire")) || H.Action==H.Clips.FindRef(TEXT("fire_last")));
     H.Anim->bDualPistolAim=true;H.Anim->DualPistolSide=Index;
     H.Anim->DualPistolAimTargetWorld=AimTargetWorld;
     H.Anim->DualPistolAimAlpha=Visible && !(Index==1 && Cast)

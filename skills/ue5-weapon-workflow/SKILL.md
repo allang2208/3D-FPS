@@ -111,3 +111,5 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 处理 G 键环绕飞剑、连续发射手势或蓝色碎裂时，读取 [环绕飞剑连发](references/rune-blade-burst.md)。
 
 - 原厂后托／后握重叠、安装光学镜隐藏机瞄、跨枪接口及带属性原厂默认件：[原厂分区与配件衔接](references/factory-sections-and-fitted-parts.md)。
+
+- 手枪握把防滑纹、纵向覆片、弹匣边界或纹理拉伸：[手枪表面与部件分界](references/pistol-surface-and-optic-refinement.md)。按握把本体轮廓制作，裁切后保持物理 UV，专属与通用纹理沿相同覆盖域。

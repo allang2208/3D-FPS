@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-03",
+  "entries": [
+    {
+      "path": "SourceAssets/PitViper2011Integration20261002",
+      "purpose": "Original licensed source, canonical geometry, native V7/weapon rigs and full authored family",
+      "public": "owned recipes and prose only; source payloads/media and production receipts local"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Fire20261002",
+      "purpose": "Current fire animation sources and output clips",
+      "public": "owned recipes and prose only; source payloads/media and production receipts local"
+    },
+    {
+      "path": "SourceAssets/PitViper2011FireAudio20261002",
+      "purpose": "User-provided audio, masters and current retained loudness input",
+      "public": "owned recipes and prose only; source payloads/media and production receipts local"
+    },
+    {
+      "path": "SourceAssets/PitViper2011Attachments20261002",
+      "purpose": "Current common parts and required original optical donor Blend scenes",
+      "public": "owned recipes and prose only; source payloads/media and production receipts local"
+    },
+    {
+      "path": "SourceAssets/PitViper2011OpticPreviewFix20261002",
+      "purpose": "Current fitted optical assemblies and import/material inputs",
+      "public": "owned recipes and prose only; source payloads/media and production receipts local"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SICompensator20261002",
+      "purpose": "Current SI models, native sectioned rigs, source matrices and dedicated icon",
+      "public": "owned recipes and prose only; source payloads/media and production receipts local"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SIBodyExtension20261003",
+      "purpose": "Current exact native muzzle extension interface and save receipts",
+      "public": "owned recipes and prose only; source payloads/media and production receipts local"
+    },
+    {
+      "path": "SourceAssets/PitViper2011SurfaceRefine20261003",
+      "purpose": "Current material snapshots, shared-pattern maps and surface restore contract",
+      "public": "owned recipes and prose only; source payloads/media and production receipts local"
+    },
+    {
+      "path": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003",
+      "purpose": "Current VIP long-grip model, physical atlas and icon",
+      "public": "owned recipes and prose only; source payloads/media and production receipts local"
+    },
+    {
+      "path": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003",
+      "purpose": "Current shared long-grip model and physical UV authoring record",
+      "public": "owned recipes and prose only; source payloads/media and production receipts local"
+    },
+    {
+      "path": "SourceAssets/PitViper2011FireAudio20261002/Inputs/SuppressedLoudnessReference_float.wav",
+      "purpose": "Active normalization reference moved out of retired History; do not remove with old versions",
+      "public": false
+    },
+    {
+      "path": "/Game/Weapons/PitViper2011",
+      "purpose": "Current saved UE weapon/attachment/material/audio/animation packages",
+      "public": false
+    },
+    {
+      "path": "/Game/Weapons/PistolSharedAudio20261002/S_Pistol_Suppressed",
+      "purpose": "Current common supported-pistol suppressor sound",
+      "public": false
+    },
+    {
+      "path": "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms",
+      "purpose": "Current specific and reused universal UI PNG resources",
+      "public": false
+    }
+  ],
+  "game_tested": false,
+  "acceptance_rendered": false
+}

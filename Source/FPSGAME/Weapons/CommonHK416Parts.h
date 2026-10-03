@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "PitViper2011WeaponAssets.h"
 
 // Independent catalog IDs. Mesh-local aim and outlet sockets are authored for
 // every interface variant; their source UVs and optical materials stay intact.
@@ -18,6 +19,8 @@ namespace CommonHK416Parts
     }
     inline FString MeshPath(const FString& Definition, const FString& Variant)
     {
+        if (Definition == PitViper2011WeaponAssets::Definition)
+            return PitViper2011WeaponAssets::AttachmentPath(Variant);
         const FString Family = Variant == Optic ? OpticFamily(Definition)
             : Definition == TEXT("ue_hk416") ? TEXT("HK416")
             : (Definition == TEXT("ue_m1911") || Definition == TEXT("ue_g18")) ? TEXT("Pistol") : TEXT("Common");

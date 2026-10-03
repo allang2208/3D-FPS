@@ -1,0 +1,2009 @@
+{
+  "task": "Pit Viper 2011 closeout 20261003",
+  "archive_root": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003",
+  "complete": true,
+  "file_count": 200,
+  "bytes": 1768416722,
+  "files": [
+    {
+      "source": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/Before/Content/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011CommonLongitudinalGrips20261003\\Before\\Content\\Weapons\\PitViper2011\\Attachments20261002\\SM_PitViper2011_GripSurface.uasset",
+      "bytes": 1799295,
+      "sha256": "96810652510463712ef96a9b22593cf2d3da9b562e6198e929edbc7afcda98d9",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011CommonLongitudinalGrips20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "96810652510463712ef96a9b22593cf2d3da9b562e6198e929edbc7afcda98d9",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/Before/SourceAssets/PitViper2011Attachments20261002/author_parts.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011CommonLongitudinalGrips20261003\\Before\\SourceAssets\\PitViper2011Attachments20261002\\author_parts.py",
+      "bytes": 16237,
+      "sha256": "5f002c6275bb3edde3f0fc96ea7122b449ef3338cc35ff6e6dacc41661f20ecf",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011CommonLongitudinalGrips20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "5f002c6275bb3edde3f0fc96ea7122b449ef3338cc35ff6e6dacc41661f20ecf",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/Before/SourceAssets/PitViper2011Attachments20261002/authoring.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011CommonLongitudinalGrips20261003\\Before\\SourceAssets\\PitViper2011Attachments20261002\\authoring.json",
+      "bytes": 13954,
+      "sha256": "bb5f7e12040509f393a1d0e6132bfe09174237b55cdbb2f46b74dd3e223dd5ba",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011CommonLongitudinalGrips20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "bb5f7e12040509f393a1d0e6132bfe09174237b55cdbb2f46b74dd3e223dd5ba",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/Before/SourceAssets/PitViper2011Attachments20261002/import_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011CommonLongitudinalGrips20261003\\Before\\SourceAssets\\PitViper2011Attachments20261002\\import_receipt.json",
+      "bytes": 14832,
+      "sha256": "3723fcf056cca868d0398e1edd570f5f328e7aa39579b30b8e4ba843abaa5f68",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011CommonLongitudinalGrips20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "3723fcf056cca868d0398e1edd570f5f328e7aa39579b30b8e4ba843abaa5f68",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/Before/SourceAssets/PitViper2011Attachments20261002/README.md",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011CommonLongitudinalGrips20261003\\Before\\SourceAssets\\PitViper2011Attachments20261002\\README.md",
+      "bytes": 1250,
+      "sha256": "31c829748953ba2584ba85359c6a8f80e6de1b3afb1c26b72b2d2e5c939846c4",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011CommonLongitudinalGrips20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "31c829748953ba2584ba85359c6a8f80e6de1b3afb1c26b72b2d2e5c939846c4",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/Before/SourceAssets/PitViper2011GripRebuild20261003/author_grips.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011CommonLongitudinalGrips20261003\\Before\\SourceAssets\\PitViper2011GripRebuild20261003\\author_grips.py",
+      "bytes": 12430,
+      "sha256": "6cae5a4d75ec7f2cf265fce89f09548886bf59923dd38903c41797307618df81",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011CommonLongitudinalGrips20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "6cae5a4d75ec7f2cf265fce89f09548886bf59923dd38903c41797307618df81",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/Before/SourceAssets/PitViper2011GripRebuild20261003/authoring.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011CommonLongitudinalGrips20261003\\Before\\SourceAssets\\PitViper2011GripRebuild20261003\\authoring.json",
+      "bytes": 6400,
+      "sha256": "054963f1a4392fd02123e300f314d8bd5499d5386dcc7af4cc8c5f203b8cfe46",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011CommonLongitudinalGrips20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "054963f1a4392fd02123e300f314d8bd5499d5386dcc7af4cc8c5f203b8cfe46",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/Before/SourceAssets/PitViper2011GripRebuild20261003/Exports/SM_PitViper2011_GripSurface.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011CommonLongitudinalGrips20261003\\Before\\SourceAssets\\PitViper2011GripRebuild20261003\\Exports\\SM_PitViper2011_GripSurface.fbx",
+      "bytes": 1429084,
+      "sha256": "a842acc55c5b5da41b3b84eb46b7d74f22e6963484e5dbb084109b17c43dc568",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011CommonLongitudinalGrips20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "a842acc55c5b5da41b3b84eb46b7d74f22e6963484e5dbb084109b17c43dc568",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/Before/SourceAssets/PitViper2011GripRebuild20261003/Exports/SM_PitViper2011_GripSurface_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011CommonLongitudinalGrips20261003\\Before\\SourceAssets\\PitViper2011GripRebuild20261003\\Exports\\SM_PitViper2011_GripSurface_Editable.blend",
+      "bytes": 210109638,
+      "sha256": "74b3928d36c57fa01c368a643e16465ce54875ff886c5342732b257d48b2a9a7",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011CommonLongitudinalGrips20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "74b3928d36c57fa01c368a643e16465ce54875ff886c5342732b257d48b2a9a7",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/Before/SourceAssets/PitViper2011GripRebuild20261003/README.md",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011CommonLongitudinalGrips20261003\\Before\\SourceAssets\\PitViper2011GripRebuild20261003\\README.md",
+      "bytes": 3768,
+      "sha256": "392b7a339ac41d69b4c0b6d0a4946184cd0eb61c8bf1447b1a8c2b9adc167cf8",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011CommonLongitudinalGrips20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "392b7a339ac41d69b4c0b6d0a4946184cd0eb61c8bf1447b1a8c2b9adc167cf8",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeAssets/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_fire.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeAssets\\Weapons\\PitViper2011\\Integrated20261002\\Dual\\l\\Animations\\A_Dual_PitViper2011_l_fire.uasset",
+      "bytes": 116518,
+      "sha256": "28f268b0fe92f341891421dd38769e1ba55a0adffd63d81ebfdaccd7437aaee5",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "28f268b0fe92f341891421dd38769e1ba55a0adffd63d81ebfdaccd7437aaee5",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeAssets/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_fire_last.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeAssets\\Weapons\\PitViper2011\\Integrated20261002\\Dual\\l\\Animations\\A_Dual_PitViper2011_l_fire_last.uasset",
+      "bytes": 120200,
+      "sha256": "1c12915b5151cf627c27fc7369349c912b19748e143968e4fdcacec22365b968",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "1c12915b5151cf627c27fc7369349c912b19748e143968e4fdcacec22365b968",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeAssets/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_fire.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeAssets\\Weapons\\PitViper2011\\Integrated20261002\\Dual\\r\\Animations\\A_Dual_PitViper2011_r_fire.uasset",
+      "bytes": 116532,
+      "sha256": "248bc97da8d1a91d830b0053af7ad29a5ba2a848e177489744b80d9959f50a1d",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "248bc97da8d1a91d830b0053af7ad29a5ba2a848e177489744b80d9959f50a1d",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeAssets/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_fire_last.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeAssets\\Weapons\\PitViper2011\\Integrated20261002\\Dual\\r\\Animations\\A_Dual_PitViper2011_r_fire_last.uasset",
+      "bytes": 120214,
+      "sha256": "713ad035739af990a112b85c7a060dd99d0b4dda7e049b1a71b2b951935728da",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "713ad035739af990a112b85c7a060dd99d0b4dda7e049b1a71b2b951935728da",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeAssets/Weapons/PitViper2011/Integrated20261002/Single/Animations/A_PitViper2011_aim_fire.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeAssets\\Weapons\\PitViper2011\\Integrated20261002\\Single\\Animations\\A_PitViper2011_aim_fire.uasset",
+      "bytes": 116521,
+      "sha256": "2c1ce4bf4d96673ceec9dec4d497796a11b10170fef07af99816a3d6691b971a",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "2c1ce4bf4d96673ceec9dec4d497796a11b10170fef07af99816a3d6691b971a",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeAssets/Weapons/PitViper2011/Integrated20261002/Single/Animations/A_PitViper2011_aim_fire_last.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeAssets\\Weapons\\PitViper2011\\Integrated20261002\\Single\\Animations\\A_PitViper2011_aim_fire_last.uasset",
+      "bytes": 120215,
+      "sha256": "3c44ca4c77228fecefc4cc26bb9ac6b3bdc8986a65e5365762da6ff1b5772288",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "3c44ca4c77228fecefc4cc26bb9ac6b3bdc8986a65e5365762da6ff1b5772288",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeAssets/Weapons/PitViper2011/Integrated20261002/Single/Animations/A_PitViper2011_fire.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeAssets\\Weapons\\PitViper2011\\Integrated20261002\\Single\\Animations\\A_PitViper2011_fire.uasset",
+      "bytes": 116543,
+      "sha256": "cca3112956a098691b13419c8a95a1c8b29c0fa0be67a1978689370e3c54f360",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "cca3112956a098691b13419c8a95a1c8b29c0fa0be67a1978689370e3c54f360",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeAssets/Weapons/PitViper2011/Integrated20261002/Single/Animations/A_PitViper2011_fire_last.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeAssets\\Weapons\\PitViper2011\\Integrated20261002\\Single\\Animations\\A_PitViper2011_fire_last.uasset",
+      "bytes": 120225,
+      "sha256": "51a56021762773852db29fa266d60624e18593058b5dddc41680320c07114b1a",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "51a56021762773852db29fa266d60624e18593058b5dddc41680320c07114b1a",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeSources/Dual/l/Animations/A_Dual_PitViper2011_l_fire.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeSources\\Dual\\l\\Animations\\A_Dual_PitViper2011_l_fire.fbx",
+      "bytes": 805772,
+      "sha256": "cef80705b5a763055626c33e659edb8e87179b21da3e75c3a9c78127293f2ed7",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "cef80705b5a763055626c33e659edb8e87179b21da3e75c3a9c78127293f2ed7",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeSources/Dual/l/Animations/A_Dual_PitViper2011_l_fire_last.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeSources\\Dual\\l\\Animations\\A_Dual_PitViper2011_l_fire_last.fbx",
+      "bytes": 805772,
+      "sha256": "47f738b1dca55d0b999250d10ed64b936e0fdeba00281f37df145f55835d920a",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "47f738b1dca55d0b999250d10ed64b936e0fdeba00281f37df145f55835d920a",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeSources/Dual/l/authoring.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeSources\\Dual\\l\\authoring.json",
+      "bytes": 6474,
+      "sha256": "3daf4b884e5ecb79893d2d41e7f234c08e2aeb150ca025c956e3cce6f79a5a50",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "3daf4b884e5ecb79893d2d41e7f234c08e2aeb150ca025c956e3cce6f79a5a50",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeSources/Dual/r/Animations/A_Dual_PitViper2011_r_fire.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeSources\\Dual\\r\\Animations\\A_Dual_PitViper2011_r_fire.fbx",
+      "bytes": 805772,
+      "sha256": "759a1afaaacee1ab8b3bfedcc75980d8965aa09450c987280adffde83882e8dc",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "759a1afaaacee1ab8b3bfedcc75980d8965aa09450c987280adffde83882e8dc",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeSources/Dual/r/Animations/A_Dual_PitViper2011_r_fire_last.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeSources\\Dual\\r\\Animations\\A_Dual_PitViper2011_r_fire_last.fbx",
+      "bytes": 805772,
+      "sha256": "f4ba0a242322708f03d15431facc3264d8ae01934f6ded88334e1ec909827fbb",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "f4ba0a242322708f03d15431facc3264d8ae01934f6ded88334e1ec909827fbb",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeSources/Dual/r/authoring.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeSources\\Dual\\r\\authoring.json",
+      "bytes": 6477,
+      "sha256": "52201bdd635bfc506d3581e19b13b452d98fcb1df37058b5f46cf321b40b8d2b",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "52201bdd635bfc506d3581e19b13b452d98fcb1df37058b5f46cf321b40b8d2b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeSources/Single/Animations/A_PitViper2011_aim_fire.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeSources\\Single\\Animations\\A_PitViper2011_aim_fire.fbx",
+      "bytes": 805756,
+      "sha256": "2e00809a190f657b54389729b69055d70c828e68d58c5b1dbd3f8d6f6408d036",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "2e00809a190f657b54389729b69055d70c828e68d58c5b1dbd3f8d6f6408d036",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeSources/Single/Animations/A_PitViper2011_aim_fire_last.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeSources\\Single\\Animations\\A_PitViper2011_aim_fire_last.fbx",
+      "bytes": 805756,
+      "sha256": "9a2344e6a5d9cb61fc413821611f2c9d5c2f803444afb5122c4fab9b88093af4",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "9a2344e6a5d9cb61fc413821611f2c9d5c2f803444afb5122c4fab9b88093af4",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeSources/Single/Animations/A_PitViper2011_fire.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeSources\\Single\\Animations\\A_PitViper2011_fire.fbx",
+      "bytes": 805756,
+      "sha256": "f6cee99a160b6d355648e13c2a7087f5247fbebeda456b228634ae93398fa703",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "f6cee99a160b6d355648e13c2a7087f5247fbebeda456b228634ae93398fa703",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeSources/Single/Animations/A_PitViper2011_fire_last.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeSources\\Single\\Animations\\A_PitViper2011_fire_last.fbx",
+      "bytes": 805756,
+      "sha256": "4398c4e91f86fa9cffa5da8ab1d404265c91460939534105a71d9f8377ec2729",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "4398c4e91f86fa9cffa5da8ab1d404265c91460939534105a71d9f8377ec2729",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Fire20261002/BeforeSources/Single/authoring.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Fire20261002\\BeforeSources\\Single\\authoring.json",
+      "bytes": 5595,
+      "sha256": "0fdb191da03d4dadf58074d89f044f0f5732eb4a2451af1c904da5ec5df072c6",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Fire20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "0fdb191da03d4dadf58074d89f044f0f5732eb4a2451af1c904da5ec5df072c6",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/author_grip_v1.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\author_grip_v1.py",
+      "bytes": 11725,
+      "sha256": "6a35d7bb07f130c58d795ab2e823f228cad5c8782e1f14ccac357a241e6edaa7",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "6a35d7bb07f130c58d795ab2e823f228cad5c8782e1f14ccac357a241e6edaa7",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/Content/Weapons/PistolGripSurface20260927/DA_PistolGripSurfaceWetMaterials.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\Content\\Weapons\\PistolGripSurface20260927\\DA_PistolGripSurfaceWetMaterials.uasset",
+      "bytes": 3010,
+      "sha256": "61c7db86edf982814d17d8a557f1c1fc7c12e2d8c270f813d983805ad1f3a354",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "61c7db86edf982814d17d8a557f1c1fc7c12e2d8c270f813d983805ad1f3a354",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/Content/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\Content\\Weapons\\PitViper2011\\Attachments20261002\\SM_PitViper2011_GripSurface.uasset",
+      "bytes": 56771,
+      "sha256": "942543d96ad62fa71ebca53b4f6d5ac4a0baaafec9efa087121eed2979ba9b9b",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "942543d96ad62fa71ebca53b4f6d5ac4a0baaafec9efa087121eed2979ba9b9b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/Content/Weapons/PitViper2011/VipGrip20261002/Materials/M_PitViper2011_VipViperGrip.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\Content\\Weapons\\PitViper2011\\VipGrip20261002\\Materials\\M_PitViper2011_VipViperGrip.uasset",
+      "bytes": 15412,
+      "sha256": "faa1e3bd8e91c842a41c764e77991545b24c0536884626856dac042f32210e04",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "faa1e3bd8e91c842a41c764e77991545b24c0536884626856dac042f32210e04",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/Content/Weapons/PitViper2011/VipGrip20261002/Materials/MI_PitViper2011_VipChampagne.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\Content\\Weapons\\PitViper2011\\VipGrip20261002\\Materials\\MI_PitViper2011_VipChampagne.uasset",
+      "bytes": 6368,
+      "sha256": "1b746dd92408b6f20392a963adf7f2e1941f48f2c91072dd95c93c87ab6d09f2",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "1b746dd92408b6f20392a963adf7f2e1941f48f2c91072dd95c93c87ab6d09f2",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/Content/Weapons/PitViper2011/VipGrip20261002/SM_PitViper2011_VipViperGrip.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\Content\\Weapons\\PitViper2011\\VipGrip20261002\\SM_PitViper2011_VipViperGrip.uasset",
+      "bytes": 1656155,
+      "sha256": "9b234a4710f62820a8bf5bbeed564fd05759870aba950d273eb0ce49b8869d64",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "9b234a4710f62820a8bf5bbeed564fd05759870aba950d273eb0ce49b8869d64",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/Content/Weapons/PitViper2011/VipGrip20261002/Textures/T_PitViper2011_VipViperGrip_BaseColor.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\Content\\Weapons\\PitViper2011\\VipGrip20261002\\Textures\\T_PitViper2011_VipViperGrip_BaseColor.uasset",
+      "bytes": 1797760,
+      "sha256": "82a3103ecb2bc8abb000a64c96eb0b46a65002ce64ec344953e5d68f1f561fa4",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "82a3103ecb2bc8abb000a64c96eb0b46a65002ce64ec344953e5d68f1f561fa4",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/Content/Weapons/PitViper2011/VipGrip20261002/Textures/T_PitViper2011_VipViperGrip_Height.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\Content\\Weapons\\PitViper2011\\VipGrip20261002\\Textures\\T_PitViper2011_VipViperGrip_Height.uasset",
+      "bytes": 2960646,
+      "sha256": "aad8fa2e563515fadc57597d14c6067f1b3b43aa4d25f12704b9e5610ff64493",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "aad8fa2e563515fadc57597d14c6067f1b3b43aa4d25f12704b9e5610ff64493",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/Content/Weapons/PitViper2011/VipGrip20261002/Textures/T_PitViper2011_VipViperGrip_Normal.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\Content\\Weapons\\PitViper2011\\VipGrip20261002\\Textures\\T_PitViper2011_VipViperGrip_Normal.uasset",
+      "bytes": 8327131,
+      "sha256": "a57c405502f7ac2b69fe9b4fc030652860e7d896a799fd6847e1f6ba05f5322a",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "a57c405502f7ac2b69fe9b4fc030652860e7d896a799fd6847e1f6ba05f5322a",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/Content/Weapons/PitViper2011/VipGrip20261002/Textures/T_PitViper2011_VipViperGrip_ORM.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\Content\\Weapons\\PitViper2011\\VipGrip20261002\\Textures\\T_PitViper2011_VipViperGrip_ORM.uasset",
+      "bytes": 3152982,
+      "sha256": "59f5510ef098ef6d662c6418f352eaf9593f88de5aee2aab9d611a916613bd61",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "59f5510ef098ef6d662c6418f352eaf9593f88de5aee2aab9d611a916613bd61",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/Icons/ue_pit_viper2011_reargrip_pit_viper_vip_scales.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\Icons\\ue_pit_viper2011_reargrip_pit_viper_vip_scales.png",
+      "bytes": 2937449,
+      "sha256": "7030a0ca131992c3f79406aeeb4da4f76a08976cb99280ef15491a5ccbc84238",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "7030a0ca131992c3f79406aeeb4da4f76a08976cb99280ef15491a5ccbc84238",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/PitViper2011Attachments20261002_authoring.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\PitViper2011Attachments20261002_authoring.json",
+      "bytes": 13233,
+      "sha256": "5ff065f60d005bcb9672e2430a92b43986a1ac811a88560bd0940634e726aeb2",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "5ff065f60d005bcb9672e2430a92b43986a1ac811a88560bd0940634e726aeb2",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/PitViper2011Attachments20261002_import_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\PitViper2011Attachments20261002_import_receipt.json",
+      "bytes": 14832,
+      "sha256": "3723fcf056cca868d0398e1edd570f5f328e7aa39579b30b8e4ba843abaa5f68",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "3723fcf056cca868d0398e1edd570f5f328e7aa39579b30b8e4ba843abaa5f68",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/PitViper2011VipGrip20261002_authoring.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\PitViper2011VipGrip20261002_authoring.json",
+      "bytes": 2310,
+      "sha256": "d25c847efe09f8d109fb664aa6f042c6c74753186504cf96aff79d60bce43ffc",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "d25c847efe09f8d109fb664aa6f042c6c74753186504cf96aff79d60bce43ffc",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Before/PitViper2011VipGrip20261002_import_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Before\\PitViper2011VipGrip20261002_import_receipt.json",
+      "bytes": 2691,
+      "sha256": "addcec1d26655c2768e2d30258a0db456f75c5cfd350437f7fcb1ca85787f050",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011GripRebuild20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "addcec1d26655c2768e2d30258a0db456f75c5cfd350437f7fcb1ca85787f050",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Config/DefaultGame.ini",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Config\\DefaultGame.ini",
+      "bytes": 17141,
+      "sha256": "1f8ac91e7aa1f2c168964dd6601c30eb61c703b71b85745fdaad935a295e649b",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "1f8ac91e7aa1f2c168964dd6601c30eb61c703b71b85745fdaad935a295e649b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\FPSGAMECharacter.cpp",
+      "bytes": 226516,
+      "sha256": "03d3fddc2ce6a365800cb9cdcfd47549ebf370449fd282781ee3c1ea0495975b",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "03d3fddc2ce6a365800cb9cdcfd47549ebf370449fd282781ee3c1ea0495975b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/FPSGAMECharacter.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\FPSGAMECharacter.h",
+      "bytes": 46955,
+      "sha256": "e4b8ad69b98399f442c8b278fdd9168a1f8bab801147fb7ca0a0dcf4a5fde43c",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "e4b8ad69b98399f442c8b278fdd9168a1f8bab801147fb7ca0a0dcf4a5fde43c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\FPSGAMECharacterProfile.cpp",
+      "bytes": 14563,
+      "sha256": "3ecf1559831911d82d4bb025e260e1cfd9a4484cd11bdd564c7cf300c23eb537",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "3ecf1559831911d82d4bb025e260e1cfd9a4484cd11bdd564c7cf300c23eb537",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\UI\\ColdSteelIconResources.cpp",
+      "bytes": 18868,
+      "sha256": "5d8d0768a30238fcfdbfa65bee35586ef013309bd3df5f1ce95f1f942b12a8f6",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "5d8d0768a30238fcfdbfa65bee35586ef013309bd3df5f1ce95f1f942b12a8f6",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\UI\\ColdSteelInventoryTypes.h",
+      "bytes": 17074,
+      "sha256": "7351adceac95f44b6246dab05c2201d38faccf7131299935862ef8007e5e9ed1",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "7351adceac95f44b6246dab05c2201d38faccf7131299935862ef8007e5e9ed1",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\UI\\ColdSteelPickupStudio.cpp",
+      "bytes": 3810,
+      "sha256": "f9386a6e05f4be227eb567e96f7e964c9c6ba76bb0072aa5ce5183ef24c602cc",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "f9386a6e05f4be227eb567e96f7e964c9c6ba76bb0072aa5ce5183ef24c602cc",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\UI\\ColdSteelPickupWeapon.cpp",
+      "bytes": 7302,
+      "sha256": "2e69909a2dee1f37e3d2b5e8f6a3d6708bec2c3a6c9175797701f2e63fcf9ea7",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "2e69909a2dee1f37e3d2b5e8f6a3d6708bec2c3a6c9175797701f2e63fcf9ea7",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\UI\\ColdSteelWarehouseModel.cpp",
+      "bytes": 12079,
+      "sha256": "6c29327d2dc5995950745e66c93f4f1df8382ae899de02d000e07f29b4307b10",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "6c29327d2dc5995950745e66c93f4f1df8382ae899de02d000e07f29b4307b10",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\UI\\ColdSteelWeaponIconCatalogCommandlet.cpp",
+      "bytes": 2287,
+      "sha256": "2e8ce901b8c25c0d5f24cde412de8ca1016ae8cc0753c51fb616f936ebe5c1a3",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "2e8ce901b8c25c0d5f24cde412de8ca1016ae8cc0753c51fb616f936ebe5c1a3",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\UI\\ColdSteelWeaponIcons.cpp",
+      "bytes": 35037,
+      "sha256": "f3909945627f596ebb212b9a4910996510da63c907b3f23bd7ea7077f4b4302b",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "f3909945627f596ebb212b9a4910996510da63c907b3f23bd7ea7077f4b4302b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/UI/M4StandalonePreview.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\UI\\M4StandalonePreview.cpp",
+      "bytes": 4283,
+      "sha256": "eef027d086bab83267d4fa5d2ae9b902cf7f6d135c5b7dcd65d3b07745e6095d",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "eef027d086bab83267d4fa5d2ae9b902cf7f6d135c5b7dcd65d3b07745e6095d",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\Weapons\\GunsmithSystem.cpp",
+      "bytes": 21696,
+      "sha256": "3900299e02b1334e4e5d63e1bf5bdb2bbd6405d6f1e5df6cfd7cd5317a57265b",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "3900299e02b1334e4e5d63e1bf5bdb2bbd6405d6f1e5df6cfd7cd5317a57265b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\Weapons\\PistolDualWieldCombat.cpp",
+      "bytes": 14571,
+      "sha256": "198e5a74704caba6e3fc0e24313d00a27f6fb1263235312e19a81b2294794943",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "198e5a74704caba6e3fc0e24313d00a27f6fb1263235312e19a81b2294794943",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\Weapons\\PistolDualWieldComponent.cpp",
+      "bytes": 38415,
+      "sha256": "db7009c6f723075cbada3d1a14a4648077ed72caf1657d3965d45e909d0a92bd",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "db7009c6f723075cbada3d1a14a4648077ed72caf1657d3965d45e909d0a92bd",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/BeforeSource/Source/FPSGAME/Weapons/WeaponReloadStages.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\BeforeSource\\Source\\FPSGAME\\Weapons\\WeaponReloadStages.cpp",
+      "bytes": 3775,
+      "sha256": "9ee7e213fbdce1ae099762976b978250367777c9e83b3defd8d809afdae7c61f",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011Integration20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "9ee7e213fbdce1ae099762976b978250367777c9e83b3defd8d809afdae7c61f",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/author_si_compensator.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\author_si_compensator.py",
+      "bytes": 18342,
+      "sha256": "853ca452d277a323a2d87cbf6f1534d62977ea4fe745e2e8bdb2577b2f36b37e",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "853ca452d277a323a2d87cbf6f1534d62977ea4fe745e2e8bdb2577b2f36b37e",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/authoring_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\authoring_receipt.json",
+      "bytes": 5324,
+      "sha256": "40056d7080a72dcede87c40a7ca0929d3529a0bae683a11b1ee7193d0620ab0c",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "40056d7080a72dcede87c40a7ca0929d3529a0bae683a11b1ee7193d0620ab0c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/Blender/SICompensator_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\Blender\\SICompensator_Editable.blend",
+      "bytes": 298795,
+      "sha256": "09e101f9e7cb3cc726b9e1d26be746957fc53103564aed479a73949aeddca9de",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "09e101f9e7cb3cc726b9e1d26be746957fc53103564aed479a73949aeddca9de",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/Blender/SICompensator_ExportReady.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\Blender\\SICompensator_ExportReady.blend",
+      "bytes": 636854,
+      "sha256": "8bde5e797da4bc82a744789af4d49c9822aff98a364a47920eaad193c49d456d",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "8bde5e797da4bc82a744789af4d49c9822aff98a364a47920eaad193c49d456d",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_pit_viper2011_muzzle_pit_viper_si_compensator.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_pit_viper2011_muzzle_pit_viper_si_compensator.png",
+      "bytes": 2506992,
+      "sha256": "4bb721d285f15fefc48d7627f128ddc941ce9d0fdf227dc752ec97878bc4012c",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "4bb721d285f15fefc48d7627f128ddc941ce9d0fdf227dc752ec97878bc4012c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/Content/Weapons/PitViper2011/SICompensator20261003/Icons/T_ue_pit_viper2011_muzzle_pit_viper_si_compensator.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\Content\\Weapons\\PitViper2011\\SICompensator20261003\\Icons\\T_ue_pit_viper2011_muzzle_pit_viper_si_compensator.uasset",
+      "bytes": 2438589,
+      "sha256": "a4b9b2a9d30fc2e8196e6c462df8f961152c3d0200c00635350879f9b00c6cf0",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "a4b9b2a9d30fc2e8196e6c462df8f961152c3d0200c00635350879f9b00c6cf0",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/Content/Weapons/PitViper2011/SICompensator20261003/SM_PitViper2011_SICompensator.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\Content\\Weapons\\PitViper2011\\SICompensator20261003\\SM_PitViper2011_SICompensator.uasset",
+      "bytes": 300956,
+      "sha256": "4f419ed588dca73c6076492109cbdfe3c22341bf1206d3e6d48af40e5535b131",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "4f419ed588dca73c6076492109cbdfe3c22341bf1206d3e6d48af40e5535b131",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/delivery_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\delivery_receipt.json",
+      "bytes": 16588,
+      "sha256": "ddfd26d1f256299d3482ebb11b05182ed96cbac0acc9d8dba1d4e8f7a6562808",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "ddfd26d1f256299d3482ebb11b05182ed96cbac0acc9d8dba1d4e8f7a6562808",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/Exports/SM_PitViper2011_SICompensator.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\Exports\\SM_PitViper2011_SICompensator.fbx",
+      "bytes": 487852,
+      "sha256": "107dd6ffd6d69aab9786f698b8ca678a747c28e1661f075acac6ca92d9b4885b",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "107dd6ffd6d69aab9786f698b8ca678a747c28e1661f075acac6ca92d9b4885b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/Exports/SM_PitViper2011_SICompensator.mtl",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\Exports\\SM_PitViper2011_SICompensator.mtl",
+      "bytes": 648,
+      "sha256": "e4d9c92ef73b7cac500037e6d817b7f51e91c398ca68caca01d0858ed1caa2a2",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "e4d9c92ef73b7cac500037e6d817b7f51e91c398ca68caca01d0858ed1caa2a2",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/Exports/SM_PitViper2011_SICompensator.obj",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\Exports\\SM_PitViper2011_SICompensator.obj",
+      "bytes": 743213,
+      "sha256": "efcf6dea244bbf56e5e55fac8e57544f4e3104a7271839def62324ae6a08a64c",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "efcf6dea244bbf56e5e55fac8e57544f4e3104a7271839def62324ae6a08a64c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/icon_delivery.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\icon_delivery.json",
+      "bytes": 1003,
+      "sha256": "e8885b6589336280d7cb8aebf4e0f1880f5ec27e23610c0adc85dc00bef0330d",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "e8885b6589336280d7cb8aebf4e0f1880f5ec27e23610c0adc85dc00bef0330d",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/Icons/SICompensator_Model_Gray.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\Icons\\SICompensator_Model_Gray.png",
+      "bytes": 174871,
+      "sha256": "ab49504a6218ab8cb29564e3bfed5b048fe1fe6549c7feb41cd5d38ed2260633",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "ab49504a6218ab8cb29564e3bfed5b048fe1fe6549c7feb41cd5d38ed2260633",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/Icons/ue_pit_viper2011_muzzle_pit_viper_si_compensator.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\Icons\\ue_pit_viper2011_muzzle_pit_viper_si_compensator.png",
+      "bytes": 2506992,
+      "sha256": "4bb721d285f15fefc48d7627f128ddc941ce9d0fdf227dc752ec97878bc4012c",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "4bb721d285f15fefc48d7627f128ddc941ce9d0fdf227dc752ec97878bc4012c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIBodyExtension20261003/Before/integration_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIBodyExtension20261003\\Before\\integration_receipt.json",
+      "bytes": 7913,
+      "sha256": "aaca399e824f355815e17e3a0bcd266f096d629e53e86ac7ba801a3835ba1654",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SIBodyExtension20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "aaca399e824f355815e17e3a0bcd266f096d629e53e86ac7ba801a3835ba1654",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/Before/authoring_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\Before\\authoring_receipt.json",
+      "bytes": 3374,
+      "sha256": "e468dac43859ca57524f50a026d5c81ff0026d8f8e88c80401a94e3f22415113",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "e468dac43859ca57524f50a026d5c81ff0026d8f8e88c80401a94e3f22415113",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/Before/Blender/SICompensator_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\Before\\Blender\\SICompensator_Editable.blend",
+      "bytes": 286156,
+      "sha256": "8ab1c04dfa9409b22800cd3bcdca1b1c118ed9e563c219e7df35474599c46fc4",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "8ab1c04dfa9409b22800cd3bcdca1b1c118ed9e563c219e7df35474599c46fc4",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/Before/Blender/SICompensator_ExportReady.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\Before\\Blender\\SICompensator_ExportReady.blend",
+      "bytes": 527605,
+      "sha256": "4f81c60be1d742b710416477775e99adf191a1be87bc03a70d60b55dd30b0f4b",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "4f81c60be1d742b710416477775e99adf191a1be87bc03a70d60b55dd30b0f4b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/Before/Content/Weapons/PitViper2011/SICompensator20261003/Icons/T_ue_pit_viper2011_muzzle_pit_viper_si_compensator.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\Before\\Content\\Weapons\\PitViper2011\\SICompensator20261003\\Icons\\T_ue_pit_viper2011_muzzle_pit_viper_si_compensator.uasset",
+      "bytes": 2676986,
+      "sha256": "920e32e9131595d289e499054f4650210bcfc8e66d70cc7d7d167ebb92ebb9d9",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "920e32e9131595d289e499054f4650210bcfc8e66d70cc7d7d167ebb92ebb9d9",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/Before/Content/Weapons/PitViper2011/SICompensator20261003/SM_PitViper2011_SICompensator.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\Before\\Content\\Weapons\\PitViper2011\\SICompensator20261003\\SM_PitViper2011_SICompensator.uasset",
+      "bytes": 242890,
+      "sha256": "2683d747c325b42695d9c60a84e93ec513398d75a0f3cdab152d11a6ee9a9c74",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "2683d747c325b42695d9c60a84e93ec513398d75a0f3cdab152d11a6ee9a9c74",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/Before/delivery_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\Before\\delivery_receipt.json",
+      "bytes": 6221,
+      "sha256": "5b79155c63c9f1b9a8a4c0c954f50d2e8d0b36c285471fd641b129a8cd920de6",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "5b79155c63c9f1b9a8a4c0c954f50d2e8d0b36c285471fd641b129a8cd920de6",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/Before/Exports/SM_PitViper2011_SICompensator.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\Before\\Exports\\SM_PitViper2011_SICompensator.fbx",
+      "bytes": 422716,
+      "sha256": "ccec4874013bc5bb37d6a7a98e3a05d54abceefbaeeb67c8c2e46a5a8438bc0c",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "ccec4874013bc5bb37d6a7a98e3a05d54abceefbaeeb67c8c2e46a5a8438bc0c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/Before/Exports/SM_PitViper2011_SICompensator.mtl",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\Before\\Exports\\SM_PitViper2011_SICompensator.mtl",
+      "bytes": 648,
+      "sha256": "faf42b8c2bdaaf3e116b946e5106204a3ae6ba5e6871c4cc2ae3546f2ce591fd",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "faf42b8c2bdaaf3e116b946e5106204a3ae6ba5e6871c4cc2ae3546f2ce591fd",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/Before/Exports/SM_PitViper2011_SICompensator.obj",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\Before\\Exports\\SM_PitViper2011_SICompensator.obj",
+      "bytes": 642065,
+      "sha256": "4991377ab8e9caf7f9497edb6909ab11bd729c7bb6b056b97cef0ced3c67fc2c",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "4991377ab8e9caf7f9497edb6909ab11bd729c7bb6b056b97cef0ced3c67fc2c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/Before/Icons/SICompensator_Model_Gray.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\Before\\Icons\\SICompensator_Model_Gray.png",
+      "bytes": 171968,
+      "sha256": "fb46b279f859cfbe0148f7c8f9139b3a736a92e84d1f8d80eff0574604be5588",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "fb46b279f859cfbe0148f7c8f9139b3a736a92e84d1f8d80eff0574604be5588",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/Before/Icons/ue_pit_viper2011_muzzle_pit_viper_si_compensator.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\Before\\Icons\\ue_pit_viper2011_muzzle_pit_viper_si_compensator.png",
+      "bytes": 2826367,
+      "sha256": "c2b9fb4e9bad4b7be380ab0d3bed8beedaf4b2d1133d183527b89cd9be312aab",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "c2b9fb4e9bad4b7be380ab0d3bed8beedaf4b2d1133d183527b89cd9be312aab",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/Before/integration_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\Before\\integration_receipt.json",
+      "bytes": 4872,
+      "sha256": "03d1f98fbd7cce8c18f8453376fac47d69e10c5109503e632e6c249a217f9b3e",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "03d1f98fbd7cce8c18f8453376fac47d69e10c5109503e632e6c249a217f9b3e",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Before/Content/Weapons/PistolGripSurface20260927/DA_PistolGripSurfaceWetMaterials.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Before\\Content\\Weapons\\PistolGripSurface20260927\\DA_PistolGripSurfaceWetMaterials.uasset",
+      "bytes": 3010,
+      "sha256": "61c7db86edf982814d17d8a557f1c1fc7c12e2d8c270f813d983805ad1f3a354",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SICompensator20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "61c7db86edf982814d17d8a557f1c1fc7c12e2d8c270f813d983805ad1f3a354",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Before/Content/Weapons/PitViper2011/Integrated20261002/Dual/l/SK_Dual_PitViper2011_l.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Before\\Content\\Weapons\\PitViper2011\\Integrated20261002\\Dual\\l\\SK_Dual_PitViper2011_l.uasset",
+      "bytes": 6579050,
+      "sha256": "6ac7058e76cecee6761e0b9c8f527348eed0cddfe1d5f5c0086d3d81d3a7b088",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SICompensator20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "6ac7058e76cecee6761e0b9c8f527348eed0cddfe1d5f5c0086d3d81d3a7b088",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Before/Content/Weapons/PitViper2011/Integrated20261002/Dual/l/SK_Dual_PitViper2011_l_Skeleton.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Before\\Content\\Weapons\\PitViper2011\\Integrated20261002\\Dual\\l\\SK_Dual_PitViper2011_l_Skeleton.uasset",
+      "bytes": 30991,
+      "sha256": "10c1f3305ff27005bdeb9e51b7829b0828a36ec7b1cfafb83a6999bd0cdf3d15",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SICompensator20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "10c1f3305ff27005bdeb9e51b7829b0828a36ec7b1cfafb83a6999bd0cdf3d15",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Before/Content/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Before\\Content\\Weapons\\PitViper2011\\Integrated20261002\\Dual\\r\\SK_Dual_PitViper2011_r.uasset",
+      "bytes": 6574352,
+      "sha256": "de3b91bf8b494b4cd976275728d5437c7efb22832a6b78198cdb119b838991a3",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SICompensator20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "de3b91bf8b494b4cd976275728d5437c7efb22832a6b78198cdb119b838991a3",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Before/Content/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r_Skeleton.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Before\\Content\\Weapons\\PitViper2011\\Integrated20261002\\Dual\\r\\SK_Dual_PitViper2011_r_Skeleton.uasset",
+      "bytes": 31831,
+      "sha256": "da1f5797f4a381121dd905cab8de3be1bb4355f2b610956bb83adab213fd67d3",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SICompensator20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "da1f5797f4a381121dd905cab8de3be1bb4355f2b610956bb83adab213fd67d3",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Before/Content/Weapons/PitViper2011/Integrated20261002/Single/SK_PitViper2011_Manny.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Before\\Content\\Weapons\\PitViper2011\\Integrated20261002\\Single\\SK_PitViper2011_Manny.uasset",
+      "bytes": 9314375,
+      "sha256": "9b423c469d6cc3b34b1a19b3f48c919d40bdc8f83a9b37867df919cbbc94d340",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SICompensator20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "9b423c469d6cc3b34b1a19b3f48c919d40bdc8f83a9b37867df919cbbc94d340",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Before/Content/Weapons/PitViper2011/Integrated20261002/Single/SK_PitViper2011_Manny_Skeleton.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Before\\Content\\Weapons\\PitViper2011\\Integrated20261002\\Single\\SK_PitViper2011_Manny_Skeleton.uasset",
+      "bytes": 31321,
+      "sha256": "8a6a958ce6761ac54b7b5c9e2d44db87e61d1de9f07531cc2cb5f7b3a1f78944",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SICompensator20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "8a6a958ce6761ac54b7b5c9e2d44db87e61d1de9f07531cc2cb5f7b3a1f78944",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Before/Dual/l/SK_Dual_PitViper2011_l.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Before\\Dual\\l\\SK_Dual_PitViper2011_l.fbx",
+      "bytes": 3683724,
+      "sha256": "9b27d0b994d1e9314227964a33b1d7f4ffdfbcea546be9809bdd2e237ebece4a",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SICompensator20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "9b27d0b994d1e9314227964a33b1d7f4ffdfbcea546be9809bdd2e237ebece4a",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Before/Dual/r/SK_Dual_PitViper2011_r.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Before\\Dual\\r\\SK_Dual_PitViper2011_r.fbx",
+      "bytes": 3683628,
+      "sha256": "8e68b0ffb27d233a2e6ec0a0a145d49924eb5fc6d9be72fd13391c9120a6c2fe",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SICompensator20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "8e68b0ffb27d233a2e6ec0a0a145d49924eb5fc6d9be72fd13391c9120a6c2fe",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Before/Icons/ue_pit_viper2011_muzzle_pit_viper_si_compensator.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Before\\Icons\\ue_pit_viper2011_muzzle_pit_viper_si_compensator.png",
+      "bytes": 2826367,
+      "sha256": "c2b9fb4e9bad4b7be380ab0d3bed8beedaf4b2d1133d183527b89cd9be312aab",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SICompensator20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "c2b9fb4e9bad4b7be380ab0d3bed8beedaf4b2d1133d183527b89cd9be312aab",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Before/Single/SK_PitViper2011_Manny.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Before\\Single\\SK_PitViper2011_Manny.fbx",
+      "bytes": 4766492,
+      "sha256": "49d7ed3edf764a12b3186b9a9acff0da4ee5414a028d606f17e8c81cd7d9092e",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SICompensator20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "49d7ed3edf764a12b3186b9a9acff0da4ee5414a028d606f17e8c81cd7d9092e",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PistolGripSurface20260927/DA_PistolGripSurfaceWetMaterials.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PistolGripSurface20260927\\DA_PistolGripSurfaceWetMaterials.uasset",
+      "bytes": 3928,
+      "sha256": "ee5c637a89d9c25c516cf5d78304394528f30644761db04c80e92e08ab1cb63e",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "ee5c637a89d9c25c516cf5d78304394528f30644761db04c80e92e08ab1cb63e",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_flashlight.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\Attachments20261002\\SM_PitViper2011_flashlight.uasset",
+      "bytes": 4076614,
+      "sha256": "c56ad6416b6f482a1b59d8f3c68d38e3ae54c2eb918506cbd24203242083fe18",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "c56ad6416b6f482a1b59d8f3c68d38e3ae54c2eb918506cbd24203242083fe18",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\Attachments20261002\\SM_PitViper2011_GripSurface.uasset",
+      "bytes": 1795553,
+      "sha256": "ed1c328b38fd9f3334f9acc1738745ad1a6be527b3f96b357eaa22ed916a7380",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "ed1c328b38fd9f3334f9acc1738745ad1a6be527b3f96b357eaa22ed916a7380",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_laser.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\Attachments20261002\\SM_PitViper2011_laser.uasset",
+      "bytes": 4315944,
+      "sha256": "9ae2a6bf862ecae143e90dc7f8ad674ad93c35560da543f86d3a31aa228b1e44",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "9ae2a6bf862ecae143e90dc7f8ad674ad93c35560da543f86d3a31aa228b1e44",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/Integrated20261002/Materials/MI_PitViper2011_brass.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\Integrated20261002\\Materials\\MI_PitViper2011_brass.uasset",
+      "bytes": 6423,
+      "sha256": "e13141389406ed5c3452647c343ad1f6bc2a2281c667e6e025d5e1a2dd1c05ec",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "e13141389406ed5c3452647c343ad1f6bc2a2281c667e6e025d5e1a2dd1c05ec",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/Integrated20261002/Materials/MI_PitViper2011_copper.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\Integrated20261002\\Materials\\MI_PitViper2011_copper.uasset",
+      "bytes": 6429,
+      "sha256": "54aadc5baae49b726ad45e70b9bb2645143371424b41f884779fe098e1aca2e8",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "54aadc5baae49b726ad45e70b9bb2645143371424b41f884779fe098e1aca2e8",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/Integrated20261002/Materials/MI_PitViper2011_h_190.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\Integrated20261002\\Materials\\MI_PitViper2011_h_190.uasset",
+      "bytes": 10267,
+      "sha256": "bd97b6e9f36b865e294b6bc14fe2993a5cacdce98b63d993845eff545163eef7",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "bd97b6e9f36b865e294b6bc14fe2993a5cacdce98b63d993845eff545163eef7",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/Integrated20261002/Materials/MI_PitViper2011_Magazine_polymer.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\Integrated20261002\\Materials\\MI_PitViper2011_Magazine_polymer.uasset",
+      "bytes": 6459,
+      "sha256": "98481720958a1a7e69815cd8e2a1b940610577bdcce0756e3684a42abca8e96f",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "98481720958a1a7e69815cd8e2a1b940610577bdcce0756e3684a42abca8e96f",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/Integrated20261002/Materials/MI_PitViper2011_Magazine_stell.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\Integrated20261002\\Materials\\MI_PitViper2011_Magazine_stell.uasset",
+      "bytes": 6462,
+      "sha256": "bd7e1b38b4b39122c706be1da7d8ea530387810b0b34827cfe9d66ad24a52411",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "bd7e1b38b4b39122c706be1da7d8ea530387810b0b34827cfe9d66ad24a52411",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/Integrated20261002/Materials/MI_PitViper2011_polymer.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\Integrated20261002\\Materials\\MI_PitViper2011_polymer.uasset",
+      "bytes": 6405,
+      "sha256": "f4f304d88250882e4dc14ed34c18efe501ae83db6ee1fd227023b58369ba93d0",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "f4f304d88250882e4dc14ed34c18efe501ae83db6ee1fd227023b58369ba93d0",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/Integrated20261002/Materials/MI_PitViper2011_stell.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\Integrated20261002\\Materials\\MI_PitViper2011_stell.uasset",
+      "bytes": 6408,
+      "sha256": "d12e797d12be71eca0108795facc4ee1f6417209df82bf6956f01b83715e80a3",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "d12e797d12be71eca0108795facc4ee1f6417209df82bf6956f01b83715e80a3",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/SICompensator20261003/Materials/MI_SI_2011_CleanAnodized.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\SICompensator20261003\\Materials\\MI_SI_2011_CleanAnodized.uasset",
+      "bytes": 6382,
+      "sha256": "7c2c3a169ed0d979c6924701e81c692511759d1499da2cb72818cb62e5511f83",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "7c2c3a169ed0d979c6924701e81c692511759d1499da2cb72818cb62e5511f83",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/SICompensator20261003/Materials/MI_SI_GrayLaserMark.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\SICompensator20261003\\Materials\\MI_SI_GrayLaserMark.uasset",
+      "bytes": 12375,
+      "sha256": "4cf3f766e3d051568a5381851b5e27a291f7182c056780e66bef84304ac0637a",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "4cf3f766e3d051568a5381851b5e27a291f7182c056780e66bef84304ac0637a",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/VipGrip20261002/Materials/MI_PitViper2011_VipChampagne.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\VipGrip20261002\\Materials\\MI_PitViper2011_VipChampagne.uasset",
+      "bytes": 6368,
+      "sha256": "432901734ab5f5db2243258362e34b3e784c6054f8ea815675d80b0a6ea8a341",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "432901734ab5f5db2243258362e34b3e784c6054f8ea815675d80b0a6ea8a341",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/Content/Weapons/PitViper2011/VipGrip20261002/SM_PitViper2011_VipViperGrip.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\Content\\Weapons\\PitViper2011\\VipGrip20261002\\SM_PitViper2011_VipViperGrip.uasset",
+      "bytes": 4203881,
+      "sha256": "397e928b084bbd8fc2856890a8684aca048a9b16e3aabf89c8abcf5a4ddcb97f",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "397e928b084bbd8fc2856890a8684aca048a9b16e3aabf89c8abcf5a4ddcb97f",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/finish_recipe.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\finish_recipe.json",
+      "bytes": 1561,
+      "sha256": "c7f042a1cb5a98608979e4260764ac306dd9d304508082daa3215decbbcb7423",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "c7f042a1cb5a98608979e4260764ac306dd9d304508082daa3215decbbcb7423",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Before/gunsmith.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Before\\gunsmith.json",
+      "bytes": 248040,
+      "sha256": "fc3c47e16dd27d9f357fe92da331faeeba998a76d26705ac32128269c75bb1ce",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011SurfaceRefine20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "fc3c47e16dd27d9f357fe92da331faeeba998a76d26705ac32128269c75bb1ce",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_pit_viper2011_reargrip_pit_viper_vip_scales.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_pit_viper2011_reargrip_pit_viper_vip_scales.png",
+      "bytes": 2933778,
+      "sha256": "6b9269a0fd66943480954e2a2035feeec9a61ab735fd453188b8feac2b496689",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "6b9269a0fd66943480954e2a2035feeec9a61ab735fd453188b8feac2b496689",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/Content/ColdSteelData/gunsmith.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\Content\\ColdSteelData\\gunsmith.json",
+      "bytes": 249190,
+      "sha256": "76abfeabd23a12fa93ee849e0916b51e3546617a46c8f242faef86ee6e6b17a5",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "76abfeabd23a12fa93ee849e0916b51e3546617a46c8f242faef86ee6e6b17a5",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/Content/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_ViperQuiet.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\Content\\Weapons\\PitViper2011\\SurfaceRefine20261003\\Materials\\M_PV2011_ViperQuiet.uasset",
+      "bytes": 18536,
+      "sha256": "41461a924edf9dfae8c5f810537159fc6b4fc2b0e2912dd2f4cbf0e67d7a2da1",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "41461a924edf9dfae8c5f810537159fc6b4fc2b0e2912dd2f4cbf0e67d7a2da1",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/Content/Weapons/PitViper2011/SurfaceRefine20261003/Textures/T_PV2011_ViperQuiet_BaseColor.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\Content\\Weapons\\PitViper2011\\SurfaceRefine20261003\\Textures\\T_PV2011_ViperQuiet_BaseColor.uasset",
+      "bytes": 1783118,
+      "sha256": "9151ae371f0de15b74d319884c6a0ff685f60826ba0a84162753ed780b2eadf7",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "9151ae371f0de15b74d319884c6a0ff685f60826ba0a84162753ed780b2eadf7",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/Content/Weapons/PitViper2011/SurfaceRefine20261003/Textures/T_PV2011_ViperQuiet_Normal.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\Content\\Weapons\\PitViper2011\\SurfaceRefine20261003\\Textures\\T_PV2011_ViperQuiet_Normal.uasset",
+      "bytes": 4845680,
+      "sha256": "8fa4405f6163d163a7b374231544de14ce95f20c79976bc106780cab38b75e38",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "8fa4405f6163d163a7b374231544de14ce95f20c79976bc106780cab38b75e38",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/Content/Weapons/PitViper2011/SurfaceRefine20261003/Textures/T_PV2011_ViperQuiet_ORM.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\Content\\Weapons\\PitViper2011\\SurfaceRefine20261003\\Textures\\T_PV2011_ViperQuiet_ORM.uasset",
+      "bytes": 598608,
+      "sha256": "bc3e8d5fddf0becb43fbdbd5fd222c41ffef44ef396a131adfe7c7e16a91f177",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "bc3e8d5fddf0becb43fbdbd5fd222c41ffef44ef396a131adfe7c7e16a91f177",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/Content/Weapons/PitViper2011/VipGrip20261002/Icons/T_ue_pit_viper2011_reargrip_pit_viper_vip_scales.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\Content\\Weapons\\PitViper2011\\VipGrip20261002\\Icons\\T_ue_pit_viper2011_reargrip_pit_viper_vip_scales.uasset",
+      "bytes": 2761571,
+      "sha256": "0982a26067d3bcaceb8ad71240a73dff00dc20a2e87a59e38d637d71f7716b2c",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "0982a26067d3bcaceb8ad71240a73dff00dc20a2e87a59e38d637d71f7716b2c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/Content/Weapons/PitViper2011/VipGrip20261002/SM_PitViper2011_VipViperGrip.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\Content\\Weapons\\PitViper2011\\VipGrip20261002\\SM_PitViper2011_VipViperGrip.uasset",
+      "bytes": 4207543,
+      "sha256": "c50a154476c56a7f8db09606c38241dc0f0d7fed19cd80f069dc24092a91b81f",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "c50a154476c56a7f8db09606c38241dc0f0d7fed19cd80f069dc24092a91b81f",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011GripRebuild20261003/author_grips.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011GripRebuild20261003\\author_grips.py",
+      "bytes": 12101,
+      "sha256": "f91460a8a34a53b928fab7b40428a1faf74da526871af598785cb7a1559b1b47",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "f91460a8a34a53b928fab7b40428a1faf74da526871af598785cb7a1559b1b47",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011GripRebuild20261003/author_icon.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011GripRebuild20261003\\author_icon.py",
+      "bytes": 3292,
+      "sha256": "240a0034b0cc1923c3e1077b9b00d96239e4eff4ff280c0f701ef273bb295ca7",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "240a0034b0cc1923c3e1077b9b00d96239e4eff4ff280c0f701ef273bb295ca7",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011GripRebuild20261003/authoring.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011GripRebuild20261003\\authoring.json",
+      "bytes": 4165,
+      "sha256": "1067ac5f70e5fbf6d6218ef47464af2bb704792304228aa1adae4f27aae77fc1",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "1067ac5f70e5fbf6d6218ef47464af2bb704792304228aa1adae4f27aae77fc1",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011GripRebuild20261003/Exports/SM_PitViper2011_VipViperGrip.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011GripRebuild20261003\\Exports\\SM_PitViper2011_VipViperGrip.fbx",
+      "bytes": 3286588,
+      "sha256": "0bd1984bc42dac1ec8f0d39a58cae9c551cfd68b45e1d26fbd7658eba0f68ad1",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "0bd1984bc42dac1ec8f0d39a58cae9c551cfd68b45e1d26fbd7658eba0f68ad1",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011GripRebuild20261003/Exports/SM_PitViper2011_VipViperGrip_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011GripRebuild20261003\\Exports\\SM_PitViper2011_VipViperGrip_Editable.blend",
+      "bytes": 211982471,
+      "sha256": "c61ae5a4344091022e50ddb5f3c1ac5cf87ff09a10dfc1b05a07a57b24511423",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "c61ae5a4344091022e50ddb5f3c1ac5cf87ff09a10dfc1b05a07a57b24511423",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011GripRebuild20261003/README.md",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011GripRebuild20261003\\README.md",
+      "bytes": 3337,
+      "sha256": "bea5bb9e03cebb30d273148815f85dd55a9471905cfe05939ffb52b7b9f93109",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "bea5bb9e03cebb30d273148815f85dd55a9471905cfe05939ffb52b7b9f93109",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011SurfaceRefine20261003/produce_textures.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011SurfaceRefine20261003\\produce_textures.py",
+      "bytes": 4905,
+      "sha256": "7d22b20add02c129a90db80fe0e8585d75aff162ba14c662bfc586398ce42b15",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "7d22b20add02c129a90db80fe0e8585d75aff162ba14c662bfc586398ce42b15",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011SurfaceRefine20261003/texture_recipe.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011SurfaceRefine20261003\\texture_recipe.json",
+      "bytes": 2569,
+      "sha256": "f11861135d8c8836e061de7b496af47541cd9579431e63293375b4d08ab40a09",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "f11861135d8c8836e061de7b496af47541cd9579431e63293375b4d08ab40a09",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011VipGrip20261002/author_grip.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011VipGrip20261002\\author_grip.py",
+      "bytes": 257,
+      "sha256": "c5af5bac75dd07e983a9544b16467fddb9562da362ff6176fd59eae75f3b5d8b",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "c5af5bac75dd07e983a9544b16467fddb9562da362ff6176fd59eae75f3b5d8b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011VipGrip20261002/author_icon.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011VipGrip20261002\\author_icon.py",
+      "bytes": 3285,
+      "sha256": "76bc5755baf89ec9e2689ab30d85b0fd19165edca70160ab7a3fe5846953ee0e",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "76bc5755baf89ec9e2689ab30d85b0fd19165edca70160ab7a3fe5846953ee0e",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011VipGrip20261002/authoring.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011VipGrip20261002\\authoring.json",
+      "bytes": 2615,
+      "sha256": "332c0b19517ca3ea3b6967f396278da86aa56f23f8547ca399076992039dc3a9",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "332c0b19517ca3ea3b6967f396278da86aa56f23f8547ca399076992039dc3a9",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011VipGrip20261002/catalog.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011VipGrip20261002\\catalog.json",
+      "bytes": 916,
+      "sha256": "3a12073eea004a941502d44bb83dd6e51f948f1becdc7806baa814aa6e74fcee",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "3a12073eea004a941502d44bb83dd6e51f948f1becdc7806baa814aa6e74fcee",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011VipGrip20261002/import_assets.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011VipGrip20261002\\import_assets.py",
+      "bytes": 9000,
+      "sha256": "f30d397afdb03aae1395c2e4dc5d6cf9d7f0f15928070bedb3983da55e74dc26",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "f30d397afdb03aae1395c2e4dc5d6cf9d7f0f15928070bedb3983da55e74dc26",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011VipGrip20261002/publish_catalog.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011VipGrip20261002\\publish_catalog.py",
+      "bytes": 2838,
+      "sha256": "09b6843435f0ad997f99dc2a0ffca7a1bcd70e61c33f981c687daa955de3b3f7",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "09b6843435f0ad997f99dc2a0ffca7a1bcd70e61c33f981c687daa955de3b3f7",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Before/SourceAssets/PitViper2011VipGrip20261002/README.md",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011ViperLongitudinalGrip20261003\\Before\\SourceAssets\\PitViper2011VipGrip20261002\\README.md",
+      "bytes": 3320,
+      "sha256": "7196a0cd11fd48fda915a414895ec6ec4e2ce1836c5d4cb2c2bf70df8d89a8f3",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011ViperLongitudinalGrip20261003 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "7196a0cd11fd48fda915a414895ec6ec4e2ce1836c5d4cb2c2bf70df8d89a8f3",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Before/Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Before\\Source\\FPSGAME\\UI\\ColdSteelIconResources.cpp",
+      "bytes": 19584,
+      "sha256": "24e45075cb970e6fb5b61249791749d0b9db1741742a8a19cd5199bc0bddb500",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011VipGrip20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "24e45075cb970e6fb5b61249791749d0b9db1741742a8a19cd5199bc0bddb500",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Before/Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Before\\Source\\FPSGAME\\UI\\M4GunsmithLayout.cpp",
+      "bytes": 33870,
+      "sha256": "7bd4de7eb85b15f29bc8b86752f2af937cb6c3b86a164317076295f953a42496",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011VipGrip20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "7bd4de7eb85b15f29bc8b86752f2af937cb6c3b86a164317076295f953a42496",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Before/Source/FPSGAME/Weapons/PistolGripSurface.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Before\\Source\\FPSGAME\\Weapons\\PistolGripSurface.cpp",
+      "bytes": 3991,
+      "sha256": "822b3f71e3a0f75d5941acbd8e855e5939d6ae018d12f81be6169658f9b4bee0",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011VipGrip20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "822b3f71e3a0f75d5941acbd8e855e5939d6ae018d12f81be6169658f9b4bee0",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Before/Source/FPSGAME/Weapons/PistolGripSurface.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Before\\Source\\FPSGAME\\Weapons\\PistolGripSurface.h",
+      "bytes": 835,
+      "sha256": "00481a8463da7a6f6bd93b71c9f0a8d170b6a97602088b400e6f2acb1cbe67b0",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011VipGrip20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "00481a8463da7a6f6bd93b71c9f0a8d170b6a97602088b400e6f2acb1cbe67b0",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Before/SourceAssets/PitViper2011Attachments20261002/publish_catalog.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Before\\SourceAssets\\PitViper2011Attachments20261002\\publish_catalog.py",
+      "bytes": 3314,
+      "sha256": "7ddf86d368c53a682f58eacde8865eaf9c70527b880aa1a807b2633deefc0f36",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011VipGrip20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "7ddf86d368c53a682f58eacde8865eaf9c70527b880aa1a807b2633deefc0f36",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Before/weapon.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Before\\weapon.json",
+      "bytes": 10062,
+      "sha256": "a267f71596edc7614d8deb47b65165e3e78d113388b2b7d9382af1ba1d1c5514",
+      "reason": "Superseded pre-change snapshot; current sources and saved packages remain in their production locations",
+      "retained_replacement": "Current PitViper2011VipGrip20261002 authoring/import records; recoverable rollback remains in trash",
+      "readback_sha256": "a267f71596edc7614d8deb47b65165e3e78d113388b2b7d9382af1ba1d1c5514",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Exports/SM_PitViper2011_VipViperGrip.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Exports\\SM_PitViper2011_VipViperGrip.fbx",
+      "bytes": 1488444,
+      "sha256": "14f267575f2c6dbdf14f620ed22286366ee400194eba86d8afe7bb683424957d",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "14f267575f2c6dbdf14f620ed22286366ee400194eba86d8afe7bb683424957d",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Exports/SM_PitViper2011_VipViperGrip_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Exports\\SM_PitViper2011_VipViperGrip_Editable.blend",
+      "bytes": 213528754,
+      "sha256": "5b23a10913ecb5a654402878bf0e2fd57bab2c8e86fb83a5caa69ce6a519f40b",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "5b23a10913ecb5a654402878bf0e2fd57bab2c8e86fb83a5caa69ce6a519f40b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Icons/ue_pit_viper2011_reargrip_pit_viper_vip_scales.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Icons\\ue_pit_viper2011_reargrip_pit_viper_vip_scales.png",
+      "bytes": 2937449,
+      "sha256": "7030a0ca131992c3f79406aeeb4da4f76a08976cb99280ef15491a5ccbc84238",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "7030a0ca131992c3f79406aeeb4da4f76a08976cb99280ef15491a5ccbc84238",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Icons/viper-grip-model-gray.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Icons\\viper-grip-model-gray.png",
+      "bytes": 639967,
+      "sha256": "b0640c836f8d2cb1eb4ba994cb897094d6610bbbc235a6114698624d9bd031ee",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "b0640c836f8d2cb1eb4ba994cb897094d6610bbbc235a6114698624d9bd031ee",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Icons/VipViperGrip_Icon_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Icons\\VipViperGrip_Icon_Editable.blend",
+      "bytes": 167652179,
+      "sha256": "921eea87a2c6ce1ad91a30e9cd2df537c08687ceb8810096f3b3ca8574741c99",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "921eea87a2c6ce1ad91a30e9cd2df537c08687ceb8810096f3b3ca8574741c99",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Textures/T_PitViper2011_VipViperGrip_BaseColor.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Textures\\T_PitViper2011_VipViperGrip_BaseColor.png",
+      "bytes": 1983082,
+      "sha256": "ce9d1d0e5ca07499e0556e6eb0d5dfdce8aacec97ca2bc1d6f07e9eff295e709",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "ce9d1d0e5ca07499e0556e6eb0d5dfdce8aacec97ca2bc1d6f07e9eff295e709",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Textures/T_PitViper2011_VipViperGrip_Height.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Textures\\T_PitViper2011_VipViperGrip_Height.png",
+      "bytes": 3605878,
+      "sha256": "d05746dbaf278532288965c2c0d94796e32780267c2712e71ca795dcda03a44e",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "d05746dbaf278532288965c2c0d94796e32780267c2712e71ca795dcda03a44e",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Textures/T_PitViper2011_VipViperGrip_Normal.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Textures\\T_PitViper2011_VipViperGrip_Normal.png",
+      "bytes": 7410596,
+      "sha256": "ae9c8c869f1f4513382ddd0b0a4a18d8a452ff4f3c70599482a488f20ba0f434",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "ae9c8c869f1f4513382ddd0b0a4a18d8a452ff4f3c70599482a488f20ba0f434",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/Textures/T_PitViper2011_VipViperGrip_ORM.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\Textures\\T_PitViper2011_VipViperGrip_ORM.png",
+      "bytes": 3771681,
+      "sha256": "723f1bb9c9953e7580ccbc371054ca259869ff4360a7bf866de0566c7e0908e7",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "723f1bb9c9953e7580ccbc371054ca259869ff4360a7bf866de0566c7e0908e7",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Exports/SM_PitViper2011_GripSurface.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Exports\\SM_PitViper2011_GripSurface.fbx",
+      "bytes": 1429084,
+      "sha256": "a842acc55c5b5da41b3b84eb46b7d74f22e6963484e5dbb084109b17c43dc568",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "a842acc55c5b5da41b3b84eb46b7d74f22e6963484e5dbb084109b17c43dc568",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Exports/SM_PitViper2011_GripSurface_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Exports\\SM_PitViper2011_GripSurface_Editable.blend",
+      "bytes": 210109638,
+      "sha256": "74b3928d36c57fa01c368a643e16465ce54875ff886c5342732b257d48b2a9a7",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "74b3928d36c57fa01c368a643e16465ce54875ff886c5342732b257d48b2a9a7",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Exports/SM_PitViper2011_VipViperGrip.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Exports\\SM_PitViper2011_VipViperGrip.fbx",
+      "bytes": 3286588,
+      "sha256": "0bd1984bc42dac1ec8f0d39a58cae9c551cfd68b45e1d26fbd7658eba0f68ad1",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "0bd1984bc42dac1ec8f0d39a58cae9c551cfd68b45e1d26fbd7658eba0f68ad1",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Exports/SM_PitViper2011_VipViperGrip_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Exports\\SM_PitViper2011_VipViperGrip_Editable.blend",
+      "bytes": 211982471,
+      "sha256": "c61ae5a4344091022e50ddb5f3c1ac5cf87ff09a10dfc1b05a07a57b24511423",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "c61ae5a4344091022e50ddb5f3c1ac5cf87ff09a10dfc1b05a07a57b24511423",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Icons/ue_pit_viper2011_reargrip_pit_viper_vip_scales.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Icons\\ue_pit_viper2011_reargrip_pit_viper_vip_scales.png",
+      "bytes": 2933778,
+      "sha256": "6b9269a0fd66943480954e2a2035feeec9a61ab735fd453188b8feac2b496689",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "6b9269a0fd66943480954e2a2035feeec9a61ab735fd453188b8feac2b496689",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Icons/viper-grip-model-gray.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Icons\\viper-grip-model-gray.png",
+      "bytes": 621315,
+      "sha256": "7b3b66bbdfb701f4f9a23dc8d47958fa2add7d06ba183eb63f59117404b9547f",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "7b3b66bbdfb701f4f9a23dc8d47958fa2add7d06ba183eb63f59117404b9547f",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Icons/VipViperGrip_Icon_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Icons\\VipViperGrip_Icon_Editable.blend",
+      "bytes": 164611570,
+      "sha256": "702f61ab487d37374108b07c72c98fa939eb44c7dfd0fdaffb1c3576b6bf650b",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "702f61ab487d37374108b07c72c98fa939eb44c7dfd0fdaffb1c3576b6bf650b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Textures/T_PitViper2011_VipViperGrip_BaseColor.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Textures\\T_PitViper2011_VipViperGrip_BaseColor.png",
+      "bytes": 1484971,
+      "sha256": "e555013054aa7c0a28bc3b986a22221bc982899342805c34579842723675def3",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "e555013054aa7c0a28bc3b986a22221bc982899342805c34579842723675def3",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Textures/T_PitViper2011_VipViperGrip_Height.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Textures\\T_PitViper2011_VipViperGrip_Height.png",
+      "bytes": 3585875,
+      "sha256": "b5950d8272f64500f4cb7104e66f71ba749d284fe9c1811f4310a16166979019",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "b5950d8272f64500f4cb7104e66f71ba749d284fe9c1811f4310a16166979019",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Textures/T_PitViper2011_VipViperGrip_Normal.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Textures\\T_PitViper2011_VipViperGrip_Normal.png",
+      "bytes": 7510863,
+      "sha256": "ff941bb6244e740fa9107a5388985676d43e2781337154caf7d599dc3014a323",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "ff941bb6244e740fa9107a5388985676d43e2781337154caf7d599dc3014a323",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/Textures/T_PitViper2011_VipViperGrip_ORM.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\Textures\\T_PitViper2011_VipViperGrip_ORM.png",
+      "bytes": 903848,
+      "sha256": "cf9bd81e9111947ab43c9da1bd964d8f57369fcef6ec60c862dda633fe92d04d",
+      "reason": "Rejected or superseded short grip skin / icon / texture output",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003 for VIP; PitViper2011CommonLongitudinalGrips20261003 for shared skins",
+      "readback_sha256": "cf9bd81e9111947ab43c9da1bd964d8f57369fcef6ec60c862dda633fe92d04d",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Attachments20261002/Exports/SM_PitViper2011_GripSurface.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Attachments20261002\\Exports\\SM_PitViper2011_GripSurface.fbx",
+      "bytes": 69500,
+      "sha256": "e7909e473504ae0a72df252085752cb5e351cfae3ead73fa33e12f37b6fbdf77",
+      "reason": "Initial narrow shared grip mesh superseded by longitudinal fitted skin",
+      "retained_replacement": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/Exports/SM_PitViper2011_GripSurface.fbx",
+      "readback_sha256": "e7909e473504ae0a72df252085752cb5e351cfae3ead73fa33e12f37b6fbdf77",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Attachments20261002/Exports/SM_PitViper2011_GripSurface_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Attachments20261002\\Exports\\SM_PitViper2011_GripSurface_Editable.blend",
+      "bytes": 201879700,
+      "sha256": "46f67ad6b4efee042c1ae35b335e747ddee3569b0ea1caf539fb861f4888608f",
+      "reason": "Initial narrow shared grip mesh superseded by longitudinal fitted skin",
+      "retained_replacement": "SourceAssets/PitViper2011CommonLongitudinalGrips20261003/Exports/SM_PitViper2011_GripSurface_Editable.blend",
+      "readback_sha256": "46f67ad6b4efee042c1ae35b335e747ddee3569b0ea1caf539fb861f4888608f",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/authoring_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\authoring_receipt.json",
+      "bytes": 5324,
+      "sha256": "40056d7080a72dcede87c40a7ca0929d3529a0bae683a11b1ee7193d0620ab0c",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "40056d7080a72dcede87c40a7ca0929d3529a0bae683a11b1ee7193d0620ab0c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/delivery_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\delivery_receipt.json",
+      "bytes": 9785,
+      "sha256": "9d5fc3b2465ce7f036ff4c108762e95dd9f69b9f05a29401859602b1565a076e",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "9d5fc3b2465ce7f036ff4c108762e95dd9f69b9f05a29401859602b1565a076e",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/finalize_delivery.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\finalize_delivery.py",
+      "bytes": 1173,
+      "sha256": "c38b4298d1359630cd6d4557e25a7fce41765b53085d81f033f39c8c0bd594a4",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "c38b4298d1359630cd6d4557e25a7fce41765b53085d81f033f39c8c0bd594a4",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/icon_production.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\icon_production.log",
+      "bytes": 770,
+      "sha256": "e1c197de69c59af236c23594972aaaec5352f886cf314334093893b07c20ad96",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "e1c197de69c59af236c23594972aaaec5352f886cf314334093893b07c20ad96",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/import_mesh.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\import_mesh.py",
+      "bytes": 4539,
+      "sha256": "5c4d4fc6d2caf86a0d1f2a07f11e8f7545b4b6f7cc57694859c66f8663b8a02b",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "5c4d4fc6d2caf86a0d1f2a07f11e8f7545b4b6f7cc57694859c66f8663b8a02b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/import_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\import_receipt.json",
+      "bytes": 2683,
+      "sha256": "3d032c79ee92766817123efba94f00f130d67adfae9b5ea14ca49968c56039ae",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "3d032c79ee92766817123efba94f00f130d67adfae9b5ea14ca49968c56039ae",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/produce.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\produce.log",
+      "bytes": 1150,
+      "sha256": "f95e9952b5eedb42ecffa0a7358735c1192dc5f6dc45ebb41a6f1f42e40ce440",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "f95e9952b5eedb42ecffa0a7358735c1192dc5f6dc45ebb41a6f1f42e40ce440",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/produce.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\produce.py",
+      "bytes": 1127,
+      "sha256": "c5d40b3cf491221caf9ed1717607b560c080cadae7dce75852035dd7b74e62b6",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "c5d40b3cf491221caf9ed1717607b560c080cadae7dce75852035dd7b74e62b6",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SIChamfer20261003/README.md",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SIChamfer20261003\\README.md",
+      "bytes": 2432,
+      "sha256": "c1a5e559e4abef3f89a4a4bb3b1a98c4a26d5aa160b7965bdffd1c41eb916ba2",
+      "reason": "Superseded upper-shoulder SI interface, replaced by native muzzle body extension",
+      "retained_replacement": "SourceAssets/PitViper2011SIBodyExtension20261003 and Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "c1a5e559e4abef3f89a4a4bb3b1a98c4a26d5aa160b7965bdffd1c41eb916ba2",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/Weapons/pit_viper_si_interface.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\Tools\\Weapons\\pit_viper_si_interface.py",
+      "bytes": 4613,
+      "sha256": "742b73f48a1388757634afbd47178d1603af483111b0ce4e35d6c1acb6eea88c",
+      "reason": "Unused helper of the superseded upper-shoulder SI interface",
+      "retained_replacement": "Tools/Weapons/pit_viper_si_extension.py",
+      "readback_sha256": "742b73f48a1388757634afbd47178d1603af483111b0ce4e35d6c1acb6eea88c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/author_grips.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\author_grips.py",
+      "bytes": 12779,
+      "sha256": "ac7e9a7cf2b13e32d0aac56a42f689ff17f09d9f8dbc8cf065e92083b0d5f89b",
+      "reason": "Short-skin producer now followed by two authoritative long-skin authors; replace with forwarding entry",
+      "retained_replacement": "Current VIP and common longitudinal author_grip.py producers",
+      "readback_sha256": "ac7e9a7cf2b13e32d0aac56a42f689ff17f09d9f8dbc8cf065e92083b0d5f89b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/import_rebuilt.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\import_rebuilt.py",
+      "bytes": 3485,
+      "sha256": "4906cc5d68a996ef29ed5bf52d3c200b06c8f102ccb13fbc68508339edaa8753",
+      "reason": "Broad legacy import entry recreated old surfaces and shared material setup; replace with the two current scoped save entries",
+      "retained_replacement": "Current VIP import_assets.py and common import_grip.py",
+      "readback_sha256": "4906cc5d68a996ef29ed5bf52d3c200b06c8f102ccb13fbc68508339edaa8753",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/diagnose_source.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\diagnose_source.py",
+      "bytes": 1356,
+      "sha256": "40c20c0625b99df25d39f543555858cf879843662825f738ffc94225aaef1b67",
+      "reason": "Completed diagnosis or delivery record describes the retired short skin",
+      "retained_replacement": "Current longitudinal authoring/import/icon receipts",
+      "readback_sha256": "40c20c0625b99df25d39f543555858cf879843662825f738ffc94225aaef1b67",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/source_diagnosis.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\source_diagnosis.json",
+      "bytes": 1277,
+      "sha256": "96c59dc5fb3503d75821bbf06a995c24f1e46e73630f240a803ef71e13e27b8c",
+      "reason": "Completed diagnosis or delivery record describes the retired short skin",
+      "retained_replacement": "Current longitudinal authoring/import/icon receipts",
+      "readback_sha256": "96c59dc5fb3503d75821bbf06a995c24f1e46e73630f240a803ef71e13e27b8c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/asset_diagnosis.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\asset_diagnosis.json",
+      "bytes": 2862,
+      "sha256": "999c71b52262a90bdc09cb7ae5572d9cb0889f0c1e6105e128fcf2b6e4304fcf",
+      "reason": "Completed diagnosis or delivery record describes the retired short skin",
+      "retained_replacement": "Current longitudinal authoring/import/icon receipts",
+      "readback_sha256": "999c71b52262a90bdc09cb7ae5572d9cb0889f0c1e6105e128fcf2b6e4304fcf",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/icon_source.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\icon_source.json",
+      "bytes": 490,
+      "sha256": "a851c9d34096342cf634ba5c9f238ddb3632b9d572343fde1461017fbdb0e910",
+      "reason": "Completed diagnosis or delivery record describes the retired short skin",
+      "retained_replacement": "Current longitudinal authoring/import/icon receipts",
+      "readback_sha256": "a851c9d34096342cf634ba5c9f238ddb3632b9d572343fde1461017fbdb0e910",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011GripRebuild20261003/icon_delivery.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011GripRebuild20261003\\icon_delivery.json",
+      "bytes": 993,
+      "sha256": "7cbe53a2d6efc05c83a4b6fd103b4949b0b88087da84a143d37f452e9c2b21ce",
+      "reason": "Completed diagnosis or delivery record describes the retired short skin",
+      "retained_replacement": "Current longitudinal authoring/import/icon receipts",
+      "readback_sha256": "7cbe53a2d6efc05c83a4b6fd103b4949b0b88087da84a143d37f452e9c2b21ce",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/icon_source.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\icon_source.json",
+      "bytes": 482,
+      "sha256": "42d7abe2748404b918f558f37bdf8a9fb55c8ee4395110102f0e37a3c611ed61",
+      "reason": "Original short-skin icon record superseded by current long-skin icon",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/icon_delivery.json",
+      "readback_sha256": "42d7abe2748404b918f558f37bdf8a9fb55c8ee4395110102f0e37a3c611ed61",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011VipGrip20261002/icon_delivery.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011VipGrip20261002\\icon_delivery.json",
+      "bytes": 845,
+      "sha256": "1db0aeda3f58fe42d1ba22a70c5d376f7e7d16c78f4fb84fcab4621cc264970d",
+      "reason": "Original short-skin icon record superseded by current long-skin icon",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/icon_delivery.json",
+      "readback_sha256": "1db0aeda3f58fe42d1ba22a70c5d376f7e7d16c78f4fb84fcab4621cc264970d",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Textures/T_PV2011_ViperQuiet_BaseColor.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Textures\\T_PV2011_ViperQuiet_BaseColor.png",
+      "bytes": 1457161,
+      "sha256": "37419e9a6e1a83951d85f981fea7e80d9ada33a27546aa3aa49976cf1811be00",
+      "reason": "Old short-atlas VIP maps no longer used by the current texture recipe",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Textures/T_PV2011_ViperQuiet_BaseColor.png",
+      "readback_sha256": "37419e9a6e1a83951d85f981fea7e80d9ada33a27546aa3aa49976cf1811be00",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Textures/T_PV2011_ViperQuiet_Normal.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Textures\\T_PV2011_ViperQuiet_Normal.png",
+      "bytes": 4619988,
+      "sha256": "35d54c83d1efec38de39cefe1bcdf653047d9e3824c54561949eb59aa064b4a0",
+      "reason": "Old short-atlas VIP maps no longer used by the current texture recipe",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Textures/T_PV2011_ViperQuiet_Normal.png",
+      "readback_sha256": "35d54c83d1efec38de39cefe1bcdf653047d9e3824c54561949eb59aa064b4a0",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011SurfaceRefine20261003/Textures/T_PV2011_ViperQuiet_ORM.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011SurfaceRefine20261003\\Textures\\T_PV2011_ViperQuiet_ORM.png",
+      "bytes": 543172,
+      "sha256": "399cd60cbe450ccbde7f85d49fec06beb49aae198f43c37bb84d102f51972a6c",
+      "reason": "Old short-atlas VIP maps no longer used by the current texture recipe",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Textures/T_PV2011_ViperQuiet_ORM.png",
+      "readback_sha256": "399cd60cbe450ccbde7f85d49fec06beb49aae198f43c37bb84d102f51972a6c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011FireAudio20261002/History/BrightV2/author_audio.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011FireAudio20261002\\History\\BrightV2\\author_audio.py",
+      "bytes": 7982,
+      "sha256": "267929ee34117c5c80da82a77105a0b33bbc71ba4502baa4404d76323640835b",
+      "reason": "Superseded normal-shot processing versions; retained loudness reference has moved to Inputs",
+      "retained_replacement": "Current Audio/Masters plus Inputs/SuppressedLoudnessReference_float.wav",
+      "readback_sha256": "267929ee34117c5c80da82a77105a0b33bbc71ba4502baa4404d76323640835b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011FireAudio20261002/History/BrightV2/import_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011FireAudio20261002\\History\\BrightV2\\import_receipt.json",
+      "bytes": 804,
+      "sha256": "5203ee7d414b38ea59acf45ea894d95a82bfdcd68efb9657df81f379d9060f2c",
+      "reason": "Superseded normal-shot processing versions; retained loudness reference has moved to Inputs",
+      "retained_replacement": "Current Audio/Masters plus Inputs/SuppressedLoudnessReference_float.wav",
+      "readback_sha256": "5203ee7d414b38ea59acf45ea894d95a82bfdcd68efb9657df81f379d9060f2c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011FireAudio20261002/History/BrightV2/provenance.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011FireAudio20261002\\History\\BrightV2\\provenance.json",
+      "bytes": 2719,
+      "sha256": "4a90d9651a40a643262f81be1fa9d75036638224df28e338f6b8bd757065c8a3",
+      "reason": "Superseded normal-shot processing versions; retained loudness reference has moved to Inputs",
+      "retained_replacement": "Current Audio/Masters plus Inputs/SuppressedLoudnessReference_float.wav",
+      "readback_sha256": "4a90d9651a40a643262f81be1fa9d75036638224df28e338f6b8bd757065c8a3",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011FireAudio20261002/History/BrightV2/S_PitViper2011_Fire.wav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011FireAudio20261002\\History\\BrightV2\\S_PitViper2011_Fire.wav",
+      "bytes": 35944,
+      "sha256": "15907080a2e7743de3aeceb7aa7e468ce2efa76a14d75782f135064b6525c6bb",
+      "reason": "Superseded normal-shot processing versions; retained loudness reference has moved to Inputs",
+      "retained_replacement": "Current Audio/Masters plus Inputs/SuppressedLoudnessReference_float.wav",
+      "readback_sha256": "15907080a2e7743de3aeceb7aa7e468ce2efa76a14d75782f135064b6525c6bb",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011FireAudio20261002/History/BrightV2/S_PitViper2011_Fire_float.wav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011FireAudio20261002\\History\\BrightV2\\S_PitViper2011_Fire_float.wav",
+      "bytes": 71888,
+      "sha256": "ec928169b5dd6624cb30c209b99f3dfa12933ba1fb3acd4b1b7d9223dc3819fd",
+      "reason": "Superseded normal-shot processing versions; retained loudness reference has moved to Inputs",
+      "retained_replacement": "Current Audio/Masters plus Inputs/SuppressedLoudnessReference_float.wav",
+      "readback_sha256": "ec928169b5dd6624cb30c209b99f3dfa12933ba1fb3acd4b1b7d9223dc3819fd",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011FireAudio20261002/History/CleanV1/author_audio.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011FireAudio20261002\\History\\CleanV1\\author_audio.py",
+      "bytes": 5555,
+      "sha256": "dc7bccfa478410b12135dab5b4075d0260c974fb9dd016ff21d172164805491e",
+      "reason": "Superseded normal-shot processing versions; retained loudness reference has moved to Inputs",
+      "retained_replacement": "Current Audio/Masters plus Inputs/SuppressedLoudnessReference_float.wav",
+      "readback_sha256": "dc7bccfa478410b12135dab5b4075d0260c974fb9dd016ff21d172164805491e",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011FireAudio20261002/History/CleanV1/import_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011FireAudio20261002\\History\\CleanV1\\import_receipt.json",
+      "bytes": 777,
+      "sha256": "e7faec9e79f42c1ff19f756e723476b5ffed20f4bb56186a1879e239f59026b1",
+      "reason": "Superseded normal-shot processing versions; retained loudness reference has moved to Inputs",
+      "retained_replacement": "Current Audio/Masters plus Inputs/SuppressedLoudnessReference_float.wav",
+      "readback_sha256": "e7faec9e79f42c1ff19f756e723476b5ffed20f4bb56186a1879e239f59026b1",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011FireAudio20261002/History/CleanV1/provenance.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011FireAudio20261002\\History\\CleanV1\\provenance.json",
+      "bytes": 2062,
+      "sha256": "7ae3fbd06fb0ae6cd2f2ac2ee78cad194a8a78d683e2c68926f017582a43bbb3",
+      "reason": "Superseded normal-shot processing versions; retained loudness reference has moved to Inputs",
+      "retained_replacement": "Current Audio/Masters plus Inputs/SuppressedLoudnessReference_float.wav",
+      "readback_sha256": "7ae3fbd06fb0ae6cd2f2ac2ee78cad194a8a78d683e2c68926f017582a43bbb3",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011FireAudio20261002/History/CleanV1/S_PitViper2011_Fire.wav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011FireAudio20261002\\History\\CleanV1\\S_PitViper2011_Fire.wav",
+      "bytes": 35944,
+      "sha256": "1d16e1a57338e4cd59724edec29ac30a6c8d731bb8fef1711f081aaccd9a1f77",
+      "reason": "Superseded normal-shot processing versions; retained loudness reference has moved to Inputs",
+      "retained_replacement": "Current Audio/Masters plus Inputs/SuppressedLoudnessReference_float.wav",
+      "readback_sha256": "1d16e1a57338e4cd59724edec29ac30a6c8d731bb8fef1711f081aaccd9a1f77",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011FireAudio20261002/History/CleanV1/S_PitViper2011_Fire_float.wav",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011FireAudio20261002\\History\\CleanV1\\S_PitViper2011_Fire_float.wav",
+      "bytes": 71888,
+      "sha256": "d42abd885a3d01318b552cb5b7709ea8938889cacb639984102808766e812a1e",
+      "reason": "Superseded normal-shot processing versions; retained loudness reference has moved to Inputs",
+      "retained_replacement": "Current Audio/Masters plus Inputs/SuppressedLoudnessReference_float.wav",
+      "readback_sha256": "d42abd885a3d01318b552cb5b7709ea8938889cacb639984102808766e812a1e",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/PitViper2011Integration20261002/prepare_authoring_recipe.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\SourceAssets\\PitViper2011Integration20261002\\prepare_authoring_recipe.py",
+      "bytes": 10402,
+      "sha256": "fd686c0168f796a711375b2587ee0e9538ff615cae19f53ab37037393e1c6203",
+      "reason": "Initial code generator would overwrite the adopted authoring recipe and later fire changes",
+      "retained_replacement": "SourceAssets/PitViper2011Integration20261002/author_pit_viper.py",
+      "readback_sha256": "fd686c0168f796a711375b2587ee0e9538ff615cae19f53ab37037393e1c6203",
+      "readback_equal": true
+    },
+    {
+      "source": "C:\\Users\\allan\\.codex\\generated_images\\01a0fb54-2e91-7602-9a0b-39b3c5c8d00f\\exec-2424a719-30b1-4362-b54f-5df8f58971ee.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\pit-viper2011-closeout-20261003\\external\\obsolete-long-grip-card.png",
+      "bytes": 2810900,
+      "sha256": "6022af964d11480a148c1e82290734154c80aa089eb3313d0e4a3d652077a8e4",
+      "reason": "First longitudinal card included a lower projecting foot rejected by the user magazine-boundary correction",
+      "retained_replacement": "SourceAssets/PitViper2011ViperLongitudinalGrip20261003/Icons/ue_pit_viper2011_reargrip_pit_viper_vip_scales.png",
+      "readback_sha256": "6022af964d11480a148c1e82290734154c80aa089eb3313d0e4a3d652077a8e4",
+      "readback_equal": true
+    }
+  ]
+}

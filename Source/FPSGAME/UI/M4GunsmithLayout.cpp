@@ -317,7 +317,10 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     const auto* O=Model()->Option(Model()->Definition(),SlotKey,Id);if(!O)return SNew(SBox);
     // Explicitly approved identity pairs; compatibility alone does not imply exclusivity.
     const FString Weapon=Model()->Definition();
+    const bool VipGrip=Weapon==TEXT("ue_pit_viper2011")&&SlotKey==TEXT("reargrip")&&Id==TEXT("pit_viper_vip_scales");
+    const bool SiMuzzle=Weapon==TEXT("ue_pit_viper2011")&&SlotKey==TEXT("muzzle")&&Id==TEXT("pit_viper_si_compensator");
     const bool Exclusive=
+        VipGrip || SiMuzzle ||
         (Weapon==TEXT("ue_tang_dao") &&
             ((SlotKey==TEXT("blade_1") && (Id==TEXT("yanling_edge")||Id==TEXT("tengyun_dragon"))) ||
              (SlotKey==TEXT("blade_2") && Id==TEXT("auspicious_cloud_rune")) ||
@@ -404,9 +407,9 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
                     +SOverlay::Slot()[SNew(SImage).Image(FCoreStyle::Get().GetBrush("WhiteBrush"))
                         .ColorAndOpacity_Lambda([Neon](){auto C=ColdSteelUI::Success;C.A=Neon()?.08f:0.f;return C;}).Visibility(EVisibility::HitTestInvisible)]
                     +SOverlay::Slot().Padding(6,2)
-                    [SNew(STextBlock).Text_Lambda([Selected,Installed,Id,Exclusive](){
+                    [SNew(STextBlock).Text_Lambda([Selected,Installed,Id,Exclusive,VipGrip,SiMuzzle](){
                         const FString Status=Installed()?(Id==TEXT("false")?TEXT("当前原厂配置"):TEXT("已安装")):(Selected()?TEXT("已选 · 待应用"):TEXT("选择配件"));
-                        return FText::FromString((Exclusive?FString(TEXT("专属 · ")):FString())+Status);})
+                        return FText::FromString((VipGrip?FString(TEXT("VIP 专属 · ")):SiMuzzle?FString(TEXT("限定 · ")):Exclusive?FString(TEXT("专属 · ")):FString())+Status);})
                         .Font(GunsmithUI::TextFont(12,true))
                         .ColorAndOpacity_Lambda([Neon,Selected,Exclusive](){return Neon()?ColdSteelUI::Success:Selected()?GunsmithUI::Silver:Exclusive?ColdSteelUI::ExclusiveText:GunsmithUI::Muted;})
                         .ShadowOffset(FVector2D(0,1)).ShadowColorAndOpacity(FLinearColor(0,0,0,.4f))]]]]]
