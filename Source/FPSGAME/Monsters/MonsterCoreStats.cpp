@@ -10,6 +10,7 @@
 #include "Mutant3.h"
 #include "WitchMonster.h"
 #include "NurseZombie.h"
+#include "BlindSupplicantMonster.h"
 #include "SpitterZombie.h"
 #include "MonsterCombatComponent.h"
 #include "Components/ActorComponent.h"
@@ -56,6 +57,8 @@ bool Get(const AActor* Target,FMonsterCoreStats& Out)
     else if(const auto* U=Cast<AMutant3>(Target)){Fill(75,13,40,11.84,U->Level>0?U->Level:9,U->Rank,EMonsterToughnessClass::Heavy);} // {50,30,5,40,10,6}
     else if(const auto* C=Cast<AWitchMonster>(Target)){Fill(55,55,33,11.02,C->Level>0?C->Level:8,C->Rank,EMonsterToughnessClass::Caster);} // {20,15,30,33,25,13} mdef 字段覆盖 55
     else if(const auto* Sp=Cast<ASpitterZombie>(Target)){Fill(36,10,20,8.28,Sp->Level,Sp->Rank,EMonsterToughnessClass::Light);} // {22,38,10,20,6,5}
+    else if(const auto* M07=Cast<ABlindSupplicantMonster>(Target))
+    {Fill(M07->PhysicalDefense,M07->MagicalDefense,M07->CriticalResistance,M07->CombatAttributeWeight,M07->Level,M07->Rank,EMonsterToughnessClass::Light);}
     else if(const auto* N=Cast<ANurseZombie>(Target)){Fill(0,0,0,2.76,N->Level>0?N->Level:3,N->Rank,EMonsterToughnessClass::Light);} // {3,27,3,0,0,3}
     else if(Target->ActorHasTag(TEXT("FatZombie")))Fill(35,4,20,4.6,4,EMonsterRank::Normal,EMonsterToughnessClass::Heavy);
     else if(Target->ActorHasTag(TEXT("Mutant3")))Fill(75,13,40,11.84,9,EMonsterRank::Elite,EMonsterToughnessClass::Heavy);

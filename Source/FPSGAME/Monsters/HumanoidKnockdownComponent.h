@@ -31,6 +31,7 @@ public:
     bool IsControlling() const;
     bool IsCorpse() const { return bCorpse; }
     bool IsFrozen() const { return Phase == EHumanoidKnockdownPhase::FrozenCorpse; }
+    bool GetRecoverySupport(FVector& Point, FVector& Normal) const;
     bool CanReleaseCorpseBudget() const;
     void FreezeForBudget();
     int32 SimulatedBodyCount() const { return PhysicsBodyCount; }
@@ -70,6 +71,7 @@ private:
     UPROPERTY(Transient) FPoseSnapshot FrozenPose;
     UPROPERTY(Transient) TObjectPtr<UClass> StandingAnimClass;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> PlayingClip;
+    FVector RecoveryFloorPoint = FVector::ZeroVector, RecoveryFloorNormal = FVector::UpVector;
     FTransform StandingMeshRelative;
     FCollisionResponseContainer StandingResponses;
     TArray<FMonsterObstacleProbe> ObstacleProbes;

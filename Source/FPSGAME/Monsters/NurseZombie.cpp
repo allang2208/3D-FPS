@@ -101,6 +101,11 @@ void ANurseZombie::StartStateAnimation(UAnimSequence* Clip,bool bLoop)
     GetMesh()->SetPlayRate(bLoop?1.f:0.f);
 }
 void ANurseZombie::SetAttackAnimationTime(float Seconds) { GetMesh()->SetPosition(Seconds,false); }
+float ANurseZombie::GetAttackDuration() const { return AttackClip ? AttackClip->GetPlayLength() : 0.f; }
+void ANurseZombie::ProcessAttackContact(float Previous, float Current)
+{
+    if (Previous <= ContactEnd && Current >= ContactTime) TryMelee();
+}
 void ANurseZombie::SetWalkAnimationRate(float Rate) { GetMesh()->SetPlayRate(Rate); }
 
 void ANurseZombie::StartHitPresentation(UAnimSequence* Clip, float Duration)
@@ -180,12 +185,12 @@ void ANurseZombie::Tick(float DeltaSeconds)
     }
     if (State == ENurseState::Attack)
     {
-        SetAttackAnimationTime(FMath::Min(StateTime,AttackClip->GetPlayLength()));
-        if (Previous <= ContactEnd && StateTime >= ContactTime) TryMelee();
+        SetAttackAnimationTime(FMath::Min(StateTime,GetAttackDuration()));
+        ProcessAttackContact(Previous, StateTime);
         // ApplyDamage can synchronously parry/kill us. The interrupted attack
         // must not write recovery state after that callback returns.
         if (State != ENurseState::Attack) return;
-        if (StateTime >= AttackClip->GetPlayLength())
+        if (StateTime >= GetAttackDuration())
         {
             Cooldown = RecoveryTime;
             State=ENurseState::Recovery;StateTime=0;

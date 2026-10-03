@@ -2065,3 +2065,19 @@ __pycache__/
 !/SourceAssets/WeaponArmsPublication20261003/runtime-handoff.json
 !/SourceAssets/WeaponArmsPublication20261003/published-files.json
 !/SourceAssets/WeaponArmsPublication20261003/unarmed-server-integration.patch
+
+# M-07: publish owned recipes and prose; licensed geometry, sampled animation,
+# media, vendored runtimes, UE packages and local production receipts stay local.
+/SourceAssets/BlindSupplicantM07Meshy20261001/**
+!/SourceAssets/BlindSupplicantM07Meshy20261001/**/
+!/SourceAssets/BlindSupplicantM07Meshy20261001/meshy_pipeline.py
+!/SourceAssets/BlindSupplicantM07Meshy20261001/run_meshy.ps1
+!/SourceAssets/BlindSupplicantM07Meshy20261001/meshy_settings.json
+!/SourceAssets/BlindSupplicantM07Meshy20261001/reference_prompts.json
+!/SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/*.md
+!/SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/archive-manifest.json
+!/SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/retained-recovery-dependencies.json
+!/SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/runtime-handoff.json
+!/SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/published-files.json
+!/SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/runtime-integration.patch
+/Tools/BlindSupplicantM07/livecoding_compile.json

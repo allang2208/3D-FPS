@@ -1,0 +1,114 @@
+{
+  "scope": "Recovery dependencies retained locally, not payload redistribution",
+  "content_moved": false,
+  "directories": [
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/Original",
+      "role": "Immutable user Meshy GLB and original source"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/Inputs",
+      "role": "Original concept and source views, local only"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/Textures",
+      "role": "Original texture/UV source, local only"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/Audio",
+      "role": "Current wall mimic audio and authoring input"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/Authoring",
+      "role": "Source extraction, anatomical records and regions; retired subdirectories indexed separately"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/RecoveryOriginalV06",
+      "role": "Frozen original model and reference definition used by subsequent source chain"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/RecoveryOriginalV07",
+      "role": "Original human hand anatomy/input; keep despite rejected dog-leg output"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/RecoveryOriginalV08",
+      "role": "Original surface/reference chain and anatomical import helpers"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/RecoveryOriginalV09",
+      "role": "Original six gill surfaces and mapped UV source"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/LocomotionV10",
+      "role": "Input to V11/V13 body and hand production chain"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/RecoveryHandsV11",
+      "role": "Hand/arm repair and immutable 83-bone reference"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/RunningV12",
+      "role": "V13 assembly input, not current run animation"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/ArmGillCollisionV12",
+      "role": "V13 assembly input, not a recommended collision budget"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/RecoveryV13Arms",
+      "role": "V13 original body assembly input"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/RecoveryV13Legs",
+      "role": "V13 original body assembly input"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/RecoveryOriginalV13",
+      "role": "Current base appearance, Physics Asset and non-locomotion actions"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/CombatMagicV14",
+      "role": "V15 death/casting editable master input"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/MotionRecoveryV15",
+      "role": "Current death, gather, release and V16/V17 motion input"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/ArmSweepV16",
+      "role": "Current arm weight source and sweep helper functions"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/LegJointsV17",
+      "role": "Current leg weights/signed knee frame; motion used by V18"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/BodyMotionV18",
+      "role": "Current display/cloth/proxy, V20 attack source and V19 locomotion input"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/VideoLocomotionV19",
+      "role": "Local video study and lawful CC0 donor; editable input to V20"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/PalmArmMotionV20",
+      "role": "Current idle/sweeps and direct V21 source, fingers and gill keys"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21",
+      "role": "Current two locomotion clips and editable authoring source, not visually accepted"
+    }
+  ],
+  "shared_helpers": [
+    "author_motion_v04.py",
+    "author_running_v12.py",
+    "repair_attack_arms_v13.py",
+    "author_sweep_cast_v14.py",
+    "author_cast_v15.py",
+    "author_locomotion_death_v15.py",
+    "author_power_sweep_v16.py",
+    "author_leg_joint_motion_v17.py"
+  ],
+  "unchanged_content_root": "Content/Monsters/BlindSupplicantM07",
+  "content_reason": "Native constructor fallbacks, package references and shared skeleton/material dependencies; no raw .uasset moves"
+}

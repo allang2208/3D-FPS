@@ -1,0 +1,43 @@
+{
+  "selected_generation_entry": "user_meshy_web",
+  "api_execution_enabled": false,
+  "api_base": "https://api.meshy.ai/openapi",
+  "proxy": "http://127.0.0.1:7897",
+  "common": {
+    "ai_model": "meshy-7.1",
+    "geometry_resolution": "2k",
+    "texture_resolution": "4k",
+    "should_texture": true,
+    "enable_pbr": true,
+    "should_remesh": false,
+    "pose_mode": "",
+    "image_enhancement": false,
+    "remove_lighting": true,
+    "target_formats": ["glb", "fbx", "obj"],
+    "auto_size": false,
+    "alpha_thumbnail": false,
+    "multi_view_thumbnails": false
+  },
+  "assets": {
+    "body": {
+      "images": ["Inputs/front.png", "Inputs/side.png", "Inputs/back.png"],
+      "options": {}
+    }
+  },
+  "reference_version": "V1_user_concept_extraction",
+  "reference_order": ["front", "left-facing profile as drawn in source", "back"],
+  "planned_height_m": 3.1,
+  "dimension_status": "Design target; generation does not establish authored model scale",
+  "estimated_generation_credits": 35,
+  "planned_later_rig_height_meters": 3.1,
+  "planned_later_rig_credits": 5,
+  "auto_rig": false,
+  "auto_animate": false,
+  "auto_import_ue": false,
+  "credentials": "MESHY_API_KEY in process/User/Machine environment only",
+  "sources": [
+    "https://docs.meshy.ai/en/api/multi-image-to-3d",
+    "https://docs.meshy.ai/en/api/pricing",
+    "https://docs.meshy.ai/en/api/rigging"
+  ]
+}

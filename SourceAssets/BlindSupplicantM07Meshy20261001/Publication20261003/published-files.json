@@ -1,0 +1,1150 @@
+{
+  "branch": "main",
+  "scope": "M07 recipes, source, lessons and recovery indexes only",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 104976,
+      "sha256": "ac64afaa86bfee833d1387420a3e6d3972bb4b14f122718894d4bc2865d6bd35",
+      "partial_shared_staging": true
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 74096,
+      "sha256": "5c0eff90f1a796a0bf75a54e3cf0b94baa7565c07604cc83b8b20c636137fec6",
+      "partial_shared_staging": true
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07AnatomyV03.md",
+      "bytes": 4894,
+      "sha256": "865265ed9af12598b0b9206f213474ec31d166ee2443f55a65250874df63df82",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07ArmSweepV16.md",
+      "bytes": 6511,
+      "sha256": "9d63bdf1e1ae2beedb19e9534416b89233a0b287c7555fdc900c48179962cba5",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07BodyMotionV18.md",
+      "bytes": 9076,
+      "sha256": "5174f65ab476eb329d9ef1e96e0ee1f7885ffbb0d6014562b692886f282cf71b",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07CombatMagicV14.md",
+      "bytes": 4656,
+      "sha256": "d268eeec406de68dd5eba0fa71f66d1e3c2fe69e37f6b570e9e379ea1215a9c8",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07FragmentRepairV02.md",
+      "bytes": 7484,
+      "sha256": "63146a55692b0793147266741f85cbbc01dc0acbc770adc7c3be5fc10b2fd3fe",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07FullReferenceGaitV21.md",
+      "bytes": 5791,
+      "sha256": "430fd48af29989d79892b89c2fe9bfe14d21353939fd5128458e9bb3fac6992a",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07HandsArmsV11.md",
+      "bytes": 4135,
+      "sha256": "90af7fc5388a6cf9932ecc42fb74fdb834cebd6000aed2d9cdfbe4ac496c2a0b",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07LegJointsV17.md",
+      "bytes": 5583,
+      "sha256": "feeb4ed03a423927cea68016a6a677bac5b5e24e27d0a5267f1c5ca7f357a47f",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07LocomotionV10.md",
+      "bytes": 2833,
+      "sha256": "ef1e6a3af860379080d7a909811bceaafbf2d279e74dc1d49343423d75b07bf1",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07Meshy.md",
+      "bytes": 25460,
+      "sha256": "e683ecd8eb7db2d6de641d27656efb064b8f89a9b8425ed907f5f35db731b8eb",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07MotionRecoveryV15.md",
+      "bytes": 7185,
+      "sha256": "c06db370e27ee47373ba006b5e28cf585afe2102c9d5f8ddc05ad67b29fbc1b7",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07OriginalV06.md",
+      "bytes": 6607,
+      "sha256": "dc45ae5f0a429c9620108c44845d60471eb8c09995637696b29295373f600116",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07OriginalV07.md",
+      "bytes": 4707,
+      "sha256": "e21fffb507a5a21d48664fa6a2193c19ef7fcf57b8abd66945c924896d42a8ec",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07OriginalV08.md",
+      "bytes": 3349,
+      "sha256": "375a9366ff1669060b132d481fa77bbcf001567257a31501ecb3d529facb3d36",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07OriginalV09.md",
+      "bytes": 2872,
+      "sha256": "03cd1fe208bdde68d3213b977d91bf3e0ba44f2aa1f1e9d0f370e082b997cd7a",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07OriginalV13.md",
+      "bytes": 5558,
+      "sha256": "aa6c71b99e93f0aeb654716071c96667cfec941c97cbf59f370d739a5402f44b",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07PalmArmMotionV20.md",
+      "bytes": 5584,
+      "sha256": "279b2cf5bf9645b2d0e64ab951970a4399f21706fb7165d1aaeb9b852773e328",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07Publication20261003.md",
+      "bytes": 4299,
+      "sha256": "a27e937848994059dd408370705a1bdb907d8d0473fc3e518441ad0ae1ecff2d",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07RecoveryV04.md",
+      "bytes": 3523,
+      "sha256": "47556687023398f8fa9cc1914b8577cffe6407eff890d8d8d9c73fd2dc02887d",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07RecoveryV05.md",
+      "bytes": 3345,
+      "sha256": "b25dfc25f91a8393fd31e5b3c181948c5321f01bef8a2a3cece56303661338b1",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07RunningCollisionV12.md",
+      "bytes": 4165,
+      "sha256": "21dda3d0cc5a632aa881c7d7b44e20f01dce4d89bf07459bf6a61c8e43c235ae",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Docs/Monsters/BlindSupplicantM07VideoLocomotionV19.md",
+      "bytes": 4702,
+      "sha256": "d6ec80e8b14e65adce97e926c0de57f14f0eb597b6a9fcef07052c0ba1af0e4c",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp",
+      "bytes": 10107,
+      "sha256": "c625a151888649cb4c72c8745f3f394dbc6722fe88526a237c27f124109d0c92",
+      "partial_shared_staging": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantAnimInstance.cpp",
+      "bytes": 3424,
+      "sha256": "36570115bfbc0ebde338fca129866f2ef2f0c8a48db332d332f96aa71a012ef0",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantAnimInstance.h",
+      "bytes": 493,
+      "sha256": "4f8afef19a83aa5b9da68538393f4ade9dd62a03040b57721b1a90d79041e0e3",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantAuthoring.cpp",
+      "bytes": 57270,
+      "sha256": "38848534eb2c534f4c5c981237813b2ed9faa33afb6badb2f1b9bbf30f81b95d",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantAuthoring.h",
+      "bytes": 2153,
+      "sha256": "9543787ae395c4d8d8d2c7cc6dced43f584f414305f951572381ca9da6bff8eb",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp",
+      "bytes": 16348,
+      "sha256": "f4dca4ddebc4f10b98f21440959feda943cd7b0ec86e3e8d63bfb0d89ec0bf0e",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantDeathPresentation.cpp",
+      "bytes": 4116,
+      "sha256": "7e71057a8b821cd49e93b370adc1eceeafa6c416e09e401be1edef93acece851",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantDistanceLODs.cpp",
+      "bytes": 1840,
+      "sha256": "334a6a1a270b4ce703e6bf19a3ef64c5d461e9ab38442bf57639b9eca2dbc3a0",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantMonster.cpp",
+      "bytes": 17551,
+      "sha256": "9082287f737dc558e042a2cbb4c38c05a02e7095206867fc14f3b7de48c797c5",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantMonster.h",
+      "bytes": 10522,
+      "sha256": "e1a314acc9082315b17f2b797ea4956e36d8745daae320f51800aa85c8e10a56",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantNavigationAuthoring.cpp",
+      "bytes": 7453,
+      "sha256": "dd0b4ffc194e08df0d174ca91538b5f3cf99d256c5863ac2bebbec6a97c40e95",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantNavigationAuthoring.h",
+      "bytes": 712,
+      "sha256": "988c66b7c04443650639849f7898b53992af6b1f65f8f2aa6ca18de2682f2f09",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantNavigationRepairV08.cpp",
+      "bytes": 10161,
+      "sha256": "2927265d19b5b70a22293f6395ed7c641bbd40ad91e5a4f57cc79da9c37aa544",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantNavigationRepairV08.h",
+      "bytes": 497,
+      "sha256": "7e7fc2ee95acb3dc06a16c3e7345a775c4a59aa60fc318431899789f24a02dde",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantPhysicsAuthoring.cpp",
+      "bytes": 16063,
+      "sha256": "c02c5632f02e9865cce749b95939a07a219b074572c839ad7f0b7840629823b9",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantPhysicsAuthoring.h",
+      "bytes": 827,
+      "sha256": "e9cc5d6f6a2dffa24743967bd36b3a0cae1137f935de2892f1e133de1f00b1ec",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidKnockdownComponent.cpp",
+      "bytes": 27737,
+      "sha256": "4bcdb46de7a41eb3dc491a7a0a55c98a89e326ad4ba2496055537d3cbbbdc233",
+      "partial_shared_staging": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidKnockdownComponent.h",
+      "bytes": 5220,
+      "sha256": "a94c3d00b445c275c24e142fca0481de807d624ad1510b15853f2e8d2978b8f1",
+      "partial_shared_staging": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M07GillContactNode.cpp",
+      "bytes": 4809,
+      "sha256": "e697770aaa07ad55570d22e736e0f88686dc68c3c55944db2584d86d52c1a762",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M07GillContactNode.h",
+      "bytes": 704,
+      "sha256": "306c66453f55b3525973d8417470c1d8d963ba7a083025a2c239aaeac79b9a4b",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M07InteractingClothingAsset.cpp",
+      "bytes": 26444,
+      "sha256": "049d6965110d1d3fd0fec02262d96627e2d73d945d9f01af1731ca18d8e0badf",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M07InteractingClothingAsset.h",
+      "bytes": 655,
+      "sha256": "4244808b2e253df7939ef6cb2142b2e98b545f13b76c78d3e89bfe9965c52eb6",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M07MagicAttack.cpp",
+      "bytes": 25668,
+      "sha256": "f4c511b3b859385b4233b90f9861cfce32bd1fb4769f384fe9610d49cfc58385",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M07MagicAttack.h",
+      "bytes": 5303,
+      "sha256": "b4f68805d3d66d32f0b0e7c1a62823a14c577027bf6b033adb3b882880891df8",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M07SkinReadback.cpp",
+      "bytes": 24039,
+      "sha256": "5c78f06cb1ed32778c66fe614e2753c0f9b394f17943d228ffd8a803a90a3a92",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M07SkinReadback.h",
+      "bytes": 602,
+      "sha256": "a55c5200cee631696459d1bc3564cdff88d5b470f2a9fa573321312eebb373c0",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "bytes": 20982,
+      "sha256": "5e79ac78d29485a9f2059eef36b26bab3cfb78b068ea235673d4145c1fe7b29a",
+      "partial_shared_staging": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCoreStats.cpp",
+      "bytes": 10433,
+      "sha256": "8edc109b6dc6fd73b9117683f1795621d81709f8753325f1af78b1975cae7731",
+      "partial_shared_staging": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterRecoveryGroundNode.cpp",
+      "bytes": 4164,
+      "sha256": "d2c0b9e305b4455ad939159a173418a056344611db8225208fcdf4bae180b477",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterRecoveryGroundNode.h",
+      "bytes": 1043,
+      "sha256": "7e92d2a94e1df261ee8b487629ed368f3ffce82193cce2f1c191572844006afe",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.cpp",
+      "bytes": 14755,
+      "sha256": "d4c5a456e7381de88c1f83088fcd257a898903d810e9eb404003f0fdef4a2495",
+      "partial_shared_staging": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.h",
+      "bytes": 5246,
+      "sha256": "4cb2e0990a93c82e566167944be248953092632b025ac04fbfb4adfc07c7878a",
+      "partial_shared_staging": true
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/archive-manifest.json",
+      "bytes": 238233,
+      "sha256": "eb55e97b3366d1b44ce7858e725a0a240a59671b5d61722f1b9488b9d6034e41",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/published-files.json",
+      "manifest_self_hash_omitted": true
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/retained-recovery-dependencies.json",
+      "bytes": 4514,
+      "sha256": "3ac8467c4533cbe1523ff4323c81a9f6e79a525a9a2db535f9e0a2525a9d51b3",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/runtime-handoff.json",
+      "bytes": 2413,
+      "sha256": "e25e1699b9036886f71caaacbf63c5e1e1b8b98f8519b49ab1a2e835c7ea25b0",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/meshy_pipeline.py",
+      "bytes": 11544,
+      "sha256": "36a48be54ddaedb909c35c3fa06c0c58ff6856b731aef271c81bfa869da8558d",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/meshy_settings.json",
+      "bytes": 1388,
+      "sha256": "f69f30f2bcdc872a0997e50d95f0eb6edec01c5c7dccdf676d06b18f7ca40106",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/reference_prompts.json",
+      "bytes": 4833,
+      "sha256": "822bc2a3a506dd1605afdf8b3341e29d9e8e7b3468ff1d342ae06c0b61fca6c3",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/run_meshy.ps1",
+      "bytes": 301,
+      "sha256": "81e383cb721b591785ae70730c3ffcddf39d532a53525f4772e665be721859b6",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "ThirdPartyNotices/BLIND_SUPPLICANT_M07.md",
+      "bytes": 1999,
+      "sha256": "1ed6488b56496ddf6972ec0a6ac053da8858dd39830895a8be9499b41606564b",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/activate_body_motion_v18.py",
+      "bytes": 1469,
+      "sha256": "d6bf9763ef38c3bdfbb4c52dbb3aa84cc3c07ba41e707966f70fbd719d096916",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/apply_original_recovery_native_v13.py",
+      "bytes": 894,
+      "sha256": "a2c437273833c08ac74b4d3cd2b45c91f4237cd527973660d0141e7069798cfb",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/apply_running_collision_native_v12.py",
+      "bytes": 1331,
+      "sha256": "d1bc1ff9d207a07ef5824a3c4c9e2895798947a295f32c46a41b91af1da94d4a",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/archive_publication_20261003.ps1",
+      "bytes": 4225,
+      "sha256": "4d444db1ceb8effcf7937fc777f8a5aca98237e28ac7a5bb9c8e79b931fd6807",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/assemble_original_recovery_v13.py",
+      "bytes": 14967,
+      "sha256": "e1a8a3a17c73e96f7e17f8bea74f129a4dfe645d11beea814eb35ba4b85768b9",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/assemble_reference_v07.py",
+      "bytes": 4799,
+      "sha256": "dc8031dd8ca2360bb4b608f8fc4feaf32bf8ba64ae45460a8167c4307578052b",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/assemble_reference_v08.py",
+      "bytes": 4670,
+      "sha256": "0bf4ee046aa4bdb5b79683136beb22af866b031dd0321c5ddaeaba984535fc87",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_biped_legs_v08.py",
+      "bytes": 22818,
+      "sha256": "aaaf833e6aca4972b29ec4bcf162f850cc7c498217fd553ba5a6c2eabdf4c04a",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_body_gait_v18.py",
+      "bytes": 25087,
+      "sha256": "8d3cf2796765f5632c2595ced50a72a11937f16e24fd4c6c082e753bfec087dc",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_body_sweeps_v18.py",
+      "bytes": 20433,
+      "sha256": "029c4324eada4cbf2a4db5969b54bea82b87b49299d7fd647a3fb30fd35365d3",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_cast_v15.py",
+      "bytes": 29909,
+      "sha256": "80c89ea2978cb145613f417925765091aeaf79ffbfed59e9aa0c4070fd38b448",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_character.py",
+      "bytes": 19804,
+      "sha256": "f332826b898b8971ba7e2938e82bb5f9aca275b90f7ec09fb7f41e27348cb29c",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_control_motion.py",
+      "bytes": 10900,
+      "sha256": "7dcd7d734a14edb1ac7975c994942ad2e808da967b9a97e325b3164fa31551aa",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_full_reference_gait_v21.py",
+      "bytes": 25080,
+      "sha256": "e69ef0442d37d8af1cec2f122741fda4c9611d04879e8a4dc9b9ee92d45ae374",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_gameplay_motion.py",
+      "bytes": 25926,
+      "sha256": "eb682764674e30d994c1d0ddee5e22c0f005a3bedcc516a9878288506d28adb9",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_gill_surface_v07.py",
+      "bytes": 13524,
+      "sha256": "e12386cd8f488b1f0de6e2f2095f6e7a8c2c8fba916bde7dc3be36066a0f5eb9",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_hand_actions_v07.py",
+      "bytes": 2671,
+      "sha256": "5ec9b80d9185540336ea432b6981ccb882519c897bf3694724c3342f7085c34f",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_hand_anatomy_v07.py",
+      "bytes": 25382,
+      "sha256": "03f9413ef063a6e864df30ae2a4d27fc503c9f58010c3c336ad2871f3ddffb87",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_hands_arms_v11.py",
+      "bytes": 25309,
+      "sha256": "a24c7d698bcbb57dff2c68478930e3343fa042baa478714f839746856b8f5f5d",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_hindlegs_v07.py",
+      "bytes": 28545,
+      "sha256": "fba4297cf2ac9b570d2a063d9237dc83d88f6dbd4b0c86063b820f0d0467f058",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_leg_joint_motion_v17.py",
+      "bytes": 18353,
+      "sha256": "1062785e3cc45164744c92865cd7c8a74aa4a7fb180d5f148f7c404e89fe20ad",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_leg_motion_v13.py",
+      "bytes": 8209,
+      "sha256": "fdca35af593728892124e0088614c14435d282b6a072912d391fea1d4f667ab3",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_locomotion_death_v15.py",
+      "bytes": 30243,
+      "sha256": "193eafc8b72953d867db945ef7d0c09e4b3ae081c6df9ec865e76fd9cf224bce",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_locomotion_v10.py",
+      "bytes": 17075,
+      "sha256": "f12c6c7f90e9070f828732f4d7db14eea77869f479c6748f0e1b7675928549ac",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_mimic_audio.ps1",
+      "bytes": 3756,
+      "sha256": "9f0281a9bedc25f1ea58da319c8d3e8e8cad4bdf205abe6f454e95af7ff89e71",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_mimic_audio.py",
+      "bytes": 7148,
+      "sha256": "e75db95735e0fb266663d2e023007b985b073cae174dcbf92ef30b46a8eb8b6d",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_motion_v03.py",
+      "bytes": 34023,
+      "sha256": "025e3ca65b47b2dbeb765f311f052c62a136a10ba971ea64980768ef8ebad599",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_motion_v04.py",
+      "bytes": 36535,
+      "sha256": "692f432cef291def3d62086f5e9787abc9dbd451bc7bb0846805cf5878f2aaa0",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_original_gills_v09.py",
+      "bytes": 12162,
+      "sha256": "70690a4de081917cd32c4ebab910b20bc0e41dc252a3efc2e2485f17879639e7",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_original_rig_motion_v06.py",
+      "bytes": 20867,
+      "sha256": "d058f999ff7a74c1105b2db04877df3e9c8cd5b9a77e32b427f752b37ee3f0f8",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_original_rig_motion_v07.py",
+      "bytes": 21687,
+      "sha256": "b3c6877c036ceec18703ef5b27efe18684a945f2a64ccdb2c2c32ddd52f8cc5f",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_original_rig_motion_v08.py",
+      "bytes": 21826,
+      "sha256": "c3e1d2fd5e2217d1f06b8f8b5cc9005557a54841055d86e999d05bc57cca7298",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_original_surfaces_v06.py",
+      "bytes": 19399,
+      "sha256": "ba3ee22594750022e2a56601481eff11e2a8ab783a0f88ae9cea9cf3693e3b24",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_original_surfaces_v07.py",
+      "bytes": 20497,
+      "sha256": "01bc1235b31d90e5e58cdf5e40502413ed347b8f48c580f4b064fbf1b7ebacef",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_original_surfaces_v08.py",
+      "bytes": 20518,
+      "sha256": "131a5cafbc0373638d24a566f7abed538edbe81ab18cda8cb9a60545db517638",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_palm_arm_motion_v20.py",
+      "bytes": 24024,
+      "sha256": "236e0fd28c0b68dce27fd1ce14d474816bd5dd2f07e79e78723ec04a14dff076",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_physics.py",
+      "bytes": 1960,
+      "sha256": "3c45477474f97e84dfb3f91f825f2290fd75546f3590d4118815c6efb08d8bc8",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_power_sweep_v16.py",
+      "bytes": 24896,
+      "sha256": "d2639a0019fee4d6bba7db296c137c61721a2e1ca8f63b41bb7b08483e324c74",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_running_v12.py",
+      "bytes": 27762,
+      "sha256": "6a99e668d3937272ba940392366ec77b91ffd1c4df2f43b7a0a5edc37f2b6ddf",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_sweep_cast_v14.py",
+      "bytes": 26343,
+      "sha256": "29869f9b813b28e5828a040e639a497ceebb9c9d352442806b5637ec50774b8c",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/author_video_locomotion_v19.py",
+      "bytes": 28171,
+      "sha256": "7750ebaf7bcf3570f2648d14cb9505fb90c8cbcdaed9d55cf94afc085e235851",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/bind_blender_cloth.py",
+      "bytes": 11905,
+      "sha256": "24efdad3d6cb99e7d5e23176b1f367b417eb0f2cd4bf1fd6dc0886c3b77541ba",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/bind_display_stage.py",
+      "bytes": 217,
+      "sha256": "4764de6843c9fa5f7b4fc27ed6335d60ff7ac5bd9a9af20b29aefdd7013bda9f",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/build_editor.ps1",
+      "bytes": 3104,
+      "sha256": "00581453ee907c5e706f746bcd794326a398388a0e7c3c14b63aa6e8a562d776",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/cache_video_donor_v19.py",
+      "bytes": 14230,
+      "sha256": "15b29eecf858f91afde82ecd6fd1503ceb59d3cd1eeec7da64f005c217785736",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/complete_locomotion_v10_background.ps1",
+      "bytes": 1328,
+      "sha256": "73cf4195fe5519519b8ecdeb53730b575fb9242680b0ea97e07530b24c4b2d71",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/complete_original_gills_v09_background.ps1",
+      "bytes": 1858,
+      "sha256": "a3eb1e0be1d0a7ac5d1756cd7ebb32e6862306e370e44147fcbd3856f4af2f9f",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/complete_original_hands_v11_background.ps1",
+      "bytes": 1777,
+      "sha256": "d7c0a03f739b0eeb155e115679d6e62c9190625b0de6da0c2fbee5daafe0d116",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/complete_original_recovery_v13_background.ps1",
+      "bytes": 1822,
+      "sha256": "2adac026fec2758df90694340cff541d59a8ac4c37ce007ea8c1e3e8f29c018a",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/complete_original_v06_background.ps1",
+      "bytes": 2260,
+      "sha256": "fa9786de97141f756a44d2f87d3e4a1124f1011f8f9b3f6b1cbb60166ec15078",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/complete_original_v07_background.ps1",
+      "bytes": 4010,
+      "sha256": "44af028a01ca55c59de5b545be93835e7f8a7187127d7e9d16bbd906c4b7a96e",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/complete_original_v08_background.ps1",
+      "bytes": 1595,
+      "sha256": "0766b08e4c95fd059693adf353afdd6a20955bc0b774afde49b0404e80eec817",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/complete_running_collision_v12_background.ps1",
+      "bytes": 2316,
+      "sha256": "61bf2b72c9681d273527db2bfc598078fe9def9dde4108d13bc02cde4175f0ee",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/derive_original_gill_guides_v06.py",
+      "bytes": 1122,
+      "sha256": "bd4b5208c5a3545e4cf66f5786855802805679e878ec5dc05d42a1351583a80c",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/diagnose_authored_arms_v11.py",
+      "bytes": 4349,
+      "sha256": "e5070457036a872d267d3b3e5787a5038e37edd0bb06ac418f9659761c58580e",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/editor_write_state_v11.py",
+      "bytes": 489,
+      "sha256": "381e167ece1c1e5907e7c35209f66914cc845756ccf6373563c3bfd0e5dbe285",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/end_pie_for_asset_save.py",
+      "bytes": 408,
+      "sha256": "a3b94814c7ca95c74f24fa059affbc580627a8a733047b2914c308242d596033",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/extract_cloth_stage.py",
+      "bytes": 219,
+      "sha256": "e46f9c56b8643d8314e6a0236ec7477a4250f7bf9634151a24e6c34eb8e0c88d",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/extract_source.py",
+      "bytes": 16938,
+      "sha256": "1ec4e7bc0a31f7116c5c8affdbc400cc5826bfce57e1b3fa148a06b2b954c52c",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/finalize_body_motion_v18.py",
+      "bytes": 6714,
+      "sha256": "94d023a0271c411eb70efc937dfcf95f634712bd346a62932b3d7545a657d4e6",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/finalize_delivery_records.py",
+      "bytes": 4231,
+      "sha256": "7259007b68ddd65070784e35b7beccd951db44905ca09e4a14970c69528b2fe5",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/finish_original_gills_v09.py",
+      "bytes": 4096,
+      "sha256": "f99d035e6452abd656e968ab2fb199d9466f9ebb7e0c9fe724b103287d91a088",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/finish_original_source_v06.py",
+      "bytes": 3577,
+      "sha256": "4f9cace94224b71373ff1a73f6f3d462af8074f238400493465cc37e3d13ce13",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/finish_original_source_v07.py",
+      "bytes": 3577,
+      "sha256": "3c3bb2829185bb84f1c34fcd617b28aa05d14a446d1b6dd84f64bd30445b6076",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/finish_original_source_v08.py",
+      "bytes": 3577,
+      "sha256": "2404d1e1844dd909bfe7f85d478e4d463a0d98cc2cc6b85a1bcad0ccd4b3fc18",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/freeze_original_v06.py",
+      "bytes": 4530,
+      "sha256": "d69c93c3c6a468ea5aeef3e917f6c19de9de454625ff0d25b1c806c4aa189d73",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_animation_stage.py",
+      "bytes": 206,
+      "sha256": "467efe8b2a2bb8ba59c3a07982068ca499d4d48cfb5d44577537a36b5160342e",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_arm_sweep_v16.py",
+      "bytes": 10885,
+      "sha256": "7fc18fbee30f641f86bbd0a889f7a8d880c08446a0bbe4e8f39c7f95ba3255ed",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_assets.py",
+      "bytes": 11786,
+      "sha256": "0b473ca0773942f7d978d9952e8b26a4fcd0e7df96b1fd9b09787314fcb47d5d",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_body_material_original_v07.py",
+      "bytes": 3346,
+      "sha256": "cbd79cbf4675facf0c5aadc6df74258198bad5a821366890e0a21154e75c8870",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_body_motion_v18.py",
+      "bytes": 11384,
+      "sha256": "c8151c8ce122a7203816e7b0ef8273fe5b38560394b0cf42549975e4546cab88",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_full_reference_gait_v21.py",
+      "bytes": 7707,
+      "sha256": "f6692938034da45bcc3607537d9232dc588ef5e64ed9e411b55e7cdcb2eb812b",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_gameplay.py",
+      "bytes": 14059,
+      "sha256": "2cb8cfa761e38f985712bf9ca79bd56e29028a7a72cc6647cbe5e1d21222f17d",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_gameplay_cloth_stage.py",
+      "bytes": 547,
+      "sha256": "5730877bd14106b49e124fb1fab08258512ee0af04a443e970653b549bbc1097",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_gameplay_navigation_stage.py",
+      "bytes": 387,
+      "sha256": "8b7f1f74b86dfdcec2ebb94f418f0c697dad64192be2d005b03f4c94b50f58aa",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_gill_material_original_v07.py",
+      "bytes": 5393,
+      "sha256": "0da7a9add10a3c0765294907233e47b24ad6d196c9191f44ea8cf277220dfec8",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_leg_joints_v17.py",
+      "bytes": 10181,
+      "sha256": "3cc3cd1ed2922e3915d0db5e4552a3510b3ce25767dc11984305cb299f91c478",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_locomotion_v10.py",
+      "bytes": 11078,
+      "sha256": "69af453fa6631c92f1b8421f0df5c6651fb6491606d9a19717dea90a140d1efa",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_material_stage.py",
+      "bytes": 218,
+      "sha256": "8eadb20efc715729af558c3fa2c2d72235007c00145968c34c189df5c0bbf118",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_mesh_stage.py",
+      "bytes": 215,
+      "sha256": "95e6aa0a4134a968c4f5ce5e8f93b5eed84d306bd80ab035a401758e4651c605",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_motion_recovery_v15.py",
+      "bytes": 7520,
+      "sha256": "311f4681fa5e539f88104c121d3906ce76377033eca2164598f29b00deb52c63",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_original_gills_v09.py",
+      "bytes": 11237,
+      "sha256": "9c9442eee36b4e51a418b87e78748604f1123a6a213837ef5c7986920041a7c0",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_original_hands_v11.py",
+      "bytes": 19859,
+      "sha256": "a606ae986f94bfa99707cfd28d9f312d6dc9a2067ce63790cec8bfdd44631d20",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_original_recovery_v13.py",
+      "bytes": 12022,
+      "sha256": "d09bc2b32ae857b67c645693f084d4b95d5a656e3536a58e39cbc6f727b89438",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_original_v06.py",
+      "bytes": 13843,
+      "sha256": "7bad3626c6dfed74d142f817dc290b10d149effedceba43141c2c22b5fe59f62",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_original_v07.py",
+      "bytes": 14374,
+      "sha256": "c91075515c7dc6e62d0d20b3b697a1c4146fc3b56b21cebdf28015f57fbd6aa9",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_original_v08.py",
+      "bytes": 14490,
+      "sha256": "f6be61f962369172a4219fbe5f368cadff3593c51ac52868b73e9d23e803ddbf",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_palm_arm_motion_v20.py",
+      "bytes": 8383,
+      "sha256": "5ca6dc28f1a0cd07d08d2dfe3714a5ebe1ca4670fb091b233e158cfc6dda9654",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_running_collision_v12.py",
+      "bytes": 15647,
+      "sha256": "0bed3eb5714a8db0b0f45486b47c18e68b4ef79c716e238b6ebc9b506b78cda1",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_sweep_magic_v14.py",
+      "bytes": 7673,
+      "sha256": "0bb8cf7859b539d36acad94638cffc4f1a169bb10efc261c2b518e5e8ce17628",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/import_video_locomotion_v19.py",
+      "bytes": 7901,
+      "sha256": "828035b48bb10fa4d2b0ebd1c7bcc278bb0a9204337d31a3d5d135a86ad3a39a",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/merge_anatomical_weights_v07.py",
+      "bytes": 2888,
+      "sha256": "498a4d44cac1785a0f4faf0bd017bdeea72ce344612e6b3b41fefcf8192b120d",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/merge_anatomical_weights_v08.py",
+      "bytes": 2975,
+      "sha256": "48902fd3cec6890ccbec344bc30ef778df819887b4261bae932f9a4d7c2a3317",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/prepare_arm_gill_collision_v12.py",
+      "bytes": 10346,
+      "sha256": "b0566929d9efa08cf9b0c99f6ddd4c37b04f7704df25405a855c456e47ffc192",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/prepare_arm_hand_weights_v11.py",
+      "bytes": 20860,
+      "sha256": "b4b9a47ca027157b03f829af53e41137be65460a1b8e7f7b7633e95b2ea43828",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/prepare_body_motion_cloth_v18.py",
+      "bytes": 4120,
+      "sha256": "40e715112f1ec1d1f8a76b3a0c0d24ec461307b48aa0ed9c44c5b711c27fdfdc",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/prepare_cloth_surfaces.py",
+      "bytes": 3924,
+      "sha256": "79b21fe18b67197a608f8d4bd5708542138e5abc538e6130404dad7c85749020",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/prepare_gill_contacts_v18.py",
+      "bytes": 17408,
+      "sha256": "758db3e52072701c26517300b552504bffc5252c1722a80ef101fc38e1ff0928",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/prepare_gill_weights_v09.py",
+      "bytes": 7539,
+      "sha256": "3c9e36222f2f8098d2a2e703e2499604073bcfc1a7b79bfadca8b08a9a61c71a",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/prepare_original_regions_v06.py",
+      "bytes": 17116,
+      "sha256": "76efb43715992c583eb8eba739ddd063f66489a7357528a36189b645a50faec4",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/prepare_original_weights_v06.py",
+      "bytes": 10313,
+      "sha256": "08dee272152732e8f8c382cf99e76dda53eee9ddf9fb29e628b396bd05c42393",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/prepare_original_weights_v07.py",
+      "bytes": 10344,
+      "sha256": "5fecbe205d7de075975e3fa7f07d534e8b15fd79fc820e6c4d073fb2c22d0aa1",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/prepare_original_weights_v08.py",
+      "bytes": 10344,
+      "sha256": "75d899153af209fc01f4211572faffef1e866321942b50b0bfb2d8b54bb9feb2",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/prepare_publication_20261003.py",
+      "bytes": 7888,
+      "sha256": "421c6c0a29e49b74fc8d937ec97c92d2af1c46fbe5c90d2ad18cd2d0f4890bc8",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/prepare_regions.py",
+      "bytes": 6552,
+      "sha256": "22ce0e2d47426b900f12b49d82ef448170d8d1a3ef1167573727794ced55165c",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/produce_original_v08_source.ps1",
+      "bytes": 2096,
+      "sha256": "fc431d6c38ed03e4eb0299e434e3272cffbdb537bf391e8d2ba82b79888eb9cb",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/read_anatomy_source.py",
+      "bytes": 1681,
+      "sha256": "82f6b071c4ed9bf411b62f60d8b0bd4e2c513d93a5ae466f323401a6b910a6bd",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/read_loaded_package_ownership.py",
+      "bytes": 1006,
+      "sha256": "3709a3ae55ac0c7a9bc87085b5718b3bd0e71108ac0ce8833780fae4020670c7",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/read_tpose_cause_v18.py",
+      "bytes": 4694,
+      "sha256": "46268d288c325402af2ec2d0ac50b53e776a455cd233e6270418287d2b4e4ce5",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/record_hands_arms_delivery_v11.py",
+      "bytes": 3064,
+      "sha256": "3d68a37008ba08f4ccc35dd880ea7ca1aadcc4b910a3a823922fb48591b6628a",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/record_original_delivery_v06.py",
+      "bytes": 4385,
+      "sha256": "5f2ee2a48413f9c17fa7a5fc8ce761ba73fe12cb1a70b84baac6f012762c15cd",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/record_original_delivery_v07.py",
+      "bytes": 4860,
+      "sha256": "80b1d58a884a808007a4ed05c791c2e3a357b749d8cc40695d4d74bed45680d7",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/record_original_delivery_v08.py",
+      "bytes": 5267,
+      "sha256": "5b3db082d8fa10853ccf084a0531d56b52fbdf809a51803b6c6c93c2e858fdac",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/record_original_recovery_delivery_v13.py",
+      "bytes": 2440,
+      "sha256": "4ee33ac7110168d78ced8364988e9761597bbdadce14dd61d9af5edabe5c9c36",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/record_running_collision_delivery_v12.py",
+      "bytes": 2761,
+      "sha256": "6dd7fd4728174f9a43ed2bdfe88764c7c009ed24bb00d0fea2b6e84d46a2af75",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/repair_attack_arms_v13.py",
+      "bytes": 20274,
+      "sha256": "9ee7ecdf6555c8076383b6761af7f7a15c82b4c4845792c0ecc205697d40d30b",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/repair_leg_skin_v13.py",
+      "bytes": 16444,
+      "sha256": "aeb9bbd0e0dd77567603c93927ea3f83af5deee6e263ec119f244c96b56ed56d",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/repair_locomotion_export_v18.py",
+      "bytes": 5975,
+      "sha256": "004acddf99c4720f0339264f4955600b08cd6787c52d1be6414c967bb36e0c09",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/repair_navigation_load_v18.py",
+      "bytes": 2154,
+      "sha256": "ca0db868b09e862684660969361c328c6f01d9271d6116d52a97c18e13c7838f",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/repair_navigation_original_v08.py",
+      "bytes": 2253,
+      "sha256": "515459568372446a217a9733ab2c0b232d3bc6c5b0d5bc44f79417390d1a10a5",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/run_editor_stage.py",
+      "bytes": 611,
+      "sha256": "f712fdb6cbe024d4c2b3a07f9b5d2a0ff3c42fbb38e5cb3525cd7885b0375d50",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/run_import_background.ps1",
+      "bytes": 6529,
+      "sha256": "662433afc43508658b47eafcbcc5c7a37a05fdf30d1156b33b8621966689889f",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/solve_arm_skin_v16.py",
+      "bytes": 19826,
+      "sha256": "346737df43b1c81e193b610e9499a2f7812e50b45fdd2be596b41eaf0ce77965",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "Tools/BlindSupplicantM07/solve_leg_skin_v17.py",
+      "bytes": 20708,
+      "sha256": "8e4a724b8aa65c54115e0a9fdfd99cb8ac37dfdba72963e5f65b3a9bd4729125",
+      "partial_shared_staging": false
+    },
+    {
+      "path": "skills/ue5-monster-workflow/SKILL.md",
+      "bytes": 18757,
+      "sha256": "1ba808c0411566fa7c5c7bf45cd1aace03c9909268aab3e50bdf425899804e86",
+      "partial_shared_staging": true
+    },
+    {
+      "path": "skills/ue5-monster-workflow/references/blind-supplicant-m07.md",
+      "bytes": 10980,
+      "sha256": "ec7b33edd82c0e995d04b3de091cc0dfd7e48aa72b7b63504995a2ea401b9b00",
+      "partial_shared_staging": false
+    }
+  ]
+}

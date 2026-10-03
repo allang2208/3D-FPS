@@ -45,7 +45,7 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") ENurseState State = ENurseState::Idle;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") int32 SuccessfulHits = 0;
     UPROPERTY(Transient, VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") FVector SpawnPosition;
-    UFUNCTION(BlueprintCallable, Category="Nurse|Combat") void InterruptAttack(float Seconds = .25f);
+    UFUNCTION(BlueprintCallable, Category="Nurse|Combat") virtual void InterruptAttack(float Seconds = .25f);
     // Editor pipeline: call only on a separately duplicated clip, preserving the downloaded source.
     UFUNCTION(BlueprintCallable, Category="Nurse|Animation") static bool PrepareInPlaceAnimation(UAnimSequence* Clip);
     UFUNCTION(BlueprintCallable, Category="Nurse|Placement", meta=(WorldContext="WorldContextObject"))
@@ -56,6 +56,10 @@ protected:
     virtual void SetHitPresentationTime(UAnimSequence* Clip, float Elapsed, float Remaining);
     virtual void StartStateAnimation(UAnimSequence* Clip,bool bLoop);
     virtual void SetAttackAnimationTime(float Seconds);
+    virtual float GetAttackDuration() const;
+    virtual void ProcessAttackContact(float Previous, float Current);
+    bool AttackCooldownReady() const { return Cooldown <= 0.f; }
+    APawn* CombatTarget() const { return Target.Get(); }
     virtual void SetWalkAnimationRate(float Rate);
     // Called once after the shared contact checks consume this attack.
     virtual float ApplyMeleeDamage(APawn* Victim);

@@ -26,6 +26,12 @@ UHumanoidKnockdownComponent::UHumanoidKnockdownComponent()
 ANurseZombie* UHumanoidKnockdownComponent::Humanoid() const { return Cast<ANurseZombie>(GetOwner()); }
 USkeletalMeshComponent* UHumanoidKnockdownComponent::BodyMesh() const { return Humanoid()?Humanoid()->GetMesh():nullptr; }
 bool UHumanoidKnockdownComponent::IsControlling() const { return !bCorpse && Phase!=EHumanoidKnockdownPhase::None; }
+bool UHumanoidKnockdownComponent::GetRecoverySupport(FVector& Point,FVector& Normal) const
+{
+    if (bCorpse || Phase!=EHumanoidKnockdownPhase::GettingUp) return false;
+    Point=RecoveryFloorPoint; Normal=RecoveryFloorNormal;
+    return true;
+}
 
 void UHumanoidKnockdownComponent::BeginPlay()
 {
@@ -432,11 +438,12 @@ bool UHumanoidKnockdownComponent::TryGetUp()
         FrozenPose.LocalTransforms[0]=FrozenPose.LocalTransforms[0]*OldWorld*Mesh->GetComponentTransform().Inverse();
     Mesh->SetComponentTickEnabled(true); Mesh->bPauseAnims=false;
     PlayingClip=RecoveryClip;
+    RecoveryFloorPoint=Floor.ImpactPoint; RecoveryFloorNormal=Floor.ImpactNormal;
+    N->State=ENurseState::GettingUp;
+    Phase=EHumanoidKnockdownPhase::GettingUp; PhaseAge=0; FinishBlendAge=-1.f;
     PosePlayer()->RecoverFromSnapshot(PlayingClip,FrozenPose,GetUpBlend);
     Mesh->TickAnimation(0.f,false); Mesh->RefreshBoneTransforms();
     Capsule->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-    N->State=ENurseState::GettingUp;
-    Phase=EHumanoidKnockdownPhase::GettingUp; PhaseAge=0; FinishBlendAge=-1.f;
     SetComponentTickInterval(0.f);
     return true;
 }

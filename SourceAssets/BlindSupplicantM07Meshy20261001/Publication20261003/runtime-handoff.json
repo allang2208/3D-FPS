@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-03",
+  "monster_id": "BlindSupplicantM07",
+  "current_revision": "FullReferenceGaitV21",
+  "paused_by_user": true,
+  "saved": true,
+  "runtime_tested": false,
+  "visual_accepted": false,
+  "f6_blueprint": "/Game/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.BP_BlindSupplicantM07_C",
+  "mesh": "/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18.SK_M07_BodyMotionV18",
+  "skeleton": "/Game/Monsters/BlindSupplicantM07/SK_M07_ReferenceOriginalV11.SK_M07_ReferenceOriginalV11",
+  "physics_asset": "/Game/Monsters/BlindSupplicantM07/PA_M07_OriginalV13.PA_M07_OriginalV13",
+  "simulation_source": "/Game/Monsters/BlindSupplicantM07/Working/SK_M07_ClothBuildSource_BodyMotionV18.SK_M07_ClothBuildSource_BodyMotionV18",
+  "speed_values": {
+    "source_walk_speed": 120.0,
+    "source_chase_speed": 210.0,
+    "walk_speed": 120.0,
+    "chase_speed": 210.0
+  },
+  "locomotion": {
+    "SlowWalk": {
+      "asset": "/Game/Monsters/BlindSupplicantM07/AnimationsFullReferenceV21/A_M07_SlowWalk.A_M07_SlowWalk",
+      "duration_s": 1.6666666269302368
+    },
+    "Chase": {
+      "asset": "/Game/Monsters/BlindSupplicantM07/AnimationsFullReferenceV21/A_M07_Chase.A_M07_Chase",
+      "duration_s": 1.3333333730697632
+    }
+  },
+  "retained_action_references": {
+    "idle_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsPalmArmV20/A_M07_Idle.A_M07_Idle",
+    "melee_left_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsPalmArmV20/A_M07_SweepLeft.A_M07_SweepLeft",
+    "melee_right_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsPalmArmV20/A_M07_SweepRight.A_M07_SweepRight",
+    "death_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsMotionRecoveryV15/A_M07_Death.A_M07_Death",
+    "magic_gather_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsMotionRecoveryV15/A_M07_MagicGather.A_M07_MagicGather",
+    "magic_release_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsMotionRecoveryV15/A_M07_MagicRelease.A_M07_MagicRelease",
+    "wall_listen_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsOriginalV13/A_M07_WallListen.A_M07_WallListen"
+  },
+  "public_contains_binary_assets": false,
+  "local_source_contract": "Original identity/UV/bind retained; V16 arm, V17 leg, V18 bounded cloth contact, V20 idle/sweeps/lead, V15 death/casting",
+  "recovery_boundary": "Restore lawful local payloads before authoring; Git alone does not restore a complete playable installation"
+}

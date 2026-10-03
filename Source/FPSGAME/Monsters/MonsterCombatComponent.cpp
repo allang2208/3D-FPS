@@ -5,6 +5,7 @@
 #include "MonsterCoreStats.h"
 #include "MonsterAIController.h"
 #include "NurseZombie.h"
+#include "BlindSupplicantMonster.h"
 #include "HumanoidKnockdownComponent.h"
 #include "Mutant3.h"
 #include "HandBrainMonster.h"
@@ -37,6 +38,8 @@ bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Na
  if(const auto* F=Cast<AFleshHandMonster>(GetOwner())){Health=F->Health;MaxHealth=F->MaxHealth;Name=FText::FromString(F->bMinion?TEXT("小皮肤手"):TEXT("异变巨手"));return true;}
  if(const auto* W=Cast<AWolfMonster>(GetOwner()))
  {Health=W->Health;MaxHealth=W->MaxHealth;Name=W->MonsterDisplayName;return true;}
+ if(const auto* M07=Cast<ABlindSupplicantMonster>(GetOwner()))
+ {Health=M07->Health;MaxHealth=M07->MaxHealth;Name=M07->MonsterDisplayName;return true;}
  if(const auto* N=Cast<ANurseZombie>(GetOwner()))
  {Health=N->Health;MaxHealth=N->MaxHealth;Name=FText::FromString(N->ActorHasTag(TEXT("SpitterZombie"))?TEXT("毒液僵尸"):N->ActorHasTag(TEXT("Witch"))?TEXT("巫婆"):N->ActorHasTag(TEXT("Mutant3"))?TEXT("突变体-3"):N->ActorHasTag(TEXT("FatZombie"))?TEXT("胖子僵尸"):TEXT("护士僵尸"));return true;}
  if(const auto* H=Cast<AHandBrainMonster>(GetOwner()))
@@ -100,6 +103,7 @@ bool UMonsterCombatComponent::CanAttack(APawn* P) const
  if(auto* Mutant=Cast<AMutant3>(GetOwner()))return Mutant->CanStartFeralAttack(P);
  if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->CanAttack(P);
  if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->CanSpit(P);
+ if(const auto* M07=Cast<ABlindSupplicantMonster>(GetOwner()))return M07->CanAttackTarget(P);
  const float D=FVector::Dist2D(P->GetActorLocation(),GetOwner()->GetActorLocation());
  if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->Cooldown<=0&&
   (IceWallCombat::BlockingWall(N,P,MonsterCombatTuning::AttackDistance(N->AttackRange)-15)||
@@ -117,9 +121,12 @@ bool UMonsterCombatComponent::TryAttack(APawn* P)
  if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->StartSpit(P);
  if(auto* N=Cast<ANurseZombie>(GetOwner()))
  {
+  if(auto* M07=Cast<ABlindSupplicantMonster>(N))if(!M07->PrepareAttack(P))return false;
   // The witch aligns before planting; rotating her actor here moves both support feet instantly.
   if(!Cast<AWitchMonster>(N))N->SetActorRotation(FRotator(0,(P->GetActorLocation()-N->GetActorLocation()).Rotation().Yaw,0));
-  N->SetState(ENurseState::Attack);return true;
+  N->SetState(ENurseState::Attack);
+  if(Cast<ABlindSupplicantMonster>(N))if(auto* AI=Cast<AMonsterAIController>(N->GetController()))AI->UpdateKnowledge();
+  return true;
  }
  if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->StartAttack(!H->CanSlamTarget(P));
  return false;
@@ -136,7 +143,7 @@ void UMonsterCombatComponent::SetLocomotion(bool Moving,bool Returning)
 }
 float UMonsterCombatComponent::AggroRange() const{if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return S->AggroRadius;if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->AggroRadius;if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->AggroRadius;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->AggroRadius;if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->AggroRadius;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->AggroRadius;return 0;}
 float UMonsterCombatComponent::LeashRange() const{if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return S->LeashRadius;if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->LeashRadius;if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->LeashRadius;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->LeashRadius;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->LeashRadius;return 2400;}
-float UMonsterCombatComponent::StopRange() const{if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return FMath::Clamp(S->MeleeRange-35.f,80.f,155.f);if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->bMinion?5.f:F->HammerRange*.8f;if(auto* Witch=Cast<AWitchMonster>(GetOwner()))return FMath::Max(40.f,Witch->SpellRange*.75f);if(auto* W=Cast<AWolfMonster>(GetOwner()))return FMath::Max(55.f,W->BiteTriggerRange-30.f);if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return MonsterCombatTuning::AttackDistance(M->AttackRange)*.72f;if(auto* N=Cast<ANurseZombie>(GetOwner()))return FMath::Max(40.f,MonsterCombatTuning::AttackDistance(N->AttackRange)-30);if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->SlamTriggerRange*.65f;return 100;}
+float UMonsterCombatComponent::StopRange() const{if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return FMath::Clamp(S->MeleeRange-35.f,80.f,155.f);if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->bMinion?5.f:F->HammerRange*.8f;if(auto* Witch=Cast<AWitchMonster>(GetOwner()))return FMath::Max(40.f,Witch->SpellRange*.75f);if(auto* W=Cast<AWolfMonster>(GetOwner()))return FMath::Max(55.f,W->BiteTriggerRange-30.f);if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return MonsterCombatTuning::AttackDistance(M->AttackRange)*.72f;if(const auto* M07=Cast<ABlindSupplicantMonster>(GetOwner()))return M07->CombatStoppingRange();if(auto* N=Cast<ANurseZombie>(GetOwner()))return FMath::Max(40.f,MonsterCombatTuning::AttackDistance(N->AttackRange)-30);if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->SlamTriggerRange*.65f;return 100;}
 FVector UMonsterCombatComponent::Home() const{if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return S->Home;if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->Home;if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->Home;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->Home;if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->SpawnPosition;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->Home;return GetOwner()->GetActorLocation();}
 void UMonsterCombatComponent::ReachedHome(){if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->Health=S->MaxHealth;if(auto* F=Cast<AFleshHandMonster>(GetOwner()))F->Health=F->MaxHealth;if(auto* W=Cast<AWolfMonster>(GetOwner()))W->ReachedHome();if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->Health=M->MaxHealth;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->Health=H->MaxHealth;SetLocomotion(false);}
 float UMonsterCombatComponent::ToughnessResistance(EMonsterAttackForm Form) const
