@@ -78,4 +78,6 @@ private:
  FVector LockedAim=FVector::ForwardVector;
  float LockedYaw=0,ReactionSeconds=0;
  int32 NextEmission=0;
+public:
+ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Death") TObjectPtr<class UMonsterCorpseRagdollComponent> CorpseRagdoll;
 };

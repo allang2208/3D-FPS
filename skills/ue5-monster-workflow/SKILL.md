@@ -28,7 +28,9 @@ description: 制作与接入 UE5 怪物，支持 Meshy 已蒙皮绑骨的人形�
 
 狂奔人形、张开爪型、飞扑接地/提前量、追踪回家与表面修订读 [狂奔人形与飞扑](references/feral-humanoid-pounce.md)。当前案例已获用户基本认可；局部手部旋转不能破坏原身体配合，重建顺序与素材公开边界在专用参考中维护。
 
-人形击飞、倒地起身与死亡布娃娃质量/预算读 [人形击飞与受限布娃娃](references/humanoid-knockdown.md)。本机动作保存和正式构建已有记录，视觉/玩法/性能仍待用户测试；不作为已认可模板，公开源码恢复范围单独记录。
+人形击飞、倒地起身与死亡布娃娃质量/预算读 [人形击飞与受限布娃娃](references/humanoid-knockdown.md)。2026-10-03 用户认可当前巫婆的移动、倒地和死亡效果，并要求推广；巫婆作为本次制作基准，其他怪物的推广仍待用户测试。公开源码恢复范围单独记录。
+
+毒蛆、手脑和犬类的死亡物理交接、接地定姿与共享预算读 [非人形死亡布娃娃](references/nonhumanoid-ragdoll.md)。保留专用物理资产，活体击倒和各物种恢复动作单独制作。
 
 站立眩晕、醉酒感摇晃循环与控制衔接读 [人形原地眩晕](references/humanoid-stun.md)。本地 CC0 `Dizzy` 可作源动作；最终适配、导入和用户认可分开记录。
 
@@ -125,3 +127,5 @@ description: 制作与接入 UE5 怪物，支持 Meshy 已蒙皮绑骨的人形�
 - 需要人形怪物的第三视角全身动作素材、或想用文本生成动作基线时读 [Kimodo 文本生成动作（备选工具）](../ue5-fps-arms-animation/references/kimodo-motion-tool.md)。整身 30 关节、无独立手指、无约束输入；生成物是没有角色网格的骨架动画，必须重定向到本工程怪物骨架并做实机画面验收，且固定 prompt/seed/量化档才可复现。
 
 - 读图与视觉判读：需要自己看渲染、截图或候选图时**直接用会话内挂载的 `read_image` 工具**读本地图片路径；批量、headless 或不想让图片进会话历史时才用 `D:/FPS3D/FPSGAME/Tools/deepseek-vision.ps1`（用法与边界见 `D:/FPS3D/FPSGAME/Docs/deepseek-vision.md`）。读图只做定性确认和列差异；角度、朝向、偏移、接触位置和尺寸用像素测量；最终视觉验收由用户决定。
+
+枪械默认无硬直但需要局部身体回弹时，读 [枪击反馈与控制分离](references/gun-hit-feedback.md)；不把姿态脉冲当成击倒或布娃娃。布娃娃与飞扑修订的保留输入、归档和公开源码边界见工程 `Docs/Monsters/monster-ragdoll-publication-20261003.md`。

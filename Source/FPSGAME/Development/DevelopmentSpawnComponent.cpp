@@ -23,7 +23,7 @@ UDevelopmentSpawnComponent::UDevelopmentSpawnComponent()
     Add(TEXT("Mutant3"), TEXT("突变体-3"), TEXT("/Script/FPSGAME.Mutant3"), 50.f);
     Add(TEXT("NurseZombie"), TEXT("护士僵尸"), TEXT("/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C"), 44.f);
     Add(TEXT("SpitterZombie"), TEXT("毒液僵尸"), TEXT("/Game/Monsters/SpitterZombie/BP_SpitterZombie.BP_SpitterZombie_C"), 44.f);
-    Add(TEXT("WitchRebuilt"), TEXT("巫婆·重建候选"), TEXT("/Script/FPSGAME.WitchRebuiltMonster"), 65.f);
+    Add(TEXT("WitchRebuilt"), TEXT("巫婆"), TEXT("/Script/FPSGAME.WitchRebuiltMonster"), 65.f);
     Add(TEXT("BlindSupplicantM07"), TEXT("盲祷者 M-07"), TEXT("/Game/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.BP_BlindSupplicantM07_C"), 100.f);
     Add(TEXT("FleshHand"), TEXT("异变巨手"), TEXT("/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C"), 120.f);
     Add(TEXT("FleshHandMinion"), TEXT("小皮肤手"), TEXT("/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C"), 40.f);

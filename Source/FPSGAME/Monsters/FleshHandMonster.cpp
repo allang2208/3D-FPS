@@ -1,5 +1,7 @@
 #include "FleshHandMonster.h"
 #include "FleshHandKnockdownComponent.h"
+#include "MonsterCorpseRagdollComponent.h"
+#include "MonsterCombatTuning.h"
 #include "FleshHandChargeFX.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCharacterMovementComponent.h"
@@ -68,12 +70,15 @@ void UFleshHandPushComponent::TickComponent(float Dt,ELevelTick Type,FActorCompo
  if(Hit.bBlockingHit||Age>=.16f)SetComponentTickEnabled(false);
 }
 AFleshHandMonster::AFleshHandMonster(const FObjectInitializer& I)
- :Super(I.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName).SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
+ :Super(I.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName)
+    .SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
  PrimaryActorTick.bCanEverTick=true;
  Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
  Status=CreateDefaultSubobject<UCombatStatusFormula>(TEXT("CombatStatus"));
  Knockdown=CreateDefaultSubobject<UFleshHandKnockdownComponent>(TEXT("HandKnockdown"));
+ CorpseRagdoll=CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
+ CorpseRagdoll->Rig=EMonsterCorpseRig::FleshHand;
  AIControllerClass=AMonsterAIController::StaticClass();AutoPossessAI=EAutoPossessAI::PlacedInWorldOrSpawned;
  bUseControllerRotationYaw=false;GetCapsuleComponent()->InitCapsuleSize(62,102);
  GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Ignore);
@@ -391,9 +396,15 @@ void AFleshHandMonster::Tick(float Dt)
  }
  if(Dead())
  {
-  if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->SetCombatTime(StateSeconds);
-  if(!DeathClip||StateSeconds>=DeathClip->GetPlayLength())
-  {if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->HoldClipAtTime(DeathClip?DeathClip->GetPlayLength():0);GetMesh()->TickAnimation(0.f,false);GetMesh()->RefreshBoneTransforms();GetMesh()->SetComponentTickEnabled(false);State=EFleshHandState::Corpse;SetActorTickEnabled(false);}
+  const float End=DeathClip?DeathClip->GetPlayLength():0.f;
+  const float Handoff=End*MonsterCombatTuning::DeathAnimationFraction;
+  if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))
+   A->SetCombatTime(FMath::Min(StateSeconds,CorpseRagdoll->WasAttempted()?End:Handoff));
+  CorpseRagdoll->RecordDeathPose(GetMesh(),Dt);
+  if(!CorpseRagdoll->WasAttempted()&&StateSeconds>=Handoff&&CorpseRagdoll->Start(GetMesh()))
+  {State=EFleshHandState::Corpse;StateSeconds=0;return;}
+  if(CorpseRagdoll->WasAttempted()&&StateSeconds>=End)
+  {if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->HoldClipAtTime(End);CorpseRagdoll->FreezeAnimatedPose(GetMesh());State=EFleshHandState::Corpse;SetActorTickEnabled(false);}
   return;
  }
  HammerLeft=FMath::Max(0.f,HammerLeft-Dt);SlamLeft=FMath::Max(0.f,SlamLeft-Dt);GrandLeft=FMath::Max(0.f,GrandLeft-Dt);
@@ -559,10 +570,13 @@ float AFleshHandMonster::TakeDamage(float Damage,const FDamageEvent& Event,ACont
  if(Health<=0)
  {
   bConsumed=true;LockedTarget.Reset();Target.Reset();
+  CorpseRagdoll->PrepareDeath(GetMesh());
   const bool FallingCorpse=Knockdown&&Knockdown->OnDeath();
-  if(FallingCorpse){State=EFleshHandState::Dying;StateSeconds=0;GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);}
+  if(CorpseRagdoll->SimulatedBodyCount()>0)
+  {State=EFleshHandState::Corpse;StateSeconds=0;GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetCharacterMovement()->DisableMovement();}
+  else if(FallingCorpse){State=EFleshHandState::Dying;StateSeconds=0;GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);}
   else {SetState(EFleshHandState::Dying);GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetCharacterMovement()->DisableMovement();}
-  GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+  if(CorpseRagdoll->SimulatedBodyCount()==0)GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
   Combat->SetComponentTickEnabled(false);Status->SetComponentTickEnabled(false);
   if(auto* AI=Cast<AMonsterAIController>(GetController())){AI->StopMovement();AI->SetDecisionEnabled(false);AI->UpdateKnowledge();}
   SetLifeSpan(CorpseSeconds);

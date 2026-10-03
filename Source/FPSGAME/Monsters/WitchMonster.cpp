@@ -15,6 +15,7 @@
 #include "Engine/SkeletalMesh.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
+#include "PhysicsEngine/BodyInstance.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "TimerManager.h"
@@ -42,6 +43,8 @@ AWitchMonster::AWitchMonster(const FObjectInitializer& Initializer) : Super(Init
     Bottle->SetupAttachment(GetMesh(), TEXT("hand_r"));
     for (auto* Prop : {Staff.Get(), Bottle.Get()})
     {
+        Prop->SetMobility(EComponentMobility::Movable);
+        Prop->BodyInstance.bAutoWeld = false;
         Prop->SetCollisionEnabled(ECollisionEnabled::NoCollision);
         Prop->SetGenerateOverlapEvents(false); Prop->SetCanEverAffectNavigation(false);
     }
@@ -77,6 +80,7 @@ void AWitchMonster::BeginPlay()
     // while the same hand bones subsequently raise the staff and throw.
     GetMesh()->TickAnimation(0.f, false); GetMesh()->RefreshBoneTransforms();
     AttachProps();
+    SampleStaffMotion();
 }
 
 bool AWitchMonster::CanCast(APawn* Candidate) const
@@ -100,6 +104,7 @@ bool AWitchMonster::CanCast(APawn* Candidate) const
 void AWitchMonster::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+    SampleStaffMotion();
     if (!HasAuthority() || (State != ENurseState::Idle && State != ENurseState::Chase)) return;
     const auto* AI = Cast<AAIController>(GetController());
     const auto* Board = AI ? AI->GetBlackboardComponent() : nullptr;
@@ -108,6 +113,68 @@ void AWitchMonster::Tick(float DeltaSeconds)
         || FVector::DistSquared2D(GetActorLocation(), AimTarget->GetActorLocation()) > FMath::Square(SpellRange)) return;
     const FRotator Facing(0, (AimTarget->GetActorLocation() - GetActorLocation()).Rotation().Yaw, 0);
     SetActorRotation(FMath::RInterpConstantTo(GetActorRotation(), Facing, DeltaSeconds, 110.f));
+}
+
+void AWitchMonster::SampleStaffMotion()
+{
+    if (bStaffDropped || !Staff || !GetWorld()) return;
+    const double Now = GetWorld()->GetTimeSeconds();
+    const FTransform Current = Staff->GetComponentTransform();
+    const double Dt = Now - StaffSampleTime;
+    if (StaffSampleTime >= 0.0 && Dt > SMALL_NUMBER)
+    {
+        StaffLinearVelocity = ((Current.GetLocation() - PreviousStaffTransform.GetLocation()) / Dt).GetClampedToMaxSize(600.f);
+        FQuat Delta = Current.GetRotation() * PreviousStaffTransform.GetRotation().Inverse();
+        Delta.Normalize();
+        if (Delta.W < 0.) Delta = Delta * -1.;
+        FVector Axis; double Angle;
+        Delta.ToAxisAndAngle(Axis, Angle);
+        StaffAngularVelocity = (Axis * (Angle / Dt)).GetClampedToMaxSize(10.f);
+    }
+    PreviousStaffTransform = Current;
+    StaffSampleTime = Now;
+}
+
+void AWitchMonster::ReleaseStaffOnDeath()
+{
+    if (bStaffDropped || State != ENurseState::Dead || !Staff || !Staff->GetStaticMesh()) return;
+    SampleStaffMotion();
+    FTransform Release = Staff->GetComponentTransform();
+    FVector Linear = StaffSampleTime >= 0.0 ? StaffLinearVelocity : GetVelocity();
+    FVector Angular = StaffAngularVelocity;
+    // Capture an already airborne hand before changing the corpse mesh/player.
+    // The display skeleton can still lag one frame behind the physical body.
+    if (const auto* Hand = GetMesh()->GetBodyInstance(TEXT("hand_l")); Hand && Hand->IsInstanceSimulatingPhysics())
+    {
+        FTransform HandWorld = Hand->GetUnrealWorldTransform();
+        HandWorld.SetScale3D(GetMesh()->GetSocketTransform(TEXT("hand_l")).GetScale3D());
+        Release = Staff->GetRelativeTransform() * HandWorld;
+        Linear = Hand->GetUnrealWorldVelocityAtPoint(Release.GetLocation());
+        Angular = Hand->GetUnrealWorldAngularVelocityInRadians();
+    }
+    bStaffDropped = true;
+    Staff->BodyInstance.bAutoWeld = false;
+    Staff->SetMobility(EComponentMobility::Movable);
+    Staff->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
+    Staff->SetWorldTransform(Release, false, nullptr, ETeleportType::TeleportPhysics);
+    Staff->SetCollisionProfileName(TEXT("PhysicsActor"));
+    Staff->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
+    Staff->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+    Staff->SetEnableGravity(true);
+    Staff->SetLinearDamping(.05f);
+    Staff->SetAngularDamping(.15f);
+    Staff->SetMassOverrideInKg(NAME_None, 2.5f, true);
+    Staff->BodyInstance.SetUseCCD(true);
+    Staff->BodyInstance.SetMaxDepenetrationVelocity(80.f);
+    Staff->SetSimulatePhysics(true);
+    // Convert the sampled origin velocity into the rigid body's mass-center
+    // velocity. No pose constraint, lay-flat rotation or synthetic kick remains.
+    Staff->SetPhysicsLinearVelocity(Linear + FVector::CrossProduct(Angular, Staff->GetCenterOfMass() - Release.GetLocation()));
+    Staff->SetPhysicsAngularVelocityInRadians(Angular);
+    Staff->WakeAllRigidBodies();
+    UE_LOG(LogTemp,Display,TEXT("WITCH_STAFF_RELEASE %s sim=%d mobility=%d physics_state=%d speed=%.1f angular=%.2f"),
+        *GetName(),Staff->IsSimulatingPhysics(),int32(Staff->Mobility),Staff->IsPhysicsStateCreated(),
+        Staff->GetPhysicsLinearVelocity().Size(),Staff->GetPhysicsAngularVelocityInRadians().Size());
 }
 
 UWitchSpellAnimInstance* AWitchMonster::GetSpellAnimation()
@@ -196,7 +263,9 @@ void AWitchMonster::SetHitPresentationTime(UAnimSequence* Clip, float Elapsed, f
 void AWitchMonster::StartDeathPresentation()
 {
     bReleased = true; SpellTarget.Reset();
-    GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    // Retain the articulated query bodies during the authored death lead-in.
+    // They become dynamic at the handoff; NoCollision destroys them beforehand.
+    GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
     if (DeathClip) { GetMesh()->PlayAnimation(DeathClip, false); GetMesh()->SetPlayRate(1.f); }
     const float Delay = DeathClip ? DeathClip->GetPlayLength() * MonsterCombatTuning::DeathAnimationFraction : 0.f;
     if (Delay > 0) GetWorldTimerManager().SetTimer(RagdollTimer, this, &ThisClass::StartRagdoll, Delay, false);
@@ -205,12 +274,17 @@ void AWitchMonster::StartDeathPresentation()
 
 void AWitchMonster::StartRagdoll()
 {
-    if (State != ENurseState::Dead || !GetMesh()->GetPhysicsAsset()) return;
+    if (State != ENurseState::Dead) return;
     if (DeathClip)
     {
         GetMesh()->SetPosition(DeathClip->GetPlayLength() * MonsterCombatTuning::DeathAnimationFraction, false);
         GetMesh()->TickAnimation(0.f, false); GetMesh()->RefreshBoneTransforms();
     }
+    // A planted, vertical staff can physically balance if released from a
+    // motionless standing grip. Release at the authored falling handoff instead,
+    // inheriting the dying hand's actual motion rather than adding a fake kick.
+    ReleaseStaffOnDeath();
+    if (!GetMesh()->GetPhysicsAsset()) return;
     if (Knockdown) { Knockdown->StartDeath(DeathClip,DeathClip?DeathClip->GetPlayLength()*MonsterCombatTuning::DeathAnimationFraction:0.f);return; }
     GetMesh()->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
     GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));

@@ -13,6 +13,7 @@ bool AWitchRebuiltMonster::PrepareRebuiltPhysics(USkeletalMesh* SourceMesh, bool
     auto* Asset = SourceMesh->GetPhysicsAsset();
     if (!Asset || !Asset->GetPathName().StartsWith(TEXT("/Game/Monsters/WitchRebuilt/"))) return false;
     const auto& Ref = SourceMesh->GetRefSkeleton();
+    const bool bConnectedCorpse=SourceMesh->GetPathName().Contains(TEXT("/CorpseFollow/"));
     TArray<FTransform> Frames = Ref.GetRefBonePose();
     for (int32 I = 0; I < Frames.Num(); ++I)
         if (Ref.GetParentIndex(I) >= 0) Frames[I] *= Frames[Ref.GetParentIndex(I)];
@@ -80,13 +81,26 @@ bool AWitchRebuiltMonster::PrepareRebuiltPhysics(USkeletalMesh* SourceMesh, bool
         auto* Joint = NewObject<UPhysicsConstraintTemplate>(Asset, NAME_None, RF_Transactional);
         auto& C = Joint->DefaultInstance;
         C.JointName = Name; C.ConstraintBone1 = Name; C.ConstraintBone2 = Ref.GetBoneName(Parent);
-        const FTransform Anchor(Frames[Bone].GetRotation(), Frames[Bone].GetLocation());
+        FQuat AnchorRotation=Frames[Bone].GetRotation();
+        const FString N=Name.ToString();
+        if (bConnectedCorpse && (N.StartsWith(TEXT("thigh")) || N.StartsWith(TEXT("calf")) || N.StartsWith(TEXT("foot"))))
+        {
+            // Calf swing must bend in the anatomical knee plane, not whichever
+            // Euler axis the imported FBX happened to use for this bone.
+            const FVector Forward=((Frames[Ref.FindBoneIndex(TEXT("ball_l"))].GetLocation()-Frames[Ref.FindBoneIndex(TEXT("foot_l"))].GetLocation())+
+                (Frames[Ref.FindBoneIndex(TEXT("ball_r"))].GetLocation()-Frames[Ref.FindBoneIndex(TEXT("foot_r"))].GetLocation())).GetSafeNormal();
+            const FVector Up=(Frames[Ref.FindBoneIndex(TEXT("spine_05"))].GetLocation()-Frames[Ref.FindBoneIndex(TEXT("pelvis"))].GetLocation()).GetSafeNormal();
+            const FVector Right=FVector::CrossProduct(Up,Forward).GetSafeNormal();
+            const FVector Along=(Frames[Ref.FindBoneIndex(Specs[I].End)].GetLocation()-Frames[Bone].GetLocation()).GetSafeNormal();
+            AnchorRotation=FRotationMatrix::MakeFromXZ(Along,Right).ToQuat();
+        }
+        const FTransform Anchor(AnchorRotation, Frames[Bone].GetLocation());
         C.SetRefFrame(EConstraintFrame::Frame1, Anchor.GetRelativeTransform(Frames[Bone]));
         C.SetRefFrame(EConstraintFrame::Frame2, Anchor.GetRelativeTransform(Frames[Parent]));
         C.SetLinearXLimit(LCM_Locked,0); C.SetLinearYLimit(LCM_Locked,0); C.SetLinearZLimit(LCM_Locked,0);
-        FVector Limits(20,20,15); const FString N = Name.ToString();
+        FVector Limits(20,20,15);
         if (N.StartsWith(TEXT("thigh"))) Limits = FVector(45,35,25);
-        else if (N.StartsWith(TEXT("calf"))) Limits = FVector(65,8,8);
+        else if (N.StartsWith(TEXT("calf"))) Limits = FVector(bConnectedCorpse?85.f:65.f,8,8);
         else if (N.StartsWith(TEXT("upperarm"))) Limits = FVector(65,55,40);
         else if (N.StartsWith(TEXT("lowerarm"))) Limits = FVector(65,12,15);
         else if (N.StartsWith(TEXT("hand")) || N.StartsWith(TEXT("foot"))) Limits = FVector(25,20,15);

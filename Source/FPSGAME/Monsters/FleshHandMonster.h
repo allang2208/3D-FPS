@@ -6,6 +6,7 @@
 #include "FleshHandMonster.generated.h"
 class UAnimSequence; class UMonsterCombatComponent; class UStaticMesh; class UStaticMeshComponent; class UFleshHandKnockdownComponent;
 class USkeletalMesh; class UPhysicsAsset; class USoundBase; class UMaterialInterface; class UMaterialInstanceDynamic;
+class UMonsterCorpseRagdollComponent;
 UENUM(BlueprintType)
 enum class EFleshHandState : uint8 { Idle, Walk, Returning, Telegraph, Hammer, Slam, GrandSlam, Stagger, Dying, Corpse, ChargeWindup, ChargeRush, ChargeRecover, KnockedDown };
 
@@ -90,6 +91,7 @@ public:
  void SetHitPresentationTime(float Elapsed,float Remaining);
  void FinishHitReaction();
  UFUNCTION(BlueprintCallable,Category="FleshHand|Authoring") static bool BuildQueryPhysics(USkeletalMesh* InMesh,UPhysicsAsset* Asset);
+ UFUNCTION(BlueprintCallable,Category="FleshHand|Authoring") static bool BuildCorpsePhysics(USkeletalMesh* InMesh,UPhysicsAsset* Asset);
 private:
  friend class UFleshHandKnockdownComponent;
  void SetState(EFleshHandState Next);
@@ -120,6 +122,7 @@ public:
  UPROPERTY(EditAnywhere,Category="FleshHand|Animation",meta=(ClampMin="1",Units="cm/s")) float AnimationWalkSpeed=216.f;
  UPROPERTY(EditAnywhere,Category="FleshHand|Combat",meta=(ClampMin="0",Units="cm")) float SlamKnockbackDistance=150.f;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand") TObjectPtr<UFleshHandKnockdownComponent> Knockdown;
+ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand") TObjectPtr<UMonsterCorpseRagdollComponent> CorpseRagdoll;
  UPROPERTY(EditDefaultsOnly,Category="FleshHand|ChargeFX") TObjectPtr<UMaterialInterface> ChargeDustMaterial;
  UPROPERTY(EditDefaultsOnly,Category="FleshHand|ChargeFX") TObjectPtr<UMaterialInterface> ChargeAirMaterial;
  UPROPERTY(EditDefaultsOnly,Category="FleshHand|ChargeFX") TObjectPtr<UMaterialInterface> ChargeSkinMaterial;

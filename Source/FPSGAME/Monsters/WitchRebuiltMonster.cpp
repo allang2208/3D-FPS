@@ -1,5 +1,7 @@
 #include "WitchRebuiltMonster.h"
 #include "HumanoidKnockdownComponent.h"
+#include "FatZombieAnimInstance.h"
+#include "MonsterRagdollPhysics.h"
 #include "WitchRebuiltAnimInstance.h"
 #include "MonsterCombatComponent.h"
 #include "AIController.h"
@@ -31,6 +33,8 @@ void AWitchRebuiltMonster::ResolveAssets()
 {
     // Never fall back to an incompatible historical Witch skeleton for this class.
     VisualMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Monsters/WitchRebuilt/SK_WitchRebuilt.SK_WitchRebuilt"));
+    CorpseVisualMesh = LoadObject<USkeletalMesh>(nullptr,
+        TEXT("/Game/Monsters/WitchRebuilt/CorpseFollow/SK_WitchRebuilt_CorpseFollow.SK_WitchRebuilt_CorpseFollow"));
     auto Clip = [](const TCHAR* ClipRole)
     {
         const FString Name = FString(TEXT("A_WitchRebuilt_")) + ClipRole;
@@ -41,6 +45,8 @@ void AWitchRebuiltMonster::ResolveAssets()
     DeathClip = Clip(TEXT("DeathBackward")); Combat->HitClip = Clip(TEXT("Hit"));
     TurnLeftClip = Clip(TEXT("TurnLeft")); TurnRightClip = Clip(TEXT("TurnRight"));
     AttackClip = CastClip;
+    Staff->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,
+        TEXT("/Game/Monsters/WitchRebuilt/Props/SM_WitchRebuilt_StaffPhysics.SM_WitchRebuilt_StaffPhysics")));
     Bottle->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,
         TEXT("/Game/Monsters/WitchRebuilt/Props/SM_WitchRebuilt_Bottle.SM_WitchRebuilt_Bottle")));
 }
@@ -119,16 +125,110 @@ bool AWitchRebuiltMonster::CanCast(APawn* Candidate) const
 
 void AWitchRebuiltMonster::StartDeathPresentation()
 {
-    // The skirt is waist-supported, not trouser-skinned. Keep its continuous
-    // physical sheet through the fall; disabling it would expose the legs again.
-    GetMesh()->ForceClothNextUpdateTeleportAndReset();
+    UseCorpsePresentation();
     Super::StartDeathPresentation();
+}
+
+bool AWitchRebuiltMonster::UseCorpsePresentation()
+{
+    if (bCorpseVisualPrepared) return false;
+    if (!CorpseVisualMesh) return false;
+    auto* CharacterMesh=GetMesh();
+    FPoseSnapshot Pose;
+    MonsterRagdollPhysics::CapturePose(CharacterMesh,Pose);
+    const FTransform World=CharacterMesh->GetComponentTransform();
+    CharacterMesh->SetSimulatePhysics(false);
+    CharacterMesh->SetAllBodiesSimulatePhysics(false);
+    CharacterMesh->SetAllBodiesPhysicsBlendWeight(0.f);
+    CharacterMesh->SuspendClothingSimulation();
+    CharacterMesh->SetSkeletalMesh(CorpseVisualMesh,false);
+    CharacterMesh->SetWorldTransform(World,false,nullptr,ETeleportType::TeleportPhysics);
+    CharacterMesh->KinematicBonesUpdateType=EKinematicBonesUpdateToPhysics::SkipSimulatingBones;
+    CharacterMesh->bPauseAnims=false;
+    CharacterMesh->SetForcedLOD(1);
+    CharacterMesh->ClothBlendWeight=0.f;
+    CharacterMesh->SetAnimInstanceClass(UFatZombieAnimInstance::StaticClass());
+    CastChecked<UFatZombieAnimInstance>(CharacterMesh->GetAnimInstance())->HoldSnapshot(Pose);
+    CharacterMesh->TickAnimation(0.f,false);
+    CharacterMesh->RefreshBoneTransforms();
+    VisualMesh=CorpseVisualMesh;
+    bWantsClothSimulation=false;
+    bCorpseVisualPrepared=true;
+    bKnockdownVisualPrepared=false;
+    KnockdownStandingMesh=nullptr;
+    // The robe, lining and continuous leg skin are all sections of this one
+    // mesh, driven by the same captured skeleton. The bottle keeps its socket;
+    // the released staff has an independent rigid body and keeps falling even
+    // after this skeleton is frozen for the corpse budget.
+    return true;
+}
+
+bool AWitchRebuiltMonster::UseKnockdownPresentation()
+{
+    if (bKnockdownVisualPrepared || bCorpseVisualPrepared || !CorpseVisualMesh) return false;
+    auto* CharacterMesh=GetMesh();
+    KnockdownStandingMesh=CharacterMesh->GetSkeletalMeshAsset();
+    FPoseSnapshot Pose;
+    MonsterRagdollPhysics::CapturePose(CharacterMesh,Pose);
+    const FTransform World=CharacterMesh->GetComponentTransform();
+    CharacterMesh->SuspendClothingSimulation();
+    CharacterMesh->ClothBlendWeight=0.f;
+    CharacterMesh->SetSkeletalMesh(CorpseVisualMesh,false);
+    CharacterMesh->SetWorldTransform(World,false,nullptr,ETeleportType::TeleportPhysics);
+    // Same-class assignment otherwise retains the old standing foot locks.
+    CharacterMesh->SetAnimInstanceClass(nullptr);
+    CharacterMesh->SetAnimInstanceClass(UWitchRebuiltAnimInstance::StaticClass());
+    CharacterMesh->bPauseAnims=false;
+    CastChecked<UFatZombieAnimInstance>(CharacterMesh->GetAnimInstance())->HoldSnapshot(Pose);
+    CharacterMesh->TickAnimation(0.f,false);
+    CharacterMesh->RefreshBoneTransforms();
+    bKnockdownVisualPrepared=true;
+    // Keep the live identity/asset reference. Only this controlled presentation
+    // uses the same connected robe and complete leg skin as the corpse.
+    return true;
+}
+
+void AWitchRebuiltMonster::RestoreStandingPresentation()
+{
+    if (!bKnockdownVisualPrepared || bCorpseVisualPrepared || !KnockdownStandingMesh) return;
+    auto* CharacterMesh=GetMesh();
+    FPoseSnapshot Pose;
+    CharacterMesh->SnapshotPose(Pose);
+    const FTransform World=CharacterMesh->GetComponentTransform();
+    CharacterMesh->SetSkeletalMesh(KnockdownStandingMesh,false);
+    CharacterMesh->SetWorldTransform(World,false,nullptr,ETeleportType::TeleportPhysics);
+    CharacterMesh->SetAnimInstanceClass(nullptr);
+    CharacterMesh->SetAnimInstanceClass(UWitchRebuiltAnimInstance::StaticClass());
+    CharacterMesh->bPauseAnims=false;
+    CharacterMesh->ClothBlendWeight=0.f;
+    CastChecked<UFatZombieAnimInstance>(CharacterMesh->GetAnimInstance())->HoldSnapshot(Pose);
+    CharacterMesh->TickAnimation(0.f,false);
+    CharacterMesh->RefreshBoneTransforms();
+    // Reset the solver at the restored standing pose; Tick fades its display
+    // weight back in instead of resurrecting the pre-launch cloth positions.
+    CharacterMesh->ForceClothNextUpdateTeleportAndReset();
+    bKnockdownVisualPrepared=false;
+    KnockdownStandingMesh=nullptr;
+    SettledSeconds=0.f;
 }
 
 void AWitchRebuiltMonster::Tick(float Dt)
 {
     Super::Tick(Dt);
     if (Knockdown && Knockdown->IsFrozen()) return;
+    if (State==ENurseState::Dead)
+    {
+        // Death owns a skeleton-driven corpse mesh; live cloth distance fading
+        // must not resume its retired independent drape simulation.
+        return;
+    }
+    if (bKnockdownVisualPrepared)
+    {
+        GetMesh()->ClothBlendWeight=0.f;
+        if (!GetMesh()->IsClothingSimulationSuspended()) GetMesh()->SuspendClothingSimulation();
+        SettledSeconds=0.f;
+        return;
+    }
     const float Yaw = GetActorRotation().Yaw;
     const float TurnRate = FMath::Abs(FMath::FindDeltaAngleDegrees(PreviousYaw, Yaw)) / FMath::Max(.001f, Dt);
     PreviousYaw = Yaw;

@@ -1,5 +1,7 @@
 #include "WitchRebuiltAnimInstance.h"
 #include "WitchRebuiltMonster.h"
+#include "HumanoidKnockdownComponent.h"
+#include "WitchRecoveryLegNode.h"
 #include "Animation/AnimInstanceProxy.h"
 #include "Animation/AnimSequence.h"
 #include "Animation/AnimNodeSpaceConversions.h"
@@ -20,6 +22,7 @@ struct FWitchRebuiltProxy : FAnimInstanceProxy
     FAnimNode_TwoWayBlend IdleTurn, ActionTransition, State;
     FAnimNode_TwoWayBlend Locomotion;
     FAnimNode_ConvertLocalToComponentSpace ToComponent;
+    FWitchRecoveryLegNode RecoveryLegs;
     FAnimNode_CopyBone LeftTarget, RightTarget;
     FAnimNode_StrideWarping Stride;
     FAnimNode_FootPlacement Feet;
@@ -39,7 +42,8 @@ struct FWitchRebuiltProxy : FAnimInstanceProxy
         Stride.ComponentPose.SetLinkNode(&RightTarget);
         Feet.ComponentPose.SetLinkNode(&Stride);
         Legs.ComponentPose.SetLinkNode(&Feet);
-        ToLocal.ComponentPose.SetLinkNode(&Legs);
+        RecoveryLegs.ComponentPose.SetLinkNode(&Legs);
+        ToLocal.ComponentPose.SetLinkNode(&RecoveryLegs);
         LeftTarget.SourceBone.BoneName = TEXT("foot_l"); LeftTarget.TargetBone.BoneName = TEXT("ik_foot_l");
         RightTarget.SourceBone.BoneName = TEXT("foot_r"); RightTarget.TargetBone.BoneName = TEXT("ik_foot_r");
         for (auto* Copy : {&LeftTarget, &RightTarget})
@@ -92,7 +96,7 @@ struct FWitchRebuiltProxy : FAnimInstanceProxy
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {
         Nodes.Append({&Idle, &Walk, &Turn, &Action, &Previous, &IdleTurn, &ActionTransition, &State, &Locomotion, &ToComponent, &LeftTarget, &RightTarget,
-            &Stride, &Feet, &Legs, &ToLocal});
+            &RecoveryLegs, &Stride, &Feet, &Legs, &ToLocal});
     }
     virtual void PreUpdate(UAnimInstance* Instance, float DeltaSeconds) override
     {
@@ -104,6 +108,30 @@ struct FWitchRebuiltProxy : FAnimInstanceProxy
         Action.SetTeleportToExplicitTime(true); Action.SetExplicitTime(Data->ClipTime);
         Previous.Snapshot = Data->PreviousPose;
         ActionTransition.Alpha = Data->PreviousPose.bIsValid ? Data->BlendAlpha : 1.f;
+        const auto* Witch=Cast<AWitchRebuiltMonster>(Instance->TryGetPawnOwner());
+        const bool bGettingUp=Witch && Witch->State!=ENurseState::Dead && Witch->Knockdown
+            && !Witch->Knockdown->IsCorpse() && Witch->Knockdown->Phase==EHumanoidKnockdownPhase::GettingUp;
+        const bool bKnockdownPose=Witch && Witch->Knockdown &&
+            (Witch->Knockdown->IsControlling() || Witch->State==ENurseState::KnockedDown || Witch->State==ENurseState::GettingUp);
+        const bool bWalking=Witch && Witch->State!=ENurseState::Dead && !bKnockdownPose
+            && Data->bLooping && Data->WalkAlpha>.01f;
+        // Ground/stride IK must not undo the final garment fit. Walking keeps
+        // source foot height and rotation; recovery retains its own blend clock.
+        RecoveryLegs.bWalkingPose=bWalking;
+        RecoveryLegs.Alpha=bGettingUp?Data->BlendAlpha:bWalking?Data->WalkAlpha:0.f;
+        RecoveryLegs.bGroundRecovery=false;
+        FVector FloorPoint,FloorNormal;
+        if (bGettingUp && Witch->Knockdown->GetRecoverySupport(FloorPoint,FloorNormal))
+        {
+            auto* CharacterMesh=Instance->GetSkelMeshComponent();
+            RecoveryLegs.PrepareSupportSamples(CharacterMesh);
+            const FTransform Frame=CharacterMesh->GetComponentTransform();
+            RecoveryLegs.FloorPoint=Frame.InverseTransformPosition(FloorPoint);
+            RecoveryLegs.FloorNormal=(Frame.InverseTransformVectorNoScale(FloorNormal)*Frame.GetScale3D()).GetSafeNormal();
+            RecoveryLegs.WorldUp=Frame.InverseTransformVectorNoScale(FVector::UpVector).GetSafeNormal();
+            RecoveryLegs.ContactClearance=.5f/FMath::Max(.01f,float(Frame.GetScale3D().GetAbsMax()));
+            RecoveryLegs.bGroundRecovery=true;
+        }
         State.Alpha = Data->bLooping ? 0.f : 1.f;
         IdleTurn.Alpha = Data->TurnAlpha; Turn.SetExplicitTime(Data->TurnTime);
         for (auto* Node : {&Idle, &Walk, &Turn})
@@ -114,7 +142,10 @@ struct FWitchRebuiltProxy : FAnimInstanceProxy
         Locomotion.Alpha = Data->WalkAlpha;
         Stride.StrideScale = Data->bLooping ? FMath::Lerp(1.f, Data->StrideScale, Data->BlendAlpha) : 1.f;
         Stride.StrideDirection = Data->StrideDirection;
-        Feet.Alpha = Data->GroundAlpha;
+        // Standing foot locks must not pull a lying snapshot's legs toward the
+        // old walking footprint, especially on a zero-delta physics handoff.
+        Stride.Alpha = Legs.Alpha = bKnockdownPose ? 0.f : 1.f;
+        Feet.Alpha = bKnockdownPose ? 0.f : Data->GroundAlpha;
     }
 };
 

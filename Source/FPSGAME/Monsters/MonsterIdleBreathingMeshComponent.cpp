@@ -160,6 +160,8 @@ void UMonsterIdleBreathingMeshComponent::FinalizeBoneTransform()
         return;
     }
     if (!bConfigured) ConfigureBreathing(Character);
+    // Independent of idle/locomotion/attack clips, including M-07's custom proxy.
+    const bool bGunHitFeedback = ApplyGunHitFeedback();
     if (EBreathingBody(Body) == EBreathingBody::None)
     {
         Super::FinalizeBoneTransform();
@@ -176,7 +178,7 @@ void UMonsterIdleBreathingMeshComponent::FinalizeBoneTransform()
     const double Time = GetWorld()->GetTimeSeconds();
     const float Dt = PreviousTime < 0.0 ? GetWorld()->GetDeltaSeconds() : float(FMath::Max(0.0, Time - PreviousTime));
     PreviousTime = Time;
-    if (bHardOff) IdleWeight = 0.f;
+    if (bHardOff || bGunHitFeedback) IdleWeight = 0.f;
     else
     {
         const float Target = bIdle ? 1.f : 0.f;

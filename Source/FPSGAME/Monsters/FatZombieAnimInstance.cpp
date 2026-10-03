@@ -2,6 +2,7 @@
 #include "NurseZombie.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterReactionTiming.h"
+#include "MonsterRecoveryGroundNode.h"
 #include "Animation/AnimInstanceProxy.h"
 #include "Animation/AnimSequence.h"
 #include "Animation/AnimNodeSpaceConversions.h"
@@ -68,6 +69,7 @@ struct FFatZombieAnimProxy : FAnimInstanceProxy
     FAnimNode_ConvertLocalToComponentSpace ToComponent;
     FAnimNode_ModifyBone LowerRecoil;
     FAnimNode_ModifyBone UpperRecoil;
+    FMonsterRecoveryGroundNode RecoveryGround;
     FAnimNode_ConvertComponentToLocalSpace ToLocal;
 
     explicit FFatZombieAnimProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance)
@@ -80,7 +82,8 @@ struct FFatZombieAnimProxy : FAnimInstanceProxy
         ToComponent.LocalPose.SetLinkNode(&Transition);
         LowerRecoil.ComponentPose.SetLinkNode(&ToComponent);
         UpperRecoil.ComponentPose.SetLinkNode(&LowerRecoil);
-        ToLocal.ComponentPose.SetLinkNode(&UpperRecoil);
+        RecoveryGround.ComponentPose.SetLinkNode(&UpperRecoil);
+        ToLocal.ComponentPose.SetLinkNode(&RecoveryGround);
         LowerRecoil.BoneToModify.BoneName = TEXT("Spine02");
         UpperRecoil.BoneToModify.BoneName = TEXT("Spine");
         for (auto* Node : {&LowerRecoil, &UpperRecoil})
@@ -93,12 +96,13 @@ struct FFatZombieAnimProxy : FAnimInstanceProxy
     virtual FAnimNode_Base* GetCustomRootNode() override { return &ToLocal; }
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {
-        Nodes.Append({&Previous, &Outgoing, &Source, &Current, &Transition, &ToComponent, &LowerRecoil, &UpperRecoil, &ToLocal});
+        Nodes.Append({&Previous, &Outgoing, &Source, &Current, &Transition, &ToComponent, &LowerRecoil, &UpperRecoil, &RecoveryGround, &ToLocal});
     }
     virtual void PreUpdate(UAnimInstance* Instance, float DeltaSeconds) override
     {
         FAnimInstanceProxy::PreUpdate(Instance, DeltaSeconds);
         const auto* Data = CastChecked<UFatZombieAnimInstance>(Instance);
+        RecoveryGround.Prepare(Cast<ANurseZombie>(Instance->TryGetPawnOwner()));
         Previous.Snapshot = Data->PreviousPose;
         Outgoing.SetSequence(Data->OutgoingLoop);
         Outgoing.SetShouldLoop(true);

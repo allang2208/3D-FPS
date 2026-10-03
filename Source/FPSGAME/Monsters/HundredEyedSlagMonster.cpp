@@ -1,4 +1,7 @@
 #include "HundredEyedSlagMonster.h"
+#include "HumanoidRagdollBudget.h"
+#include "MonsterCorpsePoseAnimInstance.h"
+#include "PhysicsEngine/BodyInstance.h"
 #include "SlagBlackMist.h"
 #include "MonsterAIController.h"
 #include "MonsterCharacterMovementComponent.h"
@@ -36,7 +39,8 @@
 #include "PhysicsEngine/ConstraintInstance.h"
 
 AHundredEyedSlagMonster::AHundredEyedSlagMonster(const FObjectInitializer& Initializer)
-    : Super(Initializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(CharacterMovementComponentName).SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
+    : Super(Initializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(CharacterMovementComponentName)
+        .SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
     PrimaryActorTick.bCanEverTick = true;
     Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
@@ -134,10 +138,10 @@ void AHundredEyedSlagMonster::AlignVisual()
 {
     if (!VisualMesh) return;
     GetMesh()->SetSkeletalMeshAsset(VisualMesh);
-    // The imported top-level Armature has scale 100. Give it a physical body so
+    // The imported top-level rig has scale 100. Give its actual bone a body so
     // physics blending never inverse-scales positions through an unphysical parent.
     if (auto* Physics = LoadObject<UPhysicsAsset>(nullptr,
-        TEXT("/Game/Monsters/HundredEyedSlag/RagdollGroundV16/PA_HundredEyedSlag_Ground_V16.PA_HundredEyedSlag_Ground_V16")))
+        TEXT("/Game/Monsters/HundredEyedSlag/RagdollGroundV17/PA_HundredEyedSlag_Ground_V17.PA_HundredEyedSlag_Ground_V17")))
         GetMesh()->SetPhysicsAsset(Physics);
     GetMesh()->SetRelativeLocation(FVector(0, 0, -GetCapsuleComponent()->GetUnscaledCapsuleHalfHeight()));
     // Blender's FBX facing is converted at import; the authoring receipt supplies this yaw.
@@ -366,6 +370,16 @@ void AHundredEyedSlagMonster::Tick(float DeltaSeconds)
     LaserCooldown = FMath::Max(0.f, LaserCooldown - DeltaSeconds);
     if (State == ESlagState::Dying)
     {
+        if (bCorpseBudgetAttempted)
+        {
+            // A full budget keeps the complete authored fall, never its airborne
+            // handoff frame. Attempt admission once; other clients retain slots.
+            const auto* Death = Clip(TEXT("Death"));
+            const float End = Death ? Death->GetPlayLength() : 0.f;
+            SampleClip(TEXT("Death"), FMath::Min(StateSeconds, End));
+            if (StateSeconds >= End) FreezeCorpse(false);
+            return;
+        }
         const float Handoff = Clip(TEXT("Death")) ? FMath::Min(RagdollHandoffSeconds, Clip(TEXT("Death"))->GetPlayLength()) : RagdollHandoffSeconds;
         TMap<FName, FTransform> PreviousBodies;
         if (auto* Physics = GetMesh()->GetPhysicsAsset())
@@ -389,13 +403,20 @@ void AHundredEyedSlagMonster::Tick(float DeltaSeconds)
     }
     if (State == ESlagState::Corpse)
     {
-        if (!bCorpseSleeping && StateSeconds >= 5.f)
+        if (!bCorpseSleeping)
         {
-            bool Settled = true;
-            for (const auto* Body : GetMesh()->Bodies) if (Body && Body->IsValidBodyInstance())
-                Settled &= Body->GetUnrealWorldVelocity().SizeSquared() < 81.f
-                    && Body->GetUnrealWorldAngularVelocityInRadians().SizeSquared() < .09f;
-            if (Settled) { GetMesh()->PutAllRigidBodiesToSleep(); bCorpseSleeping = true; }
+            MonsterRagdollPhysics::LimitHandoffSpeed(GetMesh(), CorpseHandoff, DeltaSeconds);
+            SetActorLocation(MonsterRagdollPhysics::BoneWorldTransform(GetMesh(), TEXT("pelvis")).GetLocation(),
+                false, nullptr, ETeleportType::TeleportPhysics);
+            CorpseProbeAge += DeltaSeconds;
+            if (CorpseProbeAge < .1f) return;
+            FHitResult Ground;
+            const bool Settled = MonsterRagdollPhysics::FindSupport(GetMesh(), Ground) &&
+                MonsterRagdollPhysics::IsSettled(GetMesh(), 9.f, .3f);
+            CorpseStableAge = Settled ? CorpseStableAge + CorpseProbeAge : 0.f;
+            CorpseProbeAge = 0.f;
+            if (StateSeconds >= 5.f && CorpseStableAge >= .35f)
+                FreezeCorpse(true);
         }
         return;
     }
@@ -532,7 +553,7 @@ float AHundredEyedSlagMonster::TakeDamage(float Damage, const FDamageEvent& Even
         Target.Reset(); HitVictims.Reset(); EnterState(ESlagState::Dying);
         GetCharacterMovement()->DisableMovement();
         GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-        GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
         SetLifeSpan(CorpseSeconds);
         if (auto* AI = Cast<AMonsterAIController>(GetController())) AI->UpdateKnowledge();
         if (!bRewarded)
@@ -548,8 +569,23 @@ float AHundredEyedSlagMonster::TakeDamage(float Damage, const FDamageEvent& Even
 void AHundredEyedSlagMonster::EnterCorpse()
 {
     auto* CorpseMesh = GetMesh();
+    bCorpseBudgetAttempted = true;
+    CorpseMesh->SetForcedLOD(1);
     CorpseMesh->KinematicBonesUpdateType = EKinematicBonesUpdateToPhysics::SkipSimulatingBones;
     CorpseMesh->TickAnimation(0.f, false); CorpseMesh->RefreshBoneTransforms();
+    // Create valid bodies before counting/admission, but do not start simulation
+    // or detach the animated fall until the shared world budget grants a slot.
+    CorpseMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+    CorpsePhysicsBodies = 0;
+    for (const auto* Body : CorpseMesh->Bodies)
+        if (Body && Body->IsValidBodyInstance()) ++CorpsePhysicsBodies;
+    auto* Budget = GetWorld()->GetSubsystem<UHumanoidRagdollBudget>();
+    if (CorpsePhysicsBodies == 0 || !Budget || !Budget->Acquire(this, CorpsePhysicsBodies, true))
+    {
+        CorpseMesh->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+        return;
+    }
+    bCorpseBudgetOwned = true;
     CorpseMesh->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
     CorpseMesh->SetCollisionProfileName(TEXT("Ragdoll"));
     CorpseMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
@@ -560,27 +596,16 @@ void AHundredEyedSlagMonster::EnterCorpse()
     // sampled death pose while every body is kinematic, then freeze animation writes.
     CorpseMesh->UpdateKinematicBonesToAnim(CorpseMesh->GetComponentSpaceTransforms(),
         ETeleportType::TeleportPhysics, false, EAllowKinematicDeferral::DisallowDeferral);
-    for (auto* Joint : CorpseMesh->Constraints)
-    {
-        if (!Joint || Joint->ConstraintBone1 != TEXT("pelvis") || Joint->ConstraintBone2 != TEXT("Armature")) continue;
-        const auto* Child = CorpseMesh->GetBodyInstance(Joint->ConstraintBone1);
-        const auto* Parent = CorpseMesh->GetBodyInstance(Joint->ConstraintBone2);
-        if (!Child || !Parent) continue;
-        FTransform ChildWorld = Child->GetUnrealWorldTransform(false, true);
-        FTransform ParentWorld = Parent->GetUnrealWorldTransform(false, true);
-        ChildWorld.RemoveScaling(); ParentWorld.RemoveScaling();
-        // Live constraint frames use rigid-body centimetres, not inverse-scaled
-        // skeleton units. Lock the helper to THIS pose, not the standing reference.
-        Joint->SetRefFrame(EConstraintFrame::Frame1, FTransform::Identity);
-        Joint->SetRefFrame(EConstraintFrame::Frame2, ChildWorld.GetRelativeTransform(ParentWorld));
-        Joint->SetLinearXLimit(LCM_Locked, 0.f); Joint->SetLinearYLimit(LCM_Locked, 0.f); Joint->SetLinearZLimit(LCM_Locked, 0.f);
-        Joint->SetAngularSwing1Limit(ACM_Locked, 0.f); Joint->SetAngularSwing2Limit(ACM_Locked, 0.f);
-        Joint->SetAngularTwistLimit(ACM_Locked, 0.f); Joint->SetDisableCollision(true);
-    }
-    // The container root follows the pelvis; it must not collide at the model origin.
-    if (auto* Root = CorpseMesh->GetBodyInstance(TEXT("Armature")))
-        Root->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-    CorpseMesh->SetAllUseCCD(true);
+    MonsterRagdollPhysics::AlignContainerRoot(CorpseMesh, TEXT("pelvis"));
+    const FName ContainerBone = MonsterRagdollPhysics::ContainerRoot(CorpseMesh, TEXT("pelvis"));
+    for (auto* Body : CorpseMesh->Bodies)
+        if (Body && Body->BodySetup.IsValid())
+        {
+            Body->SetUseCCD(Body->BodySetup->BoneName != ContainerBone);
+            Body->LinearDamping = .25f; Body->AngularDamping = 1.1f;
+            Body->UpdateDampingProperties();
+        }
+    MonsterRagdollPhysics::RelaxJointDrives(CorpseMesh);
     CorpseMesh->SetEnableGravity(true);
     CorpseMesh->bPauseAnims = true;
     CorpseMesh->bUpdateJointsFromAnimation = false;
@@ -591,16 +616,53 @@ void AHundredEyedSlagMonster::EnterCorpse()
     FVector FallVelocity = (DeathBoneVelocities.FindRef(TEXT("pelvis")) + DeathVelocity * .4f + ImpactVelocity).GetClampedToMaxSize(400.f);
     FallVelocity.Z = FMath::Clamp(FallVelocity.Z, -180., 0.);
     const FVector AngularVelocity = DeathBoneAngularVelocities.FindRef(TEXT("pelvis")).GetClampedToMaxSize(3.f);
-    const auto* Pelvis = CorpseMesh->GetBodyInstance(TEXT("pelvis"));
-    const FVector Pivot = Pelvis ? Pelvis->GetCOMPosition() : CorpseMesh->GetSocketLocation(TEXT("pelvis"));
-    for (auto* Body : CorpseMesh->Bodies) if (Body && Body->IsValidBodyInstance())
-    {
-        Body->ClearForces(); Body->ClearTorques();
-        // Independent sampled limb velocities fight the locked joints, including
-        // the new container. Transfer one coherent rigid motion at each body COM.
-        Body->SetLinearVelocity(FallVelocity + FVector::CrossProduct(AngularVelocity, Body->GetCOMPosition() - Pivot), false);
-        Body->SetAngularVelocityInRadians(AngularVelocity, false);
-    }
-    CorpseMesh->WakeAllRigidBodies();
+    MonsterRagdollPhysics::BeginHandoff(CorpseMesh, TEXT("pelvis"), FallVelocity, AngularVelocity, CorpseHandoff);
+    CorpseProbeAge = CorpseStableAge = 0.f;
     State = ESlagState::Corpse; StateSeconds = 0.f;
+}
+
+bool AHundredEyedSlagMonster::CanReleaseCorpseBudget() const
+{
+    return bCorpseBudgetOwned && State == ESlagState::Corpse && !bCorpseSleeping &&
+        StateSeconds >= 5.f && CorpseStableAge >= .35f;
+}
+
+void AHundredEyedSlagMonster::FreezeForBudget()
+{
+    if (CanReleaseCorpseBudget()) FreezeCorpse(true);
+}
+
+void AHundredEyedSlagMonster::FreezeCorpse(bool bFromPhysics)
+{
+    auto* CorpseMesh = GetMesh();
+    FPoseSnapshot Pose;
+    if (bFromPhysics)
+    {
+        MonsterRagdollPhysics::CapturePose(CorpseMesh, Pose);
+        CorpseMesh->PutAllRigidBodiesToSleep();
+        CorpseMesh->SetSimulatePhysics(false); CorpseMesh->SetAllBodiesSimulatePhysics(false);
+        CorpseMesh->SetAllBodiesPhysicsBlendWeight(0.f);
+    }
+    else
+    {
+        CorpseMesh->TickAnimation(0.f, false); CorpseMesh->RefreshBoneTransforms();
+        MonsterRagdollPhysics::GroundAnimatedPose(CorpseMesh);
+        CorpseMesh->SnapshotPose(Pose);
+    }
+    CorpseMesh->KinematicBonesUpdateType = EKinematicBonesUpdateToPhysics::SkipSimulatingBones;
+    CorpseMesh->bPauseAnims = false;
+    CorpseMesh->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+    CorpseMesh->SetAnimInstanceClass(UMonsterCorpsePoseAnimInstance::StaticClass());
+    CastChecked<UMonsterCorpsePoseAnimInstance>(CorpseMesh->GetAnimInstance())->HoldPose(Pose);
+    CorpseMesh->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+    CorpseMesh->TickAnimation(0.f, false); CorpseMesh->RefreshBoneTransforms();
+    CorpseHandoff.FramesRemaining = 0;
+    if (bCorpseBudgetOwned)
+    {
+        GetWorld()->GetSubsystem<UHumanoidRagdollBudget>()->Release(this);
+        bCorpseBudgetOwned = false;
+    }
+    State = ESlagState::Corpse;
+    bCorpseSleeping = true;
+    MonsterRagdollPhysics::RetireCorpseTicks(CorpseMesh);
 }

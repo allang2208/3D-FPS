@@ -8,6 +8,7 @@
 #include "MonsterIdleBreathingMeshComponent.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCombatTuning.h"
+#include "MonsterCorpseRagdollComponent.h"
 #include "MonsterAIController.h"
 #include "HandBrainFearComponent.h"
 #include "FPSCombatHealthComponent.h"
@@ -41,9 +42,12 @@
 #endif
 
 AHandBrainMonster::AHandBrainMonster(const FObjectInitializer& ObjectInitializer)
- : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName).SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
+ : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName)
+    .SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
  Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+ CorpseRagdoll=CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
+ CorpseRagdoll->Rig=EMonsterCorpseRig::HandBrain;
  Combat->StaggerDuration=.6f;
  AIControllerClass=AMonsterAIController::StaticClass();AutoPossessAI=EAutoPossessAI::PlacedInWorldOrSpawned;
  GetCharacterMovement()->bOrientRotationToMovement=true;GetCharacterMovement()->RotationRate=FRotator(0,180,0);
@@ -164,12 +168,20 @@ void AHandBrainMonster::DealHowl()
 void AHandBrainMonster::Tick(float Dt)
 {
  Super::Tick(Dt);if(!HasAuthority())return;StateSeconds+=Dt;SlamLeft=FMath::Max(0.f,SlamLeft-Dt);HowlLeft=FMath::Max(0.f,HowlLeft-Dt);
- if(State==EHandBrainState::Ragdoll){if(StateSeconds>8)GetMesh()->PutAllRigidBodiesToSleep();return;}
+ if(State==EHandBrainState::Ragdoll)return;
  if(State==EHandBrainState::Dying)
  {
   const float Handoff=DeathClip?DeathClip->GetPlayLength()*MonsterCombatTuning::DeathAnimationFraction:RagdollStartSeconds;
-  if(DeathClip)GetMesh()->SetPosition(FMath::Min(StateSeconds,Handoff),false);
-  if(StateSeconds>=Handoff)EnterRagdoll();return;
+  const float End=DeathClip?DeathClip->GetPlayLength():Handoff;
+  if(DeathClip)GetMesh()->SetPosition(FMath::Min(StateSeconds,CorpseRagdoll->WasAttempted()?End:Handoff),false);
+  CorpseRagdoll->RecordDeathPose(GetMesh(),Dt);
+  if(!CorpseRagdoll->WasAttempted()&&StateSeconds>=Handoff)EnterRagdoll();
+  if(State==EHandBrainState::Dying&&CorpseRagdoll->WasAttempted()&&StateSeconds>=End)
+  {
+   if(DeathClip)GetMesh()->SetPosition(End,false);
+   CorpseRagdoll->FreezeAnimatedPose(GetMesh());State=EHandBrainState::Ragdoll;
+  }
+  return;
  }
  if(State==EHandBrainState::Slam)
  {
@@ -200,7 +212,7 @@ float AHandBrainMonster::TakeDamage(float Damage,const FDamageEvent& Event,ACont
  if(Causer)LastImpulse=(GetActorLocation()-Causer->GetActorLocation()).GetSafeNormal2D()*60;
  if(Health<=0)
  {
-  SetState(EHandBrainState::Dying);if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();Target.Reset();bSlamConsumed=true;GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);SetLifeSpan(CorpseSeconds);
+  CorpseRagdoll->PrepareDeath(GetMesh());SetState(EHandBrainState::Dying);if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();Target.Reset();bSlamConsumed=true;GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);SetLifeSpan(CorpseSeconds);
   if(auto* PC=Cast<APlayerController>(DamageInstigator))if(PC->IsLocalController()&&GetGameInstance())GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
   UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_KILLED %s"),*GetName());
  }
@@ -210,14 +222,10 @@ float AHandBrainMonster::TakeDamage(float Damage,const FDamageEvent& Event,ACont
 }
 void AHandBrainMonster::EnterRagdoll()
 {
- if(DeathClip){GetMesh()->SetPosition(DeathClip->GetPlayLength()*MonsterCombatTuning::DeathAnimationFraction,false);GetMesh()->TickAnimation(0.f,false);}
- GetMesh()->RefreshBoneTransforms();GetMesh()->bPauseAnims=true;GetMesh()->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
- GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));GetMesh()->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);
- GetMesh()->SetAllBodiesSimulatePhysics(true);GetMesh()->SetSimulatePhysics(true);GetMesh()->SetAllPhysicsLinearVelocity(FVector::ZeroVector);GetMesh()->WakeAllRigidBodies();GetMesh()->AddImpulse(LastImpulse,TEXT("cranium"),true);
- // The animated death_pivot is above the old first physics bone. A root body
- // keeps component and simulation space aligned after that pivot has moved.
- if(auto* RootBody=GetMesh()->GetBodyInstance(TEXT("root")))RootBody->SetCollisionEnabled(ECollisionEnabled::NoCollision);
- SetState(EHandBrainState::Ragdoll);UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_RAGDOLL active=%d"),GetMesh()->IsSimulatingPhysics());
+ if(State!=EHandBrainState::Dying)return;
+ // Transfer the hit as one coherent body velocity, rather than kicking the head
+ // against the heavy connected torso and its constrained neck.
+ if(CorpseRagdoll->Start(GetMesh(),LastImpulse))SetState(EHandBrainState::Ragdoll);
 }
 UPhysicsAsset* AHandBrainMonster::CreatePhysicsAsset(USkeletalMesh* InMesh)
 {

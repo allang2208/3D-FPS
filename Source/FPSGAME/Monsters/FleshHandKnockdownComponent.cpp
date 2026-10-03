@@ -1,5 +1,6 @@
 #include "FleshHandKnockdownComponent.h"
 #include "FleshHandMonster.h"
+#include "MonsterCorpseRagdollComponent.h"
 #include "FatZombieAnimInstance.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterAIController.h"
@@ -114,6 +115,17 @@ bool UFleshHandKnockdownComponent::OnDeath()
 {
  if(!IsControlling())return false;
  bCorpse=true;ControlUntil=0;
+ auto* H=Hand();auto* Mesh=H->GetMesh();
+ Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();
+ // Existing capsule motion becomes one connected corpse motion. The shared
+ // death component already remembers the other 40% of the launch velocity.
+ if(H->CorpseRagdoll->Start(Mesh,H->GetVelocity()*.6f))
+ {
+  H->GetCharacterMovement()->DisableMovement();
+  H->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+  Phase=EFleshHandKnockdownPhase::Corpse;SetComponentTickEnabled(false);
+  return true;
+ }
  if(Phase==EFleshHandKnockdownPhase::GettingUp)
  {
   if(!bPalmDown&&PhaseTime>PlayingClip->GetPlayLength()*.5f)bPalmDown=true;
@@ -127,7 +139,7 @@ void UFleshHandKnockdownComponent::FreezeCorpse()
  if(auto* A=Cast<UFatZombieAnimInstance>(Mesh->GetAnimInstance()))
   A->HoldClipAtTime(Phase==EFleshHandKnockdownPhase::Landing?PlayingClip->GetPlayLength():PhaseTime);
  Mesh->TickAnimation(0,false);Mesh->RefreshBoneTransforms();
- Mesh->SetComponentTickEnabled(false);H->GetCharacterMovement()->DisableMovement();
+ H->CorpseRagdoll->FreezeAnimatedPose(Mesh);H->GetCharacterMovement()->DisableMovement();
  H->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
  Phase=EFleshHandKnockdownPhase::Corpse;H->State=EFleshHandState::Corpse;H->SetActorTickEnabled(false);
  SetComponentTickEnabled(false);

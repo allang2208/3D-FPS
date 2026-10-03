@@ -86,4 +86,6 @@ private:
  float SlamLeft=0,HowlLeft=2.f,NextHowlTick=.5f,LostSeconds=0,StaggerSeconds=.6f,StepClock=0;
  bool bSlamConsumed=false;
  FVector LastImpulse=FVector::ZeroVector;
+public:
+ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Death") TObjectPtr<class UMonsterCorpseRagdollComponent> CorpseRagdoll;
 };

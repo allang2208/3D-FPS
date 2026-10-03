@@ -3,6 +3,7 @@
 #include "Components/ActorComponent.h"
 #include "Animation/PoseSnapshot.h"
 #include "MonsterObstacleCollision.h"
+#include "MonsterRagdollPhysics.h"
 #include "HumanoidKnockdownComponent.generated.h"
 class ANurseZombie;
 class APawn;
@@ -52,7 +53,6 @@ private:
     void RememberStandingState();
     bool AcquirePhysicsBudget();
     bool StartPhysics(const FVector& Velocity);
-    void AlignContainerRootJoint();
     void TunePhysics();
     void StopPhysicsWithPose();
     void StartAnimatedFall(UAnimSequence* Clip, float StartTime);
@@ -71,7 +71,6 @@ private:
     UPROPERTY(Transient) FPoseSnapshot FrozenPose;
     UPROPERTY(Transient) TObjectPtr<UClass> StandingAnimClass;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> PlayingClip;
-    FVector RecoveryFloorPoint = FVector::ZeroVector, RecoveryFloorNormal = FVector::UpVector;
     FTransform StandingMeshRelative;
     FCollisionResponseContainer StandingResponses;
     TArray<FMonsterObstacleProbe> ObstacleProbes;
@@ -81,9 +80,11 @@ private:
     ECollisionEnabled::Type StandingCapsuleCollision = ECollisionEnabled::QueryAndPhysics;
     FName PelvisBone, HeadBone;
     FVector PelvisLocalFront = FVector::ForwardVector;
+    FVector RecoveryFloorPoint = FVector::ZeroVector, RecoveryFloorNormal = FVector::UpVector;
     int32 StandingLOD = 0;
     int32 PhysicsBodyCount = 0;
     bool bSavedStanding = false, bCorpse = false, bGrounded = false, bBudgetOwned = false;
+    bool bStandingUpdateJointsFromAnimation = false;
     float PhaseAge = 0.f, ProbeAge = 0.f, StableAge = 0.f, ClipStartTime = 0.f, FallStopTime = 0.f;
     float GetUpBlend = .3f, GetUpRate = 1.f;
     float FinishBlendAge = -1.f;
@@ -94,4 +95,6 @@ private:
     float StandingAirControl = 0;
     bool bAnimatedCapsule = false, bStandingNavUpdate = true, bStandingOrientToMovement = false;
     ECollisionResponse StandingPawnResponse = ECR_Block;
+    FMonsterRagdollHandoff PhysicsHandoff;
+    bool bGroundCorpseFeet = false;
 };

@@ -21,7 +21,9 @@
 
 ## 根单位与布娃娃
 
-本例顶层 Armature 带 100 倍单位缩放，非物理父级参与变换可影响物理姿态交接。修复使用独立 Physics Asset、非碰撞容器根、即时姿态同步和一致的速度交接；不能仅看到 `IsSimulatingPhysics=true` 就认定尸体接地。当前源码和 PA 已保存，死亡下沉修订没有本轮运行验收证据。
+本例实际顶层骨骼是 `RIG_HundredEyedSlag_V1`，带 100 倍单位缩放，下游还有 `root`、`death_pivot`、`pelvis`；不得把 Blender 的通用 Armature 名当成实际导入骨名。V16 曾错误地给不存在的 Armature 添加刚体，用户反馈尸体仍然下陷。容器刚体和交接约束都应从网格参考骨架取得真实根骨。独立 Physics Asset、无碰撞物理根、即时姿态同步与一致速度交接一起处理缩放父链，不能仅看到 `IsSimulatingPhysics=true` 就认定尸体接地。
+
+UE 5.8 `UPhysicsConstraintTemplate::Serialize` 保存的是 `DefaultProfile`；C++ 修改 `DefaultInstance` 的限制后，要调用 `SetDefaultProfile` 或适用的 `UpdateProfileInstance`。本例重新加载的 V16 关节全部为 Free，原拟定的限制没有实际落盘；内置 PhysicsAssetToolset 的限制 setter 也只修改实例。当前 V17 制作与构建状态见工程 `Docs/Monsters/hundred-eyed-slag-ragdoll-ground-v17-20261002.md` 和对应安装回执。静态资产错误与运行接地结果分别报告，本轮未运行死亡测试。
 
 ## 身体浓烟与玩家状态
 

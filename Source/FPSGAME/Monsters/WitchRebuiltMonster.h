@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "WitchMonster.h"
 #include "WitchRebuiltMonster.generated.h"
+struct FPoseSnapshot;
 
 /** Sole playable Witch, retaining the rebuilt anatomy, garment and animation assets. */
 UCLASS(Blueprintable, Placeable)
@@ -13,6 +14,10 @@ public:
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
     virtual bool CanCast(APawn* Candidate) const override;
+    bool UseCorpsePresentation();
+    bool UseKnockdownPresentation();
+    void RestoreStandingPresentation();
+    void GroundCorpsePose(FPoseSnapshot& Pose) const;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Witch|Animation") TObjectPtr<UAnimSequence> TurnLeftClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Witch|Animation") TObjectPtr<UAnimSequence> TurnRightClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Witch|Animation") float WalkStrideScale = .5f;
@@ -33,4 +38,8 @@ private:
     float SettledSeconds = 0.f;
     float PreviousYaw = 0.f;
     bool bWantsClothSimulation = true;
+    UPROPERTY() TObjectPtr<USkeletalMesh> CorpseVisualMesh;
+    bool bCorpseVisualPrepared = false;
+    UPROPERTY(Transient) TObjectPtr<USkeletalMesh> KnockdownStandingMesh;
+    bool bKnockdownVisualPrepared = false;
 };

@@ -139,5 +139,6 @@ public:
     bool bPounceBlocked = false;
     bool bHasAlerted = false;
     bool bPackAlertSent = false;
-    bool bCorpseSleeping = false;
+public:
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf|Death") TObjectPtr<class UMonsterCorpseRagdollComponent> CorpseRagdoll;
 };

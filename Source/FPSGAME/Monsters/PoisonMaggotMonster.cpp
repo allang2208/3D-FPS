@@ -7,6 +7,7 @@
 #include "PoisonMaggotProjectile.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCombatTuning.h"
+#include "MonsterCorpseRagdollComponent.h"
 #include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -33,9 +34,12 @@
 #include "ShaderCompiler.h"
 #endif
 APoisonMaggotMonster::APoisonMaggotMonster(const FObjectInitializer& ObjectInitializer)
- : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName).SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
+ : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName)
+    .SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
  PrimaryActorTick.bCanEverTick=true;Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+ CorpseRagdoll=CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
+ CorpseRagdoll->Rig=EMonsterCorpseRig::Maggot;
  Combat->StaggerDuration=.45f;
  AIControllerClass=AMonsterAIController::StaticClass();AutoPossessAI=EAutoPossessAI::PlacedInWorldOrSpawned;
  GetCapsuleComponent()->InitCapsuleSize(70,70);GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Ignore);
@@ -103,10 +107,18 @@ void APoisonMaggotMonster::Tick(float Dt)
  if(State==EPoisonMaggotState::Dying)
  {
   const float Handoff=DeathClip?DeathClip->GetPlayLength()*MonsterCombatTuning::DeathAnimationFraction:RagdollStartSeconds;
-  if(DeathClip)GetMesh()->SetPosition(FMath::Min(StateSeconds,Handoff),false);
-  if(StateSeconds>=Handoff)EnterRagdoll();return;
+  const float End=DeathClip?DeathClip->GetPlayLength():Handoff;
+  if(DeathClip)GetMesh()->SetPosition(FMath::Min(StateSeconds,CorpseRagdoll->WasAttempted()?End:Handoff),false);
+  CorpseRagdoll->RecordDeathPose(GetMesh(),Dt);
+  if(!CorpseRagdoll->WasAttempted()&&StateSeconds>=Handoff)EnterRagdoll();
+  if(State==EPoisonMaggotState::Dying&&CorpseRagdoll->WasAttempted()&&StateSeconds>=End)
+  {
+   if(DeathClip)GetMesh()->SetPosition(End,false);
+   CorpseRagdoll->FreezeAnimatedPose(GetMesh());State=EPoisonMaggotState::Ragdoll;
+  }
+  return;
  }
- if(State==EPoisonMaggotState::Ragdoll){if(StateSeconds>7)GetMesh()->PutAllRigidBodiesToSleep();return;}
+ if(State==EPoisonMaggotState::Ragdoll)return;
  if(State==EPoisonMaggotState::Chase||State==EPoisonMaggotState::Returning)GetMesh()->SetPlayRate(FMath::Clamp(GetVelocity().Size2D()/WalkSpeed,0.f,1.5f));
  Projectiles.RemoveAll([](const auto& P){return !P.IsValid();});
 }
@@ -117,7 +129,7 @@ float APoisonMaggotMonster::TakeDamage(float Damage,const FDamageEvent& Event,AC
  if(!HasAuthority()||Dead()||Damage<=0)return 0;const float Applied=UDevelopmentTuningSubsystem::ShouldOneHitKill(this,EventInstigator,Causer)?Health:FMath::Min(Health,CombatFormulaRuntime::MitigateMonster(this,Damage,Event.DamageTypeClass?Event.DamageTypeClass->GetDefaultObject<UDamageType>():nullptr,Causer));if(Applied<=0)return 0;Health-=Applied;Super::TakeDamage(Applied,Event,EventInstigator,Causer);
  if(Health<=0)
  {
-  ClearProjectiles();Target.Reset();SetState(EPoisonMaggotState::Dying);GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);SetLifeSpan(CorpseSeconds);
+  CorpseRagdoll->PrepareDeath(GetMesh());ClearProjectiles();Target.Reset();SetState(EPoisonMaggotState::Dying);GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);SetLifeSpan(CorpseSeconds);
   if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();
   if(auto* PC=Cast<APlayerController>(EventInstigator))if(PC->IsLocalController()&&GetGameInstance()){GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);++RewardCount;}
  }
@@ -128,12 +140,8 @@ void APoisonMaggotMonster::ClearProjectiles(){for(auto& P:Projectiles)if(P.IsVal
 void APoisonMaggotMonster::EndPlay(const EEndPlayReason::Type Reason){ClearProjectiles();Super::EndPlay(Reason);}
 void APoisonMaggotMonster::EnterRagdoll()
 {
- if(DeathClip){GetMesh()->SetPosition(DeathClip->GetPlayLength()*MonsterCombatTuning::DeathAnimationFraction,false);GetMesh()->TickAnimation(0.f,false);}
- GetMesh()->RefreshBoneTransforms();GetMesh()->bPauseAnims=true;GetMesh()->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
- GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));GetMesh()->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);GetMesh()->SetAllBodiesSimulatePhysics(true);GetMesh()->SetSimulatePhysics(true);GetMesh()->SetAllPhysicsLinearVelocity(FVector::ZeroVector);GetMesh()->WakeAllRigidBodies();SetState(EPoisonMaggotState::Ragdoll);
- // A non-colliding root body anchors component/physics space. Physical support
- // comes from the fitted segment hulls, not this bookkeeping body.
- if(auto* RootBody=GetMesh()->GetBodyInstance(TEXT("root")))RootBody->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+ if(State!=EPoisonMaggotState::Dying)return;
+ if(CorpseRagdoll->Start(GetMesh()))SetState(EPoisonMaggotState::Ragdoll);
 }
 UPhysicsAsset* APoisonMaggotMonster::CreatePhysicsAsset(USkeletalMesh* Mesh)
 {

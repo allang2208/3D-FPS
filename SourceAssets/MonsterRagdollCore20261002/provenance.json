@@ -1,0 +1,14 @@
+{
+  "repository": "https://github.com/Sixze/ALS-Refactored",
+  "revision": "b754d6f0f2bb03741d301f8fb88077ebfe561e17",
+  "source": "https://github.com/Sixze/ALS-Refactored/blob/b754d6f0f2bb03741d301f8fb88077ebfe561e17/Source/ALS/Private/AlsCharacter_Actions.cpp",
+  "license": "MIT",
+  "license_notice": "Docs/ThirdParty/ALS-Refactored-LICENSE.md",
+  "retrieved_utc": "2026-10-02T05:22:47.6873956Z",
+  "used": "Adapted physics-body reads and eight-frame initial speed limiting",
+  "whole_plugin_installed": false,
+  "standard_get_up_animations_preserved": true,
+  "gameplay_authority_preserved": true,
+  "network_ragdoll_replication_ported": false,
+  "runtime_tested": false
+}

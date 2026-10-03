@@ -1,6 +1,7 @@
 #include "HumanoidKnockdownComponent.h"
 #include "HumanoidRagdollBudget.h"
 #include "NurseZombie.h"
+#include "WitchRebuiltMonster.h"
 #include "FatZombieAnimInstance.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterAIController.h"
@@ -56,7 +57,7 @@ void UHumanoidKnockdownComponent::BeginPlay()
     HeadBone=Mesh->GetBoneIndex(TEXT("Head"))!=INDEX_NONE?TEXT("Head"):TEXT("head");
     if (Role==TEXT("FatZombie")) { LaunchScale=.68f; GetUpRate=.65f; }
     else if (Role==TEXT("Mutant3")) { LaunchScale=.85f; GetUpRate=1.1f; }
-    else if (Role==TEXT("Witch")) GetUpRate=.8f;
+    else if (Role==TEXT("Witch")) { GetUpRate=.8f; bGroundCorpseFeet=true; }
     const auto& Ref=Mesh->GetSkeletalMeshAsset()->GetRefSkeleton();
     const int32 Index=Ref.FindBoneIndex(PelvisBone);
     if (Index!=INDEX_NONE)
@@ -85,6 +86,7 @@ void UHumanoidKnockdownComponent::RememberStandingState()
     StandingObjectType=Mesh->GetCollisionObjectType();
     StandingCapsuleCollision=N->GetCapsuleComponent()->GetCollisionEnabled();
     StandingLOD=Mesh->GetForcedLOD();
+    bStandingUpdateJointsFromAnimation=Mesh->bUpdateJointsFromAnimation;
     StandingRadius=N->GetCapsuleComponent()->GetUnscaledCapsuleRadius();
     StandingHalfHeight=N->GetCapsuleComponent()->GetUnscaledCapsuleHalfHeight();
     StandingPawnResponse=N->GetCapsuleComponent()->GetCollisionResponseToChannel(ECC_Pawn);
@@ -130,6 +132,7 @@ bool UHumanoidKnockdownComponent::Launch(APawn* InstigatorPawn, FVector Velocity
     FVector Horizontal(Velocity.X,Velocity.Y,0);
     Horizontal=Horizontal.GetClampedToMaxSize(700.f)*LaunchScale;
     Velocity=Horizontal+FVector(0,0,FMath::Clamp(Velocity.Z,0.f,500.f)*FMath::Sqrt(LaunchScale));
+    if (auto* Witch=Cast<AWitchRebuiltMonster>(N)) Witch->UseKnockdownPresentation();
     Mesh->SetComponentTickEnabled(true); Mesh->SetForcedLOD(1);
     if (!StartPhysics(Velocity))
     {
@@ -153,13 +156,33 @@ bool UHumanoidKnockdownComponent::OnDeath()
 {
     const bool bWasControlled=IsControlling();
     bCorpse=true;
+    FMonsterRagdollBodyState PreviousBody;
+    const bool bHadPhysicalPose=MonsterRagdollPhysics::ReadBody(BodyMesh(),PelvisBone,PreviousBody);
+    auto* Witch=Cast<AWitchRebuiltMonster>(GetOwner());
+    if (bWasControlled && Witch) Witch->ReleaseStaffOnDeath();
+    const bool bChangedCorpseMesh=Witch && Witch->UseCorpsePresentation();
     if (!bWasControlled) return false;
     if (Phase==EHumanoidKnockdownPhase::Physics)
     {
         // The physical body continues from its exact state; do not replay a standing death.
+        if (bChangedCorpseMesh)
+        {
+            StartPhysics(bHadPhysicalPose?PreviousBody.LinearVelocity:FVector::ZeroVector);
+            if (bHadPhysicalPose) MonsterRagdollPhysics::BeginHandoff(BodyMesh(),PelvisBone,
+                PreviousBody.LinearVelocity,PreviousBody.AngularVelocity,PhysicsHandoff);
+        }
+        // Reuse the current velocity/pose while removing the live joint motors.
+        // Death during a knockdown must receive the same passive tuning as a
+        // standing death, without starting the handoff again.
+        TunePhysics();
         PhaseAge=0; StableAge=0; return true;
     }
-    if (Phase==EHumanoidKnockdownPhase::Downed) { FreezeCorpse(); return true; }
+    if (Phase==EHumanoidKnockdownPhase::Downed)
+    {
+        if (StartPhysics(FVector::ZeroVector))
+        { SetComponentTickEnabled(true); SetComponentTickInterval(0.f); return true; }
+        FreezeCorpse(); return true;
+    }
     if (!StartPhysics(FVector::ZeroVector))
     {
         // The capsule still falls under gravity for an airborne animation fallback.
@@ -218,7 +241,8 @@ bool UHumanoidKnockdownComponent::AcquirePhysicsBudget()
 {
     auto* Mesh=BodyMesh();
     const auto* Asset=Mesh->GetPhysicsAsset();
-    if (!Asset || Asset->SkeletalBodySetups.IsEmpty() || Mesh->GetBoneIndex(PelvisBone)==INDEX_NONE) return false;
+    const auto* Anchor=Mesh->GetBodyInstance(PelvisBone);
+    if (!Asset || Asset->SkeletalBodySetups.IsEmpty() || !Anchor || !Anchor->IsValidBodyInstance()) return false;
     PhysicsBodyCount=Asset->SkeletalBodySetups.Num();
     if (!bBudgetOwned)
     {
@@ -231,8 +255,18 @@ bool UHumanoidKnockdownComponent::AcquirePhysicsBudget()
 
 bool UHumanoidKnockdownComponent::StartPhysics(const FVector& Velocity)
 {
-    if (!AcquirePhysicsBudget()) return false;
     auto* N=Humanoid(); auto* Mesh=BodyMesh();
+    // Witch's death animation disables collision, which destroys articulated
+    // bodies. Recreate them before checking the physical pelvis for admission.
+    const ECollisionEnabled::Type PreviousCollision=Mesh->GetCollisionEnabled();
+    Mesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+    if (!AcquirePhysicsBudget())
+    {
+        Mesh->SetCollisionEnabled(PreviousCollision);
+        UE_LOG(LogTemp,Display,TEXT("MONSTER_RAGDOLL_FALLBACK %s corpse=%d asset=%s pelvis_body=%d"),
+            *N->GetName(),bCorpse,*GetNameSafe(Mesh->GetPhysicsAsset()),Mesh->GetBodyInstance(PelvisBone)!=nullptr);
+        return false;
+    }
     const bool bStartingSimulation=!Mesh->IsSimulatingPhysics();
     Mesh->SetComponentTickEnabled(true); Mesh->SetForcedLOD(1);
     if (bStartingSimulation)
@@ -256,56 +290,30 @@ bool UHumanoidKnockdownComponent::StartPhysics(const FVector& Velocity)
         // deferred kinematic target can otherwise leave physics on an older pose.
         Mesh->UpdateKinematicBonesToAnim(Mesh->GetComponentSpaceTransforms(),
             ETeleportType::TeleportPhysics,false,EAllowKinematicDeferral::DisallowDeferral);
-        AlignContainerRootJoint();
+        MonsterRagdollPhysics::AlignContainerRoot(Mesh,PelvisBone);
     }
     // Configure filters and constraints before their first simulation step.
     TunePhysics();
     Mesh->SetEnableGravity(true);
     Mesh->bPauseAnims=true;
+    Mesh->bUpdateJointsFromAnimation=false;
     Mesh->KinematicBonesUpdateType=EKinematicBonesUpdateToPhysics::SkipAllBones;
     Mesh->SetAllBodiesSimulatePhysics(true); Mesh->SetSimulatePhysics(true);
+    Mesh->SetAllBodiesPhysicsBlendWeight(1.f);
     const FVector AngularVelocity=bCorpse?FVector::ZeroVector:
         FVector::CrossProduct(FVector::UpVector,Velocity.GetSafeNormal2D())*1.5f;
-    const auto* Pelvis=Mesh->GetBodyInstance(PelvisBone);
-    const FVector Pivot=Pelvis?Pelvis->GetCOMPosition():Mesh->GetSocketLocation(PelvisBone);
-    for (auto* Body:Mesh->Bodies)
-    {
-        if (!Body || !Body->IsInstanceSimulatingPhysics()) continue;
-        Body->ClearForces(); Body->ClearTorques();
-        // Coherent rigid motion at each centre of mass, including the helper root.
-        Body->SetLinearVelocity(Velocity+FVector::CrossProduct(AngularVelocity,Body->GetCOMPosition()-Pivot),false);
-        Body->SetAngularVelocityInRadians(AngularVelocity,false);
-    }
-    Mesh->WakeAllRigidBodies();
+    MonsterRagdollPhysics::BeginHandoff(Mesh,PelvisBone,Velocity,AngularVelocity,PhysicsHandoff);
+    if (bCorpse && bGroundCorpseFeet)
+        UE_LOG(LogTemp,Display,TEXT("WITCH_CORPSE_PHYSICS %s sim=%d bodies=%d"),
+            *N->GetName(),Mesh->IsSimulatingPhysics(PelvisBone),Mesh->Bodies.Num());
     Phase=EHumanoidKnockdownPhase::Physics; PhaseAge=ProbeAge=StableAge=0; bGrounded=false;
     return true;
-}
-
-void UHumanoidKnockdownComponent::AlignContainerRootJoint()
-{
-    auto* Mesh=BodyMesh();
-    for (FConstraintInstance* Joint:Mesh->Constraints)
-    {
-        if (!Joint || (Joint->ConstraintBone2!=TEXT("FatZombieRoot") &&
-            Joint->ConstraintBone2!=TEXT("Mutant3Root") && Joint->ConstraintBone2!=TEXT("SpitterRoot"))) continue;
-        const auto* Child=Mesh->GetBodyInstance(Joint->ConstraintBone1);
-        const auto* Parent=Mesh->GetBodyInstance(Joint->ConstraintBone2);
-        if (!Child || !Parent) continue;
-        // This invisible helper is not an anatomical joint. Lock it to the current
-        // pelvis pose, not the standing reference offset, when animation hands off.
-        FTransform ChildWorld=Child->GetUnrealWorldTransform(false,true);
-        FTransform ParentWorld=Parent->GetUnrealWorldTransform(false,true);
-        ChildWorld.SetScale3D(FVector::OneVector); ParentWorld.SetScale3D(FVector::OneVector);
-        // Live SetRefFrame writes straight to Chaos. Use rigid-body centimetres;
-        // never pass inverse-scaled reference-skeleton frames to this API.
-        Joint->SetRefFrame(EConstraintFrame::Frame1,FTransform::Identity);
-        Joint->SetRefFrame(EConstraintFrame::Frame2,ChildWorld.GetRelativeTransform(ParentWorld));
-    }
 }
 
 void UHumanoidKnockdownComponent::TunePhysics()
 {
     auto* Mesh=BodyMesh();
+    const FName Container=MonsterRagdollPhysics::ContainerRoot(Mesh,PelvisBone);
     auto Weight=[](FName Bone)
     {
         const FString S=Bone.ToString().ToLower();
@@ -328,19 +336,24 @@ void UHumanoidKnockdownComponent::TunePhysics()
     {
         if (!Body || !Body->BodySetup.IsValid()) continue;
         const FName Bone=Body->BodySetup->BoneName;
-        if (Bone==TEXT("FatZombieRoot") || Bone==TEXT("Mutant3Root") || Bone==TEXT("SpitterRoot"))
+        if (Bone==Container)
             Body->SetCollisionEnabled(ECollisionEnabled::NoCollision);
         const FString Name=Bone.ToString().ToLower();
         const bool bTorso=Bone==PelvisBone || Name.Contains(TEXT("spine"));
         Body->SetMassOverride(Mass*Weight(Bone)/FMath::Max(1.f,Sum),true);
-        Body->LinearDamping=.25f; Body->AngularDamping=bTorso?4.f:2.6f;
+        const bool bRelaxWitchCorpse=bCorpse && bGroundCorpseFeet;
+        Body->LinearDamping=.25f;
+        Body->AngularDamping=bGroundCorpseFeet?
+            (bRelaxWitchCorpse?(bTorso?1.f:.8f):(bTorso?4.f:2.6f)):(bTorso?1.2f:1.f);
         Body->UpdateDampingProperties();
         Body->SetMaxAngularVelocityInRadians(10.f,false);
         Body->SetMaxDepenetrationVelocity(80.f);
-        Body->SetPositionSolverIterationCount(8); Body->SetVelocitySolverIterationCount(2);
+        const bool bConnectedWitchCorpse=bCorpse && bGroundCorpseFeet;
+        Body->SetPositionSolverIterationCount(bCorpse?16:8);
+        Body->SetVelocitySolverIterationCount(bConnectedWitchCorpse?8:bCorpse?4:2);
         // Fast hands/feet can cross a thin wall or a column edge even when the
         // pelvis remains outside. Include every simulated anatomical body.
-        Body->SetUseCCD(Bone!=TEXT("FatZombieRoot") && Bone!=TEXT("Mutant3Root") && Bone!=TEXT("SpitterRoot"));
+        Body->SetUseCCD(Bone!=Container);
     }
     for (FConstraintInstance* Joint:Mesh->Constraints)
     {
@@ -351,11 +364,47 @@ void UHumanoidKnockdownComponent::TunePhysics()
         // Dissipate joint rotation without pulling a corpse toward a T pose.
         Joint->SetAngularDriveMode(EAngularDriveMode::TwistAndSwing);
         Joint->SetOrientationDriveTwistAndSwing(false,false);
-        Joint->SetAngularVelocityDriveTwistAndSwing(true,true);
+        const FString ChildName=Joint->ConstraintBone1.ToString().ToLower();
+        // A robe is not a reason to retain an upright torso: let gravity settle
+        // the entire dead body, instead of damping only its legs less strongly.
+        const bool bRelaxWitchCorpse=bCorpse && bGroundCorpseFeet;
+        Joint->SetAngularVelocityDriveTwistAndSwing(bGroundCorpseFeet && !bCorpse,bGroundCorpseFeet && !bCorpse);
+        Joint->SetAngularVelocityDriveSLERP(false);
+        Joint->SetOrientationDriveSLERP(false);
+        if (bRelaxWitchCorpse && ChildName.StartsWith(TEXT("spine")))
+        {
+            Joint->SetAngularSwing1Limit(ACM_Limited,40.f);
+            Joint->SetAngularSwing2Limit(ACM_Limited,35.f);
+            Joint->SetAngularTwistLimit(ACM_Limited,25.f);
+        }
+        else if (bRelaxWitchCorpse && ChildName.StartsWith(TEXT("upperarm")))
+        {
+            // The live casting envelope is too narrow for a relaxed dead arm.
+            // Retain joint anchors and let gravity choose the rest orientation.
+            Joint->SetAngularSwing1Limit(ACM_Limited,95.f);
+            Joint->SetAngularSwing2Limit(ACM_Limited,75.f);
+            Joint->SetAngularTwistLimit(ACM_Limited,60.f);
+        }
+        else if (bRelaxWitchCorpse && ChildName.StartsWith(TEXT("lowerarm")))
+        {
+            Joint->SetAngularSwing1Limit(ACM_Limited,105.f);
+            Joint->SetAngularSwing2Limit(ACM_Limited,12.f);
+            Joint->SetAngularTwistLimit(ACM_Limited,20.f);
+        }
+        else if (bRelaxWitchCorpse && ChildName.StartsWith(TEXT("hand")))
+        {
+            Joint->SetAngularSwing1Limit(ACM_Limited,35.f);
+            Joint->SetAngularSwing2Limit(ACM_Limited,30.f);
+            Joint->SetAngularTwistLimit(ACM_Limited,25.f);
+        }
         Joint->SetAngularVelocityTarget(FVector::ZeroVector);
         Joint->SetAngularDriveParams(0.f,12.f,500.f);
-        // Projection teleports can fight ground contacts and inject another kick.
-        Joint->SetProjectionParams(false,0.f,0.f,8.f,30.f);
+        // The Witch's corpse asset has anatomical leg hinge frames. A bounded
+        // linear correction retains sewn-body connections without projecting
+        // limb rotations or forcing an upright reference pose.
+        const bool bConnectedWitchCorpse=bCorpse && bGroundCorpseFeet;
+        Joint->SetProjectionParams(bConnectedWitchCorpse,bConnectedWitchCorpse?.35f:0.f,0.f,
+            bConnectedWitchCorpse?2.f:8.f,bConnectedWitchCorpse?180.f:30.f);
         Joint->SetShockPropagationParams(false,0.f);
     }
 }
@@ -376,19 +425,21 @@ void UHumanoidKnockdownComponent::StartAnimatedFall(UAnimSequence* Clip, float S
 
 bool UHumanoidKnockdownComponent::FindGround(FHitResult& Ground) const
 {
-    auto* Mesh=BodyMesh(); if (!Mesh) return false;
-    const FVector At=Mesh->GetSocketLocation(PelvisBone);
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(HumanoidRecoveryGround),false,GetOwner());
-    FCollisionObjectQueryParams Objects; Objects.AddObjectTypesToQuery(ECC_WorldStatic); Objects.AddObjectTypesToQuery(ECC_WorldDynamic);
-    return GetWorld()->LineTraceSingleByObjectType(Ground,At+FVector(0,0,15),At-FVector(0,0,100),Objects,Query)
-        && Ground.ImpactNormal.Z>.35f && At.Z-Ground.ImpactPoint.Z<65.f;
+    if (Phase==EHumanoidKnockdownPhase::Physics)
+        return MonsterRagdollPhysics::FindSupport(BodyMesh(),Ground);
+    return MonsterRagdollPhysics::FindGround(BodyMesh(),PelvisBone,Ground);
 }
 
 void UHumanoidKnockdownComponent::StopPhysicsWithPose()
 {
     auto* Mesh=BodyMesh();
-    Mesh->SnapshotPose(FrozenPose);
+    const bool bPhysicalPose=Mesh->IsSimulatingPhysics();
+    // The post-physics skeleton may still be a frame behind the solver. Capture
+    // simulated bones directly before giving the snapshot player sole ownership.
+    MonsterRagdollPhysics::CapturePose(Mesh,FrozenPose);
     Mesh->PutAllRigidBodiesToSleep(); Mesh->SetSimulatePhysics(false); Mesh->SetAllBodiesSimulatePhysics(false);
+    Mesh->SetAllBodiesPhysicsBlendWeight(0.f);
+    PhysicsHandoff.FramesRemaining=0;
     if (bBudgetOwned) { GetWorld()->GetSubsystem<UHumanoidRagdollBudget>()->Release(this); bBudgetOwned=false; }
     Mesh->KinematicBonesUpdateType=EKinematicBonesUpdateToPhysics::SkipSimulatingBones;
     Mesh->bPauseAnims=false;
@@ -397,6 +448,22 @@ void UHumanoidKnockdownComponent::StopPhysicsWithPose()
     Mesh->SetCollisionObjectType(ECC_Pawn);
     Mesh->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
     Mesh->TickAnimation(0.f,false); Mesh->RefreshBoneTransforms();
+    if (!bPhysicalPose && !Cast<AWitchRebuiltMonster>(GetOwner()))
+    {
+        MonsterRagdollPhysics::GroundAnimatedPose(Mesh);
+        Mesh->SnapshotPose(FrozenPose);
+        PosePlayer()->HoldSnapshot(FrozenPose);
+        Mesh->TickAnimation(0.f,false); Mesh->RefreshBoneTransforms();
+    }
+    if (bCorpse && !bPhysicalPose) if (const auto* Witch=Cast<AWitchRebuiltMonster>(GetOwner()))
+    {
+        // Only the animation fallback needs procedural grounding. A real
+        // physical corpse keeps the solver's contact pose, without a second
+        // spine/foot/neck solver rotating it after its rigid bodies stop.
+        Witch->GroundCorpsePose(FrozenPose);
+        PosePlayer()->HoldSnapshot(FrozenPose);
+        Mesh->TickAnimation(0.f,false); Mesh->RefreshBoneTransforms();
+    }
 }
 
 void UHumanoidKnockdownComponent::FreezeCorpse()
@@ -407,13 +474,13 @@ void UHumanoidKnockdownComponent::FreezeCorpse()
     N->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     Mesh->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
     RestoreAnimatedCapsule();
-    Mesh->SuspendClothingSimulation();
-    Mesh->SetComponentTickEnabled(false);
     Phase=EHumanoidKnockdownPhase::FrozenCorpse;
     SetComponentTickEnabled(false);
+    MonsterRagdollPhysics::RetireCorpseTicks(Mesh);
 }
 bool UHumanoidKnockdownComponent::CanReleaseCorpseBudget() const
-{ return bCorpse && bGrounded && StableAge>.1f && Phase==EHumanoidKnockdownPhase::Physics && PhaseAge>.65f; }
+{ return bCorpse && bGrounded && StableAge>.65f &&
+    Phase==EHumanoidKnockdownPhase::Physics && PhaseAge>2.f; }
 void UHumanoidKnockdownComponent::FreezeForBudget() { if (CanReleaseCorpseBudget()) FreezeCorpse(); }
 
 bool UHumanoidKnockdownComponent::TryGetUp()
@@ -422,7 +489,7 @@ bool UHumanoidKnockdownComponent::TryGetUp()
     auto* N=Humanoid(); auto* Mesh=BodyMesh();
     FHitResult Floor;
     if (!GetUpClip || !FindGround(Floor) || Floor.ImpactNormal.Z<N->GetCharacterMovement()->GetWalkableFloorZ()) return false;
-    const bool bFaceDown=Mesh->GetSocketTransform(PelvisBone).TransformVectorNoScale(PelvisLocalFront).Z<0;
+    const bool bFaceDown=MonsterRagdollPhysics::BoneWorldTransform(Mesh,PelvisBone).TransformVectorNoScale(PelvisLocalFront).Z<0;
     UAnimSequence* RecoveryClip=bFaceDown && ProneGetUpClip?ProneGetUpClip.Get():GetUpClip.Get();
     FRotator Facing; FVector Candidate;
     if (!FindRecoverySpace(RecoveryClip,Floor,Facing,Candidate)) return false;
@@ -434,8 +501,7 @@ bool UHumanoidKnockdownComponent::TryGetUp()
     Mesh->AttachToComponent(Capsule,FAttachmentTransformRules::KeepWorldTransform);
     Mesh->SetRelativeTransform(StandingMeshRelative);
     // Express the captured physical root in the new capsule/mesh frame before blending.
-    if (FrozenPose.LocalTransforms.Num())
-        FrozenPose.LocalTransforms[0]=FrozenPose.LocalTransforms[0]*OldWorld*Mesh->GetComponentTransform().Inverse();
+    MonsterRagdollPhysics::RebasePose(FrozenPose,OldWorld,Mesh->GetComponentTransform());
     Mesh->SetComponentTickEnabled(true); Mesh->bPauseAnims=false;
     PlayingClip=RecoveryClip;
     RecoveryFloorPoint=Floor.ImpactPoint; RecoveryFloorNormal=Floor.ImpactNormal;
@@ -453,6 +519,7 @@ void UHumanoidKnockdownComponent::RestoreCollision()
     RestoreAnimatedCapsule();
     auto* Mesh=BodyMesh();
     Mesh->SetCollisionEnabled(StandingMeshCollision);
+    Mesh->bUpdateJointsFromAnimation=bStandingUpdateJointsFromAnimation;
     Mesh->SetCollisionObjectType(StandingObjectType); Mesh->SetCollisionResponseToChannels(StandingResponses);
     Humanoid()->GetCapsuleComponent()->SetCollisionEnabled(StandingCapsuleCollision);
 }
@@ -460,6 +527,7 @@ void UHumanoidKnockdownComponent::RestoreCollision()
 void UHumanoidKnockdownComponent::FinishGetUp()
 {
     auto* N=Humanoid(); auto* Mesh=BodyMesh();
+    if (auto* Witch=Cast<AWitchRebuiltMonster>(N)) Witch->RestoreStandingPresentation();
     RestoreCollision();
     Mesh->SetForcedLOD(StandingLOD);
     Mesh->bPauseAnims=false;
@@ -479,6 +547,14 @@ void UHumanoidKnockdownComponent::TickComponent(float Dt,ELevelTick Type,FActorC
     auto* N=Humanoid(); auto* Mesh=BodyMesh();
     if (!N || !Mesh || !N->HasAuthority()) return;
     PhaseAge+=Dt; ProbeAge+=Dt;
+    if (Phase==EHumanoidKnockdownPhase::Physics)
+    {
+        MonsterRagdollPhysics::LimitHandoffSpeed(Mesh,PhysicsHandoff,Dt);
+        // The detached physical mesh stays in place while targeting follows the
+        // actual pelvis every frame, even when its animation pose is not refreshed.
+        N->SetActorLocation(MonsterRagdollPhysics::BoneWorldTransform(Mesh,PelvisBone).GetLocation(),
+            false,nullptr,ETeleportType::TeleportPhysics);
+    }
     if (Phase==EHumanoidKnockdownPhase::GettingUp)
     {
         if (FinishBlendAge>=0.f)
@@ -522,17 +598,13 @@ void UHumanoidKnockdownComponent::TickComponent(float Dt,ELevelTick Type,FActorC
     const float ProbeDt=ProbeAge; ProbeAge=0;
     if (Phase==EHumanoidKnockdownPhase::Physics)
     {
-        // Mesh is detached: move only the logical owner so HUD/targeting use the fallen location.
-        N->SetActorLocation(Mesh->GetSocketLocation(PelvisBone),false,nullptr,ETeleportType::TeleportPhysics);
         FHitResult Ground; bGrounded=FindGround(Ground);
-        bool bSlow=true;
-        for (const auto* Body:Mesh->Bodies)
-            if (Body && Body->IsInstanceSimulatingPhysics() &&
-                (Body->GetUnrealWorldVelocity().SizeSquared()>FMath::Square(20.f) ||
-                 Body->GetUnrealWorldAngularVelocityInRadians().SizeSquared()>FMath::Square(.5f))) { bSlow=false; break; }
+        const bool bPassiveCorpse=bCorpse && !bGroundCorpseFeet;
+        const bool bSlow=MonsterRagdollPhysics::IsSettled(Mesh,bPassiveCorpse?10.f:20.f,bPassiveCorpse?.3f:.5f);
         StableAge=bGrounded && bSlow?StableAge+ProbeDt:0.f;
         // Never freeze an airborne corpse solely because its wall-clock budget expired.
-        if ((StableAge>.35f && PhaseAge>.55f) || (bGrounded && PhaseAge>CorpseSettleDeadline))
+        if ((StableAge>(bCorpse?.65f:.35f) && PhaseAge>(bCorpse?2.f:.55f)) ||
+            (!bCorpse && bGrounded && PhaseAge>CorpseSettleDeadline))
         {
             if (bCorpse) { FreezeCorpse(); return; }
             StopPhysicsWithPose(); Phase=EHumanoidKnockdownPhase::Downed; PhaseAge=0;

@@ -124,8 +124,8 @@ bool UHumanoidKnockdownComponent::FindRecoverySpace(UAnimSequence* Clip,FHitResu
     if (Now<NextRecoveryProbe) return false;
     NextRecoveryProbe=Now+.35;
     auto* N=Humanoid(); auto* Mesh=BodyMesh(); auto* Capsule=N->GetCapsuleComponent();
-    const FVector Pelvis=Mesh->GetSocketLocation(PelvisBone);
-    const FVector Axis=(Mesh->GetSocketLocation(HeadBone)-Pelvis).GetSafeNormal2D();
+    const FVector Pelvis=MonsterRagdollPhysics::BoneWorldTransform(Mesh,PelvisBone).GetLocation();
+    const FVector Axis=(MonsterRagdollPhysics::BoneWorldTransform(Mesh,HeadBone).GetLocation()-Pelvis).GetSafeNormal2D();
     const FVector ClipPelvis=ClipBone(Clip,PelvisBone,0.f).GetLocation();
     const FVector ClipAxis=StandingMeshRelative.TransformVectorNoScale(ClipBone(Clip,HeadBone,0.f).GetLocation()-ClipPelvis).GetSafeNormal2D();
     const float BaseYaw=Axis.IsNearlyZero()?N->GetActorRotation().Yaw:Axis.Rotation().Yaw-ClipAxis.Rotation().Yaw;

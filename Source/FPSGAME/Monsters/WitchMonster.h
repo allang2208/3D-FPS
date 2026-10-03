@@ -19,6 +19,7 @@ public:
     virtual void Tick(float DeltaSeconds) override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     virtual bool CanCast(APawn* Candidate) const;
+    void ReleaseStaffOnDeath();
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Witch|Animation") TObjectPtr<UAnimSequence> CastClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Witch|Animation") TObjectPtr<UAnimSequence> ThrowClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Witch|Animation") TObjectPtr<UAnimSequence> DeathClip;
@@ -43,6 +44,12 @@ private:
     UWitchSpellAnimInstance* GetSpellAnimation();
     void ReleaseSpell();
     void StartRagdoll();
+    void SampleStaffMotion();
+    bool bStaffDropped = false;
+    double StaffSampleTime = -1.0;
+    FTransform PreviousStaffTransform = FTransform::Identity;
+    FVector StaffLinearVelocity = FVector::ZeroVector;
+    FVector StaffAngularVelocity = FVector::ZeroVector;
     bool bThrowing = false;
     bool bReleased = false;
     double NextMagicAt = 0.0;

@@ -25,3 +25,16 @@ before*/
 **/before*/
 baseline/
 UEAuthoring/
+
+# Pounce hand revision recipes; donor samples, binaries and local receipts stay local.
+!/pounce_takeoff_hands_v2_20261002/author_takeoff_hands.py
+!/pounce_forward_flip_v3_20261002/author_forward_flip.py
+!/pounce_forward_flip_v3_20261002/install_forward_flip.py
+!/pounce_forward_flip_v3_20261002/install_materialized_tracks.py
+!/pounce_forward_flip_v3_20261002/prepare_asset_save.py
+!/pounce_landing_wrist_v4_20261002/author_landing_wrist.py
+!/pounce_landing_wrist_v4_20261002/install_landing_wrist.py
+!/pounce_landing_wrist_v4_20261002/prepare_asset_save.py
+!/pounce_open_windup_v5_20261002/author_open_windup.py
+!/pounce_open_windup_v5_20261002/install_open_windup.py
+!/pounce_open_windup_v5_20261002/prepare_asset_save.py

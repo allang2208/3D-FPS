@@ -3,6 +3,7 @@
 #include "QuadrupedAnimationTemplate.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCombatTuning.h"
+#include "MonsterCorpseRagdollComponent.h"
 #include "MonsterAIController.h"
 #include "MonsterCharacterMovementComponent.h"
 #include "MonsterIdleBreathingMeshComponent.h"
@@ -27,11 +28,14 @@
 #include "UObject/ConstructorHelpers.h"
 
 AWolfMonster::AWolfMonster(const FObjectInitializer& ObjectInitializer)
-    : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(CharacterMovementComponentName).SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
+    : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(CharacterMovementComponentName)
+        .SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
     PrimaryActorTick.bCanEverTick = true;
     Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
     WoundAppearance = CreateDefaultSubobject<UZombieDogAppearanceComponent>(TEXT("WoundAppearance"));
+    CorpseRagdoll = CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
+    CorpseRagdoll->Rig = EMonsterCorpseRig::Canine;
     Combat->StaggerDuration = .45f;
     DeathAnimationFraction = MonsterCombatTuning::DeathAnimationFraction;
     GetCapsuleComponent()->InitCapsuleSize(34.f, 60.f);
@@ -376,16 +380,20 @@ void AWolfMonster::Tick(float DeltaSeconds)
     PounceCooldownLeft = FMath::Max(0.f, PounceCooldownLeft - DeltaSeconds);
     if (State == EWolfState::Dying)
     {
-        const float Handoff = ClipLength(TEXT("Death")) * FMath::Clamp(DeathAnimationFraction, 0.f, 1.f);
-        SampleAction(TEXT("Death"), FMath::Min(StateSeconds, bUseRagdoll ? Handoff : ClipLength(TEXT("Death"))));
-        if (bUseRagdoll && StateSeconds >= Handoff) EnterRagdoll();
+        const float End = ClipLength(TEXT("Death"));
+        const float Handoff = End * FMath::Clamp(DeathAnimationFraction, 0.f, 1.f);
+        const bool bTryPhysics = bUseRagdoll && !CorpseRagdoll->WasAttempted();
+        SampleAction(TEXT("Death"), FMath::Min(StateSeconds, bTryPhysics ? Handoff : End));
+        CorpseRagdoll->RecordDeathPose(GetMesh(), DeltaSeconds, true);
+        if (bTryPhysics && StateSeconds >= Handoff) EnterRagdoll();
+        if (State == EWolfState::Dying && (!bUseRagdoll || CorpseRagdoll->WasAttempted()) && StateSeconds >= End)
+        {
+            SampleAction(TEXT("Death"), End);
+            CorpseRagdoll->FreezeAnimatedPose(GetMesh()); State = EWolfState::Ragdoll;
+        }
         return;
     }
-    if (State == EWolfState::Ragdoll)
-    {
-        if (!bCorpseSleeping && StateSeconds > 5.f) { GetMesh()->PutAllRigidBodiesToSleep(); bCorpseSleeping = true; }
-        return;
-    }
+    if (State == EWolfState::Ragdoll) return;
     if (State == EWolfState::Stagger) { if (StateSeconds >= ReactionSeconds) Combat->FinishReaction(); return; }
     if (State == EWolfState::Recovery)
     {
@@ -461,11 +469,12 @@ float AWolfMonster::TakeDamage(float Damage, const FDamageEvent& Event, AControl
 void AWolfMonster::Die(AController* Killer)
 {
     if (Dead()) return;
+    CorpseRagdoll->PrepareDeath(GetMesh());
     bAttackConsumed = true; Target.Reset(); FinishPounceMovement();
     EnterState(EWolfState::Dying);
     GetCharacterMovement()->DisableMovement();
     GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-    GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
     if (auto* AI = Cast<AMonsterAIController>(GetController())) AI->UpdateKnowledge();
     SetLifeSpan(FMath::Max(CorpseSeconds, ClipLength(TEXT("Death")) + 3.f));
     if (auto* Player = Cast<APlayerController>(Killer))
@@ -476,19 +485,7 @@ void AWolfMonster::EnterRagdoll()
 {
     if (State != EWolfState::Dying) return;
     auto* Body = GetMesh();
-    if (!Body->GetPhysicsAsset()) { bUseRagdoll = false; return; }
-    SampleAction(TEXT("Death"), ClipLength(TEXT("Death")) * FMath::Clamp(DeathAnimationFraction, 0.f, 1.f));
-    Body->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
-    Body->SetCollisionProfileName(TEXT("Ragdoll"));
-    Body->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
-    Body->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
-    Body->bPauseAnims = true;
-    Body->KinematicBonesUpdateType = EKinematicBonesUpdateToPhysics::SkipAllBones;
-    Body->SetAllBodiesSimulatePhysics(true); Body->SetSimulatePhysics(true);
-    Body->SetAllPhysicsLinearVelocity(FVector::ZeroVector);
-    Body->SetAllPhysicsAngularVelocityInRadians(FVector::ZeroVector);
-    Body->WakeAllRigidBodies();
-    State = EWolfState::Ragdoll; StateSeconds = 0.f;
+    if (CorpseRagdoll->Start(Body)) { State = EWolfState::Ragdoll; StateSeconds = 0.f; }
 }
 void AWolfMonster::EndPlay(const EEndPlayReason::Type Reason)
 {

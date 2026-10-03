@@ -1,4 +1,5 @@
 #include "HundredEyedSlagMonster.h"
+#include "HumanoidRagdollBudget.h"
 #include "SlagBlackMist.h"
 #include "FPSCombatHealthComponent.h"
 #include "HandBrainMonster.h"
@@ -24,6 +25,11 @@ bool AHundredEyedSlagMonster::SpecialAttacking() const
 
 void AHundredEyedSlagMonster::EndPlay(const EEndPlayReason::Type Reason)
 {
+    if (bCorpseBudgetOwned)
+    {
+        if (auto* Budget = GetWorld()->GetSubsystem<UHumanoidRagdollBudget>()) Budget->Release(this);
+        bCorpseBudgetOwned = false;
+    }
     if (BackMist) { BackMist->StopEmission(); BackMist = nullptr; }
     ClearLaserFX();
     Super::EndPlay(Reason);

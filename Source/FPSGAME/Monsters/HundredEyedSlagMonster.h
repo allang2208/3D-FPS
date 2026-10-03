@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MonsterRagdollPhysics.h"
 #include "GameFramework/Character.h"
 #include "MonsterCoreStats.h"
 #include "HundredEyedSlagMonster.generated.h"
@@ -84,8 +85,14 @@ public:
     void StartHitPresentation();
     void SetHitPresentationTime(float Elapsed, float Remaining);
     void FinishHitReaction();
+    // Shared death-physics budget; living slag behavior keeps its own controller.
+    int32 SimulatedBodyCount() const { return bCorpseBudgetOwned ? CorpsePhysicsBodies : 0; }
+    bool CanReleaseCorpseBudget() const;
+    void FreezeForBudget();
     /** Offline asset authoring; the caller saves the returned package and mesh. */
     UFUNCTION(BlueprintCallable, Category="Slag|Authoring") static UPhysicsAsset* BuildFittedPhysicsAsset(USkeletalMesh* InMesh);
+    /** Repair an owned corpse PA copy; preserves fitted shapes and does not edit the mesh. */
+    UFUNCTION(BlueprintCallable, Category="Slag|Authoring") static UPhysicsAsset* RepairCorpsePhysicsAsset(USkeletalMesh* InMesh, UPhysicsAsset* InPhysics);
 
 private:
     UFatZombieAnimInstance* Animation() const;
@@ -99,6 +106,7 @@ private:
     void SweepVictims(FVector From, FVector To, float Radius, bool Magic);
     void DamageVictim(APawn* Victim, bool Magic);
     void EnterCorpse();
+    void FreezeCorpse(bool bFromPhysics);
     TWeakObjectPtr<APawn> Target;
     TSet<TWeakObjectPtr<APawn>> HitVictims;
     FName CurrentClip = NAME_None;
@@ -190,4 +198,11 @@ public:
     UPROPERTY(EditAnywhere, Category="Slag|Attack", meta=(ClampMin="100", Units="cm")) float SlamReach = 300.f;
     UPROPERTY(EditAnywhere, Category="Slag|Attack", meta=(ClampMin="1", Units="cm")) float SweepHitRadius = 90.f;
     UPROPERTY(EditAnywhere, Category="Slag|Attack", meta=(ClampMin="1", Units="cm")) float SlamHitRadius = 95.f;
+private:
+    FMonsterRagdollHandoff CorpseHandoff;
+    float CorpseProbeAge = 0.f;
+    float CorpseStableAge = 0.f;
+    bool bCorpseBudgetOwned = false;
+    bool bCorpseBudgetAttempted = false;
+    int32 CorpsePhysicsBodies = 0;
 };

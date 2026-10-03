@@ -4,6 +4,7 @@
 #include "../Combat/CoreCombatFormula.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Monsters/MonsterCombatComponent.h"
+#include "../Monsters/MonsterIdleBreathingMeshComponent.h"
 #include "../Monsters/PoisonMaggotProjectile.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Weapons/GunsmithSystem.h"
@@ -14,6 +15,7 @@
 #include "../FPSGAMECharacter.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
+#include "GameFramework/Character.h"
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -175,14 +177,21 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     WeaponHit.PhysicalPenetration=Shot.ArmorPenetration;WeaponHit.MagicPenetration=Shot.MagicPenetration;
     TGuardValue<CombatFormulaRuntime::WeaponHit*> DamageScope(CombatFormulaRuntime::ActiveWeaponHit,&WeaponHit);
 // 枪械默认不给怪物硬直：只有枪械目录显式声明 hit_stagger 的枪才关闭这道闸门。
-    // 闸门关闭时受击端只记住攻击者，不动状态机、韧性时钟或受击表现。
+    // 闸门关闭时受击端只记住攻击者，不动状态机、韧性时钟或硬直动作。
+    // 枪弹局部回弹单独叠到原姿态，不经过这道控制状态闸门。
     // 近战武器与手持枪械发动的近战打击（bMeleeStrike）不在闸门覆盖范围内：
     // 它们按原倍率进入受击端，否则削韧与硬直会被整段吞掉。
     bool bFirearmWithoutStagger=false;
+    bool bFirearmContact=false;
     const FString WeaponDefinition=Shot.ItemDefinition.IsEmpty()?(Equipped()?Equipped()->Definition:FString()):Shot.ItemDefinition;
     if(!Shot.bMelee&&!Shot.bMeleeStrike&&!WeaponDefinition.IsEmpty())
         if(auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>())
-            if(const auto* W=G->Weapon(WeaponDefinition))bFirearmWithoutStagger=!W->bHitStagger;
+            if(const auto* W=G->Weapon(WeaponDefinition))
+            {
+                bFirearmWithoutStagger=!W->bHitStagger;
+                bFirearmContact=!G->IsMelee(WeaponDefinition)&&!G->IsTool(WeaponDefinition)
+                    &&!G->IsStaff(WeaponDefinition)&&!G->IsBow(WeaponDefinition);
+            }
     auto ApplyDamage=[&](){ return UGameplayStatics::ApplyPointDamage(Victim,Amount,Direction,Hit,
         Pawn?Pawn->GetController():nullptr,Shooter,nullptr); };
     // 命中形式的唯一收口：所有武器命中都在这里标注，受击端据此折算削韧。
@@ -190,6 +199,13 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     auto ApplyToughness=[&](){return Combat?Combat->ApplyHitWithToughnessScale(Shot.ToughnessDamageMultiplier,ApplyDamage):ApplyDamage();};
     const float Applied=(Combat&&bFirearmWithoutStagger)?Combat->ApplyHitWithReactionScale(0.f,ApplyToughness):ApplyToughness();
     const bool bDirectKill=bAliveBefore&&Applied>0.f&&(!IsValid(Victim)||Victim->IsActorBeingDestroyed()||Combat->IsDead());
+    // Armor can absorb damage and still leave a visible contact. Lethal hits
+    // yield entirely to the existing death/ragdoll presentation.
+    if(bFirearmContact&&bAliveBefore&&Amount>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()
+        &&Victim->HasAuthority()&&!Combat->IsDead())
+        if(const auto* Character=Cast<ACharacter>(Victim))
+            if(auto* Mesh=Cast<UMonsterIdleBreathingMeshComponent>(Character->GetMesh()))
+                Mesh->AddGunHitFeedback(Hit,Direction,FMath::Max(Applied,1.f));
     // One contact, one captured ammo effect. Armor reducing the direct damage
     // to zero does not cancel a hit; status immunity still rejects the effect.
     if(Combat&&Victim->HasAuthority()&&!Combat->IsDead())

@@ -120,6 +120,8 @@ UPhysicsAsset* AHundredEyedSlagMonster::BuildFittedPhysicsAsset(USkeletalMesh* I
         C.SetAngularSwing1Limit(ContainerJoint ? ACM_Locked : ACM_Limited,Limits.X);
         C.SetAngularSwing2Limit(ContainerJoint ? ACM_Locked : ACM_Limited,Limits.Y);
         C.SetAngularTwistLimit(ContainerJoint ? ACM_Locked : ACM_Limited,Limits.Z); C.SetDisableCollision(true);
+        // Serialize saves DefaultProfile, not the temporary editor instance.
+        Joint->SetDefaultProfile(C);
         Asset->ConstraintSetup.Add(Joint); Asset->DisableCollision(I,Asset->FindBodyIndex(C.ConstraintBone2));
     }
     // Prevent interpenetrating reference hit volumes from explosively separating at handoff.
@@ -130,6 +132,76 @@ UPhysicsAsset* AHundredEyedSlagMonster::BuildFittedPhysicsAsset(USkeletalMesh* I
     InMesh->SetPhysicsAsset(Asset); InMesh->MarkPackageDirty();
     UE_LOG(LogTemp,Display,TEXT("SLAG_FITTED_PHYSICS bodies=%d joints=%d mass_kg=103.5"),Asset->SkeletalBodySetups.Num(),Asset->ConstraintSetup.Num());
     return Asset;
+#else
+    return nullptr;
+#endif
+}
+
+UPhysicsAsset* AHundredEyedSlagMonster::RepairCorpsePhysicsAsset(USkeletalMesh* InMesh, UPhysicsAsset* InPhysics)
+{
+#if WITH_EDITOR
+    if (!InMesh || !InPhysics || InMesh->GetRefSkeleton().GetNum() == 0) return nullptr;
+    const auto& Ref = InMesh->GetRefSkeleton();
+    const FName ContainerBone = Ref.GetBoneName(0);
+    const int32 PelvisBone = Ref.FindBoneIndex(TEXT("pelvis"));
+    if (PelvisBone == INDEX_NONE) return nullptr;
+    InPhysics->Modify();
+    int32 ContainerIndex = InPhysics->FindBodyIndex(ContainerBone);
+    // V16 authored a body for an assumed name that is absent from this skeleton.
+    if (ContainerIndex == INDEX_NONE) ContainerIndex = InPhysics->FindBodyIndex(TEXT("Armature"));
+    USkeletalBodySetup* Container = ContainerIndex != INDEX_NONE ? InPhysics->SkeletalBodySetups[ContainerIndex].Get() : nullptr;
+    if (!Container)
+    {
+        Container = NewObject<USkeletalBodySetup>(InPhysics, NAME_None, RF_Transactional);
+        InPhysics->SkeletalBodySetups.Add(Container);
+    }
+    Container->Modify(); Container->BoneName = ContainerBone; Container->PhysicsType = PhysType_Default;
+    Container->CollisionTraceFlag = CTF_UseSimpleAsComplex;
+    Container->AggGeom.EmptyElements();
+    FKSphereElem Shape;
+    Shape.Radius = 2.f / FMath::Max(Ref.GetRefBonePose()[0].GetScale3D().GetAbsMax(), .001f);
+    Container->AggGeom.SphereElems.Add(Shape);
+    Container->DefaultInstance.SetCollisionProfileName(TEXT("Ragdoll"));
+    Container->DefaultInstance.SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    Container->DefaultInstance.SetMassOverride(2.f);
+    Container->DefaultInstance.LinearDamping = .65f; Container->DefaultInstance.AngularDamping = 1.8f;
+    Container->InvalidatePhysicsData(); Container->CreatePhysicsMeshes();
+    InPhysics->UpdateBodySetupIndexMap();
+    TArray<FTransform> Frames = Ref.GetRefBonePose();
+    for (int32 I = 0; I < Frames.Num(); ++I)
+        if (Ref.GetParentIndex(I) >= 0) Frames[I] = Frames[I] * Frames[Ref.GetParentIndex(I)];
+    for (const auto& JointPointer : InPhysics->ConstraintSetup)
+    {
+        auto* Joint = JointPointer.Get();
+        if (!Joint) continue;
+        Joint->Modify();
+        auto& C = Joint->DefaultInstance;
+        if (C.ConstraintBone2 == TEXT("Armature")) C.ConstraintBone2 = ContainerBone;
+        const bool ContainerJoint = C.ConstraintBone2 == ContainerBone;
+        C.SetLinearXLimit(LCM_Locked, 0.f); C.SetLinearYLimit(LCM_Locked, 0.f); C.SetLinearZLimit(LCM_Locked, 0.f);
+        const FString Name = C.ConstraintBone1.ToString();
+        const FVector Limits = Name.Contains(TEXT("upper")) ? FVector(65, 50, 35)
+            : Name.Contains(TEXT("lower")) ? FVector(55, 18, 15)
+            : Name.Contains(TEXT("palm")) ? FVector(30, 25, 20) : FVector(18, 18, 12);
+        C.SetAngularSwing1Limit(ContainerJoint ? ACM_Locked : ACM_Limited, Limits.X);
+        C.SetAngularSwing2Limit(ContainerJoint ? ACM_Locked : ACM_Limited, Limits.Y);
+        C.SetAngularTwistLimit(ContainerJoint ? ACM_Locked : ACM_Limited, Limits.Z);
+        C.SetDisableCollision(true);
+        if (ContainerJoint)
+        {
+            const FTransform Anchor(Frames[PelvisBone].GetRotation(), Frames[PelvisBone].GetLocation());
+            C.SetRefFrame(EConstraintFrame::Frame1, Anchor.GetRelativeTransform(Frames[PelvisBone]));
+            C.SetRefFrame(EConstraintFrame::Frame2, Anchor.GetRelativeTransform(Frames[0]));
+        }
+        // The old setters updated DefaultInstance only. UPhysicsConstraintTemplate
+        // replaces it with DefaultProfile during save, losing all authored limits.
+        Joint->SetDefaultProfile(C);
+        InPhysics->DisableCollision(InPhysics->FindBodyIndex(C.ConstraintBone1), InPhysics->FindBodyIndex(C.ConstraintBone2));
+    }
+    InPhysics->UpdateBoundsBodiesArray(); InPhysics->MarkPackageDirty();
+    UE_LOG(LogTemp, Display, TEXT("SLAG_CORPSE_PHYSICS_AUTHORED root=%s bodies=%d joints=%d"),
+        *ContainerBone.ToString(), InPhysics->SkeletalBodySetups.Num(), InPhysics->ConstraintSetup.Num());
+    return InPhysics;
 #else
     return nullptr;
 #endif
