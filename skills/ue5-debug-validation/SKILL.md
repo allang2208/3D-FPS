@@ -14,6 +14,7 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 - For imported maps, spawn/floating bugs and relocation, read [scene validation](references/scene-import-spawn-validation.md).
 - For changes that only reproduce in one editor session, whether a hot patch can carry a change, or assets reading back as None, read [live coding vs full build](references/live-coding-vs-full-build.md).
 - For materials that compile but render wrong (flat gradient, missing structure), read [material emissive probes](references/material-emissive-probes.md); one probe answers one question, gate quantities into spatial bands because auto-exposure normalizes constant colors.
+- For materials rendering uniform grey / default-material look, or offline render verification, read [material fallback and commandlet render harness](references/material-fallback-and-commandlet-render.md); the compile-error text sits right under the "Failed to compile" warning line, and -AllowCommandletRendering gates RT creation.
 - Reproduce issue with minimal steps.
 - Collect output log lines and relevant actor/asset state.
 - Classify fault domain: data, Blueprint, C++, networking, or editor config.

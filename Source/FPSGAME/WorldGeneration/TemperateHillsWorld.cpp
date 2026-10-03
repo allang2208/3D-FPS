@@ -444,20 +444,42 @@ bool ATemperateHillsWorld::TreeCandidate(int32 GX,int32 GY,FTemperatePlacement& 
     return !Out.Mesh.IsNull();
 }
 
-FString ATemperateHillsWorld::RockOreDefinition(uint32 Key)
+FString ATemperateHillsWorld::RockOreDefinition(uint32 Key, const FVector2D& At) const
 {
-    // Single source of truth for a rock candidate's mineral. TemperateHillsProduction
-    // resolves rewards from the same formula, so what the vein material shows and
-    // what the pickaxe drops can never drift apart.
-    const uint32 Pick=Key%100;
+    // Single source of truth for a rock candidate's mineral; the resolve side
+    // (rewards) and the render side (vein variant mesh) must call it with the
+    // same candidate position or what the player sees and digs would drift.
+    //
+    // 2026-09-30 spatial weighting (user rule): ore concentrates around rocky
+    // terrain and river beds instead of scattering evenly. Weight = base sprinkle
+    // + slope + the same dry-gravel patch field the ground material paints (so
+    // stony-looking ground actually carries ore) + river corridor bonus.
+    auto Smooth=[](double T){T=FMath::Clamp(T,0.0,1.0);return T*T*(3-2*T);};
+    double Weight=0.08;
+    const FVector N=SurfaceNormal(At.X,At.Y);
+    Weight+=Smooth((1.0-N.Z)*2.4)*.45;                       // steep ground = rocky terrain
+    const double WX=At.X+Noise(At.X*.0004,At.Y*.0004,1411)*650;   // ground material's
+    const double WY=At.Y+Noise(At.X*.0004,At.Y*.0004,1417)*650;   // dry-gravel patch field
+    const double Patch=Noise(WX*.0000405,WY*.0000405,1459)*.5+.5;
+    Weight+=Smooth((.58-Patch)/.40)*.40;
+    if(RiverPlan)
+    {
+        const auto R=RiverPlan->Sample(At.X,At.Y);
+        if(R.Wet>.3||R.Distance<R.HalfWidth)Weight+=.55;    // in the wet bed / channel
+        else if(R.Bank<.5)Weight+=.25*(1.-R.Bank);          // floodplain falloff
+    }
+    const uint32 Roll=Key%1000;
+    if(Roll>=uint32(FMath::Clamp(Weight,0.0,1.0)*1000))return FString();
+    const uint32 Pick=(Key/1000)%100;
     return Pick<25?TEXT("iron_ore"):Pick<37?TEXT("copper_ore"):Pick<41?TEXT("silver_ore"):Pick<43?TEXT("gold_ore"):TEXT("");
 }
 
-FSoftObjectPath ATemperateHillsWorld::OreRockVariantMesh(uint32 Key)
+FSoftObjectPath ATemperateHillsWorld::OreRockVariantMesh(uint32 Key, const FVector2D& At) const
 {
-    const uint32 Pick=Key%100;
-    if(Pick>=43)return FSoftObjectPath();
-    const TCHAR* Suffix=Pick<25?TEXT("Iron"):Pick<37?TEXT("Copper"):Pick<41?TEXT("Silver"):TEXT("Gold");
+    const FString Ore=RockOreDefinition(Key,At);
+    if(Ore.IsEmpty())return FSoftObjectPath();
+    const TCHAR* Suffix=Ore==TEXT("iron_ore")?TEXT("Iron"):Ore==TEXT("copper_ore")?TEXT("Copper"):
+        Ore==TEXT("silver_ore")?TEXT("Silver"):TEXT("Gold");
     return FSoftObjectPath(FString::Printf(
         TEXT("/Game/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_%s.SM_LS_Rock_00A_%s"),Suffix,Suffix));
 }
@@ -507,14 +529,17 @@ void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<F
             if(TrunkOverlap)continue;
             const TArray<TSoftObjectPtr<UStaticMesh>>& List=Layer==1?Assets->Rocks:(Layer==2?Assets->Shrubs:Assets->Grass);
             if(List.IsEmpty())continue;
-            const double Scale=Layer==1?.7+TemperateHills::Unit(K+5)*1.4:(Layer==2?.65+TemperateHills::Unit(K+5)*.5:.65+TemperateHills::Unit(K+5)*.6);
-            const FQuat Rotation=FQuat(N,TemperateHills::Unit(K+4)*2*PI)*FQuat::FindBetweenNormals(FVector::UpVector,N);
+            // Slope stones span small collectible boulders up to unmineable cliff
+            // masses: the pickaxe gate rejects instance radius > 500 cm, and the
+            // old 0.7 floor kept every slope stone above it (nothing was minable).
+            const double Scale=Layer==1?.30+TemperateHills::Unit(K+5)*1.70:(Layer==2?.65+TemperateHills::Unit(K+5)*.5:.65+TemperateHills::Unit(K+5)*.6);
+            const FQuat Rotation=FQuat(N,TemperateHills::Unit(K+4)*2*PI)*FQuat(FQuat::FindBetweenNormals(FVector::UpVector,N));
             P.Transform=FTransform(Rotation,FVector(X,Y,Height(X,Y)-(Layer==1?35:3)),FVector(Scale));
             P.Mesh=List[K%List.Num()].ToSoftObjectPath();P.Key=K;P.CandidateId=TemperateHills::CellId(GX,GY);
             // Ore-bearing candidates swap to the vein variant mesh (one shared shape,
             // per-mineral material). Pure stones keep the four-mesh rotation.
             if(Layer==1)
-                if(const FSoftObjectPath Vein=OreRockVariantMesh(K);Vein.IsValid())P.Mesh=Vein;
+                if(const FSoftObjectPath Vein=OreRockVariantMesh(K,FVector2D(X,Y));Vein.IsValid())P.Mesh=Vein;
         }
         const FVector Pos=P.Transform.GetLocation();
         if(Layer<=1&&IsProductionDepleted(Layer,P.CandidateId))continue;
@@ -537,14 +562,16 @@ void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<F
             if(River.Bank<.65||River.Distance>River.HalfWidth+550||River.Distance<River.HalfWidth*.3)continue;
             if(TemperateHills::Unit(K+3)>(River.Wet>.7?.22:.48))continue;
             const FVector N=SurfaceNormal(X,Y);if(N.Z<.90)continue;
-            const double Scale=.45+TemperateHills::Unit(K+5)*.60;
-            const FQuat Rotation=FQuat(N,TemperateHills::Unit(K+4)*2*PI)*FQuat::FindBetweenNormals(FVector::UpVector,N);
+            // Bed stones stay mostly under the 500 cm mineable-radius gate so the
+            // corridor is where collectible river ore actually comes from.
+            const double Scale=.30+TemperateHills::Unit(K+5)*.45;
+            const FQuat Rotation=FQuat(N,TemperateHills::Unit(K+4)*2*PI)*FQuat(FQuat::FindBetweenNormals(FVector::UpVector,N));
             FTemperatePlacement P;
             const auto& Rock=Assets->RiverRocks[K%Assets->RiverRocks.Num()];
             const double Base=Rock.IsValid()?Rock.Get()->GetBoundingBox().Min.Z:0;
             P.Transform=FTransform(Rotation,FVector(X,Y,Height(X,Y)-(Base+18)*Scale),FVector(Scale));
             P.Mesh=Rock.ToSoftObjectPath();P.Key=K;
-            if(const FSoftObjectPath Vein=OreRockVariantMesh(K);Vein.IsValid())P.Mesh=Vein;
+            if(const FSoftObjectPath Vein=OreRockVariantMesh(K,FVector2D(X,Y));Vein.IsValid())P.Mesh=Vein;
             P.CandidateId=TemperateHills::CellId(GX,GY)^0x4000000000000000ULL;
             if(IsProductionDepleted(1,P.CandidateId))continue;
             Out.Add(P);

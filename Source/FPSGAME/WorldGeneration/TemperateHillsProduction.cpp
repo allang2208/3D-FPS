@@ -103,7 +103,8 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
         if (Tree) { Resource.Name=TEXT("树木"); Resource.Rewards.Add(TEXT("wood"),4); Resource.MaxHealth=ProductionTreeHealth::MaxHealth(Resource); }
         else
         {
-            const FString Ore=RockOreDefinition(Candidate.Key);
+            const FString Ore=RockOreDefinition(Candidate.Key,
+                FVector2D(Candidate.Transform.GetLocation()));
             Resource.Name=Ore==TEXT("iron_ore")?TEXT("含铁岩块"):Ore==TEXT("copper_ore")?TEXT("含铜岩块"):
                 Ore==TEXT("silver_ore")?TEXT("含银岩块"):Ore==TEXT("gold_ore")?TEXT("含金岩块"):TEXT("石块");
             Resource.Rewards.Add(TEXT("stone"),Ore.IsEmpty()?3:1);

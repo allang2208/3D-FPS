@@ -183,10 +183,11 @@ public:
     void GetPlacements(int32 Layer, const FBox& Bounds, TArray<FTemperatePlacement>& Out, bool IncludeRegrowth=false) const;
     uint32 LayoutHash(int32 Layer) const;
     /** 岩块候选的矿种定义（iron_ore/copper_ore/silver_ore/gold_ore，空=纯石）。渲染外观
-     *  （矿脉变体网格）与采集掉落必须共用这一份判定，否则看见的矿和挖出的矿会不一致。 */
-    static FString RockOreDefinition(uint32 Key);
+     *  （矿脉变体网格）与采集掉落必须共用这一份判定，否则看见的矿和挖出的矿会不一致。
+     *  2026-09-30 空间加权：矿围绕岩石地貌（地表碎石斑+坡度）与河床带富集，At 为候选格心。 */
+    FString RockOreDefinition(uint32 Key, const FVector2D& At) const;
     /** 含矿岩块的矿脉变体网格（SM_LS_Rock_00A_Iron 族，材质分矿种）；纯石返回空路径。 */
-    static FSoftObjectPath OreRockVariantMesh(uint32 Key);
+    FSoftObjectPath OreRockVariantMesh(uint32 Key, const FVector2D& At) const;
     FString ProductionResourceId(int32 Layer,uint64 Candidate) const;
     bool IsProductionDepleted(int32 Layer,uint64 Candidate) const;
     void GetHarvestedStumps(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;
