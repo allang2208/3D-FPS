@@ -106,4 +106,8 @@ def build():
             for v in value:yield from paths(v)
     module['runtime_assets']=sorted(set(paths(actors)))
     module=runpy.run_path(str(ROOT/'WallArt/Scripts/author_layout.py'))['apply'](module)
+    hospital=ROOT.parent/'HospitalContainers20261003'
+    receipt=hospital/'Receipts/assets.json'
+    if receipt.exists() and read(receipt).get('stage')=='assets_saved':
+        module=runpy.run_path(str(hospital/'Scripts/catalog_rules.py'))['extend_module'](module)
     return module

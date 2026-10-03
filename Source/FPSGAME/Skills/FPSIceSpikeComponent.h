@@ -11,6 +11,7 @@ class USoundBase;
 class UNiagaraSystem;
 class UColdSteelStatusModel;
 class UFPSFireballComponent;
+struct FIceSpikeCast;
 
 UCLASS(ClassGroup=(Skills),meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UFPSIceSpikeComponent : public UActorComponent
@@ -35,6 +36,12 @@ public:
     bool IsAimPreviewActive() const {return bAimPreview;}
     void Cancel();
     void InterruptPending(bool bCancelPrepared);
+    // ── 联机：服务端入口/远端回填/回执收尾 ──
+    AFPSIceSpikeVolley* SpawnVolleyForCast(APawn* Caster,const FIceSpikeCast& Snapshot);
+    void AdoptNetVolley(AFPSIceSpikeVolley* Volley);
+    void NetCastPrepared(uint8 Phase);
+    void NetCastRejected(uint8 Phase,uint8 Code);
+    void NetCastCancelled(uint8 Phase);
 protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
@@ -51,6 +58,9 @@ private:
     TWeakObjectPtr<AFPSIceSpikeVolley> Active;
     bool bQueuedGather=false,bQueuedRelease=false;
     bool bAimPreview=false;
+    /** 联机客人：凝聚已上报、服务端齐射还在复制路上。 */
+    bool bNetExpect=false;
+    double NetExpectAt=-100.0;
     FString Message;
     double MessageUntil=0;
     FFPSLeftHandNotice HandNotice;

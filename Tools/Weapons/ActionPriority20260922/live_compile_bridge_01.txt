@@ -1,0 +1,2 @@
+[node] E5FA180543FC4309D0D0C48E78513F89  success=False
+[{'type': 'Error', 'output': 'Traceback (most recent call last):'}, {'type': 'Error', 'output': '  File "D:/FPS3D/FPSGAME/Tools/Weapons/ActionPriority20260922/live_compile.py", line 9, in <module>'}, {'type': 'Error', 'output': "    raise RuntimeError('The editor is running PIE; keep that game session intact')"}, {'type': 'Error', 'output': 'RuntimeError: The editor is running PIE; keep that game session intact'}]

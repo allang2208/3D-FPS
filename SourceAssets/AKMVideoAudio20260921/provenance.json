@@ -1,0 +1,52 @@
+{
+  "source_url": "https://www.bilibili.com/video/BV17VtT6REZr/",
+  "source_creator": "LAZERH",
+  "source_sha256": "9744f3aca9f23d71ced0b60249c8d906a42c0eac3ea507d3d6874dd40cc0bec1",
+  "request": "User requested fire near 6:12 and reload/charging at 6:17-6:19.",
+  "rights": "User-directed local extraction; third-party rights retained. No redistribution license established.",
+  "notes": "Mixed video soundtrack, not isolated stems. Roles adapted to AKM. Not auditioned.",
+  "cues": [
+    {
+      "name": "S_AKM_Fire",
+      "source_start": 373.04,
+      "source_end": 373.435,
+      "duration": 0.395,
+      "peak": 1.0
+    },
+    {
+      "name": "S_AKM_MagOut",
+      "source_start": 377.0,
+      "source_end": 377.19,
+      "duration": 0.19,
+      "peak": 0.211395263671875
+    },
+    {
+      "name": "S_AKM_MagInsert",
+      "source_start": 377.28,
+      "source_end": 377.445,
+      "duration": 0.165,
+      "peak": 0.221435546875
+    },
+    {
+      "name": "S_AKM_MagSeat",
+      "source_start": 377.45,
+      "source_end": 377.66,
+      "duration": 0.21,
+      "peak": 0.026123046875
+    },
+    {
+      "name": "S_AKM_ChargePull",
+      "source_start": 377.935,
+      "source_end": 378.185,
+      "duration": 0.25,
+      "peak": 0.3140869140625
+    },
+    {
+      "name": "S_AKM_ChargeRelease",
+      "source_start": 378.195,
+      "source_end": 378.46,
+      "duration": 0.265,
+      "peak": 0.34136962890625
+    }
+  ]
+}

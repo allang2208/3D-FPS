@@ -1,0 +1,16 @@
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" FPSGAMEEditor Win64 Development -Project=D:/FPS3D/FPSGAME/FPSGAME.uproject -NoHotReload -NoHotReloadFromIDE -Log=D:/FPS3D/FPSGAME/SourceAssets/ThirdPersonTwoHandSword20261003/build-fix-editor.log
+Log file: D:\FPS3D\FPSGAME\SourceAssets\ThirdPersonTwoHandSword20261003\build-fix-editor.log
+Determining max actions to execute in parallel (16 physical cores, 16 logical cores)
+  Executing up to 16 processes, one per physical core
+Using 'git status' to determine working set for adaptive non-unity build (D:\FPS3D\FPSGAME).
+UbaServer - Listening on 0.0.0.0:1345
+Invalidating makefile for FPSGAMEEditor (source file added)
+UHT compiled-in object format Default
+Waiting for 'git status' command to complete
+D:\FPS3D\FPSGAME\Source\FPSGAME\Monsters\HangingBellM09.h(77): Error: Function parameter: 'Mesh' cannot be defined in 'BuildPhysics' as it is already defined in scope 'ACharacter' (shadowing is not allowed)
+Unhandled 1 aggregate exceptions
+
+Result: Failed (OtherCompilationError)
+Total execution time: 6.26 seconds
+Trace written to file C:\Users\allan\AppData\Local\UnrealBuildTool\Trace.uba with size 2.8kb

@@ -1,0 +1,379 @@
+{
+  "segments": {
+    "pinky_1": {
+      "vertices": 337,
+      "other_digit_weight_max": 0.4392157047986984,
+      "over_5_percent": 138
+    },
+    "thumb_1": {
+      "vertices": 428,
+      "other_digit_weight_max": 0.5529412105679512,
+      "over_5_percent": 229
+    },
+    "thumb_2": {
+      "vertices": 277,
+      "other_digit_weight_max": 0.20000001043081284,
+      "over_5_percent": 27
+    },
+    "index_1": {
+      "vertices": 353,
+      "other_digit_weight_max": 0.47058826871216297,
+      "over_5_percent": 161
+    },
+    "middle_1": {
+      "vertices": 310,
+      "other_digit_weight_max": 0.545098077505827,
+      "over_5_percent": 202
+    },
+    "ring_1": {
+      "vertices": 335,
+      "other_digit_weight_max": 0.5333333630114794,
+      "over_5_percent": 173
+    },
+    "pinky_2": {
+      "vertices": 182,
+      "other_digit_weight_max": 0,
+      "over_5_percent": 0
+    },
+    "pinky_3": {
+      "vertices": 278,
+      "other_digit_weight_max": 0,
+      "over_5_percent": 0
+    },
+    "thumb_3": {
+      "vertices": 264,
+      "other_digit_weight_max": 0,
+      "over_5_percent": 0
+    },
+    "middle_2": {
+      "vertices": 182,
+      "other_digit_weight_max": 0,
+      "over_5_percent": 0
+    },
+    "middle_3": {
+      "vertices": 252,
+      "other_digit_weight_max": 0,
+      "over_5_percent": 0
+    },
+    "ring_2": {
+      "vertices": 158,
+      "other_digit_weight_max": 0,
+      "over_5_percent": 0
+    },
+    "ring_3": {
+      "vertices": 252,
+      "other_digit_weight_max": 0,
+      "over_5_percent": 0
+    },
+    "index_2": {
+      "vertices": 182,
+      "other_digit_weight_max": 0,
+      "over_5_percent": 0
+    },
+    "index_3": {
+      "vertices": 252,
+      "other_digit_weight_max": 0,
+      "over_5_percent": 0
+    }
+  },
+  "distal_cross_weights": [
+    {
+      "index": 5394,
+      "dominant": "thumb_02_l",
+      "other": 0.07450981065630913,
+      "weights": {
+        "hand_l": 0.027450982481241226,
+        "index_metacarpal_l": 0.0470588281750679,
+        "middle_metacarpal_l": 0.027450982481241226,
+        "thumb_01_l": 0.40000003576278687,
+        "thumb_02_l": 0.49803924560546875
+      }
+    },
+    {
+      "index": 5395,
+      "dominant": "thumb_02_l",
+      "other": 0.07450980879366398,
+      "weights": {
+        "hand_l": 0.011764707043766975,
+        "index_metacarpal_l": 0.05490196496248245,
+        "middle_metacarpal_l": 0.019607843831181526,
+        "thumb_01_l": 0.2823529541492462,
+        "thumb_02_l": 0.6313725709915161
+      }
+    },
+    {
+      "index": 5396,
+      "dominant": "thumb_02_l",
+      "other": 0.05490196589380503,
+      "weights": {
+        "index_metacarpal_l": 0.0470588281750679,
+        "middle_metacarpal_l": 0.007843137718737125,
+        "thumb_01_l": 0.2352941334247589,
+        "thumb_02_l": 0.7098039388656616
+      }
+    },
+    {
+      "index": 5397,
+      "dominant": "thumb_02_l",
+      "other": 0.1098039261996746,
+      "weights": {
+        "hand_l": 0.0313725508749485,
+        "index_metacarpal_l": 0.07450980693101883,
+        "middle_metacarpal_l": 0.03529411926865578,
+        "thumb_01_l": 0.37254902720451355,
+        "thumb_02_l": 0.4862745404243469
+      }
+    },
+    {
+      "index": 5399,
+      "dominant": "thumb_02_l",
+      "other": 0.07058823853731155,
+      "weights": {
+        "index_metacarpal_l": 0.07058823853731155,
+        "thumb_01_l": 0.2352941334247589,
+        "thumb_02_l": 0.6941176652908325
+      }
+    },
+    {
+      "index": 5400,
+      "dominant": "thumb_02_l",
+      "other": 0.05882353335618973,
+      "weights": {
+        "index_metacarpal_l": 0.05882353335618973,
+        "thumb_01_l": 0.20000001788139343,
+        "thumb_02_l": 0.7411764860153198
+      }
+    },
+    {
+      "index": 5401,
+      "dominant": "thumb_02_l",
+      "other": 0.062745101749897,
+      "weights": {
+        "index_metacarpal_l": 0.062745101749897,
+        "thumb_01_l": 0.18039216101169586,
+        "thumb_02_l": 0.7568628191947937
+      }
+    },
+    {
+      "index": 5402,
+      "dominant": "thumb_02_l",
+      "other": 0.0784313753247261,
+      "weights": {
+        "index_metacarpal_l": 0.0784313753247261,
+        "thumb_01_l": 0.21568629145622253,
+        "thumb_02_l": 0.7058823704719543
+      }
+    },
+    {
+      "index": 5403,
+      "dominant": "thumb_02_l",
+      "other": 0.12549020536243916,
+      "weights": {
+        "hand_l": 0.02352941408753395,
+        "index_metacarpal_l": 0.11372549831867218,
+        "middle_metacarpal_l": 0.011764707043766975,
+        "thumb_01_l": 0.27843138575553894,
+        "thumb_02_l": 0.572549045085907
+      }
+    },
+    {
+      "index": 5404,
+      "dominant": "thumb_02_l",
+      "other": 0.1254902072250843,
+      "weights": {
+        "hand_l": 0.02352941408753395,
+        "index_metacarpal_l": 0.09803922474384308,
+        "middle_metacarpal_l": 0.027450982481241226,
+        "thumb_01_l": 0.3019607961177826,
+        "thumb_02_l": 0.5490196347236633
+      }
+    },
+    {
+      "index": 5405,
+      "dominant": "thumb_02_l",
+      "other": 0.19607843831181526,
+      "weights": {
+        "hand_l": 0.03529411926865578,
+        "index_metacarpal_l": 0.16862745583057404,
+        "middle_metacarpal_l": 0.027450982481241226,
+        "thumb_01_l": 0.3333333432674408,
+        "thumb_02_l": 0.43529415130615234
+      }
+    },
+    {
+      "index": 5406,
+      "dominant": "thumb_02_l",
+      "other": 0.12156863138079643,
+      "weights": {
+        "hand_l": 0.0313725508749485,
+        "index_metacarpal_l": 0.08627451211214066,
+        "middle_metacarpal_l": 0.03529411926865578,
+        "thumb_01_l": 0.3490196168422699,
+        "thumb_02_l": 0.49803924560546875
+      }
+    },
+    {
+      "index": 5407,
+      "dominant": "thumb_02_l",
+      "other": 0.20000001043081284,
+      "weights": {
+        "hand_l": 0.04313725605607033,
+        "index_metacarpal_l": 0.15294118225574493,
+        "middle_metacarpal_l": 0.0470588281750679,
+        "thumb_01_l": 0.364705890417099,
+        "thumb_02_l": 0.3921568989753723
+      }
+    },
+    {
+      "index": 7160,
+      "dominant": "thumb_02_l",
+      "other": 0.062745101749897,
+      "weights": {
+        "hand_l": 0.011764707043766975,
+        "index_metacarpal_l": 0.062745101749897,
+        "thumb_01_l": 0.3450980484485626,
+        "thumb_02_l": 0.5803921818733215
+      }
+    },
+    {
+      "index": 7334,
+      "dominant": "thumb_02_l",
+      "other": 0.0784313753247261,
+      "weights": {
+        "index_metacarpal_l": 0.0784313753247261,
+        "thumb_01_l": 0.21568629145622253,
+        "thumb_02_l": 0.7058823704719543
+      }
+    },
+    {
+      "index": 7336,
+      "dominant": "thumb_02_l",
+      "other": 0.062745101749897,
+      "weights": {
+        "index_metacarpal_l": 0.062745101749897,
+        "thumb_01_l": 0.18039216101169586,
+        "thumb_02_l": 0.7568628191947937
+      }
+    },
+    {
+      "index": 7337,
+      "dominant": "thumb_02_l",
+      "other": 0.05882353335618973,
+      "weights": {
+        "index_metacarpal_l": 0.05882353335618973,
+        "thumb_01_l": 0.1725490242242813,
+        "thumb_02_l": 0.7686275243759155
+      }
+    },
+    {
+      "index": 7339,
+      "dominant": "thumb_02_l",
+      "other": 0.12549020536243916,
+      "weights": {
+        "hand_l": 0.02352941408753395,
+        "index_metacarpal_l": 0.11372549831867218,
+        "middle_metacarpal_l": 0.011764707043766975,
+        "thumb_01_l": 0.27843138575553894,
+        "thumb_02_l": 0.572549045085907
+      }
+    },
+    {
+      "index": 7340,
+      "dominant": "thumb_02_l",
+      "other": 0.05098039656877518,
+      "weights": {
+        "index_metacarpal_l": 0.05098039656877518,
+        "thumb_01_l": 0.16470588743686676,
+        "thumb_02_l": 0.7843137979507446
+      }
+    },
+    {
+      "index": 7343,
+      "dominant": "thumb_02_l",
+      "other": 0.11372549831867218,
+      "weights": {
+        "hand_l": 0.019607843831181526,
+        "index_metacarpal_l": 0.11372549831867218,
+        "thumb_01_l": 0.27843138575553894,
+        "thumb_02_l": 0.5882353186607361
+      }
+    },
+    {
+      "index": 7344,
+      "dominant": "thumb_02_l",
+      "other": 0.19607843831181526,
+      "weights": {
+        "hand_l": 0.03529411926865578,
+        "index_metacarpal_l": 0.16862745583057404,
+        "middle_metacarpal_l": 0.027450982481241226,
+        "thumb_01_l": 0.3333333432674408,
+        "thumb_02_l": 0.43529415130615234
+      }
+    },
+    {
+      "index": 7346,
+      "dominant": "thumb_02_l",
+      "other": 0.11372549831867218,
+      "weights": {
+        "hand_l": 0.02352941408753395,
+        "index_metacarpal_l": 0.11372549831867218,
+        "thumb_01_l": 0.2862745225429535,
+        "thumb_02_l": 0.5764706134796143
+      }
+    },
+    {
+      "index": 7347,
+      "dominant": "thumb_02_l",
+      "other": 0.1843137312680483,
+      "weights": {
+        "hand_l": 0.03529411926865578,
+        "index_metacarpal_l": 0.1725490242242813,
+        "middle_metacarpal_l": 0.011764707043766975,
+        "thumb_01_l": 0.3490196168422699,
+        "thumb_02_l": 0.43137258291244507
+      }
+    },
+    {
+      "index": 7349,
+      "dominant": "thumb_02_l",
+      "other": 0.1098039299249649,
+      "weights": {
+        "hand_l": 0.02352941408753395,
+        "index_metacarpal_l": 0.1098039299249649,
+        "thumb_01_l": 0.3333333432674408,
+        "thumb_02_l": 0.5333333611488342
+      }
+    },
+    {
+      "index": 8890,
+      "dominant": "thumb_02_l",
+      "other": 0.062745101749897,
+      "weights": {
+        "index_metacarpal_l": 0.062745101749897,
+        "thumb_01_l": 0.18039216101169586,
+        "thumb_02_l": 0.7568628191947937
+      }
+    },
+    {
+      "index": 8894,
+      "dominant": "thumb_02_l",
+      "other": 0.05882353335618973,
+      "weights": {
+        "index_metacarpal_l": 0.05882353335618973,
+        "thumb_01_l": 0.20000001788139343,
+        "thumb_02_l": 0.7411764860153198
+      }
+    },
+    {
+      "index": 8902,
+      "dominant": "thumb_02_l",
+      "other": 0.05490196589380503,
+      "weights": {
+        "index_metacarpal_l": 0.0470588281750679,
+        "middle_metacarpal_l": 0.007843137718737125,
+        "thumb_01_l": 0.2352941334247589,
+        "thumb_02_l": 0.7098039388656616
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "variant": "LongGrip",
+  "revision": "OpenPalmGuard20260926",
+  "clips": {
+    "Guard": {
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Guard",
+      "seconds": 0.20000000298023224,
+      "frames": 97,
+      "source_sha256": "ecb9b0f340b89eea40759c45934a27a2b5e7541f2dce1beb934d8594bf1d9e8f"
+    },
+    "GuardHit": {
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_GuardHit",
+      "seconds": 0.22083333134651184,
+      "frames": 107,
+      "source_sha256": "4460e037113f40ed8ec970e4c7a02bac38fdf7ba9d25a5f3dd96c5eb6ce2cdb7"
+    },
+    "GuardBreak": {
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_GuardBreak",
+      "seconds": 0.4000000059604645,
+      "frames": 193,
+      "source_sha256": "22d5f9e9b0839bb0b63b16abe8065b79bcfd4f62449a21d58ab9d880d1b630f3"
+    }
+  },
+  "editable_visible_mesh": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ModularOutfit20260925\\BarePalmV7\\Editable\\RuneSword_BareArmsV7.blend",
+  "rendered_or_tested": false
+}

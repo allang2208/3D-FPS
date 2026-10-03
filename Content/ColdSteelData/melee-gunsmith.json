@@ -819,15 +819,18 @@
           "description": "唐刀专属柄尾。环侧宽端直接收向尖端的八面锥；连续折线鎏金甲框、后段小型龙云浮雕、锻钢水波纹与磨亮棱线。",
           "effects": [
             {
-              "text": "八面收尖锥体 · 连续折线鎏金甲框",
-              "benefit": 0
+              "text": "快速近战命中敌人后施加物理易伤，持续15秒；重复命中刷新，不叠加",
+              "benefit": 1
             },
             {
-              "text": "后段龙云浮雕 · 分区锻钢与古金材质",
-              "benefit": 0
+              "text": "物理易伤：目标受到的物理伤害提高20%",
+              "benefit": 1
             }
           ],
-          "stats": {}
+          "stats": {
+            "quick_combat_physical_vulnerability_bonus": 0.2,
+            "quick_combat_physical_vulnerability_seconds": 15
+          }
         },
         {
           "id": "tiger_mountain",
@@ -835,18 +838,21 @@
           "weapons": [
             "ue_tang_dao"
           ],
-          "description": "唐刀专属柄尾。上部圆厚、下颌折面收束的虎首与卷云鬃纹实体浮雕、封闭口腔内壁和独立獠牙、红石虎目与冠带、云环尾扣、分层云纹套筒及红石止口边带。",
+          "description": "唐刀专属柄尾。饱满后脑与后鬃，短阔下颌鬃与侧颊连续衔接，虎口侧缘后退、虎目内嵌侧转，长鬃向后下方流转，保留穹顶红石冠与云环接座。",
           "effects": [
             {
-              "text": "张口虎首 · 深腔与独立獠牙",
-              "benefit": 0
+              "text": "快速近战命中敌人后施加虎啸，持续6秒；重复命中刷新，不叠加",
+              "benefit": 1
             },
             {
-              "text": "卷云鬃纹浮雕 · 红石虎目和冠带",
-              "benefit": 0
+              "text": "虎啸：冲击、利器、钝器的韧性抵抗归零，受到的韧性伤害提高25%",
+              "benefit": 1
             }
           ],
-          "stats": {}
+          "stats": {
+            "quick_combat_tiger_roar_toughness_bonus": 0.25,
+            "quick_combat_tiger_roar_seconds": 6
+          }
         }
       ]
     }

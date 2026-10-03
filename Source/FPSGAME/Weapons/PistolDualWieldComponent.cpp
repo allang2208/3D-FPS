@@ -12,6 +12,8 @@
 #include "FPSWeaponFXComponent.h"
 #include "FPSBallisticsComponent.h"
 #include "WeaponStatEvaluation.h"
+#include "ColdSteelEnchantmentCombat.h"
+#include "../UI/ColdSteelEnhancementSystem.h"
 #include "DanWesson715WeaponAssets.h"
 #include "RSH12WeaponAssets.h"
 #include "ASH12WeaponAssets.h"
@@ -128,7 +130,6 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
     auto Clip=[&](const FString& Kind)
     {
         if(auto* Shared=SharedQuickClip(Kind)){H.Clips.Add(Kind,Shared);return;}
-        if(Item.Definition==RSH12WeaponAssets::Definition && Kind==TEXT("fire")){H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*RSH12WeaponAssets::DualFirePath(Index)));return;}
         if(PitViper){H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*PitViper2011WeaponAssets::DualAnimationPath(Index,Kind)));return;}
         if(G18){H.Clips.Add(Kind,LoadObject<UAnimSequence>(nullptr,*G18WeaponAssets::DualAnimationPath(Index,Kind)));return;}
         const TCHAR* Revision=Kind.StartsWith(TEXT("sprint"))?TEXT("/SprintSmoothV5/Animations/A_"):TEXT("/NaturalAimV3/Animations/A_");
@@ -163,7 +164,7 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
             :FString::Printf(TEXT("/Game/Weapons/AKM/Audio/S_AKM_%s"),CueName);
         if(!H.Revolver && FString(CueName).StartsWith(TEXT("Mag")))Path=FString::Printf(TEXT("/Game/Weapons/M4HK416Audio/S_HK416_%s"),CueName);
         if(!H.Revolver && FString(CueName)==TEXT("Equip"))Path=TEXT("/Game/Weapons/M4AnimationAuditFinal/S_HK416_Equip");
-        if(Item.Definition==RSH12WeaponAssets::Definition && FString(CueName)==TEXT("Fire"))Path=ASH12WeaponAssets::FireSoundPath;
+        if(Item.Definition==RSH12WeaponAssets::Definition && FString(CueName)==TEXT("Fire"))Path=RSH12WeaponAssets::SoundPath(TEXT("Fire"));
         if(PitViper)Path=PitViper2011WeaponAssets::SoundPath(CueName);
         if(G18)Path=G18WeaponAssets::SoundPath(CueName);
         H.Sounds.Add(CueName,LoadObject<USoundBase>(nullptr,*Path));
@@ -256,6 +257,7 @@ void UPistolDualWieldComponent::RefreshEquipment(UColdSteelStatusModel* Model)
     for(int32 Side=FirstHand();Side<2;++Side)
     {
         auto& H=Hands[Side];H.Item=Side?*Off:*Main;
+        H.FX->SetBigBlindEnabled(ColdSteelCombat::BigBlind(Player->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),&H.Item).Enabled);
         const auto Parts=G->Installed(H.Item);
         H.Stats=G->Calculate(H.Item.Definition,Parts);
         H.Stats.Damage=ColdSteelWeaponStats::Damage(H.Item,Profile,H.Stats.Damage)*Profile->AmmoDamageMultiplier(H.Item);
@@ -264,7 +266,8 @@ void UPistolDualWieldComponent::RefreshEquipment(UColdSteelStatusModel* Model)
         H.Stats.EmptyReload=ColdSteelWeaponStats::Reload(&H.Item,Profile,H.Stats.EmptyReload);
         H.Rounds=FMath::Clamp(H.Item.Magazine,0,H.Stats.Capacity);
         H.Cases=H.Revolver?FMath::Clamp(int32(ColdSteelInventory::Number(H.Item,TEXT("revolver_case_count"),H.Rounds)),H.Rounds,H.Stats.Capacity):H.Rounds;
-        H.Speedloader=H.Revolver && Parts.FindRef(TEXT("reload_device"))==TEXT("dw715_speedloader");
+        H.Speedloader=H.Revolver && Parts.FindRef(TEXT("reload_device"))==
+            (H.Item.Definition==RSH12WeaponAssets::Definition?RSH12WeaponAssets::Speedloader:DanWesson715WeaponAssets::Speedloader);
         H.Suppressed=Parts.FindRef(TEXT("muzzle"))==TEXT("tactical_suppressor") || Parts.FindRef(TEXT("muzzle"))==TEXT("true") || Parts.FindRef(TEXT("muzzle"))==TEXT("multi_caliber_suppressor");
         // Right FX uses the primary attachment interface, left FX uses its own copied exit.
         H.FX->IndependentSuppressed=H.Suppressed;
@@ -347,13 +350,7 @@ void UPistolDualWieldComponent::StartAction(int32 Index,const FString& Name,floa
 }
 bool UPistolDualWieldComponent::IsSingleActionCocking() const
 {
-    if(!bActive)return false;
-    for(int32 Side=FirstHand();Side<Hands.Num();++Side)
-    {
-        const auto& H=Hands[Side];
-        if(H.Item.Definition==RSH12WeaponAssets::Definition && H.Action && H.Action==H.Clips.FindRef(TEXT("fire"))
-            && GetWorld()->GetTimeSeconds()<H.ActionStarted+H.Action->GetPlayLength()/FMath::Max(.01f,H.ActionRate))return true;
-    }
+    // Retained API for existing callers; all current revolvers use double action.
     return false;
 }
 void UPistolDualWieldComponent::StopAction(int32 Index)
@@ -625,12 +622,6 @@ void UPistolDualWieldComponent::Advance(float Delta)
         {
             const float Previous=H.ActionTime/FMath::Max(.001f,H.Action->GetPlayLength())*H.SourceLength;
             H.ActionTime=FMath::Max(H.ActionTime,float(GetWorld()->GetTimeSeconds()-H.ActionStarted)*H.ActionRate);
-            if(H.Item.Definition==RSH12WeaponAssets::Definition && H.Action==H.Clips.FindRef(TEXT("fire"))
-                && H.ActionTime>=RSH12WeaponAssets::CockLatch && !H.PlayedCues.Contains(TEXT("RSH12CockLatch")))
-            {
-                if(auto* Sound=H.Sounds.FindRef(TEXT("DryClick")).Get())UGameplayStatics::PlaySound2D(this,Sound,.65f);
-                H.PlayedCues.Add(TEXT("RSH12CockLatch"));
-            }
             if(H.Reloading)AdvanceReload(Side,Previous);
             if(H.Action && H.ActionTime>=H.Action->GetPlayLength())
             {
@@ -712,7 +703,7 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
     // Shot recoil: one spring set per hand, sampled through the same
     // camera-space conversion as the single-pistol rig and mirrored for the left
     // hand. The authored fire clip and the ballistic pattern stay untouched.
-    Player->AdvanceDualWieldHandRecoil(Index,H.Revolver,H.Stats.Handling,Delta);
+    Player->AdvanceDualWieldHandRecoil(Index,H.Revolver,ColdSteelCombat::ComposureHandling(Player,H.Stats.Handling),Delta);
     FVector KickOffset,KickAngles;Player->GetDualWieldHandRecoil(Index,KickOffset,KickAngles);
     const float SecondaryWeight=QuickAction?1.f-H.Anim->ActionAlpha:1.f;
     Offset*=SecondaryWeight;KickOffset*=SecondaryWeight;KickAngles*=SecondaryWeight;

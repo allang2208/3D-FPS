@@ -1,0 +1,20 @@
+{
+  "/Game/Weapons/ExtMagPattern20260919/Surface/SM_ExtMag_M440": [
+    {
+      "slot": "Magazine Light_001",
+      "material": "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+    }
+  ],
+  "/Game/Weapons/ExtMagPattern20260919/Surface/SM_ExtMag_QBZ40": [
+    {
+      "slot": "M_QBZ191_Wear_Magazine",
+      "material": "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+    }
+  ],
+  "/Game/Weapons/ExtMagContact20260919/SM_ExtMag_AKM40_Closed": [
+    {
+      "slot": "M_AKM_Soviet_Magazine",
+      "material": "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+    }
+  ]
+}

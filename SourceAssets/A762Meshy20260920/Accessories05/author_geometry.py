@@ -1,5 +1,5 @@
 """Fit common parts to A762's authored interfaces; keep accepted main surfaces."""
-import bpy,bmesh,json,math,shutil
+import bpy,bmesh,json,math,runpy,shutil
 from pathlib import Path
 from mathutils import Matrix,Vector
 O=Path(__file__).parent;D=O/'Exports';D.mkdir(exist_ok=True)
@@ -52,6 +52,24 @@ for key,info in sources['meshes'].items():
     'sockets':{},'source':'A762ReceiverGrip20261001 continuous fitted neck; no cuboid tang'}
    print('A762_PART_AUTHORED',key,'ReceiverGrip08',flush=True)
    continue
+ if key=='drum':
+  # This part has its own authored well interface. Never deform the AKM neck
+  # again when regenerating the common accessory batch.
+  joint=O.parents[1]/'A762DrumJoint20260926'
+  runpy.run_path(str(joint/'prepare_geometry.py'),run_name='__main__')
+  runpy.run_path(str(joint/'author_drum.py'),run_name='__main__')
+  shutil.copy2(joint/'Exports/SM_A762_drum.fbx',D/'SM_A762_drum.fbx')
+  shutil.copy2(joint/'SM_A762_drum.blend',O/'SM_A762_drum.blend')
+  materials={
+   'A762_drum_0':'/Game/Weapons/LargeDrumUpgrade20260920/AKM/M_AKM_DrumSurface',
+   'A762_drum_1':'/Game/Weapons/A762/Accessories05/Materials/M_A762_drum_1',
+   'A762_drum_2':'/Game/Weapons/LargeDrumUpgrade20260920/AKM/M_AKM_DrumSurface',
+   'A762_drum_Neck':'A762_FACTORY_MAGAZINE_FINISH',
+   'A762_drum_Inside':'A762_FACTORY_MAGAZINE_INTERIOR'}
+  report['meshes'][key]={'name':'SM_A762_drum','materials':materials,'sockets':{},
+   'source':'A762DrumJoint20260926: preserved drum, continuous closed tower and seated well interface'}
+  print('A762_PART_AUTHORED',key,flush=True)
+  continue
  bpy.ops.wm.read_factory_settings(use_empty=True)
  bpy.ops.import_scene.fbx(filepath=info['source'][0]);obs=[o for o in bpy.context.scene.objects if o.type=='MESH']
  materials={};source_slots=info['materials']
@@ -84,18 +102,6 @@ for key,info in sources['meshes'].items():
  if key in ['laser','flashlight']:
   mat=material('A762_'+key+'_Interface');materials[mat.name]='A762_STEEL'
   obs.append(cube('A762_SideRailSaddle',(.025,-.310,.062),(.007,.071,.018),mat))
- if key=='drum':
-  # SUPERSEDED (2026-09-25): this smoothstep-blended affine remap creases the feed
-  # tower and squeezes it to 58 mm where the A762 magazine is 72 mm deep, which is
-  # the visible "twisted" joint the user reported.  The shipping SM_A762_drum is
-  # authored by SourceAssets/A762DrumNeck20260925/author_drum.py instead (straight
-  # linear ramp, envelope taken from the A762 factory magazine).  Re-running this
-  # block would restore the creased neck; port the rebuild before doing so.
-  for ob in obs:
-   for v in ob.data.vertices:
-    t=max(0,min(1,(v.co.z-.045)/.030));t=t*t*(3-2*t)
-    v.co.y=(1-t)*v.co.y+t*(.0448+(v.co.y-.0197)*.87)
-    v.co.x=(1-t)*v.co.x+t*(.00048+(v.co.x-.00076)*.90)
  name='SM_A762_'+key
  export(obs,name)
  sockets={}

@@ -7,6 +7,7 @@
 #include "DevelopmentPanelWidget.generated.h"
 
 class UDevelopmentSpawnComponent;
+class UDevelopmentItemPicker;
 class UColdSteelHUDWidget;
 class AFPSWeatherManager;
 class UWidgetSwitcher;
@@ -109,11 +110,11 @@ private:
     UFUNCTION() UWidget* GenerateMonsterOption(FString Item);
     UFUNCTION() UWidget* GenerateListOption(FString Item);
     UFUNCTION() void MonsterSelected(FString Name, ESelectInfo::Type Type);
-    UFUNCTION() void ItemSelected(FString Name, ESelectInfo::Type Type);
+    UFUNCTION() void ItemSelected(const FString& Definition);
     UFUNCTION() void SkillSelected(FString Name, ESelectInfo::Type Type);
     UPROPERTY(Transient) TObjectPtr<UWidgetSwitcher> Pages;
     UPROPERTY(Transient) TObjectPtr<UComboBoxString> MonsterChoice;
-    UPROPERTY(Transient) TObjectPtr<UComboBoxString> ItemChoice;
+    UPROPERTY(Transient) TObjectPtr<UDevelopmentItemPicker> ItemChoice;
     UPROPERTY(Transient) TObjectPtr<UComboBoxString> SkillChoice;
     UPROPERTY(Transient) TObjectPtr<USpinBox> CountBox;
     UPROPERTY(Transient) TObjectPtr<USpinBox> DistanceBox;

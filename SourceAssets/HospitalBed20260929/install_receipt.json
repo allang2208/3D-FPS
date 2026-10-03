@@ -1,0 +1,64 @@
+{
+  "mesh": "/Game/Props/HospitalBed20260929/SM_HospitalBed",
+  "source": "Sketchfab f8c13a19e84343e7b644c19f7b9488d3 by loxfear",
+  "license": "CC-BY-4.0, credit required: 'Hospital Bed' by loxfear (sketchfab.com/loxfear), licensed under CC-BY-4.0",
+  "license_file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalBed20260929\\license.txt",
+  "textures": [
+    "T_HospitalBed_FrameBaseColor",
+    "T_HospitalBed_FrameMR",
+    "T_HospitalBed_LinenBaseColor",
+    "T_HospitalBed_LinenMR",
+    "T_HospitalBed_LinenNormal"
+  ],
+  "materials": {
+    "M_HospitalBed_Pillow": "/Game/Props/HospitalBed20260929/Materials/M_HospitalBed_Pillow",
+    "M_HospitalBed_Linen": "/Game/Props/HospitalBed20260929/Materials/M_HospitalBed_Linen",
+    "M_HospitalBed_Frame": "/Game/Props/HospitalBed20260929/Materials/M_HospitalBed_Frame"
+  },
+  "verify": {
+    "slots": [
+      {
+        "slot": "Frame",
+        "material": "/Game/Props/HospitalBed20260929/Materials/M_HospitalBed_Frame.M_HospitalBed_Frame"
+      },
+      {
+        "slot": "Linen",
+        "material": "/Game/Props/HospitalBed20260929/Materials/M_HospitalBed_Linen.M_HospitalBed_Linen"
+      },
+      {
+        "slot": "Pillow",
+        "material": "/Game/Props/HospitalBed20260929/Materials/M_HospitalBed_Pillow.M_HospitalBed_Pillow"
+      }
+    ],
+    "triangles": "ERR type object 'EditorStaticMeshLibrary' has no attribute 'get_lod_triangle_count'",
+    "bounds": {
+      "min": [
+        -93.3,
+        -61.3,
+        0.0
+      ],
+      "max": [
+        93.3,
+        61.3,
+        139.3
+      ]
+    }
+  },
+  "saved": true,
+  "game_tested": false,
+  "acceptance_rendered": false,
+  "source_gltf_sha256": "858c49b52c61a2766c33d220f3ecc0e62bd22c7aee1a428cce3d72a86f55f473",
+  "acceptance": {
+    "material_wiring": "verified programmatically (verify_report.json): all property inputs connected, sampler types match compression (COLOR/MASKS/NORMAL)",
+    "bounds_cm": [
+      186.6,
+      122.7,
+      139.3
+    ],
+    "floor_pivot_z0": true,
+    "forward_axis": "+X (length), headboard at -X",
+    "visual_ue_render": "NOT possible in bare commandlet (render target released); verify visually on first editor open",
+    "visual_source_render": "SourceAssets/HospitalBed20260929/verify/bed_source_render.png (Blender EEVEE of original glTF, matches Sketchfab presentation)",
+    "collision": "auto box on import"
+  }
+}

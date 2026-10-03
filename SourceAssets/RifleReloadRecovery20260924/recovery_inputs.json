@@ -1,0 +1,155 @@
+{
+  "pid": 30948,
+  "clips": {
+    "SVD/base/idle": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Complete20260923/Animations/A_SVD_idle",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDHandRepair20260923/Animations/A_SVD_idle.fbx",
+      "duration": 0.0416666679084301
+    },
+    "SVD/base/reload": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Complete20260923/Animations/A_SVD_reload",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDThumbUp20260923/Animations/A_SVD_reload.fbx",
+      "duration": 3.3333332538604736
+    },
+    "SVD/base/reload_empty": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Complete20260923/Animations/A_SVD_reload_empty",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDChargeGrasp20260924/Animations/A_SVD_reload_empty.fbx",
+      "duration": 4.291666507720947
+    },
+    "SVD/vertical/idle": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_vertical_idle",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDHandRepair20260923/Animations/A_SVD_vertical_idle.fbx",
+      "duration": 0.0416666679084301
+    },
+    "SVD/vertical/reload": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_vertical_reload",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDThumbUp20260923/Animations/A_SVD_vertical_reload.fbx",
+      "duration": 3.3333332538604736
+    },
+    "SVD/vertical/reload_empty": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_vertical_reload_empty",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDChargeGrasp20260924/Animations/A_SVD_vertical_reload_empty.fbx",
+      "duration": 4.291666507720947
+    },
+    "SVD/canted/idle": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_canted_idle",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDHandRepair20260923/Animations/A_SVD_canted_idle.fbx",
+      "duration": 0.0416666679084301
+    },
+    "SVD/canted/reload": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_canted_reload",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDThumbUp20260923/Animations/A_SVD_canted_reload.fbx",
+      "duration": 3.3333332538604736
+    },
+    "SVD/canted/reload_empty": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_canted_reload_empty",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDChargeGrasp20260924/Animations/A_SVD_canted_reload_empty.fbx",
+      "duration": 4.291666507720947
+    },
+    "SVD/prism/idle": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_prism_idle",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDHandRepair20260923/Animations/A_SVD_prism_idle.fbx",
+      "duration": 0.0416666679084301
+    },
+    "SVD/prism/reload": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_prism_reload",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDThumbUp20260923/Animations/A_SVD_prism_reload.fbx",
+      "duration": 3.3333332538604736
+    },
+    "SVD/prism/reload_empty": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_prism_reload_empty",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDChargeGrasp20260924/Animations/A_SVD_prism_reload_empty.fbx",
+      "duration": 4.291666507720947
+    },
+    "SVD/angled/idle": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_angled_idle",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDHandRepair20260923/Animations/A_SVD_angled_idle.fbx",
+      "duration": 0.0416666679084301
+    },
+    "SVD/angled/reload": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_angled_reload",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDThumbUp20260923/Animations/A_SVD_angled_reload.fbx",
+      "duration": 3.3333332538604736
+    },
+    "SVD/angled/reload_empty": {
+      "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_angled_reload_empty",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/SVDChargeGrasp20260924/Animations/A_SVD_angled_reload_empty.fbx",
+      "duration": 4.291666507720947
+    },
+    "PKM/base/idle": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_idle",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/Wrist12/Exports/A_PKM_idle.fbx",
+      "duration": 1.0
+    },
+    "PKM/base/reload": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_reload",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/Reload16/Animations/base/A_PKM_reload.fbx",
+      "duration": 6.5
+    },
+    "PKM/base/reload_empty": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_reload_empty",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/Charge34/Animations/base/A_PKM_reload_empty.fbx",
+      "duration": 6.599999904632568
+    },
+    "PKM/vertical/idle": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_idle",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/GripContact15/Animations/vertical/A_PKM_vertical_idle.fbx",
+      "duration": 1.0
+    },
+    "PKM/vertical/reload": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_reload",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/Reload16/Animations/vertical/A_PKM_vertical_reload.fbx",
+      "duration": 6.5
+    },
+    "PKM/vertical/reload_empty": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_reload_empty",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/Charge34/Animations/vertical/A_PKM_vertical_reload_empty.fbx",
+      "duration": 6.599999904632568
+    },
+    "PKM/canted/idle": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_idle",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/GripContact15/Animations/canted/A_PKM_canted_idle.fbx",
+      "duration": 1.0
+    },
+    "PKM/canted/reload": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_reload",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/Reload16/Animations/canted/A_PKM_canted_reload.fbx",
+      "duration": 6.5
+    },
+    "PKM/canted/reload_empty": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_reload_empty",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/Charge34/Animations/canted/A_PKM_canted_reload_empty.fbx",
+      "duration": 6.599999904632568
+    },
+    "PKM/prism/idle": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_idle",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/GripContact15/Animations/prism/A_PKM_prism_idle.fbx",
+      "duration": 1.0
+    },
+    "PKM/prism/reload": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_reload",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/Reload16/Animations/prism/A_PKM_prism_reload.fbx",
+      "duration": 6.5
+    },
+    "PKM/prism/reload_empty": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_reload_empty",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/Charge34/Animations/prism/A_PKM_prism_reload_empty.fbx",
+      "duration": 6.599999904632568
+    },
+    "PKM/angled/idle": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_idle",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/GripContact15/Animations/angled/A_PKM_angled_idle.fbx",
+      "duration": 1.0
+    },
+    "PKM/angled/reload": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_reload",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/Reload16/Animations/angled/A_PKM_angled_reload.fbx",
+      "duration": 6.5
+    },
+    "PKM/angled/reload_empty": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_reload_empty",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/PKMLowpoly20260922/Charge34/Animations/angled/A_PKM_angled_reload_empty.fbx",
+      "duration": 6.599999904632568
+    }
+  }
+}

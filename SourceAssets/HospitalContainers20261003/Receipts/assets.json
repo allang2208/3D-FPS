@@ -1,0 +1,103 @@
+{
+  "meshes": {
+    "SM_Hospital_MedicalCart_Body": {
+      "path": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+      "source_sha256": "5ae7de04570d3e01f7482279e8eb8d9d27d8f0d39f4e9fa156d2dc687c99b459",
+      "triangles": 11948,
+      "nanite": true,
+      "collision": true
+    },
+    "SM_Hospital_MedicalCart_Drawer": {
+      "path": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+      "source_sha256": "51d7f1666099927a6fbeb94a4ea63edaec54c9028e1cb2654d8a988464012fc0",
+      "triangles": 1770,
+      "nanite": true,
+      "collision": false
+    },
+    "SM_Hospital_PatientBox_Body": {
+      "path": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body",
+      "source_sha256": "6ec7cfba4183aa5c5d5c30d0cc6048e8ee9ad876aba6e9c8877d8526d5372683",
+      "triangles": 8218,
+      "nanite": true,
+      "collision": true
+    },
+    "SM_Hospital_PatientBox_Lid": {
+      "path": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Lid",
+      "source_sha256": "97a862e8e994399d6a42681b75418dabe8b120d122cc3d485cc2c54aad81d8f1",
+      "triangles": 1128,
+      "nanite": true,
+      "collision": false
+    },
+    "SM_Hospital_FirstAid_Body": {
+      "path": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Body",
+      "source_sha256": "37622b390525f4659feff3e7213338572c1fc43a72281ed370211f79880bcc7a",
+      "triangles": 7192,
+      "nanite": true,
+      "collision": true
+    },
+    "SM_Hospital_FirstAid_Door": {
+      "path": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Door",
+      "source_sha256": "60c2d79aa942efcb080f00c7e2d245eb10d420bb925c222df3367818d2ed5ffc",
+      "triangles": 2350,
+      "nanite": false,
+      "collision": false
+    },
+    "SM_Hospital_InstrumentBox_Body": {
+      "path": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Body",
+      "source_sha256": "768395fe3f13af625fd331d0c18628a7b52feba8fdcf2dd7cc9f2b00485d29e9",
+      "triangles": 4466,
+      "nanite": true,
+      "collision": true
+    },
+    "SM_Hospital_InstrumentBox_Lid": {
+      "path": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Lid",
+      "source_sha256": "96a56415e8dc68be8dee9a160dc7504fe1920ca736c0027a57a93cd957dfc93d",
+      "triangles": 1128,
+      "nanite": true,
+      "collision": false
+    },
+    "SM_Hospital_SpecimenCase_Body": {
+      "path": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body",
+      "source_sha256": "44472ff14d362ef5b96c725447637ccfd5a7cdb96cb33d9a3aa3ac41694f9f10",
+      "triangles": 13650,
+      "nanite": false,
+      "collision": true
+    },
+    "SM_Hospital_SpecimenCase_Lid": {
+      "path": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Lid",
+      "source_sha256": "2d24c6c364ce05e27dd2f9f3974e98cd2fe3c413bdfb74964a666c633123d2f0",
+      "triangles": 1580,
+      "nanite": true,
+      "collision": false
+    },
+    "SM_Hospital_ToolBox_Body": {
+      "path": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body",
+      "source_sha256": "25c6f61156b52c3f693932116868f30ce1a4e88cae16f1b6eaa29cc376a9f21b",
+      "triangles": 8646,
+      "nanite": true,
+      "collision": true
+    },
+    "SM_Hospital_ToolBox_Lid": {
+      "path": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid",
+      "source_sha256": "72af93723f9aec47975b04c8f9c7474ec6d569df5d1fd3bc66d64c4bb9a8f189",
+      "triangles": 1580,
+      "nanite": true,
+      "collision": false
+    }
+  },
+  "materials": [
+    "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White",
+    "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue",
+    "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green",
+    "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red",
+    "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining",
+    "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels"
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "game_run": false,
+  "stage": "assets_saved",
+  "textures": [
+    "/Game/Dungeons/HospitalContainers20261003/Textures/T_Hospital_Labels"
+  ]
+}

@@ -6,7 +6,10 @@
 
 bool UFPSCharacterMovementComponent::StartDodge(const FVector& Direction, float DistanceCM, float DurationSeconds)
 {
-    if (!CharacterOwner || !UpdatedComponent || GetNetMode()!=NM_Standalone || IsDodging() ||
+    // 联机：闪避发起端是本地预测的自主代理（或 listen 主机 pawn）；远端副本不调用本函数——
+    // 闪避位移以 RootMotionSource 存进 SavedMove，服务端经 SavedRootMotion 自动回放。
+    if (!CharacterOwner || !UpdatedComponent || IsDodging() ||
+        !(CharacterOwner->IsLocallyControlled() || CharacterOwner->HasAuthority()) ||
         (!IsMovingOnGround() && !IsFalling()) || !FMath::IsFinite(DistanceCM) ||
         !FMath::IsFinite(DurationSeconds) || DistanceCM<=0.f || DurationSeconds<=UE_SMALL_NUMBER)
         return false;
@@ -35,15 +38,51 @@ bool UFPSCharacterMovementComponent::StartDodge(const FVector& Direction, float 
 
 bool UFPSCharacterMovementComponent::IsDodging() const
 {
-    return DodgeRootMotionId!=0 && GetWorld() &&
+    if (DodgeRootMotionId!=0 && GetWorld() &&
         GetWorld()->GetTimeSeconds()<DodgeStartedAt+ActiveDodgeDuration &&
-        (IsMovingOnGround() || IsFalling());
+        (IsMovingOnGround() || IsFalling()))
+        return true;
+    // 联机：远端玩家的闪避经 SavedMove 的 SavedRootMotion 抵达服务端/其他副本，
+    // 没有本地 DodgeRootMotionId——按激活源名判定（服务端无敌帧/动作门禁用依赖它）。
+    if (GetNetMode()==NM_Client)
+    {
+        const auto HasLiveDodge=[](const FRootMotionSourceGroup& Group)
+        {
+            for (const auto& Source : Group.RootMotionSources)
+                if (Source.IsValid() && Source->InstanceName==FName(TEXT("PlayerDodge"))
+                    && !Source->Status.HasFlag(ERootMotionSourceStatusFlags::MarkedForRemoval))
+                    return true;
+            return false;
+        };
+        if (HasLiveDodge(CurrentRootMotion)
+            || (CharacterOwner && HasLiveDodge(CharacterOwner->SavedRootMotion)))
+            return true;
+    }
+    return false;
 }
 
 float UFPSCharacterMovementComponent::GetDodgeProgress() const
 {
-    return DodgeRootMotionId && GetWorld()
-        ? FMath::Clamp(float((GetWorld()->GetTimeSeconds()-DodgeStartedAt)/ActiveDodgeDuration),0.f,1.f) : 0.f;
+    if (DodgeRootMotionId && GetWorld())
+        return FMath::Clamp(float((GetWorld()->GetTimeSeconds()-DodgeStartedAt)/ActiveDodgeDuration),0.f,1.f);
+    // 联机：远端副本没有本地 DodgeRootMotionId——闪避源经 SavedMove 到达，
+    // 按激活 RootMotionSource 的时长取进度，远端动画加权才不再恒 0。
+    if (GetNetMode() == NM_Client)
+    {
+        const auto Probe = [](const FRootMotionSourceGroup& Group, float& Out)
+        {
+            for (const auto& Source : Group.RootMotionSources)
+                if (Source.IsValid() && Source->InstanceName == FName(TEXT("PlayerDodge"))
+                    && !Source->Status.HasFlag(ERootMotionSourceStatusFlags::MarkedForRemoval)
+                    && Source->Duration > UE_SMALL_NUMBER)
+                { Out = FMath::Clamp(Source->GetTime() / Source->Duration, 0.f, 1.f); return true; }
+            return false;
+        };
+        float P = 0.f;
+        if (Probe(CurrentRootMotion, P) || (CharacterOwner && Probe(CharacterOwner->SavedRootMotion, P)))
+            return P;
+    }
+    return 0.f;
 }
 
 void UFPSCharacterMovementComponent::UpdateDodgeState()

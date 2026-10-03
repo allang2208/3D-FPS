@@ -1,0 +1,28 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMVideoAudio20260921\\S_AKM_Fire.wav",
+  "original_source": "https://www.bilibili.com/video/BV17VtT6REZr/ (373.040-373.435s)",
+  "source_sha256": "9260056da4cd41192e6caebe3839b78b8e6d6dbba8f2b5a5395a999251972ab9",
+  "rights": "Derived from user-selected LAZERH video; original rights retained, no public redistribution license established.",
+  "recipe": "AKM source only; filtered blast, retained low body/mechanics, short chamber returns; compensated source level.",
+  "sample_rate": 48000,
+  "channels": 2,
+  "duration_seconds": 0.395,
+  "pitch_multiplier": 1.0,
+  "runtime_volume_multiplier": "Same as normal AKM fire.",
+  "source_rms": 0.1698188190472032,
+  "source_weighted_rms": 0.16599082175673693,
+  "outputs": [
+    {
+      "asset": "S_AKM_Suppressed",
+      "wav": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMSuppressedAudio20260921\\S_AKM_Suppressed.wav",
+      "lowpass_hz": 2450,
+      "body_gain": 0.85,
+      "chamber_delay_seconds": 0.0065,
+      "master_drive": 1.3722401229824754,
+      "rms_db_relative_to_source": 0.6603540644161249,
+      "weighted_energy_db_relative_to_source": 0.0008685455404468304,
+      "sample_peak": 0.9246930070187616
+    }
+  ],
+  "listening_or_gameplay_tested": false
+}

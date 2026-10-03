@@ -23,6 +23,7 @@ UCLASS(ClassGroup=(Weapons),meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UStaffWeaponComponent : public UActorComponent
 {
     GENERATED_BODY()
+    friend class UFPSPlayerBodyComponent;
 public:
     UStaffWeaponComponent();
     virtual void BeginPlay() override;

@@ -84,7 +84,7 @@ void UProductionHarvestSubsystem::Burst(bool Wood,const FVector& At,uint32 Seed,
 }
 void UProductionHarvestSubsystem::Tick(float Delta)
 {
-    if(GetWorld()->GetNetMode()!=NM_Standalone)return;
+    if(GetWorld()->GetNetMode()==NM_Client)return;
     ScanCountdown-=Delta;if(ScanCountdown>0)return;ScanCountdown=.2f;
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);

@@ -85,6 +85,12 @@ def load_base(name,mat):
     obj=next(o for o in set(bpy.data.objects)-before if o.type=='MESH')
     obj.data.transform(obj.matrix_world);obj.matrix_world=Matrix.Identity(4);obj.name=name
     obj.data.materials.clear();obj.data.materials.append(mat)
+    if name=='MeteorBody':
+        # The revolved profile arrives closed but wound inward. Correct the
+        # load-bearing shell before beveling, baking or exporting it.
+        bm=bmesh.new();bm.from_mesh(obj.data)
+        bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces))
+        bm.to_mesh(obj.data);bm.free();obj.data.update()
     return put(obj)
 
 def radius_at(name,z):

@@ -20,7 +20,7 @@
 
 void URuneSwordComponent::BeginGuard()
 {
-    if(bWhirlwind||bDashAttack)return;
+    if(bUppercut||bWhirlwind||bDashAttack)return;
     if(!IsEquipped() || !CanUse() || !Animations.FindRef(TEXT("Guard")))return;
     if(bInspecting)CancelAction();
     bGuardHeld=true;bQueuedAttack=false;
@@ -29,7 +29,7 @@ void URuneSwordComponent::BeginGuard()
 }
 void URuneSwordComponent::TryBeginGuard()
 {
-    if(bWhirlwind || !bGuardHeld || bGuarding || bGuardBreakPose || bGuardReacting ||
+    if(bUppercut || bWhirlwind || !bGuardHeld || bGuarding || bGuardBreakPose || bGuardReacting ||
         bAttacking || bEquipping || bInspecting || bCharging || bReturningCharge || !CanUse())return;
     auto* Pawn=Character.Get();
     if(Pawn->IsCastBlockingLeftHandAction() || Pawn->IsDodging() || Pawn->IsSliding())return;

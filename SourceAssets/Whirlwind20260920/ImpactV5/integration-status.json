@@ -1,0 +1,14 @@
+{
+  "revision": "WhirlwindV5",
+  "normal_grip_asset_saved": true,
+  "long_grip_asset_saved": true,
+  "normal_grip_fbx_exported": true,
+  "long_grip_fbx_exported": true,
+  "native_patch_applied": false,
+  "first_compile_error_fixed": "Camera call moved from BeginAttack to GetCameraMotion",
+  "remaining_compile_blocker": "Shared HolyLight sources reference missing UColdSteelStatusModel members, including HolyLightProgress and HolyLightStats",
+  "build_log": "compile-blocked-holylight.log",
+  "game_tests_run": false,
+  "preview_or_acceptance_render_run": false,
+  "cross_task_messages_sent": false
+}

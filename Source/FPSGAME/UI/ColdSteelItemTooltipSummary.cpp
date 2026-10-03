@@ -55,6 +55,7 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
         const auto Bow=ColdSteelBow::Evaluate(Item,Model);const auto& Damage=Bow.Damage;
         Add(TEXT("damage"),ColdSteelWeaponText::TotalDamage,Damage.Total(),TEXT(""),2);
         Add(TEXT("draw_seconds"),ColdSteelWeaponText::DrawTime,Bow.Draw,TEXT(" s"),2,true);
+        Add(TEXT("draw_speed_bonus"),TEXT("拉弓速度加成"),Bow.DrawSpeedBonus*100.,TEXT("%"),1,false,false);
         Add(TEXT("nock_seconds"),ColdSteelWeaponText::NockTime,Bow.Nock,TEXT(" s"),2,true);
         Add(TEXT("flight_limit"),ColdSteelWeaponText::FlightLimit,ColdSteelInventory::Number(Item,TEXT("range_cm"),3200)/100,TEXT(" m"),2);
         Add(TEXT("projectile_speed"),ColdSteelWeaponText::ProjectileSpeed,Bow.Speed,TEXT(" m/s"),2,false,false);
@@ -79,6 +80,8 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
         if(S.Modifiers.MagicDamage!=1)Add(TEXT("rune_magic_mult"),TEXT("魔法伤害倍率"),S.Modifiers.MagicDamage,TEXT("×"),2,false,false);
         if(S.Modifiers.MagicCost!=1)Add(TEXT("rune_magic_cost"),ColdSteelWeaponText::MagicCostMultiplier,S.Modifiers.MagicCost,TEXT("×"),2,true,false);
         Add(TEXT("ballast_heavy_mult"),TEXT("重击伤害倍率"),S.HeavyMultiplier,TEXT("×"),2,false,false);
+        Add(TEXT("heavy_charge_speed_bonus"),TEXT("重击蓄力速度加成"),S.HeavyChargeSpeedBonus*100.,TEXT("%"),0,false,false);
+        Add(TEXT("heavy_charge_seconds"),TEXT("重击蓄力时间"),S.HeavyChargeSeconds,TEXT(" s"),2,true,false);
         Add(TEXT("heavy_toughness"),TEXT("重击韧性伤害倍率"),S.Modifiers.HeavyToughnessMultiplier(),TEXT("×"),2,false,false);
         if(S.KnockbackCM>0)Add(TEXT("melee_knockback"),TEXT("攻击击退距离"),S.KnockbackCM,TEXT(" cm"),1,false,false);
         Add(TEXT("quick_combat_damage_mult"),TEXT("快速近战伤害倍率"),S.QuickCombat.DamageMultiplier,TEXT("×"),2,false,false);

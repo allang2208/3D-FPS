@@ -1,0 +1,47 @@
+{
+  "revision": "ReferenceUppercutV2_LeftFencer",
+  "sources": "Installed V7 arms and idle grip; original 3D adaptation from visual reference",
+  "reference": {
+    "url": "https://www.bilibili.com/video/BV1yx41187zP/",
+    "seconds": [
+      33,
+      36
+    ],
+    "subject": "left fencer, explicitly confirmed by user",
+    "viewed_in_browser": true
+  },
+  "paid_motion_used": false,
+  "phases": {
+    "windup": [
+      0,
+      0.32
+    ],
+    "rising_cut": [
+      0.32,
+      0.8
+    ],
+    "high_catch": [
+      0.8,
+      0.96
+    ],
+    "recover": [
+      0.96,
+      1.6
+    ]
+  },
+  "fps": 120,
+  "variants": {
+    "Standard": {
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ReferenceRevision\\Standard\\Sword_UppercutV2_Editable.blend",
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ReferenceRevision\\Standard\\editable_keys.json",
+      "seconds": 1.6
+    },
+    "LongGrip": {
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ReferenceRevision\\LongGrip\\Sword_UppercutV2_Editable.blend",
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ReferenceRevision\\LongGrip\\editable_keys.json",
+      "seconds": 1.6
+    }
+  },
+  "runtime_tested": false,
+  "rendered": false
+}

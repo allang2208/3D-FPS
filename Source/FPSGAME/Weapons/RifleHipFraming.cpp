@@ -15,6 +15,19 @@ bool Supports(const FString& Definition)
         || Definition == TEXT("ue_a762") || Definition == TEXT("ue_svd");
 }
 
+FVector PresentationOffset(const FString& Definition)
+{
+    // Camera-space centimetres, independent of the shared authoring basis.
+    // Restore receiver/bolt detail cropped by forcing every wrist to M4 depth.
+    // Move the gun and both arms together; ADS keeps its own sight calibration.
+    float Forward = 0.f;
+    if (Definition == TEXT("ue_qbz191") || Definition == TEXT("ue_m16a2")) Forward = 5.f;
+    else if (Definition == TEXT("ue_akm") || Definition == TEXT("ue_a762")) Forward = 9.f;
+    else if (Definition == TEXT("ue_ash12")) Forward = 8.f;
+    else if (Definition == TEXT("ue_svd")) Forward = 10.f;
+    return FVector(Forward, 0.f, 0.f);
+}
+
 bool SampleBone(const UAnimSequence& Idle, FName Bone, FTransform& Pose,const FWeaponGripClip* Layer)
 {
     const FReferenceSkeleton& Ref = Idle.GetSkeleton()->GetReferenceSkeleton();
@@ -68,7 +81,8 @@ void FRifleHipFraming::Initialize(const FString& Definition, UAnimSequence* Idle
     if (!RifleHipFraming::SampleFrame(Reference, Scale, false, Hand, Axis)) return;
     MeshScale = Scale;
     bAKMSights = bMeasuredAKMSights;
-    TargetHand = Anchor + BaseRotation.RotateVector(Hand);
+    const FVector ReferenceHand = Anchor + BaseRotation.RotateVector(Hand);
+    TargetHand = ReferenceHand + RifleHipFraming::PresentationOffset(Definition);
     TargetAxis = BaseRotation.Quaternion() * Axis;
     bReferenceReady = true;
     SelectIdle(Idle);
@@ -84,7 +98,8 @@ void FRifleHipFraming::SelectIdle(UAnimSequence* Idle,UWeaponGripProfile* Profil
     FQuat Axis;
     if (!RifleHipFraming::SampleFrame(Idle, MeshScale, bAKMSights, Hand, Axis,Profile)) return;
 
-    // Rigid movement of gun AND arms: same wrist depth/position and weapon axis as M4.
+    // Rigid movement of gun AND arms: common weapon axis and a per-rifle wrist depth.
+    // The presentation offset is included once in TargetHand, not accumulated on grip changes.
     // Keep the model scale, each grip's contacts and all authored animation motion intact.
     HipRotation = (TargetAxis * Axis.Inverse()).GetNormalized();
     HipLocation = TargetHand - HipRotation.RotateVector(Hand);

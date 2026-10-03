@@ -58,6 +58,7 @@ def custom(m,code,inputs,width=1,description='River pilot'):
 
 def surface():
     from water_wake_authoring import wake_inputs
+    from native_water_surface import apply_native_water
     source=u.load_asset('/Game/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming').get_editor_property('river_material')
     original=u.load_asset(str(source)) if not isinstance(source,u.MaterialInterface) else source
     if not isinstance(original,u.Material):raise RuntimeError('Expected current river master material, got '+str(source))
@@ -92,6 +93,7 @@ def surface():
             elif 'FoamTextureSampler' in n.get_editor_property('code'):
                 n.set_editor_property('code',(OUT/'ShoreFoam.hlsl').read_text())
         EAL.set_metadata_tag(m,'RiverPilot.Polish','5-all-water-secondary')
+        apply_native_water(m,'river')
         save(m)
         return m,original.get_path_name()
     baseline={}
@@ -127,6 +129,7 @@ def surface():
     prop(m,custom(m,'return lerp(Base,lerp(.075,.36,Foam),Weight);',{'Base':baseline['ROUGHNESS'],**inputs}),'ROUGHNESS')
     EAL.set_metadata_tag(m,'RiverPilot.Authored','20260923')
     EAL.set_metadata_tag(m,'RiverPilot.Polish','5-all-water-secondary')
+    apply_native_water(m,'river')
     save(m);return m,original.get_path_name()
 
 def splash_material(name,sheet):

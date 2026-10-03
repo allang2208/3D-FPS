@@ -56,6 +56,7 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
             double Final=CoreCombatFormula::Defense(Amount,MonsterDefense(Target,Magic),Magic,
                 Magic?Hit.MagicPenetration:Hit.PhysicalPenetration,Status?Status->MagicShred():0,Status?Status->CorrosionMultiplier():1);
             Final=std::floor(Magic?Final*(Status?Status->MagicVulnerabilityMultiplier():1.):Final*((Status&&Status->FrozenRemaining()>0)?1.5:1.));
+            if(!Magic&&Status)Final=std::floor(Final*Status->PhysicalVulnerabilityMultiplier());
             // 旧链顺序：魔法易伤→石化→无人机易伤→献祭承伤→冻结→来源减伤→标记→圣佑（逐段取整）。
             if(Magic&&Status)Final=std::floor(Final*Status->PetrifiedMagicMultiplier());
             if(Status)Final=std::floor(Final*Status->DroneDamageMultiplier(Source));
@@ -80,6 +81,7 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
     if(Magic&&ActiveMagicHit)Result=std::floor(Result*(1+ActiveMagicHit->DamageBonus));
     else if(Magic&&Player&&Player->IsPlayerControlled()&&Source->GetGameInstance())if(const auto* P=Source->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Result=std::floor(Result*(1+P->SetEffect(TEXT("magicDamage")))*ColdSteelMelee::EquippedModifiers(P).MagicDamage);
     if(Magic&&Status)Result=std::floor(Result*Status->MagicVulnerabilityMultiplier());
+    if(!Magic&&Status)Result=std::floor(Result*Status->PhysicalVulnerabilityMultiplier());
     if(Magic&&Status)Result=std::floor(Result*Status->PetrifiedMagicMultiplier());
     if(Type&&Type->IsA<ULightningDamage>()&&Status)Result=std::floor(Result*Status->ElectricMultiplier());
     if(Status)Result=std::floor(Result*Status->DroneDamageMultiplier(Source));

@@ -18,6 +18,7 @@ public:
     AFPSMeteorStrike();
     bool InitializeStrike(APawn* Caster,const FFireMagicCast& Spell,const FVector& Point,const FVector& SurfaceNormal);
     virtual void Tick(float Delta) override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 protected:
     virtual void EndPlay(EEndPlayReason::Type Reason) override;
 private:
@@ -48,4 +49,11 @@ private:
     FVector SpinAxis=FVector::UpVector;
     void BreakRock();
     void AnimateFragments(float Delta);
+    // ── 联机复制态：服务端权威伤害；远端副本自建同款陨星表现 ──
+    UPROPERTY(Replicated) TObjectPtr<APawn> NetCaster;
+    UPROPERTY(Replicated) FFireMagicCast NetCast;
+    UPROPERTY(Replicated) FVector_NetQuantize NetDestination;
+    UPROPERTY(Replicated) FVector_NetQuantizeNormal NetNormal;
+    bool bNetInit=false;
+    void NetInit();
 };

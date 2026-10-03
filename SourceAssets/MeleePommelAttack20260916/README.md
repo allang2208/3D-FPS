@@ -106,3 +106,21 @@
 - 本轮未启动游戏、未截图、未做玩法回归；实际手感、命中距离与观感由用户试玩判定。
 - 数值口径说明：第四段沿用第三段的连击倍率（`ComboMultiplier(3)`）。要单独给终段倍率，需要改
   `FMeleeModifiers`/物品与改造台数据契约，本轮没有动。
+
+## 七、收势手臂复位修订 V47（2026-09-19）
+
+用户反馈快速近战/第四连击收势时**手臂突然形变**。量出根因在解算器而非姿势：
+`arm_solver.separate_arms()` 把肘面修正（最大约 4.8 cm / 16°）在两端各 12 帧（25 ms）内
+强行归零，尾段相当于给已静止的手臂叠加 955°/s 的一次独立运动。
+
+- 修法（三通道一起改，默认值即选定值）：端点释放窗 12→**240 帧（0.50 s）**、
+  路径平滑核 5→**9 taps**、DP 肘部运动权重 100→**1000**。
+- 效果：收势末段峰值 1.989→**0.422°/帧**；全段最大逐帧转角 7.875→**3.378°**
+  （低于姿势路径自身的 3.843°）；首末帧与 idle 偏差、双手握持不变量全部不变。
+- 扫描与验收口径：`release_window_final.py`、`validate_recover_fix.py`、
+  `verify_recover_fix.py`（V46/V47 同口径）、`readback_ue.py`（+`run_readback.ps1` UE 侧读回）。
+  一次性探针在 `Probes20260919/`。
+- 作者脚本新增 `OUT_BLEND` 环境变量：修订版另存 `AzureRunesword_PommelStrikeV47.blend`，
+  不覆盖已接受的 V46；旧 FBX 备份在 `Before/`。
+- 已导入 `/Game/Weapons/AzureRunesword20260913/A_RuneSword_PommelStrike`（18:25，length=1.6000）。
+  实机观感待用户判读。

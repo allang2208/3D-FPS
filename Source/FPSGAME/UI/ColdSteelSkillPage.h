@@ -88,4 +88,7 @@ private:
     UPROPERTY(Transient) TMap<FName,TObjectPtr<UTexture2D>> ElectricIconTextures;
     TMap<FName,FSlateBrush> ElectricIconBrushes;
     TMap<FName,TSharedPtr<SButton>> ElectricDetailButtons;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> UppercutIconTexture;
+    FSlateBrush UppercutIconBrush;
+    TSharedPtr<SButton> UppercutDetailButton;
 };

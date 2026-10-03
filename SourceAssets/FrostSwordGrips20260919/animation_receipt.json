@@ -1,0 +1,100 @@
+[
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Idle.A_RuneSword_Idle",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Idle.A_RuneSword_Idle",
+    "seconds": 3.3333332538604736,
+    "intervals": 800,
+    "editable_fbx_exported": true
+  },
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Walk.A_RuneSword_Walk",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Walk.A_RuneSword_Walk",
+    "seconds": 0.9166666865348816,
+    "intervals": 220,
+    "editable_fbx_exported": true
+  },
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Equip.A_RuneSword_Equip",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Equip.A_RuneSword_Equip",
+    "seconds": 1.2000000476837158,
+    "intervals": 576,
+    "editable_fbx_exported": true
+  },
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Inspect.A_RuneSword_Inspect",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Inspect.A_RuneSword_Inspect",
+    "seconds": 2.9000000953674316,
+    "intervals": 348,
+    "editable_fbx_exported": true
+  },
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Overhead.A_RuneSword_Overhead",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Overhead.A_RuneSword_Overhead",
+    "seconds": 2.5999999046325684,
+    "intervals": 312,
+    "editable_fbx_exported": true
+  },
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Slash1.A_RuneSword_Slash1",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Slash1.A_RuneSword_Slash1",
+    "seconds": 1.774999976158142,
+    "intervals": 852,
+    "editable_fbx_exported": true
+  },
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Slash2.A_RuneSword_Slash2",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Slash2.A_RuneSword_Slash2",
+    "seconds": 1.774999976158142,
+    "intervals": 426,
+    "editable_fbx_exported": true
+  },
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Thrust.A_RuneSword_Thrust",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Thrust.A_RuneSword_Thrust",
+    "seconds": 1.25,
+    "intervals": 600,
+    "editable_fbx_exported": true
+  },
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_PommelStrike.A_RuneSword_PommelStrike",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_PommelStrike.A_RuneSword_PommelStrike",
+    "seconds": 1.600000023841858,
+    "intervals": 768,
+    "editable_fbx_exported": true
+  },
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyCharge.A_RuneSword_HeavyCharge",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_HeavyCharge.A_RuneSword_HeavyCharge",
+    "seconds": 2.0,
+    "intervals": 960,
+    "editable_fbx_exported": true
+  },
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyRelease.A_RuneSword_HeavyRelease",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_HeavyRelease.A_RuneSword_HeavyRelease",
+    "seconds": 1.0,
+    "intervals": 480,
+    "editable_fbx_exported": true
+  },
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Guard.A_RuneSword_Guard",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Guard.A_RuneSword_Guard",
+    "seconds": 0.20000000298023224,
+    "intervals": 96,
+    "editable_fbx_exported": true
+  },
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_GuardHit.A_RuneSword_GuardHit",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_GuardHit.A_RuneSword_GuardHit",
+    "seconds": 0.22083333134651184,
+    "intervals": 106,
+    "editable_fbx_exported": true
+  },
+  {
+    "source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_GuardBreak.A_RuneSword_GuardBreak",
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_GuardBreak.A_RuneSword_GuardBreak",
+    "seconds": 0.4000000059604645,
+    "intervals": 192,
+    "editable_fbx_exported": true
+  }
+]

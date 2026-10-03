@@ -1,0 +1,28 @@
+{
+  "meshes": {
+    "SM_Ward_WallRails": {
+      "path": "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Ward_WallRails",
+      "source_sha256": "badc82a17ea75d6909afa997a500239a59a1046868ee31fc2402e09bcae6fbd9",
+      "triangles": 330816
+    },
+    "SM_Ward_HeadwallServices": {
+      "path": "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Ward_HeadwallServices",
+      "source_sha256": "3dec561628c6f82048fb8e6ff0a56068cf7e1adc2528c6a4f8b08b62685f0a1e",
+      "triangles": 21448
+    },
+    "SM_Ward_Wayfinding": {
+      "path": "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Ward_Wayfinding",
+      "source_sha256": "18d81fc053df07d9f18814d211a516375460328842033337aa70c2c1df033e75",
+      "triangles": 6776
+    },
+    "SM_Office_RecordsDesktop": {
+      "path": "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Office_RecordsDesktop",
+      "source_sha256": "5ac517b0f5baa2282d0c9cfb6ee3d82141f79ebd2fa7ed1179adb9bc0c355a6e",
+      "triangles": 5148
+    }
+  },
+  "tests_run": false,
+  "rendered": false,
+  "game_run": false,
+  "stage": "assets_saved"
+}

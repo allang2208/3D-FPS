@@ -39,3 +39,47 @@ hip_spread_mult 连乘）在 10 m 处投影到屏幕像素，无绝对钳制；`
   `ColdSteelProfileRuntime` 同步（参照 weaponType 同步的写法），未授权前不做。
 - 角色面板「暴击倍率」行仍只显示技能部分（1+50%+5%×L）；武器自带 +50% 在武器浮窗与
   traits 呈现，实际命中为相加后单次乘算。
+
+## 追加：公式整体 ×1.5（2026-09-25，用户指定）
+
+用户要求把 SVD 的攻击公式与强化后公式调为现值 1.5 倍。只改
+`Content/ColdSteelData/combat-weapon-formulas.json` 的 `ue_svd` 五个系数：
+
+| 项 | 改前 | 改后 |
+| --- | --- | --- |
+| `base` | 32.5 | **48.75** |
+| `enhanceFlat` | 0 | 0（×1.5 仍为 0） |
+| 智力项 | 1.00 + 0.125L | **1.50 + 0.1875L** |
+| 精神项 | 2.00 + 0.1875L | **3.00 + 0.28125L** |
+
+公式 `round(base + L×enhanceFlat + Σ 属性×(系数 + L×强化系数))` 对全部系数线性，
+所以取整前在**任意强化等级**上都精确 ×1.5；下表倍率列的 1.487–1.508 是既有最终取整造成，不是缩放误差。
+
+| 智力/精神/强化 L | 改前公式值 | 改后 | 倍率 |
+| --- | --- | --- | --- |
+| 15 / 15 / 0 | 78 | 116 | 1.487 |
+| 15 / 15 / 5 | 101 | 151 | 1.495 |
+| 15 / 15 / 15 | 148 | 222 | 1.500 |
+| 25 / 25 / 15 | 225 | 337 | 1.498 |
+
+这是公式值，不是实测伤害：还要连乘配件比例、加角色物攻、计弹药倍率、要害与距离衰减。
+
+### 为什么不动 `base.damage` 85 与 items 静态 85
+
+`ColdSteelEnhancementSystem::ProcessedDamage`（`:91-94`）先算公式，再乘
+`Base / W->Base.Damage`，其中 `Base = Calculate()` 从 `W->Base` 起连乘配件倍率，
+`W->Base.Damage` 即 `gunsmith.json` 的 85 —— 85 在分子分母同时出现并**精确抵消**，
+这一项只负责把公式值按当前配件比例缩放。所以：
+
+- 只改公式 = 干净 1.5 倍，与配件、强化等级无关。
+- 把 85 也乘 1.5 数学上无效（抵消），却会破坏 `check_attachment_consistency.py`
+  第 6 组「items 静态物理攻击 == base.damage」断言。
+- 实弹路径确认走公式：`FPSGAMECharacterProfile.cpp:128` 先写 `Stats.Damage+atk`，
+  `:137` 又把 `atk` 减回去作为 `Base` 送进 `ColdSteelWeaponStats::Damage`。
+
+本节口径与本文上方 09-23 重调一致：改 SVD 伤害只改公式文件，两个 85 占位保持不动。
+
+### 状态
+
+- 未运行 `check_attachment_consistency.py`，未进游戏实测（按用户默认不主动验收规则）。
+- 纯 JSON 改动，无需编译；子系统在 `Initialize` 读盘，重启游戏即生效。

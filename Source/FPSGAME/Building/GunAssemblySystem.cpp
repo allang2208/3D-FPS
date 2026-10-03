@@ -75,7 +75,7 @@ bool UGunAssemblySystem::CanStart(FString& Reason) const
     const auto& Data=Recipe();
     auto* M=Model();
     if(!M||Data.Id.IsNone()||Data.Parts.IsEmpty()||Data.Parts.Num()>30||Data.Inputs.IsEmpty()){Reason=TEXT("拼装配方未就绪");return false;}
-    if(!GetWorld()||GetWorld()->GetNetMode()!=NM_Standalone){Reason=TEXT("拼装仅支持单人模式");return false;}
+    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client){Reason=TEXT("拼装仅支持单人模式");return false;}
     if(!Job().Id.IsEmpty()){Reason=TEXT("已有工件，请继续拼装或领取成品");return false;}
     if(M->CreateItem(Data.Output).Data.IsEmpty()){Reason=TEXT("枪械目录未就绪");return false;}
     for(const auto& In:Data.Inputs)if(M->CountMaterial(In.Item)<In.Count)
@@ -192,7 +192,7 @@ bool UGunAssemblySystem::GetDiscardRefund(TArray<FColdSteelCraftingInput>& Refun
     Refund.Reset();Reason.Reset();
     if(!Model()||Job().Id.IsEmpty()||!Job().bFinished)
     {Reason=TEXT("只有已完成、尚未领取的成品可以废弃");return false;}
-    if(!GetWorld()||GetWorld()->GetNetMode()!=NM_Standalone)
+    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client)
     {Reason=TEXT("拼装仅支持单人模式");return false;}
     TMap<FString,int64> Paid;
     if(!GetPaidMaterials(Paid)){Reason=TEXT("无法读取返还材料，成品保留待领");return false;}

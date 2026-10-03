@@ -6,7 +6,7 @@
 ## 结构合同
 - **唯一文案源**：`ColdSteelWorldInteraction::ResolveInteractionHint(AActor*)` →
   `{FString Text; bool bAction;}`；分派顺序必须与 `AFPSGAMEPlayerController::InputKey` 的
-  E 键处理顺序一致（祭坛→宝箱→仓库箱/储物箱→拾取→高炉→工作台→门），否则"显示即可用"失真。
+  E 键处理顺序一致（祭坛→神龛→宝箱→场景搜寻容器→仓库箱/储物箱→拾取/箭矢→高炉→工作台→门），否则"显示即可用"失真。
   空文本＝不显示；`bAction=false`（只读态，如已开启/锁定宝箱）隐藏 E 徽标只留状态。
 - **文案不带 `E · ` 前缀**（徽标由浮窗自绘）；箱类正文走虚接口
   （`GetPromptLabel()`），储物箱子类按档位覆写，新增容器零浮窗改动。

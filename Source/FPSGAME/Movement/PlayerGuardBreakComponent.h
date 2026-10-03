@@ -10,6 +10,8 @@ class FPSGAME_API UPlayerGuardBreakComponent : public UActorComponent
 {
     GENERATED_BODY()
 public:
+    UPlayerGuardBreakComponent();
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     void Apply(float Seconds);
     bool IsActive() const { return LockedController.IsValid(); }
 protected:
@@ -18,4 +20,7 @@ private:
     void Release();
     TWeakObjectPtr<APlayerController> LockedController;
     FTimerHandle Timer;
+    void ApplyInputLock(float Seconds);
+    UFUNCTION() void OnRep_StunUntil();
+    UPROPERTY(ReplicatedUsing=OnRep_StunUntil) double StunUntil=0.;
 };

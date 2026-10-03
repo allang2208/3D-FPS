@@ -4,6 +4,8 @@ Scripts/author_warehouse.py、author_labels.py、export_geometry.py、import_ass
 
 正式地图为 `/Game/GameMaps/L_Dungeon_Randomized`，旧独立样板已退役。先恢复合法本机模型/纹理/材质依赖；不按日期顺序重跑所有历史迁移脚本，也不伪造安装回执。
 
+2026-10-03：已加入四类可搜寻容器，制作源见兄弟目录 [WarehouseContainers20261002](../WarehouseContainers20261002/README.md)。每间仓库按种子在地面货物、货架下层和预留空墙维护点选择 9–13 个容器；选中的旧货物点被替换。正式目录和车站整条线路样板均已后台保存，未测试，由用户试玩。
+
 公开作者脚本、轻量参数与清单；Blend/FBX、贴图、UE 包、字体、下载源、回执和日志保留本机。`Backup` 旧快照和 `.blend1` 已按清单归档，正式 `.blend` 和仍用作上游输入的早期源保留。
 
 制作记录：[对应房间/阶段](../../Docs/Gameplay/dungeon-cargo-warehouse-refine-20261001.md)；[本轮整理与恢复边界](../../Docs/Gameplay/dungeon-publication-20261002.md)。本次整理没有启动 UE、运行游戏或渲染。

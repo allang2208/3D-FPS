@@ -48,6 +48,12 @@ def is_mine(hunk):
         and any(marker in line for marker in MARKERS) for line in hunk)
 
 
+def is_marked(hunk, markers):
+    """Same rule as is_mine but with markers supplied per run (--marker)."""
+    return any(line.startswith('+') and not line.startswith('+++')
+        and any(marker in line for marker in markers) for line in hunk)
+
+
 def split(path):
     diff = subprocess.run(['git', 'diff', '-U0', '--', path], capture_output=True, text=True,
                           encoding='utf-8', errors='replace').stdout
@@ -71,6 +77,9 @@ def main():
     parser.add_argument('--file', action='append', required=True)
     parser.add_argument('--exclude', action='append', default=[],
                         help='hunk header substring to drop from the staged set')
+    parser.add_argument('--marker', action='append', default=[],
+                        help='extra marker string identifying this session\'s added lines '
+                             '(repeatable; replaces the built-in list when given)')
     parser.add_argument('--manual', help='file holding hand split hunk(s) to include')
     parser.add_argument('--write')
     args = parser.parse_args()
@@ -82,7 +91,7 @@ def main():
             if any(token in hunk[0] for token in args.exclude):
                 dropped += 1
                 continue
-            if is_mine(hunk):
+            if is_marked(hunk, args.marker) if args.marker else is_mine(hunk):
                 kept.append(hunk)
                 mine += 1
             else:

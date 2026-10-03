@@ -42,7 +42,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float WalkSpeed = 90.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float CorpseSeconds = 15.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") float Health = 120.f;
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") ENurseState State = ENurseState::Idle;
+    /** 复制给远端：客户端 OnRep 重放 SetState 驱动同款动画/表现切换。 */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat", ReplicatedUsing=OnRep_State) ENurseState State = ENurseState::Idle;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") int32 SuccessfulHits = 0;
     UPROPERTY(Transient, VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") FVector SpawnPosition;
     UFUNCTION(BlueprintCallable, Category="Nurse|Combat") virtual void InterruptAttack(float Seconds = .25f);
@@ -65,6 +66,8 @@ protected:
     virtual float ApplyMeleeDamage(APawn* Victim);
 private:
     void SetState(ENurseState NewState);
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+    UFUNCTION() void OnRep_State();
     bool CanSee(const AActor* Actor) const;
     void TryMelee();
     TWeakObjectPtr<APawn> Target;

@@ -262,6 +262,12 @@ void UColdSteelQuickSlot::Refresh()
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->HolyLightCooldown();
         Dim=!Model->CanSpendMana(Model->HolyLightStats().ManaCost);
     }
+    else if(Binding.Skill==TEXT("swordUppercut"))
+    {
+        const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;
+        Message=Ability?Ability->UppercutStatusText():TEXT("需要持剑");
+        Dim=!Message.IsEmpty();
+    }
     else if(Binding.Skill==TEXT("heavyStrike"))
     {
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;

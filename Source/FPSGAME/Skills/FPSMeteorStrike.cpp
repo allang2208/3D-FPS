@@ -23,6 +23,8 @@
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
 #include "Sound/SoundBase.h"
+#include "Net/UnrealNetwork.h"
+#include "NetCastUtils.h"
 
 AFPSMeteorStrike::AFPSMeteorStrike()
 {
@@ -34,10 +36,26 @@ AFPSMeteorStrike::AFPSMeteorStrike()
     GroundFlames=CreateDefaultSubobject<UNiagaraComponent>(TEXT("LavaField"));GroundFlames->SetupAttachment(Root);GroundFlames->SetAutoActivate(false);
     Glow=CreateDefaultSubobject<UPointLightComponent>(TEXT("Glow"));Glow->SetupAttachment(Rock);Glow->SetCastShadows(false);Glow->SetLightColor(FLinearColor(1,.22f,.035f));
     Burning=CreateDefaultSubobject<UAudioComponent>(TEXT("Burning"));Burning->SetupAttachment(Root);Burning->bAutoActivate=false;
+    bReplicates=true; // 联机：服务端权威伤害；远端副本重演坠落/撞击/熔岩表现
+}
+void AFPSMeteorStrike::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AFPSMeteorStrike,NetCaster);
+    DOREPLIFETIME(AFPSMeteorStrike,NetCast);
+    DOREPLIFETIME(AFPSMeteorStrike,NetDestination);
+    DOREPLIFETIME(AFPSMeteorStrike,NetNormal);
+}
+// 远端副本：复制字段就位后自建同款陨星（InitializeStrike 自载素材，仅伤害留在服务端）。
+void AFPSMeteorStrike::NetInit()
+{
+    if(bNetInit||!NetCaster||NetCast.Damage<=0)return;
+    if(InitializeStrike(NetCaster,NetCast,NetDestination,NetNormal))bNetInit=true;
 }
 bool AFPSMeteorStrike::InitializeStrike(APawn* Caster,const FFireMagicCast& Spell,const FVector& Point,const FVector& SurfaceNormal)
 {
     Shooter=Caster;CastSnapshot=Spell;Destination=Point;Normal=SurfaceNormal.GetSafeNormal();NextLavaTick=Spell.TickSeconds;
+    if(HasAuthority()){NetCaster=Caster;NetCast=Spell;NetDestination=Point;NetNormal=Normal;} // 远端副本按此重演
     SetActorLocation(Point);
     auto* Mesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Skills/FireMagic20260921/RealisticV3/SM_MeteorNaturalRock.SM_MeteorNaturalRock"));
     auto* Material=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/FireMagic20260921/RealisticV3/MI_MeteorNaturalRock.MI_MeteorNaturalRock"));
@@ -70,7 +88,8 @@ bool AFPSMeteorStrike::InitializeStrike(APawn* Caster,const FFireMagicCast& Spel
 }
 void AFPSMeteorStrike::DamageArea(bool bExplosion)
 {
-    APawn* Caster=Shooter.Get();auto* M=Caster&&Caster->GetGameInstance()?Caster->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;if(!M)return;
+    if(!HasAuthority())return; // 伤害只在权威端结算；远端副本只演撞击特效
+    APawn* Caster=Shooter.Get();auto* M=NetCast::AuthorityModel(Caster,Caster?Caster->GetGameInstance():nullptr);if(!M)return;
     const float Radius=bExplosion?CastSnapshot.Radius:CastSnapshot.AuraRadius;
     if((bExplosion?CastSnapshot.Damage:CastSnapshot.AuraDamage)>0)
         UWardBreakableGlass::BreakInRadius(GetWorld(),Destination+Normal*5.f,Radius,Caster);
@@ -121,6 +140,7 @@ void AFPSMeteorStrike::Impact()
 void AFPSMeteorStrike::Tick(float Delta)
 {
     Super::Tick(Delta);
+    if(!HasAuthority()){NetInit();if(!bNetInit)return;}
     APawn* Caster=Shooter.Get();const auto* Health=Caster?Caster->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
     if(!Caster||(Health&&Health->IsDead())){Destroy();return;}
     const float PreviousAge=Age;Age+=Delta;
@@ -156,7 +176,8 @@ void AFPSMeteorStrike::Tick(float Delta)
 void AFPSMeteorStrike::Finish()
 {
     if(bSettled)return;bSettled=true;
-    if(auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())M->FinishFireMagicCast(TEXT("meteor"),Rewards);
+    if(HasAuthority())
+        if(auto* M=NetCast::AuthorityModel(Shooter.Get(),GetGameInstance()))M->FinishFireMagicCast(TEXT("meteor"),Rewards);
     Destroy();
 }
 void AFPSMeteorStrike::EndPlay(EEndPlayReason::Type Reason)

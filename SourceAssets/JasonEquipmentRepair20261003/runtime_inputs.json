@@ -1,0 +1,127 @@
+[
+  {
+    "actor": "FPSGAMECharacter_0",
+    "component": "CharacterMesh0",
+    "asset": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_Base.SK_Jason_Base",
+    "parent": "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSGAMECharacter_0.CollisionCylinder",
+    "socket": "None",
+    "relative": "<Struct 'Transform' (0x0000020735E22970) {rotation: {x: -0.000000, y: 0.000000, z: -0.707107, w: 0.707107}, translation: {x: 0.000000, y: 0.000000, z: -96.000000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "materials": [
+      "/Game/AsianMale_Jason/Material/MI_Body_Baked.MI_Body_Baked",
+      "/Game/AsianMale_Jason/Material/MI_Body_Baked.MI_Body_Baked",
+      "/Game/AsianMale_Jason/Material/MI_Body_Baked.MI_Body_Baked",
+      "/Game/AsianMale_Jason/Material/MI_Body_Baked.MI_Body_Baked",
+      "/Game/AsianMale_Jason/Material/MI_Body_Baked.MI_Body_Baked",
+      "/Game/AsianMale_Jason/Material/MI_Face_Skin_Baked_LOD0.MI_Face_Skin_Baked_LOD0",
+      "/Game/AsianMale_Jason/Material/M_Jason_bodyOpacity.M_Jason_bodyOpacity"
+    ],
+    "visible_sections": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true
+    ]
+  },
+  {
+    "actor": "FPSGAMECharacter_0",
+    "component": "SkeletalMeshComponent_0",
+    "asset": "/Game/AsianMale_Jason/Mesh/Head/SKM_Jason_head.SKM_Jason_head",
+    "parent": "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSGAMECharacter_0.CharacterMesh0",
+    "socket": "None",
+    "relative": "<Struct 'Transform' (0x0000020735E22970) {rotation: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}, translation: {x: 0.000000, y: 0.000000, z: 0.000000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "materials": [
+      "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/MI_Jason_FullFace.MI_Jason_FullFace",
+      "/Game/AsianMale_Jason/Material/MI_Teeth_Baked.MI_Teeth_Baked",
+      "/Game/AsianMale_Jason/Material/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid",
+      "/Game/AsianMale_Jason/Material/MI_EyeL_Baked.MI_EyeL_Baked",
+      "/Game/AsianMale_Jason/Material/MI_Face_EyeShell.MI_Face_EyeShell",
+      "/Game/AsianMale_Jason/Material/MI_Face_Eyelashes.MI_Face_Eyelashes",
+      "/Game/AsianMale_Jason/Material/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid",
+      "/Game/AsianMale_Jason/Material/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid"
+    ],
+    "visible_sections": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "actor": "FPSGAMECharacter_0",
+    "component": "StaticMeshComponent_5",
+    "asset": "/Game/Characters/SovietBackpack20261002/SM_SovietBackpack.SM_SovietBackpack",
+    "parent": "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSGAMECharacter_0.CharacterMesh0",
+    "socket": "spine_03",
+    "relative": "<Struct 'Transform' (0x0000020735E228E0) {rotation: {x: -0.022149, y: 0.706760, z: 0.022149, w: 0.706760}, translation: {x: 12.640000, y: -16.490000, z: -0.000000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "materials": [
+      "/Game/Characters/SovietBackpack20261002/M_SovietBackpack.M_SovietBackpack"
+    ]
+  },
+  {
+    "actor": "FPSGAMECharacter_0",
+    "component": "SkeletalMeshComponent_1",
+    "asset": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_Base.SK_Jason_Base",
+    "parent": "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSGAMECharacter_0.CharacterMesh0",
+    "socket": "None",
+    "relative": "<Struct 'Transform' (0x0000020735E222B0) {rotation: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}, translation: {x: 0.000000, y: 0.000000, z: 0.000000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "materials": [
+      "/Game/AsianMale_Jason/Material/MI_Body_Baked.MI_Body_Baked",
+      "/Game/AsianMale_Jason/Material/MI_Body_Baked.MI_Body_Baked",
+      "/Game/AsianMale_Jason/Material/MI_Body_Baked.MI_Body_Baked",
+      "/Game/AsianMale_Jason/Material/MI_Body_Baked.MI_Body_Baked",
+      "/Game/AsianMale_Jason/Material/MI_Body_Baked.MI_Body_Baked",
+      "/Game/AsianMale_Jason/Material/MI_Face_Skin_Baked_LOD0.MI_Face_Skin_Baked_LOD0",
+      "/Game/AsianMale_Jason/Material/M_Jason_bodyOpacity.M_Jason_bodyOpacity"
+    ],
+    "visible_sections": [
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "actor": "FPSGAMECharacter_0",
+    "component": "SkeletalMeshComponent_2",
+    "asset": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_chainmail_shirt.SK_Jason_ue_chainmail_shirt",
+    "parent": "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSGAMECharacter_0.CharacterMesh0",
+    "socket": "None",
+    "relative": "<Struct 'Transform' (0x0000020735E222B0) {rotation: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}, translation: {x: 0.000000, y: 0.000000, z: 0.000000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "materials": [
+      "/Game/Characters/ModularOutfit20260924/ChainmailInterlace20260929/Materials/MI_Chainmail_Rings_Standard.MI_Chainmail_Rings_Standard",
+      "/Game/Characters/ModularOutfit20260924/ChainmailInterlace20260929/Materials/M_CuffForgedSteel.M_CuffForgedSteel",
+      "/Game/Characters/ModularOutfit20260924/ChainmailInterlace20260929/Materials/M_CuffDarkBinding.M_CuffDarkBinding"
+    ],
+    "visible_sections": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "actor": "FPSGAMECharacter_0",
+    "component": "SkeletalMeshComponent_3",
+    "asset": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_steel_gauntlets.SK_Jason_ue_steel_gauntlets",
+    "parent": "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSGAMECharacter_0.CharacterMesh0",
+    "socket": "None",
+    "relative": "<Struct 'Transform' (0x0000020735E222B0) {rotation: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}, translation: {x: 0.000000, y: 0.000000, z: 0.000000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "materials": [
+      "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Materials/Mail/M_Steel_Mail_Detail.M_Steel_Mail_Detail",
+      "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Materials/Plates/M_Steel_Plates_Detail.M_Steel_Plates_Detail"
+    ],
+    "visible_sections": [
+      true,
+      true
+    ]
+  }
+]

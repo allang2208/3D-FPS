@@ -62,7 +62,7 @@ void UProductionToolComponent::BeginPlay()
     auto* GameInstance=World?World->GetGameInstance():nullptr;
     // Preview worlds also report standalone. They have no player inventory and
     // can receive BeginPlay while a different world's pawn is being spawned.
-    if (!Pawn || !GameInstance || (World->WorldType!=EWorldType::Game && World->WorldType!=EWorldType::PIE) || Pawn->GetNetMode()!=NM_Standalone)
+    if (!Pawn || !GameInstance || (World->WorldType!=EWorldType::Game && World->WorldType!=EWorldType::PIE) || Pawn->GetNetMode()==NM_Client)
     { SetComponentTickEnabled(false); return; }
     AddTickPrerequisiteActor(Pawn);
     AxeMotion.Load();
@@ -99,7 +99,7 @@ void UProductionToolComponent::BeginPlay()
 void UProductionToolComponent::ApplyToolStats(const FColdSteelItem* Item,UColdSteelStatusModel* Profile)
 {
     ToolStats=Item?ColdSteelTool::Evaluate(*Item,Profile):FProductionToolStats{};
-    RateScale=float(FMath::Clamp(ToolStats.RateScale,.25,4.));
+    RateScale=float(ToolStats.RateScale);
     if(Kind==TEXT("axe") || Kind==TEXT("pickaxe"))
     {
         AxeHarvestReach=float(ToolStats.HarvestReachCM);

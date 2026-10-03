@@ -1,0 +1,137 @@
+{
+  "stage": "maps_saved",
+  "maps": {
+    "/Game/GameMaps/L_Dungeon_Randomized": {
+      "stage": "map_saved",
+      "previous_sha256": "62076389306715efea79f191b4b0f9d58fa0d2d814f791f35fd23ba9094bce95",
+      "freight_containers": [
+        4,
+        5
+      ],
+      "warehouse_additional": [
+        3,
+        4
+      ],
+      "warehouse_total": [
+        12,
+        17
+      ],
+      "restroom_chest": {
+        "skeletal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+        "closed_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose",
+        "material_overrides": {},
+        "position": [
+          1035,
+          -915,
+          0.4
+        ],
+        "yaw": 90,
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "role": "staff_restroom_cache",
+        "collision_extent": [
+          59.47500228881836,
+          74.26250076293945,
+          55.087501525878906
+        ],
+        "collision_center": [
+          6.174999237060547,
+          5.167499542236328,
+          55.087501525878906
+        ],
+        "identity": "staff_activity_restroom",
+        "opening_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.A_TreasureChest_Opening",
+        "scene_loot_expansion": true
+      }
+    },
+    "/Game/GameMaps/Design/L_FreightTransit_Theme_Subject": {
+      "stage": "map_saved",
+      "previous_sha256": "0384b8611d9570184ed5e4adb4540f4bb698adba38e4bcc667cf2dfb951c99a4",
+      "preview_seed": 20261003,
+      "freight_containers": 4,
+      "warehouse_added": 3,
+      "warehouse_total": 12,
+      "selected": {
+        "FreightTransfer_WarehouseLink": [
+          {
+            "id": "FreightTransfer.EntryWest.WoodCrate",
+            "position": [
+              490,
+              -466,
+              0
+            ],
+            "yaw": 86
+          },
+          {
+            "id": "FreightTransfer.EntryEast.MetalCase",
+            "position": [
+              1310,
+              -645,
+              0
+            ],
+            "yaw": -85
+          },
+          {
+            "id": "FreightTransfer.Tools.West",
+            "position": [
+              95,
+              -1200,
+              0
+            ],
+            "yaw": 90
+          },
+          {
+            "id": "FreightTransfer.Tools.West.Drawer",
+            "position": [
+              95,
+              -1200,
+              0
+            ],
+            "yaw": 90
+          }
+        ],
+        "AbandonedCargoWarehouse": [
+          {
+            "id": "CargoWarehouse.Reserve.SouthWest.MetalCase",
+            "position": [
+              -1225,
+              1260,
+              0
+            ],
+            "yaw": 5
+          },
+          {
+            "id": "CargoWarehouse.Reserve.SouthEast.Tote",
+            "position": [
+              1291,
+              1260,
+              0
+            ],
+            "yaw": -2
+          },
+          {
+            "id": "CargoWarehouse.Reserve.DockMiddle.WoodCrate",
+            "position": [
+              -206,
+              -1240,
+              120
+            ],
+            "yaw": 176
+          }
+        ]
+      }
+    }
+  },
+  "tests_run": false,
+  "rendered": false,
+  "game_run": false,
+  "editor_opened": false,
+  "native_changes": false,
+  "assets_imported": false,
+  "reuses_saved_assets": true,
+  "rewards_deferred": true,
+  "staff_preview": "Retired accepted samples remain archived; chest saved in production StaffRecreation module"
+}

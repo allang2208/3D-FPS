@@ -1,5 +1,10 @@
 # 登山包骨骼挂载（2026-10-02）
 
+> 2026-10-03 修正：下文为 Manny 初版制作记录，旧挂载参数不再用于 Jason。
+> 原 OBJ 提取时多反转了一次三角序，且挂载忽略了 UE 导入后的 Y 轴反射。
+> 当前采用修正面朝向的静态图标源与 Jason 肩背蒙皮的骨骼背包；制作和恢复入口见
+> `Docs/JasonEquipmentRepair20261003.md`，发布配置由 `Tools/PlayerBody/publish_jason_equipment.py` 更新。
+
 Fab/Megascan「Soviet Military Backpack」接入第三人称躯体：装备 `ue_mountain_backpack`（装备槽 14）时
 在第三人称模式下挂到 Manny `spine_03` 骨骼。
 

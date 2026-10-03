@@ -70,7 +70,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|Death") float CorpseSeconds = 15.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|Death", meta=(ClampMin="0.1", ClampMax="1.0")) float RagdollHandoffSeconds = .42f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Slag|Runtime") float Health = 1800.f;
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Slag|Runtime") ESlagState State = ESlagState::Idle;
+    /** 复制给远端：客户端 OnRep 重放 EnterState 驱动同款动画/表现切换。 */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Slag|Runtime", ReplicatedUsing=OnRep_State) ESlagState State = ESlagState::Idle;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Slag|Runtime") float StateSeconds = 0.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Slag|Runtime") FVector Home = FVector::ZeroVector;
 
@@ -99,6 +100,8 @@ private:
     UAnimSequence* Clip(FName Name) const;
     void AlignVisual();
     void EnterState(ESlagState Next);
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+    UFUNCTION() void OnRep_State();
     void PlayClip(FName Name, bool Loop = false);
     void SampleClip(FName Name, float Seconds, bool Loop = false);
     bool CanSee(const APawn* Victim) const;

@@ -26,7 +26,7 @@ FReply UColdSteelSkillPage::NativeOnPreviewMouseButtonDown(const FGeometry& G,co
     PendingDragSkill=NAME_None;
     if(!bDetail&&HUD.IsValid()&&E.GetEffectingButton()==EKeys::LeftMouseButton)
     {
-        const TPair<FName,TSharedPtr<SButton>> Cards[]={{TEXT("stormDomain"),ElectricDetailButtons.FindRef(TEXT("stormDomain"))},{TEXT("thunderLance"),ElectricDetailButtons.FindRef(TEXT("thunderLance"))},{TEXT("blizzard"),BlizzardDetailButton},{TEXT("iceWall"),IceWallDetailButton},{TEXT("meteor"),MeteorDetailButton},{TEXT("flameArmor"),FlameArmorDetailButton},{TEXT("holyLight"),HolyLightDetailButton},{TEXT("lightningStrike"),LightningDetailButton},{TEXT("iceSpike"),IceSpikeDetailButton},{TEXT("fireball"),FireballDetailButton},{TEXT("dodge"),DodgeDetailButton},{TEXT("heavyStrike"),HeavyDetailButton},{TEXT("quickCombat"),QuickCombatDetailButton},{TEXT("whirlwind"),WhirlwindDetailButton}};
+        const TPair<FName,TSharedPtr<SButton>> Cards[]={{TEXT("swordUppercut"),UppercutDetailButton},{TEXT("stormDomain"),ElectricDetailButtons.FindRef(TEXT("stormDomain"))},{TEXT("thunderLance"),ElectricDetailButtons.FindRef(TEXT("thunderLance"))},{TEXT("blizzard"),BlizzardDetailButton},{TEXT("iceWall"),IceWallDetailButton},{TEXT("meteor"),MeteorDetailButton},{TEXT("flameArmor"),FlameArmorDetailButton},{TEXT("holyLight"),HolyLightDetailButton},{TEXT("lightningStrike"),LightningDetailButton},{TEXT("iceSpike"),IceSpikeDetailButton},{TEXT("fireball"),FireballDetailButton},{TEXT("dodge"),DodgeDetailButton},{TEXT("heavyStrike"),HeavyDetailButton},{TEXT("quickCombat"),QuickCombatDetailButton},{TEXT("whirlwind"),WhirlwindDetailButton}};
         for(const auto& Card:Cards)
         {
             if(!Card.Value||!Card.Value->GetCachedGeometry().IsUnderLocation(E.GetScreenSpacePosition()))continue;
@@ -47,6 +47,8 @@ FReply UColdSteelSkillPage::NativeOnMouseButtonUp(const FGeometry& G,const FPoin
 void UColdSteelSkillPage::NativeOnDragDetected(const FGeometry&,const FPointerEvent& E,UDragDropOperation*& Out)
 {
     const FName Id=PendingDragSkill;PendingDragSkill=NAME_None;
+    if(Id==TEXT("swordUppercut")&&HUD.IsValid())
+    {Out=HUD->StartQuickDrag(Id,INDEX_NONE,&UppercutIconBrush,E.GetScreenSpacePosition());return;}
     if(!Id.IsNone()&&HUD.IsValid())Out=HUD->StartQuickDrag(Id,INDEX_NONE,ElectricMagic::IsSkill(Id)?ElectricIconBrushes.Find(Id):Id==TEXT("blizzard")?&BlizzardIconBrush:Id==TEXT("iceWall")?&IceWallIconBrush:Id==TEXT("meteor")?&MeteorIconBrush:Id==TEXT("flameArmor")?&FlameArmorIconBrush:Id==TEXT("holyLight")?&HolyLightIconBrush:Id==TEXT("lightningStrike")?&LightningIconBrush:Id==TEXT("whirlwind")?&WhirlwindIconBrush:Id==TEXT("iceSpike")?&IceSpikeIconBrush:Id==TEXT("heavyStrike")?&HeavyIconBrush:Id==TEXT("fireball")?&FireballIconBrush:Id==TEXT("quickCombat")?&QuickCombatIconBrush:&DodgeIconBrush,E.GetScreenSpacePosition());
 }
 
@@ -63,11 +65,11 @@ TSharedRef<SWidget> UColdSteelSkillPage::RebuildWidget()
     SAssignNew(Root,SBox); RefreshLayout(); return Root.ToSharedRef();
 }
 const FColdSteelSkillDefinition& UColdSteelSkillPage::Definition(FName Id) const
-{ if(ElectricMagic::IsSkill(Id))return Model->ElectricMagicDefinition(Id);if(Id==TEXT("blizzard"))return Model->BlizzardDefinition();if(Id==TEXT("iceWall"))return Model->IceWallDefinition();if(FireMagic::IsSkill(Id))return Model->FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return Model->HolyLightDefinition();if(Id==TEXT("lightningStrike"))return Model->LightningDefinition();if(Id==TEXT("iceSpike"))return Model->IceSpikeDefinition();if(Id==TEXT("quickCombat"))return Model->QuickCombatDefinition();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryDefinition(Id);if(Id==TEXT("fireball"))return Model->FireballDefinition();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeDefinition();if(Id==TEXT("pistolMastery"))return Model->PistolDefinition();return Id==TEXT("dodge")?Model->DodgeDefinition():(Id==TEXT("dexterousHands")?Model->DexterousHandsDefinition():Model->RifleDefinition()); }
+{ if(Id==TEXT("swordUppercut"))return Model->MasteryDefinition(Id);if(ElectricMagic::IsSkill(Id))return Model->ElectricMagicDefinition(Id);if(Id==TEXT("blizzard"))return Model->BlizzardDefinition();if(Id==TEXT("iceWall"))return Model->IceWallDefinition();if(FireMagic::IsSkill(Id))return Model->FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return Model->HolyLightDefinition();if(Id==TEXT("lightningStrike"))return Model->LightningDefinition();if(Id==TEXT("iceSpike"))return Model->IceSpikeDefinition();if(Id==TEXT("quickCombat"))return Model->QuickCombatDefinition();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryDefinition(Id);if(Id==TEXT("fireball"))return Model->FireballDefinition();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeDefinition();if(Id==TEXT("pistolMastery"))return Model->PistolDefinition();return Id==TEXT("dodge")?Model->DodgeDefinition():(Id==TEXT("dexterousHands")?Model->DexterousHandsDefinition():Model->RifleDefinition()); }
 FColdSteelSkillProgress UColdSteelSkillPage::Progress(FName Id) const
 { if(ElectricMagic::IsSkill(Id))return Model->ElectricMagicProgress(Id);if(Id==TEXT("blizzard"))return Model->BlizzardProgress();if(Id==TEXT("iceWall"))return Model->IceWallProgress();if(FireMagic::IsSkill(Id))return Model->FireMagicProgress(Id);if(Id==TEXT("holyLight"))return Model->HolyLightProgress();if(Id==TEXT("lightningStrike"))return Model->LightningProgress();if(Id==TEXT("iceSpike"))return Model->IceSpikeProgress();if(Id==TEXT("quickCombat"))return Model->QuickCombatProgress();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryProgress(Id);if(Id==TEXT("fireball"))return Model->FireballProgress();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeProgress();if(Id==TEXT("pistolMastery"))return Model->PistolProgress();return Id==TEXT("dodge")?Model->DodgeProgress():(Id==TEXT("dexterousHands")?Model->DexterousHandsProgress():Model->RifleProgress()); }
 void UColdSteelSkillPage::ReleaseSlateResources(bool bReleaseChildren)
-{ ElectricDetailButtons.Reset();BlizzardDetailButton.Reset();IceWallDetailButton.Reset();Super::ReleaseSlateResources(bReleaseChildren); Scroll.Reset(); Root.Reset();MeteorDetailButton.Reset();FlameArmorDetailButton.Reset();LightningDetailButton.Reset();HolyLightDetailButton.Reset();IceSpikeDetailButton.Reset(); DetailButton.Reset();PistolDetailButton.Reset();CriticalDetailButton.Reset();FireballDetailButton.Reset();HeavyDetailButton.Reset();DodgeDetailButton.Reset();DexterousHandsDetailButton.Reset();QuickCombatDetailButton.Reset();WhirlwindDetailButton.Reset();DashAttackDetailButton.Reset(); BackButton.Reset(); FilterButtons.Reset(); }
+{ UppercutDetailButton.Reset();ElectricDetailButtons.Reset();BlizzardDetailButton.Reset();IceWallDetailButton.Reset();Super::ReleaseSlateResources(bReleaseChildren); Scroll.Reset(); Root.Reset();MeteorDetailButton.Reset();FlameArmorDetailButton.Reset();LightningDetailButton.Reset();HolyLightDetailButton.Reset();IceSpikeDetailButton.Reset(); DetailButton.Reset();PistolDetailButton.Reset();CriticalDetailButton.Reset();FireballDetailButton.Reset();HeavyDetailButton.Reset();DodgeDetailButton.Reset();DexterousHandsDetailButton.Reset();QuickCombatDetailButton.Reset();WhirlwindDetailButton.Reset();DashAttackDetailButton.Reset(); BackButton.Reset(); FilterButtons.Reset(); }
 void UColdSteelSkillPage::NativeTick(const FGeometry& Geometry,float Delta)
 {
     Super::NativeTick(Geometry,Delta);
@@ -89,6 +91,13 @@ void UColdSteelSkillPage::RefreshLayout()
     PistolIconBrush.ImageSize=FVector2D(48/Scale);
     CriticalIconBrush.ImageSize=FVector2D(48/Scale);
     HeavyIconBrush.ImageSize=FVector2D(48/Scale);
+    UppercutIconBrush.ImageSize=FVector2D(48/Scale);
+    if(Model&&!UppercutIconTexture)
+    {
+        TArray<uint8> Bytes;
+        if(FFileHelper::LoadFileToArray(Bytes,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/Definition(TEXT("swordUppercut")).Icon)))UppercutIconTexture=FImageUtils::ImportBufferAsTexture2D(Bytes);
+        if(UppercutIconTexture){UppercutIconBrush.SetResourceObject(UppercutIconTexture);UppercutIconBrush.DrawAs=ESlateBrushDrawType::Image;}
+    }
     if(Model&&!HeavyIconTexture)
     {
         TArray<uint8> Bytes;
@@ -221,6 +230,20 @@ TSharedRef<SWidget> UColdSteelSkillPage::Paragraph(const FString& Value,float Pi
 TSharedRef<SWidget> UColdSteelSkillPage::Overview(bool bCompact,FName Id)
 {
     const auto& D=Definition(Id);
+    if(Id==TEXT("swordUppercut"))
+    {
+        // No level or training presentation until this motion has gameplay tuning.
+        return SNew(SVerticalBox)
+            +SVerticalBox::Slot().AutoHeight()[SNew(SHorizontalBox)
+                +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(0,0,12/Scale,0)
+                    [SNew(SBox).WidthOverride(48/Scale).HeightOverride(48/Scale)[SNew(SImage).Image(&UppercutIconBrush)]]
+                +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)[SNew(SVerticalBox)
+                    +SVerticalBox::Slot().AutoHeight()[Label(D.Name,20,ColdSteelUI::TextPrimary)]
+                    +SVerticalBox::Slot().AutoHeight().Padding(0,4/Scale,0,0)
+                        [Paragraph(TEXT("持剑 / 上挑 / 主动"),12,ColdSteelUI::TextSecondary,PageWidth-124)]]]
+            +SVerticalBox::Slot().AutoHeight().Padding(0,12/Scale,0,0)
+                [Paragraph(bCompact?TEXT("拖入快捷栏使用 · 当前开放动作试用"):D.Description,14,ColdSteelUI::TextSecondary,PageWidth-76)];
+    }
     const bool Compact=PageWidth<440;
     const TCHAR* Tags=Id==TEXT("dodge")?TEXT("身法 / 位移 / 主动"):(Id==TEXT("dexterousHands")?TEXT("敏捷 / 换弹 / 被动"):TEXT("步枪 / 远程 / 被动"));
     const FSlateBrush* SkillIcon=Id==TEXT("dodge")?&DodgeIconBrush:(Id==TEXT("dexterousHands")?&DexterousHandsIconBrush:&IconBrush);
@@ -640,7 +663,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
     ElectricDetailButtons.Reset();LightningDetailButton.Reset();HolyLightDetailButton.Reset();
     IceSpikeDetailButton.Reset();
     BlizzardDetailButton.Reset();IceWallDetailButton.Reset();
-    DetailButton.Reset();PistolDetailButton.Reset();CriticalDetailButton.Reset();FireballDetailButton.Reset();HeavyDetailButton.Reset();DodgeDetailButton.Reset();DexterousHandsDetailButton.Reset();BackButton.Reset();FilterButtons.Reset();
+    UppercutDetailButton.Reset();DetailButton.Reset();PistolDetailButton.Reset();CriticalDetailButton.Reset();FireballDetailButton.Reset();HeavyDetailButton.Reset();DodgeDetailButton.Reset();DexterousHandsDetailButton.Reset();BackButton.Reset();FilterButtons.Reset();
     if (!Model) return Label(TEXT("技能数据暂不可用"),14,ColdSteelUI::TextSecondary);
     auto Column=SNew(SVerticalBox);
     if (!bDetail)
@@ -712,6 +735,9 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
         if(Category==0||Category==2)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
             [SAssignNew(WhirlwindDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)
                 .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT("whirlwind")))[Overview(true,TEXT("whirlwind"))]];
+        if(Category==0||Category==2)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
+            [SAssignNew(UppercutDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)
+                .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT("swordUppercut")))[Overview(true,TEXT("swordUppercut"))]];
         Column->AddSlot().FillHeight(1)[Scroll.ToSharedRef()];
         Column->AddSlot().AutoHeight().Padding(16/Scale,8/Scale)[Paragraph(TEXT("拖动主动技能卡到 Q/E/X/1–4；空槽移动，占用槽交换，拖出解绑。快速进战也可直接按 F 触发。E 优先交互；左 Shift 短按仍可闪避。"),12,ColdSteelUI::TextTertiary,PageWidth-32)];
     }
@@ -722,6 +748,15 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
                 .OnClicked_Lambda([this]{GoBack();return FReply::Handled();})[Label(TEXT("返回技能列表"),14,ColdSteelUI::TextPrimary)]]];
         SAssignNew(Scroll,SScrollBox).AllowOverscroll(EAllowOverscroll::No);
         Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[SNew(SBorder).BorderImage(&CardBrush).Padding(16/Scale)[Overview(false,SelectedSkill)]];
+        if(SelectedSkill==TEXT("swordUppercut"))
+        {
+            Scroll->AddSlot().Padding(16/Scale,4/Scale,16/Scale,12/Scale)
+                [Paragraph(TEXT("在技能列表把上挑拖到 Q/E/X/1–4 任意快捷槽，装备剑后按绑定键使用。每次播放完整蓄势、斜挑、带出和回位，结束后即可再次触发。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)
+                [Paragraph(TEXT("本阶段不结算伤害，不扣体力或魔法，不设额外冷却，也不提供等级与修炼项目。快捷栏绑定照常保存。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+            Column->AddSlot().FillHeight(1)[Scroll.ToSharedRef()];
+            return Column;
+        }
         if(PageWidth>=480)Scroll->AddSlot().Padding(28/Scale,4/Scale)[SNew(SHorizontalBox)
             +SHorizontalBox::Slot().FillWidth(1)[Label(TEXT("技能收益"),16,ColdSteelUI::TextPrimary)]
             +SHorizontalBox::Slot().AutoWidth()[SNew(SBox).WidthOverride(100/Scale).HAlign(HAlign_Right)[Label(TEXT("当前等级"),12,ColdSteelUI::TextSecondary)]]
@@ -895,4 +930,4 @@ FReply UColdSteelSkillPage::SelectCategory(int32 Index)
 FReply UColdSteelSkillPage::OpenDetail(FName Id)
 { SelectedSkill=Id;bDetail=true; if(Scroll)Scroll->SetScrollOffset(0); RefreshLayout(); return FReply::Handled().SetUserFocus(BackButton.ToSharedRef(),EFocusCause::Navigation); }
 bool UColdSteelSkillPage::GoBack()
-{ if(!bDetail)return false; bDetail=false; if(Scroll)Scroll->SetScrollOffset(0); RefreshLayout();auto Button=SelectedSkill==TEXT("dodge")?DodgeDetailButton:(SelectedSkill==TEXT("dexterousHands")?DexterousHandsDetailButton:DetailButton);if(SelectedSkill==TEXT("pistolMastery"))Button=PistolDetailButton;if(SelectedSkill==TEXT("criticalStrike"))Button=CriticalDetailButton;if(SelectedSkill==TEXT("fireball"))Button=FireballDetailButton;if(SelectedSkill==TEXT("heavyStrike"))Button=HeavyDetailButton;if(SelectedSkill==TEXT("quickCombat"))Button=QuickCombatDetailButton;if(SelectedSkill==TEXT("whirlwind"))Button=WhirlwindDetailButton;if(SelectedSkill==TEXT("dashAttack"))Button=DashAttackDetailButton;if(ElectricMagic::IsSkill(SelectedSkill))Button=ElectricDetailButtons.FindRef(SelectedSkill);if(SelectedSkill==TEXT("lightningStrike"))Button=LightningDetailButton;if(SelectedSkill==TEXT("holyLight"))Button=HolyLightDetailButton;if(SelectedSkill==TEXT("meteor"))Button=MeteorDetailButton;if(SelectedSkill==TEXT("flameArmor"))Button=FlameArmorDetailButton;if(SelectedSkill==TEXT("iceWall"))Button=IceWallDetailButton;if(SelectedSkill==TEXT("blizzard"))Button=BlizzardDetailButton;if(Button)FSlateApplication::Get().SetKeyboardFocus(Button,EFocusCause::Navigation); return true; }
+{ if(!bDetail)return false; bDetail=false; if(Scroll)Scroll->SetScrollOffset(0); RefreshLayout();auto Button=SelectedSkill==TEXT("dodge")?DodgeDetailButton:(SelectedSkill==TEXT("dexterousHands")?DexterousHandsDetailButton:DetailButton);if(SelectedSkill==TEXT("swordUppercut"))Button=UppercutDetailButton;if(SelectedSkill==TEXT("pistolMastery"))Button=PistolDetailButton;if(SelectedSkill==TEXT("criticalStrike"))Button=CriticalDetailButton;if(SelectedSkill==TEXT("fireball"))Button=FireballDetailButton;if(SelectedSkill==TEXT("heavyStrike"))Button=HeavyDetailButton;if(SelectedSkill==TEXT("quickCombat"))Button=QuickCombatDetailButton;if(SelectedSkill==TEXT("whirlwind"))Button=WhirlwindDetailButton;if(SelectedSkill==TEXT("dashAttack"))Button=DashAttackDetailButton;if(ElectricMagic::IsSkill(SelectedSkill))Button=ElectricDetailButtons.FindRef(SelectedSkill);if(SelectedSkill==TEXT("lightningStrike"))Button=LightningDetailButton;if(SelectedSkill==TEXT("holyLight"))Button=HolyLightDetailButton;if(SelectedSkill==TEXT("meteor"))Button=MeteorDetailButton;if(SelectedSkill==TEXT("flameArmor"))Button=FlameArmorDetailButton;if(SelectedSkill==TEXT("iceWall"))Button=IceWallDetailButton;if(SelectedSkill==TEXT("blizzard"))Button=BlizzardDetailButton;if(Button)FSlateApplication::Get().SetKeyboardFocus(Button,EFocusCause::Navigation); return true; }

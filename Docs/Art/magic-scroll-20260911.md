@@ -5,7 +5,7 @@
 ## 交付文件
 
 - [三视图](../../SourceAssets/MagicScroll5080_20260911/magic_scroll_three_views.png)
-- [透明背包图标](../../Content/ColdSteelData/Icons/magic_scroll_realistic_v1.png)：512×512，正面提取后旋转 35°，便于单格辨认。
+- [透明背包图标](../../Content/ColdSteelData/Icons/magic_scroll_realistic_v1.png)：512×1024 竖直正面，主轴约 91% 填充、轮廓居中（2026-10-01 重制；旧版为 512×512 正面旋转 35° 的单格版）。
 - [可编辑 Blender 模型](../../SourceAssets/MagicScroll5080_20260911/magic_scroll_lod0_editable.blend)
 - [游戏用 GLB](../../SourceAssets/MagicScroll5080_20260911/Delivery/magic_scroll.glb)
 - [实际游戏模型截图](../../Saved/MagicScrollModelInGame.png)
@@ -19,6 +19,8 @@
 `/Game/Items/MagicScroll/magic_scroll/SM_magic_scroll`，颜色、粗糙度、金属度、烘焙法线均连接，FBX 保留法线与切线，关闭 Nanite。`ColdSteelPickupConsumable.cpp` 将上述四种卷轴映射到共享模型，沿用已有刚体、重力、碰撞和拾取逻辑。增加对应 AlwaysCook 目录。
 
 `items.json` 绑定新图标；旧实例重载时只刷新 `icon` / `ue_icon`，通过原有 A/B 校验存档事务保存，其余物品数据保持原样。没有向用户正式存档额外发放卷轴。
+
+2026-10-01：全部 `enchant_scroll_*` 物品占格改为 1×2 竖直（items.json `grid_w/grid_h` 作者字段）。旧存档实例由 `ColdSteelInventory::MigrateAuthoredGridFootprints` 在受检加载时回填字段并重新落位，放不下的卷轴回落主仓库；背包图标同步按占格标准重制为 512×1024 竖直版（同名文件覆盖，路径不变）。
 
 ## 验收
 

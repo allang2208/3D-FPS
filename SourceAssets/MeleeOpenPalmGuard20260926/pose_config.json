@@ -1,0 +1,16 @@
+{
+  "revision": "OpenPalmGuard20260926",
+  "blade_toward_player_degrees": 12.0,
+  "palm_contact_distance_m": 0.28,
+  "palm_pad_forward_m": 0.055,
+  "palm_pad_depth_m": 0.016,
+  "left_elbow_guide_m": [-0.30, 0.235, -0.24],
+  "palm_forward": [-0.22, 0.2, 1.0],
+  "open_fingers": {
+    "index": {"flex": [5, 10, 14], "spread": 10},
+    "middle": {"flex": [7, 12, 17], "spread": 1},
+    "ring": {"flex": [9, 15, 21], "spread": -9},
+    "pinky": {"flex": [11, 18, 25], "spread": -20},
+    "thumb": {"flex": [9, 14, 20], "spread": [-48, -44, -40]}
+  }
+}

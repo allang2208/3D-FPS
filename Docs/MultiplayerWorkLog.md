@@ -19,10 +19,11 @@
 | Git Bash 坑 | URL 里 `/Game/...` 要 `MSYS_NO_PATHCONV=1` 前缀，否则前导斜杠被转义 |
 | worktree 拆除坑 | 先 `rmdir` 断 junction（DDC 等）再 `git worktree remove`（既有教训） |
 
-## 1. 当前状态（最后更新：2026-10-02 00:20，移动同步排查暂停归档，待办已登记）
+## 1. 当前状态（最后更新：2026-10-02 午后，**联机已接入主仓**，见 §3.16）
 
-- **暂停点**：PIE 移动分叉的最终根因假设=**编辑器"后台使用较少 CPU"对失焦 PIE 视口的节流**（唯一能同时解释"同会话一客平滑一客断流"不对称的假设；-game 双进程冲刺+心跳全开已证完全同步）。**用户已暂停排查**。
-- **⏳ 待办（恢复时从这里开始）**：①用户侧 30 秒验证——编辑器首选项→性能→取消"在后台使用较少 CPU"→重跑 PIE 冲刺对照；②若仍分叉→PIE 各窗口挂帧率探针逐窗对账；③悬案：自驾钩子里冲刺门未过闸（CanSprint 简单，疑 bForwardIntent/时序，已加强制旁路可用）；④M4 丘陵验证恢复（预热连线姿势）；⑤重图网络旅行 LoadPackage 根治；⑥ADS 移速同类分叉；⑦档案 2s 全量重传差分化（perf 台账）。
+- **架构态**：四条结构问题全部按成熟方案落地——SavedMove 压缩位传 sprint/ADS/滑铲、PlayerState 数据归属（OwnerOnly 镜像+两级判脏分片上行+影子档案）、服务端复算命中+rewind 几何校验、WorldSubsystem 引导与地图 GameMode 解耦、闪避经 SavedRootMotion 上联机可用。旧 ChannelComponent 退役至 `trash/mp-channel-into-playerstate/`。
+- **冒烟实测结论**（§3.14）：move-flag/影子档案/命中复算/回执/血量 OnRep/上传瘦身全部在 -game 双进程下实证通过；客人移动撞墙停是地图几何非回归。**人工项未覆盖**：ADS/滑铲/闪避手感、远端形象可视确认、双人互打（rewind 对移动目标的实测）、丘陵图 GameMode 覆盖场景。
+- **⏳ 待办**：①用户人工验收上述未覆盖项；②验证毒蛆毒液崩溃修复后重跑 90s+ 会话确认稳定；③branch 首个提交（显式路径 add，见 §worktree 纪律）。
 - 硬件误判教训：日志 GPU 名（GTX 750 Ti）是用户改的设备名（实际 3080 Ti）；磁盘"慢"也为测法假象（枚举混入计时，精确测 348MB/198ms）。**环境结论只认实测**。
 - M1-M3 自动化全绿；主仓闪退修复在并行会话 WIP 文件内随其发布；分支 22 提交待合并（接入窗口=主线 WIP 落盘静默期）。
 
@@ -61,6 +62,167 @@
   - 客人侧 hub 图无天气（FPSWeatherManager 服务端 spawn 不复制）；
   - 若客人进程崩在角色 BeginPlay（`FPSGAMECharacter.cpp:349-360` 对 Controller 直写输入模式、`:339` AttachPawn 抢档案）→ 属已知坑，本地门禁修复项。
 - 日志锚点：`grep -E "MPTEST|Join succeeded|Possess" Saved/Logs/MPHost.log MPClient.log`。
+
+## 3.19 主界面 + 联机终端菜单（2026-10-02 傍晚，FPSGAMEEditor 编译通过）
+
+**设计来源**：原项目 `E:\无尽轮回\...\game-dev` 的 `menu-layer.js` 主界面（接入终端式玻璃面板：eyebrow/大标题/副题/版本/主键/次级双格/状态行/info 卡），规划文档 `Docs/UI/main-menu-plan-20261002.md`（UI-WORKFLOW 流程：先规划后实现）。
+
+**实现**：`TransitLoadingSubsystem` 的启动弹层原地扩成五页菜单（`FStartupLoadingView` 加 `Page` 页码状态，`SWidgetSwitcher` 切换，`SStartupMenuRoot` 吃 Esc=返回主页）：
+- 主页：无尽轮回标题 + [开始游戏 浅色主键] + [多人游戏] + [设置] + [操作说明|退出游戏] 双格 + 状态行 + 快捷操作 info 卡
+- 进入方式：原"快速测试/完整预加载"两档原样保留（`RequestedMode`→`ChooseLoadingMode` 链路不动）
+- 联机终端：昵称输入 + [创建房间（主机）`OpenLevel(当前图,"listen?Name=…")`] + 地址框 + [连接 `OpenLevel(ip,"Name=…")`] + 最近连接（config，点击即连，上限4）+ 状态行
+- 操作说明：真实键位表（DefaultInput.ini 扒的）；设置：预加载档位显示+占位
+- 退出：KismetSystemLibrary::QuitGame
+- 视觉按原版+冷钢规则落地：原版 `assets/ui/start-screen-background.png`（2048×1536）落到 `Content/UI/MainMenu/`，`FSlateDynamicImageBrush` 直读散文件（与 TransitLoading 同机制）；overlay 分层=#080d18 底 + `SScaleBox ScaleToFill`（对齐 center bottom，对应原 CSS `background-size:cover;position:center bottom`）+ rgba(4,8,18,.30) 暗化层；**主页按原版无面板**——eyebrow/标题/版本 + 300px 居中按钮列 + 状态行 + info 卡直接压图上；子页面（进入方式/联机终端/键位/设置）统一玻璃面板+ScrollBox 包裹。全部字体走 `TextFont`/`NumberFont`（Noto Sans SC / JetBrains Mono），颜色全 token。
+
+**数据口径**：昵称→`?Name=` URL option（引擎 InitPlayerState/InitNewPlayer 落 PlayerState→`BuildGuestSlotName` 槽位，兼做档案 key）；`FPSGAME.Menu.Nick/RecentHosts` 存 GGameUserSettingsIni；P2P 直连形态=监听服 `?listen` 重载当前图，预留 Steam/OSS 会话层扩展位。
+
+**验证**：`Build.bat FPSGAMEEditor` Succeeded（UnrealEditor-FPSGAME.dll 重链）。运行时联调点（未测，留用户）：开房后 bStartupChosen 分支不再弹菜单、加入方 travel 到主机图、昵称落槽、Esc 子页返回主页。
+
+## 3.20 联机完善批次：失败回退 / 本机IP / 门禁翻牌 / 怪物动画复制（2026-10-02，编译通过，未实测）
+
+**1. 连接失败回退主菜单**：`GEngine->OnNetworkFailure()/OnTravelFailure()` 绑定（lambda→`OnNetFailure`，World 归 GameInstance 过滤）→ `bStartupChosen=false` + `PendingMenuStatus` 存原因；`Tick` 里新增兜底轮询（`!bStartupChosen&&!StartupOverlay&&NM_Standalone`→重弹菜单）；`ShowStartupMenu` 把 pending 状态播种到状态行。此前客人 `open ip` 失败后回默认图就再无菜单入口。
+
+**2. 联机页本机地址**：`Sockets` 模块入依赖，`GetLocalAdapterAddresses` 过滤 IPv4 非 loopback/链路本地地址，联机页在"创建房间"下显示 `本机地址：x.x.x.x:7777`（房主报地址给好友用）。`Content/UI/MainMenu/...` 同时加进 `RuntimeDependencies`（散 PNG 打包清单，同 TransitLoading 条款）。
+
+**3. `NM_Standalone` 门禁大翻牌（35 处/33 文件）**：核心洞察——监听服下 `GetNetMode()==NM_ListenServer`≠Standalone，旧门禁**把主机也关了**：主机开不了出征传送门、用不了仓库/锻造/采集/交互/位移技能。翻牌规则：`!=NM_Standalone`（拦截）→`==NM_Client`；`==NM_Standalone`（准入）→`!=NM_Client`。主机（服务端权威）全面放开，客人照旧被拦（客人本地 NetMode=Client；服务端上客人 pawn 副本无输入事件天然安全）。**刻意保留**：`VoxelBuildWorldSave`（存档写盘仍单机-only）、已联机感知路径（PlayerBody/CombatHealth/TemperateHills NetEdits/Net 子系统/火球通道/菜单自身门槛）。涉及：出征/传送门/场景容器/树生长/仓库×2/世界交互/生产×2/开发调优/地牢生成×3/锻造/枪械组装/体素×3/翻越推门突进闪避格挡×5/符文系×4/冰火电圣光法术×6/SkillModel 体力预留。
+
+**4. 怪物离散动画+受击复制（大缺口）**：排查发现各怪类 `State` 枚举**从不复制**——客人侧 `IsControlled/IsBusy/Dead` 全判 false，攻击前摇/硬直/死亡等一切离散动画在客人端整层缺失（只有 locomotion 靠 CMC 速度驱动）。两层修复：
+- `NurseZombie`/`WolfMonster`/`FleshHandMonster`/`HandBrainMonster`/`PoisonMaggotMonster`/`HundredEyedSlagMonster` 的 `State` 加 `ReplicatedUsing=OnRep_State`，OnRep 重放各自 `SetState/EnterState`（这些函数本就表现内聚，客户端重放安全）。NurseZombie 基类覆盖 Witch/Spitter/FatZombie/Mutant3/BlindSupplicant 全家。
+- `MonsterCombatComponent` 开 `SetIsReplicatedByDefault`：复制 `HitReactions`（OnRep 计数器）+`ReactionDuration`+`bStunned`+`NetStunSeconds`；客户端 OnRep 镜像 `BeginHumanoidStun`+各类 `StartHitPresentation` 起手，`bNetReacting` 旗标驱动本地 Tick 走同款 `UpdateReactionPresentation`，计时到点复用 `FinishReaction` 收尾（类内 State 写入是本地美容值，服务端权威覆盖）。`UpdateHumanoidStun` 的 `Nurse->State!=Stagger` 门放宽 `||bNetReacting` 兜底复制延迟窗口。
+
+**剩余已知缺口**：击倒/布娃娃链路（`HumanoidKnockdownComponent` 的 Phase/物理 sim 不复制，客人看不到倒地起身）；冰锥齐射等其余法术服务端化（`AFPSIceSpikeVolley` 群组比单 orb 重）；主机施法特效在客人侧的可见性取决于各法术投射物是否复制（火球已复制，其余未做）。
+
+**验证**：`Build.bat FPSGAMEEditor` Succeeded（含全部翻牌+复制改动；中途一次失败是 `ColdSteelWarehouseWidget` 的 UHT 过期产物——删 gen 文件重建即过，系另一会话未提交改动的中间态）。运行时验证点（留用户）：主机在联机中可出征/交互/施法；客人能看到怪物攻击前摇、硬直、死亡动画；断线回菜单带错误提示。
+
+## 3.21 全法术服务端化收官（2026-10-03，编译通过，未实测）
+
+继火球打样后，把其余 9 个法术全部迁到同一相位化权威通道。**击倒/布娃娃按用户要求本轮不做。**
+
+**协议扩展**：`FColdSteelNetCastRequest` 加 `AimNormal`（放置朝向/坡面法线/弹道方向）、`AimAxis`（暴雪区椭圆长轴）、`Variant`（冰墙高低/圣光自疗位）、`Target`（锁定类法术的目标 actor）。`ExecuteCastRequest` 重构为按 `SkillId` 分派：Phase0 逐技能影子档 `BeginXxxCast` 扣账（fireball/iceSpike 同时生成权威悬停体挂 `PendingCastOrb`）；Phase1 分派到各组件的 `NetCommit*`/`NetRelease` 服务端入口；Phase2/3 通用退款/弃置收尾按技能路由对应 `Finish/Refund`。`Skills/NetCastUtils.h` 新增共享助手：`Send`（意图上行）、`StateFor`、`AuthorityModel`（服务端远程施法取影子档、本地/单机回落 GI 档）、`NetWorldViewPoint`（远端 pawn 的相机参数回退）。
+
+**统一模式**：各法术组件去掉 `NM_Client` 早退门——客人本地跑手势/瞄准预览/凝聚表现（本地预扣账 `BeginXxxCast` 立刻见冷却与蓝耗），Phase0/1 意图上行，服务端用影子档权威执行伤害/治疗/掉落，生成复制 actor 回流各端；客人本地收尾只做 `FinishXxxCast(空Rewards)` 清预留。取消路径统一 `Phase2` 上报退预留。
+
+**各法术落点**：
+
+| 法术 | 客户端流 | 服务端权威 | 远端表现 |
+|---|---|---|---|
+| 冰锥 | 本地凝聚+瞄准预览；release 发瞄准点 | `SpawnVolleyForCast` 生成齐射体；命中/碎裂/Finish 全在权威端 | `AFPSIceSpikeVolley` 复制 `{NetShooter,NetSource,bNetFlying,NetCount,NetPos[],NetDir[],NetAlive}`，远端 `NetPresent` 摆同款壳（组件自载冰锥素材） |
+| 冰墙 | 本地种子+放置预览；release 发落点+法线+形态位 | `NetCommitWall`：服务端独立 `IceWallPlacement::Build` 重验→生成终态墙（无种子段） | `AFPSIceWall` 复制 `{NetTuning,NetPlan,NetState,NetHealth}`，远端 NetInit 自建网格/屏障/冷气，OnRep_State 重演升落碎 |
+| 暴雪 | 本地凝聚云+落点预览；release 发落点/法线/长轴 | `NetCommitZone`：range/法线重验→`InitializeZone`+`ActivateZone`；DamageTick 锁权威端 | `AFPSBlizzardZone` 复制 `{NetCaster,NetCast,NetCenter,NetNormal,NetAxis,NetCloudHeight,bNetActivated}`，远端自载 15 件素材重演风暴壳 |
+| 圣光 | 本地选目标+凝聚；release 发目标 actor+自疗位 | `NetRelease`：IsTarget/range/LOS 重验（服务端视角位）→权威治疗/伤害 | `AFPSHolyLightEffect` 复制 `{NetTarget,NetSpell}`，远端自建光柱 |
+| 闪电 | 本地选首目标+凝聚；release 发首目标 | `NetRelease`：首目标重验→`RunChain`（释放段抽出共享）服务端跑链/感电/过载 | `AFPSLightningArc` 复制 `{NetKind,NetStart,NetEnd,NetSpell,NetWidth,NetBrightness,NetContactLight,NetChargeRatio}`，远端自载 NS_LightningChain 重演 |
+| 陨石 | 本地落点选择；release 发落点+法线 | `NetRelease`：range/遮挡重验→权威陨星 | `AFPSMeteorStrike` 复制 `{NetCaster,NetCast,NetDestination,NetNormal}`，远端 InitializeStrike 自载重演；DamageArea 锁权威端 |
+| 焰甲 | 本地 StartArmor（火环/武器火） | 服务端组件 `TickArmor` 走影子档案灼烧 tick | `bNetArmor`+`NetArmorCast` 复制，远端 OnRep 播同款火环 |
+| 雷云域 | 本地凝聚；release 上报 | 服务端组件权威域：周期 Strike 选链/伤害/感电全在权威端 | `bNetDomain`+`NetDomainCast` 复制远端演云；落雷经 AFPSLightningArc 复制 |
+| 雷枪 | 本地充能圈+音效；release 发充能量+眼位+方向 | `NetRelease`：Eye/Dir/ChargeRatio 重算命中链（`FireLanceBody` 抽出共享） | 雷枪柱经 AFPSLightningArc kind=1 复制 |
+
+**架构要点**：组件 `Model()` 在服务端拿到的是 GI 档案（主机档），客人施法时伤害/扣账若落 GI 档会记错人——所有结算侧统一换 `NetCast::AuthorityModel(Pawn,GI)`（服务端→影子档，本地/单机→GI 档）。`ApplyFireMagicHit`/`ApplyIceSpikeHit` 等内部本就带 `Shooter->HasAuthority()` 门，客户端重复跑 hit 循环天然短路，无需额外包装。刃弧（武器附魔特效）与冰墙种子段仍按本地特效处理不复制——它们只在操作者屏上有意义。
+
+**验证**：`Build.bat FPSGAMEEditor` Succeeded（两轮修正：`NetCast::Send` 参数放宽到 `AActor*` 收组件 GetOwner；组件无 `HasAuthority()/GetGameInstance()` 便捷函数改 `GetOwner()->`/`GetWorld()->` 取；`FPSMagicPreview::AimPoint` 收 `const APawn*`）。运行时验证点（留用户）：每个法术在客户端凝聚→释放→远端见到对应表现；命中伤害只算一次；取消/弃置退蓝正确；雷云域的周期性落雷远端可见。
+
+## 3.17 通用施法通道 + 火球服务端化打样（2026-10-02，代码自查过，编译因 Live Coding 占用未跑）
+
+**架构（A 模式打样）**：`FColdSteelNetCastRequest{SkillId,Phase,AimPoint}` + `PlayerState.ServerCastSpell`（Server Reliable）+ `ClientCastResult` 回执（Client Reliable）。Phase：0=凝聚 1=发射 2=凝聚期取消(退蓝清CD) 3=弃置悬停体(只清占用)。服务端 `ExecuteCastRequest` 按 SkillId 分派（当前仅 `fireball`），影子档案校验 pawn/死亡/冷却/法耗并 `BeginFireballCast` 扣账，orb 由服务端生成（`bReplicates`+`SetReplicateMovement`），各端靠 actor 复制看表现。**新法术接入=SkillId 注册+ExecuteCastRequest 加分支+组件侧 SendNetCast 调用**，不加新 RPC。
+
+**关键文件**：
+- `ColdSteelPlayerState.h/.cpp`：请求结构/RPC/pending 状态（PendingCastSkill/Orb/At/PaidMana）+ Tick 里影子档 `AttachPawn`+`TickRuntime`（冷却/回蓝服务端时钟驱动）+ 看门狗（球外部消亡→退款清占用）。
+- `FPSFireballComponent.h/.cpp`：NM_Client 分支不本地生球——本地照旧跑手势/扣本地蓝（表现），`SendNetCast(0)` 上报；`bNetExpectOrb` 覆盖"已凝聚、副本在途"窗口；副本到达经 `AdoptNetOrb` 认领为 Active；2.5s 超时本地退款收尾；`LaunchAtContact` 发 Phase1+AimPoint；`Cancel`/`InterruptForPriority` 走 `ReleaseOrb`（Phase2/3）；`NetCastRejected/NetCastCancelled` 收拒绝与取消回执。
+- `FPSFireballProjectile.h/.cpp`：`bReplicates`+ReplicateMovement；`Shooter`/`NetXxx`（Hover/Gravity/Range/Radius）/爆炸事件字段（NetExplodePoint/Normal/bNetSurfaceHit）+`bFlying`/`bFinished(ReplicatedUsing)` 复制；服务端跑权威弹道+`ApplyFireballExplosion`（影子档优先解析），远端副本只演 FX；`OnRep_Finished` 播同款爆炸表现；`SetLifeSpan(1.2)` 保证最后一批复制字段先出网再销毁。
+
+**口径**：客人本地蓝/冷却是表现性预扣（服务端回执可对账退款），权威账在影子档；主机玩家走原 standalone 路径不动。`PendingCastOrb` 每 PlayerState 独立，双客同施互不干扰。
+
+**验证**：代码自查（声明/定义/RPC 签名/生命周期分支全部核过）；**编译未跑**——编辑器开着 Live Coding 占构建锁，Ctrl+Alt+F11 或关编辑器后 `Build.bat FPSGAMEEditor` 生效。**运行时未验**：火球进服→生球→发射→爆炸→回执全链、双人同施、取消/超时退款均待 -game 双进程实测。
+## 3.18 PIE 多开"恒有一窗卡死"修复（2026-10-02，编译未跑）
+
+**症状**：PIE 玩家数=N 时恒有 1 个窗口冻结在 TransitLoading 遮罩（0%/已等待0秒/不吃输入），其余正常。
+
+**根因——进程级全局委托跨实例串扰**：`FCoreUObjectDelegates::PreLoadMap` 是全进程广播，PIE 单进程多实例（服务器+N 客户端，各 GameInstance 各有 TransitLoadingSubsystem）都会收到任一世界的"开始载入"。`AfterMap` 有 `World->GetGameInstance()!=GetGameInstance()` 过滤但 `BeforeMap` 没有 → 每次客户端开始旅行都会给**服务器窗口**也 `BeginTransition` 挂遮罩并锁 `bMapLoading=true`；客户端加载完的 `AfterMap` 在服务器侧被 GI 过滤 → 服务器窗口遮罩永不消除 + `SetIgnoreInput(true)` 吞输入 = 永久卡死。每局恰卡一窗（服务器窗），N-1 正常，与观察吻合。
+
+**修复**：
+- `TransitLoadingSubsystem`：`PreLoadMap` → `PreLoadMapWithContext`，`BeforeMap` 加 `Context.OwningGameInstance!=GetGameInstance()` 过滤；解绑同步改。
+- `ColdSteelNetWorldSubsystem`：同型串扰——`FGameModeEvents` 也是全局广播，客户端子系统会误对服务器登录事件跑 `InitializeGuest`/`SaveShadowToHostDisk`；`OnPostLogin`/`OnLogout` 补 `GameMode->GetWorld()!=World` 过滤。
+
+**遗留同类排查口径**：以后凡是绑 `FCoreUObjectDelegates`/`FGameModeEvents`/`FWorldDelegates` 等全局委托的子系统，回调第一行都应先做归属过滤。
+
+**验证**：代码自查；编译未跑（编辑器 Live Coding 占用）；PIE 双人实测待用户回归。
+## 3.16 联机接入主仓（2026-10-02 午后，主仓 FPSGAMEEditor 编译通过）
+
+**方式**：不走 git merge（主仓 HEAD 已过 merge-base 且挂着 ~770 文件的其他会话 WIP）；按"worktree 有、主仓缺"的差异集做文件级移植——纯新增整拷、纯增量整拷（删除行逐一核过只属联机改动）、混合文件手工摘 MP 块贴到主仓新代码上。
+
+**整拷（与 worktree 现完全一致）**：`Source/FPSGAME/Multiplayer/` 全目录（PlayerState+WorldSubsystem）、`Plugins/ColdSteelNet` 全部源文件与 uplugin、Body 组件四件套、`FPSCombatHealthComponent`(.cpp/.h rewind 缓冲)、`PoisonMaggotVenomFX`（%0 崩溃修复）、`FPSGAMECharacterProfile.cpp`（PossessedBy/OnRep_Controller/TryAttachLocalProfile/OnRep_ReplicatedMovement）、`FPSGAMEGameMode.cpp`（PlayerStateClass）、`FPSCharacterMovementComponent`(.cpp/.h SavedMove 位+断流看门狗)、`FPSPlayerDodge.cpp`/`FPSDodgeMovement.cpp`（联机闪避）、skill 文档与本日志。
+
+**手工移植（保留主仓他人 WIP 不动）**：
+- `FPSGAMECharacter.h/.cpp`：MP 成员+SavedMove 意图写法+断流冻结/僵尸键闸+开火戳+Tick 10 个表现调用 `IsLocallyControlled()` 包门（远端副本不跑第一人称表现）。
+- `ColdSteelSkillRules.cpp`：NetHitForward 转发器+AwardKillByOwner+影子档案优先（`Snapshot`/`ApplyHit`），含 FPSGAMECharacter.h include。
+- `TemperateHillsWorld.h/.cpp`：bReplicates+Seed/WorldId/NetEdits 复制+`StartWorldPipeline`/`ConvertNetEdits`/`SyncNetEdits`/`OnRep_NetEdits`+Tick 客户端重建入口；**矿石空间加权签名（他人新工作）未动**。
+- `ColdSteelStatusModel.h`+`ColdSteelProfileRuntime.cpp`：`CreateShadowModel`/`AdoptNetMirror`（主仓版补齐 IceWall/Meteor/FlameArmor/Blizzard/StormDomain/ThunderLance 全技能字段——比 worktree 版多 6 个，修掉影子档案缺技能定义的潜在 bug）+ `PersistState` 专用服门禁。
+- `TransitLoadingSubsystem.cpp`（NM_Client 过场放行）、`FPSPotionUseComponent.cpp`、`FPSLightningComponent.cpp`（去掉 NM_Standalone 门禁；主仓 `HasOtherPreparedSpell` 等新逻辑保留）。
+- `Config/DefaultGame.ini`：`bShareMaterialShaderCode=False`（-game 必需）；`Config/DefaultEngine.ini`：连接超时 180s（editor 客户端联调）。
+
+**故意不搬**：`GlobalDefaultGameMode=FPSNetGameMode` 全局默认（主仓保留 FPSGAMEGameMode；WorldSubsystem 对任意 GameMode 兜底，联机会话才激活）、worktree 的 GameDefaultMap 测试图覆盖、`DisabledPlugins=Python`/`Engine.Python.IsEnabledByDefault=0`（-game 崩溃规避，主仓编辑器依赖 Python 管线，需要时单开 issue）、`FPSGAMEPlayerController.cpp/.h`（主仓有他人 SpawnHubTestChest 等新工作，无联机改动）。
+
+**验证**：`FPSGAMEEditor Win64 Development` Result=Succeeded，`UnrealEditor-FPSGAME.dll`+`UnrealEditor-ColdSteelNet.dll` 均新产出。**未跑双进程冒烟**（接入后的 -game 联调与人工验收项沿用 §1 待办）。
+
+## 3.15 战术冲刺"停不下"修复（2026-10-02 午后，编译通过 + -game 回归冒烟）
+
+**用户报告**：战术冲刺后 A 停止，B 视窗里 A 仍径直冲刺不停。
+
+**根因排查**：`M4TacticalSprintComponent` 只是第一人称视模动画层（不驱动位移），flag 链路本身已验证连续到达（上一轮 `b=0/1` 交替）。真凶是两条独立失速路径，都不经 SavedMove 语义：
+
+1. **服务端陈旧 move 沿用**：远端 pawn 在服务端跑 `SimulatedTick`，引擎默认沿用**最后一个已处理 move 的 `Acceleration`+压缩标志**——客户端窗口失焦被节流/丢包/卡死时 move 断流 >0.4s，服务端就按旧冲刺加速度永续模拟 → B 看到"径直冲刺"。实测证实：双 `-game` 后台失焦窗口 move 断流 0.40-0.83s 每场稳定出现 5+ 次。
+2. **僵尸轴输入**：失焦窗口的 axis 绑定以最后键值逐帧重发（KeyUp 未到达），Tick 里的 `MoveInput` 清理挡不住回调内 `AddMovementInput` 的逐帧注入 → A 自己其实还在走。
+
+**落码**：
+- `UFPSCharacterMovementComponent::TickComponent` 服务端看门狗：`HasAuthority()&&!IsLocallyControlled()` 且距上个 move >0.4s → `Acceleration` 清零 + `bWantsTo*` 复位 + 滑铲摩擦恢复（move 恢复下一帧自愈）。打点 `MPTEST stale-move watchdog`。
+- `MoveForward`/`MoveRight` 回调内物理键闸（WASD+方向键，`GetAsyncKeyState`）：轴值与物理按下不一致即归零——失焦僵尸轴从源头不再注入。
+- 断流冻结时同步清零 `Velocity`（身体动画读 `GetVelocity`，旧值会呈原地跑步）。
+
+**冒烟回归**（MPHost4/MPClient4.log）：看门狗按预期在真实断流窗触发 5 次（0.40-0.83s），期间 `_1` 停在 x=102 vel=0 无漂移；sprint flag 继续正常交替；~80s 无 Fatal。**用户场景的"A 停 B 看 A 还在冲"窗口已被看门狗在服务端侧钳死**；僵尸轴路径未被自动化覆盖（合成输入豁免物理键闸），人工验收即可直接验证。
+
+## 3.14 重构收尾+双进程实测（2026-10-02 午，编译通过 + -game 冒烟实测）
+
+**新增落码**（接 §3.13，把收尾四项做完）：
+- **滑铲入 SavedMove**：`FLAG_Custom_2` 镜像 `bIsSliding`；权威端 flag 触发完整 `StartSlide`（含入铲初速），回放路径 `ApplyNetSlideFlag(...,false)` 只还原状态位+摩擦（速度由 move 重算）。`CanCombineWith` 加滑铲位比较。
+- **闪避联机修复**：`StartDodge` 的 `NM_Standalone` 门禁曾让联机下闪避**整个不生效**；改 `IsLocallyControlled()||HasAuthority()`。服务端副本上闪避经 SavedMove 的 SavedRootMotion 到达（无本地 ID），`IsDodging()` 加按 `InstanceName=="PlayerDodge"` 扫描 `CurrentRootMotion`/`SavedRootMotion` 的服务端路径（无敌帧依赖）。`TryDodge`/闪避奖励改影子档案。
+- **真 rewind**：`UFPSCombatHealthComponent` 服务端 25Hz 位姿环形缓冲（24 帧≈0.96s，录胶囊中心+头顶/head 骨）；`ClientFireTime` 改客户端估计的服务端钟（`GetServerWorldTimeSeconds`）；`ValidateHitReport` 加时间戳新鲜度（-0.1~0.9s）+ **线段-胶囊轴重算**：弹道与 rewind 位姿最近距 >半径+60cm 即拒。不落 actor 位移，纯数学回放。
+- **档案上传两级判脏**：HP/法力/体力/全套冷却/TreeGrowthDay/Infection/DungeonRun 归一比对（NormalizeProfileForCompare）——结构变更立即上行，否则 30s vital-flush 兜底。修掉了"Snapshot 每 2s 都变、去重失效、84KB 心跳事实上仍在跑"的退化。
+- **顺手修**：`PoisonMaggotVenomFX::AddImpact` 的 `%MarkCount` 除零/`Marks` 空池崩溃（冒烟实测撞出来的既有 bug，非本次重构引入）。
+
+**双进程冒烟实测**（L_PoisonMaggot + `-game`，客人 `-MPClientWalk -MPClientShot`）：
+- ✅ `guest initialized via world subsystem` + `PlayerState=ColdSteelPlayerState_1`（含不带 `?game=` 轮，GlobalDefaultGameMode=FPSNetGameMode 本来就生效，WorldSubsystem 作为地图覆盖场景的兜底已就位）
+- ✅ sprint 意图经 move 包到达：`sprint move-flag server: FPSGAMECharacter_1 b=0/1` 交替
+- ✅ 客人移动链路：主机探针 700→102（撞墙停，与历史取证一致），无 ClientAdjustPosition/frozen
+- ✅ 命中闭环：`synthetic hit sent`→服务端 `hit applied dmg=13.0`（自报 25 被影子档案复算包络钳制）→`hit confirmed on client` 回执
+- ✅ 血量复制：`Health replicated` 双向（主机被蛆咬 165↔166、客人回血 199.9→200）
+- ✅ 上传瘦身生效：115s 会话仅 5 次上行（首传 structural×2 + vital-flush×3）；旧口径同窗口会发 ~57 次 84KB
+- ✅ 毒蛆毒液池崩溃修复后复跑：~2min 会话 0 Fatal error（修复前 55s 即崩）
+- ⚠️ 单发 `sim frozen 0.8s` 瞬态（move-ack 抖动，自愈）；首登无存档走新建 fallback（正常）
+
+## 3.13 成熟方案重构（2026-10-02，四大结构问题一次性落地，编译通过，未双进程验收）
+
+**触发**：用户拍板"先按成熟方案重构，删掉旧冲突代码"。四条对齐对象：Lyra（SavedMove 自定义标志/ASC-in-PlayerState 思路）、ShooterGame/nbertoa（服务端命中复算）、GASDocumentation（PlayerState 数据归属）、通用 GameMode 分层实践。
+
+**改动总表**（全部在 `FPSGAME-mp`，主仓零接触）：
+
+| 层 | 旧形态 | 新形态 | 文件 |
+|---|---|---|---|
+| 移动状态 | `ServerSetSprinting` reliable RPC，与移动包时序解耦 | `FSavedMove_FPSCharacter` 派生，`CompressedFlags` 占 FLAG_Custom_0(sprint)/FLAG_Custom_1(ADS)，`CanCombineWith` 状态变化时拒合并；`UpdateFromCompressedFlags` 同帧回写 MaxWalkSpeed | `Source/FPSGAME/Movement/FPSCharacterMovementComponent.{h,cpp}`、`FPSGAMECharacter.{h,cpp}`（删 RPC） |
+| 玩家数据 | `UColdSteelNetChannelComponent`（挂 PC）+ 84KB 全量快照 2s reliable 心跳 | `AColdSteelPlayerState`：`PublicInfo` 全员复制、`MirrorBlob` 走 `COND_OwnerOnly`、上传=首传 512B 分片(≤2 片/tick)+CRC 变更检测（**无周期全量**）、下行权威镜像 OwnerAck 流控 | `Source/FPSGAME/Multiplayer/ColdSteelPlayerState.{h,cpp}`（新） |
+| 服务端影子 | 通道组件持有 | PlayerState 持有 `UColdSteelStatusModel::CreateShadowModel` 影子档案，`Pawn` 绑定+`ShadowPawn` 重试链喂 `ApplyColdSteelProfile`+`NetShadowProfile`；**只挂远端玩家，主机走本地单例** | 同上 |
+| 命中权威 | 客户端报伤害/爆头/穿甲/经验全收 | `FColdSteelNetHitReport` 改为瞄准点/命中点/骨名/方向+ShotTimeSeconds+语义标志+汇聚弹数；服务端 `ColdSteelSkills::Snapshot(Shooter, ShadowModel->Equipped(), bFiredRound)` 复算，`ClaimedDamage` 仅作包络钳位（过渡态）；`bFiredRound` 防客户端伪报消耗标志；时间窗校验 vs GameState 时钟 | `ColdSteelPlayerState.cpp`、`FPSGAMECharacter.cpp`（`LastShotConvergenceRounds`）、`ColdSteelSkillTypes.h`、`ColdSteelSkillRules.cpp` |
+| 远端形象 | `SetAuthoritativeState/Equipment` 零调用 | `SampleRemoteAuthorityState` 服务端采远端 pawn 实态写 `ReplicatedState`（sprint/aim/滑铲/蹲/开火/换弹）；`ApplyColdSteelProfile` 后服务端 `CaptureEquipment` 填 `ReplicatedWeapons/Outfit`（outfit 源改影子档案优先）；`ServerRecordAction` 替 `ServerReportBodyAction` | `FPSPlayerBodyActions/Component/Equipment.{h,cpp}` |
+| GameMode 分层 | `AFPSNetGameMode`（AGameMode 直生）依赖被选中 | `UColdSteelNetWorldSubsystem` 挂 `FGameModeEvents::PostLogin/Logout`，**任意地图 GameMode 下 MP 通道都激活**；`AFPSGAMEGameMode` 构造统一设 `PlayerStateClass`；NetGameMode 只留默认 spawn | `Source/FPSGAME/Multiplayer/ColdSteelNetWorldSubsystem.{h,cpp}`（新）、`FPSGAMEGameMode.cpp`、插件 `FPSNetGameMode/ColdSteelNet.cpp` |
+| 血量/战斗宿主污染 | `OnDamage` 月影/续命读主机单例；Health 无 OnRep 收敛 | `FPSCombatHealthComponent` 全伤害路径影子档案感知（`GetNetShadowProfile` 优先）；`OnRep_Health` 客户端死亡收敛 | `FPSCombatHealthComponent.cpp` |
+| 旧通道 | — | **退役**：`ColdSteelNetChannelComponent.{h,cpp}` → `trash/mp-channel-into-playerstate/`（SHA256 记录在 trash 旁）；插件 Intermediate 陈旧 UHT 已清 | 插件 |
+
+**编译**：`Build.bat FPSGAMEEditor Win64 Development -project=FPSGAME-Online.uproject` → **Succeeded**（两轮：先修 `Multiplayer/` 内同目录 include 与 `../` 相对路径问题）。
+
+**未做/遗留**：
+- **运行时双进程验收未跑**（用户规则：验收由用户做）；
+- 真 rewind（历史位置环形缓冲+时间戳回放碰撞查询）**只落了时间戳上报/校验骨架**（`ServerReportShotStamp`），历史缓冲本体未实现——`ClaimedDamage` 钳位是过渡妥协，下一步立历史缓冲后可删；
+- 客户端体姿仍走 `bIsSprinting||bServerSprinting` 式 OR 语义的旁枝已随 RPC 删除自然关闭，但滑铲/闪避/越野仍未入 SavedMove（同法可扩 FLAG_Custom_2..）；
+- skill 文档 `ue5-multiplayer-netcode` 的"通道组件"章节已过时，待重写（见下一步）。
 
 ## 3.12 移动同步取证结论（2026-10-01 深夜，全探针版）
 

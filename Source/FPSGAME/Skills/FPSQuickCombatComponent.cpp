@@ -565,7 +565,7 @@ void UFPSQuickCombatComponent::ContactHit()
         Shot.CriticalChance=Profile->Derived(TEXT("crit"));
         Shot.CriticalDamageBonus=Profile->CriticalStrikeEffect().CriticalDamageBonus;
     }
-    else Shot=ColdSteelSkills::Snapshot(Player,bOffhand&&Dual?&Dual->Hand(1).Item:bBow?Profile->ActiveBow():Profile->Equipped());
+    else Shot=ColdSteelSkills::Snapshot(Player,bOffhand&&Dual?&Dual->Hand(1).Item:bBow?Profile->ActiveBow():Profile->Equipped(),false);
     // 步枪版走 rifleMastery 修炼（与枪械命中同一口径），手枪版走 pistolMastery。
     Shot.bRifle=bRifle;Shot.bPistol=IsPistolStyle();Shot.WeakpointPercent=0;
     // 握把底/枪身砸击是钝器动作，按钝器折算削韧；同时标记为手持枪械发动的近战打击，

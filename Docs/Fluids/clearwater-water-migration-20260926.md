@@ -1,5 +1,7 @@
 # Clearwater 水体迁移：状态与交接（2026-09-26）
 
+> 当前开发转向 [原生光学候选](clearwater-native-candidate-20260926.md)：保留现有水体主线，以 UE SingleLayerWater 承接 Clearwater 的浅水表现。以下为旧 Unlit 移植与探针历史，不代表新候选已运行验收；正常作者入口已切换，不再重建旧水面。
+
 迁移 [Aureliengmz/clearwater](https://github.com/Aureliengmz/clearwater)（WebGL2 单文件实时浅水渲染器，MIT，© 2026 Lumaris）到 `D:/FPS3D/FPSGAME`（UE 5.8.2），
 并在主场景加通往新关卡 `L_ClearwaterWater` 的传送门。
 

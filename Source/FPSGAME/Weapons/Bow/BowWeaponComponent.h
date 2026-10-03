@@ -52,6 +52,7 @@ UCLASS(ClassGroup=(Weapons), meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UBowWeaponComponent : public UActorComponent
 {
     GENERATED_BODY()
+    friend class UFPSPlayerBodyComponent;
 
 public:
     UBowWeaponComponent();

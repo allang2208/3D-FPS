@@ -1,0 +1,120 @@
+{
+  "profiles": [
+    {
+      "weapon": "ue_pit_viper2011/Dual_r",
+      "family": "fitted",
+      "author": "WeaponAnimationSharing20261002",
+      "mesh": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r",
+      "asset": "/Game/Weapons/AnimationProfiles20261001/ue_pit_viper2011/Dual_r/DA_fitted",
+      "pairs": [
+        {
+          "role": "quickcombat",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_fitted"
+        },
+        {
+          "role": "quickcombat_empty",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_empty",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_fitted_empty"
+        },
+        {
+          "role": "quickcombat_left",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_fitted"
+        },
+        {
+          "role": "quickcombat_left_empty",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_empty",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_fitted_empty"
+        }
+      ]
+    },
+    {
+      "weapon": "ue_pit_viper2011/Dual_r",
+      "family": "long",
+      "author": "WeaponAnimationSharing20261002",
+      "mesh": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r",
+      "asset": "/Game/Weapons/AnimationProfiles20261001/ue_pit_viper2011/Dual_r/DA_long",
+      "pairs": [
+        {
+          "role": "quickcombat",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_long"
+        },
+        {
+          "role": "quickcombat_empty",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_empty",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_long_empty"
+        },
+        {
+          "role": "quickcombat_left",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_long"
+        },
+        {
+          "role": "quickcombat_left_empty",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_empty",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_long_empty"
+        }
+      ]
+    },
+    {
+      "weapon": "ue_pit_viper2011/Dual_l",
+      "family": "fitted",
+      "author": "WeaponAnimationSharing20261002",
+      "mesh": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/SK_Dual_PitViper2011_l",
+      "asset": "/Game/Weapons/AnimationProfiles20261001/ue_pit_viper2011/Dual_l/DA_fitted",
+      "pairs": [
+        {
+          "role": "quickcombat",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_fitted"
+        },
+        {
+          "role": "quickcombat_empty",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_empty",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_fitted_empty"
+        },
+        {
+          "role": "quickcombat_left",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_fitted"
+        },
+        {
+          "role": "quickcombat_left_empty",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_empty",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_fitted_empty"
+        }
+      ]
+    },
+    {
+      "weapon": "ue_pit_viper2011/Dual_l",
+      "family": "long",
+      "author": "WeaponAnimationSharing20261002",
+      "mesh": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/SK_Dual_PitViper2011_l",
+      "asset": "/Game/Weapons/AnimationProfiles20261001/ue_pit_viper2011/Dual_l/DA_long",
+      "pairs": [
+        {
+          "role": "quickcombat",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_long"
+        },
+        {
+          "role": "quickcombat_empty",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_empty",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_long_empty"
+        },
+        {
+          "role": "quickcombat_left",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_long"
+        },
+        {
+          "role": "quickcombat_left_empty",
+          "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_empty",
+          "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_long_empty"
+        }
+      ]
+    }
+  ]
+}

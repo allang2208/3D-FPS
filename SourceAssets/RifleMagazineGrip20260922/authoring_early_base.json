@@ -1,0 +1,124 @@
+{
+  "AKM/standard/base/reload": {
+    "gun": "AKM",
+    "family": "base",
+    "clip": "reload",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/AKMReloadPolish20260911/base/A_AKM_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\AKM\\standard\\base\\A_AKM_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\AKM\\standard\\base\\A_AKM_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      18,
+      284
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "clavicle_l",
+      "upperarm_l",
+      "lowerarm_l",
+      "hand_l",
+      "upperarm_twist_01_l",
+      "upperarm_twist_02_l",
+      "lowerarm_twist_01_l",
+      "lowerarm_twist_02_l",
+      "index_metacarpal_l",
+      "index_01_l",
+      "index_02_l",
+      "index_03_l",
+      "middle_metacarpal_l",
+      "middle_01_l",
+      "middle_02_l",
+      "middle_03_l",
+      "thumb_01_l",
+      "thumb_02_l",
+      "thumb_03_l",
+      "pinky_metacarpal_l",
+      "pinky_01_l",
+      "pinky_02_l",
+      "pinky_03_l",
+      "ring_metacarpal_l",
+      "ring_01_l",
+      "ring_02_l",
+      "ring_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false
+  },
+  "AKM/standard/base/reload_empty": {
+    "gun": "AKM",
+    "family": "base",
+    "clip": "reload_empty",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/AKMReloadPolish20260911/base/A_AKM_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\AKM\\standard\\base\\A_AKM_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\AKM\\standard\\base\\A_AKM_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      18,
+      272
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "clavicle_l",
+      "upperarm_l",
+      "lowerarm_l",
+      "hand_l",
+      "upperarm_twist_01_l",
+      "upperarm_twist_02_l",
+      "lowerarm_twist_01_l",
+      "lowerarm_twist_02_l",
+      "index_metacarpal_l",
+      "index_01_l",
+      "index_02_l",
+      "index_03_l",
+      "middle_metacarpal_l",
+      "middle_01_l",
+      "middle_02_l",
+      "middle_03_l",
+      "thumb_01_l",
+      "thumb_02_l",
+      "thumb_03_l",
+      "pinky_metacarpal_l",
+      "pinky_01_l",
+      "pinky_02_l",
+      "pinky_03_l",
+      "ring_metacarpal_l",
+      "ring_01_l",
+      "ring_02_l",
+      "ring_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false
+  }
+}

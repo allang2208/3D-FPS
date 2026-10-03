@@ -54,6 +54,10 @@ def extend(catalog):
         walk_polyline=[point(p) for p in policy['walk_polyline_m']],spawn=spawn,selection=policy['selection'])
     result['modules']=[m for m in result['modules'] if m['id']!=rid]+[module]
     result['room_ids']=list(dict.fromkeys(result['room_ids']+[rid]))
+    workshop=ROOT.parent/'StationWorkshop20261003'
+    if (workshop/'Receipts/install.json').exists() and read(workshop/'Receipts/install.json').get('stage')=='maps_saved':
+        import runpy
+        result=runpy.run_path(str(workshop/'Scripts/extend_catalog.py'))['extend'](result)
     return result
 
 def asset_paths(module):

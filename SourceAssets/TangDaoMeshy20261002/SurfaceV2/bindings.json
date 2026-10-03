@@ -66,12 +66,13 @@
         "M_TangDaoYanlingConeV3_Lacquer": "/Game/Weapons/TangDao20261002/YanlingPommel20261002/ConeV3/Materials/M_TangDaoYanlingConeV3_Lacquer.M_TangDaoYanlingConeV3_Lacquer"
       },
       "tiger_mountain": {
-        "M_TangDaoTigerPommel_BronzeFace": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_BronzeFace.M_TangDaoTigerPommel_BronzeFace",
+        "M_TangDaoTigerPommel_BronzeFace": "/Game/Weapons/TangDao20261002/TigerPommel20261002/SideProfileV6/Materials/M_TangDaoTigerPommel_BronzeFace_ProfileV6.M_TangDaoTigerPommel_BronzeFace_ProfileV6",
         "M_TangDaoTigerPommel_Gilt": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Gilt.M_TangDaoTigerPommel_Gilt",
         "M_TangDaoTigerPommel_Garnet": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Garnet.M_TangDaoTigerPommel_Garnet",
         "M_TangDaoTigerPommel_Mouth": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Mouth.M_TangDaoTigerPommel_Mouth",
-        "M_TangDaoTigerPommel_ChasedBody": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_ChasedBody.M_TangDaoTigerPommel_ChasedBody",
-        "M_TangDaoTigerPommel_Connector": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Connector.M_TangDaoTigerPommel_Connector"
+        "M_TangDaoTigerPommel_ChasedBody": "/Game/Weapons/TangDao20261002/TigerPommel20261002/SideProfileV6/Materials/M_TangDaoTigerPommel_ChasedBody_ProfileV6.M_TangDaoTigerPommel_ChasedBody_ProfileV6",
+        "M_TangDaoTigerPommel_Connector": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Connector.M_TangDaoTigerPommel_Connector",
+        "M_TangDaoTigerPommel_ChasedCrown": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_ChasedBody.M_TangDaoTigerPommel_ChasedBody"
       }
     }
   },

@@ -16,26 +16,39 @@ enum class EWeaponBipodDeploymentState : uint8
     Unavailable, Available, Deploying, Deployed, Releasing
 };
 
-/** Local single-player mounting controller. Geometry/contact presentation is
- * supplied by the equipped bipod; the supporting world object is never moved. */
+USTRUCT()
+struct FWeaponBipodNetState
+{
+    GENERATED_BODY()
+    UPROPERTY() uint16 Sequence=0;
+    UPROPERTY() bool bActive=false;
+    UPROPERTY() FVector_NetQuantize100 FeetA=FVector::ZeroVector;
+    UPROPERTY() FVector_NetQuantize100 FeetB=FVector::ZeroVector;
+    UPROPERTY() FVector_NetQuantize100 Anchor=FVector::ZeroVector;
+    UPROPERTY() FRotator Aim=FRotator::ZeroRotator;
+    UPROPERTY() double StartedAt=0.;
+};
+
+/** Predicted local presentation with server-owned support and movement lock. */
 UCLASS(ClassGroup=(Weapons), meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UWeaponBipodDeploymentComponent : public UActorComponent
 {
     GENERATED_BODY()
 public:
     UWeaponBipodDeploymentComponent();
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     // Called on entry to ADS, not continuously while the aim input is held.
     UFUNCTION(BlueprintCallable, Category="Weapon|Bipod") bool TryDeployFromADS();
     UFUNCTION(BlueprintCallable, Category="Weapon|Bipod") void Release(bool bImmediate=false);
     UFUNCTION(BlueprintPure, Category="Weapon|Bipod") EWeaponBipodDeploymentState GetDeploymentState() const;
-    UFUNCTION(BlueprintPure, Category="Weapon|Bipod") bool IsDeployed() const { return bRequested && Blend>=.999f; }
+    UFUNCTION(BlueprintPure, Category="Weapon|Bipod") bool IsDeployed() const { return bRequested && HandlingBlend()>=.999f; }
     UFUNCTION(BlueprintPure, Category="Weapon|Bipod") float GetDeploymentBlend() const { return Blend; }
     FString GetHint() const;
-    float RecoilMultiplier() const { return FMath::Lerp(1.f,MountedRecoilScale,Blend); }
-    float SpreadMultiplier() const { return FMath::Lerp(1.f,MountedSpreadScale,Blend); }
+    float RecoilMultiplier() const { return FMath::Lerp(1.f,MountedRecoilScale,HandlingBlend()); }
+    float SpreadMultiplier() const { return FMath::Lerp(1.f,MountedSpreadScale,HandlingBlend()); }
     float MotionMultiplier() const { return FMath::Lerp(1.f,.16f,Blend); }
     FWeaponHandling ApplyStability(const FWeaponHandling& Base) const;
-    bool BlocksFire() const { return bRequested && Blend<.999f; }
+    bool BlocksFire() const { return bRequested && !IsDeployed(); }
     // 架枪锁定：部署请求或解除过渡期间移动/跳跃/冲刺/滑铲输入被忽略（非解除）。
     bool BlocksMovement() const { return bRequested || Blend>UE_SMALL_NUMBER; }
 
@@ -92,4 +105,20 @@ private:
     double NextSupportProbe=0.;
     bool bRequested=false;
     bool bCandidate=false;
+    float HandlingBlend() const;
+    bool AuthorityEligible() const;
+    FString EquippedDefinition() const;
+    bool ResolveServerSupport(const FWeaponBipodNetState& Proposed,FSupport& Out) const;
+    void AdvanceRemoteAuthority(float DeltaSeconds);
+    void PublishRelease();
+    UFUNCTION(Server,Reliable) void ServerDeploy(uint16 Sequence,FVector_NetQuantize100 FeetA,
+        FVector_NetQuantize100 FeetB,FVector_NetQuantize100 Anchor,FRotator Aim);
+    UFUNCTION(Server,Reliable) void ServerRelease(uint16 Sequence);
+    UFUNCTION(Client,Reliable) void ClientDeploymentResult(const FWeaponBipodNetState& State);
+    UFUNCTION() void OnRep_Deployment();
+    UPROPERTY(ReplicatedUsing=OnRep_Deployment) FWeaponBipodNetState NetDeployment;
+    uint16 LocalSequence=0;
+    bool bApplyingNet=false;
+    double LastDeployRequest=-1.;
+    FString MountedDefinition;
 };

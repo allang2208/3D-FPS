@@ -5,7 +5,7 @@
 - 束身需要遮挡背景时使用Translucent覆盖，外侧窄电丝可保留Additive。单纯提高加法Opacity只增加发光贡献，不能消除背景透出；核心覆盖、翻卷密度和发光强度分别调整。
 - 可见宽度和伤害半宽分别取数。用户要求射程翻倍时同步基础射程与等级成长，UI、目标搜索、墙面截断和光束末端继续共用同一派生值。
 - 程序化流动用实际起终点建立世界空间轴向场，保留无缝角向坐标、近端／末端遮罩和覆盖WPO的Bounds。延长或加粗复用既有网格、纹理和有界组件，不以增加实例数量代替密度。
-- 现有材质拆图重接可能产生旧Custom缺输入的中间态告警；判断本次制作是否失败应看最终完整图的编译与保存结果。DepthFade与透明速度输出冲突导致的默认棋盘格则是真实编译失败，不能混为同一种现象。
+- `MaterialEditingLibrary.DeleteAllMaterialExpressions` 在迭代中删除元素，每轮只清掉约一半表达式；幸存旧 Custom 节点被 BreakLinksToExpression 断开输入后留在图内，持续报 `missing input` 并使整材质回退默认材质（不是中间态）。重建材质图必须 `GetMaterialExpressions` 快照后逐个 `DeleteMaterialExpression`，并以最终编译日志零告警为准。DepthFade与透明速度输出冲突导致的默认棋盘格是另一类真实编译失败。
 - 后续恢复入口与运行引用同步当前版本。退役柱体／光环先核对包引用再移入trash，保留仍在使用的魔法阵；原创制作配方可公开，Fab／引擎副本、导入包、二进制源和日志保持本机。制作与必要构建完成后交由用户测试，不自动启动游戏。
 
 实际实现与数值见工程 `Docs/Skills/electric-magic-migration-20261001.md`；UI合同见 `Docs/UI/electric-spells-plan-20261001.md`。本轮后台制作、保存和必要构建，不主动运行或验收。
@@ -45,3 +45,12 @@
 用户再提供彗星亚兹勒截图后，发射重做为ThunderFluxV3：原创48×32分段宿主与无缝密度数据驱动白蓝芯／翻卷中外层／跳动分叉电丝，约45ms建立全束，初段增亮、前冲高速，四个规则环取消，四组件替代原七组件。保持2秒+.153秒观察时长；杖前一次现有冲击爆闪、末端冲击尺寸×1.25、已有镜头震动.7（尊重开关）。雷枪实际三项运行引用切到新目录，其他电系技能不改。当前定向作者 `build_thunder_flux_v3.py`，旧 `build_thunder_lance_column.py` 作为兼容入口，全量作者同步调用；先生成原创FBX／密度PNG再恢复资产。旧V2包保留。完整源、参数、保存／构建状态见 `Docs/Skills/thunder-lance-flux-20261001.md`，未实机验收。
 
 后续按用户要求射程翻倍：thunderLance配置RangeBase=1800、RangePerLevel=30，1.5cm单位换算及装备加成继续共用模型，1级27.45m、20级36m（装备加成前）。表现增强50%对应三层直径264／168／87cm、电丝291cm、发光12／21／31.5／42、杖前爆闪1.2、末端系数1.875和灯强3600。束身改Translucent实际遮挡背景，电丝保留Additive；提高核心／翻卷层覆盖，保留2秒+.153秒时长和伤害半宽。定向／兼容／全量作者同步当前配方，最新制作与构建状态见同一工程记录，回执在 `Saved/ThunderFluxStrength20261001`；未实机测试。
+
+## 雷枪矛形优化（2026-10-02）
+
+- 束身观感契约：`FluxCommon.hlsl` 的 `SpearProfile(q)` 定义矛形剪影（近端收窄、q≈.88 头部膨起、尖端塌缩）；`FluxDisplacement.hlsl` 的侧向蛇形位移让轮廓折线扭动，`FluxMask.hlsl` 的 `front` 扫入与 `tipTaper` 提供发射行程和尖头收尾。束身任何改造保持"沿实际起终点的世界轴向场 + 密度纹理 + 分层 Role"的结构。
+- 束生命周期是 `skills.json:thunderLance` 的 `beamHold`/`beamFade`（默认 .45/.6 秒，解析限幅 [.05,4]/[.05,2]），`ColdSteelElectricMagicModel` 的 `H.Duration`/`H.Fade` 读它，stormDomain 仍走 .42/.22。调参不用重编译。
+- `AFPSLightningArc::Tick` 按层 Role 错峰消散（芯 0／中 .10／外 .20／电丝 .45 ×Fade），电丝作为放电余辉最后消失；`SetLifeSpan` 需覆盖 Hold+Fade×1.55。
+- `InitializeColumn` 收 `ChargeRatio` 并只做视觉缩放（束径 ×lerp(.55,1)、Emission ×lerp(.65,1)、末端灯同乘）；伤害继续用组件侧独立 `Ratio`，两条链不混。杖前／命中／末端爆闪均乘同一 Visual。
+- 穿透反馈走 `InitializeArc` 复用：每个被穿目标从束轴对应距离向受击点拉短命分叉弧（Segments≈5、Duration≈.08、Fade≈.2），末端按 `EndHit.ImpactNormal` 定向爆闪并散布 2–3 条残余弧。所有新弧计入 48 共享池、爆闪计入 24 池；不新增伤害、不做地面电场。
+- 材质图重建必须走修正后的 `build_thunder_flux_v3.py`（快照删除）；实测后台 commandlet 编译零告警为交付门槛，观感仍由用户验收。工程记录 `Docs/Skills/thunder-lance-spear-20261002.md`，回执 `Saved/ThunderLanceSpear20261002/`。

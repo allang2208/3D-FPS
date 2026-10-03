@@ -2173,15 +2173,6 @@ __pycache__/
 !/SourceAssets/PitViper2011Publication20261003/retained-recovery-dependencies.json
 !/SourceAssets/PitViper2011Publication20261003/published-files.json
 
-# M10: public recipes/prose only; original media, dense geometry/weights,
-# UE packages, build/transport receipts and publication candidates stay local.
-/SourceAssets/M10ChenXia20261003/**
-!/SourceAssets/M10ChenXia20261003/**/
-!/SourceAssets/M10ChenXia20261003/**/*.py
-!/SourceAssets/M10ChenXia20261003/**/*.ps1
-!/SourceAssets/M10ChenXia20261003/**/*.md
-/SourceAssets/M10ChenXia20261003/Publication20261003/
-
 # Survival consumables: publish recipes/prose; licensed payloads, geometry probes and receipts stay local.
 /SourceAssets/MineralWater20261003/**
 !/SourceAssets/MineralWater20261003/**/
@@ -2234,6 +2225,15 @@ __pycache__/
 /SourceAssets/SodaCanGrip20261003/Export/
 !/SourceAssets/FoodGrip20261003/grip_profiles.json
 !/SourceAssets/SodaCanGrip20261003/grip_profile.json
+
+# M10: public recipes/prose only; original media, dense geometry/weights,
+# UE packages, build/transport receipts and publication candidates stay local.
+/SourceAssets/M10ChenXia20261003/**
+!/SourceAssets/M10ChenXia20261003/**/
+!/SourceAssets/M10ChenXia20261003/**/*.py
+!/SourceAssets/M10ChenXia20261003/**/*.ps1
+!/SourceAssets/M10ChenXia20261003/**/*.md
+/SourceAssets/M10ChenXia20261003/Publication20261003/
 
 # RSH-12 pause: public recipes/prose/author parameters only; licensed payloads,
 # dense source samples, rollback snapshots, import/build receipts and trash stay local.
@@ -2324,3 +2324,17 @@ __pycache__/
 !/SourceAssets/DungeonTreatmentTheme20261003/Config/release.json
 !/SourceAssets/DungeonTreatmentTheme20261003/Config/accepted-modules.json
 !/SourceAssets/IncineratorContainers20261003/Config/geometry-files.txt
+
+# G18 fire audio: recipes/prose public; licensed SFX library payloads,
+# vendored ffmpeg distribution and source media stay local.
+/SourceAssets/G18FireAudio20261003/Source/
+!/SourceAssets/G18FireAudio20261003/Source/glock18.json
+/SourceAssets/G18FireAudio20261003/Tools/
+
+# AuthoringHost mini-project: source and config only; build outputs stay local.
+/Tools/LowerBodyEquipment/AuthoringHost/Binaries/
+/Tools/LowerBodyEquipment/AuthoringHost/Intermediate/
+/Tools/LowerBodyEquipment/AuthoringHost/Saved/
+
+# Compile-capture tool output: text receipts kept; object files are build artifacts.
+/Tools/**/Compile/*.obj

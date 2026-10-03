@@ -1,4 +1,4 @@
-param([int]$WaitSeconds=900)
+﻿param([int]$WaitSeconds=900)
 $ErrorActionPreference='Stop'
 $projectRoot='D:\FPS3D\FPSGAME'
 $logs=Join-Path $projectRoot 'Saved\BowSightContact20260926'

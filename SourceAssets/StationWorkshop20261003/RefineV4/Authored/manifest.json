@@ -1,0 +1,47 @@
+{
+  "objects": [
+    {
+      "name": "SM_SW_Roof_FittedV4",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV4\\Authored\\SM_SW_Roof_FittedV4.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/RefineV4/Meshes/SM_SW_Roof_FittedV4",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Materials/M_Workshop_FlatConcrete"
+      },
+      "triangles": 12,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "revision": 4,
+  "wall_outer_bounds_cm": {
+    "min": [
+      -7,
+      -7,
+      0
+    ],
+    "max": [
+      1007,
+      707,
+      320
+    ]
+  },
+  "roof_bounds_cm": {
+    "min": [
+      -7,
+      -7,
+      320
+    ],
+    "max": [
+      1007,
+      707,
+      336
+    ]
+  },
+  "tests_run": false,
+  "rendered": false
+}

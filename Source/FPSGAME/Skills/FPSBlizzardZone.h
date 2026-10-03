@@ -17,6 +17,9 @@ public:
     AFPSBlizzardZone();
     bool InitializeZone(APawn* Shooter,const FBlizzardCast& Spell,const FVector& Point,const FVector& Normal,const FVector& LongAxis,const TArray<TObjectPtr<UObject>>& Assets);
     void ActivateZone();
+    /** 15 件资产路径表：组件预热与远端副本自载共用同一张清单。 */
+    static const TCHAR* const* ZoneAssetPaths();
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 protected:
     virtual void Tick(float Delta) override;
     virtual void EndPlay(EEndPlayReason::Type Reason) override;
@@ -47,4 +50,14 @@ private:
     void PlayLandingSound(const FVector& Point,bool bSnowball);
     UPROPERTY(Transient) TArray<TObjectPtr<UInstancedStaticMeshComponent>> SpikeHearts;
     UPROPERTY(Transient) TArray<TObjectPtr<UInstancedStaticMeshComponent>> SpikeShells;
+    // ── 联机复制态：服务端权威结算伤害；远端副本只演风暴表现 ──
+    UPROPERTY(Replicated) TObjectPtr<APawn> NetCaster;
+    UPROPERTY(Replicated) FBlizzardCast NetCast;
+    UPROPERTY(Replicated) FVector_NetQuantize NetCenter;
+    UPROPERTY(Replicated) FVector_NetQuantizeNormal NetNormal;
+    UPROPERTY(Replicated) FVector_NetQuantizeNormal NetAxis;
+    UPROPERTY(Replicated) float NetCloudHeight=0;
+    UPROPERTY(Replicated) bool bNetActivated=false;
+    bool bNetInit=false;
+    void NetInit();
 };

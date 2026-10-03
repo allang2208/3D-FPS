@@ -2,6 +2,7 @@
 #include "RuneSwordMeshComponent.h"
 #include "RuneSwordWhirlwindFeel.h"
 #include "RuneSwordOverheadFeel.h"
+#include "RuneSwordUppercutMotion.h"
 #include "MeleeRuneVisual.h"
 #include "MeleeGuardAssets.h"
 #include "ModularSwordVisual.h"
@@ -52,6 +53,8 @@ URuneSwordComponent::URuneSwordComponent()
     SlashWaveMeshAsset=TSoftObjectPtr<UStaticMesh>(FSoftObjectPath(TEXT("/Game/Weapons/RiftSlash20260930/SM_RiftSlash.SM_RiftSlash")));
     SlashWaveMaterialAsset=TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Weapons/RiftSlash20260930/M_RiftSlash.M_RiftSlash")));
     SlashWaveMotesAsset=TSoftObjectPtr<UNiagaraSystem>(FSoftObjectPath(TEXT("/Game/Weapons/RiftSlash20260930/NS_RiftSlashMotes.NS_RiftSlashMotes")));
+    UppercutStandard=TSoftObjectPtr<UAnimSequence>(FSoftObjectPath(TEXT("/Game/Weapons/SwordUppercut20261003/Standard/A_Sword_UppercutV1_Standard.A_Sword_UppercutV1_Standard")));
+    UppercutLongGrip=TSoftObjectPtr<UAnimSequence>(FSoftObjectPath(TEXT("/Game/Weapons/SwordUppercut20261003/LongGrip/A_Sword_UppercutV1_LongGrip.A_Sword_UppercutV1_LongGrip")));
 }
 
 bool URuneSwordComponent::TriggerHeavySkill()
@@ -78,10 +81,11 @@ void URuneSwordComponent::BeginPlay()
     auto* World=GetWorld();
     auto* GameInstance=World?World->GetGameInstance():nullptr;
     // IsGameWorld includes GamePreview; visual rigs must not access inventory.
-    if(!Pawn || !GameInstance || (World->WorldType!=EWorldType::Game && World->WorldType!=EWorldType::PIE) || Pawn->GetNetMode()!=NM_Standalone)
+    if(!Pawn || !GameInstance || (World->WorldType!=EWorldType::Game && World->WorldType!=EWorldType::PIE) || Pawn->GetNetMode()==NM_Client)
     {SetComponentTickEnabled(false);return;}
     Camera=Pawn->FindComponentByClass<UCameraComponent>();
     if(!Camera){SetComponentTickEnabled(false);return;}
+    LoadUppercutAnimations();
     SlashWaveLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(
         TArray<FSoftObjectPath>{SlashWaveMeshAsset.ToSoftObjectPath(),SlashWaveMaterialAsset.ToSoftObjectPath(),SlashWaveMotesAsset.ToSoftObjectPath()},
         FStreamableDelegate::CreateWeakLambda(this,[this]()
@@ -246,7 +250,7 @@ void URuneSwordComponent::SetClip(FName Name,bool bLoop)
     const bool bLocomotionTarget=Name==TEXT("Idle")||Name==TEXT("Walk");
     const bool bReadySource=CurrentClip==TEXT("Idle")||CurrentClip==TEXT("Walk")||CurrentClip==TEXT("Inspect");
     const bool bWindupTarget=Name==TEXT("Slash1")||Name==TEXT("Slash2")||Name==TEXT("Thrust")||
-        Name==TEXT("PommelStrike")||Name==TEXT("Overhead")||Name==TEXT("HeavyCharge")||Name==TEXT("Guard");
+        Name==TEXT("PommelStrike")||Name==TEXT("Overhead")||Name==TEXT("Uppercut")||Name==TEXT("HeavyCharge")||Name==TEXT("Guard");
     const bool bChargeWindup=CurrentClip==TEXT("HeavyCharge")&&
         (Name==TEXT("Slash1")||Name==TEXT("Slash2")||Name==TEXT("Thrust"));
     // Whirlwind owns its entry clock. Heavy release starts dealing damage at
@@ -337,7 +341,7 @@ void URuneSwordComponent::TickWalkInspect(float Delta)
 
 void URuneSwordComponent::BeginAttack()
 {
-    if(bWhirlwind||bDashAttack)return;
+    if(bUppercut||bWhirlwind||bDashAttack)return;
     if(TryClovenCounter())return;
     if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return;
     // Let the current swing finish; only reject a new swing or queued combo.
@@ -356,7 +360,7 @@ void URuneSwordComponent::BeginAttack()
 
 void URuneSwordComponent::BeginOverhead()
 {
-    if(bWhirlwind||bDashAttack)return;
+    if(bUppercut||bWhirlwind||bDashAttack)return;
     // Sprint attack: same guards and same swing path as the ordinary slash, only
     // a different clip and its own contact window.  Damage, reach, stamina and
     // the combo stage are whatever the item already gives the normal attack.
@@ -378,7 +382,7 @@ void URuneSwordComponent::BeginOverhead()
 
 void URuneSwordComponent::BeginPrimaryAttack()
 {
-    if(bWhirlwind||bDashAttack)return;
+    if(bUppercut||bWhirlwind||bDashAttack)return;
     if(TryClovenCounter())return;
     if(bInspecting)CancelAction();
     if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return;
@@ -406,6 +410,7 @@ void URuneSwordComponent::ReleasePrimaryAttack()
 
 bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride)
 {
+    if(bUppercut)return false;
     // Keep stage identity when a blade replaces the thrust's motion. Damage and
     // server reports must still use stage 3 rather than a sprint/heavy skill.
     const int32 ComboStage=Clip==TEXT("Slash2")?2:Clip==TEXT("Thrust")?3:1;
@@ -462,6 +467,7 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison;
     SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
     SwingSkills.bRifle=false;SwingSkills.bPistol=false;SwingSkills.WeakpointPercent=0;
+    // 联机上报：轻重击/连段语义，服务端按影子档案的 MeleeModifiers 同参复算倍率。
     SwingSkills.AttackMeta = uint8(Heavy ? 0x10 : (ComboStage & 0x0F));
     // The stage keeps its existing grip/global poise modifiers when its motion changes.
     if(ComboStage==3&&!Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.ComboThirdToughness;
@@ -485,7 +491,11 @@ void URuneSwordComponent::ReleaseSlashWave(const FTransform& Aim)
     FActorSpawnParameters Spawn;Spawn.Owner=Character.Get();Spawn.Instigator=Character.Get();
     Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     if(auto* Wave=GetWorld()->SpawnActor<AFPSRiftSlashProjectile>(Aim.GetLocation(),Aim.Rotator(),Spawn))
-        Wave->Launch(Aim,SwingDamage*SwingWaveScale,SwingWaveRange,SwingWaveSpeed,SwingSkills,SlashWaveMesh,SlashWaveMaterial,SlashWaveMotes,HitSound);
+    {
+        // 裂斩波命中也要服务端复算：在挥砍语义上叠加"波"位，服务端再乘附魔缩放。
+        auto WaveSkills = SwingSkills; WaveSkills.AttackMeta |= 0x40;
+        Wave->Launch(Aim,SwingDamage*SwingWaveScale,SwingWaveRange,SwingWaveSpeed,WaveSkills,SlashWaveMesh,SlashWaveMaterial,SlashWaveMotes,HitSound);
+    }
 }
 
 bool URuneSwordComponent::BeginQuickCombatStrike()
@@ -510,6 +520,7 @@ bool URuneSwordComponent::StartQuickCombatStrike()
         Arms->LimitLocomotionEntry(RuneSwordPommelRhythm::QuickCombatTime(ContactStart)/FMath::Max(.01f,SwingRate));
     const auto Cast=Profile->QuickCombatStats();
     SwingDamage=Cast.Damage;
+    SwingSkills.AttackMeta |= 0x80; // 联机上报：配重锤快战按 QuickCombatStats 技能面板复算，不走武器面板
     // The skill submits one pure push after damage, without a stun reaction.
     SwingKnockbackCM=0.f;
     QuickCombatKnockbackCM=Cast.KnockbackCM;
@@ -603,9 +614,14 @@ FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
     // The thrust and stage-3 overhead finisher share the metre-long stride.
     // The counterweight only steps far enough to reach past the hands.
     const bool bOverheadFinisher=bOverheadAttack&&!bDashAttack&&(SwingSkills.AttackMeta&0x0F)==3;
-    if(!bDashAttack && !bThrustAttack && !bPommelAttack && !bOverheadFinisher)return FVector::ZeroVector;
+    if(!bUppercut && !bDashAttack && !bThrustAttack && !bPommelAttack && !bOverheadFinisher)return FVector::ZeroVector;
     float Distance;
-    if(bDashAttack)
+    if(bUppercut)
+    {
+        Distance=RuneSwordUppercutMotion::LungeDistance*
+            (RuneSwordUppercutMotion::LungeAlpha(ToTime)-RuneSwordUppercutMotion::LungeAlpha(FromTime));
+    }
+    else if(bDashAttack)
     {
         // Release advances one metre during the existing windup, without retiming the hit.
         const float Start=ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds;
@@ -637,7 +653,7 @@ FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
         // capsule. Native falling keeps vertical velocity, gravity and landing;
         // ordinary thrusts and pommel steps still require ground support.
         const auto* Controller=Pawn->GetController();
-        if(!Controller||Controller->IsMoveInputIgnored()||Pawn->GetNetMode()!=NM_Standalone)
+        if(!Controller||Controller->IsMoveInputIgnored()||Pawn->GetNetMode()==NM_Client)
         {bLungeBlocked=true;return FVector::ZeroVector;}
         const FVector Before=Pawn->GetActorLocation();
         FHitResult Hit;
@@ -661,7 +677,9 @@ void URuneSwordComponent::BeginHeavyCharge()
         if(!Profile->CanSpendStamina(ColdSteelMelee::AttackStamina(Profile->Equipped(),Profile)))return;
     const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Profile||Profile->MasteryProgress(TEXT("heavyStrike")).Level<1||Profile->ActiveProductionTool())return;
-    const auto Skill=Profile->MasteryEffect(TEXT("heavyStrike"));RequiredChargeSeconds=Skill.HeavyChargeSeconds;ChargedMultiplier=Skill.HeavyMultiplier;
+    const auto* Item=Profile->Equipped();if(!Item)return;
+    const auto Skill=Profile->MasteryEffect(TEXT("heavyStrike"));
+    RequiredChargeSeconds=ColdSteelMelee::Evaluate(*Item,Profile).HeavyChargeSeconds;ChargedMultiplier=Skill.HeavyMultiplier;
     bAutoHeavyRelease=false;
     bCharging=true;bQueuedAttack=false;bHeavyAttack=false;HitActors.Reset();
     ChargeStartedAt=GetWorld()->GetTimeSeconds();
@@ -714,6 +732,7 @@ void URuneSwordComponent::ReturnFromCharge()
 
 void URuneSwordComponent::CancelAction()
 {
+    bUppercut=false;
     FinishDashAttack();
     FinishWhirlwind();
     FinishHeavyTraining();bAutoHeavyRelease=false;
@@ -745,7 +764,11 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
     }
     if(GetGuardCameraMotion(Location,Rotation))return;
     if(!CanUse())return;
-    if(bCharging || bReturningCharge)
+    if(bUppercut)
+    {
+        RuneSwordUppercutMotion::Camera(Elapsed,bLungeStarted,Location,Rotation);
+    }
+    else if(bCharging || bReturningCharge)
     {
         const float Gather=FMath::SmoothStep(0.f,RuneSwordHeavyRhythm::ChargeSeconds,Elapsed);
         Location=FVector(-13.f,7.8f,3.12f)*Gather;
@@ -898,7 +921,7 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
     // Confirmed contact gives one damped impulse per slash. Multi-target
     // sweeps keep their damage but cannot stack camera shake indefinitely.
     const float ImpactSpan=bPommelAttack?.30f:.20f;
-    if(!bOverheadAttack&&!bQuickCombatContactDone&&ImpactAge<ImpactSpan)
+    if(!bUppercut&&!bOverheadAttack&&!bQuickCombatContactDone&&ImpactAge<ImpactSpan)
     {
         // A counterweight lands heavier than a blade pass: longer shake, bigger
         // axial recoil and a pitch punch on top of it.
@@ -922,7 +945,7 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
     Rotation*=SwordCameraStrength;
     // Add after the sword-only multiplier so all weapon categories receive
     // the same impulse, with the shared character comfort scale applied once.
-    if(bQuickCombatContactDone)QuickCombatImpactShake::Add(ImpactAge,Location,Rotation);
+    if(!bUppercut&&bQuickCombatContactDone)QuickCombatImpactShake::Add(ImpactAge,Location,Rotation);
 }
 
 void URuneSwordComponent::StartRift(float SourceAge)
@@ -1181,7 +1204,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     if(!Usable)ClearClovenCounter();
     TickClovenCounter(Delta);
     if(!Usable){if(IsBusy()||bInspecting)CancelAction();ImpactAge=1.f;StopRift();return;}
-    if((bCharging || bReturningCharge || bInspecting) && Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
+    if((bUppercut || bCharging || bReturningCharge || bInspecting) && Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
     ImpactAge=FMath::Min(1.f,ImpactAge+Delta);
     TickRift(Delta);
     TickWalkInspect(Delta);
@@ -1189,7 +1212,26 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     if(TickGuard(Delta))return;
     if(!CurrentAnimation)return;
     const float End=CurrentAnimation->GetPlayLength();
-    if(bAttacking)
+    if(bUppercut)
+    {
+        const float Next=FMath::Min(End,Elapsed+Delta);
+        AdvanceThrustLunge(Elapsed,Next);
+        if(!bSwingCuePlayed && Next>=ContactStart)
+        {
+            bSwingCuePlayed=true;
+            // Ordinary slash audio, on this clip's release clock. Attack stats
+            // do not change the uppercut's authored speed or sound pitch.
+            if(AttackLayerSound)UGameplayStatics::PlaySound2D(this,AttackLayerSound,1.f,1.f);
+            if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.72f,1.1f);
+        }
+        Elapsed=Next;SamplePose(Elapsed);
+        if(Elapsed>=End)
+        {
+            bUppercut=false;bLungeStarted=bLungeBlocked=false;LungeDirection=FVector::ZeroVector;
+            SetClip(TEXT("Idle"),true);
+        }
+    }
+    else if(bAttacking)
     {
         const bool bOverheadFinisher=bOverheadAttack&&!bDashAttack&&(SwingSkills.AttackMeta&0x0F)==3;
         // Map through real playback time so a frame crossing the windup boundary
@@ -1368,6 +1410,8 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
 
 void URuneSwordComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    bUppercut=false;
+    if(UppercutLoad)UppercutLoad->CancelHandle();UppercutLoad.Reset();
     if(SlashWaveLoad)SlashWaveLoad->CancelHandle();SlashWaveLoad.Reset();
     FinishWhirlwind();
     FinishHeavyTraining();

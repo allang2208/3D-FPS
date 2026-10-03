@@ -195,8 +195,8 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
     Box(16,5,L.Width-32,1,GunsmithUI::Gray(255,32),FLinearColor::Transparent,0);
     Box(12,11,2,16,GunsmithUI::Silver);Label(TEXT("随身装备"),23,9,16,GunsmithUI::Text,100);
     int32 Equipped=0;for(const auto& I:Model->Items())if(I.Place==1)++Equipped;
-    Label(FString::Printf(TEXT("%d / 15"),Equipped),L.Width-92,12,12,GunsmithUI::Secondary,80,true);
-    for(int32 N=0;N<15;++N){const float X=12+(N%3)*(L.GearWidth+6),Y=L.GearY+(N/3)*L.GearPitch;const int32 Index=Owner(Model->Items(),1,N);
+    Label(FString::Printf(TEXT("%d / %d"),Equipped,SlotNames().Num()),L.Width-92,12,12,GunsmithUI::Secondary,80,true);
+    for(int32 N=0;N<SlotNames().Num();++N){const float X=12+(N%3)*(L.GearWidth+6),Y=L.GearY+(N/3)*L.GearPitch;const int32 Index=Owner(Model->Items(),1,N);
         if(Index>=0)Item(Model->Items()[Index],X,Y,L.GearWidth,L.GearHeight,false,false,N);
         else {const bool Lock=Locked(Model->Items(),N),Hover=HoverPlace==1&&PointerCell==N;
             Box(X,Y,L.GearWidth,L.GearHeight,GunsmithUI::Gray(Hover?65:18,Hover?120:90),Hover?GunsmithUI::Gray(230,95):GunsmithUI::Gray(220,28),ColdSteelUI::InventoryItemRadius);

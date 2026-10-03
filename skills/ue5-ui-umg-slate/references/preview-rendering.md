@@ -43,6 +43,13 @@
 - 不要在交互编辑器的远程执行里调用 `unreal.MaterialEditingLibrary.get_material_property_input_node`：2026-09-16 实测会令 `UnrealEditor-MaterialEditor.dll` 访问违例崩溃编辑器。属性接线查询放到无界面 `UnrealEditor-Cmd -ExecutePythonScript` 进程中。
 - 案例与备份：`Docs/UI/backpack-icon-gunsmith-mods-20260916.md`、`Saved/BackpackIconModFix20260916/`。
 
+## 目录图缺失：背包格子只剩名字（2026-09-23）
+
+- 取图顺序是「动态图标就绪用实时图，等待或失败用 `Content/ColdSteelData/Icons/<definition>.png`」。**武器只要在 `UColdSteelWeaponIcons::Supports()` 名单里，这条兜底就绕过 `items.json` 的 `ue_icon`**；目录 PNG 不存在时格子退回只画物品名，浮窗显示缺图占位，界面本身不报错。
+- 接入或新增武器要同时做三件事：进 `Supports()`、进 `ColdSteelWeaponIconCatalogCommandlet` 的默认定义列表、生成 `Icons/<definition>.png`；`items.json` 的 `icon`／`ue_icon` 指向同一路径，供其它按定义取图的界面使用。
+- 定位顺序：`LogImageUtils: Error creating texture … could not be found`（目录图缺失）与 `WeaponIcon: render failed …; using catalog image`（动态失败）成对出现时，先查目录 PNG 是否存在，再查材质编译，不要先改图标管线。
+- 定向渲染：`-run=ColdSteelWeaponIconCatalog -Definition=<id> -AllowCommandletRendering -NoTextureStreaming -RenderOffscreen`；给该进程关掉 MCP 自动启动，避免与已开的编辑器抢端口。看输出里的 `WeaponIconCatalog: wrote …` 与 `COMPLETE failures=0`。PKM 案例见工程 `SourceAssets/PKMLowpoly20260922/Icon36/README.md`。
+
 ## 所有改造预览共用柔光（2026-09-27）
 
 - 715 镜面金属发黑的本次源码排查发现：旧三盏矩形柔光仅在两把剑的独立分支创建，其余武器虽有基础方向光／天光，却缺少大面积反射光源。先区分“无灯”和“未走增强布光”，不要据此重做枪身材质。

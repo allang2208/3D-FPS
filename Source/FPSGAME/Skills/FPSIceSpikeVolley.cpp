@@ -19,6 +19,8 @@
 #include "Perception/AISense_Hearing.h"
 #include "NiagaraComponent.h"
 #include "HAL/IConsoleManager.h"
+#include "Net/UnrealNetwork.h"
+#include "NetCastUtils.h"
 
 // Live tuning while the user dials the hover by eye; 0 / 1 are the values to bake.
 static TAutoConsoleVariable<float> IceSpikeHoverDropCM(TEXT("fps.IceSpike.HoverDropCM"),0.f,
@@ -40,10 +42,33 @@ UStaticMeshComponent* AddIceMesh(AActor* Owner,UStaticMesh* Mesh,UMaterialInterf
 }
 }
 AFPSIceSpikeVolley::AFPSIceSpikeVolley()
-{PrimaryActorTick.bCanEverTick=true;SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("VolleyRoot")));}
+{
+    PrimaryActorTick.bCanEverTick=true;SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("VolleyRoot")));
+    // 联机：服务端全量模拟，复制逐锥位置/方向/存活位；远端只摆表现壳。
+    bReplicates=true;
+}
+void AFPSIceSpikeVolley::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AFPSIceSpikeVolley,NetShooter);
+    DOREPLIFETIME(AFPSIceSpikeVolley,NetSource);
+    DOREPLIFETIME(AFPSIceSpikeVolley,bNetFlying);
+    DOREPLIFETIME(AFPSIceSpikeVolley,NetCount);
+    DOREPLIFETIME(AFPSIceSpikeVolley,NetCastSpeed);
+    DOREPLIFETIME(AFPSIceSpikeVolley,NetSpeed);
+    DOREPLIFETIME(AFPSIceSpikeVolley,NetGravity);
+    DOREPLIFETIME(AFPSIceSpikeVolley,NetHoverDuration);
+    DOREPLIFETIME(AFPSIceSpikeVolley,NetPos);
+    DOREPLIFETIME(AFPSIceSpikeVolley,NetDir);
+    DOREPLIFETIME(AFPSIceSpikeVolley,NetAlive);
+}
 void AFPSIceSpikeVolley::Prepare(UFPSIceSpikeComponent* InSource,APawn* InShooter,const FIceSpikeCast& Snapshot,const TArray<TObjectPtr<UStaticMesh>>& Spikes,UStaticMesh* Shard,UMaterialInterface* Material,UMaterialInterface* ShellMaterial,UParticleSystem* FX,USoundBase* Sound,UNiagaraSystem* Motes,UNiagaraSystem* ColdMist)
 {
     Source=InSource;Shooter=InShooter;Cast=Snapshot;ShardMesh=Shard;IceMaterial=Material;ImpactFX=FX;ImpactSound=Sound;
+    // 联机：服务端把表现所需的最小口径写进复制态——远端副本据此自建壳。
+    NetShooter=InShooter;NetSource=InSource;NetCount=Snapshot.Count;
+    NetCastSpeed=Snapshot.CastSpeed;NetSpeed=Snapshot.Speed;NetGravity=Snapshot.Gravity;NetHoverDuration=Snapshot.HoverDuration;
+    for(int32 I=0;I<Snapshot.Count&&I<32;++I)NetAlive|=1u<<I;
     AddTickPrerequisiteActor(InShooter);AddTickPrerequisiteComponent(InSource);
     if(auto* Hands=InShooter->FindComponentByClass<UFPSFireballComponent>())AddTickPrerequisiteComponent(Hands);
     Flights.SetNum(Cast.Count);
@@ -211,9 +236,15 @@ void AFPSIceSpikeVolley::RefreshAimPreview()
     }
 }
 
+void AFPSIceSpikeVolley::LaunchAt(const FVector& AimPoint)
+{
+    if(bFinished||bFlying||!Shooter.IsValid())return;
+    PreviewAimPoint=AimPoint;bPreviewLaunchLocked=true;Launch();
+}
 void AFPSIceSpikeVolley::Launch()
 {
     if(bFinished||bFlying||!Shooter.IsValid())return;
+    bNetFlying=true; // 先于弹道写入复制，远端第一时间进入飞行表现
     // The contact callback runs ahead of the volley tick: use this frame's
     // followed positions, not the previous frame or the key-release origins.
     UpdateHover();
@@ -240,7 +271,15 @@ void AFPSIceSpikeVolley::Launch()
 }
 void AFPSIceSpikeVolley::Tick(float Delta)
 {
-    Super::Tick(Delta);if(bFinished)return;
+    Super::Tick(Delta);
+    // 远端副本：不跑弹道/伤害，复制字段驱动表现壳（位置→网格、存活位→碎裂 FX）。
+    if(!HasAuthority())
+    {
+        ResolveNetInit();
+        if(bNetInit)NetPresent(Delta);
+        return;
+    }
+    if(bFinished)return;
     if(!Shooter.IsValid()||!Source.IsValid()){Destroy();return;}
     if(auto* H=Shooter->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead()){Destroy();return;}
     Age+=Delta;
@@ -249,10 +288,12 @@ void AFPSIceSpikeVolley::Tick(float Delta)
         if(Age>=Cast.HoverDuration){Destroy();return;}
         UpdateHover();
         if(bAimPreview)RefreshAimPreview();
+        // 悬停位置也走复制——远端能看到凝聚在施法者眼前的锥列。
+        SyncNetFlights();
         return;
     }
     FlightAge+=Delta;
-    auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    auto* M=NetCast::AuthorityModel(Shooter.Get(),GetGameInstance());
     const FVector Gravity(0,0,-Cast.Gravity);
     for(int32 I=0;I<Flights.Num();++I)
     {
@@ -306,7 +347,18 @@ void AFPSIceSpikeVolley::Tick(float Delta)
         if(F.bActive)UpdateVapor(I,Previous,1.f);
     }
     for(int32 I=0;I<Flights.Num();++I){Trails[I]->SetWorldLocation(Flights[I].Position);Trails[I]->SetVariablePosition(TEXT("User.CurrentPosition"),Flights[I].Position);}
+    SyncNetFlights();
     if(RemainingCount()==0)Destroy();
+}
+// 服务端把每锥位置/方向/存活写进复制态；远端 OnRep_Spikes 据此摆壳。
+void AFPSIceSpikeVolley::SyncNetFlights()
+{
+    NetPos.SetNum(Flights.Num());NetDir.SetNum(Flights.Num());NetAlive=0;
+    for(int32 I=0;I<Flights.Num();++I)
+    {
+        NetPos[I]=Flights[I].Position;NetDir[I]=Flights[I].Direction;
+        if(Flights[I].bActive&&I<32)NetAlive|=1u<<I;
+    }
 }
 void AFPSIceSpikeVolley::Shatter(int32 Index,const FVector& Position,const FVector& Normal,bool bEffect)
 {
@@ -326,11 +378,111 @@ void AFPSIceSpikeVolley::Finish()
 {
     if(bFinished)return;bFinished=true;
     if(!Shooter.IsValid())return;
-    if(GetGameInstance())if(auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())M->FinishIceSpikeCast(Rewards);
+    // 权威模型：服务端结算远端玩家时取影子档案，主机/单机回退本地单例。
+    if(auto* M=NetCast::AuthorityModel(Shooter.Get(),GetGameInstance()))M->FinishIceSpikeCast(Rewards);
     const auto* Health=Shooter->FindComponentByClass<UFPSCombatHealthComponent>();
     if(bFlying&&Health&&!Health->IsDead()&&(Cast.bGrantChain||Cast.CastHasteStacks>0))
     {auto* Status=UCombatStatusFormula::GetOrAdd(Shooter.Get());if(Cast.bGrantChain)Status->AddChainSpell();Status->AddHaste(Cast.CastHasteStacks,Cast.CastHasteDuration);}
     if(Source.IsValid())Source->VolleyFinished(this);Source.Reset();
+}
+
+// ══ 远端副本（非权威）：素材自载 + 复制字段驱动的表现壳 ═════════════════
+void AFPSIceSpikeVolley::ResolveNetInit()
+{
+    if(bNetInit||NetCount<=0||!IsValid(NetShooter.Get())||!IsValid(NetSource.Get()))return;
+    // 与组件 BeginPlay 同口径的素材自载——远端副本不跑 Prepare，资产各自现拉。
+    TArray<TObjectPtr<UStaticMesh>> Meshes;
+    for(int32 I=1;I<=3;++I)Meshes.Add(LoadObject<UStaticMesh>(nullptr,*FString::Printf(TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_%02d.SM_IceSpike_%02d"),I,I)));
+    ShardMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Skills/IceSpike/SM_IceShard.SM_IceShard"));
+    IceMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/M_IceHeart.M_IceHeart"));
+    auto* ShellMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/M_IceShell.M_IceShell"));
+    ImpactFX=LoadObject<UParticleSystem>(nullptr,TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact"));
+    ImpactSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Skills/IceSpike/S_IceImpact.S_IceImpact"));
+    auto* MotesAsset=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/NS_FrostCrystals.NS_FrostCrystals"));
+    auto* ColdMistAsset=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/NS_ColdMist.NS_ColdMist"));
+    if(Meshes.Contains(nullptr)||!ShardMesh||!IceMaterial||!ShellMaterial||!MotesAsset||!ColdMistAsset)return;
+
+    Shooter=NetShooter;Source=NetSource;NetAliveLocal=NetAlive;
+    Cast.Count=NetCount;Cast.CastSpeed=NetCastSpeed;Cast.Speed=NetSpeed;Cast.Gravity=NetGravity;Cast.HoverDuration=NetHoverDuration;
+    Flights.SetNum(NetCount);
+    for(int32 I=0;I<NetCount;++I)
+    {
+        Flights[I].bActive=(NetAlive>>I)&1u;
+        if(I<NetPos.Num())Flights[I].Position=NetPos[I];
+        if(I<NetDir.Num())Flights[I].Direction=NetDir[I];
+        auto* Spike=Meshes[I%Meshes.Num()].Get();
+        auto* Core=AddIceMesh(this,Spike,ShellMaterial);Core->SetCastShadow(false);Cores.Add(Core);
+        auto* Heart=AddIceMesh(this,Spike,IceMaterial);Heart->AttachToComponent(Core,FAttachmentTransformRules::KeepRelativeTransform);
+        Heart->SetRelativeScale3D(FVector(.965f,.78f,.78f));Heart->SetCastShadow(false);Hearts.Add(Heart);
+        auto* Trail=NewObject<UNiagaraComponent>(this);AddInstanceComponent(Trail);Trail->SetupAttachment(GetRootComponent());Trail->SetAsset(MotesAsset);Trail->SetAutoActivate(false);Trail->SetCastShadow(false);Trail->RegisterComponent();Trail->AddTickPrerequisiteActor(this);Trails.Add(Trail);
+        auto* VaporHost=GetWorld()->SpawnActor<AActor>(GetActorLocation(),FRotator::ZeroRotator);
+        auto* Vapor=NewObject<UNiagaraComponent>(VaporHost);VaporHost->AddInstanceComponent(Vapor);VaporHost->SetRootComponent(Vapor);
+        Vapor->SetAsset(ColdMistAsset);Vapor->SetAutoActivate(false);Vapor->SetCastShadow(false);Vapor->RegisterComponent();
+        Vapor->AddTickPrerequisiteActor(this);Vapors.Add(Vapor);VaporHosts.Add(VaporHost);
+    }
+    AddTickPrerequisiteActor(Shooter.Get());
+    for(const auto& Vapor:Vapors)Vapor->Activate(true);
+    for(const auto& Trail:Trails)Trail->Activate(true);
+    bNetInit=true;
+    // 施法者本机：认领成 Active——发射队列/取消链照常读它。
+    if(Source.IsValid()&&Shooter->IsLocallyControlled())Source->AdoptNetVolley(this);
+}
+void AFPSIceSpikeVolley::OnRep_Spikes()
+{
+    if(!bNetInit)return;
+    for(int32 I=0;I<Flights.Num()&&I<NetPos.Num();++I)
+    {
+        Flights[I].Position=NetPos[I];
+        if(I<NetDir.Num())Flights[I].Direction=NetDir[I];
+    }
+    const uint32 Was=NetAliveLocal;NetAliveLocal=NetAlive;
+    for(int32 I=0;I<Flights.Num()&&I<32;++I)
+        if(((Was>>I)&1u)&&!((NetAlive>>I)&1u)){Flights[I].bActive=false;NetShatter(I,NetPos[I]);}
+}
+void AFPSIceSpikeVolley::NetShatter(int32 Index,const FVector& Position)
+{
+    if(Index>=Cores.Num())return;
+    Cores[Index]->SetVisibility(false,true);if(Index<Trails.Num())Trails[Index]->Deactivate();
+    if(Index<Vapors.Num())Vapors[Index]->SetVariableFloat(TEXT("User.Strength"),0.f);
+    if(Index<VaporHosts.Num()&&VaporHosts[Index].IsValid())VaporHosts[Index]->SetLifeSpan(.85f);
+    if(auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Fluid->EmitColdImpact(Position,-Flights[Index].Direction);
+    if(ImpactFX)UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),ImpactFX,Position,(-Flights[Index].Direction).Rotation(),FVector(.7f),true,EPSCPoolMethod::AutoRelease);
+    if(ShardMesh&&IceMaterial)if(auto* F=GetWorld()->SpawnActor<AFPSIceSpikeFragments>(Position,FRotator::ZeroRotator))F->Setup(ShardMesh,IceMaterial,-Flights[Index].Direction);
+    const double Now=GetWorld()->GetTimeSeconds();
+    if(ImpactSound&&Now-LastSound>=.09){UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,Position,.65f,FMath::FRandRange(.94f,1.06f));LastSound=Now;}
+}
+void AFPSIceSpikeVolley::NetPresent(float Delta)
+{
+    NetAge+=Delta;
+    const auto* Camera=IsValid(NetShooter.Get())?NetShooter->FindComponentByClass<UCameraComponent>():nullptr;
+    const float Grow=FMath::Clamp(NetAge*NetCastSpeed/.95f,0.f,1.f);
+    const float Scale=bNetFlying?1.f:Grow*Grow*(3-2*Grow);
+    for(int32 I=0;I<Flights.Num();++I)
+    {
+        if(I>=Cores.Num())break;
+        auto* Core=Cores[I].Get();
+        Core->SetWorldLocation(Flights[I].Position);
+        FRotator Facing=Flights[I].Direction.Rotation();Facing.Roll+=I*113.f;
+        Core->SetWorldRotation(Facing);Core->SetWorldScale3D(FVector::OneVector*FMath::Max(.01f,Scale));
+        Core->SetVisibility(Flights[I].bActive&&(!Camera||FVector::DistSquared(Camera->GetComponentLocation(),Flights[I].Position)>FMath::Square(35.f)),true);
+        if(Flights[I].bActive&&I<Trails.Num()&&I<Vapors.Num())
+        {
+            auto* Trail=Trails[I].Get();auto* Vapor=Vapors[I].Get();
+            Trail->SetWorldLocation(Flights[I].Position);
+            Trail->SetVariablePosition(TEXT("User.CurrentPosition"),Flights[I].Position);
+            Trail->SetVariableVec3(TEXT("User.FlightDirection"),Flights[I].Direction);
+            Trail->SetVariableFloat(TEXT("User.Flight"),bNetFlying?1.f:0.f);
+            Trail->SetVariableFloat(TEXT("User.FlightSpeed"),NetSpeed);
+            Vapor->SetWorldLocation(Flights[I].Position);
+            Vapor->SetVariablePosition(TEXT("User.CurrentPosition"),Flights[I].Position);
+            Vapor->SetVariableVec3(TEXT("User.FlightDirection"),Core->GetForwardVector());
+            Vapor->SetVariableVec3(TEXT("User.Side"),Core->GetRightVector());
+            Vapor->SetVariableVec3(TEXT("User.Up"),Core->GetUpVector());
+            Vapor->SetVariableFloat(TEXT("User.Flight"),bNetFlying?1.f:0.f);
+            Vapor->SetVariableFloat(TEXT("User.Strength"),Scale);
+        }
+    }
+    if(bAimPreview)RefreshAimPreview();
 }
 void AFPSIceSpikeVolley::EndPlay(EEndPlayReason::Type Reason)
 {

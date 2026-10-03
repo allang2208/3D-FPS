@@ -1,0 +1,123 @@
+{
+  "meshes": {
+    "SM_SW_Walls": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_Walls",
+      "source_sha256": "faf1c0f7c2e8174e329eb0a08de8860c118acf7e4b4779dad2b5cb422d9fe1d0",
+      "triangles": 2068
+    },
+    "SM_SW_Roof": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_Roof",
+      "source_sha256": "8edbac4d4c4401cbb8693eb2469931ab8a519fe0170293ace6efbcb4ec341526",
+      "triangles": 188
+    },
+    "SM_SW_Frames": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_Frames",
+      "source_sha256": "f6201daabaf03e8a922b917f5d170b5d40008f3d8956d3081fd0870b667a6f42",
+      "triangles": 3572
+    },
+    "SM_SW_ObservationGlass": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_ObservationGlass",
+      "source_sha256": "0352a3368ae7c570aa727c42d7edc4de1b342f3581208322d5f2769a056301f8",
+      "triangles": 564
+    },
+    "SM_SW_OpenedDoors": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_OpenedDoors",
+      "source_sha256": "3c998fbbf9db3f56bea27a7ef429b5fb8d92d988f7b4c49dec910511958a9b49",
+      "triangles": 5868
+    },
+    "SM_SW_Electrical": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_Electrical",
+      "source_sha256": "74cb405f735ab8e2d96ce94f0a640efc594c45c454c6c1c1a0f58e75ae3a0a98",
+      "triangles": 3046
+    },
+    "SM_SW_DispatchDesk": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_DispatchDesk",
+      "source_sha256": "c7e0ba390877c4dd1a36d04586dd4ffeec813020b6ed49bce02b4e067319c79d",
+      "triangles": 2068
+    },
+    "SM_SW_DispatchElectronics": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_DispatchElectronics",
+      "source_sha256": "722aeb1df2856a3224e78d65a0b326ba68076830b79f1ad753ee027605b3648c",
+      "triangles": 14916
+    },
+    "SM_SW_NoticeSigns": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_NoticeSigns",
+      "source_sha256": "fe909e7b14943294dc5092babc8ac6813781292be473041bf7e4eaa57f050024",
+      "triangles": 1136
+    },
+    "SM_SW_PartsRack": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_PartsRack",
+      "source_sha256": "08229387fc68b6664870761a1915a962abf544b47583f6cce63f7b2f4bbadfa0",
+      "triangles": 3268
+    },
+    "SM_SW_RackSpares": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_RackSpares",
+      "source_sha256": "27f74f9b2a703f665b50b5c23826a887b4766b1529ac021ccbca8e6a09a98a67",
+      "triangles": 15638
+    },
+    "SM_SW_MotorStand": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_MotorStand",
+      "source_sha256": "8e4964a72975c83d73591abcbf6388d3a9ebb5963315b695f2092f187a7b3acd",
+      "triangles": 1128
+    },
+    "SM_SW_MotorService": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_MotorService",
+      "source_sha256": "c32dbe47f69c55e26eeb7a06fc07a8134f79aa2f28ca34a6e0f68abcdc8811ad",
+      "triangles": 25142
+    },
+    "SM_SW_LightFixtures": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_LightFixtures",
+      "source_sha256": "ec3c96cde1272223ce1e25f88910d604ac64a83abea4bbeaf911d0bcd220c746",
+      "triangles": 2784
+    },
+    "SM_SW_RepairCart": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_RepairCart",
+      "source_sha256": "57c1267806139b8a78249f90ddc958a2acdc47a609a8e8835485c9301ddbc654",
+      "triangles": 6772
+    },
+    "SM_SW_CartEquipment": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_CartEquipment",
+      "source_sha256": "e8ca51f3c87cb4bc1d8de1607da55fbf27567b37d8b91af90f9a2674926a09a5",
+      "triangles": 5878
+    },
+    "SM_SW_DispatchFiles_Body": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_DispatchFiles_Body",
+      "source_sha256": "252662376ebc116814d5cacad25fbd7f9600a386e7cb8c465aa485b55d3a92ec",
+      "triangles": 2408
+    },
+    "SM_SW_DispatchFiles_Drawer": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_DispatchFiles_Drawer",
+      "source_sha256": "f734260f136cb12d6c87f20713c99f733e46f7f7a24018751916ebf1e0ca4b9c",
+      "triangles": 1206
+    },
+    "SM_SW_DispatchPaper": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_DispatchPaper",
+      "source_sha256": "2a1ca3b82964d32ecf52353a4f1b106b6bcc2c2fb53253139f05b9dc2576b560",
+      "triangles": 378
+    },
+    "SM_SW_OperatorMat": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_OperatorMat",
+      "source_sha256": "40c43e3441115f0d93203c3d2ed572ceb0ec31abd439d0c7c2a404e17a2d9d98",
+      "triangles": 3572
+    },
+    "SM_SW_AttachmentMounts": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_AttachmentMounts",
+      "source_sha256": "9964ad5852e8be87e77c45360c4fb6ca3ba6f64fe42d3493f046c80b9406efaa",
+      "triangles": 4016
+    }
+  },
+  "materials": [
+    "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print",
+    "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Screen",
+    "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Plaster",
+    "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic",
+    "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Copper",
+    "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Glass",
+    "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Lamp"
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "texture": "/Game/Dungeons/StationWorkshop20261003/Textures/T_Workshop_PrintAtlas",
+  "print_source_sha256": "3357e6c32c30a6cbf4b2a3e597c1dea1c97e0e8f10e906c92c0cd0a789beae68",
+  "stage": "assets_saved"
+}

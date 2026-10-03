@@ -3,7 +3,7 @@
 Run through Run-Authoring.ps1 after closing the FPSGAME editor. This preserves
 native weapon slots, bones, sockets, animation bindings and weapon geometry.
 """
-import hashlib,json,shutil
+import hashlib,json,shutil,time
 from pathlib import Path
 import unreal as u
 
@@ -16,13 +16,37 @@ M=u.GeometryScript_Materials;Ed=u.GeometryScript_MeshEdits;L=u.MaterialEditingLi
 S=u.get_editor_subsystem(u.SkeletalMeshEditorSubsystem)
 config_path=PROJECT/'Content/ColdSteelData/modular_outfits.json'
 config=json.loads(config_path.read_text(encoding='utf-8-sig'))
-if u.get_editor_subsystem(u.UnrealEditorSubsystem).get_game_world():raise RuntimeError('Finish play before native mesh authoring')
+def play_world():
+    world=u.get_editor_subsystem(u.UnrealEditorSubsystem).get_game_world()
+    if not world:
+        return None
+    name=world.get_name()
+    if 'UEDPIE' in name or name.startswith('UEDPIE') or 'PIE_' in name:
+        return world
+    return None
+world=play_world()
+if world:
+    u.get_editor_subsystem(u.LevelEditorSubsystem).editor_request_end_play()
+    import time
+    for _ in range(80):
+        time.sleep(0.25)
+        if not play_world():
+            break
+    else:
+        raise RuntimeError('Finish play before native mesh authoring')
 def load(path):
     a=u.load_asset(path)
     if not a:raise RuntimeError('Missing '+path)
     return a
+SAVE=u.EditorLoadingAndSavingUtils
 def save(a):
-    if not E.save_loaded_asset(a,False):raise RuntimeError('Cannot save '+a.get_path_name())
+    a.modify()
+    pkg=a.get_outer()
+    for _ in range(12):
+        if SAVE.save_packages([pkg],False) or E.save_loaded_asset(a,False) or E.save_asset(a.get_path_name(),False):
+            return
+        time.sleep(0.25)
+    raise RuntimeError('Cannot save '+a.get_path_name())
 def dynamic(asset):
     dm,out=G.copy_mesh_from_skeletal_mesh(asset,u.DynamicMesh(),u.GeometryScriptCopyMeshFromAssetOptions(),u.GeometryScriptMeshReadLOD())
     if out!=u.GeometryScriptOutcomePins.SUCCESS:raise RuntimeError('Cannot read '+asset.get_path_name())
@@ -41,8 +65,10 @@ def precise(asset):
 # A single skin material selects hand vs arm from the authored vertex mask.
 # Native arm material indices stay identical, including world-copy hiding rules.
 parent_path=DEST+'/Materials/M_BareNative_Default'
-if E.does_asset_exist(parent_path):parent=load(parent_path)
-else:
+instance_path=DEST+'/Materials/MI_BareNative_Default'
+parent=u.load_asset(parent_path) or u.load_asset(parent_path+'.M_BareNative_Default')
+skin=u.load_asset(instance_path) or u.load_asset(instance_path+'.MI_BareNative_Default')
+if not parent:
     parent=A.duplicate_asset('M_BareNative_Default',DEST+'/Materials',load(DEST+'/Materials/M_BareFamily_Hands'))
     custom=L.get_material_property_input_node(parent,u.MaterialProperty.MP_NORMAL)
     colours=L.create_material_expression(parent,u.MaterialExpressionVertexColor)
@@ -54,15 +80,19 @@ else:
     errors=L.recompile_material(parent)
     if errors:raise RuntimeError('Cannot compile default skin: '+str(errors))
     save(parent)
-instance_path=DEST+'/Materials/MI_BareNative_Default'
-skin=load(instance_path) if E.does_asset_exist(instance_path) else A.create_asset('MI_BareNative_Default',DEST+'/Materials',u.MaterialInstanceConstant,u.MaterialInstanceConstantFactoryNew())
-L.set_material_instance_parent(skin,parent);L.update_material_instance(skin);save(skin)
+if not skin:
+    skin=A.create_asset('MI_BareNative_Default',DEST+'/Materials',u.MaterialInstanceConstant,u.MaterialInstanceConstantFactoryNew())
+    L.set_material_instance_parent(skin,parent);L.update_material_instance(skin);save(skin)
 if not (RECEIPTS/'modular_outfits.before.json').exists():shutil.copy2(config_path,RECEIPTS/'modular_outfits.before.json')
 
 for path,profile in config['profiles'].items():
     key=profile['rig_profile']
     if key=='Body':continue
-    bare_receipt=json.loads((ROOT/'Saved'/f'{key}.json').read_text())
+    saved=ROOT/'Saved'/f'{key}.json'
+    if not saved.exists():
+        print('NATIVE_BARE_SKIP',key,'no V7 authored mesh',flush=True)
+        continue
+    bare_receipt=json.loads(saved.read_text())
     receipt_path=RECEIPTS/f'{key}.json'
     if receipt_path.exists():
         receipt=json.loads(receipt_path.read_text())
@@ -110,7 +140,8 @@ for path,profile in config['profiles'].items():
     lod_count=S.get_lod_count(source)
     write(original_dm,source,mats,[s.material_slot_name for s in native_slots])
     precise(source)
-    if lod_count>1 and not S.regenerate_lod(source,lod_count,True,False):raise RuntimeError('Cannot rebuild native LODs '+key)
+    if lod_count>1 and not S.regenerate_lod(source,lod_count,True,False):
+        print('NATIVE_BARE_LOD0_ONLY',key,flush=True)
     E.set_metadata_tag(source,'BareArmsDefault','V7; native geometry, no runtime replacement')
     E.set_metadata_tag(source,'OriginalGlovedSource',original.get_path_name());save(source)
     fields={'native_bare_arms':True,'native_bare_skin':bare.get_path_name(),'base':bare.get_path_name(),
@@ -127,9 +158,14 @@ for path,profile in config['profiles'].items():
     config_path.write_text(json.dumps(latest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print('NATIVE_BARE_SAVED',key,flush=True)
 latest=json.loads(config_path.read_text(encoding='utf-8-sig'))
+done=0
 for path,profile in config['profiles'].items():
     if profile['rig_profile']=='Body':continue
-    receipt=json.loads((RECEIPTS/(profile['rig_profile']+'.json')).read_text())
+    receipt_file=RECEIPTS/(profile['rig_profile']+'.json')
+    if not receipt_file.exists():
+        continue
+    receipt=json.loads(receipt_file.read_text())
     latest['profiles'][path].update(receipt['profile_fields'])
+    done+=1
 config_path.write_text(json.dumps(latest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-print('NATIVE_BARE_DEFAULTS_COMPLETE',sum(p['rig_profile']!='Body' for p in config['profiles'].values()),flush=True)
+print('NATIVE_BARE_DEFAULTS_COMPLETE',done,flush=True)

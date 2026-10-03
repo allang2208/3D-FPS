@@ -24,3 +24,4 @@ if ($editors) {
 }
 if ($LASTEXITCODE -ne 0) { throw 'Asset import did not finish; catalog not activated.' }
 Write-Output '[done] Bow V16 assets saved; catalog activation is separate.'
+

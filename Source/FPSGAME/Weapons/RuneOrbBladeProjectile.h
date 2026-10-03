@@ -3,6 +3,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "../Skills/ColdSteelSkillTypes.h"
 #include "RuneOrbBladeProjectile.generated.h"
 
 class URuneOrbBladesComponent;
@@ -67,4 +68,5 @@ private:
     static constexpr float Range = 1600.f;       // cm
     static constexpr float HitRadius = 20.f;     // sweep sphere
     static constexpr float FadeSeconds = .3f;    // matches the 2D 300 ms fade
+    FColdSteelSkillShot EnchantmentShot;
 };

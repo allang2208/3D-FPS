@@ -212,7 +212,6 @@ bool UFPSUnarmedIdleComponent::ShouldShow() const
     if(!bHandsEmpty||!Arms||!Arms->GetSkeletalMeshAsset()||!Pawn||!Pawn->IsLocallyControlled()||Pawn->IsTraversing())return false;
     const auto* PC=Cast<APlayerController>(Pawn->GetController());
     if(!PC||PC->GetViewTarget()!=Pawn)return false;
-    if(const auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>();Body&&Body->IsThirdPersonViewEnabled())return false;
     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
     return true;
 }

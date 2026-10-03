@@ -1,0 +1,17 @@
+{
+  "revision": "A762DrumJoint20260926",
+  "authorization": "User requested diagnosis, repair plan and implementation of A762 large-drum distortion and receiver gaps.",
+  "retained_geometry": "../A762DrumNeck20260925/SM_A762_drum.blend below the 24 mm socket-local cut",
+  "upstream_provenance": "../LargeDrumUpgrade20260920/provenance.json",
+  "interface_source": "../A762Meshy20260920/Accessories05/A762_AccessoryReady_Editable.blend",
+  "new_geometry": "Locally authored ordered loft using the actual A762 magwell inner contour; closed finite-depth recess",
+  "new_surface_materials": "Existing A762 Refinement02 magazine exterior and interior finishes",
+  "external_downloads": false,
+  "publication": "No publication performed; existing source redistribution restrictions remain.",
+  "runtime_id": "large_drum",
+  "weapon_id": "ue_a762",
+  "animation_changed": false,
+  "native_code_changed": false,
+  "gameplay_values_changed": false,
+  "game_tested": false
+}

@@ -58,12 +58,14 @@ void UM4GunsmithWidget::LoadCategoryIcons()
         if(Key!=TEXT("enhance")&&!IsCategoryAvailable(Key))continue;
         FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
         const FString FramedDirectory=IconDirectory/(IsBowWorkbench()?TEXT("FramedBows"):TEXT("FramedFirearms"));
-        if((!IsStandaloneWorkbench()||IsBowWorkbench())&&(FPaths::FileExists(FramedDirectory/(Model()->Definition()+TEXT("_category_")+Key+TEXT(".png")))
+        const FString SharedFramedPath=FramedDirectory/(TEXT("category_")+Key+TEXT(".png"));
+        const bool SharedFirearmCategory=!IsStandaloneWorkbench()&&FPaths::FileExists(SharedFramedPath);
+        if(SharedFirearmCategory||((!IsStandaloneWorkbench()||IsBowWorkbench())&&(FPaths::FileExists(FramedDirectory/(Model()->Definition()+TEXT("_category_")+Key+TEXT(".png")))
             ||(!FPaths::FileExists(IconDirectory/(Model()->Definition()+TEXT("_category_")+Key+TEXT(".png")))
-                &&FPaths::FileExists(FramedDirectory/(TEXT("category_")+Key+TEXT(".png"))))))IconDirectory=FramedDirectory;
+                &&FPaths::FileExists(SharedFramedPath)))))IconDirectory=FramedDirectory;
         const FString WeaponIconPath=IconDirectory/(Model()->Definition()+TEXT("_category_")+Key+TEXT(".png"));
         // 近战新改造件允许缺武器专属图：回退通用分类图/SMeleePartIcon，不再整卡隐藏。
-        const FString IconPath=FPaths::FileExists(WeaponIconPath)?WeaponIconPath:IconDirectory/(TEXT("category_")+Key+TEXT(".png"));
+        const FString IconPath=SharedFirearmCategory?SharedFramedPath:FPaths::FileExists(WeaponIconPath)?WeaponIconPath:IconDirectory/(TEXT("category_")+Key+TEXT(".png"));
         if(auto* Texture=FImageUtils::ImportFileAsTexture2D(IconPath))
         {
             CategoryTextures.Add(Texture);
@@ -137,6 +139,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
     const auto* W=Model()->ModifiableWeapon(Model()->Definition());
     const FString WeaponSubtitle=IsStaffWorkbench()?TEXT("   /   长杖 · 六槽改造"):IsBowWorkbench()?TEXT("   /   双手弓 · 五槽改造"):IsToolWorkbench()?TEXT("   /   采集工具"):IsMeleeWorkbench()?TEXT("   /   双手近战武器"):
         W&&W->Ammo==TEXT("ammo_357")?TEXT("   /   .357 Magnum"):W&&W->Ammo==TEXT("ammo_45acp")?TEXT("   /   .45 ACP"):
+        W&&(W->Ammo==TEXT("ammo_9")||W->Ammo==TEXT("ammo_9mm"))?TEXT("   /   9 mm"):
         W&&W->Ammo==TEXT("ammo_58")?TEXT("   /   5.8 mm"):W&&W->Ammo==TEXT("ammo_762")?TEXT("   /   7.62 mm"):TEXT("   /   5.56 mm");
     auto Rail=SNew(SVerticalBox);
     Rail->AddSlot().AutoHeight().Padding(2,0,0,8)[Label(TEXT("可用部件"),12,Muted)];
@@ -148,8 +151,8 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
                 .ColorAndOpacity(FLinearColor::White);
             if(IsStandaloneWorkbench()&&!CategoryBrushes.Contains(Key))
                 IconContent=SNew(SMeleePartIcon).Part(Key).bTool(IsToolWorkbench()).Definition(Model()->Definition());
-            if(!IsStandaloneWorkbench()||IsBowWorkbench())
-                IconContent=SNew(SFramedAttachmentIcon).FramedImage(true).Selected_Lambda([this,Key](){return SelectedCategory==Key;})
+            if(!IsStandaloneWorkbench()||IsBowWorkbench()||IsStaffWorkbench())
+                IconContent=SNew(SFramedAttachmentIcon).FramedImage(!IsStaffWorkbench()).Selected_Lambda([this,Key](){return SelectedCategory==Key;})
                     [SNew(SScaleBox).Stretch(EStretch::ScaleToFit)[IconContent]];
             auto Icon=SNew(SBox).WidthOverride(48).HeightOverride(48)
                 [IconContent];
@@ -319,8 +322,9 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     const FString Weapon=Model()->Definition();
     const bool VipGrip=Weapon==TEXT("ue_pit_viper2011")&&SlotKey==TEXT("reargrip")&&Id==TEXT("pit_viper_vip_scales");
     const bool SiMuzzle=Weapon==TEXT("ue_pit_viper2011")&&SlotKey==TEXT("muzzle")&&Id==TEXT("pit_viper_si_compensator");
+    const bool G18Drum=Weapon==TEXT("ue_g18")&&SlotKey==TEXT("magazine")&&Id==TEXT("g18_drum_50");
     const bool Exclusive=
-        VipGrip || SiMuzzle ||
+        VipGrip || SiMuzzle || G18Drum ||
         (Weapon==TEXT("ue_tang_dao") &&
             ((SlotKey==TEXT("blade_1") && (Id==TEXT("yanling_edge")||Id==TEXT("tengyun_dragon"))) ||
              (SlotKey==TEXT("blade_2") && Id==TEXT("auspicious_cloud_rune")) ||
@@ -347,16 +351,20 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     auto Neon=[Selected,Id](){return Id!=TEXT("false")&&Selected();};
     auto Frame=[Neon,Selected,Exclusive](){auto C=ColdSteelUI::Success;C.A=.32f;return Neon()?C:Selected()?GunsmithUI::Silver:Exclusive?ColdSteelUI::ExclusiveBorder:FLinearColor::Transparent;};
     FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
-    const FString CommonIconKey=SlotKey+TEXT("_")+Id;
-    const FString WeaponIconKey=Model()->Definition()+TEXT("_")+CommonIconKey;
+    const FString WeaponIconKey=Model()->Definition()+TEXT("_")+SlotKey+TEXT("_")+Id;
+    // The shared fast-trigger pictogram also represents Pit Viper's numeric option.
+    const FString CommonIconKey=SlotKey==TEXT("trigger")&&Id==TEXT("pit_viper_lightweight_fast")
+        ?TEXT("trigger_m1911_lightweight_fast"):SlotKey+TEXT("_")+Id;
     const FString FramedDirectory=IconDirectory/(IsBowWorkbench()?TEXT("FramedBows"):TEXT("FramedFirearms"));
-    const bool Framed=(!IsStandaloneWorkbench()||IsBowWorkbench())&&(FPaths::FileExists(FramedDirectory/(WeaponIconKey+TEXT(".png")))
+    const bool SharedFirearmOption=!IsStandaloneWorkbench()&&Id!=TEXT("false")
+        &&FPaths::FileExists(FramedDirectory/(CommonIconKey+TEXT(".png")));
+    const bool Framed=SharedFirearmOption||((!IsStandaloneWorkbench()||IsBowWorkbench())&&(FPaths::FileExists(FramedDirectory/(WeaponIconKey+TEXT(".png")))
         ||(!FPaths::FileExists(IconDirectory/(WeaponIconKey+TEXT(".png")))
-            &&FPaths::FileExists(FramedDirectory/(CommonIconKey+TEXT(".png")))));
+            &&FPaths::FileExists(FramedDirectory/(CommonIconKey+TEXT(".png"))))));
     if(Framed)IconDirectory=FramedDirectory;
-    // Cache the resolved weapon-specific image so switching guns keeps each factory part distinct.
+    // Common modifications share one brush; factory parts retain their weapon key.
     // 近战新改造件允许缺武器专属图：直接回退通用键（SMeleePartIcon 兜底），不再整卡隐藏。
-    const bool UseWeaponIcon=FPaths::FileExists(IconDirectory/(WeaponIconKey+TEXT(".png")));
+    const bool UseWeaponIcon=!SharedFirearmOption&&FPaths::FileExists(IconDirectory/(WeaponIconKey+TEXT(".png")));
     const FString IconKey=UseWeaponIcon?WeaponIconKey:CommonIconKey;
     if(!AttachmentBrushes.Contains(IconKey)&&FPaths::FileExists(IconDirectory/(IconKey+TEXT(".png"))))
     {
@@ -375,12 +383,12 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     if(IsStandaloneWorkbench()&&!IsBowWorkbench()&&AttachmentBrushes.Contains(IconKey))OptionIcon=SNew(SScaleBox).Stretch(EStretch::ScaleToFit)[OptionIcon];
     if(IsStandaloneWorkbench()&&!AttachmentBrushes.Contains(IconKey))
         OptionIcon=SNew(SMeleePartIcon).Part(SlotKey).bTool(IsToolWorkbench()).Definition(Model()->Definition());
-    if(!IsStandaloneWorkbench()||IsBowWorkbench())
-        OptionIcon=SNew(SFramedAttachmentIcon).FramedImage(true).Selected_Lambda(Selected).Installed_Lambda(Installed)
+    if(!IsStandaloneWorkbench()||IsBowWorkbench()||IsStaffWorkbench())
+        OptionIcon=SNew(SFramedAttachmentIcon).FramedImage(!IsStaffWorkbench()).Selected_Lambda(Selected).Installed_Lambda(Installed)
             [SNew(SScaleBox).Stretch(EStretch::ScaleToFit)[OptionIcon]];
     FString Appearance;
     // 工具四栏当前是数值改造：外观说明直接取目录的 appearance 字段，不查剑类模块 JSON。
-    if(IsToolWorkbench()||IsBowWorkbench())Appearance=O->Appearance;
+    if(IsToolWorkbench()||IsBowWorkbench()||IsStaffWorkbench())Appearance=O->Appearance;
     else if(IsMeleeWorkbench())if(const auto* Item=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->FindItem(Model()->Instance()))
         Appearance=ColdSteelModularSword::Appearance(*Item,SlotKey,Id);
     return SNew(SBox).WidthOverride(IsStandaloneWorkbench()?288:264).HeightOverride(142)
@@ -407,9 +415,9 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
                     +SOverlay::Slot()[SNew(SImage).Image(FCoreStyle::Get().GetBrush("WhiteBrush"))
                         .ColorAndOpacity_Lambda([Neon](){auto C=ColdSteelUI::Success;C.A=Neon()?.08f:0.f;return C;}).Visibility(EVisibility::HitTestInvisible)]
                     +SOverlay::Slot().Padding(6,2)
-                    [SNew(STextBlock).Text_Lambda([Selected,Installed,Id,Exclusive,VipGrip,SiMuzzle](){
+                    [SNew(STextBlock).Text_Lambda([Selected,Installed,Id,Exclusive,VipGrip,SiMuzzle,G18Drum](){
                         const FString Status=Installed()?(Id==TEXT("false")?TEXT("当前原厂配置"):TEXT("已安装")):(Selected()?TEXT("已选 · 待应用"):TEXT("选择配件"));
-                        return FText::FromString((VipGrip?FString(TEXT("VIP 专属 · ")):SiMuzzle?FString(TEXT("限定 · ")):Exclusive?FString(TEXT("专属 · ")):FString())+Status);})
+                        return FText::FromString((VipGrip?FString(TEXT("VIP 专属 · ")):(SiMuzzle||G18Drum)?FString(TEXT("限定 · ")):Exclusive?FString(TEXT("专属 · ")):FString())+Status);})
                         .Font(GunsmithUI::TextFont(12,true))
                         .ColorAndOpacity_Lambda([Neon,Selected,Exclusive](){return Neon()?ColdSteelUI::Success:Selected()?GunsmithUI::Silver:Exclusive?ColdSteelUI::ExclusiveText:GunsmithUI::Muted;})
                         .ShadowOffset(FVector2D(0,1)).ShadowColorAndOpacity(FLinearColor(0,0,0,.4f))]]]]]

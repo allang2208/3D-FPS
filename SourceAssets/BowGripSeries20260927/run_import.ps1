@@ -25,3 +25,4 @@ if ($editors) {
 }
 if ($LASTEXITCODE -ne 0) { throw 'Asset import did not finish; catalog not activated.' }
 Write-Output '[done] Bow grip series V20 assets saved; catalog activation is separate.'
+

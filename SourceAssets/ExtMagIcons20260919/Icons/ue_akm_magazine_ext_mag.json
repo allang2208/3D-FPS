@@ -1,0 +1,59 @@
+{
+  "key": "ue_akm_magazine_ext_mag",
+  "gun": "AKM",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\AKM_ExtMag_Continuous_Editable.blend",
+  "objects": [
+    "SM_ExtMag_AKM40_Continuous"
+  ],
+  "frame": "measured",
+  "matrix": [
+    [
+      -0.00015016389079391956,
+      -1.0,
+      -1.3278432561492082e-05,
+      0.0
+    ],
+    [
+      0.9961946606636047,
+      -0.00015074976545292884,
+      0.08715584874153137,
+      0.0
+    ],
+    [
+      -0.08715584874153137,
+      -1.40242264023982e-07,
+      0.9961946606636047,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "frame_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\AKM\\SK_AKM_MannyNative.fbx",
+  "runtime": "/Game/Weapons/ExtMagContinuity20260919/SM_ExtMag_AKM40_Continuous",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.3577550947666168,
+      0.03166624531149864,
+      -0.3106803596019745
+    ],
+    [
+      -0.15814468264579773,
+      0.06116287410259247,
+      -0.09414535015821457
+    ]
+  ],
+  "triangles": 22132,
+  "material_note": "Real source materials retained."
+}

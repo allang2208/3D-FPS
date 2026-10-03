@@ -31,10 +31,11 @@ bool ConfigureThemedRoutes(int32 Seed,const JObject& Catalog)
     auto& Archive=Modules[SharedArchive];Archive.bRunEligible=true;Archive.SelectionRoute=TEXT("Archive");Archive.MaxPerRun=1;
     for(const auto& V:(*Rules)->GetArrayField(TEXT("transition_families")))TransitionFamilies.Add(V->AsString());
     const auto& Cores=(*Rules)->GetArrayField(TEXT("routes"));
-    if(Cores.Num()!=3||TransitionFamilies.IsEmpty()){CompactFailure=TEXT("主题路线必须包含三个完整组合与过渡房池");return false;}
+    if(Cores.Num()<3||TransitionFamilies.IsEmpty()){CompactFailure=TEXT("主题路线至少需要三个完整组合与过渡房池");return false;}
     FRandomStream Draw(int32(HashCombineFast(uint32(Seed),0x5448454Du)));
-    TArray<int32> Order{0,1,2};
-    for(int32 I=2;I>0;--I)Order.Swap(I,Draw.RandRange(0,I));
+    TArray<int32> Order;
+    for(int32 I=0;I<Cores.Num();++I)Order.Add(I);
+    for(int32 I=Order.Num()-1;I>0;--I)Order.Swap(I,Draw.RandRange(0,I));
     TopologyCounts[0]=Draw.RandRange(1,2);
     ThemeSlots.Add(TEXT("Approach"),{});
     for(int32 I=0;I<TopologyCounts[0];++I)ThemeSlots[TEXT("Approach")].Add(INDEX_NONE);

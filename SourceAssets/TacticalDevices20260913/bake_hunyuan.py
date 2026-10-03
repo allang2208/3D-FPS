@@ -73,7 +73,7 @@ for key,info in sources.items():
  for i,m in enumerate(original):ob.data.materials[i]=m
  for p,i in zip(ob.data.polygons,indices):p.material_index=i
  ob.data.uv_layers.active_index=0;ob.data.uv_layers[0].active_render=True
-
+ 
  for sock in socket_objects:sock.select_set(True)
  file=O/(key+'.fbx');bpy.ops.export_scene.fbx(filepath=str(file),use_selection=True,object_types={'MESH','EMPTY'},axis_forward='-Y',axis_up='Z',bake_anim=False,mesh_smooth_type='FACE',use_tspace=True)
  ob.hide_render=True;ob.hide_set(True)

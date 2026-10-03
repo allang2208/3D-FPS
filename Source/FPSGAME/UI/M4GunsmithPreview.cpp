@@ -61,6 +61,8 @@ void UM4GunsmithWidget::InitializePreview()
     Capture->TextureTarget=PreviewTarget;Capture->CaptureSource=SCS_FinalToneCurveHDR;
     Capture->PrimitiveRenderMode=ESceneCapturePrimitiveRenderMode::PRM_UseShowOnlyList;
     Capture->bCaptureEveryFrame=false;Capture->bCaptureOnMovement=false;
+    Capture->ShowFlags.SetMaterials(true);Capture->ShowFlags.SetLighting(true);
+    Capture->ShowFlags.SetSpecular(true);Capture->ShowFlags.SetReflectionEnvironment(true);
     Capture->ShowFlags.SetAtmosphere(false);Capture->ShowFlags.SetFog(false);Capture->ShowFlags.SetVolumetricFog(false);
     Capture->ShowFlags.SetMotionBlur(false);Capture->ShowFlags.SetBloom(false);
     // Spatial AA remains stable for an intermittently captured, draggable preview.

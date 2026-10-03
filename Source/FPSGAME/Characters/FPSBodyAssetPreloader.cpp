@@ -284,6 +284,7 @@ namespace FPSBodyPreloadPrivate
         {
             AddPath(Out, BodyMesh);
         }
+        if (Root->TryGetStringField(TEXT("weapon_pose_reference_mesh"), BodyMesh)) AddPath(Out,BodyMesh);
 
         const TSharedPtr<FJsonObject>* Clips = nullptr;
         if (Root->TryGetObjectField(TEXT("clips"), Clips))
@@ -297,6 +298,20 @@ namespace FPSBodyPreloadPrivate
             }
         }
 
+        // Head/hair are ID-addressed in JSON, so the compiler cannot discover them.
+        const TSharedPtr<FJsonObject>* Heads = nullptr;
+        if (Root->TryGetObjectField(TEXT("heads"), Heads))
+        {
+            TFunction<void(const TSharedPtr<FJsonValue>&)> Collect;
+            Collect = [&](const TSharedPtr<FJsonValue>& Value)
+            {
+                if (!Value) return;
+                if (Value->Type == EJson::String) AddPath(Out,Value->AsString());
+                else if (Value->Type == EJson::Object) for (const auto& Pair:Value->AsObject()->Values) Collect(Pair.Value);
+                else if (Value->Type == EJson::Array) for (const auto& Child:Value->AsArray()) Collect(Child);
+            };
+            for (const auto& Pair:(*Heads)->Values) Collect(Pair.Value);
+        }
         const TSharedPtr<FJsonObject>* Outfits = nullptr;
         if (Root->TryGetObjectField(TEXT("outfits"), Outfits))
         {

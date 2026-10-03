@@ -1,0 +1,17 @@
+from pathlib import Path
+p=Path('Source/FPSGAME/Monsters/HangingBellM09.h');s=p.read_text(encoding='utf8')
+s=s.replace(' UFUNCTION(BlueprintCallable,Category="M09|Development") bool TriggerAttack',
+' UFUNCTION(BlueprintCallable,Category="M09|Authoring") static void ConfigureReturnPortal(AActor* Portal);\n UFUNCTION(BlueprintCallable,Category="M09|Development") bool TriggerAttack')
+p.write_text(s,encoding='utf8')
+p=Path('Source/FPSGAME/Monsters/M09Development.cpp');s=p.read_text(encoding='utf8')
+s=s.replace('#include "BrainComponent.h"','#include "BrainComponent.h"\n#include "../SceneTestPortal.h"')
+s=s.replace('#if !UE_BUILD_SHIPPING','void AHangingBellM09::ConfigureReturnPortal(AActor* Portal)\n{\n if(auto* Door=Cast<ASceneTestPortal>(Portal))Door->Configure(TEXT("/Game/GameMaps/DayNight_Lighting"),TEXT("RETURN TO HUB"));\n}\n#if !UE_BUILD_SHIPPING',1)
+p.write_text(s,encoding='utf8')
+p=Path('Source/FPSGAME/Monsters/HangingBellM09.cpp');s=p.read_text(encoding='utf8')
+s=s.replace('From,To,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(10.f)','From,To,FQuat::Identity,ECC_Pawn,FCollisionShape::MakeSphere(10.f)')
+s=s.replace('From,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(10.f)','From,End,FQuat::Identity,ECC_Pawn,FCollisionShape::MakeSphere(10.f)')
+s=s.replace('true,.08);','true,.08f);').replace('InterruptAttack(1.4);','InterruptAttack(1.4f);')
+p.write_text(s,encoding='utf8')
+p=Path('Tools/HangingBellM09/author_room_v04.py');s=p.read_text(encoding='utf8')
+s=s.replace("portal.set_editor_property('destination','/Game/GameMaps/DayNight_Lighting')","u.HangingBellM09.configure_return_portal(portal)")
+p.write_text(s,encoding='utf8')

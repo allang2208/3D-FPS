@@ -1,0 +1,68 @@
+{
+  "matrix": [
+    [
+      1.0,
+      -8.742277657347586e-08,
+      0.0,
+      5.400141664673071e-15
+    ],
+    [
+      8.742277657347586e-08,
+      1.0,
+      0.0,
+      -1.9238832803334521e-13
+    ],
+    [
+      0.0,
+      1.3755806791603712e-20,
+      1.0,
+      1.5258788721439487e-07
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "slots": {
+    "0": {
+      "name": "M_AKM_Soviet_PBR",
+      "faces": 0,
+      "bounds": [],
+      "textures": [
+        "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMSoviet20260911\\Source\\ak47fbx_extracted\\textures\\AK_Base_color.png",
+        "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMSoviet20260911\\Source\\ak47fbx_extracted\\textures\\AK_Normal_OpenGL.png",
+        "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMSoviet20260911\\Source\\ak47fbx_extracted\\textures\\AK_Roughness.png",
+        "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMSoviet20260911\\Source\\ak47fbx_extracted\\textures\\AK_Metallic.png"
+      ]
+    },
+    "1": {
+      "name": "M_AKM_Soviet_Magazine",
+      "faces": 2776,
+      "bounds": [
+        [
+          0.04443496838212013,
+          0.08533718436956406
+        ],
+        [
+          0.15813852846622467,
+          0.31026211380958557
+        ],
+        [
+          -0.2801332473754883,
+          -0.08907276391983032
+        ]
+      ],
+      "textures": [
+        "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMSoviet20260911\\Source\\ak47fbx_extracted\\textures\\AK_Base_color.png",
+        "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMSoviet20260911\\Source\\ak47fbx_extracted\\textures\\AK_Normal_OpenGL.png",
+        "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMSoviet20260911\\Source\\ak47fbx_extracted\\textures\\AK_Roughness.png",
+        "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMSoviet20260911\\Source\\ak47fbx_extracted\\textures\\AK_Metallic.png"
+      ]
+    }
+  },
+  "nearby": [
+    "AKM_FactoryMagazine_Preview"
+  ]
+}

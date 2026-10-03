@@ -9,6 +9,9 @@ namespace G18WeaponAssets
     inline constexpr const TCHAR* Root = TEXT("/Game/Weapons/G18/Integrated20260929");
     inline constexpr const TCHAR* MeshPath = TEXT("/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny.SK_G18_Manny");
     inline constexpr const TCHAR* WetMaterials = TEXT("/Game/Weapons/G18/Integrated20260929/DA_G18_WetMaterials");
+    inline constexpr const TCHAR* Drum50Id = TEXT("g18_drum_50");
+    inline constexpr const TCHAR* Drum50Mesh = TEXT("/Game/Weapons/G18/Drum50_20261003/Meshes/SM_G18_Drum50");
+    inline constexpr const TCHAR* Drum50ReloadProfile = TEXT("/Game/Weapons/G18/Drum50_20261003/Reload/DA_G18_Drum50");
     inline bool Matches(const USkeletalMeshComponent* Mesh)
     {
         return Mesh && Mesh->GetSkeletalMeshAsset() && Mesh->GetSkeletalMeshAsset()->GetPathName().Contains(TEXT("/Weapons/G18/"));

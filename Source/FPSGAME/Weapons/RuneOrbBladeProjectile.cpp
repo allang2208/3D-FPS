@@ -9,6 +9,7 @@
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Skills/ColdSteelSkillRules.h"
+#include "FPSMeleeLightningComponent.h"
 #include "Components/PointLightComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
@@ -89,6 +90,7 @@ void ARuneOrbBlade::Setup(URuneOrbBladesComponent* InSource, APawn* InOwner, flo
 void ARuneOrbBlade::Launch(const FVector& TargetPoint)
 {
     if (!CanLaunch()) return;
+    EnchantmentShot=ColdSteelSkills::Snapshot(Shooter.Get());
     bFlying = true;
     Velocity = (TargetPoint - GetActorLocation()).GetSafeNormal(UE_SMALL_NUMBER, GetActorForwardVector()) * Speed;
     SetActorRotation(Velocity.Rotation());
@@ -111,6 +113,7 @@ void ARuneOrbBlade::ApplyHit(const FHitResult& Hit)
         auto* Combat = Target->FindComponentByClass<UMonsterCombatComponent>();
         if (Combat && !Combat->IsDead() && !Target->ActorHasTag(TEXT("Friendly")))
         {
+            const bool bBerserkEnemy=UFPSMeleeLightningComponent::IsEnemy(Target,Shooter.Get());
             bool bCritical = false;
             double CritChance = 0, CritBonus = 0, Pen = 0, DmgBonus = 0;
             if (Shooter.IsValid() && Shooter->GetGameInstance())
@@ -129,6 +132,7 @@ void ARuneOrbBlade::ApplyHit(const FHitResult& Hit)
             const float Applied = UGameplayStatics::ApplyPointDamage(
                 Target, Damage, Velocity.GetSafeNormal(), Hit, Shooter.IsValid() ? Shooter->GetController() : nullptr, Shooter.Get(),
                 URuneOrbBladeDamage::StaticClass());
+            if(bBerserkEnemy&&Damage>0.f)ColdSteelSkills::GrantBerserkOnWeaponHit(Shooter.Get(),EnchantmentShot);
             if (Applied > 0)
                 if (auto* Player = Cast<AFPSGAMECharacter>(Shooter.Get()))
                     Player->NotifyConfirmedWeaponHit(Target, Applied);

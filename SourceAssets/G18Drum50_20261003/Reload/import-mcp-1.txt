@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "D:\FPS3D\FPSGAME\Tools\AssetPipeline\ue_python_exec.py", line 141, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\FPS3D\FPSGAME\Tools\AssetPipeline\ue_python_exec.py", line 128, in main
+    result = remote.run_command(command, exec_mode=mode)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Program Files (x86)\UE_5.8\Engine\Plugins\Experimental\PythonScriptPlugin\Content\Python\remote_execution.py", line 124, in run_command
+    data = self._command_connection.run_command(command, unattended, exec_mode)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Program Files (x86)\UE_5.8\Engine\Plugins\Experimental\PythonScriptPlugin\Content\Python\remote_execution.py", line 439, in run_command
+    result = self._receive_message(_TYPE_COMMAND_RESULT)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Program Files (x86)\UE_5.8\Engine\Plugins\Experimental\PythonScriptPlugin\Content\Python\remote_execution.py", line 463, in _receive_message
+    part = self._command_channel_socket.recv(DEFAULT_RECEIVE_BUFFER_SIZE)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Զ������ǿ�ȹر���һ�����е����ӡ�

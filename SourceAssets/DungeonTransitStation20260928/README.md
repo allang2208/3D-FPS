@@ -1,5 +1,7 @@
 # Abandoned Transit Station — random dungeon combat room
 
+2026-10-03: added an internal maintenance/dispatch workshop and a platform repair bay. Source: [StationWorkshop20261003](../StationWorkshop20261003/README.md). The production station uses three seeded dressing states with 6–7 searchable containers. The existing freight-line subject retains one editable layout for user refinement; no game or visual tests were run.
+
 The user accepted the expanded architecture and requested pool integration plus retirement of the independent map/menu entry on 2026-09-29.
 
 The hall is 48 × 33 m with an 11.7 m vault. The track pit is 10.5 m wide and 1.8 m deep; standard rail gauge, doors, stair risers, tiles and fittings keep their real scale. Pier bases clear the side doorway frame by 0.60 m. The existing approved geometry and materials are reused without another art iteration.

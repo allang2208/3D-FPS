@@ -1,0 +1,163 @@
+{
+  "objects": [
+    {
+      "name": "SM_SW_Roof",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV3\\Authored\\SM_SW_Roof.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Meshes/SM_SW_Roof",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Materials/M_Workshop_FlatConcrete"
+      },
+      "triangles": 12,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_SW_BenchRetained",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV3\\Authored\\SM_SW_BenchRetained.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Meshes/SM_SW_BenchRetained",
+      "materials": {
+        "WSFinish_GroundSteel": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_GroundSteel.M_WSFinish_GroundSteel",
+        "WSFinish_ToolSteel": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_ToolSteel_R2.M_WSFinish_ToolSteel_R2",
+        "WSSculpt_CastGreen": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_CastGreen.M_WSSculpt_CastGreen",
+        "WSTools_ToolLabels": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Materials/M_WSTools_ToolLabels.M_WSTools_ToolLabels",
+        "WSFinish_Grip": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_Grip.M_WSFinish_Grip",
+        "WSTools_Enamel": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Materials/M_WSTools_Enamel.M_WSTools_Enamel",
+        "WSSculpt_RedGrip": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_RedGrip.M_WSSculpt_RedGrip"
+      },
+      "triangles": 203620,
+      "nanite": true,
+      "collision": false,
+      "complex_collision": false
+    },
+    {
+      "name": "SM_Station_Railings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV3\\Authored\\SM_Station_Railings.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Meshes/SM_Station_Railings",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 19488,
+      "nanite": true,
+      "collision": true,
+      "complex_collision": true
+    }
+  ],
+  "revision": 3,
+  "ratchet_translation_cm": [
+    -14,
+    0,
+    0
+  ],
+  "ratchet_vertices_moved": 3768,
+  "lower_railing_post_bases_m": [
+    [
+      -5.58,
+      -5.25,
+      0
+    ],
+    [
+      -5.58,
+      -4.293333333333333,
+      0
+    ],
+    [
+      -5.58,
+      -3.336666666666667,
+      0
+    ],
+    [
+      -5.58,
+      -2.3800000000000003,
+      0
+    ],
+    [
+      -5.58,
+      2.38,
+      0
+    ],
+    [
+      -5.58,
+      3.3366666666666664,
+      0
+    ],
+    [
+      -5.58,
+      4.293333333333333,
+      0
+    ],
+    [
+      -5.58,
+      5.25,
+      0
+    ],
+    [
+      -5.35,
+      -2.38,
+      -0.15
+    ],
+    [
+      -4.45,
+      -2.38,
+      -0.6
+    ],
+    [
+      -3.55,
+      -2.38,
+      -1.05
+    ],
+    [
+      -2.65,
+      -2.38,
+      -1.5
+    ],
+    [
+      -2.0500000000000003,
+      -2.38,
+      -1.8
+    ],
+    [
+      -1.7000000000000004,
+      -2.38,
+      -1.8
+    ],
+    [
+      -5.35,
+      2.38,
+      -0.15
+    ],
+    [
+      -4.45,
+      2.38,
+      -0.6
+    ],
+    [
+      -3.55,
+      2.38,
+      -1.05
+    ],
+    [
+      -2.65,
+      2.38,
+      -1.5
+    ],
+    [
+      -2.0500000000000003,
+      2.38,
+      -1.8
+    ],
+    [
+      -1.7000000000000004,
+      2.38,
+      -1.8
+    ]
+  ],
+  "ceiling_bottom_cm": 320,
+  "tests_run": false,
+  "rendered": false
+}

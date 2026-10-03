@@ -2,6 +2,8 @@
 
 整理日期：2026-09-23。用户确认表面修订“成功了”，飞扑距离与提前量“基本成功”，随后授权归档废案、沉淀技能并推送。本页是当前入口；同日各阶段文档保留当时事实，不把第一版参数当作现行配置。
 
+2026-10-02 手部修订：用户反馈前序飞扑手部仍未处理好，要求整体姿势保留、掌心向下并局部下挥。已后台保存蓄力双腕过渡、腾空掌面定向与压腕下抓、落地回收三段动画，见 [掌心向下修订](Mutant3PouncePalmDown20261002.md)。身体动作沿用原版本；本轮手部尚未进行游戏或视觉测试，也未获得用户认可，不引用旧距离/表面反馈作为手部验收。
+
 ## 当前结果
 
 - 成熟 Khaimera 身体动作与 Meshy 外观结合：快速奔跑、两段爪击连击、蓄力/真实飞行/落地恢复；30 根新增指骨形成外展内钩的爪型。
@@ -35,7 +37,7 @@
 1. `SourceAssets/Mutant3Khaimera20260923/retarget_khaimera.py` 与 `author_feral.py` 保留原生重定向及干净身体动作；需要原包、`native_retarget`、元数据及 CombatBase。`UEAuthoring` 是本地素材制作宿主，不是第二份 C++ 开发真源。
 2. `hand_ground_fix/author_claw_skin.py`、`author_fixed.py` 和 `inspect_fingers.py` 保留手指区域输入、接地动作与可编辑源；虽然后续爪型替换了旧外形，此层仍是重建依赖。`finger_components.json`、`claw_skin.json`、合同和 Blend 均留在本机。旧 `import_fixed.py` 只用于早期制作层，不是最终安装入口。
 3. `claw_reference_20260923/author_open_claw.py`、`import_open_claw.py` 生成当前张开爪型骨架/权重及基础动画；导入网格时保留当前材质和作者法线。
-4. `pounce_arm_refine/author_reference_rake.py`、`import_reference_rake.py` 重排完整身体姿势；再执行 `pounce_impact_20260923/author_downward_hands.py`、`install_downward_hands.py`，仅将腕/指旋转写入两段正式动画。**最后不能再用旧完整 FBX 覆盖手部补丁。**
+4. `pounce_arm_refine/author_reference_rake.py`、`import_reference_rake.py` 重排完整身体姿势；最新手部层使用 `pounce_palm_down_20261002/read_authoring_basis.py`、`author_palm_down.py`、`install_palm_down.py`，蓄力仅写双腕旋转，腾空/落地仅写腕与指旋转。`pounce_impact_20260923` 保留为前序下挥记录，不再作为最新手部安装入口。**最后不能再用旧完整 FBX 或旧手部补丁覆盖掌心向下修订。**
 5. `transitions/inspect_transitions.py` 和 `build_gait_map.py` 仅在更换循环片段、且获准重采样时生成相位映射；密集 `clip_poses.json` 留本机，运行只用 C++ 索引表。
 6. `SourceAssets/Mutant3SurfacePolish20260923/author_normals.py`、`install_surface.py` 安装局部法线、SurfacePolish 四贴图和 MI。不要把旧 `texture_fix` 基础材质重新赋给当前网格。`material_return_fix/repair_surface.py` 是 section 修复入口。
 7. `SourceAssets/Mutant3LandingFX20260923/author_assets.py` 从上述已有纹理/音源生成专用反馈资产。原生 `RepairSurfaceBinding` / `ApplyPounceHandTracks` 需先编译当前模块。

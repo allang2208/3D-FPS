@@ -74,7 +74,7 @@ private:
     /** SBorder 的 BorderImage 取指针，故缓存分区卡画刷而不是每次构造临时值。 */
     FSlateBrush SectionBrush;
 
-    /** 0 武器，1 怪物，2 状态（buff/debuff 目录），3 祭品（tribute 物品目录）。 */
+    /** 0 武器，1 怪物，2 状态（buff/debuff 目录），3 祭品（tribute 物品目录），4 附魔（卷轴目录）。 */
     int32 Section = 0;
     int32 Category = 0;
     FString SelectedId;
@@ -143,6 +143,11 @@ private:
     TSharedRef<SWidget> BuildTributePage();
     void RebuildTributeCards();
     TArray<TSharedRef<SWidget>> TributePageCards() const;
+    /** 附魔分区整页内容（2026-10-03，与祭品分区同规则）：搜索栏 + 按稀有度分组的「附魔卡片」。
+     *  数据走 UColdSteelEnhancementSystem::Scrolls()（enhancement.json 单一事实源），只读档案。 */
+    TSharedRef<SWidget> BuildEnchantPage();
+    void RebuildEnchantCards();
+    TArray<TSharedRef<SWidget>> EnchantPageCards() const;
     /** 搜索行（状态/祭品两页共用同一个缓存输入框，切换分区时重挂载、文本保留）。 */
     TSharedRef<SWidget> BuildSearchRow(const FString& Hint);
     /** 当前整页分区的卡片重填派发：搜索输入只重建活动分区，不动输入框。 */
@@ -151,6 +156,7 @@ private:
     FString SearchText;
     TSharedPtr<SVerticalBox> StatusCardsHost;
     TSharedPtr<SVerticalBox> TributeCardsHost;
+    TSharedPtr<SVerticalBox> EnchantCardsHost;
     TSharedPtr<SEditableTextBox> SearchEdit;
     /** 搜索框样式缓存：SEditableTextBox 按指针取样式，须与控件同寿命。 */
     FEditableTextBoxStyle SearchEditStyle;

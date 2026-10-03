@@ -55,8 +55,8 @@ bool AFPSGAMEPlayerController::OpenExpedition()
         {TEXT("医疗路线"),TEXT("排水间 → 隔离病区 → 解剖教学剧场")},
         {TEXT("处理路线"),TEXT("破损支护室 → 焚化处理厅 → 净化站")},
     };
-    Facility.bCanDepart = GetNetMode()==NM_Standalone && FPackageName::DoesPackageExist(RandomizedDungeonMap);
-    if(!Facility.bCanDepart)Facility.BlockReason=GetNetMode()!=NM_Standalone?TEXT("联机模式暂不支持出征"):TEXT("目的地关卡缺失");
+    Facility.bCanDepart = GetNetMode()!=NM_Client && FPackageName::DoesPackageExist(RandomizedDungeonMap);
+    if(!Facility.bCanDepart)Facility.BlockReason=GetNetMode()==NM_Client?TEXT("联机模式暂不支持出征"):TEXT("目的地关卡缺失");
     Facility.Rules = {
         {TEXT("进入与路线"),TEXT("无需祭品或钥匙。三条路线可自由选择；清理任意一条完整路线与数据档案中心，即可开启通往首领的闸门，无需清完全部三路。")},
         {TEXT("房间与闸门"),TEXT("每条路线由前置 1–2 间过渡房、固定 3 间主题房、后置 1–2 间过渡房组成。货运转运间清怪后开闸，依次进入仓库与地下车站。")},
@@ -72,7 +72,7 @@ bool AFPSGAMEPlayerController::OpenExpedition()
     {
         const TCHAR* DestinationMap = Id == RandomizedDungeonId ? RandomizedDungeonMap : nullptr;
         if (!DestinationMap) return FText::FromString(TEXT("未知目的地"));
-        if (GetNetMode() != NM_Standalone) return FText::FromString(TEXT("联机模式暂不支持出征"));
+        if (GetNetMode() == NM_Client) return FText::FromString(TEXT("联机模式暂不支持出征"));
         if (!FPackageName::DoesPackageExist(DestinationMap))
             return FText::FromString(TEXT("目的地关卡缺失，出征已取消"));
         // OpenLevel tears down this world before ConfirmDeparture can Close().

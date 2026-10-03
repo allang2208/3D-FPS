@@ -1,7 +1,13 @@
 #include "FPSPlayerBodyComponent.h"
+#include "../Weapons/WeaponBipodDeploymentComponent.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/Bow/BowWeaponComponent.h"
+#include "../Weapons/Staff/StaffWeaponComponent.h"
+#include "../Weapons/Staff/StaffPrimaryAttackMotion.h"
 #include "../Weapons/RuneSwordGuardTuning.h"
+#include "../Weapons/RuneSwordOverheadRhythm.h"
 #include "../Weapons/PistolDualWieldComponent.h"
 #include "../Production/ProductionToolComponent.h"
 #include "../Production/ProductionPickaxeImpactMotion.h"
@@ -73,6 +79,8 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleLocalState() const
             Timed(EFPSBodyAction::Whirlwind,Sword->Elapsed,End);
             State.ContactFraction=W.ReadySeconds/End;State.ReleaseFraction=(W.ReadySeconds+W.SpinSeconds)/End;
         }
+        else if(Sword->bUppercut)
+        {Timed(EFPSBodyAction::HeavyStrike,Sword->Elapsed,Length);State.ActionVariant=TEXT("Uppercut");}
         else if(Sword->bGuardBreakPose)Timed(EFPSBodyAction::GuardBreak,Sword->Elapsed,Length);
         else if(Sword->bGuardReacting)Timed(EFPSBodyAction::GuardHit,Sword->Elapsed,Length,Sword->GuardReactionRate);
         else if(Sword->bGuarding||Sword->bReturningGuard)
@@ -97,10 +105,25 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleLocalState() const
             // contact against Elapsed before sampling its authored pose.
             Timed(Action,Sword->Elapsed,Length,Sword->SwingRate);
             State.ContactFraction=Sword->ContactStart/Length;State.ReleaseFraction=Sword->ContactEnd/Length;
-            if(Sword->bDashAttack)State.ActionVariant=TEXT("DashOverhead");
+            if(Sword->bDashAttack||(Sword->bOverheadAttack&&(Sword->SwingSkills.AttackMeta&0x0F)==3))
+            {
+                State.ActionVariant=TEXT("DashOverhead");
+                State.ActionEntryFraction=FMath::Clamp((Sword->ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds)/Length,0.f,State.ContactFraction);
+            }
         }
         else if(Sword->bEquipping)Timed(EFPSBodyAction::Equip,Sword->Elapsed,Length);
         else if(Sword->bInspecting)Timed(EFPSBodyAction::Inspect,Sword->Elapsed,Length);
+    }
+    if(const auto* Bow=Pawn->FindComponentByClass<UBowWeaponComponent>();Bow&&Bow->IsEquipped())SampleBowState(*Bow,State);
+    if(const auto* Staff=Pawn->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())
+    {
+        State.Family=TEXT("Staff");State.Action=EFPSBodyAction::None;
+        if(Staff->IsEquipping())Timed(EFPSBodyAction::Equip,Staff->EquipAge,.35f);
+        else if(Staff->IsPrimaryAttacking())
+        {
+            Timed(EFPSBodyAction::Strike,Staff->Age,Staff->Duration);
+            State.ContactFraction=StaffPrimaryAttackMotion::ContactTime;State.ReleaseFraction=StaffPrimaryAttackMotion::StrikeEnd;
+        }
     }
     if(const auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>();Tool&&Tool->IsEquipped())
     {
@@ -183,4 +206,91 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleLocalState() const
     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())
     {State.Action=EFPSBodyAction::Dead;State.ActionDuration=0.f;State.bHasActionProgress=false;State.Motion=EFPSBodyMotion::Ground;}
     return State;
+}
+
+FFPSBodyState UFPSPlayerBodyComponent::SampleRemoteAuthorityState() const
+{
+    const auto* Pawn=Character.Get();FFPSBodyState State;
+    const float Now=ServerClock();
+    // 服务端可信事实：装备路径（影子档案 ApplyColdSteelProfile 已在服务端远端 pawn 上装好组件）。
+    State.Weapon=FName(*Pawn->ActiveInventoryWeaponDefinition);
+    State.Family=Pawn->HasInventoryWeapon()?(Pawn->IsPistolWeapon()?TEXT("Pistol"):TEXT("Rifle")):TEXT("Unarmed");
+    if(const auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();Sword&&Sword->IsEquipped())State.Family=TEXT("Melee");
+    if(const auto* Bow=Pawn->FindComponentByClass<UBowWeaponComponent>();Bow&&Bow->IsEquipped()){State.Family=TEXT("Bow");State.Weapon=*Bow->Definition();}
+    if(const auto* Staff=Pawn->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())State.Family=TEXT("Staff");
+    if(const auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>();Tool&&Tool->IsEquipped())
+    {State.Family=TEXT("Tool");State.Weapon=FName(*Tool->Kind);State.ActionVariant=State.Weapon;}
+    // CMC 意图位：随 SavedMove 压缩标志到达服务端（联机重构后不再走独立 RPC）。
+    if(const auto* Move=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement()))
+    {State.bSprinting=Move->bWantsToSprint;State.bAiming=Move->bWantsToAim;}
+    State.bCrouched=Pawn->bIsCrouched;State.bSliding=Pawn->IsSliding(); // 服务端按 flag 走完整滑铲物理，IsSliding() 即权威值
+    State.bDual=Pawn->IsDualWieldingPistols();
+    if(State.bDual)State.Family=TEXT("Pistol");
+    State.bOffhandPistol=Pawn->HasOffhandPistol();
+    State.AimPitch=FMath::RoundToFloat(FRotator::NormalizeAxis(Pawn->GetBaseAimRotation().Pitch));
+    // 开火戳：服务端已接受的命中时刻 / 客户端开火上报（unreliable，偶发丢包只影响枪响姿势）。
+    if(const auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())
+        State.LastShotAt=PS->LastValidatedShotAt;
+    // Cosmetic samples have a lease: a lost end packet or disconnected owner
+    // cannot leave a permanent casting/traversal pose. Gameplay is not read from it.
+    if(bHasReportedPresentation&&Now-LastPresentationReceivedAt<.6f)
+    {
+        const auto& R=ReportedPresentation;
+        if(R.Weapon==State.Weapon)State.Contacts=R.Contacts;
+        State.Action=R.Action;State.ActionVariant=R.ActionVariant;
+        State.ActionStartedAt=R.ActionStartedAt;State.ActionDuration=R.ActionDuration;State.ActionEntryFraction=R.ActionEntryFraction;
+        State.bHasActionProgress=R.bHasActionProgress;State.ActionProgress=R.ActionProgress;
+        State.ActionWeight=R.ActionWeight;State.ContactFraction=R.ContactFraction;State.ReleaseFraction=R.ReleaseFraction;
+        State.RightHand=R.RightHand;State.LeftHand=R.LeftHand;
+        State.PresentationSampledAt=R.PresentationSampledAt;State.ActionProgressRate=R.ActionProgressRate;
+        if(State.Family==TEXT("Bow"))
+        {
+            State.BowClip=R.BowClip;State.BowClipTime=R.BowClipTime;State.BowClipRate=R.BowClipRate;
+            State.BowNock=R.BowNock;State.bBowArrow=R.bBowArrow;State.bBowTakingArrow=R.bBowTakingArrow;State.BowSeat=R.BowSeat;
+            State.BowStringContact=R.BowStringContact;State.bBowCarryAxis=R.bBowCarryAxis;
+        }
+        if(R.Motion==EFPSBodyMotion::Vault||R.Motion==EFPSBodyMotion::Mantle||R.Motion==EFPSBodyMotion::Dodge)
+        {
+            State.Motion=R.Motion;State.MotionProgress=R.MotionProgress;State.MotionProgressRate=R.MotionProgressRate;
+            State.MotionSampledAt=R.MotionSampledAt;State.MotionContact=R.MotionContact;State.MotionRelease=R.MotionRelease;
+            State.MotionHandContact=R.MotionHandContact;State.MotionDirection=R.MotionDirection;
+            State.bHasHandholds=R.bHasHandholds;State.RightHandhold=R.RightHandhold;State.LeftHandhold=R.LeftHandhold;
+        }
+    }
+    if(State.Contacts.Channel==TEXT("Bipod")&&(!Pawn->BipodDeployment||!Pawn->BipodDeployment->BlocksMovement()))
+        State.Contacts=FFPSBodyMotionSample();
+    // Sliding and dodge movement remain authoritative; only their animation is derived here.
+    if(State.bSliding)
+    {
+        State.bHasHandholds=false;State.MotionHandContact=0.f;
+        State.Motion=EFPSBodyMotion::Slide;State.MotionSampledAt=Now;
+        State.MotionProgress=FMath::Clamp(Pawn->SlideAge/FMath::Max(.1f,Pawn->SlideMaximumTime),0.f,1.f);
+        State.MotionProgressRate=1.f/FMath::Max(.1f,Pawn->SlideMaximumTime);
+        const FVector V=Pawn->GetActorQuat().UnrotateVector(Pawn->GetVelocity()).GetSafeNormal2D();
+        State.MotionDirection=V.IsNearlyZero()?FVector(0,1,0):FVector(-V.Y,V.X,0);
+    }
+    if(const auto* Move=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement());Move&&Move->IsDodging())
+    {
+        State.Motion=EFPSBodyMotion::Dodge;State.MotionSampledAt=Now;
+        State.MotionProgress=Move->GetDodgeProgress();
+        const FVector D=Pawn->GetActorQuat().UnrotateVector(Move->GetDodgeDirection());
+        State.MotionDirection=FVector(-D.Y,D.X,0);
+    }
+    if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())
+    {
+        State.Action=EFPSBodyAction::Dead;State.ActionDuration=0.f;State.bHasActionProgress=false;State.Motion=EFPSBodyMotion::Ground;
+        State.Contacts=FFPSBodyMotionSample();
+        State.ActionStartedAt=ReplicatedState.Action==EFPSBodyAction::Dead?ReplicatedState.ActionStartedAt:Now;
+    }
+    return State;
+}
+
+void UFPSPlayerBodyComponent::ServerRecordAction(EFPSBodyAction Action,FName Variant,float Duration)
+{
+    if(!GetOwner()->HasAuthority())return;
+    FFPSBodyState State;
+    State.Action=Action;State.ActionVariant=Variant;
+    State.ActionStartedAt=State.PresentationSampledAt=ServerClock();
+    State.ActionDuration=Duration;
+    AcceptBodyPresentation(State,ReceivedPresentationSequence+1);
 }

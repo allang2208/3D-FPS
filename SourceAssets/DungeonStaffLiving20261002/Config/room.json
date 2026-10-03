@@ -1,0 +1,2952 @@
+{
+  "id": "StaffLivingTheme",
+  "name": "地下员工生活区",
+  "revision": "staff_coffee_machine_polish_v7_20261002",
+  "layout_revision": 4,
+  "phase": "production",
+  "ue_base": "/Game/Dungeons/StaffLiving20261002",
+  "rooms": [
+    {
+      "id": "StaffDormitory",
+      "name": "生活宿舍区",
+      "prefix": "Dormitory",
+      "outline": [
+        [
+          -14,
+          -10
+        ],
+        [
+          14,
+          -10
+        ],
+        [
+          14,
+          10
+        ],
+        [
+          -14,
+          10
+        ]
+      ],
+      "height": 4.5,
+      "ports": [
+        {
+          "id": "Entry",
+          "position": [
+            -16,
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width": 3,
+          "height": 2.8
+        },
+        {
+          "id": "Changing",
+          "position": [
+            16,
+            0,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width": 3,
+          "height": 2.8
+        }
+      ],
+      "player_start_m": [
+        -15,
+        0,
+        1.0
+      ],
+      "clear_route_rects": [
+        [
+          -16,
+          -1.55,
+          16,
+          1.55
+        ]
+      ],
+      "room_cells": [
+        {
+          "min": [
+            -14,
+            -10,
+            -0.35
+          ],
+          "max": [
+            14,
+            10,
+            4.8
+          ]
+        },
+        {
+          "min": [
+            -16,
+            -2,
+            -0.35
+          ],
+          "max": [
+            -14,
+            2,
+            3.7
+          ]
+        },
+        {
+          "min": [
+            14,
+            -2,
+            -0.35
+          ],
+          "max": [
+            16,
+            2,
+            3.7
+          ]
+        }
+      ],
+      "furniture": [
+        {
+          "id": "Bed_101_0",
+          "prototype": "BunkBedMessy0",
+          "position": [
+            -10.74,
+            -8.53,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Bed_101_1",
+          "prototype": "BunkBedMessy3",
+          "position": [
+            -8.26,
+            -8.53,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Desk_101",
+          "prototype": "Desk",
+          "position": [
+            -5.525,
+            -7.48,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Chair_101",
+          "prototype": "Chair",
+          "position": [
+            -6.355,
+            -7.48,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Locker_101_0",
+          "prototype": "Locker",
+          "position": [
+            -13.49,
+            -3.267005809108432,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Locker_101_1",
+          "prototype": "LockerOpen",
+          "position": [
+            -13.49,
+            -4.177005809108432,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Bed_102_0",
+          "prototype": "BunkBedMessy2",
+          "position": [
+            -1.74,
+            -8.53,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Bed_102_1",
+          "prototype": "BunkBedMessy1",
+          "position": [
+            0.74,
+            -8.53,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Desk_102",
+          "prototype": "Desk",
+          "position": [
+            -4.475,
+            -7.3,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Chair_102",
+          "prototype": "Chair",
+          "position": [
+            -3.6449999999999996,
+            -7.3,
+            0
+          ],
+          "yaw_blender_deg": 270
+        },
+        {
+          "id": "Locker_102_0",
+          "prototype": "LockerOpen",
+          "position": [
+            3.49,
+            -3.265748158832362,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Locker_102_1",
+          "prototype": "Locker",
+          "position": [
+            3.49,
+            -4.175748158832361,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Bed_103_0",
+          "prototype": "BunkBedMessy1",
+          "position": [
+            7.76,
+            -8.53,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Bed_103_1",
+          "prototype": "BunkBedMessy0",
+          "position": [
+            10.24,
+            -8.53,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Desk_103",
+          "prototype": "Desk",
+          "position": [
+            13.475000000000001,
+            -7.48,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Chair_103",
+          "prototype": "Chair",
+          "position": [
+            12.645000000000001,
+            -7.48,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Locker_103_0",
+          "prototype": "Locker",
+          "position": [
+            4.510000000000001,
+            -3.247528178348664,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Locker_103_1",
+          "prototype": "Locker",
+          "position": [
+            4.510000000000001,
+            -4.157528178348663,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Bed_104_0",
+          "prototype": "BunkBedMessy3",
+          "position": [
+            -10.74,
+            8.53,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Bed_104_1",
+          "prototype": "BunkBedMessy2",
+          "position": [
+            -8.26,
+            8.53,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Desk_104",
+          "prototype": "Desk",
+          "position": [
+            -13.475000000000001,
+            7.3,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Chair_104",
+          "prototype": "Chair",
+          "position": [
+            -12.645000000000001,
+            7.3,
+            0
+          ],
+          "yaw_blender_deg": 270
+        },
+        {
+          "id": "Locker_104_0",
+          "prototype": "LockerOpen",
+          "position": [
+            -5.510000000000001,
+            3.2586264265956872,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Locker_104_1",
+          "prototype": "Locker",
+          "position": [
+            -5.510000000000001,
+            4.1686264265956865,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Bed_105_0",
+          "prototype": "BunkBedMessy2",
+          "position": [
+            -1.74,
+            8.53,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Bed_105_1",
+          "prototype": "BunkBedMessy1",
+          "position": [
+            0.74,
+            8.53,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Desk_105",
+          "prototype": "Desk",
+          "position": [
+            3.475,
+            7.48,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Chair_105",
+          "prototype": "Chair",
+          "position": [
+            2.645,
+            7.48,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Locker_105_0",
+          "prototype": "Locker",
+          "position": [
+            -4.489999999999999,
+            3.258502318378615,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Locker_105_1",
+          "prototype": "Locker",
+          "position": [
+            -4.489999999999999,
+            4.168502318378614,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Bed_106_0",
+          "prototype": "BunkBedMessy0",
+          "position": [
+            7.76,
+            8.53,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Bed_106_1",
+          "prototype": "BunkBedMessy3",
+          "position": [
+            10.24,
+            8.53,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Desk_106",
+          "prototype": "Desk",
+          "position": [
+            4.525,
+            7.3,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Chair_106",
+          "prototype": "Chair",
+          "position": [
+            5.355,
+            7.3,
+            0
+          ],
+          "yaw_blender_deg": 270
+        },
+        {
+          "id": "Locker_106_0",
+          "prototype": "Locker",
+          "position": [
+            13.49,
+            3.291677791828092,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Locker_106_1",
+          "prototype": "Locker",
+          "position": [
+            13.49,
+            4.201677791828091,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Noticeboard",
+          "prototype": "Noticeboard",
+          "position": [
+            -2.5,
+            1.787,
+            1.2
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "WaterDispenser",
+          "prototype": "WaterDispenser",
+          "position": [
+            11.8,
+            -1.65,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Bookcase_101",
+          "prototype": "Bookcase",
+          "position": [
+            -13.565000000000001,
+            -5.6170058091084325,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Bookshelf_101",
+          "prototype": "Bookshelf",
+          "position": [
+            -5.405,
+            -5.702994190891568,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Bedside0_101",
+          "prototype": "Bedside",
+          "position": [
+            -11.57,
+            -9.19700580910843,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Bedside1_101",
+          "prototype": "Bedside",
+          "position": [
+            -7.43,
+            -9.202994190891568,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Bookcase_102",
+          "prototype": "Bookcase",
+          "position": [
+            3.565,
+            -5.6157481588323614,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Bookshelf_102",
+          "prototype": "Bookshelf",
+          "position": [
+            -4.595,
+            -5.704251841167639,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Bedside0_102",
+          "prototype": "Bedside",
+          "position": [
+            -2.57,
+            -9.19574815883236,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Bedside1_102",
+          "prototype": "Bedside",
+          "position": [
+            1.5699999999999998,
+            -9.204251841167638,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Bookcase_103",
+          "prototype": "Bookcase",
+          "position": [
+            13.565000000000001,
+            -5.5975281783486635,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Bookshelf_103",
+          "prototype": "Bookshelf",
+          "position": [
+            4.405,
+            -5.722471821651337,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Bedside0_103",
+          "prototype": "Bedside",
+          "position": [
+            6.93,
+            -9.177528178348663,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Bedside1_103",
+          "prototype": "Bedside",
+          "position": [
+            11.07,
+            -9.222471821651336,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Bookcase_104",
+          "prototype": "Bookcase",
+          "position": [
+            -13.565000000000001,
+            5.608626426595687,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Bookshelf_104",
+          "prototype": "Bookshelf",
+          "position": [
+            -5.405,
+            5.711373573404313,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Bedside0_104",
+          "prototype": "Bedside",
+          "position": [
+            -11.57,
+            9.188626426595686,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Bedside1_104",
+          "prototype": "Bedside",
+          "position": [
+            -7.43,
+            9.211373573404313,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Bookcase_105",
+          "prototype": "Bookcase",
+          "position": [
+            -4.5649999999999995,
+            5.608502318378615,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Bookshelf_105",
+          "prototype": "Bookshelf",
+          "position": [
+            3.595,
+            5.711497681621386,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Bedside0_105",
+          "prototype": "Bedside",
+          "position": [
+            -2.57,
+            9.188502318378614,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Bedside1_105",
+          "prototype": "Bedside",
+          "position": [
+            1.5699999999999998,
+            9.211497681621385,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Bookcase_106",
+          "prototype": "Bookcase",
+          "position": [
+            13.565000000000001,
+            5.641677791828092,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "Bookshelf_106",
+          "prototype": "Bookshelf",
+          "position": [
+            4.405,
+            5.678322208171909,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Bedside0_106",
+          "prototype": "Bedside",
+          "position": [
+            6.93,
+            9.22167779182809,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Bedside1_106",
+          "prototype": "Bedside",
+          "position": [
+            11.07,
+            9.178322208171908,
+            0
+          ],
+          "yaw_blender_deg": 0
+        }
+      ],
+      "lights": [
+        {
+          "id": "Room_101",
+          "position": [
+            -9.5,
+            -5.5,
+            3.17
+          ],
+          "lumens": 650,
+          "radius_cm": 650,
+          "tint": [
+            0.93,
+            0.8,
+            0.61
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Room_102",
+          "position": [
+            -0.5,
+            -5.5,
+            3.17
+          ],
+          "lumens": 650,
+          "radius_cm": 650,
+          "tint": [
+            0.93,
+            0.8,
+            0.61
+          ],
+          "cast_shadows": true,
+          "role": "key",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Room_103",
+          "position": [
+            9.0,
+            -5.5,
+            3.17
+          ],
+          "lumens": 650,
+          "radius_cm": 650,
+          "tint": [
+            0.93,
+            0.8,
+            0.61
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Room_104",
+          "position": [
+            -9.5,
+            5.5,
+            3.17
+          ],
+          "lumens": 650,
+          "radius_cm": 650,
+          "tint": [
+            0.93,
+            0.8,
+            0.61
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Room_105",
+          "position": [
+            -0.5,
+            5.5,
+            3.17
+          ],
+          "lumens": 650,
+          "radius_cm": 650,
+          "tint": [
+            0.93,
+            0.8,
+            0.61
+          ],
+          "cast_shadows": true,
+          "role": "key",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Room_106",
+          "position": [
+            9.0,
+            5.5,
+            3.17
+          ],
+          "lumens": 650,
+          "radius_cm": 650,
+          "tint": [
+            0.93,
+            0.8,
+            0.61
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Corridor_-10",
+          "position": [
+            -10,
+            0,
+            4.1
+          ],
+          "lumens": 850,
+          "radius_cm": 620,
+          "tint": [
+            0.79,
+            0.85,
+            0.85
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Corridor_0",
+          "position": [
+            0,
+            0,
+            4.1
+          ],
+          "lumens": 850,
+          "radius_cm": 620,
+          "tint": [
+            0.79,
+            0.85,
+            0.85
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Corridor_10",
+          "position": [
+            10,
+            0,
+            4.1
+          ],
+          "lumens": 850,
+          "radius_cm": 620,
+          "tint": [
+            0.79,
+            0.85,
+            0.85
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Entry",
+          "position": [
+            -15,
+            0,
+            3.06
+          ],
+          "lumens": 210,
+          "radius_cm": 300,
+          "tint": [
+            0.91,
+            0.79,
+            0.62
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Exit",
+          "position": [
+            15,
+            0,
+            3.06
+          ],
+          "lumens": 210,
+          "radius_cm": 300,
+          "tint": [
+            0.91,
+            0.79,
+            0.62
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        }
+      ],
+      "encounter_anchors_m": [
+        [
+          -9.5,
+          -4.9,
+          0
+        ],
+        [
+          -0.5,
+          -4.9,
+          0
+        ],
+        [
+          9.0,
+          -4.9,
+          0
+        ],
+        [
+          -9.5,
+          4.9,
+          0
+        ],
+        [
+          -0.5,
+          4.9,
+          0
+        ],
+        [
+          9.0,
+          4.9,
+          0
+        ]
+      ],
+      "walk_rects_m": [
+        [
+          -15.8,
+          -1.6,
+          15.8,
+          1.6,
+          0
+        ],
+        [
+          -13.7,
+          -9.5,
+          -5.3,
+          -2.3,
+          0
+        ],
+        [
+          -4.7,
+          -9.5,
+          3.7,
+          -2.3,
+          0
+        ],
+        [
+          4.3,
+          -9.5,
+          13.7,
+          -2.3,
+          0
+        ],
+        [
+          -13.7,
+          2.3,
+          -5.3,
+          9.5,
+          0
+        ],
+        [
+          -4.7,
+          2.3,
+          3.7,
+          9.5,
+          0
+        ],
+        [
+          4.3,
+          2.3,
+          13.7,
+          9.5,
+          0
+        ]
+      ],
+      "refinement_revision": 3,
+      "wall_finish": "intact"
+    },
+    {
+      "id": "StaffChangingShowers",
+      "name": "员工更衣淋浴区",
+      "prefix": "ChangingShowers",
+      "outline": [
+        [
+          -12,
+          -11
+        ],
+        [
+          12,
+          -11
+        ],
+        [
+          12,
+          11
+        ],
+        [
+          -12,
+          11
+        ]
+      ],
+      "height": 4.6,
+      "ports": [
+        {
+          "id": "Dormitory",
+          "position": [
+            -14,
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width": 3,
+          "height": 2.8
+        },
+        {
+          "id": "Recreation",
+          "position": [
+            14,
+            0,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width": 3,
+          "height": 2.8
+        }
+      ],
+      "player_start_m": [
+        -13,
+        0,
+        1.0
+      ],
+      "clear_route_rects": [
+        [
+          -14,
+          -1.5,
+          14,
+          1.5
+        ]
+      ],
+      "room_cells": [
+        {
+          "min": [
+            -12,
+            -11,
+            -0.35
+          ],
+          "max": [
+            12,
+            11,
+            4.9
+          ]
+        },
+        {
+          "min": [
+            -14,
+            -2,
+            -0.35
+          ],
+          "max": [
+            -12,
+            2,
+            3.7
+          ]
+        },
+        {
+          "min": [
+            12,
+            -2,
+            -0.35
+          ],
+          "max": [
+            14,
+            2,
+            3.7
+          ]
+        }
+      ],
+      "furniture": [
+        {
+          "id": "ChangingLocker_0",
+          "prototype": "Locker",
+          "position": [
+            -10.6,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_1",
+          "prototype": "Locker",
+          "position": [
+            -9.719999999999999,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_2",
+          "prototype": "Locker",
+          "position": [
+            -8.84,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_3",
+          "prototype": "LockerOpen",
+          "position": [
+            -7.959999999999999,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_4",
+          "prototype": "Locker",
+          "position": [
+            -7.08,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_5",
+          "prototype": "Locker",
+          "position": [
+            -6.199999999999999,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_6",
+          "prototype": "Locker",
+          "position": [
+            -5.319999999999999,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_7",
+          "prototype": "Locker",
+          "position": [
+            -4.4399999999999995,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_8",
+          "prototype": "Locker",
+          "position": [
+            -3.5599999999999996,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_9",
+          "prototype": "Locker",
+          "position": [
+            -2.6799999999999997,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_10",
+          "prototype": "LockerOpen",
+          "position": [
+            -1.799999999999999,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_11",
+          "prototype": "Locker",
+          "position": [
+            -0.9199999999999999,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_12",
+          "prototype": "Locker",
+          "position": [
+            -0.03999999999999915,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_13",
+          "prototype": "Locker",
+          "position": [
+            0.8399999999999999,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_14",
+          "prototype": "Locker",
+          "position": [
+            1.7200000000000006,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_15",
+          "prototype": "Locker",
+          "position": [
+            2.5999999999999996,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_16",
+          "prototype": "Locker",
+          "position": [
+            3.4800000000000004,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_17",
+          "prototype": "LockerOpen",
+          "position": [
+            4.360000000000001,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_18",
+          "prototype": "Locker",
+          "position": [
+            5.24,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_19",
+          "prototype": "Locker",
+          "position": [
+            6.119999999999999,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_20",
+          "prototype": "Locker",
+          "position": [
+            7.000000000000002,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_21",
+          "prototype": "LockerOpen",
+          "position": [
+            7.880000000000001,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_22",
+          "prototype": "Locker",
+          "position": [
+            8.76,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "ChangingLocker_23",
+          "prototype": "Locker",
+          "position": [
+            9.639999999999999,
+            10.57,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Bench_-7.5",
+          "prototype": "ChangingBench",
+          "position": [
+            -7.5,
+            5.8,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "BenchBack_-7.5",
+          "prototype": "ChangingBench",
+          "position": [
+            -7.5,
+            8.15,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Bench_0",
+          "prototype": "ChangingBench",
+          "position": [
+            0,
+            5.8,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "BenchBack_0",
+          "prototype": "ChangingBench",
+          "position": [
+            0,
+            8.15,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Bench_7.5",
+          "prototype": "ChangingBench",
+          "position": [
+            7.5,
+            5.8,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "BenchBack_7.5",
+          "prototype": "ChangingBench",
+          "position": [
+            7.5,
+            8.15,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Shower_0",
+          "prototype": "ShowerFittings",
+          "position": [
+            -9.8,
+            -10.804,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Drain_0",
+          "prototype": "FloorDrain",
+          "position": [
+            -9.8,
+            -8.0,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Shower_1",
+          "prototype": "ShowerFittings",
+          "position": [
+            -5.9,
+            -10.804,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Drain_1",
+          "prototype": "FloorDrain",
+          "position": [
+            -5.9,
+            -8.0,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Shower_2",
+          "prototype": "ShowerFittings",
+          "position": [
+            -2.0,
+            -10.804,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Drain_2",
+          "prototype": "FloorDrain",
+          "position": [
+            -2.0,
+            -8.0,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Shower_3",
+          "prototype": "ShowerFittings",
+          "position": [
+            1.9,
+            -10.804,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Drain_3",
+          "prototype": "FloorDrain",
+          "position": [
+            1.9,
+            -8.0,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Shower_4",
+          "prototype": "ShowerFittings",
+          "position": [
+            5.8,
+            -10.804,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Drain_4",
+          "prototype": "FloorDrain",
+          "position": [
+            5.8,
+            -8.0,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Shower_5",
+          "prototype": "ShowerFittings",
+          "position": [
+            9.7,
+            -10.804,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Drain_5",
+          "prototype": "FloorDrain",
+          "position": [
+            9.7,
+            -8.0,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Sink_0",
+          "prototype": "WashBasin",
+          "position": [
+            -5.4,
+            2.207,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Mirror_0",
+          "prototype": "Mirror",
+          "position": [
+            -5.4,
+            2.04,
+            1.315
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Sink_1",
+          "prototype": "WashBasin",
+          "position": [
+            -2.4,
+            2.207,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Mirror_1",
+          "prototype": "Mirror",
+          "position": [
+            -2.4,
+            2.04,
+            1.315
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Sink_2",
+          "prototype": "WashBasin",
+          "position": [
+            2.4,
+            2.207,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Mirror_2",
+          "prototype": "Mirror",
+          "position": [
+            2.4,
+            2.04,
+            1.315
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Sink_3",
+          "prototype": "WashBasin",
+          "position": [
+            5.4,
+            2.207,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "Mirror_3",
+          "prototype": "Mirror",
+          "position": [
+            5.4,
+            2.04,
+            1.315
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "LaundryBin",
+          "prototype": "LaundryBasket",
+          "position": [
+            11,
+            3.2,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "TowelRack",
+          "prototype": "TowelRack",
+          "position": [
+            -11.744,
+            6.5,
+            0.75
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "Noticeboard",
+          "prototype": "Noticeboard",
+          "position": [
+            -2,
+            1.587,
+            1.15
+          ],
+          "yaw_blender_deg": 0
+        }
+      ],
+      "lights": [
+        {
+          "id": "WetLight_0",
+          "position": [
+            -8,
+            0,
+            4.2
+          ],
+          "lumens": 600,
+          "radius_cm": 720,
+          "tint": [
+            0.65,
+            0.8,
+            0.83
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "WetLight_1",
+          "position": [
+            0,
+            0,
+            4.2
+          ],
+          "lumens": 600,
+          "radius_cm": 720,
+          "tint": [
+            0.65,
+            0.8,
+            0.83
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "WetLight_2",
+          "position": [
+            8,
+            0,
+            4.2
+          ],
+          "lumens": 600,
+          "radius_cm": 720,
+          "tint": [
+            0.65,
+            0.8,
+            0.83
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "WetLight_3",
+          "position": [
+            -7,
+            6,
+            4.2
+          ],
+          "lumens": 1050,
+          "radius_cm": 720,
+          "tint": [
+            0.65,
+            0.8,
+            0.83
+          ],
+          "cast_shadows": true,
+          "role": "key",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "WetLight_4",
+          "position": [
+            5,
+            6,
+            4.2
+          ],
+          "lumens": 1050,
+          "radius_cm": 720,
+          "tint": [
+            0.65,
+            0.8,
+            0.83
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "WetLight_5",
+          "position": [
+            -7,
+            -5,
+            4.2
+          ],
+          "lumens": 1050,
+          "radius_cm": 720,
+          "tint": [
+            0.65,
+            0.8,
+            0.83
+          ],
+          "cast_shadows": true,
+          "role": "key",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "WetLight_6",
+          "position": [
+            5,
+            -5,
+            4.2
+          ],
+          "lumens": 1050,
+          "radius_cm": 720,
+          "tint": [
+            0.65,
+            0.8,
+            0.83
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Entry",
+          "position": [
+            -13,
+            0,
+            3.06
+          ],
+          "lumens": 200,
+          "radius_cm": 300,
+          "tint": [
+            0.91,
+            0.79,
+            0.62
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Exit",
+          "position": [
+            13,
+            0,
+            3.06
+          ],
+          "lumens": 200,
+          "radius_cm": 300,
+          "tint": [
+            0.91,
+            0.79,
+            0.62
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        }
+      ],
+      "encounter_anchors_m": [
+        [
+          -7.5,
+          3.9,
+          0
+        ],
+        [
+          0,
+          3.9,
+          0
+        ],
+        [
+          7.5,
+          3.9,
+          0
+        ],
+        [
+          -9.8,
+          -5,
+          0
+        ],
+        [
+          -5.9,
+          -5,
+          0
+        ],
+        [
+          -2.0,
+          -5,
+          0
+        ],
+        [
+          1.9,
+          -5,
+          0
+        ],
+        [
+          5.8,
+          -5,
+          0
+        ],
+        [
+          9.7,
+          -5,
+          0
+        ]
+      ],
+      "walk_rects_m": [
+        [
+          -13.8,
+          -1.6,
+          13.8,
+          1.6,
+          0
+        ],
+        [
+          -11.6,
+          2.2,
+          11.6,
+          10.5,
+          0
+        ],
+        [
+          -11.6,
+          -10.5,
+          11.6,
+          -2.2,
+          0
+        ]
+      ],
+      "refinement_revision": 3,
+      "wall_finish": "intact"
+    },
+    {
+      "id": "StaffRecreation",
+      "name": "员工活动区",
+      "prefix": "Recreation",
+      "outline": [
+        [
+          -15,
+          -12
+        ],
+        [
+          15,
+          -12
+        ],
+        [
+          15,
+          12
+        ],
+        [
+          -15,
+          12
+        ]
+      ],
+      "height": 5.5,
+      "ports": [
+        {
+          "id": "Changing",
+          "position": [
+            -17,
+            -6,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width": 3,
+          "height": 2.8
+        },
+        {
+          "id": "Onward",
+          "position": [
+            17,
+            -6,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width": 3,
+          "height": 2.8
+        }
+      ],
+      "player_start_m": [
+        -16,
+        -6,
+        1.0
+      ],
+      "clear_route_rects": [
+        [
+          -17,
+          -7.5,
+          17,
+          -4.5
+        ]
+      ],
+      "room_cells": [
+        {
+          "min": [
+            -15,
+            -12,
+            -0.35
+          ],
+          "max": [
+            15,
+            8,
+            5.8
+          ]
+        },
+        {
+          "min": [
+            -15,
+            8,
+            -0.35
+          ],
+          "max": [
+            9,
+            12,
+            5.8
+          ]
+        },
+        {
+          "min": [
+            -17,
+            -8,
+            -0.35
+          ],
+          "max": [
+            -15,
+            -4,
+            3.7
+          ]
+        },
+        {
+          "min": [
+            15,
+            -8,
+            -0.35
+          ],
+          "max": [
+            17,
+            -4,
+            3.7
+          ]
+        },
+        {
+          "min": [
+            9,
+            8,
+            0
+          ],
+          "max": [
+            15,
+            12,
+            5.5
+          ]
+        }
+      ],
+      "furniture": [
+        {
+          "id": "TableTennis",
+          "prototype": "TableTennis",
+          "position": [
+            2.7,
+            0,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Billiard",
+          "prototype": "BilliardTable",
+          "position": [
+            -8.8,
+            -0.25,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "SofaA",
+          "prototype": "Sofa",
+          "position": [
+            -10.7,
+            7.24,
+            0.45
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "SofaB",
+          "prototype": "Sofa",
+          "position": [
+            -6.8,
+            7.24,
+            0.45
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "CoffeeTable",
+          "prototype": "CoffeeTable",
+          "position": [
+            -8.7,
+            9.04,
+            0.45
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "Television",
+          "prototype": "Television",
+          "position": [
+            -8.7,
+            11.74,
+            1.12
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "BulletinBoard",
+          "prototype": "Noticeboard",
+          "position": [
+            4.1,
+            11.81,
+            1.25
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "KitchenCounter",
+          "prototype": "KitchenCounterTop",
+          "position": [
+            10.6,
+            -11.47,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "WaterDispenser",
+          "prototype": "WaterDispenser",
+          "position": [
+            14.65,
+            1.65,
+            0
+          ],
+          "yaw_blender_deg": -90
+        },
+        {
+          "id": "CueRack",
+          "prototype": "CueRack",
+          "position": [
+            -14.762,
+            -1.1,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "DiningTable_0",
+          "prototype": "DiningTable",
+          "position": [
+            8,
+            3,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "DiningChair_0_0_-1",
+          "prototype": "Chair",
+          "position": [
+            7.4230346246719145,
+            2.021921898218188,
+            0
+          ],
+          "yaw_blender_deg": 173.46397118407108
+        },
+        {
+          "id": "DiningChair_0_0_1",
+          "prototype": "Chair",
+          "position": [
+            7.5567984964579455,
+            3.9345539947012154,
+            0
+          ],
+          "yaw_blender_deg": 2.8892213834162597
+        },
+        {
+          "id": "DiningChair_0_1_-1",
+          "prototype": "Chair",
+          "position": [
+            8.470739362986903,
+            2.1880382107682093,
+            0
+          ],
+          "yaw_blender_deg": 186.41270975491415
+        },
+        {
+          "id": "DiningChair_0_1_1",
+          "prototype": "Chair",
+          "position": [
+            8.622273435843844,
+            3.713150714155801,
+            0
+          ],
+          "yaw_blender_deg": -8.893855419984554
+        },
+        {
+          "id": "DiningTable_1",
+          "prototype": "DiningTable",
+          "position": [
+            12,
+            3,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "DiningChair_1_0_-1",
+          "prototype": "Chair",
+          "position": [
+            11.504235974049527,
+            1.8375594988529533,
+            0
+          ],
+          "yaw_blender_deg": 163.71523970148144
+        },
+        {
+          "id": "DiningChair_1_0_1",
+          "prototype": "Chair",
+          "position": [
+            11.550418003943124,
+            3.712578616220774,
+            0
+          ],
+          "yaw_blender_deg": 10.565785788707707
+        },
+        {
+          "id": "DiningChair_1_1_-1",
+          "prototype": "Chair",
+          "position": [
+            12.545332811339875,
+            2.0695199498170664,
+            0
+          ],
+          "yaw_blender_deg": 194.83471028546276
+        },
+        {
+          "id": "DiningChair_1_1_1",
+          "prototype": "Chair",
+          "position": [
+            12.651976559435653,
+            3.81636796683377,
+            0
+          ],
+          "yaw_blender_deg": 13.425256645841266
+        },
+        {
+          "id": "DiningTable_2",
+          "prototype": "DiningTable",
+          "position": [
+            2,
+            8,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "DiningChair_2_0_-1",
+          "prototype": "Chair",
+          "position": [
+            1.495387806325779,
+            6.901180954979394,
+            0
+          ],
+          "yaw_blender_deg": 182.7283127544478
+        },
+        {
+          "id": "DiningChair_2_0_1",
+          "prototype": "Chair",
+          "position": [
+            1.431931711383013,
+            8.86922709800936,
+            0
+          ],
+          "yaw_blender_deg": -16.80176685736136
+        },
+        {
+          "id": "DiningChair_2_1_-1",
+          "prototype": "Chair",
+          "position": [
+            2.615658626230674,
+            7.2180040001335515,
+            0
+          ],
+          "yaw_blender_deg": 176.6215423080566
+        },
+        {
+          "id": "DiningChair_2_1_1",
+          "prototype": "Chair",
+          "position": [
+            2.481506309202649,
+            8.925420800662542,
+            0
+          ],
+          "yaw_blender_deg": -15.443805032082144
+        },
+        {
+          "id": "DiningTable_3",
+          "prototype": "DiningTable",
+          "position": [
+            6,
+            8,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "DiningChair_3_0_-1",
+          "prototype": "Chair",
+          "position": [
+            5.35311519904876,
+            7.010107672300921,
+            0
+          ],
+          "yaw_blender_deg": 179.28516290568325
+        },
+        {
+          "id": "DiningChair_3_0_1",
+          "prototype": "Chair",
+          "position": [
+            5.36149868041845,
+            8.841103209717206,
+            0
+          ],
+          "yaw_blender_deg": 3.3405934116208265
+        },
+        {
+          "id": "DiningChair_3_1_-1",
+          "prototype": "Chair",
+          "position": [
+            6.535952412485914,
+            7.2678620610273645,
+            0
+          ],
+          "yaw_blender_deg": 190.07951455514564
+        },
+        {
+          "id": "DiningChair_3_1_1",
+          "prototype": "Chair",
+          "position": [
+            6.556376146657366,
+            8.72875071140674,
+            0
+          ],
+          "yaw_blender_deg": 16.73978705861485
+        },
+        {
+          "id": "BilliardB",
+          "prototype": "BilliardTable",
+          "position": [
+            -4.1,
+            -0.25,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "CueRackB",
+          "prototype": "CueRack",
+          "position": [
+            -14.762,
+            1.35,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "CueRackC",
+          "prototype": "CueRack",
+          "position": [
+            -14.762,
+            3.8,
+            0
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "PaddleA",
+          "prototype": "TableTennisPaddle",
+          "position": [
+            1.86,
+            -0.3,
+            0.758
+          ],
+          "yaw_blender_deg": -24
+        },
+        {
+          "id": "PaddleB",
+          "prototype": "TableTennisPaddle",
+          "position": [
+            3.52,
+            0.27,
+            0.758
+          ],
+          "yaw_blender_deg": 151
+        },
+        {
+          "id": "CoffeeMachine",
+          "prototype": "CoffeeMachine",
+          "position": [
+            9.52,
+            -11.43,
+            0.96
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "ElectricKettle",
+          "prototype": "ElectricKettle",
+          "position": [
+            10.82,
+            -11.37,
+            0.96
+          ],
+          "yaw_blender_deg": 163
+        },
+        {
+          "id": "Toilet",
+          "prototype": "Toilet",
+          "position": [
+            13.75,
+            11.44,
+            0.003
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "BathroomSink",
+          "prototype": "WashBasin",
+          "position": [
+            10.3,
+            11.587,
+            0.003
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "BathroomMirror",
+          "prototype": "Mirror",
+          "position": [
+            10.3,
+            11.754,
+            1.32
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "BathroomLamp",
+          "prototype": "LampFixture",
+          "position": [
+            12.2,
+            10.1,
+            3.365
+          ],
+          "yaw_blender_deg": 90
+        },
+        {
+          "id": "CounterCabinet_0",
+          "prototype": "CounterCabinet",
+          "position": [
+            9.26,
+            -11.47,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "CounterCabinet_1",
+          "prototype": "CounterCabinet",
+          "position": [
+            9.93,
+            -11.47,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "CounterCabinet_2",
+          "prototype": "CounterCabinet",
+          "position": [
+            10.6,
+            -11.47,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "CounterCabinet_3",
+          "prototype": "CounterCabinet",
+          "position": [
+            11.27,
+            -11.47,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "CounterCabinet_4",
+          "prototype": "CounterCabinet",
+          "position": [
+            11.94,
+            -11.47,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "FridgeLower",
+          "prototype": "Fridge",
+          "position": [
+            13.85,
+            -11.49,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "FridgeUpper",
+          "prototype": "Fridge",
+          "position": [
+            13.85,
+            -11.49,
+            0
+          ],
+          "yaw_blender_deg": 180
+        },
+        {
+          "id": "BathroomInterior",
+          "prototype": "BathroomInterior",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw_blender_deg": 0
+        },
+        {
+          "id": "KettlePower",
+          "prototype": "KettlePower",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw_blender_deg": 0
+        }
+      ],
+      "lights": [
+        {
+          "id": "Activity_0",
+          "position": [
+            -8,
+            -6,
+            5.1
+          ],
+          "lumens": 1050,
+          "radius_cm": 850,
+          "tint": [
+            0.72,
+            0.84,
+            0.85
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Activity_1",
+          "position": [
+            2,
+            -6,
+            5.1
+          ],
+          "lumens": 1050,
+          "radius_cm": 850,
+          "tint": [
+            0.72,
+            0.84,
+            0.85
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Activity_2",
+          "position": [
+            11,
+            -6,
+            5.1
+          ],
+          "lumens": 1050,
+          "radius_cm": 850,
+          "tint": [
+            0.72,
+            0.84,
+            0.85
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Activity_3",
+          "position": [
+            -6,
+            0,
+            5.1
+          ],
+          "lumens": 1650,
+          "radius_cm": 850,
+          "tint": [
+            0.72,
+            0.84,
+            0.85
+          ],
+          "cast_shadows": true,
+          "role": "key",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Activity_4",
+          "position": [
+            3,
+            0,
+            5.1
+          ],
+          "lumens": 1650,
+          "radius_cm": 850,
+          "tint": [
+            0.72,
+            0.84,
+            0.85
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Activity_5",
+          "position": [
+            11,
+            4,
+            5.1
+          ],
+          "lumens": 1050,
+          "radius_cm": 850,
+          "tint": [
+            0.91,
+            0.79,
+            0.61
+          ],
+          "cast_shadows": true,
+          "role": "key",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Activity_6",
+          "position": [
+            -9,
+            8,
+            3.7
+          ],
+          "lumens": 1050,
+          "radius_cm": 850,
+          "tint": [
+            0.91,
+            0.79,
+            0.61
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Activity_7",
+          "position": [
+            3,
+            9,
+            3.3
+          ],
+          "lumens": 1050,
+          "radius_cm": 850,
+          "tint": [
+            0.91,
+            0.79,
+            0.61
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Entry",
+          "position": [
+            -16,
+            -6,
+            3.06
+          ],
+          "lumens": 220,
+          "radius_cm": 300,
+          "tint": [
+            0.91,
+            0.79,
+            0.62
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Exit",
+          "position": [
+            16,
+            -6,
+            3.06
+          ],
+          "lumens": 220,
+          "radius_cm": 300,
+          "tint": [
+            0.91,
+            0.79,
+            0.62
+          ],
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 2600,
+          "fade_range_cm": 550,
+          "indirect": 0.65,
+          "fixture": true
+        },
+        {
+          "id": "Bathroom",
+          "position": [
+            12.2,
+            10.1,
+            3.25
+          ],
+          "lumens": 440,
+          "radius_cm": 370,
+          "cast_shadows": false,
+          "max_draw_distance_cm": 1400,
+          "fade_range_cm": 300,
+          "indirect": 0.1,
+          "tint": [
+            0.79,
+            0.87,
+            0.82
+          ],
+          "role": "Fill"
+        }
+      ],
+      "encounter_anchors_m": [
+        [
+          0,
+          -6,
+          0
+        ],
+        [
+          -10,
+          -2,
+          0
+        ],
+        [
+          9,
+          -1,
+          0
+        ],
+        [
+          -1,
+          6,
+          0
+        ]
+      ],
+      "walk_rects_m": [
+        [
+          -16.8,
+          -7.7,
+          16.8,
+          -4.3,
+          0
+        ],
+        [
+          -14.4,
+          -3.8,
+          14.4,
+          7.5,
+          0
+        ],
+        [
+          -3,
+          8,
+          8.5,
+          11.5,
+          0
+        ],
+        [
+          -14,
+          6,
+          -4,
+          11.5,
+          0.45
+        ],
+        [
+          9.25,
+          8.25,
+          14.75,
+          11.75
+        ],
+        [
+          11.55,
+          7.6,
+          12.85,
+          8.45
+        ]
+      ],
+      "refinement_revision": 3,
+      "wall_finish": "intact"
+    }
+  ],
+  "sequence": [
+    "StaffDormitory",
+    "StaffChangingShowers",
+    "StaffRecreation"
+  ],
+  "preview_placements_m": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      34,
+      0,
+      0
+    ],
+    [
+      69,
+      6,
+      0
+    ]
+  ],
+  "return_map": "/Game/GameMaps/DayNight_Lighting",
+  "postprocess": {
+    "exposure_ev": 1.0,
+    "exposure_bias": 0.0,
+    "indirect_intensity": 0.8,
+    "saturation": 0.9,
+    "contrast": 1.04,
+    "bloom": 0.18,
+    "vignette": 0.16
+  },
+  "tests_run": false,
+  "rendered": false,
+  "random_pool_registered": true,
+  "gameplay_scope": "Production themed combat rooms, seeded furniture layouts and searchable scene containers; reward table deferred.",
+  "wall_finish": "intact",
+  "container_interaction_revision": 1,
+  "container_actor_class": "/Script/FPSGAME.ColdSteelSceneContainer",
+  "current_authored_source": "CoffeePolishV7/Authored/StaffLivingTheme_CoffeePolishV7.blend",
+  "dormitory_layout_revision": 4,
+  "container_open_parts_revision": 3,
+  "all_scene_containers_require_moving_part": true,
+  "scene_polish_revision": 4,
+  "room_details_revision": 5,
+  "wall_inset_revision": 6,
+  "toilet_location": "inside original northeast protruding wall: x9..15, y8..12; entrance at y8",
+  "coffee_polish_revision": 7,
+  "production_revision": 1,
+  "production_map": "/Game/GameMaps/L_Dungeon_Randomized",
+  "production_modules": "Production20261002/Config/modules.json",
+  "accepted_by_user": true,
+  "theme_candidates": 4,
+  "branches_per_run": 3,
+  "container_rewards_deferred": true,
+  "retired_subject_maps": [
+    "/Game/GameMaps/Design/L_StaffDormitory_Subject",
+    "/Game/GameMaps/Design/L_StaffChangingShowers_Subject",
+    "/Game/GameMaps/Design/L_StaffRecreation_Subject",
+    "/Game/GameMaps/Design/L_StaffLiving_Theme_Subject"
+  ],
+  "sample_maps_retired": true
+}

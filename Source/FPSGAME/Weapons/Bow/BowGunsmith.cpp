@@ -25,6 +25,7 @@ void UGunsmithSystem::LoadBowCatalog()
             O->TryGetStringField(TEXT("appearance"),Part.Appearance);Part.BowVisual=O->GetObjectField(TEXT("visual"));
             const auto S=O->GetObjectField(TEXT("stats"));
             S->TryGetNumberField(TEXT("damage_mult"),Part.Bow.Damage);S->TryGetNumberField(TEXT("draw_mult"),Part.Bow.Draw);
+            S->TryGetNumberField(TEXT("draw_speed_bonus"),Part.Bow.DrawSpeedBonus);
             S->TryGetNumberField(TEXT("speed_mult"),Part.Bow.Speed);S->TryGetNumberField(TEXT("stamina_mult"),Part.Bow.Stamina);
             S->TryGetNumberField(TEXT("nock_mult"),Part.Bow.Nock);S->TryGetNumberField(TEXT("hold_mult"),Part.Bow.Hold);
             S->TryGetNumberField(TEXT("sway_mult"),Part.Bow.Sway);S->TryGetNumberField(TEXT("spread_mult"),Part.Bow.Spread);S->TryGetNumberField(TEXT("ads_mult"),Part.Bow.ADS);

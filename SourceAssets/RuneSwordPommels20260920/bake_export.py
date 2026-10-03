@@ -1,11 +1,14 @@
 """Bake production PBR atlases and export FBX/GLB without any preview rendering."""
-import bpy,json,math
+import bpy,json,math,sys
 from pathlib import Path
 from mathutils import Vector,Matrix
 P=Path(__file__).parent;OUT=P/'Export';TEX=P/'Textures'
 OUT.mkdir(exist_ok=True);TEX.mkdir(exist_ok=True)
 bpy.context.preferences.filepaths.save_version=0
-bpy.ops.wm.open_mainfile(filepath=str(P/'RuneSword_Pommels_Editable.blend'))
+args=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else []
+only=args[args.index('--only')+1] if '--only' in args else None
+# A scoped rebake retains the other saved production meshes and atlases.
+bpy.ops.wm.open_mainfile(filepath=str(P/('RuneSword_Pommels_PBR.blend' if only else 'RuneSword_Pommels_Editable.blend')))
 scene=bpy.context.scene;scene.render.engine='CYCLES';scene.cycles.device='CPU';scene.cycles.samples=4
 scene.render.bake.margin=12;scene.render.bake.use_clear=True;scene.render.bake.use_selected_to_active=False
 scene.render.bake.use_pass_direct=False;scene.render.bake.use_pass_indirect=False
@@ -13,7 +16,12 @@ scene.render.bake.use_pass_color=True
 scene.render.image_settings.file_format='PNG';scene.render.image_settings.color_mode='RGB';scene.render.image_settings.color_depth='8'
 rows=json.loads((P/'authoring_manifest.json').read_text())
 NAMES={'meteor':'SM_RunePommel_Meteor','jade_core':'SM_RunePommel_JadeStar','swift':'SM_RunePommel_Swiftstar'}
-recipe=[];output=[]
+if only:
+    if only not in NAMES:raise RuntimeError('Unknown scoped pommel: '+only)
+    rows=[r for r in rows if r['id']==only]
+    existing=bpy.data.objects.get(NAMES[only])
+    if existing:bpy.data.objects.remove(existing,do_unlink=True)
+recipe=[];output=json.loads((P/'model_exports.json').read_text()) if only else []
 
 def activate(obj):
     bpy.ops.object.select_all(action='DESELECT');obj.hide_set(False);obj.hide_render=False;obj.select_set(True);bpy.context.view_layer.objects.active=obj
@@ -89,13 +97,18 @@ def bake(obj,key):
     return files
 
 def baked_material(key,category,files):
-    mat=bpy.data.materials.new('M_RunePommel_'+key+'_'+category);mat.use_nodes=True
-    nt=mat.node_tree;p=principled(mat);uv=nt.nodes.new('ShaderNodeUVMap');uv.uv_map='BakeUV'
+    name='M_RunePommel_'+key+'_'+category
+    mat=bpy.data.materials.get(name) or bpy.data.materials.new(name);mat.use_nodes=True
+    # Stable slot names are part of the shared finish override contract.
+    nt=mat.node_tree;nt.nodes.clear()
+    p=nt.nodes.new('ShaderNodeBsdfPrincipled');out=nt.nodes.new('ShaderNodeOutputMaterial')
+    nt.links.new(p.outputs['BSDF'],out.inputs['Surface'])
+    uv=nt.nodes.new('ShaderNodeUVMap');uv.uv_map='BakeUV'
     for channel,socket in [('BaseColor','Base Color'),('Metallic','Metallic'),('Roughness','Roughness'),('Emissive','Emission Color')]:
-        tex=nt.nodes.new('ShaderNodeTexImage');tex.image=bpy.data.images.load(files[channel],check_existing=True)
+        tex=nt.nodes.new('ShaderNodeTexImage');tex.image=bpy.data.images.load(files[channel],check_existing=False)
         tex.image.colorspace_settings.name='sRGB' if channel in ['BaseColor','Emissive'] else 'Non-Color'
         nt.links.new(uv.outputs['UV'],tex.inputs['Vector']);nt.links.new(tex.outputs['Color'],p.inputs[socket])
-    tex=nt.nodes.new('ShaderNodeTexImage');tex.image=bpy.data.images.load(files['Normal'],check_existing=True);tex.image.colorspace_settings.name='Non-Color'
+    tex=nt.nodes.new('ShaderNodeTexImage');tex.image=bpy.data.images.load(files['Normal'],check_existing=False);tex.image.colorspace_settings.name='Non-Color'
     normal=nt.nodes.new('ShaderNodeNormalMap');normal.uv_map='BakeUV';nt.links.new(tex.outputs['Color'],normal.inputs['Color'])
     nt.links.new(uv.outputs['UV'],tex.inputs['Vector']);nt.links.new(normal.outputs['Normal'],p.inputs['Normal'])
     p.inputs['Emission Strength'].default_value=3.
@@ -134,7 +147,8 @@ for row in rows:
        'interface':'azure_hilt_v1','location_cm':[0,0,-19.5],
        'vertices':len(target.data.vertices),'triangles':len(target.data.loop_triangles),
        'bounds_cm':[[min(v.co[i] for v in target.data.vertices)*100 for i in range(3)],[max(v.co[i] for v in target.data.vertices)*100 for i in range(3)]]}
-    output.append(rowout)
+    if only:output=[rowout if prior['id']==key else prior for prior in output]
+    else:output.append(rowout)
     target.hide_set(True);target.hide_render=True
     print('MODEL_EXPORTED',json.dumps(rowout),flush=True)
     (P/'model_exports.json').write_text(json.dumps(output,indent=2),encoding='utf-8')

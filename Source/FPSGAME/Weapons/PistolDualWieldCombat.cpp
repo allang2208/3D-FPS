@@ -39,9 +39,8 @@ float UPistolDualWieldComponent::SharedConeSpread() const
 void UPistolDualWieldComponent::TryFire(int32 Index)
 {
     auto& H=Hands[Index];const double Now=GetWorld()->GetTimeSeconds();
-    if((!H.Pending && H.Item.Definition!=G18WeaponAssets::Definition) || !H.Held || !InputAvailable() || (IsEquipping() && H.Item.Definition!=G18WeaponAssets::Definition) || Player->IsAmmoWheelOpen() || H.Reloading || Player->IsSprinting()
+    if((!H.Pending && H.Item.Definition!=G18WeaponAssets::Definition) || !H.Held || !InputAvailable() || (IsEquipping() && H.Item.Definition!=G18WeaponAssets::Definition && H.Item.Definition!=PitViper2011WeaponAssets::Definition) || Player->IsAmmoWheelOpen() || H.Reloading || Player->IsSprinting()
         || Now<Player->SprintFireUnlockTime || Now<H.NextShot || (Index==1 && Player->IsCastBlockingLeftHandAction()))return;
-    if(H.Item.Definition==RSH12WeaponAssets::Definition && H.Action && H.Action==H.Clips.FindRef(TEXT("fire")))return;
     H.Pending=false;
     if(WeaponReloadStages::NeedsCycle(H.Item)){BeginReload(Index);return;}
     if(H.Rounds<=0)
@@ -98,25 +97,28 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
     if(!Sound)Sound=H.Sounds.FindRef(TEXT("Fire"));
     if(H.Item.Definition==G18WeaponAssets::Definition)
     {
-        const TCHAR* Prefix=H.Suppressed?TEXT("Suppressed"):TEXT("Fire");
-        int32 Choice=FMath::RandRange(1,4);
-        auto* Variant=H.Sounds.FindRef(FString::Printf(TEXT("%s_%02d"),Prefix,Choice)).Get();
-        if(Variant && Variant==H.Sounds.FindRef(TEXT("PreviousFireVariant")).Get())
+        if(!H.Suppressed)
         {
-            Choice=(Choice-1+FMath::RandRange(1,3))%4+1;
-            Variant=H.Sounds.FindRef(FString::Printf(TEXT("%s_%02d"),Prefix,Choice)).Get();
+            int32 Choice=FMath::RandRange(1,4);
+            auto* Variant=H.Sounds.FindRef(FString::Printf(TEXT("Fire_%02d"),Choice)).Get();
+            if(Variant && Variant==H.Sounds.FindRef(TEXT("PreviousFireVariant")).Get())
+            {
+                Choice=(Choice-1+FMath::RandRange(1,3))%4+1;
+                Variant=H.Sounds.FindRef(FString::Printf(TEXT("Fire_%02d"),Choice)).Get();
+            }
+            if(Variant)Sound=Variant;
+            H.Sounds.Add(TEXT("PreviousFireVariant"),Sound);
         }
-        if(Variant)Sound=Variant;
-        H.Sounds.Add(TEXT("PreviousFireVariant"),Sound);
         if(Sound)Player->PlayFireVoice(Sound,H.Suppressed?.7f:1.5f);
     }
-    else if(Sound)UGameplayStatics::PlaySound2D(this,Sound,H.Suppressed?.7f:1.5f,1.f);
+    else if(Sound)UGameplayStatics::PlaySound2D(this,Sound,H.Item.Definition==RSH12WeaponAssets::Definition?.9f:H.Suppressed?.7f:1.5f,1.f);
     UAISense_Hearing::ReportNoiseEvent(this,Player->GetActorLocation(),1.f,Player,H.Suppressed?500.f:1800.f,TEXT("Gunshot"));
+    const auto FeedbackHandling=ColdSteelCombat::ComposureHandling(Player,H.Stats.Handling);
     const auto Pattern=FWeaponHandling::Pattern(H.Pattern);
     if(auto* Controller=Player->GetController())
     {
         auto Aim=Controller->GetControlRotation();
-        const float Scale=FWeaponHandling::ReferenceBallisticScale*H.Stats.Handling.RecoilScale;
+        const float Scale=FWeaponHandling::ReferenceBallisticScale*FeedbackHandling.RecoilScale;
         Aim.Pitch=FMath::Clamp(FRotator::NormalizeAxis(Aim.Pitch)+FMath::RadiansToDegrees(Pattern.X)*Scale,-85.f,85.f);
         Aim.Yaw+=FMath::RadiansToDegrees(Pattern.Y)*Scale*(Index?-1.f:1.f);Controller->SetControlRotation(Aim);
     }
@@ -125,7 +127,7 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
     // kick, jitter, trauma and FOV punch. The recoil load uses this hand's own
     // bloom, the same input its spread used for this shot.
     const float DualRecoilLoad=1.f+FMath::Clamp((H.Bloom+Player->MoveSpread+Player->AirSpread)/DualPistolSpread::RecoilLoadScale,0.f,2.f)*.7f;
-    Player->ApplyDualWieldShotFeedback(Index,H.Revolver,H.Stats.Handling,H.Pattern,float(H.Stats.Interval),DualRecoilLoad);
+    Player->ApplyDualWieldShotFeedback(Index,H.Revolver,FeedbackHandling,H.Pattern,float(H.Stats.Interval),DualRecoilLoad);
     H.Bloom=FMath::Min(DualPistolSpread::BloomMax,H.Bloom+DualPistolSpread::BloomPerShot);
     if(H.Rounds==0 && (InfiniteReserve(Index)||Reserve(Index)>0))H.ReloadQueued=true;
 }
@@ -165,11 +167,12 @@ void UPistolDualWieldComponent::BeginReload(int32 Index)
     const bool Empty=Switching||ResumeCycle||H.Rounds==0;
     FString Clip;
     if(!H.Revolver){Clip=Empty?TEXT("reload_empty"):TEXT("reload");H.SourceLength=Empty?2.25f:1.75f;}
-    else if(H.Speedloader){Clip=TEXT("speed_0");H.SourceLength=3.85f;H.ReloadCount=FMath::Min(6,Available);}
+    else if(H.Speedloader){Clip=TEXT("speed_0");H.SourceLength=3.85f;H.ReloadCount=FMath::Min(H.Stats.Capacity,Available);}
     else{Clip=FString::Printf(TEXT("single_%d_%d"),H.ReloadStart,H.ReloadCount);H.SourceLength=DanWesson715WeaponAssets::SingleDuration(H.ReloadCount,Empty);}
     const auto* W=Player->GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(H.Item.Definition);
     const bool UseEmpty=Empty || (H.Revolver && H.Speedloader);
-    const float Base=W?float(UseEmpty?W->Base.EmptyReload:W->Base.Reload):H.SourceLength;
+    const float Base=H.ReloadSpeedloader && H.Item.Definition==RSH12WeaponAssets::Definition?DanWesson715WeaponAssets::EmptyReload:
+        W?float(UseEmpty?W->Base.EmptyReload:W->Base.Reload):H.SourceLength;
     const float Modified=float(UseEmpty?H.Stats.EmptyReload:H.Stats.Reload);
     // +33% akimbo reload: the same source clip played slower, so mechanical cues
     // and the ammo commit still land on the animation's own beats.

@@ -1,0 +1,18 @@
+{
+  "meshes": {
+    "SM_Hospital_WallPump_V2": {
+      "path": "/Game/Dungeons/HospitalPolish20261003/Meshes/SM_Hospital_WallPump_V2",
+      "source_sha256": "c682cf43688e479ba3d0692e5fffba7106e2cb9bd05d8255440e4ec4d99d2d57",
+      "triangles": 146792
+    },
+    "SM_Hospital_ScrubSink_V2": {
+      "path": "/Game/Dungeons/HospitalPolish20261003/Meshes/SM_Hospital_ScrubSink_V2",
+      "source_sha256": "0af44b9a92a44875819288c0d87b5f95883d17c09aa305aad0f751c961aedffb",
+      "triangles": 32732
+    }
+  },
+  "tests_run": false,
+  "rendered": false,
+  "game_run": false,
+  "stage": "assets_saved"
+}

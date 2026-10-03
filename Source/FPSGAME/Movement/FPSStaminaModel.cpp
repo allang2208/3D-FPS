@@ -40,8 +40,13 @@ void UColdSteelStatusModel::LoadStaminaTuning()
     Read(TEXT("recoveryPerSecond"),StaminaTuning.RecoveryPerSecond,0,1000);Read(TEXT("recoveryDelay"),StaminaTuning.RecoveryDelay,0,60);
     Read(TEXT("sprintRestartRatio"),StaminaTuning.SprintRestartRatio,.01f,1);
 }
+double UColdSteelStatusModel::StaminaMaximum(const FColdSteelProfile& State,const FColdSteelStaminaTuning& Tuning)
+{
+    const double Con=(State.Attributes.FindRef(TEXT("con"))+EquipmentBonusFor(State,TEXT("con")))*State.Infection.AttributeMultiplier()*State.Survival.AttributeMultiplier();
+    return Tuning.BaseMaximum+Con*Tuning.PerConstitution+EquipmentBonusFor(State,TEXT("maxStamina"));
+}
 float UColdSteelStatusModel::MaxStamina() const
-{ return 100+EquipmentBonus(TEXT("maxStamina")); }
+{ return float(StaminaMaximum(Current,StaminaTuning)); }
 float UColdSteelStatusModel::StaminaRecoveryRate() const
 { return StaminaTuning.RecoveryPerSecond*Derived(TEXT("staminaRegen")); }
 FColdSteelMeleeStaminaReadout UColdSteelStatusModel::MeleeStaminaReadout(const AFPSGAMECharacter* Pawn) const
@@ -63,7 +68,7 @@ FColdSteelMeleeStaminaReadout UColdSteelStatusModel::MeleeStaminaReadout(const A
 }
 bool UColdSteelStatusModel::NormalizeStamina(FColdSteelProfile& P) const
 {
-    const float Maximum=100+EquipmentBonusFor(P,TEXT("maxStamina"));
+    const float Maximum=float(StaminaMaximum(P,StaminaTuning));
     const bool Migrated=P.StaminaVersion==0;
     if(Migrated){P.StaminaVersion=1;P.Stamina=Maximum;P.StaminaRecoveryDelay=0;P.bSprintExhausted=false;}
     P.Stamina=FMath::Clamp(P.Stamina,0.f,Maximum);

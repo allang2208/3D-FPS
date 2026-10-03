@@ -82,6 +82,8 @@ try:
    elif key.endswith('reargrip') and info.get('source','').startswith(('A762ReceiverGrip20261001','A762GripClearance20261001')):
     # Current neck slots have semantic names and already reference the saved finish.
     mat=u.load_asset(path)
+   elif path=='A762_FACTORY_MAGAZINE_FINISH':mat=existing['M_A762_Magazine_Rebuilt']
+   elif path=='A762_FACTORY_MAGAZINE_INTERIOR':mat=existing['M_A762_MagazineInside_Rebuilt']
    else:
     i=int(label.rsplit('_',1)[1]);original=u.load_asset(path)
     if key=='laser' and i==0:original=u.load_asset('/Game/Weapons/TacticalDevices20260913/AKM/laser/M_AKM_laser_Body_OpticalV2') or original

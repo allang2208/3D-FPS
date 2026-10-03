@@ -1,4 +1,6 @@
 #include "DevelopmentSpawnComponent.h"
+#include "../Monsters/HangingBellM09.h"
+#include "../Monsters/M09CeilingRoute.h"
 #include "../Monsters/FatZombiePusPool.h"
 #include "EngineUtils.h"
 #include "Components/CapsuleComponent.h"
@@ -29,6 +31,7 @@ UDevelopmentSpawnComponent::UDevelopmentSpawnComponent()
     Add(TEXT("FleshHandMinion"), TEXT("小皮肤手"), TEXT("/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C"), 40.f);
     Add(TEXT("HandBrain"), TEXT("手脑"), TEXT("/Game/Monsters/HandBrain/BP_HandBrain.BP_HandBrain_C"), 125.f);
     Add(TEXT("PoisonMaggot"), TEXT("毒蛆"), TEXT("/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C"), 120.f);
+    Add(TEXT("HangingBellM09"), TEXT("悬钟 M-09（天花板）"), TEXT("/Script/FPSGAME.HangingBellM09"), 90.f);
     Add(TEXT("M10Mawcrawler"), TEXT("沉匣 M-10"), TEXT("/Game/Monsters/M10Mawcrawler/BP_M10Mawcrawler.BP_M10Mawcrawler_C"), 225.f);
     Add(TEXT("Wolf"), TEXT("野狼"), TEXT("/Game/Monsters/Wolf/BP_WolfMonster.BP_WolfMonster_C"), 100.f);
     Add(TEXT("ZombieDog"), TEXT("僵尸犬"), TEXT("/Game/Monsters/ZombieDog/V1/BP_ZombieDog.BP_ZombieDog_C"), 100.f);
@@ -93,6 +96,35 @@ int32 UDevelopmentSpawnComponent::SpawnInFront(FName Id, int32 Count, float Dist
     if (!Entry) { Result = FText::FromString(TEXT("请先选择怪物")); return 0; }
     UClass* Class = Entry->CharacterClass.LoadSynchronous();
     if (!Class || Class->HasAnyClassFlags(CLASS_Abstract)) { Result = FText::FromString(TEXT("该怪物的角色资源尚未准备好")); return 0; }
+    if(Class->IsChildOf(AHangingBellM09::StaticClass()))
+    {
+        const auto* M09=Class->GetDefaultObject<AHangingBellM09>();
+        if(!M09->VisualMesh){Result=FText::FromString(TEXT("悬钟模型资源尚未准备好"));return 0;}
+        FVector View;FRotator Look;Player->GetPlayerViewPoint(View,Look);
+        const FVector Forward=FRotator(0,Look.Yaw,0).Vector(),Right=FVector::CrossProduct(FVector::UpVector,Forward);
+        const FVector Feet=Player->GetPawn()->GetNavAgentLocation();
+        const int32 Wanted=FMath::Clamp(Count,1,10);int32 Created=0;Spawned.RemoveAll([](const auto& Item){return !Item.IsValid();});
+        const float RequestedDistance=FMath::Clamp(DistanceMeters,3.f,15.f)*100.f;
+        const float SearchDistances[]={RequestedDistance,RequestedDistance*.65f,RequestedDistance*.35f,150.f,0.f};
+        for(int32 I=0;I<25&&Created<Wanted;++I)
+        {
+            const int32 Column=I%5,Side=Column==0?0:(Column%2?(Column+1)/2:-Column/2);
+            const FVector Near=Feet+Forward*SearchDistances[I/5]+Right*Side*210.f;
+            FVector Ceiling;AM09CeilingRoute* Route=nullptr;
+            if(!AM09CeilingRoute::FindPlacement(GetWorld(),Near,Player->GetPawn(),Ceiling,Route))continue;
+            // ClearBody already tests the real body; do not reject again on decorative mesh tips.
+            FActorSpawnParameters Params;Params.Owner=Player;Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+            const FVector Position=Ceiling-FVector(0,0,143);
+            if(auto* Monster=GetWorld()->SpawnActor<AHangingBellM09>(Class,Position,FRotator(0,(Feet-Position).Rotation().Yaw,0),Params))
+            {
+                if(Monster->Dead()){Monster->Destroy();continue;}
+                Monster->InitializeHang(Route);Monster->Tags.AddUnique(TEXT("DevelopmentSpawned"));Spawned.Add(Monster);++Created;
+            }
+        }
+        Result=FText::FromString(Created?FString::Printf(TEXT("已在天花板生成 %d / %d 只悬钟"),Created,Wanted):
+            TEXT("附近没有实体天花板，或下方空间不足以容纳悬钟；可换到更开阔的有顶位置"));
+        return Created;
+    }
     const auto* Defaults = Class->GetDefaultObject<ACharacter>();
     const auto* Capsule = Defaults->GetCapsuleComponent();
     const auto* Movement = Defaults->GetCharacterMovement();

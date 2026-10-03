@@ -1,0 +1,5672 @@
+{
+  "id": "AbandonedIsolationWard",
+  "family_id": "AbandonedIsolationWard",
+  "role": "room",
+  "encounter_role": "special_combat",
+  "revision": "isolation_ward_axial_combat_pool_v9_20260929",
+  "min": [
+    -3318.0,
+    -1718.0,
+    -30.0
+  ],
+  "max": [
+    3318.0,
+    1268.0,
+    610.0
+  ],
+  "cells": [
+    {
+      "min": [
+        -3018.0,
+        -468.0,
+        -30.0
+      ],
+      "max": [
+        3018.0,
+        468.0,
+        610.0
+      ]
+    },
+    {
+      "min": [
+        -3018.0,
+        -1718.0,
+        -30.0
+      ],
+      "max": [
+        3018.0,
+        -432.0,
+        490.0
+      ]
+    },
+    {
+      "min": [
+        -3018.0,
+        432.0,
+        -30.0
+      ],
+      "max": [
+        1018.0,
+        1268.0,
+        490.0
+      ]
+    },
+    {
+      "min": [
+        1682.0,
+        432.0,
+        -30.0
+      ],
+      "max": [
+        3018.0,
+        1068.0,
+        490.0
+      ]
+    },
+    {
+      "min": [
+        -3318.0,
+        -248.0,
+        -30.0
+      ],
+      "max": [
+        -2982.0,
+        248.0,
+        380.0
+      ]
+    },
+    {
+      "min": [
+        2982.0,
+        -248.0,
+        -30.0
+      ],
+      "max": [
+        3318.0,
+        248.0,
+        380.0
+      ]
+    }
+  ],
+  "ports": [
+    {
+      "id": "MainHallWest",
+      "position": [
+        -3300,
+        0,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 300.0,
+      "height": 280.0
+    },
+    {
+      "id": "MainHallEast",
+      "position": [
+        3300,
+        0,
+        0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "width": 300.0,
+      "height": 280.0
+    }
+  ],
+  "port_pairs": [
+    [
+      0,
+      1
+    ]
+  ],
+  "parts": [
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_FloorSlabs",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [],
+      "blood_receiver": true
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_FloorFinish",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_RoofSlabs",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Walls",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [],
+      "blood_receiver": true
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Tiles",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WallRails",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Frames",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowGaskets",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Lintels",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Structure",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_CeilingPanels",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_CeilingFrames",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_VentGrilles",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_HeadwallServices",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_VentDucts",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Services",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorFrame",
+      "position": [
+        -1380.0,
+        -450.0,
+        152.2
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": -90,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [],
+      "ward_frame": "N01"
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorFrame",
+      "position": [
+        220.0,
+        -450.0,
+        152.2
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": -90,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [],
+      "ward_frame": "N02"
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorFrame",
+      "position": [
+        1900.0,
+        -450.0,
+        152.2
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": -90,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [],
+      "ward_frame": "N03"
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorFrame",
+      "position": [
+        -2340.0,
+        450.0,
+        152.2
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 90,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [],
+      "ward_frame": "S01"
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorFrame",
+      "position": [
+        -340.0,
+        450.0,
+        152.2
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 90,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [],
+      "ward_frame": "S02"
+    },
+    {
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorFrame",
+      "position": [
+        2350.0,
+        450.0,
+        152.2
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 90,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [],
+      "ward_frame": "Decon"
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        -2600,
+        0,
+        532.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Warm"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -1950.0,
+        0,
+        532.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -1300,
+        0,
+        532.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Hall2"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -650.0,
+        0,
+        532.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        0,
+        0,
+        532.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        650.0,
+        0,
+        532.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Warm"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        1300,
+        0,
+        532.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Hall6"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        1950.0,
+        0,
+        532.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Hall7"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        2600,
+        0,
+        532.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -1520.0,
+        -850.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -880.0,
+        -850.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        80.0,
+        -850.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        720.0,
+        -850.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_N02B"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        1780.0,
+        -850.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        2420.0,
+        -850.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -2320.0,
+        850.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -1680.0,
+        850.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -320.0,
+        850.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        320.0,
+        850.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        -2500,
+        -1475.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Warm"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        -1250.0,
+        -1475.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Warm"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        0,
+        -1475.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Warm"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        1250.0,
+        -1475.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Service3"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        2500,
+        -1475.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Warm"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        -2500,
+        -850.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "position": [
+        2350.0,
+        750.0,
+        416.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Cool"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        -3150.0,
+        0,
+        306.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Warm"
+      ]
+    },
+    {
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "position": [
+        3150.0,
+        0,
+        306.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "",
+        "/Game/Dungeons/IsolationWard20260929/Materials/MI_Diffuser_Warm"
+      ]
+    },
+    {
+      "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+      "position": [
+        -1750.0,
+        -380.0,
+        4.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+      "position": [
+        -1010.0,
+        -380.0,
+        4.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+      "position": [
+        -150.0,
+        -380.0,
+        4.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+      "position": [
+        590.0,
+        -380.0,
+        4.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+      "position": [
+        1530.0,
+        -380.0,
+        4.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+      "position": [
+        2270.0,
+        -380.0,
+        4.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 0,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+      "position": [
+        -2710.0,
+        380.0,
+        4.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 180,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+      "position": [
+        -1970.0,
+        380.0,
+        4.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 180,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+      "position": [
+        -710.0,
+        380.0,
+        4.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 180,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+      "position": [
+        30.0,
+        380.0,
+        4.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 180,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+      "position": [
+        1980.0,
+        380.0,
+        4.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 180,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+      "position": [
+        2720.0,
+        380.0,
+        4.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 180,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    },
+    {
+      "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+      "position": [
+        1350.0,
+        380.0,
+        4.4
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "yaw": 180,
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": []
+    }
+  ],
+  "lights": [
+    {
+      "position": [
+        -2600,
+        0,
+        519.5
+      ],
+      "intensity": 1050,
+      "radius": 670,
+      "optimized_radius_cm": 670,
+      "color": [
+        1,
+        0.78,
+        0.53
+      ],
+      "role": "main",
+      "type": "point",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        -1950.0,
+        0,
+        519.5
+      ],
+      "intensity": 1050,
+      "radius": 670,
+      "optimized_radius_cm": 670,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "main",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        -1300,
+        0,
+        519.5
+      ],
+      "intensity": 1050,
+      "radius": 670,
+      "optimized_radius_cm": 670,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "main",
+      "type": "point",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "light_function": "/Game/Dungeons/IsolationWard20260929/Materials/MI_LampFunction_Hall2"
+    },
+    {
+      "position": [
+        -650.0,
+        0,
+        519.5
+      ],
+      "intensity": 1050,
+      "radius": 670,
+      "optimized_radius_cm": 670,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "main",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        0,
+        0,
+        519.5
+      ],
+      "intensity": 1050,
+      "radius": 670,
+      "optimized_radius_cm": 670,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "main",
+      "type": "point",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        650.0,
+        0,
+        519.5
+      ],
+      "intensity": 1050,
+      "radius": 670,
+      "optimized_radius_cm": 670,
+      "color": [
+        1,
+        0.78,
+        0.53
+      ],
+      "role": "main",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        1300,
+        0,
+        519.5
+      ],
+      "intensity": 1050,
+      "radius": 670,
+      "optimized_radius_cm": 670,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "main",
+      "type": "point",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "light_function": "/Game/Dungeons/IsolationWard20260929/Materials/MI_LampFunction_Hall6"
+    },
+    {
+      "position": [
+        2600,
+        0,
+        519.5
+      ],
+      "intensity": 1050,
+      "radius": 670,
+      "optimized_radius_cm": 670,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "main",
+      "type": "point",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        -1520.0,
+        -850.0,
+        403.5
+      ],
+      "intensity": 480,
+      "radius": 490,
+      "optimized_radius_cm": 490,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        -880.0,
+        -850.0,
+        403.5
+      ],
+      "intensity": 480,
+      "radius": 490,
+      "optimized_radius_cm": 490,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        80.0,
+        -850.0,
+        403.5
+      ],
+      "intensity": 480,
+      "radius": 490,
+      "optimized_radius_cm": 490,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        1780.0,
+        -850.0,
+        403.5
+      ],
+      "intensity": 480,
+      "radius": 490,
+      "optimized_radius_cm": 490,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        2420.0,
+        -850.0,
+        403.5
+      ],
+      "intensity": 480,
+      "radius": 490,
+      "optimized_radius_cm": 490,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        -2320.0,
+        850.0,
+        403.5
+      ],
+      "intensity": 480,
+      "radius": 490,
+      "optimized_radius_cm": 490,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        -1680.0,
+        850.0,
+        403.5
+      ],
+      "intensity": 480,
+      "radius": 490,
+      "optimized_radius_cm": 490,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        -320.0,
+        850.0,
+        403.5
+      ],
+      "intensity": 480,
+      "radius": 490,
+      "optimized_radius_cm": 490,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        320.0,
+        850.0,
+        403.5
+      ],
+      "intensity": 480,
+      "radius": 490,
+      "optimized_radius_cm": 490,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "fill",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        -2500,
+        -1475.0,
+        403.5
+      ],
+      "intensity": 620,
+      "radius": 520,
+      "optimized_radius_cm": 520,
+      "color": [
+        1,
+        0.78,
+        0.53
+      ],
+      "role": "path",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        -1250.0,
+        -1475.0,
+        403.5
+      ],
+      "intensity": 620,
+      "radius": 520,
+      "optimized_radius_cm": 520,
+      "color": [
+        1,
+        0.78,
+        0.53
+      ],
+      "role": "path",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        0,
+        -1475.0,
+        403.5
+      ],
+      "intensity": 620,
+      "radius": 520,
+      "optimized_radius_cm": 520,
+      "color": [
+        1,
+        0.78,
+        0.53
+      ],
+      "role": "path",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        1250.0,
+        -1475.0,
+        403.5
+      ],
+      "intensity": 620,
+      "radius": 520,
+      "optimized_radius_cm": 520,
+      "color": [
+        1,
+        0.78,
+        0.53
+      ],
+      "role": "path",
+      "type": "point",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "light_function": "/Game/Dungeons/IsolationWard20260929/Materials/MI_LampFunction_Service3"
+    },
+    {
+      "position": [
+        2500,
+        -1475.0,
+        403.5
+      ],
+      "intensity": 620,
+      "radius": 520,
+      "optimized_radius_cm": 520,
+      "color": [
+        1,
+        0.78,
+        0.53
+      ],
+      "role": "path",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        -2500,
+        -850.0,
+        403.5
+      ],
+      "intensity": 780,
+      "radius": 600,
+      "optimized_radius_cm": 600,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "path",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        2350.0,
+        750.0,
+        403.5
+      ],
+      "intensity": 700,
+      "radius": 550,
+      "optimized_radius_cm": 550,
+      "color": [
+        0.72,
+        0.86,
+        1
+      ],
+      "role": "path",
+      "type": "point",
+      "cast_shadows": true,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        -3150.0,
+        0,
+        293.5
+      ],
+      "intensity": 450,
+      "radius": 330,
+      "optimized_radius_cm": 330,
+      "color": [
+        1,
+        0.78,
+        0.53
+      ],
+      "role": "path",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "position": [
+        3150.0,
+        0,
+        293.5
+      ],
+      "intensity": 450,
+      "radius": 330,
+      "optimized_radius_cm": 330,
+      "color": [
+        1,
+        0.78,
+        0.53
+      ],
+      "role": "path",
+      "type": "point",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    }
+  ],
+  "runtime_actors": [
+    {
+      "type": "glass_door",
+      "position": [
+        -1460.25,
+        -450.0,
+        4.7
+      ],
+      "yaw": -90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+      "dimensions_cm": [
+        142,
+        250,
+        1.2
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5",
+      "frame_id": "N01",
+      "positive_hinge": false,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0
+    },
+    {
+      "type": "glass_door",
+      "position": [
+        -1299.75,
+        -450.0,
+        4.7
+      ],
+      "yaw": -90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+      "dimensions_cm": [
+        142,
+        250,
+        1.2
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5",
+      "frame_id": "N01",
+      "positive_hinge": true,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0
+    },
+    {
+      "type": "glass_door",
+      "position": [
+        139.75,
+        -450.0,
+        4.7
+      ],
+      "yaw": -90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+      "dimensions_cm": [
+        142,
+        250,
+        1.2
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5",
+      "frame_id": "N02",
+      "positive_hinge": false,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0
+    },
+    {
+      "type": "glass_door",
+      "position": [
+        300.25,
+        -450.0,
+        4.7
+      ],
+      "yaw": -90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+      "dimensions_cm": [
+        142,
+        250,
+        1.2
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5",
+      "frame_id": "N02",
+      "positive_hinge": true,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0
+    },
+    {
+      "type": "glass_door",
+      "position": [
+        1819.75,
+        -450.0,
+        4.7
+      ],
+      "yaw": -90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+      "dimensions_cm": [
+        142,
+        250,
+        1.2
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5",
+      "frame_id": "N03",
+      "positive_hinge": false,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0
+    },
+    {
+      "type": "glass_door",
+      "position": [
+        1980.25,
+        -450.0,
+        4.7
+      ],
+      "yaw": -90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+      "dimensions_cm": [
+        142,
+        250,
+        1.2
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5",
+      "frame_id": "N03",
+      "positive_hinge": true,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0
+    },
+    {
+      "type": "glass_door",
+      "position": [
+        -2259.75,
+        450.0,
+        4.7
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+      "dimensions_cm": [
+        142,
+        250,
+        1.2
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5",
+      "frame_id": "S01",
+      "positive_hinge": false,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0
+    },
+    {
+      "type": "glass_door",
+      "position": [
+        -2420.25,
+        450.0,
+        4.7
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+      "dimensions_cm": [
+        142,
+        250,
+        1.2
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5",
+      "frame_id": "S01",
+      "positive_hinge": true,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0
+    },
+    {
+      "type": "glass_door",
+      "position": [
+        -259.75,
+        450.0,
+        4.7
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+      "dimensions_cm": [
+        142,
+        250,
+        1.2
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5",
+      "frame_id": "S02",
+      "positive_hinge": false,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0
+    },
+    {
+      "type": "glass_door",
+      "position": [
+        -420.25,
+        450.0,
+        4.7
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+      "dimensions_cm": [
+        142,
+        250,
+        1.2
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5",
+      "frame_id": "S02",
+      "positive_hinge": true,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0
+    },
+    {
+      "type": "glass_door",
+      "position": [
+        2430.25,
+        450.0,
+        4.7
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+      "dimensions_cm": [
+        142,
+        250,
+        1.2
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5",
+      "frame_id": "Decon",
+      "positive_hinge": false,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0
+    },
+    {
+      "type": "glass_door",
+      "position": [
+        2269.75,
+        450.0,
+        4.7
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+      "dimensions_cm": [
+        142,
+        250,
+        1.2
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "leaf": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5",
+      "frame_id": "Decon",
+      "positive_hinge": true,
+      "open_seconds": 0.6,
+      "auto_close_seconds": 6.0
+    },
+    {
+      "type": "glass_window",
+      "position": [
+        -764.75,
+        -450.0,
+        221.5
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowFractureV5",
+      "dimensions_cm": [
+        165.5,
+        128,
+        1.6
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+    },
+    {
+      "type": "glass_window",
+      "position": [
+        -595.25,
+        -450.0,
+        221.5
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowFractureV5",
+      "dimensions_cm": [
+        165.5,
+        128,
+        1.6
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+    },
+    {
+      "type": "glass_window",
+      "position": [
+        835.25,
+        -450.0,
+        221.5
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowFractureV5",
+      "dimensions_cm": [
+        165.5,
+        128,
+        1.6
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+    },
+    {
+      "type": "glass_window",
+      "position": [
+        1004.75,
+        -450.0,
+        221.5
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowFractureV5",
+      "dimensions_cm": [
+        165.5,
+        128,
+        1.6
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+    },
+    {
+      "type": "glass_window",
+      "position": [
+        2515.25,
+        -450.0,
+        221.5
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowFractureV5",
+      "dimensions_cm": [
+        165.5,
+        128,
+        1.6
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+    },
+    {
+      "type": "glass_window",
+      "position": [
+        2684.75,
+        -450.0,
+        221.5
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowFractureV5",
+      "dimensions_cm": [
+        165.5,
+        128,
+        1.6
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+    },
+    {
+      "type": "glass_window",
+      "position": [
+        -1544.75,
+        450.0,
+        221.5
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowFractureV5",
+      "dimensions_cm": [
+        165.5,
+        128,
+        1.6
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+    },
+    {
+      "type": "glass_window",
+      "position": [
+        -1375.25,
+        450.0,
+        221.5
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowFractureV5",
+      "dimensions_cm": [
+        165.5,
+        128,
+        1.6
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+    },
+    {
+      "type": "glass_window",
+      "position": [
+        455.25,
+        450.0,
+        221.5
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowFractureV5",
+      "dimensions_cm": [
+        165.5,
+        128,
+        1.6
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+    },
+    {
+      "type": "glass_window",
+      "position": [
+        624.75,
+        450.0,
+        221.5
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowPaneV5",
+      "fracture": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowFractureV5",
+      "dimensions_cm": [
+        165.5,
+        128,
+        1.6
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+    },
+    {
+      "type": "beds",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "mesh": "/Game/Dungeons/IsolationWard20260929/Props/SM_Ward_HospitalBed",
+      "min_beds_per_room": 3,
+      "max_beds_per_room": 5,
+      "wall_clearance": 65.0,
+      "bed_clearance": 110.0,
+      "rooms": [
+        {
+          "id": "N01",
+          "min": [
+            -2000,
+            -1250.0,
+            4.2
+          ],
+          "max": [
+            -400,
+            -450.0,
+            400
+          ]
+        },
+        {
+          "id": "N02",
+          "min": [
+            -400,
+            -1250.0,
+            4.2
+          ],
+          "max": [
+            1200,
+            -450.0,
+            400
+          ]
+        },
+        {
+          "id": "N03",
+          "min": [
+            1200,
+            -1250.0,
+            4.2
+          ],
+          "max": [
+            3000,
+            -450.0,
+            400
+          ]
+        },
+        {
+          "id": "S01",
+          "min": [
+            -3000,
+            450.0,
+            4.2
+          ],
+          "max": [
+            -1000,
+            1250.0,
+            400
+          ]
+        },
+        {
+          "id": "S02",
+          "min": [
+            -1000,
+            450.0,
+            4.2
+          ],
+          "max": [
+            1000,
+            1250.0,
+            400
+          ]
+        }
+      ],
+      "keep_clear": [
+        {
+          "min": [
+            -1470.0,
+            -1250.0,
+            0
+          ],
+          "max": [
+            -1290.0,
+            -450.0,
+            400
+          ]
+        },
+        {
+          "min": [
+            -1600.0,
+            -675,
+            0
+          ],
+          "max": [
+            -1160.0,
+            -450,
+            400
+          ]
+        },
+        {
+          "min": [
+            -1290,
+            -1250.0,
+            0
+          ],
+          "max": [
+            -1110,
+            -450.0,
+            400
+          ]
+        },
+        {
+          "min": [
+            -1470.0,
+            -940.0,
+            0
+          ],
+          "max": [
+            -1110,
+            -760.0,
+            400
+          ]
+        },
+        {
+          "min": [
+            130.00000000000003,
+            -1250.0,
+            0
+          ],
+          "max": [
+            310.0,
+            -450.0,
+            400
+          ]
+        },
+        {
+          "min": [
+            2.842170943040401e-14,
+            -675,
+            0
+          ],
+          "max": [
+            440.0,
+            -450,
+            400
+          ]
+        },
+        {
+          "min": [
+            1810.0,
+            -1250.0,
+            0
+          ],
+          "max": [
+            1990.0,
+            -450.0,
+            400
+          ]
+        },
+        {
+          "min": [
+            1680.0,
+            -675,
+            0
+          ],
+          "max": [
+            2120.0,
+            -450,
+            400
+          ]
+        },
+        {
+          "min": [
+            2010.0,
+            -1250.0,
+            0
+          ],
+          "max": [
+            2190.0,
+            -450.0,
+            400
+          ]
+        },
+        {
+          "min": [
+            1810.0,
+            -940.0,
+            0
+          ],
+          "max": [
+            2190.0,
+            -760.0,
+            400
+          ]
+        },
+        {
+          "min": [
+            -2430.0,
+            450.0,
+            0
+          ],
+          "max": [
+            -2250.0,
+            1250.0,
+            400
+          ]
+        },
+        {
+          "min": [
+            -2560.0,
+            450,
+            0
+          ],
+          "max": [
+            -2120.0,
+            675,
+            400
+          ]
+        },
+        {
+          "min": [
+            -430.0,
+            450.0,
+            0
+          ],
+          "max": [
+            -250.0,
+            1250.0,
+            400
+          ]
+        },
+        {
+          "min": [
+            -560.0,
+            450,
+            0
+          ],
+          "max": [
+            -120.0,
+            675,
+            400
+          ]
+        },
+        {
+          "min": [
+            -1847,
+            -1230,
+            4.2
+          ],
+          "max": [
+            -1753,
+            -1118,
+            116.4
+          ]
+        },
+        {
+          "min": [
+            903,
+            -1230,
+            4.2
+          ],
+          "max": [
+            997,
+            -1118,
+            116.4
+          ]
+        },
+        {
+          "min": [
+            2703,
+            -1230,
+            4.2
+          ],
+          "max": [
+            2797,
+            -1118,
+            116.4
+          ]
+        },
+        {
+          "min": [
+            -2847,
+            1118,
+            4.2
+          ],
+          "max": [
+            -2753,
+            1230,
+            116.4
+          ]
+        },
+        {
+          "min": [
+            713,
+            1118,
+            4.2
+          ],
+          "max": [
+            807,
+            1230,
+            116.4
+          ]
+        }
+      ],
+      "poses": [
+        {
+          "id": "Upright",
+          "pitch": 0,
+          "roll": 0,
+          "weight": 0.55,
+          "min": [
+            -139.98475646972656,
+            -92.02204895019531,
+            0.0
+          ],
+          "max": [
+            139.9847412109375,
+            92.02204132080078,
+            208.96949768066406
+          ]
+        },
+        {
+          "id": "LeftSide",
+          "pitch": 0,
+          "roll": 90,
+          "weight": 0.15,
+          "min": [
+            -139.98475646972656,
+            0.0,
+            -92.02203369140625
+          ],
+          "max": [
+            139.9847412109375,
+            208.969482421875,
+            92.02204132080078
+          ]
+        },
+        {
+          "id": "RightSide",
+          "pitch": 0,
+          "roll": -90,
+          "weight": 0.15,
+          "min": [
+            -139.98477172851562,
+            -208.96951293945312,
+            -92.02204895019531
+          ],
+          "max": [
+            139.9847412109375,
+            1.1444091796875e-05,
+            92.02204132080078
+          ]
+        },
+        {
+          "id": "Inverted",
+          "pitch": -13.558492835059042,
+          "roll": 180,
+          "weight": 0.15,
+          "min": [
+            -181.89260864257812,
+            -92.02204132080078,
+            -171.89578247070312
+          ],
+          "max": [
+            133.9302215576172,
+            92.02204132080078,
+            32.0972785949707
+          ]
+        }
+      ],
+      "room_props": [
+        {
+          "id": "IVDripCrutch",
+          "mesh": "/Game/Dungeons/IsolationWard20260929/Props/SM_Ward_IVDripCrutch",
+          "min_per_room": 0,
+          "max_per_room": 1,
+          "clearance": 80.0,
+          "blocking": false
+        }
+      ],
+      "bedside_containers": {
+        "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body",
+        "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Lid",
+        "hinge": [
+          0,
+          16.0,
+          32.0
+        ],
+        "opened_roll": 108,
+        "caption": "病人物品箱",
+        "container_id_prefix": "Hospital.Bedside",
+        "min_count": 2,
+        "max_count": 3,
+        "bed_gap": 24
+      }
+    },
+    {
+      "type": "blood",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "material": "/Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel",
+      "floor_count": 36,
+      "wall_count": 12,
+      "scanned_size_range_cm": [
+        35.0,
+        85.0
+      ],
+      "floor_size_scale": 2.5,
+      "surfaces": [
+        {
+          "center": [
+            0.0,
+            -0.0,
+            4.2
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "axis_u": [
+            1,
+            0,
+            0
+          ],
+          "half_size": [
+            2960.0,
+            409.99999999999994
+          ],
+          "wall": false
+        },
+        {
+          "center": [
+            0.0,
+            -1475.0,
+            4.2
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "axis_u": [
+            1,
+            0,
+            0
+          ],
+          "half_size": [
+            2960.0,
+            185.00000000000006
+          ],
+          "wall": false
+        },
+        {
+          "center": [
+            -2500.0,
+            -850.0,
+            4.2
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "axis_u": [
+            1,
+            0,
+            0
+          ],
+          "half_size": [
+            460.0000000000001,
+            359.99999999999994
+          ],
+          "wall": false
+        },
+        {
+          "center": [
+            2350.0,
+            750.0,
+            4.2
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "axis_u": [
+            1,
+            0,
+            0
+          ],
+          "half_size": [
+            610.0000000000001,
+            259.99999999999994
+          ],
+          "wall": false
+        },
+        {
+          "center": [
+            -1765.0,
+            -429.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            195.00000000000003
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            -1035.0,
+            -429.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            154.99999999999997
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            -165.0,
+            -429.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            195.00000000000003
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            565.0,
+            -429.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            154.99999999999994
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            1475.0,
+            -429.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            234.9999999999999
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            2245.0,
+            -429.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            154.9999999999999
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            2880.0,
+            -429.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            80.00000000000007
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            -2745.0,
+            429.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            215.00000000000003
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            -1905.0,
+            429.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            244.99999999999974
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            -1150.0,
+            429.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            109.99999999999997
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            -745.0,
+            429.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            215.0
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            95.0,
+            429.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            245.00000000000003
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            850.0,
+            429.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            109.99999999999997
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            0.0,
+            -1679.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            2950.0
+          ],
+          "wall": true
+        }
+      ]
+    },
+    {
+      "type": "blood",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "material": "/Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel",
+      "floor_count": 20,
+      "wall_count": 6,
+      "scanned_size_range_cm": [
+        35.0,
+        85.0
+      ],
+      "floor_size_scale": 2.5,
+      "surfaces": [
+        {
+          "center": [
+            -1200.0,
+            -850.0,
+            4.2
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "axis_u": [
+            1,
+            0,
+            0
+          ],
+          "half_size": [
+            760.0,
+            360.0
+          ],
+          "wall": false
+        },
+        {
+          "center": [
+            -1979.0,
+            -850.0,
+            140.0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            360.0
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            -421.0,
+            -850.0,
+            140.0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            360.0
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            -1680.0,
+            -1229.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            280.00000000000006
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            -720.0,
+            -1229.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            280.0
+          ],
+          "wall": true
+        }
+      ]
+    },
+    {
+      "type": "blood",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "material": "/Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel",
+      "floor_count": 20,
+      "wall_count": 6,
+      "scanned_size_range_cm": [
+        35.0,
+        85.0
+      ],
+      "floor_size_scale": 2.5,
+      "surfaces": [
+        {
+          "center": [
+            400.0,
+            -850.0,
+            4.2
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "axis_u": [
+            1,
+            0,
+            0
+          ],
+          "half_size": [
+            760.0,
+            360.0
+          ],
+          "wall": false
+        },
+        {
+          "center": [
+            -379.0,
+            -850.0,
+            140.0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            360.0
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            1179.0,
+            -850.0,
+            140.0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            360.0
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            400.0,
+            -1229.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            760.0
+          ],
+          "wall": true
+        }
+      ]
+    },
+    {
+      "type": "blood",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "material": "/Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel",
+      "floor_count": 20,
+      "wall_count": 6,
+      "scanned_size_range_cm": [
+        35.0,
+        85.0
+      ],
+      "floor_size_scale": 2.5,
+      "surfaces": [
+        {
+          "center": [
+            2100.0,
+            -850.0,
+            4.2
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "axis_u": [
+            1,
+            0,
+            0
+          ],
+          "half_size": [
+            860.0,
+            360.0
+          ],
+          "wall": false
+        },
+        {
+          "center": [
+            1221.0,
+            -850.0,
+            140.0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            360.0
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            2979.0,
+            -850.0,
+            140.0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            360.0
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            1570.0,
+            -1229.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            330.0
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            2630.0,
+            -1229.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            330.00000000000006
+          ],
+          "wall": true
+        }
+      ]
+    },
+    {
+      "type": "blood",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "material": "/Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel",
+      "floor_count": 20,
+      "wall_count": 6,
+      "scanned_size_range_cm": [
+        35.0,
+        85.0
+      ],
+      "floor_size_scale": 2.5,
+      "surfaces": [
+        {
+          "center": [
+            -2000.0,
+            850.0,
+            4.2
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "axis_u": [
+            1,
+            0,
+            0
+          ],
+          "half_size": [
+            960.0,
+            360.0
+          ],
+          "wall": false
+        },
+        {
+          "center": [
+            -2979.0,
+            850.0,
+            140.0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            360.0
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            -1021.0,
+            850.0,
+            140.0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            360.0
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            -2000.0,
+            1229.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            960.0000000000001
+          ],
+          "wall": true
+        }
+      ]
+    },
+    {
+      "type": "blood",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "material": "/Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel",
+      "floor_count": 20,
+      "wall_count": 6,
+      "scanned_size_range_cm": [
+        35.0,
+        85.0
+      ],
+      "floor_size_scale": 2.5,
+      "surfaces": [
+        {
+          "center": [
+            0.0,
+            850.0,
+            4.2
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "axis_u": [
+            1,
+            0,
+            0
+          ],
+          "half_size": [
+            960.0,
+            360.0
+          ],
+          "wall": false
+        },
+        {
+          "center": [
+            -979.0,
+            850.0,
+            140.0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            360.0
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            979.0,
+            850.0,
+            140.0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            360.0
+          ],
+          "wall": true
+        },
+        {
+          "center": [
+            0.0,
+            1229.0,
+            140.0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "axis_u": [
+            0,
+            0,
+            1
+          ],
+          "half_size": [
+            110.00000000000001,
+            960.0
+          ],
+          "wall": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    {
+      "position": [
+        -2300,
+        180.0,
+        5.0
+      ],
+      "role": "ward_combat"
+    },
+    {
+      "position": [
+        -2300,
+        -180.0,
+        5.0
+      ],
+      "role": "ward_combat"
+    },
+    {
+      "position": [
+        -1400,
+        180.0,
+        5.0
+      ],
+      "role": "ward_combat"
+    },
+    {
+      "position": [
+        -1400,
+        -180.0,
+        5.0
+      ],
+      "role": "ward_combat"
+    },
+    {
+      "position": [
+        -500,
+        180.0,
+        5.0
+      ],
+      "role": "ward_combat"
+    },
+    {
+      "position": [
+        -500,
+        -180.0,
+        5.0
+      ],
+      "role": "ward_combat"
+    },
+    {
+      "position": [
+        500,
+        180.0,
+        5.0
+      ],
+      "role": "ward_combat"
+    },
+    {
+      "position": [
+        500,
+        -180.0,
+        5.0
+      ],
+      "role": "ward_combat"
+    },
+    {
+      "position": [
+        1400,
+        180.0,
+        5.0
+      ],
+      "role": "ward_combat"
+    },
+    {
+      "position": [
+        1400,
+        -180.0,
+        5.0
+      ],
+      "role": "ward_combat"
+    },
+    {
+      "position": [
+        2300,
+        180.0,
+        5.0
+      ],
+      "role": "ward_combat"
+    },
+    {
+      "position": [
+        2300,
+        -180.0,
+        5.0
+      ],
+      "role": "ward_combat"
+    }
+  ],
+  "walk_mask": [
+    {
+      "min": [
+        -3000,
+        -330.0,
+        -5.0
+      ],
+      "max": [
+        3000,
+        330.0,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        -3300,
+        -145.0,
+        -5.0
+      ],
+      "max": [
+        -3000,
+        145.0,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        3000,
+        -145.0,
+        -5.0
+      ],
+      "max": [
+        3300,
+        145.0,
+        280.0
+      ]
+    }
+  ],
+  "walk_polyline": [
+    [
+      -3300,
+      0,
+      5.0
+    ],
+    [
+      0,
+      0,
+      5.0
+    ],
+    [
+      3300,
+      0,
+      5.0
+    ]
+  ],
+  "spawn": {
+    "source": "IsolationWard20260929",
+    "count": [
+      6,
+      8
+    ],
+    "sealed_encounter": true,
+    "theme": "abandoned_isolation_ward",
+    "anchor_roles": [
+      "ward_combat"
+    ],
+    "pool": [
+      {
+        "id": "NurseZombie",
+        "class": "/Script/FPSGAME.NurseZombie",
+        "weight": 4,
+        "level": 10,
+        "rank": "elite"
+      },
+      {
+        "id": "FatZombie",
+        "class": "/Script/FPSGAME.FatZombie",
+        "weight": 2,
+        "level": 12,
+        "rank": "elite"
+      },
+      {
+        "id": "Mutant3",
+        "class": "/Script/FPSGAME.Mutant3",
+        "weight": 1,
+        "level": 14,
+        "rank": "elite"
+      }
+    ]
+  },
+  "selection": {
+    "chance_per_run": 0.3,
+    "max_per_run": 1,
+    "route": "Approach"
+  },
+  "runtime_assets": [
+    "/Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel",
+    "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+    "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorFractureV5",
+    "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5",
+    "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5",
+    "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowFractureV5",
+    "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WindowPaneV5",
+    "/Game/Dungeons/IsolationWard20260929/Props/SM_Ward_HospitalBed",
+    "/Game/Dungeons/IsolationWard20260929/Props/SM_Ward_IVDripCrutch",
+    "/Game/Dungeons/IsolationWard20260929/Props/SM_Ward_MedicalCart",
+    "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01",
+    "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_A",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_B",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_C",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_D",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_E",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_F",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_G",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_H",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_I",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_J",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_K",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_L",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_M",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_N",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_O",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_P",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_B",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_D",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_E",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_F",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_G",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_H",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_I",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_K",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_L",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_M",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_N",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_O",
+    "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_U",
+    "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+    "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+    "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+    "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+    "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Body",
+    "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Door",
+    "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_ContainerOutline_V4",
+    "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body",
+    "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Lid"
+  ],
+  "wall_art": {
+    "version": 1,
+    "source": "/Game/HospitalCorridor",
+    "source_posters": 36,
+    "source_textures": [
+      "/Game/HospitalCorridor/Textures/Objects/T_HospitalPosters_01_A",
+      "/Game/HospitalCorridor/Textures/Objects/T_HospitalPosters_02_A"
+    ],
+    "pools": {
+      "education": [
+        {
+          "id": "01_A",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_A",
+          "origin": [
+            -3.0517578125e-05,
+            0.1109371930360794,
+            3.0517578125e-05
+          ],
+          "extent": [
+            26.25,
+            2.053380012512207e-05,
+            37.1875
+          ],
+          "scale": 1.0003361344537816,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_B",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_B",
+          "origin": [
+            -4.76837158203125e-07,
+            0.11095531284809113,
+            7.62939453125e-06
+          ],
+          "extent": [
+            13.125001430511475,
+            1.220405101776123e-05,
+            18.750001907348633
+          ],
+          "scale": 1.983999798177104,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_C",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_C",
+          "origin": [
+            0.0,
+            0.11093758791685104,
+            1.9073486328125e-06
+          ],
+          "extent": [
+            13.125,
+            9.097158908843994e-06,
+            18.750003814697266
+          ],
+          "scale": 1.983999596354249,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_D",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_D",
+          "origin": [
+            1.811981201171875e-05,
+            0.11095023900270462,
+            1.430511474609375e-05
+          ],
+          "extent": [
+            18.749999046325684,
+            5.714595317840576e-06,
+            13.125005722045898
+          ],
+          "scale": 1.9840001009114636,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_E",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_E",
+          "origin": [
+            1.9073486328125e-05,
+            0.11096711456775665,
+            9.5367431640625e-06
+          ],
+          "extent": [
+            18.7500057220459,
+            4.038214683532715e-06,
+            13.125008583068848
+          ],
+          "scale": 1.983999394531435,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_F",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_F",
+          "origin": [
+            0.0,
+            0.11095521599054337,
+            6.67572021484375e-06
+          ],
+          "extent": [
+            18.75000762939453,
+            8.054077625274658e-06,
+            26.250006675720215
+          ],
+          "scale": 1.4171424967448834,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_G",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_G",
+          "origin": [
+            5.7220458984375e-06,
+            0.11096163094043732,
+            2.002716064453125e-05
+          ],
+          "extent": [
+            18.750001907348633,
+            8.627772331237793e-06,
+            26.250004768371582
+          ],
+          "scale": 1.4171425997157143,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_H",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_H",
+          "origin": [
+            -1.71661376953125e-05,
+            0.11097103357315063,
+            6.67572021484375e-06
+          ],
+          "extent": [
+            37.18750190734863,
+            1.1414289474487305e-05,
+            26.250008583068848
+          ],
+          "scale": 1.0003360831464967,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_I",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_I",
+          "origin": [
+            -3.0517578125e-05,
+            0.11095228791236877,
+            1.52587890625e-05
+          ],
+          "extent": [
+            26.25000762939453,
+            1.1667609214782715e-05,
+            37.1875
+          ],
+          "scale": 1.0003361344537816,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_J",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_J",
+          "origin": [
+            9.5367431640625e-06,
+            0.11094464361667633,
+            1.9073486328125e-05
+          ],
+          "extent": [
+            13.124998092651367,
+            5.885958671569824e-06,
+            18.749998092651367
+          ],
+          "scale": 1.9840002018229375,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_K",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_K",
+          "origin": [
+            5.7220458984375e-06,
+            0.11097651720046997,
+            3.910064697265625e-05
+          ],
+          "extent": [
+            18.750001907348633,
+            4.023313522338867e-06,
+            13.125003814697266
+          ],
+          "scale": 1.983999798177104,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_L",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_L",
+          "origin": [
+            -2.86102294921875e-05,
+            0.11096162348985672,
+            3.528594970703125e-05
+          ],
+          "extent": [
+            18.749998092651367,
+            8.054077625274658e-06,
+            26.250006675720215
+          ],
+          "scale": 1.4171424967448834,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_M",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_M",
+          "origin": [
+            9.5367431640625e-06,
+            0.11093981564044952,
+            3.62396240234375e-05
+          ],
+          "extent": [
+            13.124998092651367,
+            5.885958671569824e-06,
+            18.750011444091797
+          ],
+          "scale": 1.9839987890632393,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_N",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_N",
+          "origin": [
+            1.9073486328125e-06,
+            0.11093981564044952,
+            3.62396240234375e-05
+          ],
+          "extent": [
+            13.125005722045898,
+            5.885958671569824e-06,
+            18.750011444091797
+          ],
+          "scale": 1.9839987890632393,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_O",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_O",
+          "origin": [
+            1.1444091796875e-05,
+            0.11096912622451782,
+            3.337860107421875e-05
+          ],
+          "extent": [
+            18.750003814697266,
+            8.627772331237793e-06,
+            26.25000286102295
+          ],
+          "scale": 1.4171427026865604,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        },
+        {
+          "id": "01_P",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_P",
+          "origin": [
+            -1.9073486328125e-05,
+            0.11093823611736298,
+            3.24249267578125e-05
+          ],
+          "extent": [
+            26.250001907348633,
+            1.1652708053588867e-05,
+            37.18749809265137
+          ],
+          "scale": 1.0003361857610718,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01.MI_HospitalPosters_01"
+          ]
+        }
+      ],
+      "room_numbers": [
+        {
+          "id": "02_D",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_D",
+          "origin": [
+            7.152557373046875e-06,
+            0.11093046516180038,
+            -7.081031799316406e-05
+          ],
+          "extent": [
+            8.813964366912842,
+            2.5257468223571777e-06,
+            6.169773817062378
+          ],
+          "scale": 1.588388540865364,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02"
+          ]
+        },
+        {
+          "id": "02_E",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_E",
+          "origin": [
+            3.337860107421875e-06,
+            0.11093046516180038,
+            -6.318092346191406e-05
+          ],
+          "extent": [
+            8.813963413238525,
+            2.5257468223571777e-06,
+            6.169771432876587
+          ],
+          "scale": 1.5883887127296303,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02"
+          ]
+        },
+        {
+          "id": "02_F",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_F",
+          "origin": [
+            8.58306884765625e-06,
+            0.11093046516180038,
+            -6.890296936035156e-05
+          ],
+          "extent": [
+            8.813968658447266,
+            2.5257468223571777e-06,
+            6.169777154922485
+          ],
+          "scale": 1.5883877674766256,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02"
+          ]
+        },
+        {
+          "id": "02_G",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_G",
+          "origin": [
+            3.337860107421875e-06,
+            0.11093046516180038,
+            -6.890296936035156e-05
+          ],
+          "extent": [
+            8.813963413238525,
+            2.5257468223571777e-06,
+            6.169777154922485
+          ],
+          "scale": 1.5883887127296303,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02"
+          ]
+        }
+      ],
+      "department": [
+        {
+          "id": "02_B",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_B",
+          "origin": [
+            7.62939453125e-06,
+            0.11093126237392426,
+            -7.295608520507812e-05
+          ],
+          "extent": [
+            17.70113754272461,
+            4.5746564865112305e-06,
+            6.685446739196777
+          ],
+          "scale": 1.271104749380798,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02"
+          ]
+        }
+      ],
+      "decon": [
+        {
+          "id": "02_U",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_U",
+          "origin": [
+            5.245208740234375e-06,
+            0.11093440651893616,
+            -6.771087646484375e-05
+          ],
+          "extent": [
+            6.235609531402588,
+            1.9669532775878906e-06,
+            6.220026016235352
+          ],
+          "scale": 1.9244309541140907,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02"
+          ]
+        }
+      ],
+      "staff": [
+        {
+          "id": "02_H",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_H",
+          "origin": [
+            6.67572021484375e-06,
+            0.11093271523714066,
+            -7.05718994140625e-05
+          ],
+          "extent": [
+            17.873230934143066,
+            5.11854887008667e-06,
+            12.511263847351074
+          ],
+          "scale": 1.2588658470818759,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02"
+          ]
+        }
+      ],
+      "shoe_covers": [
+        {
+          "id": "02_N",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_N",
+          "origin": [
+            9.5367431640625e-06,
+            0.11093126237392426,
+            -7.343292236328125e-05
+          ],
+          "extent": [
+            17.70113754272461,
+            4.5746564865112305e-06,
+            6.685451984405518
+          ],
+          "scale": 1.271104749380798,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02"
+          ]
+        }
+      ],
+      "exit": [
+        {
+          "id": "02_O",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_O",
+          "origin": [
+            7.62939453125e-06,
+            0.11093571782112122,
+            -8.440017700195312e-05
+          ],
+          "extent": [
+            19.584980010986328,
+            5.066394805908203e-06,
+            7.396956920623779
+          ],
+          "scale": 1.1488395692708633,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02"
+          ]
+        }
+      ],
+      "notices": [
+        {
+          "id": "02_I",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_I",
+          "origin": [
+            6.67572021484375e-06,
+            0.1109282523393631,
+            -6.4849853515625e-05
+          ],
+          "extent": [
+            25.022526741027832,
+            6.690621376037598e-06,
+            17.873231887817383
+          ],
+          "scale": 1.0990097157098853,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02"
+          ]
+        },
+        {
+          "id": "02_K",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_K",
+          "origin": [
+            7.62939453125e-06,
+            0.1109282523393631,
+            -6.4849853515625e-05
+          ],
+          "extent": [
+            25.022525787353516,
+            6.690621376037598e-06,
+            17.873231887817383
+          ],
+          "scale": 1.099009757596038,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02"
+          ]
+        },
+        {
+          "id": "02_L",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_L",
+          "origin": [
+            6.67572021484375e-06,
+            0.1109282523393631,
+            -6.67572021484375e-05
+          ],
+          "extent": [
+            25.022526741027832,
+            6.690621376037598e-06,
+            17.873233795166016
+          ],
+          "scale": 1.0990097157098853,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02"
+          ]
+        },
+        {
+          "id": "02_M",
+          "mesh": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_M",
+          "origin": [
+            9.5367431640625e-06,
+            0.1109282523393631,
+            -6.67572021484375e-05
+          ],
+          "extent": [
+            25.022523880004883,
+            6.690621376037598e-06,
+            17.87322998046875
+          ],
+          "scale": 1.0990098413683533,
+          "materials": [
+            "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02.MI_HospitalPosters_02"
+          ]
+        }
+      ]
+    },
+    "groups": [
+      {
+        "id": "room_numbers",
+        "pool": "room_numbers",
+        "min_count": 4,
+        "max_count": 4,
+        "slots": [
+          {
+            "id": "N01_number",
+            "center": [
+              -1380.0,
+              -435,
+              345
+            ],
+            "yaw": 0,
+            "half_width": 65,
+            "half_height": 20,
+            "jitter": 0
+          },
+          {
+            "id": "N02_number",
+            "center": [
+              220.0,
+              -435,
+              345
+            ],
+            "yaw": 0,
+            "half_width": 65,
+            "half_height": 20,
+            "jitter": 0
+          },
+          {
+            "id": "N03_number",
+            "center": [
+              1900.0,
+              -435,
+              345
+            ],
+            "yaw": 0,
+            "half_width": 65,
+            "half_height": 20,
+            "jitter": 0
+          },
+          {
+            "id": "S01_number",
+            "center": [
+              -2340.0,
+              435,
+              345
+            ],
+            "yaw": 180,
+            "half_width": 65,
+            "half_height": 20,
+            "jitter": 0
+          },
+          {
+            "id": "S02_number",
+            "center": [
+              -340.0,
+              435,
+              345
+            ],
+            "yaw": 180,
+            "half_width": 65,
+            "half_height": 20,
+            "jitter": 0
+          }
+        ],
+        "fallback_pool": "department"
+      },
+      {
+        "id": "decontamination",
+        "pool": "decon",
+        "min_count": 1,
+        "max_count": 1,
+        "slots": [
+          {
+            "id": "Decon",
+            "center": [
+              2350,
+              435,
+              345
+            ],
+            "yaw": 180,
+            "half_width": 40,
+            "half_height": 20,
+            "jitter": 0
+          }
+        ]
+      },
+      {
+        "id": "service",
+        "pool": "staff",
+        "min_count": 1,
+        "max_count": 1,
+        "slots": [
+          {
+            "id": "Service",
+            "center": [
+              -2500,
+              -435,
+              480
+            ],
+            "yaw": 0,
+            "half_width": 45,
+            "half_height": 20,
+            "jitter": 0
+          }
+        ]
+      },
+      {
+        "id": "exit_markers",
+        "pool": "exit",
+        "min_count": 2,
+        "max_count": 2,
+        "slots": [
+          {
+            "id": "WestExit",
+            "center": [
+              -3285,
+              -195,
+              220
+            ],
+            "yaw": 270,
+            "half_width": 23,
+            "half_height": 15,
+            "jitter": 0
+          },
+          {
+            "id": "EastExit",
+            "center": [
+              3285,
+              195,
+              220
+            ],
+            "yaw": 90,
+            "half_width": 23,
+            "half_height": 15,
+            "jitter": 0
+          }
+        ],
+        "allow_repeat": true
+      },
+      {
+        "id": "hall_education",
+        "pool": "education",
+        "min_count": 6,
+        "max_count": 8,
+        "slots": [
+          {
+            "id": "N01_solid_0",
+            "center": [
+              -1767.5,
+              -435,
+              214
+            ],
+            "yaw": 0,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 10
+          },
+          {
+            "id": "N01_solid_1",
+            "center": [
+              -1034.5,
+              -435,
+              214
+            ],
+            "yaw": 0,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 10
+          },
+          {
+            "id": "N02_solid_0",
+            "center": [
+              -167.5,
+              -435,
+              214
+            ],
+            "yaw": 0,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 10
+          },
+          {
+            "id": "N02_solid_1",
+            "center": [
+              565.5,
+              -435,
+              214
+            ],
+            "yaw": 0,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 10
+          },
+          {
+            "id": "N03_solid_0",
+            "center": [
+              1472.5,
+              -435,
+              214
+            ],
+            "yaw": 0,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 10
+          },
+          {
+            "id": "N03_solid_1",
+            "center": [
+              2245.5,
+              -435,
+              214
+            ],
+            "yaw": 0,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 10
+          },
+          {
+            "id": "N03_solid_2",
+            "center": [
+              2882.0,
+              -435,
+              214
+            ],
+            "yaw": 0,
+            "half_width": 68.0,
+            "half_height": 46,
+            "jitter": 10
+          },
+          {
+            "id": "S01_solid_0",
+            "center": [
+              -2747.5,
+              435,
+              214
+            ],
+            "yaw": 180,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 10
+          },
+          {
+            "id": "S01_solid_1",
+            "center": [
+              -1904.5,
+              435,
+              214
+            ],
+            "yaw": 180,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 10
+          },
+          {
+            "id": "S01_solid_2",
+            "center": [
+              -1148.0,
+              435,
+              214
+            ],
+            "yaw": 180,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 10
+          },
+          {
+            "id": "S02_solid_0",
+            "center": [
+              -747.5,
+              435,
+              214
+            ],
+            "yaw": 180,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 10
+          },
+          {
+            "id": "S02_solid_1",
+            "center": [
+              95.5,
+              435,
+              214
+            ],
+            "yaw": 180,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 10
+          },
+          {
+            "id": "S02_solid_2",
+            "center": [
+              852.0,
+              435,
+              214
+            ],
+            "yaw": 180,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 10
+          }
+        ]
+      },
+      {
+        "id": "gallery_education",
+        "pool": "education",
+        "min_count": 2,
+        "max_count": 3,
+        "slots": [
+          {
+            "id": "Gallery0",
+            "center": [
+              -2300,
+              -1685,
+              222
+            ],
+            "yaw": 0,
+            "half_width": 70,
+            "half_height": 46,
+            "jitter": 12
+          },
+          {
+            "id": "Gallery1",
+            "center": [
+              -1400,
+              -1685,
+              222
+            ],
+            "yaw": 0,
+            "half_width": 70,
+            "half_height": 46,
+            "jitter": 12
+          },
+          {
+            "id": "Gallery2",
+            "center": [
+              -500,
+              -1685,
+              222
+            ],
+            "yaw": 0,
+            "half_width": 70,
+            "half_height": 46,
+            "jitter": 12
+          },
+          {
+            "id": "Gallery3",
+            "center": [
+              400,
+              -1685,
+              222
+            ],
+            "yaw": 0,
+            "half_width": 70,
+            "half_height": 46,
+            "jitter": 12
+          },
+          {
+            "id": "Gallery4",
+            "center": [
+              1300,
+              -1685,
+              222
+            ],
+            "yaw": 0,
+            "half_width": 70,
+            "half_height": 46,
+            "jitter": 12
+          },
+          {
+            "id": "Gallery5",
+            "center": [
+              2200,
+              -1685,
+              222
+            ],
+            "yaw": 0,
+            "half_width": 70,
+            "half_height": 46,
+            "jitter": 12
+          }
+        ]
+      },
+      {
+        "id": "bedroom_education",
+        "pool": "education",
+        "min_count": 3,
+        "max_count": 4,
+        "slots": [
+          {
+            "id": "N01_rear",
+            "center": [
+              -1677.5,
+              -1235,
+              240
+            ],
+            "yaw": 0,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 8
+          },
+          {
+            "id": "N02_rear",
+            "center": [
+              400.0,
+              -1235,
+              240
+            ],
+            "yaw": 0,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 8
+          },
+          {
+            "id": "N03_rear",
+            "center": [
+              1572.5,
+              -1235,
+              240
+            ],
+            "yaw": 0,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 8
+          },
+          {
+            "id": "S01_rear",
+            "center": [
+              -2000.0,
+              1235,
+              240
+            ],
+            "yaw": 180,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 8
+          },
+          {
+            "id": "S02_rear",
+            "center": [
+              0.0,
+              1235,
+              240
+            ],
+            "yaw": 180,
+            "half_width": 80,
+            "half_height": 46,
+            "jitter": 8
+          }
+        ]
+      },
+      {
+        "id": "decon_shoe_covers",
+        "pool": "shoe_covers",
+        "min_count": 1,
+        "max_count": 1,
+        "slots": [
+          {
+            "id": "Shoes",
+            "center": [
+              2080,
+              435,
+              192
+            ],
+            "yaw": 180,
+            "half_width": 35,
+            "half_height": 19,
+            "jitter": 0
+          }
+        ]
+      },
+      {
+        "id": "service_notices",
+        "pool": "notices",
+        "min_count": 1,
+        "max_count": 2,
+        "slots": [
+          {
+            "id": "WestLoopNotice",
+            "center": [
+              -2985,
+              -850,
+              215
+            ],
+            "yaw": 270,
+            "half_width": 65,
+            "half_height": 45,
+            "jitter": 6
+          },
+          {
+            "id": "DeconNotice",
+            "center": [
+              2985,
+              750,
+              220
+            ],
+            "yaw": 90,
+            "half_width": 65,
+            "half_height": 45,
+            "jitter": 6
+          }
+        ]
+      }
+    ],
+    "collision": false,
+    "receives_decals": false,
+    "selection": "Seed + module index + group ID, without replacement except required exit signs",
+    "room_numbers": "103..106 shuffled onto four doors, remaining door uses therapist nameplate"
+  },
+  "warehouse_containers": {
+    "groups": [
+      {
+        "id": "Hospital.Ward.MedicalCarts",
+        "pick_count": [
+          5,
+          5
+        ],
+        "slots": [
+          {
+            "id": "Hospital.Ward.Cart.N01",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N01",
+                    "position": [
+                      -1810,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N01",
+                    "position": [
+                      -1800,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N01",
+                    "position": [
+                      -1790,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Ward.Cart.N02",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N02",
+                    "position": [
+                      940,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N02",
+                    "position": [
+                      950,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N02",
+                    "position": [
+                      960,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Ward.Cart.N03",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N03",
+                    "position": [
+                      2740,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N03",
+                    "position": [
+                      2750,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N03",
+                    "position": [
+                      2760,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Ward.Cart.S01",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.S01",
+                    "position": [
+                      -2810,
+                      1190,
+                      4.4
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.S01",
+                    "position": [
+                      -2800,
+                      1190,
+                      4.4
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.S01",
+                    "position": [
+                      -2790,
+                      1190,
+                      4.4
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Ward.Cart.S02",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.S02",
+                    "position": [
+                      750,
+                      1190,
+                      4.4
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.S02",
+                    "position": [
+                      760,
+                      1190,
+                      4.4
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.S02",
+                    "position": [
+                      770,
+                      1190,
+                      4.4
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Hospital.Ward.Emergency",
+        "pick_count": [
+          1,
+          1
+        ],
+        "slots": [
+          {
+            "id": "Hospital.Ward.Emergency.West",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Door",
+                    "hinge": [
+                      -25.0,
+                      -10.0,
+                      0
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -102,
+                    "storage_pages": 1,
+                    "caption": "壁挂急救箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Emergency.West",
+                    "position": [
+                      -2800,
+                      -419,
+                      132
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Ward.Emergency.East",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Door",
+                    "hinge": [
+                      -25.0,
+                      -10.0,
+                      0
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -102,
+                    "storage_pages": 1,
+                    "caption": "壁挂急救箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Emergency.East",
+                    "position": [
+                      2830,
+                      -419,
+                      132
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "outline": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_ContainerOutline_V4.M_Staff_ContainerOutline_V4",
+    "preview_seed": 20261003,
+    "rewards_deferred": true
+  },
+  "hospital_container_revision": 2,
+  "hospital_container_reservations": [
+    {
+      "min": [
+        -1847,
+        -1230,
+        4.2
+      ],
+      "max": [
+        -1753,
+        -1118,
+        116.4
+      ]
+    },
+    {
+      "min": [
+        903,
+        -1230,
+        4.2
+      ],
+      "max": [
+        997,
+        -1118,
+        116.4
+      ]
+    },
+    {
+      "min": [
+        2703,
+        -1230,
+        4.2
+      ],
+      "max": [
+        2797,
+        -1118,
+        116.4
+      ]
+    },
+    {
+      "min": [
+        -2847,
+        1118,
+        4.2
+      ],
+      "max": [
+        -2753,
+        1230,
+        116.4
+      ]
+    },
+    {
+      "min": [
+        713,
+        1118,
+        4.2
+      ],
+      "max": [
+        807,
+        1230,
+        116.4
+      ]
+    }
+  ]
+}

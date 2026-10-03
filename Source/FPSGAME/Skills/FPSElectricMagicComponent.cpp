@@ -32,8 +32,20 @@
 #include "NiagaraSystem.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Sound/SoundBase.h"
+#include "Net/UnrealNetwork.h"
+#include "NetCastUtils.h"
 
-UFPSElectricMagicComponent::UFPSElectricMagicComponent(){PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostUpdateWork;}
+UFPSElectricMagicComponent::UFPSElectricMagicComponent()
+{
+    PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostUpdateWork;
+    SetIsReplicatedByDefault(true); // 雷云激活态复制
+}
+void UFPSElectricMagicComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(UFPSElectricMagicComponent,bNetDomain);
+    DOREPLIFETIME(UFPSElectricMagicComponent,NetDomainCast);
+}
 void UFPSElectricMagicComponent::BeginPlay()
 {
     Super::BeginPlay();AddTickPrerequisiteActor(GetOwner());
@@ -118,7 +130,7 @@ FString UFPSElectricMagicComponent::StatusText(FName Skill) const
 void UFPSElectricMagicComponent::Trigger(FName Skill)
 {
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
-    if(!ElectricMagic::IsSkill(Skill)||!P||!M||!P->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
+    if(!ElectricMagic::IsSkill(Skill)||!P||!M||!P->IsLocallyControlled())return;
     if(CommittedSkill==TEXT("thunderLance")&&Skill==CommittedSkill){ReleaseLance();return;}
     if(!CommittedSkill.IsNone())return;
     if(const auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead())return;
@@ -150,6 +162,8 @@ void UFPSElectricMagicComponent::ServiceQueue()
     CommittedSkill=QueuedSkill;QueuedSkill=NAME_None;PendingCast=C;bChargeAtContact=false;ChargeAge=0;
     if(auto* S=P->FindComponentByClass<UCombatStatusFormula>())S->ConsumeChainSpell();
     if(IsCharging())P->StopMovementForMeleeSkill();
+    // 联机客人：凝聚扣账上报；雷云域/雷枪结算由服务端在释放相位执行。
+    if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;NetCast::Send(P,CommittedSkill,0);}
 }
 void UFPSElectricMagicComponent::GrantCastBuffs(const FLightningCast& C)
 {if(auto* S=UCombatStatusFormula::GetOrAdd(GetOwner())){if(C.bGrantChain)S->AddChainSpell();if(C.CastHasteStacks>0)S->AddHaste(C.CastHasteStacks,C.CastHasteDuration);}}
@@ -174,7 +188,20 @@ void UFPSElectricMagicComponent::AtContact()
         return;
     }
     if(!M->CommitElectricMagicRelease(CommittedSkill)){CancelPending();return;}
+    const FName ActivatedSkill=CommittedSkill;
     FinishDomain(true);DomainCast=PendingCast;DomainRewards={};DomainAge=DomainVisualAge=NextStrike=0;bDomainActive=true;bDomainFading=false;
+    SpawnDomainFX();
+    UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[5]),GetOwner()->GetActorLocation(),.6f);
+    GrantCastBuffs(PendingCast.Hit);if(Hands())Hands()->TakeGesturePayment();CommittedSkill=NAME_None;
+    // 联机：服务端激活时把雷云态写进复制字段（远端 OnRep 重演云）；客人则上报服务端激活权威域。
+    if(GetOwner()->HasAuthority()){NetDomainCast=DomainCast;bNetDomain=true;}
+    else NetCast::Send(GetOwner(),ActivatedSkill,1);
+    bNetPaid=false;
+    Strike();NextStrike=DomainCast.StrikeSeconds;
+}
+// 雷云 FX——本地/服务端/远端 OnRep 共用同一套参数。
+void UFPSElectricMagicComponent::SpawnDomainFX()
+{
     CloudFX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Assets[0]),GetOwner()->GetActorLocation(),FRotator::ZeroRotator,FVector(1),true,false);
     if(CloudFX)
     {
@@ -186,29 +213,33 @@ void UFPSElectricMagicComponent::AtContact()
         CloudFX->SetVariableFloat(TEXT("User.CloudEmission"),1);CloudFX->SetVariableFloat(TEXT("User.Strength"),1);
         CloudFX->SetVariableFloat(TEXT("User.DetailReduction"),0);CloudFX->Activate(true);
     }
-    UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[5]),GetOwner()->GetActorLocation(),.6f);
-    GrantCastBuffs(PendingCast.Hit);if(Hands())Hands()->TakeGesturePayment();CommittedSkill=NAME_None;
-    Strike();NextStrike=DomainCast.StrikeSeconds;
 }
-void UFPSElectricMagicComponent::SpawnArc(const FVector& Start,const FVector& End,const FLightningCast& Spell,bool bBeam)
+void UFPSElectricMagicComponent::OnRep_Domain()
+{
+    // 远端副本：雷云出现——仅演云层；伤害 tick 由服务端 Strike() 结算。
+    if(!bNetDomain||bDomainActive||Assets.Num()<1||!Assets[0])return;
+    DomainCast=NetDomainCast;DomainRewards={};DomainAge=DomainVisualAge=NextStrike=0;bDomainActive=true;bDomainFading=false;
+    SpawnDomainFX();
+}
+void UFPSElectricMagicComponent::SpawnArc(const FVector& Start,const FVector& End,const FLightningCast& Spell,bool bBeam,float ChargeRatio,float Width,bool bContactLight,float Brightness)
 {
     Arcs.RemoveAll([](const auto& A){return !A.IsValid();});if(Arcs.Num()>=48)return;
     FActorSpawnParameters P;P.Owner=GetOwner();P.Instigator=Cast<APawn>(GetOwner());P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     if(auto* A=GetWorld()->SpawnActor<AFPSLightningArc>(Start,FRotator::ZeroRotator,P))
     {
-        if(bBeam)A->InitializeColumn(Cast<UStaticMesh>(Assets[9]),Cast<UMaterialInterface>(Assets[2]),Cast<UMaterialInterface>(Assets[10]),Start,End,Spell);
-        else A->InitializeArc(Cast<UNiagaraSystem>(Assets[1]),Start,End,Spell,1.f,true,50.f);
+        if(bBeam)A->InitializeColumn(Cast<UStaticMesh>(Assets[9]),Cast<UMaterialInterface>(Assets[2]),Cast<UMaterialInterface>(Assets[10]),Start,End,Spell,ChargeRatio);
+        else A->InitializeArc(Cast<UNiagaraSystem>(Assets[1]),Start,End,Spell,Width,bContactLight,Brightness);
         Arcs.Add(A);
     }
 }
-void UFPSElectricMagicComponent::SpawnBurst(const FVector& Point,float Size)
+void UFPSElectricMagicComponent::SpawnBurst(const FVector& Point,float Size,const FRotator& Rotation)
 {
     Bursts.RemoveAll([](const auto& B){return !B.IsValid();});if(Bursts.Num()>=24)return;
-    if(auto* B=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Assets[4]),Point,FRotator::ZeroRotator,FVector(Size)))Bursts.Add(B);
+    if(auto* B=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Assets[4]),Point,Rotation,FVector(Size)))Bursts.Add(B);
 }
 void UFPSElectricMagicComponent::Overload(AActor* Origin,const FLightningCast& Spell,FElectricMagicRewards& Rewards)
 {
-    auto* M=Model();auto* P=Cast<APawn>(GetOwner());if(!M||!P)return;
+    auto* P=Cast<APawn>(GetOwner());auto* M=NetCast::AuthorityModel(P,GetWorld()?GetWorld()->GetGameInstance():nullptr);if(!M||!P)return;
     // The overloaded victim is stunned; the discharge damages nearby enemies.
     if(auto* S=UCombatStatusFormula::GetOrAdd(Origin);!S->IsImmune())
     {S->AddStun(Spell.OverloadStun);if(auto* C=Origin->FindComponentByClass<UMonsterCombatComponent>())C->ReceiveStun(P,Spell.OverloadStun,0);}
@@ -231,7 +262,9 @@ void UFPSElectricMagicComponent::ApplyStatus(AActor* Target,const FLightningCast
 }
 void UFPSElectricMagicComponent::Strike()
 {
-    auto* M=Model();auto* P=Cast<APawn>(GetOwner());if(!M||!P)return;
+    // 权威端结算；客户端 bDomainActive 仅驱动云层与倒计时——电弧经复制到达。
+    if(!GetOwner()->HasAuthority())return;
+    auto* P=Cast<APawn>(GetOwner());auto* M=NetCast::AuthorityModel(P,GetWorld()?GetWorld()->GetGameInstance():nullptr);if(!M||!P)return;
     TArray<AActor*> Chain;AActor* Cursor=nullptr;
     for(int32 I=0;I<DomainCast.Hit.Count;++I)
     {
@@ -263,13 +296,33 @@ void UFPSElectricMagicComponent::FireLance()
     // Uniform disk sampling matches the actual projected crosshair boundary.
     const float Radius=FMath::Sqrt(FMath::FRand())*LanceSpreadTangent(),Angle=FMath::FRand()*2.f*PI;
     const FVector Eye=Camera->GetComponentLocation(),Dir=(Camera->GetForwardVector()+Camera->GetRightVector()*Radius*FMath::Cos(Angle)
-        +Camera->GetUpVector()*Radius*FMath::Sin(Angle)).GetSafeNormal(),Start=CastOrigin();
+        +Camera->GetUpVector()*Radius*FMath::Sin(Angle)).GetSafeNormal();
+    // 联机客人：充能量与视线方向上行，服务端权威重算命中链；本地收尾预扣账。
+    if(GetWorld()->GetNetMode()==NM_Client)
+    {
+        NetCast::Send(P,TEXT("thunderLance"),1,Eye,Dir,0,nullptr,ChargeAge);
+        M->FinishElectricMagicCast(TEXT("thunderLance"),FElectricMagicRewards());
+        bNetPaid=false;
+        DestroyChargeVisual();if(Hands()){Hands()->TakeGesturePayment();Hands()->CancelSpellGesture(this);}
+        CommittedSkill=NAME_None;bChargeAtContact=false;ChargeAge=0;
+        if(auto* S=UCombatStatusFormula::GetOrAdd(P))if(Spell.Hit.CastHasteStacks>0)S->AddHaste(Spell.Hit.CastHasteStacks,Spell.Hit.CastHasteDuration);
+        return;
+    }
+    FireLanceBody(P,M,Eye,Dir,Ratio,Spell);
+    DestroyChargeVisual();if(Hands()){Hands()->TakeGesturePayment();Hands()->CancelSpellGesture(this);}
+    CommittedSkill=NAME_None;bChargeAtContact=false;ChargeAge=0;
+}
+// 雷枪命中结算主体——本地/服务端共用；表现特效（柱/侧弧/爆点）经 AFPSLightningArc 复制到各端。
+void UFPSElectricMagicComponent::FireLanceBody(APawn* P,UColdSteelStatusModel* M,const FVector& Eye,const FVector& Dir,float Ratio,const FElectricMagicCast& Spell)
+{
+    const float Visual=FMath::Lerp(.55f,1.f,Ratio);
+    const FVector Start=CastOrigin();
     const auto Targets=Nearby(Eye+Dir*Spell.Hit.Range*.5f,Spell.Hit.Range*.5f+Spell.HalfWidth+120);
     FCollisionQueryParams Walls(SCENE_QUERY_STAT(ThunderLanceWalls),true,P);for(auto* T:Targets)Walls.AddIgnoredActor(T);
     FHitResult EndHit;const bool Blocked=GetWorld()->LineTraceSingleByChannel(EndHit,Eye,Eye+Dir*Spell.Hit.Range,ECC_Visibility,Walls);
     const FVector End=Blocked?EndHit.ImpactPoint:Eye+Dir*Spell.Hit.Range;
     const float Reach=FVector::DotProduct(End-Eye,Dir);
-    SpawnArc(Start,End,Spell.Hit,true);SpawnBurst(Start,1.2f);FElectricMagicRewards Rewards;
+    SpawnArc(Start,End,Spell.Hit,true,Ratio);SpawnBurst(Start,1.2f*Visual);FElectricMagicRewards Rewards;
     TArray<TPair<float,AActor*>> Ordered;
     for(auto* T:Targets)
     {
@@ -288,7 +341,11 @@ void UFPSElectricMagicComponent::FireLance()
         const float Damage=FMath::FloorToFloat(Spell.Hit.Damage*Ratio*Spell.ChargeBonus*(1+Stacks*Spell.StackDamage));
         if(M->ApplyLightningHit(P,T,Eye,Spell.Hit,Damage,Rewards.Hit,true,DirectContact?&BoneHit:nullptr))
         {
-            SpawnBurst(UWardBreakableGlass::TargetPoint(T),1+FMath::Min(5,Stacks)*.08f);
+            const FVector HitPoint=UWardBreakableGlass::TargetPoint(T);
+            // A short snapped bolt ties the beam to each pierced target.
+            FLightningCast Side=Spell.Hit;Side.Duration=.08f;Side.Fade=.2f;Side.Segments=5;Side.Jitter=.22f;
+            SpawnArc(Eye+Dir*Entry.Key,HitPoint,Side,false,1.f,.6f,false,40.f);
+            SpawnBurst(HitPoint,(1+FMath::Min(5,Stacks)*.08f)*Visual);
             if(auto* C=T->FindComponentByClass<UMonsterCombatComponent>();C&&!C->IsDead())C->ReceiveMeleeKnockback(P,Spell.Knockback);
             ApplyStatus(T,Spell.Hit,Rewards);
         }
@@ -299,12 +356,23 @@ void UFPSElectricMagicComponent::FireLance()
         if(auto* Pane=Cast<UWardBreakableGlass>(EndHit.GetComponent()))Pane->BreakAt(EndHit.ImpactPoint,Dir);
         else if(Cast<AFPSIceWall>(EndHit.GetActor()))UGameplayStatics::ApplyPointDamage(EndHit.GetActor(),Spell.Hit.Damage*Ratio*Spell.ChargeBonus,Dir,EndHit,P->GetController(),P,ULightningDamage::StaticClass());
     }
-    SpawnBurst(End,Spell.EndRadius/135.f*1.875f);UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[5]),End,.8f);
+    const FVector ExitDir=Blocked?EndHit.ImpactNormal:-Dir;
+    SpawnBurst(End,Spell.EndRadius/135.f*1.875f*Visual,ExitDir.Rotation());
+    // Residual discharge arcs scatter off the endpoint: along the wall on a
+    // block, or sprayed back down the flight cone on an air end.
+    {
+        FLightningCast Res=Spell.Hit;Res.Duration=.12f;Res.Fade=.3f;Res.Segments=4;Res.Jitter=.3f;
+        FVector T1,T2;ExitDir.FindBestAxisVectors(T1,T2);
+        for(int32 I=0;I<(Blocked?3:2);++I)
+        {
+            const FVector Scatter=(T1*FMath::FRandRange(-1.f,1.f)+T2*FMath::FRandRange(-1.f,1.f)+ExitDir*FMath::FRandRange(.15f,.6f)).GetSafeNormal();
+            SpawnArc(End,End+Scatter*FMath::FRandRange(160.f,320.f),Res,false,1.f,.5f,false,35.f);
+        }
+    }
+    UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[5]),End,.8f);
     if(auto* PC=Cast<APlayerController>(P->GetController());PC&&PC->PlayerCameraManager)
     {const auto* Setting=IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Camera.Shake"));const float Scale=Setting?Setting->GetFloat():1.f;if(Scale>0)PC->PlayerCameraManager->StartCameraShake(UIceWallLandingCameraShake::StaticClass(),.7f*Scale);}
     GrantCastBuffs(Spell.Hit);M->FinishElectricMagicCast(TEXT("thunderLance"),Rewards);
-    DestroyChargeVisual();if(Hands()){Hands()->TakeGesturePayment();Hands()->CancelSpellGesture(this);}
-    CommittedSkill=NAME_None;bChargeAtContact=false;ChargeAge=0;
 }
 void UFPSElectricMagicComponent::ReleaseLance()
 {
@@ -318,11 +386,54 @@ void UFPSElectricMagicComponent::CancelPending(bool bRefund)
     const FName Skill=CommittedSkill;QueuedSkill=CommittedSkill=NAME_None;bChargeAtContact=false;ChargeAge=0;
     DestroyChargeVisual();
     if(bRefund&&!Skill.IsNone())if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,Skill);
+    // 联机客人：凝聚/充能期取消——上报服务端退预留。
+    if(bRefund&&!Skill.IsNone()&&GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bNetPaid)NetCast::Send(GetOwner(),Skill,2);
+    bNetPaid=false;
     if(Hands())Hands()->CancelSpellGesture(this);
+}
+// ── 联机服务端入口：风暴域权威激活 / 雷枪充能射线重算 ──
+bool UFPSElectricMagicComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow)
+{
+    const auto Spell=Shadow->ElectricMagicStats(Req.SkillId);
+    if(Req.SkillId==TEXT("stormDomain"))
+    {
+        if(!Shadow->CommitElectricMagicRelease(Req.SkillId))return false;
+        FinishDomain(true);PendingCast=Spell;DomainCast=Spell;DomainRewards={};DomainAge=DomainVisualAge=NextStrike=0;bDomainActive=true;bDomainFading=false;
+        SpawnDomainFX();
+        UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[5]),Caster->GetActorLocation(),.6f);
+        GrantCastBuffs(Spell.Hit);
+        NetDomainCast=DomainCast;bNetDomain=true; // 远端副本 OnRep 演云
+        Strike();NextStrike=DomainCast.StrikeSeconds;
+        return true;
+    }
+    // thunderLance：客人上报充能量+视线方向，服务端重算命中链。
+    if(!Shadow->CommitElectricMagicRelease(Req.SkillId))return false;
+    const float Charge=FMath::Clamp(Req.Charge,0.f,Spell.MaxCharge);
+    const float Ratio=FMath::Clamp(Charge/Spell.MaxCharge,.2f,1.f);
+    const FVector Eye=Caster->GetPawnViewLocation();
+    const FVector Dir=Req.AimNormal.IsNearlyZero()?Caster->GetViewRotation().Vector():Req.AimNormal.GetSafeNormal();
+    PendingCast=Spell;
+    FireLanceBody(Caster,Shadow,Eye,Dir,Ratio,Spell);
+    return true;
+}
+void UFPSElectricMagicComponent::NetCastRejected(uint8 /*Phase*/,uint8 /*Code*/)
+{
+    bNetPaid=false;
+    if(!CommittedSkill.IsNone())
+    {
+        if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,CommittedSkill);
+        Feedback(CommittedSkill,TEXT("施法失败"));
+    }
+    QueuedSkill=NAME_None;CommittedSkill=NAME_None;bChargeAtContact=false;DestroyChargeVisual();
+    if(auto* H=Hands())H->CancelSpellGesture(this);
+}
+void UFPSElectricMagicComponent::NetCastCancelled(uint8 /*Phase*/)
+{
+    bNetPaid=false;
 }
 void UFPSElectricMagicComponent::FinishDomain(bool bTrain)
 {
-    if(bDomainActive&&bTrain)if(auto* M=Model())M->FinishElectricMagicCast(TEXT("stormDomain"),DomainRewards);
+    if(bDomainActive&&bTrain)if(auto* M=NetCast::AuthorityModel(Cast<APawn>(GetOwner()),GetWorld()?GetWorld()->GetGameInstance():nullptr))M->FinishElectricMagicCast(TEXT("stormDomain"),DomainRewards);
     bDomainActive=false;bDomainFading=false;DomainRewards={};
     if(CloudFX){CloudFX->DestroyComponent();CloudFX=nullptr;}
 }

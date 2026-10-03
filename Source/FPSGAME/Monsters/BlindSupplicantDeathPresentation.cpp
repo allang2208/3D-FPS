@@ -3,6 +3,7 @@
 #include "HumanoidKnockdownComponent.h"
 #include "MonsterCombatTuning.h"
 #include "Animation/AnimSequence.h"
+#include "Animation/Skeleton.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
@@ -20,6 +21,30 @@ void ABlindSupplicantMonster::StartDeathPresentation()
     CharacterMesh->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
     DeathPresentationStart = GetWorld()->GetTimeSeconds();
     DeathGroundZ = GetActorLocation().Z - GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
+    FVector FallDirection = IncomingHitDirection.GetSafeNormal2D();
+    if (FallDirection.IsNearlyZero()) FallDirection = -GetActorForwardVector();
+    float BestAlignment = -2.f;
+    for (UAnimSequence* Candidate : DirectionalDeathClips)
+    {
+        if (!Candidate || !Candidate->GetSkeleton()) continue;
+        const int32 Pelvis = Candidate->GetSkeleton()->GetReferenceSkeleton().FindBoneIndex(TEXT("pelvis"));
+        if (Pelvis == INDEX_NONE) continue;
+        FTransform StartPose, FallPose;
+        const double SampleTime = Candidate->GetPlayLength() * MonsterCombatTuning::DeathAnimationFraction;
+        // M07's pelvis is the skeleton root. Sampling the imported translation
+        // avoids assumptions about FBX handedness or the mesh's facing offset.
+        Candidate->GetBoneTransform(StartPose, FSkeletonPoseBoneIndex(Pelvis), FAnimExtractContext(0., false), false);
+        Candidate->GetBoneTransform(FallPose, FSkeletonPoseBoneIndex(Pelvis), FAnimExtractContext(SampleTime, false), false);
+        const FVector Travel = CharacterMesh->GetComponentTransform().TransformVectorNoScale(
+            FallPose.GetLocation() - StartPose.GetLocation()).GetSafeNormal2D();
+        if (Travel.IsNearlyZero()) continue;
+        const float Alignment = FVector::DotProduct(Travel, FallDirection);
+        if (Alignment > BestAlignment)
+        {
+            BestAlignment = Alignment;
+            DeathClip = Candidate;
+        }
+    }
     if (DeathClip)
     {
         if (auto* Animation = PosePlayer())

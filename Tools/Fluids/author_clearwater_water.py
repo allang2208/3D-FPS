@@ -1,4 +1,10 @@
-"""Author the Clearwater water system: material, instance, seabed and test level.
+"""Clearwater authoring entry: native UE water optics since 2026-09-26.
+
+The default main delegates to author_clearwater_native.py and updates candidate
+materials, textures, stable MIs and the candidate's bindings/light direction. It preserves
+geometry and does not switch the current editor map. Prepare data
+first with build_clearwater_native_data.py. Functions below retain the legacy authoring
+and basin geometry helpers; legacy_main is no longer the production entry.
 
 Ported from https://github.com/Aureliengmz/clearwater (MIT, (c) 2026 Lumaris).
 The wave data comes from Tools/Fluids/clearwater_spectrum.py; the HLSL lives in
@@ -957,17 +963,11 @@ def sun_direction():
 
 
 def sun_rotation():
-    """Rotation that aims a DirectionalLight's +X axis at the sun.
-
-    A UE rotator is a rotation applied to +X, so the pitch and yaw follow directly from the
-    sun vector: pitch = asin(z) tilts the axis up to the sun's elevation, yaw = atan2(y, x)
-    swings it round to its bearing. Roll is irrelevant for a directional light. (There is no
-    MathLibrary.make_from_xz exposed to Python, and this needs no matrix anyway.)
-    """
+    """DirectionalLight +X is the light-ray direction, opposite the direction TO the sun."""
     d = sun_direction()
     pitch = math.degrees(math.asin(max(-1.0, min(1.0, d[2]))))
     yaw = math.degrees(math.atan2(d[1], d[0]))
-    return u.Rotator(roll=0.0, pitch=pitch, yaw=yaw)
+    return u.Rotator(roll=0.0, pitch=-pitch, yaw=yaw + 180.0)
 
 
 def build_lighting(actors):
@@ -1115,7 +1115,7 @@ def build_level(seabed, seabed_mat):
     log('level built: ' + MAP)
 
 
-def main():
+def legacy_main():
     verify_shader_include()
     waves_doc, waves = load_waves()
     log('waves: %d components, loop %.0f s, patch %.1f m' % (
@@ -1151,6 +1151,17 @@ def main():
     (out / 'author.json').write_text(json.dumps(REPORT, indent=2), encoding='utf-8')
     log('AUTHORED ' + json.dumps({'saved': len(REPORT['saved']),
                                   'created': len(REPORT['created'])}))
+
+
+def main():
+    # Default production now uses the native-optics candidate. The old unlit graph is
+    # retained above for historical source recovery, never rebuilt by the normal entry.
+    import importlib.util
+    script = ROOT / 'Tools/Fluids/author_clearwater_native.py'
+    spec = importlib.util.spec_from_file_location('clearwater_native_author', str(script))
+    native = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(native)
+    native.main()
 
 
 if __name__ == '__main__':

@@ -72,6 +72,12 @@ void UColdSteelEnhancementWidget::NativeTick(const FGeometry& Geometry,float Del
 {
     Super::NativeTick(Geometry,Delta);UpdateResponsiveLayout();
     if(WorkbenchPreview)WorkbenchPreview->TickStandalonePreview(Delta,PreviewSurface);
+    if(FlashOverlay&&FlashUntil>=0)
+    {
+        const double Remain=FlashUntil-FPlatformTime::Seconds();
+        if(Remain<=0){FlashUntil=-1;FlashOverlay->SetVisibility(EVisibility::Collapsed);}
+        else{FlashOverlay->SetVisibility(EVisibility::HitTestInvisible);FlashOverlay->SetColorAndOpacity(FLinearColor(1,1,1,FMath::Clamp(Remain/.9,0.,1.)));}
+    }
     // 限时图标泵：每帧最多花 4ms 补目录小图，避免打开面板时被成批 PNG 解码卡住首帧。
     if(!PendingIcons.IsEmpty())
     {
@@ -117,7 +123,7 @@ void UColdSteelEnhancementWidget::SelectScroll(const FString& Id){ScrollId=Id;Me
 bool UColdSteelEnhancementWidget::Confirm()
 {
     const double Now=FPlatformTime::Seconds();if(Now-LastConfirm<.4)return false;LastConfirm=Now;
-    bLastApplySucceeded=System()->Apply(Preview,Message);Refresh();return bLastApplySucceeded;
+    bLastApplySucceeded=System()->Apply(Preview,Message);if(bLastApplySucceeded)FlashUntil=Now+.9;Refresh();return bLastApplySucceeded;
 }
 FReply UColdSteelEnhancementWidget::NativeOnKeyDown(const FGeometry& G,const FKeyEvent& E)
 {
@@ -180,6 +186,7 @@ void UColdSteelEnhancementWidget::Refresh()
     CurrentCompare->SetButtonStyle(bCompareBase?&Normal:&SelectedStyle);BaseCompare->SetButtonStyle(bCompareBase?&SelectedStyle:&Normal);
     TArray<const FColdSteelEnchantOption*> HeldScrolls;
     if(bEnchant)for(const auto& Option:E->Scrolls())if(E->BackpackScrollCount(Option.Item)>0)HeldScrolls.Add(&Option);
+    const int64 DustHave=bEnchant?P->CountMaterial(TEXT("magic_dust")):0;
     if(bEnchant)
     {
         const auto* Selected=E->Scroll(ScrollId);
@@ -197,8 +204,34 @@ void UColdSteelEnhancementWidget::Refresh()
     AimViewControl->SetVisibility(WorkbenchPreview->CanAimPreview()?EVisibility::Visible:EVisibility::Collapsed);
     const FString Title=I?Text(*I,TEXT("name")):TEXT("请选择装备");
     ItemTitle->SetText(FText::FromString(Title));ItemTitle->SetToolTipText(FText::FromString(Title));
-    ItemLevel->SetText(FText::FromString(I?FString::Printf(TEXT("强化 +%d / +%d · %s · 保留现有配件"),
-        int32(Number(*I,TEXT("enhanceLevel"))),E->MaxLevel(*I),I->Place==1?TEXT("已装备"):TEXT("背包")):TEXT("从左侧选择装备，预览加工结果")));
+    ItemLevel->SetText(FText::FromString(I?FString::Printf(TEXT("%s · 保留现有配件"),I->Place==1?TEXT("已装备"):TEXT("背包")):TEXT("从左侧选择装备，预览加工结果")));
+    LevelBadge->SetText(FText::FromString(I?FString::Printf(TEXT("+%d"),int32(Number(*I,TEXT("enhanceLevel")))):TEXT("")));
+    LevelMax->SetText(FText::FromString(I?FString::Printf(TEXT("/ %d"),E->MaxLevel(*I)):TEXT("")));
+    GoldChip->SetText(FText::FromString(FString::Printf(TEXT("%lld"),P->CountMaterial(TEXT("gold")))));
+    StoneChip->SetText(FText::FromString(FString::Printf(TEXT("%lld"),P->CountMaterial(TEXT("enhancement_stone")))));
+    DustChip->SetText(FText::FromString(FString::Printf(TEXT("%lld"),P->CountMaterial(TEXT("magic_dust")))));
+    if(LevelTrack)
+    {
+        LevelTrack->ClearChildren();
+        if(I)for(int32 N=0,Level=int32(Number(*I,TEXT("enhanceLevel"))),Max=E->MaxLevel(*I);N<Max;++N)
+            LevelTrack->AddSlot().AutoWidth().Padding(0,0,3,0)[SNew(SBox).WidthOverride(16).HeightOverride(6)
+                [SNew(SBorder).BorderImage(N<Level?&TrackDone:N==Level?&TrackNext:&TrackIdle)]];
+    }
+    if(AffixRow)
+    {
+        AffixRow->ClearChildren();
+        if(I)
+        {
+            const TCHAR* Slots[]={TEXT("prefix"),TEXT("suffix")};const TCHAR* Names[]={TEXT("前缀"),TEXT("后缀")};
+            for(int32 S=0;S<2;++S)
+            {
+                const FString Affix=E->Affix(*I,Slots[S]);
+                if(S)AffixRow->AddSlot().AutoWidth().VAlign(VAlign_Center).Padding(8,0,8,0)[Label(TEXT("·"),12,ColdSteelUI::TextTertiary)];
+                AffixRow->AddSlot().AutoWidth().VAlign(VAlign_Center).Padding(0,0,4,0)[Label(Names[S],12,ColdSteelUI::TextTertiary)];
+                AffixRow->AddSlot().AutoWidth().VAlign(VAlign_Center)[Label(Affix.IsEmpty()?TEXT("—"):Affix,12,Affix.IsEmpty()?ColdSteelUI::TextTertiary:ColdSteelUI::Enchanted)];
+            }
+        }
+    }
     auto Summary=[&](const FString& Text,int32 Size=14,FLinearColor Tone=ColdSteelUI::TextSecondary){
         ProjectSummary->AddSlot().AutoHeight().Padding(0,0,0,5)[Label(Text,Size,Tone)];
     };
@@ -230,8 +263,22 @@ void UColdSteelEnhancementWidget::Refresh()
                         Summary(FString::Printf(TEXT("打空 %d 发弹匣：合计 %.0f → 聚合 %.0f 伤害"),Stats.Capacity,PerShot*Stats.Capacity,PerShot*Stats.Capacity*ConvergenceScale),12,ColdSteelUI::TextSecondary);
                 }
                 // 碎裂/感电与涡轮、汇聚同为模式型词缀：给一行实战说明，呈现口径统一。
+                if(ColdSteelInventory::IsBow(After)&&E->Effect(After,TEXT("bowDrawSpeedBonus"))>0.)
+                    Summary(FString::Printf(TEXT("力量 +%.0f；拉弓速度 +%.0f%%，与改造件及装备的加成相加"),E->Effect(After,TEXT("str")),E->Effect(After,TEXT("bowDrawSpeedBonus"))*100.),12,ColdSteelUI::TextSecondary);
+                else if(E->Effect(After,TEXT("heavyChargeSpeedBonus"))>0.)
+                    Summary(FString::Printf(TEXT("力量 +%.0f；重击蓄力速度 +%.0f%%，与改造件的加成相加"),E->Effect(After,TEXT("str")),E->Effect(After,TEXT("heavyChargeSpeedBonus"))*100.),12,ColdSteelUI::TextSecondary);
                 if(E->Effect(After,TEXT("cowboyReload"))>0.)
                     Summary(TEXT("进入滑铲状态 0.25 秒后，从弹药袋瞬间补弹；每次滑铲一次，仅附魔枪生效，无换弹动画"),12,ColdSteelUI::TextSecondary);
+                if(E->Effect(After,TEXT("calmFirearm"))>0.)
+                    Summary(FString::Printf(TEXT("精神 +%.0f；暴击加 1 层沉着冷静，每层稳定性 +%.0f%%、后坐力 −%.0f%%，最多 %.0f 层；暴击刷新 %.0f 秒，满层也刷新，到期全部清除"),
+                        E->Effect(After,TEXT("wis")),E->Effect(After,TEXT("composureStabilityPerStack"))*100.,E->Effect(After,TEXT("composureRecoilReductionPerStack"))*100.,
+                        E->Effect(After,TEXT("composureMaxStacks")),E->Effect(After,TEXT("composureSeconds"))),12,ColdSteelUI::TextSecondary);
+                if(E->Effect(After,TEXT("berserkMelee"))>0.)
+                    Summary(FString::Printf(TEXT("当前武器命中加 1 层狂暴：每层攻速 +%.0f%%，最多 %.0f 层；每 %.0f 秒减 1 层，命中不刷新倒计时"),
+                        E->Effect(After,TEXT("berserkSpeedPerStack"))*100.,E->Effect(After,TEXT("berserkMaxStacks")),E->Effect(After,TEXT("berserkDecaySeconds"))),12,ColdSteelUI::TextSecondary);
+                if(E->Effect(After,TEXT("bigBlind"))>0.)
+                    Summary(FString::Printf(TEXT("命中获得赌注：暴击伤害倍率每层 +%.1f，最多 %.0f 层；命中刷新 %.0f 秒，仅附魔手枪暴击后清空；枪口金色脉冲"),
+                        E->Effect(After,TEXT("wagerCriticalBonusPerStack")),E->Effect(After,TEXT("wagerMaxStacks")),E->Effect(After,TEXT("wagerSeconds"))),12,ColdSteelUI::TextSecondary);
                 if(E->Effect(After,TEXT("shatterBullet"))>0.)
                     Summary(FString::Printf(TEXT("命中后向 %.0f 米内弹射一颗，继承 %.0f%% 伤害；击杀时全员弹射"),E->Effect(After,TEXT("shatterRadiusM")),E->Effect(After,TEXT("shatterDamageScale"))*100),12,ColdSteelUI::TextSecondary);
                 if(E->Effect(After,TEXT("electrifiedMelee"))>0.)
@@ -271,9 +318,25 @@ void UColdSteelEnhancementWidget::Refresh()
             if(BeforeDamage.AddedMagic>0||AfterDamage.AddedMagic>0)Row(ColdSteelWeaponText::AddedMagic,BeforeDamage.AddedMagic,AfterDamage.AddedMagic,2);
             if(Bow)Inspector->AddSlot().AutoHeight().Padding(0,6)[Label(ColdSteelWeaponText::BowScope,12,ColdSteelUI::TextSecondary)];
             // 附魔改攻击间隔（沉重 ×1.35）必须进比较表：越低越好，反向判色；近战取挥砍节奏，枪械/弓取射击间隔。
-            const double BeforeInterval=Melee?ColdSteelMelee::Evaluate(Comparison,P).AttackSeconds:ColdSteelWeaponStats::Interval(&Comparison,P,Stats.Interval);
-            const double AfterInterval=Melee?ColdSteelMelee::Evaluate(After,P).AttackSeconds:ColdSteelWeaponStats::Interval(&After,P,Stats.Interval);
+            const double BeforeInterval=Melee?ColdSteelMelee::Evaluate(Comparison,P).AttackSeconds:Bow?ColdSteelBow::Evaluate(Comparison,P).Draw:ColdSteelWeaponStats::Interval(&Comparison,P,Stats.Interval);
+            const double AfterInterval=Melee?ColdSteelMelee::Evaluate(After,P).AttackSeconds:Bow?ColdSteelBow::Evaluate(After,P).Draw:ColdSteelWeaponStats::Interval(&After,P,Stats.Interval);
             Row(TEXT("攻击间隔 ms"),FMath::RoundToDouble(BeforeInterval*1000),FMath::RoundToDouble(AfterInterval*1000),0,true);
+            Row(TEXT("附魔力量"),bCompareBase?0:E->Effect(*I,TEXT("str")),E->Effect(After,TEXT("str")),0);
+            Row(TEXT("附魔精神"),bCompareBase?0:E->Effect(*I,TEXT("wis")),E->Effect(After,TEXT("wis")),0);
+            if(Melee)
+            {
+                const auto BeforeMelee=ColdSteelMelee::Evaluate(Comparison,P);
+                const auto AfterMelee=ColdSteelMelee::Evaluate(After,P);
+                Row(TEXT("重击蓄力速度加成 %"),BeforeMelee.HeavyChargeSpeedBonus*100.,AfterMelee.HeavyChargeSpeedBonus*100.,0);
+                Row(TEXT("重击蓄力时间 s"),BeforeMelee.HeavyChargeSeconds,AfterMelee.HeavyChargeSeconds,2,true);
+            }
+            else if(Bow)
+            {
+                const auto BeforeBow=ColdSteelBow::Evaluate(Comparison,P);
+                const auto AfterBow=ColdSteelBow::Evaluate(After,P);
+                Row(TEXT("拉弓速度加成 %"),BeforeBow.DrawSpeedBonus*100.,AfterBow.DrawSpeedBonus*100.,1);
+                Row(TEXT("拉弓时间 s"),BeforeBow.Draw,AfterBow.Draw,2,true);
+            }
             Row(TEXT("额外穿透目标"),bCompareBase?0:E->Effect(*I,TEXT("piercingBonus")),E->Effect(After,TEXT("piercingBonus")),0);
             Row(TEXT("命中叠毒层数"),bCompareBase?0:E->Effect(*I,TEXT("poisonStacks")),E->Effect(After,TEXT("poisonStacks")),0);
         }
@@ -320,6 +383,8 @@ void UColdSteelEnhancementWidget::Refresh()
                         +SVerticalBox::Slot().AutoHeight().Padding(0,6,0,0)[SNew(SBox).HeightOverride(44).Clipping(EWidgetClipping::ClipToBounds)[Label(Option.Description,14,ColdSteelUI::TextSecondary)]]
                         +SVerticalBox::Slot().FillHeight(1).VAlign(VAlign_Bottom)[SNew(SHorizontalBox)
                             +SHorizontalBox::Slot().FillWidth(1)[Label(State,12,Selected?ColdSteelUI::Accent:ColdSteelUI::TextTertiary)]
+                            +SHorizontalBox::Slot().AutoWidth().Padding(0,0,6,0)[Label(TEXT("尘"),12,ColdSteelUI::TextTertiary)]
+                            +SHorizontalBox::Slot().AutoWidth().Padding(0,0,10,0)[Label(FString::Printf(TEXT("%lld"),Option.Dust),12,DustHave>=Option.Dust?ColdSteelUI::TextSecondary:ColdSteelUI::Warning,true)]
                             +SHorizontalBox::Slot().AutoWidth().Padding(0,0,6,0)[Label(TEXT("背包"),12,ColdSteelUI::TextTertiary)]
                             +SHorizontalBox::Slot().AutoWidth()[Label(FString::Printf(TEXT("%lld"),Have),12,Have?ColdSteelUI::TextSecondary:ColdSteelUI::Warning,true)]]]]];
         }
@@ -342,7 +407,7 @@ void UColdSteelEnhancementWidget::Refresh()
         Options->AddSlot().AutoWidth()[SNew(SBox).WidthOverride(264).HeightOverride(142)
             [SNew(SBorder).BorderImage(&RowBrush).Padding(16).VAlign(VAlign_Center)[Label(bEnchant?TEXT("背包中暂无附魔卷轴"):Preview.Reason,14,ColdSteelUI::TextSecondary)]]];
 
-    const FString ConfirmLabel=bEnchant?TEXT("确认附魔"):TEXT("确认强化");
+    const FString ConfirmLabel=bEnchant?TEXT("确认附魔"):(I&&Preview.Valid?FString::Printf(TEXT("强化至 +%d"),int32(Number(Preview.After,TEXT("enhanceLevel")))):TEXT("确认强化"));
     ConfirmText->SetText(FText::FromString(ConfirmLabel));ConfirmControl->SetToolTipText(FText::FromString(ConfirmLabel+TEXT(" · ")+Preview.Reason));ConfirmControl->SetEnabled(Preview.Valid);
     Footer->SetText(FText::FromString(Message.IsEmpty()?Preview.Reason:Message));
     Footer->SetColorAndOpacity(Message.IsEmpty()?(Preview.Valid?ColdSteelUI::TextSecondary:ColdSteelUI::Warning):(bLastApplySucceeded?ColdSteelUI::Success:ColdSteelUI::Warning));

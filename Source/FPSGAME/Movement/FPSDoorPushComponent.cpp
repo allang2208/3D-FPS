@@ -1,6 +1,8 @@
 #include "FPSDoorPushComponent.h"
 #include "DoorPushAuthored20261002.h"
 #include "DoorPushCameraShake.h"
+#include "FPSCharacterMovementComponent.h"
+#include "../Weapons/WeaponBipodDeploymentComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
 #include "../Building/ColdSteelDoor.h"
@@ -38,12 +40,12 @@ bool IsClosedPushDoor(const AActor* Target)
 }
 
 UFPSDoorPushComponent::UFPSDoorPushComponent()
-{PrimaryComponentTick.bCanEverTick=false;}
+{PrimaryComponentTick.bCanEverTick=false;SetIsReplicatedByDefault(true);}
 
 void UFPSDoorPushComponent::BeginPlay()
 {
     Super::BeginPlay();
-    if(GetNetMode()!=NM_Standalone)return;
+    if(GetNetMode()==NM_DedicatedServer)return;
     auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();if(!Camera)return;
     FallbackHands=NewObject<UFPSCastingMeshComponent>(GetOwner(),TEXT("DoorPushFallbackLeftArm"));
     GetOwner()->AddInstanceComponent(FallbackHands);FallbackHands->SetupAttachment(Camera);
@@ -82,13 +84,12 @@ void UFPSDoorPushComponent::ApplyLoadedHands()
 bool UFPSDoorPushComponent::CanStart() const
 {
     if(!FallbackHands||!FallbackHands->GetSkeletalMeshAsset())return false;
-    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());if(!Player||GetNetMode()!=NM_Standalone||!Player->IsLocallyControlled())return false;
+    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());if(!Player||!Player->IsLocallyControlled())return false;
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(!PC||PC->GetViewTarget()!=Player||AFPSGAMEPlayerController::BlocksOngoingActions(PC))return false;
     if(Player->IsTraversing()||Player->IsDodging()||Player->IsSliding()||Player->IsSwitchingWeapon()||
         Player->IsLeftHandBusyForCast()||Player->IsCastBlockingLeftHandAction()||Player->IsSpellGestureBlocking())return false;
     if(const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
-    if(const auto* Body=Player->FindComponentByClass<UFPSPlayerBodyComponent>();Body&&Body->IsThirdPersonViewEnabled())return false;
     if(const auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();Bow&&Bow->IsEquipped()&&Bow->IsBusy())return false;
     return true;
 }
@@ -141,7 +142,8 @@ bool UFPSDoorPushComponent::BeginPush(const FHitResult& Hit)
         !PoseLayer.Capture(*ActiveHands.Get(),*Source,*FallbackHands->GetSkeletalMeshAsset(),
             Source==FallbackHands.Get()))return false;
     Door=LastDoor=Hit.GetActor();
-    Age=0.f;bContactResolved=false;bActive=true;
+    Age=0.f;bContactResolved=false;bActive=true;bAwaitingImpact=true;
+    ++LocalSequence;ServerBeginPush(LocalSequence,Door.Get());
     return true;
 }
 
@@ -156,6 +158,7 @@ float UFPSDoorPushComponent::GetPresentationWeight() const
 
 void UFPSDoorPushComponent::Advance(float Delta)
 {
+    if(GetOwner()->HasAuthority())AdvanceAuthority(Delta);
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());if(!Player||!Player->IsLocallyControlled()||Delta<=0.f)return;
     if(bActive)
     {
@@ -163,35 +166,15 @@ void UFPSDoorPushComponent::Advance(float Delta)
         const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();
         const auto* Body=Player->FindComponentByClass<UFPSPlayerBodyComponent>();
         if(!ActiveHands.IsValid()||!PC||PC->GetViewTarget()!=Player||Player->IsTraversing()||Player->IsDodging()||Player->IsSliding()||
-            (Body&&Body->IsThirdPersonViewEnabled())||
             (Health&&Health->IsDead())||AFPSGAMEPlayerController::BlocksOngoingActions(PC))
         {Cancel();return;}
         Age+=Delta;
         if(Age>=DoorPushAuthored20261002::ContactSeconds&&!bContactResolved)
         {
-            bContactResolved=true;FHitResult Hit;
-            if(Player->IsSprinting()&&IsClosedPushDoor(Door.Get())&&Probe(Hit)&&Hit.GetActor()==Door.Get())
-            {
-                bool bOpened=false;
-                if(auto* Single=Cast<AColdSteelDoor>(Door.Get()))
-                {Single->OpenDoor();bOpened=Single->IsDoorOpen();}
-                else if(auto* Double=Cast<AColdSteelDoubleDoor>(Door.Get()))
-                {Double->OpenWindow();bOpened=Double->IsWindowOpen();}
-                if(bOpened)
-                {
-                    if(auto* Impact=Cast<USoundBase>(DoorPushImpactPath.ResolveObject()))
-                        UGameplayStatics::PlaySound2D(this,Impact,.85f,1.f,0.f,nullptr,Player,false);
-                }
-                if(bOpened&&PC->PlayerCameraManager)
-                {
-                    const auto* Setting=IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Camera.Shake"));
-                    const float Scale=Setting?FMath::Max(0.f,Setting->GetFloat()):1.f;
-                    if(Scale>0.f)PC->PlayerCameraManager->StartCameraShake(UDoorPushCameraShake::StaticClass(),
-                        Scale,ECameraShakePlaySpace::CameraLocal);
-                }
-            }
+            bContactResolved=true;
+            ServerContactPush(LocalSequence);
         }
-        if(Age>=DoorPushAuthored20261002::DurationSeconds)Cancel();
+        if(Age>=DoorPushAuthored20261002::DurationSeconds)Cancel(true);
         return;
     }
     const auto* Movement=Player->GetCharacterMovement();
@@ -223,11 +206,124 @@ void UFPSDoorPushComponent::UpdatePresentation()
     if(Show){FallbackHands->TickAnimation(0.f,false);FallbackHands->RefreshBoneTransforms();}
 }
 
-void UFPSDoorPushComponent::Cancel()
+void UFPSDoorPushComponent::Cancel(bool bCompleted)
 {
+    if(!bCompleted)bAwaitingImpact=false;
+    if(!bCompleted&&bActive&&GetOwner()&&Cast<APawn>(GetOwner())->IsLocallyControlled())ServerCancelPush(LocalSequence);
     bActive=false;ActiveHands.Reset();Door.Reset();PoseLayer.Reset();
     if(FallbackHands)FallbackHands->SetVisibility(false);
 }
 
 void UFPSDoorPushComponent::EndPlay(const EEndPlayReason::Type Reason)
 {Cancel();if(Load){Load->CancelHandle();Load.Reset();}Super::EndPlay(Reason);}
+
+// RPCs travel on the owning pawn's component. Door actors remain server-owned.
+bool UFPSDoorPushComponent::ServerCanInteract(AActor* Target,bool bSprint) const
+{
+    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+    if(!Player||!Player->HasAuthority()||!IsValid(Target)||Target->GetWorld()!=GetWorld()||
+        Target->ActorHasTag(TEXT("VoxelDetached")))return false;
+    if(!Cast<AColdSteelDoor>(Target)&&!Cast<AColdSteelWindow>(Target))return false;
+    const auto* PC=Cast<APlayerController>(Player->GetController());
+    if(!PC||AFPSGAMEPlayerController::BlocksOngoingActions(PC))return false;
+    if(const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
+    if(Player->IsTraversing()||Player->IsDodging()||Player->IsSliding()||Player->IsSwitchingWeapon()||
+        Player->IsLeftHandBusyForCast()||Player->IsCastBlockingLeftHandAction()||Player->IsSpellGestureBlocking())return false;
+    if(Player->BipodDeployment&&Player->BipodDeployment->BlocksMovement())return false;
+    if(bSprint)
+    {
+        const auto* Move=Cast<UFPSCharacterMovementComponent>(Player->GetCharacterMovement());
+        if(!IsClosedPushDoor(Target)||!Move||!Move->IsMovingOnGround()||Move->bWantsToSlide||
+            !(Player->IsLocallyControlled()?Player->IsSprinting():bool(Move->bWantsToSprint)))return false;
+    }
+    FVector Eye=Player->GetMeleeAimTransform().GetLocation();FRotator Aim=Player->GetControlRotation();
+    if(Player->IsLocallyControlled())ColdSteelWorldInteraction::GetReachViewPoint(PC,Eye,Aim);
+    FCollisionQueryParams Params(SCENE_QUERY_STAT(NetDoorReach),false,Player);
+    TArray<FHitResult> Hits;
+    GetWorld()->LineTraceMultiByChannel(Hits,Eye,Eye+Aim.Vector()*(bSprint?DoorPushReachCm:250.f),ECC_Visibility,Params);
+    for(const auto& Hit:Hits)
+    {
+        if(const auto* Arrow=Cast<ABowArrow>(Hit.GetActor());Arrow&&Arrow->CanRecover())return false;
+        if(!Hit.bBlockingHit)continue;
+        return Hit.GetActor()==Target&&(!bSprint||FVector::DotProduct(Hit.ImpactNormal,FRotator(0,Aim.Yaw,0).Vector())<=-.55f);
+    }
+    return false;
+}
+
+void UFPSDoorPushComponent::ServerBeginPush_Implementation(uint16 Sequence,AActor* Target)
+{
+    const double Now=GetWorld()->GetTimeSeconds();
+    if(ServerDoor.IsValid()||(LastServerRequest>=0.&&Now-LastServerRequest<.2)||!ServerCanInteract(Target,true))
+    {ClientPushResult(Sequence,false);return;}
+    LastServerRequest=Now;ServerSequence=Sequence;ServerDoor=Target;ServerAge=0.f;bServerContact=false;
+}
+
+void UFPSDoorPushComponent::ServerContactPush_Implementation(uint16 Sequence)
+{
+    if(Sequence==ServerSequence&&ServerDoor.IsValid())
+    {bServerContact=true;AdvanceAuthority(0.f);}
+}
+
+void UFPSDoorPushComponent::ServerCancelPush_Implementation(uint16 Sequence)
+{
+    if(Sequence==ServerSequence){ServerDoor.Reset();bServerContact=false;}
+}
+
+void UFPSDoorPushComponent::AdvanceAuthority(float DeltaSeconds)
+{
+    if(!ServerDoor.IsValid())return;
+    ServerAge+=DeltaSeconds;
+    if(ServerAge>DoorPushAuthored20261002::DurationSeconds+.5f)
+    {ServerDoor.Reset();ClientPushResult(ServerSequence,false);return;}
+    if(!bServerContact||ServerAge<DoorPushAuthored20261002::ContactSeconds)return;
+    AActor* Target=ServerDoor.Get();ServerDoor.Reset();bServerContact=false;
+    if(!ServerCanInteract(Target,true)){ClientPushResult(ServerSequence,false);return;}
+    const auto* Player=Cast<APawn>(GetOwner());
+    if(auto* Single=Cast<AColdSteelDoor>(Target))Single->OpenDoorFrom(Player);
+    else if(auto* Double=Cast<AColdSteelDoubleDoor>(Target))Double->OpenWindowFrom(Player);
+    ClientPushResult(ServerSequence,true);
+    MulticastPushImpact(Target->GetActorLocation()+FVector(0,0,100));
+}
+
+void UFPSDoorPushComponent::ClientPushResult_Implementation(uint16 Sequence,bool bOpened)
+{
+    if(Sequence!=LocalSequence||!bAwaitingImpact)return;
+    bAwaitingImpact=false;
+    if(!bOpened){Cancel();return;}
+    PlayImpact();
+}
+
+void UFPSDoorPushComponent::PlayImpact()
+{
+    auto* Player=Cast<APawn>(GetOwner());if(!Player||!Player->IsLocallyControlled())return;
+    if(auto* Sound=Cast<USoundBase>(DoorPushImpactPath.ResolveObject()))UGameplayStatics::PlaySound2D(this,Sound,.85f);
+    const auto* PC=Cast<APlayerController>(Player->GetController());
+    if(PC&&PC->PlayerCameraManager)
+    {
+        const auto* Setting=IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Camera.Shake"));
+        const float Scale=Setting?FMath::Max(0.f,Setting->GetFloat()):1.f;
+        if(Scale>0.f)PC->PlayerCameraManager->StartCameraShake(UDoorPushCameraShake::StaticClass(),Scale,ECameraShakePlaySpace::CameraLocal);
+    }
+}
+
+void UFPSDoorPushComponent::MulticastPushImpact_Implementation(FVector_NetQuantize Location)
+{
+    const auto* Player=Cast<APawn>(GetOwner());
+    if(GetNetMode()==NM_DedicatedServer||!Player||Player->IsLocallyControlled())return;
+    if(auto* Sound=Cast<USoundBase>(DoorPushImpactPath.ResolveObject()))UGameplayStatics::PlaySoundAtLocation(this,Sound,Location,.85f);
+}
+
+bool UFPSDoorPushComponent::RequestDoorInteraction(AActor* Target)
+{
+    if(!IsValid(Target)||(!Cast<AColdSteelDoor>(Target)&&!Cast<AColdSteelWindow>(Target)))return false;
+    Cancel();ServerToggleDoor(Target);return true;
+}
+
+void UFPSDoorPushComponent::ServerToggleDoor_Implementation(AActor* Target)
+{
+    const double Now=GetWorld()->GetTimeSeconds();
+    if((LastServerRequest>=0.&&Now-LastServerRequest<.15)||!ServerCanInteract(Target,false))return;
+    LastServerRequest=Now;ServerDoor.Reset();bServerContact=false;
+    if(auto* Single=Cast<AColdSteelDoor>(Target))Single->ToggleDoorFrom(Cast<APawn>(GetOwner()));
+    else if(auto* Window=Cast<AColdSteelWindow>(Target))Window->ToggleWindowFrom(Cast<APawn>(GetOwner()));
+}

@@ -18,7 +18,7 @@
 | 左拳抵剑格挡 | [FistBraceGuardV21](FistBraceGuardV21/README.md)，用户反馈“成功”；V20 是必要姿态输入 |
 | 蓄力左臂及释放/未蓄满衔接 | [ChargedArmV22](ChargedArmV22/README.md)，用户反馈“OK了” |
 | 切剑装备 | [BackDrawEquipV23](BackDrawEquipV23/README.md)，用户明确保留的 1.20 秒背后拔剑 |
-| 当前 F 键检视 | [InspectGripArcV46](InspectGripArcV46/README.md) 的 V47：前臂旋前分散 + 转刀按参考相位重建；2.90 秒；未测试 |
+| 当前 L 键检视 | [InspectGripArcV46](InspectGripArcV46/README.md) 的 V47：前臂旋前分散 + 转刀按参考相位重建；2.90 秒。2026-09-25 的 V53 剑面检视已被用户否定，资产已退回 |
 | 冲刺举顶竖劈 | [InspectGripArcV46](InspectGripArcV46/README.md) 的 V49：重定时已接受重击得到的举顶下劈，Shift 奔跑中攻击触发；1.30 秒；未测试 |
 | 上一版 F 键检视 | [OffscreenLeftInspectV42](OffscreenLeftInspectV42/README.md)，移除中途左手入镜，保留右手转剑和末尾回握 |
 | 用户认可的检视母版 | [ReferenceReplicaV36](ReferenceReplicaV36/README.md)，指定视频 76–78 秒逐帧重建，2.90 秒；保留原姿态、原文件与恢复入口 |

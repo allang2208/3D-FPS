@@ -9,6 +9,7 @@
 #include "Components/DirectionalLightComponent.h"
 #include "Components/SkyLightComponent.h"
 #include "../Weapons/LMG201WeaponAssets.h"
+#include "../Weapons/PitViper2011WeaponAssets.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Engine/Texture2D.h"
 #include "Materials/MaterialInterface.h"
@@ -58,20 +59,24 @@ void UM4GunsmithWidget::CapturePreview()
         for(const auto& Weak:Capture->ShowOnlyComponents)
             if(auto* Part=Weak.Get();Part&&Part->IsVisible())LightBounds+=Part->Bounds.GetBox().TransformBy(ToView);
     }
-    bool bGraphite201=false;
+    bool bGraphite201=false,bPitViper2011=false;
     for(const auto& Pair:StudioCopies)
         if(Pair.Key.IsValid()&&Pair.Value&&Pair.Value->IsVisible())
             if(auto* Skinned=Cast<USkeletalMeshComponent>(Pair.Value))
+            {
                 bGraphite201|=LMG201WeaponAssets::Matches(Skinned);
-    // This profile belongs to the 201 assembly. Restore the original studio
-    // levels when another weapon replaces it in the same preview widget.
-    const float KeyLevel=bGraphite201?2.5f:6.f;
-    const float FillLevel=bGraphite201?.65f:3.f;
-    const float SkyLevel=bGraphite201?.28f:1.f;
+                bPitViper2011|=PitViper2011WeaponAssets::Matches(Skinned);
+            }
+    // Recalculate family-specific levels when the same widget changes weapons.
+    // A restrained Pit Viper fill preserves contrast between its WS black
+    // coating, copper barrel and polymer grip in the compact studio framing.
+    const float KeyLevel=bPitViper2011?2.2f:bGraphite201?2.5f:6.f;
+    const float FillLevel=bPitViper2011?.5f:bGraphite201?.65f:3.f;
+    const float SkyLevel=bPitViper2011?.25f:bGraphite201?.28f:1.f;
     if(!FMath::IsNearlyEqual(Studio->DirectionalLight->Intensity,KeyLevel))Studio->SetLightBrightness(KeyLevel);
     if(StudioFill&&!FMath::IsNearlyEqual(StudioFill->Intensity,FillLevel))StudioFill->SetIntensity(FillLevel);
     if(!FMath::IsNearlyEqual(Studio->SkyLight->Intensity,SkyLevel))Studio->SetSkyBrightness(SkyLevel);
-    GunsmithPreviewLighting::Update(*Capture,LightBounds,bGraphite201);
+    GunsmithPreviewLighting::Update(*Capture,LightBounds,bGraphite201||bPitViper2011);
     PreviewCoverageCapture->ShowOnlyComponents=Capture->ShowOnlyComponents;
     PreviewCoverageCapture->SetWorldTransform(Capture->GetComponentTransform());
     PreviewCoverageCapture->ProjectionType=Capture->ProjectionType;

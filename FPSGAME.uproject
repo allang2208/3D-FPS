@@ -11,6 +11,8 @@
 		}
 	],
 	"Plugins": [
+		{ "Name": "RigLogic", "Enabled": true },
+		{ "Name": "HairStrands", "Enabled": true },
 		{
 			"Name": "Niagara",
 			"Enabled": true
@@ -98,6 +100,14 @@
 		},
 		{
 			"Name": "ProceduralVegetationEditor",
+			"Enabled": true
+		},
+		{
+			"Name": "Vibe3D",
+			"Enabled": true
+		},
+		{
+			"Name": "LiveCodingToolset",
 			"Enabled": true
 		},
 		{

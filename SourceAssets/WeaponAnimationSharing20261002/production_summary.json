@@ -1,0 +1,26 @@
+{
+  "complete": true,
+  "tested": false,
+  "totals": {
+    "saved_profiles": 4,
+    "pairs": 16,
+    "delta_pairs": 16,
+    "retained_pairs": 0,
+    "bytes": 234424,
+    "keys": 4394
+  },
+  "groups": {
+    "ue_pit_viper2011": {
+      "saved_profiles": 4,
+      "pairs": 16,
+      "delta_pairs": 16,
+      "retained_pairs": 0,
+      "bytes": 234424,
+      "keys": 4394
+    }
+  },
+  "unique_converted_variants": 16,
+  "unique_retained_variants": 0,
+  "unique_variants_without_full_clip_reference": 16,
+  "source_animations_deleted": false
+}

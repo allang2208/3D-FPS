@@ -38,7 +38,7 @@ $batch = Join-Path $out 'build.cmd'
 @echo off
 cd /d "$out"
 call "$vcvars" >nul
-cl /nologo /O2 /MD /EHsc /std:c++17 /DNDEBUG /DNVBLAST_STATIC /DNV_STATIC_LIB /D_CRT_SECURE_NO_WARNINGS $($includes -join ' ') "$source" /Fe:voxel_stress_probe.exe /link "$library"
+cl /nologo /O2 /MD /EHsc /std:c++17 /utf-8 /DNDEBUG /DNVBLAST_STATIC /DNV_STATIC_LIB /D_CRT_SECURE_NO_WARNINGS $($includes -join ' ') "$source" /Fe:voxel_stress_probe.exe /link "$library"
 "@ | Set-Content -LiteralPath $batch -Encoding ASCII
 
 & cmd /d /c $batch

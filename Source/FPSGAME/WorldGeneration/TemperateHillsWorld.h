@@ -144,17 +144,25 @@ public:
     ATemperateHillsWorld();
     virtual void OnConstruction(const FTransform& Transform) override;
     virtual void Tick(float DeltaSeconds) override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     UPROPERTY(EditAnywhere, Category="Hills") TObjectPtr<UTemperateHillsAssets> Assets;
     UPROPERTY(EditDefaultsOnly, Category="River|Pilot") TSoftObjectPtr<UMaterialInterface> RiverPilotMaterial = TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Fluids/RiverPilot20260923/M_RiverPilot.M_RiverPilot")));
     UPROPERTY(EditDefaultsOnly, Category="River|Pilot") TSoftObjectPtr<class UNiagaraSystem> RiverPilotSplash = TSoftObjectPtr<UNiagaraSystem>(FSoftObjectPath(TEXT("/Game/Fluids/RiverPilot20260923/NS_RiverBulletSplash.NS_RiverBulletSplash")));
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Hills") int32 Seed = 122;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Replicated, Category="Hills") int32 Seed = 122;
     UPROPERTY(EditAnywhere, Category="Hills", meta=(ClampMin="256",ClampMax="1024")) float SizeMeters = 1024.f;
     UPROPERTY(EditAnywhere, Category="Hills|Streaming", meta=(ClampMin="96",ClampMax="256")) float DetailRadiusMeters = 160.f;
     UPROPERTY(EditAnywhere, Category="Hills|Streaming", meta=(ClampMin="256",ClampMax="512")) float ViewRadiusMeters = 384.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Hills") bool bReady = false;
     // Allows the loading camera/pawn and PCG to prepare before gameplay is released.
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Hills") bool bSurfaceReady = false;
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Hills") FGuid WorldId;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category="Hills") FGuid WorldId;
+    /** M4 联机：服务端广播的地形编辑（与存档同构的传输形）+ 版本号；客户端转成 TerrainEdits 做确定性重建。 */
+    UPROPERTY(ReplicatedUsing=OnRep_NetEdits)
+    TArray<FHillsTerrainEditRecord> NetEdits;
+    UPROPERTY(Replicated)
+    int32 NetEditsVersion = 0;
+    UFUNCTION()
+    void OnRep_NetEdits();
     UFUNCTION(BlueprintPure, Category="Hills") FVector GetStartLocation() const;
     FRotator GetStartRotation() const;
     double Height(double X, double Y) const;
@@ -266,6 +274,11 @@ private:
     int32 ClearCoverForEdit(const TemperateHillsSurface::FTerrainEdit& Edit);
     bool IsGroundCoverMesh(const class UStaticMesh* Mesh) const;
     TArray<TemperateHillsSurface::FTerrainEdit> TerrainEdits;
+    // M4 联机：客户端等复制会话就绪后只初始化一次；服务端/单机共用后半段管线。
+    bool bClientWorldInit = false;
+    bool StartWorldPipeline();
+    void ConvertNetEdits();
+    void SyncNetEdits();
     TMap<int64, TArray<int32>> EditBuckets;
     double NextCoverSweep = 0;
 };

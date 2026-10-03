@@ -1,0 +1,78 @@
+[
+  {
+    "instance": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+    "preset": "detail-up",
+    "before": {
+      "SkinDetailStrength": 0.029999999329447746,
+      "LeatherNormalStrength": 0.8500000238418579,
+      "SkinScatterStrength": 0.550000011920929,
+      "GloveCuffStart": 0.0,
+      "LeatherTileRepeat": 4.311859607696533,
+      "SkinTint": [
+        0.36,
+        0.235,
+        0.185
+      ],
+      "SleeveTint": [
+        0.02,
+        0.024,
+        0.027
+      ]
+    },
+    "after": {
+      "SkinDetailStrength": 0.029999999329447746,
+      "LeatherNormalStrength": 0.8500000238418579,
+      "SkinScatterStrength": 0.550000011920929,
+      "GloveCuffStart": 0.0,
+      "LeatherTileRepeat": 4.311859607696533,
+      "SkinTint": [
+        0.36,
+        0.235,
+        0.185
+      ],
+      "SleeveTint": [
+        0.02,
+        0.024,
+        0.027
+      ]
+    }
+  },
+  {
+    "instance": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02",
+    "preset": "detail-up",
+    "before": {
+      "SkinDetailStrength": 0.012000000104308128,
+      "LeatherNormalStrength": 0.550000011920929,
+      "SkinScatterStrength": 0.18000000715255737,
+      "GloveCuffStart": 0.8899123072624207,
+      "LeatherTileRepeat": 4.311859607696533,
+      "SkinTint": [
+        0.36,
+        0.235,
+        0.185
+      ],
+      "SleeveTint": [
+        0.02,
+        0.024,
+        0.027
+      ]
+    },
+    "after": {
+      "SkinDetailStrength": 0.029999999329447746,
+      "LeatherNormalStrength": 0.8500000238418579,
+      "SkinScatterStrength": 0.18000000715255737,
+      "GloveCuffStart": 0.8899123072624207,
+      "LeatherTileRepeat": 4.311859607696533,
+      "SkinTint": [
+        0.36,
+        0.235,
+        0.185
+      ],
+      "SleeveTint": [
+        0.02,
+        0.024,
+        0.027
+      ]
+    }
+  }
+]

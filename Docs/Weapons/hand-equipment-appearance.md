@@ -1,5 +1,7 @@
 # 手部装备替换标准
 
+当前第一人称基础视模已采用 [V7 默认裸手](../Characters/bare-palm-native-default-v7-20260925.md)。新增模块化手套的贴合与动画复用使用 [贴合手套与动画复用](../Characters/fitted-gloves-animation-sharing-20260925.md)；以下 2026-09-12 材质管线保留为原版战术手套的历史作者源，不作为恢复默认带手套视模的指令。
+
 2026-09-12 用户接受现有效果，并指定以后增加衣物、手套装备时沿用此方法。基线为 Manny 手模、原色棕皮革手套、裸露前臂皮肤、炭灰布袖；手套沿手腕向前臂延长 3 cm，开口用约 4 mm 薄卷边、浅沟槽与窄接触色过渡处理。
 
 作者入口：[SourceAssets/HandEquipmentAppearance](../../SourceAssets/HandEquipmentAppearance/README.md)。技能入口：[手部装备表现](../../skills/ue5-fps-arms-animation/references/hand-equipment-appearance.md)。

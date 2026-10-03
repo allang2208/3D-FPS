@@ -1,0 +1,30 @@
+{
+  "revision": "ChargedSnapUppercutV9",
+  "animations": {
+    "/Game/Weapons/SwordUppercut20261003/Standard/A_Sword_UppercutV1_Standard": {
+      "asset": "/Game/Weapons/SwordUppercut20261003/Standard/A_Sword_UppercutV1_Standard.A_Sword_UppercutV1_Standard",
+      "previous_author_metadata": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\LeftForwardGripV8\\Standard\\editable_keys.json",
+      "seconds": 1.7,
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ChargedSnapV9\\Standard\\editable_keys.json",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ChargedSnapV9\\Standard\\A_Sword_UppercutV9_Standard.fbx"
+    },
+    "/Game/Weapons/SwordUppercut20261003/LongGrip/A_Sword_UppercutV1_LongGrip": {
+      "asset": "/Game/Weapons/SwordUppercut20261003/LongGrip/A_Sword_UppercutV1_LongGrip.A_Sword_UppercutV1_LongGrip",
+      "previous_author_metadata": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\LeftForwardGripV8\\LongGrip\\editable_keys.json",
+      "seconds": 1.7,
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ChargedSnapV9\\LongGrip\\editable_keys.json",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ChargedSnapV9\\LongGrip\\A_Sword_UppercutV9_LongGrip.fbx"
+    },
+    "/Game/Weapons/SwordUppercut20261003/Standard/A_Sword_UppercutV1_Standard_PreviewLoop": {
+      "asset": "/Game/Weapons/SwordUppercut20261003/Standard/A_Sword_UppercutV1_Standard_PreviewLoop.A_Sword_UppercutV1_Standard_PreviewLoop",
+      "previous_author_metadata": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\LeftForwardGripV8\\Standard\\editable_keys.json",
+      "seconds": 2.35,
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ChargedSnapV9\\Standard\\editable_keys.json",
+      "fbx": null
+    }
+  },
+  "runtime_tested": false,
+  "rendered": false,
+  "paid_motion_used": false,
+  "reference": "V8 complete poses retimed: longer lower-right load and hold, twice-speed upward strike"
+}

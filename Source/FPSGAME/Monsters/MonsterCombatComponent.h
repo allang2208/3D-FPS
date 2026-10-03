@@ -15,11 +15,16 @@ public:
  UMonsterCombatComponent();
  virtual void BeginPlay() override;
  virtual void TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick) override;
+ virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ UFUNCTION() void OnRep_HitReactions();
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Reaction") TObjectPtr<UAnimSequence> HitClip;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Reaction") float StaggerDuration=.55f;
- UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Reaction") int32 HitReactions=0;
+ /** 反应计数器：远端端 OnRep 依此增量镜像播受击表现（服务端原值++即触发复制）。 */
+ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Reaction",ReplicatedUsing=OnRep_HitReactions) int32 HitReactions=0;
  /** Explicit skill/parry stun only; toughness stagger and knockdown are separate. */
- UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Reaction") bool bStunned=false;
+ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Reaction",Replicated) bool bStunned=false;
+ /** 服务端最近一次显式眩晕时长（远端用来近似 ExplicitStunUntil 播摇摆）。 */
+ UPROPERTY(Replicated) float NetStunSeconds=0.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Reaction|Stun") TObjectPtr<UAnimSequence> DizzyClip;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Reaction|Stun",meta=(ClampMin="0.25",ClampMax="2")) float DizzyPlayRate=1.f;
  bool IsPlayingStunSway() const { return bPlayingSway; }
@@ -80,7 +85,11 @@ public:
 private:
  float IncomingHitReactionMultiplier=1.f;
  float IncomingToughnessDamageMultiplier=1.f;
- float SinceHit=100.f,ReactionTime=0,ReactionDuration=0;
+ float SinceHit=100.f,ReactionTime=0;
+ /** 本次硬直时长——复制给远端，客户端镜像走同一套表现时钟。 */
+ UPROPERTY(Replicated) float ReactionDuration=0;
+ /** 远端镜像：本端正在按复制计数播受击表现（类内 State 不复制，用此旗标替代）。 */
+ bool bNetReacting=false;
  void UpdateReactionPresentation();
  void LoadHumanoidStun();
  bool BeginHumanoidStun(float Duration);

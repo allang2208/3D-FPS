@@ -34,10 +34,15 @@ public:
     float HandNoticeAlpha() const;
     float HandNoticeRise() const;
     UFPSElectricMagicComponent();
+    // ── 联机 ──
+    bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow);
+    void NetCastRejected(uint8 Phase,uint8 Code);
+    void NetCastCancelled(uint8 Phase);
 protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
     virtual void EndPlay(EEndPlayReason::Type Reason) override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 private:
     UPROPERTY(Transient) TArray<TObjectPtr<UObject>> Assets;
     UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> CloudFX;
@@ -69,9 +74,18 @@ private:
     FVector CastOrigin() const;
     void UpdateChargeVisual();
     void DestroyChargeVisual();
-    void SpawnArc(const FVector& Start,const FVector& End,const FLightningCast& Spell,bool bBeam=false);
-    void SpawnBurst(const FVector& Point,float Size=1.f);
+    void SpawnArc(const FVector& Start,const FVector& End,const FLightningCast& Spell,bool bBeam=false,float ChargeRatio=1.f,float Width=1.f,bool bContactLight=true,float Brightness=50.f);
+    void SpawnBurst(const FVector& Point,float Size=1.f,const FRotator& Rotation=FRotator::ZeroRotator);
     void ApplyStatus(AActor* Target,const FLightningCast& Spell,FElectricMagicRewards& Rewards);
     void Overload(AActor* Origin,const FLightningCast& Spell,FElectricMagicRewards& Rewards);
     void GrantCastBuffs(const FLightningCast& Spell);
+    /** 雷枪命中结算主体：本地释放与服务端权威释放共用。 */
+    void FireLanceBody(APawn* P,UColdSteelStatusModel* M,const FVector& Eye,const FVector& Dir,float Ratio,const FElectricMagicCast& Spell);
+    /** 雷云 FX——本地激活与服务端激活共用（远端靠复制态重演）。 */
+    void SpawnDomainFX();
+    // ── 联机：雷云激活态复制（远端副本看云；电弧/雷枪柱经 AFPSLightningArc 复制）──
+    UPROPERTY(ReplicatedUsing=OnRep_Domain) bool bNetDomain=false;
+    UPROPERTY(Replicated) FElectricMagicCast NetDomainCast;
+    UFUNCTION() void OnRep_Domain();
+    bool bNetPaid=false;
 };

@@ -33,6 +33,10 @@ public:
     bool IsHandOccupiedNotice() const;
     float HandNoticeAlpha() const;
     float HandNoticeRise() const;
+    // ── 联机 ──
+    bool NetCommitZone(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow);
+    void NetCastRejected(uint8 Phase,uint8 Code);
+    void NetCastCancelled(uint8 Phase);
 protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
@@ -66,5 +70,8 @@ private:
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> AimMID;
     bool bGathered=false,bReleaseRequested=false,bAimPreview=false,bPreviewValid=false,bStaffCloud=false;
     float PaidMana=0,PreparedAge=0,PreviewAge=0;
+    /** 联机客人：本地扣账已发生、等待服务端区复制的窗口。 */
+    bool bNetPaid=false;
+    double NetPaidAt=-100.0;
     FString PreviewFailure;
 };

@@ -85,6 +85,21 @@ def dims_of(path):
     return (round(e.x * 2, 1), round(e.y * 2, 1), round(e.z * 2, 1))
 
 
+def ensure_rail_collision(path):
+    """A solid handrail needs its own simple collision, including existing assets."""
+    mesh=unreal.EditorAssetLibrary.load_asset(path)
+    if not mesh:raise RuntimeError("Missing rail mesh: "+path)
+    setup=mesh.get_editor_property("body_setup")
+    agg=setup.get_editor_property("agg_geom")
+    if any(len(agg.get_editor_property(k)) for k in ("box_elems","convex_elems","sphere_elems","sphyl_elems")):return
+    setup.set_editor_property("collision_trace_flag",unreal.CollisionTraceFlag.CTF_USE_SIMPLE_AND_COMPLEX)
+    subsystem=unreal.get_editor_subsystem(unreal.StaticMeshEditorSubsystem)
+    if subsystem.add_simple_collisions(mesh,unreal.ScriptCollisionShapeType.BOX)<0:
+        raise RuntimeError("Could not create rail box: "+path)
+    if not unreal.EditorAssetLibrary.save_loaded_asset(mesh,False):
+        raise RuntimeError("Could not save rail collision: "+path)
+
+
 # ------------------------------------------------- 1. build the three moulded rails
 # EXACT cross-section of SM_BalustradeSegment_20's moulded rail (the in-game look):
 # 40 cm base, right lip, arc crest, flat left ledge. Centered on y so the bbox is 40 wide.
@@ -96,6 +111,7 @@ profile.append(v2(-V, 2 * V))
 
 for rail_id, _caption, path, (cx, cy, cz) in RAILS:
     if unreal.EditorAssetLibrary.load_asset(path):
+        ensure_rail_collision(path)
         log("%s already on disk, skip build" % path.split("/")[-1])
         continue
     half = cx * V / 2.0
@@ -116,7 +132,7 @@ for rail_id, _caption, path, (cx, cy, cz) in RAILS:
     do("save_%d" % cx, SV.save_mesh_to_static_mesh(rail, path, True, True, False, True))
     SV.release_mesh(rail)
     if wait(path, 15.0):
-        do("col_%d" % cx, SV.generate_collision(path, "AlignedBoxes", 1, 25, True))
+        ensure_rail_collision(path)
         do("mat_%d" % cx, SV.set_asset_materials(path, STONE, True))
 
 # --------------------------------------------------------- 2. rebuild palette entries

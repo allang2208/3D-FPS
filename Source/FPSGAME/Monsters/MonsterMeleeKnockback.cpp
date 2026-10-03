@@ -1,5 +1,6 @@
 #include "MonsterCombatComponent.h"
 #include "M10Mawcrawler.h"
+#include "HangingBellM09.h"
 #include "MonsterObstacleCollision.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -41,7 +42,8 @@ void UMonsterCombatComponent::ReceiveStun(APawn* Attacker,float Seconds,float Kn
     RegisterExplicitStun(Seconds);
     Seconds=FMath::Max(StunSecondsRemaining(),Remaining);
     bParryReaction=false;Toughness=0.f;SinceHit=0.f;
-    if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))M10->InterruptAttack(Seconds);
+    if(auto* M09=Cast<AHangingBellM09>(GetOwner()))M09->InterruptAttack(Seconds);
+    else if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))M10->InterruptAttack(Seconds);
     else if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->InterruptAttack(Seconds);
     else if(auto* F=Cast<AFleshHandMonster>(GetOwner()))F->InterruptAttack(Seconds);
     else if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(Seconds);
@@ -83,6 +85,7 @@ bool UMonsterCombatComponent::MoveMeleePush(float Distance)
 bool UMonsterCombatComponent::ReceiveKnockdown(APawn* Attacker,FVector LaunchVelocity,float DownSeconds)
 {
     if(!GetOwner()->HasAuthority() || IsDead())return false;
+    if(auto* M09=Cast<AHangingBellM09>(GetOwner())){M09->InterruptAttack(FMath::Max(.7f,DownSeconds));return true;}
     bool Launched=false;
     if(auto* F=Cast<AFleshHandMonster>(GetOwner()))Launched=F->Knockdown&&F->Knockdown->Launch(Attacker,LaunchVelocity,DownSeconds);
     else if(auto* N=Cast<ANurseZombie>(GetOwner()))Launched=N->Knockdown&&N->Knockdown->Launch(Attacker,LaunchVelocity,DownSeconds);

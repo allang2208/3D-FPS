@@ -1,0 +1,59 @@
+{
+  "objects": [
+    {
+      "name": "SM_Hospital_WallPump_V2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalPolish20261003\\Authored\\SM_Hospital_WallPump_V2.fbx",
+      "asset": "/Game/Dungeons/HospitalPolish20261003/Meshes/SM_Hospital_WallPump_V2",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Paint": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green",
+        "RS_Red": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red",
+        "RS_White": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White",
+        "RS_Blue": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue"
+      },
+      "triangles": 146792,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_Hospital_ScrubSink_V2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalPolish20261003\\Authored\\SM_Hospital_ScrubSink_V2.fbx",
+      "asset": "/Game/Dungeons/HospitalPolish20261003/Meshes/SM_Hospital_ScrubSink_V2",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Red": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red",
+        "RS_Blue": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue"
+      },
+      "triangles": 32732,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "provenance": "Original Blender geometry, existing project materials",
+  "rear_interfaces_cm": {
+    "Pump": [
+      0,
+      64,
+      0
+    ],
+    "Sink": [
+      0,
+      37,
+      0
+    ]
+  },
+  "tests_run": false,
+  "rendered": false
+}

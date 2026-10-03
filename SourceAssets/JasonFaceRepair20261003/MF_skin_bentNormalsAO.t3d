@@ -1,0 +1,239 @@
+Begin Object Class=/Script/Engine.MaterialFunction Name="MF_skin_bentNormalsAO" ExportPath="/Script/Engine.MaterialFunction'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO'"
+   Begin Object Class=/Script/Engine.MaterialFunctionEditorOnlyData Name="MF_skin_bentNormalsAOEditorOnlyData" ExportPath="/Script/Engine.MaterialFunctionEditorOnlyData'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MF_skin_bentNormalsAOEditorOnlyData'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionConstant Name="MaterialExpressionConstant_0" ExportPath="/Script/Engine.MaterialExpressionConstant'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionConstant_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionConstant Name="MaterialExpressionConstant_1" ExportPath="/Script/Engine.MaterialExpressionConstant'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionConstant_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionConstant3Vector Name="MaterialExpressionConstant3Vector_0" ExportPath="/Script/Engine.MaterialExpressionConstant3Vector'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionConstant3Vector_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionInput Name="MaterialExpressionFunctionInput_0" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionFunctionInput_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionInput Name="MaterialExpressionFunctionInput_2" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionFunctionInput_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionOutput Name="MaterialExpressionFunctionOutput_0" ExportPath="/Script/Engine.MaterialExpressionFunctionOutput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionFunctionOutput_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionOutput Name="MaterialExpressionFunctionOutput_1" ExportPath="/Script/Engine.MaterialExpressionFunctionOutput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionFunctionOutput_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionOutput Name="MaterialExpressionFunctionOutput_2" ExportPath="/Script/Engine.MaterialExpressionFunctionOutput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionFunctionOutput_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMaterialFunctionCall Name="MaterialExpressionMaterialFunctionCall_0" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionMaterialFunctionCall_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMaterialFunctionCall Name="MaterialExpressionMaterialFunctionCall_1" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionMaterialFunctionCall_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_3" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionNamedRerouteDeclaration_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionPower Name="MaterialExpressionPower_0" ExportPath="/Script/Engine.MaterialExpressionPower'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionPower_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionScalarParameter Name="MaterialExpressionScalarParameter_0" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionScalarParameter_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionSetMaterialAttributes Name="MaterialExpressionSetMaterialAttributes_0" ExportPath="/Script/Engine.MaterialExpressionSetMaterialAttributes'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionSetMaterialAttributes_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticBoolParameter Name="MaterialExpressionStaticBoolParameter_0" ExportPath="/Script/Engine.MaterialExpressionStaticBoolParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionStaticBoolParameter_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitch Name="MaterialExpressionStaticSwitch_0" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionStaticSwitch_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitch Name="MaterialExpressionStaticSwitch_1" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionStaticSwitch_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitchParameter Name="MaterialExpressionStaticSwitchParameter_0" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionStaticSwitchParameter_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSampleParameter2D Name="MaterialExpressionTextureSampleParameter2D_0" ExportPath="/Script/Engine.MaterialExpressionTextureSampleParameter2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionTextureSampleParameter2D_0'"
+   End Object
+   Begin Object Name="MF_skin_bentNormalsAOEditorOnlyData" ExportPath="/Script/Engine.MaterialFunctionEditorOnlyData'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MF_skin_bentNormalsAOEditorOnlyData'"
+      ExpressionCollection=(Expressions=("/Script/Engine.MaterialExpressionFunctionOutput'MF_skin_bentNormalsAO:MaterialExpressionFunctionOutput_0'","/Script/Engine.MaterialExpressionFunctionInput'MF_skin_bentNormalsAO:MaterialExpressionFunctionInput_0'","/Script/Engine.MaterialExpressionFunctionInput'MF_skin_bentNormalsAO:MaterialExpressionFunctionInput_2'","/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_bentNormalsAO:MaterialExpressionMaterialFunctionCall_0'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bentNormalsAO:MaterialExpressionNamedRerouteDeclaration_3'","/Script/Engine.MaterialExpressionSetMaterialAttributes'MF_skin_bentNormalsAO:MaterialExpressionSetMaterialAttributes_0'","/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_bentNormalsAO:MaterialExpressionMaterialFunctionCall_1'","/Script/Engine.MaterialExpressionFunctionOutput'MF_skin_bentNormalsAO:MaterialExpressionFunctionOutput_1'","/Script/Engine.MaterialExpressionFunctionOutput'MF_skin_bentNormalsAO:MaterialExpressionFunctionOutput_2'","/Script/Engine.MaterialExpressionPower'MF_skin_bentNormalsAO:MaterialExpressionPower_0'","/Script/Engine.MaterialExpressionScalarParameter'MF_skin_bentNormalsAO:MaterialExpressionScalarParameter_0'","/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_bentNormalsAO:MaterialExpressionStaticSwitch_0'","/Script/Engine.MaterialExpressionStaticBoolParameter'MF_skin_bentNormalsAO:MaterialExpressionStaticBoolParameter_0'","/Script/Engine.MaterialExpressionConstant3Vector'MF_skin_bentNormalsAO:MaterialExpressionConstant3Vector_0'","/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_bentNormalsAO:MaterialExpressionStaticSwitch_1'","/Script/Engine.MaterialExpressionConstant'MF_skin_bentNormalsAO:MaterialExpressionConstant_0'","/Script/Engine.MaterialExpressionConstant'MF_skin_bentNormalsAO:MaterialExpressionConstant_1'","/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_bentNormalsAO:MaterialExpressionStaticSwitchParameter_0'","/Script/Engine.MaterialExpressionTextureSampleParameter2D'MF_skin_bentNormalsAO:MaterialExpressionTextureSampleParameter2D_0'"))
+   End Object
+   Begin Object Name="MaterialExpressionConstant_0" ExportPath="/Script/Engine.MaterialExpressionConstant'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionConstant_0'"
+      R=1.000000
+      MaterialExpressionEditorX=128
+      MaterialExpressionEditorY=1024
+      MaterialExpressionGuid=D75666E046DD30B2FAE22785AB3B0CC3
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionConstant_1" ExportPath="/Script/Engine.MaterialExpressionConstant'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionConstant_1'"
+      R=1.000000
+      MaterialExpressionEditorY=256
+      MaterialExpressionGuid=0B579DFA4008B3C45D0247A388E3412F
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionConstant3Vector_0" ExportPath="/Script/Engine.MaterialExpressionConstant3Vector'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionConstant3Vector_0'"
+      Constant=(R=0.500000,G=0.500000,B=1.000000,A=0.000000)
+      MaterialExpressionEditorX=-256
+      MaterialExpressionEditorY=896
+      MaterialExpressionGuid=115073BE458865CDB69CBBA3B7CFDEE3
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionFunctionInput_0" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionFunctionInput_0'"
+      InputName="Material Attributes"
+      Id=8957FC1A457EC5A6C22D13A6882DF6F0
+      InputType=FunctionInput_MaterialAttributes
+      MaterialExpressionEditorX=-1152
+      MaterialExpressionEditorY=384
+      MaterialExpressionGuid=A67677DD4C3A649E880753B61A300891
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionFunctionInput_2" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionFunctionInput_2'"
+      InputName="UDIM"
+      Id=ED807BDB449C6A6BB68650B8942A2523
+      SortPriority=10
+      MaterialExpressionEditorX=-1152
+      MaterialExpressionEditorY=640
+      MaterialExpressionGuid=7771CEE6466C56C25391B58DCE00FD85
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionFunctionOutput_0" ExportPath="/Script/Engine.MaterialExpressionFunctionOutput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionFunctionOutput_0'"
+      OutputName="Material Attributes"
+      A=(Expression="/Script/Engine.MaterialExpressionSetMaterialAttributes'MF_skin_bentNormalsAO:MaterialExpressionSetMaterialAttributes_0'")
+      bLastPreviewed=True
+      Id=75138A4B41A0D1AEFCE23589D373E92C
+      MaterialExpressionEditorX=768
+      MaterialExpressionEditorY=352
+      MaterialExpressionGuid=FC0E6E53420AF0BA6CBF7EB242B63B5C
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionFunctionOutput_1" ExportPath="/Script/Engine.MaterialExpressionFunctionOutput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionFunctionOutput_1'"
+      OutputName="Bent Normal"
+      SortPriority=10
+      A=(Expression="/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_bentNormalsAO:MaterialExpressionStaticSwitch_0'")
+      Id=045FE5DF4D80BC94B00DBF856ABF235B
+      MaterialExpressionEditorX=768
+      MaterialExpressionEditorY=672
+      MaterialExpressionGuid=FE321B83476E4EA6CC0BB8A0490D4CE8
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionFunctionOutput_2" ExportPath="/Script/Engine.MaterialExpressionFunctionOutput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionFunctionOutput_2'"
+      OutputName="Bent Normal Z"
+      SortPriority=20
+      A=(Expression="/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_bentNormalsAO:MaterialExpressionStaticSwitch_1'")
+      Id=F0F777E94164E9D851F1A3A76C809447
+      MaterialExpressionEditorX=768
+      MaterialExpressionEditorY=896
+      MaterialExpressionGuid=FE321B83476E4EA6CC0BB8A0490D4CE8
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionMaterialFunctionCall_0" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionMaterialFunctionCall_0'"
+      MaterialFunction="/Script/Engine.MaterialFunction'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Material_Functions/MF_UDIMs.MF_UDIMs'"
+      FunctionInputs(0)=(ExpressionInputId=D91F9DF24F209B72CBA5C59424CEA386,Input=(Expression="/Script/Engine.MaterialExpressionFunctionInput'MF_skin_bentNormalsAO:MaterialExpressionFunctionInput_2'",InputName="UDIM"))
+      FunctionOutputs(0)=(ExpressionOutputId=BD25DD5942A83EB145C115ACC902ACE6,Output=(OutputName="UVs"))
+      MaterialExpressionEditorX=-768
+      MaterialExpressionEditorY=640
+      MaterialExpressionGuid=77D371E94E4B11C74D015EA51150905E
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+      Outputs(0)=(OutputName="UVs")
+   End Object
+   Begin Object Name="MaterialExpressionMaterialFunctionCall_1" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionMaterialFunctionCall_1'"
+      MaterialFunction="/Script/Engine.MaterialFunction'/Engine/Functions/Engine_MaterialFunctions02/Utility/MakeFloat3.MakeFloat3'"
+      FunctionInputs(0)=(ExpressionInputId=529C1D96441E07EB03A9E59B8A7F67B6,Input=(Expression="/Script/Engine.MaterialExpressionTextureSampleParameter2D'MF_skin_bentNormalsAO:MaterialExpressionTextureSampleParameter2D_0'",OutputIndex=1,InputName="X",Mask=1,MaskR=1))
+      FunctionInputs(1)=(ExpressionInputId=B5BD7D1B494F6928732CCDA1C63D8E15,Input=(Expression="/Script/Engine.MaterialExpressionTextureSampleParameter2D'MF_skin_bentNormalsAO:MaterialExpressionTextureSampleParameter2D_0'",OutputIndex=2,InputName="Y",Mask=1,MaskG=1))
+      FunctionInputs(2)=(ExpressionInputId=050F17B8471570B47A802CB7CAA5A201,Input=(Expression="/Script/Engine.MaterialExpressionTextureSampleParameter2D'MF_skin_bentNormalsAO:MaterialExpressionTextureSampleParameter2D_0'",OutputIndex=3,InputName="Z",Mask=1,MaskB=1))
+      FunctionOutputs(0)=(ExpressionOutputId=0DD6F9954C067C3E5DDBBBA0D6910DD2,Output=(OutputName="Result"))
+      MaterialExpressionEditorX=128
+      MaterialExpressionEditorY=672
+      MaterialExpressionGuid=6DD6F685425151AB78AD409BA697A160
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+      Outputs(0)=(OutputName="Result")
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_3" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionNamedRerouteDeclaration_3'"
+      Input=(Expression="/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_bentNormalsAO:MaterialExpressionMaterialFunctionCall_0'")
+      Name="UVs"
+      NodeColor=(R=0.359375,G=0.000000,B=1.000000,A=1.000000)
+      VariableGuid=EC871C69470B495CD1E9A0A1B39E434A
+      MaterialExpressionEditorX=-512
+      MaterialExpressionEditorY=640
+      MaterialExpressionGuid=0A09AD6E4A204FAE216A1C94F079897D
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionPower_0" ExportPath="/Script/Engine.MaterialExpressionPower'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionPower_0'"
+      Base=(Expression="/Script/Engine.MaterialExpressionTextureSampleParameter2D'MF_skin_bentNormalsAO:MaterialExpressionTextureSampleParameter2D_0'",OutputIndex=4,Mask=1,MaskA=1)
+      Exponent=(Expression="/Script/Engine.MaterialExpressionScalarParameter'MF_skin_bentNormalsAO:MaterialExpressionScalarParameter_0'")
+      ConstExponent=1.000000
+      MaterialExpressionEditorX=128
+      MaterialExpressionEditorY=496
+      MaterialExpressionGuid=F21E5BAB4F369ADB8BA0F3B6F49986DD
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionScalarParameter_0" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionScalarParameter_0'"
+      DefaultValue=1.000000
+      ParameterName="Material AO Power"
+      ExpressionGUID=07F4764B46D98E387EFBF681CCA526EC
+      Group="999 - Global"
+      SortPriority=0
+      MaterialExpressionEditorX=-258
+      MaterialExpressionEditorY=512
+      MaterialExpressionGuid=62DDA3374F4C35ECFB84C3B535ED38E6
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionSetMaterialAttributes_0" ExportPath="/Script/Engine.MaterialExpressionSetMaterialAttributes'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionSetMaterialAttributes_0'"
+      Inputs(0)=(Expression="/Script/Engine.MaterialExpressionFunctionInput'MF_skin_bentNormalsAO:MaterialExpressionFunctionInput_0'")
+      Inputs(1)=(Expression="/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_bentNormalsAO:MaterialExpressionStaticSwitchParameter_0'",InputName="Ambient Occlusion")
+      AttributeSetTypes(0)=E8EBD0ADB1654CBEB079C3A8B39B9F15
+      MaterialExpressionEditorX=512
+      MaterialExpressionEditorY=384
+      MaterialExpressionGuid=D2B78DA7409F2E6832851EB5FD96C634
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticBoolParameter_0" ExportPath="/Script/Engine.MaterialExpressionStaticBoolParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionStaticBoolParameter_0'"
+      DefaultValue=True
+      ParameterName="Use Bent Normal"
+      ExpressionGUID=01DCCD554E02E4094859A3A3D93CE21F
+      Group="000 - Features"
+      SortPriority=100
+      MaterialExpressionEditorX=288
+      MaterialExpressionEditorY=560
+      MaterialExpressionGuid=82CD469741BA67D9E010B18D1B61F3C2
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitch_0" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionStaticSwitch_0'"
+      A=(Expression="/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_bentNormalsAO:MaterialExpressionMaterialFunctionCall_1'")
+      B=(Expression="/Script/Engine.MaterialExpressionConstant3Vector'MF_skin_bentNormalsAO:MaterialExpressionConstant3Vector_0'",Mask=1,MaskR=1,MaskG=1,MaskB=1)
+      Value=(Expression="/Script/Engine.MaterialExpressionStaticBoolParameter'MF_skin_bentNormalsAO:MaterialExpressionStaticBoolParameter_0'")
+      MaterialExpressionEditorX=528
+      MaterialExpressionEditorY=672
+      MaterialExpressionGuid=00730F7749BCB90C4AAEF8943C58F752
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitch_1" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionStaticSwitch_1'"
+      A=(Expression="/Script/Engine.MaterialExpressionTextureSampleParameter2D'MF_skin_bentNormalsAO:MaterialExpressionTextureSampleParameter2D_0'",OutputIndex=3,Mask=1,MaskB=1)
+      B=(Expression="/Script/Engine.MaterialExpressionConstant'MF_skin_bentNormalsAO:MaterialExpressionConstant_0'")
+      Value=(Expression="/Script/Engine.MaterialExpressionStaticBoolParameter'MF_skin_bentNormalsAO:MaterialExpressionStaticBoolParameter_0'")
+      MaterialExpressionEditorX=512
+      MaterialExpressionEditorY=896
+      MaterialExpressionGuid=AB90DA6747A0C72F807B3DB440027AF8
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitchParameter_0" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionStaticSwitchParameter_0'"
+      A=(Expression="/Script/Engine.MaterialExpressionPower'MF_skin_bentNormalsAO:MaterialExpressionPower_0'")
+      B=(Expression="/Script/Engine.MaterialExpressionConstant'MF_skin_bentNormalsAO:MaterialExpressionConstant_1'")
+      DefaultValue=True
+      ParameterName="Use Material AO"
+      ExpressionGUID=9BF0EA7C41D65881DF808EB936A13054
+      Group="000 - Features"
+      SortPriority=110
+      MaterialExpressionEditorX=256
+      MaterialExpressionEditorY=256
+      MaterialExpressionGuid=1EB7FE444A623E93761D7184762EE05E
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureSampleParameter2D_0" ExportPath="/Script/Engine.MaterialExpressionTextureSampleParameter2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bentNormalsAO.MF_skin_bentNormalsAO:MaterialExpressionTextureSampleParameter2D_0'"
+      ParameterName="Bent Normal"
+      ExpressionGUID=0F502C2A42E4EB55586FBA9DE6CFC1CC
+      Group="999 - Global"
+      Coordinates=(Expression="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bentNormalsAO:MaterialExpressionNamedRerouteDeclaration_3'")
+      ChannelNames=(R=NSLOCTEXT("", "61F3F6E2470898B8A8C6C6AABB858485", "Normal R"),G=NSLOCTEXT("", "04360FC24611A431D3C707A6CF72828E", "Normal G"),B=NSLOCTEXT("", "C0A233FD4990CF696EC1629C086F4D73", "Normal B"),A=NSLOCTEXT("", "51DD1E2E4DD771C698C0E2A43D6153D6", "AO"))
+      Texture="/Script/Engine.Texture2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Textures/T_MH_BentNormal_AO.T_MH_BentNormal_AO'"
+      SamplerType=SAMPLERTYPE_LinearColor
+      MaterialExpressionEditorX=-256
+      MaterialExpressionEditorY=624
+      MaterialExpressionGuid=1C51767644CD884A30C5F5A35C099C4E
+      Function="/Script/Engine.MaterialFunction'MF_skin_bentNormalsAO'"
+      Outputs(1)=(OutputName="Normal R")
+      Outputs(2)=(OutputName="Normal G")
+      Outputs(3)=(OutputName="Normal B")
+      Outputs(4)=(OutputName="AO")
+   End Object
+   DependentFunctionExpressionCandidates(0)="/Script/Engine.MaterialExpressionMaterialFunctionCall'MaterialExpressionMaterialFunctionCall_0'"
+   DependentFunctionExpressionCandidates(1)="/Script/Engine.MaterialExpressionMaterialFunctionCall'MaterialExpressionMaterialFunctionCall_1'"
+   EditorOnlyData="/Script/Engine.MaterialFunctionEditorOnlyData'MF_skin_bentNormalsAOEditorOnlyData'"
+   StateId=AA13358841F5BAB17BC91E96DBD51D30
+   CombinedInputTypes=2052
+   CombinedOutputTypes=2063
+End Object

@@ -13,13 +13,15 @@ UCLASS(ClassGroup=(Movement))
 class FPSGAME_API UFPSDoorPushComponent : public UActorComponent
 {
     GENERATED_BODY()
+    friend class UFPSPlayerBodyComponent;
 public:
     UFPSDoorPushComponent();
     void Advance(float DeltaSeconds);
     void UpdatePresentation();
     bool IsActive() const {return bActive;}
     float GetPresentationWeight() const;
-    void Cancel();
+    void Cancel(bool bCompleted=false);
+    bool RequestDoorInteraction(AActor* Target);
     void ApplyHandPose(UFPSCastingMeshComponent& Mesh);
 protected:
     virtual void BeginPlay() override;
@@ -36,4 +38,19 @@ private:
     bool Probe(FHitResult& Hit) const;
     bool BeginPush(const FHitResult& Hit);
     void ApplyLoadedHands();
+    bool ServerCanInteract(AActor* Target,bool bSprint) const;
+    void AdvanceAuthority(float DeltaSeconds);
+    void PlayImpact();
+    UFUNCTION(Server,Reliable) void ServerBeginPush(uint16 Sequence,AActor* Target);
+    UFUNCTION(Server,Reliable) void ServerContactPush(uint16 Sequence);
+    UFUNCTION(Server,Reliable) void ServerCancelPush(uint16 Sequence);
+    UFUNCTION(Server,Reliable) void ServerToggleDoor(AActor* Target);
+    UFUNCTION(Client,Reliable) void ClientPushResult(uint16 Sequence,bool bOpened);
+    UFUNCTION(NetMulticast,Unreliable) void MulticastPushImpact(FVector_NetQuantize Location);
+    uint16 LocalSequence=0,ServerSequence=0;
+    TWeakObjectPtr<AActor> ServerDoor;
+    float ServerAge=0.f;
+    double LastServerRequest=-1.;
+    bool bServerContact=false,bAwaitingImpact=false;
+
 };

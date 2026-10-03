@@ -1,0 +1,60 @@
+{
+  "animations": [
+    {
+      "family": "base",
+      "asset": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload_empty",
+      "source": [
+        "D:/FPS3D/FPSGAME/SourceAssets/A762EmptySupport20260922/base/A_A762_reload_empty.fbx"
+      ],
+      "seconds": 4.291666507720947,
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+      "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel"
+    },
+    {
+      "family": "angled",
+      "asset": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_reload_empty",
+      "source": [
+        "D:/FPS3D/FPSGAME/SourceAssets/A762EmptySupport20260922/angled/A_A762_angled_reload_empty.fbx"
+      ],
+      "seconds": 4.291666507720947,
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+      "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel"
+    },
+    {
+      "family": "vertical",
+      "asset": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_reload_empty",
+      "source": [
+        "D:/FPS3D/FPSGAME/SourceAssets/A762EmptySupport20260922/vertical/A_A762_vertical_reload_empty.fbx"
+      ],
+      "seconds": 4.291666507720947,
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+      "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel"
+    },
+    {
+      "family": "prism",
+      "asset": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_reload_empty",
+      "source": [
+        "D:/FPS3D/FPSGAME/SourceAssets/A762EmptySupport20260922/prism/A_A762_prism_reload_empty.fbx"
+      ],
+      "seconds": 4.291666507720947,
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+      "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel"
+    },
+    {
+      "family": "canted",
+      "asset": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_reload_empty",
+      "source": [
+        "D:/FPS3D/FPSGAME/SourceAssets/A762EmptySupport20260922/canted/A_A762_canted_reload_empty.fbx"
+      ],
+      "seconds": 4.291666507720947,
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+      "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel"
+    }
+  ],
+  "mesh": {
+    "asset": "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny.SK_A762_Manny",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762Meshy20260920/Accessories05/Exports/SK_A762_Manny.fbx"
+    ]
+  }
+}

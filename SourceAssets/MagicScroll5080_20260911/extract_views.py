@@ -14,8 +14,10 @@ for i,name in enumerate(['front','right','back']):
 sheet.save(P/'magic_scroll_three_views.png')
 front=Image.open(P/'front.png')
 front=front.crop(front.getchannel('A').getbbox())
-front=front.rotate(-35,Image.Resampling.BICUBIC,expand=True)
-front.thumbnail((448,448),Image.Resampling.LANCZOS)
-icon=Image.new('RGBA',(512,512));icon.paste(front,((512-front.width)//2,(512-front.height)//2))
+# 2026-10-01 起卷轴占格 1×2 竖直：图标画幅按占格推导为 512×1024 透明底，
+# 正面竖直摆放、主轴填满约 91%、轮廓中心对齐画幅中心（与木材 1×2 口径一致）。
+height=int(round(1024*.91));width=int(round(front.width*height/front.height))
+front=front.resize((width,height),Image.Resampling.LANCZOS)
+icon=Image.new('RGBA',(512,1024));icon.paste(front,((512-width)//2,(1024-height)//2),front)
 icon.save(P/'magic_scroll_realistic_v1.png')
 print('Extracted RGBA views and icon', icon.getchannel('A').getextrema())

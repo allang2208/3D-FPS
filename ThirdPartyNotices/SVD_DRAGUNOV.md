@@ -19,6 +19,8 @@
 
 ## 修改说明
 
+2026-09-27 SVD 扩容弹匣：从当前原厂弹匣派生，延续冲压表面、曲线轮廓与原 UV，保留口部内部和上部握持区，移动原底板；另制远景 LOD 与透明 UI 图标。作者源为 `SourceAssets/SVDExtendedMagazine20260927`，运行资源为 `/Game/Weapons/SVDDragunov20260922/ExtendedMagazine20260927`。派生模型及图标继续保留 LeroyCake / CC BY 4.0 署名；已有表面参考仍沿用其各自许可，不因此取得新增素材的公开再分发授权。
+
 等比缩放到实枪全长 1.225 m 并把枪口转向项目约定方向（Blender -Y → UE +X）、各部件共用整枪原点、按测量区域**重组既有壳体**分出弹匣／扳机／拉机柄／保险杆（不裁切表面，面数总和与源一致）、贴图保持 4096（法线转无损 PNG）、在 UE 内重建材质（BaseColor × AO × Tint / Normal 翻转绿通道 / Roughness × Scale / Metallic）、关闭 Nanite、碰撞用三角面。未修改网格拓扑、UV 或贴图内容，未重新烘焙。逐件散列与源结构见 `SourceAssets/SVDDragunov20260922/PROVENANCE.md`。
 
 

@@ -15,11 +15,13 @@ P = Path(__file__).parent
 REVIEW = P / 'Review'
 REVIEW.mkdir(exist_ok=True)
 FPS = 480
-BLEND = P / 'AzureRunesword_PommelStrikeV46.blend'
+import os as _os
+BLEND = P / _os.environ.get('VERIFY_BLEND', 'AzureRunesword_PommelStrikeV46.blend')
 CLIP = 'A_RuneSword_PommelStrike'
 BUTT_M = 0.27
 EYE = Vector((0, 0, 0))
 FP_SHOTS = [0.00, 0.20, 0.40, 0.58, 0.72, 0.84, 0.88, 0.92, 0.98, 1.14, 1.60]
+RECOVER_SHOTS = [1.30, 1.40, 1.46, 1.50, 1.54, 1.58, 1.60]  # tail revision check
 JOINT_SHOTS = [0.40, 0.58, 0.72, 0.92, 1.14]
 
 bpy.ops.wm.open_mainfile(filepath=str(BLEND))
@@ -145,6 +147,16 @@ for seconds in FP_SHOTS:
     scene.render.filepath = str(REVIEW / ('fp_%03dms.png' % round(seconds * 1000)))
     bpy.ops.render.render(write_still=True)
     print('FP', seconds, flush=True)
+
+for seconds in RECOVER_SHOTS:
+    pose = set_time(pommel, seconds)
+    camera.location = (0, 0, 0)
+    camera.rotation_euler = Vector((0.02, 1.0, -0.06)).to_track_quat('-Z', 'Y').to_euler()
+    data.type = 'PERSP'
+    data.lens = 17
+    scene.render.filepath = str(REVIEW / ('rec_%03dms.png' % round(seconds * 1000)))
+    bpy.ops.render.render(write_still=True)
+    print('REC', seconds, flush=True)
 
 for seconds in JOINT_SHOTS:
     pose = set_time(pommel, seconds)

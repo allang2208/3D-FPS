@@ -1,5 +1,6 @@
 #include "MonsterCombatComponent.h"
 #include "M10Mawcrawler.h"
+#include "HangingBellM09.h"
 #include "MonsterObstacleCollision.h"
 #include "MonsterAIController.h"
 #include "NurseZombie.h"
@@ -26,7 +27,8 @@ void UMonsterCombatComponent::ReceiveParry(APawn* Defender,float Seconds,float K
     const float Remaining=IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f;
     RegisterExplicitStun(Seconds);
     Seconds=FMath::Max(StunSecondsRemaining(),Remaining);Toughness=0.f;SinceHit=0.f;
-    if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))M10->InterruptAttack(Seconds);
+    if(auto* M09=Cast<AHangingBellM09>(GetOwner()))M09->InterruptAttack(Seconds);
+    else if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))M10->InterruptAttack(Seconds);
     else if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->InterruptAttack(Seconds);
     else if(auto* F=Cast<AFleshHandMonster>(GetOwner()))F->InterruptAttack(Seconds);
     else if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(Seconds);
@@ -38,7 +40,7 @@ void UMonsterCombatComponent::ReceiveParry(APawn* Defender,float Seconds,float K
         Pawn->GetCharacterMovement()->StopMovementImmediately();
         if(auto* AI=Cast<AMonsterAIController>(Pawn->GetController())){AI->StopMovement();AI->RememberDamage(Defender);}
     }
-    if(KnockbackCM>0.f)
+    if(KnockbackCM>0.f&&!GetOwner()->ActorHasTag(TEXT("KnockbackImmune")))
     {
         // Spend part of the same distance now; waiting for a later component
         // tick makes the defender react before the attacker visibly moves.

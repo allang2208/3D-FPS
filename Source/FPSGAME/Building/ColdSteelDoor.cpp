@@ -7,6 +7,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Materials/MaterialInterface.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Net/UnrealNetwork.h"
 
 namespace
 {
@@ -27,6 +28,7 @@ namespace
 AColdSteelDoor::AColdSteelDoor()
 {
     PrimaryActorTick.bCanEverTick=true;
+    bReplicates=true;SetReplicateMovement(true);
     SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("DoorRoot")));
 
     Frame=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DoorFrame"));
@@ -55,13 +57,17 @@ AColdSteelDoor::AColdSteelDoor()
 void AColdSteelDoor::BeginPlay()
 {
     Super::BeginPlay();
+    if(HasAuthority())NetScale=GetActorScale3D();
+    else OnRep_Setup();
     AlignGeometry();
+    if(!HasAuthority())OnRep_Swing();
     LogGeometryOnce();
 }
 
 void AColdSteelDoor::Configure(UMaterialInterface* Surface)
 {
     if(!Surface)return;
+    if(HasAuthority()){NetSurface=Surface;ForceNetUpdate();}
     // 整个门统一材质：门板与门框的**全部**材质槽一起替换（含网格自带的小窗槽），
     // 这样和玩家用同种体素砌出来的墙一致。若要保留原网格的玻璃小窗，
     // 把下面两处循环改回只 SetMaterial(0, Surface) 即可。
@@ -71,6 +77,9 @@ void AColdSteelDoor::Configure(UMaterialInterface* Surface)
 
 void AColdSteelDoor::ConfigureStandaloneLeaf(UStaticMesh* Mesh,bool bPositiveHinge,float OpeningSeconds,float ClosingDelay)
 {
+    if(HasAuthority())
+    {NetLeaf.bStandalone=true;NetLeaf.Mesh=Mesh;NetLeaf.bPositiveHinge=bPositiveHinge;
+     NetLeaf.OpeningSeconds=OpeningSeconds;NetLeaf.ClosingDelay=ClosingDelay;ForceNetUpdate();}
     Frame->SetStaticMesh(nullptr);Frame->SetCollisionProfileName(TEXT("NoCollision"));Frame->SetVisibility(false);
     Leaf->SetStaticMesh(Mesh);Leaf->SetRelativeRotation(FRotator(0,bPositiveHinge?180:0,0));
     bHingeOnPositiveY=bPositiveHinge;OpenAngleDegrees=85.f;
@@ -194,14 +203,20 @@ void AColdSteelDoor::LogGeometryOnce()
 
 void AColdSteelDoor::ToggleDoor()
 {
-    if(bOpen)CloseDoor();else OpenDoor();
+    ToggleDoorFrom(nullptr);
 }
 
-bool AColdSteelDoor::TryGetPlayerSideSign(float& OutSign) const
+void AColdSteelDoor::ToggleDoorFrom(const APawn* InstigatorPawn)
+{
+    if(!HasAuthority())return;
+    if(bOpen)CloseDoor();else OpenDoorFrom(InstigatorPawn);
+}
+
+bool AColdSteelDoor::TryGetPlayerSideSign(float& OutSign,const APawn* InstigatorPawn) const
 {
     const UWorld* World=GetWorld();
     const APlayerController* Controller=World?World->GetFirstPlayerController():nullptr;
-    const APawn* Pawn=Controller?Controller->GetPawn():nullptr;
+    const APawn* Pawn=InstigatorPawn?InstigatorPawn:(Controller?Controller->GetPawn():nullptr);
     if(!Pawn)return false;
     // 门的本地 X 就是门板法线：玩家在 +X 侧还是 −X 侧，决定门该往哪边开。
     const FVector Local=GetActorTransform().InverseTransformPosition(Pawn->GetActorLocation());
@@ -216,13 +231,17 @@ float AColdSteelDoor::AngleSignForWorldSide(float WorldSideSign) const
 }
 
 void AColdSteelDoor::OpenDoor()
+{OpenDoorFrom(nullptr);}
+
+void AColdSteelDoor::OpenDoorFrom(const APawn* InstigatorPawn)
 {
+    if(!HasAuthority()||bOpen)return;
     bOpen=true;
     // 默认方向由玩家决定：门朝玩家的**反侧**开（等于玩家把门推开），而不是固定方向。
     // 只有在拿不到玩家位置时才退回配置方向 OpenAngleDegrees 的符号。
     float Preferred=(OpenAngleDegrees>=0.f)?1.f:-1.f;
     float PlayerSide=0.f;
-    const bool bHasPlayer=TryGetPlayerSideSign(PlayerSide);
+    const bool bHasPlayer=TryGetPlayerSideSign(PlayerSide,InstigatorPawn);
     if(bHasPlayer)Preferred=AngleSignForWorldSide(-PlayerSide);
     // 首选那一侧被实体挡住就改从另一侧开（2026-09-17 第二轮要求）。
     OpenDirection=Preferred;
@@ -235,6 +254,7 @@ void AColdSteelDoor::OpenDoor()
     }
     TargetAngle=FMath::Abs(OpenAngleDegrees)*OpenDirection;
     AutoCloseRemaining=AutoCloseSeconds;
+    PublishSwing();
     UE_LOG(LogTemp,Display,TEXT("ColdSteelDoor %s 铰链侧=Y%s 玩家侧=%s 开门方向=%s %s"),*GetName(),
         HingeSign>0.f?TEXT("+"):TEXT("-"),
         bHasPlayer?(PlayerSide>0.f?TEXT("+X"):TEXT("-X")):TEXT("未知"),
@@ -244,17 +264,20 @@ void AColdSteelDoor::OpenDoor()
 
 void AColdSteelDoor::CloseDoor()
 {
+    if(!HasAuthority()||!bOpen)return;
     bOpen=false;
     TargetAngle=0.f;
     AutoCloseRemaining=0.f;
+    PublishSwing();
 }
 
 void AColdSteelDoor::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+    if(!HasAuthority())CurrentAngle=NetSwing.Angle(GetWorld());
     ApplyAngle(DeltaSeconds);
     UpdateLeafPawnCollision();
-    if(bOpen&&AutoCloseSeconds>0.f&&FMath::IsNearlyEqual(CurrentAngle,TargetAngle,.5f))
+    if(HasAuthority()&&bOpen&&AutoCloseSeconds>0.f&&FMath::IsNearlyEqual(CurrentAngle,TargetAngle,.5f))
     {
         AutoCloseRemaining-=DeltaSeconds;
         if(AutoCloseRemaining<=0.f)CloseDoor();
@@ -272,6 +295,38 @@ void AColdSteelDoor::ApplyAngle(float DeltaSeconds)
         return;
     }
     const float Step=FMath::Max(1.f,OpenSeconds>KINDA_SMALL_NUMBER?OpenAngleDegrees/OpenSeconds:180.f);
-    CurrentAngle=FMath::FInterpConstantTo(CurrentAngle,TargetAngle,DeltaSeconds,Step);
+    CurrentAngle=FMath::FInterpConstantTo(CurrentAngle,TargetAngle,HasAuthority()?DeltaSeconds:0.f,Step);
     Hinge->SetRelativeRotation(FRotator(0.f,CurrentAngle,0.f));
+}
+
+void AColdSteelDoor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AColdSteelDoor,NetSwing);
+    DOREPLIFETIME(AColdSteelDoor,NetSurface);
+    DOREPLIFETIME(AColdSteelDoor,NetScale);
+    DOREPLIFETIME(AColdSteelDoor,NetLeaf);
+}
+
+void AColdSteelDoor::PublishSwing()
+{
+    NetSwing.bOpen=bOpen;NetSwing.From=CurrentAngle;NetSwing.To=TargetAngle;
+    NetSwing.Direction=OpenDirection;NetSwing.StartedAt=FColdSteelDoorNetState::Now(GetWorld());
+    NetSwing.Speed=FMath::Max(1.f,OpenSeconds>KINDA_SMALL_NUMBER?FMath::Abs(OpenAngleDegrees)/OpenSeconds:180.f);
+    UpdateLeafPawnCollision();ForceNetUpdate();
+}
+
+void AColdSteelDoor::OnRep_Swing()
+{
+    bOpen=NetSwing.bOpen;TargetAngle=NetSwing.To;OpenDirection=NetSwing.Direction;
+    CurrentAngle=NetSwing.Angle(GetWorld());
+    ApplyAngle(0.f);UpdateLeafPawnCollision();
+}
+
+void AColdSteelDoor::OnRep_Setup()
+{
+    SetActorScale3D(NetScale);
+    if(NetLeaf.bStandalone)ConfigureStandaloneLeaf(NetLeaf.Mesh,NetLeaf.bPositiveHinge,NetLeaf.OpeningSeconds,NetLeaf.ClosingDelay);
+    if(NetSurface)Configure(NetSurface);
+    AlignGeometry();OnRep_Swing();
 }

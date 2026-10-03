@@ -1,0 +1,16 @@
+Build.bat is already running, waiting for existing script to terminate...
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" FPSGAMEEditor Win64 Development -Project=D:/FPS3D/FPSGAME/FPSGAME.uproject -WaitMutex -NoHotReloadFromIDE -NoLiveCoding -MaxParallelActions=4 -Log=D:/FPS3D/FPSGAME/SourceAssets/LowerBodyEquipment20261003/build-editor-final.log
+Log file: D:\FPS3D\FPSGAME\SourceAssets\LowerBodyEquipment20261003\build-editor-final.log
+Executing up to 4 actions based on MaxProcessorCount override
+Using 'git status' to determine working set for adaptive non-unity build (D:\FPS3D\FPSGAME).
+UbaServer - Listening on 0.0.0.0:1345
+Waiting for 'git status' command to complete
+Target is up to date
+Using Unreal Build Accelerator local executor to run 0 action(s)
+Total time in Unreal Build Accelerator local executor: 0.06 seconds
+Output binary: E:\Program Files (x86)\UE_5.8\Engine\Binaries\Win64\UnrealEditor.exe
+
+Result: Succeeded
+Total execution time: 2.44 seconds
+Trace written to file C:\Users\allan\AppData\Local\UnrealBuildTool\Trace.uba with size 2.9kb

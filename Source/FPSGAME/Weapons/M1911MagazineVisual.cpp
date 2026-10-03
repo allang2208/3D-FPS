@@ -1,6 +1,7 @@
 #include "M1911MagazineVisual.h"
 #include "G18WeaponAssets.h"
 #include "M1911WeaponAssets.h"
+#include "PitViper2011WeaponAssets.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -22,20 +23,23 @@ void ShowFactoryMagazine(USkeletalMeshComponent* Host, bool bVisible)
             // Shell, floorplate and follower share this factory atlas. Cartridges
             // retain their separate material and animated bullet bone.
             if (Asset->GetMaterials().IsValidIndex(M)
-                && (Asset->GetMaterials()[M].MaterialSlotName == TEXT("M_M1911_Hero_Magazine") || Asset->GetMaterials()[M].MaterialSlotName == TEXT("M_G18_Magazine")))
+                && (Asset->GetMaterials()[M].MaterialSlotName == TEXT("M_M1911_Hero_Magazine") || Asset->GetMaterials()[M].MaterialSlotName == TEXT("M_G18_Magazine")
+                    || Asset->GetMaterials()[M].MaterialSlotName == TEXT("M_PitViper2011_Magazine_stell") || Asset->GetMaterials()[M].MaterialSlotName == TEXT("M_PitViper2011_Magazine_polymer")))
                 Host->ShowMaterialSection(M, S, bVisible, L);
         }
 }
 
 UStaticMeshComponent* Configure(AActor* Owner, USkeletalMeshComponent* Host,
-    UStaticMeshComponent* Existing, bool bEnabled)
+    UStaticMeshComponent* Existing, bool bEnabled, const FString& Option)
 {
     auto* Asset = Host ? Host->GetSkeletalMeshAsset() : nullptr;
     const FName Socket(TEXT("WPN_SOCKET_Magazine"));
     bEnabled = bEnabled && Asset && Host->DoesSocketExist(Socket);
     if (bEnabled)
     {
-        auto* Mesh = LoadObject<UStaticMesh>(nullptr, *(G18WeaponAssets::Matches(Host)?G18WeaponAssets::AttachmentPath(TEXT("ext_mag")):M1911WeaponAssets::AttachmentPath(TEXT("ext_mag"))));
+        const bool G18Drum=G18WeaponAssets::Matches(Host)&&Option==G18WeaponAssets::Drum50Id;
+        const FString Path=G18Drum?FString(G18WeaponAssets::Drum50Mesh):PitViper2011WeaponAssets::Matches(Host)?PitViper2011WeaponAssets::AttachmentPath(TEXT("ext_mag")):G18WeaponAssets::Matches(Host)?G18WeaponAssets::AttachmentPath(TEXT("ext_mag")):M1911WeaponAssets::AttachmentPath(TEXT("ext_mag"));
+        auto* Mesh = LoadObject<UStaticMesh>(nullptr,*Path);
         if (Mesh)
         {
             if (!Existing)
@@ -61,7 +65,7 @@ UStaticMeshComponent* Configure(AActor* Owner, USkeletalMeshComponent* Host,
         }
         else
         {
-            UE_LOG(LogTemp, Error, TEXT("M1911 missing extended magazine mesh"));
+            UE_LOG(LogTemp, Error, TEXT("Pistol missing magazine attachment: %s"),*Path);
             bEnabled = false;
         }
     }

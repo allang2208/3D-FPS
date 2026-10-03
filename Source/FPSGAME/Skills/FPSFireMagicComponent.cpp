@@ -19,8 +19,14 @@
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
 #include "Sound/SoundBase.h"
+#include "Net/UnrealNetwork.h"
+#include "NetCastUtils.h"
 
-UFPSFireMagicComponent::UFPSFireMagicComponent(){PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostUpdateWork;}
+UFPSFireMagicComponent::UFPSFireMagicComponent()
+{
+    PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostUpdateWork;
+    SetIsReplicatedByDefault(true); // 焰甲激活态复制：远端副本演火环/武器火
+}
 void UFPSFireMagicComponent::BeginPlay()
 {
     Super::BeginPlay();AddTickPrerequisiteActor(GetOwner());
@@ -93,7 +99,7 @@ bool UFPSFireMagicComponent::SelectGround(const FFireMagicCast& Spell,FVector& P
 void UFPSFireMagicComponent::Trigger(FName Skill)
 {
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
-    if(!FireMagic::IsSkill(Skill)||!Player||!M||!Player->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
+    if(!FireMagic::IsSkill(Skill)||!Player||!M||!Player->IsLocallyControlled())return;
     if(const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     if(!CommittedSkill.IsNone())return;
     if(const auto* H=Hands();H&&H->HasOtherPreparedSpell(this))
@@ -126,6 +132,8 @@ void UFPSFireMagicComponent::ServiceQueue()
     H->RecordGesturePayment(BeforeMana,M->Snapshot().Mana,true);
     CastSnapshot=Spell;CommittedSkill=Spell.Skill;MessageUntil=0;
     if(auto* Status=Player->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
+    // 联机客人：凝聚扣账上报；陨星落点/焰甲激活由服务端在释放相位结算。
+    if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;NetCast::Send(Player,Spell.Skill,0);}
 }
 void UFPSFireMagicComponent::ReleaseAtContact()
 {
@@ -139,13 +147,29 @@ void UFPSFireMagicComponent::ReleaseAtContact()
         const bool bBlocked=!Camera||FireMagic::TraceSurface(Player,Camera->GetComponentLocation(),LockedPoint+LockedNormal*12,Block);
         if(bBlocked||FVector::Dist2D(Player->GetActorLocation(),LockedPoint)>CastSnapshot.Range)
         {if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,Skill);Feedback(Skill,TEXT("落点被遮挡或超距"));return;}
+        // 联机客人：落点/法线上报服务端，权威陨星复制回来；本地收尾预扣账。
+        if(GetWorld()->GetNetMode()==NM_Client)
+        {
+            NetCast::Send(Player,Skill,1,LockedPoint,LockedNormal);
+            if(auto* M=Model())M->FinishFireMagicCast(Skill,FFireMagicRewards());
+            bNetPaid=false;
+            UGameplayStatics::PlaySoundAtLocation(this,CastSound,Player->GetActorLocation());
+            if(auto* Status=UCombatStatusFormula::GetOrAdd(Player))
+            {if(CastSnapshot.bGrantChain)Status->AddChainSpell();if(CastSnapshot.CastHasteStacks>0)Status->AddHaste(CastSnapshot.CastHasteStacks,CastSnapshot.CastHasteDuration);}
+            return;
+        }
         FActorSpawnParameters P;P.Owner=Player;P.Instigator=Player;P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
         auto* Strike=GetWorld()->SpawnActor<AFPSMeteorStrike>(LockedPoint,FRotator::ZeroRotator,P);
         if(!Strike||!Strike->InitializeStrike(Player,CastSnapshot,LockedPoint,LockedNormal))
         {if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,Skill);Feedback(Skill,TEXT("陨星素材未就绪"));return;}
         Strikes.Add(Strike);
     }
-    else StartArmor();
+    else
+    {
+        // 联机客人：焰甲激活上报——服务端跑权威灼烧，远端副本靠 bNetArmor 演火环。
+        if(GetWorld()->GetNetMode()==NM_Client){NetCast::Send(Player,Skill,1);bNetPaid=false;}
+        StartArmor();
+    }
     UGameplayStatics::PlaySoundAtLocation(this,CastSound,Player->GetActorLocation());
     if(auto* Status=UCombatStatusFormula::GetOrAdd(Player))
     {if(CastSnapshot.bGrantChain)Status->AddChainSpell();if(CastSnapshot.CastHasteStacks>0)Status->AddHaste(CastSnapshot.CastHasteStacks,CastSnapshot.CastHasteDuration);}
@@ -153,6 +177,16 @@ void UFPSFireMagicComponent::ReleaseAtContact()
 void UFPSFireMagicComponent::StartArmor()
 {
     EndArmor(true);ArmorSnapshot=CastSnapshot;ArmorTime=ArmorSnapshot.Duration;AuraTimer=0;
+    SpawnArmorFX();
+    TickArmor(0);
+    if(AuraFX)AuraFX->Activate(true);if(WeaponFX)WeaponFX->Activate(true);
+    // 旧 flame-armor-system：命中即刷 🔥 护盾卡片，duration 跟随技能面板。
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("flameArmor"),ArmorSnapshot.Duration);
+    if(GetOwner()->HasAuthority()){NetArmorCast=ArmorSnapshot;bNetArmor=true;} // 远端副本 OnRep 播同款火环
+}
+// 光环/武器火焰的 FX 壳——本地激活与远端 OnRep 共用。
+void UFPSFireMagicComponent::SpawnArmorFX()
+{
     AuraFX=UNiagaraFunctionLibrary::SpawnSystemAttached(AuraSystem,GetOwner()->GetRootComponent(),NAME_None,FVector::ZeroVector,FRotator::ZeroRotator,EAttachLocation::KeepRelativeOffset,false,false);
     WeaponFX=UNiagaraFunctionLibrary::SpawnSystemAttached(WeaponSystem,GetOwner()->GetRootComponent(),NAME_None,FVector::ZeroVector,FRotator::ZeroRotator,EAttachLocation::KeepRelativeOffset,false,false);
     if(AuraFX){AuraFX->SetAbsolute(false,true,true);AuraFX->SetVariableFloat(TEXT("User.Fade"),1);}
@@ -161,23 +195,28 @@ void UFPSFireMagicComponent::StartArmor()
         WeaponFX->SetAbsolute(false,true,true);WeaponFX->SetVariableFloat(TEXT("User.Fade"),0);
         WeaponFX->AddTickPrerequisiteComponent(this);WeaponFX->SetTickBehavior(ENiagaraTickBehavior::UsePrereqs);
     }
-    TickArmor(0);
     if(AuraFX)AuraFX->Activate(true);if(WeaponFX)WeaponFX->Activate(true);
-    // 旧 flame-armor-system：命中即刷 🔥 护盾卡片，duration 跟随技能面板。
-    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("flameArmor"),ArmorSnapshot.Duration);
+}
+void UFPSFireMagicComponent::OnRep_Armor()
+{
+    // 远端副本：焰甲激活——播 FX；伤害 tick 只在服务端跑（ApplyFireMagicHit 自带权威门）。
+    const auto* OwnerPawn=Cast<APawn>(GetOwner());
+    if(!bNetArmor||ArmorTime>0||!OwnerPawn||OwnerPawn->IsLocallyControlled())return;
+    EndArmor(false);ArmorSnapshot=NetArmorCast;ArmorTime=ArmorSnapshot.Duration;AuraTimer=0;
+    SpawnArmorFX();
 }
 void UFPSFireMagicComponent::Sparks(const FVector& Point)
 {if(SparkSystem)UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,SparkSystem,Point,FRotator::ZeroRotator,FVector(1),true,true,ENCPoolMethod::AutoRelease);}
 void UFPSFireMagicComponent::OnWeaponHit(AActor* Target,const FVector& Point)
 {
     if(ArmorTime<=0)return;
-    auto* M=Model();auto* Player=Cast<APawn>(GetOwner());
+    auto* Player=Cast<APawn>(GetOwner());auto* M=NetCast::AuthorityModel(Player,GetWorld()?GetWorld()->GetGameInstance():nullptr);
     if(M&&M->ApplyFireMagicHit(Player,Target,ArmorSnapshot,ArmorSnapshot.Damage,ArmorRewards))Sparks(Point);
 }
 void UFPSFireMagicComponent::TickArmor(float Delta)
 {
     if(ArmorTime<=0)return;
-    auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();if(!Player||!M){EndArmor(false);return;}
+    auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=NetCast::AuthorityModel(Player,GetWorld()?GetWorld()->GetGameInstance():nullptr);if(!Player||!M){EndArmor(false);return;}
     const float ActiveDelta=FMath::Min(Delta,ArmorTime);ArmorTime=FMath::Max(0.f,ArmorTime-Delta);AuraTimer+=ActiveDelta;
     const FVector Feet=Player->GetActorLocation()-FVector(0,0,Player->GetCapsuleComponent()->GetScaledCapsuleHalfHeight()-5);
     while(AuraTimer+UE_KINDA_SMALL_NUMBER>=ArmorSnapshot.TickSeconds)
@@ -220,7 +259,7 @@ void UFPSFireMagicComponent::TickArmor(float Delta)
 }
 void UFPSFireMagicComponent::EndArmor(bool bTrain)
 {
-    if(bTrain)if(auto* M=Model())M->FinishFireMagicCast(TEXT("flameArmor"),ArmorRewards);
+    if(bTrain)if(auto* M=NetCast::AuthorityModel(Cast<APawn>(GetOwner()),GetWorld()?GetWorld()->GetGameInstance():nullptr))M->FinishFireMagicCast(TEXT("flameArmor"),ArmorRewards);
     if(ArmorTime>0)UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("flameArmor"));
     ArmorTime=0;AuraTimer=0;ArmorRewards={};bWeaponSampleValid=false;
     if(AuraFX){AuraFX->DestroyComponent();AuraFX=nullptr;}if(WeaponFX){WeaponFX->DestroyComponent();WeaponFX=nullptr;}
@@ -228,7 +267,56 @@ void UFPSFireMagicComponent::EndArmor(bool bTrain)
 void UFPSFireMagicComponent::CancelPending()
 {
     if(!CommittedSkill.IsNone())Feedback(CommittedSkill,TEXT("施法中断"));
+    // 联机客人：凝聚期中断——服务端按 Phase2 退预留。
+    if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bNetPaid&&!CommittedSkill.IsNone())NetCast::Send(GetOwner(),CommittedSkill,2);
+    bNetPaid=false;
     QueuedSkill=NAME_None;CommittedSkill=NAME_None;if(auto* H=Hands())H->CancelSpellGesture(this);
+}
+void UFPSFireMagicComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(UFPSFireMagicComponent,bNetArmor);
+    DOREPLIFETIME(UFPSFireMagicComponent,NetArmorCast);
+}
+// ── 联机服务端入口：陨星定点生成（复制各端）/焰甲服务端权威激活 ──
+bool UFPSFireMagicComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow)
+{
+    const auto Spell=Shadow->FireMagicStats(Req.SkillId);
+    CastSnapshot=Spell;
+    if(Req.SkillId==TEXT("meteor"))
+    {
+        if(Req.AimNormal.Z<.45f)return false;
+        if(FVector::Dist2D(Caster->GetActorLocation(),Req.AimPoint)>Spell.Range*1.15f)return false;
+        FHitResult Block;
+        if(FireMagic::TraceSurface(Caster,Caster->GetPawnViewLocation(),Req.AimPoint+Req.AimNormal*12,Block))return false;
+        FActorSpawnParameters P;P.Owner=Caster;P.Instigator=Caster;P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+        auto* Strike=GetWorld()->SpawnActor<AFPSMeteorStrike>(Req.AimPoint,FRotator::ZeroRotator,P);
+        if(!Strike||!Strike->InitializeStrike(Caster,Spell,Req.AimPoint,Req.AimNormal))
+        {if(Strike)Strike->Destroy();return false;}
+        Strikes.Add(Strike);
+        Shadow->FinishFireMagicCast(Req.SkillId,FFireMagicRewards()); // 陨星自治收尾：其内部 Rewards 空这里先结预扣，实际击杀经验由 Strike->Finish 再算？口径对齐单机：ReleaseAtContact 不 Finish——陨星 Finish 时才结。
+        return true;
+    }
+    // flameArmor：服务端组件 TickArmor 走影子档案结算灼烧；bNetArmor 复制表现。
+    StartArmor();
+    if(CastSound)UGameplayStatics::PlaySoundAtLocation(this,CastSound,Caster->GetActorLocation());
+    if(auto* Status=UCombatStatusFormula::GetOrAdd(Caster))
+    {if(Spell.bGrantChain)Status->AddChainSpell();if(Spell.CastHasteStacks>0)Status->AddHaste(Spell.CastHasteStacks,Spell.CastHasteDuration);}
+    return true;
+}
+void UFPSFireMagicComponent::NetCastRejected(uint8 /*Phase*/,uint8 /*Code*/)
+{
+    bNetPaid=false;
+    if(!CommittedSkill.IsNone())
+    {
+        if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,CommittedSkill);
+        Feedback(CommittedSkill,TEXT("施法失败"));
+    }
+    QueuedSkill=NAME_None;CommittedSkill=NAME_None;if(auto* H=Hands())H->CancelSpellGesture(this);
+}
+void UFPSFireMagicComponent::NetCastCancelled(uint8 /*Phase*/)
+{
+    bNetPaid=false;
 }
 void UFPSFireMagicComponent::ClearEffects()
 {CancelPending();EndArmor(false);for(auto& Strike:Strikes)if(Strike.IsValid())Strike->Destroy();Strikes.Reset();ImpactTime=-1;}

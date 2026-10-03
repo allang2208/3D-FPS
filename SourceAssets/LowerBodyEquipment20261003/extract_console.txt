@@ -1,0 +1,52 @@
+Build.bat is already running, waiting for existing script to terminate...
+[2026.10.03-15.32.15:567][  0]LogInit: Display: Running engine for game: FPSGAME
+[2026.10.03-15.32.15:567][  0]LogCore: Display: Requested channels: 'cpu,gpu,frame,log,bookmark,screenshot,region'
+[2026.10.03-15.32.15:567][  0]LogTrace: Display: Control listening on port 1985
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : platform="Windows"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : config="Development"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.8-CL-58210709"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : engineversion="5.8.3-58210709+++UE5+Release-5.8"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : enginereleaseversion="5.8.3"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : os="Windows 11 (25H2) [10.0.26200.9168] "
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : cpu="GenuineIntel|13th Gen Intel(R) Core(TM) i7-13700K"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : asan="0"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : mergedmodules="0"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : compacttset="0"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : commandline="" D:/FPS3D/FPSGAME/FPSGAME.uproject -run=pythonscript -script=D:/FPS3D/FPSGAME/Tools/LowerBodyEquipment/extract_donors.py -unattended -nop4 -nosplash -NullRHI -abslog=D:/FPS3D/FPSGAME/SourceAssets/LowerBodyEquipment20261003/extract.log""
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : loginid="bc5c91f347bcf631eec19fa685df33d2"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : llm="0"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : zenstreaming="0"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resx="1280"
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resy="720"
+[2026.10.03-15.32.15:567][  0]LogAudio: Display: Audio Device Manager not initializing due to all audio being disabled. If this is not intentional, please check command line arguments for "-nosound".
+[2026.10.03-15.32.15:567][  0]LogConfig: Display: Loading Mac ini files took 0.04 seconds
+[2026.10.03-15.32.15:567][  0]LogConfig: Display: Loading VulkanPC ini files took 0.04 seconds
+[2026.10.03-15.32.15:567][  0]LogConfig: Display: Loading IOS ini files took 0.05 seconds
+[2026.10.03-15.32.15:567][  0]LogConfig: Display: Loading Android ini files took 0.05 seconds
+[2026.10.03-15.32.15:567][  0]LogConfig: Display: Loading TVOS ini files took 0.05 seconds
+[2026.10.03-15.32.15:567][  0]LogConfig: Display: Loading VisionOS ini files took 0.05 seconds
+[2026.10.03-15.32.15:567][  0]LogConfig: Display: Loading Windows ini files took 0.06 seconds
+[2026.10.03-15.32.15:567][  0]LogConfig: Display: Loading Unix ini files took 0.06 seconds
+[2026.10.03-15.32.15:567][  0]LogConfig: Display: Loading Linux ini files took 0.06 seconds
+[2026.10.03-15.32.15:567][  0]LogAsyncCompilation: Display: MemorySharingInfo: UsedMemory=305MiB, MaxMemoryAvailable=65018MiB
+[2026.10.03-15.32.15:567][  0]RenderDocPlugin: Display: RenderDoc plugin will not be loaded. Use '-AttachRenderDoc' on the cmd line or enable 'renderdoc.AutoAttach' in the plugin settings.
+[2026.10.03-15.32.15:567][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.03-15.32.15:567][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.03-15.32.15:567][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.03-15.32.15:567][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.03-15.32.15:567][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.03-15.32.15:567][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.03-15.32.15:567][  0]LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+[2026.10.03-15.32.15:567][  0]LogHAL: Display: Platform has ~ 32 GB [34088374272 / 34359738368 / 32], which maps to Largest [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2026.10.03-15.32.15:567][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2026.10.03-15.32.15:567][  0]LogObj: Display: Attempting to load config data for Default__DownlinkBandwidthManagerConfig before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.10.03-15.32.15:844][  0]LogObj: Display: Attempting to load config data for Default__SlateThemeManager before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.10.03-15.32.15:951][  0]LogCsvProfiler: Display: Metadata set : verbatimrhiname="Null"
+[2026.10.03-15.32.15:951][  0]LogCsvProfiler: Display: Metadata set : rhiname="Null"
+[2026.10.03-15.32.15:951][  0]LogCsvProfiler: Display: Metadata set : rhifeaturelevel="SM6"
+[2026.10.03-15.32.15:951][  0]LogCsvProfiler: Display: Metadata set : shaderplatform="PCD3D_SM6"
+[2026.10.03-15.32.15:951][  0]LogCsvProfiler: Display: Metadata set : gpu=""
+[2026.10.03-15.32.15:951][  0]LogCsvProfiler: Display: Metadata set : gpudriver=""

@@ -1,4 +1,5 @@
 #include "TemperateHillsWorld.h"
+#include "Net/UnrealNetwork.h" // M4: DOREPLIFETIME
 #include "TemperateHillsSurface.h"
 #include "../UI/TransitLoadingSubsystem.h"
 #include "Engine/GameInstance.h"
@@ -75,6 +76,7 @@ struct FLayerRadii : FPCGRuntimeGenerationRadii
 ATemperateHillsWorld::ATemperateHillsWorld()
 {
     PrimaryActorTick.bCanEverTick=true;
+    bReplicates=true; // M4：会话(种子/编辑)复制给客户端做确定性重建
     GenerationBounds=CreateDefaultSubobject<UBoxComponent>(TEXT("WorldBounds"));
     RootComponent=GenerationBounds;
     GenerationBounds->SetBoxExtent(FVector(51200,51200,50000));
@@ -159,24 +161,80 @@ void ATemperateHillsWorld::ResolveSession()
     }
 }
 
+void ATemperateHillsWorld::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(ATemperateHillsWorld,Seed);
+    DOREPLIFETIME(ATemperateHillsWorld,WorldId);
+    DOREPLIFETIME(ATemperateHillsWorld,NetEdits);
+    DOREPLIFETIME(ATemperateHillsWorld,NetEditsVersion);
+}
 void ATemperateHillsWorld::BeginPlay()
 {
     Super::BeginPlay();
     if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
         Loading->UpdatePreparation(FText::FromString(TEXT("正在准备温带丘陵…")),0);
     StartSeconds=FPlatformTime::Seconds();
-    if(GetNetMode()!=NM_Standalone){UE_LOG(LogTemp,Error,TEXT("HILLS_V1 supports standalone only"));return;}
+    // M4 联机：专用服暂不支持；客户端走确定性重建（Tick 里等复制的会话就绪）；
+    // 监听服与单机照常权威生成。
+    if(GetNetMode()==NM_DedicatedServer){UE_LOG(LogTemp,Error,TEXT("HILLS_V1 dedicated server unsupported"));return;}
+    if(GetNetMode()==NM_Client){UE_LOG(LogTemp,Display,TEXT("HILLS_NET client: awaiting replicated session"));return;}
     ResolveSession();
-    if(Slot.IsEmpty()||!Assets||Assets->GroundMaterial.IsNull()||Assets->Trees.IsEmpty()||Assets->Graphs.Num()!=4)
+    if(GetNetMode()!=NM_Standalone)SyncNetEdits(); // 会话(种子+存量编辑)首帧广播
+    StartWorldPipeline();
+}
+bool ATemperateHillsWorld::StartWorldPipeline()
+{
+    // 客户端不落盘（Slot 恒空）；服务端/单机的 Slot 为空意味着会话解析失败。
+    if((GetNetMode()!=NM_Client&&Slot.IsEmpty())||!Assets||Assets->GroundMaterial.IsNull()||Assets->Trees.IsEmpty()||Assets->Graphs.Num()!=4)
     {
         UE_LOG(LogTemp,Error,TEXT("HILLS_ASSETS missing curated biome data"));
         if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
             Loading->FailPreparation(FText::FromString(TEXT("世界数据无法读取，请返回主场景后重试。")));
-        return;
+        return false;
     }
     SizeMeters=FMath::Clamp(FMath::RoundToFloat(SizeMeters/128)*128,256.f,1024.f);
     GenerationBounds->SetBoxExtent(FVector(SizeMeters*50,SizeMeters*50,50000));
     BeginStreaming();
+    return true;
+}
+void ATemperateHillsWorld::ConvertNetEdits()
+{
+    TerrainEdits.Reset(NetEdits.Num());
+    for(const FHillsTerrainEditRecord& Record:NetEdits)
+    {
+        TemperateHillsSurface::FTerrainEdit Edit;
+        Edit.Type=Record.Type;Edit.X=Record.X;Edit.Y=Record.Y;Edit.Radius=Record.Radius;
+        Edit.HalfX=Record.HalfX;Edit.HalfY=Record.HalfY;Edit.Amplitude=Record.Amplitude;
+        Edit.Lip=Record.Lip;Edit.Seed=uint32(Record.Seed);
+        if(TemperateHillsSurface::TerrainEditValid(Edit))TerrainEdits.Add(Edit);
+    }
+    RebuildEditBuckets();
+}
+void ATemperateHillsWorld::SyncNetEdits()
+{
+    if(!HasAuthority())return;
+    NetEdits.Reset(TerrainEdits.Num());
+    for(const TemperateHillsSurface::FTerrainEdit& Edit:TerrainEdits)
+    {
+        FHillsTerrainEditRecord Record;
+        Record.Type=Edit.Type;Record.X=Edit.X;Record.Y=Edit.Y;Record.Radius=Edit.Radius;
+        Record.HalfX=Edit.HalfX;Record.HalfY=Edit.HalfY;Record.Amplitude=Edit.Amplitude;
+        Record.Lip=Edit.Lip;Record.Seed=Edit.Seed;
+        NetEdits.Add(Record);
+    }
+    ++NetEditsVersion;
+}
+void ATemperateHillsWorld::OnRep_NetEdits()
+{
+    if(GetNetMode()!=NM_Client||!bClientWorldInit)return;
+    ConvertNetEdits();
+    for(const TemperateHillsSurface::FTerrainEdit& Edit:TerrainEdits)
+    {
+        InvalidateTerrainCells(FVector2D(Edit.X,Edit.Y),TemperateHillsSurface::TerrainEditReach(Edit));
+        ClearCoverForEdit(Edit);
+    }
+    UE_LOG(LogTemp,Warning,TEXT("MPTEST hills client edits applied: count=%d version=%d"),TerrainEdits.Num(),NetEditsVersion);
 }
 
 double ATemperateHillsWorld::Noise(double X,double Y,uint32 Salt) const
@@ -321,6 +379,7 @@ void ATemperateHillsWorld::AddTerrainEdit(const TemperateHillsSurface::FTerrainE
     InvalidateTerrainCells(FVector2D(Edit.X,Edit.Y),TemperateHillsSurface::TerrainEditReach(Edit));
     ClearCoverForEdit(Edit);
     PersistTerrainEdits();
+    if(GetNetMode()!=NM_Standalone)SyncNetEdits(); // M4：编辑广播（全量≤256条重发，粗但正确；差分留 perf 轮）
 }
 
 bool ATemperateHillsWorld::IsGroundCoverMesh(const UStaticMesh* Mesh) const
@@ -605,6 +664,16 @@ void ATemperateHillsWorld::ActivateVegetationLayer(int32 Layer)
 void ATemperateHillsWorld::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+    // M4：客户端确定性重建入口——等服务端会话(种子+编辑)复制到位再启动管线。
+    if(GetNetMode()==NM_Client&&!bClientWorldInit)
+    {
+        if(!WorldId.IsValid())return;
+        bClientWorldInit=true;
+        Slot.Reset();
+        ConvertNetEdits();
+        UE_LOG(LogTemp,Warning,TEXT("MPTEST hills client session: seed=%d edits=%d"),Seed,TerrainEdits.Num());
+        StartWorldPipeline();
+    }
     TickStreaming();
     TickDayNightSky();
     if(!bReady)return;

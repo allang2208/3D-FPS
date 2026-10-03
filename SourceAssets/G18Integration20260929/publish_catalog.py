@@ -29,6 +29,10 @@ w['options']['trigger']=[{'id':'false','name':'标准扳机','description':'保�
 w['options']['magazine']=[{'id':'false','name':'原厂弹匣','description':'原厂双排弹匣，保持紧凑外形。','effects':[],'stats':{}},
     {'id':'ext_mag','name':'扩容弹匣','description':'沿原厂弹匣壳体向下延长，保留插接口、卡笋槽和抓握区。','effects':[{'text':'弹匣容量增加16发','benefit':1},{'text':'装填耗时增加10%','benefit':-1},{'text':'开镜耗时增加5%','benefit':-1}],'stats':{'mag_delta':16,'reload_mult':1.1,'ads_percent':.05}}]
 w['pistol_grip_surface']={'mesh':ROOT+'/Attachments/SM_G18_GripSurface','bone':'WPN_root'}
+drum_source=O.parent/'G18Drum50_20261003'
+if (drum_source/'import_receipt.json').exists() and json.loads((drum_source/'import_receipt.json').read_text()).get('complete'):
+    import runpy
+    runpy.run_path(str(drum_source/'catalog_extension.py'))['add_option'](w)
 w['traits']=[{'icon':'mechanic','text':'全自动，按住扳机连续射击；原厂 17 发双排弹匣'},
     {'icon':'drawback','text':'连续射击会迅速消耗弹药并积累后坐与散布'},
     {'icon':'special','text':'支持单持、双持以及作为法杖副手；每只手独立连射与换弹'},

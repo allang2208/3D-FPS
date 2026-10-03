@@ -1,0 +1,9 @@
+{
+  "purpose": "Final in-game modification icon; actual mesh rendering composed into standard metal frame",
+  "generator": "built-in imagegen",
+  "source_model_render": "Icons/ue_tang_dao_pommel_tiger_mountain_source.png",
+  "frame_reference": "../Icons/frame_style_reference.png",
+  "prompt": "Create the final square grayscale inventory icon by compositing reference image 1 (the actual newly authored tiger-head pommel model) into the metal card frame style of reference image 2. Reference 1 is the authoritative object: preserve its exact pure side orientation, proportions, solid silhouette, short broad integrated lower jaw/beard, domed crown, visible inset eye, single rear ring, mounting socket, teeth, and existing sculpted surface patterns. Do not invent, redraw or extend the beard, add dangling parts, change the model or replace it with the object from image 2. Only reference 2's square worn silver metal frame, four corner rivets, circular inner bezel and dark textured backing should be reused. Center the entire actual object at a readable scale inside the inner circle, keep all its parts inside the circle with modest breathing room. Neutral silver/black grayscale only, no gold or red tint, no text, labels or marks. Balanced lighting should keep the lower jaw junction and cheek detail readable without a broad blown-out highlight. Transparent background outside the square card frame only; dark opaque backing inside. Output a polished consistent game modification card using the exact model supplied in image 1.",
+  "generated_file": "C:/Users/allan/.codex/generated_images/01a10038-a50d-7210-964d-929131b424d2/exec-25b7515f-0fc7-4e4e-999e-b4c7aaf28b35.png",
+  "note": "Icon composite is not a runtime screenshot or acceptance render."
+}

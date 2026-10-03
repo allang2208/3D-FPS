@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ColdSteelDoorNetState.h"
 #include "ColdSteelWindow.generated.h"
 
 class UStaticMeshComponent;
@@ -27,6 +28,9 @@ class FPSGAME_API AColdSteelWindow : public AActor
 public:
     AColdSteelWindow();
     virtual void Tick(float DeltaSeconds) override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+    void OpenWindowFrom(const APawn* InstigatorPawn);
+    void ToggleWindowFrom(const APawn* InstigatorPawn);
 
     UFUNCTION(BlueprintCallable, Category="Window") void ToggleWindow();
     UFUNCTION(BlueprintCallable, Category="Window") void OpenWindow();
@@ -86,7 +90,7 @@ private:
     void UpdateLeafPawnCollision();
     void SetLeavesPawnBlocking(bool bBlock);
     /** 玩家站在窗的哪一侧（窗的本地 X 轴，+1／−1）；没有本地玩家时返回 false。 */
-    bool TryGetPlayerSideSign(float& OutSign) const;
+    bool TryGetPlayerSideSign(float& OutSign,const APawn* InstigatorPawn) const;
     /** 一次性自检日志：打印窗框与两扇窗扇的世界包围盒，便于确认贴地、居中与洞口对齐。 */
     void LogGeometryOnce();
 
@@ -105,4 +109,10 @@ private:
     /** 窗框包围盒半尺寸（cm）：铰链的深度与洞口宽度都由它推出来。 */
     FVector FrameExtentCm=FVector::ZeroVector;
     FVector FrameOriginCm=FVector::ZeroVector;
+    void PublishSwing();
+    UFUNCTION() void OnRep_Swing();
+    UFUNCTION() void OnRep_Setup();
+    UPROPERTY(ReplicatedUsing=OnRep_Swing) FColdSteelDoorNetState NetSwing;
+    UPROPERTY(ReplicatedUsing=OnRep_Setup) TObjectPtr<UMaterialInterface> NetSurface;
+    UPROPERTY(ReplicatedUsing=OnRep_Setup) FVector NetScale=FVector::OneVector;
 };

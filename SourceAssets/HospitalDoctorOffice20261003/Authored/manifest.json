@@ -1,0 +1,85 @@
+{
+  "objects": [
+    {
+      "name": "SM_Ward_WallRails",
+      "kind": "WallRails",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalDoctorOffice20261003\\Authored\\SM_Ward_WallRails.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      "triangles": 330816,
+      "collision": false,
+      "nanite": true,
+      "collision_boxes": 0,
+      "sample_only": false,
+      "asset": "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Ward_WallRails",
+      "replaces": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_WallRails"
+    },
+    {
+      "name": "SM_Ward_HeadwallServices",
+      "kind": "HeadwallServices",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalDoctorOffice20261003\\Authored\\SM_Ward_HeadwallServices.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_PanelWhite": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White",
+        "RS_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+        "RS_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RS_PanelBlue": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue",
+        "RS_PanelRed": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red",
+        "RS_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      "triangles": 21448,
+      "collision": false,
+      "nanite": true,
+      "collision_boxes": 0,
+      "sample_only": false,
+      "asset": "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Ward_HeadwallServices",
+      "replaces": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_HeadwallServices"
+    },
+    {
+      "name": "SM_Ward_Wayfinding",
+      "kind": "Wayfinding",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalDoctorOffice20261003\\Authored\\SM_Ward_Wayfinding.fbx",
+      "materials": {
+        "RS_PaintedSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "RS_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      "triangles": 6776,
+      "collision": false,
+      "nanite": true,
+      "collision_boxes": 0,
+      "sample_only": false,
+      "asset": "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Ward_Wayfinding",
+      "replaces": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Wayfinding"
+    },
+    {
+      "name": "SM_Office_RecordsDesktop",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalDoctorOffice20261003\\Authored\\SM_Office_RecordsDesktop.fbx",
+      "asset": "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Office_RecordsDesktop",
+      "materials": {
+        "RS_Paper": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookPaper",
+        "RS_Green": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookGreen",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Blue": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookBlue",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      "triangles": 5148,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "revision": 1,
+  "tests_run": false,
+  "rendered": false,
+  "ceramic_source": "Approved DungeonTileFracture20260922 via CorridorSurfaces",
+  "units": "metres; UE centimetres",
+  "source": "Original ward architecture, scoped panel and handrail rebuild"
+}

@@ -2,6 +2,7 @@
 #include "FPSGAMEPlayerController.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Weapons/DanWesson715WeaponAssets.h"
+#include "Weapons/RSH12WeaponAssets.h"
 #include "Weapons/FPSGunplayAnimInstance.h"
 #include "Weapons/LMG201WeaponAssets.h"
 #include "Weapons/PistolDualWieldComponent.h"

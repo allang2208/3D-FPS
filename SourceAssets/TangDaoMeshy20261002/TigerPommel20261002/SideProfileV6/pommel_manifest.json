@@ -1,0 +1,157 @@
+{
+  "id": "tiger_mountain",
+  "name": "虎啸镇岳配重锤",
+  "weapon": "ue_tang_dao",
+  "slot": "pommel",
+  "interface": "tang_dao_hilt_v1",
+  "ue_root": "/Game/Weapons/TangDao20261002/TigerPommel20261002/SideProfileV6",
+  "mesh_name": "SM_TangDao_Pommel_tiger_mountain_SideProfileV6",
+  "mesh": "/Game/Weapons/TangDao20261002/TigerPommel20261002/SideProfileV6/Meshes/SM_TangDao_Pommel_tiger_mountain_SideProfileV6.SM_TangDao_Pommel_tiger_mountain_SideProfileV6",
+  "materials": {
+    "M_TangDaoTigerPommel_BronzeFace": "/Game/Weapons/TangDao20261002/TigerPommel20261002/SideProfileV6/Materials/M_TangDaoTigerPommel_BronzeFace_ProfileV6.M_TangDaoTigerPommel_BronzeFace_ProfileV6",
+    "M_TangDaoTigerPommel_Gilt": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Gilt.M_TangDaoTigerPommel_Gilt",
+    "M_TangDaoTigerPommel_Garnet": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Garnet.M_TangDaoTigerPommel_Garnet",
+    "M_TangDaoTigerPommel_Mouth": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Mouth.M_TangDaoTigerPommel_Mouth",
+    "M_TangDaoTigerPommel_ChasedBody": "/Game/Weapons/TangDao20261002/TigerPommel20261002/SideProfileV6/Materials/M_TangDaoTigerPommel_ChasedBody_ProfileV6.M_TangDaoTigerPommel_ChasedBody_ProfileV6",
+    "M_TangDaoTigerPommel_Connector": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Connector.M_TangDaoTigerPommel_Connector",
+    "M_TangDaoTigerPommel_ChasedCrown": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_ChasedBody.M_TangDaoTigerPommel_ChasedBody"
+  },
+  "location_cm": [
+    0,
+    0,
+    -22.7
+  ],
+  "rotation_deg": [
+    0,
+    0,
+    0
+  ],
+  "scale": [
+    1,
+    1,
+    1
+  ],
+  "lod_triangles": [
+    803702,
+    417924,
+    176814
+  ],
+  "head_width_cm": 9.013,
+  "head_height_with_crown_cm": 10.534,
+  "length_cm": 16.239,
+  "head_facing": "local -Z; crown +X",
+  "head_core_shape": "full round rear skull; short mandibular beard with broad continuous jowl root and shallow under-jaw arch",
+  "tail_ring_outer_diameter_cm": 3.84,
+  "chin_revision": "ShortBroadRootIntegratedBeardV6_20261003",
+  "chin_shape": {
+    "rear_mass": "round lower skull retained",
+    "front_mandible": "short beard with broad shared jowl root",
+    "under_jaw_arch_max_mm": 3.5,
+    "tip_raise_mm": 6,
+    "root_width_increase_percent": 9,
+    "global_lower_forward_shift_mm": 0,
+    "mount_and_ring_preserved": true
+  },
+  "relief_height_mm": 3.2,
+  "skull_relief_height_mm": 1.8,
+  "skull_surface_projection": "continuous boundary-tangent shell with linear-color blended PBR atlas in theta/t domain",
+  "pbr_resolution": {
+    "BronzeFace": 4096,
+    "Gilt": 2048,
+    "Garnet": 512,
+    "Mouth": 512,
+    "ChasedBody": 2048,
+    "Connector": 2048
+  },
+  "revision": "TangDaoTigerPommelSideProfileV6EyeAlign_20261003",
+  "face_revision": "ReliefAnchoredRubyEyesV6_20261003",
+  "source_revision": "SideProfileV6",
+  "connector_revision": "SteppedSocketV4_20261003",
+  "connector_shape": {
+    "type": "short stepped socket with narrow shanks",
+    "ring_head_shank_diameter_mm": 9.6,
+    "sleeve_relief_height_mm": 0.55,
+    "ruby_band_stones": 18,
+    "native_interface_preserved": true,
+    "head_shape_preserved": false
+  },
+  "face_anatomy": {
+    "eye_socket_depth_mm": null,
+    "inset_eye_shape": "flattened oval ruby under lowered upper lids",
+    "incisors_per_row": 7,
+    "upper_canine_height_mm": null,
+    "lower_canine_height_mm": null,
+    "nose_shape": "original triangular nose carried with broader muzzle field",
+    "eye_center_spacing_mm": 32.6,
+    "mouth_height_design_mm": 24,
+    "tooth_shape": "same continuous gape deformation as mouth rim and bowl",
+    "eye_orientation": "ruby, pupil, rim and lid share the original relief pupil anchors and cheek tangent frame",
+    "eye_source_uv": {
+      "-1": [
+        0.3485,
+        0.299
+      ],
+      "1": [
+        0.651,
+        0.2982
+      ]
+    },
+    "eye_source_lateral_seat_mm": 0,
+    "eye_source_forward_seat_mm": 1.7,
+    "mouth_side": "receded commissure behind upper canines and lower jaw"
+  },
+  "stats": {},
+  "runtime_tested": false,
+  "appearance": "饱满后脑与后鬃，短阔下颌鬃与侧颊连续衔接，虎口侧缘后退、虎目内嵌侧转，长鬃向后下方流转，保留穹顶红石冠与云环接座。",
+  "features": [
+    "饱满后脑与短阔下颌鬃的连续底部轮廓",
+    "虎脸侧壳共享边界及切向过渡",
+    "虎口侧缘后退、獠牙与口腔分层",
+    "顺曲面转向的虎目与眼睑",
+    "侧颊向后下方延伸的长鬃实体浮雕",
+    "沿用实际柄尾接口、云环及接座",
+    "三档距离LOD"
+  ],
+  "reference_policy": "front and side primary; flawed bottom image ornament only; one rear ring, no duplicated rear connector",
+  "production_route": "imagegen ornament height source + Blender local modeling; no Meshy API task",
+  "visual_acceptance": false,
+  "reference_shape": {
+    "reference": "../Reference/TigerPommel_Reference.png",
+    "front_ornament": "../Ornament/TigerFace_HeightSource.png",
+    "policy": "side contour and anatomy primary; front proportion mapping retained; existing front ornament retained; side mane newly authored",
+    "crown_height_mm": 26.5,
+    "crown_base_diameter_mm": 60,
+    "side_reference_registration": "same mount, pivot, and crown-up axis; no whole-attachment scaling",
+    "side_profile_stations_source_z_m": [
+      -0.06,
+      -0.045,
+      -0.039,
+      -0.03,
+      -0.021,
+      -0.012,
+      -0.005,
+      0.0,
+      0.008,
+      0.018,
+      0.029,
+      0.039,
+      0.05
+    ],
+    "side_profile_stations_forward_y_m": [
+      0.022,
+      0.026,
+      0.03,
+      0.036,
+      0.038,
+      0.034,
+      0.04,
+      0.046,
+      0.047,
+      0.037,
+      0.029,
+      0.012,
+      0.002
+    ]
+  },
+  "junction_revision": "ContinuousHermiteAndPBR_V6_20261003"
+}

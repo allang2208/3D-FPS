@@ -1,0 +1,1642 @@
+{
+  "revision": 2,
+  "groups": [
+    {
+      "id": "PalletCargo",
+      "pick_count": [
+        4,
+        5
+      ],
+      "slots": [
+        {
+          "id": "FloorCargo_0",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_0.WoodCrate",
+                  "position": [
+                    -700,
+                    200,
+                    0
+                  ],
+                  "yaw": -6
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "重型金属运输箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_0.MetalCase",
+                  "position": [
+                    -700,
+                    200,
+                    0
+                  ],
+                  "yaw": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "FloorCargo_1",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_1.WoodCrate",
+                  "position": [
+                    -700,
+                    0,
+                    0
+                  ],
+                  "yaw": -186
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "重型金属运输箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_1.MetalCase",
+                  "position": [
+                    -700,
+                    0,
+                    0
+                  ],
+                  "yaw": -175
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "FloorCargo_2",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_2.WoodCrate",
+                  "position": [
+                    670.0,
+                    300,
+                    0
+                  ],
+                  "yaw": -6
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "重型金属运输箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_2.MetalCase",
+                  "position": [
+                    670.0,
+                    300,
+                    0
+                  ],
+                  "yaw": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "FloorCargo_3",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_3.WoodCrate",
+                  "position": [
+                    700.0,
+                    100,
+                    0
+                  ],
+                  "yaw": -186
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "重型金属运输箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_3.MetalCase",
+                  "position": [
+                    700.0,
+                    100,
+                    0
+                  ],
+                  "yaw": -175
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "FloorCargo_4",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_4.WoodCrate",
+                  "position": [
+                    -750.0,
+                    -520.0,
+                    0
+                  ],
+                  "yaw": -96
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "重型金属运输箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_4.MetalCase",
+                  "position": [
+                    -750.0,
+                    -520.0,
+                    0
+                  ],
+                  "yaw": -85
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "FloorCargo_5",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_5.WoodCrate",
+                  "position": [
+                    700,
+                    -760.0,
+                    0
+                  ],
+                  "yaw": -6
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "重型金属运输箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_5.MetalCase",
+                  "position": [
+                    700,
+                    -760.0,
+                    0
+                  ],
+                  "yaw": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "FloorCargo_6",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_6.WoodCrate",
+                  "position": [
+                    -500,
+                    -1150.0,
+                    120.0
+                  ],
+                  "yaw": -6
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "重型金属运输箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_6.MetalCase",
+                  "position": [
+                    -500,
+                    -1150.0,
+                    120.0
+                  ],
+                  "yaw": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "FloorCargo_7",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_7.WoodCrate",
+                  "position": [
+                    470.0,
+                    -1130.0,
+                    120.0
+                  ],
+                  "yaw": -186
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "重型金属运输箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.FloorCargo_7.MetalCase",
+                  "position": [
+                    470.0,
+                    -1130.0,
+                    120.0
+                  ],
+                  "yaw": -175
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ReachableRackCargo",
+      "pick_count": [
+        3,
+        4
+      ],
+      "slots": [
+        {
+          "id": "RackCargo_0",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_0.Tote",
+                  "position": [
+                    -1274.0,
+                    213.0,
+                    20
+                  ],
+                  "yaw": 90,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen"
+                  ]
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_0.Tote",
+                  "position": [
+                    -1274.0,
+                    213.0,
+                    20
+                  ],
+                  "yaw": 90,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue"
+                  ]
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_0.Tote",
+                  "position": [
+                    -1274.0,
+                    213.0,
+                    20
+                  ],
+                  "yaw": 90,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "RackCargo_4",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_4.Tote",
+                  "position": [
+                    -1274.0,
+                    -193.00000000000003,
+                    20
+                  ],
+                  "yaw": 90,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen"
+                  ]
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_4.Tote",
+                  "position": [
+                    -1274.0,
+                    -193.00000000000003,
+                    20
+                  ],
+                  "yaw": 90,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue"
+                  ]
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_4.Tote",
+                  "position": [
+                    -1274.0,
+                    -193.00000000000003,
+                    20
+                  ],
+                  "yaw": 90,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "RackCargo_5",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_5.Tote",
+                  "position": [
+                    -1274.0,
+                    -426.99999999999994,
+                    20
+                  ],
+                  "yaw": 90,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen"
+                  ]
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_5.Tote",
+                  "position": [
+                    -1274.0,
+                    -426.99999999999994,
+                    20
+                  ],
+                  "yaw": 90,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue"
+                  ]
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_5.Tote",
+                  "position": [
+                    -1274.0,
+                    -426.99999999999994,
+                    20
+                  ],
+                  "yaw": 90,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "RackCargo_7",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_7.Tote",
+                  "position": [
+                    1274.0,
+                    447.0,
+                    20
+                  ],
+                  "yaw": -90,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen"
+                  ]
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_7.Tote",
+                  "position": [
+                    1274.0,
+                    447.0,
+                    20
+                  ],
+                  "yaw": -90,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue"
+                  ]
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_7.Tote",
+                  "position": [
+                    1274.0,
+                    447.0,
+                    20
+                  ],
+                  "yaw": -90,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "RackCargo_12",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_12.Tote",
+                  "position": [
+                    493.0,
+                    1351.0,
+                    20
+                  ],
+                  "yaw": -180,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen"
+                  ]
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_12.Tote",
+                  "position": [
+                    493.0,
+                    1351.0,
+                    20
+                  ],
+                  "yaw": -180,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue"
+                  ]
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "带盖周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.RackCargo_12.Tote",
+                  "position": [
+                    493.0,
+                    1351.0,
+                    20
+                  ],
+                  "yaw": -180,
+                  "body_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray"
+                  ],
+                  "door_materials": [
+                    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "MaintenanceBays",
+      "pick_count": [
+        1,
+        2
+      ],
+      "slots": [
+        {
+          "id": "ToolBay.DockWest",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Body",
+                  "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolCabinet_Door_TextV2",
+                  "hinge": [
+                    -42.5,
+                    -27.500000000000004,
+                    16
+                  ],
+                  "opening_motion": "Swing",
+                  "opened_yaw": -105,
+                  "caption": "维修工具柜",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.Tools.DockWest",
+                  "position": [
+                    -1100,
+                    -1325,
+                    120
+                  ],
+                  "yaw": 180
+                },
+                {
+                  "body": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Frame",
+                  "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolDrawer_Tray_TextV2",
+                  "hinge": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "opening_motion": "Drawer",
+                  "drawer_travel": [
+                    0,
+                    -34,
+                    0
+                  ],
+                  "caption": "工具柜上层抽屉",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.Tools.DockWest.Drawer",
+                  "position": [
+                    -1100,
+                    -1325,
+                    120
+                  ],
+                  "yaw": 180
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ToolBay.DockCenter",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Body",
+                  "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolCabinet_Door_TextV2",
+                  "hinge": [
+                    -42.5,
+                    -27.500000000000004,
+                    16
+                  ],
+                  "opening_motion": "Swing",
+                  "opened_yaw": -105,
+                  "caption": "维修工具柜",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.Tools.DockCenter",
+                  "position": [
+                    100,
+                    -1325,
+                    120
+                  ],
+                  "yaw": 180
+                },
+                {
+                  "body": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Frame",
+                  "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolDrawer_Tray_TextV2",
+                  "hinge": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "opening_motion": "Drawer",
+                  "drawer_travel": [
+                    0,
+                    -34,
+                    0
+                  ],
+                  "caption": "工具柜上层抽屉",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.Tools.DockCenter.Drawer",
+                  "position": [
+                    100,
+                    -1325,
+                    120
+                  ],
+                  "yaw": 180
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ToolBay.SouthWall",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Body",
+                  "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolCabinet_Door_TextV2",
+                  "hinge": [
+                    -42.5,
+                    -27.500000000000004,
+                    16
+                  ],
+                  "opening_motion": "Swing",
+                  "opened_yaw": -105,
+                  "caption": "维修工具柜",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.Tools.SouthWall",
+                  "position": [
+                    -300,
+                    1335,
+                    0
+                  ],
+                  "yaw": 0
+                },
+                {
+                  "body": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Frame",
+                  "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolDrawer_Tray_TextV2",
+                  "hinge": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "opening_motion": "Drawer",
+                  "drawer_travel": [
+                    0,
+                    -34,
+                    0
+                  ],
+                  "caption": "工具柜上层抽屉",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "container_id": "CargoWarehouse.Tools.SouthWall.Drawer",
+                  "position": [
+                    -300,
+                    1335,
+                    0
+                  ],
+                  "yaw": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LootExpansion.WarehouseReserve",
+      "pick_count": [
+        3,
+        4
+      ],
+      "slots": [
+        {
+          "id": "CargoWarehouse.Reserve.SouthWest",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "position": [
+                    -1236,
+                    1260,
+                    0
+                  ],
+                  "yaw": -4,
+                  "container_id": "CargoWarehouse.Reserve.SouthWest.WoodCrate",
+                  "initial_open_fraction": 0
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "金属设备箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "position": [
+                    -1225,
+                    1260,
+                    0
+                  ],
+                  "yaw": 5,
+                  "container_id": "CargoWarehouse.Reserve.SouthWest.MetalCase",
+                  "initial_open_fraction": 0
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "物资周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "position": [
+                    -1229,
+                    1260,
+                    0
+                  ],
+                  "yaw": -2,
+                  "container_id": "CargoWarehouse.Reserve.SouthWest.Tote",
+                  "initial_open_fraction": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CargoWarehouse.Reserve.SouthMiddle",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "position": [
+                    -656,
+                    1270,
+                    0
+                  ],
+                  "yaw": -4,
+                  "container_id": "CargoWarehouse.Reserve.SouthMiddle.WoodCrate",
+                  "initial_open_fraction": 0
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "金属设备箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "position": [
+                    -645,
+                    1270,
+                    0
+                  ],
+                  "yaw": 5,
+                  "container_id": "CargoWarehouse.Reserve.SouthMiddle.MetalCase",
+                  "initial_open_fraction": 0
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "物资周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "position": [
+                    -649,
+                    1270,
+                    0
+                  ],
+                  "yaw": -2,
+                  "container_id": "CargoWarehouse.Reserve.SouthMiddle.Tote",
+                  "initial_open_fraction": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CargoWarehouse.Reserve.SouthEast",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "position": [
+                    1284,
+                    1260,
+                    0
+                  ],
+                  "yaw": -4,
+                  "container_id": "CargoWarehouse.Reserve.SouthEast.WoodCrate",
+                  "initial_open_fraction": 0
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "金属设备箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "position": [
+                    1295,
+                    1260,
+                    0
+                  ],
+                  "yaw": 5,
+                  "container_id": "CargoWarehouse.Reserve.SouthEast.MetalCase",
+                  "initial_open_fraction": 0
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "物资周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "position": [
+                    1291,
+                    1260,
+                    0
+                  ],
+                  "yaw": -2,
+                  "container_id": "CargoWarehouse.Reserve.SouthEast.Tote",
+                  "initial_open_fraction": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CargoWarehouse.Reserve.DockMiddle",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "position": [
+                    -206,
+                    -1240,
+                    120
+                  ],
+                  "yaw": 176,
+                  "container_id": "CargoWarehouse.Reserve.DockMiddle.WoodCrate",
+                  "initial_open_fraction": 0
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "金属设备箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "position": [
+                    -195,
+                    -1240,
+                    120
+                  ],
+                  "yaw": 185,
+                  "container_id": "CargoWarehouse.Reserve.DockMiddle.MetalCase",
+                  "initial_open_fraction": 0
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "物资周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "position": [
+                    -199,
+                    -1240,
+                    120
+                  ],
+                  "yaw": 178,
+                  "container_id": "CargoWarehouse.Reserve.DockMiddle.Tote",
+                  "initial_open_fraction": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CargoWarehouse.Reserve.DockEast",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "position": [
+                    1174,
+                    -1250,
+                    120
+                  ],
+                  "yaw": 176,
+                  "container_id": "CargoWarehouse.Reserve.DockEast.WoodCrate",
+                  "initial_open_fraction": 0
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "金属设备箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "position": [
+                    1185,
+                    -1250,
+                    120
+                  ],
+                  "yaw": 185,
+                  "container_id": "CargoWarehouse.Reserve.DockEast.MetalCase",
+                  "initial_open_fraction": 0
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "物资周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "position": [
+                    1181,
+                    -1250,
+                    120
+                  ],
+                  "yaw": 178,
+                  "container_id": "CargoWarehouse.Reserve.DockEast.Tote",
+                  "initial_open_fraction": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CargoWarehouse.Reserve.WestCorner",
+          "variants": [
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+                  "hinge": [
+                    0,
+                    39.0,
+                    76.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "加固运输木箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "position": [
+                    -1370,
+                    -716,
+                    0
+                  ],
+                  "yaw": 86,
+                  "container_id": "CargoWarehouse.Reserve.WestCorner.WoodCrate",
+                  "initial_open_fraction": 0
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+                  "hinge": [
+                    0,
+                    33.5,
+                    63.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 108,
+                  "caption": "金属设备箱",
+                  "storage_pages": 2,
+                  "type": "scene_container",
+                  "position": [
+                    -1370,
+                    -705,
+                    0
+                  ],
+                  "yaw": 95,
+                  "container_id": "CargoWarehouse.Reserve.WestCorner.MetalCase",
+                  "initial_open_fraction": 0
+                }
+              ]
+            },
+            {
+              "containers": [
+                {
+                  "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+                  "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+                  "hinge": [
+                    0,
+                    22.0,
+                    41.0
+                  ],
+                  "opening_motion": "Lid",
+                  "opened_roll": 105,
+                  "caption": "物资周转箱",
+                  "storage_pages": 1,
+                  "type": "scene_container",
+                  "position": [
+                    -1370,
+                    -709,
+                    0
+                  ],
+                  "yaw": 88,
+                  "container_id": "CargoWarehouse.Reserve.WestCorner.Tote",
+                  "initial_open_fraction": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "outline": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_ContainerOutline_V4.M_Staff_ContainerOutline_V4",
+  "preview_seed": 20261002,
+  "rewards_deferred": true,
+  "placement": "existing lower cargo and pallet footprints; blank maintenance wall bays",
+  "minimum_main_aisle_m": 1.5,
+  "tests_run": false,
+  "rendered": false,
+  "loot_expansion_revision": 1
+}

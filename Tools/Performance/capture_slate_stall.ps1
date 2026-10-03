@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 $captureRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
 $captureId = Get-Date -Format 'yyyyMMdd-HHmmss'
 $captureDir = Join-Path $captureRoot ('Saved/SlateStall20260923/' + $captureId)

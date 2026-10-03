@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 $taskSource = 'D:/FPS3D/资产/音效/撞门.mp3'
 $taskFfmpeg = 'D:/FPS3D/FPSGAME/SourceAssets/M4Infima/PreviewTools/imageio_ffmpeg/binaries/ffmpeg-win-x86_64-v7.1.exe'
 $taskCopy = Join-Path $PSScriptRoot 'Original.mp3'

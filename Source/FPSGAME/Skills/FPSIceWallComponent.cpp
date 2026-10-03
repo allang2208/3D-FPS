@@ -1,4 +1,5 @@
 #include "FPSIceWallComponent.h"
+#include "NetCastUtils.h"
 #include "FPSIceWall.h"
 #include "IceWallPlacement.h"
 #include "FPSFireballComponent.h"
@@ -85,7 +86,7 @@ AFPSIceWall* UFPSIceWallComponent::SpawnWall(bool bGhost,const FIceWallCast& Cas
 void UFPSIceWallComponent::Trigger()
 {
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
-    if(!P||!M||!P->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone||!InputAvailable())return;
+    if(!P||!M||!P->IsLocallyControlled()||!InputAvailable())return;
     if(auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     if(const auto* H=Hands();H&&H->HasOtherPreparedSpell(this))
     {bQueuedGather=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
@@ -135,6 +136,8 @@ void UFPSIceWallComponent::ServiceQueue()
         Displayed=FIceWallPlacement();
         if(auto* Status=P->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
         if(CastSound)UGameplayStatics::PlaySoundAtLocation(this,CastSound,P->GetActorLocation(),.5f);
+        // 联机客人：种子/预览是本地表现壳；权威墙等 Phase1 上报后由服务端生成。
+        if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;NetPaidAt=GetWorld()->GetTimeSeconds();NetCast::Send(P,TEXT("iceWall"),0);}
     }
     if(bReleaseRequested&&Seed.IsValid())
         H->TryBeginSpellGesture(this,true,Seed->Snapshot().CastSpeed,FSimpleDelegate::CreateUObject(this,&ThisClass::LaunchAtContact));
@@ -150,6 +153,19 @@ void UFPSIceWallComponent::LaunchAtContact()
     {bReleaseRequested=false;Feedback(Reason.IsEmpty()?TEXT("释放取消"):Reason);PreviewAge=1;return;}
     auto* M=Model();auto* H=Hands();
     if(!M||!H||!M->CommitIceWallRelease()){Cancel();return;}
+    // 联机客人：放置点上报服务端，权威墙复制回来；本地种子/预览即刻消隐。
+    if(GetWorld()->GetNetMode()==NM_Client)
+    {
+        const auto C=Seed->Snapshot();
+        const FVector Forward=Committed.Rotation.Vector(); // 朝向走 AimNormal，服务端按它重建 yaw
+        NetCast::Send(GetOwner(),TEXT("iceWall"),1,Committed.Location,Forward,uint8(Committed.Shape));
+        if(Preview.IsValid())Preview->Destroy();Preview.Reset();
+        if(Seed.IsValid())Seed->Destroy();Seed.Reset();
+        PaidMana=0;bNetPaid=false;bGathered=bReleaseRequested=false;
+        if(auto* S=GetOwner()->FindComponentByClass<UCombatStatusFormula>())
+        {if(C.bGrantChain)S->AddChainSpell();if(C.CastHasteStacks>0)S->AddHaste(C.CastHasteStacks,C.CastHasteDuration);}
+        return;
+    }
     auto* Wall=Seed.Get();const auto C=Wall->Snapshot();
     Wall->Gather(1.f,SeedOrigin());
     Wall->Launch(Wall->GetActorLocation(),Committed);
@@ -223,11 +239,56 @@ void UFPSIceWallComponent::InterruptPending(bool bCancelSeed)
 {bQueuedGather=false;SuspendPreview();if(bCancelSeed)Cancel();}
 void UFPSIceWallComponent::Cancel()
 {
+    // 联机客人：凝聚期取消——服务端按 Phase2 退预留蓝；本地壳即时清。
+    if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bNetPaid)NetCast::Send(GetOwner(),TEXT("iceWall"),2);
+    bNetPaid=false;
     bQueuedGather=bReleaseRequested=bGathered=false;
     auto* OldSeed=Seed.Get();Seed.Reset();if(OldSeed)OldSeed->Destroy();
     auto* OldPreview=Preview.Get();Preview.Reset();if(OldPreview)OldPreview->Destroy();
     if(auto* M=Model();M&&OldSeed)M->RefundUnreleasedCast(PaidMana,TEXT("iceWall"));
     PaidMana=0;if(auto* H=Hands())H->CancelSpellGesture(this);
+}
+// ── 联机服务端入口：客人上报放置点→重验→权威墙生成（复制回各端） ──
+bool UFPSIceWallComponent::NetCommitWall(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow)
+{
+    const auto C=Shadow->IceWallStats();
+    FIceWallPlacement Plan;
+    Plan.Location=Req.AimPoint;
+    Plan.Shape=Req.Variant==1?EIceWallShape::Low:EIceWallShape::High;
+    const FVector Facing=Req.AimNormal.GetSafeNormal2D(SMALL_NUMBER,FVector::ForwardVector);
+    Plan.Rotation=FRotator(0,FMath::RadiansToDegrees(FMath::Atan2(Facing.Y,Facing.X)),0);
+    Plan.bValid=true;
+    if(FVector::DistSquared2D(Caster->GetActorLocation(),Plan.Location)>FMath::Square(C.Range))return false;
+    FString Reason;
+    if(!IceWallPlacement::Build(GetWorld(),Plan,C,Reason))return false;
+    // 服务端权威墙：直接生成终态——种子凝聚段只在本地端有过表现意义。
+    FActorSpawnParameters Params;Params.Owner=Caster;Params.Instigator=Caster;Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    auto* Wall=GetWorld()->SpawnActor<AFPSIceWall>(Plan.Location,Plan.Rotation,Params);
+    if(!Wall)return false;
+    Wall->Initialize(this,C,BlockMeshes,IceMaterial,PreviewMaterial,BreakFX,BreakSound,false);
+    Wall->Gather(1.f,Plan.Location);
+    Wall->Launch(Plan.Location,Plan);
+    Shadow->CommitIceWallRelease();
+    ReleasedWalls.RemoveAll([](const auto& W){return !W.IsValid();});
+    if(ReleasedWalls.Num()>=4){if(ReleasedWalls[0].IsValid())ReleasedWalls[0]->Shatter();ReleasedWalls.RemoveAt(0);}
+    ReleasedWalls.Add(Wall);
+    if(auto* S=Caster->FindComponentByClass<UCombatStatusFormula>())
+    {if(C.bGrantChain)S->AddChainSpell();if(C.CastHasteStacks>0)S->AddHaste(C.CastHasteStacks,C.CastHasteDuration);}
+    return true;
+}
+void UFPSIceWallComponent::NetCastRejected(uint8 /*Phase*/,uint8 /*Code*/)
+{
+    bQueuedGather=false;bNetPaid=false;
+    if(Seed.IsValid())Seed->Destroy();Seed.Reset();
+    if(Preview.IsValid())Preview->Destroy();Preview.Reset();
+    bGathered=bReleaseRequested=false;
+    if(auto* M=Model())M->RefundUnreleasedCast(PaidMana,TEXT("iceWall"));
+    PaidMana=0;if(auto* H=Hands())H->CancelSpellGesture(this);
+    Feedback(TEXT("施法失败"));
+}
+void UFPSIceWallComponent::NetCastCancelled(uint8 /*Phase*/)
+{
+    bNetPaid=false; // 本地壳的销毁与退蓝在 Cancel() 走完了
 }
 void UFPSIceWallComponent::WallEnded(AFPSIceWall* Wall)
 {
@@ -238,6 +299,13 @@ void UFPSIceWallComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
 {
     Super::TickComponent(Delta,Type,Tick);
     if(auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead()){Cancel();return;}
+    // 联机：扣账已发生但服务端权威墙久久未达——超时本地收尾退款。
+    if(bNetPaid&&!Seed.IsValid()&&!bReleaseRequested&&GetWorld()&&GetWorld()->GetTimeSeconds()-NetPaidAt>2.5)
+    {
+        bNetPaid=false;
+        if(auto* M=Model())M->RefundUnreleasedCast(PaidMana,TEXT("iceWall"));
+        PaidMana=0;
+    }
     if(Seed.IsValid()||bQueuedGather||bReleaseRequested)
         if(auto* M=Model();M&&M->IceWallDefinition().IceWall.bRequiresStaff&&!M->HasEquippedStaff())
         {Cancel();Feedback(TEXT("需要法杖"));return;}

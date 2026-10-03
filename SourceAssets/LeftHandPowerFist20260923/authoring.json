@@ -1,0 +1,131 @@
+{
+  "revision": "LeftHandPowerFist_V2_LiftPress",
+  "source_fist": {
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\FistBraceGuardV21\\AzureRunesword_Manny_Editable.blend",
+    "action": "A_RuneSword_Guard",
+    "frames": [
+      0.0,
+      96.0
+    ],
+    "fps": 480.0,
+    "duration": 0.2,
+    "sample_frame": 96.0,
+    "loop": false,
+    "reuse": "Final closed left-fist rotations only; no sword or right-hand motion"
+  },
+  "base_rig": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GASPTraversal20260910\\Native\\TraversalArms_Editable.blend",
+  "mesh": "SK_Manny_Arms_Export",
+  "skeleton_route": "Current M4 Manny viewmodel skeleton",
+  "clips": [
+    {
+      "name": "A_LeftHand_PowerFist",
+      "fps": 300,
+      "frames": [
+        0,
+        300
+      ],
+      "duration": 1.0,
+      "loop": false,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LeftHandPowerFist20260923\\Export\\A_LeftHand_PowerFist.fbx"
+    },
+    {
+      "name": "A_LeftHand_PowerFist_Raise",
+      "fps": 300,
+      "frames": [
+        0,
+        99
+      ],
+      "duration": 0.33,
+      "loop": false,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LeftHandPowerFist20260923\\Export\\A_LeftHand_PowerFist_Raise.fbx"
+    },
+    {
+      "name": "A_LeftHand_PowerFist_Hold",
+      "fps": 300,
+      "frames": [
+        0,
+        150
+      ],
+      "duration": 0.5,
+      "loop": true,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LeftHandPowerFist20260923\\Export\\A_LeftHand_PowerFist_Hold.fbx"
+    },
+    {
+      "name": "A_LeftHand_PowerFist_Recover",
+      "fps": 300,
+      "frames": [
+        0,
+        144
+      ],
+      "duration": 0.48,
+      "loop": false,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LeftHandPowerFist20260923\\Export\\A_LeftHand_PowerFist_Recover.fbx"
+    }
+  ],
+  "fist_locked_seconds": 0.26,
+  "runtime_integration": "Holy Light self-cast consumes this same motion/finger profile through the shared left-arm layer",
+  "finger_profile": {
+    "index": {
+      "flex": [
+        65.75,
+        158.75,
+        216.75
+      ],
+      "spread": [
+        -0.75,
+        -3.75,
+        -6.75
+      ]
+    },
+    "middle": {
+      "flex": [
+        65.75,
+        163.75,
+        227.75
+      ],
+      "spread": [
+        -2.25,
+        6.0,
+        9.75
+      ]
+    },
+    "ring": {
+      "flex": [
+        70.75,
+        166.75,
+        229.75
+      ],
+      "spread": [
+        -2.75,
+        0.25,
+        3.25
+      ]
+    },
+    "pinky": {
+      "flex": [
+        70.0,
+        168.75,
+        230.75
+      ],
+      "spread": [
+        -2.0,
+        1.0,
+        -0.5
+      ]
+    },
+    "thumb": {
+      "flex": [
+        48.0,
+        25.75,
+        13.0
+      ],
+      "spread": [
+        -11.0,
+        60.0,
+        87.0
+      ]
+    }
+  },
+  "right_arm_and_weapon": "Held unchanged at source M4_idle frame 0",
+  "tests_or_renders_run": false
+}

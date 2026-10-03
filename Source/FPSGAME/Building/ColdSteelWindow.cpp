@@ -7,6 +7,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Materials/MaterialInterface.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Net/UnrealNetwork.h"
 
 namespace
 {
@@ -23,6 +24,7 @@ namespace
 AColdSteelWindow::AColdSteelWindow()
 {
     PrimaryActorTick.bCanEverTick=true;
+    bReplicates=true;SetReplicateMovement(true);
     SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("WindowRoot")));
 
     Frame=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WindowFrame"));
@@ -71,13 +73,17 @@ AColdSteelWindow::AColdSteelWindow()
 void AColdSteelWindow::BeginPlay()
 {
     Super::BeginPlay();
+    if(HasAuthority())NetScale=GetActorScale3D();
+    else OnRep_Setup();
     AlignGeometry();
+    if(!HasAuthority())OnRep_Swing();
     LogGeometryOnce();
 }
 
 void AColdSteelWindow::Configure(UMaterialInterface* Surface)
 {
     if(!Surface)return;
+    if(HasAuthority()){NetSurface=Surface;ForceNetUpdate();}
     // 整扇窗统一材质：窗框与两扇窗扇的**全部**材质槽一起替换，和玩家用同种体素砌出来的墙一致。
     // 若要保留网格自带的玻璃槽，把下面三处循环改回只 SetMaterial(0, Surface) 即可。
     if(Frame)for(int32 Index=0;Index<FMath::Max(1,Frame->GetNumMaterials());++Index)Frame->SetMaterial(Index,Surface);
@@ -253,14 +259,20 @@ void AColdSteelWindow::LogGeometryOnce()
 
 void AColdSteelWindow::ToggleWindow()
 {
-    if(bOpen)CloseWindow();else OpenWindow();
+    ToggleWindowFrom(nullptr);
 }
 
-bool AColdSteelWindow::TryGetPlayerSideSign(float& OutSign) const
+void AColdSteelWindow::ToggleWindowFrom(const APawn* InstigatorPawn)
+{
+    if(!HasAuthority())return;
+    if(bOpen)CloseWindow();else OpenWindowFrom(InstigatorPawn);
+}
+
+bool AColdSteelWindow::TryGetPlayerSideSign(float& OutSign,const APawn* InstigatorPawn) const
 {
     const UWorld* World=GetWorld();
     const APlayerController* Controller=World?World->GetFirstPlayerController():nullptr;
-    const APawn* Pawn=Controller?Controller->GetPawn():nullptr;
+    const APawn* Pawn=InstigatorPawn?InstigatorPawn:(Controller?Controller->GetPawn():nullptr);
     if(!Pawn)return false;
     // 窗的本地 X 就是墙面法线：玩家在 +X 侧还是 −X 侧，决定两扇窗该往哪边开。
     const FVector Local=GetActorTransform().InverseTransformPosition(Pawn->GetActorLocation());
@@ -270,13 +282,17 @@ bool AColdSteelWindow::TryGetPlayerSideSign(float& OutSign) const
 }
 
 void AColdSteelWindow::OpenWindow()
+{OpenWindowFrom(nullptr);}
+
+void AColdSteelWindow::OpenWindowFrom(const APawn* InstigatorPawn)
 {
+    if(!HasAuthority()||bOpen)return;
     bOpen=true;
     // 默认方向由玩家决定：窗朝玩家的**反侧**开（等于玩家把窗推开），而不是固定方向。
     // 只有在拿不到玩家位置时才退回本地 +X 侧。
     float Preferred=1.f;
     float PlayerSide=0.f;
-    const bool bHasPlayer=TryGetPlayerSideSign(PlayerSide);
+    const bool bHasPlayer=TryGetPlayerSideSign(PlayerSide,InstigatorPawn);
     if(bHasPlayer)Preferred=-PlayerSide;
     // 首选那一侧被实体挡住就改从另一侧开（与门同一口径）。
     SwingSign=Preferred;
@@ -291,6 +307,7 @@ void AColdSteelWindow::OpenWindow()
     ApplyHingeDepth();
     TargetAngle=FMath::Abs(OpenAngleDegrees);
     AutoCloseRemaining=AutoCloseSeconds;
+    PublishSwing();
     UE_LOG(LogTemp,Display,TEXT("ColdSteelWindow %s 玩家侧=%s 开向=%s %s"),*GetName(),
         bHasPlayer?(PlayerSide>0.f?TEXT("+X"):TEXT("-X")):TEXT("未知"),
         SwingSign>=0.f?TEXT("+X"):TEXT("-X"),
@@ -299,17 +316,20 @@ void AColdSteelWindow::OpenWindow()
 
 void AColdSteelWindow::CloseWindow()
 {
+    if(!HasAuthority()||!bOpen)return;
     bOpen=false;
     TargetAngle=0.f;
     AutoCloseRemaining=0.f;
+    PublishSwing();
 }
 
 void AColdSteelWindow::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+    if(!HasAuthority())CurrentAngle=NetSwing.Angle(GetWorld());
     ApplyAngle(DeltaSeconds);
     UpdateLeafPawnCollision();
-    if(bOpen&&AutoCloseSeconds>0.f&&FMath::IsNearlyEqual(CurrentAngle,TargetAngle,.5f))
+    if(HasAuthority()&&bOpen&&AutoCloseSeconds>0.f&&FMath::IsNearlyEqual(CurrentAngle,TargetAngle,.5f))
     {
         AutoCloseRemaining-=DeltaSeconds;
         if(AutoCloseRemaining<=0.f)CloseWindow();
@@ -326,7 +346,38 @@ void AColdSteelWindow::ApplyAngle(float DeltaSeconds)
         return;
     }
     const float Step=FMath::Max(1.f,OpenSeconds>KINDA_SMALL_NUMBER?OpenAngleDegrees/OpenSeconds:180.f);
-    CurrentAngle=FMath::FInterpConstantTo(CurrentAngle,TargetAngle,DeltaSeconds,Step);
+    CurrentAngle=FMath::FInterpConstantTo(CurrentAngle,TargetAngle,HasAuthority()?DeltaSeconds:0.f,Step);
     HingeLeft->SetRelativeRotation(FRotator(0.f,-SwingSign*CurrentAngle,0.f));
     HingeRight->SetRelativeRotation(FRotator(0.f,SwingSign*CurrentAngle,0.f));
+}
+
+void AColdSteelWindow::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AColdSteelWindow,NetSwing);
+    DOREPLIFETIME(AColdSteelWindow,NetSurface);
+    DOREPLIFETIME(AColdSteelWindow,NetScale);
+}
+
+void AColdSteelWindow::PublishSwing()
+{
+    NetSwing.bOpen=bOpen;NetSwing.From=CurrentAngle;NetSwing.To=TargetAngle;
+    NetSwing.Direction=SwingSign;NetSwing.StartedAt=FColdSteelDoorNetState::Now(GetWorld());
+    NetSwing.Speed=FMath::Max(1.f,OpenSeconds>KINDA_SMALL_NUMBER?FMath::Abs(OpenAngleDegrees)/OpenSeconds:180.f);
+    UpdateLeafPawnCollision();ForceNetUpdate();
+}
+
+void AColdSteelWindow::OnRep_Swing()
+{
+    bOpen=NetSwing.bOpen;TargetAngle=NetSwing.To;SwingSign=NetSwing.Direction;
+    CurrentAngle=NetSwing.Angle(GetWorld());
+    ApplyHingeDepth();
+    ApplyAngle(0.f);UpdateLeafPawnCollision();
+}
+
+void AColdSteelWindow::OnRep_Setup()
+{
+    SetActorScale3D(NetScale);
+    if(NetSurface)Configure(NetSurface);
+    AlignGeometry();OnRep_Swing();
 }

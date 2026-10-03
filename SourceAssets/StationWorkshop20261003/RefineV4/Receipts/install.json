@@ -1,0 +1,53 @@
+{
+  "stage": "maps_saved",
+  "maps": {
+    "/Game/GameMaps/L_Dungeon_Randomized": {
+      "stage": "map_saved",
+      "previous_sha256": "8393263ddbab62b2542701a0c77fdaf3e6e6963f2ef1a8e78b27e48f376fe48b",
+      "fitted_roof": "/Game/Dungeons/StationWorkshop20261003/RefineV4/Meshes/SM_SW_Roof_FittedV4",
+      "tool_positions": {
+        "FreightTransfer.Tools.West": [
+          55,
+          -1300,
+          0
+        ],
+        "FreightTransfer.Tools.East": [
+          1745,
+          -1030,
+          0
+        ]
+      }
+    },
+    "/Game/GameMaps/Design/L_FreightTransit_Theme_Subject": {
+      "stage": "map_saved",
+      "previous_sha256": "b2ef82ac67866c02378f843ead1d8a395ecb176823f947aeee3239073ab37642",
+      "roof_actors": [
+        "StationWorkshop_1_SM_SW_Roof"
+      ],
+      "moved_containers": [
+        {
+          "id": "FreightTransfer.Tools.West",
+          "local_position": [
+            55,
+            -1300,
+            0
+          ]
+        },
+        {
+          "id": "FreightTransfer.Tools.West.Drawer",
+          "local_position": [
+            55,
+            -1300,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "revision": 4,
+  "tests_run": false,
+  "rendered": false,
+  "game_run": false,
+  "editor_opened": false,
+  "native_changes": false
+}

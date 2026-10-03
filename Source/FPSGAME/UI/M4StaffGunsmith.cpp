@@ -3,6 +3,7 @@
 #include "ColdSteelEnhancementSystem.h"
 #include "ColdSteelMeleePreview.h"
 #include "ColdSteelStaffPreview.h"
+#include "ColdSteelStaffModificationUI.h"
 #include "../Weapons/Staff/StaffCatalog.h"
 #include "../Weapons/Staff/StaffAssembly.h"
 #include "Engine/GameInstance.h"
@@ -53,16 +54,21 @@ void UM4GunsmithWidget::AppendStaffOverview(const FColdSteelItem& Item)
 {
     auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();const auto Was=bCompareFactory?FGunsmithParts():Model()->Installed(Item);
     const auto A=ColdSteelStaff::Resolve(Item,&Was),B=ColdSteelStaff::Resolve(Item,&Model()->Draft());
-    const TPair<const TCHAR*,const TCHAR*> Fields[]={
-        {TEXT("magicDamagePercent"),TEXT("法术伤害加成")},{TEXT("fireDamagePercent"),TEXT("已激活火系加成")},
-        {TEXT("iceDamagePercent"),TEXT("已激活冰系加成")},{TEXT("electricDamagePercent"),TEXT("已激活电系加成")},
-        {TEXT("lightHealPercent"),TEXT("已激活光系治疗加成")},{TEXT("magicCritPercent"),TEXT("法术暴击加成")},
-        {TEXT("magicMpCostPercent"),TEXT("法术耗蓝增减")},{TEXT("magicRangePercent"),TEXT("法术距离加成")},
-        {TEXT("magicCooldownPercent"),TEXT("法术冷却缩减")},{TEXT("castSpeedPercent"),TEXT("施法速度加成")}};
-    for(const auto& F:Fields)
-    {const double X=E->CraftEffect(A,F.Key)*100,Y=E->CraftEffect(B,F.Key)*100;
-        Overview.Add({F.Value,FString::Printf(TEXT("%g%%"),X),FString::Printf(TEXT("%g%%"),Y),FString::Printf(TEXT("%+g%%"),Y-X),0});}
-    Overview.Add({TEXT("改造费用"),TEXT("免费"),TEXT("免费"),TEXT("应用后保存"),0});
-    Overview.Add({TEXT("杖冠条件"),TEXT("匹配杖头专精"),TEXT("不匹配保留外观，数值不生效"),TEXT("—"),0});
-    Overview.Add({TEXT("握持"),TEXT("单手主手"),TEXT("副手可持盾或魔法书"),TEXT("—"),0});
+    for(const auto& Field:ColdSteelStaffUI::Fields)
+    {
+        const double X=E->CraftEffect(A,Field.Key)*Field.Scale,Y=E->CraftEffect(B,Field.Key)*Field.Scale;
+        if(!Field.bAlwaysInOverview&&FMath::IsNearlyZero(X,.00001)&&FMath::IsNearlyZero(Y,.00001))continue;
+        const double Delta=Y-X;const bool Same=FMath::IsNearlyZero(Delta,.00001);
+        const bool Lower=ColdSteelStaffUI::LowerBetter(Field,X,Y);
+        Overview.Add({Field.Label,FString::Printf(TEXT("%.*f%s"),Field.Digits,X,Field.Unit),FString::Printf(TEXT("%.*f%s"),Field.Digits,Y,Field.Unit),
+            Same?TEXT("—"):FString::Printf(TEXT("%+.*f%s"),Field.Digits,Delta,Field.Unit),Same?0:((Delta>0)!=Lower?1:-1)});
+    }
+    const FString BeforeSpecialty=ColdSteelStaffUI::SpecialtyName(ColdSteelStaffUI::Specialty(Was));
+    const FString AfterSpecialty=ColdSteelStaffUI::SpecialtyName(ColdSteelStaffUI::Specialty(Model()->Draft()));
+    Overview.Add({TEXT("杖头专精"),BeforeSpecialty,AfterSpecialty,BeforeSpecialty==AfterSpecialty?TEXT("—"):TEXT("已变更"),0});
+    const auto BeforeCrown=ColdSteelStaffUI::Crown(Was),AfterCrown=ColdSteelStaffUI::Crown(Model()->Draft());
+    Overview.Add({TEXT("杖冠状态"),BeforeCrown.Text,AfterCrown.Text,BeforeCrown.Text==AfterCrown.Text?TEXT("—"):TEXT("已变更"),
+        BeforeCrown.bActive==AfterCrown.bActive?0:AfterCrown.bActive?1:-1});
+    Overview.Add({TEXT("改造费用"),TEXT("免费"),TEXT("免费"),TEXT("—"),0});
+    Overview.Add({TEXT("握持"),TEXT("单手主手"),TEXT("单手主手"),TEXT("—"),0});
 }

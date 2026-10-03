@@ -8,6 +8,8 @@
 #include "../Building/VoxelBuildWorld.h"
 #include "../Building/SmeltingSystem.h"
 #include "../Building/ColdSteelDoorInteraction.h"
+#include "../Building/ColdSteelDoor.h"
+#include "../Building/ColdSteelWindow.h"
 #include "../Building/ColdSteelFountain.h"
 #include "../Survival/FPSSurvivalComponent.h"
 #include "../Items/FPSPotionUseComponent.h"
@@ -42,7 +44,7 @@ void ColdSteelWorldInteraction::GetReachViewPoint(const APlayerController* PC,FV
 }
 AActor* ColdSteelWorldInteraction::TraceTarget(const APlayerController* PC,float Reach)
 {
-    if(!IsValid(PC)||!PC->GetPawn()||PC->bShowMouseCursor||PC->GetNetMode()==NM_Client)return nullptr;
+    if(!IsValid(PC)||!PC->GetPawn()||PC->bShowMouseCursor)return nullptr;
     FVector Eye;FRotator View;GetReachViewPoint(PC,Eye,View);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(ColdSteelUse),false,PC->GetPawn());
     TArray<FHitResult> Hits;
@@ -51,8 +53,14 @@ AActor* ColdSteelWorldInteraction::TraceTarget(const APlayerController* PC,float
     PC->GetWorld()->LineTraceMultiByChannel(Hits,Eye,Eye+View.Vector()*Reach,ECC_Visibility,Query);
     for (const FHitResult& Hit : Hits)
     {
-        if (const auto* Arrow = Cast<ABowArrow>(Hit.GetActor()); Arrow && Arrow->CanRecover()) return Hit.GetActor();
-        if (Hit.bBlockingHit) return Hit.GetActor();
+        if (const auto* Arrow = Cast<ABowArrow>(Hit.GetActor()); Arrow && Arrow->CanRecover())
+            return PC->GetNetMode()==NM_Client?nullptr:Hit.GetActor();
+        if (Hit.bBlockingHit)
+        {
+            AActor* Target=Hit.GetActor();
+            // Only native, server-replicated doors are enabled for client E here.
+            return PC->GetNetMode()!=NM_Client||Cast<AColdSteelDoor>(Target)||Cast<AColdSteelWindow>(Target)?Target:nullptr;
+        }
     }
     return nullptr;
 }

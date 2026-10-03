@@ -48,6 +48,7 @@ UCLASS(ClassGroup=(Player))
 class FPSGAME_API UFPSUnarmedIdleComponent : public UActorComponent
 {
     GENERATED_BODY()
+    friend class UFPSPlayerBodyComponent;
 public:
     UFPSUnarmedIdleComponent();
     bool IsEquipped() const {return bHandsEmpty&&bEquipmentResolved;}

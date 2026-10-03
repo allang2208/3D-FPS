@@ -30,7 +30,7 @@ void UFPSImpactFXSubsystem::SpawnPounceLanding(const FHitResult& Ground, const F
     const double Now = GetWorld()->GetTimeSeconds();
     const FVector Normal = Ground.ImpactNormal.GetSafeNormal(UE_SMALL_NUMBER, FVector::UpVector);
     const FVector Heading = FVector::VectorPlaneProject(Forward, Normal).GetSafeNormal();
-    const float HalfAngle = FMath::Clamp(Angle, 1.f, 180.f)*.5f;
+    const float HalfAngle = FMath::Clamp(Angle, 1.f, 360.f)*.5f;
     const FVector Origin = Ground.ImpactPoint+Normal*3.f;
     // A four-slot world pool. No transient actors, per-hit material instances,
     // physics shards, lights, or permanent ground decals.

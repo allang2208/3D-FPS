@@ -17,6 +17,21 @@
 
 namespace M07SpellAim
 {
+FVector UpperBodyPoint(const APawn* Target)
+{
+    // Stay inside the target capsule, including while crouched. A center aim
+    // incorrectly treats waist-high cover as hiding the entire player.
+    return Target->GetActorLocation() + Target->GetActorUpVector() *
+        Target->GetSimpleCollisionHalfHeight() * .65f;
+}
+
+bool ClearSegment(const APawn* Caster, const APawn* Target, const FVector& Start, const FVector& End)
+{
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(M07MagicSight), true, Caster);
+    Query.AddIgnoredActor(Target);
+    return !Caster->GetWorld()->LineTraceTestByChannel(Start, End, ECC_Visibility, Query);
+}
+
 FVector ProjectileIntercept(const FVector& Origin, const FVector& TargetPoint,
     const FVector& TargetVelocity, float SpeedCmS, float RangeCm)
 {
@@ -94,10 +109,19 @@ bool ABlindSupplicantMonster::HasAttackSight(const APawn* Victim) const
         Victim->GetActorLocation(), ECC_Visibility, Query);
 }
 
+bool ABlindSupplicantMonster::HasMagicSight(const APawn* Victim) const
+{
+    if (!IsValid(Victim) || !GetWorld()) return false;
+    // A stable head-height origin avoids sampling the lowered idle hand or
+    // oscillating between grounded and floating animation poses in the BT.
+    const FVector Origin = GetActorLocation() + GetActorUpVector() * GetSimpleCollisionHalfHeight() * .8f;
+    return M07SpellAim::ClearSegment(this, Victim, Origin, M07SpellAim::UpperBodyPoint(Victim));
+}
+
 int32 ABlindSupplicantMonster::ReadyMagicIndex(const APawn* Victim) const
 {
     if (!bMagicAttacksEnabled || !MagicGatherClip || !MagicReleaseClip || MagicAttack <= 0.f ||
-        !IsLivingPlayer(Victim) || !HasAttackSight(Victim)) return INDEX_NONE;
+        !IsLivingPlayer(Victim)) return INDEX_NONE;
     const float Distance = FVector::Dist2D(GetActorLocation(), Victim->GetActorLocation());
     if (Distance < FMath::Max(MagicMinimumDistance, MonsterCombatTuning::AttackDistance(AttackRange) - 15.f))
         return INDEX_NONE;
@@ -109,7 +133,8 @@ int32 ABlindSupplicantMonster::ReadyMagicIndex(const APawn* Victim) const
     {
         const int32 Index = (NextMagicIndex + Offset) % 3;
         if (MagicReadyTimes[Index] <= Now && Multipliers[Index] > 0.f &&
-            FVector::Dist(GetActorLocation(), Victim->GetActorLocation()) <= Ranges[Index]) return Index;
+            FVector::Dist(GetActorLocation(), Victim->GetActorLocation()) <= Ranges[Index])
+            return HasMagicSight(Victim) ? Index : INDEX_NONE;
     }
     return INDEX_NONE;
 }
@@ -204,23 +229,55 @@ FVector ABlindSupplicantMonster::CastingPalmPosition() const
     return GetMesh()->GetSocketLocation(TEXT("middle_metacarpal_l"));
 }
 
+FVector ABlindSupplicantMonster::CastingSpellPosition() const
+{
+    // Use the caster's forward axis so turning the wrist cannot swing the
+    // charge back into the chest. ReleaseMagic uses this same origin.
+    const float ForwardOffset = ActiveMagicElement() == EM07MagicElement::Lightning
+        ? 0.f : MagicChargeForwardOffsetCm;
+    return CastingPalmPosition() + GetActorForwardVector() * ForwardOffset;
+}
+
+void ABlindSupplicantMonster::UpdateMagicChargePose()
+{
+    if (!MagicCharge) return;
+    const EM07MagicElement Element = ActiveMagicElement();
+    const FRotator Facing = Element == EM07MagicElement::Lightning
+        ? GetMesh()->GetSocketRotation(TEXT("middle_metacarpal_l")) : GetActorRotation();
+    MagicCharge->SetWorldLocationAndRotation(CastingSpellPosition(), Facing);
+    // Ice reads explicit world positions as well as the component transform.
+    AM07MagicAttack::ConfigureCharge(MagicCharge, Element, MagicChargeFraction);
+}
+
 void ABlindSupplicantMonster::BeginMagicCharge()
 {
     if (!IsMagicAttack() || GetNetMode() == NM_DedicatedServer) return;
+    StopMagicCharge();
     if (auto* System = AM07MagicAttack::ChargeSystem(ActiveMagicElement()))
     {
-        MagicCharge = UNiagaraFunctionLibrary::SpawnSystemAttached(System, GetMesh(), TEXT("middle_metacarpal_l"),
+        MagicCharge = UNiagaraFunctionLibrary::SpawnSystemAttached(System, GetMesh(), NAME_None,
             FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::SnapToTarget, false);
         if (MagicCharge)
         {
             MagicCharge->SetCastShadow(false);
-            AM07MagicAttack::ConfigureCharge(MagicCharge, ActiveMagicElement(), 0.f);
+            MagicCharge->SetAbsolute(true, true, true);
+            MagicChargeFraction = 0.f;
+            // Follow the evaluated palm, after its final bone transforms.
+            // This uses the existing pose update, without another bone refresh.
+            MagicChargePoseHandle = GetMesh()->RegisterOnBoneTransformsFinalizedDelegate(
+                FOnBoneTransformsFinalizedMultiCast::FDelegate::CreateUObject(this, &ThisClass::UpdateMagicChargePose));
+            UpdateMagicChargePose();
         }
     }
 }
 
 void ABlindSupplicantMonster::StopMagicCharge()
 {
+    if (MagicChargePoseHandle.IsValid())
+    {
+        GetMesh()->UnregisterOnBoneTransformsFinalizedDelegate(MagicChargePoseHandle);
+        MagicChargePoseHandle.Reset();
+    }
     if (MagicCharge) { MagicCharge->DeactivateImmediate(); MagicCharge->DestroyComponent(); MagicCharge = nullptr; }
 }
 
@@ -251,7 +308,7 @@ void ABlindSupplicantMonster::ReleaseMagic()
     // Sample only at commitment, so the release transform comes from this pose.
     GetMesh()->TickAnimation(0.f, false);
     GetMesh()->RefreshBoneTransforms();
-    const FVector Palm = CastingPalmPosition();
+    const FVector Origin = CastingSpellPosition();
     const EM07MagicElement Element = ActiveMagicElement();
     const int32 Index = static_cast<int32>(Element);
     const float Ranges[] = {FireballRange, IceColumnRange, LightningRange};
@@ -260,11 +317,20 @@ void ABlindSupplicantMonster::ReleaseMagic()
     // Gathering/release latency has already elapsed at this contact frame.
     // Use the current target snapshot rather than adding that delay twice.
     // Lightning resolves immediately; only fire/ice need flight-time lead.
-    LockedAimPoint = Victim->GetActorLocation();
+    const FVector TargetPoint = M07SpellAim::UpperBodyPoint(Victim);
+    if (!M07SpellAim::ClearSegment(this, Victim, Origin, TargetPoint))
+    { CancelPendingAttack(); return; }
+    LockedAimPoint = TargetPoint;
     if (Element != EM07MagicElement::Lightning)
-        LockedAimPoint = M07SpellAim::ProjectileIntercept(Palm, LockedAimPoint, Victim->GetVelocity(),
+    {
+        LockedAimPoint = M07SpellAim::ProjectileIntercept(Origin, LockedAimPoint, Victim->GetVelocity(),
             Speeds[Index], Ranges[Index]);
-    const FTransform Transform((LockedAimPoint - Palm).Rotation(), Palm);
+        // Keep the existing lead shot when its straight segment is clear.
+        // A predicted position behind cover must not override the visible aim.
+        if (!LockedAimPoint.Equals(TargetPoint, .1f) &&
+            !M07SpellAim::ClearSegment(this, Victim, Origin, LockedAimPoint)) LockedAimPoint = TargetPoint;
+    }
+    const FTransform Transform((LockedAimPoint - Origin).Rotation(), Origin);
     auto* Spell = GetWorld()->SpawnActorDeferred<AM07MagicAttack>(AM07MagicAttack::StaticClass(), Transform,
         this, this, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
     if (!Spell) { CancelPendingAttack(); return; }
@@ -281,10 +347,19 @@ void ABlindSupplicantMonster::ReleaseMagic()
 void ABlindSupplicantMonster::SweepClaw(FVector From, FVector To)
 {
     if (bAttackCommitted || bAttackCancelled) return;
+    // The V32 claw tip stays about a metre to the side of a frontal target.
+    // Cover the whole palm/claw span instead of extruding only the fingertip
+    // sphere. The same volume follows the arc and the configured reach.
+    const FName HandBone = ActiveAttack == EAttack::SweepRight ? TEXT("hand_r") : TEXT("hand_l");
+    const FVector HandToClaw = AttackClawPosition() - GetMesh()->GetSocketLocation(HandBone);
+    const FVector CenterOffset = HandToClaw * -.5f;
+    const float Radius = FMath::Max(1.f, SweepHitRadius);
+    const FQuat Orientation = HandToClaw.IsNearlyZero() ? FQuat::Identity :
+        FQuat::FindBetweenNormals(FVector::UpVector, HandToClaw.GetSafeNormal());
     FCollisionQueryParams Query(SCENE_QUERY_STAT(M07SweepContact), false, this);
     TArray<FHitResult> Hits;
-    GetWorld()->SweepMultiByObjectType(Hits, From, To, FQuat::Identity, FCollisionObjectQueryParams(ECC_Pawn),
-        FCollisionShape::MakeSphere(SweepHitRadius), Query);
+    GetWorld()->SweepMultiByObjectType(Hits, From + CenterOffset, To + CenterOffset, Orientation,
+        FCollisionObjectQueryParams(ECC_Pawn), FCollisionShape::MakeCapsule(Radius, Radius + HandToClaw.Size() * .5f), Query);
     for (const FHitResult& Hit : Hits)
     {
         auto* Victim = Cast<APawn>(Hit.GetActor());

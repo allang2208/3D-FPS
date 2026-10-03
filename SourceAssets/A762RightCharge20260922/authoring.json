@@ -1,0 +1,292 @@
+{
+  "base": {
+    "family": "base",
+    "asset": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762EmptySupport20260922/base/A_A762_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762EmptySupport20260922\\base\\A_A762_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\base\\A_A762_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\base\\A_A762_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0,
+      515
+    ],
+    "changed_bones": [
+      "clavicle_r",
+      "upperarm_r",
+      "lowerarm_r",
+      "hand_r",
+      "upperarm_twist_01_r",
+      "upperarm_twist_02_r",
+      "lowerarm_twist_01_r",
+      "lowerarm_twist_02_r",
+      "pinky_metacarpal_r",
+      "pinky_01_r",
+      "pinky_02_r",
+      "pinky_03_r",
+      "ring_metacarpal_r",
+      "ring_01_r",
+      "ring_02_r",
+      "ring_03_r",
+      "middle_metacarpal_r",
+      "middle_01_r",
+      "middle_02_r",
+      "middle_03_r",
+      "index_metacarpal_r",
+      "index_01_r",
+      "index_02_r",
+      "index_03_r",
+      "thumb_01_r",
+      "thumb_02_r",
+      "thumb_03_r"
+    ],
+    "edit_frames": [
+      270,
+      402
+    ],
+    "contact_frames": [
+      310,
+      344
+    ],
+    "weights_changed": false,
+    "game_tested": false
+  },
+  "angled": {
+    "family": "angled",
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762EmptySupport20260922/angled/A_A762_angled_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762EmptySupport20260922\\angled\\A_A762_angled_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\angled\\A_A762_angled_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\angled\\A_A762_angled_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0,
+      515
+    ],
+    "changed_bones": [
+      "clavicle_r",
+      "upperarm_r",
+      "lowerarm_r",
+      "hand_r",
+      "upperarm_twist_01_r",
+      "upperarm_twist_02_r",
+      "lowerarm_twist_01_r",
+      "lowerarm_twist_02_r",
+      "pinky_metacarpal_r",
+      "pinky_01_r",
+      "pinky_02_r",
+      "pinky_03_r",
+      "ring_metacarpal_r",
+      "ring_01_r",
+      "ring_02_r",
+      "ring_03_r",
+      "middle_metacarpal_r",
+      "middle_01_r",
+      "middle_02_r",
+      "middle_03_r",
+      "index_metacarpal_r",
+      "index_01_r",
+      "index_02_r",
+      "index_03_r",
+      "thumb_01_r",
+      "thumb_02_r",
+      "thumb_03_r"
+    ],
+    "edit_frames": [
+      270,
+      402
+    ],
+    "contact_frames": [
+      310,
+      344
+    ],
+    "weights_changed": false,
+    "game_tested": false
+  },
+  "vertical": {
+    "family": "vertical",
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762EmptySupport20260922/vertical/A_A762_vertical_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762EmptySupport20260922\\vertical\\A_A762_vertical_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\vertical\\A_A762_vertical_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\vertical\\A_A762_vertical_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0,
+      515
+    ],
+    "changed_bones": [
+      "clavicle_r",
+      "upperarm_r",
+      "lowerarm_r",
+      "hand_r",
+      "upperarm_twist_01_r",
+      "upperarm_twist_02_r",
+      "lowerarm_twist_01_r",
+      "lowerarm_twist_02_r",
+      "pinky_metacarpal_r",
+      "pinky_01_r",
+      "pinky_02_r",
+      "pinky_03_r",
+      "ring_metacarpal_r",
+      "ring_01_r",
+      "ring_02_r",
+      "ring_03_r",
+      "middle_metacarpal_r",
+      "middle_01_r",
+      "middle_02_r",
+      "middle_03_r",
+      "index_metacarpal_r",
+      "index_01_r",
+      "index_02_r",
+      "index_03_r",
+      "thumb_01_r",
+      "thumb_02_r",
+      "thumb_03_r"
+    ],
+    "edit_frames": [
+      270,
+      402
+    ],
+    "contact_frames": [
+      310,
+      344
+    ],
+    "weights_changed": false,
+    "game_tested": false
+  },
+  "prism": {
+    "family": "prism",
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762EmptySupport20260922/prism/A_A762_prism_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762EmptySupport20260922\\prism\\A_A762_prism_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\prism\\A_A762_prism_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\prism\\A_A762_prism_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0,
+      515
+    ],
+    "changed_bones": [
+      "clavicle_r",
+      "upperarm_r",
+      "lowerarm_r",
+      "hand_r",
+      "upperarm_twist_01_r",
+      "upperarm_twist_02_r",
+      "lowerarm_twist_01_r",
+      "lowerarm_twist_02_r",
+      "pinky_metacarpal_r",
+      "pinky_01_r",
+      "pinky_02_r",
+      "pinky_03_r",
+      "ring_metacarpal_r",
+      "ring_01_r",
+      "ring_02_r",
+      "ring_03_r",
+      "middle_metacarpal_r",
+      "middle_01_r",
+      "middle_02_r",
+      "middle_03_r",
+      "index_metacarpal_r",
+      "index_01_r",
+      "index_02_r",
+      "index_03_r",
+      "thumb_01_r",
+      "thumb_02_r",
+      "thumb_03_r"
+    ],
+    "edit_frames": [
+      270,
+      402
+    ],
+    "contact_frames": [
+      310,
+      344
+    ],
+    "weights_changed": false,
+    "game_tested": false
+  },
+  "canted": {
+    "family": "canted",
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762EmptySupport20260922/canted/A_A762_canted_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762EmptySupport20260922\\canted\\A_A762_canted_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\canted\\A_A762_canted_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\canted\\A_A762_canted_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0,
+      515
+    ],
+    "changed_bones": [
+      "clavicle_r",
+      "upperarm_r",
+      "lowerarm_r",
+      "hand_r",
+      "upperarm_twist_01_r",
+      "upperarm_twist_02_r",
+      "lowerarm_twist_01_r",
+      "lowerarm_twist_02_r",
+      "pinky_metacarpal_r",
+      "pinky_01_r",
+      "pinky_02_r",
+      "pinky_03_r",
+      "ring_metacarpal_r",
+      "ring_01_r",
+      "ring_02_r",
+      "ring_03_r",
+      "middle_metacarpal_r",
+      "middle_01_r",
+      "middle_02_r",
+      "middle_03_r",
+      "index_metacarpal_r",
+      "index_01_r",
+      "index_02_r",
+      "index_03_r",
+      "thumb_01_r",
+      "thumb_02_r",
+      "thumb_03_r"
+    ],
+    "edit_frames": [
+      270,
+      402
+    ],
+    "contact_frames": [
+      310,
+      344
+    ],
+    "weights_changed": false,
+    "game_tested": false
+  }
+}

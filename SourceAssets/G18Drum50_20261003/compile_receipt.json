@@ -1,0 +1,13 @@
+{
+  "target": "FPSGAMEEditor Win64 Development",
+  "result": "Succeeded",
+  "build_log": "SourceAssets/SwordUppercut20261003/OffscreenRiseV12/build-FPSGAMEEditor-20261003-211526.log",
+  "build_started_local": "2026-10-03T21:15:26+08:00",
+  "native_source_last_modified_local": "2026-10-03T21:02:24+08:00",
+  "compiled_actions": [
+    "[173/293] Compile [x64] M1911MagazineVisual.cpp",
+    "[174/293] Compile [x64] M4DrumVisual.cpp"
+  ],
+  "notes": "The existing serialized project build compiled the G18 drum changes and linked successfully. No second redundant build or editor restart was performed by this task.",
+  "runtime_tested": false
+}

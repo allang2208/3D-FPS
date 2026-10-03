@@ -66,6 +66,10 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
     PanelBrush=ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint,ColdSteelUI::PanelRadius);
     GlassFallback=ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback,ColdSteelUI::PanelRadius);
     RowBrush=ColdSteelUI::RoundedBrush(ColdSteelUI::AttributeRow,4,ColdSteelUI::Border,.5f);
+    TrackDone=ColdSteelUI::RoundedBrush(ColdSteelUI::Enhanced,2,FLinearColor::Transparent,0);
+    TrackNext=ColdSteelUI::RoundedBrush(ColdSteelUI::Accent,2,FLinearColor::Transparent,0);
+    TrackIdle=ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(64),2,FLinearColor::Transparent,0);
+    FlashBrush=ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(255,30),ColdSteelUI::PanelRadius,ColdSteelUI::Accent,1.5f);
     Normal=ColdSteelUI::ButtonStyle();
     Normal.SetNormalPadding(FMargin(0));Normal.SetPressedPadding(FMargin(0));
     SelectedStyle=Normal;SelectedStyle.SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover,ColdSteelUI::ButtonRadius,ColdSteelUI::Accent));
@@ -76,11 +80,30 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
     BackgroundTexture=LoadObject<UTexture2D>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/T_WorkshopBackground.T_WorkshopBackground"));
     Background.SetResourceObject(BackgroundTexture);Background.ImageSize=FVector2D(1672,941);Background.DrawAs=ESlateBrushDrawType::Image;
 
+    auto ResourceChip=[&](const FString& Definition,const FString& Mark,TSharedPtr<STextBlock>& Text)->TSharedRef<SWidget>
+    {
+        const FSlateBrush* Brush=MaterialIcon(Definition);const bool bPending=!MaterialBrushes.Contains(Definition);
+        auto Img=SNew(SImage).Image(Brush);
+        auto Tile=SNew(SBorder).BorderImage(&RowBrush).HAlign(HAlign_Center).VAlign(VAlign_Center)[Label(Mark,10,ColdSteelUI::TextSecondary)];
+        Img->SetVisibility(bPending?EVisibility::Collapsed:EVisibility::HitTestInvisible);
+        Tile->SetVisibility(bPending?EVisibility::HitTestInvisible:EVisibility::Collapsed);
+        if(bPending){PendingIconImages.FindOrAdd(Definition).Add(Img);PendingIconTiles.FindOrAdd(Definition).Add(Tile);}
+        return SNew(SBorder).BorderImage(&RowBrush).Padding(7,2)
+            [SNew(SHorizontalBox)
+                +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[SNew(SBox).WidthOverride(18).HeightOverride(18)
+                    [SNew(SOverlay)+SOverlay::Slot()[Tile]+SOverlay::Slot()[SNew(SScaleBox).Stretch(EStretch::ScaleToFit)[Img]]]]
+                +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(6,0,0,0)[SAssignNew(Text,STextBlock)
+                    .Font(GunsmithUI::NumberFont(12)).ColorAndOpacity(ColdSteelUI::TextSecondary)]];
+    };
     auto Header=SNew(SHorizontalBox)
         +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(0,0,12,0)
             [SNew(SVerticalBox)
                 +SVerticalBox::Slot().AutoHeight()[Label(TEXT("装备加工 / 强化与附魔"),20,ColdSteelUI::TextPrimary)]
                 +SVerticalBox::Slot().AutoHeight().Padding(0,4,0,0)[Label(TEXT("选择装备 · 预览变化 · 确认并保存"),12,ColdSteelUI::TextSecondary)]]
+        +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(0,0,14,0)[SNew(SHorizontalBox)
+            +SHorizontalBox::Slot().AutoWidth().Padding(0,0,6,0)[ResourceChip(TEXT("gold"),TEXT("金"),GoldChip)]
+            +SHorizontalBox::Slot().AutoWidth().Padding(0,0,6,0)[ResourceChip(TEXT("enhancement_stone"),TEXT("石"),StoneChip)]
+            +SHorizontalBox::Slot().AutoWidth()[ResourceChip(TEXT("magic_dust"),TEXT("尘"),DustChip)]]
         +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
             [SNew(SBox).WidthOverride(112)[Button(TEXT("Esc  返回"),[this](){CastChecked<AFPSGAMEPlayerController>(GetOwningPlayer())->CloseEnhancement();})]];
 
@@ -102,17 +125,28 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
             .Image_Lambda([this](){return &WeaponBrush;})
             .Visibility_Lambda([this](){return WorkbenchPreview->HasWorkbenchCapture()?EVisibility::Collapsed:EVisibility::HitTestInvisible;})]]
         +SOverlay::Slot().VAlign(VAlign_Top).Padding(16)
-            [SNew(SVerticalBox)
-                +SVerticalBox::Slot().AutoHeight()[SAssignNew(ItemTitle,STextBlock).Font(GunsmithUI::TextFont(20,true))
-                    .ColorAndOpacity(ColdSteelUI::TextPrimary).OverflowPolicy(ETextOverflowPolicy::Ellipsis)]
-                +SVerticalBox::Slot().AutoHeight().Padding(0,4,0,0)[SAssignNew(ItemLevel,STextBlock).Font(GunsmithUI::TextFont(12))
-                    .ColorAndOpacity(ColdSteelUI::TextSecondary).AutoWrapText(true)]]
+            [SNew(SHorizontalBox)
+                +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Top)[SNew(SVerticalBox)
+                    +SVerticalBox::Slot().AutoHeight()[SAssignNew(ItemTitle,STextBlock).Font(GunsmithUI::TextFont(20,true))
+                        .ColorAndOpacity(ColdSteelUI::TextPrimary).OverflowPolicy(ETextOverflowPolicy::Ellipsis)]
+                    +SVerticalBox::Slot().AutoHeight().Padding(0,4,0,0)[SAssignNew(ItemLevel,STextBlock).Font(GunsmithUI::TextFont(12))
+                        .ColorAndOpacity(ColdSteelUI::TextSecondary).AutoWrapText(true)]
+                    +SVerticalBox::Slot().AutoHeight().Padding(0,5,0,0)[SAssignNew(AffixRow,SHorizontalBox)]]
+                +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(12,0,0,0)[SNew(SVerticalBox)
+                    +SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Right)[SNew(SHorizontalBox)
+                        +SHorizontalBox::Slot().AutoWidth()[SAssignNew(LevelBadge,STextBlock).Font(GunsmithUI::NumberFont(28,true))
+                            .ColorAndOpacity(ColdSteelUI::Enhanced)]
+                        +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Bottom).Padding(4,0,0,5)[SAssignNew(LevelMax,STextBlock)
+                            .Font(GunsmithUI::TextFont(12)).ColorAndOpacity(ColdSteelUI::TextTertiary)]]
+                    +SVerticalBox::Slot().AutoHeight().Padding(0,7,0,0).HAlign(HAlign_Right)[SAssignNew(LevelTrack,SHorizontalBox)]]]
         +SOverlay::Slot().VAlign(VAlign_Bottom).Padding(14)
             [SNew(SHorizontalBox)
                 +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(0,0,8,0)
                     [Label(TEXT("拖动旋转 · 滚轮缩放 · 双击复位"),12,ColdSteelUI::TextSecondary)]
                 +SHorizontalBox::Slot().AutoWidth().Padding(0,0,4,0)[SNew(SBox).WidthOverride(104)[ResetViewControl.ToSharedRef()]]
-                +SHorizontalBox::Slot().AutoWidth()[SNew(SBox).WidthOverride(104)[AimViewControl.ToSharedRef()]]];
+                +SHorizontalBox::Slot().AutoWidth()[SNew(SBox).WidthOverride(104)[AimViewControl.ToSharedRef()]]]
+        +SOverlay::Slot()[SAssignNew(FlashOverlay,SBorder).BorderImage(&FlashBrush)
+            .Visibility(EVisibility::Collapsed)];
     PreviewSurface=SNew(SM4PreviewSurface).CanRotate_Lambda([this](){return WorkbenchPreview->HasWorkbenchCapture();})
         .OnOrbit_Lambda([this](FVector2D Delta){WorkbenchPreview->RotatePreview(Delta);})
         .OnZoom_Lambda([this](float Delta){WorkbenchPreview->ZoomPreview(Delta);})

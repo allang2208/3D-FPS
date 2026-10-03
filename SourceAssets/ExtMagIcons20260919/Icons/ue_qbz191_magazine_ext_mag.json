@@ -1,0 +1,59 @@
+{
+  "key": "ue_qbz191_magazine_ext_mag",
+  "gun": "QBZ",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\QBZ_ExtMag_Continuous_Editable.blend",
+  "objects": [
+    "SM_ExtMag_QBZ40_Continuous"
+  ],
+  "frame": "measured",
+  "matrix": [
+    [
+      4.682544386014342e-06,
+      -1.0,
+      3.1913592124510615e-07,
+      0.0
+    ],
+    [
+      0.9961947202682495,
+      4.6925406422815286e-06,
+      0.08715584874153137,
+      0.0
+    ],
+    [
+      -0.08715584874153137,
+      -9.018961577567097e-08,
+      0.9961947202682495,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "frame_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\SK_QBZ191_Manny.fbx",
+  "runtime": "/Game/Weapons/ExtMagContinuity20260919/SM_ExtMag_QBZ40_Continuous",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.3955549895763397,
+      0.030328229069709778,
+      -0.28887343406677246
+    ],
+    [
+      -0.23590871691703796,
+      0.06114299222826958,
+      -0.055747874081134796
+    ]
+  ],
+  "triangles": 13537,
+  "material_note": "Real source materials retained."
+}

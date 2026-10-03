@@ -69,11 +69,16 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("heavy_damage_mult"),Part.Melee.HeavyDamage);
             Stats->TryGetNumberField(TEXT("heavy_toughness_mult"),Part.Melee.HeavyToughness);
             Stats->TryGetNumberField(TEXT("heavy_damage_add"),Part.Melee.HeavyDamageAdd);
+            Stats->TryGetNumberField(TEXT("heavy_charge_speed_bonus"),Part.Melee.HeavyChargeSpeedBonus);
             Stats->TryGetNumberField(TEXT("knockback_mult"),Part.Melee.Knockback);
             Stats->TryGetNumberField(TEXT("quick_combat_damage_add"),Part.Melee.QuickCombatDamageAdd);
             Stats->TryGetNumberField(TEXT("quick_combat_knockback_mult"),Part.Melee.QuickCombatKnockback);
             Stats->TryGetNumberField(TEXT("quick_combat_toughness_mult"),Part.Melee.QuickCombatToughness);
             Stats->TryGetNumberField(TEXT("quick_combat_bleed_chance"),Part.Melee.QuickCombatBleedChance);
+            Stats->TryGetNumberField(TEXT("quick_combat_tiger_roar_toughness_bonus"),Part.Melee.QuickCombatTigerRoarToughnessBonus);
+            Stats->TryGetNumberField(TEXT("quick_combat_tiger_roar_seconds"),Part.Melee.QuickCombatTigerRoarSeconds);
+            Stats->TryGetNumberField(TEXT("quick_combat_physical_vulnerability_bonus"),Part.Melee.QuickCombatPhysicalVulnerabilityBonus);
+            Stats->TryGetNumberField(TEXT("quick_combat_physical_vulnerability_seconds"),Part.Melee.QuickCombatPhysicalVulnerabilitySeconds);
             Stats->TryGetBoolField(TEXT("quick_combat_aoe"),Part.Melee.bQuickCombatAOE);
             Stats->TryGetNumberField(TEXT("quick_combat_rune_vulnerability"),Part.Melee.QuickCombatRuneVulnerability);
             Stats->TryGetNumberField(TEXT("quick_combat_rune_vulnerability_seconds"),Part.Melee.QuickCombatRuneVulnerabilitySeconds);

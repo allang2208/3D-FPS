@@ -90,7 +90,7 @@ void ASceneTestPortal::Configure(const FString& Map, const FString& Label, const
 void ASceneTestPortal::BeginPlay()
 {
     Super::BeginPlay();
-    if (GetNetMode() != NM_Standalone) return;
+    if (GetNetMode() == NM_Client) return;
     EnableInput(UGameplayStatics::GetPlayerController(this, 0));
     if (InputComponent)
     {
@@ -110,7 +110,7 @@ void ASceneTestPortal::UsePortal()
 {
     APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
     APawn* Pawn = PC ? PC->GetPawn() : nullptr;
-    if (bTravelling || !Pawn || PC->bShowMouseCursor || GetNetMode() != NM_Standalone) return;
+    if (bTravelling || !Pawn || PC->bShowMouseCursor || GetNetMode() == NM_Client) return;
     if (!IsWithinInteractionRange(Pawn)) return;
     if (!FPackageName::DoesPackageExist(Destination))
     {
@@ -174,7 +174,7 @@ void ASceneTestPortal::EndPlay(const EEndPlayReason::Type Reason)
 
 int32 ASceneTestPortal::InstallHillsLink(UWorld* World)
 {
-    if (!World || !World->IsGameWorld() || World->GetNetMode() != NM_Standalone) return 2;
+    if (!World || !World->IsGameWorld() || World->GetNetMode() == NM_Client) return 2;
     const FString Current = UGameplayStatics::GetCurrentLevelName(World, true);
     if (Current != TEXT("DayNight_Lighting") && Current != TEXT("L_TemperateHills_Initial")) return 2;
     APawn* Pawn = UGameplayStatics::GetPlayerPawn(World, 0);

@@ -1,0 +1,47 @@
+[
+  {
+    "dx": 0,
+    "minimum_clearance_mm": -20.731980796713465,
+    "penetrating_samples": 2885
+  },
+  {
+    "dx": -0.003,
+    "minimum_clearance_mm": -20.6469130211368,
+    "penetrating_samples": 2677
+  },
+  {
+    "dx": -0.005,
+    "minimum_clearance_mm": -20.252353031238133,
+    "penetrating_samples": 2479
+  },
+  {
+    "dx": -0.007,
+    "minimum_clearance_mm": -19.54933969314878,
+    "penetrating_samples": 2288
+  },
+  {
+    "dx": -0.009,
+    "minimum_clearance_mm": -18.558324131048852,
+    "penetrating_samples": 2125
+  },
+  {
+    "dx": -0.011,
+    "minimum_clearance_mm": -18.31473090858342,
+    "penetrating_samples": 1954
+  },
+  {
+    "dx": -0.013,
+    "minimum_clearance_mm": -17.90767497005825,
+    "penetrating_samples": 1811
+  },
+  {
+    "dx": -0.015,
+    "minimum_clearance_mm": -17.823782701447207,
+    "penetrating_samples": 1695
+  },
+  {
+    "dx": -0.017,
+    "minimum_clearance_mm": -17.876356907765288,
+    "penetrating_samples": 1588
+  }
+]

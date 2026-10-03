@@ -1,0 +1,46 @@
+{
+ "audio": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18FireAudio20261003\\Source\\Glock18_FullAuto.ogv",
+  "source_sha256": "870779a394959e3d4eafb3351dade8cbe7473a1633e2ca6172dcaab75cf9b16b",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Glock_18_-_Full_Auto.ogv",
+  "source_direct": "https://upload.wikimedia.org/wikipedia/commons/8/87/Glock_18_-_Full_Auto.ogv",
+  "source_license": "CC BY 3.0",
+  "source_license_url": "https://creativecommons.org/licenses/by/3.0",
+  "source_author": "Manobras de Diversão",
+  "attribution_required": true,
+  "attribution_note": "若本项目音视频对外发布，需署名：Glock 18 - Full Auto by Manobras de Diversão (CC BY 3.0)。仓库内使用不需公开署名页。",
+  "description": "真 Glock 18 全自动射击现场录音（1:41，Theora 44.1kHz 立体声 Vorbis）。截取 4 发孤立单发替换 G18 开火声。",
+  "selection_v2_20261003": "第一轮（v1，Work/v1_thin/ 归档）选了最干最亮的 4 发瞬态，>3kHz 能量占 43-88%（旧版口径 11.5%），听感是『脆裂 snap』缺枪身——用户判不合格。第二轮改选**中距离混响组**（0.5-3kHz 占 61-80%，与旧版同族）：71.73s（未削波、100-500Hz 枪身 37%）/ 73.3s（峰值 0.98 未削） / 21.33s、27.45s（轻削波，连续 ≤4 样本，三次 Hermite 修复）。",
+  "processing_v2": "起振 ±30ms 对齐回退 3ms；截 320ms；declip（Hermite 插值）；**RMS 统一 0.065**（旧版实测 0.063@96k，四发响度一致；峰值 0.24-0.76 不等属正常，软限 0.95 未触发）；2ms 淡入；尾音 240ms 起指数型渐出至 320ms。",
+  "format_out": "48000 Hz mono PCM16",
+  "variants": 4,
+  "masters_sha256_v2": "见 checksums.sha256（v2 覆盖同名文件）",
+  "imported_assets": [
+   "/Game/Weapons/G18/Integrated20260929/Audio/S_G18_Fire_01",
+   "/Game/Weapons/G18/Integrated20260929/Audio/S_G18_Fire_02",
+   "/Game/Weapons/G18/Integrated20260929/Audio/S_G18_Fire_03",
+   "/Game/Weapons/G18/Integrated20260929/Audio/S_G18_Fire_04",
+   "/Game/Weapons/G18/Integrated20260929/Audio/S_G18_Fire"
+  ],
+  "import_note": "S_G18_Fire（无后缀，双持 PistolDualWieldComponent 基础开火键）已由 v2 的 02 号母版刷新（0.320s/48kHz，23:38:52）。消音路（PistolAudioAssets::Suppressed 共享音）未动。交互编辑器关闭后 commandlet 通路：UnrealEditor-Cmd -project=<绝对路径> -run=pythonscript -script=<py> -ABSLOG=<绝对路径>；裸项目名会报 Failed to open descriptor。",
+  "rollback": "旧官方母版完整保留在 SourceAssets/G18Integration20260929/Audio/（96kHz 280ms 版），同名重导即还原；本轮 v1 废案在 Work/v1_thin/。",
+  "listened": false,
+  "final_v3_20261003": {
+   "verdict": "v1/v2 均废：远场录音无近距枪口爆响，截取/整形救不了。v3 换近场 CC0 源。",
+   "source": "The Free Firearm Sound Library (opengameart, CC0-1.0)",
+   "source_url": "https://opengameart.org/content/the-free-firearm-sound-library",
+   "library_sha256": "cc1ab5a99a0a365105c7c5dd783f4b0b1fe90938114d3ceec53856bfe005f7d6",
+   "recording": "Walther PPQ X_39P.wav（9mm 近场，96kHz）：@1.41 / @6.45 / @10.66 三发 + @6.45 的 1.5% 降调微变体",
+   "recipe": "复用 SourceAssets/FirearmAudio20260913/prepare.py 的 M4/QBZ 已验证配方（band 110-11000 + 140-650、65ms 起 τ=105ms 指数包络、末 40ms 淡出、24 样本淡入），RMS 统一 0.065",
+   "masters_sha256": {
+    "01": "74a597288337d21808a177ca21bc86f01cadcddcefedcaaf511dab2ebe8fc24b",
+    "02": "3a53a345bfb58969c4d6f2af20814edab554f730c87159806688ce8cc35e3c09",
+    "03": "4255f06134b890ad13b6aaa809a6a1c5d7b42900abf83e33da4ddff9762e26b2",
+    "04": "144e7ee08cfc0fc611605dd62b8bf7f6a47272671f6bd799dae7d4edf65f63b9"
+   },
+   "spectrum": "85% 0.5-3k / 11% 100-500 / 3-4% >3k（旧 G18 基线 84/4/11 同族）",
+   "imported": "S_G18_Fire_01..04 (0.560s/48k) + S_G18_Fire (02 号母版)，23:55-23:57",
+   "license": "CC0-1.0 无署名义务；Wikimedia CC BY 3.0 录音未采用为成品"
+  }
+ }
+}

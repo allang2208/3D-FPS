@@ -1,6 +1,7 @@
 // F6 开发面板「基本调参」页的开发功能卡片：生成物品、提升等级、提升技能等级。
 // 布局与背包装备同一抽屉规格，控件只调用档案事务，不自行扣除或保存。
 #include "DevelopmentPanelWidget.h"
+#include "DevelopmentItemPicker.h"
 #include "ColdSteelUIStyle.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
@@ -70,12 +71,11 @@ void UDevelopmentPanelWidget::BuildFeatureRows(UVerticalBox* Page)
         return Button;
     };
 
-    // 生成物品：一个下拉包含全部物品定义，按类别归纳排列；数量与生成按钮在右侧。
+    // 生成物品：独立类别／子类标题与分隔线，只有实际物品行可以选择。
     {
         FCardParts Parts = NewCard(TEXT("生成物品"),
             TEXT("物品直接进入背包；武器可装备，弹药按对应口径使用。"));
-        ItemChoice = WidgetTree->ConstructWidget<UComboBoxString>();
-        ItemChoice->OnGenerateWidgetEvent.BindDynamic(this, &ThisClass::GenerateListOption);
+        ItemChoice = WidgetTree->ConstructWidget<UDevelopmentItemPicker>();
         ItemChoice->OnSelectionChanged.AddDynamic(this, &ThisClass::ItemSelected);
         AddFlex(Parts, ItemChoice, 320.f);
         ItemCountBox = WidgetTree->ConstructWidget<USpinBox>();

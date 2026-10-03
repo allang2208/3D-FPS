@@ -9,6 +9,7 @@
 #include "../Combat/CombatStatusFormula.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/FPSMeleeLightningComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
@@ -107,7 +108,7 @@ float UColdSteelStatusModel::QuickCombatCooldown() const
 bool UColdSteelStatusModel::CommitQuickCombatCast(float ActionDuration)
 {
     if(Current.bQuickCombatReserved)return false;
-    if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()!=NM_Standalone))return false;
+    if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()==NM_Client))return false;
     if(!SpendStamina(QuickCombatStaminaCost()))return false;
     Current.bQuickCombatReserved=true;
     UpdateQuickCombatAction(ActionDuration,ActionDuration);
@@ -168,7 +169,25 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     Training.bCritical=Shot.bRicochet?Shot.bInheritedCritical:
         (Weakpoint||(Combat&&FMath::FRand()*100<CoreCombatFormula::CriticalChance(Shot.CriticalChance,CombatFormulaRuntime::MonsterCriticalResistance(Victim))));
     float Amount=Damage*(Shot.bRifle && Weakpoint?1+Shot.WeakpointPercent:1);
-    if(!Shot.bRicochet&&Training.bCritical&&Shot.CriticalDamageBonus>0)Amount*=1+Shot.CriticalDamageBonus;
+    float WagerBonus=0.f;
+    // 普通暴击与要害暴击共用这一次判定；继承伤害的次生命中不重复叠层。
+    if(Shooter&&Shooter->HasAuthority()&&Training.bCritical&&!Shot.bRicochet&&Damage>0.f
+        &&Shot.ComposureStabilityPerStack>0.f&&Shot.ComposureRecoilReductionPerStack>0.f
+        &&Shot.ComposureSeconds>0.f&&Shot.ComposureMaxStacks>0
+        &&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
+        UCombatStatusFormula::GetOrAdd(Shooter)->AddComposure(Shot.ComposureStabilityPerStack,
+            Shot.ComposureRecoilReductionPerStack,Shot.ComposureSeconds,Shot.ComposureMaxStacks);
+    // 命中新增的一层也参与本次暴击。仅实际附魔手枪的敌人命中触发；
+    // 暴击消耗先于伤害回调，避免同一组层数被递归/附带伤害再次使用。
+    if(Shooter&&Shooter->HasAuthority()&&Shot.bPistol&&!Shot.bRicochet&&Damage>0.f
+        &&Shot.WagerCriticalBonusPerStack>0.f&&Shot.WagerSeconds>0.f&&Shot.WagerMaxStacks>0
+        &&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
+    {
+        auto* Status=UCombatStatusFormula::GetOrAdd(Shooter);
+        Status->AddWager(Shot.WagerCriticalBonusPerStack,Shot.WagerSeconds,Shot.WagerMaxStacks);
+        if(Training.bCritical){WagerBonus=Status->WagerCriticalBonus();Status->ConsumeWager();}
+    }
+    if(!Shot.bRicochet&&Training.bCritical&&(Shot.CriticalDamageBonus+WagerBonus)>0)Amount*=1+Shot.CriticalDamageBonus+WagerBonus;
     TGuardValue<FTrainingHit*> HitScope(ActiveTrainingHit,&Training);
     CombatFormulaRuntime::WeaponHit WeaponHit;WeaponHit.Target=Victim;WeaponHit.bMelee=Shot.bMelee||Shot.bMeleeStrike;
     // Damage already contains this attack's heavy/combo/range multiplier. Apply
@@ -199,6 +218,18 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     auto ApplyToughness=[&](){return Combat?Combat->ApplyHitWithToughnessScale(Shot.ToughnessDamageMultiplier,ApplyDamage):ApplyDamage();};
     const float Applied=(Combat&&bFirearmWithoutStagger)?Combat->ApplyHitWithReactionScale(0.f,ApplyToughness):ApplyToughness();
     const bool bDirectKill=bAliveBefore&&Applied>0.f&&(!IsValid(Victim)||Victim->IsActorBeingDestroyed()||Combat->IsDead());
+    // 虎啸在快速近战命中结算后施加；期间所有攻击按目标易削韧状态结算。
+    if(bAliveBefore&&Amount>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()
+        &&Victim->HasAuthority()&&!Combat->IsDead()&&Shot.bMelee&&!Shot.bRicochet
+        &&(Shot.AttackMeta&0x80)&&Shot.QuickCombatTigerRoarSeconds>0.f
+        &&Shot.QuickCombatTigerRoarToughnessBonus>0.f&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
+        UCombatStatusFormula::GetOrAdd(Victim)->AddTigerRoar(Shot.QuickCombatTigerRoarToughnessBonus,Shot.QuickCombatTigerRoarSeconds);
+    // 破锋燕翎配重：本次命中结算后施加物理易伤，重复命中刷新。
+    if(bAliveBefore&&Amount>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()
+        &&Victim->HasAuthority()&&!Combat->IsDead()&&Shot.bMelee&&!Shot.bRicochet
+        &&(Shot.AttackMeta&0x80)&&Shot.QuickCombatPhysicalVulnerabilitySeconds>0.f
+        &&Shot.QuickCombatPhysicalVulnerabilityBonus>0.f&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
+        UCombatStatusFormula::GetOrAdd(Victim)->AddPhysicalVulnerability(Shot.QuickCombatPhysicalVulnerabilityBonus,Shot.QuickCombatPhysicalVulnerabilitySeconds);
     // Armor can absorb damage and still leave a visible contact. Lethal hits
     // yield entirely to the existing death/ragdoll presentation.
     if(bFirearmContact&&bAliveBefore&&Amount>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()

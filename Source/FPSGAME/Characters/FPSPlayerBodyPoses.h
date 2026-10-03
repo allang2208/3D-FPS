@@ -16,20 +16,29 @@ inline float Pulse(float T,float Contact)
     Contact=FMath::Clamp(Contact,.05f,.9f);
     return T<Contact?Smooth(T/Contact):1.f-Smooth((T-Contact)/(1.f-Contact));
 }
+inline bool Dash(const FFPSBodyState& S)
+{return S.Action==EFPSBodyAction::HeavyStrike&&S.ActionVariant==TEXT("DashOverhead");}
+inline float DashProgress(const FFPSBodyState& S,float T)
+{return FMath::Clamp((T-S.ActionEntryFraction)/FMath::Max(.01f,1.f-S.ActionEntryFraction),0.f,1.f);}
+inline float DashContact(const FFPSBodyState& S)
+{return FMath::Clamp((S.ContactFraction-S.ActionEntryFraction)/FMath::Max(.01f,1.f-S.ActionEntryFraction),.12f,.8f);}
 inline bool Traversing(EFPSBodyMotion Motion){return Motion==EFPSBodyMotion::Vault||Motion==EFPSBodyMotion::Mantle;}
+// Both wrists must fit the native body arms. The old waist-level viewmodel
+// anchor put the support hand beyond Jason's reach even in the idle pose.
+inline FVector SwordReady(float Crouch){return FVector(-10.f,32.f,134.f-40.f*Crouch);}
 inline float PistolBashLift(float T,float Contact)
 {
     Contact=FMath::Clamp(Contact,.1f,.85f);
     return Smooth(T/FMath::Max(.01f,Contact*.7f))*(1.f-Smooth((T-Contact)/(1.f-Contact)));
 }
 
-inline FTransform RightHand(const FFPSBodyState& S,float T,float Crouch,float Aim,float Sprint,const FTransform& Base)
+inline FTransform RightHand(const FFPSBodyState& S,float T,float Crouch,float Aim,float Sprint,const FTransform& Base,const FVector& Scale=FVector::OneVector)
 {
     FTransform Result=Base;
     const bool Melee=S.Family==TEXT("Melee")||S.Family==TEXT("Tool");
     const bool Gun=S.Family==TEXT("Rifle")||S.Family==TEXT("Pistol");
-    const FVector Rest(-18,43,111-40*Crouch);
-    FVector Target=Melee?Rest:Base.GetLocation();
+    const FVector Rest=S.Family==TEXT("Melee")?SwordReady(Crouch):FVector(-18,43,111-40*Crouch);
+    FVector Target=Melee?Rest:Base.GetLocation()/Scale;
     FQuat Rotation=Base.GetRotation();
     const auto Turn=[&](FVector Axis,float Angle){Rotation=FQuat(Axis,Angle)*Rotation;};
     const float Edge=Smooth(T/.10f)*(1.f-Smooth((T-.85f)/.15f));
@@ -71,7 +80,18 @@ inline FTransform RightHand(const FFPSBodyState& S,float T,float Crouch,float Ai
         Turn(FVector::UpVector,(Reverse?-1.f:1.f)*(1.4f*Hit-.5f)*Edge);break;
     }
     case EFPSBodyAction::HeavyStrike:
-        if(S.ActionVariant==TEXT("shovel"))
+        if(Dash(S))
+        {
+            const float P=DashProgress(S,T),Contact=DashContact(S);
+            const float Cut=Smooth(P/Contact),Return=Smooth((P-Contact)/(1.f-Contact));
+            // Existing overhead's real contact clock: high carry -> committed
+            // forward cut -> ready stance. Do not restart at animation time zero.
+            const FVector High(-24,22,164-40*Crouch),Low(-10,69,88-40*Crouch);
+            Target=FMath::Lerp(FMath::Lerp(High,Low,Cut),Rest,Return);
+            Turn(FVector::ForwardVector,FMath::Lerp(.35f,-1.25f,Cut)*(1.f-Return));
+            Turn(FVector::UpVector,-.18f*(1.f-Return));
+        }
+        else if(S.ActionVariant==TEXT("shovel"))
         {
             Target=FMath::Lerp(Rest,FMath::Lerp(FVector(-18,32,116-40*Crouch),FVector(-12,66,70-40*Crouch),Hit),Edge);
             Turn(FVector::ForwardVector,-.65f*Hit*Edge);
@@ -126,10 +146,10 @@ inline FTransform RightHand(const FFPSBodyState& S,float T,float Crouch,float Ai
         break;
     default:break;
     }
-    Result.SetLocation(Target);Result.SetRotation(Rotation.GetNormalized());return Result;
+    Result.SetLocation(Target*Scale);Result.SetRotation(Rotation.GetNormalized());return Result;
 }
 
-inline FTransform CastHand(const FFPSBodyState& S,float Crouch,const FTransform& Base)
+inline FTransform CastHand(const FFPSBodyState& S,float Crouch,const FTransform& Base,const FVector& Scale=FVector::OneVector)
 {
     // Recovery is sampled from the actual entry hand by the animation node.
     if(S.ActionVariant==TEXT("Recover"))return Base;
@@ -140,6 +160,6 @@ inline FTransform CastHand(const FFPSBodyState& S,float Crouch,const FTransform&
     if(S.ActionVariant==TEXT("Gather")){Target=Gather;Weight=T;}
     else if(S.ActionVariant==TEXT("Ready")){Target=Ready;Weight=T;}
     else if(S.ActionVariant==TEXT("Release"))Target=FMath::Lerp(Ready,Push,FMath::Clamp(S.ReleaseFraction,0.f,1.f));
-    Result.SetLocation(FMath::Lerp(Base.GetLocation(),Target,Weight));return Result;
+    Result.SetLocation(FMath::Lerp(Base.GetLocation(),Target*Scale,Weight));return Result;
 }
 }

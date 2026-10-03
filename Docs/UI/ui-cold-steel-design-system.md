@@ -67,6 +67,8 @@
 
 底部体力条使用共享 `Stamina`（#A1A44F）与 `StaminaDeep`（#666B35）语义色，低于 25% 使用警示强调。按用户后续要求仅横排显示细条和当前/上限数值，无外壳背景、模糊、标题或文字说明；位置为快捷栏上方，不接管操作输入。
 
+2026-10-03 生存状态 HUD 共用三组资源语义色：`Hunger` / `HungerDeep` 为 #BEA06E / #75613F，`Hydration` / `HydrationDeep` 为 #8AAFA8 / #466660，`Sanity` / `SanityDeep` 为 #AD9BBE / #655773。只用于对应数据轨道，底色和边框继续中性黑灰与银灰；≤25% 数值与填充使用 Warning，归零数值和损血提示使用 Danger。用户已选择 A 紧凑横排，正式尺寸最大 440×184px，等级方块固定 64×56px、左对齐并垂直居中，等级与生命/魔法的列宽由独立上层布局决定；全宽生存栏不得反向撑大等级列。生命/魔法与生存指标之间用 1px 中性细线分区；四角沿用时钟、事件栏、弹药栏的金色四分之一圆弧及 6px 短切线，跟随实际绘制几何与圆角半径。B 保留为历史参考。布局、存档及数值口径见 [生存状态栏规划](survival-hud-plan-20261003.md)。
+
 技能图标以用户已选中的新版 `rifle_mastery_B_M4_v2.png` 为系列基准：拉丝银色六边形、石墨凹面、中性黑灰与左上柔光，不烘焙文字；不再以旧金边蓝宝石图标作为默认风格。实际路径由 `Content/ColdSteelData/skills.json` 统一提供给列表、详情与升级通知。制作前读取对应选择历史与实际配置；候选目录中的已选资源不可因目录名而被忽略。巧手与闪避的新图来源见 `SourceAssets/DexterousHands20260913/provenance.json`。
 
 2026-09-14 火球按用户要求采用火红主体：焰身为朱红／橙红、凹槽深红、球心少量琥珀亮黄，保留石墨暗底与银色六边框；元素身份色集中在主体，不把整块槽位背景染红。当前配置使用 `Skills/fireball_ember_red.png`，快捷栏、技能页、拖影与升级提示共用图源；冷却遮罩、缺蓝变暗和按键颜色继续由原控件管理。旧银灰图保留为本次编辑输入。制作与接入记录见 [火球图标配色](fireball-icon-color-plan-20260914.md)，本轮未进行游戏测试。
@@ -291,6 +293,8 @@
 - **画刷必须除以 Scale（2026-09-24 补充）**：调用 `ColdSteelUI::RoundedBrush` 覆盖按钮样式时，圆角与描边宽度**必须除以 `PixelScale`**，与 `ColdSteelUI::ButtonStyle(Scale)` 内部的除法一致。传原始像素值会在高 DPI 下使圆角偏小、描边偏粗，卡片／选中页签看起来是「方角加粗边」。正确写法见 `DevelopmentPanelWidget.cpp`／`WeatherControlWidget.cpp`：`RoundedBrush(..., ColdSteelUI::CardRadius / Scale, ..., 1.f / Scale)`。
 2026-09-30 新增「祭品」主分区（祭品卡片，与状态分区同规则：整页独占+搜索栏）：数据=物品目录 category=tribute（items.json 单一事实源，与背包/浮窗同一物品 Data）；分类页签 全部/传说/神话/史诗/稀有/罕见/普通（与稀有度分组表同序派生，组序高→低）；「祭品卡片 · <稀有度>」按组出卡，组头=稀有度标签（RarityColor 稀有度色）+计数；条目=图标字形（稀有度色着色）+名称 14px Medium+右侧类型 12px+效果摘要（Data.stats 数组拼行，JetBrains Mono 12px）+说明 12px 换行；搜索与状态页共用同一缓存输入框（提示词按分区刷新，文本与焦点跨分区保留）。
 
+2026-10-03 新增「附魔」主分区（附魔卡片，与祭品分区同规则：整页独占+搜索栏）：数据=`UColdSteelEnhancementSystem::Scrolls()`（`Content/ColdSteelData/enhancement.json` 的 scrolls 数组，强化台附魔栏同一入口），收录全量卷轴目录——图鉴是档案页，不沿用强化台「只计背包正数量堆叠」的可用性过滤；分类页签 全部/前缀/后缀（页签→slot 显式映射表+`static_assert`）；「附魔卡片 · <稀有度>」复用祭品稀有度组序表（高→低，空组跳过），目录物品缺 rarity 或表外值落末尾「其他」兜底组，条目不因字段缺失消失；组内粉尘消耗升序、再按名称。条目=字形（物品 `icon_fallback`，稀有度色着色）+词缀名 14px Medium+右侧 前缀/后缀 12px；次行「兼容 <restriction 中文> · 魔法粉尘 <数值>」12px（restriction 八键 weapon/firearm/melee/meleeOrBow/sword/pistol/machineGun/sniper→中文映射表，未知键如实显示原文）；效果说明=enhancement.json description 原文 12px 换行（强化台悬停同一字段；items.json 的短 desc 不作效果口径）。只读档案：不读背包数量、不报价、不扣粉尘/卷轴、不写存档。主分区页签 4→5（武器/怪物/状态/祭品/附魔），`BuildTabs` 循环上限改按 `UE_ARRAY_COUNT(SectionLabels)` 取长度防漂移。规划见 [图鉴附魔分区规划](codex-enchant-plan-20261003.md)。
+
 2026-09-29 新增「状态」主分区（状态栏卡片，用户要求整页独占）：数据走 `UStatusEffectsComponent::AllDefinitions`（`Content/ColdSteelData/status_effects.json` 与左上状态 HUD 同一目录，kind 字段区分增益/减益）；**不与武器/怪物的左列表右详情分栏共用布局**——进入状态分区后整页交给「状态栏卡片 · 增益」「状态栏卡片 · 减益」两张卡平铺（分类页签 全部/增益/减益 过滤），每条目=弱行底圆角小块（AttributeRow 底、条目间 6px 间隔）：首行图标 16px+名称 14px Medium，次行说明 12px Tertiary 换行并与名称列对齐（缩进 24px 图标列）；组标题 16px Medium 带条目计数。**2026-09-30 来源分组**：目录新增 group 字段（combat 战斗状态23／triggered 触发效果9／persistent 常态效果4／tribute 祭品与赐福16／dungeon_event 地牢事件63），页面按固定组序出卡「状态栏卡片 · <组名>」，组头=组名+组语义说明一行+计数（增/减分开）；组内混合增益减益，条目名称行右侧固定 12px 增益（Success）／减益（Danger）标记，图标用目录效果语义色着色。分组为展示维度不参与过滤，空组跳过。**顶部搜索栏**（36px 控件档、14px Noto、深底圆角 6px+1px Border 边）：输入即过滤，命中 名称/说明/效果标识（不区分大小写），与分类页签叠加；搜索输入只重填卡片区不重建整页（输入框焦点不丢）。无立绘、无选择态。路由注意：怪物分支条件是登记表存在（恒真），状态分支必须排在其前。目录条目增改只需改 JSON，图鉴自动收录。
 
 - **数据合同（单一来源，不新建第二套口径）**：武器目录读 `UColdSteelStatusModel::ItemCatalog()`（`bItemCatalogBuilt` 缓存），基本资料（名称、类型、稀有度、持握、装备槽、说明）读物品 `Data` JSON 的既有字段（`ColdSteelInventory::Text/Number/Flag`，与背包、浮窗同一入口）；**战斗数值不读物品 `Data`**（其中没有伤害／射程／弹匣等字段），而是与物品浮窗、运行时同一口径：改造目录 `UGunsmithSystem::Calculate()` 的 `FGunsmithStats` 为基础，再由 `ColdSteelWeaponStats::Damage/DamageParts/Interval/Reload` 施加敏捷／附魔等后处理；未登记改造目录的物品如实显示「无枪械／近战参数」，不伪造数值。栏目归属只按物品自身 `category`／`weaponType` 判定（`tool`／`weapon_melee`／`weapon`／`weapon_ranged`／`weapon_magic`），不从名称、图标或开发面板分组猜测。怪物读 `UDevelopmentSpawnComponent::GetMonsters()`，防御常量与品阶走 `MonsterCoreStats::Get`（按身份 Id 缓存，避免重建时重复加载；2026-09-28 六维剔除后详情卡为「防御与抗性」三项：物理防御/魔法防御/暴击抗性，数值 JetBrains Mono 14px，行结构与既有 DetailRow 合同一致），战力走 `MonsterCoreStats::CombatLevel`，奖励倍率走 `RankExperienceMultiplier`／`RankGoldMultiplier`／`RankCombatBonus`。**本面板为只读档案**：不写存档、不扣材料、不改容量与战斗公式。
@@ -315,13 +319,22 @@
 ## 专属改造卡片（2026-09-27）
 用户指定九项专属改造使用共享 ExclusiveCard/ExclusiveBorder/ExclusiveText 暗金身份样式，详见 [专属金卡规划](gunsmith-exclusive-gold-20260927.md)。保留黑灰玻璃层级、灰白图标及绿色流动选中反馈；专属文字与已安装/待应用状态并存。不按单武器兼容或名称自动扩展专属范围。
 
+2026-10-02 用户指定将同版金卡应用于唐刀的破锋燕翎刀身、腾云游龙刀身及破锋燕翎配重锤。按武器＋槽位＋改造 ID 显式接入，其他唐刀改造继续沿用原样式。范围与制作记录见 [唐刀限定金卡规划](tang-dao-exclusive-gold-plan-20261002.md)。
+
+2026-10-02 新增唐刀专属「祥云符文」（`ue_tang_dao / blade_2 / auspicious_cloud_rune`），同样显式使用限定金卡；图标延续银灰金属框和灰阶主印，收益与代价沿用现有语义色。祥云刀身外观为淡金云纹与玉青流光，素材、提示词、效果及后台接入记录见 [祥云符文制作记录](../../SourceAssets/TangDaoMeshy20261002/CloudRune20261002/README.md)。
+
+2026-10-02 新增唐刀专属「璇云龙璧护手」（`ue_tang_dao / guard / xuan_cloud_dragon`），沿用限定金卡，灰阶图标使用实际护手模型的浮雕、镂空与接口结构。三维外观保留鎏金凸纹与暗铜凹底，制作记录见 [璇云龙璧护手](../../SourceAssets/TangDaoMeshy20261002/XuanCloudGuard20261002/README.md)。本次只接入外观，属性留空。
+
 ## 2.22a 生命/魔法语义色与状态效果 HUD 复核（2026-09-28）
 
 - 新增共享语义色 `Health #BD626D`／`HealthDeep #763B43`／`Mana #7194AC`／`ManaDeep #36566E`：HUD 资源条（`ColdSteelResourceMeter`）与人物状态页生命/魔法条统一从这组 token 取色，替换原来两处互不一致的字面量（状态页原为 Success 绿/#55799D）。低血 ≤25% Danger、≤50% Warning 的渐变保留。
 - 状态效果 HUD（左上 buff 角标+悬停提示）按 §4/§2 复核：文字改走共享字体入口（原 SimHei 移除），tile 层数/时间 11px、提示框 16/14/14/12；卡面 StatusCard/ButtonHover、悬停边 Accent、提示框用深色 `Tooltip #191919FC` + 1px Border；全套字面量色移除。tile 边框保留效果语义色 `V.Color` 2px 作标记。
 - 例外登记：buff 图标是目录 emoji 字段，工程四款正式字体无 emoji 字形，暂以系统 Segoe UI Emoji 作**图标字形回退**（`StatusEffectsHUD.cpp` 的 `EmojiIcon`，仅图标、不含任何 UI 文字）；补充打包 emoji 字体后仅改该函数。
 
+2026-09-30 冰墙与暴风雪图标已用内置 image_gen 参照当前冰锥图生成银色六边框、石墨暗底和写实主体；SourceAssets/IceSkillIcons20260930 保存最终 PNG 与完整提示词。正式同名 PNG 和恢复脚本已替换，旧图保留散列记录。暴风雪的技能页可拖卡片与拖影图源同时补齐；见 Docs/UI/ice-skill-icons-and-blizzard-drag-20260930.md，未实机测试。
+
 ## 2.22b 背包抽屉容量横线暗金（2026-10-02）
 
 「装备与背包」抽屉中「空间背包」（含仓库视图同路径）与「夹层」两个区块标题下的容量横线并入 2.22 暗金身份层：轨道 `ItemTooltipGoldRule`、填充 `HUDGold`（与 6px 经验条同源），满仓 `Warning` 语义色保留。几何与版式不变（2px、区块全宽），计数文字仍中性灰阶；网格线、整理按钮不染金。
-
+
+

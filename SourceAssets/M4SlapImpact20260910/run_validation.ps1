@@ -42,3 +42,4 @@ $result=[ordered]@{label=$Label;requested_hz=$Fps;clock_mode=$clockMode;rhi=$rhi
 $result | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $outputDir 'result.json') -Encoding utf8
 $result | ConvertTo-Json | Write-Output
 if ($testProcess.ExitCode -ne 0 -or !$complete -or $failed -gt 0 -or $passed -eq 0) { exit 1 }
+

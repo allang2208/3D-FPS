@@ -1,0 +1,285 @@
+{
+  "objects": [
+    {
+      "name": "SM_Warehouse_WoodCrate_Body",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_WoodCrate_Body.fbx",
+      "asset": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Body",
+      "materials": {
+        "RS_Wood": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Labels": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels"
+      },
+      "triangles": 16302,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_Warehouse_WoodCrate_Lid",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_WoodCrate_Lid.fbx",
+      "asset": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+      "materials": {
+        "RS_Wood": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      "triangles": 2068,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0,
+        -0.39,
+        0.76
+      ]
+    },
+    {
+      "name": "SM_Warehouse_Tote_Body",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_Tote_Body.fbx",
+      "asset": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Body",
+      "materials": {
+        "RS_Plastic": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Labels": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels"
+      },
+      "triangles": 5542,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_Warehouse_Tote_Lid",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_Tote_Lid.fbx",
+      "asset": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+      "materials": {
+        "RS_Plastic": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen"
+      },
+      "triangles": 1316,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0,
+        -0.22,
+        0.41
+      ]
+    },
+    {
+      "name": "SM_Warehouse_MetalCase_Body",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_MetalCase_Body.fbx",
+      "asset": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Body",
+      "materials": {
+        "RS_Case": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Labels": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels"
+      },
+      "triangles": 11790,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_Warehouse_MetalCase_Lid",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_MetalCase_Lid.fbx",
+      "asset": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+      "materials": {
+        "RS_Case": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      "triangles": 1128,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0,
+        -0.335,
+        0.63
+      ]
+    },
+    {
+      "name": "SM_Warehouse_ToolCabinet_Body",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_ToolCabinet_Body.fbx",
+      "asset": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Body",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      "triangles": 8296,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_Warehouse_ToolCabinet_Door",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_ToolCabinet_Door.fbx",
+      "asset": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Door",
+      "materials": {
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Labels": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels"
+      },
+      "triangles": 1522,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        -0.425,
+        0.275,
+        0.16
+      ]
+    },
+    {
+      "name": "SM_Warehouse_ToolDrawer_Frame",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_ToolDrawer_Frame.fbx",
+      "asset": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Frame",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      "triangles": 564,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_Warehouse_ToolDrawer_Tray",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_ToolDrawer_Tray.fbx",
+      "asset": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Tray",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Labels": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels"
+      },
+      "triangles": 2334,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "prototypes": {
+    "WoodCrate": {
+      "body": "SM_Warehouse_WoodCrate_Body",
+      "door": "SM_Warehouse_WoodCrate_Lid",
+      "hinge": [
+        0,
+        39.0,
+        76.0
+      ],
+      "opening_motion": "Lid",
+      "opened_roll": 105,
+      "caption": "加固运输木箱",
+      "storage_pages": 2,
+      "dimensions_m": [
+        1.04,
+        0.78,
+        0.8200000000000001
+      ]
+    },
+    "Tote": {
+      "body": "SM_Warehouse_Tote_Body",
+      "door": "SM_Warehouse_Tote_Lid",
+      "hinge": [
+        0,
+        22.0,
+        41.0
+      ],
+      "opening_motion": "Lid",
+      "opened_roll": 105,
+      "caption": "带盖周转箱",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.65,
+        0.47,
+        0.45399999999999996
+      ]
+    },
+    "MetalCase": {
+      "body": "SM_Warehouse_MetalCase_Body",
+      "door": "SM_Warehouse_MetalCase_Lid",
+      "hinge": [
+        0,
+        33.5,
+        63.0
+      ],
+      "opening_motion": "Lid",
+      "opened_roll": 108,
+      "caption": "重型金属运输箱",
+      "storage_pages": 2,
+      "dimensions_m": [
+        1.08,
+        0.77,
+        0.7
+      ]
+    },
+    "ToolCabinet": {
+      "body": "SM_Warehouse_ToolCabinet_Body",
+      "door": "SM_Warehouse_ToolCabinet_Door",
+      "hinge": [
+        -42.5,
+        -27.500000000000004,
+        16
+      ],
+      "opening_motion": "Swing",
+      "opened_yaw": -105,
+      "caption": "维修工具柜",
+      "storage_pages": 2,
+      "dimensions_m": [
+        0.905,
+        0.61,
+        1.53
+      ]
+    },
+    "ToolDrawer": {
+      "body": "SM_Warehouse_ToolDrawer_Frame",
+      "door": "SM_Warehouse_ToolDrawer_Tray",
+      "hinge": [
+        0,
+        0,
+        0
+      ],
+      "opening_motion": "Drawer",
+      "drawer_travel": [
+        0,
+        -34,
+        0
+      ],
+      "caption": "工具柜上层抽屉",
+      "storage_pages": 1
+    }
+  },
+  "material_sources": {
+    "Wood": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+    "Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+    "Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+    "Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+    "Case": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint",
+    "Plastic": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen",
+    "Labels": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels"
+  },
+  "original_geometry": true,
+  "tests_run": false,
+  "rendered": false
+}

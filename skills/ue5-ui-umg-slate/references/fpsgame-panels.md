@@ -1,5 +1,11 @@
 # FPSGAME 面板与栏目
 
+法杖六槽改造的格式统一见 [法杖模块化制作](../../ue5-weapon-workflow/references/staff-modular-production.md) 的「改造栏统一格式」：复用共用分类／卡片状态、完整配件说明及四列比较；详情与总览从 `ColdSteelStaffModificationUI.h` 取同名同单位字段，显示实际杖冠激活条件，不通过 Description 的符号猜收益。工程记录为 `Docs/UI/staff-gunsmith-format-plan-20261003.md`，未游戏测试。
+
+## F6 生成物品目录（2026-10-03）
+
+生成物品下拉使用 `UDevelopmentItemPicker` 的 Slate 菜单：类别标题下方分隔线，子标题下方缩进实际物品行。标题不可选，选择事件传 Definition；名称重名不会串项。大类／子类来自 `FColdSteelCatalogEntry` 的 Group／Subgroup，按缓存的目录元数据排序；补充箭矢归入弹药大类。菜单仅在展开时构造，沿用冷钢字体和主题；关闭 F6、换页或 Destruct 都关闭弹层。数量和生成仍调用既有档案事务，不因分类改变物品范围或保存。规划与必要后台构建记录：`Docs/UI/f6-item-groups-plan-20261003.md`；未运行游戏或 UI 测试。
+
 技能文字竖排、修炼方式卡片与底部体力精简见 [技能与体力布局](skill-layout-stamina.md)。
 
 用于这个项目新增／升级面板、页签、栏目、卡片或弹窗，包括改造、强化、附魔、装备背包、仓库与状态 UI。
@@ -303,3 +309,15 @@ FPSGAME 源码与实施记录：[图鉴栏系统规划](../../../Docs/UI/codex-p
 - **SEditableTextBox**：`HintText` 收 FText 要 `FText::FromString`；`FEditableTextBoxStyle` 无 SetBorderBrush，背景透明化走 SetBackgroundImageNormal/Hovered/Focused 三件套；样式按指针取须成员缓存。搜索框跨分区共用一个缓存实例（文本/焦点保留），提示词用 `SetHintText` 按分区刷新；输入回调只重填卡片区（缓存 SVerticalBox），不重建整页。
 - **FString::Printf** 的格式串必须编译期字面量，三目选格式串会报 C7732——拆成两个分支各写字面量。
 - **游戏输入层不感知 Slate 文本焦点**：面板快捷键（走 PlayerController 输入绑定的 Tab/Caps/P/N）要在入口加守卫——`FSlateApplication::Get().GetKeyboardFocusedWidget()->GetTypeAsString()` 为 SEditableText/SEditableTextBox 时放行按键，否则搜索框打字会误切抽屉。
+
+## 图鉴附魔分区：档案目录与可用性过滤是两套口径（2026-10-03）
+
+图鉴新增第 5 主分区「附魔」，走状态/祭品同款整页独占（搜索栏 + 稀有度分组卡片）。数据=`UColdSteelEnhancementSystem::Scrolls()`（enhancement.json scrolls 数组，强化台同一入口）。口径：
+
+- **目录 ≠ 可用性**：强化台卷轴列表「只计背包正数量堆叠、未持有直接隐藏」是可用性合同（UI-WORKFLOW §4）；图鉴是档案页，收录全量卷轴。复用同一 `Scrolls()` 入口但**不复制它的过滤**，也不要在图鉴里另读一遍 items.json 自立目录——两处清单必然漂移。
+- **效果文案取 enhancement.json 的 `description` 字段**，不是 items.json 的 `desc`——后者 6 条只有「可以给XX附魔…」的引导句，没有效果正文；enhancement.json description 才是强化台悬停展示的同一字段。稀有度/字形才从物品 Data 读（`CreateItem` + `icon_fallback`/`rarity`）。
+- **页签→slot 显式映射**（全部/前缀/后缀 ↔ all/prefix/suffix）+ `static_assert`，与怪物品阶页签同一纪律；主分区页签数组从 4 项扩到 5 项时，把硬编码 `Index < 4` 改成 `UE_ARRAY_COUNT(SectionLabels)`，页签数再变时循环上限不会漏改。
+- **稀有度分组复用祭品组序表**；物品缺 rarity 或表外值落末尾「其他」兜底组（组序表末位放 -1 哨兵），条目不因字段缺失整条消失。restriction 键→中文用八键映射表（weapon/firearm/melee/meleeOrBow/sword/pistol/machineGun/sniper，与 `CanEnchant` 一一对应），未知键如实显示原文不伪造兼容范围。
+- **路由位置**：`Entries()`/`Categories()` 的附魔分支必须排在「怪物登记表」分支（条件恒真）之前，与状态/祭品分支同一条纪律。
+
+规划：`Docs/UI/codex-enchant-plan-20261003.md`；未实机测试，由用户测试。

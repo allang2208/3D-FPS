@@ -1,0 +1,468 @@
+{
+  "purpose": "surface-constrained authoring, not runtime acceptance",
+  "source": {
+    "index": {
+      "flex": [
+        62,
+        152,
+        207
+      ],
+      "spread": [
+        3,
+        3,
+        3
+      ]
+    },
+    "middle": {
+      "flex": [
+        68,
+        160,
+        218
+      ],
+      "spread": [
+        0,
+        0,
+        0
+      ]
+    },
+    "ring": {
+      "flex": [
+        70,
+        163,
+        220
+      ],
+      "spread": [
+        -2,
+        -2,
+        -2
+      ]
+    },
+    "pinky": {
+      "flex": [
+        73,
+        165,
+        221
+      ],
+      "spread": [
+        -5,
+        -5,
+        -5
+      ]
+    },
+    "thumb": {
+      "flex": [
+        42,
+        25,
+        13
+      ],
+      "spread": [
+        -8,
+        60,
+        87
+      ]
+    }
+  },
+  "baseline": {
+    "crossing_pairs": {
+      "middle-thumb": 4,
+      "ring-pinky": 73
+    },
+    "tip_palm_gap_mm": {
+      "index": 14.91900160908699,
+      "middle": 14.641905203461647,
+      "ring": 9.497026912868023,
+      "pinky": 11.500337161123753,
+      "thumb": 29.190436005592346
+    },
+    "penetration_cost": 0.0,
+    "score": 770473.1801884562
+  },
+  "result": {
+    "crossing_pairs": {},
+    "tip_palm_gap_mm": {
+      "index": 9.234262630343437,
+      "middle": 8.677885867655277,
+      "ring": 5.658135283738375,
+      "pinky": 7.41482712328434,
+      "thumb": 30.3892083466053
+    },
+    "penetration_cost": 0.0,
+    "score": 167.57602199540102
+  },
+  "profile": {
+    "index": {
+      "flex": [
+        65.75,
+        158.75,
+        216.75
+      ],
+      "spread": [
+        -0.75,
+        -3.75,
+        -6.75
+      ]
+    },
+    "middle": {
+      "flex": [
+        65.75,
+        163.75,
+        227.75
+      ],
+      "spread": [
+        -2.25,
+        6.0,
+        9.75
+      ]
+    },
+    "ring": {
+      "flex": [
+        70.75,
+        166.75,
+        229.75
+      ],
+      "spread": [
+        -2.75,
+        0.25,
+        3.25
+      ]
+    },
+    "pinky": {
+      "flex": [
+        70.0,
+        168.75,
+        230.75
+      ],
+      "spread": [
+        -2.0,
+        1.0,
+        -0.5
+      ]
+    },
+    "thumb": {
+      "flex": [
+        48.0,
+        25.75,
+        13.0
+      ],
+      "spread": [
+        -11.0,
+        60.0,
+        87.0
+      ]
+    }
+  },
+  "accepted_steps": [
+    {
+      "digit": "index",
+      "channel": 1,
+      "step": 3.0,
+      "score": 770428.5669346299
+    },
+    {
+      "digit": "index",
+      "channel": 2,
+      "step": 3.0,
+      "score": 770410.4237889829
+    },
+    {
+      "digit": "index",
+      "channel": 3,
+      "step": -3.0,
+      "score": 770408.661384216
+    },
+    {
+      "digit": "index",
+      "channel": 4,
+      "step": -3.0,
+      "score": 770397.64882163
+    },
+    {
+      "digit": "index",
+      "channel": 5,
+      "step": -3.0,
+      "score": 770394.0649506644
+    },
+    {
+      "digit": "middle",
+      "channel": 0,
+      "step": -3.0,
+      "score": 730429.136472957
+    },
+    {
+      "digit": "middle",
+      "channel": 1,
+      "step": 3.0,
+      "score": 730380.5036981505
+    },
+    {
+      "digit": "middle",
+      "channel": 2,
+      "step": 3.0,
+      "score": 730362.5841945078
+    },
+    {
+      "digit": "middle",
+      "channel": 3,
+      "step": 3.0,
+      "score": 730360.7504754759
+    },
+    {
+      "digit": "middle",
+      "channel": 4,
+      "step": 3.0,
+      "score": 730347.8525719369
+    },
+    {
+      "digit": "middle",
+      "channel": 5,
+      "step": 3.0,
+      "score": 730343.1398880249
+    },
+    {
+      "digit": "ring",
+      "channel": 0,
+      "step": -3.0,
+      "score": 570360.5940227587
+    },
+    {
+      "digit": "ring",
+      "channel": 2,
+      "step": 3.0,
+      "score": 560344.6498269768
+    },
+    {
+      "digit": "ring",
+      "channel": 4,
+      "step": 3.0,
+      "score": 270346.10140510247
+    },
+    {
+      "digit": "ring",
+      "channel": 5,
+      "step": 3.0,
+      "score": 190347.2419181698
+    },
+    {
+      "digit": "pinky",
+      "channel": 0,
+      "step": -3.0,
+      "score": 100367.02851923218
+    },
+    {
+      "digit": "pinky",
+      "channel": 1,
+      "step": 3.0,
+      "score": 80336.63448856903
+    },
+    {
+      "digit": "pinky",
+      "channel": 2,
+      "step": 3.0,
+      "score": 80325.96626035933
+    },
+    {
+      "digit": "pinky",
+      "channel": 3,
+      "step": 3.0,
+      "score": 325.27001485865054
+    },
+    {
+      "digit": "pinky",
+      "channel": 4,
+      "step": 3.0,
+      "score": 320.22014596975566
+    },
+    {
+      "digit": "pinky",
+      "channel": 5,
+      "step": 3.0,
+      "score": 319.2152572948758
+    },
+    {
+      "digit": "thumb",
+      "channel": 0,
+      "step": 3.0,
+      "score": 311.43912705558535
+    },
+    {
+      "digit": "thumb",
+      "channel": 1,
+      "step": -3.0,
+      "score": 311.00379954002017
+    },
+    {
+      "digit": "thumb",
+      "channel": 3,
+      "step": -3.0,
+      "score": 310.80177961880156
+    },
+    {
+      "digit": "thumb",
+      "channel": 4,
+      "step": 3.0,
+      "score": 310.1043944300436
+    },
+    {
+      "digit": "index",
+      "channel": 0,
+      "step": 3.0,
+      "score": 301.77931485350655
+    },
+    {
+      "digit": "middle",
+      "channel": 1,
+      "step": 3.0,
+      "score": 270.876221051941
+    },
+    {
+      "digit": "middle",
+      "channel": 2,
+      "step": 3.0,
+      "score": 261.32350783470434
+    },
+    {
+      "digit": "middle",
+      "channel": 3,
+      "step": -3.0,
+      "score": 261.2534879963383
+    },
+    {
+      "digit": "middle",
+      "channel": 4,
+      "step": 3.0,
+      "score": 254.16679451228916
+    },
+    {
+      "digit": "ring",
+      "channel": 0,
+      "step": 3.0,
+      "score": 242.02112068573672
+    },
+    {
+      "digit": "ring",
+      "channel": 1,
+      "step": 3.0,
+      "score": 220.2381353083592
+    },
+    {
+      "digit": "ring",
+      "channel": 2,
+      "step": 3.0,
+      "score": 213.78964461616613
+    },
+    {
+      "digit": "pinky",
+      "channel": 1,
+      "step": 3.0,
+      "score": 193.41362120901644
+    },
+    {
+      "digit": "pinky",
+      "channel": 2,
+      "step": 3.0,
+      "score": 189.92418906179557
+    },
+    {
+      "digit": "pinky",
+      "channel": 5,
+      "step": -3.0,
+      "score": 189.59633764898516
+    },
+    {
+      "digit": "thumb",
+      "channel": 0,
+      "step": 3.0,
+      "score": 184.42814157172077
+    },
+    {
+      "digit": "thumb",
+      "channel": 1,
+      "step": -3.0,
+      "score": 183.97483545612937
+    },
+    {
+      "digit": "middle",
+      "channel": 3,
+      "step": -1.5,
+      "score": 183.88109915996176
+    },
+    {
+      "digit": "middle",
+      "channel": 4,
+      "step": 1.5,
+      "score": 179.1962445014973
+    },
+    {
+      "digit": "pinky",
+      "channel": 5,
+      "step": -1.5,
+      "score": 178.88645566917899
+    },
+    {
+      "digit": "index",
+      "channel": 0,
+      "step": 0.75,
+      "score": 176.96216406041938
+    },
+    {
+      "digit": "index",
+      "channel": 3,
+      "step": -0.75,
+      "score": 175.97742528360337
+    },
+    {
+      "digit": "middle",
+      "channel": 0,
+      "step": 0.75,
+      "score": 174.75074109238287
+    },
+    {
+      "digit": "middle",
+      "channel": 3,
+      "step": -0.75,
+      "score": 174.68787729461988
+    },
+    {
+      "digit": "middle",
+      "channel": 4,
+      "step": 0.75,
+      "score": 173.5914595143761
+    },
+    {
+      "digit": "middle",
+      "channel": 5,
+      "step": 0.75,
+      "score": 172.76143786940565
+    },
+    {
+      "digit": "ring",
+      "channel": 0,
+      "step": 0.75,
+      "score": 171.6886534747888
+    },
+    {
+      "digit": "ring",
+      "channel": 3,
+      "step": -0.75,
+      "score": 171.26416477848213
+    },
+    {
+      "digit": "pinky",
+      "channel": 1,
+      "step": 0.75,
+      "score": 167.59848555734524
+    },
+    {
+      "digit": "thumb",
+      "channel": 1,
+      "step": 0.75,
+      "score": 167.59289699540102
+    },
+    {
+      "digit": "thumb",
+      "channel": 2,
+      "step": -0.75,
+      "score": 167.57602199540102
+    }
+  ]
+}

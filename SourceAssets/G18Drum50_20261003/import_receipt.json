@@ -1,0 +1,21 @@
+{
+  "revision": 2,
+  "complete": true,
+  "saved": [
+    "/Game/Weapons/G18/Drum50_20261003/Textures/T_G18_Drum50_BaseColor.T_G18_Drum50_BaseColor",
+    "/Game/Weapons/G18/Drum50_20261003/Textures/T_G18_Drum50_ORM.T_G18_Drum50_ORM",
+    "/Game/Weapons/G18/Drum50_20261003/Textures/T_G18_Drum50_Normal_DirectX.T_G18_Drum50_Normal_DirectX",
+    "/Game/Weapons/G18/Drum50_20261003/Materials/M_G18_Drum50_PBR.M_G18_Drum50_PBR",
+    "/Game/Weapons/G18/Drum50_20261003/Materials/M_G18_Drum50_Neck.M_G18_Drum50_Neck",
+    "/Game/Weapons/G18/Drum50_20261003/Meshes/SM_G18_Drum50.SM_G18_Drum50",
+    "/Game/Weapons/G18/Integrated20260929/DA_G18_WetMaterials.DA_G18_WetMaterials",
+    "/Game/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_g18_magazine_g18_drum_50.ue_g18_magazine_g18_drum_50"
+  ],
+  "runtime_tested": false,
+  "mesh": "/Game/Weapons/G18/Drum50_20261003/Meshes/SM_G18_Drum50.SM_G18_Drum50",
+  "bounds_half_extent_cm": [
+    6.299630343914032,
+    5.948667407035828,
+    14.943720579147339
+  ]
+}

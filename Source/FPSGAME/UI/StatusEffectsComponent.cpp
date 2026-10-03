@@ -3,6 +3,7 @@
 #include "../Monsters/HandBrainFearComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../Combat/ProgressiveInfectionComponent.h"
+#include "../Combat/CombatStatusFormula.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/Pawn.h"
@@ -76,6 +77,15 @@ TArray<FStatusEffectView> UStatusEffectsComponent::Snapshot() const
   Result.Add(V);
  }
  const double Now=GetWorld()->GetTimeSeconds();
+ if(const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();Status&&Status->ComposureCount()>0)
+ {auto V=Definition(TEXT("composure"));V.Stacks=Status->ComposureCount();V.Duration=Status->ComposureDuration();V.Remaining=Status->ComposureRemaining();
+  V.Description+=FString::Printf(TEXT(" 当前武器稳定性 +%.0f%%、后坐力 −%.0f%%。"),Status->ComposureStabilityBonus()*100.f,(1.f-Status->ComposureRecoilMultiplier())*100.f);Result.Add(V);}
+ if(const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();Status&&Status->WagerCount()>0)
+ {auto V=Definition(TEXT("wager"));V.Stacks=Status->WagerCount();V.Duration=Status->WagerDuration();V.Remaining=Status->WagerRemaining();
+  V.Description+=FString::Printf(TEXT(" 当前暴击伤害倍率 +%.1f，仅用于带「大盲注」的手枪。"),Status->WagerCriticalBonus());Result.Add(V);}
+ if(const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();Status&&Status->BerserkCount()>0)
+ {auto V=Definition(TEXT("berserk"));V.Stacks=Status->BerserkCount();V.Duration=Status->BerserkDuration();V.Remaining=Status->BerserkRemaining();
+  V.Description+=FString::Printf(TEXT(" 当前攻击速度 +%.0f%%；倒计时为下一次减层时间。"),(Status->BerserkAttackSpeed()-1.f)*100.f);Result.Add(V);}
  for(const auto& R:Records){auto V=R.View;if(!V.Persistent&&V.Battles<0){V.Remaining=FMath::Max(0.f,float(R.End-Now));if(V.Remaining<=0)continue;}if(V.Battles==0)continue;if(!Result.ContainsByPredicate([&](const auto& E){return E.Type==V.Type;}))Result.Add(V);}
  return Result;
 }

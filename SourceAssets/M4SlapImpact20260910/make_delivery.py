@@ -23,3 +23,4 @@ for label,name,length,origin in [('m4-slap-impact','M4_拍击提速50与枪身�
  reports.append({'run':label,'output':str(dest),'fps':fps,'source_frames':len(files),'held_missing_frames':sum(i not in files for i in range(count)),'audio_origin_trim':trim,'note':'Same run rendered frames and actual mixer output. Missing screenshot indices hold previous frame; no per-event audio replacement or shifts.'})
 
 (out/'preview_manifest.json').write_text(json.dumps(reports,indent=2,ensure_ascii=False),encoding='utf-8');print(json.dumps(reports,ensure_ascii=False))
+

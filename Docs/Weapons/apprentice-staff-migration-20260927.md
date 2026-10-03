@@ -15,7 +15,7 @@
 - Meshy 原始 GLB/FBX、重拓扑前模型、PBR 及服务端缩略图保存在 `Meshy/staff/downloads/`；请求和下载回执已去除签名参数。
 - 三张独立视图提交 Meshy 7.1，16k 目标三角面、4K PBR。`author_staff.py` 保留生成主体 UV，统一厘米与握持原点，导出完整基础款、模块化主体、原装杖头/握柄及20个改造部件；可编辑源 `apprentice_staff_modular.blend`。
 - 已通过后台 Python commandlet 导入并实际保存 **58 个资产**；路径 `/Game/Weapons/ApprenticeStaff20260927`，`import-receipt.json` 保存逐项回执。
-- `staffs.json` / `staff-gunsmith.json`：独立 `ue_apprentice_staff` 定义、原作六槽20项 ID与效果；首次1张、替换4张改造券，恢复原装也按替换计费；背包与主仓库一次性事务扣除。
+- `staffs.json` / `staff-gunsmith.json`：独立 `ue_apprentice_staff` 定义、原作六槽20项 ID与效果。2026-09-28 用户明确改为与枪械一致的免费改造，安装、替换、恢复原厂均无消耗，见 [免费应用与实际保存](staff-gunsmith-free-20260928.md)。
 - `StaffCatalog`：从 `gunsmith_parts` 或旧 `_craftData` 解析，按杖头条件聚合 `_craftEffects`；目录刷新保留实例、强化、附魔与位置。主手两组、仓库、快捷栏沿用库存合同，首次发放进入主仓库（若有空间）。
 - `StaffWeaponComponent`：独立单手普攻、装备/中断/行走/施法持杖姿态，物理挥击按实际杖体轨迹扫掠；不接剑连击、重击或格挡。`StaffArmsMeshComponent` 使用 V7 M4 原生骨架裸臂资源，隐藏枪体分区，程序化双骨 IK 与握指；左臂继续叠加现有施法手势。这里是程序化作者实现，尚无人眼游戏验收，不是新烘焙动画片段。
 - `StaffAssembly`：第一人称、改造台、动态背包图标和异步掉落使用同一六槽配方；世界角色持械复制同一组部件。
@@ -65,7 +65,7 @@
 
 原作聚合入口 `src/ui/craft/craft-effects.js`：`staffSpecialty` 字符串 override，数值 effects 求和；registry 的 multiply 表示消费语义，不代表聚合时连乘。伤害是 `(1+通用加伤+匹配元素加伤)×(1+链式层数×层加伤)`。耗蓝是 `1+各耗蓝加值+层数×层耗蓝`。冷却为 `max(0.2,(1-法杖减冷却)×(1-法袍减冷却))`，只计算一次。
 
-原作改造券首次1张、替换至少4张（`craft-system.js:849`），支持背包与仓库合计扣除。UE 当前改造台采用预览/应用事务，新增长杖时应明确实现同类扣费事务；不能仅接预览模型或显示价格而不扣资源。
+历史原作采用改造券首次1张、替换至少4张（`craft-system.js:849`）。2026-09-28 用户明确取消 UE 法杖改造费用；当前遵循免费预览/应用事务，配置、效果与模型随武器实例实际保存。
 
 ## 实施前 UE 可复用入口与缺口记录
 

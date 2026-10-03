@@ -1,0 +1,12 @@
+{
+  "tool": "image_gen.imagegen",
+  "mode": "compositing",
+  "prompt": "Use case: compositing. Create the finished square grayscale inventory modification icon for this exact tiger-head sword pommel. Input image 1 is the ACTUAL NEW V5 MODEL and is the sole authority for the central object, silhouette and camera: preserve exactly its taller domed crown, long open roaring mouth, forward lower jaw/beard, curved rear underside, curled mane engravings, single ring and flared attachment seat; preserve relative proportions and facing right. Input image 2 is ONLY the metal-frame style reference and edit target: replace its OLD central tiger pommel completely with the object from image 1. Preserve the thick beveled square gunmetal frame, four corner rivets, silver inner circle and dark recessed textured backing. Place exactly one complete new object centered inside the ring with margins; no overlap with frame. Neutral grayscale only, white/silver highlights, dark gray mouth cavity and gems; retain realistic fine relief from image 1. No extra blade, grip, extra ring, text, lettering, labels, watermarks or decorative additions. Transparent very narrow exterior outside the frame; interior backing stays opaque. Preserve the exact NEW object geometry, do not redraw its shape based on the old object.",
+  "reference_images": [
+    "Icons/ue_tang_dao_pommel_tiger_mountain_source.png",
+    "../Icons/frame_style_reference.png"
+  ],
+  "output": "Icons/ue_tang_dao_pommel_tiger_mountain.png",
+  "model_source": "TangDao_TigerPommel_Editable.blend",
+  "runtime_tested": false
+}

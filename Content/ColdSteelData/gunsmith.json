@@ -2505,327 +2505,804 @@
       }
     },
     {
-      "id": "ue_g18",
-      "model": "G18",
-      "name": "G18",
-      "allowed": [
-        "optic",
-        "muzzle",
-        "trigger",
-        "tactical",
-        "magazine",
-        "reargrip"
-      ],
-      "options": {
-        "tactical": [
-          {
-            "id": "false",
-            "name": "无战术挂件",
-            "description": "卸下战术配件，关闭照明和激光。",
-            "effects": [],
-            "stats": {}
-          },
-          {
-            "id": "laser",
-            "name": "红色激光镭射",
-            "description": "80米红色激光，腰射沿发射器方向，开镜时汇聚准星；遇遮挡截断。",
-            "effects": [
-              {
-                "text": "腰射随机散布减少50%",
-                "benefit": 1
-              },
-              {
-                "text": "开镜耗时减少20%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "hip_spread_mult": 0.5,
-              "ads_percent": -0.2
-            }
-          },
-          {
-            "id": "flashlight",
-            "name": "战术手电筒",
-            "description": "持枪时提供前向照明，支持遮挡阴影；收起或卸下时关闭。",
-            "effects": [
-              {
-                "text": "提供前向照明",
-                "benefit": 0
-              }
-            ],
-            "stats": {}
-          }
-        ],
-        "trigger": [
-          {
-            "id": "false",
-            "name": "标准扳机",
-            "description": "保持 G18 的全自动射击节奏。",
-            "effects": [],
-            "stats": {}
-          },
-          {
-            "id": "g18_controlled_trigger",
-            "name": "稳控扳机",
-            "description": "放缓连射节奏，改善连续射击时的枪口控制。",
-            "effects": [
-              {
-                "text": "射击间隔增加20%",
-                "benefit": -1
-              },
-              {
-                "text": "后坐力降低10%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "fire_interval_mult": 1.2,
-              "recoil_mult": 0.9
-            }
-          }
-        ],
-        "optic": [
-          {
-            "id": "false",
-            "name": "原厂机械瞄具",
-            "description": "使用 G18 原厂机械瞄具。",
-            "effects": [],
-            "stats": {}
-          },
-          {
-            "id": "holographic",
-            "name": "全息瞄准镜",
-            "description": "通用 1×环形全息瞄准镜，搭配手枪套筒安装座，保持原枪开镜速度。",
-            "effects": [
-              {
-                "text": "1×全息瞄具；开镜耗时不变",
-                "benefit": 0
-              }
-            ],
-            "stats": {}
-          },
-          {
-            "id": "panoramic_red_dot",
-            "name": "全景薄框红点瞄具",
-            "description": "通用 1×宽视窗薄框红点，搭配手枪套筒安装座，保持原枪开镜速度。",
-            "effects": [
-              {
-                "text": "1×红点瞄具；开镜耗时不变",
-                "benefit": 0
-              }
-            ],
-            "stats": {}
-          }
-        ,
-          {
-            "id": "eoth_holographic",
-            "name": "EOTH全息瞄准镜",
-            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
-            "effects": [
-              {
-                "text": "开镜耗时减少5%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "ads_percent": -0.05
-            }
-          }
-        ],
-        "muzzle": [
-          {
-            "id": "false",
-            "name": "原厂枪口",
-            "description": "使用 G18 原厂枪口。",
-            "effects": [],
-            "stats": {}
-          },
-          {
-            "id": "true",
-            "name": "消音器",
-            "description": "降低枪声与枪口火光。",
-            "effects": [
-              {
-                "text": "后坐力降低10%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性提高10%",
-                "benefit": 1
-              },
-              {
-                "text": "子弹速度降低15%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.9,
-              "stability_mult": 1.1,
-              "bullet_speed_mult": 0.85
-            }
-          },
-          {
-            "id": "tactical_suppressor",
-            "name": "战术消音器",
-            "description": "精细斜纹战术消音器，降低枪声与枪口火光。",
-            "effects": [
-              {
-                "text": "后坐力降低25%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性提高25%",
-                "benefit": 1
-              },
-              {
-                "text": "子弹速度降低20%",
-                "benefit": -1
-              },
-              {
-                "text": "开镜耗时增加5%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.75,
-              "stability_mult": 1.25,
-              "bullet_speed_mult": 0.8,
-              "ads_percent": 0.05
-            }
-          },
-          {
-            "id": "brake",
-            "name": "枪口制退器",
-            "description": "紧凑三组侧孔制退器，匹配 G18 枪口与枪钢材质，减轻后坐、提高枪械稳定性。",
-            "effects": [
-              {
-                "text": "后坐力降低15%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性提高15%",
-                "benefit": 1
-              },
-              {
-                "text": "开镜耗时增加10%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.85,
-              "stability_mult": 1.15,
-              "ads_percent": 0.1
-            }
-          }
-        ,
-          {
-            "id": "multi_caliber_suppressor",
-            "name": "多口径消音器",
-            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
-            "effects": [
-              {
-                "text": "开镜耗时增加5%",
-                "benefit": -1
-              },
-              {
-                "text": "子弹速度降低15%",
-                "benefit": -1
-              },
-              {
-                "text": "后坐力降低20%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性提高15%",
-                "benefit": 1
-              },
-              {
-                "text": "腰射随机散布减少10%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "ads_percent": 0.05,
-              "bullet_speed_mult": 0.85,
-              "recoil_mult": 0.8,
-              "stability_mult": 1.15,
-              "hip_spread_mult": 0.9
-            }
-          }
-        ],
-        "magazine": [
-          {
-            "id": "false",
-            "name": "原厂弹匣",
-            "description": "原厂双排弹匣，保持紧凑外形。",
-            "effects": [],
-            "stats": {}
-          },
-          {
-            "id": "ext_mag",
-            "name": "扩容弹匣",
-            "description": "沿原厂弹匣壳体向下延长，保留插接口、卡笋槽和抓握区。",
-            "effects": [
-              {
-                "text": "弹匣容量增加16发",
-                "benefit": 1
-              },
-              {
-                "text": "装填耗时增加10%",
-                "benefit": -1
-              },
-              {
-                "text": "开镜耗时增加5%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "mag_delta": 16,
-              "reload_mult": 1.1,
-              "ads_percent": 0.05
-            }
-          }
-        ]
+  "id": "ue_pit_viper2011",
+  "model": "PitViper2011",
+  "name": "Pit Viper 2011",
+  "allowed": [
+    "optic",
+    "muzzle",
+    "magazine",
+    "reargrip",
+    "tactical",
+    "trigger"
+  ],
+  "options": {
+    "optic": [
+      {
+        "id": "false",
+        "name": "原厂机械瞄具",
+        "description": "使用原厂照门与绿色准星。",
+        "effects": [],
+        "stats": {}
       },
-      "base": {
-        "ammo_item_id": "ammo_9",
-        "mag_size": 17,
-        "ads_smooth": 16.64295707529995,
-        "recoil": 70,
-        "camera_shake": 105,
-        "fire_interval": 0.05,
-        "reload_time": 1.75,
-        "empty_reload_time": 2.25,
-        "damage": 18,
-        "bullet_speed": 375,
-        "effective_range": 40,
-        "spread_mult": 1.05,
-        "automatic": true
+      {
+        "id": "holographic",
+        "name": "全息瞄准镜",
+        "description": "通用 1×环形全息瞄准镜，搭配手枪套筒安装座，保持原枪开镜速度。",
+        "effects": [
+          {
+            "text": "1×全息瞄具；开镜耗时不变",
+            "benefit": 0
+          }
+        ],
+        "stats": {}
       },
-      "traits": [
-        {
-          "icon": "mechanic",
-          "text": "全自动，按住扳机连续射击；原厂 17 发双排弹匣"
-        },
-        {
-          "icon": "drawback",
-          "text": "连续射击会迅速消耗弹药并积累后坐与散布"
-        },
-        {
-          "icon": "special",
-          "text": "支持单持、双持以及作为法杖副手；每只手独立连射与换弹"
-        },
-        {
-          "icon": "neutral",
-          "text": "瞄具、枪口、弹匣、枪管、握把防滑层、扳机与战术挂件可改造"
+      {
+        "id": "panoramic_red_dot",
+        "name": "全景薄框红点瞄具",
+        "description": "通用 1×宽视窗薄框红点，搭配手枪套筒安装座，保持原枪开镜速度。",
+        "effects": [
+          {
+            "text": "1×红点瞄具；开镜耗时不变",
+            "benefit": 0
+          }
+        ],
+        "stats": {}
+      },
+      {
+        "id": "eoth_holographic",
+        "name": "EOTH全息瞄准镜",
+        "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+        "effects": [
+          {
+            "text": "开镜耗时减少5%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.05
         }
-      ],
-      "pistol_grip_surface": {
-        "mesh": "/Game/Weapons/G18/Integrated20260929/Attachments/SM_G18_GripSurface",
-        "bone": "WPN_root"
+      }
+    ],
+    "muzzle": [
+      {
+        "id": "false",
+        "name": "原厂补偿结构",
+        "description": "保持模型的前端补偿结构。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "true",
+        "name": "消音器",
+        "description": "降低枪声与枪口火光。",
+        "effects": [
+          {
+            "text": "后坐力降低10%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高10%",
+            "benefit": 1
+          },
+          {
+            "text": "子弹速度降低15%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.9,
+          "stability_mult": 1.1,
+          "bullet_speed_mult": 0.85
+        }
+      },
+      {
+        "id": "tactical_suppressor",
+        "name": "战术消音器",
+        "description": "精细斜纹战术消音器，降低枪声与枪口火光。",
+        "effects": [
+          {
+            "text": "后坐力降低25%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高25%",
+            "benefit": 1
+          },
+          {
+            "text": "子弹速度降低20%",
+            "benefit": -1
+          },
+          {
+            "text": "开镜耗时增加5%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.75,
+          "stability_mult": 1.25,
+          "bullet_speed_mult": 0.8,
+          "ads_percent": 0.05
+        }
+      },
+      {
+        "id": "brake",
+        "name": "枪口制退器",
+        "description": "紧凑侧孔制退器，通过适配接环连接原厂补偿结构，减轻后坐、提高枪械稳定性。",
+        "effects": [
+          {
+            "text": "后坐力降低15%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高15%",
+            "benefit": 1
+          },
+          {
+            "text": "开镜耗时增加10%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.85,
+          "stability_mult": 1.15,
+          "ads_percent": 0.1
+        }
+      },
+      {
+        "id": "multi_caliber_suppressor",
+        "name": "多口径消音器",
+        "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+        "effects": [
+          {
+            "text": "开镜耗时增加5%",
+            "benefit": -1
+          },
+          {
+            "text": "子弹速度降低15%",
+            "benefit": -1
+          },
+          {
+            "text": "后坐力降低20%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高15%",
+            "benefit": 1
+          },
+          {
+            "text": "腰射随机散布减少10%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": 0.05,
+          "bullet_speed_mult": 0.85,
+          "recoil_mult": 0.8,
+          "stability_mult": 1.15,
+          "hip_spread_mult": 0.9
+        }
+      },
+      {
+        "id": "pit_viper_si_compensator",
+        "name": "SI 枪口补偿器",
+        "description": "2011 限定枪口补偿器。方形切面外壳配顶部排气槽和侧孔，替换原厂补偿段，保留枪管、准星与机械联动。",
+        "effects": [
+          {
+            "text": "开镜耗时减少10%",
+            "benefit": 1
+          },
+          {
+            "text": "后坐力降低10%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高5%",
+            "benefit": 1
+          },
+          {
+            "text": "腰射随机散布减少20%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.1,
+          "recoil_mult": 0.9,
+          "stability_mult": 1.05,
+          "hip_spread_mult": 0.8
+        },
+        "limited": true
+      }
+    ],
+    "magazine": [
+      {
+        "id": "false",
+        "name": "原厂15发弹匣",
+        "description": "使用本模型附带的15发双排弹匣。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "ext_mag",
+        "name": "扩容弹匣",
+        "description": "沿原厂双排弹匣壳体向下加长，保留插接接口、抓握区与独立底板。",
+        "effects": [
+          {
+            "text": "弹匣容量增加3发",
+            "benefit": 1
+          },
+          {
+            "text": "装填耗时更长",
+            "benefit": -1
+          },
+          {
+            "text": "开镜耗时增加5%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "mag_delta": 3,
+          "reload_mult": 1.1,
+          "ads_percent": 0.05
+        }
+      }
+    ],
+    "reargrip": [
+      {
+        "id": "false",
+        "name": "原厂纹理",
+        "description": "保留原厂握把表面。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "pistol_grip_granular",
+        "name": "细颗粒防滑纹",
+        "description": "密集细颗粒贴合握把接触面，强调持续握持的稳定。",
+        "effects": [
+          {
+            "text": "枪械稳定性增加15%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "stability_mult": 1.15
+        }
+      },
+      {
+        "id": "pistol_grip_diamond",
+        "name": "橡胶菱形防滑纹",
+        "description": "柔性橡胶与浅菱形纹理，兼顾握持稳定和后坐控制。",
+        "effects": [
+          {
+            "text": "后坐力减少5%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性增加5%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.95,
+          "stability_mult": 1.05
+        }
+      },
+      {
+        "id": "pistol_grip_quickdot",
+        "name": "细点快握防滑纹",
+        "description": "低凸细点表面便于快速调整握姿，以稳定性和后坐控制换取更快开镜。",
+        "effects": [
+          {
+            "text": "开镜耗时减少10%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性降低5%",
+            "benefit": -1
+          },
+          {
+            "text": "后坐力增加5%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.1,
+          "stability_mult": 0.95,
+          "recoil_mult": 1.05
+        }
+      },
+      {
+        "id": "pit_viper_vip_scales",
+        "name": "蝮蛇防滑纹",
+        "description": "2011 的 VIP 专属握把表面。石墨黑细鳞纹沿握把左右两侧自上而下延伸，细边贴合原厂轮廓，下沿避开弹匣接口与底部扩口。",
+        "effects": [
+          {
+            "text": "腰射随机散布减少15%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "hip_spread_mult": 0.85
+        }
+      }
+    ],
+    "tactical": [
+      {
+        "id": "false",
+        "name": "无战术挂件",
+        "description": "保持原厂外形。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "laser",
+        "name": "红色激光镭射",
+        "description": "红色激光镭射，腰射沿发射器方向，开镜时汇聚准星；遇遮挡截断。",
+        "effects": [
+          {
+            "text": "腰射随机散布减少50%",
+            "benefit": 1
+          },
+          {
+            "text": "开镜耗时减少20%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "hip_spread_mult": 0.5,
+          "ads_percent": -0.2
+        }
+      },
+      {
+        "id": "flashlight",
+        "name": "战术手电筒",
+        "description": "持枪时提供前向照明，支持遮挡阴影；收起或卸下时关闭。",
+        "effects": [
+          {
+            "text": "提供前向照明",
+            "benefit": 0
+          }
+        ],
+        "stats": {}
+      }
+    ],
+    "trigger": [
+      {
+        "id": "false",
+        "name": "标准扳机",
+        "description": "每次按下只发射一发，射击间隔150毫秒。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "pit_viper_lightweight_fast",
+        "name": "轻型快速扳机",
+        "description": "缩短合法点射间隔，保持半自动输入。",
+        "effects": [
+          {
+            "text": "射击间隔降低25%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "fire_interval_mult": 0.75
+        }
+      }
+    ]
+  },
+  "base": {
+    "ammo_item_id": "ammo_9",
+    "mag_size": 15,
+    "ads_smooth": 16.64295707529995,
+    "recoil": 65,
+    "camera_shake": 90,
+    "fire_interval": 0.15,
+    "reload_time": 1.75,
+    "empty_reload_time": 2.25,
+    "damage": 22,
+    "bullet_speed": 375,
+    "effective_range": 50,
+    "spread_mult": 1.0,
+    "automatic": false
+  },
+  "traits": [
+    {
+      "icon": "mechanic",
+      "text": "半自动；9mm弹药；原厂15发双排弹匣"
+    },
+    {
+      "icon": "special",
+      "text": "支持单持、双持及法杖副手，每只手独立射击与换弹"
+    },
+    {
+      "icon": "neutral",
+      "text": "瞄具、枪口、弹匣、扳机、握把防滑纹与战术挂件均可改造"
+    }
+  ],
+  "pistol_grip_surface": {
+    "mesh": "/Game/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface",
+    "bone": "WPN_root",
+    "variants": {
+      "pit_viper_vip_scales": {
+        "mesh": "/Game/Weapons/PitViper2011/VipGrip20261002/SM_PitViper2011_VipViperGrip",
+        "material": "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_ViperQuiet"
+      },
+      "pistol_grip_granular": {
+        "material": "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_pistol_grip_granular",
+        "mesh": "/Game/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface"
+      },
+      "pistol_grip_diamond": {
+        "material": "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_pistol_grip_diamond",
+        "mesh": "/Game/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface"
+      },
+      "pistol_grip_quickdot": {
+        "material": "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_pistol_grip_quickdot",
+        "mesh": "/Game/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface"
       }
     },
+    "exclusive_options": [
+      {
+        "id": "pit_viper_vip_scales",
+        "name": "蝮蛇防滑纹",
+        "description": "2011 的 VIP 专属握把表面。石墨黑细鳞纹沿握把左右两侧自上而下延伸，细边贴合原厂轮廓，下沿避开弹匣接口与底部扩口。",
+        "effects": [
+          {
+            "text": "腰射随机散布减少15%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "hip_spread_mult": 0.85
+        }
+      }
+    ]
+  }
+},
+    {
+  "id": "ue_g18",
+  "model": "G18",
+  "name": "G18",
+  "allowed": [
+    "optic",
+    "muzzle",
+    "trigger",
+    "tactical",
+    "magazine",
+    "reargrip"
+  ],
+  "options": {
+    "tactical": [
+      {
+        "id": "false",
+        "name": "无战术挂件",
+        "description": "卸下战术配件，关闭照明和激光。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "laser",
+        "name": "红色激光镭射",
+        "description": "80米红色激光，腰射沿发射器方向，开镜时汇聚准星；遇遮挡截断。",
+        "effects": [
+          {
+            "text": "腰射随机散布减少50%",
+            "benefit": 1
+          },
+          {
+            "text": "开镜耗时减少20%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "hip_spread_mult": 0.5,
+          "ads_percent": -0.2
+        }
+      },
+      {
+        "id": "flashlight",
+        "name": "战术手电筒",
+        "description": "持枪时提供前向照明，支持遮挡阴影；收起或卸下时关闭。",
+        "effects": [
+          {
+            "text": "提供前向照明",
+            "benefit": 0
+          }
+        ],
+        "stats": {}
+      }
+    ],
+    "trigger": [
+      {
+        "id": "false",
+        "name": "标准扳机",
+        "description": "保持 G18 的全自动射击节奏。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "g18_controlled_trigger",
+        "name": "稳控扳机",
+        "description": "放缓连射节奏，改善连续射击时的枪口控制。",
+        "effects": [
+          {
+            "text": "射击间隔增加20%",
+            "benefit": -1
+          },
+          {
+            "text": "后坐力降低10%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "fire_interval_mult": 1.2,
+          "recoil_mult": 0.9
+        }
+      }
+    ],
+    "optic": [
+      {
+        "id": "false",
+        "name": "原厂机械瞄具",
+        "description": "使用 G18 原厂机械瞄具。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "holographic",
+        "name": "全息瞄准镜",
+        "description": "通用 1×环形全息瞄准镜，搭配手枪套筒安装座，保持原枪开镜速度。",
+        "effects": [
+          {
+            "text": "1×全息瞄具；开镜耗时不变",
+            "benefit": 0
+          }
+        ],
+        "stats": {}
+      },
+      {
+        "id": "panoramic_red_dot",
+        "name": "全景薄框红点瞄具",
+        "description": "通用 1×宽视窗薄框红点，搭配手枪套筒安装座，保持原枪开镜速度。",
+        "effects": [
+          {
+            "text": "1×红点瞄具；开镜耗时不变",
+            "benefit": 0
+          }
+        ],
+        "stats": {}
+      },
+      {
+        "id": "eoth_holographic",
+        "name": "EOTH全息瞄准镜",
+        "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+        "effects": [
+          {
+            "text": "开镜耗时减少5%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.05
+        }
+      }
+    ],
+    "muzzle": [
+      {
+        "id": "false",
+        "name": "原厂枪口",
+        "description": "使用 G18 原厂枪口。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "true",
+        "name": "消音器",
+        "description": "降低枪声与枪口火光。",
+        "effects": [
+          {
+            "text": "后坐力降低10%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高10%",
+            "benefit": 1
+          },
+          {
+            "text": "子弹速度降低15%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.9,
+          "stability_mult": 1.1,
+          "bullet_speed_mult": 0.85
+        }
+      },
+      {
+        "id": "tactical_suppressor",
+        "name": "战术消音器",
+        "description": "精细斜纹战术消音器，降低枪声与枪口火光。",
+        "effects": [
+          {
+            "text": "后坐力降低25%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高25%",
+            "benefit": 1
+          },
+          {
+            "text": "子弹速度降低20%",
+            "benefit": -1
+          },
+          {
+            "text": "开镜耗时增加5%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.75,
+          "stability_mult": 1.25,
+          "bullet_speed_mult": 0.8,
+          "ads_percent": 0.05
+        }
+      },
+      {
+        "id": "brake",
+        "name": "枪口制退器",
+        "description": "紧凑三组侧孔制退器，匹配 G18 枪口与枪钢材质，减轻后坐、提高枪械稳定性。",
+        "effects": [
+          {
+            "text": "后坐力降低15%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高15%",
+            "benefit": 1
+          },
+          {
+            "text": "开镜耗时增加10%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.85,
+          "stability_mult": 1.15,
+          "ads_percent": 0.1
+        }
+      },
+      {
+        "id": "multi_caliber_suppressor",
+        "name": "多口径消音器",
+        "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
+        "effects": [
+          {
+            "text": "开镜耗时增加5%",
+            "benefit": -1
+          },
+          {
+            "text": "子弹速度降低15%",
+            "benefit": -1
+          },
+          {
+            "text": "后坐力降低20%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高15%",
+            "benefit": 1
+          },
+          {
+            "text": "腰射随机散布减少10%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": 0.05,
+          "bullet_speed_mult": 0.85,
+          "recoil_mult": 0.8,
+          "stability_mult": 1.15,
+          "hip_spread_mult": 0.9
+        }
+      }
+    ],
+    "magazine": [
+      {
+        "id": "false",
+        "name": "原厂弹匣",
+        "description": "原厂双排弹匣，保持紧凑外形。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "ext_mag",
+        "name": "扩容弹匣",
+        "description": "沿原厂弹匣壳体向下延长，保留插接口、卡笋槽和抓握区。",
+        "effects": [
+          {
+            "text": "弹匣容量增加16发",
+            "benefit": 1
+          },
+          {
+            "text": "装填耗时增加10%",
+            "benefit": -1
+          },
+          {
+            "text": "开镜耗时增加5%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "mag_delta": 16,
+          "reload_mult": 1.1,
+          "ads_percent": 0.05
+        }
+      },
+      {
+        "id": "g18_drum_50",
+        "name": "G18大弹鼓",
+        "description": "G18专属单鼓改造。长供弹颈连接厚实圆鼓，三辐端盖、周向锁扣与后壳加强筋延续黑色聚合物和发黑钢材质。",
+        "effects": [
+          {
+            "text": "弹匣容量增加33发",
+            "benefit": 1
+          },
+          {
+            "text": "装填耗时更长",
+            "benefit": -1
+          },
+          {
+            "text": "开镜耗时增加15%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "mag_delta": 33,
+          "reload_mult": 1.5,
+          "ads_percent": 0.15
+        }
+      }
+    ]
+  },
+  "base": {
+    "ammo_item_id": "ammo_9",
+    "mag_size": 17,
+    "ads_smooth": 16.64295707529995,
+    "recoil": 70,
+    "camera_shake": 105,
+    "fire_interval": 0.05,
+    "reload_time": 1.75,
+    "empty_reload_time": 2.25,
+    "damage": 18,
+    "bullet_speed": 375,
+    "effective_range": 40,
+    "spread_mult": 1.05,
+    "automatic": true
+  },
+  "traits": [
+    {
+      "icon": "mechanic",
+      "text": "全自动，按住扳机连续射击；原厂 17 发双排弹匣"
+    },
+    {
+      "icon": "drawback",
+      "text": "连续射击会迅速消耗弹药并积累后坐与散布"
+    },
+    {
+      "icon": "special",
+      "text": "支持单持、双持以及作为法杖副手；每只手独立连射与换弹"
+    },
+    {
+      "icon": "neutral",
+      "text": "瞄具、枪口、弹匣、枪管、握把防滑层、扳机与战术挂件可改造"
+    }
+  ],
+  "pistol_grip_surface": {
+    "mesh": "/Game/Weapons/G18/Integrated20260929/Attachments/SM_G18_GripSurface",
+    "bone": "WPN_root"
+  }
+},
     {
       "id": "ue_dan_wesson715",
       "model": "Dan-Wesson715",
@@ -3207,6 +3684,133 @@
         }
       ]
     },
+{
+  "id": "ue_rsh12",
+  "model": "RSH12",
+  "name": "RSH-12",
+  "allowed": [
+    "trigger",
+    "reload_device",
+    "optic",
+    "muzzle",
+    "reargrip",
+    "tactical"
+  ],
+  "options": {
+    "trigger": [
+      {
+        "id": "false",
+        "name": "原厂双动扳机",
+        "description": "扳机联动击锤与五发转轮，射后保持握持。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "rsh12_lightweight_fast",
+        "name": "轻型快速扳机",
+        "description": "轻量扳机机构，缩短双动击发循环。",
+        "effects": [
+          {
+            "text": "射击间隔降低20%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "fire_interval_mult": 0.8
+        }
+      }
+    ],
+    "reload_device": [
+      {
+        "id": "false",
+        "name": "逐发装填",
+        "description": "五发弹巢；普通换弹保留余弹并逐发补入，空仓先退壳。装填次数按缺弹数与背包余弹确定。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "rsh12_speedloader_5",
+        "name": "五发快速装填器",
+        "description": "五孔装填器，携带子弹后对孔压入、释放并抽离。每次换弹先退出弹巢内全部弹药，未击发余弹不返还背包；按可用弹药最多装入五发。",
+        "effects": [
+          {
+            "text": "普通与空仓换弹使用同一快速装填动作",
+            "benefit": 1
+          },
+          {
+            "text": "换弹丢弃弹巢内余弹，不返还背包",
+            "benefit": -1
+          }
+        ],
+        "stats": {}
+      }
+    ],
+    "optic": [
+      {
+        "id": "false",
+        "name": "原厂机械瞄具",
+        "description": "使用原厂照门和准星。",
+        "effects": [],
+        "stats": {}
+      }
+    ],
+    "muzzle": [
+      {
+        "id": "false",
+        "name": "原厂枪口",
+        "description": "保留低轴线枪管。",
+        "effects": [],
+        "stats": {}
+      }
+    ],
+    "reargrip": [
+      {
+        "id": "false",
+        "name": "原厂握柄",
+        "description": "保留黑色聚合物握柄。",
+        "effects": [],
+        "stats": {}
+      }
+    ],
+    "tactical": [
+      {
+        "id": "false",
+        "name": "无战术挂件",
+        "description": "保持原厂导轨外形。",
+        "effects": [],
+        "stats": {}
+      }
+    ]
+  },
+  "base": {
+    "ammo_item_id": "ammo_127",
+    "mag_size": 5,
+    "ads_smooth": 13.616964,
+    "recoil": 180,
+    "camera_shake": 140,
+    "fire_interval": 0.4,
+    "reload_time": 6.8,
+    "empty_reload_time": 7.7,
+    "damage": 90,
+    "bullet_speed": 300,
+    "effective_range": 60,
+    "automatic": false
+  },
+  "traits": [
+    {
+      "icon": "mechanic",
+      "text": "双动左轮；五发弹巢，可选逐发装填或五发快速装填器。"
+    },
+    {
+      "icon": "special",
+      "text": "双动左轮；五发弹巢，可选逐发装填或五发快速装填器。"
+    },
+    {
+      "icon": "neutral",
+      "text": "支持单持、双持和法杖副手；每手独立装填"
+    }
+  ]
+},
     {
       "id": "ue_ash12",
       "model": "ASH12",
@@ -7642,572 +8246,6 @@
         "stock": "hk416_stock",
         "reargrip": "hk416_reargrip"
       }
-},
-    {
-      "id": "ue_pit_viper2011",
-      "model": "PitViper2011",
-      "name": "Pit Viper 2011",
-      "allowed": [
-        "optic",
-        "muzzle",
-        "magazine",
-        "reargrip",
-        "tactical",
-        "trigger"
-      ],
-      "options": {
-        "optic": [
-          {
-            "id": "false",
-            "name": "原厂机械瞄具",
-            "description": "使用原厂照门与绿色准星。",
-            "effects": [],
-            "stats": {}
-          },
-          {
-            "id": "holographic",
-            "name": "全息瞄准镜",
-            "description": "通用 1×环形全息瞄准镜，搭配手枪套筒安装座，保持原枪开镜速度。",
-            "effects": [
-              {
-                "text": "1×全息瞄具；开镜耗时不变",
-                "benefit": 0
-              }
-            ],
-            "stats": {}
-          },
-          {
-            "id": "panoramic_red_dot",
-            "name": "全景薄框红点瞄具",
-            "description": "通用 1×宽视窗薄框红点，搭配手枪套筒安装座，保持原枪开镜速度。",
-            "effects": [
-              {
-                "text": "1×红点瞄具；开镜耗时不变",
-                "benefit": 0
-              }
-            ],
-            "stats": {}
-          },
-          {
-            "id": "eoth_holographic",
-            "name": "EOTH全息瞄准镜",
-            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
-            "effects": [
-              {
-                "text": "开镜耗时减少5%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "ads_percent": -0.05
-            }
-          }
-        ],
-        "muzzle": [
-          {
-            "id": "false",
-            "name": "原厂补偿结构",
-            "description": "保持模型的前端补偿结构。",
-            "effects": [],
-            "stats": {}
-          },
-          {
-            "id": "true",
-            "name": "消音器",
-            "description": "降低枪声与枪口火光。",
-            "effects": [
-              {
-                "text": "后坐力降低10%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性提高10%",
-                "benefit": 1
-              },
-              {
-                "text": "子弹速度降低15%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.9,
-              "stability_mult": 1.1,
-              "bullet_speed_mult": 0.85
-            }
-          },
-          {
-            "id": "tactical_suppressor",
-            "name": "战术消音器",
-            "description": "精细斜纹战术消音器，降低枪声与枪口火光。",
-            "effects": [
-              {
-                "text": "后坐力降低25%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性提高25%",
-                "benefit": 1
-              },
-              {
-                "text": "子弹速度降低20%",
-                "benefit": -1
-              },
-              {
-                "text": "开镜耗时增加5%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.75,
-              "stability_mult": 1.25,
-              "bullet_speed_mult": 0.8,
-              "ads_percent": 0.05
-            }
-          },
-          {
-            "id": "brake",
-            "name": "枪口制退器",
-            "description": "紧凑侧孔制退器，通过适配接环连接原厂补偿结构，减轻后坐、提高枪械稳定性。",
-            "effects": [
-              {
-                "text": "后坐力降低15%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性提高15%",
-                "benefit": 1
-              },
-              {
-                "text": "开镜耗时增加10%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.85,
-              "stability_mult": 1.15,
-              "ads_percent": 0.1
-            }
-          },
-          {
-            "id": "multi_caliber_suppressor",
-            "name": "多口径消音器",
-            "description": "通过开放式管口与适配接环连接枪管，减轻开火声与射击扰动。",
-            "effects": [
-              {
-                "text": "开镜耗时增加5%",
-                "benefit": -1
-              },
-              {
-                "text": "子弹速度降低15%",
-                "benefit": -1
-              },
-              {
-                "text": "后坐力降低20%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性提高15%",
-                "benefit": 1
-              },
-              {
-                "text": "腰射随机散布减少10%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "ads_percent": 0.05,
-              "bullet_speed_mult": 0.85,
-              "recoil_mult": 0.8,
-              "stability_mult": 1.15,
-              "hip_spread_mult": 0.9
-            }
-          },
-          {
-            "id": "pit_viper_si_compensator",
-            "name": "SI 枪口补偿器",
-            "description": "2011 限定枪口补偿器。方形切面外壳配顶部排气槽和侧孔，替换原厂补偿段，保留枪管、准星与机械联动。",
-            "effects": [
-              {
-                "text": "开镜耗时减少10%",
-                "benefit": 1
-              },
-              {
-                "text": "后坐力降低10%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性提高5%",
-                "benefit": 1
-              },
-              {
-                "text": "腰射随机散布减少20%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "ads_percent": -0.1,
-              "recoil_mult": 0.9,
-              "stability_mult": 1.05,
-              "hip_spread_mult": 0.8
-            },
-            "limited": true
-          }
-        ],
-        "magazine": [
-          {
-            "id": "false",
-            "name": "原厂15发弹匣",
-            "description": "使用本模型附带的15发双排弹匣。",
-            "effects": [],
-            "stats": {}
-          },
-          {
-            "id": "ext_mag",
-            "name": "扩容弹匣",
-            "description": "沿原厂双排弹匣壳体向下加长，保留插接接口、抓握区与独立底板。",
-            "effects": [
-              {
-                "text": "弹匣容量增加3发",
-                "benefit": 1
-              },
-              {
-                "text": "装填耗时更长",
-                "benefit": -1
-              },
-              {
-                "text": "开镜耗时增加5%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "mag_delta": 3,
-              "reload_mult": 1.1,
-              "ads_percent": 0.05
-            }
-          }
-        ],
-        "reargrip": [
-          {
-            "id": "false",
-            "name": "原厂纹理",
-            "description": "保留原厂握把表面。",
-            "effects": [],
-            "stats": {}
-          },
-          {
-            "id": "pistol_grip_granular",
-            "name": "细颗粒防滑纹",
-            "description": "密集细颗粒贴合握把接触面，强调持续握持的稳定。",
-            "effects": [
-              {
-                "text": "枪械稳定性增加15%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "stability_mult": 1.15
-            }
-          },
-          {
-            "id": "pistol_grip_diamond",
-            "name": "橡胶菱形防滑纹",
-            "description": "柔性橡胶与浅菱形纹理，兼顾握持稳定和后坐控制。",
-            "effects": [
-              {
-                "text": "后坐力减少5%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性增加5%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.95,
-              "stability_mult": 1.05
-            }
-          },
-          {
-            "id": "pistol_grip_quickdot",
-            "name": "细点快握防滑纹",
-            "description": "低凸细点表面便于快速调整握姿，以稳定性和后坐控制换取更快开镜。",
-            "effects": [
-              {
-                "text": "开镜耗时减少10%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性降低5%",
-                "benefit": -1
-              },
-              {
-                "text": "后坐力增加5%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "ads_percent": -0.1,
-              "stability_mult": 0.95,
-              "recoil_mult": 1.05
-            }
-          },
-          {
-            "id": "pit_viper_vip_scales",
-            "name": "蝮蛇防滑纹",
-            "description": "2011 的 VIP 专属握把表面。石墨黑细鳞纹沿握把左右两侧自上而下延伸，细边贴合原厂轮廓，下沿避开弹匣接口与底部扩口。",
-            "effects": [
-              {
-                "text": "腰射随机散布减少15%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "hip_spread_mult": 0.85
-            }
-          }
-        ],
-        "tactical": [
-          {
-            "id": "false",
-            "name": "无战术挂件",
-            "description": "保持原厂外形。",
-            "effects": [],
-            "stats": {}
-          },
-          {
-            "id": "laser",
-            "name": "红色激光镭射",
-            "description": "红色激光镭射，腰射沿发射器方向，开镜时汇聚准星；遇遮挡截断。",
-            "effects": [
-              {
-                "text": "腰射随机散布减少50%",
-                "benefit": 1
-              },
-              {
-                "text": "开镜耗时减少20%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "hip_spread_mult": 0.5,
-              "ads_percent": -0.2
-            }
-          },
-          {
-            "id": "flashlight",
-            "name": "战术手电筒",
-            "description": "持枪时提供前向照明，支持遮挡阴影；收起或卸下时关闭。",
-            "effects": [
-              {
-                "text": "提供前向照明",
-                "benefit": 0
-              }
-            ],
-            "stats": {}
-          }
-        ],
-        "trigger": [
-          {
-            "id": "false",
-            "name": "标准扳机",
-            "description": "每次按下只发射一发，射击间隔150毫秒。",
-            "effects": [],
-            "stats": {}
-          },
-          {
-            "id": "pit_viper_lightweight_fast",
-            "name": "轻型快速扳机",
-            "description": "缩短合法点射间隔，保持半自动输入。",
-            "effects": [
-              {
-                "text": "射击间隔降低25%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "fire_interval_mult": 0.75
-            }
-          }
-        ]
-      },
-      "base": {
-        "ammo_item_id": "ammo_9",
-        "mag_size": 15,
-        "ads_smooth": 16.64295707529995,
-        "recoil": 65,
-        "camera_shake": 90,
-        "fire_interval": 0.15,
-        "reload_time": 1.75,
-        "empty_reload_time": 2.25,
-        "damage": 22,
-        "bullet_speed": 375,
-        "effective_range": 50,
-        "spread_mult": 1.0,
-        "automatic": false
-      },
-      "traits": [
-        {
-          "icon": "mechanic",
-          "text": "半自动；9mm弹药；原厂15发双排弹匣"
-        },
-        {
-          "icon": "special",
-          "text": "支持单持、双持及法杖副手，每只手独立射击与换弹"
-        },
-        {
-          "icon": "neutral",
-          "text": "瞄具、枪口、弹匣、扳机、握把防滑纹与战术挂件均可改造"
-        }
-      ],
-      "pistol_grip_surface": {
-        "mesh": "/Game/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface",
-        "bone": "WPN_root",
-        "variants": {
-          "pit_viper_vip_scales": {
-            "mesh": "/Game/Weapons/PitViper2011/VipGrip20261002/SM_PitViper2011_VipViperGrip",
-            "material": "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_ViperQuiet"
-          },
-          "pistol_grip_granular": {
-            "material": "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_pistol_grip_granular",
-            "mesh": "/Game/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface"
-          },
-          "pistol_grip_diamond": {
-            "material": "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_pistol_grip_diamond",
-            "mesh": "/Game/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface"
-          },
-          "pistol_grip_quickdot": {
-            "material": "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_pistol_grip_quickdot",
-            "mesh": "/Game/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface"
-          }
-        },
-        "exclusive_options": [
-          {
-            "id": "pit_viper_vip_scales",
-            "name": "蝮蛇防滑纹",
-            "description": "2011 的 VIP 专属握把表面。石墨黑细鳞纹沿握把左右两侧自上而下延伸，细边贴合原厂轮廓，下沿避开弹匣接口与底部扩口。",
-            "effects": [
-              {
-                "text": "腰射随机散布减少15%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "hip_spread_mult": 0.85
-            }
-          }
-        ]
-      }
-    },
-{
-  "id": "ue_rsh12",
-  "model": "RSH12",
-  "name": "RSH-12",
-  "allowed": [
-    "trigger",
-    "reload_device",
-    "optic",
-    "muzzle",
-    "reargrip",
-    "tactical"
-  ],
-  "options": {
-    "trigger": [
-      {
-        "id": "false",
-        "name": "原厂单动扳机",
-        "description": "一次扣动发射一发；射后拇指拨回击锤，完成拨锤回握才解锁下一枪。",
-        "effects": [],
-        "stats": {}
-      },
-      {
-        "id": "rsh12_lightweight_fast",
-        "name": "轻型快速扳机",
-        "description": "保持单动击发；开火、拨锤和回握循环同步加速20%。",
-        "effects": [
-          {
-            "text": "射击间隔降低20%",
-            "benefit": 1
-          }
-        ],
-        "stats": {
-          "fire_interval_mult": 0.8
-        }
-      }
-    ],
-    "reload_device": [
-      {
-        "id": "false",
-        "name": "逐发装填",
-        "description": "五发弹巢；非空仓保留余弹，空仓先退壳。",
-        "effects": [],
-        "stats": {}
-      }
-    ],
-    "optic": [
-      {
-        "id": "false",
-        "name": "原厂机械瞄具",
-        "description": "使用原厂照门和准星。",
-        "effects": [],
-        "stats": {}
-      }
-    ],
-    "muzzle": [
-      {
-        "id": "false",
-        "name": "原厂枪口",
-        "description": "保留低轴线枪管。",
-        "effects": [],
-        "stats": {}
-      }
-    ],
-    "reargrip": [
-      {
-        "id": "false",
-        "name": "原厂握柄",
-        "description": "保留黑色聚合物握柄。",
-        "effects": [],
-        "stats": {}
-      }
-    ],
-    "tactical": [
-      {
-        "id": "false",
-        "name": "无战术挂件",
-        "description": "保持原厂导轨外形。",
-        "effects": [],
-        "stats": {}
-      }
-    ]
-  },
-  "base": {
-    "ammo_item_id": "ammo_127",
-    "mag_size": 5,
-    "ads_smooth": 13.616964,
-    "recoil": 180,
-    "camera_shake": 140,
-    "fire_interval": 1.0,
-    "reload_time": 5.7,
-    "empty_reload_time": 7.7,
-    "damage": 90,
-    "bullet_speed": 300,
-    "effective_range": 60,
-    "automatic": false
-  },
-  "traits": [
-    {
-      "icon": "mechanic",
-      "text": "单动左轮；射后拇指拨锤；12.7毫米弹药；五发弹巢"
-    },
-    {
-      "icon": "special",
-      "text": "下置枪管；逐发装填，非空仓保留余弹"
-    },
-    {
-      "icon": "neutral",
-      "text": "支持单持、双持和法杖副手；每手独立装填"
-    }
-  ]
 }
 ],
   "common_options": {}

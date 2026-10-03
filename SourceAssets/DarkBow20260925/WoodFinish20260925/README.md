@@ -3,8 +3,8 @@
 把运行弓体／箭杆从 Fab 近黑 Phong 换成按结构分色的工程内木纹：弓体胡桃（`T_RottenWoodSurface_00A`），弓臂枫木、镶条红木、箭杆白蜡（`T_WoodSurface_00A`）。说明见 [制作记录](../../../Docs/Weapons/dark-bow-wood-finish-20260925.md)。
 
 `
-powershell -NoProfile -File SourceAssets/DarkBow20260925/Scripts/run_headless.ps1
-  -Script SourceAssets/DarkBow20260925/WoodFinish20260925/recolor_structure_woods.py
+powershell -NoProfile -File SourceAssets/DarkBow20260925/Scripts/run_headless.ps1 
+  -Script SourceAssets/DarkBow20260925/WoodFinish20260925/recolor_structure_woods.py 
   -LogName wood_recolor.log
 `
 

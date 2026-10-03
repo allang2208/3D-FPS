@@ -5,7 +5,8 @@ Usage:
 
 The format is the custom snapshot written by VoxelPersistence.cpp: magic VBX3, then
 Version / CellSizeCm / WorldKey / Cells / FreeVolumes / Damage / BrokenBonds / Fragments /
-LegacyProtected / Prefabs(v4). Used for diagnosing placement and collapse reports.
+LegacyProtected / Prefabs(v4) / Smelting(v5 wall-clock, v6 fuel model + Fuel(v6)).
+Used for diagnosing placement, collapse reports and in-furnace smelting jobs.
 """
 
 import glob
@@ -28,6 +29,11 @@ class Reader:
 
     def i64(self):
         value = struct.unpack_from("<q", self.data, self.off)[0]
+        self.off += 8
+        return value
+
+    def f64(self):
+        value = struct.unpack_from("<d", self.data, self.off)[0]
         self.off += 8
         return value
 
@@ -151,9 +157,33 @@ def main():
 
     if version >= 4:
         prefabs = reader.i32()
+        furnace_cells = []
         for _ in range(prefabs):
-            reader.string(); reader.int_vector(); reader.off += 4; reader.int_vector()
-        print("prefabs   : %d placed pieces" % prefabs)
+            pid = reader.string(); cell = reader.int_vector(); reader.off += 4; reader.int_vector()
+            if pid == "blast_furnace":
+                furnace_cells.append(cell)
+        print("prefabs   : %d placed pieces (blast furnaces at %s)" % (
+            prefabs, ", ".join(str(c) for c in furnace_cells) if furnace_cells else "-"))
+
+    if version == 5:
+        jobs = reader.i32()
+        for _ in range(jobs):
+            cell = reader.int_vector(); recipe = reader.string(); start = reader.i64()
+            print("  legacy v5 job @%s recipe=%s start_ticks=%d (%.3f)" % (
+                cell, recipe, start, start / 1e7))
+        print("smelting  : %d legacy wall-clock job(s)" % jobs)
+    elif version >= 6:
+        jobs = reader.i32()
+        for _ in range(jobs):
+            cell = reader.int_vector(); recipe = reader.string()
+            progress = reader.f64(); burn = reader.i64()
+            print("  smelting job @%s recipe=%s progress=%.3fs burn_start=%d%s" % (
+                cell, recipe, progress, burn, "" if burn else " (stalled)"))
+        fuels = reader.i32()
+        for _ in range(fuels):
+            cell = reader.int_vector(); seconds = reader.f64()
+            print("  furnace fuel @%s %.1f s" % (cell, seconds))
+        print("smelting  : %d job(s), %d furnace(s) with stored fuel" % (jobs, fuels))
 
     print("leftover  : %d bytes unread" % (len(reader.data) - reader.off))
     return 0

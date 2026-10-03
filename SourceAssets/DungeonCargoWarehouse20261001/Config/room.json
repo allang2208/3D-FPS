@@ -618,5 +618,13 @@
   "refinement_author": "RefineV2/Scripts/author_revision.py",
   "refinement_installer": "RefineV2/Scripts/import_assets.py",
   "sample_retired": true,
-  "production_module": "SourceAssets/DungeonThemedRoutes20261001/Config/warehouse-module.json"
+  "production_module": "SourceAssets/DungeonThemedRoutes20261001/Config/warehouse-module.json",
+  "container_revision": 2,
+  "container_author": "SourceAssets/WarehouseContainers20261002",
+  "container_rewards_deferred": true,
+  "container_count": [
+    12,
+    17
+  ],
+  "container_extension_author": "SourceAssets/SceneLootExpansion20261003"
 }

@@ -26,6 +26,10 @@ public:
     bool IsHandOccupiedNotice() const;
     float HandNoticeAlpha() const;
     float HandNoticeRise() const;
+    // ── 联机 ──
+    bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow);
+    void NetCastRejected(uint8 Phase,uint8 Code);
+    void NetCastCancelled(uint8 Phase);
 protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
@@ -38,6 +42,8 @@ private:
     FHolyLightCast CastSnapshot;
     FFPSLeftHandNotice HandNotice;
     bool bQueued=false,bCommitted=false,bQueuedSelf=false;
+    /** 联机客人：扣账后等待服务端结算回执的窗口。 */
+    bool bNetPaid=false;
     FString Message;
     double MessageUntil=0;
     UColdSteelStatusModel* Model() const;

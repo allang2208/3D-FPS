@@ -47,7 +47,11 @@ def build_material(name, texture, filament):
         material = TOOLS.create_asset(name, DEST, u.Material, u.MaterialFactoryNew())
     if not material:
         raise RuntimeError('Cannot create ' + name)
-    LIB.delete_all_material_expressions(material)
+    # DeleteAllMaterialExpressions mutates the array it iterates, leaving stale
+    # nodes with severed inputs ("missing input" compile errors). Snapshot the
+    # list and delete each expression by reference instead.
+    for expression in LIB.get_material_expressions(material):
+        LIB.delete_material_expression(material, expression)
     # The beam body attenuates the background; only the narrow electric strands
     # remain additive. Increasing additive opacity alone cannot hide scenery.
     for key, value in {'blend_mode': u.BlendMode.BLEND_ADDITIVE if filament else u.BlendMode.BLEND_TRANSLUCENT,
@@ -118,7 +122,14 @@ def build_material(name, texture, filament):
     color = vector('BeamColor', (.25, .70, 1., 1.))
     emission = scalar('Emission', 42. if filament else 21.)
     opacity = scalar('Opacity', 1. if filament else .93)
-    flash = custom('return (1.0+1.4*exp(-Age*38.0))*(.96+.04*sin(Age*63.0));', {'Age': (age, '')})
+    # Permanent bright spearhead band plus a launch flash that sweeps the beam
+    # forward once before decaying away.
+    flash = custom('float3 ax=normalize(Axis);float qq=dot(P-Origin,ax)/max(Length,1.0);'
+                   'float head=1.0+2.6*exp(-pow((qq-.88)/.05,2.0));'
+                   'float travel=1.0+1.8*exp(-pow((qq-saturate(Age/.11))/.045,2.0))*exp(-Age*7.0);'
+                   'return (1.0+1.4*exp(-Age*38.0))*(.96+.04*sin(Age*63.0))*head*travel;',
+                   {'Age': (age, ''), 'P': (position, ''), 'Origin': (origin, 'RGB'),
+                    'Axis': (axis, 'RGB'), 'Length': (length, '')})
     light = multiply(multiply(color, emission), flash)
     coverage = multiply(multiply(mask, alpha), opacity)
     for expression, prop in [(light, u.MaterialProperty.MP_EMISSIVE_COLOR),
@@ -176,10 +187,14 @@ def build_flux():
         'body_blend': 'translucent', 'filament_blend': 'additive',
         'range_cm': '(1800 + 30 * skill_level) * 1.5 before equipment bonuses',
         'range_multiplier': 2., 'visual_strength_multiplier': 1.5,
-        'establishment_seconds': .045, 'hold_seconds': 2., 'fade_seconds': .153,
+        'establishment_seconds': .09, 'hold_seconds': 'skills.json beamHold (default .45)',
+        'fade_seconds': 'skills.json beamFade (default .6); filaments linger +45%',
         'flow': 'billowing displaced envelope, rolling density, coherent core, snapped branched electric strands',
+        'spear_profile': 'narrow tail .55, head mass +.30 at q=.88, pointed tip below .10 at q=1',
+        'lateral_snake': 'perpendicular low/high frequency bends by role; filament arcs lift off-surface',
+        'charge_ratio': 'beam diameters scale lerp(.55,1,ratio); emission lerp(.65,1,ratio); light scales with ratio',
         'collision': False, 'damage_changed': False, 'gameplay_tested': False, 'rendered': False}
-    folder = ROOT / 'Saved/ThunderFluxStrength20261001'
+    folder = ROOT / 'Saved/ThunderLanceSpear20261002'
     folder.mkdir(parents=True, exist_ok=True)
     (folder / 'asset-authoring.json').write_text(json.dumps(receipt, ensure_ascii=False, indent=2), encoding='utf-8')
     print('THUNDER_FLUX_V3_SAVED ' + json.dumps(receipt, ensure_ascii=False))

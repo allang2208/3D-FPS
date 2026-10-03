@@ -5,6 +5,26 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 
+void AFPSGAMECharacter::ApplyNetSlideFlag(bool bSliding, bool bFullEntry)
+{
+    if (bSliding == bIsSliding) return;
+    if (bSliding)
+    {
+        if (bFullEntry) { StartSlide(); return; }
+        bIsSliding = true;
+        bSlideDownhill = false;
+        SlideAge = 0.0f;
+        SlideTimeRemaining = SlideMaximumTime;
+        UCharacterMovementComponent* Movement = GetCharacterMovement();
+        Movement->GroundFriction = 0.0f;
+        Movement->BrakingDecelerationWalking = 0.0f;
+    }
+    else
+    {
+        StopSlide(false);
+    }
+}
+
 void AFPSGAMECharacter::UpdateSlide(float DeltaSeconds)
 {
     UCharacterMovementComponent* Movement = GetCharacterMovement();

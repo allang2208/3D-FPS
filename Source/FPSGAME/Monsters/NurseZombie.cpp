@@ -1,4 +1,5 @@
 #include "NurseZombie.h"
+#include "Net/UnrealNetwork.h"
 #include "MonsterReactionTiming.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
@@ -12,6 +13,7 @@
 #include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Skills/ColdSteelSkillRules.h"
 #include "Engine/GameInstance.h"
 #include "GameFramework/PlayerController.h"
 #include "Animation/AnimSequence.h"
@@ -82,6 +84,16 @@ void ANurseZombie::BeginPlay()
     UE_LOG(LogTemp, Display, TEXT("NURSE_READY %s location=%s attack=%.3f health=%.1f/%.1f damage=%.1f"), *GetName(), *GetActorLocation().ToString(), AttackClip->GetPlayLength(), Health, MaxHealth, AttackDamage);
 }
 
+void ANurseZombie::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(ANurseZombie, State);
+}
+void ANurseZombie::OnRep_State()
+{
+    // 远端副本：SetState 本身是表现内聚的（动画/移动标志），直接重放。
+    if(!HasAuthority())SetState(State);
+}
 void ANurseZombie::SetState(ENurseState NewState)
 {
     State = NewState;
@@ -236,6 +248,7 @@ float ANurseZombie::TakeDamage(float Damage, const FDamageEvent& Event, AControl
         if (!Knockdown || !Knockdown->OnDeath()) StartDeathPresentation();
         SetLifeSpan(CorpseSeconds);
         UE_LOG(LogTemp, Display, TEXT("NURSE_KILLED %s"),*GetName());
+        ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),EventInstigator,this);
         if(auto* PlayerController=Cast<APlayerController>(EventInstigator))
             if(PlayerController->IsLocalController()&&GetGameInstance())
                 GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);

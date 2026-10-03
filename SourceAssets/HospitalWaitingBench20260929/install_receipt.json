@@ -1,0 +1,36 @@
+{
+  "mesh": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+  "source": "Fab listing 05f7dccc-ecee-4bd4-9cc1-189ab2f42cc5, Hospital Waiting Bench - AshenCut",
+  "license": "CC-BY-4.0, credit required: 'Hospital Waiting Bench - AshenCut' (fab.com), CC-BY-4.0",
+  "textures": [
+    "T_Hospital_Waiting_Bench_AO",
+    "T_Hospital_Waiting_Bench_BaseColor",
+    "T_Hospital_Waiting_Bench_Metallic",
+    "T_Hospital_Waiting_Bench_Normal",
+    "T_Hospital_Waiting_Bench_Roughness"
+  ],
+  "material": "/Game/Props/HospitalWaitingBench20260929/Materials/M_Hospital_Waiting_Bench",
+  "verify": {
+    "slots": [
+      {
+        "slot": "M_Hospital_Waiting_Bench",
+        "material": "/Game/Props/HospitalWaitingBench20260929/Materials/M_Hospital_Waiting_Bench.M_Hospital_Waiting_Bench"
+      }
+    ],
+    "bounds": {
+      "min": [
+        -113.7,
+        -29.9,
+        0.0
+      ],
+      "max": [
+        113.7,
+        29.9,
+        99.2
+      ]
+    }
+  },
+  "saved": true,
+  "game_tested": false,
+  "acceptance_rendered": false
+}

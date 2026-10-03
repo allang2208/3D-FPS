@@ -1,4 +1,5 @@
 #include "ColdSteelWeaponIcons.h"
+#include "ColdSteelEquipmentIconSource.h"
 #include "FPSPerformanceMetrics.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "../Characters/FPSPlayerBodyTypes.h"
@@ -18,7 +19,7 @@ bool UColdSteelWeaponIcons::PrepareEquipment(const FColdSteelItem& Item)
     TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Icon_PrepareEquipment);
     FFPSPerformanceScope Scope(bCatalogExport?nullptr:GetGameInstance(),TEXT("Icon.EquipmentAssembly"));
     const FString& Definition=Item.Definition;
-    const FSoftObjectPath MeshPath=FPSBodyEquipment::StaticOutfitMesh(Definition);
+    const FSoftObjectPath MeshPath=ColdSteelEquipmentIconMesh(Item);
     auto* Asset=MeshPath.IsValid()?LoadObject<UStaticMesh>(nullptr,*MeshPath.ToString()):nullptr;
     if(!Asset)return false;
     if(!MaterialMesh)
@@ -33,7 +34,8 @@ bool UColdSteelWeaponIcons::PrepareEquipment(const FColdSteelItem& Item)
     const FBoxSphereBounds Local=Asset->GetBounds();
     // 装备图标正面直拍：网格 -Y 面是包体外侧正面（包盖/扣具），yaw -90 使其正对相机；
     // +Y 面是两条肩带所在的内侧（顶点壳层实测：Y- 满幅 7277 顶点，Y+ 仅 1838 凸起）。
-    const FQuat Orient=FQuat(FVector::ZAxisVector,FMath::DegreesToRadians(-90.f));
+    const FQuat Orient=FRotator(ColdSteelInventory::Number(Item,TEXT("ue_icon_pitch"),0),
+        ColdSteelInventory::Number(Item,TEXT("ue_icon_yaw"),-90),0).Quaternion();
     const FTransform Pose(Orient,-(Orient.RotateVector(Local.Origin)),FVector::OneVector);
     MaterialMesh->SetWorldTransform(Pose);
     // 圆角装备摸不到旋转后包围盒的角：AABB 取景会让 91% 填充的合同落成约七成。
@@ -51,7 +53,7 @@ bool UColdSteelWeaponIcons::PrepareEquipment(const FColdSteelItem& Item)
     Capture->ShowOnlyComponents.Reset();Capture->ShowOnlyComponent(MaterialMesh);
     // 画布按占格推导：登山包 3x3，所以是 320x320 方幅。
     const FIntPoint Grid=ColdSteelInventory::BaseFootprint(Item);
-    const int32 Width=FMath::Max(256,FMath::RoundToInt(320.f*float(Grid.X)/FMath::Max(1,Grid.Y)));
+    const int32 Width=FMath::Max(1,FMath::RoundToInt(320.f*float(Grid.X)/FMath::Max(1,Grid.Y)));
     if(Target->SizeX!=Width||Target->SizeY!=320)Target->ResizeTarget(Width,320);
     const float Aspect=float(Width)/320.f;
     // 同一取景规则：主轴填满 91%，轮廓中心在画幅中心。

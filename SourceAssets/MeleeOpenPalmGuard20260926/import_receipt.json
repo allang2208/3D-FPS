@@ -1,0 +1,55 @@
+{
+  "revision": "OpenPalmGuard20260926",
+  "saved": [
+    {
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Guard.A_RuneSword_Guard",
+      "seconds": 0.20000000298023224,
+      "native_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\Standard\\A_RuneSword_Guard.fbx",
+      "editable_tracks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\Standard\\Guard_patch.json",
+      "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\Before\\Standard\\A_RuneSword_Guard.uasset",
+      "source_sha256": "a80b92bc1b84b8eeb8913aed91fcbbdc1a79a61192ef82414259f01093ccb5f0"
+    },
+    {
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_GuardBreak.A_RuneSword_GuardBreak",
+      "seconds": 0.4000000059604645,
+      "native_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\Standard\\A_RuneSword_GuardBreak.fbx",
+      "editable_tracks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\Standard\\GuardBreak_patch.json",
+      "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\Before\\Standard\\A_RuneSword_GuardBreak.uasset",
+      "source_sha256": "cc1070a9775fe69bad40b119eacc5d545fd9516beef615bcc69660500eee1688"
+    },
+    {
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_GuardHit.A_RuneSword_GuardHit",
+      "seconds": 0.22083333134651184,
+      "native_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\Standard\\A_RuneSword_GuardHit.fbx",
+      "editable_tracks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\Standard\\GuardHit_patch.json",
+      "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\Before\\Standard\\A_RuneSword_GuardHit.uasset",
+      "source_sha256": "02876e8e5e0124407de0a652d41148390e752e6918a423ac80fd2504fe0a39de"
+    },
+    {
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Guard.A_RuneSword_Guard",
+      "seconds": 0.20000000298023224,
+      "native_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\LongGrip\\A_RuneSword_Guard.fbx",
+      "editable_tracks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\LongGrip\\Guard_patch.json",
+      "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\Before\\LongGrip\\A_RuneSword_Guard.uasset",
+      "source_sha256": "ecb9b0f340b89eea40759c45934a27a2b5e7541f2dce1beb934d8594bf1d9e8f"
+    },
+    {
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_GuardBreak.A_RuneSword_GuardBreak",
+      "seconds": 0.4000000059604645,
+      "native_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\LongGrip\\A_RuneSword_GuardBreak.fbx",
+      "editable_tracks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\LongGrip\\GuardBreak_patch.json",
+      "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\Before\\LongGrip\\A_RuneSword_GuardBreak.uasset",
+      "source_sha256": "22d5f9e9b0839bb0b63b16abe8065b79bcfd4f62449a21d58ab9d880d1b630f3"
+    },
+    {
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_GuardHit.A_RuneSword_GuardHit",
+      "seconds": 0.22083333134651184,
+      "native_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\LongGrip\\A_RuneSword_GuardHit.fbx",
+      "editable_tracks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\LongGrip\\GuardHit_patch.json",
+      "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeOpenPalmGuard20260926\\Before\\LongGrip\\A_RuneSword_GuardHit.uasset",
+      "source_sha256": "4460e037113f40ed8ec970e4c7a02bac38fdf7ba9d25a5f3dd96c5eb6ce2cdb7"
+    }
+  ],
+  "runtime_tested": false,
+  "rendered": false
+}

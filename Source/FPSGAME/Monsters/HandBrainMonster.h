@@ -57,7 +57,8 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Death",meta=(ToolTip="Fallback without a death clip; configured death clips hand off at 60%.")) float RagdollStartSeconds=1.15f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Death") float CorpseSeconds=15.f;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") float Health=1500.f;
- UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") EHandBrainState State=EHandBrainState::Idle;
+ /** 复制给远端：客户端 OnRep 重放 SetState 驱动同款动画/表现切换。 */
+ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime",ReplicatedUsing=OnRep_State) EHandBrainState State=EHandBrainState::Idle;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") int32 SlamHits=0;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") int32 HowlHits=0;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") float StateSeconds=0.f;
@@ -72,6 +73,8 @@ public:
  UFUNCTION(BlueprintCallable,Category="HandBrain|Placement",meta=(WorldContext="WorldContextObject")) static bool FindVillageSpawn(UObject* WorldContextObject,FVector Origin,FRotator Facing,FVector& Location);
 private:
  void SetState(EHandBrainState NewState); void DealSlam(); void DealHowl(); void EnterRagdoll();
+ virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ UFUNCTION() void OnRep_State();
  bool CanSee(const AActor* Actor,FVector Origin) const; FVector GroundPoint(FVector Point) const;
  bool CanSlamTarget(const APawn* Pawn) const;
  bool CanHowlTarget(const APawn* Pawn) const;

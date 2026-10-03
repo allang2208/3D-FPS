@@ -343,7 +343,7 @@ AVoxelBuildPrefabActor* AVoxelBuildWorld::SpawnPrefab(const FVoxelBuildPrefabIns
 
 bool AVoxelBuildWorld::PlacePrefab(FName Id,FIntVector Cell,int32 Yaw)
 {
-    if(!bReady||GetNetMode()!=NM_Standalone)return false;
+    if(!bReady||GetNetMode()==NM_Client)return false;
     const FVoxelBuildPrefab* Looking=Palette?Palette->FindComponent(Id):nullptr;
     // 壁挂件在组件侧已经确认过"瞄准的是竖直表面"，这里复检时要把这一点带进来，
     // 否则同一件会被自己的"必须贴墙"规则挡掉。
@@ -365,7 +365,7 @@ bool AVoxelBuildWorld::RemovePrefab(AActor* Piece)
     // 传进来的可能是逻辑构件（门）本身：向上找承载它的占位记录。
     if(!Target)for(AActor* Parent=Piece?Piece->GetAttachParentActor():nullptr;Parent;Parent=Parent->GetAttachParentActor())
         if(auto* Found=Cast<AVoxelBuildPrefabActor>(Parent)){Target=Found;break;}
-    if(!bReady||GetNetMode()!=NM_Standalone||!Target){Message=TEXT("只能拆除自己放置的构件");return false;}
+    if(!bReady||GetNetMode()==NM_Client||!Target){Message=TEXT("只能拆除自己放置的构件");return false;}
     // 正在下落的构件（失去支撑后脱落）已经不在 Prefabs 记录里，但 Actor 还要飞一段时间。
     // 不特判的话会走到下面的 RemoveAll，提示"不在建筑记录中"——玩家清不掉它；
     // 更糟的是若同一格已经放了**新**构件，用 AnchorCell 查记录会命中新构件并把它销毁。
@@ -440,7 +440,7 @@ FVoxelSmeltingJob* AVoxelBuildWorld::FindSmeltingMutable(FIntVector Cell)
 
 bool AVoxelBuildWorld::BeginSmelting(FIntVector Cell,FName Recipe,FString& Reason,int64 Batch)
 {
-    if(!bReady||GetNetMode()!=NM_Standalone){Reason=TEXT("建筑世界未就绪");return false;}
+    if(!bReady||GetNetMode()==NM_Client){Reason=TEXT("建筑世界未就绪");return false;}
     const FVoxelBuildPrefabInstance* Piece=Prefabs.FindByPredicate(
         [Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;});
     if(!Piece||Piece->Id!=VoxelSmeltingFurnaceId){Reason=TEXT("目标不是已放置的冶炼高炉");return false;}

@@ -72,7 +72,7 @@ bool UColdSteelForgingSystem::CanStart(FName Id,FString& Reason) const
 {
     const auto* M=Model();const auto* R=Find(Id);
     if(!M||!R){Reason=TEXT("配方未就绪");return false;}
-    if(!GetWorld()||GetWorld()->GetNetMode()!=NM_Standalone){Reason=TEXT("锻造仅支持单人模式");return false;}
+    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client){Reason=TEXT("锻造仅支持单人模式");return false;}
     if(bActive||!Job().Id.IsEmpty()){Reason=TEXT("先领取或废弃上一把成品");return false;}
     if(M->CreateItem(R->Output).Data.IsEmpty()){Reason=TEXT("成品未加入物品目录");return false;}
     for(const auto& In:R->Inputs)if(M->CountMaterial(In.Item)<In.Count)
@@ -215,7 +215,7 @@ bool UColdSteelForgingSystem::GetDiscardRefund(TArray<FColdSteelCraftingInput>& 
     Refund.Reset();Reason.Reset();
     if(!Model()||bActive||Job().Id.IsEmpty()||!Job().bFinished)
     {Reason=TEXT("只有已完成、尚未领取的成品可以废弃");return false;}
-    if(!GetWorld()||GetWorld()->GetNetMode()!=NM_Standalone)
+    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client)
     {Reason=TEXT("锻造仅支持单人模式");return false;}
     TMap<FString,int64> Paid;
     if(!GetPaidMaterials(Paid)){Reason=TEXT("无法读取返还材料，成品保留待领");return false;}

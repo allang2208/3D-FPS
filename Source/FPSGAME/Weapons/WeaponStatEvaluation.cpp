@@ -20,6 +20,16 @@ FWeaponDamageParts ColdSteelWeaponStats::DamageParts(const FColdSteelItem& Item,
     const auto* Enhancement=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
     return ColdSteelWeaponDamage::Evaluate(Item,Model,Enhancement?Enhancement->ProcessedDamage(Item,Base,Attack):Base+Attack*ColdSteelBow::DamageCoefficientScale(Item));
 }
+double ColdSteelWeaponStats::BowDrawSpeedBonus(const FColdSteelItem* Item,const UColdSteelStatusModel* Model)
+{
+    if(!Item||!Model||!ColdSteelInventory::IsBow(*Item))return 0.;
+    double Bonus=Model->EquipmentBonus(TEXT("bowDrawSpeed"));
+    if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())
+        Bonus+=G->Calculate(Item->Definition,G->Installed(*Item)).Bow.DrawSpeedBonus;
+    if(const auto* Enhancement=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
+        Bonus+=Enhancement->Effect(*Item,TEXT("bowDrawSpeedBonus"));
+    return Bonus;
+}
 double ColdSteelWeaponStats::Interval(const FColdSteelItem* Item,const UColdSteelStatusModel* Model,double Base)
 {
     if(!Model)return Base;
@@ -29,10 +39,9 @@ double ColdSteelWeaponStats::Interval(const FColdSteelItem* Item,const UColdStee
     float Result=Base;
     if(Item&&ColdSteelInventory::IsBow(*Item))
     {
-        if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())Result*=G->Calculate(Item->Definition,G->Installed(*Item)).Bow.Draw;
-        // Equipment changes draw speed only; nocking, arrow velocity and other
-        // weapon intervals keep their existing clocks. A -10% speed is /0.9.
-        Result/=FMath::Max(0.05,1.+Model->EquipmentBonus(TEXT("bowDrawSpeed")));
+        // Modification, equipment and this bow's enchantment share one speed sum.
+        // Nocking and arrow velocity keep their independent clocks.
+        Result/=FMath::Max(0.05,1.+BowDrawSpeedBonus(Item,Model));
     }
     if(Item)if(const auto* Enhancement=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         Result*=Enhancement->Effect(*Item,TEXT("attackIntervalMul"),1);

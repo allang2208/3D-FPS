@@ -33,3 +33,4 @@ bpy.ops.object.camera_add();cam=bpy.context.object;scene.camera=cam;cam.data.typ
 for name,center in [('front-kmode',Vector((.037,-.1888,.073)))]:
  cam.location=center+Vector((.17,.04,.06));cam.rotation_euler=(center-cam.location).to_track_quat('-Z','Y').to_euler();scene.render.filepath=str(out/(name+'.png'));bpy.ops.render.render(write_still=True)
 print('M4_IRON_COMPONENTS',json.dumps([{k:v for k,v in r.items() if k!='indices'} for r in rows[:35]]))
+

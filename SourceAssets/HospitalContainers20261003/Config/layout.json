@@ -1,0 +1,1365 @@
+{
+  "revision": 2,
+  "groups": {
+    "Drainage": [
+      {
+        "id": "Hospital.Drainage.ToolBays",
+        "pick_count": [
+          2,
+          2
+        ],
+        "slots": [
+          {
+            "id": "Hospital.Drainage.Tools.Entry",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      15.0,
+                      28.000000000000004
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "排水检修工具箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Drainage.Tools.Entry",
+                    "position": [
+                      -535,
+                      -352,
+                      0.3
+                    ],
+                    "yaw": 90
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      15.0,
+                      28.000000000000004
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "排水检修工具箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Drainage.Tools.Entry",
+                    "position": [
+                      -535,
+                      -340,
+                      0.3
+                    ],
+                    "yaw": 90
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      15.0,
+                      28.000000000000004
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "排水检修工具箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Drainage.Tools.Entry",
+                    "position": [
+                      -535,
+                      -328,
+                      0.3
+                    ],
+                    "yaw": 90
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Drainage.Tools.Service",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      15.0,
+                      28.000000000000004
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "排水检修工具箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Drainage.Tools.Service",
+                    "position": [
+                      -510,
+                      -1892,
+                      0.3
+                    ],
+                    "yaw": 90
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      15.0,
+                      28.000000000000004
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "排水检修工具箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Drainage.Tools.Service",
+                    "position": [
+                      -510,
+                      -1880,
+                      0.3
+                    ],
+                    "yaw": 90
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      15.0,
+                      28.000000000000004
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "排水检修工具箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Drainage.Tools.Service",
+                    "position": [
+                      -510,
+                      -1868,
+                      0.3
+                    ],
+                    "yaw": 90
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "AbandonedIsolationWard": [
+      {
+        "id": "Hospital.Ward.MedicalCarts",
+        "pick_count": [
+          5,
+          5
+        ],
+        "slots": [
+          {
+            "id": "Hospital.Ward.Cart.N01",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N01",
+                    "position": [
+                      -1810,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N01",
+                    "position": [
+                      -1800,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N01",
+                    "position": [
+                      -1790,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Ward.Cart.N02",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N02",
+                    "position": [
+                      940,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N02",
+                    "position": [
+                      950,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N02",
+                    "position": [
+                      960,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Ward.Cart.N03",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N03",
+                    "position": [
+                      2740,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N03",
+                    "position": [
+                      2750,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.N03",
+                    "position": [
+                      2760,
+                      -1190,
+                      4.4
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Ward.Cart.S01",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.S01",
+                    "position": [
+                      -2810,
+                      1190,
+                      4.4
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.S01",
+                    "position": [
+                      -2800,
+                      1190,
+                      4.4
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.S01",
+                    "position": [
+                      -2790,
+                      1190,
+                      4.4
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Ward.Cart.S02",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.S02",
+                    "position": [
+                      750,
+                      1190,
+                      4.4
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.S02",
+                    "position": [
+                      760,
+                      1190,
+                      4.4
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Cart.S02",
+                    "position": [
+                      770,
+                      1190,
+                      4.4
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Hospital.Ward.Emergency",
+        "pick_count": [
+          1,
+          1
+        ],
+        "slots": [
+          {
+            "id": "Hospital.Ward.Emergency.West",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Door",
+                    "hinge": [
+                      -25.0,
+                      -10.0,
+                      0
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -102,
+                    "storage_pages": 1,
+                    "caption": "壁挂急救箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Emergency.West",
+                    "position": [
+                      -2800,
+                      -419,
+                      132
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Ward.Emergency.East",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Door",
+                    "hinge": [
+                      -25.0,
+                      -10.0,
+                      0
+                    ],
+                    "opening_motion": "Swing",
+                    "opened_yaw": -102,
+                    "storage_pages": 1,
+                    "caption": "壁挂急救箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Ward.Emergency.East",
+                    "position": [
+                      2830,
+                      -419,
+                      132
+                    ],
+                    "yaw": 180
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "AbandonedAnatomyTheatre": [
+      {
+        "id": "Hospital.Theatre.Cart",
+        "pick_count": [
+          1,
+          1
+        ],
+        "slots": [
+          {
+            "id": "Hospital.Theatre.Cart",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Cart",
+                    "position": [
+                      322,
+                      1155,
+                      0.3
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Cart",
+                    "position": [
+                      330,
+                      1155,
+                      0.3
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Cart",
+                    "position": [
+                      338,
+                      1155,
+                      0.3
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Hospital.Theatre.Instruments",
+        "pick_count": [
+          1,
+          2
+        ],
+        "slots": [
+          {
+            "id": "Hospital.Theatre.Instruments.A",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Lid",
+                    "hinge": [
+                      0,
+                      12.5,
+                      11.5
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "器械消毒盒",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Instruments.A",
+                    "position": [
+                      590,
+                      1045,
+                      93
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Theatre.Instruments.B",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Lid",
+                    "hinge": [
+                      0,
+                      12.5,
+                      11.5
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "器械消毒盒",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Instruments.B",
+                    "position": [
+                      590,
+                      1150,
+                      93
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Hospital.Theatre.Specimens",
+        "pick_count": [
+          1,
+          1
+        ],
+        "slots": [
+          {
+            "id": "Hospital.Theatre.Specimens",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Lid",
+                    "hinge": [
+                      0,
+                      20.0,
+                      44.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "标本运输箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Specimens",
+                    "position": [
+                      680,
+                      1150,
+                      0.3
+                    ],
+                    "yaw": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Hospital.Theatre.Gallery",
+        "pick_count": [
+          2,
+          3
+        ],
+        "slots": [
+          {
+            "id": "Hospital.Theatre.Gallery.West",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Gallery.West",
+                    "position": [
+                      1069.129624620899,
+                      -591.1143063792839,
+                      216.3
+                    ],
+                    "yaw": -126.5
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Gallery.West",
+                    "position": [
+                      1048.05430229694,
+                      -618.8297621831256,
+                      216.3
+                    ],
+                    "yaw": -128
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+                    "hinge": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "opening_motion": "Drawer",
+                    "drawer_travel": [
+                      0,
+                      -32,
+                      0
+                    ],
+                    "storage_pages": 1,
+                    "caption": "医疗推车抽屉",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Gallery.West",
+                    "position": [
+                      1026.2606959056675,
+                      -645.984032969426,
+                      216.3
+                    ],
+                    "yaw": -129.5
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Theatre.Gallery.NorthWest",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Lid",
+                    "hinge": [
+                      0,
+                      16.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "病人物品箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Gallery.NorthWest",
+                    "position": [
+                      593.4430914360456,
+                      -990.2627009306934,
+                      216.3
+                    ],
+                    "yaw": -153.5
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Lid",
+                    "hinge": [
+                      0,
+                      16.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "病人物品箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Gallery.NorthWest",
+                    "position": [
+                      562.0822881151303,
+                      -1005.3893567587445,
+                      216.3
+                    ],
+                    "yaw": -155
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Lid",
+                    "hinge": [
+                      0,
+                      16.0,
+                      32.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "病人物品箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Gallery.NorthWest",
+                    "position": [
+                      530.3362616705775,
+                      -1019.6898989322149,
+                      216.3
+                    ],
+                    "yaw": -156.5
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Theatre.Gallery.NorthEast",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      15.0,
+                      28.000000000000004
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "排水检修工具箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Gallery.NorthEast",
+                    "position": [
+                      -551.542012732798,
+                      -1010.2484902658025,
+                      216.3
+                    ],
+                    "yaw": -204.5
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      15.0,
+                      28.000000000000004
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "排水检修工具箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Gallery.NorthEast",
+                    "position": [
+                      -583.033625229473,
+                      -995.3960815778921,
+                      216.3
+                    ],
+                    "yaw": -206
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid",
+                    "hinge": [
+                      0,
+                      15.0,
+                      28.000000000000004
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "排水检修工具箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Gallery.NorthEast",
+                    "position": [
+                      -614.125655602595,
+                      -979.7244081270351,
+                      216.3
+                    ],
+                    "yaw": -207.5
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "Hospital.Theatre.Gallery.East",
+            "variants": [
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Lid",
+                    "hinge": [
+                      0,
+                      20.0,
+                      44.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "标本运输箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Gallery.East",
+                    "position": [
+                      -1082.7736394139044,
+                      -572.33493109555,
+                      216.3
+                    ],
+                    "yaw": -234.5
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Lid",
+                    "hinge": [
+                      0,
+                      20.0,
+                      44.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "标本运输箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Gallery.East",
+                    "position": [
+                      -1102.6199714982054,
+                      -543.7265616160934,
+                      216.3
+                    ],
+                    "yaw": -236
+                  }
+                ]
+              },
+              {
+                "containers": [
+                  {
+                    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body",
+                    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Lid",
+                    "hinge": [
+                      0,
+                      20.0,
+                      44.0
+                    ],
+                    "opening_motion": "Lid",
+                    "opened_roll": 108,
+                    "storage_pages": 1,
+                    "caption": "标本运输箱",
+                    "type": "scene_container",
+                    "container_id": "Hospital.Theatre.Gallery.East",
+                    "position": [
+                      -1121.710622931138,
+                      -514.6084791012756,
+                      216.3
+                    ],
+                    "yaw": -237.5
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "ward_cart_reservations": [
+    {
+      "min": [
+        -1847,
+        -1230,
+        4.2
+      ],
+      "max": [
+        -1753,
+        -1118,
+        116.4
+      ]
+    },
+    {
+      "min": [
+        903,
+        -1230,
+        4.2
+      ],
+      "max": [
+        997,
+        -1118,
+        116.4
+      ]
+    },
+    {
+      "min": [
+        2703,
+        -1230,
+        4.2
+      ],
+      "max": [
+        2797,
+        -1118,
+        116.4
+      ]
+    },
+    {
+      "min": [
+        -2847,
+        1118,
+        4.2
+      ],
+      "max": [
+        -2753,
+        1230,
+        116.4
+      ]
+    },
+    {
+      "min": [
+        713,
+        1118,
+        4.2
+      ],
+      "max": [
+        807,
+        1230,
+        116.4
+      ]
+    }
+  ],
+  "bedside": {
+    "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body",
+    "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Lid",
+    "hinge": [
+      0,
+      16.0,
+      32.0
+    ],
+    "opened_roll": 108,
+    "caption": "病人物品箱",
+    "container_id_prefix": "Hospital.Bedside",
+    "min_count": 2,
+    "max_count": 3,
+    "bed_gap": 24
+  },
+  "outline": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_ContainerOutline_V4.M_Staff_ContainerOutline_V4",
+  "preview_seed": 20261003,
+  "count_ranges": {
+    "Drainage": [
+      2,
+      2
+    ],
+    "AbandonedIsolationWard": [
+      8,
+      9
+    ],
+    "AbandonedAnatomyTheatre": [
+      5,
+      7
+    ]
+  },
+  "bedside_count_policy": "2-3 desired; occupied or blocked bedside slots are skipped",
+  "rewards_deferred": true,
+  "tests_run": false,
+  "rendered": false
+}

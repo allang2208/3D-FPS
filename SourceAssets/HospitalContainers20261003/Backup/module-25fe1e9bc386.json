@@ -1,0 +1,1810 @@
+{
+  "id": "AbandonedAnatomyTheatre",
+  "family_id": "AbandonedAnatomyTheatre",
+  "role": "room",
+  "encounter_role": "special_combat",
+  "revision": "anatomy_accepted_blood_pool_20261001",
+  "min": [
+    -1620,
+    -1220,
+    -35
+  ],
+  "max": [
+    1620,
+    1220,
+    835
+  ],
+  "cells": [
+    {
+      "min": [
+        -1420.0,
+        200,
+        -35.0
+      ],
+      "max": [
+        1420.0,
+        1220.0,
+        835.0
+      ]
+    },
+    {
+      "min": [
+        -1420.0,
+        -20.0,
+        -35.0
+      ],
+      "max": [
+        1420.0,
+        202.99999999999997,
+        835.0
+      ]
+    },
+    {
+      "min": [
+        -1405.6406460551016,
+        -220.00000000000003,
+        -35.0
+      ],
+      "max": [
+        1405.6406460551016,
+        3.0,
+        835.0
+      ]
+    },
+    {
+      "min": [
+        -1361.640786499874,
+        -420.0,
+        -35.0
+      ],
+      "max": [
+        1361.640786499874,
+        -197.0,
+        835.0
+      ]
+    },
+    {
+      "min": [
+        -1284.9110640673518,
+        -620.0,
+        -35.0
+      ],
+      "max": [
+        1284.9110640673518,
+        -397.0,
+        835.0
+      ]
+    },
+    {
+      "min": [
+        -1168.9125293076056,
+        -819.9999999999999,
+        -35.0
+      ],
+      "max": [
+        1168.9125293076056,
+        -597.0,
+        835.0
+      ]
+    },
+    {
+      "min": [
+        -999.795897113271,
+        -1019.9999999999999,
+        -35.0
+      ],
+      "max": [
+        999.795897113271,
+        -797.0,
+        835.0
+      ]
+    },
+    {
+      "min": [
+        -741.1102550927978,
+        -1220.0,
+        -35.0
+      ],
+      "max": [
+        741.1102550927978,
+        -997.0000000000001,
+        835.0
+      ]
+    },
+    {
+      "min": [
+        -1620.0,
+        780.0,
+        -35.0
+      ],
+      "max": [
+        -1380.0,
+        1220.0,
+        385.0
+      ]
+    },
+    {
+      "min": [
+        1380.0,
+        780.0,
+        -35.0
+      ],
+      "max": [
+        1620.0,
+        1220.0,
+        385.0
+      ]
+    }
+  ],
+  "ports": [
+    {
+      "id": "Entry",
+      "position": [
+        -1600,
+        1000,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 300.0,
+      "height": 280.0
+    },
+    {
+      "id": "Service",
+      "position": [
+        1600,
+        1000,
+        0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "width": 300.0,
+      "height": 280.0
+    }
+  ],
+  "port_pairs": [
+    [
+      0,
+      1
+    ]
+  ],
+  "parts": [
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Floors",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_Floors"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Paving",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_Ceramic"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_Paving"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Walls",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_Walls"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Tiles",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Bed",
+        "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicCore",
+        "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicAtlas",
+        "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Finish",
+        "/Game/Dungeons/AtmosphereV2/TileFracture/Materials/M_CeramicFractureCore"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_Tiles"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Frames",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_Frames"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Roof",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_Roof"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Terraces",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_Terraces"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_TerraceFinish",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_Ceramic"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_TerraceFinish"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Nosing",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_Nosing"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_SeatFrames",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_SeatFrames"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_SeatHardware",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_SeatHardware"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/SeatLightV2/Meshes/SM_AnatomyTheatre_SeatWood_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_SeatWood"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/SeatLightV2/Meshes/SM_AnatomyTheatre_WritingLedges_V2",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_WritingLedges"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_RadialStairs",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_RadialStairs"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Railings",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_Railings"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Gallery",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_Gallery"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_SideStairs",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_SideStairs"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_RoofRibs",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_RoofRibs"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Services",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_Services"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_AutopsyTable",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_AutopsyTable"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_SurgicalLight",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "/Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_LampGlass",
+        "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_SurgicalLight"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_TeachingBoard",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "/Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_Chalkboard",
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_TeachingBoard"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Lettering",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_Lettering"
+    },
+    {
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_LampHangers",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      ],
+      "cast_shadow": true,
+      "source_label": "SM_AnatomyTheatre_LampHangers"
+    },
+    {
+      "position": [
+        -600.0,
+        1135.0,
+        0.0
+      ],
+      "yaw": 180.0,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_WashSink_MorgueB1",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "AnatomyTheatre_WashSink"
+    },
+    {
+      "position": [
+        590.0,
+        1105.0,
+        0.0
+      ],
+      "yaw": 180.0,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_PreparationTable_MorgueB1",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "AnatomyTheatre_PreparationTable"
+    },
+    {
+      "position": [
+        -700.0,
+        860.0,
+        0.0
+      ],
+      "yaw": 89.99999999999999,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_MortuaryTrolley_MorgueB1",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "AnatomyTheatre_MortuaryTrolley"
+    },
+    {
+      "position": [
+        900.0,
+        1125.0,
+        0.0
+      ],
+      "yaw": 180.0,
+      "pitch": 0.0,
+      "roll": -0.0,
+      "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas"
+      ],
+      "cast_shadow": true,
+      "source_label": "AnatomyTheatre_PowerCabinet"
+    },
+    {
+      "position": [
+        -1500.0,
+        1000.0,
+        304.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_WarmTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_Entry"
+    },
+    {
+      "position": [
+        1500.0,
+        1000.0,
+        304.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_WarmTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_Service"
+    },
+    {
+      "position": [
+        -40.0,
+        200.0,
+        620.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_Centre"
+    },
+    {
+      "position": [
+        -1135.0,
+        459.99999999999994,
+        515.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_WestStair"
+    },
+    {
+      "position": [
+        1135.0,
+        459.99999999999994,
+        515.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_EastStair"
+    },
+    {
+      "position": [
+        0.0,
+        -1010.0,
+        630.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_BackGallery"
+    },
+    {
+      "position": [
+        -865.0,
+        -650.0,
+        630.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_WestGallery"
+    },
+    {
+      "position": [
+        865.0,
+        -650.0,
+        630.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "fluid": false,
+      "materials": [
+        "/Game/Dungeons/IndustrialV1/Materials/M_DarkSteel",
+        "/Game/Dungeons/IndustrialV1/Materials/M_CoolTube"
+      ],
+      "cast_shadow": true,
+      "source_label": "Fixture_EastGallery"
+    }
+  ],
+  "lights": [
+    {
+      "position": [
+        -1500.0,
+        1000.0,
+        291.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_Entry",
+      "role": "path",
+      "intensity": 240.0,
+      "radius": 330.0,
+      "optimized_radius_cm": 330.0,
+      "color": [
+        1.0,
+        0.7605245113372803,
+        0.4793201684951782
+      ],
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3000.0,
+      "fade_range_cm": 500.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 0.550000011920929,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        1500.0,
+        1000.0,
+        291.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_Service",
+      "role": "path",
+      "intensity": 220.0,
+      "radius": 330.0,
+      "optimized_radius_cm": 330.0,
+      "color": [
+        1.0,
+        0.7605245113372803,
+        0.4793201684951782
+      ],
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3000.0,
+      "fade_range_cm": 500.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 0.550000011920929,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        0.0,
+        880.0000000000001,
+        302.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_TeachingFocus",
+      "role": "key",
+      "intensity": 700.0,
+      "radius": 550.0,
+      "optimized_radius_cm": 550.0,
+      "color": [
+        0.7230551242828369,
+        0.838798999786377,
+        0.8796223998069763
+      ],
+      "cast_shadows": true,
+      "max_draw_distance_cm": 3000.0,
+      "fade_range_cm": 500.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 0.550000011920929,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        -40.0,
+        200.0,
+        607.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_Centre",
+      "role": "key",
+      "intensity": 2400.0,
+      "radius": 1400.0,
+      "optimized_radius_cm": 1400.0,
+      "color": [
+        0.4793201684951782,
+        0.6104955673217773,
+        0.6795424818992615
+      ],
+      "cast_shadows": true,
+      "max_draw_distance_cm": 3000.0,
+      "fade_range_cm": 500.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 0.800000011920929,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        -1135.0,
+        459.99999999999994,
+        502.00000000000006
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_WestStair",
+      "role": "path",
+      "intensity": 230.0,
+      "radius": 480.0,
+      "optimized_radius_cm": 480.0,
+      "color": [
+        0.5711248517036438,
+        0.7230551242828369,
+        0.7681511640548706
+      ],
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3000.0,
+      "fade_range_cm": 500.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 0.550000011920929,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        1135.0,
+        459.99999999999994,
+        502.00000000000006
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_EastStair",
+      "role": "path",
+      "intensity": 195.0,
+      "radius": 480.0,
+      "optimized_radius_cm": 480.0,
+      "color": [
+        0.5711248517036438,
+        0.7230551242828369,
+        0.7681511640548706
+      ],
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3000.0,
+      "fade_range_cm": 500.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 0.550000011920929,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        0.0,
+        -1010.0,
+        617.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_BackGallery",
+      "role": "path",
+      "intensity": 270.0,
+      "radius": 620.0,
+      "optimized_radius_cm": 620.0,
+      "color": [
+        0.5394794940948486,
+        0.68668532371521,
+        0.7529422044754028
+      ],
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3000.0,
+      "fade_range_cm": 500.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 0.550000011920929,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        -865.0,
+        -650.0,
+        617.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_WestGallery",
+      "role": "path",
+      "intensity": 150.0,
+      "radius": 440.0,
+      "optimized_radius_cm": 440.0,
+      "color": [
+        0.5906188488006592,
+        0.7230551242828369,
+        0.7230551242828369
+      ],
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3000.0,
+      "fade_range_cm": 500.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 0.550000011920929,
+      "volumetric_scattering_intensity": 1.0
+    },
+    {
+      "position": [
+        865.0,
+        -650.0,
+        617.0
+      ],
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0,
+      "type": "point",
+      "source_label": "Light_EastGallery",
+      "role": "path",
+      "intensity": 130.0,
+      "radius": 440.0,
+      "optimized_radius_cm": 440.0,
+      "color": [
+        0.5906188488006592,
+        0.7230551242828369,
+        0.7230551242828369
+      ],
+      "cast_shadows": false,
+      "max_draw_distance_cm": 3000.0,
+      "fade_range_cm": 500.0,
+      "source_radius": 12.0,
+      "source_length": 0.0,
+      "indirect_lighting_intensity": 0.550000011920929,
+      "volumetric_scattering_intensity": 1.0
+    }
+  ],
+  "runtime_actors": [
+    {
+      "position": [
+        -62.0,
+        882.0,
+        105.2
+      ],
+      "yaw": 12.000000000000004,
+      "pitch": -90.0,
+      "roll": 0.0,
+      "type": "decal",
+      "material": "/Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel",
+      "decal_size": [
+        2.5,
+        28.999999999999996,
+        28.999999999999996
+      ],
+      "sort_order": 12,
+      "fade_screen_size": 0.0010000000474974513,
+      "source_label": "AnatomyTheatre_TableBlood_1"
+    },
+    {
+      "position": [
+        12.0,
+        875.0,
+        105.2
+      ],
+      "yaw": -27.0,
+      "pitch": -90.0,
+      "roll": 0.0,
+      "type": "decal",
+      "material": "/Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel",
+      "decal_size": [
+        2.5,
+        25.0,
+        25.0
+      ],
+      "sort_order": 12,
+      "fade_screen_size": 0.0010000000474974513,
+      "source_label": "AnatomyTheatre_TableBlood_2"
+    },
+    {
+      "position": [
+        82.0,
+        886.9999999999999,
+        105.2
+      ],
+      "yaw": 68.0,
+      "pitch": -90.0,
+      "roll": 0.0,
+      "type": "decal",
+      "material": "/Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel",
+      "decal_size": [
+        2.5,
+        19.0,
+        19.0
+      ],
+      "sort_order": 12,
+      "fade_screen_size": 0.0010000000474974513,
+      "source_label": "AnatomyTheatre_TableBlood_3"
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        710.0,
+        400.0
+      ],
+      "yaw": 0,
+      "extent": [
+        1420.0,
+        510.0,
+        435.0
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.699999988079071,
+      "exposure_bias": -0.15000000596046448,
+      "indirect_intensity": 0.6499999761581421,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.3499999940395355,
+      "bloom": 0.3499999940395355
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        91.49999999999999,
+        400.0
+      ],
+      "yaw": 0,
+      "extent": [
+        1420.0,
+        111.49999999999999,
+        435.0
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.699999988079071,
+      "exposure_bias": -0.15000000596046448,
+      "indirect_intensity": 0.6499999761581421,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.3499999940395355,
+      "bloom": 0.3499999940395355
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        -108.50000000000001,
+        400.0
+      ],
+      "yaw": 0,
+      "extent": [
+        1405.6406460551016,
+        111.50000000000001,
+        435.0
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.699999988079071,
+      "exposure_bias": -0.15000000596046448,
+      "indirect_intensity": 0.6499999761581421,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.3499999940395355,
+      "bloom": 0.3499999940395355
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        -308.5,
+        400.0
+      ],
+      "yaw": 0,
+      "extent": [
+        1361.640786499874,
+        111.5,
+        435.0
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.699999988079071,
+      "exposure_bias": -0.15000000596046448,
+      "indirect_intensity": 0.6499999761581421,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.3499999940395355,
+      "bloom": 0.3499999940395355
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        -508.5,
+        400.0
+      ],
+      "yaw": 0,
+      "extent": [
+        1284.9110640673518,
+        111.5,
+        435.0
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.699999988079071,
+      "exposure_bias": -0.15000000596046448,
+      "indirect_intensity": 0.6499999761581421,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.3499999940395355,
+      "bloom": 0.3499999940395355
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        -708.5,
+        400.0
+      ],
+      "yaw": 0,
+      "extent": [
+        1168.9125293076056,
+        111.49999999999994,
+        435.0
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.699999988079071,
+      "exposure_bias": -0.15000000596046448,
+      "indirect_intensity": 0.6499999761581421,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.3499999940395355,
+      "bloom": 0.3499999940395355
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        -908.5,
+        400.0
+      ],
+      "yaw": 0,
+      "extent": [
+        999.795897113271,
+        111.49999999999994,
+        435.0
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.699999988079071,
+      "exposure_bias": -0.15000000596046448,
+      "indirect_intensity": 0.6499999761581421,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.3499999940395355,
+      "bloom": 0.3499999940395355
+    },
+    {
+      "type": "post_process",
+      "position": [
+        0.0,
+        -1108.5,
+        400.0
+      ],
+      "yaw": 0,
+      "extent": [
+        741.1102550927978,
+        111.49999999999994,
+        435.0
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.699999988079071,
+      "exposure_bias": -0.15000000596046448,
+      "indirect_intensity": 0.6499999761581421,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.3499999940395355,
+      "bloom": 0.3499999940395355
+    },
+    {
+      "type": "post_process",
+      "position": [
+        -1500.0,
+        1000.0,
+        175.0
+      ],
+      "yaw": 0,
+      "extent": [
+        120.0,
+        220.0,
+        210.0
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.699999988079071,
+      "exposure_bias": -0.15000000596046448,
+      "indirect_intensity": 0.6499999761581421,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.3499999940395355,
+      "bloom": 0.3499999940395355
+    },
+    {
+      "type": "post_process",
+      "position": [
+        1500.0,
+        1000.0,
+        175.0
+      ],
+      "yaw": 0,
+      "extent": [
+        120.0,
+        220.0,
+        210.0
+      ],
+      "blend_radius": 40,
+      "priority": 10,
+      "exposure_ev": 0.699999988079071,
+      "exposure_bias": -0.15000000596046448,
+      "indirect_intensity": 0.6499999761581421,
+      "saturation": 1.0,
+      "contrast": 1.0,
+      "vignette": 0.3499999940395355,
+      "bloom": 0.3499999940395355
+    }
+  ],
+  "anchors": [
+    {
+      "position": [
+        -300,
+        540.0,
+        5.0
+      ],
+      "role": "theatre_combat"
+    },
+    {
+      "position": [
+        -300,
+        260.0,
+        5.0
+      ],
+      "role": "theatre_combat"
+    },
+    {
+      "position": [
+        -300,
+        -20.0,
+        5.0
+      ],
+      "role": "theatre_combat"
+    },
+    {
+      "position": [
+        0,
+        540.0,
+        5.0
+      ],
+      "role": "theatre_combat"
+    },
+    {
+      "position": [
+        0,
+        260.0,
+        5.0
+      ],
+      "role": "theatre_combat"
+    },
+    {
+      "position": [
+        0,
+        -20.0,
+        5.0
+      ],
+      "role": "theatre_combat"
+    },
+    {
+      "position": [
+        300,
+        540.0,
+        5.0
+      ],
+      "role": "theatre_combat"
+    },
+    {
+      "position": [
+        300,
+        260.0,
+        5.0
+      ],
+      "role": "theatre_combat"
+    },
+    {
+      "position": [
+        300,
+        -20.0,
+        5.0
+      ],
+      "role": "theatre_combat"
+    }
+  ],
+  "walk_mask": [
+    {
+      "min": [
+        -400,
+        -160.0,
+        -5.0
+      ],
+      "max": [
+        400,
+        640.0,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        -1600,
+        960.0,
+        -5.0
+      ],
+      "max": [
+        1600,
+        1040.0,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        -459.99999999999994,
+        580.0,
+        -5.0
+      ],
+      "max": [
+        -260.0,
+        1019.9999999999999,
+        280.0
+      ]
+    },
+    {
+      "min": [
+        260.0,
+        580.0,
+        -5.0
+      ],
+      "max": [
+        459.99999999999994,
+        1019.9999999999999,
+        280.0
+      ]
+    }
+  ],
+  "walk_polyline": [
+    [
+      -1600,
+      1000,
+      5.0
+    ],
+    [
+      0,
+      1000,
+      5.0
+    ],
+    [
+      1600,
+      1000,
+      5.0
+    ]
+  ],
+  "selection": {
+    "chance_per_run": 0.3,
+    "max_per_run": 1,
+    "route": "Approach"
+  },
+  "spawn": {
+    "source": "DungeonAnatomyTheatre20261001",
+    "theme": "abandoned_anatomy_theatre",
+    "count": [
+      4,
+      6
+    ],
+    "anchor_roles": [
+      "theatre_combat"
+    ],
+    "pool": [
+      {
+        "id": "FatZombie",
+        "class": "/Script/FPSGAME.FatZombie",
+        "weight": 3,
+        "level": 4,
+        "rank": "normal"
+      },
+      {
+        "id": "Mutant3",
+        "class": "/Script/FPSGAME.Mutant3",
+        "weight": 1,
+        "level": 9,
+        "rank": "elite"
+      },
+      {
+        "id": "InfectedDog",
+        "class": "/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C",
+        "weight": 2,
+        "level": 7,
+        "rank": "normal"
+      },
+      {
+        "id": "FleshHandMinion",
+        "class": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
+        "weight": 1,
+        "level": 1,
+        "rank": "minor"
+      },
+      {
+        "id": "FleshHand",
+        "class": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
+        "weight": 2,
+        "level": 12,
+        "rank": "lord"
+      }
+    ],
+    "sealed_encounter": true
+  },
+  "runtime_assets": [
+    "/Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel"
+  ]
+}

@@ -1,0 +1,87 @@
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" FPSGAMEEditor Win64 Development -Project=D:/FPS3D/FPSGAME/FPSGAME.uproject -NoHotReload -NoHotReloadFromIDE -Log=D:/FPS3D/FPSGAME/SourceAssets/ThirdPersonActions20261003/build-editor.log
+Log file: D:\FPS3D\FPSGAME\SourceAssets\ThirdPersonActions20261003\build-editor.log
+Determining max actions to execute in parallel (16 physical cores, 16 logical cores)
+  Executing up to 16 processes, one per physical core
+  Requested 1.5 GB memory per action, 12.06 GB available: limiting max parallel actions to 8
+Using 'git status' to determine working set for adaptive non-unity build (D:\FPS3D\FPSGAME).
+UbaServer - Listening on 0.0.0.0:1345
+Waiting for 'git status' command to complete
+UHT compiled-in object format Default
+Building FPSGAMEEditor...
+===== Toolchain Information =====
+Using ISPC compiler (E:\Program Files (x86)\UE_5.8\Engine\Source\ThirdParty\Intel\ISPC\bin\Windows\ispc.exe)
+  Intel(r) Implicit SPMD Program Compiler (Intel(r) ISPC), 1.24.0 (build commit  @ 20250404, LLVM 18.1.2) 
+Using Visual Studio 14.44.35228 toolchain (C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207) and Windows 10.0.26100.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+[Adaptive Build] Excluded from FPSGAME unity file: AKMIntegrationAudit.cpp, ASH12IntegrationAudit.cpp, BallisticPresentationAudit.cpp, DrumGripAudit.cpp, ForegripAudit.cpp, FPSGAMECharacter.cpp, FPSGAMECharacterActionPriority.cpp, FPSGAMECharacterAmmo.cpp, FPSGAMECharacterCombatFeedback.cpp, FPSGAMECharacterProfile.cpp, FPSGAMECharacterReload.cpp, FPSGAMEEquipAudit.cpp, FPSGAMEGameMode.cpp, FPSGAMEGunplayAudit.cpp, FPSGAMEPlayerController.cpp, FPSGAMEQuickCombatAudit.cpp, FPSGAMERifleSprintAudit.cpp, InfiniteAmmoAudit.cpp, MuzzleMigrationAudit.cpp, QBZ191IntegrationAudit.cpp, ReloadTimingAudit.cpp, SceneTestPortal.cpp, SlideCombatAudit.cpp, WeaponHandlingAudit.cpp, WeatherViewEffectsComponent.cpp, CastingToolRackComponent.cpp, ForgingSystem.cpp, GunAssemblySystem.cpp, VoxelBuildComponent.cpp, VoxelBuildWorld.cpp, VoxelBuildWorldPrefab.cpp, FPSBodyAssetPreloader.cpp, FPSBodyMotionSample.cpp, FPSBodyWeaponMeshComponent.cpp, FPSModularOutfitComponent.cpp, FPSPlayerBodyActions.cpp, FPSPlayerBodyAnimInstance.cpp, FPSPlayerBodyAppearance.cpp, FPSPlayerBodyBow.cpp, FPSPlayerBodyCamera.cpp, FPSPlayerBodyComponent.cpp, FPSPlayerBodyConsumable.cpp, FPSPlayerBodyEquipment.cpp, FPSPlayerBodyGrip.cpp, FPSPlayerBodyMotion.cpp, FPSPlayerBodyNetwork.cpp, FPSPlayerBodyToolGrip.cpp, FPSPlayerHeadAnimInstance.cpp, ColdSteelFormulaBonuses.cpp, CombatStatusFormula.cpp, ColdSteelDevelopmentTools.cpp, DevelopmentSpawnComponent.cpp, DevelopmentTuningSubsystem.cpp, AuthoredDungeonGenerator.cpp, AuthoredDungeonLighting.cpp, CargoWarehouseContainers.cpp, DungeonShrine.cpp, StaffDormitoryLayout.cpp, StaffLivingRoomAssembly.cpp, StationWorkshopAssembly.cpp, WardBedScatter.cpp, WardRoomAssembly.cpp, FPSPotionUseAudio.cpp, FPSPotionUseComponent.cpp, PotionArmPose.cpp, PotionUseMotion.cpp, PotionVisuals.cpp, BlindSupplicantAnimInstance.cpp, BlindSupplicantCombatMagic.cpp, BlindSupplicantDeathPresentation.cpp, BlindSupplicantMonster.cpp, FleshHandCorpsePhysics.cpp, FleshHandMonster.cpp, FPSCombatHealthComponent.cpp, HandBrainMonster.cpp, HundredEyedSlagMonster.cpp, HundredEyedSlagPhysics.cpp, HundredEyedSlagSpecialAttacks.cpp, M07GillContactNode.cpp, M10AnimInstance.cpp, M10BiteLunge.cpp, M10CombatSurface.cpp, M10FootPlantNode.cpp, M10Howl.cpp, M10Mawcrawler.cpp, M10MawcrawlerNavigation.cpp, M10MawcrawlerPhysics.cpp, M10MovementComponent.cpp, M10PoisonGas.cpp, M10RearGas.cpp, M10SurfaceRig.cpp, M10TissueNode.cpp, MonsterBTNodes.cpp, MonsterCombatComponent.cpp, MonsterCoreStats.cpp, MonsterMeleeKnockback.cpp, MonsterParryReaction.cpp, MonsterStunPresentation.cpp, NurseZombie.cpp, PoisonMaggotMonster.cpp, PoisonMaggotVenomFX.cpp, SlagBlackMist.cpp, SlagMistViewComponent.cpp, WolfHunting.cpp, WolfMonster.cpp, FPSCharacterMovementComponent.cpp, FPSDodgeMovement.cpp, FPSDoorPushComponent.cpp, FPSMeleeLungeMovement.cpp, FPSPlayerDodge.cpp, FPSPlayerSlide.cpp, FPSStaminaModel.cpp, FPSTraversalExecution.cpp, PlayerGuardBreakComponent.cpp, ColdSteelNetWorldSubsystem.cpp, ColdSteelPlayerState.cpp, OreVeinPreviewCommandlet.cpp, ProductionHarvestAssets.cpp, ProductionHarvestSubsystem.cpp, ProductionToolComponent.cpp, ProductionToolStats.cpp, ColdSteelAdditionalMasteries.cpp, ColdSteelBlizzardModel.cpp, ColdSteelDashAttackModel.cpp, ColdSteelElectricMagicModel.cpp, ColdSteelFireMagicModel.cpp, ColdSteelHeavyStrikeModel.cpp, ColdSteelIceWallModel.cpp, ColdSteelSkillModel.cpp, ColdSteelSkillRules.cpp, ColdSteelWhirlwindModel.cpp, FPSBlizzardComponent.cpp, FPSBlizzardZone.cpp, FPSElectricMagicComponent.cpp, FPSFireballComponent.cpp, FPSFireballProjectile.cpp, FPSFireMagicComponent.cpp, FPSHolyLightComponent.cpp, FPSHolyLightEffect.cpp, FPSIceSpikeComponent.cpp, FPSIceSpikeVolley.cpp, FPSIceWall.cpp, FPSIceWallComponent.cpp, FPSLightningArc.cpp, FPSLightningComponent.cpp, FPSMeteorStrike.cpp, FPSQuickCombatComponent.cpp, FPSStaffCasting.cpp, FPSSurvivalComponent.cpp, ColdSteelAmmoPouchNavigation.cpp, ColdSteelAmmoPresentation.cpp, ColdSteelAmmoRuntime.cpp, ColdSteelAreaPickup.cpp, ColdSteelBows.cpp, ColdSteelCharacterSheet.cpp, ColdSteelCompartmentRules.cpp, ColdSteelCrosshair.cpp, ColdSteelDropHitchAudit.cpp, ColdSteelDualPistolRuntime.cpp, ColdSteelDungeonRewards.cpp, ColdSteelEnhancementLayout.cpp, ColdSteelEnhancementMaterials.cpp, ColdSteelEnhancementSystem.cpp, ColdSteelEnhancementWidget.cpp, ColdSteelEventTimeline.cpp, ColdSteelExpeditionController.cpp, ColdSteelExpHUD.cpp, ColdSteelFireballHUD.cpp, ColdSteelForgingHUD.cpp, ColdSteelHotbarDrag.cpp, ColdSteelHUDNavigation.cpp, ColdSteelHUDWidget.cpp, ColdSteelIconResources.cpp, ColdSteelInventoryAudit.cpp, ColdSteelInventoryDragAudit.cpp, ColdSteelInventoryGlassAudit.cpp, ColdSteelInventoryPresentation.cpp, ColdSteelInventoryRules.cpp, ColdSteelInventoryTheme.cpp, ColdSteelInventoryVisualAudit.cpp, ColdSteelInventoryWidget.cpp, ColdSteelItemTooltipAudit.cpp, ColdSteelItemTooltipData.cpp, ColdSteelItemTooltipHUD.cpp, ColdSteelItemTooltipSummary.cpp, ColdSteelMaterialIcon.cpp, ColdSteelPanelNavigation.cpp, ColdSteelPickupConsumable.cpp, ColdSteelPickupStudio.cpp, ColdSteelPickupWeapon.cpp, ColdSteelProductionDrops.cpp, ColdSteelProductionTools.cpp, ColdSteelProfileRuntime.cpp, ColdSteelQuickBarModel.cpp, ColdSteelQuickDrag.cpp, ColdSteelQuickSlot.cpp, ColdSteelResourceMeter.cpp, ColdSteelRetiredWeaponsAudit.cpp, ColdSteelSceneContainer.cpp, ColdSteelSkillPage.cpp, ColdSteelSmeltingHUD.cpp, ColdSteelSmeltingVisualAudit.cpp, ColdSteelStaffs.cpp, ColdSteelStaminaHUD.cpp, ColdSteelStatusModel.cpp, ColdSteelTopVitals.cpp, ColdSteelTopVitalsAudit.cpp, ColdSteelTreeGrowth.cpp, ColdSteelUIStyle.cpp, ColdSteelUpgradeAudit.cpp, ColdSteelWarehouseAudit.cpp, ColdSteelWarehouseGlassAudit.cpp, ColdSteelWarehouseHUD.cpp, ColdSteelWarehouseModel.cpp, ColdSteelWeaponIconAudit.cpp, ColdSteelWeaponIcons.cpp, ColdSteelWorkbenchHUD.cpp, ColdSteelWorldInteraction.cpp, ColdSteelWorldInteractionAudit.cpp, DevelopmentItemPicker.cpp, DevelopmentPanelTools.cpp, DevelopmentPanelWidget.cpp, DevelopmentPerformanceDiagnostics.cpp, DevelopmentPerformanceLighting.cpp, DevelopmentPerformancePanel.cpp, DevelopmentTuningPanel.cpp, M4BowGunsmith.cpp, M4GunsmithLayout.cpp, M4GunsmithOverview.cpp, M4GunsmithPreview.cpp, M4GunsmithPreviewResources.cpp, M4GunsmithSelectedDetails.cpp, M4MeleeGunsmith.cpp, M4StaffGunsmith.cpp, M4StandalonePreview.cpp, M4ToolGunsmith.cpp, StatusEffectsComponent.cpp, StatusEffectsHUD.cpp, TransitLoadingSubsystem.cpp, ColdSteelEnchantmentCombat.cpp, DanWesson715AttachmentVisual.cpp, FPSGAMECharacterCrouchPose.cpp, FPSGAMECharacterJumpPose.cpp, FPSGAMECharacterLocomotion.cpp, FPSGAMECharacterPistolLocomotion.cpp, FPSGAMECharacterVisualRecoil.cpp, FPSImpactFXPounce.cpp, FPSRiftBladeComponent.cpp, FPSWeaponFXComponent.cpp, GunsmithSystem.cpp, M1911DevelopmentAudit.cpp, M1911MagazineVisual.cpp, M4GunsmithVisual.cpp, MeleeGunsmith.cpp, MeleeWeaponStats.cpp, PistolDualWieldAim.cpp, PistolDualWieldCombat.cpp, PistolDualWieldComponent.cpp, RifleHipFraming.cpp, RSH12Presentation.cpp, RuneOrbBladeProjectile.cpp, RuneOrbBladesComponent.cpp, RuneSwordClovenGuard.cpp, RuneSwordComponent.cpp, RuneSwordDashAttack.cpp, RuneSwordGuard.cpp, RuneSwordHitQuery.cpp, RuneSwordSprint.cpp, RuneSwordUppercut.cpp, RuneSwordWhirlwind.cpp, RuneSwordWhirlwindFocus.cpp, ScopeOpticalPresentation.cpp, SkeletonStockAudit.cpp, SVDFirstReloadCapture.cpp, SVDGripProfiles.cpp, TacticalDeviceComponent.cpp, ToolGunsmith.cpp, WeaponBipodDeploymentComponent.cpp, WeaponGripProfile.cpp, WeaponReloadStages.cpp, WeaponStatEvaluation.cpp, WeaponVolumeAudit.cpp, BowAssembly.cpp, BowGunsmith.cpp, BowPartComponent.cpp, BowSightCapture.cpp, BowStats.cpp, BowWeaponComponent.cpp, StaffGunsmith.cpp, StaffIllumination.cpp, StaffQuickCombat.cpp, StaffWeaponComponent.cpp, FPSUnarmedIdleComponent.cpp, FPSUnarmedPunchPose.cpp, TemperateHillsDayNightSky.cpp, TemperateHillsGrass.cpp, TemperateHillsGroundDebris.cpp, TemperateHillsPebbleShore.cpp, TemperateHillsProduction.cpp, TemperateHillsRiverEcology.cpp, TemperateHillsStreaming.cpp, TemperateHillsWorld.cpp
+=================================
+Using Unreal Build Accelerator local executor to run 34 action(s)
+  CPU 16 physical cores, 16 logical cores
+  Memory 31.75 GB physical, 38.18 GB/63.49 GB committed
+  UBA Storage capacity 40 GB
+[1/34] Compile [x64] ColdSteelPlayerState.cpp
+D:\FPS3D\FPSGAME\Source\FPSGAME\Multiplayer\ColdSteelPlayerState.cpp(85,5): warning C4996: 'AActor::NetUpdateFrequency': Public access to NetUpdateFrequency has been deprecated. Use SetNetUpdateFrequency() and GetNetUpdateFrequency() instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+    NetUpdateFrequency = 10.f;
+    ^
+[2/34] Compile [x64] DevelopmentTuningPanel.cpp
+[3/34] Compile [x64] ColdSteelWorldInteraction.cpp
+[4/34] Compile [x64] ColdSteelIconResources.cpp
+[5/34] Compile [x64] ColdSteelWeaponIcons.cpp
+[6/34] Compile [x64] FPSBodyMotionSample.cpp
+[7/34] Compile [x64] FPSBodyAssetPreloader.cpp
+[8/34] Compile [x64] FPSDoorPushComponent.cpp
+[9/34] Compile [x64] FPSPlayerBodyActions.cpp
+[10/34] Compile [x64] FPSModularOutfitComponent.cpp
+[11/34] Compile [x64] FPSPlayerBodyBow.cpp
+[12/34] Compile [x64] FPSPlayerBodyAnimInstance.cpp
+[13/34] Compile [x64] FPSGAMECharacter.cpp
+[14/34] Compile [x64] FPSPlayerBodyCamera.cpp
+[15/34] Compile [x64] FPSPlayerBodyMotion.cpp
+D:\FPS3D\FPSGAME\Source\FPSGAME\Characters\FPSPlayerBodyMotion.cpp(95,30): error C2275: “UFPSGunplayAnimInstance”: 应为表达式而不是类型
+        const auto* Gun=Cast<UFPSGunplayAnimInstance>(Source->GetAnimInstance());
+                             ^
+D:\FPS3D\FPSGAME\Source\FPSGAME\Characters\FPSPlayerBodyMotion.cpp(96,31): error C3536: “Gun”: 初始化之前无法使用
+        const bool Mechanical=Gun&&Gun->ActionClip&&Gun->ActionAlpha>0.f;
+                              ^
+D:\FPS3D\FPSGAME\Source\FPSGAME\Characters\FPSPlayerBodyMotion.cpp(96,20): error C2737: “Mechanical”: 必须初始化 const 对象
+        const bool Mechanical=Gun&&Gun->ActionClip&&Gun->ActionAlpha>0.f;
+                   ^
+[16/34] Compile [x64] FPSPlayerBodyConsumable.cpp
+[17/34] Compile [x64] FPSPlayerBodyComponent.cpp
+[18/34] Compile [x64] FPSPlayerBodyNetwork.cpp
+[19/34] Compile [x64] FPSPlayerBodyEquipment.cpp
+[20/34] Compile [x64] FPSPlayerBodyToolGrip.cpp
+[21/34] Compile [x64] FPSPlayerBodyAppearance.cpp
+[22/34] Compile [x64] M4GunsmithVisual.cpp
+[23/34] Compile [x64] FPSPotionUseComponent.cpp
+[24/34] Compile [x64] Module.FPSGAME.14.cpp
+D:\FPS3D\FPSGAME\Source\FPSGAME\UI\ColdSteelForgeBoard.cpp(49,212): warning C4305: “参数”: 从“double”到“float”截断
+            FSlateDrawElement::MakeBox(Out,Layer+2,G.ToPaintGeometry(Extent+FVector2D(6/Scale,6/Scale),FSlateLayoutTransform(Origin-FVector2D(3/Scale,1/Scale))),&Mold,ESlateDrawEffect::None,FLinearColor(.04,.04,.04,1)*Tint);
+                                                                                                                                                                                                                   ^
+D:\FPS3D\FPSGAME\Source\FPSGAME\UI\ColdSteelForgeBoard.cpp(49,208): warning C4305: “参数”: 从“double”到“float”截断
+            FSlateDrawElement::MakeBox(Out,Layer+2,G.ToPaintGeometry(Extent+FVector2D(6/Scale,6/Scale),FSlateLayoutTransform(Origin-FVector2D(3/Scale,1/Scale))),&Mold,ESlateDrawEffect::None,FLinearColor(.04,.04,.04,1)*Tint);
+                                                                                                                                                                                                               ^
+D:\FPS3D\FPSGAME\Source\FPSGAME\UI\ColdSteelForgeBoard.cpp(49,204): warning C4305: “参数”: 从“double”到“float”截断
+            FSlateDrawElement::MakeBox(Out,Layer+2,G.ToPaintGeometry(Extent+FVector2D(6/Scale,6/Scale),FSlateLayoutTransform(Origin-FVector2D(3/Scale,1/Scale))),&Mold,ESlateDrawEffect::None,FLinearColor(.04,.04,.04,1)*Tint);
+                                                                                                                                                                                                           ^
+[25/34] Compile [x64] Module.FPSGAME.2.cpp
+[26/34] Compile [x64] Module.FPSGAME.19.cpp
+D:\FPS3D\FPSGAME\Source\FPSGAME\Weapons\Bow\BowFlexMeshComponent.cpp(6,5): warning C4996: 'USkinnedMeshComponent::SetSkeletalMesh': Use USkeletalMeshComponent::SetSkeletalMesh() or SetSkinnedAssetAndUpdate() instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+    SetSkeletalMesh(Mesh);SetComponentTickEnabled(false);SetBoundsScale(1.8f);
+    ^
+[27/34] Compile [x64] StaffIllumination.cpp
+[28/34] Compile [x64] WeaponBipodDeploymentComponent.cpp
+[29/34] Compile [x64] Module.FPSGAME.5.cpp
+D:\FPS3D\FPSGAME\Source\FPSGAME\Building\VoxelCollapseFragment.cpp(19,28): warning C4305: “参数”: 从“double”到“float”截断
+    Body->SetLinearDamping(.08);Body->SetAngularDamping(.3);
+                           ^
+D:\FPS3D\FPSGAME\Source\FPSGAME\Building\VoxelCollapseFragment.cpp(19,57): warning C4305: “参数”: 从“double”到“float”截断
+    Body->SetLinearDamping(.08);Body->SetAngularDamping(.3);
+                                                        ^
+[30/34] Compile [x64] Module.FPSGAME.21.cpp
+[31/34] Compile [x64] FPSUnarmedIdleComponent.cpp
+Total time in Unreal Build Accelerator local executor: 80.47 seconds
+
+Result: Failed (OtherCompilationError)
+Total execution time: 86.00 seconds
+Trace written to file C:\Users\allan\AppData\Local\UnrealBuildTool\Trace.uba with size 21.5kb

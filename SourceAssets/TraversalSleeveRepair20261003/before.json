@@ -1,0 +1,30 @@
+{
+  "paths": {
+    "native": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Traversal/SK_Traversal_BareArmsV7.SK_Traversal_BareArmsV7",
+    "skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Traversal/SK_Traversal_ac119caae4_WristCoverage.SK_Traversal_ac119caae4_WristCoverage",
+    "ue_chainmail_shirt": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/Traversal/SK_Traversal_ChainmailShirt.SK_Traversal_ChainmailShirt"
+  },
+  "profile": {
+    "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Traversal/SK_Traversal_BareArmsV7.SK_Traversal_BareArmsV7",
+    "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/Traversal/SK_Traversal_FittedSleevesV1.SK_Traversal_FittedSleevesV1",
+    "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/Traversal/SK_Traversal_FittedFieldGlovesV1.SK_Traversal_FittedFieldGlovesV1",
+    "hide_source_materials": [
+      0,
+      1,
+      2
+    ],
+    "shirt_covers": [
+      0,
+      1
+    ],
+    "glove_covers": [
+      2
+    ],
+    "rig_profile": "Traversal",
+    "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Traversal/SK_Traversal_ac119caae4_WristCoverage.SK_Traversal_ac119caae4_WristCoverage",
+    "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Traversal/SK_Traversal_BareArmsV7.SK_Traversal_BareArmsV7",
+    "native_bare_arms": true,
+    "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_Traversal_OriginalGlovedArms.SK_Traversal_OriginalGlovedArms",
+    "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_Traversal_GlovedSource.SK_Traversal_GlovedSource"
+  }
+}

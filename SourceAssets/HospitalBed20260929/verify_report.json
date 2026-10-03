@@ -1,0 +1,42 @@
+{
+  "materials": {
+    "M_HospitalBed_Pillow": {
+      "expressions": 3,
+      "BaseColor": "MaterialExpressionConstant3Vector",
+      "Metallic": "MaterialExpressionConstant",
+      "Roughness": "MaterialExpressionConstant",
+      "Normal": null,
+      "AO": null,
+      "texture_samples": 0,
+      "sampler_types": []
+    },
+    "M_HospitalBed_Linen": {
+      "expressions": 9,
+      "BaseColor": "MaterialExpressionMultiply",
+      "Metallic": "MaterialExpressionMultiply",
+      "Roughness": "MaterialExpressionMultiply",
+      "Normal": "MaterialExpressionTextureSample",
+      "AO": "MaterialExpressionTextureSample",
+      "texture_samples": 3,
+      "sampler_types": [
+        "<MaterialSamplerType.SAMPLERTYPE_COLOR: 0>",
+        "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>",
+        "<MaterialSamplerType.SAMPLERTYPE_NORMAL: 3>"
+      ]
+    },
+    "M_HospitalBed_Frame": {
+      "expressions": 6,
+      "BaseColor": "MaterialExpressionTextureSample",
+      "Metallic": "MaterialExpressionMultiply",
+      "Roughness": "MaterialExpressionMultiply",
+      "Normal": null,
+      "AO": null,
+      "texture_samples": 2,
+      "sampler_types": [
+        "<MaterialSamplerType.SAMPLERTYPE_COLOR: 0>",
+        "<MaterialSamplerType.SAMPLERTYPE_MASKS: 4>"
+      ]
+    }
+  },
+  "render": "D:/FPS3D/FPSGAME/SourceAssets/HospitalBed20260929/verify/bed_verify"
+}

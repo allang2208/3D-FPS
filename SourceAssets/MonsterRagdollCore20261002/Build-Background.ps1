@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'Stop'
 $taskProjectRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
 $taskRecordPath = Join-Path $PSScriptRoot 'build.json'
 $taskConsolePath = Join-Path $PSScriptRoot ('build-console-' + (Get-Date -Format 'yyyyMMdd-HHmmss') + '.log')

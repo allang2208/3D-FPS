@@ -1,6 +1,7 @@
 #include "FPSGAMEGameMode.h"
 #include "FPSGAMECharacter.h"
 #include "FPSGAMEPlayerController.h"
+#include "Multiplayer/ColdSteelPlayerState.h"
 #include "FPSWeatherManager.h"
 #include "EngineUtils.h"
 #include "Misc/CommandLine.h"
@@ -18,6 +19,10 @@ AFPSGAMEGameMode::AFPSGAMEGameMode()
 {
     DefaultPawnClass = AFPSGAMECharacter::StaticClass();
     PlayerControllerClass = AFPSGAMEPlayerController::StaticClass();
+    // 联机玩家数据归属：所有继承本基类的 GameMode（含地图级 TemperateHills、联机 NetGameMode）
+    // 统一产出 AColdSteelPlayerState——公开快照全员复制、私有档案仅拥有者、服务端影子档案。
+    // 单机场景下它自然空转（NetMode==Standalone 时各 Tick 分支直接返回）。
+    PlayerStateClass = AColdSteelPlayerState::StaticClass();
 }
 
 void AFPSGAMEGameMode::RestartPlayer(AController* NewPlayer)

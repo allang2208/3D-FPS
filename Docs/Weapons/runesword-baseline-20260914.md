@@ -1,6 +1,6 @@
 # 双手符文剑当前基线
 
-更新：2026-09-15。物品 ID `ue_rune_sword`，游戏资源目录 `/Game/Weapons/AzureRunesword20260913`。用户否定 V35 后暂停检视制作；当前文件不再将任何检视迭代当作已接受成品。
+更新：2026-09-16。物品 ID `ue_rune_sword`，游戏资源目录 `/Game/Weapons/AzureRunesword20260913`。当前已接入 V47：在 V46（两臂旋前从肘关节骨分散到 `lowerarm_twist_01/02_*`，工作区间肘扭转 0.0°）之上重建转刀——接触点固定在实测手/剑接触顶点、漂移 0.000000 m；时钟取参考视频逐帧量出的柄尾画面角，画面角最大偏差 0.01°；剑尖最近进深 +0.114 m，不再穿相机；转刀窗口之外与 V46 逐位相同。V47 未测试，由用户测试。
 
 ## 用户接受状态
 
@@ -11,9 +11,17 @@
 | 格挡姿态 | V21 左拳抵剑与左臂修正获“成功”反馈；V18/V19/V20 不是最终关节母版 |
 | 蓄力左臂 | V22 获“OK了”反馈；含 HeavyCharge、HeavyRelease、Slash1 起势衔接 |
 | 装备姿态 | 按用户要求保留 V23 原始背后拔剑，1.20 秒 |
-| F 键检视 | **暂停、未接受**。V25 手部、V26/V27 方向、V31 手势曾局部获认可，整体换握、穿模与自然度仍失败。最后尝试 V35 已被否定 |
+| F 键检视 | **V47 已接入，2.90 秒，未测试**。V46 的手臂扭转修正在内；转刀按参考相位重建并固定接触点，窗口外与旧版逐位相同 |
+| 冲刺举顶竖劈 | **V49 新增 `A_RuneSword_Overhead`，1.30 秒，未测试**。Shift 奔跑中攻击触发；由已接受重击抬举+下劈重定时而成，命中窗 0.44–0.54 s 对齐可见劈砍；详见 [竖劈文档](runesword-overhead-20260916.md) |
+| 已停做的原创转剑 | V48 `A_RuneSword_Twirl` 与 L 键已按用户要求删除，归档在 `trash/sword-twirl-v48-retired-20260916/` |
+| 上一版 F 键检视 | V46（只改前臂旋前分布）；再上一版 V42（移除中途左手入画）；V36 仍为动作母版 |
 
-本轮冻结现有 Inspect 游戏资产（V35、约 3.60 秒），不重新导入、不切换旧版本、不删除 F 键功能。现有资产留在本机运行目录并在 trash 保存快照，不代表用户认可；其他武器的并行资产不在本轮修改范围。
+当前 Inspect 为 [InspectGripArcV46](../../SourceAssets/RuneSword20260913/InspectGripArcV46/README.md) 里的 V47，构建在 V46 之上：
+
+- **V46 前臂扭转分布**：保持动作、双手握点、剑的轨迹与 2.90 秒时长不变，把两条前臂的旋前按实测主导蒙皮位置（0.000 / 0.274 / 0.863 / 1.000）分散到 `lowerarm_twist_02_*`、`lowerarm_twist_01_*` 与 `hand_*`，肘关节骨只保留摆动。改前 `upperarm_*` 与四根上/前臂扭转辅助骨全程锁死、`lowerarm_r/l` 独自承担 177.4°/99.3° 扭转；改后工作区间为 0.0°。骨位置偏差 ≤ 0.000000 mm、双手世界朝向偏差 ≤ 0.00000000°。
+- **V47 转刀重建**：实测原转刀有三处客观缺陷——剑在手中漂移（最稳一点仍有 13.3 cm 均方根）、相对旋转在 100° 附近停 33 ms 后单帧跳出 70°、剑尖在 0.56 s 落到相机后方 0.41 m。V47 把接触点固定在实测手/剑接触顶点，用参考视频十帧真实画面量出的柄尾画面角做时钟，并把柄尾压回画面平面以避免 1.09 m 剑身穿相机。参考武器更短，它在 76.200 s 朝镜头翻的那一下无法用本机长剑复现。
+
+V42 二进制备份在 `InspectGripArcV46/Before`，替换 V46 前的文件在 `BeforeV47`；V36 原文件及恢复入口仍保留。上一版为 [OffscreenLeftInspectV42](../../SourceAssets/RuneSword20260913/OffscreenLeftInspectV42/README.md)。
 
 ## 既有动作参数
 
@@ -26,7 +34,7 @@
 - 范围倍率 2：物品基础 180 cm 时普通上限 360 cm，突刺 `(180+32)×2=424 cm`。仍受遮挡、通道和扫掠条件约束，跨步不乘该倍率。
 - 格挡：抬剑 0.20 s，反向收剑约 0.18 s，受击约 0.221 s，破防 0.40 s；沿用 V21。
 - 装备：V23，1.20 s，右肩后取剑，抽出后左手接稳；运行按动画实际时长结束。
-- 检视原生逻辑是独立实际时间，不乘攻速，不开启攻击结算；本次暂停保持代码原样。
+- 检视原生逻辑是独立实际时间，不乘攻速，不开启攻击结算；V42 与 V46 都只替换检视动作资产。
 
 参数来源为本机 `RuneSwordRhythm.h`、`RuneSwordHeavyRhythm.h`、`RuneSwordThrustRhythm.h`、`RuneSwordCombatTuning.h`、`RuneSwordGuardTuning.h`。共享运行文件有并行修改，不属于本轮资料提交。
 
@@ -36,6 +44,6 @@
 - [V21](../../SourceAssets/RuneSword20260913/FistBraceGuardV21/README.md) 读取 V20；[V22](../../SourceAssets/RuneSword20260913/ChargedArmV22/README.md) 读取 V21，并依赖 V8 的时间映射；[V23](../../SourceAssets/RuneSword20260913/BackDrawEquipV23/README.md) 读取 V22 和既有待机端点。保留其重建依赖，勿逐版重跑导入器覆盖资产。
 - V34 完整 Blend 正被 `MeshyMelee20260915` 的读取/制作脚本使用，故保留原位；其检视轨道未被接受。
 - V24–V35 的检视废案按 [暂停与归档说明](sword-inspect-paused-20260915.md) 分类处理；两个视频参考及 CSGO 研究独立保留。旧 README、原详细迭代记录在归档 DocumentsBefore 内。
-- 下一次只有用户恢复制作时再读新反馈和 [Source/CSGO 手部研究](../../skills/ue5-fps-arms-animation/references/source-hand-animation-study.md)，不能自动重新套用 V35。
+- [V41](../../SourceAssets/RuneSword20260913/AnchoredArmFlowV41/README.md) 读取 V40，修正完整上臂段与开放肩口的相机关系。V40/V39 读取 [ReferenceReplicaV36](../../SourceAssets/RuneSword20260913/ReferenceReplicaV36/README.md) 的完整轨道；V36 模型和待机来自 V23。原版和恢复依赖均保留。
 
-本轮只进行用户授权的仓库整理、Skill 沉淀与发布检查；未重新测试、渲染或运行游戏。过去 V21/V22 的专项检查和用户反馈保留在其 README，不算本轮新验证。
+V42 那轮完成了画外左臂的制作、导出与导入。2026-09-16 的 V46 完成前臂旋前重分配，V47 完成转刀重建，两者都只做了导出、导入与作者侧对照图（`InspectGripArcV46/Review/`、`ReviewV47/`），没有播放、PIE 或玩法回归，由用户测试。V41 的专项审计及其已知边界保留在 V41 文档，不代表后续版本已经测试通过。

@@ -1,0 +1,425 @@
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -Mode=ValidatePlatforms -OutputSDKs  -AllPlatforms  -project="D:/FPS3D/FPSGAME/FPSGAME.uproject" -log="D:/FPS3D/FPSGAME/Saved/Logs/AutoSDKInfo.txt" -verbose -timestamps
+Log file: D:\FPS3D\FPSGAME\Saved\Logs\AutoSDKInfo.txt
+[2026.10.02-16.11.25:011][  0]LogInit: Display: Running engine for game: FPSGAME
+[2026.10.02-16.11.25:011][  0]LogCore: Display: Requested channels: 'cpu,gpu,frame,log,bookmark,screenshot,region'
+[2026.10.02-16.11.25:011][  0]LogTrace: Display: Control listening on port 1985
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : platform="Windows"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : config="Development"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.8-CL-58210709"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : engineversion="5.8.3-58210709+++UE5+Release-5.8"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : enginereleaseversion="5.8.3"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : os="Windows 11 (25H2) [10.0.26200.9168] "
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : cpu="GenuineIntel|13th Gen Intel(R) Core(TM) i7-13700K"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : asan="0"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : mergedmodules="0"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : compacttset="0"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : commandline="" D:\FPS3D\FPSGAME\FPSGAME.uproject -run=pythonscript -script=D:\FPS3D\FPSGAME\SourceAssets\WarehouseContainers20261002\Scripts\import_assets.py -unattended -nop4 -nosplash -nosound -AllowCommandletRendering -d3d12 -abslog=D:\FPS3D\FPSGAME\SourceAssets\WarehouseContainers20261002\Receipts\import_assets.py.log""
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : loginid="bc5c91f347bcf631eec19fa685df33d2"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : llm="0"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : zenstreaming="0"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resx="1280"
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resy="720"
+[2026.10.02-16.11.25:011][  0]LogAudio: Display: Audio Device Manager not initializing due to all audio being disabled. If this is not intentional, please check command line arguments for "-nosound".
+[2026.10.02-16.11.25:011][  0]LogConfig: Display: Loading VulkanPC ini files took 0.03 seconds
+[2026.10.02-16.11.25:011][  0]LogConfig: Display: Loading Android ini files took 0.03 seconds
+[2026.10.02-16.11.25:011][  0]LogConfig: Display: Loading IOS ini files took 0.03 seconds
+[2026.10.02-16.11.25:011][  0]LogConfig: Display: Loading Mac ini files took 0.04 seconds
+[2026.10.02-16.11.25:011][  0]LogConfig: Display: Loading VisionOS ini files took 0.04 seconds
+[2026.10.02-16.11.25:011][  0]LogConfig: Display: Loading Unix ini files took 0.04 seconds
+[2026.10.02-16.11.25:011][  0]LogConfig: Display: Loading Windows ini files took 0.04 seconds
+[2026.10.02-16.11.25:011][  0]LogConfig: Display: Loading TVOS ini files took 0.04 seconds
+[2026.10.02-16.11.25:011][  0]LogConfig: Display: Loading Linux ini files took 0.04 seconds
+[2026.10.02-16.11.25:011][  0]RenderDocPlugin: Display: RenderDoc plugin will not be loaded. Use '-AttachRenderDoc' on the cmd line or enable 'renderdoc.AutoAttach' in the plugin settings.
+[2026.10.02-16.11.25:011][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.02-16.11.25:011][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.02-16.11.25:011][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.02-16.11.25:011][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.02-16.11.25:011][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.02-16.11.25:011][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.02-16.11.25:011][  0]LogAsyncCompilation: Display: MemorySharingInfo: UsedMemory=323MiB, MaxMemoryAvailable=67578MiB
+[2026.10.02-16.11.25:011][  0]LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+[2026.10.02-16.11.25:011][  0]LogHAL: Display: Platform has ~ 32 GB [34088374272 / 34359738368 / 32], which maps to Largest [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2026.10.02-16.11.25:011][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2026.10.02-16.11.25:011][  0]LogObj: Display: Attempting to load config data for Default__DownlinkBandwidthManagerConfig before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+##PlatformValidate: Win64 VALID 10.0.22621.0
+##PlatformValidate: Mac INVALID 26.1.1
+##PlatformValidate: IOS INVALID 26.1.1
+##PlatformValidate: Android INVALID r27c
+##PlatformValidate: Linux INVALID v26_clang-20.1.8-rockylinux8
+##PlatformValidate: LinuxArm64 INVALID <UNKNOWN>
+##PlatformValidate: TVOS INVALID 26.1.1
+##PlatformValidate: VisionOS INVALID <UNKNOWN>
+Unable to find required SDK version 'MainVersion' for platform LinuxArm64. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform VisionOS. Check your SDK.json files
+Trace written to file C:\Users\allan\AppData\Local\UnrealBuildTool\Trace.uba with size 317b
+[2026.10.02-16.11.25:257][  0]LogObj: Display: Attempting to load config data for Default__SlateThemeManager before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.10.02-16.11.25:975][  0]LogD3D12RHI: Display: Creating D3D12 RHI with Max Feature Level SM6
+[2026.10.02-16.11.25:982][  0]LogRHI: Display: Timeout Detection and Recovery (TDR) summary: 
+
+	- TDR using non-default settings - Level: Recover, Delay: 120, DdiDelay: 120
+[2026.10.02-16.11.26:166][  0]LogD3D12RHI: Display: Not using pipeline state disk cache per r.D3D12.PSO.DiskCache=0
+[2026.10.02-16.11.26:166][  0]LogD3D12RHI: Display: Not using driver-optimized pipeline state disk cache per r.D3D12.PSO.DriverOptimizedDiskCache=0
+[2026.10.02-16.11.26:245][  0]LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.02-16.11.26:245][  0]LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.02-16.11.26:245][  0]LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.02-16.11.26:253][  0]LogCsvProfiler: Display: Metadata set : verbatimrhiname="D3D12"
+[2026.10.02-16.11.26:253][  0]LogCsvProfiler: Display: Metadata set : rhiname="D3D12"
+[2026.10.02-16.11.26:253][  0]LogCsvProfiler: Display: Metadata set : rhifeaturelevel="SM6"
+[2026.10.02-16.11.26:253][  0]LogCsvProfiler: Display: Metadata set : shaderplatform="PCD3D_SM6"
+[2026.10.02-16.11.26:253][  0]LogCsvProfiler: Display: Metadata set : gpu="NVIDIA GeForce GTX 750 Ti"
+[2026.10.02-16.11.26:253][  0]LogCsvProfiler: Display: Metadata set : gpudriver=""
+[2026.10.02-16.11.26:258][  0]LogTextureFormatASTC: Display: ASTCEnc version 5.0.1 library loaded
+[2026.10.02-16.11.26:258][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatASTC
+[2026.10.02-16.11.26:258][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatDXT
+[2026.10.02-16.11.26:258][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatETC2
+[2026.10.02-16.11.26:258][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatIntelISPCTexComp
+[2026.10.02-16.11.26:258][  0]LogTextureFormatOodle: Display: Oodle Texture TFO init; latest sdk version = 2.9.16
+[2026.10.02-16.11.26:258][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.16.dll
+[2026.10.02-16.11.26:259][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatOodle
+[2026.10.02-16.11.26:259][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatUncompressed
+[2026.10.02-16.11.26:287][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Android'
+[2026.10.02-16.11.26:305][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'IOS'
+[2026.10.02-16.11.26:324][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Linux'
+[2026.10.02-16.11.26:343][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Mac'
+[2026.10.02-16.11.26:344][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'TVOS'
+[2026.10.02-16.11.26:365][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Windows'
+[2026.10.02-16.11.26:365][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsEditor'
+[2026.10.02-16.11.26:365][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsServer'
+[2026.10.02-16.11.26:365][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsClient'
+[2026.10.02-16.11.26:365][  0]LogTargetPlatformManager: Display: Building Assets For WindowsEditor
+[2026.10.02-16.11.26:368][  0]LogAudioDebug: Display: Lib vorbis DLL was dynamically loaded.
+[2026.10.02-16.11.26:608][  0]LogDerivedDataCache: Display: ../../../Engine/DerivedDataCache/Compressed.ddp: Opened pak cache for reading. (1670 MiB)
+[2026.10.02-16.11.26:609][  0]LogZenServiceInstance: Display: Launching zen utility 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/zen.exe service status'.
+[2026.10.02-16.11.28:628][  0]LogZenServiceInstance: Display: Zen utility process has been running for 2.0 seconds without completing, still waiting...
+[2026.10.02-16.11.29:629][  0]LogZenServiceInstance: Display: Writing plugin version info to 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugin_versions.json'
+[2026.10.02-16.11.29:629][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/5.8/Saved/Zen/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.02-16.11.29:630][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.02-16.11.29:630][  0]LogZenServiceInstance: Display: Installed service at 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe' is up to date
+[2026.10.02-16.11.29:630][  0]LogZenServiceInstance: Display: Launching executable 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe', working dir 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install', data dir 'D:/FPS3D/DerivedDataCache/Zen', args '--port 8558 --data-dir D:\FPS3D\DerivedDataCache\Zen --http asio --gc-cache-duration-seconds 1209600 --gc-interval-seconds 21600 --gc-low-diskspace-threshold 2147483648 --cache-bucket-limit-overwrites --quiet --restrict-content-types --allow-external-oidctoken-exe=false --plugins-config "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugins_v1.json" --security-config-path "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/security-config.json" --owner-pid 129588  --child-id Zen_129588_Startup'
+[2026.10.02-16.11.32:086][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.10.02-16.11.32:087][  0]LogDerivedDataCache: Display: ZenLocal: Using ZenServer HTTP service at [::1] with namespace ue.ddc. Status: OK!.
+[2026.10.02-16.11.32:091][  0]LogDerivedDataCache: Display: D:/FPS3D/FPSGAME/../DerivedDataCache: Performance: Latency=0.01ms. RandomReadSpeed=1523.83MBs, RandomWriteSpeed=337.47MBs. Assigned SpeedClass 'Local'
+[2026.10.02-16.11.32:093][  0]LogUbaHorde: Display: UBA/Horde Configuration [Uba.Provider.Horde]: Not Enabled
+[2026.10.02-16.11.32:093][  0]LogShaderCompilers: Display: No distributed shader compiler controller found
+[2026.10.02-16.11.32:093][  0]LogShaderCompilers: Display: Using 13 local workers for shader compilation
+[2026.10.02-16.11.32:100][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush
+[2026.10.02-16.11.32:100][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.02-16.11.33:697][  0]LogEditorDomain: Display: EditorDomain is Disabled
+[2026.10.02-16.11.33:922][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64Editor not found.
+[2026.10.02-16.11.33:922][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64 not found.
+[2026.10.02-16.11.33:957][  0]LogCsvProfiler: Display: Metadata set : deviceprofile="WindowsEditor"
+[2026.10.02-16.11.33:959][  0]LogStreaming: Display: FlushAsyncLoading(1): 1 QueuedPackages, 0 AsyncPackages
+[2026.10.02-16.11.33:960][  0]LogTextureEncodingSettings: Display: Texture Encode Speed: Final (cook).
+[2026.10.02-16.11.33:960][  0]LogTextureEncodingSettings: Display: Oodle Texture Encode Speed settings: Fast: RDO Off Lambda=0, Effort=Normal Final: RDO Off Lambda=0, Effort=Normal
+[2026.10.02-16.11.33:960][  0]LogTextureEncodingSettings: Display: Shared linear texture encoding: Disabled
+[2026.10.02-16.11.34:254][  0]LogMeshReduction: Display: Using QuadricMeshReduction for automatic static mesh reduction
+[2026.10.02-16.11.34:254][  0]LogMeshReduction: Display: Using SkeletalMeshReduction for automatic skeletal mesh reduction
+[2026.10.02-16.11.34:254][  0]LogMeshReduction: Display: Using ProxyLODMeshReduction for automatic mesh merging
+[2026.10.02-16.11.34:254][  0]LogMeshReduction: Display: No distributed automatic mesh merging module available
+[2026.10.02-16.11.34:457][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush
+[2026.10.02-16.11.34:457][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.02-16.11.34:457][  0]LogVirtualization: Display: VirtualizationSystem name found in ini file: None
+[2026.10.02-16.11.34:457][  0]LogVirtualization: Display: FNullVirtualizationSystem mounted, virtualization will be disabled
+[2026.10.02-16.11.34:578][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize started...
+[2026.10.02-16.11.34:580][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize took 1.534 ms
+[2026.10.02-16.11.34:987][  0]LogMetaSound: Display: MetaSound Page Target Initialized to 'Default'
+[2026.10.02-16.11.34:989][  0]LogAudio: Display: Registering Engine Module Parameter Interfaces...
+[2026.10.02-16.11.35:424][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.13.dll
+[2026.10.02-16.11.35:503][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.6.dll
+[2026.10.02-16.11.35:673][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.5.dll
+[2026.10.02-16.11.35:675][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.14.dll
+[2026.10.02-16.11.35:765][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.12.dll
+[2026.10.02-16.11.36:212][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.8.dll
+[2026.10.02-16.11.37:725][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_WitchRebuilt）……
+[2026.10.02-16.11.37:939][  0]LogTemp: Display: LoadHitchProbe ready: 'fpssyncload [thresholdMs]' enables it (743 modules mapped); evidence in Saved/Profiling/LoadHitch/
+[2026.10.02-16.11.38:802][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.02-16.11.38:802][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.02-16.11.38:890][  0]LogFabLauncher: Display: FabLauncher (version 0.6.0) active
+[2026.10.02-16.11.38:990][  0]LogToolsetRegistry: Display: Registering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.02-16.11.39:173][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.11.dll
+[2026.10.02-16.11.39:187][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.15.dll
+[2026.10.02-16.11.39:313][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PreLoad): 1 .ref files found, 1 referenced binaries
+[2026.10.02-16.11.39:313][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.02-16.11.39:313][  0]LogAssetRegistry: Display: FindShardedCacheFiles: 1 via .ref, 0 via migration fallback, 1 total
+[2026.10.02-16.11.39:313][  0]LogAssetRegistry: Display: LoadCacheFiles: loading 1 cache files, memory-mapping=enabled
+[2026.10.02-16.11.39:475][  0]LogAssetRegistry: Display: Asset registry cache read as 180.2 MiB from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry/CachedAssetRegistry_0_A51431B548BEE9A9A9C15CA1E7C4F2F7.bin (memory-mapped=yes)
+[2026.10.02-16.11.39:480][  0]LogAssetRegistry: Display: AssetDataGatherer spent 0.167s loading caches from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry.
+[2026.10.02-16.11.39:730][  0]LogGameFeatures: Display: Total built in plugin load time 0.0007s
+[2026.10.02-16.11.39:740][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2026.10.02-16.11.39:788][  0]LogPython: Display: No pip-enabled plugins with python dependencies found, skipping
+[2026.10.02-16.11.39:962][  0]LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.11.39:962][  0]LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.11.39:963][  0]LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.11.39:964][  0]LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.11.39:964][  0]LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.11.40:084][  0]LogCsvProfiler: Display: Metadata set : raytracing="1"
+[2026.10.02-16.11.40:168][  0]LogToolsetRegistry: Display: Registering Toolset DataflowAgent.DataflowAgentToolset
+[2026.10.02-16.11.40:170][  0]LogToolsetRegistry: Display: Registering Toolset DataRegistryToolset.DataRegistryTools
+[2026.10.02-16.11.40:172][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.EditorAppToolset
+[2026.10.02-16.11.40:172][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.LogsToolset
+[2026.10.02-16.11.40:174][  0]LogToolsetRegistry: Display: Registering Toolset GameFeaturesToolset.GameFeaturesToolset
+[2026.10.02-16.11.40:175][  0]LogToolsetRegistry: Display: Registering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.02-16.11.40:177][  0]LogToolsetRegistry: Display: Registering Toolset ConfigSettingsToolset.ConfigSettingsToolset
+[2026.10.02-16.11.40:178][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.GameplayCueToolset
+[2026.10.02-16.11.40:178][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AttributeSetToolset
+[2026.10.02-16.11.40:179][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AbilitySystemInspectorToolset
+[2026.10.02-16.11.40:183][  0]LogToolsetRegistry: Display: Registering Toolset PluginToolset.PluginToolset
+[2026.10.02-16.11.40:185][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Info
+[2026.10.02-16.11.40:188][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Component
+[2026.10.02-16.11.40:188][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Blueprint
+[2026.10.02-16.11.40:202][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_System
+[2026.10.02-16.11.40:202][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Assets
+[2026.10.02-16.11.40:206][  0]LogToolsetRegistry: Display: Registering Toolset PhysicsToolsets.PhysicsAssetToolset
+[2026.10.02-16.11.40:210][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGToolset
+[2026.10.02-16.11.40:210][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGSpatialToolset
+[2026.10.02-16.11.40:210][  0]LogToolsetRegistry: Display: Registering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.02-16.11.40:211][  0]LogToolsetRegistry: Display: Registering Toolset GameplayTagsToolset.GameplayTagsToolset
+[2026.10.02-16.11.40:213][  0]LogToolsetRegistry: Display: Registering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.02-16.11.40:214][  0]LogToolsetRegistry: Display: Registering Toolset SemanticSearchToolset.SemanticSearchToolset
+[2026.10.02-16.11.40:217][  0]LogToolsetRegistry: Display: Registering Toolset WorldConditionsToolset.WorldConditionTools
+[2026.10.02-16.11.40:222][  0]LogToolsetRegistry: Display: Registering Toolset UMGToolSet.UMGToolSet
+[2026.10.02-16.11.40:240][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.11.40:289][  0]LogToolsetRegistry: Display: Registering Toolset state_tree_toolset.toolsets.state_tree.StateTreeTools
+[2026.10.02-16.11.40:289][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… took 49.540 ms
+[2026.10.02-16.11.40:289][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.11.40:293][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… took 4.103 ms (total: 53.643 ms)
+[2026.10.02-16.11.40:293][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.11.40:330][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.actor.ActorTools
+[2026.10.02-16.11.40:330][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.asset.AssetTools
+[2026.10.02-16.11.40:333][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.blueprint.BlueprintTools
+[2026.10.02-16.11.40:334][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.curve_table.CurveTableTools
+[2026.10.02-16.11.40:334][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_asset.DataAssetTools
+[2026.10.02-16.11.40:334][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_table.DataTableTools
+[2026.10.02-16.11.40:335][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material.MaterialTools
+[2026.10.02-16.11.40:336][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material_instance.MaterialInstanceTools
+[2026.10.02-16.11.40:336][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.object.ObjectTools
+[2026.10.02-16.11.40:336][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.primitive.PrimitiveTools
+[2026.10.02-16.11.40:338][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.scene.SceneTools
+[2026.10.02-16.11.40:339][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.skeletal_mesh.SkeletalMeshTools
+[2026.10.02-16.11.40:340][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.static_mesh.StaticMeshTools
+[2026.10.02-16.11.40:340][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.string_table.StringTableTools
+[2026.10.02-16.11.40:340][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.programmatic.ProgrammaticToolset
+[2026.10.02-16.11.40:340][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.texture.TextureTools
+[2026.10.02-16.11.40:340][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… took 46.847 ms (total: 100.490 ms)
+[2026.10.02-16.11.40:340][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.11.40:343][  0]LogToolsetRegistry: Display: Registering Toolset conversation_toolset.toolsets.conversation.ConversationTools
+[2026.10.02-16.11.40:343][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… took 2.986 ms (total: 103.477 ms)
+[2026.10.02-16.11.40:343][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.11.40:368][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig.ControlRigTools
+[2026.10.02-16.11.40:373][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.sequencer.SequencerTools
+[2026.10.02-16.11.40:374][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.keyframing.SequencerKeyframingTools
+[2026.10.02-16.11.40:377][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig_sequencer.SequencerControlRigTools
+[2026.10.02-16.11.40:378][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.outliner.SequencerOutlinerTools
+[2026.10.02-16.11.40:378][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.conditions.SequencerConditionTools
+[2026.10.02-16.11.40:378][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.custom_bindings.SequencerCustomBindingTools
+[2026.10.02-16.11.40:379][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.import_export.SequencerImportExportTools
+[2026.10.02-16.11.40:394][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… took 50.516 ms (total: 153.993 ms)
+[2026.10.02-16.11.40:394][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.11.40:396][  0]LogToolsetRegistry: Display: Registering Toolset aimodule_toolset.toolsets.behavior_tree.BehaviorTreeTools
+[2026.10.02-16.11.40:396][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… took 2.851 ms (total: 156.845 ms)
+[2026.10.02-16.11.40:396][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.11.40:396][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… took 190 us (total: 157.035 ms)
+[2026.10.02-16.11.40:396][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.11.40:402][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… took 5.227 ms (total: 162.263 ms)
+[2026.10.02-16.11.40:402][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.11.40:405][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… took 3.140 ms (total: 165.403 ms)
+[2026.10.02-16.11.40:405][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.11.40:421][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… took 15.799 ms (total: 181.203 ms)
+[2026.10.02-16.11.40:421][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.11.40:421][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… took 123 us (total: 181.326 ms)
+[2026.10.02-16.11.40:421][  0]LogPythonScriptCommandlet: Display: Running Python script: D:\FPS3D\FPSGAME\SourceAssets\WarehouseContainers20261002\Scripts\import_assets.py
+[2026.10.02-16.11.40:429][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels”
+[2026.10.02-16.11.40:439][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels.M_Warehouse_Labels in PCD3D_SM6, Default, SM6, Editor (DDC key hash: f8d1993e427c3d67486b423f37b7cbc4c468aedd), compiling. 
+[2026.10.02-16.11.40:476][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels.M_Warehouse_Labels in PCD3D_SM6, Default, SM6, Editor (DDC key hash: fd41de4ffc2b4fe2d3de17373505a198b5dcde8b), compiling. 
+[2026.10.02-16.11.40:481][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels.M_Warehouse_Labels in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 11081c90f127c73cb326ae13253c33ff3f70943b), compiling. 
+[2026.10.02-16.11.40:486][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels.M_Warehouse_Labels in PCD3D_SM6, Default, SM6, Editor (DDC key hash: c0d42bf29b63cb4a76ca3bd87709fb2ad60c1520), compiling. 
+[2026.10.02-16.11.42:415][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file loaded D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.02-16.11.42:442][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen”
+[2026.10.02-16.11.42:445][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen.M_Warehouse_PolymerGreen in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 977f645c4dda91644f1a029b1a5f71692ad323c1), compiling. 
+[2026.10.02-16.11.42:448][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen.M_Warehouse_PolymerGreen in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 74c42f4c68fae28abd7d1e08ea2dfb495e2d3073), compiling. 
+[2026.10.02-16.11.42:451][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen.M_Warehouse_PolymerGreen in PCD3D_SM6, Default, SM6, Editor (DDC key hash: da94727b9e08fd239ebcdcd13460af32d5676f62), compiling. 
+[2026.10.02-16.11.42:453][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen.M_Warehouse_PolymerGreen in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 6f86ab0b86bd604301e1eb5c7d84587d6a9f8b0b), compiling. 
+[2026.10.02-16.11.42:454][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen.M_Warehouse_PolymerGreen in PCD3D_SM6, Default, SM6, Editor (DDC key hash: db8cbf260d7867666eb5b44b1c6c2f6550a18b10), compiling. 
+[2026.10.02-16.11.42:457][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen.M_Warehouse_PolymerGreen in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 275290e2b700caeaf2784a4e21fee52ed1848bf6), compiling. 
+[2026.10.02-16.11.42:461][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen.M_Warehouse_PolymerGreen in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 135ebd1a300fc44768c378b775fa0c750ecfc77e), compiling. 
+[2026.10.02-16.11.42:465][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen.M_Warehouse_PolymerGreen in PCD3D_SM6, Default, SM6, Editor (DDC key hash: b36d6d8765448b85383beac38417bc70c877eda1), compiling. 
+[2026.10.02-16.11.42:467][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen.M_Warehouse_PolymerGreen in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 863e1a85fddcb8b3fa950d95840b5453287d699f), compiling. 
+[2026.10.02-16.11.42:487][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen.M_Warehouse_PolymerGreen in PCD3D_SM6, Default, SM6, Editor (DDC key hash: c4f3b6c668b4e51b3a2e82258664ccd7841ad772), compiling. 
+[2026.10.02-16.11.43:249][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue”
+[2026.10.02-16.11.43:250][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue.M_Warehouse_PolymerBlue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 642699e354cba0216a9ab01a77a2904324c8eb58), compiling. 
+[2026.10.02-16.11.43:253][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue.M_Warehouse_PolymerBlue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 6875ae4d043c844c803c83a29a8605cc3d3f1ea2), compiling. 
+[2026.10.02-16.11.43:255][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue.M_Warehouse_PolymerBlue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 7a2b3a6dccf670e9907cd9f56fb0746dc07e2344), compiling. 
+[2026.10.02-16.11.43:259][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue.M_Warehouse_PolymerBlue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 1d77870732a4202e9536c4a97071a8f02c52aac0), compiling. 
+[2026.10.02-16.11.43:261][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue.M_Warehouse_PolymerBlue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 1f9aed1d55efdd45dabe454ba59ac6a23b50c05e), compiling. 
+[2026.10.02-16.11.43:263][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue.M_Warehouse_PolymerBlue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 1ea43db27bd9306f17d135b9dbf1db41facf1534), compiling. 
+[2026.10.02-16.11.43:266][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue.M_Warehouse_PolymerBlue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: c170137069a0047fd12c0f56899ec76aa2e6b594), compiling. 
+[2026.10.02-16.11.43:268][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue.M_Warehouse_PolymerBlue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: f6ea1e92cd635358badc303245b6fd083645cb10), compiling. 
+[2026.10.02-16.11.43:271][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue.M_Warehouse_PolymerBlue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 5f1fa967b7a2c82828243d74ad5ce879df932e23), compiling. 
+[2026.10.02-16.11.43:274][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue.M_Warehouse_PolymerBlue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: def59ac91f33d191bdb3173758b80052f1b961f2), compiling. 
+[2026.10.02-16.11.44:032][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray”
+[2026.10.02-16.11.44:034][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray.M_Warehouse_PolymerGray in PCD3D_SM6, Default, SM6, Editor (DDC key hash: c97c335d07a9e47fb72bbabd4f2736ccda337265), compiling. 
+[2026.10.02-16.11.44:036][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray.M_Warehouse_PolymerGray in PCD3D_SM6, Default, SM6, Editor (DDC key hash: cb68320e5b9973742d4ff22f92069a5cb32a1f04), compiling. 
+[2026.10.02-16.11.44:038][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray.M_Warehouse_PolymerGray in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 497ea85fbe1d57fe4147e0c9cac0d37233916f8e), compiling. 
+[2026.10.02-16.11.44:040][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray.M_Warehouse_PolymerGray in PCD3D_SM6, Default, SM6, Editor (DDC key hash: e31232e82a3b105f724cb73687692e92429384bb), compiling. 
+[2026.10.02-16.11.44:043][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray.M_Warehouse_PolymerGray in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 082881bdbf4a84374cc0204770ffe8d6b3fe8a4c), compiling. 
+[2026.10.02-16.11.44:045][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray.M_Warehouse_PolymerGray in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 2964a08bcc090da8fe1cc82c22b25b0d7832e510), compiling. 
+[2026.10.02-16.11.44:047][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray.M_Warehouse_PolymerGray in PCD3D_SM6, Default, SM6, Editor (DDC key hash: b2b6e3a61795c3aa7249b5db33aff9c5a59694d2), compiling. 
+[2026.10.02-16.11.44:050][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray.M_Warehouse_PolymerGray in PCD3D_SM6, Default, SM6, Editor (DDC key hash: e8a833cfc133b57bdf2d651d366efa390a01709c), compiling. 
+[2026.10.02-16.11.44:052][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray.M_Warehouse_PolymerGray in PCD3D_SM6, Default, SM6, Editor (DDC key hash: a38720f48124e774f47f8085088536b24cc12d9f), compiling. 
+[2026.10.02-16.11.44:054][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray.M_Warehouse_PolymerGray in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 88e14fee61386d6665869c501e078d1f3a83fbeb), compiling. 
+[2026.10.02-16.11.44:813][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint”
+[2026.10.02-16.11.44:814][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint.M_Warehouse_ToolPaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: dac11a9c2ca4d5c986649114ab8ff3b004a06de5), compiling. 
+[2026.10.02-16.11.44:817][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint.M_Warehouse_ToolPaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 7d06e8428d6c7ebd262f8514454a3664d87e5d8b), compiling. 
+[2026.10.02-16.11.44:819][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint.M_Warehouse_ToolPaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 26280a801eee3009c88a8cdca770d3d347a38d33), compiling. 
+[2026.10.02-16.11.44:822][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint.M_Warehouse_ToolPaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 434aa7cc6930dd10fcac2ee5f5f7ef24b8c5d607), compiling. 
+[2026.10.02-16.11.44:825][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint.M_Warehouse_ToolPaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 572d6c8981236b42911acdd85ca1349e1b3604c5), compiling. 
+[2026.10.02-16.11.44:829][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint.M_Warehouse_ToolPaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 943fc2c6de4dd1d90fe9dbf40b950921e95ba93c), compiling. 
+[2026.10.02-16.11.44:831][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint.M_Warehouse_ToolPaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: e8d3568d3ad60a39d5583605d36b11cbee371b83), compiling. 
+[2026.10.02-16.11.44:834][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint.M_Warehouse_ToolPaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: a734fd9e918b61f65896195d40fa85680af66383), compiling. 
+[2026.10.02-16.11.44:836][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint.M_Warehouse_ToolPaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 9fd8386b1d7a2141e70c309ebff3fbf920349a53), compiling. 
+[2026.10.02-16.11.44:839][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint.M_Warehouse_ToolPaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 115b77e0ceab51e85462a22f4cc526f57725f46e), compiling. 
+[2026.10.02-16.11.44:842][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint.M_Warehouse_ToolPaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 590dca630815aeeb71c5870a64933f5ff8ab1bd9), compiling. 
+[2026.10.02-16.11.45:600][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint”
+[2026.10.02-16.11.45:602][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint.M_Warehouse_CasePaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 4f38bf99ee13922fcb522d568ad525b4a9911e13), compiling. 
+[2026.10.02-16.11.45:605][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint.M_Warehouse_CasePaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 11d84babda631372d98c8e093c86baa90172fbb8), compiling. 
+[2026.10.02-16.11.45:607][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint.M_Warehouse_CasePaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: ce7329975d0e626cb10e9f34cc184294172258bd), compiling. 
+[2026.10.02-16.11.45:609][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint.M_Warehouse_CasePaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: f9aeae8d2b4c5296ab808851b7c977fda4c290b2), compiling. 
+[2026.10.02-16.11.45:612][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint.M_Warehouse_CasePaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 9a00467dff6c3bdefa86c17d983e314c72aa5d34), compiling. 
+[2026.10.02-16.11.45:615][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint.M_Warehouse_CasePaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 1e02e3ed2fd9b831f005ec4716bda581b15246f7), compiling. 
+[2026.10.02-16.11.45:617][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint.M_Warehouse_CasePaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: c0f110ad9188fa05be20057dde97b3c063059f9e), compiling. 
+[2026.10.02-16.11.45:620][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint.M_Warehouse_CasePaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 4fc3dee43494b43098349465f7bbac512e00e136), compiling. 
+[2026.10.02-16.11.45:623][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint.M_Warehouse_CasePaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: ee81adf7d9340497e46c20c1e222de1cc5dcb1ee), compiling. 
+[2026.10.02-16.11.45:624][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint.M_Warehouse_CasePaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 380a55d2316ca5293e9365edfc92ef792fe742dd), compiling. 
+[2026.10.02-16.11.45:629][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint.M_Warehouse_CasePaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 08eb02a6a68a5120ce35c8312da2d68fc6af6f35), compiling. 
+[2026.10.02-16.11.46:493][  0]LogPython: Warning: D:/FPS3D/FPSGAME/SourceAssets/WarehouseContainers20261002/Scripts/import_assets.py:15: DeprecationWarning: new_object: Creating an instance of an Editor subsystem has been deprecated since UE 5.2 and will be removed in the future. Use 'unreal.get_editor_subsystem(unreal.StaticMeshEditorSubsystem)' to get the subsystem instance.
+  sub=u.get_editor_subsystem(u.StaticMeshEditorSubsystem) or u.new_object(u.StaticMeshEditorSubsystem)
+
+[2026.10.02-16.11.46:495][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Body”
+[2026.10.02-16.11.46:608][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_WoodCrate_Body_0 for collision model
+[2026.10.02-16.11.46:609][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_WoodCrate_Body_1 for collision model
+[2026.10.02-16.11.46:609][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_WoodCrate_Body_2 for collision model
+[2026.10.02-16.11.46:610][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_WoodCrate_Body_3 for collision model
+[2026.10.02-16.11.46:610][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_WoodCrate_Body_4 for collision model
+[2026.10.02-16.11.46:668][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_WoodCrate_Body（所需内存估计：34.096488MB）…
+[2026.10.02-16.11.46:881][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Body）……
+[2026.10.02-16.11.46:926][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Body）……
+[2026.10.02-16.11.46:967][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Body）……
+[2026.10.02-16.11.46:990][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_WoodCrate_Body（所需内存估计：34.096488MB）…
+[2026.10.02-16.11.47:006][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Body）……
+[2026.10.02-16.11.47:141][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_WoodCrate_Body（所需内存估计：34.096488MB）…
+[2026.10.02-16.11.47:158][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Body）……
+[2026.10.02-16.11.47:996][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid”
+[2026.10.02-16.11.48:017][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_WoodCrate_Lid（所需内存估计：4.329859MB）…
+[2026.10.02-16.11.48:067][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_WoodCrate_Lid（所需内存估计：4.329859MB）…
+[2026.10.02-16.11.48:077][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_WoodCrate_Lid（所需内存估计：4.329859MB）…
+[2026.10.02-16.11.48:093][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid）……
+[2026.10.02-16.11.48:236][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Body”
+[2026.10.02-16.11.48:259][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_Tote_Body_0 for collision model
+[2026.10.02-16.11.48:259][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_Tote_Body_1 for collision model
+[2026.10.02-16.11.48:259][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_Tote_Body_2 for collision model
+[2026.10.02-16.11.48:259][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_Tote_Body_3 for collision model
+[2026.10.02-16.11.48:259][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_Tote_Body_4 for collision model
+[2026.10.02-16.11.48:278][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_Tote_Body（所需内存估计：11.582575MB）…
+[2026.10.02-16.11.48:405][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_Tote_Body（所需内存估计：11.582575MB）…
+[2026.10.02-16.11.48:422][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Body）……
+[2026.10.02-16.11.48:443][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_Tote_Body（所需内存估计：11.582575MB）…
+[2026.10.02-16.11.48:459][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Body）……
+[2026.10.02-16.11.48:788][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid”
+[2026.10.02-16.11.48:804][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_Tote_Lid（所需内存估计：2.762386MB）…
+[2026.10.02-16.11.48:837][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_Tote_Lid（所需内存估计：2.762386MB）…
+[2026.10.02-16.11.48:852][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_Tote_Lid（所需内存估计：2.762386MB）…
+[2026.10.02-16.11.48:868][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid）……
+[2026.10.02-16.11.48:971][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Body”
+[2026.10.02-16.11.49:013][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_MetalCase_Body_0 for collision model
+[2026.10.02-16.11.49:013][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_MetalCase_Body_1 for collision model
+[2026.10.02-16.11.49:013][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_MetalCase_Body_2 for collision model
+[2026.10.02-16.11.49:013][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_MetalCase_Body_3 for collision model
+[2026.10.02-16.11.49:013][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_MetalCase_Body_4 for collision model
+[2026.10.02-16.11.49:053][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_MetalCase_Body（所需内存估计：24.673562MB）…
+[2026.10.02-16.11.49:179][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Body）……
+[2026.10.02-16.11.49:286][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_MetalCase_Body（所需内存估计：24.673562MB）…
+[2026.10.02-16.11.49:302][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Body）……
+[2026.10.02-16.11.49:385][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_MetalCase_Body（所需内存估计：24.673562MB）…
+[2026.10.02-16.11.49:402][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Body）……
+[2026.10.02-16.11.49:994][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid”
+[2026.10.02-16.11.50:009][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_MetalCase_Lid（所需内存估计：2.367077MB）…
+[2026.10.02-16.11.50:055][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_MetalCase_Lid（所需内存估计：2.367077MB）…
+[2026.10.02-16.11.50:061][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_MetalCase_Lid（所需内存估计：2.367077MB）…
+[2026.10.02-16.11.50:077][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid）……
+[2026.10.02-16.11.50:162][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Body”
+[2026.10.02-16.11.50:191][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_ToolCabinet_Body_0 for collision model
+[2026.10.02-16.11.50:191][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_ToolCabinet_Body_1 for collision model
+[2026.10.02-16.11.50:191][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_ToolCabinet_Body_2 for collision model
+[2026.10.02-16.11.50:191][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_ToolCabinet_Body_3 for collision model
+[2026.10.02-16.11.50:191][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_ToolCabinet_Body_4 for collision model
+[2026.10.02-16.11.50:219][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolCabinet_Body（所需内存估计：17.331418MB）…
+[2026.10.02-16.11.50:392][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolCabinet_Body（所需内存估计：17.331418MB）…
+[2026.10.02-16.11.50:408][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Body）……
+[2026.10.02-16.11.50:456][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolCabinet_Body（所需内存估计：17.331418MB）…
+[2026.10.02-16.11.50:473][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Body）……
+[2026.10.02-16.11.50:867][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Door”
+[2026.10.02-16.11.50:885][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolCabinet_Door（所需内存估计：3.195614MB）…
+[2026.10.02-16.11.50:939][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolCabinet_Door（所需内存估计：3.195614MB）…
+[2026.10.02-16.11.50:955][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolCabinet_Door（所需内存估计：3.195614MB）…
+[2026.10.02-16.11.50:970][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Door）……
+[2026.10.02-16.11.51:062][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Frame”
+[2026.10.02-16.11.51:073][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_ToolDrawer_Frame_0 for collision model
+[2026.10.02-16.11.51:076][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolDrawer_Frame（所需内存估计：1.187551MB）…
+[2026.10.02-16.11.51:107][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolDrawer_Frame（所需内存估计：1.187551MB）…
+[2026.10.02-16.11.51:116][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolDrawer_Frame（所需内存估计：1.187551MB）…
+[2026.10.02-16.11.51:133][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Frame）……
+[2026.10.02-16.11.51:177][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Tray”
+[2026.10.02-16.11.51:199][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolDrawer_Tray（所需内存估计：4.896107MB）…
+[2026.10.02-16.11.51:271][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolDrawer_Tray（所需内存估计：4.896107MB）…
+[2026.10.02-16.11.51:291][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolDrawer_Tray（所需内存估计：4.896107MB）…
+[2026.10.02-16.11.51:307][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Tray）……
+[2026.10.02-16.11.51:481][  0]LogPythonScriptCommandlet: Display: Python script executed successfully
+[2026.10.02-16.11.51:481][  0]LogInit: Display: 
+[2026.10.02-16.11.51:481][  0]LogInit: Display: Warning/Error Summary (Unique only)
+[2026.10.02-16.11.51:481][  0]LogInit: Display: -----------------------------------
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogPython: Warning: D:/FPS3D/FPSGAME/SourceAssets/WarehouseContainers20261002/Scripts/import_assets.py:15: DeprecationWarning: new_object: Creating an instance of an Editor subsystem has been deprecated since UE 5.2 and will be removed in the future. Use 'unreal.get_editor_subsystem(unreal.StaticMeshEditorSubsystem)' to get the subsystem instance.
+  sub=u.get_editor_subsystem(u.StaticMeshEditorSubsystem) or u.new_object(u.StaticMeshEditorSubsystem)
+
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Body”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Body”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Body”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Body”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Door”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Frame”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Tray”
+[2026.10.02-16.11.51:481][  0]LogInit: Display: 
+[2026.10.02-16.11.51:481][  0]LogInit: Display: Success - 0 error(s), 25 warning(s)
+[2026.10.02-16.11.51:481][  0]LogInit: Display: 
+
+Execution of commandlet took:  11.24 seconds, PeakPhysMemoryMB=4131 MB, PeakVirtMemoryMB=4768 MB
+[2026.10.02-16.11.51:490][  0]LogToolsetRegistry: Display: Unregistering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.02-16.11.51:490][  0]LogToolsetRegistry: Display: Unregistering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.02-16.11.51:490][  0]LogToolsetRegistry: Display: Unregistering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.02-16.11.51:490][  0]LogToolsetRegistry: Display: Unregistering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.02-16.11.51:581][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PostWrite): 1 .ref files found, 1 referenced binaries
+[2026.10.02-16.11.51:581][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.02-16.11.51:808][  0]LogShaderCompilers: Display: Exiting ShaderCompilingThread
+[2026.10.02-16.11.52:204][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file saved D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.02-16.11.52:210][  0]LogToolsetRegistry: Warning: IsAvailable: Editor is not available
+[2026.10.02-16.11.52:213][  0]LogTemp: Display: LoadHitchProbe summary: 118 sync-load entries seen, 0 recorded to (nothing)

@@ -1,0 +1,456 @@
+{
+  "objects": [
+    {
+      "name": "SM_SW_Walls",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_Walls.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_Walls",
+      "materials": {
+        "RS_Wall": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Plaster"
+      },
+      "triangles": 2068,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "Walls"
+    },
+    {
+      "name": "SM_SW_Roof",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_Roof.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_Roof",
+      "materials": {
+        "RS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 188,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "Roof"
+    },
+    {
+      "name": "SM_SW_Frames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_Frames.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_Frames",
+      "materials": {
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      "triangles": 3572,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "Frames"
+    },
+    {
+      "name": "SM_SW_ObservationGlass",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_ObservationGlass.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_ObservationGlass",
+      "materials": {
+        "RS_Glass": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Glass"
+      },
+      "triangles": 564,
+      "nanite": false,
+      "collision": true,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "ObservationGlass"
+    },
+    {
+      "name": "SM_SW_OpenedDoors",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_OpenedDoors.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_OpenedDoors",
+      "materials": {
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+        "RS_Plastic": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      "triangles": 5868,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "OpenedDoors"
+    },
+    {
+      "name": "SM_SW_Electrical",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_Electrical.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_Electrical",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+        "RS_Plastic": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Labels": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      },
+      "triangles": 3046,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "Electrical"
+    },
+    {
+      "name": "SM_SW_DispatchDesk",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_DispatchDesk.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_DispatchDesk",
+      "materials": {
+        "RS_Wood": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      "triangles": 2068,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "DispatchDesk"
+    },
+    {
+      "name": "SM_SW_DispatchElectronics",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_DispatchElectronics.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_DispatchElectronics",
+      "materials": {
+        "RS_Plastic": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Screen": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Screen",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Labels": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      },
+      "triangles": 14916,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "DispatchElectronics"
+    },
+    {
+      "name": "SM_SW_NoticeSigns",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_NoticeSigns.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_NoticeSigns",
+      "materials": {
+        "RS_Wood": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+        "RS_Labels": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      "triangles": 1136,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "NoticeSigns"
+    },
+    {
+      "name": "SM_SW_PartsRack",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_PartsRack.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_PartsRack",
+      "materials": {
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      "triangles": 3268,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "PartsRack"
+    },
+    {
+      "name": "SM_SW_RackSpares",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_RackSpares.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_RackSpares",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Plastic": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic",
+        "RS_Labels": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print",
+        "RS_Copper": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Copper"
+      },
+      "triangles": 15638,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "RackSpares"
+    },
+    {
+      "name": "SM_SW_MotorStand",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_MotorStand.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_MotorStand",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      "triangles": 1128,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "MotorStand"
+    },
+    {
+      "name": "SM_SW_MotorService",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_MotorService.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_MotorService",
+      "materials": {
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Copper": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Copper",
+        "RS_Wood": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Labels": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      },
+      "triangles": 25142,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "MotorService"
+    },
+    {
+      "name": "SM_SW_LightFixtures",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_LightFixtures.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_LightFixtures",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+        "RS_Lamp": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Lamp"
+      },
+      "triangles": 2784,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "LightFixtures"
+    },
+    {
+      "name": "SM_SW_RepairCart",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_RepairCart.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_RepairCart",
+      "materials": {
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      "triangles": 6772,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "RepairCart"
+    },
+    {
+      "name": "SM_SW_CartEquipment",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_CartEquipment.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_CartEquipment",
+      "materials": {
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Copper": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Copper",
+        "RS_Wood": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+        "RS_Labels": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      },
+      "triangles": 5878,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "CartEquipment"
+    },
+    {
+      "name": "SM_SW_DispatchFiles_Body",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_DispatchFiles_Body.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_DispatchFiles_Body",
+      "materials": {
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      "triangles": 2408,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "DispatchFiles_Body"
+    },
+    {
+      "name": "SM_SW_DispatchFiles_Drawer",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_DispatchFiles_Drawer.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_DispatchFiles_Drawer",
+      "materials": {
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Wood": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+        "RS_Labels": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      },
+      "triangles": 1206,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.29,
+        0.47
+      ],
+      "kind": "DispatchFiles_Drawer"
+    },
+    {
+      "name": "SM_SW_DispatchPaper",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_DispatchPaper.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_DispatchPaper",
+      "materials": {
+        "RS_Plastic": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic",
+        "RS_Labels": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      "triangles": 378,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "DispatchPaper"
+    },
+    {
+      "name": "SM_SW_OperatorMat",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_OperatorMat.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_OperatorMat",
+      "materials": {
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      "triangles": 3572,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "OperatorMat"
+    },
+    {
+      "name": "SM_SW_AttachmentMounts",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_AttachmentMounts.fbx",
+      "asset": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_AttachmentMounts",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Paint": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      "triangles": 4016,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "AttachmentMounts"
+    }
+  ],
+  "regions": {
+    "Board": [
+      16,
+      16,
+      1150,
+      780
+    ],
+    "Door": [
+      16,
+      824,
+      1200,
+      240
+    ],
+    "Monitor": [
+      1240,
+      16,
+      784,
+      441
+    ],
+    "Map": [
+      1240,
+      500,
+      784,
+      441
+    ],
+    "Paper": [
+      16,
+      1100,
+      640,
+      460
+    ],
+    "Label": [
+      16,
+      1620,
+      760,
+      152
+    ],
+    "Tools": [
+      820,
+      1620,
+      760,
+      152
+    ],
+    "Safety": [
+      1240,
+      990,
+      700,
+      560
+    ]
+  },
+  "tests_run": false,
+  "rendered": false
+}

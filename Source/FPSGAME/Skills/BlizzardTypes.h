@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "BlizzardTypes.generated.h"
 
 /** game-dev's level terms use L, while stepped cooldown/duration use (L-1)/19. */
 struct FBlizzardTuning
@@ -12,13 +13,15 @@ struct FBlizzardTuning
     int32 ChillStacks=1,HitExperience=1,KillExperience=6,MultiHitExperience=5,MultiKillExperience=10;
     bool bRequiresStaff=false;
 };
+USTRUCT()
 struct FBlizzardCast
 {
-    float Damage=0,RadiusX=0,RadiusY=0,ManaCost=0,Cooldown=0,Range=0,Duration=0;
-    float TickSeconds=.5f,ChillSeconds=2.5f,ChillSlow=.035f,CastSpeed=1;
-    float CriticalChance=0,CriticalDamageBonus=0,MagicPenetration=0,MagicDamageBonus=0,CastHasteDuration=5;
-    int32 ChillStacks=1,CastHasteStacks=0;
-    bool bGrantChain=false,bRequiresStaff=false;
+    GENERATED_BODY()
+    UPROPERTY() float Damage=0; UPROPERTY() float RadiusX=0; UPROPERTY() float RadiusY=0; UPROPERTY() float ManaCost=0; UPROPERTY() float Cooldown=0; UPROPERTY() float Range=0; UPROPERTY() float Duration=0;
+    UPROPERTY() float TickSeconds=.5f; UPROPERTY() float ChillSeconds=2.5f; UPROPERTY() float ChillSlow=.035f; UPROPERTY() float CastSpeed=1;
+    UPROPERTY() float CriticalChance=0; UPROPERTY() float CriticalDamageBonus=0; UPROPERTY() float MagicPenetration=0; UPROPERTY() float MagicDamageBonus=0; UPROPERTY() float CastHasteDuration=5;
+    UPROPERTY() int32 ChillStacks=1; UPROPERTY() int32 CastHasteStacks=0;
+    UPROPERTY() bool bGrantChain=false; UPROPERTY() bool bRequiresStaff=false;
 };
 struct FBlizzardRewards
 {

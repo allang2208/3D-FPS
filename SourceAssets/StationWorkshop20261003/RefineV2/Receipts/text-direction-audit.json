@@ -1,0 +1,420 @@
+{
+  "scope": "All printed face families used in the freight transfer / warehouse / station subject",
+  "method": "FBX triangle normal and UV-U derivative; Blender-to-UE Y conversion; vertical camera-right direction",
+  "entries": [
+    {
+      "group": "WorkshopBefore",
+      "mesh": "SM_SW_Electrical",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_Electrical.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 2,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 0.002880017487915469
+      }
+    },
+    {
+      "group": "WorkshopBefore",
+      "mesh": "SM_SW_DispatchElectronics",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_DispatchElectronics.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 4,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 0.11339606785254916
+      }
+    },
+    {
+      "group": "WorkshopBefore",
+      "mesh": "SM_SW_NoticeSigns",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_NoticeSigns.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 8,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 1.7307438863414726
+      }
+    },
+    {
+      "group": "WorkshopBefore",
+      "mesh": "SM_SW_RackSpares",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_RackSpares.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 2,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 0.028880044860638034
+      }
+    },
+    {
+      "group": "WorkshopBefore",
+      "mesh": "SM_SW_MotorService",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_MotorService.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 2,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 0.0028800002770445064
+      }
+    },
+    {
+      "group": "WorkshopBefore",
+      "mesh": "SM_SW_CartEquipment",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_CartEquipment.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 2,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 0.006479973820046308
+      }
+    },
+    {
+      "group": "WorkshopBefore",
+      "mesh": "SM_SW_DispatchFiles_Drawer",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_DispatchFiles_Drawer.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 2,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 0.0072200089477243885
+      }
+    },
+    {
+      "group": "WorkshopBefore",
+      "mesh": "SM_SW_DispatchPaper",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\Authored\\SM_SW_DispatchPaper.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 2,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_SW_NoticeSigns",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_SW_NoticeSigns.fbx",
+      "forward_triangles": 8,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 1.7307438863414726,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_SW_DispatchPaper",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_SW_DispatchPaper.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 2,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_SW_DispatchFiles_Drawer",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_SW_DispatchFiles_Drawer.fbx",
+      "forward_triangles": 2,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0072200089477243885,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_SW_CartEquipment",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_SW_CartEquipment.fbx",
+      "forward_triangles": 2,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.006479973820046308,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_SW_MotorService",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_SW_MotorService.fbx",
+      "forward_triangles": 2,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0028800002770445064,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_SW_Electrical",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_SW_Electrical.fbx",
+      "forward_triangles": 2,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.002880017487915469,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_SW_DispatchElectronics",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_SW_DispatchElectronics.fbx",
+      "forward_triangles": 2,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.12110404770657983,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_SW_RackSpares_0",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_SW_RackSpares_0.fbx",
+      "forward_triangles": 4,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.03136001226963912,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_SW_RackSpares_1",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_SW_RackSpares_1.fbx",
+      "forward_triangles": 4,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.03136002296418025,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_SW_RackSpares_2",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_SW_RackSpares_2.fbx",
+      "forward_triangles": 4,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.031359994177434236,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_Warehouse_WoodCrate_Body_TextV2",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_Warehouse_WoodCrate_Body_TextV2.fbx",
+      "forward_triangles": 2,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.051199988475732566,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_Warehouse_Tote_Body_TextV2",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_Warehouse_Tote_Body_TextV2.fbx",
+      "forward_triangles": 2,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.011249998852403624,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_Warehouse_MetalCase_Body_TextV2",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_Warehouse_MetalCase_Body_TextV2.fbx",
+      "forward_triangles": 2,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.042050000248596904,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_Warehouse_ToolCabinet_Door_TextV2",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_Warehouse_ToolCabinet_Door_TextV2.fbx",
+      "forward_triangles": 2,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.03919999689442725,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WorkshopFixed",
+      "mesh": "SM_Warehouse_ToolDrawer_Tray_TextV2",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StationWorkshop20261003\\RefineV2\\Authored\\SM_Warehouse_ToolDrawer_Tray_TextV2.fbx",
+      "forward_triangles": 2,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.020000004840549382,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WarehouseSigns",
+      "mesh": "SM_CargoWarehouse_Signs_V2",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonCargoWarehouse20261001\\RefineV2\\Authored\\SM_CargoWarehouse_Signs_V2.fbx",
+      "forward_triangles": 14,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 9.661000933893613,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "WarehouseContainersBefore",
+      "mesh": "SM_Warehouse_WoodCrate_Body",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_WoodCrate_Body.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 2,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 0.05119998847573167
+      }
+    },
+    {
+      "group": "WarehouseContainersBefore",
+      "mesh": "SM_Warehouse_Tote_Body",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_Tote_Body.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 2,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 0.011249998852403624
+      }
+    },
+    {
+      "group": "WarehouseContainersBefore",
+      "mesh": "SM_Warehouse_MetalCase_Body",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_MetalCase_Body.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 2,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 0.042050000248596016
+      }
+    },
+    {
+      "group": "WarehouseContainersBefore",
+      "mesh": "SM_Warehouse_ToolCabinet_Door",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_ToolCabinet_Door.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 2,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 0.03919999689442697
+      }
+    },
+    {
+      "group": "WarehouseContainersBefore",
+      "mesh": "SM_Warehouse_ToolDrawer_Tray",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WarehouseContainers20261002\\Authored\\SM_Warehouse_ToolDrawer_Tray.fbx",
+      "forward_triangles": 0,
+      "mirrored_triangles": 2,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0,
+        "mirrored": 0.020000004840548497
+      }
+    },
+    {
+      "group": "ReusedWorkbench",
+      "mesh": "SM_WBK_Bottle_OilCan",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWorkbenchKit20260921\\Authored\\SM_WBK_Bottle_OilCan.fbx",
+      "forward_triangles": 2560,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.00656511996992266,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "ReusedWorkbench",
+      "mesh": "SM_WBK_Bottle_Degreaser",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWorkbenchKit20260921\\Authored\\SM_WBK_Bottle_Degreaser.fbx",
+      "forward_triangles": 2560,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.008214476698637715,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "ReusedWorkbench",
+      "mesh": "SM_WBK_Fab_LabelsRetained",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWorkbenchKit20260921\\Authored\\SM_WBK_Fab_LabelsRetained.fbx",
+      "forward_triangles": 28,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.05958743298879676,
+        "mirrored": 0.0
+      }
+    },
+    {
+      "group": "ReusedWorkbench",
+      "mesh": "SM_WBK_Fab_BenchRetained",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonWorkbenchKit20260921\\Authored\\SM_WBK_Fab_BenchRetained.fbx",
+      "forward_triangles": 2,
+      "mirrored_triangles": 0,
+      "horizontal_triangles": 0,
+      "vertical_area_m2": {
+        "forward": 0.0015179997656872743,
+        "mirrored": 0.0
+      }
+    }
+  ],
+  "source_family_notes": [
+    "Transit station structural meshes and freight transfer marking meshes do not contain glyph print slots.",
+    "Shared cargo prop atlas cargo() geometry contains strapping/wood patterns, not wall typography.",
+    "Horizontal workroom documents now read from the operator side; square keyboard legend cells retain native aspect."
+  ],
+  "tests_run": false,
+  "game_run": false,
+  "rendered": false,
+  "historical_mirrored_meshes": [
+    "SM_SW_Electrical",
+    "SM_SW_DispatchElectronics",
+    "SM_SW_NoticeSigns",
+    "SM_SW_RackSpares",
+    "SM_SW_MotorService",
+    "SM_SW_CartEquipment",
+    "SM_SW_DispatchFiles_Drawer"
+  ],
+  "remaining_mirrored_families": []
+}

@@ -20,6 +20,7 @@ UMonsterCorpseRagdollComponent::UMonsterCorpseRagdollComponent()
 FName UMonsterCorpseRagdollComponent::SelectAnchor(USkeletalMeshComponent* Mesh) const
 {
     if (!Mesh || !Mesh->GetSkeletalMeshAsset() || !Mesh->GetPhysicsAsset()) return NAME_None;
+    if (Rig == EMonsterCorpseRig::HangingBell && Mesh->GetBodyInstance(TEXT("spine_01"))) return TEXT("spine_01");
     if (Rig == EMonsterCorpseRig::Maggot && Mesh->GetBodyInstance(TEXT("body_04"))) return TEXT("body_04");
     if (Rig == EMonsterCorpseRig::HandBrain && Mesh->GetBodyInstance(TEXT("base"))) return TEXT("base");
     if (Rig == EMonsterCorpseRig::FleshHand && Mesh->GetBodyInstance(TEXT("palm"))) return TEXT("palm");
@@ -156,7 +157,7 @@ void UMonsterCorpseRagdollComponent::AlignRootAndTune()
     FName Helper = MonsterRagdollPhysics::ContainerRoot(BodyMesh, RootAnchor);
     // The custom rigs already use a non-contact "root" body, even when the FBX
     // adds another container above it. Retain that existing collision contract.
-    if (Helper.IsNone() && (Rig == EMonsterCorpseRig::Maggot || Rig == EMonsterCorpseRig::HandBrain || Rig == EMonsterCorpseRig::Mawcrawler) &&
+    if (Helper.IsNone() && (Rig == EMonsterCorpseRig::Maggot || Rig == EMonsterCorpseRig::HandBrain || Rig == EMonsterCorpseRig::Mawcrawler || Rig == EMonsterCorpseRig::HangingBell) &&
         BodyMesh->GetBodyInstance(TEXT("root"))) Helper = TEXT("root");
     MonsterRagdollPhysics::AlignContainerRoot(BodyMesh, RootAnchor);
     const float LinearDamping = Rig == EMonsterCorpseRig::Maggot ? .6f : .25f;

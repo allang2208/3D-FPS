@@ -12,6 +12,7 @@ struct FStats
     // Full-draw panel; the shot snapshot remains the uncharged weapon baseline.
     FWeaponDamageParts Damage;
     double Draw=1.4,Nock=.68,Hold=2.2,Speed=98,Stamina=3,Sway=.9,Spread=.035,ADS=.24;
+    double DrawSpeedBonus=0;
 };
 FStats Evaluate(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile,const FGunsmithParts* Override=nullptr);
 }

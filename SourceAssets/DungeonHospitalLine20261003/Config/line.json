@@ -1,0 +1,98 @@
+{
+  "map": "/Game/GameMaps/Design/L_Hospital_Theme_Subject",
+  "sequence": [
+    "Drainage",
+    "AbandonedIsolationWard",
+    "AbandonedAnatomyTheatre"
+  ],
+  "placements": [
+    {
+      "id": "Drainage",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "scene_recipe_id": "pump_service",
+      "scene_state_id": "maintenance"
+    },
+    {
+      "id": "Transit",
+      "name": "DrainageWardLink",
+      "position": [
+        1021.8158998759463,
+        -1221.8158998759463,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "AbandonedIsolationWard",
+      "position": [
+        4721.815899875946,
+        -1221.8158998759463,
+        0
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "Transit",
+      "name": "WardTheatreLink",
+      "position": [
+        8021.815899875946,
+        -1221.8158998759463,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "AbandonedAnatomyTheatre",
+      "position": [
+        10021.815899875946,
+        -2221.8158998759463,
+        0
+      ],
+      "yaw": 0
+    }
+  ],
+  "player_start": [
+    68.96054997341707,
+    -140.0,
+    105
+  ],
+  "source_map": "/Game/GameMaps/L_Dungeon_Randomized",
+  "source_catalog_sha256": "9c0afc1181bafcfc528957c5e93d9b3a1d16a59f5b95b98a84196e14cd2f6efb",
+  "seed": 20261003,
+  "bed_blood_generation": "native BeginPlay, fixed seeds for repeatable visual refinement",
+  "monster_spawning": false,
+  "return_map": "/Game/GameMaps/DayNight_Lighting",
+  "hospital_container_revision": 2,
+  "hospital_container_count_ranges": {
+    "Drainage": [
+      2,
+      2
+    ],
+    "AbandonedIsolationWard": [
+      11,
+      12
+    ],
+    "AbandonedAnatomyTheatre": [
+      5,
+      7
+    ]
+  },
+  "hospital_authored_container_count": 17,
+  "hospital_bedside_requested": [
+    2,
+    3
+  ],
+  "hospital_container_preview_seed": 20261003,
+  "container_rewards_deferred": true,
+  "hospital_fixture_revision": 2,
+  "hospital_fixture_author": "SourceAssets/HospitalPolish20261003",
+  "hospital_doctor_office_revision": 1,
+  "hospital_office_container_count": 3,
+  "hospital_office_furniture_count": 10,
+  "hospital_ward_detail_revision": 1
+}

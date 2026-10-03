@@ -27,6 +27,7 @@ public:
     void Gather(float Fraction,const FVector& Origin);
     void PreviewAt(const FIceWallPlacement& Placement);
     void Launch(const FVector& Origin,const FIceWallPlacement& Placement);
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     const FIceWallCast& Snapshot() const { return Tuning; }
     bool IsSolid() const;
     virtual float TakeDamage(float Damage,const FDamageEvent& Event,AController* EventInstigator,AActor* Causer) override;
@@ -69,4 +70,18 @@ private:
     float ExtrusionAge=0;
     int32 ExtrusionCursor=0;
     UPROPERTY(Transient) TArray<TObjectPtr<UBoxComponent>> TerrainBarriers;
+    // ── 联机复制态：服务端在 Launch/Land/Shatter 时写；远端副本据此重演表现 ──
+    UPROPERTY(Replicated) FIceWallCast NetTuning;
+    UPROPERTY(Replicated) FIceWallPlacement NetPlan;
+    UPROPERTY(Replicated) TObjectPtr<UFPSIceWallComponent> NetComponent;
+    UPROPERTY(Replicated) FVector_NetQuantize NetReleaseOrigin;
+    UPROPERTY(ReplicatedUsing=OnRep_State) uint8 NetState=0;
+    UPROPERTY(Replicated) float NetStateAge=0;
+    UPROPERTY(Replicated) float NetDropHeight=0;
+    UPROPERTY(Replicated) float NetHealth=0;
+    bool bNetInit=false;
+    void NetInit();
+    UFUNCTION() void OnRep_State();
+    void NetTick(float Delta);
+    void NetLanded();
 };

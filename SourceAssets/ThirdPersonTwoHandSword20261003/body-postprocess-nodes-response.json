@@ -1,0 +1,2 @@
+[node] 94247F134DA504A6B2D20383E9FD5537  success=False
+[{'type': 'Error', 'output': 'Traceback (most recent call last):'}, {'type': 'Error', 'output': '  File "D:/FPS3D/FPSGAME/Tools/PlayerBody/read_body_postprocess.py", line 10, in <module>'}, {'type': 'Error', 'output': "    for n in g.get_editor_property('nodes'):"}, {'type': 'Error', 'output': '             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'}, {'type': 'Error', 'output': "Exception: AnimationGraph: Property 'Nodes' for attribute 'nodes' on 'AnimationGraph' is protected and cannot be read"}]

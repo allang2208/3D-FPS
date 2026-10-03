@@ -20,12 +20,16 @@ spawn.update(source='DungeonAnatomyTheatre20261001',count=[4,6],anchor_roles=['t
     theme='abandoned_anatomy_theatre',sealed_encounter=True)
 module['spawn']=spawn
 helpers=runpy.run_path(str(ROOT/'Scripts/extend_catalog.py'))
+module['runtime_assets']=sorted(set(helpers['asset_paths'](module['runtime_actors'])))
+hospital=PROJECT/'SourceAssets/HospitalContainers20261003'
+hospital_receipt=hospital/'Receipts/assets.json'
+if hospital_receipt.exists() and json.loads(hospital_receipt.read_text('utf8')).get('stage')=='assets_saved':
+    module=runpy.run_path(str(hospital/'Scripts/catalog_rules.py'))['extend_module'](module)
 assets={a.get_path_name():a for a in g.get_editor_property('module_assets') if a}
 for item in sorted(set(helpers['asset_paths'](module))):
     asset=u.load_class(None,item) if item.startswith('/Script/') or item.endswith('_C') else u.load_asset(item)
     if not asset:raise RuntimeError('Missing dependency '+item)
     assets[asset.get_path_name()]=asset
-module['runtime_assets']=sorted(set(helpers['asset_paths'](module['runtime_actors'])))
 catalog=helpers['extend'](catalog,module)
 g.modify();g.set_editor_property('module_catalog_json',json.dumps(catalog,ensure_ascii=False));g.set_editor_property('module_assets',list(assets.values()))
 dirty=list(u.EditorLoadingAndSavingUtils.get_dirty_map_packages())+list(u.EditorLoadingAndSavingUtils.get_dirty_content_packages())

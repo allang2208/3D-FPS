@@ -1,0 +1,65 @@
+{
+  "Idle": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HangingBellM09Meshy20261003\\MotionV04\\Exports\\A_M09_Idle.fbx",
+    "duration": 3.2,
+    "fps": 30,
+    "loop": true,
+    "source": "Original authored M09 movement; runtime hand IK provides contact"
+  },
+  "Travel": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HangingBellM09Meshy20261003\\MotionV04\\Exports\\A_M09_Travel.fbx",
+    "duration": 1.2,
+    "fps": 30,
+    "loop": true,
+    "source": "Original authored M09 movement; runtime hand IK provides contact"
+  },
+  "SwingLeft": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HangingBellM09Meshy20261003\\MotionV04\\Exports\\A_M09_SwingLeft.fbx",
+    "duration": 2.3,
+    "fps": 30,
+    "loop": false,
+    "source": "Original authored M09 movement; runtime hand IK provides contact"
+  },
+  "SwingRight": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HangingBellM09Meshy20261003\\MotionV04\\Exports\\A_M09_SwingRight.fbx",
+    "duration": 2.3,
+    "fps": 30,
+    "loop": false,
+    "source": "Original authored M09 movement; runtime hand IK provides contact"
+  },
+  "Resonance": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HangingBellM09Meshy20261003\\MotionV04\\Exports\\A_M09_Resonance.fbx",
+    "duration": 2.8,
+    "fps": 30,
+    "loop": false,
+    "source": "Original authored M09 movement; runtime hand IK provides contact"
+  },
+  "Gaze": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HangingBellM09Meshy20261003\\MotionV04\\Exports\\A_M09_Gaze.fbx",
+    "duration": 3.0,
+    "fps": 30,
+    "loop": false,
+    "source": "Original authored M09 movement; runtime hand IK provides contact"
+  },
+  "Claw": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HangingBellM09Meshy20261003\\MotionV04\\Exports\\A_M09_Claw.fbx",
+    "duration": 1.1,
+    "fps": 30,
+    "loop": false,
+    "source": "Original authored M09 movement; runtime hand IK provides contact"
+  },
+  "Stagger": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HangingBellM09Meshy20261003\\MotionV04\\Exports\\A_M09_Stagger.fbx",
+    "duration": 1.4,
+    "fps": 30,
+    "loop": false,
+    "source": "Original authored M09 movement; runtime hand IK provides contact"
+  },
+  "Death": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HangingBellM09Meshy20261003\\MotionV04\\Exports\\A_M09_Death.fbx",
+    "duration": 1.0,
+    "fps": 30,
+    "loop": false,
+    "source": "Original authored M09 movement; runtime hand IK provides contact"
+  }
+}

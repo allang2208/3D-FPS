@@ -1,0 +1,134 @@
+{
+  "palette_mesh": "/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench.SM_GunWorkbench",
+  "mesh_bounds_cm": {
+    "origin": [
+      0.0,
+      0.8,
+      79.5
+    ],
+    "extent": [
+      120.9,
+      129.5,
+      79.5
+    ]
+  },
+  "slots": [
+    {
+      "slot": "WSBench_BenchWood",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_BenchWood_R3.MI_WBK_WSBench_BenchWood_R3"
+    },
+    {
+      "slot": "WSBench_EndGrain",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_EndGrain.MI_WBK_WSBench_EndGrain"
+    },
+    {
+      "slot": "WSDetail_RackPaint",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSDetail_RackPaint.MI_WBK_WSDetail_RackPaint"
+    },
+    {
+      "slot": "WSSculpt_Machined",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSSculpt_Machined.MI_WBK_WSSculpt_Machined"
+    },
+    {
+      "slot": "WSSculpt_RubberGrip",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSSculpt_RubberGrip.MI_WBK_WSSculpt_RubberGrip"
+    },
+    {
+      "slot": "GW3_Mat",
+      "material": "/Game/Building/GunWorkbenchPolish20260928/Materials/M_GW3_Mat.M_GW3_Mat"
+    },
+    {
+      "slot": "GW3_Index",
+      "material": "/Game/Building/GunWorkbenchPolish20260928/Materials/M_GW3_Index.M_GW3_Index"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_LampPaint",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_LampPaint.MI_WBK_WSBench_LampPaint"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_CableRubber",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber"
+    },
+    {
+      "slot": "OriginalLamp_WSSculpt_Machined",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSSculpt_Machined.MI_WBK_WSSculpt_Machined"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_Reflector",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_Reflector.MI_WBK_WSBench_Reflector"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_SocketCeramic",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_SocketCeramic.MI_WBK_WSBench_SocketCeramic"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_LampBulb",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_LampBulb.MI_WBK_WSBench_LampBulb"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_CableRubber_001",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_LampPaint_001",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_LampPaint.MI_WBK_WSBench_LampPaint"
+    },
+    {
+      "slot": "Library_Fab_Bench_Screwdriver_0",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Bench_Screwdriver.MI_WBK_WSFab_Bench_Screwdriver"
+    },
+    {
+      "slot": "Library_Fab_Bench_Pliers_0",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Bench_Pliers.MI_WBK_WSFab_Bench_Pliers"
+    },
+    {
+      "slot": "Library_Fab_Bench_Wrench_0",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Bench_Wrench.MI_WBK_WSFab_Bench_Wrench"
+    },
+    {
+      "slot": "Library_Fab_Wall_Hammer_0",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Wall_Hammer.MI_WBK_WSFab_Wall_Hammer"
+    },
+    {
+      "slot": "Library_Bottle_OilCan_0",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_OilPaint.MI_WBK_WBKBottle_OilPaint"
+    },
+    {
+      "slot": "Library_Bottle_OilCan_1",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_SpoutSteel.MI_WBK_WBKBottle_SpoutSteel"
+    },
+    {
+      "slot": "Library_Bottle_OilCan_2",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_CapPolymer.MI_WBK_WBKBottle_CapPolymer"
+    },
+    {
+      "slot": "Library_Bottle_OilCan_3",
+      "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_OilLabel.MI_WBK_WBKBottle_OilLabel"
+    },
+    {
+      "slot": "Ammo_ammo_556_0",
+      "material": "/Game/Building/GunWorkbenchLibraryTools20260928/Materials/M_GW_Ammo_ammo_556_0.M_GW_Ammo_ammo_556_0"
+    },
+    {
+      "slot": "Ammo_ammo_556_1",
+      "material": "/Game/Building/GunWorkbenchLibraryTools20260928/Materials/M_GW_Ammo_ammo_556_1.M_GW_Ammo_ammo_556_1"
+    },
+    {
+      "slot": "Ammo_ammo_762_0",
+      "material": "/Game/Building/GunWorkbenchLibraryTools20260928/Materials/M_GW_Ammo_ammo_762_0.M_GW_Ammo_ammo_762_0"
+    },
+    {
+      "slot": "Ammo_ammo_762_1",
+      "material": "/Game/Building/GunWorkbenchLibraryTools20260928/Materials/M_GW_Ammo_ammo_762_1.M_GW_Ammo_ammo_762_1"
+    }
+  ],
+  "nanite": "read_error:'MeshNaniteSettings' object has no attribute 'is_enabled'",
+  "M_GWLeather": {
+    "nanite_flag": true,
+    "shading_model": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>"
+  },
+  "M_GWClay": {
+    "nanite_flag": true,
+    "shading_model": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>"
+  }
+}

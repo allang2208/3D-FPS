@@ -172,6 +172,13 @@ bool UColdSteelStatusModel::CommitState(FColdSteelProfile State)
 {
     return PersistState(MoveTemp(State),true);
 }
+bool UColdSteelStatusModel::SetPlayerAppearance(FName HeadId,FName HairId)
+{
+    if(Current.PlayerHeadId==HeadId&&Current.PlayerHairId==HairId)return true;
+    auto Next=Snapshot();Next.PlayerHeadId=HeadId;Next.PlayerHairId=HairId;
+    // A cosmetic change must not re-equip weapons or interrupt an active action.
+    return PersistState(MoveTemp(Next),false);
+}
 bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn)
 {
     // M2 联机：放开监听服/客户端的档案写入（各自写各自磁盘副本）；专用服拒绝（无本地玩家档案语义）。
@@ -769,8 +776,8 @@ bool UColdSteelStatusModel::DefaultAction(const FString& Id)
         Message=I.Definition.StartsWith(TEXT("enchant_scroll_"))?TEXT("附魔卷轴请在强化台的附魔页使用"):TEXT("强化道具请在强化台使用");
         return false;
     }
-    for(int32 S=0;S<15;++S)if(CanEquip(I,S)&&!Equipped(S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
-    for(int32 S=0;S<15;++S)if(CanEquip(I,S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
+    for(int32 S=0;S<SlotNames().Num();++S)if(CanEquip(I,S)&&!Equipped(S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
+    for(int32 S=0;S<SlotNames().Num();++S)if(CanEquip(I,S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
     Message=TEXT("该物品不能穿戴或使用");return false;
 }
 void UColdSteelStatusModel::SyncRuntime()

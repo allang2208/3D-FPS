@@ -6,6 +6,7 @@
 #include "TransitLoadingSubsystem.generated.h"
 
 struct FStreamableHandle;
+struct FWorldContext;
 struct FTransitLoadingView;
 class UGameViewportClient;
 class APlayerController;
@@ -46,7 +47,7 @@ public:
     void ReleaseToGameplay();
 
 private:
-    void BeforeMap(const FString& Map);
+    void BeforeMap(const FWorldContext& Context,const FString& Map);
     void AfterMap(UWorld* World);
     void AttachOverlay(bool bRememberViewportIgnore);
     void DetachOverlayWidget();
@@ -71,6 +72,11 @@ private:
     bool bPreviousCursor = false;
     void ChooseLoadingMode(bool Complete);
     void RemoveStartupMenu();
+    void MenuApplyNick();
+    void MenuHostRoom();
+    void MenuJoinByAddress(FString Address);
+    void MenuQuitGame();
+    void OnNetFailure(UWorld* World,const FString& ErrorString);
     void ApplyLoadingBudget();
     void RestoreLoadingBudget();
     void FinishPreparation();
@@ -95,4 +101,8 @@ private:
     bool bBudgetApplied = false;
     int32 OriginalPoolSize = -1;
     int32 AppliedPoolSize = -1;
+    FDelegateHandle NetworkFailureHandle;
+    FDelegateHandle TravelFailureHandle;
+    FString PendingMenuStatus;
+    bool bPendingMenuError = false;
 };

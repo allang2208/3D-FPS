@@ -1,0 +1,35 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762DrumNeck20260925\\SM_A762_drum.blend",
+  "editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762DrumJoint20260926\\SM_A762_drum.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762DrumJoint20260926\\Exports\\SM_A762_drum.fbx",
+  "frame": "WPN_SOCKET_Magazine local, metres, unchanged pivot",
+  "preserved_drum_below_mm": 24.0,
+  "well_rim_z_mm": [
+    84.059,
+    88.959
+  ],
+  "new_interface_z_mm": [
+    83.859,
+    89.459
+  ],
+  "well_wall_overlap_mm": 0.2,
+  "interface_center_mm": [
+    0.4770001396536827,
+    44.83900032937527
+  ],
+  "construction": "Closed linear ordered loft; original lower drum; finite 6 mm mouth recess",
+  "material_slots": [
+    "A762_drum_0",
+    "A762_drum_1",
+    "A762_drum_2",
+    "A762_drum_Neck",
+    "A762_drum_Inside"
+  ],
+  "new_finish_sources": [
+    "M_A762_Magazine_Rebuilt",
+    "M_A762_MagazineInside_Rebuilt"
+  ],
+  "triangles": 17440,
+  "game_tested": false,
+  "acceptance_rendered": false
+}

@@ -27,7 +27,7 @@ FProductionToolStats ColdSteelTool::Evaluate(const FColdSteelItem& Item,const UC
     const double Processed=Enhance?Enhance->ProcessedDamage(Item,Base,Attack,R.Modifiers.Damage):Base*R.Modifiers.Damage+Attack;
     R.Damage=ColdSteelWeaponDamage::Evaluate(Item,Profile,Processed);
 
-    R.RateScale=FMath::Clamp(R.Modifiers.AttackSpeed,.25,4.);
+    R.RateScale=FMath::Clamp(R.Modifiers.AttackSpeed,.25,4.)*(Profile?Profile->BerserkAttackSpeedMultiplier():1.f);
     R.SwingSeconds=ColdSteelInventory::Number(Item,TEXT("swing_seconds"),1.1)/R.RateScale;
     R.ContactSeconds=FMath::Min(ColdSteelInventory::Number(Item,TEXT("contact_seconds"),.48)/R.RateScale,R.SwingSeconds*.9);
     // 采集体力同样吃装备的近战体力消耗系数（厚皮革手套等），与 ColdSteelMelee::AttackStamina 的工具支路同源。

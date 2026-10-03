@@ -1,0 +1,34 @@
+{
+  "stage": "maps_saved",
+  "maps": {
+    "/Game/GameMaps/L_Dungeon_Randomized": {
+      "stage": "map_saved",
+      "previous_sha256": "c514c42e34796f426678c080ce774ce9da298ddf49a539de8bcdb2efddf6493e",
+      "dressing_variants": 3,
+      "container_count": [
+        6,
+        7
+      ],
+      "revision": 2,
+      "runtime_actors": 6,
+      "chests": 1
+    },
+    "/Game/GameMaps/Design/L_FreightTransit_Theme_Subject": {
+      "stage": "map_saved",
+      "previous_sha256": "45b0ab069d57557c674c142f070fb345784334bbe8ef39674cd75ee5f3cf6f1c",
+      "variant": "InterruptedRepair",
+      "static_actors": 41,
+      "containers": 7,
+      "lights": 3,
+      "revision": 2,
+      "runtime_actors": 6,
+      "chests": 1,
+      "existing_label_components_rebound": 9
+    }
+  },
+  "tests_run": false,
+  "rendered": false,
+  "game_run": false,
+  "editor_opened": false,
+  "rewards_deferred": true
+}

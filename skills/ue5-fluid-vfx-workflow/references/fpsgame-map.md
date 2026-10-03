@@ -13,17 +13,20 @@
 | 爆燃烟、毒雾、腐液 | 上述火系入口及 `Monsters/PoisonMaggotVenomFX.*` | `Tools/Fluids/author_impact_smoke_corrosion.py`；`Docs/Fluids/impact-smoke-corrosion-20260924.md` |
 | 水面／水花 | `WorldGeneration/RiverPilotFXSubsystem.*`、`WaterImpactFootprints.*`，均在 `Source/FPSGAME` | `Tools/Fluids/author_river_pilot.py`、`bake_river_splash_natural.py`、`author_river_splash_natural.py`；`Docs/Fluids/river-splash-natural-performance-20260924.md` |
 | 全水体注册与水面覆盖 | 上述水面子系统、`Source/FPSGAME/Building/ColdSteelFountain.cpp`、`Dungeons/AuthoredDungeonGenerator.cpp` | `Tools/Fluids/export_water_footprints.py`、`generate_water_footprints.py`、`author_water_impacts_all.py`；`Docs/Fluids/all-water-impacts-secondary-20260924.md` |
+| Clearwater 开阔水面（解析波谱） | `Source/FPSGAME/Water/ClearwaterWater.*`、`WorldGeneration/ClearwaterWaterFootprint.cpp`；关卡 `/Game/Clearwater/L_ClearwaterWater`，主场景经 `SceneTestPortal::InstallWaterLink` 进入 | `Tools/Fluids/`（`clearwater_spectrum.py`→`clearwater_generate_nodes.py`→`clearwater_embed_check.py`→`author_clearwater_water.py`）；`Docs/Fluids/clearwater-water-migration-20260926.md`、[Clearwater FFT 水体](clearwater-fft-water-surface.md) |
 | 毒液弹／巫婆毒池 | `Source/FPSGAME/Monsters/PoisonMaggotProjectile.*`、`WitchProjectile.*`、`PoisonMaggotVenomFX.*` | `Tools/Fluids/author_venom_projectiles.py`；`Docs/Fluids/venom-projectiles-witch-pool-20260924.md` |
 | 风、涉水、击水蒸汽、统一预算 | `Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.*`；`Movement/FPSFootstepAudioComponent.cpp` | `Tools/Fluids/author_fluid_interactions.py`；`Docs/Fluids/fluid-interactions-five-20260924.md` |
 | 烟雾接触／血液／冷雾／尾迹 | 共享流体子系统、`Source/FPSGAME/Weapons/FPSImpactFXSubsystem.*`、`Skills/FPSIceSpikeVolley.*` | `Tools/Fluids/author_fluid_polish.py`、`fluid_contact_nodes.py`、`water_wake_authoring.py`；`Docs/Fluids/fluid-polish-five-20260924.md` |
 
 冰锥飞行冷雾原作者为 `Tools/Skills/build_ice_spike_frost_v2.py`，不要为了接入命中冷雾重建冰锥全部模型和动作。水面公共 HLSL 为 `SourceAssets/RiverPilot20260923/RippleField.hlsl`；尾迹和血液源在 `SourceAssets/FluidPolish20260924/`。网格轮廓变动时再重导出水面轮廓并构建，单纯材质调色不需要重导几何。
 
+冰墙寒雾（2026-09-30）：运行入口 `Skills/FPSIceWallComponent.*` 异步预加载、`Skills/FPSIceWall.*` 跟随原 Tick 和生命周期；独立资产 `/Game/Skills/IceWall/ColdMistV1/NS_IceWallColdMist` 从冰锥现用 `NS_ColdMist` 派生，每墙一个组件，沿墙宽的两侧出生，高／矮墙分别最高 80%／50% 高度。作者 `Tools/Skills/build_ice_wall_cold_mist.py`，回执 `Saved/IceWallColdMist/asset-authoring.json`，案例 `Docs/Skills/ice-wall-cold-mist-20260930.md`；无实机测试记录。
+
 常用运行资产：
 
 - 枪口：`/Game/Weapons/GunplayFX/NS_FPS_MuzzleSmokeShotV15`、`NS_FPS_MuzzleSmokeStreamV15`，共用 `T_MuzzleSmokeMantaflowV14`。V14 是密度源；旧 V14 烟系统文档不再决定当前运行系统。
 - 水花：`/Game/Fluids/RiverPilot20260923/NS_RiverBulletSplash`；自然图集 `/Game/Fluids/RiverSplashNatural20260924/T_RiverSplashPacked`；水冠 `M_RiverCrown` 保留修复。
-- 三种表面：`/Game/Fluids/RiverPilot20260923/M_RiverPilot`、`/Game/Props/RomanFountain20260917/Materials/M_FountainWaveWaterV3`、`/Game/Dungeons/AtmosphereV2/GateWater/Materials/M_Dungeon_ShallowPuddle`。
+- 四种表面：`/Game/Fluids/RiverPilot20260923/M_RiverPilot`、`/Game/Props/RomanFountain20260917/Materials/M_FountainWaveWaterV3`、`/Game/Dungeons/AtmosphereV2/GateWater/Materials/M_Dungeon_ShallowPuddle`、Clearwater 开阔水面 `/Game/Clearwater/M_ClearwaterWater`（另有 `M_ClearwaterSeabed`、`M_ClearwaterUnderwater`）。Clearwater 那套是解析波谱水面，**不与前三者共用材质或波场**，改它要沿 `Shaders/ClearwaterWaves.ush` 的宏库走生成器，不要手改节点体。
 - 毒液材质：`/Game/Fluids/VenomProjectiles20260924`；血液材质 `/Game/Weapons/GunplayFX/Impacts/Blood/M_FleshDropletV2`、`M_FleshStainV3`。
 - 蒸汽：`/Game/Fluids/FluidInteractions20260924/NS_WaterImpactSteam`；冷凝命中雾 `/Game/Fluids/FluidPolish20260924/NS_IceImpactMist`；飞行冷雾 `/Game/Skills/IceSpike/FrostV2/NS_ColdMist`。
 

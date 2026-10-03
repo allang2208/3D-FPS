@@ -1,4 +1,5 @@
 #include "HandBrainMonster.h"
+#include "Net/UnrealNetwork.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "../Skills/CorrosivePusDamage.h"
@@ -13,6 +14,7 @@
 #include "HandBrainFearComponent.h"
 #include "FPSCombatHealthComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Skills/ColdSteelSkillRules.h"
 #include "Animation/AnimSequence.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -75,6 +77,16 @@ void AHandBrainMonster::BeginPlay()
  if(!VisualMesh||!IdleClip||!MoveClip||!SlamClip||!HowlClip||!DeathClip||!GetMesh()->GetPhysicsAsset()){UE_LOG(LogTemp,Error,TEXT("HANDBRAIN_ASSET_MISSING %s"),*GetName());SetActorTickEnabled(false);return;}
  if(GroundRingMaterial){SlamMaterial=UMaterialInstanceDynamic::Create(GroundRingMaterial,this);HowlMaterial=UMaterialInstanceDynamic::Create(GroundRingMaterial,this);SlamRing->SetMaterial(0,SlamMaterial);HowlRing->SetMaterial(0,HowlMaterial);}
  SetState(EHandBrainState::Idle);UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_READY hp=%.0f home=%s physics=%s"),Health,*Home.ToString(),*GetMesh()->GetPhysicsAsset()->GetName());
+}
+void AHandBrainMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AHandBrainMonster, State);
+}
+void AHandBrainMonster::OnRep_State()
+{
+    // 远端副本：SetState 本身是表现内聚的（动画/语音/移动标志），直接重放。
+    if(!HasAuthority())SetState(State);
 }
 void AHandBrainMonster::SetState(EHandBrainState New)
 {
@@ -213,6 +225,7 @@ float AHandBrainMonster::TakeDamage(float Damage,const FDamageEvent& Event,ACont
  if(Health<=0)
  {
   CorpseRagdoll->PrepareDeath(GetMesh());SetState(EHandBrainState::Dying);if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();Target.Reset();bSlamConsumed=true;GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);SetLifeSpan(CorpseSeconds);
+  ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),DamageInstigator,this);
   if(auto* PC=Cast<APlayerController>(DamageInstigator))if(PC->IsLocalController()&&GetGameInstance())GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
   UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_KILLED %s"),*GetName());
  }

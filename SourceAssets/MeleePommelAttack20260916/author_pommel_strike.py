@@ -166,7 +166,12 @@ s.frame_start = 0
 s.frame_end = round(ATTACK_END * FPS)
 s.frame_set(round(CONTACT_END * FPS))
 bpy.ops.file.pack_all()
-bpy.ops.wm.save_as_mainfile(filepath=str(P / 'AzureRunesword_PommelStrikeV46.blend'))
+# Output name comes from the entry point so a recovery-segment revision can be
+# authored next to the accepted baseline instead of overwriting it.
+#   OUT_BLEND=AzureRunesword_PommelStrikeV47.blend  (default: V46, the accepted file)
+import os as _os
+blend_name = _os.environ.get('OUT_BLEND', 'AzureRunesword_PommelStrikeV46.blend')
+bpy.ops.wm.save_as_mainfile(filepath=str(P / blend_name))
 
 report = {
     'revision': 'MeleePommelAttack20260916',

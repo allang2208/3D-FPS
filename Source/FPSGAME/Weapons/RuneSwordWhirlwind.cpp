@@ -49,12 +49,13 @@ bool URuneSwordComponent::BeginWhirlwind()
     const FWhirlwindCast Cast=Profile->WhirlwindStats();
     if(!Profile->CommitWhirlwindCast(Cast))return false;
     WhirlwindCast=Cast;WhirlwindTuning=Profile->MasteryDefinition(TEXT("whirlwind")).Whirlwind;
+    SwingRate=Profile->BerserkAttackSpeedMultiplier();
     bWhirlwind=true;bWhirlwindTrainingPending=true;bSwingCuePlayed=false;
     WhirlwindHits=WhirlwindKills=0;WhirlwindPause=WhirlwindPauseSpent=0.f;
     ImpactAge=1.f;ImpactStrength=1.f;
     WhirlwindYaw=Character->GetControlRotation().Yaw;
     HitActors.Reset();SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
-    SwingSkills.WeakpointPercent=0;SwingSkills.AttackForm=EMonsterAttackForm::Blade;SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison;
+    SwingSkills.WeakpointPercent=0;SwingSkills.AttackForm=EMonsterAttackForm::Blade;SwingSkills.AttackMeta|=0x20;SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison; // 0x20=旋风斩：服务端按 WhirlwindStats 技能面板复算
     SwingHitReactionMultiplier=MeleeModifiers.HitReaction;
     // 旋风斩属剑刃攻击：导魔符文易伤通道照常挂载；金色强化按确认命中缩减CD（整个旋风只触发一次）。
     SwingRuneVulnerability=MeleeModifiers.RuneVulnerability;SwingRuneVulnerabilitySeconds=MeleeModifiers.RuneVulnerabilitySeconds;
@@ -113,7 +114,7 @@ void URuneSwordComponent::TickWhirlwind(float Delta)
     // Substeps end at the actual hit sample. A confirmed hit never advances the
     // camera to the frame end while leaving the weapon at the contact pose.
     const float End=T.ReadySeconds+T.SpinSeconds+T.RecoverSeconds;
-    float Remaining=FMath::Min(Delta,End-Elapsed);
+    float Remaining=FMath::Min(Delta*SwingRate,End-Elapsed);
     while(Remaining>UE_SMALL_NUMBER&&bWhirlwind)
     {
         const float Step=FMath::Min(Remaining,1.f/120.f),Before=Elapsed;

@@ -1,0 +1,279 @@
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -Mode=ValidatePlatforms -OutputSDKs  -AllPlatforms  -project="D:/FPS3D/FPSGAME/FPSGAME.uproject" -log="D:/FPS3D/FPSGAME/Saved/Logs/AutoSDKInfo.txt" -verbose -timestamps
+Log file: D:\FPS3D\FPSGAME\Saved\Logs\AutoSDKInfo.txt
+[2026.10.02-17.57.49:890][  0]LogInit: Display: Running engine for game: FPSGAME
+[2026.10.02-17.57.49:890][  0]LogCore: Display: Requested channels: 'cpu,gpu,frame,log,bookmark,screenshot,region'
+[2026.10.02-17.57.49:890][  0]LogTrace: Display: Control listening on port 1985
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : platform="Windows"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : config="Development"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.8-CL-58210709"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : engineversion="5.8.3-58210709+++UE5+Release-5.8"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : enginereleaseversion="5.8.3"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : os="Windows 11 (25H2) [10.0.26200.9168] "
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : cpu="GenuineIntel|13th Gen Intel(R) Core(TM) i7-13700K"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : asan="0"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : mergedmodules="0"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : compacttset="0"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : commandline="" D:\FPS3D\FPSGAME\FPSGAME.uproject -run=pythonscript -script=D:\FPS3D\FPSGAME\SourceAssets\StationWorkshop20261003\RefineV2\Scripts\build_preview_chest.py -unattended -nop4 -nosplash -nosound -AllowCommandletRendering -d3d12 -abslog=D:\FPS3D\FPSGAME\SourceAssets\StationWorkshop20261003\RefineV2\Receipts\build_preview_chest.py.log""
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : loginid="bc5c91f347bcf631eec19fa685df33d2"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : llm="0"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : zenstreaming="0"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resx="1280"
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resy="720"
+[2026.10.02-17.57.49:890][  0]LogAudio: Display: Audio Device Manager not initializing due to all audio being disabled. If this is not intentional, please check command line arguments for "-nosound".
+[2026.10.02-17.57.49:890][  0]LogConfig: Display: Loading IOS ini files took 0.03 seconds
+[2026.10.02-17.57.49:890][  0]LogConfig: Display: Loading Mac ini files took 0.03 seconds
+[2026.10.02-17.57.49:890][  0]LogConfig: Display: Loading Android ini files took 0.03 seconds
+[2026.10.02-17.57.49:890][  0]LogConfig: Display: Loading VulkanPC ini files took 0.03 seconds
+[2026.10.02-17.57.49:890][  0]LogConfig: Display: Loading Windows ini files took 0.04 seconds
+[2026.10.02-17.57.49:890][  0]LogConfig: Display: Loading Unix ini files took 0.04 seconds
+[2026.10.02-17.57.49:890][  0]LogConfig: Display: Loading VisionOS ini files took 0.04 seconds
+[2026.10.02-17.57.49:890][  0]LogConfig: Display: Loading TVOS ini files took 0.04 seconds
+[2026.10.02-17.57.49:890][  0]LogConfig: Display: Loading Linux ini files took 0.04 seconds
+[2026.10.02-17.57.49:890][  0]RenderDocPlugin: Display: RenderDoc plugin will not be loaded. Use '-AttachRenderDoc' on the cmd line or enable 'renderdoc.AutoAttach' in the plugin settings.
+[2026.10.02-17.57.49:890][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.02-17.57.49:890][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.02-17.57.49:890][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.02-17.57.49:890][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.02-17.57.49:890][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.02-17.57.49:890][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.02-17.57.49:890][  0]LogAsyncCompilation: Display: MemorySharingInfo: UsedMemory=323MiB, MaxMemoryAvailable=65018MiB
+[2026.10.02-17.57.49:890][  0]LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+[2026.10.02-17.57.49:890][  0]LogHAL: Display: Platform has ~ 32 GB [34088374272 / 34359738368 / 32], which maps to Largest [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2026.10.02-17.57.49:890][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2026.10.02-17.57.49:890][  0]LogObj: Display: Attempting to load config data for Default__DownlinkBandwidthManagerConfig before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+##PlatformValidate: Win64 VALID 10.0.22621.0
+##PlatformValidate: Mac INVALID 26.1.1
+##PlatformValidate: IOS INVALID 26.1.1
+##PlatformValidate: Android INVALID r27c
+##PlatformValidate: Linux INVALID v26_clang-20.1.8-rockylinux8
+##PlatformValidate: LinuxArm64 INVALID <UNKNOWN>
+##PlatformValidate: TVOS INVALID 26.1.1
+##PlatformValidate: VisionOS INVALID <UNKNOWN>
+Unable to find required SDK version 'MainVersion' for platform LinuxArm64. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform VisionOS. Check your SDK.json files
+Trace written to file C:\Users\allan\AppData\Local\UnrealBuildTool\Trace.uba with size 316b
+[2026.10.02-17.57.50:143][  0]LogObj: Display: Attempting to load config data for Default__SlateThemeManager before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.10.02-17.57.50:520][  0]LogD3D12RHI: Display: Creating D3D12 RHI with Max Feature Level SM6
+[2026.10.02-17.57.50:523][  0]LogRHI: Display: Timeout Detection and Recovery (TDR) summary: 
+
+	- TDR using non-default settings - Level: Recover, Delay: 120, DdiDelay: 120
+[2026.10.02-17.57.50:695][  0]LogD3D12RHI: Display: Not using pipeline state disk cache per r.D3D12.PSO.DiskCache=0
+[2026.10.02-17.57.50:695][  0]LogD3D12RHI: Display: Not using driver-optimized pipeline state disk cache per r.D3D12.PSO.DriverOptimizedDiskCache=0
+[2026.10.02-17.57.50:744][  0]LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.02-17.57.50:744][  0]LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.02-17.57.50:744][  0]LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.02-17.57.50:749][  0]LogCsvProfiler: Display: Metadata set : verbatimrhiname="D3D12"
+[2026.10.02-17.57.50:749][  0]LogCsvProfiler: Display: Metadata set : rhiname="D3D12"
+[2026.10.02-17.57.50:749][  0]LogCsvProfiler: Display: Metadata set : rhifeaturelevel="SM6"
+[2026.10.02-17.57.50:749][  0]LogCsvProfiler: Display: Metadata set : shaderplatform="PCD3D_SM6"
+[2026.10.02-17.57.50:749][  0]LogCsvProfiler: Display: Metadata set : gpu="NVIDIA GeForce GTX 750 Ti"
+[2026.10.02-17.57.50:749][  0]LogCsvProfiler: Display: Metadata set : gpudriver=""
+[2026.10.02-17.57.50:754][  0]LogTextureFormatASTC: Display: ASTCEnc version 5.0.1 library loaded
+[2026.10.02-17.57.50:754][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatASTC
+[2026.10.02-17.57.50:754][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatDXT
+[2026.10.02-17.57.50:754][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatETC2
+[2026.10.02-17.57.50:754][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatIntelISPCTexComp
+[2026.10.02-17.57.50:754][  0]LogTextureFormatOodle: Display: Oodle Texture TFO init; latest sdk version = 2.9.16
+[2026.10.02-17.57.50:754][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.16.dll
+[2026.10.02-17.57.50:754][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatOodle
+[2026.10.02-17.57.50:754][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatUncompressed
+[2026.10.02-17.57.50:779][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Android'
+[2026.10.02-17.57.50:795][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'IOS'
+[2026.10.02-17.57.50:811][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Linux'
+[2026.10.02-17.57.50:827][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Mac'
+[2026.10.02-17.57.50:828][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'TVOS'
+[2026.10.02-17.57.50:845][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Windows'
+[2026.10.02-17.57.50:845][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsEditor'
+[2026.10.02-17.57.50:845][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsServer'
+[2026.10.02-17.57.50:845][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsClient'
+[2026.10.02-17.57.50:845][  0]LogTargetPlatformManager: Display: Building Assets For WindowsEditor
+[2026.10.02-17.57.50:848][  0]LogAudioDebug: Display: Lib vorbis DLL was dynamically loaded.
+[2026.10.02-17.57.51:067][  0]LogDerivedDataCache: Display: ../../../Engine/DerivedDataCache/Compressed.ddp: Opened pak cache for reading. (1670 MiB)
+[2026.10.02-17.57.51:068][  0]LogZenServiceInstance: Display: Launching zen utility 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/zen.exe service status'.
+[2026.10.02-17.57.53:082][  0]LogZenServiceInstance: Display: Zen utility process has been running for 2.0 seconds without completing, still waiting...
+[2026.10.02-17.57.54:083][  0]LogZenServiceInstance: Display: Writing plugin version info to 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugin_versions.json'
+[2026.10.02-17.57.54:083][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/5.8/Saved/Zen/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.02-17.57.54:083][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.02-17.57.54:083][  0]LogZenServiceInstance: Display: Installed service at 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe' is up to date
+[2026.10.02-17.57.54:083][  0]LogZenServiceInstance: Display: Launching executable 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe', working dir 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install', data dir 'D:/FPS3D/DerivedDataCache/Zen', args '--port 8558 --data-dir D:\FPS3D\DerivedDataCache\Zen --http asio --gc-cache-duration-seconds 1209600 --gc-interval-seconds 21600 --gc-low-diskspace-threshold 2147483648 --cache-bucket-limit-overwrites --quiet --restrict-content-types --allow-external-oidctoken-exe=false --plugins-config "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugins_v1.json" --security-config-path "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/security-config.json" --owner-pid 22400  --child-id Zen_22400_Startup'
+[2026.10.02-17.57.56:520][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.10.02-17.57.56:521][  0]LogDerivedDataCache: Display: ZenLocal: Using ZenServer HTTP service at [::1] with namespace ue.ddc. Status: OK!.
+[2026.10.02-17.57.56:541][  0]LogDerivedDataCache: Display: D:/FPS3D/FPSGAME/../DerivedDataCache: Performance: Latency=0.01ms. RandomReadSpeed=1506.06MBs, RandomWriteSpeed=50.32MBs. Assigned SpeedClass 'Local'
+[2026.10.02-17.57.56:543][  0]LogUbaHorde: Display: UBA/Horde Configuration [Uba.Provider.Horde]: Not Enabled
+[2026.10.02-17.57.56:543][  0]LogShaderCompilers: Display: No distributed shader compiler controller found
+[2026.10.02-17.57.56:543][  0]LogShaderCompilers: Display: Using 13 local workers for shader compilation
+[2026.10.02-17.57.56:550][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush
+[2026.10.02-17.57.56:550][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.02-17.57.57:318][  0]LogEditorDomain: Display: EditorDomain is Disabled
+[2026.10.02-17.57.57:530][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64Editor not found.
+[2026.10.02-17.57.57:530][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64 not found.
+[2026.10.02-17.57.57:563][  0]LogCsvProfiler: Display: Metadata set : deviceprofile="WindowsEditor"
+[2026.10.02-17.57.57:565][  0]LogStreaming: Display: FlushAsyncLoading(1): 1 QueuedPackages, 0 AsyncPackages
+[2026.10.02-17.57.57:566][  0]LogTextureEncodingSettings: Display: Texture Encode Speed: Final (cook).
+[2026.10.02-17.57.57:566][  0]LogTextureEncodingSettings: Display: Oodle Texture Encode Speed settings: Fast: RDO Off Lambda=0, Effort=Normal Final: RDO Off Lambda=0, Effort=Normal
+[2026.10.02-17.57.57:566][  0]LogTextureEncodingSettings: Display: Shared linear texture encoding: Disabled
+[2026.10.02-17.57.57:770][  0]LogMeshReduction: Display: Using QuadricMeshReduction for automatic static mesh reduction
+[2026.10.02-17.57.57:770][  0]LogMeshReduction: Display: Using SkeletalMeshReduction for automatic skeletal mesh reduction
+[2026.10.02-17.57.57:770][  0]LogMeshReduction: Display: Using ProxyLODMeshReduction for automatic mesh merging
+[2026.10.02-17.57.57:770][  0]LogMeshReduction: Display: No distributed automatic mesh merging module available
+[2026.10.02-17.57.57:940][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush
+[2026.10.02-17.57.57:940][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.02-17.57.57:940][  0]LogVirtualization: Display: VirtualizationSystem name found in ini file: None
+[2026.10.02-17.57.57:940][  0]LogVirtualization: Display: FNullVirtualizationSystem mounted, virtualization will be disabled
+[2026.10.02-17.57.58:032][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize started...
+[2026.10.02-17.57.58:033][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize took 1.441 ms
+[2026.10.02-17.57.58:363][  0]LogMetaSound: Display: MetaSound Page Target Initialized to 'Default'
+[2026.10.02-17.57.58:365][  0]LogAudio: Display: Registering Engine Module Parameter Interfaces...
+[2026.10.02-17.57.58:793][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.13.dll
+[2026.10.02-17.57.58:853][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.6.dll
+[2026.10.02-17.57.59:010][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.5.dll
+[2026.10.02-17.57.59:010][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.14.dll
+[2026.10.02-17.57.59:087][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.12.dll
+[2026.10.02-17.57.59:493][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.8.dll
+[2026.10.02-17.58.01:026][  0]LogTemp: Display: LoadHitchProbe ready: 'fpssyncload [thresholdMs]' enables it (742 modules mapped); evidence in Saved/Profiling/LoadHitch/
+[2026.10.02-17.58.01:795][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.02-17.58.01:795][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.02-17.58.01:934][  0]LogFabLauncher: Display: FabLauncher (version 0.6.0) active
+[2026.10.02-17.58.02:019][  0]LogToolsetRegistry: Display: Registering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.02-17.58.02:135][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.11.dll
+[2026.10.02-17.58.02:146][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.15.dll
+[2026.10.02-17.58.02:256][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PreLoad): 1 .ref files found, 1 referenced binaries
+[2026.10.02-17.58.02:256][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.02-17.58.02:256][  0]LogAssetRegistry: Display: FindShardedCacheFiles: 1 via .ref, 0 via migration fallback, 1 total
+[2026.10.02-17.58.02:256][  0]LogAssetRegistry: Display: LoadCacheFiles: loading 1 cache files, memory-mapping=enabled
+[2026.10.02-17.58.02:411][  0]LogAssetRegistry: Display: Asset registry cache read as 180.4 MiB from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry/CachedAssetRegistry_0_7026D39144E69954B8CEC287492D1D89.bin (memory-mapped=yes)
+[2026.10.02-17.58.02:414][  0]LogAssetRegistry: Display: AssetDataGatherer spent 0.158s loading caches from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry.
+[2026.10.02-17.58.02:652][  0]LogGameFeatures: Display: Total built in plugin load time 0.0007s
+[2026.10.02-17.58.02:662][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2026.10.02-17.58.02:704][  0]LogPython: Display: No pip-enabled plugins with python dependencies found, skipping
+[2026.10.02-17.58.02:876][  0]LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.58.02:876][  0]LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.58.02:878][  0]LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.58.02:879][  0]LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.58.02:879][  0]LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.58.02:942][  0]LogCsvProfiler: Display: Metadata set : raytracing="1"
+[2026.10.02-17.58.03:014][  0]LogToolsetRegistry: Display: Registering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.02-17.58.03:016][  0]LogToolsetRegistry: Display: Registering Toolset DataflowAgent.DataflowAgentToolset
+[2026.10.02-17.58.03:019][  0]LogToolsetRegistry: Display: Registering Toolset ConfigSettingsToolset.ConfigSettingsToolset
+[2026.10.02-17.58.03:020][  0]LogToolsetRegistry: Display: Registering Toolset DataRegistryToolset.DataRegistryTools
+[2026.10.02-17.58.03:022][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.EditorAppToolset
+[2026.10.02-17.58.03:022][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.LogsToolset
+[2026.10.02-17.58.03:024][  0]LogToolsetRegistry: Display: Registering Toolset GameplayTagsToolset.GameplayTagsToolset
+[2026.10.02-17.58.03:025][  0]LogToolsetRegistry: Display: Registering Toolset GameFeaturesToolset.GameFeaturesToolset
+[2026.10.02-17.58.03:027][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.GameplayCueToolset
+[2026.10.02-17.58.03:027][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AttributeSetToolset
+[2026.10.02-17.58.03:027][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AbilitySystemInspectorToolset
+[2026.10.02-17.58.03:029][  0]LogToolsetRegistry: Display: Registering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.02-17.58.03:031][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Info
+[2026.10.02-17.58.03:034][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Component
+[2026.10.02-17.58.03:034][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Blueprint
+[2026.10.02-17.58.03:047][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_System
+[2026.10.02-17.58.03:047][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Assets
+[2026.10.02-17.58.03:050][  0]LogToolsetRegistry: Display: Registering Toolset PluginToolset.PluginToolset
+[2026.10.02-17.58.03:053][  0]LogToolsetRegistry: Display: Registering Toolset PhysicsToolsets.PhysicsAssetToolset
+[2026.10.02-17.58.03:054][  0]LogToolsetRegistry: Display: Registering Toolset SemanticSearchToolset.SemanticSearchToolset
+[2026.10.02-17.58.03:058][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGToolset
+[2026.10.02-17.58.03:058][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGSpatialToolset
+[2026.10.02-17.58.03:061][  0]LogToolsetRegistry: Display: Registering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.02-17.58.03:062][  0]LogToolsetRegistry: Display: Registering Toolset WorldConditionsToolset.WorldConditionTools
+[2026.10.02-17.58.03:066][  0]LogToolsetRegistry: Display: Registering Toolset UMGToolSet.UMGToolSet
+[2026.10.02-17.58.03:083][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.58.03:129][  0]LogToolsetRegistry: Display: Registering Toolset state_tree_toolset.toolsets.state_tree.StateTreeTools
+[2026.10.02-17.58.03:129][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… took 45.235 ms
+[2026.10.02-17.58.03:129][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.58.03:133][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… took 3.522 ms (total: 48.758 ms)
+[2026.10.02-17.58.03:133][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.58.03:166][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.actor.ActorTools
+[2026.10.02-17.58.03:167][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.asset.AssetTools
+[2026.10.02-17.58.03:170][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.blueprint.BlueprintTools
+[2026.10.02-17.58.03:170][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.curve_table.CurveTableTools
+[2026.10.02-17.58.03:170][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_asset.DataAssetTools
+[2026.10.02-17.58.03:170][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_table.DataTableTools
+[2026.10.02-17.58.03:171][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material.MaterialTools
+[2026.10.02-17.58.03:172][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material_instance.MaterialInstanceTools
+[2026.10.02-17.58.03:172][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.object.ObjectTools
+[2026.10.02-17.58.03:173][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.primitive.PrimitiveTools
+[2026.10.02-17.58.03:174][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.scene.SceneTools
+[2026.10.02-17.58.03:175][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.skeletal_mesh.SkeletalMeshTools
+[2026.10.02-17.58.03:176][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.static_mesh.StaticMeshTools
+[2026.10.02-17.58.03:176][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.string_table.StringTableTools
+[2026.10.02-17.58.03:176][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.programmatic.ProgrammaticToolset
+[2026.10.02-17.58.03:176][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.texture.TextureTools
+[2026.10.02-17.58.03:176][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… took 43.603 ms (total: 92.361 ms)
+[2026.10.02-17.58.03:176][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.58.03:179][  0]LogToolsetRegistry: Display: Registering Toolset conversation_toolset.toolsets.conversation.ConversationTools
+[2026.10.02-17.58.03:179][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… took 2.723 ms (total: 95.084 ms)
+[2026.10.02-17.58.03:179][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.58.03:202][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig.ControlRigTools
+[2026.10.02-17.58.03:207][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.sequencer.SequencerTools
+[2026.10.02-17.58.03:208][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.keyframing.SequencerKeyframingTools
+[2026.10.02-17.58.03:211][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig_sequencer.SequencerControlRigTools
+[2026.10.02-17.58.03:212][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.outliner.SequencerOutlinerTools
+[2026.10.02-17.58.03:212][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.conditions.SequencerConditionTools
+[2026.10.02-17.58.03:212][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.custom_bindings.SequencerCustomBindingTools
+[2026.10.02-17.58.03:213][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.import_export.SequencerImportExportTools
+[2026.10.02-17.58.03:226][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… took 46.925 ms (total: 142.009 ms)
+[2026.10.02-17.58.03:226][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.58.03:229][  0]LogToolsetRegistry: Display: Registering Toolset aimodule_toolset.toolsets.behavior_tree.BehaviorTreeTools
+[2026.10.02-17.58.03:229][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… took 2.721 ms (total: 144.731 ms)
+[2026.10.02-17.58.03:229][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.58.03:234][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… took 4.858 ms (total: 149.589 ms)
+[2026.10.02-17.58.03:234][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.58.03:234][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… took 193 us (total: 149.782 ms)
+[2026.10.02-17.58.03:234][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.58.03:237][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… took 2.686 ms (total: 152.469 ms)
+[2026.10.02-17.58.03:237][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.58.03:253][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… took 16.991 ms (total: 169.460 ms)
+[2026.10.02-17.58.03:253][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.58.03:253][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… took 118 us (total: 169.579 ms)
+[2026.10.02-17.58.03:253][  0]LogPythonScriptCommandlet: Display: Running Python script: D:\FPS3D\FPSGAME\SourceAssets\StationWorkshop20261003\RefineV2\Scripts\build_preview_chest.py
+[2026.10.02-17.58.03:259][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Blueprints/BP_StationUpperTreasure”
+[2026.10.02-17.58.03:266][  0]LogPython: Warning: D:/FPS3D/FPSGAME/SourceAssets/StationWorkshop20261003/RefineV2/Scripts/build_preview_chest.py:19: DeprecationWarning: SubobjectDataBlueprintFunctionLibrary: Function 'get_object' on 'SubobjectDataBlueprintFunctionLibrary' is deprecated: Use GetAssociatedObject - it will not return template objects for instances
+  box=F.get_object(F.get_data(handle));box.set_mobility(u.ComponentMobility.MOVABLE)
+
+[2026.10.02-17.58.03:271][  0]LogPython: Warning: D:/FPS3D/FPSGAME/SourceAssets/StationWorkshop20261003/RefineV2/Scripts/build_preview_chest.py:22: DeprecationWarning: SubobjectDataBlueprintFunctionLibrary: Function 'get_object' on 'SubobjectDataBlueprintFunctionLibrary' is deprecated: Use GetAssociatedObject - it will not return template objects for instances
+  mesh=F.get_object(F.get_data(root));mesh.set_mobility(u.ComponentMobility.MOVABLE)
+
+[2026.10.02-17.58.03:413][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/GamedevTreasureChest20260922/Materials/M_Treasure_AntiqueGold.M_Treasure_AntiqueGold in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 87efd8f70eb81a45046ffe91103c9e170aa31386), compiling. 
+[2026.10.02-17.58.03:416][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/GamedevTreasureChest20260922/Materials/M_Treasure_BlackIron.M_Treasure_BlackIron in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 77180c61dbb9a6d91fdd6c9ec3be1dfceeae1823), compiling. 
+[2026.10.02-17.58.03:417][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/GamedevTreasureChest20260922/Materials/M_Treasure_Interior.M_Treasure_Interior in PCD3D_SM6, Default, SM6, Editor (DDC key hash: e5880be3d420162fadbf44366c69524a300fcd9d), compiling. 
+[2026.10.02-17.58.03:435][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_GamedevTreasureChest）……
+[2026.10.02-17.58.03:751][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file loaded D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.02-17.58.03:793][  0]LogPythonScriptCommandlet: Display: Python script executed successfully
+[2026.10.02-17.58.03:793][  0]LogInit: Display: 
+[2026.10.02-17.58.03:793][  0]LogInit: Display: Warning/Error Summary (Unique only)
+[2026.10.02-17.58.03:793][  0]LogInit: Display: -----------------------------------
+[2026.10.02-17.58.03:793][  0]LogInit: Display: LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.02-17.58.03:793][  0]LogInit: Display: LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.02-17.58.03:793][  0]LogInit: Display: LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.02-17.58.03:793][  0]LogInit: Display: LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.58.03:793][  0]LogInit: Display: LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.58.03:793][  0]LogInit: Display: LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.58.03:793][  0]LogInit: Display: LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.58.03:793][  0]LogInit: Display: LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.58.03:793][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Blueprints/BP_StationUpperTreasure”
+[2026.10.02-17.58.03:793][  0]LogInit: Display: LogPython: Warning: D:/FPS3D/FPSGAME/SourceAssets/StationWorkshop20261003/RefineV2/Scripts/build_preview_chest.py:19: DeprecationWarning: SubobjectDataBlueprintFunctionLibrary: Function 'get_object' on 'SubobjectDataBlueprintFunctionLibrary' is deprecated: Use GetAssociatedObject - it will not return template objects for instances
+  box=F.get_object(F.get_data(handle));box.set_mobility(u.ComponentMobility.MOVABLE)
+
+[2026.10.02-17.58.03:793][  0]LogInit: Display: LogPython: Warning: D:/FPS3D/FPSGAME/SourceAssets/StationWorkshop20261003/RefineV2/Scripts/build_preview_chest.py:22: DeprecationWarning: SubobjectDataBlueprintFunctionLibrary: Function 'get_object' on 'SubobjectDataBlueprintFunctionLibrary' is deprecated: Use GetAssociatedObject - it will not return template objects for instances
+  mesh=F.get_object(F.get_data(root));mesh.set_mobility(u.ComponentMobility.MOVABLE)
+
+[2026.10.02-17.58.03:793][  0]LogInit: Display: 
+[2026.10.02-17.58.03:793][  0]LogInit: Display: Success - 0 error(s), 11 warning(s)
+[2026.10.02-17.58.03:793][  0]LogInit: Display: 
+
+Execution of commandlet took:  0.71 seconds, PeakPhysMemoryMB=3793 MB, PeakVirtMemoryMB=4104 MB
+[2026.10.02-17.58.03:802][  0]LogToolsetRegistry: Display: Unregistering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.02-17.58.03:802][  0]LogToolsetRegistry: Display: Unregistering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.02-17.58.03:802][  0]LogToolsetRegistry: Display: Unregistering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.02-17.58.03:802][  0]LogToolsetRegistry: Display: Unregistering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.02-17.58.03:908][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PostWrite): 1 .ref files found, 1 referenced binaries
+[2026.10.02-17.58.03:908][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.02-17.58.04:084][  0]LogShaderCompilers: Display: Exiting ShaderCompilingThread
+[2026.10.02-17.58.04:284][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file saved D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.02-17.58.04:288][  0]LogToolsetRegistry: Warning: IsAvailable: Editor is not available
+[2026.10.02-17.58.04:292][  0]LogTemp: Display: LoadHitchProbe summary: 79 sync-load entries seen, 0 recorded to (nothing)

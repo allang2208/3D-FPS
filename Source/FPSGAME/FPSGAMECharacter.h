@@ -49,6 +49,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class URuneSwordComponent;
     friend class UM4TacticalSprintComponent;
     friend class UFPSPlayerBodyComponent;
+    friend class AColdSteelPlayerState; // 联机：命中校验读 EffectiveFireInterval/汇聚弹数打点
     friend class UWeaponBipodDeploymentComponent;
     friend class UBowWeaponComponent;
     friend class UStaffWeaponComponent;
@@ -71,6 +72,7 @@ public:
     bool IsRSH12Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_rsh12"); }
     bool SampleRSH12Presentation(UAnimSequence* Clip);
     bool IsG18Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_g18"); }
+    bool IsPitViperWeapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_pit_viper2011"); }
     bool IsHK416Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_hk416"); }
     bool UsesSingleShotTrigger() const { return !IsG18Weapon() && (IsPistolWeapon() || bSingleShotTrigger); }
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UPistolDualWieldComponent> DualPistols;
@@ -164,6 +166,9 @@ public:
     void SetGunsmithTactical(const FString& Variant);
     UPROPERTY(Transient) TObjectPtr<class UTacticalDeviceComponent> TacticalDevice;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> RearGripAttachment;
+    /** 联机：远端玩家在服务端持有的影子档案（ColdSteelNet 联机层注入；主机自己的 pawn 不用，走单例）。 */
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelStatusModel> NetShadowProfile;
+    class UColdSteelStatusModel* GetNetShadowProfile() const { return NetShadowProfile; }
     bool HasSkeletonStock() const;
     bool ValidateStockAttachment() const;
     void RunStockAudit();
@@ -203,6 +208,10 @@ public:
 
     UFUNCTION(BlueprintPure, Category = "FPS Movement") bool IsSprinting() const { return bIsSprinting; }
     UFUNCTION(BlueprintPure, Category = "FPS Movement") bool IsSliding() const { return bIsSliding; }
+    /** 联机滑铲同步：SavedMove 的 FLAG_Custom_2 在权威端触发完整 StartSlide（含入铲初速，
+     *  客户端在同一帧已施加过）；回放路径传 bFullEntry=false，只还原状态位与摩擦系数，
+     *  该帧速度由 move 重算，不能再注入初速。 */
+    void ApplyNetSlideFlag(bool bSliding, bool bFullEntry);
     /** 当前持械状态下的入铲速度门槛（满速 600，受持械移速惩罚下调，最低 402）。 */
     UFUNCTION(BlueprintPure, Category = "FPS Movement")
     float SlideEntrySpeed() const
@@ -276,6 +285,31 @@ protected:
     void RunBallisticPresentationAudit();
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+    /** 联机分叉：档案（GameInstance 单例）只允许挂到本机玩家的 pawn 上。 */
+    virtual void PossessedBy(AController* NewController) override;
+    /** 联机断流冻结——模拟代理超过 0.5s 没收到移动更新就冻结本地 SimulateMovement
+     *  （引擎默认用最后速度持续前推，服务器卡顿时观察者本地角色会自走出图永不回来）。 */
+    virtual void OnRep_ReplicatedMovement() override;
+    float LastNetMovementAt = 0.f;
+public:
+    /** 联机取证：客户端自动驾驶注入（-MPClientWalk，真实输入路径复现移动分叉）。 */
+    void MPSetAutoInput(bool bForward, bool bSprint)
+    {
+        bMPAutoInputActive = bForward;
+        MoveInput.Y = bForward ? 1.f : 0.f;
+        bSprintHeld = bSprint;
+        // 照抄 MoveForward 的真实通路：AddMovementInput（控制器 yaw 前向），否则 CMC 根本收不到加速度。
+        if (bForward && Controller && !bIsSliding && !IsDodging())
+            AddMovementInput(FRotationMatrix(FRotator(0.f, Controller->GetControlRotation().Yaw, 0.f)).GetUnitAxis(EAxis::X), 1.f);
+    }
+    bool bMPAutoInputActive = false; // 合成输入在身：豁免物理键护栏
+private:
+    virtual void OnRep_Controller() override;
+private:
+    /** 幂等的本地档案挂载：非本机控制的 pawn 一律不挂（防止监听服上远端 pawn 抢走主机档案）。 */
+    void TryAttachLocalProfile();
+    bool bLocalProfileAttached = false;
+public:
     /** Presentation rigs need only mesh, idle pose and visible attachments. */
     void InitializeWeaponVisuals(bool bPresentationOnly = false);
     FString ActiveInventoryWeapon;
@@ -664,6 +698,8 @@ private:
     FColdSteelTurboRamp TurboRampParams;
     // 汇聚（附魔）：一次射击打空弹匣的开关与倍率，同样随档案缓存。
     FColdSteelConvergence ConvergenceParams;
+    /** 最近一发实际消耗的汇聚弹数（开火时刻打点），命中上报带给服务端复核包络。 */
+    int32 LastShotConvergenceRounds = 0;
     static constexpr int32 MaxFireCatchUpShots = 4;
     bool bUsingReplacement = false;
     bool bSightCalibrated = false;

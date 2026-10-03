@@ -1,0 +1,56 @@
+{
+  "revision": "LeftForwardGripUppercutV8",
+  "fps": 120,
+  "request": "Preserve accepted V7 right hand; left hand must use a normal forward grip",
+  "processing": "Native idle left grip at original pommel finger-row station; complete left arm and twist support",
+  "preserved": "All non-left-arm V7 keys copied verbatim, including right fingers, right arm, sword and timing",
+  "changed_bones": [
+    "clavicle_l",
+    "hand_l",
+    "ik_hand_l",
+    "index_01_l",
+    "index_02_l",
+    "index_03_l",
+    "index_metacarpal_l",
+    "lowerarm_l",
+    "lowerarm_twist_01_l",
+    "lowerarm_twist_02_l",
+    "middle_01_l",
+    "middle_02_l",
+    "middle_03_l",
+    "middle_metacarpal_l",
+    "pinky_01_l",
+    "pinky_02_l",
+    "pinky_03_l",
+    "pinky_metacarpal_l",
+    "ring_01_l",
+    "ring_02_l",
+    "ring_03_l",
+    "ring_metacarpal_l",
+    "thumb_01_l",
+    "thumb_02_l",
+    "thumb_03_l",
+    "upperarm_l",
+    "upperarm_twist_01_l",
+    "upperarm_twist_02_l"
+  ],
+  "paid_motion_used": false,
+  "variants": {
+    "Standard": {
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\LeftForwardGripV8\\Standard\\Sword_UppercutV8_Editable.blend",
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\LeftForwardGripV8\\Standard\\editable_keys.json",
+      "seconds": 1.7,
+      "forward_grip_source": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Idle.A_RuneSword_Idle",
+      "accepted_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\LeftForwardGripV8\\AcceptedV7\\Standard\\editable_keys.json"
+    },
+    "LongGrip": {
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\LeftForwardGripV8\\LongGrip\\Sword_UppercutV8_Editable.blend",
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\LeftForwardGripV8\\LongGrip\\editable_keys.json",
+      "seconds": 1.7,
+      "forward_grip_source": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Idle.A_RuneSword_Idle",
+      "accepted_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\LeftForwardGripV8\\AcceptedV7\\LongGrip\\editable_keys.json"
+    }
+  },
+  "runtime_tested": false,
+  "rendered": false
+}

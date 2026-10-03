@@ -39,6 +39,10 @@ public:
     void WallEnded(AFPSIceWall* Wall);
     UNiagaraSystem* ColdMistSystem() const { return ColdMistAsset.Get(); }
     UNiagaraSystem* LandingSystem() const { return LandingAsset.Get(); }
+    // ── 联机 ──
+    bool NetCommitWall(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow);
+    void NetCastRejected(uint8 Phase,uint8 Code);
+    void NetCastCancelled(uint8 Phase);
 protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
@@ -56,6 +60,9 @@ private:
     EIceWallShape Shape=EIceWallShape::High;
     bool bQueuedGather=false,bGathered=false,bReleaseRequested=false;
     float PaidMana=0,PreparedAge=0,PreviewAge=0;
+    /** 联机客人：本地扣账已发生、等待服务端权威墙复制的窗口。 */
+    bool bNetPaid=false;
+    double NetPaidAt=-100.0;
     FString Message;
     double MessageUntil=0;
     FFPSLeftHandNotice HandNotice;

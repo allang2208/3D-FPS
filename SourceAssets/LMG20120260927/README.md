@@ -13,7 +13,7 @@
 - 布箱弹链：当前为 **[BeltFit53](BeltFit53/README.md)** 的规则子弹、独立链片与连续袋内/机匣内段；换弹为 ClothReload44.4b，后续叠加 ArmHinge55 的左臂七骨修正。旧完整 Tracks 未包含后续所有补丁，不能直接整段覆盖。
 - 提把与下侧残块：H54/M55 提把被用户否决，**[HandleRemoval56](HandleRemoval56/README.md)** 已删除提把及悬挂块残片；旧方案已归档到本机 trash。闲置叶骨保留索引；当前无提把动态。
 - 弹链次级运动：保留 **[Motion55](Motion55/README.md)** 的 PKM 进弹链参数（速度衰减 13/s、回拉 1050/s²、4 mm 通道）与短促开火扰动。**[FeedMouth57](FeedMouth57/README.md)** 已局部修整固定入口，给 B53 弹链让位；袋口、链位和动作保持。
-- 当前完整材质绑定：`Material21/bindings.json`；最新枪体／配件表面绑定为 `SurfaceFinish50/bindings.json`。F50 由 G43/J44 私有表面家族派生，统一烤漆、钢件与聚合物；布箱继续采用 C45 的织物与独立硬接口材质，光学材质、弹链材质及内壁保留。
+- 当前完整材质绑定：`Material21/bindings.json`；2026-10-01 已接续 [201 表面标准 R01](../../Docs/Weapons/lmg201-surface-standard-20261001.md)。制作入口在 `../WeaponSurface20260930/LMG201/Refine01/`，已保存 97 个材质实例和 30 个现用网格的材质引用，分开机匣、盖体、前端、供弹件与握持部件的表面配方。F50 为原材质及几何来源；C45 织物、光学特殊材质、弹链和内壁保留。本轮未改几何或动作，未测试。
 
 ## 本轮细节修整
 

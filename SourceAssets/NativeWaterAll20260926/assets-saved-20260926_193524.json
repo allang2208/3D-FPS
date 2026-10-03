@@ -1,0 +1,30 @@
+{
+  "revision": "native-all-water-20260926",
+  "materials": [
+    {
+      "path": "/Game/Fluids/RiverPilot20260923/M_RiverPilot",
+      "profile": "river",
+      "compiled": true,
+      "saved": true
+    },
+    {
+      "path": "/Game/Props/RomanFountain20260917/Materials/M_FountainWaveWaterV3",
+      "profile": "fountain",
+      "compiled": true,
+      "saved": true
+    },
+    {
+      "path": "/Game/Dungeons/AtmosphereV2/GateWater/Materials/M_Dungeon_ShallowPuddle",
+      "profile": "puddle",
+      "compiled": true,
+      "saved": true
+    }
+  ],
+  "atlas": "/Game/Clearwater/T_ClearwaterCausticsAtlas",
+  "caustic_frames": 32,
+  "shader_samples_per_caustic": 2,
+  "splash_pool": 12,
+  "hit_slots": 8,
+  "wake_slots": 4,
+  "runtime_tested": false
+}

@@ -1,0 +1,155 @@
+{
+  "id": "M09",
+  "name_zh": "悬钟",
+  "name_en": "Hanging Bell",
+  "date": "2026-10-03",
+  "status": "design_candidate",
+  "dimensions_proposed_cm": {
+    "fingertips_to_eye_tip": 280,
+    "rest_width": 160,
+    "grip_spacing": [
+      65,
+      80
+    ],
+    "environment_grip_height": [
+      340,
+      400
+    ]
+  },
+  "part_ids": [
+    "M09_Body",
+    "M09_RootBand",
+    "M09_Membrane_L1",
+    "M09_Membrane_R1",
+    "M09_Membrane_L2",
+    "M09_Membrane_R2",
+    "M09_Membrane_L3",
+    "M09_Membrane_R3",
+    "M09_EyeCrown",
+    "M09_Eyes",
+    "M09_Cuffs_Rings"
+  ],
+  "membrane": {
+    "count": 6,
+    "per_side": 3,
+    "l1": "upper_short_outer",
+    "l2": "middle",
+    "l3": "lower_long_inner",
+    "chains": "ROOT/MID/TIP",
+    "fixed_attachment_base": true,
+    "primary_drive": "skeletal_animation",
+    "secondary_drive": "bounded_bend",
+    "chaos_cloth_v1": false,
+    "gameplay_dismemberment_v1": false
+  },
+  "locomotion": {
+    "type": "authored_ceiling_grip_path",
+    "one_hand_support_during_transfer": true,
+    "free_flight": false
+  },
+  "timing": {
+    "units": "seconds",
+    "zero": "attack_start",
+    "window_convention": "start_inclusive_end_exclusive",
+    "cooldown_origin": "attack_start",
+    "global_recovery_gap": 0.55,
+    "damage_unit": "D=configurable_base_melee_damage"
+  },
+  "attacks": [
+    {
+      "id": "BellPendulum",
+      "name": "钟摆横撞",
+      "duration": 2.3,
+      "lock_direction": 0.6,
+      "active_window": [
+        0.85,
+        1.2
+      ],
+      "cooldown": 4.5,
+      "damage_multiplier": 1.25,
+      "range_cm_estimate": 180,
+      "hit_source": "swept_authored_body_and_eye_crown",
+      "hits_per_target": 1
+    },
+    {
+      "id": "TripleResonance",
+      "name": "三叠鸣震",
+      "duration": 2.8,
+      "lock_direction": 0.8,
+      "pulse_times": [
+        1.1,
+        1.45,
+        1.8
+      ],
+      "cooldown": 8,
+      "damage_per_pulse": 0.3,
+      "range_cm": 600,
+      "full_cone_degrees": 100,
+      "solid_cover_blocks": true,
+      "slow_fraction": 0.15,
+      "slow_duration": 0.45,
+      "slow_stacking": "refresh_only"
+    },
+    {
+      "id": "ManyEyeGaze",
+      "name": "群眼凝视",
+      "duration": 3,
+      "lock_world_point": 0.9,
+      "active_window": [
+        1.25,
+        1.85
+      ],
+      "sample_times": [
+        1.25,
+        1.45,
+        1.65
+      ],
+      "cooldown": 7,
+      "damage_per_sample": 0.35,
+      "range_cm": 1400,
+      "width_cm": 20,
+      "solid_cover_blocks": true,
+      "number_of_beams": 1,
+      "camera_control_lock": false
+    },
+    {
+      "id": "GuardClaws",
+      "name": "护冠双爪",
+      "duration": 1.1,
+      "active_window": [
+        0.35,
+        0.55
+      ],
+      "cooldown": 2.5,
+      "damage_multiplier": 0.55,
+      "range_cm_estimate": 90,
+      "hit_source": "actual_front_hand_sweep",
+      "hits_per_target_shared_both_hands": 1
+    }
+  ],
+  "weakpoint": {
+    "open_eyes_damage_multiplier": 1.5,
+    "closed_eyes_damage_multiplier": 1,
+    "suspension_stagger_exposure_seconds": 1.4,
+    "full_live_fall_v1": false
+  },
+  "death": {
+    "clip_duration_proposed": 1,
+    "both_grips_release_by_proposed": 0.35,
+    "physics_transfer_time_proposed": 0.6,
+    "damage_on_fall": false,
+    "all_pending_attacks_cancel": true
+  },
+  "delivery": {
+    "concept_images": true,
+    "document": true,
+    "actual_3d_mesh": false,
+    "mesh_separation": false,
+    "rig": false,
+    "animations": false,
+    "ue_assets_saved": false,
+    "built": false,
+    "tested": false,
+    "user_approved": false
+  }
+}

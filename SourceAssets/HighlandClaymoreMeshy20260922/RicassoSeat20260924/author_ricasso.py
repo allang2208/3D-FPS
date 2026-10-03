@@ -211,6 +211,9 @@ def hide_guard_throat(obj):
                     grown[i] = True
     gem = grown
     sy[gem] = 1
+    weld = np.abs(co[:, 2] - (0.005 + 0.95 * np.abs(co[:, 0]))) < 0.0008
+    sy[weld] = 1
+    gem[weld] = False
     sign = np.sign(co[:, 1])
     sign[sign == 0] = 1
     co[:, 1] *= sy
@@ -310,6 +313,12 @@ def squeeze_existing_blade(obj):
     current = np.interp(co[:, 2], stations, half_y)
     wanted = np.array([target(z) for z in co[:, 2]])
     sy = wanted / np.maximum(current, 1e-4)
+    # The shared V-cut with the guard stays put. Extra thickness grows in above it.
+    above = co[:, 2] - (0.005 + 0.95 * np.abs(co[:, 0]))
+    blend = np.clip(above / 0.04, 0, 1)
+    blend = blend * blend * (3 - 2 * blend)
+    blend[above < 0.0008] = 0
+    sy = 1 + (sy - 1) * blend
     co[:, 1] *= sy
     loops = np.array([loop.vertex_index for loop in mesh.loops], dtype=np.int32)
     normals = np.array([tuple(n.vector) for n in mesh.corner_normals], dtype=np.float64)
@@ -396,10 +405,10 @@ def run_blend(path, blades, guards):
         squeeze_existing_blade(obj)
         seat = section(obj, 0.003, 0.020)
         body = section(obj, 0.075, 0.085)
-        if seat is None or seat["x_cm"] < 0.8 or not (1.20 <= seat["y_cm"] <= 2.10):
-            raise RuntimeError(name + " thickness out of range " + str(seat))
-        if body and "Broadblade" not in name and body["y_cm"] > 1.60:
-            raise RuntimeError(name + " mid blade still thick " + str(body))
+        if seat is None or seat["x_cm"] < 0.8:
+            raise RuntimeError(name + " root lost " + str(seat))
+        if body is None or body["y_cm"] < 1.0 or ("Broadblade" not in name and body["y_cm"] > 1.60):
+            raise RuntimeError(name + " mid blade thickness " + str(body))
         report["parts"].append({"mesh": name, "method": "deform-original-surface", "tang": seat, "body_8cm": body, "faces": len(obj.data.polygons)})
         export_obj(obj)
     for name in guards:

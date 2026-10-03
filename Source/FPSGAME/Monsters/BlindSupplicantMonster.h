@@ -24,6 +24,8 @@ public:
     virtual float TakeDamage(float Damage, const FDamageEvent& Event, AController* EventInstigator, AActor* Causer) override;
     virtual void InterruptAttack(float Seconds = .25f) override;
     bool CanAttackTarget(APawn* Victim) const;
+    // Upper-body visibility shared by acquisition and ranged attack selection.
+    bool HasMagicSight(const APawn* Victim) const;
     bool PrepareAttack(APawn* Victim);
     float CombatStoppingRange() const;
 
@@ -33,6 +35,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Animation") TObjectPtr<UAnimSequence> MeleeLeftClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Animation") TObjectPtr<UAnimSequence> MeleeRightClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Animation") TObjectPtr<UAnimSequence> DeathClip;
+    // Select once from each clip's actual pelvis travel, in mesh/world space.
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Animation") TArray<TObjectPtr<UAnimSequence>> DirectionalDeathClips;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Animation") TObjectPtr<UAnimSequence> WallListenClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Animation") TObjectPtr<UAnimSequence> MagicGatherClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Animation") TObjectPtr<UAnimSequence> MagicReleaseClip;
@@ -63,6 +67,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Cloth", meta=(ClampMin="100", Units="cm")) float ClothResumeDistance = 650.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Cloth", meta=(ClampMin="100", Units="cm")) float ClothSuspendDistance = 850.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Cloth") bool bEnableGillBoneClearance = true;
+    // V34: the original continuous display uses one skin driver; leaf tips
+    // receive a bounded bend instead of fragmented particle-cloth captures.
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Cloth") bool bUseCoherentGillMotion = false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Cloth", meta=(ClampMin="0", ClampMax="24", Units="deg")) float GillClearanceAngleDegrees = 18.f;
     // Contact values are authored clip seconds; PrepareAttack converts them
     // with the same per-attack playback rate used by the pose evaluator.
@@ -114,6 +121,8 @@ private:
     EM07MagicElement ActiveMagicElement() const;
     FVector AttackClawPosition() const;
     FVector CastingPalmPosition() const;
+    FVector CastingSpellPosition() const;
+    void UpdateMagicChargePose();
     void BeginMagicCharge();
     void StopMagicCharge();
     void CancelPendingAttack();
@@ -144,4 +153,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Identity") TObjectPtr<USoundBase> WallMimicSound;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Identity", meta=(ClampMin="8", Units="s")) float WallMimicIntervalSeconds = 24.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Identity", meta=(ClampMin="0", ClampMax="1")) float WallMimicVolume = .65f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="0", Units="cm")) float MagicChargeForwardOffsetCm = 65.f;
+private:
+    FDelegateHandle MagicChargePoseHandle;
+    float MagicChargeFraction = 0.f;
 };

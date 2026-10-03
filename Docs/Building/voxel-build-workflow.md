@@ -84,7 +84,8 @@
 | stone / marble | 7.80 m | 7.40 m |
 
 > **这张表 2026-09-18 更正过**：此前写的 4.40 / 4.00 m 是"三段强度翻倍"**之前**的读数（翻倍后跨度正好约 ×2，实测即上表）。
-> 2.0 m 净跨契约余量很大：2.00 m 跨最弱接缝占比 wood 0.09 / stone·marble 0.062，跨中站人后 0.23 / 0.115，离断裂线 1.0 很远。
+> 2.0 m 净跨契约余量很大：2.00 m 跨最弱接缝占比 wood 0.050 / stone·marble 0.062，跨中站人后 0.231 / 0.115，离断裂线 1.0 很远。
+> （2026-09-21 复核更正：wood 一格原写 0.09 / 0.23，用当前 `Tools/Building/run_voxel_stress_probe.ps1` 实跑为 0.050 / 0.231；石材与大理石两列与文档一致。）
 > 扫描上限是 5.0 m（与浮窗 `SpanSweepCells=25` 同一口径），因此**三种材质在浮窗里都会显示 ≥5.0 m**——强度再翻倍也不会变，除非调大该上限。
 > 逐格证书跑上面那条命令，它每格分别打印自重与跨中站人的比值。
 
@@ -222,7 +223,7 @@
 powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
 ```
 
-- 用项目自带的 `Source/ThirdParty/Blast/Lib/Win64/FPSBlast.lib`（`Tools/Building/build_blast.py` 构建）离线复算，节点/连接构造与失效公式和 `VoxelSupportGraph.cpp` 的 `VoxelStress::Solve` 完全一致：位置用**米**、质量 kg、惯量 `m·0.04/6`、重力 −9.81、连接质心取面心、加一个质量 0 的 World 节点、512 次迭代。
+- 用项目自带的 `Source/ThirdParty/Blast/Lib/Win64/FPSBlast.lib`（`Tools/Building/build_blast.py` 构建）离线复算，节点/连接构造与失效公式和 `VoxelSupportGraph.cpp` 的 `VoxelStress::Solve` 完全一致：位置用**米**、质量 kg、惯量 `m·0.04/6`、重力 −9.81、连接质心取面心、加一个质量 0 的 World 节点、**默认 256 次迭代**（`VoxelJointStrength.h` 的默认值；运行期求解器同为 256，非收敛时翻倍到 2048，见 `VoxelBuildWorldStructure.cpp`）。2026-09-21 更正：此处原写 512，与代码默认值不符。
 - 失败判据：`Compression=max(0,-F·n/A)+Bend`、`Tension=max(0,F·n/A)+Bend`、`Bend=|M⊥|·6/(A·min(宽,高))`，任一比值 > 1 即断键。弯曲项等价于 20×20 cm 截面的截面模量（`b·h²/6`），不要随手改系数。
 - 改完数值把探针输出贴进对应案例文档；**探针通过 ≠ 游戏内手感通过**，最终仍由用户实测。
 
@@ -405,6 +406,19 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
    （玩家编辑、过载压坏、爆炸摧毁、倒塌脱落）的唯一汇合点，构件因此会和墙一起掉。
    实现上只扫"改动点一格以内"命中的构件（`PrefabCellOwner`：占格 → 锚格），大件按 4096 格抽样。
    新增构件类型不用改这里，除非它需要额外的接触口径。
+
+   **2026-09-18 晚修正（用户复报"拆了支撑还是浮空"）：这套判定此前根本没生效。** 根因是
+   `IsGroundAnchor` 的探针带是"底面 +40.5 cm"，而构件**自己的网格正好在这条带里**——忽略名单里只有
+   Pawn／`AVoxelBuildWorld`／`AVoxelCollapseFragment`，占位 Actor 与逻辑构件都不在其中，于是任何构件都会把
+   自己的碰撞判成"底下有地形"，分支①恒真，拆光周围也不会掉（`PrefabCellOwner` 与放置拦截本身是好的：空中
+   孤立件仍会被拒、贴墙件仍会被接受）。修正：`IsPrefabOnGround()` 先排除**这一件自己**的占位 Actor 与其逻辑
+   构件再采样地面；体素放置用的 `IsGroundAnchor` 口径不变（别的构件与场景实体仍然算表面）。
+   复现脚本：`SourceAssets/Window20260918/probe_prefab_support_20260918.py`（编辑器内远程执行、独立 world key）——
+   空地建墙 → 开窗洞 → 装窗 → 拆光全部体素；修正前 `blocks=0 prefabs=1` 不掉，修正后按预期脱落。
+   **脱落现在是真落体**：`AVoxelBuildPrefabActor::BeginFall()` 先给占位网格补上调色板里的代表网格（逻辑构件的
+   占位 Actor 平时不带网格）再切成刚体自由落体；逻辑构件挂到该刚体上跟随落体、打 `VoxelDetached` 标签停止
+   E 键交互、关碰撞与 Tick，8 秒后随落体一起销毁。没有可用网格／物理体时退回"直接移除"。构件按现行口径免料，
+   不涉及退还材料。日志 `PREFAB_DROP ... 落体|直接移除` 会写明走的是哪条路。
 8. **改构件尺寸要同步三处**：网格脚本的尺寸常量、C++ 里由包围盒推出的那几个常量（例如窗的 `FrameMemberCm`，
    洞口宽度＝框半宽−边梃宽）、调色板条目的 `Footprint`（逐轴等于包围盒/20）。改完照第 1 条打印 `OK/MISMATCH` 自检。
 9. **同族可动件做成子类，不要复制逻辑**（2026-09-18 双开门）：`AColdSteelDoubleDoor` 是 `AColdSteelWindow`

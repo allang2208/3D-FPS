@@ -1,0 +1,358 @@
+{
+  "objects": [
+    {
+      "name": "SM_Hospital_MedicalCart_Body",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalContainers20261003\\Authored\\SM_Hospital_MedicalCart_Body.fbx",
+      "asset": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body",
+      "materials": {
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Lining": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining",
+        "RS_White": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White"
+      },
+      "triangles": 11948,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_Hospital_MedicalCart_Drawer",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalContainers20261003\\Authored\\SM_Hospital_MedicalCart_Drawer.fbx",
+      "asset": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_White": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White",
+        "RS_Lining": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining",
+        "RS_Labels": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels"
+      },
+      "triangles": 1770,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_Hospital_PatientBox_Body",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalContainers20261003\\Authored\\SM_Hospital_PatientBox_Body.fbx",
+      "asset": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body",
+      "materials": {
+        "RS_Blue": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Labels": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels",
+        "RS_Lining": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining"
+      },
+      "triangles": 8218,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_Hospital_PatientBox_Lid",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalContainers20261003\\Authored\\SM_Hospital_PatientBox_Lid.fbx",
+      "asset": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Lid",
+      "materials": {
+        "RS_Blue": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      "triangles": 1128,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0,
+        -0.16,
+        0.32
+      ]
+    },
+    {
+      "name": "SM_Hospital_FirstAid_Body",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalContainers20261003\\Authored\\SM_Hospital_FirstAid_Body.fbx",
+      "asset": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Body",
+      "materials": {
+        "RS_White": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Blue": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue",
+        "RS_Lining": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining"
+      },
+      "triangles": 7192,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_Hospital_FirstAid_Door",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalContainers20261003\\Authored\\SM_Hospital_FirstAid_Door.fbx",
+      "asset": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Door",
+      "materials": {
+        "RS_White": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White",
+        "RS_Glass": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Red": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red",
+        "RS_Labels": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      "triangles": 2350,
+      "nanite": false,
+      "collision": false,
+      "pivot_blender_m": [
+        -0.25,
+        0.1,
+        0
+      ]
+    },
+    {
+      "name": "SM_Hospital_InstrumentBox_Body",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalContainers20261003\\Authored\\SM_Hospital_InstrumentBox_Body.fbx",
+      "asset": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Body",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Lining": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining",
+        "RS_Labels": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels"
+      },
+      "triangles": 4466,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_Hospital_InstrumentBox_Lid",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalContainers20261003\\Authored\\SM_Hospital_InstrumentBox_Lid.fbx",
+      "asset": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Lid",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      "triangles": 1128,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0,
+        -0.125,
+        0.115
+      ]
+    },
+    {
+      "name": "SM_Hospital_SpecimenCase_Body",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalContainers20261003\\Authored\\SM_Hospital_SpecimenCase_Body.fbx",
+      "asset": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body",
+      "materials": {
+        "RS_White": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White",
+        "RS_Blue": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue",
+        "RS_Lining": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining",
+        "RS_Glass": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2",
+        "RS_Red": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Labels": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels"
+      },
+      "triangles": 13650,
+      "nanite": false,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_Hospital_SpecimenCase_Lid",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalContainers20261003\\Authored\\SM_Hospital_SpecimenCase_Lid.fbx",
+      "asset": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Lid",
+      "materials": {
+        "RS_Blue": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      "triangles": 1580,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0,
+        -0.2,
+        0.44
+      ]
+    },
+    {
+      "name": "SM_Hospital_ToolBox_Body",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalContainers20261003\\Authored\\SM_Hospital_ToolBox_Body.fbx",
+      "asset": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body",
+      "materials": {
+        "RS_Green": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "RS_Labels": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels"
+      },
+      "triangles": 8646,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "SM_Hospital_ToolBox_Lid",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HospitalContainers20261003\\Authored\\SM_Hospital_ToolBox_Lid.fbx",
+      "asset": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid",
+      "materials": {
+        "RS_Green": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green",
+        "RS_Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "RS_Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      "triangles": 1580,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0,
+        -0.15,
+        0.28
+      ]
+    }
+  ],
+  "prototypes": {
+    "MedicalCart": {
+      "body": "SM_Hospital_MedicalCart_Body",
+      "door": "SM_Hospital_MedicalCart_Drawer",
+      "hinge": [
+        0,
+        0,
+        0
+      ],
+      "opening_motion": "Drawer",
+      "drawer_travel": [
+        0,
+        -32,
+        0
+      ],
+      "storage_pages": 1,
+      "caption": "医疗推车抽屉",
+      "dimensions_m": [
+        0.7,
+        0.63,
+        1.025
+      ]
+    },
+    "PatientBox": {
+      "body": "SM_Hospital_PatientBox_Body",
+      "door": "SM_Hospital_PatientBox_Lid",
+      "hinge": [
+        0,
+        16.0,
+        32.0
+      ],
+      "opening_motion": "Lid",
+      "opened_roll": 108,
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.54,
+        0.41000000000000003,
+        0.43500000000000005
+      ],
+      "caption": "病人物品箱"
+    },
+    "FirstAid": {
+      "body": "SM_Hospital_FirstAid_Body",
+      "door": "SM_Hospital_FirstAid_Door",
+      "hinge": [
+        -25.0,
+        -10.0,
+        0
+      ],
+      "opening_motion": "Swing",
+      "opened_yaw": -102,
+      "storage_pages": 1,
+      "caption": "壁挂急救箱",
+      "dimensions_m": [
+        0.5,
+        0.275,
+        0.64
+      ]
+    },
+    "InstrumentBox": {
+      "body": "SM_Hospital_InstrumentBox_Body",
+      "door": "SM_Hospital_InstrumentBox_Lid",
+      "hinge": [
+        0,
+        12.5,
+        11.5
+      ],
+      "opening_motion": "Lid",
+      "opened_roll": 108,
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.48,
+        0.33999999999999997,
+        0.219
+      ],
+      "caption": "器械消毒盒"
+    },
+    "SpecimenCase": {
+      "body": "SM_Hospital_SpecimenCase_Body",
+      "door": "SM_Hospital_SpecimenCase_Lid",
+      "hinge": [
+        0,
+        20.0,
+        44.0
+      ],
+      "opening_motion": "Lid",
+      "opened_roll": 108,
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.6799999999999999,
+        0.49,
+        0.555
+      ],
+      "caption": "标本运输箱"
+    },
+    "ToolBox": {
+      "body": "SM_Hospital_ToolBox_Body",
+      "door": "SM_Hospital_ToolBox_Lid",
+      "hinge": [
+        0,
+        15.0,
+        28.000000000000004
+      ],
+      "opening_motion": "Lid",
+      "opened_roll": 108,
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.6799999999999999,
+        0.39,
+        0.395
+      ],
+      "caption": "排水检修工具箱"
+    }
+  },
+  "material_sources": {
+    "Steel": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+    "Rubber": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+    "White": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White",
+    "Blue": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue",
+    "Green": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green",
+    "Red": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red",
+    "Lining": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining",
+    "Labels": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels",
+    "Glass": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+  },
+  "original_geometry": true,
+  "tests_run": false,
+  "rendered": false
+}

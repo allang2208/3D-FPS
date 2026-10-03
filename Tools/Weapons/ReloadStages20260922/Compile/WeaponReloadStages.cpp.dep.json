@@ -1,0 +1,37 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\fps3d\\fpsgame\\source\\fpsgame\\weapons\\weaponreloadstages.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\fps3d\\fpsgame\\intermediate\\build\\win64\\x64\\fpsgameeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.valexpapi.cpp20.h.pch",
+        "Includes": [
+            "d:\\fps3d\\fpsgame\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\fpsgame\\definitions.fpsgame.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\weapons\\weaponreloadstages.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\weapons\\danwesson715weaponassets.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\weapons\\ash12weaponassets.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\weapons\\m16weaponassets.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\ui\\coldsteelinventorytypes.h",
+            "e:\\program files (x86)\\ue_5.8\\engine\\source\\runtime\\engine\\classes\\gameframework\\savegame.h",
+            "e:\\program files (x86)\\ue_5.8\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\savegame.generated.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\skills\\coldsteelskilltypes.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\skills\\fireballtypes.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\skills\\icespiketypes.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\skills\\lightningtypes.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\skills\\holylighttypes.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\skills\\firemagictypes.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\skills\\whirlwindtypes.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\skills\\dashattacktypes.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\combat\\weapondamagetypes.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\combat\\monstertoughnesstypes.h",
+            "d:\\fps3d\\fpsgame\\intermediate\\build\\win64\\unrealeditor\\inc\\fpsgame\\uht\\monstertoughnesstypes.generated.h",
+            "d:\\fps3d\\fpsgame\\intermediate\\build\\win64\\unrealeditor\\inc\\fpsgame\\uht\\coldsteelskilltypes.generated.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\ui\\coldsteelquickbartypes.h",
+            "d:\\fps3d\\fpsgame\\intermediate\\build\\win64\\unrealeditor\\inc\\fpsgame\\uht\\coldsteelquickbartypes.generated.h",
+            "d:\\fps3d\\fpsgame\\source\\fpsgame\\dungeon\\dungeontypes.h",
+            "d:\\fps3d\\fpsgame\\intermediate\\build\\win64\\unrealeditor\\inc\\fpsgame\\uht\\dungeontypes.generated.h",
+            "d:\\fps3d\\fpsgame\\intermediate\\build\\win64\\unrealeditor\\inc\\fpsgame\\uht\\coldsteelinventorytypes.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

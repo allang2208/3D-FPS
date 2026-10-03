@@ -1,6 +1,7 @@
 #include "FPSPotionUseComponent.h"
 #include "PotionVisuals.h"
 #include "../FPSGAMECharacter.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
 #include "../FPSGAMEPlayerController.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelHUDWidget.h"
@@ -112,7 +113,7 @@ bool UFPSPotionUseComponent::TryBegin(const FString& ItemId,const FString& Defin
 {
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
     auto* Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    if(!Player||!Player->IsLocallyControlled()||GetNetMode()!=NM_Standalone||!Model||!Bottle||!IsAnimatedConsumable(Definition))return false;
+    if(!Player||!Player->IsLocallyControlled()||!Model||!Bottle||!IsAnimatedConsumable(Definition))return false; // M2: 联机放开（本地档案→通道上行）
     if(bActive){Model->Message=bFood?TEXT("正在进食"):TEXT("正在饮用");return false;}
     if(Player->IsLeftHandHeldForCast()||Player->IsLeftHandBusyForCast()||Player->IsCastBlockingLeftHandAction())
     {Model->Message=TEXT("左手当前被占用");return false;}
@@ -180,7 +181,7 @@ bool UFPSPotionUseComponent::TryBegin(const FString& ItemId,const FString& Defin
         Liquid->SetMaterial(0,WaterMaterial);
     }
     StopSwallowAudio();bSwallowStarted=false;
-    UsingItem=PendingItemId;
+    UsingItem=PendingItemId;PresentationDefinition=*Definition;++PresentationSerial;
     bCommitted=bUncapped=bDiscarded=false;StartTime=GetWorld()->GetTimeSeconds();
     ArmPose.Reset();ActiveHands.Reset();LastHandPoseFrame=MAX_uint64;
     // Bow's existing left-hand action gate stows the bow; use the accepted bare
@@ -256,6 +257,7 @@ void UFPSPotionUseComponent::UpdateBottle(const FTransform& PalmWorld)
 void UFPSPotionUseComponent::Discard(UStaticMeshComponent* Visual,const FVector& Velocity,float Lifetime)
 {
     if(!Visual||!Visual->GetStaticMesh())return;
+    if(auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();Body&&Body->PresentConsumableDiscard(Visual,Velocity,Lifetime))return;
     const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();if(!Camera)return;
     FActorSpawnParameters Params;Params.Owner=GetOwner();Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     auto* Prop=GetWorld()->SpawnActor<AStaticMeshActor>(AStaticMeshActor::StaticClass(),Visual->GetComponentTransform(),Params);

@@ -1,4 +1,5 @@
 #include "DevelopmentPanelWidget.h"
+#include "DevelopmentItemPicker.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelHUDWidget.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
@@ -26,6 +27,7 @@ void UDevelopmentPanelWidget::NativeConstruct()
 
 void UDevelopmentPanelWidget::NativeDestruct()
 {
+    if (ItemChoice) ItemChoice->CloseMenu();
     ++PerformanceExportGeneration;
     bPerformanceExporting = false;
     if (PerformanceExportButton) PerformanceExportButton->SetIsEnabled(true);

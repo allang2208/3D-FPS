@@ -1,0 +1,47 @@
+{
+  "revision": "GripRecoveryUppercutV15",
+  "variants": {
+    "Standard": {
+      "revision": "GripRecoveryUppercutV15",
+      "variant": "Standard",
+      "source_keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\GripRecoveryV15\\SourceV14\\Standard\\editable_keys.json",
+      "fps": 120,
+      "intervals": 246,
+      "seconds": 2.05,
+      "release_seconds": 1.0,
+      "main_stroke_seconds": 0.075,
+      "finish_blade_direction": [
+        -0.14000217616558075,
+        0.320004940032959,
+        0.9370145201683044
+      ],
+      "grip_turn_degrees": {
+        "l": -147.00006799889132,
+        "r": -71.50471994453726
+      },
+      "method": "Circular hilt contact for both wrists; rigid weapon return; supported arm solve; left hilt roll adjustment +8 degrees"
+    },
+    "LongGrip": {
+      "revision": "GripRecoveryUppercutV15",
+      "variant": "LongGrip",
+      "source_keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\GripRecoveryV15\\SourceV14\\LongGrip\\editable_keys.json",
+      "fps": 120,
+      "intervals": 246,
+      "seconds": 2.05,
+      "release_seconds": 1.0,
+      "main_stroke_seconds": 0.075,
+      "finish_blade_direction": [
+        -0.14000217616558075,
+        0.320004940032959,
+        0.9370145201683044
+      ],
+      "grip_turn_degrees": {
+        "l": -146.99988885306206,
+        "r": -71.50254906435262
+      },
+      "method": "Circular hilt contact for both wrists; rigid weapon return; supported arm solve; left hilt roll adjustment +8 degrees"
+    }
+  },
+  "runtime_tested": false,
+  "paid_motion_used": false
+}

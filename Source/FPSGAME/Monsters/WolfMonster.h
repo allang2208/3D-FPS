@@ -78,7 +78,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Death", meta=(ClampMin="0", ClampMax="1")) float DeathAnimationFraction = .6f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Death") bool bUseRagdoll = true;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf") float Health = 220.f;
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf") EWolfState State = EWolfState::Idle;
+    /** 复制给远端：客户端 OnRep 重放 EnterState 驱动同款动画/表现切换。 */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf", ReplicatedUsing=OnRep_State) EWolfState State = EWolfState::Idle;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf") float StateSeconds = 0.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf") FVector Home;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf") int32 SuccessfulHits = 0;
@@ -104,6 +105,8 @@ public:
     void AlignVisual();
     UQuadrupedTemplateAnimInstance* Animation() const;
     void EnterState(EWolfState NewState);
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+    UFUNCTION() void OnRep_State();
     bool CanSee(const AActor* Actor) const;
     FVector Mouth() const;
     void SampleAction(FName Action, float SourceSeconds);

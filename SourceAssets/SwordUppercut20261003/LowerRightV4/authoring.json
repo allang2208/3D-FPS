@@ -1,0 +1,54 @@
+{
+  "revision": "LowerRightIdleGripUppercutV4",
+  "sources": "User-directed path and current installed idle poses; no external motion",
+  "paid_motion_used": false,
+  "phases": {
+    "lower_right": [
+      0,
+      0.42
+    ],
+    "offscreen": [
+      0.42,
+      0.49
+    ],
+    "upward_cut": [
+      0.49,
+      0.67
+    ],
+    "carry": [
+      0.67,
+      0.73
+    ],
+    "recover": [
+      0.73,
+      1.2
+    ]
+  },
+  "fps": 120,
+  "variants": {
+    "Standard": {
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\LowerRightV4\\Standard\\Sword_UppercutV4_Editable.blend",
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\LowerRightV4\\Standard\\editable_keys.json",
+      "seconds": 1.2,
+      "hidden_offset_m": [
+        0.7145506739616394,
+        -0.2199999988079071,
+        -0.5
+      ],
+      "joint_processing": "Rigid transport of current full idle pose"
+    },
+    "LongGrip": {
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\LowerRightV4\\LongGrip\\Sword_UppercutV4_Editable.blend",
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\LowerRightV4\\LongGrip\\editable_keys.json",
+      "seconds": 1.2,
+      "hidden_offset_m": [
+        0.7145506739616394,
+        -0.2199999988079071,
+        -0.5
+      ],
+      "joint_processing": "Rigid transport of current full idle pose"
+    }
+  },
+  "runtime_tested": false,
+  "rendered": false
+}

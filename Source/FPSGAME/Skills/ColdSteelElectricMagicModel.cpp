@@ -31,7 +31,7 @@ FElectricMagicCast UColdSteelStatusModel::ElectricMagicStats(FName Id,int32 AtLe
     H.ChainRange=T.ChainRange*T.UnitsToCM;H.Count=1+T.ChainExtraBase+(L-1)/FMath::Max(1,T.ChainLevelStep);
     H.ChainDecay=T.ChainDecay;H.StunSeconds=T.StunSeconds;
     H.ElectrifyStacks=T.ElectrifyStacks;H.ElectrifyDuration=T.ElectrifySeconds;
-    H.Duration=Id==TEXT("stormDomain")?.42f:2.f;H.Fade=Id==TEXT("stormDomain")?.22f:.153f;
+    H.Duration=Id==TEXT("stormDomain")?.42f:T.BeamHold;H.Fade=Id==TEXT("stormDomain")?.22f:T.BeamFade;
     H.Segments=Id==TEXT("stormDomain")?9:2;H.Jitter=Id==TEXT("stormDomain")?.10f:0.f;
     C.Radius=(T.RadiusBase+L*T.RadiusPerLevel)*T.UnitsToCM;
     C.Duration=T.Duration+FMath::FloorToFloat(Growth*T.DurationGrowth);C.StrikeSeconds=T.StrikeSeconds;

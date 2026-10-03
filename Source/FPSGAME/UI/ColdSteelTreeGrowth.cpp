@@ -52,7 +52,7 @@ float UColdSteelStatusModel::StumpHealthRatio(const FString& Id) const
 
 void UColdSteelStatusModel::TickTreeGrowthClock(float Delta)
 {
-    if(!GetWorld() || GetWorld()->GetNetMode()!=NM_Standalone || Delta<=0)return;
+    if(!GetWorld() || GetWorld()->GetNetMode()==NM_Client || Delta<=0)return;
     // Legacy depleted tree IDs receive a fresh cycle, keeping ore/soil untouched.
     // The tagged sub-schema travels with the same profile transaction as the drops.
     if(Current.TreeGrowthVersion==0)

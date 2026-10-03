@@ -9,5 +9,5 @@ namespace M1911MagazineVisual
 {
     void ShowFactoryMagazine(USkeletalMeshComponent* Host, bool bVisible);
     UStaticMeshComponent* Configure(AActor* Owner, USkeletalMeshComponent* Host,
-        UStaticMeshComponent* Existing, bool bEnabled);
+        UStaticMeshComponent* Existing, bool bEnabled, const FString& Option=TEXT("ext_mag"));
 }

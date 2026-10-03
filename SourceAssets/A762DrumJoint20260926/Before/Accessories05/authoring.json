@@ -1,0 +1,310 @@
+{
+  "meshes": {
+    "holographic": {
+      "name": "SM_A762_holographic",
+      "materials": {
+        "A762_holographic_0": "/Game/Weapons/AttachmentFinish20260913/M4/Materials/M_M4_holographic_0.M_M4_holographic_0",
+        "A762_holographic_1": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_M4_Holographic"
+    },
+    "panoramic_red_dot": {
+      "name": "SM_A762_panoramic_red_dot",
+      "materials": {
+        "A762_panoramic_red_dot_0": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass",
+        "A762_panoramic_red_dot_1": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle",
+        "A762_panoramic_red_dot_2": "/Game/Weapons/AttachmentFinish20260913/M4/Materials/M_M4_panoramic_red_dot_2.M_M4_panoramic_red_dot_2"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PanoramicRedDot"
+    },
+    "prism_scope_2x": {
+      "name": "SM_A762_prism_scope_2x",
+      "materials": {
+        "A762_prism_scope_2x_0": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Reticle.M_Scope2X_Reticle",
+        "A762_prism_scope_2x_1": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Glass.M_Scope2X_Glass",
+        "A762_prism_scope_2x_2": "/Game/Weapons/AttachmentFinish20260913/M4/Materials/M_M4_prism_scope_2x_2.M_M4_prism_scope_2x_2"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PrismScope2X"
+    },
+    "lpvo_1_6x": {
+      "name": "SM_A762_lpvo_1_6x",
+      "materials": {
+        "A762_lpvo_1_6x_0": "/Game/Weapons/LPVO1to6X/M_LPVO_Reticle.M_LPVO_Reticle",
+        "A762_lpvo_1_6x_1": "/Game/Weapons/LPVO1to6X/M_LPVO_Glass.M_LPVO_Glass",
+        "A762_lpvo_1_6x_2": "/Game/Weapons/AttachmentFinish20260913/M4/Materials/M_M4_lpvo_1_6x_2.M_M4_lpvo_1_6x_2"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_LPVO1to6X"
+    },
+    "lpvo_ring": {
+      "name": "SM_A762_lpvo_ring",
+      "materials": {
+        "A762_lpvo_ring_0": "/Game/Weapons/AttachmentFinish20260913/M4/Materials/M_M4_lpvo_ring_0.M_M4_lpvo_ring_0"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_LPVORing"
+    },
+    "vertical": {
+      "name": "SM_A762_vertical",
+      "materials": {
+        "A762_vertical_0": "/Game/Weapons/AttachmentFinish20260913/AKM/Materials/M_AKM_vertical_0.M_AKM_vertical_0",
+        "A762_vertical_1": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel",
+        "A762_vertical_Interface": "A762_STEEL"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_vertical"
+    },
+    "prism": {
+      "name": "SM_A762_prism",
+      "materials": {
+        "A762_prism_0": "/Game/Weapons/PrismHandstopV1/M_Prism_Polymer.M_Prism_Polymer",
+        "A762_prism_1": "/Game/Weapons/AttachmentFinish20260913/AKM/Materials/M_AKM_prism_1.M_AKM_prism_1",
+        "A762_prism_2": "/Game/Weapons/AttachmentFinish20260913/AKM/Materials/M_AKM_prism_2.M_AKM_prism_2",
+        "A762_prism_Interface": "A762_STEEL"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_prism"
+    },
+    "drum": {
+      "name": "SM_A762_drum",
+      "materials": {
+        "A762_drum_0": "/Game/Weapons/LargeDrumUpgrade20260920/AKM/M_AKM_DrumSurface.M_AKM_DrumSurface",
+        "A762_drum_1": "/Game/Weapons/LargeDrumUpgrade20260920/AKM/M_AKM_DrumSurface.M_AKM_DrumSurface",
+        "A762_drum_2": "/Game/Weapons/LargeDrumUpgrade20260920/AKM/M_AKM_DrumSurface.M_AKM_DrumSurface"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_drum"
+    },
+    "canted": {
+      "name": "SM_A762_canted",
+      "materials": {
+        "A762_canted_0": "/Game/Weapons/AttachmentFinish20260913/AKM/Materials/M_AKM_canted_0.M_AKM_canted_0",
+        "A762_canted_1": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel",
+        "A762_canted_Interface": "A762_STEEL"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_canted_CompactMount"
+    },
+    "angled": {
+      "name": "SM_A762_angled",
+      "materials": {
+        "A762_angled_0": "/Game/Weapons/ResonanceGrip20260913/MeshyIntegration/AKM/M_Resonance_AKM.M_Resonance_AKM",
+        "A762_angled_1": "/Game/Weapons/ResonanceGrip20260913/MeshyIntegration/AKM/M_Resonance_AKM.M_Resonance_AKM",
+        "A762_angled_Interface": "A762_STEEL"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/ResonanceGrip20260913/MeshyIntegration/AKM/SM_ResonanceGrip"
+    },
+    "tactical_vertical": {
+      "name": "SM_A762_tactical_vertical",
+      "materials": {
+        "A762_tactical_vertical_0": "/Game/Weapons/TacticalVerticalForegrip20260919/AKM/M_TacticalVerticalForegrip.M_TacticalVerticalForegrip",
+        "A762_tactical_vertical_1": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel",
+        "A762_tactical_vertical_2": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel",
+        "A762_tactical_vertical_Interface": "A762_STEEL"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/TacticalVerticalForegrip20260919/AKM/SM_TacticalVerticalForegrip"
+    },
+    "skeleton": {
+      "name": "SM_A762_skeleton",
+      "materials": {
+        "A762_skeleton_0": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+        "A762_skeleton_1": "/Game/Weapons/ReferenceStock5080/Refined/M_StockPolymer.M_StockPolymer",
+        "A762_skeleton_2": "/Game/Weapons/ReferenceStock5080/Refined/M_StockRubber.M_StockRubber",
+        "A762_skeleton_Interface": "A762_STEEL"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/ReferenceStock5080/AKM/SM_SkeletonStock"
+    },
+    "core_stock": {
+      "name": "SM_A762_core_stock",
+      "materials": {
+        "A762_core_stock_0": "/Game/Weapons/CoreStock20260914/Meshy0914005605/AKM/M_CoreStock_Body_AKM.M_CoreStock_Body_AKM",
+        "A762_core_stock_1": "/Game/Weapons/CoreStock20260914/Meshy0914005605/M_CoreStock_Rubber.M_CoreStock_Rubber",
+        "A762_core_stock_2": "/Game/Weapons/CoreStock20260914/Meshy0914005605/AKM/M_CoreStock_Adapter_AKM.M_CoreStock_Adapter_AKM",
+        "A762_core_stock_Interface": "A762_STEEL"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/CoreStock20260914/Meshy0914005605/AKM/SM_CoreStock"
+    },
+    "qr_performance": {
+      "name": "SM_A762_qr_performance",
+      "materials": {
+        "A762_qr_performance_0": "/Game/Weapons/QRPerformanceStock/Meshy20260913/AKM/M_PerformanceStock_AKM.M_PerformanceStock_AKM",
+        "A762_qr_performance_1": "/Game/Weapons/QRPerformanceStock/Meshy20260913/M_Stock_Polymer.M_Stock_Polymer",
+        "A762_qr_performance_2": "/Game/Weapons/QRPerformanceStock/Meshy20260913/M_Stock_Rubber.M_Stock_Rubber",
+        "A762_qr_performance_3": "/Game/Weapons/QRPerformanceStock/Meshy20260913/AKM/M_StockAdapter_AKM.M_StockAdapter_AKM",
+        "A762_qr_performance_Interface": "A762_STEEL"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/QRPerformanceStock/Meshy20260913/AKM/SM_PerformanceStock"
+    },
+    "tactical_telescopic": {
+      "name": "SM_A762_tactical_telescopic",
+      "materials": {
+        "A762_tactical_telescopic_0": "/Game/Weapons/TacticalTelescopicStock20260914/AKM/M_TacticalStock_Metal_AKM.M_TacticalStock_Metal_AKM",
+        "A762_tactical_telescopic_1": "/Game/Weapons/TacticalTelescopicStock20260914/M_TacticalStock_Polymer.M_TacticalStock_Polymer",
+        "A762_tactical_telescopic_2": "/Game/Weapons/TacticalTelescopicStock20260914/M_TacticalStock_Rubber.M_TacticalStock_Rubber",
+        "A762_tactical_telescopic_3": "/Game/Weapons/TacticalTelescopicStock20260914/AKM/M_TacticalStock_Adapter_AKM.M_TacticalStock_Adapter_AKM",
+        "A762_tactical_telescopic_Interface": "A762_STEEL"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/TacticalTelescopicStock20260914/AKM/SM_TacticalTelescopicStock"
+    },
+    "phantom_reargrip": {
+      "name": "SM_A762_phantom_reargrip",
+      "materials": {
+        "A762_phantom_reargrip_0": "/Game/Weapons/RearGripFinish20260913/AKM/phantom/M_AKM_phantom_Body.M_AKM_phantom_Body",
+        "A762_phantom_reargrip_1": "/Game/Weapons/RearGripFinish20260913/AKM/phantom/M_AKM_phantom_Collar.M_AKM_phantom_Collar",
+        "A762_phantom_reargrip_Interface": "A762_STEEL"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/RearGripFinish20260913/AKM/phantom/SM_PhantomRearGrip"
+    },
+    "balanced_reargrip": {
+      "name": "SM_A762_balanced_reargrip",
+      "materials": {
+        "A762_balanced_reargrip_0": "/Game/Weapons/RearGripFinish20260913/AKM/balanced/M_AKM_balanced_Body.M_AKM_balanced_Body",
+        "A762_balanced_reargrip_1": "/Game/Weapons/RearGripFinish20260913/AKM/balanced/M_AKM_balanced_Collar.M_AKM_balanced_Collar",
+        "A762_balanced_reargrip_Interface": "A762_STEEL"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/RearGripFinish20260913/AKM/balanced/SM_BalancedRearGrip"
+    },
+    "stable_antislip_reargrip": {
+      "name": "SM_A762_stable_antislip_reargrip",
+      "materials": {
+        "A762_stable_antislip_reargrip_0": "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/M_StableAntiSlipRearGrip.M_StableAntiSlipRearGrip",
+        "A762_stable_antislip_reargrip_1": "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/AKM/M_StableGrip_Collar_AKM.M_StableGrip_Collar_AKM",
+        "A762_stable_antislip_reargrip_Interface": "A762_STEEL"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/AKM/SM_StableAntiSlipRearGrip"
+    },
+    "laser": {
+      "name": "SM_A762_laser",
+      "materials": {
+        "A762_laser_0": "/Game/Weapons/TacticalDevices20260913/AKM/laser/M_AKM_laser_Body.M_AKM_laser_Body",
+        "A762_laser_1": "/Game/Weapons/TacticalDevices20260913/AKM/laser/M_AKM_laser_Collar.M_AKM_laser_Collar",
+        "A762_laser_Interface": "A762_STEEL"
+      },
+      "sockets": {
+        "Emitter": [
+          5.223187431693077,
+          35.37367582321167,
+          6.199730560183525
+        ],
+        "AimGuide": [
+          5.223187804222107,
+          38.37367594242096,
+          6.199730560183525
+        ]
+      },
+      "source": "/Game/Weapons/TacticalDevices20260913/AKM/laser/SM_TacticalDevice"
+    },
+    "flashlight": {
+      "name": "SM_A762_flashlight",
+      "materials": {
+        "A762_flashlight_0": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/AKM/flashlight/M_AKM_flashlight_Body.M_AKM_flashlight_Body",
+        "A762_flashlight_1": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/AKM/flashlight/M_AKM_flashlight_Collar.M_AKM_flashlight_Collar",
+        "A762_flashlight_Interface": "A762_STEEL"
+      },
+      "sockets": {
+        "Emitter": [
+          4.606390371918678,
+          37.10265755653381,
+          6.200582906603813
+        ],
+        "AimGuide": [
+          4.606390371918678,
+          40.1026576757431,
+          6.200582906603813
+        ]
+      },
+      "source": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/AKM/flashlight/SM_TacticalDevice"
+    },
+    "suppressor": {
+      "name": "SM_A762_suppressor",
+      "materials": {
+        "A762_suppressor_0": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+        "A762_suppressor_1": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/M4MuzzlesV1/SM_M4_suppressor"
+    },
+    "brake": {
+      "name": "SM_A762_brake",
+      "materials": {
+        "A762_brake_0": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+        "A762_brake_1": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/M4MuzzlesV1/SM_M4_brake"
+    },
+    "titanium_brake": {
+      "name": "SM_A762_titanium_brake",
+      "materials": {
+        "A762_titanium_brake_0": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+        "A762_titanium_brake_1": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+        "A762_titanium_brake_2": "/Game/Weapons/M4MuzzlesV1/MI_TitaniumTrim.MI_TitaniumTrim"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/M4MuzzlesV1/SM_M4_titanium_brake"
+    },
+    "tactical_suppressor": {
+      "name": "SM_A762_tactical_suppressor",
+      "materials": {
+        "A762_tactical_suppressor_0": "/Game/Weapons/TacticalSuppressor20260913/M4/M_TacticalSuppressor_Shell.M_TacticalSuppressor_Shell",
+        "A762_tactical_suppressor_1": "/Game/Weapons/TacticalSuppressor20260913/M4/M_TacticalSuppressor_Recess.M_TacticalSuppressor_Recess",
+        "A762_tactical_suppressor_2": "/Game/Weapons/TacticalSuppressor20260913/M4/M_TacticalSuppressor_Mount.M_TacticalSuppressor_Mount"
+      },
+      "sockets": {},
+      "source": "/Game/Weapons/TacticalSuppressor20260913/M4/SM_TacticalSuppressor"
+    },
+    "ext_mag": {
+      "name": "SM_A762_ext_mag",
+      "materials": {
+        "M_A762_Magazine_Rebuilt": "EXISTING_A762",
+        "M_A762_MagazineInside_Rebuilt": "EXISTING_A762",
+        "M_A762_MagazineEdge_Rebuilt": "EXISTING_A762"
+      },
+      "source": "Refinement04 original magazine, lower curved extension",
+      "sockets": {}
+    },
+    "FrontSight": {
+      "name": "SM_A762_FrontSight",
+      "materials": {
+        "M_A762_FrontSight_Rebuilt": "EXISTING_A762",
+        "M_A762_SightInner": "EXISTING_A762"
+      },
+      "sockets": {},
+      "hinge_ue": [
+        0.0005600000149570405,
+        0.4914399981498718,
+        0.09350000321865082
+      ]
+    },
+    "RearSight": {
+      "name": "SM_A762_RearSight",
+      "materials": {
+        "M_A762_RearSight03": "EXISTING_A762",
+        "M_A762_SightInner": "EXISTING_A762"
+      },
+      "sockets": {},
+      "hinge_ue": [
+        0.0005600000149570405,
+        -0.05575999990105629,
+        0.10649999976158142
+      ]
+    }
+  },
+  "fixed_sights": [
+    "A762_FrontSight_FixedBase",
+    "A762_RearSight_FixedBase"
+  ],
+  "tested": false
+}

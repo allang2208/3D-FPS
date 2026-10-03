@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "D:\FPS3D\FPSGAME\SourceAssets\TraversalSleeveRepair20261003\author.py", line 96, in <module>
+    raise RuntimeError('Native openings '+side+' '+str([(len(r),float(np.mean([(np.array(v.co)-a)@upper for v in r])),float(np.mean([(np.array(v.co)-w)@axis for v in r]))) for r in rings]))
+RuntimeError: Native openings l [(110, 2.291813082602621, -47.42403089035481), (88, 35.16038505371912, -18.00000512795249)]
+
+Error: script failed, file: 'SourceAssets/TraversalSleeveRepair20261003/author.py', exiting.
+Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:37:34)
+
+Blender quit

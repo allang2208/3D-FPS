@@ -41,6 +41,7 @@ FIntPoint BaseFootprint(const FColdSteelItem& I)
     if(Category==TEXT("weapon_melee"))return Two?FIntPoint(2,4):FIntPoint(1,3);
     if(!Type.IsEmpty()||Category==TEXT("weapon"))return Two?FIntPoint(8,2):FIntPoint(3,2);
     if(Slot==TEXT("armor"))return FIntPoint(3,4);
+    if(Slot==TEXT("pants"))return FIntPoint(2,3);
     if(Slot==TEXT("helmet")||Slot==TEXT("gloves")||Slot==TEXT("boots"))return FIntPoint(2,2);
     if(Slot==TEXT("cloak")||Slot==TEXT("backpack"))return FIntPoint(3,3);
     if(Slot==TEXT("belt"))return FIntPoint(2,1);
@@ -57,7 +58,7 @@ void ApplyOrientation(FColdSteelItem& Item,int32 Orientation)
     if(Orientation>=0&&CanRotate(Item))Item.bRotated=Orientation!=0;
     const FIntPoint Size=Footprint(Item);Item.Width=Size.X;Item.Height=Size.Y;
 }
-const TArray<FString>& SlotNames() { static const TArray<FString> Names={TEXT("左耳环"),TEXT("头盔"),TEXT("右耳环"),TEXT("手套"),TEXT("项链"),TEXT("披风"),TEXT("主手武器"),TEXT("铠甲"),TEXT("副手武器"),TEXT("主手武器2"),TEXT("腰带"),TEXT("副手武器2"),TEXT("额外物品"),TEXT("靴子"),TEXT("背包装备")}; return Names; }
+const TArray<FString>& SlotNames() { static const TArray<FString> Names={TEXT("左耳环"),TEXT("头盔"),TEXT("右耳环"),TEXT("手套"),TEXT("项链"),TEXT("披风"),TEXT("主手武器"),TEXT("铠甲"),TEXT("副手武器"),TEXT("主手武器2"),TEXT("腰带"),TEXT("副手武器2"),TEXT("额外物品"),TEXT("鞋靴"),TEXT("背包装备"),TEXT("裤子")}; return Names; }
 int32 EquippedBag(const TArray<FColdSteelItem>& Items)
 {
     for(int32 N=0;N<Items.Num();++N)if(Items[N].Place==1&&Items[N].Cell==14)return N;
@@ -100,14 +101,14 @@ bool Compatible(const FColdSteelItem& A,const FColdSteelItem& B)
 }
 bool CanEquip(const FColdSteelItem& I,int32 Slot)
 {
-    if(Slot<0 || Slot>=15 || I.Count!=1) return false;
+    if(Slot<0 || Slot>=SlotNames().Num() || I.Count!=1) return false;
     const FString Type=Text(I,TEXT("weaponType")), Category=Text(I,TEXT("category")), Off=Text(I,TEXT("offhandType"));
     if(Type==TEXT("staff"))return Slot==6||Slot==9;
     const bool Support=Type==TEXT("shield")||Type==TEXT("spellbook")||Type==TEXT("magic_book")||Off==TEXT("shield")||Off==TEXT("spellbook")||Off==TEXT("magic_book")||Category==TEXT("magic_book");
     const bool Weapon=!Type.IsEmpty()||Category.Contains(TEXT("weapon"))||!Text(I,TEXT("rangedType")).IsEmpty();
     if(Slot==6||Slot==9) return Weapon&&!Support;
     if(Slot==8||Slot==11) return (Support||IsDualPistol(I))&&!Flag(I,TEXT("isTwoHanded"));
-    static const TCHAR* Keys[]={TEXT("earring"),TEXT("helmet"),TEXT("ring1"),TEXT("gloves"),TEXT("necklace"),TEXT("cloak"),TEXT("weapon"),TEXT("armor"),TEXT("offhand"),TEXT("weapon2"),TEXT("belt"),TEXT("ring2"),TEXT("extra"),TEXT("boots"),TEXT("backpack")};
+    static const TCHAR* Keys[]={TEXT("earring"),TEXT("helmet"),TEXT("ring1"),TEXT("gloves"),TEXT("necklace"),TEXT("cloak"),TEXT("weapon"),TEXT("armor"),TEXT("offhand"),TEXT("weapon2"),TEXT("belt"),TEXT("ring2"),TEXT("extra"),TEXT("boots"),TEXT("backpack"),TEXT("pants")};
     return !Weapon && Text(I,TEXT("equipSlot"))==Keys[Slot];
 }
 int32 Owner(const TArray<FColdSteelItem>& Items,int32 Place,int32 Cell)

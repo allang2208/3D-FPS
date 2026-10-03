@@ -1,0 +1,744 @@
+Begin Object Class=/Script/Engine.MaterialFunction Name="MF_skin_bakedInputs" ExportPath="/Script/Engine.MaterialFunction'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs'"
+   Begin Object Class=/Script/Engine.MaterialFunctionEditorOnlyData Name="MF_skin_bakedInputsEditorOnlyData" ExportPath="/Script/Engine.MaterialFunctionEditorOnlyData'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MF_skin_bakedInputsEditorOnlyData'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionInput Name="MaterialExpressionFunctionInput_0" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionFunctionInput_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionInput Name="MaterialExpressionFunctionInput_1" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionFunctionInput_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionInput Name="MaterialExpressionFunctionInput_2" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionFunctionInput_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionOutput Name="MaterialExpressionFunctionOutput_0" ExportPath="/Script/Engine.MaterialExpressionFunctionOutput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionFunctionOutput_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionOutput Name="MaterialExpressionFunctionOutput_1" ExportPath="/Script/Engine.MaterialExpressionFunctionOutput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionFunctionOutput_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionLinearInterpolate Name="MaterialExpressionLinearInterpolate_4" ExportPath="/Script/Engine.MaterialExpressionLinearInterpolate'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionLinearInterpolate_4'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMakeMaterialAttributes Name="MaterialExpressionMakeMaterialAttributes_0" ExportPath="/Script/Engine.MaterialExpressionMakeMaterialAttributes'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionMakeMaterialAttributes_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMaterialFunctionCall Name="MaterialExpressionMaterialFunctionCall_0" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionMaterialFunctionCall_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMaterialFunctionCall Name="MaterialExpressionMaterialFunctionCall_3" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionMaterialFunctionCall_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMaterialFunctionCall Name="MaterialExpressionMaterialFunctionCall_8" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionMaterialFunctionCall_8'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMax Name="MaterialExpressionMax_0" ExportPath="/Script/Engine.MaterialExpressionMax'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionMax_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_0" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_1" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_2" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_3" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_4" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_4'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_5" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_5'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_6" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_6'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_7" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_7'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_8" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_8'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_9" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_9'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_0" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_1" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_10" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_10'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_11" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_11'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_12" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_12'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_13" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_13'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_14" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_14'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_15" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_15'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_2" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_3" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_4" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_4'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_5" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_5'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_6" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_6'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_7" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_7'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_8" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_8'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_9" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_9'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionReroute Name="MaterialExpressionReroute_0" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionReroute_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionReroute Name="MaterialExpressionReroute_1" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionReroute_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionReroute Name="MaterialExpressionReroute_2" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionReroute_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionReroute Name="MaterialExpressionReroute_3" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionReroute_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionReroute Name="MaterialExpressionReroute_4" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionReroute_4'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionScalarParameter Name="MaterialExpressionScalarParameter_0" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionScalarParameter_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionScalarParameter Name="MaterialExpressionScalarParameter_12" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionScalarParameter_12'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitch Name="MaterialExpressionStaticSwitch_0" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionStaticSwitch_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitch Name="MaterialExpressionStaticSwitch_1" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionStaticSwitch_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitch Name="MaterialExpressionStaticSwitch_2" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionStaticSwitch_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitch Name="MaterialExpressionStaticSwitch_3" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionStaticSwitch_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitchParameter Name="MaterialExpressionStaticSwitchParameter_0" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionStaticSwitchParameter_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureObjectParameter Name="MaterialExpressionTextureObjectParameter_0" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureObjectParameter Name="MaterialExpressionTextureObjectParameter_1" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureObjectParameter Name="MaterialExpressionTextureObjectParameter_2" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureObjectParameter Name="MaterialExpressionTextureObjectParameter_3" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureObjectParameter Name="MaterialExpressionTextureObjectParameter_4" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_4'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureObjectParameter Name="MaterialExpressionTextureObjectParameter_5" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_5'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureObjectParameter Name="MaterialExpressionTextureObjectParameter_6" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_6'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureObjectParameter Name="MaterialExpressionTextureObjectParameter_7" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_7'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_0" ExportPath="/Script/Engine.MaterialExpressionTextureSample'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSample_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_1" ExportPath="/Script/Engine.MaterialExpressionTextureSample'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSample_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_2" ExportPath="/Script/Engine.MaterialExpressionTextureSample'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSample_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_3" ExportPath="/Script/Engine.MaterialExpressionTextureSample'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSample_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_4" ExportPath="/Script/Engine.MaterialExpressionTextureSample'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSample_4'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_5" ExportPath="/Script/Engine.MaterialExpressionTextureSample'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSample_5'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSampleParameter2D Name="MaterialExpressionTextureSampleParameter2D_0" ExportPath="/Script/Engine.MaterialExpressionTextureSampleParameter2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSampleParameter2D_0'"
+   End Object
+   Begin Object Name="MF_skin_bakedInputsEditorOnlyData" ExportPath="/Script/Engine.MaterialFunctionEditorOnlyData'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MF_skin_bakedInputsEditorOnlyData'"
+      ExpressionCollection=(Expressions=("/Script/Engine.MaterialExpressionFunctionOutput'MF_skin_bakedInputs:MaterialExpressionFunctionOutput_0'","/Script/Engine.MaterialExpressionFunctionInput'MF_skin_bakedInputs:MaterialExpressionFunctionInput_0'","/Script/Engine.MaterialExpressionMakeMaterialAttributes'MF_skin_bakedInputs:MaterialExpressionMakeMaterialAttributes_0'","/Script/Engine.MaterialExpressionFunctionOutput'MF_skin_bakedInputs:MaterialExpressionFunctionOutput_1'","/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_bakedInputs:MaterialExpressionMaterialFunctionCall_0'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_0'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_3'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_6'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_2'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_3'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_4'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_5'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_6'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_7'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_1'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_4'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_5'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_7'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_8'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_8'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_9'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_11'","/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_0'","/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_1'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_14'","/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_1'","/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_2'","/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_3'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_15'","/Script/Engine.MaterialExpressionReroute'MF_skin_bakedInputs:MaterialExpressionReroute_1'","/Script/Engine.MaterialExpressionReroute'MF_skin_bakedInputs:MaterialExpressionReroute_2'","/Script/Engine.MaterialExpressionReroute'MF_skin_bakedInputs:MaterialExpressionReroute_3'","/Script/Engine.MaterialExpressionReroute'MF_skin_bakedInputs:MaterialExpressionReroute_4'","/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_2'","/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_3'","/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_4'","/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_5'","/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_6'","/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_7'","/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_5'","/Script/Engine.MaterialExpressionFunctionInput'MF_skin_bakedInputs:MaterialExpressionFunctionInput_1'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_1'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_0'","/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_bakedInputs:MaterialExpressionMaterialFunctionCall_3'","/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_0'","/Script/Engine.MaterialExpressionScalarParameter'MF_skin_bakedInputs:MaterialExpressionScalarParameter_0'","/Script/Engine.MaterialExpressionLinearInterpolate'MF_skin_bakedInputs:MaterialExpressionLinearInterpolate_4'","/Script/Engine.MaterialExpressionScalarParameter'MF_skin_bakedInputs:MaterialExpressionScalarParameter_12'","/Script/Engine.MaterialExpressionReroute'MF_skin_bakedInputs:MaterialExpressionReroute_0'","/Script/Engine.MaterialExpressionTextureSampleParameter2D'MF_skin_bakedInputs:MaterialExpressionTextureSampleParameter2D_0'","/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_bakedInputs:MaterialExpressionMaterialFunctionCall_8'","/Script/Engine.MaterialExpressionMax'MF_skin_bakedInputs:MaterialExpressionMax_0'","/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_bakedInputs:MaterialExpressionStaticSwitchParameter_0'","/Script/Engine.MaterialExpressionFunctionInput'MF_skin_bakedInputs:MaterialExpressionFunctionInput_2'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_9'","/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_bakedInputs:MaterialExpressionStaticSwitch_0'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_2'","/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_bakedInputs:MaterialExpressionStaticSwitch_1'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_10'","/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_bakedInputs:MaterialExpressionStaticSwitch_2'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_12'","/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_bakedInputs:MaterialExpressionStaticSwitch_3'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_13'","/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_4'"))
+   End Object
+   Begin Object Name="MaterialExpressionFunctionInput_0" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionFunctionInput_0'"
+      InputName="UDIM"
+      Id=69C4612D429646B59FFC038DC7942831
+      InputType=FunctionInput_Scalar
+      SortPriority=10
+      MaterialExpressionEditorX=-1024
+      MaterialExpressionEditorY=1024
+      MaterialExpressionGuid=AE82CC044DB3F6BC87871787A9EABE11
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionFunctionInput_1" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionFunctionInput_1'"
+      InputName="Mip Bias"
+      Id=7FF8DB294FD0C4355BEA76AB621E7761
+      InputType=FunctionInput_Scalar
+      MaterialExpressionEditorX=-1024
+      MaterialExpressionEditorY=512
+      MaterialExpressionGuid=526880594FB8A718145335A7A9B4819F
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionFunctionInput_2" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionFunctionInput_2'"
+      InputName="Use VT"
+      Id=9B11D66741AE2542C18CCA84BF337D36
+      InputType=FunctionInput_StaticBool
+      SortPriority=5
+      MaterialExpressionEditorX=-1024
+      MaterialExpressionEditorY=768
+      MaterialExpressionGuid=52702B964640A4020BD8C7B6AD4C996C
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionFunctionOutput_0" ExportPath="/Script/Engine.MaterialExpressionFunctionOutput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionFunctionOutput_0'"
+      OutputName="Material Attributes"
+      A=(Expression="/Script/Engine.MaterialExpressionMakeMaterialAttributes'MF_skin_bakedInputs:MaterialExpressionMakeMaterialAttributes_0'")
+      bLastPreviewed=True
+      Id=4AF690A545C0EC8275F29B84906D2F9A
+      MaterialExpressionEditorX=3072
+      MaterialExpressionEditorY=768
+      MaterialExpressionGuid=14A3504648F0434ECBB568A89D6B03A5
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionFunctionOutput_1" ExportPath="/Script/Engine.MaterialExpressionFunctionOutput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionFunctionOutput_1'"
+      OutputName="Fuzz"
+      SortPriority=10
+      A=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_11'")
+      Id=47AC6A0F4C17BBC32658949E14E082A5
+      MaterialExpressionEditorX=3072
+      MaterialExpressionEditorY=1792
+      MaterialExpressionGuid=197566994AFE66271D248EAE6D8FEA2B
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionLinearInterpolate_4" ExportPath="/Script/Engine.MaterialExpressionLinearInterpolate'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionLinearInterpolate_4'"
+      A=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_bakedInputs:MaterialExpressionReroute_0'")
+      B=(Expression="/Script/Engine.MaterialExpressionMax'MF_skin_bakedInputs:MaterialExpressionMax_0'")
+      Alpha=(Expression="/Script/Engine.MaterialExpressionScalarParameter'MF_skin_bakedInputs:MaterialExpressionScalarParameter_12'")
+      MaterialExpressionEditorX=1408
+      MaterialExpressionEditorY=224
+      MaterialExpressionGuid=478EEC0F42D5276433B1A097FBBEF626
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionMakeMaterialAttributes_0" ExportPath="/Script/Engine.MaterialExpressionMakeMaterialAttributes'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionMakeMaterialAttributes_0'"
+      BaseColor=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_1'")
+      Metallic=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_5'")
+      Specular=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_4'")
+      Roughness=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_7'")
+      Opacity=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_9'")
+      OpacityMask=(Expression="/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_4'",OutputIndex=1,Mask=1,MaskR=1)
+      Normal=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_8'")
+      MaterialExpressionEditorX=2816
+      MaterialExpressionEditorY=768
+      MaterialExpressionGuid=D98E54E648AF5CCDFCB40B833AE6EB97
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionMaterialFunctionCall_0" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionMaterialFunctionCall_0'"
+      MaterialFunction="/Script/Engine.MaterialFunction'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Material_Functions/MF_UDIMs.MF_UDIMs'"
+      FunctionInputs(0)=(ExpressionInputId=D91F9DF24F209B72CBA5C59424CEA386,Input=(Expression="/Script/Engine.MaterialExpressionFunctionInput'MF_skin_bakedInputs:MaterialExpressionFunctionInput_0'",InputName="UDIM"))
+      FunctionOutputs(0)=(ExpressionOutputId=BD25DD5942A83EB145C115ACC902ACE6,Output=(OutputName="UVs"))
+      MaterialExpressionEditorX=-768
+      MaterialExpressionEditorY=1024
+      MaterialExpressionGuid=A7ED52304400F650FB67E2AEA9D36421
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+      Outputs(0)=(OutputName="UVs")
+   End Object
+   Begin Object Name="MaterialExpressionMaterialFunctionCall_3" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionMaterialFunctionCall_3'"
+      MaterialFunction="/Script/Engine.MaterialFunction'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Material_Functions/MF_UHM_QualitySwitch_Vector3.MF_UHM_QualitySwitch_Vector3'"
+      FunctionInputs(0)=(ExpressionInputId=EEFE89D948211DC76247328879EE9FD6,Input=(Expression="/Script/Engine.MaterialExpressionLinearInterpolate'MF_skin_bakedInputs:MaterialExpressionLinearInterpolate_4'",InputName="Low - PC"))
+      FunctionInputs(1)=(ExpressionInputId=6569BC6F4CCD9F35FE1A6D8A164096C8,Input=(Expression="/Script/Engine.MaterialExpressionLinearInterpolate'MF_skin_bakedInputs:MaterialExpressionLinearInterpolate_4'",InputName="Med - PC"))
+      FunctionInputs(2)=(ExpressionInputId=F62544774084C60D8CD1198D762F0A97,Input=(Expression="/Script/Engine.MaterialExpressionLinearInterpolate'MF_skin_bakedInputs:MaterialExpressionLinearInterpolate_4'",InputName="High"))
+      FunctionInputs(3)=(ExpressionInputId=21CBC17341651390680551B14E9468CF,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_bakedInputs:MaterialExpressionReroute_0'",InputName="Epic"))
+      FunctionInputs(4)=(ExpressionInputId=0B37190B4B58BD56F755628C1C4916A8,Input=(OutputIndex=-1,InputName="--------"))
+      FunctionInputs(5)=(ExpressionInputId=EAC55F394FED56F622B729BF0B27374E,Input=(Expression="/Script/Engine.MaterialExpressionLinearInterpolate'MF_skin_bakedInputs:MaterialExpressionLinearInterpolate_4'",InputName="Low"))
+      FunctionInputs(6)=(ExpressionInputId=9571FD5B49AC9F7E3071738904FA22B0,Input=(Expression="/Script/Engine.MaterialExpressionLinearInterpolate'MF_skin_bakedInputs:MaterialExpressionLinearInterpolate_4'",InputName="Medium"))
+      FunctionOutputs(0)=(ExpressionOutputId=6DC4A3E045D68475F51AEEB9C29009D8,Output=(OutputName="Result"))
+      MaterialExpressionEditorX=1664
+      MaterialExpressionEditorY=128
+      MaterialExpressionGuid=6B9C206649FE5921FDAADC931C7EF4C4
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+      Outputs(0)=(OutputName="Result")
+   End Object
+   Begin Object Name="MaterialExpressionMaterialFunctionCall_8" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionMaterialFunctionCall_8'"
+      MaterialFunction="/Script/Engine.MaterialFunction'/Engine/Functions/Engine_MaterialFunctions02/Utility/BlendAngleCorrectedNormals.BlendAngleCorrectedNormals'"
+      FunctionInputs(0)=(ExpressionInputId=471965E548C55D27E606D3832C490AD3,Input=(Expression="/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_3'",InputName="BaseNormal",Mask=1,MaskR=1,MaskG=1,MaskB=1))
+      FunctionInputs(1)=(ExpressionInputId=7E2E487F49DE5A67E3A1EFA3FD83D041,Input=(Expression="/Script/Engine.MaterialExpressionTextureSampleParameter2D'MF_skin_bakedInputs:MaterialExpressionTextureSampleParameter2D_0'",InputName="AdditionalNormal",Mask=1,MaskR=1,MaskG=1,MaskB=1))
+      FunctionOutputs(0)=(ExpressionOutputId=E2F3EA0E41E2637BBAA2A4A0FEF38E6A,Output=(OutputName="Result"))
+      MaterialExpressionEditorX=1312
+      MaterialExpressionEditorY=1488
+      MaterialExpressionGuid=B546B423415E9CED5E4093A478A81405
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+      Outputs(0)=(OutputName="Result")
+   End Object
+   Begin Object Name="MaterialExpressionMax_0" ExportPath="/Script/Engine.MaterialExpressionMax'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionMax_0'"
+      A=(Expression="/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_2'",Mask=1,MaskR=1,MaskG=1,MaskB=1)
+      B=(Expression="/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_0'",Mask=1,MaskR=1,MaskG=1,MaskB=1)
+      MaterialExpressionEditorX=1024
+      MaterialExpressionEditorY=224
+      MaterialExpressionGuid=0E779E124E5BE83DBE0A85AF38FE361D
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_0" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_0'"
+      Input=(Expression="/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_bakedInputs:MaterialExpressionMaterialFunctionCall_0'")
+      Name="UVs"
+      NodeColor=(R=0.000000,G=1.000000,B=0.695313,A=1.000000)
+      VariableGuid=12441EBC4A03F311A4E7918A57C3B151
+      MaterialExpressionEditorX=-512
+      MaterialExpressionEditorY=1024
+      MaterialExpressionGuid=000D336348B158E7B7CC4594E6217157
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_1" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_1'"
+      Input=(Expression="/Script/Engine.MaterialExpressionFunctionInput'MF_skin_bakedInputs:MaterialExpressionFunctionInput_1'")
+      Name="Mip Bias"
+      NodeColor=(R=1.000000,G=0.234375,B=0.000000,A=1.000000)
+      VariableGuid=A439105445762E9CBCFE88B91C5B3754
+      MaterialExpressionEditorX=-512
+      MaterialExpressionEditorY=512
+      MaterialExpressionGuid=30DE8B79463FA39CABF663ABAA807558
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_2" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_2'"
+      Input=(Expression="/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_bakedInputs:MaterialExpressionMaterialFunctionCall_3'")
+      Name="Basecolor"
+      NodeColor=(R=1.000000,G=0.000000,B=0.070312,A=1.000000)
+      VariableGuid=6BF01E2A4338602508045BA9301C282A
+      MaterialExpressionEditorX=2048
+      MaterialExpressionEditorY=128
+      MaterialExpressionGuid=42E0031D4D81CDC50CBC2CADDB589C4D
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_3" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_3'"
+      Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_bakedInputs:MaterialExpressionReroute_1'")
+      Name="Specular"
+      NodeColor=(R=1.000000,G=0.000000,B=0.960937,A=1.000000)
+      VariableGuid=85F101DE447DEAB0468CBFB3BF626D9D
+      MaterialExpressionEditorX=2048
+      MaterialExpressionEditorY=768
+      MaterialExpressionGuid=1A641D9D43E2D40D5D76979DF8C86C69
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_4" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_4'"
+      Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_bakedInputs:MaterialExpressionReroute_4'")
+      Name="Roughness"
+      NodeColor=(R=1.000000,G=0.000000,B=0.703125,A=1.000000)
+      VariableGuid=B0BC84974346F5FEFBC49A88D6C4829B
+      MaterialExpressionEditorX=2048
+      MaterialExpressionEditorY=832
+      MaterialExpressionGuid=5924588D4B65321CF04B5CB9E788279B
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_5" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_5'"
+      Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_bakedInputs:MaterialExpressionReroute_2'")
+      Name="Metallic"
+      NodeColor=(R=1.000000,G=0.960938,B=0.000000,A=1.000000)
+      VariableGuid=60568E9E4BCA674593AEACA1982FDCDA
+      MaterialExpressionEditorX=2048
+      MaterialExpressionEditorY=896
+      MaterialExpressionGuid=53332BEA40574DF176C0C881F6A78A31
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_6" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_6'"
+      Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_bakedInputs:MaterialExpressionReroute_3'")
+      Name="Fuzz"
+      NodeColor=(R=1.000000,G=0.070312,B=0.000000,A=1.000000)
+      VariableGuid=F4D1E7504CA0CAB13D7B8CB6F0A1B300
+      MaterialExpressionEditorX=2048
+      MaterialExpressionEditorY=960
+      MaterialExpressionGuid=E341E6C943951B68CABBC3A41BFAACE7
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_7" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_7'"
+      Input=(Expression="/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_bakedInputs:MaterialExpressionStaticSwitchParameter_0'")
+      Name="Normal"
+      NodeColor=(R=0.406250,G=1.000000,B=0.000000,A=1.000000)
+      VariableGuid=BE119DB1480DB71287016ABB8297D433
+      MaterialExpressionEditorX=2048
+      MaterialExpressionEditorY=1408
+      MaterialExpressionGuid=B9353DCA4CA5390D6870FBB565C9265C
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_8" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_8'"
+      Input=(Expression="/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_5'",Mask=1,MaskR=1,MaskG=1,MaskB=1)
+      Name="Scatter"
+      NodeColor=(R=1.000000,G=0.328125,B=0.000000,A=1.000000)
+      VariableGuid=8FFFCA234D244AA12682B9B8CAF8BABC
+      MaterialExpressionEditorX=2048
+      MaterialExpressionEditorY=1920
+      MaterialExpressionGuid=705918414E679191E4CD12B70BD6A75E
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_9" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_9'"
+      Input=(Expression="/Script/Engine.MaterialExpressionFunctionInput'MF_skin_bakedInputs:MaterialExpressionFunctionInput_2'")
+      Name="Use VT"
+      NodeColor=(R=0.851562,G=1.000000,B=0.000000,A=1.000000)
+      VariableGuid=884F196B41224DDB070DBB89D41AA48C
+      MaterialExpressionEditorX=-512
+      MaterialExpressionEditorY=768
+      MaterialExpressionGuid=39BF1F184E1CD1EBA7ED08903DD27E52
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_0" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_0'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_1'"
+      DeclarationGuid=A439105445762E9CBCFE88B91C5B3754
+      MaterialExpressionEditorX=512
+      MaterialExpressionEditorY=1024
+      MaterialExpressionGuid=C54DCE884D0AE925AE5486834DC1B08E
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_1" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_1'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_2'"
+      DeclarationGuid=6BF01E2A4338602508045BA9301C282A
+      MaterialExpressionEditorX=2560
+      MaterialExpressionEditorY=768
+      MaterialExpressionGuid=A612213F405D359BBE4599A5C3C4DF5B
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_10" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_10'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_9'"
+      DeclarationGuid=884F196B41224DDB070DBB89D41AA48C
+      MaterialExpressionEditorX=288
+      MaterialExpressionEditorY=960
+      MaterialExpressionGuid=48A1189D41165C9EF2C7B1AC8BDDD761
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_11" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_11'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_6'"
+      DeclarationGuid=F4D1E7504CA0CAB13D7B8CB6F0A1B300
+      MaterialExpressionEditorX=2560
+      MaterialExpressionEditorY=1792
+      MaterialExpressionGuid=0E5A720B4C29E59E80A230963D18DEF7
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_12" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_12'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_9'"
+      DeclarationGuid=884F196B41224DDB070DBB89D41AA48C
+      MaterialExpressionEditorX=288
+      MaterialExpressionEditorY=1600
+      MaterialExpressionGuid=D5E975D843004AD7BC090594C7237892
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_13" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_13'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_9'"
+      DeclarationGuid=884F196B41224DDB070DBB89D41AA48C
+      MaterialExpressionEditorX=288
+      MaterialExpressionEditorY=2112
+      MaterialExpressionGuid=AB47371C4C3A8E7BDFF6A5862547288F
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_14" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_14'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_0'"
+      DeclarationGuid=12441EBC4A03F311A4E7918A57C3B151
+      MaterialExpressionEditorX=-128
+      MaterialExpressionEditorY=656
+      MaterialExpressionGuid=6CC801EC44A807A807AC719433C13AAD
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_15" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_15'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_0'"
+      DeclarationGuid=12441EBC4A03F311A4E7918A57C3B151
+      MaterialExpressionEditorX=-128
+      MaterialExpressionEditorY=-112
+      MaterialExpressionGuid=6CC801EC44A807A807AC719433C13AAD
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_2" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_2'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_9'"
+      DeclarationGuid=884F196B41224DDB070DBB89D41AA48C
+      MaterialExpressionEditorX=288
+      MaterialExpressionEditorY=192
+      MaterialExpressionGuid=750E0A934FBCFE79C7340B9EF1C175D1
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_3" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_3'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_0'"
+      DeclarationGuid=12441EBC4A03F311A4E7918A57C3B151
+      MaterialExpressionEditorX=-128
+      MaterialExpressionEditorY=1296
+      MaterialExpressionGuid=6CC801EC44A807A807AC719433C13AAD
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_4" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_4'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_3'"
+      DeclarationGuid=85F101DE447DEAB0468CBFB3BF626D9D
+      MaterialExpressionEditorX=2560
+      MaterialExpressionEditorY=896
+      MaterialExpressionGuid=5937027E46E4015025F1CFA2234727FD
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_5" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_5'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_5'"
+      DeclarationGuid=60568E9E4BCA674593AEACA1982FDCDA
+      MaterialExpressionEditorX=2560
+      MaterialExpressionEditorY=832
+      MaterialExpressionGuid=38693BE24C88BF35B25BC5B3751C8396
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_6" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_6'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_0'"
+      DeclarationGuid=12441EBC4A03F311A4E7918A57C3B151
+      MaterialExpressionEditorX=-128
+      MaterialExpressionEditorY=1808
+      MaterialExpressionGuid=6CC801EC44A807A807AC719433C13AAD
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_7" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_7'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_4'"
+      DeclarationGuid=B0BC84974346F5FEFBC49A88D6C4829B
+      MaterialExpressionEditorX=2560
+      MaterialExpressionEditorY=960
+      MaterialExpressionGuid=0B376213402BE971F50A13B79356EA24
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_8" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_8'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_7'"
+      DeclarationGuid=BE119DB1480DB71287016ABB8297D433
+      MaterialExpressionEditorX=2560
+      MaterialExpressionEditorY=1088
+      MaterialExpressionGuid=7E2408EF49606F8E770BCB83AFD5FED8
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_9" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_9'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_bakedInputs:MaterialExpressionNamedRerouteDeclaration_8'"
+      DeclarationGuid=8FFFCA234D244AA12682B9B8CAF8BABC
+      MaterialExpressionEditorX=2560
+      MaterialExpressionEditorY=1024
+      MaterialExpressionGuid=DD47DF91417B8CE0021C6D8587051F9F
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionReroute_0" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionReroute_0'"
+      Input=(Expression="/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_2'",Mask=1,MaskR=1,MaskG=1,MaskB=1)
+      MaterialExpressionEditorX=1120
+      MaterialExpressionEditorY=-96
+      MaterialExpressionGuid=7D05015D45C3364E360E3B94E664B8BF
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionReroute_1" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionReroute_1'"
+      Input=(Expression="/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_1'",OutputIndex=1,Mask=1,MaskR=1)
+      MaterialExpressionEditorX=1888
+      MaterialExpressionEditorY=832
+      MaterialExpressionGuid=77C4EEB34F8292E6D51961BA205F5ACE
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionReroute_2" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionReroute_2'"
+      Input=(Expression="/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_1'",OutputIndex=3,Mask=1,MaskB=1)
+      MaterialExpressionEditorX=1888
+      MaterialExpressionEditorY=896
+      MaterialExpressionGuid=B7C8D99642C214D09D7A3285088F18A0
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionReroute_3" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionReroute_3'"
+      Input=(Expression="/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_1'",OutputIndex=4,Mask=1,MaskA=1)
+      MaterialExpressionEditorX=1888
+      MaterialExpressionEditorY=928
+      MaterialExpressionGuid=DCF52D1647637943591C7FA48C8DBD86
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionReroute_4" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionReroute_4'"
+      Input=(Expression="/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_1'",OutputIndex=2,Mask=1,MaskG=1)
+      MaterialExpressionEditorX=1888
+      MaterialExpressionEditorY=864
+      MaterialExpressionGuid=B23A944742027388227BB599B0CD5FD4
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionScalarParameter_0" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionScalarParameter_0'"
+      DefaultValue=1.000000
+      SliderMin=1.000000
+      SliderMax=4.000000
+      ParameterName="Fake SSS MipBias"
+      ExpressionGUID=3E50878D45A3CFAB0D67B3B0D4809691
+      Group="997 - Quality"
+      SortPriority=5
+      MaterialExpressionEditorX=256
+      MaterialExpressionEditorY=432
+      MaterialExpressionGuid=5037829048840F2FDACAEF98A4CCD793
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionScalarParameter_12" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionScalarParameter_12'"
+      DefaultValue=0.800000
+      SliderMax=1.000000
+      ParameterName="Fake SSS Strength"
+      ExpressionGUID=84219FE54EA0712AA650E9852ED6EA51
+      Group="997 - Quality"
+      SortPriority=10
+      MaterialExpressionEditorX=1024
+      MaterialExpressionEditorY=432
+      MaterialExpressionGuid=A01525ED4B70B522CD56C9B13AEE2BCD
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitch_0" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionStaticSwitch_0'"
+      A=(Expression="/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_1'")
+      B=(Expression="/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_0'")
+      Value=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_2'")
+      MaterialExpressionEditorX=384
+      MaterialExpressionGuid=A34E36C946769835AC7A91A260ED1185
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitch_1" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionStaticSwitch_1'"
+      A=(Expression="/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_3'")
+      B=(Expression="/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_2'")
+      Value=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_10'")
+      MaterialExpressionEditorX=384
+      MaterialExpressionEditorY=768
+      MaterialExpressionGuid=6B1CEE964D95C154A0C242B29B6CC940
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitch_2" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionStaticSwitch_2'"
+      A=(Expression="/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_5'")
+      B=(Expression="/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_4'")
+      Value=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_12'")
+      MaterialExpressionEditorX=384
+      MaterialExpressionEditorY=1408
+      MaterialExpressionGuid=0648B5F145621C140A809B9AF8BF5CC5
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitch_3" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionStaticSwitch_3'"
+      A=(Expression="/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_7'")
+      B=(Expression="/Script/Engine.MaterialExpressionTextureObjectParameter'MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_6'")
+      Value=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_13'")
+      MaterialExpressionEditorX=384
+      MaterialExpressionEditorY=1920
+      MaterialExpressionGuid=AC4BF3D04A22B407AA68D6AD4BB4DDC7
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitchParameter_0" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionStaticSwitchParameter_0'"
+      A=(Expression="/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_bakedInputs:MaterialExpressionMaterialFunctionCall_8'")
+      B=(Expression="/Script/Engine.MaterialExpressionTextureSample'MF_skin_bakedInputs:MaterialExpressionTextureSample_3'",Mask=1,MaskR=1,MaskG=1,MaskB=1)
+      ParameterName="Normal LOD Baked"
+      ExpressionGUID=8CCF1CCF436BCEE6FF8AE9AD67ABB7E7
+      Group="997 - Quality"
+      SortPriority=100
+      MaterialExpressionEditorX=1664
+      MaterialExpressionEditorY=1360
+      MaterialExpressionGuid=50D4291D4A189784E0388D9DC038E973
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureObjectParameter_0" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_0'"
+      ParameterName="Basecolor Baked"
+      ExpressionGUID=ACD8C4DC49C0B5490AF2D6A1ECD3222A
+      Group="010 - Baked Inputs"
+      SortPriority=10
+      Texture="/Script/Engine.Texture2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Textures/Placeholders/T_Flat_Grey_C.T_Flat_Grey_C'"
+      MaterialExpressionEditorY=128
+      MaterialExpressionGuid=E5CD4577461D4F6F9F7603B22E21A623
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureObjectParameter_1" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_1'"
+      ParameterName="Basecolor Baked VT"
+      ExpressionGUID=3FC77FEF46FC9934561130AD2EF109F0
+      Group="010 - Baked Inputs"
+      SortPriority=10
+      Coordinates=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_15'")
+      Texture="/Script/Engine.Texture2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Textures/Placeholders/T_Flat_Grey_C_VT.T_Flat_Grey_C_VT'"
+      SamplerType=SAMPLERTYPE_VirtualColor
+      MaterialExpressionEditorY=-128
+      MaterialExpressionGuid=E5CD4577461D4F6F9F7603B22E21A623
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureObjectParameter_2" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_2'"
+      ParameterName="SRMF Baked"
+      ExpressionGUID=A6091BE64F7091C67B598ABE3299889A
+      Group="010 - Baked Inputs"
+      SortPriority=20
+      Texture="/Script/Engine.Texture2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Textures/Placeholders/T_Flat_Black_M.T_Flat_Black_M'"
+      SamplerType=SAMPLERTYPE_Masks
+      MaterialExpressionEditorY=896
+      MaterialExpressionGuid=E5CD4577461D4F6F9F7603B22E21A623
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureObjectParameter_3" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_3'"
+      ParameterName="SRMF Baked VT"
+      ExpressionGUID=48576F5447577B773509FB820A81590A
+      Group="010 - Baked Inputs"
+      SortPriority=20
+      Coordinates=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_14'")
+      Texture="/Script/Engine.Texture2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Textures/Placeholders/T_Flat_Black_M_VT.T_Flat_Black_M_VT'"
+      SamplerType=SAMPLERTYPE_VirtualMasks
+      MaterialExpressionEditorY=640
+      MaterialExpressionGuid=E5CD4577461D4F6F9F7603B22E21A623
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureObjectParameter_4" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_4'"
+      ParameterName="Normal Baked"
+      ExpressionGUID=5EE441FD4D465533AFEA5DB22F637BB9
+      Group="010 - Baked Inputs"
+      SortPriority=30
+      Texture="/Script/Engine.Texture2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Textures/Placeholders/T_Flat_N.T_Flat_N'"
+      SamplerType=SAMPLERTYPE_Normal
+      MaterialExpressionEditorY=1536
+      MaterialExpressionGuid=B89B41634EADD58EAA0655B9D1E6804B
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureObjectParameter_5" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_5'"
+      ParameterName="Normal Baked VT"
+      ExpressionGUID=D25B30E1462A7419B6BF8C92A865177F
+      Group="010 - Baked Inputs"
+      SortPriority=30
+      Coordinates=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_3'")
+      Texture="/Script/Engine.Texture2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Textures/Placeholders/T_Flat_N_VT.T_Flat_N_VT'"
+      SamplerType=SAMPLERTYPE_VirtualNormal
+      MaterialExpressionEditorY=1280
+      MaterialExpressionGuid=00500FD64DB0EDBF758834B04606931C
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureObjectParameter_6" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_6'"
+      ParameterName="Scatter Baked"
+      ExpressionGUID=2C422A774A0652B440B4EE96A4A3DA77
+      Group="010 - Baked Inputs"
+      SortPriority=40
+      Texture="/Script/Engine.Texture2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Textures/Placeholders/T_Flat_White_C.T_Flat_White_C'"
+      MaterialExpressionEditorY=2048
+      MaterialExpressionGuid=912FE1694183CEAABAA64983C9295BF6
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureObjectParameter_7" ExportPath="/Script/Engine.MaterialExpressionTextureObjectParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureObjectParameter_7'"
+      ParameterName="Scatter Baked VT"
+      ExpressionGUID=ABFE38E24BF4A6C66711C98B0E8C28EA
+      Group="010 - Baked Inputs"
+      SortPriority=40
+      Coordinates=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_6'")
+      Texture="/Script/Engine.Texture2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Textures/Placeholders/T_Flat_White_C_VT.T_Flat_White_C_VT'"
+      SamplerType=SAMPLERTYPE_VirtualColor
+      MaterialExpressionEditorY=1792
+      MaterialExpressionGuid=5968FB7F424E24212B5BA8B2C5B4AAE5
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_0" ExportPath="/Script/Engine.MaterialExpressionTextureSample'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSample_0'"
+      TextureObject=(Expression="/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_bakedInputs:MaterialExpressionStaticSwitch_0'")
+      MipValue=(Expression="/Script/Engine.MaterialExpressionScalarParameter'MF_skin_bakedInputs:MaterialExpressionScalarParameter_0'")
+      MipValueMode=TMVM_MipBias
+      MaterialExpressionEditorX=640
+      MaterialExpressionEditorY=256
+      MaterialExpressionGuid=5771E9434AD2307F36B39196B5EE8D07
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_1" ExportPath="/Script/Engine.MaterialExpressionTextureSample'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSample_1'"
+      TextureObject=(Expression="/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_bakedInputs:MaterialExpressionStaticSwitch_1'")
+      MipValue=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_bakedInputs:MaterialExpressionNamedRerouteUsage_0'")
+      MipValueMode=TMVM_MipBias
+      MaterialExpressionEditorX=640
+      MaterialExpressionEditorY=768
+      MaterialExpressionGuid=5771E9434AD2307F36B39196B5EE8D07
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_2" ExportPath="/Script/Engine.MaterialExpressionTextureSample'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSample_2'"
+      TextureObject=(Expression="/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_bakedInputs:MaterialExpressionStaticSwitch_0'")
+      MaterialExpressionEditorX=640
+      MaterialExpressionEditorY=-128
+      MaterialExpressionGuid=5771E9434AD2307F36B39196B5EE8D07
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_3" ExportPath="/Script/Engine.MaterialExpressionTextureSample'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSample_3'"
+      TextureObject=(Expression="/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_bakedInputs:MaterialExpressionStaticSwitch_2'")
+      MaterialExpressionEditorX=640
+      MaterialExpressionEditorY=1408
+      MaterialExpressionGuid=9A5C63754F3AF0493B7C37AE05A9F516
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_4" ExportPath="/Script/Engine.MaterialExpressionTextureSample'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSample_4'"
+      Texture="/Script/Engine.Texture2D'/Game/AsianMale_Jason/Texture/T_head_maskDown02.T_head_maskDown02'"
+      MaterialExpressionEditorX=2352
+      MaterialExpressionEditorY=1248
+      MaterialExpressionGuid=066E095445BEAB6A3C5AE3BC2CD60684
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_5" ExportPath="/Script/Engine.MaterialExpressionTextureSample'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSample_5'"
+      TextureObject=(Expression="/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_bakedInputs:MaterialExpressionStaticSwitch_3'")
+      Texture="/Script/Engine.Texture2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Textures/Placeholders/T_Flat_Black_M.T_Flat_Black_M'"
+      SamplerType=SAMPLERTYPE_Masks
+      MaterialExpressionEditorX=640
+      MaterialExpressionEditorY=1920
+      MaterialExpressionGuid=4220BAD040748715D32DAC94FFD1B369
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+   End Object
+   Begin Object Name="MaterialExpressionTextureSampleParameter2D_0" ExportPath="/Script/Engine.MaterialExpressionTextureSampleParameter2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_bakedInputs.MF_skin_bakedInputs:MaterialExpressionTextureSampleParameter2D_0'"
+      ParameterName="Normal LOD Baked"
+      ExpressionGUID=9CB3F78D4D0A9D4193D224BB9FE353E8
+      Group="010 - Baked Inputs"
+      SortPriority=35
+      Texture="/Script/Engine.Texture2D'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Textures/Placeholders/T_Flat_N.T_Flat_N'"
+      SamplerType=SAMPLERTYPE_Normal
+      MaterialExpressionEditorX=1024
+      MaterialExpressionEditorY=1536
+      MaterialExpressionGuid=49812F4441763CAAEFB55CBEBE81FE33
+      Function="/Script/Engine.MaterialFunction'MF_skin_bakedInputs'"
+      Desc="Use for lower LODs to approximate details from higher resolution meshes"
+   End Object
+   DependentFunctionExpressionCandidates(0)="/Script/Engine.MaterialExpressionMaterialFunctionCall'MaterialExpressionMaterialFunctionCall_0'"
+   DependentFunctionExpressionCandidates(1)="/Script/Engine.MaterialExpressionMaterialFunctionCall'MaterialExpressionMaterialFunctionCall_3'"
+   DependentFunctionExpressionCandidates(2)="/Script/Engine.MaterialExpressionMaterialFunctionCall'MaterialExpressionMaterialFunctionCall_8'"
+   EditorOnlyData="/Script/Engine.MaterialFunctionEditorOnlyData'MF_skin_bakedInputsEditorOnlyData'"
+   StateId=D30AAEF6420AABF1C4BFBD967B9FEE5B
+   CombinedInputTypes=527
+   CombinedOutputTypes=2063
+End Object

@@ -128,7 +128,7 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
     const float Scale = ColdSteelUI::PixelScale(this);
     HealthBar = AddCharacterRow(State, TEXT("生命"), TEXT("hp"), TEXT("当前生命 / 当前生命上限。受伤与恢复直接读取角色生命组件。"))->AddMeter(ColdSteelUI::Health, Scale);
     ManaBar = AddCharacterRow(State, TEXT("魔法"), TEXT("mp"), TEXT("当前魔法 / 魔法上限。药水可恢复，随角色保存。"))->AddMeter(ColdSteelUI::Mana, Scale);
-    StaminaSheetBar=AddCharacterRow(State, TEXT("体力"), TEXT("stamina"), TEXT("奔跑、近战攻击、采集与闪避消耗体力；不足时无法开始对应动作。体力上限为 100 + 装备加成，基础敏捷与装备敏捷提高恢复速度。"))->AddMeter(ColdSteelUI::Stamina, Scale);
+    StaminaSheetBar=AddCharacterRow(State, TEXT("体力"), TEXT("stamina"), TEXT("奔跑、近战攻击、采集与闪避消耗体力；不足时无法开始对应动作。体力上限为 100 + 体质×5 + 装备加成，基础敏捷与装备敏捷提高恢复速度。"))->AddMeter(ColdSteelUI::Stamina, Scale);
     ExperienceBar = AddCharacterRow(State, TEXT("经验"), TEXT("exp"), TEXT("升级经验 = (20 + 等级×20 + 等级²×12)×8；每级 3 点，余下经验保留。"))->AddMeter(ColdSteelUI::Warning, Scale);
 
     auto* Attributes = AddCharacterCard(Content, TEXT("基础属性"));
@@ -236,8 +236,8 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
         SetCharacterValue(TEXT("staminaRegen"),FString::Printf(TEXT("%.1f/秒"),StatusModel->StaminaRecoveryRate()));
         const auto& T=StatusModel->StaminaSettings();
         CharacterDetails.Add(TEXT("staminaRegen"),FString::Printf(TEXT("停止消耗 %.1f 秒后恢复。基础 %.1f/秒 × 敏捷倍率 %.2f = %.1f/秒。"),T.RecoveryDelay,T.RecoveryPerSecond,StatusModel->Derived(TEXT("staminaRegen")),StatusModel->StaminaRecoveryRate()));
-        CharacterDetails.Add(TEXT("stamina"),FString::Printf(TEXT("上限 = %.0f + 装备加成（体质系数 %.0f）。奔跑 %.1f/秒；近战 %.1f/次；采集 %.1f/次；当前闪避 %.2f/次。"),T.BaseMaximum,T.PerConstitution,T.SprintPerSecond,T.MeleeCost,T.HarvestCost,StatusModel->DodgeStaminaCost()));
-        CharacterDetails.Add(TEXT("con"),FString::Printf(TEXT("生命上限 = 100 + 体质×10 + (等级-1)×10\n体力上限 = %.0f + 装备加成（体质系数 %.0f）\n物防 = 向下取整(体质×1.2 + 力量×0.3)\n暴击抵抗 = 体质%%"),T.BaseMaximum,T.PerConstitution));
+        CharacterDetails.Add(TEXT("stamina"),FString::Printf(TEXT("上限 = %.0f + 体质×%.0f + 装备加成。奔跑 %.1f/秒；近战 %.1f/次；采集 %.1f/次；当前闪避 %.2f/次。"),T.BaseMaximum,T.PerConstitution,T.SprintPerSecond,T.MeleeCost,T.HarvestCost,StatusModel->DodgeStaminaCost()));
+        CharacterDetails.Add(TEXT("con"),FString::Printf(TEXT("生命上限 = 100 + 体质×10 + (等级-1)×10\n体力上限 = %.0f + 体质×%.0f + 装备加成\n物防 = 向下取整(体质×1.2 + 力量×0.3)\n暴击抵抗 = 体质%%"),T.BaseMaximum,T.PerConstitution));
     }
     const auto* Character = GetOwningPlayerPawn<AFPSGAMECharacter>();
     // Clear former-pawn values when possession changes or no compatible pawn exists.

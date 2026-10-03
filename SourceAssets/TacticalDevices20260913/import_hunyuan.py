@@ -89,3 +89,4 @@ for key,info in auth.items():
  report[key]={'mesh':path,'reference':refs[info['family']],'coating_uv':1,'polymer_uv':0,'sockets':{str(x.socket_name):str(x.relative_location) for x in [mesh.find_socket('Emitter'),mesh.find_socket('AimGuide')] if x},'slots':{str(s.material_slot_name):s.material_interface.get_path_name() for s in mesh.static_materials}}
  (O/'installed.json').write_text(json.dumps(report,indent=2));u.log('TACTICAL_DEVICE_INSTALLED '+key)
 u.log('TACTICAL_DEVICE_COMPLETE')
+

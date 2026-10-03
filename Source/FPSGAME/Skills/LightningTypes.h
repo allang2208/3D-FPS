@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "LightningTypes.generated.h"
 
 // World-122 lightning: keep the original formula; 1 source unit = 1.5 cm.
 struct FLightningTuning
@@ -13,15 +14,17 @@ struct FLightningTuning
     float OverloadStun=1.2f, OverloadRange=150, OverloadBase=20, OverloadMagic=1.2f, OverloadIntelligence=1.2f;
     int32 HitExperience=4, KillExperience=10, MultiHitExperience=10, MultiKillExperience=10;
 };
+USTRUCT()
 struct FLightningCast
 {
-    double DamageBase=0, MagicMultiplier=0, IntelligenceMultiplier=0;
-    float Damage=0, OverloadDamage=0, ManaCost=30, Cooldown=12, Range=900, AimRadius=300, ChainRange=300;
-    float ChainDecay=.1f, StunSeconds=.75f, Duration=.5f, Fade=.25f, Jitter=.09f;
-    float CriticalChance=0, CriticalDamageBonus=0, MagicPenetration=0, MagicDamageBonus=0, CastSpeed=1;
-    int32 Count=1, Segments=10, ElectrifyStacks=1, OverloadStacks=5, CastHasteStacks=0;
-    float ElectrifyDuration=4, ElectricBonusPerStack=.03f, OverloadStun=1.2f, OverloadRange=225, CastHasteDuration=5;
-    bool bGrantChain=false;
+    GENERATED_BODY()
+    UPROPERTY() double DamageBase=0; UPROPERTY() double MagicMultiplier=0; UPROPERTY() double IntelligenceMultiplier=0;
+    UPROPERTY() float Damage=0; UPROPERTY() float OverloadDamage=0; UPROPERTY() float ManaCost=30; UPROPERTY() float Cooldown=12; UPROPERTY() float Range=900; UPROPERTY() float AimRadius=300; UPROPERTY() float ChainRange=300;
+    UPROPERTY() float ChainDecay=.1f; UPROPERTY() float StunSeconds=.75f; UPROPERTY() float Duration=.5f; UPROPERTY() float Fade=.25f; UPROPERTY() float Jitter=.09f;
+    UPROPERTY() float CriticalChance=0; UPROPERTY() float CriticalDamageBonus=0; UPROPERTY() float MagicPenetration=0; UPROPERTY() float MagicDamageBonus=0; UPROPERTY() float CastSpeed=1;
+    UPROPERTY() int32 Count=1; UPROPERTY() int32 Segments=10; UPROPERTY() int32 ElectrifyStacks=1; UPROPERTY() int32 OverloadStacks=5; UPROPERTY() int32 CastHasteStacks=0;
+    UPROPERTY() float ElectrifyDuration=4; UPROPERTY() float ElectricBonusPerStack=.03f; UPROPERTY() float OverloadStun=1.2f; UPROPERTY() float OverloadRange=225; UPROPERTY() float CastHasteDuration=5;
+    UPROPERTY() bool bGrantChain=false;
 };
 struct FLightningRewards
 {

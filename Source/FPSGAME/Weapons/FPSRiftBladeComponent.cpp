@@ -27,7 +27,7 @@ void UFPSRiftBladeComponent::BeginPlay()
 {
     Super::BeginPlay();
     auto* World=GetWorld();
-    if(!World||!World->IsGameWorld()||GetNetMode()!=NM_Standalone||!World->GetGameInstance()||!Cast<APawn>(GetOwner()))return;
+    if(!World||!World->IsGameWorld()||GetNetMode()==NM_Client||!World->GetGameInstance()||!Cast<APawn>(GetOwner()))return;
     Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>();
     Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
     if(!Sword.IsValid())return;

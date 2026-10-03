@@ -32,6 +32,7 @@ namespace
 
 void AFPSGAMECharacter::ReloadInputPressed()
 {
+    InterruptWeaponInspection();
     if(bReloadInputHeld||IsAmmoWheelOpen())return;
     const auto* PC=Cast<APlayerController>(Controller);
     if(!PC||PC->bShowMouseCursor||AFPSGAMEPlayerController::BlocksOngoingActions(PC))return;

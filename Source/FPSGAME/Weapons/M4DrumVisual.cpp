@@ -9,6 +9,7 @@
 #include "ASH12WeaponAssets.h"
 #include "SVDAttachments.h"
 #include "M1911MagazineVisual.h"
+#include "G18WeaponAssets.h"
 #include "LMG201WeaponAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -111,11 +112,12 @@ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
     bool bExtMag=Id==TEXT("ext_mag");
     if (IsPistolWeapon())
     {
+        const bool PistolMagazine=bExtMag||(IsG18Weapon()&&Id==G18WeaponAssets::Drum50Id);
         bDrumVisual = false;
         bDrumReleasedDuringReload = bDrumMagazineHidden = false;
         LargeDrum = M1911MagazineVisual::Configure(this, AKMViewmodel, LargeDrum,
-            bUseM1911 && bExtMag && bInventoryWeaponReady);
-        MagazineAttachmentId = bUseM1911 && bExtMag && LargeDrum && LargeDrum->IsVisible() ? Id : FString();
+            bUseM1911 && PistolMagazine && bInventoryWeaponReady,Id);
+        MagazineAttachmentId = bUseM1911 && PistolMagazine && LargeDrum && LargeDrum->IsVisible() ? Id : FString();
         if (LargeDrum) DrumMount = LargeDrum->GetRelativeTransform();
         return;
     }
@@ -246,7 +248,7 @@ bool AFPSGAMECharacter::ValidateDrumAttachment() const
 void AFPSGAMECharacter::UpdateDrumDropVisual()
 {
     if(!LargeDrum)return;
-    if(MagazineAttachmentId==TEXT("ext_mag"))
+    if(MagazineAttachmentId==TEXT("ext_mag")||MagazineAttachmentId==G18WeaponAssets::Drum50Id)
     {
         // The universal magazine is socket-bound and rides the authored
         // reload path; no drum drop choreography.

@@ -28,6 +28,7 @@ UCLASS(ClassGroup=(Weapons), meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UBowPartComponent : public USceneComponent
 {
     GENERATED_BODY()
+    friend class UFPSPlayerBodyComponent;
 
 public:
     /** 槽名（riser / string / arrow_rest …），改造系统按它寻址；与 bows.json 的部件表同名。 */

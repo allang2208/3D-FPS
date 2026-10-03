@@ -169,8 +169,9 @@ void UPoisonMaggotVenomFX::AddImpact(const FHitResult& Hit, const FVector& Incom
     // Project residue only onto physical scenery. A player capsule is not a
     // visible skin surface, so it receives the splash but no floating decal.
     auto* Surface = Hit.GetComponent();
-    if (!Surface || Cast<APawn>(Hit.GetActor())) return;
+    if (!Surface || Cast<APawn>(Hit.GetActor()) || MarkCount <= 0 || Marks.Num() <= 0) return;
     auto* Mark = Marks[MarkCursor++ % MarkCount].Get();
+    if (!Mark) return;
     Mark->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
     Mark->SetWorldLocation(Hit.ImpactPoint + Normal*.25f);
     FRotator Rotation = (-Normal).Rotation(); Rotation.Roll = Random.FRandRange(-180.f,180.f);

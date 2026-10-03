@@ -135,8 +135,10 @@ struct FColdSteelSkillShot
     /** 联机命中上报的攻击语义上下文（本地结构体，ForwardHit 透传进 Report）：
      *  弓=拉弦比 0-1；其余武器族留 0。客户端只报"怎么打的"，不报"打了多少"。 */
     float DamageContext = 0.f;
-    /** 联机上报攻击语义位：0x0F=近战连段阶段(1-3)，0x10=重击(蓄力)，0x20=旋风斩，0x40=裂斩波。 */
+    /** 联机上报攻击语义位：0x0F=近战连段阶段(1-3)，0x10=重击(蓄力)，0x20=旋风斩，0x40=裂斩波，0x80=快速近战。 */
     uint8 AttackMeta = 0;
+    float QuickCombatTigerRoarToughnessBonus=0.f, QuickCombatTigerRoarSeconds=0.f;
+    float QuickCombatPhysicalVulnerabilityBonus=0.f, QuickCombatPhysicalVulnerabilitySeconds=0.f;
     TWeakObjectPtr<UFPSBallisticsComponent> BulletSource;
     TWeakObjectPtr<UFPSWeaponFXComponent> BulletFX;
     /** Only the actual melee item's prefix can start an enchantment discharge. */
@@ -149,6 +151,9 @@ struct FColdSteelSkillShot
     /** 大盲注：捕获实际手枪词缀；赌注只由这类命中增加、加成与消耗。 */
     float WagerCriticalBonusPerStack=0.f,WagerSeconds=0.f;
     int32 WagerMaxStacks=0;
+    /** 冷静的：实际附魔枪械的攻击快照；直接暴击才增加沉着冷静。 */
+    float ComposureStabilityPerStack=0.f,ComposureRecoilReductionPerStack=0.f,ComposureSeconds=0.f;
+    int32 ComposureMaxStacks=0;
 };
 
 struct FColdSteelProgressNotice

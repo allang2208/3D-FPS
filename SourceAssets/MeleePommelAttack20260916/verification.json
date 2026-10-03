@@ -1,15 +1,15 @@
 {
-  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\AzureRunesword_PommelStrikeV46.blend",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\AzureRunesword_PommelStrikeV47.blend",
   "clip": "A_RuneSword_PommelStrike",
   "idle_start_delta_mm": 0.00028778922432404707,
   "idle_end_delta_mm": 0.00028778922432404707,
   "grip_l": {
     "max_offset_mm": 116.28581387741039,
-    "max_rotation_deg": 342.50005449634284
+    "max_rotation_deg": 342.5000271755862
   },
   "grip_r": {
-    "max_offset_mm": 95.01606506868069,
-    "max_rotation_deg": 77.50001866292448
+    "max_offset_mm": 95.01611499515313,
+    "max_rotation_deg": 77.49998451197862
   },
   "samples": [
     {

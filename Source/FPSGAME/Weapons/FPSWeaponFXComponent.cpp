@@ -19,6 +19,8 @@
 #include "Engine/StaticMesh.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/World.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
 #include "Materials/MaterialInstanceDynamic.h"
@@ -287,6 +289,70 @@ UFPSWeaponFXComponent::UFPSWeaponFXComponent()
     SmokeImpulseSystem=SmokeImpulse.Object;
 }
 
+void UFPSWeaponFXComponent::SetBigBlindEnabled(bool Enabled)
+{
+    if(!GetWorld()||GetWorld()->GetNetMode()==NM_DedicatedServer)Enabled=false;
+    if(bBigBlindEnabled==Enabled)return;
+    bBigBlindEnabled=Enabled;
+    if(!Enabled)
+    {
+        if(BigBlindLoad){BigBlindLoad->CancelHandle();BigBlindLoad.Reset();}
+        if(BigBlindGlow)BigBlindGlow->SetVisibility(false);
+        if(BigBlindLight)BigBlindLight->SetVisibility(false);
+        return;
+    }
+    if(BigBlindMID){SetComponentTickEnabled(true);UpdateBigBlindGlow();return;}
+    if(auto* Material=BigBlindMaterial.Get()){CreateBigBlindGlow(Material);return;}
+    BigBlindLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(BigBlindMaterial.ToSoftObjectPath(),
+        FStreamableDelegate::CreateWeakLambda(this,[this]()
+        {
+            if(bBigBlindEnabled)CreateBigBlindGlow(BigBlindMaterial.Get());
+            BigBlindLoad.Reset();
+        }));
+}
+void UFPSWeaponFXComponent::CreateBigBlindGlow(UMaterialInterface* Material)
+{
+    if(!Material||!CardMesh||!bBigBlindEnabled||!IsValid(WeaponMesh)||!IsValid(Camera))return;
+    if(!BigBlindGlow)
+    {
+        BigBlindGlow=NewObject<UStaticMeshComponent>(GetOwner());GetOwner()->AddInstanceComponent(BigBlindGlow);
+        BigBlindGlow->SetMobility(EComponentMobility::Movable);
+        BigBlindGlow->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        BigBlindGlow->SetGenerateOverlapEvents(false);BigBlindGlow->SetCastShadow(false);
+        BigBlindGlow->SetOnlyOwnerSee(true);
+        BigBlindGlow->SetFirstPersonPrimitiveType(WeaponMesh->FirstPersonPrimitiveType);
+        BigBlindGlow->SetCanEverAffectNavigation(false);BigBlindGlow->bReceivesDecals=false;
+        BigBlindGlow->SetStaticMesh(CardMesh);BigBlindGlow->SetupAttachment(WeaponMesh);
+        BigBlindGlow->RegisterComponent();
+        BigBlindMID=UMaterialInstanceDynamic::Create(Material,BigBlindGlow);BigBlindGlow->SetMaterial(0,BigBlindMID);
+        BigBlindLight=NewObject<UPointLightComponent>(GetOwner());GetOwner()->AddInstanceComponent(BigBlindLight);
+        BigBlindLight->SetMobility(EComponentMobility::Movable);BigBlindLight->SetupAttachment(WeaponMesh);
+        BigBlindLight->SetCastShadows(false);BigBlindLight->SetLightColor(FLinearColor(1.f,.55f,.06f));
+        BigBlindLight->SetIntensityUnits(ELightUnits::Lumens);BigBlindLight->SetAttenuationRadius(32.f);
+        BigBlindLight->SetSourceRadius(2.f);BigBlindLight->SetSpecularScale(.15f);
+        BigBlindLight->SetVolumetricScatteringIntensity(0.f);BigBlindLight->RegisterComponent();
+    }
+    SetComponentTickEnabled(true);UpdateBigBlindGlow();
+}
+void UFPSWeaponFXComponent::UpdateBigBlindGlow()
+{
+    if(!BigBlindGlow||!BigBlindLight||!BigBlindMID)return;
+    const bool Visible=bBigBlindEnabled&&IsValid(WeaponMesh)&&IsValid(Camera)
+        &&WeaponMesh->IsVisible()&&!GetOwner()->IsHidden();
+    BigBlindGlow->SetVisibility(Visible);BigBlindLight->SetVisibility(Visible);
+    if(!Visible)return;
+    // 直接使用已有枪口接口：包含消音器/左手配件出口，检视与换弹仍逐帧跟随。
+    const FVector Position=MuzzleLocation()+MuzzleForward()*1.2f;
+    const float Phase=FMath::Fmod(GetWorld()->GetTimeSeconds()/1.4f,1.f);
+    const float Pulse=.5f-.5f*FMath::Cos(Phase*2.f*PI);
+    const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
+    const float AimDim=Character&&Character->IsAiming()?.35f:1.f;
+    BigBlindGlow->SetWorldLocationAndRotation(Position,FRotationMatrix::MakeFromZ(Camera->GetComponentLocation()-Position).Rotator());
+    BigBlindGlow->SetWorldScale3D(FVector(.08f,.08f,.08f));
+    BigBlindMID->SetScalarParameterValue(TEXT("Phase"),Phase);
+    BigBlindMID->SetScalarParameterValue(TEXT("Strength"),AimDim);
+    BigBlindLight->SetWorldLocation(Position);BigBlindLight->SetIntensity((1.f+5.f*Pulse)*AimDim);
+}
 void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCameraComponent* InCamera)
 {
     if (WeaponMesh) RemoveTickPrerequisiteComponent(WeaponMesh);
@@ -993,10 +1059,13 @@ void UFPSWeaponFXComponent::OnShot(bool bADS)
 {
     if (!bReady) return;
     const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
+    const bool bRSH12=WeaponMesh && WeaponMesh->GetSkeletalMeshAsset()
+        && WeaponMesh->GetSkeletalMeshAsset()->GetName().Contains(TEXT("RSH12"));
     const float Suppression=(bIndependentPistol?IndependentSuppressed:(Character&&Character->IsMuzzleSuppressed()))?.12f:1.f;
     LastSuppression=Suppression;
-    LastADSMultiplier = bADS ? 0.78f : 1.0f;
+    LastADSMultiplier = bADS ? (bRSH12?.88f:.78f) : 1.0f;
     LastWeaponFlashMultiplier = bIndependentPistol || (Character && Character->IsPistolWeapon()) ? FMath::Clamp(PistolFlashScale, 0.f, 1.f) : 1.f;
+    if(bRSH12)LastWeaponFlashMultiplier=.88f;
     const float Scale = FMath::Clamp(FlashScale, 0.0f, 2.0f) * LastADSMultiplier * LastWeaponFlashMultiplier;
     LastFXShotTime=GetWorld()->GetTimeSeconds();
     const bool bScope = ShouldHideCasings();
@@ -1033,10 +1102,11 @@ void UFPSWeaponFXComponent::OnShot(bool bADS)
         }
     }
     if (const auto* OwnerCharacter = Cast<AFPSGAMECharacter>(GetOwner()); bIndependentPistol?!bIndependentRevolver:(!OwnerCharacter || !OwnerCharacter->bUseDanWesson715)) SpawnCasing();
-    PendingHeat = FMath::Min(1.0f, PendingHeat + 0.18f);
+    PendingHeat = FMath::Min(1.0f, PendingHeat + (bRSH12?.24f:.18f));
     SmokeHeatAtLastShot = FMath::Min(1.f, BarrelHeat + PendingHeat);
     SmokeFeedUntil = LastFXShotTime + FMath::Lerp(.14f, .20f, SmokeHeatAtLastShot);
     SmokeTailUntil = SmokeFeedUntil + FMath::Lerp(.30f, 1.60f, SmokeHeatAtLastShot);
+    if(bRSH12)SmokeTailUntil=SmokeFeedUntil+FMath::Lerp(.32f,.72f,SmokeHeatAtLastShot);
     if (EpicSmokeSystem)
     {
         SpawnSmokeImpulse(bADS);
@@ -1216,7 +1286,7 @@ void UFPSWeaponFXComponent::AdvanceParticle(FFPSWeaponFXParticle& P, float Delta
 void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-    if (!bReady || !IsValid(WeaponMesh) || !IsValid(Camera))
+    if (!IsValid(WeaponMesh) || !IsValid(Camera))
     {
         StopEmission();
         for (FFPSWeaponFXParticle& P : Particles) Release(P);
@@ -1224,6 +1294,8 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
         SetComponentTickEnabled(false);
         return;
     }
+    UpdateBigBlindGlow();
+    if(!bReady){if(!bBigBlindEnabled)SetComponentTickEnabled(false);return;}
     for(const auto& FX:EpicFXPool)if(FX->IsActive()&&FX->GetAsset()==EpicMuzzleSystem)
         FX->SetWorldLocationAndRotation(MuzzleLocation(),MuzzleForward().Rotation());
     DeltaTime = FMath::Max(0.0f, DeltaTime);
@@ -1328,7 +1400,7 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
     PreviousMuzzlePosition = CurrentMuzzlePosition;
     PreviousMuzzleForward = CurrentMuzzleForward;
     if (BarrelHeat <= WeaponFX::HeatThreshold && FlashTime <= 0.0f && GetActiveParticleCount() == 0
-        && GetActiveTracerCount() == 0 && (!SmokeStream || !SmokeStream->IsActive()))
+        && GetActiveTracerCount() == 0 && (!SmokeStream || !SmokeStream->IsActive()) && !bBigBlindEnabled)
     {
         BarrelHeat = 0.0f;
         SmokeClock = 0.0;
@@ -1349,6 +1421,7 @@ int32 UFPSWeaponFXComponent::GetActiveParticleCount() const
 
 void UFPSWeaponFXComponent::StopEmission()
 {
+    SetBigBlindEnabled(false);
     for(const auto& FX:EpicFXPool)if(FX)FX->DeactivateImmediate();
     if (SmokeStream) SmokeStream->DeactivateImmediate();
     SmokeEmissionRate = 0.f;
@@ -1370,6 +1443,8 @@ void UFPSWeaponFXComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
     EpicFXPool.Reset();
     if (SmokeStream) SmokeStream->DestroyComponent();
     if (FlashLight) FlashLight->DestroyComponent();
+    if (BigBlindGlow) BigBlindGlow->DestroyComponent();
+    if (BigBlindLight) BigBlindLight->DestroyComponent();
     Super::EndPlay(EndPlayReason);
 }
 

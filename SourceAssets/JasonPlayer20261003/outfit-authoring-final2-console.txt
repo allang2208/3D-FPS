@@ -1,0 +1,386 @@
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -Mode=ValidatePlatforms -OutputSDKs  -AllPlatforms  -project="D:/FPS3D/FPSGAME/FPSGAME.uproject" -log="D:/FPS3D/FPSGAME/Saved/Logs/AutoSDKInfo.txt" -verbose -timestamps
+Log file: D:\FPS3D\FPSGAME\Saved\Logs\AutoSDKInfo.txt
+[2026.10.03-02.52.37:558][  0]LogInit: Display: Running engine for game: FPSGAME
+[2026.10.03-02.52.37:558][  0]LogCore: Display: Requested channels: 'cpu,gpu,frame,log,bookmark,screenshot,region'
+[2026.10.03-02.52.37:558][  0]LogTrace: Display: Control listening on port 1985
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : platform="Windows"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : config="Development"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.8-CL-58210709"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : engineversion="5.8.3-58210709+++UE5+Release-5.8"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : enginereleaseversion="5.8.3"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : os="Windows 11 (25H2) [10.0.26200.9168] "
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : cpu="GenuineIntel|13th Gen Intel(R) Core(TM) i7-13700K"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : asan="0"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : mergedmodules="0"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : compacttset="0"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : commandline="" D:/FPS3D/FPSGAME/FPSGAME.uproject -run=pythonscript -script=D:\FPS3D\FPSGAME\Tools\PlayerBody\import_jason_outfits.py -unattended -nop4 -nosplash -nosound -AllowCommandletRendering -RenderOffscreen -abslog=D:\FPS3D\FPSGAME\Saved\Logs\JasonOutfitsFinal2_20261003.log""
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : loginid="bc5c91f347bcf631eec19fa685df33d2"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : llm="0"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : zenstreaming="0"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resx="1280"
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resy="720"
+[2026.10.03-02.52.37:558][  0]LogAudio: Display: Audio Device Manager not initializing due to all audio being disabled. If this is not intentional, please check command line arguments for "-nosound".
+[2026.10.03-02.52.37:558][  0]LogConfig: Display: Loading VulkanPC ini files took 0.03 seconds
+[2026.10.03-02.52.37:558][  0]LogConfig: Display: Loading IOS ini files took 0.03 seconds
+[2026.10.03-02.52.37:558][  0]LogConfig: Display: Loading Android ini files took 0.03 seconds
+[2026.10.03-02.52.37:558][  0]LogConfig: Display: Loading Mac ini files took 0.03 seconds
+[2026.10.03-02.52.37:558][  0]LogConfig: Display: Loading TVOS ini files took 0.03 seconds
+[2026.10.03-02.52.37:558][  0]LogConfig: Display: Loading VisionOS ini files took 0.03 seconds
+[2026.10.03-02.52.37:558][  0]LogConfig: Display: Loading Windows ini files took 0.04 seconds
+[2026.10.03-02.52.37:558][  0]LogConfig: Display: Loading Unix ini files took 0.04 seconds
+[2026.10.03-02.52.37:558][  0]LogConfig: Display: Loading Linux ini files took 0.04 seconds
+[2026.10.03-02.52.37:558][  0]RenderDocPlugin: Display: RenderDoc plugin will not be loaded. Use '-AttachRenderDoc' on the cmd line or enable 'renderdoc.AutoAttach' in the plugin settings.
+[2026.10.03-02.52.37:558][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.03-02.52.37:558][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.03-02.52.37:558][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.03-02.52.37:558][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.03-02.52.37:558][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.03-02.52.37:558][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.03-02.52.37:558][  0]LogAsyncCompilation: Display: MemorySharingInfo: UsedMemory=330MiB, MaxMemoryAvailable=65018MiB
+[2026.10.03-02.52.37:558][  0]LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+[2026.10.03-02.52.37:558][  0]LogHAL: Display: Platform has ~ 32 GB [34088374272 / 34359738368 / 32], which maps to Largest [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2026.10.03-02.52.37:558][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2026.10.03-02.52.37:558][  0]LogObj: Display: Attempting to load config data for Default__DownlinkBandwidthManagerConfig before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+##PlatformValidate: Win64 VALID 10.0.22621.0
+##PlatformValidate: Mac INVALID 26.1.1
+##PlatformValidate: IOS INVALID 26.1.1
+##PlatformValidate: Android INVALID r27c
+##PlatformValidate: Linux INVALID v26_clang-20.1.8-rockylinux8
+##PlatformValidate: LinuxArm64 INVALID <UNKNOWN>
+##PlatformValidate: TVOS INVALID 26.1.1
+##PlatformValidate: VisionOS INVALID <UNKNOWN>
+Unable to find required SDK version 'MainVersion' for platform LinuxArm64. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform VisionOS. Check your SDK.json files
+Trace written to file C:\Users\allan\AppData\Local\UnrealBuildTool\Trace.uba with size 317b
+[2026.10.03-02.52.37:801][  0]LogObj: Display: Attempting to load config data for Default__SlateThemeManager before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.10.03-02.52.38:178][  0]LogD3D12RHI: Display: Creating D3D12 RHI with Max Feature Level SM6
+[2026.10.03-02.52.38:181][  0]LogRHI: Display: Timeout Detection and Recovery (TDR) summary: 
+
+	- TDR using non-default settings - Level: Recover, Delay: 120, DdiDelay: 120
+[2026.10.03-02.52.38:361][  0]LogD3D12RHI: Display: Not using pipeline state disk cache per r.D3D12.PSO.DiskCache=0
+[2026.10.03-02.52.38:361][  0]LogD3D12RHI: Display: Not using driver-optimized pipeline state disk cache per r.D3D12.PSO.DriverOptimizedDiskCache=0
+[2026.10.03-02.52.38:414][  0]LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.03-02.52.38:414][  0]LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.03-02.52.38:414][  0]LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.03-02.52.38:419][  0]LogCsvProfiler: Display: Metadata set : verbatimrhiname="D3D12"
+[2026.10.03-02.52.38:419][  0]LogCsvProfiler: Display: Metadata set : rhiname="D3D12"
+[2026.10.03-02.52.38:419][  0]LogCsvProfiler: Display: Metadata set : rhifeaturelevel="SM6"
+[2026.10.03-02.52.38:419][  0]LogCsvProfiler: Display: Metadata set : shaderplatform="PCD3D_SM6"
+[2026.10.03-02.52.38:419][  0]LogCsvProfiler: Display: Metadata set : gpu="NVIDIA GeForce GTX 750 Ti"
+[2026.10.03-02.52.38:419][  0]LogCsvProfiler: Display: Metadata set : gpudriver=""
+[2026.10.03-02.52.38:425][  0]LogTextureFormatASTC: Display: ASTCEnc version 5.0.1 library loaded
+[2026.10.03-02.52.38:425][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatASTC
+[2026.10.03-02.52.38:425][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatDXT
+[2026.10.03-02.52.38:425][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatETC2
+[2026.10.03-02.52.38:425][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatIntelISPCTexComp
+[2026.10.03-02.52.38:425][  0]LogTextureFormatOodle: Display: Oodle Texture TFO init; latest sdk version = 2.9.16
+[2026.10.03-02.52.38:425][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.16.dll
+[2026.10.03-02.52.38:425][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatOodle
+[2026.10.03-02.52.38:425][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatUncompressed
+[2026.10.03-02.52.38:451][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Android'
+[2026.10.03-02.52.38:467][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'IOS'
+[2026.10.03-02.52.38:485][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Linux'
+[2026.10.03-02.52.38:503][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Mac'
+[2026.10.03-02.52.38:504][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'TVOS'
+[2026.10.03-02.52.38:523][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Windows'
+[2026.10.03-02.52.38:523][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsEditor'
+[2026.10.03-02.52.38:523][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsServer'
+[2026.10.03-02.52.38:523][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsClient'
+[2026.10.03-02.52.38:523][  0]LogTargetPlatformManager: Display: Building Assets For WindowsEditor
+[2026.10.03-02.52.38:525][  0]LogAudioDebug: Display: Lib vorbis DLL was dynamically loaded.
+[2026.10.03-02.52.38:748][  0]LogDerivedDataCache: Display: ../../../Engine/DerivedDataCache/Compressed.ddp: Opened pak cache for reading. (1670 MiB)
+[2026.10.03-02.52.38:749][  0]LogZenServiceInstance: Display: Launching zen utility 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/zen.exe service status'.
+[2026.10.03-02.52.40:762][  0]LogZenServiceInstance: Display: Zen utility process has been running for 2.0 seconds without completing, still waiting...
+[2026.10.03-02.52.41:762][  0]LogZenServiceInstance: Display: Writing plugin version info to 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugin_versions.json'
+[2026.10.03-02.52.41:763][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/5.8/Saved/Zen/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.03-02.52.41:763][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.03-02.52.41:763][  0]LogZenServiceInstance: Display: Installed service at 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe' is up to date
+[2026.10.03-02.52.41:763][  0]LogZenServiceInstance: Display: Launching executable 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe', working dir 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install', data dir 'D:/FPS3D/DerivedDataCache/Zen', args '--port 8558 --data-dir D:\FPS3D\DerivedDataCache\Zen --http asio --gc-cache-duration-seconds 1209600 --gc-interval-seconds 21600 --gc-low-diskspace-threshold 2147483648 --cache-bucket-limit-overwrites --quiet --restrict-content-types --allow-external-oidctoken-exe=false --plugins-config "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugins_v1.json" --security-config-path "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/security-config.json" --owner-pid 45208  --child-id Zen_45208_Startup'
+[2026.10.03-02.52.44:185][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.10.03-02.52.44:186][  0]LogDerivedDataCache: Display: ZenLocal: Using ZenServer HTTP service at [::1] with namespace ue.ddc. Status: OK!.
+[2026.10.03-02.52.44:190][  0]LogDerivedDataCache: Display: D:/FPS3D/FPSGAME/../DerivedDataCache: Performance: Latency=0.00ms. RandomReadSpeed=1491.56MBs, RandomWriteSpeed=382.24MBs. Assigned SpeedClass 'Local'
+[2026.10.03-02.52.44:192][  0]LogUbaHorde: Display: UBA/Horde Configuration [Uba.Provider.Horde]: Not Enabled
+[2026.10.03-02.52.44:192][  0]LogShaderCompilers: Display: No distributed shader compiler controller found
+[2026.10.03-02.52.44:192][  0]LogShaderCompilers: Display: Using 13 local workers for shader compilation
+[2026.10.03-02.52.44:198][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush
+[2026.10.03-02.52.44:199][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.03-02.52.45:045][  0]LogEditorDomain: Display: EditorDomain is Disabled
+[2026.10.03-02.52.45:268][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64Editor not found.
+[2026.10.03-02.52.45:268][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64 not found.
+[2026.10.03-02.52.45:301][  0]LogCsvProfiler: Display: Metadata set : deviceprofile="WindowsEditor"
+[2026.10.03-02.52.45:303][  0]LogStreaming: Display: FlushAsyncLoading(1): 1 QueuedPackages, 0 AsyncPackages
+[2026.10.03-02.52.45:303][  0]LogTextureEncodingSettings: Display: Texture Encode Speed: Final (cook).
+[2026.10.03-02.52.45:303][  0]LogTextureEncodingSettings: Display: Oodle Texture Encode Speed settings: Fast: RDO Off Lambda=0, Effort=Normal Final: RDO Off Lambda=0, Effort=Normal
+[2026.10.03-02.52.45:303][  0]LogTextureEncodingSettings: Display: Shared linear texture encoding: Disabled
+[2026.10.03-02.52.45:518][  0]LogMeshReduction: Display: Using QuadricMeshReduction for automatic static mesh reduction
+[2026.10.03-02.52.45:518][  0]LogMeshReduction: Display: Using SkeletalMeshReduction for automatic skeletal mesh reduction
+[2026.10.03-02.52.45:518][  0]LogMeshReduction: Display: Using ProxyLODMeshReduction for automatic mesh merging
+[2026.10.03-02.52.45:518][  0]LogMeshReduction: Display: No distributed automatic mesh merging module available
+[2026.10.03-02.52.45:696][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush
+[2026.10.03-02.52.45:696][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.03-02.52.45:696][  0]LogVirtualization: Display: VirtualizationSystem name found in ini file: None
+[2026.10.03-02.52.45:696][  0]LogVirtualization: Display: FNullVirtualizationSystem mounted, virtualization will be disabled
+[2026.10.03-02.52.45:806][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize started...
+[2026.10.03-02.52.45:808][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize took 1.463 ms
+[2026.10.03-02.52.46:058][  0]LogMetaSound: Display: MetaSound Page Target Initialized to 'Default'
+[2026.10.03-02.52.46:060][  0]LogAudio: Display: Registering Engine Module Parameter Interfaces...
+[2026.10.03-02.52.46:682][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.13.dll
+[2026.10.03-02.52.46:741][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.6.dll
+[2026.10.03-02.52.46:908][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.5.dll
+[2026.10.03-02.52.46:908][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.14.dll
+[2026.10.03-02.52.46:986][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.12.dll
+[2026.10.03-02.52.47:405][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.8.dll
+[2026.10.03-02.52.48:864][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_WitchRebuilt）……
+[2026.10.03-02.52.49:059][  0]LogTemp: Display: LoadHitchProbe ready: 'fpssyncload [thresholdMs]' enables it (742 modules mapped); evidence in Saved/Profiling/LoadHitch/
+[2026.10.03-02.52.49:893][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.03-02.52.49:893][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.03-02.52.50:036][  0]LogFabLauncher: Display: FabLauncher (version 0.6.0) active
+[2026.10.03-02.52.50:130][  0]LogToolsetRegistry: Display: Registering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.03-02.52.50:282][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.11.dll
+[2026.10.03-02.52.50:301][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.15.dll
+[2026.10.03-02.52.50:428][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PreLoad): 1 .ref files found, 1 referenced binaries
+[2026.10.03-02.52.50:428][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.03-02.52.50:428][  0]LogAssetRegistry: Display: FindShardedCacheFiles: 1 via .ref, 0 via migration fallback, 1 total
+[2026.10.03-02.52.50:428][  0]LogAssetRegistry: Display: LoadCacheFiles: loading 1 cache files, memory-mapping=enabled
+[2026.10.03-02.52.50:595][  0]LogAssetRegistry: Display: Asset registry cache read as 186.5 MiB from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry/CachedAssetRegistry_0_3A1B4F654DF16ECD68F29EA6A5693320.bin (memory-mapped=yes)
+[2026.10.03-02.52.50:599][  0]LogAssetRegistry: Display: AssetDataGatherer spent 0.171s loading caches from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry.
+[2026.10.03-02.52.50:934][  0]LogGameFeatures: Display: Total built in plugin load time 0.0007s
+[2026.10.03-02.52.50:945][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2026.10.03-02.52.50:994][  0]LogPython: Display: No pip-enabled plugins with python dependencies found, skipping
+[2026.10.03-02.52.51:218][  0]LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.52.51:219][  0]LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.52.51:220][  0]LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.52.51:221][  0]LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.52.51:221][  0]LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.52.51:308][  0]LogCsvProfiler: Display: Metadata set : raytracing="1"
+[2026.10.03-02.52.51:434][  0]LogToolsetRegistry: Display: Registering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.03-02.52.51:438][  0]LogToolsetRegistry: Display: Registering Toolset ConfigSettingsToolset.ConfigSettingsToolset
+[2026.10.03-02.52.51:443][  0]LogToolsetRegistry: Display: Registering Toolset DataflowAgent.DataflowAgentToolset
+[2026.10.03-02.52.51:446][  0]LogToolsetRegistry: Display: Registering Toolset DataRegistryToolset.DataRegistryTools
+[2026.10.03-02.52.51:449][  0]LogToolsetRegistry: Display: Registering Toolset GameplayTagsToolset.GameplayTagsToolset
+[2026.10.03-02.52.51:453][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.EditorAppToolset
+[2026.10.03-02.52.51:453][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.LogsToolset
+[2026.10.03-02.52.51:456][  0]LogToolsetRegistry: Display: Registering Toolset GameFeaturesToolset.GameFeaturesToolset
+[2026.10.03-02.52.51:459][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.GameplayCueToolset
+[2026.10.03-02.52.51:459][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AttributeSetToolset
+[2026.10.03-02.52.51:459][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AbilitySystemInspectorToolset
+[2026.10.03-02.52.51:461][  0]LogToolsetRegistry: Display: Registering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.03-02.52.51:465][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Info
+[2026.10.03-02.52.51:468][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Component
+[2026.10.03-02.52.51:468][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Blueprint
+[2026.10.03-02.52.51:488][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_System
+[2026.10.03-02.52.51:488][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Assets
+[2026.10.03-02.52.51:494][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGToolset
+[2026.10.03-02.52.51:494][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGSpatialToolset
+[2026.10.03-02.52.51:495][  0]LogToolsetRegistry: Display: Registering Toolset WorldConditionsToolset.WorldConditionTools
+[2026.10.03-02.52.51:496][  0]LogToolsetRegistry: Display: Registering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.03-02.52.51:502][  0]LogToolsetRegistry: Display: Registering Toolset PluginToolset.PluginToolset
+[2026.10.03-02.52.51:504][  0]LogToolsetRegistry: Display: Registering Toolset SemanticSearchToolset.SemanticSearchToolset
+[2026.10.03-02.52.51:507][  0]LogToolsetRegistry: Display: Registering Toolset PhysicsToolsets.PhysicsAssetToolset
+[2026.10.03-02.52.51:514][  0]LogToolsetRegistry: Display: Registering Toolset UMGToolSet.UMGToolSet
+[2026.10.03-02.52.51:533][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.52.51:598][  0]LogToolsetRegistry: Display: Registering Toolset state_tree_toolset.toolsets.state_tree.StateTreeTools
+[2026.10.03-02.52.51:598][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… took 65.074 ms
+[2026.10.03-02.52.51:598][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.52.51:603][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… took 4.568 ms (total: 69.643 ms)
+[2026.10.03-02.52.51:603][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.52.51:647][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.actor.ActorTools
+[2026.10.03-02.52.51:647][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.asset.AssetTools
+[2026.10.03-02.52.51:651][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.blueprint.BlueprintTools
+[2026.10.03-02.52.51:651][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.curve_table.CurveTableTools
+[2026.10.03-02.52.51:651][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_asset.DataAssetTools
+[2026.10.03-02.52.51:652][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_table.DataTableTools
+[2026.10.03-02.52.51:653][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material.MaterialTools
+[2026.10.03-02.52.51:653][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material_instance.MaterialInstanceTools
+[2026.10.03-02.52.51:654][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.object.ObjectTools
+[2026.10.03-02.52.51:654][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.primitive.PrimitiveTools
+[2026.10.03-02.52.51:655][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.scene.SceneTools
+[2026.10.03-02.52.51:657][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.skeletal_mesh.SkeletalMeshTools
+[2026.10.03-02.52.51:657][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.static_mesh.StaticMeshTools
+[2026.10.03-02.52.51:658][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.string_table.StringTableTools
+[2026.10.03-02.52.51:658][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.programmatic.ProgrammaticToolset
+[2026.10.03-02.52.51:658][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.texture.TextureTools
+[2026.10.03-02.52.51:658][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… took 54.558 ms (total: 124.201 ms)
+[2026.10.03-02.52.51:658][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.52.51:661][  0]LogToolsetRegistry: Display: Registering Toolset conversation_toolset.toolsets.conversation.ConversationTools
+[2026.10.03-02.52.51:661][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… took 3.137 ms (total: 127.338 ms)
+[2026.10.03-02.52.51:661][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.52.51:698][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig.ControlRigTools
+[2026.10.03-02.52.51:706][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.sequencer.SequencerTools
+[2026.10.03-02.52.51:707][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.keyframing.SequencerKeyframingTools
+[2026.10.03-02.52.51:712][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig_sequencer.SequencerControlRigTools
+[2026.10.03-02.52.51:713][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.outliner.SequencerOutlinerTools
+[2026.10.03-02.52.51:713][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.conditions.SequencerConditionTools
+[2026.10.03-02.52.51:713][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.custom_bindings.SequencerCustomBindingTools
+[2026.10.03-02.52.51:714][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.import_export.SequencerImportExportTools
+[2026.10.03-02.52.51:732][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… took 71.666 ms (total: 199.004 ms)
+[2026.10.03-02.52.51:733][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.52.51:740][  0]LogToolsetRegistry: Display: Registering Toolset aimodule_toolset.toolsets.behavior_tree.BehaviorTreeTools
+[2026.10.03-02.52.51:740][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… took 7.118 ms (total: 206.123 ms)
+[2026.10.03-02.52.51:740][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.52.51:748][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… took 7.827 ms (total: 213.951 ms)
+[2026.10.03-02.52.51:748][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.52.51:748][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… took 101 us (total: 214.052 ms)
+[2026.10.03-02.52.51:748][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.52.51:748][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… took 195 us (total: 214.248 ms)
+[2026.10.03-02.52.51:748][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.52.51:751][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… took 3.226 ms (total: 217.475 ms)
+[2026.10.03-02.52.51:751][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.52.51:772][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… took 20.993 ms (total: 238.468 ms)
+[2026.10.03-02.52.51:772][  0]LogPythonScriptCommandlet: Display: Running Python script: D:\FPS3D\FPSGAME\Tools\PlayerBody\import_jason_outfits.py
+[2026.10.03-02.52.52:065][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SKM_Jason_body）……
+[2026.10.03-02.52.53:165][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Texture/T_Teeth_Scatter.T_Teeth_Scatter (TFO_AutoDXT, 256x256 x1x1x1)（预计所需内存：8.458304 MB）编码速度：Final
+[2026.10.03-02.52.53:168][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Materials/M_eye_occlusion_unified.M_eye_occlusion_unified in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 4ffa9da2f4e2e2583bbddfd578c900cadfdf68c4), compiling. 
+[2026.10.03-02.52.53:170][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Texture/T_Teeth_BC.T_Teeth_BC (TFO_AutoDXT, 1024x1024 x1x1x1)（预计所需内存：122.708323 MB）编码速度：Final
+[2026.10.03-02.52.53:179][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Materials/M_eye_eyeball_unified.M_eye_eyeball_unified in PCD3D_SM6, High, SM6, Editor (DDC key hash: 6ffe6cc6040a69361918819a306ea76ba24ef2ad), compiling. 
+[2026.10.03-02.52.53:185][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Materials/MI_eye_eyeball_unified_MH_preset_left.MI_eye_eyeball_unified_MH_preset_left in PCD3D_SM6, High, SM6, Editor (DDC key hash: e7b966d6d09b8a937fbfe9fe86a211de92dac8db), compiling. 
+[2026.10.03-02.52.53:192][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Material/MI_EyeL_Baked.MI_EyeL_Baked in PCD3D_SM6, High, SM6, Editor (DDC key hash: 43b3509066f5d56a15ea4232229871aab9e2b1c2), compiling. 
+[2026.10.03-02.52.53:198][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Texture/T_EyeIrisL_BC.T_EyeIrisL_BC (TFO_AutoDXT, 2048x2048 x1x1x1)（预计所需内存：281.208323 MB）编码速度：Final
+[2026.10.03-02.52.53:199][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Demo/MetaHumans/Common/Materials/M_Eyelashes_Cards.M_Eyelashes_Cards in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 5f75b5f726c0df227251e277abdd89fb5caa52e5), compiling. 
+[2026.10.03-02.52.53:207][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Materials/M_eye_lacrimal_fluid_unified.M_eye_lacrimal_fluid_unified in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 9dde2399631449c883f949931714e75ccaa00988), compiling. 
+[2026.10.03-02.52.53:213][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Materials/M_headDown.M_headDown in PCD3D_SM6, High, SM6, Editor (DDC key hash: 82eeed56c6d82ea57297ccf175855a010c841409), compiling. 
+[2026.10.03-02.52.53:218][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Material/MI_FaceDown.MI_FaceDown in PCD3D_SM6, High, SM6, Editor (DDC key hash: e3534b42b463e62b189b2f0eb48575358984cf1c), compiling. 
+[2026.10.03-02.52.53:230][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Teeth/Materials/M_teeth_unified.M_teeth_unified in PCD3D_SM6, High, SM6, Editor (DDC key hash: 349127a53a39955ed0d4332186480053792ad1cd), compiling. 
+[2026.10.03-02.52.53:236][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Teeth/Materials/MI_teeth_unified_MH_preset.MI_teeth_unified_MH_preset in PCD3D_SM6, High, SM6, Editor (DDC key hash: ac3680ff2d92f32f776d04e318ee64c6f46da97c), compiling. 
+[2026.10.03-02.52.53:240][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Texture/T_EyeIrisL_N.T_EyeIrisL_N (TFO_BC5, 2048x2048 x1x1x1)（预计所需内存：393.749988 MB）编码速度：Final
+[2026.10.03-02.52.53:241][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Material/MI_Teeth_Baked.MI_Teeth_Baked in PCD3D_SM6, High, SM6, Editor (DDC key hash: 5a4a35d6359df8825d50b86bf11b317aff03b40e), compiling. 
+[2026.10.03-02.52.53:242][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Texture/T_EyeScleraL_BC.T_EyeScleraL_BC (TFO_AutoDXT, 2048x2048 x1x1x1)（预计所需内存：281.208323 MB）编码速度：Final
+[2026.10.03-02.52.53:262][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SKM_Jason_head）……
+[2026.10.03-02.52.53:271][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Texture/T_EyeScleraL_N.T_EyeScleraL_N (TFO_BC5, 2048x2048 x1x1x1)（预计所需内存：393.749988 MB）编码速度：Final
+[2026.10.03-02.52.53:334][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Texture/T_Teeth_N.T_Teeth_N (TFO_BC5, 2048x2048 x1x1x1)（预计所需内存：393.749988 MB）编码速度：Final
+[2026.10.03-02.52.54:110][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Textures/T_TilingNoise_001.T_TilingNoise_001 (TFO_AutoDXT, 512x512 x1x1x1)（预计所需内存：30.08325 MB）编码速度：Final
+[2026.10.03-02.52.54:120][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/Iris/T_Iris_I_M.T_Iris_I_M (TFO_AutoDXT, 1024x1024 x1x1x1)（预计所需内存：130.708323 MB）编码速度：Final
+[2026.10.03-02.52.54:137][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/Iris/feather_N.feather_N (TFO_BC5, 1024x1024 x1x1x1)（预计所需内存：229.749988 MB）编码速度：Final
+[2026.10.03-02.52.54:142][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/Iris/T_iris_I_N.T_iris_I_N (TFO_BC5, 1024x1024 x1x1x1)（预计所需内存：229.749988 MB）编码速度：Final
+[2026.10.03-02.52.54:151][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/Iris/T_Iris_H_M.T_Iris_H_M (TFO_AutoDXT, 1024x1024 x1x1x1)（预计所需内存：130.708323 MB）编码速度：Final
+[2026.10.03-02.52.54:178][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/T_EV_DustPanner_01.T_EV_DustPanner_01 (TFO_AutoDXT, 256x256 x1x1x1)（预计所需内存：8.458304 MB）编码速度：Final
+[2026.10.03-02.52.54:179][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/T_Base_Tile_DetailNormal.T_Base_Tile_DetailNormal (TFO_BC5, 256x256 x1x1x1)（预计所需内存：19.499759 MB）编码速度：Final
+[2026.10.03-02.52.54:179][  0]LogTexture: Display: 正在构建纹理Cube：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/T_alice_sun_painted.T_alice_sun_painted (RGBA16F, 512x256 x1x1x1)（预计所需内存：15.500 MB）编码速度：Final
+[2026.10.03-02.52.54:184][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/T_Eye_N.T_Eye_N (TFO_BC5, 512x512 x1x1x1)（预计所需内存：82.499988 MB）编码速度：Final
+[2026.10.03-02.52.54:193][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Texture/T_Teeth_SRM.T_Teeth_SRM (TFO_AutoDXT, 2048x2048 x1x1x1)（预计所需内存：281.208323 MB）编码速度：Final
+[2026.10.03-02.52.54:205][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/T_EyeMidPlaneDisplacement.T_EyeMidPlaneDisplacement (RGBA16F, 1024x1024 x1x1x1)（预计所需内存：46.333324 MB）编码速度：Final
+[2026.10.03-02.52.54:229][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/T_Iris001_01_D.T_Iris001_01_D (TFO_AutoDXT, 1024x1024 x1x1x1)（预计所需内存：130.708323 MB）编码速度：Final
+[2026.10.03-02.52.54:241][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/Iris/T_iris_H_N.T_iris_H_N (TFO_BC5, 1024x1024 x1x1x1)（预计所需内存：229.749988 MB）编码速度：Final
+[2026.10.03-02.52.54:273][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/T_EyeSclera_D.T_EyeSclera_D (TFO_AutoDXT, 2048x2048 x1x1x1)（预计所需内存：281.208323 MB）编码速度：Final
+[2026.10.03-02.52.54:286][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/T_Shared_Eye_AO.T_Shared_Eye_AO (TFO_AutoDXT, 512x512 x1x1x1)（预计所需内存：30.08325 MB）编码速度：Final
+[2026.10.03-02.52.54:287][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/T_iris_color_picker.T_iris_color_picker (TFO_AutoDXT, 512x256 x1x1x1)（预计所需内存：15.916612 MB）编码速度：Final
+[2026.10.03-02.52.54:298][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Materials/T_Black_Linear.T_Black_Linear (TFO_AutoDXT, 32x32 x1x1x1)（预计所需内存：1.116508 MB）编码速度：Final
+[2026.10.03-02.52.54:313][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/T_lacrimal_N.T_lacrimal_N (TFO_BC5, 1024x1024 x1x1x1)（预计所需内存：225.749988 MB）编码速度：Final
+[2026.10.03-02.52.54:327][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Textures/T_MicroDetail001_N.T_MicroDetail001_N (TFO_BC5, 1024x1024 x1x1x1)（预计所需内存：225.749988 MB）编码速度：Final
+[2026.10.03-02.52.54:342][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Texture/T_head_maskUp.T_head_maskUp (TFO_AutoDXT, 2048x2048 x1x1x1)（预计所需内存：288.999984 MB）编码速度：Final
+[2026.10.03-02.52.54:343][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/T_Veins_D.T_Veins_D (TFO_AutoDXT, 2048x2048 x1x1x1)（预计所需内存：281.208323 MB）编码速度：Final
+[2026.10.03-02.52.54:345][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/T_EyeSclera_N.T_EyeSclera_N (TFO_BC5, 2048x2048 x1x1x1)（预计所需内存：409.749988 MB）编码速度：Final
+[2026.10.03-02.52.54:428][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Teeth/Textures/T_Teeth_BaseColor.T_Teeth_BaseColor (TFO_AutoDXT, 2048x2048 x1x1x1)（预计所需内存：281.208323 MB）编码速度：Final
+[2026.10.03-02.52.54:436][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Teeth/Textures/T_Teeth_Masks_001.T_Teeth_Masks_001 (TFO_AutoDXT, 2048x2048 x1x1x1)（预计所需内存：288.999984 MB）编码速度：Final
+[2026.10.03-02.52.54:437][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Teeth/Textures/T_Teeth_DetailNormal.T_Teeth_DetailNormal (TFO_BC5, 2048x2048 x1x1x1)（预计所需内存：393.749988 MB）编码速度：Final
+[2026.10.03-02.52.54:476][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Teeth/Textures/T_Teeth_Masks_002.T_Teeth_Masks_002 (TFO_AutoDXT, 1024x1024 x1x1x1)（预计所需内存：122.708323 MB）编码速度：Final
+[2026.10.03-02.52.54:550][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Teeth/Textures/T_Teeth_Normal.T_Teeth_Normal (TFO_BC5, 2048x2048 x1x1x1)（预计所需内存：393.749988 MB）编码速度：Final
+[2026.10.03-02.52.54:560][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Teeth/Textures/T_Teeth_SharpNormal.T_Teeth_SharpNormal (TFO_BC5, 2048x2048 x1x1x1)（预计所需内存：393.749988 MB）编码速度：Final
+[2026.10.03-02.52.57:545][  0]LogSkeletalMesh: Display: [AssetLog] D:\FPS3D\FPSGAME\Content\Characters\ModularOutfit20260924\FieldSweaterSurfaceRepair20260930\Body\SK_Body_FieldSweater.uasset: Fix some section data of this asset for lod 1. Verify all sections of this mesh are ok and save the asset to fix this issue.
+[2026.10.03-02.52.57:545][  0]LogSkeletalMesh: Display: [AssetLog] D:\FPS3D\FPSGAME\Content\Characters\ModularOutfit20260924\FieldSweaterSurfaceRepair20260930\Body\SK_Body_FieldSweater.uasset: Fix some section data of this asset for lod 2. Verify all sections of this mesh are ok and save the asset to fix this issue.
+[2026.10.03-02.52.57:562][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_FieldSweater）……
+[2026.10.03-02.52.58:209][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater）……
+[2026.10.03-02.52.58:329][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater）……
+[2026.10.03-02.53.00:181][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater）……
+[2026.10.03-02.53.01:961][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file loaded D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.03-02.53.02:278][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_Charcoal）……
+[2026.10.03-02.53.03:001][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater_charcoal）……
+[2026.10.03-02.53.03:126][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater_charcoal）……
+[2026.10.03-02.53.06:595][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 2511.644531 MiB 
+[2026.10.03-02.53.06:595][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 2511.359375 MiB 
+[2026.10.03-02.53.06:612][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater_charcoal）……
+[2026.10.03-02.53.08:420][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 1889.65625 MiB 
+[2026.10.03-02.53.08:420][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 1889.59375 MiB 
+[2026.10.03-02.53.08:437][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_Fingerless_Detail）……
+[2026.10.03-02.53.08:560][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 1893.535156 MiB 
+[2026.10.03-02.53.08:560][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 1893.535156 MiB 
+[2026.10.03-02.53.08:577][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves）……
+[2026.10.03-02.53.08:620][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 1920.660156 MiB 
+[2026.10.03-02.53.08:620][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 1920.65625 MiB 
+[2026.10.03-02.53.08:636][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves）……
+[2026.10.03-02.53.08:638][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_gloves.SK_Jason_ue_field_glovesComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.53.10:273][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 1961.390625 MiB 
+[2026.10.03-02.53.10:273][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 1961.390625 MiB 
+[2026.10.03-02.53.10:289][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves）……
+[2026.10.03-02.53.10:289][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_gloves.SK_Jason_ue_field_glovesComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.53.11:094][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 1999.71875 MiB 
+[2026.10.03-02.53.11:095][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 1999.71875 MiB 
+[2026.10.03-02.53.11:112][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_BlackLeatherDetail）……
+[2026.10.03-02.53.11:280][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 1982.324219 MiB 
+[2026.10.03-02.53.11:280][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 1982.324219 MiB 
+[2026.10.03-02.53.11:296][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves_black）……
+[2026.10.03-02.53.11:350][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 1949.707031 MiB 
+[2026.10.03-02.53.11:350][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 1949.707031 MiB 
+[2026.10.03-02.53.11:366][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves_black）……
+[2026.10.03-02.53.14:282][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 2360.328125 MiB 
+[2026.10.03-02.53.14:282][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 2360.328125 MiB 
+[2026.10.03-02.53.14:298][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves_black）……
+[2026.10.03-02.53.15:709][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 2381.296875 MiB 
+[2026.10.03-02.53.15:709][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 2381.296875 MiB 
+[2026.10.03-02.53.15:725][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_Tactical_Detail）……
+[2026.10.03-02.53.15:886][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 2403.632812 MiB 
+[2026.10.03-02.53.15:886][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 2403.632812 MiB 
+[2026.10.03-02.53.15:903][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_original_gloves）……
+[2026.10.03-02.53.15:951][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 2385.800781 MiB 
+[2026.10.03-02.53.15:951][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 2385.800781 MiB 
+[2026.10.03-02.53.15:967][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_original_gloves）……
+[2026.10.03-02.53.18:803][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 2579.078125 MiB 
+[2026.10.03-02.53.18:803][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 2579.015625 MiB 
+[2026.10.03-02.53.18:819][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_original_gloves）……
+[2026.10.03-02.53.20:448][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 2503.144531 MiB 
+[2026.10.03-02.53.20:448][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 2503.144531 MiB 
+[2026.10.03-02.53.20:465][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_Steel_Detail）……
+[2026.10.03-02.53.21:372][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 2404.089844 MiB 
+[2026.10.03-02.53.21:372][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 2404.089844 MiB 
+[2026.10.03-02.53.21:389][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_steel_gauntlets）……
+[2026.10.03-02.53.21:716][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 2282.476562 MiB 
+[2026.10.03-02.53.21:716][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 2282.476562 MiB 
+[2026.10.03-02.53.21:716][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 2282.164062 MiB 
+[2026.10.03-02.53.21:716][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkeletalMesh]！所需内存 = 0.000 MiB + 4096.000 MiB，内存限制 = 2281.226562 MiB 
+[2026.10.03-02.53.21:732][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_steel_gauntlets）……
+[2026.10.03-02.53.22:076][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_steel_gauntlets.SK_Jason_ue_steel_gauntletsComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.53.37:551][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_steel_gauntlets）……
+[2026.10.03-02.53.37:847][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_steel_gauntlets.SK_Jason_ue_steel_gauntletsComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.53.44:221][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 4377.203125 MiB 
+[2026.10.03-02.53.44:222][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 4377.203125 MiB 
+[2026.10.03-02.53.44:238][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_ChainmailShirt）……
+[2026.10.03-02.53.44:457][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 4416.273438 MiB 
+[2026.10.03-02.53.44:457][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 4416.273438 MiB 
+[2026.10.03-02.53.44:473][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_chainmail_shirt）……
+[2026.10.03-02.53.44:550][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_chainmail_shirt）……
+[2026.10.03-02.53.47:462][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_chainmail_shirt）……
+[2026.10.03-02.53.49:208][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 4390.996094 MiB 
+[2026.10.03-02.53.49:208][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[SkinnedAsset]！所需内存 = 0.000 MiB + 4608.000 MiB，内存限制 = 4390.996094 MiB 
+[2026.10.03-02.53.49:225][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_Base）……
+[2026.10.03-02.53.49:622][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_Base）……
+[2026.10.03-02.54.07:312][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_Base）……
+[2026.10.03-02.54.14:681][  0]LogPythonScriptCommandlet: Display: Python script executed successfully
+[2026.10.03-02.54.14:681][  0]LogInit: Display: 
+[2026.10.03-02.54.14:681][  0]LogInit: Display: Warning/Error Summary (Unique only)
+[2026.10.03-02.54.14:681][  0]LogInit: Display: -----------------------------------
+[2026.10.03-02.54.14:681][  0]LogInit: Display: LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.03-02.54.14:681][  0]LogInit: Display: LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.03-02.54.14:681][  0]LogInit: Display: LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.03-02.54.14:681][  0]LogInit: Display: LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.54.14:681][  0]LogInit: Display: LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.54.14:681][  0]LogInit: Display: LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.54.14:681][  0]LogInit: Display: LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.54.14:681][  0]LogInit: Display: LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.54.14:681][  0]LogInit: Display: 
+[2026.10.03-02.54.14:681][  0]LogInit: Display: Success - 0 error(s), 8 warning(s)
+[2026.10.03-02.54.14:681][  0]LogInit: Display: 
+
+Execution of commandlet took:  1m 23s (83.15 seconds), PeakPhysMemoryMB=8610 MB, PeakVirtMemoryMB=9412 MB
+[2026.10.03-02.54.14:696][  0]LogToolsetRegistry: Display: Unregistering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.03-02.54.14:697][  0]LogToolsetRegistry: Display: Unregistering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.03-02.54.14:697][  0]LogToolsetRegistry: Display: Unregistering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.03-02.54.14:697][  0]LogToolsetRegistry: Display: Unregistering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.03-02.54.14:847][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PostWrite): 1 .ref files found, 1 referenced binaries
+[2026.10.03-02.54.14:847][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.03-02.54.15:246][  0]LogShaderCompilers: Display: Exiting ShaderCompilingThread
+[2026.10.03-02.54.15:306][  0]LogToolsetRegistry: Warning: IsAvailable: Editor is not available
+[2026.10.03-02.54.15:331][  0]LogTemp: Display: LoadHitchProbe summary: 93 sync-load entries seen, 0 recorded to (nothing)

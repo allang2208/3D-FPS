@@ -52,6 +52,9 @@ struct FColdSteelCatalogEntry
     UPROPERTY(BlueprintReadOnly) FString Group;
     /** 类别排序键：同一类别的条目在下拉列表里连续排列。 */
     UPROPERTY(BlueprintReadOnly) int32 GroupOrder = 0;
+    /** 开发目录的子标题，不是可生成的物品，也不写入玩家档案。 */
+    UPROPERTY(BlueprintReadOnly) FString Subgroup;
+    UPROPERTY(BlueprintReadOnly) int32 SubgroupOrder = 0;
 };
 
 USTRUCT()
@@ -237,6 +240,9 @@ struct FColdSteelProfile
     UPROPERTY() TMap<FName,float> ElectricCooldownDurations;
     UPROPERTY() TMap<FName,float> ElectricReservedMana;
     UPROPERTY() FFPSSurvivalState Survival;
+    // Empty values in older saves select the player-body catalog defaults.
+    UPROPERTY() FName PlayerHeadId;
+    UPROPERTY() FName PlayerHairId;
 };
 
 UCLASS()

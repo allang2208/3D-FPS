@@ -222,8 +222,9 @@ void ABlindSupplicantMonster::SetAttackAnimationTime(float Seconds)
         }
     }
     Animation->SetCombatTime(bMagicReleaseStarted ? Seconds - ActiveGatherDuration : Seconds);
-    if (MagicCharge)
-        AM07MagicAttack::ConfigureCharge(MagicCharge, ActiveMagicElement(), Seconds / FMath::Max(.01f, ActiveGatherDuration));
+    MagicChargeFraction = Seconds / FMath::Max(.01f, ActiveGatherDuration);
+    // Charge placement/parameters follow the final evaluated bones in
+    // UpdateMagicChargePose, sharing the same origin with projectile release.
 }
 
 void ABlindSupplicantMonster::SetWalkAnimationRate(float Rate)
@@ -236,12 +237,13 @@ void ABlindSupplicantMonster::RefreshLocomotionPresentation()
     auto* Animation = PosePlayer();
     if (!Animation || State != ENurseState::Chase) return;
     const float Speed = GetVelocity().Size2D();
-    const float PaceBoundary=(SourceWalkSpeed+SourceChaseSpeed)*.5f;
+    const float PaceBoundary=(WalkSpeed+ChaseSpeed)*.5f;
+    const float PaceHysteresis=FMath::Abs(ChaseSpeed-WalkSpeed)*.45f;
     // Keep phase-aligned gaits from repeatedly crossfading as path following
     // accelerates/decelerates near the walk/run boundary.
     float SwitchSpeed=PaceBoundary;
-    if (Animation->ActiveClip==SlowWalkClip) SwitchSpeed+=20.f;
-    else if (Animation->ActiveClip==ChaseClip) SwitchSpeed-=20.f;
+    if (Animation->ActiveClip==SlowWalkClip) SwitchSpeed+=PaceHysteresis;
+    else if (Animation->ActiveClip==ChaseClip) SwitchSpeed-=PaceHysteresis;
     UAnimSequence* Desired = Speed < SwitchSpeed && SlowWalkClip ? SlowWalkClip : ChaseClip;
     if (!Desired) Desired = WalkClip;
     if (!Desired) return;
@@ -331,6 +333,27 @@ void ABlindSupplicantMonster::Tick(float DeltaSeconds)
 
 void ABlindSupplicantMonster::UpdateClothDistance(float DeltaSeconds)
 {
+    if (State==ENurseState::Dead || (Knockdown && Knockdown->IsControlling()))
+    {
+        // Match the Witch handoff: independent live drapes stop during the
+        // articulated fall; the corrected V35 skin follows the same skeleton.
+        auto* CharacterMesh=GetMesh();
+        bWantsClothSimulation=false;
+        CharacterMesh->ClothBlendWeight=FMath::FInterpConstantTo(CharacterMesh->ClothBlendWeight,0.f,DeltaSeconds,1.f/.18f);
+        if(CharacterMesh->ClothBlendWeight<=0.f && !CharacterMesh->IsClothingSimulationSuspended())
+            CharacterMesh->SuspendClothingSimulation();
+        return;
+    }
+    if (bUseCoherentGillMotion)
+    {
+        auto* CharacterMesh=GetMesh();
+        bWantsClothSimulation=false;
+        CharacterMesh->ClothBlendWeight=0.f;
+        if (!CharacterMesh->IsClothingSimulationSuspended()) CharacterMesh->SuspendClothingSimulation();
+        // Pure skinning can use the existing distance LODs; no near-cloth lock.
+        if (CharacterMesh->GetForcedLOD()!=0) CharacterMesh->SetForcedLOD(0);
+        return;
+    }
     const APlayerController* ViewerController = GetWorld()->GetFirstPlayerController();
     const APawn* Viewer = ViewerController ? ViewerController->GetPawn() : nullptr;
     const double DistanceSquared = Viewer ? FVector::DistSquared(Viewer->GetActorLocation(), GetActorLocation()) : 0.;
@@ -356,7 +379,11 @@ float ABlindSupplicantMonster::TakeDamage(float Damage, const FDamageEvent& Even
     IncomingHitDirection = -GetActorForwardVector();
     if (Event.IsOfType(FPointDamageEvent::ClassID))
         IncomingHitDirection = static_cast<const FPointDamageEvent&>(Event).ShotDirection;
+    else if (Event.IsOfType(FRadialDamageEvent::ClassID))
+        IncomingHitDirection = GetActorLocation() - static_cast<const FRadialDamageEvent&>(Event).Origin;
     else if (Causer) IncomingHitDirection = GetActorLocation() - Causer->GetActorLocation();
+    if (IncomingHitDirection.IsNearlyZero() && EventInstigator && EventInstigator->GetPawn())
+        IncomingHitDirection = GetActorLocation() - EventInstigator->GetPawn()->GetActorLocation();
     // ANurseZombie owns the sole health/reward edge and shared toughness gate.
     const float Applied = Super::TakeDamage(Damage, Event, EventInstigator, Causer);
     if (State == ENurseState::Dead) CancelPendingAttack();

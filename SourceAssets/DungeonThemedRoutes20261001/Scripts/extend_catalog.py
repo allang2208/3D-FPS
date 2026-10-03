@@ -22,6 +22,10 @@ def restrict_freight_to_theme(catalog):
     result['room_ids']=[room for room in result['room_ids'] if room not in ordinary]
     rules=result['themed_routes']
     rules['transition_families']=[family for family in rules['transition_families'] if family!='FreightTransfer']
+    containers=ROOT.parent/'WarehouseContainers20261002'
+    if (containers/'Receipts/install.json').exists() and read(containers/'Receipts/install.json').get('stage')=='maps_saved':
+        import runpy
+        result=runpy.run_path(str(containers/'Scripts/extend_catalog.py'))['extend'](result)
     return result
 
 def extend(catalog):
@@ -75,6 +79,15 @@ def extend(catalog):
         import runpy
         result=runpy.run_path(str(split/'Scripts/extend_catalog.py'))['extend'](result)
     result=restrict_freight_to_theme(result)
+    staff=ROOT.parent/'DungeonStaffLiving20261002/Production20261002'
+    if (staff/'Receipts/install.json').exists() and read(staff/'Receipts/install.json').get('stage')=='map_saved':
+        import runpy
+        result=runpy.run_path(str(staff/'Scripts/extend_catalog.py'))['extend'](result)
+    for extension in ('WarehouseContainers20261002','StationWorkshop20261003','IncineratorContainers20261003','FlueUnderPlatformChest20261003'):
+        source=ROOT.parent/extension
+        if (source/'Receipts/install.json').exists() and read(source/'Receipts/install.json').get('stage')=='maps_saved':
+            import runpy
+            result=runpy.run_path(str(source/'Scripts/extend_catalog.py'))['extend'](result)
     treatment=ROOT.parent/'DungeonTreatmentTheme20261003'
     if (treatment/'Receipts/install.json').exists() and read(treatment/'Receipts/install.json').get('stage')=='map_saved':
         import runpy

@@ -13,6 +13,7 @@
 当前工程为根目录 `FPSGAME.uproject`（UE 5.8.2）。用户已指定后续全面转向 UE5；Godot 只作为归档参考。完整本机宿主为 `D:/FPS3D/FPSGAME`，Git main 的当前源码直接位于根目录，不再仅发布 `unreal/<topic>` 摘录。
 
 - 开发和发布先读 [WORKFLOW.md](WORKFLOW.md)，仓库整理、归档与推送遵守第 8 节。
+- 多会话／多子代理并行开发遵守 [WORKFLOW.md 第 7 节「构建串行化与并行编码」](WORKFLOW.md)：子代理默认只写码、不各自触发构建，合并点统一构建一次；任务按模块／文件切分，避免同批文件被并行写；已有构建在跑时等其结束再提交，不依赖 `-WaitMutex` 轮询抢锁。
 - 枪械读 [ue5-weapon-workflow](skills/ue5-weapon-workflow/SKILL.md)，手臂和 MAT 读 [ue5-fps-arms-animation](skills/ue5-fps-arms-animation/SKILL.md)。先参考现有动作，核对实际运行加载，再修改。
 - 天气读 [ue5-weather-workflow](skills/ue5-weather-workflow/SKILL.md)，调试读 [ue5-debug-validation](skills/ue5-debug-validation/SKILL.md)。
 - 流体特效（枪口烟、火焰／爆燃烟、水花／涟漪、毒液／毒池、血液及冷雾）的新增、优化与针对性修复，先读 [流体特效工作流](skills/ue5-fluid-vfx-workflow/SKILL.md)。后续同类任务按此标准制作，复用离线流体源、共享调度与有界池，保留已认可的水花方块修复；技能数值、枪械动作和怪物 AI 仍走对应领域技能。执行后台制作／必要编译／资产保存，不自动测试或验收。

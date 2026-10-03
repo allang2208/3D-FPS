@@ -47,6 +47,8 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     Row(OverheadFinisher?TEXT("第三段竖劈伤害"):TEXT("第三段突刺伤害"),Before.ComboThirdDamage,After.ComboThirdDamage,2,TEXT(""));
     Row(OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),Before.Modifiers.ThirdThrustToughnessMultiplier(),After.Modifiers.ThirdThrustToughnessMultiplier(),2,TEXT("×"));
     Row(TEXT("重击伤害倍率"),Before.HeavyMultiplier,After.HeavyMultiplier,2,TEXT("×"));
+    Row(TEXT("重击蓄力速度加成"),Before.HeavyChargeSpeedBonus*100.,After.HeavyChargeSpeedBonus*100.,0,TEXT("%"));
+    Row(TEXT("重击蓄力时间"),Before.HeavyChargeSeconds,After.HeavyChargeSeconds,2,TEXT(" s"),true);
     Row(TEXT("重击总伤害"),Before.Damage*Before.HeavyMultiplier,After.Damage*After.HeavyMultiplier,2,TEXT(""));
     Row(TEXT("重击韧性伤害倍率"),Before.Modifiers.HeavyToughnessMultiplier(),After.Modifiers.HeavyToughnessMultiplier(),2,TEXT("×"));
     Row(TEXT("攻击击退距离"),Before.KnockbackCM,After.KnockbackCM,1,TEXT(" cm"));
@@ -55,6 +57,16 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     Row(TEXT("快速近战击退距离"),Before.QuickCombat.KnockbackCM,After.QuickCombat.KnockbackCM,1,TEXT(" cm"));
     Row(TEXT("快速近战韧性伤害倍率"),Before.QuickCombat.ToughnessMultiplier,After.QuickCombat.ToughnessMultiplier,2,TEXT("×"));
     Row(ColdSteelWeaponText::QuickCombatBleed,Before.QuickCombat.BleedChance*100,After.QuickCombat.BleedChance*100,0,TEXT("%"));
+    if(Before.Modifiers.QuickCombatTigerRoarSeconds>0||After.Modifiers.QuickCombatTigerRoarSeconds>0)
+    {
+        Row(ColdSteelWeaponText::TigerRoarToughnessTaken,Before.Modifiers.QuickCombatTigerRoarToughnessBonus*100,After.Modifiers.QuickCombatTigerRoarToughnessBonus*100,0,TEXT("%"));
+        Row(ColdSteelWeaponText::TigerRoarDuration,Before.Modifiers.QuickCombatTigerRoarSeconds,After.Modifiers.QuickCombatTigerRoarSeconds,0,TEXT(" s"));
+    }
+    if(Before.Modifiers.QuickCombatPhysicalVulnerabilitySeconds>0||After.Modifiers.QuickCombatPhysicalVulnerabilitySeconds>0)
+    {
+        Row(ColdSteelWeaponText::QuickCombatPhysicalVulnerability,Before.Modifiers.QuickCombatPhysicalVulnerabilityBonus*100,After.Modifiers.QuickCombatPhysicalVulnerabilityBonus*100,0,TEXT("%"));
+        Row(ColdSteelWeaponText::PhysicalVulnerabilityDuration,Before.Modifiers.QuickCombatPhysicalVulnerabilitySeconds,After.Modifiers.QuickCombatPhysicalVulnerabilitySeconds,0,TEXT(" s"));
+    }
     Overview.Add({TEXT("快速近战命中方式"),Before.QuickCombat.bAreaHit?TEXT("范围多目标"):TEXT("单目标"),
         After.QuickCombat.bAreaHit?TEXT("范围多目标"):TEXT("单目标"),
         Before.QuickCombat.bAreaHit==After.QuickCombat.bAreaHit?TEXT("—"):After.QuickCombat.bAreaHit?TEXT("启用范围攻击"):TEXT("恢复单目标"),

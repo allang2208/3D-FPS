@@ -1,0 +1,951 @@
+Begin Object Class=/Script/Engine.MaterialFunction Name="MF_skin_scalability" ExportPath="/Script/Engine.MaterialFunction'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability'"
+   Begin Object Class=/Script/Engine.MaterialFunctionEditorOnlyData Name="MF_skin_scalabilityEditorOnlyData" ExportPath="/Script/Engine.MaterialFunctionEditorOnlyData'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MF_skin_scalabilityEditorOnlyData'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionComment Name="MaterialExpressionComment_0" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionComment Name="MaterialExpressionComment_14" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_14'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionComment Name="MaterialExpressionComment_15" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_15'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionComment Name="MaterialExpressionComment_17" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_17'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionComment Name="MaterialExpressionComment_18" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_18'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionComment Name="MaterialExpressionComment_19" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_19'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionComment Name="MaterialExpressionComment_20" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_20'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionComment Name="MaterialExpressionComment_21" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_21'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionComment Name="MaterialExpressionComment_22" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_22'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionComment Name="MaterialExpressionComment_23" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_23'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionComment Name="MaterialExpressionComment_24" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_24'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionComment Name="MaterialExpressionComment_25" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_25'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionInput Name="MaterialExpressionFunctionInput_0" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionFunctionInput_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionInput Name="MaterialExpressionFunctionInput_1" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionFunctionInput_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionInput Name="MaterialExpressionFunctionInput_3" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionFunctionInput_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionFunctionOutput Name="MaterialExpressionFunctionOutput_0" ExportPath="/Script/Engine.MaterialExpressionFunctionOutput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionFunctionOutput_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionGetMaterialAttributes Name="MaterialExpressionGetMaterialAttributes_0" ExportPath="/Script/Engine.MaterialExpressionGetMaterialAttributes'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionGetMaterialAttributes_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionLinearInterpolate Name="MaterialExpressionLinearInterpolate_3" ExportPath="/Script/Engine.MaterialExpressionLinearInterpolate'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionLinearInterpolate_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMaterialFunctionCall Name="MaterialExpressionMaterialFunctionCall_3" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMaterialFunctionCall_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMaterialFunctionCall Name="MaterialExpressionMaterialFunctionCall_4" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMaterialFunctionCall_4'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMaterialFunctionCall Name="MaterialExpressionMaterialFunctionCall_5" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMaterialFunctionCall_5'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMaterialFunctionCall Name="MaterialExpressionMaterialFunctionCall_6" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMaterialFunctionCall_6'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMaterialFunctionCall Name="MaterialExpressionMaterialFunctionCall_7" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMaterialFunctionCall_7'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMultiply Name="MaterialExpressionMultiply_2" ExportPath="/Script/Engine.MaterialExpressionMultiply'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMultiply_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMultiply Name="MaterialExpressionMultiply_3" ExportPath="/Script/Engine.MaterialExpressionMultiply'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMultiply_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMultiply Name="MaterialExpressionMultiply_4" ExportPath="/Script/Engine.MaterialExpressionMultiply'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMultiply_4'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionMultiply Name="MaterialExpressionMultiply_8" ExportPath="/Script/Engine.MaterialExpressionMultiply'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMultiply_8'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_0" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_1" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_10" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_10'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_11" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_11'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_12" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_12'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_2" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_3" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_4" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_4'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_5" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_5'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_6" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_6'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_7" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_7'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_8" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_8'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteDeclaration Name="MaterialExpressionNamedRerouteDeclaration_9" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_9'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_0" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_1" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_10" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_10'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_12" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_12'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_13" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_13'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_14" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_14'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_15" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_15'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_16" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_16'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_17" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_17'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_19" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_19'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_2" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_20" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_20'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_21" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_21'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_22" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_22'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_3" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_6" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_6'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionNamedRerouteUsage Name="MaterialExpressionNamedRerouteUsage_9" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_9'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionQualitySwitch Name="MaterialExpressionQualitySwitch_0" ExportPath="/Script/Engine.MaterialExpressionQualitySwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionQualitySwitch_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionQualitySwitch Name="MaterialExpressionQualitySwitch_1" ExportPath="/Script/Engine.MaterialExpressionQualitySwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionQualitySwitch_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionReroute Name="MaterialExpressionReroute_10" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionReroute_10'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionReroute Name="MaterialExpressionReroute_11" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionReroute_11'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionReroute Name="MaterialExpressionReroute_8" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionReroute_8'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionReroute Name="MaterialExpressionReroute_9" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionReroute_9'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionScalarParameter Name="MaterialExpressionScalarParameter_0" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionScalarParameter_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionScalarParameter Name="MaterialExpressionScalarParameter_5" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionScalarParameter_5'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionScalarParameter Name="MaterialExpressionScalarParameter_6" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionScalarParameter_6'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionScalarParameter Name="MaterialExpressionScalarParameter_7" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionScalarParameter_7'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionScalarParameter Name="MaterialExpressionScalarParameter_8" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionScalarParameter_8'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionSetMaterialAttributes Name="MaterialExpressionSetMaterialAttributes_0" ExportPath="/Script/Engine.MaterialExpressionSetMaterialAttributes'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionSetMaterialAttributes_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionShadingModel Name="MaterialExpressionShadingModel_0" ExportPath="/Script/Engine.MaterialExpressionShadingModel'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionShadingModel_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionShadingModel Name="MaterialExpressionShadingModel_1" ExportPath="/Script/Engine.MaterialExpressionShadingModel'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionShadingModel_1'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionShadingModel Name="MaterialExpressionShadingModel_2" ExportPath="/Script/Engine.MaterialExpressionShadingModel'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionShadingModel_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionShadingPathSwitch Name="MaterialExpressionShadingPathSwitch_0" ExportPath="/Script/Engine.MaterialExpressionShadingPathSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionShadingPathSwitch_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticBool Name="MaterialExpressionStaticBool_0" ExportPath="/Script/Engine.MaterialExpressionStaticBool'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticBool_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitch Name="MaterialExpressionStaticSwitch_0" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticSwitch_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitchParameter Name="MaterialExpressionStaticSwitchParameter_0" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticSwitchParameter_0'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitchParameter Name="MaterialExpressionStaticSwitchParameter_2" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticSwitchParameter_2'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitchParameter Name="MaterialExpressionStaticSwitchParameter_3" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticSwitchParameter_3'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitchParameter Name="MaterialExpressionStaticSwitchParameter_5" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticSwitchParameter_5'"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionStaticSwitchParameter Name="MaterialExpressionStaticSwitchParameter_6" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticSwitchParameter_6'"
+   End Object
+   Begin Object Name="MF_skin_scalabilityEditorOnlyData" ExportPath="/Script/Engine.MaterialFunctionEditorOnlyData'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MF_skin_scalabilityEditorOnlyData'"
+      ExpressionCollection=(Expressions=("/Script/Engine.MaterialExpressionFunctionOutput'MF_skin_scalability:MaterialExpressionFunctionOutput_0'","/Script/Engine.MaterialExpressionShadingModel'MF_skin_scalability:MaterialExpressionShadingModel_0'","/Script/Engine.MaterialExpressionShadingModel'MF_skin_scalability:MaterialExpressionShadingModel_1'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_3'","/Script/Engine.MaterialExpressionQualitySwitch'MF_skin_scalability:MaterialExpressionQualitySwitch_0'","/Script/Engine.MaterialExpressionFunctionInput'MF_skin_scalability:MaterialExpressionFunctionInput_0'","/Script/Engine.MaterialExpressionGetMaterialAttributes'MF_skin_scalability:MaterialExpressionGetMaterialAttributes_0'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_0'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_1'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_2'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_4'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_8'","/Script/Engine.MaterialExpressionSetMaterialAttributes'MF_skin_scalability:MaterialExpressionSetMaterialAttributes_0'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_5'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_0'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_1'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_6'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_6'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_9'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_10'","/Script/Engine.MaterialExpressionFunctionInput'MF_skin_scalability:MaterialExpressionFunctionInput_1'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_9'","/Script/Engine.MaterialExpressionMultiply'MF_skin_scalability:MaterialExpressionMultiply_4'","/Script/Engine.MaterialExpressionLinearInterpolate'MF_skin_scalability:MaterialExpressionLinearInterpolate_3'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_12'","/Script/Engine.MaterialExpressionScalarParameter'MF_skin_scalability:MaterialExpressionScalarParameter_5'","/Script/Engine.MaterialExpressionMultiply'MF_skin_scalability:MaterialExpressionMultiply_8'","/Script/Engine.MaterialExpressionScalarParameter'MF_skin_scalability:MaterialExpressionScalarParameter_6'","/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_scalability:MaterialExpressionMaterialFunctionCall_4'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_13'","/Script/Engine.MaterialExpressionScalarParameter'MF_skin_scalability:MaterialExpressionScalarParameter_7'","/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_scalability:MaterialExpressionMaterialFunctionCall_5'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_14'","/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_scalability:MaterialExpressionMaterialFunctionCall_6'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_10'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_11'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_15'","/Script/Engine.MaterialExpressionMultiply'MF_skin_scalability:MaterialExpressionMultiply_2'","/Script/Engine.MaterialExpressionScalarParameter'MF_skin_scalability:MaterialExpressionScalarParameter_8'","/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_scalability:MaterialExpressionMaterialFunctionCall_7'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_16'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_12'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_17'","/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_scalability:MaterialExpressionMaterialFunctionCall_3'","/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_8'","/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_9'","/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_10'","/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_11'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_19'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_20'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_21'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_22'","/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_0'","/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_2'","/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_3'","/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_5'","/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_6'","/Script/Engine.MaterialExpressionShadingModel'MF_skin_scalability:MaterialExpressionShadingModel_2'","/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_7'","/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_scalability:MaterialExpressionStaticSwitch_0'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_2'","/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_3'","/Script/Engine.MaterialExpressionFunctionInput'MF_skin_scalability:MaterialExpressionFunctionInput_3'","/Script/Engine.MaterialExpressionStaticBool'MF_skin_scalability:MaterialExpressionStaticBool_0'","/Script/Engine.MaterialExpressionShadingPathSwitch'MF_skin_scalability:MaterialExpressionShadingPathSwitch_0'","/Script/Engine.MaterialExpressionQualitySwitch'MF_skin_scalability:MaterialExpressionQualitySwitch_1'","/Script/Engine.MaterialExpressionScalarParameter'MF_skin_scalability:MaterialExpressionScalarParameter_0'","/Script/Engine.MaterialExpressionMultiply'MF_skin_scalability:MaterialExpressionMultiply_3'"),EditorComments=("/Script/Engine.MaterialExpressionComment'MF_skin_scalability:MaterialExpressionComment_0'",None,"/Script/Engine.MaterialExpressionComment'MF_skin_scalability:MaterialExpressionComment_14'","/Script/Engine.MaterialExpressionComment'MF_skin_scalability:MaterialExpressionComment_15'",None,"/Script/Engine.MaterialExpressionComment'MF_skin_scalability:MaterialExpressionComment_17'","/Script/Engine.MaterialExpressionComment'MF_skin_scalability:MaterialExpressionComment_18'","/Script/Engine.MaterialExpressionComment'MF_skin_scalability:MaterialExpressionComment_19'","/Script/Engine.MaterialExpressionComment'MF_skin_scalability:MaterialExpressionComment_20'","/Script/Engine.MaterialExpressionComment'MF_skin_scalability:MaterialExpressionComment_21'","/Script/Engine.MaterialExpressionComment'MF_skin_scalability:MaterialExpressionComment_22'","/Script/Engine.MaterialExpressionComment'MF_skin_scalability:MaterialExpressionComment_23'","/Script/Engine.MaterialExpressionComment'MF_skin_scalability:MaterialExpressionComment_24'","/Script/Engine.MaterialExpressionComment'MF_skin_scalability:MaterialExpressionComment_25'"))
+   End Object
+   Begin Object Name="MaterialExpressionComment_0" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_0'"
+      SizeX=400
+      SizeY=240
+      Text="For lower LODs on Epic or High Setting"
+      MaterialExpressionEditorX=2512
+      MaterialExpressionEditorY=-176
+      MaterialExpressionGuid=3DFFF3F241C02CE180CD7C9E4928B99D
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionComment_14" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_14'"
+      SizeX=400
+      SizeY=240
+      Text="For lower LODs on Epic or High Setting"
+      MaterialExpressionEditorX=2528
+      MaterialExpressionEditorY=736
+      MaterialExpressionGuid=3DFFF3F241C02CE180CD7C9E4928B99D
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionComment_15" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_15'"
+      SizeX=400
+      SizeY=272
+      Text="For lower LODs on Epic or High Setting"
+      MaterialExpressionEditorX=2496
+      MaterialExpressionEditorY=1760
+      MaterialExpressionGuid=3DFFF3F241C02CE180CD7C9E4928B99D
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionComment_17" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_17'"
+      SizeX=400
+      SizeY=272
+      Text="For lower LODs on Epic or High Setting"
+      MaterialExpressionEditorX=2480
+      MaterialExpressionEditorY=2768
+      MaterialExpressionGuid=3DFFF3F241C02CE180CD7C9E4928B99D
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionComment_18" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_18'"
+      SizeX=400
+      SizeY=272
+      Text="For lower LODs on Epic or High Setting"
+      MaterialExpressionEditorX=2352
+      MaterialExpressionEditorY=3968
+      MaterialExpressionGuid=3DFFF3F241C02CE180CD7C9E4928B99D
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionComment_19" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_19'"
+      SizeX=3863
+      SizeY=793
+      Text="Base Color"
+      bCommentBubbleVisible_InDetailsPanel=True
+      MaterialExpressionEditorX=-50
+      MaterialExpressionEditorY=-228
+      MaterialExpressionGuid=96BD91204960A2FE2CB12F96B983BECE
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionComment_20" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_20'"
+      SizeX=3855
+      SizeY=775
+      Text="Specular"
+      bCommentBubbleVisible_InDetailsPanel=True
+      MaterialExpressionEditorX=-50
+      MaterialExpressionEditorY=686
+      MaterialExpressionGuid=5723EBCD4F7C5F88E630A1B9D96185AC
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionComment_21" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_21'"
+      SizeX=3871
+      SizeY=647
+      Text="Roughness"
+      bCommentBubbleVisible_InDetailsPanel=True
+      MaterialExpressionEditorX=-50
+      MaterialExpressionEditorY=1710
+      MaterialExpressionGuid=8C255CCA4EAFADD7281E1596D9CA185F
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionComment_22" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_22'"
+      SizeX=3845
+      SizeY=663
+      Text="Normal"
+      bCommentBubbleVisible_InDetailsPanel=True
+      MaterialExpressionEditorX=-50
+      MaterialExpressionEditorY=2718
+      MaterialExpressionGuid=E0F731E4423ACBA59E931AB59FB7090C
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionComment_23" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_23'"
+      SizeX=4640
+      SizeY=800
+      Text="Shading Model"
+      bCommentBubbleVisible_InDetailsPanel=True
+      MaterialExpressionEditorX=-96
+      MaterialExpressionEditorY=3904
+      MaterialExpressionGuid=9F4975524043F7BA9A66B78F23E3FFC9
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionComment_24" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_24'"
+      SizeX=1280
+      SizeY=1072
+      Text="Inputs"
+      bCommentBubbleVisible_InDetailsPanel=True
+      MaterialExpressionEditorX=-1536
+      MaterialExpressionEditorY=-224
+      MaterialExpressionGuid=7543AD4C40B11CF34E59AABA419E7651
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionComment_25" ExportPath="/Script/Engine.MaterialExpressionComment'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionComment_25'"
+      SizeX=1520
+      SizeY=656
+      Text="Outputs"
+      bCommentBubbleVisible_InDetailsPanel=True
+      MaterialExpressionEditorX=4048
+      MaterialExpressionEditorY=-224
+      MaterialExpressionGuid=1DA9D68741CDDE1713C1FFA1E083E3AA
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionFunctionInput_0" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionFunctionInput_0'"
+      InputName="Material Attributes"
+      Id=40FB859149337CE463D4C489ABB1CFAC
+      InputType=FunctionInput_MaterialAttributes
+      MaterialExpressionEditorX=-1486
+      MaterialExpressionEditorY=-174
+      MaterialExpressionGuid=27284F9A469EE38CEA65EC86027880F4
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionFunctionInput_1" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionFunctionInput_1'"
+      InputName="Bent Normal Z"
+      Id=1E73E3BE47A1B6C599085CB2FA2F8135
+      InputType=FunctionInput_Scalar
+      SortPriority=10
+      MaterialExpressionEditorX=-1486
+      MaterialExpressionEditorY=338
+      MaterialExpressionGuid=BC3542494CAA8B95C3369E824E9D99EF
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionFunctionInput_3" ExportPath="/Script/Engine.MaterialExpressionFunctionInput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionFunctionInput_3'"
+      Preview=(Expression="/Script/Engine.MaterialExpressionStaticBool'MF_skin_scalability:MaterialExpressionStaticBool_0'")
+      InputName="Use Scalability"
+      Id=629E9FCE40F474198D5947A72BC03F75
+      InputType=FunctionInput_StaticBool
+      SortPriority=10
+      MaterialExpressionEditorX=-1488
+      MaterialExpressionEditorY=608
+      MaterialExpressionGuid=A4D5FAA24FC82C056A8C5BB416D80CFE
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionFunctionOutput_0" ExportPath="/Script/Engine.MaterialExpressionFunctionOutput'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionFunctionOutput_0'"
+      OutputName="Material Attributes"
+      A=(Expression="/Script/Engine.MaterialExpressionStaticSwitch'MF_skin_scalability:MaterialExpressionStaticSwitch_0'")
+      bLastPreviewed=True
+      Id=692C8D0045A7793510D00FAD2726B4F4
+      MaterialExpressionEditorX=5248
+      MaterialExpressionEditorY=-176
+      MaterialExpressionGuid=ECEE3BC34A4B7D0B662423BC5B755454
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionGetMaterialAttributes_0" ExportPath="/Script/Engine.MaterialExpressionGetMaterialAttributes'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionGetMaterialAttributes_0'"
+      MaterialAttributes=(Expression="/Script/Engine.MaterialExpressionFunctionInput'MF_skin_scalability:MaterialExpressionFunctionInput_0'")
+      AttributeGetTypes(0)=69B8D33616ED4D499AA497292F050F7A
+      AttributeGetTypes(1)=9FDAB39925564CC98CD2D572C12C8FED
+      AttributeGetTypes(2)=0FA2821A200F4A4AB719B789C1259C64
+      AttributeGetTypes(3)=D1DD967C4CAD47D39E6346FB08ECF210
+      AttributeGetTypes(4)=E8EBD0ADB1654CBEB079C3A8B39B9F15
+      MaterialExpressionEditorX=-974
+      MaterialExpressionEditorY=-174
+      MaterialExpressionGuid=2E0A08AC4068B86DE3862093EA1EBC6A
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+      Outputs(1)=(OutputName="BaseColor")
+      Outputs(2)=(OutputName="Specular")
+      Outputs(3)=(OutputName="Normal")
+      Outputs(4)=(OutputName="Roughness")
+      Outputs(5)=(OutputName="AmbientOcclusion")
+   End Object
+   Begin Object Name="MaterialExpressionLinearInterpolate_3" ExportPath="/Script/Engine.MaterialExpressionLinearInterpolate'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionLinearInterpolate_3'"
+      A=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_12'")
+      B=(Expression="/Script/Engine.MaterialExpressionMultiply'MF_skin_scalability:MaterialExpressionMultiply_4'")
+      Alpha=(Expression="/Script/Engine.MaterialExpressionScalarParameter'MF_skin_scalability:MaterialExpressionScalarParameter_5'")
+      MaterialExpressionEditorX=512
+      MaterialExpressionEditorY=1024
+      MaterialExpressionGuid=A77AAF6540C3E12778E0EF9E6B02436F
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionMaterialFunctionCall_3" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMaterialFunctionCall_3'"
+      MaterialFunction="/Script/Engine.MaterialFunction'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Material_Functions/MF_UHM_QualitySwitch_Vector3.MF_UHM_QualitySwitch_Vector3'"
+      FunctionInputs(0)=(ExpressionInputId=EEFE89D948211DC76247328879EE9FD6,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_9'",InputName="Low - PC"))
+      FunctionInputs(1)=(ExpressionInputId=6569BC6F4CCD9F35FE1A6D8A164096C8,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_9'",InputName="Med - PC"))
+      FunctionInputs(2)=(ExpressionInputId=F62544774084C60D8CD1198D762F0A97,Input=(Expression="/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_0'",InputName="High"))
+      FunctionInputs(3)=(ExpressionInputId=21CBC17341651390680551B14E9468CF,Input=(Expression="/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_0'",InputName="Epic"))
+      FunctionInputs(4)=(ExpressionInputId=0B37190B4B58BD56F755628C1C4916A8,Input=(OutputIndex=-1,InputName="--------"))
+      FunctionInputs(5)=(ExpressionInputId=EAC55F394FED56F622B729BF0B27374E,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_9'",InputName="Low"))
+      FunctionInputs(6)=(ExpressionInputId=9571FD5B49AC9F7E3071738904FA22B0,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_9'",InputName="Medium"))
+      FunctionOutputs(0)=(ExpressionOutputId=6DC4A3E045D68475F51AEEB9C29009D8,Output=(OutputName="Result"))
+      MaterialExpressionEditorX=3056
+      MaterialExpressionEditorY=128
+      MaterialExpressionGuid=6B9C206649FE5921FDAADC931C7EF4C4
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+      Outputs(0)=(OutputName="Result")
+   End Object
+   Begin Object Name="MaterialExpressionMaterialFunctionCall_4" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMaterialFunctionCall_4'"
+      MaterialFunction="/Script/Engine.MaterialFunction'/Engine/Functions/Engine_MaterialFunctions01/Texturing/FlattenNormal.FlattenNormal'"
+      FunctionInputs(0)=(ExpressionInputId=28AAF19044840619BEBDFC824A64C7A0,Input=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_13'",InputName="Normal"))
+      FunctionInputs(1)=(ExpressionInputId=03CE862F4BD8BFCC0550048115A40E71,Input=(Expression="/Script/Engine.MaterialExpressionScalarParameter'MF_skin_scalability:MaterialExpressionScalarParameter_7'",InputName="Flatness"))
+      FunctionOutputs(0)=(ExpressionOutputId=CF2DF7CD446736F3FF50B0A17088C5A7,Output=(OutputName="Result"))
+      MaterialExpressionEditorX=512
+      MaterialExpressionEditorY=3072
+      MaterialExpressionGuid=D021308546C21AE9FB3DEDBEFBE7ACE1
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+      Outputs(0)=(OutputName="Result")
+   End Object
+   Begin Object Name="MaterialExpressionMaterialFunctionCall_5" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMaterialFunctionCall_5'"
+      MaterialFunction="/Script/Engine.MaterialFunction'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Material_Functions/MF_UHM_QualitySwitch_Scalar.MF_UHM_QualitySwitch_Scalar'"
+      FunctionInputs(0)=(ExpressionInputId=EEFE89D948211DC76247328879EE9FD6,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_8'",InputName="Low - PC"))
+      FunctionInputs(1)=(ExpressionInputId=20CB886347CE4390A093A1949704B1E4,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_8'",InputName="Med - PC"))
+      FunctionInputs(2)=(ExpressionInputId=F62544774084C60D8CD1198D762F0A97,Input=(Expression="/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_2'",InputName="High"))
+      FunctionInputs(3)=(ExpressionInputId=21CBC17341651390680551B14E9468CF,Input=(Expression="/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_2'",InputName="Epic"))
+      FunctionInputs(4)=(ExpressionInputId=0B37190B4B58BD56F755628C1C4916A8,Input=(OutputIndex=-1,InputName="--------"))
+      FunctionInputs(5)=(ExpressionInputId=EAC55F394FED56F622B729BF0B27374E,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_8'",InputName="Low"))
+      FunctionInputs(6)=(ExpressionInputId=9571FD5B49AC9F7E3071738904FA22B0,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_8'",InputName="Medium"))
+      FunctionOutputs(0)=(ExpressionOutputId=6DC4A3E045D68475F51AEEB9C29009D8,Output=(OutputName="Result"))
+      MaterialExpressionEditorX=3072
+      MaterialExpressionEditorY=1024
+      MaterialExpressionGuid=DEA4EDA74ABE93C8BBD7D4B7D7007FA3
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+      Outputs(0)=(OutputName="Result")
+   End Object
+   Begin Object Name="MaterialExpressionMaterialFunctionCall_6" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMaterialFunctionCall_6'"
+      MaterialFunction="/Script/Engine.MaterialFunction'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Material_Functions/MF_UHM_QualitySwitch_Vector3.MF_UHM_QualitySwitch_Vector3'"
+      FunctionInputs(0)=(ExpressionInputId=EEFE89D948211DC76247328879EE9FD6,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_11'",InputName="Low - PC"))
+      FunctionInputs(1)=(ExpressionInputId=6569BC6F4CCD9F35FE1A6D8A164096C8,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_11'",InputName="Med - PC"))
+      FunctionInputs(2)=(ExpressionInputId=F62544774084C60D8CD1198D762F0A97,Input=(Expression="/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_5'",InputName="High"))
+      FunctionInputs(3)=(ExpressionInputId=21CBC17341651390680551B14E9468CF,Input=(Expression="/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_5'",InputName="Epic"))
+      FunctionInputs(4)=(ExpressionInputId=0B37190B4B58BD56F755628C1C4916A8,Input=(OutputIndex=-1,InputName="--------"))
+      FunctionInputs(5)=(ExpressionInputId=EAC55F394FED56F622B729BF0B27374E,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_11'",InputName="Low"))
+      FunctionInputs(6)=(ExpressionInputId=9571FD5B49AC9F7E3071738904FA22B0,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_11'",InputName="Medium"))
+      FunctionOutputs(0)=(ExpressionOutputId=6DC4A3E045D68475F51AEEB9C29009D8,Output=(OutputName="Result"))
+      MaterialExpressionEditorX=3072
+      MaterialExpressionEditorY=3072
+      MaterialExpressionGuid=6B9C206649FE5921FDAADC931C7EF4C4
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+      Outputs(0)=(OutputName="Result")
+   End Object
+   Begin Object Name="MaterialExpressionMaterialFunctionCall_7" ExportPath="/Script/Engine.MaterialExpressionMaterialFunctionCall'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMaterialFunctionCall_7'"
+      MaterialFunction="/Script/Engine.MaterialFunction'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Common/Material_Functions/MF_UHM_QualitySwitch_Scalar.MF_UHM_QualitySwitch_Scalar'"
+      FunctionInputs(0)=(ExpressionInputId=EEFE89D948211DC76247328879EE9FD6,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_10'",InputName="Low - PC"))
+      FunctionInputs(1)=(ExpressionInputId=20CB886347CE4390A093A1949704B1E4,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_10'",InputName="Med - PC"))
+      FunctionInputs(2)=(ExpressionInputId=F62544774084C60D8CD1198D762F0A97,Input=(Expression="/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_3'",InputName="High"))
+      FunctionInputs(3)=(ExpressionInputId=21CBC17341651390680551B14E9468CF,Input=(Expression="/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_3'",InputName="Epic"))
+      FunctionInputs(4)=(ExpressionInputId=0B37190B4B58BD56F755628C1C4916A8,Input=(OutputIndex=-1,InputName="--------"))
+      FunctionInputs(5)=(ExpressionInputId=EAC55F394FED56F622B729BF0B27374E,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_10'",InputName="Low"))
+      FunctionInputs(6)=(ExpressionInputId=9571FD5B49AC9F7E3071738904FA22B0,Input=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_10'",InputName="Medium"))
+      FunctionOutputs(0)=(ExpressionOutputId=6DC4A3E045D68475F51AEEB9C29009D8,Output=(OutputName="Result"))
+      MaterialExpressionEditorX=3072
+      MaterialExpressionEditorY=2048
+      MaterialExpressionGuid=DEA4EDA74ABE93C8BBD7D4B7D7007FA3
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+      Outputs(0)=(OutputName="Result")
+   End Object
+   Begin Object Name="MaterialExpressionMultiply_2" ExportPath="/Script/Engine.MaterialExpressionMultiply'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMultiply_2'"
+      A=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_15'")
+      B=(Expression="/Script/Engine.MaterialExpressionScalarParameter'MF_skin_scalability:MaterialExpressionScalarParameter_8'")
+      MaterialExpressionEditorX=512
+      MaterialExpressionEditorY=2048
+      MaterialExpressionGuid=6B13E21E48F6C0FF9DA4EFB0E03AD5EC
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionMultiply_3" ExportPath="/Script/Engine.MaterialExpressionMultiply'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMultiply_3'"
+      A=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_6'")
+      B=(Expression="/Script/Engine.MaterialExpressionScalarParameter'MF_skin_scalability:MaterialExpressionScalarParameter_0'")
+      MaterialExpressionEditorX=544
+      MaterialExpressionEditorY=128
+      MaterialExpressionGuid=17A90A20455AFD0A44D62A81BF3AC38F
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionMultiply_4" ExportPath="/Script/Engine.MaterialExpressionMultiply'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMultiply_4'"
+      A=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_12'")
+      B=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_17'")
+      MaterialExpressionEditorX=256
+      MaterialExpressionEditorY=1184
+      MaterialExpressionGuid=19E2673F4BFC30E6194652996CD33FC0
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionMultiply_8" ExportPath="/Script/Engine.MaterialExpressionMultiply'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionMultiply_8'"
+      A=(Expression="/Script/Engine.MaterialExpressionLinearInterpolate'MF_skin_scalability:MaterialExpressionLinearInterpolate_3'")
+      B=(Expression="/Script/Engine.MaterialExpressionScalarParameter'MF_skin_scalability:MaterialExpressionScalarParameter_6'")
+      MaterialExpressionEditorX=1024
+      MaterialExpressionEditorY=1024
+      MaterialExpressionGuid=6EE2DDCA46A9797E873BE084F482A400
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_0" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_0'"
+      Input=(Expression="/Script/Engine.MaterialExpressionGetMaterialAttributes'MF_skin_scalability:MaterialExpressionGetMaterialAttributes_0'")
+      Name="Material Attributes"
+      NodeColor=(R=0.664062,G=1.000000,B=0.000000,A=1.000000)
+      VariableGuid=9266B992430601C511A3AB85D20C1D12
+      MaterialExpressionEditorX=-462
+      MaterialExpressionEditorY=-174
+      MaterialExpressionGuid=43FAD71247607EC5F20D1A932891AB25
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_1" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_1'"
+      Input=(Expression="/Script/Engine.MaterialExpressionGetMaterialAttributes'MF_skin_scalability:MaterialExpressionGetMaterialAttributes_0'",OutputIndex=1)
+      Name="Basecolor"
+      NodeColor=(R=1.000000,G=0.796875,B=0.000000,A=1.000000)
+      VariableGuid=2DFF1CB44BB330B462370E9994EB7219
+      MaterialExpressionEditorX=-462
+      MaterialExpressionEditorY=-110
+      MaterialExpressionGuid=3A7707064220A5DB4B5CAF9007F670E1
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_10" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_10'"
+      Input=(Expression="/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_scalability:MaterialExpressionMaterialFunctionCall_5'")
+      Name="Specular Scalability"
+      NodeColor=(R=0.000000,G=1.000000,B=0.648438,A=1.000000)
+      VariableGuid=87C18CF0498107F51C2B28B6C0A7F04B
+      MaterialExpressionEditorX=3584
+      MaterialExpressionEditorY=1024
+      MaterialExpressionGuid=B83AEBE1493E275685DC9EB76A454C9E
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_11" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_11'"
+      Input=(Expression="/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_scalability:MaterialExpressionMaterialFunctionCall_6'")
+      Name="Normal Scalability"
+      NodeColor=(R=1.000000,G=0.000000,B=0.750000,A=1.000000)
+      VariableGuid=A75065E44CB4D82680CFDDB7E923482D
+      MaterialExpressionEditorX=3584
+      MaterialExpressionEditorY=3072
+      MaterialExpressionGuid=BFE4C5EB425791AB58FFA8B50682ABE7
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_12" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_12'"
+      Input=(Expression="/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_scalability:MaterialExpressionMaterialFunctionCall_7'")
+      Name="Roughness Scalability"
+      NodeColor=(R=0.000000,G=1.000000,B=0.273438,A=1.000000)
+      VariableGuid=DE953CC14E86BE3D62898AACC0892EFD
+      MaterialExpressionEditorX=3584
+      MaterialExpressionEditorY=2048
+      MaterialExpressionGuid=1D12D1C24CEAB2AFDFBB93A2D1CFA071
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_2" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_2'"
+      Input=(Expression="/Script/Engine.MaterialExpressionGetMaterialAttributes'MF_skin_scalability:MaterialExpressionGetMaterialAttributes_0'",OutputIndex=2)
+      Name="Specular"
+      NodeColor=(R=1.000000,G=0.000000,B=0.281250,A=1.000000)
+      VariableGuid=87C449BD4ED4F9FB776C5699F415970E
+      MaterialExpressionEditorX=-462
+      MaterialExpressionEditorY=-46
+      MaterialExpressionGuid=6AC57EC84B0A1D16E67C77BB04791ADE
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_3" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_3'"
+      Input=(Expression="/Script/Engine.MaterialExpressionShadingPathSwitch'MF_skin_scalability:MaterialExpressionShadingPathSwitch_0'")
+      Name="Shading Model"
+      NodeColor=(R=0.214000,G=0.214000,B=0.214000,A=1.000000)
+      VariableGuid=30A5385F4B7C49E91B24FCA22B9C3C65
+      MaterialExpressionEditorX=3952
+      MaterialExpressionEditorY=4064
+      MaterialExpressionGuid=3C59B8C94786F6669A6C7FBE9B5D4568
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_4" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_4'"
+      Input=(Expression="/Script/Engine.MaterialExpressionGetMaterialAttributes'MF_skin_scalability:MaterialExpressionGetMaterialAttributes_0'",OutputIndex=3)
+      Name="Normal"
+      NodeColor=(R=0.000000,G=0.058934,B=1.000000,A=1.000000)
+      VariableGuid=0D53815949E436215EFF5E9AADA2199A
+      MaterialExpressionEditorX=-462
+      MaterialExpressionEditorY=18
+      MaterialExpressionGuid=27B047484659461B15D62FAF1F9713C5
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_5" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_5'"
+      Input=(Expression="/Script/Engine.MaterialExpressionGetMaterialAttributes'MF_skin_scalability:MaterialExpressionGetMaterialAttributes_0'",OutputIndex=5)
+      Name="Ambient Occlusion"
+      NodeColor=(R=0.523437,G=1.000000,B=0.000000,A=1.000000)
+      VariableGuid=7BF92FE34C36EC06569CE084CBE361A3
+      MaterialExpressionEditorX=-462
+      MaterialExpressionEditorY=146
+      MaterialExpressionGuid=F22729924CDC0D80866011B799DCF052
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_6" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_6'"
+      Input=(Expression="/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_scalability:MaterialExpressionMaterialFunctionCall_3'")
+      Name="Basecolor Scalability"
+      NodeColor=(R=0.000000,G=1.000000,B=0.695313,A=1.000000)
+      VariableGuid=D99EAA7143146E4B8EB894B968779B63
+      MaterialExpressionEditorX=3584
+      MaterialExpressionEditorY=128
+      MaterialExpressionGuid=A3C1309B42E796D116D90CBF2047EA61
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_7" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_7'"
+      Input=(Expression="/Script/Engine.MaterialExpressionFunctionInput'MF_skin_scalability:MaterialExpressionFunctionInput_3'")
+      Name="Use Scalability"
+      NodeColor=(R=0.000000,G=0.273437,B=1.000000,A=1.000000)
+      VariableGuid=F81CAA2B47AF019AFB52459412D6AD65
+      MaterialExpressionEditorX=-464
+      MaterialExpressionEditorY=608
+      MaterialExpressionGuid=3D3C50BA479787BDE263F29CF80CB74A
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_8" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_8'"
+      Input=(Expression="/Script/Engine.MaterialExpressionGetMaterialAttributes'MF_skin_scalability:MaterialExpressionGetMaterialAttributes_0'",OutputIndex=4)
+      Name="Roughness"
+      NodeColor=(R=0.000000,G=1.000000,B=0.953125,A=1.000000)
+      VariableGuid=93E2B1C84E1798C14B32BAB640A5379E
+      MaterialExpressionEditorX=-462
+      MaterialExpressionEditorY=82
+      MaterialExpressionGuid=105C3EAC4F36FCF14BCE6E9B3D8A46A7
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteDeclaration_9" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_9'"
+      Input=(Expression="/Script/Engine.MaterialExpressionFunctionInput'MF_skin_scalability:MaterialExpressionFunctionInput_1'")
+      Name="Bent Normal Z"
+      NodeColor=(R=0.000000,G=0.671875,B=1.000000,A=1.000000)
+      VariableGuid=D525F9E3457549EF3D4A5CB52B24A56C
+      MaterialExpressionEditorX=-462
+      MaterialExpressionEditorY=338
+      MaterialExpressionGuid=B989A5C94597E97A489F09B514518B3B
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_0" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_0'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_0'"
+      DeclarationGuid=9266B992430601C511A3AB85D20C1D12
+      MaterialExpressionEditorX=4098
+      MaterialExpressionEditorY=-142
+      MaterialExpressionGuid=6CA58D25479F3CE7182713A1DE90D061
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_1" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_1'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_3'"
+      DeclarationGuid=30A5385F4B7C49E91B24FCA22B9C3C65
+      MaterialExpressionEditorX=4098
+      MaterialExpressionEditorY=306
+      MaterialExpressionGuid=0D0B8B3642FEEA8882EED0969D811791
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_10" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_10'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_1'"
+      DeclarationGuid=2DFF1CB44BB330B462370E9994EB7219
+      MaterialExpressionEditorX=1792
+      MaterialExpressionEditorY=-80
+      MaterialExpressionGuid=B53E2F0044E18C45E9A967914B54607F
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_12" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_12'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_2'"
+      DeclarationGuid=87C449BD4ED4F9FB776C5699F415970E
+      MaterialExpressionEditorY=1024
+      MaterialExpressionGuid=09351F1641527CD160359CAE376F7535
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_13" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_13'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_4'"
+      DeclarationGuid=0D53815949E436215EFF5E9AADA2199A
+      MaterialExpressionEditorY=3072
+      MaterialExpressionGuid=712F005A4B0F5BEE5101F58F5C2D1E87
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_14" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_14'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_2'"
+      DeclarationGuid=87C449BD4ED4F9FB776C5699F415970E
+      MaterialExpressionEditorX=2368
+      MaterialExpressionEditorY=832
+      MaterialExpressionGuid=7345AF424F9DE7F566E94AB15894513D
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_15" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_15'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_8'"
+      DeclarationGuid=93E2B1C84E1798C14B32BAB640A5379E
+      MaterialExpressionEditorY=2048
+      MaterialExpressionGuid=3526001E442169B4AAD7C487CCC1D8A7
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_16" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_16'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_8'"
+      DeclarationGuid=93E2B1C84E1798C14B32BAB640A5379E
+      MaterialExpressionEditorX=2304
+      MaterialExpressionEditorY=1888
+      MaterialExpressionGuid=3526001E442169B4AAD7C487CCC1D8A7
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_17" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_17'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_9'"
+      DeclarationGuid=D525F9E3457549EF3D4A5CB52B24A56C
+      MaterialExpressionEditorY=1216
+      MaterialExpressionGuid=049724DA45F6AAA8320DADB1CC647695
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_19" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_19'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_4'"
+      DeclarationGuid=0D53815949E436215EFF5E9AADA2199A
+      MaterialExpressionEditorX=2288
+      MaterialExpressionEditorY=2896
+      MaterialExpressionGuid=8E174DFF435C3E7EA878748CA101E3F8
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_2" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_2'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_7'"
+      DeclarationGuid=F81CAA2B47AF019AFB52459412D6AD65
+      MaterialExpressionEditorX=4640
+      MaterialExpressionEditorY=128
+      MaterialExpressionGuid=8BACE09C451A8FE873749CB6D3B036E8
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_20" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_20'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_10'"
+      DeclarationGuid=87C18CF0498107F51C2B28B6C0A7F04B
+      MaterialExpressionEditorX=4098
+      MaterialExpressionEditorY=-14
+      MaterialExpressionGuid=82B9E23C47EF6E33BFB660AE5CF3AC40
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_21" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_21'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_12'"
+      DeclarationGuid=DE953CC14E86BE3D62898AACC0892EFD
+      MaterialExpressionEditorX=4098
+      MaterialExpressionEditorY=50
+      MaterialExpressionGuid=A82EEB5D4B02DF61D68109A7B2C6E878
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_22" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_22'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_11'"
+      DeclarationGuid=A75065E44CB4D82680CFDDB7E923482D
+      MaterialExpressionEditorX=4098
+      MaterialExpressionEditorY=114
+      MaterialExpressionGuid=EEE608814E50DC2F70C743B48C6A65C6
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_3" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_3'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_0'"
+      DeclarationGuid=9266B992430601C511A3AB85D20C1D12
+      MaterialExpressionEditorX=4624
+      MaterialExpressionEditorY=-32
+      MaterialExpressionGuid=DB00278843413DF26C35C7B450C791FF
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_6" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_6'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_1'"
+      DeclarationGuid=2DFF1CB44BB330B462370E9994EB7219
+      MaterialExpressionEditorX=64
+      MaterialExpressionEditorY=128
+      MaterialExpressionGuid=A45528A74C57BCD64FE2BD8F0AEAFA3C
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionNamedRerouteUsage_9" ExportPath="/Script/Engine.MaterialExpressionNamedRerouteUsage'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionNamedRerouteUsage_9'"
+      Declaration="/Script/Engine.MaterialExpressionNamedRerouteDeclaration'MF_skin_scalability:MaterialExpressionNamedRerouteDeclaration_6'"
+      DeclarationGuid=D99EAA7143146E4B8EB894B968779B63
+      MaterialExpressionEditorX=4098
+      MaterialExpressionEditorY=-78
+      MaterialExpressionGuid=54BD00BF4BADC3C4EB9B8D89A6939C49
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionQualitySwitch_0" ExportPath="/Script/Engine.MaterialExpressionQualitySwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionQualitySwitch_0'"
+      Default=(Expression="/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_6'")
+      Inputs(0)=(Expression="/Script/Engine.MaterialExpressionShadingModel'MF_skin_scalability:MaterialExpressionShadingModel_0'")
+      Inputs(1)=(Expression="/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_6'")
+      Inputs(2)=(Expression="/Script/Engine.MaterialExpressionShadingModel'MF_skin_scalability:MaterialExpressionShadingModel_0'")
+      Inputs(3)=(Expression="/Script/Engine.MaterialExpressionStaticSwitchParameter'MF_skin_scalability:MaterialExpressionStaticSwitchParameter_6'")
+      MaterialExpressionEditorX=3248
+      MaterialExpressionEditorY=4048
+      MaterialExpressionGuid=ED6F22144771282451BEF684FE8D6FCF
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionQualitySwitch_1" ExportPath="/Script/Engine.MaterialExpressionQualitySwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionQualitySwitch_1'"
+      Default=(Expression="/Script/Engine.MaterialExpressionShadingModel'MF_skin_scalability:MaterialExpressionShadingModel_0'")
+      Inputs(0)=(Expression="/Script/Engine.MaterialExpressionShadingModel'MF_skin_scalability:MaterialExpressionShadingModel_0'")
+      Inputs(2)=(Expression="/Script/Engine.MaterialExpressionShadingModel'MF_skin_scalability:MaterialExpressionShadingModel_0'")
+      MaterialExpressionEditorX=3232
+      MaterialExpressionEditorY=4352
+      MaterialExpressionGuid=0E47FDA141D5271AAB0E8193F0EC520B
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionReroute_10" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionReroute_10'"
+      Input=(Expression="/Script/Engine.MaterialExpressionMultiply'MF_skin_scalability:MaterialExpressionMultiply_2'")
+      MaterialExpressionEditorX=2496
+      MaterialExpressionEditorY=2080
+      MaterialExpressionGuid=9411AF00447C7FAEBCA8DFB4728B17D4
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionReroute_11" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionReroute_11'"
+      Input=(Expression="/Script/Engine.MaterialExpressionMaterialFunctionCall'MF_skin_scalability:MaterialExpressionMaterialFunctionCall_4'")
+      MaterialExpressionEditorX=2480
+      MaterialExpressionEditorY=3104
+      MaterialExpressionGuid=60E36BA44D401D9CB0E3959A8A74FB39
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionReroute_8" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionReroute_8'"
+      Input=(Expression="/Script/Engine.MaterialExpressionMultiply'MF_skin_scalability:MaterialExpressionMultiply_8'")
+      MaterialExpressionEditorX=2496
+      MaterialExpressionEditorY=1056
+      MaterialExpressionGuid=D13DD6DD45B6C74DC9AC8585275C0C42
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionReroute_9" ExportPath="/Script/Engine.MaterialExpressionReroute'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionReroute_9'"
+      Input=(Expression="/Script/Engine.MaterialExpressionMultiply'MF_skin_scalability:MaterialExpressionMultiply_3'")
+      MaterialExpressionEditorX=2352
+      MaterialExpressionEditorY=160
+      MaterialExpressionGuid=B5B1AF4543D9FD7AB6F85699D749BC53
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionScalarParameter_0" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionScalarParameter_0'"
+      DefaultValue=1.000000
+      ParameterName="BaseColorAdjust"
+      ExpressionGUID=614195F34E673B3A44288E9E639E0176
+      Group="997 - Quality"
+      SortPriority=20
+      MaterialExpressionEditorX=208
+      MaterialExpressionEditorY=288
+      MaterialExpressionGuid=43BD56324B5CC9728717B5920A311105
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionScalarParameter_5" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionScalarParameter_5'"
+      DefaultValue=0.600000
+      SliderMax=1.000000
+      ParameterName="Fake Spec Attenuation"
+      ExpressionGUID=4F16E18740472201021E20A637A67A72
+      Group="997 - Quality"
+      SortPriority=30
+      MaterialExpressionEditorX=256
+      MaterialExpressionEditorY=1328
+      MaterialExpressionGuid=5037829048840F2FDACAEF98A4CCD793
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionScalarParameter_6" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionScalarParameter_6'"
+      DefaultValue=0.900000
+      SliderMax=1.000000
+      ParameterName="Spec Adjust"
+      ExpressionGUID=2AC98E3D4E5D3EA6586AF685F3A92223
+      Group="997 - Quality"
+      SortPriority=35
+      MaterialExpressionEditorX=768
+      MaterialExpressionEditorY=1328
+      MaterialExpressionGuid=5037829048840F2FDACAEF98A4CCD793
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+      Desc="Adjust Specular intensity for quality settings with no SSS"
+   End Object
+   Begin Object Name="MaterialExpressionScalarParameter_7" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionScalarParameter_7'"
+      DefaultValue=0.333330
+      SliderMax=1.000000
+      ParameterName="Normal Flatten"
+      ExpressionGUID=8B5810814474C2D31507B08AF6D274F1
+      Group="997 - Quality"
+      SortPriority=50
+      MaterialExpressionEditorX=256
+      MaterialExpressionEditorY=3248
+      MaterialExpressionGuid=5037829048840F2FDACAEF98A4CCD793
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+      Desc="Adjust Normal intensity when no SSS"
+   End Object
+   Begin Object Name="MaterialExpressionScalarParameter_8" ExportPath="/Script/Engine.MaterialExpressionScalarParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionScalarParameter_8'"
+      DefaultValue=0.950000
+      SliderMax=1.000000
+      ParameterName="Roughness Adjust"
+      ExpressionGUID=72AED0F446D64254539FBA97F7C890CB
+      Group="997 - Quality"
+      SortPriority=40
+      MaterialExpressionEditorX=256
+      MaterialExpressionEditorY=2224
+      MaterialExpressionGuid=5037829048840F2FDACAEF98A4CCD793
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+      Desc="Adjust Roughness intensity for quality settings with no SSS"
+   End Object
+   Begin Object Name="MaterialExpressionSetMaterialAttributes_0" ExportPath="/Script/Engine.MaterialExpressionSetMaterialAttributes'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionSetMaterialAttributes_0'"
+      Inputs(0)=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_0'")
+      Inputs(1)=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_9'",InputName="Base Color")
+      Inputs(2)=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_20'",InputName="Specular")
+      Inputs(3)=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_21'",InputName="Roughness")
+      Inputs(4)=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_22'",InputName="Normal")
+      Inputs(5)=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_1'",InputName="Shading Model")
+      AttributeSetTypes(0)=69B8D33616ED4D499AA497292F050F7A
+      AttributeSetTypes(1)=9FDAB39925564CC98CD2D572C12C8FED
+      AttributeSetTypes(2)=D1DD967C4CAD47D39E6346FB08ECF210
+      AttributeSetTypes(3)=0FA2821A200F4A4AB719B789C1259C64
+      AttributeSetTypes(4)=D9423FFFD77E4D828FF9CF5E055D1255
+      MaterialExpressionEditorX=4354
+      MaterialExpressionEditorY=-142
+      MaterialExpressionGuid=849945F34F3B4BAF58EDBE97571B7F3A
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionShadingModel_0" ExportPath="/Script/Engine.MaterialExpressionShadingModel'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionShadingModel_0'"
+      MaterialExpressionEditorX=2672
+      MaterialExpressionEditorY=4416
+      MaterialExpressionGuid=5E6C0D3A45447DF80405C28CFDC378C7
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionShadingModel_1" ExportPath="/Script/Engine.MaterialExpressionShadingModel'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionShadingModel_1'"
+      ShadingModel=MSM_SubsurfaceProfile
+      MaterialExpressionEditorX=1968
+      MaterialExpressionEditorY=4144
+      MaterialExpressionGuid=796C73934C554BC1FD08B2BA9F8C1655
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionShadingModel_2" ExportPath="/Script/Engine.MaterialExpressionShadingModel'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionShadingModel_2'"
+      MaterialExpressionEditorX=1968
+      MaterialExpressionEditorY=4000
+      MaterialExpressionGuid=B1B044D249221E08F14EE5AE01B385E5
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionShadingPathSwitch_0" ExportPath="/Script/Engine.MaterialExpressionShadingPathSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionShadingPathSwitch_0'"
+      Default=(Expression="/Script/Engine.MaterialExpressionQualitySwitch'MF_skin_scalability:MaterialExpressionQualitySwitch_0'")
+      Inputs(0)=(Expression="/Script/Engine.MaterialExpressionQualitySwitch'MF_skin_scalability:MaterialExpressionQualitySwitch_0'")
+      Inputs(2)=(Expression="/Script/Engine.MaterialExpressionQualitySwitch'MF_skin_scalability:MaterialExpressionQualitySwitch_1'")
+      MaterialExpressionEditorX=3632
+      MaterialExpressionEditorY=4064
+      MaterialExpressionGuid=543AA5F24D2C895F21F5F183010049C2
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticBool_0" ExportPath="/Script/Engine.MaterialExpressionStaticBool'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticBool_0'"
+      MaterialExpressionEditorX=-1744
+      MaterialExpressionEditorY=592
+      MaterialExpressionGuid=AB24F2BE4E3359736EBD7EB767997005
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitch_0" ExportPath="/Script/Engine.MaterialExpressionStaticSwitch'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticSwitch_0'"
+      A=(Expression="/Script/Engine.MaterialExpressionSetMaterialAttributes'MF_skin_scalability:MaterialExpressionSetMaterialAttributes_0'")
+      B=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_3'")
+      Value=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_2'")
+      MaterialExpressionEditorX=4928
+      MaterialExpressionEditorY=-144
+      MaterialExpressionGuid=8C2C7B9842FA586E3A07C38694632228
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitchParameter_0" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticSwitchParameter_0'"
+      A=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_9'")
+      B=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_10'")
+      ParameterName="UseSimpleShading"
+      ExpressionGUID=E83694A64A6E2BE382E11FBB3B5D2D15
+      Group="997 - Quality"
+      MaterialExpressionEditorX=2640
+      MaterialExpressionEditorY=-128
+      MaterialExpressionGuid=A27DF862496864BD1A43E5AB0E2B10AA
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitchParameter_2" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticSwitchParameter_2'"
+      A=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_8'")
+      B=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_14'")
+      ParameterName="UseSimpleShading"
+      ExpressionGUID=5E0C44E24D2613BBFFDF01A7ED3A3A91
+      Group="997 - Quality"
+      MaterialExpressionEditorX=2640
+      MaterialExpressionEditorY=784
+      MaterialExpressionGuid=B6E10CD64C19D5B6DED967869081275A
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitchParameter_3" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticSwitchParameter_3'"
+      A=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_10'")
+      B=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_16'")
+      ParameterName="UseSimpleShading"
+      ExpressionGUID=5F9BCCA54F840E413569289F33C3D655
+      Group="997 - Quality"
+      MaterialExpressionEditorX=2608
+      MaterialExpressionEditorY=1840
+      MaterialExpressionGuid=CCF7B1C646D07926DACE5FB55D60290F
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitchParameter_5" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticSwitchParameter_5'"
+      A=(Expression="/Script/Engine.MaterialExpressionReroute'MF_skin_scalability:MaterialExpressionReroute_11'")
+      B=(Expression="/Script/Engine.MaterialExpressionNamedRerouteUsage'MF_skin_scalability:MaterialExpressionNamedRerouteUsage_19'")
+      ParameterName="UseSimpleShading"
+      ExpressionGUID=AAA56BD2488A7D3B5E79BBAFBC7FB039
+      Group="997 - Quality"
+      MaterialExpressionEditorX=2592
+      MaterialExpressionEditorY=2848
+      MaterialExpressionGuid=DACE54134DED53FFBF3FD584B50F72B3
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   Begin Object Name="MaterialExpressionStaticSwitchParameter_6" ExportPath="/Script/Engine.MaterialExpressionStaticSwitchParameter'/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Material_Functions/MF_skin_scalability.MF_skin_scalability:MaterialExpressionStaticSwitchParameter_6'"
+      A=(Expression="/Script/Engine.MaterialExpressionShadingModel'MF_skin_scalability:MaterialExpressionShadingModel_2'")
+      B=(Expression="/Script/Engine.MaterialExpressionShadingModel'MF_skin_scalability:MaterialExpressionShadingModel_1'")
+      ParameterName="UseSimpleShading"
+      ExpressionGUID=D1F966F7459B7732DC0CB59878A51CD8
+      Group="997 - Quality"
+      MaterialExpressionEditorX=2464
+      MaterialExpressionEditorY=4048
+      MaterialExpressionGuid=1C13F4DB44F9A348D5DD07ACEE5D4411
+      Function="/Script/Engine.MaterialFunction'MF_skin_scalability'"
+   End Object
+   DependentFunctionExpressionCandidates(0)="/Script/Engine.MaterialExpressionMaterialFunctionCall'MaterialExpressionMaterialFunctionCall_4'"
+   DependentFunctionExpressionCandidates(1)="/Script/Engine.MaterialExpressionMaterialFunctionCall'MaterialExpressionMaterialFunctionCall_5'"
+   DependentFunctionExpressionCandidates(2)="/Script/Engine.MaterialExpressionMaterialFunctionCall'MaterialExpressionMaterialFunctionCall_6'"
+   DependentFunctionExpressionCandidates(3)="/Script/Engine.MaterialExpressionMaterialFunctionCall'MaterialExpressionMaterialFunctionCall_7'"
+   DependentFunctionExpressionCandidates(4)="/Script/Engine.MaterialExpressionMaterialFunctionCall'MaterialExpressionMaterialFunctionCall_3'"
+   EditorOnlyData="/Script/Engine.MaterialFunctionEditorOnlyData'MF_skin_scalabilityEditorOnlyData'"
+   StateId=665BA65A40A1B30A498111B93FDD529F
+   CombinedInputTypes=2575
+   CombinedOutputTypes=2048
+End Object

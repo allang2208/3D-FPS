@@ -1,5 +1,7 @@
 # 大弹鼓模型升级 · 2026-09-20
 
+AKM 材质后续版本：2026-10-01 已补齐外壳与枪身的色调/缎面响应，现用实例为 `SurfaceStandard20261001/Materials/MI_AKM_R01_magazine_dd9b3b77ba`，专用父材质 `M_AKM_DrumFinish03`。当前记录见 `Docs/Weapons/akm-surface-standard-20261001.md`；下文保留原始模型制作历史，不代表 AKM 最新表面配方。
+
 根据用户提供的正面、背侧两张照片制作游戏配件外观。更新现有 `large_drum`，不新增配件 ID，不改容量、数值、弹药结算或换弹动作。
 
 ## 外形与材质

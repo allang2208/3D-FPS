@@ -37,3 +37,11 @@
 同一 V7 管线再次制作时，从保留的原手套绑定源读取骨架，原始磁盘包用于对应源版本；基础视模重写保留当时视模的武器几何和非手臂材质，不从旧备份覆盖后续武器修改。
 
 未启动游戏、截图或自动测试；视觉和装备切换效果由用户测试。
+
+## 掌面漏空局部修补（2026-09-25）
+
+用户在符文剑检视中发现右手手模建模漏空导致穿模，要求用弓 ContactV9 的同一局部拓扑法修补共同 V7，并同步两款野外手套。
+
+做法与弓相同：在规范空间焊接手部重合点，识别材质 2 的开边与翻折面，只替换跨度 ≤2 cm 的连通缺损，从中心扇形补面，保留逐角 UV/法线，中心点权重插值归一。母版左右各两处，90 个旧三角改为 54 个连接面；再回放到 20 个 Authored profile。未把皮肤改为双面材质。
+
+作者脚本：`Tools/ModularOutfit/repair_bare_palm_holes_v7.py`。修补记录：`SourceAssets/ModularOutfit20260925/BarePalmV7/surface_repair.json`。未修补母版备份：`M4_original.before_holes.json`。手套由 `author_fitted_field_gloves.py` 按修补后的 1:1 对应重生成，棕色与黑色共享 FittedFieldGlovesV1 网格。

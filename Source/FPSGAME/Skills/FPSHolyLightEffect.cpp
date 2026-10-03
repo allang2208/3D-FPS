@@ -8,6 +8,7 @@
 #include "Materials/MaterialInstanceDynamic.h"
 #include "NiagaraComponent.h"
 #include "NiagaraSystem.h"
+#include "Net/UnrealNetwork.h"
 
 namespace
 {
@@ -50,10 +51,18 @@ AFPSHolyLightEffect::AFPSHolyLightEffect()
     Motes=CreateDefaultSubobject<UNiagaraComponent>(TEXT("RisingMotes"));Motes->SetupAttachment(Path);Motes->SetAutoActivate(false);
     Light=CreateDefaultSubobject<UPointLightComponent>(TEXT("HolyFill"));Light->SetupAttachment(Path);Light->SetCastShadows(false);Light->SetIntensity(0);Light->SetAttenuationRadius(300);
     Light->SetLightColor(FLinearColor(1,.68f,.24f));Light->SetRelativeLocation(FVector(0,0,70));
+    bReplicates=true; // 联机：服务端生成的光柱复制到各端
+}
+void AFPSHolyLightEffect::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AFPSHolyLightEffect,NetTarget);
+    DOREPLIFETIME(AFPSHolyLightEffect,NetSpell);
 }
 void AFPSHolyLightEffect::InitializeLight(AActor* Target,UNiagaraSystem* System,const FHolyLightCast& Spell)
 {
     FollowTarget=Target;Settings=Spell;Age=0;
+    if(HasAuthority()){NetTarget=Target;NetSpell=Spell;} // 远端副本按 NetSpell 重演同款光柱
     // The longer visual tail does not change the spell's contact or gameplay clock.
     Settings.Fade=FMath::Max(Settings.Fade,MinimumFadeOutSeconds);
     if(auto* Capsule=Target->FindComponentByClass<UCapsuleComponent>())FootOffset=-Capsule->GetScaledCapsuleHalfHeight();
@@ -84,9 +93,19 @@ void AFPSHolyLightEffect::InitializeLight(AActor* Target,UNiagaraSystem* System,
     Light->SetIntensity(0);
     Motes->Activate(true);SetLifeSpan(Settings.Duration+Settings.Fade+.1f);
 }
+void AFPSHolyLightEffect::NetInit()
+{
+    if(bNetInit||!NetTarget||NetSpell.Duration<=0)return;
+    auto* System=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/HolyLight/NS_HolyLightMotes.NS_HolyLightMotes"));
+    if(!System)return;
+    InitializeLight(NetTarget,System,NetSpell);
+    bNetInit=true;
+}
 void AFPSHolyLightEffect::Tick(float Delta)
 {
-    Super::Tick(Delta);Age+=Delta;
+    Super::Tick(Delta);
+    if(!HasAuthority()&&!bNetInit){NetInit();if(!bNetInit)return;}
+    Age+=Delta;
     if(FollowTarget.IsValid())SetActorLocation(FollowTarget->GetActorLocation()+FVector(0,0,FootOffset));
     const float FadeIn=FMath::SmoothStep(0.f,FadeInSeconds,Age);
     const float FadeOut=1-FMath::SmoothStep(Settings.Duration,Settings.Duration+Settings.Fade,Age);

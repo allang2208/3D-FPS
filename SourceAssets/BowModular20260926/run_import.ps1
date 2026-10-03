@@ -26,3 +26,4 @@ if ($LASTEXITCODE -ne 0) { throw 'Asset import did not finish; catalog not activ
 & py -3.11 "$PSScriptRoot\install_config.py"
 if ($LASTEXITCODE -ne 0) { throw 'Catalog activation failed.' }
 Write-Output '[done] Bow modular assets saved and catalog activated. No gameplay test was run.'
+

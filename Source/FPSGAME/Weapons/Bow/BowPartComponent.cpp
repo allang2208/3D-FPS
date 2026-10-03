@@ -69,8 +69,8 @@ void UBowPartComponent::InitializeAsPart(AActor* Owner, const FName& InSlot, USc
     RegisterComponent();
     if (!Visual)
     {
-        Visual = NewObject<UStaticMeshComponent>(Owner,
-            *FString::Printf(TEXT("%sMesh"), *InSlot.ToString()));
+        Visual = NewObject<UStaticMeshComponent>(Owner, MakeUniqueObjectName(Owner,
+            UStaticMeshComponent::StaticClass(), *FString::Printf(TEXT("%sMesh"), *InSlot.ToString())));
         Owner->AddInstanceComponent(Visual);
         Visual->SetupAttachment(this);
         Visual->RegisterComponent();
@@ -112,7 +112,8 @@ int32 UBowPartComponent::AddRod(const TCHAR* Label)
 {
     AActor* Owner = GetOwner();
     if (!Owner) return INDEX_NONE;
-    auto* Rod = NewObject<UStaticMeshComponent>(Owner, Label);
+    auto* Rod = NewObject<UStaticMeshComponent>(Owner,
+        MakeUniqueObjectName(Owner, UStaticMeshComponent::StaticClass(), Label));
     Owner->AddInstanceComponent(Rod);
     Rod->SetupAttachment(this);
     ConfigureViewmodelPiece(Rod, RodMesh);

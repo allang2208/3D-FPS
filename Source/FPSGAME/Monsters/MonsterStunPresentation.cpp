@@ -16,6 +16,7 @@ void UMonsterCombatComponent::RegisterExplicitStun(float Seconds)
 {
     if(Seconds>0.f && GetWorld())
         ExplicitStunUntil=FMath::Max(ExplicitStunUntil,double(GetWorld()->GetTimeSeconds())+Seconds);
+    if(Seconds>0.f)NetStunSeconds=FMath::Max(NetStunSeconds,Seconds); // 远端靠它近似回放眩晕
     bStunned=StunSecondsRemaining()>0.f;
 }
 
@@ -92,7 +93,8 @@ void UMonsterCombatComponent::PlayHumanoidStunClip(UAnimSequence* Clip,float Ble
 bool UMonsterCombatComponent::UpdateHumanoidStun(float Elapsed,float Remaining)
 {
     auto* N=Cast<ANurseZombie>(GetOwner());
-    if(!bSwayArmed || !N || N->State!=ENurseState::Stagger || !DizzyClip)return false;
+    // bNetReacting 是远端镜像态：类内 State 不复制，镜像期间等价于 Stagger。
+    if(!bSwayArmed || !N || (N->State!=ENurseState::Stagger&&!bNetReacting) || !DizzyClip)return false;
     if(IsImmobileReaction())
     {
         if(bPlayingSway)

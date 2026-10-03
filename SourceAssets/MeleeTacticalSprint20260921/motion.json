@@ -1,0 +1,17 @@
+{
+  "revision": "RightHighCarryV1",
+  "fps": 120,
+  "entry_seconds": 0.20,
+  "loop_frames": 76,
+  "exit_seconds": 0.20,
+  "grip_center_m": [0.235, 0.315, 0.075],
+  "blade_roll_degrees": -12.0,
+  "shoulder_offset_m": {"l": [0.012, 0.028, 0.035], "r": [0.008, 0.015, 0.028]},
+  "elbow_pole": {"l": [-0.60, -0.20, -0.90], "r": [0.80, -0.20, -0.55]},
+  "loop_side_m": 0.003,
+  "loop_down_m": 0.004,
+  "loop_roll_degrees": 0.8,
+  "attack_source_start": 1.22,
+  "attack_join_seconds": 1.31,
+  "notes": "Blender metres: +X right, +Y forward, +Z up. Motion authoring values, not medical joint limits."
+}

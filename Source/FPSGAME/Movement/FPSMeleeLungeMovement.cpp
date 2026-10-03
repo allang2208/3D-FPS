@@ -7,7 +7,7 @@
 
 bool UFPSCharacterMovementComponent::BeginMeleeDashMomentum(const FVector& IncomingVelocity)
 {
-    if(!CharacterOwner || !UpdatedComponent || GetNetMode()!=NM_Standalone ||
+    if(!CharacterOwner || !UpdatedComponent || GetNetMode()==NM_Client ||
         (!IsMovingOnGround() && !IsFalling()) || IncomingVelocity.ContainsNaN() ||
         IncomingVelocity.SizeSquared2D()<=1.f)return false;
     Velocity.X=IncomingVelocity.X;
@@ -19,6 +19,8 @@ bool UFPSCharacterMovementComponent::BeginMeleeDashMomentum(const FVector& Incom
 
 void UFPSCharacterMovementComponent::CalcVelocity(float DeltaTime,float Friction,bool bFluid,float BrakingDeceleration)
 {
+    if(IsBipodMovementLocked()&&IsMovingOnGround())
+    {bMeleeDashMomentum=false;Velocity=FVector::ZeroVector;Acceleration=FVector::ZeroVector;return;}
     if(bMeleeDashMomentum)
     {
         const auto* Player=Cast<AFPSGAMECharacter>(CharacterOwner);
@@ -57,7 +59,7 @@ void UFPSCharacterMovementComponent::StopMovementImmediately()
 
 FVector UFPSCharacterMovementComponent::ApplyMeleeLungeStep(const FVector& Direction,float DistanceCM)
 {
-    if(!CharacterOwner || !UpdatedComponent || GetNetMode()!=NM_Standalone ||
+    if(!CharacterOwner || !UpdatedComponent || GetNetMode()==NM_Client ||
         !IsMovingOnGround() || IsDodging() || !CurrentFloor.IsWalkableFloor() || DistanceCM<=0.f)
         return FVector::ZeroVector;
     const auto* Controller=CharacterOwner->GetController();

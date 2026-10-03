@@ -1,0 +1,40 @@
+{
+  "status": "complete",
+  "revision": "LeftHandPowerFist_V2_LiftPress",
+  "assets": [
+    {
+      "asset": "/Game/Animations/LeftHandPowerFist20260923/A_LeftHand_PowerFist.A_LeftHand_PowerFist",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LeftHandPowerFist20260923\\Export\\A_LeftHand_PowerFist.fbx",
+      "saved": true,
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+      "duration": 1.0,
+      "suggested_loop": false
+    },
+    {
+      "asset": "/Game/Animations/LeftHandPowerFist20260923/A_LeftHand_PowerFist_Raise.A_LeftHand_PowerFist_Raise",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LeftHandPowerFist20260923\\Export\\A_LeftHand_PowerFist_Raise.fbx",
+      "saved": true,
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+      "duration": 0.33,
+      "suggested_loop": false
+    },
+    {
+      "asset": "/Game/Animations/LeftHandPowerFist20260923/A_LeftHand_PowerFist_Hold.A_LeftHand_PowerFist_Hold",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LeftHandPowerFist20260923\\Export\\A_LeftHand_PowerFist_Hold.fbx",
+      "saved": true,
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+      "duration": 0.5,
+      "suggested_loop": true
+    },
+    {
+      "asset": "/Game/Animations/LeftHandPowerFist20260923/A_LeftHand_PowerFist_Recover.A_LeftHand_PowerFist_Recover",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LeftHandPowerFist20260923\\Export\\A_LeftHand_PowerFist_Recover.fbx",
+      "saved": true,
+      "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+      "duration": 0.48,
+      "suggested_loop": false
+    }
+  ],
+  "runtime_route": "Holy Light self-cast uses the shared authoring profile",
+  "tests_or_renders_run": false
+}

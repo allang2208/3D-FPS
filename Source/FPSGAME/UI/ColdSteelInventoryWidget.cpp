@@ -183,7 +183,7 @@ UColdSteelInventoryWidget::FBoardLayout UColdSteelInventoryWidget::Layout(const 
     int32 ViewWidth=0,ViewHeight=0;GetOwningPlayer()->GetViewportSize(ViewWidth,ViewHeight);
     L.GearHeight=ViewHeight<650?52.f:ViewHeight<850?60.f:76.f;
     L.GearY=32;L.GearPitch=L.GearHeight+6;
-    L.BagY=L.GearY+5*L.GearPitch-6+48;
+    L.BagY=L.GearY+FMath::DivideAndRoundUp(SlotNames().Num(),3)*L.GearPitch-6+48;
     L.HotY=L.BagY+StorageRows()*L.Cell;
     // 背包装备撑出夹层时，在反馈行下方追加"夹层"区块（标题行 36px + 网格）。
     // 网格尺寸（长×宽＝列×行）由装备的背包定义，区块高度随行数伸缩。
@@ -201,9 +201,10 @@ bool UColdSteelInventoryWidget::Hit(const FGeometry& G,FVector2D Screen,int32& P
 {
     const auto L=Layout(G);const FVector2D P=G.AbsoluteToLocal(Screen)*Scale;Place=-1;Cell=-1;
     if(P.X<12||P.X>L.Width-12)return false;
-    if(!bWarehouse&&P.Y>=L.GearY&&P.Y<L.GearY+5*L.GearPitch-6){
+    if(!bWarehouse&&P.Y>=L.GearY&&P.Y<L.GearY+FMath::DivideAndRoundUp(SlotNames().Num(),3)*L.GearPitch-6){
         const int32 Row=int32((P.Y-L.GearY)/L.GearPitch),Col=int32((P.X-12)/(L.GearWidth+6));
         if(Col>2||P.Y-L.GearY-Row*L.GearPitch>=L.GearHeight||P.X-12-Col*(L.GearWidth+6)>=L.GearWidth)return false;
+        if(Row*3+Col>=SlotNames().Num())return false;
         Place=1;Cell=Row*3+Col;return true;
     }
     if(P.Y>=L.BagY&&P.Y<L.BagY+StorageRows()*L.Cell){Place=StoragePlace();Cell=StorageStart()+int32((P.Y-L.BagY)/L.Cell)*18+FMath::Clamp(int32((P.X-12)/L.Cell),0,17);return true;}

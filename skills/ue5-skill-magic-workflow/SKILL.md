@@ -93,7 +93,13 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 
 开发重击等蓄力近战技能时，读取 [蓄力近战与修炼](references/charged-melee-training.md)。
 
+## 怪物施法表现
+
+怪物的全身施法联动与火球／冰锥离身蓄积参考 [M-07 施法位置](../ue5-monster-workflow/references/blind-supplicant-m07.md)：掌骨世界位置加角色前向偏移，骨骼最终变换后同步蓄积组件及 Niagara 世界位置参数，发射和提前量使用同一原点。M-07 的 V24 动作被用户否定，V28 改用成熟左手施法源，整体重定向与调速后按共同边界拆成蓄力／释放；离身偏移保留。未游戏测试，不能将本例 65 cm 偏移或施法节奏直接作为第一人称或其他体型的默认值。
+
 ## 快速进战（F 键主动技能，2026-09-17）
+
+法杖主手的 F 快速近战按 [长杖模块化制作与接入](../ue5-weapon-workflow/references/staff-modular-production.md#法杖快速进战2026-10-01)：空副手左拳，副手手枪固定复用双持左手近战。当前数值以 `skills.json` 为准；2026-09-26 起已取消独立冷却与眩晕，完整动作结束即可再用，下文 2026-09-17 的 12 秒冷却／眩晕及旧伤害数字仅为历史记录。
 
 `quickCombat`：触发键 F（武器检视已让位到 L）。剑类走符文剑第四连击配重锤（`BeginQuickCombatStrike`，复用第四击节奏与单目标窄走廊）；单持手枪走程序化握把砸击（**V5 关键帧化候选，等 Dan Wesson 715 实机验收**；V1–V4 被否，根因与教训见 [手枪握把砸击尝试](../ue5-fps-arms-animation/references/pistol-grip-bash-attempt.md)）。命中 2m 单目标：伤害 25+5×等级+力量×(5+0.1×等级)，击退 1m、眩晕 (2.5+0.1×等级) 秒（怪物 `ReceiveStun`）；基础冷却 12s（预留-结束起跳合同）；修炼释放 +1、技能击杀 +15。数据入口 `skills.json:quickCombat`；动作参数集中在 `QuickCombatPistolMotion.h` 的 7 键表（0.60s 六段节奏、肘极/肩线/左手松握/相机语言、命中探针方向），组件 `FPSQuickCombatComponent.*`，姿态层 `FPSCastingMeshComponent::ApplyQuickCombatPose`，打击探针 `GetQuickCombatStrikeProbe()`；案例与未测范围 `Docs/Skills/quick-combat-placeholder-20260917.md`。
 

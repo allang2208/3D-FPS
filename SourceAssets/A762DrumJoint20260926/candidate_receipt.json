@@ -1,0 +1,37 @@
+{
+  "asset": "/Game/Weapons/A762/DrumJoint20260926/SM_A762_drum.SM_A762_drum",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762DrumJoint20260926\\Exports\\SM_A762_drum.fbx",
+  "saved": true,
+  "stage_only": true,
+  "runtime_asset_replaced": false,
+  "source_asset_before": {
+    "asset": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_drum",
+    "sha256": "08bd15543a2a1d0e2268dc754b8b582b35e41127f073ca4abff71a78ad83c508",
+    "bytes": 805318
+  },
+  "slots": [
+    {
+      "slot": "A762_drum_0",
+      "material": "/Game/Weapons/LargeDrumUpgrade20260920/AKM/M_AKM_DrumSurface.M_AKM_DrumSurface"
+    },
+    {
+      "slot": "A762_drum_1",
+      "material": "/Game/Weapons/A762/Accessories05/Materials/M_A762_drum_1.M_A762_drum_1"
+    },
+    {
+      "slot": "A762_drum_2",
+      "material": "/Game/Weapons/LargeDrumUpgrade20260920/AKM/M_AKM_DrumSurface.M_AKM_DrumSurface"
+    },
+    {
+      "slot": "A762_drum_Neck",
+      "material": "/Game/Weapons/A762/Refinement02/Materials/M_A762_Magazine_Rebuilt.M_A762_Magazine_Rebuilt"
+    },
+    {
+      "slot": "A762_drum_Inside",
+      "material": "/Game/Weapons/A762/Refinement02/Materials/M_A762_MagazineInside_Rebuilt.M_A762_MagazineInside_Rebuilt"
+    }
+  ],
+  "existing_lod_and_nanite_policy": "retained by duplicate/reimport; no policy override",
+  "game_tested": false,
+  "acceptance_rendered": false
+}

@@ -1,0 +1,20 @@
+{
+  "stage": "maps_saved",
+  "maps": {
+    "/Game/GameMaps/L_Dungeon_Randomized": {
+      "stage": "map_saved",
+      "previous_sha256": "f90a8eb6d3042e5853b961cda55b0636510a51ae6865a24bf91a993786f12654"
+    },
+    "/Game/GameMaps/Design/L_FreightTransit_Theme_Subject": {
+      "stage": "map_saved",
+      "previous_sha256": "3929514d2a2150d3873305b7d0d046e381c27b364bfad01458cf315e569612e0",
+      "actor": "StationWorkshop_Light_0"
+    }
+  },
+  "light_id": "StationWorkshop.MaintenanceCeiling",
+  "cast_shadows": false,
+  "tests_run": false,
+  "rendered": false,
+  "game_run": false,
+  "editor_opened": false
+}

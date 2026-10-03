@@ -34,7 +34,9 @@ bool AFPSGAMECharacter::TryDodge()
     const FRotationMatrix Basis(FRotator(0.f,GetViewRotation().Yaw,0.f));
     FVector Direction=Basis.GetUnitAxis(EAxis::X)*MoveInput.Y+Basis.GetUnitAxis(EAxis::Y)*MoveInput.X;
     if (Direction.IsNearlyZero()) Direction=Basis.GetUnitAxis(EAxis::X);
-    auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    // 联机：远端玩家的闪避消耗查影子档案（服务端副本上没有本机 GI 单例语义）。
+    auto* Profile=GetNetShadowProfile();
+    if(!Profile)Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const float Cost=Profile?Profile->DodgeStaminaCost():0;
     if(Profile&&!Profile->CanSpendStamina(Cost)){Profile->SpendStamina(Cost);return false;}
     const float Distance=DodgeDistance+(Profile?Profile->DodgeEffect().DodgeDistanceCM:0.f);
@@ -78,11 +80,16 @@ float AFPSGAMECharacter::TakeDamage(float DamageAmount, const FDamageEvent& Dama
         const bool Melee=Type&&Type->IsA<UEnemyMeleeDamage>();
         const bool Ranged=!Melee&&((Type&&Type->IsA<UEnemyRangedDamage>())||DamageEvent.IsOfType(FPointDamageEvent::ClassID)||(DamageCauser&&DamageCauser->FindComponentByClass<UProjectileMovementComponent>()));
         if(Eligible&&((Melee&&!bDodgeMeleeRewarded)||(Ranged&&!bDodgeRangedRewarded)))
-            if(auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+        {
+            // 联机：远端玩家的闪避奖励记到影子档案，不是主机 GI 单例。
+            auto* Profile=GetNetShadowProfile();
+            if(!Profile)Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+            if(Profile)
             {
                 if(Melee)bDodgeMeleeRewarded=true;else bDodgeRangedRewarded=true;
                 Profile->TrainDodge(Melee?Profile->DodgeDefinition().MeleeDodgeExperience:Profile->DodgeDefinition().RangedDodgeExperience);
             }
+        }
         return 0.f;
     }
     if(DamageAmount<=0.f)return 0.f;

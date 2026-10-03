@@ -20,16 +20,21 @@
   A specific question. Use one image with one concrete question per call; avoid
   mixing several images into a single judgement.
 
-.PARAMETER Latest
-  Use the most recent image the user pasted into this Codex session instead of a
-  file path. The image is decoded out of the session transcript, because pasted
-  images never reach this model directly.
+.NOTES
+  Interactive reading no longer needs this script: the harness exposes a mounted
+  read_image tool that hands the pixels to the model directly, so you can look at
+  an image and ask follow-up questions. Use this script when you specifically want
+  one of: batch over many images, a remote URL, a headless/scripted call, or a read
+  that deliberately keeps image bytes out of the session history.
+
+  The former -Latest switch was removed on 2026-09-22. It scraped pasted images out
+  of C:/Users/allan/.codex/sessions/*.jsonl, a workaround for the old Codex session
+  where pasted images never reached the model. Under the current harness attachments
+  are normalized to E:/DSH/attachments/v1/objects/<hash> and read directly, so that
+  code path could never fire.
 
 .EXAMPLE
   powershell -NoProfile -File Tools/deepseek-vision.ps1 "Docs/WeatherPreview20260912/storm.png" -Prompt "画面是什么天气？可见度如何？"
-
-.EXAMPLE
-  powershell -NoProfile -File Tools/deepseek-vision.ps1 -Latest -Prompt "逐字抄出图中的文字"
 
 .EXAMPLE
   powershell -NoProfile -File Tools/deepseek-vision.ps1 "D:/shots/icon.png" -OutFile "SourceAssets/IconReview20260915/read.txt"
@@ -37,8 +42,6 @@
 param(
     [Parameter(Position = 0)]
     [string[]]$Image,
-
-    [switch]$Latest,
 
     [string]$Prompt = '客观描述这张图片：主体、构图、颜色与画面中的文字。只陈述看得见的内容，不做推测。',
 
@@ -63,10 +66,8 @@ function Get-ImageMimeType {
 }
 
 if (-not $Image -or $Image.Count -eq 0) {
-    if (-not $Latest) {
-        Write-Error '用法: powershell -NoProfile -File Tools/deepseek-vision.ps1 <图片路径或 URL> [-Prompt "具体问题"] [-OutFile 输出文本] | -Latest' -ErrorAction Continue
-        exit 2
-    }
+    Write-Error '用法: powershell -NoProfile -File Tools/deepseek-vision.ps1 <图片路径或 URL> [-Prompt "具体问题"] [-OutFile 输出文本]' -ErrorAction Continue
+    exit 2
 }
 
 if (-not $ApiKey -or $ApiKey -eq 'YOUR_DEEPSEEK_API_KEY_HERE') {
@@ -77,47 +78,6 @@ if (-not $ApiKey -or $ApiKey -eq 'YOUR_DEEPSEEK_API_KEY_HERE') {
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $results = New-Object System.Collections.Generic.List[string]
 
-function Get-LatestPastedImage {
-    # Pasted images are stored in the session transcript as data URLs; the model
-    # never receives them, so pull the newest one back out here.
-    $sessionsRoot = Join-Path $env:USERPROFILE '.codex\sessions'
-    if (-not (Test-Path -LiteralPath $sessionsRoot)) { return $null }
-    $files = Get-ChildItem -LiteralPath $sessionsRoot -Recurse -Filter '*.jsonl' -ErrorAction SilentlyContinue |
-        Sort-Object LastWriteTime -Descending | Select-Object -First 4
-    foreach ($file in $files) {
-        # 用严格模式匹配真实图片条目：工具调用里出现的同名字样（本脚本自身）
-        # 不带 "type":"input_image" 这个组合，不会被误命中。
-        $hit = Select-String -LiteralPath $file.FullName -Pattern '"type":"input_image"' -List:$false -ErrorAction SilentlyContinue |
-            Select-Object -Last 1
-        if (-not $hit) { continue }
-        $entry = $null
-        try { $entry = $hit.Line | ConvertFrom-Json } catch { continue }
-        if (-not $entry.payload -or -not $entry.payload.content) { continue }
-        foreach ($part in $entry.payload.content) {
-            if ($part.type -ne 'input_image') { continue }
-            $url = [string]$part.image_url
-            if ($url -notmatch '^data:(image/[a-z]+);base64,(.+)$') { continue }
-            $mime = $Matches[1]; $data = $Matches[2]
-            $extension = switch ($mime) { 'image/jpeg' { '.jpg' } 'image/gif' { '.gif' } 'image/webp' { '.webp' } default { '.png' } }
-            $directory = Join-Path $env:TEMP 'codex-latest-image'
-            New-Item -ItemType Directory -Force -Path $directory | Out-Null
-            $path = Join-Path $directory ('latest' + $extension)
-            [IO.File]::WriteAllBytes($path, [Convert]::FromBase64String($data))
-            return $path
-        }
-    }
-    return $null
-}
-
-if ($Latest) {
-    $resolved = Get-LatestPastedImage
-    if (-not $resolved) {
-        Write-Error '-Latest 没有在会话记录里找到最近粘贴的图片。' -ErrorAction Continue
-        exit 8
-    }
-    $Image = @($resolved)
-    Write-Output "[latest] $resolved"
-}
 
 foreach ($item in $Image) {
     $isUrl = $item -match '^https?://'

@@ -1,5 +1,5 @@
 # 从 Fab GLB 提取背包网格与贴图（纯 stdlib，无第三方依赖）：
-#   输出 OBJ（cm、UE Z-up：glTF +X→+X、+Y→+Z、+Z→-Y，翻转手性后反转三角序）
+#   输出 OBJ（cm、Z-up：glTF +X→+X、+Y→+Z、+Z→-Y，纯旋转，保持三角序）
 #   + 3 张内嵌 PNG（BaseColor / Normal / MetallicRoughness）
 #   + 缩放烘焙：源高约 1.97m → 目标登山包高 56cm
 # 用法：python extract_glb.py
@@ -68,7 +68,9 @@ def extract():
         w.write("g backpack\nusemtl M_SovietBackpack\n")
         for i in range(0, len(idx), 3):
             a, b, c = idx[i] + 1, idx[i + 1] + 1, idx[i + 2] + 1
-            w.write("f %d/%d/%d %d/%d/%d %d/%d/%d\n" % (a, a, a, c, c, c, b, b, b))
+            # This axis transform has determinant +1. The OBJ importer handles
+            # UE handedness; reversing here made the entire backpack inside-out.
+            w.write("f %d/%d/%d %d/%d/%d %d/%d/%d\n" % (a, a, a, b, b, b, c, c, c))
     print("OBJ", obj_path)
 
     names = ["T_SovietBackpack_BaseColor.png", "T_SovietBackpack_Normal.png", "T_SovietBackpack_MR.png"]

@@ -403,6 +403,9 @@ public:
     FString AmmoDefinition() const;
     const FString& ResultMessage() const { return Message; }
     FColdSteelProfile Snapshot() const;
+    FName PlayerHeadId() const { return Current.PlayerHeadId; }
+    FName PlayerHairId() const { return Current.PlayerHairId; }
+    bool SetPlayerAppearance(FName HeadId,FName HairId);
     /** M2 联机：为远端玩家创建影子档案模型——只读目录状态从本实例整体复制，档案以传入值发布；
      *  影子永不写盘（bPersistenceBlocked），持久化由联机会话显式处理。 */
     UColdSteelStatusModel* CreateShadowModel(const FColdSteelProfile& GuestProfile);

@@ -3,6 +3,8 @@
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Weapons/Staff/StaffChargeFlow.h"
 #include "FPSFireballProjectile.h"
+#include "FPSMagicPreview.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "FPSIceSpikeComponent.h"
 #include "FPSIceWallComponent.h"
 #include "FPSBlizzardComponent.h"
@@ -231,7 +233,10 @@ float UFPSFireballComponent::CooldownFraction() const
 void UFPSFireballComponent::Trigger()
 {
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* P=Model();
-    if(!Player||!P||!Player->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
+    if(!Player||!P||!Player->IsLocallyControlled()||!GetWorld())return;
+    // 联机：客人照常走本地手势与门槛，只有"生球/发射"两个世界效果换成服务端权威。
+    const ENetMode NM=GetWorld()->GetNetMode();
+    if(NM!=NM_Standalone&&NM!=NM_Client)return;
     if(auto* H=Player->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead())return;
     if(HasOtherPreparedSpell(this)){bQueuedCast=bQueuedLaunch=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
     if(auto* Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>();Sword && Sword->IsGuarding())Sword->ReleaseGuard();
@@ -239,10 +244,11 @@ void UFPSFireballComponent::Trigger()
     // Only palm casting is blocked by held left-hand equipment; a held staff
     // selects its own right-hand availability for both gather and release.
     if(Player->IsSpellHandHeld()){RejectHeldLeftHand();return;}
-    if(IsPrepared())
+    if(IsPrepared()||bNetExpectOrb)
     {
         // A prepared orb is independent from the hand. Keep one release request,
         // including during gather recovery or an ongoing weapon/tool action.
+        // 联机：bNetExpectOrb 覆盖"服务端已凝聚、副本还在路上"的窗口。
         bQueuedLaunch=true;
         if(HandPhase==EFireballHandPhase::None)TryBeginQueuedLaunch();
         return;
@@ -268,6 +274,21 @@ void UFPSFireballComponent::TryBeginQueuedCast()
     // The profile may have changed while a reload, swing or ADS was finishing.
     if(P->FireballCooldown()>0){Feedback(TEXT("冷却"));return;}
     if(!P->CanSpendMana(P->FireballStats().ManaCost)){Feedback(TEXT("缺蓝"));return;}
+    // 联机客人：不本地生球——手势照常播，权威 orb 由服务端 spawn 后复制回来认领。
+    if(GetWorld()->GetNetMode()==NM_Client)
+    {
+        const float BeforeMana=P->Snapshot().Mana;
+        if(!P->BeginFireballCast()){Feedback(TEXT("未施放"));return;}
+        RecordGesturePayment(BeforeMana,P->Snapshot().Mana);
+        GestureSpeed=P->FireballStats().CastSpeed;
+        if(auto* Status=Player->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
+        bQueuedLaunch=bLaunchCommitted=false;
+        bNetExpectOrb=true;NetExpectOrbAt=GetWorld()->GetTimeSeconds();
+        SendNetCast(0);
+        SetHandPhase(EFireballHandPhase::Raising);
+        LastMessage.Reset();MessageUntil=0;
+        return;
+    }
     auto* Camera=Player->FindComponentByClass<UCameraComponent>();if(!Camera)return;
     const FVector Eye=Camera->GetComponentLocation();FVector Position=AFPSFireballProjectile::HoverPosition(Player);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(FireballPrepare),false,Player);FHitResult Wall;
@@ -293,7 +314,7 @@ void UFPSFireballComponent::TryBeginQueuedCast()
 void UFPSFireballComponent::TryBeginQueuedLaunch()
 {
     if(!bQueuedLaunch || HandPhase!=EFireballHandPhase::None)return;
-    if(!IsPrepared()){bQueuedLaunch=false;return;}
+    if(!IsPrepared()&&!bNetExpectOrb){bQueuedLaunch=false;return;}
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
     if(!Player)return;
     if(Player->IsSpellHandHeld()){RejectHeldLeftHand();return;}
@@ -303,7 +324,8 @@ void UFPSFireballComponent::TryBeginQueuedLaunch()
     // Capture the current weapon's hand pose again; it may have changed while
     // the detached orb was hovering. This does not reserve MP or spawn a new orb.
     bQueuedLaunch=false;bLaunchCommitted=false;
-    GestureSpeed=Active->Snapshot().CastSpeed;
+    const auto* P=Model();
+    GestureSpeed=Active.IsValid()?Active->Snapshot().CastSpeed:P?P->FireballStats().CastSpeed:1.f;
     SetHandPhase(EFireballHandPhase::ReadyingRelease);
     LastMessage.Reset();MessageUntil=0;
 }
@@ -311,10 +333,18 @@ void UFPSFireballComponent::LaunchAtContact()
 {
     if(GestureOwner.IsValid())
     {if(!bLaunchCommitted){bLaunchCommitted=true;GestureContact.ExecuteIfBound();GestureContact.Unbind();}return;}
-    if(bLaunchCommitted||!IsPrepared())return;
+    if(bLaunchCommitted||(!IsPrepared()&&!bNetExpectOrb))return;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
     auto* Camera=Player?Player->FindComponentByClass<UCameraComponent>():nullptr;
     if(!Camera)return;
+    // 联机客人：发射意图上报——服务端权威球按上报瞄准点起飞，本地不驱动弹道。
+    if(GetWorld()->GetNetMode()==NM_Client)
+    {
+        SendNetCast(1,FPSMagicPreview::AimPoint(Player,Active.Get()));
+        bLaunchCommitted=true;bQueuedLaunch=false;bNetExpectOrb=false;
+        return;
+    }
+    if(!IsPrepared())return;
     Active->Launch();
     bLaunchCommitted=true;bQueuedLaunch=false;
 }
@@ -332,6 +362,15 @@ void UFPSFireballComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
             GesturePaidMana=0.f;
         }
         Cancel();return;
+    }
+    // 联机：Prepare 已上报但服务端球迟迟未达（丢包/拒绝未回执）——超时本地收尾。
+    if(bNetExpectOrb&&!Active.IsValid()&&GetWorld()&&GetWorld()->GetTimeSeconds()-NetExpectOrbAt>2.5)
+    {
+        bNetExpectOrb=false;
+        if(auto* P=Model())P->RefundUnreleasedCast(TakeGesturePayment(),TEXT("fireball"));
+        if(!GestureOwner.IsValid()&&HandPhase!=EFireballHandPhase::None&&HandPhase!=EFireballHandPhase::Recovering)
+            SetHandPhase(EFireballHandPhase::Recovering);
+        Feedback(TEXT("施法超时"));
     }
     if(bQueuedCast){TryBeginQueuedCast();return;}
     if(HandPhase==EFireballHandPhase::None){TryBeginQueuedLaunch();return;}
@@ -398,8 +437,20 @@ void UFPSFireballComponent::Cancel()
     GestureOwner.Reset();GestureContact.Unbind();GestureSpeed=1.f;
     bQueuedCast=bQueuedLaunch=bLaunchCommitted=false;
     bAimPreview=false;bStaffOrb=false;
-    if(Active.IsValid())Active->Destroy();Active.Reset();SetHandPhase(EFireballHandPhase::None);
+    ReleaseOrb();SetHandPhase(EFireballHandPhase::None);
     if(FallbackHands)FallbackHands->SetVisibility(false);
+}
+void UFPSFireballComponent::ReleaseOrb()
+{
+    // 与单机退款语义一致：凝聚/预备手势期打断退蓝清冷却；已凝聚的悬停球弃置只清占用。
+    const uint8 AbortPhase=(HandPhase==EFireballHandPhase::Raising||HandPhase==EFireballHandPhase::ReadyingRelease)?2:3;
+    if(Active.IsValid())
+    {
+        // 服务端权威球：本地 Destroy 只毁副本，真取消要 RPC 到服务端销毁+影子档结算。
+        if(Active->HasAuthority())Active->Destroy();else SendNetCast(AbortPhase);
+        Active.Reset();
+    }
+    if(bNetExpectOrb){bNetExpectOrb=false;SendNetCast(2);}
 }
 void UFPSFireballComponent::EndPlay(const EEndPlayReason::Type Reason)
 { Cancel();Super::EndPlay(Reason); }
@@ -453,10 +504,65 @@ void UFPSFireballComponent::InterruptForPriority()
     if(auto* FireMagic=GetOwner()->FindComponentByClass<UFPSFireMagicComponent>())FireMagic->CancelPending();
     if(auto* Blizzard=GetOwner()->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->InterruptPending(Spell==Blizzard&&PendingContact);
     if(auto* Blades=GetOwner()->FindComponentByClass<URuneOrbBladesComponent>())Blades->InterruptPending(Spell==Blades&&Gathering);
-    if(!Spell && PendingContact && IsPrepared()){Active->Destroy();Feedback(TEXT("施法中断"));}
+    if(!Spell && PendingContact && (IsPrepared()||bNetExpectOrb)){ReleaseOrb();Feedback(TEXT("施法中断"));}
     bLaunchCommitted=false;
     if(FallbackHands)FallbackHands->SetVisibility(false);
     if(auto* P=Model();P&&(Refund>0.f||!Unreleased.IsNone()))P->RefundUnreleasedCast(Refund,Unreleased);
+}
+// ============================================================================
+// 联机：施法意图通道（A 模式打样——意图上报、服务端执行、表现靠 actor 复制回流）
+// ============================================================================
+AColdSteelPlayerState* UFPSFireballComponent::NetPlayerState() const
+{
+    const auto* P=Cast<AFPSGAMECharacter>(GetOwner());
+    return P?P->GetPlayerState<AColdSteelPlayerState>():nullptr;
+}
+void UFPSFireballComponent::SendNetCast(uint8 Phase,const FVector& AimPoint)
+{
+    if(!GetWorld()||GetWorld()->GetNetMode()!=NM_Client)return;
+    if(auto* PS=NetPlayerState())
+    {
+        FColdSteelNetCastRequest R;
+        R.SkillId=TEXT("fireball");R.Phase=Phase;R.AimPoint=AimPoint;
+        PS->ServerCastSpell(R);
+    }
+}
+AFPSFireballProjectile* UFPSFireballComponent::SpawnOrbForCast(APawn* Caster,const FFireballCast& Stats)
+{
+    if(!Caster||!GetWorld()||!Core||!Trail||!Explosion||!Shockwave)return nullptr;
+    FActorSpawnParameters Spawn;Spawn.Owner=Caster;Spawn.Instigator=Caster;
+    Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    auto* Ball=GetWorld()->SpawnActor<AFPSFireballProjectile>(AFPSFireballProjectile::HoverPosition(Caster),FRotator::ZeroRotator,Spawn);
+    if(Ball)Ball->Prepare(this,Caster,Stats,Core,Trail,Explosion,Shockwave,ImpactSound);
+    return Ball;
+}
+void UFPSFireballComponent::AttachPresentationAssets(AFPSFireballProjectile* Ball) const
+{
+    if(Ball)Ball->SetPresentationAssets(Core,Trail,Explosion,Shockwave,ImpactSound);
+}
+void UFPSFireballComponent::AdoptNetOrb(AFPSFireballProjectile* Ball)
+{
+    if(!Ball||Active.Get()==Ball)return;
+    Active=Ball;bNetExpectOrb=false;
+}
+void UFPSFireballComponent::NetCastRejected(uint8 Phase,uint8 /*Code*/)
+{
+    if(Phase!=0)return; // 发射/取消被拒只记日志；未凝聚才需要本地收尾。
+    bNetExpectOrb=false;
+    if(auto* P=Model())P->RefundUnreleasedCast(TakeGesturePayment(),TEXT("fireball"));
+    if(!GestureOwner.IsValid()&&HandPhase!=EFireballHandPhase::None&&HandPhase!=EFireballHandPhase::Recovering)
+        SetHandPhase(EFireballHandPhase::Recovering);
+    Feedback(TEXT("未施放"));
+}
+void UFPSFireballComponent::NetCastCancelled(uint8 Phase)
+{
+    // 与服务端同口径：凝聚期取消退蓝清冷却；已凝聚弃球只清占用、冷却照跑。
+    if(auto* P=Model())
+    {
+        if(Phase==2)P->RefundUnreleasedCast(TakeGesturePayment(),TEXT("fireball"));
+        else P->FinishFireballCast();
+    }
+    bNetExpectOrb=false;
 }
 void UFPSFireballComponent::CancelSpellGesture(UActorComponent* Spell)
 {

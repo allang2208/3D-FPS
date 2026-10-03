@@ -1,0 +1,134 @@
+{
+  "worlds": {
+    "game": {
+      "world": "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting",
+      "containers": [],
+      "beds": [],
+      "fixtures": []
+    },
+    "saved_hospital": {
+      "world": "/Game/GameMaps/Design/L_Hospital_Theme_Subject.L_Hospital_Theme_Subject",
+      "containers": [
+        {
+          "actor": "ColdSteelSceneContainer_0",
+          "id": "HospitalLine.Hospital.Drainage.Tools.Entry",
+          "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body.SM_Hospital_ToolBox_Body",
+          "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid.SM_Hospital_ToolBox_Lid",
+          "location": "<Struct 'Vector' (0x0000020735E8AEF0) {x: -535.000000, y: -340.000000, z: 0.300000}>",
+          "body_transform": "<Struct 'Transform' (0x0000020735E22580) {rotation: {x: 0.000000, y: 0.000000, z: 0.707107, w: 0.707107}, translation: {x: -535.000000, y: -340.000000, z: 0.300000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+          "body_bounds": "<Struct 'Box' (0x0000020C92B9E9C0) {min: {x: -33.706314, y: -19.391928, z: -0.000000}, max: {x: 33.706314, y: 16.200003, z: 29.199999}, is_valid: True}>",
+          "visible": true,
+          "hidden": false
+        },
+        {
+          "actor": "ColdSteelSceneContainer_1",
+          "id": "HospitalLine.Hospital.Ward.Cart.N01",
+          "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body.SM_Hospital_MedicalCart_Body",
+          "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer.SM_Hospital_MedicalCart_Drawer",
+          "location": "<Struct 'Vector' (0x0000020735E8AEA0) {x: 2921.815900, y: -2411.815900, z: 4.400000}>",
+          "body_transform": "<Struct 'Transform' (0x0000020735E22580) {rotation: {x: 0.000000, y: 0.000000, z: 1.000000, w: 0.000000}, translation: {x: 2921.815900, y: -2411.815900, z: 4.400000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+          "body_bounds": "<Struct 'Box' (0x0000020C92B982C0) {min: {x: -34.500000, y: -24.500004, z: 0.300000}, max: {x: 34.500004, y: 30.014534, z: 101.876297}, is_valid: True}>",
+          "visible": true,
+          "hidden": false
+        },
+        {
+          "actor": "ColdSteelSceneContainer_2",
+          "id": "HospitalLine.Hospital.Ward.Cart.N03",
+          "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body.SM_Hospital_MedicalCart_Body",
+          "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer.SM_Hospital_MedicalCart_Drawer",
+          "location": "<Struct 'Vector' (0x0000020735E8AE50) {x: 7481.815900, y: -2411.815900, z: 4.400000}>",
+          "body_transform": "<Struct 'Transform' (0x0000020735E22580) {rotation: {x: 0.000000, y: 0.000000, z: 1.000000, w: 0.000000}, translation: {x: 7481.815900, y: -2411.815900, z: 4.400000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+          "body_bounds": "<Struct 'Box' (0x0000020C92B9CEC0) {min: {x: -34.500000, y: -24.500004, z: 0.300000}, max: {x: 34.500004, y: 30.014534, z: 101.876297}, is_valid: True}>",
+          "visible": true,
+          "hidden": false
+        },
+        {
+          "actor": "ColdSteelSceneContainer_3",
+          "id": "HospitalLine.Hospital.Ward.Cart.N02",
+          "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body.SM_Hospital_MedicalCart_Body",
+          "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer.SM_Hospital_MedicalCart_Drawer",
+          "location": "<Struct 'Vector' (0x0000020735E8AE00) {x: 5661.815900, y: -2411.815900, z: 4.400000}>",
+          "body_transform": "<Struct 'Transform' (0x0000020735E22580) {rotation: {x: 0.000000, y: 0.000000, z: 1.000000, w: 0.000000}, translation: {x: 5661.815900, y: -2411.815900, z: 4.400000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+          "body_bounds": "<Struct 'Box' (0x0000020C92B9E5C0) {min: {x: -34.500000, y: -24.500004, z: 0.300000}, max: {x: 34.500004, y: 30.014534, z: 101.876297}, is_valid: True}>",
+          "visible": true,
+          "hidden": false
+        },
+        {
+          "actor": "ColdSteelSceneContainer_4",
+          "id": "HospitalLine.Hospital.Ward.Emergency.East",
+          "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Body.SM_Hospital_FirstAid_Body",
+          "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Door.SM_Hospital_FirstAid_Door",
+          "location": "<Struct 'Vector' (0x0000020735E8ADB0) {x: 7551.815900, y: -1640.815900, z: 132.000000}>",
+          "body_transform": "<Struct 'Transform' (0x0000020735E22580) {rotation: {x: 0.000000, y: 0.000000, z: 1.000000, w: 0.000000}, translation: {x: 7551.815900, y: -1640.815900, z: 132.000000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+          "body_bounds": "<Struct 'Box' (0x0000020C92B9A080) {min: {x: -25.900002, y: -10.899998, z: 0.000001}, max: {x: 25.000000, y: 11.200002, z: 64.000008}, is_valid: True}>",
+          "visible": true,
+          "hidden": false
+        },
+        {
+          "actor": "ColdSteelSceneContainer_5",
+          "id": "HospitalLine.Hospital.Theatre.Cart",
+          "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body.SM_Hospital_MedicalCart_Body",
+          "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer.SM_Hospital_MedicalCart_Drawer",
+          "location": "<Struct 'Vector' (0x0000020735E8AD60) {x: 10351.815900, y: -1066.815900, z: 0.300000}>",
+          "body_transform": "<Struct 'Transform' (0x0000020735E22580) {rotation: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}, translation: {x: 10351.815900, y: -1066.815900, z: 0.300000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+          "body_bounds": "<Struct 'Box' (0x0000020C92B9A080) {min: {x: -34.500000, y: -24.500004, z: 0.300000}, max: {x: 34.500004, y: 30.014534, z: 101.876297}, is_valid: True}>",
+          "visible": true,
+          "hidden": false
+        },
+        {
+          "actor": "ColdSteelSceneContainer_6",
+          "id": "HospitalLine.Hospital.Theatre.Instruments.A",
+          "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Body.SM_Hospital_InstrumentBox_Body",
+          "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Lid.SM_Hospital_InstrumentBox_Lid",
+          "location": "<Struct 'Vector' (0x0000020735E8AD10) {x: 10611.815900, y: -1176.815900, z: 93.000000}>",
+          "body_transform": "<Struct 'Transform' (0x0000020735E22580) {rotation: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}, translation: {x: 10611.815900, y: -1176.815900, z: 93.000000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+          "body_bounds": "<Struct 'Box' (0x0000020C92B9E5C0) {min: {x: -19.000002, y: -14.500002, z: -0.000000}, max: {x: 19.000002, y: 13.700003, z: 12.700001}, is_valid: True}>",
+          "visible": true,
+          "hidden": false
+        },
+        {
+          "actor": "ColdSteelSceneContainer_7",
+          "id": "HospitalLine.Hospital.Theatre.Specimens",
+          "body": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body.SM_Hospital_SpecimenCase_Body",
+          "door": "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Lid.SM_Hospital_SpecimenCase_Lid",
+          "location": "<Struct 'Vector' (0x0000020735E8ACC0) {x: 10701.815900, y: -1071.815900, z: 0.300000}>",
+          "body_transform": "<Struct 'Transform' (0x0000020735E22580) {rotation: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}, translation: {x: 10701.815900, y: -1071.815900, z: 0.300000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+          "body_bounds": "<Struct 'Box' (0x0000020C92B9DA40) {min: {x: -33.706314, y: -24.291927, z: -0.000000}, max: {x: 33.706314, y: 21.200003, z: 45.200001}, is_valid: True}>",
+          "visible": true,
+          "hidden": false
+        }
+      ],
+      "beds": [
+        {
+          "actor": "WardBedScatter_0",
+          "mesh": "<Object '/Game/Dungeons/IsolationWard20260929/Props/SM_Ward_HospitalBed.SM_Ward_HospitalBed' (0x0000020A51930800) Class 'StaticMesh'>",
+          "bedside_body": "<Object '/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body.SM_Hospital_PatientBox_Body' (0x0000020A6F79D800) Class 'StaticMesh'>"
+        }
+      ],
+      "fixtures": [
+        {
+          "actor": "StaticMeshActor_10",
+          "label": "HospitalLine_Drainage_12",
+          "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PumpSkid.SM_Facility_PumpSkid",
+          "location": "<Struct 'Vector' (0x0000020735E8B030) {x: 430.000000, y: -190.000000, z: 0.000000}>",
+          "rotation": "<Struct 'Rotator' (0x0000020735E8B030) {pitch: 0.000000, yaw: 0.000000, roll: 0.000000}>"
+        },
+        {
+          "actor": "StaticMeshActor_11",
+          "label": "HospitalLine_Drainage_13",
+          "mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_ServiceSpares.SM_Facility_ServiceSpares",
+          "location": "<Struct 'Vector' (0x0000020735E8AF90) {x: -465.000000, y: -1630.000000, z: 0.000000}>",
+          "rotation": "<Struct 'Rotator' (0x0000020735E8AF90) {pitch: 0.000000, yaw: 0.000000, roll: 0.000000}>"
+        },
+        {
+          "actor": "StaticMeshActor_111",
+          "label": "HospitalLine_AbandonedAnatomyTheatre_24",
+          "mesh": "/Game/Dungeons/IncineratorHall20260929/MorgueB1V1/Meshes/SM_Incinerator_WashSink_MorgueB1.SM_Incinerator_WashSink_MorgueB1",
+          "location": "<Struct 'Vector' (0x0000020735E8AF40) {x: 9421.815900, y: -1086.815900, z: 0.000000}>",
+          "rotation": "<Struct 'Rotator' (0x0000020735E8AF40) {pitch: 0.000000, yaw: 180.000000, roll: -0.000000}>"
+        }
+      ]
+    }
+  },
+  "dirty_maps": []
+}

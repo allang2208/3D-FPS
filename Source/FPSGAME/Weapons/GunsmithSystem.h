@@ -34,6 +34,8 @@ struct FMeleeModifiers
     double ThirdThrustToughnessMultiplier() const {return ToughnessDamage*ComboThirdToughness;}
     // Pommel-strike modifiers never affect blade attacks or their skill snapshots.
     double QuickCombatToughness=1, QuickCombatBleedChance=0;
+    double QuickCombatTigerRoarToughnessBonus=0, QuickCombatTigerRoarSeconds=0;
+    double QuickCombatPhysicalVulnerabilityBonus=0, QuickCombatPhysicalVulnerabilitySeconds=0;
     bool bQuickCombatAOE=false;
     double QuickCombatToughnessMultiplier() const {return ToughnessDamage*QuickCombatToughness;}
     // Heavy releases only, including a guard-converted heavy attack.
@@ -41,6 +43,8 @@ struct FMeleeModifiers
     double HeavyToughnessMultiplier() const {return ToughnessDamage*HeavyToughness;}
     // A confirmed owned kill restores this fraction of current maximum stamina.
     double KillStaminaMaxRatio=0;
+    // 蓄力速度增量相加：0.15 = +15%，基础蓄力时间除以 (1 + 所有增量)。
+    double HeavyChargeSpeedBonus=0;
 };
 /**
  * 采集工具（伐木斧、矿镐）改造倍率：倍率相乘、绝对值相加，1／0 = 未改造。
@@ -58,7 +62,12 @@ struct FToolModifiers
 struct FGunsmithStats
 {
     // Bow factors are independent from firearm handling and magazine rules.
-    struct FBowModifiers { double Damage=1,Draw=1,Speed=1,Stamina=1,Nock=1,Hold=1,Sway=1,Spread=1,ADS=1; } Bow;
+    struct FBowModifiers
+    {
+        double Damage=1,Draw=1,Speed=1,Stamina=1,Nock=1,Hold=1,Sway=1,Spread=1,ADS=1;
+        // Additive speed increment; Draw retains the equivalent duration factor.
+        double DrawSpeedBonus=0;
+    } Bow;
     FMeleeModifiers Melee;
     FToolModifiers Tool;
     FWeaponHandling Handling;

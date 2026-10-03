@@ -1,0 +1,4 @@
+{
+  "mode": "inspect",
+  "note": "Run in a FRESH process so values are read back from disk, not from memory."
+}

@@ -1,0 +1,86 @@
+{
+  "AKM": {
+    "before": {
+      "AKM": {
+        "minimum_clearance_mm": -11.114171418108159,
+        "penetrating_samples": 965
+      },
+      "AKM_extended": {
+        "minimum_clearance_mm": -11.114190999696092,
+        "penetrating_samples": 965
+      }
+    },
+    "after": {
+      "AKM": {
+        "minimum_clearance_mm": 0.4500000020082728,
+        "penetrating_samples": 0
+      },
+      "AKM_extended": {
+        "minimum_clearance_mm": 0.4499999909540199,
+        "penetrating_samples": 0
+      }
+    },
+    "joint_direction_angles_before": [
+      63.42584703144472,
+      66.95025556253087
+    ],
+    "joint_direction_angles_after": [
+      13.535638264642117,
+      51.985222595182556
+    ],
+    "angles_degrees": [
+      6.497923642807168,
+      -49.99999999999884,
+      -14.999999999999638,
+      2.5611026452016583,
+      -2.152177134745739,
+      -2.599294038330206,
+      -5.7711718763405155
+    ],
+    "optimizer_success": true,
+    "optimizer_message": "Optimization terminated successfully",
+    "surface_sample_count": 5294
+  },
+  "A762": {
+    "before": {
+      "A762": {
+        "minimum_clearance_mm": -11.950617222248537,
+        "penetrating_samples": 1132
+      },
+      "A762_extended": {
+        "minimum_clearance_mm": -11.973603947636413,
+        "penetrating_samples": 1131
+      }
+    },
+    "after": {
+      "A762": {
+        "minimum_clearance_mm": 0.4502567317756042,
+        "penetrating_samples": 0
+      },
+      "A762_extended": {
+        "minimum_clearance_mm": 0.4500595082108434,
+        "penetrating_samples": 0
+      }
+    },
+    "joint_direction_angles_before": [
+      67.42761367175974,
+      64.88110269089671
+    ],
+    "joint_direction_angles_after": [
+      17.84916828279501,
+      53.8089155162564
+    ],
+    "angles_degrees": [
+      0.8412114349100346,
+      -49.99998443796301,
+      -11.155330276882607,
+      9.99999223453375,
+      4.999995593982529,
+      3.9999966467637846,
+      -6.328234089800236
+    ],
+    "optimizer_success": true,
+    "optimizer_message": "Optimization terminated successfully",
+    "surface_sample_count": 5294
+  }
+}

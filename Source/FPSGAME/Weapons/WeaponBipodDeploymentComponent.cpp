@@ -3,6 +3,13 @@
 #include "PKMBipodComponent.h"
 #include "PKMLowpolyWeaponAssets.h"
 #include "WeaponHandling.h"
+#include "PKMBipodContacts.h"
+#include "../Movement/FPSCharacterMovementComponent.h"
+#include "../Movement/FPSDoorPushComponent.h"
+#include "../UI/ColdSteelStatusModel.h"
+#include "Engine/GameInstance.h"
+#include "GameFramework/GameStateBase.h"
+#include "Net/UnrealNetwork.h"
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
@@ -33,6 +40,7 @@ bool IsBipodSupport(const FHitResult& Hit)
 
 UWeaponBipodDeploymentComponent::UWeaponBipodDeploymentComponent()
 {
+    SetIsReplicatedByDefault(true);
     PrimaryComponentTick.bCanEverTick=true;
     PrimaryComponentTick.bStartWithTickEnabled=false;
     PrimaryComponentTick.TickGroup=TG_PostPhysics;
@@ -40,7 +48,8 @@ UWeaponBipodDeploymentComponent::UWeaponBipodDeploymentComponent()
 
 FWeaponHandling UWeaponBipodDeploymentComponent::ApplyStability(const FWeaponHandling& Base) const
 {
-    return Blend>0.f ? Base.WithStabilityMultiplier(FMath::Lerp(1.f,MountedStabilityMultiplier,Blend)) : Base;
+    const float Weight=HandlingBlend();
+    return Weight>0.f ? Base.WithStabilityMultiplier(FMath::Lerp(1.f,MountedStabilityMultiplier,Weight)) : Base;
 }
 
 void UWeaponBipodDeploymentComponent::FireDeployCue(bool bSeat)
@@ -80,9 +89,10 @@ UPKMBipodComponent* UWeaponBipodDeploymentComponent::EquippedBipod() const
 bool UWeaponBipodDeploymentComponent::Eligible() const
 {
     const auto* C=Character.Get();
-    if(!C || !C->IsLocallyControlled() || !GetWorld() || GetWorld()->GetNetMode()!=NM_Standalone)return false;
+    if(!C || !C->IsLocallyControlled() || !GetWorld())return false;
     const auto* PC=Cast<APlayerController>(C->GetController());
     if(!PC || AFPSGAMEPlayerController::BlocksOngoingActions(PC))return false;
+    if(const auto* Push=C->FindComponentByClass<UFPSDoorPushComponent>();Push&&Push->IsActive())return false;
     if(!EquippedBipod() || !C->GetCharacterMovement()->IsMovingOnGround() || C->GetVelocity().SizeSquared()>100.f)return false;
     if(C->GetWeaponState()!=EAKMWeaponState::Idle || C->IsChoosingAmmo() || C->bSprintHeld || C->IsSprinting()
         || C->IsSliding() || C->IsDodging() || C->IsTraversing() || C->IsCastBlockingLeftHandAction()
@@ -90,7 +100,6 @@ bool UWeaponBipodDeploymentComponent::Eligible() const
     // Actual velocity above determines whether the player is stationary. Holding
     // forward against a solid obstacle must not veto an otherwise valid mount.
     if(const auto* Health=C->FindComponentByClass<UFPSCombatHealthComponent>();Health && Health->IsDead())return false;
-    if(const auto* Body=C->FindComponentByClass<UFPSPlayerBodyComponent>();Body && Body->IsThirdPersonViewEnabled())return false;
     return true;
 }
 
@@ -295,12 +304,22 @@ bool UWeaponBipodDeploymentComponent::TryDeployFromADS()
     C->MoveInput=FVector2D::ZeroVector;
     C->ConsumeMovementInputVector();
     C->GetCharacterMovement()->StopMovementImmediately();
+    ++LocalSequence;
+    ServerDeploy(LocalSequence,Support.Feet[0],Support.Feet[1],Support.Anchor,InitialAim);
+    if(!bRequested)return false;
     FireDeployCue(false); // 抬弹链：架起动作的起手机械声
     SetComponentTickEnabled(true);return true;
 }
 
 void UWeaponBipodDeploymentComponent::Release(bool bImmediate)
 {
+    const bool WasRequested=bRequested;
+    auto* C=Character.Get();
+    if(WasRequested&&!bApplyingNet&&C)
+    {
+        if(C->IsLocallyControlled())ServerRelease(++LocalSequence);
+        else if(C->HasAuthority())PublishRelease();
+    }
     bRequested=false;bCandidate=false;bSeatFired=false;SettleClock=-1.f;
     if(auto* Part=Bipod.Get())Part->SetLegsFrozen(false); // 解除即恢复两腿自然摆动，防止冻结泄漏
     if(bImmediate)
@@ -314,6 +333,12 @@ void UWeaponBipodDeploymentComponent::Release(bool bImmediate)
 void UWeaponBipodDeploymentComponent::Advance(float DeltaSeconds)
 {
     auto* C=Character.Get();if(!C)return;
+    if(!C->IsLocallyControlled())
+    {
+        if(C->HasAuthority())AdvanceRemoteAuthority(DeltaSeconds);
+        else {bRequested=NetDeployment.bActive;Blend=FMath::FInterpConstantTo(Blend,bRequested?1.f:0.f,DeltaSeconds,bRequested?1.f/.32f:1.f/.16f);}
+        return;
+    }
     const bool Allowed=Eligible();const double Now=GetWorld()->GetTimeSeconds();
     const bool Probe=bRequested && Now>=NextSupportProbe;
     if(Probe)NextSupportProbe=Now+BipodSupportInterval;
@@ -349,7 +374,8 @@ void UWeaponBipodDeploymentComponent::RestoreCameraOffset()
 
 void UWeaponBipodDeploymentComponent::ApplyPresentation(bool bAfterPose)
 {
-    RestoreCameraOffset();auto* C=Character.Get();auto* Part=Bipod.Get();
+    auto* C=Character.Get();if(!C||!C->IsLocallyControlled())return;
+    RestoreCameraOffset();auto* Part=Bipod.Get();
     if(Blend<=UE_SMALL_NUMBER && !bRequested)return;
     if(!C || !Part || Part!=EquippedBipod()){Release(true);return;}
     if(Blend<=UE_SMALL_NUMBER)return;
@@ -418,4 +444,165 @@ FString UWeaponBipodDeploymentComponent::GetHint() const
 FString AFPSGAMECharacter::GetBipodDeploymentHint() const
 {
     return BipodDeployment?BipodDeployment->GetHint():FString();
+}
+
+void UWeaponBipodDeploymentComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(UWeaponBipodDeploymentComponent,NetDeployment);
+}
+
+float UWeaponBipodDeploymentComponent::HandlingBlend() const
+{
+    const auto* C=Character.Get();
+    if(!C||!bRequested||!NetDeployment.bActive||
+        (C->IsLocallyControlled()&&NetDeployment.Sequence!=LocalSequence))return 0.f;
+    const auto* State=GetWorld()->GetGameState();
+    const double Now=State?State->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+    return FMath::Min(Blend,float(FMath::Clamp((Now-NetDeployment.StartedAt)/.32,0.,1.)));
+}
+
+FString UWeaponBipodDeploymentComponent::EquippedDefinition() const
+{
+    const auto* C=Character.Get();if(!C)return FString();
+    const auto* Model=C->GetNetShadowProfile();
+    if(!Model&&C->IsLocallyControlled())Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const auto* Item=Model?Model->Equipped():nullptr;
+    return Item?Item->Definition:FString();
+}
+
+bool UWeaponBipodDeploymentComponent::AuthorityEligible() const
+{
+    const auto* C=Character.Get();if(!C||!C->HasAuthority()||!C->Controller)return false;
+    const FString Definition=EquippedDefinition();
+    if(Definition!=PKMLowpolyWeaponAssets::Definition&&Definition!=LMG201WeaponAssets::Definition)return false;
+    const auto* Move=Cast<UFPSCharacterMovementComponent>(C->GetCharacterMovement());
+    if(!Move||!Move->IsMovingOnGround()||Move->bWantsToSlide||Move->bWantsToSprint||C->GetVelocity().SizeSquared()>100.f)return false;
+    if(C->IsTraversing()||C->IsDodging()||C->IsSliding()||C->IsSwitchingWeapon()||
+        C->IsCastBlockingLeftHandAction()||C->IsSpellGestureBlocking())return false;
+    if(const auto* Push=C->FindComponentByClass<UFPSDoorPushComponent>();Push&&Push->IsActive())return false;
+    if(const auto* Health=C->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
+    if(const auto* PC=Cast<APlayerController>(C->Controller);!PC||AFPSGAMEPlayerController::BlocksOngoingActions(PC))return false;
+    return true;
+}
+
+bool UWeaponBipodDeploymentComponent::ResolveServerSupport(const FWeaponBipodNetState& Proposed,FSupport& Out) const
+{
+    const auto* C=Character.Get();if(!C||Proposed.Anchor.ContainsNaN()||Proposed.FeetA.ContainsNaN()||
+        Proposed.FeetB.ContainsNaN()||Proposed.Aim.ContainsNaN())return false;
+    // Remote first-person rigs do not evaluate their pose. Resolve actual server
+    // collision from bounded world contacts; never trust a client component pointer.
+    const FVector Eye=C->GetMeleeAimTransform().GetLocation();
+    if(FVector::DistSquared(Eye,Proposed.Anchor)>FMath::Square(100.f+MaximumCameraReach)||
+        FMath::Abs(FRotator::NormalizeAxis(Proposed.Aim.Pitch))>40.f)return false;
+    const FRotator ServerAim=C->GetControlRotation();
+    if(FMath::Abs(FMath::FindDeltaAngleDegrees(ServerAim.Yaw,Proposed.Aim.Yaw))>30.f||
+        FMath::Abs(FMath::FindDeltaAngleDegrees(ServerAim.Pitch,Proposed.Aim.Pitch))>20.f)return false;
+    const bool LMG=EquippedDefinition()==LMG201WeaponAssets::Definition;
+    const float Span=LMG?float((LMG201WeaponAssets::BipodPivotsCm[0]+LMG201WeaponAssets::BipodFeetCm[0]
+        -LMG201WeaponAssets::BipodPivotsCm[1]-LMG201WeaponAssets::BipodFeetCm[1]).Size()):12.469f;
+    const double Width=FVector::Dist2D(Proposed.FeetA,Proposed.FeetB);
+    if(Width<Span*.5||Width>Span*1.5+4.||FMath::Abs(Proposed.FeetA.Z-Proposed.FeetB.Z)>MaximumHeightSnap*3.f)return false;
+    const FVector Center=(FVector(Proposed.FeetA)+FVector(Proposed.FeetB))*.5;
+    if(FVector::DistSquared(Center,Proposed.Anchor)>FMath::Square(65.f))return false;
+    FCollisionQueryParams Params(SCENE_QUERY_STAT(NetBipodSupport),false,C);
+    const FVector Feet[]={Proposed.FeetA,Proposed.FeetB};
+    const float MinNormal=FMath::Cos(FMath::DegreesToRadians(MaximumSlopeDegrees));
+    const FVector Forward=FRotator(0,Proposed.Aim.Yaw,0).Vector();
+    const FVector Right=FVector::CrossProduct(FVector::UpVector,Forward);
+    for(int32 I=0;I<2;++I)
+    {
+        if(FVector::DistSquared(Eye,Feet[I])>FMath::Square(110.f+MaximumCameraReach))return false;
+        FHitResult Hit;
+        if(!GetWorld()->LineTraceSingleByChannel(Hit,Feet[I]+FVector(0,0,3),Feet[I]-FVector(0,0,3),SupportChannel,Params)||
+            !IsBipodSupport(Hit)||Hit.ImpactNormal.Z<MinNormal||FVector::DistSquared(Hit.ImpactPoint,Feet[I])>4.)return false;
+        FHitResult Obstruction;
+        if(GetWorld()->LineTraceSingleByChannel(Obstruction,Eye,Hit.ImpactPoint+FVector(0,0,4),SupportChannel,Params))return false;
+        int32 Edges=0;
+        for(const FVector& Offset:{Right*1.2,-Right*1.2,Forward*1.2,-Forward*1.2})
+        {
+            FHitResult Edge;const FVector At=Hit.ImpactPoint+Offset;
+            if(GetWorld()->LineTraceSingleByChannel(Edge,At+FVector(0,0,3),At-FVector(0,0,3),SupportChannel,Params)&&
+                IsBipodSupport(Edge)&&Edge.ImpactNormal.Z>=MinNormal)++Edges;
+        }
+        if(Edges<2)return false;
+        Out.Feet[I]=Hit.ImpactPoint+FVector(0,0,.12);
+        Out.Components[I]=Hit.GetComponent();Out.Transforms[I]=Hit.GetComponent()->GetComponentTransform();
+    }
+    Out.Anchor=Proposed.Anchor;return true;
+}
+
+void UWeaponBipodDeploymentComponent::ServerDeploy_Implementation(uint16 Sequence,FVector_NetQuantize100 FeetA,
+    FVector_NetQuantize100 FeetB,FVector_NetQuantize100 Anchor,FRotator Aim)
+{
+    if(static_cast<int16>(Sequence-NetDeployment.Sequence)<=0)return;
+    const double Now=GetWorld()->GetTimeSeconds();
+    FWeaponBipodNetState Proposed;Proposed.Sequence=Sequence;Proposed.FeetA=FeetA;Proposed.FeetB=FeetB;
+    Proposed.Anchor=Anchor;Proposed.Aim=Aim;Proposed.Aim.Roll=0.;Proposed.Aim.Normalize();
+    FSupport Resolved;
+    const bool Accepted=(LastDeployRequest<0.||Now-LastDeployRequest>=.1)&&AuthorityEligible()&&ResolveServerSupport(Proposed,Resolved);
+    LastDeployRequest=Now;
+    Proposed.bActive=Accepted;Proposed.StartedAt=Now;NetDeployment=Proposed;
+    if(Accepted)
+    {
+        Support=Resolved;NetDeployment.FeetA=Support.Feet[0];NetDeployment.FeetB=Support.Feet[1];
+        PawnAnchor=Character->GetActorLocation();InitialAim=Proposed.Aim;
+        MountedDefinition=EquippedDefinition();NextSupportProbe=Now+BipodSupportInterval;
+        bRequested=true;Character->GetCharacterMovement()->StopMovementImmediately();
+    }
+    else {TGuardValue<bool> Applying(bApplyingNet,true);Release(true);}
+    GetOwner()->ForceNetUpdate();ClientDeploymentResult(NetDeployment);
+}
+
+void UWeaponBipodDeploymentComponent::PublishRelease()
+{
+    if(!NetDeployment.bActive)return;
+    NetDeployment.bActive=false;GetOwner()->ForceNetUpdate();
+    ClientDeploymentResult(NetDeployment);
+}
+
+void UWeaponBipodDeploymentComponent::ServerRelease_Implementation(uint16 Sequence)
+{
+    if(static_cast<int16>(Sequence-NetDeployment.Sequence)<=0)return;
+    NetDeployment.Sequence=Sequence;NetDeployment.bActive=false;
+    GetOwner()->ForceNetUpdate();
+    if(Character.IsValid()&&!Character->IsLocallyControlled())
+    {TGuardValue<bool> Applying(bApplyingNet,true);Release();}
+}
+
+void UWeaponBipodDeploymentComponent::ClientDeploymentResult_Implementation(const FWeaponBipodNetState& State)
+{
+    if(Character.IsValid()&&Character->IsLocallyControlled()&&State.Sequence==LocalSequence)
+    {NetDeployment=State;OnRep_Deployment();}
+}
+
+void UWeaponBipodDeploymentComponent::OnRep_Deployment()
+{
+    if(!Character.IsValid())return;
+    if(!Character->IsLocallyControlled())
+    {bRequested=NetDeployment.bActive;InitialAim=NetDeployment.Aim;return;}
+    // A late acceptance cannot resurrect a cancelled mount or replace a newer one.
+    if(NetDeployment.Sequence!=LocalSequence||!bRequested)return;
+    if(!NetDeployment.bActive){TGuardValue<bool> Applying(bApplyingNet,true);Release();return;}
+    InitialAim=NetDeployment.Aim;Support.Anchor=NetDeployment.Anchor;
+    // Retain the client's own component handles for local support monitoring.
+    Support.Feet[0]=NetDeployment.FeetA;Support.Feet[1]=NetDeployment.FeetB;
+}
+
+void UWeaponBipodDeploymentComponent::AdvanceRemoteAuthority(float DeltaSeconds)
+{
+    const double Now=GetWorld()->GetTimeSeconds();
+    if(NetDeployment.bActive)
+    {
+        const auto* Move=Cast<UFPSCharacterMovementComponent>(Character->GetCharacterMovement());
+        const bool Probe=Now>=NextSupportProbe;
+        if(Probe)NextSupportProbe=Now+BipodSupportInterval;
+        if(!AuthorityEligible()||EquippedDefinition()!=MountedDefinition||
+            (Now-NetDeployment.StartedAt>.35&&(!Move||!Move->bWantsToAim))||
+            FVector::DistSquared(Character->GetActorLocation(),PawnAnchor)>4.||!SupportStillValid(Probe))
+        {PublishRelease();bRequested=false;}
+        else {ClampAim();Character->GetCharacterMovement()->StopMovementImmediately();}
+    }
+    bRequested=NetDeployment.bActive;
+    Blend=FMath::FInterpConstantTo(Blend,bRequested?1.f:0.f,DeltaSeconds,bRequested?1.f/.32f:1.f/.16f);
 }

@@ -2,7 +2,11 @@
 from pathlib import Path
 import hashlib,json,shutil
 import unreal as u
-P=Path(u.Paths.project_dir()).resolve();O=Path(__file__).parent
+P=Path(u.Paths.project_dir()).resolve()
+# New weapons use their own manifests/receipts while sharing this producer.
+# Existing entry points keep their original directory and ownership tag.
+O=Path(globals().get('ANIMATION_SHARING_JOB_ROOT',Path(__file__).parent)).resolve()
+default_author=globals().get('ANIMATION_SHARING_AUTHOR','WeaponAnimationSharing20261001')
 if P!=Path('D:/FPS3D/FPSGAME').resolve():raise RuntimeError('Wrong project')
 E=u.EditorAssetLibrary
 specs=json.loads((O/'manifest.json').read_text(encoding='utf-8'))['profiles']
@@ -21,6 +25,7 @@ if not headless:
  if editor and editor.get_game_world():raise RuntimeError('PIE active; finish preview before asset production')
  dirty={p.get_name() for p in u.EditorLoadingAndSavingUtils.get_dirty_content_packages()}
 for spec in specs:
+ author=spec.get('author',default_author)
  key=spec['weapon']+'/'+spec['family'];target=spec['asset']
  inputs={p:sha(p) for row in spec['pairs'] for p in (row['base'],row['authored'])}
  inputs[spec['mesh']]=sha(spec['mesh'])
@@ -31,7 +36,7 @@ for spec in specs:
   continue
  if E.does_asset_exist(target):
   asset=u.load_asset(target)
-  if E.get_metadata_tag(asset,'AnimationSharingAuthor')!='WeaponAnimationSharing20261001':raise RuntimeError('Unowned destination '+target)
+  if E.get_metadata_tag(asset,'AnimationSharingAuthor')!=author:raise RuntimeError('Unowned destination '+target)
   backup=O/'BeforeAssets'/(target.removeprefix('/Game/')+'.uasset');backup.parent.mkdir(parents=True,exist_ok=True)
   if not backup.exists():shutil.copy2(disk(target),backup)
  else:
@@ -43,6 +48,10 @@ for spec in specs:
  mesh=u.load_asset(spec['mesh'])
  skeleton=mesh.get_editor_property('skeleton')
  asset.set_editor_property('family','pending_'+spec['family'])
+ # This manifest describes the complete profile. Drop obsolete Base/Retained
+ # entries when roles are removed or a base sequence is replaced.
+ if not asset.set_shared_clips_from_json(json.dumps({'family':'pending_'+spec['family'],'clips':[]})):
+  raise RuntimeError('Cannot reset profile authoring data '+target)
  for row in spec['pairs']:
   base=u.load_asset(row['base']);authored=u.load_asset(row['authored'])
   if not base or not authored:raise RuntimeError('Missing authoring sequence '+str(row))
@@ -59,13 +68,14 @@ for spec in specs:
  for p,digest in inputs.items():
   if sha(p)!=digest:raise RuntimeError('Source changed during production: '+p)
  if not pending:asset.set_editor_property('family',spec['family'])
- E.set_metadata_tag(asset,'AnimationSharingAuthor','WeaponAnimationSharing20261001')
+ E.set_metadata_tag(asset,'AnimationSharingAuthor',author)
  E.set_metadata_tag(asset,'AnimationSharingSources',json.dumps(inputs,sort_keys=True))
  if not E.save_loaded_asset(asset,False):raise RuntimeError('Save failed '+target)
  layers=list(asset.get_editor_property('clips'))
  receipt['profiles'][key]=dict(asset=target,saved=not pending,pending_native_api=pending,retained=retained,
   replaced=sorted(set(replaced)),inputs=inputs,pairs=spec['pairs'],saved_sha256=sha(target),bytes=disk(target).stat().st_size,
   layer_count=len(layers),key_count=sum(len(t.get_editor_property('times')) for c in layers for t in c.get_editor_property('tracks')))
+ del layers # Do not keep reflected array views across the next bake operation.
  record();print('ANIMATION_SHARING_SAVED',key,'ready=',not pending,'retained=',len(retained),'pending=',len(pending),flush=True)
 all_specs=json.loads((O/'manifest.json').read_text(encoding='utf-8'))['profiles']
 receipt['complete']=all(receipt['profiles'].get(s['weapon']+'/'+s['family'],{}).get('saved',False) for s in all_specs)

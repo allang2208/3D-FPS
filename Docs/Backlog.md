@@ -1,17 +1,11 @@
 # 待办事项（未做清单）
 
-## RSH-12 握持与单动拨锤（2026-10-03，用户暂停）
+## RSH-12 恢复 715 原动作（2026-10-03）
 
-按用户要求暂停制作。五发武器、715 动作复用、单动循环、弹巢／子弹孔位修订及 POSE 烘焙修复已有历史落盘记录；最新握持与 ADS 拨锤修订仍未完成，不能作为已修复动作交付。
+用户否定上一版自制握持与动作，要求按 715 原动作制作，仅参考视频镜头抖动。原生 V7 手型、715 动作和逐发换弹已重新接入，三网格／三机械 profile 已保存，基础 DLL 后台构建成功；记录见 [恢复 715 原动作](Weapons/rsh12-native715-20261003.md)。旧双动稿的资产保存与构建成功不代表动作合格。
 
-- [ ] **先完成握持**：沿用 V7 原生裸手，复核单持腰射／ADS 的共同握点、左右双持握点和食指实际指腹与扳机／护圈的接触；当前最新拟合参数只是制作候选。
-- [ ] **再完成拨锤**：完善拇指接近、压锤、离开和回握路径，处理过渡段及双持右手的剩余穿透；确认换握观感自然。源码已有完整蒙皮拟合、固定骨长 CCD 与拇指绕行候选，尚未全部烘焙。
-- [ ] **同步动作与 ADS**：按源时钟退出 ADS、拨锤并按持键意图回瞄；与已修改的运行时动作权重及结束交接一起完成。源码构建记录不等于游戏效果确认。
-- [ ] **重制与保存**：从最新制作源重制四条开火 FBX、三个私有 profile，再保存三份网格及七份动画／profile。`RSH12Grip20261003/import_receipt.json` 只记录初版十个资产，没有 `registered-mechanical-axes-v3-full-skin` revision；最新源未完整导入。
-- [ ] **用户体验**：继续制作后由用户确认握持、开火可见性、ADS 退出／恢复、右拇指拨锤及装弹；不自动启动 UE、PIE 或验收。
-
-暂停现场、恢复入口与废案归档见 [RSH-12 暂停与发布](Weapons/rsh12-pause-publication-20261003.md)，具体源／资产边界见 [握持与拨锤记录](Weapons/rsh12-grip-cock-fix-20261003.md)。
-
+- [ ] **用户体验**：用户指出弹巢分离和逐发持弹失配后，已制作真实吊臂轴心和随手取弹／共同压入修订；最新资产保存状态见 [弹巢与持弹接触](Weapons/rsh12-cylinder-hand-contact-20261003.md)。715 主体动作、ADS 和开巢镜头抖动仍交由用户体验，不自动运行验收。
+- 单持／双持／法杖副手保留逐发装填；按用户追加要求制作可选的五发快速装填器，接入与保存状态见 [五发快速装填器](Weapons/rsh12-speedloader-five-20261003.md)。双动设计继续保留，旧拇指拨锤待办不恢复。
 
 ## 随机地牢：主题路线与房间（2026-10-02 更新）
 
@@ -28,6 +22,13 @@
 
 当前入口、制作链、公开素材边界与归档见 [本轮收尾发布](Gameplay/dungeon-publication-20261002.md)。历史文档中的 30% 普通池候选概率不再描述当前固定主题槽位。
 
+### 员工生活区主题（2026-10-02）
+
+- [x] 按“生活宿舍区 → 员工更衣淋浴区 → 员工活动区”制作三间完整场景，保存三张独立样板和一张连贯主题样板；后台导入与保存完成，未运行游戏或测试。
+- [ ] 用户体验和确认样板；之后确定新增生活主题的正式抽选方式，再完成生产接入与样板退役。现有三条主题路线保持原样。
+
+控制台入口与制作记录见 [员工生活区主题样板](Gameplay/dungeon-staff-living-theme-subject-20261002.md)。
+
 ## 储物箱表面材质提升（计划已定，用户 2026-09-24 指示"后续再做"）
 
 - [ ] 分阶段执行 `SourceAssets/WarehouseCrateTiers20260924/material_upgrade_plan_20260924.md`：
@@ -35,18 +36,83 @@
       体素语言）；P3 档位识别参数表（T4 鎏金微发光、T5 宝石自发光）；P4 离线重编译读回 + 交付。
 - [ ] 前置 P0：用户重开 PIE 确认第七轮骨骼 usage 标志修复生效后的截图作基线。
 
-## DayNight 近期更新后卡顿（2026-09-21，待排查）
+## 打包阻塞：矿镐骨架缺失导致 Cook 断言（2026-09-23 首次真 Cook 暴露）
 
-- [ ] 用户确认：同一天气贴图以前不卡，近期更新后变卡；具体更新点不确定。当前暂停诊断，根因未确认，不归因于设备损坏或旧 HDR 资源。
-- 截图证据：纹理流送池超预算 235.581 MiB；光追几何常驻内存 120.272 MiB / 400 MiB（约 30%，超过 20% 提示阈值，并非超过总预算）。
-- 既有采样：独立运行、默认出生点、1280×720，末 600 帧约 6.84 秒，平均 11.40 ms / 87.75 FPS；GPU 9.91 ms，体积云 3.28 ms、阴影深度 1.55 ms；渲染线程含 Visibility 等待。未复现原用户现场，不能作为回归前后对比。
-- 本机证据：Saved/DayNightPerformance20260921；Saved/Profiling/MemReports/DayNight_Lighting-WindowsEditor-09.21-18.25.45；截图来源为用户消息。HDR 资源分配合计约 4.69 GiB，部分非驻留，不等同物理显存。
-- 下一步：在用户卡顿现场记录地图、视角、分辨率、画质、PIE 状态及近期更新边界；采集 CPU/GPU/流送/光追资源，按单项可恢复对照定位新增开销。全身角色/世界武器副本、技能渲染与场景切换只是候选，未经证实。不要先降天气贴图、扩大预算或隐藏警告。
+- [ ] **`/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Pickaxe_Skeleton` 整个 D 盘不存在**，
+      6 个包引用它（`SK_Harvest_Pickaxe` 与 5 条 `A_Harvest_Pickaxe_*`）。Cook 不用清晰报错，
+      而是在 `AnimSequence.cpp:2172` 断言 `!Hash.IsZero()` 崩掉整次 Cook（`Error_UnknownCookFailure`，退出码 25）。
+      编译阶段是成功的，只有 Cook 失败。
+- [ ] 这是 **2026-09-19 只修了一半**的既有缺陷：当时保存了斧头骨架（101 骨）并写明
+      「未改动的矿镐同样如此」，矿镐那半没修。编辑器里缺骨架不会立刻报错，所以直到第一次真 Cook 才暴露。
+- [ ] 修法（与斧头 9/19 同一套）：按动画已引用的路径补出骨架并**显式保存**，名字一致即可自动恢复绑定；
+      作者源齐全 —— `SourceAssets/ProductionToolGrip20260913/Export/SK_Harvest_Pickaxe.fbx` + 5 条动画 FBX
+      + `Pickaxe_SingleHand_Editable.blend`。修完在新进程读回骨架非空，再重跑一次 Cook 确认断言消失。
+      证据、复现入口与「不要用摘 AlwaysCook 的方式绕过」的理由见
+      [PIE 与打包版的性能差距](Performance/pie-vs-packaged-gap-20260923.md) 第 6 节。
+
+## DayNight 近期更新后卡顿（2026-09-21，已定位根因，修复待测量）
+
+结论与全部实测数据见 [玩家建模后的常驻开销](Performance/hitch-player-body-20260921.md)。要点：
+
+- [x] 换地图复现：`L_Dungeon_Prototype` 同样卡（63 帧 > 25 ms），**与天气/DayNight 无关**。用户 22:59 追加确认「加入玩家建模之后开始卡」，与实测一致。
+- [x] 稳态形态：约每 50 帧（≈0.57 s）一次 45~55 ms 顿挫 + 170~670 ms 大停顿；顿挫帧 `FlushAsyncLoading` 0 → 407 ms、`AsyncLoadingTime` 0 → 231 ms，稳态本应完全不加载。
+- [x] 根因一：玩家世界身体与装备**全部同步加载**（`InitializeBody()` 身体网格 + 60 条 clips；`RebuildWeapons()` 每个武器家族的网格/持枪动画/材质/配件/音频）。探针抓到 20 条慢加载，最大 305 ms（`SK_PKM_Manny`）。
+- [x] 根因二：`UpdateWorldOwnerVisibility()` 在每次相机更新、`UpdateOwnerVisibility()` 每 0.2 s 对每个图元无条件 `SetOwnerNoSee/SetOnlyOwnerSee/SetCastShadow`，持续弄脏渲染状态（顿挫帧可见性实例数 513→1029 翻倍）。
+- [x] 根因三：身体网格 `AlwaysTickPoseAndRefreshBones` 在第一人称隐藏时仍每帧刷骨骼。
+- [x] 根因四：`ColdSteelInventoryWidget::LoadIcons()` 对缺失图标不记失败，每次刷新重试；日志 123 条 `Error creating texture … could not be found`（`ue_pkm.png` 等 3 个文件各 41 次）。
+- [x] 已修改并**已链接**（编辑器关闭后构建通过）：新增 `FPSBodyEquipment::ApplyOwnerVisibilityFlags`（只在值变化时下发）、按视图切换骨骼刷新档位、`FailedIcons` 记忆失败导入。
+- [x] 修复后实测（采集 E，同参数）：缺图标 warning **123 → 6**，该项已确认生效。
+- [x] 隔离实验（决定性）：临时挪走 `Content/ColdSteelData/player_body.json`、世界身体功能彻底关闭后，顿挫**照样存在**（24 帧 >20 ms、最大 678 ms、约每 55 帧一次）。**所以主线顿挫不是玩家建模造成的**；已更正上一轮过宽的归因。配置文件已还原。
+- [x] 玩家建模的账已量化：关掉后稳态中位 **11.407 ms**，开启后 **12.662~12.807 ms**，即世界身体固定成本约 **+1.0~1.4 ms/帧（~11%）**。这是用户感觉「加了建模变卡」的真实成分，尚未优化。
+- [x] 慢加载清单更正：探针从未记录到 `SKM_Manny_PlayerSkin` 或任何 `Mannequins/Anims` 包；41 条慢加载**全是武器家族的世界副本**（`SK_PKM_Manny` 467 ms 等，来自 `CaptureEquipment`/`RebuildWeapons`），不是身体资产。
+- [ ] **尚未解释的主线顿挫**：24~26 帧 >20 ms、最大 575~710 ms、约每 55 帧一次、**集中在进游戏头 ~11 秒后自行消失**（全部 7 次采集同一形状）。特征为游戏线程**等待**而非工作量：顿挫帧 GT 12.5 ms / RT 14.5 ms / GPU 13.1 ms，但 `GameThreadTime_CriticalPath` 47.6 ms，其中 `EventWait/WorldTickMisc` 35 ms，`Exclusive/RenderThread/EventWait` 670~700 ms。既不是建模、也不是同步加载。
+- [ ] **下一步**：用 `-trace=gpu` 或现场 `stat unit`/`stat gpu`/`stat levels` 细分 RHI/渲染等待点（本轮未做）。
+- [x] **异步预加载已实现并实测**（用户 2026-09-21 指定）：新增 `UFPSBodyAssetPreloader`（GameInstanceSubsystem），在第一个游戏世界出现、角色 `BeginPlay` 之前把身体配置、角色 CDO、存档物品、以及**从家族常量生成的 62 条路径**（`Tools/Performance/generate_preload_registry.py` → `FPSPreloadAssetRegistry.gen.h`）一次性 `RequestAsyncLoad`。
+- [x] **实测结论：命名路径预加载对这批慢加载无效**。第一次只收到 69 条，慢加载清单与耗时**逐条相同**（`SK_PKM_Manny` 425/467 ms 等）。原因是慢加载全部来自 `/Game/Weapons/<家族>/` 的**编译期常量**（`PKMWeaponAssets::MeshPath` 等，`FPSGAMECharacter.cpp:337-420` 逐个家族懒加载），这些常量不在任何资产里、CDO 上也取不到。
+- [x] **文件夹展开已实测为有害，默认关闭**：用资产注册表按目录横扫，`Content/Weapons` 有 **3383 个包**（含大量废弃设计稿）而实际只用约 131 条；展开后慢加载 **42 → 60**（`AsyncLoadHighPriority` 抢流送带宽饿住游戏线程），1200 条花了 19 秒。`fps.body.AsyncPreloadExpandFolders` 默认 0、优先级改回默认、上限收到 400。
+- [x] **命名路径预加载实测有效**（同代码状态背靠背对照）：慢加载 **42 → 24 条**、总耗时 **2451 → 1065 ms**；`SK_PKM_Manny` 467 ms、`SK_A762_Manny` 148 ms、`SK_DW715_Manny` 88 ms、`A_A762_prism_sprint_exit` 108 ms、`S_AKM_Suppressed` 45 ms 全部变成缓存命中。说明机制对**能枚举到**的资产确实有效。
+- [x] **修好生成器的真 bug**：字面量正则匹配到了 `Printf(TEXT("..."))` 内部，把 `TEXT("/Game/Weapons/QBZ191/%s/...")` 这类**模板当真实路径**写进注册表（这就是 `SK_QBZ191_Manny` 修完仍 186 ms 的原因）。已改为含 `%` 归入动态模板，并过滤字符串拼接残片（以 `/` 或 `_` 结尾）。
+- [ ] **仍有 61 条 `Printf` 动态路径未覆盖**（各家族动画与音效，含 `S_AKM_ChargeRelease` 104 ms、`S_QBZ191_Suppressed_04` 95 ms）。正确做法是按家族提供权威清单、在 `ApplyInventoryWeapon()` 切换前异步请求，属后续独立工作。
+- [ ] **环境不可比警告**：修正注册表后重测时源码树被并行工作流改动（PKM 家族退役、`PKMWeaponAssets.h` 删除、数十文件批量改写），该次采集出现 25 条 `/Game/__ExternalActors__/GameMaps/` 慢加载（1811 ms，World Partition 外部 Actor）与 3281 ms 极端帧，**不能用于评价本次改动**。PKM 退役后注册表重新生成会自动丢掉其路径。
+- [x] **修好 4 处既有编译错误**（编辑器目标必然失败，此前独立目标未暴露）：`WitchRebuiltMonster.h` 的 `BuildDrape(USkeletalMesh* Mesh)` 参数遮蔽 `ACharacter::Mesh`（UHT 直接拒绝）、lambda 参数 `Role` 遮蔽 `AActor::Role`、局部 `Controller` 遮蔽成员且 `TObjectPtr` 推导失败、`WitchRebuiltAuthoring.cpp` 函数体内 `Mesh` 全解析到非静态成员（静态函数里非法）。修好后编辑器目标首次链接成功。
+- [x] **采集硬件已核实：没有故障，是显示名被改**。日志里的 "GTX 750 Ti" 是假名——`DeviceId: 2208`（GA102）+ 专用显存 12084 MB + `nvidia-smi` 都指向 **RTX 3080 Ti（12288 MiB，驱动 596.21）**；`nvidia-smi` 显示 50°C / 37% 风扇 / 76.5W，`clocks_throttle_reasons = GPU Idle`，**无温度或功耗降频**。主机 i7-13700K + 31.7 GB RAM。项目里**没有** `sg.OverrideGPUBrand`，改名来自驱动/注册表层面的串流或模拟器工具。
+- [x] **推论作废**：此前据 `LocalBudgetMB` 10.7 GB 推断「4 GB 卡上预算 10.7 GB 自相矛盾」——卡是 12 GB，预算合理。且顿挫帧 GPU 仅 13.1 ms 而 `GameThreadTime_CriticalPath` 47.6 ms，瓶颈在游戏线程等待，不在 GPU。
+- [x] **「帧数降低」与周期性顿挫是两件事，已分开记录**。用户症状是**持续降帧**；此前采集全在 1280×720 而用户实际 2560×1440，故降帧在旧数据里显不出来。已按原生分辨率重测，分解帧预算（`Tools/Performance/frame_budget.py`）。
+- [x] **`fps.body.WorldBody` 运行时开关已实现**（2026-09-22，用户要求现场测试用）。0 = 隐藏第三人称身体 + 世界武器副本 + 配件副本 + outfit；带 cvar 回调立即生效。修好了原先"读值早于 `-ExecCmds` 所以不生效"的问题；可见性会被 `InitializeBody` / `UpdateOwnerVisibility` / `UpdateWorldOwnerVisibility`(CalcCamera) 三处重设，已全部汇到 `ApplyWorldBodyVisibility()`。实现要点见 `Docs/Performance/hitch-player-body-20260921.md` 第 16 节。
+- [ ] **待用户现场反馈**：`fps.body.WorldBody 0` 前后 `stat unit` 的 Game / Draw / GPU 三个数，以及帧数是否明显变化。这是判断降帧来源最直接的证据。
+- [x] **本开关未做主动测试**（按用户全局规则）：仅确认 `FPSGAME Win64 Development` 编译 → `Result: Succeeded`。
+- [ ] **~~GPU 不是瓶颈，降画质大概率无效~~（已作废，见下条）**：该结论建立在"720p/1440p 的 GPU 时间几乎相同"之上，而那两次采集其实都跑在 720p，所以相同是必然的。
+- [ ] **~~玩家建模的降帧成本在噪声量级~~（部分作废）**：720p 那组对照（12.807→11.407）本身是干净 720p 数据，仍可参考；但"1440p 对照方向相反"那半条无效。
+- [ ] **本机采集无法复现用户降帧（重要）**：720p 同构建连续两次运行得到 **35.56 ms（28 FPS）与 12.41 ms（80.6 FPS）**，相隔 2 分钟、参数相同，第一次是离群值。这套 `-game -RenderOffscreen` 采集本身有 ±3 倍不可复现波动；两次 1440p 采集还有 2800~2960 ms 极端帧（与并行工作流改动重叠）。**不能用这套数据解释用户症状。**
+- [x] **严重更正：本套采集分辨率改不动**。`-ResX/-ResY`、`-windowed`、`r.SetRes`、改写 `GameUserSettings.ini` **四种方式全部失败**，采集恒为 1280×720（`systemresolution.resx="1280"`；`RenderTargetPool/PeakUsedMB` 2041 vs 2365 MB 证实未变）。**因此此前标称 2560×1440 的两行数据无效**，「GPU 不是瓶颈、降画质无效」的结论随之作废——1440p 下 GPU 是否是瓶颈**未测量**。
+- [ ] **回归定位需要用户提供边界**：用户称「原来 100+，近期更新才降」。需要：上次确认 100+ 是哪天/哪个提交、哪张地图、分辨率画质、PIE 还是独立运行。缺此边界无法二分。
+- [x] **弹道/曳光弹已排除为整场景降帧原因**：三个曳光弹材质（`M_BallisticTracerSoftV2`/`VisibleV12`/`VisibleV13`）**都是 `BLEND_Additive` + `MSM_Unlit`，混合模式未变**，且只在开火时存在实例，不影响空载帧率。
+- [x] **`DefaultGame.ini` 改动已排除**：`d96558e` 只加了 `DirectoriesToAlwaysCook`（打包用），不影响运行时。
+- [ ] **待查**：`Source/FPSGAME/Characters/`（玩家身体）在 git 里**未跟踪**，引入时间无法从提交记录判断，需用户确认是哪次更新加入的。
+- [ ] **定位手段**：对候选提交 `git worktree` + 独立构建 + 同参数采集对照；因本套采集限制在 720p 且有 ±3 倍波动，**每个候选点需 2~3 次采集取中位**。
+- [ ] **建议**：查清是谁把 GPU 名改成 750 Ti（可能影响项目按 GPU 名分支的设置与以后的诊断/驱动更新）。
+- [ ] 缺陷：`fps.body.WorldBody` 诊断开关**实际不生效**（读值时机早于 `-ExecCmds` 的第 1 帧），留用前需改成在三处各自读值，否则会误判。
+- [ ] 未验证：`AlwaysTickPose` 档位切换对第三人称切换瞬间姿态首帧的影响；全部数据来自 `-game -RenderOffscreen` 独立运行，**不是**用户的交互 PIE 现场。
+- [ ] 内容缺口：`Content/ColdSteelData/Icons/ue_pkm.png`、`ue_dan_wesson715.png`、`ue_frost_crystal_sword.png` 三个文件不存在，需要补图或从物品定义里去掉引用。
+- [x] 未采纳的做法：**没有**下调天气贴图、**没有**扩大纹理流送预算、**没有**隐藏警告。实测不支持这些动作（换地图照样卡；显存余量约 2.2 GB）。
 
 
 本文件只记**已经明确、但本次没做**的事项，供后续会话接手。已完成的内容在各自的案例文档与工作流文档里，不在这里重复。最近的建筑系统开发见 [体素建造工作流](Building/voxel-build-workflow.md)、[垂直建造排查](Building/voxel-vertical-build-diagnosis-20260916.md)、[建筑系统验收](Building/voxel-build-audit-20260916.md)、[面板规划](UI/voxel-build-panel-plan-20260916.md)、[范围拾取与提示栏](UI/area-pickup-and-notice-bar-20260916.md)。
 
 编号沿用 2026-09-16 建筑系统评审里的条目号，方便对上当时的讨论。
+
+## 野外主游戏环节优化（2026-09-18 登记）
+
+用户于 2026-09-18 指定四项野外主循环优化；每项的现状证据、目标、交付物与依赖见 [玩法开发案 · 第 12 节](Gameplay/gameplay-roadmap-20260918.md)。本表只登记事项与建议下一步。
+
+| 编号 | 事项 | 现状 | 建议下一步 |
+| --- | --- | --- | --- |
+| O1 | **采集工具动作优化**（伐木 / 挖矿 / 铲土） | 斧、镐在 `production_tools.json` 已配骨骼视模与动作前缀；**铁铲没有视模与动作**，仍走程序挥动。三把工具共用同一命中节奏（0.68/0.24 s）；挖矿只有粉尘 + 实例移除，没有破碎过程 | 先给铁铲补第一人称视模与作者动画，再逐工具分开接触节奏；挖矿加可读的破碎表现 |
+| O2 | **野外设施模型**：制作工作台、高炉、篝火、床铺 | **高炉本体已于 2026-09-23 完成并接入**（本地 Blender 精确建模，非 5080）：静态网格 `/Game/Props/BlastFurnace20260923/SM_BlastFurnace`，建造面板条目 `blast_furnace`「冶炼高炉」6×5×11 格，见 [高炉案例](Gameplay/blast-furnace-model-20260923.md)。**同日冶炼玩法已接**：E 交互开背包＋左侧冶炼面板、`smelting-recipes.json` 矿→锭配方（**燃料模型**：木材 20 秒/件、存料封顶 300 秒，有燃料才按真实时间推进，建造存档 VBX v6、v5 自动迁移；双列加粗进度条带脉冲与火星动效＋添加燃料按钮）、4 种锭物品＋占位图标，见 [冶炼面板规划](UI/smelting-panel-plan-20260923.md) 第 7.1 节。其余三项仍无世界本体：篝火/床铺可复用 `EasyBuildingSystem` 的 prefab、网格与 `PS_CampFire`/`SC_Campfire_Loop`；制作工作台无现成素材（现有「工作台」只是枪匠/强化 UI）。高炉可复用的坩埚特效 `NS_CauldronBlacksmith` 与 `NS_ForgeSparks` 尚未挂到炉子接口点上 | 制作工作台仍按 `asset-model-workflow` 做模型；高炉只差**特效挂点＋放置扣料＋锭的正式渲染图标**（模型、放置与熔炼玩法已就绪）；四个设施都要剥离 EBS 依赖后原生适配，并接上制作/熔炼/烹饪/存档点玩法 |
+| O3 | **野外动物与森林怪物** | `Content/AnimalVarietyPack`（鹿、狐、猪、乌鸦、狼，146 动画）已在本机但未接玩法；`UQuadrupedAnimationSet` 四足模板与 `AWolfMonster` 已实现；森林怪物完全没有 | 先用四足模板接鹿/狐/猪/乌鸦（猎物逃跑、掠食者反击），再按 `ue5-monster-workflow` 做 1–2 种森林怪物 |
+| O4 | **随机事件（野外）** | 事件时间轴 UI 已就绪（未来 5 日窗口 + 「入侵情报」占位行），但数据源只有天气，没有事件调度器 | 先做环境 + 遭遇 + 据点三类最小闭环；事件实例稳定 ID、预报/进行中/已结算三态、超时也结算；五日入侵留到阶段 4 |
+
+建议顺序：O1 → O2 → O3 → O4（O4 的底座依赖玩法开发案第 6 节 S2，可与 O2/O3 并行）。
 
 ## 建筑系统
 
@@ -94,7 +160,6 @@
 | X2 | **AKM 并入弧管重建** | 未做（AKM 仍是第三轮"逐截面切线 + smoothstep 渐入"，带内表面被拉伸） | 弧管重建脚本目前只接了 M4/QBZ；AKM 源件（焊在机匣壳内的松动弹匣）需要单独提取，且是弯件、切线拟合要单独校 | 在 `Scripts/build_extmag_arc_tube.py` 加 AKM 工程（源 `PhantomRearGripIntegration20260913/AKM/SK_AKM_MannyNative.fbx` 的 `AKM_FactoryMagazine_Preview`），弧弯角写进回执 |
 | X3 | **延长段肋纹** | 未做（弧管段是干净管体，没有原厂肋纹；这是为"接缝不皱"做的取舍） | 要在弧管上生成肋环，需要把带体表面的肋剖面沿弧重采样 | 若实机觉得延长段太素，再按"切面带 + 肋剖面沿弧重采样"补肋，先出单枪对照再推广 |
 | X4 | **三枪实机验收** | 未做（本轮只到"重建 → 导出 → 离线对位"，未进游戏） | 本仓库规则：观感与动作由用户实机判读 | 三枪各装一次 `ext_mag`：看井口缝线/露出长度、换弹时是否跟手、专属图标是否显示 |
-
 ## 近战武器（2026-09-16 暂停）
 
 | 编号 | 事项 | 现状 | 为什么没做 / 需要什么 | 建议下一步 |
@@ -104,7 +169,7 @@
 | M3 | **命中窗 1.22–1.40 s 未经验证** | 已按 V52 时钟编译进 DLL | 动作本身被 M1 挡住，没人试过冲刺劈砍是否真的打中 | 修好 M1 后再实测一次；窗口取值依据见 `Docs/Weapons/runesword-overhead-20260916.md` 第七节 |
 | M4 | **F 键检视 V47 待用户验证** | 已接入并写盘（V46 前臂扭转分布 + V47 转刀重建），用户尚未反馈 | 用户把注意力放在冲刺竖劈上 | 用户试过后如仍有偏差，按 `source-hand-animation-study.md` 的接触驱动方法继续；不要再回到"固定剑轨迹再让手让位" |
 
-| M5 | **步枪枪托砸击（快速进战步枪版）暂停待办** | 2026-09-18：作者源 clip（六握把配置）+ 接线 + 编译/导入全部就绪，取 C 版（横向横扫）；用户实机仍判不符预期，要求暂停 | 读参考两轮仍没抓到观感（A 抬枪口上下劈 → B 抬枪托上下版 → C 横向横扫）；剩余差距在幅度/节奏/取景，需真机逐项比对，不适合继续盲调 | **下次入口**：[M4 枪托砸击记录](Weapons/m4-stock-melee-20260918.md) 的「恢复入口」节：`author_quickcombat.py --variant C` 改 `MOTION_C` 参数 → `tune_motion.py C` 看屏幕坐标 → `render_preview.py` 出对位胶片 → `import_quickcombat.py` 覆盖导入。参考帧在 `SourceAssets/RifleStockMelee20260918/Reference/`（含 30 fps 原生帧与提亮读图） |
+| M5 | **M4 快速近战 N，待用户实机反馈** | K 主体方向正确；L/M 腕臂修订被否定。N 从 K 重新制作整手绕后握把换向、肘位和前臂支撑，六套已在当前编辑器导入保存 | 按本次要求检查源姿态、模型预览与 UE RAW/COMPRESSED；腕轴折角由约 105° 降到接触约 18°、全程最大约 23.4°，尚未实机试用 | 当前入口：[N 版记录](Weapons/m4-quick-melee-refine-20260919n.md)；K/M 作者源和导入前 M 资源保留 |
 
 废案位置：`trash/runesword-overhead-superseded-20260916/`（V49/V50/V51 共 31 个文件、450 MB，
 逐文件散列见 `Docs/AssetArchives/runesword-overhead-superseded-20260916.json`）；
@@ -114,18 +179,21 @@
 - `items.json` 与 `ColdSteelStatusModel.h` 里并行会话的未提交改动（剑类武器、树生长、命中签名等）尚未发布；本仓库最后一次推送只包含建筑系统的 hunk，等他们各自提交即可。
 
 
-## ASH-12 空仓换弹按参考重做（2026-09-18 已做完并导入，待实机判读）
+## ASH-12 换弹、拉机柄与 ADS 手臂（2026-09-18 已导入，待实机判读）
 
-参考视频（`Saved/Ash12ReloadRef/ref.mp4` 的 7.30–8.75 s）与旧实现**左右手分工相反**，已按参考重排，并经五轮实机反馈迭代：枪身绕枪管轴向射手左侧滚（换匣段 44–50°、拉栓帧 120 峰值 61.3°）、左手 IK 锁护木整段不动、右手走"握把 → 弹匣井拔/插 → 拉栓 → 回握把"、右手从右侧侧向够机匣的拉机柄。实现、逐帧实测、五轮反馈与**搁置点**见 `SourceAssets/ASH1220260917/README.md` 第 4b/4c 节。
+参考视频（`Saved/Ash12ReloadRef/ref.mp4` 的 7.30–8.75 s）与旧实现**左右手分工相反**，已按参考重排，并经五轮实机反馈迭代：枪身绕枪管轴向射手左侧滚（换匣段 44–50°、拉栓帧 120 峰值 61.3°）、左手 IK 锁护木整段不动、右手走"握把 → 弹匣井拔/插 → 拉栓 → 回握把"、右手从右侧侧向够机匣的拉机柄。第二轮把普通换弹并入同一套机制（cue 29/76/95、枪机闭合、无拉栓），并按已验收的 WristNatural 方法重解 ADS 手臂。第三轮退回了上一版的 `place_part`、枪机同步和自编 `equip_charge`，只按参考视频 8.05–8.30 s 重做空仓换弹拉栓：右手掌面向下、从上方盖住真实手柄，手本身按机匣 Y 轴滚转 80°，指尖到几何 12.8 mm。实现、逐帧实测与**搁置点**见 `SourceAssets/ASH1220260917/README.md` 第 4b/4c/4d/4e 节。
 
-已导出 `A_ASH12_reload_empty.fbx` 并导入 UE（2.700 s 未变，音效时钟不受影响）。定稿数值：弹匣可见度帧 42–48 97.6%；手臂网格对枪体最深 19.8 mm（已认可基线同级）；指尖到拉机柄 30 mm、到弹匣抓点约 10 mm；ADS 眼到手 77 mm。
+已导出 7 段 FBX 并导入 UE（`reload` 2.100 s、`reload_empty` 2.700 s、`equip_charge` 0.633 s，音效时钟未变；正式动画保持 120 Hz、`BC_M4Viewmodel`，采样键数与原资产一致）。定稿数值：弹匣可见度帧 42–48 97.6%；手臂网格对枪体最深 19.8 mm（已认可基线同级）；空仓拉栓指尖到真实手柄几何 12.8 mm、到弹匣抓点约 10 mm；空仓换弹右臂 twist 已改为保留接受动作的相对 twist，不再重置辅助骨。ADS 右手穿模未解决，等实机截图定位。
 
 | 编号 | 事项 | 现状 | 为什么没做 / 需要什么 | 建议下一步 |
 | --- | --- | --- | --- | --- |
-| A1 | **空仓换弹实机验收** | 已接入、未进游戏 | 本仓库规则：动作由用户实机判读 | 装弹打空换弹，看滚转幅度/时机、右手取匣与拉栓的手型、右臂是否挡 ADS 视线、与声音是否合拍 |
+| A1 | **换弹实机验收（两条）** | 已接入、未进游戏 | 本仓库规则：动作由用户实机判读 | 分别试有弹换弹和打空换弹，看滚转幅度/时机、右手取匣与拉栓的手型、两条片段是否同一套分工、与声音是否合拍；再切枪看装备拉栓是否也抓真实手柄 |
 | A2 | **手指开合时序** | 未做（换匣与拉栓各一段整体收拳，无逐帧开合） | 现在两处"握得住"了，但没有"松—握—松"的时序 | 按 `pose-contact.md` 的接触驱动方法给食指/拇指/四指分阶段开合；用 `probe_reload_visibility.py` 的指尖到抓点距离验收 |
-| A3 | **战术换弹同构** | 未做（`reload` 仍是 M4 支撑手路线） | 两条片段在游戏里分工不一致会很明显 | 同一套机制加 `reload`：cue 帧 29/76/95，无拉栓段（枪机闭合），入匣后右手直接回握把 |
+| A3 | **战术换弹同构** | 已做并导入（cue 29/76/95，无拉栓段；`reload` 2.100 s） | 待实机对比两条换弹的分工、滚转与回握把 | 观察 `reload` 是否与 `reload_empty` 同一套观感，重点看入匣后右手回握把和枪身回正 |
 | A4 | **实机静帧夹具** | 夹具已写好、目标已编，**跑不起来** | `-game -RenderOffscreen` 跑约 15 s 崩溃（`EXCEPTION_ACCESS_VIOLATION`，栈无项目模块；去掉本枪夹具同样崩），疑与并行会话 23:55–00:15 的 C++ 改动有关 | 等那些会话提交后再跑；命令见 `Docs/Weapons/ash12-integration-20260917.md`，Git Bash 下要 `MSYS_NO_PATHCONV=1` |
+| A5 | **ADS 右手穿模实机判读** | 未解决；18 cm 离线渲染显示左下支撑臂楔形，复制不出实机右侧穿模 | 需要实机 ADS 截图或 UE 夹具抓图 | 先定位是左臂还是右臂，再决定肩/眼距/极向量；不要继续盲目加肩部偏移 |
+| A6 | **拉机柄参考视频重做** | 已按参考视频改为掌面向下上盖抓法并导入（`hand_rot` 真正施加到手掌，80° 机匣 Y 滚转，指尖到几何 12.8 mm） | 待实机确认；手柄/枪机同步、`equip_charge` 仍是遗留项 | 换弹看手是否从上方盖住手柄；`equip_charge` 需要单独参考，不再自编 |
+| A7 | **空仓换弹右手臂扭曲** | 已修并导入（`shift_arm` 保留上下臂相对 twist，不再把 twist 辅助骨重置为 rest；`hold_hand` 的 TURN/TWIST 前臂分摊不变） | 待实机确认右前臂不再拧 | 换弹看右前臂外/内侧蒙皮是否连续；若仍扭，检查 `hold_hand` 的 `TURN_SHARE`/`TWIST_SHARE` |
 
 ## GPU 草交互（2026-09-27 用户反馈未成功，暂停）
 

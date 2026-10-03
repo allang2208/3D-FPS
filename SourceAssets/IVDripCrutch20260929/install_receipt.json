@@ -1,0 +1,52 @@
+{
+  "mesh": "/Game/Props/IVDripCrutch20260929/SM_Hospital_IVDrip_Crutch",
+  "source": "Sketchfab 5cc65c6aed374220b67f7d60e679153e 'Crutch and IV Drip'",
+  "license": "CC-BY-4.0, credit: 'Crutch and IV Drip' by Davide G. Triulzi (sketchfab.com), CC-BY-4.0",
+  "textures": [
+    "T_HospitalIV_Crutch_BaseColor",
+    "T_HospitalIV_Crutch_MR",
+    "T_HospitalIV_Crutch_Normal",
+    "T_HospitalIV_Drip_BaseColor",
+    "T_HospitalIV_Drip_MR",
+    "T_HospitalIV_Drip_Normal",
+    "T_HospitalIV_Stand_BaseColor",
+    "T_HospitalIV_Stand_MR",
+    "T_HospitalIV_Stand_Normal"
+  ],
+  "materials": {
+    "Crutch": "/Game/Props/IVDripCrutch20260929/Materials/M_HospitalIV_Crutch",
+    "Stand": "/Game/Props/IVDripCrutch20260929/Materials/M_HospitalIV_Stand",
+    "Drip": "/Game/Props/IVDripCrutch20260929/Materials/M_HospitalIV_Drip"
+  },
+  "verify": {
+    "slots": [
+      {
+        "slot": "Crutch",
+        "material": "/Game/Props/IVDripCrutch20260929/Materials/M_HospitalIV_Crutch.M_HospitalIV_Crutch"
+      },
+      {
+        "slot": "Drip",
+        "material": "/Game/Props/IVDripCrutch20260929/Materials/M_HospitalIV_Drip.M_HospitalIV_Drip"
+      },
+      {
+        "slot": "Stand",
+        "material": "/Game/Props/IVDripCrutch20260929/Materials/M_HospitalIV_Stand.M_HospitalIV_Stand"
+      }
+    ],
+    "bounds": {
+      "min": [
+        -43.8,
+        -28.9,
+        0.0
+      ],
+      "max": [
+        43.8,
+        28.9,
+        205.0
+      ]
+    }
+  },
+  "saved": true,
+  "game_tested": false,
+  "acceptance_rendered": false
+}

@@ -1,0 +1,66 @@
+{
+  "meshes": {
+    "SM_Warehouse_WoodCrate_Body": {
+      "path": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Body",
+      "source_sha256": "46a76f9b13a9c056c2e2d75515836074b1469aa4d90d552bad43cdd0c06d020c",
+      "triangles": 16302
+    },
+    "SM_Warehouse_WoodCrate_Lid": {
+      "path": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+      "source_sha256": "eedc5fe4f4bd4f80a66db9b4b0c2cd5e989d749db90836d03742627a07a3a4d5",
+      "triangles": 2068
+    },
+    "SM_Warehouse_Tote_Body": {
+      "path": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Body",
+      "source_sha256": "66bba0de2546daff642bbc5aa779e9fbcea033b385a6200d48efc3a50fc40c6b",
+      "triangles": 5542
+    },
+    "SM_Warehouse_Tote_Lid": {
+      "path": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+      "source_sha256": "8156194f23d0005ea7b84c8f9a708b31147b16c2f703051769c93acc3fd1883d",
+      "triangles": 1316
+    },
+    "SM_Warehouse_MetalCase_Body": {
+      "path": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Body",
+      "source_sha256": "d1722c991d5816b3d050f38aa8229dda7f26908dad86559be586fefa5a2ec925",
+      "triangles": 11790
+    },
+    "SM_Warehouse_MetalCase_Lid": {
+      "path": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+      "source_sha256": "9eb9f5018ddc1c123f8981e26184ec42a7d812e53682efdbb916ce124d28bc11",
+      "triangles": 1128
+    },
+    "SM_Warehouse_ToolCabinet_Body": {
+      "path": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Body",
+      "source_sha256": "49e575ebffa02338c65f7055fb84984209ec7ff7c82132b01e727b7fb187634b",
+      "triangles": 8296
+    },
+    "SM_Warehouse_ToolCabinet_Door": {
+      "path": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Door",
+      "source_sha256": "7298a0dbeff7b42981b0f3218739d8f36d94ec29a1b841af7ea956f205537e02",
+      "triangles": 1522
+    },
+    "SM_Warehouse_ToolDrawer_Frame": {
+      "path": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Frame",
+      "source_sha256": "7dbe46a6c3750dbfdf9be809a47f859211dbcd06a1b28d0eff2ba7015c6e0866",
+      "triangles": 564
+    },
+    "SM_Warehouse_ToolDrawer_Tray": {
+      "path": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Tray",
+      "source_sha256": "070b9b796f1215d454e53f3152b17f8a653dcaddc8235c5f957fbb44520982bd",
+      "triangles": 2334
+    }
+  },
+  "materials": [
+    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels",
+    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen",
+    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerBlue",
+    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGray",
+    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint"
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "label_source_sha256": "059039075c4805629c893e8cf08b8a3c074f570bf4a105c759ca25396072ee8f",
+  "stage": "assets_saved"
+}

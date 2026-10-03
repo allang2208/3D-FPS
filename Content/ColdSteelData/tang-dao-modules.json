@@ -399,7 +399,7 @@
         "appearance": "环侧宽端直接收向尖端的八面锥；连续折线鎏金甲框、后段小型龙云浮雕、锻钢水波纹与磨亮棱线。"
       },
       "tiger_mountain": {
-        "mesh": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Meshes/SM_TangDao_Pommel_tiger_mountain_ConnectorV4.SM_TangDao_Pommel_tiger_mountain_ConnectorV4",
+        "mesh": "/Game/Weapons/TangDao20261002/TigerPommel20261002/SideProfileV6/Meshes/SM_TangDao_Pommel_tiger_mountain_SideProfileV6.SM_TangDao_Pommel_tiger_mountain_SideProfileV6",
         "interface": "tang_dao_hilt_v1",
         "location_cm": [
           0,
@@ -417,14 +417,15 @@
           1
         ],
         "materials": {
-          "M_TangDaoTigerPommel_BronzeFace": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_BronzeFace.M_TangDaoTigerPommel_BronzeFace",
+          "M_TangDaoTigerPommel_BronzeFace": "/Game/Weapons/TangDao20261002/TigerPommel20261002/SideProfileV6/Materials/M_TangDaoTigerPommel_BronzeFace_ProfileV6.M_TangDaoTigerPommel_BronzeFace_ProfileV6",
           "M_TangDaoTigerPommel_Gilt": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Gilt.M_TangDaoTigerPommel_Gilt",
           "M_TangDaoTigerPommel_Garnet": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Garnet.M_TangDaoTigerPommel_Garnet",
           "M_TangDaoTigerPommel_Mouth": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Mouth.M_TangDaoTigerPommel_Mouth",
-          "M_TangDaoTigerPommel_ChasedBody": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_ChasedBody.M_TangDaoTigerPommel_ChasedBody",
-          "M_TangDaoTigerPommel_Connector": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Connector.M_TangDaoTigerPommel_Connector"
+          "M_TangDaoTigerPommel_ChasedBody": "/Game/Weapons/TangDao20261002/TigerPommel20261002/SideProfileV6/Materials/M_TangDaoTigerPommel_ChasedBody_ProfileV6.M_TangDaoTigerPommel_ChasedBody_ProfileV6",
+          "M_TangDaoTigerPommel_Connector": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Connector.M_TangDaoTigerPommel_Connector",
+          "M_TangDaoTigerPommel_ChasedCrown": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_ChasedBody.M_TangDaoTigerPommel_ChasedBody"
         },
-        "appearance": "上部圆厚、下颌折面收束的虎首与卷云鬃纹实体浮雕、封闭口腔内壁和独立獠牙、红石虎目与冠带、云环尾扣、分层云纹套筒及红石止口边带。"
+        "appearance": "饱满后脑与后鬃，短阔下颌鬃与侧颊连续衔接，虎口侧缘后退、虎目内嵌侧转，长鬃向后下方流转，保留穹顶红石冠与云环接座。"
       }
     }
   },
@@ -500,5 +501,5 @@
   "cloud_rune_revision": "TangDaoAuspiciousCloudRune20261002",
   "xuan_cloud_guard_revision": "TangDaoXuanCloudGuard20261002",
   "phoenix_feather_guard_revision": "TangDaoPhoenixFeatherGuard20261002",
-  "tiger_pommel_revision": "TangDaoTigerPommel20261002"
+  "tiger_pommel_revision": "TangDaoTigerPommelSideProfileV6EyeAlign_20261003"
 }

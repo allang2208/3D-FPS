@@ -1,0 +1,16 @@
+{
+  "revision": "clearwater-native-20260926",
+  "phase": "saved-materials-and-map-bindings",
+  "saved": [
+    "/Game/Clearwater/M_ClearwaterWater_Native.M_ClearwaterWater_Native",
+    "/Game/Clearwater/M_ClearwaterSeabed_Native.M_ClearwaterSeabed_Native",
+    "/Game/Clearwater/M_ClearwaterUnderwater_Native.M_ClearwaterUnderwater_Native",
+    "/Game/Clearwater/SM_ClearwaterPlane.SM_ClearwaterPlane",
+    "/Game/Clearwater/L_ClearwaterWater.L_ClearwaterWater"
+  ],
+  "bindings": {
+    "seabeds_bound": 1,
+    "lights_adjusted": 1
+  },
+  "runtime_tested": false
+}

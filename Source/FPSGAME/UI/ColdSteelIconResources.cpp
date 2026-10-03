@@ -3,6 +3,7 @@
 #include "../Weapons/AR416Furniture.h"
 #include "../Weapons/CommonHK416Parts.h"
 #include "ColdSteelWeaponIcons.h"
+#include "ColdSteelEquipmentIconSource.h"
 #include "ColdSteelMeleePreview.h"
 #include "ColdSteelStaffPreview.h"
 #include "../Weapons/ModularSwordVisual.h"
@@ -79,7 +80,7 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         Add(ProductionHarvestAssets::PickupMesh(D,0).ToString(),true);
         Add(ProductionHarvestAssets::PickupMaterial(D).ToString(),true);
     }
-    else if(const FSoftObjectPath OutfitMesh=FPSBodyEquipment::StaticOutfitMesh(D);OutfitMesh.IsValid())
+    else if(const FSoftObjectPath OutfitMesh=ColdSteelEquipmentIconMesh(Item);OutfitMesh.IsValid())
     {
         // 刚性装备（登山包）：预取佩戴网格本体，材质贴图由捕获列表顺带常驻。
         Add(OutfitMesh.ToString(),true);

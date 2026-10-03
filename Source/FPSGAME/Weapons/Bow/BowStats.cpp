@@ -19,6 +19,7 @@ ColdSteelBow::FStats ColdSteelBow::Evaluate(const FColdSteelItem& Item,const UCo
     auto N=[&](const TCHAR* Key,double Default){return ColdSteelInventory::Number(I,Key,Default);};
     FStats S;S.Damage=ColdSteelWeaponStats::DamageParts(I,Profile,N(TEXT("full_damage"),69)).Scaled(DrawDamageMultiplier(1.f));
     S.Draw=FMath::Max(.3,ColdSteelWeaponStats::Interval(&I,Profile,N(TEXT("draw_seconds"),1.4)));
+    S.DrawSpeedBonus=ColdSteelWeaponStats::BowDrawSpeedBonus(&I,Profile);
     S.Nock=FMath::Max(.12,N(TEXT("nock_seconds"),.68))*M.Nock;S.Hold=FMath::Max(0.,N(TEXT("hold_seconds"),2.2))*M.Hold;
     S.Speed=N(TEXT("full_speed_cm"),9800)*M.Speed/100;S.Stamina=N(TEXT("stamina_cost"),3)*M.Stamina;
     S.Sway=N(TEXT("sway_amplitude_cm"),.9)*M.Sway;S.Spread=FMath::Max(0.,N(TEXT("bow_hip_spread"),.035))*M.Spread;

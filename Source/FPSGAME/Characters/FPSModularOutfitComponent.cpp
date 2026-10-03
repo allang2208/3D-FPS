@@ -24,10 +24,10 @@ namespace FPSModularOutfit
 TAutoConsoleVariable<int32> CVarBareArmsCandidate(
     TEXT("fps.Outfit.BareArmsCandidate"),0,
     TEXT("1: registered realistic bare arms with modular shirt/gloves unequipped. 0: original source arms."),ECVF_Default);
-FString PresentationKey(USkeletalMeshComponent* Source,FName Shirt,FName Gloves,bool bCandidate)
+FString PresentationKey(USkeletalMeshComponent* Source,FName Shirt,FName Gloves,bool bCandidate,FName Pants=NAME_None,FName Shoes=NAME_None)
 {
     return Source->GetSkeletalMeshAsset()->GetPathName()+TEXT("|")+Shirt.ToString()+TEXT("|")+Gloves.ToString()
-        +(bCandidate?TEXT("|BareArms"):TEXT("|Default"));
+        +(bCandidate?TEXT("|BareArms"):TEXT("|Default"))+TEXT("|")+Pants.ToString()+TEXT("|")+Shoes.ToString();
 }
 TSharedPtr<FJsonObject> Object(const TSharedPtr<FJsonObject>& Parent,const FString& Key)
 {
@@ -80,7 +80,7 @@ void UFPSModularOutfitComponent::RefreshInventory()
     if(!InventoryChanged.IsValid())
         InventoryChanged=Model->OnChanged.AddUObject(this,&UFPSModularOutfitComponent::RefreshInventory);
     TMap<int32,FName> Next;
-    for(const auto& Item:Model->Items())if(Item.Place==1&&(Item.Cell==3||Item.Cell==7))Next.Add(Item.Cell,FName(*Item.Definition));
+    for(const auto& Item:Model->Items())if(Item.Place==1&&(Item.Cell==3||Item.Cell==7||Item.Cell==13||Item.Cell==15))Next.Add(Item.Cell,FName(*Item.Definition));
     if(Next.OrderIndependentCompareEqual(Equipped))return;
     Equipped=MoveTemp(Next);bDirty=true;DiscoverCountdown=0.f;
 }
@@ -99,7 +99,7 @@ void UFPSModularOutfitComponent::SetWorldOutfit(const TArray<FFPSBodyOutfitSlot>
     const auto* Pawn=Cast<APawn>(GetOwner());
     if(Pawn&&Pawn->IsLocallyControlled()){RefreshInventory();return;}
     TMap<int32,FName> Next;
-    for(const auto& Item:Outfit)if(Item.Slot==3||Item.Slot==7)Next.Add(Item.Slot,Item.Definition);
+    for(const auto& Item:Outfit)if(Item.Slot==3||Item.Slot==7||Item.Slot==13||Item.Slot==15)Next.Add(Item.Slot,Item.Definition);
     if(!Next.OrderIndependentCompareEqual(Equipped)){Equipped=MoveTemp(Next);bDirty=true;DiscoverCountdown=0.f;}
 }
 void UFPSModularOutfitComponent::ReleasePresentation(FFPSOutfitPresentation& P)
@@ -163,12 +163,14 @@ void UFPSModularOutfitComponent::DiscoverSources()
     const bool bRestoreSourceArms=String(GloveRecipe,TEXT("first_person_mode"))==TEXT("source_arms");
     const bool bWearingModularOutfit=Object(Recipes,Equipped.FindRef(7).ToString()).IsValid()
         ||(GloveRecipe.IsValid()&&!bRestoreSourceArms);
+    const bool bWearingLowerBody=Object(Recipes,Equipped.FindRef(15).ToString()).IsValid()
+        ||Object(Recipes,Equipped.FindRef(13).ToString()).IsValid();
     bool bNativeBareHandsDefault=false;
     Configuration->TryGetBoolField(TEXT("native_bare_hands_default"),bNativeBareHandsDefault);
     const auto* Pawn=Cast<APawn>(GetOwner());
     const bool bTryCandidate=!bRestoreSourceArms&&!bWearingModularOutfit&&Pawn&&Pawn->IsLocallyControlled()
         &&CVarBareArmsCandidate.GetValueOnGameThread()==1;
-    if(!bWearingModularOutfit&&!bNativeBareHandsDefault&&!bTryCandidate&&!bRestoreSourceArms)
+    if(!bWearingModularOutfit&&!bWearingLowerBody&&!bNativeBareHandsDefault&&!bTryCandidate&&!bRestoreSourceArms)
     {
         // Returning the candidate switch to zero restores original sections.
         for(auto& Load:PendingLoads)if(Load.Value)Load.Value->CancelHandle();
@@ -198,7 +200,8 @@ void UFPSModularOutfitComponent::DiscoverSources()
             const bool bBaked=Flag(Profile,TEXT("native_bare_arms"));
             if((bRestoreSourceArms&&!bBaked)||(bBaked&&!bRestoreSourceArms&&!bWearingModularOutfit))continue;
         }
-        CurrentKeys.Add(PresentationKey(Source,Equipped.FindRef(7),Equipped.FindRef(3),WantsCandidate(Source,Profile)));
+        CurrentKeys.Add(PresentationKey(Source,Equipped.FindRef(7),Equipped.FindRef(3),WantsCandidate(Source,Profile),
+            Source==Body?Equipped.FindRef(15):NAME_None,Source==Body?Equipped.FindRef(13):NAME_None));
     }
     for(auto It=PendingLoads.CreateIterator();It;++It)
         if(!CurrentKeys.Contains(It.Key())||FailedLoads.Contains(It.Key()))
@@ -224,11 +227,11 @@ void UFPSModularOutfitComponent::DiscoverSources()
         if(bBakedBare&&!bWearingModularOutfit&&!bRestoreSourceArms)continue;
         const bool bOriginalGloves=bBakedBare&&bRestoreSourceArms;
         const bool bCandidate=WantsCandidate(Source,Profile);
-        if(!bWearingModularOutfit&&!bNativeBareHandsDefault&&!bCandidate&&!bOriginalGloves)continue;
+        if(!bWearingModularOutfit&&!(bWorld&&bWearingLowerBody)&&!bNativeBareHandsDefault&&!bCandidate&&!bOriginalGloves)continue;
         // A future profile without a native default keeps its accepted source.
         // Never revive the old FBX-rebound base merely because the global default
         // is enabled for other weapons.
-        if(!bWearingModularOutfit&&!bCandidate&&String(Profile,TEXT("native_bare_skin")).IsEmpty())continue;
+        if(!bWearingModularOutfit&&!(bWorld&&bWearingLowerBody)&&!bCandidate&&String(Profile,TEXT("native_bare_skin")).IsEmpty())continue;
         // World weapon copies have the same mesh paths as viewmodels, but have
         // no camera-space ownership. Never grow a second pair of arms on them.
         if(!bWorld&&!Source->bOnlyOwnerSee)continue;
@@ -261,8 +264,11 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     const auto GloveRecipe=Object(Recipes,Equipped.FindRef(3).ToString());
     const TSharedPtr<FJsonObject> Gloves=String(GloveRecipe,TEXT("first_person_mode"))==TEXT("source_arms")
         ?nullptr:GloveRecipe;
+    const auto Pants=bWorld?Object(Recipes,Equipped.FindRef(15).ToString()):nullptr;
+    const auto Shoes=bWorld?Object(Recipes,Equipped.FindRef(13).ToString()):nullptr;
     bool bCandidate=false;Profile->TryGetBoolField(TEXT("candidate_active"),bCandidate);
-    FString Key=PresentationKey(Source,Equipped.FindRef(7),Equipped.FindRef(3),bCandidate);
+    FString Key=PresentationKey(Source,Equipped.FindRef(7),Equipped.FindRef(3),bCandidate,
+        bWorld?Equipped.FindRef(15):NAME_None,bWorld?Equipped.FindRef(13):NAME_None);
     auto* Existing=Presentations.FindByPredicate([Source](const auto& P){return P.Source==Source;});
     if(Existing&&Existing->Key==Key)
     {
@@ -297,7 +303,10 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     if(!bWorld&&Shirt&&Shirt->TryGetArrayField(TEXT("first_person_materials"),ViewMaterials))
         for(const auto& Value:*ViewMaterials)ShirtViewMaterials.Add(Value->AsString());
     bool bGloveInBase=false;if(Gloves)Gloves->TryGetBoolField(TEXT("glove_in_base"),bGloveInBase);
+    if(Flag(Profile,TEXT("separate_gloves")))bGloveInBase=false;
     if(Gloves&&!bGloveInBase){MeshPaths.Add(PartMesh(Gloves,TEXT("gloves")));MaterialPaths.Add(String(Gloves,TEXT("material")));}
+    if(Pants){MeshPaths.Add(PartMesh(Pants,TEXT("pants")));MaterialPaths.Add(String(Pants,TEXT("material")));}
+    if(Shoes){MeshPaths.Add(PartMesh(Shoes,TEXT("shoes")));MaterialPaths.Add(String(Shoes,TEXT("material")));}
     TArray<FSoftObjectPath> Paths;
     bool bLoaded=true;
     for(const FString& Path:MeshPaths)
@@ -356,11 +365,20 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         // Short sleeves retain the native arms. Body coverage is independent
         // because its torso section does not exist on first-person profiles.
         const TCHAR* CoverageKey=bWorld&&Shirt->HasField(TEXT("world_covers"))?TEXT("world_covers"):TEXT("covers");
-        Covered.Append(Shirt->HasField(CoverageKey)?Numbers(Shirt,CoverageKey):Numbers(Profile,TEXT("shirt_covers")));
+        const auto RigCoverage=bWorld?Object(Shirt,TEXT("rig_world_covers")):nullptr;
+        const FString Rig=String(Profile,TEXT("rig_profile"));
+        if(RigCoverage&&RigCoverage->HasField(Rig))Covered.Append(Numbers(RigCoverage,*Rig));
+        else Covered.Append(Shirt->HasField(CoverageKey)?Numbers(Shirt,CoverageKey):Numbers(Profile,TEXT("shirt_covers")));
     }
     // Open-finger gloves keep the exposed skin sections in the assembled base.
     // Missing per-item coverage preserves the existing full-glove recipe.
     if(Gloves)Covered.Append(Gloves->HasField(TEXT("covers"))?Numbers(Gloves,TEXT("covers")):Numbers(Profile,TEXT("glove_covers")));
+    for(const auto& Lower:{Pants,Shoes})if(Lower)
+    {
+        const auto RigCoverage=Object(Lower,TEXT("rig_world_covers"));
+        const FString Rig=String(Profile,TEXT("rig_profile"));
+        Covered.Append(RigCoverage&&RigCoverage->HasField(Rig)?Numbers(RigCoverage,*Rig):Numbers(Lower,TEXT("world_covers")));
+    }
     if(BaseData)for(int32 L=0;L<BaseData->LODRenderData.Num();++L)for(const int32 M:Covered)Section(Base,M,L,false);
     if(Existing)ReleasePresentation(*Existing);
     else Existing=&Presentations.AddDefaulted_GetRef();

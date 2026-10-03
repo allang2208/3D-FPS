@@ -1,0 +1,113 @@
+{
+  "task": "third-person-sword-overhead-v1-rejected",
+  "date": "2026-10-03",
+  "archive": "trash/third-person-sword-overhead-v1-rejected-20261003",
+  "reason": "User rejected V1; retain pre-V1 body presentation and previous grip fixes",
+  "files": [
+    {
+      "original": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "archived": "snapshots/FPSPlayerBodyMotion.cpp",
+      "operation": "copy_shared_context",
+      "bytes": 21828,
+      "sha256": "3304D3712DAD052660A1B1B26268412E594430844C4003D55480A7276395FACD"
+    },
+    {
+      "original": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "archived": "snapshots/FPSPlayerBodyAnimInstance.cpp",
+      "operation": "copy_shared_context",
+      "bytes": 56311,
+      "sha256": "887B6648DDCB36B3C2D26646D8E4A819086E28F01337E1612E16CA5592C72477"
+    },
+    {
+      "original": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "archived": "snapshots/FPSPlayerBodyComponent.h",
+      "operation": "copy_shared_context",
+      "bytes": 11580,
+      "sha256": "7A8B473DC5698D99A294B1E57BA17361B8DA5F63A07B355625D53A369E7D1AAB"
+    },
+    {
+      "original": "Source/FPSGAME/Characters/FPSBodyMeleePose.h",
+      "archived": "snapshots/FPSBodyMeleePose.h",
+      "operation": "copy_shared_context",
+      "bytes": 4693,
+      "sha256": "4BB86F78C37015A885D9565DFF0B411B7BE3029CBB4A093E477586AB6C2216A9"
+    },
+    {
+      "original": "Source/FPSGAME/Characters/FPSBodySwordOverhead.h",
+      "archived": "FPSBodySwordOverhead.h",
+      "operation": "move_retired_file",
+      "bytes": 3171,
+      "sha256": "F5CE27F996A6141B176AF49D8EC5A1D6F1358EA0C94C14F902D15FAC2D8933B5"
+    },
+    {
+      "original": "Docs/Characters/third-person-sword-overhead-v1-20261003.md",
+      "archived": "third-person-sword-overhead-v1-20261003.md",
+      "operation": "move_retired_file",
+      "bytes": 3802,
+      "sha256": "E04867FC639CD6900FA23F6C9D27AB4CB50E20DFDE89ABF6C206AB2A10DCAC41"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordOverhead20261003/build-editor-final.json",
+      "archived": "build-records/build-editor-final.json",
+      "operation": "move_retired_file",
+      "bytes": 37673,
+      "sha256": "7141C500DCC999CBD0D8F48791446276F07F87AAD52B4E1987BAA9578A68B5BF"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordOverhead20261003/build-editor-final.log",
+      "archived": "build-records/build-editor-final.log",
+      "operation": "move_retired_file",
+      "bytes": 14277,
+      "sha256": "5EBC7BDC8DF927BCFBA38F22392242647653D86DFD6ED48C77D7780485515553"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordOverhead20261003/build-editor-final.txt",
+      "archived": "build-records/build-editor-final.txt",
+      "operation": "move_retired_file",
+      "bytes": 9185,
+      "sha256": "EB6FF35229D7379E948AEBE08869CE2871027F387E6061EFBFFB1E42F6D22318"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordOverhead20261003/build-editor.json",
+      "archived": "build-records/build-editor.json",
+      "operation": "move_retired_file",
+      "bytes": 154640,
+      "sha256": "133DB5D8214A67609358FF3DE98CA2C2FC15C1FB7E3F56984F41CF9991CF8375"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordOverhead20261003/build-editor.log",
+      "archived": "build-records/build-editor.log",
+      "operation": "move_retired_file",
+      "bytes": 55336,
+      "sha256": "25BBAC22F3A59EED7738C8500E8C6A2E8132F0C5886A80EFBEBEB5BEE5817A1F"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordOverhead20261003/build-editor.txt",
+      "archived": "build-records/build-editor.txt",
+      "operation": "move_retired_file",
+      "bytes": 39439,
+      "sha256": "073A6B32F2F9C2C8B77C0C3E33676CD663A0939879FAB2EBD4516613DC8EDA37"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordOverhead20261003/build-game.json",
+      "archived": "build-records/build-game.json",
+      "operation": "move_retired_file",
+      "bytes": 37374,
+      "sha256": "E317C8712731F5070C974F5B3B6B97F9825213EB51156AC6F12F71D240F4E100"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordOverhead20261003/build-game.log",
+      "archived": "build-records/build-game.log",
+      "operation": "move_retired_file",
+      "bytes": 13996,
+      "sha256": "61E53BE558140FA28AAFAEB7B3796206AC0CFB115EDF85C68A491BA1EFEC3042"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordOverhead20261003/build-game.txt",
+      "archived": "build-records/build-game.txt",
+      "operation": "move_retired_file",
+      "bytes": 8952,
+      "sha256": "C2E35D7DAA21FD09118B35AF937E7134B904BC7981F3E472B95CF94F583D8AEA"
+    }
+  ]
+}

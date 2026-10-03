@@ -1,0 +1,45 @@
+[
+  {
+    "key": "ue_apprentice_staff_category_crown",
+    "keys": [
+      "ue_apprentice_staff_category_crown"
+    ],
+    "family": "staff",
+    "source": "Content/ColdSteelData/AttachmentIcons20260913/ue_apprentice_staff_crown_wreath_crown.png"
+  },
+  {
+    "key": "ue_apprentice_staff_category_shaft_rune",
+    "keys": [
+      "ue_apprentice_staff_category_shaft_rune"
+    ],
+    "family": "staff",
+    "source": "Content/ColdSteelData/AttachmentIcons20260913/ue_apprentice_staff_shaft_rune_crit_rune.png"
+  },
+  {
+    "key": "ue_apprentice_staff_category_tail_charm",
+    "keys": [
+      "ue_apprentice_staff_category_tail_charm"
+    ],
+    "family": "staff",
+    "source": "Content/ColdSteelData/AttachmentIcons20260913/ue_apprentice_staff_tail_charm_ice_soul_pendant.png"
+  },
+  {
+    "key": "ue_apprentice_staff_category_mana_line",
+    "keys": [
+      "ue_apprentice_staff_category_mana_line"
+    ],
+    "family": "staff",
+    "source": "Content/ColdSteelData/AttachmentIcons20260913/ue_apprentice_staff_mana_line_direct_mana.png"
+  },
+  {
+    "key": "tactical_vertical_shared",
+    "keys": [
+      "ue_m16a2_underbarrel_tactical_vertical_foregrip",
+      "ue_a762_underbarrel_tactical_vertical_foregrip",
+      "ue_pkm_lowpoly_underbarrel_tactical_vertical_foregrip",
+      "ue_lmg201_underbarrel_tactical_vertical_foregrip"
+    ],
+    "family": "firearm",
+    "source": "Content/ColdSteelData/AttachmentIcons20260913/ue_akm_underbarrel_tactical_vertical_foregrip.png"
+  }
+]

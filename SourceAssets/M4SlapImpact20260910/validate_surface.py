@@ -27,3 +27,4 @@ report={'scope':'Actual deformed glove vertices; receiver left-side approach at 
 (O/'surface_validation.json').write_text(json.dumps(report,indent=2));print('SURFACE_RESULT',report['minimum_margin_mm'],report['contact_at_130'])
 assert report['minimum_margin_mm']>-.5,report['minimum_margin_mm']
 assert report['contact_at_130']['nearest_catch_surface_mm']<2,report['contact_at_130']
+

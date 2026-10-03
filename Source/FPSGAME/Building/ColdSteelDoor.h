@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ColdSteelDoorNetState.h"
 #include "ColdSteelDoor.generated.h"
 
 class UStaticMeshComponent;
@@ -30,6 +31,9 @@ class FPSGAME_API AColdSteelDoor : public AActor
 public:
     AColdSteelDoor();
     virtual void Tick(float DeltaSeconds) override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+    void OpenDoorFrom(const APawn* InstigatorPawn);
+    void ToggleDoorFrom(const APawn* InstigatorPawn);
 
     UFUNCTION(BlueprintCallable, Category="Door") void ToggleDoor();
     UFUNCTION(BlueprintCallable, Category="Door") void OpenDoor();
@@ -67,7 +71,7 @@ private:
      */
     void UpdateLeafPawnCollision();
     /** 玩家站在门的哪一侧（门的本地 X 轴，+1／−1）；没有本地玩家时返回 false。 */
-    bool TryGetPlayerSideSign(float& OutSign) const;
+    bool TryGetPlayerSideSign(float& OutSign,const APawn* InstigatorPawn) const;
     /** 把“世界侧（+X／−X）”换算成开合角符号：铰链在 +Y 时同号，在 −Y 时反号。 */
     float AngleSignForWorldSide(float WorldSideSign) const;
     /** 一次性自检日志：打印门框/门板的世界包围盒，便于确认贴地与对齐。 */
@@ -99,4 +103,11 @@ private:
     bool bOpenFlipped=false;
     /** 铰链侧符号（+1／−1），由 bHingeOnPositiveY 决定，AlignGeometry 时写入。 */
     float HingeSign=1.f;
+    void PublishSwing();
+    UFUNCTION() void OnRep_Swing();
+    UFUNCTION() void OnRep_Setup();
+    UPROPERTY(ReplicatedUsing=OnRep_Swing) FColdSteelDoorNetState NetSwing;
+    UPROPERTY(ReplicatedUsing=OnRep_Setup) TObjectPtr<UMaterialInterface> NetSurface;
+    UPROPERTY(ReplicatedUsing=OnRep_Setup) FVector NetScale=FVector::OneVector;
+    UPROPERTY(ReplicatedUsing=OnRep_Setup) FColdSteelDoorLeafConfig NetLeaf;
 };

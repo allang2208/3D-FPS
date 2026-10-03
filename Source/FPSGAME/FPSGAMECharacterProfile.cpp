@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Weapons/PistolDualWieldComponent.h"
 #include "Production/ProductionToolComponent.h"
 #include "Weapons/RuneSwordComponent.h"
@@ -13,9 +14,11 @@
 #include "Weapons/FPSWeaponFXComponent.h"
 #include "Weapons/GunsmithSystem.h"
 #include "Weapons/LMG201WeaponAssets.h"
+#include "Weapons/RSH12WeaponAssets.h"
 #include "Weapons/WeaponStatEvaluation.h"
 #include "Weapons/ColdSteelEnchantmentCombat.h"
 #include "Movement/FPSTraversalComponent.h"
+#include "Multiplayer/ColdSteelPlayerState.h"
 
 void AFPSGAMECharacter::ApplyWeaponAttachmentPresentation(const TMap<FString,FString>& Parts)
 {
@@ -38,14 +41,16 @@ void AFPSGAMECharacter::ApplyWeaponAttachmentPresentation(const TMap<FString,FSt
 
 void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
 {
-    if(!Profile || bResolvingActionInterrupt)return;
+    // Possession can publish a shadow profile before component initialization.
+    // BeginPlay consumes NetShadowProfile after creating the base viewmodel.
+    if(!HasActorBegunPlay() || !Profile || bResolvingActionInterrupt)return;
     const auto* I=Profile->Equipped();const FString Id=I?I->InstanceId:TEXT("");
     const FString Definition=I?I->Definition:TEXT("");
     const auto* Tool=Profile->ActiveProductionTool();
     const FString ToolId=Tool?Tool->InstanceId:FString();
     const bool WasWeaponReady=bInventoryWeaponReady;
     const bool WasDual=HasOffhandPistol();
-    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&((I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"))||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_a762")||I->Definition==TEXT("ue_lmg201")||I->Definition==TEXT("ue_svd")||I->Definition==TEXT("ue_pkm_lowpoly")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18"))||(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12"))));
+    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&((I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"))||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_a762")||I->Definition==TEXT("ue_lmg201")||I->Definition==TEXT("ue_svd")||I->Definition==TEXT("ue_pkm_lowpoly")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18")||I->Definition==TEXT("ue_pit_viper2011"))||(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12"))));
     const bool ChangedDual=DualPistols && !DualPistols->MatchesEquipment(Profile,bInventoryWeaponReady);
     const bool ChangedWeapon=ActiveInventoryWeapon!=Id||ActiveInventoryWeaponDefinition!=Definition
         ||WasWeaponReady!=bInventoryWeaponReady||ChangedDual||ActiveProductionToolInstance!=ToolId;
@@ -62,7 +67,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
     // A single-pistol swap retains its existing held-input behavior. Changing
     // between single and dual input mappings requires fresh trigger edges.
-    const bool PistolInput=ChangedWeapon&&!WasDual&&!ChangedDual&&bInventoryWeaponReady&&((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18"))||(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12")));
+    const bool PistolInput=ChangedWeapon&&!WasDual&&!ChangedDual&&bInventoryWeaponReady&&((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18")||I->Definition==TEXT("ue_pit_viper2011"))||(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12")));
     const bool ResumePistolAim=PistolInput&&bAimHeld;
     const bool ResumePistolFire=PistolInput&&bFireHeld;
     if(ChangedWeapon){
@@ -85,7 +90,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         ActiveInventoryWeapon=Id;
         ActiveInventoryWeaponDefinition=Definition;
         bWeaponVisualPartsApplied=false;
-        if(bInventoryWeaponReady){bUseM4Infima=(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"));bUseQBZ191=I->Definition==TEXT("ue_qbz191");bUseASH12=I->Definition==TEXT("ue_ash12");bUseM16=I->Definition==TEXT("ue_m16a2");bUseM1911=(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18"));bUseDanWesson715=(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12"));InitializeWeaponVisuals();}
+        if(bInventoryWeaponReady){bUseM4Infima=(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"));bUseQBZ191=I->Definition==TEXT("ue_qbz191");bUseASH12=I->Definition==TEXT("ue_ash12");bUseM16=I->Definition==TEXT("ue_m16a2");bUseM1911=(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18")||I->Definition==TEXT("ue_pit_viper2011"));bUseDanWesson715=(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12"));InitializeWeaponVisuals();}
         else {WeaponState=EAKMWeaponState::Idle;WeaponStateElapsed=WeaponStateDuration=0;}
     }
     AKMViewmodel->SetVisibility(bInventoryWeaponReady && !IsTraversing(),ChangedWeapon);
@@ -121,7 +126,8 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         const auto& VisualParts=I&&Gunsmith->IsOpen()&&Gunsmith->Instance()==I->InstanceId?Gunsmith->Draft():Parts;
         ApplyWeaponAttachmentPresentation(VisualParts);
         bDrumInstalled=Parts.FindRef(TEXT("magazine"))==TEXT("large_drum");
-        bRevolverSpeedloaderInstalled=bUseDanWesson715&&Parts.FindRef(TEXT("reload_device"))==TEXT("dw715_speedloader");
+        bRevolverSpeedloaderInstalled=bUseDanWesson715&&Parts.FindRef(TEXT("reload_device"))==
+            (IsRSH12Weapon()?RSH12WeaponAssets::Speedloader:DanWesson715WeaponAssets::Speedloader);
         ADSInDuration=Defaults->ADSInDuration;
         MagazineCapacity=Defaults->MagazineCapacity;ReloadDuration=Defaults->ReloadDuration;EmptyReloadDuration=Defaults->EmptyReloadDuration;
         if(I&&Gunsmith->Weapon(I->Definition))
@@ -162,6 +168,8 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     // Reapply held input only after the new pistol's magazine and stats exist.
     // A held trigger starts one semiautomatic shot, then still requires release.
     if(DualPistols)DualPistols->RefreshEquipment(Profile);
+    if(WeaponFX)WeaponFX->SetBigBlindEnabled(bInventoryWeaponReady&&!HasOffhandPistol()
+        &&ColdSteelCombat::BigBlind(GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),I).Enabled);
     if(!HasOffhandPistol())
     {
         if(ChangedWeapon && bInventoryWeaponReady)
@@ -177,6 +185,55 @@ void AFPSGAMECharacter::EndPlay(const EEndPlayReason::Type Reason)
 {
     CancelAmmoSelection();
     StopMechanicalAudio();
-    if(GetGameInstance())if(auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->SaveNow();
+    // 联机：只有本机玩家的 pawn 才触发档案落盘——服务端远端 pawn 销毁不该写主机单例档。
+    if(IsLocallyControlled())if(GetGameInstance())if(auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->SaveNow();
     Super::EndPlay(Reason);
+}
+void AFPSGAMECharacter::OnRep_ReplicatedMovement()
+{
+    Super::OnRep_ReplicatedMovement();
+    LastNetMovementAt = GetWorld()->GetTimeSeconds();
+    if (GetLocalRole() == ROLE_SimulatedProxy)
+    {
+        if (UCharacterMovementComponent* Movement = GetCharacterMovement())
+        {
+            if (!Movement->IsComponentTickEnabled()) Movement->SetComponentTickEnabled(true); // 断流解冻
+        }
+    }
+}
+void AFPSGAMECharacter::PossessedBy(AController* NewController)
+{
+    Super::PossessedBy(NewController);
+    // 服务端/单机的挂载点：spawn 后 Possess 时 Controller 就绪。
+    TryAttachLocalProfile();
+    // 联机：远端玩家重生/换乘后从 PlayerState 重绑影子档案——否则新 pawn 的
+    // NetShadowProfile 为 null，攻防公式回退主机单例档案，直到下次档案上行才修正。
+    if (!IsLocallyControlled())
+    {
+        if (auto* PS = GetPlayerState<AColdSteelPlayerState>())
+        {
+            if (UColdSteelStatusModel* Shadow = PS->GetShadowModel())
+            {
+                NetShadowProfile = Shadow;
+                ApplyColdSteelProfile(Shadow);
+            }
+        }
+    }
+}
+void AFPSGAMECharacter::OnRep_Controller()
+{
+    Super::OnRep_Controller();
+    // 客户端自主 pawn 的挂载点：Controller 复制到达时才谈得上"本机控制"。
+    TryAttachLocalProfile();
+}
+void AFPSGAMECharacter::TryAttachLocalProfile()
+{
+    // Auto-possession may precede BeginPlay. Defer attachment until startup
+    // finishes the base mesh; later possession still attaches immediately.
+    if(!HasActorBegunPlay() || bLocalProfileAttached)return;
+    // 只有本机玩家的 pawn 才能占用 GameInstance 单例档案；远端 pawn 在监听服/客户端
+    // 一律跳过，否则会把主机（或本机）的档案抢走并整包重放（ApplyToPawn 武器风暴）。
+    if(!IsLocallyControlled())return;
+    bLocalProfileAttached=true;
+    if(GetGameInstance())if(auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->AttachPawn(this);
 }

@@ -1,0 +1,43 @@
+{
+  "wood": {
+    "path": "/Game/Building/Voxels/Rounded/M_Voxel_Wood",
+    "base_color": null,
+    "source": null,
+    "candidates": []
+  },
+  "stone": {
+    "path": "/Game/Building/Voxels/Rounded/M_Voxel_Stone",
+    "base_color": null,
+    "source": null,
+    "candidates": []
+  },
+  "marble": {
+    "path": "/Game/Props/RomanColumn20260915/M_RomanStone_V2",
+    "base_color": [
+      0.62,
+      0.61,
+      0.58
+    ],
+    "source": "StoneBody",
+    "candidates": [
+      [
+        "StoneBody",
+        [
+          0.62,
+          0.61,
+          0.58
+        ],
+        0.61
+      ],
+      [
+        "StoneDirt",
+        [
+          0.4,
+          0.39,
+          0.36
+        ],
+        0.39
+      ]
+    ]
+  }
+}

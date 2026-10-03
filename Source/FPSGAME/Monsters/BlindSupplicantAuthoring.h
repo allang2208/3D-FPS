@@ -5,6 +5,7 @@
 #include "BlindSupplicantAuthoring.generated.h"
 
 class USkeletalMesh;
+class UClothingAssetCommon;
 
 /** Offline authoring entry points for M-07's six separate gill membranes. */
 UCLASS()
@@ -13,6 +14,11 @@ class FPSGAME_API UBlindSupplicantAuthoring : public UBlueprintFunctionLibrary
     GENERATED_BODY()
 
 public:
+    /** Reuse Witch capture/configuration with M07's continuous hidden drapes. Caller saves. */
+    UFUNCTION(BlueprintCallable, Category = "Monsters|M07|Authoring")
+    static FString BuildWitchStyleMembrane(USkeletalMesh* Mesh, USkeletalMesh* SimulationSource,
+        UClothingAssetCommon* ReferenceCloth, const FString& WeightManifestFile);
+
     /**
      * Extract the six simulation sections, or rebind their saved cloth assets
      * after reimporting the display mesh. The manifest uses mesh-reference cm

@@ -24,6 +24,14 @@ public:
     UFUNCTION(BlueprintCallable) void AddHolyWard(float Multiplier,float Seconds);
     UFUNCTION(BlueprintCallable) void AddMagicVulnerability(int32 Stacks=1);
     void AddRuneMagicVulnerability(float Ratio,float Seconds);
+    /** 虎啸：三类韧性抵抗归零，受到的韧性伤害提高；重复命中刷新，不叠加。 */
+    void AddTigerRoar(float ToughnessBonus,float Seconds);
+    float TigerRoarRemaining() const;
+    float TigerRoarToughnessMultiplier() const{return TigerRoarRemaining()>0.f?1.f+TigerRoarBonus:1.f;}
+    /** 物理易伤：目标物理承伤提高，重复命中只刷新时长。 */
+    void AddPhysicalVulnerability(float Bonus,float Seconds);
+    float PhysicalVulnerabilityRemaining() const;
+    float PhysicalVulnerabilityMultiplier() const{return PhysicalVulnerabilityRemaining()>0.f?1.f+PhysicalVulnerabilityBonus:1.f;}
     void GrantRiposteGuard(float Seconds,float AttackSpeed,float Stamina);
     float RiposteAttackSpeed()const{return RiposteTime>0?RiposteSpeed:1;}
     float RiposteStaminaMultiplier()const{return RiposteTime>0?RiposteStamina:1;}
@@ -76,6 +84,26 @@ public:
     bool BlocksMovement()const{return FrozenTime>0||StunTime>0||BindTime>0||PetrifyTime>0;}
     void AddChill(int32 Stacks,float Seconds,float SlowPerStack);
     void AddHaste(int32 Stacks,float Seconds);
+    /** 狂暴：命中只加层，首次获得后按固定周期减层，不刷新倒计时。 */
+    void AddBerserk(float SpeedPerStack,float DecaySeconds,int32 StackLimit);
+    int32 BerserkCount() const;
+    float BerserkRemaining() const;
+    float BerserkDuration() const{return BerserkPeriod;}
+    float BerserkAttackSpeed() const{return 1.f+BerserkCount()*BerserkSpeedPerStack;}
+    /** 赌注：命中增加一层并刷新整组时长；暴击结算先读取加成，再清空。 */
+    void AddWager(float BonusPerStack,float Seconds,int32 StackLimit);
+    void ConsumeWager();
+    int32 WagerCount() const;
+    float WagerRemaining() const;
+    float WagerDuration() const{return WagerPeriod;}
+    float WagerCriticalBonus() const{return WagerCount()*WagerBonusPerStack;}
+    /** 沉着冷静：暴击加一层并刷新整组时长；到期一次性清空。 */
+    void AddComposure(float StabilityPerStack,float RecoilReductionPerStack,float Seconds,int32 StackLimit);
+    int32 ComposureCount() const;
+    float ComposureRemaining() const;
+    float ComposureDuration() const{return ComposurePeriod;}
+    float ComposureStabilityBonus() const{return ComposureCount()*ComposureStabilityPerStack;}
+    float ComposureRecoilMultiplier() const{return FMath::Max(0.f,1.f-ComposureCount()*ComposureRecoilReductionPerStack);}
     void AddChainSpell();
     void ConsumeChainSpell();
     int32 ChainSpellStacks()const{return ChainTime>0?ChainStacks:0;}
@@ -113,6 +141,10 @@ private:
     int32 VulnerabilityStacks=0,BleedStacks=0;
     float VulnerabilityTime=0,BleedTime=0,BleedTick=0,BurnTick=0,BurnInterval=.5f;
     float RuneVulnerability=0,RuneVulnerabilityTime=0;
+    float TigerRoarBonus=0.f;
+    double TigerRoarEndsAt=0.;
+    float PhysicalVulnerabilityBonus=0.f;
+    double PhysicalVulnerabilityEndsAt=0.;
     float RiposteTime=0,RiposteSpeed=1,RiposteStamina=1;
     TWeakObjectPtr<AActor> BleedSource;
     struct FBurn {TWeakObjectPtr<AActor> Source;float Damage=0,Remaining=0;};
@@ -128,4 +160,15 @@ private:
     float MineTime=0,MineLinger=3,MineTick=0;
     struct FDroneMark {FName SourceId;float DamagePercent=0,CritPercent=0,Remaining=0;TWeakObjectPtr<AActor> Owner;};
     TMap<FName,FDroneMark> Drones;
+    void AdvanceBerserk();
+    int32 BerserkStacks=0,BerserkLimit=20;
+    float BerserkPeriod=5.f,BerserkSpeedPerStack=.05f;
+    double BerserkDecayAt=0.;
+    int32 WagerStacks=0;
+    float WagerPeriod=30.f,WagerBonusPerStack=.5f;
+    double WagerEndsAt=0.;
+    void ClearComposure();
+    int32 ComposureStacks=0;
+    float ComposurePeriod=10.f,ComposureStabilityPerStack=.01f,ComposureRecoilReductionPerStack=.01f;
+    double ComposureEndsAt=0.;
 };

@@ -1,0 +1,51 @@
+{
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GunWorkbenchMedieval20260928\\Authored\\SM_GunWorkbench.fbx",
+  "target_dir": "/Game/Building/GunWorkbenchMedieval20260928",
+  "slots": [
+    "Oak",
+    "DarkIron",
+    "Rope",
+    "Leather",
+    "Clay"
+  ],
+  "bindings": {
+    "Oak": "/Game/Props/CastingStation20260926/RealismV5/M_OakDry",
+    "DarkIron": "/Game/Props/CastingStation20260926/RealismV5/MI_DarkForgedIron",
+    "Rope": "/Game/Dungeons/ArtPass20260922/Materials/MI_Prop_Rope_All",
+    "Leather": "/Game/Building/GunWorkbenchMedieval20260928/Materials/M_GWLeather",
+    "Clay": "/Game/Building/GunWorkbenchMedieval20260928/Materials/M_GWClay"
+  },
+  "new_materials": {
+    "Leather": [
+      "leather_basecolor.png",
+      "leather_rough.png",
+      "leather_normal.png"
+    ],
+    "Clay": [
+      "clay_basecolor.png",
+      "clay_rough.png",
+      "clay_normal.png"
+    ]
+  },
+  "bbox_m": {
+    "min": [
+      -1.2089999914169312,
+      -1.3009999990463257,
+      0.0
+    ],
+    "max": [
+      1.2070000171661377,
+      1.2869999408721924,
+      1.5759999752044678
+    ]
+  },
+  "triangles": 32748,
+  "torch_spawn_local_cm": [
+    51.0,
+    94.0,
+    136.0
+  ],
+  "tests_run": false,
+  "renders_run": true,
+  "game_started": false
+}

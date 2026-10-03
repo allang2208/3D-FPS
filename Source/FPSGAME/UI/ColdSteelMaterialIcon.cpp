@@ -35,8 +35,14 @@ bool UColdSteelWeaponIcons::PrepareMaterial(const FColdSteelItem& Item)
     // 道具用固定 3/4 展示角，不像武器那样取正侧视：配件轮廓对武器才是可读信息，
     // 而金属锭的长轴原本正对相机（拍出来是一张平板），平躺的石块侧视只剩一条边。
     // 先绕 Z 偏航把长轴转到画面横向，再绕 Y 俯仰露出顶面；取景按旋转后的包围盒算。
-    const FQuat Orient=FQuat(FVector::YAxisVector,FMath::DegreesToRadians(22.f))
-        *FQuat(FVector::ZAxisVector,FMath::DegreesToRadians(30.f));
+    // 注意 FQuat(Y,正角) 会把网格远端往下压＝相机看到的是底面，从上往下取景要用负角。
+    // 2026-10-01 金属锭改为 2x1 横放占格：偏航加到 60 度让长轴铺满横幅、
+    // 俯仰用 -45 度（斜上方俯视）；矿石/石块仍是 1x1，俯仰同样改负角露顶面。
+    const bool Ingot=ProductionHarvestAssets::IsSmeltingIngot(Definition);
+    const float YawDeg=Ingot?60.f:30.f;
+    const float PitchDeg=Ingot?-45.f:-22.f;
+    const FQuat Orient=FQuat(FVector::YAxisVector,FMath::DegreesToRadians(PitchDeg))
+        *FQuat(FVector::ZAxisVector,FMath::DegreesToRadians(YawDeg));
     const FTransform Pose(Orient,-(Orient.RotateVector(Local.Origin*Scale)),FVector(Scale));
     MaterialMesh->SetWorldTransform(Pose);
     if(const auto MaterialPath=ProductionHarvestAssets::PickupMaterial(Definition);MaterialPath.IsValid())
@@ -53,7 +59,8 @@ bool UColdSteelWeaponIcons::PrepareMaterial(const FColdSteelItem& Item)
     const FBox Bounds=Local.GetBox().TransformBy(MaterialMesh->GetComponentTransform());
     const FVector Size=Bounds.GetSize(),Center=Bounds.GetCenter();
     Capture->ShowOnlyComponents.Reset();Capture->ShowOnlyComponent(MaterialMesh);
-    // 画布与其余通道同规则：按作者占格推导。材料都是 1x1，所以是 320x320 方幅。
+    // 画布与其余通道同规则：按作者占格推导。矿石/石块 1x1 得 320x320 方幅，
+    // 金属锭 2x1 得 640x320 横幅。
     const FIntPoint Grid=ColdSteelInventory::BaseFootprint(Item);
     const int32 Width=FMath::Max(256,FMath::RoundToInt(320.f*float(Grid.X)/FMath::Max(1,Grid.Y)));
     if(Target->SizeX!=Width||Target->SizeY!=320)Target->ResizeTarget(Width,320);

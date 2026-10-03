@@ -36,7 +36,7 @@ void AAuthoredDungeonGenerator::EndPlay(const EEndPlayReason::Type EndPlayReason
 
 void AAuthoredDungeonGenerator::StartRoomLighting()
 {
-    if (!GetWorld()->IsGameWorld() || GetNetMode() != NM_Standalone || !bLightingOptimizationApplied) return;
+    if (!GetWorld()->IsGameWorld() || GetNetMode() == NM_Client || !bLightingOptimizationApplied) return;
     if (LightModules.IsEmpty()) return;
     auto& Start = LightModules.Last();
     // Only adopt standalone local lights inside the reserved start; never edit the level asset.

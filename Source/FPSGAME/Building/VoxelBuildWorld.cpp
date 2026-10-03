@@ -107,7 +107,7 @@ bool AVoxelBuildWorld::ResolveHit(const FHitResult& Hit,FVoxelBuildKey& Key) con
 
 bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* InPalette)
 {
-    if(GetNetMode()!=NM_Standalone||bReady||!InPalette)return false;
+    if(GetNetMode()==NM_Client||bReady||!InPalette)return false;
     Palette=InPalette;WorldKey=InWorldKey;
     StructuralContact=NewObject<UPhysicalMaterial>(this);
     StructuralContact->Friction=.8f;StructuralContact->Restitution=.03f;
@@ -462,7 +462,7 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
 
 bool AVoxelBuildWorld::EditVolumeCells(FGuid Volume,const TArray<FIntVector>& Positions,FName Material)
 {
-    if(!bReady||GetNetMode()!=NM_Standalone)return false;
+    if(!bReady||GetNetMode()==NM_Client)return false;
     if(Volume.IsValid()&&!FreeVolumes.Contains(Volume)){Message=TEXT("目标建筑已改变");return false;}
     if(!Material.IsNone()&&!CanPlaceInVolume(Volume,Positions,Material,Message))return false;
     TArray<FVoxelEditCell> Edit;TSet<FIntVector> Seen;
@@ -477,7 +477,7 @@ bool AVoxelBuildWorld::EditVolumeCells(FGuid Volume,const TArray<FIntVector>& Po
 
 bool AVoxelBuildWorld::PlaceFree(FVector Origin,const TArray<FIntVector>& Positions,FName Material)
 {
-    if(!bReady||GetNetMode()!=NM_Standalone)return false;
+    if(!bReady||GetNetMode()==NM_Client)return false;
     if(!CanPlaceFree(Origin,Positions,Material,Message))return false;
     FVoxelFreeVolume Volume;Volume.Id=FGuid::NewGuid();Volume.Origin=Origin;FreeVolumes.Add(Volume.Id,Volume);
     if(!EditVolumeCells(Volume.Id,Positions,Material))

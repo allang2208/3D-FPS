@@ -76,6 +76,42 @@ TArray<FHitResult> RuneSwordCombat::QuerySector(UWorld* World,AActor* Owner,cons
     return Result;
 }
 
+TArray<FHitResult> RuneSwordCombat::QueryRectangle(UWorld* World,AActor* Owner,const FVector& Origin,const FVector& Forward,
+    float Length,float HalfWidth,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit)
+{
+    TRACE_CPUPROFILER_EVENT_SCOPE(Yanling_RectangleQuery);
+    TArray<FHitResult> Result;
+    const auto* Character=Cast<ACharacter>(Owner);
+    const float HalfHeight=Character?Character->GetCapsuleComponent()->GetScaledCapsuleHalfHeight():90.f;
+    const FVector Direction=Forward.GetSafeNormal2D(UE_SMALL_NUMBER,Owner->GetActorForwardVector().GetSafeNormal2D());
+    const FQuat Orientation=FRotationMatrix::MakeFromX(Direction).ToQuat();
+    const FVector Center=Origin+Direction*(Length*.5f);
+    FCollisionQueryParams Q(SCENE_QUERY_STAT(YanlingRectangle),false,Owner);
+    TArray<FOverlapResult> Overlaps;
+    World->OverlapMultiByObjectType(Overlaps,Center,Orientation,FCollisionObjectQueryParams::AllObjects,
+        FCollisionShape::MakeBox(FVector(Length*.5f,HalfWidth,HalfHeight)),Q);
+    // Bodies can be cleaved together; solid cover still owns the line of sight.
+    TSet<AActor*> Pawns;
+    for(const auto& Overlap:Overlaps)
+        if(auto* Pawn=Cast<APawn>(Overlap.GetActor()))Pawns.Add(Pawn);
+    FCollisionQueryParams Cover(SCENE_QUERY_STAT(YanlingRectangleCover),false,Owner);
+    Cover.AddIgnoredActors(Pawns.Array());
+    TSet<TWeakObjectPtr<AActor>> Found;
+    for(const auto& Overlap:Overlaps)
+    {
+        auto* Target=Overlap.GetActor();auto* Shape=Overlap.GetComponent();
+        if(!IsValid(Target)||!Shape||Target==Owner||!Target->CanBeDamaged()||AlreadyHit.Contains(Target)||Found.Contains(Target))continue;
+        if(const auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();Combat&&Combat->IsDead())continue;
+        FVector Point;
+        if(Shape->GetClosestPointOnCollision(Origin,Point)<0.f)Point=Shape->Bounds.GetBox().GetClosestPointTo(Origin);
+        if(RuneSwordWorldOccludes(World,Owner,Target,Origin,Point,true,&Cover))continue;
+        FHitResult Hit(Target,Shape,Point,(Origin-Point).GetSafeNormal());
+        Hit.ImpactPoint=Hit.Location=Point;Hit.TraceStart=Origin;Hit.TraceEnd=Point;
+        Found.Add(Target);Result.Add(Hit);
+    }
+    return Result;
+}
+
 TArray<FHitResult> RuneSwordCombat::Query(UWorld* World,AActor* Owner,const FRuneSwordBladeSample& From,
     const FRuneSwordBladeSample& To,float Reach,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit,
     const FRuneSwordTraceSettings& Settings)

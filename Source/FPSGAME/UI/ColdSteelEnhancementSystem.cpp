@@ -43,6 +43,7 @@ bool UColdSteelEnhancementSystem::CanEnchant(const FColdSteelItem& I,const FCold
 {
     if(O.Restriction==TEXT("sword"))return Supports(I)&&GetGameInstance()->GetSubsystem<UGunsmithSystem>()->IsMelee(I.Definition);
     if(O.Restriction==TEXT("melee"))return Supports(I)&&ColdSteelInventory::IsMeleeWeapon(I);
+    if(O.Restriction==TEXT("meleeOrBow"))return Supports(I)&&(ColdSteelInventory::IsMeleeWeapon(I)||ColdSteelInventory::IsBow(I));
     if(ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff"))return Supports(I)&&O.Restriction==TEXT("weapon");
     if(!Supports(I)||!GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))return false;
     // 类别键只对同类武器成立：机枪卷轴不能落到步枪；枪械通用与无限制词缀沿用原口径。
@@ -84,7 +85,11 @@ double UColdSteelEnhancementSystem::AttackFormulaAttribute(const FColdSteelItem&
     if(Key==TEXT("int"))Key=TEXT("intt");
     const auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     // Match raw allocated + equipment attributes used by the original weapon formulas.
-    return (double(P->Attributes.FindRef(Key))+P->EquipmentBonus(Key)+(Key==TEXT("str")&&P->WeaponMastery(&I)==TEXT("swordMastery")?P->MasteryEffect(TEXT("heavyStrike")).Strength:0))*P->EffectiveAttributeMultiplier();
+    // 加工预览的 I 尚未提交；替换当前实例的附魔属性贡献，不重加已装备的 +15 力量。
+    const auto* Published=P->FindItem(I.InstanceId);
+    const FString EnchantKey=Key==TEXT("intt")?TEXT("int"):Key.ToString();
+    const double EnchantDelta=Effect(I,*EnchantKey)-(Published&&Published->Place==1?Effect(*Published,*EnchantKey):0.);
+    return (double(P->Attributes.FindRef(Key))+P->EquipmentBonus(Key)+EnchantDelta+(Key==TEXT("str")&&P->WeaponMastery(&I)==TEXT("swordMastery")?P->MasteryEffect(TEXT("heavyStrike")).Strength:0))*P->EffectiveAttributeMultiplier();
 }
 double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,double Base,double Attack,double MeleeDamageMultiplier)const
 {

@@ -1,4 +1,4 @@
-#include "BowWeaponComponent.h"
+﻿#include "BowWeaponComponent.h"
 #include "BowArrow.h"
 #include "BowArmsMeshComponent.h"
 #include "BowPartComponent.h"
@@ -1007,6 +1007,7 @@ bool UBowWeaponComponent::LooseArrow(float Ratio)
         if (!ConsumeArrowFromPouch(Reason, bSpentOwnedArrow)) { Arrow->Destroy(); bArrowNocked = false; ShowFeedback(Reason); return false; }
         // 射击瞬间的修炼／符文快照与弹道组件同源；弓自己的暴击与破韧只在配了值时覆盖。
         FColdSteelSkillShot Shot = ColdSteelSkills::Snapshot(Pawn, Profile ? Profile->ActiveBow() : nullptr, true);
+        Shot.DamageContext = FMath::Clamp(Ratio, 0.f, 1.f); // 联机上报：拉弦比，服务端按影子档案复算箭伤
         const auto* Item = Profile->ActiveBow();
         const float BaseDamage = Shot.DamagePanel.Total() > 0.f ? Shot.DamagePanel.Total() : FullDamage;
         const float Damage = BaseDamage * ChargeDamage

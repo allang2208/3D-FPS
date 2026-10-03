@@ -18,6 +18,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "NiagaraSystem.h"
 #include "Sound/SoundBase.h"
+#include "NetCastUtils.h"
 
 UFPSHolyLightComponent::UFPSHolyLightComponent(){PrimaryComponentTick.bCanEverTick=true;}
 void UFPSHolyLightComponent::BeginPlay()
@@ -82,7 +83,7 @@ float UFPSHolyLightComponent::CooldownFraction() const
 void UFPSHolyLightComponent::Trigger(bool bSelf)
 {
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
-    if(!Player||!M||!Player->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
+    if(!Player||!M||!Player->IsLocallyControlled())return;
     if(const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     if(bCommitted)return;
     if(const auto* H=Hands();H&&H->HasOtherPreparedSpell(this))
@@ -117,6 +118,8 @@ void UFPSHolyLightComponent::ServiceQueue()
     H->RecordGesturePayment(BeforeMana,M->Snapshot().Mana,true);
     CastSnapshot=Spell;LockedTarget=Target;bCommitted=true;MessageUntil=0;
     if(auto* Status=Player->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
+    // 联机客人：凝聚即扣账上报；治疗/伤害由服务端在释放相位结算。
+    if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;NetCast::Send(Player,TEXT("holyLight"),0,FVector::ZeroVector,FVector::UpVector,Target==Player?1:0);}
 }
 void UFPSHolyLightComponent::ReleaseAtContact()
 {
@@ -125,6 +128,17 @@ void UFPSHolyLightComponent::ReleaseAtContact()
     AActor* Target=LockedTarget.Get();LockedTarget.Reset();
     if(!Player||!M||!Camera||!IsTarget(Target)||(Target!=Player&&(FVector::Dist(Player->GetActorLocation(),UWardBreakableGlass::TargetPoint(Target))>CastSnapshot.Range||!VisibleFrom(Player,Target,Camera->GetComponentLocation()))))
     {if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("holyLight"));Feedback(TEXT("目标已失效或被遮挡"));return;}
+    // 联机客人：目标引用上行，服务端权威结算治疗/伤害并生成复制光柱；本地收尾预扣账。
+    if(GetWorld()->GetNetMode()==NM_Client)
+    {
+        NetCast::Send(Player,TEXT("holyLight"),1,Target->GetActorLocation(),FVector::UpVector,Target==Player?1:0,Target);
+        if(M)M->FinishHolyLightCast(FHolyLightRewards());
+        bNetPaid=false;
+        for(const auto& Sound:CastSounds)if(Sound)UGameplayStatics::PlaySoundAtLocation(this,Sound.Get(),Target->GetActorLocation());
+        if(auto* Status=UCombatStatusFormula::GetOrAdd(Player))
+        {if(CastSnapshot.bGrantChain)Status->AddChainSpell();if(CastSnapshot.CastHasteStacks>0)Status->AddHaste(CastSnapshot.CastHasteStacks,CastSnapshot.CastHasteDuration);}
+        return;
+    }
     for(const auto& Sound:CastSounds)if(Sound)UGameplayStatics::PlaySoundAtLocation(this,Sound.Get(),Target->GetActorLocation());
     FHolyLightRewards Rewards;
     if(HolyLightTargets::IsFriendly(Target))
@@ -142,12 +156,57 @@ void UFPSHolyLightComponent::Cancel()
     bQueued=false;bCommitted=false;LockedTarget.Reset();
     if(auto* H=Hands())H->CancelSpellGesture(this);
     for(auto& Arc:Effects)if(Arc.IsValid())Arc->Destroy();Effects.Reset();
+    // 联机客人：已扣账未释放的凝聚取消——上报服务端退预留。
+    if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bNetPaid)NetCast::Send(GetOwner(),TEXT("holyLight"),2);
+    bNetPaid=false;
 }
 void UFPSHolyLightComponent::InterruptPending()
 {
     if(bCommitted)Feedback(TEXT("施法中断"));
+    // 联机客人：中断视同凝聚取消——Phase2 退款。
+    if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bCommitted&&bNetPaid)NetCast::Send(GetOwner(),TEXT("holyLight"),2);
+    bNetPaid=false;
     bQueued=bCommitted=false;LockedTarget.Reset();
     // Healing/damage and an already released light keep their own lifetime.
+}
+// ── 联机服务端入口：验证上报目标→权威治疗/伤害→生成复制光柱 ──
+bool UFPSHolyLightComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow)
+{
+    const auto Spell=Shadow->HolyLightStats();
+    AActor* Target=(Req.Variant&1)?static_cast<AActor*>(Caster):Req.Target.Get();
+    if(!Target||!IsValid(Target))return false;
+    const bool bSelf=Target==Caster;
+    if(!bSelf)
+    {
+        if(!IsTarget(Target))return false;
+        const FVector Eye=Caster->GetPawnViewLocation();
+        if(FVector::Dist(Caster->GetActorLocation(),UWardBreakableGlass::TargetPoint(Target))>Spell.Range*1.15f)return false;
+        if(!VisibleFrom(Caster,Target,Eye))return false;
+    }
+    FHolyLightRewards Rewards;
+    if(HolyLightTargets::IsFriendly(Target)||bSelf)
+        Shadow->ApplyHolyLightHealing(Target,Spell,Rewards);
+    else
+        Shadow->ApplyHolyLightHit(Caster,Target,Caster->GetPawnViewLocation(),Spell,Spell.Damage,Rewards);
+    Shadow->FinishHolyLightCast(Rewards);
+    FActorSpawnParameters P;P.Owner=Caster;P.Instigator=Caster;P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    if(auto* Effect=GetWorld()->SpawnActor<AFPSHolyLightEffect>(Target->GetActorLocation(),FRotator::ZeroRotator,P))
+    {Effect->InitializeLight(Target,MoteSystem,Spell);Effects.Add(Effect);}
+    for(const auto& Sound:CastSounds)if(Sound)UGameplayStatics::PlaySoundAtLocation(this,Sound.Get(),Target->GetActorLocation());
+    if(auto* Status=UCombatStatusFormula::GetOrAdd(Caster))
+    {if(Spell.bGrantChain)Status->AddChainSpell();if(Spell.CastHasteStacks>0)Status->AddHaste(Spell.CastHasteStacks,Spell.CastHasteDuration);}
+    return true;
+}
+void UFPSHolyLightComponent::NetCastRejected(uint8 /*Phase*/,uint8 /*Code*/)
+{
+    bNetPaid=false;
+    if(bCommitted){bCommitted=false;LockedTarget.Reset();if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("holyLight"));}
+    if(auto* H=Hands())H->CancelSpellGesture(this);
+    Feedback(TEXT("施法失败"));
+}
+void UFPSHolyLightComponent::NetCastCancelled(uint8 /*Phase*/)
+{
+    bNetPaid=false;
 }
 void UFPSHolyLightComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {

@@ -1,6 +1,8 @@
 # 用 Python 造材质／材质实例：实战踩坑表
 
-> 正本／相关记录：`Docs/Building/fountain-water-20260918.md`。本文件只保留可复用技法，任务过程与数值以正本为准。
+> 正本／相关记录：`Docs/Building/fountain-water-20260918.md`（喷泉水体）、
+> `Docs/Fluids/clearwater-water-migration-20260926.md`（Clearwater FFT 水体，2026-09-26）。
+> 本文件只保留可复用技法，任务过程与数值以正本为准。
 
 > 本文件由 `asset-model-workflow/SKILL.md` 按「复用面」拆出；入口只留触发表指针。
 ## 用 Python 造材质／材质实例（2026-09-18 喷泉水体，实战踩坑表）
@@ -105,6 +107,22 @@ Niagara 的发射器脚本仍走 CPU VM，即使粒子设为 GPU；本机 VM 不
     （2026-09-19 把活跃的 `M_FountainWaterFilmV2` 当废案移进 trash 一次，靠 MIC 包字节扫描发现后恢复）。
     正确做法：扫候选资产包字节里的名字表（`re.findall(rb'M_名字[A-Za-z0-9_]*', bytes)`）或直接读
     MIC 的 `parent` 属性 / 网格的 `get_material(i)`；移完再列一遍 Materials 目录对账"应保留清单"。
+19. **Custom 节点的 `code` 是"函数体"，不是文件作用域**（2026-09-26 Clearwater 水体，材质三次"全黑"的真因）：
+    UE 把它原样放进 `float3 CustomExpression0(FMaterialPixelParameters Parameters, float2 P, ...) { <code> }`。
+    于是 **① 函数定义非法**（`error: function definition is not allowed here`）；
+    **② `#include` 也救不了**（原地展开，函数照样落在函数体内）——**只有宏是合法的**，
+    因为宏不创建作用域。要把一段 HLSL 库塞进 Custom 节点，就把它改写成宏，并把循环用生成器展开。
+    **③ 失败代价是静默的**：UE 换用 Default Material，日志只有一行 `LogMaterial: Warning:
+    Failed to compile Material ... Default Material will be used in game`，画面上就是"全黑"，
+    极易被误判成没打光／没迁天空。看到全黑先查这一行，再谈光照。
+    **④ Custom 节点还收不到 `Texture2D` 输入**：引脚在 HLSL 侧是 `float4`，
+    `Tex.SampleLevel(...)` 报 `invalid format for vector swizzle 'SampleLevel'`；
+    且 `MaterialExpressionTextureSampleParameter2D` 的**可连引脚列表为空**，UV 也无法从 Python 连线。
+    所以**纹理采样一律留在材质图里，只把标量结果传进节点**。
+    配套：**`#include` 的虚拟目录 `/Project` 是引擎给的**，映射到 `<工程根>/Shaders`
+    （`LaunchEngineLoop.cpp:2553`），且 `AddShaderSourceDirectoryMapping` 不覆盖已有条目——
+    自己再映射一次会静默失效，表现为 `File '/Project/xxx.ush' not found`。
+    完整移植路径见 [Clearwater FFT 水体](../../ue5-fluid-vfx-workflow/references/clearwater-fft-water-surface.md)。
 
 ## 材质函数、RT 资产与图枚举限制（2026-09-26 草交互 GPU 排障，UE 5.8 本机实测）
 
@@ -112,7 +130,7 @@ Niagara 的发射器脚本仍走 CPU VM，即使粒子设为 GPU；本机 VM 不
 | --- | --- |
 | 在材质函数图里建节点 | `MEL.create_material_expression` 只收 `UMaterial`；函数图必须用 `create_material_expression_in_function`（Python 绑定强制声明类型，传错报 "Cannot nativize 'MaterialFunction' as 'Object'"） |
 | 重编译材质函数 | `recompile_material` 只收 `UMaterial`；函数用 `MEL.update_material_function(fn, None)`——会级联重编译所有引用它的材质 |
-| 读材质图节点列表（事后修接线） | **做不到**：`UMaterial.Expressions` 对 Python 是 protected（"Property 'Expressions' ... is protected and cannot be read"）。已存在的 MF 调用节点无法脚本重接线——设计时就把函数输入做成内部自供（WorldPosition/VertexNormalWS/TexCoord 节点直接建在 MF 里），调用节点只取输出、零接线 |
+  | 读材质图节点列表（事后修接线） | UE 5.8 使用 `MEL.get_material_expressions(mat)` / `get_material_function_expressions(fn)`；无需读取 protected 的 `Expressions`。`get_material_property_input_node` 可在 commandlet 读输出链。调用节点用 `set_material_function(fn)` 刷新，保留 FunctionOutput GUID 后重连、编译、保存；不必打开材质编辑器 |
 | FunctionInput 没接线会怎样 | 静默取 preview 默认值（通常 0），**不报任何错**——HeightMask=0 把 WPO 输出恒置零，实机表现为"完全无反应"，是最难定位的断点 |
 | 建 RenderTarget 资产 | 工厂类名 `TextureRenderTargetFactoryNew`（**不带 "2D"**，`TextureRenderTarget2DFactoryNew` 不存在）；其 `Width/Height/Format` 是无 Edit 标记的 UPROPERTY，Python 视为 protected 拒设——先按工厂默认创建，再在资产上设 `size_x`/`size_y`/`render_target_format`（这些是 EditAnywhere） |
 | RT 资源刷新 | `TextureRenderTarget2D` 在 5.8 Python **没有** `update_resource()`（那是 `UCanvasRenderTarget2D` 的 API）；`set_editor_property` 已触发 PostEditChangeProperty 自动重建资源。`b_auto_generate_mips` 同样不可设（RT 默认无 mip 链，实测无害） |

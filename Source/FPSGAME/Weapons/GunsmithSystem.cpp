@@ -1,5 +1,6 @@
 #include "GunsmithSystem.h"
 #include "G18WeaponAssets.h"
+#include "PitViper2011WeaponAssets.h"
 #include "Staff/StaffCatalog.h"
 #include "FrostSwordRunes.h"
 #include "PistolDualWieldComponent.h"
@@ -7,6 +8,7 @@
 #include "M4DrumReloadTiming.h"
 #include "M1911WeaponAssets.h"
 #include "DanWesson715WeaponAssets.h"
+#include "RSH12WeaponAssets.h"
 #include "Animation/AnimSequence.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelItemReadCache.h"
@@ -75,17 +77,17 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
         W.Base.Reload=Num(B,TEXT("reload_time"),1.5);W.Base.EmptyReload=Num(B,TEXT("empty_reload_time"));if(W.Base.EmptyReload<=0)W.Base.EmptyReload=W.Base.Reload;
         // M1911 uses its imported action lengths as the base for both stats and
         // playback. Attachment reload multipliers still scale the whole action.
-        if(W.Id==DanWesson715WeaponAssets::Definition || W.Id==TEXT("ue_rsh12"))
+        if(W.Id==DanWesson715WeaponAssets::Definition)
         {
             W.Base.Reload=DanWesson715WeaponAssets::SingleDuration(W.Base.Capacity-1);
             W.Base.EmptyReload=DanWesson715WeaponAssets::SingleDuration(W.Base.Capacity, true);
             if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*DanWesson715WeaponAssets::SingleAnimationPath(1,W.Base.Capacity-1)))W.Base.Reload=Clip->GetPlayLength();
             if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*DanWesson715WeaponAssets::SingleAnimationPath(0,W.Base.Capacity)))W.Base.EmptyReload=Clip->GetPlayLength();
         }
-        if(W.Id==TEXT("ue_m1911") || W.Id==G18WeaponAssets::Definition)
+        if(W.Id==TEXT("ue_m1911") || W.Id==G18WeaponAssets::Definition || W.Id==PitViper2011WeaponAssets::Definition)
         {
-            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*(W.Id==G18WeaponAssets::Definition ? G18WeaponAssets::AnimationPath(TEXT("reload")) : M1911WeaponAssets::AnimationPath(TEXT("reload")))))W.Base.Reload=Clip->GetPlayLength();
-            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*(W.Id==G18WeaponAssets::Definition ? G18WeaponAssets::AnimationPath(TEXT("reload_empty")) : M1911WeaponAssets::AnimationPath(TEXT("reload_empty")))))W.Base.EmptyReload=Clip->GetPlayLength();
+            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*(W.Id==PitViper2011WeaponAssets::Definition ? PitViper2011WeaponAssets::AnimationPath(TEXT("reload")) : W.Id==G18WeaponAssets::Definition ? G18WeaponAssets::AnimationPath(TEXT("reload")) : M1911WeaponAssets::AnimationPath(TEXT("reload")))))W.Base.Reload=Clip->GetPlayLength();
+            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*(W.Id==PitViper2011WeaponAssets::Definition ? PitViper2011WeaponAssets::AnimationPath(TEXT("reload_empty")) : W.Id==G18WeaponAssets::Definition ? G18WeaponAssets::AnimationPath(TEXT("reload_empty")) : M1911WeaponAssets::AnimationPath(TEXT("reload_empty")))))W.Base.EmptyReload=Clip->GetPlayLength();
         }
         // 腰射散布系数：参考静止锥是 0.0175 rad/轴（GetHipSpread 的 ×2 括号内），
         // 本枪系数与配件 hip_spread_mult 连乘后驱动真实锥角与准星内缘；1 = 参考枪，0 = 无腰射散布。
@@ -163,10 +165,13 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
         for(const auto& Pair:Normalize(D,P))
         {
             const auto& M=Option(D,Pair.Key,Pair.Value)->Bow;
-            R.Bow.Damage*=M.Damage;R.Bow.Draw*=M.Draw;R.Bow.Speed*=M.Speed;R.Bow.Stamina*=M.Stamina;
+            R.Bow.Damage*=M.Damage;R.Bow.Speed*=M.Speed;R.Bow.Stamina*=M.Stamina;
+            // Legacy draw_mult is a duration factor: /0.8 means +25% speed.
+            R.Bow.DrawSpeedBonus+=M.DrawSpeedBonus+1./FMath::Max(.05,M.Draw)-1.;
             R.Bow.Nock*=M.Nock;R.Bow.Hold*=M.Hold;R.Bow.Sway*=M.Sway;R.Bow.Spread*=M.Spread;R.Bow.ADS*=M.ADS;
             ++R.ActiveParts;
         }
+        R.Bow.Draw=1./FMath::Max(.05,1.+R.Bow.DrawSpeedBonus);
         R.Damage*=R.Bow.Damage;R.Interval*=R.Bow.Draw;R.Speed*=R.Bow.Speed;R.ADS*=R.Bow.ADS;
         return R;
     }
@@ -186,12 +191,17 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.MagicCost*=M.MagicCost;
             R.Melee.HeavyDamage*=M.HeavyDamage;R.Melee.Knockback*=M.Knockback;
             R.Melee.HeavyDamageAdd+=M.HeavyDamageAdd;
+            R.Melee.HeavyChargeSpeedBonus+=M.HeavyChargeSpeedBonus;
             R.Melee.HeavyToughness*=M.HeavyToughness;
             R.Melee.CooldownReduceSecondsPerHit+=M.CooldownReduceSecondsPerHit;
             R.Melee.QuickCombatDamageAdd+=M.QuickCombatDamageAdd;
             R.Melee.QuickCombatKnockback*=M.QuickCombatKnockback;
             R.Melee.QuickCombatToughness*=M.QuickCombatToughness;
             R.Melee.QuickCombatBleedChance=FMath::Max(R.Melee.QuickCombatBleedChance,M.QuickCombatBleedChance);
+            R.Melee.QuickCombatTigerRoarToughnessBonus=FMath::Max(R.Melee.QuickCombatTigerRoarToughnessBonus,M.QuickCombatTigerRoarToughnessBonus);
+            R.Melee.QuickCombatTigerRoarSeconds=FMath::Max(R.Melee.QuickCombatTigerRoarSeconds,M.QuickCombatTigerRoarSeconds);
+            R.Melee.QuickCombatPhysicalVulnerabilityBonus=FMath::Max(R.Melee.QuickCombatPhysicalVulnerabilityBonus,M.QuickCombatPhysicalVulnerabilityBonus);
+            R.Melee.QuickCombatPhysicalVulnerabilitySeconds=FMath::Max(R.Melee.QuickCombatPhysicalVulnerabilitySeconds,M.QuickCombatPhysicalVulnerabilitySeconds);
             R.Melee.bQuickCombatAOE|=M.bQuickCombatAOE;
             R.Melee.RuneIntelligence+=M.RuneIntelligence;R.Melee.RuneWisdom+=M.RuneWisdom;
             R.Melee.InnateErosionMultiplier*=M.InnateErosionMultiplier;
@@ -228,7 +238,9 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
         R.Range*=R.Tool.CombatReach;
         return R;
     }
-    if(D==DanWesson715WeaponAssets::Definition&&Part(Normalize(D,P),DanWesson715WeaponAssets::ReloadDeviceSlot)==DanWesson715WeaponAssets::Speedloader)
+    if((D==DanWesson715WeaponAssets::Definition||D==RSH12WeaponAssets::Definition)
+        &&Part(Normalize(D,P),DanWesson715WeaponAssets::ReloadDeviceSlot)==
+            (D==RSH12WeaponAssets::Definition?RSH12WeaponAssets::Speedloader:DanWesson715WeaponAssets::Speedloader))
     {R.Reload=DanWesson715WeaponAssets::EmptyReload;R.EmptyReload=DanWesson715WeaponAssets::EmptyReload;}
     for(const auto& Pair:Normalize(D,P)){const auto& A=*Option(D,Pair.Key,Pair.Value);R.ADSPercent+=A.ADS;R.ADSSeconds+=A.ADSSeconds;R.RecoilMultiplier*=A.Recoil;R.ShakeMultiplier*=A.Shake;R.StabilityMultiplier*=A.Stability;R.Capacity+=A.Magazine;R.Interval*=A.Interval;R.Reload*=A.Reload;R.EmptyReload*=A.EmptyReload;R.Speed*=A.Speed;R.Range*=A.Range;R.Spread*=A.Spread;++R.ActiveParts;}
     if(D==TEXT("ue_m4a1")&&Part(Normalize(D,P),TEXT("magazine"))==TEXT("large_drum"))

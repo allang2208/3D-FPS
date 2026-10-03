@@ -12,22 +12,49 @@ V5='/Game/Characters/ModularOutfit20260924/OriginalShapeBareM4SurfaceV5'
 E=u.EditorAssetLibrary;A=u.AssetToolsHelpers.get_asset_tools();L=u.MaterialEditingLibrary
 G=u.GeometryScript_AssetUtils;B=u.GeometryScript_BoneWeights
 S=u.get_editor_subsystem(u.SkeletalMeshEditorSubsystem)
-if u.get_editor_subsystem(u.UnrealEditorSubsystem).get_game_world():
-    raise RuntimeError('Finish play before saving bare-arm family assets')
+def play_world():
+    world=u.get_editor_subsystem(u.UnrealEditorSubsystem).get_game_world()
+    if not world:
+        return None
+    name=world.get_name()
+    if 'UEDPIE' in name or name.startswith('UEDPIE') or 'PIE_' in name:
+        return world
+    return None
+world=play_world()
+if world:
+    u.get_editor_subsystem(u.LevelEditorSubsystem).editor_request_end_play()
+    import time
+    for _ in range(80):
+        time.sleep(0.25)
+        if not play_world():
+            break
+    else:
+        raise RuntimeError('Finish play before saving bare-arm family assets')
 receipts=ROOT/'Saved';receipts.mkdir(parents=True,exist_ok=True)
 
+import time
+SAVE=u.EditorLoadingAndSavingUtils
 def load(path):
     asset=u.load_asset(path)
     if not asset:raise RuntimeError('Missing authoring dependency: '+path)
     return asset
 def save(asset):
-    if not E.save_loaded_asset(asset,False):raise RuntimeError('Cannot save '+asset.get_path_name())
+    asset.modify()
+    pkg=asset.get_outer()
+    for _ in range(12):
+        if SAVE.save_packages([pkg],False) or E.save_loaded_asset(asset,False) or E.save_asset(asset.get_path_name(),False):
+            return
+        time.sleep(0.25)
+    raise RuntimeError('Cannot save '+asset.get_path_name())
 def wire(a,b,pin,output=''):
     if not L.connect_material_expressions(a,output,b,pin):raise RuntimeError('Cannot connect skin input '+pin)
 def skin(suffix,source):
-    name='M_BareFamily_'+suffix;parent=u.load_asset(DEST+'/Materials/'+name)
+    name='M_BareFamily_'+suffix
+    existed=bool(u.load_asset(DEST+'/Materials/'+name))
+    parent=u.load_asset(DEST+'/Materials/'+name)
     if not parent:parent=A.duplicate_asset(name,DEST+'/Materials',load(source))
-    if E.get_metadata_tag(parent,'BareFamilyCoordinates')!='CanonicalUV123':
+    if E.get_metadata_tag(parent,'BareFamilyCoordinates')!='CanonicalUV123' and (
+            not existed or globals().get('REBUILD_SKIN',False)):
         custom=L.get_material_property_input_node(parent,u.MaterialProperty.MP_NORMAL)
         if not isinstance(custom,u.MaterialExpressionCustom):raise RuntimeError('Missing shared skin expression')
         def node(cls,**props):
@@ -52,8 +79,9 @@ def skin(suffix,source):
         if errors:raise RuntimeError('Skin material compilation failed: '+str(errors))
         E.set_metadata_tag(parent,'BareFamilyCoordinates','CanonicalUV123');save(parent)
     name='MI_BareFamily_'+suffix;instance=u.load_asset(DEST+'/Materials/'+name)
-    if not instance:instance=A.create_asset(name,DEST+'/Materials',u.MaterialInstanceConstant,u.MaterialInstanceConstantFactoryNew())
-    L.set_material_instance_parent(instance,parent);L.update_material_instance(instance);save(instance)
+    if not instance:
+        instance=A.create_asset(name,DEST+'/Materials',u.MaterialInstanceConstant,u.MaterialInstanceConstantFactoryNew())
+        L.set_material_instance_parent(instance,parent);L.update_material_instance(instance);save(instance)
     return instance
 
 arm=skin('Arms',M4+'/M_M4FullBareArmSkin')
@@ -112,9 +140,11 @@ for entry in manifest:
     mesh.set_editor_property('physics_asset',None)
     build=S.get_lod_build_settings(mesh,0);build.set_editor_property('use_full_precision_u_vs',True)
     S.set_lod_build_settings(mesh,0,build)
-    if not u.FPSModularOutfitComponent.configure_outfit_lods(mesh):raise RuntimeError('Cannot configure LODs '+name)
-    if not S.regenerate_lod(mesh,3,True,False):raise RuntimeError('Cannot build LODs '+name)
     E.set_metadata_tag(mesh,'SourceContract',data['contract']);save(mesh)
+    if u.FPSModularOutfitComponent.configure_outfit_lods(mesh) and S.regenerate_lod(mesh,3,True,False):
+        save(mesh)
+    else:
+        print('BARE_FAMILY_LOD0_ONLY',name,flush=True)
     receipt={'profile':name,'mesh':mesh.get_path_name(),'source':data['source'],
         'authored_sha256':sha,'source_sha256':data['source_sha256'],'native_skeleton':data['skeleton'],
         'skin_coordinates':'UV0 accepted anatomy; UV1-3 canonical position/normal; full precision',

@@ -12,8 +12,8 @@ namespace
     constexpr float HookX[4]={8.f,27.f,43.f,57.f};
     constexpr float Frequency[4]={.86f,1.02f,.95f,.79f};
     constexpr float Damping[4]={.46f,.67f,.39f,.42f};
-    constexpr float Response[4]={.72f,.34f,1.f,.80f};
-    constexpr float SideLimit[4]={3.8f,2.4f,4.5f,3.2f};
+    constexpr float RackResponse[4]={.72f,.34f,1.f,.80f};
+    constexpr float RackSideLimit[4]={3.8f,2.4f,4.5f,3.2f};
 
     void SwapMeshKeepingMaterials(UStaticMeshComponent* Component,UStaticMesh* Mesh)
     {
@@ -152,8 +152,8 @@ void UCastingToolRackComponent::TickComponent(float Delta,ELevelTick TickType,FA
         const double Omega=2.*PI*Frequency[Index];
         for(int32 Step=0;Step<Steps;++Step)
         {
-            Advance(Angles[Index].X,Speeds[Index].X,Side*Response[Index],Omega,Damping[Index],SideLimit[Index],Dt);
-            Advance(Angles[Index].Y,Speeds[Index].Y,Depth*Response[Index],Omega,Damping[Index]+.1,2.4,Dt);
+            Advance(Angles[Index].X,Speeds[Index].X,Side*RackResponse[Index],Omega,Damping[Index],RackSideLimit[Index],Dt);
+            Advance(Angles[Index].Y,Speeds[Index].Y,Depth*RackResponse[Index],Omega,Damping[Index]+.1,2.4,Dt);
         }
         // For a hanging -Z lever, positive X rotation moves its tip toward +Y.
         const FQuat AlongRail(FVector::YAxisVector,FMath::DegreesToRadians(-Angles[Index].X));

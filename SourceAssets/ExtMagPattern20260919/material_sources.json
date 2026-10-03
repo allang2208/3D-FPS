@@ -1,0 +1,67 @@
+{
+  "M4": {
+    "material": "Magazine Light.001",
+    "images": [
+      [
+        "Magazine Light_BaseColor.png.001",
+        "//..\\M4HK416Replica20260910\\SK_M4_FoldingSights_HK416.fbm\\Magazine Light_BaseColor.png",
+        true
+      ],
+      [
+        "Magazine Light_Normal.png.001",
+        "//..\\M4HK416Replica20260910\\SK_M4_FoldingSights_HK416.fbm\\Magazine Light_Normal.png",
+        true
+      ],
+      [
+        "Magazine Light_Roughness.png.001",
+        "//..\\M4HK416Replica20260910\\SK_M4_FoldingSights_HK416.fbm\\Magazine Light_Roughness.png",
+        true
+      ],
+      [
+        "Magazine Light_Metallic.png.001",
+        "//..\\M4HK416Replica20260910\\SK_M4_FoldingSights_HK416.fbm\\Magazine Light_Metallic.png",
+        true
+      ]
+    ]
+  },
+  "AKM": {
+    "material": "M_AKM_Soviet_Magazine",
+    "images": [
+      [
+        "AK_Base_color.png",
+        "//..\\AKMSoviet20260911\\Source\\ak47fbx_extracted\\textures\\AK_Base_color.png",
+        false
+      ],
+      [
+        "AK_Normal_OpenGL.png",
+        "//..\\AKMSoviet20260911\\Source\\ak47fbx_extracted\\textures\\AK_Normal_OpenGL.png",
+        false
+      ],
+      [
+        "AK_Roughness.png",
+        "//..\\AKMSoviet20260911\\Source\\ak47fbx_extracted\\textures\\AK_Roughness.png",
+        false
+      ],
+      [
+        "AK_Metallic.png",
+        "//..\\AKMSoviet20260911\\Source\\ak47fbx_extracted\\textures\\AK_Metallic.png",
+        false
+      ]
+    ]
+  },
+  "QBZ": {
+    "material": "M_QBZ191_Wear_Magazine",
+    "images": [
+      [
+        "T_QBZ191_Wear_Magazine_BaseColor",
+        "//..\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Magazine_BaseColor.png",
+        false
+      ],
+      [
+        "T_QBZ191_Wear_Magazine_Normal",
+        "//..\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Magazine_NormalGL.png",
+        false
+      ]
+    ]
+  }
+}

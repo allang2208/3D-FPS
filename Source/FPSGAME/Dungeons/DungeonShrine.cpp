@@ -66,7 +66,7 @@ double UDungeonRunSubsystem::ShrineEffect(FName Key) const
 
 bool UDungeonRunSubsystem::ClaimShrine(APlayerController* Controller,AActor* Target)
 {
-    if(!IsShrine(Target)||!CanClaimShrine()||!Controller||Controller->GetNetMode()!=NM_Standalone
+    if(!IsShrine(Target)||!CanClaimShrine()||!Controller||Controller->GetNetMode()==NM_Client
         ||ColdSteelWorldInteraction::TraceTarget(Controller)!=Target)return false;
     APawn* Pawn=Controller->GetPawn();
     auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;

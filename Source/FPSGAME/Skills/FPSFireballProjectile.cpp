@@ -23,6 +23,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Perception/AISense_Hearing.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Net/UnrealNetwork.h"
 
 namespace FireballImpactVisuals
 {
@@ -40,19 +41,36 @@ namespace FireballImpactVisuals
 AFPSFireballProjectile::AFPSFireballProjectile()
 {
     PrimaryActorTick.bCanEverTick=true;
+    // 联机：服务端生成并驱动弹道，远端副本靠复制变换+相位字段演同款表现。
+    bReplicates=true;SetReplicateMovement(true);
     Body=CreateDefaultSubobject<USphereComponent>(TEXT("Body"));SetRootComponent(Body);Body->InitSphereRadius(14);Body->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     Core=CreateDefaultSubobject<UNiagaraComponent>(TEXT("Core"));Core->SetupAttachment(Body);Core->SetAutoActivate(false);
     Trail=CreateDefaultSubobject<UNiagaraComponent>(TEXT("Trail"));Trail->SetupAttachment(Body);Trail->SetAutoActivate(false);
     Light=CreateDefaultSubobject<UPointLightComponent>(TEXT("FireLight"));Light->SetupAttachment(Body);Light->SetCastShadows(false);Light->SetLightColor(FLinearColor(1,.23f,.035f));Light->SetAttenuationRadius(240);Light->SetIntensity(0);
 }
+void AFPSFireballProjectile::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AFPSFireballProjectile,Shooter);
+    DOREPLIFETIME(AFPSFireballProjectile,NetHoverDuration);
+    DOREPLIFETIME(AFPSFireballProjectile,NetGravity);
+    DOREPLIFETIME(AFPSFireballProjectile,NetRange);
+    DOREPLIFETIME(AFPSFireballProjectile,NetRadius);
+    DOREPLIFETIME(AFPSFireballProjectile,NetExplodePoint);
+    DOREPLIFETIME(AFPSFireballProjectile,NetExplodeNormal);
+    DOREPLIFETIME(AFPSFireballProjectile,bNetSurfaceHit);
+    DOREPLIFETIME(AFPSFireballProjectile,bFlying);
+    DOREPLIFETIME(AFPSFireballProjectile,bFinished);
+}
 void AFPSFireballProjectile::Prepare(UFPSFireballComponent* Ability,APawn* Caster,const FFireballCast& Snapshot,UNiagaraSystem* CoreFX,UNiagaraSystem* TrailFX,UNiagaraSystem* ImpactFX,UMaterialInterface* WaveMaterial,USoundBase* HitSound)
 {
     Source=Ability;Shooter=Caster;Cast=Snapshot;Explosion=ImpactFX;Wave=WaveMaterial;ImpactSound=HitSound;
+    NetHoverDuration=Snapshot.HoverDuration;NetGravity=Snapshot.Gravity;NetRange=Snapshot.Range;NetRadius=Snapshot.Radius;
     Core->SetAsset(CoreFX);Core->SetVariableFloat(TEXT("User.Flight"),0.f);Core->SetVariableFloat(TEXT("User.FlightAge"),0.f);
     Core->SetRelativeScale3D(FVector(.01f));Core->Activate(true);Trail->SetAsset(TrailFX);
     Core->AddTickPrerequisiteActor(this);Trail->AddTickPrerequisiteActor(this);
     AddTickPrerequisiteActor(Caster);
-    AddTickPrerequisiteComponent(Ability);
+    if(Ability)AddTickPrerequisiteComponent(Ability);
 }
 FVector AFPSFireballProjectile::HoverPosition(APawn* Caster)
 {
@@ -61,9 +79,30 @@ FVector AFPSFireballProjectile::HoverPosition(APawn* Caster)
     if(!Camera)return Caster->GetActorLocation()+Caster->GetActorForwardVector()*100;
     return Camera->GetComponentLocation()+Camera->GetForwardVector()*95-Camera->GetRightVector()*40-Camera->GetUpVector()*22;
 }
+void AFPSFireballProjectile::SetPresentationAssets(UNiagaraSystem* CoreFX,UNiagaraSystem* TrailFX,UNiagaraSystem* ImpactFX,UMaterialInterface* WaveMaterial,USoundBase* HitSound)
+{
+    Explosion=ImpactFX;Wave=WaveMaterial;ImpactSound=HitSound;bAssetsAttached=1;
+    if(CoreFX){Core->SetAsset(CoreFX);Core->SetVariableFloat(TEXT("User.Flight"),0.f);Core->SetVariableFloat(TEXT("User.FlightAge"),0.f);Core->Activate(true);}
+    if(TrailFX)Trail->SetAsset(TrailFX);
+}
+void AFPSFireballProjectile::ResolveNetState()
+{
+    Cast.HoverDuration=NetHoverDuration;Cast.Gravity=NetGravity;Cast.Range=NetRange;Cast.Radius=NetRadius;
+    if(!Shooter)return;
+    if(!Source.IsValid())Source=Shooter->FindComponentByClass<UFPSFireballComponent>();
+    if(!Source.IsValid())return;
+    if(!bAssetsAttached)Source->AttachPresentationAssets(this);
+    // 施法者本机：把复制到达的服务端球认领成本地表现态（手势收尾/发射队列/取消都读 Active）。
+    if(Shooter->IsLocallyControlled())Source->AdoptNetOrb(this);
+}
+void AFPSFireballProjectile::LaunchAt(const FVector& AimPoint)
+{
+    if(bFlying||bFinished||!Shooter)return;
+    PreviewAimPoint=AimPoint;bPreviewLaunchLocked=true;Launch();
+}
 void AFPSFireballProjectile::Launch()
 {
-    if(bFlying||bFinished||!Shooter.IsValid())return;
+    if(bFlying||bFinished||!Shooter)return;
     // Contact is evaluated before this projectile's tick. Catch up to the
     // player's current pose before detaching, including wall clearance.
     UpdateHover();
@@ -89,7 +128,7 @@ void AFPSFireballProjectile::SetAimPreviewActive(bool bActive)
 }
 void AFPSFireballProjectile::CommitAimPreview()
 {
-    if(!bAimPreview||bFlying||bFinished||!Shooter.IsValid())return;
+    if(!bAimPreview||bFlying||bFinished||!IsValid(Shooter.Get()))return;
     // Quick taps can precede the first preview tick. Otherwise preserve the
     // last displayed aim target while the launch origin keeps following.
     if(PreviewPoints.IsEmpty())RefreshAimPreview();
@@ -98,7 +137,7 @@ void AFPSFireballProjectile::CommitAimPreview()
 }
 void AFPSFireballProjectile::RefreshAimPreview()
 {
-    if(!Shooter.IsValid())return;
+    if(!IsValid(Shooter.Get()))return;
     // One frame of segments only: the previous frame is dropped here so a fast camera pan
     // cannot leave a trail of stale lines behind the orb.
     FPSMagicPreview::BeginRefresh(AimPreviewLines,this);
@@ -115,7 +154,7 @@ void AFPSFireballProjectile::RefreshAimPreview()
 }
 void AFPSFireballProjectile::UpdateHover()
 {
-    if(!Shooter.IsValid())return;
+    if(!IsValid(Shooter.Get()))return;
     const FVector Desired=HoverPosition(Shooter.Get());
     // The authored trajectory already eases. Continue following through the
     // windup, without a second interpolator or freezing at input release.
@@ -139,6 +178,34 @@ void AFPSFireballProjectile::UpdateFlightFX(const FVector& PreviousPosition)
 void AFPSFireballProjectile::Tick(float Delta)
 {
     Super::Tick(Delta);
+    // 客户副本：变换由复制驱动，本地只演 FX——不跑弹道模拟，不与复制位置打架。
+    if(!HasAuthority())
+    {
+        ResolveNetState();
+        if(bFinished)
+        {
+            ImpactAge+=Delta;
+            const float Fade=FMath::Exp(-ImpactAge*18.f)*FMath::Clamp((.24f-ImpactAge)/.06f,0.f,1.f);
+            Light->SetIntensity(ImpactLightPeak*Fade);
+            if(ImpactAge>=.24f){Light->SetIntensity(0);SetActorTickEnabled(false);}
+            return;
+        }
+        Age+=Delta;
+        // 凝聚成长用本机时钟近似（~0.95s 抬手），复制延迟下比跟随远端手势状态更稳。
+        const float GrowT=bFlying?1.f:FMath::Clamp(Age/.95f,0.f,1.f),Grow=GrowT*GrowT*(3-2*GrowT);
+        Core->SetRelativeScale3D(FVector(FMath::Max(.01f,Grow)));
+        const float Glow=.97f+.02f*FMath::Sin(Age*2.3f)+.01f*FMath::Sin(Age*3.7f+1.1f);
+        Light->SetIntensity(1250*Grow*Glow);
+        if(bFlying)
+        {
+            FlightAge+=Delta;
+            if(ClientPrevPos.IsNearlyZero())ClientPrevPos=GetActorLocation();
+            Velocity=(GetActorLocation()-ClientPrevPos)/FMath::Max(Delta,1e-4f);
+            UpdateFlightFX(ClientPrevPos);
+            ClientPrevPos=GetActorLocation();
+        }
+        return;
+    }
     if(bFinished)
     {
         ImpactAge+=Delta;
@@ -147,7 +214,7 @@ void AFPSFireballProjectile::Tick(float Delta)
         if(ImpactAge>=.24f){Light->SetIntensity(0);SetActorTickEnabled(false);}
         return;
     }
-    if(!Shooter.IsValid()||!Source.IsValid()){Destroy();return;}
+    if(!IsValid(Shooter.Get())||!Source.IsValid()){Destroy();return;}
     if(const auto* Health=Shooter->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead()){Destroy();return;}
     Age+=Delta;
     const float T=bFlying?1.f:Source->GatherFraction(),Grow=T*T*(3-2*T);
@@ -181,18 +248,11 @@ void AFPSFireballProjectile::Tick(float Delta)
     UpdateFlightFX(PreviousPosition);
     if(Blocked)Explode(&Hit);else if(Distance>=Cast.Range-UE_KINDA_SMALL_NUMBER)Explode(nullptr);
 }
-void AFPSFireballProjectile::Explode(const FHitResult* Hit)
+void AFPSFireballProjectile::PresentExplosion(const FVector& Contact,const FVector& Normal,bool bSurfaceHit)
 {
-    if(bFinished)return;bFinished=true;ImpactAge=0;
     Core->DeactivateImmediate();Light->SetIntensity(0);Trail->Deactivate();
-    const FVector Center=GetActorLocation();
-    const FVector Normal=Hit?FVector(Hit->ImpactNormal):-Velocity.GetSafeNormal();
-    const FVector Contact=Hit?FVector(Hit->ImpactPoint):Center;
     const FRotator ImpactRotation=FRotationMatrix::MakeFromZ(Normal).Rotator();
     const float EffectScale=Cast.Radius/FireballImpactVisuals::BaselineRadius;
-    // Terrain damage: the hills heightfield gets a stamped crater. The hub arena is a
-    // static floor and stays unchanged.
-    TerrainDestruction::CarveCrater(this,Contact,Normal,Cast.Radius);
     // Same event, same foot: the grass flatten is stamped on the contact the crater used, so
     // the flattened tufts and the bowl stay concentric. Cast.Radius is the single radius this
     // cast shares between damage and impact presentation, hence a 1.0 multiplier.
@@ -204,14 +264,14 @@ void AFPSFireballProjectile::Explode(const FHitResult* Hit)
     // units, so the same growth must also be applied explicitly in the system.
     if(auto* FX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,Explosion,Contact+Normal*8,ImpactRotation,FVector(EffectScale*FireballImpactVisuals::BaselineCombustionScale),true,false,ENCPoolMethod::AutoRelease))
     {
-        FX->SetVariableFloat(TEXT("User.SurfaceHit"),Hit?1.f:0.f);
+        FX->SetVariableFloat(TEXT("User.SurfaceHit"),bSurfaceHit?1.f:0.f);
         FX->SetVariableVec3(TEXT("User.LocalUp"),ImpactRotation.UnrotateVector(FVector::UpVector));
         FX->SetVariableFloat(TEXT("User.ImpactGrowth"),EffectScale-1.f);
         if(auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Budget->ConfigureSmoke(FX,9,bWaterContact);
         FX->Activate(true);
     }
-    const FVector WaveOrigin=Contact+(Hit?Normal*4:FVector::ZeroVector);
-    if(Wave)if(auto* Ring=GetWorld()->SpawnActor<AFireballShockwave>(WaveOrigin,ImpactRotation))Ring->Setup(Wave,Cast.Radius,Hit!=nullptr);
+    const FVector WaveOrigin=Contact+(bSurfaceHit?Normal*4:FVector::ZeroVector);
+    if(Wave)if(auto* Ring=GetWorld()->SpawnActor<AFireballShockwave>(WaveOrigin,ImpactRotation))Ring->Setup(Wave,Cast.Radius,bSurfaceHit);
     // One short, shadowed warm flash lights the actual contact environment.
     Light->SetWorldLocation(Contact+Normal*22);
     Light->SetIntensityUnits(ELightUnits::Lumens);
@@ -221,9 +281,36 @@ void AFPSFireballProjectile::Explode(const FHitResult* Hit)
     ImpactLightPeak=FireballImpactVisuals::BaselineLightPeak*EffectScale;
     Light->SetIntensity(ImpactLightPeak);
     if(ImpactSound)UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,Contact,.72f,FMath::FRandRange(.96f,1.04f));
-    UAISense_Hearing::ReportNoiseEvent(this,Center,1.f,Shooter.Get(),1600,TEXT("Fireball"));
-    // Keep the collision bone for direct-hit weakpoints; airbursts have no hit.
-    if(auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())P->ApplyFireballExplosion(Shooter.Get(),WaveOrigin,Cast,Hit);
+}
+void AFPSFireballProjectile::OnRep_Finished()
+{
+    if(!bFinished||bExplosionPresented)return;
+    bExplosionPresented=1;
+    PresentExplosion(NetExplodePoint,NetExplodeNormal,bNetSurfaceHit!=0);
+}
+void AFPSFireballProjectile::Explode(const FHitResult* Hit)
+{
+    if(bFinished)return;bFinished=true;ImpactAge=0;
+    const FVector Center=GetActorLocation();
+    const FVector Normal=Hit?FVector(Hit->ImpactNormal):-Velocity.GetSafeNormal();
+    const FVector Contact=Hit?FVector(Hit->ImpactPoint):Center;
+    // 复制契约：远端副本靠这组字段在 OnRep_Finished 播同款爆炸表现。
+    NetExplodePoint=Contact;NetExplodeNormal=Normal;bNetSurfaceHit=Hit!=nullptr;
+    if(!bExplosionPresented){bExplosionPresented=1;PresentExplosion(Contact,Normal,Hit!=nullptr);}
+    if(HasAuthority())
+    {
+        // Terrain damage: the hills heightfield gets a stamped crater. The hub arena is a
+        // static floor and stays unchanged. 权威侧刻痕经 NetEdits 确定性下发，远端不重复刻。
+        TerrainDestruction::CarveCrater(this,Contact,Normal,Cast.Radius);
+        UAISense_Hearing::ReportNoiseEvent(this,Center,1.f,Shooter.Get(),1600,TEXT("Fireball"));
+        // Keep the collision bone for direct-hit weakpoints; airbursts have no hit.
+        // 联机：客人的球结算到自己的影子档案；主机玩家的球回落本机单例。
+        UColdSteelStatusModel* P=nullptr;
+        if(const auto* Char=::Cast<AFPSGAMECharacter>(Shooter.Get()))P=Char->GetNetShadowProfile();
+        if(!P)P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+        const FVector WaveOrigin=Contact+(Hit?Normal*4:FVector::ZeroVector);
+        if(P)P->ApplyFireballExplosion(Shooter.Get(),WaveOrigin,Cast,Hit);
+    }
     if(Source.IsValid())Source->ProjectileFinished(this);Source.Reset();
     SetLifeSpan(1.2f); // Let the world-space trail finish its existing particles.
 }

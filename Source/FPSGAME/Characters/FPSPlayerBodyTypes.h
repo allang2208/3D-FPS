@@ -2,9 +2,19 @@
 
 #include "CoreMinimal.h"
 #include "UObject/SoftObjectPath.h"
+#include "FPSBodyMotionSample.h"
 #include "FPSPlayerBodyTypes.generated.h"
 
 class UPrimitiveComponent;
+
+USTRUCT(BlueprintType)
+struct FFPSBodyAppearance
+{
+    GENERATED_BODY()
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) FName HeadId;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) FName HairId;
+    bool operator==(const FFPSBodyAppearance& Other) const {return HeadId==Other.HeadId&&HairId==Other.HairId;}
+};
 
 /** Helpers shared by the world-body implementation files. */
 namespace FPSBodyEquipment
@@ -24,7 +34,7 @@ UENUM(BlueprintType)
 enum class EFPSBodyAction : uint8
 {
     None, Equip, Reload, ReloadEmpty, Inspect, Strike, HeavyStrike, Thrust, Guard, Cast, Traverse, Dead,
-    GunBash, Pommel, Charge, GuardHit, GuardBreak, Whirlwind, ToolRecover
+    GunBash, Pommel, Charge, GuardHit, GuardBreak, Whirlwind, ToolRecover, Consume, DoorPush, StaffLight
 };
 
 UENUM(BlueprintType)
@@ -39,6 +49,7 @@ struct FFPSBodyHandState
     UPROPERTY(BlueprintReadOnly) bool bEquipping = false;
     UPROPERTY(BlueprintReadOnly) float Progress = 0.f;
     UPROPERTY(BlueprintReadOnly) float LastShotAt = -100.f;
+    UPROPERTY() float ProgressRate = 0.f;
 };
 
 /** Presentation only. Ammo, hits and movement remain owned by their gameplay systems. */
@@ -78,6 +89,23 @@ struct FFPSBodyState
     UPROPERTY(BlueprintReadOnly) bool bHasHandholds = false;
     UPROPERTY(BlueprintReadOnly) FVector RightHandhold = FVector::ZeroVector;
     UPROPERTY(BlueprintReadOnly) FVector LeftHandhold = FVector::ZeroVector;
+    // Bounded interpolation between cosmetic snapshots; never used for gameplay.
+    UPROPERTY() float PresentationSampledAt = 0.f;
+    UPROPERTY() float ActionProgressRate = 0.f;
+    UPROPERTY() float MotionSampledAt = 0.f;
+    UPROPERTY() float MotionProgressRate = 0.f;
+    // Cosmetic bow sampling; asset names are resolved only against server equipment.
+    UPROPERTY() FName BowClip;
+    UPROPERTY() float BowClipTime = 0.f;
+    UPROPERTY() float BowClipRate = 0.f;
+    UPROPERTY() FVector BowNock = FVector::ZeroVector;
+    UPROPERTY() bool bBowArrow = false;
+    UPROPERTY() bool bBowTakingArrow = false;
+    UPROPERTY() float BowSeat = 1.f;
+    UPROPERTY() float BowStringContact = 0.f;
+    UPROPERTY() bool bBowCarryAxis = false;
+    UPROPERTY() FFPSBodyMotionSample Contacts;
+    UPROPERTY() float ActionEntryFraction=0.f;
 };
 
 USTRUCT()
@@ -88,9 +116,34 @@ struct FFPSBodyAttachment
     UPROPERTY() TArray<TSoftObjectPtr<class UMaterialInterface>> Materials;
     UPROPERTY() FName Socket;
     UPROPERTY() FTransform RelativeTransform;
+    UPROPERTY() TSoftObjectPtr<class USkeletalMesh> SkeletalMesh;
+    UPROPERTY() FName Slot;
+    UPROPERTY() bool bVisible=true;
 };
 
-/** Frozen weapon pose and parts; no first-person skeleton transforms are streamed. */
+USTRUCT()
+struct FFPSBodyBowSettings
+{
+    GENERATED_BODY()
+    UPROPERTY() FVector UpperTip = FVector::ZeroVector;
+    UPROPERTY() FVector LowerTip = FVector::ZeroVector;
+    UPROPERTY() FVector Brace = FVector::ZeroVector;
+    UPROPERTY() FVector ArrowRest = FVector::ZeroVector;
+    UPROPERTY() float StringRadius = .09f;
+    UPROPERTY() float ArrowRadius = .3f;
+    UPROPERTY() float ArrowLength = 76.f;
+    UPROPERTY() float FlexDistribution = 1.15f;
+};
+
+USTRUCT()
+struct FFPSBodyBowClip
+{
+    GENERATED_BODY()
+    UPROPERTY() FName Role;
+    UPROPERTY() TSoftObjectPtr<class UAnimSequence> Sequence;
+};
+
+/** Server-owned equipment schema. Cosmetic contacts stream only hands and mechanical parts. */
 USTRUCT()
 struct FFPSBodyWeapon
 {
@@ -103,6 +156,19 @@ struct FFPSBodyWeapon
     UPROPERTY() FName GripBone = TEXT("hand_r");
     UPROPERTY() TSoftObjectPtr<class UStaticMesh> StaticMesh;
     UPROPERTY() FTransform StaticGrip = FTransform::Identity;
+    UPROPERTY() FName PoseFamily;
+    UPROPERTY() uint8 AttachHand = 0;
+    UPROPERTY() TSoftObjectPtr<class UWeaponGripProfile> GripProfile;
+    UPROPERTY() int32 StaffVariant = 0;
+    UPROPERTY() TArray<FFPSBodyBowClip> MotionClips;
+    UPROPERTY() FFPSBodyBowSettings Bow;
+    UPROPERTY() TArray<int32> MotionBones;
+    UPROPERTY() uint32 MotionSchema=0;
+    UPROPERTY() FVector StaffLightLocation=FVector::ZeroVector;
+    // Local adapters are never serialized as equipment or accepted from clients.
+    TWeakObjectPtr<class USkeletalMeshComponent> Source;
+    TWeakObjectPtr<class UStaticMeshComponent> StaticSource;
+    TArray<TWeakObjectPtr<class UStaticMeshComponent>> SourceParts;
 };
 
 USTRUCT(BlueprintType)

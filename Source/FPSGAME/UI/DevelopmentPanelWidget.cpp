@@ -1,4 +1,5 @@
 #include "DevelopmentPanelWidget.h"
+#include "DevelopmentItemPicker.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelHUDWidget.h"
 #include "../FPSGAMEPlayerController.h"
@@ -163,13 +164,13 @@ void UDevelopmentPanelWidget::NativeOnInitialized()
 
 UWidget* UDevelopmentPanelWidget::GenerateMonsterOption(FString Item)
 {
-    // 怪物下拉与物品／技能下拉是同一类选项条，共用条目生成，不再单列更小的字号。
+    // 怪物与技能下拉共用正文档选项；物品目录使用带类别标题的专用下拉。
     return GenerateListOption(Item);
 }
 
 UWidget* UDevelopmentPanelWidget::GenerateListOption(FString Item)
 {
-    // 怪物、物品与技能下拉的条目：正文档 14px，固定不换行，避免行高被折行撑开。
+    // 怪物与技能下拉的条目：正文档 14px，固定不换行。
     auto* Text = CreatePanelText(Item, 14, ColdSteelUI::TextPrimary);
     Text->SetAutoWrapText(false);
     return Text;
@@ -204,13 +205,12 @@ void UDevelopmentPanelWidget::PopulateItems()
 {
     if (!ItemChoice) return;
     const FString Previous = SelectedItemDefinition;
-    ItemOptions.Reset(); ItemChoice->ClearOptions();
+    ItemOptions.Reset();
     if (const auto* Model = ResolveModel())
     {
         for (const auto& Entry : Model->ItemCatalog())
         {
             ItemOptions.Add(Entry);
-            ItemChoice->AddOption(FString::Printf(TEXT("%s · %s"), *Entry.Group, *Entry.Name));
         }
         // Numeric arrow types live in AmmoCatalog rather than inventory item
         // definitions. Expose them through the existing developer grant control.
@@ -218,19 +218,28 @@ void UDevelopmentPanelWidget::PopulateItems()
         {
             if(!Ammo.Enabled||Ammo.Group!=TEXT("arrow")||ItemOptions.ContainsByPredicate(
                 [&](const auto& Entry){return Entry.Definition==Ammo.Id;}))continue;
-            FColdSteelCatalogEntry Entry;Entry.Definition=Ammo.Id;Entry.Name=Ammo.Name;Entry.Group=TEXT("箭矢（弹药袋）");
+            FColdSteelCatalogEntry Entry;Entry.Definition=Ammo.Id;Entry.Name=Ammo.Name;Entry.Group=TEXT("弹药");Entry.GroupOrder=1;
+            Entry.Subgroup=TEXT("箭矢（弹药袋）");Entry.SubgroupOrder=1;
             ItemOptions.Add(Entry);
-            ItemChoice->AddOption(FString::Printf(TEXT("%s · %s"),*Entry.Group,*Entry.Name));
         }
     }
+    // 箭矢补充后重新归入弹药大类，避免在列表尾部单独混排。
+    ItemOptions.Sort([](const FColdSteelCatalogEntry& A, const FColdSteelCatalogEntry& B)
+    {
+        if(A.GroupOrder!=B.GroupOrder)return A.GroupOrder<B.GroupOrder;
+        if(A.Group!=B.Group)return A.Group<B.Group;
+        if(A.SubgroupOrder!=B.SubgroupOrder)return A.SubgroupOrder<B.SubgroupOrder;
+        if(A.Subgroup!=B.Subgroup)return A.Subgroup<B.Subgroup;
+        if(A.Name!=B.Name)return A.Name<B.Name;
+        return A.Definition<B.Definition;
+    });
     int32 Index = INDEX_NONE;
     if (!Previous.IsEmpty())
         for (int32 N = 0; N < ItemOptions.Num(); ++N) if (ItemOptions[N].Definition == Previous) { Index = N; break; }
     ItemChoice->SetIsEnabled(!ItemOptions.IsEmpty());
-    if (ItemOptions.IsEmpty()) { SelectedItemDefinition.Reset(); return; }
     const int32 Pick = Index == INDEX_NONE ? 0 : Index;
-    ItemChoice->SetSelectedIndex(Pick);
-    SelectedItemDefinition = ItemOptions[Pick].Definition;
+    SelectedItemDefinition = ItemOptions.IsValidIndex(Pick) ? ItemOptions[Pick].Definition : FString();
+    ItemChoice->SetOptions(ItemOptions, SelectedItemDefinition);
 }
 
 void UDevelopmentPanelWidget::PopulateSkills()
@@ -266,6 +275,7 @@ void UDevelopmentPanelWidget::PopulateMonsters()
 
 void UDevelopmentPanelWidget::SetPanelOpen(bool bOpen)
 {
+    if (!bOpen && ItemChoice) ItemChoice->CloseMenu();
     Super::SetPanelOpen(bOpen);
     // 基础实现直接折叠面板；抽屉收回顾动画由 TickDrawer 驱动，动画期间保持可见。
     if (bOpen || DrawerProgress > KINDA_SMALL_NUMBER)
@@ -284,6 +294,7 @@ void UDevelopmentPanelWidget::SetPanelOpen(bool bOpen)
 
 void UDevelopmentPanelWidget::SetPage(int32 Index)
 {
+    if (ActivePage != Index && ItemChoice) ItemChoice->CloseMenu();
     if (ActivePage != Index && Index == 3) PerformanceNextUpdate = 0.0;
     ActivePage = Index;
     Pages->SetActiveWidgetIndex(Index);
@@ -347,10 +358,9 @@ void UDevelopmentPanelWidget::MonsterSelected(FString Name, ESelectInfo::Type Ty
     if (SpawnButton) RefreshStatus();
 }
 
-void UDevelopmentPanelWidget::ItemSelected(FString Name, ESelectInfo::Type Type)
+void UDevelopmentPanelWidget::ItemSelected(const FString& Definition)
 {
-    const int32 Index = ItemChoice->GetSelectedIndex();
-    SelectedItemDefinition = ItemOptions.IsValidIndex(Index) ? ItemOptions[Index].Definition : FString();
+    SelectedItemDefinition = Definition;
     if (GenerateItemButton) RefreshFeatures();
 }
 
@@ -512,7 +522,7 @@ void UDevelopmentPanelWidget::UpdateLayout()
     UpdateTuningLayout(FMath::Max(1.f, Width - 36.f), Scale);
     UpdateFeatureLayout(FMath::Max(1.f, Width - 36.f), Scale);
     StyleChoice(MonsterChoice, Scale);
-    StyleChoice(ItemChoice, Scale);
+    if (ItemChoice) ItemChoice->SetPixelScale(Scale);
     StyleChoice(SkillChoice, Scale);
     UpdatePerformanceLayout(Scale);
     for (auto* Spin : {CountBox.Get(), DistanceBox.Get(), ItemCountBox.Get()}) StyleCount(Spin, Scale);

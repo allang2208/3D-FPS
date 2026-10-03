@@ -7,6 +7,7 @@ struct FColdSteelShotEffects {int32 Piercing=0,Poison=0;};
 struct FColdSteelItem;
 // 在命名空间外前置声明：命名空间内的 `class X` 会新建 ColdSteelCombat::X 并遮蔽真实类型。
 class UColdSteelEnhancementSystem;
+struct FWeaponHandling;
 /** 涡轮增压（附魔）：持续开火时攻击间隔由 StartMultiplier 线性过渡到 PeakMultiplier。 */
 struct FColdSteelTurboRamp
 {
@@ -21,6 +22,23 @@ struct FColdSteelConvergence
 };
 namespace ColdSteelCombat
 {
+    struct FBigBlind
+    {
+        bool Enabled=false;
+        float CriticalBonusPerStack=0.f,Seconds=0.f;
+        int32 MaxStacks=0;
+    };
+    FPSGAME_API FBigBlind BigBlind(const UColdSteelEnhancementSystem* Enhancement,const FColdSteelItem* Item);
+    struct FComposure
+    {
+        bool Enabled=false;
+        float StabilityPerStack=0.f,RecoilReductionPerStack=0.f,Seconds=0.f;
+        int32 MaxStacks=0;
+    };
+    FPSGAME_API FComposure Calm(const UColdSteelEnhancementSystem* Enhancement,const FColdSteelItem* Item);
+    /** Temporary player buff on composed firearm stats; never write it into equipment. */
+    FPSGAME_API FWeaponHandling ComposureHandling(AActor* Shooter,const FWeaponHandling& Base);
+    FPSGAME_API float ComposureRecoilMultiplier(AActor* Shooter);
     FPSGAME_API FColdSteelShotEffects Snapshot(AActor* Shooter,const FColdSteelItem* Item=nullptr);
     FPSGAME_API void OnHit(AActor* Target,AActor* Shooter,int32 Poison);
     // 三个数值同属一次附魔，缺一项即视为未附魔，避免半套数据改动射速。

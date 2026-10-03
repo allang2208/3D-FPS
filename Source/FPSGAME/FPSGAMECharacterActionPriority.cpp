@@ -52,7 +52,7 @@ bool AFPSGAMECharacter::IsSwitchingWeapon() const
 
 bool AFPSGAMECharacter::CanStartQuickCombatPriority() const
 {
-    if(IsDoorPushActive() || IsSwitchingWeapon() || (IsRSH12Weapon() && IsRevolverFireActionPlaying()) || bResolvingActionInterrupt || !IsLocallyControlled())return false;
+    if(IsDoorPushActive() || IsSwitchingWeapon() || bResolvingActionInterrupt || !IsLocallyControlled())return false;
     if(AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(GetController())))return false;
     if(const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();Health && Health->IsDead())return false;
     if(QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand())return false;

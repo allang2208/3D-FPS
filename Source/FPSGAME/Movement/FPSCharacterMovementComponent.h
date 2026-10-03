@@ -4,6 +4,37 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "FPSCharacterMovementComponent.generated.h"
 
+/**
+ * 联机移动意图位（sprint/ADS 走速档 + 滑铲态）随移动包同帧传输：客户端在 SavedMove 的
+ * CompressedFlags 里打包，服务端在 UpdateFromCompressedFlags 里解包——两端用同一份
+ * MaxWalkSpeed/摩擦依据，不再走独立 RPC（时序天然错开）。
+ */
+class FSavedMove_FPSCharacter : public FSavedMove_Character
+{
+public:
+    typedef FSavedMove_Character Super;
+    FSavedMove_FPSCharacter();
+    virtual void Clear() override;
+    virtual uint8 GetCompressedFlags() const override;
+    virtual void SetMoveFor(ACharacter* InCharacter, float InDeltaTime, FVector const& NewAccel, class FNetworkPredictionData_Client_Character& ClientData) override;
+    virtual void PrepMoveFor(ACharacter* InCharacter) override;
+    virtual bool CanCombineWith(const FSavedMovePtr& NewMove, ACharacter* InCharacter, float MaxDelta) const override;
+
+private:
+    uint8 bSavedWantsToSprint : 1;
+    uint8 bSavedWantsToAim : 1;
+    uint8 bSavedWantsToSlide : 1;
+    uint8 bSavedWantsToMount : 1;
+};
+
+class FNetworkPredictionData_Client_FPSCharacter : public FNetworkPredictionData_Client_Character
+{
+public:
+    typedef FNetworkPredictionData_Client_Character Super;
+    FNetworkPredictionData_Client_FPSCharacter(const UCharacterMovementComponent& ClientMovement);
+    virtual FSavedMovePtr AllocateNewMove() override;
+};
+
 /** Native swept walking, with local first-person compensation for discrete stair corrections. */
 UCLASS()
 class FPSGAME_API UFPSCharacterMovementComponent : public UCharacterMovementComponent
@@ -12,6 +43,19 @@ class FPSGAME_API UFPSCharacterMovementComponent : public UCharacterMovementComp
 public:
     UFPSCharacterMovementComponent();
     virtual float GetMaxSpeed() const override;
+
+    /** 客户端写入（本机控制 pawn）：随压缩标志进 ServerMove；服务端 UpdateFromCompressedFlags 读回。
+     *  本地与服务端都直接读这个字段算 MaxWalkSpeed，同源不分叉。 */
+    uint8 bWantsToSprint : 1;
+    uint8 bWantsToAim : 1;
+    /** 滑铲状态位（镜像角色 bIsSliding）：服务端副本按它启停同一套滑铲物理。 */
+    uint8 bWantsToSlide : 1;
+    /** Restrictive movement intent only; support approval and weapon bonuses remain server-owned. */
+    uint8 bWantsToMount : 1;
+    bool IsBipodMovementLocked() const;
+    virtual void UpdateFromCompressedFlags(uint8 Flags) override;
+    virtual class FNetworkPredictionData_Client* GetPredictionData_Client() const override;
+
     void SetStairVisualRoot(USceneComponent* InRoot) { StairVisualRoot = InRoot; }
 
     // Local single-player dodge. Direction is captured at activation, in world XY.
@@ -52,6 +96,8 @@ protected:
 
 private:
     void UpdateDodgeState();
+    /** 服务端侧最后一次处理远端 move 的真实时刻（UpdateFromCompressedFlags 打点）。 */
+    double LastServerMoveAppliedAt = 0.0;
     uint16 DodgeRootMotionId = 0;
     double DodgeStartedAt = 0.0;
     float ActiveDodgeDuration = .3f;

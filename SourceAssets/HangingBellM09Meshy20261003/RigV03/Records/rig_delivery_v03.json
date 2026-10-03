@@ -1,0 +1,20 @@
+{
+  "stage": "Rig V03 saved and exported",
+  "files": [
+    "D:\\FPS3D\\FPSGAME\\SourceAssets\\HangingBellM09Meshy20261003\\RigV03\\Authoring\\M09_Rigged_v03.blend",
+    "D:\\FPS3D\\FPSGAME\\SourceAssets\\HangingBellM09Meshy20261003\\RigV03\\Exports\\M09_Rigged_v03.glb",
+    "D:\\FPS3D\\FPSGAME\\SourceAssets\\HangingBellM09Meshy20261003\\RigV03\\Exports\\M09_Rigged_v03.fbx"
+  ],
+  "bones_total": 121,
+  "deform_and_export_bones": 113,
+  "control_bones": 8,
+  "mesh_parts": 25,
+  "vertices": 1009345,
+  "source_triangles_including_closures": 1890032,
+  "source_geometry_preserved": true,
+  "max_influences": 4,
+  "rest_pose": "V02 suspended form",
+  "animation_clips_created": 0,
+  "engine_assets_imported": false,
+  "tests_or_renders_performed": false
+}

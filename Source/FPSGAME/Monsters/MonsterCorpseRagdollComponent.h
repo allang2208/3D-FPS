@@ -9,7 +9,7 @@
 class USkeletalMeshComponent;
 
 UENUM(BlueprintType)
-enum class EMonsterCorpseRig : uint8 { Canine, Maggot, HandBrain, FleshHand, Mawcrawler };
+enum class EMonsterCorpseRig : uint8 { Canine, Maggot, HandBrain, FleshHand, Mawcrawler, HangingBell };
 
 /** Death-only physics; no living knockdown/get-up behavior and no idle tick. */
 UCLASS(ClassGroup=AI)

@@ -24,22 +24,15 @@
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
+#include "NetCastUtils.h"
 
 UFPSBlizzardComponent::UFPSBlizzardComponent(){PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostUpdateWork;}
 void UFPSBlizzardComponent::BeginPlay()
 {
     Super::BeginPlay();AddTickPrerequisiteActor(GetOwner());
     if(auto* Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>())AddTickPrerequisiteComponent(Sword);
-    const TCHAR* Paths[]={TEXT("/Game/Skills/Blizzard/ChargedV3/NS_BlizzardStormCloud.NS_BlizzardStormCloud"),TEXT("/Game/Skills/Blizzard/ChargedV3/NS_BlizzardPrecipitation.NS_BlizzardPrecipitation"),
-        TEXT("/Game/Skills/Blizzard/ChargedV3/NS_BlizzardBoundaryMist.NS_BlizzardBoundaryMist"),TEXT("/Game/Skills/Blizzard/ChargedV3/M_BlizzardIceHeart.M_BlizzardIceHeart"),
-        TEXT("/Game/Skills/IceSpike/SM_IceShard.SM_IceShard"),TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_01.SM_IceSpike_01"),
-        TEXT("/Game/Skills/Blizzard/ChargedV3/M_BlizzardIceShell.M_BlizzardIceShell"),TEXT("/Game/Skills/Blizzard/ChargedV3/M_BlizzardGroundFrost.M_BlizzardGroundFrost"),
-        TEXT("/Game/Skills/IceWall/BlockV1/S_IceWallCast.S_IceWallCast"),TEXT("/Game/Skills/IceSpike/S_IceImpact.S_IceImpact"),
-        TEXT("/Game/Skills/Blizzard/StormV2/S_BlizzardIceLanding.S_BlizzardIceLanding"),
-        TEXT("/Game/Skills/Blizzard/ChargedV3/NS_BlizzardGatherCloud.NS_BlizzardGatherCloud"),
-        TEXT("/Game/Skills/Blizzard/ChargedV3/M_BlizzardAimPreview.M_BlizzardAimPreview"),
-        TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_02.SM_IceSpike_02"),TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_03.SM_IceSpike_03")};
-    TArray<FSoftObjectPath> Requests;for(const TCHAR* Path:Paths)Requests.Emplace(Path);
+    const TCHAR* const* Paths=AFPSBlizzardZone::ZoneAssetPaths(); // 与远端副本自载共用同一张清单
+    TArray<FSoftObjectPath> Requests;for(int32 I=0;I<15;++I)Requests.Emplace(Paths[I]);
     AssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Requests,FStreamableDelegate::CreateWeakLambda(this,[this,Requests]()
     {
         bAssetsReady=true;for(const auto& Path:Requests){UObject* Asset=Path.ResolveObject();bAssetsReady&=Asset!=nullptr;Assets.Add(Asset);}
@@ -103,7 +96,7 @@ bool UFPSBlizzardComponent::SelectGround(const FBlizzardCast& Spell,FString& Fai
 void UFPSBlizzardComponent::Trigger()
 {
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
-    if(!P||!M||!P->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone||!InputAvailable())return;
+    if(!P||!M||!P->IsLocallyControlled()||!InputAvailable())return;
     if(const auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     if(const auto* H=Hands();H&&H->HasOtherPreparedSpell(this))
     {bQueued=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
@@ -142,6 +135,8 @@ void UFPSBlizzardComponent::ServiceQueue()
         GatherFX->AddTickPrerequisiteComponent(this);GatherFX->SetTickBehavior(ENiagaraTickBehavior::UsePrereqs);GatherFX->SetCastShadow(false);
         UpdateGatherCloud();GatherFX->Activate(true);MessageUntil=0;
         if(auto* Status=P->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
+        // 联机客人：凝聚云/预览是本地表现；权威暴风雪区由服务端生成复制回来。
+        if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;NetPaidAt=GetWorld()->GetTimeSeconds();NetCast::Send(P,TEXT("blizzard"),0);}
         return;
     }
     if(bReleaseRequested&&bCommitted&&bGathered)
@@ -156,6 +151,18 @@ void UFPSBlizzardComponent::ReleaseAtContact()
         FVector::Dist2D(P->GetActorLocation(),LockedPoint)>CastSnapshot.Range||
         FireMagic::TraceSurface(P,Camera->GetComponentLocation(),LockedPoint+LockedNormal*12,Hit))
     {bReleaseRequested=false;Feedback(TEXT("落点被遮挡或超距"));return;}
+    // 联机客人：落点/法线/长轴上报服务端，权威区复制回来；本地即刻收尾。
+    if(GetWorld()->GetNetMode()==NM_Client)
+    {
+        if(!M->CommitBlizzardRelease()){CancelPending();return;}
+        NetCast::Send(P,TEXT("blizzard"),1,LockedPoint,LockedNormal,0,nullptr,0.f,LockedAxis);
+        bCommitted=bGathered=bReleaseRequested=false;PaidMana=0;bNetPaid=false;SetAimPreview(false);
+        if(GatherFX){GatherFX->DestroyComponent();GatherFX=nullptr;}
+        UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[8]),P->GetActorLocation());
+        if(auto* Status=UCombatStatusFormula::GetOrAdd(P))
+        {if(CastSnapshot.bGrantChain)Status->AddChainSpell();if(CastSnapshot.CastHasteStacks>0)Status->AddHaste(CastSnapshot.CastHasteStacks,CastSnapshot.CastHasteDuration);}
+        return;
+    }
     FActorSpawnParameters Params;Params.Owner=P;Params.Instigator=P;Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     auto* Zone=GetWorld()->SpawnActor<AFPSBlizzardZone>(LockedPoint,FRotator::ZeroRotator,Params);
     if(!Zone||!Zone->InitializeZone(P,CastSnapshot,LockedPoint,LockedNormal,LockedAxis,Assets)||!M->CommitBlizzardRelease())
@@ -176,8 +183,36 @@ void UFPSBlizzardComponent::CancelPending()
     {
         bCommitted=false;if(auto* M=Model())M->RefundUnreleasedCast(PaidMana,TEXT("blizzard"));
         if(auto* H=Hands())H->CancelSpellGesture(this);
+        // 联机客人：把已扣账的凝聚取消上报，服务端同口径退预留。
+        if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bNetPaid)NetCast::Send(GetOwner(),TEXT("blizzard"),2);
     }
+    bNetPaid=false;
     PaidMana=0;PreparedAge=0;
+}
+// ── 联机服务端入口：客人上报落点→重验→权威暴风雪区生成（复制回各端） ──
+bool UFPSBlizzardComponent::NetCommitZone(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow)
+{
+    const auto Spell=Shadow->BlizzardStats();
+    if(FVector::Dist2D(Caster->GetActorLocation(),Req.AimPoint)>Spell.Range)return false;
+    if(Req.AimNormal.Z<.45f)return false;
+    FVector Axis=FVector::VectorPlaneProject(Req.AimAxis,Req.AimNormal.GetSafeNormal()).GetSafeNormal();
+    if(Axis.IsNearlyZero()){FVector Other;Req.AimNormal.GetSafeNormal().FindBestAxisVectors(Axis,Other);}
+    FActorSpawnParameters Params;Params.Owner=Caster;Params.Instigator=Caster;Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    auto* Zone=GetWorld()->SpawnActor<AFPSBlizzardZone>(Req.AimPoint,FRotator::ZeroRotator,Params);
+    if(!Zone||!Zone->InitializeZone(Caster,Spell,Req.AimPoint,Req.AimNormal,Axis,Assets)||!Shadow->CommitBlizzardRelease())
+    {if(Zone)Zone->Destroy();return false;}
+    Zones.Add(Zone);Zone->ActivateZone();
+    if(auto* Status=UCombatStatusFormula::GetOrAdd(Caster))
+    {if(Spell.bGrantChain)Status->AddChainSpell();if(Spell.CastHasteStacks>0)Status->AddHaste(Spell.CastHasteStacks,Spell.CastHasteDuration);}
+    return true;
+}
+void UFPSBlizzardComponent::NetCastRejected(uint8 /*Phase*/,uint8 /*Code*/)
+{
+    bNetPaid=false;CancelPending();Feedback(TEXT("施法失败"));
+}
+void UFPSBlizzardComponent::NetCastCancelled(uint8 /*Phase*/)
+{
+    bNetPaid=false; // 本地壳的清理在 CancelPending 走完了
 }
 void UFPSBlizzardComponent::InterruptPending(bool bCancelCloud)
 {

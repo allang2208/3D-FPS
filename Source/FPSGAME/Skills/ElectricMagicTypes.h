@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "LightningTypes.h"
+#include "ElectricMagicTypes.generated.h"
 
 namespace ElectricMagic
 {
@@ -15,13 +16,17 @@ struct FElectricMagicTuning
     int32 ChainExtraBase=1,ChainLevelStep=8,ElectrifyStacks=1;
     float ElectrifySeconds=4,MinCharge=.5f,MaxCharge=2.5f,ChargeBonus=1.3f,StackDamage=.1f;
     float HalfWidth=40,KnockbackBase=50,KnockbackGrowth=100,EndRadius=90;
+    // Lance beam lifetime only; stormDomain arcs keep their own hold/fade.
+    float BeamHold=.45f,BeamFade=.6f;
     int32 HitExperience=1,KillExperience=6,MultiHitExperience=5,MultiKillExperience=10;
 };
+USTRUCT()
 struct FElectricMagicCast
 {
-    FLightningCast Hit;
-    float Radius=342,Duration=10,StrikeSeconds=.9f,MinCharge=.5f,MaxCharge=2.5f;
-    float ChargeBonus=1.3f,StackDamage=.1f,HalfWidth=60,Knockback=75,EndRadius=135;
+    GENERATED_BODY()
+    UPROPERTY() FLightningCast Hit;
+    UPROPERTY() float Radius=342; UPROPERTY() float Duration=10; UPROPERTY() float StrikeSeconds=.9f; UPROPERTY() float MinCharge=.5f; UPROPERTY() float MaxCharge=2.5f;
+    UPROPERTY() float ChargeBonus=1.3f; UPROPERTY() float StackDamage=.1f; UPROPERTY() float HalfWidth=60; UPROPERTY() float Knockback=75; UPROPERTY() float EndRadius=135;
 };
 struct FElectricMagicRewards
 {

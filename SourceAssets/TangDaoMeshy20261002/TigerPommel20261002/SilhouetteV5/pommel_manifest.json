@@ -1,0 +1,108 @@
+{
+  "id": "tiger_mountain",
+  "name": "虎啸镇岳配重锤",
+  "weapon": "ue_tang_dao",
+  "slot": "pommel",
+  "interface": "tang_dao_hilt_v1",
+  "ue_root": "/Game/Weapons/TangDao20261002/TigerPommel20261002/SilhouetteV5",
+  "mesh_name": "SM_TangDao_Pommel_tiger_mountain_SilhouetteV5",
+  "mesh": "/Game/Weapons/TangDao20261002/TigerPommel20261002/SilhouetteV5/Meshes/SM_TangDao_Pommel_tiger_mountain_SilhouetteV5.SM_TangDao_Pommel_tiger_mountain_SilhouetteV5",
+  "materials": {
+    "M_TangDaoTigerPommel_BronzeFace": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_BronzeFace.M_TangDaoTigerPommel_BronzeFace",
+    "M_TangDaoTigerPommel_Gilt": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Gilt.M_TangDaoTigerPommel_Gilt",
+    "M_TangDaoTigerPommel_Garnet": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Garnet.M_TangDaoTigerPommel_Garnet",
+    "M_TangDaoTigerPommel_Mouth": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Mouth.M_TangDaoTigerPommel_Mouth",
+    "M_TangDaoTigerPommel_ChasedBody": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_ChasedBody.M_TangDaoTigerPommel_ChasedBody",
+    "M_TangDaoTigerPommel_Connector": "/Game/Weapons/TangDao20261002/TigerPommel20261002/Materials/M_TangDaoTigerPommel_Connector.M_TangDaoTigerPommel_Connector"
+  },
+  "location_cm": [
+    0,
+    0,
+    -22.7
+  ],
+  "rotation_deg": [
+    0,
+    0,
+    0
+  ],
+  "scale": [
+    1,
+    1,
+    1
+  ],
+  "lod_triangles": [
+    803702,
+    417924,
+    176814
+  ],
+  "head_width_cm": 8.555,
+  "head_height_with_crown_cm": 10.07,
+  "length_cm": 17.273,
+  "head_facing": "local -Z; crown +X",
+  "head_core_shape": "rounded lifted rear belly; forward jaw and localized pointed beard",
+  "tail_ring_outer_diameter_cm": 3.84,
+  "chin_revision": "ForwardMandibleV5_20261003",
+  "chin_shape": {
+    "rear_belly_lift_mm": 8,
+    "lower_core_forward_shift_mm": 24,
+    "global_conical_taper": false,
+    "uv_preserved": true,
+    "mount_and_ring_preserved": true
+  },
+  "relief_height_mm": 3.2,
+  "skull_relief_height_mm": 1.6,
+  "skull_surface_projection": "three planar projections baked to curved skull atlas",
+  "pbr_resolution": {
+    "BronzeFace": 4096,
+    "Gilt": 2048,
+    "Garnet": 512,
+    "Mouth": 512,
+    "ChasedBody": 2048,
+    "Connector": 2048
+  },
+  "revision": "TangDaoTigerPommelSilhouetteV5_20261003",
+  "face_revision": "ReferenceProportionsV5_20261003",
+  "source_revision": "SilhouetteV5",
+  "connector_revision": "SteppedSocketV4_20261003",
+  "connector_shape": {
+    "type": "short stepped socket with narrow shanks",
+    "ring_head_shank_diameter_mm": 9.6,
+    "sleeve_relief_height_mm": 0.55,
+    "ruby_band_stones": 18,
+    "native_interface_preserved": true,
+    "head_shape_preserved": false
+  },
+  "face_anatomy": {
+    "eye_socket_depth_mm": null,
+    "inset_eye_shape": "flattened oval ruby under lowered upper lids",
+    "incisors_per_row": 7,
+    "upper_canine_height_mm": null,
+    "lower_canine_height_mm": null,
+    "nose_shape": "original triangular nose carried with broader muzzle field",
+    "eye_center_spacing_mm": 32.6,
+    "mouth_height_design_mm": 32,
+    "tooth_shape": "same continuous gape deformation as mouth rim and bowl"
+  },
+  "stats": {},
+  "runtime_tested": false,
+  "appearance": "较高的穹顶红石冠带、宽张虎口与外展虎目、前探的双颊和下颌、圆厚后脑与局部尖收虎须，保留云环及分层云纹接座。",
+  "features": [
+    "参考正面的宽张虎口与分离牙列",
+    "外展虎目和连续双颊",
+    "前探下颌、局部尖收虎须与抬高的圆厚后底壳",
+    "加高穹顶及红石冠带",
+    "沿用六组PBR、完整真实安装端与云环",
+    "三层距离LOD"
+  ],
+  "reference_policy": "front and side primary; flawed bottom image ornament only; one rear ring, no duplicated rear connector",
+  "production_route": "imagegen ornament height source + Blender local modeling; no Meshy API task",
+  "visual_acceptance": false,
+  "reference_shape": {
+    "reference": "../Reference/TigerPommel_Reference.png",
+    "front_ornament": "../Ornament/TigerFace_HeightSource.png",
+    "policy": "front and side define overall form; retain existing ornament vocabulary; hidden areas inferred",
+    "crown_height_mm": 26.5,
+    "crown_base_diameter_mm": 60,
+    "side_reference_registration": "same mount, pivot, and crown-up axis; no whole-attachment scaling"
+  }
+}

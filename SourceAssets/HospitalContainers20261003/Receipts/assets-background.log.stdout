@@ -1,0 +1,453 @@
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -Mode=ValidatePlatforms -OutputSDKs  -AllPlatforms  -project="D:/FPS3D/FPSGAME/FPSGAME.uproject" -log="D:/FPS3D/FPSGAME/Saved/Logs/AutoSDKInfo.txt" -verbose -timestamps
+Log file: D:\FPS3D\FPSGAME\Saved\Logs\AutoSDKInfo.txt
+[2026.10.03-03.50.40:245][  0]LogInit: Display: Running engine for game: FPSGAME
+[2026.10.03-03.50.40:245][  0]LogCore: Display: Requested channels: 'cpu,gpu,frame,log,bookmark,screenshot,region'
+[2026.10.03-03.50.40:245][  0]LogTrace: Display: Control listening on port 1985
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : platform="Windows"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : config="Development"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.8-CL-58210709"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : engineversion="5.8.3-58210709+++UE5+Release-5.8"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : enginereleaseversion="5.8.3"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : os="Windows 11 (25H2) [10.0.26200.9168] "
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : cpu="GenuineIntel|13th Gen Intel(R) Core(TM) i7-13700K"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : asan="0"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : mergedmodules="0"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : compacttset="0"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : commandline="" D:\FPS3D\FPSGAME\FPSGAME.uproject -run=pythonscript -script=D:\FPS3D\FPSGAME\SourceAssets\HospitalContainers20261003\Scripts\import_assets.py -unattended -nop4 -nosplash -nosound -AllowCommandletRendering -d3d12 -abslog=D:\FPS3D\FPSGAME\SourceAssets\HospitalContainers20261003\Receipts\assets-background.log""
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : loginid="bc5c91f347bcf631eec19fa685df33d2"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : llm="0"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : zenstreaming="0"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resx="1280"
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resy="720"
+[2026.10.03-03.50.40:245][  0]LogAudio: Display: Audio Device Manager not initializing due to all audio being disabled. If this is not intentional, please check command line arguments for "-nosound".
+[2026.10.03-03.50.40:245][  0]LogConfig: Display: Loading IOS ini files took 0.03 seconds
+[2026.10.03-03.50.40:245][  0]LogConfig: Display: Loading VulkanPC ini files took 0.03 seconds
+[2026.10.03-03.50.40:245][  0]LogConfig: Display: Loading Android ini files took 0.03 seconds
+[2026.10.03-03.50.40:245][  0]LogConfig: Display: Loading Mac ini files took 0.03 seconds
+[2026.10.03-03.50.40:245][  0]LogConfig: Display: Loading Windows ini files took 0.04 seconds
+[2026.10.03-03.50.40:245][  0]LogConfig: Display: Loading TVOS ini files took 0.04 seconds
+[2026.10.03-03.50.40:245][  0]LogConfig: Display: Loading VisionOS ini files took 0.04 seconds
+[2026.10.03-03.50.40:245][  0]LogConfig: Display: Loading Unix ini files took 0.04 seconds
+[2026.10.03-03.50.40:245][  0]LogConfig: Display: Loading Linux ini files took 0.04 seconds
+[2026.10.03-03.50.40:245][  0]RenderDocPlugin: Display: RenderDoc plugin will not be loaded. Use '-AttachRenderDoc' on the cmd line or enable 'renderdoc.AutoAttach' in the plugin settings.
+[2026.10.03-03.50.40:245][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.03-03.50.40:245][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.03-03.50.40:245][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.03-03.50.40:245][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.03-03.50.40:245][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.03-03.50.40:245][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.03-03.50.40:245][  0]LogAsyncCompilation: Display: MemorySharingInfo: UsedMemory=322MiB, MaxMemoryAvailable=65018MiB
+[2026.10.03-03.50.40:245][  0]LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+[2026.10.03-03.50.40:245][  0]LogHAL: Display: Platform has ~ 32 GB [34088374272 / 34359738368 / 32], which maps to Largest [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2026.10.03-03.50.40:245][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2026.10.03-03.50.40:245][  0]LogObj: Display: Attempting to load config data for Default__DownlinkBandwidthManagerConfig before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+##PlatformValidate: Win64 VALID 10.0.22621.0
+##PlatformValidate: Mac INVALID 26.1.1
+##PlatformValidate: IOS INVALID 26.1.1
+##PlatformValidate: Android INVALID r27c
+##PlatformValidate: Linux INVALID v26_clang-20.1.8-rockylinux8
+##PlatformValidate: LinuxArm64 INVALID <UNKNOWN>
+##PlatformValidate: TVOS INVALID 26.1.1
+##PlatformValidate: VisionOS INVALID <UNKNOWN>
+Unable to find required SDK version 'MainVersion' for platform LinuxArm64. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform VisionOS. Check your SDK.json files
+Trace written to file C:\Users\allan\AppData\Local\UnrealBuildTool\Trace.uba with size 317b
+[2026.10.03-03.50.40:482][  0]LogObj: Display: Attempting to load config data for Default__SlateThemeManager before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.10.03-03.50.41:162][  0]LogD3D12RHI: Display: Creating D3D12 RHI with Max Feature Level SM6
+[2026.10.03-03.50.41:168][  0]LogRHI: Display: Timeout Detection and Recovery (TDR) summary: 
+
+	- TDR using non-default settings - Level: Recover, Delay: 120, DdiDelay: 120
+[2026.10.03-03.50.41:347][  0]LogD3D12RHI: Display: Not using pipeline state disk cache per r.D3D12.PSO.DiskCache=0
+[2026.10.03-03.50.41:347][  0]LogD3D12RHI: Display: Not using driver-optimized pipeline state disk cache per r.D3D12.PSO.DriverOptimizedDiskCache=0
+[2026.10.03-03.50.41:524][  0]LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.03-03.50.41:524][  0]LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.03-03.50.41:524][  0]LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.03-03.50.41:532][  0]LogCsvProfiler: Display: Metadata set : verbatimrhiname="D3D12"
+[2026.10.03-03.50.41:532][  0]LogCsvProfiler: Display: Metadata set : rhiname="D3D12"
+[2026.10.03-03.50.41:532][  0]LogCsvProfiler: Display: Metadata set : rhifeaturelevel="SM6"
+[2026.10.03-03.50.41:532][  0]LogCsvProfiler: Display: Metadata set : shaderplatform="PCD3D_SM6"
+[2026.10.03-03.50.41:532][  0]LogCsvProfiler: Display: Metadata set : gpu="NVIDIA GeForce GTX 750 Ti"
+[2026.10.03-03.50.41:532][  0]LogCsvProfiler: Display: Metadata set : gpudriver=""
+[2026.10.03-03.50.41:537][  0]LogTextureFormatASTC: Display: ASTCEnc version 5.0.1 library loaded
+[2026.10.03-03.50.41:537][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatASTC
+[2026.10.03-03.50.41:537][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatDXT
+[2026.10.03-03.50.41:537][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatETC2
+[2026.10.03-03.50.41:537][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatIntelISPCTexComp
+[2026.10.03-03.50.41:537][  0]LogTextureFormatOodle: Display: Oodle Texture TFO init; latest sdk version = 2.9.16
+[2026.10.03-03.50.41:537][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.16.dll
+[2026.10.03-03.50.41:538][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatOodle
+[2026.10.03-03.50.41:538][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatUncompressed
+[2026.10.03-03.50.41:562][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Android'
+[2026.10.03-03.50.41:578][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'IOS'
+[2026.10.03-03.50.41:595][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Linux'
+[2026.10.03-03.50.41:611][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Mac'
+[2026.10.03-03.50.41:612][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'TVOS'
+[2026.10.03-03.50.41:629][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Windows'
+[2026.10.03-03.50.41:629][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsEditor'
+[2026.10.03-03.50.41:629][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsServer'
+[2026.10.03-03.50.41:629][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsClient'
+[2026.10.03-03.50.41:629][  0]LogTargetPlatformManager: Display: Building Assets For WindowsEditor
+[2026.10.03-03.50.41:632][  0]LogAudioDebug: Display: Lib vorbis DLL was dynamically loaded.
+[2026.10.03-03.50.41:849][  0]LogDerivedDataCache: Display: ../../../Engine/DerivedDataCache/Compressed.ddp: Opened pak cache for reading. (1670 MiB)
+[2026.10.03-03.50.41:851][  0]LogZenServiceInstance: Display: Launching zen utility 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/zen.exe service status'.
+[2026.10.03-03.50.43:901][  0]LogZenServiceInstance: Display: Zen utility process has been running for 2.0 seconds without completing, still waiting...
+[2026.10.03-03.50.44:906][  0]LogZenServiceInstance: Display: Writing plugin version info to 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugin_versions.json'
+[2026.10.03-03.50.44:907][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/5.8/Saved/Zen/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.03-03.50.44:907][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.03-03.50.44:907][  0]LogZenServiceInstance: Display: Installed service at 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe' is up to date
+[2026.10.03-03.50.44:907][  0]LogZenServiceInstance: Display: Launching executable 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe', working dir 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install', data dir 'D:/FPS3D/DerivedDataCache/Zen', args '--port 8558 --data-dir D:\FPS3D\DerivedDataCache\Zen --http asio --gc-cache-duration-seconds 1209600 --gc-interval-seconds 21600 --gc-low-diskspace-threshold 2147483648 --cache-bucket-limit-overwrites --quiet --restrict-content-types --allow-external-oidctoken-exe=false --plugins-config "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugins_v1.json" --security-config-path "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/security-config.json" --owner-pid 40248  --child-id Zen_40248_Startup'
+[2026.10.03-03.50.55:481][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.10.03-03.50.55:487][  0]LogDerivedDataCache: Display: ZenLocal: Using ZenServer HTTP service at [::1] with namespace ue.ddc. Status: OK!.
+[2026.10.03-03.50.55:491][  0]LogDerivedDataCache: Display: D:/FPS3D/FPSGAME/../DerivedDataCache: Performance: Latency=0.01ms. RandomReadSpeed=1468.01MBs, RandomWriteSpeed=388.41MBs. Assigned SpeedClass 'Local'
+[2026.10.03-03.50.55:493][  0]LogUbaHorde: Display: UBA/Horde Configuration [Uba.Provider.Horde]: Not Enabled
+[2026.10.03-03.50.55:493][  0]LogShaderCompilers: Display: No distributed shader compiler controller found
+[2026.10.03-03.50.55:493][  0]LogShaderCompilers: Display: Using 13 local workers for shader compilation
+[2026.10.03-03.50.55:499][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush
+[2026.10.03-03.50.55:499][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.03-03.50.56:981][  0]LogEditorDomain: Display: EditorDomain is Disabled
+[2026.10.03-03.50.57:194][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64Editor not found.
+[2026.10.03-03.50.57:194][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64 not found.
+[2026.10.03-03.50.57:226][  0]LogCsvProfiler: Display: Metadata set : deviceprofile="WindowsEditor"
+[2026.10.03-03.50.57:228][  0]LogStreaming: Display: FlushAsyncLoading(1): 1 QueuedPackages, 0 AsyncPackages
+[2026.10.03-03.50.57:229][  0]LogTextureEncodingSettings: Display: Texture Encode Speed: Final (cook).
+[2026.10.03-03.50.57:229][  0]LogTextureEncodingSettings: Display: Oodle Texture Encode Speed settings: Fast: RDO Off Lambda=0, Effort=Normal Final: RDO Off Lambda=0, Effort=Normal
+[2026.10.03-03.50.57:229][  0]LogTextureEncodingSettings: Display: Shared linear texture encoding: Disabled
+[2026.10.03-03.50.57:505][  0]LogMeshReduction: Display: Using QuadricMeshReduction for automatic static mesh reduction
+[2026.10.03-03.50.57:505][  0]LogMeshReduction: Display: Using SkeletalMeshReduction for automatic skeletal mesh reduction
+[2026.10.03-03.50.57:505][  0]LogMeshReduction: Display: Using ProxyLODMeshReduction for automatic mesh merging
+[2026.10.03-03.50.57:505][  0]LogMeshReduction: Display: No distributed automatic mesh merging module available
+[2026.10.03-03.50.57:698][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush
+[2026.10.03-03.50.57:698][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.03-03.50.57:698][  0]LogVirtualization: Display: VirtualizationSystem name found in ini file: None
+[2026.10.03-03.50.57:698][  0]LogVirtualization: Display: FNullVirtualizationSystem mounted, virtualization will be disabled
+[2026.10.03-03.50.57:800][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize started...
+[2026.10.03-03.50.57:801][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize took 1.571 ms
+[2026.10.03-03.50.58:117][  0]LogMetaSound: Display: MetaSound Page Target Initialized to 'Default'
+[2026.10.03-03.50.58:119][  0]LogAudio: Display: Registering Engine Module Parameter Interfaces...
+[2026.10.03-03.50.58:624][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.13.dll
+[2026.10.03-03.50.58:696][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.6.dll
+[2026.10.03-03.50.58:859][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.5.dll
+[2026.10.03-03.50.58:860][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.14.dll
+[2026.10.03-03.50.58:947][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.12.dll
+[2026.10.03-03.50.59:377][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.8.dll
+[2026.10.03-03.51.00:824][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_WitchRebuilt）……
+[2026.10.03-03.51.01:009][  0]LogTemp: Display: LoadHitchProbe ready: 'fpssyncload [thresholdMs]' enables it (742 modules mapped); evidence in Saved/Profiling/LoadHitch/
+[2026.10.03-03.51.01:674][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.03-03.51.01:674][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.03-03.51.01:930][  0]LogFabLauncher: Display: FabLauncher (version 0.6.0) active
+[2026.10.03-03.51.02:026][  0]LogToolsetRegistry: Display: Registering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.03-03.51.02:188][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.11.dll
+[2026.10.03-03.51.02:200][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.15.dll
+[2026.10.03-03.51.02:313][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PreLoad): 1 .ref files found, 1 referenced binaries
+[2026.10.03-03.51.02:313][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.03-03.51.02:313][  0]LogAssetRegistry: Display: FindShardedCacheFiles: 1 via .ref, 0 via migration fallback, 1 total
+[2026.10.03-03.51.02:313][  0]LogAssetRegistry: Display: LoadCacheFiles: loading 1 cache files, memory-mapping=enabled
+[2026.10.03-03.51.02:471][  0]LogAssetRegistry: Display: Asset registry cache read as 186.6 MiB from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry/CachedAssetRegistry_0_454E827F46E4D6CDBAC2B993DF6779C6.bin (memory-mapped=yes)
+[2026.10.03-03.51.02:473][  0]LogAssetRegistry: Display: AssetDataGatherer spent 0.161s loading caches from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry.
+[2026.10.03-03.51.02:708][  0]LogGameFeatures: Display: Total built in plugin load time 0.0007s
+[2026.10.03-03.51.02:719][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2026.10.03-03.51.02:764][  0]LogPython: Display: No pip-enabled plugins with python dependencies found, skipping
+[2026.10.03-03.51.02:991][  0]LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-03.51.02:991][  0]LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-03.51.02:994][  0]LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-03.51.02:994][  0]LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-03.51.02:994][  0]LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-03.51.03:093][  0]LogCsvProfiler: Display: Metadata set : raytracing="1"
+[2026.10.03-03.51.03:194][  0]LogToolsetRegistry: Display: Registering Toolset ConfigSettingsToolset.ConfigSettingsToolset
+[2026.10.03-03.51.03:195][  0]LogToolsetRegistry: Display: Registering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.03-03.51.03:199][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.EditorAppToolset
+[2026.10.03-03.51.03:199][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.LogsToolset
+[2026.10.03-03.51.03:201][  0]LogToolsetRegistry: Display: Registering Toolset GameFeaturesToolset.GameFeaturesToolset
+[2026.10.03-03.51.03:203][  0]LogToolsetRegistry: Display: Registering Toolset DataRegistryToolset.DataRegistryTools
+[2026.10.03-03.51.03:205][  0]LogToolsetRegistry: Display: Registering Toolset GameplayTagsToolset.GameplayTagsToolset
+[2026.10.03-03.51.03:207][  0]LogToolsetRegistry: Display: Registering Toolset DataflowAgent.DataflowAgentToolset
+[2026.10.03-03.51.03:209][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.GameplayCueToolset
+[2026.10.03-03.51.03:210][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AttributeSetToolset
+[2026.10.03-03.51.03:210][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AbilitySystemInspectorToolset
+[2026.10.03-03.51.03:211][  0]LogToolsetRegistry: Display: Registering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.03-03.51.03:215][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Info
+[2026.10.03-03.51.03:219][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Component
+[2026.10.03-03.51.03:219][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Blueprint
+[2026.10.03-03.51.03:238][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_System
+[2026.10.03-03.51.03:238][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Assets
+[2026.10.03-03.51.03:244][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGToolset
+[2026.10.03-03.51.03:245][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGSpatialToolset
+[2026.10.03-03.51.03:247][  0]LogToolsetRegistry: Display: Registering Toolset PluginToolset.PluginToolset
+[2026.10.03-03.51.03:249][  0]LogToolsetRegistry: Display: Registering Toolset SemanticSearchToolset.SemanticSearchToolset
+[2026.10.03-03.51.03:254][  0]LogToolsetRegistry: Display: Registering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.03-03.51.03:258][  0]LogToolsetRegistry: Display: Registering Toolset PhysicsToolsets.PhysicsAssetToolset
+[2026.10.03-03.51.03:259][  0]LogToolsetRegistry: Display: Registering Toolset WorldConditionsToolset.WorldConditionTools
+[2026.10.03-03.51.03:266][  0]LogToolsetRegistry: Display: Registering Toolset UMGToolSet.UMGToolSet
+[2026.10.03-03.51.03:287][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-03.51.03:346][  0]LogToolsetRegistry: Display: Registering Toolset state_tree_toolset.toolsets.state_tree.StateTreeTools
+[2026.10.03-03.51.03:346][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… took 59.509 ms
+[2026.10.03-03.51.03:346][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… started...
+[2026.10.03-03.51.03:351][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… took 4.244 ms (total: 63.753 ms)
+[2026.10.03-03.51.03:351][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-03.51.03:396][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.actor.ActorTools
+[2026.10.03-03.51.03:396][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.asset.AssetTools
+[2026.10.03-03.51.03:401][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.blueprint.BlueprintTools
+[2026.10.03-03.51.03:401][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.curve_table.CurveTableTools
+[2026.10.03-03.51.03:401][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_asset.DataAssetTools
+[2026.10.03-03.51.03:402][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_table.DataTableTools
+[2026.10.03-03.51.03:403][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material.MaterialTools
+[2026.10.03-03.51.03:404][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material_instance.MaterialInstanceTools
+[2026.10.03-03.51.03:405][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.object.ObjectTools
+[2026.10.03-03.51.03:405][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.primitive.PrimitiveTools
+[2026.10.03-03.51.03:407][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.scene.SceneTools
+[2026.10.03-03.51.03:408][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.skeletal_mesh.SkeletalMeshTools
+[2026.10.03-03.51.03:409][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.static_mesh.StaticMeshTools
+[2026.10.03-03.51.03:409][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.string_table.StringTableTools
+[2026.10.03-03.51.03:409][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.programmatic.ProgrammaticToolset
+[2026.10.03-03.51.03:410][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.texture.TextureTools
+[2026.10.03-03.51.03:410][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… took 58.965 ms (total: 122.719 ms)
+[2026.10.03-03.51.03:410][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-03.51.03:445][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig.ControlRigTools
+[2026.10.03-03.51.03:452][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.sequencer.SequencerTools
+[2026.10.03-03.51.03:454][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.keyframing.SequencerKeyframingTools
+[2026.10.03-03.51.03:458][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig_sequencer.SequencerControlRigTools
+[2026.10.03-03.51.03:459][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.outliner.SequencerOutlinerTools
+[2026.10.03-03.51.03:459][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.conditions.SequencerConditionTools
+[2026.10.03-03.51.03:460][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.custom_bindings.SequencerCustomBindingTools
+[2026.10.03-03.51.03:461][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.import_export.SequencerImportExportTools
+[2026.10.03-03.51.03:478][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… took 68.479 ms (total: 191.198 ms)
+[2026.10.03-03.51.03:478][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-03.51.03:482][  0]LogToolsetRegistry: Display: Registering Toolset conversation_toolset.toolsets.conversation.ConversationTools
+[2026.10.03-03.51.03:482][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… took 3.826 ms (total: 195.025 ms)
+[2026.10.03-03.51.03:482][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-03.51.03:486][  0]LogToolsetRegistry: Display: Registering Toolset aimodule_toolset.toolsets.behavior_tree.BehaviorTreeTools
+[2026.10.03-03.51.03:486][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… took 3.423 ms (total: 198.448 ms)
+[2026.10.03-03.51.03:486][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… started...
+[2026.10.03-03.51.03:486][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… took 107 us (total: 198.556 ms)
+[2026.10.03-03.51.03:486][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… started...
+[2026.10.03-03.51.03:490][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… took 3.550 ms (total: 202.106 ms)
+[2026.10.03-03.51.03:490][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… started...
+[2026.10.03-03.51.03:509][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… took 19.510 ms (total: 221.616 ms)
+[2026.10.03-03.51.03:509][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… started...
+[2026.10.03-03.51.03:510][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… took 301 us (total: 221.917 ms)
+[2026.10.03-03.51.03:510][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… started...
+[2026.10.03-03.51.03:516][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… took 6.230 ms (total: 228.148 ms)
+[2026.10.03-03.51.03:516][  0]LogPythonScriptCommandlet: Display: Running Python script: D:\FPS3D\FPSGAME\SourceAssets\HospitalContainers20261003\Scripts\import_assets.py
+[2026.10.03-03.51.03:526][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Textures/T_Hospital_Labels”
+[2026.10.03-03.51.03:610][  0]LogInterchangeEngine: Display: Interchange start importing source [D:/FPS3D/FPSGAME/SourceAssets/HospitalContainers20261003/Authored/T_Hospital_Labels.png]
+[2026.10.03-03.51.03:645][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/Dungeons/HospitalContainers20261003/Textures/T_Hospital_Labels.T_Hospital_Labels (TFO_AutoDXT, 800x2400 x1x1x1)（预计所需内存：187.220703 MB）编码速度：Final
+[2026.10.03-03.51.03:659][  0]LogInterchangeEngine: Display: Interchange import completed [D:/FPS3D/FPSGAME/Sou...ers20261003/Authored/T_Hospital_Labels.png]
+[2026.10.03-03.51.03:662][  0]LogAssetRegistry: Display: Package D:/FPS3D/FPSGAME/Content/AsianMale_Jason/Character/Deformer/MLD_Jason_Deformer.uasset uses an unknown custom version and cannot be loaded for the AssetRegistry
+[2026.10.03-03.51.03:682][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/Dungeons/HospitalContainers20261003/Textures/T_Hospital_Labels.T_Hospital_Labels (TFO_BC7, 800x2400 x1x1x1)（预计所需内存：132.835938 MB）编码速度：Final
+[2026.10.03-03.51.03:991][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file loaded D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.03-03.51.04:023][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White”
+[2026.10.03-03.51.04:030][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White.M_Hospital_White in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 48052b337d1f0e1ac2ef6123973ae486c5b84445), compiling. 
+[2026.10.03-03.51.04:039][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White.M_Hospital_White in PCD3D_SM6, Default, SM6, Editor (DDC key hash: f4f31efd5eb391f1e53f38f6c226af4f048d4f8e), compiling. 
+[2026.10.03-03.51.04:042][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White.M_Hospital_White in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 284aac4e4e5c1e5edc5e34b6d4167ef169ec3553), compiling. 
+[2026.10.03-03.51.04:045][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White.M_Hospital_White in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 69c0709f8e29025d64cc1f0b9716e49d3d9d244e), compiling. 
+[2026.10.03-03.51.04:048][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White.M_Hospital_White in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 7d93ff1fb07360149064b8897de235784ce4ca1d), compiling. 
+[2026.10.03-03.51.04:053][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White.M_Hospital_White in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 6893084651276aa806f888375a5fb96b2462a3f0), compiling. 
+[2026.10.03-03.51.04:058][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White.M_Hospital_White in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 8e79131c0bd16a596db19a068ae484b9c308ae1c), compiling. 
+[2026.10.03-03.51.04:063][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White.M_Hospital_White in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 43d5688998d1776e2a5e2a41577badf2fc4a5478), compiling. 
+[2026.10.03-03.51.04:066][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White.M_Hospital_White in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 0c4d8e623fd9a627b1ff5b48c02b8d6070163723), compiling. 
+[2026.10.03-03.51.04:070][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White.M_Hospital_White in PCD3D_SM6, Default, SM6, Editor (DDC key hash: fbb150f014c63e2db66332988cddfd282e92620b), compiling. 
+[2026.10.03-03.51.05:139][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue”
+[2026.10.03-03.51.05:141][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue.M_Hospital_Blue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 2d80b9c019feba17008d5686a8c727d9bda6acd3), compiling. 
+[2026.10.03-03.51.05:143][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue.M_Hospital_Blue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 484f2ea25aaf37959e36d43315ea809da445cdfc), compiling. 
+[2026.10.03-03.51.05:146][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue.M_Hospital_Blue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: c55c66e28f87b795354646ae4f64b625b7634d25), compiling. 
+[2026.10.03-03.51.05:148][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue.M_Hospital_Blue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 160de3c5df479244363040d58aec4bb6257001cb), compiling. 
+[2026.10.03-03.51.05:150][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue.M_Hospital_Blue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: cfaca451474b37a562ec266231c21ba544d04b1c), compiling. 
+[2026.10.03-03.51.05:153][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue.M_Hospital_Blue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 58d752de0620d3990f29eb5515f9b5cd313f25ba), compiling. 
+[2026.10.03-03.51.05:155][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue.M_Hospital_Blue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 3d5291ba3cefbc6dd07d1471990b4417fa04bbf5), compiling. 
+[2026.10.03-03.51.05:157][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue.M_Hospital_Blue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 223b7becd4625aea59a278e10a71246243b7e9c5), compiling. 
+[2026.10.03-03.51.05:160][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue.M_Hospital_Blue in PCD3D_SM6, Default, SM6, Editor (DDC key hash: e6c28a964bdfc23182ea28fb87f080e163baece5), compiling. 
+[2026.10.03-03.51.05:917][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green”
+[2026.10.03-03.51.05:918][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green.M_Hospital_Green in PCD3D_SM6, Default, SM6, Editor (DDC key hash: e9be703a4a4b58927aacb69d143279d4f485585f), compiling. 
+[2026.10.03-03.51.05:920][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green.M_Hospital_Green in PCD3D_SM6, Default, SM6, Editor (DDC key hash: bf1045b0ccbace9e6e210b994695815fa90e2e59), compiling. 
+[2026.10.03-03.51.05:922][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green.M_Hospital_Green in PCD3D_SM6, Default, SM6, Editor (DDC key hash: d9df72945c6fdeadc9133545271a3ad67deed297), compiling. 
+[2026.10.03-03.51.05:925][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green.M_Hospital_Green in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 6bda50f11b9b31b420981f3e8e87a7128709670f), compiling. 
+[2026.10.03-03.51.05:927][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green.M_Hospital_Green in PCD3D_SM6, Default, SM6, Editor (DDC key hash: d8a87a8fd2e46b5de8c977e8f7a754243c81109f), compiling. 
+[2026.10.03-03.51.05:929][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green.M_Hospital_Green in PCD3D_SM6, Default, SM6, Editor (DDC key hash: da0d3297fb6ed2e3cb73754f7be05c88ba18473e), compiling. 
+[2026.10.03-03.51.05:932][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green.M_Hospital_Green in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 2958b6f2176441d218a55d6b49af603747e45810), compiling. 
+[2026.10.03-03.51.05:934][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green.M_Hospital_Green in PCD3D_SM6, Default, SM6, Editor (DDC key hash: ec6124103abba690410bbdb9873b76fabfca894d), compiling. 
+[2026.10.03-03.51.05:937][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green.M_Hospital_Green in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 0c18c6a2b47ed9cf7eb49067e3381a30f1f5e937), compiling. 
+[2026.10.03-03.51.05:940][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green.M_Hospital_Green in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 92f2dce59c2ff9c47d8b692250519c6974dc5876), compiling. 
+[2026.10.03-03.51.06:720][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red”
+[2026.10.03-03.51.06:721][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red.M_Hospital_Red in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 6102762cb90837c1dc8beb9ccc40674fbdd94e92), compiling. 
+[2026.10.03-03.51.06:725][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red.M_Hospital_Red in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 5ce4caebdc7d8578a2bd7ebf2fcbb3063c5f03fc), compiling. 
+[2026.10.03-03.51.06:729][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red.M_Hospital_Red in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 7805dbcf8c4c0774fb7f800bfbf43e6a5d38d3fe), compiling. 
+[2026.10.03-03.51.06:733][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red.M_Hospital_Red in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 12f265f2f829948d9470acce5034844b5bd7ab46), compiling. 
+[2026.10.03-03.51.06:736][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red.M_Hospital_Red in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 900860105d39c909837a242347179c6b456264c1), compiling. 
+[2026.10.03-03.51.06:740][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red.M_Hospital_Red in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 885617423b3cc6b6b44f3b8d71262c856b0b08ac), compiling. 
+[2026.10.03-03.51.06:744][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red.M_Hospital_Red in PCD3D_SM6, Default, SM6, Editor (DDC key hash: cb0d6aebfa709079760fe01c123ccd81cb5d70e2), compiling. 
+[2026.10.03-03.51.06:747][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red.M_Hospital_Red in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 37395d0bdbe70321d40cabb7c5e82c1239878f4e), compiling. 
+[2026.10.03-03.51.06:752][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red.M_Hospital_Red in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 75e812b4b092e2ac5d1839254f8634d8d88bd266), compiling. 
+[2026.10.03-03.51.07:412][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining”
+[2026.10.03-03.51.07:414][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining.M_Hospital_Lining in PCD3D_SM6, Default, SM6, Editor (DDC key hash: de421e7e8e9a6646d2e890d28cb2d1f85eec6cce), compiling. 
+[2026.10.03-03.51.07:416][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining.M_Hospital_Lining in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 07675df41d99b8b5df761c8cfc1b022ac75b1c02), compiling. 
+[2026.10.03-03.51.07:418][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining.M_Hospital_Lining in PCD3D_SM6, Default, SM6, Editor (DDC key hash: a376f79c286edf439edf2709a1f811668a24faa5), compiling. 
+[2026.10.03-03.51.07:420][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining.M_Hospital_Lining in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 56c3a2dcc2858761f8597ba41b7e0f16fc48dae0), compiling. 
+[2026.10.03-03.51.07:422][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining.M_Hospital_Lining in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 916f13812f347d0671edcfb079dc2ef3597dd52a), compiling. 
+[2026.10.03-03.51.07:424][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining.M_Hospital_Lining in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 8b9f56691f16497a32de9d4c20620747fc2c7ec6), compiling. 
+[2026.10.03-03.51.07:426][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining.M_Hospital_Lining in PCD3D_SM6, Default, SM6, Editor (DDC key hash: c45ef144d6e297accbacea90bb018dc1aca5640b), compiling. 
+[2026.10.03-03.51.07:428][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining.M_Hospital_Lining in PCD3D_SM6, Default, SM6, Editor (DDC key hash: b87ed909f31f184db66931ea34ddb9076cc669e3), compiling. 
+[2026.10.03-03.51.07:431][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining.M_Hospital_Lining in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 4820febcdfe85b535c1ae47346aac770d19b3774), compiling. 
+[2026.10.03-03.51.08:088][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels”
+[2026.10.03-03.51.08:089][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels.M_Hospital_Labels in PCD3D_SM6, Default, SM6, Editor (DDC key hash: a76419e0647263a5ec55f08e52bed75e0ed4fd9e), compiling. 
+[2026.10.03-03.51.08:092][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels.M_Hospital_Labels in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 23201c8337d7a99e1977701b4f93bb4b7d28e057), compiling. 
+[2026.10.03-03.51.08:094][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels.M_Hospital_Labels in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 2747eaadb9b4b03e783b24525cc37ba37dee29f0), compiling. 
+[2026.10.03-03.51.08:099][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels.M_Hospital_Labels in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 21380757eb27359b94e05242d7a5f9b437f7c222), compiling. 
+[2026.10.03-03.51.08:868][  0]LogPython: Warning: D:/FPS3D/FPSGAME/SourceAssets/HospitalContainers20261003/Scripts/import_assets.py:29: DeprecationWarning: new_object: Creating an instance of an Editor subsystem has been deprecated since UE 5.2 and will be removed in the future. Use 'unreal.get_editor_subsystem(unreal.StaticMeshEditorSubsystem)' to get the subsystem instance.
+  sub=u.get_editor_subsystem(u.StaticMeshEditorSubsystem) or u.new_object(u.StaticMeshEditorSubsystem)
+
+[2026.10.03-03.51.08:870][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body”
+[2026.10.03-03.51.08:915][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_MedicalCart_Body_0 for collision model
+[2026.10.03-03.51.08:917][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_MedicalCart_Body_1 for collision model
+[2026.10.03-03.51.08:917][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_MedicalCart_Body_2 for collision model
+[2026.10.03-03.51.08:917][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_MedicalCart_Body_3 for collision model
+[2026.10.03-03.51.08:917][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_MedicalCart_Body_4 for collision model
+[2026.10.03-03.51.08:917][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_MedicalCart_Body_5 for collision model
+[2026.10.03-03.51.08:917][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_MedicalCart_Body_6 for collision model
+[2026.10.03-03.51.08:918][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_MedicalCart_Body_7 for collision model
+[2026.10.03-03.51.08:918][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_MedicalCart_Body_8 for collision model
+[2026.10.03-03.51.08:961][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_MedicalCart_Body（所需内存估计：24.972421MB）…
+[2026.10.03-03.51.09:214][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_MedicalCart_Body（所需内存估计：24.972421MB）…
+[2026.10.03-03.51.09:230][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body）……
+[2026.10.03-03.51.09:296][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_MedicalCart_Body（所需内存估计：24.972421MB）…
+[2026.10.03-03.51.09:312][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body）……
+[2026.10.03-03.51.09:949][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer”
+[2026.10.03-03.51.09:969][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_MedicalCart_Drawer（所需内存估计：3.719217MB）…
+[2026.10.03-03.51.10:036][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_MedicalCart_Drawer（所需内存估计：3.719217MB）…
+[2026.10.03-03.51.10:045][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_MedicalCart_Drawer（所需内存估计：3.719217MB）…
+[2026.10.03-03.51.10:062][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer）……
+[2026.10.03-03.51.10:217][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body”
+[2026.10.03-03.51.10:248][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_PatientBox_Body_0 for collision model
+[2026.10.03-03.51.10:248][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_PatientBox_Body_1 for collision model
+[2026.10.03-03.51.10:248][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_PatientBox_Body_2 for collision model
+[2026.10.03-03.51.10:248][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_PatientBox_Body_3 for collision model
+[2026.10.03-03.51.10:248][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_PatientBox_Body_4 for collision model
+[2026.10.03-03.51.10:278][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_PatientBox_Body（所需内存估计：17.208919MB）…
+[2026.10.03-03.51.10:440][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_PatientBox_Body（所需内存估计：17.208919MB）…
+[2026.10.03-03.51.10:457][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body）……
+[2026.10.03-03.51.10:492][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_PatientBox_Body（所需内存估计：17.208919MB）…
+[2026.10.03-03.51.10:509][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body）……
+[2026.10.03-03.51.10:989][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Lid”
+[2026.10.03-03.51.11:006][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_PatientBox_Lid（所需内存估计：2.36687MB）…
+[2026.10.03-03.51.11:044][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_PatientBox_Lid（所需内存估计：2.36687MB）…
+[2026.10.03-03.51.11:050][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_PatientBox_Lid（所需内存估计：2.36687MB）…
+[2026.10.03-03.51.11:066][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Lid）……
+[2026.10.03-03.51.11:168][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Body”
+[2026.10.03-03.51.11:195][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_FirstAid_Body_0 for collision model
+[2026.10.03-03.51.11:195][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_FirstAid_Body_1 for collision model
+[2026.10.03-03.51.11:195][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_FirstAid_Body_2 for collision model
+[2026.10.03-03.51.11:195][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_FirstAid_Body_3 for collision model
+[2026.10.03-03.51.11:219][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_FirstAid_Body（所需内存估计：15.014222MB）…
+[2026.10.03-03.51.11:355][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_FirstAid_Body（所需内存估计：15.014222MB）…
+[2026.10.03-03.51.11:372][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Body）……
+[2026.10.03-03.51.11:402][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_FirstAid_Body（所需内存估计：15.014222MB）…
+[2026.10.03-03.51.11:418][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Body）……
+[2026.10.03-03.51.11:857][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Door”
+[2026.10.03-03.51.11:881][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_FirstAid_Door（所需内存估计：4.931007MB）…
+[2026.10.03-03.51.11:968][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_FirstAid_Door（所需内存估计：4.931007MB）…
+[2026.10.03-03.51.12:002][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Body”
+[2026.10.03-03.51.12:025][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_InstrumentBox_Body_0 for collision model
+[2026.10.03-03.51.12:025][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_InstrumentBox_Body_1 for collision model
+[2026.10.03-03.51.12:025][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_InstrumentBox_Body_2 for collision model
+[2026.10.03-03.51.12:025][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_InstrumentBox_Body_3 for collision model
+[2026.10.03-03.51.12:026][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_InstrumentBox_Body_4 for collision model
+[2026.10.03-03.51.12:041][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_InstrumentBox_Body（所需内存估计：9.346763MB）…
+[2026.10.03-03.51.12:147][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_InstrumentBox_Body（所需内存估计：9.346763MB）…
+[2026.10.03-03.51.12:163][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Body）……
+[2026.10.03-03.51.12:190][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_InstrumentBox_Body（所需内存估计：9.346763MB）…
+[2026.10.03-03.51.12:205][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Body）……
+[2026.10.03-03.51.12:494][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Lid”
+[2026.10.03-03.51.12:510][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_InstrumentBox_Lid（所需内存估计：2.367357MB）…
+[2026.10.03-03.51.12:548][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_InstrumentBox_Lid（所需内存估计：2.367357MB）…
+[2026.10.03-03.51.12:561][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_InstrumentBox_Lid（所需内存估计：2.367357MB）…
+[2026.10.03-03.51.12:578][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Lid）……
+[2026.10.03-03.51.12:683][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body”
+[2026.10.03-03.51.12:727][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_SpecimenCase_Body_0 for collision model
+[2026.10.03-03.51.12:727][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_SpecimenCase_Body_1 for collision model
+[2026.10.03-03.51.12:727][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_SpecimenCase_Body_2 for collision model
+[2026.10.03-03.51.12:728][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_SpecimenCase_Body_3 for collision model
+[2026.10.03-03.51.12:728][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_SpecimenCase_Body_4 for collision model
+[2026.10.03-03.51.12:775][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_SpecimenCase_Body（所需内存估计：28.5355MB）…
+[2026.10.03-03.51.12:859][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body）……
+[2026.10.03-03.51.12:890][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body）……
+[2026.10.03-03.51.12:921][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body）……
+[2026.10.03-03.51.12:953][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body）……
+[2026.10.03-03.51.13:015][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body）……
+[2026.10.03-03.51.13:046][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body）……
+[2026.10.03-03.51.13:077][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body）……
+[2026.10.03-03.51.13:112][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body）……
+[2026.10.03-03.51.13:126][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_SpecimenCase_Body（所需内存估计：28.5355MB）…
+[2026.10.03-03.51.13:143][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body）……
+[2026.10.03-03.51.13:230][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Lid”
+[2026.10.03-03.51.13:248][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_SpecimenCase_Lid（所需内存估计：3.316631MB）…
+[2026.10.03-03.51.13:298][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_SpecimenCase_Lid（所需内存估计：3.316631MB）…
+[2026.10.03-03.51.13:306][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_SpecimenCase_Lid（所需内存估计：3.316631MB）…
+[2026.10.03-03.51.13:322][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Lid）……
+[2026.10.03-03.51.13:466][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body”
+[2026.10.03-03.51.13:496][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_ToolBox_Body_0 for collision model
+[2026.10.03-03.51.13:496][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_ToolBox_Body_1 for collision model
+[2026.10.03-03.51.13:496][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_ToolBox_Body_2 for collision model
+[2026.10.03-03.51.13:496][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_ToolBox_Body_3 for collision model
+[2026.10.03-03.51.13:496][  0]LogFbx: Display: Triangulating mesh UCX_SM_Hospital_ToolBox_Body_4 for collision model
+[2026.10.03-03.51.13:525][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_ToolBox_Body（所需内存估计：18.107477MB）…
+[2026.10.03-03.51.13:680][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_ToolBox_Body（所需内存估计：18.107477MB）…
+[2026.10.03-03.51.13:696][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body）……
+[2026.10.03-03.51.13:740][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_ToolBox_Body（所需内存估计：18.107477MB）…
+[2026.10.03-03.51.13:756][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body）……
+[2026.10.03-03.51.14:247][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid”
+[2026.10.03-03.51.14:266][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_ToolBox_Lid（所需内存估计：3.316638MB）…
+[2026.10.03-03.51.14:316][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_ToolBox_Lid（所需内存估计：3.316638MB）…
+[2026.10.03-03.51.14:324][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Hospital_ToolBox_Lid（所需内存估计：3.316638MB）…
+[2026.10.03-03.51.14:339][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid）……
+[2026.10.03-03.51.14:502][  0]LogPythonScriptCommandlet: Display: Python script executed successfully
+[2026.10.03-03.51.14:502][  0]LogInit: Display: 
+[2026.10.03-03.51.14:502][  0]LogInit: Display: Warning/Error Summary (Unique only)
+[2026.10.03-03.51.14:502][  0]LogInit: Display: -----------------------------------
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Textures/T_Hospital_Labels”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogPython: Warning: D:/FPS3D/FPSGAME/SourceAssets/HospitalContainers20261003/Scripts/import_assets.py:29: DeprecationWarning: new_object: Creating an instance of an Editor subsystem has been deprecated since UE 5.2 and will be removed in the future. Use 'unreal.get_editor_subsystem(unreal.StaticMeshEditorSubsystem)' to get the subsystem instance.
+  sub=u.get_editor_subsystem(u.StaticMeshEditorSubsystem) or u.new_object(u.StaticMeshEditorSubsystem)
+
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Lid”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Body”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Door”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Body”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Lid”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Lid”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid”
+[2026.10.03-03.51.14:502][  0]LogInit: Display: 
+[2026.10.03-03.51.14:502][  0]LogInit: Display: Success - 0 error(s), 28 warning(s)
+[2026.10.03-03.51.14:502][  0]LogInit: Display: 
+
+Execution of commandlet took:  11.21 seconds, PeakPhysMemoryMB=4087 MB, PeakVirtMemoryMB=4756 MB
+[2026.10.03-03.51.14:510][  0]LogToolsetRegistry: Display: Unregistering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.03-03.51.14:510][  0]LogToolsetRegistry: Display: Unregistering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.03-03.51.14:510][  0]LogToolsetRegistry: Display: Unregistering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.03-03.51.14:510][  0]LogToolsetRegistry: Display: Unregistering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.03-03.51.14:611][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PostWrite): 1 .ref files found, 1 referenced binaries
+[2026.10.03-03.51.14:611][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.03-03.51.14:746][  0]LogShaderCompilers: Display: Exiting ShaderCompilingThread
+[2026.10.03-03.51.15:053][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file saved D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.03-03.51.15:060][  0]LogToolsetRegistry: Warning: IsAvailable: Editor is not available
+[2026.10.03-03.51.15:061][  0]LogTemp: Display: LoadHitchProbe summary: 129 sync-load entries seen, 0 recorded to (nothing)

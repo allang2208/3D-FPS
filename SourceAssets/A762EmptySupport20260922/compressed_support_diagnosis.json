@@ -1,0 +1,26 @@
+{
+  "clips": {
+    "base": {
+      "seconds": 4.291666507720947,
+      "source_compressed_max_rotation_degrees": 5.1396889857834046e-05
+    },
+    "angled": {
+      "seconds": 4.291666507720947,
+      "source_compressed_max_rotation_degrees": 5.511966892038353e-05
+    },
+    "vertical": {
+      "seconds": 4.291666507720947,
+      "source_compressed_max_rotation_degrees": 5.7653432178786483e-05
+    },
+    "prism": {
+      "seconds": 4.291666507720947,
+      "source_compressed_max_rotation_degrees": 5.0075116278208596e-05
+    },
+    "canted": {
+      "seconds": 4.291666507720947,
+      "source_compressed_max_rotation_degrees": 5.7653432178786483e-05
+    }
+  },
+  "maximum_degrees": 5.7653432178786483e-05,
+  "PIE_tested": false
+}

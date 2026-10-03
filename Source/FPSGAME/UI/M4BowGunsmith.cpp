@@ -72,6 +72,7 @@ void UM4GunsmithWidget::AppendBowOverview(const FColdSteelItem& Item)
     if(A.Damage.AddedPhysical>0||B.Damage.AddedPhysical>0)Row(ColdSteelWeaponText::AddedPhysical,A.Damage.AddedPhysical,B.Damage.AddedPhysical,2,TEXT(""));
     if(A.Damage.AddedMagic>0||B.Damage.AddedMagic>0)Row(ColdSteelWeaponText::AddedMagic,A.Damage.AddedMagic,B.Damage.AddedMagic,2,TEXT(""));
     Row(ColdSteelWeaponText::DrawTime,A.Draw,B.Draw,2,TEXT(" s"),true);Row(ColdSteelWeaponText::NockTime,A.Nock,B.Nock,2,TEXT(" s"),true);
+    Row(TEXT("拉弓速度加成"),A.DrawSpeedBonus*100.,B.DrawSpeedBonus*100.,1,TEXT("%"));
     Row(ColdSteelWeaponText::ProjectileSpeed,A.Speed,B.Speed,1,TEXT(" m/s"));Row(ColdSteelWeaponText::StaminaCost,A.Stamina,B.Stamina,2,TEXT(""),true);
     Row(ColdSteelWeaponText::HoldTime,A.Hold,B.Hold,2,TEXT(" s"));Row(ColdSteelWeaponText::Sway,A.Sway,B.Sway,2,TEXT(""),true);
     Row(ColdSteelWeaponText::HipSpreadAngle,FMath::RadiansToDegrees(FMath::Atan(A.Spread)),FMath::RadiansToDegrees(FMath::Atan(B.Spread)),2,TEXT("°"),true);

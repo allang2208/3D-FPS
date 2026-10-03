@@ -39,3 +39,72 @@
 `Tools/Build/Build-Editor.ps1` 于 21:15:39 构建成功（`Result: Succeeded`）。历史版本（举锤版、
 被替换的 1.45 s 版）都能在案例 `Before/` 与作者源里找到。本轮未运行游戏或玩法回归，
 实际手感、肩口观感与砸落抖动强弱由用户试玩判定。
+
+## 收势（recover）手臂复位修订 V47（2026-09-19）
+
+用户反馈：快速近战/第四连击结束后**手臂复位时突然形变、切换不自然**。受影响的正是这段
+`A_RuneSword_PommelStrike`（快速进战与第四连击共用同一条 clip）。
+
+### 症状与根因
+
+- **症状（480 Hz 逐帧量，作者源 blend 与 UE 资产一致）**：收势末段 1.587 s（最后 ~13 ms）
+  处，双臂三骨同时出现"已经减速到 ~0.1°/帧 → 突然再加速到 2.0°/帧（≈955°/s）→ 硬停"
+  的整臂脉冲；lid 端末帧仍有 0.2°/帧残速。画面读感就是"复位到一半又抽一下"。
+- **根因**：`arm_solver.py` 的 `separate_arms()` 把**肘面可读性修正**（最大 4.8 cm 肘位偏移、
+  约 16°）在**两端各 12 帧（25 ms）内强行归零**：`w=min(1,f/12,(n-1-f)/12)`。修正量在尾段
+  被压缩进 25 ms，等于给已静止的手臂叠加一次 950°/s 的独立运动。它不是姿势路径的一部分，
+  而是解算器的修正项，所以只在两端表现为"形变"。
+
+### 修法与参数（实测选出来，不是拍的）
+
+三个通道同时改（`SourceAssets/MeleePommelAttack20260916/arm_solver.py`）：
+
+| 通道 | 原值 | 现值 | 依据 |
+| --- | --- | --- | --- |
+| 端点释放窗 | 12 帧（25 ms） | **240 帧（0.50 s）** | 让修正随"抽回→落稳"（RETURN_CORNER 1.30 → 1.60 s）一起走，而不是自己形成一段动作 |
+| 路径平滑核 | 5 taps（[1,4,6,4,1]） | **9 taps（二项式行 9）** | 5 taps 是按 12 帧窗标的；DP 状态单帧翻转在它下面仍留 6–8°/帧肘部台阶 |
+| DP 肘部运动权重 | 100 | **1000** | 翻转必须换来真实的手腕弯度改善才值得；1000 时整段峰值降到姿态路径自身水平 |
+
+扫描口径：`release_window_final.py` + `validate_recover_fix.py`（480 Hz 逐帧 armature 空间角增量），
+候选窗 12/48/72/120/144/192/240/384，核 5/9/15 taps，权重 100/300/1000。判据三条同时看：
+末段峰值、入口峰值、**修正量在打击段/抽回段的强度**（不许为了尾部安静把修正整体掐掉），
+外加前臂交叉计数与肘间隙（结构质量不许退化）。
+
+### 验证结果
+
+| 位置 | V46（修订前） | V47（修订后） |
+| --- | --- | --- |
+| 收势末段峰值（upperarm_r） | 1.989°/帧 ≈ 955°/s | **0.422°/帧 ≈ 203°/s** |
+| 收势末段峰值（lowerarm_r） | 1.321°/帧 | **0.317°/帧** |
+| 全段最大逐帧转角（双臂） | 7.875° | **3.378°**（姿态路径自身 3.843° ⇒ 修正不再自造运动） |
+| 首/末帧与 idle 偏差 | 0.0003 mm | **0.0003 mm**（未变） |
+| 握持不变量 grip_l / grip_r | 116.3 mm / 95.0 mm | 116.3 mm / 95.0 mm（未变） |
+| UE 侧读回（重新导入后） | — | upperarm 0.422 / lowerarm 0.317 / hand 0.333–0.386°/帧，末帧 0.08–0.20 |
+| UE 侧端点连续性 | — | 末帧 vs idle：0.00000–0.00001 cm、0.00002–0.00006° |
+
+前臂交叉计数全程 0、肘间隙 33.17 cm 不变——修正没有被"掐掉"，只是不再在末端单独成段。
+
+### 文件与入口
+
+- 作者源改正：`SourceAssets/MeleePommelAttack20260916/arm_solver.py`（三个通道都由环境变量覆盖：
+  `ARM_RELEASE_IN/OUT`、`ARM_PATH_TAPS`、`ARM_MOVEMENT_WEIGHT`，默认即上述选定值）。
+- 重烘：`author_pommel_strike.py`（新增 `OUT_BLEND` 环境变量，可把修订版写到 V47 而不覆盖 V46）。
+  产物 `AzureRunesword_PommelStrikeV47.blend` + `Export/A_RuneSword_PommelStrike.fbx`。
+- 修订前基线完整备份：`Before/AzureRunesword_PommelStrikeV46_pre-recover-fix-20260919.blend`、
+  `Before/A_RuneSword_PommelStrike_pre-recover-fix-20260919.fbx`；UE 侧旧资产由导入脚本自动备份到
+  `Before/A_RuneSword_PommelStrike.uasset`。
+- 验证：`verify_recover_fix.py`（V46/V47 同口径对比）、`verify_and_render.py`（端点/握持/画面，
+  新增 `RECOVER_SHOTS` 收势连帧）、`readback_ue.py`（导入后 UE 侧读回，经 `run_readback.ps1` 无头执行）。
+- 导入：`run_import.ps1`（编辑器关闭时走 ImportHost；编辑器开着时走
+  `Tools/AssetPipeline/ue_python_exec.py --script import_pommel.py`）。已导入
+  `/Game/Weapons/AzureRunesword20260913/A_RuneSword_PommelStrike`（18:25，length=1.6000）。
+
+### 同一缺陷在家族里的范围
+
+同一段 `w=min(1,f/12,(n-1-f)/12)` 硬归零写在这份解算器的多个历史副本里
+（`RuneSword20260913/{ChargedHeavyV12,DiagonalHeavyV6,GuardParryV18,StrideThrustV16}/arm_solver.py`）。
+它们各自产出的 clip 若还在用（重击蓄力/释放等），同样会有首末帧的肘面急抽——本次只修了
+配重锤这一条（用户反馈所指），其余先不动，待有反馈再逐条处理。
+
+**未实机验收**：以上都是离线与 UE 资产读回数据；实机观感（连续两三次第四连击的衔接、
+快速进战收势）由用户试玩判定。

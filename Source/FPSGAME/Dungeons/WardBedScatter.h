@@ -6,6 +6,7 @@
 
 class UInstancedStaticMeshComponent;
 class UStaticMesh;
+class AColdSteelSceneContainer;
 
 USTRUCT(BlueprintType)
 struct FWardBedRoom
@@ -40,6 +41,22 @@ struct FWardRoomProp
     UPROPERTY(EditAnywhere) bool bBlocking=true;
 };
 
+/** Optional patient belongings boxes placed against actual upright beds. */
+USTRUCT(BlueprintType)
+struct FWardBedsideContainerSettings
+{
+    GENERATED_BODY()
+    UPROPERTY(EditAnywhere) TObjectPtr<UStaticMesh> BodyMesh;
+    UPROPERTY(EditAnywhere) TObjectPtr<UStaticMesh> LidMesh;
+    UPROPERTY(EditAnywhere) FString IdentityPrefix=TEXT("Hospital.Bedside");
+    UPROPERTY(EditAnywhere) FString Caption=TEXT("病人物品箱");
+    UPROPERTY(EditAnywhere) FVector Hinge=FVector::ZeroVector;
+    UPROPERTY(EditAnywhere) float OpenedRoll=108.f;
+    UPROPERTY(EditAnywhere) int32 MinCount=2;
+    UPROPERTY(EditAnywhere) int32 MaxCount=3;
+    UPROPERTY(EditAnywhere) float BedGap=24.f;
+};
+
 /** One-shot dressing; beds and small props share a single occupancy ledger. */
 UCLASS()
 class FPSGAME_API AWardBedScatter : public AActor
@@ -66,6 +83,7 @@ public:
 
 protected:
     virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 private:
     void GenerateInitial();
@@ -74,4 +92,9 @@ public:
     UPROPERTY(EditAnywhere, Category="Furnishings") TArray<FWardRoomProp> RoomProps;
 private:
     UPROPERTY(Transient) TArray<TObjectPtr<UInstancedStaticMeshComponent>> PropInstances;
+public:
+    // Appended: existing scatter layout and serialized fields stay in place.
+    UPROPERTY(EditAnywhere, Category="Furnishings") FWardBedsideContainerSettings BedsideContainers;
+private:
+    UPROPERTY(Transient) TArray<TObjectPtr<AColdSteelSceneContainer>> SpawnedBedsideContainers;
 };

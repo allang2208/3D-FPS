@@ -1,0 +1,430 @@
+{
+  "meshes": {
+    "/Game/AsianMale_Jason/Mesh/Head/SKM_Jason_head": {
+      "materials": [
+        {
+          "slot": "lambert1",
+          "material": "/Game/AsianMale_Jason/Material/MI_FaceDown.MI_FaceDown"
+        },
+        {
+          "slot": "mat_teeth",
+          "material": "/Game/AsianMale_Jason/Material/MI_Teeth_Baked.MI_Teeth_Baked"
+        },
+        {
+          "slot": "mat_saliva",
+          "material": "/Game/AsianMale_Jason/Material/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid"
+        },
+        {
+          "slot": "mat_eye",
+          "material": "/Game/AsianMale_Jason/Material/MI_EyeL_Baked.MI_EyeL_Baked"
+        },
+        {
+          "slot": "mat_eyeshell",
+          "material": "/Game/AsianMale_Jason/Material/MI_Face_EyeShell.MI_Face_EyeShell"
+        },
+        {
+          "slot": "mat_eyelashes",
+          "material": "/Game/AsianMale_Jason/Material/MI_Face_Eyelashes.MI_Face_Eyelashes"
+        },
+        {
+          "slot": "mat_eyeEdge",
+          "material": "/Game/AsianMale_Jason/Material/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid"
+        },
+        {
+          "slot": "mat_cartilage",
+          "material": "/Game/AsianMale_Jason/Material/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid"
+        }
+      ],
+      "post_process": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Face/ABP_Face_PostProcess.ABP_Face_PostProcess_C"
+    },
+    "/Game/AsianMale_Jason/Mesh/Body/SKM_Jason_body": {
+      "materials": [
+        {
+          "slot": "MH_BaseBody_mat",
+          "material": "/Game/AsianMale_Jason/Material/M_Jason_bodyOpacity.M_Jason_bodyOpacity"
+        },
+        {
+          "slot": "mat_head_down",
+          "material": "/Game/AsianMale_Jason/Material/MI_Face_Skin_Baked_LOD0.MI_Face_Skin_Baked_LOD0"
+        },
+        {
+          "slot": "mat_body",
+          "material": "/Game/AsianMale_Jason/Material/MI_Body_Baked.MI_Body_Baked"
+        }
+      ],
+      "post_process": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Body/ABP_Body_PostProcess.ABP_Body_PostProcess_C"
+    }
+  },
+  "materials": {
+    "MI_FaceDown": [
+      {
+        "path": "/Game/AsianMale_Jason/Material/MI_FaceDown.MI_FaceDown",
+        "class": "MaterialInstanceConstant",
+        "texture": {
+          "Basecolor Baked": "/Game/AsianMale_Jason/Texture/T_Jason_head.T_Jason_head",
+          "SRMF Baked": "/Game/AsianMale_Jason/Texture/T_Head_SRMF.T_Head_SRMF",
+          "Normal Baked": "/Game/AsianMale_Jason/Texture/T_Head_LOD2_N.T_Head_LOD2_N",
+          "Scatter Baked": "/Game/AsianMale_Jason/Texture/T_Head_Scatter.T_Head_Scatter",
+          "Basecolor Animated Delta cm1": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Textures/T_Face_Basecolor_Animated_CM1.T_Face_Basecolor_Animated_CM1",
+          "Basecolor Animated Delta cm2": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Textures/T_Face_Basecolor_Animated_CM2.T_Face_Basecolor_Animated_CM2",
+          "Basecolor Animated Delta cm3": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Textures/T_Face_Basecolor_Animated_CM3.T_Face_Basecolor_Animated_CM3",
+          "Normal Animated Delta wm1": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Textures/T_Face_Normal_Animated_WM1.T_Face_Normal_Animated_WM1",
+          "Normal Animated Delta wm2": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Textures/T_Face_Normal_Animated_WM2.T_Face_Normal_Animated_WM2",
+          "Normal Animated Delta wm3": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Textures/T_Face_Normal_Animated_WM3.T_Face_Normal_Animated_WM3",
+          "Micro Skin Details Mask": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Optional/BodyTextures/T_Skin_Microtiling_M.T_Skin_Microtiling_M"
+        },
+        "scalar": {
+          "Micro Skin Tiling": "44.0",
+          "Micro Skin Cavity Specular Multiply": "0.6000000238418579",
+          "Micro Skin Normal Strength": "0.699999988079071",
+          "Micro MaskA Strength": "0.0",
+          "Micro MaskC Strength": "0.0",
+          "RefractionDepthBias": "0.0"
+        },
+        "vector": {},
+        "base_overrides": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x0000020C83E8FD60) {}>"
+      },
+      {
+        "path": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Materials/M_headDown.M_headDown",
+        "class": "Material",
+        "base_overrides": "None"
+      }
+    ],
+    "MI_Face_Skin_Baked_LOD0": [
+      {
+        "path": "/Game/AsianMale_Jason/Material/MI_Face_Skin_Baked_LOD0.MI_Face_Skin_Baked_LOD0",
+        "class": "MaterialInstanceConstant",
+        "texture": {
+          "Basecolor Baked": "/Game/AsianMale_Jason/Texture/T_Jason_head.T_Jason_head",
+          "SRMF Baked": "/Game/AsianMale_Jason/Texture/T_Head_SRMF.T_Head_SRMF",
+          "Normal Baked": "/Game/AsianMale_Jason/Texture/T_Head_LOD2_N.T_Head_LOD2_N",
+          "Scatter Baked": "/Game/AsianMale_Jason/Texture/T_Head_Scatter.T_Head_Scatter",
+          "Basecolor Animated Delta cm1": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Textures/T_Face_Basecolor_Animated_CM1.T_Face_Basecolor_Animated_CM1",
+          "Basecolor Animated Delta cm2": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Textures/T_Face_Basecolor_Animated_CM2.T_Face_Basecolor_Animated_CM2",
+          "Basecolor Animated Delta cm3": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Textures/T_Face_Basecolor_Animated_CM3.T_Face_Basecolor_Animated_CM3",
+          "Normal Animated Delta wm1": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Textures/T_Face_Normal_Animated_WM1.T_Face_Normal_Animated_WM1",
+          "Normal Animated Delta wm2": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Textures/T_Face_Normal_Animated_WM2.T_Face_Normal_Animated_WM2",
+          "Normal Animated Delta wm3": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Textures/T_Face_Normal_Animated_WM3.T_Face_Normal_Animated_WM3",
+          "Micro Skin Details Mask": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Optional/BodyTextures/T_Skin_Microtiling_M.T_Skin_Microtiling_M"
+        },
+        "scalar": {
+          "Roughness Global Offset Post-Bake": "0.5",
+          "Micro Skin Tiling": "44.0",
+          "Micro Skin Cavity Specular Multiply": "0.6000000238418579",
+          "Micro Skin Normal Strength": "0.699999988079071",
+          "Micro MaskA Strength": "0.0",
+          "Micro MaskC Strength": "0.0",
+          "RefractionDepthBias": "0.0"
+        },
+        "vector": {},
+        "base_overrides": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x000002056FADE560) {}>"
+      },
+      {
+        "path": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Materials/M_skin_unified_baked.M_skin_unified_baked",
+        "class": "Material",
+        "base_overrides": "None"
+      }
+    ],
+    "MI_Body_Baked": [
+      {
+        "path": "/Game/AsianMale_Jason/Material/MI_Body_Baked.MI_Body_Baked",
+        "class": "MaterialInstanceConstant",
+        "texture": {
+          "Basecolor Baked": "/Game/AsianMale_Jason/Texture/T_Jason_body.T_Jason_body",
+          "SRMF Baked": "/Game/AsianMale_Jason/Texture/T_Body_SRMF.T_Body_SRMF",
+          "Normal Baked": "/Game/AsianMale_Jason/Texture/T_Body_N.T_Body_N",
+          "Scatter Baked": "/Game/AsianMale_Jason/Texture/T_Body_Scatter.T_Body_Scatter",
+          "Micro Skin Details Mask": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Optional/BodyTextures/T_Skin_Microtiling_M.T_Skin_Microtiling_M"
+        },
+        "scalar": {
+          "Roughness Global Offset Post-Bake": "0.5",
+          "Micro Skin Tiling": "70.0",
+          "Micro MaskA Strength": "1.0",
+          "Micro MaskB Strength": "0.0",
+          "Micro MaskD Strength": "0.0",
+          "RefractionDepthBias": "0.0"
+        },
+        "vector": {},
+        "base_overrides": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x00000205C52AA560) {}>"
+      },
+      {
+        "path": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Materials/Baked/MI_Head_Baked_LOD0.MI_Head_Baked_LOD0",
+        "class": "MaterialInstanceConstant",
+        "texture": {},
+        "scalar": {
+          "Micro Skin Tiling": "44.0",
+          "Micro Skin Cavity Specular Multiply": "0.6000000238418579",
+          "Micro Skin Normal Strength": "0.699999988079071",
+          "Micro MaskA Strength": "0.0",
+          "Micro MaskB Strength": "0.0",
+          "Micro MaskC Strength": "0.0",
+          "Micro MaskD Strength": "1.0",
+          "RefractionDepthBias": "0.0"
+        },
+        "vector": {},
+        "base_overrides": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x000002051173B560) {}>"
+      },
+      {
+        "path": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Materials/M_skin_unified_baked.M_skin_unified_baked",
+        "class": "Material",
+        "base_overrides": "None"
+      }
+    ],
+    "MI_Teeth_Baked": [
+      {
+        "path": "/Game/AsianMale_Jason/Material/MI_Teeth_Baked.MI_Teeth_Baked",
+        "class": "MaterialInstanceConstant",
+        "texture": {
+          "Basecolor Baked": "/Game/AsianMale_Jason/Texture/T_Teeth_BC.T_Teeth_BC",
+          "Scatter Baked": "/Game/AsianMale_Jason/Texture/T_Teeth_Scatter.T_Teeth_Scatter",
+          "SRM Baked": "/Game/AsianMale_Jason/Texture/T_Teeth_SRM.T_Teeth_SRM",
+          "Normal Baked": "/Game/AsianMale_Jason/Texture/T_Teeth_N.T_Teeth_N"
+        },
+        "scalar": {},
+        "vector": {},
+        "base_overrides": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x0000020EE1789D60) {}>"
+      },
+      {
+        "path": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Teeth/Materials/MI_teeth_unified_MH_preset.MI_teeth_unified_MH_preset",
+        "class": "MaterialInstanceConstant",
+        "texture": {},
+        "scalar": {
+          "Teeth Basecolor Value": "0.75",
+          "Teeth Scatter Min Depth": "1.0",
+          "Teeth Specular": "0.09000000357627869",
+          "Teeth Roughness": "0.17000000178813934",
+          "Teeth Sharp Normal Strength": "1.0",
+          "Teeth Detail Normal Strength": "0.5",
+          "Teeth Micro Normal Tiling": "2.5",
+          "Teeth Micro Normal Strength": "0.20000000298023224",
+          "Gums Basecolor Hue": "-0.029999999329447746",
+          "Gums Basecolor Saturation": "0.029999999329447746",
+          "Gums Basecolor Value": "0.6499999761581421",
+          "Gums Roughness": "0.25",
+          "Plaque Amount": "0.0",
+          "Gum Line Basecolor Value": "0.7200000286102295",
+          "Gum Line Roughness Offset": "0.25",
+          "Mouth Occlusion Amount": "1.5",
+          "Depth Offset": "0.20000000298023224",
+          "RefractionDepthBias": "0.0"
+        },
+        "vector": {
+          "Teeth Basecolor Multiply": "<Struct 'LinearColor' (0x000002090B9D4160) {r: 0.946080, g: 0.900000, b: 1.000000, a: 1.000000}>",
+          "Teeth Edge Color Multiply": "<Struct 'LinearColor' (0x000002090B9D4320) {r: 0.846875, g: 0.910196, b: 1.000000, a: 1.000000}>",
+          "Gum Line Basecolor Multiply": "<Struct 'LinearColor' (0x000002090B9D43E0) {r: 1.000000, g: 0.805458, b: 0.650000, a: 1.000000}>"
+        },
+        "base_overrides": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x0000020EE1788560) {}>"
+      },
+      {
+        "path": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Teeth/Materials/MI_teeth_unified.MI_teeth_unified",
+        "class": "MaterialInstanceConstant",
+        "texture": {},
+        "scalar": {
+          "RefractionDepthBias": "0.0"
+        },
+        "vector": {},
+        "base_overrides": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x0000020EE1788D60) {}>"
+      },
+      {
+        "path": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Teeth/Materials/M_teeth_unified.M_teeth_unified",
+        "class": "Material",
+        "base_overrides": "None"
+      }
+    ],
+    "MI_EyeL_Baked": [
+      {
+        "path": "/Game/AsianMale_Jason/Material/MI_EyeL_Baked.MI_EyeL_Baked",
+        "class": "MaterialInstanceConstant",
+        "texture": {
+          "Iris Normal Baked": "/Game/AsianMale_Jason/Texture/T_EyeIrisL_N.T_EyeIrisL_N",
+          "Iris Basecolor Baked": "/Game/AsianMale_Jason/Texture/T_EyeIrisL_BC.T_EyeIrisL_BC",
+          "Sclera Normal Baked": "/Game/AsianMale_Jason/Texture/T_EyeScleraL_N.T_EyeScleraL_N",
+          "Sclera Basecolor Baked": "/Game/AsianMale_Jason/Texture/T_EyeScleraL_BC.T_EyeScleraL_BC"
+        },
+        "scalar": {
+          "Sclera Irritation Veins Opacity": "0.4000000059604645",
+          "Sclera Irritation Area Size": "0.20500001311302185"
+        },
+        "vector": {},
+        "base_overrides": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x000002096AA02D60) {}>"
+      },
+      {
+        "path": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Materials/MI_eye_eyeball_unified_MH_preset_left.MI_eye_eyeball_unified_MH_preset_left",
+        "class": "MaterialInstanceConstant",
+        "texture": {
+          "Iris Pattern Masks": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/Iris/T_Iris_I_M.T_Iris_I_M",
+          "Iris Normal": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/Iris/T_iris_I_N.T_iris_I_N"
+        },
+        "scalar": {
+          "Sclera Rotation": "0.25",
+          "Sclera Normal Strength": "1.0",
+          "Sclera Transmission Spread": "0.11999999731779099",
+          "Sclera Transmission Variation Strength": "0.019999999552965164",
+          "Sclera Transmission Variation Scale": "0.3499999940395355",
+          "Sclera Corner Size": "0.20000000298023224",
+          "Sclera Corner Softness": "0.15000000596046448",
+          "Sclera Corner Variation Strength": "0.07000000029802322",
+          "Sclera Corner Variation Scale": "1.1200000047683716",
+          "Cornea Size": "0.16500000655651093",
+          "Corneal Limbus Size": "0.054999999701976776",
+          "Corneal Limbus Density": "0.5",
+          "Corneal Limbus Softness": "0.03999999910593033",
+          "Corneal Limbus Softness Variation Scale": "0.6000000238418579",
+          "Corneal Limbus Softness Variation Strength": "0.009999999776482582",
+          "Corneal Limbus Softness Variation Rotation": "0.03840000182390213",
+          "Iris Rotation": "0.0",
+          "Iris Scale": "1.0",
+          "Iris Normal Strength": "1.0",
+          "Limbal Ring Size": "0.7799999713897705",
+          "Limbal Ring Softness": "0.10000000149011612",
+          "Pupil Dilation": "0.949999988079071",
+          "Pupil Feather Strength": "0.44999998807907104",
+          "Pupil Feather Softness": "0.20000000298023224",
+          "Pupil Funnel Normal Strength": "0.5",
+          "IoR": "1.409999966621399",
+          "Refraction Depth Scale": "1.0",
+          "Iris Mask Offset": "-0.009999999776482582",
+          "Iris Mask Softness": "0.06279999762773514",
+          "Iris Concavity Scale": "0.15000000596046448",
+          "Iris Concavity Power": "0.3499999940395355",
+          "Iris Primary Color Hue": "0.8999999761581421",
+          "Iris Primary Color Value": "0.5600000023841858",
+          "Iris Secondary Color Hue": "0.9800000190734863",
+          "Iris Secondary Color Value": "0.4000000059604645",
+          "Iris Color Blend Coverage": "0.6000000238418579",
+          "Iris Color Blend Coverage Softness": "0.30000001192092896",
+          "Iris Color Blend Switch": "1.0",
+          "Iris Color Hue Variation": "0.10000000149011612",
+          "Iris Color Value Variation": "0.10000000149011612",
+          "Iris Saturation Variation": "0.0",
+          "Iris Shadow Details Amount": "0.75",
+          "Iris Global Saturation": "1.7000000476837158",
+          "Sclera Gradient Mask Position": "0.0",
+          "Sclera Irritation Area Size": "0.17000000178813934",
+          "Sclera Irritation Veins Opacity": "0.0",
+          "RefractionDepthBias": "0.0"
+        },
+        "vector": {
+          "Sclera Color Multiply": "<Struct 'LinearColor' (0x000002090B9D4F60) {r: 1.100000, g: 1.078000, b: 1.078000, a: 1.000000}>",
+          "Sclera Transmission Color (Mult)": "<Struct 'LinearColor' (0x000002090B9D4F20) {r: 0.540625, g: 0.488099, b: 0.482620, a: 1.000000}>",
+          "Sclera Corner Color (Mult)": "<Struct 'LinearColor' (0x000002090B9D4E20) {r: 0.650000, g: 0.552500, b: 0.552500, a: 1.000000}>",
+          "Corneal Limbus Color (Mult)": "<Struct 'LinearColor' (0x000002090B9D4D20) {r: 0.850000, g: 0.892468, b: 1.000000, a: 1.000000}>",
+          "Iris Color Multiply": "<Struct 'LinearColor' (0x000002090B9D4CA0) {r: 1.000000, g: 1.000000, b: 1.000000, a: 1.000000}>",
+          "Limbal Ring Color (Mult)": "<Struct 'LinearColor' (0x000002090B9D4C20) {r: 0.581250, g: 0.581250, b: 0.581250, a: 1.000000}>",
+          "Iris Shadow Details Color": "<Struct 'LinearColor' (0x000002090B9D4B60) {r: 0.231249, g: 0.133968, b: 0.006753, a: 1.000000}>",
+          "Sclera Gradient Mask Color Multiply": "<Struct 'LinearColor' (0x000002090B9D4B20) {r: 1.120000, g: 1.120000, b: 1.120000, a: 1.000000}>",
+          "Scela Irriration Bloodshot Color (Mult)": "<Struct 'LinearColor' (0x000002090B9D4A60) {r: 1.000000, g: 0.700000, b: 0.700000, a: 1.000000}>"
+        },
+        "base_overrides": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x000002096AA0BD60) {}>"
+      },
+      {
+        "path": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Materials/M_eye_eyeball_unified.M_eye_eyeball_unified",
+        "class": "Material",
+        "base_overrides": "None"
+      }
+    ],
+    "MI_EyeR_Baked": [
+      {
+        "path": "/Game/AsianMale_Jason/Material/MI_EyeR_Baked.MI_EyeR_Baked",
+        "class": "MaterialInstanceConstant",
+        "texture": {
+          "Iris Normal Baked": "/Game/AsianMale_Jason/Texture/T_EyeIrisR_N.T_EyeIrisR_N",
+          "Iris Basecolor Baked": "/Game/AsianMale_Jason/Texture/T_EyeIrisR_BC.T_EyeIrisR_BC",
+          "Sclera Normal Baked": "/Game/AsianMale_Jason/Texture/T_EyeScleraR_N.T_EyeScleraR_N",
+          "Sclera Basecolor Baked": "/Game/AsianMale_Jason/Texture/T_EyeScleraR_BC.T_EyeScleraR_BC"
+        },
+        "scalar": {
+          "Sclera Irritation Veins Opacity": "0.4000000059604645",
+          "Sclera Irritation Area Size": "0.20500001311302185"
+        },
+        "vector": {},
+        "base_overrides": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x00000209B2A91560) {}>"
+      },
+      {
+        "path": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Materials/Baked/MI_EyeL_Baked.MI_EyeL_Baked",
+        "class": "MaterialInstanceConstant",
+        "texture": {},
+        "scalar": {
+          "RefractionDepthBias": "0.0"
+        },
+        "vector": {},
+        "base_overrides": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x000002096AA0C560) {}>"
+      },
+      {
+        "path": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Materials/MI_eye_eyeball_unified_MH_preset_left.MI_eye_eyeball_unified_MH_preset_left",
+        "class": "MaterialInstanceConstant",
+        "texture": {
+          "Iris Pattern Masks": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/Iris/T_Iris_I_M.T_Iris_I_M",
+          "Iris Normal": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Textures/Iris/T_iris_I_N.T_iris_I_N"
+        },
+        "scalar": {
+          "Sclera Rotation": "0.25",
+          "Sclera Normal Strength": "1.0",
+          "Sclera Transmission Spread": "0.11999999731779099",
+          "Sclera Transmission Variation Strength": "0.019999999552965164",
+          "Sclera Transmission Variation Scale": "0.3499999940395355",
+          "Sclera Corner Size": "0.20000000298023224",
+          "Sclera Corner Softness": "0.15000000596046448",
+          "Sclera Corner Variation Strength": "0.07000000029802322",
+          "Sclera Corner Variation Scale": "1.1200000047683716",
+          "Cornea Size": "0.16500000655651093",
+          "Corneal Limbus Size": "0.054999999701976776",
+          "Corneal Limbus Density": "0.5",
+          "Corneal Limbus Softness": "0.03999999910593033",
+          "Corneal Limbus Softness Variation Scale": "0.6000000238418579",
+          "Corneal Limbus Softness Variation Strength": "0.009999999776482582",
+          "Corneal Limbus Softness Variation Rotation": "0.03840000182390213",
+          "Iris Rotation": "0.0",
+          "Iris Scale": "1.0",
+          "Iris Normal Strength": "1.0",
+          "Limbal Ring Size": "0.7799999713897705",
+          "Limbal Ring Softness": "0.10000000149011612",
+          "Pupil Dilation": "0.949999988079071",
+          "Pupil Feather Strength": "0.44999998807907104",
+          "Pupil Feather Softness": "0.20000000298023224",
+          "Pupil Funnel Normal Strength": "0.5",
+          "IoR": "1.409999966621399",
+          "Refraction Depth Scale": "1.0",
+          "Iris Mask Offset": "-0.009999999776482582",
+          "Iris Mask Softness": "0.06279999762773514",
+          "Iris Concavity Scale": "0.15000000596046448",
+          "Iris Concavity Power": "0.3499999940395355",
+          "Iris Primary Color Hue": "0.8999999761581421",
+          "Iris Primary Color Value": "0.5600000023841858",
+          "Iris Secondary Color Hue": "0.9800000190734863",
+          "Iris Secondary Color Value": "0.4000000059604645",
+          "Iris Color Blend Coverage": "0.6000000238418579",
+          "Iris Color Blend Coverage Softness": "0.30000001192092896",
+          "Iris Color Blend Switch": "1.0",
+          "Iris Color Hue Variation": "0.10000000149011612",
+          "Iris Color Value Variation": "0.10000000149011612",
+          "Iris Saturation Variation": "0.0",
+          "Iris Shadow Details Amount": "0.75",
+          "Iris Global Saturation": "1.7000000476837158",
+          "Sclera Gradient Mask Position": "0.0",
+          "Sclera Irritation Area Size": "0.17000000178813934",
+          "Sclera Irritation Veins Opacity": "0.0",
+          "RefractionDepthBias": "0.0"
+        },
+        "vector": {
+          "Sclera Color Multiply": "<Struct 'LinearColor' (0x000002090B9D4160) {r: 1.100000, g: 1.078000, b: 1.078000, a: 1.000000}>",
+          "Sclera Transmission Color (Mult)": "<Struct 'LinearColor' (0x000002090B9D4460) {r: 0.540625, g: 0.488099, b: 0.482620, a: 1.000000}>",
+          "Sclera Corner Color (Mult)": "<Struct 'LinearColor' (0x000002090B9D43E0) {r: 0.650000, g: 0.552500, b: 0.552500, a: 1.000000}>",
+          "Corneal Limbus Color (Mult)": "<Struct 'LinearColor' (0x000002090B9D44E0) {r: 0.850000, g: 0.892468, b: 1.000000, a: 1.000000}>",
+          "Iris Color Multiply": "<Struct 'LinearColor' (0x000002090B9D45A0) {r: 1.000000, g: 1.000000, b: 1.000000, a: 1.000000}>",
+          "Limbal Ring Color (Mult)": "<Struct 'LinearColor' (0x000002090B9D47A0) {r: 0.581250, g: 0.581250, b: 0.581250, a: 1.000000}>",
+          "Iris Shadow Details Color": "<Struct 'LinearColor' (0x000002090B9D3CE0) {r: 0.231249, g: 0.133968, b: 0.006753, a: 1.000000}>",
+          "Sclera Gradient Mask Color Multiply": "<Struct 'LinearColor' (0x000002090B9D3BE0) {r: 1.120000, g: 1.120000, b: 1.120000, a: 1.000000}>",
+          "Scela Irriration Bloodshot Color (Mult)": "<Struct 'LinearColor' (0x000002090B9D4860) {r: 1.000000, g: 0.700000, b: 0.700000, a: 1.000000}>"
+        },
+        "base_overrides": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x000002096AA0BD60) {}>"
+      },
+      {
+        "path": "/Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Eye/Materials/M_eye_eyeball_unified.M_eye_eyeball_unified",
+        "class": "Material",
+        "base_overrides": "None"
+      }
+    ]
+  },
+  "runtime": []
+}

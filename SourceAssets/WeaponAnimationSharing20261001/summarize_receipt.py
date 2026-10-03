@@ -2,7 +2,7 @@
 from pathlib import Path
 import json
 
-root = Path(__file__).parent
+root = Path(globals().get('ANIMATION_SHARING_JOB_ROOT', Path(__file__).parent)).resolve()
 receipt = json.loads((root / "install_receipt.json").read_text(encoding="utf-8"))
 groups = {}
 replaced, retained, bases = set(), set(), set()

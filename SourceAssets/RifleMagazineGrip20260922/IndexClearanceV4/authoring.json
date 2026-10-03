@@ -1,0 +1,2402 @@
+{
+  "AKM/standard/base/reload": {
+    "gun": "AKM",
+    "family": "base",
+    "clip": "reload",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/AKMReloadPolish20260911/base/A_AKM_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\base\\A_AKM_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\base\\A_AKM_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\standard\\base\\A_AKM_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/extended/base/reload": {
+    "gun": "AKM",
+    "family": "base",
+    "clip": "reload",
+    "magazine": "extended",
+    "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/ExtMagContact20260919/FBX/A_AKM_ExtContact_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\A_AKM_ExtContact_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\base\\A_AKM_ExtContact_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\base\\A_AKM_ExtContact_reload.fbx",
+    "fps": 120,
+    "rate": 240,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\extended\\base\\A_AKM_ExtContact_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/standard/base/reload_empty": {
+    "gun": "AKM",
+    "family": "base",
+    "clip": "reload_empty",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/AKMReloadPolish20260911/base/A_AKM_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\base\\A_AKM_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\base\\A_AKM_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\standard\\base\\A_AKM_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/extended/base/reload_empty": {
+    "gun": "AKM",
+    "family": "base",
+    "clip": "reload_empty",
+    "magazine": "extended",
+    "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/ExtMagContact20260919/FBX/A_AKM_ExtContact_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\A_AKM_ExtContact_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\base\\A_AKM_ExtContact_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\base\\A_AKM_ExtContact_reload_empty.fbx",
+    "fps": 120,
+    "rate": 240,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\extended\\base\\A_AKM_ExtContact_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/standard/angled/reload": {
+    "gun": "AKM",
+    "family": "angled",
+    "clip": "reload",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/CantedGripMigration20260911/akm/angled/A_AKM_angled_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\angled\\A_AKM_angled_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\angled\\A_AKM_angled_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\angled\\A_AKM_angled_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\standard\\angled\\A_AKM_angled_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/extended/angled/reload": {
+    "gun": "AKM",
+    "family": "angled",
+    "clip": "reload",
+    "magazine": "extended",
+    "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_angled_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/ExtMagContact20260919/FBX/A_AKM_ExtContact_angled_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\A_AKM_ExtContact_angled_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/standard/angled/reload_empty": {
+    "gun": "AKM",
+    "family": "angled",
+    "clip": "reload_empty",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/CantedGripMigration20260911/akm/angled/A_AKM_angled_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\angled\\A_AKM_angled_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\angled\\A_AKM_angled_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\angled\\A_AKM_angled_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\standard\\angled\\A_AKM_angled_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/extended/angled/reload_empty": {
+    "gun": "AKM",
+    "family": "angled",
+    "clip": "reload_empty",
+    "magazine": "extended",
+    "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_angled_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/ExtMagContact20260919/FBX/A_AKM_ExtContact_angled_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\A_AKM_ExtContact_angled_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\extended\\angled\\A_AKM_ExtContact_angled_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/standard/vertical/reload": {
+    "gun": "AKM",
+    "family": "vertical",
+    "clip": "reload",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/MannyGraspDonor20260912/Final/akm/vertical/A_AKM_vertical_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\vertical\\A_AKM_vertical_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\vertical\\A_AKM_vertical_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\standard\\vertical\\A_AKM_vertical_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/extended/vertical/reload": {
+    "gun": "AKM",
+    "family": "vertical",
+    "clip": "reload",
+    "magazine": "extended",
+    "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_vertical_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/ExtMagContact20260919/FBX/A_AKM_ExtContact_vertical_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\A_AKM_ExtContact_vertical_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\vertical\\A_AKM_ExtContact_vertical_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\vertical\\A_AKM_ExtContact_vertical_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\extended\\vertical\\A_AKM_ExtContact_vertical_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/standard/vertical/reload_empty": {
+    "gun": "AKM",
+    "family": "vertical",
+    "clip": "reload_empty",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/MannyGraspDonor20260912/Final/akm/vertical/A_AKM_vertical_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\vertical\\A_AKM_vertical_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\vertical\\A_AKM_vertical_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\standard\\vertical\\A_AKM_vertical_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/extended/vertical/reload_empty": {
+    "gun": "AKM",
+    "family": "vertical",
+    "clip": "reload_empty",
+    "magazine": "extended",
+    "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_vertical_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/ExtMagContact20260919/FBX/A_AKM_ExtContact_vertical_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\A_AKM_ExtContact_vertical_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\vertical\\A_AKM_ExtContact_vertical_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\vertical\\A_AKM_ExtContact_vertical_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\extended\\vertical\\A_AKM_ExtContact_vertical_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/standard/prism/reload": {
+    "gun": "AKM",
+    "family": "prism",
+    "clip": "reload",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/VREGripExtensions20260912/Final/akm/prism/A_AKM_prism_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\prism\\A_AKM_prism_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\prism\\A_AKM_prism_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\standard\\prism\\A_AKM_prism_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/extended/prism/reload": {
+    "gun": "AKM",
+    "family": "prism",
+    "clip": "reload",
+    "magazine": "extended",
+    "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_prism_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/ExtMagContact20260919/FBX/A_AKM_ExtContact_prism_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\A_AKM_ExtContact_prism_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\prism\\A_AKM_ExtContact_prism_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\prism\\A_AKM_ExtContact_prism_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\extended\\prism\\A_AKM_ExtContact_prism_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/standard/prism/reload_empty": {
+    "gun": "AKM",
+    "family": "prism",
+    "clip": "reload_empty",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/VREGripExtensions20260912/Final/akm/prism/A_AKM_prism_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\prism\\A_AKM_prism_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\prism\\A_AKM_prism_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\standard\\prism\\A_AKM_prism_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/extended/prism/reload_empty": {
+    "gun": "AKM",
+    "family": "prism",
+    "clip": "reload_empty",
+    "magazine": "extended",
+    "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_prism_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/ExtMagContact20260919/FBX/A_AKM_ExtContact_prism_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\A_AKM_ExtContact_prism_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\prism\\A_AKM_ExtContact_prism_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\prism\\A_AKM_ExtContact_prism_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\extended\\prism\\A_AKM_ExtContact_prism_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/standard/canted/reload": {
+    "gun": "AKM",
+    "family": "canted",
+    "clip": "reload",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\canted\\A_AKM_canted_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\canted\\A_AKM_canted_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\standard\\canted\\A_AKM_canted_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/extended/canted/reload": {
+    "gun": "AKM",
+    "family": "canted",
+    "clip": "reload",
+    "magazine": "extended",
+    "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_canted_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/ExtMagContact20260919/FBX/A_AKM_ExtContact_canted_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\A_AKM_ExtContact_canted_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\canted\\A_AKM_ExtContact_canted_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\canted\\A_AKM_ExtContact_canted_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\extended\\canted\\A_AKM_ExtContact_canted_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/standard/canted/reload_empty": {
+    "gun": "AKM",
+    "family": "canted",
+    "clip": "reload_empty",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\canted\\A_AKM_canted_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\standard\\canted\\A_AKM_canted_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\standard\\canted\\A_AKM_canted_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "AKM/extended/canted/reload_empty": {
+    "gun": "AKM",
+    "family": "canted",
+    "clip": "reload_empty",
+    "magazine": "extended",
+    "asset": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_canted_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/ExtMagContact20260919/FBX/A_AKM_ExtContact_canted_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\A_AKM_ExtContact_canted_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\canted\\A_AKM_ExtContact_canted_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\AKM\\extended\\canted\\A_AKM_ExtContact_canted_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\AKM\\extended\\canted\\A_AKM_ExtContact_canted_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "A762/standard/base/reload": {
+    "gun": "A762",
+    "family": "base",
+    "clip": "reload",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762Meshy20260920/Integration/Exports/A_A762_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Integration\\A_A762_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\base\\A_A762_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\base\\A_A762_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\A762\\standard\\base\\A_A762_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "A762/standard/base/reload_empty": {
+    "gun": "A762",
+    "family": "base",
+    "clip": "reload_empty",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762Meshy20260920/Integration/Exports/A_A762_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Integration\\A_A762_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\base\\A_A762_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\base\\A_A762_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\A762\\standard\\base\\A_A762_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "A762/standard/angled/reload": {
+    "gun": "A762",
+    "family": "angled",
+    "clip": "reload",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762Meshy20260920/Accessories05/Animations/angled/A_A762_angled_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\Animations\\angled\\A_A762_angled_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\angled\\A_A762_angled_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\angled\\A_A762_angled_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\A762\\standard\\angled\\A_A762_angled_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "A762/standard/angled/reload_empty": {
+    "gun": "A762",
+    "family": "angled",
+    "clip": "reload_empty",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762Meshy20260920/Accessories05/Animations/angled/A_A762_angled_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\Animations\\angled\\A_A762_angled_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\angled\\A_A762_angled_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\angled\\A_A762_angled_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\A762\\standard\\angled\\A_A762_angled_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "A762/standard/vertical/reload": {
+    "gun": "A762",
+    "family": "vertical",
+    "clip": "reload",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762Meshy20260920/Accessories05/Animations/vertical/A_A762_vertical_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\Animations\\vertical\\A_A762_vertical_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\vertical\\A_A762_vertical_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\vertical\\A_A762_vertical_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\A762\\standard\\vertical\\A_A762_vertical_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "A762/standard/vertical/reload_empty": {
+    "gun": "A762",
+    "family": "vertical",
+    "clip": "reload_empty",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762Meshy20260920/Accessories05/Animations/vertical/A_A762_vertical_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\Animations\\vertical\\A_A762_vertical_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\vertical\\A_A762_vertical_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\vertical\\A_A762_vertical_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\A762\\standard\\vertical\\A_A762_vertical_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "A762/standard/prism/reload": {
+    "gun": "A762",
+    "family": "prism",
+    "clip": "reload",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762Meshy20260920/Accessories05/Animations/prism/A_A762_prism_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\Animations\\prism\\A_A762_prism_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\prism\\A_A762_prism_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\prism\\A_A762_prism_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\A762\\standard\\prism\\A_A762_prism_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "A762/standard/prism/reload_empty": {
+    "gun": "A762",
+    "family": "prism",
+    "clip": "reload_empty",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762Meshy20260920/Accessories05/Animations/prism/A_A762_prism_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\Animations\\prism\\A_A762_prism_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\prism\\A_A762_prism_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\prism\\A_A762_prism_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\A762\\standard\\prism\\A_A762_prism_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "A762/standard/canted/reload": {
+    "gun": "A762",
+    "family": "canted",
+    "clip": "reload",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_reload",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762Meshy20260920/Accessories05/Animations/canted/A_A762_canted_reload.fbx"
+    ],
+    "seconds": 3.3333332538604736,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\Animations\\canted\\A_A762_canted_reload.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\canted\\A_A762_canted_reload.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\canted\\A_A762_canted_reload.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      400.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\A762\\standard\\canted\\A_A762_canted_reload.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  },
+  "A762/standard/canted/reload_empty": {
+    "gun": "A762",
+    "family": "canted",
+    "clip": "reload_empty",
+    "magazine": "standard",
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_reload_empty",
+    "source": [
+      "D:/FPS3D/FPSGAME/SourceAssets/A762Meshy20260920/Accessories05/Animations/canted/A_A762_canted_reload_empty.fbx"
+    ],
+    "seconds": 4.291666507720947,
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+    "original_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762Meshy20260920\\Accessories05\\Animations\\canted\\A_A762_canted_reload_empty.blend",
+    "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\canted\\A_A762_canted_reload_empty.blend",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\IndexClearanceV4\\A762\\standard\\canted\\A_A762_canted_reload_empty.fbx",
+    "fps": 120,
+    "rate": 120,
+    "frames": [
+      0.0,
+      515.0
+    ],
+    "edit_frames": [
+      20,
+      254
+    ],
+    "hold_frames": [
+      46,
+      237
+    ],
+    "changed_bones": [
+      "index_01_l",
+      "index_02_l",
+      "index_03_l"
+    ],
+    "weights_changed": false,
+    "game_tested": false,
+    "previous_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleMagazineGrip20260922\\FingerContactV3\\A762\\standard\\canted\\A_A762_canted_reload_empty.blend",
+    "revision": "IndexClearanceV4",
+    "thumb_open_rear_frames": [
+      14,
+      32
+    ],
+    "thumb_close_frames": [
+      30,
+      48
+    ],
+    "thumb_release_frames": [
+      237,
+      250
+    ],
+    "tighten_close_delays": {
+      "index": 1.5,
+      "middle": 2.5,
+      "ring": 3.5,
+      "pinky": 4.5
+    },
+    "tighten_release_frames": [
+      237,
+      250
+    ],
+    "palm_and_thumb_preserved": true,
+    "recipe": "staged-index-path-v3",
+    "index_prepare_frames": [
+      20,
+      32
+    ],
+    "index_close_frames": [
+      38,
+      46
+    ],
+    "index_open_frames": [
+      237,
+      245
+    ],
+    "index_return_frames": [
+      244,
+      254
+    ],
+    "other_fingers_and_palm_preserved": true
+  }
+}

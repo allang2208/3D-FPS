@@ -1,4 +1,5 @@
 #include "ColdSteelWeaponIcons.h"
+#include "ColdSteelEquipmentIconSource.h"
 #include "FPSPerformanceMetrics.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "ColdSteelMeleePreview.h"
@@ -41,7 +42,7 @@
 #include "Serialization/JsonSerializer.h"
 #endif
 
-bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||FPSBodyEquipment::StaticOutfitMesh(I.Definition).IsValid()||(I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_hk416"))||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_lmg201")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||((I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011"))||(I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")));}
+bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||ColdSteelEquipmentIconMesh(I).IsValid()||(I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_hk416"))||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_lmg201")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||((I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011"))||(I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")));}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
     if(ColdSteelStaff::IsStaff(I)){const FGunsmithParts Factory;return I.Definition+TEXT("|")+ColdSteelStaff::Resolve(I,bCatalogExport?&Factory:nullptr).Data;}
@@ -55,7 +56,7 @@ FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
     // 生产材料没有配件也没有装配变体：拾取网格与材质只由定义决定，键就是定义本身。
     if(ProductionHarvestAssets::IsIconSubject(I.Definition))return I.Definition;
     // 刚性装备挂件的图标就是佩戴网格本身：键同样是定义。
-    if(FPSBodyEquipment::StaticOutfitMesh(I.Definition).IsValid())return I.Definition;
+    if(ColdSteelEquipmentIconMesh(I).IsValid())return I.Definition;
     const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);TArray<FString> Names;Parts.GetKeys(Names);Names.Sort();
     FString Result=I.Definition;for(const auto& N:Names)Result+=TEXT("|")+N+TEXT("=")+Parts[N];return Result;
 }
@@ -132,7 +133,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     }
     if(ColdSteelInventory::IsBow(I)){const bool Ready=PrepareBow(I);PrepareStep=7;return Ready;}
     if(ProductionHarvestAssets::IsIconSubject(I.Definition)){const bool Ready=PrepareMaterial(I);PrepareStep=7;return Ready;}
-    if(FPSBodyEquipment::StaticOutfitMesh(I.Definition).IsValid()){const bool Ready=PrepareEquipment(I);PrepareStep=7;return Ready;}
+    if(ColdSteelEquipmentIconMesh(I).IsValid()){const bool Ready=PrepareEquipment(I);PrepareStep=7;return Ready;}
     if(ColdSteelMeleePreview::Supports(I)){const bool Ready=PrepareMelee(I);PrepareStep=7;return Ready;}
     if(PrepareStep==1){
     if(!Rig){

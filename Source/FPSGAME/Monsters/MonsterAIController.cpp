@@ -4,6 +4,8 @@
 #include "MonsterBTNodes.h"
 #include "Mutant3.h"
 #include "WolfMonster.h"
+#include "BlindSupplicantMonster.h"
+#include "HangingBellM09.h"
 #include "FPSCombatHealthComponent.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -25,6 +27,7 @@
 #include "Engine/World.h"
 #include "Engine/Engine.h"
 #include "EngineUtils.h"
+#include "GameFramework/PlayerController.h"
 #if WITH_EDITOR
 #include "Builders/CubeBuilder.h"
 #include "Model.h"
@@ -75,6 +78,8 @@ void AMonsterAIController::UpdateKnowledge()
  auto* C=Combat();auto* B=GetBlackboardComponent();if(!C||!B||!GetPawn())return;
  const bool Disabled=!bDecisionEnabled||!GetPawn()->IsActorTickEnabled();
  const auto* Canine=Cast<AWolfMonster>(GetPawn());
+ const auto* M07=Cast<ABlindSupplicantMonster>(GetPawn());
+ const auto* M09=Cast<AHangingBellM09>(GetPawn());
  const bool FeralPursuit=GetPawn()->IsA<AMutant3>()||(Canine&&Canine->bUsePredictiveHunting);
  B->SetValueAsBool(TEXT("Hold"),Disabled||C->IsBusy());
  if(C->IsDead()){StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Dead"));ActiveAction=TEXT("Dead");return;}
@@ -90,6 +95,26 @@ void AMonsterAIController::UpdateKnowledge()
    auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();const float D=FVector::DistSquared2D(P->GetActorLocation(),GetPawn()->GetActorLocation());
    if((!Health||!Health->IsDead())&&D<Best){Best=D;KnownTarget=P;LastKnown=P->GetNavAgentLocation();LastEvidence=GetWorld()->GetTimeSeconds();}
   }
+  // Sight perception samples the target center. M07 can acquire an exposed
+  // upper body over low cover through the same segment used to select spells.
+  // Reuse the existing 10 Hz knowledge service and enumerate only players.
+  if(M07&&!KnownTarget.IsValid())
+  {
+   const auto* Sight=Senses->GetSenseConfig<UAISenseConfig_Sight>();
+   const float ConeCos=FMath::Cos(FMath::DegreesToRadians(Sight?Sight->PeripheralVisionAngleDegrees:100.f));
+   for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+   {
+    const auto* PC=It->Get();APawn* P=PC?PC->GetPawn().Get():nullptr;
+    if(!IsValid(P)||!P->IsPlayerControlled())continue;
+    const auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();
+    const FVector Delta=P->GetActorLocation()-M07->GetActorLocation();
+    const float D=Delta.SizeSquared2D();
+    if((Health&&Health->IsDead())||D>=Best||
+       FVector::DotProduct(M07->GetActorForwardVector().GetSafeNormal2D(),Delta.GetSafeNormal2D())<ConeCos||
+       !M07->HasMagicSight(P))continue;
+    Best=D;KnownTarget=P;LastKnown=P->GetNavAgentLocation();LastEvidence=GetWorld()->GetTimeSeconds();
+   }
+  }
  }
  bool Valid=KnownTarget.IsValid();
  if(Valid){auto* H=KnownTarget->FindComponentByClass<UFPSCombatHealthComponent>();Valid=!H||!H->IsDead();}
@@ -100,7 +125,8 @@ void AMonsterAIController::UpdateKnowledge()
  float TrackingRange=C->AggroRange();
  if(FeralPursuit&&TrackingRange>0)
   if(const auto* Sight=Senses->GetSenseConfig<UAISenseConfig_Sight>())TrackingRange=FMath::Max(TrackingRange,Sight->LoseSightRadius);
- bool Visible=Valid&&C->AggroRange()>0&&FVector::Dist2D(KnownTarget->GetActorLocation(),GetPawn()->GetActorLocation())<=TrackingRange&&LineOfSightTo(KnownTarget.Get());
+ bool Visible=Valid&&C->AggroRange()>0&&FVector::Dist2D(KnownTarget->GetActorLocation(),GetPawn()->GetActorLocation())<=TrackingRange&&
+  (M09?M09->HasAttackSight(KnownTarget.Get()):M07?M07->HasMagicSight(KnownTarget.Get()):LineOfSightTo(KnownTarget.Get()));
  // A sealed boss encounter tracks its living entrant through cover. Attacks
  // still require sight; ordinary monsters keep the existing perception memory.
  const bool Locked=Valid&&EncounterTarget.IsValid()&&KnownTarget==EncounterTarget;

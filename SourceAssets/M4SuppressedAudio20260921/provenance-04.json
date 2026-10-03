@@ -1,0 +1,28 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FirearmAudio20260913\\M4Punch20260914\\S_M4_Original_04.wav",
+  "original_source": "SourceAssets/FirearmAudio20260913/M4Punch20260914; original M4HK416AudioEmpty20260909/Audio/fire.wav",
+  "source_sha256": "6969deb7225d112c4630dff861ec0f4445b98ecaa2ad16c2948f7054eea34e98",
+  "rights": "Existing M4 source rights retained; not a new CC0 asset.",
+  "recipe": "Current M4 source only; filtered blast, retained low body/mechanics, short chamber returns; compensated source level.",
+  "sample_rate": 48000,
+  "channels": 2,
+  "duration_seconds": 0.816,
+  "pitch_multiplier": 1.0,
+  "runtime_volume_multiplier": "Same as normal M4 fire.",
+  "source_rms": 0.09433722369265855,
+  "source_weighted_rms": 0.09005292580491603,
+  "outputs": [
+    {
+      "asset": "S_M4_Suppressed_04",
+      "wav": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4SuppressedAudio20260921\\S_M4_Suppressed_04.wav",
+      "lowpass_hz": 2970,
+      "body_gain": 0.52,
+      "chamber_delay_seconds": 0.0055,
+      "master_drive": 1.36766426867689,
+      "rms_db_relative_to_source": 0.44067990979216587,
+      "weighted_energy_db_relative_to_source": 0.0008685455396831592,
+      "sample_peak": 0.8170527328801048
+    }
+  ],
+  "listening_or_gameplay_tested": false
+}

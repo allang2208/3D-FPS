@@ -14,6 +14,7 @@ class UMaterialInterface;
 class UMaterialInstanceDynamic;
 class UPointLightComponent;
 class UDynamicMeshComponent;
+struct FStreamableHandle;
 
 USTRUCT()
 struct FFPSWeaponFXParticle
@@ -88,6 +89,8 @@ public:
     UFUNCTION(BlueprintCallable, Category="Weapon FX")
     void Initialize(USkeletalMeshComponent* InWeaponMesh, UCameraComponent* InCamera);
     void SetIndependentPistol(bool Revolver,bool Suppressed,class USceneComponent* Exit);
+    /** 持有附魔手枪时显示持续金色脉冲；不用命中或赌注层数驱动外观。 */
+    void SetBigBlindEnabled(bool Enabled);
     FVector ShotOrigin() const { return MuzzleLocation(); }
     FVector ShotForward() const { return MuzzleForward(); }
     bool IndependentSuppressed=false;
@@ -195,4 +198,14 @@ private:
     // Authored rifle frame relative to WPN_root; independent of camera and folding sights.
     FQuat CasingFrameInRoot = FQuat::Identity;
     bool bReady = false;
+    void CreateBigBlindGlow(UMaterialInterface* Material);
+    void UpdateBigBlindGlow();
+    bool bBigBlindEnabled=false;
+    UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets")
+    TSoftObjectPtr<UMaterialInterface> BigBlindMaterial = TSoftObjectPtr<UMaterialInterface>(
+        FSoftObjectPath(TEXT("/Game/Weapons/BigBlind20261002/M_BigBlindMuzzlePulse.M_BigBlindMuzzlePulse")));
+    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> BigBlindGlow;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> BigBlindMID;
+    UPROPERTY(Transient) TObjectPtr<UPointLightComponent> BigBlindLight;
+    TSharedPtr<FStreamableHandle> BigBlindLoad;
 };

@@ -1,4 +1,4 @@
-param([string]$RunName = 'assets-1')
+﻿param([string]$RunName = 'assets-1')
 $ErrorActionPreference = 'Stop'
 $projectRoot = 'D:/FPS3D/FPSGAME'
 $engineCommand = 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe'

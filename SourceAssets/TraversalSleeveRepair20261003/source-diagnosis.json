@@ -1,0 +1,118 @@
+{
+  "asset": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/Traversal/SK_Traversal_ChainmailShirt.SK_Traversal_ChainmailShirt",
+  "asset_sha256": "33a267c3a885e73031aa1c1910b0b88f831093d8c818142f17e402910e6cc424",
+  "scope": "Original saved source and compressed source clips; no runtime IK, WPO, camera or render acceptance",
+  "actions": {
+    "Vault": {
+      "time": 0.0800000011920929,
+      "max_edge_cm": 15.773915860209526,
+      "rest_edge_cm": 18.16586273955531,
+      "end_weights": [
+        {
+          "clavicle_r": 0.46710917353630066,
+          "spine_04": 0.3637292981147766,
+          "upperarm_twist_01_r": 0.16697947680950165,
+          "upperarm_twist_02_r": 0.0021820401307195425
+        },
+        {
+          "spine_04": 0.5980773568153381,
+          "clavicle_r": 0.17805752158164978,
+          "upperarm_twist_01_r": 0.16752880811691284,
+          "spine_03": 0.056336309760808945
+        }
+      ],
+      "rest_positions": [
+        [
+          14.002628326416016,
+          9.04194450378418,
+          -14.228155136108398
+        ],
+        [
+          18.99662208557129,
+          -0.6590759754180908,
+          -28.75223159790039
+        ]
+      ]
+    },
+    "Mantle": {
+      "time": 0.4,
+      "max_edge_cm": 15.817313452800446,
+      "rest_edge_cm": 15.029596538347844,
+      "end_weights": [
+        {
+          "clavicle_l": 0.40207523107528687,
+          "spine_04": 0.31058213114738464,
+          "upperarm_twist_01_l": 0.2873426377773285
+        },
+        {
+          "spine_04": 0.5918822288513184,
+          "clavicle_l": 0.18017853796482086,
+          "upperarm_twist_01_l": 0.1762722283601761,
+          "spine_03": 0.051667049527168274
+        }
+      ],
+      "rest_positions": [
+        [
+          -15.595304489135742,
+          -4.165835380554199,
+          -14.284090042114258
+        ],
+        [
+          -18.9741153717041,
+          -0.759868323802948,
+          -28.52739715576172
+        ]
+      ]
+    },
+    "Climb": {
+      "time": 0.9999999761581421,
+      "max_edge_cm": 15.966690868684813,
+      "rest_edge_cm": 18.16586273955531,
+      "end_weights": [
+        {
+          "clavicle_r": 0.46710917353630066,
+          "spine_04": 0.3637292981147766,
+          "upperarm_twist_01_r": 0.16697947680950165,
+          "upperarm_twist_02_r": 0.0021820401307195425
+        },
+        {
+          "spine_04": 0.5980773568153381,
+          "clavicle_r": 0.17805752158164978,
+          "upperarm_twist_01_r": 0.16752880811691284,
+          "spine_03": 0.056336309760808945
+        }
+      ],
+      "rest_positions": [
+        [
+          14.002628326416016,
+          9.04194450378418,
+          -14.228155136108398
+        ],
+        [
+          18.99662208557129,
+          -0.6590759754180908,
+          -28.75223159790039
+        ]
+      ]
+    }
+  },
+  "vertices_with_torso_weight_over_half": 907,
+  "maximum_torso_weight": 0.9439536146819592,
+  "lod_policy": {
+    "render_lods_read": false,
+    "source_models": [
+      {
+        "triangles_ratio": 1.0,
+        "max_bones_per_vertex": 4
+      },
+      {
+        "triangles_ratio": 0.5,
+        "max_bones_per_vertex": 8
+      },
+      {
+        "triangles_ratio": 0.20000000298023224,
+        "max_bones_per_vertex": 8
+      }
+    ]
+  }
+}

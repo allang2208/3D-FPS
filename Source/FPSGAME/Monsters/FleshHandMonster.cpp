@@ -1,4 +1,6 @@
 #include "FleshHandMonster.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
+#include "Net/UnrealNetwork.h"
 #include "FleshHandKnockdownComponent.h"
 #include "MonsterCorpseRagdollComponent.h"
 #include "MonsterCombatTuning.h"
@@ -17,6 +19,7 @@
 #include "../Skills/IceWallCombat.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Skills/ColdSteelSkillRules.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -66,7 +69,10 @@ void UFleshHandPushComponent::TickComponent(float Dt,ELevelTick Type,FActorCompo
  if(!C||!Alive(C)){SetComponentTickEnabled(false);return;}
  auto* M=C->GetCharacterMovement();const float Before=Age/.16f;Age=FMath::Min(.16f,Age+Dt);
  const float Step=Distance*(FMath::Square(1-Before)-FMath::Square(1-Age/.16f));
+ const FVector Previous=C->GetActorLocation();
  FHitResult Hit;M->SafeMoveUpdatedComponent(Direction*Step,C->GetActorQuat(),true,Hit);M->bForceNextFloorCheck=true;
+ if(Before<=0.f&&FVector::DistSquared(Previous,C->GetActorLocation())>.25)
+  if(auto* Body=C->FindComponentByClass<UFPSPlayerBodyComponent>())Body->RecordKnockback(Direction,Distance,.16f);
  if(Hit.bBlockingHit||Age>=.16f)SetComponentTickEnabled(false);
 }
 AFleshHandMonster::AFleshHandMonster(const FObjectInitializer& I)
@@ -152,6 +158,16 @@ void AFleshHandMonster::EndPlay(const EEndPlayReason::Type Reason)
 void AFleshHandMonster::Play(UAnimSequence* Clip,bool Loop,bool Clock,float Blend)
 {if(Clip)if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->TransitionTo(Clip,Loop,Clock,Blend);}
 bool AFleshHandMonster::Busy() const {return Dead()||State==EFleshHandState::KnockedDown||State==EFleshHandState::Stagger||State==EFleshHandState::Telegraph||Attacking(State)||Charging(State);}
+void AFleshHandMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AFleshHandMonster, State);
+}
+void AFleshHandMonster::OnRep_State()
+{
+    // 远端副本：SetState 本身是表现内聚的（动画/环圈/移动标志），直接重放。
+    if(!HasAuthority())SetState(State);
+}
 void AFleshHandMonster::SetState(EFleshHandState Next)
 {
  const auto Previous=State;
@@ -580,6 +596,7 @@ float AFleshHandMonster::TakeDamage(float Damage,const FDamageEvent& Event,ACont
   Combat->SetComponentTickEnabled(false);Status->SetComponentTickEnabled(false);
   if(auto* AI=Cast<AMonsterAIController>(GetController())){AI->StopMovement();AI->SetDecisionEnabled(false);AI->UpdateKnowledge();}
   SetLifeSpan(CorpseSeconds);
+  ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),DamageInstigator,this);
   if(!bMinion||ActorHasTag(TEXT("DungeonSpawned")))if(auto* PC=Cast<APlayerController>(DamageInstigator);PC&&PC->IsLocalController()&&GetGameInstance())GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
  }
  else Combat->ReceiveHit(Applied,DamageInstigator?DamageInstigator->GetPawn().Get():Cast<APawn>(Causer),MonsterToughness::FormOf(Type));

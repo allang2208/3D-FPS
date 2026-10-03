@@ -1,4 +1,10 @@
 #include "FPSPlayerBodyComponent.h"
+#include "../Items/FPSPotionUseComponent.h"
+#include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+#include "../Weapons/WeaponBipodDeploymentComponent.h"
+#include "../Weapons/Bow/BowWeaponComponent.h"
+#include "../Weapons/Staff/StaffWeaponComponent.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../UI/FPSPerformanceMetrics.h"
 #include "FPSPlayerBodyAnimInstance.h"
 #include "FPSPlayerBodyPoses.h"
@@ -15,6 +21,7 @@
 #include "Engine/Engine.h"
 #include "Engine/GameInstance.h"
 #include "Engine/SkeletalMesh.h"
+#include "Engine/StreamableManager.h"
 #include "EngineUtils.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/GameStateBase.h"
@@ -115,8 +122,11 @@ void UFPSPlayerBodyComponent::ApplyWorldBodyShadow()
     FPSBodyEquipment::ApplyShadowFlags(GetBodyMesh(),bCast);
     for(const TObjectPtr<USkeletalMeshComponent>& Outfit:OutfitMeshes)
         FPSBodyEquipment::ApplyShadowFlags(Outfit,bCast);
+    for(const TObjectPtr<UStaticMeshComponent>& Outfit:OutfitStaticMeshes)
+        FPSBodyEquipment::ApplyShadowFlags(Outfit,bCast);
     // Weapons use the same policy plus traversal / per-hand occupancy.
     UpdateWorldWeaponPresentation();
+    UpdateAppearanceVisibility();
 }
 
 void UFPSPlayerBodyComponent::ApplyWorldBodyVisibility()
@@ -129,20 +139,18 @@ void UFPSPlayerBodyComponent::ApplyWorldBodyVisibility()
     // These arrays hold TObjectPtr, so the element type must be spelled out rather than
     // deduced with auto*.
     for(const TObjectPtr<USkeletalMeshComponent>& Outfit:OutfitMeshes)if(Outfit)Targets.Add(Outfit.Get());
+    for(const TObjectPtr<UStaticMeshComponent>& Outfit:OutfitStaticMeshes)if(Outfit)Targets.Add(Outfit.Get());
 
     for(UPrimitiveComponent* Target:Targets)
     {
         if(Target->IsVisible()==bHidden)Target->SetVisibility(!bHidden);
         if(Target->bHiddenInGame!=bHidden)Target->SetHiddenInGame(bHidden);
     }
-    // A hidden primitive is skipped by the renderer, so there is no shadow and no bone
-    // refresh left to pay for. Keep the pose evaluating while hidden so switching back
-    // on does not snap. In first person the body is owner-no-see, so refreshing bone
-    // transforms there would be wasted work even when the switch is on -- that is the
-    // distinction the two tick options exist for.
+    // Other players and hidden-shadow passes still consume bone transforms.
+    // Only a body excluded from both rendering and shadows can skip the refresh.
     if(auto* Body=GetBodyMesh())
     {
-        const bool bDrawn=bHidden?false:(Character.IsValid()&&IsThirdPersonViewEnabled());
+        const bool bDrawn=!bHidden&&Character.IsValid()&&(!Character->IsLocallyControlled()||IsThirdPersonViewEnabled()||ShouldWorldBodyCastShadow());
         const auto Wanted=bDrawn?EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones
                                 :EVisibilityBasedAnimTickOption::AlwaysTickPose;
         if(Body->VisibilityBasedAnimTickOption!=Wanted)Body->VisibilityBasedAnimTickOption=Wanted;
@@ -154,7 +162,7 @@ void UFPSPlayerBodyComponent::ApplyWorldBodyVisibility()
 UFPSPlayerBodyComponent::UFPSPlayerBodyComponent()
 {
     PrimaryComponentTick.bCanEverTick=true;
-    PrimaryComponentTick.TickGroup=TG_PrePhysics;
+    PrimaryComponentTick.TickGroup=TG_PostUpdateWork;
     SetIsReplicatedByDefault(true);
 }
 void UFPSPlayerBodyComponent::BeginPlay()
@@ -164,8 +172,13 @@ void UFPSPlayerBodyComponent::BeginPlay()
     {SetComponentTickEnabled(false);return;}
     AddTickPrerequisiteActor(Character.Get());
     if(auto* Sword=Character->FindComponentByClass<URuneSwordComponent>())AddTickPrerequisiteComponent(Sword);
+    if(auto* Bow=Character->FindComponentByClass<UBowWeaponComponent>())AddTickPrerequisiteComponent(Bow);
+    if(auto* Staff=Character->FindComponentByClass<UStaffWeaponComponent>())AddTickPrerequisiteComponent(Staff);
     if(auto* Tool=Character->FindComponentByClass<UProductionToolComponent>())AddTickPrerequisiteComponent(Tool);
     if(auto* Dual=Character->DualPistols.Get())AddTickPrerequisiteComponent(Dual);
+    if(auto* Potion=Character->FindComponentByClass<UFPSPotionUseComponent>())AddTickPrerequisiteComponent(Potion);
+    if(auto* Hands=Character->FindComponentByClass<UFPSUnarmedIdleComponent>())AddTickPrerequisiteComponent(Hands);
+    if(auto* Bipod=Character->FindComponentByClass<UWeaponBipodDeploymentComponent>())AddTickPrerequisiteComponent(Bipod);
     FString Json;
     if(FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/player_body.json"))))
         FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Configuration);
@@ -177,6 +190,10 @@ void UFPSPlayerBodyComponent::BeginPlay()
 }
 void UFPSPlayerBodyComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    ClearBow();
+    ClearMotion();
+    ++AppearanceRequest;
+    if(AppearanceLoad){AppearanceLoad->CancelHandle();AppearanceLoad.Reset();}
     if(Character.IsValid()&&Character->GetGameInstance())if(auto* Profile=Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
         Profile->OnChanged.Remove(ProfileChanged);
     Super::EndPlay(Reason);
@@ -193,6 +210,24 @@ void UFPSPlayerBodyComponent::InitializeBody()
     auto* Mesh=LoadObject<USkeletalMesh>(nullptr,*MeshPath);
     if(!Mesh){UE_LOG(LogTemp,Error,TEXT("PlayerBody: cannot load %s"),*MeshPath);return;}
     Body->SetSkeletalMeshAsset(Mesh);
+    // World weapon rigs were authored for Manny's hand axes. Retargeting the
+    // body does not change those rigs; convert their mounts to the new bind axes.
+    FString ReferencePath;
+    if(Configuration->TryGetStringField(TEXT("weapon_pose_reference_mesh"),ReferencePath))
+        if(const auto* Reference=LoadObject<USkeletalMesh>(nullptr,*ReferencePath))
+        {
+            const auto Bind=[](const USkeletalMesh* Asset,FName Bone)
+            {
+                FTransform Result=FTransform::Identity;const auto& Ref=Asset->GetRefSkeleton();
+                for(int32 I=Ref.FindBoneIndex(Bone);I!=INDEX_NONE;I=Ref.GetParentIndex(I))Result=Result*Ref.GetRefBonePose()[I];
+                return Result.GetRotation();
+            };
+            for(int32 I=0;I<2;++I)
+            {
+                const FName Bone=I==0?TEXT("hand_r"):TEXT("hand_l");
+                HandRigOffsets[I]=FTransform(Bind(Mesh,Bone).Inverse()*Bind(Reference,Bone));
+            }
+        }
     Body->SetRelativeLocation(FVector(0,0,-Character->GetCapsuleComponent()->GetUnscaledCapsuleHalfHeight()));
     Body->SetRelativeRotation(FRotator(0,-90,0));
     Character->CacheInitialMeshOffset(Body->GetRelativeLocation(),Body->GetRelativeRotation());
@@ -207,13 +242,18 @@ void UFPSPlayerBodyComponent::InitializeBody()
     BodyAnimation=Cast<UFPSPlayerBodyAnimInstance>(Body->GetAnimInstance());
     if(BodyAnimation)
     {
+        const TArray<TSharedPtr<FJsonValue>>* Scale=nullptr;
+        if(Configuration->TryGetArrayField(TEXT("pose_scale"),Scale)&&Scale->Num()==3)
+            BodyAnimation->PoseScale=FVector((*Scale)[0]->AsNumber(),(*Scale)[1]->AsNumber(),(*Scale)[2]->AsNumber());
         const TSharedPtr<FJsonObject>* Clips=nullptr;
         if(Configuration->TryGetObjectField(TEXT("clips"),Clips))for(const auto& Pair:(*Clips)->Values)
             if(auto* Sequence=LoadObject<UAnimSequence>(nullptr,*Pair.Value->AsString()))BodyAnimation->Clips.Add(FName(*Pair.Key),Sequence);
     }
     Body->AddTickPrerequisiteComponent(this);
+    BodyPoseFinalizedHandle=Body->RegisterOnBoneTransformsFinalizedDelegate(FOnBoneTransformsFinalizedMultiCast::FDelegate::CreateUObject(this,&ThisClass::OnBodyPoseFinalized));
     if(!Character->IsLocallyControlled()&&GetNetMode()!=NM_Standalone)
     {RebuildWeapons(ReplicatedWeapons);ApplyOutfit(ReplicatedOutfit);}
+    ApplyAppearance(ReplicatedAppearance);
     ApplyWorldBodyVisibility();
     UpdateOwnerVisibility();
 }
@@ -231,6 +271,8 @@ void UFPSPlayerBodyComponent::GetLifetimeReplicatedProps(TArray<FLifetimePropert
     DOREPLIFETIME(UFPSPlayerBodyComponent,ReplicatedState);
     DOREPLIFETIME(UFPSPlayerBodyComponent,ReplicatedWeapons);
     DOREPLIFETIME(UFPSPlayerBodyComponent,ReplicatedOutfit);
+    DOREPLIFETIME(UFPSPlayerBodyComponent,ReplicatedAppearance);
+    DOREPLIFETIME(UFPSPlayerBodyComponent,Reactions);
 }
 void UFPSPlayerBodyComponent::SetAuthoritativeState(const FFPSBodyState& State)
 {
@@ -271,10 +313,7 @@ void UFPSPlayerBodyComponent::UpdateOwnerVisibility()
         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Primitive,/*bOnlyOwnerSee=*/true,/*bOwnerNoSee=*/bHideFromOwner);
         FPSBodyEquipment::ApplyShadowFlags(Primitive,false);
     }
-    // The world body is only drawn in third person. While it is hidden, keep
-    // evaluating the pose so state changes stay seamless, but stop re-refreshing
-    // bone transforms that nothing renders; the flag flips back on the same
-    // budget as the visibility refresh above.
+    // Reapply visibility and the remote/hidden-shadow bone-update policy.
     // fps.body.WorldBody 0 overrides all of it: the switch has to be re-applied here
     // because the world equipment copies are rebuilt behind this path.
     ApplyWorldBodyVisibility();
@@ -282,28 +321,58 @@ void UFPSPlayerBodyComponent::UpdateOwnerVisibility()
 void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);if(!Character.IsValid())return;
+    UpdateReactions();
     const bool Local=GetNetMode()==NM_Standalone||Character->IsLocallyControlled();
     if(Local&&!bExternalAuthorityState)
     {
         DisplayState=SampleLocalState();
-        if(DisplayState.Action!=PreviousAction){PreviousAction=DisplayState.Action;UnclockedActionStartedAt=ServerClock();}
+        if(DisplayState.Action!=PreviousAction)
+        {
+            PreviousAction=DisplayState.Action;UnclockedActionStartedAt=ServerClock();
+
+        }
         if(DisplayState.ActionDuration<=0.f)DisplayState.ActionStartedAt=UnclockedActionStartedAt;
-        if(GetOwner()->HasAuthority())ReplicatedState=DisplayState;
         RefreshCountdown-=Delta;
         if(RefreshCountdown<=0.f||bEquipmentDirty)
         {RefreshCountdown=.2f;CaptureEquipment();bEquipmentDirty=false;}
+        CaptureMotion(DisplayState);
+        SendBodyPresentation(Delta);
+        if(GetOwner()->HasAuthority())ReplicatedState=DisplayState;
+    }
+    else if(GetOwner()->HasAuthority())
+    {
+        // 联机：服务端为远端玩家 pawn 组装权威身体态——本地输入路径在服务端不成立，
+        // 采样服务端可信事实（CMC 意图位/装备）+ 客户端汇报的离散动作。
+        RefreshCountdown-=Delta;
+        if(RefreshCountdown<=0.f)
+        {
+            RefreshCountdown=.1f;
+            DisplayState=SampleRemoteAuthorityState();
+            ReplicatedState=DisplayState;
+        }
+        RemoteEquipCountdown-=Delta;
+        if(RemoteEquipCountdown<=0.f||bEquipmentDirty)
+        {RemoteEquipCountdown=1.f;CaptureEquipment();bEquipmentDirty=false;}
     }
     else DisplayState=ReplicatedState;
+    if(!Local)
+    {
+        DisplayState=ReplicatedState;
+        AdvanceBodyPresentation(DisplayState,ServerClock());
+    }
     // Keep weapons stowed through the short return from an interrupted hand pose.
     const float Now=ServerClock();
     if(FPSBodyPoses::Traversing(DisplayState.Motion))WorldWeaponsHiddenUntil=Now+.1f;
-    if((DisplayState.bDual||DisplayState.bOffhandPistol)&&DisplayState.Action==EFPSBodyAction::Cast)OffhandWeaponHiddenUntil=Now+.1f;
+    if((DisplayState.bDual||DisplayState.bOffhandPistol)&&DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"))OffhandWeaponHiddenUntil=Now+.1f;
     VisibilityCountdown-=Delta;
     if(VisibilityCountdown<=0.f){VisibilityCountdown=.2f;UpdateOwnerVisibility();}
     UpdateWorldWeaponPresentation();
+    UpdateBow();
+    ApplyMotion(Delta);
     if(BodyAnimation)
     {
         BodyAnimation->BodyState=DisplayState;BodyAnimation->Clock=ServerClock();
+        BodyAnimation->Reactions=Reactions;
         const FVector LocalVelocity=Character->GetActorQuat().UnrotateVector(Character->GetVelocity());
         BodyAnimation->Speed=LocalVelocity.Size2D();
         if(BodyAnimation->Speed>3.f)BodyAnimation->Direction=FMath::RadiansToDegrees(FMath::Atan2(LocalVelocity.Y,LocalVelocity.X));

@@ -1,0 +1,92 @@
+{
+  "SVD/base": {
+    "grip_mm": 0.0018792935751028611,
+    "grip_rotation_deg": 0.0,
+    "finger_local_error_mm": 0.0002578050354765295,
+    "finger_rotation_deg": 0.0,
+    "arm_length_error_mm": 0.0005039825649588714,
+    "endpoint_mm": 0.0007168062609914359,
+    "endpoint_rotation_deg": 0.0
+  },
+  "PKM/base": {
+    "grip_mm": 0.0025797581521986913,
+    "grip_rotation_deg": 0.0,
+    "finger_local_error_mm": 0.00020335754174420382,
+    "finger_rotation_deg": 0.0,
+    "arm_length_error_mm": 0.0008475536708574261,
+    "endpoint_mm": 0.0004024865427323231,
+    "endpoint_rotation_deg": 0.0
+  },
+  "SVD/vertical": {
+    "grip_mm": 0.001900077003811983,
+    "grip_rotation_deg": 0.0,
+    "finger_local_error_mm": 0.0002871680068739731,
+    "finger_rotation_deg": 0.0,
+    "arm_length_error_mm": 0.0004664955555733208,
+    "endpoint_mm": 0.0007168062609914359,
+    "endpoint_rotation_deg": 0.0
+  },
+  "SVD/canted": {
+    "grip_mm": 0.0020001617524273703,
+    "grip_rotation_deg": 0.0,
+    "finger_local_error_mm": 0.0002521306473815048,
+    "finger_rotation_deg": 0.0,
+    "arm_length_error_mm": 0.0005228850741834101,
+    "endpoint_mm": 0.0007168062609914359,
+    "endpoint_rotation_deg": 0.0
+  },
+  "SVD/prism": {
+    "grip_mm": 0.0018992588017292884,
+    "grip_rotation_deg": 0.0,
+    "finger_local_error_mm": 0.00025219159478580305,
+    "finger_rotation_deg": 0.0,
+    "arm_length_error_mm": 0.00044769904683494843,
+    "endpoint_mm": 0.0007168062609914359,
+    "endpoint_rotation_deg": 0.0
+  },
+  "SVD/angled": {
+    "grip_mm": 0.001926137203268311,
+    "grip_rotation_deg": 0.0,
+    "finger_local_error_mm": 0.000233034165100869,
+    "finger_rotation_deg": 0.0,
+    "arm_length_error_mm": 0.00044940782040203686,
+    "endpoint_mm": 0.0007168062609914359,
+    "endpoint_rotation_deg": 0.0
+  },
+  "PKM/vertical": {
+    "grip_mm": 0.0024975515565705104,
+    "grip_rotation_deg": 0.0,
+    "finger_local_error_mm": 0.00029474467446988657,
+    "finger_rotation_deg": 0.0,
+    "arm_length_error_mm": 0.0009693042886671499,
+    "endpoint_mm": 0.0004024865427323231,
+    "endpoint_rotation_deg": 0.0
+  },
+  "PKM/canted": {
+    "grip_mm": 0.0026064183324564115,
+    "grip_rotation_deg": 0.0,
+    "finger_local_error_mm": 0.00030573520563125753,
+    "finger_rotation_deg": 0.0,
+    "arm_length_error_mm": 0.0009069337899569874,
+    "endpoint_mm": 0.0004024865427323231,
+    "endpoint_rotation_deg": 0.0
+  },
+  "PKM/prism": {
+    "grip_mm": 0.0026168122648881466,
+    "grip_rotation_deg": 0.0,
+    "finger_local_error_mm": 0.0003034232877523366,
+    "finger_rotation_deg": 0.0,
+    "arm_length_error_mm": 0.0009915184423503476,
+    "endpoint_mm": 0.0004024865427323231,
+    "endpoint_rotation_deg": 0.0
+  },
+  "PKM/angled": {
+    "grip_mm": 0.0025789262141356507,
+    "grip_rotation_deg": 0.0,
+    "finger_local_error_mm": 0.00022371184394744364,
+    "finger_rotation_deg": 0.0,
+    "arm_length_error_mm": 0.0008736125704511544,
+    "endpoint_mm": 0.0004024865427323231,
+    "endpoint_rotation_deg": 0.0
+  }
+}

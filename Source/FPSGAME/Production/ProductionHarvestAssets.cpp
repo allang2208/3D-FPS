@@ -11,7 +11,7 @@ bool IsMaterial(const FString& Definition)
 }
 /** 冶炼家族定义的后缀判定：*_ore＝四种矿石，*Ingot＝四种金属锭。 */
 static bool IsSmeltingOre(const FString& D){return D==TEXT("iron_ore")||D==TEXT("copper_ore")||D==TEXT("silver_ore")||D==TEXT("gold_ore");}
-static bool IsSmeltingIngot(const FString& D){return D==TEXT("ironIngot")||D==TEXT("copperIngot")||D==TEXT("silverIngot")||D==TEXT("goldIngot");}
+bool IsSmeltingIngot(const FString& D){return D==TEXT("ironIngot")||D==TEXT("copperIngot")||D==TEXT("silverIngot")||D==TEXT("goldIngot");}
 FSoftObjectPath PickupMesh(const FString& Definition,int32 Variant)
 {
     if(Definition==TEXT("wood"))

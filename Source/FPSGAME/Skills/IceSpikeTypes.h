@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "IceSpikeTypes.generated.h"
 
 struct FIceSpikeTuning
 {
@@ -12,16 +13,18 @@ struct FIceSpikeTuning
     /** Downward acceleration of the flying shards, cm/s². 0 keeps the old straight shot. */
     float Gravity=400;
 };
+USTRUCT()
 struct FIceSpikeCast
 {
-    double DamageBase=0, MagicMultiplier=0, MagicContribution=0;
-    float Damage=0, CriticalChance=0, CriticalDamageBonus=0, MagicPenetration=0, MagicDamageBonus=0;
-    float ManaCost=30, Cooldown=12, HoverDuration=30, Speed=2400, Range=1200, CastSpeed=1;
-    float Gravity=400;
-    int32 Count=2;
-    int32 CastHasteStacks=0;
-    float CastHasteDuration=5,ChillDuration=3,ChillSlow=0;
-    bool bGrantChain=false;
+    GENERATED_BODY()
+    UPROPERTY() double DamageBase=0; UPROPERTY() double MagicMultiplier=0; UPROPERTY() double MagicContribution=0;
+    UPROPERTY() float Damage=0; UPROPERTY() float CriticalChance=0; UPROPERTY() float CriticalDamageBonus=0; UPROPERTY() float MagicPenetration=0; UPROPERTY() float MagicDamageBonus=0;
+    UPROPERTY() float ManaCost=30; UPROPERTY() float Cooldown=12; UPROPERTY() float HoverDuration=30; UPROPERTY() float Speed=2400; UPROPERTY() float Range=1200; UPROPERTY() float CastSpeed=1;
+    UPROPERTY() float Gravity=400;
+    UPROPERTY() int32 Count=2;
+    UPROPERTY() int32 CastHasteStacks=0;
+    UPROPERTY() float CastHasteDuration=5; UPROPERTY() float ChillDuration=3; UPROPERTY() float ChillSlow=0;
+    UPROPERTY() bool bGrantChain=false;
 };
 struct FIceSpikeRewards
 {

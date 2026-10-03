@@ -1,5 +1,7 @@
 # PKM 枪钢与弹药箱缎面升级（2026-09-27）
 
+**当前表面已推进至 2026-10-01 R01**：见 `SourceAssets/WeaponSurface20260930/PKM/Refine01/README.md` 与 `Docs/Weapons/pkm-surface-standard-20261001.md`。下文保留本次历史配方及落盘记录。当前清单存在时，`install_finish.py` 恢复新实例引用，不再把旧缎面代码写进新材质。
+
 参考 `ue5-weapon-workflow/references/weapon-finish.md`、`svd-finish-and-interfaces.md`、`pkm-lowpoly-mechanics.md`，读取现用 PKM 材质及 SVD RefinedFinish 实际参数后制作。
 
 ## 调整

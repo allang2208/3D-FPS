@@ -1,7 +1,55 @@
 """Continuous two-hand grasp paths with a stateless, closed arm pose solution."""
 import math
+import os
 import numpy as np
 from mathutils import Matrix,Vector,Quaternion
+
+# Endpoint release windows for the elbow-plane separation (frames at bake rate).
+# The separation is a readability correction, not part of the accepted idle, so
+# it must be exactly zero at both idle endpoints. A 12-frame (25 ms) window
+# collapsed a ~5 cm correction after the pose had already settled -- measured
+# ~955 deg/s peak and 100-300 deg/s still moving on the last frames, which reads
+# as a sudden deformation when the clip hands back to idle.
+#
+# Chosen by measurement (release_window_final.py / validate_recover_fix.py at
+# 480 Hz, per-frame armature deltas): 240 frames = 0.50 s out, so the release
+# rides the withdraw-to-settle motion instead of forming its own stroke.
+# 240/240/9 taps/1000 movement weight brings the whole-clip max per-frame delta
+# to 3.814 deg, at or below the pose path's own 3.843 deg -- i.e. the correction
+# adds no motion of its own anywhere in the clip.
+def release_frames():
+    return (int(os.environ.get('ARM_RELEASE_IN', '240')),
+            int(os.environ.get('ARM_RELEASE_OUT', '240')))
+
+
+def endpoint_envelope(f, n, window_in, window_out):
+    """Zero at both endpoints, full strength after the window, smooth between."""
+    def ramp(distance, window):
+        window = max(1, min(int(window), max(1, (n - 1) // 2)))
+        u = min(1.0, distance / window)
+        return u * u * (3 - 2 * u)
+    return min(ramp(f, window_in), ramp(n - 1 - f, window_out))
+
+def smooth_kernel():
+    """Binomial smoothing kernel width for the elbow-plane path (odd taps).
+
+    Sized with the release window: the original 5-tap kernel was tuned for a
+    12-frame ramp, and one DP state toggle under it still reads as a twitch.
+    9 taps (binomial row 9) + the raised movement weight below remove it.
+    """
+    taps = max(3, int(os.environ.get('ARM_PATH_TAPS', '9')))
+    if taps % 2 == 0:
+        taps += 1
+    row = [1.0]
+    while len(row) < taps:
+        nxt = [1.0]
+        for i in range(len(row) - 1):
+            nxt.append(row[i] + row[i + 1])
+        nxt.append(1.0)
+        row = nxt
+    total = sum(row)
+    return np.array([v / total for v in row])
+
 
 def frame(direction,normal):
     y=direction.normalized();x=normal-y*normal.dot(y);x.normalize();z=x.cross(y)
@@ -155,6 +203,7 @@ class ArmSolver:
         It changes elbow poles only; shoulders, wrists and bone lengths stay.
         """
         n=len(frames);offsets=np.radians(np.arange(-45,46,15));count=len(offsets)
+        window_in,window_out=release_frames()
         states=[(l,r) for l in range(count) for r in range(count)];center=len(states)//2
         state_ids=np.array(states);angles=offsets[state_ids]
         delta=state_ids[:,None,:]-state_ids[None,:,:]
@@ -165,7 +214,7 @@ class ArmSolver:
         for f in range(n):
             candidates={};penalties={}
             # Fixed zero correction at the exact retained idle endpoints.
-            w=min(1,f/12,(n-1-f)/12);w=w*w*(3-2*w)
+            w=endpoint_envelope(f,n,window_in,window_out)
             for side in ['l','r']:
                 A,E=chains[side][f];H=hands[side][f];T=H.translation;axis=(T-A).normalized()
                 pivot=A+axis*(E-A).dot(axis);pole=E-pivot
@@ -192,8 +241,16 @@ class ArmSolver:
         costs=np.array(costs);elbows=np.array(elbows)
         prev=np.full(len(states),np.inf);prev[center]=costs[0,center]
         back=np.zeros((n,len(states)),dtype=np.int16)
+        # Elbow motion weight: the DP picks a 15-degree discrete state per side
+        # and may flip it every frame. Under the old 5-tap smoothing a single
+        # flip still shows up as a 6-8 deg/frame elbow step on the withdraw,
+        # which the eye reads as a twitch. At 1000 a flip has to buy real
+        # wrist-bend relief before it pays for itself; measured at or below the
+        # pose path's own max per-frame delta with no crossings and the same
+        # 33 cm elbow gap, so nothing else was traded away.
+        movement_weight=float(os.environ.get('ARM_MOVEMENT_WEIGHT','1000'))
         for f in range(1,n):
-            movement=np.sum((elbows[f-1,:,None,:]-elbows[f,None,:,:])**2,axis=2)*100
+            movement=np.sum((elbows[f-1,:,None,:]-elbows[f,None,:,:])**2,axis=2)*movement_weight
             links=transition
             if hold[0]<f<=hold[1]:links=np.where(np.eye(len(states),dtype=bool),0,np.inf)
             scores=prev[:,None]+links+movement
@@ -201,13 +258,20 @@ class ArmSolver:
         indices=[center]*n
         for f in range(n-1,0,-1):indices[f-1]=int(back[f,indices[f]])
         chosen=angles[indices]
-        kernel=np.array([1,4,6,4,1])/16
+        # Widen the binomial smoothing with the wider release window: the 5-tap
+        # kernel was sized for a 12-frame ramp, and a single state toggle under
+        # it still leaves a 6-8 deg/frame elbow step that the eye reads as a
+        # twitch on the withdraw. Pad by half the kernel so the endpoints keep
+        # their exact values after smoothing.
+        kernel=smooth_kernel()
+        half=len(kernel)//2
         for side_index,side in enumerate(['l','r']):
-            path=np.convolve(np.pad(chosen[:,side_index],(2,2),mode='edge'),kernel,mode='valid')
+            path=np.convolve(np.pad(chosen[:,side_index],(half,half),mode='edge'),kernel,mode='valid')
+            path[0]=chosen[0,side_index];path[-1]=chosen[-1,side_index]
             path=settle_hold(path,hold)
             for f in range(n):
                 A,E=chains[side][f];T=hands[side][f].translation;axis=(T-A).normalized()
-                pivot=A+axis*(E-A).dot(axis);w=min(1,f/12,(n-1-f)/12);w=w*w*(3-2*w)
+                pivot=A+axis*(E-A).dot(axis);w=endpoint_envelope(f,n,window_in,window_out)
                 chains[side][f]=(A,pivot+Quaternion(axis,float(path[f]*w))@(E-pivot))
         return chains
 

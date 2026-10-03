@@ -1,5 +1,7 @@
 # 火系特效 Realistic V5 · 2026-09-22
 
+2026-09-23 后续：当前四个火焰材质已接入共用 Mantaflow 燃烧场，增加内部冷热与明暗变化，保留 V5 原生形态、透明度和六个系统结构。见 [陨星与灼锋焰甲流体燃烧层次](../Fluids/fire-magic-fluid-fields-20260923.md)。本轮已保存资产，未运行游戏验收。
+
 用户不满意火把和 Free Spline VFX 两版表现，在盘点本地其他素材后授权采用建议方案。本轮改用 Realistic Starter VFX Pack Vol.2 和 Military Trench 的原生火焰材质与序列，保持当前写实岩体、施法手势及技能数值。
 
 ## 原素材依据与适配

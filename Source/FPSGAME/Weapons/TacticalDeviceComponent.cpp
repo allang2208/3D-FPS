@@ -2,6 +2,7 @@
 #include "HK416WeaponAssets.h"
 #include "HK416Attachments.h"
 #include "G18WeaponAssets.h"
+#include "PitViper2011WeaponAssets.h"
 #include "LMG201Attachments.h"
 #include "A762Attachments.h"
 #include "SVDAttachments.h"
@@ -45,7 +46,7 @@ FTransform ASH12TacticalMount(const USkeletalMeshComponent* Mesh)
     return Mount.GetRelativeTransform(Root);
 }
 
-FTransform PistolTacticalMount(const USkeletalMeshComponent* Mesh)
+FTransform PistolTacticalMount(const USkeletalMeshComponent* Mesh, bool CanonicalForward)
 {
     const auto& Ref=Mesh->GetSkeletalMeshAsset()->GetRefSkeleton();
     auto Bone=[&Ref](const TCHAR* Name)
@@ -61,7 +62,7 @@ FTransform PistolTacticalMount(const USkeletalMeshComponent* Mesh)
         Bone(TEXT("WPN_FrontSight")).GetLocation()-Bone(TEXT("WPN_RearSight")).GetLocation(),Up).GetSafeNormal();
     // The fitted FBX is in centimetres, with +Y along the barrel and +Z up.
     // Resolve the skeletal bone frame without inheriting the rifles' metre scale.
-    const FQuat SourceFrame=FRotationMatrix::MakeFromXZ(FVector::RightVector,FVector::UpVector).ToQuat();
+    const FQuat SourceFrame=CanonicalForward?FQuat::Identity:FRotationMatrix::MakeFromXZ(FVector::RightVector,FVector::UpVector).ToQuat();
     const FTransform Mount(FRotationMatrix::MakeFromXZ(Forward,Up).ToQuat()*SourceFrame.Inverse(),Root.GetLocation());
     return Mount.GetRelativeTransform(Root);
 }
@@ -127,11 +128,12 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
     SetComponentTickEnabled(Active);
     if(!Active)return;
     const bool Revolver=Family==TEXT("DanWesson715");
-    const bool Pistol=Family==TEXT("M1911")||Family==TEXT("G18")||Revolver;
+    const bool PitViper=Family==TEXT("PitViper2011");
+    const bool Pistol=Family==TEXT("M1911")||Family==TEXT("G18")||PitViper||Revolver;
     const bool ASH=Family==TEXT("ASH12");
     const FString Path=Family==TEXT("HK416")?HK416WeaponAssets::AttachmentPath(Variant):Family==TEXT("LMG201")?LMG201Attachments::MeshPath(Variant):Family==TEXT("SVD")?SVDAttachments::MeshPath(Variant):Family==TEXT("PKM")?PKMAttachments::MeshPath(Variant):Family==TEXT("A762")?A762Attachments::MeshPath(Variant):Family==TEXT("M16")?M16Attachments::MeshPath(Variant):ASH
         ?FString::Printf(TEXT("/Game/Weapons/ASH12/TacticalDevices20260920/%s/SM_ASH12_%s"),*Variant,*Variant)
-        :Family==TEXT("G18")?G18WeaponAssets::AttachmentPath(Variant):Revolver?DanWesson715WeaponAssets::AttachmentPath(Variant):Pistol
+        :PitViper?PitViper2011WeaponAssets::AttachmentPath(Variant):Family==TEXT("G18")?G18WeaponAssets::AttachmentPath(Variant):Revolver?DanWesson715WeaponAssets::AttachmentPath(Variant):Pistol
         ?FString::Printf(TEXT("/Game/Weapons/M1911/CompactFit20260913/%s/SM_TacticalDevice"),*Variant)
         :Variant==TEXT("flashlight")
         ?FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/HunyuanV3/%s/flashlight/SM_TacticalDevice"),*Family)
@@ -166,7 +168,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
             if(Slot!=INDEX_NONE)Body->SetMaterial(Slot,MetalTail);
         }
     }
-    Body->SetRelativeTransform(Family==TEXT("HK416")?HK416Attachments::ReferenceMount(Rifle):ASH?ASH12TacticalMount(Rifle):Pistol?PistolTacticalMount(Rifle):FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));
+    Body->SetRelativeTransform(Family==TEXT("HK416")?HK416Attachments::ReferenceMount(Rifle):ASH?ASH12TacticalMount(Rifle):Pistol?PistolTacticalMount(Rifle,PitViper):FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));
     Body->SetVisibility(Body->GetStaticMesh()!=nullptr);
     auto MakeEffect=[&](const TCHAR* Name,const TCHAR* Mesh,const TCHAR* Material)
     {
@@ -328,6 +330,6 @@ void AFPSGAMECharacter::SetGunsmithTactical(const FString& Variant)
         if(Variant!=TEXT("laser")&&Variant!=TEXT("flashlight"))return;
         TacticalDevice=NewObject<UTacticalDeviceComponent>(this,TEXT("TacticalDevice"));TacticalDevice->RegisterComponent();
     }
-    const FString Family=IsHK416Weapon()?TEXT("HK416"):IsG18Weapon()?TEXT("G18"):LMG201WeaponAssets::Matches(AKMViewmodel)?TEXT("LMG201"):SVDWeaponAssets::Matches(AKMViewmodel)?TEXT("SVD"):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?TEXT("PKM"):A762WeaponAssets::Matches(AKMViewmodel)?TEXT("A762"):bUseM16?TEXT("M16"):bUseASH12?TEXT("ASH12"):bUseDanWesson715?TEXT("DanWesson715"):bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
+    const FString Family=IsHK416Weapon()?TEXT("HK416"):IsPitViperWeapon()?TEXT("PitViper2011"):IsG18Weapon()?TEXT("G18"):LMG201WeaponAssets::Matches(AKMViewmodel)?TEXT("LMG201"):SVDWeaponAssets::Matches(AKMViewmodel)?TEXT("SVD"):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?TEXT("PKM"):A762WeaponAssets::Matches(AKMViewmodel)?TEXT("A762"):bUseM16?TEXT("M16"):bUseASH12?TEXT("ASH12"):bUseDanWesson715?TEXT("DanWesson715"):bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
     TacticalDevice->Configure(Family,Variant,AKMViewmodel,bInventoryWeaponReady);
 }

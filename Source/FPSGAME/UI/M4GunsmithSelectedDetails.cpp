@@ -2,6 +2,7 @@
 #include "M4GunsmithWidget.h"
 #include "../Weapons/Staff/StaffCatalog.h"
 #include "ColdSteelEnhancementSystem.h"
+#include "ColdSteelStaffModificationUI.h"
 #include "GunsmithUIStyle.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/GunsmithSystem.h"
@@ -97,7 +98,7 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     ModificationList->AddSlot().AutoHeight().Padding(0,5,0,12)
         [Paragraph(Installed==Id?(Id==TEXT("false")?TEXT("当前原厂配置"):TEXT("已安装")):TEXT("已选 · 待应用"),12,
             Id==TEXT("false")?GunsmithUI::Muted:ColdSteelUI::Success)];
-    if(IsToolWorkbench()||IsBowWorkbench())
+    if(IsToolWorkbench()||IsBowWorkbench()||IsStaffWorkbench())
     {
         // 数值改造先行：外观归属如实写在目录的 appearance 字段里。
         if(!Option->Appearance.IsEmpty())ModificationList->AddSlot().AutoHeight().Padding(0,0,0,10)
@@ -151,16 +152,25 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     {
         const auto Was=ColdSteelStaff::Resolve(*Item,&WithoutPart),Now=ColdSteelStaff::Resolve(*Item,&Gunsmith->Draft());
         auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
-        const TPair<const TCHAR*,const TCHAR*> Keys[]={{TEXT("magicDamagePercent"),TEXT("法术伤害加成")},{TEXT("magicMpCostPercent"),TEXT("法术耗蓝增减")},{TEXT("magicCooldownPercent"),TEXT("法术冷却缩减")},{TEXT("castSpeedPercent"),TEXT("施法速度加成")},{TEXT("magicRangePercent"),TEXT("法术距离加成")},{TEXT("magicCritPercent"),TEXT("法术暴击加成")},{TEXT("fireDamagePercent"),TEXT("火系伤害加成")},{TEXT("iceDamagePercent"),TEXT("冰系伤害加成")},{TEXT("electricDamagePercent"),TEXT("电系伤害加成")},{TEXT("lightHealPercent"),TEXT("光系治疗加成")}};
-        for(const auto& K:Keys)if(E->CraftEffect(Was,K.Key)!=E->CraftEffect(Now,K.Key))AddValue(K.Value,E->CraftEffect(Was,K.Key)*100,E->CraftEffect(Now,K.Key)*100,0,TEXT("%"));
-        ModificationList->AddSlot().AutoHeight()[Paragraph(TEXT("改造免费；点击“应用并保存”后写入这把法杖。替换部件或恢复原厂均无消耗。杖冠只在匹配杖头专精时激活。"),12,GunsmithUI::Secondary)];
-        return;
+        for(const auto& Field:ColdSteelStaffUI::Fields)
+        {
+            const double BeforeValue=E->CraftEffect(Was,Field.Key)*Field.Scale,AfterValue=E->CraftEffect(Now,Field.Key)*Field.Scale;
+            AddValue(Field.Label,BeforeValue,AfterValue,Field.Digits,Field.Unit,
+                ColdSteelStaffUI::LowerBetter(Field,BeforeValue,AfterValue));
+        }
+        if(SelectedCategory==TEXT("crown"))
+        {
+            const auto Crown=ColdSteelStaffUI::Crown(Gunsmith->Draft());
+            if(Crown.bInstalled)ModificationList->AddSlot().AutoHeight().Padding(0,6,0,8)
+                [Paragraph(TEXT("杖冠状态：")+Crown.Text,12,Crown.bActive?ColdSteelUI::Success:ColdSteelUI::Warning)];
+        }
     }
-    if(IsBowWorkbench()&&Item)
+    else if(IsBowWorkbench()&&Item)
     {
         const auto Was=ColdSteelBow::Evaluate(*Item,Profile,&WithoutPart),Now=ColdSteelBow::Evaluate(*Item,Profile,&Gunsmith->Draft());
         AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage.Total(),Now.Damage.Total(),2,TEXT(""));
         AddValue(ColdSteelWeaponText::DrawTime,Was.Draw,Now.Draw,2,TEXT(" s"),true);
+        AddValue(TEXT("拉弓速度加成"),Was.DrawSpeedBonus*100.,Now.DrawSpeedBonus*100.,1,TEXT("%"));
         AddValue(ColdSteelWeaponText::NockTime,Was.Nock,Now.Nock,2,TEXT(" s"),true);
         AddValue(ColdSteelWeaponText::ProjectileSpeed,Was.Speed,Now.Speed,1,TEXT(" m/s"));
         AddValue(ColdSteelWeaponText::StaminaCost,Was.Stamina,Now.Stamina,2,TEXT(""),true);
@@ -251,6 +261,8 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         AddValue(ColdSteelWeaponText::ToughnessMultiplier,Was.Modifiers.ToughnessDamage,Now.Modifiers.ToughnessDamage,2,TEXT("×"),false,Percent(M.ToughnessDamage));
         AddValue(TEXT("改造物理防御穿透"),Was.Modifiers.PhysicalArmorPenetration*100,Now.Modifiers.PhysicalArmorPenetration*100,0,TEXT("%"));
         AddValue(TEXT("重击伤害倍率"),Was.HeavyMultiplier,Now.HeavyMultiplier,2,TEXT("×"));
+        AddValue(TEXT("重击蓄力速度加成"),Was.HeavyChargeSpeedBonus*100.,Now.HeavyChargeSpeedBonus*100.,0,TEXT("%"));
+        AddValue(TEXT("重击蓄力时间"),Was.HeavyChargeSeconds,Now.HeavyChargeSeconds,2,TEXT(" s"),true);
         AddValue(TEXT("重击总伤害"),Was.Damage*Was.HeavyMultiplier,Now.Damage*Now.HeavyMultiplier,2,TEXT(""));
         AddValue(TEXT("重击韧性伤害倍率"),Was.Modifiers.HeavyToughnessMultiplier(),Now.Modifiers.HeavyToughnessMultiplier(),2,TEXT("×"),false,Percent(M.HeavyToughness));
         AddValue(TEXT("攻击击退距离"),Was.KnockbackCM,Now.KnockbackCM,1,TEXT(" cm"),false,Percent(M.Knockback));
@@ -259,6 +271,14 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         AddValue(TEXT("快速近战击退距离"),Was.QuickCombat.KnockbackCM,Now.QuickCombat.KnockbackCM,1,TEXT(" cm"),false,Percent(M.QuickCombatKnockback));
         AddValue(TEXT("快速近战韧性伤害倍率"),Was.QuickCombat.ToughnessMultiplier,Now.QuickCombat.ToughnessMultiplier,2,TEXT("×"),false,Percent(M.QuickCombatToughness));
         AddValue(ColdSteelWeaponText::QuickCombatBleed,Was.QuickCombat.BleedChance*100,Now.QuickCombat.BleedChance*100,0,TEXT("%"));
+        AddValue(ColdSteelWeaponText::TigerRoarToughnessTaken,Was.Modifiers.QuickCombatTigerRoarToughnessBonus*100,Now.Modifiers.QuickCombatTigerRoarToughnessBonus*100,0,TEXT("%"));
+        AddValue(ColdSteelWeaponText::TigerRoarDuration,Was.Modifiers.QuickCombatTigerRoarSeconds,Now.Modifiers.QuickCombatTigerRoarSeconds,0,TEXT(" s"));
+        if(M.QuickCombatTigerRoarSeconds>0)ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
+            [Paragraph(TEXT("快速近战命中敌人后施加虎啸，使目标冲击、利器、钝器的韧性抵抗归零。重复命中刷新持续时间，效果不叠加。"),12,ColdSteelUI::Success)];
+        AddValue(ColdSteelWeaponText::QuickCombatPhysicalVulnerability,Was.Modifiers.QuickCombatPhysicalVulnerabilityBonus*100,Now.Modifiers.QuickCombatPhysicalVulnerabilityBonus*100,0,TEXT("%"));
+        AddValue(ColdSteelWeaponText::PhysicalVulnerabilityDuration,Was.Modifiers.QuickCombatPhysicalVulnerabilitySeconds,Now.Modifiers.QuickCombatPhysicalVulnerabilitySeconds,0,TEXT(" s"));
+        if(M.QuickCombatPhysicalVulnerabilitySeconds>0)ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
+            [Paragraph(TEXT("快速近战命中敌人后施加物理易伤，使目标后续受到的物理伤害提高。重复命中刷新持续时间，效果不叠加。"),12,ColdSteelUI::Success)];
         if(M.bQuickCombatAOE)ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
             [Paragraph(TEXT("快速近战变为范围攻击：原判定范围内的多个目标均可命中，每个目标每次出手结算一次；判定距离与宽度不变。"),12,ColdSteelUI::Success)];
         AddValue(TEXT("魔法技能冷却倍率"),Was.Modifiers.MagicCooldown,Now.Modifiers.MagicCooldown,2,TEXT("×"),true,Percent(M.MagicCooldown));
@@ -280,7 +300,10 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     }
     if (RowCount == 0)
     {
-        if (Option->Effects.IsEmpty())
+        if (IsStaffWorkbench())
+            ModificationList->AddSlot().AutoHeight().Padding(0,0,0,8)
+                [Paragraph(TEXT("当前组合无额外数值修正；条件效果以实际激活状态为准。"),14,GunsmithUI::Secondary)];
+        else if (Option->Effects.IsEmpty())
             ModificationList->AddSlot().AutoHeight().Padding(0,0,0,8)
                 [Paragraph(TEXT("无额外数值修正"),14,GunsmithUI::Secondary)];
         else for (const auto& Effect : Option->Effects)
@@ -290,4 +313,6 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     ModificationList->AddSlot().AutoHeight().Padding(0,10,0,6)[Paragraph(TEXT("配件说明"),12,GunsmithUI::Muted)];
     ModificationList->AddSlot().AutoHeight()
         [Paragraph(Option->Description.IsEmpty()?TEXT("暂无额外说明。"):Option->Description,14,GunsmithUI::Secondary)];
+    if(IsStaffWorkbench())ModificationList->AddSlot().AutoHeight().Padding(0,10,0,0)
+        [Paragraph(TEXT("改造免费；应用并保存后写入当前法杖。杖冠只在匹配杖头专精时激活，不匹配时保留外观。法杖占用主手，可搭配副手手枪。"),12,GunsmithUI::Muted)];
 }

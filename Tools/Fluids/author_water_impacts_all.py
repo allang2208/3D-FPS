@@ -12,6 +12,7 @@ import author_river_splash_natural as natural
 
 def augment_static_surface(material):
     from water_wake_authoring import wake_inputs
+    from native_water_surface import apply_native_water
     lib=b.LIB
     code=(b.OUT/'RippleField.hlsl').read_text()
     owned=[n for n in lib.get_material_expressions(material) if isinstance(n,u.MaterialExpressionCustom)
@@ -19,6 +20,7 @@ def augment_static_surface(material):
     if owned:
         wake_inputs(material,owned[0])
         owned[0].set_editor_property('code',code)
+        apply_native_water(material,'puddle' if 'Puddle' in material.get_name() else 'fountain')
         return
     baseline={}
     for name in ('NORMAL','BASE_COLOR','ROUGHNESS','OPACITY'):
@@ -48,6 +50,7 @@ def augment_static_surface(material):
     b.prop(material,b.custom(material,'return lerp(Base,.34,saturate(F));',{'Base':baseline['ROUGHNESS'],'F':foam}),'ROUGHNESS')
     b.prop(material,b.custom(material,'return saturate(Base+F*.36);',{'Base':baseline['OPACITY'],'F':foam}),'OPACITY')
     b.EAL.set_metadata_tag(material,'WaterImpacts.Authored','20260924')
+    apply_native_water(material,'puddle' if puddle else 'fountain')
 
 
 def author():

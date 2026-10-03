@@ -2,6 +2,7 @@
 #include "HumanoidRagdollBudget.h"
 #include "MonsterCorpsePoseAnimInstance.h"
 #include "PhysicsEngine/BodyInstance.h"
+#include "Net/UnrealNetwork.h"
 #include "SlagBlackMist.h"
 #include "MonsterAIController.h"
 #include "MonsterCharacterMovementComponent.h"
@@ -16,6 +17,7 @@
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "../Skills/EnemyAttackDamage.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Skills/ColdSteelSkillRules.h"
 #include "Animation/AnimSequence.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -216,6 +218,16 @@ void AHundredEyedSlagMonster::SampleClip(FName Name, float Seconds, bool Loop)
             Player->SetCombatTime(Loop ? FMath::Fmod(FMath::Max(0.f, Seconds), Asset->GetPlayLength()) : Seconds);
         Player->SetControlledBlendTime(FMath::Max(0.f, Seconds));
     }
+}
+void AHundredEyedSlagMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AHundredEyedSlagMonster, State);
+}
+void AHundredEyedSlagMonster::OnRep_State()
+{
+    // 远端副本：EnterState 本身是表现内聚的（动画/移动标志），直接重放。
+    if(!HasAuthority())EnterState(State);
 }
 void AHundredEyedSlagMonster::EnterState(ESlagState Next)
 {
@@ -559,6 +571,7 @@ float AHundredEyedSlagMonster::TakeDamage(float Damage, const FDamageEvent& Even
         if (!bRewarded)
         {
             bRewarded = true;
+            ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),EventInstigator,this);
             if (auto* PC = Cast<APlayerController>(EventInstigator))
                 if (PC->IsLocalController() && GetGameInstance()) GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this, ExperienceReward);
         }

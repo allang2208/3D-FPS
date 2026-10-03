@@ -47,7 +47,8 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Spit") float PoisonChance=.33f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Death") float CorpseSeconds=15;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Death",meta=(ToolTip="Fallback without a death clip; configured death clips hand off at 60%.")) float RagdollStartSeconds=1.65f;
- UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") EPoisonMaggotState State=EPoisonMaggotState::Idle;
+ /** 复制给远端：客户端 OnRep 重放 SetState 驱动同款动画/表现切换。 */
+ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime",ReplicatedUsing=OnRep_State) EPoisonMaggotState State=EPoisonMaggotState::Idle;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") float Health=800;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") float StateSeconds=0;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") float CooldownLeft=0;
@@ -61,6 +62,8 @@ public:
  UFUNCTION(BlueprintCallable,Category="Maggot") bool StartSpit(APawn* Victim);
  UFUNCTION(BlueprintCallable,Category="Maggot") void InterruptAttack(float Seconds=.45f);
  void SetState(EPoisonMaggotState NewState);
+ virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ UFUNCTION() void OnRep_State();
  void SetTarget(APawn* Victim) {Target=Victim;}
  FVector Mouth() const;
  UFUNCTION(BlueprintCallable,Category="Maggot|Editor") static UPhysicsAsset* CreatePhysicsAsset(USkeletalMesh* InMesh);

@@ -1,0 +1,32 @@
+{
+  "stage": "importing",
+  "tests_run": false,
+  "renders_run": false,
+  "game_started": false,
+  "new_materials": {
+    "Leather": "/Game/Building/GunWorkbenchMedieval20260928/Materials/M_GWLeather.M_GWLeather",
+    "Clay": "/Game/Building/GunWorkbenchMedieval20260928/Materials/M_GWClay.M_GWClay"
+  },
+  "previous_mesh": "/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench.SM_GunWorkbench",
+  "mesh": "/Game/Building/GunWorkbenchMedieval20260928/SM_GunWorkbench.SM_GunWorkbench",
+  "slots": {
+    "oak": "/Game/Props/CastingStation20260926/RealismV5/M_OakDry",
+    "darkiron": "/Game/Props/CastingStation20260926/RealismV5/MI_DarkForgedIron",
+    "rope": "/Game/Dungeons/ArtPass20260922/Materials/MI_Prop_Rope_All",
+    "leather": "/Game/Building/GunWorkbenchMedieval20260928/Materials/M_GWLeather.M_GWLeather",
+    "clay": "/Game/Building/GunWorkbenchMedieval20260928/Materials/M_GWClay.M_GWClay"
+  },
+  "palette_entry": "gun_workbench_table",
+  "saved": true,
+  "preserved": [
+    "build ID",
+    "footprint",
+    "interaction",
+    "gun-assembly anchors (bbox matched)",
+    "previous asset untouched on disk"
+  ],
+  "palette_live_saved": true,
+  "rejected": true,
+  "rolled_back_to": "/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench.SM_GunWorkbench",
+  "rollback_previous": "/Game/Building/GunWorkbenchMedieval20260928/SM_GunWorkbench.SM_GunWorkbench"
+}

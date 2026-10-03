@@ -1,0 +1,10 @@
+{
+  "weapon": "ue_g18",
+  "slot": "magazine",
+  "option": "g18_drum_50",
+  "capacity": 50,
+  "reload_mult": 1.5,
+  "empty_reload_inherits_normal": true,
+  "ads_percent": 0.15,
+  "runtime_tested": false
+}

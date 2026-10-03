@@ -1,0 +1,137 @@
+{
+  "stage": "maps_saved",
+  "maps": {
+    "/Game/GameMaps/L_Dungeon_Randomized": {
+      "stage": "map_saved",
+      "previous_sha256": "0d280e3177b2783c37552350aea6089e66e81978606c54b2eb2d9bcac237c82e",
+      "modules": [
+        "Drainage",
+        "AbandonedIsolationWard",
+        "AbandonedAnatomyTheatre"
+      ],
+      "count_ranges": {
+        "Drainage": [
+          1,
+          2
+        ],
+        "AbandonedIsolationWard": [
+          6,
+          8
+        ],
+        "AbandonedAnatomyTheatre": [
+          3,
+          4
+        ]
+      },
+      "bedside_spawn": "native occupancy-based after upright beds"
+    },
+    "/Game/GameMaps/Design/L_Hospital_Theme_Subject": {
+      "stage": "map_saved",
+      "previous_sha256": "1e8a7b886867eddb2a5af862407a36337006486a4c4c882fd15201be9019bb3f",
+      "preview_seed": 20261003,
+      "authored_container_count": 8,
+      "selected": {
+        "Drainage": [
+          {
+            "id": "Hospital.Drainage.Tools.Entry",
+            "position": [
+              -535,
+              -340,
+              0.3
+            ],
+            "yaw": 90
+          }
+        ],
+        "AbandonedIsolationWard": [
+          {
+            "id": "Hospital.Ward.Cart.N01",
+            "position": [
+              -1800,
+              -1190,
+              4.4
+            ],
+            "yaw": 180
+          },
+          {
+            "id": "Hospital.Ward.Cart.N03",
+            "position": [
+              2760,
+              -1190,
+              4.4
+            ],
+            "yaw": 180
+          },
+          {
+            "id": "Hospital.Ward.Cart.N02",
+            "position": [
+              940,
+              -1190,
+              4.4
+            ],
+            "yaw": 180
+          },
+          {
+            "id": "Hospital.Ward.Emergency.East",
+            "position": [
+              2830,
+              -419,
+              132
+            ],
+            "yaw": 180
+          }
+        ],
+        "AbandonedAnatomyTheatre": [
+          {
+            "id": "Hospital.Theatre.Cart",
+            "position": [
+              330,
+              1155,
+              0.3
+            ],
+            "yaw": 0
+          },
+          {
+            "id": "Hospital.Theatre.Instruments.A",
+            "position": [
+              590,
+              1045,
+              93
+            ],
+            "yaw": 0
+          },
+          {
+            "id": "Hospital.Theatre.Specimens",
+            "position": [
+              680,
+              1150,
+              0.3
+            ],
+            "yaw": 0
+          }
+        ]
+      },
+      "bedside_count_requested": [
+        2,
+        3
+      ],
+      "bedside_policy": "one per room alongside an upright generated bed, omit blocked placements"
+    }
+  },
+  "tests_run": false,
+  "rendered": false,
+  "game_run": false,
+  "editor_opened": false,
+  "rewards_deferred": true,
+  "bedside_count_is_requested": true,
+  "mirrors_saved": [
+    "DungeonRoutes20260922/Config/catalog.json",
+    "DungeonThemedRoutes20261001/Config/catalog.json",
+    "WarehouseContainers20261002/Config/catalog.json",
+    "DungeonSplitLevels20261001/Config/catalog.json",
+    "DungeonStaffLiving20261002/Production20261002/Config/catalog.json",
+    "StationWorkshop20261003/Config/catalog.json",
+    "SceneLootExpansion20261003/Config/catalog.json",
+    "DungeonHospitalLine20261003/Config/production-catalog-snapshot.json"
+  ],
+  "original_map": "/Temp/Untitled_0"
+}

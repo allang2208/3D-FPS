@@ -1,0 +1,9 @@
+悬钟 M09 — Meshy 独立白底输入图
+
+M09_01_Front_White.png：正面
+M09_02_LeftSide_White.png：左侧，朝画面左方
+M09_03_Back_White.png：背面
+
+使用这里的独立 PNG 图作为模型生成输入。M09_Meshy_White_3Views.zip 仅包含三张图，解压后使用。
+本套图没有标题、拼版、拆分箭头或环境横梁。完整怪物保留六片背叶；实际三维组织拆分在生成模型后进行。
+图像由内置 image_gen 制作，完整提示词见 prompts.json。本次未向 Meshy 提交任务。

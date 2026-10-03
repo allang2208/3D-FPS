@@ -614,8 +614,28 @@ function timelineProgressColor(value) {
   （`Content/**` gitignore）；复建走 `Tools/Smelting` 管线与两个 SourceAssets 目录。
 - **二进制现状**：主树 DLL 已是 v12b（22:07 看守构建，Succeeded）——当前打开的编辑器即圆角凸舌版。
 
+### 7.25 金属锭占格 2×1 与图标斜上方 45°（2026-10-01 用户"所有的金属锭都为 2*1 大小，重新按标准调整其贴图，截取模型贴图的方向为斜上方 45 度"）
+
+- **占格**：`items.json` 四锭（iron/copper/silver/goldIngot）新增 `grid_w:2、grid_h:1`；
+  新实例 2×1 横放，`bRotated` 默认 false，仍可手动旋转为 1×2。
+- **旧档迁移**：并入 `ColdSteelInventory::MigrateAuthoredGridFootprints`（与卷轴 1×2 同一
+  规则表）：实例 `Data` 回填作者字段、W/H 修正为 2×1、放不下的在背包/夹层/储物箱重找位、
+  兜底回落主仓库（必要时加页），全量复验后才提交。
+- **截取方向**（当日复查修正）：`FQuat(Y,正角)` 会把网格远端往下压＝相机看到底面，
+  初版 +45° 实机是"从底部往上看"；从上往下取图必须用**负俯仰角**。定稿：锭类
+  `PrepareMaterial` 俯仰 **−45°**、偏航 30°→**60°**（长轴铺满 2:1 横幅，剪影高度填充
+  91%）；矿石/石块同 bug 一并从 +22° 改为 −22°（注释本意本来就是"露出顶面"）。
+  画幅按占格公式自动得 640×320，无需改画布代码。`IsSmeltingIngot` 已导出到
+  `ProductionHarvestAssets.h`。
+- **目录回退图**：`Tools/Smelting/render_ingot_icons.py` 离线复刻同一取景（FBX→OBJ→
+  numpy 光栅化，金属色取 `build_ingot_assets_ue.py` INGOTS 表 linear→sRGB），四张
+  `Icons/<id>.png` 重出为 640×320、91% 主轴填充、透明底。运行时捕获通道打开背包时
+  会自动用同角度重拍，目录图只作回退。
+- §8 第一条"锭的图标正式渲染图"随本轮完成（网格实渲，非占位图）。
+
 ## 8. 剩余工作
-- 锭的图标正式渲染图（`ue5-item-asset-workflow`）。
+- ~~锭的图标正式渲染图（`ue5-item-asset-workflow`）~~（2026-10-01 已由
+  `Tools/Smelting/render_ingot_icons.py` 按 2×1/45° 标准重出，见 §7.25）。
 - Niagara 挂点（`NS_CauldronBlacksmith`/`NS_ForgeSparks` → `ChargingMouth/BlastFlange/TapHole`）
   与 `EmberBed` 发光材质实例替换——高炉案例文档已列，属表现侧下一步。
 - 放置扣料（构件目前免料，Backlog 第 16 条）。

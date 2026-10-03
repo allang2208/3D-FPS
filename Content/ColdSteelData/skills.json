@@ -1,5 +1,10 @@
 {
   "schemaVersion": 9,
+  "swordUppercut": {
+    "name": "上挑",
+    "description": "武器与双臂先向右下移出视野蓄力，释放时前踏一步，伴随挥剑声快速向前上方劈出，以剑尖向上、剑柄在下且略向前倾的姿态收势，再缓慢回到待机。持剑时按绑定键使用，完整动作结束即可再次使用。当前开放动作表现，伤害数值和修炼后续设置。",
+    "icon": "Skills/sword_uppercut_cold_steel.png"
+  },
   "runeBlades": {
     "name": "环绕飞剑",
     "icon": "Skills/rune_orb_blades_cold_steel.png"
@@ -257,7 +262,7 @@
   },
   "quickCombat": {
     "name": "快速进战",
-    "description": "按 F 以当前武器快速打击前方单个目标，造成少量伤害并击退，不附加眩晕。完整动作结束即可再次使用；技能成长降低体力消耗。快捷栏倒计时显示本次武器动作的剩余时间。",
+    "description": "按 F 快速打击前方单个目标；主手法杖时，左手空手出拳，装备副手手枪则用左手手枪近战。造成少量伤害并击退，不附加眩晕。完整动作结束即可再次使用；技能成长降低体力消耗。快捷栏倒计时显示本次武器动作的剩余时间。",
     "icon": "Skills/quick_combat_placeholder.png",
     "upgradeSound": "Skills/player_upgrade.wav",
     "experiencePerLevel": 300,
@@ -587,6 +592,8 @@
     "knockbackBase": 50,
     "knockbackGrowth": 100,
     "endRadius": 90,
+    "beamHold": 0.45,
+    "beamFade": 0.6,
     "name": "贯穿雷枪",
     "description": "长按绑定键充能，至少0.5秒后松开可发射，2.5秒充至100%后保持到松键释放。蓄力时保持原地，可自由转动视角瞄准；十字准星随充能收拢，未满充在准星标示的范围内随机散射，满充合并成点并提示已充能完毕。法杖前方显示电系魔法阵。伤害按充能比例增长，每层感电额外增加10%伤害，命中击退并叠加两层感电。蓄力不足或被打断时退还蓝耗并清除冷却。",
     "icon": "Skills/thunder_lance_cold_steel.png",

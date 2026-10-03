@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'Stop'
 $projectRoot = 'D:\FPS3D\FPSGAME'
 $buildBatch = 'E:\Program Files (x86)\UE_5.8\Engine\Build\BatchFiles\Build.bat'
 $outputDirectory = Join-Path $projectRoot 'Saved\BuildSurvival20261003'

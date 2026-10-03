@@ -1,0 +1,73 @@
+{
+  "revision": 2,
+  "weapon": "ue_g18",
+  "option": "g18_drum_50",
+  "capacity": 50,
+  "frame": "unchanged G18 seat; drum rotated clockwise 90 degrees viewed from above in weapon root frame",
+  "body_yaw_degrees": -90,
+  "neck_rotated": false,
+  "root": [
+    [
+      -0.9961947202682495,
+      2.9802322387695312e-06,
+      -0.08715593814849854,
+      0.05768756568431854
+    ],
+    [
+      -2.9206275939941406e-06,
+      -1.0000001192092896,
+      1.3560056686401367e-06,
+      0.14374759793281555
+    ],
+    [
+      -0.0871560126543045,
+      1.9669532775878906e-06,
+      0.9961948394775391,
+      -0.0983532965183258
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "exports": [
+    {
+      "lod": 0,
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18Drum50_20261003\\Exports\\SM_G18_Drum50_LOD0.fbx",
+      "triangles": 40124,
+      "materials": [
+        "M_G18_Drum50_PBR",
+        "M_G18_Magazine"
+      ]
+    },
+    {
+      "lod": 1,
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18Drum50_20261003\\Exports\\SM_G18_Drum50_LOD1.fbx",
+      "triangles": 21354,
+      "materials": [
+        "M_G18_Drum50_PBR",
+        "M_G18_Magazine"
+      ]
+    },
+    {
+      "lod": 2,
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18Drum50_20261003\\Exports\\SM_G18_Drum50_LOD2.fbx",
+      "triangles": 11592,
+      "materials": [
+        "M_G18_Drum50_PBR",
+        "M_G18_Magazine"
+      ]
+    }
+  ],
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18Drum50_20261003\\Textures\\T_G18_Drum50_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18Drum50_20261003\\Textures\\T_G18_Drum50_ORM.png",
+    "Normal_DirectX": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18Drum50_20261003\\Textures\\T_G18_Drum50_Normal_DirectX.png"
+  },
+  "reference": "Reference/user_drum.png",
+  "battery_and_wires": false,
+  "back_side": "inferred service cover",
+  "runtime_tested": false
+}

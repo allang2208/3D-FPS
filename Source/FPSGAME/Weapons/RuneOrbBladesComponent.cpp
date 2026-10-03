@@ -55,7 +55,7 @@ bool URuneOrbBladesComponent::CanUse() const
     const auto* PC = Player ? Cast<APlayerController>(Player->GetController()) : nullptr;
     const auto* Health = Player ? Player->FindComponentByClass<UFPSCombatHealthComponent>() : nullptr;
     const auto* Build = PC ? PC->FindComponentByClass<UVoxelBuildComponent>() : nullptr;
-    return Player && Player->IsLocallyControlled() && GetWorld()->GetNetMode() == NM_Standalone && PC &&
+    return Player && Player->IsLocallyControlled() && GetWorld()->GetNetMode() != NM_Client && PC &&
         !AFPSGAMEPlayerController::BlocksOngoingActions(PC) && !Player->IsTraversing() &&
         !Player->IsLeftHandHeldForCast() && (!Health || !Health->IsDead()) && (!Build || !Build->IsBuilding()) && SwordEquipped();
 }

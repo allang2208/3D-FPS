@@ -140,9 +140,9 @@ description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overla
 
 ## 持续环境声：喷泉 V9（2026-09-19）
 
+场景柜子、工具箱及抽屉的独立搜寻身份和活动分件，读取 [场景搜寻容器](references/scene-search-containers.md)。实体箱柜数与可搜寻门/抽屉数分别统计；随机布局由建筑技能处理，不另建背包或奖励系统。
+
 - 水流采用已处理首尾交叉淡化的循环音源和持续 `UAudioComponent`；避免用定时重播或脚步水花模拟连续流动。两层用不同长度及实例相位，进出范围只淡入淡出并保留距离回差。
 - 3D 单声道、距离衰减/低通与共享并发预算一起接入；声源不依赖画面可见性。并发替换用释放淡化，被拒绝后限频重试，EndPlay 停止组件。
 - UE 5.8 衰减低通字段为 `bAttenuateWithLPF`。并发最大数量可用 `SetMaxCount`；`VolumeScale` 是私有字段，不能直接赋值。
 - 记录作者、许可、实际下载版本和处理参数。公开 HQ MP3 与原始 WAV 分开说明；导出 PCM 不代表恢复原始无损质量。资产制作与编译完成不代表已试听。
-
-场景柜子、工具箱及抽屉的独立搜寻身份和活动分件，读取 [场景搜寻容器](references/scene-search-containers.md)。实体箱柜数与可搜寻门/抽屉数分别统计；随机布局由建筑技能处理，不另建背包或奖励系统。

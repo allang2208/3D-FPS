@@ -49,7 +49,9 @@ param(
     [int]$MaxOutputChars = 0,
     [ValidateRange(0, 3600)]
     [int]$QueueWaitSeconds = 60,
-    [int]$SessionMaxAgeSeconds = 900
+    [int]$SessionMaxAgeSeconds = 900,
+    [ValidateRange(1, 3600)]
+    [int]$RequestTimeoutSeconds = 100
 )
 
 $ErrorActionPreference = 'Stop'
@@ -84,6 +86,7 @@ function Emit([string]$Text) {
 function Send([string]$Json,[string]$Session) {
     $request = [System.Net.WebRequest]::Create($Endpoint)
     $request.Method = 'POST'
+    $request.Timeout = $RequestTimeoutSeconds * 1000
     $request.ContentType = 'application/json'
     $request.Accept = 'application/json'
     if ($Session) { $request.Headers['Mcp-Session-Id'] = $Session }
@@ -200,7 +203,7 @@ if ($PythonScript) {
     $scriptPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($PythonScript)
     if (-not (Test-Path -LiteralPath $scriptPath -PathType Leaf)) { throw "找不到 Python 脚本: $scriptPath" }
     $clientPath = Join-Path $PSScriptRoot 'ue_python_exec.py'
-    $pythonArguments = @($clientPath, '--script', $scriptPath, '--timeout', '20')
+    $pythonArguments = @($clientPath, '--script', $scriptPath, '--timeout', '120')
     if ($PythonNodeId) { $pythonArguments += @('--node', $PythonNodeId) }
     $pythonOutput = & py -3.11 @pythonArguments 2>&1
     $pythonExitCode = $LASTEXITCODE

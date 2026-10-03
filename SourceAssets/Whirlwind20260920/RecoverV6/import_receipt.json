@@ -1,0 +1,22 @@
+[
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_WhirlwindV5",
+    "revision": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_WhirlwindRecoverV6",
+    "backup": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_WhirlwindV5_BeforeRecoverV6",
+    "saved": true,
+    "recover_start_seconds": 1.3,
+    "recover_seconds": 0.52,
+    "prefix_source": "existing live source keys",
+    "tested": false
+  },
+  {
+    "asset": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_WhirlwindV5",
+    "revision": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_WhirlwindRecoverV6",
+    "backup": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_WhirlwindV5_BeforeRecoverV6",
+    "saved": true,
+    "recover_start_seconds": 1.3,
+    "recover_seconds": 0.52,
+    "prefix_source": "existing live source keys",
+    "tested": false
+  }
+]

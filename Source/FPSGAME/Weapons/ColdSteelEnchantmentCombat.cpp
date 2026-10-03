@@ -9,7 +9,48 @@
 #include "TimerManager.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/MonsterCombatComponent.h"
+#include "GunsmithSystem.h"
 
+ColdSteelCombat::FComposure ColdSteelCombat::Calm(const UColdSteelEnhancementSystem* Enhancement,const FColdSteelItem* Item)
+{
+    FComposure R;
+    if(!Enhancement||!Item||Enhancement->Effect(*Item,TEXT("calmFirearm"))<=0.)return R;
+    const auto* G=Enhancement->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+    if(!G||!G->Weapon(Item->Definition)||G->IsMelee(Item->Definition)||G->IsTool(Item->Definition)
+        ||G->IsStaff(Item->Definition)||G->IsBow(Item->Definition))return R;
+    R.StabilityPerStack=Enhancement->Effect(*Item,TEXT("composureStabilityPerStack"));
+    R.RecoilReductionPerStack=Enhancement->Effect(*Item,TEXT("composureRecoilReductionPerStack"));
+    R.Seconds=Enhancement->Effect(*Item,TEXT("composureSeconds"));
+    R.MaxStacks=int32(Enhancement->Effect(*Item,TEXT("composureMaxStacks")));
+    R.Enabled=R.StabilityPerStack>0.f&&R.RecoilReductionPerStack>0.f&&R.Seconds>0.f&&R.MaxStacks>0;
+    return R;
+}
+FWeaponHandling ColdSteelCombat::ComposureHandling(AActor* Shooter,const FWeaponHandling& Base)
+{
+    const auto* Status=Shooter?Shooter->FindComponentByClass<UCombatStatusFormula>():nullptr;
+    if(!Status)return Base;
+    auto Result=Base.WithStabilityMultiplier(1.f+Status->ComposureStabilityBonus());
+    const float Recoil=Status->ComposureRecoilMultiplier();
+    Result.RecoilIndex*=Recoil;Result.RecoilScale*=Recoil;
+    return Result;
+}
+float ColdSteelCombat::ComposureRecoilMultiplier(AActor* Shooter)
+{
+    const auto* Status=Shooter?Shooter->FindComponentByClass<UCombatStatusFormula>():nullptr;
+    return Status?Status->ComposureRecoilMultiplier():1.f;
+}
+
+ColdSteelCombat::FBigBlind ColdSteelCombat::BigBlind(const UColdSteelEnhancementSystem* Enhancement,const FColdSteelItem* Item)
+{
+    FBigBlind R;
+    if(!Enhancement||!Item||ColdSteelInventory::Text(*Item,TEXT("weaponType"))!=TEXT("pistol")
+        ||Enhancement->Effect(*Item,TEXT("bigBlind"))<=0.)return R;
+    R.CriticalBonusPerStack=Enhancement->Effect(*Item,TEXT("wagerCriticalBonusPerStack"));
+    R.Seconds=Enhancement->Effect(*Item,TEXT("wagerSeconds"));
+    R.MaxStacks=int32(Enhancement->Effect(*Item,TEXT("wagerMaxStacks")));
+    R.Enabled=R.CriticalBonusPerStack>0.f&&R.Seconds>0.f&&R.MaxStacks>0;
+    return R;
+}
 FColdSteelShotEffects ColdSteelCombat::Snapshot(AActor* Source,const FColdSteelItem* Item)
 {
     FColdSteelShotEffects R;auto* Pawn=Cast<AFPSGAMECharacter>(Source);if(!Pawn||!Pawn->GetController()||!Pawn->IsPlayerControlled())return R;

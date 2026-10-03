@@ -1,0 +1,2 @@
+[node] 45CC0AB2429FF5F2954018BE89D7E0C2  success=False
+[{'type': 'Error', 'output': 'Traceback (most recent call last):'}, {'type': 'Error', 'output': '  File "D:/FPS3D/FPSGAME/Tools/PlayerBody/read_jason_equipment_inputs.py", line 30, in <module>'}, {'type': 'Error', 'output': '    dm,_,status=G.copy_mesh_from_static_mesh(mesh,u.DynamicMesh(),u.GeometryScriptCopyMeshFromAssetOptions(),u.GeometryScriptMeshReadLOD())'}, {'type': 'Error', 'output': '    ^^^^^^^^^^^'}, {'type': 'Error', 'output': 'ValueError: not enough values to unpack (expected 3, got 2)'}]

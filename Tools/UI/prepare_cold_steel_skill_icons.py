@@ -5,6 +5,7 @@ import shutil
 PROJECT = Path(__file__).resolve().parents[2]
 RUNTIME = PROJECT / "Content/ColdSteelData/Skills"
 ICONS = {
+    "sword_uppercut_cold_steel.png": "SourceAssets/SwordUppercut20261003/Icon/sword_uppercut_cold_steel.png",
     "ice_wall_cold_steel.png": "SourceAssets/IceSkillIcons20260930/ice_wall_cold_steel.png",
     "blizzard_cold_steel.png": "SourceAssets/IceSkillIcons20260930/blizzard_cold_steel.png",
     "staff_light_cold_steel.png": "SourceAssets/StaffOffhand20260928/staff_light_cold_steel.png",

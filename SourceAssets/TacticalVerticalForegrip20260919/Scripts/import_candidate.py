@@ -108,3 +108,4 @@ receipt.update(status="imported_saved_not_tested", mesh=mesh.get_path_name(),
                textures={key: tex.get_path_name() for key, tex in textures.items()})
 record()
 u.log("TACTICAL_VERTICAL_FOREGRIP_IMPORTED " + json.dumps(receipt))
+

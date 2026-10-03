@@ -21,6 +21,16 @@ craft_receipt = craft_root / 'install-receipt.json'
 if craft_receipt.exists() and json.loads(craft_receipt.read_text(encoding='utf-8')).get('complete'):
     crafted = {e['name']: e for e in json.loads((craft_root / 'Export/meshes.json').read_text(encoding='utf-8'))}
     entries = [crafted.get(e['name'], e) for e in entries]
+# Preserve the current default quartz candidate, independently of V33's four
+# elemental heads. Only Base and the factory crystal have V35 replacements.
+surface_root = ROOT.parent / 'QuartzSurfaceV35'
+surface_receipt = surface_root / 'install-receipt.json'
+if surface_receipt.exists() and json.loads(surface_receipt.read_text(encoding='utf-8')).get('complete'):
+    surfaced = {e['name']: e for e in json.loads((surface_root / 'Export/meshes.json').read_text(encoding='utf-8'))}
+    for entry in entries:
+        if entry['name'] in surfaced:
+            # Preserve canonical material names expected by this older loader.
+            entry['fbx'] = surfaced[entry['name']]['fbx']
 receipt_path = ROOT / 'import-receipt.json'
 receipt = {
     'revision': 21, 'complete': False, 'tested': False, 'preview_rendered': False,

@@ -1,11 +1,20 @@
 {
   "effects": [
     {
-      "type": "blind",
-      "icon": "◉",
-      "name": "目盲",
-      "color": "#706575",
-      "description": "置身浓雾时视野模糊并被烟灰遮挡，雾内持续刷新2秒目盲，离开浓雾立即解除。",
+      "type": "physicalVulnerability",
+      "icon": "裂",
+      "name": "物理易伤",
+      "color": "#c89076",
+      "description": "被装有破锋燕翎配重锤的唐刀快速近战命中后受到影响：受到的物理伤害提高20%，持续15秒。重复命中刷新持续时间，效果不叠加。",
+      "kind": "debuff",
+      "group": "combat"
+    },
+    {
+      "type": "tigerRoar",
+      "icon": "虎",
+      "name": "虎啸",
+      "color": "#d89e5a",
+      "description": "被装有虎啸镇岳配重锤的唐刀快速近战命中后受到影响：冲击、利器、钝器的韧性抵抗归零，受到的韧性伤害提高25%，持续6秒。重复命中刷新持续时间，效果不叠加。",
       "kind": "debuff",
       "group": "combat"
     },
@@ -26,6 +35,42 @@
       "description": "SAN 归零时，饥饿度、缺水度下降速度翻倍，力量、敏捷、智力、体质、精神、幸运的总属性降低50%。装备与技能提供的六维加成同样受影响；与清泉赐福及感染倍率相乘。SAN 恢复到0以上后解除。",
       "kind": "debuff",
       "group": "triggered"
+    },
+    {
+      "type": "composure",
+      "icon": "◎",
+      "name": "沉着冷静",
+      "color": "#7cbbbc",
+      "description": "带「冷静的」附魔的枪械暴击敌人时获得1层，每层武器稳定性提高1%、后坐力降低1%，最多30层。整组持续10秒，再次暴击加1层并刷新时间，满层也刷新；到期全部清除。增益作用于持用枪械。",
+      "kind": "buff",
+      "group": "triggered"
+    },
+    {
+      "type": "wager",
+      "icon": "♦",
+      "name": "赌注",
+      "color": "#e8b94b",
+      "description": "带「大盲注」的手枪命中敌人获得1层，每层暴击伤害倍率增加0.5，最多5层。命中刷新30秒，到期全部清除；仅附魔手枪暴击使用并消耗全部层数，暴击命中新加的一层也计入本次伤害。",
+      "kind": "buff",
+      "group": "triggered"
+    },
+    {
+      "type": "berserk",
+      "icon": "⚔️",
+      "name": "狂暴",
+      "color": "#c94d58",
+      "description": "使用当前带「狂暴的」附魔的近战武器命中敌人时增加1层；每层攻击速度提高5%，最多20层。首次获得后每5秒减少1层，命中不刷新减层倒计时。",
+      "kind": "buff",
+      "group": "triggered"
+    },
+    {
+      "type": "blind",
+      "icon": "◉",
+      "name": "目盲",
+      "color": "#706575",
+      "description": "置身浓雾时视野模糊并被烟灰遮挡，雾内持续刷新2秒目盲，离开浓雾立即解除。",
+      "kind": "debuff",
+      "group": "combat"
     },
     {
       "type": "stun",

@@ -1,4 +1,63 @@
 {
+  "ue_jeans": {
+    "id": "ue_jeans",
+    "name": "牛仔裤",
+    "category": "equipment",
+    "type": "裤子",
+    "equipSlot": "pants",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 38,
+    "grid_w": 2,
+    "grid_h": 3,
+    "desc": "耐磨牛仔布长裤，保留洗水纹理、接缝和自然褶皱。",
+    "ue_icon": "Icons/ue_jeans.png",
+    "icon_fallback": "裤",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Pickups/SM_Jeans.SM_Jeans",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Icons/SM_Jeans_Display.SM_Jeans_Display"
+  },
+  "ue_cargo_pants": {
+    "id": "ue_cargo_pants",
+    "name": "工装裤",
+    "category": "equipment",
+    "type": "裤子",
+    "equipSlot": "pants",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 42,
+    "grid_w": 2,
+    "grid_h": 3,
+    "desc": "带立体侧袋的工装长裤，裤腿宽松，可与鞋靴独立搭配。",
+    "ue_icon": "Icons/ue_cargo_pants.png",
+    "icon_fallback": "裤",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Pickups/SM_Cargo.SM_Cargo",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Icons/SM_Cargo_Display.SM_Cargo_Display"
+  },
+  "ue_casual_sneakers": {
+    "id": "ue_casual_sneakers",
+    "name": "休闲鞋",
+    "category": "equipment",
+    "type": "鞋靴",
+    "equipSlot": "boots",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 28,
+    "grid_w": 2,
+    "grid_h": 2,
+    "desc": "系带休闲鞋，布面鞋身与橡胶鞋底，可独立穿脱。",
+    "ue_icon": "Icons/ue_casual_sneakers.png",
+    "icon_fallback": "鞋",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Pickups/SM_Sneakers.SM_Sneakers",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Icons/SM_Sneakers_Display.SM_Sneakers_Display",
+    "ue_icon_pitch": -18,
+    "ue_icon_yaw": -60
+  },
   "gold": {
     "id": "gold",
     "name": "金币",
@@ -1331,10 +1390,26 @@
     "stack_max": 99,
     "type": "附魔卷轴"
   },
+  "enchant_scroll_calm": {
+    "rarity": "epic",
+    "category": "enhancement",
+    "desc": "为枪械附魔前缀「冷静的」。精神 +10；附魔枪械暴击敌人时获得 1 层沉着冷静，每层稳定性 +1%、后坐力 -1%，最多 30 层。持续 10 秒，暴击加层并刷新，满层也刷新；到期全部清除。",
+    "grade": "epic",
+    "grid_w": 1,
+    "grid_h": 2,
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
+    "icon_fallback": "✦",
+    "name": "附魔卷轴：冷静的",
+    "price": 4000,
+    "scroll_id": "calmFirearm",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
   "enchant_scroll_boundless_strength": {
     "rarity": "epic",
     "category": "enhancement",
-    "desc": "为近战武器附魔前缀「力大无穷」。力量 +15，重击蓄力速度 +30%；与改造件的蓄力速度加成相加。改造件 +15% 与本附魔 +30% 合计 +45%，蓄力时间为基础时间 ÷ 1.45。",
+    "desc": "为近战武器或弓附魔前缀「力大无穷」。力量 +15；近战武器重击蓄力速度 +30%，弓类拉弓速度 +30%，与改造件的同类速度加成相加。改造件 +15% 与本附魔 +30% 合计 +45%，蓄力或拉弓时间为基础时间 ÷ 1.45。",
     "grade": "epic",
     "grid_w": 1,
     "grid_h": 2,
@@ -3741,46 +3816,6 @@
     "ue_icon": "Icons/mineral_water_full.png",
     "half_icon": "Icons/mineral_water_half.png"
   },
-  "bread": {
-    "id": "bread",
-    "name": "普通面包",
-    "category": "consumable",
-    "type": "食物",
-    "desc": "小麦面团烘烤成的日常食物，金黄外皮包着松软内里。个头小巧，适合随身携带，在探索途中直接食用充饥。",
-    "rarity": "common",
-    "level": 1,
-    "price": 12,
-    "grid_w": 1,
-    "grid_h": 1,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "maxUses": 1,
-    "useEffect": {
-      "hunger": 15,
-      "hydration": -10
-    },
-    "useCooldown": 0,
-    "useDuration": 2.4,
-    "stats": [
-      {
-        "name": "恢复饥饿度",
-        "value": "+15"
-      },
-      {
-        "name": "消耗水分",
-        "value": "-10"
-      },
-      {
-        "name": "食用方式",
-        "value": "单次使用"
-      }
-    ],
-    "icon": "",
-    "icon_fallback": "面包",
-    "ue_icon": "Icons/bread.png",
-    "world_mesh": "/Game/Items/Consumables/Bread20261003/SM_Bread.SM_Bread"
-  },
   "baguette_bread": {
     "id": "baguette_bread",
     "name": "法棍面包",
@@ -3821,6 +3856,76 @@
     "ue_icon": "Icons/baguette_bread.png",
     "world_mesh": "/Game/Items/Consumables/Baguette20261003/SM_Baguette.SM_Baguette"
   },
+  "bread": {
+    "id": "bread",
+    "name": "普通面包",
+    "category": "consumable",
+    "type": "食物",
+    "desc": "小麦面团烘烤成的日常食物，金黄外皮包着松软内里。个头小巧，适合随身携带，在探索途中直接食用充饥。",
+    "rarity": "common",
+    "level": 1,
+    "price": 12,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "maxUses": 1,
+    "useEffect": {
+      "hunger": 15,
+      "hydration": -10
+    },
+    "useCooldown": 0,
+    "useDuration": 2.4,
+    "stats": [
+      {
+        "name": "恢复饥饿度",
+        "value": "+15"
+      },
+      {
+        "name": "消耗水分",
+        "value": "-10"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ],
+    "icon": "",
+    "icon_fallback": "面包",
+    "ue_icon": "Icons/bread.png",
+    "world_mesh": "/Game/Items/Consumables/Bread20261003/SM_Bread.SM_Bread"
+  },
+  "ue_rsh12": {
+  "id": "ue_rsh12",
+  "name": "RSH-12",
+  "icon": "Icons/ue_rsh12.png",
+  "ue_icon": "Icons/ue_rsh12.png",
+  "icon_fallback": "RSH12",
+  "category": "weapon",
+  "weaponType": "pistol",
+  "rangedType": "pistol",
+  "weaponTypeTag": "左轮手枪",
+  "equipSlot": "weapon",
+  "isTwoHanded": false,
+  "rarity": "common",
+  "stack_max": 1,
+  "grid_w": 3,
+  "grid_h": 2,
+  "type": "武器",
+  "gunsmith_base_mag": 5,
+  "desc": "俄罗斯大口径双动左轮，使用12.7毫米弹药与五发弹巢。沿用715原生握持和动作，单持、双持与副手均逐发装填；空仓先退壳，非空仓保留余弹。",
+  "stats": [
+    {
+      "name": "物理攻击",
+      "value": "90"
+    },
+    {
+      "name": "弹巢容量",
+      "value": "5"
+    }
+  ]
+},
   "soda_can": {
     "id": "soda_can",
     "name": "罐装汽水",
@@ -3860,35 +3965,5 @@
     "icon_fallback": "汽水",
     "ue_icon": "Icons/soda_can.png",
     "world_mesh": "/Game/Items/Consumables/SodaCan20261003/SM_SodaCan.SM_SodaCan"
-  },
-"ue_rsh12": {
-  "id": "ue_rsh12",
-  "name": "RSH-12",
-  "icon": "Icons/ue_rsh12.png",
-  "ue_icon": "Icons/ue_rsh12.png",
-  "icon_fallback": "RSH12",
-  "category": "weapon",
-  "weaponType": "pistol",
-  "rangedType": "pistol",
-  "weaponTypeTag": "左轮手枪",
-  "equipSlot": "weapon",
-  "isTwoHanded": false,
-  "rarity": "common",
-  "stack_max": 1,
-  "grid_w": 3,
-  "grid_h": 2,
-  "type": "武器",
-  "gunsmith_base_mag": 5,
-  "desc": "俄罗斯大口径单动左轮，使用12.7毫米弹药，五发弹巢。每次击发后由右手拇指拨回击锤，完成拨锤与回握后才能再次射击。下置枪管，逐发装填；非空仓保留余弹，空仓先退壳再补弹。",
-  "stats": [
-    {
-      "name": "物理攻击",
-      "value": "90"
-    },
-    {
-      "name": "弹巢容量",
-      "value": "5"
-    }
-  ]
-}
+  }
 }

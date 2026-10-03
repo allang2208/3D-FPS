@@ -77,7 +77,8 @@ public:
  UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="0",Units="cm")) float ChargeMaxLeadDistance=450.f;
  UPROPERTY(EditAnywhere,Category="FleshHand|Death") float CorpseSeconds=15;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand|Runtime") float Health=1500;
- UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand|Runtime") EFleshHandState State=EFleshHandState::Idle;
+ /** 复制给远端：客户端 OnRep 重放 SetState 驱动同款动画/表现切换。 */
+ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand|Runtime",ReplicatedUsing=OnRep_State) EFleshHandState State=EFleshHandState::Idle;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand|Runtime") float StateSeconds=0;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand|Runtime") FVector Home;
  bool Dead() const {return Health<=0||State==EFleshHandState::Dying||State==EFleshHandState::Corpse;}
@@ -95,6 +96,8 @@ public:
 private:
  friend class UFleshHandKnockdownComponent;
  void SetState(EFleshHandState Next);
+ virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ UFUNCTION() void OnRep_State();
  void Impact(); void Summon(); void ContactDamage();
  bool CanReach(const APawn* P,float Range) const;
  void Play(UAnimSequence* Clip,bool Loop,bool Clock,float Blend=.1f);

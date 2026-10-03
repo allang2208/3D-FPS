@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "FireMagicTypes.generated.h"
 
 namespace FireMagic
 {
@@ -19,15 +20,17 @@ struct FFireMagicTuning
     bool bRequiresStaff=false;
 };
 
+USTRUCT()
 struct FFireMagicCast
 {
-    FName Skill=TEXT("meteor");
-    float Damage=0,AuraDamage=0,MagicAttack=0,Radius=0,AuraRadius=0,ManaCost=0,Cooldown=0,Duration=0,Range=0;
-    float FallSeconds=.65f,TickSeconds=.5f,StunSeconds=0,BurnSeconds=0,BurnMultiplier=0,AuraBurnSeconds=0,AuraBurnMultiplier=0;
-    float CriticalChance=0,CriticalDamageBonus=0,MagicPenetration=0,MagicDamageBonus=0,CastSpeed=1;
-    int32 BurnStacks=0,AuraBurnStacks=0,CastHasteStacks=0;
-    float CastHasteDuration=5;
-    bool bGrantChain=false,bRequiresStaff=false;
+    GENERATED_BODY()
+    UPROPERTY() FName Skill=TEXT("meteor");
+    UPROPERTY() float Damage=0; UPROPERTY() float AuraDamage=0; UPROPERTY() float MagicAttack=0; UPROPERTY() float Radius=0; UPROPERTY() float AuraRadius=0; UPROPERTY() float ManaCost=0; UPROPERTY() float Cooldown=0; UPROPERTY() float Duration=0; UPROPERTY() float Range=0;
+    UPROPERTY() float FallSeconds=.65f; UPROPERTY() float TickSeconds=.5f; UPROPERTY() float StunSeconds=0; UPROPERTY() float BurnSeconds=0; UPROPERTY() float BurnMultiplier=0; UPROPERTY() float AuraBurnSeconds=0; UPROPERTY() float AuraBurnMultiplier=0;
+    UPROPERTY() float CriticalChance=0; UPROPERTY() float CriticalDamageBonus=0; UPROPERTY() float MagicPenetration=0; UPROPERTY() float MagicDamageBonus=0; UPROPERTY() float CastSpeed=1;
+    UPROPERTY() int32 BurnStacks=0; UPROPERTY() int32 AuraBurnStacks=0; UPROPERTY() int32 CastHasteStacks=0;
+    UPROPERTY() float CastHasteDuration=5;
+    UPROPERTY() bool bGrantChain=false; UPROPERTY() bool bRequiresStaff=false;
 };
 
 /** Skill training is aggregated until the field / buff ends; character kills are immediate. */

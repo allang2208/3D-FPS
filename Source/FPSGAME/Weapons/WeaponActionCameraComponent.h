@@ -10,7 +10,7 @@ enum class EM4CameraAction : uint8
 {
     None, Reload, ReloadEmpty, DrumReload, DrumReloadEmpty, EquipCharge,
     Ash12Reload, Ash12ReloadEmpty, PKMReload, PKMReloadEmpty, PKMEquip,
-    LMG201ClothReload, LMG201ClothReloadEmpty
+    LMG201ClothReload, LMG201ClothReloadEmpty, RSH12Reload, RSH12ReloadEmpty
 };
 
 // Local presentation driven by the weapon's source-animation clock.

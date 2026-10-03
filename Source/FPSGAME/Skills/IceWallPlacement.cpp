@@ -1,4 +1,5 @@
 #include "IceWallPlacement.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/PrimitiveComponent.h"
@@ -198,7 +199,11 @@ bool Displace(UWorld* World,AActor* Target,AActor* Wall,const FIceWallPlacement&
         if(World->SweepSingleByChannel(Path,Start,End,FQuat::Identity,ECC_Pawn,Shape,Query))continue;
         // The entire route and endpoint are clear of geometry and players. Ignore
         // the simultaneously squeezed crowd, then reserve separated endpoints.
+        const FVector Previous=Target->GetActorLocation();
         Target->SetActorLocation(End-B.Offset,false,nullptr,ETeleportType::TeleportPhysics);
+        const FVector Pushed=Target->GetActorLocation()-Previous;
+        if(auto* BodyPose=Target->FindComponentByClass<UFPSPlayerBodyComponent>())
+            BodyPose->RecordKnockback(Pushed,Pushed.Size(),.08f);
         if(!Occupies(Target,P,C)){Reserved.Add(FVector4(End,B.Radius));return true;}
     }
     return false;

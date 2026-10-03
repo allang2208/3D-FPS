@@ -20,6 +20,9 @@ namespace RuneSwordCombat
     inline constexpr float BladeRadius=4.f;
     TArray<FHitResult> QuerySector(UWorld* World,AActor* Owner,const FVector& Origin,const FVector& Forward,
         float Radius,float ArcDegrees,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit);
+    // Forward rectangle on the ground plane, with the owner's capsule height.
+    TArray<FHitResult> QueryRectangle(UWorld* World,AActor* Owner,const FVector& Origin,const FVector& Forward,
+        float Length,float HalfWidth,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit);
     // Centimetres and control-aim space; cosmetic camera motion is excluded.
     TArray<FHitResult> Query(UWorld* World,AActor* Owner,const FRuneSwordBladeSample& From,
         const FRuneSwordBladeSample& To,float Reach,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit,

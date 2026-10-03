@@ -19,11 +19,41 @@
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
+#include "Net/UnrealNetwork.h"
+#include "NetCastUtils.h"
+
+// 组件预热与远端副本自载共用同一张资产清单（顺序固定——InitializeZone 按下标取用）。
+const TCHAR* const* AFPSBlizzardZone::ZoneAssetPaths()
+{
+    static const TCHAR* Paths[]={TEXT("/Game/Skills/Blizzard/ChargedV3/NS_BlizzardStormCloud.NS_BlizzardStormCloud"),TEXT("/Game/Skills/Blizzard/ChargedV3/NS_BlizzardPrecipitation.NS_BlizzardPrecipitation"),
+        TEXT("/Game/Skills/Blizzard/ChargedV3/NS_BlizzardBoundaryMist.NS_BlizzardBoundaryMist"),TEXT("/Game/Skills/Blizzard/ChargedV3/M_BlizzardIceHeart.M_BlizzardIceHeart"),
+        TEXT("/Game/Skills/IceSpike/SM_IceShard.SM_IceShard"),TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_01.SM_IceSpike_01"),
+        TEXT("/Game/Skills/Blizzard/ChargedV3/M_BlizzardIceShell.M_BlizzardIceShell"),TEXT("/Game/Skills/Blizzard/ChargedV3/M_BlizzardGroundFrost.M_BlizzardGroundFrost"),
+        TEXT("/Game/Skills/IceWall/BlockV1/S_IceWallCast.S_IceWallCast"),TEXT("/Game/Skills/IceSpike/S_IceImpact.S_IceImpact"),
+        TEXT("/Game/Skills/Blizzard/StormV2/S_BlizzardIceLanding.S_BlizzardIceLanding"),
+        TEXT("/Game/Skills/Blizzard/ChargedV3/NS_BlizzardGatherCloud.NS_BlizzardGatherCloud"),
+        TEXT("/Game/Skills/Blizzard/ChargedV3/M_BlizzardAimPreview.M_BlizzardAimPreview"),
+        TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_02.SM_IceSpike_02"),TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_03.SM_IceSpike_03")};
+    return Paths;
+}
 
 AFPSBlizzardZone::AFPSBlizzardZone()
 {
     PrimaryActorTick.bCanEverTick=true;PrimaryActorTick.TickGroup=TG_PostUpdateWork;
+    // 联机：服务端权威生成与伤害结算；远端副本按 NetCast/NetCenter 自建表现壳。
+    bReplicates=true;
     RootComponent=CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+}
+void AFPSBlizzardZone::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AFPSBlizzardZone,NetCaster);
+    DOREPLIFETIME(AFPSBlizzardZone,NetCast);
+    DOREPLIFETIME(AFPSBlizzardZone,NetCenter);
+    DOREPLIFETIME(AFPSBlizzardZone,NetNormal);
+    DOREPLIFETIME(AFPSBlizzardZone,NetAxis);
+    DOREPLIFETIME(AFPSBlizzardZone,NetCloudHeight);
+    DOREPLIFETIME(AFPSBlizzardZone,bNetActivated);
 }
 bool AFPSBlizzardZone::InitializeZone(APawn* Shooter,const FBlizzardCast& Spell,const FVector& Point,const FVector& Normal,const FVector& LongAxis,const TArray<TObjectPtr<UObject>>& Assets)
 {
@@ -34,6 +64,8 @@ bool AFPSBlizzardZone::InitializeZone(APawn* Shooter,const FBlizzardCast& Spell,
     Random.Initialize(int32(GetUniqueID()));CloudHeight=CastSnapshot.RadiusY*2.3f+150;
     FHitResult Roof;
     if(FireMagic::TraceSurface(Shooter,Center+SurfaceNormal*25,Center+SurfaceNormal*CloudHeight,Roof))CloudHeight=FMath::Max(65.f,float(FVector::DotProduct(Roof.ImpactPoint-Center,SurfaceNormal)-45));
+    // 联机：权威侧把表现所需的口径写进复制态。
+    NetCaster=Shooter;NetCast=Spell;NetCenter=Center;NetNormal=SurfaceNormal;NetAxis=AxisX;NetCloudHeight=CloudHeight;
     auto MakeFX=[&](int32 Index)
     {
         auto* FX=UNiagaraFunctionLibrary::SpawnSystemAttached(Cast<UNiagaraSystem>(Assets[Index]),RootComponent,NAME_None,FVector::ZeroVector,FRotator::ZeroRotator,EAttachLocation::KeepRelativeOffset,false,false);
@@ -73,12 +105,13 @@ bool AFPSBlizzardZone::InitializeZone(APawn* Shooter,const FBlizzardCast& Spell,
 }
 void AFPSBlizzardZone::ActivateZone()
 {
-    bActivated=true;UpdatePresentation(0);CloudFX->Activate(true);SnowFX->Activate(true);MistFX->Activate(true);
+    bActivated=true;bNetActivated=true;UpdatePresentation(0);CloudFX->Activate(true);SnowFX->Activate(true);MistFX->Activate(true);
     DamageTick();NextDamage=CastSnapshot.TickSeconds;
 }
 void AFPSBlizzardZone::DamageTick()
 {
-    auto* Shooter=Caster.Get();auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;if(!Shooter||!Model)return;
+    if(!HasAuthority())return; // 伤害结算只在权威端
+    auto* Shooter=Caster.Get();auto* Model=NetCast::AuthorityModel(Shooter,GetGameInstance());if(!Shooter||!Model)return;
     FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_Pawn);Objects.AddObjectTypesToQuery(ECC_WorldDynamic);Objects.AddObjectTypesToQuery(ECC_PhysicsBody);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(BlizzardOverlap),false,Shooter);TArray<FOverlapResult> Overlaps;
     const float Radius=FMath::Max(CastSnapshot.RadiusX,CastSnapshot.RadiusY);
@@ -104,7 +137,7 @@ void AFPSBlizzardZone::DamageTick()
 void AFPSBlizzardZone::Finish()
 {
     if(bFinished)return;bFinished=true;
-    if(auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)Model->FinishBlizzardCast(Rewards);
+    if(auto* Model=NetCast::AuthorityModel(Caster.Get(),GetGameInstance()))Model->FinishBlizzardCast(Rewards);
 }
 void AFPSBlizzardZone::SpawnChunk()
 {
@@ -199,6 +232,16 @@ void AFPSBlizzardZone::UpdatePresentation(float Delta)
 void AFPSBlizzardZone::Tick(float Delta)
 {
     Super::Tick(Delta);
+    // 远端副本：等复制字段就位后自建表现壳；只演风暴，不跑伤害。
+    if(!HasAuthority())
+    {
+        NetInit();
+        if(!bNetInit)return;
+        Age+=Delta;
+        UpdatePresentation(Delta);
+        if(Age>=CastSnapshot.Duration+.6f)Destroy();
+        return;
+    }
     const auto* Shooter=Caster.Get();const auto* Health=Shooter?Shooter->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
     if(!Shooter||(Health&&Health->IsDead())){Destroy();return;}
     if(!bActivated)return;
@@ -208,6 +251,18 @@ void AFPSBlizzardZone::Tick(float Delta)
     {DamageTick();NextDamage+=CastSnapshot.TickSeconds;}
     if(Age>=CastSnapshot.Duration)Finish();
     UpdatePresentation(Delta);if(Age>=CastSnapshot.Duration+.6f)Destroy();
+}
+// 远端副本初始化：复制字段就位后自载资产并复用 InitializeZone 建表现壳。
+void AFPSBlizzardZone::NetInit()
+{
+    if(bNetInit||!NetCaster||NetCast.RadiusX<=0)return;
+    if(NetCloudHeight<=0)return; // 首包可能尚未全到
+    TArray<TObjectPtr<UObject>> Assets;
+    const TCHAR* const* Paths=ZoneAssetPaths();
+    for(int32 I=0;I<15;++I){UObject* Asset=LoadObject<UObject>(nullptr,Paths[I]);if(!Asset)return;Assets.Add(Asset);}
+    if(!InitializeZone(NetCaster,NetCast,NetCenter,NetNormal,NetAxis,Assets))return;
+    bNetInit=true;
+    if(bNetActivated){bActivated=true;CloudFX->Activate(true);SnowFX->Activate(true);MistFX->Activate(true);}
 }
 void AFPSBlizzardZone::EndPlay(EEndPlayReason::Type Reason)
 {

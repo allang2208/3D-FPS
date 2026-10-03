@@ -1,0 +1,37 @@
+{
+  "base": {
+    "asset": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload_empty.A_A762_reload_empty",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\base\\A_A762_reload_empty.fbx",
+    "saved": true,
+    "original_package": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\Before\\Weapons\\A762\\Integrated20260920\\Animations\\A_A762_reload_empty.uasset",
+    "game_tested": false
+  },
+  "angled": {
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_reload_empty.A_A762_angled_reload_empty",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\angled\\A_A762_angled_reload_empty.fbx",
+    "saved": true,
+    "original_package": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\Before\\Weapons\\A762\\Accessories05\\Animations\\angled\\A_A762_angled_reload_empty.uasset",
+    "game_tested": false
+  },
+  "vertical": {
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_reload_empty.A_A762_vertical_reload_empty",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\vertical\\A_A762_vertical_reload_empty.fbx",
+    "saved": true,
+    "original_package": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\Before\\Weapons\\A762\\Accessories05\\Animations\\vertical\\A_A762_vertical_reload_empty.uasset",
+    "game_tested": false
+  },
+  "prism": {
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_reload_empty.A_A762_prism_reload_empty",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\prism\\A_A762_prism_reload_empty.fbx",
+    "saved": true,
+    "original_package": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\Before\\Weapons\\A762\\Accessories05\\Animations\\prism\\A_A762_prism_reload_empty.uasset",
+    "game_tested": false
+  },
+  "canted": {
+    "asset": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_reload_empty.A_A762_canted_reload_empty",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\canted\\A_A762_canted_reload_empty.fbx",
+    "saved": true,
+    "original_package": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762RightCharge20260922\\Before\\Weapons\\A762\\Accessories05\\Animations\\canted\\A_A762_canted_reload_empty.uasset",
+    "game_tested": false
+  }
+}

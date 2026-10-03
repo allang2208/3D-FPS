@@ -1,0 +1,112 @@
+{
+  "SVD/base": {
+    "asset": "/Game/Weapons/SVDDragunov20260922/Complete20260923/Animations/A_SVD_quick_melee.A_SVD_quick_melee",
+    "saved": true,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Animations\\SVD\\A_SVD_quick_melee.fbx",
+    "fps": 240,
+    "duration": 0.8999999761581421,
+    "before": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Before\\Weapons\\SVDDragunov20260922\\Complete20260923\\Animations\\A_SVD_quick_melee.uasset",
+    "before_sha256": "857dd50d8dfef396566924d7245377a8ca2d9800850402553643284aa3ebbc6e",
+    "source_sha256": "14230c9481b56b192c3e30b419820a7ee74c6debdde99a91d8a90f4a39e5d948",
+    "game_tested": false
+  },
+  "PKM/base": {
+    "asset": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_quick_melee.A_PKM_quick_melee",
+    "saved": true,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Animations\\PKM\\A_PKM_quick_melee.fbx",
+    "fps": 240,
+    "duration": 0.8999999761581421,
+    "before": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Before\\Weapons\\PKMLowpoly20260922\\Animations\\A_PKM_quick_melee.uasset",
+    "before_sha256": "456e9e760b2ca50a452be8dd0d44ec63848118a9ca286dcdb2b34ea0349209be",
+    "source_sha256": "be8f158df999eb3bb49e9a16f2dc1eb8a7fca41543b8b9f71d379596574cb993",
+    "game_tested": false
+  },
+  "SVD/vertical": {
+    "asset": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_vertical_quick_melee.A_SVD_vertical_quick_melee",
+    "saved": true,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Animations\\SVD\\A_SVD_vertical_quick_melee.fbx",
+    "fps": 240,
+    "duration": 0.8999999761581421,
+    "before": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Before\\Weapons\\SVDDragunov20260922\\Accessories20260923\\Animations\\A_SVD_vertical_quick_melee.uasset",
+    "before_sha256": "17bf3dac3572ed5068cbe802cd6d3031ec649174914e8e79eabc6b7f0829b7ea",
+    "source_sha256": "84c44cb8c1cea6d5297682a22a1552dcdc02682cc8ef9f7f11a8a9eb95d8f52e",
+    "game_tested": false
+  },
+  "SVD/canted": {
+    "asset": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_canted_quick_melee.A_SVD_canted_quick_melee",
+    "saved": true,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Animations\\SVD\\A_SVD_canted_quick_melee.fbx",
+    "fps": 240,
+    "duration": 0.8999999761581421,
+    "before": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Before\\Weapons\\SVDDragunov20260922\\Accessories20260923\\Animations\\A_SVD_canted_quick_melee.uasset",
+    "before_sha256": "4d081cc875ea37cd1ad1cb44f76bdcab79b8b82904422387c3b972287cc16e86",
+    "source_sha256": "fefe869376591eded572016b06714eb268e4887baac9fa257afa6d9b7b08ccbc",
+    "game_tested": false
+  },
+  "SVD/prism": {
+    "asset": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_prism_quick_melee.A_SVD_prism_quick_melee",
+    "saved": true,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Animations\\SVD\\A_SVD_prism_quick_melee.fbx",
+    "fps": 240,
+    "duration": 0.8999999761581421,
+    "before": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Before\\Weapons\\SVDDragunov20260922\\Accessories20260923\\Animations\\A_SVD_prism_quick_melee.uasset",
+    "before_sha256": "f7b4cd05f23925e5713d5d68f692c6797507e205745ab7fd8547fd25e3bf19a4",
+    "source_sha256": "b2d4ee0faf4f3fb4c4f201c124edaffa034fe1e73fc1215afeb8a1948005cdee",
+    "game_tested": false
+  },
+  "SVD/angled": {
+    "asset": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Animations/A_SVD_angled_quick_melee.A_SVD_angled_quick_melee",
+    "saved": true,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Animations\\SVD\\A_SVD_angled_quick_melee.fbx",
+    "fps": 240,
+    "duration": 0.8999999761581421,
+    "before": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Before\\Weapons\\SVDDragunov20260922\\Accessories20260923\\Animations\\A_SVD_angled_quick_melee.uasset",
+    "before_sha256": "9aa18ce982a192e4350dd92f47ff3427f7d06e475a26f2eae2d16ac5df0da0c7",
+    "source_sha256": "9240035ae995a2c82db29ee8ba84d51e43e98bea558ac173e8fc2c6156170f30",
+    "game_tested": false
+  },
+  "PKM/vertical": {
+    "asset": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_quick_melee.A_PKM_vertical_quick_melee",
+    "saved": true,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Animations\\PKM\\A_PKM_vertical_quick_melee.fbx",
+    "fps": 240,
+    "duration": 0.8999999761581421,
+    "before": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Before\\Weapons\\PKMLowpoly20260922\\Accessories14\\Animations\\vertical\\A_PKM_vertical_quick_melee.uasset",
+    "before_sha256": "a25e700fab4c3499963174dc20a8481f9b16790cc184d871dd6d5e9b3f916cb7",
+    "source_sha256": "3dd51d2f703fd8a475a14d2b6296b012a6c302cbbf725167bc316d6e880f4c0d",
+    "game_tested": false
+  },
+  "PKM/canted": {
+    "asset": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_quick_melee.A_PKM_canted_quick_melee",
+    "saved": true,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Animations\\PKM\\A_PKM_canted_quick_melee.fbx",
+    "fps": 240,
+    "duration": 0.8999999761581421,
+    "before": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Before\\Weapons\\PKMLowpoly20260922\\Accessories14\\Animations\\canted\\A_PKM_canted_quick_melee.uasset",
+    "before_sha256": "f587ccc1fd089efc67ae3a6ad1358cf1fac3bc0bbb9941d1784fed61ec85787d",
+    "source_sha256": "1a37385d7b80f2173793bffd9e30c483d54d2fb64dcdb404f8c5885546ddd9c0",
+    "game_tested": false
+  },
+  "PKM/prism": {
+    "asset": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_quick_melee.A_PKM_prism_quick_melee",
+    "saved": true,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Animations\\PKM\\A_PKM_prism_quick_melee.fbx",
+    "fps": 240,
+    "duration": 0.8999999761581421,
+    "before": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Before\\Weapons\\PKMLowpoly20260922\\Accessories14\\Animations\\prism\\A_PKM_prism_quick_melee.uasset",
+    "before_sha256": "c27c9054d65be853157256474bad3a3bf16112ad6ae5ae122818baada06d126c",
+    "source_sha256": "5bff796ae2bc53f09119c8572bce359c9cd4af615465ca39f0accaebe5f5bf65",
+    "game_tested": false
+  },
+  "PKM/angled": {
+    "asset": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_quick_melee.A_PKM_angled_quick_melee",
+    "saved": true,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Animations\\PKM\\A_PKM_angled_quick_melee.fbx",
+    "fps": 240,
+    "duration": 0.8999999761581421,
+    "before": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleQuickMelee20260924\\Before\\Weapons\\PKMLowpoly20260922\\Accessories14\\Animations\\angled\\A_PKM_angled_quick_melee.uasset",
+    "before_sha256": "c29a2590e94887f89c1e3eda33764ea54772d55e07b1eacf948b6fc9b2903c8f",
+    "source_sha256": "65860e794eb2a907cfbb74655eb246bade4951f658112b24db4187fdc146e7d9",
+    "game_tested": false
+  }
+}

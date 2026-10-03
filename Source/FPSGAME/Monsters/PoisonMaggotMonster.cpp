@@ -1,4 +1,5 @@
 #include "PoisonMaggotMonster.h"
+#include "Net/UnrealNetwork.h"
 #include "../Skills/FPSIceWall.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
@@ -11,6 +12,7 @@
 #include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Skills/ColdSteelSkillRules.h"
 #include "Animation/AnimSequence.h"
 #include "Animation/Skeleton.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -56,6 +58,16 @@ void APoisonMaggotMonster::BeginPlay()
  if(!VisualMesh||!IdleClip||!MoveClip||!SpitClip||!DeathClip||!Combat->HitClip||!GetMesh()->GetPhysicsAsset())
  {UE_LOG(LogTemp,Error,TEXT("MAGGOT_ASSET_MISSING %s"),*GetName());SetActorTickEnabled(false);return;}
  SetState(EPoisonMaggotState::Idle);UE_LOG(LogTemp,Display,TEXT("MAGGOT_READY mesh=%s home=%s"),*VisualMesh->GetPathName(),*Home.ToString());
+}
+void APoisonMaggotMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(APoisonMaggotMonster, State);
+}
+void APoisonMaggotMonster::OnRep_State()
+{
+    // 远端副本：SetState 本身是表现内聚的（动画/移动标志），直接重放。
+    if(!HasAuthority())SetState(State);
 }
 void APoisonMaggotMonster::SetState(EPoisonMaggotState New)
 {
@@ -131,6 +143,7 @@ float APoisonMaggotMonster::TakeDamage(float Damage,const FDamageEvent& Event,AC
  {
   CorpseRagdoll->PrepareDeath(GetMesh());ClearProjectiles();Target.Reset();SetState(EPoisonMaggotState::Dying);GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);SetLifeSpan(CorpseSeconds);
   if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();
+  ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),EventInstigator,this);
   if(auto* PC=Cast<APlayerController>(EventInstigator))if(PC->IsLocalController()&&GetGameInstance()){GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);++RewardCount;}
  }
  else Combat->ReceiveHit(Applied,EventInstigator?EventInstigator->GetPawn().Get():Cast<APawn>(Causer),

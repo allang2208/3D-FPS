@@ -26,7 +26,10 @@ def add(w,f,pairs):
   if not disk(b).exists() or not disk(a).exists():
    absent.append(dict(weapon=w,family=f,role=role,base=b,authored=a));continue
   rows.append(dict(role=role,base=b,authored=a))
- if rows:MANIFEST.append(dict(weapon=w,family=f,mesh=path(MESHES[w]),asset=path('AnimationProfiles20261001/'+w+'/DA_'+f),pairs=rows))
+ if rows:
+  entry=dict(weapon=w,family=f,mesh=path(MESHES[w]),asset=path('AnimationProfiles20261001/'+w+'/DA_'+f),pairs=rows)
+  if w.startswith('ue_pit_viper2011/'):entry['author']='WeaponAnimationSharing20261002'
+  MANIFEST.append(entry)
 def q(weapon,f):
  cap=f.capitalize()
  if weapon=='M4':return path(f'M4QuickMeleeReplica20260919/{cap}/A_M4_QuickCombat_{cap}')
@@ -125,13 +128,15 @@ for k in ('Idle','Walk','Whirlwind','Equip','Inspect','Overhead','Slash1','Slash
  suffix=('/TacticalSprint20260921' if k.startswith('Sprint') else '')+'/A_RuneSword_'+k+('V5' if k=='Whirlwind' else '')
  pairs.append((k,BASE+suffix,LONG+suffix))
 add('Melee','Sword_LongGrip',pairs)
-for weapon,name in (('ue_m1911','M1911'),('ue_g18','G18'),('ue_dan_wesson715','DW715')):
+for weapon,name in (('ue_m1911','M1911'),('ue_g18','G18'),('ue_dan_wesson715','DW715'),('ue_pit_viper2011','PitViper2011')):
  for side in ('r','l'):
-  MESHES[weapon+'/Dual_'+side]=(f'G18/Integrated20260929/Dual/{side}/SK_Dual_G18_{side}' if name=='G18'
-   else f'PistolDualWield20260914/{name}/{side}/SK_Dual_{name}_{side}')
+  dual_root=(f'G18/Integrated20260929/Dual/{side}' if name=='G18'
+   else f'PitViper2011/Integrated20261002/Dual/{side}' if name=='PitViper2011'
+   else f'PistolDualWield20260914/{name}/{side}')
+  MESHES[weapon+'/Dual_'+side]=dual_root+f'/SK_Dual_{name}_{side}'
   for family in ('fitted','long'):
    def pistol(role):
-    if name=='G18':return path(f'G18/Integrated20260929/Dual/{side}/Animations/A_Dual_G18_{side}_{role}')
+    if name in ('G18','PitViper2011'):return path(dual_root+f'/Animations/A_Dual_{name}_{side}_{role}')
     return path(f'DualPistolQuickCombat20260920/SpinRecoveryV5/{name}/{side}/Animations/A_Dual_{name}_{side}_{role}')
    pairs=[]
    for role in ('quickcombat','quickcombat_empty','quickcombat_left','quickcombat_left_empty'):

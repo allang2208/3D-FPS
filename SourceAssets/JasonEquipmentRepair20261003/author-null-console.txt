@@ -1,0 +1,329 @@
+Build.bat is already running, waiting for existing script to terminate...
+[2026.10.03-04.58.54:928][  0]LogInit: Display: Running engine for game: FPSGAME
+[2026.10.03-04.58.54:928][  0]LogCore: Display: Requested channels: 'cpu,gpu,frame,log,bookmark,screenshot,region'
+[2026.10.03-04.58.54:928][  0]LogTrace: Display: Control listening on port 1985
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : platform="Windows"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : config="Development"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.8-CL-58210709"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : engineversion="5.8.3-58210709+++UE5+Release-5.8"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : enginereleaseversion="5.8.3"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : os="Windows 11 (25H2) [10.0.26200.9168] "
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : cpu="GenuineIntel|13th Gen Intel(R) Core(TM) i7-13700K"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : asan="0"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : mergedmodules="0"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : compacttset="0"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : commandline="" D:/FPS3D/FPSGAME/FPSGAME.uproject -run=pythonscript -script=D:/FPS3D/FPSGAME/Tools/PlayerBody/save_jason_equipment.py -unattended -nop4 -nosplash -nosound -NullRHI -abslog=D:/FPS3D/FPSGAME/Saved/Logs/JasonEquipmentAuthorNull20261003.log""
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : loginid="bc5c91f347bcf631eec19fa685df33d2"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : llm="0"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : zenstreaming="0"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resx="1280"
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resy="720"
+[2026.10.03-04.58.54:928][  0]LogAudio: Display: Audio Device Manager not initializing due to all audio being disabled. If this is not intentional, please check command line arguments for "-nosound".
+[2026.10.03-04.58.54:928][  0]LogConfig: Display: Loading IOS ini files took 0.03 seconds
+[2026.10.03-04.58.54:928][  0]LogConfig: Display: Loading VulkanPC ini files took 0.03 seconds
+[2026.10.03-04.58.54:928][  0]LogConfig: Display: Loading Mac ini files took 0.04 seconds
+[2026.10.03-04.58.54:928][  0]LogConfig: Display: Loading Android ini files took 0.04 seconds
+[2026.10.03-04.58.54:928][  0]LogConfig: Display: Loading Unix ini files took 0.04 seconds
+[2026.10.03-04.58.54:928][  0]LogConfig: Display: Loading TVOS ini files took 0.04 seconds
+[2026.10.03-04.58.54:928][  0]LogConfig: Display: Loading Windows ini files took 0.04 seconds
+[2026.10.03-04.58.54:928][  0]LogConfig: Display: Loading VisionOS ini files took 0.04 seconds
+[2026.10.03-04.58.54:928][  0]LogConfig: Display: Loading Linux ini files took 0.04 seconds
+[2026.10.03-04.58.54:928][  0]LogAsyncCompilation: Display: MemorySharingInfo: UsedMemory=330MiB, MaxMemoryAvailable=65018MiB
+[2026.10.03-04.58.54:928][  0]RenderDocPlugin: Display: RenderDoc plugin will not be loaded. Use '-AttachRenderDoc' on the cmd line or enable 'renderdoc.AutoAttach' in the plugin settings.
+[2026.10.03-04.58.54:928][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.03-04.58.54:928][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.03-04.58.54:928][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.03-04.58.54:928][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.03-04.58.54:928][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.03-04.58.54:928][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.03-04.58.54:928][  0]LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+[2026.10.03-04.58.54:928][  0]LogHAL: Display: Platform has ~ 32 GB [34088374272 / 34359738368 / 32], which maps to Largest [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2026.10.03-04.58.54:928][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2026.10.03-04.58.54:928][  0]LogObj: Display: Attempting to load config data for Default__DownlinkBandwidthManagerConfig before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.10.03-04.58.55:177][  0]LogObj: Display: Attempting to load config data for Default__SlateThemeManager before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.10.03-04.58.55:293][  0]LogCsvProfiler: Display: Metadata set : verbatimrhiname="Null"
+[2026.10.03-04.58.55:293][  0]LogCsvProfiler: Display: Metadata set : rhiname="Null"
+[2026.10.03-04.58.55:293][  0]LogCsvProfiler: Display: Metadata set : rhifeaturelevel="SM6"
+[2026.10.03-04.58.55:293][  0]LogCsvProfiler: Display: Metadata set : shaderplatform="PCD3D_SM6"
+[2026.10.03-04.58.55:293][  0]LogCsvProfiler: Display: Metadata set : gpu=""
+[2026.10.03-04.58.55:293][  0]LogCsvProfiler: Display: Metadata set : gpudriver=""
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -Mode=ValidatePlatforms -OutputSDKs  -AllPlatforms  -project="D:/FPS3D/FPSGAME/FPSGAME.uproject" -log="D:/FPS3D/FPSGAME/Saved/Logs/AutoSDKInfo.txt" -verbose -timestamps
+Log file: D:\FPS3D\FPSGAME\Saved\Logs\AutoSDKInfo.txt
+##PlatformValidate: Win64 VALID 10.0.22621.0
+##PlatformValidate: Mac INVALID 26.1.1
+##PlatformValidate: IOS INVALID 26.1.1
+##PlatformValidate: Android INVALID r27c
+##PlatformValidate: Linux INVALID v26_clang-20.1.8-rockylinux8
+##PlatformValidate: LinuxArm64 INVALID <UNKNOWN>
+##PlatformValidate: TVOS INVALID 26.1.1
+##PlatformValidate: VisionOS INVALID <UNKNOWN>
+Unable to find required SDK version 'MainVersion' for platform LinuxArm64. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform VisionOS. Check your SDK.json files
+Trace written to file C:\Users\allan\AppData\Local\UnrealBuildTool\Trace.uba with size 322b
+[2026.10.03-04.59.14:359][  0]LogTextureFormatASTC: Display: ASTCEnc version 5.0.1 library loaded
+[2026.10.03-04.59.14:359][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatASTC
+[2026.10.03-04.59.14:359][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatDXT
+[2026.10.03-04.59.14:359][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatETC2
+[2026.10.03-04.59.14:359][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatIntelISPCTexComp
+[2026.10.03-04.59.14:359][  0]LogTextureFormatOodle: Display: Oodle Texture TFO init; latest sdk version = 2.9.16
+[2026.10.03-04.59.14:359][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.16.dll
+[2026.10.03-04.59.14:360][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatOodle
+[2026.10.03-04.59.14:360][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatUncompressed
+[2026.10.03-04.59.14:390][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Android'
+[2026.10.03-04.59.14:407][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'IOS'
+[2026.10.03-04.59.14:426][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Linux'
+[2026.10.03-04.59.14:444][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Mac'
+[2026.10.03-04.59.14:445][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'TVOS'
+[2026.10.03-04.59.14:464][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Windows'
+[2026.10.03-04.59.14:464][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsEditor'
+[2026.10.03-04.59.14:464][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsServer'
+[2026.10.03-04.59.14:464][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsClient'
+[2026.10.03-04.59.14:464][  0]LogTargetPlatformManager: Display: Building Assets For WindowsEditor
+[2026.10.03-04.59.14:470][  0]LogAudioDebug: Display: Lib vorbis DLL was dynamically loaded.
+[2026.10.03-04.59.14:711][  0]LogDerivedDataCache: Display: ../../../Engine/DerivedDataCache/Compressed.ddp: Opened pak cache for reading. (1670 MiB)
+[2026.10.03-04.59.14:713][  0]LogZenServiceInstance: Display: Launching zen utility 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/zen.exe service status'.
+[2026.10.03-04.59.16:766][  0]LogZenServiceInstance: Display: Zen utility process has been running for 2.0 seconds without completing, still waiting...
+[2026.10.03-04.59.17:793][  0]LogZenServiceInstance: Display: Writing plugin version info to 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugin_versions.json'
+[2026.10.03-04.59.17:795][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/5.8/Saved/Zen/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.03-04.59.17:795][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.03-04.59.17:795][  0]LogZenServiceInstance: Display: Installed service at 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe' is up to date
+[2026.10.03-04.59.17:796][  0]LogZenServiceInstance: Display: Launching executable 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe', working dir 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install', data dir 'D:/FPS3D/DerivedDataCache/Zen', args '--port 8558 --data-dir D:\FPS3D\DerivedDataCache\Zen --http asio --gc-cache-duration-seconds 1209600 --gc-interval-seconds 21600 --gc-low-diskspace-threshold 2147483648 --cache-bucket-limit-overwrites --quiet --restrict-content-types --allow-external-oidctoken-exe=false --plugins-config "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugins_v1.json" --security-config-path "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/security-config.json" --owner-pid 55524  --child-id Zen_55524_Startup'
+[2026.10.03-04.59.27:801][  0]LogZenServiceInstance: Display: Waiting for ZenServer to be ready...
+[2026.10.03-04.59.32:997][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.10.03-04.59.33:003][  0]LogDerivedDataCache: Display: ZenLocal: Using ZenServer HTTP service at [::1] with namespace ue.ddc. Status: OK!.
+[2026.10.03-04.59.33:040][  0]LogDerivedDataCache: Display: D:/FPS3D/FPSGAME/../DerivedDataCache: Performance: Latency=0.05ms. RandomReadSpeed=29.07MBs, RandomWriteSpeed=317.97MBs. Assigned SpeedClass 'Local'
+[2026.10.03-04.59.33:044][  0]LogUbaHorde: Display: UBA/Horde Configuration [Uba.Provider.Horde]: Not Enabled
+[2026.10.03-04.59.33:044][  0]LogShaderCompilers: Display: No distributed shader compiler controller found
+[2026.10.03-04.59.33:044][  0]LogShaderCompilers: Display: Using 13 local workers for shader compilation
+[2026.10.03-04.59.33:060][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush
+[2026.10.03-04.59.33:064][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.03-04.59.37:906][  0]LogEditorDomain: Display: EditorDomain is Disabled
+[2026.10.03-04.59.38:144][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64Editor not found.
+[2026.10.03-04.59.38:144][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64 not found.
+[2026.10.03-04.59.38:177][  0]LogCsvProfiler: Display: Metadata set : deviceprofile="WindowsEditor"
+[2026.10.03-04.59.38:181][  0]LogStreaming: Display: FlushAsyncLoading(1): 1 QueuedPackages, 0 AsyncPackages
+[2026.10.03-04.59.38:198][  0]LogTextureEncodingSettings: Display: Texture Encode Speed: Final (cook).
+[2026.10.03-04.59.38:198][  0]LogTextureEncodingSettings: Display: Oodle Texture Encode Speed settings: Fast: RDO Off Lambda=0, Effort=Normal Final: RDO Off Lambda=0, Effort=Normal
+[2026.10.03-04.59.38:198][  0]LogTextureEncodingSettings: Display: Shared linear texture encoding: Disabled
+[2026.10.03-04.59.38:244][  0]LogMeshReduction: Display: Using QuadricMeshReduction for automatic static mesh reduction
+[2026.10.03-04.59.38:244][  0]LogMeshReduction: Display: Using SkeletalMeshReduction for automatic skeletal mesh reduction
+[2026.10.03-04.59.38:244][  0]LogMeshReduction: Display: Using ProxyLODMeshReduction for automatic mesh merging
+[2026.10.03-04.59.38:244][  0]LogMeshReduction: Display: No distributed automatic mesh merging module available
+[2026.10.03-04.59.38:446][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush
+[2026.10.03-04.59.38:451][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.03-04.59.38:451][  0]LogVirtualization: Display: VirtualizationSystem name found in ini file: None
+[2026.10.03-04.59.38:451][  0]LogVirtualization: Display: FNullVirtualizationSystem mounted, virtualization will be disabled
+[2026.10.03-04.59.38:572][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize started...
+[2026.10.03-04.59.38:575][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize took 4.189 ms
+[2026.10.03-04.59.39:369][  0]LogMetaSound: Display: MetaSound Page Target Initialized to 'Default'
+[2026.10.03-04.59.39:372][  0]LogAudio: Display: Registering Engine Module Parameter Interfaces...
+[2026.10.03-04.59.42:543][  0]LogTemp: Display: LoadHitchProbe ready: 'fpssyncload [thresholdMs]' enables it (712 modules mapped); evidence in Saved/Profiling/LoadHitch/
+[2026.10.03-04.59.43:452][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.03-04.59.43:452][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.03-04.59.44:228][  0]LogFabLauncher: Display: FabLauncher (version 0.6.0) active
+[2026.10.03-04.59.44:300][  0]LogToolsetRegistry: Display: Registering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.03-04.59.44:426][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PreLoad): 1 .ref files found, 1 referenced binaries
+[2026.10.03-04.59.44:426][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.03-04.59.44:427][  0]LogAssetRegistry: Display: FindShardedCacheFiles: 1 via .ref, 0 via migration fallback, 1 total
+[2026.10.03-04.59.44:427][  0]LogAssetRegistry: Display: LoadCacheFiles: loading 1 cache files, memory-mapping=enabled
+[2026.10.03-04.59.44:632][  0]LogAssetRegistry: Display: Asset registry cache read as 186.8 MiB from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry/CachedAssetRegistry_0_B803E1424C0D879092FB3892012C6E6E.bin (memory-mapped=yes)
+[2026.10.03-04.59.44:635][  0]LogAssetRegistry: Display: AssetDataGatherer spent 0.209s loading caches from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry.
+[2026.10.03-04.59.44:866][  0]LogGameFeatures: Display: Total built in plugin load time 0.0016s
+[2026.10.03-04.59.44:885][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2026.10.03-04.59.45:032][  0]LogPython: Display: No pip-enabled plugins with python dependencies found, skipping
+[2026.10.03-04.59.45:203][  0]LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-04.59.45:203][  0]LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-04.59.45:205][  0]LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-04.59.45:208][  0]LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-04.59.45:208][  0]LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-04.59.45:279][  0]LogCsvProfiler: Display: Metadata set : raytracing="0"
+[2026.10.03-04.59.45:456][  0]LogToolsetRegistry: Display: Registering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.03-04.59.45:458][  0]LogToolsetRegistry: Display: Registering Toolset ConfigSettingsToolset.ConfigSettingsToolset
+[2026.10.03-04.59.45:462][  0]LogToolsetRegistry: Display: Registering Toolset DataflowAgent.DataflowAgentToolset
+[2026.10.03-04.59.45:463][  0]LogToolsetRegistry: Display: Registering Toolset DataRegistryToolset.DataRegistryTools
+[2026.10.03-04.59.45:467][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.EditorAppToolset
+[2026.10.03-04.59.45:467][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.LogsToolset
+[2026.10.03-04.59.45:468][  0]LogToolsetRegistry: Display: Registering Toolset GameFeaturesToolset.GameFeaturesToolset
+[2026.10.03-04.59.45:471][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.GameplayCueToolset
+[2026.10.03-04.59.45:471][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AttributeSetToolset
+[2026.10.03-04.59.45:471][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AbilitySystemInspectorToolset
+[2026.10.03-04.59.45:473][  0]LogToolsetRegistry: Display: Registering Toolset GameplayTagsToolset.GameplayTagsToolset
+[2026.10.03-04.59.45:473][  0]LogToolsetRegistry: Display: Registering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.03-04.59.45:478][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Info
+[2026.10.03-04.59.45:481][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Component
+[2026.10.03-04.59.45:481][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Blueprint
+[2026.10.03-04.59.45:495][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_System
+[2026.10.03-04.59.45:495][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Assets
+[2026.10.03-04.59.45:501][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGToolset
+[2026.10.03-04.59.45:501][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGSpatialToolset
+[2026.10.03-04.59.45:504][  0]LogToolsetRegistry: Display: Registering Toolset PhysicsToolsets.PhysicsAssetToolset
+[2026.10.03-04.59.45:506][  0]LogToolsetRegistry: Display: Registering Toolset SemanticSearchToolset.SemanticSearchToolset
+[2026.10.03-04.59.45:508][  0]LogToolsetRegistry: Display: Registering Toolset PluginToolset.PluginToolset
+[2026.10.03-04.59.45:509][  0]LogToolsetRegistry: Display: Registering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.03-04.59.45:514][  0]LogToolsetRegistry: Display: Registering Toolset WorldConditionsToolset.WorldConditionTools
+[2026.10.03-04.59.45:520][  0]LogToolsetRegistry: Display: Registering Toolset UMGToolSet.UMGToolSet
+[2026.10.03-04.59.45:552][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-04.59.45:889][  0]LogToolsetRegistry: Display: Registering Toolset state_tree_toolset.toolsets.state_tree.StateTreeTools
+[2026.10.03-04.59.45:889][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… took 336.917 ms
+[2026.10.03-04.59.45:889][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… started...
+[2026.10.03-04.59.45:928][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… took 39.979 ms (total: 376.897 ms)
+[2026.10.03-04.59.45:928][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-04.59.46:119][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.actor.ActorTools
+[2026.10.03-04.59.46:120][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.asset.AssetTools
+[2026.10.03-04.59.46:123][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.blueprint.BlueprintTools
+[2026.10.03-04.59.46:123][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.curve_table.CurveTableTools
+[2026.10.03-04.59.46:123][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_asset.DataAssetTools
+[2026.10.03-04.59.46:123][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_table.DataTableTools
+[2026.10.03-04.59.46:124][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material.MaterialTools
+[2026.10.03-04.59.46:125][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material_instance.MaterialInstanceTools
+[2026.10.03-04.59.46:125][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.object.ObjectTools
+[2026.10.03-04.59.46:126][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.primitive.PrimitiveTools
+[2026.10.03-04.59.46:127][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.scene.SceneTools
+[2026.10.03-04.59.46:128][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.skeletal_mesh.SkeletalMeshTools
+[2026.10.03-04.59.46:129][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.static_mesh.StaticMeshTools
+[2026.10.03-04.59.46:129][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.string_table.StringTableTools
+[2026.10.03-04.59.46:129][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.programmatic.ProgrammaticToolset
+[2026.10.03-04.59.46:129][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.texture.TextureTools
+[2026.10.03-04.59.46:129][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… took 201.207 ms (total: 578.104 ms)
+[2026.10.03-04.59.46:129][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-04.59.46:149][  0]LogToolsetRegistry: Display: Registering Toolset conversation_toolset.toolsets.conversation.ConversationTools
+[2026.10.03-04.59.46:149][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… took 20.076 ms (total: 598.181 ms)
+[2026.10.03-04.59.46:150][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-04.59.46:212][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig.ControlRigTools
+[2026.10.03-04.59.46:217][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.sequencer.SequencerTools
+[2026.10.03-04.59.46:219][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.keyframing.SequencerKeyframingTools
+[2026.10.03-04.59.46:222][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig_sequencer.SequencerControlRigTools
+[2026.10.03-04.59.46:222][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.outliner.SequencerOutlinerTools
+[2026.10.03-04.59.46:222][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.conditions.SequencerConditionTools
+[2026.10.03-04.59.46:223][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.custom_bindings.SequencerCustomBindingTools
+[2026.10.03-04.59.46:223][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.import_export.SequencerImportExportTools
+[2026.10.03-04.59.46:341][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… took 190.337 ms (total: 788.519 ms)
+[2026.10.03-04.59.46:341][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-04.59.46:361][  0]LogToolsetRegistry: Display: Registering Toolset aimodule_toolset.toolsets.behavior_tree.BehaviorTreeTools
+[2026.10.03-04.59.46:361][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… took 19.981 ms (total: 808.500 ms)
+[2026.10.03-04.59.46:361][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… started...
+[2026.10.03-04.59.46:365][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… took 3.877 ms (total: 812.378 ms)
+[2026.10.03-04.59.46:365][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… started...
+[2026.10.03-04.59.46:401][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… took 37.285 ms (total: 849.663 ms)
+[2026.10.03-04.59.46:402][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… started...
+[2026.10.03-04.59.46:417][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… took 15.345 ms (total: 865.008 ms)
+[2026.10.03-04.59.46:417][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… started...
+[2026.10.03-04.59.46:492][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… took 75.252 ms (total: 940.261 ms)
+[2026.10.03-04.59.46:492][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… started...
+[2026.10.03-04.59.46:492][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… took 106 us (total: 940.367 ms)
+[2026.10.03-04.59.46:492][  0]LogPythonScriptCommandlet: Display: Running Python script: D:/FPS3D/FPSGAME/Tools/PlayerBody/save_jason_equipment.py
+[2026.10.03-04.59.46:768][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SKM_Jason_body）……
+[2026.10.03-04.59.47:084][  0]LogSkeletalMesh: Display: [AssetLog] D:\FPS3D\FPSGAME\Content\Characters\ModularOutfit20260924\FieldSweaterSurfaceRepair20260930\Body\SK_Body_FieldSweater.uasset: Fix some section data of this asset for lod 1. Verify all sections of this mesh are ok and save the asset to fix this issue.
+[2026.10.03-04.59.47:084][  0]LogSkeletalMesh: Display: [AssetLog] D:\FPS3D\FPSGAME\Content\Characters\ModularOutfit20260924\FieldSweaterSurfaceRepair20260930\Body\SK_Body_FieldSweater.uasset: Fix some section data of this asset for lod 2. Verify all sections of this mesh are ok and save the asset to fix this issue.
+[2026.10.03-04.59.47:100][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_FieldSweater）……
+[2026.10.03-04.59.47:556][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater”
+[2026.10.03-04.59.47:897][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater）……
+[2026.10.03-04.59.48:030][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweaterComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-04.59.49:743][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater）……
+[2026.10.03-04.59.49:875][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweaterComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-04.59.51:603][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file loaded D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.03-04.59.51:849][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_Charcoal）……
+[2026.10.03-04.59.52:319][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater_charcoal”
+[2026.10.03-04.59.52:566][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater_charcoal）……
+[2026.10.03-04.59.52:657][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater_charcoal.SK_Jason_ue_field_sweater_charcoalComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-04.59.53:948][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater_charcoal）……
+[2026.10.03-04.59.54:036][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater_charcoal.SK_Jason_ue_field_sweater_charcoalComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-04.59.55:092][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves”
+[2026.10.03-04.59.55:291][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves.SK_Jason_ue_field_glovesComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-04.59.55:292][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves）……
+[2026.10.03-04.59.56:369][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves.SK_Jason_ue_field_glovesComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-04.59.56:371][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves）……
+[2026.10.03-04.59.57:197][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_BlackLeatherDetail）……
+[2026.10.03-04.59.57:366][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves_black”
+[2026.10.03-04.59.57:642][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves_black）……
+[2026.10.03-04.59.59:555][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves_black）……
+[2026.10.03-05.00.01:084][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_original_gloves”
+[2026.10.03-05.00.01:356][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_original_gloves）……
+[2026.10.03-05.00.03:127][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_original_gloves）……
+[2026.10.03-05.00.04:701][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_Steel_Detail）……
+[2026.10.03-05.00.05:651][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_steel_gauntlets”
+[2026.10.03-05.00.07:098][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_steel_gauntlets）……
+[2026.10.03-05.00.07:394][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_steel_gauntlets.SK_Jason_ue_steel_gauntletsComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-05.00.16:771][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_steel_gauntlets）……
+[2026.10.03-05.00.17:065][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_steel_gauntlets.SK_Jason_ue_steel_gauntletsComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-05.00.23:012][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_steel_gauntlets）……
+[2026.10.03-05.00.23:525][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_chainmail_shirt”
+[2026.10.03-05.00.23:854][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_chainmail_shirt）……
+[2026.10.03-05.00.23:986][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_chainmail_shirt.SK_Jason_ue_chainmail_shirtComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-05.00.25:696][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_chainmail_shirt）……
+[2026.10.03-05.00.25:829][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_chainmail_shirt.SK_Jason_ue_chainmail_shirtComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-05.00.27:336][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Base”
+[2026.10.03-05.00.27:705][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_Base）……
+[2026.10.03-05.00.30:614][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_Base）……
+[2026.10.03-05.00.32:462][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_Base）……
+[2026.10.03-05.00.32:494][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_Base）……
+[2026.10.03-05.00.32:739][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/M_SovietBackpack_Fitted”
+[2026.10.03-05.00.32:740][  0]LogPython: Warning: D:/FPS3D/FPSGAME/Tools/PlayerBody/save_jason_equipment.py:76: DeprecationWarning: MaterialEditingLibrary: Function 'set_material_usage' on 'MaterialEditingLibrary' is deprecated: Use SetBaseMaterialUsage instead
+  u.MaterialEditingLibrary.set_material_usage(mat,u.MaterialUsage.MATUSAGE_SKELETAL_MESH)
+
+[2026.10.03-05.00.32:740][  0]LogMaterial: Display: Material /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/M_SovietBackpack_Fitted.M_SovietBackpack_Fitted needed to set usage flag SkeletalMesh
+[2026.10.03-05.00.32:800][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SM_SovietBackpack_Corrected”
+[2026.10.03-05.00.32:967][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SovietBackpack_Corrected（所需内存估计：69.503887MB）…
+[2026.10.03-05.00.32:982][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SM_SovietBackpack_Corrected）……
+[2026.10.03-05.00.33:976][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SM_SovietBackpack_Corrected）……
+[2026.10.03-05.00.34:300][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack”
+[2026.10.03-05.00.34:301][  0]LogGeometry: Error: CreateNewSkeletalMeshAssetFromMeshLODs：LOD 0没有蒙皮权重属性 [Called from: /Script/GeometryScriptingEditor.GeometryScriptLibrary_CreateNewAssetFunctions.CreateNewSkeletalMeshAssetFromMesh]
+[2026.10.03-05.00.34:301][  0]LogPython: Error: Traceback (most recent call last):
+[2026.10.03-05.00.34:301][  0]LogPython: Error:   File "D:/FPS3D/FPSGAME/Tools/PlayerBody/save_jason_equipment.py", line 93, in <module>
+[2026.10.03-05.00.34:301][  0]LogPython: Error:     save_skeletal('backpack',dm,data['materials'],DEST+'/SK_Jason_Backpack',lods=False)
+[2026.10.03-05.00.34:301][  0]LogPython: Error:   File "D:/FPS3D/FPSGAME/Tools/PlayerBody/save_jason_equipment.py", line 39, in save_skeletal
+[2026.10.03-05.00.34:301][  0]LogPython: Error:     if status!=u.GeometryScriptOutcomePins.SUCCESS or not asset:raise RuntimeError('Skeletal authoring failed '+path)
+[2026.10.03-05.00.34:301][  0]LogPython: Error:                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026.10.03-05.00.34:301][  0]LogPython: Error: RuntimeError: Skeletal authoring failed /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack
+[2026.10.03-05.00.34:301][  0]LogPythonScriptCommandlet: Error: Python script executed with errors
+[2026.10.03-05.00.34:301][  0]LogInit: Display: 
+[2026.10.03-05.00.34:301][  0]LogInit: Display: Warning/Error Summary (Unique only)
+[2026.10.03-05.00.34:301][  0]LogInit: Display: -----------------------------------
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogGeometry: Error: CreateNewSkeletalMeshAssetFromMeshLODs：LOD 0没有蒙皮权重属性 [Called from: /Script/GeometryScriptingEditor.GeometryScriptLibrary_CreateNewAssetFunctions.CreateNewSkeletalMeshAssetFromMesh]
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPython: Error: Traceback (most recent call last):
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPython: Error:   File "D:/FPS3D/FPSGAME/Tools/PlayerBody/save_jason_equipment.py", line 93, in <module>
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPython: Error:     save_skeletal('backpack',dm,data['materials'],DEST+'/SK_Jason_Backpack',lods=False)
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPython: Error:   File "D:/FPS3D/FPSGAME/Tools/PlayerBody/save_jason_equipment.py", line 39, in save_skeletal
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPython: Error:     if status!=u.GeometryScriptOutcomePins.SUCCESS or not asset:raise RuntimeError('Skeletal authoring failed '+path)
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPython: Error:                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPython: Error: RuntimeError: Skeletal authoring failed /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPythonScriptCommandlet: Error: Python script executed with errors
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater”
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater_charcoal”
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves”
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves_black”
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_original_gloves”
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_steel_gauntlets”
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_chainmail_shirt”
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Base”
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/M_SovietBackpack_Fitted”
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogPython: Warning: D:/FPS3D/FPSGAME/Tools/PlayerBody/save_jason_equipment.py:76: DeprecationWarning: MaterialEditingLibrary: Function 'set_material_usage' on 'MaterialEditingLibrary' is deprecated: Use SetBaseMaterialUsage instead
+  u.MaterialEditingLibrary.set_material_usage(mat,u.MaterialUsage.MATUSAGE_SKELETAL_MESH)
+
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SM_SovietBackpack_Corrected”
+[2026.10.03-05.00.34:301][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack”
+[2026.10.03-05.00.34:301][  0]LogInit: Display: 
+[2026.10.03-05.00.34:301][  0]LogInit: Display: Commandlet->Main return this error code: -1
+[2026.10.03-05.00.34:301][  0]LogInit: Display: With 9 error(s), 17 warning(s)
+[2026.10.03-05.00.34:301][  0]LogInit: Display: 
+
+Execution of commandlet took:  48.75 seconds, PeakPhysMemoryMB=4612 MB, PeakVirtMemoryMB=4636 MB
+[2026.10.03-05.00.34:311][  0]LogToolsetRegistry: Display: Unregistering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.03-05.00.34:311][  0]LogToolsetRegistry: Display: Unregistering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.03-05.00.34:311][  0]LogToolsetRegistry: Display: Unregistering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.03-05.00.34:311][  0]LogToolsetRegistry: Display: Unregistering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.03-05.00.34:413][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PostWrite): 1 .ref files found, 1 referenced binaries
+[2026.10.03-05.00.34:413][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.03-05.00.34:679][  0]LogShaderCompilers: Display: Exiting ShaderCompilingThread
+[2026.10.03-05.00.34:737][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file saved D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.03-05.00.34:751][  0]LogToolsetRegistry: Warning: IsAvailable: Editor is not available
+[2026.10.03-05.00.34:761][  0]LogTemp: Display: LoadHitchProbe summary: 112 sync-load entries seen, 0 recorded to (nothing)

@@ -1,0 +1,40 @@
+{
+  "SVD": {
+    "modifiers": [
+      {
+        "mesh": "SK_Manny_Arms_Export",
+        "preserve_volume": false,
+        "vertices": 20326
+      }
+    ],
+    "relative_rolls": {
+      "upperarm_twist_01_r": 0.0,
+      "upperarm_twist_02_r": 0.0,
+      "lowerarm_twist_01_r": 248.9938361376581,
+      "lowerarm_twist_02_r": 324.8456004669375,
+      "upperarm_twist_01_l": 0.0,
+      "upperarm_twist_02_l": 0.0,
+      "lowerarm_twist_01_l": 102.84008890307541,
+      "lowerarm_twist_02_l": 81.07496708790748
+    }
+  },
+  "PKM": {
+    "modifiers": [
+      {
+        "mesh": "SK_Manny_Arms_Export",
+        "preserve_volume": false,
+        "vertices": 20326
+      }
+    ],
+    "relative_rolls": {
+      "upperarm_twist_01_r": 0.0,
+      "upperarm_twist_02_r": 0.0,
+      "lowerarm_twist_01_r": 104.85939335236205,
+      "lowerarm_twist_02_r": 284.23676535173774,
+      "upperarm_twist_01_l": 0.0,
+      "upperarm_twist_02_l": 0.0,
+      "lowerarm_twist_01_l": 65.07246905187489,
+      "lowerarm_twist_02_l": 19.629278970582074
+    }
+  }
+}

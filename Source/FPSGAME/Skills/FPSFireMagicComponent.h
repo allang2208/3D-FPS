@@ -30,10 +30,15 @@ public:
     void OnWeaponHit(AActor* Target,const FVector& Point);
     void NotifyMeteorImpact(const FVector& Point);
     void GetCameraMotion(FVector& Location,FRotator& Rotation) const;
+    // ── 联机 ──
+    bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow);
+    void NetCastRejected(uint8 Phase,uint8 Code);
+    void NetCastCancelled(uint8 Phase);
 protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
     virtual void EndPlay(EEndPlayReason::Type Reason) override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 private:
     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> AuraSystem;
     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> WeaponSystem;
@@ -69,4 +74,10 @@ private:
     void Sparks(const FVector& Point);
     FVector PreviousWeaponBase=FVector::ZeroVector,PreviousWeaponTip=FVector::ZeroVector;
     bool bWeaponSampleValid=false;
+    // ── 联机：焰甲激活态复制——远端副本仅演火环/武器火，伤害结算留在服务端 ──
+    UPROPERTY(ReplicatedUsing=OnRep_Armor) bool bNetArmor=false;
+    UPROPERTY(Replicated) FFireMagicCast NetArmorCast;
+    UFUNCTION() void OnRep_Armor();
+    bool bNetPaid=false;
+    void SpawnArmorFX();
 };

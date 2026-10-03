@@ -25,3 +25,4 @@ if ($editors) {
 }
 if ($LASTEXITCODE -ne 0) { throw 'Asset import did not finish; catalog not activated.' }
 Write-Output '[done] Bow locomotion animation import finished; activate saved clips next.'
+

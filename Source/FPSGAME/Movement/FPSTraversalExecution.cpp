@@ -59,7 +59,7 @@ void UFPSTraversalComponent::SetWeaponHiddenForTraversal(bool bHidden)
 void UFPSTraversalComponent::InitializePresentation()
 {
     auto* C=Cast<AFPSGAMECharacter>(GetOwner());
-    if (!C || GetNetMode()!=NM_Standalone) return;
+    if (!C || GetNetMode()==NM_Client) return;
     const auto* S=GetDefault<UFPSTraversalSettings>();
     auto* Mesh=S->ArmsMesh.LoadSynchronous();
     VaultClip=S->VaultAnimation.LoadSynchronous(); MantleClip=S->MantleAnimation.LoadSynchronous(); ClimbClip=S->ClimbAnimation.LoadSynchronous();
@@ -81,7 +81,7 @@ bool UFPSTraversalComponent::TryStart(bool bAvailable, bool bLogRejection)
     auto* C=Cast<AFPSGAMECharacter>(GetOwner());
     if (C && C->IsDodging()) return false;
     InspectJump(bAvailable && C && C->Controller && !C->Controller->IsMoveInputIgnored());
-    if (!C || !Arms || GetNetMode()!=NM_Standalone) return false;
+    if (!C || !Arms || GetNetMode()==NM_Client) return false;
     const auto& T=LastJumpTarget;
     const bool bVault=T.Action==EFPSTraversalAction::Vault;
     const bool bHigh=T.Probe.Height>GetDefault<UFPSTraversalSettings>()->VaultMaxHeight;

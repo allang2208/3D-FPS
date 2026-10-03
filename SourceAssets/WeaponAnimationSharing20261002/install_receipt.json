@@ -1,0 +1,203 @@
+{
+ "profiles": {
+  "ue_pit_viper2011/Dual_r/fitted": {
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_pit_viper2011/Dual_r/DA_fitted",
+   "saved": true,
+   "pending_native_api": [],
+   "retained": [],
+   "replaced": [
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_fitted",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_fitted_empty",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_fitted",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_fitted_empty"
+   ],
+   "inputs": {
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat": "282db7a04d188a97d05bd90b07409c5e09600edc7ade35f6a90d522051ae61ce",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_fitted": "6fd3b2fbecf2fe80721d009600c25cd08015422620d443af3a5d218dc6439745",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_empty": "745a8c412e7a85484f6fea2a47effa246dac748e41a1551e414b346c48b99d5a",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_fitted_empty": "8b5f8cd0030be7a558d6030cf7ecaa593f0bb9f5e874ec750c6ad1f927f069de",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left": "1991d64de4324cce99981d723711a4f50483fc79c57fb388e94d3d2f1c0f6fb9",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_fitted": "eff56f46f66a879d6c0194949cd5cf93c8dbd159f36182c253d851a2dd46c1af",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_empty": "8cc54df2ac1e6dd61cf9f6144b8ce9cbd118a240f1c65fe47f88fe95575b6801",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_fitted_empty": "78260267343aabc7323cd0cdb920534373d087f97f80b54db97fb33083d43faa",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r": "de3b91bf8b494b4cd976275728d5437c7efb22832a6b78198cdb119b838991a3"
+   },
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_fitted"
+    },
+    {
+     "role": "quickcombat_empty",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_empty",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_fitted_empty"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_fitted"
+    },
+    {
+     "role": "quickcombat_left_empty",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_empty",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_fitted_empty"
+    }
+   ],
+   "saved_sha256": "8feea9198871596e5c4d3d845cc82a434fdc1c2e86e8ec24787df6721e4cd923",
+   "bytes": 56569,
+   "layer_count": 4,
+   "key_count": 1052
+  },
+  "ue_pit_viper2011/Dual_r/long": {
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_pit_viper2011/Dual_r/DA_long",
+   "saved": true,
+   "pending_native_api": [],
+   "retained": [],
+   "replaced": [
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_long",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_long_empty",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_long",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_long_empty"
+   ],
+   "inputs": {
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat": "282db7a04d188a97d05bd90b07409c5e09600edc7ade35f6a90d522051ae61ce",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_long": "1e2765c9d493c528dcfa4e92d2850ca6e93d78d68d184b79311ccca00bb9c032",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_empty": "745a8c412e7a85484f6fea2a47effa246dac748e41a1551e414b346c48b99d5a",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_long_empty": "e9b55aacbf69a1185ecb080a21b366922199ec973b39e4ffa6751eb5928368cd",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left": "1991d64de4324cce99981d723711a4f50483fc79c57fb388e94d3d2f1c0f6fb9",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_long": "7dcd3c04548ed6b3e242f497412876413045ebf6046b3428747d762d60ed937c",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_empty": "8cc54df2ac1e6dd61cf9f6144b8ce9cbd118a240f1c65fe47f88fe95575b6801",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_long_empty": "338fe0e2fdd0c9cb1dffc46e9ae6f411c6b8d21405e974d31e08e06260704d88",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r": "de3b91bf8b494b4cd976275728d5437c7efb22832a6b78198cdb119b838991a3"
+   },
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_long"
+    },
+    {
+     "role": "quickcombat_empty",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_empty",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_long_empty"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_long"
+    },
+    {
+     "role": "quickcombat_left_empty",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_empty",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_left_long_empty"
+    }
+   ],
+   "saved_sha256": "588abe8a033422ebf1f826f20ad1b4bfea1ebe828992d0c078c47b3b488ed53e",
+   "bytes": 60159,
+   "layer_count": 4,
+   "key_count": 1134
+  },
+  "ue_pit_viper2011/Dual_l/fitted": {
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_pit_viper2011/Dual_l/DA_fitted",
+   "saved": true,
+   "pending_native_api": [],
+   "retained": [],
+   "replaced": [
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_fitted",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_fitted_empty",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_fitted",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_fitted_empty"
+   ],
+   "inputs": {
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat": "d4b0a900f35eabb4ff2141f285a4caaefce4bf5b5fd64ed33985cdf61ad82a9e",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_fitted": "16ac9e82007306cfca7c525007078eb07c31ea1ab6a0744fc8aaa0080963df58",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_empty": "c94184f811813b01b0ef79a67fe74c8da82bd6df0f6ac9455da3205310ab81de",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_fitted_empty": "761edc3641fe2e9f6418b50cb951c0eebe37f7c21de9f7b0ecd43cc841bf382c",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left": "83f45da117b7e7b7601075d7abc3353eab1f163e7820f3ded522af6ff64bc822",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_fitted": "be19f0f0bb95f53ad5d3efc13d54fa3606235bf60fb5648b7599d83002abce6a",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_empty": "f62259fe2fdfdc070675c527607fdf81e64153289ed4a9c0c0ce32862163a65a",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_fitted_empty": "59b878f06fb58444c23afad62e8d9c7b4d95243319aaadb22c3b79a46adf0fc2",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/SK_Dual_PitViper2011_l": "6ac7058e76cecee6761e0b9c8f527348eed0cddfe1d5f5c0086d3d81d3a7b088"
+   },
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_fitted"
+    },
+    {
+     "role": "quickcombat_empty",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_empty",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_fitted_empty"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_fitted"
+    },
+    {
+     "role": "quickcombat_left_empty",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_empty",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_fitted_empty"
+    }
+   ],
+   "saved_sha256": "796a5029a78b9ec286b041248ee16e53a15f63db52f87985e9290e1dfb155e7f",
+   "bytes": 57273,
+   "layer_count": 4,
+   "key_count": 1068
+  },
+  "ue_pit_viper2011/Dual_l/long": {
+   "asset": "/Game/Weapons/AnimationProfiles20261001/ue_pit_viper2011/Dual_l/DA_long",
+   "saved": true,
+   "pending_native_api": [],
+   "retained": [],
+   "replaced": [
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_long",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_long_empty",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_long",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_long_empty"
+   ],
+   "inputs": {
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat": "d4b0a900f35eabb4ff2141f285a4caaefce4bf5b5fd64ed33985cdf61ad82a9e",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_long": "310d962bfda3241002956bd13844b85c73860aee3900d56e321261737c1075e5",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_empty": "c94184f811813b01b0ef79a67fe74c8da82bd6df0f6ac9455da3205310ab81de",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_long_empty": "d7772c898b0db5f90d590c5f3510de67fc109aa9275eb05b2de983ca3b8b08f2",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left": "83f45da117b7e7b7601075d7abc3353eab1f163e7820f3ded522af6ff64bc822",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_long": "0fe9d7590e56195f423d45d89dadf34754583482e0de3c2eaa63566c41102fc3",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_empty": "f62259fe2fdfdc070675c527607fdf81e64153289ed4a9c0c0ce32862163a65a",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_long_empty": "3eb665c1b92dc10156eac643ee78d010bbc02167e20bb868d80e38a9b5edf7c2",
+    "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/SK_Dual_PitViper2011_l": "6ac7058e76cecee6761e0b9c8f527348eed0cddfe1d5f5c0086d3d81d3a7b088"
+   },
+   "pairs": [
+    {
+     "role": "quickcombat",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_long"
+    },
+    {
+     "role": "quickcombat_empty",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_empty",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_long_empty"
+    },
+    {
+     "role": "quickcombat_left",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_long"
+    },
+    {
+     "role": "quickcombat_left_empty",
+     "base": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_empty",
+     "authored": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/Animations/A_Dual_PitViper2011_l_quickcombat_left_long_empty"
+    }
+   ],
+   "saved_sha256": "17962e723ee79257b6169b380d8b2e29182477f2bb4786f2eafda4d6902892b2",
+   "bytes": 60423,
+   "layer_count": 4,
+   "key_count": 1140
+  }
+ },
+ "complete": true,
+ "tested": false,
+ "source_animations_changed": false
+}

@@ -1,0 +1,506 @@
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -Mode=ValidatePlatforms -OutputSDKs  -AllPlatforms  -project="D:/FPS3D/FPSGAME/FPSGAME.uproject" -log="D:/FPS3D/FPSGAME/Saved/Logs/AutoSDKInfo.txt" -verbose -timestamps
+Log file: D:\FPS3D\FPSGAME\Saved\Logs\AutoSDKInfo.txt
+##PlatformValidate: Win64 VALID 10.0.22621.0
+##PlatformValidate: Mac INVALID 26.1.1
+##PlatformValidate: IOS INVALID 26.1.1
+##PlatformValidate: Android INVALID r27c
+##PlatformValidate: Linux INVALID v26_clang-20.1.8-rockylinux8
+##PlatformValidate: LinuxArm64 INVALID <UNKNOWN>
+##PlatformValidate: TVOS INVALID 26.1.1
+##PlatformValidate: VisionOS INVALID <UNKNOWN>
+Unable to find required SDK version 'MainVersion' for platform LinuxArm64. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform VisionOS. Check your SDK.json files
+[2026.10.02-17.57.00:008][  0]LogInit: Display: Running engine for game: FPSGAME
+[2026.10.02-17.57.00:008][  0]LogCore: Display: Requested channels: 'cpu,gpu,frame,log,bookmark,screenshot,region'
+[2026.10.02-17.57.00:008][  0]LogTrace: Display: Control listening on port 1985
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : platform="Windows"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : config="Development"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.8-CL-58210709"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : engineversion="5.8.3-58210709+++UE5+Release-5.8"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : enginereleaseversion="5.8.3"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : os="Windows 11 (25H2) [10.0.26200.9168] "
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : cpu="GenuineIntel|13th Gen Intel(R) Core(TM) i7-13700K"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : asan="0"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : mergedmodules="0"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : compacttset="0"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : commandline="" D:\FPS3D\FPSGAME\FPSGAME.uproject -run=pythonscript -script=D:\FPS3D\FPSGAME\SourceAssets\StationWorkshop20261003\RefineV2\Scripts\import_assets.py -unattended -nop4 -nosplash -nosound -AllowCommandletRendering -d3d12 -abslog=D:\FPS3D\FPSGAME\SourceAssets\StationWorkshop20261003\RefineV2\Receipts\import_assets.py.log""
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : loginid="bc5c91f347bcf631eec19fa685df33d2"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : llm="0"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : zenstreaming="0"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resx="1280"
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resy="720"
+[2026.10.02-17.57.00:008][  0]LogAudio: Display: Audio Device Manager not initializing due to all audio being disabled. If this is not intentional, please check command line arguments for "-nosound".
+[2026.10.02-17.57.00:008][  0]LogConfig: Display: Loading IOS ini files took 0.03 seconds
+[2026.10.02-17.57.00:008][  0]LogConfig: Display: Loading VulkanPC ini files took 0.03 seconds
+[2026.10.02-17.57.00:008][  0]LogConfig: Display: Loading Mac ini files took 0.03 seconds
+[2026.10.02-17.57.00:008][  0]LogConfig: Display: Loading Android ini files took 0.03 seconds
+[2026.10.02-17.57.00:008][  0]LogConfig: Display: Loading Unix ini files took 0.04 seconds
+[2026.10.02-17.57.00:008][  0]LogConfig: Display: Loading TVOS ini files took 0.04 seconds
+[2026.10.02-17.57.00:008][  0]LogConfig: Display: Loading Windows ini files took 0.04 seconds
+[2026.10.02-17.57.00:008][  0]LogConfig: Display: Loading VisionOS ini files took 0.04 seconds
+[2026.10.02-17.57.00:008][  0]LogConfig: Display: Loading Linux ini files took 0.04 seconds
+[2026.10.02-17.57.00:008][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.02-17.57.00:008][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.02-17.57.00:008][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.02-17.57.00:008][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.02-17.57.00:008][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.02-17.57.00:008][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.02-17.57.00:008][  0]LogAsyncCompilation: Display: MemorySharingInfo: UsedMemory=323MiB, MaxMemoryAvailable=65018MiB
+[2026.10.02-17.57.00:008][  0]RenderDocPlugin: Display: RenderDoc plugin will not be loaded. Use '-AttachRenderDoc' on the cmd line or enable 'renderdoc.AutoAttach' in the plugin settings.
+[2026.10.02-17.57.00:008][  0]LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+[2026.10.02-17.57.00:008][  0]LogHAL: Display: Platform has ~ 32 GB [34088374272 / 34359738368 / 32], which maps to Largest [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2026.10.02-17.57.00:008][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2026.10.02-17.57.00:008][  0]LogObj: Display: Attempting to load config data for Default__DownlinkBandwidthManagerConfig before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+Trace written to file C:\Users\allan\AppData\Local\UnrealBuildTool\Trace.uba with size 316b
+[2026.10.02-17.57.00:244][  0]LogObj: Display: Attempting to load config data for Default__SlateThemeManager before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.10.02-17.57.00:907][  0]LogD3D12RHI: Display: Creating D3D12 RHI with Max Feature Level SM6
+[2026.10.02-17.57.00:914][  0]LogRHI: Display: Timeout Detection and Recovery (TDR) summary: 
+
+	- TDR using non-default settings - Level: Recover, Delay: 120, DdiDelay: 120
+[2026.10.02-17.57.01:089][  0]LogD3D12RHI: Display: Not using pipeline state disk cache per r.D3D12.PSO.DiskCache=0
+[2026.10.02-17.57.01:089][  0]LogD3D12RHI: Display: Not using driver-optimized pipeline state disk cache per r.D3D12.PSO.DriverOptimizedDiskCache=0
+[2026.10.02-17.57.01:256][  0]LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.02-17.57.01:256][  0]LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.02-17.57.01:256][  0]LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.02-17.57.01:262][  0]LogCsvProfiler: Display: Metadata set : verbatimrhiname="D3D12"
+[2026.10.02-17.57.01:262][  0]LogCsvProfiler: Display: Metadata set : rhiname="D3D12"
+[2026.10.02-17.57.01:262][  0]LogCsvProfiler: Display: Metadata set : rhifeaturelevel="SM6"
+[2026.10.02-17.57.01:262][  0]LogCsvProfiler: Display: Metadata set : shaderplatform="PCD3D_SM6"
+[2026.10.02-17.57.01:262][  0]LogCsvProfiler: Display: Metadata set : gpu="NVIDIA GeForce GTX 750 Ti"
+[2026.10.02-17.57.01:262][  0]LogCsvProfiler: Display: Metadata set : gpudriver=""
+[2026.10.02-17.57.01:267][  0]LogTextureFormatASTC: Display: ASTCEnc version 5.0.1 library loaded
+[2026.10.02-17.57.01:268][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatASTC
+[2026.10.02-17.57.01:268][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatDXT
+[2026.10.02-17.57.01:268][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatETC2
+[2026.10.02-17.57.01:268][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatIntelISPCTexComp
+[2026.10.02-17.57.01:268][  0]LogTextureFormatOodle: Display: Oodle Texture TFO init; latest sdk version = 2.9.16
+[2026.10.02-17.57.01:268][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.16.dll
+[2026.10.02-17.57.01:268][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatOodle
+[2026.10.02-17.57.01:268][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatUncompressed
+[2026.10.02-17.57.01:293][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Android'
+[2026.10.02-17.57.01:309][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'IOS'
+[2026.10.02-17.57.01:325][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Linux'
+[2026.10.02-17.57.01:341][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Mac'
+[2026.10.02-17.57.01:342][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'TVOS'
+[2026.10.02-17.57.01:359][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Windows'
+[2026.10.02-17.57.01:359][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsEditor'
+[2026.10.02-17.57.01:359][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsServer'
+[2026.10.02-17.57.01:359][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsClient'
+[2026.10.02-17.57.01:359][  0]LogTargetPlatformManager: Display: Building Assets For WindowsEditor
+[2026.10.02-17.57.01:361][  0]LogAudioDebug: Display: Lib vorbis DLL was dynamically loaded.
+[2026.10.02-17.57.01:580][  0]LogDerivedDataCache: Display: ../../../Engine/DerivedDataCache/Compressed.ddp: Opened pak cache for reading. (1670 MiB)
+[2026.10.02-17.57.01:583][  0]LogZenServiceInstance: Display: Launching zen utility 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/zen.exe service status'.
+[2026.10.02-17.57.03:629][  0]LogZenServiceInstance: Display: Zen utility process has been running for 2.0 seconds without completing, still waiting...
+[2026.10.02-17.57.04:634][  0]LogZenServiceInstance: Display: Writing plugin version info to 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugin_versions.json'
+[2026.10.02-17.57.04:635][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/5.8/Saved/Zen/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.02-17.57.04:635][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.02-17.57.04:635][  0]LogZenServiceInstance: Display: Installed service at 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe' is up to date
+[2026.10.02-17.57.04:637][  0]LogZenServiceInstance: Display: Launching executable 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe', working dir 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install', data dir 'D:/FPS3D/DerivedDataCache/Zen', args '--port 8558 --data-dir D:\FPS3D\DerivedDataCache\Zen --http asio --gc-cache-duration-seconds 1209600 --gc-interval-seconds 21600 --gc-low-diskspace-threshold 2147483648 --cache-bucket-limit-overwrites --quiet --restrict-content-types --allow-external-oidctoken-exe=false --plugins-config "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugins_v1.json" --security-config-path "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/security-config.json" --owner-pid 32904  --child-id Zen_32904_Startup'
+[2026.10.02-17.57.15:258][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.10.02-17.57.15:263][  0]LogDerivedDataCache: Display: ZenLocal: Using ZenServer HTTP service at [::1] with namespace ue.ddc. Status: OK!.
+[2026.10.02-17.57.15:266][  0]LogDerivedDataCache: Display: D:/FPS3D/FPSGAME/../DerivedDataCache: Performance: Latency=0.00ms. RandomReadSpeed=1542.02MBs, RandomWriteSpeed=333.27MBs. Assigned SpeedClass 'Local'
+[2026.10.02-17.57.15:268][  0]LogUbaHorde: Display: UBA/Horde Configuration [Uba.Provider.Horde]: Not Enabled
+[2026.10.02-17.57.15:268][  0]LogShaderCompilers: Display: No distributed shader compiler controller found
+[2026.10.02-17.57.15:268][  0]LogShaderCompilers: Display: Using 13 local workers for shader compilation
+[2026.10.02-17.57.15:275][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush
+[2026.10.02-17.57.15:276][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.02-17.57.16:764][  0]LogEditorDomain: Display: EditorDomain is Disabled
+[2026.10.02-17.57.16:983][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64Editor not found.
+[2026.10.02-17.57.16:983][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64 not found.
+[2026.10.02-17.57.17:017][  0]LogCsvProfiler: Display: Metadata set : deviceprofile="WindowsEditor"
+[2026.10.02-17.57.17:019][  0]LogStreaming: Display: FlushAsyncLoading(1): 1 QueuedPackages, 0 AsyncPackages
+[2026.10.02-17.57.17:020][  0]LogTextureEncodingSettings: Display: Texture Encode Speed: Final (cook).
+[2026.10.02-17.57.17:020][  0]LogTextureEncodingSettings: Display: Oodle Texture Encode Speed settings: Fast: RDO Off Lambda=0, Effort=Normal Final: RDO Off Lambda=0, Effort=Normal
+[2026.10.02-17.57.17:020][  0]LogTextureEncodingSettings: Display: Shared linear texture encoding: Disabled
+[2026.10.02-17.57.17:294][  0]LogMeshReduction: Display: Using QuadricMeshReduction for automatic static mesh reduction
+[2026.10.02-17.57.17:294][  0]LogMeshReduction: Display: Using SkeletalMeshReduction for automatic skeletal mesh reduction
+[2026.10.02-17.57.17:294][  0]LogMeshReduction: Display: Using ProxyLODMeshReduction for automatic mesh merging
+[2026.10.02-17.57.17:294][  0]LogMeshReduction: Display: No distributed automatic mesh merging module available
+[2026.10.02-17.57.17:489][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush
+[2026.10.02-17.57.17:489][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.02-17.57.17:489][  0]LogVirtualization: Display: VirtualizationSystem name found in ini file: None
+[2026.10.02-17.57.17:489][  0]LogVirtualization: Display: FNullVirtualizationSystem mounted, virtualization will be disabled
+[2026.10.02-17.57.17:595][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize started...
+[2026.10.02-17.57.17:597][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize took 1.532 ms
+[2026.10.02-17.57.17:943][  0]LogMetaSound: Display: MetaSound Page Target Initialized to 'Default'
+[2026.10.02-17.57.17:944][  0]LogAudio: Display: Registering Engine Module Parameter Interfaces...
+[2026.10.02-17.57.18:425][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.13.dll
+[2026.10.02-17.57.18:501][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.6.dll
+[2026.10.02-17.57.18:665][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.5.dll
+[2026.10.02-17.57.18:667][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.14.dll
+[2026.10.02-17.57.18:756][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.12.dll
+[2026.10.02-17.57.19:197][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.8.dll
+[2026.10.02-17.57.20:676][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_WitchRebuilt）……
+[2026.10.02-17.57.20:867][  0]LogTemp: Display: LoadHitchProbe ready: 'fpssyncload [thresholdMs]' enables it (742 modules mapped); evidence in Saved/Profiling/LoadHitch/
+[2026.10.02-17.57.21:695][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.02-17.57.21:695][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.02-17.57.21:819][  0]LogFabLauncher: Display: FabLauncher (version 0.6.0) active
+[2026.10.02-17.57.21:917][  0]LogToolsetRegistry: Display: Registering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.02-17.57.22:096][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.11.dll
+[2026.10.02-17.57.22:109][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.15.dll
+[2026.10.02-17.57.22:222][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PreLoad): 1 .ref files found, 1 referenced binaries
+[2026.10.02-17.57.22:222][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.02-17.57.22:222][  0]LogAssetRegistry: Display: FindShardedCacheFiles: 1 via .ref, 0 via migration fallback, 1 total
+[2026.10.02-17.57.22:222][  0]LogAssetRegistry: Display: LoadCacheFiles: loading 1 cache files, memory-mapping=enabled
+[2026.10.02-17.57.22:385][  0]LogAssetRegistry: Display: Asset registry cache read as 180.4 MiB from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry/CachedAssetRegistry_0_7026D39144E69954B8CEC287492D1D89.bin (memory-mapped=yes)
+[2026.10.02-17.57.22:389][  0]LogAssetRegistry: Display: AssetDataGatherer spent 0.166s loading caches from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry.
+[2026.10.02-17.57.22:643][  0]LogGameFeatures: Display: Total built in plugin load time 0.0007s
+[2026.10.02-17.57.22:654][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2026.10.02-17.57.22:701][  0]LogPython: Display: No pip-enabled plugins with python dependencies found, skipping
+[2026.10.02-17.57.22:879][  0]LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.57.22:882][  0]LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.57.22:884][  0]LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.57.22:885][  0]LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.57.22:885][  0]LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.57.22:945][  0]LogCsvProfiler: Display: Metadata set : raytracing="1"
+[2026.10.02-17.57.23:024][  0]LogToolsetRegistry: Display: Registering Toolset ConfigSettingsToolset.ConfigSettingsToolset
+[2026.10.02-17.57.23:025][  0]LogToolsetRegistry: Display: Registering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.02-17.57.23:026][  0]LogToolsetRegistry: Display: Registering Toolset DataflowAgent.DataflowAgentToolset
+[2026.10.02-17.57.23:029][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.EditorAppToolset
+[2026.10.02-17.57.23:029][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.LogsToolset
+[2026.10.02-17.57.23:031][  0]LogToolsetRegistry: Display: Registering Toolset DataRegistryToolset.DataRegistryTools
+[2026.10.02-17.57.23:032][  0]LogToolsetRegistry: Display: Registering Toolset GameFeaturesToolset.GameFeaturesToolset
+[2026.10.02-17.57.23:034][  0]LogToolsetRegistry: Display: Registering Toolset GameplayTagsToolset.GameplayTagsToolset
+[2026.10.02-17.57.23:036][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.GameplayCueToolset
+[2026.10.02-17.57.23:036][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AttributeSetToolset
+[2026.10.02-17.57.23:036][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AbilitySystemInspectorToolset
+[2026.10.02-17.57.23:037][  0]LogToolsetRegistry: Display: Registering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.02-17.57.23:039][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Info
+[2026.10.02-17.57.23:042][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Component
+[2026.10.02-17.57.23:042][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Blueprint
+[2026.10.02-17.57.23:056][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_System
+[2026.10.02-17.57.23:057][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Assets
+[2026.10.02-17.57.23:061][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGToolset
+[2026.10.02-17.57.23:061][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGSpatialToolset
+[2026.10.02-17.57.23:063][  0]LogToolsetRegistry: Display: Registering Toolset PluginToolset.PluginToolset
+[2026.10.02-17.57.23:065][  0]LogToolsetRegistry: Display: Registering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.02-17.57.23:066][  0]LogToolsetRegistry: Display: Registering Toolset SemanticSearchToolset.SemanticSearchToolset
+[2026.10.02-17.57.23:068][  0]LogToolsetRegistry: Display: Registering Toolset PhysicsToolsets.PhysicsAssetToolset
+[2026.10.02-17.57.23:072][  0]LogToolsetRegistry: Display: Registering Toolset WorldConditionsToolset.WorldConditionTools
+[2026.10.02-17.57.23:076][  0]LogToolsetRegistry: Display: Registering Toolset UMGToolSet.UMGToolSet
+[2026.10.02-17.57.23:094][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.57.23:141][  0]LogToolsetRegistry: Display: Registering Toolset state_tree_toolset.toolsets.state_tree.StateTreeTools
+[2026.10.02-17.57.23:141][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… took 47.690 ms
+[2026.10.02-17.57.23:141][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.57.23:145][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… took 3.632 ms (total: 51.322 ms)
+[2026.10.02-17.57.23:145][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.57.23:180][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.actor.ActorTools
+[2026.10.02-17.57.23:180][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.asset.AssetTools
+[2026.10.02-17.57.23:183][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.blueprint.BlueprintTools
+[2026.10.02-17.57.23:184][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.curve_table.CurveTableTools
+[2026.10.02-17.57.23:184][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_asset.DataAssetTools
+[2026.10.02-17.57.23:184][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_table.DataTableTools
+[2026.10.02-17.57.23:185][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material.MaterialTools
+[2026.10.02-17.57.23:186][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material_instance.MaterialInstanceTools
+[2026.10.02-17.57.23:186][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.object.ObjectTools
+[2026.10.02-17.57.23:187][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.primitive.PrimitiveTools
+[2026.10.02-17.57.23:187][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.scene.SceneTools
+[2026.10.02-17.57.23:189][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.skeletal_mesh.SkeletalMeshTools
+[2026.10.02-17.57.23:189][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.static_mesh.StaticMeshTools
+[2026.10.02-17.57.23:190][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.string_table.StringTableTools
+[2026.10.02-17.57.23:190][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.programmatic.ProgrammaticToolset
+[2026.10.02-17.57.23:190][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.texture.TextureTools
+[2026.10.02-17.57.23:190][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… took 45.216 ms (total: 96.538 ms)
+[2026.10.02-17.57.23:190][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.57.23:193][  0]LogToolsetRegistry: Display: Registering Toolset conversation_toolset.toolsets.conversation.ConversationTools
+[2026.10.02-17.57.23:193][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… took 2.877 ms (total: 99.416 ms)
+[2026.10.02-17.57.23:193][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.57.23:217][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig.ControlRigTools
+[2026.10.02-17.57.23:223][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.sequencer.SequencerTools
+[2026.10.02-17.57.23:223][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.keyframing.SequencerKeyframingTools
+[2026.10.02-17.57.23:226][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig_sequencer.SequencerControlRigTools
+[2026.10.02-17.57.23:227][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.outliner.SequencerOutlinerTools
+[2026.10.02-17.57.23:227][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.conditions.SequencerConditionTools
+[2026.10.02-17.57.23:228][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.custom_bindings.SequencerCustomBindingTools
+[2026.10.02-17.57.23:228][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.import_export.SequencerImportExportTools
+[2026.10.02-17.57.23:244][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… took 50.393 ms (total: 149.810 ms)
+[2026.10.02-17.57.23:244][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.57.23:247][  0]LogToolsetRegistry: Display: Registering Toolset aimodule_toolset.toolsets.behavior_tree.BehaviorTreeTools
+[2026.10.02-17.57.23:247][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… took 2.830 ms (total: 152.640 ms)
+[2026.10.02-17.57.23:247][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.57.23:251][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… took 4.859 ms (total: 157.500 ms)
+[2026.10.02-17.57.23:252][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.57.23:252][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… took 115 us (total: 157.616 ms)
+[2026.10.02-17.57.23:252][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.57.23:252][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… took 168 us (total: 157.784 ms)
+[2026.10.02-17.57.23:252][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.57.23:255][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… took 2.870 ms (total: 160.655 ms)
+[2026.10.02-17.57.23:255][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… started...
+[2026.10.02-17.57.23:267][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… took 12.172 ms (total: 172.828 ms)
+[2026.10.02-17.57.23:267][  0]LogPythonScriptCommandlet: Display: Running Python script: D:\FPS3D\FPSGAME\SourceAssets\StationWorkshop20261003\RefineV2\Scripts\import_assets.py
+[2026.10.02-17.57.23:278][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Textures/T_Office_KeyLegends”
+[2026.10.02-17.57.23:321][  0]LogInterchangeEngine: Display: Interchange start importing source [D:/FPS3D/FPSGAME/SourceAssets/StationWorkshop20261003/RefineV2/Authored/T_Office_KeyLegends.png]
+[2026.10.02-17.57.23:348][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/Dungeons/StationWorkshop20261003/RefineV2/Textures/T_Office_KeyLegends.T_Office_KeyLegends (TFO_AutoDXT, 2048x1024 x1x1x1)（预计所需内存：194.541648 MB）编码速度：Final
+[2026.10.02-17.57.23:360][  0]LogInterchangeEngine: Display: Interchange import completed [D:/FPS3D/FPSGAME/Sou...03/RefineV2/Authored/T_Office_KeyLegends.png]
+[2026.10.02-17.57.23:376][  0]LogTexture: Display: 正在构建纹理TwoD：/Game/Dungeons/StationWorkshop20261003/RefineV2/Textures/T_Office_KeyLegends.T_Office_KeyLegends (TFO_BC7, 2048x1024 x1x1x1)（预计所需内存：144.999968 MB）编码速度：Final
+[2026.10.02-17.57.23:596][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file loaded D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.02-17.57.23:624][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Keycaps”
+[2026.10.02-17.57.23:629][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Keycaps.M_Office_Keycaps in PCD3D_SM6, Default, SM6, Editor (DDC key hash: a3ac606cc8601a43feb657fd3d2b6dd3775168eb), compiling. 
+[2026.10.02-17.57.23:634][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Keycaps.M_Office_Keycaps in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 241f30d4ddd40371422a6a55cf4a28ce2fe12fcb), compiling. 
+[2026.10.02-17.57.23:638][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Keycaps.M_Office_Keycaps in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 03e68b3ae74f4215c061c533e3d66349058d9a0c), compiling. 
+[2026.10.02-17.57.23:642][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Keycaps.M_Office_Keycaps in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 3e32bf7e823b866ce33eaf7f035960d3673d92fe), compiling. 
+[2026.10.02-17.57.23:647][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Keycaps.M_Office_Keycaps in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 1e48bde37c6c04c1734985abb2838dba89a15f24), compiling. 
+[2026.10.02-17.57.24:707][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Legends”
+[2026.10.02-17.57.24:708][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Legends.M_Office_Legends in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 7c1f85598753b5dcaeca2f11e002d3078f66603c), compiling. 
+[2026.10.02-17.57.24:710][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Legends.M_Office_Legends in PCD3D_SM6, Default, SM6, Editor (DDC key hash: b67d2bcac9ea070591321d5a775f211cbe2bd2fd), compiling. 
+[2026.10.02-17.57.24:712][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Legends.M_Office_Legends in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 4d619d4168eea45285d047dd7e6f11636d9f90e6), compiling. 
+[2026.10.02-17.57.24:714][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Legends.M_Office_Legends in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 8208e8ba2ad0c3f396490e1b104a803ab3966604), compiling. 
+[2026.10.02-17.57.24:717][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Legends.M_Office_Legends in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 06d86f6d3f03572f2af16f6119921f80f48310fe), compiling. 
+[2026.10.02-17.57.25:488][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Display”
+[2026.10.02-17.57.25:489][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Display.M_Office_Display in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 0045d68a2ffbceebd396af310ca9dc59f67226c8), compiling. 
+[2026.10.02-17.57.25:491][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Display.M_Office_Display in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 03c64d8e275c83f0c63a8abbd1802ab5cb3175fd), compiling. 
+[2026.10.02-17.57.25:495][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Display.M_Office_Display in PCD3D_SM6, Default, SM6, Editor (DDC key hash: bc36d3a0df797cd9b10efd68789317a44bce90cd), compiling. 
+[2026.10.02-17.57.25:499][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Display.M_Office_Display in PCD3D_SM6, Default, SM6, Editor (DDC key hash: b087fb7ee1f767e83745d8a355244698073dbc56), compiling. 
+[2026.10.02-17.57.25:504][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Display.M_Office_Display in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 8ab0c9d30c54827c1e90450467a0512830028632), compiling. 
+[2026.10.02-17.57.26:160][  0]LogPython: Warning: D:/FPS3D/FPSGAME/SourceAssets/StationWorkshop20261003/RefineV2/Scripts/import_assets.py:15: DeprecationWarning: new_object: Creating an instance of an Editor subsystem has been deprecated since UE 5.2 and will be removed in the future. Use 'unreal.get_editor_subsystem(unreal.StaticMeshEditorSubsystem)' to get the subsystem instance.
+  sub=u.get_editor_subsystem(u.StaticMeshEditorSubsystem) or u.new_object(u.StaticMeshEditorSubsystem)
+
+[2026.10.02-17.57.26:160][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_NoticeSigns”
+[2026.10.02-17.57.26:183][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_NoticeSigns（所需内存估计：2.38651MB）…
+[2026.10.02-17.57.26:318][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_NoticeSigns（所需内存估计：2.38651MB）…
+[2026.10.02-17.57.26:324][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_NoticeSigns（所需内存估计：2.38651MB）…
+[2026.10.02-17.57.26:340][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_NoticeSigns）……
+[2026.10.02-17.57.26:431][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchPaper”
+[2026.10.02-17.57.26:444][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_DispatchPaper（所需内存估计：0.801046MB）…
+[2026.10.02-17.57.26:475][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_DispatchPaper（所需内存估计：0.801046MB）…
+[2026.10.02-17.57.26:484][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_DispatchPaper（所需内存估计：0.801046MB）…
+[2026.10.02-17.57.26:501][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchPaper）……
+[2026.10.02-17.57.26:532][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_OperatorMat”
+[2026.10.02-17.57.26:560][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_OperatorMat（所需内存估计：7.482942MB）…
+[2026.10.02-17.57.26:578][  0]LogStaticMesh: Display: SM_SW_OperatorMat 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.26:578][  0]LogStaticMesh: Display: SM_SW_OperatorMat 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.26:580][  0]FBXImport: Warning: SM_SW_OperatorMat 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.26:580][  0]FBXImport: Warning: SM_SW_OperatorMat 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.26:618][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_OperatorMat（所需内存估计：7.482942MB）…
+[2026.10.02-17.57.26:634][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_OperatorMat）……
+[2026.10.02-17.57.26:636][  0]LogStaticMesh: Display: SM_SW_OperatorMat 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.26:636][  0]LogStaticMesh: Display: SM_SW_OperatorMat 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.26:636][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_OperatorMat（所需内存估计：7.482942MB）…
+[2026.10.02-17.57.26:652][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_OperatorMat）……
+[2026.10.02-17.57.26:900][  0]LogStaticMesh: Display: SM_SW_OperatorMat 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.26:900][  0]LogStaticMesh: Display: SM_SW_OperatorMat 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.26:944][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Body”
+[2026.10.02-17.57.26:960][  0]LogFbx: Display: Triangulating mesh UCX_SM_SW_DispatchFiles_Body_0 for collision model
+[2026.10.02-17.57.26:961][  0]LogFbx: Display: Triangulating mesh UCX_SM_SW_DispatchFiles_Body_1 for collision model
+[2026.10.02-17.57.26:961][  0]LogFbx: Display: Triangulating mesh UCX_SM_SW_DispatchFiles_Body_2 for collision model
+[2026.10.02-17.57.26:961][  0]LogFbx: Display: Triangulating mesh UCX_SM_SW_DispatchFiles_Body_3 for collision model
+[2026.10.02-17.57.26:962][  0]LogFbx: Display: Triangulating mesh UCX_SM_SW_DispatchFiles_Body_4 for collision model
+[2026.10.02-17.57.26:962][  0]LogFbx: Display: Triangulating mesh UCX_SM_SW_DispatchFiles_Body_5 for collision model
+[2026.10.02-17.57.26:971][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_DispatchFiles_Body（所需内存估计：5.051404MB）…
+[2026.10.02-17.57.27:039][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_DispatchFiles_Body（所需内存估计：5.051404MB）…
+[2026.10.02-17.57.27:050][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_DispatchFiles_Body（所需内存估计：5.051404MB）…
+[2026.10.02-17.57.27:067][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Body）……
+[2026.10.02-17.57.27:233][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Drawer”
+[2026.10.02-17.57.27:250][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_DispatchFiles_Drawer（所需内存估计：2.535639MB）…
+[2026.10.02-17.57.27:307][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_DispatchFiles_Drawer（所需内存估计：2.535639MB）…
+[2026.10.02-17.57.27:313][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_DispatchFiles_Drawer（所需内存估计：2.535639MB）…
+[2026.10.02-17.57.27:329][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Drawer）……
+[2026.10.02-17.57.27:413][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_CartEquipment”
+[2026.10.02-17.57.27:455][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_CartEquipment（所需内存估计：12.241375MB）…
+[2026.10.02-17.57.27:580][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_CartEquipment（所需内存估计：12.241375MB）…
+[2026.10.02-17.57.27:597][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_CartEquipment）……
+[2026.10.02-17.57.27:604][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_CartEquipment（所需内存估计：12.241375MB）…
+[2026.10.02-17.57.27:621][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_CartEquipment）……
+[2026.10.02-17.57.27:964][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService”
+[2026.10.02-17.57.28:116][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_MotorService（所需内存估计：52.400892MB）…
+[2026.10.02-17.57.28:287][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService）……
+[2026.10.02-17.57.28:328][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService）……
+[2026.10.02-17.57.28:372][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService）……
+[2026.10.02-17.57.28:413][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService）……
+[2026.10.02-17.57.28:455][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService）……
+[2026.10.02-17.57.28:499][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService）……
+[2026.10.02-17.57.28:540][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService）……
+[2026.10.02-17.57.28:565][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_MotorService（所需内存估计：52.400892MB）…
+[2026.10.02-17.57.28:580][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService）……
+[2026.10.02-17.57.28:737][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_MotorService（所需内存估计：52.400892MB）…
+[2026.10.02-17.57.28:754][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService）……
+[2026.10.02-17.57.29:787][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_Electrical”
+[2026.10.02-17.57.29:820][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_Electrical（所需内存估计：8.298194MB）…
+[2026.10.02-17.57.29:836][  0]LogStaticMesh: Display: SM_SW_Electrical 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.29:836][  0]LogStaticMesh: Display: SM_SW_Electrical 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.29:837][  0]FBXImport: Warning: SM_SW_Electrical 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.29:837][  0]FBXImport: Warning: SM_SW_Electrical 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.30:020][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_Electrical（所需内存估计：8.298194MB）…
+[2026.10.02-17.57.30:036][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_Electrical）……
+[2026.10.02-17.57.30:037][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_Electrical（所需内存估计：8.298194MB）…
+[2026.10.02-17.57.30:053][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_Electrical）……
+[2026.10.02-17.57.30:281][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics”
+[2026.10.02-17.57.30:591][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_DispatchElectronics（所需内存估计：109.278142MB）…
+[2026.10.02-17.57.31:077][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics）……
+[2026.10.02-17.57.31:159][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics）……
+[2026.10.02-17.57.31:240][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics）……
+[2026.10.02-17.57.31:325][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics）……
+[2026.10.02-17.57.31:406][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics）……
+[2026.10.02-17.57.31:489][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics）……
+[2026.10.02-17.57.31:556][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics）……
+[2026.10.02-17.57.31:641][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics）……
+[2026.10.02-17.57.31:727][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics）……
+[2026.10.02-17.57.31:793][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_DispatchElectronics（所需内存估计：109.278142MB）…
+[2026.10.02-17.57.31:809][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics）……
+[2026.10.02-17.57.32:291][  0]LogStaticMesh: Display: SM_SW_DispatchElectronics 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.32:291][  0]LogStaticMesh: Display: SM_SW_DispatchElectronics 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.32:294][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_DispatchElectronics（所需内存估计：109.278142MB）…
+[2026.10.02-17.57.32:310][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics）……
+[2026.10.02-17.57.34:046][  0]LogStaticMesh: Display: SM_SW_DispatchElectronics 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.34:046][  0]LogStaticMesh: Display: SM_SW_DispatchElectronics 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.34:516][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_0”
+[2026.10.02-17.57.34:607][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_RackSpares_0（所需内存估计：30.792093MB）…
+[2026.10.02-17.57.34:827][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_RackSpares_0（所需内存估计：30.792093MB）…
+[2026.10.02-17.57.34:843][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_0）……
+[2026.10.02-17.57.34:901][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_RackSpares_0（所需内存估计：30.792093MB）…
+[2026.10.02-17.57.34:918][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_0）……
+[2026.10.02-17.57.35:444][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_1”
+[2026.10.02-17.57.35:537][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_RackSpares_1（所需内存估计：31.717575MB）…
+[2026.10.02-17.57.35:764][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_RackSpares_1（所需内存估计：31.717575MB）…
+[2026.10.02-17.57.35:781][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_1）……
+[2026.10.02-17.57.35:827][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_RackSpares_1（所需内存估计：31.717575MB）…
+[2026.10.02-17.57.35:844][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_1）……
+[2026.10.02-17.57.36:415][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_2”
+[2026.10.02-17.57.36:493][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_RackSpares_2（所需内存估计：26.007284MB）…
+[2026.10.02-17.57.36:699][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_RackSpares_2（所需内存估计：26.007284MB）…
+[2026.10.02-17.57.36:716][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_2）……
+[2026.10.02-17.57.36:765][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_RackSpares_2（所需内存估计：26.007284MB）…
+[2026.10.02-17.57.36:781][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_2）……
+[2026.10.02-17.57.37:241][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf”
+[2026.10.02-17.57.37:260][  0]LogFbx: Display: Triangulating mesh UCX_SM_SW_PersonnelLeaf_0 for collision model
+[2026.10.02-17.57.37:273][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_PersonnelLeaf（所需内存估计：7.764036MB）…
+[2026.10.02-17.57.37:286][  0]LogStaticMesh: Display: SM_SW_PersonnelLeaf 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.37:286][  0]LogStaticMesh: Display: SM_SW_PersonnelLeaf 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.37:288][  0]FBXImport: Warning: SM_SW_PersonnelLeaf 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.37:288][  0]FBXImport: Warning: SM_SW_PersonnelLeaf 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.37:387][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_PersonnelLeaf（所需内存估计：7.764036MB）…
+[2026.10.02-17.57.37:403][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf）……
+[2026.10.02-17.57.37:416][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_PersonnelLeaf（所需内存估计：7.764036MB）…
+[2026.10.02-17.57.37:432][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf）……
+[2026.10.02-17.57.37:625][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_ServiceLeaf”
+[2026.10.02-17.57.37:644][  0]LogFbx: Display: Triangulating mesh UCX_SM_SW_ServiceLeaf_0 for collision model
+[2026.10.02-17.57.37:657][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_ServiceLeaf（所需内存估计：7.764036MB）…
+[2026.10.02-17.57.37:671][  0]LogStaticMesh: Display: SM_SW_ServiceLeaf 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.37:671][  0]LogStaticMesh: Display: SM_SW_ServiceLeaf 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4）
+[2026.10.02-17.57.37:672][  0]FBXImport: Warning: SM_SW_ServiceLeaf 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.37:672][  0]FBXImport: Warning: SM_SW_ServiceLeaf 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.37:775][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_ServiceLeaf（所需内存估计：7.764036MB）…
+[2026.10.02-17.57.37:806][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_ServiceLeaf（所需内存估计：7.764036MB）…
+[2026.10.02-17.57.37:822][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_ServiceLeaf）……
+[2026.10.02-17.57.38:019][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_WindowPaneV5”
+[2026.10.02-17.57.38:028][  0]LogFbx: Display: Triangulating mesh UCX_SM_SW_WindowPaneV5_0 for collision model
+[2026.10.02-17.57.38:029][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_WindowPaneV5（所需内存估计：0.030368MB）…
+[2026.10.02-17.57.38:043][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2.M_WardGlassV2 in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 9963d2bde7a2131d2b31613912ecc6f49c1ad8ce), compiling. 
+[2026.10.02-17.57.38:046][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_WindowPaneV5（所需内存估计：0.030368MB）…
+[2026.10.02-17.57.38:056][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_WindowFractureV5”
+[2026.10.02-17.57.38:079][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_WindowFractureV5（所需内存估计：5.275855MB）…
+[2026.10.02-17.57.38:121][  0]LogStaticMesh: Display: 正在构建静态网格体SM_SW_WindowFractureV5（所需内存估计：5.275855MB）…
+[2026.10.02-17.57.38:146][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2”
+[2026.10.02-17.57.38:194][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_WoodCrate_Body_TextV2_0 for collision model
+[2026.10.02-17.57.38:195][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_WoodCrate_Body_TextV2_1 for collision model
+[2026.10.02-17.57.38:195][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_WoodCrate_Body_TextV2_2 for collision model
+[2026.10.02-17.57.38:195][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_WoodCrate_Body_TextV2_3 for collision model
+[2026.10.02-17.57.38:195][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_WoodCrate_Body_TextV2_4 for collision model
+[2026.10.02-17.57.38:251][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_WoodCrate_Body_TextV2（所需内存估计：34.096488MB）…
+[2026.10.02-17.57.38:391][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2）……
+[2026.10.02-17.57.38:436][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2）……
+[2026.10.02-17.57.38:481][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2）……
+[2026.10.02-17.57.38:524][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2）……
+[2026.10.02-17.57.38:554][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_WoodCrate_Body_TextV2（所需内存估计：34.096488MB）…
+[2026.10.02-17.57.38:569][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2）……
+[2026.10.02-17.57.38:703][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_WoodCrate_Body_TextV2（所需内存估计：34.096488MB）…
+[2026.10.02-17.57.38:720][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2）……
+[2026.10.02-17.57.39:473][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2”
+[2026.10.02-17.57.39:496][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_Tote_Body_TextV2_0 for collision model
+[2026.10.02-17.57.39:496][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_Tote_Body_TextV2_1 for collision model
+[2026.10.02-17.57.39:496][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_Tote_Body_TextV2_2 for collision model
+[2026.10.02-17.57.39:496][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_Tote_Body_TextV2_3 for collision model
+[2026.10.02-17.57.39:496][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_Tote_Body_TextV2_4 for collision model
+[2026.10.02-17.57.39:515][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_Tote_Body_TextV2（所需内存估计：11.582575MB）…
+[2026.10.02-17.57.39:637][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_Tote_Body_TextV2（所需内存估计：11.582575MB）…
+[2026.10.02-17.57.39:653][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2）……
+[2026.10.02-17.57.39:667][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_Tote_Body_TextV2（所需内存估计：11.582575MB）…
+[2026.10.02-17.57.39:683][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2）……
+[2026.10.02-17.57.40:006][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2”
+[2026.10.02-17.57.40:042][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_MetalCase_Body_TextV2_0 for collision model
+[2026.10.02-17.57.40:042][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_MetalCase_Body_TextV2_1 for collision model
+[2026.10.02-17.57.40:042][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_MetalCase_Body_TextV2_2 for collision model
+[2026.10.02-17.57.40:043][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_MetalCase_Body_TextV2_3 for collision model
+[2026.10.02-17.57.40:043][  0]LogFbx: Display: Triangulating mesh UCX_SM_Warehouse_MetalCase_Body_TextV2_4 for collision model
+[2026.10.02-17.57.40:082][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_MetalCase_Body_TextV2（所需内存估计：24.673562MB）…
+[2026.10.02-17.57.40:308][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_MetalCase_Body_TextV2（所需内存估计：24.673562MB）…
+[2026.10.02-17.57.40:323][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2）……
+[2026.10.02-17.57.40:391][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_MetalCase_Body_TextV2（所需内存估计：24.673562MB）…
+[2026.10.02-17.57.40:407][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2）……
+[2026.10.02-17.57.40:982][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolCabinet_Door_TextV2”
+[2026.10.02-17.57.41:000][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolCabinet_Door_TextV2（所需内存估计：3.195614MB）…
+[2026.10.02-17.57.41:051][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolCabinet_Door_TextV2（所需内存估计：3.195614MB）…
+[2026.10.02-17.57.41:066][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolCabinet_Door_TextV2（所需内存估计：3.195614MB）…
+[2026.10.02-17.57.41:082][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolCabinet_Door_TextV2）……
+[2026.10.02-17.57.41:176][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolDrawer_Tray_TextV2”
+[2026.10.02-17.57.41:198][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolDrawer_Tray_TextV2（所需内存估计：4.896107MB）…
+[2026.10.02-17.57.41:270][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolDrawer_Tray_TextV2（所需内存估计：4.896107MB）…
+[2026.10.02-17.57.41:281][  0]LogStaticMesh: Display: 正在构建静态网格体SM_Warehouse_ToolDrawer_Tray_TextV2（所需内存估计：4.896107MB）…
+[2026.10.02-17.57.41:297][  0]LogStaticMesh: Display: 正在等待静态网格体就绪0/1（/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolDrawer_Tray_TextV2）……
+[2026.10.02-17.57.41:473][  0]LogPythonScriptCommandlet: Display: Python script executed successfully
+[2026.10.02-17.57.41:473][  0]LogInit: Display: 
+[2026.10.02-17.57.41:473][  0]LogInit: Display: Warning/Error Summary (Unique only)
+[2026.10.02-17.57.41:473][  0]LogInit: Display: -----------------------------------
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Textures/T_Office_KeyLegends”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Keycaps”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Legends”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Display”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogPython: Warning: D:/FPS3D/FPSGAME/SourceAssets/StationWorkshop20261003/RefineV2/Scripts/import_assets.py:15: DeprecationWarning: new_object: Creating an instance of an Editor subsystem has been deprecated since UE 5.2 and will be removed in the future. Use 'unreal.get_editor_subsystem(unreal.StaticMeshEditorSubsystem)' to get the subsystem instance.
+  sub=u.get_editor_subsystem(u.StaticMeshEditorSubsystem) or u.new_object(u.StaticMeshEditorSubsystem)
+
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_NoticeSigns”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchPaper”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_OperatorMat”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: FBXImport: Warning: SM_SW_OperatorMat 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.41:473][  0]LogInit: Display: FBXImport: Warning: SM_SW_OperatorMat 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Body”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Drawer”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_CartEquipment”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_Electrical”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: FBXImport: Warning: SM_SW_Electrical 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.41:473][  0]LogInit: Display: FBXImport: Warning: SM_SW_Electrical 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_0”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_1”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_2”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: FBXImport: Warning: SM_SW_PersonnelLeaf 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.41:473][  0]LogInit: Display: FBXImport: Warning: SM_SW_PersonnelLeaf 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_ServiceLeaf”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: FBXImport: Warning: SM_SW_ServiceLeaf 拥有一些近零的切线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.41:473][  0]LogInit: Display: FBXImport: Warning: SM_SW_ServiceLeaf 拥有一些近零的副法线，其可能诱发问题。（容差为 1E-4） 
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_WindowPaneV5”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_WindowFractureV5”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolCabinet_Door_TextV2”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolDrawer_Tray_TextV2”
+[2026.10.02-17.57.41:473][  0]LogInit: Display: 
+[2026.10.02-17.57.41:473][  0]LogInit: Display: Success - 0 error(s), 42 warning(s)
+[2026.10.02-17.57.41:473][  0]LogInit: Display: 
+
+Execution of commandlet took:  18.38 seconds, PeakPhysMemoryMB=4401 MB, PeakVirtMemoryMB=5293 MB
+[2026.10.02-17.57.41:482][  0]LogToolsetRegistry: Display: Unregistering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.02-17.57.41:482][  0]LogToolsetRegistry: Display: Unregistering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.02-17.57.41:482][  0]LogToolsetRegistry: Display: Unregistering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.02-17.57.41:482][  0]LogToolsetRegistry: Display: Unregistering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.02-17.57.41:582][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PostWrite): 1 .ref files found, 1 referenced binaries
+[2026.10.02-17.57.41:582][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.02-17.57.41:744][  0]LogShaderCompilers: Display: Exiting ShaderCompilingThread
+[2026.10.02-17.57.42:000][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file saved D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.02-17.57.42:005][  0]LogToolsetRegistry: Warning: IsAvailable: Editor is not available
+[2026.10.02-17.57.42:009][  0]LogTemp: Display: LoadHitchProbe summary: 151 sync-load entries seen, 0 recorded to (nothing)

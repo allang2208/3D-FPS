@@ -30,5 +30,6 @@
 - [M4 当前动作合同](skills/ue5-fps-arms-animation/references/m4-baseline.md)
 - [UI 与库存记录](Docs/UI/README.md)
 - [雨效](Docs/RAIN_UPGRADE_20260910.md)、[雷雨云层](Docs/STORM_CLOUDS_20260910.md)
+- [蛋糕塔喷泉：循环水声、湿石材和模型精修](Docs/Building/fountain-polish-v9-20260919.md)
 
 旧 Godot 项目的完整历史保留在 [archive/godot-before-ue5-20260910](https://github.com/allang2208/3D-FPS/tree/archive/godot-before-ue5-20260910)。它不再是当前开发入口。少量 `Tools` 中的 `.gd` 只是迁移参考导出器，仓库不再包含 Godot 游戏工程。

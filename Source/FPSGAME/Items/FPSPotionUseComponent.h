@@ -20,6 +20,7 @@ UCLASS(ClassGroup=(Items))
 class FPSGAME_API UFPSPotionUseComponent : public UActorComponent
 {
     GENERATED_BODY()
+    friend class UFPSPlayerBodyComponent;
 public:
     UFPSPotionUseComponent();
     bool TryBegin(const FString& ItemId,const FString& Definition);
@@ -48,6 +49,8 @@ private:
     FPotionUseMotion HealthMotion,ManaMotion,Motion;
     FPotionArmPose ArmPose;
     FString UsingItem;
+    FName PresentationDefinition;
+    uint16 PresentationSerial=0;
     double StartTime=0;
     bool bActive=false,bCommitted=false,bUncapped=false,bDiscarded=false;
     float Age() const;

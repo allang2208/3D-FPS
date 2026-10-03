@@ -231,6 +231,34 @@ void EquipPKM(float Time, float End, FPose& Follow, FPose& Impacts)
         {-2.25f, .32f, 1.20f}, {.38f, 0.f, -.38f});
 }
 
+void ReloadRSH12(float Time, float End, TConstArrayView<float> Contacts,
+    bool bEmpty, FPose& Follow, FPose& Impacts)
+{
+    if (Contacts.Num() < 3) return;
+    const float Open = Contacts[0], Eject = Contacts[1], Close = Contacts[2];
+    // BV1vh4HejEUF opening flick: anticipate, sharp lateral/downward kick,
+    // counter-swing, then settle. Keep the native 715 arms untouched. These
+    // small camera offsets pass through the shared follow/impact gains below.
+    const FKey Keys[] = {
+        {0.f, {}, {}},
+        {Open - .16f, {.03f, -.015f, -.03f}, {-.02f, .02f, .015f}},
+        {Open - .035f, {.09f, -.03f, -.07f}, {-.04f, .04f, .025f}},
+        {Open + .05f, {-.08f, .04f, .10f}, {.015f, -.035f, -.025f}},
+        {Open + .28f, {}, {}},
+        {Close - .10f, {-.03f, .02f, .03f}, {}},
+        {Close + .10f, {.04f, -.02f, -.04f}, {}},
+        {End, {}, {}}
+    };
+    Follow = Curve(Keys, Time);
+    Impact(Impacts, Time, Open - .02f, .24f,
+        {-.17f, .08f, .21f}, {.04f, -.065f, -.045f});
+    if (bEmpty)
+        Impact(Impacts, Time, Eject, .18f,
+            {-.065f, -.018f, -.035f}, {-.025f, .015f, -.03f});
+    Impact(Impacts, Time, Close, FMath::Min(.23f, End - Close),
+        {.105f, -.035f, -.13f}, {-.025f, .025f, .035f});
+}
+
 void Equip(float Time, float End, FPose& Follow, FPose& Impacts)
 {
     // Current M4WrapGrip source: handle begins moving at frame 15, reaches its
@@ -292,7 +320,10 @@ void UWeaponActionCameraComponent::Apply(UCameraComponent& Camera, EM4CameraActi
     if (Action != EM4CameraAction::None && Weight > 0.f && SourceDuration > 0.f)
     {
         const float Time = FMath::Clamp(SourceSeconds, 0.f, SourceDuration);
-        if (Action == EM4CameraAction::PKMEquip)
+        if (Action == EM4CameraAction::RSH12Reload || Action == EM4CameraAction::RSH12ReloadEmpty)
+            WeaponActionCamera::ReloadRSH12(Time, SourceDuration, ContactSeconds,
+                Action == EM4CameraAction::RSH12ReloadEmpty, Follow, Impacts);
+        else if (Action == EM4CameraAction::PKMEquip)
             WeaponActionCamera::EquipPKM(Time, SourceDuration, Follow, Impacts);
         else if (Action == EM4CameraAction::PKMReload || Action == EM4CameraAction::PKMReloadEmpty)
             WeaponActionCamera::ReloadPKM(Time, SourceDuration, ContactSeconds,

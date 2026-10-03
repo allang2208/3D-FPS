@@ -1,0 +1,40 @@
+{
+ "profiles": {
+  "ue_g18/drum": {
+   "asset": "/Game/Weapons/G18/Drum50_20261003/Reload/DA_G18_Drum50",
+   "saved": true,
+   "pending_native_api": [],
+   "retained": [],
+   "replaced": [
+    "/Game/Weapons/G18/Drum50_20261003/Reload/Authored/A_G18_Drum50_reload",
+    "/Game/Weapons/G18/Drum50_20261003/Reload/Authored/A_G18_Drum50_reload_empty"
+   ],
+   "inputs": {
+    "/Game/Weapons/G18/Integrated20260929/Single/Animations/A_G18_reload": "ca6703beab009249ed25698be6c391ce94498e9b5f73dd4f9bc87ca0bd00fce3",
+    "/Game/Weapons/G18/Drum50_20261003/Reload/Authored/A_G18_Drum50_reload": "3ae4ba4a4e028a778a7e3f0072fdbc70b305fda5be6116cbea3287a1f1c1b09d",
+    "/Game/Weapons/G18/Integrated20260929/Single/Animations/A_G18_reload_empty": "5c451d526f07acf7fed19a315c6ae80749cc35bbcc9eea4848c861fc3d11c567",
+    "/Game/Weapons/G18/Drum50_20261003/Reload/Authored/A_G18_Drum50_reload_empty": "98f3f2b25d0cfd0b42ba03776bb54f223b38dbc02e2a2f6338d662c8d966b224",
+    "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny": "3a2abd3bf9d5c969a18aeb19bb582f7bf3ab969d5c012ec3909acf626edf6d51"
+   },
+   "pairs": [
+    {
+     "role": "reload",
+     "base": "/Game/Weapons/G18/Integrated20260929/Single/Animations/A_G18_reload",
+     "authored": "/Game/Weapons/G18/Drum50_20261003/Reload/Authored/A_G18_Drum50_reload"
+    },
+    {
+     "role": "reload_empty",
+     "base": "/Game/Weapons/G18/Integrated20260929/Single/Animations/A_G18_reload_empty",
+     "authored": "/Game/Weapons/G18/Drum50_20261003/Reload/Authored/A_G18_Drum50_reload_empty"
+    }
+   ],
+   "saved_sha256": "df635b7fbd9700a31e15bca31e7b433b2da85782a4e038b15cf8120f0cc159f7",
+   "bytes": 172645,
+   "layer_count": 2,
+   "key_count": 3718
+  }
+ },
+ "complete": true,
+ "tested": false,
+ "source_animations_changed": false
+}

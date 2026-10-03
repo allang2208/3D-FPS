@@ -191,3 +191,4 @@ bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(SOURCE/"TacticalVerticalForegrip_Construction.blend"))
 (ROOT/"local_authoring_parameters.json").write_text(json.dumps(PARAMETERS,indent=2),encoding="utf-8")
 print("LOCAL_CONSTRUCTION_SAVED "+str(SOURCE/"TacticalVerticalForegrip_Construction.blend"),flush=True)
+

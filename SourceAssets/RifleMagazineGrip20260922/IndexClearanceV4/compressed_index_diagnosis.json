@@ -1,0 +1,156 @@
+{
+  "clips": {
+    "AKM/standard/base/reload": {
+      "max_source_compressed_index_angle_degrees": 5.8681024786514003e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "AKM/extended/base/reload": {
+      "max_source_compressed_index_angle_degrees": 5.5750830738563314e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "AKM/standard/base/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 5.65298740554407e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "AKM/extended/base/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 5.383515068798647e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "AKM/standard/angled/reload": {
+      "max_source_compressed_index_angle_degrees": 5.9249676609974653e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "AKM/extended/angled/reload": {
+      "max_source_compressed_index_angle_degrees": 5.9052505758329154e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "AKM/standard/angled/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 5.740000927206007e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "AKM/extended/angled/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 5.9151173338844583e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "AKM/standard/vertical/reload": {
+      "max_source_compressed_index_angle_degrees": 5.900311009451305e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "AKM/extended/vertical/reload": {
+      "max_source_compressed_index_angle_degrees": 5.2296684935611804e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "AKM/standard/vertical/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 5.6426623057732664e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "AKM/extended/vertical/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 5.795607694683581e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "AKM/standard/prism/reload": {
+      "max_source_compressed_index_angle_degrees": 5.900311009451305e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "AKM/extended/prism/reload": {
+      "max_source_compressed_index_angle_degrees": 5.548871912811274e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "AKM/standard/prism/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 5.6426623057732664e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "AKM/extended/prism/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 5.795607694683581e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "AKM/standard/canted/reload": {
+      "max_source_compressed_index_angle_degrees": 5.900311009451305e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "AKM/extended/canted/reload": {
+      "max_source_compressed_index_angle_degrees": 5.8681024786514003e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "AKM/standard/canted/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 6.285537017282597e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "AKM/extended/canted/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 5.4694848183302715e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "A762/standard/base/reload": {
+      "max_source_compressed_index_angle_degrees": 5.372672127139037e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "A762/standard/base/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 4.919396037718512e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "A762/standard/angled/reload": {
+      "max_source_compressed_index_angle_degrees": 4.694978832367688e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "A762/standard/angled/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 5.1566797395176046e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "A762/standard/vertical/reload": {
+      "max_source_compressed_index_angle_degrees": 5.3672424419448395e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "A762/standard/vertical/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 4.762802131385512e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "A762/standard/prism/reload": {
+      "max_source_compressed_index_angle_degrees": 5.372672127139037e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "A762/standard/prism/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 5.153851837062256e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    },
+    "A762/standard/canted/reload": {
+      "max_source_compressed_index_angle_degrees": 5.372672127139037e-05,
+      "source_seconds": 3.3333332538604736,
+      "imported_seconds": 3.3333332538604736
+    },
+    "A762/standard/canted/reload_empty": {
+      "max_source_compressed_index_angle_degrees": 5.4721496101172777e-05,
+      "source_seconds": 4.291666507720947,
+      "imported_seconds": 4.291666507720947
+    }
+  },
+  "maximum_degrees": 6.285537017282597e-05,
+  "PIE_tested": false
+}

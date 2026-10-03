@@ -19,10 +19,14 @@
 #include "Kismet/GameplayStatics.h"
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
+#include "Net/UnrealNetwork.h"
+#include "NetCastUtils.h"
 
 AFPSIceWall::AFPSIceWall()
 {
     PrimaryActorTick.bCanEverTick=true;
+    // 联机：服务端权威生成；升降期变换由 ReplicateMovement 搬运，远端只重演 FX。
+    bReplicates=true;SetReplicateMovement(true);
     Scene=CreateDefaultSubobject<USceneComponent>(TEXT("Root"));SetRootComponent(Scene);
     Barrier=CreateDefaultSubobject<UBoxComponent>(TEXT("ContinuousIceBarrier"));Barrier->SetupAttachment(Scene);
     Barrier->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -32,6 +36,21 @@ AFPSIceWall::AFPSIceWall()
     Tags.Add(TEXT("IceWall"));
     Tags.Add(TEXT("Neutral"));Tags.Add(TEXT("NoSkillTraining"));
     SetCanBeDamaged(false);
+}
+
+void AFPSIceWall::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AFPSIceWall,NetTuning);
+    DOREPLIFETIME(AFPSIceWall,NetPlan);
+    DOREPLIFETIME(AFPSIceWall,NetComponent);
+    DOREPLIFETIME(AFPSIceWall,NetReleaseOrigin);
+    DOREPLIFETIME(AFPSIceWall,NetState);
+    DOREPLIFETIME(AFPSIceWall,NetStateAge);
+    DOREPLIFETIME(AFPSIceWall,NetDropHeight);
+    DOREPLIFETIME(AFPSIceWall,NetHealth);
+    DOREPLIFETIME(AFPSIceWall,Health);
+    DOREPLIFETIME(AFPSIceWall,MaxHealth);
 }
 
 void AFPSIceWall::Initialize(UFPSIceWallComponent* Ability,const FIceWallCast& Cast,
@@ -125,12 +144,18 @@ void AFPSIceWall::Launch(const FVector& Origin,const FIceWallPlacement& Placemen
 {
     Plan=Placement;ReleaseOrigin=Origin;Age=0;State=EState::Rising;
     SetActorScale3D(FVector::OneVector);SetActorLocation(Origin);
+    if(HasAuthority())
+    {
+        NetPlan=Plan;NetTuning=Tuning;NetComponent=Component.Get();NetReleaseOrigin=Origin;
+        NetState=uint8(EState::Rising);NetStateAge=0;
+    }
 }
 
 void AFPSIceWall::BeginDrop()
 {
     FString Reason;
-    if(!Component.IsValid()||!Component->ValidatePlacement(Plan,Tuning,Reason)){Shatter();return;}
+    if(!Component.IsValid()||!Component->ValidatePlacement(Plan,Tuning,Reason))
+    { if(HasAuthority())NetState=uint8(EState::Shattered); Shatter(); return; }
     // The seed disappears at the staff. Re-form a full wall directly above the
     // locked placement; no seed or wall traverses the horizontal aim path.
     State=EState::Falling;Age=0;LayoutShape=-1;BuildLayout(Plan.Shape);
@@ -162,6 +187,7 @@ void AFPSIceWall::BeginDrop()
     PreviousMistPosition=GetActorLocation();UpdateColdMist(0);
     if(ColdMist)IceWallPlacement::SetEffectProfile(ColdMist,Plan);
     if(ColdMist)ColdMist->Activate(true);
+    if(HasAuthority()){NetState=uint8(EState::Falling);NetStateAge=Age;NetDropHeight=DropHeight;}
 }
 
 void AFPSIceWall::Land()
@@ -181,6 +207,7 @@ void AFPSIceWall::Land()
     EnableTerrainBarriers();
     Health=MaxHealth;SetCanBeDamaged(true);
     State=EState::Solid;Age=0;AuraAge=0;SetActorTickInterval(.1f);
+    if(HasAuthority()){NetState=uint8(EState::Solid);NetStateAge=0;NetHealth=Health;}
 }
 
 void AFPSIceWall::EmitLandingFX()
@@ -386,7 +413,10 @@ float AFPSIceWall::TakeDamage(float Damage,const FDamageEvent& Event,AController
 
 void AFPSIceWall::Tick(float Delta)
 {
-    Super::Tick(Delta);Age+=Delta;
+    Super::Tick(Delta);
+    // 远端副本：状态/变换来自复制，本地只重演起落表现与冷气。
+    if(!HasAuthority()){NetTick(Delta);return;}
+    Age+=Delta;
     if(State==EState::Rising)
     {
         const float T=FMath::Clamp(Age/Tuning.RiseSeconds,0.f,1.f);
@@ -440,9 +470,94 @@ void AFPSIceWall::Shatter()
             }
         }
     }
+    // 联机：先播报碎裂态再延时销毁——远端 OnRep 有一帧窗口播同款碎裂 FX。
+    if(GetWorld()&&GetWorld()->GetNetMode()!=NM_Standalone)
+    {
+        NetState=uint8(EState::Shattered);for(const auto& Mesh:Blocks)Mesh->SetVisibility(false,true);
+        SetLifeSpan(.5f);return;
+    }
     Destroy();
 }
 
+// ══ 远端副本（非权威）：自载素材建布局，OnRep 状态重演 ═════════════════
+void AFPSIceWall::NetInit()
+{
+    if(bNetInit||!NetPlan.bValid||NetTuning.Count<=0||!NetComponent)return;
+    // 素材自载——与组件 BeginPlay 同路径，远端副本不走 Initialize。
+    for(int32 I=1;I<=4;++I)
+    {
+        auto* Mesh=LoadObject<UStaticMesh>(nullptr,*FString::Printf(TEXT("/Game/Skills/IceWall/FabIceV3/SM_IceBlock_%02d.SM_IceBlock_%02d"),I,I));
+        if(!Mesh)return;
+        auto* Inst=NewObject<UInstancedStaticMeshComponent>(this);
+        AddInstanceComponent(Inst);Inst->SetupAttachment(Scene);Inst->SetStaticMesh(Mesh);
+        Inst->SetCollisionEnabled(ECollisionEnabled::NoCollision);Inst->SetCanEverAffectNavigation(false);
+        Inst->SetCastShadow(true);Inst->bReceivesDecals=false;Inst->RegisterComponent();Blocks.Add(Inst);
+    }
+    if(auto* Ice=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/IceWall/FabIceV3/M_IceWall.M_IceWall")))
+        for(const auto& Inst:Blocks)Inst->SetMaterial(0,Ice);
+    BreakFX=LoadObject<UParticleSystem>(nullptr,TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact"));
+    BreakSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Skills/IceSpike/S_IceImpact.S_IceImpact"));
+    Tuning=NetTuning;Plan=NetPlan;Component=NetComponent;ReleaseOrigin=NetReleaseOrigin;
+    MaxHealth=FMath::Max(1.f,Tuning.MaxHealth);Health=NetHealth>0?NetHealth:MaxHealth;
+    DropHeight=NetDropHeight>0?NetDropHeight:Tuning.DropHeight;
+    LayoutShape=-1;BuildLayout(NetPlan.Shape);
+    bNetInit=true;
+    OnRep_State(); // 首包可能已带落地/碎裂态——按当前态对齐表现
+}
+void AFPSIceWall::OnRep_State()
+{
+    if(!bNetInit)return; // 初包先于 NetInit 到达时由 NetInit 尾调兜底重演
+    const auto S=static_cast<EState>(NetState);
+    if(S==State)return;
+    const auto Was=State;State=S;Age=NetStateAge;
+    if(S==EState::Falling)
+    {
+        State=Was; // 先恢复供 BuildLayout 读
+        LayoutShape=-1;BuildLayout(Plan.Shape);State=EState::Falling;
+        DropHeight=NetDropHeight>0?NetDropHeight:Tuning.DropHeight;
+        SetActorLocationAndRotation(Plan.Location+FVector(0,0,DropHeight),Plan.Rotation);
+        for(const auto& Mesh:Blocks)Mesh->SetRelativeScale3D(FVector::OneVector);
+        if(ColdMist){ColdMist->DeactivateImmediate();IceWallPlacement::SetEffectProfile(ColdMist,Plan);ColdMist->Activate(true);}
+        PreviousMistPosition=GetActorLocation();
+    }
+    else if(S==EState::Solid)NetLanded();
+    else if(S==EState::Shattered)
+    {
+        for(const auto& Mesh:Blocks)Mesh->SetVisibility(false,true);
+        Barrier->SetCollisionEnabled(ECollisionEnabled::NoCollision);Barrier->SetCanEverAffectNavigation(false);
+        for(const auto& Box:TerrainBarriers){Box->SetCollisionEnabled(ECollisionEnabled::NoCollision);Box->SetCanEverAffectNavigation(false);}
+        if(Was!=EState::Seed&&Was!=EState::Preview)
+        {
+            if(BreakSound)UGameplayStatics::PlaySoundAtLocation(this,BreakSound,GetActorLocation(),.65f);
+            if(BreakFX)
+            {
+                const int32 Bursts=(Was==EState::Solid||Was==EState::Falling)?FMath::Min(8,Tuning.Count):1;
+                for(int32 I=0;I<Bursts;++I)
+                {
+                    const float Along=FMath::Lerp(Plan.MinAlong(),Plan.MaxAlong(),(I+.5f)/Bursts);
+                    const FVector At=GetActorLocation()+GetActorRightVector()*Along+FVector(0,0,IceWallPlacement::GroundAt(Plan,0,Along)+35);
+                    UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),BreakFX,At,FRotator::ZeroRotator,FVector(1.4f));
+                }
+            }
+        }
+    }
+}
+void AFPSIceWall::NetLanded()
+{
+    SetActorLocationAndRotation(Plan.Location,Plan.Rotation);
+    EmitLandingFX();ShakeNearbyPlayers();EnableTerrainBarriers();
+    Health=NetHealth>0?NetHealth:MaxHealth;SetActorTickInterval(.1f);
+    if(ColdMist){ColdMist->SetVariableFloat(TEXT("User.WallPhase"),1.f);}
+    UpdateColdMist(0);
+}
+void AFPSIceWall::NetTick(float Delta)
+{
+    if(!bNetInit){NetInit();if(!bNetInit)return;}
+    Age+=Delta;AuraAge+=Delta;
+    // 升降位姿由 ReplicateMovement 搬运；这里只管冷气持续发射与到期兜底。
+    if(State==EState::Solid&&Age>=Tuning.Duration+2.f){Destroy();return;} // 服务端销毁超时兜底
+    UpdateColdMist(Delta);
+}
 void AFPSIceWall::EndPlay(EEndPlayReason::Type Reason)
 {
     if(ColdMist){ColdMist->DestroyComponent();ColdMist=nullptr;}

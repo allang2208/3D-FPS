@@ -1,0 +1,187 @@
+{
+  "root": [
+    [
+      -0.9961947202682495,
+      2.9802322387695312e-06,
+      -0.08715593814849854,
+      0.05768756568431854
+    ],
+    [
+      -2.9206275939941406e-06,
+      -1.0000001192092896,
+      1.3560056686401367e-06,
+      0.14374759793281555
+    ],
+    [
+      -0.0871560126543045,
+      1.9669532775878906e-06,
+      0.9961948394775391,
+      -0.0983532965183258
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "mag_bind": [
+    [
+      1.0,
+      -7.450580596923828e-09,
+      1.5798876518147154e-07,
+      0.06156991794705391
+    ],
+    [
+      -2.842428159510746e-08,
+      6.314735401247162e-09,
+      -1.0000001192092896,
+      0.12139252573251724
+    ],
+    [
+      8.940696716308594e-08,
+      1.000000238418579,
+      2.52743575401837e-07,
+      -0.14272774755954742
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "mag_bounds_root": [
+    [
+      -0.013061659410595894,
+      -0.015150540508329868,
+      -0.11622855067253113
+    ],
+    [
+      0.013061684556305408,
+      0.058565471321344376,
+      0.027140332385897636
+    ]
+  ],
+  "materials": [
+    "M_G18_Magazine"
+  ],
+  "textures": [
+    {
+      "name": "T_M1911_Hero_Ammo_BaseColor",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Ammo_BaseColor.png"
+    },
+    {
+      "name": "T_M1911_Hero_Ammo_NormalGL",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Ammo_NormalGL.png"
+    },
+    {
+      "name": "T_M1911_Hero_Ammo_ORM",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Ammo_ORM.png"
+    },
+    {
+      "name": "T_M1911_Hero_Frame_BaseColor",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Frame_BaseColor.png"
+    },
+    {
+      "name": "T_M1911_Hero_Frame_NormalGL",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Frame_NormalGL.png"
+    },
+    {
+      "name": "T_M1911_Hero_Frame_ORM",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Frame_ORM.png"
+    },
+    {
+      "name": "T_M1911_Hero_Grip_BaseColor",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Grip_BaseColor.png"
+    },
+    {
+      "name": "T_M1911_Hero_Grip_NormalGL",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Grip_NormalGL.png"
+    },
+    {
+      "name": "T_M1911_Hero_Grip_ORM",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Grip_ORM.png"
+    },
+    {
+      "name": "T_M1911_Hero_Magazine_BaseColor",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Magazine_BaseColor.png"
+    },
+    {
+      "name": "T_M1911_Hero_Magazine_NormalGL",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Magazine_NormalGL.png"
+    },
+    {
+      "name": "T_M1911_Hero_Magazine_ORM",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Magazine_ORM.png"
+    },
+    {
+      "name": "T_M1911_Hero_Sights_BaseColor",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Sights_BaseColor.png"
+    },
+    {
+      "name": "T_M1911_Hero_Sights_NormalGL",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Sights_NormalGL.png"
+    },
+    {
+      "name": "T_M1911_Hero_Sights_ORM",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Sights_ORM.png"
+    },
+    {
+      "name": "T_M1911_Hero_Slide_BaseColor",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Slide_BaseColor.png"
+    },
+    {
+      "name": "T_M1911_Hero_Slide_NormalGL",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Slide_NormalGL.png"
+    },
+    {
+      "name": "T_M1911_Hero_Slide_ORM",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Slide_ORM.png"
+    },
+    {
+      "name": "T_M1911_Hero_Steel_BaseColor",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Steel_BaseColor.png"
+    },
+    {
+      "name": "T_M1911_Hero_Steel_NormalGL",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Steel_NormalGL.png"
+    },
+    {
+      "name": "T_M1911_Hero_Steel_ORM",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Steel_ORM.png"
+    }
+  ],
+  "cross_sections": {
+    "-0.025": [
+      [
+        -0.005115681793540716,
+        -0.0025886823423206806
+      ],
+      [
+        0.005115651059895754,
+        -0.002588667208328843
+      ]
+    ],
+    "-0.09": [
+      [
+        -0.01306165847927332,
+        0.017612138763070107
+      ],
+      [
+        0.01306168083101511,
+        0.058565471321344376
+      ]
+    ],
+    "-0.1": [
+      [
+        -0.01306165847927332,
+        0.018534692004323006
+      ],
+      [
+        0.013061684556305408,
+        0.05856546759605408
+      ]
+    ]
+  }
+}

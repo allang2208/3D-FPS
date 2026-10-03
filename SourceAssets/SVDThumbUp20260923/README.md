@@ -1,5 +1,7 @@
 # SVD 左拇指自然向上延展
 
+2026-09-24 后续：五条空仓换弹的右手拉栓段已由 [SVDChargeGrip20260924](../SVDChargeGrip20260924/README.md) 更新并导入。普通换弹继续使用本目录；空仓仍保留本轮左手、拇指与装匣动作，右手拉栓作者源及保存回执以新目录为准。
+
 ## 2026-09-23 整理后的当前入口
 
 旧换弹导出已由 `SVDThumbUp20260923` 替代；当前模型与材质入口为 `SVDRefinedFinish20260923`。本目录的旧制作记录保留其历史日期与验收边界。已经移走的旧导出、自动备份及恢复快照位于 `trash/svd-superseded-20260923/SourceAssets/` 下的同名目录，原路径、散列及保留替代物见 [归档清单](../../Docs/AssetArchives/svd-superseded-20260923.json)。当前所需 Blend、脚本、参数与原素材仍保留；不要直接重跑旧导入覆盖用户已认可的抓握。新 checkout 的恢复方式见 [SVD 发布说明](../../Docs/Weapons/svd-publication-20260923.md)。

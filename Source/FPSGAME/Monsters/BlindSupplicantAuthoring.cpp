@@ -8,6 +8,7 @@
 #if WITH_EDITOR
 #include "WitchRebuiltClothingAsset.h"
 #include "M07InteractingClothingAsset.h"
+#include "M07MembraneClothingAsset.h"
 #include "ClothingAssetFactory.h"
 #include "ChaosCloth/ChaosClothConfig.h"
 #include "Math/RotationMatrix.h"
@@ -76,7 +77,7 @@ bool ReadCmVector(const TSharedPtr<FJsonValue>& Value, FVector& Out)
 }
 
 bool ReadGillManifest(const FString& Filename, TArray<FGillPanelManifest>& Panels,
-    TArray<FGillCapsuleManifest>& Capsules, FString& Error)
+    TArray<FGillCapsuleManifest>& Capsules, FString& Error, int32 ExpectedPanels = GillCount)
 {
     FString Text;
     if (!FFileHelper::LoadFileToString(Text, *Filename))
@@ -91,12 +92,12 @@ bool ReadGillManifest(const FString& Filename, TArray<FGillPanelManifest>& Panel
         return false;
     }
     const TArray<TSharedPtr<FJsonValue>>* PanelValues = nullptr;
-    if (!Manifest->TryGetArrayField(TEXT("panels"), PanelValues) || PanelValues->Num() != GillCount)
+    if (!Manifest->TryGetArrayField(TEXT("panels"), PanelValues) || PanelValues->Num() != ExpectedPanels)
     {
-        Error = TEXT("The manifest must contain exactly six panels with ids 01 through 06.");
+        Error = TEXT("The manifest panel count does not match the selected cloth authoring route.");
         return false;
     }
-    Panels.SetNum(GillCount);
+    Panels.SetNum(ExpectedPanels);
     for (const auto& Value : *PanelValues)
     {
         const auto Panel = Value && Value->Type == EJson::Object ? Value->AsObject() : nullptr;
@@ -107,7 +108,7 @@ bool ReadGillManifest(const FString& Filename, TArray<FGillPanelManifest>& Panel
             return false;
         }
         int32 PanelIndex = INDEX_NONE;
-        for (int32 Index = 0; Index < GillCount; ++Index)
+        for (int32 Index = 0; Index < ExpectedPanels; ++Index)
             if (Id == FString::Printf(TEXT("%02d"), Index + 1)) PanelIndex = Index;
         if (PanelIndex == INDEX_NONE || !Panels[PanelIndex].Id.IsEmpty())
         {
@@ -937,6 +938,98 @@ FString UBlindSupplicantAuthoring::RemoveGillClothForReimport(USkeletalMesh* Mes
     Mesh->InvalidateDeriveDataCacheGUID();
     Mesh->MarkPackageDirty();
     return TEXT("{\"success\":true,\"saved\":false,\"stage\":\"detached_for_geometry_reimport\"}");
+#else
+    return TEXT("{\"success\":false,\"error\":\"Editor authoring build required.\"}");
+#endif
+}
+
+FString UBlindSupplicantAuthoring::BuildWitchStyleMembrane(USkeletalMesh* Mesh, USkeletalMesh* SimulationSource,
+    UClothingAssetCommon* ReferenceCloth, const FString& WeightManifestFile)
+{
+#if WITH_EDITOR
+    auto Receipt=MakeShared<FJsonObject>();Receipt->SetBoolField(TEXT("success"),false);
+    auto Fail=[&](const FString& Error){Receipt->SetStringField(TEXT("error"),Error);return WriteGillReceipt(Receipt);};
+    if(!Mesh || Mesh->GetOutermost()->GetName()!=TEXT("/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18") ||
+        !SimulationSource || !SimulationSource->GetImportedModel() || SimulationSource->GetImportedModel()->LODModels.IsEmpty() ||
+        !ReferenceCloth || !ReferenceCloth->GetOutermost()->GetName().StartsWith(TEXT("/Game/Monsters/WitchRebuilt/")))
+        return Fail(TEXT("M07 display/proxy and current Witch cloth reference are required."));
+    const auto Proxy=GillSections(SimulationSource,TEXT("M07_GillSimulation"));
+    if(Proxy.Num()!=1)return Fail(TEXT("The two continuous sheets must share one hidden proxy section."));
+    TArray<FGillPanelManifest> Panels;TArray<FGillCapsuleManifest> Capsules;FString Error;
+    if(!ReadGillManifest(WeightManifestFile,Panels,Capsules,Error,2))return Fail(Error);
+    for(const auto& Capsule:Capsules)
+        if(Mesh->GetRefSkeleton().FindBoneIndex(Capsule.Bone)==INDEX_NONE)return Fail(TEXT("A membrane collider bone is missing."));
+    UChaosClothConfig* TemplateConfig=nullptr;UChaosClothSharedSimConfig* TemplateShared=nullptr;
+    for(const auto& Pair:ReferenceCloth->ClothConfigs)
+    {
+        if(auto* Config=Cast<UChaosClothConfig>(Pair.Value))TemplateConfig=Config;
+        if(auto* Shared=Cast<UChaosClothSharedSimConfig>(Pair.Value))TemplateShared=Shared;
+    }
+    if(!TemplateConfig||!TemplateShared)return Fail(TEXT("The saved Witch cloth has no Chaos configuration."));
+    FSkeletalMeshClothBuildParams Params;
+    Params.AssetName=TEXT("M07_ContinuousMembraneProxyV36");Params.LodIndex=0;Params.SourceSection=Proxy[0];Params.bRemoveFromMesh=false;
+    TStrongObjectPtr<UClothingAssetFactory> Factory(NewObject<UClothingAssetFactory>());
+    TStrongObjectPtr<UClothingAssetCommon> Extracted(Cast<UClothingAssetCommon>(Factory->CreateFromSkeletalMesh(SimulationSource,Params)));
+    if(!Extracted.IsValid()||Extracted->LodData.Num()!=1)return Fail(TEXT("Continuous membrane extraction failed."));
+    auto* Cloth=NewObject<UM07MembraneClothingAsset>(Mesh,
+        MakeUniqueObjectName(Mesh,UM07MembraneClothingAsset::StaticClass(),TEXT("M07_WitchStyleMembraneV36")),RF_Transactional);
+    Cloth->InitializeSimulationFrom(Extracted.Get());
+    FGillDraft Draft;Draft.Asset.Reset(Cloth);
+    const auto& Physical=Cloth->LodData[0].PhysicalMeshData;
+    Draft.Distances.SetNum(Physical.Vertices.Num());
+    for(int32 V=0;V<Physical.Vertices.Num();++V)
+    {
+        double Best=TNumericLimits<double>::Max();float Distance=0;
+        for(const auto& Panel:Panels)for(int32 I=0;I<Panel.VerticesCm.Num();++I)
+        {
+            const double D=FVector3f::DistSquared(Physical.Vertices[V],Panel.VerticesCm[I]);
+            if(D<Best){Best=D;Distance=Panel.MaxDistanceCm[I];}
+        }
+        if(Best>FMath::Square(ManifestMatchToleranceCm))return Fail(TEXT("Imported proxy units differ from authored centimeters."));
+        Draft.Distances[V]=Distance;Draft.PinnedVertices+=Distance==0;Draft.MaxDistanceCm=FMath::Max(Draft.MaxDistanceCm,Distance);
+    }
+    if(!Draft.PinnedVertices||Draft.PinnedVertices==Draft.Distances.Num())return Fail(TEXT("Continuous sheets require fixed roots and free hems."));
+    auto* Shared=DuplicateObject<UChaosClothSharedSimConfig>(TemplateShared,Cloth);
+    ConfigureGill(Draft,MakeGillCollision(Mesh,Capsules),Shared);
+    // Copy the actual installed Witch config, then adapt the contact scale to
+    // the taller membrane. No separate point/face self-collision solver.
+    auto* Config=DuplicateObject<UChaosClothConfig>(TemplateConfig,Cloth);
+    Config->CollisionThickness=1.2f;
+    Config->bUseSelfCollisions=false;Config->bUseSelfCollisionSpheres=true;
+    Config->SelfCollisionSphereRadius=1.1f;Config->SelfCollisionSphereRadiusCullMultiplier=2.5f;
+    Cloth->ClothConfigs.Add(Config->GetClass()->GetFName(),Config);
+    Cloth->ApplyParameterMasks(true);Cloth->InvalidateAllCachedData();
+    Cloth->RefreshBoneMapping(Mesh);Cloth->CalculateReferenceBoneIndex();
+    FScopedSkeletalMeshPostEditChange Change(Mesh);Mesh->Modify();
+    const auto Old=Mesh->GetMeshClothingAssets();
+    for(UClothingAssetBase* Asset:Old)if(Asset)Asset->UnbindFromSkeletalMesh(Mesh,INDEX_NONE,INDEX_NONE);
+    Mesh->SetMeshClothingAssets({Cloth});
+    auto& Lod=Mesh->GetImportedModel()->LODModels[0];
+    int32 Bound=0;
+    for(int32 S=0;S<Lod.Sections.Num();++S)
+    {
+        bool HasMovingVertex=false;
+        for(const auto& V:Lod.Sections[S].SoftVertices)if(V.Color.A>0){HasMovingVertex=true;break;}
+        if(!HasMovingVertex)continue;
+        if(!Cloth->BindToSkeletalMesh(Mesh,0,S,0))return Fail(TEXT("A membrane display section could not bind."));
+        auto& Section=Lod.Sections[S];auto& User=Lod.UserSectionsData.FindOrAdd(Section.OriginalDataSectionIndex);
+        User.CorrespondClothAssetIndex=0;User.ClothingData=Section.ClothingData;User.bDisabled=Section.bDisabled=false;++Bound;
+    }
+    if(!Bound)return Fail(TEXT("The imported display has no authored cloth mobility alpha."));
+    Mesh->InvalidateDeriveDataCacheGUID();Mesh->MarkPackageDirty();
+    Receipt->SetBoolField(TEXT("success"),true);Receipt->SetBoolField(TEXT("saved"),false);
+    Receipt->SetStringField(TEXT("template"),ReferenceCloth->GetPathName());
+    Receipt->SetStringField(TEXT("cloth"),Cloth->GetPathName());
+    Receipt->SetNumberField(TEXT("physical_vertices"),Physical.Vertices.Num());
+    Receipt->SetNumberField(TEXT("physical_triangles"),Physical.Indices.Num()/3);
+    Receipt->SetNumberField(TEXT("pinned_vertices"),Draft.PinnedVertices);
+    Receipt->SetNumberField(TEXT("maximum_travel_cm"),Draft.MaxDistanceCm);
+    Receipt->SetNumberField(TEXT("bound_sections"),Bound);
+    Receipt->SetNumberField(TEXT("solver_iterations"),Shared->IterationCount);
+    Receipt->SetNumberField(TEXT("solver_max_iterations"),Shared->MaxIterationCount);
+    Receipt->SetNumberField(TEXT("solver_subdivisions"),Shared->SubdivisionCount);
+    Receipt->SetNumberField(TEXT("anim_drive_stiffness"),Config->AnimDriveStiffness.Low);
+    return WriteGillReceipt(Receipt);
 #else
     return TEXT("{\"success\":false,\"error\":\"Editor authoring build required.\"}");
 #endif

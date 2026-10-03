@@ -40,7 +40,7 @@ public:
     virtual void TickComponent(float Delta, ELevelTick Type, FActorComponentTickFunction* Tick) override;
     void RefreshEquipment(UColdSteelStatusModel* Profile);
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsEquipped() const { return !InstanceId.IsEmpty(); }
-    UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsBusy() const { return bWhirlwind || bAttacking || bEquipping || bCharging || bReturningCharge || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose; }
+    UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsBusy() const { return bUppercut || bWhirlwind || bAttacking || bEquipping || bCharging || bReturningCharge || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose; }
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginInspect();
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsInspecting() const { return bInspecting; }
     bool IsEquipping() const { return bEquipping; }
@@ -61,6 +61,9 @@ public:
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void ReleaseHeavyCharge();
     UFUNCTION(BlueprintPure, Category="Rune Sword") float HeavyChargeFraction() const { return bCharging ? Elapsed/RuneSwordHeavyRhythm::ChargeSeconds : 0.f; }
     bool TriggerHeavySkill();
+    bool BeginUppercut();
+    bool CanBeginUppercut() const;
+    FString UppercutStatusText() const;
     bool BeginWhirlwind();
     bool IsWhirlwindActive() const { return bWhirlwind; }
     bool TryBeginDashAttack();
@@ -233,4 +236,11 @@ private:
     float QuickCombatBleedChance=0.f;
     bool bQuickCombatAOE=false;
     FString EquippedAnimationFolder;
+    // Standalone skill motion. Soft references are preloaded once, outside input/HUD paths.
+    UPROPERTY(EditDefaultsOnly,Category="Rune Sword|Uppercut") TSoftObjectPtr<UAnimSequence> UppercutStandard;
+    UPROPERTY(EditDefaultsOnly,Category="Rune Sword|Uppercut") TSoftObjectPtr<UAnimSequence> UppercutLongGrip;
+    TSharedPtr<FStreamableHandle> UppercutLoad;
+    bool bUppercut=false;
+    void LoadUppercutAnimations();
+    UAnimSequence* UppercutAnimation() const;
 };

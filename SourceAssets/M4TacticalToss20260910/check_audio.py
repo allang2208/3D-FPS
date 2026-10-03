@@ -52,3 +52,5 @@ print(json.dumps(report, indent=2))
 assert abs(report['duration']-recording_wall_seconds) < .15 and report['rms'] > .001 and not report['clipped_samples']
 assert len(events) == 11 and min(e['correlation'] for e in events) > .80
 assert fire_corr > .80
+
+

@@ -1,0 +1,25 @@
+{
+  "meshes": {
+    "SM_SW_Roof": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Meshes/SM_SW_Roof",
+      "source_sha256": "1905831a641e0f534d5d539b9f110d0d4df7e8d2be030839dee9b4a5b2cc0370",
+      "triangles": 12
+    },
+    "SM_SW_BenchRetained": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Meshes/SM_SW_BenchRetained",
+      "source_sha256": "db31f69acc762c193935e12410a217bb2e06c8bc57d518ba3a6bf837248f126b",
+      "triangles": 203620
+    },
+    "SM_Station_Railings": {
+      "path": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Meshes/SM_Station_Railings",
+      "source_sha256": "a95d6b49284c2fdea1534deac2d92cb8e4f2907acff197ebd6db49d0740cf225",
+      "triangles": 19488
+    }
+  },
+  "materials": [
+    "/Game/Dungeons/StationWorkshop20261003/RefineV3/Materials/M_Workshop_FlatConcrete"
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "stage": "assets_saved"
+}

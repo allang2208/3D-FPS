@@ -18,6 +18,7 @@ public:
     AFPSHolyLightEffect();
     void InitializeLight(AActor* Target,UNiagaraSystem* System,const FHolyLightCast& Spell);
     virtual void Tick(float Delta) override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 private:
     UPROPERTY() TObjectPtr<USplineComponent> Path;
     UPROPERTY() TObjectPtr<UDynamicMeshComponent> Beam;
@@ -29,4 +30,9 @@ private:
     TWeakObjectPtr<AActor> FollowTarget;
     FHolyLightCast Settings;
     float Age=0,FootOffset=0;
+    // ── 联机复制态 ──
+    UPROPERTY(Replicated) TObjectPtr<AActor> NetTarget;
+    UPROPERTY(Replicated) FHolyLightCast NetSpell;
+    bool bNetInit=false;
+    void NetInit();
 };

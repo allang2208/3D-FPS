@@ -1,0 +1,19 @@
+{
+  "source": "https://github.com/Aureliengmz/clearwater",
+  "license": "MIT; Copyright (c) 2026 Lumaris",
+  "wave_count": 48,
+  "wave_kernel": "WaveField.hlsl",
+  "atlas": "T_ClearwaterCausticsAtlas.png",
+  "width": 4096,
+  "height": 2048,
+  "columns": 8,
+  "rows": 4,
+  "tile": 512,
+  "border": 4,
+  "frames": 32,
+  "loop_seconds": 60.0,
+  "patch_cm": 459.99999999999994,
+  "baked_depth_cm": 160.0,
+  "note": "Interpolated baked caustics; no live FFT or live light focusing.",
+  "tests_run": false
+}

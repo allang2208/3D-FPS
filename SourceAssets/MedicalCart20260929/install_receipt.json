@@ -1,0 +1,52 @@
+{
+  "mesh": "/Game/Props/MedicalCart20260929/SM_Hospital_MedicalCart",
+  "source": "Sketchfab 508d17d0d77c4d10a3a9ddc043241d31 'Rusty medical cart'",
+  "license": "CC-BY-4.0, credit: 'Rusty medical cart' by Turinka_3D (sketchfab.com), CC-BY-4.0",
+  "textures": [
+    "T_HospitalCart_Cart_A_BaseColor",
+    "T_HospitalCart_Cart_A_MR",
+    "T_HospitalCart_Cart_A_Normal",
+    "T_HospitalCart_Cart_B_BaseColor",
+    "T_HospitalCart_Cart_B_MR",
+    "T_HospitalCart_Cart_B_Normal",
+    "T_HospitalCart_Cart_C_BaseColor",
+    "T_HospitalCart_Cart_C_MR",
+    "T_HospitalCart_Cart_C_Normal"
+  ],
+  "materials": {
+    "Cart_A": "/Game/Props/MedicalCart20260929/Materials/M_HospitalCart_Cart_A",
+    "Cart_B": "/Game/Props/MedicalCart20260929/Materials/M_HospitalCart_Cart_B",
+    "Cart_C": "/Game/Props/MedicalCart20260929/Materials/M_HospitalCart_Cart_C"
+  },
+  "verify": {
+    "slots": [
+      {
+        "slot": "Cart_C",
+        "material": "/Game/Props/MedicalCart20260929/Materials/M_HospitalCart_Cart_C.M_HospitalCart_Cart_C"
+      },
+      {
+        "slot": "Cart_A",
+        "material": "/Game/Props/MedicalCart20260929/Materials/M_HospitalCart_Cart_A.M_HospitalCart_Cart_A"
+      },
+      {
+        "slot": "Cart_B",
+        "material": "/Game/Props/MedicalCart20260929/Materials/M_HospitalCart_Cart_B.M_HospitalCart_Cart_B"
+      }
+    ],
+    "bounds": {
+      "min": [
+        -56.9,
+        -32.1,
+        0.0
+      ],
+      "max": [
+        56.9,
+        32.1,
+        136.0
+      ]
+    }
+  },
+  "saved": true,
+  "game_tested": false,
+  "acceptance_rendered": false
+}

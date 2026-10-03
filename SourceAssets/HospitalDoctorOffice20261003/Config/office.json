@@ -1,0 +1,321 @@
+{
+  "revision": 1,
+  "module_id": "AbandonedIsolationWard",
+  "room": "East corridor-end room, former empty DECON wing",
+  "bounds_cm": {
+    "min": [
+      1714,
+      464,
+      4.2
+    ],
+    "max": [
+      2986,
+      1036,
+      440
+    ]
+  },
+  "door_cm": [
+    2350,
+    450,
+    0
+  ],
+  "parts": [
+    {
+      "id": "HospitalOffice.ConsultationDesk",
+      "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Desk",
+      "position": [
+        2450,
+        874,
+        4.4
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false
+    },
+    {
+      "id": "HospitalOffice.DoctorChair",
+      "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+      "position": [
+        2450,
+        961,
+        4.4
+      ],
+      "yaw": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false
+    },
+    {
+      "id": "HospitalOffice.VisitorChairA",
+      "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+      "position": [
+        2390,
+        769,
+        4.4
+      ],
+      "yaw": 4,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false
+    },
+    {
+      "id": "HospitalOffice.VisitorChairB",
+      "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+      "position": [
+        2513,
+        755,
+        4.4
+      ],
+      "yaw": -7,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false
+    },
+    {
+      "id": "HospitalOffice.RecordsDesk",
+      "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Desk",
+      "position": [
+        1768,
+        777,
+        4.4
+      ],
+      "yaw": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false
+    },
+    {
+      "id": "HospitalOffice.RecordsChair",
+      "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+      "position": [
+        1850,
+        777,
+        4.4
+      ],
+      "yaw": 92,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false
+    },
+    {
+      "id": "HospitalOffice.WaitingBench",
+      "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingBench",
+      "position": [
+        2010,
+        995,
+        4.4
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false
+    },
+    {
+      "id": "HospitalOffice.WaitingTable",
+      "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_CoffeeTable",
+      "position": [
+        2000,
+        883,
+        4.4
+      ],
+      "yaw": 3,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false
+    },
+    {
+      "id": "HospitalOffice.ConsultationRecords",
+      "mesh": "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Office_RecordsDesktop",
+      "position": [
+        2450,
+        874,
+        82.68
+      ],
+      "yaw": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "materials": [],
+      "fluid": false
+    },
+    {
+      "id": "HospitalOffice.WorkingRecords",
+      "mesh": "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Office_RecordsDesktop",
+      "position": [
+        1768,
+        777,
+        82.68
+      ],
+      "yaw": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "materials": [],
+      "fluid": false
+    }
+  ],
+  "group": {
+    "id": "Hospital.Office.Storage",
+    "pick_count": [
+      3,
+      3
+    ],
+    "slots": [
+      {
+        "id": "Hospital.Office.MedicalBooks",
+        "variants": [
+          {
+            "containers": [
+              {
+                "actor_class": "/Script/FPSGAME.ColdSteelSceneContainer",
+                "container_id": "Hospital.Office.MedicalBooks",
+                "caption": "医学书柜",
+                "body": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BookcaseBody_V4",
+                "door": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Meshes/SM_Dorm_BookcaseDoor_V2",
+                "hinge": [
+                  -43.9,
+                  21.5,
+                  0
+                ],
+                "opening_motion": "Swing",
+                "position": [
+                  2880,
+                  993,
+                  4.4
+                ],
+                "yaw": 180,
+                "storage_pages": 2,
+                "type": "scene_container"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Hospital.Office.PatientRecords",
+        "variants": [
+          {
+            "containers": [
+              {
+                "actor_class": "/Script/FPSGAME.ColdSteelSceneContainer",
+                "container_id": "Hospital.Office.PatientRecords",
+                "caption": "病历档案柜",
+                "body": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BookcaseBody_V4",
+                "door": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Meshes/SM_Dorm_BookcaseDoor_V2",
+                "hinge": [
+                  -43.9,
+                  21.5,
+                  0
+                ],
+                "opening_motion": "Swing",
+                "position": [
+                  2725,
+                  993,
+                  4.4
+                ],
+                "yaw": 180,
+                "storage_pages": 2,
+                "type": "scene_container"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Hospital.Office.WorkingShelf",
+        "variants": [
+          {
+            "containers": [
+              {
+                "actor_class": "/Script/FPSGAME.ColdSteelSceneContainer",
+                "container_id": "Hospital.Office.WorkingShelf",
+                "caption": "医生资料书架",
+                "body": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BookshelfBody_V4",
+                "door": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BookshelfDrawer_V4",
+                "hinge": [
+                  0,
+                  0,
+                  0
+                ],
+                "opening_motion": "Drawer",
+                "position": [
+                  2950,
+                  748,
+                  4.4
+                ],
+                "yaw": 90,
+                "storage_pages": 2,
+                "drawer_travel": [
+                  0,
+                  32,
+                  0
+                ],
+                "type": "scene_container"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "tests_run": false,
+  "rendered": false,
+  "game_run": false
+}

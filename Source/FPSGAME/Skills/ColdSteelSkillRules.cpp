@@ -48,6 +48,9 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     const auto& O = *Entry;
     O->TryGetStringField(TEXT("name"), D.Name); O->TryGetStringField(TEXT("description"), D.Description);
     O->TryGetStringField(TEXT("icon"), D.Icon); O->TryGetStringField(TEXT("upgradeSound"), D.UpgradeSound);
+    // Motion-only skill: metadata is available to the standard skill UI, while
+    // gameplay tuning and progression remain deliberately unconfigured.
+    if(Id==TEXT("swordUppercut"))return D;
     auto Num = [&](const TCHAR* Key, double Default) { double Value=Default; O->TryGetNumberField(Key,Value); return FMath::IsFinite(Value)?Value:Default; };
     D.HeavyMultiplierBase=Num(TEXT("heavyMultiplierBase"),2.5);D.HeavyMultiplierPerLevel=Num(TEXT("heavyMultiplierPerLevel"),.1);
     D.HeavyChargeBase=Num(TEXT("heavyChargeBase"),2);D.HeavyChargeReductionPerLevel=Num(TEXT("heavyChargeReductionPerLevel"),.05);
@@ -440,6 +443,13 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
             const auto Wager=ColdSteelCombat::BigBlind(Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),I);
             if(Wager.Enabled)
             {Shot.WagerCriticalBonusPerStack=Wager.CriticalBonusPerStack;Shot.WagerSeconds=Wager.Seconds;Shot.WagerMaxStacks=Wager.MaxStacks;}
+            const auto Calm=ColdSteelCombat::Calm(Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),I);
+            if(Calm.Enabled)
+            {
+                Shot.ComposureStabilityPerStack=Calm.StabilityPerStack;
+                Shot.ComposureRecoilReductionPerStack=Calm.RecoilReductionPerStack;
+                Shot.ComposureSeconds=Calm.Seconds;Shot.ComposureMaxStacks=Calm.MaxStacks;
+            }
             Shot.bMelee=ColdSteelInventory::IsMeleeWeapon(*I);
             // 武器自带的暴击伤害加成（items 定义 critDamageBonus，SVD=0.5）与暴击技能倍率相加后，
             // 在 ColdSteelSkillModel 里只乘一次（要害或随机暴击同一击不叠加）。
@@ -452,6 +462,10 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
                 Shot.DamagePanel=Melee.DamageParts;
                 Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+float(Melee.Modifiers.PhysicalArmorPenetration),0.f,1.f);
                 Shot.ToughnessDamageMultiplier=Melee.Modifiers.ToughnessDamage;
+                Shot.QuickCombatTigerRoarToughnessBonus=Melee.Modifiers.QuickCombatTigerRoarToughnessBonus;
+                Shot.QuickCombatTigerRoarSeconds=Melee.Modifiers.QuickCombatTigerRoarSeconds;
+                Shot.QuickCombatPhysicalVulnerabilityBonus=Melee.Modifiers.QuickCombatPhysicalVulnerabilityBonus;
+                Shot.QuickCombatPhysicalVulnerabilitySeconds=Melee.Modifiers.QuickCombatPhysicalVulnerabilitySeconds;
                 if(const auto* E=Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();E&&!bFiredRound)
                 {
                     if(E->Effect(*I,TEXT("electrifiedMelee"))>0.)

@@ -1,6 +1,7 @@
 #include "CombatStatusFormula.h"
 #include "ProgressiveInfectionComponent.h"
 #include "GameFramework/Actor.h"
+#include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Pawn.h"
 #include "../Monsters/NurseZombie.h"
@@ -15,6 +16,7 @@
 #include "../UI/StatusEffectsComponent.h"
 #include "../Monsters/PoisonMaggotProjectile.h"
 #include "../Monsters/HandBrainFearComponent.h"
+#include "../Monsters/SlagMistViewComponent.h"
 UCombatStatusFormula::UCombatStatusFormula(){PrimaryComponentTick.bCanEverTick=true;}
 UCombatStatusFormula* UCombatStatusFormula::GetOrAdd(AActor* Target)
 {
@@ -46,6 +48,28 @@ void UCombatStatusFormula::AddRuneMagicVulnerability(float Ratio,float Seconds)
     if(IsImmune()||Ratio<=0||Seconds<=0)return;
     RuneVulnerability=Ratio;RuneVulnerabilityTime=Seconds;
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("runeMagicVulnerability"),Seconds,1);
+}
+void UCombatStatusFormula::AddTigerRoar(float ToughnessBonus,float Seconds)
+{
+    if(!GetOwner()->HasAuthority()||IsImmune()||!GetWorld()||ToughnessBonus<=0.f||Seconds<=0.f)return;
+    TigerRoarBonus=ToughnessBonus;
+    TigerRoarEndsAt=GetWorld()->GetTimeSeconds()+Seconds;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("tigerRoar"),Seconds,1);
+}
+float UCombatStatusFormula::TigerRoarRemaining() const
+{
+    return GetWorld()?float(FMath::Max(0.,TigerRoarEndsAt-GetWorld()->GetTimeSeconds())):0.f;
+}
+void UCombatStatusFormula::AddPhysicalVulnerability(float Bonus,float Seconds)
+{
+    if(!GetOwner()->HasAuthority()||IsImmune()||!GetWorld()||Bonus<=0.f||Seconds<=0.f)return;
+    PhysicalVulnerabilityBonus=Bonus;
+    PhysicalVulnerabilityEndsAt=GetWorld()->GetTimeSeconds()+Seconds;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("physicalVulnerability"),Seconds,1);
+}
+float UCombatStatusFormula::PhysicalVulnerabilityRemaining() const
+{
+    return GetWorld()?float(FMath::Max(0.,PhysicalVulnerabilityEndsAt-GetWorld()->GetTimeSeconds())):0.f;
 }
 void UCombatStatusFormula::AddBleeding(AActor* Source,int32 Stacks)
 {if(!IsImmune()&&Stacks>0){BleedStacks+=Stacks;BleedTime=10;if(BleedTick<=0)BleedTick=1;BleedSource=Source;
@@ -235,6 +259,9 @@ float UCombatStatusFormula::MovementMultiplier()const
 void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)
 {
     Super::TickComponent(Delta,Type,Fn);
+    AdvanceBerserk();
+    if(WagerStacks>0&&WagerCount()==0)ConsumeWager();
+    if(ComposureStacks>0&&ComposureCount()==0)ClearComposure();
     const bool WardWas=WardTime>0;ShredTime=FMath::Max(0.f,ShredTime-Delta);WardTime=FMath::Max(0.f,WardTime-Delta);
     if(WardWas&&WardTime<=0)UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("holyWard"));
     auto Expire=[&](float& Time,int32& Stacks,FName Name){if(Time<=0)return;Time=FMath::Max(0.f,Time-Delta);if(Time==0){Stacks=0;UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(Name);}};
@@ -355,10 +382,90 @@ void UCombatStatusFormula::AddHaste(int32 Stacks,float Seconds)
     if(IsImmune()||Stacks<=0||Seconds<=0)return;HasteStacks=FMath::Min(10,HasteStacks+Stacks);HasteTime+=Stacks*Seconds;
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("haste"),HasteTime,HasteStacks);
 }
+int32 UCombatStatusFormula::BerserkCount() const
+{
+    if(BerserkStacks<=0||!GetWorld())return 0;
+    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return 0;
+    const double Overdue=GetWorld()->GetTimeSeconds()-BerserkDecayAt;
+    const int32 Lost=Overdue>=0.?FMath::Min(BerserkStacks,1+FMath::FloorToInt(Overdue/BerserkPeriod)):0;
+    return BerserkStacks-Lost;
+}
+float UCombatStatusFormula::BerserkRemaining() const
+{
+    if(BerserkCount()<=0)return 0.f;
+    const double Now=GetWorld()->GetTimeSeconds();
+    const double Overdue=Now-BerserkDecayAt;
+    const double Next=Overdue>=0.?BerserkDecayAt+(1+FMath::FloorToInt(Overdue/BerserkPeriod))*BerserkPeriod:BerserkDecayAt;
+    return FMath::Max(0.f,float(Next-Now));
+}
+void UCombatStatusFormula::AdvanceBerserk()
+{
+    if(BerserkStacks<=0||!GetWorld())return;
+    const int32 Before=BerserkStacks,Now=BerserkCount();
+    if(Before==Now)return;
+    BerserkDecayAt+=(Before-Now)*BerserkPeriod;BerserkStacks=Now;
+    if(Now==0)BerserkDecayAt=0.;
+    UStatusEffectsComponent::Notify(GetOwner());
+}
+void UCombatStatusFormula::AddBerserk(float SpeedPerStack,float DecaySeconds,int32 StackLimit)
+{
+    if(!GetOwner()->HasAuthority()||IsImmune()||!GetWorld()||SpeedPerStack<=0.f||DecaySeconds<=0.f||StackLimit<=0)return;
+    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
+    AdvanceBerserk();
+    if(BerserkStacks==0)
+    {
+        BerserkPeriod=DecaySeconds;BerserkSpeedPerStack=SpeedPerStack;BerserkLimit=StackLimit;
+        BerserkDecayAt=GetWorld()->GetTimeSeconds()+BerserkPeriod;
+    }
+    if(BerserkStacks>=BerserkLimit)return;
+    ++BerserkStacks;UStatusEffectsComponent::Notify(GetOwner());
+}
 void UCombatStatusFormula::AddChainSpell()
 {
     if(IsImmune())return;++ChainStacks;ChainTime+=10;
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("chainSpell"),ChainTime,ChainStacks);
+}
+// 赌注使用绝对游戏时间，命中与状态 Tick 的先后不改变到期语义。
+int32 UCombatStatusFormula::WagerCount() const
+{
+    if(WagerStacks<=0||!GetWorld()||GetWorld()->GetTimeSeconds()>=WagerEndsAt)return 0;
+    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return 0;
+    return WagerStacks;
+}
+float UCombatStatusFormula::WagerRemaining() const
+{return WagerCount()>0?FMath::Max(0.f,float(WagerEndsAt-GetWorld()->GetTimeSeconds())):0.f;}
+void UCombatStatusFormula::AddWager(float BonusPerStack,float Seconds,int32 StackLimit)
+{
+    if(!GetOwner()->HasAuthority()||IsImmune()||!GetWorld()||BonusPerStack<=0.f||Seconds<=0.f||StackLimit<=0)return;
+    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
+    WagerStacks=FMath::Min(StackLimit,WagerCount()+1);
+    WagerPeriod=Seconds;WagerBonusPerStack=BonusPerStack;WagerEndsAt=GetWorld()->GetTimeSeconds()+Seconds;
+    UStatusEffectsComponent::Notify(GetOwner());
+}
+void UCombatStatusFormula::ConsumeWager()
+{
+    WagerStacks=0;WagerEndsAt=0.;UStatusEffectsComponent::Notify(GetOwner());
+}
+int32 UCombatStatusFormula::ComposureCount() const
+{
+    if(ComposureStacks<=0||!GetWorld()||GetWorld()->GetTimeSeconds()>=ComposureEndsAt)return 0;
+    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return 0;
+    return ComposureStacks;
+}
+float UCombatStatusFormula::ComposureRemaining() const
+{return ComposureCount()>0?FMath::Max(0.f,float(ComposureEndsAt-GetWorld()->GetTimeSeconds())):0.f;}
+void UCombatStatusFormula::AddComposure(float StabilityPerStack,float RecoilReductionPerStack,float Seconds,int32 StackLimit)
+{
+    if(!GetOwner()->HasAuthority()||IsImmune()||!GetWorld()||StabilityPerStack<=0.f||RecoilReductionPerStack<=0.f||Seconds<=0.f||StackLimit<=0)return;
+    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
+    ComposureStacks=FMath::Min(StackLimit,ComposureCount()+1);
+    ComposurePeriod=Seconds;ComposureStabilityPerStack=StabilityPerStack;ComposureRecoilReductionPerStack=RecoilReductionPerStack;
+    ComposureEndsAt=GetWorld()->GetTimeSeconds()+Seconds;
+    UStatusEffectsComponent::Notify(GetOwner());
+}
+void UCombatStatusFormula::ClearComposure()
+{
+    ComposureStacks=0;ComposureEndsAt=0.;UStatusEffectsComponent::Notify(GetOwner());
 }
 void UCombatStatusFormula::ConsumeChainSpell()
 {ChainTime=0;ChainStacks=0;UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("chainSpell"));}
@@ -366,8 +473,14 @@ void UCombatStatusFormula::ShowProcTile(FName Type,float Seconds)
 {if(Seconds>0)UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(Type,Seconds,1);}
 void UCombatStatusFormula::PurgeTransient()
 {
+    if (auto* Mist = GetOwner()->FindComponentByClass<USlagMistViewComponent>()) Mist->ClearBlindness();
     if(auto* Infection=GetOwner()->FindComponentByClass<UProgressiveInfectionComponent>())Infection->Cure();
     ChillStacks=HasteStacks=ChainStacks=ElectrifiedStacks=CorrosionStacks=VulnerabilityStacks=BleedStacks=0;
+    BerserkStacks=0;BerserkDecayAt=0.;
+    WagerStacks=0;WagerEndsAt=0.;
+    ComposureStacks=0;ComposureEndsAt=0.;
+    TigerRoarBonus=0.f;TigerRoarEndsAt=0.;
+    PhysicalVulnerabilityBonus=0.f;PhysicalVulnerabilityEndsAt=0.;
     ChillTime=HasteTime=ChainTime=ElectrifiedTime=CorrosionTime=VulnerabilityTime=BleedTime=BurnTick=0;
     FrozenTime=StunTime=BindTime=SlowTime=WaxTime=WeaponHasteTime=PetrifyTime=MarkedTime=InspireTime=0;
     CamelTime=ImmuneTime=MineTime=MineTick=RuneVulnerabilityTime=RiposteTime=ShredTime=WardTime=0;
@@ -377,7 +490,7 @@ void UCombatStatusFormula::PurgeTransient()
         for(FName Type:{TEXT("chill"),TEXT("frozen"),TEXT("haste"),TEXT("chainSpell"),TEXT("electrified"),TEXT("corrosion"),
             TEXT("bleed"),TEXT("burn"),TEXT("stun"),TEXT("bind"),TEXT("slow"),TEXT("waxSealSlow"),TEXT("weaponHaste"),
             TEXT("petrified"),TEXT("marked"),TEXT("inspire"),TEXT("camelFright"),TEXT("statusImmune"),TEXT("minePoison"),
-            TEXT("droneVulnerability"),TEXT("holyWard"),TEXT("holyRenewal"),TEXT("runeMagicVulnerability"),TEXT("riposteInspiration")})Display->Remove(Type);
+            TEXT("droneVulnerability"),TEXT("holyWard"),TEXT("holyRenewal"),TEXT("runeMagicVulnerability"),TEXT("riposteInspiration"),TEXT("tigerRoar"),TEXT("physicalVulnerability")})Display->Remove(Type);
 }
 int32 UCombatStatusFormula::CleanseDebuffs(int32 Count)
 {
@@ -398,5 +511,9 @@ int32 UCombatStatusFormula::CleanseDebuffs(int32 Count)
     if(Take())if(VulnerabilityStacks>0){VulnerabilityStacks=0;VulnerabilityTime=0;++Cleansed;}
     if(Take())if(!Drones.IsEmpty()){Drones.Empty();Clear(TEXT("droneVulnerability"));++Cleansed;}
     if(Take())if(ElectrifiedStacks>0||ElectrifiedTime>0){ElectrifiedStacks=0;ElectrifiedTime=0;Clear(TEXT("electrified"));++Cleansed;} // 旧口径：净化感电须硬置层数归零
+    if (Take()) if (auto* Mist = Owner->FindComponentByClass<USlagMistViewComponent>(); Mist && Mist->BlindRemaining() > 0.f)
+    { Mist->ClearBlindness(); ++Cleansed; }
+    if(Take()&&TigerRoarRemaining()>0.f){TigerRoarBonus=0.f;TigerRoarEndsAt=0.;Clear(TEXT("tigerRoar"));++Cleansed;}
+    if(Take()&&PhysicalVulnerabilityRemaining()>0.f){PhysicalVulnerabilityBonus=0.f;PhysicalVulnerabilityEndsAt=0.;Clear(TEXT("physicalVulnerability"));++Cleansed;}
     return Cleansed;
 }

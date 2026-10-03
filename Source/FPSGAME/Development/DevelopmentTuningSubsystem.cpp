@@ -15,7 +15,7 @@ UDevelopmentTuningSubsystem* UDevelopmentTuningSubsystem::Find(const UObject* Co
 
 bool UDevelopmentTuningSubsystem::IsEnabled(EDevelopmentTuningOption Option) const
 {
-    if (!GetWorld() || GetWorld()->GetNetMode() != NM_Standalone) return false;
+    if (!GetWorld() || GetWorld()->GetNetMode() == NM_Client) return false;
     if (Option == EDevelopmentTuningOption::InfiniteReserveAmmo && !bReserveAmmoOverride)
         return UGameplayStatics::GetCurrentLevelName(this, true) == TEXT("DayNight_Lighting");
     return EnabledOptions.Contains(Option);
@@ -23,7 +23,7 @@ bool UDevelopmentTuningSubsystem::IsEnabled(EDevelopmentTuningOption Option) con
 
 bool UDevelopmentTuningSubsystem::CanEdit(const APlayerController* Player) const
 {
-    return GetWorld() && GetWorld()->GetNetMode() == NM_Standalone && Player &&
+    return GetWorld() && GetWorld()->GetNetMode() != NM_Client && Player &&
         Player->GetWorld() == GetWorld() && Player->IsLocalController() && Player->HasAuthority() &&
         Cast<AFPSGAMECharacter>(Player->GetPawn()) != nullptr;
 }

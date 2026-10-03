@@ -1,5 +1,5 @@
 """Author compatible bay layouts; no room shell duplication or random placement on the critical route."""
-import json, math
+import json, math, runpy
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -62,6 +62,11 @@ for family,layouts in LAYOUTS.items():
 config=dict(version=2,families=library,bays=BAYS,policy=dict(selection='after_route_plan_independent_seed_streams',
     large_equipment='authored_UCX_boxes',small_clutter='no_collision_no_tick',maximum_added_mesh_parts_per_room=3,
     added_lights_per_room=0,loose_floor_prop_limit=8,loose_cluster_limit=2))
+hospital=ROOT.parent/'HospitalPolish20261003';receipt=hospital/'Receipts/assets.json'
+if receipt.exists() and json.loads(receipt.read_text('utf8')).get('stage')=='assets_saved':
+    updated=runpy.run_path(str(hospital/'Scripts/fixture_rules.py'))['extend_module'](
+        dict(id='Drainage',parts=[],scene_recipes=config['families']['Drainage']))
+    config['families']['Drainage']=updated['scene_recipes'];config['hospital_fixture_revision']=2
 (ROOT/'Config').mkdir(exist_ok=True)
 (ROOT/'Config/scene-recipes.json').write_text(json.dumps(config,ensure_ascii=False,indent=2),encoding='utf-8')
 print('FACILITY_RECIPES_AUTHORED',len(library),sum(len(v) for v in library.values()))

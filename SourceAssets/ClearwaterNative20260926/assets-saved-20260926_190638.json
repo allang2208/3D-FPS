@@ -1,0 +1,25 @@
+{
+  "revision": "clearwater-native-20260926",
+  "saved": [
+    "/Game/Clearwater/History/BeforeNative_20260926_190638/MI_ClearwaterWater.MI_ClearwaterWater",
+    "/Game/Clearwater/History/BeforeNative_20260926_190638/MI_ClearwaterSeabed.MI_ClearwaterSeabed",
+    "/Game/Clearwater/History/BeforeNative_20260926_190638/MI_ClearwaterUnderwater.MI_ClearwaterUnderwater",
+    "/Game/Clearwater/T_ClearwaterCausticsAtlas.T_ClearwaterCausticsAtlas",
+    "/Game/Clearwater/M_ClearwaterWater_Native.M_ClearwaterWater_Native",
+    "/Game/Clearwater/M_ClearwaterSeabed_Native.M_ClearwaterSeabed_Native",
+    "/Game/Clearwater/M_ClearwaterUnderwater_Native.M_ClearwaterUnderwater_Native",
+    "/Game/Clearwater/MI_ClearwaterWater.MI_ClearwaterWater",
+    "/Game/Clearwater/MI_ClearwaterSeabed.MI_ClearwaterSeabed",
+    "/Game/Clearwater/MI_ClearwaterUnderwater.MI_ClearwaterUnderwater",
+    "/Game/Clearwater/SM_ClearwaterPlane.SM_ClearwaterPlane"
+  ],
+  "backup": "/Game/Clearwater/History/BeforeNative_20260926_190638",
+  "disk_backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ClearwaterNative20260926\\BeforeNative_20260926_190638",
+  "optics": "UE SingleLayerWater",
+  "waves": 48,
+  "shared_hits": 8,
+  "shared_wakes": 4,
+  "caustic_frames": 32,
+  "runtime_tested": false,
+  "native_build_required": true
+}

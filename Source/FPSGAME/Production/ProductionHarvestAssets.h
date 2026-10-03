@@ -4,6 +4,8 @@
 namespace ProductionHarvestAssets
 {
     bool IsMaterial(const FString& Definition);
+    /** 冶炼锭族判定（ironIngot/copperIngot/silverIngot/goldIngot）。 */
+    bool IsSmeltingIngot(const FString& Definition);
     FSoftObjectPath PickupMesh(const FString& Definition,int32 Variant=0);
     /** 2026-09-24 冶炼材料建模：矿石=强化石网格×分矿种色调材质、锭=铸锭网格×金属色材质；
      *  返回该定义的材质覆写路径（无覆写＝用网格自带材质）。 */

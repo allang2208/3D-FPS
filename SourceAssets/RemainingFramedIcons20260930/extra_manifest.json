@@ -1,0 +1,41 @@
+[
+  {
+    "key": "ue_apprentice_staff_category_head_crystal",
+    "keys": [
+      "ue_apprentice_staff_category_head_crystal",
+      "ue_apprentice_staff_head_crystal_false"
+    ],
+    "family": "staff",
+    "source": "SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/Export/apprentice_staff.png",
+    "desc": "Center subject ONLY the small opaque milky-white pointed quartz staff head visible at top of reference2, its short wood mounting neck and small rope collar. Crop mentally to this head part, do not show full staff. Keep simple irregular hexagonal crystal facets, no orb, no colored glow."
+  },
+  {
+    "key": "ue_apprentice_staff_category_grip_lining",
+    "keys": [
+      "ue_apprentice_staff_category_grip_lining",
+      "ue_apprentice_staff_grip_lining_false"
+    ],
+    "family": "staff",
+    "source": "SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/Export/apprentice_staff.png",
+    "desc": "Center subject ONLY a plain wooden handle segment from middle of reference2 staff. Show natural rough wood grain and slight curved irregular profile, both ends visible. No crystal head, no rope, no bands, no wrapping; this is the factory bare wood grip."
+  },
+  {
+    "key": "staff_empty",
+    "keys": [
+      "ue_apprentice_staff_crown_false",
+      "ue_apprentice_staff_shaft_rune_false",
+      "ue_apprentice_staff_tail_charm_false",
+      "ue_apprentice_staff_mana_line_false"
+    ],
+    "family": "staff",
+    "desc": "Replace center with ONE small polished silver horizontal minus bar. Means no accessory installed. Preserve circular ring. Absolutely no red or diagonal slash, no prohibition symbol, no text or other parts."
+  },
+  {
+    "key": "category_enhance",
+    "keys": [
+      "category_enhance"
+    ],
+    "family": "tool",
+    "desc": "Replace center with a compact forged steel anvil with five short horizontal silver metal bars ascending in a stepped stack above its flat surface. Clear readable symbol for tool material tier enhancement. Sculptural realistic brushed metal, all grayscale, no digits, text, glow, hammer, stars or color."
+  }
+]

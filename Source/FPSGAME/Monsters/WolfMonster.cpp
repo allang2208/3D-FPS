@@ -1,4 +1,5 @@
 #include "WolfMonster.h"
+#include "Net/UnrealNetwork.h"
 #include "ZombieDogAppearanceComponent.h"
 #include "QuadrupedAnimationTemplate.h"
 #include "MonsterCombatComponent.h"
@@ -13,6 +14,7 @@
 #include "../Skills/EnemyAttackDamage.h"
 #include "../Skills/IceWallCombat.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Skills/ColdSteelSkillRules.h"
 #include "Animation/AnimSequence.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -175,6 +177,16 @@ bool AWolfMonster::StartAttack(APawn* Victim)
     }
     if (auto* AI = Cast<AMonsterAIController>(GetController())) { AI->StopMovement(); AI->UpdateKnowledge(); }
     return true;
+}
+void AWolfMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AWolfMonster, State);
+}
+void AWolfMonster::OnRep_State()
+{
+    // 远端副本：EnterState 本身是表现内聚的（动画/移动标志），直接重放。
+    if(!HasAuthority())EnterState(State);
 }
 void AWolfMonster::EnterState(EWolfState NewState)
 {
@@ -477,6 +489,7 @@ void AWolfMonster::Die(AController* Killer)
     GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
     if (auto* AI = Cast<AMonsterAIController>(GetController())) AI->UpdateKnowledge();
     SetLifeSpan(FMath::Max(CorpseSeconds, ClipLength(TEXT("Death")) + 3.f));
+    ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),Killer,this);
     if (auto* Player = Cast<APlayerController>(Killer))
         if (Player->IsLocalController() && GetGameInstance())
             GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this, ExperienceReward);

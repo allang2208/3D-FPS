@@ -1,0 +1,38 @@
+{
+  "stage": "maps_saved",
+  "maps": {
+    "/Game/GameMaps/L_Dungeon_Randomized": {
+      "stage": "map_saved",
+      "revision": 3,
+      "previous_sha256": "642dd0047b84e9c0f40e638695086e2df952f10a6261a0c61887d7ea8b358f8f"
+    },
+    "/Game/GameMaps/Design/L_FreightTransit_Theme_Subject": {
+      "stage": "map_saved",
+      "revision": 3,
+      "previous_sha256": "83f29b7f57f8847c4237bbafe1a6741d70d35ade98743c9ebc27e342b3c7c246",
+      "rebound_components": [
+        {
+          "actor": "StationLine_AbandonedTransitStation_4",
+          "old": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Railings",
+          "new": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Meshes/SM_Station_Railings"
+        },
+        {
+          "actor": "StationWorkshop_1_SM_SW_Roof",
+          "old": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_Roof",
+          "new": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Meshes/SM_SW_Roof"
+        },
+        {
+          "actor": "StationWorkshop_30_SM_WBK_Fab_BenchRetained",
+          "old": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_BenchRetained",
+          "new": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Meshes/SM_SW_BenchRetained"
+        }
+      ]
+    }
+  },
+  "tests_run": false,
+  "rendered": false,
+  "game_run": false,
+  "editor_opened": false,
+  "native_changes": false,
+  "native_build": "Reuses already saved V2 binaries; mesh/material/catalog corrections only"
+}

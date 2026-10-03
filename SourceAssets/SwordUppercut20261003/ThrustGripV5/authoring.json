@@ -1,0 +1,58 @@
+{
+  "revision": "ThrustGripRisingCutV5",
+  "fps": 120,
+  "sources": "Current installed third-combo thrust and live LongGrip profile; user-directed rising cut",
+  "paid_motion_used": false,
+  "phases": {
+    "lower_right": [
+      0,
+      0.42
+    ],
+    "hold": [
+      0.42,
+      0.48
+    ],
+    "cut": [
+      0.48,
+      0.7
+    ],
+    "follow_through": [
+      0.7,
+      0.77
+    ],
+    "recover": [
+      0.77,
+      1.3166666666666667
+    ]
+  },
+  "variants": {
+    "Standard": {
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ThrustGripV5\\Standard\\Sword_UppercutV5_Editable.blend",
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ThrustGripV5\\Standard\\editable_keys.json",
+      "seconds": 1.3166666666666667,
+      "source_thrust": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Thrust.A_RuneSword_Thrust",
+      "shoulder_pivot_m": [
+        0.002405315637588501,
+        0.025732792913913727,
+        -0.22321823239326477
+      ],
+      "hand_and_joint_processing": "Current third-hit thrust articulation transported as a complete group",
+      "long_grip_source": null
+    },
+    "LongGrip": {
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ThrustGripV5\\LongGrip\\Sword_UppercutV5_Editable.blend",
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ThrustGripV5\\LongGrip\\editable_keys.json",
+      "seconds": 1.3166666666666667,
+      "source_thrust": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Thrust.A_RuneSword_Thrust",
+      "shoulder_pivot_m": [
+        0.002405308187007904,
+        0.025732798501849174,
+        -0.22321826219558716
+      ],
+      "hand_and_joint_processing": "Current third-hit thrust articulation transported as a complete group",
+      "long_grip_source": "Current playback profile"
+    }
+  },
+  "runtime_tested": false,
+  "rendered": false
+}

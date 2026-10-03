@@ -1,0 +1,73 @@
+{
+  "contours": [
+    {
+      "parts": [
+        "FlashHider",
+        "Barrel"
+      ],
+      "station_mm": -687.6999999999999,
+      "offset_each_side_mm": 0.05,
+      "xz_nearest_distance_mm_q50_q90_max": [
+        [
+          0.047071698435647964,
+          0.06552210683388968,
+          0.1024441160805568
+        ],
+        [
+          0.04682684952599265,
+          0.0640707206346442,
+          0.10207077563119428
+        ]
+      ],
+      "caveat": "Source contours, not engine rendering. Different designed shoulder diameters need not coincide."
+    },
+    {
+      "parts": [
+        "GasFrontHardware",
+        "GasTube"
+      ],
+      "station_mm": -570.4,
+      "offset_each_side_mm": 0.05,
+      "xz_nearest_distance_mm_q50_q90_max": [
+        [
+          0.7720921180643117,
+          2.512372360668003,
+          3.041310082295715
+        ],
+        [
+          1.9509754388611478,
+          3.6894444026744733,
+          5.3511491100221455
+        ]
+      ],
+      "caveat": "Source contours, not engine rendering. Different designed shoulder diameters need not coincide."
+    }
+  ],
+  "handguard_mapping_difference": [
+    {
+      "original_z": 0.071,
+      "common_z_mm": 30.0,
+      "handguard_z_mm": 40.72962299234722,
+      "delta_mm": 10.729622992347219
+    },
+    {
+      "original_z": 0.104,
+      "common_z_mm": 48.660000000000004,
+      "handguard_z_mm": 53.93994358097825,
+      "delta_mm": 5.279943580978247
+    },
+    {
+      "original_z": 0.13579,
+      "common_z_mm": 60.5,
+      "handguard_z_mm": 66.66588574802614,
+      "delta_mm": 6.165885748026137
+    },
+    {
+      "original_z": 0.15,
+      "common_z_mm": 72.4,
+      "handguard_z_mm": 72.35432985603967,
+      "delta_mm": -0.0456701439603413
+    }
+  ],
+  "units": "game-art local dimensions, not physical weapon specifications"
+}

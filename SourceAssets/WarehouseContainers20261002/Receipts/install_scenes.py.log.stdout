@@ -1,0 +1,667 @@
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -Mode=ValidatePlatforms -OutputSDKs  -AllPlatforms  -project="D:/FPS3D/FPSGAME/FPSGAME.uproject" -log="D:/FPS3D/FPSGAME/Saved/Logs/AutoSDKInfo.txt" -verbose -timestamps
+Log file: D:\FPS3D\FPSGAME\Saved\Logs\AutoSDKInfo.txt
+[2026.10.02-16.12.08:946][  0]LogInit: Display: Running engine for game: FPSGAME
+[2026.10.02-16.12.08:946][  0]LogCore: Display: Requested channels: 'cpu,gpu,frame,log,bookmark,screenshot,region'
+[2026.10.02-16.12.08:946][  0]LogTrace: Display: Control listening on port 1985
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : platform="Windows"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : config="Development"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.8-CL-58210709"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : engineversion="5.8.3-58210709+++UE5+Release-5.8"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : enginereleaseversion="5.8.3"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : os="Windows 11 (25H2) [10.0.26200.9168] "
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : cpu="GenuineIntel|13th Gen Intel(R) Core(TM) i7-13700K"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : asan="0"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : mergedmodules="0"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : compacttset="0"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : commandline="" D:\FPS3D\FPSGAME\FPSGAME.uproject -run=pythonscript -script=D:\FPS3D\FPSGAME\SourceAssets\WarehouseContainers20261002\Scripts\install_scenes.py -unattended -nop4 -nosplash -nosound -AllowCommandletRendering -d3d12 -abslog=D:\FPS3D\FPSGAME\SourceAssets\WarehouseContainers20261002\Receipts\install_scenes.py.log""
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : loginid="bc5c91f347bcf631eec19fa685df33d2"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : llm="0"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : zenstreaming="0"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resx="1280"
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resy="720"
+[2026.10.02-16.12.08:946][  0]LogAudio: Display: Audio Device Manager not initializing due to all audio being disabled. If this is not intentional, please check command line arguments for "-nosound".
+[2026.10.02-16.12.08:946][  0]LogConfig: Display: Loading IOS ini files took 0.03 seconds
+[2026.10.02-16.12.08:946][  0]LogConfig: Display: Loading VulkanPC ini files took 0.03 seconds
+[2026.10.02-16.12.08:946][  0]LogConfig: Display: Loading Mac ini files took 0.03 seconds
+[2026.10.02-16.12.08:946][  0]LogConfig: Display: Loading Unix ini files took 0.03 seconds
+[2026.10.02-16.12.08:946][  0]LogConfig: Display: Loading Android ini files took 0.03 seconds
+[2026.10.02-16.12.08:946][  0]LogConfig: Display: Loading TVOS ini files took 0.04 seconds
+[2026.10.02-16.12.08:946][  0]LogConfig: Display: Loading Windows ini files took 0.04 seconds
+[2026.10.02-16.12.08:946][  0]LogConfig: Display: Loading VisionOS ini files took 0.04 seconds
+[2026.10.02-16.12.08:946][  0]LogConfig: Display: Loading Linux ini files took 0.04 seconds
+[2026.10.02-16.12.08:946][  0]RenderDocPlugin: Display: RenderDoc plugin will not be loaded. Use '-AttachRenderDoc' on the cmd line or enable 'renderdoc.AutoAttach' in the plugin settings.
+[2026.10.02-16.12.08:946][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.02-16.12.08:946][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.02-16.12.08:946][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.02-16.12.08:946][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.02-16.12.08:946][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.02-16.12.08:946][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.02-16.12.08:946][  0]LogAsyncCompilation: Display: MemorySharingInfo: UsedMemory=323MiB, MaxMemoryAvailable=67578MiB
+[2026.10.02-16.12.08:946][  0]LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+[2026.10.02-16.12.08:946][  0]LogHAL: Display: Platform has ~ 32 GB [34088374272 / 34359738368 / 32], which maps to Largest [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2026.10.02-16.12.08:946][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2026.10.02-16.12.08:946][  0]LogObj: Display: Attempting to load config data for Default__DownlinkBandwidthManagerConfig before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+##PlatformValidate: Win64 VALID 10.0.22621.0
+##PlatformValidate: Mac INVALID 26.1.1
+##PlatformValidate: IOS INVALID 26.1.1
+##PlatformValidate: Android INVALID r27c
+##PlatformValidate: Linux INVALID v26_clang-20.1.8-rockylinux8
+##PlatformValidate: LinuxArm64 INVALID <UNKNOWN>
+##PlatformValidate: TVOS INVALID 26.1.1
+##PlatformValidate: VisionOS INVALID <UNKNOWN>
+Unable to find required SDK version 'MainVersion' for platform LinuxArm64. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform VisionOS. Check your SDK.json files
+Trace written to file C:\Users\allan\AppData\Local\UnrealBuildTool\Trace.uba with size 318b
+[2026.10.02-16.12.09:190][  0]LogObj: Display: Attempting to load config data for Default__SlateThemeManager before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.10.02-16.12.09:591][  0]LogD3D12RHI: Display: Creating D3D12 RHI with Max Feature Level SM6
+[2026.10.02-16.12.09:595][  0]LogRHI: Display: Timeout Detection and Recovery (TDR) summary: 
+
+	- TDR using non-default settings - Level: Recover, Delay: 120, DdiDelay: 120
+[2026.10.02-16.12.09:770][  0]LogD3D12RHI: Display: Not using pipeline state disk cache per r.D3D12.PSO.DiskCache=0
+[2026.10.02-16.12.09:770][  0]LogD3D12RHI: Display: Not using driver-optimized pipeline state disk cache per r.D3D12.PSO.DriverOptimizedDiskCache=0
+[2026.10.02-16.12.09:817][  0]LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.02-16.12.09:817][  0]LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.02-16.12.09:818][  0]LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.02-16.12.09:823][  0]LogCsvProfiler: Display: Metadata set : verbatimrhiname="D3D12"
+[2026.10.02-16.12.09:823][  0]LogCsvProfiler: Display: Metadata set : rhiname="D3D12"
+[2026.10.02-16.12.09:823][  0]LogCsvProfiler: Display: Metadata set : rhifeaturelevel="SM6"
+[2026.10.02-16.12.09:823][  0]LogCsvProfiler: Display: Metadata set : shaderplatform="PCD3D_SM6"
+[2026.10.02-16.12.09:823][  0]LogCsvProfiler: Display: Metadata set : gpu="NVIDIA GeForce GTX 750 Ti"
+[2026.10.02-16.12.09:823][  0]LogCsvProfiler: Display: Metadata set : gpudriver=""
+[2026.10.02-16.12.09:828][  0]LogTextureFormatASTC: Display: ASTCEnc version 5.0.1 library loaded
+[2026.10.02-16.12.09:829][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatASTC
+[2026.10.02-16.12.09:829][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatDXT
+[2026.10.02-16.12.09:829][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatETC2
+[2026.10.02-16.12.09:829][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatIntelISPCTexComp
+[2026.10.02-16.12.09:829][  0]LogTextureFormatOodle: Display: Oodle Texture TFO init; latest sdk version = 2.9.16
+[2026.10.02-16.12.09:829][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.16.dll
+[2026.10.02-16.12.09:829][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatOodle
+[2026.10.02-16.12.09:829][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatUncompressed
+[2026.10.02-16.12.09:857][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Android'
+[2026.10.02-16.12.09:876][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'IOS'
+[2026.10.02-16.12.09:895][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Linux'
+[2026.10.02-16.12.09:915][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Mac'
+[2026.10.02-16.12.09:916][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'TVOS'
+[2026.10.02-16.12.09:936][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Windows'
+[2026.10.02-16.12.09:936][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsEditor'
+[2026.10.02-16.12.09:936][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsServer'
+[2026.10.02-16.12.09:936][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsClient'
+[2026.10.02-16.12.09:936][  0]LogTargetPlatformManager: Display: Building Assets For WindowsEditor
+[2026.10.02-16.12.09:939][  0]LogAudioDebug: Display: Lib vorbis DLL was dynamically loaded.
+[2026.10.02-16.12.10:169][  0]LogDerivedDataCache: Display: ../../../Engine/DerivedDataCache/Compressed.ddp: Opened pak cache for reading. (1670 MiB)
+[2026.10.02-16.12.10:170][  0]LogZenServiceInstance: Display: Launching zen utility 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/zen.exe service status'.
+[2026.10.02-16.12.12:186][  0]LogZenServiceInstance: Display: Zen utility process has been running for 2.0 seconds without completing, still waiting...
+[2026.10.02-16.12.13:188][  0]LogZenServiceInstance: Display: Writing plugin version info to 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugin_versions.json'
+[2026.10.02-16.12.13:190][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/5.8/Saved/Zen/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.02-16.12.13:190][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.02-16.12.13:190][  0]LogZenServiceInstance: Display: Installed service at 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe' is up to date
+[2026.10.02-16.12.13:190][  0]LogZenServiceInstance: Display: Launching executable 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe', working dir 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install', data dir 'D:/FPS3D/DerivedDataCache/Zen', args '--port 8558 --data-dir D:\FPS3D\DerivedDataCache\Zen --http asio --gc-cache-duration-seconds 1209600 --gc-interval-seconds 21600 --gc-low-diskspace-threshold 2147483648 --cache-bucket-limit-overwrites --quiet --restrict-content-types --allow-external-oidctoken-exe=false --plugins-config "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugins_v1.json" --security-config-path "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/security-config.json" --owner-pid 11564  --child-id Zen_11564_Startup'
+[2026.10.02-16.12.15:651][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.10.02-16.12.15:652][  0]LogDerivedDataCache: Display: ZenLocal: Using ZenServer HTTP service at [::1] with namespace ue.ddc. Status: OK!.
+[2026.10.02-16.12.15:655][  0]LogDerivedDataCache: Display: D:/FPS3D/FPSGAME/../DerivedDataCache: Performance: Latency=0.00ms. RandomReadSpeed=1523.33MBs, RandomWriteSpeed=384.76MBs. Assigned SpeedClass 'Local'
+[2026.10.02-16.12.15:657][  0]LogUbaHorde: Display: UBA/Horde Configuration [Uba.Provider.Horde]: Not Enabled
+[2026.10.02-16.12.15:657][  0]LogShaderCompilers: Display: No distributed shader compiler controller found
+[2026.10.02-16.12.15:657][  0]LogShaderCompilers: Display: Using 13 local workers for shader compilation
+[2026.10.02-16.12.15:664][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush
+[2026.10.02-16.12.15:664][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.02-16.12.16:442][  0]LogEditorDomain: Display: EditorDomain is Disabled
+[2026.10.02-16.12.16:662][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64Editor not found.
+[2026.10.02-16.12.16:662][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64 not found.
+[2026.10.02-16.12.16:695][  0]LogCsvProfiler: Display: Metadata set : deviceprofile="WindowsEditor"
+[2026.10.02-16.12.16:697][  0]LogStreaming: Display: FlushAsyncLoading(1): 1 QueuedPackages, 0 AsyncPackages
+[2026.10.02-16.12.16:698][  0]LogTextureEncodingSettings: Display: Texture Encode Speed: Final (cook).
+[2026.10.02-16.12.16:698][  0]LogTextureEncodingSettings: Display: Oodle Texture Encode Speed settings: Fast: RDO Off Lambda=0, Effort=Normal Final: RDO Off Lambda=0, Effort=Normal
+[2026.10.02-16.12.16:698][  0]LogTextureEncodingSettings: Display: Shared linear texture encoding: Disabled
+[2026.10.02-16.12.16:908][  0]LogMeshReduction: Display: Using QuadricMeshReduction for automatic static mesh reduction
+[2026.10.02-16.12.16:908][  0]LogMeshReduction: Display: Using SkeletalMeshReduction for automatic skeletal mesh reduction
+[2026.10.02-16.12.16:908][  0]LogMeshReduction: Display: Using ProxyLODMeshReduction for automatic mesh merging
+[2026.10.02-16.12.16:908][  0]LogMeshReduction: Display: No distributed automatic mesh merging module available
+[2026.10.02-16.12.17:084][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush
+[2026.10.02-16.12.17:084][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.02-16.12.17:084][  0]LogVirtualization: Display: VirtualizationSystem name found in ini file: None
+[2026.10.02-16.12.17:084][  0]LogVirtualization: Display: FNullVirtualizationSystem mounted, virtualization will be disabled
+[2026.10.02-16.12.17:187][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize started...
+[2026.10.02-16.12.17:188][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize took 1.443 ms
+[2026.10.02-16.12.17:561][  0]LogMetaSound: Display: MetaSound Page Target Initialized to 'Default'
+[2026.10.02-16.12.17:563][  0]LogAudio: Display: Registering Engine Module Parameter Interfaces...
+[2026.10.02-16.12.17:979][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.13.dll
+[2026.10.02-16.12.18:041][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.6.dll
+[2026.10.02-16.12.18:204][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.5.dll
+[2026.10.02-16.12.18:205][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.14.dll
+[2026.10.02-16.12.18:281][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.12.dll
+[2026.10.02-16.12.18:685][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.8.dll
+[2026.10.02-16.12.20:292][  0]LogTemp: Display: LoadHitchProbe ready: 'fpssyncload [thresholdMs]' enables it (743 modules mapped); evidence in Saved/Profiling/LoadHitch/
+[2026.10.02-16.12.21:225][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.02-16.12.21:225][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.02-16.12.21:329][  0]LogFabLauncher: Display: FabLauncher (version 0.6.0) active
+[2026.10.02-16.12.21:426][  0]LogToolsetRegistry: Display: Registering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.02-16.12.21:568][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.11.dll
+[2026.10.02-16.12.21:586][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.15.dll
+[2026.10.02-16.12.21:743][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PreLoad): 1 .ref files found, 1 referenced binaries
+[2026.10.02-16.12.21:743][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.02-16.12.21:744][  0]LogAssetRegistry: Display: FindShardedCacheFiles: 1 via .ref, 0 via migration fallback, 1 total
+[2026.10.02-16.12.21:744][  0]LogAssetRegistry: Display: LoadCacheFiles: loading 1 cache files, memory-mapping=enabled
+[2026.10.02-16.12.21:913][  0]LogAssetRegistry: Display: Asset registry cache read as 180.2 MiB from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry/CachedAssetRegistry_0_A51431B548BEE9A9A9C15CA1E7C4F2F7.bin (memory-mapped=yes)
+[2026.10.02-16.12.21:918][  0]LogAssetRegistry: Display: AssetDataGatherer spent 0.174s loading caches from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry.
+[2026.10.02-16.12.22:554][  0]LogGameFeatures: Display: Total built in plugin load time 0.0007s
+[2026.10.02-16.12.22:565][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2026.10.02-16.12.22:624][  0]LogPython: Display: No pip-enabled plugins with python dependencies found, skipping
+[2026.10.02-16.12.22:850][  0]LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.12.22:850][  0]LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.12.22:852][  0]LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.12.22:852][  0]LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.12.22:852][  0]LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.12.22:952][  0]LogCsvProfiler: Display: Metadata set : raytracing="1"
+[2026.10.02-16.12.23:047][  0]LogToolsetRegistry: Display: Registering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.02-16.12.23:049][  0]LogToolsetRegistry: Display: Registering Toolset ConfigSettingsToolset.ConfigSettingsToolset
+[2026.10.02-16.12.23:051][  0]LogToolsetRegistry: Display: Registering Toolset DataflowAgent.DataflowAgentToolset
+[2026.10.02-16.12.23:053][  0]LogToolsetRegistry: Display: Registering Toolset DataRegistryToolset.DataRegistryTools
+[2026.10.02-16.12.23:056][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.EditorAppToolset
+[2026.10.02-16.12.23:056][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.LogsToolset
+[2026.10.02-16.12.23:058][  0]LogToolsetRegistry: Display: Registering Toolset GameFeaturesToolset.GameFeaturesToolset
+[2026.10.02-16.12.23:059][  0]LogToolsetRegistry: Display: Registering Toolset GameplayTagsToolset.GameplayTagsToolset
+[2026.10.02-16.12.23:061][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.GameplayCueToolset
+[2026.10.02-16.12.23:061][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AttributeSetToolset
+[2026.10.02-16.12.23:061][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AbilitySystemInspectorToolset
+[2026.10.02-16.12.23:062][  0]LogToolsetRegistry: Display: Registering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.02-16.12.23:065][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Info
+[2026.10.02-16.12.23:068][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Component
+[2026.10.02-16.12.23:068][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Blueprint
+[2026.10.02-16.12.23:081][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_System
+[2026.10.02-16.12.23:081][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Assets
+[2026.10.02-16.12.23:084][  0]LogToolsetRegistry: Display: Registering Toolset PhysicsToolsets.PhysicsAssetToolset
+[2026.10.02-16.12.23:085][  0]LogToolsetRegistry: Display: Registering Toolset SemanticSearchToolset.SemanticSearchToolset
+[2026.10.02-16.12.23:089][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGToolset
+[2026.10.02-16.12.23:089][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGSpatialToolset
+[2026.10.02-16.12.23:091][  0]LogToolsetRegistry: Display: Registering Toolset PluginToolset.PluginToolset
+[2026.10.02-16.12.23:092][  0]LogToolsetRegistry: Display: Registering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.02-16.12.23:096][  0]LogToolsetRegistry: Display: Registering Toolset WorldConditionsToolset.WorldConditionTools
+[2026.10.02-16.12.23:101][  0]LogToolsetRegistry: Display: Registering Toolset UMGToolSet.UMGToolSet
+[2026.10.02-16.12.23:119][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.12.23:171][  0]LogToolsetRegistry: Display: Registering Toolset state_tree_toolset.toolsets.state_tree.StateTreeTools
+[2026.10.02-16.12.23:171][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… took 52.887 ms
+[2026.10.02-16.12.23:171][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.12.23:175][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… took 3.979 ms (total: 56.866 ms)
+[2026.10.02-16.12.23:175][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.12.23:212][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.actor.ActorTools
+[2026.10.02-16.12.23:213][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.asset.AssetTools
+[2026.10.02-16.12.23:216][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.blueprint.BlueprintTools
+[2026.10.02-16.12.23:217][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.curve_table.CurveTableTools
+[2026.10.02-16.12.23:217][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_asset.DataAssetTools
+[2026.10.02-16.12.23:217][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_table.DataTableTools
+[2026.10.02-16.12.23:218][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material.MaterialTools
+[2026.10.02-16.12.23:219][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material_instance.MaterialInstanceTools
+[2026.10.02-16.12.23:219][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.object.ObjectTools
+[2026.10.02-16.12.23:220][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.primitive.PrimitiveTools
+[2026.10.02-16.12.23:221][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.scene.SceneTools
+[2026.10.02-16.12.23:222][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.skeletal_mesh.SkeletalMeshTools
+[2026.10.02-16.12.23:222][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.static_mesh.StaticMeshTools
+[2026.10.02-16.12.23:223][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.string_table.StringTableTools
+[2026.10.02-16.12.23:223][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.programmatic.ProgrammaticToolset
+[2026.10.02-16.12.23:223][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.texture.TextureTools
+[2026.10.02-16.12.23:223][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… took 47.855 ms (total: 104.722 ms)
+[2026.10.02-16.12.23:223][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.12.23:226][  0]LogToolsetRegistry: Display: Registering Toolset conversation_toolset.toolsets.conversation.ConversationTools
+[2026.10.02-16.12.23:226][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… took 3.205 ms (total: 107.928 ms)
+[2026.10.02-16.12.23:226][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.12.23:252][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig.ControlRigTools
+[2026.10.02-16.12.23:257][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.sequencer.SequencerTools
+[2026.10.02-16.12.23:258][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.keyframing.SequencerKeyframingTools
+[2026.10.02-16.12.23:261][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig_sequencer.SequencerControlRigTools
+[2026.10.02-16.12.23:262][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.outliner.SequencerOutlinerTools
+[2026.10.02-16.12.23:262][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.conditions.SequencerConditionTools
+[2026.10.02-16.12.23:262][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.custom_bindings.SequencerCustomBindingTools
+[2026.10.02-16.12.23:263][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.import_export.SequencerImportExportTools
+[2026.10.02-16.12.23:283][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… took 56.256 ms (total: 164.184 ms)
+[2026.10.02-16.12.23:283][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.12.23:288][  0]LogToolsetRegistry: Display: Registering Toolset aimodule_toolset.toolsets.behavior_tree.BehaviorTreeTools
+[2026.10.02-16.12.23:289][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… took 6.203 ms (total: 170.388 ms)
+[2026.10.02-16.12.23:289][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.12.23:289][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… took 166 us (total: 170.554 ms)
+[2026.10.02-16.12.23:289][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.12.23:289][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… took 279 us (total: 170.834 ms)
+[2026.10.02-16.12.23:289][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.12.23:296][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… took 6.811 ms (total: 177.645 ms)
+[2026.10.02-16.12.23:296][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.12.23:351][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… took 54.891 ms (total: 232.536 ms)
+[2026.10.02-16.12.23:351][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… started...
+[2026.10.02-16.12.23:361][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… took 9.293 ms (total: 241.830 ms)
+[2026.10.02-16.12.23:361][  0]LogPythonScriptCommandlet: Display: Running Python script: D:\FPS3D\FPSGAME\SourceAssets\WarehouseContainers20261002\Scripts\install_scenes.py
+[2026.10.02-16.12.25:922][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_Ceramic.M_Theatre_Ceramic in PCD3D_SM6, Default, SM6, Editor (DDC key hash: dbfa838ef9f48763f29dff8148472eb69790808f), compiling. 
+[2026.10.02-16.12.25:926][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_Chalkboard.M_Theatre_Chalkboard in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 5c73ba86d6a5b50691d5de34e64bb018e101a754), compiling. 
+[2026.10.02-16.12.25:929][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/AnatomyTheatre20261001/Materials/M_Theatre_LampGlass.M_Theatre_LampGlass in PCD3D_SM6, Default, SM6, Editor (DDC key hash: a8242dc654dc5f1fdf8c7b34e8930ea42d0648fb), compiling. 
+[2026.10.02-16.12.25:946][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/CargoWarehouse20261001/RefineV2/Materials/M_CargoWarehouse_FloorPaint.M_CargoWarehouse_FloorPaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 57169444389abb9b91ae8028cb91fe90beb0a9f3), compiling. 
+[2026.10.02-16.12.25:948][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/DataArchive20260930/Materials/M_ArchivePanel.M_ArchivePanel in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 2fc61c949bbbd58615b546bada992df645bc8400), compiling. 
+[2026.10.02-16.12.25:951][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/DataArchive20260930/Materials/M_DormantScreen.M_DormantScreen in PCD3D_SM6, Default, SM6, Editor (DDC key hash: c5d7b6ef31b068793e690ba6a58480dab5047515), compiling. 
+[2026.10.02-16.12.25:957][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IncineratorHall20260929/MorgueOpenPlanV2/Materials/M_ClinicalFloor.M_ClinicalFloor in PCD3D_SM6, Default, SM6, Editor (DDC key hash: ac1f156d950b95bb88bb584c87c30a9babc10b8b), compiling. 
+[2026.10.02-16.12.25:960][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IncineratorHall20260929/MorgueOpenPlanV2/Materials/M_ClinicalPlaster.M_ClinicalPlaster in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 838a78aebb13c0e575285443f3a6f9b47817c80b), compiling. 
+[2026.10.02-16.12.25:962][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IncineratorHall20260929/MorgueOpenPlanV2/Materials/M_ClinicalTile.M_ClinicalTile in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 3ff99cfb75ea5a2a7a051ced2217924fe5620865), compiling. 
+[2026.10.02-16.12.25:966][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IndustrialV1/Materials/M_CoolTube.M_CoolTube in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 979a5b9048dccf159733e05b91fd8bb46ee89ed6), compiling. 
+[2026.10.02-16.12.25:969][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IndustrialV1/Materials/M_WarmTube.M_WarmTube in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 837c0008e7e5ee2b1657845dbde8554867aca971), compiling. 
+[2026.10.02-16.12.25:971][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5.M_WardGlassFragmentsV5 in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 3638dd38ccdbdb9cf3bcfb6ee9aadf32bb8ce16a), compiling. 
+[2026.10.02-16.12.26:030][  0]LogMaterial: Display: Missing cached shadermap for /Game/Monsters/FleshHand/ChargeVisual20260927/M_HandChargeChip.M_HandChargeChip in PCD3D_SM6, Default, SM6, Editor (DDC key hash: da41fa9d9840abd59c0bbc5ae769fd9b32e93fb1), compiling. 
+[2026.10.02-16.12.26:033][  0]LogMaterial: Display: Missing cached shadermap for /Game/Monsters/FleshHand/ChargeVisual20260927/M_HandChargeDust.M_HandChargeDust in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 44b0c162fa5f00a94cef1428cc2213d8f4290352), compiling. 
+[2026.10.02-16.12.26:038][  0]LogMaterial: Display: Missing cached shadermap for /Game/Monsters/FleshHand/ChargeVisual20260927/M_HandChargeWarning.M_HandChargeWarning in PCD3D_SM6, Default, SM6, Editor (DDC key hash: c01c8e5f79eeead248fbf4cf417b32ee24b3d6a0), compiling. 
+[2026.10.02-16.12.26:090][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/AtmosphereV2/Materials/M_BareSteel.M_BareSteel in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 003bb4a067ff9834bd89ad715979e028c6a63a4f), compiling. 
+[2026.10.02-16.12.26:100][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/AtmosphereV2/Materials/M_PaintedSteel.M_PaintedSteel in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 1f466af0b2008e0fe8866da925bbbfba50b8957a), compiling. 
+[2026.10.02-16.12.26:120][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/BossHall20260922/Materials/M_BossStructuralSteel.M_BossStructuralSteel in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 12df56c4e6f4e77911b2e5d3610ff48f2ef141aa), compiling. 
+[2026.10.02-16.12.26:123][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/CargoWarehouse20261001/Materials/M_CargoWarehouse_Labels.M_CargoWarehouse_Labels in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 0e4668709164dccb9e7ec926ca0fb43c4c105fde), compiling. 
+[2026.10.02-16.12.26:129][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/DataArchive20260930/EquipmentV1/Materials/M_ArchiveEquipment_Atlas.M_ArchiveEquipment_Atlas in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 9d2ea0b4cd8187ace5e706eeb1086b89392b3499), compiling. 
+[2026.10.02-16.12.26:132][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas.M_ArchiveEquipment_Atlas in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 86f698e0ea30615313c6e06eaf10964521ea256c), compiling. 
+[2026.10.02-16.12.26:137][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas.M_FacilityProp_Atlas in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 45d000e658f0b469877f37720c7c5ba1d9de18c3), compiling. 
+[2026.10.02-16.12.26:139][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IncineratorHall20260929/EquipmentV1/Materials/M_IncineratorEquipment_Atlas.M_IncineratorEquipment_Atlas in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 7af7dc5c67a916e186e8cef3a2ca055fb7102bc0), compiling. 
+[2026.10.02-16.12.26:144][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IncineratorHall20260929/MorgueOpenPlanV2/Materials/M_MorgueSigns.M_MorgueSigns in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 3644e11ddb6e4fcec790639d77e091388162f6f0), compiling. 
+[2026.10.02-16.12.26:149][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IncineratorHall20260929/SignageV1/Materials/M_IncineratorSigns.M_IncineratorSigns in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 812cc9b1b8d880025f13e1a369b8ecd02270221b), compiling. 
+[2026.10.02-16.12.26:153][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IndustrialV1/Materials/M_DarkSteel.M_DarkSteel in PCD3D_SM6, Default, SM6, Editor (DDC key hash: c522b40f0f8223694e2a5bbc55055db1a82f4fdc), compiling. 
+[2026.10.02-16.12.26:158][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IsolationWard20260929/BloodScan/M_WardBlood_Quixel.M_WardBlood_Quixel in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 7375145cdf3fd16b7b470920408048c331e64df8), compiling. 
+[2026.10.02-16.12.26:172][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IncineratorHall20260929/MorgueLightingV1/Materials/M_MorgueLampDiffuser.M_MorgueLampDiffuser in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 661e47a9451cb04bc5bc50b6677a174cfe8b7043), compiling. 
+[2026.10.02-16.12.26:177][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IncineratorHall20260929/MorgueLightingV1/Materials/M_MorgueFaultFunction.M_MorgueFaultFunction in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 3a0f45b6d8dca210a185bc6535ddcd29a8aacace), compiling. 
+[2026.10.02-16.12.26:184][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IncineratorHall20260929/SignageV1/Materials/M_IncineratorFloorPaint.M_IncineratorFloorPaint in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 40a4b1e83bab4ea92e1977e74f9549d2efb7fdee), compiling. 
+[2026.10.02-16.12.26:187][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IsolationWard20260929/Materials/M_WardLampDiffuserV2.M_WardLampDiffuserV2 in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 01e73abdd0a48917bb4af0fc6ab900e6980196e5), compiling. 
+[2026.10.02-16.12.26:190][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IsolationWard20260929/Materials/M_WardLampFunctionV2.M_WardLampFunctionV2 in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 4826ff03413ed476895595d6b187bad33d22d5a9), compiling. 
+[2026.10.02-16.12.26:208][  0]LogMaterial: Display: Missing cached shadermap for /Game/NiagaraExamples/Materials/MI_SmokePuffLight_8x8_Emissive.MI_SmokePuffLight_8x8_Emissive in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 80d710033081469e6b50ec54c21e0d5740d92f3a), compiling. 
+[2026.10.02-16.12.26:233][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2.M_WardGlassV2 in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 9963d2bde7a2131d2b31613912ecc6f49c1ad8ce), compiling. 
+[2026.10.02-16.12.26:235][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/HospitalBed20260929/Materials/M_HospitalBed_Pillow.M_HospitalBed_Pillow in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 3726e548fa17791d3c538ccc7fd38ccbac796a71), compiling. 
+[2026.10.02-16.12.26:343][  0]LogMaterial: Display: Missing cached shadermap for /Game/Monsters/FleshHand/ChargeVisual20260927/M_HandChargeTension.M_HandChargeTension in PCD3D_SM6, Default, SM6, Editor (DDC key hash: a882722650695118ca4e807787434fbbaa11d57c), compiling. 
+[2026.10.02-16.12.26:607][  0]LogMaterial: Display: Missing cached shadermap for /Game/HospitalCorridor/Materials/Masters/M_MasterTwoside_SS.M_MasterTwoside_SS in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 9ad4cee78e0832f172e16a95364c5dd5952ef1db), compiling. 
+[2026.10.02-16.12.26:612][  0]LogMaterial: Display: Missing cached shadermap for /Game/NiagaraExamples/Materials/MasterMaterials/M_BrightCore.M_BrightCore in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 40f3cf0982ffa34da324f85877ac43caa87edfce), compiling. 
+[2026.10.02-16.12.26:694][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/FreightDoor20260923/Materials/M_FreightCoat.M_FreightCoat in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 8fb9c97eaa3081382041a4fb47948a43895992c0), compiling. 
+[2026.10.02-16.12.26:696][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/FreightDoor20260923/Materials/M_FreightGate.M_FreightGate in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 30e46af2ea93b2d447bba2d8063aba153ee265c0), compiling. 
+[2026.10.02-16.12.26:698][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/FreightDoor20260923/Materials/M_FreightPanel.M_FreightPanel in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 1d960b762f5189c7b0d9f49c0a5f047eb35ff3dd), compiling. 
+[2026.10.02-16.12.26:700][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/FreightDoor20260923/Materials/M_FreightTrack.M_FreightTrack in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 0a783d2d078b55499af65471de7222157ae8aa6b), compiling. 
+[2026.10.02-16.12.26:702][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/FlueGasStation20261001/RefineV2/Materials/M_FlueGas_Labels_V2.M_FlueGas_Labels_V2 in PCD3D_SM6, Default, SM6, Editor (DDC key hash: f51688be9c333696076692be8059c0d2d6bf069f), compiling. 
+[2026.10.02-16.12.26:710][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/HospitalBed20260929/Materials/M_HospitalBed_Frame.M_HospitalBed_Frame in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 32d4d9bc8c5554426cbaa978a28b4e92f5774500), compiling. 
+[2026.10.02-16.12.26:713][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/HospitalBed20260929/Materials/M_HospitalBed_Linen.M_HospitalBed_Linen in PCD3D_SM6, Default, SM6, Editor (DDC key hash: ccd783724c61a6064061d9e0cf068dd8d6766fd6), compiling. 
+[2026.10.02-16.12.26:716][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/IVDripCrutch20260929/Materials/M_HospitalIV_Crutch.M_HospitalIV_Crutch in PCD3D_SM6, Default, SM6, Editor (DDC key hash: af1581e77337085c44ee475ed8989f50d6595f3b), compiling. 
+[2026.10.02-16.12.26:719][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/IVDripCrutch20260929/Materials/M_HospitalIV_Drip.M_HospitalIV_Drip in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 24c236a30cb7fad8598c0f03d913a09b5a696787), compiling. 
+[2026.10.02-16.12.26:721][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/IVDripCrutch20260929/Materials/M_HospitalIV_Stand.M_HospitalIV_Stand in PCD3D_SM6, Default, SM6, Editor (DDC key hash: feac82924a98aa26618b3d4b4af3a91bcd7228b9), compiling. 
+[2026.10.02-16.12.26:724][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/MedicalCart20260929/Materials/M_HospitalCart_Cart_A.M_HospitalCart_Cart_A in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 8a3e9f9294faf21b243e535329a237fd6f6375fc), compiling. 
+[2026.10.02-16.12.26:726][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/MedicalCart20260929/Materials/M_HospitalCart_Cart_B.M_HospitalCart_Cart_B in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 142fa3c6ccc57ca917f44aa4aae5f39d5ce4fdc5), compiling. 
+[2026.10.02-16.12.26:729][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/MedicalCart20260929/Materials/M_HospitalCart_Cart_C.M_HospitalCart_Cart_C in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 9bf7054fc5f2ced6ca8540da2864bc686925f2d3), compiling. 
+[2026.10.02-16.12.26:772][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/GamedevTreasureChest20260922/Materials/M_Treasure_AntiqueGold.M_Treasure_AntiqueGold in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 87efd8f70eb81a45046ffe91103c9e170aa31386), compiling. 
+[2026.10.02-16.12.26:774][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/GamedevTreasureChest20260922/Materials/M_Treasure_BlackIron.M_Treasure_BlackIron in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 77180c61dbb9a6d91fdd6c9ec3be1dfceeae1823), compiling. 
+[2026.10.02-16.12.26:776][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/GamedevTreasureChest20260922/Materials/M_Treasure_Interior.M_Treasure_Interior in PCD3D_SM6, Default, SM6, Editor (DDC key hash: e5880be3d420162fadbf44366c69524a300fcd9d), compiling. 
+[2026.10.02-16.12.26:781][  0]LogMaterial: Display: Missing cached shadermap for /Game/Props/HospitalWaitingBench20260929/Materials/M_Hospital_Waiting_Bench.M_Hospital_Waiting_Bench in PCD3D_SM6, Default, SM6, Editor (DDC key hash: b2b2e99bb194502a7021326bff1ab50d2fd23310), compiling. 
+[2026.10.02-16.12.26:801][  0]LogMaterial: Display: Missing cached shadermap for /Game/NiagaraExamples/Materials/MasterMaterials/M_BulletHole.M_BulletHole in PCD3D_SM6, Default, SM6, Editor (DDC key hash: eb5f37c432c2fb1c6df554e03e23874634a5dcb3), compiling. 
+[2026.10.02-16.12.26:807][  0]LogMaterial: Display: Missing cached shadermap for /Game/NiagaraExamples/Materials/MasterMaterials/M_BulletHole_Glass.M_BulletHole_Glass in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 3832d27c5c5adec1c34ebfad751746a6855351f9), compiling. 
+[2026.10.02-16.12.26:861][  0]LogMaterial: Display: Missing cached shadermap for /Game/NiagaraExamples/Materials/MI_SimpleDebris_Translucent.MI_SimpleDebris_Translucent in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 31402bcc890ff8cea0d37072eb2a92c341bd715d), compiling. 
+[2026.10.02-16.12.26:959][  0]LogMaterial: Display: Missing cached shadermap for /Game/NiagaraExamples/Materials/MasterMaterials/M_GlassShard.M_GlassShard in PCD3D_SM6, Default, SM6, Editor (DDC key hash: bd15891692566655b1256b293e80f6d8e9248320), compiling. 
+[2026.10.02-16.12.27:176][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_Machined.M_WSSculpt_Machined in PCD3D_SM6, Default, SM6, Editor (DDC key hash: a8849bed3b3c5151cb213f17fcd86692f2d0a35f), compiling. 
+[2026.10.02-16.12.27:179][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_RubberGrip.M_WSSculpt_RubberGrip in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 1e61634745837b751954355c824c0e7f5f640a2d), compiling. 
+[2026.10.02-16.12.27:639][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_PaintRed.M_WSDetail_PaintRed in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 99eb557628d5a807d9727da9560cae5efa142bcf), compiling. 
+[2026.10.02-16.12.27:979][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_BareEdge.M_WSDetail_BareEdge in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 7078f54dcdd10d242476d82ddd9412abcd15064c), compiling. 
+[2026.10.02-16.12.28:022][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/AtmosphereV2/Services/Materials/M_Service_Gasket.M_Service_Gasket in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 7a64fcaaa717b1dd1a3d77916bd43f766b6add16), compiling. 
+[2026.10.02-16.12.28:027][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/AtmosphereV2/Services/Materials/M_Service_Hardware.M_Service_Hardware in PCD3D_SM6, Default, SM6, Editor (DDC key hash: b11cf34963611a1a8579ecde42e919753e609d8e), compiling. 
+[2026.10.02-16.12.28:231][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_ExposedEdge.M_WSFinish_ExposedEdge in PCD3D_SM6, Default, SM6, Editor (DDC key hash: efa30ed421fc25cda624fc86f8ec03713b870cb6), compiling. 
+[2026.10.02-16.12.28:277][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_Whiteboard.M_WSDetail_Whiteboard in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 207449bf840f6c7c023153720a6983f7b09d37e0), compiling. 
+[2026.10.02-16.12.28:428][  0]LogNavigation: Warning: Recreating dtNavMesh instance (RecastNavMesh_UAID_A036BCAAAC01620403-PoisonMaggot) due mismatch in number of bytes required to store serialized maxTiles (serialized: 3, 2 bits) vs calculated required (720, 10 bits)
+[2026.10.02-16.12.28:428][  0]LogNavigation: Warning: Recreating dtNavMesh instance (RecastNavMesh_UAID_A036BCAAAC01620403-Witch) due mismatch in number of bytes required to store serialized maxTiles (serialized: 3, 2 bits) vs calculated required (720, 10 bits)
+[2026.10.02-16.12.28:428][  0]LogNavigation: Warning: Recreating dtNavMesh instance (RecastNavMesh_UAID_A036BCAAAC01620403-Nurse) due mismatch in number of bytes required to store serialized maxTiles (serialized: 3, 2 bits) vs calculated required (720, 10 bits)
+[2026.10.02-16.12.28:428][  0]LogNavigation: Warning: Recreating dtNavMesh instance (RecastNavMesh_UAID_A036BCAAAC01620403-HandBrain) due mismatch in number of bytes required to store serialized maxTiles (serialized: 3, 2 bits) vs calculated required (720, 10 bits)
+[2026.10.02-16.12.28:592][  0]LogStaticMesh: Display: 正在等待静态网格体就绪210/862（/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_Tiles）……
+[2026.10.02-16.12.29:173][  0]LogStaticMesh: Display: 正在等待静态网格体就绪250/862（/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_FreightTransfer_Damage2_Tiles）……
+[2026.10.02-16.12.30:088][  0]LogStaticMesh: Display: 正在等待静态网格体就绪490/862（/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_StairWest）……
+[2026.10.02-16.12.30:450][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 350.632507 MiB，内存限制 = 142.597656 MiB 
+[2026.10.02-16.12.30:450][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 350.632507 MiB，内存限制 = 143.40625 MiB 
+[2026.10.02-16.12.30:476][  0]LogStaticMesh: Display: 正在等待静态网格体就绪492/862（/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Services）……
+[2026.10.02-16.12.30:625][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 555.740112 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.30:625][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 555.740112 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.30:628][  0]LogStaticMesh: Display: 正在等待静态网格体就绪506/862（/Game/Dungeons/Underground20260923/Meshes/SM_RS_StairDrop1080_GalleryRails）……
+[2026.10.02-16.12.30:884][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 1.230662 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.30:884][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 1.230662 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.30:889][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 235.580414 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.30:889][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 235.580414 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.30:893][  0]LogStaticMesh: Display: 正在等待静态网格体就绪508/862（/Game/Dungeons/Underground20260923/Meshes/SM_RS_StairDrop1080_StairWest）……
+[2026.10.02-16.12.30:998][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 115.83284 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.30:998][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 115.83284 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:009][  0]LogStaticMesh: Display: 正在等待静态网格体就绪509/862（/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Frames）……
+[2026.10.02-16.12.31:101][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.202194 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:101][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.202194 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:105][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 3.462856 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:105][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 3.462856 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:107][  0]LogStaticMesh: Display: 正在等待静态网格体就绪511/862（/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Rigging）……
+[2026.10.02-16.12.31:111][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 154.368988 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:111][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 154.368988 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:124][  0]LogStaticMesh: Display: 正在等待静态网格体就绪512/862（/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Services）……
+[2026.10.02-16.12.31:223][  0]LogStaticMesh: Display: 正在等待静态网格体就绪526/862（/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_DuctFlanges）……
+[2026.10.02-16.12.31:233][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 110.426208 MiB，内存限制 = 46.410156 MiB 
+[2026.10.02-16.12.31:233][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 110.426208 MiB，内存限制 = 46.410156 MiB 
+[2026.10.02-16.12.31:239][  0]LogStaticMesh: Display: 正在等待静态网格体就绪537/862（/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Services）……
+[2026.10.02-16.12.31:286][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 85.868195 MiB，内存限制 = 17.996094 MiB 
+[2026.10.02-16.12.31:286][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 85.868195 MiB，内存限制 = 17.121094 MiB 
+[2026.10.02-16.12.31:287][  0]LogStaticMesh: Display: 正在等待静态网格体就绪574/862（/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_CueRack_V4）……
+[2026.10.02-16.12.31:317][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 26.131052 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:317][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 26.131052 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:320][  0]LogStaticMesh: Display: 正在等待静态网格体就绪575/862（/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BookcaseBody_V4）……
+[2026.10.02-16.12.31:331][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 25.818869 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:331][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 25.818869 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:337][  0]LogStaticMesh: Display: 正在等待静态网格体就绪576/862（/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BookshelfBody_V4）……
+[2026.10.02-16.12.31:348][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 6.761423 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:348][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 6.761423 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:353][  0]LogStaticMesh: Display: 正在等待静态网格体就绪577/862（/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BookshelfDrawer_V4）……
+[2026.10.02-16.12.31:362][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:362][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:365][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:365][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:366][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:366][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:368][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:368][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:369][  0]LogStaticMesh: Display: 正在等待静态网格体就绪581/862（/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_D）……
+[2026.10.02-16.12.31:369][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:370][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:371][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:371][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:373][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:373][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:375][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:375][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:376][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:376][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:378][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:378][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:379][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:379][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:381][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:381][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:382][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:382][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:384][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:384][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:385][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:385][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:385][  0]LogStaticMesh: Display: 正在等待静态网格体就绪592/862（/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_O）……
+[2026.10.02-16.12.31:387][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:387][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:388][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:388][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:390][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:390][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:391][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:391][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:392][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:392][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:393][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:394][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:396][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:396][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:396][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:396][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:398][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:398][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:399][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:399][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:401][  0]LogStaticMesh: Display: 正在等待静态网格体就绪602/862（/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_L）……
+[2026.10.02-16.12.31:401][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:401][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:402][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:402][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:404][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:404][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:405][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:405][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.011429 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:407][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 216.411316 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:407][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 216.411316 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:419][  0]LogStaticMesh: Display: 正在等待静态网格体就绪607/862（/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_CableRoutes）……
+[2026.10.02-16.12.31:523][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 2.409755 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:523][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 2.409755 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:529][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 9.649133 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:530][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 9.649133 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:534][  0]LogStaticMesh: Display: 正在等待静态网格体就绪609/862（/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Floors）……
+[2026.10.02-16.12.31:536][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.174957 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:536][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.174957 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:539][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.342111 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:539][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 0.342111 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:542][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 22.88764 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:542][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 22.88764 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:550][  0]LogStaticMesh: Display: 正在等待静态网格体就绪612/862（/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Receiver）……
+[2026.10.02-16.12.31:555][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 115.72094 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:555][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 115.72094 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:566][  0]LogStaticMesh: Display: 正在等待静态网格体就绪613/862（/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_PumpEast）……
+[2026.10.02-16.12.31:616][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 115.72094 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:616][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 115.72094 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:633][  0]LogStaticMesh: Display: 正在等待静态网格体就绪614/862（/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_PumpWest）……
+[2026.10.02-16.12.31:674][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 16.281294 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:674][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 16.281294 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:682][  0]LogStaticMesh: Display: 正在等待静态网格体就绪615/862（/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Debris）……
+[2026.10.02-16.12.31:688][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 1295.827026 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:688][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 1295.827026 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.31:698][  0]LogStaticMesh: Display: 正在等待静态网格体就绪616/862（/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Tiles）……
+[2026.10.02-16.12.32:216][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 1584.573853 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.32:216][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 1584.573853 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.32:225][  0]LogStaticMesh: Display: 正在等待静态网格体就绪617/862（/Game/Dungeons/FinalReward20260923/Meshes/SM_RS_BossRewardAccess_Tiles）……
+[2026.10.02-16.12.32:742][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 101.310677 MiB，内存限制 = 55.890625 MiB 
+[2026.10.02-16.12.32:742][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 101.310677 MiB，内存限制 = 55.886719 MiB 
+[2026.10.02-16.12.32:753][  0]LogStaticMesh: Display: 正在等待静态网格体就绪618/862（/Game/Dungeons/Routes20260922/Meshes/SM_RS_Transit_Tiles）……
+[2026.10.02-16.12.32:796][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 640.065125 MiB，内存限制 = 9.121094 MiB 
+[2026.10.02-16.12.32:796][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 640.065125 MiB，内存限制 = 8.679688 MiB 
+[2026.10.02-16.12.32:803][  0]LogStaticMesh: Display: 正在等待静态网格体就绪619/862（/Game/Dungeons/SlimeSheet20260922/Meshes/SM_RS_Distribution_Tiles）……
+[2026.10.02-16.12.33:047][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 803.281982 MiB，内存限制 = 20.980469 MiB 
+[2026.10.02-16.12.33:047][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 803.281982 MiB，内存限制 = 20.980469 MiB 
+[2026.10.02-16.12.33:054][  0]LogStaticMesh: Display: 正在等待静态网格体就绪620/862（/Game/Dungeons/SlimeSheet20260922/Meshes/SM_RS_Drainage_Tiles）……
+[2026.10.02-16.12.33:278][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 599.068542 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.33:278][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 599.068542 MiB，内存限制 = 0.000 MiB 
+[2026.10.02-16.12.33:285][  0]LogStaticMesh: Display: 正在等待静态网格体就绪621/862（/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Distribution_TreasureNorth_Tiles）……
+[2026.10.02-16.12.33:525][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 606.16333 MiB，内存限制 = 61.527344 MiB 
+[2026.10.02-16.12.33:525][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 606.16333 MiB，内存限制 = 61.636719 MiB 
+[2026.10.02-16.12.33:533][  0]LogStaticMesh: Display: 正在等待静态网格体就绪622/862（/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Distribution_TreasureWest_Tiles）……
+[2026.10.02-16.12.34:260][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 766.524536 MiB，内存限制 = 703.078125 MiB 
+[2026.10.02-16.12.34:260][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 766.524536 MiB，内存限制 = 703.710938 MiB 
+[2026.10.02-16.12.34:274][  0]LogStaticMesh: Display: 正在等待静态网格体就绪623/862（/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Drainage_TreasureEast_Tiles）……
+[2026.10.02-16.12.34:493][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 772.235107 MiB，内存限制 = 763.21875 MiB 
+[2026.10.02-16.12.34:493][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 772.235107 MiB，内存限制 = 763.21875 MiB 
+[2026.10.02-16.12.34:504][  0]LogStaticMesh: Display: 正在等待静态网格体就绪624/862（/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Drainage_TreasureWest_Tiles）……
+[2026.10.02-16.12.34:972][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 767.780518 MiB，内存限制 = 431.589844 MiB 
+[2026.10.02-16.12.34:972][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 767.780518 MiB，内存限制 = 431.335938 MiB 
+[2026.10.02-16.12.34:984][  0]LogStaticMesh: Display: 正在等待静态网格体就绪641/862（/Game/Dungeons/GoddessStatue20260922/Meshes/SM_GoddessStatue_Diana）……
+[2026.10.02-16.12.35:313][  0]LogStaticMesh: Display: 正在等待静态网格体就绪666/862（/Game/Dungeons/StatueSet20260922/Meshes/SM_Statue_Baroque）……
+[2026.10.02-16.12.35:502][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 770.298645 MiB，内存限制 = 543.675781 MiB 
+[2026.10.02-16.12.35:502][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 770.298645 MiB，内存限制 = 543.265625 MiB 
+[2026.10.02-16.12.35:512][  0]LogStaticMesh: Display: 正在等待静态网格体就绪667/862（/Game/Dungeons/StatueSet20260922/Meshes/SM_Statue_Flora）……
+[2026.10.02-16.12.35:761][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 925.634644 MiB，内存限制 = 473.957031 MiB 
+[2026.10.02-16.12.35:761][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 925.634644 MiB，内存限制 = 473.96875 MiB 
+[2026.10.02-16.12.35:775][  0]LogStaticMesh: Display: 正在等待静态网格体就绪668/862（/Game/Dungeons/StatueSet20260922/Meshes/SM_Statue_MagnaMater）……
+[2026.10.02-16.12.36:046][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 732.835449 MiB，内存限制 = 483.039062 MiB 
+[2026.10.02-16.12.36:046][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 732.835449 MiB，内存限制 = 483.492188 MiB 
+[2026.10.02-16.12.36:060][  0]LogStaticMesh: Display: 正在等待静态网格体就绪669/862（/Game/Dungeons/StatueSet20260922/Meshes/SM_Statue_Muse）……
+[2026.10.02-16.12.36:233][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 915.981689 MiB，内存限制 = 435.273438 MiB 
+[2026.10.02-16.12.36:234][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[StaticMesh]！所需内存 = 0.000 MiB + 915.981689 MiB，内存限制 = 435.246094 MiB 
+[2026.10.02-16.12.36:246][  0]LogStaticMesh: Display: 正在等待静态网格体就绪670/862（/Game/Dungeons/StatueSet20260922/Meshes/SM_Statue_Venus）……
+[2026.10.02-16.12.36:784][  0]LogStaticMesh: Display: 正在等待静态网格体就绪757/862（/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_SideMasonry）……
+[2026.10.02-16.12.37:132][  0]LogStaticMesh: Display: 正在等待静态网格体就绪860/862（/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_BackMasonry）……
+[2026.10.02-16.12.37:164][  0]LogStaticMesh: Display: 正在等待静态网格体就绪861/862（/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Body）……
+[2026.10.02-16.12.37:756][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 707.601562 MiB 
+[2026.10.02-16.12.37:756][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 707.601562 MiB 
+[2026.10.02-16.12.37:757][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 708.273438 MiB 
+[2026.10.02-16.12.37:757][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 707.835938 MiB 
+[2026.10.02-16.12.37:758][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 705.519531 MiB 
+[2026.10.02-16.12.37:758][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 705.261719 MiB 
+[2026.10.02-16.12.38:379][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1026.058594 MiB 
+[2026.10.02-16.12.38:379][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1026.117188 MiB 
+[2026.10.02-16.12.38:380][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1026.132812 MiB 
+[2026.10.02-16.12.38:380][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1026.121094 MiB 
+[2026.10.02-16.12.38:381][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1026.203125 MiB 
+[2026.10.02-16.12.38:381][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1026.203125 MiB 
+[2026.10.02-16.12.38:381][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1026.253906 MiB 
+[2026.10.02-16.12.38:381][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1026.253906 MiB 
+[2026.10.02-16.12.38:382][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1026.367188 MiB 
+[2026.10.02-16.12.38:382][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1026.367188 MiB 
+[2026.10.02-16.12.38:396][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1014.96875 MiB 
+[2026.10.02-16.12.38:396][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1014.96875 MiB 
+[2026.10.02-16.12.38:399][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1014.996094 MiB 
+[2026.10.02-16.12.38:399][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1014.996094 MiB 
+[2026.10.02-16.12.38:399][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1015.003906 MiB 
+[2026.10.02-16.12.38:399][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1015.000 MiB 
+[2026.10.02-16.12.38:400][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1537.000 MiB，内存限制 = 1015.015625 MiB 
+[2026.10.02-16.12.38:400][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1537.000 MiB，内存限制 = 1015.015625 MiB 
+[2026.10.02-16.12.38:400][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1537.000 MiB，内存限制 = 1015.132812 MiB 
+[2026.10.02-16.12.38:400][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1537.000 MiB，内存限制 = 1015.132812 MiB 
+[2026.10.02-16.12.38:401][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1537.000 MiB，内存限制 = 1015.144531 MiB 
+[2026.10.02-16.12.38:401][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1537.000 MiB，内存限制 = 1015.140625 MiB 
+[2026.10.02-16.12.38:403][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1015.457031 MiB 
+[2026.10.02-16.12.38:403][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1015.515625 MiB 
+[2026.10.02-16.12.38:404][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1015.511719 MiB 
+[2026.10.02-16.12.38:404][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1015.574219 MiB 
+[2026.10.02-16.12.38:405][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1015.992188 MiB 
+[2026.10.02-16.12.38:405][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1015.996094 MiB 
+[2026.10.02-16.12.38:406][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1016.105469 MiB 
+[2026.10.02-16.12.38:406][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1016.105469 MiB 
+[2026.10.02-16.12.38:407][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.15625 MiB 
+[2026.10.02-16.12.38:407][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.15625 MiB 
+[2026.10.02-16.12.38:409][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.871094 MiB 
+[2026.10.02-16.12.38:409][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.875 MiB 
+[2026.10.02-16.12.38:410][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.90625 MiB 
+[2026.10.02-16.12.38:410][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.902344 MiB 
+[2026.10.02-16.12.38:410][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1016.910156 MiB 
+[2026.10.02-16.12.38:410][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1016.917969 MiB 
+[2026.10.02-16.12.38:411][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.929688 MiB 
+[2026.10.02-16.12.38:411][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.90625 MiB 
+[2026.10.02-16.12.38:412][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.859375 MiB 
+[2026.10.02-16.12.38:412][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.859375 MiB 
+[2026.10.02-16.12.38:412][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.800781 MiB 
+[2026.10.02-16.12.38:412][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.800781 MiB 
+[2026.10.02-16.12.38:419][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1011.433594 MiB 
+[2026.10.02-16.12.38:419][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1011.492188 MiB 
+[2026.10.02-16.12.38:419][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1011.507812 MiB 
+[2026.10.02-16.12.38:419][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1011.507812 MiB 
+[2026.10.02-16.12.38:420][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1011.59375 MiB 
+[2026.10.02-16.12.38:420][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1011.59375 MiB 
+[2026.10.02-16.12.38:421][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1011.699219 MiB 
+[2026.10.02-16.12.38:421][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1011.695312 MiB 
+[2026.10.02-16.12.38:423][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1011.976562 MiB 
+[2026.10.02-16.12.38:423][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1011.976562 MiB 
+[2026.10.02-16.12.38:424][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.074219 MiB 
+[2026.10.02-16.12.38:424][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.078125 MiB 
+[2026.10.02-16.12.38:424][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1012.148438 MiB 
+[2026.10.02-16.12.38:424][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1012.144531 MiB 
+[2026.10.02-16.12.38:425][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.28125 MiB 
+[2026.10.02-16.12.38:425][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.28125 MiB 
+[2026.10.02-16.12.38:425][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.292969 MiB 
+[2026.10.02-16.12.38:425][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.292969 MiB 
+[2026.10.02-16.12.38:426][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1012.300781 MiB 
+[2026.10.02-16.12.38:426][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1012.304688 MiB 
+[2026.10.02-16.12.38:427][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.335938 MiB 
+[2026.10.02-16.12.38:427][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.332031 MiB 
+[2026.10.02-16.12.38:427][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.382812 MiB 
+[2026.10.02-16.12.38:427][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.390625 MiB 
+[2026.10.02-16.12.38:428][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1012.785156 MiB 
+[2026.10.02-16.12.38:428][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1012.769531 MiB 
+[2026.10.02-16.12.38:430][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1217.000 MiB，内存限制 = 1012.753906 MiB 
+[2026.10.02-16.12.38:430][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1217.000 MiB，内存限制 = 1012.777344 MiB 
+[2026.10.02-16.12.38:431][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.90625 MiB 
+[2026.10.02-16.12.38:431][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.90625 MiB 
+[2026.10.02-16.12.38:431][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.976562 MiB 
+[2026.10.02-16.12.38:431][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1012.972656 MiB 
+[2026.10.02-16.12.38:432][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1014.046875 MiB 
+[2026.10.02-16.12.38:432][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1014.050781 MiB 
+[2026.10.02-16.12.38:433][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1014.148438 MiB 
+[2026.10.02-16.12.38:433][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1014.148438 MiB 
+[2026.10.02-16.12.38:433][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1014.355469 MiB 
+[2026.10.02-16.12.38:433][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1014.363281 MiB 
+[2026.10.02-16.12.38:437][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1015.046875 MiB 
+[2026.10.02-16.12.38:437][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1015.035156 MiB 
+[2026.10.02-16.12.38:437][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1015.367188 MiB 
+[2026.10.02-16.12.38:437][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1015.367188 MiB 
+[2026.10.02-16.12.38:438][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1015.398438 MiB 
+[2026.10.02-16.12.38:438][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1015.398438 MiB 
+[2026.10.02-16.12.38:439][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1015.601562 MiB 
+[2026.10.02-16.12.38:439][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1015.542969 MiB 
+[2026.10.02-16.12.38:441][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1016.007812 MiB 
+[2026.10.02-16.12.38:441][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1016.015625 MiB 
+[2026.10.02-16.12.38:443][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1016.058594 MiB 
+[2026.10.02-16.12.38:443][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1016.058594 MiB 
+[2026.10.02-16.12.38:444][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1016.285156 MiB 
+[2026.10.02-16.12.38:444][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1016.285156 MiB 
+[2026.10.02-16.12.38:445][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.367188 MiB 
+[2026.10.02-16.12.38:445][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.371094 MiB 
+[2026.10.02-16.12.38:446][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1016.691406 MiB 
+[2026.10.02-16.12.38:446][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1016.710938 MiB 
+[2026.10.02-16.12.38:447][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.78125 MiB 
+[2026.10.02-16.12.38:447][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.777344 MiB 
+[2026.10.02-16.12.38:447][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.851562 MiB 
+[2026.10.02-16.12.38:447][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1016.855469 MiB 
+[2026.10.02-16.12.38:448][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.09375 MiB 
+[2026.10.02-16.12.38:448][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.101562 MiB 
+[2026.10.02-16.12.38:449][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.164062 MiB 
+[2026.10.02-16.12.38:449][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.164062 MiB 
+[2026.10.02-16.12.38:449][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.285156 MiB 
+[2026.10.02-16.12.38:449][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.289062 MiB 
+[2026.10.02-16.12.38:453][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.015625 MiB 
+[2026.10.02-16.12.38:453][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.011719 MiB 
+[2026.10.02-16.12.38:454][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.000 MiB 
+[2026.10.02-16.12.38:454][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.000 MiB 
+[2026.10.02-16.12.38:455][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.027344 MiB 
+[2026.10.02-16.12.38:455][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.027344 MiB 
+[2026.10.02-16.12.38:455][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.015625 MiB 
+[2026.10.02-16.12.38:455][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1017.015625 MiB 
+[2026.10.02-16.12.38:463][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1009.941406 MiB 
+[2026.10.02-16.12.38:463][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1009.941406 MiB 
+[2026.10.02-16.12.38:464][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1009.960938 MiB 
+[2026.10.02-16.12.38:464][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1009.972656 MiB 
+[2026.10.02-16.12.38:464][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1009.972656 MiB 
+[2026.10.02-16.12.38:464][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1009.976562 MiB 
+[2026.10.02-16.12.38:482][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1000.5625 MiB 
+[2026.10.02-16.12.38:482][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1000.558594 MiB 
+[2026.10.02-16.12.38:483][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1000.667969 MiB 
+[2026.10.02-16.12.38:483][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1000.667969 MiB 
+[2026.10.02-16.12.38:484][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1000.859375 MiB 
+[2026.10.02-16.12.38:484][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1000.878906 MiB 
+[2026.10.02-16.12.38:485][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1000.960938 MiB 
+[2026.10.02-16.12.38:485][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1000.960938 MiB 
+[2026.10.02-16.12.38:486][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1001.015625 MiB 
+[2026.10.02-16.12.38:486][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1001.015625 MiB 
+[2026.10.02-16.12.38:486][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1001.34375 MiB 
+[2026.10.02-16.12.38:487][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1001.34375 MiB 
+[2026.10.02-16.12.38:487][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1001.257812 MiB 
+[2026.10.02-16.12.38:487][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 1001.261719 MiB 
+[2026.10.02-16.12.38:488][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1001.265625 MiB 
+[2026.10.02-16.12.38:488][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1001.269531 MiB 
+[2026.10.02-16.12.38:489][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1001.542969 MiB 
+[2026.10.02-16.12.38:489][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1153.000 MiB，内存限制 = 1001.597656 MiB 
+[2026.10.02-16.12.38:506][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 995.492188 MiB 
+[2026.10.02-16.12.38:506][  0]LogAsyncCompilation: Display: 注意：AssetCompile内存估计值大于可用值，但无论如何我们都会运行它[TextureDerivedData]！所需内存 = 0.000 MiB + 1121.000 MiB，内存限制 = 995.164062 MiB 
+[2026.10.02-16.12.38:906][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file loaded D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.02-16.12.39:499][  0]LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance
+[2026.10.02-16.12.40:079][  0]LogMaterial: Display: Material /Game/Dungeons/FreightDoor20260923/Materials/M_FreightCoat.M_FreightCoat needed to set usage flag Nanite
+[2026.10.02-16.12.40:110][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/FreightDoor20260923/Materials/M_FreightCoat.M_FreightCoat in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 363f36ed9c597e8dfc21209bbb1b2af064acf031), compiling. 
+[2026.10.02-16.12.40:767][  0]LogMaterial: Display: Material /Game/Dungeons/FreightDoor20260923/Materials/M_FreightTrack.M_FreightTrack needed to set usage flag Nanite
+[2026.10.02-16.12.40:774][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/FreightDoor20260923/Materials/M_FreightTrack.M_FreightTrack in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 39ed3a52053e45659fa3987f522d4a6c17d00642), compiling. 
+[2026.10.02-16.12.40:783][  0]LogMaterial: Display: Material /Game/Dungeons/FreightDoor20260923/Materials/M_FreightPanel.M_FreightPanel needed to set usage flag Nanite
+[2026.10.02-16.12.40:787][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/FreightDoor20260923/Materials/M_FreightPanel.M_FreightPanel in PCD3D_SM6, Default, SM6, Editor (DDC key hash: a708375d3099c5afe16a80453ed284948c2015c3), compiling. 
+[2026.10.02-16.12.40:791][  0]LogMaterial: Display: Material /Game/Dungeons/FreightDoor20260923/Materials/M_FreightGate.M_FreightGate needed to set usage flag Nanite
+[2026.10.02-16.12.40:794][  0]LogMaterial: Display: Missing cached shadermap for /Game/Dungeons/FreightDoor20260923/Materials/M_FreightGate.M_FreightGate in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 740eef873804820bc8d71614ac2f0ea3abc9d260), compiling. 
+[2026.10.02-16.12.40:986][  0]LogPythonScriptCommandlet: Display: Python script executed successfully
+[2026.10.02-16.12.40:987][  0]LogInit: Display: 
+[2026.10.02-16.12.40:987][  0]LogInit: Display: Warning/Error Summary (Unique only)
+[2026.10.02-16.12.40:987][  0]LogInit: Display: -----------------------------------
+[2026.10.02-16.12.40:987][  0]LogInit: Display: LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.02-16.12.40:987][  0]LogInit: Display: LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.02-16.12.40:987][  0]LogInit: Display: LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.02-16.12.40:987][  0]LogInit: Display: LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.12.40:987][  0]LogInit: Display: LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.12.40:987][  0]LogInit: Display: LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.12.40:987][  0]LogInit: Display: LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.12.40:987][  0]LogInit: Display: LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.02-16.12.40:987][  0]LogInit: Display: LogNavigation: Warning: Recreating dtNavMesh instance (RecastNavMesh_UAID_A036BCAAAC01620403-PoisonMaggot) due mismatch in number of bytes required to store serialized maxTiles (serialized: 3, 2 bits) vs calculated required (720, 10 bits)
+[2026.10.02-16.12.40:987][  0]LogInit: Display: LogNavigation: Warning: Recreating dtNavMesh instance (RecastNavMesh_UAID_A036BCAAAC01620403-Witch) due mismatch in number of bytes required to store serialized maxTiles (serialized: 3, 2 bits) vs calculated required (720, 10 bits)
+[2026.10.02-16.12.40:987][  0]LogInit: Display: LogNavigation: Warning: Recreating dtNavMesh instance (RecastNavMesh_UAID_A036BCAAAC01620403-Nurse) due mismatch in number of bytes required to store serialized maxTiles (serialized: 3, 2 bits) vs calculated required (720, 10 bits)
+[2026.10.02-16.12.40:987][  0]LogInit: Display: LogNavigation: Warning: Recreating dtNavMesh instance (RecastNavMesh_UAID_A036BCAAAC01620403-HandBrain) due mismatch in number of bytes required to store serialized maxTiles (serialized: 3, 2 bits) vs calculated required (720, 10 bits)
+[2026.10.02-16.12.40:987][  0]LogInit: Display: LogCrowdFollowing: Warning: Unable to find RecastNavMesh instance while trying to create UCrowdManager instance
+[2026.10.02-16.12.40:988][  0]LogInit: Display: 
+[2026.10.02-16.12.40:988][  0]LogInit: Display: Success - 0 error(s), 13 warning(s)
+[2026.10.02-16.12.40:988][  0]LogInit: Display: 
+
+Execution of commandlet took:  17.87 seconds, PeakPhysMemoryMB=14397 MB, PeakVirtMemoryMB=24505 MB
+[2026.10.02-16.12.41:084][  0]LogToolsetRegistry: Display: Unregistering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.02-16.12.41:098][  0]LogToolsetRegistry: Display: Unregistering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.02-16.12.41:099][  0]LogToolsetRegistry: Display: Unregistering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.02-16.12.41:100][  0]LogToolsetRegistry: Display: Unregistering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.02-16.12.42:202][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PostWrite): 1 .ref files found, 1 referenced binaries
+[2026.10.02-16.12.42:202][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.02-16.12.44:968][  0]LogShaderCompilers: Display: Exiting ShaderCompilingThread
+[2026.10.02-16.12.45:604][  0]LogToolsetRegistry: Warning: IsAvailable: Editor is not available
+[2026.10.02-16.12.45:625][  0]LogTemp: Display: LoadHitchProbe summary: 1204 sync-load entries seen, 0 recorded to (nothing)

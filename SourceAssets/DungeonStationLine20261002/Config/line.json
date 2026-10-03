@@ -1,0 +1,82 @@
+{
+  "map": "/Game/GameMaps/Design/L_FreightTransit_Theme_Subject",
+  "sequence": [
+    "FreightTransfer_WarehouseLink",
+    "AbandonedCargoWarehouse",
+    "AbandonedTransitStation"
+  ],
+  "placements": [
+    {
+      "id": "FreightTransfer_WarehouseLink",
+      "position": [
+        0,
+        -900,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "Transit",
+      "position": [
+        1980,
+        0,
+        0
+      ],
+      "yaw": 90,
+      "scale": [
+        1,
+        0.2,
+        1
+      ],
+      "name": "FreightWarehouseSeam"
+    },
+    {
+      "id": "AbandonedCargoWarehouse",
+      "position": [
+        3760,
+        -900,
+        0
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "Transit",
+      "position": [
+        5460,
+        -1400,
+        0
+      ],
+      "yaw": 90,
+      "name": "WarehouseStationLink"
+    },
+    {
+      "id": "AbandonedTransitStation",
+      "position": [
+        7760,
+        -1400,
+        0
+      ],
+      "yaw": 0
+    }
+  ],
+  "source_catalog": "SourceAssets/DungeonRoutes20260922/Config/catalog.json",
+  "mode": "editable scenery refinement, opened freight gate",
+  "player_start": [
+    100,
+    0,
+    105
+  ],
+  "return_map": "/Game/GameMaps/DayNight_Lighting",
+  "warehouse_container_revision": 2,
+  "warehouse_preview_seed": 20261002,
+  "warehouse_container_count": 12,
+  "station_workshop_revision": 4,
+  "station_workshop_variant": "InterruptedRepair",
+  "station_workshop_containers": 7,
+  "scene_loot_expansion_revision": 1,
+  "freight_container_count": 4,
+  "warehouse_base_container_count": 9,
+  "warehouse_additional_container_count": 3,
+  "additional_container_preview_seed": 20261003,
+  "freight_tool_bay_revision": 2
+}

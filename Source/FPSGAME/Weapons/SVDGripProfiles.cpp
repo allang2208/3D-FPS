@@ -3,6 +3,7 @@
 #include "SVDWeaponAssets.h"
 #include "RSH12WeaponAssets.h"
 #include "LMG201WeaponAssets.h"
+#include "G18WeaponAssets.h"
 #include "Animation/AnimSequence.h"
 
 bool AFPSGAMECharacter::InitializeWeaponGripFamily(FName Family,TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>>& Map)
@@ -13,6 +14,7 @@ bool AFPSGAMECharacter::InitializeWeaponGripFamily(FName Family,TMap<TObjectPtr<
     if(!bSVD&&ActiveInventoryWeaponDefinition.IsEmpty())return false;
     const FString Path=bSVD?TEXT("/Game/Weapons/SVDDragunov20260922/GripProfiles20261001/DA_SVD_Grip_")+Family.ToString()
         :IsRSH12Weapon()&&Family==TEXT("base")?FString(RSH12WeaponAssets::ProfilePath)
+        :IsG18Weapon()&&Family==TEXT("drum")?FString(G18WeaponAssets::Drum50ReloadProfile)
         :TEXT("/Game/Weapons/AnimationProfiles20261001/")+ActiveInventoryWeaponDefinition+TEXT("/DA_")+Family.ToString();
     UWeaponGripProfile* Profile=LoadObject<UWeaponGripProfile>(nullptr,*Path,nullptr,LOAD_NoWarn);
     if(!Profile||Profile->Family!=Family||Profile->Clips.IsEmpty())return false;
@@ -23,6 +25,10 @@ bool AFPSGAMECharacter::InitializeWeaponGripFamily(FName Family,TMap<TObjectPtr<
 
 UWeaponGripProfile* AFPSGAMECharacter::WeaponGripProfileFor(EM4SprintGrip Grip) const
 {
+    // G18 uses a sparse reload-only support grasp. Keep the pistol's existing
+    // mechanical clock and magazine trajectory, without rifle drum state.
+    if(IsG18Weapon()&&MagazineAttachmentId==G18WeaponAssets::Drum50Id)
+        if(const auto* Drum=WeaponGripProfiles.Find(TEXT("drum")))return Drum->Get();
     const FName Family=Grip==EM4SprintGrip::Angled?TEXT("angled"):Grip==EM4SprintGrip::Vertical?TEXT("vertical")
         :Grip==EM4SprintGrip::Canted?TEXT("canted"):Grip==EM4SprintGrip::Prism?TEXT("prism")
         :Grip==EM4SprintGrip::Drum?TEXT("drum"):TEXT("base");

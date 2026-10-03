@@ -17,6 +17,7 @@ struct FMeleeWeaponStats
     FWeaponDamageParts DamageParts;
     double ParrySeconds=1;
     double BaseReach=180, SlashReach=360, ThrustReach=360, AttackStamina=0, BlockStamina=20, BlockReduction=.5;
+    double HeavyChargeSpeedBonus=0,HeavyChargeSeconds=2;
 };
 
 namespace ColdSteelMelee

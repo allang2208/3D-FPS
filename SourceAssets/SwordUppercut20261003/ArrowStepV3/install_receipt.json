@@ -1,0 +1,32 @@
+{
+  "revision": "ArrowStepUppercutV3",
+  "animations": {
+    "/Game/Weapons/SwordUppercut20261003/Standard/A_Sword_UppercutV1_Standard": {
+      "asset": "/Game/Weapons/SwordUppercut20261003/Standard/A_Sword_UppercutV1_Standard.A_Sword_UppercutV1_Standard",
+      "seconds": 2.1,
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ArrowStepV3\\Standard\\editable_keys.json",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ArrowStepV3\\Standard\\A_Sword_UppercutV3_Standard.fbx"
+    },
+    "/Game/Weapons/SwordUppercut20261003/LongGrip/A_Sword_UppercutV1_LongGrip": {
+      "asset": "/Game/Weapons/SwordUppercut20261003/LongGrip/A_Sword_UppercutV1_LongGrip.A_Sword_UppercutV1_LongGrip",
+      "seconds": 2.1,
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ArrowStepV3\\LongGrip\\editable_keys.json",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ArrowStepV3\\LongGrip\\A_Sword_UppercutV3_LongGrip.fbx"
+    },
+    "/Game/Weapons/SwordUppercut20261003/Standard/A_Sword_UppercutV1_Standard_PreviewLoop": {
+      "asset": "/Game/Weapons/SwordUppercut20261003/Standard/A_Sword_UppercutV1_Standard_PreviewLoop.A_Sword_UppercutV1_Standard_PreviewLoop",
+      "seconds": 2.75,
+      "keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SwordUppercut20261003\\ArrowStepV3\\Standard\\editable_keys.json",
+      "fbx": null
+    }
+  },
+  "runtime_tested": false,
+  "rendered": false,
+  "paid_motion_used": false,
+  "reference": "https://www.bilibili.com/video/BV1fB4y1v72r/",
+  "reference_seconds": [
+    0,
+    8
+  ],
+  "reference_subject": "player, both arrow-step/upward-cut demonstrations"
+}

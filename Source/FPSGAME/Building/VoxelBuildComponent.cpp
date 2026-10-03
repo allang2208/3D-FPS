@@ -155,7 +155,7 @@ void UVoxelBuildComponent::TryInitializeWorld()
 {
     auto* PC=Cast<APlayerController>(GetOwner());
     if(!PC||!PC->IsLocalController()||!PC->GetPawn())return;
-    if(GetNetMode()!=NM_Standalone){InitializationMessage=TEXT("体素初版仅用于单机世界");bInitializeFailed=true;return;}
+    if(GetNetMode()==NM_Client){InitializationMessage=TEXT("体素初版仅用于单机世界");bInitializeFailed=true;return;}
     const FString Map=UGameplayStatics::GetCurrentLevelName(this,true);
     if(Map!=TEXT("DayNight_Lighting")&&Map!=TEXT("L_Normandy_FPS_Test")&&Map!=TEXT("L_MilitaryTrench_FPS_Test")&&Map!=TEXT("L_TemperateHills_Initial"))
     {InitializationMessage=TEXT("当前场景尚未开放体素建造");bInitializeFailed=true;return;}

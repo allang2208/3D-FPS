@@ -10,8 +10,8 @@
 namespace
 {
 const FName RootTag(TEXT("BowAssembly")),PartTag(TEXT("BowAssemblyPart"));
-const TCHAR* Slots[]={TEXT("riser"),TEXT("grip"),TEXT("arrow_rest"),TEXT("sight"),TEXT("string")};
-const TCHAR* Cylinder=TEXT("/Engine/BasicShapes/Cylinder.Cylinder");
+const TCHAR* BowAssemblySlots[]={TEXT("riser"),TEXT("grip"),TEXT("arrow_rest"),TEXT("sight"),TEXT("string")};
+const TCHAR* BowAssemblyCylinder=TEXT("/Engine/BasicShapes/Cylinder.Cylinder");
 FString Field(const TCHAR* Slot,const TCHAR* Suffix){return FString::Printf(TEXT("bow_part_%s_%s"),Slot,Suffix);}
 FString Text(const FColdSteelItem& I,const TCHAR* Slot,const TCHAR* Suffix){return ColdSteelInventory::Text(I,*Field(Slot,Suffix));}
 FVector Vector(const FColdSteelItem& I,const TCHAR* Key,FVector Default=FVector::ZeroVector)
@@ -35,9 +35,9 @@ FString ColdSteelBowAssembly::Key(const FColdSteelItem& I)
 }
 void ColdSteelBowAssembly::GatherResources(const FColdSteelItem& I,TArray<FSoftObjectPath>& Out)
 {
-    for(const TCHAR* Slot:Slots)for(const TCHAR* Suffix:{TEXT("mesh"),TEXT("material")})
+    for(const TCHAR* Slot:BowAssemblySlots)for(const TCHAR* Suffix:{TEXT("mesh"),TEXT("material")})
     {const FString Path=Text(I,Slot,Suffix);if(!Path.IsEmpty())Out.AddUnique(FSoftObjectPath(Path));}
-    if(Text(I,TEXT("string"),TEXT("mesh")).IsEmpty())Out.AddUnique(FSoftObjectPath(Cylinder));
+    if(Text(I,TEXT("string"),TEXT("mesh")).IsEmpty())Out.AddUnique(FSoftObjectPath(BowAssemblyCylinder));
 }
 TArray<UMeshComponent*> ColdSteelBowAssembly::Components(UStaticMeshComponent* Root)
 {
@@ -97,7 +97,7 @@ bool ColdSteelBowAssembly::Apply(UStaticMeshComponent* Root,const FColdSteelItem
     auto Material=[&](UMeshComponent* C,const TCHAR* Slot)
     {if(auto* M=Cast<UMaterialInterface>(FSoftObjectPath(Text(I,Slot,TEXT("material"))).ResolveObject()))for(int32 N=0;N<C->GetNumMaterials();++N)C->SetMaterial(N,M);};
     Material(Cast<USkeletalMesh>(Body)?NewPart(Body):Root,TEXT("riser"));
-    for(const TCHAR* Slot:Slots)
+    for(const TCHAR* Slot:BowAssemblySlots)
     {
         if(FCString::Strcmp(Slot,TEXT("riser"))==0)continue;
         if(auto* Asset=Mesh(Slot))
@@ -112,7 +112,7 @@ bool ColdSteelBowAssembly::Apply(UStaticMeshComponent* Root,const FColdSteelItem
         const double Radius=ColdSteelInventory::Number(I,TEXT("bow_part_string_radius_cm"),.09);
         for(const TCHAR* Tip:{TEXT("nock_upper_cm"),TEXT("nock_lower_cm")})
         {
-            const FVector End=Vector(I,Tip),D=End-Nock;auto* C=NewPart(Cast<UStaticMesh>(FSoftObjectPath(Cylinder).ResolveObject()));
+            const FVector End=Vector(I,Tip),D=End-Nock;auto* C=NewPart(Cast<UStaticMesh>(FSoftObjectPath(BowAssemblyCylinder).ResolveObject()));
             C->SetRelativeTransform(FTransform(FQuat::FindBetweenNormals(FVector::UpVector,D.GetSafeNormal()),(End+Nock)*.5,FVector(Radius/50,Radius/50,D.Size()/100)));
             Material(C,TEXT("string"));
         }

@@ -165,6 +165,9 @@ for cue,source in cues.items():
     a=load(path) if E.does_asset_exist(path) else A.duplicate_asset(name,DEST+'/Audio',load(source));save(a)
 receipt['mechanical_audio_sources']=cues
 factory=u.DataAssetFactory();factory.set_editor_property('data_asset_class',u.WeatherPresentationAssets)
+for drum_name in ('M_G18_Drum50_PBR','M_G18_Drum50_Neck'):
+    drum_mat=DEST.replace('/Integrated20260929','/Drum50_20261003')+'/Materials/'+drum_name
+    if E.does_asset_exist(drum_mat):wetmap[drum_mat]=load(drum_mat)
 library=create('DA_G18_WetMaterials',DEST,u.WeatherPresentationAssets,factory);library.set_editor_property('wet_materials',wetmap);save(library)
 for file in [PROJECT/'Content/ColdSteelData/Icons/ue_g18.png']+list((PROJECT/'Content/ColdSteelData/AttachmentIcons20260913').glob('ue_g18_*.png')):
     folder='/Game/ColdSteelData/Icons' if file.name=='ue_g18.png' else DEST+'/Icons'

@@ -1,0 +1,5 @@
+[2026.09.20-12.06.55:952][379]LogModelContextProtocol: Dispatching toolset tool: 'LiveCodingToolset.LiveCodingToolset.CompileLiveCoding'
+[2026.09.20-12.06.55:953][379]LogLiveCodingToolset: CompileLiveCoding: entry
+[2026.09.20-12.06.55:979][379]LogLiveCoding: Display: Starting Live Coding compile.
+[2026.09.20-12.13.43:767][379]LogLiveCoding: Display: Live coding succeeded, no code changes detected
+[2026.09.20-12.13.43:774][379]LogLiveCodingToolset: CompileLiveCoding: Result: NoChanges

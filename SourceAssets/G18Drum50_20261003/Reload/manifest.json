@@ -1,0 +1,20 @@
+{
+  "profiles": [{
+    "weapon": "ue_g18",
+    "family": "drum",
+    "mesh": "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny",
+    "asset": "/Game/Weapons/G18/Drum50_20261003/Reload/DA_G18_Drum50",
+    "pairs": [
+      {
+        "role": "reload",
+        "base": "/Game/Weapons/G18/Integrated20260929/Single/Animations/A_G18_reload",
+        "authored": "/Game/Weapons/G18/Drum50_20261003/Reload/Authored/A_G18_Drum50_reload"
+      },
+      {
+        "role": "reload_empty",
+        "base": "/Game/Weapons/G18/Integrated20260929/Single/Animations/A_G18_reload_empty",
+        "authored": "/Game/Weapons/G18/Drum50_20261003/Reload/Authored/A_G18_Drum50_reload_empty"
+      }
+    ]
+  }]
+}

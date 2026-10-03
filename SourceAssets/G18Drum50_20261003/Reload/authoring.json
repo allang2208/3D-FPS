@@ -1,0 +1,95 @@
+{
+  "reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMDrumFreeDrop20260920\\contact_fit.json",
+  "reference_revision": "PalmGripV3",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18Integration20260929\\Single\\G18_single_Editable.blend",
+  "method": "Shell-registered palm-under support, semantic finger remap to native G18 bind, fixed contact during insertion, release before withdrawal",
+  "hand_in_mag": [
+    [
+      0.2936299443244934,
+      0.003955283667892218,
+      0.9559110403060913,
+      -0.0004580751992762089
+    ],
+    [
+      0.1280473917722702,
+      0.9908165335655212,
+      -0.04343244060873985,
+      -0.26123344898223877
+    ],
+    [
+      -0.9473042488098145,
+      0.13515505194664001,
+      0.29042693972587585,
+      0.09347528964281082
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "drum_center_root_m": [
+    0.0,
+    0.06092230603098869,
+    -0.20800000429153442
+  ],
+  "changed_bones": [
+    "clavicle_l",
+    "upperarm_l",
+    "lowerarm_l",
+    "lowerarm_twist_02_l",
+    "lowerarm_twist_01_l",
+    "hand_l",
+    "upperarm_twist_01_l",
+    "upperarm_twist_02_l",
+    "index_metacarpal_l",
+    "index_01_l",
+    "index_02_l",
+    "index_03_l",
+    "middle_metacarpal_l",
+    "middle_01_l",
+    "middle_02_l",
+    "middle_03_l",
+    "thumb_01_l",
+    "thumb_02_l",
+    "thumb_03_l",
+    "pinky_metacarpal_l",
+    "pinky_01_l",
+    "pinky_02_l",
+    "pinky_03_l",
+    "ring_metacarpal_l",
+    "ring_01_l",
+    "ring_02_l",
+    "ring_03_l"
+  ],
+  "clips": {
+    "reload": {
+      "duration": 1.75,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18Drum50_20261003\\Reload\\A_G18_Drum50_reload.fbx",
+      "contact_window": [
+        0.64,
+        1.135
+      ],
+      "release_window": [
+        1.135,
+        1.48
+      ]
+    },
+    "reload_empty": {
+      "duration": 2.25,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18Drum50_20261003\\Reload\\A_G18_Drum50_reload_empty.fbx",
+      "contact_window": [
+        0.64,
+        1.135
+      ],
+      "release_window": [
+        1.135,
+        1.4
+      ]
+    }
+  },
+  "runtime_tested": false
+}

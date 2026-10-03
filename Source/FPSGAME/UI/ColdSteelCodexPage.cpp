@@ -1,6 +1,7 @@
 #include "ColdSteelCodexPage.h"
 #include "ColdSteelWeaponText.h"
 #include "ColdSteelHUDWidget.h"
+#include "ColdSteelEnhancementSystem.h"
 #include "../FPSGAMEPlayerController.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelInventoryTypes.h"
@@ -79,6 +80,42 @@ namespace
     const int32 TributeRarityCount = UE_ARRAY_COUNT(TributeRarityKeys);
     static_assert(UE_ARRAY_COUNT(TributeRarityKeys) == UE_ARRAY_COUNT(TributeRarityLabels),
         "祭品稀有度键与标签表长度必须一致");
+
+    /** 附魔分区分类：页签 0=全部，1=前缀(prefix)，2=后缀(suffix)。
+     *  与状态/怪物侧同一纪律：页签下标与目录 slot 字符串显式映射，不做下标算术。 */
+    const TCHAR* EnchantCategorySlots[] = {TEXT("all"), TEXT("prefix"), TEXT("suffix")};
+    const TCHAR* EnchantCategoryLabels[] = {TEXT("全部"), TEXT("前缀"), TEXT("后缀")};
+    const int32 EnchantCategoryCount = UE_ARRAY_COUNT(EnchantCategoryLabels);
+    static_assert(UE_ARRAY_COUNT(EnchantCategorySlots) == UE_ARRAY_COUNT(EnchantCategoryLabels),
+        "附魔页签与 slot 映射表长度必须一致");
+
+    /** 兼容 restriction 键 → 玩家文案。与强化台 UColdSteelEnhancementSystem::CanEnchant
+     *  的八类键一一对应；未知键如实显示原文，不伪造兼容范围。 */
+    struct FEnchantRestrictionLabel { const TCHAR* Key; const TCHAR* Label; };
+    const FEnchantRestrictionLabel EnchantRestrictionLabels[] = {
+        { TEXT("weapon"),     TEXT("任意武器") },
+        { TEXT("firearm"),    TEXT("枪械") },
+        { TEXT("melee"),      TEXT("近战武器") },
+        { TEXT("meleeOrBow"), TEXT("近战武器或弓") },
+        { TEXT("sword"),      TEXT("剑类武器") },
+        { TEXT("pistol"),     TEXT("手枪") },
+        { TEXT("machineGun"), TEXT("轻机枪") },
+        { TEXT("sniper"),     TEXT("狙击步枪") },
+    };
+    FString EnchantRestrictionText(const FString& Key)
+    {
+        for (const FEnchantRestrictionLabel& R : EnchantRestrictionLabels)
+            if (Key == R.Key) return R.Label;
+        return Key;
+    }
+
+    /** rarity 是否落在祭品/附魔共用的稀有度组序表内；表外（含缺失）由调用方归入「其他」组。 */
+    bool MatchesTributeRarity(const FString& Rarity)
+    {
+        for (int32 Index = 0; Index < TributeRarityCount; ++Index)
+            if (Rarity == TributeRarityKeys[Index]) return true;
+        return false;
+    }
 
     FString Dash() { return TEXT("—"); }
 
@@ -163,6 +200,7 @@ void UColdSteelCodexPage::ReleaseSlateResources(bool bReleaseChildren)
     SearchEdit.Reset();
     StatusCardsHost.Reset();
     TributeCardsHost.Reset();
+    EnchantCardsHost.Reset();
     Root.Reset();
     GridScroll.Reset();
     DetailScroll.Reset();
@@ -368,6 +406,11 @@ TSharedRef<SWidget> UColdSteelCodexPage::BuildPage()
     {
         Content->AddSlot().FillHeight(1.f).Padding(Pad, 0.f, Pad, Pad * .5f)[ BuildTributePage() ];
     }
+    // 附魔分区整页独占（与祭品分区同规则，2026-10-03）：搜索栏 + 按稀有度分组的「附魔卡片」。
+    else if (Section == 4)
+    {
+        Content->AddSlot().FillHeight(1.f).Padding(Pad, 0.f, Pad, Pad * .5f)[ BuildEnchantPage() ];
+    }
     // 内容宽低于 StackedBelowWidth 时网格与详情纵排；否则左列表右详情。
     // 抽屉宽度本身下限就是 720px（视口 48%、夹在 720–1040px），SetLayoutWidth 收到的是 Width−2，
     // 所以正常显示器上实际宽度约 718–1038px。阈值若取 720 将几乎永远走纵排——两列版式永远不出现。
@@ -410,8 +453,8 @@ TSharedRef<SWidget> UColdSteelCodexPage::BuildTabs()
     // 文本走 TabLabel（AutoWrapText(false)），与技能页 FilterButtons 的单行标签同规格。
     SectionButtons.Reset();
     TSharedRef<SHorizontalBox> Sections = SNew(SHorizontalBox);
-    const TCHAR* SectionLabels[] = {TEXT("武器"), TEXT("怪物"), TEXT("状态"), TEXT("祭品")};
-    for (int32 Index = 0; Index < 4; ++Index)
+    const TCHAR* SectionLabels[] = {TEXT("武器"), TEXT("怪物"), TEXT("状态"), TEXT("祭品"), TEXT("附魔")};
+    for (int32 Index = 0; Index < UE_ARRAY_COUNT(SectionLabels); ++Index)
     {
         const bool bActive = Index == Section;
         TSharedPtr<SButton> Button;
@@ -615,6 +658,10 @@ TArray<FString> UColdSteelCodexPage::Categories() const
         Names.Add(TEXT("全部"));
         for (int32 Index = 0; Index < TributeRarityCount; ++Index) Names.Add(TributeRarityLabels[Index]);
     }
+    else if (Section == 4)
+    {
+        for (int32 Index = 0; Index < EnchantCategoryCount; ++Index) Names.Add(EnchantCategoryLabels[Index]);
+    }
     else
     {
         for (int32 Index = 0; Index < MonsterCategoryCount; ++Index) Names.Add(MonsterCategoryLabels[Index]);
@@ -625,7 +672,7 @@ TArray<FString> UColdSteelCodexPage::Categories() const
 FString UColdSteelCodexPage::SectionLabel() const
 {
     return Section == 0 ? TEXT("武器档案") : Section == 2 ? TEXT("状态栏")
-        : Section == 3 ? TEXT("祭品") : TEXT("怪物档案");
+        : Section == 3 ? TEXT("祭品") : Section == 4 ? TEXT("附魔") : TEXT("怪物档案");
 }
 
 FString UColdSteelCodexPage::CatalogName(const FString& Definition) const
@@ -789,6 +836,11 @@ TArray<UColdSteelCodexPage::FCodexEntry> UColdSteelCodexPage::Entries() const
     {
         // 祭品分区走整页卡片（TributePageCards），不使用网格列表条目；
         // 此分支必须在恒真的怪物登记表分支之前，否则会被误吞。
+    }
+    else if (Section == 4)
+    {
+        // 附魔分区同样走整页卡片（EnchantPageCards），不使用网格列表条目；
+        // 同祭品分区：分支必须在恒真的怪物登记表分支之前。
     }
     else if (const UDevelopmentSpawnComponent* Spawner = ResolveSpawner())
     {
@@ -1111,6 +1163,7 @@ void UColdSteelCodexPage::RebuildFilterCards()
     // 搜索输入只重建当前活动分区的卡片区，另一分区的缓存容器不动。
     if (Section == 2) RebuildStatusCards();
     else if (Section == 3) RebuildTributeCards();
+    else if (Section == 4) RebuildEnchantCards();
 }
 
 TSharedRef<SWidget> UColdSteelCodexPage::BuildStatusPage()
@@ -1361,6 +1414,157 @@ TArray<TSharedRef<SWidget>> UColdSteelCodexPage::TributePageCards() const
         TArray<TSharedRef<SWidget>> Empty;
         Empty.Add(Label(Needle.IsEmpty() ? TEXT("此分类暂无祭品档案") : TEXT("没有匹配的祭品：换个关键词或清空搜索。"), 14, ColdSteelUI::TextTertiary));
         Cards.Add(SectionCard(TEXT("祭品卡片"), Empty));
+    }
+    return Cards;
+}
+
+TSharedRef<SWidget> UColdSteelCodexPage::BuildEnchantPage()
+{
+    // 附魔分区整页内容（2026-10-03）：搜索栏 + 按稀有度分组的「附魔卡片」。
+    // 数据走 UColdSteelEnhancementSystem::Scrolls()（enhancement.json 单一事实源，与强化台同一入口）。
+    const float Pad = 12.f / FMath::Max(Scale, .01f);
+    TSharedRef<SVerticalBox> Column = SNew(SVerticalBox);
+    Column->AddSlot().AutoHeight().Padding(0.f, 0.f, 0.f, Pad)[ BuildSearchRow(TEXT("搜索附魔：名称 / 说明 / 兼容")) ];
+
+    TSharedPtr<SScrollBox> Scroll;
+    SAssignNew(Scroll, SScrollBox);
+    Scroll->SetScrollBarThickness(FVector2D(6.f / FMath::Max(Scale, .01f)));
+    Scroll->SetAllowOverscroll(EAllowOverscroll::No);
+    SAssignNew(EnchantCardsHost, SVerticalBox);
+    Scroll->AddSlot()[ EnchantCardsHost.ToSharedRef() ];
+    RebuildEnchantCards();
+    Column->AddSlot().FillHeight(1.f)[ Scroll.ToSharedRef() ];
+    return Column;
+}
+
+void UColdSteelCodexPage::RebuildEnchantCards()
+{
+    if (!EnchantCardsHost.IsValid()) return;
+    StatusEntryBrush = ColdSteelUI::RoundedBrush(ColdSteelUI::AttributeRow,
+        ColdSteelUI::CardRadius / FMath::Max(Scale, .01f), FLinearColor::Transparent, 0.f);
+    EnchantCardsHost->ClearChildren();
+    const float Gap = 10.f / FMath::Max(Scale, .01f);
+    const TArray<TSharedRef<SWidget>> List = EnchantPageCards();
+    for (int32 Index = 0; Index < List.Num(); ++Index)
+        EnchantCardsHost->AddSlot().AutoHeight().Padding(0.f, Index == 0 ? 0.f : Gap, 0.f, 0.f)[ List[Index] ];
+}
+
+TArray<TSharedRef<SWidget>> UColdSteelCodexPage::EnchantPageCards() const
+{
+    // 「附魔卡片」（2026-10-03）：卷轴目录全量条目。图鉴是档案页，收录全部 14 条卷轴，
+    // 不沿用强化台「只计背包正数量堆叠」的合同——那是可用性过滤，不是目录口径。
+    // 过滤 = 分类页签（前缀/后缀）∧ 搜索关键词；稀有度分组为展示维度（组序高→低，空组跳过）。
+    TArray<TSharedRef<SWidget>> Cards;
+    UGameInstance* GI = GetGameInstance();
+    const UColdSteelEnhancementSystem* Enhancement = GI ? GI->GetSubsystem<UColdSteelEnhancementSystem>() : nullptr;
+    if (!Enhancement) return Cards;
+
+    const FString SlotKey = EnchantCategorySlots[FMath::Clamp(Category, 0, EnchantCategoryCount - 1)];
+    const FString Needle = SearchText.TrimStartAndEnd();
+
+    struct FEnchantRow { FString Id, Name, Slot, Restriction, Desc, Glyph, Rarity; int64 Dust = 0; };
+    TArray<FEnchantRow> Rows;
+    for (const FColdSteelEnchantOption& Option : Enhancement->Scrolls())
+    {
+        if (SlotKey != TEXT("all") && Option.Slot != SlotKey) continue;
+        FEnchantRow R;
+        R.Id = Option.Id;
+        R.Name = Option.Name;
+        R.Slot = Option.Slot;
+        R.Restriction = EnchantRestrictionText(Option.Restriction);
+        R.Desc = Option.Description;
+        R.Dust = Option.Dust;
+        // 稀有度与字形取卷轴物品 Data（与背包/浮窗同一物品字段）；目录缺物品时不伪造，留空落「其他」组。
+        if (Model)
+        {
+            const FColdSteelItem Item = Model->CreateItem(Option.Item);
+            R.Glyph = ColdSteelInventory::Text(Item, TEXT("icon_fallback"));
+            R.Rarity = ColdSteelInventory::Text(Item, TEXT("rarity"));
+        }
+        if (!Needle.IsEmpty())
+        {
+            const FString Hay = (R.Name + TEXT(" ") + R.Desc + TEXT(" ") + R.Restriction + TEXT(" ") + R.Id).ToLower();
+            if (!Hay.Contains(Needle.ToLower())) continue;
+        }
+        Rows.Add(MoveTemp(R));
+    }
+    // 组内排序：粉尘消耗升序、再按名称，形成同组内按代价递增的查阅顺序；组间已按稀有度高→低。
+    Rows.Sort([](const FEnchantRow& A, const FEnchantRow& B)
+    {
+        if (A.Dust != B.Dust) return A.Dust < B.Dust;
+        return A.Name < B.Name;
+    });
+
+    const float Pad = 10.f / FMath::Max(Scale, .01f);
+    const float IconColumn = 24.f / FMath::Max(Scale, .01f);
+    const float RowGap = 6.f / FMath::Max(Scale, .01f);
+    // 稀有度分组复用祭品组序表（高→低）；目录物品缺 rarity 或 rarity 不在表内的条目
+    // 落入末尾「其他」组，保证目录条目不因字段缺失而整条消失。
+    // 组序表：稀有度高→低，末尾追加 -1（「其他」兜底组），循环按表序出卡。
+    const int32 GroupOrder[] = {0, 1, 2, 3, 4, 5, -1};
+    static_assert(UE_ARRAY_COUNT(GroupOrder) == TributeRarityCount + 1,
+        "附魔组序表必须覆盖全部稀有度与兜底组");
+    for (const int32 RarityIndex : GroupOrder)
+    {
+        const TCHAR* GroupKey = RarityIndex < 0 ? nullptr : TributeRarityKeys[RarityIndex];
+        TArray<TSharedRef<SWidget>> CardRows;
+        int32 Count = 0;
+        for (const FEnchantRow& R : Rows)
+        {
+            const bool bOther = RarityIndex < 0;
+            const bool bInGroup = bOther
+                ? !MatchesTributeRarity(R.Rarity)
+                : R.Rarity == GroupKey;
+            if (!bInGroup) continue;
+            ++Count;
+            const FLinearColor RarityColor = bOther ? ColdSteelUI::TextSecondary : ColdSteelUI::RarityColor(R.Rarity);
+            // 名称行：字形用稀有度色着色，右侧固定 前缀/后缀 标记（未知 slot 如实显示原文）。
+            TSharedRef<SHorizontalBox> Head = SNew(SHorizontalBox)
+                + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
+                  [ Label(R.Glyph.IsEmpty() ? TEXT("?") : R.Glyph, 16, RarityColor) ]
+                + SHorizontalBox::Slot().FillWidth(1.f).VAlign(VAlign_Center)
+                  .Padding(6.f / FMath::Max(Scale, .01f), 0.f, 0.f, 0.f)
+                  [ LeftLabel(R.Name, 14, ColdSteelUI::TextPrimary, true) ]
+                + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
+                  [ ValueLabel(R.Slot == TEXT("prefix") ? TEXT("前缀")
+                      : R.Slot == TEXT("suffix") ? TEXT("后缀") : R.Slot, 12, ColdSteelUI::TextSecondary) ];
+            // 兼容与消耗行：与祭品 StatsLine 同规格（数值 12px），文本与物品浮窗口径一致。
+            TSharedRef<SWidget> CostLine = SNew(SBox).Padding(FMargin(IconColumn, 0.f, 0.f, 0.f))
+                [ ValueLabel(FString::Printf(TEXT("兼容 %s · 魔法粉尘 %lld"), *R.Restriction, R.Dust),
+                     12, ColdSteelUI::TextSecondary) ];
+            // 效果说明行：enhancement.json description 原文（强化台悬停同一字段），成段换行。
+            TSharedRef<SWidget> DescLine = SNew(SBox)
+                .Padding(FMargin(IconColumn, Pad * .3f, 0.f, 0.f))
+                [ Label(R.Desc.IsEmpty() ? TEXT("目录未提供说明。") : R.Desc, 12, ColdSteelUI::TextTertiary) ];
+            TSharedRef<SVerticalBox> EntryCard = SNew(SVerticalBox)
+                + SVerticalBox::Slot().AutoHeight()[ Head ]
+                + SVerticalBox::Slot().AutoHeight().Padding(0.f, Pad * .3f, 0.f, 0.f)[ CostLine ]
+                + SVerticalBox::Slot().AutoHeight().Padding(0.f, Pad * .25f, 0.f, 0.f)[ DescLine ];
+            CardRows.Add(SNew(SBorder).BorderImage(&StatusEntryBrush).Padding(FMargin(Pad, Pad * .7f))[ EntryCard ]);
+            CardRows.Add(SNew(SBox).HeightOverride(RowGap));
+        }
+        if (Count == 0) continue;
+        CardRows.Pop();   // 末条目后的间隔不必保留
+        const TCHAR* GroupLabel = RarityIndex < 0 ? TEXT("其他") : TributeRarityLabels[RarityIndex];
+        // 组头：稀有度标签（稀有度色）+ 计数，插到卡内容最前。
+        TArray<TSharedRef<SWidget>> Out;
+        Out.Add(SNew(SHorizontalBox)
+            + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
+              [ Label(GroupLabel, 16, RarityIndex < 0 ? ColdSteelUI::TextSecondary
+                   : ColdSteelUI::RarityColor(TributeRarityKeys[RarityIndex]), false, true) ]
+            + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Bottom)
+              .Padding(8.f / FMath::Max(Scale, .01f), 0.f, 0.f, 2.f / FMath::Max(Scale, .01f))
+              [ ValueLabel(Needle.IsEmpty()
+                   ? FString::Printf(TEXT("%d 种"), Count)
+                   : FString::Printf(TEXT("%d 命中"), Count), 12, ColdSteelUI::TextSecondary) ]);
+        Out.Append(CardRows);
+        Cards.Add(SectionCard(FString::Printf(TEXT("附魔卡片 · %s"), GroupLabel), Out));
+    }
+    if (Cards.IsEmpty())
+    {
+        TArray<TSharedRef<SWidget>> Empty;
+        Empty.Add(Label(Needle.IsEmpty() ? TEXT("此分类暂无附魔档案") : TEXT("没有匹配的附魔：换个关键词或清空搜索。"), 14, ColdSteelUI::TextTertiary));
+        Cards.Add(SectionCard(TEXT("附魔卡片"), Empty));
     }
     return Cards;
 }

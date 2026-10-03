@@ -1,0 +1,379 @@
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -Mode=ValidatePlatforms -OutputSDKs  -AllPlatforms  -project="D:/FPS3D/FPSGAME/FPSGAME.uproject" -log="D:/FPS3D/FPSGAME/Saved/Logs/AutoSDKInfo.txt" -verbose -timestamps
+Log file: D:\FPS3D\FPSGAME\Saved\Logs\AutoSDKInfo.txt
+##PlatformValidate: Win64 VALID 10.0.22621.0
+##PlatformValidate: Mac INVALID 26.1.1
+##PlatformValidate: IOS INVALID 26.1.1
+##PlatformValidate: Android INVALID r27c
+##PlatformValidate: Linux INVALID v26_clang-20.1.8-rockylinux8
+##PlatformValidate: LinuxArm64 INVALID <UNKNOWN>
+##PlatformValidate: TVOS INVALID 26.1.1
+##PlatformValidate: VisionOS INVALID <UNKNOWN>
+Unable to find required SDK version 'MainVersion' for platform LinuxArm64. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform VisionOS. Check your SDK.json files
+Trace written to file C:\Users\allan\AppData\Local\UnrealBuildTool\Trace.uba with size 317b
+[2026.10.03-02.46.28:368][  0]LogInit: Display: Running engine for game: FPSGAME
+[2026.10.03-02.46.28:368][  0]LogCore: Display: Requested channels: 'cpu,gpu,frame,log,bookmark,screenshot,region'
+[2026.10.03-02.46.28:368][  0]LogTrace: Display: Control listening on port 1985
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : platform="Windows"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : config="Development"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.8-CL-58210709"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : engineversion="5.8.3-58210709+++UE5+Release-5.8"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : enginereleaseversion="5.8.3"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : os="Windows 11 (25H2) [10.0.26200.9168] "
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : cpu="GenuineIntel|13th Gen Intel(R) Core(TM) i7-13700K"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : asan="0"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : mergedmodules="0"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : compacttset="0"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : commandline="" D:/FPS3D/FPSGAME/FPSGAME.uproject -run=pythonscript -script=D:\FPS3D\FPSGAME\Tools\PlayerBody\import_jason_outfits.py -unattended -nop4 -nosplash -nosound -AllowCommandletRendering -RenderOffscreen -abslog=D:\FPS3D\FPSGAME\Saved\Logs\JasonOutfits20261003.log""
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : loginid="bc5c91f347bcf631eec19fa685df33d2"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : llm="0"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : zenstreaming="0"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resx="1280"
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resy="720"
+[2026.10.03-02.46.28:368][  0]LogConfig: Display: Loading Android ini files took 0.03 seconds
+[2026.10.03-02.46.28:368][  0]LogConfig: Display: Loading Mac ini files took 0.03 seconds
+[2026.10.03-02.46.28:368][  0]LogConfig: Display: Loading VulkanPC ini files took 0.03 seconds
+[2026.10.03-02.46.28:368][  0]LogAudio: Display: Audio Device Manager not initializing due to all audio being disabled. If this is not intentional, please check command line arguments for "-nosound".
+[2026.10.03-02.46.28:368][  0]LogConfig: Display: Loading IOS ini files took 0.03 seconds
+[2026.10.03-02.46.28:368][  0]LogConfig: Display: Loading Unix ini files took 0.04 seconds
+[2026.10.03-02.46.28:368][  0]LogConfig: Display: Loading VisionOS ini files took 0.04 seconds
+[2026.10.03-02.46.28:368][  0]LogConfig: Display: Loading Windows ini files took 0.04 seconds
+[2026.10.03-02.46.28:368][  0]LogConfig: Display: Loading TVOS ini files took 0.04 seconds
+[2026.10.03-02.46.28:368][  0]LogConfig: Display: Loading Linux ini files took 0.04 seconds
+[2026.10.03-02.46.28:368][  0]RenderDocPlugin: Display: RenderDoc plugin will not be loaded. Use '-AttachRenderDoc' on the cmd line or enable 'renderdoc.AutoAttach' in the plugin settings.
+[2026.10.03-02.46.28:368][  0]LogAsyncCompilation: Display: MemorySharingInfo: UsedMemory=322MiB, MaxMemoryAvailable=65018MiB
+[2026.10.03-02.46.28:368][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.03-02.46.28:368][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.03-02.46.28:368][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.03-02.46.28:368][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Log is disabled for this application
+[2026.10.03-02.46.28:368][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.CSV is disabled for this application
+[2026.10.03-02.46.28:368][  0]LogAnalytics: Display: Provider StudioTelemetry.Provider.Horde is disabled for this application
+[2026.10.03-02.46.28:368][  0]LogStreaming: Display: AsyncLoading2 - Created: Async Loading Thread: false, Async Post Load: false, Multithreaded: false
+[2026.10.03-02.46.28:368][  0]LogHAL: Display: Platform has ~ 32 GB [34088374272 / 34359738368 / 32], which maps to Largest [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2026.10.03-02.46.28:368][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2026.10.03-02.46.28:368][  0]LogObj: Display: Attempting to load config data for Default__DownlinkBandwidthManagerConfig before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.10.03-02.46.28:621][  0]LogObj: Display: Attempting to load config data for Default__SlateThemeManager before the Class has been constructed/registered/linked (likely during module loading or early startup). This will result in the load silently failing and should be fixed.
+[2026.10.03-02.46.29:455][  0]LogD3D12RHI: Display: Creating D3D12 RHI with Max Feature Level SM6
+[2026.10.03-02.46.29:462][  0]LogRHI: Display: Timeout Detection and Recovery (TDR) summary: 
+
+	- TDR using non-default settings - Level: Recover, Delay: 120, DdiDelay: 120
+[2026.10.03-02.46.29:640][  0]LogD3D12RHI: Display: Not using pipeline state disk cache per r.D3D12.PSO.DiskCache=0
+[2026.10.03-02.46.29:640][  0]LogD3D12RHI: Display: Not using driver-optimized pipeline state disk cache per r.D3D12.PSO.DriverOptimizedDiskCache=0
+[2026.10.03-02.46.29:816][  0]LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.03-02.46.29:816][  0]LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.03-02.46.29:816][  0]LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.03-02.46.29:825][  0]LogCsvProfiler: Display: Metadata set : verbatimrhiname="D3D12"
+[2026.10.03-02.46.29:825][  0]LogCsvProfiler: Display: Metadata set : rhiname="D3D12"
+[2026.10.03-02.46.29:825][  0]LogCsvProfiler: Display: Metadata set : rhifeaturelevel="SM6"
+[2026.10.03-02.46.29:825][  0]LogCsvProfiler: Display: Metadata set : shaderplatform="PCD3D_SM6"
+[2026.10.03-02.46.29:825][  0]LogCsvProfiler: Display: Metadata set : gpu="NVIDIA GeForce GTX 750 Ti"
+[2026.10.03-02.46.29:825][  0]LogCsvProfiler: Display: Metadata set : gpudriver=""
+[2026.10.03-02.46.29:834][  0]LogTextureFormatASTC: Display: ASTCEnc version 5.0.1 library loaded
+[2026.10.03-02.46.29:834][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatASTC
+[2026.10.03-02.46.29:834][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatDXT
+[2026.10.03-02.46.29:834][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatETC2
+[2026.10.03-02.46.29:834][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatIntelISPCTexComp
+[2026.10.03-02.46.29:834][  0]LogTextureFormatOodle: Display: Oodle Texture TFO init; latest sdk version = 2.9.16
+[2026.10.03-02.46.29:834][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.16.dll
+[2026.10.03-02.46.29:835][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatOodle
+[2026.10.03-02.46.29:835][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatUncompressed
+[2026.10.03-02.46.29:865][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Android'
+[2026.10.03-02.46.29:881][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'IOS'
+[2026.10.03-02.46.29:898][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Linux'
+[2026.10.03-02.46.29:917][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'Mac'
+[2026.10.03-02.46.29:918][  0]LogTargetPlatformManager: Display: Failed to SetupSDK for platform 'TVOS'
+[2026.10.03-02.46.29:936][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Windows'
+[2026.10.03-02.46.29:936][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsEditor'
+[2026.10.03-02.46.29:936][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsServer'
+[2026.10.03-02.46.29:936][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsClient'
+[2026.10.03-02.46.29:936][  0]LogTargetPlatformManager: Display: Building Assets For WindowsEditor
+[2026.10.03-02.46.29:941][  0]LogAudioDebug: Display: Lib vorbis DLL was dynamically loaded.
+[2026.10.03-02.46.30:218][  0]LogDerivedDataCache: Display: ../../../Engine/DerivedDataCache/Compressed.ddp: Opened pak cache for reading. (1670 MiB)
+[2026.10.03-02.46.30:219][  0]LogZenServiceInstance: Display: Launching zen utility 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/zen.exe service status'.
+[2026.10.03-02.46.32:236][  0]LogZenServiceInstance: Display: Zen utility process has been running for 2.0 seconds without completing, still waiting...
+[2026.10.03-02.46.33:241][  0]LogZenServiceInstance: Display: Writing plugin version info to 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugin_versions.json'
+[2026.10.03-02.46.33:242][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/5.8/Saved/Zen/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.03-02.46.33:242][  0]LogZenServiceInstance: Display: Read zen version cache file from 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen.version', version: '5.8.13-202605190912-windows-x64-release-094f62c2'
+[2026.10.03-02.46.33:242][  0]LogZenServiceInstance: Display: Installed service at 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe' is up to date
+[2026.10.03-02.46.33:243][  0]LogZenServiceInstance: Display: Launching executable 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe', working dir 'C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install', data dir 'D:/FPS3D/DerivedDataCache/Zen', args '--port 8558 --data-dir D:\FPS3D\DerivedDataCache\Zen --http asio --gc-cache-duration-seconds 1209600 --gc-interval-seconds 21600 --gc-low-diskspace-threshold 2147483648 --cache-bucket-limit-overwrites --quiet --restrict-content-types --allow-external-oidctoken-exe=false --plugins-config "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/zen_plugins_v1.json" --security-config-path "C:/Users/allan/AppData/Local/UnrealEngine/Common/Zen/Install/security-config.json" --owner-pid 44668  --child-id Zen_44668_Startup'
+[2026.10.03-02.46.43:247][  0]LogZenServiceInstance: Display: Waiting for ZenServer to be ready...
+[2026.10.03-02.46.44:317][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at http://[::1]:8558 status: OK!.
+[2026.10.03-02.46.44:324][  0]LogDerivedDataCache: Display: ZenLocal: Using ZenServer HTTP service at [::1] with namespace ue.ddc. Status: OK!.
+[2026.10.03-02.46.44:363][  0]LogDerivedDataCache: Display: D:/FPS3D/FPSGAME/../DerivedDataCache: Performance: Latency=0.03ms. RandomReadSpeed=27.18MBs, RandomWriteSpeed=261.62MBs. Assigned SpeedClass 'Local'
+[2026.10.03-02.46.44:366][  0]LogUbaHorde: Display: UBA/Horde Configuration [Uba.Provider.Horde]: Not Enabled
+[2026.10.03-02.46.44:366][  0]LogShaderCompilers: Display: No distributed shader compiler controller found
+[2026.10.03-02.46.44:366][  0]LogShaderCompilers: Display: Using 13 local workers for shader compilation
+[2026.10.03-02.46.44:385][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush
+[2026.10.03-02.46.44:390][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.03-02.46.46:128][  0]LogEditorDomain: Display: EditorDomain is Disabled
+[2026.10.03-02.46.46:393][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64Editor not found.
+[2026.10.03-02.46.46:393][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64 not found.
+[2026.10.03-02.46.46:427][  0]LogCsvProfiler: Display: Metadata set : deviceprofile="WindowsEditor"
+[2026.10.03-02.46.46:432][  0]LogStreaming: Display: FlushAsyncLoading(1): 1 QueuedPackages, 0 AsyncPackages
+[2026.10.03-02.46.46:432][  0]LogTextureEncodingSettings: Display: Texture Encode Speed: Final (cook).
+[2026.10.03-02.46.46:432][  0]LogTextureEncodingSettings: Display: Oodle Texture Encode Speed settings: Fast: RDO Off Lambda=0, Effort=Normal Final: RDO Off Lambda=0, Effort=Normal
+[2026.10.03-02.46.46:432][  0]LogTextureEncodingSettings: Display: Shared linear texture encoding: Disabled
+[2026.10.03-02.46.46:664][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EngineMaterials/DefaultDeferredDecalMaterial.DefaultDeferredDecalMaterial in PCD3D_SM6, Default, SM6, Editor (DDC key hash: bb3b1e6a75c548e4625d9f43809e5f23f0cb6203), compiling. 
+[2026.10.03-02.46.46:743][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EngineMaterials/DefaultPostProcessMaterial.DefaultPostProcessMaterial in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 03aa230f290921ba5d5b2bd88c3499c14c549377), compiling. 
+[2026.10.03-02.46.49:256][  0]LogMeshReduction: Display: Using QuadricMeshReduction for automatic static mesh reduction
+[2026.10.03-02.46.49:256][  0]LogMeshReduction: Display: Using SkeletalMeshReduction for automatic skeletal mesh reduction
+[2026.10.03-02.46.49:256][  0]LogMeshReduction: Display: Using ProxyLODMeshReduction for automatic mesh merging
+[2026.10.03-02.46.49:256][  0]LogMeshReduction: Display: No distributed automatic mesh merging module available
+[2026.10.03-02.46.49:540][  0]LogShaderCompilers: Display: Compiling shader autogen file: D:/FPS3D/FPSGAME/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush
+[2026.10.03-02.46.49:541][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2026.10.03-02.46.49:541][  0]LogVirtualization: Display: VirtualizationSystem name found in ini file: None
+[2026.10.03-02.46.49:541][  0]LogVirtualization: Display: FNullVirtualizationSystem mounted, virtualization will be disabled
+[2026.10.03-02.46.49:707][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize started...
+[2026.10.03-02.46.49:710][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize took 2.842 ms
+[2026.10.03-02.46.50:512][  0]LogMetaSound: Display: MetaSound Page Target Initialized to 'Default'
+[2026.10.03-02.46.50:515][  0]LogAudio: Display: Registering Engine Module Parameter Interfaces...
+[2026.10.03-02.46.51:168][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.13.dll
+[2026.10.03-02.46.51:211][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EngineMaterials/DefaultMaterial.DefaultMaterial in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 0fc1fc145742701094c4588644a73d237e408590), compiling. 
+[2026.10.03-02.46.51:255][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.6.dll
+[2026.10.03-02.46.51:429][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.5.dll
+[2026.10.03-02.46.51:430][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.14.dll
+[2026.10.03-02.46.51:532][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.12.dll
+[2026.10.03-02.46.52:037][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.8.dll
+[2026.10.03-02.46.52:371][  0]LogMaterial: Display: Missing cached shadermap for /Game/Monsters/HundredEyedSlag/PolishV2/Materials/M_HundredEyedSlag_Skin_V2.M_HundredEyedSlag_Skin_V2 in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 7180e0ad815f4f562792f24902b22c0c4634123c), compiling. 
+[2026.10.03-02.46.52:546][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_HundredEyedSlag_V12）……
+[2026.10.03-02.46.56:238][  0]LogMaterial: Display: Missing cached shadermap for /Game/Monsters/BlindSupplicantM07/Materials/M07_Body_OriginalV07.M07_Body_OriginalV07 in PCD3D_SM6, Default, SM6, Editor (DDC key hash: e10324abe9318ad5e55733eb0283feac7afd1571), compiling. 
+[2026.10.03-02.46.56:245][  0]LogMaterial: Display: Missing cached shadermap for /Game/Monsters/BlindSupplicantM07/Materials/M07_Gills_OriginalV07.M07_Gills_OriginalV07 in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 31afae5f06c97cbe9baa999fb527576e8c57843a), compiling. 
+[2026.10.03-02.46.57:782][  0]LogTemp: Display: M07_V09_CAPTURE_LEAF_IDENTITIES tagged=47282
+[2026.10.03-02.46.58:188][  0]LogTemp: Display: M07_CAPTURE_FIRST_REJECT vertex=30 panel=1 closest_cm=0.720204 stage=position target=X=18.250 Y=-36.876 Z=281.254 normal_target=X=19.142 Y=-36.536 Z=280.956 tangent_target=X=17.812 Y=-36.060 Z=280.878 P=[X=15.241 Y=-29.336 Z=278.924;X=17.673 Y=-35.765 Z=279.418;X=20.298 Y=-37.157 Z=284.111] N=[X=0.909 Y=0.369 Z=-0.194;X=0.923 Y=0.334 Z=-0.191;X=0.862 Y=0.340 Z=-0.375] baryP=X=-0.067 Y=0.714 Z=0.353 W=0.568 baryN=X=-0.068 Y=0.724 Z=0.345 W=-0.441 baryT=X=0.046 Y=0.668 Z=0.287 W=0.556
+[2026.10.03-02.46.58:188][  0]LogTemp: Display: M07_CAPTURE_FIRST_REJECT vertex=40 panel=1 closest_cm=0.629582 stage=position target=X=19.100 Y=-37.208 Z=282.793 normal_target=X=19.825 Y=-36.603 Z=282.465 tangent_target=X=18.486 Y=-36.856 Z=282.087 P=[X=15.241 Y=-29.336 Z=278.924;X=17.673 Y=-35.765 Z=279.418;X=20.298 Y=-37.157 Z=284.111] N=[X=0.909 Y=0.369 Z=-0.194;X=0.923 Y=0.334 Z=-0.191;X=0.862 Y=0.340 Z=-0.375] baryP=X=-0.050 Y=0.372 Z=0.678 W=0.536 baryN=X=-0.005 Y=0.329 Z=0.676 W=-0.412 baryT=X=-0.020 Y=0.496 Z=0.524 W=0.688
+[2026.10.03-02.46.58:188][  0]LogTemp: Display: M07_CAPTURE_FIRST_REJECT vertex=63 panel=1 closest_cm=0.357671 stage=position target=X=17.864 Y=-36.227 Z=280.332 normal_target=X=18.781 Y=-35.895 Z=280.111 tangent_target=X=18.140 Y=-37.155 Z=280.081 P=[X=15.241 Y=-29.336 Z=278.924;X=17.673 Y=-35.765 Z=279.418;X=20.298 Y=-37.157 Z=284.111] N=[X=0.909 Y=0.369 Z=-0.194;X=0.923 Y=0.334 Z=-0.191;X=0.862 Y=0.340 Z=-0.375] baryP=X=-0.016 Y=0.839 Z=0.177 W=0.341 baryN=X=-0.016 Y=0.839 Z=0.177 W=-0.661 baryT=X=-0.178 Y=1.068 Z=0.110 W=0.277
+[2026.10.03-02.46.58:188][  0]LogTemp: Display: M07_CAPTURE_FIRST_REJECT vertex=64 panel=1 closest_cm=0.760325 stage=position target=X=17.655 Y=-35.520 Z=277.776 normal_target=X=18.529 Y=-35.043 Z=277.867 tangent_target=X=18.134 Y=-36.339 Z=277.462 P=[X=16.987 Y=-33.761 Z=276.440;X=17.673 Y=-35.765 Z=279.418;X=15.241 Y=-29.336 Z=278.924] N=[X=0.934 Y=0.355 Z=0.024;X=0.923 Y=0.334 Z=-0.191;X=0.909 Y=0.369 Z=-0.194] baryP=X=0.574 Y=0.568 Z=-0.143 W=-0.031 baryN=X=0.510 Y=0.592 Z=-0.101 W=-1.031 baryT=X=0.708 Y=0.612 Z=-0.319 W=-0.182
+[2026.10.03-02.46.58:188][  0]LogTemp: Display: M07_CAPTURE_FIRST_REJECT vertex=65 panel=1 closest_cm=0.812979 stage=position target=X=18.112 Y=-36.435 Z=279.282 normal_target=X=18.673 Y=-35.625 Z=279.451 tangent_target=X=18.922 Y=-36.932 Z=278.970 P=[X=16.987 Y=-33.761 Z=276.440;X=17.673 Y=-35.765 Z=279.418;X=15.241 Y=-29.336 Z=278.924] N=[X=0.934 Y=0.355 Z=0.024;X=0.923 Y=0.334 Z=-0.191;X=0.909 Y=0.369 Z=-0.194] baryP=X=0.057 Y=1.074 Z=-0.131 W=-0.173 baryN=X=-0.081 Y=1.086 Z=-0.005 W=-1.011 baryT=X=0.155 Y=1.113 Z=-0.268 W=-0.757
+[2026.10.03-02.46.58:188][  0]LogTemp: Display: M07_CAPTURE_FIRST_REJECT vertex=66 panel=1 closest_cm=1.230306 stage=position target=X=17.889 Y=-35.466 Z=277.060 normal_target=X=18.197 Y=-34.569 Z=277.378 tangent_target=X=18.835 Y=-35.722 Z=276.865 P=[X=16.987 Y=-33.761 Z=276.440;X=17.673 Y=-35.765 Z=279.418;X=15.241 Y=-29.336 Z=278.924] N=[X=0.934 Y=0.355 Z=0.024;X=0.923 Y=0.334 Z=-0.191;X=0.909 Y=0.369 Z=-0.194] baryP=X=0.828 Y=0.397 Z=-0.225 W=-0.253 baryN=X=0.685 Y=0.390 Z=-0.074 W=-0.872 baryT=X=0.915 Y=0.419 Z=-0.334 W=-1.043
+[2026.10.03-02.46.58:188][  0]LogTemp: Display: M07_CAPTURE_FIRST_REJECT vertex=68 panel=1 closest_cm=0.818027 stage=position target=X=18.584 Y=-37.011 Z=280.745 normal_target=X=18.827 Y=-36.079 Z=281.014 tangent_target=X=19.529 Y=-37.175 Z=280.462 P=[X=15.241 Y=-29.336 Z=278.924;X=17.673 Y=-35.765 Z=279.418;X=20.298 Y=-37.157 Z=284.111] N=[X=0.909 Y=0.369 Z=-0.194;X=0.923 Y=0.334 Z=-0.191;X=0.862 Y=0.340 Z=-0.375] baryP=X=-0.131 Y=0.868 Z=0.263 W=0.109 baryN=X=0.014 Y=0.629 Z=0.357 W=-0.278 baryT=X=-0.208 Y=0.968 Z=0.240 W=-0.791
+[2026.10.03-02.46.58:188][  0]LogTemp: Display: M07_CAPTURE_FIRST_REJECT vertex=69 panel=1 closest_cm=0.660839 stage=position target=X=18.302 Y=-36.826 Z=280.796 normal_target=X=19.069 Y=-36.187 Z=280.853 tangent_target=X=18.925 Y=-37.546 Z=280.490 P=[X=15.241 Y=-29.336 Z=278.924;X=17.673 Y=-35.765 Z=279.418;X=20.298 Y=-37.157 Z=284.111] N=[X=0.909 Y=0.369 Z=-0.194;X=0.923 Y=0.334 Z=-0.191;X=0.862 Y=0.340 Z=-0.375] baryP=X=-0.090 Y=0.823 Z=0.268 W=0.323 baryN=X=-0.021 Y=0.689 Z=0.332 W=-0.524 baryT=X=-0.238 Y=1.029 Z=0.210 W=-0.133
+[2026.10.03-02.46.58:188][  0]LogTemp: Display: M07_CAPTURE_FIRST_REJECT vertex=88 panel=1 closest_cm=1.691070 stage=position target=X=17.877 Y=-35.117 Z=275.816 normal_target=X=17.986 Y=-34.134 Z=275.964 tangent_target=X=18.862 Y=-35.244 Z=275.936 P=[X=16.987 Y=-33.761 Z=276.440;X=17.673 Y=-35.765 Z=279.418;X=15.241 Y=-29.336 Z=278.924] N=[X=0.934 Y=0.355 Z=0.024;X=0.923 Y=0.334 Z=-0.191;X=0.909 Y=0.369 Z=-0.194] baryP=X=1.271 Y=0.042 Z=-0.314 W=-0.333 baryN=X=1.205 Y=-0.040 Z=-0.165 W=-0.786 baryT=X=1.265 Y=0.113 Z=-0.379 W=-1.205
+[2026.10.03-02.46.58:427][  0]LogTemp: Display: M07_V09_CAPTURE_TRANSITION blended=18768 welded_nodes=42256 fade_cm=5
+[2026.10.03-02.46.58:427][  0]LogTemp: Display: M07_CONTINUOUS_CAPTURE mesh=SK_M07_BodyMotionV18 triangles=[240,239,240,240,210,240] vertices=47282 shoulder_skin=2262 prism_refitted=4892 local_skin_fallback=14981
+[2026.10.03-02.46.58:427][  0]LogTemp: Display: M07_CAPTURE_REJECTIONS position=488205 normal=291 tangent=170
+[2026.10.03-02.46.58:427][  0]LogTemp: Display: M07_CONTINUOUS_BIND cloth=M07_OriginalGills_V18_0 reference_bone=pelvis reference_index=0 mesh_lod=0 asset_lod=0 physical_vertices=1570
+[2026.10.03-02.47.59:025][  0]LogMaterial: Display: Missing cached shadermap for /Game/Monsters/Shared/InfectedSurfaceV1/M_InfectedSurface_V1.M_InfectedSurface_V1 in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 391d2de50a2eb67659439673f3d7fa26adbb0365), compiling. 
+[2026.10.03-02.47.59:052][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_FatZombie_Meshy）……
+[2026.10.03-02.47.59:193][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Mutant3_Claw）……
+[2026.10.03-02.47.59:632][  0]LogMaterial: Display: Missing cached shadermap for /Game/Monsters/WitchMeshy/Materials/M_Witch_Body.M_Witch_Body in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 5f4ce52ba10b65011e8a9509653cc3146f09d437), compiling. 
+[2026.10.03-02.47.59:638][  0]LogMaterial: Display: Missing cached shadermap for /Game/Monsters/WitchRebuilt/Materials/M_WitchRebuilt_HatDetail03.M_WitchRebuilt_HatDetail03 in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 9f73701d65f7a7a8fb134fb34694991a026d65c5), compiling. 
+[2026.10.03-02.47.59:643][  0]LogMaterial: Display: Missing cached shadermap for /Game/Monsters/WitchRebuilt/Materials/M_WitchRebuilt_HeadDetail03.M_WitchRebuilt_HeadDetail03 in PCD3D_SM6, Default, SM6, Editor (DDC key hash: b4b31998c04fcdbbfbaa9aa4482e5edb00838943), compiling. 
+[2026.10.03-02.47.59:647][  0]LogMaterial: Display: Missing cached shadermap for /Game/Monsters/WitchRebuilt/Materials/M_WitchRebuilt_Fabric09.M_WitchRebuilt_Fabric09 in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 6ab2833392b29cbf91dde527e14adfd92ead9561), compiling. 
+[2026.10.03-02.47.59:654][  0]LogMaterial: Display: Missing cached shadermap for /Game/ZombieFemale/Asset/Materials/M_HorrorMaidenOpaqueMaster.M_HorrorMaidenOpaqueMaster in PCD3D_SM6, Default, SM6, Editor (DDC key hash: a96b699599c45a6eddf5155cbe95619daf842394), compiling. 
+[2026.10.03-02.47.59:859][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_WitchRebuilt）……
+[2026.10.03-02.48.00:985][  0]LogSkeletalMesh: Display: /Game/Monsters/WitchRebuilt/SK_WitchRebuilt.SK_WitchRebuiltComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.48.01:111][  0]LogSkeletalMesh: Display: /Game/Monsters/WitchRebuilt/CorpseFollow/SK_WitchRebuilt_CorpseFollow.SK_WitchRebuilt_CorpseFollowComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.48.02:260][  0]LogTemp: Display: WITCH_DRAPE05 WitchRebuilt_LowerDrape07 mapping_repaired=1013 local_skin_fallback=167 total=47705
+[2026.10.03-02.48.02:886][  0]LogTemp: Display: WITCH_DRAPE05 WitchRebuilt_UpperDrape07 mapping_repaired=411 local_skin_fallback=0 total=55958
+[2026.10.03-02.48.13:366][  0]LogTemp: Display: LoadHitchProbe ready: 'fpssyncload [thresholdMs]' enables it (742 modules mapped); evidence in Saved/Profiling/LoadHitch/
+[2026.10.03-02.48.13:474][  0]LogMaterial: Display: Missing cached shadermap for /Engine/VREditor/TransformGizmo/Main.Main in PCD3D_SM6, Default, SM6, Editor (DDC key hash: dfe93bcc543fe80ec93ccefddfa5047c734de8d0), compiling. 
+[2026.10.03-02.48.14:180][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.03-02.48.14:180][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2026.10.03-02.48.14:896][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EditorMaterials/Dataflow/DataflowVertexMaterial.DataflowVertexMaterial in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 88f4c7501296cb1c8e2616f1ab6d9c2838edb54f), compiling. 
+[2026.10.03-02.48.14:905][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EditorMaterials/Dataflow/DataflowTwoSidedVertexMaterial.DataflowTwoSidedVertexMaterial in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 4e7c1def8bbb584bfe6ad193490b0fe4977c2f6b), compiling. 
+[2026.10.03-02.48.14:957][  0]LogFabLauncher: Display: FabLauncher (version 0.6.0) active
+[2026.10.03-02.48.15:083][  0]LogToolsetRegistry: Display: Registering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.03-02.48.15:197][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EngineDebugMaterials/VertexColorMaterial.VertexColorMaterial in PCD3D_SM6, Default, SM6, Editor (DDC key hash: eaa369022c243167acc40be5ce3811eed98e28b2), compiling. 
+[2026.10.03-02.48.15:206][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EngineDebugMaterials/VertexColorViewMode_ColorOnly.VertexColorViewMode_ColorOnly in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 7ba86a0d7b66e178a3feada6be9e287f7e0fcf6c), compiling. 
+[2026.10.03-02.48.15:212][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EngineDebugMaterials/VertexColorViewMode_AlphaAsColor.VertexColorViewMode_AlphaAsColor in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 8457ecaad11ab6ed1e726303c7247570f5b03628), compiling. 
+[2026.10.03-02.48.15:217][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EngineDebugMaterials/VertexColorViewMode_RedOnly.VertexColorViewMode_RedOnly in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 48ff285bab051262d6d40ec456b9406a1b0fbbee), compiling. 
+[2026.10.03-02.48.15:221][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EngineDebugMaterials/VertexColorViewMode_GreenOnly.VertexColorViewMode_GreenOnly in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 0c8f0d137b96ca7b200c6999da34483be15741e0), compiling. 
+[2026.10.03-02.48.15:225][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EngineDebugMaterials/VertexColorViewMode_BlueOnly.VertexColorViewMode_BlueOnly in PCD3D_SM6, Default, SM6, Editor (DDC key hash: be1a930126303be06e534ec668564458e7bf9f52), compiling. 
+[2026.10.03-02.48.15:232][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EngineDebugMaterials/TextureColorViewMode.TextureColorViewMode in PCD3D_SM6, Default, SM6, Editor (DDC key hash: b057dfc4c4e0d005c2704768ee8886c827cfacad), compiling. 
+[2026.10.03-02.48.15:273][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EngineMaterials/FlattenMaterial.FlattenMaterial in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 899f3e28ea8a471ab67212646f66be214bff5d83), compiling. 
+[2026.10.03-02.48.15:279][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.11.dll
+[2026.10.03-02.48.15:284][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EngineMaterials/FlattenMaterial_VT.FlattenMaterial_VT in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 65423f552f0b2b350e7cebe3d0e8f825c4462ccc), compiling. 
+[2026.10.03-02.48.15:290][  0]LogMaterial: Display: Missing cached shadermap for /Engine/EngineMaterials/FlattenMaterial_WS_Normal_VT.FlattenMaterial_WS_Normal_VT in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 9443b0c5287a9e62c579f75dc857be3d0919bb7b), compiling. 
+[2026.10.03-02.48.15:297][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.15.dll
+[2026.10.03-02.48.15:415][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PreLoad): 1 .ref files found, 1 referenced binaries
+[2026.10.03-02.48.15:415][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.03-02.48.15:415][  0]LogAssetRegistry: Display: FindShardedCacheFiles: 1 via .ref, 0 via migration fallback, 1 total
+[2026.10.03-02.48.15:415][  0]LogAssetRegistry: Display: LoadCacheFiles: loading 1 cache files, memory-mapping=enabled
+[2026.10.03-02.48.15:637][  0]LogAssetRegistry: Display: Asset registry cache read as 186.5 MiB from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry/CachedAssetRegistry_0_3A1B4F654DF16ECD68F29EA6A5693320.bin (memory-mapped=yes)
+[2026.10.03-02.48.15:640][  0]LogAssetRegistry: Display: AssetDataGatherer spent 0.226s loading caches from D:/FPS3D/FPSGAME/Intermediate/CachedAssetRegistry.
+[2026.10.03-02.48.15:975][  0]LogGameFeatures: Display: Total built in plugin load time 0.0021s
+[2026.10.03-02.48.15:999][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2026.10.03-02.48.16:112][  0]LogPython: Display: No pip-enabled plugins with python dependencies found, skipping
+[2026.10.03-02.48.16:321][  0]LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.48.16:321][  0]LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.48.16:322][  0]LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.48.16:322][  0]LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.48.16:322][  0]LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.48.16:420][  0]LogCsvProfiler: Display: Metadata set : raytracing="1"
+[2026.10.03-02.48.16:641][  0]LogToolsetRegistry: Display: Registering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.03-02.48.16:644][  0]LogToolsetRegistry: Display: Registering Toolset ConfigSettingsToolset.ConfigSettingsToolset
+[2026.10.03-02.48.16:649][  0]LogToolsetRegistry: Display: Registering Toolset DataRegistryToolset.DataRegistryTools
+[2026.10.03-02.48.16:654][  0]LogToolsetRegistry: Display: Registering Toolset DataflowAgent.DataflowAgentToolset
+[2026.10.03-02.48.16:661][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.EditorAppToolset
+[2026.10.03-02.48.16:661][  0]LogToolsetRegistry: Display: Registering Toolset EditorToolset.LogsToolset
+[2026.10.03-02.48.16:665][  0]LogToolsetRegistry: Display: Registering Toolset GameFeaturesToolset.GameFeaturesToolset
+[2026.10.03-02.48.16:671][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.GameplayCueToolset
+[2026.10.03-02.48.16:671][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AttributeSetToolset
+[2026.10.03-02.48.16:671][  0]LogToolsetRegistry: Display: Registering Toolset GASToolsets.AbilitySystemInspectorToolset
+[2026.10.03-02.48.16:675][  0]LogToolsetRegistry: Display: Registering Toolset GameplayTagsToolset.GameplayTagsToolset
+[2026.10.03-02.48.16:678][  0]LogToolsetRegistry: Display: Registering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.03-02.48.16:685][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Info
+[2026.10.03-02.48.16:691][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Component
+[2026.10.03-02.48.16:691][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Blueprint
+[2026.10.03-02.48.16:721][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_System
+[2026.10.03-02.48.16:722][  0]LogToolsetRegistry: Display: Registering Toolset NiagaraToolsets.NiagaraToolset_Assets
+[2026.10.03-02.48.16:729][  0]LogToolsetRegistry: Display: Registering Toolset PhysicsToolsets.PhysicsAssetToolset
+[2026.10.03-02.48.16:731][  0]LogToolsetRegistry: Display: Registering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.03-02.48.16:734][  0]LogToolsetRegistry: Display: Registering Toolset PluginToolset.PluginToolset
+[2026.10.03-02.48.16:736][  0]LogToolsetRegistry: Display: Registering Toolset SemanticSearchToolset.SemanticSearchToolset
+[2026.10.03-02.48.16:745][  0]LogToolsetRegistry: Display: Registering Toolset WorldConditionsToolset.WorldConditionTools
+[2026.10.03-02.48.16:753][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGToolset
+[2026.10.03-02.48.16:753][  0]LogToolsetRegistry: Display: Registering Toolset PCGToolset.PCGSpatialToolset
+[2026.10.03-02.48.16:762][  0]LogToolsetRegistry: Display: Registering Toolset UMGToolSet.UMGToolSet
+[2026.10.03-02.48.16:800][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.48.16:892][  0]LogToolsetRegistry: Display: Registering Toolset state_tree_toolset.toolsets.state_tree.StateTreeTools
+[2026.10.03-02.48.16:892][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/StateTreeToolset/Content/Python/init_unreal.py…… took 92.837 ms
+[2026.10.03-02.48.16:892][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.48.16:898][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/NiagaraToolsets/Content/Python/init_unreal.py…… took 6.063 ms (total: 98.901 ms)
+[2026.10.03-02.48.16:898][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.48.16:964][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.actor.ActorTools
+[2026.10.03-02.48.16:965][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.asset.AssetTools
+[2026.10.03-02.48.16:972][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.blueprint.BlueprintTools
+[2026.10.03-02.48.16:972][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.curve_table.CurveTableTools
+[2026.10.03-02.48.16:973][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_asset.DataAssetTools
+[2026.10.03-02.48.16:973][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.data_table.DataTableTools
+[2026.10.03-02.48.16:975][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material.MaterialTools
+[2026.10.03-02.48.16:977][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.material_instance.MaterialInstanceTools
+[2026.10.03-02.48.16:978][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.object.ObjectTools
+[2026.10.03-02.48.16:979][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.primitive.PrimitiveTools
+[2026.10.03-02.48.16:981][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.scene.SceneTools
+[2026.10.03-02.48.16:984][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.skeletal_mesh.SkeletalMeshTools
+[2026.10.03-02.48.16:985][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.static_mesh.StaticMeshTools
+[2026.10.03-02.48.16:986][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.string_table.StringTableTools
+[2026.10.03-02.48.16:986][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.programmatic.ProgrammaticToolset
+[2026.10.03-02.48.16:986][  0]LogToolsetRegistry: Display: Registering Toolset editor_toolset.toolsets.texture.TextureTools
+[2026.10.03-02.48.16:986][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/EditorToolset/Content/Python/init_unreal.py…… took 87.548 ms (total: 186.449 ms)
+[2026.10.03-02.48.16:986][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.48.16:992][  0]LogToolsetRegistry: Display: Registering Toolset conversation_toolset.toolsets.conversation.ConversationTools
+[2026.10.03-02.48.16:992][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/ConversationToolset/Content/Python/init_unreal.py…… took 5.436 ms (total: 191.885 ms)
+[2026.10.03-02.48.16:992][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.48.17:023][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig.ControlRigTools
+[2026.10.03-02.48.17:029][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.sequencer.SequencerTools
+[2026.10.03-02.48.17:030][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.keyframing.SequencerKeyframingTools
+[2026.10.03-02.48.17:033][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.controlrig_sequencer.SequencerControlRigTools
+[2026.10.03-02.48.17:033][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.outliner.SequencerOutlinerTools
+[2026.10.03-02.48.17:034][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.conditions.SequencerConditionTools
+[2026.10.03-02.48.17:034][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.custom_bindings.SequencerCustomBindingTools
+[2026.10.03-02.48.17:035][  0]LogToolsetRegistry: Display: Registering Toolset animation_toolset.toolsets.import_export.SequencerImportExportTools
+[2026.10.03-02.48.17:063][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AnimationAssistantToolset/Content/Python/init_unreal.py…… took 71.528 ms (total: 263.414 ms)
+[2026.10.03-02.48.17:063][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.48.17:067][  0]LogToolsetRegistry: Display: Registering Toolset aimodule_toolset.toolsets.behavior_tree.BehaviorTreeTools
+[2026.10.03-02.48.17:068][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/Toolsets/AIModuleToolset/Content/Python/init_unreal.py…… took 4.489 ms (total: 267.904 ms)
+[2026.10.03-02.48.17:068][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.48.17:068][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Experimental/ToolsetRegistry/Content/Python/init_unreal.py…… took 407 us (total: 268.312 ms)
+[2026.10.03-02.48.17:068][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.48.17:068][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Importers/USDImporter/Content/Python/init_unreal.py…… took 89 us (total: 268.401 ms)
+[2026.10.03-02.48.17:068][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.48.17:077][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Marketplace/Vibe3Dd7b2fe90b7d0V1/Content/Python/init_unreal.py…… took 8.564 ms (total: 276.965 ms)
+[2026.10.03-02.48.17:077][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.48.17:081][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/IKRig/Content/Python/init_unreal.py…… took 3.613 ms (total: 280.579 ms)
+[2026.10.03-02.48.17:081][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… started...
+[2026.10.03-02.48.17:108][  0]LogPython: Display: 正在运行启动脚本E:/Program Files (x86)/UE_5.8/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py…… took 27.254 ms (total: 307.833 ms)
+[2026.10.03-02.48.17:108][  0]LogPythonScriptCommandlet: Display: Running Python script: D:\FPS3D\FPSGAME\Tools\PlayerBody\import_jason_outfits.py
+[2026.10.03-02.48.17:747][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Material/M_Jason_bodyOpacity.M_Jason_bodyOpacity in PCD3D_SM6, Default, SM6, Editor (DDC key hash: ee0019d03a67f585e29423fe45c6abbe13110a27), compiling. 
+[2026.10.03-02.48.17:779][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Materials/M_skin_unified_baked.M_skin_unified_baked in PCD3D_SM6, High, SM6, Editor (DDC key hash: 5787973e38c08fae9d910a598a5b4e2f08bc92e1), compiling. 
+[2026.10.03-02.48.17:786][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Material/MI_Face_Skin_Baked_LOD0.MI_Face_Skin_Baked_LOD0 in PCD3D_SM6, High, SM6, Editor (DDC key hash: e60ccc0d6e6972c978066e007e37754978009b51), compiling. 
+[2026.10.03-02.48.17:796][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Demo/MetaHumans/Common/Lookdev_UHM/Skin/Materials/Baked/MI_Head_Baked_LOD0.MI_Head_Baked_LOD0 in PCD3D_SM6, High, SM6, Editor (DDC key hash: 79b2b3afea9817ae1b4242548bdab345dcba16fa), compiling. 
+[2026.10.03-02.48.17:805][  0]LogMaterial: Display: Missing cached shadermap for /Game/AsianMale_Jason/Material/MI_Body_Baked.MI_Body_Baked in PCD3D_SM6, High, SM6, Editor (DDC key hash: a7414da2226df3c258324efd9b3ebf6936023baf), compiling. 
+[2026.10.03-02.48.17:845][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SKM_Jason_body）……
+[2026.10.03-02.48.19:957][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Materials/M_Olive_0_World.M_Olive_0_World in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 8112b2c59a987025aff1669b50443e7bb7e0d336), compiling. 
+[2026.10.03-02.48.19:960][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Materials/M_Olive_2_World.M_Olive_2_World in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 44f1d20b8177928702d9e0d9ade6155d181d1e6c), compiling. 
+[2026.10.03-02.48.19:963][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Materials/M_Olive_1_World.M_Olive_1_World in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 19d73e383e0cb444129605d7be8f729cc3db6a93), compiling. 
+[2026.10.03-02.48.19:968][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/Mannequins/PlayerBodySkin/M_PlayerBodySkin.M_PlayerBodySkin in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 78d350bca9d5c07d7de7638521c48623e870f48b), compiling. 
+[2026.10.03-02.48.19:970][  0]LogSkeletalMesh: Display: [AssetLog] D:\FPS3D\FPSGAME\Content\Characters\ModularOutfit20260924\FieldSweaterSurfaceRepair20260930\Body\SK_Body_FieldSweater.uasset: Fix some section data of this asset for lod 1. Verify all sections of this mesh are ok and save the asset to fix this issue.
+[2026.10.03-02.48.19:970][  0]LogSkeletalMesh: Display: [AssetLog] D:\FPS3D\FPSGAME\Content\Characters\ModularOutfit20260924\FieldSweaterSurfaceRepair20260930\Body\SK_Body_FieldSweater.uasset: Fix some section data of this asset for lod 2. Verify all sections of this mesh are ok and save the asset to fix this issue.
+[2026.10.03-02.48.19:986][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_FieldSweater）……
+[2026.10.03-02.48.21:546][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_sweater”
+[2026.10.03-02.48.22:233][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater）……
+[2026.10.03-02.48.22:437][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweaterComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.48.22:829][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater）……
+[2026.10.03-02.48.23:006][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweaterComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.48.25:771][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file loaded D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.03-02.48.26:046][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Materials/M_Charcoal_0_World.M_Charcoal_0_World in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 074b8829ea9d1bf38804d6da6790ace5aee456b5), compiling. 
+[2026.10.03-02.48.26:049][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Materials/M_Charcoal_1_World.M_Charcoal_1_World in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 9a0b4cf00f59b2cb1adee495a95f96d6d287f06f), compiling. 
+[2026.10.03-02.48.26:052][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Materials/M_Charcoal_2_World.M_Charcoal_2_World in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 13d18b8f4d2b80b05800d78d9648f13f43466da1), compiling. 
+[2026.10.03-02.48.26:071][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_Charcoal）……
+[2026.10.03-02.48.27:476][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_sweater_charcoal”
+[2026.10.03-02.48.28:163][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater_charcoal）……
+[2026.10.03-02.48.28:312][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_sweater_charcoal.SK_Jason_ue_field_sweater_charcoalComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.48.28:726][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_sweater_charcoal）……
+[2026.10.03-02.48.28:875][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_sweater_charcoal.SK_Jason_ue_field_sweater_charcoalComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.48.31:486][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Materials/Body/M_Fingerless_Body_Detail.M_Fingerless_Body_Detail in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 7e4bde9eacfdb9855443546188f825a39e10a482), compiling. 
+[2026.10.03-02.48.31:504][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_Fingerless_Detail）……
+[2026.10.03-02.48.32:062][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_gloves”
+[2026.10.03-02.48.32:262][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_gloves.SK_Jason_ue_field_glovesComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.48.32:264][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves）……
+[2026.10.03-02.48.32:421][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_gloves.SK_Jason_ue_field_glovesComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.48.32:423][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves）……
+[2026.10.03-02.48.33:210][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Materials/Body/M_BlackLeatherReliefCuff_Body.M_BlackLeatherReliefCuff_Body in PCD3D_SM6, Default, SM6, Editor (DDC key hash: a935ae45f84691395376f1b3f712af47ed645884), compiling. 
+[2026.10.03-02.48.33:229][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_BlackLeatherDetail）……
+[2026.10.03-02.48.34:286][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_gloves_black”
+[2026.10.03-02.48.34:564][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves_black）……
+[2026.10.03-02.48.34:796][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_field_gloves_black）……
+[2026.10.03-02.48.36:135][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Materials/Body/M_Tactical_Body_Detail.M_Tactical_Body_Detail in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 206b3f67a2b5246a20afb1d5613071aef5c40241), compiling. 
+[2026.10.03-02.48.36:154][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_Tactical_Detail）……
+[2026.10.03-02.48.37:126][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_original_gloves”
+[2026.10.03-02.48.37:392][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_original_gloves）……
+[2026.10.03-02.48.37:610][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_original_gloves）……
+[2026.10.03-02.48.39:230][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Materials/Mail/M_Steel_Mail_Detail.M_Steel_Mail_Detail in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 7105a36cdc52d8748b99a50949bf895a385dec1c), compiling. 
+[2026.10.03-02.48.39:233][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Materials/Plates/M_Steel_Plates_Detail.M_Steel_Plates_Detail in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 96ea907bd27ac55f93d1d55df0d9d00a28c21058), compiling. 
+[2026.10.03-02.48.39:251][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_Steel_Detail）……
+[2026.10.03-02.48.44:463][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_steel_gauntlets”
+[2026.10.03-02.48.45:912][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_steel_gauntlets）……
+[2026.10.03-02.48.46:205][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_steel_gauntlets.SK_Jason_ue_steel_gauntletsComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.48.46:995][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_steel_gauntlets）……
+[2026.10.03-02.48.47:287][  0]LogSkeletalMesh: Display: /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_steel_gauntlets.SK_Jason_ue_steel_gauntletsComputeTangents MikkTSpace函数：计算零长度法线向量。
+[2026.10.03-02.48.53:705][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/ChainmailInterlace20260929/Materials/M_CuffDarkBinding.M_CuffDarkBinding in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 01f5c42a196d4673ce23a1ea6a5d155df62058f1), compiling. 
+[2026.10.03-02.48.53:707][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/ChainmailInterlace20260929/Materials/M_CuffForgedSteel.M_CuffForgedSteel in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 440f47912725aa5ffc626f98521a0846d310a314), compiling. 
+[2026.10.03-02.48.53:709][  0]LogMaterial: Display: Missing cached shadermap for /Game/Characters/ModularOutfit20260924/ChainmailInterlace20260929/Materials/M_Chainmail_RingRelief.M_Chainmail_RingRelief in PCD3D_SM6, Default, SM6, Editor (DDC key hash: 8664fd99bb20518d0add2f0c76623e68c55c3be9), compiling. 
+[2026.10.03-02.48.53:727][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Body_ChainmailShirt）……
+[2026.10.03-02.48.55:065][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_chainmail_shirt”
+[2026.10.03-02.48.55:398][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_chainmail_shirt）……
+[2026.10.03-02.48.55:670][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_ue_chainmail_shirt）……
+[2026.10.03-02.48.57:329][  0]LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_Base”
+[2026.10.03-02.48.58:395][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_Base）……
+[2026.10.03-02.48.59:151][  0]LogSkinnedAsset: Display: 正在等待蒙皮资产就绪0/1（SK_Jason_Base）……
+[2026.10.03-02.49.06:126][  0]LogPythonScriptCommandlet: Display: Python script executed successfully
+[2026.10.03-02.49.06:126][  0]LogInit: Display: 
+[2026.10.03-02.49.06:126][  0]LogInit: Display: Warning/Error Summary (Unique only)
+[2026.10.03-02.49.06:126][  0]LogInit: Display: -----------------------------------
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogD3D12RHI: Warning: Indirect ray tracing dispatch is disabled because of known bugs in the current driver. Please update to NVIDIA driver version 466.11 or newer.
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogD3D12RHI: Warning: Batched command list execution is disabled for async queues due to known bugs in the current driver.
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogD3D12RHI: Warning: TSR 16-bit VALU is disabled on NVIDIA due to known compiler bugs in drivers older than 610.00.
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogPython: Warning: 'ModelingService.WorldToUV' and 'ModelingService.WorldToUV' have the same name (world_to_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogPython: Warning: 'ModelingService.TransformUV' and 'ModelingService.TransformUV' have the same name (transform_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogPython: Warning: 'ModelingService.PackUVPerMaterial' and 'ModelingService.PackUVPerMaterial' have the same name (pack_uv_per_material) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogPython: Warning: 'ModelingService.LayoutUV' and 'ModelingService.LayoutUV' have the same name (layout_uv) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogPython: Warning: 'ModelingService.GetUVStats' and 'ModelingService.GetUVStats' have the same name (get_uv_stats) when exposed to Python. Rename one of them using 'ScriptName' meta-data (or 'ScriptMethod' or 'ScriptConstant' for extension functions).
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_sweater”
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_sweater_charcoal”
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_gloves”
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_gloves_black”
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_original_gloves”
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_steel_gauntlets”
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_chainmail_shirt”
+[2026.10.03-02.49.06:126][  0]LogInit: Display: LogUObjectGlobals: Warning: 未找到Object“Object /Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_Base”
+[2026.10.03-02.49.06:126][  0]LogInit: Display: 
+[2026.10.03-02.49.06:126][  0]LogInit: Display: Success - 0 error(s), 16 warning(s)
+[2026.10.03-02.49.06:126][  0]LogInit: Display: 
+
+Execution of commandlet took:  49.33 seconds, PeakPhysMemoryMB=6512 MB, PeakVirtMemoryMB=6956 MB
+[2026.10.03-02.49.06:135][  0]LogToolsetRegistry: Display: Unregistering Toolset ToolsetRegistry.AgentSkillToolset
+[2026.10.03-02.49.06:135][  0]LogToolsetRegistry: Display: Unregistering Toolset AutomationTestToolset.AutomationTestToolset
+[2026.10.03-02.49.06:135][  0]LogToolsetRegistry: Display: Unregistering Toolset LiveCodingToolset.LiveCodingToolset
+[2026.10.03-02.49.06:135][  0]LogToolsetRegistry: Display: Unregistering Toolset SlateInspectorToolset.SlateInspectorToolset
+[2026.10.03-02.49.06:235][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles (PostWrite): 1 .ref files found, 1 referenced binaries
+[2026.10.03-02.49.06:235][  0]LogAssetRegistry: Display: CleanupOrphanedCacheFiles: 1 total binaries, 1 referenced (kept), 0 old-style pre-migration (kept), 0 orphans deleted, 0 orphans locked (kept)
+[2026.10.03-02.49.06:436][  0]LogShaderCompilers: Display: Exiting ShaderCompilingThread
+[2026.10.03-02.49.06:703][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file saved D:/FPS3D/FPSGAME/Saved/SourceControl/UncontrolledChangelists.json
+[2026.10.03-02.49.06:708][  0]LogToolsetRegistry: Warning: IsAvailable: Editor is not available
+[2026.10.03-02.49.06:711][  0]LogTemp: Display: LoadHitchProbe summary: 116 sync-load entries seen, 0 recorded to (nothing)

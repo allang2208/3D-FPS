@@ -1,0 +1,34 @@
+{
+  "stage": "maps_saved",
+  "maps": {
+    "/Game/GameMaps/L_Dungeon_Randomized": {
+      "stage": "map_saved",
+      "previous_sha256": "1a669003ba00f0a344110fc19afadc28d352e5cfa7a072500a4e860e7c718949",
+      "random_count": [
+        9,
+        13
+      ]
+    },
+    "/Game/GameMaps/Design/L_FreightTransit_Theme_Subject": {
+      "stage": "map_saved",
+      "previous_sha256": "f006d30aecd86b5b34040e13d067f0a600a340e5e45fe7e5232bd77575e734eb",
+      "preview_seed": 20261002,
+      "containers": 9,
+      "selected_slots": [
+        "FloorCargo_2",
+        "FloorCargo_6",
+        "FloorCargo_4",
+        "FloorCargo_7",
+        "RackCargo_7",
+        "RackCargo_5",
+        "RackCargo_4",
+        "ToolBay.SouthWall"
+      ]
+    }
+  },
+  "tests_run": false,
+  "rendered": false,
+  "game_run": false,
+  "editor_opened": false,
+  "rewards_deferred": true
+}

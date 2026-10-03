@@ -67,6 +67,14 @@ AActor* WardRoomAssembly::Spawn(UWorld* World,AActor* Owner,const J& S,
         if(RandomOpen)Container->Tags.Add(TEXT("ColdSteel.SceneContainer.RandomOpen"));
         Result=Container;
     }
+    else if(Type==TEXT("solid_door"))
+    {
+        auto* Door=World->SpawnActorDeferred<AColdSteelDoor>(AColdSteelDoor::StaticClass(),At,Owner,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+        if(!Door)return nullptr;
+        Door->ConfigureStandaloneLeaf(Cast<UStaticMesh>(Resolve(S->GetStringField(TEXT("leaf")))),
+            S->GetBoolField(TEXT("positive_hinge")),S->GetNumberField(TEXT("open_seconds")),S->GetNumberField(TEXT("auto_close_seconds")));
+        Result=Door;
+    }
     else if(Type==TEXT("glass_door"))
     {
         auto* Door=World->SpawnActorDeferred<AWardGlassDoor>(AWardGlassDoor::StaticClass(),At,Owner,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
@@ -91,6 +99,18 @@ AActor* WardRoomAssembly::Spawn(UWorld* World,AActor* Owner,const J& S,
         Beds->MaxBedsPerRoom=S->GetIntegerField(TEXT("max_beds_per_room"));
         Beds->WallClearance=S->GetNumberField(TEXT("wall_clearance"));
         Beds->BedClearance=S->GetNumberField(TEXT("bed_clearance"));
+        const J* Bedside=nullptr;
+        if(S->TryGetObjectField(TEXT("bedside_containers"),Bedside))
+        {
+            auto& C= Beds->BedsideContainers;const J& O=*Bedside;
+            C.BodyMesh=Cast<UStaticMesh>(Resolve(O->GetStringField(TEXT("body"))));
+            C.LidMesh=Cast<UStaticMesh>(Resolve(O->GetStringField(TEXT("door"))));
+            C.IdentityPrefix=O->GetStringField(TEXT("container_id_prefix"));
+            C.Caption=O->GetStringField(TEXT("caption"));C.Hinge=Vec(O,TEXT("hinge"));
+            C.OpenedRoll=O->GetNumberField(TEXT("opened_roll"));
+            C.MinCount=O->GetIntegerField(TEXT("min_count"));C.MaxCount=O->GetIntegerField(TEXT("max_count"));
+            C.BedGap=O->GetNumberField(TEXT("bed_gap"));
+        }
         for(const auto& V:S->GetArrayField(TEXT("rooms")))
         {
             auto O=V->AsObject();FWardBedRoom R;

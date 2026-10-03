@@ -8,6 +8,8 @@
 #include "../Weapons/Staff/StaffCastMotion.h"
 #include "FPSFireballComponent.generated.h"
 class AFPSFireballProjectile;
+struct FFireballCast;
+class APawn;
 class UColdSteelStatusModel;
 class UNiagaraSystem;
 class USoundBase;
@@ -42,6 +44,15 @@ public:
     bool IsGestureActive() const { return HandPhase!=EFireballHandPhase::None; }
     bool IsStaffCasting() const { return bStaffGesture&&IsGestureActive(); }
     UFUNCTION(BlueprintPure,Category="Skills|Fireball") bool IsOccupyingLeftHand() const { return IsGestureActive()&&!bStaffGesture; }
+    /** 联机服务端入口：按影子档案口径生成权威火球 orb（资产/Prepare 自决）。 */
+    AFPSFireballProjectile* SpawnOrbForCast(APawn* Caster,const FFireballCast& Stats);
+    /** 远端复制到达的服务端球回填表现资产（客户副本不跑 Prepare）。 */
+    void AttachPresentationAssets(AFPSFireballProjectile* Ball) const;
+    /** 施法者本机：认领服务端球为本地 Active（手势收尾/取消链都走它）。 */
+    void AdoptNetOrb(AFPSFireballProjectile* Ball);
+    /** 服务端回执：施法被拒/取消时收尾本地表现态。 */
+    void NetCastRejected(uint8 Phase,uint8 Code);
+    void NetCastCancelled(uint8 Phase);
     bool HasQueuedCast() const { return bQueuedCast; }
     // Preserve action arbitration even when the staff, rather than the left palm, casts.
     bool BlocksNewLeftHandAction() const { return bQueuedCast || bQueuedLaunch || IsGestureActive(); }
@@ -144,6 +155,13 @@ private:
     void TryBeginQueuedCast();
     void TryBeginQueuedLaunch();
     void LaunchAtContact();
+    /** 联机客人：Prepare 已上报、服务端球尚未复制回来——等价"已凝聚"门。 */
+    bool bNetExpectOrb=false;
+    double NetExpectOrbAt=-100.0;
+    void SendNetCast(uint8 Phase,const FVector& AimPoint=FVector::ZeroVector);
+    class AColdSteelPlayerState* NetPlayerState() const;
+    /** 联机释放：服务端球不归本地管，取消走 Cancel RPC；本地球照旧销毁。 */
+    void ReleaseOrb();
     UColdSteelStatusModel* Model() const;
     FString LastMessage;
     double MessageUntil=0;

@@ -1,0 +1,2930 @@
+{
+  "revision": 4,
+  "origin_cm": [
+    -450,
+    850,
+    0
+  ],
+  "dimensions_cm": [
+    1000,
+    700,
+    320
+  ],
+  "fixed_parts": [
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_Walls",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV4/Meshes/SM_SW_Roof_FittedV4",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_Frames",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_Electrical",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_DispatchDesk",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_NoticeSigns",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_PartsRack",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_MotorStand",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_LightFixtures",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_RepairCart",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "affects_navigation": true,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_CartEquipment",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_AttachmentMounts",
+      "position": [
+        -450,
+        850,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    },
+    {
+      "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_OperatorMat",
+      "position": [
+        -200,
+        1180,
+        0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "affects_navigation": false,
+      "materials": [],
+      "fluid": false,
+      "station_workshop_part": true
+    }
+  ],
+  "lights": [
+    {
+      "id": "StationWorkshop.MaintenanceCeiling",
+      "position": [
+        -160,
+        1185,
+        295
+      ],
+      "type": "point",
+      "intensity": 1500,
+      "radius": 500,
+      "optimized_radius_cm": 500,
+      "color": [
+        1,
+        0.83,
+        0.65
+      ],
+      "role": "key",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 2600,
+      "fade_range_cm": 500,
+      "station_workshop_light": true
+    },
+    {
+      "id": "StationWorkshop.DispatchCeiling",
+      "position": [
+        330,
+        1205,
+        295
+      ],
+      "type": "point",
+      "intensity": 1150,
+      "radius": 480,
+      "optimized_radius_cm": 480,
+      "color": [
+        0.73,
+        0.84,
+        1
+      ],
+      "role": "fill",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 2600,
+      "fade_range_cm": 500,
+      "station_workshop_light": true
+    },
+    {
+      "id": "StationWorkshop.BenchTask",
+      "position": [
+        -195.4,
+        1482.1,
+        142.88
+      ],
+      "type": "point",
+      "intensity": 85,
+      "radius": 180,
+      "optimized_radius_cm": 180,
+      "color": [
+        1,
+        0.76,
+        0.52
+      ],
+      "role": "fill",
+      "cast_shadows": false,
+      "max_draw_distance_cm": 1500,
+      "fade_range_cm": 500,
+      "station_workshop_light": true
+    }
+  ],
+  "variants": [
+    {
+      "id": "MaintenanceActive",
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bottle_OilCan.SM_WBK_Bottle_OilCan",
+          "position": [
+            -359.0,
+            1445.3989,
+            93.92
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_OilPaint.MI_WBK_WBKBottle_OilPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_SpoutSteel.MI_WBK_WBKBottle_SpoutSteel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_CapPolymer.MI_WBK_WBKBottle_CapPolymer",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_OilLabel.MI_WBK_WBKBottle_OilLabel"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bottle_Degreaser.SM_WBK_Bottle_Degreaser",
+          "position": [
+            -358.9941,
+            1433.0,
+            93.92
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_CleanerPlastic.MI_WBK_WBKBottle_CleanerPlastic",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_CapPolymer.MI_WBK_WBKBottle_CapPolymer",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_CleanerLabel.MI_WBK_WBKBottle_CleanerLabel"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Sculpt_BenchFrame.SM_WBK_Sculpt_BenchFrame",
+          "position": [
+            -110.0,
+            1557.0,
+            0.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "affects_navigation": true,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSDetail_RackPaint.MI_WBK_WSDetail_RackPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSSculpt_Machined.MI_WBK_WSSculpt_Machined",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSSculpt_RubberGrip.MI_WBK_WSSculpt_RubberGrip"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Sculpt_Rag.SM_WBK_Sculpt_Rag",
+          "position": [
+            -110.0,
+            1557.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Materials/M_WSTools_Canvas.M_WSTools_Canvas"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Surface_Organizer.SM_WBK_Surface_Organizer",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_SheetPaint.MI_WBK_WSFinish_SheetPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_DrawerPaint0.MI_WBK_WSFinish_DrawerPaint0",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_Recess.M_WSFinish_Recess",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_ExposedEdge.M_WSFinish_ExposedEdge",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_DrawerPaint1.MI_WBK_WSFinish_DrawerPaint1",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_DrawerPaint2.MI_WBK_WSFinish_DrawerPaint2"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Surface_Toolboard.SM_WBK_Surface_Toolboard",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_SheetPaint.MI_WBK_WSFinish_SheetPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_Rust.MI_WBK_WSFinish_Rust"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Nail_Puller.SM_WBK_Fab_Wall_Nail_Puller",
+          "position": [
+            -138.9956,
+            1536.8515,
+            171.4797
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Wall_Nail_Puller.MI_WBK_WSFab_Wall_Nail_Puller"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Bolt_Cutter.SM_WBK_Fab_Wall_Bolt_Cutter",
+          "position": [
+            -170.2622,
+            1536.5357,
+            169.894
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Wall_Bolt_Cutter.MI_WBK_WSFab_Wall_Bolt_Cutter"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Pipe_Wrench.SM_WBK_Fab_Wall_Pipe_Wrench",
+          "position": [
+            -202.4337,
+            1536.3955,
+            179.0629
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Wall_Pipe_Wrench.MI_WBK_WSFab_Wall_Pipe_Wrench"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Adjustable_Wrench.SM_WBK_Fab_Wall_Adjustable_Wrench",
+          "position": [
+            -229.1513,
+            1538.0295,
+            181.0033
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Wall_Adjustable_Wrench.MI_WBK_WSFab_Wall_Adjustable_Wrench"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Hammer.SM_WBK_Fab_Wall_Hammer",
+          "position": [
+            -260.5527,
+            1537.0915,
+            179.0241
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Wall_Hammer.MI_WBK_WSFab_Wall_Hammer"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Pliers.SM_WBK_Fab_Wall_Pliers",
+          "position": [
+            -283.7261,
+            1537.8518,
+            181.9514
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Wall_Pliers.MI_WBK_WSFab_Wall_Pliers"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Wrench.SM_WBK_Fab_Wall_Wrench",
+          "position": [
+            -302.1417,
+            1537.6702,
+            180.5177
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Wall_Wrench.MI_WBK_WSFab_Wall_Wrench"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Screwdriver.SM_WBK_Fab_Wall_Screwdriver",
+          "position": [
+            -326.3985,
+            1537.6846,
+            177.991
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Wall_Screwdriver.MI_WBK_WSFab_Wall_Screwdriver"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Hand_Saw.SM_WBK_Fab_Wall_Hand_Saw",
+          "position": [
+            -170.0813,
+            1537.1783,
+            128.161
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Wall_Hand_Saw.MI_WBK_WSFab_Wall_Hand_Saw"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Bench_Wrench.SM_WBK_Fab_Bench_Wrench",
+          "position": [
+            -327.0442,
+            1445.3253,
+            94.3001
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Bench_Wrench.MI_WBK_WSFab_Bench_Wrench"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Bench_Screwdriver.SM_WBK_Fab_Bench_Screwdriver",
+          "position": [
+            -316.9226,
+            1413.6759,
+            94.3063
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Bench_Screwdriver.MI_WBK_WSFab_Bench_Screwdriver"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Bench_Pliers.SM_WBK_Fab_Bench_Pliers",
+          "position": [
+            -291.659,
+            1499.7586,
+            94.3107
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Bench_Pliers.MI_WBK_WSFab_Bench_Pliers"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Bench_Chisel.SM_WBK_Fab_Bench_Chisel",
+          "position": [
+            -228.0157,
+            1509.8364,
+            94.3048
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Bench_Chisel.MI_WBK_WSFab_Bench_Chisel"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_LabelsRetained.SM_WBK_Fab_LabelsRetained",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_Labels.M_WSFinish_Labels",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_SheetPaint.MI_WBK_WSFinish_SheetPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Meshes/SM_SW_BenchRetained",
+          "position": [
+            -110.0,
+            1557.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_ToolSteel_R2.MI_WBK_WSFinish_ToolSteel_R2",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSSculpt_CastGreen.MI_WBK_WSSculpt_CastGreen",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Materials/M_WSTools_ToolLabels.M_WSTools_ToolLabels",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_Grip.MI_WBK_WSFinish_Grip",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSTools_Enamel.MI_WBK_WSTools_Enamel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSSculpt_RedGrip.MI_WBK_WSSculpt_RedGrip"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Mounts.SM_WBK_Fab_Mounts",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_SheetPaint.MI_WBK_WSFinish_SheetPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bench_BenchTop.SM_WBK_Bench_BenchTop",
+          "position": [
+            -110.0,
+            1557.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "affects_navigation": true,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_BenchWood_R3.MI_WBK_WSBench_BenchWood_R3",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_EndGrain.MI_WBK_WSBench_EndGrain"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bench_BenchWear.SM_WBK_Bench_BenchWear",
+          "position": [
+            -110.0,
+            1557.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_FreshCut.M_WSBench_FreshCut",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_IngrainedCut.M_WSBench_IngrainedCut"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bench_TaskLamp.SM_WBK_Bench_TaskLamp",
+          "position": [
+            -175.0,
+            1530.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_LampPaint.MI_WBK_WSBench_LampPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSSculpt_Machined.MI_WBK_WSSculpt_Machined",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_Reflector.MI_WBK_WSBench_Reflector",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_SocketCeramic.MI_WBK_WSBench_SocketCeramic",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_LampBulb.MI_WBK_WSBench_LampBulb"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_LampFlex.SM_WBK_LampFlex",
+          "position": [
+            -175.0,
+            1530.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_LampPaint.MI_WBK_WSBench_LampPaint"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_SocketPlug.SM_WBK_SocketPlug",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_PowerLead.SM_WBK_PowerLead",
+          "position": [
+            -110.0,
+            1557.0,
+            0.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+          "position": [
+            135,
+            1028,
+            0
+          ],
+          "yaw": -12,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "affects_navigation": true,
+          "materials": [],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchPaper",
+          "position": [
+            216,
+            938,
+            77.5
+          ],
+          "yaw": -7,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_0",
+          "position": [
+            -450,
+            850,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [],
+          "fluid": false,
+          "station_workshop_part": true,
+          "station_workshop_spares": true
+        }
+      ],
+      "containers": [
+        {
+          "body": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Body",
+          "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolCabinet_Door_TextV2",
+          "hinge": [
+            -42.5,
+            -27.500000000000004,
+            16
+          ],
+          "opening_motion": "Swing",
+          "opened_yaw": -105,
+          "caption": "维修工具柜",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "position": [
+            -417,
+            1200,
+            0
+          ],
+          "yaw": 90,
+          "container_id": "StationWorkshop.Tools",
+          "initial_open_fraction": 0
+        },
+        {
+          "body": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Frame",
+          "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolDrawer_Tray_TextV2",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -34,
+            0
+          ],
+          "caption": "工具柜上层抽屉",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "position": [
+            -417,
+            1200,
+            0
+          ],
+          "yaw": 90,
+          "container_id": "StationWorkshop.Tools.Drawer",
+          "initial_open_fraction": 0
+        },
+        {
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+          "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+          "hinge": [
+            0,
+            22.0,
+            41.0
+          ],
+          "opening_motion": "Lid",
+          "opened_roll": 105,
+          "caption": "带盖周转箱",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "position": [
+            255.9593008214614,
+            1492.4203660045089,
+            31.5
+          ],
+          "yaw": 2.469358729067789,
+          "container_id": "StationWorkshop.Rack.ToteA",
+          "initial_open_fraction": 0
+        },
+        {
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+          "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+          "hinge": [
+            0,
+            22.0,
+            41.0
+          ],
+          "opening_motion": "Lid",
+          "opened_roll": 105,
+          "caption": "带盖周转箱",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "position": [
+            367.08828106312683,
+            1497.1769363295002,
+            31.5
+          ],
+          "yaw": 5.2109440212692775,
+          "container_id": "StationWorkshop.Rack.ToteB",
+          "initial_open_fraction": 0
+        },
+        {
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+          "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+          "hinge": [
+            0,
+            33.5,
+            63.0
+          ],
+          "opening_motion": "Lid",
+          "opened_roll": 108,
+          "caption": "重型金属运输箱",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "position": [
+            680,
+            1415,
+            0
+          ],
+          "yaw": -6,
+          "container_id": "StationWorkshop.Exterior.EquipmentCase",
+          "initial_open_fraction": 0
+        },
+        {
+          "type": "scene_container",
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Body",
+          "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Drawer",
+          "position": [
+            217,
+            924,
+            0
+          ],
+          "yaw": 180,
+          "container_id": "StationWorkshop.DispatchFiles",
+          "caption": "调度文件抽屉",
+          "storage_pages": 1,
+          "hinge": [
+            0,
+            -29,
+            47
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -34,
+            0
+          ],
+          "initial_open_fraction": 0
+        },
+        {
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+          "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+          "hinge": [
+            0,
+            39.0,
+            76.0
+          ],
+          "opening_motion": "Lid",
+          "opened_roll": 105,
+          "caption": "加固运输木箱",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "position": [
+            463,
+            1278,
+            0
+          ],
+          "yaw": -4,
+          "container_id": "StationWorkshop.ReservedSpares",
+          "initial_open_fraction": 0
+        }
+      ]
+    },
+    {
+      "id": "ShiftHandover",
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bottle_OilCan.SM_WBK_Bottle_OilCan",
+          "position": [
+            -359.0,
+            1445.3989,
+            93.92
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WBKBottle_OilPaint.MI_WBK_WBKBottle_OilPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WBKBottle_SpoutSteel.MI_WBK_WBKBottle_SpoutSteel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WBKBottle_CapPolymer.MI_WBK_WBKBottle_CapPolymer",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WBKBottle_OilLabel.MI_WBK_WBKBottle_OilLabel"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bottle_Degreaser.SM_WBK_Bottle_Degreaser",
+          "position": [
+            -358.9941,
+            1433.0,
+            93.92
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WBKBottle_CleanerPlastic.MI_WBK_WBKBottle_CleanerPlastic",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WBKBottle_CapPolymer.MI_WBK_WBKBottle_CapPolymer",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WBKBottle_CleanerLabel.MI_WBK_WBKBottle_CleanerLabel"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Sculpt_BenchFrame.SM_WBK_Sculpt_BenchFrame",
+          "position": [
+            -110.0,
+            1557.0,
+            0.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "affects_navigation": true,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSDetail_RackPaint.MI_WBK_WSDetail_RackPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSSculpt_Machined.MI_WBK_WSSculpt_Machined",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSSculpt_RubberGrip.MI_WBK_WSSculpt_RubberGrip"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Sculpt_Rag.SM_WBK_Sculpt_Rag",
+          "position": [
+            -110.0,
+            1557.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Materials/M_WSTools_Canvas.M_WSTools_Canvas"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Surface_Organizer.SM_WBK_Surface_Organizer",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_SheetPaint.MI_WBK_WSFinish_SheetPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_DrawerPaint0.MI_WBK_WSFinish_DrawerPaint0",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_Recess.M_WSFinish_Recess",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_ExposedEdge.M_WSFinish_ExposedEdge",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_DrawerPaint1.MI_WBK_WSFinish_DrawerPaint1",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_DrawerPaint2.MI_WBK_WSFinish_DrawerPaint2"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Surface_Toolboard.SM_WBK_Surface_Toolboard",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_SheetPaint.MI_WBK_WSFinish_SheetPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_Rust.MI_WBK_WSFinish_Rust"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Nail_Puller.SM_WBK_Fab_Wall_Nail_Puller",
+          "position": [
+            -138.9956,
+            1536.8515,
+            171.4797
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFab_Wall_Nail_Puller.MI_WBK_WSFab_Wall_Nail_Puller"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Bolt_Cutter.SM_WBK_Fab_Wall_Bolt_Cutter",
+          "position": [
+            -170.2622,
+            1536.5357,
+            169.894
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFab_Wall_Bolt_Cutter.MI_WBK_WSFab_Wall_Bolt_Cutter"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Pipe_Wrench.SM_WBK_Fab_Wall_Pipe_Wrench",
+          "position": [
+            -202.4337,
+            1536.3955,
+            179.0629
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFab_Wall_Pipe_Wrench.MI_WBK_WSFab_Wall_Pipe_Wrench"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Adjustable_Wrench.SM_WBK_Fab_Wall_Adjustable_Wrench",
+          "position": [
+            -229.1513,
+            1538.0295,
+            181.0033
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFab_Wall_Adjustable_Wrench.MI_WBK_WSFab_Wall_Adjustable_Wrench"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Hammer.SM_WBK_Fab_Wall_Hammer",
+          "position": [
+            -260.5527,
+            1537.0915,
+            179.0241
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFab_Wall_Hammer.MI_WBK_WSFab_Wall_Hammer"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Pliers.SM_WBK_Fab_Wall_Pliers",
+          "position": [
+            -283.7261,
+            1537.8518,
+            181.9514
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFab_Wall_Pliers.MI_WBK_WSFab_Wall_Pliers"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Wrench.SM_WBK_Fab_Wall_Wrench",
+          "position": [
+            -302.1417,
+            1537.6702,
+            180.5177
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFab_Wall_Wrench.MI_WBK_WSFab_Wall_Wrench"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Screwdriver.SM_WBK_Fab_Wall_Screwdriver",
+          "position": [
+            -326.3985,
+            1537.6846,
+            177.991
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFab_Wall_Screwdriver.MI_WBK_WSFab_Wall_Screwdriver"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Hand_Saw.SM_WBK_Fab_Wall_Hand_Saw",
+          "position": [
+            -170.0813,
+            1537.1783,
+            128.161
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFab_Wall_Hand_Saw.MI_WBK_WSFab_Wall_Hand_Saw"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Bench_Wrench.SM_WBK_Fab_Bench_Wrench",
+          "position": [
+            -334.0442,
+            1445.3253,
+            94.3001
+          ],
+          "yaw": 104,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFab_Bench_Wrench.MI_WBK_WSFab_Bench_Wrench"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Bench_Screwdriver.SM_WBK_Fab_Bench_Screwdriver",
+          "position": [
+            -317.9226,
+            1408.6759,
+            94.3063
+          ],
+          "yaw": 78,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFab_Bench_Screwdriver.MI_WBK_WSFab_Bench_Screwdriver"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_LabelsRetained.SM_WBK_Fab_LabelsRetained",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_Labels.M_WSFinish_Labels",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_SheetPaint.MI_WBK_WSFinish_SheetPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Meshes/SM_SW_BenchRetained",
+          "position": [
+            -110.0,
+            1557.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_ToolSteel_R2.MI_WBK_WSFinish_ToolSteel_R2",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSSculpt_CastGreen.MI_WBK_WSSculpt_CastGreen",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Materials/M_WSTools_ToolLabels.M_WSTools_ToolLabels",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_Grip.MI_WBK_WSFinish_Grip",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSTools_Enamel.MI_WBK_WSTools_Enamel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSSculpt_RedGrip.MI_WBK_WSSculpt_RedGrip"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Mounts.SM_WBK_Fab_Mounts",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_SheetPaint.MI_WBK_WSFinish_SheetPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bench_BenchTop.SM_WBK_Bench_BenchTop",
+          "position": [
+            -110.0,
+            1557.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "affects_navigation": true,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSBench_BenchWood_R3.MI_WBK_WSBench_BenchWood_R3",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSBench_EndGrain.MI_WBK_WSBench_EndGrain"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bench_BenchWear.SM_WBK_Bench_BenchWear",
+          "position": [
+            -110.0,
+            1557.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_FreshCut.M_WSBench_FreshCut",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_IngrainedCut.M_WSBench_IngrainedCut"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bench_TaskLamp.SM_WBK_Bench_TaskLamp",
+          "position": [
+            -175.0,
+            1530.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSBench_LampPaint.MI_WBK_WSBench_LampPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSSculpt_Machined.MI_WBK_WSSculpt_Machined",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSBench_Reflector.MI_WBK_WSBench_Reflector",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSBench_SocketCeramic.MI_WBK_WSBench_SocketCeramic",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSBench_LampBulb.MI_WBK_WSBench_LampBulb"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_LampFlex.SM_WBK_LampFlex",
+          "position": [
+            -175.0,
+            1530.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSBench_LampPaint.MI_WBK_WSBench_LampPaint"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_SocketPlug.SM_WBK_SocketPlug",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_PowerLead.SM_WBK_PowerLead",
+          "position": [
+            -110.0,
+            1557.0,
+            0.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Idle/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+          "position": [
+            154,
+            1050,
+            0
+          ],
+          "yaw": 18,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "affects_navigation": true,
+          "materials": [],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchPaper",
+          "position": [
+            229,
+            941,
+            77.5
+          ],
+          "yaw": 11,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_1",
+          "position": [
+            -450,
+            850,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [],
+          "fluid": false,
+          "station_workshop_part": true,
+          "station_workshop_spares": true
+        }
+      ],
+      "containers": [
+        {
+          "body": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Body",
+          "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolCabinet_Door_TextV2",
+          "hinge": [
+            -42.5,
+            -27.500000000000004,
+            16
+          ],
+          "opening_motion": "Swing",
+          "opened_yaw": -105,
+          "caption": "维修工具柜",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "position": [
+            -417,
+            1200,
+            0
+          ],
+          "yaw": 90,
+          "container_id": "StationWorkshop.Tools",
+          "initial_open_fraction": 0.48
+        },
+        {
+          "body": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Frame",
+          "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolDrawer_Tray_TextV2",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -34,
+            0
+          ],
+          "caption": "工具柜上层抽屉",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "position": [
+            -417,
+            1200,
+            0
+          ],
+          "yaw": 90,
+          "container_id": "StationWorkshop.Tools.Drawer",
+          "initial_open_fraction": 0
+        },
+        {
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+          "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+          "hinge": [
+            0,
+            22.0,
+            41.0
+          ],
+          "opening_motion": "Lid",
+          "opened_roll": 105,
+          "caption": "带盖周转箱",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "position": [
+            254.2509229091911,
+            1492.8910573606672,
+            31.5
+          ],
+          "yaw": 1.0999913147044866,
+          "container_id": "StationWorkshop.Rack.ToteA",
+          "initial_open_fraction": 0
+        },
+        {
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+          "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+          "hinge": [
+            0,
+            22.0,
+            41.0
+          ],
+          "opening_motion": "Lid",
+          "opened_roll": 105,
+          "caption": "带盖周转箱",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "position": [
+            368.7350339340446,
+            1499.8921527691234,
+            31.5
+          ],
+          "yaw": -3.7688198340682684,
+          "container_id": "StationWorkshop.Rack.ToteB",
+          "initial_open_fraction": 0
+        },
+        {
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+          "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+          "hinge": [
+            0,
+            33.5,
+            63.0
+          ],
+          "opening_motion": "Lid",
+          "opened_roll": 108,
+          "caption": "重型金属运输箱",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "position": [
+            680,
+            1415,
+            0
+          ],
+          "yaw": 1,
+          "container_id": "StationWorkshop.Exterior.EquipmentCase",
+          "initial_open_fraction": 0
+        },
+        {
+          "type": "scene_container",
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Body",
+          "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Drawer",
+          "position": [
+            217,
+            924,
+            0
+          ],
+          "yaw": 180,
+          "container_id": "StationWorkshop.DispatchFiles",
+          "caption": "调度文件抽屉",
+          "storage_pages": 1,
+          "hinge": [
+            0,
+            -29,
+            47
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -34,
+            0
+          ],
+          "initial_open_fraction": 0.12
+        }
+      ]
+    },
+    {
+      "id": "InterruptedRepair",
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bottle_OilCan.SM_WBK_Bottle_OilCan",
+          "position": [
+            -359.0,
+            1445.3989,
+            93.92
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WBKBottle_OilPaint.MI_WBK_WBKBottle_OilPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WBKBottle_SpoutSteel.MI_WBK_WBKBottle_SpoutSteel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WBKBottle_CapPolymer.MI_WBK_WBKBottle_CapPolymer",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WBKBottle_OilLabel.MI_WBK_WBKBottle_OilLabel"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bottle_Degreaser.SM_WBK_Bottle_Degreaser",
+          "position": [
+            -358.9941,
+            1433.0,
+            93.92
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WBKBottle_CleanerPlastic.MI_WBK_WBKBottle_CleanerPlastic",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WBKBottle_CapPolymer.MI_WBK_WBKBottle_CapPolymer",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WBKBottle_CleanerLabel.MI_WBK_WBKBottle_CleanerLabel"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Sculpt_BenchFrame.SM_WBK_Sculpt_BenchFrame",
+          "position": [
+            -110.0,
+            1557.0,
+            0.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "affects_navigation": true,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSDetail_RackPaint.MI_WBK_WSDetail_RackPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSSculpt_Machined.MI_WBK_WSSculpt_Machined",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSSculpt_RubberGrip.MI_WBK_WSSculpt_RubberGrip"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Sculpt_Rag.SM_WBK_Sculpt_Rag",
+          "position": [
+            -110.0,
+            1557.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Materials/M_WSTools_Canvas.M_WSTools_Canvas"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Surface_Organizer.SM_WBK_Surface_Organizer",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_SheetPaint.MI_WBK_WSFinish_SheetPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_DrawerPaint0.MI_WBK_WSFinish_DrawerPaint0",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_Recess.M_WSFinish_Recess",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_ExposedEdge.M_WSFinish_ExposedEdge",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_DrawerPaint1.MI_WBK_WSFinish_DrawerPaint1",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_DrawerPaint2.MI_WBK_WSFinish_DrawerPaint2"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Surface_Toolboard.SM_WBK_Surface_Toolboard",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_SheetPaint.MI_WBK_WSFinish_SheetPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_Rust.MI_WBK_WSFinish_Rust"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Nail_Puller.SM_WBK_Fab_Wall_Nail_Puller",
+          "position": [
+            -138.9956,
+            1536.8515,
+            171.4797
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFab_Wall_Nail_Puller.MI_WBK_WSFab_Wall_Nail_Puller"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Pipe_Wrench.SM_WBK_Fab_Wall_Pipe_Wrench",
+          "position": [
+            -202.4337,
+            1536.3955,
+            179.0629
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFab_Wall_Pipe_Wrench.MI_WBK_WSFab_Wall_Pipe_Wrench"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Hammer.SM_WBK_Fab_Wall_Hammer",
+          "position": [
+            -260.5527,
+            1537.0915,
+            179.0241
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFab_Wall_Hammer.MI_WBK_WSFab_Wall_Hammer"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Wrench.SM_WBK_Fab_Wall_Wrench",
+          "position": [
+            -302.1417,
+            1537.6702,
+            180.5177
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFab_Wall_Wrench.MI_WBK_WSFab_Wall_Wrench"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Screwdriver.SM_WBK_Fab_Wall_Screwdriver",
+          "position": [
+            -326.3985,
+            1537.6846,
+            177.991
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFab_Wall_Screwdriver.MI_WBK_WSFab_Wall_Screwdriver"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Wall_Hand_Saw.SM_WBK_Fab_Wall_Hand_Saw",
+          "position": [
+            -170.0813,
+            1537.1783,
+            128.161
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFab_Wall_Hand_Saw.MI_WBK_WSFab_Wall_Hand_Saw"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Bench_Wrench.SM_WBK_Fab_Bench_Wrench",
+          "position": [
+            -336.0442,
+            1442.3253,
+            94.3001
+          ],
+          "yaw": 122,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFab_Bench_Wrench.MI_WBK_WSFab_Bench_Wrench"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Bench_Pliers.SM_WBK_Fab_Bench_Pliers",
+          "position": [
+            -283.659,
+            1493.7586,
+            94.3107
+          ],
+          "yaw": 64,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFab_Bench_Pliers.MI_WBK_WSFab_Bench_Pliers"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_LabelsRetained.SM_WBK_Fab_LabelsRetained",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSurface/Materials/M_WSFinish_Labels.M_WSFinish_Labels",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_SheetPaint.MI_WBK_WSFinish_SheetPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Meshes/SM_SW_BenchRetained",
+          "position": [
+            -110.0,
+            1557.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_ToolSteel_R2.MI_WBK_WSFinish_ToolSteel_R2",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSSculpt_CastGreen.MI_WBK_WSSculpt_CastGreen",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Materials/M_WSTools_ToolLabels.M_WSTools_ToolLabels",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_Grip.MI_WBK_WSFinish_Grip",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSTools_Enamel.MI_WBK_WSTools_Enamel",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSSculpt_RedGrip.MI_WBK_WSSculpt_RedGrip"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Fab_Mounts.SM_WBK_Fab_Mounts",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_SheetPaint.MI_WBK_WSFinish_SheetPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSFinish_GroundSteel.MI_WBK_WSFinish_GroundSteel"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bench_BenchTop.SM_WBK_Bench_BenchTop",
+          "position": [
+            -110.0,
+            1557.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "affects_navigation": true,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3.MI_WBK_WSBench_BenchWood_R3",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_EndGrain.MI_WBK_WSBench_EndGrain"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bench_BenchWear.SM_WBK_Bench_BenchWear",
+          "position": [
+            -110.0,
+            1557.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_FreshCut.M_WSBench_FreshCut",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_IngrainedCut.M_WSBench_IngrainedCut"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_Bench_TaskLamp.SM_WBK_Bench_TaskLamp",
+          "position": [
+            -175.0,
+            1530.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_LampPaint.MI_WBK_WSBench_LampPaint",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSSculpt_Machined.MI_WBK_WSSculpt_Machined",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_Reflector.MI_WBK_WSBench_Reflector",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_SocketCeramic.MI_WBK_WSBench_SocketCeramic",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_LampBulb.MI_WBK_WSBench_LampBulb"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_LampFlex.SM_WBK_LampFlex",
+          "position": [
+            -175.0,
+            1530.0,
+            93.9
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_LampPaint.MI_WBK_WSBench_LampPaint"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_SocketPlug.SM_WBK_SocketPlug",
+          "position": [
+            -110.0,
+            1557.0,
+            115.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Meshes/SM_WBK_PowerLead.SM_WBK_PowerLead",
+          "position": [
+            -110.0,
+            1557.0,
+            0.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber"
+          ],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+          "position": [
+            110,
+            1049,
+            0
+          ],
+          "yaw": -24,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "affects_navigation": true,
+          "materials": [],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchPaper",
+          "position": [
+            218,
+            945,
+            77.5
+          ],
+          "yaw": -17,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [],
+          "fluid": false,
+          "station_workshop_part": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_2",
+          "position": [
+            -450,
+            850,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "affects_navigation": false,
+          "materials": [],
+          "fluid": false,
+          "station_workshop_part": true,
+          "station_workshop_spares": true
+        }
+      ],
+      "containers": [
+        {
+          "body": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Body",
+          "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolCabinet_Door_TextV2",
+          "hinge": [
+            -42.5,
+            -27.500000000000004,
+            16
+          ],
+          "opening_motion": "Swing",
+          "opened_yaw": -105,
+          "caption": "维修工具柜",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "position": [
+            -417,
+            1200,
+            0
+          ],
+          "yaw": 90,
+          "container_id": "StationWorkshop.Tools",
+          "initial_open_fraction": 0.3
+        },
+        {
+          "body": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Frame",
+          "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolDrawer_Tray_TextV2",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -34,
+            0
+          ],
+          "caption": "工具柜上层抽屉",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "position": [
+            -417,
+            1200,
+            0
+          ],
+          "yaw": 90,
+          "container_id": "StationWorkshop.Tools.Drawer",
+          "initial_open_fraction": 0.16
+        },
+        {
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+          "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+          "hinge": [
+            0,
+            22.0,
+            41.0
+          ],
+          "opening_motion": "Lid",
+          "opened_roll": 105,
+          "caption": "带盖周转箱",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "position": [
+            256.23750833326346,
+            1496.5557072136066,
+            31.5
+          ],
+          "yaw": 5.977672043086994,
+          "container_id": "StationWorkshop.Rack.ToteA",
+          "initial_open_fraction": 0
+        },
+        {
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+          "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Lid",
+          "hinge": [
+            0,
+            22.0,
+            41.0
+          ],
+          "opening_motion": "Lid",
+          "opened_roll": 105,
+          "caption": "带盖周转箱",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "position": [
+            367.00995334179015,
+            1498.8773899064129,
+            31.5
+          ],
+          "yaw": 2.1148786454527553,
+          "container_id": "StationWorkshop.Rack.ToteB",
+          "initial_open_fraction": 0
+        },
+        {
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+          "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Lid",
+          "hinge": [
+            0,
+            33.5,
+            63.0
+          ],
+          "opening_motion": "Lid",
+          "opened_roll": 108,
+          "caption": "重型金属运输箱",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "position": [
+            680,
+            1415,
+            0
+          ],
+          "yaw": 8,
+          "container_id": "StationWorkshop.Exterior.EquipmentCase",
+          "initial_open_fraction": 0
+        },
+        {
+          "type": "scene_container",
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Body",
+          "door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Drawer",
+          "position": [
+            217,
+            924,
+            0
+          ],
+          "yaw": 180,
+          "container_id": "StationWorkshop.DispatchFiles",
+          "caption": "调度文件抽屉",
+          "storage_pages": 1,
+          "hinge": [
+            0,
+            -29,
+            47
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -34,
+            0
+          ],
+          "initial_open_fraction": 0
+        },
+        {
+          "body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+          "door": "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Lid",
+          "hinge": [
+            0,
+            39.0,
+            76.0
+          ],
+          "opening_motion": "Lid",
+          "opened_roll": 105,
+          "caption": "加固运输木箱",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "position": [
+            463,
+            1278,
+            0
+          ],
+          "yaw": 8,
+          "container_id": "StationWorkshop.ReservedSpares",
+          "initial_open_fraction": 0
+        }
+      ]
+    }
+  ],
+  "preview_variant": "InterruptedRepair",
+  "outline": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_ContainerOutline_V4.M_Staff_ContainerOutline_V4",
+  "rewards_deferred": true,
+  "bounds": {
+    "min": [
+      -460,
+      836,
+      0
+    ],
+    "max": [
+      770,
+      1561,
+      344
+    ]
+  },
+  "personnel_door_cm": [
+    60,
+    180,
+    246
+  ],
+  "service_door_cm": [
+    760,
+    980,
+    276
+  ],
+  "platform_clearance_cm": 325,
+  "tests_run": false,
+  "rendered": false,
+  "runtime_actors": [
+    {
+      "type": "glass_window",
+      "position": [
+        -106.66500000000002,
+        850,
+        181
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_WindowPaneV5",
+      "fracture": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_WindowFractureV5",
+      "dimensions_cm": [
+        151.67,
+        143,
+        0.65
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "id": "ObservationPane0",
+      "station_workshop_actor": true
+    },
+    {
+      "type": "glass_window",
+      "position": [
+        50,
+        850,
+        181
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_WindowPaneV5",
+      "fracture": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_WindowFractureV5",
+      "dimensions_cm": [
+        151.67,
+        143,
+        0.65
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "id": "ObservationPane1",
+      "station_workshop_actor": true
+    },
+    {
+      "type": "glass_window",
+      "position": [
+        206.66499999999996,
+        850,
+        181
+      ],
+      "yaw": 90,
+      "pane": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_WindowPaneV5",
+      "fracture": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_WindowFractureV5",
+      "dimensions_cm": [
+        151.67,
+        143,
+        0.65
+      ],
+      "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+      "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+      "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+      "id": "ObservationPane2",
+      "station_workshop_actor": true
+    },
+    {
+      "type": "solid_door",
+      "id": "PersonnelEntrance",
+      "position": [
+        -330,
+        850,
+        1
+      ],
+      "yaw": 90,
+      "leaf": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf",
+      "positive_hinge": true,
+      "open_seconds": 0.55,
+      "auto_close_seconds": 0,
+      "station_workshop_actor": true
+    },
+    {
+      "type": "solid_door",
+      "id": "ServiceLeft",
+      "position": [
+        367,
+        850,
+        1
+      ],
+      "yaw": 90,
+      "leaf": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_ServiceLeaf",
+      "positive_hinge": true,
+      "open_seconds": 0.55,
+      "auto_close_seconds": 0,
+      "station_workshop_actor": true
+    },
+    {
+      "type": "solid_door",
+      "id": "ServiceRight",
+      "position": [
+        473,
+        850,
+        1
+      ],
+      "yaw": 90,
+      "leaf": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_ServiceLeaf",
+      "positive_hinge": false,
+      "open_seconds": 0.55,
+      "auto_close_seconds": 0,
+      "station_workshop_actor": true
+    }
+  ],
+  "props": [
+    {
+      "skeletal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+      "closed_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose",
+      "material_overrides": {},
+      "position": [
+        2650,
+        0,
+        480.8
+      ],
+      "yaw": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "role": "station_upper_platform",
+      "collision_extent": [
+        59.47500228881836,
+        74.26250076293945,
+        55.087501525878906
+      ],
+      "collision_center": [
+        6.174999237060547,
+        5.167499542236328,
+        55.087501525878906
+      ],
+      "identity": "station_upper_platform",
+      "opening_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.A_TreasureChest_Opening",
+      "station_workshop_prop": true
+    }
+  ],
+  "preview_chest_blueprint": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Blueprints/BP_StationUpperTreasure",
+  "text_direction": "UE camera-right mapped to texture U; native aspect retained",
+  "shelf_variation": "Seed-selected piles, canister lengths, bin yaw and irregular copper stock; constrained to decks",
+  "door_initial_state": "Closed; E normal door interaction and existing sprint DoorPush",
+  "glass_breakage": "Existing hospital component, fitted pane/fracture meshes",
+  "text_asset_remap": {
+    "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_WoodCrate_Body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2",
+    "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_Tote_Body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2",
+    "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_MetalCase_Body": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2",
+    "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolCabinet_Door": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolCabinet_Door_TextV2",
+    "/Game/Dungeons/WarehouseContainers20261002/Meshes/SM_Warehouse_ToolDrawer_Tray": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolDrawer_Tray_TextV2"
+  },
+  "geometry_asset_remap": {
+    "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Railings": "/Game/Dungeons/StationWorkshop20261003/RefineV3/Meshes/SM_Station_Railings"
+  },
+  "ceiling_surface": "Planar matte concrete slab, fitted to wall outer bounds; bottom 320 cm, top 336 cm",
+  "bench_clearance": "Retained ratchet moved 14 cm from parts-tray rim; tray and loose contents retained",
+  "recovery_railing": "Posts inside stair width, centred on actual tread tops; shared 110 cm landing handrail junction"
+}

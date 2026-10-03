@@ -1,6 +1,7 @@
 #include "StaffWeaponComponent.h"
 #include "StaffAssembly.h"
 #include "../../FPSGAMECharacter.h"
+#include "../../Characters/FPSPlayerBodyComponent.h"
 #include "../../FPSGAMEPlayerController.h"
 #include "../../Monsters/FPSCombatHealthComponent.h"
 #include "../../UI/ColdSteelInventoryTypes.h"
@@ -119,7 +120,8 @@ void UStaffWeaponComponent::PublishIllumination()
 {
     if(!CrystalLight)return;
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
-    const bool Visible=Pawn&&Pawn->IsLocallyControlled()&&!Pawn->IsHidden()&&Staff&&Staff->IsVisible();
+    const auto* Body=Pawn?Pawn->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
+    const bool Visible=Pawn&&Pawn->IsLocallyControlled()&&!Pawn->IsHidden()&&Staff&&Staff->IsVisible()&&(!Body||!Body->IsThirdPersonViewEnabled());
     const float Level=Visible?StaffCastMotion::Ease(IlluminationBlend):0.f;
     // Stable on/off states do not continually dirty the light or material proxies.
     if(Level==PublishedIllumination)return;

@@ -1,5 +1,7 @@
 # 百目炉渣整理、技能沉淀与源码发布
 
+> 2026-10-02 后续修订：死亡仍下陷的反馈已制作 V17，当前源码改用 `RagdollGroundV17/PA_HundredEyedSlag_Ground_V17`。真实根骨绑定和关节默认配置保存的排查、实际资产保存与构建状态见 [V17 记录](hundred-eyed-slag-ragdoll-ground-v17-20261002.md)。下文 V16 是此前发布快照；后续修订未在本轮提交或推送，未进行游戏验收。
+
 2026-10-02。工作与发布根目录为 `D:/FPS3D/FPSGAME`，授权远端为 `https://github.com/allang2208/3D-FPS.git`，分支 `main`。本次按 WORKFLOW 第 4、5、6、8 节整理。
 
 ## 当前运行与质量边界

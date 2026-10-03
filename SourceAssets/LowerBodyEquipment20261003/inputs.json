@@ -1,0 +1,74 @@
+{
+  "jeans": {
+    "source": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Donors/SK_Jeans_Donor",
+    "vertices": 13130,
+    "triangles": 23358,
+    "materials": [
+      {
+        "slot": "M_btm_jeans_nrm",
+        "asset": "/Game/Outfits/Jeans/Jeans/Materials/Jeans/M_btm_jeans_nrm.M_btm_jeans_nrm"
+      },
+      {
+        "slot": "M_btm_jeans_nrm",
+        "asset": "/Game/Outfits/Jeans/Jeans/Materials/Jeans/M_btm_jeans_nrm.M_btm_jeans_nrm"
+      },
+      {
+        "slot": "M_btm_jeans_nrm",
+        "asset": "/Game/Outfits/Jeans/Jeans/Materials/Jeans/M_btm_jeans_nrm.M_btm_jeans_nrm"
+      },
+      {
+        "slot": "M_btm_jeans_nrm",
+        "asset": "/Game/Outfits/Jeans/Jeans/Materials/Jeans/M_btm_jeans_nrm.M_btm_jeans_nrm"
+      }
+    ],
+    "skeleton": null
+  },
+  "cargo": {
+    "source": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Donors/SK_Cargo_Donor",
+    "vertices": 8429,
+    "triangles": 14969,
+    "materials": [
+      {
+        "slot": "M_btm_cargopants",
+        "asset": "/Game/Outfits/Cargopants/Cargopants/Materials/Cargopants/M_btm_cargopants.M_btm_cargopants"
+      },
+      {
+        "slot": "M_btm_cargopants",
+        "asset": "/Game/Outfits/Cargopants/Cargopants/Materials/Cargopants/M_btm_cargopants.M_btm_cargopants"
+      },
+      {
+        "slot": "M_btm_cargopants",
+        "asset": "/Game/Outfits/Cargopants/Cargopants/Materials/Cargopants/M_btm_cargopants.M_btm_cargopants"
+      },
+      {
+        "slot": "M_btm_cargopants",
+        "asset": "/Game/Outfits/Cargopants/Cargopants/Materials/Cargopants/M_btm_cargopants.M_btm_cargopants"
+      }
+    ],
+    "skeleton": null
+  },
+  "sneakers": {
+    "source": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Donors/SK_Sneakers_Donor",
+    "vertices": 7785,
+    "triangles": 12320,
+    "materials": [
+      {
+        "slot": "M_shs_casualsneakers",
+        "asset": "/Game/Outfits/CasualSneakers/CasualSneakers/Materials/CasualSneakers/M_shs_casualsneakers.M_shs_casualsneakers"
+      },
+      {
+        "slot": "M_shs_casualsneakers",
+        "asset": "/Game/Outfits/CasualSneakers/CasualSneakers/Materials/CasualSneakers/M_shs_casualsneakers.M_shs_casualsneakers"
+      },
+      {
+        "slot": "M_shs_casualsneakers",
+        "asset": "/Game/Outfits/CasualSneakers/CasualSneakers/Materials/CasualSneakers/M_shs_casualsneakers.M_shs_casualsneakers"
+      },
+      {
+        "slot": "M_shs_casualsneakers",
+        "asset": "/Game/Outfits/CasualSneakers/CasualSneakers/Materials/CasualSneakers/M_shs_casualsneakers.M_shs_casualsneakers"
+      }
+    ],
+    "skeleton": null
+  }
+}

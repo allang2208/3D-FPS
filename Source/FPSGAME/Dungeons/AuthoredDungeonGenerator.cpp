@@ -40,7 +40,9 @@
 #include "DungeonBossEncounter.h"
 #include "DungeonProgressionGate.h"
 #include "WardRoomAssembly.h"
+#include "StaffLivingRoomAssembly.h"
 #include "CargoWarehouseContainers.h"
+#include "StationWorkshopAssembly.h"
 #include "DungeonWallArt.h"
 #include "DungeonRunSubsystem.h"
 #include "DungeonSpawnDirector.h"
@@ -404,7 +406,7 @@ void AAuthoredDungeonGenerator::ClearGenerated()
 void AAuthoredDungeonGenerator::GeneratePreview(){Generate(PreviewSeed);}
 void AAuthoredDungeonGenerator::BeginPlay()
 {
-    Super::BeginPlay();if(GetNetMode()!=NM_Standalone)return;
+    Super::BeginPlay();if(GetNetMode()==NM_Client)return;
     const TCHAR* Option=GetWorld()->URL.GetOption(TEXT("DungeonSeed="),nullptr);
     const int32 Seed=Option?FCString::Atoi(Option):bRandomizeOnEntry?int32(FDateTime::UtcNow().GetTicks()&0x7fffffff):PreviewSeed;
     Generate(Seed);
@@ -681,7 +683,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     TArray<JObject> SceneModules;
     TMap<FString,FString> PreviousSceneRecipes,PreviousSceneStates;
     for(int32 I=0;I<Plan.Pieces.Num();++I)
-        SceneModules.Add(CargoWarehouseContainers::Compose(DungeonRoomScenes::Compose(Plan.Modules[Plan.Pieces[I].Module].Data,Seed,I,PreviousSceneRecipes,PreviousSceneStates),Seed,I));
+        SceneModules.Add(StationWorkshopAssembly::Compose(CargoWarehouseContainers::Compose(StaffLivingRoomAssembly::Compose(DungeonRoomScenes::Compose(Plan.Modules[Plan.Pieces[I].Module].Data,Seed,I,PreviousSceneRecipes,PreviousSceneStates),Seed,I),Seed,I),Seed,I));
     JObject Graph=MakeShared<FJsonObject>();Graph->SetNumberField(TEXT("seed"),Seed);
     Graph->SetNumberField(TEXT("generator_version"),Plan.bThemedRoutes?8:5);
     if(Plan.bThemedRoutes)

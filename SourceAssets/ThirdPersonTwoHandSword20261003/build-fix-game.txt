@@ -1,0 +1,55 @@
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" FPSGAME Win64 Development -Project=D:/FPS3D/FPSGAME/FPSGAME.uproject -NoHotReload -NoHotReloadFromIDE -Log=D:/FPS3D/FPSGAME/SourceAssets/ThirdPersonTwoHandSword20261003/build-fix-game.log
+Log file: D:\FPS3D\FPSGAME\SourceAssets\ThirdPersonTwoHandSword20261003\build-fix-game.log
+Determining max actions to execute in parallel (16 physical cores, 16 logical cores)
+  Executing up to 16 processes, one per physical core
+Using 'git status' to determine working set for adaptive non-unity build (D:\FPS3D\FPSGAME).
+UbaServer - Listening on 0.0.0.0:1345
+Invalidating makefile for FPSGAME (source file added)
+Waiting for 'git status' command to complete
+Building FPSGAME...
+===== Toolchain Information =====
+Using ISPC compiler (E:\Program Files (x86)\UE_5.8\Engine\Source\ThirdParty\Intel\ISPC\bin\Windows\ispc.exe)
+  Intel(r) Implicit SPMD Program Compiler (Intel(r) ISPC), 1.24.0 (build commit  @ 20250404, LLVM 18.1.2) 
+Using Visual Studio 14.44.35228 toolchain (C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207) and Windows 10.0.26100.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+[Adaptive Build] Excluded from FPSGAME unity file: AKMIntegrationAudit.cpp, ASH12IntegrationAudit.cpp, BallisticPresentationAudit.cpp, DrumGripAudit.cpp, ForegripAudit.cpp, FPSGAMECharacter.cpp, FPSGAMECharacterActionPriority.cpp, FPSGAMECharacterAmmo.cpp, FPSGAMECharacterCombatFeedback.cpp, FPSGAMECharacterProfile.cpp, FPSGAMECharacterReload.cpp, FPSGAMEEquipAudit.cpp, FPSGAMEGameMode.cpp, FPSGAMEGunplayAudit.cpp, FPSGAMEQuickCombatAudit.cpp, FPSGAMERifleSprintAudit.cpp, InfiniteAmmoAudit.cpp, MuzzleMigrationAudit.cpp, QBZ191IntegrationAudit.cpp, ReloadTimingAudit.cpp, SceneTestPortal.cpp, SlideCombatAudit.cpp, WeaponHandlingAudit.cpp, CastingToolRackComponent.cpp, ColdSteelDoor.cpp, ColdSteelDoorInteraction.cpp, ColdSteelWindow.cpp, ForgingSystem.cpp, GunAssemblySystem.cpp, VoxelBuildComponent.cpp, VoxelBuildWorld.cpp, VoxelBuildWorldPrefab.cpp, FPSBodyAssetPreloader.cpp, FPSBodyGrounding.cpp, FPSBodyMotionSample.cpp, FPSBodyWeaponMeshComponent.cpp, FPSModularOutfitComponent.cpp, FPSPlayerBodyActions.cpp, FPSPlayerBodyAnimInstance.cpp, FPSPlayerBodyAppearance.cpp, FPSPlayerBodyBow.cpp, FPSPlayerBodyCamera.cpp, FPSPlayerBodyComponent.cpp, FPSPlayerBodyConsumable.cpp, FPSPlayerBodyEquipment.cpp, FPSPlayerBodyGrip.cpp, FPSPlayerBodyMotion.cpp, FPSPlayerBodyNetwork.cpp, FPSPlayerBodyPoseDiagnosis.cpp, FPSPlayerBodyReactions.cpp, FPSPlayerBodyToolGrip.cpp, FPSPlayerHeadAnimInstance.cpp, ColdSteelFormulaBonuses.cpp, CombatFormulaRuntime.cpp, CombatStatusFormula.cpp, ColdSteelDevelopmentTools.cpp, DevelopmentTuningSubsystem.cpp, AuthoredDungeonGenerator.cpp, AuthoredDungeonLighting.cpp, CargoWarehouseContainers.cpp, DungeonShrine.cpp, StaffDormitoryLayout.cpp, StaffLivingRoomAssembly.cpp, StationWorkshopAssembly.cpp, WardBedScatter.cpp, WardRoomAssembly.cpp, FPSPotionUseAudio.cpp, FPSPotionUseComponent.cpp, BlindSupplicantAnimInstance.cpp, BlindSupplicantCombatMagic.cpp, BlindSupplicantDeathPresentation.cpp, BlindSupplicantMonster.cpp, FleshHandCorpsePhysics.cpp, FleshHandMonster.cpp, FPSCombatHealthComponent.cpp, HandBrainMonster.cpp, HundredEyedSlagMonster.cpp, HundredEyedSlagPhysics.cpp, HundredEyedSlagSpecialAttacks.cpp, M07GillContactNode.cpp, M07MembraneMotionNode.cpp, MonsterAIController.cpp, MonsterCombatComponent.cpp, MonsterMeleeKnockback.cpp, MonsterParryReaction.cpp, MonsterStunPresentation.cpp, NurseZombie.cpp, PoisonMaggotMonster.cpp, PoisonMaggotVenomFX.cpp, WolfHunting.cpp, WolfMonster.cpp, FPSCharacterMovementComponent.cpp, FPSDodgeMovement.cpp, FPSDoorPushComponent.cpp, FPSMeleeLungeMovement.cpp, FPSPlayerDodge.cpp, FPSPlayerSlide.cpp, FPSStaminaModel.cpp, FPSTraversalExecution.cpp, PlayerGuardBreakComponent.cpp, ColdSteelNetWorldSubsystem.cpp, ColdSteelPlayerState.cpp, ProductionHarvestAssets.cpp, ProductionHarvestSubsystem.cpp, ProductionToolComponent.cpp, ProductionToolStats.cpp, ColdSteelAdditionalMasteries.cpp, ColdSteelBlizzardModel.cpp, ColdSteelDashAttackModel.cpp, ColdSteelElectricMagicModel.cpp, ColdSteelFireMagicModel.cpp, ColdSteelHeavyStrikeModel.cpp, ColdSteelIceWallModel.cpp, ColdSteelSkillModel.cpp, ColdSteelSkillRules.cpp, ColdSteelWhirlwindModel.cpp, FPSBlizzardComponent.cpp, FPSBlizzardZone.cpp, FPSElectricMagicComponent.cpp, FPSFireballComponent.cpp, FPSFireballProjectile.cpp, FPSFireMagicComponent.cpp, FPSHolyLightComponent.cpp, FPSHolyLightEffect.cpp, FPSIceSpikeComponent.cpp, FPSIceSpikeVolley.cpp, FPSIceWall.cpp, FPSIceWallComponent.cpp, FPSLightningArc.cpp, FPSLightningComponent.cpp, FPSMeteorStrike.cpp, FPSQuickCombatComponent.cpp, FPSStaffCasting.cpp, IceWallPlacement.cpp, ColdSteelAmmoPresentation.cpp, ColdSteelAmmoRuntime.cpp, ColdSteelAreaPickup.cpp, ColdSteelBows.cpp, ColdSteelCharacterSheet.cpp, ColdSteelCompartmentRules.cpp, ColdSteelDualPistolRuntime.cpp, ColdSteelDungeonRewards.cpp, ColdSteelEnhancementLayout.cpp, ColdSteelEnhancementMaterials.cpp, ColdSteelEnhancementSystem.cpp, ColdSteelEnhancementWidget.cpp, ColdSteelExpeditionController.cpp, ColdSteelInventoryRules.cpp, ColdSteelItemTooltipData.cpp, ColdSteelItemTooltipSummary.cpp, ColdSteelMaterialIcon.cpp, ColdSteelPickupStudio.cpp, ColdSteelPickupWeapon.cpp, ColdSteelProductionDrops.cpp, ColdSteelProductionTools.cpp, ColdSteelProfileRuntime.cpp, ColdSteelQuickBarModel.cpp, ColdSteelQuickSlot.cpp, ColdSteelRetiredWeaponsAudit.cpp, ColdSteelSceneContainer.cpp, ColdSteelSkillPage.cpp, ColdSteelStaffs.cpp, ColdSteelStatusModel.cpp, ColdSteelTreeGrowth.cpp, ColdSteelWarehouseModel.cpp, ColdSteelWorldInteraction.cpp, DevelopmentItemPicker.cpp, DevelopmentPanelTools.cpp, DevelopmentPanelWidget.cpp, DevelopmentPerformanceDiagnostics.cpp, DevelopmentPerformanceLighting.cpp, DevelopmentPerformancePanel.cpp, DevelopmentTuningPanel.cpp, M4BowGunsmith.cpp, M4GunsmithLayout.cpp, M4GunsmithOverview.cpp, M4GunsmithPreview.cpp, M4GunsmithPreviewResources.cpp, M4GunsmithSelectedDetails.cpp, M4MeleeGunsmith.cpp, M4StaffGunsmith.cpp, M4StandalonePreview.cpp, M4ToolGunsmith.cpp, StatusEffectsComponent.cpp, TransitLoadingSubsystem.cpp, ColdSteelEnchantmentCombat.cpp, DanWesson715AttachmentVisual.cpp, FPSGAMECharacterCrouchPose.cpp, FPSGAMECharacterJumpPose.cpp, FPSGAMECharacterLocomotion.cpp, FPSGAMECharacterPistolLocomotion.cpp, FPSGAMECharacterVisualRecoil.cpp, FPSImpactFXPounce.cpp, FPSRiftBladeComponent.cpp, FPSWeaponFXComponent.cpp, GunsmithSystem.cpp, M1911AttachmentVisual.cpp, M1911DevelopmentAudit.cpp, M1911MagazineVisual.cpp, M4DrumVisual.cpp, M4GunsmithVisual.cpp, MeleeGunsmith.cpp, MeleeWeaponStats.cpp, PistolDualWieldCombat.cpp, PistolDualWieldComponent.cpp, RifleHipFraming.cpp, RSH12Presentation.cpp, RuneOrbBladeProjectile.cpp, RuneOrbBladesComponent.cpp, RuneSwordClovenGuard.cpp, RuneSwordComponent.cpp, RuneSwordDashAttack.cpp, RuneSwordGuard.cpp, RuneSwordHitQuery.cpp, RuneSwordSprint.cpp, RuneSwordUppercut.cpp, RuneSwordWhirlwind.cpp, RuneSwordWhirlwindFocus.cpp, ScopeOpticalPresentation.cpp, SkeletonStockAudit.cpp, SVDFirstReloadCapture.cpp, SVDGripProfiles.cpp, TacticalDeviceComponent.cpp, ToolGunsmith.cpp, WeaponBipodDeploymentComponent.cpp, WeaponReloadStages.cpp, WeaponStatEvaluation.cpp, WeaponVolumeAudit.cpp, BowAssembly.cpp, BowGunsmith.cpp, BowPartComponent.cpp, BowSightCapture.cpp, BowStats.cpp, BowWeaponComponent.cpp, StaffGunsmith.cpp, StaffIllumination.cpp, StaffQuickCombat.cpp, StaffWeaponComponent.cpp, FPSUnarmedIdleComponent.cpp, FPSUnarmedPunchPose.cpp, TemperateHillsDayNightSky.cpp, TemperateHillsGrass.cpp, TemperateHillsGroundDebris.cpp, TemperateHillsPebbleShore.cpp, TemperateHillsProduction.cpp, TemperateHillsRiverEcology.cpp, TemperateHillsStreaming.cpp, TemperateHillsWorld.cpp
+=================================
+Using Unreal Build Accelerator local executor to run 24 action(s)
+  CPU 16 physical cores, 16 logical cores
+  Memory 31.75 GB physical, 71.04 GB/78.04 GB committed
+  UBA Storage capacity 40 GB
+[1/24] Compile [x64] FPSGAMECharacter.cpp
+[2/24] Compile [x64] FPSGAMECharacterActionPriority.cpp
+[3/24] Compile [x64] FPSGAMECharacterReload.cpp
+[4/24] Compile [x64] FPSGAMECharacterVisualRecoil.cpp
+[5/24] Compile [x64] FPSPlayerBodyAnimInstance.cpp
+[6/24] Compile [x64] FPSPlayerBodyPoseDiagnosis.cpp
+[7/24] Compile [x64] FPSWeaponFXComponent.cpp
+[8/24] Compile [x64] GunsmithSystem.cpp
+[9/24] Compile [x64] M1911AttachmentVisual.cpp
+[10/24] Compile [x64] M1911MagazineVisual.cpp
+[11/24] Compile [x64] M4DrumVisual.cpp
+[12/24] Compile [x64] M4GunsmithLayout.cpp
+[13/24] Compile [x64] Module.FPSGAME.12.cpp
+[14/24] Compile [x64] Module.FPSGAME.15.cpp
+[15/24] Compile [x64] Module.FPSGAME.17.cpp
+D:\FPS3D\FPSGAME\Source\FPSGAME\UI\ColdSteelWeaponIconAudit.cpp(53,156): warning C4996: 'FImageUtils::CompressImageArray': Please use PNGCompressImageArray or ThumbnailCompressImageArray - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+                Check(Visible>100&&BorderClear,TEXT("transparent model render has visible geometry and unclipped borders"));TArray<uint8> PNG;FImageUtils::CompressImageArray(T->GetSizeX(),T->GetSizeY(),Copy,PNG);FFileHelper::SaveArrayToFile(PNG,*(Dir/FString::Printf(TEXT("variant-%d-%d.png"),N,Width)));
+                                                                                                                                                           ^
+[16/24] Compile [x64] Module.FPSGAME.21.cpp
+[17/24] Compile [x64] Module.FPSGAME.22.cpp
+[18/24] Compile [x64] SVDGripProfiles.cpp
+[19/24] Compile [x64] WeaponReloadStages.cpp
+[20/24] Compile [x64] TacticalDeviceComponent.cpp
+[21/24] Compile [x64] PistolDualWieldCombat.cpp
+[22/24] Compile [x64] PistolDualWieldComponent.cpp
+[23/24] Link [x64] FPSGAME.exe
+  正在创建库 D:\FPS3D\FPSGAME\Binaries\Win64\FPSGAME.lib 和对象 D:\FPS3D\FPSGAME\Binaries\Win64\FPSGAME.exp
+[24/24] WriteMetadata FPSGAME.target [NoUba]
+
+Total time in Unreal Build Accelerator local executor: 168.25 seconds
+Output binary: D:\FPS3D\FPSGAME\Binaries\Win64\FPSGAME.exe
+
+Result: Succeeded
+Total execution time: 171.12 seconds
+Trace written to file C:\Users\allan\AppData\Local\UnrealBuildTool\Trace.uba with size 28.9kb

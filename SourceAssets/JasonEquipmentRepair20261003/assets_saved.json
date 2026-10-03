@@ -1,0 +1,30 @@
+{
+  "ue_field_sweater": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater",
+  "ue_field_sweater_charcoal": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater_charcoal.SK_Jason_ue_field_sweater_charcoal",
+  "ue_field_gloves": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves.SK_Jason_ue_field_gloves",
+  "ue_field_gloves_black": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves_black.SK_Jason_ue_field_gloves_black",
+  "ue_original_gloves": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_original_gloves.SK_Jason_ue_original_gloves",
+  "ue_steel_gauntlets": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_steel_gauntlets.SK_Jason_ue_steel_gauntlets",
+  "ue_chainmail_shirt": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_chainmail_shirt.SK_Jason_ue_chainmail_shirt",
+  "base": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Base.SK_Jason_Base",
+  "backpack_static": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SM_SovietBackpack_Corrected.SM_SovietBackpack_Corrected",
+  "backpack": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack.SK_Jason_Backpack",
+  "static_fallback_transform": {
+    "attach_bone": "spine_03",
+    "attach_location": [
+      15.305443263507001,
+      -13.510068117731002,
+      0.05872369543331857
+    ],
+    "attach_rotation": [
+      89.77782305011776,
+      171.6564197413504,
+      169.99476123539873
+    ],
+    "attach_scale": [
+      0.9000000000000002,
+      0.9000000000000002,
+      0.9
+    ]
+  }
+}

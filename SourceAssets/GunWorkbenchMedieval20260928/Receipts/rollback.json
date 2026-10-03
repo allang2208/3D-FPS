@@ -1,0 +1,18 @@
+{
+  "rejected": true,
+  "date": "2026-09-28",
+  "reason": "用户判定不合格，要求退回",
+  "rolled_back_to": "/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench.SM_GunWorkbench",
+  "rollback_previous": "/Game/Building/GunWorkbenchMedieval20260928/SM_GunWorkbench.SM_GunWorkbench",
+  "steps": [
+    "建造目录条目 gun_workbench_table.mesh 指回旧网格（commandlet 保存；干净回读已确认 27 槽原样）",
+    "VoxelBuildWorldPrefab.cpp 移除火把生成钩子与 BronzeTorch include",
+    "FPSGAMEEditor + FPSGAME 双目标重编译 Succeeded（torch 钩子已不在二进制内）",
+    "本目录新资产（网格/2材质/6贴图）按仓库惯例保留在盘上作制作历史，不再被引用"
+  ],
+  "verify": {
+    "palette_mesh": "/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench.SM_GunWorkbench",
+    "log": "Saved/GunWorkbench20260927/verify-rollback.log"
+  },
+  "note": "用户编辑器当时开着 PIE，先轮询等待；编辑器关闭后文件锁解除，由 commandlet 完成落盘。"
+}

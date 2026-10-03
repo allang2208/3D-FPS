@@ -1,0 +1,28 @@
+{
+  "installed_at": "2026-09-19T17:33:20",
+  "material": "/Game/Weapons/MeleeRunes20260915/SurfaceV2/M_SilverRuneSurfaceV2.M_SilverRuneSurfaceV2",
+  "colors_linear": {
+    "RuneBaseColor": [
+      0.82,
+      0.89,
+      1.0,
+      1.0
+    ],
+    "RuneGlowColor": [
+      0.55,
+      0.78,
+      1.0,
+      1.0
+    ]
+  },
+  "scalars": {
+    "BaseBrightness": 1.35,
+    "GlowStrength": 2.8,
+    "RuneOpacity": 0.96,
+    "HaloOpacity": 0.2,
+    "HaloRadiusTexels": 2.5
+  },
+  "exposure_compensation": 1.0,
+  "shader_compile_errors": [],
+  "runtime_testing": "not run; user will test"
+}

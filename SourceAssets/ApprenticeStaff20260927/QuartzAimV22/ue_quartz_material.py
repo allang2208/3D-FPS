@@ -9,6 +9,12 @@ DEST='/Game/Weapons/ApprenticeStaff20260927/QuartzAimV22/Materials'
 L=u.MaterialEditingLibrary
 
 def build_quartz_material(rebuild=False, preview=False):
+    # V35 keeps the stable world/UI paths, but has its own surface/transmission
+    # recipe. Old reimport entry points must not rebuild the withdrawn look.
+    surface=ROOT.parent/'QuartzSurfaceV35'
+    surface_receipt=surface/'install-receipt.json'
+    if surface_receipt.exists() and json.loads(surface_receipt.read_text(encoding='utf-8')).get('complete'):
+        return runpy.run_path(str(surface/'ue_material.py'))['build_quartz_material'](rebuild=rebuild,preview=preview)
     # SceneColorHDR inverse-alpha capture cannot recover Thin Translucent's
     # dual-source coverage. Only the workbench copy uses standard translucency.
     destination='/Game/UI/GunsmithWorkbench' if preview else DEST
