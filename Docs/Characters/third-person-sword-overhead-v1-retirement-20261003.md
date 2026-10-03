@@ -21,10 +21,17 @@
 
 项目及个人 `ue5-cpp-gameplay/references/player-world-body.md` 同步记录失败案例，保留姿态所有权、握持接触和最终写回的经验，移除对 V1 参数的推荐语气。
 
-V1 专用文件和动作采样模块在整理时尚未进入 Git；现有已跟踪的全身源文件还包含此前未发布的接入修改。本次不为提交撤回而夹带整套尚未发布的第三人称代码。公开提交包含本撤回记录、归档散列清单和相关 SKILL；本机运行代码已经撤回 V1，构建状态见下节。
+本轮开始整理时，V1 专用文件和动作采样模块尚未进入 Git，共享全身源文件混有此前接入修改。撤回时只改 V1 代码块，没有整文件恢复或为此次撤回单独打包其他源码。整理期间，本撤回记录、归档散列清单和相关 SKILL 已随同期仓库提交进入远端；本轮最后单独补记构建结果。trash、共享源码快照和构建日志保留本机。
 
 按 `WORKFLOW.md` 第 4、7、8 节执行归档路径／散列核对、精确暂存、完整暂存差异与敏感信息／许可检查、非强制推送及远端回读。原模型、第三方动作和 UE 二进制不在本次提交中。
 
 ## 构建与测试
 
-撤回源码已落盘；Editor／Game 常规构建待补记。仅进行用户要求的归档与发布检查，没有主动打开 UE、启动游戏、截图、渲染或运行游戏测试。
+撤回源码于 2026-10-03 落盘，构建收尾跨至 2026-10-04。
+
+- Game：同工程串行构建已成功编译撤回后的 `FPSPlayerBodyAnimInstance.cpp`、`FPSPlayerBodyComponent.cpp` 和 `FPSPlayerBodyMotion.cpp` 并链接，复用这份回执，不重复全量编译。日志留在本机 `Saved/BuildEditor/ThirdPersonSwordOverheadRetirement20261003/game-shared-final.log`。
+- Editor：同工程串行构建已成功编译撤回后的第三人称文件并链接 `UnrealEditor-FPSGAME.dll`，基础 DLL 已更新。最终日志留在本机 `Saved/BuildEditor/ThirdPersonSwordOverheadRetirement20261003/editor-shared-final.log`。
+
+初轮 Game 构建遇到并行写入中的怪物声明不一致，后续源码落齐后构建成功；首轮 Editor 链接遇到 DLL 占用，后续构建完成链接。本轮没有覆盖这些其他模块的实现，也没有将失败回执当作成功结果。
+
+仅进行必要构建及用户要求的归档与发布检查，没有主动打开 UE、启动游戏、截图、渲染或运行游戏测试。构建结果不代表动作观感通过，游戏内由用户测试。
