@@ -1,2 +1,0 @@
-[node] EE1CB4174180CC742EC0F88549CB554D  success=False
-[{'type': 'Error', 'output': 'Traceback (most recent call last):'}, {'type': 'Error', 'output': '  File "D:/FPS3D/FPSGAME/SourceAssets/SwordUppercut20261003/LeftOverhandV10/install_uppercut_v10.py", line 13, in <module>'}, {'type': 'Error', 'output': "    raise RuntimeError('PIE must end before any uppercut asset is edited or saved')"}, {'type': 'Error', 'output': 'RuntimeError: PIE must end before any uppercut asset is edited or saved'}]

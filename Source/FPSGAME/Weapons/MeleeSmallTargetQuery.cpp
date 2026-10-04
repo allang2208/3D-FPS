@@ -25,12 +25,12 @@ bool Covered(UWorld* World,const FVector& Start,const FVector& Point,const FColl
 }
 
 TArray<FHitResult> MeleeSmallTargets::QueryLowSector(UWorld* World,ACharacter* Owner,const FTransform& Aim,
-    float Reach,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit,bool bCleave,float ArcDegrees)
+    float Reach,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit,bool bCleave,float ArcDegrees,float MaxLowReachCM)
 {
     TRACE_CPUPROFILER_EVENT_SCOPE(Melee_LowSmallTargets);
     TArray<FHitResult> Result;
     if(!World||!Owner||Reach<=0.f||Aim.GetUnitAxis(EAxis::X).Z>0.35f)return Result;
-    const float Range=FMath::Min(Reach,LowReachCM);
+    const float Range=FMath::Min(Reach,MaxLowReachCM);
     const float FeetZ=Owner->GetActorLocation().Z-Owner->GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
     const FVector Origin(Aim.GetLocation().X,Aim.GetLocation().Y,FeetZ+50.f);
     const FVector Forward=FRotator(0.f,Aim.Rotator().Yaw,0.f).Vector();

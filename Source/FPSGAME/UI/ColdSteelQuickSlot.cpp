@@ -264,6 +264,9 @@ void UColdSteelQuickSlot::Refresh()
     }
     else if(Binding.Skill==TEXT("swordUppercut"))
     {
+        Remaining=Model->SwordUppercutCooldown();
+        const float Duration=Model->SwordUppercutCooldownDuration();
+        Fraction=Duration>0.f?Remaining/Duration:0.f;
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;
         Message=Ability?Ability->UppercutStatusText():TEXT("需要持剑");
         Dim=!Message.IsEmpty();

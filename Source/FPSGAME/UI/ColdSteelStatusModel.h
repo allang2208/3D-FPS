@@ -30,6 +30,10 @@ public:
     FColdSteelSkillEffect MasteryEffect(FName Id,int32 AtLevel=-1) const;
     float AdditionalWeaponDamage(const FColdSteelItem& Item,float Damage) const;
     bool TrainHeavyStrike(int32 Hits,int32 Kills);
+    bool TrainSwordUppercut(int32 Hits,int32 Kills);
+    bool CommitSwordUppercutRelease();
+    float SwordUppercutCooldown() const;
+    float SwordUppercutCooldownDuration() const { return Current.SwordUppercutCooldownDuration; }
     FWhirlwindCast WhirlwindStats(int32 AtLevel=-1) const;
     float WhirlwindCooldown() const;
     float WhirlwindCooldownDuration() const { return Current.WhirlwindCooldownDuration; }

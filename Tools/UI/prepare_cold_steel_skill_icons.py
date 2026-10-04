@@ -5,7 +5,8 @@ import shutil
 PROJECT = Path(__file__).resolve().parents[2]
 RUNTIME = PROJECT / "Content/ColdSteelData/Skills"
 ICONS = {
-    "sword_uppercut_cold_steel.png": "SourceAssets/SwordUppercut20261003/Icon/sword_uppercut_cold_steel.png",
+    "sword_uppercut_cold_steel.png": "SourceAssets/SkillIconRoundedSquare20261004/UppercutSilhouetteV5/sword_uppercut_silhouette_v5.png",
+    "dash_attack.png": "SourceAssets/SkillIconRoundedSquare20261004/MartialSilhouetteFamilyV1/dash_attack_silhouette_v1.png",
     "ice_wall_cold_steel.png": "SourceAssets/IceSkillIcons20260930/ice_wall_cold_steel.png",
     "blizzard_cold_steel.png": "SourceAssets/IceSkillIcons20260930/blizzard_cold_steel.png",
     "staff_light_cold_steel.png": "SourceAssets/StaffOffhand20260928/staff_light_cold_steel.png",
@@ -16,8 +17,8 @@ ICONS = {
     "flame_armor_cold_steel.png": "SourceAssets/FireMagic20260921/flame_armor_cold_steel.png",
     "holy_light_cold_steel.png": "SourceAssets/HolyLight20260920/holy_light_cold_steel.png",
     "lightning_cold_steel.png": "SourceAssets/Lightning20260920/lightning_cold_steel.png",
-    "whirlwind_cold_steel.png": "SourceAssets/Whirlwind20260920/whirlwind_cold_steel.png",
-    "heavy_strike_cold_steel.png": "SourceAssets/HeavyStrike20260914/heavy_strike_cold_steel.png",
+    "whirlwind_cold_steel.png": "SourceAssets/SkillIconRoundedSquare20261004/MartialSilhouetteFamilyV1/whirlwind_silhouette_v1.png",
+    "heavy_strike_cold_steel.png": "SourceAssets/SkillIconRoundedSquare20261004/MartialSilhouetteFamilyV1/heavy_strike_silhouette_v1.png",
     "fireball_ember_red.png": "SourceAssets/Fireball20260914/IconEmberRed/fireball_ember_red.png",
     "ice_spike_cold_steel.png": "SourceAssets/IceSpike20260915/ice_spike_cold_steel.png",
     "critical_strike_cold_steel.png": "SourceAssets/CriticalStrike20260914/critical_strike_cold_steel.png",

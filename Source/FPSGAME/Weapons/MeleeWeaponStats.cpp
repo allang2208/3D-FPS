@@ -1,4 +1,5 @@
 #include "MeleeWeaponStats.h"
+#include "../Skills/SwordUppercutTuning.h"
 #include "WeaponDamagePanel.h"
 #include "RuneSwordRhythm.h"
 #include "RuneSwordThrustRhythm.h"
@@ -49,6 +50,21 @@ FMeleeWeaponStats ColdSteelMelee::Evaluate(const FColdSteelItem& Item,const UCol
     R.BlockStamina=BlockStamina(R.Modifiers);
     R.BlockReduction=FMath::Clamp((1.-RuneSwordGuardTuning::DamageTakenRatio)*R.Modifiers.BlockReduction,0.,1.);
     return R;
+}
+
+double ColdSteelMelee::UppercutMultiplier(const UColdSteelStatusModel* Profile,const FMeleeModifiers& Modifiers,int32 Level)
+{
+    const float Base=Profile?Profile->MasteryEffect(TEXT("swordUppercut"),Level).HeavyMultiplier:2.5f;
+    return SwordUppercut::HeavyDamageScale*Modifiers.HeavyMultiplier(Base);
+}
+
+double ColdSteelMelee::UppercutReachCM(const UColdSteelStatusModel* Profile,int32 Level)
+{
+    const auto* Item=Profile&&!Profile->ActiveProductionTool()?Profile->Equipped():nullptr;
+    if(!Item||!ColdSteelInventory::IsTwoHandedSword(*Item))return 0.;
+    const double BaseReach=ColdSteelInventory::Number(*Item,TEXT("melee_reach_cm"),180);
+    const double ThrustReach=RuneSwordCombatTuning::ScaledReach(BaseReach,RuneSwordThrustRhythm::ReachBonus)*EquippedModifiers(Profile).Range;
+    return ThrustReach*Profile->MasteryEffect(TEXT("swordUppercut"),Level).UppercutReachMultiplier;
 }
 
 double ColdSteelMelee::BlockStamina(const FMeleeModifiers& Modifiers)

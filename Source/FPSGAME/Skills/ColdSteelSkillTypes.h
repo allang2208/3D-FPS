@@ -69,6 +69,8 @@ struct FColdSteelSkillDefinition
     float CriticalDamageBase = .50f, CriticalDamagePerLevel = .05f;
     int32 LuckPerLevel = 1, CriticalHitExperience = 1, CriticalKillExperience = 10;
     float HeavyMultiplierBase=2.5f,HeavyMultiplierPerLevel=.1f,HeavyChargeBase=2.f,HeavyChargeReductionPerLevel=.05f;
+    float UppercutStaminaCost=25.f,UppercutCooldownSeconds=8.f;
+    float UppercutRangeMultiplier=1.25f,UppercutReachGrowthPerLevel=.01f;
     int32 HeavyHit2Experience=5,HeavyKill2Experience=12,HeavyHit5Experience=25,HeavyKill5Experience=60;
     FFireballTuning Fireball;
     FIceSpikeTuning IceSpike;
@@ -89,6 +91,7 @@ struct FColdSteelSkillEffect
     int32 Wisdom = 0;
     int32 Strength=0,Constitution=0;
     float HeavyMultiplier=0,HeavyChargeSeconds=0;
+    float UppercutReachMultiplier=1.f;
     float CooldownReduction=0;
     float DodgeDistanceCM = 0, DodgeCostReduction = 0;
     int32 Dexterity = 0;
@@ -135,7 +138,7 @@ struct FColdSteelSkillShot
     /** 联机命中上报的攻击语义上下文（本地结构体，ForwardHit 透传进 Report）：
      *  弓=拉弦比 0-1；其余武器族留 0。客户端只报"怎么打的"，不报"打了多少"。 */
     float DamageContext = 0.f;
-    /** 联机上报攻击语义位：0x0F=近战连段阶段(1-3)，0x10=重击(蓄力)，0x20=旋风斩，0x40=裂斩波，0x80=快速近战。 */
+    /** 联机上报：低4位=连段；0x10=重击，0x14=上挑，0x20=旋风，0x40=裂斩波，0x80=快速近战。 */
     uint8 AttackMeta = 0;
     float QuickCombatTigerRoarToughnessBonus=0.f, QuickCombatTigerRoarSeconds=0.f;
     float QuickCombatPhysicalVulnerabilityBonus=0.f, QuickCombatPhysicalVulnerabilitySeconds=0.f;

@@ -1,2 +1,0 @@
-[node] C6C291AF474EB6109E2709998D8CA8B4  success=False
-[{'type': 'Error', 'output': 'Traceback (most recent call last):'}, {'type': 'Error', 'output': '  File "D:/FPS3D/FPSGAME/SourceAssets/SwordUppercut20261003/OffscreenRiseV12/install_uppercut_v12.py", line 13, in <module>'}, {'type': 'Error', 'output': "    raise RuntimeError('PIE must end before any uppercut asset is edited or saved')"}, {'type': 'Error', 'output': 'RuntimeError: PIE must end before any uppercut asset is edited or saved'}]

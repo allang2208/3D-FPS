@@ -48,10 +48,14 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     const auto& O = *Entry;
     O->TryGetStringField(TEXT("name"), D.Name); O->TryGetStringField(TEXT("description"), D.Description);
     O->TryGetStringField(TEXT("icon"), D.Icon); O->TryGetStringField(TEXT("upgradeSound"), D.UpgradeSound);
-    // Motion-only skill: metadata is available to the standard skill UI, while
-    // gameplay tuning and progression remain deliberately unconfigured.
-    if(Id==TEXT("swordUppercut"))return D;
     auto Num = [&](const TCHAR* Key, double Default) { double Value=Default; O->TryGetNumberField(Key,Value); return FMath::IsFinite(Value)?Value:Default; };
+    if(Id==TEXT("swordUppercut"))
+    {
+        D.UppercutStaminaCost=FMath::Max(0.f,float(Num(TEXT("staminaCost"),25)));
+        D.UppercutCooldownSeconds=FMath::Clamp(float(Num(TEXT("cooldownSeconds"),8)),0.f,300.f);
+        D.UppercutRangeMultiplier=FMath::Max(.01f,float(Num(TEXT("rangeMultiplier"),1.25)));
+        D.UppercutReachGrowthPerLevel=FMath::Max(0.f,float(Num(TEXT("reachGrowthPerLevel"),.01)));
+    }
     D.HeavyMultiplierBase=Num(TEXT("heavyMultiplierBase"),2.5);D.HeavyMultiplierPerLevel=Num(TEXT("heavyMultiplierPerLevel"),.1);
     D.HeavyChargeBase=Num(TEXT("heavyChargeBase"),2);D.HeavyChargeReductionPerLevel=Num(TEXT("heavyChargeReductionPerLevel"),.05);
     D.HeavyHit2Experience=Num(TEXT("heavyHit2Experience"),5);D.HeavyKill2Experience=Num(TEXT("heavyKill2Experience"),12);
@@ -274,7 +278,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
 }
 bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
 {
-    if (P.SkillProgressVersion >= 19) return false;
+    if (P.SkillProgressVersion >= 21) return false;
     if (P.SkillProgressVersion < 8)
     {
         P.Skills.FindOrAdd(TEXT("rifleMastery"));P.Skills.FindOrAdd(TEXT("dodge"));P.Skills.FindOrAdd(TEXT("dexterousHands"));P.Skills.FindOrAdd(TEXT("pistolMastery"));P.Skills.FindOrAdd(TEXT("criticalStrike"));P.Skills.FindOrAdd(TEXT("fireball"));for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery"))})P.Skills.FindOrAdd(Id);P.Skills.FindOrAdd(TEXT("heavyStrike"));
@@ -305,12 +309,17 @@ bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
     P.Skills.FindOrAdd(TEXT("iceWall"));
     P.Skills.FindOrAdd(TEXT("blizzard"));
     for(FName Id:{FName(TEXT("stormDomain")),FName(TEXT("thunderLance"))}){P.Skills.FindOrAdd(Id);P.ElectricCooldowns.FindOrAdd(Id);P.ElectricCooldownDurations.FindOrAdd(Id);}
-    P.SkillProgressVersion=19;
+    P.Skills.FindOrAdd(TEXT("swordUppercut"));
+    P.SwordUppercutCooldown=P.SwordUppercutCooldownDuration=0.f;
+    P.SkillProgressVersion=21;
     return true;
 }
 bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
 {
-    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>19 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>21 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if(P.SkillProgressVersion>=21&&(!FMath::IsFinite(P.SwordUppercutCooldown)||P.SwordUppercutCooldown<0.f||!FMath::IsFinite(P.SwordUppercutCooldownDuration)||P.SwordUppercutCooldownDuration<P.SwordUppercutCooldown||P.SwordUppercutCooldownDuration>300.f))
+    {Reason=TEXT("上挑冷却无效");return false;}
+    if(P.SkillProgressVersion>=20&&!P.Skills.Contains(TEXT("swordUppercut"))){Reason=TEXT("上挑进度缺失");return false;}
     if(P.SkillProgressVersion>=19)
     {
         if(P.ElectricCooldowns.Num()>2||P.ElectricCooldownDurations.Num()>2||P.ElectricReservedMana.Num()>2){Reason=TEXT("电系技能存档无效");return false;}
@@ -378,6 +387,13 @@ FColdSteelSkillEffect ColdSteelSkills::Effect(const FColdSteelSkillDefinition& D
     const int32 L=FMath::Clamp(Level,0,D.MaxLevel);
     if(D.Id==TEXT("dashAttack"))return FColdSteelSkillEffect{};
     if(D.Id==TEXT("whirlwind")){FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;return E;}
+    if(D.Id==TEXT("swordUppercut"))
+    {
+        FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;
+        E.HeavyMultiplier=D.HeavyMultiplierBase+FMath::Max(0,L-1)*D.HeavyMultiplierPerLevel;
+        E.UppercutReachMultiplier=D.UppercutRangeMultiplier*(1.f+FMath::Max(0,L-1)*D.UppercutReachGrowthPerLevel);
+        return E;
+    }
     if(D.Id==TEXT("heavyStrike")){FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;E.HeavyMultiplier=D.HeavyMultiplierBase+FMath::Max(0,L-1)*D.HeavyMultiplierPerLevel;E.HeavyChargeSeconds=FMath::Max(.1f,D.HeavyChargeBase-FMath::Max(0,L-1)*D.HeavyChargeReductionPerLevel);return E;}
     if(D.Id==TEXT("swordMastery")||D.Id==TEXT("machineGunMastery")||D.Id==TEXT("shotgunMastery")||D.Id==TEXT("bowMastery"))
     {FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;E.Constitution=L*D.ConstitutionPerLevel;E.Dexterity=L*D.DexterityPerLevel;E.DamagePercent=L*D.DamagePercentPerLevel;E.FlatDamage=L*D.FlatDamagePerLevel;E.CooldownReduction=L*D.CooldownReductionPerLevel;E.MovementMultiplier=D.MovementMultiplier;return E;}

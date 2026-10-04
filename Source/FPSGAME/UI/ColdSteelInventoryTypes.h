@@ -197,6 +197,8 @@ struct FColdSteelProfile
     UPROPERTY() float HolyLightCooldownDuration = 0;
     UPROPERTY() float WhirlwindCooldown = 0;
     UPROPERTY() float WhirlwindCooldownDuration = 0;
+    UPROPERTY() float SwordUppercutCooldown = 0;
+    UPROPERTY() float SwordUppercutCooldownDuration = 0;
     // Legacy serialized names retained; these now mirror only the live action
     // remaining/duration and are cleared when loading an interrupted session.
     UPROPERTY() float QuickCombatCooldown = 0;

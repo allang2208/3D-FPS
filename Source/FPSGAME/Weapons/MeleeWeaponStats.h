@@ -22,6 +22,8 @@ struct FMeleeWeaponStats
 
 namespace ColdSteelMelee
 {
+    double UppercutMultiplier(const UColdSteelStatusModel* Profile,const FMeleeModifiers& Modifiers,int32 Level=-1);
+    double UppercutReachCM(const UColdSteelStatusModel* Profile,int32 Level=-1);
     FMeleeModifiers EquippedModifiers(const UColdSteelStatusModel* Profile);
     FMeleeModifiers TemporaryModifiers(const UColdSteelStatusModel* Profile);
     FMeleeWeaponStats Evaluate(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile,const FGunsmithParts* Preview=nullptr);

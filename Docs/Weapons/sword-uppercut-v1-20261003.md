@@ -1,5 +1,7 @@
 # 第一人称持剑上挑 V1
 
+当前设置包含 [V18 释放消耗 25 体力、基础冷却 8 秒](sword-uppercut-cost-cooldown-v18-20261004.md)、[V19 范围成长](sword-uppercut-range-v19-20261004.md) 和 [V20 前踏时序](sword-uppercut-lunge-contact-v20-20261004.md)。战斗与成长沿用 [V17](sword-uppercut-combat-v17-20261004.md)，V15 动画、V16 镜头与 150 cm 前踏距离继续使用。历史制作源的归档位置见 [整理发布](sword-uppercut-publication-20261004.md)。
+
 当前运行参数为 [镜头与前踏 V16](sword-uppercut-feel-v16-20261004.md)：镜头拉扯为 V15 的 1.5 倍，前踏为 150 cm；动画仍使用 2.05 秒的 [对角镜头与握柄回位 V15](sword-uppercut-grip-recovery-v15-20261003.md)。主上挑仍为 0.075 秒，挥剑声与出手同步。沿用本页资产路径；本页以下为 V1 历史记录。
 
 后续接入：用户反馈独立场景无法进入，现改为「上挑」主动技能，从技能页拖入快捷栏使用；参见 `Docs/Skills/sword-uppercut-20261003.md`。以下保留第一版动作和独立场景的制作记录。

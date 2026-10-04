@@ -834,6 +834,7 @@ void UColdSteelStatusModel::ReduceAllAbilityCooldowns(float Seconds)
     Current.FlameArmorCooldown=FMath::Max(0.f,Current.FlameArmorCooldown-Seconds);
     // Quick combat is an animation cycle; cooldown reduction never skips recovery.
     Current.WhirlwindCooldown=FMath::Max(0.f,Current.WhirlwindCooldown-Seconds);
+    Current.SwordUppercutCooldown=FMath::Max(0.f,Current.SwordUppercutCooldown-Seconds);
     if(CurrentPawn.IsValid())
         if(auto* Blades=CurrentPawn->FindComponentByClass<URuneOrbBladesComponent>())Blades->ReduceCooldown(Seconds);
 }
@@ -858,6 +859,7 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
     // including attack-speed retiming and hit stops, independently of CD cheats.
     if(HasNoAbilityCooldown())Current.WhirlwindCooldown=0.f;
     else Current.WhirlwindCooldown=FMath::Max(0.f,Current.WhirlwindCooldown-Delta);
+    Current.SwordUppercutCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.SwordUppercutCooldown-Delta);
     TickFormulaBuffs(Delta);
     TickStamina(Delta,Pawn);
     if(Delta>0)if(auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&!Health->IsDead()){

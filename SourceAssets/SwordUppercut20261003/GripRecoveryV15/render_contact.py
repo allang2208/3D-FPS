@@ -4,7 +4,7 @@ P=Path(__file__).resolve().parent
 exec(compile((P/'author_common.py').read_text('utf-8'),str(P/'author_common.py'),'exec'))
 out=P/'PoseReview';out.mkdir(exist_ok=True)
 for version,frame in [('V14',220),('V15',220),('V15',135),('V15',175)]:
-    folder=P.parent/'StrideRhythmV14' if version=='V14' else P
+    folder=ROOT/'trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/StrideRhythmV14' if version=='V14' else P
     bpy.ops.wm.open_mainfile(filepath=str(folder/'Standard'/('Sword_Uppercut'+version+'_Editable.blend')))
     scene=bpy.context.scene
     scene.frame_set(frame)

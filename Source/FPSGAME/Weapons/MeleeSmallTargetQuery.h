@@ -16,7 +16,7 @@ namespace MeleeSmallTargets
 
     TArray<FHitResult> QueryLowSector(UWorld* World,ACharacter* Owner,const FTransform& Aim,
         float Reach,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit,
-        bool bCleave=true,float ArcDegrees=LowArcDegrees);
+        bool bCleave=true,float ArcDegrees=LowArcDegrees,float MaxLowReachCM=LowReachCM);
 
     // Keeps the existing Pawn trace for ordinary targets. Pawn object queries also
     // see small hands whose movement capsules intentionally ignore the Pawn channel.

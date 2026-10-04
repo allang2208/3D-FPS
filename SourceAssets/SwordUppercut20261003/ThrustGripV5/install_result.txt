@@ -1,2 +1,0 @@
-[node] 200E18FC4AEBB5FFBA66D4B9E6D5956A  success=False
-[{'type': 'Error', 'output': 'Traceback (most recent call last):'}, {'type': 'Error', 'output': '  File "D:/FPS3D/FPSGAME/SourceAssets/SwordUppercut20261003/ThrustGripV5/install_uppercut_v5.py", line 37, in <module>'}, {'type': 'Error', 'output': "    raise RuntimeError('Preserving differently authored animation: '+target)"}, {'type': 'Error', 'output': 'RuntimeError: Preserving differently authored animation: /Game/Weapons/SwordUppercut20261003/Standard/A_Sword_UppercutV1_Standard'}]

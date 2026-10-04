@@ -106,7 +106,7 @@ for variant,preview in targets:
     (P/'install_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
     u.log('UPPERCUT_V15_SAVED '+target)
 
-# The user explicitly requested the hand/recovery check. Read the saved clips
-# in the same headless session, without launching a game or modifying a map.
-exec(compile((P/'read_current_pose.py').read_text('utf-8'),str(P/'read_current_pose.py'),'exec'),
-     {'__file__':str(P/'read_current_pose.py'),'POSE_OUTPUT_NAME':'current_pose_after.json'})
+# Pose readback is optional: run it only for an explicitly requested check.
+if globals().get('READ_SAVED_POSE',False):
+    exec(compile((P/'read_current_pose.py').read_text('utf-8'),str(P/'read_current_pose.py'),'exec'),
+         {'__file__':str(P/'read_current_pose.py'),'POSE_OUTPUT_NAME':'current_pose_after.json'})

@@ -71,7 +71,10 @@ void URuneSwordComponent::FinishHeavyTraining()
     bHeavyTrainingPending=false;
     if(GetWorld()&&GetWorld()->GetGameInstance())
         if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
-            Profile->TrainHeavyStrike(HeavyTrainingHits,HeavyTrainingKills);
+        {
+            if(bUppercut)Profile->TrainSwordUppercut(HeavyTrainingHits,HeavyTrainingKills);
+            else Profile->TrainHeavyStrike(HeavyTrainingHits,HeavyTrainingKills);
+        }
 }
 
 void URuneSwordComponent::BeginPlay()
@@ -619,7 +622,7 @@ FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
     if(bUppercut)
     {
         Distance=RuneSwordUppercutMotion::LungeDistance*
-            (RuneSwordUppercutMotion::LungeAlpha(ToTime)-RuneSwordUppercutMotion::LungeAlpha(FromTime));
+            (RuneSwordUppercutMotion::LungeAlpha(ToTime,bUppercut)-RuneSwordUppercutMotion::LungeAlpha(FromTime,bUppercut));
     }
     else if(bDashAttack)
     {
@@ -732,6 +735,7 @@ void URuneSwordComponent::ReturnFromCharge()
 
 void URuneSwordComponent::CancelAction()
 {
+    FinishHeavyTraining();
     bUppercut=false;
     FinishDashAttack();
     FinishWhirlwind();
@@ -766,7 +770,7 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
     if(!CanUse())return;
     if(bUppercut)
     {
-        RuneSwordUppercutMotion::Camera(Elapsed,bLungeStarted,Location,Rotation);
+        RuneSwordUppercutMotion::Camera(Elapsed,bLungeStarted,Location,Rotation,bUppercut);
     }
     else if(bCharging || bReturningCharge)
     {
@@ -950,7 +954,7 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
 
 void URuneSwordComponent::StartRift(float SourceAge)
 {
-    const int32 Index=bOverheadAttack?5:(bThrustAttack?3:(bPommelAttack?4:(bHeavyAttack?2:(CurrentClip==TEXT("Slash2")?1:0))));
+    const int32 Index=(bOverheadAttack||bUppercut)?5:(bThrustAttack?3:(bPommelAttack?4:(bHeavyAttack?2:(CurrentClip==TEXT("Slash2")?1:0))));
     // Existing live instances may still have the five original slash ribbons.
     if(bOverheadAttack && (!RiftMeshes.IsValidIndex(Index) || !RiftMeshes[Index]))
     {
@@ -970,7 +974,15 @@ void URuneSwordComponent::StartRift(float SourceAge)
         RiftOrigin=FTransform(Aim.GetRotation()*FRotator(0,90,0).Quaternion(),Aim.GetLocation());
         RiftDirection=-Aim.GetUnitAxis(EAxis::Z);
     }
-    const float FastEnd=bOverheadAttack?RuneSwordOverheadFeel::ImpactTime:(bThrustAttack?RuneSwordThrustRhythm::ExtensionEnd:(bPommelAttack?RuneSwordPommelRhythm::ExtensionEnd:ContactEnd));
+    if(bUppercut)
+    {
+        // Reuse the normal vertical attack's optical material/ribbon, rolled
+        // around the forward axis so the UV reveal travels bottom-to-top.
+        const FTransform Aim=Character->GetMeleeAimTransform();
+        RiftOrigin=FTransform(Aim.GetRotation()*FQuat(FVector::ForwardVector,PI)*FRotator(0,90,0).Quaternion(),Aim.GetLocation());
+        RiftDirection=Aim.GetUnitAxis(EAxis::Z);
+    }
+    const float FastEnd=(bUppercut)?RuneSwordUppercutMotion::StrokeEnd:(bOverheadAttack?RuneSwordOverheadFeel::ImpactTime:(bThrustAttack?RuneSwordThrustRhythm::ExtensionEnd:(bPommelAttack?RuneSwordPommelRhythm::ExtensionEnd:ContactEnd)));
     RiftFastSeconds=(FastEnd-ContactStart)/SwingRate;
     RiftDissolveSeconds=bOverheadAttack?.26f:(bThrustAttack?.16f:(bPommelAttack?.14f:(bHeavyAttack?.28f:.20f)));
     RiftDriftSpeed=bOverheadAttack?95.f:(bThrustAttack?50.f:(bPommelAttack?42.f:(bHeavyAttack?120.f:85.f)));
@@ -1079,7 +1091,7 @@ FRuneSwordBladeSample URuneSwordComponent::ReadBlade(const FTransform& AimFrame)
 
 void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRuneSwordBladeSample& To)
 {
-    if(bThrustAttack && !HitActors.IsEmpty())return;
+    if((bThrustAttack||bUppercut) && !HitActors.IsEmpty())return;
     FRuneSwordTraceSettings Trace;
     Trace.Radius=RuneSwordCombat::BladeRadius*SwingRangeMultiplier;
     if(bPommelAttack)
@@ -1090,7 +1102,7 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
         Trace.ForwardCorridorRadius=RuneSwordPommelRhythm::CorridorRadius*SwingRangeMultiplier;
         Trace.bCleavePawns=false;
     }
-    if(bThrustAttack)
+    if(bThrustAttack||bUppercut)
     {
         Trace.Radius=RuneSwordThrustRhythm::BladeRadius*SwingRangeMultiplier;
         Trace.ForwardCorridorRadius=RuneSwordThrustRhythm::CorridorRadius*SwingRangeMultiplier;
@@ -1098,7 +1110,7 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
     }
     auto* Pawn=Character.Get();
     auto Hits=RuneSwordCombat::Query(GetWorld(),Pawn,From,To,SwingReach,HitActors,Trace);
-    if(SwingRangeMultiplier>1.f)
+    if(SwingRangeMultiplier>1.f||(bUppercut&&UppercutReachGrowth>1.f))
     {
         // Extend the tip's distance from the stable eye, retaining the hilt.
         // Keep the original blade pass as well so close contacts are not lost
@@ -1106,9 +1118,17 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
         auto ExtendedFrom=From,ExtendedTo=To;
         ExtendedFrom.Tip=From.Origin+(From.Tip-From.Origin)*SwingRangeMultiplier;
         ExtendedTo.Tip=To.Origin+(To.Tip-To.Origin)*SwingRangeMultiplier;
+        if(bUppercut)
+        {
+            // Level growth extends the forward sweep, not its width or height.
+            const double FromDepth=FMath::Max(0.,FVector::DotProduct(ExtendedFrom.Tip-From.Origin,From.Forward));
+            const double ToDepth=FMath::Max(0.,FVector::DotProduct(ExtendedTo.Tip-To.Origin,To.Forward));
+            ExtendedFrom.Tip+=From.Forward*FromDepth*(UppercutReachGrowth-1.f);
+            ExtendedTo.Tip+=To.Forward*ToDepth*(UppercutReachGrowth-1.f);
+        }
         Hits.Append(RuneSwordCombat::Query(GetWorld(),Pawn,ExtendedFrom,ExtendedTo,SwingReach,HitActors,Trace));
     }
-    if((bThrustAttack || bPommelAttack) && Hits.Num()>1)
+    if((bThrustAttack || bPommelAttack || bUppercut) && Hits.Num()>1)
     {
         Hits.Sort([&](const FHitResult& A,const FHitResult& B)
         {
@@ -1156,7 +1176,7 @@ void URuneSwordComponent::ApplySwingHits(const TArray<FHitResult>& Hits,const FV
                 ImpactDirection=CurrentClip==TEXT("Slash2")?1.f:-1.f;
                 ImpactStrength=bOverheadAttack?1.25f:(bHeavyAttack?1.5f:(bPommelAttack?1.75f:1.f));
             }
-            if(Applied>0 || (bDashAttack&&bKilled))
+            if(Applied>0 || ((bDashAttack||bUppercut)&&bKilled&&Eligible))
             {
                 // 金色符文强化：本挥首次确认命中即缩减全部魔法技能CD，一次挥击只触发一次。
                 if(SwingCooldownReduceSeconds>0.f&&!bSwingCooldownReduced)
@@ -1214,22 +1234,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     const float End=CurrentAnimation->GetPlayLength();
     if(bUppercut)
     {
-        const float Next=FMath::Min(End,Elapsed+Delta);
-        AdvanceThrustLunge(Elapsed,Next);
-        if(!bSwingCuePlayed && Next>=ContactStart)
-        {
-            bSwingCuePlayed=true;
-            // Ordinary slash audio, on this clip's release clock. Attack stats
-            // do not change the uppercut's authored speed or sound pitch.
-            if(AttackLayerSound)UGameplayStatics::PlaySound2D(this,AttackLayerSound,1.f,1.f);
-            if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.72f,1.1f);
-        }
-        Elapsed=Next;SamplePose(Elapsed);
-        if(Elapsed>=End)
-        {
-            bUppercut=false;bLungeStarted=bLungeBlocked=false;LungeDirection=FVector::ZeroVector;
-            SetClip(TEXT("Idle"),true);
-        }
+        TickUppercut(Delta);
     }
     else if(bAttacking)
     {
@@ -1410,6 +1415,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
 
 void URuneSwordComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    FinishHeavyTraining();
     bUppercut=false;
     if(UppercutLoad)UppercutLoad->CancelHandle();UppercutLoad.Reset();
     if(SlashWaveLoad)SlashWaveLoad->CancelHandle();SlashWaveLoad.Reset();

@@ -2343,3 +2343,25 @@ __pycache__/
 
 # Compile-capture tool output: text receipts kept; object files are build artifacts.
 /Tools/**/Compile/*.obj
+
+# Uppercut publication: author recipes public; licensed rigs, dense poses,
+# media, saved UE packages and machine receipts remain in the local project.
+/SourceAssets/SwordUppercut20261003/**
+!/SourceAssets/SwordUppercut20261003/**/
+!/SourceAssets/SwordUppercut20261003/**/*.py
+!/SourceAssets/SwordUppercut20261003/**/*.ps1
+!/SourceAssets/SwordUppercut20261003/**/*.md
+!/SourceAssets/SwordUppercut20261003/GripRecoveryV15/authoring.json
+/SourceAssets/SwordUppercut20261004/**
+!/SourceAssets/SwordUppercut20261004/**/
+!/SourceAssets/SwordUppercut20261004/**/*.py
+!/SourceAssets/SwordUppercut20261004/**/*.ps1
+!/SourceAssets/SwordUppercut20261004/**/*.md
+/SourceAssets/SkillIconRoundedSquare20261004/**
+!/SourceAssets/SkillIconRoundedSquare20261004/**/
+!/SourceAssets/SkillIconRoundedSquare20261004/**/*.py
+!/SourceAssets/SkillIconRoundedSquare20261004/**/*.md
+!/SourceAssets/SkillIconRoundedSquare20261004/UppercutSilhouetteV5/prompt.txt
+!/SourceAssets/SkillIconRoundedSquare20261004/UppercutSilhouetteV5/style_recipe.json
+!/SourceAssets/SkillIconRoundedSquare20261004/MartialSilhouetteFamilyV1/prompts.json
+/SourceAssets/SwordUppercutPublication20261004/Local/

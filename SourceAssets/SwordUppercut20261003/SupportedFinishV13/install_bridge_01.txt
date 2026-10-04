@@ -1,2 +1,0 @@
-[node] 94247F134DA504A6B2D20383E9FD5537  success=False
-[{'type': 'Error', 'output': 'Traceback (most recent call last):'}, {'type': 'Error', 'output': '  File "D:/FPS3D/FPSGAME/SourceAssets/SwordUppercut20261003/SupportedFinishV13/install_uppercut_v13.py", line 13, in <module>'}, {'type': 'Error', 'output': "    raise RuntimeError('PIE must end before any uppercut asset is edited or saved')"}, {'type': 'Error', 'output': 'RuntimeError: PIE must end before any uppercut asset is edited or saved'}]

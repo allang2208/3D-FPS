@@ -17,16 +17,19 @@ namespace RuneSwordUppercutMotion
     inline constexpr float RecoveryStart=float(RecoveryStartFrame)/SampleRate;
     inline constexpr float End=float(EndFrame)/SampleRate;
     inline constexpr float LungeEnd=ReleaseStart+.16f;
+    // The active skill's blade crosses the forward aim at source frame 126.
+    // Complete the stride there; a .16 s stride leaves most travel after contact.
+    inline constexpr float SkillLungeEnd=ReleaseStart+6.f/SampleRate;
     inline constexpr float LungeDistance=150.f;
 
-    inline float LungeAlpha(float Time)
+    inline float LungeAlpha(float Time,bool ActiveSkill=false)
     {
-        return FMath::SmoothStep(ReleaseStart,LungeEnd,Time);
+        return FMath::SmoothStep(ReleaseStart,ActiveSkill?SkillLungeEnd:LungeEnd,Time);
     }
 
     // Camera-local cm/degrees, before the existing sword and comfort scales.
     // This is one release/arrest impulse, independent of confirmed-hit shakes.
-    inline void Camera(float Time,bool Stepping,FVector& Location,FRotator& Rotation)
+    inline void Camera(float Time,bool Stepping,FVector& Location,FRotator& Rotation,bool ActiveSkill=false)
     {
         // Camera-local +Y is right. Gather down/right, then whip up/left on
         // the same 75 ms release as the blade; never change the control aim.
@@ -63,10 +66,11 @@ namespace RuneSwordUppercutMotion
         }
         if(Stepping)
         {
-            const float Step=FMath::Clamp((Time-ReleaseStart)/(LungeEnd-ReleaseStart),0.f,1.f);
+            const float StepEnd=ActiveSkill?SkillLungeEnd:LungeEnd;
+            const float Step=FMath::Clamp((Time-ReleaseStart)/(StepEnd-ReleaseStart),0.f,1.f);
             const float Transfer=FMath::Square(FMath::Sin(PI*Step));
             Location.Z-=1.6f*Transfer;
-            const float Land=FMath::Clamp((Time-LungeEnd)/.14f,0.f,1.f);
+            const float Land=FMath::Clamp((Time-StepEnd)/.14f,0.f,1.f);
             const float Plant=FMath::Square(FMath::Sin(PI*Land))*(1.f-Land);
             Location.Z-=1.5f*Plant;Rotation.Pitch-=.65f*Plant;
         }

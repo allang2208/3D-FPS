@@ -1,0 +1,16 @@
+Mode: built-in imagegen / precise-object-edit
+Status: style sample only; not deployed; no reusable 3D model or rig created
+Reference: ../UppercutSwordV4/sword_uppercut_cold_steel.png
+Output: sword_uppercut_silhouette_v5.png
+Transparent background: true
+
+Use case: precise-object-edit.
+Asset: one polished uppercut ability icon, a CHARACTER SILHOUETTE STYLE SAMPLE for a consistent martial-skill icon family.
+
+Input image 1 is the EDIT TARGET. Preserve its rounded square silver metal frame, four-side thickness, corner curvature, bevel, position and scale. Preserve transparency outside the frame. Preserve the charcoal background inside. Replace only the interior sword illustration with the following composition.
+
+Show ONE faceless, neutral athletic human silhouette performing a decisive TWO-HANDED rising longsword cut. Full body in a clear three-quarter side view, facing left. Front knee bent in a forward lunge, rear leg extended to the lower right, balanced hips and believable bent elbows. Both hands grip the same single hilt near chest height, with the blade pointing upward toward the upper left. One clean tapered ivory-silver motion crescent rises from the lower right, sweeps around the left side of the body and finishes near the upper-left sword tip. It must read as acceleration upward from low to high, not an overhead downward chop. No arrowheads. One sword only.
+
+Reusable character design: natural 7.5-head proportions, smooth featureless charcoal head, plain closely fitted dark training tunic and trousers, simple boots and minimal wrist bands. NO facial features, hair, helmet, cape, skirt, chest emblem, armor plates, belts with accessories or costume ornament. No muscular bodybuilder anatomy. The body should be a disciplined readable dark-silver silhouette, large connected shapes with just a few broad planes and a restrained soft rim light; separate it clearly from the darker charcoal background. No carved metallic statue or embossed badge effect. No tiny linework. A figure that could be reproduced faithfully for heavy attack, thrust and dodge by changing the pose alone.
+
+Value hierarchy: the sword and single upward slash are bright ivory-silver and are the focal point; the character is mid-to-dark gray, clearly visible but subordinate; the background is almost black. Premium restrained hand-painted game-icon finish with clean edges, smooth broad shading, no scratchy brush texture. Excellent clarity at 48px. Keep the complete feet, sword tip and motion arc comfortably within the frame, with even safe margins. No text, labels, numbers, watermark, extra limbs, extra weapons, particles, scenery or panels. Output exactly one square finished icon.

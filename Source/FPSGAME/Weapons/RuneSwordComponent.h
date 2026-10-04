@@ -241,6 +241,8 @@ private:
     UPROPERTY(EditDefaultsOnly,Category="Rune Sword|Uppercut") TSoftObjectPtr<UAnimSequence> UppercutLongGrip;
     TSharedPtr<FStreamableHandle> UppercutLoad;
     bool bUppercut=false;
+    float UppercutReachGrowth=1.f,UppercutLowReachCM=120.f;
     void LoadUppercutAnimations();
+    void TickUppercut(float Delta);
     UAnimSequence* UppercutAnimation() const;
 };

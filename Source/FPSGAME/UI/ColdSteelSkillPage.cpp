@@ -4,6 +4,8 @@
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
 #include "../Skills/ColdSteelSkillRules.h"
+#include "../Skills/SwordUppercutTuning.h"
+#include "../Weapons/MeleeWeaponStats.h"
 #include "Engine/GameInstance.h"
 #include "Engine/Texture2D.h"
 #include "ImageUtils.h"
@@ -67,7 +69,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::RebuildWidget()
 const FColdSteelSkillDefinition& UColdSteelSkillPage::Definition(FName Id) const
 { if(Id==TEXT("swordUppercut"))return Model->MasteryDefinition(Id);if(ElectricMagic::IsSkill(Id))return Model->ElectricMagicDefinition(Id);if(Id==TEXT("blizzard"))return Model->BlizzardDefinition();if(Id==TEXT("iceWall"))return Model->IceWallDefinition();if(FireMagic::IsSkill(Id))return Model->FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return Model->HolyLightDefinition();if(Id==TEXT("lightningStrike"))return Model->LightningDefinition();if(Id==TEXT("iceSpike"))return Model->IceSpikeDefinition();if(Id==TEXT("quickCombat"))return Model->QuickCombatDefinition();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryDefinition(Id);if(Id==TEXT("fireball"))return Model->FireballDefinition();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeDefinition();if(Id==TEXT("pistolMastery"))return Model->PistolDefinition();return Id==TEXT("dodge")?Model->DodgeDefinition():(Id==TEXT("dexterousHands")?Model->DexterousHandsDefinition():Model->RifleDefinition()); }
 FColdSteelSkillProgress UColdSteelSkillPage::Progress(FName Id) const
-{ if(ElectricMagic::IsSkill(Id))return Model->ElectricMagicProgress(Id);if(Id==TEXT("blizzard"))return Model->BlizzardProgress();if(Id==TEXT("iceWall"))return Model->IceWallProgress();if(FireMagic::IsSkill(Id))return Model->FireMagicProgress(Id);if(Id==TEXT("holyLight"))return Model->HolyLightProgress();if(Id==TEXT("lightningStrike"))return Model->LightningProgress();if(Id==TEXT("iceSpike"))return Model->IceSpikeProgress();if(Id==TEXT("quickCombat"))return Model->QuickCombatProgress();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryProgress(Id);if(Id==TEXT("fireball"))return Model->FireballProgress();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeProgress();if(Id==TEXT("pistolMastery"))return Model->PistolProgress();return Id==TEXT("dodge")?Model->DodgeProgress():(Id==TEXT("dexterousHands")?Model->DexterousHandsProgress():Model->RifleProgress()); }
+{ if(Id==TEXT("swordUppercut"))return Model->MasteryProgress(Id);if(ElectricMagic::IsSkill(Id))return Model->ElectricMagicProgress(Id);if(Id==TEXT("blizzard"))return Model->BlizzardProgress();if(Id==TEXT("iceWall"))return Model->IceWallProgress();if(FireMagic::IsSkill(Id))return Model->FireMagicProgress(Id);if(Id==TEXT("holyLight"))return Model->HolyLightProgress();if(Id==TEXT("lightningStrike"))return Model->LightningProgress();if(Id==TEXT("iceSpike"))return Model->IceSpikeProgress();if(Id==TEXT("quickCombat"))return Model->QuickCombatProgress();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryProgress(Id);if(Id==TEXT("fireball"))return Model->FireballProgress();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeProgress();if(Id==TEXT("pistolMastery"))return Model->PistolProgress();return Id==TEXT("dodge")?Model->DodgeProgress():(Id==TEXT("dexterousHands")?Model->DexterousHandsProgress():Model->RifleProgress()); }
 void UColdSteelSkillPage::ReleaseSlateResources(bool bReleaseChildren)
 { UppercutDetailButton.Reset();ElectricDetailButtons.Reset();BlizzardDetailButton.Reset();IceWallDetailButton.Reset();Super::ReleaseSlateResources(bReleaseChildren); Scroll.Reset(); Root.Reset();MeteorDetailButton.Reset();FlameArmorDetailButton.Reset();LightningDetailButton.Reset();HolyLightDetailButton.Reset();IceSpikeDetailButton.Reset(); DetailButton.Reset();PistolDetailButton.Reset();CriticalDetailButton.Reset();FireballDetailButton.Reset();HeavyDetailButton.Reset();DodgeDetailButton.Reset();DexterousHandsDetailButton.Reset();QuickCombatDetailButton.Reset();WhirlwindDetailButton.Reset();DashAttackDetailButton.Reset(); BackButton.Reset(); FilterButtons.Reset(); }
 void UColdSteelSkillPage::NativeTick(const FGeometry& Geometry,float Delta)
@@ -230,20 +232,6 @@ TSharedRef<SWidget> UColdSteelSkillPage::Paragraph(const FString& Value,float Pi
 TSharedRef<SWidget> UColdSteelSkillPage::Overview(bool bCompact,FName Id)
 {
     const auto& D=Definition(Id);
-    if(Id==TEXT("swordUppercut"))
-    {
-        // No level or training presentation until this motion has gameplay tuning.
-        return SNew(SVerticalBox)
-            +SVerticalBox::Slot().AutoHeight()[SNew(SHorizontalBox)
-                +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(0,0,12/Scale,0)
-                    [SNew(SBox).WidthOverride(48/Scale).HeightOverride(48/Scale)[SNew(SImage).Image(&UppercutIconBrush)]]
-                +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)[SNew(SVerticalBox)
-                    +SVerticalBox::Slot().AutoHeight()[Label(D.Name,20,ColdSteelUI::TextPrimary)]
-                    +SVerticalBox::Slot().AutoHeight().Padding(0,4/Scale,0,0)
-                        [Paragraph(TEXT("持剑 / 上挑 / 主动"),12,ColdSteelUI::TextSecondary,PageWidth-124)]]]
-            +SVerticalBox::Slot().AutoHeight().Padding(0,12/Scale,0,0)
-                [Paragraph(bCompact?TEXT("拖入快捷栏使用 · 当前开放动作试用"):D.Description,14,ColdSteelUI::TextSecondary,PageWidth-76)];
-    }
     const bool Compact=PageWidth<440;
     const TCHAR* Tags=Id==TEXT("dodge")?TEXT("身法 / 位移 / 主动"):(Id==TEXT("dexterousHands")?TEXT("敏捷 / 换弹 / 被动"):TEXT("步枪 / 远程 / 被动"));
     const FSlateBrush* SkillIcon=Id==TEXT("dodge")?&DodgeIconBrush:(Id==TEXT("dexterousHands")?&DexterousHandsIconBrush:&IconBrush);
@@ -261,6 +249,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::Overview(bool bCompact,FName Id)
     if(Id==TEXT("dashAttack")){Tags=TEXT("近战 / 下劈 / 被动");SkillIcon=&DashAttackIconBrush;}
     if(Id==TEXT("whirlwind")){Tags=TEXT("近战 / 范围 / 主动");SkillIcon=&WhirlwindIconBrush;}
     if(Id==TEXT("heavyStrike")){Tags=TEXT("近战 / 蓄力 / 主动");SkillIcon=&HeavyIconBrush;}
+    if(Id==TEXT("swordUppercut")){Tags=TEXT("持剑 / 上挑 / 主动");SkillIcon=&UppercutIconBrush;}
     if(Id==TEXT("quickCombat")){Tags=TEXT("近战 / 打击 / 主动");SkillIcon=&QuickCombatIconBrush;}
     if(Additional(Id))Tags=TEXT("武器精通 / 被动");
     auto LevelLabel=[this,Id](){return SNew(STextBlock).Text_Lambda([this,Id]{return FText::FromString(FString::Printf(TEXT("Lv.%d / %d"),Progress(Id).Level,Definition(Id).MaxLevel));})
@@ -392,6 +381,23 @@ FString UColdSteelSkillPage::EffectValue(int32 Index,bool bNext) const
         if(Index==4)return FString::Printf(TEXT("%.2f 米"),C.RadiusCM/100.f);
         if(Index==5)return FString::Printf(TEXT("%.2f 米"),C.KnockbackCM/100.f);
         return FString::Printf(TEXT("%.1f 秒"),C.StunSeconds);
+    }
+    if(SelectedSkill==TEXT("swordUppercut"))
+    {
+        const int32 L=Progress(SelectedSkill).Level+(bNext?1:0);
+        const auto E=Model->MasteryEffect(SelectedSkill,L);
+        if(Index==0)return FString::Printf(TEXT("×%.2f"),SwordUppercut::HeavyDamageScale*E.HeavyMultiplier);
+        if(Index==1)return FString::Printf(TEXT("+%d"),E.Strength);
+        if(Index==2)return FString::Printf(TEXT("%d"),ColdSteelSkills::ExperienceRequired(Definition(SelectedSkill),L));
+        if(Index==3)return FString::Printf(TEXT("%.0f"),Definition(SelectedSkill).UppercutStaminaCost);
+        if(Index==4)return FString::Printf(TEXT("%.1f 秒"),Definition(SelectedSkill).UppercutCooldownSeconds);
+        if(Index==5)
+        {
+            const double Reach=ColdSteelMelee::UppercutReachCM(Model,L);
+            return Reach>0.?FString::Printf(TEXT("%.2f 米"),Reach/100.):TEXT("需装备剑");
+        }
+        if(Index==6)return FString::Printf(TEXT("×%.3f"),E.UppercutReachMultiplier);
+        return TEXT("—");
     }
     if(SelectedSkill==TEXT("heavyStrike"))
     {
@@ -562,6 +568,14 @@ TSharedRef<SWidget> UColdSteelSkillPage::TrainingCard()
         AddReward(TEXT("同次命中至少 2 个目标（额外一次）"),D.MultiHitExperience);
         AddReward(TEXT("每直接击杀一个目标"),D.KillExperience);
         Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Paragraph(TEXT("沿用原风车：命中人数×1 + 多目标额外3 + 击杀人数×15，可叠加。每个目标每次只计一次，旋转结束统一结算；挥空不加经验。只计命中前存活的可修炼目标，不计尸体、召唤物或后续持续伤害击杀。升级所需经验=100×当前等级，最高20级。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
+    }
+    else if(SelectedSkill==TEXT("swordUppercut"))
+    {
+        AddReward(TEXT("成功释放上挑"),D.UseExperience);
+        AddReward(TEXT("命中存活的可修炼目标"),D.HitExperience);
+        AddReward(TEXT("直接击杀可修炼目标"),D.KillExperience);
+        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Paragraph(
+            FString::Printf(TEXT("每次只领取最高达成档，释放、命中、击杀不叠加。单目标判定，同一目标只计一次；不计尸体、召唤物和后续持续伤害击杀。释放前取消无经验，挥空获得释放经验。升级所需经验为当前等级×%d，最高%d级。"),D.ExperiencePerLevel,D.MaxLevel),12,ColdSteelUI::TextTertiary,PageWidth-76)];
     }
     else if(SelectedSkill==TEXT("heavyStrike"))
     {
@@ -748,21 +762,28 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
                 .OnClicked_Lambda([this]{GoBack();return FReply::Handled();})[Label(TEXT("返回技能列表"),14,ColdSteelUI::TextPrimary)]]];
         SAssignNew(Scroll,SScrollBox).AllowOverscroll(EAllowOverscroll::No);
         Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[SNew(SBorder).BorderImage(&CardBrush).Padding(16/Scale)[Overview(false,SelectedSkill)]];
-        if(SelectedSkill==TEXT("swordUppercut"))
-        {
-            Scroll->AddSlot().Padding(16/Scale,4/Scale,16/Scale,12/Scale)
-                [Paragraph(TEXT("在技能列表把上挑拖到 Q/E/X/1–4 任意快捷槽，装备剑后按绑定键使用。每次播放完整蓄势、斜挑、带出和回位，结束后即可再次触发。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)
-                [Paragraph(TEXT("本阶段不结算伤害，不扣体力或魔法，不设额外冷却，也不提供等级与修炼项目。快捷栏绑定照常保存。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
-            Column->AddSlot().FillHeight(1)[Scroll.ToSharedRef()];
-            return Column;
-        }
         if(PageWidth>=480)Scroll->AddSlot().Padding(28/Scale,4/Scale)[SNew(SHorizontalBox)
             +SHorizontalBox::Slot().FillWidth(1)[Label(TEXT("技能收益"),16,ColdSteelUI::TextPrimary)]
             +SHorizontalBox::Slot().AutoWidth()[SNew(SBox).WidthOverride(100/Scale).HAlign(HAlign_Right)[Label(TEXT("当前等级"),12,ColdSteelUI::TextSecondary)]]
             +SHorizontalBox::Slot().AutoWidth()[SNew(SBox).WidthOverride(100/Scale).HAlign(HAlign_Right)[Label(TEXT("下一等级"),12,ColdSteelUI::Success)]]];
         else Scroll->AddSlot().Padding(28/Scale,4/Scale)[Label(TEXT("技能收益"),16,ColdSteelUI::TextPrimary)];
-        if(SelectedSkill==TEXT("heavyStrike"))
+        if(SelectedSkill==TEXT("swordUppercut"))
+        {
+            Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("基础伤害倍率"),0)];
+            Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("力量加成"),1)];
+            Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("升级所需修炼"),2)];
+            Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("释放体力消耗"),3)];
+            Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("基础冷却"),4)];
+            Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("判定距离上限"),5)];
+            Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("距离倍率（相对突刺）"),6)];
+            Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("持剑时按绑定快捷键使用，动作结束且冷却完成后可再次发动。上挑按自身等级套用重击倍率，武器重击改造结算后再乘70%。强化突刺型前方判定，每次命中一个目标；力量常驻。实际出手时一次扣除体力并开始冷却；蓄势取消不扣费、不进入冷却，出手时体力不足则取消。体力消耗和基础冷却不随等级变化。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+            const auto& UppercutDefinition=Definition(SelectedSkill);
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(FString::Printf(
+                TEXT("判定距离＝当前兵器突刺距离×%.2f×［1＋%.2f×（等级−1）］。探针与判定宽度提高%.0f%%，升级只继续延长前向距离。距离数值为上限，仍须剑刃扫掠接触且无遮挡；前踏位移另计。"),
+                UppercutDefinition.UppercutRangeMultiplier,UppercutDefinition.UppercutReachGrowthPerLevel,(UppercutDefinition.UppercutRangeMultiplier-1.f)*100.f),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+        }
+        else if(SelectedSkill==TEXT("heavyStrike"))
         {
             Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("重击伤害倍率"),0)];
             Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("所需蓄力时间"),1)];

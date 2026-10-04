@@ -5,6 +5,7 @@
 #include "../Survival/FPSSurvivalComponent.h"
 #include "../Skills/ColdSteelSkillTypes.h"
 #include "../Skills/ColdSteelSkillRules.h"
+#include "../Skills/SwordUppercutTuning.h"
 #include "../Skills/WhirlwindTypes.h"
 #include "../Skills/FPSFireballComponent.h"
 #include "../Skills/FPSFireballProjectile.h"
@@ -365,6 +366,7 @@ static void NormalizeProfileForCompare(FColdSteelProfile& P)
     P.LightningCooldown = P.LightningCooldownDuration = 0.f;
     P.HolyLightCooldown = P.HolyLightCooldownDuration = 0.f;
     P.WhirlwindCooldown = P.WhirlwindCooldownDuration = 0.f;
+    P.SwordUppercutCooldown = P.SwordUppercutCooldownDuration = 0.f;
     P.QuickCombatCooldown = P.QuickCombatCooldownDuration = 0.f;
     P.MeteorCooldown = P.MeteorCooldownDuration = 0.f;
     P.FlameArmorCooldown = P.FlameArmorCooldownDuration = 0.f;
@@ -583,7 +585,9 @@ bool AColdSteelPlayerState::ValidateHitReport(const FColdSteelNetHitReport& Repo
         const float OriginDrift = FVector::Dist(Shooter->GetActorLocation(), FVector(Report.AimOrigin));
         if (OriginDrift > 600.f) { OutReason = TEXT("origin drift"); return false; }
     }
-    const float MaxRange = bUnarmed?UnarmedPunch::ReachCM+120.f:Shooter->TraceDistance*1.25f;
+    float MaxRange = bUnarmed?UnarmedPunch::ReachCM+120.f:Shooter->TraceDistance*1.25f;
+    if(Report.AttackMeta==SwordUppercut::AttackMeta&&OutDeclaredItem&&ColdSteelInventory::IsTwoHandedSword(*OutDeclaredItem))
+        MaxRange=static_cast<float>(ColdSteelMelee::UppercutReachCM(ShadowModel))*1.25f;
     if (FVector::Dist(Shooter->GetActorLocation(), FVector(Report.ImpactPoint)) > MaxRange)
     { OutReason = TEXT("range"); return false; }
     const float Range = FVector::Dist(FVector(Report.AimOrigin), FVector(Report.ImpactPoint));
@@ -668,6 +672,9 @@ float AColdSteelPlayerState::ComputeServerDamage(AFPSGAMECharacter* Shooter,
     {
         // 剑挥砍：面板 × 轻重击/连段倍率——倍率函数与客户端同一套（MeleeModifiers 服务端可算）。
         const auto Melee = ColdSteelMelee::Evaluate(*Item, ShadowModel);
+        // Uppercut uses its own level while retaining the complete heavy formula.
+        if(Report.AttackMeta==0x14)
+            return Melee.Damage*ColdSteelMelee::UppercutMultiplier(ShadowModel,Melee.Modifiers);
         const int32 Stage = Report.AttackMeta & 0x0F;
         const double Mult = (Report.AttackMeta & 0x10)
             ? Melee.Modifiers.HeavyMultiplier(ShadowModel->MasteryEffect(TEXT("heavyStrike")).HeavyMultiplier)

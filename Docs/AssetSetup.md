@@ -526,3 +526,8 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 公开原创建模/PBR/组装配方、参数、容器通用运行支持和说明；UE 包、Blender/FBX、生成贴图、完整运行快照、第三方源与恢复包留在本机。钢、橡胶、描边材质继续引用本地员工生活区已保存资产；线路测试图的宝箱碰撞蓝图继续引用本地 StationWorkshop，正式运行不依赖该预览蓝图。恢复配方前需具备这些 Content 依赖，不手写资产安装成功回执。
 
 按用户要求保留医院、车站和焚化炉线路测试地图；只归档本轮废案。详情及公开归档摘要见 [采用与发布](Gameplay/incinerator-theme-publication-20261003.md) 和 [归档清单](Gameplay/incinerator-theme-trash-20261003.json)。本轮后台保存完成，未运行游戏、PIE、渲染或测试。
+
+
+## 上挑与四枚技能图标（2026-10-04）
+
+当前动作源为 GripRecoveryV15，运行技能已接入 V17–V20 的伤害、修炼、消耗冷却、范围成长与前踏时序。上挑、重击、冲刺攻击、旋风采用同系列圆角方框人物图标。414 份废案已归档；当前合法骨架输入、密集姿态、图像和 UE 包仍在本机。作者入口、恢复顺序、历史构建与本轮未测试边界见 [上挑整理发布](Weapons/sword-uppercut-publication-20261004.md)。本轮公共源码按独立上挑整理，不夹带共享文件内其他任务的普通第三段、削韧及其他增量。

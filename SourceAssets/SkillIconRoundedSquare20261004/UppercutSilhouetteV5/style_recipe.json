@@ -1,0 +1,29 @@
+{
+  "status": "selected_and_deployed",
+  "skill": "swordUppercut",
+  "image": "sword_uppercut_silhouette_v5.png",
+  "generation_mode": "built_in_imagegen_edit",
+  "character": {
+    "identity": "faceless neutral athletic figure",
+    "costume": "plain dark training tunic, trousers, boots and wrist bands",
+    "omit": [
+      "face",
+      "hair",
+      "helmet",
+      "cape",
+      "ornate armor",
+      "accessories"
+    ],
+    "pose": "two-handed rising longsword slash in forward lunge"
+  },
+  "value_hierarchy": [
+    "ivory-silver sword and rising arc",
+    "dark gray figure with restrained rim light",
+    "near-black charcoal background"
+  ],
+  "frame_reference": "sword_uppercut_silhouette_v5.png",
+  "production_icon_replaced": true,
+  "reusable_3d_model_created": false,
+  "game_tested": false,
+  "historical_frame_reference": "trash/sword-uppercut-retired-20261004/SourceAssets/SkillIconRoundedSquare20261004/UppercutSwordV4/sword_uppercut_cold_steel.png"
+}

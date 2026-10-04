@@ -1,0 +1,344 @@
+[
+  {
+    "source": "SourceAssets/SwordUppercut20261003/ArrowStepV3",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/ArrowStepV3",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/author.log",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/author.log",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/author_uppercut.py",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/author_uppercut.py",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/authoring.json",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/authoring.json",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/BackhandV6",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/BackhandV6",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/build_skill.ps1",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/build_skill.ps1",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/build_skill_game.ps1",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/build_skill_game.ps1",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/ChargedSnapV9",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/ChargedSnapV9",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/ForwardLeverV7",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/ForwardLeverV7",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/Icon",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/Icon",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/IdleLeftV11",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/IdleLeftV11",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/inputs.json",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/inputs.json",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/install.log",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/install.log",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/install_console.log",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/install_console.log",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/install_receipt.json",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/install_receipt.json",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/install_uppercut.py",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/install_uppercut.py",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/LeftForwardGripV8",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/LeftForwardGripV8",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/LeftOverhandV10",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/LeftOverhandV10",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/livecoding_request.json",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/livecoding_request.json",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/livecoding_schema_20261003.json",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/livecoding_schema_20261003.json",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/LongGrip",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/LongGrip",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/LowerRightV4",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/LowerRightV4",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/OffscreenRiseV12",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/OffscreenRiseV12",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/read_inputs.log",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/read_inputs.log",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/read_inputs.py",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/read_inputs.py",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/read_inputs_console.log",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/read_inputs_console.log",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/read_inputs_result.txt",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/read_inputs_result.txt",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/ReferenceRevision",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/ReferenceRevision",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/skill-FPSGAME-20261003-104200.json",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/skill-FPSGAME-20261003-104200.json",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/skill-FPSGAME-20261003-104200.log",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/skill-FPSGAME-20261003-104200.log",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/skill-FPSGAMEEditor-20261003-104200.json",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/skill-FPSGAMEEditor-20261003-104200.json",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/skill-FPSGAMEEditor-20261003-104200.log",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/skill-FPSGAMEEditor-20261003-104200.log",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/skill_build_console.log",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/skill_build_console.log",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/skill_build_receipt.json",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/skill_build_receipt.json",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/skill_game_build.json",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/skill_game_build.json",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/skill_game_build.log",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/skill_game_build.log",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/skill_game_build_console.log",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/skill_game_build_console.log",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/skill_game_build_receipt.json",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/skill_game_build_receipt.json",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/Standard",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/Standard",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/StrideRhythmV14",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/StrideRhythmV14",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/SupportedFinishV13",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/SupportedFinishV13",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/ThrustGripV5",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/ThrustGripV5",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/toolsets.txt",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/toolsets.txt",
+    "reason": "Superseded by the retained GripRecoveryV15 authoring and current skill entry.",
+    "retained": "SourceAssets/SwordUppercut20261003/GripRecoveryV15"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261003/GripRecoveryV15/PreviousAssets",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261003/GripRecoveryV15/PreviousAssets",
+    "reason": "Superseded candidate, rollback package, or unused old rhythm header.",
+    "retained": "GripRecoveryV15 / UppercutSilhouetteV5 / MartialSilhouetteFamilyV1 / RuneSwordUppercutMotion.h"
+  },
+  {
+    "source": "SourceAssets/SkillIconRoundedSquare20261004/CandidatesV1",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SkillIconRoundedSquare20261004/CandidatesV1",
+    "reason": "Superseded candidate, rollback package, or unused old rhythm header.",
+    "retained": "GripRecoveryV15 / UppercutSilhouetteV5 / MartialSilhouetteFamilyV1 / RuneSwordUppercutMotion.h"
+  },
+  {
+    "source": "SourceAssets/SkillIconRoundedSquare20261004/UppercutRedesignV3",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SkillIconRoundedSquare20261004/UppercutRedesignV3",
+    "reason": "Superseded candidate, rollback package, or unused old rhythm header.",
+    "retained": "GripRecoveryV15 / UppercutSilhouetteV5 / MartialSilhouetteFamilyV1 / RuneSwordUppercutMotion.h"
+  },
+  {
+    "source": "SourceAssets/SkillIconRoundedSquare20261004/UppercutSwordV4",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SkillIconRoundedSquare20261004/UppercutSwordV4",
+    "reason": "Superseded candidate, rollback package, or unused old rhythm header.",
+    "retained": "GripRecoveryV15 / UppercutSilhouetteV5 / MartialSilhouetteFamilyV1 / RuneSwordUppercutMotion.h"
+  },
+  {
+    "source": "SourceAssets/SkillIconRoundedSquare20261004/DeploymentV1/PreviousIcons",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SkillIconRoundedSquare20261004/DeploymentV1/PreviousIcons",
+    "reason": "Superseded candidate, rollback package, or unused old rhythm header.",
+    "retained": "GripRecoveryV15 / UppercutSilhouetteV5 / MartialSilhouetteFamilyV1 / RuneSwordUppercutMotion.h"
+  },
+  {
+    "source": "Source/FPSGAME/Weapons/RuneSwordUppercutRhythm.h",
+    "destination": "trash/sword-uppercut-retired-20261004/Source/FPSGAME/Weapons/RuneSwordUppercutRhythm.h",
+    "reason": "Superseded candidate, rollback package, or unused old rhythm header.",
+    "retained": "GripRecoveryV15 / UppercutSilhouetteV5 / MartialSilhouetteFamilyV1 / RuneSwordUppercutMotion.h"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261004/FeelV16/build_uppercut.ps1",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261004/FeelV16/build_uppercut.ps1",
+    "reason": "Superseded build wrapper; historical receipts remain local.",
+    "retained": "SourceAssets/SwordUppercut20261004/LungeContactV20/build_uppercut.ps1"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261004/FeelV16/finish_build.ps1",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261004/FeelV16/finish_build.ps1",
+    "reason": "Superseded build wrapper; historical receipts remain local.",
+    "retained": "SourceAssets/SwordUppercut20261004/LungeContactV20/build_uppercut.ps1"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261004/CombatV17/build_uppercut.ps1",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261004/CombatV17/build_uppercut.ps1",
+    "reason": "Superseded build wrapper; historical receipts remain local.",
+    "retained": "SourceAssets/SwordUppercut20261004/LungeContactV20/build_uppercut.ps1"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261004/CombatV17/finish_build.ps1",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261004/CombatV17/finish_build.ps1",
+    "reason": "Superseded build wrapper; historical receipts remain local.",
+    "retained": "SourceAssets/SwordUppercut20261004/LungeContactV20/build_uppercut.ps1"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261004/CostCooldownV18/build_uppercut.ps1",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261004/CostCooldownV18/build_uppercut.ps1",
+    "reason": "Superseded build wrapper; historical receipts remain local.",
+    "retained": "SourceAssets/SwordUppercut20261004/LungeContactV20/build_uppercut.ps1"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261004/CostCooldownV18/finish_build.ps1",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261004/CostCooldownV18/finish_build.ps1",
+    "reason": "Superseded build wrapper; historical receipts remain local.",
+    "retained": "SourceAssets/SwordUppercut20261004/LungeContactV20/build_uppercut.ps1"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261004/RangeGrowthV19/build_uppercut.ps1",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261004/RangeGrowthV19/build_uppercut.ps1",
+    "reason": "Superseded build wrapper; historical receipts remain local.",
+    "retained": "SourceAssets/SwordUppercut20261004/LungeContactV20/build_uppercut.ps1"
+  },
+  {
+    "source": "SourceAssets/SwordUppercut20261004/RangeGrowthV19/finish_build.ps1",
+    "destination": "trash/sword-uppercut-retired-20261004/SourceAssets/SwordUppercut20261004/RangeGrowthV19/finish_build.ps1",
+    "reason": "Superseded build wrapper; historical receipts remain local.",
+    "retained": "SourceAssets/SwordUppercut20261004/LungeContactV20/build_uppercut.ps1"
+  }
+]

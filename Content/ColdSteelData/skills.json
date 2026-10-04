@@ -2,8 +2,19 @@
   "schemaVersion": 9,
   "swordUppercut": {
     "name": "上挑",
-    "description": "武器与双臂先向右下移出视野蓄力，释放时前踏一步，伴随挥剑声快速向前上方劈出，以剑尖向上、剑柄在下且略向前倾的姿态收势，再缓慢回到待机。持剑时按绑定键使用，完整动作结束即可再次使用。当前开放动作表现，伤害数值和修炼后续设置。",
-    "icon": "Skills/sword_uppercut_cold_steel.png"
+    "description": "持剑向右下蓄势后前踏上挑，伴随空间扰动。突刺型单目标判定范围提升25%，判定距离在此基础上每级再增加1%；按上挑自身等级计算同级重击伤害的70%，每级提升倍率和力量。实际释放消耗25体力，并开始8秒冷却；释放、命中、击杀只取最高修炼档。",
+    "icon": "Skills/sword_uppercut_cold_steel.png",
+    "experiencePerLevel": 300,
+    "strengthPerLevel": 1,
+    "heavyMultiplierBase": 2.5,
+    "heavyMultiplierPerLevel": 0.1,
+    "staminaCost": 25,
+    "cooldownSeconds": 8,
+    "rangeMultiplier": 1.25,
+    "reachGrowthPerLevel": 0.01,
+    "useExperience": 1,
+    "hitExperience": 5,
+    "killExperience": 12
   },
   "runeBlades": {
     "name": "环绕飞剑",
