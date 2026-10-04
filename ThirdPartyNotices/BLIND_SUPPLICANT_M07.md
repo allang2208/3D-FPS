@@ -7,7 +7,9 @@
 - 用户指定的 Yummy Games 视频 `https://www.youtube.com/watch?v=dJ-Ak3X7tiM` 的 2:00–2:05 仅用于本机姿态研究。未取得其付费原始动画轨道；V21 是依据视频及 M-07 比例编排的候选，不是原动画直接重定向或精确动捕。视频、GIF、联系表及抽帧保持本机。
 - V19 使用 Mesh2Motion 的 CC0 `human-base-animations.glb` 作普通 Walk／Jog 基础，其实际固定版本、来源及许可记录留在 `VideoLocomotionV19/Donor/`。本次仍只发布制作配方，不捎带缓存的第三方程序和素材。
 - 魔法及声音依赖现有玩家技能执行器、合法本机 Niagara／材质／音频资源；具体安装依赖由本机交付记录维护，不随 C++ 或脚本公开其资源包。
+- V27 当前近战基础来自本机 `ZombieAnimationPack/anim_Attack_D`，V28 施法基础来自本机 Vefects `SnappySpell_Vexa`；保留来源名及原创适配代码，原动作、重定向密集采样、Blender／FBX／UE 成品均不随此次公开发布。
+- V36／V38 背膜复用本工程当前 `WitchRebuilt_LowerDrape07` 的衣物配置与稳定显示捕获实现；巫婆模型和布料资产仍依赖本机合法资源。公开配置思路与原创代码不等于公开其几何资源。
 
 商业使用许可、用户持有素材与原文件公开再分发是不同边界。公开仓库不包含模型、贴图、Blender／FBX／UE 包、密集逐帧数据、服务响应、签名下载地址、凭据、DLL、日志或 `trash`。
 
-当前资产、保留制作输入、退役文件及未测试状态见 `Docs/Monsters/BlindSupplicantM07Publication20261003.md` 和 `SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/`。历史源路径若已退役，通过归档清单查找，不应重新运行旧接入脚本覆盖当前角色。
+当前资产、保留制作输入、退役文件及未测试状态见 `Docs/Monsters/BlindSupplicantM07Publication20261004.md` 和 `SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261004/`。20261003 记录保留为 V21 阶段历史；历史源路径若已退役，通过两次归档清单查找，不应重新运行旧接入脚本覆盖当前角色。

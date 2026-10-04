@@ -1,5 +1,7 @@
 # M-07 暂停、归档与源码发布
 
+后续状态已由 [2026-10-04 V38 整理发布](BlindSupplicantM07Publication20261004.md) 接替。本文保留 V21 阶段历史；V21 独立制作物现已归档，当前版本和恢复依赖以新记录为准。
+
 2026-10-03。用户要求先保持当前版本、归档废案、沉淀 SKILL 并推送。工作／Git 根为 `D:/FPS3D/FPSGAME`，授权远端 `https://github.com/allang2208/3D-FPS.git` 的 `main`；遵守 WORKFLOW 第 4、5、6、7、8 节和并行发布规则。
 
 ## 当前保留状态

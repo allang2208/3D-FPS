@@ -1,0 +1,70 @@
+{
+  "scope": "M07 V38 publication; local payloads are not redistributed",
+  "legacy_index": "Publication20261003/retained-recovery-dependencies.json",
+  "legacy_override": "FullReferenceGaitV21 is now retired; older V06-V20 source dependencies remain",
+  "directories": [
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/HeavyGaitV22",
+      "role": "Original accepted leg/body timing; direct V23 source and shared helpers"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/InwardArmSwingV23",
+      "role": "Direct V25 source; palm orientation and opposite-step swing"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/ClearanceSweepV25",
+      "role": "Current movement and clearance profile; mixed master also contains retired sweeps"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27",
+      "role": "Current melee foundation, native Attack_D and accepted first-second fitting parameters"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/LibraryCastV28",
+      "role": "Native SnappySpell_Vexa retarget and direct V30 casting input"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/DirectionalDeathV29",
+      "role": "Current eight directional death clips and editable source"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/SupportHoverV30",
+      "role": "Current floating cast and direct V32 source; mixed master includes superseded leg solution"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/IdleLegSupportV32",
+      "role": "Current melee with idle-calibrated leg support"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/RecoverMembraneV33",
+      "role": "Retain transition foot samples/diagnosis; old package restoration tools retired"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneSkinV35",
+      "role": "Current lower-membrane weights and direct V36/V38 topology/rig inputs"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/WitchClothV36",
+      "role": "Direct V38 continuous-proxy source; old shoulder eligibility is superseded"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/BodyClothMaterialV37",
+      "role": "Saved Clothing material usage fix and recovery recipe"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/ShoulderClothV38",
+      "role": "Current editable display/proxy, shoulder capture, saved delivery and distance LODs"
+    },
+    {
+      "path": "SourceAssets/BlindSupplicantM07Meshy20261001/MeleeSpeed20261003",
+      "role": "Current palm-to-claw damage capsule, 63/129 movement and source-speed contract"
+    }
+  ],
+  "explicit_required_file": "LibrarySweepV27/RecoveryFix/accepted_motion_manifest_v27.json",
+  "mixed_masters_retained": [
+    "ClearanceSweepV25",
+    "SupportHoverV30"
+  ],
+  "content_moved": false,
+  "content_reason": "Keep native fallbacks and package dependencies; do not move uassets outside UE package management"
+}

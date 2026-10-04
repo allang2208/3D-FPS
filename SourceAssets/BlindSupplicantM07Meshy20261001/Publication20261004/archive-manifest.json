@@ -1,0 +1,939 @@
+{
+  "task": "M07 recoverable publication archive",
+  "archive_root": "D:\\FPS3D\\FPSGAME\\trash\\blind-supplicant-m07-20261004",
+  "complete": true,
+  "file_count": 93,
+  "bytes": 1419279812,
+  "files": [
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/ue_full_reference_gait_delivery_v21.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/ue_full_reference_gait_delivery_v21.json",
+      "bytes": 19301,
+      "sha256": "16875f5c85b7a879e43321f2de0b52fc074958a4b1866d569eb3816374534368",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "HeavyGaitV22 -> InwardArmSwingV23 -> ClearanceSweepV25 movement",
+      "readback_sha256": "16875f5c85b7a879e43321f2de0b52fc074958a4b1866d569eb3816374534368",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/Motion/authored_chase_production_record_v21.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/Motion/authored_chase_production_record_v21.json",
+      "bytes": 162591,
+      "sha256": "0a25fda0a566ff9baf31a756bd44a0cf74d02876eb62f7aef200f98fea038f6b",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "HeavyGaitV22 -> InwardArmSwingV23 -> ClearanceSweepV25 movement",
+      "readback_sha256": "0a25fda0a566ff9baf31a756bd44a0cf74d02876eb62f7aef200f98fea038f6b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/Motion/authored_slowwalk_production_record_v21.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/Motion/authored_slowwalk_production_record_v21.json",
+      "bytes": 203327,
+      "sha256": "fe566040502b5bfb0ac8820eebd510c69732aba3e2f08547f1abdf23c44bf125",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "HeavyGaitV22 -> InwardArmSwingV23 -> ClearanceSweepV25 movement",
+      "readback_sha256": "fe566040502b5bfb0ac8820eebd510c69732aba3e2f08547f1abdf23c44bf125",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/Motion/A_M07_Chase.fbx",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/Motion/A_M07_Chase.fbx",
+      "bytes": 746780,
+      "sha256": "cb2283d3b62dc6a8f4d32410b863ec34629d552feac4ec7dae9a2535dc3c17e4",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "HeavyGaitV22 -> InwardArmSwingV23 -> ClearanceSweepV25 movement",
+      "readback_sha256": "cb2283d3b62dc6a8f4d32410b863ec34629d552feac4ec7dae9a2535dc3c17e4",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/Motion/A_M07_SlowWalk.fbx",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/Motion/A_M07_SlowWalk.fbx",
+      "bytes": 804412,
+      "sha256": "24628acfeea66ec3e2a0b11c16b4fcf8bc3737d200457edc40c51d68d0a588b7",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "HeavyGaitV22 -> InwardArmSwingV23 -> ClearanceSweepV25 movement",
+      "readback_sha256": "24628acfeea66ec3e2a0b11c16b4fcf8bc3737d200457edc40c51d68d0a588b7",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/Motion/full_reference_gait_manifest_v21.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/Motion/full_reference_gait_manifest_v21.json",
+      "bytes": 62082,
+      "sha256": "d0bbcd5e08389d1033276e5c8b055968d21f4b95497bf265d06439d417d362ff",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "HeavyGaitV22 -> InwardArmSwingV23 -> ClearanceSweepV25 movement",
+      "readback_sha256": "d0bbcd5e08389d1033276e5c8b055968d21f4b95497bf265d06439d417d362ff",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/Motion/M07_Original_FullReferenceGait_V21.blend",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/FullReferenceGaitV21/Motion/M07_Original_FullReferenceGait_V21.blend",
+      "bytes": 125504376,
+      "sha256": "aea27c4f9a48ad51859997a03ac6cc00281f0735c275dbdc87d5bc4abe29ebb4",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "HeavyGaitV22 -> InwardArmSwingV23 -> ClearanceSweepV25 movement",
+      "readback_sha256": "aea27c4f9a48ad51859997a03ac6cc00281f0735c275dbdc87d5bc4abe29ebb4",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/FlowCastV24/ue_flow_cast_delivery_v24.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/FlowCastV24/ue_flow_cast_delivery_v24.json",
+      "bytes": 3560,
+      "sha256": "280aaf9a03e4b8d02d9de443779079f47c22a680758d5db93e2f92e741f32d59",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "LibraryCastV28 -> SupportHoverV30 casting",
+      "readback_sha256": "280aaf9a03e4b8d02d9de443779079f47c22a680758d5db93e2f92e741f32d59",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/FlowCastV24/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/FlowCastV24/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 31458,
+      "sha256": "0ea9697fc9ede4e6232b6795abd058ccd2d5eec921d5f3f58a5d26da341fc71c",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "LibraryCastV28 -> SupportHoverV30 casting",
+      "readback_sha256": "0ea9697fc9ede4e6232b6795abd058ccd2d5eec921d5f3f58a5d26da341fc71c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/FlowCastV24/Motion/A_M07_MagicGather.fbx",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/FlowCastV24/Motion/A_M07_MagicGather.fbx",
+      "bytes": 701356,
+      "sha256": "48d45ffabfb8dcf30704902ee6a0864a1ca5bfe3c469415c7ed50b631d66ba0f",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "LibraryCastV28 -> SupportHoverV30 casting",
+      "readback_sha256": "48d45ffabfb8dcf30704902ee6a0864a1ca5bfe3c469415c7ed50b631d66ba0f",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/FlowCastV24/Motion/A_M07_MagicRelease.fbx",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/FlowCastV24/Motion/A_M07_MagicRelease.fbx",
+      "bytes": 707756,
+      "sha256": "2f7c532f5ef8537fab90c6f62c29e33d5fb6e3254b08426efe3797ab266c65fc",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "LibraryCastV28 -> SupportHoverV30 casting",
+      "readback_sha256": "2f7c532f5ef8537fab90c6f62c29e33d5fb6e3254b08426efe3797ab266c65fc",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/FlowCastV24/Motion/flow_cast_manifest_v24.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/FlowCastV24/Motion/flow_cast_manifest_v24.json",
+      "bytes": 3986,
+      "sha256": "4ddd1252c88514d5b32a4468953db611769bdf0bdfce898a9b1e5216d88e30ee",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "LibraryCastV28 -> SupportHoverV30 casting",
+      "readback_sha256": "4ddd1252c88514d5b32a4468953db611769bdf0bdfce898a9b1e5216d88e30ee",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/FlowCastV24/Motion/M07_Original_FlowCast_V24.blend",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/FlowCastV24/Motion/M07_Original_FlowCast_V24.blend",
+      "bytes": 126718006,
+      "sha256": "ab2f01956adca2874ca470388e6fec9f02f1e49c175977726ae8f42dabb17921",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "LibraryCastV28 -> SupportHoverV30 casting",
+      "readback_sha256": "ab2f01956adca2874ca470388e6fec9f02f1e49c175977726ae8f42dabb17921",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/ReferenceChainSweepV26/ue_reference_chain_sweep_delivery_v26.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/ReferenceChainSweepV26/ue_reference_chain_sweep_delivery_v26.json",
+      "bytes": 4058,
+      "sha256": "9bd0f45ceb6916c8b3470e1dd7abba5bde033442c61eec977475ef981afceac0",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "LibrarySweepV27 -> SupportHoverV30 -> IdleLegSupportV32 melee",
+      "readback_sha256": "9bd0f45ceb6916c8b3470e1dd7abba5bde033442c61eec977475ef981afceac0",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/ReferenceChainSweepV26/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/ReferenceChainSweepV26/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 42419,
+      "sha256": "99bf669614bf4a7ca840ee05463531566321d7f29315d1cbc814712dcf273821",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "LibrarySweepV27 -> SupportHoverV30 -> IdleLegSupportV32 melee",
+      "readback_sha256": "99bf669614bf4a7ca840ee05463531566321d7f29315d1cbc814712dcf273821",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/ReferenceChainSweepV26/Motion/A_M07_SweepLeft.fbx",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/ReferenceChainSweepV26/Motion/A_M07_SweepLeft.fbx",
+      "bytes": 753756,
+      "sha256": "52c50476c176603dd293d8427d23c35b882e74722afbbd7b737b0ba74863897a",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "LibrarySweepV27 -> SupportHoverV30 -> IdleLegSupportV32 melee",
+      "readback_sha256": "52c50476c176603dd293d8427d23c35b882e74722afbbd7b737b0ba74863897a",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/ReferenceChainSweepV26/Motion/A_M07_SweepRight.fbx",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/ReferenceChainSweepV26/Motion/A_M07_SweepRight.fbx",
+      "bytes": 771836,
+      "sha256": "74e3eb79d88b44d7d826e4f852c86156d483aea4b597d2930d921fa69f52913d",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "LibrarySweepV27 -> SupportHoverV30 -> IdleLegSupportV32 melee",
+      "readback_sha256": "74e3eb79d88b44d7d826e4f852c86156d483aea4b597d2930d921fa69f52913d",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/ReferenceChainSweepV26/Motion/M07_Original_ReferenceChainSweep_V26.blend",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/ReferenceChainSweepV26/Motion/M07_Original_ReferenceChainSweep_V26.blend",
+      "bytes": 126778011,
+      "sha256": "6e03208226842217e99922dcd26687d38ce18c465e437f6eec183a29e019af8b",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "LibrarySweepV27 -> SupportHoverV30 -> IdleLegSupportV32 melee",
+      "readback_sha256": "6e03208226842217e99922dcd26687d38ce18c465e437f6eec183a29e019af8b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/ReferenceChainSweepV26/Motion/reference_chain_sweep_manifest_v26.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/ReferenceChainSweepV26/Motion/reference_chain_sweep_manifest_v26.json",
+      "bytes": 4495,
+      "sha256": "fac6815994b4746b038c68dd9ee768ac563b32af9ef12060efaae6627013a981",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "LibrarySweepV27 -> SupportHoverV30 -> IdleLegSupportV32 melee",
+      "readback_sha256": "fac6815994b4746b038c68dd9ee768ac563b32af9ef12060efaae6627013a981",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/active_config_types_v31.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/active_config_types_v31.json",
+      "bytes": 2435,
+      "sha256": "acd8e48583156e81fba9c3c6e54026c98bcecdfe3f0136963a719f93a65e85a9",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "MembraneSkinV35 -> WitchClothV36 -> ShoulderClothV38",
+      "readback_sha256": "acd8e48583156e81fba9c3c6e54026c98bcecdfe3f0136963a719f93a65e85a9",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/active_membrane_before_v31.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/active_membrane_before_v31.json",
+      "bytes": 9108,
+      "sha256": "e543f3b5eb081bfd228ecc3fc305e4b71ce804c78c2851e18ffbcc006605d1ef",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "MembraneSkinV35 -> WitchClothV36 -> ShoulderClothV38",
+      "readback_sha256": "e543f3b5eb081bfd228ecc3fc305e4b71ce804c78c2851e18ffbcc006605d1ef",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/source_membrane_diagnosis_v31.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/source_membrane_diagnosis_v31.json",
+      "bytes": 16364,
+      "sha256": "43ca5990260ee0f7421e69a40b8488b28e21cba762a70f0e50e5da5cd69ad4ff",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "MembraneSkinV35 -> WitchClothV36 -> ShoulderClothV38",
+      "readback_sha256": "43ca5990260ee0f7421e69a40b8488b28e21cba762a70f0e50e5da5cd69ad4ff",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/ue_membrane_delivery_v31.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/ue_membrane_delivery_v31.json",
+      "bytes": 4666,
+      "sha256": "cddc229084d4114af26a1bd8774c0f2dcd17988283550cbd05e5999df02d2a20",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "MembraneSkinV35 -> WitchClothV36 -> ShoulderClothV38",
+      "readback_sha256": "cddc229084d4114af26a1bd8774c0f2dcd17988283550cbd05e5999df02d2a20",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 44298,
+      "sha256": "2259d0fb172b13f2c0b45c76f206a13f4e01e658d52d52ab4778fc4263dd76ea",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "MembraneSkinV35 -> WitchClothV36 -> ShoulderClothV38",
+      "readback_sha256": "2259d0fb172b13f2c0b45c76f206a13f4e01e658d52d52ab4778fc4263dd76ea",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/Before/SK_M07_BodyMotionV18.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/Before/SK_M07_BodyMotionV18.uasset",
+      "bytes": 65213745,
+      "sha256": "bb674caddb8f6931cc6e5015de92208dd164398d68e07647bcde804490edd579",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "MembraneSkinV35 -> WitchClothV36 -> ShoulderClothV38",
+      "readback_sha256": "bb674caddb8f6931cc6e5015de92208dd164398d68e07647bcde804490edd579",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/Proxy/cloth_ue_manifest_v31.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/Proxy/cloth_ue_manifest_v31.json",
+      "bytes": 309524,
+      "sha256": "608da23916011a51bace0aaffb1c260726535f187a95dedd20279aaf4d450767",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "MembraneSkinV35 -> WitchClothV36 -> ShoulderClothV38",
+      "readback_sha256": "608da23916011a51bace0aaffb1c260726535f187a95dedd20279aaf4d450767",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/Proxy/M07_MembraneStability_V31.blend",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/Proxy/M07_MembraneStability_V31.blend",
+      "bytes": 125178182,
+      "sha256": "dd4ff7434d31404fa9936efd9d058182c87f66852847c56e24ad87c1f2bd88cb",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "MembraneSkinV35 -> WitchClothV36 -> ShoulderClothV38",
+      "readback_sha256": "dd4ff7434d31404fa9936efd9d058182c87f66852847c56e24ad87c1f2bd88cb",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/Proxy/proxy_manifest_v31.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/Proxy/proxy_manifest_v31.json",
+      "bytes": 4117,
+      "sha256": "590d2769f1bf99c58de60e129330c109c7a1231a7ada803c6798f17faf9bf9d8",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "MembraneSkinV35 -> WitchClothV36 -> ShoulderClothV38",
+      "readback_sha256": "590d2769f1bf99c58de60e129330c109c7a1231a7ada803c6798f17faf9bf9d8",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/Proxy/SK_M07_ClothBuildSource_MembraneV31.fbx",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MembraneStabilityV31/Proxy/SK_M07_ClothBuildSource_MembraneV31.fbx",
+      "bytes": 671260,
+      "sha256": "2019233f985c46c2f069c6abc5474d0c8bef6672d752f7b1e88a68657f31d8e3",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "MembraneSkinV35 -> WitchClothV36 -> ShoulderClothV38",
+      "readback_sha256": "2019233f985c46c2f069c6abc5474d0c8bef6672d752f7b1e88a68657f31d8e3",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/CoherentMembraneV34/ue_coherent_membrane_delivery_v34.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/CoherentMembraneV34/ue_coherent_membrane_delivery_v34.json",
+      "bytes": 3754,
+      "sha256": "05a9a964d8ae7996e896a2fed80d9808c9200280502bf73cc8fee8cb01e3fff2",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "Active Witch-style Chaos in ShoulderClothV38",
+      "readback_sha256": "05a9a964d8ae7996e896a2fed80d9808c9200280502bf73cc8fee8cb01e3fff2",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/CoherentMembraneV34/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/CoherentMembraneV34/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 44510,
+      "sha256": "5e50475c9ec1e09e49f6ff3cba3c8fc341e0da6b5dece2ea356806762c754ff9",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "Active Witch-style Chaos in ShoulderClothV38",
+      "readback_sha256": "5e50475c9ec1e09e49f6ff3cba3c8fc341e0da6b5dece2ea356806762c754ff9",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/CoherentMembraneV34/Before/SK_M07_BodyMotionV18.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/CoherentMembraneV34/Before/SK_M07_BodyMotionV18.uasset",
+      "bytes": 65213745,
+      "sha256": "bb674caddb8f6931cc6e5015de92208dd164398d68e07647bcde804490edd579",
+      "reason": "Rejected or superseded standalone production; no active authoring input",
+      "retained_replacement": "Active Witch-style Chaos in ShoulderClothV38",
+      "readback_sha256": "bb674caddb8f6931cc6e5015de92208dd164398d68e07647bcde804490edd579",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/author_full_reference_gait_v21.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/author_full_reference_gait_v21.py",
+      "bytes": 25080,
+      "sha256": "e69ef0442d37d8af1cec2f122741fda4c9611d04879e8a4dc9b9ee92d45ae374",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "e69ef0442d37d8af1cec2f122741fda4c9611d04879e8a4dc9b9ee92d45ae374",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/import_full_reference_gait_v21.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/import_full_reference_gait_v21.py",
+      "bytes": 7707,
+      "sha256": "f6692938034da45bcc3607537d9232dc588ef5e64ed9e411b55e7cdcb2eb812b",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "f6692938034da45bcc3607537d9232dc588ef5e64ed9e411b55e7cdcb2eb812b",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/author_flow_cast_v24.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/author_flow_cast_v24.py",
+      "bytes": 15860,
+      "sha256": "8109332c4083704ccbe7ae3f2e66c8fb2e6cc1b4a412744377be807dfef21391",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "8109332c4083704ccbe7ae3f2e66c8fb2e6cc1b4a412744377be807dfef21391",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/import_flow_cast_v24.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/import_flow_cast_v24.py",
+      "bytes": 7401,
+      "sha256": "1b4481840cb7b251688f8e2c65f84ff40c746779f79cc8c2820bd114f34431f1",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "1b4481840cb7b251688f8e2c65f84ff40c746779f79cc8c2820bd114f34431f1",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/author_reference_chain_sweep_v26.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/author_reference_chain_sweep_v26.py",
+      "bytes": 16474,
+      "sha256": "c84616e0c93fe6a78b8f343f3cb1689ddbe3d98e0306b1d5114ca5718bb0ee48",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "c84616e0c93fe6a78b8f343f3cb1689ddbe3d98e0306b1d5114ca5718bb0ee48",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/import_reference_chain_sweep_v26.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/import_reference_chain_sweep_v26.py",
+      "bytes": 7321,
+      "sha256": "c53edd04ecdae3882ff53741bec18bdd0242e4004331902fbd05a1d5ba979a9e",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "c53edd04ecdae3882ff53741bec18bdd0242e4004331902fbd05a1d5ba979a9e",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/author_membrane_stability_v31.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/author_membrane_stability_v31.py",
+      "bytes": 7374,
+      "sha256": "ed0535e1a8d43f6a966a6a8078518372bcc509995b5178eb95fbb7917c493997",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "ed0535e1a8d43f6a966a6a8078518372bcc509995b5178eb95fbb7917c493997",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/import_membrane_stability_v31.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/import_membrane_stability_v31.py",
+      "bytes": 7352,
+      "sha256": "400dd1684637d15c06630ee0ba29535164b193bc0d6e197aaf01f96b63f33787",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "400dd1684637d15c06630ee0ba29535164b193bc0d6e197aaf01f96b63f33787",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/diagnose_membrane_source_v31.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/diagnose_membrane_source_v31.py",
+      "bytes": 3255,
+      "sha256": "98bcf9c8841dc3d979aa1da24ef378126c30a91684c141bcb1087d948538d423",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "98bcf9c8841dc3d979aa1da24ef378126c30a91684c141bcb1087d948538d423",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/inspect_membrane_v31.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/inspect_membrane_v31.py",
+      "bytes": 2351,
+      "sha256": "52fe9c2c30b05f6b640b961decd0dbc3fc53b2acf2a28779c11a00c27366bfcf",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "52fe9c2c30b05f6b640b961decd0dbc3fc53b2acf2a28779c11a00c27366bfcf",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/read_membrane_config_v31.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/read_membrane_config_v31.py",
+      "bytes": 958,
+      "sha256": "c5a6f89ea40e708ba4744242803ef8858df97aa7d6e54ddfa35964825c51b1cb",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "c5a6f89ea40e708ba4744242803ef8858df97aa7d6e54ddfa35964825c51b1cb",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/import_coherent_membrane_v34.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/import_coherent_membrane_v34.py",
+      "bytes": 5219,
+      "sha256": "a86add8328f1c08f5d1adf5a4733eece1c625d84f41e4c59f217f0531c605a0a",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "a86add8328f1c08f5d1adf5a4733eece1c625d84f41e4c59f217f0531c605a0a",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/restore_membrane_v33.ps1",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/restore_membrane_v33.ps1",
+      "bytes": 1639,
+      "sha256": "e9e43d63252a9f16453ca7dae44c688fa02ab35bdd32083ec866b31412a5c49f",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "e9e43d63252a9f16453ca7dae44c688fa02ab35bdd32083ec866b31412a5c49f",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/save_recover_membrane_v33.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/save_recover_membrane_v33.py",
+      "bytes": 3554,
+      "sha256": "777cc4ba36e2682708417048a7ba5cfe0b7a23e28cab14bdea915111dda064c0",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "777cc4ba36e2682708417048a7ba5cfe0b7a23e28cab14bdea915111dda064c0",
+      "readback_equal": true
+    },
+    {
+      "source": "Tools/BlindSupplicantM07/prepare_publication_20261003.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/Tools/BlindSupplicantM07/prepare_publication_20261003.py",
+      "bytes": 7888,
+      "sha256": "421c6c0a29e49b74fc8d937ec97c92d2af1c46fbe5c90d2ad18cd2d0f4890bc8",
+      "reason": "Retired production/rollback or completed one-time publication recipe",
+      "retained_replacement": "Current retained source chain and Publication20261004 recovery index",
+      "readback_sha256": "421c6c0a29e49b74fc8d937ec97c92d2af1c46fbe5c90d2ad18cd2d0f4890bc8",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/BodyClothMaterialV37/Before/M07_Body_OriginalV07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/BodyClothMaterialV37/Before/M07_Body_OriginalV07.uasset",
+      "bytes": 8159,
+      "sha256": "1f3261e69c495ef61e39cce930dd901cef96fa96faab0af13e0524ad1260f2c2",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "1f3261e69c495ef61e39cce930dd901cef96fa96faab0af13e0524ad1260f2c2",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/ClearanceSweepV25/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/ClearanceSweepV25/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 32066,
+      "sha256": "fa13cdbc17638c4fab774a6362dceb67576034c7ffdd4cc8def102e14dffa25c",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "fa13cdbc17638c4fab774a6362dceb67576034c7ffdd4cc8def102e14dffa25c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/DirectionalDeathV29/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/DirectionalDeathV29/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 42454,
+      "sha256": "3ff54654a4abd2512c9f6a01796b49b242d8a82aa753410cc8cfef4e99f34ded",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "3ff54654a4abd2512c9f6a01796b49b242d8a82aa753410cc8cfef4e99f34ded",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/HeavyGaitV22/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/HeavyGaitV22/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 31469,
+      "sha256": "c810da64e7a2fde061dc1a85a52eb34b96367b88ed4031c5cd8df6016cd4a8df",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "c810da64e7a2fde061dc1a85a52eb34b96367b88ed4031c5cd8df6016cd4a8df",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/IdleLegSupportV32/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/IdleLegSupportV32/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 44419,
+      "sha256": "a13991b972259c8a6f7f4dc5976f675b0e792b3d8b3adabeede6d559f400931c",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "a13991b972259c8a6f7f4dc5976f675b0e792b3d8b3adabeede6d559f400931c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/InwardArmSwingV23/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/InwardArmSwingV23/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 31453,
+      "sha256": "a591b3f3c04c6c18306e72d75f4d63ea71d63b5bfd0ea835391265f3010554de",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "a591b3f3c04c6c18306e72d75f4d63ea71d63b5bfd0ea835391265f3010554de",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibraryCastV28/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibraryCastV28/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 42471,
+      "sha256": "5c11cbca15350ffedfeda4b31655925718932de40f7eb65b752a436415e6c420",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "5c11cbca15350ffedfeda4b31655925718932de40f7eb65b752a436415e6c420",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 42492,
+      "sha256": "09c8e31d8b937b129e1afce608911a1bfa60ef3af1ae8b52323ed397936320f9",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "09c8e31d8b937b129e1afce608911a1bfa60ef3af1ae8b52323ed397936320f9",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Content/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Content/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.uasset",
+      "bytes": 42471,
+      "sha256": "5c11cbca15350ffedfeda4b31655925718932de40f7eb65b752a436415e6c420",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "5c11cbca15350ffedfeda4b31655925718932de40f7eb65b752a436415e6c420",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Content/Monsters/BlindSupplicantM07/AnimationsLibrarySweepV27/A_M07_SweepLeft.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Content/Monsters/BlindSupplicantM07/AnimationsLibrarySweepV27/A_M07_SweepLeft.uasset",
+      "bytes": 712320,
+      "sha256": "a0512fbcd9e43aa066d5d8d0385e589003771f4dfd2cc67f9e39e7d06dec9ee8",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "a0512fbcd9e43aa066d5d8d0385e589003771f4dfd2cc67f9e39e7d06dec9ee8",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Content/Monsters/BlindSupplicantM07/AnimationsLibrarySweepV27/A_M07_SweepRight.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Content/Monsters/BlindSupplicantM07/AnimationsLibrarySweepV27/A_M07_SweepRight.uasset",
+      "bytes": 723958,
+      "sha256": "54bd44fb79c99fb848ce2798fd1acdf79f37ffc91c3467bedac9509b1eed7878",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "54bd44fb79c99fb848ce2798fd1acdf79f37ffc91c3467bedac9509b1eed7878",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Content/Monsters/BlindSupplicantM07/AnimationsLibrarySweepV27Raw/A_M07_LibraryRaw_Attack_D.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Content/Monsters/BlindSupplicantM07/AnimationsLibrarySweepV27Raw/A_M07_LibraryRaw_Attack_D.uasset",
+      "bytes": 255300,
+      "sha256": "1a3190ccccc5f73517551f0d93f01a79425c40cd56f65ae6fe179e53836cad53",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "1a3190ccccc5f73517551f0d93f01a79425c40cd56f65ae6fe179e53836cad53",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Content/Monsters/BlindSupplicantM07/Rig/LibrarySweepV27/RTG_ZombiePack_M07_V27.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Content/Monsters/BlindSupplicantM07/Rig/LibrarySweepV27/RTG_ZombiePack_M07_V27.uasset",
+      "bytes": 17895,
+      "sha256": "0aadd532fb89f363d7e7fff3e0a6d1eda72a424b66dabb4c6adb51e58e7e2204",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "0aadd532fb89f363d7e7fff3e0a6d1eda72a424b66dabb4c6adb51e58e7e2204",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/native_retarget_v27.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/native_retarget_v27.json",
+      "bytes": 1203,
+      "sha256": "78ec3e5145e0ea3c6e4c52c25dd8f0d477670cb885592b044d66ec34ee938fb9",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "78ec3e5145e0ea3c6e4c52c25dd8f0d477670cb885592b044d66ec34ee938fb9",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/ue_library_sweep_delivery_v27.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/ue_library_sweep_delivery_v27.json",
+      "bytes": 3991,
+      "sha256": "ae79be7a5fba7d69765486e4c869bafcc452e04d36667853cf603194a65944bb",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "ae79be7a5fba7d69765486e4c869bafcc452e04d36667853cf603194a65944bb",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/A_M07_SweepLeft.fbx",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/A_M07_SweepLeft.fbx",
+      "bytes": 1136812,
+      "sha256": "3f6927c9e12bdae4ee028f3d1c527df754fa9ca7bcbd718281e30f00a0700242",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "3f6927c9e12bdae4ee028f3d1c527df754fa9ca7bcbd718281e30f00a0700242",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/A_M07_SweepRight.fbx",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/A_M07_SweepRight.fbx",
+      "bytes": 1137084,
+      "sha256": "9047093382d2dd5ff1f529e86d91c7470d78f9eb238cf76aaae0d810d95104cc",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "9047093382d2dd5ff1f529e86d91c7470d78f9eb238cf76aaae0d810d95104cc",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/library_sweep_manifest_v27.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/library_sweep_manifest_v27.json",
+      "bytes": 33413,
+      "sha256": "9df3dc6e73cacb054bc870b90a55b286cc6876cb89e3f4990f07dbf095607877",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "9df3dc6e73cacb054bc870b90a55b286cc6876cb89e3f4990f07dbf095607877",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/M07_LibrarySweep_V27.blend",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/M07_LibrarySweep_V27.blend",
+      "bytes": 127396316,
+      "sha256": "536fcb72fa0cb3827faa8d1000ad34db7bfec983b2ed7ae1f1a4df66cf75cf0e",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "536fcb72fa0cb3827faa8d1000ad34db7bfec983b2ed7ae1f1a4df66cf75cf0e",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Native/native_pose_v27.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Native/native_pose_v27.json",
+      "bytes": 2004094,
+      "sha256": "7786cc75909183f813c17363234c531a732b3e9bfcb15221fd28ffa12c4f838c",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "7786cc75909183f813c17363234c531a732b3e9bfcb15221fd28ffa12c4f838c",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Tools/BlindSupplicantM07/author_library_sweep_v27.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Tools/BlindSupplicantM07/author_library_sweep_v27.py",
+      "bytes": 15871,
+      "sha256": "3cc1abcf1d120b70e3e42359798cf4ca15a2a6dee4783ba158106d0cf17cb5e5",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "3cc1abcf1d120b70e3e42359798cf4ca15a2a6dee4783ba158106d0cf17cb5e5",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Tools/BlindSupplicantM07/cache_library_retarget_v27.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Tools/BlindSupplicantM07/cache_library_retarget_v27.py",
+      "bytes": 1918,
+      "sha256": "fb9946eb5d40ec203ded4870319e1dd4ab44ca17bff0430edb362f169e6b9548",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "fb9946eb5d40ec203ded4870319e1dd4ab44ca17bff0430edb362f169e6b9548",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Tools/BlindSupplicantM07/import_library_sweep_v27.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Tools/BlindSupplicantM07/import_library_sweep_v27.py",
+      "bytes": 7320,
+      "sha256": "fa78a8a463f20b746853ece35095220e0ab8059a4a5efc2145c5a3389232ee60",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "fa78a8a463f20b746853ece35095220e0ab8059a4a5efc2145c5a3389232ee60",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Tools/BlindSupplicantM07/retarget_library_sweep_v27.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/GroundingFix/Before-20261003-164718/Tools/BlindSupplicantM07/retarget_library_sweep_v27.py",
+      "bytes": 5722,
+      "sha256": "676acf5f0fb4192113f9ee996c19d2ede6a57d104a93556cdf6a5cb15450ee86",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "676acf5f0fb4192113f9ee996c19d2ede6a57d104a93556cdf6a5cb15450ee86",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/M07_LibrarySweep_V27.blend1",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/M07_LibrarySweep_V27.blend1",
+      "bytes": 127407645,
+      "sha256": "83becfd8fa07a6c054a9682761ed62849959979c57e7730dd8a499e53e968180",
+      "reason": "Automatic Blender backup; current editable master retained",
+      "retained_replacement": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/M07_LibrarySweep_V27.blend",
+      "readback_sha256": "83becfd8fa07a6c054a9682761ed62849959979c57e7730dd8a499e53e968180",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/Content/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/Content/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.uasset",
+      "bytes": 42471,
+      "sha256": "50e6af9fc24741f8887502f8c3ddcf7ddf698933207e045cacff3da12d73f625",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "50e6af9fc24741f8887502f8c3ddcf7ddf698933207e045cacff3da12d73f625",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/Content/Monsters/BlindSupplicantM07/AnimationsLibrarySweepV27/A_M07_SweepLeft.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/Content/Monsters/BlindSupplicantM07/AnimationsLibrarySweepV27/A_M07_SweepLeft.uasset",
+      "bytes": 666473,
+      "sha256": "5bc2e467c83beec30261decf25964346cf6aa203db931974476bf7077c89853d",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "5bc2e467c83beec30261decf25964346cf6aa203db931974476bf7077c89853d",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/Content/Monsters/BlindSupplicantM07/AnimationsLibrarySweepV27/A_M07_SweepRight.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/Content/Monsters/BlindSupplicantM07/AnimationsLibrarySweepV27/A_M07_SweepRight.uasset",
+      "bytes": 666496,
+      "sha256": "c43483d82dc94f39ae7d61ee9d167875d57b56f5f2e3989b18351acb9d4adfcf",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "c43483d82dc94f39ae7d61ee9d167875d57b56f5f2e3989b18351acb9d4adfcf",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/ue_library_sweep_delivery_v27.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/ue_library_sweep_delivery_v27.json",
+      "bytes": 4094,
+      "sha256": "17fd8beda698ad81b4ade584ea05c88e7652654d7f0b50ff6c4909e2d993b3ad",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "17fd8beda698ad81b4ade584ea05c88e7652654d7f0b50ff6c4909e2d993b3ad",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/A_M07_SweepLeft.fbx",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/A_M07_SweepLeft.fbx",
+      "bytes": 1140124,
+      "sha256": "5e3e1128056f8f557c77ec11f03a889abd478269ab29d59c51f87cb8aa208179",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "5e3e1128056f8f557c77ec11f03a889abd478269ab29d59c51f87cb8aa208179",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/A_M07_SweepRight.fbx",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/A_M07_SweepRight.fbx",
+      "bytes": 1140524,
+      "sha256": "4714098c505d3fceb2435f5d610757a3dd4aa65206fff76820cc095a6d973d72",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "4714098c505d3fceb2435f5d610757a3dd4aa65206fff76820cc095a6d973d72",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/library_sweep_manifest_v27.json",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/library_sweep_manifest_v27.json",
+      "bytes": 40819,
+      "sha256": "1d2dd5ebcdbae361b937f13ceef7fa8232130b460fcedeabc0d266f6386b1ea8",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "1d2dd5ebcdbae361b937f13ceef7fa8232130b460fcedeabc0d266f6386b1ea8",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/M07_LibrarySweep_V27.blend",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/Motion/M07_LibrarySweep_V27.blend",
+      "bytes": 127407645,
+      "sha256": "83becfd8fa07a6c054a9682761ed62849959979c57e7730dd8a499e53e968180",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "83becfd8fa07a6c054a9682761ed62849959979c57e7730dd8a499e53e968180",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/Tools/BlindSupplicantM07/author_library_sweep_v27.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/Tools/BlindSupplicantM07/author_library_sweep_v27.py",
+      "bytes": 18100,
+      "sha256": "4259f39b77e86f3e24d42b38edd57e2517eca6c622fc27b0a7e1cd60b19072ab",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "4259f39b77e86f3e24d42b38edd57e2517eca6c622fc27b0a7e1cd60b19072ab",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/Tools/BlindSupplicantM07/import_library_sweep_v27.py",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/LibrarySweepV27/RecoveryFix/Before-20261003-171053/Tools/BlindSupplicantM07/import_library_sweep_v27.py",
+      "bytes": 7537,
+      "sha256": "a81f3e4b461e5da3d62013ac994c8a152e2e345529af06465af7dfbaa4e75de7",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "a81f3e4b461e5da3d62013ac994c8a152e2e345529af06465af7dfbaa4e75de7",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MeleeSpeed20261003/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MeleeSpeed20261003/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 46085,
+      "sha256": "c35963db67c4a82f9bb6c7379962c409a86434e033724ad59e3187bf65c75744",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "c35963db67c4a82f9bb6c7379962c409a86434e033724ad59e3187bf65c75744",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneSkinV35/M07_MembraneSkinV35.blend1",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MembraneSkinV35/M07_MembraneSkinV35.blend1",
+      "bytes": 126286163,
+      "sha256": "a308a74ac03c2b7089531d538eaff301c4f768da057120f596ba308e4c21ec50",
+      "reason": "Automatic Blender backup; current editable master retained",
+      "retained_replacement": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneSkinV35/M07_MembraneSkinV35.blend",
+      "readback_sha256": "a308a74ac03c2b7089531d538eaff301c4f768da057120f596ba308e4c21ec50",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneSkinV35/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MembraneSkinV35/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 46225,
+      "sha256": "4e19a6889051637bd60a18bddc4d34fdb05a6e816c0c4e73e5ee887ab5edbbc0",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "4e19a6889051637bd60a18bddc4d34fdb05a6e816c0c4e73e5ee887ab5edbbc0",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/MembraneSkinV35/Before/SK_M07_BodyMotionV18.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/MembraneSkinV35/Before/SK_M07_BodyMotionV18.uasset",
+      "bytes": 60794937,
+      "sha256": "8eec3437b43f4749a01294795e9e3e30bb5af1ef1980212d82d4aafad0da763b",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "8eec3437b43f4749a01294795e9e3e30bb5af1ef1980212d82d4aafad0da763b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/RecoverMembraneV33/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/RecoverMembraneV33/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 44425,
+      "sha256": "64e23dbd0f751d96d60b178d972cf8ea29ca47b85d6931640e0b9fbc4f801400",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "64e23dbd0f751d96d60b178d972cf8ea29ca47b85d6931640e0b9fbc4f801400",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/RecoverMembraneV33/Before/SK_M07_BodyMotionV18_V31.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/RecoverMembraneV33/Before/SK_M07_BodyMotionV18_V31.uasset",
+      "bytes": 65174839,
+      "sha256": "749a7a02d6dd5169e9d20e61cebfedf209cdf9a038d01d82b79fd7c5444dd56b",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "749a7a02d6dd5169e9d20e61cebfedf209cdf9a038d01d82b79fd7c5444dd56b",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/ShoulderClothV38/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/ShoulderClothV38/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 46655,
+      "sha256": "c9fb3d971c55455c2c6d18512fc7205e20f164371c951304898584810e44aed5",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "c9fb3d971c55455c2c6d18512fc7205e20f164371c951304898584810e44aed5",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/ShoulderClothV38/Before/SK_M07_BodyMotionV18.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/ShoulderClothV38/Before/SK_M07_BodyMotionV18.uasset",
+      "bytes": 72379104,
+      "sha256": "ab4158724eda6c419cf004c97b41d724a7a308d775a4f9ed2150da76fc4f9eb0",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "ab4158724eda6c419cf004c97b41d724a7a308d775a4f9ed2150da76fc4f9eb0",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/SupportHoverV30/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/SupportHoverV30/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 44242,
+      "sha256": "bef19da209db37f01af24db0f117d7d5c1f17a8692add70f17fd0b214df97343",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "bef19da209db37f01af24db0f117d7d5c1f17a8692add70f17fd0b214df97343",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/WitchClothV36/Before/BP_BlindSupplicantM07.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/WitchClothV36/Before/BP_BlindSupplicantM07.uasset",
+      "bytes": 46535,
+      "sha256": "fb02aea4a1d7314a0cf1148d95c0a5b4bd0f806ffba284d7f2ba9a4588af483e",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "fb02aea4a1d7314a0cf1148d95c0a5b4bd0f806ffba284d7f2ba9a4588af483e",
+      "readback_equal": true
+    },
+    {
+      "source": "SourceAssets/BlindSupplicantM07Meshy20261001/WitchClothV36/Before/SK_M07_BodyMotionV18.uasset",
+      "destination": "D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261004/SourceAssets/BlindSupplicantM07Meshy20261001/WitchClothV36/Before/SK_M07_BodyMotionV18.uasset",
+      "bytes": 61199296,
+      "sha256": "0ce2ac8ed91b370d0ceb6e5f2db6808d1e4a928a8d511c86192a18bd1faf11ee",
+      "reason": "Previous revision snapshot; recoverable in trash, not a current source input",
+      "retained_replacement": "Current editable masters, saved packages and archive SHA-256 manifest",
+      "readback_sha256": "0ce2ac8ed91b370d0ceb6e5f2db6808d1e4a928a8d511c86192a18bd1faf11ee",
+      "readback_equal": true
+    }
+  ]
+}

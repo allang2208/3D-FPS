@@ -12,9 +12,9 @@
 
 恢复连体巫婆 CorpseFollow、专用完整法杖碰撞、巨手死亡 Physics Asset，以及突变体 V3 空中／V4 落地／V5 蓄力动画。公开运行源码、原创制作脚本、ALS 固定修订与 MIT 许可、制作及归档说明；Meshy／Epic／第三方模型、采样姿势、UE／Blender／FBX 包和构建产物留本机。115 个退役文件（约 98.57 MiB）已带散列移入 `trash/monster-ragdoll-retired-20261003`。完整输入、重建顺序和本轮未测试范围见 [怪物布娃娃整理发布](Monsters/monster-ragdoll-publication-20261003.md)。纯源码克隆不包含这些运行内容。
 
-## M-07 盲祷者暂停与源码整理（2026-10-03）
+## M-07 盲祷者 V38 与源码整理（2026-10-04）
 
-当前 F6 角色保留 V18 显示模型／背膜接触、V16／V17 局部权重、V20 待机／横扫与魔法提前量、V15 死亡／施法和 V21 两段移动。V21 已实际保存，尚未验收；慢走／追击为 120／210 cm/s。原 Meshy、Epic／Quinn／Rampage 输入、抽帧参考、密集采样、UE 包和构建产物保留本机；纯 Git checkout 不含完整资源。废案归档、来源边界、作者依赖与公开源码范围见 [M-07 整理发布](Monsters/BlindSupplicantM07Publication20261003.md)。本次仅执行用户要求的归档和推送检查，未启动 UE 或游戏测试。
+当前 F6 角色使用原 V18 路径的 V35 蒙皮／V38 肩部固定与巫婆式背膜布料、V20 待机、V25 移动、V32 近战、V30 悬浮施法、V29 方向死亡和 V33 过渡支撑。慢走／追击 63／129 cm/s，动画源速 42／86；最终魔攻 60。V38 资产已保存，尚未游戏验收。93 份独立废案、旧快照与重复备份已移入 trash；V22/V23、V27/V28/V30、V35/V36 及旧原模型链仍是必要本机输入。原 Meshy、Epic／Quinn／Rampage、ZombieAnimationPack／Vefects 动作、密集采样、UE 包和构建产物保留本机；纯 Git checkout 不含完整资源。恢复顺序、来源和散列见 [M-07 V38 整理发布](Monsters/BlindSupplicantM07Publication20261004.md)。本次只执行归档与推送检查，未启动 UE 或游戏测试。
 
 ## 本轮手臂动作与撞门（2026-10-02）
 

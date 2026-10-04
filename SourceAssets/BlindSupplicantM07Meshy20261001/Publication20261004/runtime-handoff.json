@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-04",
+  "monster_id": "BlindSupplicantM07",
+  "membrane_revision": "ShoulderClothV38",
+  "saved": true,
+  "runtime_tested": false,
+  "visual_accepted": false,
+  "blueprint": "/Game/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07",
+  "mesh": "/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18",
+  "proxy": "/Game/Monsters/BlindSupplicantM07/Working/SK_M07_ClothProxyV38",
+  "clips": {
+    "idle_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsPalmArmV20/A_M07_Idle.A_M07_Idle",
+    "slow_walk_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsClearanceSweepV25/A_M07_SlowWalk.A_M07_SlowWalk",
+    "chase_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsClearanceSweepV25/A_M07_Chase.A_M07_Chase",
+    "melee_left_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsIdleLegSupportV32/A_M07_SweepLeft.A_M07_SweepLeft",
+    "melee_right_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsIdleLegSupportV32/A_M07_SweepRight.A_M07_SweepRight",
+    "magic_gather_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsSupportHoverV30/A_M07_MagicGather.A_M07_MagicGather",
+    "magic_release_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsSupportHoverV30/A_M07_MagicRelease.A_M07_MagicRelease",
+    "death_clip": "/Game/Monsters/BlindSupplicantM07/AnimationsDirectionalDeathV29/A_M07_DeathAway000.A_M07_DeathAway000"
+  },
+  "settings": {
+    "walk_speed": 63.0,
+    "chase_speed": 129.0,
+    "source_walk_speed": 42.0,
+    "source_chase_speed": 86.0,
+    "attack_damage": 36.0,
+    "attack_range": 220.0,
+    "magic_attack": 60.0,
+    "fireball_damage_multiplier": 2.4000000953674316,
+    "ice_column_damage_multiplier": 2.0,
+    "lightning_damage_multiplier": 2.200000047683716
+  },
+  "physical_vertices": 1170,
+  "pinned_vertices": 360,
+  "lods": [
+    {
+      "lod": 0,
+      "vertices": 145458
+    },
+    {
+      "lod": 1,
+      "vertices": 81266
+    },
+    {
+      "lod": 2,
+      "vertices": 79939
+    }
+  ],
+  "cloth_resume_distance_cm": 1200,
+  "cloth_suspend_distance_cm": 1600,
+  "public_binary_assets": false,
+  "save_and_exit": "All packages saved; subsequent PythonScriptPlugin shutdown exception, exit code 3",
+  "recovery_boundary": "Restore lawful local source/asset dependencies; Git alone is not a playable content backup"
+}

@@ -60,6 +60,8 @@ M-07 下部膜片 V35 针对原蒙皮错误：身体／腿骨污染、跨分区�
 
 M-07 用户反馈 V34／V35 缺少物理摆动后，V36 从当前 `WitchRebuilt` 的连续衣物代理、稳定捕获和 Chaos 配置继续适配，保留 V35 修好的显示蒙皮。不要复用已否定的碎片代理，也不要把停用模拟当作布料修复完成。当前代理、布料、距离 LOD 和原 AI/F6 蓝图已后台实际保存，未游戏测试或用户认可；退出异常及必要构建记录见工程 `Docs/Monsters/BlindSupplicantM07WitchClothV36.md`。
 
+M-07 背膜最新为 V38：V37 修正主体材质缺少 Clothing 用途，V38 修正肩／上臂覆盖面被误开放为布料。根据实际骨段与原权重固定连接，同步收紧代理并沿表面渐变释放；不以材质标签代替解剖边界，下方继续巫婆式物理。资产已保存、未游戏验收；保存阶段与 Python 插件退出异常分别记录。当前重建链、93 份废案归档及混合版本保留边界见 M-07 专用参考和工程 `Docs/Monsters/BlindSupplicantM07Publication20261004.md`。
+
 ## 四足怪物与通用动作模板（2026-09-14）
 
 裸皮犬、多骨架犬科重定向、F6 根单位异常及预测飞扑，补读 [Meshy 犬科与预测攻击](references/canine-meshy-and-hunting.md)。用户认可的跑姿模板是 MeshyV2 + GodotRunNaturalV3，勿与退役 WolfV3 混淆。

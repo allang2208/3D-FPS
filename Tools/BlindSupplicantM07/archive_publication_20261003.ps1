@@ -1,8 +1,12 @@
-﻿param([string]$PlanPath = 'D:/FPS3D/FPSGAME/SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/archive-plan.json')
+param([string]$PlanPath = 'D:/FPS3D/FPSGAME/SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/archive-plan.json', [string]$ArchiveRoot = 'D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261003', [string]$ReportPath = 'D:/FPS3D/FPSGAME/SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/archive-manifest.json')
 $ErrorActionPreference = 'Stop'
 $taskProject = [IO.Path]::GetFullPath('D:/FPS3D/FPSGAME').TrimEnd('\','/')
-$taskArchive = [IO.Path]::GetFullPath('D:/FPS3D/FPSGAME/trash/blind-supplicant-m07-20261003').TrimEnd('\','/')
-$taskReportPath = Join-Path $taskProject 'SourceAssets/BlindSupplicantM07Meshy20261001/Publication20261003/archive-manifest.json'
+$taskArchive = [IO.Path]::GetFullPath($ArchiveRoot).TrimEnd('\','/')
+$taskReportPath = [IO.Path]::GetFullPath($ReportPath)
+if (-not $taskArchive.StartsWith((Join-Path $taskProject 'trash') + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase) -or
+    -not $taskReportPath.StartsWith((Join-Path $taskProject 'SourceAssets/BlindSupplicantM07Meshy20261001') + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
+    throw 'Archive/report paths must remain inside the M07 project archive scope.'
+}
 $taskAllowedRoots = @(
     (Join-Path $taskProject 'SourceAssets/BlindSupplicantM07Meshy20261001'),
     (Join-Path $taskProject 'Tools/BlindSupplicantM07'),
@@ -10,7 +14,7 @@ $taskAllowedRoots = @(
 )
 $taskPlan = Get-Content -LiteralPath $PlanPath -Raw -Encoding UTF8 | ConvertFrom-Json
 $taskEntries = [Collections.Generic.List[object]]::new()
-$taskReport = [ordered]@{ task = 'M07 pause and publication 20261003'; archive_root = $taskArchive; complete = $false; file_count = 0; bytes = [long]0; files = $taskEntries }
+$taskReport = [ordered]@{ task = 'M07 recoverable publication archive'; archive_root = $taskArchive; complete = $false; file_count = 0; bytes = [long]0; files = $taskEntries }
 $taskUtf8 = [Text.UTF8Encoding]::new($false)
 function Write-TaskReceipt {
     $taskReport.file_count = $taskEntries.Count
