@@ -236,7 +236,7 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
         SetCharacterValue(TEXT("staminaRegen"),FString::Printf(TEXT("%.1f/秒"),StatusModel->StaminaRecoveryRate()));
         const auto& T=StatusModel->StaminaSettings();
         CharacterDetails.Add(TEXT("staminaRegen"),FString::Printf(TEXT("停止消耗 %.1f 秒后恢复。基础 %.1f/秒 × 敏捷倍率 %.2f = %.1f/秒。"),T.RecoveryDelay,T.RecoveryPerSecond,StatusModel->Derived(TEXT("staminaRegen")),StatusModel->StaminaRecoveryRate()));
-        CharacterDetails.Add(TEXT("stamina"),FString::Printf(TEXT("上限 = %.0f + 体质×%.0f + 装备加成。奔跑 %.1f/秒；近战 %.1f/次；采集 %.1f/次；当前闪避 %.2f/次。"),T.BaseMaximum,T.PerConstitution,T.SprintPerSecond,T.MeleeCost,T.HarvestCost,StatusModel->DodgeStaminaCost()));
+        CharacterDetails.Add(TEXT("stamina"),FString::Printf(TEXT("上限 = %.0f + 体质×%.0f + 装备加成。奔跑 %.1f/秒；近战基础 %.1f/次；采集 %.1f/次；当前闪避 %.2f/次。"),T.BaseMaximum,T.PerConstitution,StatusModel->SprintStaminaPerSecond(),T.MeleeCost,T.HarvestCost,StatusModel->DodgeStaminaCost()));
         CharacterDetails.Add(TEXT("con"),FString::Printf(TEXT("生命上限 = 100 + 体质×10 + (等级-1)×10\n体力上限 = %.0f + 体质×%.0f + 装备加成\n物防 = 向下取整(体质×1.2 + 力量×0.3)\n暴击抵抗 = 体质%%"),T.BaseMaximum,T.PerConstitution));
     }
     const auto* Character = GetOwningPlayerPawn<AFPSGAMECharacter>();

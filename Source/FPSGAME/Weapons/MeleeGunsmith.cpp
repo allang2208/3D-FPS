@@ -59,6 +59,18 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("physical_armor_penetration"),Part.Melee.PhysicalArmorPenetration);
             Stats->TryGetNumberField(TEXT("block_reduction_mult"),Part.Melee.BlockReduction);
             Stats->TryGetNumberField(TEXT("block_stamina_mult"),Part.Melee.BlockStamina);
+            Stats->TryGetNumberField(TEXT("damage_taken_mult"),Part.Melee.DamageTaken);
+            Stats->TryGetNumberField(TEXT("dodge_stamina_mult"),Part.Melee.DodgeStamina);
+            Stats->TryGetNumberField(TEXT("sprint_stamina_mult"),Part.Melee.SprintStamina);
+            Stats->TryGetNumberField(TEXT("dragon_seconds"),Part.Melee.DragonSeconds);
+            Stats->TryGetNumberField(TEXT("dragon_cooldown"),Part.Melee.DragonCooldown);
+            Stats->TryGetNumberField(TEXT("dragon_damage_mult"),Part.Melee.DragonDamage);
+            Stats->TryGetNumberField(TEXT("dragon_toughness_base"),Part.Melee.DragonToughness);
+            Stats->TryGetNumberField(TEXT("phoenix_seconds"),Part.Melee.PhoenixSeconds);
+            Stats->TryGetNumberField(TEXT("phoenix_cooldown"),Part.Melee.PhoenixCooldown);
+            Stats->TryGetNumberField(TEXT("phoenix_attack_speed_mult"),Part.Melee.PhoenixSpeed);
+            Stats->TryGetNumberField(TEXT("phoenix_heal_max_ratio"),Part.Melee.PhoenixHealRatio);
+            Stats->TryGetNumberField(TEXT("phoenix_heal_hits"),Part.Melee.PhoenixHealHits);
             Stats->TryGetNumberField(TEXT("combo_second_damage_mult"),Part.Melee.ComboSecond);
             Stats->TryGetNumberField(TEXT("combo_third_damage_mult"),Part.Melee.ComboThird);
             Stats->TryGetNumberField(TEXT("combo_third_toughness_mult"),Part.Melee.ComboThirdToughness);
@@ -71,6 +83,8 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("heavy_damage_add"),Part.Melee.HeavyDamageAdd);
             Stats->TryGetNumberField(TEXT("heavy_charge_speed_bonus"),Part.Melee.HeavyChargeSpeedBonus);
             Stats->TryGetNumberField(TEXT("knockback_mult"),Part.Melee.Knockback);
+            Stats->TryGetNumberField(TEXT("all_attack_knockback_mult"),Part.Melee.AllAttackKnockback);
+            Stats->TryGetNumberField(TEXT("all_attack_damage_mult"),Part.Melee.AllAttackDamage);
             Stats->TryGetNumberField(TEXT("quick_combat_damage_add"),Part.Melee.QuickCombatDamageAdd);
             Stats->TryGetNumberField(TEXT("quick_combat_knockback_mult"),Part.Melee.QuickCombatKnockback);
             Stats->TryGetNumberField(TEXT("quick_combat_toughness_mult"),Part.Melee.QuickCombatToughness);

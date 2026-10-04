@@ -30,6 +30,7 @@
 #include "../Weapons/ColdSteelEnchantmentCombat.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/Unarmed/UnarmedPunchTuning.h"
 #include "../Weapons/Staff/StaffQuickCombatMotion.h"
 #include "../Weapons/Bow/BowStats.h"
@@ -729,6 +730,17 @@ void AColdSteelPlayerState::ServerReportHit_Implementation(const FColdSteelNetHi
     Shot.bRicochet = (Report.Flags & (1 << 4)) != 0;
     Shot.bInheritedCritical = (Report.Flags & (1 << 5)) != 0;
     Shot.AttackMeta = Report.AttackMeta;
+    Shot.GuardAttackSerial=Report.GuardAttackSerial;
+    Shot.GuardSourceInstance=Declared?Declared->InstanceId:FString();
+    // Reconstruct the attachment effect from the server's item, not a client flag.
+    Shot.bRisingDragonFinisher=Shot.bMelee&&Report.AttackMeta==3&&Declared
+        &&ColdSteelModularSword::UsesRisingDragonFinisher(*Declared);
+    if(Declared&&Shot.bMelee&&ColdSteelInventory::IsMeleeWeapon(*Declared)&&!(Shot.AttackMeta&(0x20|0x80)))
+    {
+        const auto Modifiers=ColdSteelMelee::Evaluate(*Declared,ShadowModel).Modifiers;
+        if(Shot.AttackMeta&0x10)Shot.ToughnessDamageMultiplier*=Modifiers.HeavyToughness;
+        else if((Shot.AttackMeta&0x0F)==3)Shot.ToughnessDamageMultiplier*=Modifiers.ComboThirdToughness;
+    }
     if (Report.AttackForm != 0) Shot.AttackForm = static_cast<EMonsterAttackForm>(Report.AttackForm);
 
     // 自报伤害钳制在服务端武器包络内：汇聚倍率服务端复算，
@@ -1054,6 +1066,7 @@ bool AColdSteelPlayerState::ForwardHit(AActor* Shooter, const FHitResult& Hit, f
     Report.ItemDefinition = Shot.ItemDefinition;
     Report.ClaimedDamage = Damage;
     Report.AttackMeta = Shot.AttackMeta;
+    Report.GuardAttackSerial=Shot.GuardAttackSerial;
     Report.DamageContext = Shot.DamageContext;
     Report.AttackForm = static_cast<uint8>(Shot.AttackForm);
     if (const AFPSGAMECharacter* Char = Cast<AFPSGAMECharacter>(Shooter))

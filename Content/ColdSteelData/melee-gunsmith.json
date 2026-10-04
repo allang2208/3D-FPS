@@ -180,18 +180,21 @@
           "weapons": [
             "ue_tang_dao"
           ],
-          "description": "唐刀专属刀身。弧形刀尖接修长龙脊导槽，鎏金游龙沿刃面腾行，流云暗纹与层叠水波锻纹交织。",
+          "description": "唐刀专属刀身。弧形刀尖接修长龙脊导槽，鎏金游龙沿刃面腾行，流云暗纹与层叠水波锻纹交织。提升攻击速度，普攻第三段化为升龙并缩短准备；目标韧性为0或已破韧时可将其击飞。",
           "effects": [
             {
-              "text": "弧形刀尖 · 龙脊长导槽",
-              "benefit": 0
+              "text": "攻击速度 +10%",
+              "benefit": 1
             },
             {
-              "text": "鎏金游龙浮雕 · 流云水波锻纹",
-              "benefit": 0
+              "text": "普攻第三段：升龙 · 准备时间 -50% · 第三段伤害 +30% · 无韧性或破韧时击飞",
+              "benefit": 1
             }
           ],
-          "stats": {}
+          "stats": {
+            "attack_speed_mult": 1.1,
+            "combo_third_damage_mult": 1.3
+          }
         }
       ]
     },
@@ -347,6 +350,34 @@
             "toughness_damage_mult": 0.9,
             "kill_stamina_max_ratio": 0.15
           }
+        },
+        {
+          "id": "mountain_rune",
+          "name": "山岳符文",
+          "weapons": [
+            "ue_tang_dao"
+          ],
+          "description": "唐刀专属。三峰主印与层叠岩脉沿刀身展开，土黄刻纹间缓缓浮起琥珀微光。借山岳之重增强攻击、击退与削韧。",
+          "appearance": "三峰山印 · 层岩刻纹 · 土黄微光",
+          "effects": [
+            {
+              "text": "全部近战攻击伤害 +10%（含属性、附加伤害及快速近战）",
+              "benefit": 1
+            },
+            {
+              "text": "攻击时所有击退效果 +50%（含快速近战、旋风、冲刺斩）",
+              "benefit": 1
+            },
+            {
+              "text": "攻击韧性伤害 +50%",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "all_attack_knockback_mult": 1.5,
+            "toughness_damage_mult": 1.5,
+            "all_attack_damage_mult": 1.1
+          }
         }
       ]
     },
@@ -480,18 +511,43 @@
           "weapons": [
             "ue_tang_dao"
           ],
-          "description": "唐刀专属护手。璇云四瓣层叠边框环绕龙云浮雕，暗铜凹底映衬鎏金凸纹，贯通云孔与雕纹止滑环延续唐风。",
+          "description": "唐刀专属龙纹护手。减轻攻击、格挡的体力负担，独立降低所受伤害；成功弹反积蓄龙威，强化下一次刀刃命中的伤害与削韧。",
+          "appearance": "璇云层叠边框 · 双面龙云浮雕 · 鎏金凸纹与暗铜凹底",
           "effects": [
             {
-              "text": "璇云层叠边框 · 双面龙云浮雕",
-              "benefit": 0
+              "text": "攻击体力消耗减少10%",
+              "benefit": 1
             },
             {
-              "text": "云纹贯通镂空 · 雕纹止滑环",
+              "text": "格挡体力消耗减少20%",
+              "benefit": 1
+            },
+            {
+              "text": "所受伤害减少25%，在原有减伤结算后独立乘以0.75",
+              "benefit": 1
+            },
+            {
+              "text": "龙威反震：成功弹反获得龙威，持续6秒，触发冷却6秒",
+              "benefit": 1
+            },
+            {
+              "text": "龙威强化首次刀刃命中：伤害增加50%，额外造成200基础韧性伤害；削韧受抗性、虎啸与削韧增益修正",
+              "benefit": 1
+            },
+            {
+              "text": "最多保留一次，首次命中一个敌人后消耗；挥空不消耗，超时或切换武器、护手时清除。快速近战、裂斩波与持续伤害不触发",
               "benefit": 0
             }
           ],
-          "stats": {}
+          "stats": {
+            "stamina_mult": 0.9,
+            "block_stamina_mult": 0.8,
+            "damage_taken_mult": 0.75,
+            "dragon_seconds": 6,
+            "dragon_cooldown": 6,
+            "dragon_damage_mult": 1.5,
+            "dragon_toughness_base": 200
+          }
         },
         {
           "id": "phoenix_feather",
@@ -499,18 +555,39 @@
           "weapons": [
             "ue_tang_dao"
           ],
-          "description": "唐刀专属护手。层叠凤羽与凤首浮雕形成不对称外缘，卷云羽隙贯通镂空，暖鎏金凸纹配暗铜凹底和红石嵌饰。",
+          "description": "唐刀专属凤羽护手。降低闪避与奔跑的体力负担；闪避中实际躲过敌方攻击后进入凤舞，快速出刀，并以连续刀刃命中恢复生命。",
+          "appearance": "层叠凤羽护缘 · 双面凤纹浮雕 · 卷云镂空与红石嵌饰",
           "effects": [
             {
-              "text": "层叠凤羽护缘 · 双面凤纹实体浮雕",
-              "benefit": 0
+              "text": "闪避体力消耗减少20%",
+              "benefit": 1
             },
             {
-              "text": "卷云羽隙镂空 · 红石嵌饰与止滑环",
+              "text": "奔跑体力消耗减少25%",
+              "benefit": 1
+            },
+            {
+              "text": "凤舞回生：完美闪避触发6秒凤舞，攻击速度增加50%，触发冷却10秒；空闪避不触发",
+              "benefit": 1
+            },
+            {
+              "text": "凤舞期间前3次刀刃攻击命中，每次恢复最大生命的2%，每轮最多恢复6%",
+              "benefit": 1
+            },
+            {
+              "text": "每次攻击最多回血一次，多目标旋风只计一次；快速近战、裂斩波与持续伤害不触发。切换武器或护手清除凤舞，冷却不重置",
               "benefit": 0
             }
           ],
-          "stats": {}
+          "stats": {
+            "dodge_stamina_mult": 0.8,
+            "sprint_stamina_mult": 0.75,
+            "phoenix_seconds": 6,
+            "phoenix_cooldown": 10,
+            "phoenix_attack_speed_mult": 1.5,
+            "phoenix_heal_max_ratio": 0.02,
+            "phoenix_heal_hits": 3
+          }
         }
       ]
     },
@@ -663,7 +740,7 @@
               "benefit": 1
             },
             {
-              "text": "攻击造成击退 +10%",
+              "text": "所有近战攻击击退距离 +10%（含快速近战、旋风及冲刺斩）",
               "benefit": 1
             },
             {
@@ -677,9 +754,9 @@
           ],
           "stats": {
             "heavy_damage_add": 0.25,
-            "knockback_mult": 1.1,
             "attack_speed_mult": 0.9,
-            "stamina_mult": 1.1
+            "stamina_mult": 1.1,
+            "all_attack_knockback_mult": 1.1
           }
         },
         {

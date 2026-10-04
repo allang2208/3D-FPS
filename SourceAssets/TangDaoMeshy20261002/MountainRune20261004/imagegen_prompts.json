@@ -1,0 +1,12 @@
+{
+  "tool": "built-in image_gen",
+  "icon": {
+    "reference": "SourceAssets/FirearmFramedIcons20260930/muzzle_brake_framed_v2.png",
+    "output": "Icons/ue_tang_dao_blade_2_mountain_rune.png",
+    "prompt": "Create a single new square inventory modification icon for the fantasy Tang Dao Mountain Rune. Use the reference ONLY as the exact frame style: substantial bevelled dark steel square frame, four large corner rivets, concentric silver inner ring, opaque textured charcoal backing, extremely narrow transparent exterior margin. Replace the entire central muzzle device with a sculpted silver-gray mountain rune seal: three tall jagged overlapping mountain peaks, largest central summit, angular layered rock strata stepping down into a weighty base, fine engraved geological contour lines. It should read as a beautiful solid ancient Chinese mountain talisman relief, a clear iconic silhouette with ample dark negative space around it inside the circle, high fidelity carved silver metal and dark stone texture. Front orthographic view, upper left studio light, crisp detailed bevels. STRICTLY neutral grayscale throughout; no gold, yellow or colored lights in this menu icon. No letters, no text, no sword, no gun, no extra items. One centered complete mountain emblem, restrained realistic depth, fully inside the ring. Preserve the frame structure and proportions."
+  },
+  "final_mask": {
+    "output": "Artwork/MountainRune_Alpha.png",
+    "prompt": "Convert this into a crisp flat stencil of BLACK linework on genuinely TRANSPARENT empty space. Remove ALL luminous glow, white light, haze, shadow and background. The glyph should be fully legible as opaque solid BLACK contour lines, with empty TRANSPARENT gaps everywhere between the lines. No white pixels, no grayscale gradients. Keep the vertical tapering mountain-and-strata talisman composition, but the bottom main motif must clearly depict three distinct jagged mountain summits with layered terraced rock contours, linked to the smaller upper mountain chevrons by thin angular vein lines. Black geometric strokes only, no filled blob, no solid black background. Center the whole glyph in the middle 40 percent of the tall canvas, leave large fully transparent margins. Sharp clean screen-print stencil, absolutely zero glow or lighting."
+  }
+}

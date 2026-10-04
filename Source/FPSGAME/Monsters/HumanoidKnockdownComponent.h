@@ -25,7 +25,7 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     virtual void TickComponent(float Dt, ELevelTick Type, FActorComponentTickFunction* Tick) override;
     UFUNCTION(BlueprintCallable, Category="Monster|Knockdown")
-    bool Launch(APawn* InstigatorPawn, FVector Velocity, float DownSeconds = .7f);
+    bool Launch(APawn* InstigatorPawn, FVector Velocity, float DownSeconds = .7f, bool bForced = false);
     void ExtendControl(float Seconds);
     bool OnDeath();
     void StartDeath(UAnimSequence* DeathClip = nullptr, float ClipTime = 0.f);

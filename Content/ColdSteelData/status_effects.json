@@ -1,6 +1,24 @@
 {
   "effects": [
     {
+      "type": "tangDragonMight",
+      "name": "龙威",
+      "icon": "龙",
+      "color": "#d8bd75",
+      "description": "下次唐刀刀刃首次命中伤害增加50%，额外造成200基础韧性伤害，受韧性抗性与增益修正。持续6秒，成功弹反触发，冷却6秒。挥空不消耗；切换武器或护手清除。",
+      "kind": "buff",
+      "group": "triggered"
+    },
+    {
+      "type": "tangPhoenixDance",
+      "name": "凤舞",
+      "icon": "凤",
+      "color": "#e3a174",
+      "description": "唐刀攻击速度增加50%；前3次刀刃攻击命中分别恢复最大生命的2%，每次攻击最多恢复一次。数字表示剩余回血次数。完美闪避触发，持续6秒，冷却10秒；切换武器或护手清除。",
+      "kind": "buff",
+      "group": "triggered"
+    },
+    {
       "type": "physicalVulnerability",
       "icon": "裂",
       "name": "物理易伤",

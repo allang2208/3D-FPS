@@ -1,4 +1,5 @@
 #include "CombatStatusFormula.h"
+#include "../Weapons/TangDaoGuardComponent.h"
 #include "ProgressiveInfectionComponent.h"
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
@@ -107,6 +108,12 @@ void UCombatStatusFormula::InterruptOwnerActions(float Seconds)
     if(auto* N=Cast<ANurseZombie>(GetOwner()))N->InterruptAttack(Seconds);
     if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->InterruptAttack(Seconds);
     if(auto* F=Cast<AFleshHandMonster>(GetOwner()))F->InterruptAttack(Seconds);
+}
+void UCombatStatusFormula::AddStunWithExtension(float BaseSeconds,float ExtraSeconds)
+{
+    const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();
+    const float Remaining=FMath::Max(StunTime,Combat?Combat->StunSecondsRemaining():0.f);
+    AddStun(FMath::Max(Remaining,BaseSeconds)+FMath::Max(0.f,ExtraSeconds));
 }
 void UCombatStatusFormula::AddStun(float Seconds)
 {
@@ -358,7 +365,8 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
 void UCombatStatusFormula::AddChill(int32 Stacks,float Seconds,float SlowPerStack)
 {
     if(IsImmune()||FrozenTime>0||Stacks<=0||Seconds<=0)return;
-    if(ChillStacks==0)ChillSlow=SlowPerStack;
+    // Mixed spell/pendant stacks retain each contribution to total movement slow.
+    ChillSlow=(ChillSlow*ChillStacks+SlowPerStack*Stacks)/float(ChillStacks+Stacks);
     ChillStacks+=Stacks;ChillTime+=Seconds;
     if(ChillStacks>=20)
     {
@@ -473,6 +481,7 @@ void UCombatStatusFormula::ShowProcTile(FName Type,float Seconds)
 {if(Seconds>0)UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(Type,Seconds,1);}
 void UCombatStatusFormula::PurgeTransient()
 {
+    if(auto* Guard=GetOwner()->FindComponentByClass<UTangDaoGuardComponent>())Guard->ClearTransient();
     if (auto* Mist = GetOwner()->FindComponentByClass<USlagMistViewComponent>()) Mist->ClearBlindness();
     if(auto* Infection=GetOwner()->FindComponentByClass<UProgressiveInfectionComponent>())Infection->Cure();
     ChillStacks=HasteStacks=ChainStacks=ElectrifiedStacks=CorrosionStacks=VulnerabilityStacks=BleedStacks=0;

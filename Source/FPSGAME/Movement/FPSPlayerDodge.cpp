@@ -11,6 +11,7 @@
 #include "../Monsters/PoisonMaggotMonster.h"
 #include "../Skills/EnemyAttackDamage.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/TangDaoGuardComponent.h"
 #include "Engine/DamageEvents.h"
 #include "Engine/GameInstance.h"
 #include "GameFramework/ProjectileMovementComponent.h"
@@ -79,6 +80,10 @@ float AFPSGAMECharacter::TakeDamage(float DamageAmount, const FDamageEvent& Dama
         const bool Eligible=DamageAmount>0&&Enemy&&!Enemy->IsDead()&&!Source->ActorHasTag(TEXT("Summoned"))&&!Source->ActorHasTag(TEXT("NoSkillTraining"))&&!(Type&&Type->IsA<UMaggotPoisonDamage>());
         const bool Melee=Type&&Type->IsA<UEnemyMeleeDamage>();
         const bool Ranged=!Melee&&((Type&&Type->IsA<UEnemyRangedDamage>())||DamageEvent.IsOfType(FPointDamageEvent::ClassID)||(DamageCauser&&DamageCauser->FindComponentByClass<UProjectileMovementComponent>()));
+        // Actual hostile contact during dodge, not pressing dodge in empty space.
+        if(DamageAmount>0.f&&Enemy&&!Enemy->IsDead()&&!Source->ActorHasTag(TEXT("Summoned"))
+            &&!(Type&&Type->IsA<UMaggotPoisonDamage>())&&(Melee||Ranged))
+            if(auto* Guard=FindComponentByClass<UTangDaoGuardComponent>())Guard->GrantPhoenix();
         if(Eligible&&((Melee&&!bDodgeMeleeRewarded)||(Ranged&&!bDodgeRangedRewarded)))
         {
             // 联机：远端玩家的闪避奖励记到影子档案，不是主机 GI 单例。
@@ -99,6 +104,8 @@ float AFPSGAMECharacter::TakeDamage(float DamageAmount, const FDamageEvent& Dama
     AActor* Attacker=EventInstigator?EventInstigator->GetPawn():DamageCauser;
     if(Health)DamageAmount=Health->DamageAfterArmor(DamageAmount,Type,Attacker);
     if(!Direct && RuneSword && RuneSword->IsEquipped())DamageAmount=RuneSword->ResolveGuardDamage(DamageAmount,Type,EventInstigator,DamageCauser);
+    // Independent multiplier after existing armor, status and block reductions.
+    if(const auto* Guard=FindComponentByClass<UTangDaoGuardComponent>())DamageAmount*=Guard->DamageTakenMultiplier();
     if(DebugInvincible)return 0.f;
     // A parry returns zero to the attack caller before damage events or its
     // on-hit status effects are emitted. Armor has already been applied once.

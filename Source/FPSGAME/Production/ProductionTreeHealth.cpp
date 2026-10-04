@@ -67,14 +67,17 @@ double ProductionTreeHealth::RockHealthScale()
     return FMath::Clamp(double(RockHealthScaleCVar.GetValueOnGameThread()),.05,100.);
 }
 
+double ProductionTreeHealth::HitCountDamageMultiplier(int32 HitsAdd)
+{
+    const int32 Factory=FMath::Max(1,FProductionResource::RequiredHits);
+    return double(Factory)/double(FMath::Max(1,Factory+HitsAdd));
+}
 double ProductionTreeHealth::StrikeDamage(const FProductionToolStats& Stats)
 {
     // 自卫伤害面板就是伐木伤害：改造、附魔、强化与角色物攻都已经在里面。
     const double Panel=Stats.Damage.Total();
-    // 「所需有效命中」改造折算成伐木伤害倍率：出厂 3 挥 → 2 挥 ＝ ×1.5，正好抵掉一次挥砍。
-    // 这样工作台与浮窗的「所需有效命中」在标定伤害下仍然逐次对应实际挥砍数。
-    const int32 Factory=FMath::Max(1,FProductionResource::RequiredHits);
-    const double Factor=double(Factory)/double(FMath::Max(1,Factory+Stats.HarvestHitsAdd));
+    // Legacy -1 hit is a ×1.5 harvest damage factor, not a fixed subtraction of one swing.
+    const double Factor=HitCountDamageMultiplier(Stats.HarvestHitsAdd);
     return FMath::Max(1.,Panel*Factor);
 }
 

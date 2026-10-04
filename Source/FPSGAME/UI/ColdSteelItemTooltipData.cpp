@@ -221,7 +221,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             {
                 // 行名与 tool-gunsmith.json 的 effects 措辞一致；采集与自卫分两段列出。
                 Delta(C,ColdSteelWeaponText::HarvestYieldMultiplier,(S.Tool.HarvestYield-1)*100,TEXT("%"));
-                Delta(C,TEXT("所需有效命中"),double(S.Tool.HarvestHitsAdd),TEXT(" 次"),true);
+                Delta(C,TEXT("采集伤害"),(ProductionTreeHealth::HitCountDamageMultiplier(S.Tool.HarvestHitsAdd)-1)*100,TEXT("%"));
                 Delta(C,TEXT("采集距离"),(S.Tool.HarvestReach-1)*100,TEXT("%"));
                 Delta(C,ColdSteelWeaponText::HarvestRadius,S.Tool.HarvestRadiusAddCM,TEXT(" cm"));
                 Delta(C,TEXT("额外产出几率"),S.Tool.BonusHarvestChance*100,TEXT("%"));
@@ -248,6 +248,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             else if(G->IsMelee(I.Definition))
             {
                 Delta(C,ColdSteelWeaponText::BaseDamageModifier,(S.Melee.Damage-1)*100,TEXT("%"));
+                Delta(C,TEXT("全部近战攻击伤害"),(S.Melee.AllAttackDamage-1)*100,TEXT("%"));
                 Delta(C,TEXT("三连击第二段伤害"),(S.Melee.ComboSecond-1)*100,TEXT("%"));
                 Delta(C,TEXT("三连击第三段伤害"),(S.Melee.ComboThird-1)*100,TEXT("%"));
                 Delta(C,TEXT("第三段突刺韧性伤害"),(S.Melee.ComboThirdToughness-1)*100,TEXT("%"));
@@ -331,16 +332,19 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Section(Main,ColdSteelWeaponText::CombatParameters);AppendColdSteelTooltipAttackFormula(I,Model,Number(O,TEXT("melee_damage"),55),Main);
         const auto Melee=ColdSteelMelee::Evaluate(I,Model);
         const bool OverheadFinisher=ColdSteelModularSword::UsesOverheadFinisher(I);
+        const bool RisingDragon=ColdSteelModularSword::UsesRisingDragonFinisher(I);
         DamageRows(Main,Melee.DamageParts);
         Row(Main,TEXT("快速近战伤害倍率"),N(Melee.QuickCombat.DamageMultiplier)+TEXT("×"));
         Row(Main,TEXT("快速近战伤害"),N(Melee.QuickCombat.Damage));
         Row(Main,TEXT("快速近战击退距离"),N(Melee.QuickCombat.KnockbackCM)+TEXT(" cm"));
+        if(Melee.Modifiers.AllAttackKnockback!=1.)Row(Main,TEXT("全部攻击击退倍率"),N(Melee.Modifiers.AllAttackKnockback)+TEXT("× · 含快速近战、旋风和冲刺斩"));
+        if(Melee.Modifiers.AllAttackDamage!=1.)Row(Main,TEXT("全部近战攻击伤害倍率"),N(Melee.Modifiers.AllAttackDamage)+TEXT("× · 含属性、附加伤害和快速近战"));
         Row(Main,TEXT("快速近战韧性伤害倍率"),N(Melee.QuickCombat.ToughnessMultiplier)+TEXT("×"));
         if(Melee.QuickCombat.BleedChance>0)Row(Main,TEXT("快速近战流血"),N(Melee.QuickCombat.BleedChance*100)+TEXT("% 概率施加1层"));
         Row(Main,TEXT("快速近战命中方式"),Melee.QuickCombat.bAreaHit?TEXT("范围多目标 · 判定范围不变"):TEXT("单目标"));
         Row(Main,TEXT("三连击第二段伤害"),N(Melee.ComboSecondDamage));
         Row(Main,TEXT("三连击第三段伤害"),N(Melee.ComboThirdDamage));
-        if(!FMath::IsNearlyEqual(Melee.Modifiers.ComboThirdToughness,1.))Row(Main,OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),N(Melee.Modifiers.ThirdThrustToughnessMultiplier())+TEXT("×"));
+        if(!FMath::IsNearlyEqual(Melee.Modifiers.ComboThirdToughness,1.))Row(Main,RisingDragon?TEXT("第三段升龙韧性伤害倍率"):OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),N(Melee.Modifiers.ThirdThrustToughnessMultiplier())+TEXT("×"));
         if(Melee.Modifiers.MagicCooldown!=1)Row(Main,TEXT("魔法技能冷却倍率"),N(Melee.Modifiers.MagicCooldown)+TEXT("×"));
         if(Melee.Modifiers.MagicDamage!=1)Row(Main,TEXT("魔法伤害倍率"),N(Melee.Modifiers.MagicDamage)+TEXT("×"));
         if(Melee.Modifiers.CooldownReduceSecondsPerHit>0)Row(Main,ColdSteelWeaponText::CooldownReducePerHit,N(.5f+Melee.Modifiers.CooldownReduceSecondsPerHit)+TEXT(" s / 挥"));
@@ -348,8 +352,9 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(Melee.AttackSeconds*1000))+TEXT(" ms"));
         Row(Main,TEXT("重击蓄力速度加成"),N(Melee.HeavyChargeSpeedBonus*100.)+TEXT("%"));
         Row(Main,TEXT("重击蓄力时间"),N(Melee.HeavyChargeSeconds)+TEXT(" s"));
-        Row(Main,OverheadFinisher?TEXT("竖劈时间"):TEXT("突刺时间"),N(Melee.ThrustSeconds)+TEXT(" s"));
+        Row(Main,RisingDragon?TEXT("升龙时间"):OverheadFinisher?TEXT("竖劈时间"):TEXT("突刺时间"),N(Melee.ThrustSeconds)+TEXT(" s"));
         if(OverheadFinisher)Row(Main,TEXT("第三段命中区域"),TEXT("前方矩形"));
+        if(RisingDragon)Row(Main,TEXT("第三段效果"),TEXT("升龙 · 准备时间减半 · 强制击飞"));
         Row(Main,ColdSteelWeaponText::AttackDistance,N(Melee.ThrustReach/100)+TEXT(" m"));
         Row(Main,TEXT("普通挥砍距离"),N(Melee.SlashReach/100)+TEXT(" m"));
         Row(Main,ColdSteelWeaponText::StaminaCost,N(Melee.AttackStamina));
@@ -357,6 +362,22 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(!FMath::IsNearlyEqual(Melee.Modifiers.ToughnessDamage,1.))Row(Main,ColdSteelWeaponText::ToughnessMultiplier,N(Melee.Modifiers.ToughnessDamage)+TEXT("×"));
         if(Melee.Modifiers.PhysicalArmorPenetration>0)Row(Main,TEXT("改造物理防御穿透"),N(Melee.Modifiers.PhysicalArmorPenetration*100)+TEXT("%"));
         Row(Main,TEXT("格挡伤害减免"),N(Melee.BlockReduction*100)+TEXT("%"));
+        if(Melee.Modifiers.DamageTaken!=1)Row(Main,TEXT("所受伤害倍率（乘法叠加）"),N(Melee.Modifiers.DamageTaken)+TEXT("×"));
+        if(Melee.Modifiers.DodgeStamina!=1)Row(Main,TEXT("闪避体力消耗倍率"),N(Melee.Modifiers.DodgeStamina)+TEXT("×"));
+        if(Melee.Modifiers.SprintStamina!=1)Row(Main,TEXT("奔跑体力消耗倍率"),N(Melee.Modifiers.SprintStamina)+TEXT("×"));
+        if(Melee.Modifiers.DragonSeconds>0)
+        {
+            Row(Main,TEXT("成功弹反 · 龙威"),N(Melee.Modifiers.DragonSeconds)+TEXT(" s · 冷却 ")+N(Melee.Modifiers.DragonCooldown)+TEXT(" s"));
+            Row(Main,TEXT("龙威下次刀刃命中"),TEXT("伤害 ×")+N(Melee.Modifiers.DragonDamage)+TEXT(" · 基础削韧 +")+N(Melee.Modifiers.DragonToughness));
+            Row(Main,TEXT("龙威规则"),TEXT("只增强首个敌人；挥空不消耗，切换清除；不含快速近战、剑气与持续伤害"));
+        }
+        if(Melee.Modifiers.PhoenixSeconds>0)
+        {
+            Row(Main,TEXT("闪避躲过攻击 · 凤舞"),N(Melee.Modifiers.PhoenixSeconds)+TEXT(" s · 冷却 ")+N(Melee.Modifiers.PhoenixCooldown)+TEXT(" s"));
+            Row(Main,TEXT("凤舞攻击速度"),TEXT("×")+N(Melee.Modifiers.PhoenixSpeed));
+            Row(Main,TEXT("凤舞刀刃命中回血"),TEXT("前 ")+N(Melee.Modifiers.PhoenixHealHits)+TEXT(" 次，各恢复生命上限 ")+N(Melee.Modifiers.PhoenixHealRatio*100)+TEXT("%"));
+            Row(Main,TEXT("凤舞规则"),TEXT("每次出手只回血一次；空闪不触发，切换清除；不含快速近战、剑气与持续伤害"));
+        }
         Row(Main,TEXT("弹反判定时间"),N(Melee.ParrySeconds)+TEXT(" s"));
         if(Melee.Modifiers.RiposteSeconds>0)Row(Main,TEXT("成功弹反"),TEXT("反击激励 · ")+N(Melee.Modifiers.RiposteSeconds)+TEXT(" s"));
         if(Melee.Modifiers.ClovenSeconds>0)

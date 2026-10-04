@@ -207,8 +207,7 @@ void UFPSLightningComponent::RunChain(APawn* Player,UColdSteelStatusModel* M,AAc
                 auto* Status=UCombatStatusFormula::GetOrAdd(Target);
                 if(!Status->IsImmune())
                 {
-                    C->ReceiveStun(Player,CastSnapshot.StunSeconds,0);
-                    Status->AddStun(CastSnapshot.StunSeconds); // 旧 applyStun：眩晕卡片+动作/移动封锁
+                    // Native stun and bell extension were applied once with damage.
                     if(Status->AddElectrified(CastSnapshot.ElectrifyStacks,CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack))Overload(Target,Rewards);
                 }
             }

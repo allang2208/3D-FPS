@@ -49,7 +49,7 @@
         "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Blade_factory.SM_TangDao_Blade_factory",
         "interface": "tang_dao_hilt_v1",
         "materials": {
-          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudBase_Mountain.M_TangDaoBladeRuneSurface_CloudBase_Mountain"
         }
       },
       "extended_edge": {
@@ -76,7 +76,7 @@
         "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Blade_extended_edge.SM_TangDao_Blade_extended_edge",
         "interface": "tang_dao_hilt_v1",
         "materials": {
-          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudBase_Mountain.M_TangDaoBladeRuneSurface_CloudBase_Mountain"
         }
       },
       "heavy_spine": {
@@ -103,7 +103,7 @@
         "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Blade_heavy_spine.SM_TangDao_Blade_heavy_spine",
         "interface": "tang_dao_hilt_v1",
         "materials": {
-          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudBase_Mountain.M_TangDaoBladeRuneSurface_CloudBase_Mountain"
         }
       },
       "feather_edge": {
@@ -130,7 +130,7 @@
         "mesh": "/Game/Weapons/TangDao20261002/Meshes/SM_TangDao_Blade_feather_edge.SM_TangDao_Blade_feather_edge",
         "interface": "tang_dao_hilt_v1",
         "materials": {
-          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudBase_Mountain.M_TangDaoBladeRuneSurface_CloudBase_Mountain"
         }
       },
       "yanling_edge": {
@@ -157,13 +157,14 @@
           74
         ],
         "materials": {
-          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase",
-          "M_TangDaoYanlingSteel": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudYanling.M_TangDaoBladeRuneSurface_CloudYanling"
+          "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudBase_Mountain.M_TangDaoBladeRuneSurface_CloudBase_Mountain",
+          "M_TangDaoYanlingSteel": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudYanling_Mountain.M_TangDaoBladeRuneSurface_CloudYanling_Mountain"
         },
         "appearance": "燕翎折面刀尖、双导槽与层叠锻钢纹；保留原有龙纹。",
         "combo_third_attack": "sprint_overhead_rectangle"
       },
       "tengyun_dragon": {
+        "combo_third_attack": "rising_dragon",
         "mesh": "/Game/Weapons/TangDao20261002/TengyunBlade20261002/Meshes/SM_TangDao_Blade_tengyun_dragon_SolidV4.SM_TangDao_Blade_tengyun_dragon_SolidV4",
         "interface": "tang_dao_hilt_v1",
         "location_cm": [
@@ -187,7 +188,7 @@
           74
         ],
         "materials": {
-          "M_TangDaoTengyunSteel": "/Game/Weapons/TangDao20261002/TengyunBlade20261002/JointRepair20261002/Materials/M_TangDaoBladeRuneSurface_CloudTengyunJoint.M_TangDaoBladeRuneSurface_CloudTengyunJoint"
+          "M_TangDaoTengyunSteel": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudTengyunJoint_Mountain.M_TangDaoBladeRuneSurface_CloudTengyunJoint_Mountain"
         },
         "appearance": "弧形轻量刀尖、龙脊长导槽与鎏金游龙浮雕，流云暗纹融合水波锻钢纹。"
       }
@@ -501,5 +502,6 @@
   "cloud_rune_revision": "TangDaoAuspiciousCloudRune20261002",
   "xuan_cloud_guard_revision": "TangDaoXuanCloudGuard20261002",
   "phoenix_feather_guard_revision": "TangDaoPhoenixFeatherGuard20261002",
-  "tiger_pommel_revision": "TangDaoTigerPommelSideProfileV6EyeAlign_20261003"
+  "tiger_pommel_revision": "TangDaoTigerPommelSideProfileV6EyeAlign_20261003",
+  "mountain_rune_revision": "TangDaoMountainRune20261004"
 }

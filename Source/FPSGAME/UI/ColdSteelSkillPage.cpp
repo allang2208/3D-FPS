@@ -328,7 +328,7 @@ FString UColdSteelSkillPage::EffectValue(int32 Index,bool bNext) const
         case 5:return Storm?FString::FromInt(H.Count):FString::Printf(TEXT("%.2f m"),C.Knockback/100);
         case 6:return Storm?FString::Printf(TEXT("%.2f m"),H.ChainRange/100):FString::Printf(TEXT("%.2f ×"),C.ChargeBonus);
         case 7:return FString::Printf(TEXT("%.0f%%"),(Storm?H.ChainDecay:C.StackDamage)*100);
-        case 8:return FString::Printf(TEXT("%.2f s"),Storm?H.StunSeconds:C.MinCharge);
+        case 8:return FString::Printf(TEXT("%.2f s"),Storm?H.StunSeconds+H.StunExtensionSeconds:C.MinCharge);
         case 9:return FString::Printf(TEXT("+%d / %.1f s"),H.ElectrifyStacks,H.ElectrifyDuration);
         case 10:return FString::Printf(TEXT("%.2f ×"),H.MagicMultiplier);
         default:return FString::Printf(TEXT("%.2f ×"),H.IntelligenceMultiplier);
@@ -342,7 +342,7 @@ FString UColdSteelSkillPage::EffectValue(int32 Index,bool bNext) const
         case 0:return FString::Printf(TEXT("%.0f"),C.Damage);
         case 1:return FString::Printf(TEXT("%d"),C.Count);
         case 2:return FString::Printf(TEXT("%.0f%%"),C.ChainDecay*100);
-        case 3:return FString::Printf(TEXT("%.2f s"),C.StunSeconds);
+        case 3:return FString::Printf(TEXT("%.2f s"),C.StunSeconds+C.StunExtensionSeconds);
         case 4:return FString::Printf(TEXT("%.0f"),C.ManaCost);
         case 5:return FString::Printf(TEXT("%.1f s"),C.Cooldown);
         case 6:return FString::Printf(TEXT("%.1f m"),C.Range/100);
@@ -389,7 +389,7 @@ FString UColdSteelSkillPage::EffectValue(int32 Index,bool bNext) const
         if(Index==0)return FString::Printf(TEXT("×%.2f"),SwordUppercut::HeavyDamageScale*E.HeavyMultiplier);
         if(Index==1)return FString::Printf(TEXT("+%d"),E.Strength);
         if(Index==2)return FString::Printf(TEXT("%d"),ColdSteelSkills::ExperienceRequired(Definition(SelectedSkill),L));
-        if(Index==3)return FString::Printf(TEXT("%.0f"),Definition(SelectedSkill).UppercutStaminaCost);
+        if(Index==3)return FString::Printf(TEXT("%.1f"),Model->SwordUppercutStaminaCost());
         if(Index==4)return FString::Printf(TEXT("%.1f 秒"),Definition(SelectedSkill).UppercutCooldownSeconds);
         if(Index==5)
         {
@@ -493,7 +493,7 @@ FString UColdSteelSkillPage::EffectValue(int32 Index,bool bNext) const
         const auto E=Model->DodgeEffect(Model->DodgeProgress().Level+(bNext?1:0));
         if(Index==0)return FString::Printf(TEXT("+%.1f m"),E.DodgeDistanceCM/100);
         if(Index==1)return FString::Printf(TEXT("−%.1f%%"),E.DodgeCostReduction*100);
-        return FString::Printf(TEXT("%.2f"),Model->StaminaSettings().DodgeCost*(1-E.DodgeCostReduction));
+        return FString::Printf(TEXT("%.2f"),Model->DodgeStaminaCost(Model->DodgeProgress().Level+(bNext?1:0)));
     }
     if(SelectedSkill==TEXT("quickCombat"))
     {

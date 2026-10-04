@@ -30,7 +30,7 @@
 
 按用户截图，将偏在眼睛两侧的两颗红石移回虎脸原浮雕的瞳孔位置。原图 UV 定位为左眼 `(0.3485, 0.2990)`、右眼 `(0.6510, 0.2982)`，V 由上向下；红石、瞳孔、眼圈、眼睑和雕刻凹槽共用 `profile_surface.py` 中的定位。删除为侧视可见性添加的外移偏置，眼部朝向仍跟随脸颊曲面。纯侧视的遮挡保留真实模型关系。三档模型、两组贴图和菜单图标同步重制。
 
-眼位修订前的可编辑模型和作者源保存在 `BeforeEyeAlignment20261003`；本轮图标提示为 `Icons/eye_alignment_icon_prompt.json`。对应版本标识为 `TangDaoTigerPommelSideProfileV6EyeAlign_20261003`，已由无界面 commandlet 保存并更新现有选项，未运行游戏或测试。
+眼位修订前的可编辑模型和作者源已于 2026-10-04 移入本机 `trash/attachment-effects-20261004/SourceAssets/TangDaoMeshy20261002/TigerPommel20261002/SideProfileV6/BeforeEyeAlignment20261003`；原路径、大小与散列见 [归档清单](../../../../Docs/Publication/AttachmentEffects20261004/archive-manifest.json)。本轮图标提示为 `Icons/eye_alignment_icon_prompt.json`。对应版本标识为 `TangDaoTigerPommelSideProfileV6EyeAlign_20261003`，已由无界面 commandlet 保存并更新现有选项，未运行游戏或测试。
 
 ## 交付边界说明
 

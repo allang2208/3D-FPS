@@ -56,6 +56,9 @@ FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) con
             DamageFactor=(1+Craft(TEXT("magicDamagePercent"))+Craft(TEXT("fireDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent")));
             C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
             C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
+            C.PendantBurnMultiplier=Craft(TEXT("fireBurnDamageMul"));
+            C.PendantBurnSeconds=E->CraftEffect(*Item,TEXT("fireBurnDuration"),3000)/1000;
+            C.PendantBurnTick=E->CraftEffect(*Item,TEXT("fireBurnTickMs"),500)/1000;
         }
     DamageFactor*=MagicImplementMultiplier();C.Damage=FMath::FloorToFloat(C.Damage*DamageFactor);C.AuraDamage=FMath::FloorToFloat(C.AuraDamage*DamageFactor);
     C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor)*float(Rune.MagicCost));
@@ -86,6 +89,10 @@ bool UColdSteelStatusModel::ApplyFireMagicHit(APawn* Shooter,AActor* Target,cons
     TGuardValue<const CombatFormulaRuntime::MagicHit*> MagicScope(CombatFormulaRuntime::ActiveMagicHit,&Context);
     const float Applied=UGameplayStatics::ApplyDamage(Target,Damage,Shooter->GetController(),Shooter,UFireMagicDamage::StaticClass());
     if(Applied<=0)return false;
+    // Keep the pendant's burn separate from the meteor's native burn stacks.
+    if(Spell.PendantBurnMultiplier>0&&!Combat->IsDead())
+        UCombatStatusFormula::GetOrAdd(Target)->AddBurn(Shooter,Spell.MagicAttack,1,
+            Spell.PendantBurnSeconds,Spell.PendantBurnMultiplier,Spell.PendantBurnTick);
     if(auto* Player=Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied);
     if(!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))
     {

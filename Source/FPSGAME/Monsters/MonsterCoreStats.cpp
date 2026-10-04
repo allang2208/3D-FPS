@@ -15,6 +15,7 @@
 #include "BlindSupplicantMonster.h"
 #include "SpitterZombie.h"
 #include "MonsterCombatComponent.h"
+#include "MonsterToughnessProfiles.h"
 #include "Components/ActorComponent.h"
 
 namespace MonsterCoreStats
@@ -176,11 +177,13 @@ void ApplyToughnessProfile(AActor* Monster)
     auto* Combat = Monster->FindComponentByClass<UMonsterCombatComponent>();
     if(!Combat) return;
     const FToughnessBaseline& Base = ToughnessBaselineOf(S.ToughnessClass);
-    Combat->ToughnessThreshold = Base.Threshold * ToughnessRankThresholdScale(S.Rank);
+    // Maxima now come from the five-tier species table; ordinary defaults are zero.
+    Combat->ToughnessThreshold = 0.f;
     Combat->ToughnessBreakSeconds = Base.BreakSeconds * ToughnessRankBreakScale(S.Rank);
     Combat->BladeResistance = Base.Blade;
     Combat->BluntResistance = Base.Blunt;
     Combat->ImpactResistance = Base.Impact;
     Combat->ToughnessRecoverySeconds = Base.RecoverySeconds;
+    MonsterToughnessProfiles::Apply(Monster,S.Rank);
 }
 }

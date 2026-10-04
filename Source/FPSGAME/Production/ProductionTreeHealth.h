@@ -40,6 +40,8 @@ namespace ProductionTreeHealth
     FPSGAME_API double RockMaxHealth();
     /** 一次挥砍的伐木伤害（≥1：不会出现砍不动的树）。 */
     FPSGAME_API double StrikeDamage(const FProductionToolStats& Stats);
+    /** Legacy hit-count adjustment expressed as its actual harvest damage multiplier. */
+    FPSGAME_API double HitCountDamageMultiplier(int32 HitsAdd);
     /** 剩余生命还要几挥（向上取整，至少 1；生命已归零返回 0）。 */
     FPSGAME_API int32 SwingsToFell(double RemainingHealth,double Damage);
     /** 树木生命值整体倍率（CVar `fps.Harvest.TreeHealthScale`，默认 1）：调平衡不用重编译。 */

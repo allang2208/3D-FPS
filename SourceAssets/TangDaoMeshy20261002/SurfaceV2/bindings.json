@@ -2,23 +2,23 @@
   "slots": {
     "blade_1": {
       "factory": {
-        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudBase_Mountain.M_TangDaoBladeRuneSurface_CloudBase_Mountain"
       },
       "extended_edge": {
-        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudBase_Mountain.M_TangDaoBladeRuneSurface_CloudBase_Mountain"
       },
       "heavy_spine": {
-        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudBase_Mountain.M_TangDaoBladeRuneSurface_CloudBase_Mountain"
       },
       "feather_edge": {
-        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase"
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudBase_Mountain.M_TangDaoBladeRuneSurface_CloudBase_Mountain"
       },
       "yanling_edge": {
-        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudBase.M_TangDaoBladeRuneSurface_CloudBase",
-        "M_TangDaoYanlingSteel": "/Game/Weapons/TangDao20261002/CloudRune20261002/Materials/M_TangDaoBladeRuneSurface_CloudYanling.M_TangDaoBladeRuneSurface_CloudYanling"
+        "M_TangDaoSurface": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudBase_Mountain.M_TangDaoBladeRuneSurface_CloudBase_Mountain",
+        "M_TangDaoYanlingSteel": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudYanling_Mountain.M_TangDaoBladeRuneSurface_CloudYanling_Mountain"
       },
       "tengyun_dragon": {
-        "M_TangDaoTengyunSteel": "/Game/Weapons/TangDao20261002/TengyunBlade20261002/JointRepair20261002/Materials/M_TangDaoBladeRuneSurface_CloudTengyunJoint.M_TangDaoBladeRuneSurface_CloudTengyunJoint"
+        "M_TangDaoTengyunSteel": "/Game/Weapons/TangDao20261002/MountainRune20261004/Materials/M_TangDaoBladeRuneSurface_CloudTengyunJoint_Mountain.M_TangDaoBladeRuneSurface_CloudTengyunJoint_Mountain"
       }
     },
     "guard": {
@@ -125,5 +125,6 @@
   "inventory_icon": "Icons/ue_tang_dao_surface_v2.png",
   "rune_surface_revision": "TangDaoNativeBladeRune20261002",
   "cloud_rune_revision": "TangDaoAuspiciousCloudRune20261002",
-  "inventory_icon_source": "InventoryIconRules20261002/export_icon.ps1"
+  "inventory_icon_source": "InventoryIconRules20261002/export_icon.ps1",
+  "mountain_rune_revision": "TangDaoMountainRune20261004"
 }

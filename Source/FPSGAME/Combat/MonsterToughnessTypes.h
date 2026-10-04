@@ -24,6 +24,33 @@ class FPSGAME_API UBluntToughnessDamage : public UDamageType { GENERATED_BODY() 
 UCLASS()
 class FPSGAME_API UImpactToughnessDamage : public UDamageType { GENERATED_BODY() };
 
+UENUM(BlueprintType)
+enum class EMonsterToughnessPhase : uint8
+{
+    Legacy, Guarded, Broken, Recovering
+};
+
+/** One replicated snapshot keeps the bar, phase and deadline in agreement. */
+USTRUCT()
+struct FMonsterToughnessState
+{
+    GENERATED_BODY()
+    UPROPERTY() EMonsterToughnessPhase Phase=EMonsterToughnessPhase::Legacy;
+    UPROPERTY() float Accumulated=0.f;
+    UPROPERTY() float Maximum=0.f;
+    UPROPERTY() int32 BreakCount=0;
+    UPROPERTY() double PhaseEndsAt=0.;
+    UPROPERTY() float PhaseDuration=0.f;
+};
+
+struct FMonsterToughnessBarTuning
+{
+    float Maximum=200.f;
+    float BrokenSeconds=3.f,RefillSeconds=4.f,InitialStaggerSeconds=1.f;
+    float RegenDelaySeconds=3.f,RegenFractionPerSecond=.1f;
+    float HitStaggerSeconds=.2f,HitIntervalSeconds=.15f;
+};
+
 namespace MonsterToughness
 {
     /**

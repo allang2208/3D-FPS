@@ -34,6 +34,8 @@ void UMonsterCombatComponent::GetLifetimeReplicatedProps(TArray<FLifetimePropert
     DOREPLIFETIME(UMonsterCombatComponent,ReactionDuration);
     DOREPLIFETIME(UMonsterCombatComponent,bStunned);
     DOREPLIFETIME(UMonsterCombatComponent,NetStunSeconds);
+    DOREPLIFETIME(UMonsterCombatComponent,ToughnessState);
+    DOREPLIFETIME(UMonsterCombatComponent,NetStunEndsAt);
 }
 
 void UMonsterCombatComponent::OnRep_HitReactions()
@@ -42,9 +44,8 @@ void UMonsterCombatComponent::OnRep_HitReactions()
     // 都是纯动画/姿态写入，客户端安全；AI 移动与击退位移仍归服务端权威）。
     if(!GetOwner()||GetOwner()->HasAuthority()||IsDead())return;
     ReactionTime=0.f;bNetReacting=ReactionDuration>0.f;
-    // NetStunSeconds 近似回放眩晕窗口（服务端时间轴不可比，用本地时刻+时长）。
-    if(GetWorld()&&NetStunSeconds>0.f)
-        ExplicitStunUntil=FMath::Max(ExplicitStunUntil,double(GetWorld()->GetTimeSeconds())+double(NetStunSeconds));
+    // Explicit stun uses a replicated server deadline; a new hit cannot restart it.
+    bStunned=StunSecondsRemaining()>0.f;
     const bool bContinueSway=BeginHumanoidStun(ReactionDuration);
     if(auto* C=Cast<ACharacter>(GetOwner()))
     {
@@ -63,7 +64,11 @@ void UMonsterCombatComponent::BeginPlay()
     Super::BeginPlay();
     // 韧性走类别×阶级基准表（MonsterCoreStats，2026-09-29）：晚于地牢导演写入实例
     // Rank（SpawnDeferred 阶段先写 Rank 再 FinishSpawning→BeginPlay），覆盖构造器默认。
-    MonsterCoreStats::ApplyToughnessProfile(GetOwner());
+    if(GetOwner()->HasAuthority())
+    {
+        MonsterCoreStats::ApplyToughnessProfile(GetOwner());
+        PublishToughnessState();
+    }
     LoadHumanoidStun();
 }
 bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Name) const
@@ -200,7 +205,7 @@ float UMonsterCombatComponent::StopRange() const{if(auto* M09=Cast<AHangingBellM
 FVector UMonsterCombatComponent::Home() const{if(auto* M09=Cast<AHangingBellM09>(GetOwner()))return M09->Home;
  if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))return M10->Home;if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return S->Home;if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->Home;if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->Home;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->Home;if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->SpawnPosition;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->Home;return GetOwner()->GetActorLocation();}
 void UMonsterCombatComponent::ReachedHome(){if(auto* M09=Cast<AHangingBellM09>(GetOwner()))M09->Health=M09->MaxHealth;
- if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))M10->Health=M10->MaxHealth;if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->Health=S->MaxHealth;if(auto* F=Cast<AFleshHandMonster>(GetOwner()))F->Health=F->MaxHealth;if(auto* W=Cast<AWolfMonster>(GetOwner()))W->ReachedHome();if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->Health=M->MaxHealth;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->Health=H->MaxHealth;SetLocomotion(false);}
+ if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))M10->Health=M10->MaxHealth;if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->Health=S->MaxHealth;if(auto* F=Cast<AFleshHandMonster>(GetOwner()))F->Health=F->MaxHealth;if(auto* W=Cast<AWolfMonster>(GetOwner()))W->ReachedHome();if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->Health=M->MaxHealth;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->Health=H->MaxHealth;ResetToughnessOnReturnHome();SetLocomotion(false);}
 float UMonsterCombatComponent::ToughnessResistance(EMonsterAttackForm Form) const
 {
  if(const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();Status&&Status->TigerRoarRemaining()>0.f)return 0.f;
@@ -213,28 +218,38 @@ float UMonsterCombatComponent::ToughnessResistance(EMonsterAttackForm Form) cons
 }
 float UMonsterCombatComponent::ToughnessDamageFor(float Damage,EMonsterAttackForm Form) const
 {
- if(const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();Status&&Status->TigerRoarRemaining()>0.f)
-  return MonsterToughness::ToughnessDamage(Damage,Form,0.f)*Status->TigerRoarToughnessMultiplier();
- return MonsterToughness::ToughnessDamage(Damage,Form,ToughnessResistance(Form));
+ const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
+ const bool Roaring=Status&&Status->TigerRoarRemaining()>0.f;
+ const float Bonus=IncomingToughnessBonusBaseDamage*(1.f-(Roaring?0.f:FMath::Clamp(ToughnessResistance(Form),0.f,.9f)))*(Roaring?Status->TigerRoarToughnessMultiplier():1.f);
+ if(IncomingToughnessBaseDamage>=0.f)
+ {
+  // Already expressed in poise units: never apply HP damage, crit or form power again.
+  const float Resistance=Roaring?0.f:FMath::Clamp(ToughnessResistance(Form),0.f,.9f);
+  return IncomingToughnessBaseDamage*(1.f-Resistance)*(Roaring?Status->TigerRoarToughnessMultiplier():1.f)+Bonus;
+ }
+ if(Roaring)return MonsterToughness::ToughnessDamage(Damage,Form,0.f)*Status->TigerRoarToughnessMultiplier()+Bonus;
+ return MonsterToughness::ToughnessDamage(Damage,Form,ToughnessResistance(Form))+Bonus;
 }
 float UMonsterCombatComponent::ApplyHitWithReactionScale(float Multiplier,TFunctionRef<float()> ApplyDamage)
 {
  TGuardValue<float> Scope(IncomingHitReactionMultiplier,Multiplier);
  return ApplyDamage();
 }
-float UMonsterCombatComponent::ApplyHitWithToughnessScale(float Multiplier,TFunctionRef<float()> ApplyDamage)
+float UMonsterCombatComponent::ApplyHitWithToughnessScale(float Multiplier,TFunctionRef<float()> ApplyDamage,float FixedBaseDamage,float BonusBaseDamage)
 {
  TGuardValue<float> Scope(IncomingToughnessDamageMultiplier,FMath::Max(0.f,Multiplier));
+ TGuardValue<float> BaseScope(IncomingToughnessBaseDamage,FixedBaseDamage);
+ TGuardValue<float> BonusScope(IncomingToughnessBonusBaseDamage,FMath::Max(0.f,BonusBaseDamage));
  return ApplyDamage();
 }
 void UMonsterCombatComponent::ReceiveHit(float Damage,APawn* Attacker,EMonsterAttackForm Form)
 {
  if(!GetOwner()->HasAuthority()||IsDead())return;
  if(auto* Pawn=Cast<APawn>(GetOwner()))if(auto* AI=Cast<AMonsterAIController>(Pawn->GetController()))AI->RememberDamage(Attacker);
- // Closed reaction gate (firearms by default): the monster still remembers who
- // shot it, but never flips the state machine, the toughness clock or the hit
- // presentation. Melee and skills keep the existing scaled behaviour.
+ // DoT and legacy firearm hits may close this gate. Direct firearm hits against
+ // ranked poise bars are admitted by the damage caller.
  if(IncomingHitReactionMultiplier<=0.f)return;
+ if(UsesToughnessBar()){ReceiveToughnessBarHit(Damage,Form);return;}
  if(IsKnockedDown())return;
  // 韧性结算：伤害先按命中形式与对应抗性折算成韧性伤害，攒满阈值才破韧。
  // 未破韧的命中只累积韧性，不打断动作、不进入硬直、不播放受击表现。
@@ -246,6 +261,7 @@ void UMonsterCombatComponent::ReceiveHit(float Damage,APawn* Attacker,EMonsterAt
  const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
  const float Remaining=FMath::Max(IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f,Status?Status->FrozenRemaining():0.f);
  if(bBreak){Toughness=0;SinceHit=0;++Breaks;}
+ PublishToughnessState();
  // 破韧只造成硬直；已有技能眩晕保留自己的到期时间，不被破韧延长。
  bStunned=StunSecondsRemaining()>0.f;
  if(!bBreak&&!bAllowSubthresholdStagger)
@@ -268,8 +284,32 @@ void UMonsterCombatComponent::ReceiveHit(float Damage,APawn* Attacker,EMonsterAt
  UE_LOG(LogTemp,Log,TEXT("MONSTER_TOUGHNESS_BREAK target=%s form=%s damage=%.2f toughness_damage=%.2f duration=%.2f breaks=%d"),
   *GetOwner()->GetName(),MonsterToughness::FormName(Form),Damage,ToughnessDamage,Duration,Breaks);
 }
+void UMonsterCombatComponent::ApplyToughnessReaction(float Seconds)
+{
+ if(Seconds<=0.f||IsKnockedDown())return;
+ const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
+ if(Status&&(Status->IsFrozen()||Status->IsPetrified()||Status->IsStunned()))return;
+ const float Remaining=FMath::Max(StunSecondsRemaining(),IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f);
+ if(Remaining>=Seconds)return;
+ if(StunSecondsRemaining()<=0.f)bParryReaction=false;
+ // Only the additional poise reaction is bounded by the broken window.
+ TGuardValue<bool> Scope(bApplyingToughnessReaction,true);
+ ToughnessReactionUntil=ToughnessClock()+Seconds;
+ if(auto* M09=Cast<AHangingBellM09>(GetOwner()))M09->InterruptAttack(Seconds);
+ else if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))M10->InterruptAttack(Seconds);
+ else if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->InterruptAttack(Seconds);
+ else if(auto* F=Cast<AFleshHandMonster>(GetOwner()))F->InterruptAttack(Seconds);
+ else if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(Seconds);
+ else if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->InterruptAttack(Seconds);
+ else if(auto* N=Cast<ANurseZombie>(GetOwner()))N->InterruptAttack(Seconds);
+ else if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->InterruptAttack(Seconds);
+ // Some species impose an animation minimum; the gameplay deadline still wins.
+ ReactionDuration=Seconds;
+}
+
 void UMonsterCombatComponent::BeginReaction(float Duration)
 {
+ if(!bApplyingToughnessReaction)ToughnessReactionUntil=0.;
  ++HitReactions;ReactionTime=0;ReactionDuration=Duration;
  bStunned=StunSecondsRemaining()>0.f;
  const bool bContinueSway=BeginHumanoidStun(Duration);
@@ -299,9 +339,14 @@ void UMonsterCombatComponent::BeginReaction(float Duration)
 }
 void UMonsterCombatComponent::FinishReaction()
 {
- if(IsKnockedDown())return;
+ if(IsKnockedDown()||StunSecondsRemaining()>0.f)return;
+ const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
+ if(Status&&(Status->IsFrozen()||Status->IsPetrified()||Status->IsStunned()))return;
+ ToughnessReactionUntil=0.;
+ bNetReacting=false;
  ClearHumanoidStun();
  ExplicitStunUntil=0.0;bStunned=false;bParryReaction=false;
+ if(GetOwner()->HasAuthority()){NetStunEndsAt=0.;NetStunSeconds=0.f;}
  if(auto* M09=Cast<AHangingBellM09>(GetOwner()))M09->FinishHitReaction();
  if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))M10->FinishHitReaction();
  if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->FinishHitReaction();
@@ -326,18 +371,24 @@ void UMonsterCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorCompo
    ReactionTime+=Dt;
    if(bPlayingSway){SwayTime+=Dt;SwayBlendTime+=Dt;}
    UpdateReactionPresentation();
-   if(ReactionTime>=ReactionDuration){bNetReacting=false;FinishReaction();}
+   if(ReactionTime>=ReactionDuration)FinishReaction();
   }
   return;
  }
  if(IsDead())return;
+ TickForcedLaunch(Dt);
  bStunned=StunSecondsRemaining()>0.f;
  if(!bStunned)bParryReaction=false;
+ AdvanceToughnessBar();
  if(IsKnockedDown())return;
  TickParryPush(Dt);
  TickMeleePush(Dt);
  // 韧性在持续挨打时保持，脱离接触超过恢复时间后清空。
- SinceHit+=Dt;if(SinceHit>ToughnessRecoverySeconds)Toughness=0;
+ if(!UsesToughnessBar())
+ {
+  SinceHit+=Dt;if(SinceHit>ToughnessRecoverySeconds)Toughness=0;
+  PublishToughnessState();
+ }
  if(IsControlled())
  {
   ReactionTime+=Dt;

@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Weapons/TangDaoGuardComponent.h"
 #include "Windows/AllowWindowsPlatformTypes.h"
 #include <Windows.h>
 #include "Windows/HideWindowsPlatformTypes.h"
@@ -220,6 +221,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     CreateDefaultSubobject<UWeaponActionCameraComponent>(TEXT("WeaponActionCamera"));
     BipodDeployment=CreateDefaultSubobject<UWeaponBipodDeploymentComponent>(TEXT("BipodDeployment"));
     RuneSword=CreateDefaultSubobject<URuneSwordComponent>(TEXT("RuneSword"));
+    CreateDefaultSubobject<UTangDaoGuardComponent>(TEXT("TangDaoGuardEffects"));
     RuneOrbBlades=CreateDefaultSubobject<URuneOrbBladesComponent>(TEXT("RuneOrbBlades"));
     Bow=CreateDefaultSubobject<UBowWeaponComponent>(TEXT("Bow"));
     Staff=CreateDefaultSubobject<UStaffWeaponComponent>(TEXT("Staff"));

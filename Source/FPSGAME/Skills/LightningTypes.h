@@ -25,6 +25,7 @@ struct FLightningCast
     UPROPERTY() int32 Count=1; UPROPERTY() int32 Segments=10; UPROPERTY() int32 ElectrifyStacks=1; UPROPERTY() int32 OverloadStacks=5; UPROPERTY() int32 CastHasteStacks=0;
     UPROPERTY() float ElectrifyDuration=4; UPROPERTY() float ElectricBonusPerStack=.03f; UPROPERTY() float OverloadStun=1.2f; UPROPERTY() float OverloadRange=225; UPROPERTY() float CastHasteDuration=5;
     UPROPERTY() bool bGrantChain=false;
+    UPROPERTY() float StunExtensionSeconds=0;
 };
 struct FLightningRewards
 {

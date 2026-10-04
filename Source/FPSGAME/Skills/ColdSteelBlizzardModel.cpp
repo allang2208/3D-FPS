@@ -47,6 +47,8 @@ FBlizzardCast UColdSteelStatusModel::BlizzardStats(int32 AtLevel) const
             DamageFactor*=(1+Craft(TEXT("magicDamagePercent"))+Craft(TEXT("iceDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent")));
             C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
             C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
+            C.PendantChillSlow=Craft(TEXT("iceChillSlowPercent"));
+            C.PendantChillSeconds=E->CraftEffect(*Item,TEXT("iceChillDuration"),3000)/1000;
         }
     C.Damage=FMath::FloorToFloat(C.Damage*DamageFactor);
     C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor)*float(Rune.MagicCost));
@@ -79,7 +81,11 @@ bool UColdSteelStatusModel::ApplyBlizzardHit(APawn* Shooter,AActor* Target,const
     TGuardValue<const CombatFormulaRuntime::MagicHit*> MagicScope(CombatFormulaRuntime::ActiveMagicHit,&Context);
     const float Applied=UGameplayStatics::ApplyDamage(Target,Spell.Damage,Shooter->GetController(),Shooter,UBlizzardDamage::StaticClass());
     if(Applied<=0)return false;
-    if(!Combat->IsDead())if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddChill(Spell.ChillStacks,Spell.ChillSeconds,Spell.ChillSlow);
+    if(!Combat->IsDead())if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))
+    {
+        Status->AddChill(Spell.ChillStacks,Spell.ChillSeconds,Spell.ChillSlow);
+        if(Spell.PendantChillSlow>0)Status->AddChill(1,Spell.PendantChillSeconds,Spell.PendantChillSlow);
+    }
     if(auto* Player=Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied);
     if(!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))
     {

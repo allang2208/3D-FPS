@@ -482,6 +482,8 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
                 Shot.QuickCombatTigerRoarSeconds=Melee.Modifiers.QuickCombatTigerRoarSeconds;
                 Shot.QuickCombatPhysicalVulnerabilityBonus=Melee.Modifiers.QuickCombatPhysicalVulnerabilityBonus;
                 Shot.QuickCombatPhysicalVulnerabilitySeconds=Melee.Modifiers.QuickCombatPhysicalVulnerabilitySeconds;
+                Shot.QuickCombatRuneVulnerability=Melee.Modifiers.QuickCombatRuneVulnerability;
+                Shot.QuickCombatRuneVulnerabilitySeconds=Melee.Modifiers.QuickCombatRuneVulnerabilitySeconds;
                 if(const auto* E=Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();E&&!bFiredRound)
                 {
                     if(E->Effect(*I,TEXT("electrifiedMelee"))>0.)

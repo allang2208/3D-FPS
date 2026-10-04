@@ -1,0 +1,33 @@
+{
+  "shared": {
+    "regen_delay_seconds": 3.0,
+    "regen_fraction_per_second": 0.1,
+    "hit_stagger_seconds": 0.2,
+    "hit_interval_seconds": 0.15
+  },
+  "ranks": {
+    "minor": { "default_maximum": 0 },
+    "normal": { "default_maximum": 0 },
+    "elite": { "default_maximum": 200, "broken_seconds": 3.0, "refill_seconds": 4.0, "initial_stagger_seconds": 1.0 },
+    "lord": { "default_maximum": 600, "broken_seconds": 4.0, "refill_seconds": 6.0, "initial_stagger_seconds": 1.1 },
+    "boss": { "default_maximum": 1000, "broken_seconds": 5.0, "refill_seconds": 8.0, "initial_stagger_seconds": 1.2 }
+  },
+  "species": {
+    "small_hand":           { "elite": 200, "lord": 400,  "boss": 600 },
+    "nurse":                { "elite": 200, "lord": 400,  "boss": 600 },
+    "spitter":              { "elite": 200, "lord": 400,  "boss": 600 },
+    "wolf":                 { "elite": 200, "lord": 400,  "boss": 600 },
+    "infected_dog":         { "elite": 200, "lord": 400,  "boss": 600 },
+    "blind_supplicant_m07": { "elite": 200, "lord": 400,  "boss": 600 },
+    "fat_zombie":           { "elite": 200, "lord": 400,  "boss": 600 },
+    "witch":                { "elite": 200, "lord": 200,  "boss": 400 },
+    "poison_maggot":         { "elite": 400, "lord": 600,  "boss": 800 },
+    "hanging_bell_m09":      { "elite": 200, "lord": 400,  "boss": 600 },
+    "mutant3":              { "elite": 400, "lord": 600,  "boss": 800 },
+    "hundred_eyed_slag":     { "elite": 400, "lord": 600,  "boss": 800 },
+    "giant_hand":           { "elite": 400, "lord": 600,  "boss": 800 },
+    "hand_brain":           { "elite": 400, "lord": 600,  "boss": 800 },
+    "mawcrawler_m10":       { "elite": 800, "lord": 1000, "boss": 1000 },
+    "spiral_pillar_m14":    { "elite": 600, "lord": 800,  "boss": 1000 }
+  }
+}

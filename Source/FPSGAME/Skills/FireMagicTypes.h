@@ -31,6 +31,9 @@ struct FFireMagicCast
     UPROPERTY() int32 BurnStacks=0; UPROPERTY() int32 AuraBurnStacks=0; UPROPERTY() int32 CastHasteStacks=0;
     UPROPERTY() float CastHasteDuration=5;
     UPROPERTY() bool bGrantChain=false; UPROPERTY() bool bRequiresStaff=false;
+    UPROPERTY() float PendantBurnMultiplier=0;
+    UPROPERTY() float PendantBurnSeconds=3;
+    UPROPERTY() float PendantBurnTick=.5f;
 };
 
 /** Skill training is aggregated until the field / buff ends; character kills are immediate. */

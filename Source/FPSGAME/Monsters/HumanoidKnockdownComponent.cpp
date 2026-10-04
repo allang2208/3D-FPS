@@ -106,18 +106,19 @@ UFatZombieAnimInstance* UHumanoidKnockdownComponent::PosePlayer()
     return Cast<UFatZombieAnimInstance>(Mesh->GetAnimInstance());
 }
 
-bool UHumanoidKnockdownComponent::Launch(APawn* InstigatorPawn, FVector Velocity, float DownSeconds)
+bool UHumanoidKnockdownComponent::Launch(APawn* InstigatorPawn, FVector Velocity, float DownSeconds, bool bForced)
 {
     auto* N=Humanoid(); auto* Mesh=BodyMesh();
     if (!N || !N->HasAuthority() || !bEnabled || N->State==ENurseState::Dead || !FallClip || !GetUpClip ||
-        N->ActorHasTag(TEXT("KnockdownImmune")) || N->ActorHasTag(TEXT("KnockbackImmune"))) return false;
+        (!bForced&&(N->ActorHasTag(TEXT("KnockdownImmune")) || N->ActorHasTag(TEXT("KnockbackImmune"))))) return false;
+    if(N->Combat&&!N->Combat->CanReceiveLaunchOrKnockdown())return false;
     const bool bAlreadyDown=Phase==EHumanoidKnockdownPhase::Downed;
     const bool bHadStandingState=bSavedStanding;
     RememberStandingState();
     // Reserve physics or safe animation space before interrupting gameplay. In a
     // tight corner, keep the caller's ordinary swept knockback instead of forcing
     // a horizontal body through a wall when the ragdoll budget is full.
-    if (!AcquirePhysicsBudget() && !bAlreadyDown && !PrepareAnimatedCapsule())
+    if (!AcquirePhysicsBudget() && (!bAlreadyDown||bForced) && !PrepareAnimatedCapsule())
     { if (!bHadStandingState) bSavedStanding=false; return false; }
     // Let the existing interruption hook cancel special attacks before physics takes ownership.
     if (!IsControlling()) N->InterruptAttack(.1f);
@@ -136,7 +137,7 @@ bool UHumanoidKnockdownComponent::Launch(APawn* InstigatorPawn, FVector Velocity
     Mesh->SetComponentTickEnabled(true); Mesh->SetForcedLOD(1);
     if (!StartPhysics(Velocity))
     {
-        if (bAlreadyDown) { Phase=EHumanoidKnockdownPhase::Downed;return true; }
+        if (bAlreadyDown&&!bForced) { Phase=EHumanoidKnockdownPhase::Downed;return true; }
         // Same control and recovery contract when the solver budget is exhausted.
         RestoreCollision(); ApplyAnimatedCapsule();
         Move->SetMovementMode(MOVE_Falling); N->LaunchCharacter(Velocity,true,true);

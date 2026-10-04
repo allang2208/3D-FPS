@@ -25,6 +25,7 @@ FDashAttackCast UColdSteelStatusModel::DashAttackStats(int32 AtLevel) const
         C.Damage=FMath::FloorToFloat(Stats.Damage*C.DamageMultiplier);
         // 使用当前 UE 兵器的基础有效射程；原技能额外距离只换算一次。
         C.RangeCM=(RuneSwordCombatTuning::ScaledReach(Stats.BaseReach)+C.RangeBonusCM)*Stats.Modifiers.Range;
+        C.KnockbackBonusCM*=Stats.Modifiers.AllAttackKnockback;
         C.KnockbackCM=Stats.KnockbackCM+C.KnockbackBonusCM;
         const auto* Enhance=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
         const double CostDelta=Enhance?Enhance->CraftEffect(*Item,TEXT("skillStaminaCostDelta")):0.;

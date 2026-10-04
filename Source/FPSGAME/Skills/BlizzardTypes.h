@@ -22,6 +22,8 @@ struct FBlizzardCast
     UPROPERTY() float CriticalChance=0; UPROPERTY() float CriticalDamageBonus=0; UPROPERTY() float MagicPenetration=0; UPROPERTY() float MagicDamageBonus=0; UPROPERTY() float CastHasteDuration=5;
     UPROPERTY() int32 ChillStacks=1; UPROPERTY() int32 CastHasteStacks=0;
     UPROPERTY() bool bGrantChain=false; UPROPERTY() bool bRequiresStaff=false;
+    UPROPERTY() float PendantChillSlow=0;
+    UPROPERTY() float PendantChillSeconds=3;
 };
 struct FBlizzardRewards
 {

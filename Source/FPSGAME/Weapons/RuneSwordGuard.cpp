@@ -1,5 +1,6 @@
 #include "RuneSwordComponent.h"
 #include "RuneSwordGuardTuning.h"
+#include "TangDaoGuardComponent.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
@@ -126,6 +127,7 @@ float URuneSwordComponent::ResolveGuardDamage(float IncomingDamage,const UDamage
         if(!Toward.IsNearlyZero() && FVector::DotProduct(Facing,Toward)>=FMath::Cos(FMath::DegreesToRadians(RuneSwordGuardTuning::ParryHalfAngleDegrees)))
         {
             GuardFeedback(true);
+            if(auto* Guard=Pawn->FindComponentByClass<UTangDaoGuardComponent>())Guard->GrantDragon();
             GrantClovenCounter();
             if(MeleeModifiers.RiposteSeconds>0)
                 UCombatStatusFormula::GetOrAdd(Pawn)->GrantRiposteGuard(MeleeModifiers.RiposteSeconds,MeleeModifiers.RiposteSpeed,MeleeModifiers.RiposteStamina);

@@ -69,15 +69,18 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
         if(Ratio>0.f)Box(FVector2D(10,31+DetailHeight)*S,FVector2D((Width-20.f*S)*Ratio,5.f*S),ColdSteelUI::Danger);
         Text(TEXT("生命"),FVector2D(10,42+DetailHeight)*S,ColdSteelUI::TextFont(12.f*.75f*S),ColdSteelUI::TextSecondary);
         Text(FString::Printf(TEXT("%.1f / %.0f"),Feedback.Health,Feedback.MaxHealth),FVector2D(55,42+DetailHeight)*S,ColdSteelUI::NumberFont(12.f*.75f*S),ColdSteelUI::TextPrimary);
-        // 韧性栏（2026-09-29，类别×阶级基准）：格式镜像生命行（12px 标签/等宽数值），
-        // 填充用 Toughness 语义色；破韧瞬间（Toughness 归零）以满条深色短暂示意。
+        // 精英以上显示剩余条，以及破韧/回韧阶段和倒计时；普通怪维持累积条。
         if(Feedback.ToughnessThreshold>0.f)
         {
             Box(FVector2D(10,64+DetailHeight)*S,FVector2D(Width-20.f*S,4.f*S),ColdSteelUI::ButtonNormal);
             const float ToughRatio=FMath::Clamp(Feedback.Toughness/FMath::Max(1.f,Feedback.ToughnessThreshold),0.f,1.f);
             if(ToughRatio>0.f)Box(FVector2D(10,64+DetailHeight)*S,FVector2D((Width-20.f*S)*ToughRatio,4.f*S),ColdSteelUI::Toughness);
-            Text(TEXT("韧性"),FVector2D(10,71+DetailHeight)*S,ColdSteelUI::TextFont(12.f*.75f*S),ColdSteelUI::TextSecondary);
-            Text(FString::Printf(TEXT("%.0f / %.0f"),Feedback.Toughness,Feedback.ToughnessThreshold),FVector2D(55,71+DetailHeight)*S,ColdSteelUI::NumberFont(12.f*.75f*S),ColdSteelUI::TextPrimary);
+            const bool Broken=Feedback.ToughnessPhase==EMonsterToughnessPhase::Broken;
+            const bool Recovering=Feedback.ToughnessPhase==EMonsterToughnessPhase::Recovering;
+            Text(Broken?TEXT("破韧"):Recovering?TEXT("回韧"):TEXT("韧性"),FVector2D(10,71+DetailHeight)*S,ColdSteelUI::TextFont(12.f*.75f*S),Broken?ColdSteelUI::Danger:ColdSteelUI::TextSecondary);
+            FString PoiseText=FString::Printf(TEXT("%.0f / %.0f"),Feedback.Toughness,Feedback.ToughnessThreshold);
+            if(!Feedback.bKilled&&(Broken||Recovering))PoiseText+=FString::Printf(TEXT("   %.1fs"),Feedback.ToughnessPhaseRemaining);
+            Text(PoiseText,FVector2D(55,71+DetailHeight)*S,ColdSteelUI::NumberFont(12.f*.75f*S),ColdSteelUI::TextPrimary);
         }
         // Actual target effects only. Preserve original split-damage and kill feedback.
         const float CellWidth=(Width-20*S)/3;

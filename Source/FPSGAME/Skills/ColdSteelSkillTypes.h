@@ -140,6 +140,8 @@ struct FColdSteelSkillShot
     float DamageContext = 0.f;
     /** 联机上报：低4位=连段；0x10=重击，0x14=上挑，0x20=旋风，0x40=裂斩波，0x80=快速近战。 */
     uint8 AttackMeta = 0;
+    /** Normal combo stage 3; the server derives this from the installed blade. */
+    bool bRisingDragonFinisher=false;
     float QuickCombatTigerRoarToughnessBonus=0.f, QuickCombatTigerRoarSeconds=0.f;
     float QuickCombatPhysicalVulnerabilityBonus=0.f, QuickCombatPhysicalVulnerabilitySeconds=0.f;
     TWeakObjectPtr<UFPSBallisticsComponent> BulletSource;
@@ -157,6 +159,10 @@ struct FColdSteelSkillShot
     /** 冷静的：实际附魔枪械的攻击快照；直接暴击才增加沉着冷静。 */
     float ComposureStabilityPerStack=0.f,ComposureRecoilReductionPerStack=0.f,ComposureSeconds=0.f;
     int32 ComposureMaxStacks=0;
+    // Direct blade action identity; shared by every target hit by the same swing.
+    uint32 GuardAttackSerial=0;
+    FString GuardSourceInstance;
+    float QuickCombatRuneVulnerability=0, QuickCombatRuneVulnerabilitySeconds=0;
 };
 
 struct FColdSteelProgressNotice

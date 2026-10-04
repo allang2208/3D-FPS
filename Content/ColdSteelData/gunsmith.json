@@ -6435,9 +6435,20 @@
           {
             "id": "pkm_bipod",
             "name": "PKM 脚架",
-            "description": "独立安装的脚架，两条支腿默认向下，随移动轻微摆动并逐渐回稳。可与前握把同时装备。",
-            "effects": [],
-            "stats": {}
+            "description": "独立安装的脚架，可与前握把同时装备；找到合适支撑面后可架设。架设时限制移动和瞄准转角，解除后恢复。",
+            "effects": [
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              },
+              {
+                "text": "架设后后坐力降低66%、枪械稳定性提高66%、散布减少45%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1
+            }
           }
         ],
         "optic": [
@@ -6923,7 +6934,8 @@
         "damage": 32,
         "bullet_speed": 350,
         "effective_range": 120,
-        "stability_mult": 1.2
+        "stability_mult": 1.2,
+        "ads_percent": 0.1
       },
       "traits": [
         {
@@ -6999,8 +7011,7 @@
             "stats": {
               "ads_percent": 0.1
             }
-          }
-        ,
+          },
           {
             "id": "eoth_holographic",
             "name": "EOTH全息瞄准镜",
@@ -7124,8 +7135,7 @@
               "stability_mult": 1.2,
               "ads_percent": 0.15
             }
-          }
-        ,
+          },
           {
             "id": "multi_caliber_suppressor",
             "name": "多口径消音器",
@@ -7166,15 +7176,35 @@
             "id": "false",
             "name": "原厂双脚架",
             "description": "两条独立支腿随移动轻微摆动；可在合适支撑面架设。",
-            "effects": [],
+            "effects": [
+              {
+                "text": "安装脚架时开镜耗时增加10%",
+                "benefit": -1
+              },
+              {
+                "text": "架设后后坐力降低66%、枪械稳定性提高66%、散布减少45%",
+                "benefit": 1
+              }
+            ],
             "stats": {}
           },
           {
             "id": "lmg201_no_bipod",
             "name": "卸下脚架",
             "description": "移除原厂脚架与支架，恢复后可再次架设。",
-            "effects": [],
-            "stats": {}
+            "effects": [
+              {
+                "text": "卸下脚架，取消其10%的开镜耗时增加",
+                "benefit": 1
+              },
+              {
+                "text": "无法架设武器",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.1
+            }
           }
         ],
         "underbarrel": [

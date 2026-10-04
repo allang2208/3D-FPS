@@ -50,7 +50,7 @@ FElectricMagicCast UColdSteelStatusModel::ElectricMagicStats(FName Id,int32 AtLe
             CostFactor+=Craft(TEXT("magicMpCostPercent"))+Chain*Craft(TEXT("chainSpellMpCostPercent"));
             CooldownReduction=Craft(TEXT("magicCooldownPercent"));
             const float Range=float(1+Craft(TEXT("magicRangePercent")));H.Range*=Range;H.ChainRange*=Range;C.Radius*=Range;
-            if(Id==TEXT("stormDomain"))H.StunSeconds+=Craft(TEXT("electricStunExtendMs"))/1000;
+            H.StunExtensionSeconds=Craft(TEXT("electricStunExtendMs"))/1000;
             DamageFactor+=Craft(TEXT("magicDamagePercent"));
             const auto Data=CombatItemFormula::ReadOnly(*Item);const TSharedPtr<FJsonObject>* Effects=nullptr;FString Specialty;
             if(Data&&Data->TryGetObjectField(TEXT("_craftEffects"),Effects)&&(*Effects)->TryGetStringField(TEXT("staffSpecialty"),Specialty)&&Specialty==TEXT("electric"))

@@ -49,6 +49,8 @@ FIceWallCast UColdSteelStatusModel::IceWallStats(int32 AtLevel) const
             ChainDamage+=Chain*Craft(TEXT("chainSpellDamagePercent"));
             C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
             C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
+            C.PendantChillSlow=Craft(TEXT("iceChillSlowPercent"));
+            C.PendantChillSeconds=E->CraftEffect(*Item,TEXT("iceChillDuration"),3000)/1000;
         }
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     // Original identity: INT + WIS physical impact, no magic critical/penetration.
@@ -92,6 +94,8 @@ void UColdSteelStatusModel::ApplyIceWallSpawn(APawn* Shooter,const FIceWallPlace
         // Apply the landing chill before displacement. Even a target pushed beyond
         // the later aura keeps this impact's slow; the initial aura excludes it.
         UCombatStatusFormula::GetOrAdd(Target)->AddChill(C.ChillStacks,C.ChillDuration,C.ChillSlow);
+        if(Applied>0&&C.PendantChillSlow>0)
+            UCombatStatusFormula::GetOrAdd(Target)->AddChill(1,C.PendantChillSeconds,C.PendantChillSlow);
     }
     SyncRuntime();auto P=Snapshot();const auto& T=IceWallSkill.IceWall;
     ColdSteelSkills::AddExperience(P,IceWallSkill,Hits*T.HitExperience+Kills*T.KillExperience+(Hits>=2?T.MultiHitExperience:0));

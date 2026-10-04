@@ -50,7 +50,7 @@ FLightningCast UColdSteelStatusModel::LightningStats(int32 AtLevel) const
             CooldownReduction=Craft(TEXT("magicCooldownPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));
             const double Area=1+Craft(TEXT("magicRangePercent"));C.AimRadius*=Area;C.ChainRange*=Area;
             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
-            C.StunSeconds+=Craft(TEXT("electricStunExtendMs"))/1000;
+            C.StunExtensionSeconds=Craft(TEXT("electricStunExtendMs"))/1000;
             DamageFactor+=Craft(TEXT("magicDamagePercent"));
             C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
             C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
@@ -94,6 +94,10 @@ bool UColdSteelStatusModel::ApplyLightningHit(APawn* Shooter,AActor* Target,cons
     const float Applied=UGameplayStatics::ApplyPointDamage(Target,Damage,(End-Origin).GetSafeNormal(),Hit,Shooter->GetController(),Shooter,ULightningDamage::StaticClass());
     for(const auto& K:Rewards.Kills)Batch.KillRewards.FindOrAdd(K.Key)=K.Value;
     if(Applied<=0)return false;
+    // The bell extends an existing stun; overload splash receives only the bell,
+    // not the direct lightning strike's native stun.
+    if(!Combat->IsDead()&&(bTrain||Spell.StunExtensionSeconds>0))
+        UCombatStatusFormula::GetOrAdd(Target)->AddStunWithExtension(bTrain?Spell.StunSeconds:0.f,Spell.StunExtensionSeconds);
     if(auto* Player=Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied);
     if(bTrain&&!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))
     {

@@ -45,6 +45,13 @@ struct FMeleeModifiers
     double KillStaminaMaxRatio=0;
     // 蓄力速度增量相加：0.15 = +15%，基础蓄力时间除以 (1 + 所有增量)。
     double HeavyChargeSpeedBonus=0;
+    double DamageTaken=1, DodgeStamina=1, SprintStamina=1;
+    double DragonSeconds=0, DragonCooldown=0, DragonDamage=1, DragonToughness=0;
+    double PhoenixSeconds=0, PhoenixCooldown=0, PhoenixSpeed=1, PhoenixHealRatio=0, PhoenixHealHits=0;
+    // Multiplies each attack's final knockback, including skill-added distance.
+    double AllAttackKnockback=1;
+    // Full direct attack damage, including attribute/added damage and quick combat.
+    double AllAttackDamage=1;
 };
 /**
  * 采集工具（伐木斧、矿镐）改造倍率：倍率相乘、绝对值相加，1／0 = 未改造。

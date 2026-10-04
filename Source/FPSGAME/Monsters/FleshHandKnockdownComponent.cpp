@@ -37,14 +37,23 @@ bool UFleshHandKnockdownComponent::CapsuleFits(float Radius,float HalfHeight,con
  return !GetWorld()->OverlapBlockingTestByChannel(Center+FVector(0,0,1),H->GetActorQuat(),C->GetCollisionObjectType(),
   FCollisionShape::MakeCapsule(FMath::Max(1.f,Radius*Scale-.5f),FMath::Max(1.f,HalfHeight*Scale-.5f)),Q,Responses);
 }
-bool UFleshHandKnockdownComponent::Launch(APawn* Attacker,FVector Velocity,float DownSeconds)
+bool UFleshHandKnockdownComponent::Launch(APawn* Attacker,FVector Velocity,float DownSeconds,bool bForced)
 {
  auto* H=Hand();
  if(!H||!H->HasAuthority()||H->Dead()||!bEnabled||Velocity.ContainsNaN()||Velocity.Z<=0||
-    H->ActorHasTag(TEXT("KnockdownImmune"))||H->ActorHasTag(TEXT("KnockbackImmune")))return false;
+    (!bForced&&(H->ActorHasTag(TEXT("KnockdownImmune"))||H->ActorHasTag(TEXT("KnockbackImmune")))))return false;
+ if(H->Combat&&!H->Combat->CanReceiveLaunchOrKnockdown())return false;
  if(IsControlling())
  {
   ExtendControl(DownSeconds);
+  if(bForced)
+  {
+   DownHold=FMath::Max(GroundHoldSeconds,FMath::Max(0.f,DownSeconds));
+   H->GetCharacterMovement()->SetMovementMode(MOVE_Falling);
+   PlayPhase(EFleshHandKnockdownPhase::Launch,bPalmDown?LaunchPalmClip:LaunchBackClip);
+   H->LaunchCharacter(Velocity,true,true);
+   return true;
+  }
   // A fresh heavy launch can knock an emerging hand back down, but repeated
   // hits while airborne/down never restart an endless launch animation.
   if(Phase==EFleshHandKnockdownPhase::GettingUp)

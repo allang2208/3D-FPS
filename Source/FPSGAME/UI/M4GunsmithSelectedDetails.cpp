@@ -205,7 +205,7 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         AddValue(TEXT("接触时刻"),Was.ContactSeconds,Now.ContactSeconds,2,TEXT(" s"),true);
         AddValue(ColdSteelWeaponText::AttackDistance,Was.CombatReachCM/100,Now.CombatReachCM/100,2,TEXT(" m"),false,Percent(T.CombatReach));
         ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
-            [Paragraph(TEXT("战斗与采集使用各自的数值行。伐木斧按伐木伤害扣减树木生命值，归零才倒；矿镐按所需有效命中计次，武器总伤害不改变采矿次数。"),12,GunsmithUI::Muted)];
+            [Paragraph(TEXT("战斗与采集使用各自的数值行。树木与岩块均按采集伤害扣减生命值，归零后采尽；楔紧件提高采集伤害，不固定减少一次命中。"),12,GunsmithUI::Muted)];
     }
     else if(!IsMeleeWorkbench()&&!IsStaffWorkbench())
     {
@@ -239,24 +239,33 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         const auto Was=ColdSteelMelee::Evaluate(*Item,Profile,&WithoutPart);
         const auto Now=ColdSteelMelee::Evaluate(*Item,Profile,&Gunsmith->Draft());
         const bool OverheadFinisher=ColdSteelModularSword::UsesOverheadFinisher(*Item,&Gunsmith->Draft());
+        const bool RisingDragon=ColdSteelModularSword::UsesRisingDragonFinisher(*Item,&Gunsmith->Draft());
         const auto& M=Option->Melee;
         auto Percent=[](double Mult){return (Mult-1.)*100.;};
         AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage,Now.Damage,2,TEXT(""));
-        AddValue(ColdSteelWeaponText::BasePhysical,Was.DamageParts.BasePhysical,Now.DamageParts.BasePhysical,2,TEXT(""),false,Percent(M.Damage));
+        AddValue(ColdSteelWeaponText::BasePhysical,Was.DamageParts.BasePhysical,Now.DamageParts.BasePhysical,2,TEXT(""),false,Percent(M.Damage*M.AllAttackDamage));
+        AddValue(TEXT("全部近战攻击伤害倍率"),Was.Modifiers.AllAttackDamage,Now.Modifiers.AllAttackDamage,2,TEXT("×"),false,Percent(M.AllAttackDamage));
         AddValue(ColdSteelWeaponText::AddedPhysical,Was.DamageParts.AddedPhysical,Now.DamageParts.AddedPhysical,2,TEXT(""));
         AddValue(ColdSteelWeaponText::AddedMagic,Was.DamageParts.AddedMagic,Now.DamageParts.AddedMagic,2,TEXT(""));
         AddValue(TEXT("第二段横斩伤害"),Was.ComboSecondDamage,Now.ComboSecondDamage,2,TEXT(""),false,Percent(M.ComboSecond));
-        AddValue(OverheadFinisher?TEXT("第三段竖劈伤害"):TEXT("第三段突刺伤害"),Was.ComboThirdDamage,Now.ComboThirdDamage,2,TEXT(""),false,Percent(M.ComboThird));
-        AddValue(OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),Was.Modifiers.ThirdThrustToughnessMultiplier(),Now.Modifiers.ThirdThrustToughnessMultiplier(),2,TEXT("×"),false,Percent(M.ComboThirdToughness));
+        AddValue(RisingDragon?TEXT("第三段升龙伤害"):OverheadFinisher?TEXT("第三段竖劈伤害"):TEXT("第三段突刺伤害"),Was.ComboThirdDamage,Now.ComboThirdDamage,2,TEXT(""),false,Percent(M.ComboThird));
+        AddValue(RisingDragon?TEXT("第三段升龙韧性伤害倍率"):OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),Was.Modifiers.ThirdThrustToughnessMultiplier(),Now.Modifiers.ThirdThrustToughnessMultiplier(),2,TEXT("×"),false,Percent(M.ComboThirdToughness));
         AddValue(TEXT("攻击速度倍率"),Was.AttackRate,Now.AttackRate,2,TEXT("×"),false,Percent(M.AttackSpeed));
         AddValue(TEXT("普通攻击耗时"),Was.AttackSeconds,Now.AttackSeconds,2,TEXT(" s"),true);
-        AddValue(OverheadFinisher?TEXT("竖劈耗时"):TEXT("突刺耗时"),Was.ThrustSeconds,Now.ThrustSeconds,2,TEXT(" s"),true);
+        AddValue(RisingDragon?TEXT("升龙耗时"):OverheadFinisher?TEXT("竖劈耗时"):TEXT("突刺耗时"),Was.ThrustSeconds,Now.ThrustSeconds,2,TEXT(" s"),true);
         AddValue(TEXT("普通挥砍距离"),Was.SlashReach/100,Now.SlashReach/100,2,TEXT(" m"),false,Percent(M.Range));
         AddValue(ColdSteelWeaponText::AttackDistance,Was.ThrustReach/100,Now.ThrustReach/100,2,TEXT(" m"),false,Percent(M.Range));
         AddValue(ColdSteelWeaponText::StaminaCost,Was.AttackStamina,Now.AttackStamina,2,TEXT(""),true,Percent(M.Stamina));
         AddValue(TEXT("击杀恢复体力（最大值占比）"),Was.Modifiers.KillStaminaMaxRatio*100,Now.Modifiers.KillStaminaMaxRatio*100,0,TEXT("%"));
         AddValue(ColdSteelWeaponText::BlockStaminaCost,Was.BlockStamina,Now.BlockStamina,2,TEXT(""),true,Percent(M.BlockStamina));
         AddValue(TEXT("格挡伤害减免"),Was.BlockReduction*100,Now.BlockReduction*100,1,TEXT("%"),false,Percent(M.BlockReduction));
+        AddValue(TEXT("所受伤害倍率（乘法叠加）"),Was.Modifiers.DamageTaken,Now.Modifiers.DamageTaken,2,TEXT("×"),true,Percent(M.DamageTaken));
+        AddValue(TEXT("闪避体力消耗倍率"),Was.Modifiers.DodgeStamina,Now.Modifiers.DodgeStamina,2,TEXT("×"),true,Percent(M.DodgeStamina));
+        AddValue(TEXT("奔跑体力消耗倍率"),Was.Modifiers.SprintStamina,Now.Modifiers.SprintStamina,2,TEXT("×"),true,Percent(M.SprintStamina));
+        if(M.DragonSeconds>0||M.PhoenixSeconds>0)
+            for(const auto& Effect:Option->Effects)
+                ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
+                    [Paragraph(Effect.Key,12,Effect.Value>0?ColdSteelUI::Success:GunsmithUI::Secondary)];
         AddValue(TEXT("命中硬直时间倍率"),Was.Modifiers.HitReaction,Now.Modifiers.HitReaction,2,TEXT("×"),false,Percent(M.HitReaction));
         AddValue(ColdSteelWeaponText::ToughnessMultiplier,Was.Modifiers.ToughnessDamage,Now.Modifiers.ToughnessDamage,2,TEXT("×"),false,Percent(M.ToughnessDamage));
         AddValue(TEXT("改造物理防御穿透"),Was.Modifiers.PhysicalArmorPenetration*100,Now.Modifiers.PhysicalArmorPenetration*100,0,TEXT("%"));
@@ -265,10 +274,11 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         AddValue(TEXT("重击蓄力时间"),Was.HeavyChargeSeconds,Now.HeavyChargeSeconds,2,TEXT(" s"),true);
         AddValue(TEXT("重击总伤害"),Was.Damage*Was.HeavyMultiplier,Now.Damage*Now.HeavyMultiplier,2,TEXT(""));
         AddValue(TEXT("重击韧性伤害倍率"),Was.Modifiers.HeavyToughnessMultiplier(),Now.Modifiers.HeavyToughnessMultiplier(),2,TEXT("×"),false,Percent(M.HeavyToughness));
-        AddValue(TEXT("攻击击退距离"),Was.KnockbackCM,Now.KnockbackCM,1,TEXT(" cm"),false,Percent(M.Knockback));
+        AddValue(TEXT("攻击击退距离"),Was.KnockbackCM,Now.KnockbackCM,1,TEXT(" cm"),false,Percent(M.Knockback*M.AllAttackKnockback));
+        AddValue(TEXT("全部攻击击退倍率"),Was.Modifiers.AllAttackKnockback,Now.Modifiers.AllAttackKnockback,2,TEXT("×"),false,Percent(M.AllAttackKnockback));
         AddValue(TEXT("快速近战伤害倍率"),Was.QuickCombat.DamageMultiplier,Now.QuickCombat.DamageMultiplier,2,TEXT("×"));
         AddValue(TEXT("快速近战伤害"),Was.QuickCombat.Damage,Now.QuickCombat.Damage,2,TEXT(""));
-        AddValue(TEXT("快速近战击退距离"),Was.QuickCombat.KnockbackCM,Now.QuickCombat.KnockbackCM,1,TEXT(" cm"),false,Percent(M.QuickCombatKnockback));
+        AddValue(TEXT("快速近战击退距离"),Was.QuickCombat.KnockbackCM,Now.QuickCombat.KnockbackCM,1,TEXT(" cm"),false,Percent(M.QuickCombatKnockback*M.AllAttackKnockback));
         AddValue(TEXT("快速近战韧性伤害倍率"),Was.QuickCombat.ToughnessMultiplier,Now.QuickCombat.ToughnessMultiplier,2,TEXT("×"),false,Percent(M.QuickCombatToughness));
         AddValue(ColdSteelWeaponText::QuickCombatBleed,Was.QuickCombat.BleedChance*100,Now.QuickCombat.BleedChance*100,0,TEXT("%"));
         AddValue(ColdSteelWeaponText::TigerRoarToughnessTaken,Was.Modifiers.QuickCombatTigerRoarToughnessBonus*100,Now.Modifiers.QuickCombatTigerRoarToughnessBonus*100,0,TEXT("%"));

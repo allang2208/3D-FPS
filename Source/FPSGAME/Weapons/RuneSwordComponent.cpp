@@ -1,8 +1,10 @@
 #include "RuneSwordComponent.h"
+#include "TangDaoGuardComponent.h"
 #include "RuneSwordMeshComponent.h"
 #include "RuneSwordWhirlwindFeel.h"
 #include "RuneSwordOverheadFeel.h"
 #include "RuneSwordUppercutMotion.h"
+#include "RuneSwordRisingDragon.h"
 #include "MeleeRuneVisual.h"
 #include "MeleeGuardAssets.h"
 #include "ModularSwordVisual.h"
@@ -420,7 +422,15 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const auto* Item=Profile?Profile->Equipped():nullptr;
     const bool OverheadFinisher=!Heavy&&ComboStage==3&&Item&&ColdSteelModularSword::UsesOverheadFinisher(*Item);
+    const bool RisingDragon=!Heavy&&ComboStage==3&&Item&&ColdSteelModularSword::UsesRisingDragonFinisher(*Item);
     if(OverheadFinisher)Clip=TEXT("Overhead");
+    if(RisingDragon)
+    {
+        UAnimSequence* Uppercut=UppercutAnimation();
+        const auto* Mesh=Viewmodel?Viewmodel->GetSkeletalMeshAsset():nullptr;
+        if(!Uppercut||!Mesh||Uppercut->GetSkeleton()!=Mesh->GetSkeleton())return false;
+        Clip=TEXT("Uppercut");Animations.Add(Clip,Uppercut);
+    }
     if(!Animations.FindRef(Clip))return false;
     SwingWaveRange=SwingWaveScale=0.f;
     bool bRuneSwordCooldownTrait=false;
@@ -462,9 +472,9 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     SwingHitReactionMultiplier=MeleeModifiers.HitReaction;
     // 两条独立通道：剑刃攻击（导魔符文）与配重锤快速近战（凝碧星核），互不混用。
     SwingRuneVulnerability=MeleeModifiers.RuneVulnerability;SwingRuneVulnerabilitySeconds=MeleeModifiers.RuneVulnerabilitySeconds;
-    QuickCombatRuneVulnerability=MeleeModifiers.QuickCombatRuneVulnerability;QuickCombatRuneVulnerabilitySeconds=MeleeModifiers.QuickCombatRuneVulnerabilitySeconds;
     ContactStart=bOverheadAttack?RuneSwordOverheadRhythm::ContactStart:(Heavy?RuneSwordHeavyRhythm::ContactStart:(bThrustAttack?RuneSwordThrustRhythm::ContactStart:(bPommelAttack?RuneSwordPommelRhythm::ContactStart:RuneSwordRhythm::ContactStart)));
     ContactEnd=bOverheadAttack?RuneSwordOverheadRhythm::ContactEnd:(Heavy?RuneSwordHeavyRhythm::ContactEnd:(bThrustAttack?RuneSwordThrustRhythm::ContactEnd:(bPommelAttack?RuneSwordPommelRhythm::ContactEnd:RuneSwordRhythm::ContactEnd)));
+    if(RisingDragon){ContactStart=RuneSwordUppercutMotion::ReleaseStart;ContactEnd=RuneSwordUppercutMotion::Finish;}
     bImpactFeedbackPlayed=bSwingCuePlayed=false;
     SwingTrainingHits=0;
     SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison;
@@ -472,6 +482,8 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     SwingSkills.bRifle=false;SwingSkills.bPistol=false;SwingSkills.WeakpointPercent=0;
     // 联机上报：轻重击/连段语义，服务端按影子档案的 MeleeModifiers 同参复算倍率。
     SwingSkills.AttackMeta = uint8(Heavy ? 0x10 : (ComboStage & 0x0F));
+    UTangDaoGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
+    SwingSkills.bRisingDragonFinisher=RisingDragon;
     // The stage keeps its existing grip/global poise modifiers when its motion changes.
     if(ComboStage==3&&!Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.ComboThirdToughness;
     if(Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.HeavyToughness;
@@ -483,7 +495,7 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     SetClip(Clip,false);
     if(OverheadFinisher)Elapsed=RuneSwordOverheadRhythm::FinisherEntry;
     if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
-        Arms->LimitLocomotionEntry((ContactStart-Elapsed)/FMath::Max(.01f,SwingRate));
+        Arms->LimitLocomotionEntry((RisingDragon?RuneSwordRisingDragon::WindupEnd:ContactStart-Elapsed)/FMath::Max(.01f,SwingRate));
     if(OverheadFinisher)SamplePose(Elapsed);
     return true;
 }
@@ -599,9 +611,7 @@ void URuneSwordComponent::QuickCombatContractHit()
             // One roll per confirmed target in this strike; reuse the existing bleed stack system.
             if(!Combat->IsDead()&&QuickCombatBleedChance>0.f&&FMath::FRand()<QuickCombatBleedChance)
                 if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddBleeding(Pawn,1);
-            // 配重锤快速近战：凝碧星核通道。
-            if(!Combat->IsDead()&&QuickCombatRuneVulnerability>0)
-                if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddRuneMagicVulnerability(QuickCombatRuneVulnerability,QuickCombatRuneVulnerabilitySeconds);
+            // Condensed-star vulnerability is settled by ApplySkillWeaponHit.
         }
         else if(!Combat->IsDead()&&SwingRuneVulnerability>0)
             // 剑刃攻击：导魔符文通道（含突刺/上挑等全部非配重挥砍）。
@@ -617,9 +627,9 @@ FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
     // The thrust and stage-3 overhead finisher share the metre-long stride.
     // The counterweight only steps far enough to reach past the hands.
     const bool bOverheadFinisher=bOverheadAttack&&!bDashAttack&&(SwingSkills.AttackMeta&0x0F)==3;
-    if(!bUppercut && !bDashAttack && !bThrustAttack && !bPommelAttack && !bOverheadFinisher)return FVector::ZeroVector;
+    if(!bUppercut && !IsRisingDragonFinisher() && !bDashAttack && !bThrustAttack && !bPommelAttack && !bOverheadFinisher)return FVector::ZeroVector;
     float Distance;
-    if(bUppercut)
+    if(bUppercut||IsRisingDragonFinisher())
     {
         Distance=RuneSwordUppercutMotion::LungeDistance*
             (RuneSwordUppercutMotion::LungeAlpha(ToTime,bUppercut)-RuneSwordUppercutMotion::LungeAlpha(FromTime,bUppercut));
@@ -768,7 +778,7 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
     }
     if(GetGuardCameraMotion(Location,Rotation))return;
     if(!CanUse())return;
-    if(bUppercut)
+    if(bUppercut||IsRisingDragonFinisher())
     {
         RuneSwordUppercutMotion::Camera(Elapsed,bLungeStarted,Location,Rotation,bUppercut);
     }
@@ -925,7 +935,7 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
     // Confirmed contact gives one damped impulse per slash. Multi-target
     // sweeps keep their damage but cannot stack camera shake indefinitely.
     const float ImpactSpan=bPommelAttack?.30f:.20f;
-    if(!bUppercut&&!bOverheadAttack&&!bQuickCombatContactDone&&ImpactAge<ImpactSpan)
+    if(!bUppercut&&!IsRisingDragonFinisher()&&!bOverheadAttack&&!bQuickCombatContactDone&&ImpactAge<ImpactSpan)
     {
         // A counterweight lands heavier than a blade pass: longer shake, bigger
         // axial recoil and a pitch punch on top of it.
@@ -949,12 +959,12 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
     Rotation*=SwordCameraStrength;
     // Add after the sword-only multiplier so all weapon categories receive
     // the same impulse, with the shared character comfort scale applied once.
-    if(!bUppercut&&bQuickCombatContactDone)QuickCombatImpactShake::Add(ImpactAge,Location,Rotation);
+    if(!bUppercut&&!IsRisingDragonFinisher()&&bQuickCombatContactDone)QuickCombatImpactShake::Add(ImpactAge,Location,Rotation);
 }
 
 void URuneSwordComponent::StartRift(float SourceAge)
 {
-    const int32 Index=(bOverheadAttack||bUppercut)?5:(bThrustAttack?3:(bPommelAttack?4:(bHeavyAttack?2:(CurrentClip==TEXT("Slash2")?1:0))));
+    const int32 Index=(bOverheadAttack||bUppercut||IsRisingDragonFinisher())?5:(bThrustAttack?3:(bPommelAttack?4:(bHeavyAttack?2:(CurrentClip==TEXT("Slash2")?1:0))));
     // Existing live instances may still have the five original slash ribbons.
     if(bOverheadAttack && (!RiftMeshes.IsValidIndex(Index) || !RiftMeshes[Index]))
     {
@@ -974,7 +984,7 @@ void URuneSwordComponent::StartRift(float SourceAge)
         RiftOrigin=FTransform(Aim.GetRotation()*FRotator(0,90,0).Quaternion(),Aim.GetLocation());
         RiftDirection=-Aim.GetUnitAxis(EAxis::Z);
     }
-    if(bUppercut)
+    if(bUppercut||IsRisingDragonFinisher())
     {
         // Reuse the normal vertical attack's optical material/ribbon, rolled
         // around the forward axis so the UV reveal travels bottom-to-top.
@@ -982,7 +992,7 @@ void URuneSwordComponent::StartRift(float SourceAge)
         RiftOrigin=FTransform(Aim.GetRotation()*FQuat(FVector::ForwardVector,PI)*FRotator(0,90,0).Quaternion(),Aim.GetLocation());
         RiftDirection=Aim.GetUnitAxis(EAxis::Z);
     }
-    const float FastEnd=(bUppercut)?RuneSwordUppercutMotion::StrokeEnd:(bOverheadAttack?RuneSwordOverheadFeel::ImpactTime:(bThrustAttack?RuneSwordThrustRhythm::ExtensionEnd:(bPommelAttack?RuneSwordPommelRhythm::ExtensionEnd:ContactEnd)));
+    const float FastEnd=(bUppercut||IsRisingDragonFinisher())?RuneSwordUppercutMotion::StrokeEnd:(bOverheadAttack?RuneSwordOverheadFeel::ImpactTime:(bThrustAttack?RuneSwordThrustRhythm::ExtensionEnd:(bPommelAttack?RuneSwordPommelRhythm::ExtensionEnd:ContactEnd)));
     RiftFastSeconds=(FastEnd-ContactStart)/SwingRate;
     RiftDissolveSeconds=bOverheadAttack?.26f:(bThrustAttack?.16f:(bPommelAttack?.14f:(bHeavyAttack?.28f:.20f)));
     RiftDriftSpeed=bOverheadAttack?95.f:(bThrustAttack?50.f:(bPommelAttack?42.f:(bHeavyAttack?120.f:85.f)));
@@ -1091,7 +1101,7 @@ FRuneSwordBladeSample URuneSwordComponent::ReadBlade(const FTransform& AimFrame)
 
 void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRuneSwordBladeSample& To)
 {
-    if((bThrustAttack||bUppercut) && !HitActors.IsEmpty())return;
+    if((bThrustAttack||bUppercut||IsRisingDragonFinisher()) && !HitActors.IsEmpty())return;
     FRuneSwordTraceSettings Trace;
     Trace.Radius=RuneSwordCombat::BladeRadius*SwingRangeMultiplier;
     if(bPommelAttack)
@@ -1102,7 +1112,7 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
         Trace.ForwardCorridorRadius=RuneSwordPommelRhythm::CorridorRadius*SwingRangeMultiplier;
         Trace.bCleavePawns=false;
     }
-    if(bThrustAttack||bUppercut)
+    if(bThrustAttack||bUppercut||IsRisingDragonFinisher())
     {
         Trace.Radius=RuneSwordThrustRhythm::BladeRadius*SwingRangeMultiplier;
         Trace.ForwardCorridorRadius=RuneSwordThrustRhythm::CorridorRadius*SwingRangeMultiplier;
@@ -1128,7 +1138,7 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
         }
         Hits.Append(RuneSwordCombat::Query(GetWorld(),Pawn,ExtendedFrom,ExtendedTo,SwingReach,HitActors,Trace));
     }
-    if((bThrustAttack || bPommelAttack || bUppercut) && Hits.Num()>1)
+    if((bThrustAttack || bPommelAttack || bUppercut || IsRisingDragonFinisher()) && Hits.Num()>1)
     {
         Hits.Sort([&](const FHitResult& A,const FHitResult& B)
         {
@@ -1186,7 +1196,7 @@ void URuneSwordComponent::ApplySwingHits(const TArray<FHitResult>& Hits,const FV
                 }
                 if(bDashAttack&&Eligible){++DashHits;if(bKilled)++DashKills;}
                 // 快速进战只推退；重击可击飞。破韧硬直属于上面的伤害结算，不附加眩晕。
-                if(Combat)
+                if(Combat&&(!IsRisingDragonFinisher()||!Combat->CanReceiveLaunchOrKnockdown()))
                 {
                     const FVector Away=(Target->GetActorLocation()-Pawn->GetActorLocation()).GetSafeNormal2D();
                     const bool bLaunched=bHeavyAttack && !bQuickCombatStrike && !bDashAttack &&
@@ -1198,8 +1208,8 @@ void URuneSwordComponent::ApplySwingHits(const TArray<FHitResult>& Hits,const FV
                 if(Combat&&!Combat->IsDead())
                 {
                     // 双通道：配重锤快速近战走凝碧星核，其余剑刃攻击走导魔符文。
-                    const float Vulnerability=bQuickCombatStrike?QuickCombatRuneVulnerability:SwingRuneVulnerability;
-                    const float VulnerabilitySeconds=bQuickCombatStrike?QuickCombatRuneVulnerabilitySeconds:SwingRuneVulnerabilitySeconds;
+                    const float Vulnerability=bQuickCombatStrike?0.f:SwingRuneVulnerability;
+                    const float VulnerabilitySeconds=SwingRuneVulnerabilitySeconds;
                     if(Vulnerability>0)
                         if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddRuneMagicVulnerability(Vulnerability,VulnerabilitySeconds);
                 }
@@ -1224,7 +1234,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     if(!Usable)ClearClovenCounter();
     TickClovenCounter(Delta);
     if(!Usable){if(IsBusy()||bInspecting)CancelAction();ImpactAge=1.f;StopRift();return;}
-    if((bUppercut || bCharging || bReturningCharge || bInspecting) && Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
+    if((bUppercut || IsRisingDragonFinisher() || bCharging || bReturningCharge || bInspecting) && Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
     ImpactAge=FMath::Min(1.f,ImpactAge+Delta);
     TickRift(Delta);
     TickWalkInspect(Delta);
@@ -1232,7 +1242,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     if(TickGuard(Delta))return;
     if(!CurrentAnimation)return;
     const float End=CurrentAnimation->GetPlayLength();
-    if(bUppercut)
+    if(bUppercut||IsRisingDragonFinisher())
     {
         TickUppercut(Delta);
     }

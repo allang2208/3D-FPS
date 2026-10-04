@@ -3,6 +3,7 @@
 #include "../FPSGAMEPlayerController.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/TangDaoGuardComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
@@ -49,6 +50,12 @@ float UColdSteelStatusModel::MaxStamina() const
 { return float(StaminaMaximum(Current,StaminaTuning)); }
 float UColdSteelStatusModel::StaminaRecoveryRate() const
 { return StaminaTuning.RecoveryPerSecond*Derived(TEXT("staminaRegen")); }
+AFPSGAMECharacter* UColdSteelStatusModel::RuntimePawn() const {return CurrentPawn.Get();}
+float UColdSteelStatusModel::SprintStaminaPerSecond() const
+{
+    const auto* Guard=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UTangDaoGuardComponent>():nullptr;
+    return StaminaTuning.SprintPerSecond*(Guard?Guard->SprintStaminaMultiplier():1.f);
+}
 FColdSteelMeleeStaminaReadout UColdSteelStatusModel::MeleeStaminaReadout(const AFPSGAMECharacter* Pawn) const
 {
     FColdSteelMeleeStaminaReadout Result;
@@ -121,7 +128,7 @@ void UColdSteelStatusModel::TickStamina(float Delta,AFPSGAMECharacter* Pawn)
     }
     else if(Activity==EStaminaActivity::Sprinting)
     {
-        Current.Stamina=FMath::Max(0.f,Current.Stamina-StaminaTuning.SprintPerSecond*Delta);
+        Current.Stamina=FMath::Max(0.f,Current.Stamina-SprintStaminaPerSecond()*Delta);
         Current.StaminaRecoveryDelay=StaminaTuning.RecoveryDelay;
         if(Current.Stamina<=0)Current.bSprintExhausted=true;
     }

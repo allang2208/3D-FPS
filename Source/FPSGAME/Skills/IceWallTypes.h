@@ -34,6 +34,8 @@ struct FIceWallCast
     UPROPERTY() int32 Count=5; UPROPERTY() int32 ChillStacks=1; UPROPERTY() int32 CastHasteStacks=0;
     UPROPERTY() float CastHasteDuration=5;
     UPROPERTY() bool bGrantChain=false;
+    UPROPERTY() float PendantChillSlow=0;
+    UPROPERTY() float PendantChillSeconds=3;
     float Width() const { return Count*SegmentSpacing; }
     float Height(EIceWallShape Shape) const { return Shape==EIceWallShape::Low?LowHeight:HighHeight; }
 };

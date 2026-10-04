@@ -1,4 +1,5 @@
 #include "ColdSteelSkillRules.h"
+#include "MeleeToughnessTuning.h"
 #include "SwordUppercutTuning.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "FPSFireMagicComponent.h"
@@ -12,6 +13,8 @@
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/FPSMeleeLightningComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/TangDaoGuardComponent.h"
+#include "../Weapons/RuneSwordRisingDragon.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../FPSGAMECharacter.h"
@@ -58,8 +61,11 @@ float UColdSteelStatusModel::ReloadSpeedMultiplier() const
 { return 1.f+DexterousHandsEffect().ReloadSpeed; }
 FColdSteelSkillEffect UColdSteelStatusModel::DodgeEffect(int32 AtLevel) const
 { return ColdSteelSkills::Effect(DodgeSkill,AtLevel<0?DodgeProgress().Level:AtLevel); }
-float UColdSteelStatusModel::DodgeStaminaCost() const
-{ return StaminaTuning.DodgeCost*(1.f-DodgeEffect().DodgeCostReduction); }
+float UColdSteelStatusModel::DodgeStaminaCost(int32 AtLevel) const
+{
+    const auto* Guard=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UTangDaoGuardComponent>():nullptr;
+    return StaminaTuning.DodgeCost*(1.f-DodgeEffect(AtLevel).DodgeCostReduction)*(Guard?Guard->DodgeStaminaMultiplier():1.f);
+}
 bool UColdSteelStatusModel::TrainDodge(int32 Amount)
 {
     if(Amount<=0||DodgeProgress().Level>=DodgeSkill.MaxLevel)return false;
@@ -81,9 +87,9 @@ FQuickCombatCast UColdSteelStatusModel::QuickCombatStats(int32 AtLevel,const FMe
     const float Strength=float(Attribute(TEXT("str")));
     const auto Mods=PreviewModifiers?*PreviewModifiers:ColdSteelMelee::EquippedModifiers(this);
     FQuickCombatCast C;
-    C.DamageMultiplier=1.f+float(Mods.QuickCombatDamageAdd);
+    C.DamageMultiplier=float((1.+Mods.QuickCombatDamageAdd)*Mods.AllAttackDamage);
     C.Damage=(T.DamageBase+T.DamagePerLevel*L+Strength*(T.StrengthFactorBase+T.StrengthFactorPerLevel*L))*C.DamageMultiplier;
-    C.KnockbackCM=T.KnockbackCM*float(Mods.QuickCombatKnockback);
+    C.KnockbackCM=T.KnockbackCM*float(Mods.QuickCombatKnockback*Mods.AllAttackKnockback);
     C.ToughnessMultiplier=float(Mods.QuickCombatToughnessMultiplier());
     C.BleedChance=FMath::Clamp(float(Mods.QuickCombatBleedChance),0.f,1.f);
     C.bAreaHit=Mods.bQuickCombatAOE;
@@ -170,6 +176,10 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     Training.bCritical=Shot.bRicochet?Shot.bInheritedCritical:
         (Weakpoint||(Combat&&FMath::FRand()*100<CoreCombatFormula::CriticalChance(Shot.CriticalChance,CombatFormulaRuntime::MonsterCriticalResistance(Victim))));
     float Amount=Damage*(Shot.bRifle && Weakpoint?1+Shot.WeakpointPercent:1);
+    auto* TangGuard=Shooter?Shooter->FindComponentByClass<UTangDaoGuardComponent>():nullptr;
+    const bool bGuardContact=TangGuard&&bAliveBefore&&Damage>0.f&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter);
+    float GuardToughnessBonus=0.f;
+    if(bGuardContact)Amount*=TangGuard->ConsumeDragon(Shot,GuardToughnessBonus);
     float WagerBonus=0.f;
     // 普通暴击与要害暴击共用这一次判定；继承伤害的次生命中不重复叠层。
     if(Shooter&&Shooter->HasAuthority()&&Training.bCritical&&!Shot.bRicochet&&Damage>0.f
@@ -196,7 +206,7 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     WeaponHit.Incoming=Shot.DamagePanel.Total()>0?Shot.DamagePanel.Scaled(Amount/Shot.DamagePanel.Total()):FWeaponDamageParts{Amount,0,0,0};
     WeaponHit.PhysicalPenetration=Shot.ArmorPenetration;WeaponHit.MagicPenetration=Shot.MagicPenetration;
     TGuardValue<CombatFormulaRuntime::WeaponHit*> DamageScope(CombatFormulaRuntime::ActiveWeaponHit,&WeaponHit);
-// 枪械默认不给怪物硬直：只有枪械目录显式声明 hit_stagger 的枪才关闭这道闸门。
+    // 普通怪沿用 hit_stagger 枪械闸门；精英以上枪弹削韧，破韧期可造成短硬直。
     // 闸门关闭时受击端只记住攻击者，不动状态机、韧性时钟或硬直动作。
     // 枪弹局部回弹单独叠到原姿态，不经过这道控制状态闸门。
     // 近战武器与手持枪械发动的近战打击（bMeleeStrike）不在闸门覆盖范围内：
@@ -216,9 +226,28 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
         Pawn?Pawn->GetController():nullptr,Shooter,nullptr); };
     // 命中形式的唯一收口：所有武器命中都在这里标注，受击端据此折算削韧。
     const MonsterToughness::FScopedForm FormScope(Shot.AttackForm);
-    auto ApplyToughness=[&](){return Combat?Combat->ApplyHitWithToughnessScale(Shot.ToughnessDamageMultiplier,ApplyDamage):ApplyDamage();};
-    const float Applied=(Combat&&bFirearmWithoutStagger)?Combat->ApplyHitWithReactionScale(0.f,ApplyToughness):ApplyToughness();
+    const float FixedToughness=Shot.bMelee&&!Shot.bRicochet?MeleeToughness::FixedBaseFor(Shot.AttackMeta):-1.f;
+    auto ApplyToughness=[&](){return Combat?Combat->ApplyHitWithToughnessScale(Shot.ToughnessDamageMultiplier,ApplyDamage,FixedToughness,GuardToughnessBonus):ApplyDamage();};
+    const float Applied=(Combat&&bFirearmWithoutStagger&&!Combat->UsesToughnessBar())?Combat->ApplyHitWithReactionScale(0.f,ApplyToughness):ApplyToughness();
     const bool bDirectKill=bAliveBefore&&Applied>0.f&&(!IsValid(Victim)||Victim->IsActorBeingDestroyed()||Combat->IsDead());
+    if(bGuardContact)TangGuard->ConfirmBladeHit(Shot);
+    // Normal stage 3 keeps its own damage formula; the launch now obeys poise.
+    // Settle here for both standalone and authoritative remote hits.
+    if(bAliveBefore&&Amount>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()
+        &&Victim->HasAuthority()&&!Combat->IsDead()&&Shot.bMelee&&!Shot.bRicochet
+        &&Shot.AttackMeta==3&&Shot.bRisingDragonFinisher&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
+    {
+        FVector Away=(Victim->GetActorLocation()-Shooter->GetActorLocation()).GetSafeNormal2D();
+        if(Away.IsNearlyZero())Away=Direction.GetSafeNormal2D();
+        Combat->ReceiveForcedLaunch(Cast<APawn>(Shooter),Away*RuneSwordRisingDragon::LaunchForwardCM+
+            FVector(0,0,RuneSwordRisingDragon::LaunchUpCM),RuneSwordRisingDragon::ControlSeconds);
+    }
+    // 凝碧星核由权威命中入口施加，单机与远端命中共用；重复命中刷新。
+    if(bAliveBefore&&Applied>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()
+        &&Victim->HasAuthority()&&!Combat->IsDead()&&Shot.bMelee&&!Shot.bRicochet
+        &&(Shot.AttackMeta&0x80)&&Shot.QuickCombatRuneVulnerabilitySeconds>0.f
+        &&Shot.QuickCombatRuneVulnerability>0.f&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
+        UCombatStatusFormula::GetOrAdd(Victim)->AddRuneMagicVulnerability(Shot.QuickCombatRuneVulnerability,Shot.QuickCombatRuneVulnerabilitySeconds);
     // 虎啸在快速近战命中结算后施加；期间所有攻击按目标易削韧状态结算。
     if(bAliveBefore&&Amount>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()
         &&Victim->HasAuthority()&&!Combat->IsDead()&&Shot.bMelee&&!Shot.bRicochet

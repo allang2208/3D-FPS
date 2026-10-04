@@ -32,7 +32,7 @@ void UMonsterCombatComponent::ReceiveStun(APawn* Attacker,float Seconds,float Kn
     if(auto* F=Cast<AFleshHandMonster>(GetOwner());F&&F->Knockdown&&F->Knockdown->IsControlling())
     { RegisterExplicitStun(Seconds);F->Knockdown->ExtendControl(Seconds);return; }
     if(auto* N=Cast<ANurseZombie>(GetOwner());N && N->Knockdown && N->Knockdown->IsControlling())
-    { N->Knockdown->ExtendControl(Seconds);return; }
+    { RegisterExplicitStun(Seconds);N->Knockdown->ExtendControl(Seconds);return; }
     if(auto* Pawn=Cast<ACharacter>(GetOwner()))
     {
         Pawn->GetCharacterMovement()->StopMovementImmediately();
@@ -41,7 +41,8 @@ void UMonsterCombatComponent::ReceiveStun(APawn* Attacker,float Seconds,float Kn
     const float Remaining=IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f;
     RegisterExplicitStun(Seconds);
     Seconds=FMath::Max(StunSecondsRemaining(),Remaining);
-    bParryReaction=false;Toughness=0.f;SinceHit=0.f;
+    bParryReaction=false;
+    if(!UsesToughnessBar()){Toughness=0.f;SinceHit=0.f;PublishToughnessState();}
     if(auto* M09=Cast<AHangingBellM09>(GetOwner()))M09->InterruptAttack(Seconds);
     else if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))M10->InterruptAttack(Seconds);
     else if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->InterruptAttack(Seconds);
@@ -82,9 +83,67 @@ bool UMonsterCombatComponent::MoveMeleePush(float Distance)
     Move->bForceNextFloorCheck=true;return Fraction>=1.f && !Hit.bBlockingHit;
 }
 
+bool UMonsterCombatComponent::ReceiveForcedLaunch(APawn* Attacker,FVector LaunchVelocity,float ControlSeconds)
+{
+    auto* Pawn=Cast<ACharacter>(GetOwner());
+    if(!Pawn||!Pawn->HasAuthority()||IsDead())return false;
+    if(!CanReceiveLaunchOrKnockdown())return false;
+    const float Hold=FMath::Max(ControlSeconds,StunSecondsRemaining());
+    bool Launched=false;
+    if(auto* F=Cast<AFleshHandMonster>(Pawn))Launched=F->Knockdown&&F->Knockdown->Launch(Attacker,LaunchVelocity,Hold,true);
+    else if(auto* N=Cast<ANurseZombie>(Pawn))Launched=N->Knockdown&&N->Knockdown->Launch(Attacker,LaunchVelocity,Hold,true);
+    ParryPushDistance=MeleePushDistance=0.f;
+    if(Launched)
+    {
+        ClearHumanoidStun();
+        ToughnessReactionUntil=0.;
+        ReactionTime=ReactionDuration=0.f;bParryReaction=false;
+        // Physical control does not erase a previously applied explicit stun.
+        return true;
+    }
+    auto* Move=Pawn->GetCharacterMovement();
+    if(!Move)return false;
+    if(auto* AI=Cast<AMonsterAIController>(Pawn->GetController())){AI->StopMovement();AI->RememberDamage(Attacker);}
+    const float Remaining=IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f;
+    const float Duration=FMath::Max(Hold,Remaining);
+    if(auto* M09=Cast<AHangingBellM09>(Pawn))M09->InterruptAttack(Duration);
+    else if(auto* M10=Cast<AM10Mawcrawler>(Pawn))M10->InterruptAttack(Duration);
+    else if(auto* S=Cast<AHundredEyedSlagMonster>(Pawn))S->InterruptAttack(Duration);
+    else if(auto* F=Cast<AFleshHandMonster>(Pawn))F->InterruptAttack(Duration);
+    else if(auto* W=Cast<AWolfMonster>(Pawn))W->InterruptAttack(Duration);
+    else if(auto* M=Cast<APoisonMaggotMonster>(Pawn))M->InterruptAttack(Duration);
+    else if(auto* N=Cast<ANurseZombie>(Pawn))N->InterruptAttack(Duration);
+    else if(auto* H=Cast<AHandBrainMonster>(Pawn))H->InterruptAttack(Duration);
+    // Suspended monsters have no gravity: bound their impulse in time instead
+    // of changing their ceiling locomotion or leaving them drifting forever.
+    if(Move->GravityScale<=SMALL_NUMBER)
+    {
+        if(SuspendedLaunchRemaining<=0.f)SuspendedMovementMode=Move->MovementMode;
+        SuspendedLaunchRemaining=ControlSeconds;
+    }
+    Move->StopMovementImmediately();Move->ClearAccumulatedForces();
+    Move->SetMovementMode(MOVE_Falling);Pawn->LaunchCharacter(LaunchVelocity,true,true);
+    return true;
+}
+
+void UMonsterCombatComponent::TickForcedLaunch(float Delta)
+{
+    if(SuspendedLaunchRemaining<=0.f)return;
+    SuspendedLaunchRemaining=FMath::Max(0.f,SuspendedLaunchRemaining-Delta);
+    if(SuspendedLaunchRemaining>0.f)return;
+    if(auto* Pawn=Cast<ACharacter>(GetOwner()))
+        if(auto* Move=Pawn->GetCharacterMovement())
+        {
+            Move->StopMovementImmediately();Move->ClearAccumulatedForces();
+            Move->SetMovementMode(static_cast<EMovementMode>(SuspendedMovementMode));
+        }
+}
+
 bool UMonsterCombatComponent::ReceiveKnockdown(APawn* Attacker,FVector LaunchVelocity,float DownSeconds)
 {
     if(!GetOwner()->HasAuthority() || IsDead())return false;
+    if(!CanReceiveLaunchOrKnockdown())return false;
+    DownSeconds=FMath::Max(DownSeconds,StunSecondsRemaining());
     if(auto* M09=Cast<AHangingBellM09>(GetOwner())){M09->InterruptAttack(FMath::Max(.7f,DownSeconds));return true;}
     bool Launched=false;
     if(auto* F=Cast<AFleshHandMonster>(GetOwner()))Launched=F->Knockdown&&F->Knockdown->Launch(Attacker,LaunchVelocity,DownSeconds);
@@ -92,6 +151,8 @@ bool UMonsterCombatComponent::ReceiveKnockdown(APawn* Attacker,FVector LaunchVel
     if(!Launched)return false;
     ClearHumanoidStun();
     ParryPushDistance=MeleePushDistance=0.f;
-    ReactionTime=ReactionDuration=0.f;ExplicitStunUntil=0.0;bParryReaction=false;bStunned=false;Toughness=0.f;
+    ReactionTime=ReactionDuration=0.f;ToughnessReactionUntil=0.;bParryReaction=false;
+    bStunned=StunSecondsRemaining()>0.f;
+    if(!UsesToughnessBar()){Toughness=0.f;PublishToughnessState();}
     return true;
 }

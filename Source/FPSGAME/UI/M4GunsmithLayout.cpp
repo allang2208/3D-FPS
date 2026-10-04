@@ -327,7 +327,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
         VipGrip || SiMuzzle || G18Drum ||
         (Weapon==TEXT("ue_tang_dao") &&
             ((SlotKey==TEXT("blade_1") && (Id==TEXT("yanling_edge")||Id==TEXT("tengyun_dragon"))) ||
-             (SlotKey==TEXT("blade_2") && Id==TEXT("auspicious_cloud_rune")) ||
+             (SlotKey==TEXT("blade_2") && (Id==TEXT("auspicious_cloud_rune")||Id==TEXT("mountain_rune"))) ||
              (SlotKey==TEXT("guard") && (Id==TEXT("xuan_cloud_dragon")||Id==TEXT("phoenix_feather"))) ||
              (SlotKey==TEXT("pommel") && (Id==TEXT("yanling_breaker")||Id==TEXT("tiger_mountain"))))) ||
         (Weapon==TEXT("ue_highland_claymore") &&
@@ -337,7 +337,9 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
              (SlotKey==TEXT("pommel") && Id==TEXT("highland_thorn_crown")))) ||
         (Weapon==TEXT("ue_frost_crystal_sword") && SlotKey==TEXT("blade_2") && Id==TEXT("spirit_burst_rune")) ||
         (Weapon==TEXT("ue_rune_sword") && SlotKey==TEXT("blade_2") && Id==TEXT("golden_glow_rune")) ||
-        (Weapon==TEXT("ue_ash12") && SlotKey==TEXT("muzzle") && (Id==TEXT("ash12_tactical_suppressor")||Id==TEXT("ash12_tactical_brake")));
+        (Weapon==TEXT("ue_ash12") &&
+            ((SlotKey==TEXT("muzzle") && (Id==TEXT("ash12_tactical_suppressor")||Id==TEXT("ash12_tactical_brake"))) ||
+             (SlotKey==TEXT("stock") && Id==TEXT("ash12_cheek_rest"))));
     FString Summary=O->Description.Replace(TEXT("\r"),TEXT(" ")).Replace(TEXT("\n"),TEXT(" "));
     if(Summary.Len()>46)Summary=Summary.Left(46)+TEXT("…");
     auto Selected=[this,SlotKey,Id](){return Model()->Draft().FindRef(SlotKey)==Id||(Id==TEXT("false")&&!Model()->Draft().Contains(SlotKey));};

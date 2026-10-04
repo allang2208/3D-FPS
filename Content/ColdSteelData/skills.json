@@ -2,7 +2,7 @@
   "schemaVersion": 9,
   "swordUppercut": {
     "name": "上挑",
-    "description": "持剑向右下蓄势后前踏上挑，伴随空间扰动。突刺型单目标判定范围提升25%，判定距离在此基础上每级再增加1%；按上挑自身等级计算同级重击伤害的70%，每级提升倍率和力量。实际释放消耗25体力，并开始8秒冷却；释放、命中、击杀只取最高修炼档。",
+    "description": "持剑向右下蓄势后前踏上挑，伴随空间扰动。突刺型单目标判定范围提升25%，判定距离在此基础上每级再增加1%；按上挑自身等级计算同级重击伤害的70%，每级提升倍率和力量。实际释放消耗25体力，并开始8秒冷却；释放、命中、击杀只取最高修炼档。基础韧性伤害300，受韧性抗性和削韧增益修正。",
     "icon": "Skills/sword_uppercut_cold_steel.png",
     "experiencePerLevel": 300,
     "strengthPerLevel": 1,
@@ -257,7 +257,7 @@
   },
   "heavyStrike": {
     "name": "重击",
-    "description": "限定近战武器。按住攻击键蓄满后松开，或用快捷栏自动蓄满施放。每次重击只结算最高达成的一个修炼档。",
+    "description": "限定近战武器。按住攻击键蓄满后松开，或用快捷栏自动蓄满施放。每次重击只结算最高达成的一个修炼档。基础韧性伤害400，受韧性抗性和削韧增益修正。仅韧性为0或已破韧的目标可被击飞、击倒；击退不受韧性限制。",
     "icon": "Skills/heavy_strike_cold_steel.png",
     "experiencePerLevel": 300,
     "strengthPerLevel": 1,
@@ -335,7 +335,7 @@
   },
   "whirlwind": {
     "name": "大旋风",
-    "description": "近战武器专属。回拉蓄势 0.5 秒，短暂蓄住后猛然横扫并旋转两周（720°）；命中短暂停帧，旋转时背景模糊。",
+    "description": "近战武器专属。回拉蓄势 0.5 秒，短暂蓄住后猛然横扫并旋转两周（720°）；命中短暂停帧，旋转时背景模糊。每次施放对每个目标造成一次基础韧性伤害200，受韧性抗性和削韧增益修正；击退不受韧性限制。",
     "icon": "Skills/whirlwind_cold_steel.png",
     "experiencePerLevel": 100,
     "strengthPerLevel": 1,

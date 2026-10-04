@@ -1,9 +1,12 @@
 #include "MeleeWeaponStats.h"
+#include "TangDaoGuardComponent.h"
+#include "../FPSGAMECharacter.h"
 #include "../Skills/SwordUppercutTuning.h"
 #include "WeaponDamagePanel.h"
 #include "RuneSwordRhythm.h"
 #include "RuneSwordThrustRhythm.h"
 #include "RuneSwordOverheadRhythm.h"
+#include "RuneSwordRisingDragon.h"
 #include "ModularSwordVisual.h"
 #include "RuneSwordCombatTuning.h"
 #include "RuneSwordGuardTuning.h"
@@ -23,6 +26,7 @@ FMeleeWeaponStats ColdSteelMelee::Evaluate(const FColdSteelItem& Item,const UCol
     const FGunsmithParts Parts=Preview?*Preview:Gunsmith?Gunsmith->Installed(Item):FGunsmithParts{};
     if(Gunsmith)R.Modifiers=Gunsmith->Calculate(Item.Definition,Parts).Melee;
     const bool OverheadFinisher=ColdSteelModularSword::UsesOverheadFinisher(Item,&Parts);
+    const bool RisingDragon=ColdSteelModularSword::UsesRisingDragonFinisher(Item,&Parts);
     if(Profile)R.QuickCombat=Profile->QuickCombatStats(-1,&R.Modifiers);
     const auto Temporary=TemporaryModifiers(Profile);
     R.ParrySeconds=RuneSwordGuardTuning::ParrySeconds*R.Modifiers.ParryWindow;
@@ -36,13 +40,13 @@ FMeleeWeaponStats ColdSteelMelee::Evaluate(const FColdSteelItem& Item,const UCol
     R.HeavyChargeSpeedBonus=R.Modifiers.HeavyChargeSpeedBonus+(Enhance?Enhance->Effect(Item,TEXT("heavyChargeSpeedBonus")):0.);
     const double SkillCharge=Profile?Profile->MasteryEffect(TEXT("heavyStrike")).HeavyChargeSeconds:2.;
     R.HeavyChargeSeconds=(SkillCharge>0.?SkillCharge:2.)/FMath::Max(.1,1.+R.HeavyChargeSpeedBonus);
-    R.KnockbackCM=ColdSteelInventory::Number(Item,TEXT("melee_knockback_cm"),Item.Definition==TEXT("ue_frost_crystal_sword")?20:0)*R.Modifiers.Knockback;
+    R.KnockbackCM=ColdSteelInventory::Number(Item,TEXT("melee_knockback_cm"),Item.Definition==TEXT("ue_frost_crystal_sword")?20:0)*R.Modifiers.Knockback*R.Modifiers.AllAttackKnockback;
     const double Berserk=Profile?Profile->BerserkAttackSpeedMultiplier():1.;
     R.AttackRate=FMath::Clamp((Profile?double(Profile->Derived(TEXT("aspd")))/Berserk:1.)*R.Modifiers.AttackSpeed*Temporary.AttackSpeed/
         FMath::Max(.1,Enhance?Enhance->Effect(Item,TEXT("attackIntervalMul"),1):1.)/
         (Profile?1-Profile->MasteryEffect(TEXT("swordMastery")).CooldownReduction:1.),.2,4.)*Berserk;
     R.AttackSeconds=RuneSwordRhythm::AttackEnd/R.AttackRate;
-    R.ThrustSeconds=(OverheadFinisher?RuneSwordOverheadRhythm::FinisherSeconds:RuneSwordThrustRhythm::AttackEnd)/R.AttackRate;
+    R.ThrustSeconds=(RisingDragon?RuneSwordRisingDragon::AttackSeconds:(OverheadFinisher?RuneSwordOverheadRhythm::FinisherSeconds:RuneSwordThrustRhythm::AttackEnd))/R.AttackRate;
     R.BaseReach=ColdSteelInventory::Number(Item,TEXT("melee_reach_cm"),180);
     R.SlashReach=RuneSwordCombatTuning::ScaledReach(R.BaseReach)*R.Modifiers.Range;
     R.ThrustReach=RuneSwordCombatTuning::ScaledReach(R.BaseReach,RuneSwordThrustRhythm::ReachBonus)*R.Modifiers.Range;
@@ -112,8 +116,9 @@ double ColdSteelMelee::UnarmedAttackStamina(const UColdSteelStatusModel* Profile
 FMeleeModifiers ColdSteelMelee::TemporaryModifiers(const UColdSteelStatusModel* Profile)
 {
     FMeleeModifiers R;
-    const auto* Pawn=Profile?UGameplayStatics::GetPlayerPawn(Profile,0):nullptr;
+    const auto* Pawn=Profile?Profile->RuntimePawn():nullptr;
     const auto* Status=Pawn?Pawn->FindComponentByClass<UCombatStatusFormula>():nullptr;
     if(Status){R.AttackSpeed=Status->RiposteAttackSpeed();R.Stamina=Status->RiposteStaminaMultiplier();}
+    if(const auto* Guard=Pawn?Pawn->FindComponentByClass<UTangDaoGuardComponent>():nullptr)R.AttackSpeed*=Guard->AttackSpeedMultiplier();
     return R;
 }

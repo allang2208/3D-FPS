@@ -1,5 +1,12 @@
 #include "../UI/ColdSteelStatusModel.h"
 #include "ColdSteelSkillRules.h"
+#include "../Weapons/MeleeWeaponStats.h"
+
+float UColdSteelStatusModel::SwordUppercutStaminaCost() const
+{
+    return MasteryDefinition(TEXT("swordUppercut")).UppercutStaminaCost*
+        ColdSteelMelee::EquippedModifiers(this).Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina;
+}
 
 float UColdSteelStatusModel::SwordUppercutCooldown() const
 {
@@ -11,10 +18,11 @@ bool UColdSteelStatusModel::CommitSwordUppercutRelease()
     const auto* Item=Equipped();
     if(!Item||ActiveProductionTool()||!ColdSteelInventory::IsTwoHandedSword(*Item)||SwordUppercutCooldown()>0.f)return false;
     const auto& D=MasteryDefinition(TEXT("swordUppercut"));
-    if(!CanSpendStamina(D.UppercutStaminaCost)){Message=TEXT("体力不足");OnStaminaChanged.Broadcast();return false;}
+    const float StaminaCost=SwordUppercutStaminaCost();
+    if(!CanSpendStamina(StaminaCost)){Message=TEXT("体力不足");OnStaminaChanged.Broadcast();return false;}
     // Commit the resource and cooldown together before notifying listeners.
     // Stage on the live profile: disk I/O and ApplyToPawn must not interrupt release.
-    Current.Stamina=FMath::Max(0.f,Current.Stamina-D.UppercutStaminaCost);
+    Current.Stamina=FMath::Max(0.f,Current.Stamina-StaminaCost);
     Current.StaminaRecoveryDelay=StaminaTuning.RecoveryDelay;
     if(Current.Stamina<=0.f)Current.bSprintExhausted=true;
     Current.SwordUppercutCooldown=HasNoAbilityCooldown()?0.f:D.UppercutCooldownSeconds;

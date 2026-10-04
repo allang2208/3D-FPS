@@ -16,8 +16,10 @@ FWhirlwindCast UColdSteelStatusModel::WhirlwindStats(int32 AtLevel) const
     if(Item&&!ActiveProductionTool()&&ColdSteelInventory::IsMeleeWeapon(*Item))
     {
         const auto Stats=ColdSteelMelee::Evaluate(*Item,this);
+        C.StaminaCost*=Stats.Modifiers.Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina;
         C.Damage=FMath::RoundToFloat(Stats.Damage*C.DamageMultiplier);
         C.RadiusCM*=Stats.Modifiers.Range;
+        C.KnockbackCM*=Stats.Modifiers.AllAttackKnockback;
     }
     return C;
 }

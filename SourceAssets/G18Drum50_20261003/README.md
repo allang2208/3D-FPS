@@ -51,7 +51,7 @@
 
 ## 当前状态
 
-V2 模型、贴图、图标和接入源码已完成，V1 制作源已保留在 `Revisions/V01/`。本次 C++ 改动已包含在 2026-10-03 21:15:26 开始、结果为 Succeeded 的 FPSGAMEEditor 构建中，见 `compile_receipt.json`。
+V2 模型、贴图、图标和接入源码已完成。方向修正前的 V1 已于 2026-10-04 移入本机 `trash/attachment-effects-20261004/SourceAssets/G18Drum50_20261003/Revisions/V01/`，原路径、大小与散列见 [归档清单](../../Docs/Publication/AttachmentEffects20261004/archive-manifest.json)。本次 C++ 改动已包含在 2026-10-03 21:15:26 开始、结果为 Succeeded 的 FPSGAMEEditor 构建中，见 `compile_receipt.json`。
 
 后续金色限定卡与左手换弹配置选择已通过常规 FPSGAMEEditor 构建，当前 DLL 已更新，见 `Reload/compile_receipt.json` 与 `Reload/native-build-3.log`。50 发、换弹 +50%、开镜耗时 +15% 已发布到目录。普通/空仓两条作者动画与 `DA_G18_Drum50` 已实际导入保存，共享制作器报告 ready=True、retained=0、pending=0；见 `Reload/import_receipt.json`、`Reload/install_receipt.json` 与 `Reload/import-mcp-2.txt`。
 

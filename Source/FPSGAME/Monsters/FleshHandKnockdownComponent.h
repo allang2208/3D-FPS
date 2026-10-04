@@ -18,7 +18,7 @@ public:
  UFleshHandKnockdownComponent();
  virtual void BeginPlay() override;
  virtual void TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick) override;
- bool Launch(APawn* Attacker,FVector Velocity,float DownSeconds);
+ bool Launch(APawn* Attacker,FVector Velocity,float DownSeconds,bool bForced=false);
  void Landed(const FHitResult& Hit);
  void ExtendControl(float Seconds);
  bool OnDeath();

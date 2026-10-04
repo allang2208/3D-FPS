@@ -23,7 +23,7 @@ public:
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Reaction",ReplicatedUsing=OnRep_HitReactions) int32 HitReactions=0;
  /** Explicit skill/parry stun only; toughness stagger and knockdown are separate. */
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Reaction",Replicated) bool bStunned=false;
- /** 服务端最近一次显式眩晕时长（远端用来近似 ExplicitStunUntil 播摇摆）。 */
+ /** Recent stun duration retained for compatibility; clients use NetStunEndsAt. */
  UPROPERTY(Replicated) float NetStunSeconds=0.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Reaction|Stun") TObjectPtr<UAnimSequence> DizzyClip;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Reaction|Stun",meta=(ClampMin="0.25",ClampMax="2")) float DizzyPlayRate=1.f;
@@ -34,7 +34,7 @@ public:
  // ── 韧性系统 ──────────────────────────────────────────────────────────
  // 命中先按「形式 × 对应抗性」折算成韧性伤害并累积；只有累积达到阈值才破韧造成硬直。
  // 未达阈值的命中不打断动作、不进入硬直、不播放受击表现（只累积韧性）。
- UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Toughness",meta=(ClampMin="0",ToolTip="韧性上限：累积的韧性伤害达到该值即破韧。0 = 每次命中都破韧。")) float ToughnessThreshold=60.f;
+ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Toughness",meta=(ClampMin="0",ToolTip="韧性上限：0 为无韧性保护；正值使用 200/400/600/800/1000 五档。")) float ToughnessThreshold=0.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Toughness",meta=(Units="s",ClampMin="0",ToolTip="破韧硬直时长：韧性被打满后怪物失去控制的时间。")) float ToughnessBreakSeconds=1.2f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Toughness",meta=(ClampMin="0",ClampMax="0.9",ToolTip="锐器抗性：按比例减免刃口切割与突刺（剑刃、斧刃、冰锥）造成的韧性伤害。")) float BladeResistance=0.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Toughness",meta=(ClampMin="0",ClampMax="0.9",ToolTip="钝器抗性：按比例减免锤击、配重与枪托砸击造成的韧性伤害。")) float BluntResistance=0.f;
@@ -70,11 +70,13 @@ public:
  void ReceiveHit(float Damage,APawn* Attacker,EMonsterAttackForm Form=EMonsterAttackForm::Impact);
  // The multiplier is scoped to this target's synchronous hit receipt, never to poison or parries.
  float ApplyHitWithReactionScale(float Multiplier,TFunctionRef<float()> ApplyDamage);
- float ApplyHitWithToughnessScale(float Multiplier,TFunctionRef<float()> ApplyDamage);
+ float ApplyHitWithToughnessScale(float Multiplier,TFunctionRef<float()> ApplyDamage,float FixedBaseDamage=-1.f,float BonusBaseDamage=0.f);
  void ReceiveParry(APawn* Defender,float Seconds,float KnockbackCM);
  void ReceiveMeleeKnockback(APawn* Attacker,float DistanceCM);
  UFUNCTION(BlueprintCallable,Category="Monster|Knockdown")
  bool ReceiveKnockdown(APawn* Attacker,FVector LaunchVelocity,float DownSeconds=.7f);
+ /** Special launch bypasses immunity tags, but still requires zero poise or a broken bar. */
+ bool ReceiveForcedLaunch(APawn* Attacker,FVector LaunchVelocity,float ControlSeconds);
  /** 技能硬控：打断当前攻击进入眩晕反应，并沿受击方向推退。无招架表现标记。 */
  void ReceiveStun(APawn* Attacker,float Seconds,float KnockbackCM);
  bool IsParryReaction() const { return bParryReaction; }
@@ -105,10 +107,40 @@ private:
  FVector ParryPushDirection=FVector::ZeroVector;
  float ParryPushDistance=0.f,ParryPushAge=0.f;
  void TickMeleePush(float Delta);
+ void TickForcedLaunch(float Delta);
+ float SuspendedLaunchRemaining=0.f;
+ uint8 SuspendedMovementMode=0;
  bool MoveMeleePush(float Distance);
  FVector MeleePushDirection=FVector::ZeroVector;
  float MeleePushDistance=0.f,MeleePushAge=0.f;
  // Uses world game time; no extra timer or Tick. Physical reactions cannot extend it.
  double ExplicitStunUntil=0.0;
  void RegisterExplicitStun(float Seconds);
+public:
+ /** Positive maxima use a remaining bar; zero means no poise protection. */
+ bool UsesToughnessBar() const { return ToughnessState.Phase!=EMonsterToughnessPhase::Legacy; }
+ bool IsToughnessBroken() const { return ToughnessState.Phase==EMonsterToughnessPhase::Broken; }
+ EMonsterToughnessPhase GetToughnessPhase() const { return ToughnessState.Phase; }
+ float DisplayToughness() const;
+ float ToughnessPhaseSecondsRemaining() const;
+ void ConfigureToughnessBar(const FMonsterToughnessBarTuning& Tuning);
+ void ResetToughnessOnReturnHome();
+ bool CanReceiveLaunchOrKnockdown();
+private:
+ // Appended to preserve the layout of existing native members.
+ UPROPERTY(ReplicatedUsing=OnRep_ToughnessState) FMonsterToughnessState ToughnessState;
+ UFUNCTION() void OnRep_ToughnessState();
+ UPROPERTY(ReplicatedUsing=OnRep_StunEnd) double NetStunEndsAt=0.;
+ UFUNCTION() void OnRep_StunEnd();
+ FMonsterToughnessBarTuning ToughnessBarTuning;
+ double LastToughnessHitAt=0.,LastToughnessUpdateAt=0.,LastBrokenReactionAt=-100.;
+ double ToughnessReactionUntil=0.;
+ bool bApplyingToughnessReaction=false;
+ double ToughnessClock() const;
+ void PublishToughnessState();
+ void AdvanceToughnessBar();
+ void ReceiveToughnessBarHit(float Damage,EMonsterAttackForm Form);
+ void ApplyToughnessReaction(float Seconds);
+ float IncomingToughnessBaseDamage=-1.f;
+ float IncomingToughnessBonusBaseDamage=0.f;
 };

@@ -115,10 +115,16 @@
         {
           "id": "wedge_kit",
           "name": "楔紧件",
-          "description": "钢楔与垫片把头部重新锁死在柄颈上，敲击不松动、更容易一次咬住。",
+          "description": "楔紧件提高伐木与采矿伤害，缩短采集过程；实际挥击次数由资源生命值与单次伤害决定。",
           "effects": [
-            { "text": "所需有效命中 -1 次", "benefit": 1 },
-            { "text": "基础伤害 -5%", "benefit": -1 }
+            {
+              "text": "采集伤害 +50%",
+              "benefit": 1
+            },
+            {
+              "text": "基础伤害 -5%",
+              "benefit": -1
+            }
           ],
           "stats": {
             "harvest_hits_add": -1,

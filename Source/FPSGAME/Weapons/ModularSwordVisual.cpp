@@ -105,6 +105,13 @@ bool ColdSteelModularSword::UsesOverheadFinisher(const FColdSteelItem& Item,cons
     return Spec&&Spec->TryGetStringField(TEXT("combo_third_attack"),Attack)&&Attack==TEXT("sprint_overhead_rectangle");
 }
 
+bool ColdSteelModularSword::UsesRisingDragonFinisher(const FColdSteelItem& Item,const FGunsmithParts* Draft)
+{
+    const auto Spec=Part(Item,TEXT("blade_1"),Installed(Item,Draft));
+    FString Attack;
+    return Spec&&Spec->TryGetStringField(TEXT("combo_third_attack"),Attack)&&Attack==TEXT("rising_dragon");
+}
+
 void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TArray<FSoftObjectPath>& Out,const FGunsmithParts* Draft)
 {
     // Resolve the same selected specs as Apply, including shared pommel adapters and finishes.
@@ -115,6 +122,8 @@ void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TAr
     };
     if(Item.Definition==ColdSteelFrostRunes::TangDao&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::AuspiciousCloud)
         Add(ColdSteelFrostRunes::CloudMask);
+    if(Item.Definition==ColdSteelFrostRunes::TangDao&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::Mountain)
+        Add(ColdSteelFrostRunes::MountainMask);
     const auto Gather=[&Add](const TSharedPtr<FJsonObject>& Spec)
     {
         FString Mesh; if(Spec->TryGetStringField(TEXT("mesh"),Mesh))Add(Mesh);

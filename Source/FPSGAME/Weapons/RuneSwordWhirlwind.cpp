@@ -1,7 +1,9 @@
 #include "RuneSwordComponent.h"
+#include "TangDaoGuardComponent.h"
 #include "RuneSwordMeshComponent.h"
 #include "RuneSwordWhirlwindFeel.h"
 #include "ModularSwordVisual.h"
+#include "MeleeWeaponStats.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Skills/ColdSteelSkillRules.h"
@@ -49,12 +51,13 @@ bool URuneSwordComponent::BeginWhirlwind()
     const FWhirlwindCast Cast=Profile->WhirlwindStats();
     if(!Profile->CommitWhirlwindCast(Cast))return false;
     WhirlwindCast=Cast;WhirlwindTuning=Profile->MasteryDefinition(TEXT("whirlwind")).Whirlwind;
-    SwingRate=Profile->BerserkAttackSpeedMultiplier();
+    SwingRate=ColdSteelMelee::Evaluate(*Item,Profile).AttackRate;
     bWhirlwind=true;bWhirlwindTrainingPending=true;bSwingCuePlayed=false;
     WhirlwindHits=WhirlwindKills=0;WhirlwindPause=WhirlwindPauseSpent=0.f;
     ImpactAge=1.f;ImpactStrength=1.f;
     WhirlwindYaw=Character->GetControlRotation().Yaw;
     HitActors.Reset();SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
+    UTangDaoGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
     SwingSkills.WeakpointPercent=0;SwingSkills.AttackForm=EMonsterAttackForm::Blade;SwingSkills.AttackMeta|=0x20;SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison; // 0x20=旋风斩：服务端按 WhirlwindStats 技能面板复算
     SwingHitReactionMultiplier=MeleeModifiers.HitReaction;
     // 旋风斩属剑刃攻击：导魔符文易伤通道照常挂载；金色强化按确认命中缩减CD（整个旋风只触发一次）。

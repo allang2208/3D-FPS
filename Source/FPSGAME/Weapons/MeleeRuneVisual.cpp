@@ -57,7 +57,8 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
     const bool bSpirit=bFrost&&VisualRune==ColdSteelFrostRunes::SpiritBurst;
     const bool bWild=Definition==TEXT("ue_highland_claymore")&&VisualRune==TEXT("wild_rune");
     const bool bCloud=Definition==ColdSteelFrostRunes::TangDao&&VisualRune==ColdSteelFrostRunes::AuspiciousCloud;
-    const int32 Mode=bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:VisualRune==TEXT("conduction_rune")?2:-1;
+    const bool bMountain=Definition==ColdSteelFrostRunes::TangDao&&VisualRune==ColdSteelFrostRunes::Mountain;
+    const int32 Mode=bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:VisualRune==TEXT("conduction_rune")?2:-1;
     auto IsOurs=[](UMaterialInterface* M){auto* Base=M?M->GetBaseMaterial():nullptr;return Base&&(Base->GetName().StartsWith(TEXT("M_SilverRuneSurface"))||Base->GetName()==TEXT("M_SilverRuneSurfaceV2"));};
     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
     {
@@ -114,11 +115,11 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
             const bool Changed=SurfaceMID->K2_GetScalarParameterValue(TEXT("RuneMode"))!=Mode;
             SurfaceMID->SetScalarParameterValue(TEXT("RuneMode"),Mode);
             SurfaceMID->SetScalarParameterValue(TEXT("GoldenTint"),0.f);
-            SurfaceMID->SetScalarParameterValue(TEXT("BaseBrightness"),bCloud?.60f:.85f);
-            SurfaceMID->SetScalarParameterValue(TEXT("GlowStrength"),bCloud?1.05f:1.25f);
+            SurfaceMID->SetScalarParameterValue(TEXT("BaseBrightness"),bMountain?.72f:bCloud?.60f:.85f);
+            SurfaceMID->SetScalarParameterValue(TEXT("GlowStrength"),bMountain?.88f:bCloud?1.05f:1.25f);
             if(Mode>=0&&(Changed||!SurfaceMID->K2_GetTextureParameterValue(TEXT("RuneTexture"))))
             {
-                const FString Mask=bCloud?FString(ColdSteelFrostRunes::CloudMask):TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+VisualRune;
+                const FString Mask=bMountain?FString(ColdSteelFrostRunes::MountainMask):bCloud?FString(ColdSteelFrostRunes::CloudMask):TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+VisualRune;
                 auto* Texture=LoadObject<UTexture>(nullptr,*Mask);
                 SurfaceMID->SetTextureParameterValue(TEXT("RuneTexture"),Texture);
             }

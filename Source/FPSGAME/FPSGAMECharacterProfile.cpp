@@ -3,6 +3,7 @@
 #include "Weapons/PistolDualWieldComponent.h"
 #include "Production/ProductionToolComponent.h"
 #include "Weapons/RuneSwordComponent.h"
+#include "Weapons/TangDaoGuardComponent.h"
 #include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/Staff/StaffWeaponComponent.h"
 #include "UI/ColdSteelStatusModel.h"
@@ -44,6 +45,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     // Possession can publish a shadow profile before component initialization.
     // BeginPlay consumes NetShadowProfile after creating the base viewmodel.
     if(!HasActorBegunPlay() || !Profile || bResolvingActionInterrupt)return;
+    if(auto* Guard=FindComponentByClass<UTangDaoGuardComponent>())Guard->Configure(Profile);
     const auto* I=Profile->Equipped();const FString Id=I?I->InstanceId:TEXT("");
     const FString Definition=I?I->Definition:TEXT("");
     const auto* Tool=Profile->ActiveProductionTool();

@@ -77,6 +77,7 @@ public:
     /** 受益攻击者对被标记目标的暴击率加成（百分点）。 */
     float DroneCritBonusPercent(const AActor* Attacker)const;
     bool IsStunned()const{return StunTime>0;}
+    void AddStunWithExtension(float BaseSeconds,float ExtraSeconds);
     bool IsFrozen()const{return FrozenTime>0;}
     bool IsPetrified()const{return PetrifyTime>0;}
     bool IsMinePoisoned()const{return MineTime>0;}

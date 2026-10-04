@@ -1,4 +1,5 @@
 #include "RuneSwordComponent.h"
+#include "TangDaoGuardComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Movement/FPSCharacterMovementComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -98,7 +99,7 @@ bool URuneSwordComponent::TryBeginDashAttack()
     SwingDamage=Cast.Damage;SwingReach=Cast.RangeCM;SwingKnockbackCM=Cast.KnockbackCM;
     // 冲刺持剑用0.25秒过渡到下劈接触起点；音效、裂隙和判定仍由
     // 同一接触窗触发，前摇期间不命中，接触后的落点与收势保持原时序。
-    SwingRate=1.f;
+    // StartSwing already captured the common attack speed, including attachments.
     Elapsed=ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds;
     SamplePose(Elapsed);
     if(Pawn->IsSliding())Pawn->StopSlide(true);

@@ -148,7 +148,7 @@
         {
           "id": "crit_rune",
           "name": "暴击符文",
-          "description": "杖身铭刻暴击符文，魔法的暴击率+25%，MP消耗+25%",
+          "description": "杖身铭刻暴击符文，魔法的暴击率增加25个百分点，MP消耗+25%",
           "effects": {
             "magicCritPercent": 0.25,
             "magicMpCostPercent": 0.25
@@ -179,7 +179,7 @@
         {
           "id": "alloy_grip",
           "name": "合金",
-          "description": "合金握柄缩短施法前摇25%，所有魔法的MP消耗+5%",
+          "description": "合金握柄使施法动作速度提高25%（前后摇耗时缩短20%），所有魔法的MP消耗+5%",
           "effects": {
             "castSpeedPercent": 0.25,
             "magicMpCostPercent": 0.05

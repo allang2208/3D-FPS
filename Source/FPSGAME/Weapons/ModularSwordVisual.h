@@ -11,6 +11,7 @@ namespace ColdSteelModularSword
     FString ArmsMesh(const FColdSteelItem& Item);
     FString AnimationFolder(const FColdSteelItem& Item);
     bool UsesOverheadFinisher(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
+    bool UsesRisingDragonFinisher(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
     void GatherVisualResources(const FColdSteelItem& Item,TArray<FSoftObjectPath>& Out,const FGunsmithParts* Draft=nullptr);
     FString Key(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);
     bool Apply(UStaticMeshComponent* Blade,const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);

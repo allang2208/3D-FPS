@@ -128,3 +128,7 @@ For independent third-person animation alongside the accepted first-person arms,
 ## 生存与消耗品（2026-10-03）
 
 [进食、饮水与易拉罐抓握](references/food-and-drink-grasp.md)：对象握点转换、最终掌心跟随、收势保握与非线性送入口动作。
+
+## 弹鼓参考与双持启动
+
+照片弹鼓方向、步枪托鼓手型迁移或双持出生混入单持姿态时，读取 [弹鼓参考与双持启动](references/drum-reference-and-dual-startup.md)。先区分接口与鼓体坐标、动作倍率与作者时长、生命周期顺序与动画实例归属。

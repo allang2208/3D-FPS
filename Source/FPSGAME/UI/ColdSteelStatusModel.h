@@ -33,6 +33,7 @@ public:
     bool TrainSwordUppercut(int32 Hits,int32 Kills);
     bool CommitSwordUppercutRelease();
     float SwordUppercutCooldown() const;
+    float SwordUppercutStaminaCost() const;
     float SwordUppercutCooldownDuration() const { return Current.SwordUppercutCooldownDuration; }
     FWhirlwindCast WhirlwindStats(int32 AtLevel=-1) const;
     float WhirlwindCooldown() const;
@@ -95,7 +96,9 @@ public:
     const FColdSteelSkillDefinition& DodgeDefinition() const { return DodgeSkill; }
     UFUNCTION(BlueprintPure, Category="Skills") FColdSteelSkillProgress DodgeProgress() const;
     FColdSteelSkillEffect DodgeEffect(int32 AtLevel=-1) const;
-    float DodgeStaminaCost() const;
+    float DodgeStaminaCost(int32 AtLevel=-1) const;
+    float SprintStaminaPerSecond() const;
+    class AFPSGAMECharacter* RuntimePawn() const;
     bool TrainDodge(int32 Amount);
     /** 巧手通用修炼入口（近战命中/击杀走命中事务，翻越与消耗品等一次性动作用本入口）。 */
     bool TrainDexterousHands(int32 Amount);

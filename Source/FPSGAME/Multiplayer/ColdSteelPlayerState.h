@@ -42,6 +42,8 @@ struct FColdSteelNetHitReport
     /** EMonsterAttackForm 的窄化传输；0 表示沿用服务端 Snapshot 推断值。 */
     UPROPERTY() uint8 AttackForm = 0;
     UPROPERTY() double ClientFireTime = 0.0;
+    /** Groups targets from one blade swing; carries no client-provided buff values. */
+    UPROPERTY() uint32 GuardAttackSerial = 0;
 };
 
 /**

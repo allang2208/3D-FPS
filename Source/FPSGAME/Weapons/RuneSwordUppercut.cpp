@@ -1,5 +1,7 @@
 #include "RuneSwordComponent.h"
+#include "TangDaoGuardComponent.h"
 #include "RuneSwordUppercutMotion.h"
+#include "RuneSwordRisingDragon.h"
 #include "RuneSwordCombatTuning.h"
 #include "MeleeWeaponStats.h"
 #include "MeleeSmallTargetQuery.h"
@@ -38,7 +40,7 @@ FString URuneSwordComponent::UppercutStatusText() const
     const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Profile)return TEXT("暂不可用");
     if(Profile->SwordUppercutCooldown()>0.f)return TEXT("冷却中");
-    if(!Profile->CanSpendStamina(Profile->MasteryDefinition(TEXT("swordUppercut")).UppercutStaminaCost))return TEXT("体力不足");
+    if(!Profile->CanSpendStamina(Profile->SwordUppercutStaminaCost()))return TEXT("体力不足");
     if(IsBusy()||bGuardHeld)return TEXT("动作中");
     if(Character->IsCastBlockingLeftHandAction())return TEXT("动作占用");
     const auto* Clip=UppercutAnimation();
@@ -83,10 +85,12 @@ bool URuneSwordComponent::BeginUppercut()
     SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
     SwingSkills.bRifle=SwingSkills.bPistol=false;SwingSkills.WeakpointPercent=0.f;
     SwingSkills.AttackMeta=SwordUppercut::AttackMeta;
+    UTangDaoGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
     SwingSkills.AttackForm=EMonsterAttackForm::Blade;
     SwingSkills.ToughnessDamageMultiplier*=Stats.Modifiers.HeavyToughness;
-    // Keep the accepted authored tempo; only gameplay damage/range is snapshotted.
-    SwingRate=1.f;bSwingCuePlayed=bImpactFeedbackPlayed=bThrustImpact=false;
+    // Use the same attack speed snapshot as ordinary and quick-combat swings.
+    SwingRate=Stats.AttackRate;
+    bSwingCuePlayed=bImpactFeedbackPlayed=bThrustImpact=false;
     ContactStart=RuneSwordUppercutMotion::ReleaseStart;
     ContactEnd=RuneSwordUppercutMotion::Finish;
     bLungeStarted=bLungeBlocked=false;
@@ -103,9 +107,11 @@ bool URuneSwordComponent::BeginUppercut()
 
 void URuneSwordComponent::TickUppercut(float Delta)
 {
+    const bool RisingDragon=IsRisingDragonFinisher();
     const float End=CurrentAnimation->GetPlayLength();
-    const float Next=FMath::Min(End,Elapsed+Delta);
-    if(!bSwingCuePlayed&&Next>=ContactStart)
+    const float Next=FMath::Min(End,RisingDragon?RuneSwordRisingDragon::SourceTime(
+        RuneSwordRisingDragon::PlaybackTime(Elapsed)+Delta*SwingRate):Elapsed+Delta*SwingRate);
+    if(!RisingDragon&&!bSwingCuePlayed&&Next>=ContactStart)
     {
         auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
         if(!Profile||!Profile->CommitSwordUppercutRelease()){CancelAction();return;}
@@ -117,7 +123,7 @@ void URuneSwordComponent::TickUppercut(float Delta)
     if(bRiftActive){RiftOrigin.AddToTranslation(Moved);TickRift(0.f);}
     if(!bSwingCuePlayed&&Next>=ContactStart)
     {
-        bSwingCuePlayed=true;bHeavyTrainingPending=true;
+        bSwingCuePlayed=true;if(!RisingDragon)bHeavyTrainingPending=true;
         if(AttackLayerSound)UGameplayStatics::PlaySound2D(this,AttackLayerSound,1.f,1.f);
         if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.72f,1.1f);
         StartRift(Next-ContactStart);
@@ -125,8 +131,8 @@ void URuneSwordComponent::TickUppercut(float Delta)
     const auto FrameAt=[&](float Time)
     {
         FTransform Frame;
-        const float Played=Time-Elapsed;
-        Frame.Blend(PreviousAimFrame,AimBeforeLunge,FMath::Clamp(Played/FMath::Max(SMALL_NUMBER,Delta),0.f,1.f));
+        const float Played=RisingDragon?RuneSwordRisingDragon::PlaybackTime(Time)-RuneSwordRisingDragon::PlaybackTime(Elapsed):Time-Elapsed;
+        Frame.Blend(PreviousAimFrame,AimBeforeLunge,FMath::Clamp(Played/FMath::Max(SMALL_NUMBER,Delta*SwingRate),0.f,1.f));
         const float Distance=FVector::DotProduct(Moved,LungeDirection);
         if(Distance>SMALL_NUMBER)
         {
@@ -154,14 +160,21 @@ void URuneSwordComponent::TickUppercut(float Delta)
         }
         if(HitActors.IsEmpty())ApplySwingHits(MeleeSmallTargets::QueryLowSector(
             GetWorld(),Character.Get(),EndFrame,SwingReach,HitActors,false,30.f,
-            UppercutLowReachCM),EndFrame.GetUnitAxis(EAxis::X));
+            bUppercut?UppercutLowReachCM:MeleeSmallTargets::LowReachCM),EndFrame.GetUnitAxis(EAxis::X));
     }
     SamplePose(Next);PreviousAimFrame=AimNow;Elapsed=Next;
     if(Next>=ContactEnd)FinishHeavyTraining();
-    if(!bUppercut)return; // Training/save callbacks may cancel the current action.
+    if(!bUppercut&&!IsRisingDragonFinisher())return; // Training/save callbacks may cancel the current action.
     if(Elapsed>=End)
     {
+        const bool Queued=RisingDragon&&bQueuedAttack,QueuedSkill=RisingDragon&&bQueuedQuickCombat;
+        if(RisingDragon)
+        {
+            bAttacking=bQueuedAttack=bQueuedQuickCombat=false;
+            LastAttackEnd=GetWorld()->GetTimeSeconds();
+        }
         bUppercut=false;bLungeStarted=bLungeBlocked=false;LungeDirection=FVector::ZeroVector;
         SetClip(TEXT("Idle"),true);
+        if(QueuedSkill)BeginQuickCombatStrike();else if(Queued)BeginAttack();
     }
 }

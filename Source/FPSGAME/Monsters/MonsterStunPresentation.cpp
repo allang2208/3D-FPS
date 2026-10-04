@@ -9,6 +9,7 @@
 
 float UMonsterCombatComponent::StunSecondsRemaining() const
 {
+    if(GetOwner()&&!GetOwner()->HasAuthority())return float(FMath::Max(0.,NetStunEndsAt-ToughnessClock()));
     return GetWorld()?float(FMath::Max(0.0,ExplicitStunUntil-GetWorld()->GetTimeSeconds())):0.f;
 }
 
@@ -16,7 +17,13 @@ void UMonsterCombatComponent::RegisterExplicitStun(float Seconds)
 {
     if(Seconds>0.f && GetWorld())
         ExplicitStunUntil=FMath::Max(ExplicitStunUntil,double(GetWorld()->GetTimeSeconds())+Seconds);
-    if(Seconds>0.f)NetStunSeconds=FMath::Max(NetStunSeconds,Seconds); // 远端靠它近似回放眩晕
+    NetStunSeconds=StunSecondsRemaining();
+    NetStunEndsAt=ToughnessClock()+NetStunSeconds;
+    bStunned=StunSecondsRemaining()>0.f;
+}
+
+void UMonsterCombatComponent::OnRep_StunEnd()
+{
     bStunned=StunSecondsRemaining()>0.f;
 }
 

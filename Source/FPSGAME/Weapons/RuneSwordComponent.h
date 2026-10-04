@@ -116,7 +116,6 @@ private:
     FMeleeModifiers MeleeModifiers;
     float SwingRuneVulnerability=0, SwingRuneVulnerabilitySeconds=0;
     // SwingRuneVulnerability*=剑刃攻击通道（导魔符文）；QuickCombat*=配重锤快速近战通道（凝碧星核）。
-    float QuickCombatRuneVulnerability=0, QuickCombatRuneVulnerabilitySeconds=0;
     // 金色符文强化：每次确认命中后本挥缩减技能CD的秒数与已缩减标记（每挥一次）。
     float SwingCooldownReduceSeconds=0;bool bSwingCooldownReduced=false;
     FName CurrentClip;
@@ -165,6 +164,7 @@ private:
     void FinishWhirlwind();
     int32 NextSlash=0, SwingPoison=0, SwingTrainingHits=0;
     FColdSteelSkillShot SwingSkills;
+    bool IsRisingDragonFinisher() const { return bAttacking&&SwingSkills.bRisingDragonFinisher; }
     double LastAttackEnd=-100.;
     double ChargeStartedAt=0.;
     float CancelChargeFrom=0.f, CancelChargeAge=0.f, CancelChargeDuration=.4f;

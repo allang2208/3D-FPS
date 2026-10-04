@@ -1,4 +1,5 @@
 #include "StatusEffectsComponent.h"
+#include "../Weapons/TangDaoGuardComponent.h"
 #include "../Monsters/PoisonMaggotProjectile.h"
 #include "../Monsters/HandBrainFearComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
@@ -52,6 +53,13 @@ void UStatusEffectsComponent::Notify(AActor* Owner){if(auto* C=GetOrCreate(Owner
 TArray<FStatusEffectView> UStatusEffectsComponent::Snapshot() const
 {
  TArray<FStatusEffectView> Result;if(auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>())if(H->IsDead())return Result;
+ if(const auto* Guard=GetOwner()->FindComponentByClass<UTangDaoGuardComponent>())
+ {
+  if(const float Remaining=Guard->DragonRemaining();Remaining>0.f)
+  {auto V=Definition(TEXT("tangDragonMight"));V.Duration=Guard->DragonDuration();V.Remaining=Remaining;V.Stacks=1;Result.Add(V);}
+  if(const float Remaining=Guard->PhoenixRemaining();Remaining>0.f)
+  {auto V=Definition(TEXT("tangPhoenixDance"));V.Duration=Guard->PhoenixDuration();V.Remaining=Remaining;V.Stacks=Guard->PhoenixHitsRemaining();V.Description+=FString::Printf(TEXT(" 剩余回血次数：%d。"),V.Stacks);Result.Add(V);}
+ }
  if(const auto* Survival=GetOwner()->FindComponentByClass<UFPSSurvivalComponent>())
  {
   const auto State=Survival->GetState();

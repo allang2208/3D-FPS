@@ -70,6 +70,7 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
         PistolGripSurface::MergeOptions(Catalog,O,W.Allowed);
         const auto B=O->GetObjectField(TEXT("base"));W.Ammo=B->GetStringField(TEXT("ammo_item_id"));
         W.Base.ADS=FMath::Loge(20.)/Num(B,TEXT("ads_smooth"),9.98577424518);W.Base.Capacity=Num(B,TEXT("mag_size"),30);
+        W.Base.ADSPercent=Num(B,TEXT("ads_percent")); // Factory-mounted accessory costs; removal offsets this value.
         W.Base.Recoil=Num(B,TEXT("recoil"),100);W.Base.Shake=Num(B,TEXT("camera_shake"),100);W.Base.Interval=Num(B,TEXT("fire_interval"),.13);
         W.Base.StabilityMultiplier=Num(B,TEXT("stability_mult"),1);
         W.Base.BurstCount=FMath::Max(1,int32(Num(B,TEXT("burst_count"),1)));
@@ -190,6 +191,8 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.MagicCooldown*=M.MagicCooldown;R.Melee.MagicDamage*=M.MagicDamage;
             R.Melee.MagicCost*=M.MagicCost;
             R.Melee.HeavyDamage*=M.HeavyDamage;R.Melee.Knockback*=M.Knockback;
+            R.Melee.AllAttackKnockback*=M.AllAttackKnockback;
+            R.Melee.AllAttackDamage*=M.AllAttackDamage;
             R.Melee.HeavyDamageAdd+=M.HeavyDamageAdd;
             R.Melee.HeavyChargeSpeedBonus+=M.HeavyChargeSpeedBonus;
             R.Melee.HeavyToughness*=M.HeavyToughness;
@@ -198,6 +201,8 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.QuickCombatKnockback*=M.QuickCombatKnockback;
             R.Melee.QuickCombatToughness*=M.QuickCombatToughness;
             R.Melee.QuickCombatBleedChance=FMath::Max(R.Melee.QuickCombatBleedChance,M.QuickCombatBleedChance);
+            R.Melee.QuickCombatRuneVulnerability=FMath::Max(R.Melee.QuickCombatRuneVulnerability,M.QuickCombatRuneVulnerability);
+            R.Melee.QuickCombatRuneVulnerabilitySeconds=FMath::Max(R.Melee.QuickCombatRuneVulnerabilitySeconds,M.QuickCombatRuneVulnerabilitySeconds);
             R.Melee.QuickCombatTigerRoarToughnessBonus=FMath::Max(R.Melee.QuickCombatTigerRoarToughnessBonus,M.QuickCombatTigerRoarToughnessBonus);
             R.Melee.QuickCombatTigerRoarSeconds=FMath::Max(R.Melee.QuickCombatTigerRoarSeconds,M.QuickCombatTigerRoarSeconds);
             R.Melee.QuickCombatPhysicalVulnerabilityBonus=FMath::Max(R.Melee.QuickCombatPhysicalVulnerabilityBonus,M.QuickCombatPhysicalVulnerabilityBonus);
@@ -211,9 +216,18 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.RiposteSeconds=FMath::Max(R.Melee.RiposteSeconds,M.RiposteSeconds);
             R.Melee.ClovenSeconds=FMath::Max(R.Melee.ClovenSeconds,M.ClovenSeconds);
             R.Melee.ClovenPhysical*=M.ClovenPhysical;R.Melee.ClovenToughness*=M.ClovenToughness;
+            R.Melee.DamageTaken*=M.DamageTaken;R.Melee.DodgeStamina*=M.DodgeStamina;R.Melee.SprintStamina*=M.SprintStamina;
+            R.Melee.DragonSeconds=FMath::Max(R.Melee.DragonSeconds,M.DragonSeconds);
+            R.Melee.DragonCooldown=FMath::Max(R.Melee.DragonCooldown,M.DragonCooldown);
+            R.Melee.DragonDamage*=M.DragonDamage;R.Melee.DragonToughness+=M.DragonToughness;
+            R.Melee.PhoenixSeconds=FMath::Max(R.Melee.PhoenixSeconds,M.PhoenixSeconds);
+            R.Melee.PhoenixCooldown=FMath::Max(R.Melee.PhoenixCooldown,M.PhoenixCooldown);
+            R.Melee.PhoenixSpeed*=M.PhoenixSpeed;
+            R.Melee.PhoenixHealRatio=FMath::Max(R.Melee.PhoenixHealRatio,M.PhoenixHealRatio);
+            R.Melee.PhoenixHealHits=FMath::Max(R.Melee.PhoenixHealHits,M.PhoenixHealHits);
             ++R.ActiveParts;
         }
-        R.Damage*=R.Melee.Damage;R.Interval/=R.Melee.AttackSpeed;R.Range*=R.Melee.Range;
+        R.Damage*=R.Melee.Damage*R.Melee.AllAttackDamage;R.Interval/=R.Melee.AttackSpeed;R.Range*=R.Melee.Range;
         return R;
     }
     if(IsTool(D))
