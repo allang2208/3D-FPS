@@ -6,6 +6,14 @@
 !/SourceAssets/DarkBow20260925/**/*.ps1
 !/SourceAssets/DarkBow20260925/**/*.md
 # Unreal generated/local state
+# M09: publish source recipes, prose and authored shader code. Meshy/Epic
+# payloads, dense geometry/skin/pose data, rollback snapshots and receipts stay local.
+/SourceAssets/HangingBellM09Meshy20261003/**
+!/SourceAssets/HangingBellM09Meshy20261003/**/
+!/SourceAssets/HangingBellM09Meshy20261003/README.md
+!/SourceAssets/HangingBellM09Meshy20261003/GazeV08/Authoring/*.hlsl
+!/SourceAssets/HangingBellM09Meshy20261003/ResonanceV07/Authoring/PressureVeil.hlsl
+/SourceAssets/HangingBellM09Meshy20261003/**/Before/
 # Modular outfit publication: recipes only; licensed geometry, bindings,
 # textures, source packages and local import receipts stay on this host.
 /SourceAssets/ModularOutfit20260924/**

@@ -3,6 +3,8 @@
 #include "PhysicsEngine/PhysicsAsset.h"
 #include "PhysicsEngine/SkeletalBodySetup.h"
 #include "PhysicsEngine/PhysicsConstraintTemplate.h"
+#include "Serialization/JsonWriter.h"
+#include "Serialization/JsonSerializer.h"
 #if WITH_EDITOR
 #include "Rendering/SkeletalMeshModel.h"
 #include "Rendering/SkeletalMeshLODModel.h"
@@ -13,7 +15,8 @@ bool AHangingBellM09::BuildPhysics(USkeletalMesh* Mesh,UPhysicsAsset* Asset)
  if(!Mesh||!Asset||!Mesh->GetImportedModel()||Mesh->GetImportedModel()->LODModels.IsEmpty())return false;
  const auto& Ref=Mesh->GetRefSkeleton();TArray<FTransform> Frames=Ref.GetRefBonePose();
  for(int32 I=0;I<Frames.Num();++I)if(Ref.GetParentIndex(I)>=0)Frames[I]*=Frames[Ref.GetParentIndex(I)];
- TArray<FName> Names={TEXT("root"),TEXT("spine_01"),TEXT("spine_02"),TEXT("spine_03"),TEXT("spine_04"),TEXT("crown_neck"),TEXT("eye_crown")};
+ // Include the actual FBX container so the corpse handoff moves the entire rig.
+ TArray<FName> Names={Ref.GetBoneName(0),TEXT("spine_01"),TEXT("spine_02"),TEXT("spine_03"),TEXT("spine_04"),TEXT("crown_neck"),TEXT("eye_crown")};
  for(const TCHAR* Size:{TEXT("big"),TEXT("small")})for(const TCHAR* Side:{TEXT("L"),TEXT("R")})
   for(const TCHAR* Part:{TEXT("upperarm"),TEXT("forearm"),TEXT("hand")})Names.Add(FName(*FString::Printf(TEXT("%s_%s_%s"),Size,Part,Side)));
  TArray<TArray<FVector>> Points;Points.SetNum(Names.Num());
@@ -37,7 +40,7 @@ bool AHangingBellM09::BuildPhysics(USkeletalMesh* Mesh,UPhysicsAsset* Asset)
   Body->PhysicsType=PhysType_Default;Body->CollisionTraceFlag=CTF_UseSimpleAsComplex;
   if(I==0||Points[I].Num()<4)
   {
-   FKSphereElem Shape;Shape.Radius=I==0?1.f:4.f;Body->AggGeom.SphereElems.Add(Shape);
+   FKSphereElem Shape;Shape.Radius=(I==0?2.f:4.f)/FMath::Max(Frames[B].GetScale3D().GetAbsMax(),.001f);Body->AggGeom.SphereElems.Add(Shape);
   }
   else
   {
@@ -51,8 +54,8 @@ bool AHangingBellM09::BuildPhysics(USkeletalMesh* Mesh,UPhysicsAsset* Asset)
    Hull.UpdateElemBox();Body->AggGeom.ConvexElems.Add(Hull);
   }
   Body->DefaultInstance.SetCollisionProfileName(TEXT("Ragdoll"));
-  Body->DefaultInstance.SetMassOverride(I==0?.1f:I==1?18.f:I<7?7.f:Names[I].ToString().StartsWith(TEXT("big"))?4.f:1.f);
-  Body->DefaultInstance.LinearDamping=.3f;Body->DefaultInstance.AngularDamping=.9f;
+  Body->DefaultInstance.SetMassOverride(I==0?2.f:I==1?18.f:I<7?7.f:Names[I].ToString().StartsWith(TEXT("big"))?4.f:1.f);
+  Body->DefaultInstance.LinearDamping=1.2f;Body->DefaultInstance.AngularDamping=2.5f;
   Body->DefaultInstance.bUseCCD=true;Body->DefaultInstance.PositionSolverIterationCount=12;Body->DefaultInstance.VelocitySolverIterationCount=4;
   if(I==0)Body->DefaultInstance.SetCollisionEnabled(ECollisionEnabled::NoCollision);
   Body->InvalidatePhysicsData();Body->CreatePhysicsMeshes();Asset->SkeletalBodySetups.Add(Body);
@@ -71,6 +74,10 @@ bool AHangingBellM09::BuildPhysics(USkeletalMesh* Mesh,UPhysicsAsset* Asset)
   const bool Arm=Names[I].ToString().Contains(TEXT("arm"));const bool Elbow=Names[I].ToString().Contains(TEXT("forearm"));
   C.SetAngularSwing1Limit(ACM_Limited,Elbow?75.f:Arm?45.f:22.f);
   C.SetAngularSwing2Limit(ACM_Limited,Elbow?12.f:Arm?30.f:18.f);C.SetAngularTwistLimit(ACM_Limited,Elbow?12.f:22.f);
+  if(P==0)
+  {
+   C.SetAngularSwing1Limit(ACM_Locked,0);C.SetAngularSwing2Limit(ACM_Locked,0);C.SetAngularTwistLimit(ACM_Locked,0);
+  }
   C.SetDisableCollision(true);C.DisableProjection();C.SetShockPropagationParams(false,0);
   C.SetOrientationDriveTwistAndSwing(false,false);C.SetAngularVelocityDriveTwistAndSwing(false,false);
   Joint->SetDefaultProfile(C);Asset->ConstraintSetup.Add(Joint);
@@ -81,4 +88,36 @@ bool AHangingBellM09::BuildPhysics(USkeletalMesh* Mesh,UPhysicsAsset* Asset)
 #else
  return false;
 #endif
+}
+
+FString AHangingBellM09::DescribePhysics(USkeletalMesh* Mesh)
+{
+ TSharedRef<FJsonObject> Report=MakeShared<FJsonObject>();
+ if(Mesh&&Mesh->GetPhysicsAsset())
+ {
+  const auto& Ref=Mesh->GetRefSkeleton();TArray<FTransform> Frames=Ref.GetRefBonePose();
+  for(int32 I=0;I<Frames.Num();++I)if(Ref.GetParentIndex(I)>=0)Frames[I]*=Frames[Ref.GetParentIndex(I)];
+  Report->SetStringField(TEXT("container"),Ref.GetBoneName(0).ToString());
+  Report->SetStringField(TEXT("container_scale"),Frames[0].GetScale3D().ToString());
+  TArray<TSharedPtr<FJsonValue>> Bodies,Joints;
+  for(const auto& Body:Mesh->GetPhysicsAsset()->SkeletalBodySetups)
+  {
+   auto Row=MakeShared<FJsonObject>();const int32 B=Ref.FindBoneIndex(Body->BoneName);
+   Row->SetStringField(TEXT("bone"),Body->BoneName.ToString());
+   Row->SetStringField(TEXT("ref_frame"),B>=0?Frames[B].ToString():TEXT("missing"));
+   Row->SetStringField(TEXT("collision"),FString::FromInt(int32(Body->DefaultInstance.GetCollisionEnabled())));
+   Bodies.Add(MakeShared<FJsonValueObject>(Row));
+  }
+  for(const auto& Joint:Mesh->GetPhysicsAsset()->ConstraintSetup)
+  {
+   const auto& C=Joint->DefaultInstance;auto Row=MakeShared<FJsonObject>();
+   Row->SetStringField(TEXT("child"),C.ConstraintBone1.ToString());Row->SetStringField(TEXT("parent"),C.ConstraintBone2.ToString());
+   Row->SetStringField(TEXT("frame1"),C.GetRefFrame(EConstraintFrame::Frame1).ToString());
+   Row->SetStringField(TEXT("frame2"),C.GetRefFrame(EConstraintFrame::Frame2).ToString());
+   Row->SetNumberField(TEXT("swing1"),C.GetAngularSwing1Limit());Row->SetNumberField(TEXT("swing2"),C.GetAngularSwing2Limit());Row->SetNumberField(TEXT("twist"),C.GetAngularTwistLimit());
+   Joints.Add(MakeShared<FJsonValueObject>(Row));
+  }
+  Report->SetArrayField(TEXT("bodies"),Bodies);Report->SetArrayField(TEXT("constraints"),Joints);
+ }
+ FString Result;FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&Result));return Result;
 }

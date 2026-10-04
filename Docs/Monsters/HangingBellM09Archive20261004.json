@@ -1,0 +1,961 @@
+{
+  "date": "2026-10-04",
+  "scope": "HangingBellM09",
+  "files": 136,
+  "bytes": 2060517046,
+  "verified": true,
+  "entries": [
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ArmContinuityV16/Authoring/M09_ContinuousArms_V16.blend1",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ArmContinuityV16/Authoring/M09_ContinuousArms_V16.blend1",
+      "bytes": 114286674,
+      "sha256": "b87436d567eab3ac661bbed6edb7956d157a7018f9f678f023e6d6aba79a8bd0",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ArmContinuityV16/Before/A_M09_Claw.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ArmContinuityV16/Before/A_M09_Claw.uasset",
+      "bytes": 226895,
+      "sha256": "9386668e1bd772ecc9ee01d779345fb0d76e0f4387c33abaf35393f599f4bf1b",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ArmContinuityV16/Before/SK_M09_Skeleton.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ArmContinuityV16/Before/SK_M09_Skeleton.uasset",
+      "bytes": 33806,
+      "sha256": "fb204583105b24b47796677b721232b62b4581f14f2399e03d6c6595135daf74",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ArmContinuityV16/Before/SK_M09.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ArmContinuityV16/Before/SK_M09.uasset",
+      "bytes": 275604407,
+      "sha256": "8174a1ec72c705ca1245c3a0e76945703951998f6087038d900011550d27a6ca",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/AttackSelectionV14/Records/build_FPSGAME-backup-2026.10.04-04.35.35.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/AttackSelectionV14/Records/build_FPSGAME-backup-2026.10.04-04.35.35.json",
+      "bytes": 67687,
+      "sha256": "4285249850fca09501eb91d5f3eca13af4e0cc1775ce92232437109731634c2f",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/AttackSelectionV14/Records/build_FPSGAME-backup-2026.10.04-04.35.35.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/AttackSelectionV14/Records/build_FPSGAME-backup-2026.10.04-04.35.35.log",
+      "bytes": 23999,
+      "sha256": "32696f7f92541b776c27b929cfe672163c27d53ef12070f976d637abefe50267",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/Authoring/M09_Separated_Adjusted_v01.blend",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/Authoring/M09_Separated_Adjusted_v01.blend",
+      "bytes": 109311005,
+      "sha256": "32d9f171011e85a1ba4e6085f52cd16eedff6d7d9871d1858cce304ee8c76c0b",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/CeilingTraversalV24/Before/HangingBellM09.cpp",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/CeilingTraversalV24/Before/HangingBellM09.cpp",
+      "bytes": 33778,
+      "sha256": "6d46ca2330bef5b47424d6fb334e5ca0789c883ada955a190c1f4b535d932689",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/CeilingTraversalV24/Before/HangingBellM09.h",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/CeilingTraversalV24/Before/HangingBellM09.h",
+      "bytes": 8537,
+      "sha256": "e2054a70dea4a813461bb7b2f9efbbe3f269443f675956899d5b5d48f6393452",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/CeilingTraversalV24/Before/M09CeilingRoute.cpp",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/CeilingTraversalV24/Before/M09CeilingRoute.cpp",
+      "bytes": 5139,
+      "sha256": "5f69a50e3f4d12659f707f2a687960838b4bd966cc14dd17047b9d66b6a99f2e",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/CeilingTraversalV24/Before/M09CeilingRoute.h",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/CeilingTraversalV24/Before/M09CeilingRoute.h",
+      "bytes": 1312,
+      "sha256": "ae432a57011c592d9e1b54cb3751c91e05119f92a512fa19ef800728371ed3dc",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Authoring/M09_Claw_BodyDrive_V17.blend",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Authoring/M09_Claw_BodyDrive_V17.blend",
+      "bytes": 123819339,
+      "sha256": "1314213b8aeb704730ff74317f7441a476ecf8ccbd766ea9ee155cb6cca82604",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Before/A_M09_Claw.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Before/A_M09_Claw.uasset",
+      "bytes": 349155,
+      "sha256": "5fbb7baaddb814e8b366f7c09e249aa3b3b6341e38d489984ffbaf6bba3d5fb9",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Before/SK_M09_Skeleton.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Before/SK_M09_Skeleton.uasset",
+      "bytes": 33806,
+      "sha256": "fb204583105b24b47796677b721232b62b4581f14f2399e03d6c6595135daf74",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Exports/A_M09_CrownClaw_BodyDrive_V17.fbx",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Exports/A_M09_CrownClaw_BodyDrive_V17.fbx",
+      "bytes": 1192444,
+      "sha256": "d66f84c21ace96286b134a08567fa94c1c126a57f730c52cc0d2356459a33d59",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Records/delivery.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Records/delivery.json",
+      "bytes": 523,
+      "sha256": "0c084f05b54acbab0db69f26e055a98344408804eb6455ee5ed53eb603827909",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Records/import_bridge_01.txt",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Records/import_bridge_01.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Records/import_commandlet_stdout.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Records/import_commandlet_stdout.log",
+      "bytes": 37244,
+      "sha256": "8ef1eeb4bfedd7905e0f4298054102d95766e54106a8202adb25250743dd035c",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Records/import_commandlet.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Records/import_commandlet.log",
+      "bytes": 283408,
+      "sha256": "a5a8407991e26b3100f7084f86d704005b9bbb6691dc7bf2f895255163e0a074",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Records/import_saved.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Records/import_saved.json",
+      "bytes": 696,
+      "sha256": "74da2c597c86af9fcfa68793808832466e0ab9b1a6a5f1ea0190f687e0bd4ed2",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Records/motion_manifest.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ClawBodyDriveV17/Records/motion_manifest.json",
+      "bytes": 956,
+      "sha256": "adbd1706926217142495861b73ae419d2383e6c8041240e6cb4d95d646bbcdee",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ClawSnapV18/Before/A_M09_Claw.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ClawSnapV18/Before/A_M09_Claw.uasset",
+      "bytes": 585006,
+      "sha256": "1c0fa353a9a90ae977baea3efddada79ad1825c0f3a34b7e73191606d7b24d6b",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ClawSnapV18/Before/SK_M09_Skeleton.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ClawSnapV18/Before/SK_M09_Skeleton.uasset",
+      "bytes": 33806,
+      "sha256": "fb204583105b24b47796677b721232b62b4581f14f2399e03d6c6595135daf74",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/CrownClawV11/Authoring/M09_CrownClaw_V11.blend",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/CrownClawV11/Authoring/M09_CrownClaw_V11.blend",
+      "bytes": 113187922,
+      "sha256": "67e04913a218531a2cfbfad844f1c1f5a9993fb96d54a0cf271e33af8473ea8c",
+      "reason": "V11 claw result replaced; donor_motion.json retained as V15 input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/CrownClawV11/Exports/A_M09_CrownClaw_V11.fbx",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/CrownClawV11/Exports/A_M09_CrownClaw_V11.fbx",
+      "bytes": 1116028,
+      "sha256": "94f8a6af8587aadcbdbda4a9764dff967b11211ae207cebb19343e8ffb74af72",
+      "reason": "V11 claw result replaced; donor_motion.json retained as V15 input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/CrownClawV11/Records/Before/A_M09_Claw.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/CrownClawV11/Records/Before/A_M09_Claw.uasset",
+      "bytes": 308428,
+      "sha256": "9a39d73c688d1fe630c043e46fd550c1de11ba973d3446622932f04849db4e68",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/CrownClawV11/Records/Before/HangingBellM09.cpp",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/CrownClawV11/Records/Before/HangingBellM09.cpp",
+      "bytes": 30821,
+      "sha256": "54f30bc83fa412f8c839b4b75d57c91d6a8f11c20b871878607452bf7b3381fa",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/CrownClawV11/Records/Before/HangingBellM09.h",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/CrownClawV11/Records/Before/HangingBellM09.h",
+      "bytes": 7672,
+      "sha256": "b0c8cfa2ef6eddb3621396f15eeb714543299ac826960bb17c96fc8bc29a9882",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/CrownClawV15/Authoring/M09_CrownClaw_V15.blend1",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/CrownClawV15/Authoring/M09_CrownClaw_V15.blend1",
+      "bytes": 107356368,
+      "sha256": "148ae09fab0356082971339711ad49133405457340c95d456fa8139d64d85edb",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/Exports/M09_Separated_Adjusted_v01.fbx",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/Exports/M09_Separated_Adjusted_v01.fbx",
+      "bytes": 77402668,
+      "sha256": "705fc1ab0cffec06851ecbda082b94c43ed52ff11326562df3bd229b39e05293",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/Exports/M09_Separated_Adjusted_v01.glb",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/Exports/M09_Separated_Adjusted_v01.glb",
+      "bytes": 80618288,
+      "sha256": "2b7480197e177f1d5bb908f548d94fea7da2506b7b865a3ce503098952657098",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeChargeV10/Records/Before/HangingBellM09.h",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeChargeV10/Records/Before/HangingBellM09.h",
+      "bytes": 7578,
+      "sha256": "e62c58803d4718a53f8d6d6317ef1e5788596a0b025359b8e07f2fbe791d9ed0",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeChargeV10/Records/Before/M09Gaze.cpp",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeChargeV10/Records/Before/M09Gaze.cpp",
+      "bytes": 8607,
+      "sha256": "0b6d477cc64986ae16e886d2329c9ea2147548c6eeba7b0006508020c243bb8c",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeChargeV10/Records/build_FPSGAME-backup-2026.10.04-03.23.49.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeChargeV10/Records/build_FPSGAME-backup-2026.10.04-03.23.49.json",
+      "bytes": 66582,
+      "sha256": "da91ca29ead67c35ba12b2f6938bc5284c1d36b7e13d9a99f2c92d9f49a67560",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeChargeV10/Records/build_FPSGAME-backup-2026.10.04-03.23.49.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeChargeV10/Records/build_FPSGAME-backup-2026.10.04-03.23.49.log",
+      "bytes": 22385,
+      "sha256": "b350694b6ae448d220928587aa6b5e701b7d60762e8f31993a034d415f66ffee",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeV08/Records/Before/HangingBellM09.cpp",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeV08/Records/Before/HangingBellM09.cpp",
+      "bytes": 30325,
+      "sha256": "1aabea04334e1bd1ee1ae59280a89a6fffc7e14c89b70ed8643c7bbbaf7ae660",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeV08/Records/Before/HangingBellM09.h",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeV08/Records/Before/HangingBellM09.h",
+      "bytes": 6776,
+      "sha256": "7b5de078cfcbbe3f7d53d48c02955a920c4a152094e72cf4e9c902dc12a113d6",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeV08/Records/Before/M09AnimInstance.cpp",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeV08/Records/Before/M09AnimInstance.cpp",
+      "bytes": 5887,
+      "sha256": "6e195308f418e7eb54cd20090c7bcc8bd362c0cb5ad7ec72f4349b3bd762a78a",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeV08/Records/build_FPSGAMEEditor-backup-2026.10.04-02.37.26.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeV08/Records/build_FPSGAMEEditor-backup-2026.10.04-02.37.26.json",
+      "bytes": 45263,
+      "sha256": "208ec0fe8f55d42d0b7168aec22f9f86da13a2b7dd0e4e0795eede40e823cb44",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeV08/Records/build_FPSGAMEEditor-backup-2026.10.04-02.37.26.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeV08/Records/build_FPSGAMEEditor-backup-2026.10.04-02.37.26.log",
+      "bytes": 16324,
+      "sha256": "b5ab4654d820c26a3273f1e09713d4dbf305e1014f7356b9630b09809b143816",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeVisibilityV12/Records/Before/author_gaze_charge_v10.py",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeVisibilityV12/Records/Before/author_gaze_charge_v10.py",
+      "bytes": 7674,
+      "sha256": "cd2e71ed76f1d6b18106f2e532e026df56468bde5dd948f696222738bd959251",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeVisibilityV12/Records/Before/GazeBeam.hlsl",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeVisibilityV12/Records/Before/GazeBeam.hlsl",
+      "bytes": 621,
+      "sha256": "f75d079c584d7af393ce10e3e245735be23a813d1b7f60225a626afb095f9738",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeVisibilityV12/Records/Before/M_M09_GatherSpeck_V10.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeVisibilityV12/Records/Before/M_M09_GatherSpeck_V10.uasset",
+      "bytes": 12431,
+      "sha256": "e7694171091dc9d681f51c2fb5d0783ef99b9d1384ec4b485a0b835dbd545d26",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeVisibilityV12/Records/Before/M_M09_GatherStreak_V10.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeVisibilityV12/Records/Before/M_M09_GatherStreak_V10.uasset",
+      "bytes": 12449,
+      "sha256": "9bfabe1d29e5228196a8b8c73b38339c038c1267a6fb886387dcb5a51e30ad9e",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeVisibilityV12/Records/Before/M_M09_GazeBeam_V08.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeVisibilityV12/Records/Before/M_M09_GazeBeam_V08.uasset",
+      "bytes": 10326,
+      "sha256": "5b558aa5db0b955a816a8993d51abeaa32ba60b8765e0715ac6a8837c92c196c",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/GazeVisibilityV12/Records/Before/NS_M09_EyeGather_V10.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/GazeVisibilityV12/Records/Before/NS_M09_EyeGather_V10.uasset",
+      "bytes": 1923154,
+      "sha256": "5105a6a553cfda56a533b2eac0baa9c82af2a012afd89ff32fa10ad60ce0bc68",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Before/ColdSteelSkillRules.cpp",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Before/ColdSteelSkillRules.cpp",
+      "bytes": 51422,
+      "sha256": "865a388363e423e1a1161f6a70b231a26b64853b17ebcd03775212d7c7af50fc",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Before/HangingBellM09.cpp",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Before/HangingBellM09.cpp",
+      "bytes": 33634,
+      "sha256": "5b2d2394ca692cdc247663227834c205d7b9ee7cd1d4fed3d9d65fbc1335593d",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Before/HangingBellM09.h",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Before/HangingBellM09.h",
+      "bytes": 8222,
+      "sha256": "71ca5b7895273723862bccde13e7bd3d0270236c231b084f0cb97b44033f1de3",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Before/PA_M09_HitSurface.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Before/PA_M09_HitSurface.uasset",
+      "bytes": 82042,
+      "sha256": "55b608238546a1d44e45e7c3aae900a1e9d5f1f85cdb6737c5b46c102da8ba50",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/audit-backup-2026.10.04-08.15.26.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/audit-backup-2026.10.04-08.15.26.log",
+      "bytes": 277576,
+      "sha256": "530b63f3fe870969197798ebaef49f8e69d65c34709a285ba5f255b8313bbaab",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/build_FPSGAME-backup-2026.10.04-08.13.59.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/build_FPSGAME-backup-2026.10.04-08.13.59.json",
+      "bytes": 32660,
+      "sha256": "6bb420de53dae2c3913741ea4a3aa947a45cb520600af6e30ef339dc78fa1158",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/build_FPSGAME-backup-2026.10.04-08.13.59.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/build_FPSGAME-backup-2026.10.04-08.13.59.log",
+      "bytes": 11695,
+      "sha256": "bf6633d394633d27d7cb8d0cfe83c17186aeda289aef80626581e995514e8f4e",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/build_FPSGAMEEditor-backup-2026.10.04-08.10.20.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/build_FPSGAMEEditor-backup-2026.10.04-08.10.20.json",
+      "bytes": 113814,
+      "sha256": "3e581fedf25fd90454919b66ab400296d5de8c9ca827555fff559ec7ca22c5a1",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/build_FPSGAMEEditor-backup-2026.10.04-08.10.20.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/build_FPSGAMEEditor-backup-2026.10.04-08.10.20.log",
+      "bytes": 34885,
+      "sha256": "742c6de107f3c95a6ac13938c329dd07128a298e599941ce197d3fcdcd79c7bb",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/build_FPSGAMEEditor-backup-2026.10.04-08.13.52.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/build_FPSGAMEEditor-backup-2026.10.04-08.13.52.json",
+      "bytes": 40231,
+      "sha256": "6a977f07fcd3263b6fadf5793e1f69719be1e6bc5ee2239c2781532859f1bb86",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/build_FPSGAMEEditor-backup-2026.10.04-08.13.52.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/HitSurfaceV23/Records/build_FPSGAMEEditor-backup-2026.10.04-08.13.52.log",
+      "bytes": 13971,
+      "sha256": "8f261921a0ff04b2b52bd96859c4666ceed00276f4c99742c669104e0fd6f195",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/MotionV04/Exports/A_M09_Claw.fbx",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/MotionV04/Exports/A_M09_Claw.fbx",
+      "bytes": 956956,
+      "sha256": "e2a41c2a0883c4674c67b6b4d43596340c8de3fe90d0ed1fcd3d23af28762473",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/MotionV04/Exports/A_M09_Death.fbx",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/MotionV04/Exports/A_M09_Death.fbx",
+      "bytes": 977212,
+      "sha256": "05a0588e5d6feab5c5577ed241259d67f0930469ab3d5cc16c3ae49e8030cf89",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/MotionV04/Exports/A_M09_Gaze.fbx",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/MotionV04/Exports/A_M09_Gaze.fbx",
+      "bytes": 1356796,
+      "sha256": "595d7b9c14a406e22fdb9a30d2969ac9d46c07470845c790ebbe8fbd6d605e21",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/MotionV04/Exports/A_M09_Resonance.fbx",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/MotionV04/Exports/A_M09_Resonance.fbx",
+      "bytes": 1317436,
+      "sha256": "0488ab3fadd67476da612a84b7bce9ccd2559b1f8a5d7ded98a479cb356857c4",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/README.txt",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/README.txt",
+      "bytes": 815,
+      "sha256": "983d3d5d4ad11d091e78f53e0897ba359d952f974bf4a23a471a1a9ae3d425ca",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/Records/blender_authoring.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/Records/blender_authoring.log",
+      "bytes": 5593,
+      "sha256": "49c6724febbc367dbf4516b88c4ee66e7f2eeca86d8b74dcedb256ee43ef0a1f",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/Records/delivery_v01.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/Records/delivery_v01.json",
+      "bytes": 10882,
+      "sha256": "08270cc662c299220b9d8291ea2234c6268b3d61799ab8293cc59ffa4145e42e",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/Records/parts_recipe_v01.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/Records/parts_recipe_v01.json",
+      "bytes": 12935,
+      "sha256": "6fef6ed0e5282b6bb6bed5d8ba8a363266beadd8e6a2bf0b0be78e29266a54fc",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/Records/semantic_build.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/Records/semantic_build.log",
+      "bytes": 4325,
+      "sha256": "cd7758a40dcd80fd27f9cd091599644e5f025abc09b480af5ae4d8626ab12889",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceOpeningV09/Records/Before/A_M09_Resonance_V07.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceOpeningV09/Records/Before/A_M09_Resonance_V07.uasset",
+      "bytes": 2138076,
+      "sha256": "17076a6c647a95727e38a39d2ea12927c70dd23e6d4a736b7c9e32254e46d2f7",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Audio/S_M09_Resonance_V06.wav",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Audio/S_M09_Resonance_V06.wav",
+      "bytes": 268844,
+      "sha256": "8d681fd56e6f486c2fce42baad87f3734b7ba29b004a420fcdfe7ad2b98c1f95",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Authoring/M09_Resonance_V06.blend",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Authoring/M09_Resonance_V06.blend",
+      "bytes": 113614251,
+      "sha256": "70b1c21d60ef854c7d28716232114178393078059941e31ed7ce2d37e341c76d",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Authoring/M09_ResonanceWave_V06.blend",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Authoring/M09_ResonanceWave_V06.blend",
+      "bytes": 122823,
+      "sha256": "4967988e9abb73e859bcfa712acab8a2b070ede200318225f425495c51f4e590",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Exports/A_M09_Resonance_V06.fbx",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Exports/A_M09_Resonance_V06.fbx",
+      "bytes": 1814092,
+      "sha256": "8aba0bde18dc3f93e49b940ef36c59b483dc965dabff77c63b3e4ace777f309a",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/FX/SM_M09_ResonanceWave_V06.fbx",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/FX/SM_M09_ResonanceWave_V06.fbx",
+      "bytes": 53180,
+      "sha256": "3ccf3783d9948734ba3f0c9cf16f0c592e753815a05a02e677ca9083afa6c089",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/audio_source.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/audio_source.json",
+      "bytes": 327,
+      "sha256": "907f9e07a3ee8eb17ef14b9a07669763c60ade4427261eaa0b7569d40780564b",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/author_blender.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/author_blender.log",
+      "bytes": 970,
+      "sha256": "bee081ac94301b1756f03b98e94244ed47a2bcdee3802c4c2ce94b195e9d5c89",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/Before/HangingBellM09.cpp",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/Before/HangingBellM09.cpp",
+      "bytes": 27401,
+      "sha256": "50e949619660d1026e272720eaeef59f991a453e4c3f7709de9838f2429d2919",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/Before/HangingBellM09.h",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/Before/HangingBellM09.h",
+      "bytes": 6257,
+      "sha256": "df9e77d3bb4f234fe8be5b70431f19cd1917a6686983ac796b46b35b43065ae5",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAME_stdout.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAME_stdout.log",
+      "bytes": 7836,
+      "sha256": "171090d5d696736326096db439c2f33ffe0729cf29d8eb158e7af12f31bdc888",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAME.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAME.json",
+      "bytes": 60445,
+      "sha256": "9ceb8047ac148f6bde48a459c1ebb2bbedda60b344c7e88c03988bad6665bc52",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAME.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAME.log",
+      "bytes": 20059,
+      "sha256": "524740e47bb2c7efc38f96e0bc3c350d5a053a906c02e346e44b858d35b324ae",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAMEEditor_attempt01.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAMEEditor_attempt01.log",
+      "bytes": 57271,
+      "sha256": "d7b2cf44693d343f6e706b03338cfa13d03c17a80f758cfc02e8c64382d6f3c4",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAMEEditor_shared_receipt.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAMEEditor_shared_receipt.log",
+      "bytes": 761,
+      "sha256": "9bb4a0b9b8b56e8d67c3fec7b9b09edc7e9e23b79c34ba32edbd94f5a4dd2434",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAMEEditor_stdout_attempt01.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAMEEditor_stdout_attempt01.log",
+      "bytes": 35074,
+      "sha256": "3219c1140b40bf38d11da8a0f4649e198cae0845096780ff7533838880b1e302",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAMEEditor_stdout.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAMEEditor_stdout.log",
+      "bytes": 35074,
+      "sha256": "3219c1140b40bf38d11da8a0f4649e198cae0845096780ff7533838880b1e302",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAMEEditor.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAMEEditor.json",
+      "bytes": 153254,
+      "sha256": "5e462de2539d71bdfa37823d662859c86499e9dfd35f94e0df5847bf57fc47a9",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAMEEditor.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/build_FPSGAMEEditor.log",
+      "bytes": 57271,
+      "sha256": "d7b2cf44693d343f6e706b03338cfa13d03c17a80f758cfc02e8c64382d6f3c4",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/delivery.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/delivery.json",
+      "bytes": 1947,
+      "sha256": "9457a3bfa7f2dcfeced802e5175f98994618e8634c4e717e15e214e0703aee4b",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_bridge_01.txt",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_bridge_01.txt",
+      "bytes": 672,
+      "sha256": "ac95472360a800daf25d657a979695e3f0e854be9cafe2b3fd79d0ad6ef19f34",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_saved.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_saved.json",
+      "bytes": 522,
+      "sha256": "26b8eae893a16e6e77e23462b2f5b6d084962d55c50adee1045b61f0985276c2",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_ue_02.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_ue_02.log",
+      "bytes": 296528,
+      "sha256": "beb225c2e213aef5c3853c4b31bec22d2073405b8ef4949da9923639ffcc5259",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_ue_03.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_ue_03.log",
+      "bytes": 288310,
+      "sha256": "8c4c117a0cf902892e1c55ec9207af37c550ca71c161db0957c3c4ecf8fa5918",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_ue_stdout_02.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_ue_stdout_02.log",
+      "bytes": 39557,
+      "sha256": "a7839c5b46e6734e25375a35840c8e1a05017dc2aa358307fe1f8eaabd5535f5",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_ue_stdout_03.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_ue_stdout_03.log",
+      "bytes": 37064,
+      "sha256": "e6201418e15714090f1df2ad7428faf9a00b2c7115dd765a4c2366a3f02ffea0",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_ue_stdout.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_ue_stdout.log",
+      "bytes": 33637,
+      "sha256": "4b16d9f750f8d40e427917b0c4212cf0c5e23fd2ecd0abfa349575ca086ae38f",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_ue.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/import_ue.log",
+      "bytes": 279464,
+      "sha256": "be0780c7b460e02004d9cc7f4da7a379cf06cc0f791345b70a1cc770c0c6563c",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/motion_manifest.json",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV06/Records/motion_manifest.json",
+      "bytes": 563,
+      "sha256": "72d6f8722ab53aa3e8f3d665f2a573e700c2201c0876bfcbcf4ace85f8bd0972",
+      "reason": "Standalone old production output replaced by V09/V07 or V18; no active author input"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV07/Authoring/M09_Resonance_V07.blend",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV07/Authoring/M09_Resonance_V07.blend",
+      "bytes": 113864190,
+      "sha256": "53dc239ffa107a97de2e9b7e0ac4a487f2409e2c70e6e6fbbf1328dbe114b6ee",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV07/Exports/A_M09_Resonance_V07.fbx",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV07/Exports/A_M09_Resonance_V07.fbx",
+      "bytes": 2645580,
+      "sha256": "636db690292079c5f9cf788dd32a98e69070ae03ef6a0164fcf904d957e370ab",
+      "reason": "Superseded standalone result; current mixed-version source chain retained"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV07/Records/Before/FPSCombatHealthComponent.cpp",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV07/Records/Before/FPSCombatHealthComponent.cpp",
+      "bytes": 14609,
+      "sha256": "5148f5d2cc5995f75601e462c7cc4443e828fe45fa632b24a82fb264d39180a4",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV07/Records/Before/HangingBellM09.cpp",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV07/Records/Before/HangingBellM09.cpp",
+      "bytes": 29809,
+      "sha256": "389a26dd3c316c6e085c169d4622e889fb1a520fcf49b329e45e65310d829012",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV07/Records/Before/HangingBellM09.h",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV07/Records/Before/HangingBellM09.h",
+      "bytes": 6792,
+      "sha256": "e110d49fc13ea2666da95198a9481022d430a793070e630a5316387d93e2bb05",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/ResonanceV07/Records/Before/MonsterAIController.cpp",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/ResonanceV07/Records/Before/MonsterAIController.cpp",
+      "bytes": 14020,
+      "sha256": "cd318e2de8f130d707726c635730cbc1989c6adaa9bb2bbcf2df6a288cc97483",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Authoring/M09_Death_V13.blend1",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Authoring/M09_Death_V13.blend1",
+      "bytes": 107286916,
+      "sha256": "b828acc8e9f7cf221da9b0ccbcc57ef4c4588c1afd090af5e3929753d3ea8a34",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Authoring/M09_Rigged_V13.blend1",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Authoring/M09_Rigged_V13.blend1",
+      "bytes": 107147141,
+      "sha256": "d91329f12cc799765975e13000f0e24b27d51dafef04171a1a1e0ffce5cf69a4",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Before/A_M09_Death.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Before/A_M09_Death.uasset",
+      "bytes": 311794,
+      "sha256": "442dfc5d70854f91e46caf3b5ab7576cb3545a2baac6ac967261b52edd6b5a0f",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Before/SK_M09_PhysicsAsset.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Before/SK_M09_PhysicsAsset.uasset",
+      "bytes": 81566,
+      "sha256": "33fd7974531ec80c27ba8d98ba7ade14a1c45a8e395d00e84a32768087482d9e",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Before/SK_M09_Skeleton.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Before/SK_M09_Skeleton.uasset",
+      "bytes": 33806,
+      "sha256": "fb204583105b24b47796677b721232b62b4581f14f2399e03d6c6595135daf74",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Before/SK_M09.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Before/SK_M09.uasset",
+      "bytes": 277561779,
+      "sha256": "87bf91ffecd76a0b570d5753b3bc4c08c666bffff633a3cc55de9e11f5b4b686",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Records/import_ue-backup-2026.10.04-04.23.17.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Records/import_ue-backup-2026.10.04-04.23.17.log",
+      "bytes": 278646,
+      "sha256": "14838856c62c699620fc59a7fb0b088e0c44c45acc9fda8ae873b3e5b1df2e56",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Records/import_ue-backup-2026.10.04-04.25.38.log",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/SkinDeathV13/Records/import_ue-backup-2026.10.04-04.25.38.log",
+      "bytes": 283503,
+      "sha256": "a08829bca0adb82e4310627834a219b692fd83ea469a296b7f28c7143598d491",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/SurfaceBindingV22/Before/finish_arm_continuity_v16.py",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/SurfaceBindingV22/Before/finish_arm_continuity_v16.py",
+      "bytes": 3324,
+      "sha256": "dd44377f75fa9bbddab6b3ebd1ae38c2543f34b3bebc46e165e6e74ad7b2d468",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/SurfaceBindingV22/Before/import_claw_continuity_v16.py",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/SurfaceBindingV22/Before/import_claw_continuity_v16.py",
+      "bytes": 5180,
+      "sha256": "195d10f32bffbcaf958f01842e346478d0c8cc40b4620c053abab0f3688dcd73",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "SourceAssets/HangingBellM09Meshy20261003/SurfaceBindingV22/Before/SK_M09.uasset",
+      "destination": "trash/m09-retired-20261004/SourceAssets/HangingBellM09Meshy20261003/SurfaceBindingV22/Before/SK_M09.uasset",
+      "bytes": 317922090,
+      "sha256": "2b22fffc57931d92053c33c6c702dea3c8a8e29290971b5311e2aa815d3f84ff",
+      "reason": "Superseded rollback or automatic backup; recoverable in trash"
+    },
+    {
+      "source": "Tools/HangingBellM09/author_claw_body_drive_v17.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/author_claw_body_drive_v17.py",
+      "bytes": 8899,
+      "sha256": "d24fd9dbf846cbb568c8de475df0292340f931047a376547666759e19601b997",
+      "reason": "Retired author/import/build entrypoint superseded by active versions"
+    },
+    {
+      "source": "Tools/HangingBellM09/author_resonance_audio_v06.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/author_resonance_audio_v06.py",
+      "bytes": 1921,
+      "sha256": "e885184151641d58c69c4678701250c8c8d9d6656a33b04e91b635596dcb357e",
+      "reason": "Retired author/import/build entrypoint superseded by active versions"
+    },
+    {
+      "source": "Tools/HangingBellM09/author_resonance_v06.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/author_resonance_v06.py",
+      "bytes": 6055,
+      "sha256": "c379ff363929fc43ab325bc3ab2934b4655f5ce880ab3a38888f3baea37480e4",
+      "reason": "Retired author/import/build entrypoint superseded by active versions"
+    },
+    {
+      "source": "Tools/HangingBellM09/Build-ResonanceV06.ps1",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/Build-ResonanceV06.ps1",
+      "bytes": 2278,
+      "sha256": "30f6a2195d1c5fab10af381e914248bdd5c91daa94855f29b5bd7f9db3e62fc1",
+      "reason": "Retired author/import/build entrypoint superseded by active versions"
+    },
+    {
+      "source": "Tools/HangingBellM09/complete_portal_v04.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/complete_portal_v04.py",
+      "bytes": 1684,
+      "sha256": "9be4dd6ab70c69a2930cdc646b48ac7b8ab92b6a955b99c3c2a97eae583621a7",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    },
+    {
+      "source": "Tools/HangingBellM09/document_spawn_v05.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/document_spawn_v05.py",
+      "bytes": 2808,
+      "sha256": "7b6ef120b1638203f3a46fb6045d56bf6551dd1040287672572fc28cc7ac4f4e",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    },
+    {
+      "source": "Tools/HangingBellM09/end_play_for_opening_import_v09.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/end_play_for_opening_import_v09.py",
+      "bytes": 225,
+      "sha256": "2a5317965b1f7a2127754a5543bcc3f3f9cd339aac05a5670ec757b2f303edd3",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    },
+    {
+      "source": "Tools/HangingBellM09/finish_grip_contact_v04.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/finish_grip_contact_v04.py",
+      "bytes": 1892,
+      "sha256": "79f0c9f33ecc9fbd305ad9e7a426962b733b58315265607568f9f2a46eade629",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    },
+    {
+      "source": "Tools/HangingBellM09/finish_runtime_v04.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/finish_runtime_v04.py",
+      "bytes": 1061,
+      "sha256": "71cb927a7e0b61f505f949b4ae1165660118fb6952ff85c838b456148398365b",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    },
+    {
+      "source": "Tools/HangingBellM09/fix_author_indentation.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/fix_author_indentation.py",
+      "bytes": 636,
+      "sha256": "3ef01519153d0c5bd85e302995bf81413da3b0363e87d869f7915c78a279f513",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    },
+    {
+      "source": "Tools/HangingBellM09/import_claw_body_drive_headless_v17.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/import_claw_body_drive_headless_v17.py",
+      "bytes": 178,
+      "sha256": "4889c4d2a825a20793fb5ceb17a453779edeb9cde738dc4987c70c9f4f60e1f8",
+      "reason": "Retired author/import/build entrypoint superseded by active versions"
+    },
+    {
+      "source": "Tools/HangingBellM09/import_claw_body_drive_v17.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/import_claw_body_drive_v17.py",
+      "bytes": 3860,
+      "sha256": "fc92aafcc8ae2fac0d2e7e045a88c5558055b9c58ade890a73f7cd0887fb008d",
+      "reason": "Retired author/import/build entrypoint superseded by active versions"
+    },
+    {
+      "source": "Tools/HangingBellM09/import_resonance_headless_v06.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/import_resonance_headless_v06.py",
+      "bytes": 167,
+      "sha256": "4e6f57dc3f0038858baad65c75354583e92d5d5ef80cb1d6a0aae6ded7727793",
+      "reason": "Retired author/import/build entrypoint superseded by active versions"
+    },
+    {
+      "source": "Tools/HangingBellM09/import_resonance_v06.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/import_resonance_v06.py",
+      "bytes": 6417,
+      "sha256": "73c0c9ca544155f70d921232bedb2feb2034cd1840f3b7afc4ec455de362c524",
+      "reason": "Retired author/import/build entrypoint superseded by active versions"
+    },
+    {
+      "source": "Tools/HangingBellM09/integrate_resonance_v06.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/integrate_resonance_v06.py",
+      "bytes": 9423,
+      "sha256": "02394213a18aedd4d723aafe6320280109882d3ce85ca8b4e4437032fea01a42",
+      "reason": "Retired author/import/build entrypoint superseded by active versions"
+    },
+    {
+      "source": "Tools/HangingBellM09/integrate_resonance_v07.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/integrate_resonance_v07.py",
+      "bytes": 6100,
+      "sha256": "44d7fcf604a153b677d4c963f7d1f1ce96cb8d7dbb8f56b1ee67c7842c0452b2",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    },
+    {
+      "source": "Tools/HangingBellM09/integrate_runtime_v04.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/integrate_runtime_v04.py",
+      "bytes": 9224,
+      "sha256": "63ca452aabddc222a27a13988e610b3fcc1d420bee31ed8787000fe4123ed3f8",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    },
+    {
+      "source": "Tools/HangingBellM09/prepare_room_only_v04.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/prepare_room_only_v04.py",
+      "bytes": 1069,
+      "sha256": "f1545aca4f9385f344f8d7c8747754ff97c7ea6d2a5421dd250fd22ef4967fb6",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    },
+    {
+      "source": "Tools/HangingBellM09/record_delivery_v04.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/record_delivery_v04.py",
+      "bytes": 3424,
+      "sha256": "78e3668bbe0dffe54416754193989f00cb68e89f6fcb9248f87a81e0eaff72db",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    },
+    {
+      "source": "Tools/HangingBellM09/record_resonance_v06.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/record_resonance_v06.py",
+      "bytes": 2430,
+      "sha256": "b055c23eff23b573793ce30f64ca8533aa7368723ec29e660d29f8787ecbd2c3",
+      "reason": "Retired author/import/build entrypoint superseded by active versions"
+    },
+    {
+      "source": "Tools/HangingBellM09/refine_attachment_groups_v02.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/refine_attachment_groups_v02.py",
+      "bytes": 2679,
+      "sha256": "c763121bf5ce953a409621da833cdaf42820b8d2068805d245608ca5d97486d6",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    },
+    {
+      "source": "Tools/HangingBellM09/relax_spawn_v05.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/relax_spawn_v05.py",
+      "bytes": 8841,
+      "sha256": "3e8a47181f29fff1f2ec6c6557939afc144ed709bd7fe94675ff763bdf11c2cc",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    },
+    {
+      "source": "Tools/HangingBellM09/repair_arm_socket_surfaces_v16.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/repair_arm_socket_surfaces_v16.py",
+      "bytes": 5032,
+      "sha256": "d312fddd6d6979365df7d1e302f7b0a141b94f5c17d49dc913b748079e0165d5",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    },
+    {
+      "source": "Tools/HangingBellM09/repair_build_v04.py",
+      "destination": "trash/m09-retired-20261004/Tools/HangingBellM09/repair_build_v04.py",
+      "bytes": 1167,
+      "sha256": "0d947acd3508430cc59fb209fbc9bee77854a757445b6f0a743d686328f0bd08",
+      "reason": "Failed socket retessellation or completed one-time source/editor migration; current source is authoritative"
+    }
+  ]
+}

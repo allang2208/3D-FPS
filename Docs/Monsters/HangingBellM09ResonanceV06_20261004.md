@@ -49,3 +49,10 @@
 - 制作脚本：`Tools/HangingBellM09/author_resonance_v06.py`、`author_resonance_audio_v06.py`、`import_resonance_v06.py`。
 - 源码只修改 `HangingBellM09.h/.cpp`，烘焙目录在 `Config/DefaultGame.ini` 追加；未改 V05 生成和寻路文件。
 - 资产保存回执、构建日志和最终落盘状态：`ResonanceV06/Records`。以最终制作回执为准；构建成功不表示游戏效果已经验收。
+
+
+## 本轮实际落盘结果
+
+四项 V06 资产均已保存，复用原 V04 骨架；最终后台导入返回0。FPSGAMEEditor 由共享常规构建完成（本次 M09 编译与链接记录已单独摘录）；FPSGAME（Win64 Development）常规构建成功，基础 Editor DLL 和游戏 EXE 已落盘。制作回执为 `ResonanceV06/Records/delivery.json`。未启动交互编辑器、游戏或执行测试，交由用户体验。
+
+V07 按用户反馈改为5.6秒、六次鸣震、每次伤害+50%、20米范围及每次有效命中扣2点SAN；三层背膜同时快速展开，细光环改为带淡入淡出的连续柔边波面。详见 [V07](HangingBellM09ResonanceV07_20261004.md)，以V07制作记录为当前交付状态。

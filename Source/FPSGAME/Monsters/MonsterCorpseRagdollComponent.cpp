@@ -160,8 +160,8 @@ void UMonsterCorpseRagdollComponent::AlignRootAndTune()
     if (Helper.IsNone() && (Rig == EMonsterCorpseRig::Maggot || Rig == EMonsterCorpseRig::HandBrain || Rig == EMonsterCorpseRig::Mawcrawler || Rig == EMonsterCorpseRig::HangingBell) &&
         BodyMesh->GetBodyInstance(TEXT("root"))) Helper = TEXT("root");
     MonsterRagdollPhysics::AlignContainerRoot(BodyMesh, RootAnchor);
-    const float LinearDamping = Rig == EMonsterCorpseRig::Maggot ? .6f : .25f;
-    const float AngularDamping = Rig == EMonsterCorpseRig::Maggot ? 1.8f : Rig == EMonsterCorpseRig::HandBrain ? 1.2f : .9f;
+    const float LinearDamping = Rig == EMonsterCorpseRig::HangingBell ? 1.2f : Rig == EMonsterCorpseRig::Maggot ? .6f : .25f;
+    const float AngularDamping = Rig == EMonsterCorpseRig::HangingBell ? 2.5f : Rig == EMonsterCorpseRig::Maggot ? 1.8f : Rig == EMonsterCorpseRig::HandBrain ? 1.2f : .9f;
     float OriginalMass = 0.f;
     if (Rig == EMonsterCorpseRig::FleshHand)
         for (const auto* Body : BodyMesh->Bodies)

@@ -1,5 +1,6 @@
 #include "M09AnimInstance.h"
 #include "HangingBellM09.h"
+#include "M09GazeParameters.h"
 #include "Animation/AnimInstanceProxy.h"
 #include "Animation/AnimNodeSpaceConversions.h"
 #include "AnimNodes/AnimNode_PoseSnapshot.h"
@@ -12,7 +13,7 @@ struct FM09HandSupport : FAnimNode_SkeletalControlBase
 {
  FBoneReference Upper[2],Lower[2],Hand[2],Eyes[5];
  FVector Goal[2],Pole[2],Aim=FVector::ZeroVector,Forward=FVector::ForwardVector;
- FQuat Rotation[2];float Weight[2]={0,0};bool Aiming=false;
+ FQuat Rotation[2];float Weight[2]={0,0},EyeTime=0;bool Aiming=false;
  FM09HandSupport()
  {
   Alpha=1;
@@ -50,11 +51,15 @@ struct FM09HandSupport : FAnimNode_SkeletalControlBase
    E.SetRotation(Rotation[I]);A.Blend(OldA,A,Weight[I]);M.Blend(OldM,M,Weight[I]);E.Blend(OldE,E,Weight[I]);
    Out.Emplace(U,A);Out.Emplace(L,M);Out.Emplace(H,E);
   }
-  if(Aiming)for(const auto& Eye:Eyes)if(Eye.IsValidToEvaluate(B))
+  if(Aiming)for(int32 EyeIndex=0;EyeIndex<M09Gaze::Eyes;++EyeIndex)if(Eyes[EyeIndex].IsValidToEvaluate(B))
   {
+   const auto& Eye=Eyes[EyeIndex];
    const auto I=Eye.GetCompactPoseIndex(B);FTransform E=O.Pose.GetComponentSpaceTransform(I);
    FQuat Q=FQuat::FindBetweenNormals(Forward,(Aim-E.GetLocation()).GetSafeNormal());
    const float Angle=Q.GetAngle();if(Angle>FMath::DegreesToRadians(24.f))Q=FQuat::Slerp(FQuat::Identity,Q,FMath::DegreesToRadians(24.f)/Angle);
+   const float In=FMath::SmoothStep(0.f,1.f,FMath::Clamp((EyeTime-.04f-EyeIndex*.055f)/.42f,0.f,1.f));
+   const float OutWeight=1.f-FMath::SmoothStep(0.f,1.f,FMath::Clamp((EyeTime-1.94f)/.82f,0.f,1.f));
+   Q=FQuat::Slerp(FQuat::Identity,Q,In*OutWeight);
    E.SetRotation((Q*E.GetRotation()).GetNormalized());Out.Emplace(I,E);
   }
   Out.Sort([](const FBoneTransform& A,const FBoneTransform& B){return A.BoneIndex.GetInt()<B.BoneIndex.GetInt();});
@@ -88,6 +93,7 @@ struct FM09Proxy : FAnimInstanceProxy
    Hands.Weight[S]=M->GripTargets[S].IsNearlyZero()?0.f:M->HandIKWeight(S);
   }
   Hands.Aiming=M->State==EM09State::Gaze;Hands.Aim=Frame.InverseTransformPosition(M->LockedAim);Hands.Forward=Frame.InverseTransformVectorNoScale(M->GetActorForwardVector());
+  Hands.EyeTime=M->StateSeconds;
  }
 };
 FAnimInstanceProxy* UM09AnimInstance::CreateAnimInstanceProxy(){return new FM09Proxy(this);}

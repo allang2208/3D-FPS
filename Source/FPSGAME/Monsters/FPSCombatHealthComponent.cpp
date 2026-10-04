@@ -9,6 +9,7 @@
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "HandBrainMonster.h"
 #include "M10HowlDamage.h"
+#include "M09ResonanceDamage.h"
 #include "PoisonMaggotMonster.h"
 #include "PoisonMaggotProjectile.h"
 #include "../Skills/CorrosivePusDamage.h"
@@ -198,6 +199,13 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
             if(const auto* Pawn=Cast<APawn>(Actor);Pawn&&Pawn->IsPlayerControlled()&&!Pawn->IsLocallyControlled())
                 ClientApplyM10HowlCripple(GetWorld()->GetTimeSeconds()+UM10HowlDamage::CrippleSeconds);
         }
+    }
+    else if(Type&&Type->IsA<UM09ResonanceDamage>())
+    {
+        // A fixed two SAN replaces generic monster SAN loss for this accepted hit.
+        // Dodge, invulnerability and rejected damage have already returned above.
+        if(auto* Survival=Actor->FindComponentByClass<UFPSSurvivalComponent>())Survival->ApplySanityDamage(UM09ResonanceDamage::SanityLoss);
+        if(!IsDead())if(auto* Status=UCombatStatusFormula::GetOrAdd(Actor))Status->AddSlow(.45f,.15f);
     }
     else if(!bSurvivalLoss)if(auto* Survival=Actor->FindComponentByClass<UFPSSurvivalComponent>())Survival->ApplySanityAttack(Attacker);
     UE_LOG(LogTemp, Display, TEXT("PLAYER_DAMAGE amount=%.1f health=%.1f"), Damage, Health);

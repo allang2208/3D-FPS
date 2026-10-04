@@ -48,6 +48,15 @@ UMonsterCombatComponent* AMonsterAIController::Combat() const{return GetPawn()?G
 void AMonsterAIController::OnPossess(APawn* P)
 {
  Super::OnPossess(P);if(!HasAuthority())return;
+ if(const auto* M09=Cast<AHangingBellM09>(P))
+ {
+  // M09's 20 m attack must also acquire targets beyond the default 16 m sight.
+  auto* Sight=NewObject<UAISenseConfig_Sight>(this);
+  Sight->SightRadius=M09->AggroRadius;Sight->LoseSightRadius=M09->AggroRadius+300.f;
+  Sight->PeripheralVisionAngleDegrees=100.f;Sight->SetMaxAge(12.f);
+  Sight->DetectionByAffiliation.bDetectEnemies=Sight->DetectionByAffiliation.bDetectFriendlies=Sight->DetectionByAffiliation.bDetectNeutrals=true;
+  Senses->ConfigureSense(*Sight);Senses->RequestStimuliListenerUpdate();
+ }
  if(Behavior){RunBehaviorTree(Behavior);UpdateKnowledge();UE_LOG(LogTemp,Display,TEXT("MONSTER_BT_READY %s tree=%s"),*P->GetName(),*Behavior->GetPathName());}
  else UE_LOG(LogTemp,Error,TEXT("MONSTER_BT_MISSING %s"),*P->GetName());
 }

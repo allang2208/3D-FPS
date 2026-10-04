@@ -1,6 +1,8 @@
 #include "M09CeilingRoute.h"
 #include "HangingBellM09.h"
 #include "Components/SceneComponent.h"
+#include "Components/PrimitiveComponent.h"
+#include "GameFramework/Volume.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
 AM09CeilingRoute::AM09CeilingRoute()
@@ -11,23 +13,38 @@ AM09CeilingRoute::AM09CeilingRoute()
 FVector AM09CeilingRoute::Point(int32 I) const{return GetActorTransform().TransformPosition(GripCenters[I]);}
 namespace
 {
-bool TraceM09Ceiling(UWorld* World,FVector From,FVector To,const AActor* Ignore,FVector& Contact)
+constexpr float SurfaceSearchHeight=180.f;
+bool TraceM09Ceiling(UWorld* World,FVector From,FVector To,const AActor* Ignore,FVector& Contact,FVector* Normal=nullptr,const float* PreferredHeight=nullptr)
 {
  if(!World)return false;
- FHitResult Hit;FCollisionQueryParams Query(SCENE_QUERY_STAT(M09CeilingSurface),false,Ignore);
- // Use solid collision, including ordinary roofs that ignore visibility traces.
- if(!World->LineTraceSingleByChannel(Hit,From,To,ECC_Pawn,Query)
-    ||Hit.bStartPenetrating||Hit.ImpactNormal.Z>-.6f||!Hit.GetActor()||Hit.GetActor()->IsA<APawn>())return false;
- Contact=Hit.ImpactPoint;return true;
+ FCollisionQueryParams Query(SCENE_QUERY_STAT(M09CeilingSurface),true,Ignore);
+ FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_WorldStatic);Objects.AddObjectTypesToQuery(ECC_WorldDynamic);
+ TArray<FHitResult> Hits;World->LineTraceMultiByObjectType(Hits,From,To,Objects,Query);
+ // Collision-only volumes must neither stop travel nor masquerade as a roof.
+ // Multi object traces can find a real underside behind such a volume.
+ bool Found=false;float Best=FLT_MAX;
+ for(const FHitResult& Hit:Hits)
+ {
+  const auto* Actor=Hit.GetActor();const auto* Component=Hit.GetComponent();
+  if(Hit.bStartPenetrating||Hit.ImpactNormal.Z>-.45f||!Actor||!Component||Actor->IsA<APawn>()||Actor->IsA<AVolume>())continue;
+  if(Component->GetCollisionResponseToChannel(ECC_Pawn)!=ECR_Block&&Component->GetCollisionResponseToChannel(ECC_Visibility)!=ECR_Block)continue;
+  const float Score=PreferredHeight?FMath::Abs(Hit.ImpactPoint.Z-*PreferredHeight):Hit.Distance;
+  if(Score>=Best)continue;
+  Best=Score;Contact=Hit.ImpactPoint;if(Normal)*Normal=Hit.ImpactNormal;Found=true;
+ }
+ return Found;
 }
 }
-bool AM09CeilingRoute::FindSupport(UWorld* W,FVector Near,const AActor* Ignore,FVector& Contact)
+bool AM09CeilingRoute::FindSupport(UWorld* W,FVector Near,const AActor* Ignore,FVector& Contact,FVector* Normal)
 {
- return TraceM09Ceiling(W,Near-FVector(0,0,25),Near+FVector(0,0,25),Ignore,Contact);
+ const float Height=Near.Z;
+ return TraceM09Ceiling(W,Near-FVector(0,0,SurfaceSearchHeight),Near+FVector(0,0,SurfaceSearchHeight),Ignore,Contact,Normal,&Height);
 }
 bool AM09CeilingRoute::Supported(UWorld* W,FVector P,const AActor* Ignore)
 {
- FVector Contact;return FindSupport(W,P,Ignore,Contact);
+ // A planted hand still needs actual contact; the wider travel projection is
+ // not permission to keep supporting a hand after its roof has disappeared.
+ FVector Contact;return TraceM09Ceiling(W,P-FVector(0,0,25),P+FVector(0,0,25),Ignore,Contact);
 }
 bool AM09CeilingRoute::ClearBody(UWorld* W,FVector P,const AActor* Ignore)
 {
@@ -38,12 +55,11 @@ bool AM09CeilingRoute::ClearBody(UWorld* W,FVector P,const AActor* Ignore)
 }
 bool AM09CeilingRoute::ClearSegment(UWorld* W,FVector A,FVector B,const AActor* Ignore)
 {
- if(FMath::Abs(A.Z-B.Z)>30.f)return false;
- FHitResult H;FCollisionQueryParams Q(SCENE_QUERY_STAT(M09Edge),false,Ignore);
- if(W->SweepSingleByChannel(H,A-FVector(0,0,143),B-FVector(0,0,143),FQuat::Identity,ECC_Pawn,
-   FCollisionShape::MakeCapsule(85,137),Q))return false;
+ // Hanging travel ignores the body's terrain volume. Only continuity of the
+ // overhead surface constrains the route, including beams and roof steps.
  const int32 N=FMath::Clamp(FMath::CeilToInt(FVector::Distance(A,B)/35.f),1,16);
- for(int32 I=0;I<=N;++I)if(!Supported(W,FMath::Lerp(A,B,float(I)/N),Ignore))return false;
+ FVector Contact;
+ for(int32 I=0;I<=N;++I)if(!FindSupport(W,FMath::Lerp(A,B,float(I)/N),Ignore,Contact))return false;
  return true;
 }
 AM09CeilingRoute* AM09CeilingRoute::FindRoute(UWorld* W,FVector Ceiling)
@@ -53,7 +69,7 @@ AM09CeilingRoute* AM09CeilingRoute::FindRoute(UWorld* W,FVector Ceiling)
   for(int32 I=0;I<FMath::Min(It->GripCenters.Num(),256);++I)
   {
    const FVector P=It->Point(I);const float D=FVector::DistSquared2D(P,Ceiling);
-   if(D<Best&&FMath::Abs(P.Z-Ceiling.Z)<30.f){Best=D;BestRoute=*It;}
+   if(D<Best&&FMath::Abs(P.Z-Ceiling.Z)<SurfaceSearchHeight){Best=D;BestRoute=*It;}
   }
  return BestRoute;
 }
@@ -83,7 +99,7 @@ bool AM09CeilingRoute::FindPath(const AHangingBellM09* M,FVector Destination,TAr
  for(int32 I=0;I<N;++I)
  {
   const FVector P=Point(I);const float D=FVector::DistSquared(P,Start);
-  if(D<Best&&FMath::Abs(P.Z-Start.Z)<12.f&&ClearSegment(GetWorld(),Start,P,M)){Best=D;First=I;}
+  if(D<Best&&FMath::Abs(P.Z-Start.Z)<SurfaceSearchHeight&&ClearSegment(GetWorld(),Start,P,M)){Best=D;First=I;}
  }
  if(First==INDEX_NONE)return false;
  TArray<int32> Parent,Queue;Parent.Init(INDEX_NONE,N);Parent[First]=First;Queue.Add(First);
