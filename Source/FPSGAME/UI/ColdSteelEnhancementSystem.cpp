@@ -65,6 +65,18 @@ double UColdSteelEnhancementSystem::Effect(const FColdSteelItem& I,const TCHAR* 
     const auto Data=ColdSteelItemData::Read(I.Data);
     const TSharedPtr<FJsonObject>* Field=nullptr;
     const auto O=Data&&Data->TryGetObjectField(TEXT("_enchantEffects"),Field)?*Field:nullptr;
+    // Balance changes apply to existing Azure Dragon instances without rewriting
+    // saves. The active catalog owns charge/duration, not the old item snapshot.
+    if(O&&(FCString::Strcmp(Key,TEXT("azureDragonHitsToSummon"))==0||
+        FCString::Strcmp(Key,TEXT("azureDragonActiveSeconds"))==0))
+    {
+        bool AzureDragon=false;
+        if(O->TryGetBoolField(TEXT("azureDragonClaw"),AzureDragon)&&AzureDragon)
+        {
+            const auto* Rule=Scroll(TEXT("azureDragon"));
+            return Num(Rule?Rule->Effects:nullptr,Key,Default);
+        }
+    }
     const auto V=O?O->TryGetField(Key):nullptr;
     if(V&&V->Type==EJson::Boolean)return V->AsBool()?1:0;
     return Num(O,Key,Default);

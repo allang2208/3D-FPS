@@ -57,6 +57,7 @@ bool URuneSwordComponent::BeginWhirlwind()
     ImpactAge=1.f;ImpactStrength=1.f;
     WhirlwindYaw=Character->GetControlRotation().Yaw;
     HitActors.Reset();SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
+    CaptureAzureDragonAttack(Profile);
     UTangDaoGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
     SwingSkills.WeakpointPercent=0;SwingSkills.AttackForm=EMonsterAttackForm::Blade;SwingSkills.AttackMeta|=0x20;SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison; // 0x20=旋风斩：服务端按 WhirlwindStats 技能面板复算
     SwingHitReactionMultiplier=MeleeModifiers.HitReaction;
@@ -163,10 +164,10 @@ void URuneSwordComponent::SweepWhirlwind(float FromDegrees,float ToDegrees)
     {
         FRuneSwordBladeSample S;
         S.Origin=Origin;S.Forward=FRotator(0,WhirlwindYaw+90.f+Degrees,0).Vector();
-        S.Base=Origin+S.Forward*15.f;S.Tip=Origin+S.Forward*WhirlwindCast.RadiusCM;return S;
+        S.Base=Origin+S.Forward*15.f;S.Tip=Origin+S.Forward*AzureDragonRange(WhirlwindCast.RadiusCM);return S;
     };
     FRuneSwordTraceSettings Settings;Settings.Radius=32.f;Settings.bCleavePawns=true;
-    const auto Hits=RuneSwordCombat::Query(GetWorld(),Pawn,Sample(FromDegrees),Sample(ToDegrees),WhirlwindCast.RadiusCM,HitActors,Settings);
+    const auto Hits=RuneSwordCombat::Query(GetWorld(),Pawn,Sample(FromDegrees),Sample(ToDegrees),AzureDragonRange(WhirlwindCast.RadiusCM),HitActors,Settings);
     int32 Confirmed=0;
     bool AnyKilled=false;
     FVector ImpactPoint=FVector::ZeroVector;
@@ -189,6 +190,7 @@ void URuneSwordComponent::SweepWhirlwind(float FromDegrees,float ToDegrees)
         const float Applied=Combat?Combat->ApplyHitWithReactionScale(SwingHitReactionMultiplier,Apply):Apply();
         const bool Killed=Combat&&Combat->IsDead();
         if(Applied<=0.f&&!Killed)continue;
+        if(Combat)OnAzureDragonHit();
         ++Confirmed;AnyKilled|=Killed;ImpactPoint+=Hit.ImpactPoint;
         if(Eligible){++WhirlwindHits;if(Killed)++WhirlwindKills;}
         if(Combat&&!Killed)

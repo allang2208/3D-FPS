@@ -17,6 +17,7 @@
 class AFPSGAMECharacter;
 class UCameraComponent;
 class USkeletalMeshComponent;
+class USkeletalMesh;
 class UAnimSequence;
 class USoundBase;
 class UColdSteelStatusModel;
@@ -25,6 +26,8 @@ class UStaticMeshComponent;
 class USceneComponent;
 class UMaterialInstanceDynamic;
 class UMaterialInterface;
+class UAzureDragonEnergyComponent;
+class UFPSCombatHealthComponent;
 class UNiagaraSystem;
 struct FStreamableHandle;
 
@@ -245,4 +248,33 @@ private:
     void LoadUppercutAnimations();
     void TickUppercut(float Delta);
     UAnimSequence* UppercutAnimation() const;
+    // Azure Dragon: equipment-owned charge/active window and two reusable claws.
+    UPROPERTY(Transient) TObjectPtr<USkeletalMesh> AzureDragonMesh;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> AzureDragonGrab;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> AzureDragonMaterial;
+    UPROPERTY(Transient) TArray<TObjectPtr<USkeletalMeshComponent>> AzureDragonClaws;
+    UPROPERTY(Transient) TArray<TObjectPtr<UMaterialInstanceDynamic>> AzureDragonMIDs;
+    TSharedPtr<FStreamableHandle> AzureDragonLoad;
+    FString AzureDragonInstance;
+    bool bAzureDragonEquipped=false,bSwingAzureDragon=false;
+    void RefreshAzureDragon(const FColdSteelItem* Item,UColdSteelStatusModel* Profile);
+    void PrepareAzureDragon();
+    void TickAzureDragon(float Delta);
+    void UpdateAzureDragonPose();
+    void StopAzureDragon();
+    void DestroyAzureDragon();
+    // Charge is session-only and belongs to the currently held enchanted sword.
+    UPROPERTY(Transient) TObjectPtr<UAzureDragonEnergyComponent> AzureDragonEnergyDisplay;
+    TWeakObjectPtr<UFPSCombatHealthComponent> AzureDragonHealth;
+    int32 AzureDragonCharge=0,AzureDragonHitsToSummon=9;
+    void OnAzureDragonHit();
+    void ClearAzureDragonEnergy();
+    void CaptureAzureDragonAttack(UColdSteelStatusModel* Profile);
+    float AzureDragonRange(float BaseRange) const { return BaseRange*SwingAzureDragonReachMultiplier; }
+    float AzureDragonActiveUntil=0.f,AzureDragonSeconds=30.f,AzureDragonReachMultiplier=1.5f;
+    float AzureDragonPhysicalMultiplier=2.f,AzureDragonMagicScale=1.f,SwingAzureDragonReachMultiplier=1.f;
+    bool bSwingAzureDragonActive=false;
+    bool bSwingAzureDragonCharged=false;
+    // Append cosmetic state so existing sword members keep their layout.
+    uint8 AzureDragonNextClaw=0,SwingAzureDragonClaw=0;
 };

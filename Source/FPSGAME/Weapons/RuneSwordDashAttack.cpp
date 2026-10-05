@@ -134,7 +134,7 @@ void URuneSwordComponent::DashAttackContractHit()
     // leave its damage volume behind at the start of the swing.
     DashCenter=Pawn->GetActorLocation();bDashCenterCaptured=true;
     const auto Hits=RuneSwordCombat::QuerySector(GetWorld(),Pawn,DashCenter,LungeDirection,
-        DashCast.RangeCM,DashCast.ArcDegrees,HitActors);
+        AzureDragonRange(DashCast.RangeCM),DashCast.ArcDegrees,HitActors);
     const double QuerySeconds=FPlatformTime::Seconds();
     ApplySwingHits(Hits,LungeDirection);
     const double EndSeconds=FPlatformTime::Seconds();

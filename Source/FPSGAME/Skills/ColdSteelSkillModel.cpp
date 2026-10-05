@@ -204,6 +204,15 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     // Damage already contains this attack's heavy/combo/range multiplier. Apply
     // the same multiplier and shared critical roll to every panel component.
     WeaponHit.Incoming=Shot.DamagePanel.Total()>0?Shot.DamagePanel.Scaled(Amount/Shot.DamagePanel.Total()):FWeaponDamageParts{Amount,0,0,0};
+    // Azure Dragon doubles physical channels only. Existing magic additions keep
+    // their own value; multiplying the scalar would incorrectly double them too.
+    const bool bAzureDragon=Shot.bMelee&&!Shot.bRicochet&&Shot.AzureDragonPhysicalMultiplier>1.f;
+    if(bAzureDragon)
+    {
+        WeaponHit.Incoming.BasePhysical*=Shot.AzureDragonPhysicalMultiplier;
+        WeaponHit.Incoming.AddedPhysical*=Shot.AzureDragonPhysicalMultiplier;
+        Amount=WeaponHit.Incoming.Total();
+    }
     WeaponHit.PhysicalPenetration=Shot.ArmorPenetration;WeaponHit.MagicPenetration=Shot.MagicPenetration;
     TGuardValue<CombatFormulaRuntime::WeaponHit*> DamageScope(CombatFormulaRuntime::ActiveWeaponHit,&WeaponHit);
     // 普通怪沿用 hit_stagger 枪械闸门；精英以上枪弹削韧，破韧期可造成短硬直。
@@ -228,7 +237,30 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     const MonsterToughness::FScopedForm FormScope(Shot.AttackForm);
     const float FixedToughness=Shot.bMelee&&!Shot.bRicochet?MeleeToughness::FixedBaseFor(Shot.AttackMeta):-1.f;
     auto ApplyToughness=[&](){return Combat?Combat->ApplyHitWithToughnessScale(Shot.ToughnessDamageMultiplier,ApplyDamage,FixedToughness,GuardToughnessBonus):ApplyDamage();};
-    const float Applied=(Combat&&bFirearmWithoutStagger&&!Combat->UsesToughnessBar())?Combat->ApplyHitWithReactionScale(0.f,ApplyToughness):ApplyToughness();
+    float Applied=(Combat&&bFirearmWithoutStagger&&!Combat->UsesToughnessBar())?Combat->ApplyHitWithReactionScale(0.f,ApplyToughness):ApplyToughness();
+    FWeaponDamageParts AppliedParts=WeaponHit.Mitigated.LimitedTo(Applied);
+    // A real second damage transaction, with its own magic defense and remaining
+    // HP. Share the original training/kill scope, but never recurse through
+    // ApplyHit (which would duplicate crit rolls, affixes, charge and training).
+    if(bAzureDragon&&bAliveBefore&&Shot.AzureDragonMagicDamage>0.f&&IsValid(Victim)
+        &&!Victim->IsActorBeingDestroyed()&&!Combat->IsDead())
+    {
+        CombatFormulaRuntime::WeaponHit MagicHit;
+        MagicHit.Target=Victim;MagicHit.bMelee=true;
+        MagicHit.Incoming.AddedMagic=Shot.AzureDragonMagicDamage;
+        MagicHit.MagicPenetration=Shot.MagicPenetration;
+        TGuardValue<CombatFormulaRuntime::WeaponHit*> MagicScope(CombatFormulaRuntime::ActiveWeaponHit,&MagicHit);
+        auto ApplyMagic=[&](){return UGameplayStatics::ApplyPointDamage(Victim,Shot.AzureDragonMagicDamage,
+            Direction,Hit,Pawn?Pawn->GetController():nullptr,Shooter,nullptr);};
+        // The second receipt is bonus damage, not a second blade impact/reaction.
+        const float MagicApplied=Combat->ApplyHitWithReactionScale(0.f,[&]()
+        {return Combat->ApplyHitWithToughnessScale(0.f,ApplyMagic,0.f);});
+        WeaponHit.Incoming.AddedMagic+=MagicHit.Incoming.AddedMagic;
+        WeaponHit.Mitigated.AddedMagic+=MagicHit.Mitigated.AddedMagic;
+        AppliedParts.AddedMagic+=MagicHit.Mitigated.LimitedTo(MagicApplied).AddedMagic;
+        WeaponHit.bResolved=WeaponHit.bResolved&&MagicHit.bResolved;
+        Applied+=MagicApplied;
+    }
     const bool bDirectKill=bAliveBefore&&Applied>0.f&&(!IsValid(Victim)||Victim->IsActorBeingDestroyed()||Combat->IsDead());
     if(bGuardContact)TangGuard->ConfirmBladeHit(Shot);
     // Normal stage 3 keeps its own damage formula; the launch now obeys poise.
@@ -283,7 +315,7 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     if(Result)
     {
         Result->BeforeDefense=WeaponHit.Incoming;Result->AfterDefense=WeaponHit.Mitigated;
-        Result->Applied=WeaponHit.Mitigated.LimitedTo(Applied);Result->bResolved=WeaponHit.bResolved;Result->bCritical=Training.bCritical;
+        Result->Applied=AppliedParts;Result->bResolved=WeaponHit.bResolved;Result->bCritical=Training.bCritical;
         Result->bKilled=bDirectKill;
     }
     // Lethal rewards are committed together with the monster's AwardKill transaction.

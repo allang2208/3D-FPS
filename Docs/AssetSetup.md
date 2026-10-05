@@ -1,5 +1,11 @@
 # 恢复完整 UE5 内容
 
+## 苍龙：能量条与龙爪未达标、待返工（2026-10-05）
+
+用户体验 Coherent V9 后反馈“不是很合格”，已登记 [返工待办](Backlog.md)。当前仍被运行引用的 V9 十一份资产、原创作者入口、共享爪材质、原 Fab／Epic 输入及认可设计图暂留本机；保留不表示视觉或动作认可。九次充能／30 秒、左右双爪交替与既有伤害合同不改。
+
+117 份废案含 17 份旧 UE 包已移入 `trash/azure-dragon-retired-20261005`，逐文件移动前后 SHA-256 相同。RigV2、EnergyV3、EnergyV6、ReferenceV7、CombatV4、DualClawV8 和旧静态输出均按 [本轮整理发布](Combat/enchant-azure-dragon-publication-20261005.md) 查询；认可设计图移到 `SourceAssets/AzureDragon20261004/References`。根目录兼容入口转发当前 V9，共享基线不恢复旧静态爪与能量材质。公开源码、配方、HLSL、待办、SKILL 和归档元数据；授权模型／参考／UE 包及回执留本机。上一轮完整工作区的保存与构建不是本次公开快照的新验证，本轮没有游戏、PIE、渲染或验收。
+
 ## M-25 涡电匣与战斗修复（2026-10-05）
 
 恢复用户 Meshy 输入、RigV01 专用蒙皮／动画、BiteV01 与受击死亡、BackElectricV02，以及 OptimizationV01 四级游戏网格。怪物已获用户认可；最新撕咬遮挡与客机奖励修复已完成本机 Editor/Game 构建，未游戏测试。60 份旧快照和废案带散列移入 trash；公开源码、原创配方与 SKILL，原媒体／密集数据／UE 包留本机。连续软体死亡挂接以独立补丁记录，地牢刷新按用户要求暂不接入。恢复顺序与公开边界见 [M25 整理发布](Monsters/m25-publication-20261005.md)。

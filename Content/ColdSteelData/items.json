@@ -1406,6 +1406,22 @@
     "stack_max": 99,
     "type": "附魔卷轴"
   },
+  "enchant_scroll_azure_dragon": {
+    "rarity": "legendary",
+    "category": "enhancement",
+    "desc": "为剑类武器附魔传说后缀「苍龙」。有效命中积蓄能量，积满后激活苍龙；期间龙爪随剑击同步摆动，延伸攻击范围，强化物理伤害并独立追加魔法伤害。左侧青色能量条随镜头悬浮，蓄能越多火焰越大，激活后随剩余时间燃烧消耗。停止攻击保留未满能量；切换武器、移除附魔或死亡清空。",
+    "grade": "legendary",
+    "grid_w": 1,
+    "grid_h": 2,
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
+    "icon_fallback": "龙",
+    "name": "附魔卷轴：苍龙",
+    "price": 8000,
+    "scroll_id": "azureDragon",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
   "enchant_scroll_boundless_strength": {
     "rarity": "epic",
     "category": "enhancement",

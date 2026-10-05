@@ -1,0 +1,34 @@
+{
+  "task": "Azure Dragon pending/rejected visuals, archive and source-only publication",
+  "base": "3705351b6e5c6e884811c814f2c70ce015e33fa5",
+  "scope": {
+    "source_files": 66,
+    "with_manifest": 67,
+    "bytes_with_manifest": 1047545,
+    "final_paths_with_check_report": 68
+  },
+  "checks": {
+    "exact_index_scope": "passed",
+    "full_staged_diff_recorded": true,
+    "git_diff_cached_check": "passed",
+    "staged_file_hashes": "passed",
+    "text_and_size_boundary": "passed",
+    "sensitive_patterns": "passed",
+    "python_ast_parse": "passed",
+    "json_parse": "passed",
+    "azure_only_catalog_entries": "passed",
+    "public_markdown_links": "passed",
+    "archive_metadata_consistent": "passed",
+    "powershell_parser": "passed",
+    "powershell_files_parsed": 7
+  },
+  "licensing": "Only original recipes/source/HLSL/docs and metadata; Fab/Epic geometry, PBR and dense donor data stay local",
+  "asset_import_this_turn": false,
+  "native_build_this_turn": false,
+  "prior_build_scope": "Prior Game/Editor builds cover the full shared workspace, not this source-only commit subset",
+  "gameplay_tested": false,
+  "pie": false,
+  "rendered": false,
+  "visual_accepted": false,
+  "acceptance": "User rejected Coherent V9; pending rework in Docs/Backlog.md"
+}

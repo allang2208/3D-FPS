@@ -1,0 +1,14 @@
+float f=saturate(Fill);
+float front=saturate(abs(dot(normalize(Normal),normalize(View))));
+float rim=pow(1.-front,2.1);
+float scale=smoothstep(.49,.53,UV.x)*(1.-smoothstep(.58,.62,UV.x));
+float trim=smoothstep(.74,.80,UV.x);
+float eye=smoothstep(.95,.97,UV.x);
+float shine=pow(front,18.)*.20;
+float wake=smoothstep(.72,1.,f);
+float3 body=float3(.017,.22,.23)*(.35+.65*front);
+float3 light=float3(.25,.82,.87);
+float3 color=body+light*(rim*.35+scale*.18+trim*.34+eye*.90+shine);
+color*=.68+.30*f+.05*sin(Age*1.8)+wake*.18+Pulse*.12+Burst*.30;
+float alpha=.22+rim*.19+scale*.13+trim*.20+eye*.28;
+return float4(color,saturate(alpha)*Reveal);

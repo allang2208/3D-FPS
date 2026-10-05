@@ -1,0 +1,339 @@
+{
+  "task": "Azure Dragon rejected/pending visual rework; scoped source publication",
+  "base": "3705351b6e5c6e884811c814f2c70ce015e33fa5",
+  "file_count": 66,
+  "bytes": 1035011,
+  "excluded": "Fab/Epic media, licensed meshes/PBR, dense rig/pose data, UE packages, trash payload and local receipts",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 121582,
+      "sha256": "77dab035633fcb2643a68459f84093c09eb16a1a38aa2c0cd3a96bff85c3621c"
+    },
+    {
+      "path": "Content/ColdSteelData/dungeon_loot.json",
+      "bytes": 3450,
+      "sha256": "c8defa31032c9e3fc0296ffc5f8a7f44d42d759742ee23248aaa43d41b3376ed"
+    },
+    {
+      "path": "Content/ColdSteelData/enhancement.json",
+      "bytes": 7092,
+      "sha256": "ff0deff8a0951094b7753e19b5ebd4a2e394a9140c3ff330a633a8a5feef7ba2"
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "bytes": 118277,
+      "sha256": "6d8a293fecc34f19d3bb67b65c5e1a9185030708a2b2a68a52a243337137557f"
+    },
+    {
+      "path": "Content/ColdSteelData/tooltip-reference.json",
+      "bytes": 2786,
+      "sha256": "ec4c60517af13332f6abcaaeec1fcd45099a3198a8189dda0b1df44dd9ba917f"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 85276,
+      "sha256": "a57f36b7561b3427c054196d7a76162ad2b42da823461c0de240db3b8a59ffe2"
+    },
+    {
+      "path": "Docs/Backlog.md",
+      "bytes": 38175,
+      "sha256": "d07d3528d37602924dfda0862e96a2248a3a42833b12339239539dfe0a155166"
+    },
+    {
+      "path": "Docs/Combat/enchant-azure-dragon-coherent-v9-20261005.md",
+      "bytes": 4417,
+      "sha256": "b30c3d8955d40b42355fb0ca846ad8dd3ec707e3c844ae04fbf7a5abc497dcd2"
+    },
+    {
+      "path": "Docs/Combat/enchant-azure-dragon-combat-v4-20261004.md",
+      "bytes": 6835,
+      "sha256": "8204072f6056748dced811842c0e4b9dde2de5589febba254575894b2d3b9dc1"
+    },
+    {
+      "path": "Docs/Combat/enchant-azure-dragon-design-20261004.md",
+      "bytes": 8231,
+      "sha256": "b2d12abdced6b56c0839e7e88ca20bc829f0c24476cca6f491576350b6da2cf4"
+    },
+    {
+      "path": "Docs/Combat/enchant-azure-dragon-dual-claw-v8-20261005.md",
+      "bytes": 3939,
+      "sha256": "f1c4e087a3fb6ff36c846266fa4aa07592a75d71e94301cb424e19e3ec786458"
+    },
+    {
+      "path": "Docs/Combat/enchant-azure-dragon-energy-v3-20261004.md",
+      "bytes": 4734,
+      "sha256": "c97d3195a2bc642f6b94e786e0af5341b11b230b1f591457987c09dadf2d7ec7"
+    },
+    {
+      "path": "Docs/Combat/enchant-azure-dragon-energy-v6-20261005.md",
+      "bytes": 4015,
+      "sha256": "10d57e2a69564ca81ffba0413c01c749b74f7667ec9bfd0f2f6110f2f535cc88"
+    },
+    {
+      "path": "Docs/Combat/enchant-azure-dragon-publication-20261005.md",
+      "bytes": 3926,
+      "sha256": "d241d5f65ec47f90c23520ffc8dae89d4f3632c34aacd252172c8cb841f0d7fe"
+    },
+    {
+      "path": "Docs/Combat/enchant-azure-dragon-reference-v7-20261005.md",
+      "bytes": 4069,
+      "sha256": "9f62a1753511ec4ad9ba50e5fd85b013db5b21c8ceb5f36f4f8e9c2dd3195577"
+    },
+    {
+      "path": "Docs/Combat/enchant-azure-dragon-visibility-v5-20261005.md",
+      "bytes": 2306,
+      "sha256": "88f7d0e6243f00ea8afa21918988fe997ae97f2c704e966979ae06d27f8027e5"
+    },
+    {
+      "path": "Docs/Publication/AzureDragon20261005/README.md",
+      "bytes": 1539,
+      "sha256": "d79abdccc0290a11daf99a1b9ac06461d18e2673e69ccbe85b584adf0b29a7f3"
+    },
+    {
+      "path": "Docs/Publication/AzureDragon20261005/archive-manifest.json",
+      "bytes": 77924,
+      "sha256": "77d18c4425ac0d21eafa8917ecb857b6ea34f8d402093808c904bae22708011a"
+    },
+    {
+      "path": "Docs/Publication/AzureDragon20261005/archive-plan.json",
+      "bytes": 66937,
+      "sha256": "44026cd094fb50f5468446de3e0fac566beccf83d1c8cf2a68944b6078c04842"
+    },
+    {
+      "path": "Docs/Publication/AzureDragon20261005/asset-archive.json",
+      "bytes": 13338,
+      "sha256": "2d245b2d34547d7547a18852eac9b1013c230e630139f879257e1b017e45a0c6"
+    },
+    {
+      "path": "Docs/Publication/AzureDragon20261005/retained-reference.json",
+      "bytes": 394,
+      "sha256": "cd06fcc21ddcc107d5d4688227b42ab3a8aed9eacc096e3d011b772c41eb3d75"
+    },
+    {
+      "path": "Docs/Publication/AzureDragon20261005/source-archive.json",
+      "bytes": 64372,
+      "sha256": "87d603c0919e3db24b7d57407903b2b8884eb8fd5208792af8de3856b3869fb4"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "bytes": 26590,
+      "sha256": "303022fadad4dd3320ad592de8c32d112011da719933e87e4cbed2f34ded60b5"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "bytes": 7717,
+      "sha256": "e404d5eec0035a86da720b97dc8d3bdae03b0736710d82f4646ad44867a5b722"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+      "bytes": 14897,
+      "sha256": "714568177ecef903303934c699288f53d3970748985dd0dc79f89e4f8ab46e3e"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "bytes": 55957,
+      "sha256": "d540cd24200445f5edb478920733622440233e9af1bcec14d7f2674fabda988d"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/AzureDragonEnergyComponent.cpp",
+      "bytes": 9829,
+      "sha256": "5574d251cfe132496bbb6ba278e2ed8359669594ef8dd6feeb0989de5b55628f"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/AzureDragonEnergyComponent.h",
+      "bytes": 2304,
+      "sha256": "87d19062cb1c68d75ac1e08a2e98230457688830c824959498259d4c8e4e652d"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/AzureDragonStrikeClock.h",
+      "bytes": 1461,
+      "sha256": "3276f5c766aff8f1c9c335dd6042a5483e8023ecba12c0d3f07e63d368262afd"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordAzureDragon.cpp",
+      "bytes": 18487,
+      "sha256": "18e59f4dee7632eae49485c6a3c99b4047efb190ad28a557a6d5e05ca8b7d19c"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "bytes": 84825,
+      "sha256": "62b00868e4815903496ea4aafa3b8081c920b7c2f30b4357efec353e46152577"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "bytes": 15635,
+      "sha256": "29ec3c63c4cdbe4644feb2b03a08f58f74401bfa9952fd64d9d2be4b32067ff8"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp",
+      "bytes": 8584,
+      "sha256": "927f7110d67911d6e79bcb245375c35fd58cf8aab55110718aa079d5bf90da14"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordUppercut.cpp",
+      "bytes": 9169,
+      "sha256": "bc5292e7687d487804de77f7c6ece18c86005df7f113d805fa970b6ac78d4663"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordWhirlwind.cpp",
+      "bytes": 12578,
+      "sha256": "de003c41865674c74617f67a6bb0fa32bd50ea349ee018677c807e1cf6cd47c9"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/AzureDragon.hlsl",
+      "bytes": 487,
+      "sha256": "055f239a45c09d49b78881355aa3e80b3b4ad2882a69040dbc010098b9ddb103"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/CoherentV9/EnergyColumn.hlsl",
+      "bytes": 1090,
+      "sha256": "93948e07af59bc0c10683d784e28b27b5e6da00caeebcbe05b792a737d84dbc0"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/CoherentV9/EnergyCrest.hlsl",
+      "bytes": 639,
+      "sha256": "f1efd557894d2cc5cfb2f7919f6fad43ffa5ae115f4cc0f9ad55348cb29833d7"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/CoherentV9/EnergyFlame.hlsl",
+      "bytes": 843,
+      "sha256": "9e36b44527d8f65f07386a51ce279dc5c4fe9d0eda648e2acd9cdd625694f16f"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/CoherentV9/EnergyHelix.hlsl",
+      "bytes": 509,
+      "sha256": "b1c77714955bda6fa540f950beeb4a0b1e74e0873eaea2164b2b3ad774679ce4"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/CoherentV9/FlameMotion.hlsl",
+      "bytes": 435,
+      "sha256": "5fa25470db9668ed532d03d836c6e8c371b7a80d58aa7307a5fe444084e16184"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/CoherentV9/README.md",
+      "bytes": 2514,
+      "sha256": "f550da7192cf983a47a29d83eca9468d80e6d7c7f6bd595b6d1cd82f4c754a21"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/CoherentV9/author_claw.py",
+      "bytes": 8674,
+      "sha256": "d00096ee64a52e8165bc4d0ddb6cb0a6c0c14fa7a529d5fae3b5560b1aa12eb6"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/CoherentV9/author_energy.py",
+      "bytes": 12337,
+      "sha256": "740547bf3d86225e93e3cab6f8d28b15d78e760de142a86ee63b517d6530f771"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/CoherentV9/install_ue.py",
+      "bytes": 10075,
+      "sha256": "dcc83941c24ee11c3faf0b422c534a3bf5ea27f677fc74a82ae6827df32cd51e"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/CoherentV9/run_author.ps1",
+      "bytes": 522,
+      "sha256": "c1ef20016bd0093e67147515f0886054f019d0c0e808a94a6c906cebb166b9aa"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/CoherentV9/run_build.ps1",
+      "bytes": 2657,
+      "sha256": "ae24cbd00bb7cf79339e4aa768adf3deb53e2fad73ad5e3ec270b0c199653bb6"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/CoherentV9/run_install.ps1",
+      "bytes": 1813,
+      "sha256": "564fcca6b81b44a7e5b9782be90a8c8778def74bb88efc0c4e7fa64c92a0bbf4"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/README.md",
+      "bytes": 3627,
+      "sha256": "c31ed96ae9aa8b895cea023e4a84b8005de5c4a7386f023bd1be8a1c1e86a249"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/VisibilityV5/README.md",
+      "bytes": 618,
+      "sha256": "16a00d05da9b1d43a90c0527fcc4fd16a3a9c63fa133ffacccdf39873ec30a0c"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/VisibilityV5/install_ue.py",
+      "bytes": 2313,
+      "sha256": "6bc1e89049b2a37c9fd98a316d686216518f212654a6ab909d9ea623a1b02770"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/VisibilityV5/run_install.ps1",
+      "bytes": 1817,
+      "sha256": "bb57d01e5829826494f5995298b474a4392a134588b788a467aaf35deaad1446"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/author_model.py",
+      "bytes": 4132,
+      "sha256": "62deb74c55417c377c0d92065326d512e03c3a05bfaebab2b64e65f4266f7210"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/finger_landmarks.py",
+      "bytes": 1903,
+      "sha256": "ca24177db32a737075dd6001b151a202b8a460b9a4c5ca8f3715bf3e1cabb12d"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/install_current_ue.py",
+      "bytes": 374,
+      "sha256": "d8c72e6e7d967c5f047c385de370d02d0c6307233fc8b306dcde93aa326b006d"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/install_rig_ue.py",
+      "bytes": 242,
+      "sha256": "02e12ddad16bdd542d678e4c4b68b85bbecd8ca29583a927ca8c5d25a5d52513"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/install_ue.py",
+      "bytes": 7122,
+      "sha256": "85e0db0ebb489c2a7ef398281f070e6e41378e6065a5427cf341ba38ae6c0e44"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/rig_claw.py",
+      "bytes": 243,
+      "sha256": "42366bcdbae97a5c24f13f8ad355b156e0bccb8a2e77e8264111b1454276c94c"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/run_build.ps1",
+      "bytes": 223,
+      "sha256": "6af4d4c8df9bff3f0cb543376c797bca7050151cf3ed80ab99c46ee8af340a59"
+    },
+    {
+      "path": "SourceAssets/AzureDragon20261004/run_install.ps1",
+      "bytes": 1844,
+      "sha256": "7438dd58544c20a91fcb94c442ac393a5897612b574e315fec08e2463f71bdb9"
+    },
+    {
+      "path": "Tools/Publication/archive_azure_assets_20261005.py",
+      "bytes": 3076,
+      "sha256": "25999f458ab47858e23f81eb6da21c3e953d7991686a7cece1f2e89ade5882eb"
+    },
+    {
+      "path": "Tools/Publication/archive_azure_sources_20261005.ps1",
+      "bytes": 2639,
+      "sha256": "58a85f517d8a0f73a1c6dfc3d5b262d25f97ed5e7e2936e89f74e925853e1f1e"
+    },
+    {
+      "path": "Tools/Publication/read_azure_retirement_refs_20261005.py",
+      "bytes": 1470,
+      "sha256": "769894a862b878b01423ff7d0251560450bae27945bb7629893a48a812bf72c7"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/SKILL.md",
+      "bytes": 18090,
+      "sha256": "64ca75e6f07f50c44cc048a4f102a57d771b081c451a42d61a386a5e2497c55d"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/azure-dragon-pending.md",
+      "bytes": 3046,
+      "sha256": "a3f6a099b3f1349abb18de4d2e6c46627ac3782062bdd0c071934273be8cf434"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/enchantment-scrolls.md",
+      "bytes": 27990,
+      "sha256": "62228630255adbdb07d31a6c09b5f969a72e7e6d6940653e7e102e88cf766b60"
+    }
+  ]
+}

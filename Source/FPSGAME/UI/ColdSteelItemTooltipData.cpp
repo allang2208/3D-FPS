@@ -140,6 +140,20 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             bool ConvergenceShot=false;EE->TryGetBoolField(TEXT("convergenceShot"),ConvergenceShot);
             bool Cowboy=false;EE->TryGetBoolField(TEXT("cowboyReload"),Cowboy);
             bool BigBlind=false;EE->TryGetBoolField(TEXT("bigBlind"),BigBlind);
+            bool AzureDragon=false;EE->TryGetBoolField(TEXT("azureDragonClaw"),AzureDragon);
+            if(AzureDragon)
+            {
+                const auto* DragonRules=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
+                const double Required=FMath::Max(1.,DragonRules?DragonRules->Effect(I,TEXT("azureDragonHitsToSummon"),9.):9.);
+                const double ActiveSeconds=DragonRules?DragonRules->Effect(I,TEXT("azureDragonActiveSeconds"),30.):30.;
+                Row(C,TEXT("苍龙蓄能"),FString::Printf(TEXT("每次攻击有效命中积蓄 %g%%，%.0f 次攻击积满后激活 %.0f 秒；同次攻击只充能一次"),100./Required,Required,ActiveSeconds));
+                Row(C,TEXT("苍龙激活"),TEXT("从下一次出手开始，持续期间每次攻击都生效"));
+                Row(C,TEXT("能量保留"),TEXT("停止攻击保留，切换武器、移除附魔或死亡清空"));
+                Row(C,TEXT("苍龙范围"),FString::Printf(TEXT("攻击距离 +%g%%，沿原挥击方向延伸，保留墙体遮挡"),(Number(EE,TEXT("azureDragonReachMultiplier"),1.5)-1.)*100.));
+                Row(C,TEXT("苍龙物理"),FString::Printf(TEXT("原物理伤害 ×%g；原魔法伤害不变"),Number(EE,TEXT("azureDragonPhysicalMultiplier"),2.)));
+                Row(C,TEXT("苍龙魔法"),FString::Printf(TEXT("另行结算翻倍前角色物理攻击值的 %g%% 魔法伤害，独立计算魔法防御"),Number(EE,TEXT("azureDragonMagicAttackScale"),1.)*100.));
+                Row(C,TEXT("苍龙幻爪"),TEXT("龙爪摆动、逐指抓握与剑击共用时钟；激活时能量条随剩余时间燃烧消耗，不再蓄能或刷新"));
+            }
             if(BigBlind)
             {
                 Row(C,TEXT("赌注触发"),TEXT("附魔手枪命中敌人获得 1 层，暴击这一击新增的层数也计入伤害"),1);

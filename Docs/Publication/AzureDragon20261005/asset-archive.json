@@ -1,0 +1,192 @@
+{
+  "complete": true,
+  "files": [
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV3/Materials/M_AzureDragonEnergyColumn.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV3/Materials/M_AzureDragonEnergyColumn.uasset",
+      "bytes": 12734,
+      "sha256": "42d81cfae3520b5b847e2035bfbce9dca0feadf189f8e4a64c317f92b04b7a4a",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV3/Materials/M_AzureDragonEnergyColumn",
+      "readback_sha256": "42d81cfae3520b5b847e2035bfbce9dca0feadf189f8e4a64c317f92b04b7a4a"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV3/Materials/M_AzureDragonEnergyFlame.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV3/Materials/M_AzureDragonEnergyFlame.uasset",
+      "bytes": 13786,
+      "sha256": "f699d92a9d77941dcd9cc55523f9f32c124ff72dd17ea04ac3139e69f5dfb54b",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV3/Materials/M_AzureDragonEnergyFlame",
+      "readback_sha256": "f699d92a9d77941dcd9cc55523f9f32c124ff72dd17ea04ac3139e69f5dfb54b"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV3/Meshes/SM_AzureDragonEnergyColumn.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV3/Meshes/SM_AzureDragonEnergyColumn.uasset",
+      "bytes": 14276,
+      "sha256": "5fedb62c70d40539395fdc8641bfaf3613937f91b093ab90b1b25c79029c198c",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV3/Meshes/SM_AzureDragonEnergyColumn",
+      "readback_sha256": "5fedb62c70d40539395fdc8641bfaf3613937f91b093ab90b1b25c79029c198c"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV3/Meshes/SM_AzureDragonEnergyFlame.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV3/Meshes/SM_AzureDragonEnergyFlame.uasset",
+      "bytes": 11757,
+      "sha256": "1e74eb7b841c771865103bc8d3ed9eb96e69956ff90977b3e42ec1c746f04335",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV3/Meshes/SM_AzureDragonEnergyFlame",
+      "readback_sha256": "1e74eb7b841c771865103bc8d3ed9eb96e69956ff90977b3e42ec1c746f04335"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyColumn.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyColumn.uasset",
+      "bytes": 17627,
+      "sha256": "15d08d298ea407c6986d8ff66d9f20626132dd3351fa5ca96ae6b62780992737",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyColumn",
+      "readback_sha256": "15d08d298ea407c6986d8ff66d9f20626132dd3351fa5ca96ae6b62780992737"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyCrest.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyCrest.uasset",
+      "bytes": 14682,
+      "sha256": "aaaf6883b1d2d15cabcac57dd905456ad753700ac0eed661df5c19ecd27cca86",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyCrest",
+      "readback_sha256": "aaaf6883b1d2d15cabcac57dd905456ad753700ac0eed661df5c19ecd27cca86"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyFlame.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyFlame.uasset",
+      "bytes": 17914,
+      "sha256": "c741c0198b76fa22a90352b4bc3ab1621c50d166c6ec2fadf70245c756b236aa",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyFlame",
+      "readback_sha256": "c741c0198b76fa22a90352b4bc3ab1621c50d166c6ec2fadf70245c756b236aa"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyHelix.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyHelix.uasset",
+      "bytes": 17398,
+      "sha256": "1ad63470052435ff48cc7a7a243ed90d20204dbb308f0b29c3812f3b26bde1cd",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyHelix",
+      "readback_sha256": "1ad63470052435ff48cc7a7a243ed90d20204dbb308f0b29c3812f3b26bde1cd"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyColumn.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyColumn.uasset",
+      "bytes": 178190,
+      "sha256": "e305d7b578ba2caf2713231f0060a19cc528dc4fb7effe5f8edcb177ab2a7c65",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyColumn",
+      "readback_sha256": "e305d7b578ba2caf2713231f0060a19cc528dc4fb7effe5f8edcb177ab2a7c65"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyCrest.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyCrest.uasset",
+      "bytes": 147470,
+      "sha256": "ab477a091d7c96a5c61f434b195c7b7b27c4a9c4453771b6d27fc9ae94d37e00",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyCrest",
+      "readback_sha256": "ab477a091d7c96a5c61f434b195c7b7b27c4a9c4453771b6d27fc9ae94d37e00"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyFlame.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyFlame.uasset",
+      "bytes": 280355,
+      "sha256": "930962040b2782322c0439d624161ebadc9012188d9621fbbc50858d95b23e36",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyFlame",
+      "readback_sha256": "930962040b2782322c0439d624161ebadc9012188d9621fbbc50858d95b23e36"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyHelix.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyHelix.uasset",
+      "bytes": 125083,
+      "sha256": "085ad7c64896748663bb13917d75e294fc91169b594472fec597571c4c985697",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyHelix",
+      "readback_sha256": "085ad7c64896748663bb13917d75e294fc91169b594472fec597571c4c985697"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Textures/T_AzureDragonApprovedReference.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Textures/T_AzureDragonApprovedReference.uasset",
+      "bytes": 2781271,
+      "sha256": "e961e1c8c00cd1f593d2fe1e77a36a3150c703cb7dadc6e81a7e5ae002ce767a",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Textures/T_AzureDragonApprovedReference",
+      "readback_sha256": "e961e1c8c00cd1f593d2fe1e77a36a3150c703cb7dadc6e81a7e5ae002ce767a"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/Meshes/SM_AzureDragonClaw.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/Meshes/SM_AzureDragonClaw.uasset",
+      "bytes": 89846,
+      "sha256": "530a2c288f8cbd926d74bf9693632f12845b6642e3beed301132bb2a97604d06",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/Meshes/SM_AzureDragonClaw",
+      "readback_sha256": "530a2c288f8cbd926d74bf9693632f12845b6642e3beed301132bb2a97604d06"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/RigV2/Animations/A_AzureDragonClaw_Grab.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/RigV2/Animations/A_AzureDragonClaw_Grab.uasset",
+      "bytes": 54360,
+      "sha256": "9b342ed9ef04489fce02d17f885aa21aaaee54b2f97f1a1bdefcf9dcc6a6fb0b",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/RigV2/Animations/A_AzureDragonClaw_Grab",
+      "readback_sha256": "9b342ed9ef04489fce02d17f885aa21aaaee54b2f97f1a1bdefcf9dcc6a6fb0b"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/RigV2/Meshes/SK_AzureDragonClaw.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/RigV2/Meshes/SK_AzureDragonClaw.uasset",
+      "bytes": 404328,
+      "sha256": "62e97e2815edcd7196b8120de627f6510795334784932aa739816e578dbc2261",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/RigV2/Meshes/SK_AzureDragonClaw",
+      "readback_sha256": "62e97e2815edcd7196b8120de627f6510795334784932aa739816e578dbc2261"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/RigV2/Meshes/SK_AzureDragonClaw_Skeleton.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/RigV2/Meshes/SK_AzureDragonClaw_Skeleton.uasset",
+      "bytes": 5538,
+      "sha256": "038ff0678fd14687926331eb6bb68457320d42e14b14f4b4f4a4f61858ff0a76",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/RigV2/Meshes/SK_AzureDragonClaw_Skeleton",
+      "readback_sha256": "038ff0678fd14687926331eb6bb68457320d42e14b14f4b4f4a4f61858ff0a76"
+    }
+  ]
+}

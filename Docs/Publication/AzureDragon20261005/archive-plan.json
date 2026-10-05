@@ -1,0 +1,1077 @@
+{
+  "task": "Azure Dragon rejected visuals publication 20261005",
+  "active_status": "rejected-pending-rework",
+  "archive_root": "trash/azure-dragon-retired-20261005",
+  "files": [
+    {
+      "source": "SourceAssets/AzureDragon20261004/RigV2/AzureDragonClaw_Rigged.blend",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/RigV2/AzureDragonClaw_Rigged.blend",
+      "bytes": 181583,
+      "sha256": "2516eff8d6798d5ada316ff5e821aff98b8f6d83d368cbc0feb48768fe23da12",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/RigV2/Export/A_AzureDragonClaw_Grab.fbx",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/RigV2/Export/A_AzureDragonClaw_Grab.fbx",
+      "bytes": 262572,
+      "sha256": "41cf5683510612454bcf4226e3c732d6fd104370d96e028ecd158635f5d382d6",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/RigV2/Export/rig.json",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/RigV2/Export/rig.json",
+      "bytes": 2662,
+      "sha256": "c89ea4e172dbb3aabf13e446c4eed573898275e91f5a6353e039f59dac5a08b7",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/RigV2/Export/SK_AzureDragonClaw.fbx",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/RigV2/Export/SK_AzureDragonClaw.fbx",
+      "bytes": 127948,
+      "sha256": "d49d680cc51dc2e393f589294ff51c10a7fbc35c739125b40d86282ebf90ed5d",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/RigV2/install-receipt.json",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/RigV2/install-receipt.json",
+      "bytes": 733,
+      "sha256": "137fd4906a7f1a4b5d21cb2fc0acd362622f18c76320a92cc8a870676b13788a",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/author-model.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/author-model.log",
+      "bytes": 1174,
+      "sha256": "89993accd414534d28c846cad0d36e7b498a92f7915504a7c4153975ee637a90",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/author_model.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/author_model.py",
+      "bytes": 2755,
+      "sha256": "bb068f7e9656a50b83f244b5bcacfa7d58ee0f989ac0c0ba9fa70e20e871eccb",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/AzureDragonEnergy.blend",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/AzureDragonEnergy.blend",
+      "bytes": 98765,
+      "sha256": "2f3ebbc089829d5fcbaf152a9cfa6ef5a8810a452b072553e1681529dbd72920",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/EnergyColumn.hlsl",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/EnergyColumn.hlsl",
+      "bytes": 1455,
+      "sha256": "771a70b25e21dc6131054013c367016fb84f2048bdc7efab16436f83a5a2deb2",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/EnergyFlame.hlsl",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/EnergyFlame.hlsl",
+      "bytes": 2470,
+      "sha256": "e54e37e386f2813aab89e33398e6c4c88ae3a0bee12bfa05c30e886d2b6792af",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/Export/meshes.json",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/Export/meshes.json",
+      "bytes": 345,
+      "sha256": "29fbdc929f607a653dfcd27edde34e711eb2e15ffb7e318fc06c23c1a1a7f241",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/Export/SM_AzureDragonEnergyColumn.fbx",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/Export/SM_AzureDragonEnergyColumn.fbx",
+      "bytes": 17084,
+      "sha256": "fb366248ed0241082914246f422edb5e5642033ffe83a7db29e0e6a57540df2d",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/Export/SM_AzureDragonEnergyFlame.fbx",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/Export/SM_AzureDragonEnergyFlame.fbx",
+      "bytes": 15244,
+      "sha256": "16f1a0da2ad1349aebba7288dcea5bd51f2ec81afb3e4cb71d637b66e748d19d",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/install-20261004-201717-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/install-20261004-201717-commandlet.log",
+      "bytes": 314347,
+      "sha256": "c4032eab014c5eb3cb9cd58122e87b21bedb9198f69b7088331691ec5d85d0f7",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/install-20261004-201717-console.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/install-20261004-201717-console.log",
+      "bytes": 49461,
+      "sha256": "a6fbb7c3d9d88a15de039ecd06733f0dbb2252391ff97b8329d2c70c6f0d7c83",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/install-receipt.json",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/install-receipt.json",
+      "bytes": 564,
+      "sha256": "63fc386de7b0fffea34f908cc0c29591df7d02aeb0650b196f04e075f53b1450",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/install_ue.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/install_ue.py",
+      "bytes": 5892,
+      "sha256": "7ac8700d067db3a3f0726e0777a1fb265720dc4faa8d1ce5f892871c839f61b0",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/README.md",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/README.md",
+      "bytes": 1669,
+      "sha256": "b6613e112067ceb22e7456f3f30725c76f5f73ab8a1f3a21fb66def43b4074e2",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/run_build.ps1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/run_build.ps1",
+      "bytes": 336,
+      "sha256": "dd2011ea5aea89b391b5a9636d05709f87284a3e6e009edd8804005bbc9e2b3c",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV3/run_install.ps1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV3/run_install.ps1",
+      "bytes": 1805,
+      "sha256": "0de8230ccc6589fe398453316105725fa87ab3dbbea9050f149b110d77c67aa2",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/author-console.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/author-console.log",
+      "bytes": 1245,
+      "sha256": "0ba2b7b10d0ebce08e0bd5cb52d2c2af1874d4ffd06fdfbe9006a546cda2be6a",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/author_reference_model.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/author_reference_model.py",
+      "bytes": 4968,
+      "sha256": "a481308b7971de4ac8fe91bf350b9579ff49989fb80af4ddb16e8afc955eda79",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/AzureDragonReferenceV7.blend",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/AzureDragonReferenceV7.blend",
+      "bytes": 1091822,
+      "sha256": "9ff59202146a625da19ba0f1c4d45f2499a771ce4169bebcae09510152775265",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/AzureDragonReferenceV7.blend1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/AzureDragonReferenceV7.blend1",
+      "bytes": 1194525,
+      "sha256": "15c28c5f05098287d6fdbf2cda3364d9d605a84ef0ada26ae073092feefb953b",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/CounterOrbit.hlsl",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/CounterOrbit.hlsl",
+      "bytes": 302,
+      "sha256": "315a368a08bc54284c39c35d8ca7149da443b49bffb3b206dcf5219ef81687f3",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/editor-state-20261005-a.txt",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/editor-state-20261005-a.txt",
+      "bytes": 561,
+      "sha256": "3f3cc29a8ee00d7653f502069da24972c4e743b5c4ddb1a9d77551e33b51e304",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/editor_state.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/editor_state.py",
+      "bytes": 122,
+      "sha256": "c2f7f04d7a9821bdb84d9b0472472e8e0a11093426947cfbf94fd88b6ce24d30",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/Export/meshes.json",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/Export/meshes.json",
+      "bytes": 888,
+      "sha256": "c19bcd70a55393bf5d976317135c14a94c40fbecf698e80a41099ef3ff13fdbc",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/Export/SM_AzureDragonEnergyColumn.fbx",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/Export/SM_AzureDragonEnergyColumn.fbx",
+      "bytes": 217612,
+      "sha256": "18aae04a75cf2dcb55ed492250d72b7147a8a3be9ff146d847b7cf08b0dca675",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/Export/SM_AzureDragonEnergyCrest.fbx",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/Export/SM_AzureDragonEnergyCrest.fbx",
+      "bytes": 167068,
+      "sha256": "94fa713d86dd01f2e4121891fa451735297a2328c28ae9f7233b0cb2b47372ef",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/Export/SM_AzureDragonEnergyFlame.fbx",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/Export/SM_AzureDragonEnergyFlame.fbx",
+      "bytes": 347484,
+      "sha256": "bd60af52feecae3b219e9987d8f72de4e373845ac9a08a68719782693130a822",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/Export/SM_AzureDragonEnergyHelix.fbx",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/Export/SM_AzureDragonEnergyHelix.fbx",
+      "bytes": 128076,
+      "sha256": "2262043c639317cd9a730aa24e7a23a2c46e7f84cc93ae86475e90c8790a3a3e",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/Export/source-map.json",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/Export/source-map.json",
+      "bytes": 457,
+      "sha256": "600f2cf723ef865152ff08e2c9676fce25a5c731b804d6a793f81605f08ea7fe",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/install-20261005-191020-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/install-20261005-191020-bridge.txt",
+      "bytes": 1111,
+      "sha256": "8b443509f6f665504c1db8418e27b58d6fe9ed9320f6dd64418bf95d8de96cb9",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/install-20261005-191444-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/install-20261005-191444-commandlet.log",
+      "bytes": 336398,
+      "sha256": "774cdefc289ec5de4fa1394a85058eed95b8afafaf5016dfed59b1cef2790a2f",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/install-20261005-191444-console.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/install-20261005-191444-console.log",
+      "bytes": 64615,
+      "sha256": "a2ad5e5ee394ac8bdb9cab9633e0bbeb11970d30aa98e0206012e387034808aa",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/install-receipt.json",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/install-receipt.json",
+      "bytes": 1303,
+      "sha256": "286ef7e89dcb5c52dd1b8238c92a360adce7b4f3a7d31835f1b2f8d32bf42d09",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/install_ue.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/install_ue.py",
+      "bytes": 10015,
+      "sha256": "76b6128c9febb424996ffd0472d3396b68ac58f26d824678b85a104a0e27b40d",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/Preview/model-three-charge-states.png",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/Preview/model-three-charge-states.png",
+      "bytes": 1745218,
+      "sha256": "890ec572dbb27a444f1d4b76576f6eb14b0481d2f2a549ec1e00158aff91cf43",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/Preview/preview-receipt.json",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/Preview/preview-receipt.json",
+      "bytes": 251,
+      "sha256": "d1e830bc63dc81c7b36f7cd457cbf816c2c1fffa3b7f852c39913f5de0930325",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/Preview/reference-vs-model.png",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/Preview/reference-vs-model.png",
+      "bytes": 1224802,
+      "sha256": "16773a5cc1b420b21d0865feca2b6a0ead2f379e84d3da97dacd63a3551a6cc6",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/preview-console.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/preview-console.log",
+      "bytes": 1170,
+      "sha256": "d13fc2dc13041612b89dab93ab03a6011c3a451d9f978fd0887bbae58e1c1c75",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/README.md",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/README.md",
+      "bytes": 1796,
+      "sha256": "f0a1bcbad0f89878c14dc8db692ac71f92a75b7602d8986a8eac28cac12084c0",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/ReferenceEnergy.hlsl",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/ReferenceEnergy.hlsl",
+      "bytes": 1545,
+      "sha256": "94b613dcfec31724960233e5d9eab0906ed553d88a560160f34e56b64ed68a61",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/render_model_preview.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/render_model_preview.py",
+      "bytes": 7462,
+      "sha256": "54db807c7e619cbe6b42f4b90e22f9734c4d5d6db1261370f7ab696c8364d6f0",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/run_author.ps1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/run_author.ps1",
+      "bytes": 428,
+      "sha256": "7d834f3aeca9b4c5afced082dc8ab2f7296d58fe76978973c1562af7ff7c4bcd",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ReferenceV7/run_install.ps1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/ReferenceV7/run_install.ps1",
+      "bytes": 1816,
+      "sha256": "9af0b089c2d07545a14ea4bf1fea51e5d67a617146ea128917712b248eac782c",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CombatV4/check_imported_gesture.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/CombatV4/check_imported_gesture.py",
+      "bytes": 2125,
+      "sha256": "4bdd17fe4015d421e55360ea579353937e6a307d38acda6cdd554833c0ef1c94",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CombatV4/check_strike_clock.cpp",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/CombatV4/check_strike_clock.cpp",
+      "bytes": 2073,
+      "sha256": "bc3c325f46ad27a36c1cc643762551483ba3ef865fcc7e3ef43ea803db0817c9",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CombatV4/imported-gesture-check.json",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/CombatV4/imported-gesture-check.json",
+      "bytes": 10645,
+      "sha256": "189e1faae9e1485208b9e9f8d9bee7f95c35a9b02b52025bfb8edaa76ed665fa",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CombatV4/README.md",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/CombatV4/README.md",
+      "bytes": 1285,
+      "sha256": "077e9574a53ee2b5b2b24b7f3238c3b963570cb9d42adbd66ec5ccd87faf1d87",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CombatV4/run_build.ps1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/CombatV4/run_build.ps1",
+      "bytes": 2251,
+      "sha256": "b992381deb4e8b007d3fd246aa3a006baaa3858e960bde274b8f7a130c423827",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CombatV4/run_clock_check.cmd",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/CombatV4/run_clock_check.cmd",
+      "bytes": 466,
+      "sha256": "98671780750f332ede087b5bbb27e03b0582031a8bfbdc5c3b1726ae328624ae",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/DualClawV8/README.md",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/DualClawV8/README.md",
+      "bytes": 1596,
+      "sha256": "eb45932d9739e74f517d4e3e34e3e636483361ea106f4f2af2bc435f8a12e2de",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/DualClawV8/run_build.ps1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/DualClawV8/run_build.ps1",
+      "bytes": 2639,
+      "sha256": "3860acf4f198590b47e5708b0d9a5b2de13c41bf6d655b7c28050269f07a81ed",
+      "kind": "source",
+      "reason": "Superseded visual/rig, old checks, or obsolete authoring/build entrypoint",
+      "retained_replacement": "SourceAssets/AzureDragon20261004/CoherentV9 (active but rejected; pending rework)"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/author-console.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/author-console.log",
+      "bytes": 1236,
+      "sha256": "ec526db35383afda7f35c4becc9a4c5fae5516deac972098b86dc3bcdfbe3cd1",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/author_model.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/author_model.py",
+      "bytes": 247,
+      "sha256": "995ec2d3ebc7308bab4b6279b0178a4235ca63b278cfb327eb4428e9af89f225",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/author_model_v6_legacy.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/author_model_v6_legacy.py",
+      "bytes": 9065,
+      "sha256": "2985a2cc6da895cd712c827d5c932ed68d2f14fc159ee3ad16a468e62bf707c7",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/AzureDragonEnergyV6.blend",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/AzureDragonEnergyV6.blend",
+      "bytes": 292983,
+      "sha256": "1a6aba94eed51c2f6ba7c293658c7292217e567fcc5fd8794e845cc9009d06bc",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/EnergyColumn.hlsl",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/EnergyColumn.hlsl",
+      "bytes": 1740,
+      "sha256": "8ee78165706125f112a869efd1ee6ac189b003583b0b9151b23b61eb41d06a67",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/EnergyCrest.hlsl",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/EnergyCrest.hlsl",
+      "bytes": 632,
+      "sha256": "4d5c2b4d004110945977f2b57639b7b118f5188ec6c851b5837179eaff8a2cb1",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/EnergyFlame.hlsl",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/EnergyFlame.hlsl",
+      "bytes": 3083,
+      "sha256": "ff6a9ae597f962f4f2e1abb0eb9c242846f09d38fe3219c0fde7482d67eb7c92",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/EnergyHelix.hlsl",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/EnergyHelix.hlsl",
+      "bytes": 523,
+      "sha256": "67dd7516abf7992c2d32ff7fd0ad63a7f2529dc052a889a6f0237758f5a1a5de",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/Export/meshes.json",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/Export/meshes.json",
+      "bytes": 776,
+      "sha256": "bd63dd2c8741746fbab32e68a474402c9513bee008917564ad487dd7e091e7fd",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/Export/SM_AzureDragonEnergyColumn.fbx",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/Export/SM_AzureDragonEnergyColumn.fbx",
+      "bytes": 16716,
+      "sha256": "620a4a034211aebdf9e744e971458df09f6b12bec4e52f883950bace392d7d70",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/Export/SM_AzureDragonEnergyCrest.fbx",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/Export/SM_AzureDragonEnergyCrest.fbx",
+      "bytes": 163868,
+      "sha256": "aa25f5e14820b2a4517e0587534d0bdede1e73d62586d6162169563d547cd70a",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/Export/SM_AzureDragonEnergyFlame.fbx",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/Export/SM_AzureDragonEnergyFlame.fbx",
+      "bytes": 15244,
+      "sha256": "950cc045cb2e0815015f0a47a91ee57820cf0d5f0627a40868b3ad2e6141a956",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/Export/SM_AzureDragonEnergyHelix.fbx",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/Export/SM_AzureDragonEnergyHelix.fbx",
+      "bytes": 109612,
+      "sha256": "20ede4a0c8ac6fe0e6e7a03210edd792f7f8630e70f7e80efa672d77c6b57d23",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/finish_pending.ps1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/finish_pending.ps1",
+      "bytes": 1845,
+      "sha256": "431c2e394f78d6c1d2360e128cb9bfe1988d627912500addf1f09255a29fb288",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/finish_pending_ue.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/finish_pending_ue.py",
+      "bytes": 268,
+      "sha256": "7e22dfc99e76bfb3246c9d893cfdd785238b7a318f2ead61f851ecb4458e66d2",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/flame-repair-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/flame-repair-bridge.txt",
+      "bytes": 458,
+      "sha256": "4bb39e77f0c73ffc295025a86a99753db1ecbdd3f1df805ea9f39e4350950df3",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/install-20261005-180651-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/install-20261005-180651-bridge.txt",
+      "bytes": 1976,
+      "sha256": "a5372f12ec3f5156716c1c92215fbc7ed1c251225404bb47fe3561563bb518b5",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/install-20261005-181051-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/install-20261005-181051-commandlet.log",
+      "bytes": 305819,
+      "sha256": "d244f49cc714d2f143df9fb2996788eb5d94b426ca9d9d5b40f0d78a9e9c8d34",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/install-20261005-181051-console.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/install-20261005-181051-console.log",
+      "bytes": 44835,
+      "sha256": "8941982c79fedb9a93807fdbb9c91071febd871b82218fad2af34345e164ae56",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/install-20261005-181358-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/install-20261005-181358-commandlet.log",
+      "bytes": 331153,
+      "sha256": "af8de3c365320a9f88d424515064dc251a21cf452fed8fd8cf09312fde86213f",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/install-20261005-181358-console.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/install-20261005-181358-console.log",
+      "bytes": 61194,
+      "sha256": "77f3138588fce18a705260e3d79e5b0f8b1754bfe5b23f31b3a25623731f3680",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/install-receipt.json",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/install-receipt.json",
+      "bytes": 1006,
+      "sha256": "801a817ea84928a4c9372021b6f86c4aaea5c7d9df40282f9514a98df8d0d102",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/install_ue.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/install_ue.py",
+      "bytes": 238,
+      "sha256": "aa59a9b3bc80e85622329eb151277d8edc631c900a548b7942707bcf795bcd17",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/install_ue_v6_legacy.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/install_ue_v6_legacy.py",
+      "bytes": 6373,
+      "sha256": "bed849e0b36c38989d4378bc6d6af40a1c6ff83ec76fac81a9192160596d50d8",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/README.md",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/README.md",
+      "bytes": 1790,
+      "sha256": "463921b31b104192bf122d1a153335b613b3d37d24cd2f90e9acf6f9895c3e29",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/repair_authored_flame_ue.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/repair_authored_flame_ue.py",
+      "bytes": 1206,
+      "sha256": "62912c6b252da00f41558933468fec613ba68294eb949a1c0c9864c32f481d48",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/run_author.ps1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/run_author.ps1",
+      "bytes": 275,
+      "sha256": "9cbcb7db7420173605a83eecec7a968052585ae881ee5e3fe24a84f405c8d261",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/run_build.ps1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/run_build.ps1",
+      "bytes": 2300,
+      "sha256": "be06c2b57ddcff8a649b55236d90bc80f71e423b4e0c58f05ecde726ac399728",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/EnergyV6/run_install.ps1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/EnergyV6/run_install.ps1",
+      "bytes": 1847,
+      "sha256": "3f5651e078c479ae663552b405c06ab834ff356f58cb81bb4992e5006d8134a1",
+      "kind": "source",
+      "reason": "Rejected V6 approximation or superseded V7 restore/repair output",
+      "retained_replacement": "CoherentV9 pending source; retained References/approved energy image"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/rig_claw.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/rig_claw.py",
+      "bytes": 6769,
+      "sha256": "d235e562db6f7dfe61e659fdbae82336006cd89dcbe2bd59abec493594f28c44",
+      "kind": "source",
+      "reason": "Retired implementation of the entrypoint; new wrappers or dependency-only recipe replace it",
+      "retained_replacement": "Same entrypoint path after this archive, forwarding to retained CoherentV9 or shared-surface recovery"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/install_rig_ue.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/install_rig_ue.py",
+      "bytes": 4918,
+      "sha256": "d5d6700eff3b28bcc02e1947643b35d25bc372adec3a41cb8aad6df0024e7d73",
+      "kind": "source",
+      "reason": "Retired implementation of the entrypoint; new wrappers or dependency-only recipe replace it",
+      "retained_replacement": "Same entrypoint path after this archive, forwarding to retained CoherentV9 or shared-surface recovery"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/install_ue.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/install_ue.py",
+      "bytes": 9075,
+      "sha256": "68a9cd4dc60ecd39b0a26595c353a1aa33ef555a31c6c28f6ffd1f7933c26c57",
+      "kind": "source",
+      "reason": "Retired implementation of the entrypoint; new wrappers or dependency-only recipe replace it",
+      "retained_replacement": "Same entrypoint path after this archive, forwarding to retained CoherentV9 or shared-surface recovery"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/author_model.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/author_model.py",
+      "bytes": 4457,
+      "sha256": "675ebdcba33153dd23a14a83b9d6d25e322117d93f70a91521e580def4806bd0",
+      "kind": "source",
+      "reason": "Retired implementation of the entrypoint; new wrappers or dependency-only recipe replace it",
+      "retained_replacement": "Same entrypoint path after this archive, forwarding to retained CoherentV9 or shared-surface recovery"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/run_build.ps1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/run_build.ps1",
+      "bytes": 333,
+      "sha256": "d763c7934a0dceb2c6d693ea961ab2dd39227957c05bae47852035c00bbebb4e",
+      "kind": "source",
+      "reason": "Retired implementation of the entrypoint; new wrappers or dependency-only recipe replace it",
+      "retained_replacement": "Same entrypoint path after this archive, forwarding to retained CoherentV9 or shared-surface recovery"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/run_install.ps1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/run_install.ps1",
+      "bytes": 1795,
+      "sha256": "89bb04ff3ae8a0537ef4a76311add7c7bb60736a7e5c0c9088f071d5d66eb039",
+      "kind": "source",
+      "reason": "Retired implementation of the entrypoint; new wrappers or dependency-only recipe replace it",
+      "retained_replacement": "Same entrypoint path after this archive, forwarding to retained CoherentV9 or shared-surface recovery"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/author-model.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/author-model.log",
+      "bytes": 1669,
+      "sha256": "05eb83176dc4f1be187881499e0084ef64f731c82c64c6d55206e6ff81a1be70",
+      "kind": "source",
+      "reason": "Historical scratch transport/author logs",
+      "retained_replacement": "Current V9 receipts retained locally"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/install-20261004-180948-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/install-20261004-180948-commandlet.log",
+      "bytes": 311296,
+      "sha256": "b2e9430d0cdda4ae69039853167b40766d4a6b460351a78d9cca7d589aaf289a",
+      "kind": "source",
+      "reason": "Historical scratch transport/author logs",
+      "retained_replacement": "Current V9 receipts retained locally"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/install-20261004-180948-console.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/install-20261004-180948-console.log",
+      "bytes": 47892,
+      "sha256": "c3a0b4df8c82199cb10405e203d1f1f768950839e0defed47e524f6da3a7285e",
+      "kind": "source",
+      "reason": "Historical scratch transport/author logs",
+      "retained_replacement": "Current V9 receipts retained locally"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/install-20261004-181551-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/install-20261004-181551-commandlet.log",
+      "bytes": 319078,
+      "sha256": "51ea0dbdbcc975b4cff04f6a5a3f465b3208a789f31d3fb624a6a0320ac12653",
+      "kind": "source",
+      "reason": "Historical scratch transport/author logs",
+      "retained_replacement": "Current V9 receipts retained locally"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/install-20261004-181551-console.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/install-20261004-181551-console.log",
+      "bytes": 49528,
+      "sha256": "9c5557282e67f9f87847cb76ad72807beeb6dd3926366c3d8e619e8510bb348b",
+      "kind": "source",
+      "reason": "Historical scratch transport/author logs",
+      "retained_replacement": "Current V9 receipts retained locally"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/rig-model.log",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/rig-model.log",
+      "bytes": 967,
+      "sha256": "758beaa5cddcc40523bb7c01ddf42165c02145a1d11abe99d02711dc791403d6",
+      "kind": "source",
+      "reason": "Historical scratch transport/author logs",
+      "retained_replacement": "Current V9 receipts retained locally"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/VisibilityV5/install_ue.py",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/VisibilityV5/install_ue.py",
+      "bytes": 2852,
+      "sha256": "097905b7575b990767e0e22c56a981dcd555d631a33cac0f112fc46a24dbc8f0",
+      "kind": "source",
+      "reason": "Old V5 recipe also touches now-retired EnergyV3 or uses an obsolete build output",
+      "retained_replacement": "VisibilityV5 claw-only material patch; CoherentV9 build wrapper"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/VisibilityV5/run_build.ps1",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/VisibilityV5/run_build.ps1",
+      "bytes": 2288,
+      "sha256": "4647d7f507635fdb05730e526bef77ad0b0489577cf52a4c55b855c65bd9fc4a",
+      "kind": "source",
+      "reason": "Old V5 recipe also touches now-retired EnergyV3 or uses an obsolete build output",
+      "retained_replacement": "VisibilityV5 claw-only material patch; CoherentV9 build wrapper"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/Export/SM_AzureDragonClaw.fbx",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/Export/SM_AzureDragonClaw.fbx",
+      "bytes": 86012,
+      "sha256": "8ac059aa3933970650ab0473cd9af9d53dfabbbf4f0cfa596e951c128695c438",
+      "kind": "source",
+      "reason": "Static unrigged prototype export superseded by the current skinned model",
+      "retained_replacement": "CoherentV9/Export/SK_AzureDragonClaw_RakeV9.fbx; original adaptation Blend and normal atlas retained"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/Export/model.json",
+      "destination": "trash/azure-dragon-retired-20261005/SourceAssets/AzureDragon20261004/Export/model.json",
+      "bytes": 532,
+      "sha256": "c7e8815aa0dab9d10358d5eca258ef700b20c92c33017ed87d22a27fa28efef6",
+      "kind": "source",
+      "reason": "Static unrigged prototype export superseded by the current skinned model",
+      "retained_replacement": "CoherentV9/Export/SK_AzureDragonClaw_RakeV9.fbx; original adaptation Blend and normal atlas retained"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV3/Materials/M_AzureDragonEnergyColumn.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV3/Materials/M_AzureDragonEnergyColumn.uasset",
+      "bytes": 12734,
+      "sha256": "42d81cfae3520b5b847e2035bfbce9dca0feadf189f8e4a64c317f92b04b7a4a",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV3/Materials/M_AzureDragonEnergyColumn"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV3/Materials/M_AzureDragonEnergyFlame.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV3/Materials/M_AzureDragonEnergyFlame.uasset",
+      "bytes": 13786,
+      "sha256": "f699d92a9d77941dcd9cc55523f9f32c124ff72dd17ea04ac3139e69f5dfb54b",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV3/Materials/M_AzureDragonEnergyFlame"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV3/Meshes/SM_AzureDragonEnergyColumn.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV3/Meshes/SM_AzureDragonEnergyColumn.uasset",
+      "bytes": 14276,
+      "sha256": "5fedb62c70d40539395fdc8641bfaf3613937f91b093ab90b1b25c79029c198c",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV3/Meshes/SM_AzureDragonEnergyColumn"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV3/Meshes/SM_AzureDragonEnergyFlame.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV3/Meshes/SM_AzureDragonEnergyFlame.uasset",
+      "bytes": 11757,
+      "sha256": "1e74eb7b841c771865103bc8d3ed9eb96e69956ff90977b3e42ec1c746f04335",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV3/Meshes/SM_AzureDragonEnergyFlame"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyColumn.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyColumn.uasset",
+      "bytes": 17627,
+      "sha256": "15d08d298ea407c6986d8ff66d9f20626132dd3351fa5ca96ae6b62780992737",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyColumn"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyCrest.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyCrest.uasset",
+      "bytes": 14682,
+      "sha256": "aaaf6883b1d2d15cabcac57dd905456ad753700ac0eed661df5c19ecd27cca86",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyCrest"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyFlame.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyFlame.uasset",
+      "bytes": 17914,
+      "sha256": "c741c0198b76fa22a90352b4bc3ab1621c50d166c6ec2fadf70245c756b236aa",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyFlame"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyHelix.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyHelix.uasset",
+      "bytes": 17398,
+      "sha256": "1ad63470052435ff48cc7a7a243ed90d20204dbb308f0b29c3812f3b26bde1cd",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Materials/M_AzureDragonEnergyHelix"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyColumn.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyColumn.uasset",
+      "bytes": 178190,
+      "sha256": "e305d7b578ba2caf2713231f0060a19cc528dc4fb7effe5f8edcb177ab2a7c65",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyColumn"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyCrest.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyCrest.uasset",
+      "bytes": 147470,
+      "sha256": "ab477a091d7c96a5c61f434b195c7b7b27c4a9c4453771b6d27fc9ae94d37e00",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyCrest"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyFlame.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyFlame.uasset",
+      "bytes": 280355,
+      "sha256": "930962040b2782322c0439d624161ebadc9012188d9621fbbc50858d95b23e36",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyFlame"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyHelix.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyHelix.uasset",
+      "bytes": 125083,
+      "sha256": "085ad7c64896748663bb13917d75e294fc91169b594472fec597571c4c985697",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Meshes/SM_AzureDragonEnergyHelix"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/EnergyV6/Textures/T_AzureDragonApprovedReference.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/EnergyV6/Textures/T_AzureDragonApprovedReference.uasset",
+      "bytes": 2781271,
+      "sha256": "e961e1c8c00cd1f593d2fe1e77a36a3150c703cb7dadc6e81a7e5ae002ce767a",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/EnergyV6/Textures/T_AzureDragonApprovedReference"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/Meshes/SM_AzureDragonClaw.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/Meshes/SM_AzureDragonClaw.uasset",
+      "bytes": 89846,
+      "sha256": "530a2c288f8cbd926d74bf9693632f12845b6642e3beed301132bb2a97604d06",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/Meshes/SM_AzureDragonClaw"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/RigV2/Animations/A_AzureDragonClaw_Grab.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/RigV2/Animations/A_AzureDragonClaw_Grab.uasset",
+      "bytes": 54360,
+      "sha256": "9b342ed9ef04489fce02d17f885aa21aaaee54b2f97f1a1bdefcf9dcc6a6fb0b",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/RigV2/Animations/A_AzureDragonClaw_Grab"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/RigV2/Meshes/SK_AzureDragonClaw.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/RigV2/Meshes/SK_AzureDragonClaw.uasset",
+      "bytes": 404328,
+      "sha256": "62e97e2815edcd7196b8120de627f6510795334784932aa739816e578dbc2261",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/RigV2/Meshes/SK_AzureDragonClaw"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/RigV2/Meshes/SK_AzureDragonClaw_Skeleton.uasset",
+      "destination": "trash/azure-dragon-retired-20261005/Content/Weapons/AzureDragon20261004/RigV2/Meshes/SK_AzureDragonClaw_Skeleton.uasset",
+      "bytes": 5538,
+      "sha256": "038ff0678fd14687926331eb6bb68457320d42e14b14f4b4f4a4f61858ff0a76",
+      "kind": "asset",
+      "reason": "Retired package with no referencers outside the planned retirement set",
+      "retained_replacement": "/Game/Weapons/AzureDragon20261004/CoherentV9; shared Materials/Textures retained",
+      "package": "/Game/Weapons/AzureDragon20261004/RigV2/Meshes/SK_AzureDragonClaw_Skeleton"
+    }
+  ]
+}

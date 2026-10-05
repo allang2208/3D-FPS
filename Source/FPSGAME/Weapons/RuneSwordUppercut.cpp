@@ -83,6 +83,7 @@ bool URuneSwordComponent::BeginUppercut()
     bSwingCooldownReduced=false;SwingWaveRange=SwingWaveScale=0.f;
     SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison;
     SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
+    CaptureAzureDragonAttack(Profile);
     SwingSkills.bRifle=SwingSkills.bPistol=false;SwingSkills.WeakpointPercent=0.f;
     SwingSkills.AttackMeta=SwordUppercut::AttackMeta;
     UTangDaoGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
@@ -159,8 +160,8 @@ void URuneSwordComponent::TickUppercut(float Delta)
             SweepBlade(Previous,Current);Previous=Current;
         }
         if(HitActors.IsEmpty())ApplySwingHits(MeleeSmallTargets::QueryLowSector(
-            GetWorld(),Character.Get(),EndFrame,SwingReach,HitActors,false,30.f,
-            bUppercut?UppercutLowReachCM:MeleeSmallTargets::LowReachCM),EndFrame.GetUnitAxis(EAxis::X));
+            GetWorld(),Character.Get(),EndFrame,AzureDragonRange(SwingReach),HitActors,false,30.f,
+            AzureDragonRange(bUppercut?UppercutLowReachCM:MeleeSmallTargets::LowReachCM)),EndFrame.GetUnitAxis(EAxis::X));
     }
     SamplePose(Next);PreviousAimFrame=AimNow;Elapsed=Next;
     if(Next>=ContactEnd)FinishHeavyTraining();

@@ -163,6 +163,8 @@ struct FColdSteelSkillShot
     uint32 GuardAttackSerial=0;
     FString GuardSourceInstance;
     float QuickCombatRuneVulnerability=0, QuickCombatRuneVulnerabilitySeconds=0;
+    /** Azure Dragon: direct sword contact only; a second point-damage transaction. */
+    float AzureDragonPhysicalMultiplier=1.f,AzureDragonMagicDamage=0.f;
 };
 
 struct FColdSteelProgressNotice

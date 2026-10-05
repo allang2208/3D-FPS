@@ -2399,3 +2399,16 @@ __pycache__/
 !/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV10/Shaders/*.hlsl
 /SourceAssets/MonsterSoftCorpse20261005/**
 !/SourceAssets/MonsterSoftCorpse20261005/README.md
+
+# Azure Dragon pending rework: only authored recipes/prose/HLSL are public.
+# Licensed Fab/Epic inputs, dense rig data, media, exports and receipts stay local.
+/SourceAssets/AzureDragon20261004/**
+!/SourceAssets/AzureDragon20261004/**/
+!/SourceAssets/AzureDragon20261004/**/*.py
+!/SourceAssets/AzureDragon20261004/**/*.ps1
+!/SourceAssets/AzureDragon20261004/**/*.md
+!/SourceAssets/AzureDragon20261004/**/*.hlsl
+/SourceAssets/AzureDragon20261004/Original/
+/SourceAssets/AzureDragon20261004/References/
+/SourceAssets/AzureDragon20261004/Export/
+/SourceAssets/AzureDragon20261004/CoherentV9/Export/

@@ -44,6 +44,7 @@
 #include "Sound/SoundBase.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Materials/MaterialInterface.h"
+#include "Misc/ScopeExit.h"
 
 URuneSwordComponent::URuneSwordComponent()
 {
@@ -132,6 +133,7 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     if(!Profile || !Viewmodel)return;
     const auto* Item=Profile->Equipped();
     const FString NewId=Item && !Profile->ActiveProductionTool() && ColdSteelInventory::IsTwoHandedSword(*Item) ? Item->InstanceId : FString();
+    RefreshAzureDragon(NewId.IsEmpty()?nullptr:Item,Profile);
     if(!NewId.IsEmpty())
     {
         const auto Stats=ColdSteelMelee::Evaluate(*Item,Profile);
@@ -479,6 +481,7 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     SwingTrainingHits=0;
     SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison;
     SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
+    CaptureAzureDragonAttack(Profile);
     SwingSkills.bRifle=false;SwingSkills.bPistol=false;SwingSkills.WeakpointPercent=0;
     // 联机上报：轻重击/连段语义，服务端按影子档案的 MeleeModifiers 同参复算倍率。
     SwingSkills.AttackMeta = uint8(Heavy ? 0x10 : (ComboStage & 0x0F));
@@ -570,12 +573,12 @@ void URuneSwordComponent::QuickCombatContractHit()
     }
     TArray<FHitResult> Hits;
     if(bQuickCombatAOE)
-        Hits=MeleeSmallTargets::QueryQuickAreaContacts(GetWorld(),Pawn,Aim,Start,QuickCombatRangeCM,
+        Hits=MeleeSmallTargets::QueryQuickAreaContacts(GetWorld(),Pawn,Aim,Start,AzureDragonRange(QuickCombatRangeCM),
             QuickCombatPistolMotion::QueryRadiusCM);
     else
     {
         FHitResult Hit;
-        if(MeleeSmallTargets::QueryQuickContact(GetWorld(),Pawn,Aim,Start,QuickCombatRangeCM,
+        if(MeleeSmallTargets::QueryQuickContact(GetWorld(),Pawn,Aim,Start,AzureDragonRange(QuickCombatRangeCM),
             QuickCombatPistolMotion::QueryRadiusCM,Hit))Hits.Add(Hit);
     }
     // Quick-melee shake belongs to this once-only query, including a miss.
@@ -584,7 +587,7 @@ void URuneSwordComponent::QuickCombatContractHit()
     Pawn->RefreshQuickCombatCamera();
     UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 接触 武器=剑 射线=%s 起点=%s 方向=%s 距离=%.0f AOE=%d 接触数=%d"),
         bFromPommel?TEXT("配重端"):TEXT("眼位回退"),*Start.ToCompactString(),*Direction.ToCompactString(),
-        QuickCombatRangeCM,bQuickCombatAOE?1:0,Hits.Num());
+        AzureDragonRange(QuickCombatRangeCM),bQuickCombatAOE?1:0,Hits.Num());
     for(const auto& Hit:Hits)
     {
         AActor* Target=Hit.GetActor();
@@ -598,6 +601,7 @@ void URuneSwordComponent::QuickCombatContractHit()
             [&](){return ColdSteelSkills::ApplyHit(Pawn,Hit,SwingDamage,Direction,HitSkills,&DamageResult);});
         const bool bKilled=Combat->IsDead();
         if(Applied<=0.f&&!bKilled)continue;
+        OnAzureDragonHit();
         // 金色符文强化：配重锤打击确认命中同样缩减CD（同一次快速近战只算一次）。
         if(SwingCooldownReduceSeconds>0.f&&!bSwingCooldownReduced)
         {
@@ -745,6 +749,7 @@ void URuneSwordComponent::ReturnFromCharge()
 
 void URuneSwordComponent::CancelAction()
 {
+    StopAzureDragon();bSwingAzureDragon=false;
     FinishHeavyTraining();
     bUppercut=false;
     FinishDashAttack();
@@ -1119,15 +1124,16 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
         Trace.bCleavePawns=false;
     }
     auto* Pawn=Character.Get();
-    auto Hits=RuneSwordCombat::Query(GetWorld(),Pawn,From,To,SwingReach,HitActors,Trace);
-    if(SwingRangeMultiplier>1.f||(bUppercut&&UppercutReachGrowth>1.f))
+    auto Hits=RuneSwordCombat::Query(GetWorld(),Pawn,From,To,AzureDragonRange(SwingReach),HitActors,Trace);
+    const float TipExtension=SwingRangeMultiplier*SwingAzureDragonReachMultiplier;
+    if(TipExtension>1.f||(bUppercut&&UppercutReachGrowth>1.f))
     {
         // Extend the tip's distance from the stable eye, retaining the hilt.
         // Keep the original blade pass as well so close contacts are not lost
         // when the expanded segment changes its angle around the hilt.
         auto ExtendedFrom=From,ExtendedTo=To;
-        ExtendedFrom.Tip=From.Origin+(From.Tip-From.Origin)*SwingRangeMultiplier;
-        ExtendedTo.Tip=To.Origin+(To.Tip-To.Origin)*SwingRangeMultiplier;
+        ExtendedFrom.Tip=From.Origin+(From.Tip-From.Origin)*TipExtension;
+        ExtendedTo.Tip=To.Origin+(To.Tip-To.Origin)*TipExtension;
         if(bUppercut)
         {
             // Level growth extends the forward sweep, not its width or height.
@@ -1136,7 +1142,7 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
             ExtendedFrom.Tip+=From.Forward*FromDepth*(UppercutReachGrowth-1.f);
             ExtendedTo.Tip+=To.Forward*ToDepth*(UppercutReachGrowth-1.f);
         }
-        Hits.Append(RuneSwordCombat::Query(GetWorld(),Pawn,ExtendedFrom,ExtendedTo,SwingReach,HitActors,Trace));
+        Hits.Append(RuneSwordCombat::Query(GetWorld(),Pawn,ExtendedFrom,ExtendedTo,AzureDragonRange(SwingReach),HitActors,Trace));
     }
     if((bThrustAttack || bPommelAttack || bUppercut || IsRisingDragonFinisher()) && Hits.Num()>1)
     {
@@ -1163,6 +1169,7 @@ void URuneSwordComponent::ApplySwingHits(const TArray<FHitResult>& Hits,const FV
             auto HitSkills=SwingSkills;
             if(SwingTrainingHits==1)if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())HitSkills.ExtraMasteryExperience=Profile->MasteryDefinition(TEXT("swordMastery")).MultiHitExperience;
             auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
+            const bool AzureEnemyWasAlive=Combat&&!Combat->IsDead();
             const bool Eligible=Combat&&!Combat->IsDead()&&!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining"));
             FWeaponDamageResult DamageResult;
             auto ApplyDamage=[&](){return ColdSteelSkills::ApplyHit(Pawn,Hit,SwingDamage,Direction,HitSkills,&DamageResult);};
@@ -1173,6 +1180,7 @@ void URuneSwordComponent::ApplySwingHits(const TArray<FHitResult>& Hits,const FV
             // blow that kills still has to sound like a hit, and the damage pipeline
             // can report nothing once the victim dies to this very hit.
             const bool bKilled=Combat&&Combat->IsDead();
+            if(AzureEnemyWasAlive&&(Applied>0.f||bKilled))OnAzureDragonHit();
             // The fourth hit already sounded when its strike was released; every other
             // attack reports at the impact point, including a blow that kills.
             USoundBase* ImpactCue=bPommelAttack?nullptr:HitSound;
@@ -1223,6 +1231,8 @@ void URuneSwordComponent::ApplySwingHits(const TArray<FHitResult>& Hits,const FV
 void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
+    ON_SCOPE_EXIT { UpdateAzureDragonPose(); };
+    TickAzureDragon(Delta);
     if(!bWhirlwind)
         if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->AdvanceLocomotionEntry(Delta);
     TickDashReadiness(Delta);
@@ -1312,7 +1322,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
             {
                 const FVector Forward=AimNow.GetUnitAxis(EAxis::X).GetSafeNormal2D();
                 const auto Hits=RuneSwordCombat::QueryRectangle(GetWorld(),Character.Get(),Character->GetActorLocation(),Forward,
-                    SwingReach,RuneSwordOverheadRhythm::FinisherRectangleHalfWidthCM,HitActors);
+                    AzureDragonRange(SwingReach),RuneSwordOverheadRhythm::FinisherRectangleHalfWidthCM,HitActors);
                 ApplySwingHits(Hits,Forward);
             }
         }
@@ -1347,7 +1357,8 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
             if(!bSingleTarget||HitActors.IsEmpty())
             {
                 const auto LowHits=MeleeSmallTargets::QueryLowSector(GetWorld(),Character.Get(),EndFrame,
-                    SwingReach,HitActors,!bSingleTarget,bThrustAttack?30.f:MeleeSmallTargets::LowArcDegrees);
+                    AzureDragonRange(SwingReach),HitActors,!bSingleTarget,bThrustAttack?30.f:MeleeSmallTargets::LowArcDegrees,
+                    AzureDragonRange(MeleeSmallTargets::LowReachCM));
                 ApplySwingHits(LowHits,EndFrame.GetUnitAxis(EAxis::X));
             }
         }
@@ -1425,6 +1436,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
 
 void URuneSwordComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    DestroyAzureDragon();
     FinishHeavyTraining();
     bUppercut=false;
     if(UppercutLoad)UppercutLoad->CancelHandle();UppercutLoad.Reset();
