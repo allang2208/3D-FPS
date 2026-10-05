@@ -7,9 +7,10 @@
 #include "MonsterCorpseRagdollComponent.generated.h"
 
 class USkeletalMeshComponent;
+class UM14SoftBodyDeathComponent;
 
 UENUM(BlueprintType)
-enum class EMonsterCorpseRig : uint8 { Canine, Maggot, HandBrain, FleshHand, Mawcrawler, HangingBell };
+enum class EMonsterCorpseRig : uint8 { Canine, Maggot, HandBrain, FleshHand, Mawcrawler, HangingBell, SpiralPillar };
 
 /** Death-only physics; no living knockdown/get-up behavior and no idle tick. */
 UCLASS(ClassGroup=AI)
@@ -26,6 +27,8 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Corpse", meta=(ClampMin=".1", Units="s")) float StableSeconds = .35f;
 
     void PrepareDeath(USkeletalMeshComponent* Mesh);
+    bool TryStartSoftDeath(USkeletalMeshComponent* Mesh);
+    bool HasSoftDeath() const;
     void RecordDeathPose(USkeletalMeshComponent* Mesh, float DeltaSeconds, bool bPoseAlreadyEvaluated = false);
     bool Start(USkeletalMeshComponent* Mesh, const FVector& ImpactVelocity = FVector::ZeroVector);
     bool WasAttempted() const { return bAttempted; }
@@ -51,4 +54,5 @@ private:
     float PhysicsAge = 0.f, ProbeAge = 0.f, StableAge = 0.f;
     bool bHavePreviousPose = false, bAttempted = false, bSimulating = false;
     bool bFrozen = false, bGrounded = false, bBudgetOwned = false;
+    UPROPERTY(Transient) TObjectPtr<UM14SoftBodyDeathComponent> SoftDeath;
 };

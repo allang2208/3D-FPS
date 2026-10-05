@@ -1,0 +1,415 @@
+{
+  "task": "M14 and continuous nonhumanoid corpse",
+  "date": "2026-10-05",
+  "complete": true,
+  "files": [
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV02/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV02/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 27531,
+      "sha256": "e520acd2adc2728f666e2a49b7d18da4808ad4609756292f7522c30971dbfb0d",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV05/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV05/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 42777,
+      "sha256": "2f2f0bb7635cd94f44f301ce39f1108e418405c628251fc90de30e35a6cabd92",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV06/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV06/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 43916,
+      "sha256": "54da25853e224db947fe2d0aa7fb14ea2d76652d243dbe1c2654c6b1af6261dd",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV07/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV07/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 44172,
+      "sha256": "56904711044286ea33a4b7774e5193f42686193cc2bf6dc225a2f752006d217e",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV08/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV08/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 44196,
+      "sha256": "56a7cca79a7e671bbda0db0b5188ed79f8b74868e76e8439eb74e6ddc19633f6",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV10/BackupV09/M_M14_VenomBody.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV10/BackupV09/M_M14_VenomBody.uasset",
+      "bytes": 16819,
+      "sha256": "18a2ece4bb3938a1c1cc481285c79e19794e5fdbb1c03a3baec327f6bf03814f",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV10/BackupV09/M_M14_VenomCore.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV10/BackupV09/M_M14_VenomCore.uasset",
+      "bytes": 15047,
+      "sha256": "33dd99454c062d508a11e44acdc271486ac68e8cda4dde4f954e409a9563f26d",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV10/BackupV09/M_M14_VenomFilm.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV10/BackupV09/M_M14_VenomFilm.uasset",
+      "bytes": 13410,
+      "sha256": "59fba0bdfda9cfccca99081dde607b0461ec1a1548fb21af18eb8e6ad9e30d03",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV11/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV11/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 44272,
+      "sha256": "0dc0749b836c735ebd3f21e5b319c0f4f26cc5ab6a5d48fe204f8ca692619eb6",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV12/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV12/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 44031,
+      "sha256": "8c0f39f1c6ea6e37c5bcd99885a06978f5cfc91c092e76b5e8c9513957358f5e",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV13/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV13/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 44260,
+      "sha256": "c25fba6b2428445137713551eeaa3536bfb45167384c035553fc22084f14c65f",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV14/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV14/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 44252,
+      "sha256": "04efcf1f703ffdc76e7be37da54f18d58360b2c43b5e64d00c7ed3e2bad2e4cc",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV15/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV15/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 44561,
+      "sha256": "d72ecd0ee8e1eaf5a9ef89904fe6508f6eddc9a3535d537179cb73b1c94aef0e",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV16/Before/M_M14_VenomBody.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV16/Before/M_M14_VenomBody.uasset",
+      "bytes": 31743,
+      "sha256": "a22a16a83079842600620b9c1e5a1b668df54bf3572a295fc1e92fbe68fd0013",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV16/Before/M_M14_VenomCore.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV16/Before/M_M14_VenomCore.uasset",
+      "bytes": 25883,
+      "sha256": "4962c3abf3465c230ae04828bf5d7b46ae1fbd14c669ee6e06f3565a624e568f",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV16/Before/M_M14_VenomFilm.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV16/Before/M_M14_VenomFilm.uasset",
+      "bytes": 22034,
+      "sha256": "971fd0f452f3fb10f59048b23ad3f4583c5be92bef7215e70568c2b1e4cd3d03",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV17/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV17/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 44559,
+      "sha256": "993ab3ffed28b65d45d1bf3bf7078848aefd936fd208bc9396a04f4eb3f4c029",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV18/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV18/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 45107,
+      "sha256": "0552af272688f3117b0d6ef26f647abf55bde604c21d2bae56dae21ab710c005",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV19/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV19/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 45107,
+      "sha256": "35a93df58109027c46d958e4546de336c7dafbf8a0f24a50ea045db5058187d6",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV20/Before/BP_SpiralPillarM14.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV20/Before/BP_SpiralPillarM14.uasset",
+      "bytes": 45107,
+      "sha256": "9690dd005eae56054fcaf5759d3a974bee0f4b2d98291627167b5e13cee4bd5f",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV01/Authoring/M14_Rigged_Animated_v01.blend1",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV01/Authoring/M14_Rigged_Animated_v01.blend1",
+      "bytes": 115581864,
+      "sha256": "25165e10a644caae0ae8e515a2b11b023f912864c9d870d75b53a909573ccb6b",
+      "reason": "Blender previous-save copy; corresponding .blend retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV05/Authoring/M14_Rigged_Animated_v05.blend1",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV05/Authoring/M14_Rigged_Animated_v05.blend1",
+      "bytes": 115918753,
+      "sha256": "76f49e2022b16d244d522f74784fdaebbba673dbf54d2b8aa114d5a276af0860",
+      "reason": "Blender previous-save copy; corresponding .blend retained"
+    },
+    {
+      "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV08/Authoring/M14_Rigged_Bite_v08.blend1",
+      "destination": "trash/m14-retired-20261005/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV08/Authoring/M14_Rigged_Bite_v08.blend1",
+      "bytes": 160978052,
+      "sha256": "f4a0f12058ddc6da1366c656378a0cd52eecbf0bbc5df2b47a79c3b2884f6064",
+      "reason": "Blender previous-save copy; corresponding .blend retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/end_play_for_bite_save.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/end_play_for_bite_save.py",
+      "bytes": 215,
+      "sha256": "1d3ce5781b5476499fe7ae01c9bb842fd2c8a022bec0eaf9e6ed47c42ced90f0",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finalize_delivery_v01.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finalize_delivery_v01.py",
+      "bytes": 9971,
+      "sha256": "f77ee8aa957a5f24e53bd992abec921f0ef508f4a0e49f22228e814f6936bdb9",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_attacks_v05.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_attacks_v05.py",
+      "bytes": 5539,
+      "sha256": "fbc9768b3549fd30f9952fb8319ac4adc15ff97ca48512e6a30d77086f4b6fe6",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_bite_range_v04.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_bite_range_v04.py",
+      "bytes": 3117,
+      "sha256": "bdb4a963192fc9cf4d6a07a18e4ef0ebdbccd0b59d733e27665d8582e1136b3f",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_bite_v03.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_bite_v03.py",
+      "bytes": 3538,
+      "sha256": "392c8404068eb526c74336b1637d5990fc1a451454e83e60bff0ff1ffb715180",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_bite_v08.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_bite_v08.py",
+      "bytes": 1949,
+      "sha256": "3da20a7e9d94ba680b2b45b3ef7f464f1599c2a6e687fa8bb60931ec81d75e32",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_hardware_slam_v11.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_hardware_slam_v11.py",
+      "bytes": 3165,
+      "sha256": "0b8e59fe57eca23b2e1f7dfe35d4d24d1c43894a14dd4aa2017e541611f913c0",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_hardware_spit_v13.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_hardware_spit_v13.py",
+      "bytes": 3063,
+      "sha256": "4673d57ca8289677e407c2907e8d04c6b45c3187647babfde1538d1f1f90285b",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_locomotion_v07.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_locomotion_v07.py",
+      "bytes": 2541,
+      "sha256": "c163ee5d8ee3b43d4e59e4b80b9e9772da589360ea2c3b37945116d2f830ada7",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_revision_v02.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_revision_v02.py",
+      "bytes": 5277,
+      "sha256": "c77437b2bec0a27d89676d4de04e147729a9c90c5100aea474ec345d32d14d87",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_soft_collapse_v14.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_soft_collapse_v14.py",
+      "bytes": 2987,
+      "sha256": "2f9ca1dfb2bca29f4b81b2fe0520346bdec66e4a1e6c9acc687259fadf1d0d9d",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_soft_death_v06.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_soft_death_v06.py",
+      "bytes": 4128,
+      "sha256": "ccb1d5aa070d95461b3c4531fa4e733d81f2810f80adb5f248fb7779d4c4f93f",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_support_skin_v15.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_support_skin_v15.py",
+      "bytes": 5702,
+      "sha256": "34590a008433b235248f9a5254a9e07b87c0b511bee6b7ac691935f538dc7f20",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_venom_material_v10.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_venom_material_v10.py",
+      "bytes": 2683,
+      "sha256": "08bda269e5bc879577a8f392df6bd205ccdd8f784e097ed69b61fb944c0097bf",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_venom_v09.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_venom_v09.py",
+      "bytes": 2685,
+      "sha256": "e6553fede3d1d4870345ef36e1d4da3479beb5bf22a2232a37599a98787a579e",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/finish_whirlwind_v12.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/finish_whirlwind_v12.py",
+      "bytes": 3091,
+      "sha256": "03638935b5f8e0d8f45923efd074ed9990618218e6090ecefcc90e10caa778fd",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/read_editor_exit_context_v13.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/read_editor_exit_context_v13.py",
+      "bytes": 587,
+      "sha256": "99f455f959969a2b1637274ee3935c8da144c9b90558b381f115bdf21c9484a6",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/resume_venom_material_v10.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/resume_venom_material_v10.py",
+      "bytes": 309,
+      "sha256": "d52a6614a9f5c8d95d04047813b5f5e07bf015d7684dcd0e7e9a6bac2cf3685e",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/save_bite_v08_after_play.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/save_bite_v08_after_play.py",
+      "bytes": 1051,
+      "sha256": "76736bdd5f68c970c2cf64ad07b45db6586abbea40128cc1b1c122d4cb416115",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/save_venom_material_v10.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/save_venom_material_v10.py",
+      "bytes": 1200,
+      "sha256": "91cd67e0234775f9f5ee50aa30e841374c8d9b045d2a2a446fa806b893b2fe96",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/save_whirlwind_clip_v12.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/save_whirlwind_clip_v12.py",
+      "bytes": 1393,
+      "sha256": "a7746ca32a27637ee5b416d00011cb2688b6d4f291c05002b29606cc0b7789c6",
+      "reason": "Completed one-time editor save/status helper; authoring/import recipes and receipts retained"
+    },
+    {
+      "source": "SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/FleshHand/SK_FleshHand_Green.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/FleshHand/SK_FleshHand_Green.uasset",
+      "bytes": 7698966,
+      "sha256": "815862bd78af7c4c8ec650d7f4233445e617e91a9fea92a4449013aa56a4298d",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/HandBrain/StyleV1/SK_HandBrain_StyleV1.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/HandBrain/StyleV1/SK_HandBrain_StyleV1.uasset",
+      "bytes": 40494721,
+      "sha256": "a5f239710aa8650c0140cd6b65a9ace471a31966e3eae8fecc312e70a36f7e67",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/HangingBellM09/V04/SK_M09.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/HangingBellM09/V04/SK_M09.uasset",
+      "bytes": 317922319,
+      "sha256": "04b5373ef4aea9f2bca33d616199086f124cd253ce83888d801a1c5f94b8f963",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/InfectedDog/MeshyV2/SK_InfectedDog_MeshyV2.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/InfectedDog/MeshyV2/SK_InfectedDog_MeshyV2.uasset",
+      "bytes": 24312104,
+      "sha256": "65bb54e02af8c3b94b82a829693d0a1f7f3f88f402b6ee36657506a760637fd4",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.uasset",
+      "bytes": 177822228,
+      "sha256": "2f7c71ac93843b4f1cbeed87dadadb240e53e53ebda3b474c6e2cfc185290867",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.uasset",
+      "bytes": 180312996,
+      "sha256": "2919bff25d3516d6a5cd779e00d1db92a3180c018d13cee24e28855376174326",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/PoisonMaggot/StyleV1/SK_PoisonMaggot_StyleV1.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/PoisonMaggot/StyleV1/SK_PoisonMaggot_StyleV1.uasset",
+      "bytes": 6444582,
+      "sha256": "f697b831683a0b5b102cb2b1d7403462709df4ed3fa99261c7874e7a5aae7375",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/VortexCofferM25/OptimizedV01/SK_M25_VortexCoffer_Game_V01.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/VortexCofferM25/OptimizedV01/SK_M25_VortexCoffer_Game_V01.uasset",
+      "bytes": 102202048,
+      "sha256": "417b6c76bff3cf06812613ce1d9dacaf198332dbe32e25529849a021eacf0457",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/Wolf/SK_Wolf_Gameplay.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/Wolf/SK_Wolf_Gameplay.uasset",
+      "bytes": 3920285,
+      "sha256": "83129b54c4e87fdd87c9c08aa08255868bcdc1528f687ab3bf0776fa84b590c6",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/ZombieDog/RefinedWoundsV5/SK_ZombieDog_RefinedWounds.uasset",
+      "destination": "trash/m14-retired-20261005/SourceAssets/MonsterSoftCorpse20261005/Before/Monsters/ZombieDog/RefinedWoundsV5/SK_ZombieDog_RefinedWounds.uasset",
+      "bytes": 2255838,
+      "sha256": "fbc29038138cfce98ae168a0d7d95ce2150affdfc75c31e28ab399acdb15804e",
+      "reason": "Superseded before-change snapshot; current saved asset and production inputs retained"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/integrate_source_v01.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/integrate_source_v01.py",
+      "bytes": 5407,
+      "sha256": "b27091f58052a800c701dafc279a78a7acd07807b0121d83f3ee863c063b142f",
+      "reason": "Superseded source patcher or failed corpse installer; current C++ and V19 install retained, V18 material recipe extracted to restore_corpse_materials_v18.py"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/import_xpbd_corpse_v17.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/import_xpbd_corpse_v17.py",
+      "bytes": 6577,
+      "sha256": "9130673979f95d202a5f1f8469773f6b2adae8ccfca870045f306d991468394e",
+      "reason": "Superseded source patcher or failed corpse installer; current C++ and V19 install retained, V18 material recipe extracted to restore_corpse_materials_v18.py"
+    },
+    {
+      "source": "Tools/SpiralPillarM14/import_xpbd_corpse_v18.py",
+      "destination": "trash/m14-retired-20261005/Tools/SpiralPillarM14/import_xpbd_corpse_v18.py",
+      "bytes": 7855,
+      "sha256": "331531a160c5f89c2c2c7cdad4d79e5495c107df0cb60c5cb6b6fd996c9d1c79",
+      "reason": "Superseded source patcher or failed corpse installer; current C++ and V19 install retained, V18 material recipe extracted to restore_corpse_materials_v18.py"
+    },
+    {
+      "source": "Docs/Monsters/M25-soft-corpse-handoff-20261005.patch",
+      "destination": "trash/m14-retired-20261005/Docs/Monsters/M25-soft-corpse-handoff-20261005.patch",
+      "bytes": 1169,
+      "sha256": "a9fa2728371b97c5fdcc01b1368ddc8e1cef03a90cad838db49300b10887a060",
+      "reason": "Publication handoff draft superseded when M25 landed on origin/main; current publication directly integrates the death hook"
+    }
+  ],
+  "content_packages_moved": false,
+  "kept": "Living V15, V19 corpse, V18 materials, V17 cage inputs and the preceding authoring chain; loaded Content packages preserved"
+}

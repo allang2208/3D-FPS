@@ -191,6 +191,7 @@ void AWolfMonster::OnRep_State()
 void AWolfMonster::EnterState(EWolfState NewState)
 {
     State = NewState; StateSeconds = 0.f;
+    if((State==EWolfState::Dying||State==EWolfState::Ragdoll)&&CorpseRagdoll->TryStartSoftDeath(GetMesh()))return;
     const bool Moving = State == EWolfState::Chase || State == EWolfState::Returning;
     GetCharacterMovement()->bOrientRotationToMovement = Moving;
     GetCharacterMovement()->MaxWalkSpeed = State == EWolfState::Returning ? WalkSpeed : ChaseSpeed;

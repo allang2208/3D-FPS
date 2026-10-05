@@ -97,6 +97,7 @@ void AVortexCofferM25::FinishHitReaction()
 void AVortexCofferM25::OnRep_Death()
 {
     if (!Dead()) return;
+    CorpseRagdoll->TryStartSoftDeath(GetMesh());
     bHitReaction = false;
     CombatTarget.Reset();
     if (Bite) Bite->Interrupt();

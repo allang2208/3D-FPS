@@ -105,6 +105,7 @@ void AM10Mawcrawler::PresentState()
     if(State!=EM10State::RearGas)StopRearGas();
     const bool Moving=State==EM10State::Crawl||State==EM10State::Returning;
     GetCharacterMovement()->bOrientRotationToMovement=Moving;
+    if((State==EM10State::Dying||State==EM10State::Corpse)&&CorpseRagdoll->TryStartSoftDeath(GetMesh()))return;
     if(State==EM10State::Corpse)return;
     if(State==EM10State::Stagger){StartHitPresentation();return;}
     Play(Moving?MoveClip:State==EM10State::Bite?BiteClip:State==EM10State::Howl?HowlClip:State==EM10State::RearGas?RearGasClip:State==EM10State::Dying?DeathClip:IdleClip,

@@ -18,6 +18,9 @@ public:
     UPoisonMaggotVenomFX();
     void AddTrail(const FVector& Position, const FVector& Velocity, bool bMist);
     void AddImpact(const FHitResult& Hit, const FVector& IncomingVelocity);
+    void AddM14Muzzle(const FVector& Position,const FVector& Velocity);
+    void AddM14Trail(const FVector& Position,const FVector& Velocity,int32 Sample);
+    void AddM14Impact(const FHitResult& Hit,const FVector& IncomingVelocity);
     void AddBottleImpact(const FVector& Position, const FVector& Normal, const FVector& IncomingVelocity, float Radius);
     void AddPoolVapor(const FVector& Position, const FVector& Normal, float Radius);
     virtual void OnWorldBeginPlay(UWorld& World) override;
@@ -56,4 +59,19 @@ private:
     int32 Cursors[2] = {0,0};
     int32 MarkCursor = 0, ActiveParticles = 0;
     bool bReady = false;
+    // Short contact sheets share this subsystem's existing tick and detail budget.
+    static constexpr int32 M14FilmCount=16;
+    struct FM14Film
+    {
+        FVector Position=FVector::ZeroVector;
+        FQuat Rotation=FQuat::Identity;
+        float Age=0,Life=0,Size=1,Seed=0;
+    };
+    UPROPERTY() TObjectPtr<UMaterialInterface> M14FilmMaterial;
+    UPROPERTY(Transient) TObjectPtr<UInstancedStaticMeshComponent> M14FilmRenderer;
+    FM14Film M14Films[M14FilmCount];
+    TArray<FTransform> M14FilmTransforms;
+    int32 M14FilmCursor=0;
+    void InitializeM14Films(UWorld& World);
+    void TickM14Films(float DeltaTime);
 };

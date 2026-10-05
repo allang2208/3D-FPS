@@ -191,6 +191,7 @@ void AHangingBellM09::Sample(float T){if(auto* A=Cast<UFatZombieAnimInstance>(Ge
 void AHangingBellM09::PresentState()
 {
  Voice->Stop();ClearGazeFX();for(const auto& W:Waves)W->SetVisibility(false);
+ if((State==EM09State::Dying||State==EM09State::Corpse)&&Corpse->TryStartSoftDeath(GetMesh()))return;
  if(State==EM09State::Corpse)return;
  const bool Loop=State==EM09State::Idle||State==EM09State::Travel||State==EM09State::Returning;
  if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))

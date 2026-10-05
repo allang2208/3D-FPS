@@ -72,6 +72,7 @@ void APoisonMaggotMonster::OnRep_State()
 void APoisonMaggotMonster::SetState(EPoisonMaggotState New)
 {
  State=New;StateSeconds=0;const bool Moving=New==EPoisonMaggotState::Chase||New==EPoisonMaggotState::Returning;
+ if((New==EPoisonMaggotState::Dying||New==EPoisonMaggotState::Ragdoll)&&CorpseRagdoll->TryStartSoftDeath(GetMesh()))return;
  if(!Moving)GetCharacterMovement()->StopMovementImmediately();GetCharacterMovement()->bOrientRotationToMovement=Moving;
  UAnimSequence* Clip=Moving?MoveClip:New==EPoisonMaggotState::Spitting?SpitClip:New==EPoisonMaggotState::Dying?DeathClip:IdleClip;
  if(Clip&&New!=EPoisonMaggotState::Stagger&&New!=EPoisonMaggotState::Ragdoll){GetMesh()->PlayAnimation(Clip,Moving||New==EPoisonMaggotState::Idle);GetMesh()->SetPlayRate(Moving||New==EPoisonMaggotState::Idle?1.f:0.f);}
@@ -141,7 +142,7 @@ float APoisonMaggotMonster::TakeDamage(float Damage,const FDamageEvent& Event,AC
  if(!HasAuthority()||Dead()||Damage<=0)return 0;const float Applied=UDevelopmentTuningSubsystem::ShouldOneHitKill(this,EventInstigator,Causer)?Health:FMath::Min(Health,CombatFormulaRuntime::MitigateMonster(this,Damage,Event.DamageTypeClass?Event.DamageTypeClass->GetDefaultObject<UDamageType>():nullptr,Causer));if(Applied<=0)return 0;Health-=Applied;Super::TakeDamage(Applied,Event,EventInstigator,Causer);
  if(Health<=0)
  {
-  CorpseRagdoll->PrepareDeath(GetMesh());ClearProjectiles();Target.Reset();SetState(EPoisonMaggotState::Dying);GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);SetLifeSpan(CorpseSeconds);
+  CorpseRagdoll->PrepareDeath(GetMesh());ClearProjectiles();Target.Reset();SetState(EPoisonMaggotState::Dying);GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);if(!CorpseRagdoll->HasSoftDeath())GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);SetLifeSpan(CorpseSeconds);
   if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();
   ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),EventInstigator,this);
   if(auto* PC=Cast<APlayerController>(EventInstigator))if(PC->IsLocalController()&&GetGameInstance()){GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);++RewardCount;}

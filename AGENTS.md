@@ -21,6 +21,7 @@
 - 冷钢 UI 以 [正式设计规则](Docs/UI/ui-cold-steel-design-system.md) 为准：黑灰低透明度玻璃、Noto Sans SC／JetBrains Mono、统一按钮；冲突的旧字体、配色和抽屉条款由该文替换。共享 `ColdSteelUIStyle`，不再复制近似主题。
 - 非枪械物品（药水、材料、弹药包装、卷轴）的图标、三视图、按精度分流的模型制作、材质与稀有度光效读 [ue5-item-asset-workflow](skills/ue5-item-asset-workflow/SKILL.md)。
 - 怪物制作、混元管线、专用绑骨、动画、布娃娃、战斗和村庄刷怪读 [ue5-monster-workflow](skills/ue5-monster-workflow/SKILL.md)。手脑案例中的未通过项不作为已完成标准。
+- **非人形死亡标准（用户指定，2026-10-05）**：后续采用螺柱 M-14 V19 的连续软体下落与摊地方式，按各模型制作独立代理和绑定；人形及类人双足暂不推广。具体范围、接入与重建工具见 [连续软体死亡标准](Docs/Monsters/continuous-soft-corpse-standard-20261005.md)。制作、构建与实际资产保存照常完成，不自动测试；本批其他怪物仍由用户体验。
 - 20 cm 体素建造（材质、放置构件、承重与倒塌数值）读 [体素建造工作流](Docs/Building/voxel-build-workflow.md)：任何材质的净跨 2 m 必须成立，改承重数值必须跑 `Tools/Building/run_voxel_stress_probe.ps1` 离线探针；带资产的 USTRUCT 不要用热补丁改。
 - 地貌破坏（丘陵高度场弹坑、铲子挖／填、下沉与抬升上限、性能开关）读 [地貌破坏：高度场方案](Docs/WorldGeneration/terrain-destruction-20260916.md)；体素地形已退役（归档在 `trash/voxel-terrain-retired-20260916/`），不要再叠加第二套地形。它与 20 cm 建造体素是两套语义，不要混用。
 - 丘陵地表材质（分层家族、按高度图混合、近景视差凹凸、顶点色与 `Wetness` 契约、材质 HLSL 离线校验）读 [丘陵地表材质：分层与凹凸](Docs/WorldGeneration/ground-material-layered-20260918.md)；运行时地形用 DynamicMesh，没有 Landscape，Landscape 节点一概不可用。重建一律走 `Tools/WorldGeneration/build_hills_ground_v2.py`，不要重跑已作废的三层／河岸旧脚本。

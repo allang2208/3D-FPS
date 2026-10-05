@@ -2,6 +2,7 @@
 #include "VortexCofferM25.h"
 #include "MonsterCombatComponent.h"
 #include "M10Mawcrawler.h"
+#include "SpiralPillarM14.h"
 #include "HangingBellM09.h"
 #include "HundredEyedSlagMonster.h"
 #include "FleshHandMonster.h"
@@ -27,6 +28,7 @@ namespace MonsterToughnessProfileData
 const TCHAR* SpeciesOf(const AActor* Monster)
 {
     if(Cast<AVortexCofferM25>(Monster))return TEXT("vortex_coffer_m25");
+    if(Cast<ASpiralPillarM14>(Monster))return TEXT("spiral_pillar_m14");
     if(Cast<AM10Mawcrawler>(Monster))return TEXT("mawcrawler_m10");
     if(Cast<AHangingBellM09>(Monster))return TEXT("hanging_bell_m09");
     if(Cast<AHundredEyedSlagMonster>(Monster))return TEXT("hundred_eyed_slag");

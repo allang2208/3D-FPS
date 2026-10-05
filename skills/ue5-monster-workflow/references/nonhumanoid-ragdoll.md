@@ -1,5 +1,16 @@
 # 非人形死亡布娃娃
 
+## 当前标准：连续软体死亡（用户指定，2026-10-05）
+
+后续非人形怪物采用螺柱 M-14 V19 连续 XPBD 下落、摊地与无回弹接触，按自身模型制作代理、表面绑定及变形法线；不能直接套 M-14 的模型或独立金属拴接。人形和类人双足暂不推广。工程合同与制作入口见 `Docs/Monsters/continuous-soft-corpse-standard-20261005.md`，实际保存状态见 `SourceAssets/MonsterSoftCorpse20261005/delivery.json`。旧关节布娃娃仅作为缺失软体制作数据时的降级，本批推广仍由用户游戏测试。
+
+公共入口为 `UMonsterCorpseRagdollComponent::TryStartSoftDeath`，读取实际网格的 `UMonsterSoftCorpseBinding`。新增物种在服务端和客户端死亡表现入口、原死亡片段开始前调用；完成原有取消攻击、奖励及寿命逻辑。复用已有死亡时钟与同屏预算，不引入活体持续软体 Tick。按模型保存尸体骨架／网格／数据／材质和正式引用，只有脚本不算接入完成。
+
+
+绑定索引、附件拉丝、接触抖动及黑面修复读 [连续软体尸体：绑定与交接](continuous-soft-corpse.md)。
+
+## 历史关节物理路线
+
 2026-10-03 按用户认可的巫婆物理方式推广，记录在工程 `Docs/Monsters/monster-ragdoll-standard-20261003.md`。毒蛆、手脑和犬类保留自身资产，使用真实碰撞面支撑、低阻尼和被动关节；异变巨手及小皮肤手新增独立的连体死亡物理资产，原查询资产和活体专用击倒／起身保留。实际保存与普通构建以 `SourceAssets/MonsterRagdollStandard20261003/Receipts` 为准，本轮其他怪物未测试。非人形尸体稳定条件不能代替物种专用的活体恢复动作。
 
 FPSGAME 2026-10-02 接入记录：`Docs/Monsters/nonhumanoid-ragdoll-20261002.md`，构建收据 `SourceAssets/NonHumanoidRagdoll20261002/delivery.json`。Editor 与 Game 常规构建已完成，基础 DLL 和 EXE 已落盘；未测试，不作为用户已认可模板。

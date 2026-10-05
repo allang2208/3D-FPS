@@ -175,6 +175,7 @@ void AFleshHandMonster::SetState(EFleshHandState Next)
  State=Next;StateSeconds=0;PalmFist->SetVisibility(false);WarningRing->SetVisibility(false);
  if(RingMID)WarningRing->SetMaterial(0,RingMID);
  if(auto* FX=GetWorld()->GetSubsystem<UFleshHandChargeFX>())FX->Transition(this,Previous);
+ if((Next==EFleshHandState::Dying||Next==EFleshHandState::Corpse)&&CorpseRagdoll->TryStartSoftDeath(GetMesh()))return;
  const bool Moving=Next==EFleshHandState::Walk||Next==EFleshHandState::Returning;
  const bool WasMoving=Previous==EFleshHandState::Walk||Previous==EFleshHandState::Returning;
  if(!Moving)GetCharacterMovement()->StopMovementImmediately();
@@ -587,12 +588,15 @@ float AFleshHandMonster::TakeDamage(float Damage,const FDamageEvent& Event,ACont
  {
   bConsumed=true;LockedTarget.Reset();Target.Reset();
   CorpseRagdoll->PrepareDeath(GetMesh());
-  const bool FallingCorpse=Knockdown&&Knockdown->OnDeath();
-  if(CorpseRagdoll->SimulatedBodyCount()>0)
+  const bool SoftCorpse=CorpseRagdoll->TryStartSoftDeath(GetMesh());
+  const bool FallingCorpse=!SoftCorpse&&Knockdown&&Knockdown->OnDeath();
+  if(SoftCorpse)
+  {SetState(EFleshHandState::Corpse);}
+  else if(CorpseRagdoll->SimulatedBodyCount()>0)
   {State=EFleshHandState::Corpse;StateSeconds=0;GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetCharacterMovement()->DisableMovement();}
   else if(FallingCorpse){State=EFleshHandState::Dying;StateSeconds=0;GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);}
   else {SetState(EFleshHandState::Dying);GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetCharacterMovement()->DisableMovement();}
-  if(CorpseRagdoll->SimulatedBodyCount()==0)GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+  if(!SoftCorpse&&CorpseRagdoll->SimulatedBodyCount()==0)GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
   Combat->SetComponentTickEnabled(false);Status->SetComponentTickEnabled(false);
   if(auto* AI=Cast<AMonsterAIController>(GetController())){AI->StopMovement();AI->SetDecisionEnabled(false);AI->UpdateKnowledge();}
   SetLifeSpan(CorpseSeconds);

@@ -1,6 +1,7 @@
 #include "MonsterCombatComponent.h"
 #include "VortexCofferM25.h"
 #include "M10Mawcrawler.h"
+#include "SpiralPillarM14.h"
 #include "HangingBellM09.h"
 #include "MonsterObstacleCollision.h"
 #include "GameFramework/Character.h"
@@ -45,6 +46,7 @@ void UMonsterCombatComponent::ReceiveStun(APawn* Attacker,float Seconds,float Kn
     bParryReaction=false;
     if(!UsesToughnessBar()){Toughness=0.f;SinceHit=0.f;PublishToughnessState();}
     if(auto* M25=Cast<AVortexCofferM25>(GetOwner()))M25->InterruptAttack(Seconds);
+    else if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))M14->InterruptAttack(Seconds);
     else if(auto* M09=Cast<AHangingBellM09>(GetOwner()))M09->InterruptAttack(Seconds);
     else if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))M10->InterruptAttack(Seconds);
     else if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->InterruptAttack(Seconds);
@@ -108,7 +110,8 @@ bool UMonsterCombatComponent::ReceiveForcedLaunch(APawn* Attacker,FVector Launch
     if(auto* AI=Cast<AMonsterAIController>(Pawn->GetController())){AI->StopMovement();AI->RememberDamage(Attacker);}
     const float Remaining=IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f;
     const float Duration=FMath::Max(Hold,Remaining);
-    if(auto* M09=Cast<AHangingBellM09>(Pawn))M09->InterruptAttack(Duration);
+    if(auto* M14=Cast<ASpiralPillarM14>(Pawn))M14->InterruptAttack(Duration);
+    else if(auto* M09=Cast<AHangingBellM09>(Pawn))M09->InterruptAttack(Duration);
     else if(auto* M10=Cast<AM10Mawcrawler>(Pawn))M10->InterruptAttack(Duration);
     else if(auto* S=Cast<AHundredEyedSlagMonster>(Pawn))S->InterruptAttack(Duration);
     else if(auto* F=Cast<AFleshHandMonster>(Pawn))F->InterruptAttack(Duration);
@@ -146,6 +149,7 @@ bool UMonsterCombatComponent::ReceiveKnockdown(APawn* Attacker,FVector LaunchVel
     if(!GetOwner()->HasAuthority() || IsDead())return false;
     if(!CanReceiveLaunchOrKnockdown())return false;
     DownSeconds=FMath::Max(DownSeconds,StunSecondsRemaining());
+    if(auto* M14=Cast<ASpiralPillarM14>(GetOwner())){M14->InterruptAttack(FMath::Max(.7f,DownSeconds));return true;}
     if(auto* M09=Cast<AHangingBellM09>(GetOwner())){M09->InterruptAttack(FMath::Max(.7f,DownSeconds));return true;}
     bool Launched=false;
     if(auto* F=Cast<AFleshHandMonster>(GetOwner()))Launched=F->Knockdown&&F->Knockdown->Launch(Attacker,LaunchVelocity,DownSeconds);

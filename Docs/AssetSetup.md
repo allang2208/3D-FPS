@@ -4,6 +4,12 @@
 
 恢复用户 Meshy 输入、RigV01 专用蒙皮／动画、BiteV01 与受击死亡、BackElectricV02，以及 OptimizationV01 四级游戏网格。怪物已获用户认可；最新撕咬遮挡与客机奖励修复已完成本机 Editor/Game 构建，未游戏测试。60 份旧快照和废案带散列移入 trash；公开源码、原创配方与 SKILL，原媒体／密集数据／UE 包留本机。连续软体死亡挂接以独立补丁记录，地牢刷新按用户要求暂不接入。恢复顺序与公开边界见 [M25 整理发布](Monsters/m25-publication-20261005.md)。
 
+## M-14 与通用连续软体死亡（2026-10-05）
+
+本机使用 M-14 V15 活体、V19 连续软体尸体、V16 绿色毒液与 V20 旋风范围；嘴部已接入统一弱点。另有 11 个非人形角色条目、10 份独立尸体绑定已后台保存，人形暂不推广。现有 Game/Editor 构建和保存回执保留本机，游戏表现未测试。
+
+公开 C++、原创制作脚本、毒液 HLSL、MIT 来源和 SKILL；Meshy/其他怪物资产、密集绑定、UE 包与回执不公开。58 份旧快照和废弃脚本已移入 trash 并核对散列。M08 独立实现未夹带，M25 独立提交已到达远端，本轮直接整合其软体挂接。当前依赖、恢复顺序、资产边界和归档详见 [整理发布](Monsters/SpiralPillarM14Publication20261005.md)。
+
 ## M-09 悬钟 V24 与源码整理（2026-10-04）
 
 保留 Meshy 原始输入、V03 专用骨架、V13/V15/V16 连续表面链、V18 抓击、V09/V07 鸣震、V08/V10/V12 凝视、V13 死亡、V22 材质、V23 受击与 V24 屋顶移动。136 份废案及旧快照已带散列移入 trash。公开源码、原创配方、HLSL 和 SKILL；模型/PBR、授权动作供体、密集数据、UE 包和运行回执留在本机。恢复依赖、路径覆盖关系、归档及检查边界见 [M09 整理发布](Monsters/HangingBellM09Publication20261004.md)。V24 仅完成构建，未游戏测试。
@@ -457,10 +463,7 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 
 首轮 201 Meshy 模型已列为废案；962 个文件（含 116 个无外部引用的旧 UE 包）移入本机 trash，现用新模型及 50 个有引用的旧包保留。当前恢复入口为 Repair36、ClothFeed33、Magazine24 与 Accessories22，主体仍沿用 Cover10 包名。发布仅含选定修复脚本、记录和 SKILL；模型、贴图、动作、参考视频及密集数据需本机合法来源。归档散列、保留依赖和共享源码发布边界见 [201 发布与恢复说明](Weapons/lmg201-publication-20260929.md)。
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 ## 特殊地牢房间收尾（2026-09-29）
 
 七房当前状态、后三房待办、废案归档和源码/许可边界见 [本轮发布](Gameplay/dungeon-rooms-publication-20260929.md)。当前病区与车站从各自 `Scripts/install_pool.py` 恢复，原独立/临时测试路线退役；完整本机 Content、作者几何和原素材许可仍必需。原生接入依赖与共享攻击摘录以发布文档为准，公开源码不等于可直接运行的完整场景。

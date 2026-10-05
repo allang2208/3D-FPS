@@ -2,6 +2,7 @@
 #include "HumanoidKnockdownComponent.h"
 #include "MonsterCorpseRagdollComponent.h"
 #include "HundredEyedSlagMonster.h"
+#include "M14SoftBodyDeath.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
 #include "HAL/IConsoleManager.h"
@@ -13,7 +14,8 @@ static TAutoConsoleVariable<int32> CVarHumanoidCorpses(TEXT("fps.MonsterRagdoll.
 bool UHumanoidRagdollBudget::Acquire(UObject* Candidate, int32 BodyCount, bool bCorpse)
 {
     if (!Candidate || (!Cast<UHumanoidKnockdownComponent>(Candidate) &&
-        !Cast<UMonsterCorpseRagdollComponent>(Candidate) && !Cast<AHundredEyedSlagMonster>(Candidate))) return false;
+        !Cast<UMonsterCorpseRagdollComponent>(Candidate) && !Cast<AHundredEyedSlagMonster>(Candidate) &&
+        !Cast<UM14SoftBodyDeathComponent>(Candidate))) return false;
     Active.RemoveAll([](const auto& Entry){ return !Entry.IsValid(); });
     if (Active.Contains(Candidate)) return true;
     auto Fits = [&]()
@@ -27,6 +29,8 @@ bool UHumanoidRagdollBudget::Acquire(UObject* Candidate, int32 BodyCount, bool b
             { Bodies+=Corpse->SimulatedBodyCount(); ++Corpses; }
             else if (const auto* Slag=Cast<AHundredEyedSlagMonster>(Entry.Get()))
             { Bodies+=Slag->SimulatedBodyCount(); ++Corpses; }
+            else if (const auto* Soft=Cast<UM14SoftBodyDeathComponent>(Entry.Get()))
+            { Bodies+=Soft->SimulatedBodyCount(); ++Corpses; }
         }
         return Active.Num()<FMath::Max(0,CVarHumanoidRagdolls.GetValueOnGameThread()) &&
             Bodies<=FMath::Max(0,CVarHumanoidBodies.GetValueOnGameThread()) &&
@@ -44,6 +48,8 @@ bool UHumanoidRagdollBudget::Acquire(UObject* Candidate, int32 BodyCount, bool b
             { if (Corpse->CanReleaseCorpseBudget()) Corpse->FreezeForBudget(); }
             else if (auto* Slag=Cast<AHundredEyedSlagMonster>(Entry.Get()))
             { if (Slag->CanReleaseCorpseBudget()) Slag->FreezeForBudget(); }
+            else if (auto* Soft=Cast<UM14SoftBodyDeathComponent>(Entry.Get()))
+            { if (Soft->CanReleaseCorpseBudget()) Soft->FreezeForBudget(); }
             if (Fits()) break;
         }
     }

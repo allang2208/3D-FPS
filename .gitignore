@@ -2385,3 +2385,17 @@ __pycache__/
 /SourceAssets/M25VortexCoffer20261004/**/BeforeIntegration/
 /SourceAssets/M25VortexCoffer20261004/**/BackupBeforeOptimization/
 /SourceAssets/M25VortexCoffer20261004/Publication20261005/Local/
+
+# M14 / continuous corpses (2026-10-05): source-only publication; Meshy rights unconfirmed.
+/SourceAssets/SpiralPillarM14Concept20261004/**
+!/SourceAssets/SpiralPillarM14Concept20261004/README.md
+/SourceAssets/SpiralPillarM14Meshy20261004/**
+!/SourceAssets/SpiralPillarM14Meshy20261004/README.md
+!/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV09/
+!/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV09/Shaders/
+!/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV09/Shaders/*.hlsl
+!/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV10/
+!/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV10/Shaders/
+!/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV10/Shaders/*.hlsl
+/SourceAssets/MonsterSoftCorpse20261005/**
+!/SourceAssets/MonsterSoftCorpse20261005/README.md

@@ -92,6 +92,7 @@ void AHandBrainMonster::SetState(EHandBrainState New)
 {
  State=New;StateSeconds=0;SlamRing->SetVisibility(false);HowlRing->SetVisibility(false);
  if(New!=EHandBrainState::Howl)Voice->Stop();
+ if((New==EHandBrainState::Dying||New==EHandBrainState::Ragdoll)&&CorpseRagdoll->TryStartSoftDeath(GetMesh()))return;
  UAnimSequence* Clip=New==EHandBrainState::Slam?SlamClip:New==EHandBrainState::Howl?HowlClip:New==EHandBrainState::Dying?DeathClip:(New==EHandBrainState::Chase||New==EHandBrainState::Returning)?MoveClip:IdleClip;
  const bool Loop=New==EHandBrainState::Idle||New==EHandBrainState::Chase||New==EHandBrainState::Returning||New==EHandBrainState::Stagger;
  if(Clip&&New!=EHandBrainState::Ragdoll&&New!=EHandBrainState::Stagger){GetMesh()->PlayAnimation(Clip,Loop);GetMesh()->SetPlayRate(Loop?1.f:0.f);}
@@ -224,7 +225,7 @@ float AHandBrainMonster::TakeDamage(float Damage,const FDamageEvent& Event,ACont
  if(Causer)LastImpulse=(GetActorLocation()-Causer->GetActorLocation()).GetSafeNormal2D()*60;
  if(Health<=0)
  {
-  CorpseRagdoll->PrepareDeath(GetMesh());SetState(EHandBrainState::Dying);if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();Target.Reset();bSlamConsumed=true;GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);SetLifeSpan(CorpseSeconds);
+  CorpseRagdoll->PrepareDeath(GetMesh());SetState(EHandBrainState::Dying);if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();Target.Reset();bSlamConsumed=true;GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);if(!CorpseRagdoll->HasSoftDeath())GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);SetLifeSpan(CorpseSeconds);
   ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),DamageInstigator,this);
   if(auto* PC=Cast<APlayerController>(DamageInstigator))if(PC->IsLocalController()&&GetGameInstance())GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
   UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_KILLED %s"),*GetName());

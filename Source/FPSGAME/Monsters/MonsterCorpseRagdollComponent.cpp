@@ -1,4 +1,10 @@
 #include "MonsterCorpseRagdollComponent.h"
+#include "M14SoftBodyDeath.h"
+#include "MonsterCombatComponent.h"
+#include "FleshHandKnockdownComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "MonsterCorpsePoseAnimInstance.h"
 #include "HumanoidRagdollBudget.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -20,6 +26,7 @@ UMonsterCorpseRagdollComponent::UMonsterCorpseRagdollComponent()
 FName UMonsterCorpseRagdollComponent::SelectAnchor(USkeletalMeshComponent* Mesh) const
 {
     if (!Mesh || !Mesh->GetSkeletalMeshAsset() || !Mesh->GetPhysicsAsset()) return NAME_None;
+    if (Rig == EMonsterCorpseRig::SpiralPillar && Mesh->GetBodyInstance(TEXT("base"))) return TEXT("base");
     if (Rig == EMonsterCorpseRig::HangingBell && Mesh->GetBodyInstance(TEXT("spine_01"))) return TEXT("spine_01");
     if (Rig == EMonsterCorpseRig::Maggot && Mesh->GetBodyInstance(TEXT("body_04"))) return TEXT("body_04");
     if (Rig == EMonsterCorpseRig::HandBrain && Mesh->GetBodyInstance(TEXT("base"))) return TEXT("base");
@@ -58,6 +65,39 @@ void UMonsterCorpseRagdollComponent::PrepareDeath(USkeletalMeshComponent* Mesh)
     }
 }
 
+bool UMonsterCorpseRagdollComponent::HasSoftDeath() const
+{
+    return SoftDeath&&SoftDeath->IsActive();
+}
+
+bool UMonsterCorpseRagdollComponent::TryStartSoftDeath(USkeletalMeshComponent* Mesh)
+{
+    if(HasSoftDeath())return true;
+    if(!Mesh||!Mesh->GetSkeletalMeshAsset())return false;
+    const auto* Binding=Cast<UMonsterSoftCorpseBinding>(Mesh->GetSkeletalMeshAsset()->GetAssetUserDataOfClass(UMonsterSoftCorpseBinding::StaticClass()));
+    if(!Binding||!Binding->Data)return false;
+    if(!SoftDeath)
+    {
+        SoftDeath=NewObject<UM14SoftBodyDeathComponent>(GetOwner());
+        SoftDeath->RegisterComponent();
+    }
+    const FVector Velocity=bHavePreviousPose?InheritedVelocity:GetOwner()->GetVelocity();
+    if(!SoftDeath->Start(Mesh,Binding->Data,Velocity))return false;
+    BodyMesh=Mesh;bAttempted=true;
+    if(auto* Character=Cast<ACharacter>(GetOwner()))
+    {
+        Character->GetCharacterMovement()->StopMovementImmediately();
+        Character->GetCharacterMovement()->DisableMovement();
+        Character->GetCharacterMovement()->SetComponentTickEnabled(false);
+        Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    }
+    if(auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>())Combat->SetComponentTickEnabled(false);
+    if(auto* Knockdown=GetOwner()->FindComponentByClass<UFleshHandKnockdownComponent>())Knockdown->SetComponentTickEnabled(false);
+    GetOwner()->SetActorTickEnabled(false);
+    SetComponentTickEnabled(true);
+    return true;
+}
+
 void UMonsterCorpseRagdollComponent::RecordDeathPose(USkeletalMeshComponent* Mesh, float DeltaSeconds, bool bPoseAlreadyEvaluated)
 {
     if (!Mesh || bAttempted) return;
@@ -85,6 +125,7 @@ void UMonsterCorpseRagdollComponent::RecordDeathPose(USkeletalMeshComponent* Mes
 
 bool UMonsterCorpseRagdollComponent::Start(USkeletalMeshComponent* Mesh, const FVector& ImpactVelocity)
 {
+    if(TryStartSoftDeath(Mesh))return true;
     if (bAttempted || !GetOwner()->HasAuthority()) return false;
     bAttempted = true;
     BodyMesh = Mesh;
@@ -157,7 +198,7 @@ void UMonsterCorpseRagdollComponent::AlignRootAndTune()
     FName Helper = MonsterRagdollPhysics::ContainerRoot(BodyMesh, RootAnchor);
     // The custom rigs already use a non-contact "root" body, even when the FBX
     // adds another container above it. Retain that existing collision contract.
-    if (Helper.IsNone() && (Rig == EMonsterCorpseRig::Maggot || Rig == EMonsterCorpseRig::HandBrain || Rig == EMonsterCorpseRig::Mawcrawler || Rig == EMonsterCorpseRig::HangingBell) &&
+    if (Helper.IsNone() && (Rig == EMonsterCorpseRig::Maggot || Rig == EMonsterCorpseRig::HandBrain || Rig == EMonsterCorpseRig::Mawcrawler || Rig == EMonsterCorpseRig::HangingBell || Rig == EMonsterCorpseRig::SpiralPillar) &&
         BodyMesh->GetBodyInstance(TEXT("root"))) Helper = TEXT("root");
     MonsterRagdollPhysics::AlignContainerRoot(BodyMesh, RootAnchor);
     const float LinearDamping = Rig == EMonsterCorpseRig::HangingBell ? 1.2f : Rig == EMonsterCorpseRig::Maggot ? .6f : .25f;
@@ -194,6 +235,11 @@ void UMonsterCorpseRagdollComponent::AlignRootAndTune()
 void UMonsterCorpseRagdollComponent::TickComponent(float DeltaSeconds, ELevelTick TickType, FActorComponentTickFunction* TickFunction)
 {
     Super::TickComponent(DeltaSeconds, TickType, TickFunction);
+    if(HasSoftDeath())
+    {
+        if(SoftDeath->Advance(DeltaSeconds))SetComponentTickEnabled(false);
+        return;
+    }
     if (!bSimulating || !BodyMesh) return;
     PhysicsAge += DeltaSeconds;
     MonsterRagdollPhysics::LimitHandoffSpeed(BodyMesh, Handoff, DeltaSeconds);

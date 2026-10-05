@@ -1,6 +1,7 @@
 #include "MonsterCoreStats.h"
 #include "VortexCofferM25.h"
 #include "M10Mawcrawler.h"
+#include "SpiralPillarM14.h"
 #include "HangingBellM09.h"
 #include "HandBrainMonster.h"
 #include "FleshHandMonster.h"
@@ -48,6 +49,7 @@ bool Get(const AActor* Target,FMonsterCoreStats& Out)
     auto Fill=[&](int32 Def,int32 Mdef,int32 CritRes,double Weight,int32 Level,EMonsterRank Rank,EMonsterToughnessClass TClass)
     {S.Def=Def;S.Mdef=Mdef;S.CritRes=CritRes;S.AttrWeight=Weight;S.Level=Level;S.Rank=Rank;S.ToughnessClass=TClass;bKnown=true;};
     if(const auto* M25=Cast<AVortexCofferM25>(Target))Fill(M25->PhysicalDefense,M25->MagicalDefense,18,9.0,M25->Level,M25->Rank,EMonsterToughnessClass::Caster);
+    else if(const auto* M14=Cast<ASpiralPillarM14>(Target))Fill(FMath::RoundToInt(M14->PhysicalDefense),FMath::RoundToInt(M14->MagicDefense),25,10.0,M14->Level,M14->Rank,EMonsterToughnessClass::Colossal);
     else if(const auto* M09=Cast<AHangingBellM09>(Target))Fill(M09->PhysicalDefense,M09->MagicalDefense,22,9.0,M09->Level,M09->Rank,EMonsterToughnessClass::Caster);
     else if(const auto* M10=Cast<AM10Mawcrawler>(Target))Fill(FMath::RoundToInt(M10->PhysicalDefense),FMath::RoundToInt(M10->MagicDefense),25,10.0,M10->Level,M10->Rank,EMonsterToughnessClass::Colossal);
     else if(const auto* Slag=Cast<AHundredEyedSlagMonster>(Target))Fill(55,40,30,10.5,Slag->Level,Slag->Rank,EMonsterToughnessClass::Heavy);

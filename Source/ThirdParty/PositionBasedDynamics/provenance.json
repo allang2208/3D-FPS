@@ -1,0 +1,20 @@
+{
+  "retrieved": "2026-10-05",
+  "repository": "https://github.com/InteractiveComputerGraphics/PositionBasedDynamics",
+  "files": {
+    "LICENSE": {
+      "url": "https://raw.githubusercontent.com/InteractiveComputerGraphics/PositionBasedDynamics/master/LICENSE",
+      "sha256": "825d46292692c501a88ddd745cddf69e2198b8354f44ae1f192627d79bad2ae7"
+    },
+    "PositionBasedDynamics/XPBD.cpp": {
+      "url": "https://raw.githubusercontent.com/InteractiveComputerGraphics/PositionBasedDynamics/master/PositionBasedDynamics/XPBD.cpp",
+      "sha256": "884158fcf17cbc7498f5ca0e8f52f936f1dbc33906d1cb4723807889c671b791"
+    }
+  },
+  "integration": "Distance and volume XPBD kernels adapted to UE FVector in M14XPBDConstraints.h; explicit 1/6 volume gradients.",
+  "publication_normalization": "Trailing whitespace and final extra blank line removed; source content and copyright terms unchanged. files.*.sha256 records original downloads. Published hashes describe Git blobs with LF line endings.",
+  "published_sha256": {
+    "LICENSE": "1c360573be5b890ea7c798436315d5c30d361c5f74450625d32697f8ad83d73f",
+    "XPBD.cpp.upstream.txt": "3ae4e2124ba77ac190812ac3db58ffc18c2cb814273921d15738a7cf99888f9c"
+  }
+}

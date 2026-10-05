@@ -33,6 +33,8 @@ UPoisonMaggotVenomFX::UPoisonMaggotVenomFX()
     ConstructorHelpers::FObjectFinder<UMaterialInterface> Wet(TEXT("/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomWetFilm.M_VenomWetFilm"));
     SphereMesh = Sphere.Object; PlaneMesh = Plane.Object;
     DropMaterial = Drops.Object; MistMaterial = Mist.Object; WetMaterial = Wet.Object;
+    ConstructorHelpers::FObjectFinder<UMaterialInterface> M14Film(TEXT("/Game/Monsters/SpiralPillarM14/VenomV09/M_M14_VenomFilm.M_M14_VenomFilm"));
+    M14FilmMaterial=M14Film.Object;
 }
 
 bool UPoisonMaggotVenomFX::DoesSupportWorldType(EWorldType::Type Type) const
@@ -77,6 +79,7 @@ void UPoisonMaggotVenomFX::OnWorldBeginPlay(UWorld& World)
         Mark->CreateDynamicMaterialInstance();
         Marks.Add(Mark);
     }
+    InitializeM14Films(World);
     bReady = true;
 }
 
@@ -189,6 +192,7 @@ void UPoisonMaggotVenomFX::AddImpact(const FHitResult& Hit, const FVector& Incom
 
 void UPoisonMaggotVenomFX::Tick(float DeltaTime)
 {
+    TickM14Films(DeltaTime);
     FVector Eye = FVector::ZeroVector; FRotator ViewRotation;
     if (auto* PC = GetWorld()->GetFirstPlayerController()) PC->GetPlayerViewPoint(Eye,ViewRotation);
     for (int32 Group = 0; Group < 2; ++Group)
@@ -256,6 +260,8 @@ void UPoisonMaggotVenomFX::Deinitialize()
     for (const auto& Renderer : Renderers) if (Renderer) Renderer->DestroyComponent();
     for (const auto& Mark : Marks) if (Mark) Mark->DestroyComponent();
     Renderers.Empty(); Marks.Empty(); ActiveParticles = 0;
+    if(M14FilmRenderer)M14FilmRenderer->DestroyComponent();
+    M14FilmRenderer=nullptr;M14FilmTransforms.Empty();
     Super::Deinitialize();
 }
 
