@@ -5,6 +5,7 @@
 #include "WolfMonster.h"
 #include "M10Mawcrawler.h"
 #include "HangingBellM09.h"
+#include "VortexCofferM25.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -15,13 +16,32 @@ EBTNodeResult::Type UBTTask_MonsterAction::ExecuteTask(UBehaviorTreeComponent& O
  AI->ActiveAction=NodeName;
  if(Action==EMonsterAction::Hold||Action==EMonsterAction::Idle)if(auto* M09=Cast<AHangingBellM09>(AI->GetPawn()))M09->StopCeiling();
  if(Action==EMonsterAction::Attack){AI->StopMovement();return AI->Combat()->TryAttack(Cast<APawn>(Owner.GetBlackboardComponent()->GetValueAsObject(TEXT("Target"))))?EBTNodeResult::Succeeded:EBTNodeResult::Failed;}
- if(Action==EMonsterAction::Hold||Action==EMonsterAction::Idle){AI->StopMovement();if(Action==EMonsterAction::Idle)AI->Combat()->SetLocomotion(false);}
+ const auto* M25=Cast<AVortexCofferM25>(AI->GetPawn());
+ const bool Searching=Action==EMonsterAction::Idle&&M25&&M25->bSearchForPlayers&&AI->bDecisionEnabled;
+ if(Action==EMonsterAction::Hold||(Action==EMonsterAction::Idle&&!Searching))
+ {AI->StopMovement();if(Action==EMonsterAction::Idle)AI->Combat()->SetLocomotion(false);}
  return EBTNodeResult::InProgress;
 }
 void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory,float Dt)
 {
  auto* AI=Cast<AMonsterAIController>(Owner.GetAIOwner());if(!AI||!AI->Combat()){FinishLatentTask(Owner,EBTNodeResult::Failed);return;}
  Elapsed+=Dt;auto* C=AI->Combat();auto* B=Owner.GetBlackboardComponent();
+ if(Action==EMonsterAction::Idle)
+ {
+  if(auto* M25=Cast<AVortexCofferM25>(AI->GetPawn());M25&&M25->bSearchForPlayers)
+  {
+   if(C->IsBusy()||!AI->bDecisionEnabled||!M25->IsActorTickEnabled())
+   {AI->StopMovement();FinishLatentTask(Owner,EBTNodeResult::Aborted);return;}
+   FVector SearchGoal;
+   if(M25->SearchDestination(SearchGoal))
+   {
+    AI->ActiveAction=TEXT("Search for player");
+    AI->NavigateTo(SearchGoal,65.f);
+    if(AI->bNavigationFailed){M25->DeferSearch();AI->StopMovement();}
+   }
+   else AI->StopMovement();
+  }
+ }
  if(Action==EMonsterAction::Pursue||Action==EMonsterAction::Return)
  {
   if(C->IsBusy()||!AI->bDecisionEnabled||!AI->GetPawn()->IsActorTickEnabled()){AI->StopMovement();FinishLatentTask(Owner,EBTNodeResult::Aborted);return;}
@@ -62,7 +82,12 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
    if(Reached){AI->StopMovement();C->SetLocomotion(false);}
    else C->SetLocomotion(AI->NavigateFeralTo(Dest,Stop,Victim),Returning);
   }
-  else if(SameLevel&&FVector::Dist2D(Dest,Feet)<=Stop){AI->StopMovement();C->SetLocomotion(false);}
+  else if(SameLevel&&FVector::Dist2D(Dest,Feet)<=Stop)
+  {
+   AI->StopMovement();C->SetLocomotion(false);
+   if(!Returning&&B->GetValueAsBool(TEXT("Visible")))
+    if(auto* M25=Cast<AVortexCofferM25>(AI->GetPawn()))M25->FaceNearbyTarget(M10Victim,Dt);
+  }
   else{C->SetLocomotion(true,Returning);AI->NavigateTo(Dest,Stop);}
  }
  if(Elapsed>=.25f)FinishLatentTask(Owner,EBTNodeResult::Succeeded);

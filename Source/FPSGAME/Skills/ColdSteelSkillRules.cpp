@@ -11,6 +11,7 @@
 #include "../Monsters/HandBrainMonster.h"
 #include "../Monsters/M10Mawcrawler.h"
 #include "../Monsters/HangingBellM09.h"
+#include "../Monsters/VortexCofferM25.h"
 #include "../Props/FPSPracticeTarget.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
@@ -374,6 +375,7 @@ bool ColdSteelSkills::IsPistol(const FColdSteelItem* I)
 { return I && ColdSteelInventory::Text(*I,TEXT("weaponType"))==TEXT("pistol"); }
 bool ColdSteelSkills::IsCriticalHit(const FHitResult& Hit)
 {
+    if(const auto* M25=Cast<AVortexCofferM25>(Hit.GetActor()))return M25->IsWeakpointHit(Hit);
     if(const auto* M09=Cast<AHangingBellM09>(Hit.GetActor()))return M09->IsWeakpointHit(Hit);
     if(const auto* M10=Cast<AM10Mawcrawler>(Hit.GetActor()))return M10->IsWeakpointHit(Hit);
     // 手脑怪要害自定义：只有释放吼叫（Howl）期间命中张开的口部才算弱点；其余时间头部

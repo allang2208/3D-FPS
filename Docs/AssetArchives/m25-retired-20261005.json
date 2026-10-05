@@ -1,0 +1,430 @@
+{
+  "date": "2026-10-05",
+  "scope": "M25VortexCoffer",
+  "stage": "archived_hashes_matched",
+  "count": 60,
+  "bytes": 5317644.0,
+  "retained": "Inputs, RigV01, current animations, recipe dependency chain, original high mesh, optimized game mesh, Content packages and production receipts",
+  "files": [
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/M25_three_views_no_lightning.zip",
+      "destination": "trash/m25-retired-20261005/M25_three_views_no_lightning.zip",
+      "bytes": 3625963,
+      "sha256": "21e7321c8ec6480f8943298d4cb135da927c49d94c66ef7868ca5c6be478a1f7",
+      "reason": "Old duplicate views-only delivery; individual reference images retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/pipeline_status.json",
+      "destination": "trash/m25-retired-20261005/pipeline_status.json",
+      "bytes": 724,
+      "sha256": "8c6952359c211c8a2f084f5f11957da13612b0f5fca4831894211d9b1dc5d01b",
+      "reason": "Early rig-only status superseded by actual asset receipts and current README."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/trellis_candidate_draft.api.json",
+      "destination": "trash/m25-retired-20261005/trellis_candidate_draft.api.json",
+      "bytes": 3904,
+      "sha256": "04b9d241cc9c39d22d862337347df1166d853a90bdb98af92a758bbb5de2bbd5",
+      "reason": "Unsubmitted TRELLIS draft superseded by the user-provided Meshy model."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/AttacksV01/Before/BP_VortexCofferM25.uasset",
+      "destination": "trash/m25-retired-20261005/AttacksV01/Before/BP_VortexCofferM25.uasset",
+      "bytes": 27091,
+      "sha256": "3ebe0cf93fe7bcb8142e1ecb937cda45a78f8df91172e18301f5d8abbe2d67e7",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/AttacksV01/Before/FPSLightningArc.cpp",
+      "destination": "trash/m25-retired-20261005/AttacksV01/Before/FPSLightningArc.cpp",
+      "bytes": 14909,
+      "sha256": "5c9afeb01d54fb5f91b3270e599bdb3afd791a430fb08e44af73902813b6bf2d",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/AttacksV01/Before/FPSLightningArc.h",
+      "destination": "trash/m25-retired-20261005/AttacksV01/Before/FPSLightningArc.h",
+      "bytes": 2115,
+      "sha256": "3f29cde3094a262ce0d01af3588b66c7b73019be9fa3b489c82c758b3ab37dd2",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/AttacksV01/Before/MonsterCombatComponent.cpp",
+      "destination": "trash/m25-retired-20261005/AttacksV01/Before/MonsterCombatComponent.cpp",
+      "bytes": 31861,
+      "sha256": "5afc11b0402642b6247951dc80a9dfbb17177fa70f8e7d7b21870e798a5723b6",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/AttacksV01/Before/README.md",
+      "destination": "trash/m25-retired-20261005/AttacksV01/Before/README.md",
+      "bytes": 2410,
+      "sha256": "01a91616e4edb1f94feb8a611f91866e62299060bbf8fac76cacbaaa5d2f4f19",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/AttacksV01/Before/VortexCofferM25.cpp",
+      "destination": "trash/m25-retired-20261005/AttacksV01/Before/VortexCofferM25.cpp",
+      "bytes": 3345,
+      "sha256": "3bc4c019005f26f51454890cc85a5e4aefe8ea4fad5f8b43d2f9cff6c54f8beb",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/AttacksV01/Before/VortexCofferM25.h",
+      "destination": "trash/m25-retired-20261005/AttacksV01/Before/VortexCofferM25.h",
+      "bytes": 1985,
+      "sha256": "db94b7301b895ff6246af46270f428fe3b11b0e453e3448c4dfcc0879c07891b",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BackElectricV01/Before/VortexCofferM25.cpp",
+      "destination": "trash/m25-retired-20261005/BackElectricV01/Before/VortexCofferM25.cpp",
+      "bytes": 3213,
+      "sha256": "71256d35b544bd98001ced614af999e480b9cb2a257c1520733a886579a6ce35",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BackElectricV01/Before/VortexCofferM25.h",
+      "destination": "trash/m25-retired-20261005/BackElectricV01/Before/VortexCofferM25.h",
+      "bytes": 1823,
+      "sha256": "7337ce1daa09431673d8eea7b25ae7aaa454d5cf40039ac387b15c38e5333ff0",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BackElectricV02/Before/Content/Monsters/VortexCofferM25/BP_VortexCofferM25.uasset",
+      "destination": "trash/m25-retired-20261005/BackElectricV02/Before/Content/Monsters/VortexCofferM25/BP_VortexCofferM25.uasset",
+      "bytes": 28035,
+      "sha256": "6dfaf9e6d2a97b90b8ccc7544f75d62579012fb916fbc87756f2ec1096fdeccf",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BackElectricV02/Before/Content/Monsters/VortexCofferM25/VFX/NS_M25_BackElectric.uasset",
+      "destination": "trash/m25-retired-20261005/BackElectricV02/Before/Content/Monsters/VortexCofferM25/VFX/NS_M25_BackElectric.uasset",
+      "bytes": 904139,
+      "sha256": "92f151d626f6808711dab8bad78366757a54699befadf242f1a05e495ec58d99",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BackElectricV02/Before/Source/FPSGAME/Monsters/M25BackElectricComponent.cpp",
+      "destination": "trash/m25-retired-20261005/BackElectricV02/Before/Source/FPSGAME/Monsters/M25BackElectricComponent.cpp",
+      "bytes": 12039,
+      "sha256": "6fc205cd7cfb9ad34185fa508c5b06709ebc3b5c86fbaebb28fed6d02356d80d",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BackElectricV02/Before/Source/FPSGAME/Monsters/M25BackElectricComponent.h",
+      "destination": "trash/m25-retired-20261005/BackElectricV02/Before/Source/FPSGAME/Monsters/M25BackElectricComponent.h",
+      "bytes": 2547,
+      "sha256": "99e09b1e92e935c74fd02e9e8a42576fe753062181e873ef375f0de25ea454fc",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BiteV01/Before/BP_VortexCofferM25.uasset",
+      "destination": "trash/m25-retired-20261005/BiteV01/Before/BP_VortexCofferM25.uasset",
+      "bytes": 27464,
+      "sha256": "07d3e975b23034d58c342aab3ca6cc47961ae1c25fb71cc02a3093b403757abc",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BiteV01/Before/M25AnimInstance.cpp",
+      "destination": "trash/m25-retired-20261005/BiteV01/Before/M25AnimInstance.cpp",
+      "bytes": 3228,
+      "sha256": "62d539cad5077802e1f9aa6231f02a6412f0c7f7743f41a92dee2f3d11b146cd",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BiteV01/Before/M25AnimInstance.h",
+      "destination": "trash/m25-retired-20261005/BiteV01/Before/M25AnimInstance.h",
+      "bytes": 763,
+      "sha256": "01a10255020d7b5caa91f0b4024849c94dd49b711fb574fd9f9b2faa7bb8cbda",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BiteV01/Before/M25MagicComponent.cpp",
+      "destination": "trash/m25-retired-20261005/BiteV01/Before/M25MagicComponent.cpp",
+      "bytes": 18091,
+      "sha256": "827347f8d7bcf6bc9f01dcfbb89611d9967a864845b6c0cb438ad4d328547211",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BiteV01/Before/M25MagicComponent.h",
+      "destination": "trash/m25-retired-20261005/BiteV01/Before/M25MagicComponent.h",
+      "bytes": 5439,
+      "sha256": "2e0d54f1f4c59ddd81cac3fd8c842f5fb43e61703a8d1acc934c8deff9444493",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BiteV01/Before/MonsterCombatComponent.cpp",
+      "destination": "trash/m25-retired-20261005/BiteV01/Before/MonsterCombatComponent.cpp",
+      "bytes": 32278,
+      "sha256": "5bcd0f755f1f10e56217f8ee58d2cce2c12a678f3573ef7dac8d18cd2d79b710",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BiteV01/Before/SK_M25_VortexCoffer_Skeleton.uasset",
+      "destination": "trash/m25-retired-20261005/BiteV01/Before/SK_M25_VortexCoffer_Skeleton.uasset",
+      "bytes": 48397,
+      "sha256": "5642f21cd7847b7be0a8dba41ccb454ab622d6fea3029f07aa5cc0564d2dd356",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BiteV01/Before/VortexCofferM25.cpp",
+      "destination": "trash/m25-retired-20261005/BiteV01/Before/VortexCofferM25.cpp",
+      "bytes": 3773,
+      "sha256": "1885c41306a6588912cd087ec092065dd901029a283fbfc8e5a016cfea940bdf",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BiteV01/Before/VortexCofferM25.h",
+      "destination": "trash/m25-retired-20261005/BiteV01/Before/VortexCofferM25.h",
+      "bytes": 2226,
+      "sha256": "1a56cc3b95a63ba73c67bd2c5d6cbfb9eb114e5e9e15df00a625f338889efb3d",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BiteV02/Before/Content/Monsters/VortexCofferM25/BP_VortexCofferM25.uasset",
+      "destination": "trash/m25-retired-20261005/BiteV02/Before/Content/Monsters/VortexCofferM25/BP_VortexCofferM25.uasset",
+      "bytes": 28941,
+      "sha256": "097e4ff479d6588698731209119f6fedb2a4e42da1e5b29c484da5ce6be3038c",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BiteV02/Before/Source/FPSGAME/Monsters/M25BiteComponent.cpp",
+      "destination": "trash/m25-retired-20261005/BiteV02/Before/Source/FPSGAME/Monsters/M25BiteComponent.cpp",
+      "bytes": 9306,
+      "sha256": "af9b67b293c1fdb223cc46405b47796b462120b45043d0f6942a1776ce53bebd",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/BiteV02/Before/Source/FPSGAME/Monsters/M25BiteComponent.h",
+      "destination": "trash/m25-retired-20261005/BiteV02/Before/Source/FPSGAME/Monsters/M25BiteComponent.h",
+      "bytes": 3081,
+      "sha256": "e268aa315e419e75fea28d5e521fc11155cb26007b062548165df29fc9b23942",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/CombatFixV01/Before/M25BiteComponent.cpp.before",
+      "destination": "trash/m25-retired-20261005/CombatFixV01/Before/M25BiteComponent.cpp.before",
+      "bytes": 9596,
+      "sha256": "45d5da2ed4ec080dfff462aa6c8b22b20cd4c9a9759ed06d8185bd61ec5bdba3",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/CombatFixV01/Before/M25Damage.cpp.before",
+      "destination": "trash/m25-retired-20261005/CombatFixV01/Before/M25Damage.cpp.before",
+      "bytes": 6023,
+      "sha256": "48d23d875e137672778d9580636bc521e47b1ab35d4d141f912119bf7af93061",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Content/Monsters/VortexCofferM25/BP_VortexCofferM25.uasset",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Content/Monsters/VortexCofferM25/BP_VortexCofferM25.uasset",
+      "bytes": 28035,
+      "sha256": "6dfaf9e6d2a97b90b8ccc7544f75d62579012fb916fbc87756f2ec1096fdeccf",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Content/Monsters/VortexCofferM25/SK_M25_VortexCoffer_Skeleton.uasset",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Content/Monsters/VortexCofferM25/SK_M25_VortexCoffer_Skeleton.uasset",
+      "bytes": 48761,
+      "sha256": "8cf79c2ab5bbe9d78ff49bf8c9f1a484ef95adc818e5f1416b1ccfe046a975c9",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/FPSGAME.Build.cs",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/FPSGAME.Build.cs",
+      "bytes": 3341,
+      "sha256": "8e417a11138f1b5681bfc0551286310e97c7143a4ef74d4ee6398765976a0bc8",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25AnimInstance.cpp",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25AnimInstance.cpp",
+      "bytes": 3889,
+      "sha256": "fe12afe18db15a2639114d2b041f2fcb0a0d7d7a2c81c8caf21329c6cb9ecddd",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25AnimInstance.h",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25AnimInstance.h",
+      "bytes": 819,
+      "sha256": "b26ed646a913abea2a8ffe2d53974b5eb8dee6440f2be204c40c3fed86f8e13c",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25BackElectricComponent.cpp",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25BackElectricComponent.cpp",
+      "bytes": 11784,
+      "sha256": "b58962ee01605357042f60f38d7df243914a82f179ff711e0f6398ece69c81df",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25BackElectricComponent.h",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25BackElectricComponent.h",
+      "bytes": 2519,
+      "sha256": "ac6448f91fcf192c462ddb4bdfb29c8891e1abd17c1bc70696815f634d34fbc7",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25BiteComponent.cpp",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25BiteComponent.cpp",
+      "bytes": 9162,
+      "sha256": "dd7ebe78ebd12cbc1940a5f394b62437cd71583ffd6b2b23e5d1a0781df9f6e1",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25BiteComponent.h",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25BiteComponent.h",
+      "bytes": 3058,
+      "sha256": "3050596a6d1f028b7c68af56b817820f5d331a66dea32e9a0050ee65268983ff",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25MagicComponent.cpp",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25MagicComponent.cpp",
+      "bytes": 17143,
+      "sha256": "9a0192389ea5042894487b2127a823cf38ce25a9f99dadfc645bb5f819a17556",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25MagicComponent.h",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/M25MagicComponent.h",
+      "bytes": 5313,
+      "sha256": "3c6deb495d4dcd1f37b48228260da1b42771896991042f98924d4ecc8e8a02de",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "bytes": 32216,
+      "sha256": "1721f5a76ab18918be79c1b861da3883475482af37457a1a0a9e9cdd43b6f5e2",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/MonsterCoreStats.cpp",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/MonsterCoreStats.cpp",
+      "bytes": 11217,
+      "sha256": "ba944ee1f8ba876fc20a36794d9b9bcef67d995e84ced0c84c7da538a4685f8b",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/MonsterMeleeKnockback.cpp",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/MonsterMeleeKnockback.cpp",
+      "bytes": 8992,
+      "sha256": "6c259763ba2c5b1378fc01a468cee141e3fe55da6a4988dd4704e8b90f6b9cf4",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/MonsterParryReaction.cpp",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/MonsterParryReaction.cpp",
+      "bytes": 4269,
+      "sha256": "45e887a7fac287c57c8f6e4864b16dbe9f85d7cc426abb49463f673efe382afb",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/MonsterToughnessProfiles.cpp",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/MonsterToughnessProfiles.cpp",
+      "bytes": 5468,
+      "sha256": "a315acd18286c18ad982c28fdf7b64afa1a19fe9a1dc6d181e71f2278541f4a7",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/VortexCofferM25.cpp",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/VortexCofferM25.cpp",
+      "bytes": 5543,
+      "sha256": "8d13ec5bf76548ef9d7ae128b6c43d8f9bc3bb23a1e878f050f9facd6556736f",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Monsters/VortexCofferM25.h",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Monsters/VortexCofferM25.h",
+      "bytes": 2914,
+      "sha256": "51415a4d92562801e8d7e349bd691fd80d44bf61d9c06f5d1900081b73c8e41b",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HitWeakpointV01/Before/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "destination": "trash/m25-retired-20261005/HitWeakpointV01/Before/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "bytes": 51556,
+      "sha256": "3b219fe98ad16ac156438aec9c6ae3fb3aa4f38551f8c228a5f0773f64cec382",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HuntingV01/Before/Content/Monsters/VortexCofferM25/BP_M25AIController.uasset",
+      "destination": "trash/m25-retired-20261005/HuntingV01/Before/Content/Monsters/VortexCofferM25/BP_M25AIController.uasset",
+      "bytes": 22376,
+      "sha256": "29999fce6a500e9b9ecfd27692e354ae2b36fd45e29f11a7f412f0ff10fb821c",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HuntingV01/Before/Content/Monsters/VortexCofferM25/BP_VortexCofferM25.uasset",
+      "destination": "trash/m25-retired-20261005/HuntingV01/Before/Content/Monsters/VortexCofferM25/BP_VortexCofferM25.uasset",
+      "bytes": 28880,
+      "sha256": "58a52562d4e45fa51eac7dabcf49b2abe276c8b683c9b1b22926d4587eda0ee5",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HuntingV01/Before/Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "destination": "trash/m25-retired-20261005/HuntingV01/Before/Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "bytes": 14983,
+      "sha256": "068d9bd9e44ee7579b8394291770755e90541f39795a988efe26eaa8d08cb443",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HuntingV01/Before/Source/FPSGAME/Monsters/MonsterBTNodes.cpp",
+      "destination": "trash/m25-retired-20261005/HuntingV01/Before/Source/FPSGAME/Monsters/MonsterBTNodes.cpp",
+      "bytes": 5601,
+      "sha256": "4f589c2b097652d06c8858cdee0fb89ef90921dae5d3316579252262ad0c071c",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HuntingV01/Before/Source/FPSGAME/Monsters/VortexCofferM25.cpp",
+      "destination": "trash/m25-retired-20261005/HuntingV01/Before/Source/FPSGAME/Monsters/VortexCofferM25.cpp",
+      "bytes": 6153,
+      "sha256": "d8ed38c0d0ffbd83b16f077604f7e860e74055a0e895992fb4294f316912654d",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/HuntingV01/Before/Source/FPSGAME/Monsters/VortexCofferM25.h",
+      "destination": "trash/m25-retired-20261005/HuntingV01/Before/Source/FPSGAME/Monsters/VortexCofferM25.h",
+      "bytes": 5303,
+      "sha256": "94b3aea3e963bc08f92df4bceaf44fe85806856f24168d8ff7b5ebf6d97483b7",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/MovementV02/Before/BP_VortexCofferM25.uasset",
+      "destination": "trash/m25-retired-20261005/MovementV02/Before/BP_VortexCofferM25.uasset",
+      "bytes": 29002,
+      "sha256": "eaf7a8a99eb5c0dfc5f3dd38edb00afa0099ccad34b41ba05bd5653e044edd7e",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/OptimizationV01/BackupBeforeOptimization/BP_VortexCofferM25.uasset",
+      "destination": "trash/m25-retired-20261005/OptimizationV01/BackupBeforeOptimization/BP_VortexCofferM25.uasset",
+      "bytes": 29002,
+      "sha256": "eaf7a8a99eb5c0dfc5f3dd38edb00afa0099ccad34b41ba05bd5653e044edd7e",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/OptimizationV01/__pycache__/author_common.cpython-311.pyc",
+      "destination": "trash/m25-retired-20261005/OptimizationV01/__pycache__/author_common.cpython-311.pyc",
+      "bytes": 10818,
+      "sha256": "a1eeb7e41e8545f20ed16e41d9387d586333e8f8474ece03f8206faf7381b020",
+      "reason": "Generated Python bytecode; maintained Python source retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/UEV01/BeforeIntegration/DevelopmentSpawnComponent.cpp",
+      "destination": "trash/m25-retired-20261005/UEV01/BeforeIntegration/DevelopmentSpawnComponent.cpp",
+      "bytes": 13416,
+      "sha256": "69378f44459e50630c7256c80dc3b175d093831037fe22f0784e369d051e6b7b",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    },
+    {
+      "source": "SourceAssets/M25VortexCoffer20261004/UEV01/BeforeIntegration/MonsterCombatComponent.cpp",
+      "destination": "trash/m25-retired-20261005/UEV01/BeforeIntegration/MonsterCombatComponent.cpp",
+      "bytes": 31402,
+      "sha256": "b820d4d846340c77f7eeedc6a9ba3d036a58e1ea33b67fd1a6ce3a38c9e6b984",
+      "reason": "Superseded rollback snapshot; current production source and assets retained."
+    }
+  ]
+}

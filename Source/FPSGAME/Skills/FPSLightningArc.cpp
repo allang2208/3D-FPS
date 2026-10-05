@@ -9,13 +9,15 @@
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Net/UnrealNetwork.h"
 
-void AFPSLightningArc::InitializeColumn(UStaticMesh* Tube,UMaterialInterface* BodyMaterial,UMaterialInterface* FilamentMaterial,const FVector& Start,const FVector& End,const FLightningCast& Spell,float ChargeRatio)
+void AFPSLightningArc::InitializeColumn(UStaticMesh* Tube,UMaterialInterface* BodyMaterial,UMaterialInterface* FilamentMaterial,const FVector& Start,const FVector& End,const FLightningCast& Spell,float ChargeRatio,float WidthScale)
 {
-    if(!Tube||!BodyMaterial||!FilamentMaterial){Destroy();return;}
     Tags.Add(TEXT("ThunderLanceColumn"));Age=0;Hold=Spell.Duration;Fade=FMath::Max(.01f,Spell.Fade);
-    if(HasAuthority()){NetKind=1;NetStart=Start;NetEnd=End;NetSpell=Spell;NetWidth=1.f;NetBrightness=50.f;NetChargeRatio=ChargeRatio;NetContactLight=true;}
+    if(HasAuthority()){NetKind=1;NetStart=Start;NetEnd=End;NetSpell=Spell;NetWidth=FMath::Max(.01f,WidthScale);NetBrightness=50.f;NetChargeRatio=ChargeRatio;NetContactLight=true;}
+    // Dedicated servers publish the same geometry parameters without loading cosmetic assets.
+    if(GetNetMode()==NM_DedicatedServer){SetLifeSpan(Hold+Fade*1.55f+.05f);return;}
+    if(!Tube||!BodyMaterial||!FilamentMaterial){Destroy();return;}
     // Charge payoff: a minimum-charge shot reads as a thinner, dimmer bolt.
-    const float Visual=FMath::Lerp(.55f,1.f,FMath::Clamp(ChargeRatio,0.f,1.f));
+    const float Visual=FMath::Lerp(.55f,1.f,FMath::Clamp(ChargeRatio,0.f,1.f))*FMath::Max(.01f,WidthScale);
     const float Glow=FMath::Lerp(.65f,1.f,FMath::Clamp(ChargeRatio,0.f,1.f));
     const FVector Delta=End-Start;const float Length=FMath::Max(1.f,float(Delta.Size()));
     SetActorLocationAndRotation(Start,Delta.Rotation());
@@ -167,7 +169,7 @@ void AFPSLightningArc::NetInit()
         auto* Body=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/ElectricMagic/ThunderFluxV3/M_ThunderFluxBody.M_ThunderFluxBody"));
         auto* Filament=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/ElectricMagic/ThunderFluxV3/M_ThunderFluxFilaments.M_ThunderFluxFilaments"));
         if(!Tube||!Body||!Filament)return;
-        InitializeColumn(Tube,Body,Filament,NetStart,NetEnd,NetSpell,NetChargeRatio);
+        InitializeColumn(Tube,Body,Filament,NetStart,NetEnd,NetSpell,NetChargeRatio,NetWidth);
     }
     else
     {

@@ -2373,3 +2373,15 @@ __pycache__/
 !/SourceAssets/SkillIconRoundedSquare20261004/UppercutSilhouetteV5/style_recipe.json
 !/SourceAssets/SkillIconRoundedSquare20261004/MartialSilhouetteFamilyV1/prompts.json
 /SourceAssets/SwordUppercutPublication20261004/Local/
+
+# M25: publish authored recipes/prose only; user Meshy media, dense geometry,
+# UE packages, authoring binaries, rollback snapshots and receipts stay local.
+/SourceAssets/M25VortexCoffer20261004/**
+!/SourceAssets/M25VortexCoffer20261004/**/
+!/SourceAssets/M25VortexCoffer20261004/**/*.py
+!/SourceAssets/M25VortexCoffer20261004/**/*.ps1
+!/SourceAssets/M25VortexCoffer20261004/**/*.md
+/SourceAssets/M25VortexCoffer20261004/**/Before/
+/SourceAssets/M25VortexCoffer20261004/**/BeforeIntegration/
+/SourceAssets/M25VortexCoffer20261004/**/BackupBeforeOptimization/
+/SourceAssets/M25VortexCoffer20261004/Publication20261005/Local/

@@ -19,7 +19,7 @@ class FPSGAME_API AFPSLightningArc : public AActor
 public:
     AFPSLightningArc();
     void InitializeArc(UNiagaraSystem* System,const FVector& Start,const FVector& End,const FLightningCast& Spell,float Width=1.f,bool bContactLight=true,float Brightness=50.f);
-    void InitializeColumn(UStaticMesh* Tube,UMaterialInterface* BodyMaterial,UMaterialInterface* FilamentMaterial,const FVector& Start,const FVector& End,const FLightningCast& Spell,float ChargeRatio=1.f);
+    void InitializeColumn(UStaticMesh* Tube,UMaterialInterface* BodyMaterial,UMaterialInterface* FilamentMaterial,const FVector& Start,const FVector& End,const FLightningCast& Spell,float ChargeRatio=1.f,float WidthScale=1.f);
     void InitializeBladeArc(UNiagaraSystem* System,USceneComponent* BladeAnchor,float Length,int32 Seed);
     float BladeFlash() const;
     void SetBladeLightVisible(bool bVisible);

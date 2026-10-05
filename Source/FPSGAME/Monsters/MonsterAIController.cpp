@@ -6,6 +6,7 @@
 #include "WolfMonster.h"
 #include "BlindSupplicantMonster.h"
 #include "HangingBellM09.h"
+#include "VortexCofferM25.h"
 #include "FPSCombatHealthComponent.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -57,6 +58,14 @@ void AMonsterAIController::OnPossess(APawn* P)
   Sight->DetectionByAffiliation.bDetectEnemies=Sight->DetectionByAffiliation.bDetectFriendlies=Sight->DetectionByAffiliation.bDetectNeutrals=true;
   Senses->ConfigureSense(*Sight);Senses->RequestStimuliListenerUpdate();
  }
+ if(const auto* M25=Cast<AVortexCofferM25>(P))
+ {
+  auto* Sight=NewObject<UAISenseConfig_Sight>(this);
+  Sight->SightRadius=M25->AggroRadius;Sight->LoseSightRadius=M25->AggroRadius+500.f;
+  Sight->PeripheralVisionAngleDegrees=180.f;Sight->SetMaxAge(MemorySeconds);
+  Sight->DetectionByAffiliation.bDetectEnemies=Sight->DetectionByAffiliation.bDetectFriendlies=Sight->DetectionByAffiliation.bDetectNeutrals=true;
+  Senses->ConfigureSense(*Sight);Senses->RequestStimuliListenerUpdate();
+ }
  if(Behavior){RunBehaviorTree(Behavior);UpdateKnowledge();UE_LOG(LogTemp,Display,TEXT("MONSTER_BT_READY %s tree=%s"),*P->GetName(),*Behavior->GetPathName());}
  else UE_LOG(LogTemp,Error,TEXT("MONSTER_BT_MISSING %s"),*P->GetName());
 }
@@ -89,6 +98,7 @@ void AMonsterAIController::UpdateKnowledge()
  const auto* Canine=Cast<AWolfMonster>(GetPawn());
  const auto* M07=Cast<ABlindSupplicantMonster>(GetPawn());
  const auto* M09=Cast<AHangingBellM09>(GetPawn());
+ const auto* M25=Cast<AVortexCofferM25>(GetPawn());
  const bool FeralPursuit=GetPawn()->IsA<AMutant3>()||(Canine&&Canine->bUsePredictiveHunting);
  B->SetValueAsBool(TEXT("Hold"),Disabled||C->IsBusy());
  if(C->IsDead()){StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Dead"));ActiveAction=TEXT("Dead");return;}
@@ -106,21 +116,22 @@ void AMonsterAIController::UpdateKnowledge()
   }
   // Sight perception samples the target center. M07 can acquire an exposed
   // upper body over low cover through the same segment used to select spells.
+  // M25 also actively acquires visible players all around its back electrodes.
   // Reuse the existing 10 Hz knowledge service and enumerate only players.
-  if(M07&&!KnownTarget.IsValid())
+  if((M07||M25)&&!KnownTarget.IsValid())
   {
    const auto* Sight=Senses->GetSenseConfig<UAISenseConfig_Sight>();
-   const float ConeCos=FMath::Cos(FMath::DegreesToRadians(Sight?Sight->PeripheralVisionAngleDegrees:100.f));
+   const float ConeCos=M25?-1.f:FMath::Cos(FMath::DegreesToRadians(Sight?Sight->PeripheralVisionAngleDegrees:100.f));
    for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
    {
     const auto* PC=It->Get();APawn* P=PC?PC->GetPawn().Get():nullptr;
     if(!IsValid(P)||!P->IsPlayerControlled())continue;
     const auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();
-    const FVector Delta=P->GetActorLocation()-M07->GetActorLocation();
+    const FVector Delta=P->GetActorLocation()-GetPawn()->GetActorLocation();
     const float D=Delta.SizeSquared2D();
     if((Health&&Health->IsDead())||D>=Best||
-       FVector::DotProduct(M07->GetActorForwardVector().GetSafeNormal2D(),Delta.GetSafeNormal2D())<ConeCos||
-       !M07->HasMagicSight(P))continue;
+       FVector::DotProduct(GetPawn()->GetActorForwardVector().GetSafeNormal2D(),Delta.GetSafeNormal2D())<ConeCos||
+       !(M25?LineOfSightTo(P):M07->HasMagicSight(P)))continue;
     Best=D;KnownTarget=P;LastKnown=P->GetNavAgentLocation();LastEvidence=GetWorld()->GetTimeSeconds();
    }
   }
@@ -147,7 +158,7 @@ void AMonsterAIController::UpdateKnowledge()
  if(Valid&&FeralPursuit)bReturning=false;
  else if(FVector::Dist2D(GetPawn()->GetActorLocation(),C->Home())>C->LeashRange())bReturning=true;
  const FVector HomeFeet=C->Home()-(GetPawn()->GetActorLocation()-GetPawn()->GetNavAgentLocation());
- if(!Valid&&(FVector::Dist2D(GetPawn()->GetNavAgentLocation(),HomeFeet)>80||FMath::Abs(GetPawn()->GetNavAgentLocation().Z-HomeFeet.Z)>50))bReturning=true;
+ if(!Valid&&!(M25&&M25->bSearchForPlayers)&&(FVector::Dist2D(GetPawn()->GetNavAgentLocation(),HomeFeet)>80||FMath::Abs(GetPawn()->GetNavAgentLocation().Z-HomeFeet.Z)>50))bReturning=true;
  if(bReturning&&FVector::Dist2D(GetPawn()->GetNavAgentLocation(),HomeFeet)<80&&FMath::Abs(GetPawn()->GetNavAgentLocation().Z-HomeFeet.Z)<50){bReturning=false;KnownTarget.Reset();Valid=false;C->ReachedHome();LastEvidence=-100;}
  C->SetTarget(Valid&&!bReturning?KnownTarget.Get():nullptr);
  B->SetValueAsObject(TEXT("Target"),Valid?KnownTarget.Get():nullptr);

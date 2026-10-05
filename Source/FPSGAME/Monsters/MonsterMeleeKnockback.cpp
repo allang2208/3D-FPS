@@ -1,4 +1,5 @@
 #include "MonsterCombatComponent.h"
+#include "VortexCofferM25.h"
 #include "M10Mawcrawler.h"
 #include "HangingBellM09.h"
 #include "MonsterObstacleCollision.h"
@@ -43,7 +44,8 @@ void UMonsterCombatComponent::ReceiveStun(APawn* Attacker,float Seconds,float Kn
     Seconds=FMath::Max(StunSecondsRemaining(),Remaining);
     bParryReaction=false;
     if(!UsesToughnessBar()){Toughness=0.f;SinceHit=0.f;PublishToughnessState();}
-    if(auto* M09=Cast<AHangingBellM09>(GetOwner()))M09->InterruptAttack(Seconds);
+    if(auto* M25=Cast<AVortexCofferM25>(GetOwner()))M25->InterruptAttack(Seconds);
+    else if(auto* M09=Cast<AHangingBellM09>(GetOwner()))M09->InterruptAttack(Seconds);
     else if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))M10->InterruptAttack(Seconds);
     else if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))S->InterruptAttack(Seconds);
     else if(auto* F=Cast<AFleshHandMonster>(GetOwner()))F->InterruptAttack(Seconds);

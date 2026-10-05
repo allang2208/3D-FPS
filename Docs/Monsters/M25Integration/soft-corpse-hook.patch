@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Monsters/M25Damage.cpp
++++ b/Source/FPSGAME/Monsters/M25Damage.cpp
+@@ -97,6 +97,7 @@
+ void AVortexCofferM25::OnRep_Death()
+ {
+     if (!Dead()) return;
++    CorpseRagdoll->TryStartSoftDeath(GetMesh());
+     bHitReaction = false;
+     CombatTarget.Reset();
+     if (Bite) Bite->Interrupt();
