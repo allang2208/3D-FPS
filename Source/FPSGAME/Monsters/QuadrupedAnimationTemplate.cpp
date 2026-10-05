@@ -6,6 +6,10 @@
 #include "AnimNodes/AnimNode_TwoWayBlend.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
+#include "Animation/AnimNodeSpaceConversions.h"
+#include "LurkerM08AnimInstance.h"
+#include "LurkerM08ContactNode.h"
+#include "LurkerM08Monster.h"
 
 UAnimSequence* UQuadrupedAnimationSet::FindSequence(FName Name) const
 {
@@ -20,6 +24,10 @@ struct FQuadrupedTemplateProxy : FAnimInstanceProxy
     FAnimNode_TwoWayBlend WalkSide, WalkHeading, RunSide, RunHeading;
     FAnimNode_TwoWayBlend Gaits, Locomotion, Selection, Transition;
     FAnimNode_PoseSnapshot Previous;
+    FAnimNode_ConvertLocalToComponentSpace M08ToComponent;
+    FLurkerM08ContactNode M08Contact;
+    FAnimNode_ConvertComponentToLocalSpace M08ToLocal;
+    bool bM08 = false;
 
     explicit FQuadrupedTemplateProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance)
     {
@@ -32,12 +40,23 @@ struct FQuadrupedTemplateProxy : FAnimInstanceProxy
         Locomotion.A.SetLinkNode(&Idle); Locomotion.B.SetLinkNode(&Gaits);
         Selection.A.SetLinkNode(&Locomotion); Selection.B.SetLinkNode(&Action);
         Transition.A.SetLinkNode(&Previous); Transition.B.SetLinkNode(&Selection);
+        bM08 = Instance->IsA<ULurkerM08AnimInstance>();
+        if (bM08)
+        {
+            M08ToComponent.LocalPose.SetLinkNode(&Selection);
+            M08Contact.ComponentPose.SetLinkNode(&M08ToComponent);
+            M08ToLocal.ComponentPose.SetLinkNode(&M08Contact);
+            // Snapshots already contain contact correction. Blend them after
+            // the new pose has been corrected, never apply support twice.
+            Transition.B.SetLinkNode(&M08ToLocal);
+        }
     }
     virtual FAnimNode_Base* GetCustomRootNode() override { return &Transition; }
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {
         Nodes.Append({&Idle, &Walk, &Run, &Action, &WalkLeft, &WalkRight, &RunLeft, &RunRight,
             &WalkSide, &WalkHeading, &RunSide, &RunHeading, &Gaits, &Locomotion, &Selection, &Previous, &Transition});
+        if (bM08) Nodes.Append({&M08ToComponent, &M08Contact, &M08ToLocal});
     }
     static void SetPose(FAnimNode_SequenceEvaluator_Standalone& Node, UAnimSequence* Clip, float Seconds, bool bLoop)
     {
@@ -78,6 +97,7 @@ struct FQuadrupedTemplateProxy : FAnimInstanceProxy
         Selection.Alpha = Data->ActiveAction.IsNone() ? 0.f : 1.f;
         Previous.Snapshot = Data->PreviousPose;
         Transition.Alpha = Data->PreviousPose.bIsValid ? Data->TransitionAlpha : 1.f;
+        if (bM08) M08Contact.Prepare(Cast<ALurkerM08Monster>(Instance->GetOwningActor()), Data, DeltaSeconds);
     }
 };
 

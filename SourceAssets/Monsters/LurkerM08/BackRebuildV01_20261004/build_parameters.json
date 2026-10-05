@@ -1,0 +1,17 @@
+{
+  "aperture_center_x": -0.00055,
+  "aperture_center_z": 0.205,
+  "aperture_radius_x": 0.105,
+  "aperture_radius_z": 0.121,
+  "longitudinal_half_length": 1.1,
+  "radial_segments": 128,
+  "longitudinal_segments": 96,
+  "rim_bevel_source_units": 0.006,
+  "rim_bevel_segments": 4,
+  "patch_atlas_resolution": [
+    1024,
+    1024
+  ],
+  "surface_treatment": "source color and roughness reprojection; organic nonmetal inner wall",
+  "source_scale_preserved": true
+}

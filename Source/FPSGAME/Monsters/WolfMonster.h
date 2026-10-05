@@ -85,11 +85,11 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf") int32 SuccessfulHits = 0;
 
     bool Dead() const { return State == EWolfState::Dying || State == EWolfState::Ragdoll; }
-    bool Busy() const;
-    bool CanAttack(APawn* Victim) const;
+    virtual bool Busy() const;
+    virtual bool CanAttack(APawn* Victim) const;
     /** Range is from the hunter center to the target capsule surface, independent of cooldown. */
-    bool CanBiteFrom(const APawn* Victim, const FVector& From, float Range) const;
-    bool StartAttack(APawn* Victim);
+    virtual bool CanBiteFrom(const APawn* Victim, const FVector& From, float Range) const;
+    virtual bool StartAttack(APawn* Victim);
     void SetTarget(APawn* Victim) { Target = Victim; }
     void SetLocomotion(bool bMoving, bool bReturning);
     void ReachedHome();
@@ -101,21 +101,28 @@ public:
     UFUNCTION(BlueprintCallable, Category="Wolf|Authoring") static bool PrepareCombatPhysics(USkeletalMesh* InMesh);
  protected:
     virtual void OnAttackLanded(APawn* Victim) {}
+    virtual bool HasAttackSupport() const;
+    virtual void FaceAttackDirection(const FVector& Direction, float TurnSeconds = -1.f);
+    virtual bool BuildHuntingPounce(APawn* Victim, FVector& Landing) const;
+    virtual bool HuntingContact(const APawn* Victim, bool bPounce) const;
+    virtual FVector PouncePathPoint(const FVector& Start, const FVector& End, float Alpha) const;
+    /** Real flight duration; default retains the authored source-time duration. */
+    virtual float PounceFlightDuration(const FVector& Start, const FVector& End) const;
+    virtual void FinishPounceMovement();
  private:
     void AlignVisual();
     UQuadrupedTemplateAnimInstance* Animation() const;
     void EnterState(EWolfState NewState);
+ protected:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ private:
     UFUNCTION() void OnRep_State();
     bool CanSee(const AActor* Actor) const;
     FVector Mouth() const;
     void SampleAction(FName Action, float SourceSeconds);
     void AdvanceAttack(float PreviousSeconds);
     void AdvancePounce(float SourceSeconds);
-    void FinishPounceMovement();
     void TryContact(float SourceSeconds);
-    bool BuildHuntingPounce(APawn* Victim, FVector& Landing) const;
-    bool HuntingContact(const APawn* Victim, bool bPounce) const;
     bool HuntingSightFrom(const APawn* Victim, const FVector& From) const;
     FVector PredictHuntingTarget(APawn* Victim, float Seconds, float MaxDistance) const;
     void TrackHuntingWindup(float PreviousSeconds);
@@ -131,6 +138,7 @@ public:
     float PounceDistance = 0.f;
     float PounceHeightDelta = 0.f;
     float LastPounceSourceTime = 0.f;
+    float ActivePounceFlightSeconds = 0.f;
     float BiteCooldownLeft = 0.f;
     float PounceCooldownLeft = 0.f;
     float ReactionSeconds = 0.f;

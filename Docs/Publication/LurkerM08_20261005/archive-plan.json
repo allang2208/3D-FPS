@@ -1,0 +1,456 @@
+{
+  "task": "lurker-m08-retired-20261005",
+  "scope": "M08 source rollback and rejected candidates only",
+  "files": [
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/AirCannonV06_20261004/before_references.json",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/AirCannonV06_20261004/before_references.json",
+      "bytes": 1431,
+      "sha256": "be8909a17b9bf1e3d422b7e505c3f7c66259411db3407b1b3cd3fb7e4291873e",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/AirCannonV06_20261004/Before/BP_LurkerM08.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/AirCannonV06_20261004/Before/BP_LurkerM08.uasset",
+      "bytes": 26645,
+      "sha256": "cf4d12f367fcaf6464ba81d12b8d3242afbdae3389c33cb49f3611895f57a866",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/AirCannonV06_20261004/Before/DA_M08_AnimationSet.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/AirCannonV06_20261004/Before/DA_M08_AnimationSet.uasset",
+      "bytes": 8730,
+      "sha256": "d0b80df64deeba194a3d78946a196cec07a4d82dce3dd90bdbc06b229e0ac381",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/AirWarningV11_20261005/before_references.json",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/AirWarningV11_20261005/before_references.json",
+      "bytes": 1566,
+      "sha256": "72b670885c545ba326727f2693c16bd237e755f88e550124e027ea666c3ab23b",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/AirWarningV11_20261005/M08_AirWarning_Animated_V11.blend1",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/AirWarningV11_20261005/M08_AirWarning_Animated_V11.blend1",
+      "bytes": 95871347,
+      "sha256": "49f70426f8d4e32217772573b8f9ad5860ae0891e81e0d577894938dfb04e55e",
+      "reason": "Blender previous-save backup; the corresponding final .blend is retained.",
+      "retained_replacement": "SourceAssets/Monsters/LurkerM08/AirWarningV11_20261005/M08_AirWarning_Animated_V11.blend",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/AirWarningV11_20261005/Before/BP_LurkerM08.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/AirWarningV11_20261005/Before/BP_LurkerM08.uasset",
+      "bytes": 41867,
+      "sha256": "604ecf22e42ac8a2baffa6af2ec80ec8514f3737542010f02e2e5e9673373f26",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/AirWarningV11_20261005/Before/DA_M08_AnimationSet.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/AirWarningV11_20261005/Before/DA_M08_AnimationSet.uasset",
+      "bytes": 8596,
+      "sha256": "a6a9a69daec88329d016936afbe47866de60a29b71f07ce1e06f766eb161cd01",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/AirWarningV11_20261005/PreviousSource/LurkerM08AirCannon.cpp",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/AirWarningV11_20261005/PreviousSource/LurkerM08AirCannon.cpp",
+      "bytes": 12709,
+      "sha256": "226b0c894dfb83cf23e9595165c346882251ccfcc0a1d5e362c18509671e2c1c",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/AirWarningV11_20261005/PreviousSource/LurkerM08Monster.h",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/AirWarningV11_20261005/PreviousSource/LurkerM08Monster.h",
+      "bytes": 7878,
+      "sha256": "3142add8a2aff5b3d4d89ae55f5153661d8bf8bade50a92ce6db4c955c15aa72",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/BoneheadV04_20261004/before_references.json",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/BoneheadV04_20261004/before_references.json",
+      "bytes": 1447,
+      "sha256": "7a9e6672146abb30ff743f4cd3c914858a1068d4cfa149ccae3271ab88cbcbd5",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/BoneheadV04_20261004/Before/BP_LurkerM08.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/BoneheadV04_20261004/Before/BP_LurkerM08.uasset",
+      "bytes": 26517,
+      "sha256": "f7c3f12f407d83f39313f67a5ae596355c3ca7f2445667a8b68d83748097f09e",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/BoneheadV04_20261004/Before/DA_M08_AnimationSet.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/BoneheadV04_20261004/Before/DA_M08_AnimationSet.uasset",
+      "bytes": 10557,
+      "sha256": "13b998dbcada07abc452d0f8bbb0e44684a288b62fb925e0233404d488b624e5",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/CanineRigV03_20261004/before_references.json",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/CanineRigV03_20261004/before_references.json",
+      "bytes": 1087,
+      "sha256": "d755a86b40355e5014cb702fa22f83049bf87b11f40b82479fd14fe521b9ee46",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/CanineRigV03_20261004/M08_CanineRig_Animated_V03.blend1",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/CanineRigV03_20261004/M08_CanineRig_Animated_V03.blend1",
+      "bytes": 89520101,
+      "sha256": "0414d62f844791c3903b6780de5d4b2dc194536a9433109f75d2518d46fb1375",
+      "reason": "Blender previous-save backup; the corresponding final .blend is retained.",
+      "retained_replacement": "SourceAssets/Monsters/LurkerM08/CanineRigV03_20261004/M08_CanineRig_Animated_V03.blend",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/CanineRigV03_20261004/Before/BP_LurkerM08.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/CanineRigV03_20261004/Before/BP_LurkerM08.uasset",
+      "bytes": 26419,
+      "sha256": "4087a2959ef4c1506898ff564bc6789737d9382bbb78b54e16faaf4e3447ec6c",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/CanineRigV03_20261004/Before/DA_M08_AnimationSet.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/CanineRigV03_20261004/Before/DA_M08_AnimationSet.uasset",
+      "bytes": 7170,
+      "sha256": "b6eec867a021379705d6b3e8daf24b2f72fc4c7144be5d65622058a649f854ce",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/DeathV10_20261005/before_references.json",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/DeathV10_20261005/before_references.json",
+      "bytes": 1473,
+      "sha256": "b088b6c2469448deb89ba9151628d679d111803635185cf6221caac51ae964f4",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/DeathV10_20261005/M08_Death_Grounded_V10.blend1",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/DeathV10_20261005/M08_Death_Grounded_V10.blend1",
+      "bytes": 95219554,
+      "sha256": "838f8f000cb97d463b29bd2fbe2f462f1155996a3a064822468ff6436f316180",
+      "reason": "Blender previous-save backup; the corresponding final .blend is retained.",
+      "retained_replacement": "SourceAssets/Monsters/LurkerM08/DeathV10_20261005/M08_Death_Grounded_V10.blend",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/DeathV10_20261005/read_support_vertex.py",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/DeathV10_20261005/read_support_vertex.py",
+      "bytes": 762,
+      "sha256": "5376c43f9ec905dc748dc8cf6a390ab3db9636fe18ce58571e8f59da41b709a8",
+      "reason": "One-off support-vertex diagnosis; final death authoring uses its own complete skin support solve.",
+      "retained_replacement": "Tools/LurkerM08/author_death_v10.py",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/DeathV10_20261005/support_vertex_source.json",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/DeathV10_20261005/support_vertex_source.json",
+      "bytes": 952,
+      "sha256": "877c4f9355e5fcf27bb9e0be9dd47dc93e38c9d8911c02238cb4f4f1dffa3675",
+      "reason": "One-off support-vertex diagnosis; final death authoring uses its own complete skin support solve.",
+      "retained_replacement": "Tools/LurkerM08/author_death_v10.py",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/DeathV10_20261005/Before/DA_M08_AnimationSet.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/DeathV10_20261005/Before/DA_M08_AnimationSet.uasset",
+      "bytes": 8475,
+      "sha256": "e3dc70a7171c6828d1e8577f0600fcf494ec0756e2cc0b35fe8f6fa989f81d15",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/LocomotionV08_20261005/PreviousSource/LurkerM08ContactNode.cpp",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/LocomotionV08_20261005/PreviousSource/LurkerM08ContactNode.cpp",
+      "bytes": 19977,
+      "sha256": "e59399ae5e8446f67395dd2721dd74e6028cc52dd1de5430a7eb3b24f3aa6174",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/LocomotionV08_20261005/PreviousSource/LurkerM08ContactNode.h",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/LocomotionV08_20261005/PreviousSource/LurkerM08ContactNode.h",
+      "bytes": 2807,
+      "sha256": "22ea417d138bfe8af41ee075cd2869b14edeaba7025e994bbdac36a48f4472b9",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/MotionV09_20261005/before_references.json",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/MotionV09_20261005/before_references.json",
+      "bytes": 1470,
+      "sha256": "17b58e3a9ef05cb4d55ac36d26959f0acf590b3ff27ee2db11bf9db7e122d910",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/MotionV09_20261005/Before/BP_LurkerM08.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/MotionV09_20261005/Before/BP_LurkerM08.uasset",
+      "bytes": 39108,
+      "sha256": "9199fad6edda88aeb209300b9a8bc44d568bdcd63a0d5d1d8e9c398105fe878e",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/MotionV09_20261005/Before/DA_M08_AnimationSet.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/MotionV09_20261005/Before/DA_M08_AnimationSet.uasset",
+      "bytes": 8410,
+      "sha256": "ad4dd96f327d3a4811e9dd9ea800138d29813879b4cf48973e6fcee997be1902",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/MotionV09_20261005/PreviousSource/LurkerM08ContactNode.cpp",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/MotionV09_20261005/PreviousSource/LurkerM08ContactNode.cpp",
+      "bytes": 24287,
+      "sha256": "aa4c1ed8ffe70f64d879a5c80b5a167df5876831de7302ecffd8754f823b66b6",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/MotionV09_20261005/PreviousSource/LurkerM08ContactNode.h",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/MotionV09_20261005/PreviousSource/LurkerM08ContactNode.h",
+      "bytes": 3378,
+      "sha256": "c2e6fbdec04c58a0cd94c314850f08d317137f2f5e9d2a0fb78c99a7204d3c5d",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/MotionV09_20261005/PreviousSource/LurkerM08Monster.h",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/MotionV09_20261005/PreviousSource/LurkerM08Monster.h",
+      "bytes": 7678,
+      "sha256": "a4de0cb7cffc43398c534bab3ac4c47de5efc009318a1bbb58ccab65d95dab78",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/PounceV05_20261004/before_references.json",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/PounceV05_20261004/before_references.json",
+      "bytes": 1443,
+      "sha256": "11950a18f8726f8ce79b1a804b7d50903af904a11e5344761b011caeeec8c173",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/PounceV05_20261004/M08_Pounce_Animated_V05.blend1",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/PounceV05_20261004/M08_Pounce_Animated_V05.blend1",
+      "bytes": 91598037,
+      "sha256": "7b36f6237282c6afbd629604255ef1752a136cba23d022430b7d8aebd9aaf051",
+      "reason": "Blender previous-save backup; the corresponding final .blend is retained.",
+      "retained_replacement": "SourceAssets/Monsters/LurkerM08/PounceV05_20261004/M08_Pounce_Animated_V05.blend",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/PounceV05_20261004/Before/BP_LurkerM08.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/PounceV05_20261004/Before/BP_LurkerM08.uasset",
+      "bytes": 26583,
+      "sha256": "0dbf7c9f6b141b510b6ceeaa971a62fab22c852013233da36e89529eeb0c405d",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/PounceV05_20261004/Before/DA_M08_AnimationSet.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/PounceV05_20261004/Before/DA_M08_AnimationSet.uasset",
+      "bytes": 12793,
+      "sha256": "72410ed2444a0f591a6c67db2c799e7a24291cca2310567f9cb06d381b675247",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/PursuitV12_20261005/PreviousSource/LurkerM08Monster.h",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/PursuitV12_20261005/PreviousSource/LurkerM08Monster.h",
+      "bytes": 8220,
+      "sha256": "6f774292854e6404ef541c24a7af0eb972afd8e6e965dd4781ba6aaec279f393",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/PursuitV12_20261005/PreviousSource/LurkerM08Traversal.cpp",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/PursuitV12_20261005/PreviousSource/LurkerM08Traversal.cpp",
+      "bytes": 20719,
+      "sha256": "8cde4b56e9295d9a7e50931adb4215d0af5fde8183c9e80782c2d975ff9eb6f4",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/PursuitV12_20261005/PreviousSource/LurkerSurfaceRoute.cpp",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/PursuitV12_20261005/PreviousSource/LurkerSurfaceRoute.cpp",
+      "bytes": 7319,
+      "sha256": "be9475602c2730133998430201a496de8e1e51239a953d7ffab00be968934716",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/PursuitV12_20261005/PreviousSource/LurkerSurfaceRoute.h",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/PursuitV12_20261005/PreviousSource/LurkerSurfaceRoute.h",
+      "bytes": 1077,
+      "sha256": "b698bcbfc59cdd157c674f12be8e7eb4aeb671526cbc5d7d8dbeec4816f93a82",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/PursuitV12_20261005/PreviousSource/MonsterAIController.cpp",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/PursuitV12_20261005/PreviousSource/MonsterAIController.cpp",
+      "bytes": 15732,
+      "sha256": "9b5d839262a468c77827314a4309f5c81627169d0b11318ddcbe8762652d393c",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/Reference20261004/M08_turnaround_v01.png",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/Reference20261004/M08_turnaround_v01.png",
+      "bytes": 1655456,
+      "sha256": "ba08daba1419103f5436a0c33311e67bb3a56cf330a45f1a56cbafbbaaa5a9bb",
+      "reason": "User rejected conflicting front/back structure; separate V02 references supersede this candidate.",
+      "retained_replacement": "SourceAssets/Monsters/LurkerM08/Reference20261004/v02",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/Reference20261004/turnaround_prompt_v01.txt",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/Reference20261004/turnaround_prompt_v01.txt",
+      "bytes": 3694,
+      "sha256": "cead43ae7e5f47bb349b01b7281202ce88d06f60ef8892918a78aef52e336ecb",
+      "reason": "User rejected conflicting front/back structure; separate V02 references supersede this candidate.",
+      "retained_replacement": "SourceAssets/Monsters/LurkerM08/Reference20261004/v02",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/RimSpeedV07_20261005/before_references.json",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/RimSpeedV07_20261005/before_references.json",
+      "bytes": 1821,
+      "sha256": "33a7b1a4cba56f0f23dc2ec3a808fb2ce9c341676877a667b600066eacb69d9f",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/RimSpeedV07_20261005/Before/BP_LurkerM08.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/RimSpeedV07_20261005/Before/BP_LurkerM08.uasset",
+      "bytes": 28265,
+      "sha256": "1515e4a3aaa8f275682e7f356f7d3e4da88580caecd10d2260c31ac8fc8048af",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/RimSpeedV07_20261005/Before/DA_M08_AnimationSet.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/RimSpeedV07_20261005/Before/DA_M08_AnimationSet.uasset",
+      "bytes": 8344,
+      "sha256": "1703cef68a44b203f848884280f0be187af1e7f2a09f43d0c2ea7e5497c28e05",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/TraversalV02_20261004/Before/BP_LurkerM08.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/TraversalV02_20261004/Before/BP_LurkerM08.uasset",
+      "bytes": 26344,
+      "sha256": "aa824fc7c46fe328de815046ee85941acfe3a48f53e986f27ffbec263442184d",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    },
+    {
+      "source": "SourceAssets/Monsters/LurkerM08/TraversalV02_20261004/Before/DA_M08_AnimationSet.uasset",
+      "destination": "trash/lurker-m08-retired-20261005/SourceAssets/Monsters/LurkerM08/TraversalV02_20261004/Before/DA_M08_AnimationSet.uasset",
+      "bytes": 6635,
+      "sha256": "c629f0f74a48d3b8c22a1f9a9b13bfa7de429a422c2022bdedb0d4db67c115ab",
+      "reason": "Superseded rollback snapshot, retained recoverably outside production source directories.",
+      "retained_replacement": "Current M08 runtime/source files and retained authoring chain; see publication README.",
+      "moved": false,
+      "hash_verified": false
+    }
+  ]
+}

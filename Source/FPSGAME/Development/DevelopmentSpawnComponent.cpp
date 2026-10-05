@@ -1,5 +1,6 @@
 #include "DevelopmentSpawnComponent.h"
 #include "../Monsters/HangingBellM09.h"
+#include "../Monsters/LurkerM08Monster.h"
 #include "../Monsters/M09CeilingRoute.h"
 #include "../Monsters/FatZombiePusPool.h"
 #include "EngineUtils.h"
@@ -27,6 +28,7 @@ UDevelopmentSpawnComponent::UDevelopmentSpawnComponent()
     Add(TEXT("SpitterZombie"), TEXT("毒液僵尸"), TEXT("/Game/Monsters/SpitterZombie/BP_SpitterZombie.BP_SpitterZombie_C"), 44.f);
     Add(TEXT("WitchRebuilt"), TEXT("巫婆"), TEXT("/Script/FPSGAME.WitchRebuiltMonster"), 65.f);
     Add(TEXT("BlindSupplicantM07"), TEXT("盲祷者 M-07"), TEXT("/Game/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.BP_BlindSupplicantM07_C"), 100.f);
+    Add(TEXT("LurkerM08"), TEXT("伏窥者 M-08"), TEXT("/Game/Monsters/LurkerM08/BP_LurkerM08.BP_LurkerM08_C"), 135.f);
     Add(TEXT("FleshHand"), TEXT("异变巨手"), TEXT("/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C"), 120.f);
     Add(TEXT("FleshHandMinion"), TEXT("小皮肤手"), TEXT("/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C"), 40.f);
     Add(TEXT("HandBrain"), TEXT("手脑"), TEXT("/Game/Monsters/HandBrain/BP_HandBrain.BP_HandBrain_C"), 125.f);
@@ -70,8 +72,9 @@ bool UDevelopmentSpawnComponent::FindLocation(APlayerController* Player, const A
     // A physically empty floor is not necessarily covered by this body's navmesh.
     // Keep placement on the selected spot; do not warp to a distant nav polygon.
     FNavLocation Navigable;
-    if (!Navigation->ProjectPointToNavigation(Ground.ImpactPoint, Navigable, FVector(10,10,80), NavData)
-        || FVector::DistSquared2D(Navigable.Location, Ground.ImpactPoint) > FMath::Square(10.f)) return false;
+    if (!Defaults->IsA<ALurkerM08Monster>() && (!Navigation || !NavData ||
+        !Navigation->ProjectPointToNavigation(Ground.ImpactPoint, Navigable, FVector(10,10,80), NavData)
+        || FVector::DistSquared2D(Navigable.Location, Ground.ImpactPoint) > FMath::Square(10.f))) return false;
     Location = Ground.ImpactPoint + FVector(0,0,HalfHeight + 3.f);
     if (GetWorld()->OverlapBlockingTestByChannel(Location, FQuat::Identity, ECC_Pawn,
         FCollisionShape::MakeCapsule(Radius + 2.f, HalfHeight), Query)) return false;
@@ -128,6 +131,7 @@ int32 UDevelopmentSpawnComponent::SpawnInFront(FName Id, int32 Count, float Dist
         return Created;
     }
     const auto* Defaults = Class->GetDefaultObject<ACharacter>();
+    const bool bSurfaceCrawler = Defaults->IsA<ALurkerM08Monster>();
     const auto* Capsule = Defaults->GetCapsuleComponent();
     const auto* Movement = Defaults->GetCharacterMovement();
     FNavAgentProperties Agent = Movement->GetNavAgentPropertiesRef();
@@ -140,13 +144,13 @@ int32 UDevelopmentSpawnComponent::SpawnInFront(FName Id, int32 Count, float Dist
         : FMath::Max(Agent.AgentHeight, Capsule->GetScaledCapsuleHalfHeight() * 2.f);
     const auto* Navigation = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());
     const ANavigationData* NavData = Navigation ? Navigation->GetNavDataForProps(Agent) : nullptr;
-    if (!NavData)
+    if (!NavData && !bSurfaceCrawler)
     {
         Result = FText::FromString(TEXT("当前场景尚未接入怪物导航，暂时无法生成"));
         return 0;
     }
-    if (NavData->GetConfig().AgentRadius + KINDA_SMALL_NUMBER < Agent.AgentRadius
-        || NavData->GetConfig().AgentHeight + KINDA_SMALL_NUMBER < Agent.AgentHeight)
+    if (!bSurfaceCrawler && (NavData->GetConfig().AgentRadius + KINDA_SMALL_NUMBER < Agent.AgentRadius
+        || NavData->GetConfig().AgentHeight + KINDA_SMALL_NUMBER < Agent.AgentHeight))
     {
         Result = FText::FromString(FString::Printf(TEXT("当前场景尚未接入%s所需的导航规格"), *Entry->Name.ToString()));
         return 0;
@@ -168,9 +172,9 @@ int32 UDevelopmentSpawnComponent::SpawnInFront(FName Id, int32 Count, float Dist
             Spawned.Add(Monster); ++Created;
         }
     }
-    const bool bNavigationBuilding = Created == 0 && UNavigationSystemV1::IsNavigationBeingBuiltOrLocked(GetWorld());
+    const bool bNavigationBuilding = !bSurfaceCrawler && Created == 0 && UNavigationSystemV1::IsNavigationBeingBuiltOrLocked(GetWorld());
     Result = FText::FromString(Created == 0
-        ? (bNavigationBuilding ? TEXT("附近导航正在生成，请稍后再生成怪物")
+        ? (bSurfaceCrawler ? TEXT("玩家前方没有足够容纳伏窥者的实体落脚面，请换一个位置") : bNavigationBuilding ? TEXT("附近导航正在生成，请稍后再生成怪物")
             : TEXT("玩家前方没有同时满足落脚和导航覆盖的位置，请面向可行走区域后重试"))
         : FString::Printf(TEXT("已生成 %d / %d 只%s%s"), Created, Count, *Entry->Name.ToString(),
             Created < Count ? TEXT("，其余位置被地形或其他物体占用") : TEXT("，面向玩家")));

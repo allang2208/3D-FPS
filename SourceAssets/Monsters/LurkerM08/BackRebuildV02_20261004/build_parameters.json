@@ -1,0 +1,22 @@
+{
+  "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Monsters\\LurkerM08\\BackRebuildV01_20261004\\M08_BackRebuilt_V01.blend",
+  "transition_geodesic_radius": 0.038,
+  "local_max_edge_length": 0.008,
+  "subdivide_rounds": 3,
+  "fairing_iterations": 120,
+  "taubin_lambda": 0.45,
+  "taubin_mu": -0.46,
+  "aperture_upper_narrowing": 0.1,
+  "aperture_vertical_soft_variation": 0.0045,
+  "aperture_center": [
+    -0.00055,
+    0.205
+  ],
+  "safety_region": {
+    "abs_x_max": 0.27,
+    "y_min": -0.73,
+    "y_max": 0.89,
+    "z_min": 0.052
+  },
+  "source_scale_preserved": true
+}

@@ -5,6 +5,17 @@
 #include "Engine/World.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+bool AWolfMonster::HasAttackSupport() const { return GetCharacterMovement()->IsMovingOnGround(); }
+void AWolfMonster::FaceAttackDirection(const FVector& Direction, float TurnSeconds)
+{
+    const FRotator Facing(0, Direction.Rotation().Yaw, 0);
+    SetActorRotation(TurnSeconds < 0.f ? Facing : FMath::RInterpConstantTo(GetActorRotation(), Facing, TurnSeconds, AttackTrackingYawRate));
+}
+FVector AWolfMonster::PouncePathPoint(const FVector& Start, const FVector& End, float Alpha) const
+{
+    return FMath::Lerp(Start, End, Alpha) + FVector(0, 0, FMath::Sin(Alpha * PI) * PounceArcHeight);
+}
+
 bool AWolfMonster::HuntingSightFrom(const APawn* Victim, const FVector& From) const
 {
     if (!IsValid(Victim)) return false;
@@ -125,8 +136,7 @@ void AWolfMonster::TrackHuntingWindup(float PreviousSeconds)
     if (TurnSeconds <= 0.f) return;
     const float LeadTime = Pouncing ? 0.f : FMath::Clamp(LockTime-StateSeconds, 0.f, .2f);
     const FVector Aim = PredictHuntingTarget(Target.Get(), LeadTime, 65.f);
-    const FRotator Facing(0,(Aim-GetActorLocation()).Rotation().Yaw,0);
-    SetActorRotation(FMath::RInterpConstantTo(GetActorRotation(), Facing, TurnSeconds, AttackTrackingYawRate));
+    FaceAttackDirection(Aim-GetActorLocation(), TurnSeconds);
     AttackDirection = GetActorForwardVector().GetSafeNormal2D();
 }
 

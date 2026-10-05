@@ -122,7 +122,7 @@ bool AWolfMonster::CanSee(const AActor* Actor) const
 }
 bool AWolfMonster::CanAttack(APawn* Victim) const
 {
-    if (!IsValid(Victim) || Busy() || !GetCharacterMovement()->IsMovingOnGround()) return false;
+    if (!IsValid(Victim) || Busy() || !HasAttackSupport()) return false;
     const auto* Vitals = Victim->FindComponentByClass<UFPSCombatHealthComponent>();
     if (Vitals && Vitals->IsDead()) return false;
     if(IceWallCombat::BlockingWall(this,Victim,BiteTriggerRange))
@@ -152,7 +152,7 @@ bool AWolfMonster::StartAttack(APawn* Victim)
     if (!HasAuthority() || !CanAttack(Victim)) return false;
     Target = Victim;
     AttackDirection = (Victim->GetActorLocation() - GetActorLocation()).GetSafeNormal2D();
-    SetActorRotation(AttackDirection.Rotation());
+    FaceAttackDirection(AttackDirection);
     const float Distance = FVector::Dist2D(Victim->GetActorLocation(), GetActorLocation());
     const bool AttackWall=IceWallCombat::BlockingWall(this,Victim,BiteTriggerRange)!=nullptr;
     if (!AttackWall && bHowlOnEncounter && !bHasAlerted && Distance > PounceMinRange && ClipLength(TEXT("Howl")) > 0.f)
@@ -172,7 +172,7 @@ bool AWolfMonster::StartAttack(APawn* Victim)
         PounceHeightDelta = 0.f;
         // Lock the landing direction/length now. A sidestep can evade the pounce.
         PounceDistance = FMath::Clamp(Distance - 110.f, 0.f, PounceMaxRange - 110.f);
-        LastPounceSourceTime = 0.f; bPounceBlocked = false;
+        LastPounceSourceTime = 0.f; ActivePounceFlightSeconds = 0.f; bPounceBlocked = false;
         EnterState(EWolfState::Pounce);
     }
     if (auto* AI = Cast<AMonsterAIController>(GetController())) { AI->StopMovement(); AI->UpdateKnowledge(); }
@@ -262,6 +262,10 @@ void AWolfMonster::TryContact(float SourceSeconds)
         if (Target.IsValid() && (!Vitals || Vitals->Health < HealthBefore)) OnAttackLanded(Target.Get());
     }
 }
+float AWolfMonster::PounceFlightDuration(const FVector&, const FVector&) const
+{
+    return FMath::Max(.01f, PounceTravelEnd - PounceTravelStart);
+}
 void AWolfMonster::AdvancePounce(float SourceSeconds)
 {
     if (bPounceBlocked || LastPounceSourceTime >= PounceTravelEnd || SourceSeconds < PounceTravelStart || PounceTravelEnd <= PounceTravelStart) return;
@@ -285,8 +289,10 @@ void AWolfMonster::AdvancePounce(float SourceSeconds)
             AttackDirection = (Landing-PounceOrigin).GetSafeNormal2D();
             PounceDistance = FVector::Dist2D(PounceOrigin, Landing);
             PounceHeightDelta = Landing.Z-PounceOrigin.Z;
-            SetActorRotation(AttackDirection.Rotation());
+            FaceAttackDirection(AttackDirection);
         }
+        const FVector EndPoint = PounceOrigin + AttackDirection * PounceDistance + FVector(0, 0, PounceHeightDelta);
+        ActivePounceFlightSeconds = FMath::Max(.01f, PounceFlightDuration(PounceOrigin, EndPoint));
         bPounceMovement = true;
         Move->SetMovementMode(MOVE_Flying);
         Move->StopMovementImmediately();
@@ -297,8 +303,8 @@ void AWolfMonster::AdvancePounce(float SourceSeconds)
     {
         Time = FMath::Min(End, Time + 1.f / 60.f);
         const float Alpha = (Time - PounceTravelStart) / (PounceTravelEnd - PounceTravelStart);
-        const FVector Desired = PounceOrigin + AttackDirection * (PounceDistance * Alpha)
-            + FVector(0, 0, PounceHeightDelta * Alpha + FMath::Sin(Alpha * PI) * PounceArcHeight);
+        const FVector EndPoint = PounceOrigin + AttackDirection * PounceDistance + FVector(0, 0, PounceHeightDelta);
+        const FVector Desired = PouncePathPoint(PounceOrigin, EndPoint, Alpha);
         FHitResult Hit;
         Move->SafeMoveUpdatedComponent(Desired - GetActorLocation(), GetActorQuat(), true, Hit);
         if (Hit.bBlockingHit)
@@ -324,8 +330,8 @@ void AWolfMonster::AdvanceAttack(float PreviousSeconds)
     const EWolfState AttackState = State;
     const FName Action = State == EWolfState::Pounce ? TEXT("AttackPounce") : TEXT("AttackBite");
     const float Windup = State == EWolfState::Pounce ? PounceWindup : BiteWindup;
-    const float Now = FMath::Max(0.f, StateSeconds - Windup);
-    const float Before = FMath::Max(0.f, PreviousSeconds - Windup);
+    const float ElapsedNow = FMath::Max(0.f, StateSeconds - Windup);
+    const float ElapsedBefore = FMath::Max(0.f, PreviousSeconds - Windup);
     if (bUsePredictiveHunting) TrackHuntingWindup(PreviousSeconds);
     if (StateSeconds < Windup) return;
     if (!bAttackAnimationStarted)
@@ -333,7 +339,24 @@ void AWolfMonster::AdvanceAttack(float PreviousSeconds)
         bAttackAnimationStarted = true;
         if (auto* Anim = Animation()) Anim->PlayTemplateAction(Action, true);
     }
-    SetActorRotation(AttackDirection.Rotation());
+    FaceAttackDirection(AttackDirection);
+    // Lock duration against the actual takeoff plan before mapping this frame.
+    // Movement, contact sampling and animation still consume one source clock.
+    if (State == EWolfState::Pounce && ActivePounceFlightSeconds <= 0.f &&
+        !bPounceBlocked && ElapsedNow >= PounceTravelStart)
+    {
+        AdvancePounce(PounceTravelStart);
+        if (State != AttackState) return;
+    }
+    auto SourceTime = [&](float Elapsed)
+    {
+        if (State != EWolfState::Pounce || ActivePounceFlightSeconds <= 0.f || Elapsed <= PounceTravelStart) return Elapsed;
+        const float Flight = Elapsed - PounceTravelStart;
+        if (Flight < ActivePounceFlightSeconds)
+            return PounceTravelStart + Flight / ActivePounceFlightSeconds * (PounceTravelEnd - PounceTravelStart);
+        return PounceTravelEnd + Flight - ActivePounceFlightSeconds;
+    };
+    const float Now = SourceTime(ElapsedNow), Before = SourceTime(ElapsedBefore);
     const auto* Definition = AnimationSet->FindAction(Action);
     const bool InContact = Definition && Definition->ContactStartSeconds >= 0.f
         && Before < Definition->ContactEndSeconds && Now >= Definition->ContactStartSeconds;

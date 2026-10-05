@@ -5,6 +5,7 @@
 #include "WolfMonster.h"
 #include "M10Mawcrawler.h"
 #include "HangingBellM09.h"
+#include "LurkerM08Monster.h"
 #include "VortexCofferM25.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
@@ -15,6 +16,8 @@ EBTNodeResult::Type UBTTask_MonsterAction::ExecuteTask(UBehaviorTreeComponent& O
  Elapsed=0;auto* AI=Cast<AMonsterAIController>(Owner.GetAIOwner());if(!AI||!AI->Combat())return EBTNodeResult::Failed;
  AI->ActiveAction=NodeName;
  if(Action==EMonsterAction::Hold||Action==EMonsterAction::Idle)if(auto* M09=Cast<AHangingBellM09>(AI->GetPawn()))M09->StopCeiling();
+ if(Action==EMonsterAction::Hold||Action==EMonsterAction::Idle||Action==EMonsterAction::Attack)
+  if(auto* M08=Cast<ALurkerM08Monster>(AI->GetPawn()))M08->StopSurfaceNavigation();
  if(Action==EMonsterAction::Attack){AI->StopMovement();return AI->Combat()->TryAttack(Cast<APawn>(Owner.GetBlackboardComponent()->GetValueAsObject(TEXT("Target"))))?EBTNodeResult::Succeeded:EBTNodeResult::Failed;}
  const auto* M25=Cast<AVortexCofferM25>(AI->GetPawn());
  const bool Searching=Action==EMonsterAction::Idle&&M25&&M25->bSearchForPlayers&&AI->bDecisionEnabled;
@@ -49,6 +52,13 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
   if(auto* M09=Cast<AHangingBellM09>(AI->GetPawn()))
   {
    M09->NavigateCeiling(Dest,Returning);
+   if(Elapsed>=.25f)FinishLatentTask(Owner,EBTNodeResult::Succeeded);
+   return;
+  }
+  if(auto* M08=Cast<ALurkerM08Monster>(AI->GetPawn()))
+  {
+   APawn* Victim=!Returning&&B->GetValueAsBool(TEXT("Visible"))?Cast<APawn>(B->GetValueAsObject(TEXT("Target"))):nullptr;
+   M08->NavigateSurface(Dest,Returning,Victim);
    if(Elapsed>=.25f)FinishLatentTask(Owner,EBTNodeResult::Succeeded);
    return;
   }
@@ -92,7 +102,7 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
  }
  if(Elapsed>=.25f)FinishLatentTask(Owner,EBTNodeResult::Succeeded);
 }
-EBTNodeResult::Type UBTTask_MonsterAction::AbortTask(UBehaviorTreeComponent& Owner,uint8* Memory){if(auto* AI=Owner.GetAIOwner()){AI->StopMovement();if(auto* M09=Cast<AHangingBellM09>(AI->GetPawn()))M09->StopCeiling();}return EBTNodeResult::Aborted;}
+EBTNodeResult::Type UBTTask_MonsterAction::AbortTask(UBehaviorTreeComponent& Owner,uint8* Memory){if(auto* AI=Owner.GetAIOwner()){AI->StopMovement();if(auto* M09=Cast<AHangingBellM09>(AI->GetPawn()))M09->StopCeiling();if(auto* M08=Cast<ALurkerM08Monster>(AI->GetPawn()))M08->StopSurfaceNavigation();}return EBTNodeResult::Aborted;}
 UBTService_MonsterKnowledge::UBTService_MonsterKnowledge(){NodeName=TEXT("Update perception and combat facts");Interval=.1f;RandomDeviation=0;bCallTickOnSearchStart=true;}
 void UBTService_MonsterKnowledge::TickNode(UBehaviorTreeComponent& Owner,uint8* Memory,float Dt){Super::TickNode(Owner,Memory,Dt);if(auto* AI=Cast<AMonsterAIController>(Owner.GetAIOwner()))AI->UpdateKnowledge();}
 void UBTDecorator_MonsterFlag::Configure(FName Key){BlackboardKey.SelectedKeyName=Key;OperationType=uint8(EBasicKeyOperation::Set);FlowAbortMode=EBTFlowAbortMode::Both;NotifyObserver=EBTBlackboardRestart::ResultChange;NodeName=Key.ToString();}

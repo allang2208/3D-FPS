@@ -2412,3 +2412,18 @@ __pycache__/
 /SourceAssets/AzureDragon20261004/References/
 /SourceAssets/AzureDragon20261004/Export/
 /SourceAssets/AzureDragon20261004/CoherentV9/Export/
+
+# M08: publish recipes, prose, small parameters and MIT reference text only.
+# Meshy media, dense bones/skin/pose samples, imported assets and receipts stay local.
+/SourceAssets/Monsters/LurkerM08/**
+!/SourceAssets/Monsters/LurkerM08/**/
+!/SourceAssets/Monsters/LurkerM08/**/*.py
+!/SourceAssets/Monsters/LurkerM08/**/*.ps1
+!/SourceAssets/Monsters/LurkerM08/**/*.md
+!/SourceAssets/Monsters/LurkerM08/**/*.hlsl
+!/SourceAssets/Monsters/LurkerM08/BackRebuildV01_20261004/build_parameters.json
+!/SourceAssets/Monsters/LurkerM08/BackRebuildV02_20261004/build_parameters.json
+!/SourceAssets/Monsters/LurkerM08/BoneheadV04_20261004/Reference/*.cs
+!/SourceAssets/Monsters/LurkerM08/BoneheadV04_20261004/Reference/LICENSE.txt
+/SourceAssets/Monsters/LurkerM08/**/Before/
+/SourceAssets/Monsters/LurkerM08/**/PreviousSource/
