@@ -51,10 +51,13 @@ void UFPSElectricMagicComponent::BeginPlay()
     Super::BeginPlay();AddTickPrerequisiteActor(GetOwner());
     if(auto* H=Hands())AddTickPrerequisiteComponent(H);
     const TCHAR* Paths[]={TEXT("/Game/Skills/ElectricMagic/NS_StormDomainCloud.NS_StormDomainCloud"),TEXT("/Game/Skills/Lightning/NS_LightningChain.NS_LightningChain"),
-        TEXT("/Game/Skills/ElectricMagic/ThunderFluxV3/M_ThunderFluxBody.M_ThunderFluxBody"),TEXT("/Game/Skills/ElectricMagic/NS_ThunderCharge.NS_ThunderCharge"),
+        TEXT("/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceBeam.M_ThunderLanceBeam"),TEXT("/Game/Skills/ElectricMagic/NS_ThunderCharge.NS_ThunderCharge"),
         TEXT("/Game/Skills/ElectricMagic/NS_ElectricImpact.NS_ElectricImpact"),TEXT("/Game/Skills/ElectricMagic/S_ElectricCast1.S_ElectricCast1"),TEXT("/Game/Skills/ElectricMagic/S_ElectricCast2.S_ElectricCast2"),
         TEXT("/Game/Skills/ElectricMagic/ThunderLanceV2/M_ThunderLanceCircle.M_ThunderLanceCircle"),TEXT("/Engine/BasicShapes/Plane.Plane"),
-        TEXT("/Game/Skills/ElectricMagic/ThunderFluxV3/SM_ThunderFluxTube.SM_ThunderFluxTube"),TEXT("/Game/Skills/ElectricMagic/ThunderFluxV3/M_ThunderFluxFilaments.M_ThunderFluxFilaments")};
+        TEXT("/Game/Skills/ElectricMagic/LanceRay/FX/SM_ThunderLanceRibbon.SM_ThunderLanceRibbon"),TEXT("/Game/Skills/ElectricMagic/LanceRay/FX/SM_ThunderLanceIris.SM_ThunderLanceIris"),
+        TEXT("/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceIris.M_ThunderLanceIris"),TEXT("/Game/Skills/ElectricMagic/LanceRay/NS_ThunderLanceGather.NS_ThunderLanceGather"),
+        TEXT("/Game/Skills/ElectricMagic/S_ThunderLanceCharge.S_ThunderLanceCharge"),TEXT("/Game/Skills/ElectricMagic/S_ThunderLanceDischarge.S_ThunderLanceDischarge"),
+        TEXT("/Game/Skills/ElectricMagic/NS_ThunderLanceMuzzle.NS_ThunderLanceMuzzle")};
     TArray<FSoftObjectPath> Requests;for(const auto* Path:Paths)Requests.Emplace(Path);
     AssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Requests,FStreamableDelegate::CreateWeakLambda(this,[this,Requests]()
     {bAssetsReady=true;for(const auto& Path:Requests){auto* A=Path.ResolveObject();bAssetsReady&=A!=nullptr;Assets.Add(A);}}));
@@ -100,15 +103,41 @@ FVector2D UFPSElectricMagicComponent::LanceCrosshairExtent(FVector2D LocalSize) 
 void UFPSElectricMagicComponent::UpdateChargeVisual()
 {
     const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();if(!Camera)return;
-    const FVector Origin=CastOrigin();const FRotator Facing=FRotationMatrix::MakeFromZX(Camera->GetForwardVector(),Camera->GetRightVector()).Rotator();
+    const FVector Origin=CastOrigin();const FVector Fwd=Camera->GetForwardVector();
+    const FRotator Facing=FRotationMatrix::MakeFromZX(Fwd,Camera->GetRightVector()).Rotator();
     const float Charge=LanceChargeFraction();
     if(ChargeFX){ChargeFX->SetWorldLocationAndRotation(Origin,Facing);ChargeFX->SetVariableFloat(TEXT("User.Charge"),Charge);}
-    if(ChargeCircle)ChargeCircle->SetWorldLocationAndRotation(Origin+Camera->GetForwardVector()*24.f,Facing);
+    if(ChargeCircle)ChargeCircle->SetWorldLocationAndRotation(Origin+Fwd*24.f,Facing);
     if(ChargeCircleMaterial)ChargeCircleMaterial->SetScalarParameterValue(TEXT("Charge"),Charge);
+    // 悬钟式积蓄：内卷粒子塌缩 + 虹膜光斑 + 周围丝束随充能汇聚到发射点。
+    if(GatherFX)
+    {
+        GatherFX->SetWorldLocationAndRotation(Origin,FRotationMatrix::MakeFromX(Fwd).Rotator());
+        GatherFX->SetVariableFloat(TEXT("User.Charge"),Charge);
+    }
+    if(ChargeIris)
+    {
+        ChargeIris->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(-Fwd).ToQuat(),Origin+Fwd*4.f,FVector(FVector::OneVector*(9.f+16.f*Charge))));
+        if(ChargeIrisMID){ChargeIrisMID->SetScalarParameterValue(TEXT("Strength"),.25f+.75f*Charge);ChargeIrisMID->SetScalarParameterValue(TEXT("Clock"),ChargeAge);ChargeIrisMID->SetScalarParameterValue(TEXT("FirePower"),Charge);}
+    }
+    // Lightning feeds converge into the cast point: real chain-bolt arcs
+    // strike inward every ~130 ms once charge is underway.
+    const float Now=float(GetWorld()->GetTimeSeconds());
+    if(Charge>=.05f&&Now>=NextChargeArc)
+    {
+        NextChargeArc=Now+.13f;
+        const FVector Right=Camera->GetRightVector(),Up=Camera->GetUpVector();
+        const float A=FMath::FRandRange(0.f,2.f*PI),R=FMath::FRandRange(45.f,80.f);
+        const FVector From=Origin+(Right*FMath::Cos(A)+Up*FMath::Sin(A))*R+Fwd*FMath::FRandRange(-15.f,35.f);
+        FLightningCast Tendril;Tendril.Duration=.10f;Tendril.Fade=.16f;Tendril.Segments=6;Tendril.Jitter=.18f;
+        SpawnArc(From,Origin,Tendril,false,1.f,.55f,false,38.f);
+    }
 }
 void UFPSElectricMagicComponent::DestroyChargeVisual()
 {
     if(ChargeFX){ChargeFX->DestroyComponent();ChargeFX=nullptr;}
+    if(GatherFX){GatherFX->DestroyComponent();GatherFX=nullptr;}
+    if(ChargeIris){ChargeIris->DestroyComponent();ChargeIris=nullptr;}ChargeIrisMID=nullptr;
     if(ChargeCircle){ChargeCircle->DestroyComponent();ChargeCircle=nullptr;}ChargeCircleMaterial=nullptr;
 }
 void UFPSElectricMagicComponent::Feedback(FName Skill,const FString& Text){MessageSkill=Skill;Message=Text;MessageUntil=GetWorld()->GetTimeSeconds()+2;}
@@ -155,6 +184,7 @@ void UFPSElectricMagicComponent::ServiceQueue()
     if(P->IsTraversing()||P->IsDodging()||P->IsSpellHandBusy()||H->BlocksNewLeftHandAction())return;
     const auto C=M->ElectricMagicStats(QueuedSkill);
     if(M->ElectricMagicCooldown(QueuedSkill)>0||!M->CanSpendMana(C.Hit.ManaCost)){Feedback(QueuedSkill,TEXT("未就绪"));QueuedSkill=NAME_None;return;}
+    if(C.bRequiresStaff&&!M->HasEquippedStaff()){Feedback(QueuedSkill,TEXT("需要法杖"));QueuedSkill=NAME_None;return;}
     if(!H->TryBeginSpellGesture(this,true,C.Hit.CastSpeed,FSimpleDelegate::CreateUObject(this,&ThisClass::AtContact)))return;
     const float Before=M->Snapshot().Mana;
     if(!M->BeginElectricMagicCast(QueuedSkill,C)){H->CancelSpellGesture(this);QueuedSkill=NAME_None;return;}
@@ -175,6 +205,18 @@ void UFPSElectricMagicComponent::AtContact()
         bChargeAtContact=true;ChargeAge=0;
         if(Hands())Hands()->ContinueSpellRelease(this,PendingCast.MaxCharge+.05f,false);
         ChargeFX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Assets[3]),CastOrigin(),FRotator::ZeroRotator,FVector(1),true,false);
+        // 悬钟式积蓄粒子：内卷塌缩的电光粒子，复用 M09 凝视的 gather 配方。
+        if(Assets.IsValidIndex(12)&&Assets[12])GatherFX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Assets[12]),CastOrigin(),FRotator::ZeroRotator,FVector(1.6f),true,false);
+        if(Assets.IsValidIndex(11)&&Assets.IsValidIndex(10)&&Assets[11]&&Assets[10])
+        {
+            ChargeIris=NewObject<UStaticMeshComponent>(GetOwner());GetOwner()->AddInstanceComponent(ChargeIris);
+            ChargeIris->SetupAttachment(GetOwner()->GetRootComponent());ChargeIris->SetAbsolute(true,true,true);
+            ChargeIris->SetStaticMesh(Cast<UStaticMesh>(Assets[10]));ChargeIris->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            ChargeIris->SetCanEverAffectNavigation(false);ChargeIris->SetCastShadow(false);ChargeIris->SetReceivesDecals(false);
+            ChargeIrisMID=UMaterialInstanceDynamic::Create(Cast<UMaterialInterface>(Assets[11]),this);
+            ChargeIris->SetMaterial(0,ChargeIrisMID);ChargeIris->RegisterComponent();
+        }
+        NextChargeArc=0;
         ChargeCircle=NewObject<UStaticMeshComponent>(GetOwner());
         GetOwner()->AddInstanceComponent(ChargeCircle);
         ChargeCircle->SetupAttachment(GetOwner()->FindComponentByClass<UCameraComponent>());
@@ -185,6 +227,8 @@ void UFPSElectricMagicComponent::AtContact()
         ChargeCircle->SetMaterial(0,ChargeCircleMaterial);ChargeCircle->RegisterComponent();
         UpdateChargeVisual();if(ChargeFX)ChargeFX->Activate(true);
         UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[6]),GetOwner()->GetActorLocation(),.55f);
+        // Rising electrical crackle bed under the gather particles.
+        if(Assets.IsValidIndex(13)&&Assets[13])UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[13]),CastOrigin(),.9f);
         return;
     }
     if(!M->CommitElectricMagicRelease(CommittedSkill)){CancelPending();return;}
@@ -227,15 +271,35 @@ void UFPSElectricMagicComponent::SpawnArc(const FVector& Start,const FVector& En
     FActorSpawnParameters P;P.Owner=GetOwner();P.Instigator=Cast<APawn>(GetOwner());P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     if(auto* A=GetWorld()->SpawnActor<AFPSLightningArc>(Start,FRotator::ZeroRotator,P))
     {
-        if(bBeam)A->InitializeColumn(Cast<UStaticMesh>(Assets[9]),Cast<UMaterialInterface>(Assets[2]),Cast<UMaterialInterface>(Assets[10]),Start,End,Spell,ChargeRatio);
+        if(bBeam)A->InitializeColumn(Cast<UStaticMesh>(Assets[9]),Cast<UStaticMesh>(Assets[10]),Cast<UMaterialInterface>(Assets[2]),Cast<UMaterialInterface>(Assets[11]),Start,End,Spell,ChargeRatio);
         else A->InitializeArc(Cast<UNiagaraSystem>(Assets[1]),Start,End,Spell,Width,bContactLight,Brightness);
         Arcs.Add(A);
     }
 }
-void UFPSElectricMagicComponent::SpawnBurst(const FVector& Point,float Size,const FRotator& Rotation)
+void UFPSElectricMagicComponent::SpawnBurst(const FVector& Point,float Size,const FRotator& Rotation,UObject* System)
 {
     Bursts.RemoveAll([](const auto& B){return !B.IsValid();});if(Bursts.Num()>=24)return;
-    if(auto* B=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Assets[4]),Point,Rotation,FVector(Size)))Bursts.Add(B);
+    UObject* Asset=System?System:(Assets.IsValidIndex(4)?Assets[4].Get():nullptr);
+    if(auto* B=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Asset),Point,Rotation,FVector(Size)))Bursts.Add(B);
+}
+void UFPSElectricMagicComponent::MuzzleFlashFX(const FVector& Start,const FVector& Dir,float Visual)
+{
+    // Oriented shock plate + forward-cone burst. Not replicated; the client's
+    // own release path calls this too so the flash has no server round-trip.
+    if(MuzzleIris){MuzzleIris->DestroyComponent();MuzzleIris=nullptr;MuzzleIrisMID=nullptr;}
+    if(Assets.IsValidIndex(11)&&Assets.IsValidIndex(10)&&Assets[11]&&Assets[10])
+    {
+        MuzzleIris=NewObject<UStaticMeshComponent>(GetOwner());GetOwner()->AddInstanceComponent(MuzzleIris);
+        MuzzleIris->SetupAttachment(GetOwner()->GetRootComponent());MuzzleIris->SetAbsolute(true,true,true);
+        MuzzleIris->SetStaticMesh(Cast<UStaticMesh>(Assets[10]));MuzzleIris->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        MuzzleIris->SetCanEverAffectNavigation(false);MuzzleIris->SetCastShadow(false);MuzzleIris->SetReceivesDecals(false);
+        MuzzleIrisMID=UMaterialInstanceDynamic::Create(Cast<UMaterialInterface>(Assets[11]),this);
+        MuzzleIris->SetMaterial(0,MuzzleIrisMID);
+        MuzzleIris->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(-Dir).ToQuat(),Start+Dir*6.f,FVector(FVector::OneVector*26.f)));
+        MuzzleIris->RegisterComponent();MuzzleFlashAge=0;MuzzleFlashScale=Visual;
+    }
+    if(Assets.IsValidIndex(15))SpawnBurst(Start,1.15f*Visual,FRotationMatrix::MakeFromX(Dir).Rotator(),Assets[15]);
+    else SpawnBurst(Start,1.2f*Visual);
 }
 void UFPSElectricMagicComponent::Overload(AActor* Origin,const FLightningCast& Spell,FElectricMagicRewards& Rewards)
 {
@@ -302,6 +366,9 @@ void UFPSElectricMagicComponent::FireLance()
     {
         NetCast::Send(P,TEXT("thunderLance"),1,Eye,Dir,0,nullptr,ChargeAge);
         M->FinishElectricMagicCast(TEXT("thunderLance"),FElectricMagicRewards());
+        // Local release crack — the server-side discharge sound does not reach clients.
+        if(Assets.IsValidIndex(14)&&Assets[14])UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[14]),CastOrigin(),1.f);
+        MuzzleFlashFX(CastOrigin(),Dir,FMath::Lerp(.55f,1.f,Ratio));
         bNetPaid=false;
         DestroyChargeVisual();if(Hands()){Hands()->TakeGesturePayment();Hands()->CancelSpellGesture(this);}
         CommittedSkill=NAME_None;bChargeAtContact=false;ChargeAge=0;
@@ -322,7 +389,28 @@ void UFPSElectricMagicComponent::FireLanceBody(APawn* P,UColdSteelStatusModel* M
     FHitResult EndHit;const bool Blocked=GetWorld()->LineTraceSingleByChannel(EndHit,Eye,Eye+Dir*Spell.Hit.Range,ECC_Visibility,Walls);
     const FVector End=Blocked?EndHit.ImpactPoint:Eye+Dir*Spell.Hit.Range;
     const float Reach=FVector::DotProduct(End-Eye,Dir);
-    SpawnArc(Start,End,Spell.Hit,true,Ratio);SpawnBurst(Start,1.2f*Visual);FElectricMagicRewards Rewards;
+    SpawnArc(Start,End,Spell.Hit,true,Ratio);MuzzleFlashFX(Start,Dir,Visual);FElectricMagicRewards Rewards;
+    // Radial lightning fan in the plane perpendicular to the launch axis —
+    // the same real-arc language as the beam coils, not sprite shrapnel.
+    {
+        FLightningCast Fan=Spell.Hit;Fan.Duration=.09f;Fan.Fade=.2f;Fan.Segments=5;Fan.Jitter=.3f;
+        FVector T1,T2;Dir.FindBestAxisVectors(T1,T2);
+        for(int32 I=0;I<6;++I)
+        {
+            const float A=float(I)*1.0472f+FMath::FRandRange(-.35f,.35f);
+            const FVector Out=(T1*FMath::Cos(A)+T2*FMath::Sin(A)).GetSafeNormal();
+            SpawnArc(Start+Dir*8.f,Start+Dir*8.f+Out*FMath::FRandRange(150.f,260.f)*Visual,Fan,false,1.f,.85f,false,42.f);
+        }
+    }
+    // Discharge crack at the muzzle; the existing tail plays at the endpoint below.
+    if(Assets.IsValidIndex(14)&&Assets[14])UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[14]),Start,1.f);
+    // Real lightning bolts coiling the column: the same chain-arc renderer as
+    // target-contact arcs, with a tight jitter envelope hugging the beam.
+    {
+        FLightningCast Wrap=Spell.Hit;Wrap.Duration=Spell.Hit.Duration+.1f;Wrap.Fade=FMath::Max(Spell.Hit.Fade,.5f);
+        Wrap.Segments=26;Wrap.Jitter=.042f;
+        for(int32 I=0;I<4;++I)SpawnArc(Start,End,Wrap,false,1.f,1.2f,false,52.f);
+    }
     TArray<TPair<float,AActor*>> Ordered;
     for(auto* T:Targets)
     {
@@ -343,8 +431,8 @@ void UFPSElectricMagicComponent::FireLanceBody(APawn* P,UColdSteelStatusModel* M
         {
             const FVector HitPoint=UWardBreakableGlass::TargetPoint(T);
             // A short snapped bolt ties the beam to each pierced target.
-            FLightningCast Side=Spell.Hit;Side.Duration=.08f;Side.Fade=.2f;Side.Segments=5;Side.Jitter=.22f;
-            SpawnArc(Eye+Dir*Entry.Key,HitPoint,Side,false,1.f,.6f,false,40.f);
+            FLightningCast Side=Spell.Hit;Side.Duration=.10f;Side.Fade=.25f;Side.Segments=5;Side.Jitter=.22f;
+            SpawnArc(Eye+Dir*Entry.Key,HitPoint,Side,false,1.f,1.1f,false,40.f);
             SpawnBurst(HitPoint,(1+FMath::Min(5,Stacks)*.08f)*Visual);
             if(auto* C=T->FindComponentByClass<UMonsterCombatComponent>();C&&!C->IsDead())C->ReceiveMeleeKnockback(P,Spell.Knockback);
             ApplyStatus(T,Spell.Hit,Rewards);
@@ -366,7 +454,7 @@ void UFPSElectricMagicComponent::FireLanceBody(APawn* P,UColdSteelStatusModel* M
         for(int32 I=0;I<(Blocked?3:2);++I)
         {
             const FVector Scatter=(T1*FMath::FRandRange(-1.f,1.f)+T2*FMath::FRandRange(-1.f,1.f)+ExitDir*FMath::FRandRange(.15f,.6f)).GetSafeNormal();
-            SpawnArc(End,End+Scatter*FMath::FRandRange(160.f,320.f),Res,false,1.f,.5f,false,35.f);
+            SpawnArc(End,End+Scatter*FMath::FRandRange(160.f,320.f),Res,false,1.f,.8f,false,35.f);
         }
     }
     UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[5]),End,.8f);
@@ -378,6 +466,7 @@ void UFPSElectricMagicComponent::ReleaseLance()
 {
     if(QueuedSkill==TEXT("thunderLance")){QueuedSkill=NAME_None;return;}
     if(!IsCharging())return;
+    if(PendingCast.bRequiresStaff)if(auto* M=Model();M&&!M->HasEquippedStaff()){CancelPending();Feedback(TEXT("thunderLance"),TEXT("需要法杖"));return;}
     if(bChargeAtContact&&ChargeAge>=PendingCast.MinCharge)FireLance();
     else{CancelPending();Feedback(TEXT("thunderLance"),TEXT("蓄力不足 0.5秒"));}
 }
@@ -385,6 +474,7 @@ void UFPSElectricMagicComponent::CancelPending(bool bRefund)
 {
     const FName Skill=CommittedSkill;QueuedSkill=CommittedSkill=NAME_None;bChargeAtContact=false;ChargeAge=0;
     DestroyChargeVisual();
+    if(MuzzleIris){MuzzleIris->DestroyComponent();MuzzleIris=nullptr;MuzzleIrisMID=nullptr;}
     if(bRefund&&!Skill.IsNone())if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,Skill);
     // 联机客人：凝聚/充能期取消——上报服务端退预留。
     if(bRefund&&!Skill.IsNone()&&GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bNetPaid)NetCast::Send(GetOwner(),Skill,2);
@@ -395,6 +485,7 @@ void UFPSElectricMagicComponent::CancelPending(bool bRefund)
 bool UFPSElectricMagicComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow)
 {
     const auto Spell=Shadow->ElectricMagicStats(Req.SkillId);
+    if(Spell.bRequiresStaff&&!Shadow->HasEquippedStaff())return false;
     if(Req.SkillId==TEXT("stormDomain"))
     {
         if(!Shadow->CommitElectricMagicRelease(Req.SkillId))return false;
@@ -449,7 +540,22 @@ void UFPSElectricMagicComponent::TickComponent(float Delta,ELevelTick Type,FActo
     if(const auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead()){ClearEffects();return;}
     const auto* PC=Cast<APlayerController>(Cast<APawn>(GetOwner())->GetController());const auto* S=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
     if(!CommittedSkill.IsNone()&&((S&&(S->IsStunned()||S->IsFrozen()||S->IsPetrified()))||!Hands()||!Hands()->IsSpellGesture(this)||!PC||PC->bShowMouseCursor||AFPSGAMEPlayerController::BlocksOngoingActions(PC)))CancelPending();
+    // 蓄力/手势期间切走法杖：未释放取消并按原路退蓝清冷却（与冰墙一致）。
+    if(!CommittedSkill.IsNone()&&PendingCast.bRequiresStaff)
+        if(const auto* M=Model();M&&!M->HasEquippedStaff()){const FName Skill=CommittedSkill;CancelPending();Feedback(Skill,TEXT("需要法杖"));}
     ServiceQueue();
+    // Muzzle shock plate: ~160ms expand+fade along the launch axis.
+    if(MuzzleIris)
+    {
+        MuzzleFlashAge+=Delta;const float FT=MuzzleFlashAge/.16f;
+        if(FT>=1.f){MuzzleIris->DestroyComponent();MuzzleIris=nullptr;MuzzleIrisMID=nullptr;}
+        else
+        {
+            const float Ease=1-FMath::Pow(1-FT,2.2f);
+            MuzzleIris->SetWorldScale3D(FVector(FVector::OneVector*FMath::Lerp(26.f,230.f*MuzzleFlashScale,Ease)));
+            if(MuzzleIrisMID){MuzzleIrisMID->SetScalarParameterValue(TEXT("Strength"),(1-FT)*1.7f);MuzzleIrisMID->SetScalarParameterValue(TEXT("Clock"),MuzzleFlashAge);MuzzleIrisMID->SetScalarParameterValue(TEXT("FirePower"),1.f-FT*.5f);}
+        }
+    }
     if(IsCharging()&&bChargeAtContact)
     {
         ChargeAge=FMath::Min(ChargeAge+Delta,PendingCast.MaxCharge);

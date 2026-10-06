@@ -1,0 +1,38 @@
+{
+  "complete": true,
+  "saved": [
+    "/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceBeam.M_ThunderLanceBeam",
+    "/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceFilament.M_ThunderLanceFilament",
+    "/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceIris.M_ThunderLanceIris",
+    "/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceGatherSpeck.M_ThunderLanceGatherSpeck",
+    "/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceGatherStreak.M_ThunderLanceGatherStreak",
+    "/Game/Skills/ElectricMagic/LanceRay/FX/SM_ThunderLanceRibbon.SM_ThunderLanceRibbon",
+    "/Game/Skills/ElectricMagic/LanceRay/FX/SM_ThunderLanceIris.SM_ThunderLanceIris",
+    "/Game/Skills/ElectricMagic/LanceRay/NS_ThunderLanceGather.NS_ThunderLanceGather"
+  ],
+  "source_system": "/Game/Monsters/HangingBellM09/V10/NS_M09_EyeGather_V10",
+  "source_meshes": "M09 GazeV08 FBX geometry reused (crossed ribbons + iris veil)",
+  "emitters": [
+    {
+      "name": "GatheringSparks",
+      "max_spawn_rate": 88,
+      "lifetime": 0.42,
+      "start_radius_cm": 62
+    },
+    {
+      "name": "ChargingFilaments",
+      "max_spawn_rate": 25,
+      "lifetime": 0.28,
+      "start_radius_cm": 48
+    },
+    {
+      "name": "GatheringRings",
+      "max_spawn_rate": 38,
+      "lifetime": 0.34,
+      "start_radius_cm": 38
+    }
+  ],
+  "provenance": "M09 Gaze beam/filament/iris HLSL recolored electric blue; gather stack retuned",
+  "tested": false,
+  "preview_rendered": false
+}

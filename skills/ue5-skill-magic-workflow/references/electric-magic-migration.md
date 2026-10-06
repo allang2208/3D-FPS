@@ -54,3 +54,27 @@
 - `InitializeColumn` 收 `ChargeRatio` 并只做视觉缩放（束径 ×lerp(.55,1)、Emission ×lerp(.65,1)、末端灯同乘）；伤害继续用组件侧独立 `Ratio`，两条链不混。杖前／命中／末端爆闪均乘同一 Visual。
 - 穿透反馈走 `InitializeArc` 复用：每个被穿目标从束轴对应距离向受击点拉短命分叉弧（Segments≈5、Duration≈.08、Fade≈.2），末端按 `EndHit.ImpactNormal` 定向爆闪并散布 2–3 条残余弧。所有新弧计入 48 共享池、爆闪计入 24 池；不新增伤害、不做地面电场。
 - 材质图重建必须走修正后的 `build_thunder_flux_v3.py`（快照删除）；实测后台 commandlet 编译零告警为交付门槛，观感仍由用户验收。工程记录 `Docs/Skills/thunder-lance-spear-20261002.md`，回执 `Saved/ThunderLanceSpear20261002/`。
+
+## 雷枪第三轮：去线稿化与全局淡入淡出（2026-10-04）
+
+- "廉价感/线条感"的根因是把电画成参数化折线 strokes：线稿式描边 + 每 ~45ms 硬重抽路径 = 频闪跳跃。电丝类元素要用**阈值化场**做（`FluxFilaments.hlsl` 对滚动密度场双阈值：脊通道 .56–.72 热芯 + .30–.62 软光晕），通道随场滚动自然生长/溶解，自带淡入淡出；闪烁只调亮度不调路径位置。
+- 时间频率预算：束身运动频率（蛇形/翻卷/离面）压到 5–14Hz 区间读作"有力摆动"，>20Hz 一律是频闪；路径形态永不 `floor(Age*k)` 式离散重抽，要演化就滚动场或 crossfade。
+- 淡入淡出契约：束 `BeamAlpha` 乘 `min(1,Age/.10)` 淡入 + `pow(1-T,1.7)` 快衰减长尾余晖（不用线性）；灯与通用弧同曲线（60ms 淡入）；mask 侧 front 扫过后再叠 `smoothstep(.08,.26,Age)` 亮度 ramp。任何 FX 元素不允许 0→1 瞬亮或线性滑到 0。
+- filament 材质的 mask Custom 需要 `NoiseTex` 输入和 `shared`（FluxCommon）前缀——body 材质的 mask 接了，filament 的此前没接；给 Custom 增加引用时同步更新 `mask_inputs`/`common_inputs`。
+- beamFade 默认 .8（thunderLance），消散读得出；侧弧宽 1.1、残余弧 .8——细于 .5 的弧读作头发丝线条。
+
+## 雷枪第四轮：换用悬钟射线配方（2026-10-05）
+
+- ThunderFlux 管体方案退役（资产留盘）：雷枪柱改 M09 凝视同款——`SM_ThunderLanceRibbon` 三片交叉 ribbon ×2 层（30° 错开）+ 环绕丝束 ISM（6×7 冻结路径，只更新 InstanceAlpha）+ 首尾虹膜盘。材质契约 `Strength/Clock/FirePower/Exposure(/InstanceAlpha)`，`FirePower→0` 自动切发散剖面用于消散。
+- 蓄力期加悬钟式聚能：`NS_ThunderLanceGather`（NS_M09_EyeGather_V10 克隆改电蓝，`User.Charge` 驱动内卷塌缩）+ 发射点虹膜；汇聚线条不用 ribbon，改 SpawnArc 周期性真电弧（~130ms 一条打进发射点）。`author_thunder_lance_ray.py` 一键重建，源 `SourceAssets/ThunderLanceRay20261005/`。
+- `InitializeColumn` 新签名 `(Ribbon,IrisMesh,BeamMat,IrisMat,...)`；M25 妖法同步换资产；远端 `NetInit` 路径同步换。束身环绕线条按用户要求换成 4 条 InitializeArc 真闪电（Jitter .042 贴束）。
+- `AFPSLightningArc::Tick` 的非权威分支要先判 `bInitialized`——客户端本地 spawn 的弧没有复制字段，直接 return 会冻结特效。
+- 工程记录 `Docs/Skills/thunder-lance-ray-20261005.md`，回执 `SourceAssets/ThunderLanceRay20261005/Records/`。
+
+## 雷枪收官：法杖限定、音效与枪口定向闪光（2026-10-06）
+
+- 电系法杖限定：FElectricMagicTuning/FElectricMagicCast 加 `bRequiresStaff`，`ColdSteelSkillRules` 电系块解析 `requiresStaff`，`ElectricMagicStats` 拷进快照；执行点是组件 `ServiceQueue`（扣蓝前判+「需要法杖」反馈）+ 模型 `BeginElectricMagicCast` 双保险 + `TickComponent` 蓄力期切走法杖走 `CancelPending()` 原退蓝清冷却 + `ReleaseLance`/`NetRelease` 再复核 + 快捷槽 `ElectricMagicDefinition(Skill).ElectricMagic.bRequiresStaff` 灰显。影子档案 `HasEquippedStaff()` 服务端可用（装备态随档案快照复制）。
+- 音效合成脚本重跑会改 wav，导入脚本必须对**已存在资产**走 `AssetImportTask.replace_existing=True` 重新导入，否则只改属性不进新数据；`owned()` 元数据守卫保留。
+- 枪口放射特效契约：别用各向同性球面喷花当枪口闪——`NS_ThunderLanceMuzzle` 前锥电丝（local +X=瞄准向，生成时 `MakeFromX(Dir)` 旋转）+ `SM_ThunderLanceIris` 虹膜盘作垂直瞄准轴冲击盘面（~160ms 展开淡出，Tick 驱动）+ 垂直面 6 条径向 `SpawnArc` 闪电扇。burst/盘面不复制，纯客户端释放路径本地也调一次 `MuzzleFlashFX`。
+- ThunderFluxV3 方案与 `M_ThunderLanceFilament` 已归档 `trash/thunder-lance-flux-retired-20261006`（MANIFEST 含 SHA-256）；`build_electric_magic_assets.beam()` 为空操作，雷枪资产唯一作者是 `author_thunder_lance_ray.py` + `author_thunder_lance_muzzle.py` + `import_thunder_lance_audio.py`。
+- 工程记录 `Docs/Skills/thunder-lance-ray-20261005.md`、`thunder-lance-staff-20261005.md`；Game 构建 Succeeded，实机由用户验收。

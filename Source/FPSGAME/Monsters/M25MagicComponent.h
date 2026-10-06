@@ -59,8 +59,9 @@ public:
     UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<UNiagaraSystem> ArcAsset;
     UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<UNiagaraSystem> ImpactAsset;
     UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<UStaticMesh> LanceTube;
+    UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<UStaticMesh> LanceIrisMesh;
     UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<UMaterialInterface> LanceBody;
-    UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<UMaterialInterface> LanceFilaments;
+    UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<UMaterialInterface> LanceIrisMat;
     UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<USoundBase> ReleaseSound;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 

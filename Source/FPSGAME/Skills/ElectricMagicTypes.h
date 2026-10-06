@@ -18,6 +18,7 @@ struct FElectricMagicTuning
     float HalfWidth=40,KnockbackBase=50,KnockbackGrowth=100,EndRadius=90;
     // Lance beam lifetime only; stormDomain arcs keep their own hold/fade.
     float BeamHold=.45f,BeamFade=.6f;
+    bool bRequiresStaff=false;
     int32 HitExperience=1,KillExperience=6,MultiHitExperience=5,MultiKillExperience=10;
 };
 USTRUCT()
@@ -27,6 +28,7 @@ struct FElectricMagicCast
     UPROPERTY() FLightningCast Hit;
     UPROPERTY() float Radius=342; UPROPERTY() float Duration=10; UPROPERTY() float StrikeSeconds=.9f; UPROPERTY() float MinCharge=.5f; UPROPERTY() float MaxCharge=2.5f;
     UPROPERTY() float ChargeBonus=1.3f; UPROPERTY() float StackDamage=.1f; UPROPERTY() float HalfWidth=60; UPROPERTY() float Knockback=75; UPROPERTY() float EndRadius=135;
+    UPROPERTY() bool bRequiresStaff=false;
 };
 struct FElectricMagicRewards
 {

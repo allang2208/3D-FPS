@@ -114,8 +114,9 @@ def cloud(filament,spark):
     save(system)
 
 def beam():
-    from build_thunder_lance_column import build_column
-    CREATED.extend(build_column())
+    # Lance beam moved to author_thunder_lance_ray.py (M09-ray recipe);
+    # ThunderFluxV3 retired to trash/thunder-lance-flux-retired-20261006.
+    pass
 
 def charge(spark,filament,ring):
     system=empty('NS_ThunderCharge');user_parameter(system,'Charge',FLOAT)

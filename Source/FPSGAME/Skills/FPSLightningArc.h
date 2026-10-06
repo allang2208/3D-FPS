@@ -9,6 +9,7 @@ class UNiagaraSystem;
 class UPointLightComponent;
 class USceneComponent;
 class UStaticMesh;
+class UStaticMeshComponent;
 class UMaterialInterface;
 
 /** An owned, finite VFX instance. It never deals damage or chooses targets. */
@@ -19,7 +20,8 @@ class FPSGAME_API AFPSLightningArc : public AActor
 public:
     AFPSLightningArc();
     void InitializeArc(UNiagaraSystem* System,const FVector& Start,const FVector& End,const FLightningCast& Spell,float Width=1.f,bool bContactLight=true,float Brightness=50.f);
-    void InitializeColumn(UStaticMesh* Tube,UMaterialInterface* BodyMaterial,UMaterialInterface* FilamentMaterial,const FVector& Start,const FVector& End,const FLightningCast& Spell,float ChargeRatio=1.f,float WidthScale=1.f);
+    /** 雷枪柱：悬钟射线同款交叉 ribbon + 首尾虹膜光斑；环绕闪电由组件侧电弧承载。 */
+    void InitializeColumn(UStaticMesh* RibbonMesh,UStaticMesh* IrisMesh,UMaterialInterface* BeamMaterial,UMaterialInterface* IrisMaterial,const FVector& Start,const FVector& End,const FLightningCast& Spell,float ChargeRatio=1.f,float WidthScale=1.f);
     void InitializeBladeArc(UNiagaraSystem* System,USceneComponent* BladeAnchor,float Length,int32 Seed);
     float BladeFlash() const;
     void SetBladeLightVisible(bool bVisible);
@@ -41,5 +43,7 @@ private:
     UPROPERTY(Replicated) float NetWidth=1.f,NetBrightness=50.f,NetChargeRatio=1.f;
     UPROPERTY(Replicated) bool NetContactLight=true;
     bool bNetInit=false;
+    // 本地生成（蓄力汇聚弧等）的弧不再等复制字段，直接走本地 Tick。
+    bool bInitialized=false;
     void NetInit();
 };

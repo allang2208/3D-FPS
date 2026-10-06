@@ -247,6 +247,8 @@ void UColdSteelQuickSlot::Refresh()
         }
         if(Fraction>0&&!bGoldPrepared&&!(Ability&&Ability->IsHandOccupiedNotice(Binding.Skill)))Remaining=Model->ElectricMagicCooldown(Binding.Skill);
         Dim=!Model->CanSpendMana(Model->ElectricMagicStats(Binding.Skill).Hit.ManaCost)&&!bGoldPrepared;
+        if(Model->ElectricMagicDefinition(Binding.Skill).ElectricMagic.bRequiresStaff&&!Model->HasEquippedStaff())
+        {Dim=true;bGoldPrepared=false;Remaining=0;Message=TEXT("需要法杖");}
     }
     else if(Binding.Skill==TEXT("lightningStrike"))
     {

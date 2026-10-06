@@ -109,6 +109,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         T.MinCharge=Num(TEXT("minCharge"),T.MinCharge);T.MaxCharge=Num(TEXT("maxCharge"),T.MaxCharge);T.ChargeBonus=Num(TEXT("chargeBonus"),T.ChargeBonus);T.StackDamage=Num(TEXT("stackDamage"),T.StackDamage);
         T.HalfWidth=Num(TEXT("halfWidth"),T.HalfWidth);T.KnockbackBase=Num(TEXT("knockbackBase"),T.KnockbackBase);T.KnockbackGrowth=Num(TEXT("knockbackGrowth"),T.KnockbackGrowth);T.EndRadius=Num(TEXT("endRadius"),T.EndRadius);
         T.BeamHold=FMath::Clamp(float(Num(TEXT("beamHold"),T.BeamHold)),.05f,4.f);T.BeamFade=FMath::Clamp(float(Num(TEXT("beamFade"),T.BeamFade)),.05f,2.f);
+        O->TryGetBoolField(TEXT("requiresStaff"),T.bRequiresStaff);
         T.HitExperience=Num(TEXT("hitExperience"),T.HitExperience);T.KillExperience=Num(TEXT("killExperience"),T.KillExperience);T.MultiHitExperience=Num(TEXT("multiHitExperience"),T.MultiHitExperience);T.MultiKillExperience=Num(TEXT("multiKillExperience"),T.MultiKillExperience);
     }
     if(Id==TEXT("fireball"))

@@ -1,0 +1,8 @@
+{
+  "saved": [
+    "/Game/Skills/ElectricMagic/NS_ThunderLanceMuzzle.NS_ThunderLanceMuzzle"
+  ],
+  "convention": "local +X == aim direction; component rotates the burst",
+  "source": "NS_ElectricImpact recipe biased forward; iris plate stays in C++",
+  "tested": false
+}

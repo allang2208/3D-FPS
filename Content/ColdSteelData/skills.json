@@ -594,7 +594,7 @@
   "thunderLance": {
     "experiencePerLevel": 100,
     "unitsToCM": 1.5,
-    "requiresStaff": false,
+    "requiresStaff": true,
     "minCharge": 0.5,
     "maxCharge": 2.5,
     "chargeBonus": 1.3,
@@ -604,9 +604,9 @@
     "knockbackGrowth": 100,
     "endRadius": 90,
     "beamHold": 0.45,
-    "beamFade": 0.6,
+    "beamFade": 0.8,
     "name": "贯穿雷枪",
-    "description": "长按绑定键充能，至少0.5秒后松开可发射，2.5秒充至100%后保持到松键释放。蓄力时保持原地，可自由转动视角瞄准；十字准星随充能收拢，未满充在准星标示的范围内随机散射，满充合并成点并提示已充能完毕。法杖前方显示电系魔法阵。伤害按充能比例增长，每层感电额外增加10%伤害，命中击退并叠加两层感电。蓄力不足或被打断时退还蓝耗并清除冷却。",
+    "description": "仅装备法杖时可施放。长按绑定键充能，至少0.5秒后松开可发射，2.5秒充至100%后保持到松键释放。蓄力时保持原地，可自由转动视角瞄准；十字准星随充能收拢，未满充在准星标示的范围内随机散射，满充合并成点并提示已充能完毕。法杖前方显示电系魔法阵。伤害按充能比例增长，每层感电额外增加10%伤害，命中击退并叠加两层感电。蓄力不足或被打断时退还蓝耗并清除冷却。",
     "icon": "Skills/thunder_lance_cold_steel.png",
     "damageBase": 110,
     "damagePerLevel": 14,
@@ -632,6 +632,6 @@
     "multiHitExperience": 8,
     "multiKillExperience": 10,
     "source": "game-dev/data/skills.json:skills.thunderLance; src/entities/components/thunder-lance-system.js",
-    "migration": "2026-10-01: 保留原版伤害与修炼；射程及其等级成长按用户要求翻倍；1原单位=1.5cm；仅陨星和冰墙限制法杖；共用动作、感电、过载与存档。"
+    "migration": "2026-10-01: 保留原版伤害与修炼；射程及其等级成长按用户要求翻倍；1原单位=1.5cm；仅陨星和冰墙限制法杖；共用动作、感电、过载与存档。2026-10-05: 雷枪并入法杖限定（requiresStaff=true，沿用冰墙同套释放/退蓝约束）。"
   }
 }

@@ -31,9 +31,11 @@ UM25MagicComponent::UM25MagicComponent()
     ChargeAsset = TSoftObjectPtr<UNiagaraSystem>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/NS_ThunderCharge.NS_ThunderCharge")));
     ArcAsset = TSoftObjectPtr<UNiagaraSystem>(FSoftObjectPath(TEXT("/Game/Skills/Lightning/NS_LightningChain.NS_LightningChain")));
     ImpactAsset = TSoftObjectPtr<UNiagaraSystem>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/NS_ElectricImpact.NS_ElectricImpact")));
-    LanceTube = TSoftObjectPtr<UStaticMesh>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/ThunderFluxV3/SM_ThunderFluxTube.SM_ThunderFluxTube")));
-    LanceBody = TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/ThunderFluxV3/M_ThunderFluxBody.M_ThunderFluxBody")));
-    LanceFilaments = TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/ThunderFluxV3/M_ThunderFluxFilaments.M_ThunderFluxFilaments")));
+    LanceTube = TSoftObjectPtr<UStaticMesh>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/LanceRay/FX/SM_ThunderLanceRibbon.SM_ThunderLanceRibbon")));
+    LanceIrisMesh = TSoftObjectPtr<UStaticMesh>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/LanceRay/FX/SM_ThunderLanceIris.SM_ThunderLanceIris")));
+    LanceBody = TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceBeam.M_ThunderLanceBeam")));
+
+    LanceIrisMat = TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceIris.M_ThunderLanceIris")));
     ReleaseSound = TSoftObjectPtr<USoundBase>(FSoftObjectPath(TEXT("/Game/Skills/Lightning/S_LightningCast1.S_LightningCast1")));
 }
 
@@ -46,8 +48,9 @@ void UM25MagicComponent::BeginPlay()
     if (GetNetMode() != NM_DedicatedServer)
     {
         TArray<FSoftObjectPath> Paths = {ChargeAsset.ToSoftObjectPath(), ArcAsset.ToSoftObjectPath(),
-            ImpactAsset.ToSoftObjectPath(), LanceTube.ToSoftObjectPath(), LanceBody.ToSoftObjectPath(),
-            LanceFilaments.ToSoftObjectPath(), ReleaseSound.ToSoftObjectPath()};
+            ImpactAsset.ToSoftObjectPath(), LanceTube.ToSoftObjectPath(), LanceIrisMesh.ToSoftObjectPath(),
+            LanceBody.ToSoftObjectPath(), LanceIrisMat.ToSoftObjectPath(),
+            ReleaseSound.ToSoftObjectPath()};
         AssetLoad = UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
             FStreamableDelegate::CreateWeakLambda(this, [this]() { UpdatePresentation(); }));
     }
@@ -142,7 +145,7 @@ bool UM25MagicComponent::CanAttack(APawn* Target) const
 {
     // Keep a local attack from starting before its telegraph can be presented.
     if (GetNetMode() != NM_DedicatedServer && (!ChargeAsset.Get() || !ArcAsset.Get()
-        || !LanceTube.Get() || !LanceBody.Get() || !LanceFilaments.Get())) return false;
+        || !LanceTube.Get() || !LanceIrisMesh.Get() || !LanceBody.Get() || !LanceIrisMat.Get())) return false;
     return !IsBusy() && CanExecute() && SelectSpell(Target) != EM25Spell::None;
 }
 
@@ -321,8 +324,8 @@ void UM25MagicComponent::Release()
     FActorSpawnParameters Spawn; Spawn.Owner = Monster.Get();
     if (auto* FX = GetWorld()->SpawnActor<AFPSLightningArc>(Start, FRotator::ZeroRotator, Spawn))
     {
-        if (Lance && (GetNetMode() == NM_DedicatedServer || (LanceTube.Get() && LanceBody.Get() && LanceFilaments.Get())))
-            FX->InitializeColumn(LanceTube.Get(), LanceBody.Get(), LanceFilaments.Get(), Start, End, Visual, 1.f, .32f);
+        if (Lance && (GetNetMode() == NM_DedicatedServer || (LanceTube.Get() && LanceIrisMesh.Get() && LanceBody.Get() && LanceIrisMat.Get())))
+            FX->InitializeColumn(LanceTube.Get(), LanceIrisMesh.Get(), LanceBody.Get(), LanceIrisMat.Get(), Start, End, Visual, 1.f, .32f);
         else FX->InitializeArc(ArcAsset.Get(), Start, End, Visual, Lance ? 1.1f : .5f, true, Lance ? 55.f : 44.f);
     }
     MulticastImpact(Start, Impact, Normal, Blocked, Lance);

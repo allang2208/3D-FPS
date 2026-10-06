@@ -14,15 +14,15 @@
 
 117 份废案含 17 份旧 UE 包已移入 `trash/azure-dragon-retired-20261005`，逐文件移动前后 SHA-256 相同。RigV2、EnergyV3、EnergyV6、ReferenceV7、CombatV4、DualClawV8 和旧静态输出均按 [本轮整理发布](Combat/enchant-azure-dragon-publication-20261005.md) 查询；认可设计图移到 `SourceAssets/AzureDragon20261004/References`。根目录兼容入口转发当前 V9，共享基线不恢复旧静态爪与能量材质。公开源码、配方、HLSL、待办、SKILL 和归档元数据；授权模型／参考／UE 包及回执留本机。上一轮完整工作区的保存与构建不是本次公开快照的新验证，本轮没有游戏、PIE、渲染或验收。
 
-## M-25 涡电匣与战斗修复（2026-10-05）
-
-恢复用户 Meshy 输入、RigV01 专用蒙皮／动画、BiteV01 与受击死亡、BackElectricV02，以及 OptimizationV01 四级游戏网格。怪物已获用户认可；最新撕咬遮挡与客机奖励修复已完成本机 Editor/Game 构建，未游戏测试。60 份旧快照和废案带散列移入 trash；公开源码、原创配方与 SKILL，原媒体／密集数据／UE 包留本机。连续软体死亡挂接以独立补丁记录，地牢刷新按用户要求暂不接入。恢复顺序与公开边界见 [M25 整理发布](Monsters/m25-publication-20261005.md)。
-
 ## M-14 与通用连续软体死亡（2026-10-05）
 
 本机使用 M-14 V15 活体、V19 连续软体尸体、V16 绿色毒液与 V20 旋风范围；嘴部已接入统一弱点。另有 11 个非人形角色条目、10 份独立尸体绑定已后台保存，人形暂不推广。现有 Game/Editor 构建和保存回执保留本机，游戏表现未测试。
 
 公开 C++、原创制作脚本、毒液 HLSL、MIT 来源和 SKILL；Meshy/其他怪物资产、密集绑定、UE 包与回执不公开。58 份旧快照和废弃脚本已移入 trash 并核对散列。M08 独立实现未夹带，M25 独立提交已到达远端，本轮直接整合其软体挂接。当前依赖、恢复顺序、资产边界和归档详见 [整理发布](Monsters/SpiralPillarM14Publication20261005.md)。
+
+## M-25 涡电匣与战斗修复（2026-10-05）
+
+恢复用户 Meshy 输入、RigV01 专用蒙皮／动画、BiteV01 与受击死亡、BackElectricV02，以及 OptimizationV01 四级游戏网格。怪物已获用户认可；最新撕咬遮挡与客机奖励修复已完成本机 Editor/Game 构建，未游戏测试。60 份旧快照和废案带散列移入 trash；公开源码、原创配方与 SKILL，原媒体／密集数据／UE 包留本机。连续软体死亡挂接以独立补丁记录，地牢刷新按用户要求暂不接入。恢复顺序与公开边界见 [M25 整理发布](Monsters/m25-publication-20261005.md)。
 
 ## M-09 悬钟 V24 与源码整理（2026-10-04）
 
@@ -477,7 +477,6 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 
 首轮 201 Meshy 模型已列为废案；962 个文件（含 116 个无外部引用的旧 UE 包）移入本机 trash，现用新模型及 50 个有引用的旧包保留。当前恢复入口为 Repair36、ClothFeed33、Magazine24 与 Accessories22，主体仍沿用 Cover10 包名。发布仅含选定修复脚本、记录和 SKILL；模型、贴图、动作、参考视频及密集数据需本机合法来源。归档散列、保留依赖和共享源码发布边界见 [201 发布与恢复说明](Weapons/lmg201-publication-20260929.md)。
 
-
 ## 特殊地牢房间收尾（2026-09-29）
 
 七房当前状态、后三房待办、废案归档和源码/许可边界见 [本轮发布](Gameplay/dungeon-rooms-publication-20260929.md)。当前病区与车站从各自 `Scripts/install_pool.py` 恢复，原独立/临时测试路线退役；完整本机 Content、作者几何和原素材许可仍必需。原生接入依赖与共享攻击摘录以发布文档为准，公开源码不等于可直接运行的完整场景。
@@ -549,6 +548,8 @@ Manny, separate first/third-person animation, skin reconstruction, local-only de
 ## RSH-12：五发单动与暂停修订（2026-10-03）
 
 恢复本枪需要 Medji 的 CC BY 4.0 原始包、合法 715／V7 手臂供体、原生姿态与本机已保存的 RSH 资产。最新握持／ADS 拨锤源码未完整烘焙和保存，旧导入回执不能代表当前候选。作者入口、十个目标资产、废案散列、保留输入与恢复顺序见 [RSH-12 暂停与发布](Weapons/rsh12-pause-publication-20261003.md) 和 [待办](Backlog.md)；署名见 [Medji 来源记录](ThirdParty/RSH12-Medji-CCBY4.md)。本轮公开源码／配方／参数，二进制、密集姿态、日志与 trash 留在本机，不新增游戏测试。
+
+RSH 后续采用状态（2026-10-04）：用户已认可 [双手握姿与 ADS 同步](Weapons/rsh12-unified-grip-20261004.md)，当前为双动、五发快速装填器版本，不再沿用上述暂停中的单动拨锤候选。五款通用瞄具及私有导轨转接座的运行依赖、制作入口与保存/构建回执见 [RSH 通用瞄具](Weapons/rsh12-common-optics-20261004.md)。本轮瞄具未进行游戏测试。
 
 ## 焚化炉主题与共用宝箱细节版（2026-10-03）
 

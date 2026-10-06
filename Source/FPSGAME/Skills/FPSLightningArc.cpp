@@ -9,49 +9,49 @@
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Net/UnrealNetwork.h"
 
-void AFPSLightningArc::InitializeColumn(UStaticMesh* Tube,UMaterialInterface* BodyMaterial,UMaterialInterface* FilamentMaterial,const FVector& Start,const FVector& End,const FLightningCast& Spell,float ChargeRatio,float WidthScale)
+void AFPSLightningArc::InitializeColumn(UStaticMesh* RibbonMesh,UStaticMesh* IrisMesh,UMaterialInterface* BeamMaterial,UMaterialInterface* IrisMaterial,const FVector& Start,const FVector& End,const FLightningCast& Spell,float ChargeRatio,float WidthScale)
 {
-    Tags.Add(TEXT("ThunderLanceColumn"));Age=0;Hold=Spell.Duration;Fade=FMath::Max(.01f,Spell.Fade);
+    Tags.Add(TEXT("ThunderLanceColumn"));Age=0;Hold=Spell.Duration;Fade=FMath::Max(.01f,Spell.Fade);bInitialized=true;
     if(HasAuthority()){NetKind=1;NetStart=Start;NetEnd=End;NetSpell=Spell;NetWidth=FMath::Max(.01f,WidthScale);NetBrightness=50.f;NetChargeRatio=ChargeRatio;NetContactLight=true;}
     // Dedicated servers publish the same geometry parameters without loading cosmetic assets.
     if(GetNetMode()==NM_DedicatedServer){SetLifeSpan(Hold+Fade*1.55f+.05f);return;}
-    if(!Tube||!BodyMaterial||!FilamentMaterial){Destroy();return;}
+    if(!RibbonMesh||!IrisMesh||!BeamMaterial||!IrisMaterial){Destroy();return;}
     // Charge payoff: a minimum-charge shot reads as a thinner, dimmer bolt.
     const float Visual=FMath::Lerp(.55f,1.f,FMath::Clamp(ChargeRatio,0.f,1.f))*FMath::Max(.01f,WidthScale);
-    const float Glow=FMath::Lerp(.65f,1.f,FMath::Clamp(ChargeRatio,0.f,1.f));
     const FVector Delta=End-Start;const float Length=FMath::Max(1.f,float(Delta.Size()));
     SetActorLocationAndRotation(Start,Delta.Rotation());
     Path->ClearSplinePoints(false);Path->AddSplinePoint(FVector::ZeroVector,ESplineCoordinateSpace::Local,false);
     Path->AddSplinePoint(FVector(Length,0,0),ESplineCoordinateSpace::Local,false);Path->UpdateSpline();
     FX->DeactivateImmediate();FX->SetAsset(nullptr);
-    const auto Bounds=Tube->GetBounds();const float MeshDiameter=FMath::Max(1.f,2.f*Bounds.BoxExtent.X),MeshHeight=FMath::Max(1.f,2.f*Bounds.BoxExtent.Z);
-    // An irregular rolling envelope surrounds a coherent white-blue core.
-    // The fourth tube carries snapped, branched electric paths instead of coils.
-    const float Widths[]={264.f,168.f,87.f,291.f},Opacities[]={.45f,.93f,1.f,1.f},Emissions[]={12.f,21.f,31.5f,42.f};
-    const FLinearColor Colors[]={FLinearColor::FromSRGBColor(FColor(65,145,255)),FLinearColor::FromSRGBColor(FColor(125,225,255)),
-        FLinearColor::FromSRGBColor(FColor(225,246,255)),FLinearColor::FromSRGBColor(FColor(170,225,255))};
-    FRandomStream Cosmetic{int32(FPlatformTime::Cycles())};const float Seed=Cosmetic.FRandRange(0.f,100.f);
-    const FVector Axis=Delta.GetSafeNormal();
-    auto MakeTube=[&](const FString& Name,UMaterialInterface* Material,float Diameter)
+    FRandomStream Cosmetic{int32(FPlatformTime::Cycles())};
+    const float BeamWidth=115.f*Visual;
+    // Crossed soft ribbons instead of a solid tube: two interleaved stacks at
+    // a 30 degree offset keep the column volumetric from every view angle.
+    auto MakeRibbon=[&](const FString& Name,UMaterialInterface* Material,float HalfWidth,float Spin)
     {
         auto* Mesh=NewObject<UStaticMeshComponent>(this,*Name);AddInstanceComponent(Mesh);Mesh->SetupAttachment(Path);
-        Mesh->SetStaticMesh(Tube);Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->SetCanEverAffectNavigation(false);
-        Mesh->SetCastShadow(false);Mesh->SetReceivesDecals(false);Mesh->SetRelativeRotation(FRotator(90,0,0));
-        Mesh->SetRelativeScale3D(FVector(Diameter/MeshDiameter,Diameter/MeshDiameter,Length/MeshHeight));Mesh->SetBoundsScale(1.7f);
-        auto* MaterialInstance=UMaterialInstanceDynamic::Create(Material,Mesh);Mesh->SetMaterial(0,MaterialInstance);Mesh->RegisterComponent();return Mesh;
+        Mesh->SetStaticMesh(RibbonMesh);Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->SetCanEverAffectNavigation(false);
+        Mesh->SetCastShadow(false);Mesh->SetReceivesDecals(false);
+        Mesh->SetRelativeRotation(FRotator(90.f,0.f,0.f).Quaternion()*FQuat(FVector(0,0,1),FMath::DegreesToRadians(Spin)));
+        Mesh->SetRelativeLocation(FVector(Length*.5f,0,0));
+        Mesh->SetRelativeScale3D(FVector(HalfWidth,HalfWidth,Length/100.f));Mesh->SetBoundsScale(1.7f);
+        Mesh->SetMaterial(0,UMaterialInstanceDynamic::Create(Material,Mesh));Mesh->RegisterComponent();return Mesh;
     };
-    for(int32 I=0;I<4;++I)
+    MakeRibbon(TEXT("RayBeamA"),BeamMaterial,BeamWidth,0.f)->SetTranslucentSortPriority(1);
+    MakeRibbon(TEXT("RayBeamB"),BeamMaterial,BeamWidth*.72f,30.f)->SetTranslucentSortPriority(2);
+    // Iris blooms anchor the muzzle and the spearhead-end of the beam.
+    auto MakeIris=[&](const FString& Name,float X,float Radius)
     {
-        auto* Mesh=MakeTube(FString::Printf(TEXT("FluxLayer%d"),I),I==3?FilamentMaterial:BodyMaterial,Widths[I]*Visual);
-        Mesh->SetRelativeLocation(FVector(Length*.5f,0,0));Mesh->SetTranslucentSortPriority(I+1);
-        auto* Material=Cast<UMaterialInstanceDynamic>(Mesh->GetMaterial(0));
-        Material->SetVectorParameterValue(TEXT("BeamColor"),Colors[I]);Material->SetScalarParameterValue(TEXT("Opacity"),Opacities[I]);
-        Material->SetScalarParameterValue(TEXT("Emission"),Emissions[I]*Glow);Material->SetScalarParameterValue(TEXT("Role"),I<3?2.f-I:3.f);
-        Material->SetScalarParameterValue(TEXT("Radius"),Widths[I]*Visual*.5f);Material->SetScalarParameterValue(TEXT("Length"),Length);
-        Material->SetScalarParameterValue(TEXT("Seed"),Seed+I*.731f);
-        Material->SetVectorParameterValue(TEXT("Origin"),FLinearColor(Start.X,Start.Y,Start.Z,0.f));
-        Material->SetVectorParameterValue(TEXT("Axis"),FLinearColor(Axis.X,Axis.Y,Axis.Z,0.f));
-    }
+        auto* Mesh=NewObject<UStaticMeshComponent>(this,*Name);AddInstanceComponent(Mesh);Mesh->SetupAttachment(Path);
+        Mesh->SetStaticMesh(IrisMesh);Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->SetCanEverAffectNavigation(false);
+        Mesh->SetCastShadow(false);Mesh->SetReceivesDecals(false);
+        Mesh->SetRelativeRotation(FRotator(90.f,0.f,0.f));
+        Mesh->SetRelativeLocation(FVector(X,0,0));Mesh->SetRelativeScale3D(FVector(Radius));
+        Mesh->SetMaterial(0,UMaterialInstanceDynamic::Create(IrisMaterial,Mesh));
+        Mesh->SetTranslucentSortPriority(3);Mesh->RegisterComponent();return Mesh;
+    };
+    MakeIris(TEXT("RayIrisTail"),4.f,BeamWidth*.5f);
+    MakeIris(TEXT("RayIrisHead"),Length,BeamWidth*.9f);
     ImpactLight->SetRelativeLocation(FVector(Length,0,0));ImpactLight->SetLightColor(FLinearColor(.4f,.7f,1.f));ImpactLight->SetAttenuationRadius(210.f);
     BaseLight=3600.f*Visual;ImpactLight->SetIntensity(BaseLight);SetLifeSpan(Hold+Fade*1.55f+.05f);
 }
@@ -82,7 +82,7 @@ void AFPSLightningArc::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 }
 void AFPSLightningArc::InitializeArc(UNiagaraSystem* System,const FVector& Start,const FVector& End,const FLightningCast& Spell,float Width,bool bContactLight,float Brightness)
 {
-    SetActorLocation(Start);Hold=Spell.Duration;Fade=FMath::Max(.01f,Spell.Fade);
+    SetActorLocation(Start);Hold=Spell.Duration;Fade=FMath::Max(.01f,Spell.Fade);bInitialized=true;
     BaseBrightness=Brightness;
     if(HasAuthority()){NetKind=0;NetStart=Start;NetEnd=End;NetSpell=Spell;NetWidth=Width;NetBrightness=Brightness;NetContactLight=bContactLight;}
     const FVector Delta=End-Start;const float Length=Delta.Size();
@@ -159,17 +159,18 @@ void AFPSLightningArc::InitializeBladeArc(UNiagaraSystem* System,USceneComponent
     ImpactLight->SetIndirectLightingIntensity(0.f);ImpactLight->SetVolumetricScatteringIntensity(0.f);
     BaseLight=60.f;ImpactLight->SetIntensity(BaseLight*1.35f);ImpactLight->SetVisibility(true);
 }
-// 远端副本：复制字段就位后自载素材重演。kind0=链式电弧(闪电链资产)；kind1=雷枪柱(雷电魔法的管道+双层材质)。
+// 远端副本：复制字段就位后自载素材重演。kind0=链式电弧(闪电链资产)；kind1=雷枪柱(悬钟同款 ribbon+丝束+虹膜)。
 void AFPSLightningArc::NetInit()
 {
     if(bNetInit||NetSpell.Duration<=0)return;
     if(NetKind==1)
     {
-        auto* Tube=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Skills/ElectricMagic/ThunderFluxV3/SM_ThunderFluxTube.SM_ThunderFluxTube"));
-        auto* Body=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/ElectricMagic/ThunderFluxV3/M_ThunderFluxBody.M_ThunderFluxBody"));
-        auto* Filament=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/ElectricMagic/ThunderFluxV3/M_ThunderFluxFilaments.M_ThunderFluxFilaments"));
-        if(!Tube||!Body||!Filament)return;
-        InitializeColumn(Tube,Body,Filament,NetStart,NetEnd,NetSpell,NetChargeRatio,NetWidth);
+        auto* Ribbon=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Skills/ElectricMagic/LanceRay/FX/SM_ThunderLanceRibbon.SM_ThunderLanceRibbon"));
+        auto* IrisMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Skills/ElectricMagic/LanceRay/FX/SM_ThunderLanceIris.SM_ThunderLanceIris"));
+        auto* Beam=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceBeam.M_ThunderLanceBeam"));
+        auto* IrisMat=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceIris.M_ThunderLanceIris"));
+        if(!Ribbon||!IrisMesh||!Beam||!IrisMat)return;
+        InitializeColumn(Ribbon,IrisMesh,Beam,IrisMat,NetStart,NetEnd,NetSpell,NetChargeRatio,NetWidth);
     }
     else
     {
@@ -191,29 +192,34 @@ void AFPSLightningArc::SetBladeLightVisible(bool bVisible)
 }
 void AFPSLightningArc::Tick(float Delta)
 {
-    // 远端副本：首包到齐后 NetInit 自建表现；刃弧（blade）仍是本地特效不走复制。
-    if(!HasAuthority()&&!bBladeAttached){NetInit();if(!bNetInit)return;}
+    // 远端副本：首包到齐后 NetInit 自建表现；本地生成弧与刃弧直接走本地表现。
+    if(!HasAuthority()&&!bInitialized&&!bBladeAttached){NetInit();if(!bNetInit)return;}
     if(bBladeAttached&&!BoundBlade.IsValid()){Destroy();return;}
     Super::Tick(Delta);Age+=Delta;
     if(Tags.Contains(TEXT("ThunderLanceColumn")))
     {
-        // Staggered collapse: the coherent core dies first, the envelope follows,
-        // and the snapped filaments linger as the discharge's afterglow.
-        static const float LayerDelay[]={.20f,.10f,0.f,.45f};
+        // M09-style discharge envelope: a fast attack, a held burn, then the
+        // warning profile takes over as FirePower eases out — the column
+        // disperses wide and pale instead of blinking off.
+        const float RampIn=FMath::Min(1.f,Age/.10f);
+        const float Discharge=FMath::Min(1.f,Age/.05f)*(1.f-FMath::Clamp((Age-Hold)/.12f,0.f,1.f));
+        static const float LayerDelay[]={0.f,.06f,.12f,.12f,.45f};
         TInlineComponentArray<UStaticMeshComponent*> Meshes(this);
         for(auto* Mesh:Meshes)
         {
-            const int32 Layer=FMath::Clamp(Mesh->TranslucencySortPriority-1,0,3);
-            const float Delay=LayerDelay[Layer]*Fade;
-            const float Alpha=Age<Hold+Delay?1.f:FMath::Clamp(1.f-(Age-Hold-Delay)/Fade,0.f,1.f);
+            const int32 Layer=FMath::Clamp(Mesh->TranslucencySortPriority-1,0,4);
+            const float T=FMath::Clamp((Age-Hold-LayerDelay[Layer]*Fade)/Fade,0.f,1.f);
+            const float Alpha=RampIn*FMath::Pow(1.f-T,1.7f);
             if(auto* Material=Cast<UMaterialInstanceDynamic>(Mesh->GetMaterial(0)))
-            {Material->SetScalarParameterValue(TEXT("BeamAlpha"),Alpha);Material->SetScalarParameterValue(TEXT("BeamAge"),Age);}
+            {Material->SetScalarParameterValue(TEXT("Strength"),Alpha);Material->SetScalarParameterValue(TEXT("Clock"),Age);Material->SetScalarParameterValue(TEXT("FirePower"),Discharge);}
         }
-        const float LightAlpha=Age<Hold?1.f:FMath::Clamp(1.f-(Age-Hold)/Fade,0.f,1.f);
+        const float LT=FMath::Clamp((Age-Hold)/Fade,0.f,1.f);
+        const float LightAlpha=RampIn*FMath::Pow(1.f-LT,1.7f);
         ImpactLight->SetIntensity(BaseLight*LightAlpha*(1.f+1.25f*FMath::Exp(-Age*32.f)));if(Age>=Hold+Fade*1.45f)Destroy();return;
     }
     if(bBladeAttached)SetActorRelativeRotation(FQuat(FVector::ForwardVector,Age*.7f));
-    const float Alpha=Age<Hold?1.f:FMath::Clamp(1-(Age-Hold)/Fade,0.f,1.f);
+    const float T=FMath::Clamp((Age-Hold)/Fade,0.f,1.f);
+    const float Alpha=FMath::Min(1.f,Age/.06f)*FMath::Pow(1.f-T,1.7f);
     const float Flash=BladeFlash();
     FX->SetVariableFloat(TEXT("User._Brightness"),BaseBrightness*Alpha*(1.f+.55f*Flash));
     ImpactLight->SetIntensity(BaseLight*Alpha*(bBladeAttached?.45f+.90f*Flash:FMath::Max(0.f,1-Age/.3f)));

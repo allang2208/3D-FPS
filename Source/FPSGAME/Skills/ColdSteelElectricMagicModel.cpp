@@ -35,7 +35,7 @@ FElectricMagicCast UColdSteelStatusModel::ElectricMagicStats(FName Id,int32 AtLe
     H.Segments=Id==TEXT("stormDomain")?9:2;H.Jitter=Id==TEXT("stormDomain")?.10f:0.f;
     C.Radius=(T.RadiusBase+L*T.RadiusPerLevel)*T.UnitsToCM;
     C.Duration=T.Duration+FMath::FloorToFloat(Growth*T.DurationGrowth);C.StrikeSeconds=T.StrikeSeconds;
-    C.MinCharge=T.MinCharge;C.MaxCharge=T.MaxCharge;C.ChargeBonus=T.ChargeBonus;C.StackDamage=T.StackDamage;
+    C.MinCharge=T.MinCharge;C.MaxCharge=T.MaxCharge;C.ChargeBonus=T.ChargeBonus;C.StackDamage=T.StackDamage;C.bRequiresStaff=T.bRequiresStaff;
     C.HalfWidth=T.HalfWidth*T.UnitsToCM;C.Knockback=(T.KnockbackBase+FMath::FloorToFloat(Growth*T.KnockbackGrowth))*T.UnitsToCM;
     C.EndRadius=T.EndRadius*T.UnitsToCM;
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
@@ -64,7 +64,7 @@ FElectricMagicCast UColdSteelStatusModel::ElectricMagicStats(FName Id,int32 AtLe
 }
 bool UColdSteelStatusModel::BeginElectricMagicCast(FName Id,const FElectricMagicCast& Spell)
 {
-    if(!ElectricMagic::IsSkill(Id)||Current.ElectricReservedMana.Contains(Id)||ElectricMagicCooldown(Id)>0||!CanSpendMana(Spell.Hit.ManaCost))return false;
+    if(!ElectricMagic::IsSkill(Id)||Current.ElectricReservedMana.Contains(Id)||ElectricMagicCooldown(Id)>0||!CanSpendMana(Spell.Hit.ManaCost)||(Spell.bRequiresStaff&&!HasEquippedStaff()))return false;
     SyncRuntime();auto P=Snapshot();const float Before=P.Mana;
     if(!HasInfiniteMana())P.Mana-=Spell.Hit.ManaCost;
     P.ElectricReservedMana.Add(Id,Before-P.Mana);

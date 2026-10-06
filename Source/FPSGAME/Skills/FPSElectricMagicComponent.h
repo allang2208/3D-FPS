@@ -49,6 +49,15 @@ private:
     UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> ChargeFX;
     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> ChargeCircle;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> ChargeCircleMaterial;
+    // 悬钟式蓄力：内卷粒子 + 虹膜光斑；汇聚线条用真实电弧（SpawnArc 池）。
+    UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> GatherFX;
+    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> ChargeIris;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> ChargeIrisMID;
+    // 发射瞬间的定向冲击盘面（虹膜网格沿瞄准轴放大淡出）。
+    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> MuzzleIris;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> MuzzleIrisMID;
+    float MuzzleFlashAge=0,MuzzleFlashScale=1;
+    double NextChargeArc=0;
     TSharedPtr<FStreamableHandle> AssetLoad;
     TArray<TWeakObjectPtr<AFPSLightningArc>> Arcs;
     TArray<TWeakObjectPtr<UNiagaraComponent>> Bursts;
@@ -75,7 +84,9 @@ private:
     void UpdateChargeVisual();
     void DestroyChargeVisual();
     void SpawnArc(const FVector& Start,const FVector& End,const FLightningCast& Spell,bool bBeam=false,float ChargeRatio=1.f,float Width=1.f,bool bContactLight=true,float Brightness=50.f);
-    void SpawnBurst(const FVector& Point,float Size=1.f,const FRotator& Rotation=FRotator::ZeroRotator);
+    void SpawnBurst(const FVector& Point,float Size=1.f,const FRotator& Rotation=FRotator::ZeroRotator,UObject* System=nullptr);
+    /** 枪口定向闪光：冲击盘面 + 前锥爆闪；非复制表现，客户端释放本地也调一次。 */
+    void MuzzleFlashFX(const FVector& Start,const FVector& Dir,float Visual);
     void ApplyStatus(AActor* Target,const FLightningCast& Spell,FElectricMagicRewards& Rewards);
     void Overload(AActor* Origin,const FLightningCast& Spell,FElectricMagicRewards& Rewards);
     void GrantCastBuffs(const FLightningCast& Spell);
