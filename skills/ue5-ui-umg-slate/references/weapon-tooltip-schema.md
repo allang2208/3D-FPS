@@ -74,3 +74,28 @@
 实测数据见 `Docs/UI/item-tooltip-gold-fusion-20260928.md`）与 `ItemTooltipGoldRule`（#C7AA7059）；
 区块/卡片/折叠区/分区标题、头部元信息行、全部实虚分隔线上金，`ItemTooltipRule` 退役。
 物品名、正文、数值、正负语义色、特殊性质五色不动。新增浮窗文字一律引用这组常量，不许新造金灰色值。
+
+## 2026-10-06 装备与背包容积补全
+
+- **物品信息行映射表必须随目录值域同步**：`Category()` 补 `equipment→装备`，
+  `EquipSlotLabel()` 补 `pants→裤子槽`、`boots→鞋靴槽`、`backpack→背包装备槽`；
+  漏映射会把英文键原样显示在"分类/装备槽位"行。
+- **背包容积段**：`equipSlot==backpack` 时在「物品信息」后输出「背包容积」卡——
+  `bagExtraCells` 显示 `+N 格 · 扩容 N/18 行`（与 `BagRows` 每 18 格一行同口径），
+  `bagCompartmentCells>0` 显示 `列×行 · 共 N 格`（列行取 `bagCompartmentColumns/Rows`，缺省 6×6）。
+  行由字段驱动，不按物品 id 硬编码。
+- **缺图缩略图兜底**：`Out.Icon` 无纹理时 `MissingIcon` 显示物品 `icon_fallback` 字形
+  （弹药 ▥、背包 包、金币 金；贡品全量用 emoji），空字形才显示 `?`——与图鉴卡片同一规则，
+  不要把留白当成"还没出图"。
+- **装备通用数值段**：`defense{base,perEnhance,damageReduction,staminaCost}` 与 `bonusStats` 对象
+  由通用段渲染，装备加 `bonusStats.moveSpeedPercent`（乘区，±0.05＝±5%）后浮窗自动出
+  「移动速度 ±X%」；运行时聚合在 `UColdSteelStatusModel::EquipmentBonusFor`/`ColdSteelFormulaBonuses.cpp`，
+  `ColdSteelProfileRuntime` 的目录→实例同步已含 defense/bonusStats/name/desc，纯改 `items.json` 即可跟上旧档。
+- **改造详情百分比徽标规则**（`M4GunsmithSelectedDetails.cpp`）：单一目录倍率的行用
+  `Percent(配件字段)` 显示配件自身倍率；共享叠加/派生行（总伤害、理论射速、耗时类）用
+  `Ratio(Was,Now)` 显示实际变化率；值本身已是百分比的加值字段（暴击率、易伤、流血等）
+  差值即增量，**不重复标徽标**；0→N 新增效果时 Ratio 不显示（无 ∞%）。
+- **特殊效果说明文案**：机制类效果（虎啸、易伤、AOE、脚架部署、符文机制）用正文 **14px**、
+  语义三色（收益 `Success` 绿／代价 `Danger` 红／中性 `Secondary` 灰），不用辅助档 12px；
+  12px 只留给图例注、用法注脚等非效果说明。有数值行的配件若另有纯文案机制，
+  按配件家族门控（如 `Id.Contains("bipod")`）补 effects 列表，避免"有行就看不到机制"。

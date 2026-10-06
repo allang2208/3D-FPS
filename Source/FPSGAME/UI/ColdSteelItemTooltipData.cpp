@@ -41,8 +41,8 @@ void DamageRows(FColdSteelTooltipCard& C,const FWeaponDamageParts& D)
     if(D.AddedMagic>0)Row(C,ColdSteelWeaponText::AddedMagic,N(D.AddedMagic));
 }
 void Section(FColdSteelTooltipCard& C,const FString& Label){C.Rows.Add({Label,TEXT(""),0,true});}
-FString Category(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon_ranged"),TEXT("远程武器")},{TEXT("weapon_bow"),TEXT("远程武器")},{TEXT("weapon_melee"),TEXT("近战武器")},{TEXT("weapon_magic"),TEXT("魔法武器")},{TEXT("weapon"),TEXT("武器")},{TEXT("tool"),TEXT("生产工具")},{TEXT("armor"),TEXT("防具")},{TEXT("accessory"),TEXT("饰品")},{TEXT("consumable"),TEXT("消耗品")},{TEXT("material"),TEXT("材料")},{TEXT("enhancement"),TEXT("强化道具")},{TEXT("tribute"),TEXT("贡品")},{TEXT("gold"),TEXT("金币")}};const auto* V=M.Find(K);return V?*V:K;}
-FString EquipSlotLabel(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon"),TEXT("武器槽")},{TEXT("armor"),TEXT("防具槽")},{TEXT("gloves"),TEXT("手套槽")},{TEXT("pants"),TEXT("裤子槽")},{TEXT("boots"),TEXT("鞋靴槽")}};const auto* V=M.Find(K);return V?*V:K;}
+FString Category(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon_ranged"),TEXT("远程武器")},{TEXT("weapon_bow"),TEXT("远程武器")},{TEXT("weapon_melee"),TEXT("近战武器")},{TEXT("weapon_magic"),TEXT("魔法武器")},{TEXT("weapon"),TEXT("武器")},{TEXT("tool"),TEXT("生产工具")},{TEXT("armor"),TEXT("防具")},{TEXT("equipment"),TEXT("装备")},{TEXT("accessory"),TEXT("饰品")},{TEXT("consumable"),TEXT("消耗品")},{TEXT("material"),TEXT("材料")},{TEXT("enhancement"),TEXT("强化道具")},{TEXT("tribute"),TEXT("贡品")},{TEXT("gold"),TEXT("金币")}};const auto* V=M.Find(K);return V?*V:K;}
+FString EquipSlotLabel(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon"),TEXT("武器槽")},{TEXT("armor"),TEXT("防具槽")},{TEXT("gloves"),TEXT("手套槽")},{TEXT("pants"),TEXT("裤子槽")},{TEXT("boots"),TEXT("鞋靴槽")},{TEXT("backpack"),TEXT("背包装备槽")}};const auto* V=M.Find(K);return V?*V:K;}
 void Delta(FColdSteelTooltipCard& C,const FString& Label,double V,const TCHAR* Unit,bool Lower=false){if(FMath::Abs(V)>.00001)Row(C,Label,Signed(V,Unit),(V>0)!=Lower?1:-1);}
 // 附魔只存攻击间隔倍率；玩家口径用射速倍率表达，1/3 与 2 倍都读得懂。
 FString RateMultiplier(double IntervalMultiplier){return IntervalMultiplier>1.?FString::Printf(TEXT("1/%s"),*N(IntervalMultiplier)):N(1./IntervalMultiplier);}
@@ -542,6 +542,19 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,ColdSteelWeaponText::HipSpreadMultiplier,N(S.Spread)+TEXT("×"));
         if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"));CritBonus>0)
             Row(Main,ColdSteelWeaponText::CriticalBonus,TEXT("+")+N(CritBonus*100)+TEXT("%"));
+    }
+    if(String(O,TEXT("equipSlot"))==TEXT("backpack"))
+    {
+        // 背包容积段：主背包扩容按 bagExtraCells 每 18 格一行（与 BagRows 同口径），
+        // 独立夹层按 列×行（bagCompartmentColumns/Rows，缺省 6×6），容量＝列×行。
+        const double Extra=Number(O,TEXT("bagExtraCells")),Compartment=Number(O,TEXT("bagCompartmentCells"));
+        const int32 Cols=int32(Number(O,TEXT("bagCompartmentColumns"),6)),Rows=int32(Number(O,TEXT("bagCompartmentRows"),6));
+        if(Extra>0||Compartment>0)
+        {
+            Section(Main,TEXT("背包容积"));
+            if(Extra>0)Row(Main,TEXT("主背包扩容"),TEXT("+")+N(Extra)+TEXT(" 格 · 扩容 ")+N(Extra/18)+TEXT(" 行"));
+            if(Compartment>0)Row(Main,TEXT("独立夹层"),FString::Printf(TEXT("%d×%d · 共 %d 格"),Cols,Rows,Cols*Rows));
+        }
     }
     if(Defense){Section(Main,TEXT("防御参数"));const double Base=Number(Defense,TEXT("base")),Per=Number(Defense,TEXT("perEnhance"));const auto* E=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;Row(Main,TEXT("防御力"),N(E?E->Defense(I):Base+Enhance*Per));Row(Main,TEXT("防御基础"),N(Base));Row(Main,TEXT("每级强化防御"),N(Per));
         if(Defense->HasField(TEXT("damageReduction")))Row(Main,TEXT("防御减伤"),N(Number(Defense,TEXT("damageReduction"))*100)+TEXT("%"));if(Defense->HasField(TEXT("staminaCost")))Row(Main,TEXT("防御受击体力"),N(Number(Defense,TEXT("staminaCost"))));}

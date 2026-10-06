@@ -83,3 +83,15 @@ FPSGAME 源码：`ColdSteelWeaponIcons`、`ColdSteelIconResources.cpp`、`ColdSt
 - 拖动、旋转中和落下后的图标共用同一尺寸函数与中心偏移；装备槽按其独立可用区域等比拟合。保持标题、品质／加工角标、占格与点击区域的原有语义。
 
 源码为 `ColdSteelStaffIcon`、`ColdSteelInventoryPresentation`、`ColdSteelInventoryWidget` 和 `ColdSteelWeaponIconReadback`。实际目录图 256×1024，有效轮廓 56×932；40 像素格子的旧横放长度约为竖放的 62.5%，修正后两种方向使用同一倍率。该数字来自像素与公式计算，2026-09-28 基础 DLL 构建成功，未做游戏视觉验收。
+
+## 材料通道俯仰角符号与宽幅填充（2026-10-06 锭类返工）
+
+- **`FQuat(Y, +角度)` 在捕获约定里把网格远端往下压**（相机在 −X 侧），拍到的是被抬起的底面；
+  要俯视顶面必须用**负俯仰角**。2026-10 锭类 45° 取图曾因此拍成"从底部往上看"；
+  矿石/石块此前的 +22° 同为拍底面，因团块上下差异小长期未暴露——写捕获姿态时先判顶/底再定符号。
+- **宽幅（宽>高）画幅下"放大剪影"的正解是加大偏航，不是放大正交裁剪**：pitch−45 时锭剪影近方形，
+  2:1 画布横向只填 46%；把 yaw 从 30° 加到 60° 让长轴横向铺满，剪影 462×292 ≈ 宽 72%×高 91%。
+  构图数字必须同时落在 `ColdSteelMaterialIcon::PrepareMaterial`（运行时）与
+  `Tools/Smelting/render_ingot_icons.py`（离线 numpy 光栅化复刻同一取景数学）两处。
+- 锭/矿/石按 `ProductionHarvestAssets::IsSmeltingIngot` 分流俯仰档；改其中一类不要带动另一类，
+  但同类符号错误应一并修正并注明。

@@ -11,6 +11,9 @@
     "price": 38,
     "grid_w": 2,
     "grid_h": 3,
+    "defense": {
+      "base": 10
+    },
     "desc": "耐磨牛仔布长裤，保留洗水纹理、接缝和自然褶皱。",
     "ue_icon": "Icons/ue_jeans.png",
     "icon_fallback": "裤",
@@ -30,6 +33,9 @@
     "price": 42,
     "grid_w": 2,
     "grid_h": 3,
+    "defense": {
+      "base": 10
+    },
     "desc": "带立体侧袋的工装长裤，裤腿宽松，可与鞋靴独立搭配。",
     "ue_icon": "Icons/ue_cargo_pants.png",
     "icon_fallback": "裤",
@@ -39,7 +45,7 @@
   },
   "ue_casual_sneakers": {
     "id": "ue_casual_sneakers",
-    "name": "休闲鞋",
+    "name": "运动鞋",
     "category": "equipment",
     "type": "鞋靴",
     "equipSlot": "boots",
@@ -49,7 +55,13 @@
     "price": 28,
     "grid_w": 2,
     "grid_h": 2,
-    "desc": "系带休闲鞋，布面鞋身与橡胶鞋底，可独立穿脱。",
+    "defense": {
+      "base": 6
+    },
+    "bonusStats": {
+      "moveSpeedPercent": 0.1
+    },
+    "desc": "系带运动鞋，布面鞋身与橡胶鞋底，可独立穿脱。",
     "ue_icon": "Icons/ue_casual_sneakers.png",
     "icon_fallback": "鞋",
     "world_mesh": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Pickups/SM_Sneakers.SM_Sneakers",
@@ -66,7 +78,8 @@
     "desc": "用于装备强化等交易的通用货币。",
     "rarity": "common",
     "stack_max": 9007199254740991,
-    "price": 1
+    "price": 1,
+    "icon_fallback": "金"
   },
   "aluminumOre": {
     "category": "tribute",
@@ -3488,6 +3501,9 @@
     "price": 35,
     "grid_w": 3,
     "grid_h": 3,
+    "defense": {
+      "base": 6
+    },
     "desc": "厚实针织长袖，配有收口袖缘，可与短手套独立搭配。",
     "ue_icon": "Icons/FieldSweaterKnit20260929/ue_field_sweater.png",
     "icon_fallback": "衣",
@@ -3506,6 +3522,9 @@
     "price": 35,
     "grid_w": 3,
     "grid_h": 3,
+    "defense": {
+      "base": 4
+    },
     "desc": "炭灰色细密棉布短袖 T恤，上臂袖口向内卷边，露出下段上臂和前臂，可与手套独立搭配。",
     "ue_icon": "Icons/FieldSweaterKnit20260929/ue_field_sweater_charcoal.png",
     "icon_fallback": "衣",
@@ -3524,6 +3543,9 @@
     "price": 20,
     "grid_w": 2,
     "grid_h": 2,
+    "defense": {
+      "base": 4
+    },
     "desc": "皮革完整覆盖掌心、手背与虎口，边缘延伸到手掌与手指交界，五指露出。保留短腕口、薄卷边与缝线，可与衣袖独立搭配。",
     "ue_icon": "Icons/GloveCompanionDetail20260928/ue_field_gloves.png",
     "icon_fallback": "手",
@@ -3542,6 +3564,9 @@
     "price": 20,
     "grid_w": 2,
     "grid_h": 2,
+    "defense": {
+      "base": 4
+    },
     "desc": "黑色全指皮革手套，细粒皮革拼接短绒织物，裁片采用带压痕的细密嵌线，接缝与抓握处留有轻微摩擦痕迹；腕口为背厚内薄的柔软回折包边。",
     "ue_icon": "Icons/BlackLeatherStitchWearV4/ue_field_gloves_black.png",
     "icon_fallback": "手",
@@ -3612,6 +3637,9 @@
     "price": 20,
     "grid_w": 2,
     "grid_h": 2,
+    "defense": {
+      "base": 16
+    },
     "desc": "手背、腕部与拇指采用平滑相连的钢质护面，其余四指配独立指节甲，整只手套覆以细密灰色金属护层。可单独穿戴并搭配上衣。",
     "ue_icon": "Icons/GloveCompanionDetail20260928/ue_steel_gauntlets.png",
     "icon_fallback": "甲",

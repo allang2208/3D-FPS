@@ -116,6 +116,9 @@ void UColdSteelItemTooltip::RefreshIcon()
     UTexture2D* Texture=TextureCache.FindRef(Path);
     if(Icon->GetBrush().GetResourceObject()!=Texture)Icon->SetBrushFromTexture(Texture,true);
     Icon->SetVisibility(Texture?ESlateVisibility::HitTestInvisible:ESlateVisibility::Hidden);
+    // 缺正式图时按目录字形兜底（弹药 ▥、背包 包等）；连字形都没有才显示 ?。
+    const FString Glyph=ColdSteelInventory::Text(*Item,TEXT("icon_fallback"));
+    MissingIcon->SetText(FText::FromString(Glyph.IsEmpty()?TEXT("?"):Glyph));
     MissingIcon->SetVisibility(Texture?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
 }
 void UColdSteelItemTooltip::FitAndPlace(bool)

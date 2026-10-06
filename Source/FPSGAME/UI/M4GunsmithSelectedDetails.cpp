@@ -173,16 +173,19 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     else if(IsBowWorkbench()&&Item)
     {
         const auto Was=ColdSteelBow::Evaluate(*Item,Profile,&WithoutPart),Now=ColdSteelBow::Evaluate(*Item,Profile,&Gunsmith->Draft());
-        AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage.Total(),Now.Damage.Total(),2,TEXT(""));
-        AddValue(ColdSteelWeaponText::DrawTime,Was.Draw,Now.Draw,2,TEXT(" s"),true);
+        const auto& B=Option->Bow;
+        auto Percent=[](double Mult){return (Mult-1.)*100.;};
+        auto Ratio=[](double W,double N){return W>.00001?(N/W-1.)*100.:0.;};
+        AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage.Total(),Now.Damage.Total(),2,TEXT(""),false,Percent(B.Damage));
+        AddValue(ColdSteelWeaponText::DrawTime,Was.Draw,Now.Draw,2,TEXT(" s"),true,Ratio(Was.Draw,Now.Draw));
         AddValue(TEXT("拉弓速度加成"),Was.DrawSpeedBonus*100.,Now.DrawSpeedBonus*100.,1,TEXT("%"));
-        AddValue(ColdSteelWeaponText::NockTime,Was.Nock,Now.Nock,2,TEXT(" s"),true);
-        AddValue(ColdSteelWeaponText::ProjectileSpeed,Was.Speed,Now.Speed,1,TEXT(" m/s"));
-        AddValue(ColdSteelWeaponText::StaminaCost,Was.Stamina,Now.Stamina,2,TEXT(""),true);
-        AddValue(ColdSteelWeaponText::HoldTime,Was.Hold,Now.Hold,2,TEXT(" s"));
-        AddValue(ColdSteelWeaponText::Sway,Was.Sway,Now.Sway,2,TEXT(""),true);
-        AddValue(ColdSteelWeaponText::HipSpreadAngle,FMath::RadiansToDegrees(FMath::Atan(Was.Spread)),FMath::RadiansToDegrees(FMath::Atan(Now.Spread)),2,TEXT("°"),true);
-        AddValue(ColdSteelWeaponText::ADS,Was.ADS*1000,Now.ADS*1000,0,TEXT(" ms"),true);
+        AddValue(ColdSteelWeaponText::NockTime,Was.Nock,Now.Nock,2,TEXT(" s"),true,Percent(B.Nock));
+        AddValue(ColdSteelWeaponText::ProjectileSpeed,Was.Speed,Now.Speed,1,TEXT(" m/s"),false,Percent(B.Speed));
+        AddValue(ColdSteelWeaponText::StaminaCost,Was.Stamina,Now.Stamina,2,TEXT(""),true,Percent(B.Stamina));
+        AddValue(ColdSteelWeaponText::HoldTime,Was.Hold,Now.Hold,2,TEXT(" s"),false,Percent(B.Hold));
+        AddValue(ColdSteelWeaponText::Sway,Was.Sway,Now.Sway,2,TEXT(""),true,Percent(B.Sway));
+        AddValue(ColdSteelWeaponText::HipSpreadAngle,FMath::RadiansToDegrees(FMath::Atan(Was.Spread)),FMath::RadiansToDegrees(FMath::Atan(Now.Spread)),2,TEXT("°"),true,Percent(B.Spread));
+        AddValue(ColdSteelWeaponText::ADS,Was.ADS*1000,Now.ADS*1000,0,TEXT(" ms"),true,Percent(B.ADS));
         ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)[Paragraph(ColdSteelWeaponText::BowScope,12,GunsmithUI::Muted)];
     }
     else if(IsToolWorkbench()&&Item)
@@ -192,22 +195,23 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         const auto Now=ColdSteelTool::Evaluate(*Item,Profile,&Gunsmith->Draft());
         const auto& T=Option->Tool;
         auto Percent=[](double Mult){return (Mult-1.)*100.;};
+        auto Ratio=[](double W,double N){return W>.00001?(N/W-1.)*100.:0.;};
         AddValue(TEXT("采集产出倍率"),Was.HarvestYield,Now.HarvestYield,2,TEXT("×"),false,Percent(T.HarvestYield));
         AddValue(TEXT("采集伤害"),ProductionTreeHealth::StrikeDamage(Was),
-            ProductionTreeHealth::StrikeDamage(Now),1,TEXT(" / 挥"));
+            ProductionTreeHealth::StrikeDamage(Now),1,TEXT(" / 挥"),false,Ratio(ProductionTreeHealth::StrikeDamage(Was),ProductionTreeHealth::StrikeDamage(Now)));
         AddValue(TEXT("采集距离"),Was.HarvestReachCM/100,Now.HarvestReachCM/100,2,TEXT(" m"),false,Percent(T.HarvestReach));
-        AddValue(TEXT("命中宽容半径"),Was.HarvestRadiusCM,Now.HarvestRadiusCM,0,TEXT(" cm"));
+        AddValue(TEXT("命中宽容半径"),Was.HarvestRadiusCM,Now.HarvestRadiusCM,0,TEXT(" cm"),false,Ratio(Was.HarvestRadiusCM,Now.HarvestRadiusCM));
         AddValue(TEXT("额外产出几率"),Was.BonusHarvestChance*100,Now.BonusHarvestChance*100,0,TEXT("%"));
         AddValue(ColdSteelWeaponText::StaminaCost,Was.StaminaCost,Now.StaminaCost,2,TEXT(""),true,Percent(T.Stamina));
-        AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage.Total(),Now.Damage.Total(),2,TEXT(""));
+        AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage.Total(),Now.Damage.Total(),2,TEXT(""),false,Ratio(Was.Damage.Total(),Now.Damage.Total()));
         AddValue(ColdSteelWeaponText::BasePhysical,Was.Damage.BasePhysical,Now.Damage.BasePhysical,2,TEXT(""),false,Percent(T.Damage));
-        AddValue(ColdSteelWeaponText::AddedPhysical,Was.Damage.AddedPhysical,Now.Damage.AddedPhysical,2,TEXT(""));
-        AddValue(ColdSteelWeaponText::AddedMagic,Was.Damage.AddedMagic,Now.Damage.AddedMagic,2,TEXT(""));
+        AddValue(ColdSteelWeaponText::AddedPhysical,Was.Damage.AddedPhysical,Now.Damage.AddedPhysical,2,TEXT(""),false,Ratio(Was.Damage.AddedPhysical,Now.Damage.AddedPhysical));
+        AddValue(ColdSteelWeaponText::AddedMagic,Was.Damage.AddedMagic,Now.Damage.AddedMagic,2,TEXT(""),false,Ratio(Was.Damage.AddedMagic,Now.Damage.AddedMagic));
         AddValue(TEXT("暴击率"),Was.CriticalChanceAdd,Now.CriticalChanceAdd,0,TEXT("%"));
         AddValue(TEXT("韧性伤害倍率"),Was.ToughnessDamage,Now.ToughnessDamage,2,TEXT("×"),false,Percent(T.ToughnessDamage));
         AddValue(ColdSteelWeaponText::AttackSpeedMultiplier,Was.Modifiers.AttackSpeed,Now.Modifiers.AttackSpeed,2,TEXT("×"),false,Percent(T.AttackSpeed));
-        AddValue(ColdSteelWeaponText::AttackInterval,Was.SwingSeconds*1000,Now.SwingSeconds*1000,0,TEXT(" ms"),true);
-        AddValue(TEXT("接触时刻"),Was.ContactSeconds,Now.ContactSeconds,2,TEXT(" s"),true);
+        AddValue(ColdSteelWeaponText::AttackInterval,Was.SwingSeconds*1000,Now.SwingSeconds*1000,0,TEXT(" ms"),true,Ratio(Was.SwingSeconds,Now.SwingSeconds));
+        AddValue(TEXT("接触时刻"),Was.ContactSeconds,Now.ContactSeconds,2,TEXT(" s"),true,Ratio(Was.ContactSeconds,Now.ContactSeconds));
         AddValue(ColdSteelWeaponText::AttackDistance,Was.CombatReachCM/100,Now.CombatReachCM/100,2,TEXT(" m"),false,Percent(T.CombatReach));
         ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
             [Paragraph(TEXT("战斗与采集使用各自的数值行。树木与岩块均按采集伤害扣减生命值，归零后采尽；楔紧件提高采集伤害，不固定减少一次命中。"),12,GunsmithUI::Muted)];
@@ -220,7 +224,7 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     AddValue(ColdSteelWeaponText::ADS,Before.ADS*1000,After.ADS*1000,0,TEXT(" ms"),true,Option->ADS*100.);
     if(!FMath::IsNearlyZero(Before.EquipSpeedBonus)||!FMath::IsNearlyZero(After.EquipSpeedBonus))
         AddValue(ColdSteelWeaponText::EquipSpeedBonus,Before.EquipSpeedBonus*100.,After.EquipSpeedBonus*100.,0,TEXT("%"),false,Option->EquipSpeedBonus*100.);
-    AddValue(ColdSteelWeaponText::Capacity,Before.Capacity,After.Capacity,0,TEXT(" 发"));
+    AddValue(ColdSteelWeaponText::Capacity,Before.Capacity,After.Capacity,0,TEXT(" 发"),false,Ratio(Before.Capacity,After.Capacity));
     // Shared reload stack (敏捷 × 快手 × 附魔 × 配件); the ratio stays the attachment's own effect.
     AddValue(ColdSteelWeaponText::Reload,ColdSteelWeaponStats::Reload(Item,Profile,Before.Reload),ColdSteelWeaponStats::Reload(Item,Profile,After.Reload),2,TEXT(" s"),true,Ratio(Before.Reload,After.Reload));
     AddValue(ColdSteelWeaponText::EmptyReload,ColdSteelWeaponStats::Reload(Item,Profile,Before.EmptyReload),ColdSteelWeaponStats::Reload(Item,Profile,After.EmptyReload),2,TEXT(" s"),true,Ratio(Before.EmptyReload,After.EmptyReload));
@@ -232,7 +236,9 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         const double BeforeDelay=ColdSteelWeaponStats::Interval(Item,Profile,Before.BurstDelay);
         const double AfterDelay=ColdSteelWeaponStats::Interval(Item,Profile,After.BurstDelay);
         AddValue(TEXT("连发组末发后间隔"),BeforeDelay*1000,AfterDelay*1000,0,TEXT(" ms"),true,Ratio(Before.BurstDelay,After.BurstDelay));
-        AddValue(TEXT("含组间隔理论射速"),60*Before.BurstCount/((Before.BurstCount-1)*BeforeInterval+FMath::Max(BeforeInterval,BeforeDelay)),60*After.BurstCount/((After.BurstCount-1)*AfterInterval+FMath::Max(AfterInterval,AfterDelay)),0,TEXT(" /min"));
+        const double BeforeRate=60*Before.BurstCount/((Before.BurstCount-1)*BeforeInterval+FMath::Max(BeforeInterval,BeforeDelay));
+        const double AfterRate=60*After.BurstCount/((After.BurstCount-1)*AfterInterval+FMath::Max(AfterInterval,AfterDelay));
+        AddValue(TEXT("含组间隔理论射速"),BeforeRate,AfterRate,0,TEXT(" /min"),false,Ratio(BeforeRate,AfterRate));
     }
     AddValue(ColdSteelWeaponText::RecoilIndex,Before.Recoil,After.Recoil,1,TEXT(""),true,Ratio(Before.Recoil,After.Recoil));
     AddValue(ColdSteelWeaponText::Stability,Before.Handling.Stability,After.Handling.Stability,1,TEXT(" /100"),false,Ratio(Before.Handling.Stability,After.Handling.Stability));
@@ -240,6 +246,12 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     AddValue(ColdSteelWeaponText::HipSpreadMultiplier,Before.Spread,After.Spread,2,TEXT("×"),true,Ratio(Before.Spread,After.Spread));
     AddValue(ColdSteelWeaponText::EffectiveRange,Before.Range,After.Range,0,TEXT(" m"),false,Ratio(Before.Range,After.Range));
     AddValue(ColdSteelWeaponText::ProjectileSpeed,Before.Speed,After.Speed,0,TEXT(" m/s"),false,Ratio(Before.Speed,After.Speed));
+    // 脚架类配件的架设机制只有 effects 文案（部署增益与卸下限制不进数值行），
+    // 照回退列表同一格式显示：收益绿、代价红、中性灰。
+    if(Id.Contains(TEXT("bipod")))
+        for(const auto& Effect:Option->Effects)
+            ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
+                [Paragraph(Effect.Key,14,Effect.Value>0?ColdSteelUI::Success:Effect.Value<0?ColdSteelUI::Danger:GunsmithUI::Secondary)];
     }
     else if(Item)
     {
@@ -249,17 +261,18 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         const bool RisingDragon=ColdSteelModularSword::UsesRisingDragonFinisher(*Item,&Gunsmith->Draft());
         const auto& M=Option->Melee;
         auto Percent=[](double Mult){return (Mult-1.)*100.;};
-        AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage,Now.Damage,2,TEXT(""));
+        auto Ratio=[](double W,double N){return W>.00001?(N/W-1.)*100.:0.;};
+        AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage,Now.Damage,2,TEXT(""),false,Ratio(Was.Damage,Now.Damage));
         AddValue(ColdSteelWeaponText::BasePhysical,Was.DamageParts.BasePhysical,Now.DamageParts.BasePhysical,2,TEXT(""),false,Percent(M.Damage*M.AllAttackDamage));
         AddValue(TEXT("全部近战攻击伤害倍率"),Was.Modifiers.AllAttackDamage,Now.Modifiers.AllAttackDamage,2,TEXT("×"),false,Percent(M.AllAttackDamage));
-        AddValue(ColdSteelWeaponText::AddedPhysical,Was.DamageParts.AddedPhysical,Now.DamageParts.AddedPhysical,2,TEXT(""));
-        AddValue(ColdSteelWeaponText::AddedMagic,Was.DamageParts.AddedMagic,Now.DamageParts.AddedMagic,2,TEXT(""));
+        AddValue(ColdSteelWeaponText::AddedPhysical,Was.DamageParts.AddedPhysical,Now.DamageParts.AddedPhysical,2,TEXT(""),false,Ratio(Was.DamageParts.AddedPhysical,Now.DamageParts.AddedPhysical));
+        AddValue(ColdSteelWeaponText::AddedMagic,Was.DamageParts.AddedMagic,Now.DamageParts.AddedMagic,2,TEXT(""),false,Ratio(Was.DamageParts.AddedMagic,Now.DamageParts.AddedMagic));
         AddValue(TEXT("第二段横斩伤害"),Was.ComboSecondDamage,Now.ComboSecondDamage,2,TEXT(""),false,Percent(M.ComboSecond));
         AddValue(RisingDragon?TEXT("第三段升龙伤害"):OverheadFinisher?TEXT("第三段竖劈伤害"):TEXT("第三段突刺伤害"),Was.ComboThirdDamage,Now.ComboThirdDamage,2,TEXT(""),false,Percent(M.ComboThird));
         AddValue(RisingDragon?TEXT("第三段升龙韧性伤害倍率"):OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),Was.Modifiers.ThirdThrustToughnessMultiplier(),Now.Modifiers.ThirdThrustToughnessMultiplier(),2,TEXT("×"),false,Percent(M.ComboThirdToughness));
         AddValue(TEXT("攻击速度倍率"),Was.AttackRate,Now.AttackRate,2,TEXT("×"),false,Percent(M.AttackSpeed));
-        AddValue(TEXT("普通攻击耗时"),Was.AttackSeconds,Now.AttackSeconds,2,TEXT(" s"),true);
-        AddValue(RisingDragon?TEXT("升龙耗时"):OverheadFinisher?TEXT("竖劈耗时"):TEXT("突刺耗时"),Was.ThrustSeconds,Now.ThrustSeconds,2,TEXT(" s"),true);
+        AddValue(TEXT("普通攻击耗时"),Was.AttackSeconds,Now.AttackSeconds,2,TEXT(" s"),true,Ratio(Was.AttackSeconds,Now.AttackSeconds));
+        AddValue(RisingDragon?TEXT("升龙耗时"):OverheadFinisher?TEXT("竖劈耗时"):TEXT("突刺耗时"),Was.ThrustSeconds,Now.ThrustSeconds,2,TEXT(" s"),true,Ratio(Was.ThrustSeconds,Now.ThrustSeconds));
         AddValue(TEXT("普通挥砍距离"),Was.SlashReach/100,Now.SlashReach/100,2,TEXT(" m"),false,Percent(M.Range));
         AddValue(ColdSteelWeaponText::AttackDistance,Was.ThrustReach/100,Now.ThrustReach/100,2,TEXT(" m"),false,Percent(M.Range));
         AddValue(ColdSteelWeaponText::StaminaCost,Was.AttackStamina,Now.AttackStamina,2,TEXT(""),true,Percent(M.Stamina));
@@ -272,32 +285,32 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         if(M.DragonSeconds>0||M.PhoenixSeconds>0)
             for(const auto& Effect:Option->Effects)
                 ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
-                    [Paragraph(Effect.Key,12,Effect.Value>0?ColdSteelUI::Success:GunsmithUI::Secondary)];
+                    [Paragraph(Effect.Key,14,Effect.Value>0?ColdSteelUI::Success:Effect.Value<0?ColdSteelUI::Danger:GunsmithUI::Secondary)];
         AddValue(TEXT("命中硬直时间倍率"),Was.Modifiers.HitReaction,Now.Modifiers.HitReaction,2,TEXT("×"),false,Percent(M.HitReaction));
         AddValue(ColdSteelWeaponText::ToughnessMultiplier,Was.Modifiers.ToughnessDamage,Now.Modifiers.ToughnessDamage,2,TEXT("×"),false,Percent(M.ToughnessDamage));
         AddValue(TEXT("改造物理防御穿透"),Was.Modifiers.PhysicalArmorPenetration*100,Now.Modifiers.PhysicalArmorPenetration*100,0,TEXT("%"));
-        AddValue(TEXT("重击伤害倍率"),Was.HeavyMultiplier,Now.HeavyMultiplier,2,TEXT("×"));
+        AddValue(TEXT("重击伤害倍率"),Was.HeavyMultiplier,Now.HeavyMultiplier,2,TEXT("×"),false,Ratio(Was.HeavyMultiplier,Now.HeavyMultiplier));
         AddValue(TEXT("重击蓄力速度加成"),Was.HeavyChargeSpeedBonus*100.,Now.HeavyChargeSpeedBonus*100.,0,TEXT("%"));
-        AddValue(TEXT("重击蓄力时间"),Was.HeavyChargeSeconds,Now.HeavyChargeSeconds,2,TEXT(" s"),true);
-        AddValue(TEXT("重击总伤害"),Was.Damage*Was.HeavyMultiplier,Now.Damage*Now.HeavyMultiplier,2,TEXT(""));
+        AddValue(TEXT("重击蓄力时间"),Was.HeavyChargeSeconds,Now.HeavyChargeSeconds,2,TEXT(" s"),true,Ratio(Was.HeavyChargeSeconds,Now.HeavyChargeSeconds));
+        AddValue(TEXT("重击总伤害"),Was.Damage*Was.HeavyMultiplier,Now.Damage*Now.HeavyMultiplier,2,TEXT(""),false,Ratio(Was.Damage*Was.HeavyMultiplier,Now.Damage*Now.HeavyMultiplier));
         AddValue(TEXT("重击韧性伤害倍率"),Was.Modifiers.HeavyToughnessMultiplier(),Now.Modifiers.HeavyToughnessMultiplier(),2,TEXT("×"),false,Percent(M.HeavyToughness));
         AddValue(TEXT("攻击击退距离"),Was.KnockbackCM,Now.KnockbackCM,1,TEXT(" cm"),false,Percent(M.Knockback*M.AllAttackKnockback));
         AddValue(TEXT("全部攻击击退倍率"),Was.Modifiers.AllAttackKnockback,Now.Modifiers.AllAttackKnockback,2,TEXT("×"),false,Percent(M.AllAttackKnockback));
-        AddValue(TEXT("快速近战伤害倍率"),Was.QuickCombat.DamageMultiplier,Now.QuickCombat.DamageMultiplier,2,TEXT("×"));
-        AddValue(TEXT("快速近战伤害"),Was.QuickCombat.Damage,Now.QuickCombat.Damage,2,TEXT(""));
+        AddValue(TEXT("快速近战伤害倍率"),Was.QuickCombat.DamageMultiplier,Now.QuickCombat.DamageMultiplier,2,TEXT("×"),false,Ratio(Was.QuickCombat.DamageMultiplier,Now.QuickCombat.DamageMultiplier));
+        AddValue(TEXT("快速近战伤害"),Was.QuickCombat.Damage,Now.QuickCombat.Damage,2,TEXT(""),false,Ratio(Was.QuickCombat.Damage,Now.QuickCombat.Damage));
         AddValue(TEXT("快速近战击退距离"),Was.QuickCombat.KnockbackCM,Now.QuickCombat.KnockbackCM,1,TEXT(" cm"),false,Percent(M.QuickCombatKnockback*M.AllAttackKnockback));
         AddValue(TEXT("快速近战韧性伤害倍率"),Was.QuickCombat.ToughnessMultiplier,Now.QuickCombat.ToughnessMultiplier,2,TEXT("×"),false,Percent(M.QuickCombatToughness));
         AddValue(ColdSteelWeaponText::QuickCombatBleed,Was.QuickCombat.BleedChance*100,Now.QuickCombat.BleedChance*100,0,TEXT("%"));
         AddValue(ColdSteelWeaponText::TigerRoarToughnessTaken,Was.Modifiers.QuickCombatTigerRoarToughnessBonus*100,Now.Modifiers.QuickCombatTigerRoarToughnessBonus*100,0,TEXT("%"));
         AddValue(ColdSteelWeaponText::TigerRoarDuration,Was.Modifiers.QuickCombatTigerRoarSeconds,Now.Modifiers.QuickCombatTigerRoarSeconds,0,TEXT(" s"));
         if(M.QuickCombatTigerRoarSeconds>0)ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
-            [Paragraph(TEXT("快速近战命中敌人后施加虎啸，使目标冲击、利器、钝器的韧性抵抗归零。重复命中刷新持续时间，效果不叠加。"),12,ColdSteelUI::Success)];
+            [Paragraph(TEXT("快速近战命中敌人后施加虎啸，使目标冲击、利器、钝器的韧性抵抗归零。重复命中刷新持续时间，效果不叠加。"),14,ColdSteelUI::Success)];
         AddValue(ColdSteelWeaponText::QuickCombatPhysicalVulnerability,Was.Modifiers.QuickCombatPhysicalVulnerabilityBonus*100,Now.Modifiers.QuickCombatPhysicalVulnerabilityBonus*100,0,TEXT("%"));
         AddValue(ColdSteelWeaponText::PhysicalVulnerabilityDuration,Was.Modifiers.QuickCombatPhysicalVulnerabilitySeconds,Now.Modifiers.QuickCombatPhysicalVulnerabilitySeconds,0,TEXT(" s"));
         if(M.QuickCombatPhysicalVulnerabilitySeconds>0)ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
-            [Paragraph(TEXT("快速近战命中敌人后施加物理易伤，使目标后续受到的物理伤害提高。重复命中刷新持续时间，效果不叠加。"),12,ColdSteelUI::Success)];
+            [Paragraph(TEXT("快速近战命中敌人后施加物理易伤，使目标后续受到的物理伤害提高。重复命中刷新持续时间，效果不叠加。"),14,ColdSteelUI::Success)];
         if(M.bQuickCombatAOE)ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
-            [Paragraph(TEXT("快速近战变为范围攻击：原判定范围内的多个目标均可命中，每个目标每次出手结算一次；判定距离与宽度不变。"),12,ColdSteelUI::Success)];
+            [Paragraph(TEXT("快速近战变为范围攻击：原判定范围内的多个目标均可命中，每个目标每次出手结算一次；判定距离与宽度不变。"),14,ColdSteelUI::Success)];
         AddValue(TEXT("魔法技能冷却倍率"),Was.Modifiers.MagicCooldown,Now.Modifiers.MagicCooldown,2,TEXT("×"),true,Percent(M.MagicCooldown));
         AddValue(TEXT("魔法值消耗倍率"),Was.Modifiers.MagicCost,Now.Modifiers.MagicCost,2,TEXT("×"),true,Percent(M.MagicCost));
         AddValue(TEXT("魔法伤害倍率"),Was.Modifiers.MagicDamage,Now.Modifiers.MagicDamage,2,TEXT("×"),false,Percent(M.MagicDamage));
@@ -311,7 +324,7 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         AddValue(ColdSteelWeaponText::ClovenPhysicalDamage,Percent(Was.Modifiers.ClovenPhysical),Percent(Now.Modifiers.ClovenPhysical),0,TEXT("%"));
         AddValue(ColdSteelWeaponText::ClovenToughnessDamage,Percent(Was.Modifiers.ClovenToughness),Percent(Now.Modifiers.ClovenToughness),0,TEXT("%"));
         if(M.ClovenSeconds>0)ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
-            [Paragraph(TEXT("成功弹反后，下一次普攻直接释放重击，无需蓄力。按重击消耗体力，发起即消耗强化，挥空也消耗；最多保留一次，再次弹反刷新时间。突刺与技能不消耗强化。"),12,GunsmithUI::Muted)];
+            [Paragraph(TEXT("成功弹反后，下一次普攻直接释放重击，无需蓄力。按重击消耗体力，发起即消耗强化，挥空也消耗；最多保留一次，再次弹反刷新时间。突刺与技能不消耗强化。"),14,ColdSteelUI::Success)];
         if(!FMath::IsNearlyEqual(M.Range,1.))ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
             [Paragraph(TEXT("范围改造影响挥砍与突刺；快速近战使用技能自身的判定范围。"),12,GunsmithUI::Muted)];
     }

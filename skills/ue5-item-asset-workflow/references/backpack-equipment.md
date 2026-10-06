@@ -49,3 +49,16 @@ el*bone==des 反向验证。one.inverse()*des 算出来的不是 SetRelativeTra
 - **JSON 挂载**：player_body.json 的 outfits.<def> 配 world_static_mesh+ttach_bone+ttach_location+ttach_rotation[pitch,yaw,roll]+ttach_scale；运行时 FPSBodyEquipment::ApplyOutfit 建 UStaticMeshComponent 挂骨（OutfitStaticMeshes）。
 - **包体正/反面判定用顶点壳层密度**：满幅大平面=正面盖（苏联包 -Y 面 7277 顶点），集中凸起=背带面（+Y 面 1838 顶点）；贴背平面在网格 +Y≈+4~8（密度分界），背带极端 +27.4 探过肩线形成搭肩。
 - **装备件图标**：FPSBodyEquipment::StaticOutfitMesh 读 world_static_mesh，Supports() 对配了该字段的装备自动成立；PrepareEquipment（ColdSteelEquipmentIcon.cpp）正面直拍 yaw-90、顶点剪影投影取景（圆角物体 AABB 取景只到 ~69% 填充，顶点投影到 91%+）。
+
+## 浮窗透出与装备数值字段（2026-10-06）
+
+- 详情浮窗自动输出「背包容积」卡（`ColdSteelItemTooltipData.cpp`，`equipSlot==backpack` 触发）：
+  `bagExtraCells` → `+N 格 · 扩容 N/18 行`；`bagCompartmentCells>0` → `列×行 · 共 N 格`
+  （缺省 6×6 与本文件约定一致）。**改这三类字段浮窗即时反映，不需要改 C++ 标签。**
+- 装备数值沿用通用字段：`defense.base/perEnhance`（强化成长 `base+perEnhance*level`，
+  `UColdSteelEnhancementSystem::Defense`）、`bonusStats.moveSpeedPercent` 等乘区
+  （−0.05＝−5%；聚合下限 `Max(0.5, 1+加成)`，`ColdSteelFormulaBonuses.cpp`）。
+  `ColdSteelProfileRuntime` 目录→实例同步已含 `defense/bonusStats/name/desc`，旧档自动跟上。
+- 当前防御梯度参考：铠甲靴 24 / 锁甲裤 40·锁甲上衣 60 / 皮革裤 20 / 皮革靴 12 /
+  便装裤 10 / 系带皮靴 8 / 厚革手套 8 / 薄皮手套 4 / 针织上衣 6·4 / 运动鞋 6；
+  新装备按材质与覆盖位置对号入座，不凭空造档。
