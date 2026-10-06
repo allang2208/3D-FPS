@@ -25,6 +25,7 @@ UCLASS(ClassGroup=(Production),meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UProductionToolComponent : public UActorComponent
 {
     GENERATED_BODY()
+    friend class UFPSConsumableAuditCommandlet;
 public:
     UProductionToolComponent();
     virtual void BeginPlay() override;
@@ -33,6 +34,7 @@ public:
     bool IsEquipped() const { return !EquippedId.IsEmpty(); }
     bool IsBusy() const { return Elapsed>=0.f || EquipElapsed>=0.f; }
     bool IsEquipping() const { return EquipElapsed>=0.f; }
+    USkeletalMeshComponent* ArmsMesh() const { return bUsesArms ? Viewmodel.Get() : nullptr; }
     bool GetEnchantmentBladeAttachment(USceneComponent*& Parent,FName& Socket,FTransform& LocalFrame,float& Length) const;
     void RefreshHeldTool();
     void BeginUse();

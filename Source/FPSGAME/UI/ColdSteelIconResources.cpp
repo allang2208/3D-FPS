@@ -1,6 +1,7 @@
 #include "../Weapons/LMG201WeaponAssets.h"
 #include "../Weapons/HK416WeaponAssets.h"
 #include "../Weapons/AR416Furniture.h"
+#include "../Weapons/LegendaryTacticalStock.h"
 #include "../Weapons/CommonHK416Parts.h"
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelEquipmentIconSource.h"
@@ -31,6 +32,7 @@
 #include "../Weapons/RSH12OpticAssets.h"
 #include "../Weapons/RSH12MuzzleAssets.h"
 #include "../Weapons/RSH12TacticalAssets.h"
+#include "../Weapons/TacticalDeviceVariants.h"
 #include "../Weapons/PistolGripSurface.h"
 #include "../Weapons/DanWesson715FittedParts.h"
 #include "../Production/ProductionHarvestAssets.h"
@@ -161,6 +163,17 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         for(const auto& Part:Parts)
         {
             FString Key=Part.Value;
+            if(Part.Key==TEXT("stock")&&Key==LegendaryTacticalStock::Part)
+            {
+                Add(LegendaryTacticalStock::MeshPath(D),true);
+                continue;
+            }
+            if(Part.Key==TEXT("tactical")&&Key==TacticalDeviceVariants::BlessedLaser)
+            {
+                Add(TacticalDeviceVariants::BlessedMeshPath(TacticalDeviceVariants::FamilyForDefinition(D)));
+                continue;
+            }
+            if(Part.Key==TEXT("tactical"))Key=TacticalDeviceVariants::MeshVariant(Key);
             if(Key.IsEmpty()||Key==TEXT("false")||Key==TEXT("factory"))continue;
             if(D==PitViper2011WeaponAssets::Definition && Part.Key==TEXT("muzzle") && Key==PitViper2011SICompensator::Part)
             {

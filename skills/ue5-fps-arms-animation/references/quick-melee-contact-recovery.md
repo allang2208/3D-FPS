@@ -42,3 +42,11 @@
 - 当前源：`SourceAssets/M4QuickMeleeRefine20260919N/`、`SourceAssets/RifleQuickMelee20260919/`、`SourceAssets/QBZ191QuickMeleeGrip20260919O/`。K 的支撑解算和 Blend、I 的参考／输入读取，以及 Rifle 目录中的旧 QBZ191 Blend 仍为有效依赖，不能因日期旧就归档。
 - J/L/M 废案和旧覆盖备份在本机 `trash/quick-melee-retired-20260919/`；失败对照工具读取此归档。公开 Git 只存作者代码、少量手工参数和说明，第三方模型／动画二进制、源视频及密集骨骼数据留本地。
 - 运行交接实现：`Source/FPSGAME/Weapons/QuickCombatRecovery.h` 与 `FPSGAMECharacter.cpp`。资源恢复与此次整理见宿主 `Docs/Weapons/quick-melee-publication-20260919.md`。
+
+## 播放提速要同步占用与命中（M4，2026-10-06）
+
+先确认实际加载顺序：共用握姿 Profile 的 quick_melee 可能优先于旧动画路径。读取选中的片段长度和 RateScale，再区分出手慢、长收势和多余状态锁定；不要只调序列 RateScale，显式时间采样可能根本不消费它。
+
+统一提速时保留源姿态与源时钟，播放时长为 `源长度 / 播放倍率`。近战组件的阶段／接触时间、武器忙碌时长和收势混合使用同一播放时长，显式动画及差量采样使用 `播放经过时间 * 播放倍率`。不要仅缩短状态或仅加快画面。确认改动归属时避免用跨枪共用的 `bUsingM4Infima` 标志扩大范围。
+
+M4 Base／Drum／Angled／Vertical／Canted／Prism 六份源仍为 0.9 秒；当前 `A_M4_QuickCombat_` 家族在运行入口以 1.5 倍播放，实际占用 0.6 秒、接触约 0.111 秒。作者动作未改，无需重制差量；若将来修改源姿态或源时长则按动画共享流程重制 Profile。Editor/Game 构建成功，尚无本轮游戏手感验收。见 `Docs/Weapons/m4-quick-melee-timing-20261006.md`。

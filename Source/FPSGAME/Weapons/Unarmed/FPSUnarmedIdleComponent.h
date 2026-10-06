@@ -49,9 +49,11 @@ class FPSGAME_API UFPSUnarmedIdleComponent : public UActorComponent
 {
     GENERATED_BODY()
     friend class UFPSPlayerBodyComponent;
+    friend class UFPSConsumableAuditCommandlet;
 public:
     UFPSUnarmedIdleComponent();
     bool IsEquipped() const {return bHandsEmpty&&bEquipmentResolved;}
+    USkeletalMeshComponent* ArmsMesh() const { return Arms; }
     bool IsPunching() const;
     bool IsTriggerHeld() const {return bTriggerHeld;}
     int32 GetPunchSide() const {return PunchSide;}

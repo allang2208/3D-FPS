@@ -1,0 +1,779 @@
+{
+  "M4": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_M4.fbx",
+    "source": "/Game/Weapons/TacticalDevices20260913/M4/laser/SM_TacticalDevice",
+    "scale": 1.1390972137451172,
+    "sockets_ue_cm": {
+      "Emitter": [
+        5.306141278127659,
+        36.37367440565987,
+        7.799936085939407
+      ],
+      "AimGuide": [
+        5.306141540396011,
+        39.37367452486916,
+        7.799936085939407
+      ]
+    },
+    "source_body_slot": 0,
+    "retained_materials": {
+      "MI_M4_R01_mount_8f08ad0bcf": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_8f08ad0bcf.MI_M4_R01_mount_8f08ad0bcf"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "MI_M4_R01_mount_8f08ad0bcf"
+    ],
+    "triangles": 14952,
+    "emitter_blender_m": [
+      0.05306141451001167,
+      -0.36373674869537354,
+      0.07799936085939407
+    ],
+    "forward_blender": [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    "up_blender": [
+      -0.999994158744812,
+      -0.0,
+      -0.0034151796717196703
+    ],
+    "source_body_extents_m": [
+      0.08543229103088379,
+      0.030643310397863388,
+      0.04402758181095123
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "AKM": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_AKM.fbx",
+    "source": "/Game/Weapons/TacticalDevices20260913/AKM/laser/SM_TacticalDevice",
+    "scale": 1.1390980007126927,
+    "sockets_ue_cm": {
+      "Emitter": [
+        4.623187445578241,
+        35.373675419039905,
+        5.699730664491653
+      ],
+      "AimGuide": [
+        4.62318770784659,
+        38.37367553824918,
+        5.699730664491653
+      ]
+    },
+    "source_body_slot": 0,
+    "retained_materials": {
+      "MI_AKM_R01_mount_d6c787a550": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_d6c787a550.MI_AKM_R01_mount_d6c787a550"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "MI_AKM_R01_mount_d6c787a550"
+    ],
+    "triangles": 14952,
+    "emitter_blender_m": [
+      0.04623187333345413,
+      -0.3537367582321167,
+      0.056997306644916534
+    ],
+    "forward_blender": [
+      1.2417633854511223e-07,
+      -1.0,
+      0.0
+    ],
+    "up_blender": [
+      -0.9999885559082031,
+      -1.241749174596407e-07,
+      -0.004787726327776909
+    ],
+    "source_body_extents_m": [
+      0.08543235005345196,
+      0.030659658834338188,
+      0.044021595269441605
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "QBZ191": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_QBZ191.fbx",
+    "source": "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/SM_TacticalDevice",
+    "scale": 1.1390968008587758,
+    "sockets_ue_cm": {
+      "Emitter": [
+        4.746888905338873,
+        33.57367474065355,
+        6.999805569648743
+      ],
+      "AimGuide": [
+        4.746889540136255,
+        36.5736748598628,
+        6.999805569648743
+      ]
+    },
+    "source_body_slot": 0,
+    "retained_materials": {
+      "M_QBZ191_laser_Collar": "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/M_QBZ191_laser_Collar.M_QBZ191_laser_Collar"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "M_QBZ191_laser_Collar"
+    ],
+    "triangles": 14952,
+    "emitter_blender_m": [
+      0.0474688895046711,
+      -0.3357367515563965,
+      0.06999805569648743
+    ],
+    "forward_blender": [
+      2.4835267709022446e-07,
+      -1.0,
+      0.0
+    ],
+    "up_blender": [
+      -0.9999909400939941,
+      -2.4835043177517946e-07,
+      -0.004259651526808739
+    ],
+    "source_body_extents_m": [
+      0.08543226006440818,
+      0.03065336961299181,
+      0.04402388259768486
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "M1911": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_M1911.fbx",
+    "source": "/Game/Weapons/M1911/CompactFit20260913/laser/SM_TacticalDevice",
+    "scale": 0.7973681855946779,
+    "sockets_ue_cm": {
+      "Emitter": [
+        -0.005921097591862589,
+        12.450261414568741,
+        -1.8971798941493034
+      ],
+      "AimGuide": [
+        -0.005920835323511786,
+        15.45026153377802,
+        -1.8971798941493034
+      ]
+    },
+    "source_body_slot": 0,
+    "retained_materials": {
+      "M_M1911_Tactical_Collar": "/Game/Weapons/M1911/Tactical20260913/Materials/M_M1911_Tactical_Collar.M_M1911_Tactical_Collar"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "M_M1911_Tactical_Collar"
+    ],
+    "triangles": 16102,
+    "emitter_blender_m": [
+      -5.9210975450696424e-05,
+      -0.12450261414051056,
+      -0.018971798941493034
+    ],
+    "forward_blender": [
+      8.743275259348593e-08,
+      -1.0,
+      0.0
+    ],
+    "up_blender": [
+      1.5208253500986757e-07,
+      1.3296994256541128e-14,
+      1.0
+    ],
+    "source_body_extents_m": [
+      0.059802613919600844,
+      0.0214216448366642,
+      0.03082946129143238
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "G18": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_G18.fbx",
+    "source": "/Game/Weapons/G18/Integrated20260929/Attachments/SM_G18_laser",
+    "scale": 0.7973682849357526,
+    "sockets_ue_cm": {
+      "Emitter": [
+        -0.0059211848565610126,
+        13.9502614736557,
+        -2.1452760323882103
+      ],
+      "AimGuide": [
+        -0.005920922922086902,
+        16.95026159286499,
+        -2.1452760323882103
+      ]
+    },
+    "source_body_slot": 0,
+    "retained_materials": {
+      "M_G18_Finish_71f0f82de2": "/Game/Weapons/G18/Integrated20260929/Materials/M_G18_Finish_71f0f82de2.M_G18_Finish_71f0f82de2"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "M_G18_Finish_71f0f82de2"
+    ],
+    "triangles": 16085,
+    "emitter_blender_m": [
+      -5.9211848565610126e-05,
+      -0.139502614736557,
+      -0.021452760323882103
+    ],
+    "forward_blender": [
+      8.731149137020111e-08,
+      -1.0,
+      0.0
+    ],
+    "up_blender": [
+      1.0465427635608648e-07,
+      9.137521231469218e-15,
+      1.0
+    ],
+    "source_body_extents_m": [
+      0.05980262137018144,
+      0.0214216485619545,
+      0.03082946129143238
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "PitViper2011": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_PitViper2011.fbx",
+    "source": "/Game/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_laser",
+    "scale": 0.6990319490432739,
+    "sockets_ue_cm": {
+      "Emitter": [
+        14.421346783638,
+        0.005921097545069642,
+        -2.54691019654274
+      ],
+      "AimGuide": [
+        17.42134690284729,
+        0.005920835246797651,
+        -2.54691019654274
+      ]
+    },
+    "source_body_slot": 1,
+    "retained_materials": {
+      "M_PV2011_laser_Body": "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_laser_Body.M_PV2011_laser_Body",
+      "MI_PitViper2011_h_190_2": "/Game/Weapons/PitViper2011/Integrated20261002/Materials/MI_PitViper2011_h_190.MI_PitViper2011_h_190"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "M_PV2011_laser_Body",
+      "MI_PitViper2011_h_190_2"
+    ],
+    "triangles": 20048,
+    "emitter_blender_m": [
+      0.14421346783638,
+      -5.9210975450696424e-05,
+      -0.0254691019654274
+    ],
+    "forward_blender": [
+      1.0,
+      8.743275259348593e-08,
+      0.0
+    ],
+    "up_blender": [
+      3.053532537933279e-09,
+      -0.034924354404211044,
+      0.9993900060653687
+    ],
+    "source_body_extents_m": [
+      0.052427396178245544,
+      0.021775982342660427,
+      0.030831958167254925
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "DanWesson715": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_DanWesson715.fbx",
+    "source": "/Game/Weapons/DanWesson715/AccessoryPolymer20260914/Attachments/laser/SM_TacticalDevice",
+    "scale": 0.7973681855946779,
+    "sockets_ue_cm": {
+      "Emitter": [
+        -0.005920651735692282,
+        17.55026131920129,
+        0.4028201103210449
+      ],
+      "AimGuide": [
+        -0.005920389467341481,
+        20.55026143841057,
+        0.4028201103210449
+      ]
+    },
+    "source_body_slot": 0,
+    "retained_materials": {
+      "M_DW715_Polymer_Mount": "/Game/Weapons/DanWesson715/AccessoryPolymer20260914/Materials/M_DW715_Polymer_Mount.M_DW715_Polymer_Mount"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "M_DW715_Polymer_Mount"
+    ],
+    "triangles": 16658,
+    "emitter_blender_m": [
+      -5.9206518926657736e-05,
+      -0.17550261318683624,
+      0.004028201103210449
+    ],
+    "forward_blender": [
+      8.743275259348593e-08,
+      -1.0,
+      0.0
+    ],
+    "up_blender": [
+      -0.0013099043862894177,
+      -1.1452854636884169e-10,
+      0.9999991655349731
+    ],
+    "source_body_extents_m": [
+      0.059802613919600844,
+      0.021432673558592796,
+      0.03082560934126377
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "RSH12": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_RSH12.fbx",
+    "source": "/Game/Weapons/RSH12/Tactical20261005/Meshes/SM_RSH12_laser",
+    "scale": 0.7973682011167209,
+    "sockets_ue_cm": {
+      "Emitter": [
+        0.9999999776482582,
+        4.050000011920929,
+        2.9999999329447746
+      ],
+      "AimGuide": [
+        3.999999977648258,
+        4.050000011920929,
+        2.9999999329447746
+      ]
+    },
+    "source_body_slot": 0,
+    "retained_materials": {
+      "MI_RSH12_TacticalMount": "/Game/Weapons/RSH12/Tactical20261005/Materials/MI_RSH12_TacticalMount.MI_RSH12_TacticalMount"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "MI_RSH12_TacticalMount"
+    ],
+    "triangles": 16789,
+    "emitter_blender_m": [
+      0.009999999776482582,
+      -0.04050000011920929,
+      0.029999999329447746
+    ],
+    "forward_blender": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "up_blender": [
+      0.0,
+      0.8855294585227966,
+      -0.4645831286907196
+    ],
+    "source_body_extents_m": [
+      0.05980261508375406,
+      0.027047310955822468,
+      0.03155996184796095
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "ASH12": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_ASH12.fbx",
+    "source": "/Game/Weapons/ASH12/TacticalDevices20260920/laser/SM_ASH12_laser",
+    "scale": 1.1390973549957077,
+    "sockets_ue_cm": {
+      "Emitter": [
+        4.3736744056598695,
+        3.1444439142742038,
+        6.391406059247373e-05
+      ],
+      "AimGuide": [
+        7.373674524869159,
+        3.1444441765425557,
+        6.391406059247373e-05
+      ]
+    },
+    "source_body_slot": 0,
+    "retained_materials": {
+      "MI_ASH12_WS_laser_GripMetal": "/Game/Weapons/ASH12/SurfaceStandard20260930/Materials/MI_ASH12_WS_laser_GripMetal.MI_ASH12_WS_laser_GripMetal"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "MI_ASH12_WS_laser_GripMetal"
+    ],
+    "triangles": 14820,
+    "emitter_blender_m": [
+      0.04373674467206001,
+      -0.03144443780183792,
+      6.39140580460662e-07
+    ],
+    "forward_blender": [
+      1.0,
+      -1.2417635275596695e-07,
+      0.0
+    ],
+    "up_blender": [
+      1.2417541483955574e-07,
+      0.9999924302101135,
+      0.0038859525229781866
+    ],
+    "source_body_extents_m": [
+      0.08543230162467808,
+      0.030648929998278618,
+      0.05335167981684208
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "M16": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_M16.fbx",
+    "source": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_laser",
+    "scale": 1.1390968163808188,
+    "sockets_ue_cm": {
+      "Emitter": [
+        7.806141315380562,
+        46.37367455467148,
+        9.154936112463474
+      ],
+      "AimGuide": [
+        7.806141577648914,
+        49.37367467388077,
+        9.154936112463474
+      ]
+    },
+    "source_body_slot": 1,
+    "retained_materials": {
+      "MI_M16_R01_mount_adac2dfa8b": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_adac2dfa8b.MI_M16_R01_mount_adac2dfa8b",
+      "MI_M16_R01_mount_dd24f6556b": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_dd24f6556b.MI_M16_R01_mount_dd24f6556b"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "MI_M16_R01_mount_adac2dfa8b",
+      "MI_M16_R01_mount_dd24f6556b"
+    ],
+    "triangles": 16164,
+    "emitter_blender_m": [
+      0.07806141674518585,
+      -0.46373674273490906,
+      0.0915493592619896
+    ],
+    "forward_blender": [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    "up_blender": [
+      -0.9999989867210388,
+      -0.0,
+      -0.0013962789671495557
+    ],
+    "source_body_extents_m": [
+      0.0854322612285614,
+      0.030619137920439243,
+      0.04403621703386307
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "A762": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_A762.fbx",
+    "source": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_laser",
+    "scale": 1.1390980007126927,
+    "sockets_ue_cm": {
+      "Emitter": [
+        5.223187431693077,
+        35.37367582321167,
+        6.199730560183525
+      ],
+      "AimGuide": [
+        5.223187804222107,
+        38.37367594242096,
+        6.199730560183525
+      ]
+    },
+    "source_body_slot": 1,
+    "retained_materials": {
+      "MI_A762_WS_laser_Interface": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_Interface.MI_A762_WS_laser_Interface",
+      "MI_A762_WS_laser_1": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_1.MI_A762_WS_laser_1"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "MI_A762_WS_laser_Interface",
+      "MI_A762_WS_laser_1"
+    ],
+    "triangles": 15140,
+    "emitter_blender_m": [
+      0.05223187431693077,
+      -0.3537367582321167,
+      0.06199730560183525
+    ],
+    "forward_blender": [
+      1.2417633854511223e-07,
+      -1.0,
+      0.0
+    ],
+    "up_blender": [
+      -0.9999896883964539,
+      -1.2417505956818786e-07,
+      -0.004538798239082098
+    ],
+    "source_body_extents_m": [
+      0.08543235005345196,
+      0.030656700022518635,
+      0.044022681191563606
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "SVD": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_SVD.fbx",
+    "source": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Meshes/SM_SVD_laser",
+    "scale": 1.1390976033483944,
+    "sockets_ue_cm": {
+      "Emitter": [
+        4.447171837091446,
+        44.87367570400238,
+        5.699730664491653
+      ],
+      "AimGuide": [
+        4.447172209620476,
+        47.87367582321167,
+        5.699730664491653
+      ]
+    },
+    "source_body_slot": 0,
+    "retained_materials": {
+      "MI_SVD_WS_laser_SVD_laser_1": "/Game/Weapons/SVDDragunov20260922/SurfaceStandard20261001/Materials/MI_SVD_WS_laser_SVD_laser_1.MI_SVD_WS_laser_SVD_laser_1",
+      "MI_SVD_WS_laser_SVD_InterfaceSteel": "/Game/Weapons/SVDDragunov20260922/SurfaceStandard20261001/Materials/MI_SVD_WS_laser_SVD_InterfaceSteel.MI_SVD_WS_laser_SVD_InterfaceSteel"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "MI_SVD_WS_laser_SVD_laser_1",
+      "MI_SVD_WS_laser_SVD_InterfaceSteel"
+    ],
+    "triangles": 15608,
+    "emitter_blender_m": [
+      0.04447171837091446,
+      -0.4487367570400238,
+      0.056997306644916534
+    ],
+    "forward_blender": [
+      1.2417633854511223e-07,
+      -1.0,
+      0.0
+    ],
+    "up_blender": [
+      -0.9904279708862305,
+      -1.229877142350233e-07,
+      -0.13803115487098694
+    ],
+    "source_body_extents_m": [
+      0.08543232025112957,
+      0.03289905935525894,
+      0.04514453746378422
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "PKM": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_PKM.fbx",
+    "source": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_laser",
+    "scale": 1.1390975955873728,
+    "sockets_ue_cm": {
+      "Emitter": [
+        4.719369113445282,
+        51.96738243103027,
+        6.984999775886536
+      ],
+      "AimGuide": [
+        4.719369858503342,
+        54.967379570007324,
+        6.984999775886536
+      ]
+    },
+    "source_body_slot": 1,
+    "retained_materials": {
+      "MI_PKM_R01_mount_a65b0dae20": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+      "MI_PKM_R01_optic_98e350d2fc": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_98e350d2fc.MI_PKM_R01_optic_98e350d2fc"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "MI_PKM_R01_mount_a65b0dae20",
+      "MI_PKM_R01_optic_98e350d2fc"
+    ],
+    "triangles": 15140,
+    "emitter_blender_m": [
+      0.04719369113445282,
+      -0.5196738243103027,
+      0.06984999775886536
+    ],
+    "forward_blender": [
+      2.4835293288560933e-07,
+      -1.0,
+      0.0
+    ],
+    "up_blender": [
+      -0.9462973475456238,
+      -2.350157188857338e-07,
+      -0.32329773902893066
+    ],
+    "source_body_extents_m": [
+      0.08543231966905296,
+      0.035843996331095695,
+      0.04590745456516743
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "LMG201": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_LMG201.fbx",
+    "source": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_laser",
+    "scale": 1.1390979929516714,
+    "sockets_ue_cm": {
+      "Emitter": [
+        6.519369035959244,
+        44.46738362312317,
+        4.58499975502491
+      ],
+      "AimGuide": [
+        6.5193697810173035,
+        47.46738076210022,
+        4.58499975502491
+      ]
+    },
+    "source_body_slot": 1,
+    "retained_materials": {
+      "MI_LMG201_R01_mount_04222ef6f3": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3",
+      "MI_LMG201_R01_receiver_90ad945ee2": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_90ad945ee2.MI_LMG201_R01_receiver_90ad945ee2"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "MI_LMG201_R01_mount_04222ef6f3",
+      "MI_LMG201_R01_receiver_90ad945ee2"
+    ],
+    "triangles": 15140,
+    "emitter_blender_m": [
+      0.06519369035959244,
+      -0.4446738362312317,
+      0.0458499975502491
+    ],
+    "forward_blender": [
+      2.4835293288560933e-07,
+      -1.0,
+      0.0
+    ],
+    "up_blender": [
+      -0.9522233009338379,
+      -2.3648745184345898e-07,
+      -0.3054026961326599
+    ],
+    "source_body_extents_m": [
+      0.08543234947137535,
+      0.035446977242827415,
+      0.04590609855949879
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  },
+  "HK416": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlessedLaser20261006\\Model\\Exports\\SM_BlessedLaser_HK416.fbx",
+    "source": "/Game/Weapons/HK416/Reworked20260930/Attachments/SM_HK416_laser",
+    "scale": 1.1063472900007452,
+    "sockets_ue_cm": {
+      "Emitter": [
+        8.975249333565511,
+        -53.36901623988742,
+        -0.5478852894157171
+      ],
+      "AimGuide": [
+        8.975242278351663,
+        -57.36901838565405,
+        -0.5478904582560062
+      ]
+    },
+    "source_body_slot": 0,
+    "retained_materials": {
+      "HK416_Blessed_Contact": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+    },
+    "slots": [
+      "Blessed_Graphite",
+      "Blessed_Gold",
+      "Blessed_Black",
+      "Blessed_Optic",
+      "Blessed_Aperture",
+      "HK416_Blessed_Contact"
+    ],
+    "triangles": 22640,
+    "emitter_blender_m": [
+      0.08975249528884888,
+      0.5336901545524597,
+      -0.005478852894157171
+    ],
+    "forward_blender": [
+      -1.8626441260494175e-06,
+      1.0,
+      -1.2922093901579501e-06
+    ],
+    "up_blender": [
+      -0.999070405960083,
+      -1.9166179754392942e-06,
+      -0.04310864582657814
+    ],
+    "source_body_extents_m": [
+      0.13314381055533886,
+      0.06282469257712364,
+      0.030977724120020866
+    ],
+    "contact_geometry": "Original shoe retained; new closed tapered neck; source sockets retained"
+  }
+}

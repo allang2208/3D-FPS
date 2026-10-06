@@ -46,6 +46,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UTacticalDeviceComponent;
     friend class UPistolDualWieldComponent;
     friend class FDualPistolQuickCombatRegression;
+    friend class UFPSConsumableAuditCommandlet;
     friend class URuneSwordComponent;
     friend class UM4TacticalSprintComponent;
     friend class UFPSPlayerBodyComponent;
@@ -107,6 +108,10 @@ bool TriggerPistolQuickCombat();
     /** Leave firearm inspection before dispatching a new command, without changing shot cooldowns. */
     void InterruptWeaponInspection();
     bool IsResolvingActionInterrupt() const { return bResolvingActionInterrupt; }
+    /** Consumables release a held stance, but never interrupt an active strike/reload. */
+    bool CanBeginConsumableUse() const;
+    void PrepareForConsumableUse();
+    USkeletalMeshComponent* ConsumableHands() const;
     // Single-weapon hip cone, or the real per-hand dual cone while both pistols
     // are out; the reticle and the shot direction must share this one value.
     float GetHipSpread() const;

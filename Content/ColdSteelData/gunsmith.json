@@ -670,6 +670,35 @@
               "stability_mult": 1.15,
               "hip_spread_mult": 1.25
             }
+          },
+          {
+            "id": "legendary_adjustable_tactical_stock",
+            "name": "可调式战术后托",
+            "description": "连续贴腮与镂空托架搭配宽橡胶肩垫，前端采用独立接座，配有贴腮和长度调节结构。",
+            "effects": [
+              {
+                "text": "后坐力降低35%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高30%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.65,
+              "stability_mult": 1.3,
+              "ads_percent": -0.1,
+              "hip_spread_mult": 1.15
+            }
           }
         ],
         "reargrip": [
@@ -1368,6 +1397,35 @@
               "stability_mult": 1.15,
               "hip_spread_mult": 1.25
             }
+          },
+          {
+            "id": "legendary_adjustable_tactical_stock",
+            "name": "可调式战术后托",
+            "description": "连续贴腮与镂空托架搭配宽橡胶肩垫，前端采用独立接座，配有贴腮和长度调节结构。",
+            "effects": [
+              {
+                "text": "后坐力降低35%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高30%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.65,
+              "stability_mult": 1.3,
+              "ads_percent": -0.1,
+              "hip_spread_mult": 1.15
+            }
           }
         ],
         "reargrip": [
@@ -2053,6 +2111,35 @@
               "recoil_mult": 0.85,
               "stability_mult": 1.15,
               "hip_spread_mult": 1.25
+            }
+          },
+          {
+            "id": "legendary_adjustable_tactical_stock",
+            "name": "可调式战术后托",
+            "description": "连续贴腮与镂空托架搭配宽橡胶肩垫，前端采用独立接座，配有贴腮和长度调节结构。",
+            "effects": [
+              {
+                "text": "后坐力降低35%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高30%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.65,
+              "stability_mult": 1.3,
+              "ads_percent": -0.1,
+              "hip_spread_mult": 1.15
             }
           }
         ],
@@ -5282,6 +5369,35 @@
               "stability_mult": 1.15,
               "hip_spread_mult": 1.25
             }
+          },
+          {
+            "id": "legendary_adjustable_tactical_stock",
+            "name": "可调式战术后托",
+            "description": "连续贴腮与镂空托架搭配宽橡胶肩垫，前端采用独立接座，配有贴腮和长度调节结构。",
+            "effects": [
+              {
+                "text": "后坐力降低35%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高30%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.65,
+              "stability_mult": 1.3,
+              "ads_percent": -0.1,
+              "hip_spread_mult": 1.15
+            }
           }
         ],
         "reargrip": [
@@ -5981,6 +6097,35 @@
               "stability_mult": 1.15,
               "hip_spread_mult": 1.25
             }
+          },
+          {
+            "id": "legendary_adjustable_tactical_stock",
+            "name": "可调式战术后托",
+            "description": "连续贴腮与镂空托架搭配宽橡胶肩垫，前端采用独立接座，配有贴腮和长度调节结构。",
+            "effects": [
+              {
+                "text": "后坐力降低35%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高30%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.65,
+              "stability_mult": 1.3,
+              "ads_percent": -0.1,
+              "hip_spread_mult": 1.15
+            }
           }
         ],
         "reargrip": [
@@ -6617,6 +6762,35 @@
               "stability_mult": 1.15,
               "hip_spread_mult": 1.25
             }
+          },
+          {
+            "id": "legendary_adjustable_tactical_stock",
+            "name": "可调式战术后托",
+            "description": "连续贴腮与镂空托架搭配宽橡胶肩垫，前端采用独立接座，配有贴腮和长度调节结构。",
+            "effects": [
+              {
+                "text": "后坐力降低35%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高30%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.65,
+              "stability_mult": 1.3,
+              "ads_percent": -0.1,
+              "hip_spread_mult": 1.15
+            }
           }
         ],
         "magazine": [
@@ -7209,6 +7383,35 @@
               "recoil_mult": 0.85,
               "stability_mult": 1.15,
               "hip_spread_mult": 1.25
+            }
+          },
+          {
+            "id": "legendary_adjustable_tactical_stock",
+            "name": "可调式战术后托",
+            "description": "连续贴腮与镂空托架搭配宽橡胶肩垫，前端采用独立接座，配有贴腮和长度调节结构。",
+            "effects": [
+              {
+                "text": "后坐力降低35%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高30%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.65,
+              "stability_mult": 1.3,
+              "ads_percent": -0.1,
+              "hip_spread_mult": 1.15
             }
           }
         ],
@@ -7857,6 +8060,35 @@
               "recoil_mult": 0.85,
               "stability_mult": 1.15,
               "hip_spread_mult": 1.25
+            }
+          },
+          {
+            "id": "legendary_adjustable_tactical_stock",
+            "name": "可调式战术后托",
+            "description": "连续贴腮与镂空托架搭配宽橡胶肩垫，前端采用独立接座，配有贴腮和长度调节结构。",
+            "effects": [
+              {
+                "text": "后坐力降低35%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高30%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.65,
+              "stability_mult": 1.3,
+              "ads_percent": -0.1,
+              "hip_spread_mult": 1.15
             }
           }
         ],
@@ -8547,6 +8779,35 @@
           "stability_mult": 1.15,
           "hip_spread_mult": 1.25
         }
+      },
+      {
+        "id": "legendary_adjustable_tactical_stock",
+        "name": "可调式战术后托",
+        "description": "连续贴腮与镂空托架搭配宽橡胶肩垫，前端采用独立接座，配有贴腮和长度调节结构。",
+        "effects": [
+          {
+            "text": "后坐力降低35%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高30%",
+            "benefit": 1
+          },
+          {
+            "text": "开镜耗时减少10%",
+            "benefit": 1
+          },
+          {
+            "text": "腰射随机散布增加15%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.65,
+          "stability_mult": 1.3,
+          "ads_percent": -0.1,
+          "hip_spread_mult": 1.15
+        }
       }
     ],
     "reargrip": [
@@ -8701,5 +8962,37 @@
       }
 }
 ],
-  "common_options": {}
+  "common_options": {
+    "tactical": [
+      {
+        "id": "blessed_laser",
+        "name": "赐福激光镭射",
+        "description": "金色赐福激光，带有轻微流动的细丝；腰射沿发射器方向，开镜后汇聚准星，遇遮挡截断。",
+        "effects": [
+          {
+            "text": "腰射随机散布减少80%",
+            "benefit": 1
+          },
+          {
+            "text": "开镜耗时减少30%",
+            "benefit": 1
+          },
+          {
+            "text": "后坐力增加15%",
+            "benefit": -1
+          },
+          {
+            "text": "枪械稳定性降低15%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "hip_spread_mult": 0.2,
+          "ads_percent": -0.3,
+          "recoil_mult": 1.15,
+          "stability_mult": 0.85
+        }
+      }
+    ]
+  }
 }

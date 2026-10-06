@@ -8,6 +8,7 @@
 #include "../Skills/FPSCastingMeshComponent.h"
 #include "../Movement/FPSTraversalRules.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
+#include "../Weapons/PistolDualWieldComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -115,7 +116,9 @@ bool UFPSPotionUseComponent::TryBegin(const FString& ItemId,const FString& Defin
     auto* Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Player||!Player->IsLocallyControlled()||!Model||!Bottle||!IsAnimatedConsumable(Definition))return false; // M2: 联机放开（本地档案→通道上行）
     if(bActive){Model->Message=bFood?TEXT("正在进食"):TEXT("正在饮用");return false;}
-    if(Player->IsLeftHandHeldForCast()||Player->IsLeftHandBusyForCast()||Player->IsCastBlockingLeftHandAction())
+    // Held equipment yields through a lower/use/raise presentation. Active
+    // attacks, reloads and spells still own the hand until their action ends.
+    if(!Player->CanBeginConsumableUse())
     {Model->Message=TEXT("左手当前被占用");return false;}
     const bool bMana=Definition.StartsWith(TEXT("mp_"));
     const bool Water=Definition==TEXT("mineral_water");
@@ -158,12 +161,19 @@ bool UFPSPotionUseComponent::TryBegin(const FString& ItemId,const FString& Defin
     Motion=Food?(Definition==TEXT("bread")?BreadMotion:FoodMotion):(Soda?SodaMotion:(Water?WaterMotion:HealthMotion));
     Motion.GripHeight=Visual.GripHeightCm;
     if(Motion.Keys.IsEmpty()){Model->Message=TEXT("消耗品动作尚未加载");return false;}
+    // Resolve ownership, not visibility: the inventory temporarily hides native
+    // sword/tool/staff arms, which return as soon as the menu closes.
+    auto* NativeHands=Player->ConsumableHands();
+    auto* UseHands=NativeHands?Cast<UFPSCastingMeshComponent>(NativeHands):FallbackHands.Get();
+    if(!UseHands || !UseHands->GetSkeletalMeshAsset() || !UseHands->bApplyLeftHandCast || UseHands->GetBoneIndex(TEXT("hand_l"))<0)
+    {Model->Message=TEXT("消耗品手部动作资源正在加载");return false;}
     // Closing the inventory clears its Selected string, which may be ItemId's
     // caller-owned storage. Keep the instance identity through contact settlement.
     const FString PendingItemId=ItemId;
     auto* PC=Cast<AFPSGAMEPlayerController>(Player->GetController());
     if(PC&&PC->GetColdSteelHUD()&&PC->GetColdSteelHUD()->IsInventoryOpen())PC->GetColdSteelHUD()->ToggleInventory();
     if(AFPSGAMEPlayerController::BlocksOngoingActions(PC))return false;
+    Player->PrepareForConsumableUse();
     Bottle->SetStaticMesh(Solid?SolidVisual:Assets[Base].Get());
     if(!Solid)
     {
@@ -182,28 +192,38 @@ bool UFPSPotionUseComponent::TryBegin(const FString& ItemId,const FString& Defin
     }
     StopSwallowAudio();bSwallowStarted=false;
     UsingItem=PendingItemId;PresentationDefinition=*Definition;++PresentationSerial;
-    bCommitted=bUncapped=bDiscarded=false;StartTime=GetWorld()->GetTimeSeconds();
-    ArmPose.Reset();ActiveHands.Reset();LastHandPoseFrame=MAX_uint64;
-    // Bow's existing left-hand action gate stows the bow; use the accepted bare
-    // arm during that gap. Firearms/melee/tools keep their own native hand mesh.
-    const auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();
-    if(!Bow||!Bow->IsEquipped())
-    {
-        TInlineComponentArray<UFPSCastingMeshComponent*> Meshes(Player);
-        for(auto* Mesh:Meshes)if(Mesh!=FallbackHands&&Mesh->bApplyLeftHandCast&&Mesh->GetSkeletalMeshAsset()&&
-            Mesh->IsVisible()&&!Mesh->bHiddenInGame&&Mesh->GetBoneIndex(TEXT("hand_l"))>=0)
-        {ActiveHands=Mesh;break;}
-    }
-    if(!ActiveHands.IsValid())ActiveHands=FallbackHands;
+    bStowOffhand=Player->HasOffhandPistol();
+    bCommitted=bUncapped=bDiscarded=false;
+    // Keep every authored contact/audio/release time relative to actual use;
+    // the leading equipment transition must never consume the item early.
+    StartTime=GetWorld()->GetTimeSeconds()+(bStowOffhand?OffhandLowerSeconds:0.f);
+    ArmPose.Reset();ActiveHands=UseHands;LastHandPoseFrame=MAX_uint64;
     if(ActiveHands.IsValid())AddTickPrerequisiteComponent(ActiveHands.Get());
     bActive=true;SetComponentTickEnabled(true);Model->Message=bFood?(Definition==TEXT("bread")?TEXT("食用普通面包"):TEXT("食用法棍面包")):(bWater?TEXT("饮用矿泉水"):(bSoda?TEXT("饮用汽水"):TEXT("饮用药水")));return true;
 }
 float UFPSPotionUseComponent::Age() const{return bActive?float(GetWorld()->GetTimeSeconds()-StartTime):0.f;}
+float UFPSPotionUseComponent::OffhandLowerWeight() const
+{
+    if(!IsStowingOffhand())return 0.f;
+    const float T=Age();
+    return FPotionUseMotion::Ease((T+OffhandLowerSeconds)/OffhandLowerSeconds)*
+        (1.f-FPotionUseMotion::Ease((T-Motion.Duration)/OffhandRaiseSeconds));
+}
+bool UFPSPotionUseComponent::IsOffhandWeaponHidden() const
+{
+    if(!IsStowingOffhand())return false;
+    const float T=Age();
+    return T>=0.f&&T<Motion.Duration;
+}
 void UFPSPotionUseComponent::ApplyHandPose(UFPSCastingMeshComponent& Mesh)
 {
     if(!bActive||ActiveHands.Get()!=&Mesh)return;
+    const float T=Age();
+    // Keep the original equipped grasp while lowering/raising the entire rig.
+    // Only the use phase takes over the native arm and fingers.
+    if(T<0.f||T>=Motion.Duration){LastHandPoseFrame=GFrameCounter;return;}
     FTransform PalmWorld;
-    if(ArmPose.Apply(Mesh,Motion,Age(),PalmWorld))
+    if(ArmPose.Apply(Mesh,Motion,T,PalmWorld))
     {
         LastHandPoseFrame=GFrameCounter;
         UpdateBottle(PalmWorld);
@@ -307,7 +327,7 @@ void UFPSPotionUseComponent::TickComponent(float Delta,ELevelTick Type,FActorCom
         if(!bWater)Liquid->SetVisibility(false);
     }
     if(T>=Motion.Release&&!bDiscarded){bDiscarded=true;if(!bWater&&!bFood&&!bSoda)Discard(Bottle,FVector(540,-360,190),7.f);Bottle->SetVisibility(false);Liquid->SetVisibility(false);Stopper->SetVisibility(false);}
-    if(T>=Motion.Duration)Finish();
+    if(T>=Motion.Duration+(bStowOffhand?OffhandRaiseSeconds:0.f))Finish();
 }
 void UFPSPotionUseComponent::Cancel()
 {
@@ -321,7 +341,7 @@ void UFPSPotionUseComponent::Cancel()
 void UFPSPotionUseComponent::Finish()
 {
     if(ActiveHands.IsValid())RemoveTickPrerequisiteComponent(ActiveHands.Get());
-    bActive=false;UsingItem.Reset();ActiveHands.Reset();ArmPose.Reset();SetComponentTickEnabled(false);
+    bActive=false;bStowOffhand=false;UsingItem.Reset();ActiveHands.Reset();ArmPose.Reset();SetComponentTickEnabled(false);
     if(Bottle)Bottle->SetVisibility(false);if(Liquid)Liquid->SetVisibility(false);if(Stopper)Stopper->SetVisibility(false);
     if(FallbackHands)FallbackHands->SetVisibility(false);
 }

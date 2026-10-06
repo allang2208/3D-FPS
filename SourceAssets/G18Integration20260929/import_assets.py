@@ -1,5 +1,5 @@
 """Headless G18 production import. Only new G18 packages and its profile keys."""
-import ast,copy,hashlib,json,re,time
+import ast,copy,hashlib,json,re,runpy,time
 from pathlib import Path
 import unreal as u
 O=Path(__file__).parent;PROJECT=O.parents[1];DEST='/Game/Weapons/G18/Integrated20260929'
@@ -61,7 +61,10 @@ graph_finish(body,samples['T_G18_Base_color'],(samples['T_G18_Roughness'],'R'),s
 E.set_metadata_tag(body,'Source','User g18.zip: original UV, base colour, metallic, roughness and DirectX normal');save(body)
 finish=create('M_G18_AttachmentFinish',DEST+'/Materials',u.Material,u.MaterialFactoryNew());L.delete_all_material_expressions(finish)
 graph_finish(finish,vector(finish,(.017,.020,.024)),constant(finish,.44),vector(finish,(0,0,1)),constant(finish,.85),False)
-wetmap={body.get_path_name():body,finish.get_path_name():finish}
+holo_helpers=runpy.run_path(str(PROJECT/'Tools/Weapons/g18_holographic_material.py'))
+holo_body=holo_helpers['ensure_holo_body'](save)
+holo_reticle=load(holo_helpers['RETICLE_PATH'])
+wetmap={body.get_path_name():body,finish.get_path_name():finish,holo_body.get_path_name():holo_body}
 
 flag='Interchange.FeatureFlags.Import.FBX';old_flag=u.SystemLibrary.get_console_variable_int_value(flag)
 u.SystemLibrary.execute_console_command(None,flag+' 0')
@@ -145,7 +148,9 @@ try:
         slots=list(mesh.static_materials)
         for i,slot in enumerate(slots):
             name=re.sub(r'[._]\d{3}$','',str(slot.material_slot_name));source=bindings.get(aliases.get(name,name))
-            if name in entry.get('material_overrides',{}):mat=load(entry['material_overrides'][name])
+            if key=='holographic' and name=='M_HoloBody':mat=holo_body
+            elif key=='holographic' and name=='M_HoloReticle':mat=holo_reticle
+            elif name in entry.get('material_overrides',{}):mat=load(entry['material_overrides'][name])
             elif name in ('M_G18_SourcePBR','M_G18_Magazine'):mat=body
             elif source:
                 identity=(name+' '+source.get_path_name()).lower()

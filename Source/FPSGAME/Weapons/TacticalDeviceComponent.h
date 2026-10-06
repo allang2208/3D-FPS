@@ -37,4 +37,8 @@ private:
     void HideEffects();
     /** 挂件或武器变化时丢弃上一件的对齐状态。 */
     void ResetLaserAim();
+    UPROPERTY(Transient) TObjectPtr<class UMaterialInterface> BlessedDotMaterial;
+    UPROPERTY(Transient) TObjectPtr<class UMaterialInterface> BlessedBeamMaterial;
+    UPROPERTY(Transient) TObjectPtr<class UMaterialInterface> RedDotMaterial;
+    UPROPERTY(Transient) TObjectPtr<class UMaterialInterface> RedBeamMaterial;
 };

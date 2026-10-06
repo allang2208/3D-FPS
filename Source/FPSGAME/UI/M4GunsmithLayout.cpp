@@ -1,3 +1,4 @@
+#include "../Weapons/GunsmithModificationTier.h"
 #include "M4GunsmithWidget.h"
 #include "SM4PreviewSurface.h"
 #include "SMeleePartIcon.h"
@@ -119,6 +120,10 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
     ExclusiveButton.SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::ExclusiveCard,7,ColdSteelUI::ExclusiveBorder,1));
     ExclusiveButton.SetHovered(ColdSteelUI::RoundedBrush(ColdSteelUI::ExclusiveCardHover,7,ColdSteelUI::ExclusiveText,1));
     ExclusiveButton.SetPressed(ColdSteelUI::RoundedBrush(ColdSteelUI::ExclusiveCardPressed,7,ColdSteelUI::ExclusiveBorder,1));
+    LegendaryButton=NormalButton;
+    LegendaryButton.SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::LegendaryCard,7,ColdSteelUI::LegendaryBorder,1));
+    LegendaryButton.SetHovered(ColdSteelUI::RoundedBrush(ColdSteelUI::LegendaryCardHover,7,ColdSteelUI::LegendaryText,1));
+    LegendaryButton.SetPressed(ColdSteelUI::RoundedBrush(ColdSteelUI::LegendaryCardPressed,7,ColdSteelUI::LegendaryBorder,1));
     PrimaryButton=NormalButton;PrimaryButton.SetNormal(ColdSteelUI::RoundedBrush(Silver,7,Gray(245)));
     PrimaryButton.SetHovered(ColdSteelUI::RoundedBrush(Gray(244),7));PrimaryButton.SetPressed(ColdSteelUI::RoundedBrush(Gray(174),7));
     PrimaryButton.SetDisabled(ColdSteelUI::RoundedBrush(Gray(85),7));
@@ -319,33 +324,11 @@ void UM4GunsmithWidget::UpdateResponsiveLayout()
 TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const FString& Id)
 {
     const auto* O=Model()->Option(Model()->Definition(),SlotKey,Id);if(!O)return SNew(SBox);
-    // Explicitly approved identity pairs; compatibility alone does not imply exclusivity.
     const FString Weapon=Model()->Definition();
-    const bool VipGrip=Weapon==TEXT("ue_pit_viper2011")&&SlotKey==TEXT("reargrip")&&Id==TEXT("pit_viper_vip_scales");
-    const bool SiMuzzle=Weapon==TEXT("ue_pit_viper2011")&&SlotKey==TEXT("muzzle")&&Id==TEXT("pit_viper_si_compensator");
-    const bool G18Drum=Weapon==TEXT("ue_g18")&&SlotKey==TEXT("magazine")&&Id==TEXT("g18_drum_50");
-    const bool Exclusive=
-        VipGrip || SiMuzzle || G18Drum ||
-        (Weapon==TEXT("ue_rsh12") && SlotKey==TEXT("muzzle") &&
-            (Id==TEXT("rsh12_heavy_suppressor")||Id==TEXT("rsh12_large_caliber_brake"))) ||
-        (Weapon==TEXT("ue_rsh12") && SlotKey==TEXT("grip_body") &&
-            (Id==TEXT("rsh12_heavy_grip")||Id==TEXT("rsh12_quickdraw_grip"))) ||
-        (Weapon==TEXT("ue_rsh12") && SlotKey==TEXT("optic") && RSH12OpticAssets::IsSquare(Id)) ||
-        (Weapon==TEXT("ue_tang_dao") &&
-            ((SlotKey==TEXT("blade_1") && (Id==TEXT("yanling_edge")||Id==TEXT("tengyun_dragon"))) ||
-             (SlotKey==TEXT("blade_2") && (Id==TEXT("auspicious_cloud_rune")||Id==TEXT("mountain_rune"))) ||
-             (SlotKey==TEXT("guard") && (Id==TEXT("xuan_cloud_dragon")||Id==TEXT("phoenix_feather"))) ||
-             (SlotKey==TEXT("pommel") && (Id==TEXT("yanling_breaker")||Id==TEXT("tiger_mountain"))))) ||
-        (Weapon==TEXT("ue_highland_claymore") &&
-            ((SlotKey==TEXT("blade_1") && (Id==TEXT("highland_broadblade")||Id==TEXT("highland_ridge_piercer"))) ||
-             (SlotKey==TEXT("blade_2") && Id==TEXT("wild_rune")) ||
-             (SlotKey==TEXT("guard") && Id==TEXT("highland_cloven_guard")) ||
-             (SlotKey==TEXT("pommel") && Id==TEXT("highland_thorn_crown")))) ||
-        (Weapon==TEXT("ue_frost_crystal_sword") && SlotKey==TEXT("blade_2") && Id==TEXT("spirit_burst_rune")) ||
-        (Weapon==TEXT("ue_rune_sword") && SlotKey==TEXT("blade_2") && Id==TEXT("golden_glow_rune")) ||
-        (Weapon==TEXT("ue_ash12") &&
-            ((SlotKey==TEXT("muzzle") && (Id==TEXT("ash12_tactical_suppressor")||Id==TEXT("ash12_tactical_brake"))) ||
-             (SlotKey==TEXT("stock") && Id==TEXT("ash12_cheek_rest"))));
+    const auto Tier=ColdSteelModification::Tier(Weapon,SlotKey,Id);
+    const bool Exclusive=Tier==EGunsmithModificationTier::Special;
+    const bool Legendary=Tier==EGunsmithModificationTier::Legendary;
+    const FLinearColor TierColor=Legendary?ColdSteelUI::LegendaryText:Exclusive?ColdSteelUI::ExclusiveText:GunsmithUI::Text;
     FString Summary=O->Description.Replace(TEXT("\r"),TEXT(" ")).Replace(TEXT("\n"),TEXT(" "));
     if(Summary.Len()>46)Summary=Summary.Left(46)+TEXT("…");
     auto Selected=[this,SlotKey,Id](){return Model()->Draft().FindRef(SlotKey)==Id||(Id==TEXT("false")&&!Model()->Draft().Contains(SlotKey));};
@@ -357,7 +340,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     };
     // Follow the current draft selection, including an accessory awaiting Apply.
     auto Neon=[Selected,Id](){return Id!=TEXT("false")&&Selected();};
-    auto Frame=[Neon,Selected,Exclusive](){auto C=ColdSteelUI::Success;C.A=.32f;return Neon()?C:Selected()?GunsmithUI::Silver:Exclusive?ColdSteelUI::ExclusiveBorder:FLinearColor::Transparent;};
+    auto Frame=[Neon,Selected,Exclusive,Legendary](){auto C=ColdSteelUI::Success;C.A=.32f;return Neon()?C:Selected()?GunsmithUI::Silver:Legendary?ColdSteelUI::LegendaryBorder:Exclusive?ColdSteelUI::ExclusiveBorder:FLinearColor::Transparent;};
     FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
     // Retained RSH models keep their existing pictograms; only catalog identity changes.
     const FString IconId=Weapon==TEXT("ue_rsh12")&&SlotKey==TEXT("optic")?RSH12OpticAssets::SourceVariant(Id):Id;
@@ -373,7 +356,6 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
             &&FPaths::FileExists(FramedDirectory/(CommonIconKey+TEXT(".png"))))));
     if(Framed)IconDirectory=FramedDirectory;
     // Common modifications share one brush; factory parts retain their weapon key.
-    // 近战新改造件允许缺武器专属图：直接回退通用键（SMeleePartIcon 兜底），不再整卡隐藏。
     const bool UseWeaponIcon=!SharedFirearmOption&&FPaths::FileExists(IconDirectory/(WeaponIconKey+TEXT(".png")));
     const FString IconKey=UseWeaponIcon?WeaponIconKey:CommonIconKey;
     if(!AttachmentBrushes.Contains(IconKey)&&FPaths::FileExists(IconDirectory/(IconKey+TEXT(".png"))))
@@ -404,10 +386,10 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     return SNew(SBox).WidthOverride(IsStandaloneWorkbench()?288:264).HeightOverride(142)
         [SNew(SOverlay)+SOverlay::Slot()
         [SNew(SBorder).Padding(2).BorderImage(&OptionFrameBrush).BorderBackgroundColor_Lambda(Frame)
-        [SNew(SButton).ButtonStyle(Exclusive?&ExclusiveButton:&NormalButton).ContentPadding(FMargin(10,8)).ToolTipText(FText::FromString(O->Name+TEXT("\n")+O->Description))
+        [SNew(SButton).ButtonStyle(Legendary?&LegendaryButton:Exclusive?&ExclusiveButton:&NormalButton).ContentPadding(FMargin(10,8)).ToolTipText(FText::FromString(O->Name+TEXT("\n")+O->Description))
             .OnClicked_Lambda([this,SlotKey,Id](){ChooseOption(SlotKey,Id);return FReply::Handled();})
             [SNew(SVerticalBox)
-                +SVerticalBox::Slot().AutoHeight()[Label(O->Name,16,Exclusive?ColdSteelUI::ExclusiveText:GunsmithUI::Text,true)]
+                +SVerticalBox::Slot().AutoHeight()[Label(O->Name,16,TierColor,true)]
                 +SVerticalBox::Slot().FillHeight(1).Padding(0,5,0,5)
                 [SNew(SHorizontalBox)
                     +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(0,0,10,0)
@@ -425,11 +407,11 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
                     +SOverlay::Slot()[SNew(SImage).Image(FCoreStyle::Get().GetBrush("WhiteBrush"))
                         .ColorAndOpacity_Lambda([Neon](){auto C=ColdSteelUI::Success;C.A=Neon()?.08f:0.f;return C;}).Visibility(EVisibility::HitTestInvisible)]
                     +SOverlay::Slot().Padding(6,2)
-                    [SNew(STextBlock).Text_Lambda([Selected,Installed,Id,Exclusive,VipGrip,SiMuzzle,G18Drum](){
+                    [SNew(STextBlock).Text_Lambda([Selected,Installed,Id,Tier](){
                         const FString Status=Installed()?(Id==TEXT("false")?TEXT("当前原厂配置"):TEXT("已安装")):(Selected()?TEXT("已选 · 待应用"):TEXT("选择配件"));
-                        return FText::FromString((VipGrip?FString(TEXT("VIP 专属 · ")):(SiMuzzle||G18Drum)?FString(TEXT("限定 · ")):Exclusive?FString(TEXT("专属 · ")):FString())+Status);})
+                        return FText::FromString(FString(Id==TEXT("false")?TEXT(""):ColdSteelModification::Label(Tier))+(Id==TEXT("false")?TEXT(""):TEXT(" · "))+Status);})
                         .Font(GunsmithUI::TextFont(12,true))
-                        .ColorAndOpacity_Lambda([Neon,Selected,Exclusive](){return Neon()?ColdSteelUI::Success:Selected()?GunsmithUI::Silver:Exclusive?ColdSteelUI::ExclusiveText:GunsmithUI::Muted;})
+                        .ColorAndOpacity_Lambda([Neon,Selected,TierColor](){return Neon()?ColdSteelUI::Success:Selected()?GunsmithUI::Silver:TierColor;})
                         .ShadowOffset(FVector2D(0,1)).ShadowColorAndOpacity(FLinearColor(0,0,0,.4f))]]]]]
             +SOverlay::Slot()[SNew(SAttachmentSelectionPulse).Active_Lambda(Neon)]];
 }

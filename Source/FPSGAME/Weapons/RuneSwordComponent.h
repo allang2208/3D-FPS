@@ -47,6 +47,9 @@ public:
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginInspect();
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsInspecting() const { return bInspecting; }
     bool IsEquipping() const { return bEquipping; }
+    bool CanReleaseSupportHand() const
+    { return !(bUppercut || bWhirlwind || bAttacking || bEquipping || bCharging || bReturningCharge || bGuardReacting || bGuardBreakPose); }
+    USkeletalMeshComponent* ArmsMesh() const { return Viewmodel; }
     bool IsQuickCombatActive() const { return bQuickCombatStrike; }
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsGuarding() const { return bGuarding; }
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginGuard();
@@ -84,6 +87,7 @@ public:
     bool GetEnchantmentBladeAttachment(USceneComponent*& Parent,FName& Socket,FTransform& LocalFrame,float& Length) const;
 private:
     friend class URuneSwordAuditCommandlet;
+    friend class UFPSConsumableAuditCommandlet;
     friend class UFPSPlayerBodyComponent;
     TWeakObjectPtr<AFPSGAMECharacter> Character;
     UPROPERTY(Transient) TObjectPtr<UCameraComponent> Camera;

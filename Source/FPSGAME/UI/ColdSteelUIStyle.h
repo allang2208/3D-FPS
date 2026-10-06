@@ -23,7 +23,13 @@ namespace ColdSteelUI
     inline const FLinearColor HUDGold = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("C7AA70FF")));
     inline const FLinearColor HUDGoldLight = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E8D39AFF")));
     inline const FLinearColor HUDGoldDim = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("756447FF")));
-    // Exclusive attachment identity; selected-state feedback remains Success green.
+    // Legendary modification identity; installation remains a separate green status.
+    inline const FLinearColor LegendaryCard = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("4A2029E8")));
+    inline const FLinearColor LegendaryCardHover = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("6A2938EE")));
+    inline const FLinearColor LegendaryCardPressed = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("351820F0")));
+    inline const FLinearColor LegendaryBorder = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("D45667FF")));
+    inline const FLinearColor LegendaryText = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FFBBC5FF")));
+    // Special attachment identity; selected-state feedback remains Success green.
     inline const FLinearColor ExclusiveCard = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("393226E8")));
     inline const FLinearColor ExclusiveCardHover = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("514532EE")));
     inline const FLinearColor ExclusiveCardPressed = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("29241DF0")));

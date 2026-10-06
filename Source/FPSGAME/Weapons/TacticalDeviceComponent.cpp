@@ -1,4 +1,5 @@
 #include "TacticalDeviceComponent.h"
+#include "TacticalDeviceVariants.h"
 #include "HK416WeaponAssets.h"
 #include "HK416Attachments.h"
 #include "G18WeaponAssets.h"
@@ -119,9 +120,10 @@ void UTacticalDeviceComponent::SetPresentationHidden(bool Hidden)
 {
     bPresentationHidden=Hidden;if(Body)Body->SetVisibility(!Hidden && IsComponentTickEnabled());if(Hidden)HideEffects();
 }
-void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Variant,USkeletalMeshComponent* Rifle,bool Enabled)
+void UTacticalDeviceComponent::Configure(const FString& Family,const FString& RequestedVariant,USkeletalMeshComponent* Rifle,bool Enabled)
 {
-    HideEffects();Kind=Variant;Host=Rifle;
+    HideEffects();Kind=RequestedVariant;Host=Rifle;
+    const FString Variant=TacticalDeviceVariants::MeshVariant(RequestedVariant);
     // A new attachment or weapon must not inherit the previous one's alignment.
     ResetLaserAim();
     if(Body)Body->SetVisibility(false);
@@ -134,7 +136,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
     const bool PitViper=Family==TEXT("PitViper2011");
     const bool Pistol=Family==TEXT("M1911")||Family==TEXT("G18")||PitViper||Revolver||RSH;
     const bool ASH=Family==TEXT("ASH12");
-    const FString Path=RSH?RSH12TacticalAssets::MeshPath(Variant):Family==TEXT("HK416")?HK416WeaponAssets::AttachmentPath(Variant):Family==TEXT("LMG201")?LMG201Attachments::MeshPath(Variant):Family==TEXT("SVD")?SVDAttachments::MeshPath(Variant):Family==TEXT("PKM")?PKMAttachments::MeshPath(Variant):Family==TEXT("A762")?A762Attachments::MeshPath(Variant):Family==TEXT("M16")?M16Attachments::MeshPath(Variant):ASH
+    const FString Path=Kind==TacticalDeviceVariants::BlessedLaser?TacticalDeviceVariants::BlessedMeshPath(Family):RSH?RSH12TacticalAssets::MeshPath(Variant):Family==TEXT("HK416")?HK416WeaponAssets::AttachmentPath(Variant):Family==TEXT("LMG201")?LMG201Attachments::MeshPath(Variant):Family==TEXT("SVD")?SVDAttachments::MeshPath(Variant):Family==TEXT("PKM")?PKMAttachments::MeshPath(Variant):Family==TEXT("A762")?A762Attachments::MeshPath(Variant):Family==TEXT("M16")?M16Attachments::MeshPath(Variant):ASH
         ?FString::Printf(TEXT("/Game/Weapons/ASH12/TacticalDevices20260920/%s/SM_ASH12_%s"),*Variant,*Variant)
         :PitViper?PitViper2011WeaponAssets::AttachmentPath(Variant):Family==TEXT("G18")?G18WeaponAssets::AttachmentPath(Variant):Revolver?DanWesson715WeaponAssets::AttachmentPath(Variant):Pistol
         ?FString::Printf(TEXT("/Game/Weapons/M1911/CompactFit20260913/%s/SM_TacticalDevice"),*Variant)
@@ -153,7 +155,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
         Body->EmptyOverrideMaterials();
         Body->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,*Path));AssetPath=Path;
     }
-    if(Family!=TEXT("HK416")&&!Pistol&&!ASH&&Family!=TEXT("LMG201")&&Family!=TEXT("SVD")&&Family!=TEXT("PKM")&&Family!=TEXT("A762")&&Family!=TEXT("M16")&&Variant==TEXT("laser"))
+    if(Kind!=TacticalDeviceVariants::BlessedLaser&&Family!=TEXT("HK416")&&!Pistol&&!ASH&&Family!=TEXT("LMG201")&&Family!=TEXT("SVD")&&Family!=TEXT("PKM")&&Family!=TEXT("A762")&&Family!=TEXT("M16")&&Variant==TEXT("laser"))
     {
         const FString OpticalPath=FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/%s/laser/M_%s_laser_Body_OpticalV2"),*Family,*Family);
         if(auto* Optical=LoadObject<UMaterialInterface>(nullptr,*OpticalPath))
@@ -188,6 +190,20 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
     };
     if(!Dot)Dot=MakeEffect(TEXT("TacticalLaserDot"),TEXT("/Engine/BasicShapes/Sphere"),TEXT("/Game/Weapons/ScopeOptics20260927/M_ScopeAwareLaserDot"));
     if(!Beam)Beam=MakeEffect(TEXT("TacticalLaserBeam"),TEXT("/Engine/BasicShapes/Cylinder"),TEXT("/Game/Weapons/ScopeOptics20260927/M_ScopeAwareLaserBeam"));
+    // Shared, immutable materials; cache per component instead of loading or
+    // creating material instances during Tick. Swapping back restores red.
+    if(Kind==TacticalDeviceVariants::BlessedLaser)
+    {
+        if(!BlessedDotMaterial)BlessedDotMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/M_BlessedLaserDot"));
+        if(!BlessedBeamMaterial)BlessedBeamMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/M_BlessedLaserBeam"));
+        Dot->SetMaterial(0,BlessedDotMaterial);Beam->SetMaterial(0,BlessedBeamMaterial);
+    }
+    else
+    {
+        if(!RedDotMaterial)RedDotMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Weapons/ScopeOptics20260927/M_ScopeAwareLaserDot"));
+        if(!RedBeamMaterial)RedBeamMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Weapons/ScopeOptics20260927/M_ScopeAwareLaserBeam"));
+        Dot->SetMaterial(0,RedDotMaterial);Beam->SetMaterial(0,RedBeamMaterial);
+    }
     if(!Light)
     {
         Light=NewObject<USpotLightComponent>(GetOwner());
@@ -266,7 +282,7 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
         bLaserSettled=false;
         LaserSettleElapsed=0.f;
     }
-    else if(Kind==TEXT("laser"))
+    else if(TacticalDeviceVariants::IsLaser(Kind))
     {
         if(!bLaserSettled)
         {
@@ -320,6 +336,9 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     const bool bShowBeam=Length>.1f&&ScopeAlpha<1.f;
     if(bShowBeam)
     {
+        // Physical centimetres keep the subtle flowing threads the same size
+        // as the ray shortens at walls; GPU time drives motion without CPU particles.
+        if(Kind==TacticalDeviceVariants::BlessedLaser)Beam->SetCustomPrimitiveDataFloat(1,Length);
         Beam->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(End-Origin).ToQuat(),(Origin+End)*.5f,
             FVector(.004f,.004f,Length/100.f)));
     }
@@ -336,7 +355,7 @@ void AFPSGAMECharacter::SetGunsmithTactical(const FString& Variant)
 {
     if(!TacticalDevice)
     {
-        if(Variant!=TEXT("laser")&&Variant!=TEXT("flashlight"))return;
+        if(!TacticalDeviceVariants::IsLaser(Variant)&&Variant!=TEXT("flashlight"))return;
         TacticalDevice=NewObject<UTacticalDeviceComponent>(this,TEXT("TacticalDevice"));TacticalDevice->RegisterComponent();
     }
     const FString Family=IsRSH12Weapon()?TEXT("RSH12"):IsHK416Weapon()?TEXT("HK416"):IsPitViperWeapon()?TEXT("PitViper2011"):IsG18Weapon()?TEXT("G18"):LMG201WeaponAssets::Matches(AKMViewmodel)?TEXT("LMG201"):SVDWeaponAssets::Matches(AKMViewmodel)?TEXT("SVD"):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?TEXT("PKM"):A762WeaponAssets::Matches(AKMViewmodel)?TEXT("A762"):bUseM16?TEXT("M16"):bUseASH12?TEXT("ASH12"):bUseDanWesson715?TEXT("DanWesson715"):bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");

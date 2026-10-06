@@ -13,6 +13,7 @@
 #include "../Characters/FPSPlayerBodyTypes.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/RSH12MuzzleAssets.h"
 #include "Animation/AnimSequence.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -58,7 +59,9 @@ FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
     // 刚性装备挂件的图标就是佩戴网格本身：键同样是定义。
     if(ColdSteelEquipmentIconMesh(I).IsValid())return I.Definition;
     const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);TArray<FString> Names;Parts.GetKeys(Names);Names.Sort();
-    FString Result=I.Definition;for(const auto& N:Names)Result+=TEXT("|")+N+TEXT("=")+Parts[N];return Result;
+    FString Result=I.Definition;
+    if(I.Definition==TEXT("ue_rsh12"))Result+=TEXT("|barrel_frame=2|mechanism=1");
+    for(const auto& N:Names)Result+=TEXT("|")+N+TEXT("=")+Parts[N];return Result;
 }
 void UColdSteelWeaponIcons::Request(const FColdSteelItem& I)
 {
@@ -199,8 +202,16 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         if(Name.Contains(TEXT("manny"))||HandMaterial||Name.Contains(TEXT("glove"))||Name.Contains(TEXT("sleeve"))||Name==TEXT("skin"))Mesh->ShowMaterialSection(M,S,false,L);
     }
     const FVector Pivot=Mesh->GetSocketLocation(TEXT("WPN_SOCKET_Magazine"));
-    const FVector Barrel=(Mesh->GetSocketLocation(TEXT("WPN_FrontSight"))-Mesh->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
-    const FVector Up=Mesh->GetSocketLocation(TEXT("WPN_RearSight"))-Pivot;
+    FVector Barrel=(Mesh->GetSocketLocation(TEXT("WPN_FrontSight"))-Mesh->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
+    FVector Up=Mesh->GetSocketLocation(TEXT("WPN_RearSight"))-Pivot;
+    if(I.Definition==TEXT("ue_rsh12")){
+        // RSH sight anchors frame ADS; the fitted muzzle basis follows the actual
+        // barrel and receiver rails. Use that physical frame for horizontal art.
+        const FTransform Root=Mesh->GetSocketTransform(TEXT("WPN_root"));
+        const FQuat BarrelFrame=RSH12MuzzleAssets::Mount().GetRotation();
+        Barrel=Root.TransformVectorNoScale(BarrelFrame.GetAxisX()).GetSafeNormal();
+        Up=Root.TransformVectorNoScale(BarrelFrame.GetAxisZ()).GetSafeNormal();
+    }
     if(!Barrel.IsNearlyZero()){
         const FQuat Align=FRotationMatrix::MakeFromXZ(-FVector::RightVector,FVector::UpVector).ToQuat()*FRotationMatrix::MakeFromXZ(Barrel,Up).ToQuat().Inverse();
         FTransform Pose=Mesh->GetComponentTransform();Pose.SetLocation(FVector(500,0,0)+Align.RotateVector(Pose.GetLocation()-Pivot));Pose.SetRotation(Align*Pose.GetRotation());Mesh->SetWorldTransform(Pose);

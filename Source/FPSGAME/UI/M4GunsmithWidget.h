@@ -145,7 +145,7 @@ private:
     bool bCompareFactory=false;
     FDelegateHandle GunsmithHandle,ProfileHandle;
     FSlateBrush BackgroundBrush,PreviewBrush,PanelBrush,RowBrush;
-    FButtonStyle NormalButton,SelectedButton,PrimaryButton,ExclusiveButton;
+    FButtonStyle NormalButton,SelectedButton,PrimaryButton,ExclusiveButton,LegendaryButton;
     UPROPERTY() TObjectPtr<class UTexture2D> BackgroundTexture;
     UPROPERTY() TObjectPtr<class UTextureRenderTarget2D> PreviewTarget;
     UPROPERTY() TObjectPtr<class UTextureRenderTarget2D> PreviewCoverageTarget;

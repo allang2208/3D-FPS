@@ -1,5 +1,5 @@
 """Replace only the three requested G18 meshes and their option icons."""
-import unreal as u,json,hashlib,shutil
+import unreal as u,json,hashlib,runpy,shutil
 from pathlib import Path
 O=Path(__file__).parent;S=O.parent/'G18Integration20260929';P=O.parents[1]
 A=u.AssetToolsHelpers.get_asset_tools();E=u.EditorAssetLibrary
@@ -15,11 +15,14 @@ def load(path):
     if not obj:raise RuntimeError('Missing material '+path)
     return obj
 
+holo_helpers=runpy.run_path(str(P/'Tools/Weapons/g18_holographic_material.py'))
+holo_body=holo_helpers['ensure_holo_body'](save)
+holo_helpers['register_wet_material'](holo_body,save)
 fix=json.loads((O/'authoring.json').read_text())
 materials={
  'M_G18_Magazine':ROOT+'/Materials/M_G18_SourcePBR',
  'M_G18_AttachmentFinish':ROOT+'/Materials/M_G18_AttachmentFinish',
- 'M_HoloBody':ROOT+'/Materials/M_G18_AttachmentFinish',
+ 'M_HoloBody':holo_body.get_path_name(),
  'M_HoloReticle':'/Game/Weapons/M4Holographic/M_HoloReticle',
  'M_Panoramic_Glass':'/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass',
  'M_Panoramic_Reticle':'/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle',

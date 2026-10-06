@@ -564,7 +564,16 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     AKMViewmodel->SetRelativeRotation(RifleHipFraming.Rotation(GetViewmodelBaseRotation().Quaternion()));
     if (bPresentationOnly)
     {
-        // Callers pose the preview explicitly. No combat clips, grip families, audio or FX are needed.
+        // RSH's mesh keeps the shared 715 bind pose. Its private base layer is
+        // part of the mechanical assembly, including in icons and pickups.
+        WeaponGripProfiles.Reset();
+        if (IsRSH12Weapon())
+        {
+            TMap<TObjectPtr<UAnimSequence>, TObjectPtr<UAnimSequence>> BaseSupport;
+            InitializeWeaponGripFamily(TEXT("base"), BaseSupport);
+            AimAnimation = IdleAnimation;
+        }
+        // Callers pose the preview explicitly; combat, audio and FX stay unloaded.
         AKMViewmodel->SetAnimationMode(EAnimationMode::AnimationSingleNode);
         return;
     }
@@ -1667,16 +1676,20 @@ bool AFPSGAMECharacter::TriggerRifleStockMelee()
     SetAimingState(false);
     ExitSprintForWeapon();
     bFireHeld=false;bPistolShotPending=false;
-    // 组件按实际 clip 长度换算时钟（作者源改节奏不需要同步改代码）。
-    if(QuickCombatPistol)QuickCombatPistol->ConfigureForRifle(Clip->GetPlayLength(),true);
+    // The M4's 0.9 s source has a long recovery. Retain every authored pose,
+    // but use the same shortened playback clock for contact, busy time and blending.
+    // bUsingM4Infima is shared by other weapons, so identify this clip family.
+    const float PlayRate=Clip->GetName().StartsWith(TEXT("A_M4_QuickCombat_"))?1.5f:1.f;
+    const float PlaybackDuration=Clip->GetPlayLength()/PlayRate;
+    if(QuickCombatPistol)QuickCombatPistol->ConfigureForRifle(PlaybackDuration,true);
     const bool bStarted=QuickCombatPistol&&QuickCombatPistol->BeginAction();
     if(bStarted)
     {
         WeaponState=EAKMWeaponState::QuickCombat;
         WeaponActionStartedAt=GetWorld()->GetTimeSeconds();
         WeaponStateElapsed=0.0f;
-        WeaponStateDuration=Clip->GetPlayLength();
-        PlayWeaponAnimation(Clip,false);
+        WeaponStateDuration=PlaybackDuration;
+        PlayWeaponAnimation(Clip,false,PlayRate);
         if(bUseASH12&&GunplayAnimation)
         {
             // The contact sampler can run on the first update after a hitch.
@@ -1688,9 +1701,9 @@ bool AFPSGAMECharacter::TriggerRifleStockMelee()
     }
     static const TCHAR* const GripNames[]={TEXT("Base"),TEXT("Drum"),TEXT("Angled"),TEXT("Vertical"),TEXT("Canted"),TEXT("Prism")};
     const TCHAR* WeaponName=bUseASH12?TEXT("ASH12"):bUseQBZ191?TEXT("QBZ191"):bUsingM4Infima?TEXT("M4"):TEXT("AKM");
-    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 步枪砸击%s 枪型=%s（clip=%s）握把=%s 总长=%.3f"),
-        bStarted?TEXT("开始"):TEXT("启动失败"),WeaponName,bUsingM4Infima?TEXT("本枪"):TEXT("M4 回退"),
-        GripNames[static_cast<int32>(Grip)],Clip->GetPlayLength());
+    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 步枪砸击%s 枪型=%s（clip=%s）握把=%s 总长=%.3f 播放倍率=%.2f"),
+        bStarted?TEXT("开始"):TEXT("启动失败"),WeaponName,*Clip->GetName(),
+        GripNames[static_cast<int32>(Grip)],PlaybackDuration,PlayRate);
     if(bStarted&&bUseASH12)
     {
         const float Contact=Clip->GetPlayLength()*QuickCombatRifleMotion::M4ReferenceContactFraction;

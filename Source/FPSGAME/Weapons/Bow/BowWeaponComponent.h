@@ -53,6 +53,7 @@ class FPSGAME_API UBowWeaponComponent : public UActorComponent
 {
     GENERATED_BODY()
     friend class UFPSPlayerBodyComponent;
+    friend class UFPSConsumableAuditCommandlet;
 
 public:
     UBowWeaponComponent();

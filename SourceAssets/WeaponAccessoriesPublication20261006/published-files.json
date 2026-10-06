@@ -1,0 +1,535 @@
+{
+  "base": "62d521b0e0a1769bc2528eb74b70e03a1320e33c",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 126297,
+      "partial": false
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 18655,
+      "partial": true
+    },
+    {
+      "path": "Content/ColdSteelData/gunsmith.json",
+      "bytes": 265770,
+      "partial": true
+    },
+    {
+      "path": "Docs/Items/consumable-weapon-handoff-20261006.md",
+      "bytes": 3912,
+      "partial": false
+    },
+    {
+      "path": "Docs/Weapons/adjustable-tactical-stock-20261006.md",
+      "bytes": 12303,
+      "partial": false
+    },
+    {
+      "path": "Docs/Weapons/blessed-laser-20261006.md",
+      "bytes": 12490,
+      "partial": false
+    },
+    {
+      "path": "Docs/Weapons/g18-holographic-transparency-20261005.md",
+      "bytes": 2781,
+      "partial": false
+    },
+    {
+      "path": "Docs/Weapons/m4-quick-melee-timing-20261006.md",
+      "bytes": 2963,
+      "partial": false
+    },
+    {
+      "path": "Docs/Weapons/rsh12-inventory-icon-20261006.md",
+      "bytes": 5414,
+      "partial": false
+    },
+    {
+      "path": "Docs/Weapons/rsh12-mechanical-presentation-20261006.md",
+      "bytes": 3125,
+      "partial": false
+    },
+    {
+      "path": "Docs/Weapons/thermal-scope-20261006.md",
+      "bytes": 6382,
+      "partial": false
+    },
+    {
+      "path": "Docs/Weapons/weapon-accessories-publication-20261006.md",
+      "bytes": 3595,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "bytes": 233027,
+      "partial": true
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "bytes": 48235,
+      "partial": true
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEConsumableUse.cpp",
+      "bytes": 2697,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Items/FPSConsumableAuditCommandlet.cpp",
+      "bytes": 9447,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Items/FPSConsumableAuditCommandlet.h",
+      "bytes": 345,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Items/FPSPotionUseComponent.cpp",
+      "bytes": 21054,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Items/FPSPotionUseComponent.h",
+      "bytes": 3873,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "bytes": 6021,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+      "bytes": 21531,
+      "partial": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+      "bytes": 11838,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+      "bytes": 35786,
+      "partial": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+      "bytes": 33263,
+      "partial": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithWidget.h",
+      "bytes": 8499,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+      "bytes": 15666,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+      "bytes": 3019,
+      "partial": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/LegendaryTacticalStock.h",
+      "bytes": 1192,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+      "bytes": 44200,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+      "bytes": 7464,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "bytes": 15930,
+      "partial": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SkeletonStockVisual.cpp",
+      "bytes": 10583,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h",
+      "bytes": 4202,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalDeviceComponent.cpp",
+      "bytes": 21555,
+      "partial": true
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalDeviceComponent.h",
+      "bytes": 2266,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalDeviceVariants.h",
+      "bytes": 1495,
+      "partial": false
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.h",
+      "bytes": 3414,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/BlessedLaser20261006/Model/MountRepair/Inputs/authoring-v1.json",
+      "bytes": 22496,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/BlessedLaser20261006/Model/MountRepair/surface_plan.json",
+      "bytes": 18048,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/G18AttachmentRepair20260930/import_repair.py",
+      "bytes": 4788,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/G18HolographicTransparency20261005/apply_materials.py",
+      "bytes": 3106,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/G18HolographicTransparency20261005/save_background.ps1",
+      "bytes": 1669,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/G18Integration20260929/import_assets.py",
+      "bytes": 16339,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/G18OpticSeatReview20261005/README.md",
+      "bytes": 2059,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/G18OpticSeatReview20261005/export_current_assets.py",
+      "bytes": 1160,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/G18OpticSeatReview20261005/inspect_seat.py",
+      "bytes": 5602,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/G18OpticSeatReview20261005/read_current_assets.py",
+      "bytes": 2543,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/G18OpticSeatReview20261005/read_export_geometry.py",
+      "bytes": 1144,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/G18OpticSeatReview20261005/read_mount_geometry.py",
+      "bytes": 2460,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/RSH12Integration20261003/prepare_delivery.py",
+      "bytes": 882,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/RSH12InventoryIcon20261006/export_icon.ps1",
+      "bytes": 1447,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/RSH12InventoryIcon20261006/import_icon.py",
+      "bytes": 2531,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/RSH12Mechanics20261006/compare_saved.py",
+      "bytes": 3684,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/RSH12Mechanics20261006/diagnose.py",
+      "bytes": 1904,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/RSH12Mechanics20261006/read_active_assets.py",
+      "bytes": 3219,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/RSH12Mechanics20261006/reload_diagnosis.py",
+      "bytes": 2749,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/WeaponAccessoriesPublication20261006/archive-manifest.json",
+      "bytes": 102778,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/WeaponAccessoriesPublication20261006/archive.ps1",
+      "bytes": 4198,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/WeaponAccessoriesPublication20261006/prepare_index.py",
+      "bytes": 12311,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/WeaponAccessoriesPublication20261006/review_publication.py",
+      "bytes": 4294,
+      "partial": false
+    },
+    {
+      "path": "SourceAssets/WeaponAccessoriesPublication20261006/update_skills.py",
+      "bytes": 8405,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/author_emitter.py",
+      "bytes": 10494,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/bake_aperture_mask.py",
+      "bytes": 2652,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/blessed_laser_beam.hlsl",
+      "bytes": 1083,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/blessed_laser_dot.hlsl",
+      "bytes": 213,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/create_materials.py",
+      "bytes": 5256,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/export_host_sources.py",
+      "bytes": 2247,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/export_mount_sources.py",
+      "bytes": 2775,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/fit_mounts.py",
+      "bytes": 13079,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/import_background.ps1",
+      "bytes": 1642,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/import_emitter.py",
+      "bytes": 8488,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/import_icon.py",
+      "bytes": 1415,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/import_mounts_background.ps1",
+      "bytes": 1573,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/import_mounts_v2.py",
+      "bytes": 4877,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/inspect_laser_materials.py",
+      "bytes": 2933,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/inspect_mounts.py",
+      "bytes": 1742,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/measure_host_contacts.py",
+      "bytes": 3736,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/plan_mount_surfaces.py",
+      "bytes": 1311,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/read_hk416_contact.py",
+      "bytes": 1134,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/render_icon_source.py",
+      "bytes": 1738,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/repair_laser_materials.py",
+      "bytes": 6767,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/BlessedLaser20261006/view_mount_contacts.py",
+      "bytes": 2795,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/LegendaryStock20261006/author_model.py",
+      "bytes": 29823,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/LegendaryStock20261006/build_native.ps1",
+      "bytes": 1223,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/LegendaryStock20261006/export_fitting_sources.py",
+      "bytes": 3082,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/LegendaryStock20261006/fit_models.py",
+      "bytes": 8010,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/LegendaryStock20261006/import_background.ps1",
+      "bytes": 2098,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/LegendaryStock20261006/import_fitted.py",
+      "bytes": 3407,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/LegendaryStock20261006/import_icon.py",
+      "bytes": 1767,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/LegendaryStock20261006/import_model.py",
+      "bytes": 9312,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/LegendaryStock20261006/import_refinement.py",
+      "bytes": 1016,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/LegendaryStock20261006/install_catalog.py",
+      "bytes": 3802,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/LegendaryStock20261006/render_icon_source.py",
+      "bytes": 2044,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/LegendaryStock20261006/run_asset_stage.ps1",
+      "bytes": 2073,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/M4QuickMeleeTiming20261006/build_native.ps1",
+      "bytes": 1143,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/M4QuickMeleeTiming20261006/read_timing.py",
+      "bytes": 1658,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/ThermalScope20261006/author_model.py",
+      "bytes": 15048,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/ThermalScope20261006/import_background.ps1",
+      "bytes": 1634,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/ThermalScope20261006/import_model.py",
+      "bytes": 6357,
+      "partial": false
+    },
+    {
+      "path": "Tools/Weapons/g18_holographic_material.py",
+      "bytes": 3272,
+      "partial": false
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/food-and-drink-grasp.md",
+      "bytes": 3219,
+      "partial": false
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/quick-melee-contact-recovery.md",
+      "bytes": 6297,
+      "partial": false
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/SKILL.md",
+      "bytes": 18418,
+      "partial": true
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/attachment-fit-and-emission.md",
+      "bytes": 2297,
+      "partial": false
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/revolver-mechanical-binding.md",
+      "bytes": 3388,
+      "partial": false
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/stocks.md",
+      "bytes": 10254,
+      "partial": false
+    }
+  ]
+}

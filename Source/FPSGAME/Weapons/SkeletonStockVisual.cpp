@@ -1,6 +1,7 @@
 #include "HK416Attachments.h"
 #include "HK416WeaponAssets.h"
 #include "AR416Furniture.h"
+#include "LegendaryTacticalStock.h"
 #include "LMG201Attachments.h"
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
@@ -44,6 +45,41 @@ FTransform ASHCheekRestMount(const USkeletalMesh* Asset)
 void AFPSGAMECharacter::SetGunsmithStock(const FString& Variant)
 {
     if (IsPistolWeapon()) return;
+    if(Variant==LegendaryTacticalStock::Part&&LegendaryTacticalStock::Supports(ActiveInventoryWeaponDefinition)&&bInventoryWeaponReady)
+    {
+        auto* Rifle=AKMViewmodel.Get();auto* Asset=Rifle?Rifle->GetSkeletalMeshAsset():nullptr;
+        if(!Asset)return;
+        bool HasFactorySection=false;
+        for(const auto& Material:Asset->GetMaterials())HasFactorySection|=IsFactoryStock(Material.MaterialSlotName.ToString());
+        if(!HasFactorySection){UE_LOG(LogTemp,Error,TEXT("TACTICAL_STOCK: factory section missing on %s"),*Asset->GetPathName());return;}
+        auto* FittedStockMesh=LoadObject<UStaticMesh>(nullptr,*LegendaryTacticalStock::MeshPath(ActiveInventoryWeaponDefinition));
+        if(!FittedStockMesh){UE_LOG(LogTemp,Error,TEXT("TACTICAL_STOCK: fitted mesh missing for %s"),*ActiveInventoryWeaponDefinition);return;}
+        if(!StockAttachment)
+        {
+            StockAttachment=NewObject<UStaticMeshComponent>(this,TEXT("SkeletonStock"));
+            StockAttachment->SetupAttachment(Rifle,TEXT("WPN_root"));
+            StockAttachment->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            StockAttachment->SetCastShadow(false);StockAttachment->bReceivesDecals=false;
+            StockAttachment->RegisterComponent();
+        }
+        else StockAttachment->AttachToComponent(Rifle,FAttachmentTransformRules::KeepRelativeTransform,TEXT("WPN_root"));
+        if(StockAttachment->GetStaticMesh()!=FittedStockMesh)StockAttachment->EmptyOverrideMaterials();
+        StockAttachment->SetStaticMesh(FittedStockMesh);
+        StockAttachment->SetFirstPersonPrimitiveType(Rifle->FirstPersonPrimitiveType);
+        StockAttachment->SetOnlyOwnerSee(Rifle->bOnlyOwnerSee);
+        // All nine native root frames inherit 100x FBX scale. Fitting geometry
+        // is already in that bone's local frame, including HK416's conversion.
+        StockMount=FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f));
+        StockAttachment->SetRelativeTransform(StockMount);StockAttachment->SetVisibility(true);bSkeletonStock=true;
+        if(const auto* Render=Asset->GetResourceForRendering())
+            for(int32 L=0;L<Render->LODRenderData.Num();++L)
+                for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
+                {
+                    const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
+                    if(Asset->GetMaterials().IsValidIndex(M)&&IsFactoryStock(Asset->GetMaterials()[M].MaterialSlotName.ToString()))Rifle->ShowMaterialSection(M,S,false,L);
+                }
+        return;
+    }
     if (IsHK416Weapon())
     {
         const bool Enabled=bInventoryWeaponReady&&(Variant==HK416WeaponAssets::StockPart||Variant==TEXT("skeleton")||Variant==TEXT("core_stock")||Variant==TEXT("qr_performance")||Variant==TEXT("tactical_telescopic"));

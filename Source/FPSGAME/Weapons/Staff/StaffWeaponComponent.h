@@ -24,6 +24,7 @@ class FPSGAME_API UStaffWeaponComponent : public UActorComponent
 {
     GENERATED_BODY()
     friend class UFPSPlayerBodyComponent;
+    friend class UFPSConsumableAuditCommandlet;
 public:
     UStaffWeaponComponent();
     virtual void BeginPlay() override;

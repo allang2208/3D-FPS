@@ -79,6 +79,7 @@ class FPSGAME_API UPistolDualWieldComponent : public UActorComponent
 {
     GENERATED_BODY()
     friend class FDualPistolQuickCombatRegression;
+    friend class UFPSConsumableAuditCommandlet;
 public:
     UPistolDualWieldComponent();
     bool IsActive() const { return bActive; }

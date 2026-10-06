@@ -1,4 +1,5 @@
 #include "PistolDualWieldComponent.h"
+#include "TacticalDeviceVariants.h"
 #include "G18WeaponAssets.h"
 #include "PitViper2011WeaponAssets.h"
 #include "PitViper2011SICompensator.h"
@@ -26,6 +27,7 @@
 #include "WeaponReloadStages.h"
 #include "TacticalDeviceComponent.h"
 #include "../Skills/FPSCastingMeshComponent.h"
+#include "../Items/FPSPotionUseComponent.h"
 #include "../Skills/FPSQuickCombatComponent.h"
 #include "QuickCombatRecovery.h"
 #include "DualPistolQuickCombatMotion.h"
@@ -466,7 +468,7 @@ FString UPistolDualWieldComponent::QuickCombatClipKind(int32 Side,bool LeftStrik
            (H.Item.Definition==RSH12WeaponAssets::Definition && Muzzle==TEXT("rsh12_heavy_suppressor")))Kind+=TEXT("_long");
         else if(Optic==TEXT("holographic") || Optic==TEXT("panoramic_red_dot") || Optic==TEXT("eoth_holographic")
             || (H.Item.Definition==RSH12WeaponAssets::Definition && RSH12OpticAssets::IsSquare(Optic))
-            || Tactical==TEXT("laser") || Tactical==TEXT("flashlight"))Kind+=TEXT("_fitted");
+            || TacticalDeviceVariants::IsLaser(Tactical) || Tactical==TEXT("flashlight"))Kind+=TEXT("_fitted");
     }
     if(!H.Revolver && H.Rounds==0)Kind+=TEXT("_empty");
     return Kind;
@@ -675,17 +677,21 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
     auto& H=Hands[Index];if(!H.Mesh || !H.Anim)return;
     H.Anim->GripProfile=H.Action?H.PoseProfiles.FindRef(H.ActionPoseProfile).Get():nullptr;
     if(!H.Anim->GripProfile && H.Item.Definition==RSH12WeaponAssets::Definition)H.Anim->GripProfile=H.PoseProfiles.FindRef(TEXT("base")).Get();
-    // Quick melee occupies the left hand, but it continues holding its gun.
-    // Only spell casting uses the hidden off-hand weapon presentation.
+    // Consumables lower the equipped left rig before hiding its weapon, then
+    // return to that same lowered grip before raising it back into view.
     const bool Cast=Player->IsCastingWithLeftHand() && !IsQuickCombatActive();
+    const auto* Consumable=Index==1?Player->FindComponentByClass<UFPSPotionUseComponent>():nullptr;
+    const bool Stowing=Consumable&&Consumable->IsStowingOffhand();
+    const float LowerWeight=Stowing?Consumable->OffhandLowerWeight():0.f;
+    const bool HideWeapon=Stowing?Consumable->IsOffhandWeaponHidden():Cast;
     const bool Visible=bActive && !Player->IsTraversing();
     H.Mesh->SetVisibility(Visible);
     if(Index==1)
     {
-        if(Cast)H.Mesh->HideBoneByName(TEXT("WPN_root"),EPhysBodyOp::PBO_None);
+        if(HideWeapon)H.Mesh->HideBoneByName(TEXT("WPN_root"),EPhysBodyOp::PBO_None);
         else H.Mesh->UnHideBoneByName(TEXT("WPN_root"));
-        for(auto& C:LeftAttachments)if(C)C->SetVisibility(Visible && !Cast);
-        if(H.Tactical)H.Tactical->SetPresentationHidden(Cast || !Visible);
+        for(auto& C:LeftAttachments)if(C)C->SetVisibility(Visible && !HideWeapon);
+        if(H.Tactical)H.Tactical->SetPresentationHidden(HideWeapon || !Visible);
     }
     const bool Running=Player->IsSprinting() && !Player->bWeaponJumpAirborne && Player->GetCharacterMovement()->IsMovingOnGround()
         && Player->HorizontalSpeed()>15.f && !Player->IsSliding() && !H.Action && !Cast;
@@ -713,8 +719,9 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
         QuickCombatRecovery::RemainingWeight(H.ActionTime,H.Action->GetPlayLength(),DualPistolQuickCombatMotion::IdleHandoffStart));
     H.Anim->bDualPistolAim=true;H.Anim->DualPistolSide=Index;
     H.Anim->DualPistolAimTargetWorld=AimTargetWorld;
-    H.Anim->DualPistolAimAlpha=Visible && !(Index==1 && Cast)
-        ?(1-H.Sprint)*(1-Player->NearWallAlpha)*(1-Player->DodgePresentationWeight())*(FireAction?1.f:1-H.Anim->ActionAlpha):0.f;
+    const float LeftAimWeight=Index!=1?1.f:(Stowing?1.f-LowerWeight:(Cast?0.f:1.f));
+    H.Anim->DualPistolAimAlpha=Visible
+        ?LeftAimWeight*(1-H.Sprint)*(1-Player->NearWallAlpha)*(1-Player->DodgePresentationWeight())*(FireAction?1.f:1-H.Anim->ActionAlpha):0.f;
     H.Anim->bRevolver=H.Revolver;H.Anim->RevolverLiveRounds=H.Rounds;H.Anim->RevolverCartridges=H.Cases;
     // Ammo switching commits at insertion. Hide the released geometry during
     // that interval without prematurely spending/refunding the old live rounds.
@@ -747,6 +754,13 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
     Player->ApplyWeaponCrouchPose(Offset,PoseRotation,true,Index==1);
     const FTransform JumpPose=Player->GetWeaponJumpTransform(EFirstPersonJumpRig::Pistol,Index==1);
     Offset=JumpPose.TransformPosition(Offset);PoseRotation=JumpPose.GetRotation()*PoseRotation;
+    if(Stowing)
+    {
+        // Camera-space rigid motion preserves the pistol/hand contact and all
+        // native arm segments. The consumable layer solves above this base.
+        Offset+=FVector(-7,-3,-42)*LowerWeight;
+        PoseRotation=FRotator(-18.f*LowerWeight,0,0).Quaternion()*PoseRotation;
+    }
     H.Mesh->SetRelativeLocation(Offset);
     H.Mesh->SetRelativeRotation(PoseRotation);
 }

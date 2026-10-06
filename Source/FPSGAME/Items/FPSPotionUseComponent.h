@@ -21,10 +21,14 @@ class FPSGAME_API UFPSPotionUseComponent : public UActorComponent
 {
     GENERATED_BODY()
     friend class UFPSPlayerBodyComponent;
+    friend class UFPSConsumableAuditCommandlet;
 public:
     UFPSPotionUseComponent();
     bool TryBegin(const FString& ItemId,const FString& Definition);
     bool IsActive() const { return bActive; }
+    bool IsStowingOffhand() const { return bActive && bStowOffhand; }
+    float OffhandLowerWeight() const;
+    bool IsOffhandWeaponHidden() const;
     void Cancel();
     void ApplyHandPose(UFPSCastingMeshComponent& Mesh);
     static bool IsPotion(const FString& Definition);
@@ -82,4 +86,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UStaticMesh> SodaMesh;
     FPotionUseMotion SodaMotion;
     bool bSoda=false;
+    bool bStowOffhand=false;
+    static constexpr float OffhandLowerSeconds=.28f;
+    static constexpr float OffhandRaiseSeconds=.26f;
 };
