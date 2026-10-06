@@ -35,6 +35,8 @@ struct FFPSWeaponFXParticle
     uint8 Kind = 0;
     bool bActive = false;
     bool bBounced = false;
+    bool bReloadDrop = false;
+    bool bSettled = false;
     uint64 BirthFrame = 0;
 };
 
@@ -96,6 +98,8 @@ public:
     bool IndependentSuppressed=false;
     bool bUseCharacterMuzzle=true;
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnShot(bool bADS);
+    /** Detached reload geometry; Frame uses centimetres and unit mesh scale. */
+    void OnReloadCartridge(UStaticMesh* Geometry,const FTransform& Frame,const FVector& Velocity,float InitialAge);
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnImpact(const FHitResult& Hit);
     void OnTracerSegment(const FVector& Start,const FVector& End,bool bConverged=false);
     /** Flying round: refreshes (or opens) the streak owned by RoundId. */

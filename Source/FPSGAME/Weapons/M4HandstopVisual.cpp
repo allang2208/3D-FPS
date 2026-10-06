@@ -17,6 +17,7 @@
 #include "Engine/SkeletalMesh.h"
 #include "Animation/AnimSequence.h"
 #include "VerticalGripAnimationFamily.h"
+#include "RSH12ForegripAssets.h"
 
 void AFPSGAMECharacter::InitializePrismGripAnimations()
 {
@@ -54,6 +55,15 @@ void AFPSGAMECharacter::InitializePrismGripAnimations()
 
 void AFPSGAMECharacter::SetGunsmithHandstop(const FString& Variant)
 {
+    if(IsRSH12Weapon())
+    {
+        AngledForegrip=RSH12ForegripAssets::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bInventoryWeaponReady&&Variant==TEXT("angled_foregrip"));
+        CantedForegrip=RSH12ForegripAssets::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bInventoryWeaponReady&&Variant==TEXT("canted_foregrip"));
+        const bool Tactical=Variant==TEXT("tactical_vertical_foregrip");
+        VerticalForegrip=RSH12ForegripAssets::Configure(this,AKMViewmodel,VerticalForegrip,Tactical?TEXT("tactical_vertical"):TEXT("vertical"),bInventoryWeaponReady&&(Tactical||Variant==TEXT("vertical_foregrip")));
+        PrismHandstop=RSH12ForegripAssets::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),bInventoryWeaponReady&&Variant==TEXT("prism_handstop"));
+        return;
+    }
     SetAngledForegrip(Variant==TEXT("angled_foregrip"));
     const bool bTacticalVertical=Variant==TEXT("tactical_vertical_foregrip");
     // Both upright grips use this rifle's existing contact and return animation

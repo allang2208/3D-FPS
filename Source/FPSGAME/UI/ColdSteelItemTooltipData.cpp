@@ -313,6 +313,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             else {
             Delta(C,ColdSteelWeaponText::BaseDamageModifier,S.Damage-B.Damage,TEXT(""));Delta(C,ColdSteelWeaponText::Capacity,S.Capacity-B.Capacity,TEXT("发"));
             Delta(C,ColdSteelWeaponText::ADS,(S.ADS-B.ADS)*1000,TEXT("ms"),true);Delta(C,TEXT("射击间隔"),(S.Interval-B.Interval)*1000,TEXT("ms"),true);
+            Delta(C,ColdSteelWeaponText::EquipSpeedBonus,(S.EquipSpeedBonus-B.EquipSpeedBonus)*100.,TEXT("%"));
             Delta(C,ColdSteelWeaponText::Reload,(S.Reload-B.Reload)*1000,TEXT("ms"),true);Delta(C,ColdSteelWeaponText::EmptyReload,(S.EmptyReload-B.EmptyReload)*1000,TEXT("ms"),true);
             Delta(C,ColdSteelWeaponText::RecoilIndex,S.Recoil-B.Recoil,TEXT(""),true);Delta(C,ColdSteelWeaponText::Stability,S.Handling.Stability-B.Handling.Stability,TEXT(""));
             Delta(C,TEXT("枪械稳定性·回稳90%"),S.Handling.ADSRecoveryMilliseconds()-B.Handling.ADSRecoveryMilliseconds(),TEXT("ms"),true);
@@ -530,6 +531,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         }
         Row(Main,ColdSteelWeaponText::Reload,N(ColdSteelWeaponStats::Reload(&I,Model,S.Reload))+TEXT(" s"));Row(Main,ColdSteelWeaponText::EmptyReload,N(ColdSteelWeaponStats::Reload(&I,Model,S.EmptyReload))+TEXT(" s"));
         Row(Main,ColdSteelWeaponText::ADS,N(FMath::RoundToInt(S.ADS*1000))+TEXT(" ms"));Row(Main,ColdSteelWeaponText::RecoilIndex,N(S.Recoil));Row(Main,ColdSteelWeaponText::Stability,N(S.Handling.Stability)+TEXT(" /100"));
+        if(!FMath::IsNearlyZero(S.EquipSpeedBonus))Row(Main,ColdSteelWeaponText::EquipSpeedBonus,N(S.EquipSpeedBonus*100.)+TEXT("%"));
         Row(Main,TEXT("首发上跳"),FString::Printf(TEXT("%.3f°"),S.Handling.FirstShotDegrees()));
         Row(Main,TEXT("连射上跳/发"),FString::Printf(TEXT("%.3f°"),S.Handling.MaxVerticalDegrees()));
         Row(Main,TEXT("ADS首发水平/发"),FString::Printf(TEXT("%.3f°"),S.Handling.FirstHorizontalDegrees()));

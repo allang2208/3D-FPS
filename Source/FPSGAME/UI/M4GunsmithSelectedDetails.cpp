@@ -112,6 +112,11 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     }
 
     auto WithoutPart = Gunsmith->Draft();
+    if(Gunsmith->Definition()==TEXT("ue_rsh12")&&SelectedCategory==TEXT("underbarrel")&&Id!=TEXT("false"))
+        ModificationList->AddSlot().AutoHeight().Padding(0,0,0,10)
+            [Paragraph(Item&&Gunsmith->HasUnsupportedForegrip(*Item)
+                ?TEXT("当前双持：前握把增益不生效，减益仍生效；保留单手握姿。")
+                :TEXT("单持使用前握把支撑；双持时仅保留前握把的减益。"),12,GunsmithUI::Secondary)];
     WithoutPart.Remove(SelectedCategory);
     const auto Before = Item?Gunsmith->CalculateItem(*Item,WithoutPart):Gunsmith->Calculate(Gunsmith->Definition(),WithoutPart);
     const auto After = Item?Gunsmith->CalculateItem(*Item,Gunsmith->Draft()):Gunsmith->Calculate(Gunsmith->Definition(),Gunsmith->Draft());
@@ -213,6 +218,8 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     // ADS row reports the catalog's 开镜耗时 percent unchanged.
     auto Ratio=[&](double Was,double Now){return Was>.00001?(Now/Was-1.)*100.:0.;};
     AddValue(ColdSteelWeaponText::ADS,Before.ADS*1000,After.ADS*1000,0,TEXT(" ms"),true,Option->ADS*100.);
+    if(!FMath::IsNearlyZero(Before.EquipSpeedBonus)||!FMath::IsNearlyZero(After.EquipSpeedBonus))
+        AddValue(ColdSteelWeaponText::EquipSpeedBonus,Before.EquipSpeedBonus*100.,After.EquipSpeedBonus*100.,0,TEXT("%"),false,Option->EquipSpeedBonus*100.);
     AddValue(ColdSteelWeaponText::Capacity,Before.Capacity,After.Capacity,0,TEXT(" 发"));
     // Shared reload stack (敏捷 × 快手 × 附魔 × 配件); the ratio stays the attachment's own effect.
     AddValue(ColdSteelWeaponText::Reload,ColdSteelWeaponStats::Reload(Item,Profile,Before.Reload),ColdSteelWeaponStats::Reload(Item,Profile,After.Reload),2,TEXT(" s"),true,Ratio(Before.Reload,After.Reload));

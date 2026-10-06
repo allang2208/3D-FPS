@@ -18,4 +18,8 @@
 
 ## 保存与构建
 
-制作与接入进行中；实际 UE 保存以本批 `import_receipt.json` 为准，编译以 `build_receipt.json` 为准。未运行游戏测试、试听、截图或验收渲染，由用户确认实际握持和装填观感。
+后台 commandlet 已保存三份网格、三份 Profile 和两份装填器材质，共八个资产；本批 `import_receipt.json` 为 `complete=true`。单持共享 24 条、左右双持各共享 22 条基础动作，没有新增完整动画副本。裸手及装备外观映射已同步保存。FBX 导入报告绑定姿态需重建，并报告重建成功；这不构成游戏视觉验收。
+
+首次基础 DLL 构建因 Unity 合并编译中的全局名称遮蔽失败：`FPSOutfitSecondaryMotion.cpp` 的 `Frequency`、`Parameters` 与引擎参数同名，`ColdSteelFormulaBonuses.cpp` 的 `J` 与另一编译单元的别名同名。只将这三个内部标识符改成专用名称，未改衣物或战斗公式逻辑。初次失败日志保留为 `build_failed_unity_names.log`。
+
+2026-10-04 已通过 `run_pipeline.ps1 -BuildOnly` 完成剩余基础 DLL 编译，未重复导入装填器，未打开编辑器或游戏。`build_receipt.json` 为 `Succeeded`。装填器未运行游戏测试或试听，由用户确认实际观感。单持握位/检视由 [握持修订](rsh12-inspect-grip-20261004.md) 接续，旧单持 Profile 不应覆盖该版。

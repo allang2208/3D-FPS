@@ -1,5 +1,7 @@
 # RSH-12 五发快速装填器
 
+2026-10-04：基础 DLL 已编译成功，见 `build_receipt.json`。单持握位/检视差量已由 `../RSH12InspectGrip20261004` 接续；本目录的单持旧 Profile 不应覆盖该修订。网格、五孔装填器与双持继续使用本目录。
+
 以当前 ContactRepair 的真实吊臂轴心、五孔位置和 V7 裸手为基础，增加 715 原生 `speed_0` 动作的五发装填器变体。默认仍为逐发；枪匠的装填方式可选 `rsh12_speedloader_5`。
 
 ## 制作入口
@@ -9,6 +11,8 @@
 3. `author_speedloader.py -- single/r/l` 调用保留的 `author_base.py`，沿用接触修订，并加入 `loader_geometry.py`、`loader_motion.py`。导出网格、Editable.blend 和共享动作 Profile；不复制完整动画序列。
 4. `import_assets.py` 实际保存三份网格、三份 Profile、两份装填器材质，并保留裸手及装备外观映射。完成状态以本批 `import_receipt.json` 为准。
 5. `install_catalog.py` 只替换枪匠目录中的 RSH 对象，保留其他武器内容及已保存的配件选择；C++ 使用五发容量及原生 715 的装填事件。
+
+`run_pipeline.ps1` 使用项目既有互斥，将后台导入与基础 DLL 构建串行完成；资产已经保存后，用 `-BuildOnly` 只继续构建。遇到编辑器重新打开则停止，不关闭任何编辑器。
 
 装填器前部按五个实测孔位建模，五颗弹药组成刚性弹组；后部保留原生 715 的握持尺寸与几何。单持手和装填器以同一变换进入插入段，释放后弹药留在孔内，左手按原动作抽离。双持沿用各自原生动作，不添加不存在的第三只手。
 

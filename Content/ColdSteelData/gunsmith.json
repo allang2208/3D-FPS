@@ -3694,7 +3694,9 @@
     "optic",
     "muzzle",
     "reargrip",
-    "tactical"
+    "tactical",
+    "underbarrel",
+    "grip_body"
   ],
   "options": {
     "trigger": [
@@ -3752,6 +3754,94 @@
         "description": "使用原厂照门和准星。",
         "effects": [],
         "stats": {}
+      },
+      {
+        "id": "rsh12_square_sight",
+        "name": "方形瞄准镜",
+        "description": "RSH-12 专属方形瞄具，开放式短镜框与低位夹座贴合上导轨，保留环点分划。",
+        "effects": [
+          {
+            "text": "1倍瞄准",
+            "benefit": 0
+          },
+          {
+            "text": "开镜耗时降低5%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.05
+        }
+      },
+      {
+        "id": "panoramic_red_dot",
+        "name": "全景薄框红点瞄具",
+        "description": "1×宽视窗薄框红点，石墨色阳极氧化壳体、独立镀膜镜片和亮度按键。",
+        "effects": [
+          {
+            "text": "1×红点瞄具；开镜耗时不变",
+            "benefit": 0
+          }
+        ],
+        "stats": {}
+      },
+      {
+        "id": "prism_scope_2x",
+        "name": "紧凑型二倍棱镜瞄具",
+        "description": "固定 2× 放大，短镜筒、镀膜镜片与中心十字分划，配窄导轨底座。",
+        "effects": [
+          {
+            "text": "开镜耗时增加5%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "ads_percent": 0.05
+        }
+      },
+      {
+        "id": "lpvo_1_6x",
+        "name": "1–6× 低倍可变瞄准镜",
+        "description": "长镜筒、双环悬臂座与倍率拨杆；瞄准时滚轮调节 1～6×，每格 0.5×。",
+        "effects": [
+          {
+            "text": "开镜耗时增加10%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "ads_percent": 0.1
+        }
+      },
+      {
+        "id": "rsh12_tactical_square_sight",
+        "name": "战术方形瞄准镜",
+        "description": "RSH-12 专属战术方形瞄具，短保护罩、独立透光镜片与环点分划，提供固定低倍瞄准。",
+        "effects": [
+          {
+            "text": "固定1.5倍瞄准",
+            "benefit": 0
+          },
+          {
+            "text": "开镜耗时降低5%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.05
+        }
+      },
+      {
+        "id": "pso1_4x",
+        "name": "PSO-1 四倍瞄准镜",
+        "description": "经典镜筒与尖点分划，保留原侧挂夹具与锁杆，通过薄连接座安装在 RSH-12 固定枪身侧面。",
+        "effects": [
+          {
+            "text": "固定四倍瞄准；开镜耗时不变",
+            "benefit": 0
+          }
+        ],
+        "stats": {}
       }
     ],
     "muzzle": [
@@ -3761,15 +3851,126 @@
         "description": "保留低轴线枪管。",
         "effects": [],
         "stats": {}
+      },
+      {
+        "id": "rsh12_heavy_suppressor",
+        "name": "RSH 大口径消音器",
+        "description": "RSH-12 专属加长方盒消音器，削角外壳带连续侧槽，阶梯接座贴合枪口护罩，抑制枪声和枪口火光。",
+        "effects": [
+          {
+            "text": "后坐力降低30%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高30%",
+            "benefit": 1
+          },
+          {
+            "text": "子弹速度降低20%",
+            "benefit": -1
+          },
+          {
+            "text": "开镜耗时增加10%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.7,
+          "stability_mult": 1.3,
+          "bullet_speed_mult": 0.8,
+          "ads_percent": 0.1
+        }
+      },
+      {
+        "id": "rsh12_large_caliber_brake",
+        "name": "RSH 大口径枪口制退器",
+        "description": "RSH-12 专属短方形制退器，三道侧窗、厚边倒角与阶梯接座延续枪口护罩轮廓。",
+        "effects": [
+          {
+            "text": "后坐力降低30%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高20%",
+            "benefit": 1
+          },
+          {
+            "text": "开镜耗时增加10%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.7,
+          "stability_mult": 1.2,
+          "ads_percent": 0.1
+        },
+        "limited": true
       }
     ],
     "reargrip": [
       {
         "id": "false",
-        "name": "原厂握柄",
-        "description": "保留黑色聚合物握柄。",
+        "name": "原厂纹理",
+        "description": "保留原厂握把表面。",
         "effects": [],
         "stats": {}
+      },
+      {
+        "id": "pistol_grip_granular",
+        "name": "细颗粒防滑纹",
+        "description": "密集细颗粒贴合握把接触面，强调持续握持的稳定。",
+        "effects": [
+          {
+            "text": "枪械稳定性增加15%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "stability_mult": 1.15
+        }
+      },
+      {
+        "id": "pistol_grip_diamond",
+        "name": "橡胶菱形防滑纹",
+        "description": "柔性橡胶与浅菱形纹理，兼顾握持稳定和后坐控制。",
+        "effects": [
+          {
+            "text": "后坐力减少5%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性增加5%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.95,
+          "stability_mult": 1.05
+        }
+      },
+      {
+        "id": "pistol_grip_quickdot",
+        "name": "细点快握防滑纹",
+        "description": "低凸细点表面便于快速调整握姿，以稳定性和后坐控制换取更快开镜。",
+        "effects": [
+          {
+            "text": "开镜耗时减少10%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性降低5%",
+            "benefit": -1
+          },
+          {
+            "text": "后坐力增加5%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.1,
+          "stability_mult": 0.95,
+          "recoil_mult": 1.05
+        }
       }
     ],
     "tactical": [
@@ -3779,6 +3980,218 @@
         "description": "保持原厂导轨外形。",
         "effects": [],
         "stats": {}
+      },
+      {
+        "id": "laser",
+        "name": "红色激光镭射",
+        "description": "80米红色激光，腰射沿发射器方向，开镜时汇聚准星；遇遮挡截断。",
+        "effects": [
+          {
+            "text": "腰射随机散布减少50%",
+            "benefit": 1
+          },
+          {
+            "text": "开镜耗时减少20%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "hip_spread_mult": 0.5,
+          "ads_percent": -0.2
+        }
+      },
+      {
+        "id": "flashlight",
+        "name": "战术手电筒",
+        "description": "持枪时提供前向照明，支持遮挡阴影；收起或卸下时关闭。",
+        "effects": [
+          {
+            "text": "提供前向照明",
+            "benefit": 0
+          }
+        ],
+        "stats": {}
+      }
+    ],
+    "underbarrel": [
+      {
+        "id": "false",
+        "name": "无前握把",
+        "description": "拆除下导轨前握把，恢复原双手持枪姿态。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "canted_foregrip",
+        "name": "45°侧倾握把",
+        "description": "向枪身左下方侧倾，左手外侧包握，使用专用支撑及换弹回握动作。",
+        "effects": [
+          {
+            "text": "后坐力降低15%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性降低15%",
+            "benefit": -1
+          },
+          {
+            "text": "腰射随机散布减少20%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.85,
+          "stability_mult": 0.85,
+          "hip_spread_mult": 0.8
+        }
+      },
+      {
+        "id": "tactical_vertical_foregrip",
+        "name": "战术垂直握把",
+        "description": "收颈式聚合物前握把，带侧面凹区与横向防滑纹，金属夹座适配护木下导轨。",
+        "effects": [
+          {
+            "text": "缩短开镜耗时",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.25
+        }
+      },
+      {
+        "id": "vertical_foregrip",
+        "name": "垂直握把",
+        "description": "直筒式前握把，四指环握与拇指对握，使用专用支撑及换弹回握动作。",
+        "effects": [
+          {
+            "text": "开镜耗时增加5%",
+            "benefit": -1
+          },
+          {
+            "text": "后坐力降低10%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高10%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": 0.05,
+          "recoil_mult": 0.9,
+          "stability_mult": 1.1
+        }
+      },
+      {
+        "id": "prism_handstop",
+        "name": "棱镜阻手器",
+        "description": "棱面短阻手器，带防滑纹理，安装于 RSH-12 下导轨下方。",
+        "effects": [
+          {
+            "text": "开镜耗时减少10%",
+            "benefit": 1
+          },
+          {
+            "text": "后坐力降低5%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高25%",
+            "benefit": 1
+          },
+          {
+            "text": "腰射随机散布减少5%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": -0.1,
+          "recoil_mult": 0.95,
+          "stability_mult": 1.25,
+          "hip_spread_mult": 0.95
+        }
+      },
+      {
+        "id": "angled_foregrip",
+        "name": "共振二代前握把",
+        "description": "紧凑镂空前握把，食指、中指和无名指穿孔抓握，拇指与小拇指在外侧贴合，沿用 M4 金属与防滑材质。",
+        "effects": [
+          {
+            "text": "开镜耗时增加10%",
+            "benefit": -1
+          },
+          {
+            "text": "后坐力降低15%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性提高15%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "ads_percent": 0.1,
+          "recoil_mult": 0.85,
+          "stability_mult": 1.15
+        }
+      }
+    ],
+    "grip_body": [
+      {
+        "id": "false",
+        "name": "原厂握把",
+        "description": "保留 RSH-12 原厂握把本体，可另选握把防滑纹。",
+        "effects": [],
+        "stats": {}
+      },
+      {
+        "id": "rsh12_heavy_grip",
+        "name": "RSH 加重握把",
+        "description": "RSH-12 专属。橡胶握持壳与金属配重底座，保留原握点，可搭配三种通用防滑纹。",
+        "effects": [
+          {
+            "text": "枪械稳定性提高15%",
+            "benefit": 1
+          },
+          {
+            "text": "后坐力降低10%",
+            "benefit": 1
+          },
+          {
+            "text": "开镜耗时增加5%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "stability_mult": 1.15,
+          "recoil_mult": 0.9,
+          "ads_percent": 0.05
+        }
+      },
+      {
+        "id": "rsh12_quickdraw_grip",
+        "name": "RSH 轻型快拔握把",
+        "description": "RSH-12 专属。轻薄框体、内收圆角短尾与防滑掌面，保留原握持接口，可搭配三种通用防滑纹。",
+        "effects": [
+          {
+            "text": "拔出速度提高100%",
+            "benefit": 1
+          },
+          {
+            "text": "开镜耗时降低20%",
+            "benefit": 1
+          },
+          {
+            "text": "后坐力增加5%",
+            "benefit": -1
+          }
+        ],
+        "stats": {
+          "equip_speed_bonus": 1.0,
+          "ads_percent": -0.2,
+          "recoil_mult": 1.05
+        }
       }
     ]
   },
@@ -3786,7 +4199,7 @@
     "ammo_item_id": "ammo_127",
     "mag_size": 5,
     "ads_smooth": 13.616964,
-    "recoil": 180,
+    "recoil": 225.0,
     "camera_shake": 140,
     "fire_interval": 0.4,
     "reload_time": 6.8,
@@ -3794,7 +4207,9 @@
     "damage": 90,
     "bullet_speed": 300,
     "effective_range": 60,
-    "automatic": false
+    "automatic": false,
+    "stability_mult": 0.4270980054225096,
+    "spread_mult": 4.0
   },
   "traits": [
     {
@@ -3808,8 +4223,16 @@
     {
       "icon": "neutral",
       "text": "支持单持、双持和法杖副手；每手独立装填"
+    },
+    {
+      "icon": "neutral",
+      "text": "前握把：单持获得完整效果；双持保留单手握姿，仅承受前握把减益。"
     }
-  ]
+  ],
+  "pistol_grip_surface": {
+    "mesh": "/Game/Weapons/RSH12/GripSurfaces20261004/SM_RSH12_GripSurface",
+    "bone": "WPN_root"
+  }
 },
     {
       "id": "ue_ash12",

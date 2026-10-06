@@ -55,12 +55,15 @@ struct FDualPistolHand
     UPROPERTY(Transient) TMap<FString,TObjectPtr<USoundBase>> Sounds;
     UPROPERTY(Transient) TArray<TObjectPtr<UAudioComponent>> Voices;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> Action;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UStaticMesh>> ReloadCaseMeshes;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UStaticMesh>> ReloadLiveMeshes;
     FGunsmithStats Stats;
     FString Recipe;
     FString PendingAmmoType;
     int32 Rounds=0, Cases=0, ReloadStart=0, ReloadCount=0, Seated=0, Pattern=0;
     bool Revolver=false, Speedloader=false, ReloadSpeedloader=false, Suppressed=false;
     bool Held=false, Pending=false, Reloading=false, ReloadQueued=false, CasesCleared=false;
+    bool ReloadCasesReleased=false;
     float ActionTime=0, ActionRate=1, SourceLength=0, Sprint=0, SprintBlend=0, Bloom=0;
     double NextShot=0, LastShot=-10;
     double ActionStarted=0;
@@ -136,6 +139,7 @@ private:
     void StartAction(int32 Index,const FString& Name,float Rate=1.f);
     void BeginReload(int32 Index);
     void AdvanceReload(int32 Index,float PreviousSource);
+    bool ReleaseReloadCases(int32 Index,float ReleaseSource);
     bool CommitReloadInsertion(int32 Index,int32 Count,bool Completed);
     bool CompleteReloadMechanism(int32 Index,float Source);
     void TryFire(int32 Index);

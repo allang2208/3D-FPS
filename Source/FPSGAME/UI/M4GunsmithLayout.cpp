@@ -7,6 +7,7 @@
 #include "GunsmithUIStyle.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/RSH12OpticAssets.h"
 #include "../Weapons/ModularSwordVisual.h"
 #include "../Production/ProductionToolEnhance.h"
 #include "../FPSGAMEPlayerController.h"
@@ -325,6 +326,11 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     const bool G18Drum=Weapon==TEXT("ue_g18")&&SlotKey==TEXT("magazine")&&Id==TEXT("g18_drum_50");
     const bool Exclusive=
         VipGrip || SiMuzzle || G18Drum ||
+        (Weapon==TEXT("ue_rsh12") && SlotKey==TEXT("muzzle") &&
+            (Id==TEXT("rsh12_heavy_suppressor")||Id==TEXT("rsh12_large_caliber_brake"))) ||
+        (Weapon==TEXT("ue_rsh12") && SlotKey==TEXT("grip_body") &&
+            (Id==TEXT("rsh12_heavy_grip")||Id==TEXT("rsh12_quickdraw_grip"))) ||
+        (Weapon==TEXT("ue_rsh12") && SlotKey==TEXT("optic") && RSH12OpticAssets::IsSquare(Id)) ||
         (Weapon==TEXT("ue_tang_dao") &&
             ((SlotKey==TEXT("blade_1") && (Id==TEXT("yanling_edge")||Id==TEXT("tengyun_dragon"))) ||
              (SlotKey==TEXT("blade_2") && (Id==TEXT("auspicious_cloud_rune")||Id==TEXT("mountain_rune"))) ||
@@ -353,10 +359,12 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     auto Neon=[Selected,Id](){return Id!=TEXT("false")&&Selected();};
     auto Frame=[Neon,Selected,Exclusive](){auto C=ColdSteelUI::Success;C.A=.32f;return Neon()?C:Selected()?GunsmithUI::Silver:Exclusive?ColdSteelUI::ExclusiveBorder:FLinearColor::Transparent;};
     FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
-    const FString WeaponIconKey=Model()->Definition()+TEXT("_")+SlotKey+TEXT("_")+Id;
+    // Retained RSH models keep their existing pictograms; only catalog identity changes.
+    const FString IconId=Weapon==TEXT("ue_rsh12")&&SlotKey==TEXT("optic")?RSH12OpticAssets::SourceVariant(Id):Id;
+    const FString WeaponIconKey=Model()->Definition()+TEXT("_")+SlotKey+TEXT("_")+IconId;
     // The shared fast-trigger pictogram also represents Pit Viper's numeric option.
     const FString CommonIconKey=SlotKey==TEXT("trigger")&&Id==TEXT("pit_viper_lightweight_fast")
-        ?TEXT("trigger_m1911_lightweight_fast"):SlotKey+TEXT("_")+Id;
+        ?TEXT("trigger_m1911_lightweight_fast"):SlotKey+TEXT("_")+IconId;
     const FString FramedDirectory=IconDirectory/(IsBowWorkbench()?TEXT("FramedBows"):TEXT("FramedFirearms"));
     const bool SharedFirearmOption=!IsStandaloneWorkbench()&&Id!=TEXT("false")
         &&FPaths::FileExists(FramedDirectory/(CommonIconKey+TEXT(".png")));

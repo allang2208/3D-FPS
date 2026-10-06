@@ -450,6 +450,7 @@ FFPSWeaponFXParticle* UFPSWeaponFXComponent::Acquire(uint8 Kind, UStaticMesh* Ge
         Result->Mesh->RegisterComponent();
     }
     Result->Mesh->SetStaticMesh(Geometry);
+    Result->Mesh->SetFirstPersonPrimitiveType(EFirstPersonPrimitiveType::None);
     if (!Result->Material || Result->Material->Parent != BaseMaterial)
         Result->Material = UMaterialInstanceDynamic::Create(BaseMaterial, Result->Mesh);
     Result->Mesh->SetMaterial(0, Result->Material);
@@ -475,6 +476,8 @@ FFPSWeaponFXParticle* UFPSWeaponFXComponent::Acquire(uint8 Kind, UStaticMesh* Ge
     Result->Kind = Kind;
     Result->bActive = true;
     Result->bBounced = false;
+    Result->bReloadDrop = false;
+    Result->bSettled = false;
     SetComponentTickEnabled(true);
     return Result;
 }
@@ -1177,6 +1180,25 @@ void UFPSWeaponFXComponent::SpawnCasing()
     }
 }
 
+void UFPSWeaponFXComponent::OnReloadCartridge(UStaticMesh* Geometry,const FTransform& Frame,const FVector& Velocity,float InitialAge)
+{
+    if(!Geometry || !GetWorld() || !Geometry->GetMaterial(0))return;
+    if(auto* P=Acquire(WeaponFX::Casing,Geometry,Geometry->GetMaterial(0)))
+    {
+        P->bReloadDrop=true;
+        P->Mesh->SetFirstPersonPrimitiveType(WeaponMesh->FirstPersonPrimitiveType);
+        P->Position=Frame.TransformPosition(Geometry->GetBounds().Origin);
+        P->Rotation=Frame.GetRotation().Rotator();
+        P->Size=Frame.GetScale3D()*100.f;
+        P->Velocity=Velocity+FVector(FMath::FRandRange(-5.f,5.f),FMath::FRandRange(-5.f,5.f),0);
+        P->Acceleration=FVector(0,0,GetWorld()->GetGravityZ());
+        P->Spin=FRotator(FMath::FRandRange(-180.f,180.f),FMath::FRandRange(-90.f,90.f),FMath::FRandRange(-120.f,120.f));
+        P->Lifetime=5.f;
+        AdvanceParticle(*P,InitialAge);
+        if(P->bActive)ApplyParticleTransform(*P);
+    }
+}
+
 void UFPSWeaponFXComponent::SpawnSmoke(bool bImmediate, float InitialAge, const FVector& BirthPosition,
     const FVector& BirthForward, float HeatAtBirth)
 {
@@ -1236,7 +1258,7 @@ void UFPSWeaponFXComponent::AdvanceParticle(FFPSWeaponFXParticle& P, float Delta
 {
     if (DeltaTime <= 0.0f) return;
     if (P.Age + DeltaTime >= P.Lifetime) { Release(P); return; }
-    // Only casings need swept collision substeps. Their <=1.25 s lifetime bounds
+    // Only casings need swept collision substeps. Their finite lifetime bounds
     // this loop; even the capped case consumes the entire interval, never discarding time.
     const int32 Steps = P.Kind == WeaponFX::Casing
         ? FMath::Clamp(FMath::CeilToInt(DeltaTime / 0.025f), 1, 64) : 1;
@@ -1245,6 +1267,7 @@ void UFPSWeaponFXComponent::AdvanceParticle(FFPSWeaponFXParticle& P, float Delta
     {
         if (P.Age + Step >= P.Lifetime) { Release(P); return; }
         P.Age += Step;
+        if(P.bSettled)continue;
         const FVector OldPosition = P.Position;
         if (P.Kind == WeaponFX::Smoke || P.Kind == WeaponFX::Dust)
         {
@@ -1260,7 +1283,7 @@ void UFPSWeaponFXComponent::AdvanceParticle(FFPSWeaponFXParticle& P, float Delta
             P.Velocity += P.Acceleration * Step;
         }
         P.Rotation += P.Spin * Step;
-        if (P.Kind == WeaponFX::Casing && !P.bBounced)
+        if (P.Kind == WeaponFX::Casing && (!P.bBounced || P.bReloadDrop))
         {
             FHitResult Bounce;
             FCollisionQueryParams Params(SCENE_QUERY_STAT(WeaponCasing), false, GetOwner());
@@ -1269,6 +1292,12 @@ void UFPSWeaponFXComponent::AdvanceParticle(FFPSWeaponFXParticle& P, float Delta
                 const float AfterHit = Step * (1.0f - FMath::Clamp(Bounce.Time, 0.0f, 1.0f));
                 P.Position = Bounce.ImpactPoint + Bounce.ImpactNormal * 0.8f;
                 const FVector HitVelocity = P.Velocity - P.Acceleration * AfterHit;
+                if(P.bReloadDrop && (P.bBounced || HitVelocity.SizeSquared()<FMath::Square(35.f)))
+                {
+                    P.Velocity=P.Acceleration=FVector::ZeroVector;
+                    P.Spin=FRotator::ZeroRotator;P.bSettled=true;
+                    continue;
+                }
                 P.Velocity = FMath::GetReflectionVector(HitVelocity, Bounce.ImpactNormal) * 0.24f;
                 // Consume the post-impact part of this substep as well.
                 P.Position += P.Velocity * AfterHit + P.Acceleration * (0.5f * AfterHit * AfterHit);
@@ -1276,7 +1305,7 @@ void UFPSWeaponFXComponent::AdvanceParticle(FFPSWeaponFXParticle& P, float Delta
                 P.Rotation -= P.Spin * (AfterHit * 0.70f);
                 P.Spin *= 0.30f;
                 P.bBounced = true;
-                P.Lifetime = FMath::Min(P.Lifetime, P.Age - AfterHit + 0.25f);
+                if(!P.bReloadDrop)P.Lifetime = FMath::Min(P.Lifetime, P.Age - AfterHit + 0.25f);
                 if (P.Age >= P.Lifetime) { Release(P); return; }
             }
         }

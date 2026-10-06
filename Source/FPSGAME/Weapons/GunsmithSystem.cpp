@@ -9,6 +9,7 @@
 #include "M1911WeaponAssets.h"
 #include "DanWesson715WeaponAssets.h"
 #include "RSH12WeaponAssets.h"
+#include "RSH12OpticAssets.h"
 #include "Animation/AnimSequence.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelItemReadCache.h"
@@ -25,9 +26,19 @@ double Num(const TSharedPtr<FJsonObject>& O,const TCHAR* K,double Default=0){dou
 TArray<FString> Strings(const TSharedPtr<FJsonObject>& O,const TCHAR* K){TArray<FString> R;for(const auto& V:O->GetArrayField(K))R.Add(V->AsString());return R;}
 FString Part(const FGunsmithParts& P,const FString& S){const FString* V=P.Find(S);return V?*V:TEXT("false");}
 }
+bool UGunsmithSystem::HasUnsupportedForegrip(const FColdSteelItem& Item) const
+{
+    if(Item.Definition!=RSH12WeaponAssets::Definition)return false;
+    const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const auto* Main=Model?Model->Equipped():nullptr;
+    const auto* Off=Main?Model->Equipped(Main->Cell==6?8:11):nullptr;
+    if(!Main||!Off||Model->ActiveProductionTool()||!ColdSteelInventory::IsDualPistol(*Off))return false;
+    const bool Dual=ColdSteelInventory::IsDualPistol(*Main)||ColdSteelStaff::IsStaff(*Main);
+    return Dual&&(Item.InstanceId==Main->InstanceId||Item.InstanceId==Off->InstanceId);
+}
 FGunsmithStats UGunsmithSystem::CalculateItem(const FColdSteelItem& Item,const FGunsmithParts& Parts) const
 {
-    auto S=Calculate(Item.Definition,Parts);
+    auto S=Calculate(Item.Definition,Parts,HasUnsupportedForegrip(Item));
     const auto O=ColdSteelItemData::Read(Item.Data);const TSharedPtr<FJsonObject>* Q=nullptr;
     if(!Weapon(Item.Definition)||!O||!O->TryGetObjectField(TEXT("_assemblyQuality"),Q)||!Q||!*Q)return S;
     const double Recoil=FMath::Clamp(Num(*Q,TEXT("recoil"),1),.88,1.);
@@ -42,6 +53,8 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
     FString Text;
     if(!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/gunsmith.json")))||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Catalog)){UE_LOG(LogTemp,Error,TEXT("Gunsmith catalog unavailable"));return;}
     SlotKeys=Strings(Catalog,TEXT("slots"));CategoryNames=Strings(Catalog,TEXT("categories"));DefaultNames=Strings(Catalog,TEXT("defaults"));
+    RSHSlotKeys=SlotKeys;RSHCategoryNames=CategoryNames;RSHDefaultNames=DefaultNames;
+    RSHSlotKeys.Add(TEXT("grip_body"));RSHCategoryNames.Add(TEXT("握把本体"));RSHDefaultNames.Add(TEXT("原厂握把"));
     for(const auto& V:Catalog->GetArrayField(TEXT("weapons"))){
         const auto O=V->AsObject();FGunsmithWeapon W;W.Source=O;
         W.Id=O->GetStringField(TEXT("id"));W.Model=O->GetStringField(TEXT("model"));W.Name=O->GetStringField(TEXT("name"));W.Allowed=Strings(O,TEXT("allowed"));
@@ -98,6 +111,7 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
             for(const auto& Entry:S.Value->AsArray()){const auto P=Entry->AsObject();FGunsmithOption A;A.Id=P->GetStringField(TEXT("id"));A.Name=P->GetStringField(TEXT("name"));A.Description=P->GetStringField(TEXT("description"));
                 for(const auto& E:P->GetArrayField(TEXT("effects")))A.Effects.Emplace(E->AsObject()->GetStringField(TEXT("text")),Num(E->AsObject(),TEXT("benefit")));
                 const auto T=P->GetObjectField(TEXT("stats"));A.ADS=Num(T,TEXT("ads_percent"));A.Recoil=Num(T,TEXT("recoil_mult"),1);A.Shake=Num(T,TEXT("shake_mult"),1);A.Stability=Num(T,TEXT("stability_mult"),1);
+                A.EquipSpeedBonus=Num(T,TEXT("equip_speed_bonus"));
                 A.ADSSeconds=Num(T,TEXT("ads_seconds"));A.Speed=Num(T,TEXT("bullet_speed_mult"),1);A.Interval=Num(T,TEXT("fire_interval_mult"),1);A.Spread=Num(T,TEXT("hip_spread_mult"),1);A.Range=Num(T,TEXT("range_mult"),1);A.Reload=Num(T,TEXT("reload_mult"),1);A.EmptyReload=Num(T,TEXT("empty_reload_mult"),A.Reload);A.Magazine=Num(T,TEXT("mag_delta"));Options.Add(A);
             }W.Options.Add(FString(*S.Key),Options);
         }Weapons.Add(W.Id,W);
@@ -132,6 +146,7 @@ FGunsmithParts UGunsmithSystem::Normalize(const FString& D,const FGunsmithParts&
             Slot=TEXT("bipod");
         }
         FString Id=Slot==TEXT("blade_2")?ColdSteelFrostRunes::Upgrade(D,P.Value):P.Value;
+        if(D==RSH12WeaponAssets::Definition && Slot==TEXT("optic"))Id=RSH12OpticAssets::Upgrade(Id);
         if(Slot==TEXT("stock")&&Id==TEXT("true"))Id=TEXT("compact");
         if(Id!=TEXT("false")&&Option(D,Slot,Id))Result.Add(Slot,Id);
     }
@@ -157,7 +172,7 @@ FGunsmithParts UGunsmithSystem::Installed(const FColdSteelItem& I)const
     if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),O)&&O->TryGetObjectField(TEXT("gunsmith_parts"),Parts))for(const auto& Pair:(*Parts)->Values){FString Value;if(Pair.Value->Type==EJson::Boolean)Value=Pair.Value->AsBool()?TEXT("true"):TEXT("false");else if(Pair.Value->Type==EJson::String)Value=Pair.Value->AsString();P.Add(FString(*Pair.Key),Value);}
     return Normalize(I.Definition,P);
 }
-FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts& P)const
+FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts& P,bool bUnsupportedForegrip)const
 {
     const auto* W=ModifiableWeapon(D);if(!W)return {};auto R=W->Base;
     if(IsStaff(D)){R.ActiveParts=Normalize(D,P).Num();return R;}
@@ -256,7 +271,23 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
         &&Part(Normalize(D,P),DanWesson715WeaponAssets::ReloadDeviceSlot)==
             (D==RSH12WeaponAssets::Definition?RSH12WeaponAssets::Speedloader:DanWesson715WeaponAssets::Speedloader))
     {R.Reload=DanWesson715WeaponAssets::EmptyReload;R.EmptyReload=DanWesson715WeaponAssets::EmptyReload;}
-    for(const auto& Pair:Normalize(D,P)){const auto& A=*Option(D,Pair.Key,Pair.Value);R.ADSPercent+=A.ADS;R.ADSSeconds+=A.ADSSeconds;R.RecoilMultiplier*=A.Recoil;R.ShakeMultiplier*=A.Shake;R.StabilityMultiplier*=A.Stability;R.Capacity+=A.Magazine;R.Interval*=A.Interval;R.Reload*=A.Reload;R.EmptyReload*=A.EmptyReload;R.Speed*=A.Speed;R.Range*=A.Range;R.Spread*=A.Spread;++R.ActiveParts;}
+    for(const auto& Pair:Normalize(D,P))
+    {
+        auto A=*Option(D,Pair.Key,Pair.Value);
+        if(bUnsupportedForegrip&&D==RSH12WeaponAssets::Definition&&Pair.Key==TEXT("underbarrel"))
+        {
+            // One-handed RSH keeps the weight/handling cost but receives no
+            // support-hand benefit. Other slots and weapons are unchanged.
+            A.ADS=FMath::Max(0.,A.ADS);A.ADSSeconds=FMath::Max(0.,A.ADSSeconds);
+            A.Recoil=FMath::Max(1.,A.Recoil);A.Shake=FMath::Max(1.,A.Shake);
+            A.Stability=FMath::Min(1.,A.Stability);A.Spread=FMath::Max(1.,A.Spread);
+            A.Interval=FMath::Max(1.,A.Interval);A.Reload=FMath::Max(1.,A.Reload);A.EmptyReload=FMath::Max(1.,A.EmptyReload);
+            A.Speed=FMath::Min(1.,A.Speed);A.Range=FMath::Min(1.,A.Range);A.Magazine=FMath::Min(0,A.Magazine);
+            A.EquipSpeedBonus=FMath::Min(0.,A.EquipSpeedBonus);
+        }
+        R.EquipSpeedBonus+=A.EquipSpeedBonus;
+        R.ADSPercent+=A.ADS;R.ADSSeconds+=A.ADSSeconds;R.RecoilMultiplier*=A.Recoil;R.ShakeMultiplier*=A.Shake;R.StabilityMultiplier*=A.Stability;R.Capacity+=A.Magazine;R.Interval*=A.Interval;R.Reload*=A.Reload;R.EmptyReload*=A.EmptyReload;R.Speed*=A.Speed;R.Range*=A.Range;R.Spread*=A.Spread;++R.ActiveParts;
+    }
     if(D==TEXT("ue_m4a1")&&Part(Normalize(D,P),TEXT("magazine"))==TEXT("large_drum"))
     {R.Reload*=M4DrumReloadTiming::NormalDurationScale;R.EmptyReload*=M4DrumReloadTiming::EmptyDurationScale;}
     R.BurstDelay*=R.Interval/FMath::Max(.001,W->Base.Interval);

@@ -87,6 +87,7 @@ orientation_correction=root.to_quaternion()@Matrix(contact['registration']).to_q
 for n,p in points.items():
  newrest[n]=Matrix.LocRotScale(root@(alignment@p),orientation_correction@rest[n].to_quaternion(),rest[n].to_scale())
 mat=bpy.data.materials.new('M_RSH12_SourcePBR');mat.use_nodes=True
+gripmat=mat.copy();gripmat.name='M_RSH12_FactoryGrip'
 mapping={'4_l':'WPN_Crane','6_l':'WPN_Cylinder','12_l':'WPN_root','13_l':'WPN_Extractor','8_l':'WPN_Hammer','17_l':'WPN_Trigger'}
 gun=[]
 def make(part,bone,offset=Vector(),ids=None,rotation=None):
@@ -102,7 +103,7 @@ def make(part,bone,offset=Vector(),ids=None,rotation=None):
  bind=rest[bone]@newrest[bone].inverted()@root@alignment
  mesh=bpy.data.meshes.new(part['name']+'_'+bone);mesh.from_pydata([bind@verts[j] for j in ordered],[],faces);mesh.update()
  ob=bpy.data.objects.new(mesh.name,mesh);bpy.context.collection.objects.link(ob)
- mesh.materials.append(mat);layer=mesh.uv_layers.new(name='UVMap')
+ mesh.materials.append(gripmat if part['name']=='9_l' else mat);layer=mesh.uv_layers.new(name='UVMap')
  for a,b in zip(layer.data,uv):a.uv=b
  for poly in mesh.polygons:poly.use_smooth=True
  mesh.normals_split_custom_set([(bind.to_3x3().inverted().transposed()@rotation.to_3x3()@Vector(n)).normalized() for n in norm])

@@ -34,7 +34,7 @@ void AFPSGAMECharacter::ApplyWeaponAttachmentPresentation(const TMap<FString,FSt
     if(Changed(TEXT("underbarrel")))SetGunsmithHandstop(Parts.FindRef(TEXT("underbarrel")));
     if(Changed(TEXT("bipod")))SetGunsmithBipod(Parts.FindRef(TEXT("bipod")));
     if(Changed(TEXT("stock")))SetGunsmithStock(Parts.FindRef(TEXT("stock")));
-    if(Changed(TEXT("reargrip")))SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")));
+    if(Changed(TEXT("reargrip"))||Changed(TEXT("grip_body")))SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")),nullptr,Parts.FindRef(TEXT("grip_body")));
     if(Changed(TEXT("tactical")))SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));
     AppliedWeaponVisualParts=Parts;
     bWeaponVisualPartsApplied=true;
@@ -116,6 +116,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     TraceDistance=Defaults->TraceDistance;
     EffectiveWeaponRangeCM=Defaults->TraceDistance;
     HipSpreadMultiplier=1.f;
+    FirearmEquipRate=1.f;
     DamagePerShot=Defaults->DamagePerShot+Profile->Derived(TEXT("atk"));
     FireInterval=Defaults->FireInterval;
     BurstShotCount=1;BurstRecoverySeconds=0.f;
@@ -134,6 +135,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         MagazineCapacity=Defaults->MagazineCapacity;ReloadDuration=Defaults->ReloadDuration;EmptyReloadDuration=Defaults->EmptyReloadDuration;
         if(I&&Gunsmith->Weapon(I->Definition))
         {const auto Stats=Gunsmith->CalculateItem(*I,Parts);ADSInDuration=Stats.ADS;MagazineCapacity=Stats.Capacity;ReloadDuration=Stats.Reload;EmptyReloadDuration=Stats.EmptyReload;
+            FirearmEquipRate=static_cast<float>(Stats.EquipRate());
             WeaponHandling=Stats.Handling;BallisticRecoilScale=FWeaponHandling::ReferenceBallisticScale*WeaponHandling.RecoilScale;ProjectileSpeedCM=Stats.Speed*100.f;
             HipSpreadMultiplier=FMath::Max(0.f,static_cast<float>(Stats.Spread));
             EffectiveWeaponRangeCM=FMath::Max(1.f,static_cast<float>(Stats.Range*100.));

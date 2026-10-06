@@ -15,6 +15,7 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
     FString Kind,AssetPath;
+    bool bUseAuthoredEmitterAxis=false;
     bool bPresentationHidden=false;
     /**
      * 开镜对齐的时间窗（秒）。开镜过渡期间光束保持沿枪管，等 ADS 完全到位

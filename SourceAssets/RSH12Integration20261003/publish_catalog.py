@@ -38,7 +38,51 @@ w=dict(id=ID,model='RSH12',name='RSH-12',allowed=list(defaults),options=options,
  base=dict(ammo_item_id='ammo_127',mag_size=5,ads_smooth=13.616964,recoil=180,camera_shake=140,fire_interval=.38,reload_time=5.7,empty_reload_time=7.7,damage=90,bullet_speed=300,effective_range=60,automatic=False),
  traits=[dict(icon='mechanic',text='双动左轮；12.7毫米弹药；五发弹巢'),dict(icon='special',text='下置枪管；逐发装填，非空仓保留余弹'),dict(icon='neutral',text='支持单持、双持和法杖副手；每手独立装填')])
 if single_action:single_action.apply_weapon(w)
+# Preserve the explicit 2026-10-04 recoil / stability tuning on a source rebuild.
+balance=O.parent/'RSH12CubeConcept20261004/publish_balance.py'
+if balance.exists():
+ import importlib.util
+ spec=importlib.util.spec_from_file_location('rsh12_base_balance',balance)
+ balance_module=importlib.util.module_from_spec(spec);spec.loader.exec_module(balance_module)
+ balance_module.apply_weapon(w)
 path=D/'gunsmith.json';text=path.read_text(encoding='utf-8-sig');data=json.loads(text);old=next((v for v in data['weapons'] if v['id']==ID),None)
+# Retain the explicitly installed RSH surface-treatment family on source reimport.
+grip_surface=O.parent/'RSH12GripSurfaces20261004'
+if (grip_surface/'import_receipt.json').exists() and json.loads((grip_surface/'import_receipt.json').read_text(encoding='utf8')).get('complete'):
+ import importlib.util
+ spec=importlib.util.spec_from_file_location('rsh12_grip_surface_catalog',grip_surface/'publish_catalog.py')
+ grip_module=importlib.util.module_from_spec(spec);spec.loader.exec_module(grip_module)
+ grip_module.apply_weapon(w,data)
+# Keep the approved exclusive cube option when rebuilding this weapon's catalog.
+cube=O.parent/'RSH12CubeSuppressor20261004'
+if (cube/'catalog_receipt.json').exists():
+ import importlib.util
+ spec=importlib.util.spec_from_file_location('rsh12_cube_catalog',cube/'publish_catalog.py')
+ cube_module=importlib.util.module_from_spec(spec);spec.loader.exec_module(cube_module)
+ cube_module.apply_weapon(w)
+# The accepted RSH base-spread and square-sight revision survives source rebuilds.
+square_optics=O.parent/'RSH12SquareOpticsBalance20261004/publish_catalog.py'
+if square_optics.exists():
+ import importlib.util
+ spec=importlib.util.spec_from_file_location('rsh12_square_optics',square_optics)
+ square_module=importlib.util.module_from_spec(spec);spec.loader.exec_module(square_module)
+ square_module.apply_weapon(w)
+foregrips=O.parent/'RSH12Foregrips20261004/publish_catalog.py'
+if foregrips.exists():
+ import importlib.util
+ spec=importlib.util.spec_from_file_location('rsh12_foregrips',foregrips)
+ module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.apply_weapon(w)
+heavy_grip=O.parent/'RSH12HeavyGrip20261004/Integration20261005/publish_catalog.py'
+if heavy_grip.exists() and (heavy_grip.parent/'import_receipt.json').exists():
+ import importlib.util
+ spec=importlib.util.spec_from_file_location('rsh12_heavy_grip',heavy_grip)
+ module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.apply_weapon(w)
+quick_grip=O.parent/'RSH12QuickDrawGrip20261005/Integration20261005/publish_catalog.py'
+if quick_grip.exists() and (quick_grip.parent/'import_receipt.json').exists():
+ if json.loads((quick_grip.parent/'import_receipt.json').read_text()).get('complete'):
+  import importlib.util
+  spec=importlib.util.spec_from_file_location('rsh12_quickdraw_grip',quick_grip)
+  module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.apply_weapon(w)
 needle=json.dumps(ID if old else 'ue_dan_wesson715');pos=text.index(needle,text.index('"weapons"'));a=text.rfind('{',0,pos);_,n=json.JSONDecoder().raw_decode(text[a:]);b=a+n
 new=text[:a]+json.dumps(w,ensure_ascii=False,indent=2)+text[b:] if old else text[:b]+',\n'+json.dumps(w,ensure_ascii=False,indent=2)+text[b:]
 write(path,text,new)

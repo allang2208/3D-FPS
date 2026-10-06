@@ -28,6 +28,9 @@
 #include "../Weapons/PitViper2011SICompensator.h"
 #include "../Weapons/DanWesson715WeaponAssets.h"
 #include "../Weapons/RSH12WeaponAssets.h"
+#include "../Weapons/RSH12OpticAssets.h"
+#include "../Weapons/RSH12MuzzleAssets.h"
+#include "../Weapons/RSH12TacticalAssets.h"
 #include "../Weapons/PistolGripSurface.h"
 #include "../Weapons/DanWesson715FittedParts.h"
 #include "../Production/ProductionHarvestAssets.h"
@@ -167,6 +170,23 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             if(AR416Furniture::IsPart(Key)&&AR416Furniture::Supports(D))
             {
                 Add(AR416Furniture::MeshPath(D,Key),true);
+                continue;
+            }
+            if (D == RSH12WeaponAssets::Definition && Part.Key == TEXT("tactical") && RSH12TacticalAssets::Supports(Key))
+            {
+                Add(RSH12TacticalAssets::MeshPath(Key), true);
+                continue;
+            }
+            if (D == RSH12WeaponAssets::Definition && Part.Key == TEXT("muzzle") && RSH12MuzzleAssets::Supports(Key))
+            {
+                Add(RSH12MuzzleAssets::FittedMeshPath(Key), true);
+                continue;
+            }
+            if (D == RSH12WeaponAssets::Definition && Part.Key == TEXT("optic") && RSH12OpticAssets::Supports(Key))
+            {
+                Add(RSH12OpticAssets::MeshPath(Key), true);
+                Add(RSH12OpticAssets::RailPath(Key), true);
+                if (Key == TEXT("lpvo_1_6x")) Add(RSH12OpticAssets::MeshPath(TEXT("lpvo_ring")), true);
                 continue;
             }
             if (Part.Key == TEXT("optic") && Key == CommonHK416Parts::Optic)

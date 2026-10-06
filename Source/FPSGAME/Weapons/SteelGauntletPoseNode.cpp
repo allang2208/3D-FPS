@@ -1,5 +1,6 @@
 #include "SteelGauntletPoseNode.h"
 #include "FPSGunplayAnimInstance.h"
+#include "WeaponGripProfile.h"
 #include "../Characters/FPSModularOutfitComponent.h"
 #include "Animation/AnimInstanceProxy.h"
 #include "Animation/AnimSequence.h"
@@ -89,12 +90,26 @@ void FSteelGauntletPoseNode::Configure(const UFPSGunplayAnimInstance& Instance)
     UAnimSequence* Idle=Instance.IdleClip.Get();
     UAnimSequence* Aim=Instance.AimClip ? Instance.AimClip.Get() : Idle;
     const float IdleTime=Idle && Idle->GetPlayLength()>SMALL_NUMBER ? FMath::Fmod(Instance.BaseTime,Idle->GetPlayLength()) : 0.f;
+    // RSH shares the 715 sequences, but its private grip already fits both hands
+    // with this glove shell. The donor's support offset would separate them.
+    static const FName RSHBase(TEXT("DA_RSH12_base")), RSHVertical(TEXT("DA_RSH12_vertical")),
+        RSHCanted(TEXT("DA_RSH12_canted")), RSHPrism(TEXT("DA_RSH12_prism")), RSHAngled(TEXT("DA_RSH12_angled"));
+    const FName ProfileName=Instance.GripProfile?Instance.GripProfile->GetFName():NAME_None;
+    const bool bRSHForegrip=ProfileName==RSHVertical||ProfileName==RSHCanted||ProfileName==RSHPrism||ProfileName==RSHAngled;
+    const bool bFittedRSHGrip=ProfileName==RSHBase||bRSHForegrip;
     FQuat IdlePose[6], AimPose[6], ActionPose[6];
     FVector IdleOffset,AimOffset,ActionOffset;
-    SteelGauntletPose::Sample(ResolveClip(0,Idle),IdleTime,IdlePose,IdleOffset);
-    SteelGauntletPose::Sample(ResolveClip(1,Aim),0.f,AimPose,AimOffset);
+    SteelGauntletPose::Sample(bFittedRSHGrip?nullptr:ResolveClip(0,Idle),IdleTime,IdlePose,IdleOffset);
+    SteelGauntletPose::Sample(bFittedRSHGrip?nullptr:ResolveClip(1,Aim),Aim==Idle?IdleTime:0.f,AimPose,AimOffset);
     const auto* Action=ResolveClip(2,Instance.ActionClip.Get());
     SteelGauntletPose::Sample(Action,Instance.ActionTime,ActionPose,ActionOffset);
+    if(bRSHForegrip)
+    {
+        // Keep the firing hand's accepted glove corrections; only the support
+        // hand is owned by the new foregrip contact/release layer.
+        for(int32 I=3;I<6;++I)ActionPose[I]=FQuat::Identity;
+        ActionOffset=FVector::ZeroVector;
+    }
     const float Sprint=Instance.SprintClip ? FMath::Clamp(Instance.SprintAlpha,0.f,1.f) : 0.f;
     const float AimAlpha=FMath::Clamp(Instance.AimAlpha,0.f,1.f);
     const float ActionAlpha=Instance.ActionClip && Action ? FMath::Clamp(Instance.ActionAlpha,0.f,1.f) : 0.f;

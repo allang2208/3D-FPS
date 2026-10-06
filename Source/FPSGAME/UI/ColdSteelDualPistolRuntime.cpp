@@ -10,6 +10,10 @@
 
 namespace
 {
+bool Revolver(const FColdSteelItem& Item)
+{
+    return Item.Definition==TEXT("ue_dan_wesson715") || Item.Definition==TEXT("ue_rsh12");
+}
 void Cases(FColdSteelItem& Item,int32 Count)
 {
     TSharedPtr<FJsonObject> O;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),O);
@@ -47,7 +51,7 @@ int32 UColdSteelStatusModel::ReloadDualPistol(const FString& Id,int32 Requested,
     Gun->Magazine+=Taken;
     if(!WeaponReloadStages::SetNeedsCycle(*Gun,NeedsCycle))return 0;
     if(Infinite)Gun->VirtualMagazineAmmo+=Taken;
-    if(Gun->Definition==TEXT("ue_dan_wesson715"))Cases(*Gun,FMath::Max(Gun->Magazine,int32(ColdSteelInventory::Number(*Gun,TEXT("revolver_case_count"),0))));
+    if(Revolver(*Gun))Cases(*Gun,FMath::Max(Gun->Magazine,int32(ColdSteelInventory::Number(*Gun,TEXT("revolver_case_count"),0))));
     P.Items.RemoveAll([](const auto& I){return I.Count<=0;});
     if(Completed)ColdSteelSkills::AddExperience(P,DexterousHandsSkill,DexterousHandsSkill.ReloadExperience);
     return CommitState(P)?Taken:0;
@@ -56,7 +60,9 @@ bool UColdSteelStatusModel::EjectDualPistolCases(const FString& Id,bool DiscardL
 {
     if(!CurrentPawn.IsValid())return false;
     SyncRuntime();auto P=Snapshot();
-    for(auto& I:P.Items)if(I.InstanceId==Id && EquippedPistol(I,P.ActiveWeaponSlot) && I.Definition==TEXT("ue_dan_wesson715"))
+    // RSH uses the same dual-hand ejection transaction. Rejecting it here
+    // aborts AdvanceReload, then the empty-hand auto reload restarts the clip.
+    for(auto& I:P.Items)if(I.InstanceId==Id && EquippedPistol(I,P.ActiveWeaponSlot) && Revolver(I))
     {
         if(DiscardLive){I.Magazine=0;I.VirtualMagazineAmmo=0;}Cases(I,I.Magazine);return CommitState(P);
     }
@@ -85,7 +91,7 @@ int32 UColdSteelStatusModel::ReloadCowboyPistol(const FString& Id,int32 Capacity
     Gun->Magazine+=Taken;
     Gun->LoadedAmmoType=AmmoId;
     // Retain unfired rounds, replace spent cases, and leave the cylinder ready.
-    if(Gun->Definition==TEXT("ue_dan_wesson715"))Cases(*Gun,Gun->Magazine);
+    if(Revolver(*Gun))Cases(*Gun,Gun->Magazine);
     // Automatic enchantment reloads do not train the manual reload skill.
     if(!CommitState(MoveTemp(State)))return 0;
     if(CurrentPawn.IsValid())CurrentPawn->NotifyCowboyReload();

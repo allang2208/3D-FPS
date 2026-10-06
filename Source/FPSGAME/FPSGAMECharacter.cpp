@@ -402,6 +402,8 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     PKMLowpolyWeaponAssets::RemoveBipod(this);PKMAttachments::RemoveRail(this);
     if(RearGripAttachment)RearGripAttachment->DestroyComponent();
     RearGripAttachment=nullptr;
+    if(GripBodyAttachment)GripBodyAttachment->DestroyComponent();
+    GripBodyAttachment=nullptr;
     if(StockAttachment)StockAttachment->DestroyComponent();
     StockAttachment=nullptr;bSkeletonStock=false;
     // Mounts and meshes belong to a weapon definition; rebuild them on a weapon swap.
@@ -569,6 +571,13 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     AimAnimation = LoadAKMAnimation(TEXT("A_AKM_aim"));
     FireAnimation = LoadAKMAnimation(TEXT("A_AKM_fire"));
     AimFireAnimation = LoadAKMAnimation(TEXT("A_AKM_aim_fire"));
+    if (IsRSH12Weapon())
+    {
+        // ADS moves this complete viewmodel to its calibrated sight line. Keep
+        // both hands on the same grip instead of blending separate arm chains.
+        AimAnimation = IdleAnimation;
+        AimFireAnimation = FireAnimation;
+    }
     ReloadAnimation = LoadAKMAnimation(TEXT("A_AKM_reload"));
     ReloadEmptyAnimation = LoadAKMAnimation(TEXT("A_AKM_reload_empty"));
     DrumReloadAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload"))):SVDWeaponAssets::Matches(AKMViewmodel)?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload"));
@@ -630,7 +639,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
                 if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("drum"),Pair.Value)))
                     DrumSupportAnimations.Add(Pair.Key,Clip);
     }
-    if (!IsPistolWeapon())
+    if (!IsPistolWeapon() || IsRSH12Weapon())
     {
         InitializeForegripAnimations();
         InitializePrismGripAnimations();
@@ -701,10 +710,10 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         RifleFireConcurrency->Concurrency.ResolutionRule=EMaxConcurrentResolutionRule::StopOldest;
         RifleFireConcurrency->Concurrency.VoiceStealReleaseTime=.02f;
     }
-    else if (bUseM1911)
+    else if (bUseM1911 || IsRSH12Weapon())
     {
-        // M1911 and Pit Viper explicitly share the selected pistol suppressor
-        // cue. Dual-wield main-hand audio reads this binding as well.
+        // Supported pistols, including RSH, share the selected suppressor cue.
+        // Dual-wield main-hand audio reads this binding as well.
         SuppressedFireSound=LoadObject<USoundBase>(nullptr,PistolAudioAssets::Suppressed);
     }
     if (bUsingM4Infima && !IsPistolWeapon() && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
@@ -2866,7 +2875,10 @@ void AFPSGAMECharacter::StartEquipCharge()
         // PKM's video-authored raise/catch/settle uses its own clip clock.
         WeaponStateDuration = bUsingM4Infima && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel)
             && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? 0.72f : EquipAnimation->GetPlayLength();
+        WeaponStateDuration /= FirearmEquipRate;
+        for(float& Cue : MechanicalCueTimes) Cue /= FirearmEquipRate;
         PlayWeaponAnimation(EquipAnimation, false, EquipAnimation->GetPlayLength() / WeaponStateDuration);
+        ActionBlendIn /= FirearmEquipRate;
     }
     else if (ReloadEmptyAnimation)
     {
@@ -3423,6 +3435,7 @@ void AFPSGAMECharacter::UpdateADSPose()
         {
             FTransform Local;
             AimAnimation->GetBoneTransform(Local,FSkeletonPoseBoneIndex(Index),FAnimExtractContext(0.0,false),false);
+            if(SightLayer)SightLayer->ApplyLocal(Ref.GetBoneName(Index),0.f,Local);
             Root=Root*Local;
         }
         Rear=Root.TransformPosition(AKMSoviet::Rear)*ViewmodelScale;
@@ -3453,7 +3466,7 @@ void AFPSGAMECharacter::UpdateADSPose()
             Root=Root*Local;
         }
         const FTransform Mount=HolographicMount*Root;
-        if ((IsHK416Weapon() || OpticVariant == TEXT("eoth_holographic")) && HolographicOptic && HolographicOptic->GetStaticMesh())
+        if ((IsRSH12Weapon() || IsHK416Weapon() || OpticVariant == TEXT("eoth_holographic")) && HolographicOptic && HolographicOptic->GetStaticMesh())
         {
             const UStaticMesh* OpticMesh=HolographicOptic->GetStaticMesh();
             const auto* R=OpticMesh->FindSocket(TEXT("SightRear"));
@@ -3673,7 +3686,8 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         else if (bQuickCombatAction || IsReloading() || WeaponState == EAKMWeaponState::Inspecting || ((bUsingM4Infima || bUseQBZ191 || IsPistolWeapon()) && WeaponState == EAKMWeaponState::Equipping)) ActionElapsed = WeaponStateElapsed;
         else ActionElapsed += DeltaSeconds;
         const float BlendScale = IsReloading() ? 1.f / FMath::Max(0.01f, ActionPlayRate) : 1.f;
-        const float BlendOut = (bFireAction ? 0.028f : (IsPistolWeapon() && IsReloading() ? 0.025f : 0.10f)) * BlendScale;
+        const float EquipBlendRate = WeaponState == EAKMWeaponState::Equipping && IsRSH12Weapon() ? FMath::Max(.01f,ActionPlayRate) : 1.f;
+        const float BlendOut = (bFireAction ? 0.028f : (IsPistolWeapon() && IsReloading() ? 0.025f : 0.10f)) * BlendScale / EquipBlendRate;
         const float In = FMath::Clamp((ActionElapsed-(IsReloading()?ReloadResumeElapsed:0.f)) / (ActionBlendIn * BlendScale), 0.0f, 1.0f);
         const float Out = bQuickCombatAction
             ? QuickCombatRecovery::RemainingWeight(ActionElapsed, ActionDuration, QuickCombatRecovery::IdleHandoffStart)

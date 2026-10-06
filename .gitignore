@@ -2427,3 +2427,6 @@ __pycache__/
 !/SourceAssets/Monsters/LurkerM08/BoneheadV04_20261004/Reference/LICENSE.txt
 /SourceAssets/Monsters/LurkerM08/**/Before/
 /SourceAssets/Monsters/LurkerM08/**/PreviousSource/
+
+# RSH local vendored build dependencies; retain on host, never publish as recipes.
+/SourceAssets/RSH12*/**/.deps/

@@ -12,6 +12,7 @@
 #include "AKMSovietCalibration.h"
 #include "GunsmithSystem.h"
 #include "DanWesson715WeaponAssets.h"
+#include "RSH12TacticalAssets.h"
 #include "Engine/GameInstance.h"
 #include "GameFramework/PlayerController.h"
 #include "Components/StaticMeshComponent.h"
@@ -127,11 +128,13 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
     const bool Active=Enabled&&Rifle&&(Variant==TEXT("laser")||Variant==TEXT("flashlight"));
     SetComponentTickEnabled(Active);
     if(!Active)return;
+    const bool RSH=Family==TEXT("RSH12");
+    bUseAuthoredEmitterAxis=RSH;
     const bool Revolver=Family==TEXT("DanWesson715");
     const bool PitViper=Family==TEXT("PitViper2011");
-    const bool Pistol=Family==TEXT("M1911")||Family==TEXT("G18")||PitViper||Revolver;
+    const bool Pistol=Family==TEXT("M1911")||Family==TEXT("G18")||PitViper||Revolver||RSH;
     const bool ASH=Family==TEXT("ASH12");
-    const FString Path=Family==TEXT("HK416")?HK416WeaponAssets::AttachmentPath(Variant):Family==TEXT("LMG201")?LMG201Attachments::MeshPath(Variant):Family==TEXT("SVD")?SVDAttachments::MeshPath(Variant):Family==TEXT("PKM")?PKMAttachments::MeshPath(Variant):Family==TEXT("A762")?A762Attachments::MeshPath(Variant):Family==TEXT("M16")?M16Attachments::MeshPath(Variant):ASH
+    const FString Path=RSH?RSH12TacticalAssets::MeshPath(Variant):Family==TEXT("HK416")?HK416WeaponAssets::AttachmentPath(Variant):Family==TEXT("LMG201")?LMG201Attachments::MeshPath(Variant):Family==TEXT("SVD")?SVDAttachments::MeshPath(Variant):Family==TEXT("PKM")?PKMAttachments::MeshPath(Variant):Family==TEXT("A762")?A762Attachments::MeshPath(Variant):Family==TEXT("M16")?M16Attachments::MeshPath(Variant):ASH
         ?FString::Printf(TEXT("/Game/Weapons/ASH12/TacticalDevices20260920/%s/SM_ASH12_%s"),*Variant,*Variant)
         :PitViper?PitViper2011WeaponAssets::AttachmentPath(Variant):Family==TEXT("G18")?G18WeaponAssets::AttachmentPath(Variant):Revolver?DanWesson715WeaponAssets::AttachmentPath(Variant):Pistol
         ?FString::Printf(TEXT("/Game/Weapons/M1911/CompactFit20260913/%s/SM_TacticalDevice"),*Variant)
@@ -168,7 +171,11 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
             if(Slot!=INDEX_NONE)Body->SetMaterial(Slot,MetalTail);
         }
     }
-    Body->SetRelativeTransform(Family==TEXT("HK416")?HK416Attachments::ReferenceMount(Rifle):ASH?ASH12TacticalMount(Rifle):Pistol?PistolTacticalMount(Rifle,PitViper):FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));
+    // Reused components inherit the current host, including when leaving RSH.
+    Body->AttachToComponent(Rifle,FAttachmentTransformRules::KeepRelativeTransform,TEXT("WPN_root"));
+    Body->SetOnlyOwnerSee(Rifle->bOnlyOwnerSee);
+    Body->SetFirstPersonPrimitiveType(Rifle->FirstPersonPrimitiveType);
+    Body->SetRelativeTransform(RSH?RSH12TacticalAssets::Mount():Family==TEXT("HK416")?HK416Attachments::ReferenceMount(Rifle):ASH?ASH12TacticalMount(Rifle):Pistol?PistolTacticalMount(Rifle,PitViper):FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));
     Body->SetVisibility(Body->GetStaticMesh()!=nullptr);
     auto MakeEffect=[&](const TCHAR* Name,const TCHAR* Mesh,const TCHAR* Material)
     {
@@ -207,7 +214,9 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     // supply the emitter position the player sees. See WeaponForwardAxis above.
     FVector LocalForward;
     FVector Direction;
-    if(WeaponForwardAxis(Host,LocalForward))
+    if(bUseAuthoredEmitterAxis && Body->DoesSocketExist(TEXT("AimGuide")))
+        Direction=(Body->GetSocketLocation(TEXT("AimGuide"))-Origin).GetSafeNormal();
+    else if(WeaponForwardAxis(Host,LocalForward))
         Direction=Host->GetSocketRotation(TEXT("WPN_root")).RotateVector(LocalForward);
     else if(Body->DoesSocketExist(TEXT("AimGuide")))
         Direction=(Body->GetSocketLocation(TEXT("AimGuide"))-Origin).GetSafeNormal();
@@ -330,6 +339,6 @@ void AFPSGAMECharacter::SetGunsmithTactical(const FString& Variant)
         if(Variant!=TEXT("laser")&&Variant!=TEXT("flashlight"))return;
         TacticalDevice=NewObject<UTacticalDeviceComponent>(this,TEXT("TacticalDevice"));TacticalDevice->RegisterComponent();
     }
-    const FString Family=IsHK416Weapon()?TEXT("HK416"):IsPitViperWeapon()?TEXT("PitViper2011"):IsG18Weapon()?TEXT("G18"):LMG201WeaponAssets::Matches(AKMViewmodel)?TEXT("LMG201"):SVDWeaponAssets::Matches(AKMViewmodel)?TEXT("SVD"):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?TEXT("PKM"):A762WeaponAssets::Matches(AKMViewmodel)?TEXT("A762"):bUseM16?TEXT("M16"):bUseASH12?TEXT("ASH12"):bUseDanWesson715?TEXT("DanWesson715"):bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
+    const FString Family=IsRSH12Weapon()?TEXT("RSH12"):IsHK416Weapon()?TEXT("HK416"):IsPitViperWeapon()?TEXT("PitViper2011"):IsG18Weapon()?TEXT("G18"):LMG201WeaponAssets::Matches(AKMViewmodel)?TEXT("LMG201"):SVDWeaponAssets::Matches(AKMViewmodel)?TEXT("SVD"):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?TEXT("PKM"):A762WeaponAssets::Matches(AKMViewmodel)?TEXT("A762"):bUseM16?TEXT("M16"):bUseASH12?TEXT("ASH12"):bUseDanWesson715?TEXT("DanWesson715"):bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
     TacticalDevice->Configure(Family,Variant,AKMViewmodel,bInventoryWeaponReady);
 }

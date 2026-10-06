@@ -84,6 +84,9 @@ struct FGunsmithStats
     int32 BurstCount=1;
     double BurstDelay=0; // Last shot to next permitted trigger, seconds.
     double BurstCycle(double ShotInterval) const {return (BurstCount-1)*ShotInterval+FMath::Max(ShotInterval,BurstDelay);}
+    // Firearm unholster speed: additive bonus, +1 means twice the speed.
+    double EquipSpeedBonus=0;
+    double EquipRate() const {return FMath::Max(.05,1.+EquipSpeedBonus);}
 };
 struct FGunsmithOption
 {
@@ -100,6 +103,7 @@ struct FGunsmithOption
     // key (empty_reload_mult) when normal and empty reload must differ.
     double ADS=0, ADSSeconds=0, Recoil=1, Shake=1, Stability=1, Speed=1, Interval=1, Spread=1, Range=1, Reload=1, EmptyReload=1;
     int32 Magazine=0;
+    double EquipSpeedBonus=0;
 };
 /**
  * 武器特殊性质：工具提示「特殊性质」段的一行。
@@ -145,7 +149,8 @@ public:
     const FGunsmithOption* Option(const FString& Definition,const FString& Slot,const FString& Id) const;
     FGunsmithParts Installed(const FColdSteelItem&) const;
     FGunsmithParts Normalize(const FString& Definition,const FGunsmithParts&) const;
-    FGunsmithStats Calculate(const FString& Definition,const FGunsmithParts&) const;
+    FGunsmithStats Calculate(const FString& Definition,const FGunsmithParts&,bool bUnsupportedForegrip=false) const;
+    bool HasUnsupportedForegrip(const FColdSteelItem& Item) const;
     FGunsmithStats CalculateItem(const FColdSteelItem& Item,const FGunsmithParts&) const;
     bool Begin(const FString& Instance);
     bool Select(const FString& Slot,const FString& OptionId);
@@ -174,9 +179,9 @@ public:
     const TArray<FString>& Slots() const{return SlotKeys;}
     const TArray<FString>& Categories()const{return CategoryNames;}
     const TArray<FString>& Defaults()const{return DefaultNames;}
-    const TArray<FString>& Slots(const FString& Definition) const {return IsStaff(Definition)?StaffSlotKeys:IsBow(Definition)?BowSlotKeys:IsTool(Definition)?ToolSlotKeys:IsMelee(Definition)?MeleeSlotKeys:SlotKeys;}
-    const TArray<FString>& Categories(const FString& Definition) const {return IsStaff(Definition)?StaffCategoryNames:IsBow(Definition)?BowCategoryNames:IsTool(Definition)?ToolCategoryNames:IsMelee(Definition)?MeleeCategoryNames:CategoryNames;}
-    const TArray<FString>& Defaults(const FString& Definition) const {return IsStaff(Definition)?StaffDefaultNames:IsBow(Definition)?BowDefaultNames:IsTool(Definition)?ToolDefaultNames:IsMelee(Definition)?MeleeDefaultNames:DefaultNames;}
+    const TArray<FString>& Slots(const FString& Definition) const {return Definition==TEXT("ue_rsh12")?RSHSlotKeys:IsStaff(Definition)?StaffSlotKeys:IsBow(Definition)?BowSlotKeys:IsTool(Definition)?ToolSlotKeys:IsMelee(Definition)?MeleeSlotKeys:SlotKeys;}
+    const TArray<FString>& Categories(const FString& Definition) const {return Definition==TEXT("ue_rsh12")?RSHCategoryNames:IsStaff(Definition)?StaffCategoryNames:IsBow(Definition)?BowCategoryNames:IsTool(Definition)?ToolCategoryNames:IsMelee(Definition)?MeleeCategoryNames:CategoryNames;}
+    const TArray<FString>& Defaults(const FString& Definition) const {return Definition==TEXT("ue_rsh12")?RSHDefaultNames:IsStaff(Definition)?StaffDefaultNames:IsBow(Definition)?BowDefaultNames:IsTool(Definition)?ToolDefaultNames:IsMelee(Definition)?MeleeDefaultNames:DefaultNames;}
     FGunsmithChanged OnChanged;
     TSharedPtr<FJsonObject> Catalog;
 private:
@@ -195,6 +200,7 @@ private:
     TArray<FString> ToolSlotKeys,ToolCategoryNames,ToolDefaultNames;
     void LoadToolCatalog();
     TArray<FString> SlotKeys,CategoryNames,DefaultNames;
+    TArray<FString> RSHSlotKeys,RSHCategoryNames,RSHDefaultNames;
     FGunsmithParts Preview, Original;
     int32 DraftEnhanceLevelValue=0;
     FString InstanceId, DefinitionId, Status;

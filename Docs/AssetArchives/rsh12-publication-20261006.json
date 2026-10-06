@@ -1,0 +1,105 @@
+{
+  "task": "RSH12 publication 2026-10-06",
+  "status": "moved_sha256_readback_complete",
+  "items": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12CubeSuppressor20261004\\Preview\\RSH12_Cube_Long_Detail.blend1",
+      "target": "D:\\FPS3D\\FPSGAME\\trash\\rsh12-publication-20261006\\SourceAssets\\RSH12CubeSuppressor20261004\\Preview\\RSH12_Cube_Long_Detail.blend1",
+      "bytes": 28841991,
+      "sha256": "aa13ff6db86f09ef27dbd521fb1589731903a1c28083ca34740dd3e59310499e",
+      "reason": "Superseded Blender automatic backup; editable .blend retained, no active source reference",
+      "retained_replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12CubeSuppressor20261004\\Preview\\RSH12_Cube_Long_Detail.blend",
+      "replacement_sha256": "7640c61642c9fd83eaef66c96205a5d262afc53db7e56b902db1577052b6d9c4"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12CubeSuppressor20261004\\Preview\\RSH12_Cube_Long_Mounted.blend1",
+      "target": "D:\\FPS3D\\FPSGAME\\trash\\rsh12-publication-20261006\\SourceAssets\\RSH12CubeSuppressor20261004\\Preview\\RSH12_Cube_Long_Mounted.blend1",
+      "bytes": 28841751,
+      "sha256": "384f115e05c9d33e66e6de7756060fa332801f6f0c2c8927b61b58f45b65f3d3",
+      "reason": "Superseded Blender automatic backup; editable .blend retained, no active source reference",
+      "retained_replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12CubeSuppressor20261004\\Preview\\RSH12_Cube_Long_Mounted.blend",
+      "replacement_sha256": "75f9fa71b20a1574553db38975cdadf4235063b7b8a721918676d3aca812f870"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Grip20261003\\BeforeAuthored\\Integration\\Dual\\l\\RSH12_l_Editable.blend1",
+      "target": "D:\\FPS3D\\FPSGAME\\trash\\rsh12-publication-20261006\\SourceAssets\\RSH12Grip20261003\\BeforeAuthored\\Integration\\Dual\\l\\RSH12_l_Editable.blend1",
+      "bytes": 1449504,
+      "sha256": "999d0f664da23a92c6a37ed0d707db6b330a58b394bf9a106a1f11eccc78a8d2",
+      "reason": "Superseded Blender automatic backup; editable .blend retained, no active source reference",
+      "retained_replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Grip20261003\\BeforeAuthored\\Integration\\Dual\\l\\RSH12_l_Editable.blend",
+      "replacement_sha256": "f9f9903615348b5c18febaf1c52ff46311d201f6946f4e692b2276b1ac54c4d4"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Grip20261003\\BeforeAuthored\\Integration\\Dual\\r\\RSH12_r_Editable.blend1",
+      "target": "D:\\FPS3D\\FPSGAME\\trash\\rsh12-publication-20261006\\SourceAssets\\RSH12Grip20261003\\BeforeAuthored\\Integration\\Dual\\r\\RSH12_r_Editable.blend1",
+      "bytes": 1449284,
+      "sha256": "4de297af9b327d16811aff9d706f90cab2abec5b63fe5f3be144c100ba84717e",
+      "reason": "Superseded Blender automatic backup; editable .blend retained, no active source reference",
+      "retained_replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Grip20261003\\BeforeAuthored\\Integration\\Dual\\r\\RSH12_r_Editable.blend",
+      "replacement_sha256": "fd9fbbda089732810374df69070b11b04c494e20732ecf81c5bb3da64df8c479"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Grip20261003\\BeforeAuthored\\Integration\\Single\\RSH12_single_Editable.blend1",
+      "target": "D:\\FPS3D\\FPSGAME\\trash\\rsh12-publication-20261006\\SourceAssets\\RSH12Grip20261003\\BeforeAuthored\\Integration\\Single\\RSH12_single_Editable.blend1",
+      "bytes": 2509245,
+      "sha256": "2fdca692622f12efcf02dba04ffee58c871dd92b953a79efa51f788841ae62b9",
+      "reason": "Superseded Blender automatic backup; editable .blend retained, no active source reference",
+      "retained_replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Grip20261003\\BeforeAuthored\\Integration\\Single\\RSH12_single_Editable.blend",
+      "replacement_sha256": "57a9f0b7b3d9e193bdaa89919a1c50d5df5b0f4c79bf4665e49ce4b60f9fafd4"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_eoth_holographic_Editable.blend1",
+      "target": "D:\\FPS3D\\FPSGAME\\trash\\rsh12-publication-20261006\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_eoth_holographic_Editable.blend1",
+      "bytes": 135563,
+      "sha256": "d7746b57faebc7c8cc4492a8e781cdf22b504d5ff87a9ffb4f48fa9c74873990",
+      "reason": "Superseded Blender automatic backup; editable .blend retained, no active source reference",
+      "retained_replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_eoth_holographic_Editable.blend",
+      "replacement_sha256": "530c86b8f725ef736a1c2ad5eaec1cb2e594e3f249854e34179866b3ed7d736d"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_holographic_Editable.blend1",
+      "target": "D:\\FPS3D\\FPSGAME\\trash\\rsh12-publication-20261006\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_holographic_Editable.blend1",
+      "bytes": 135599,
+      "sha256": "661b8dd50d9a1c65f4711f811a601a058e675fb7c4fdf60e790ad4a474301ce4",
+      "reason": "Superseded Blender automatic backup; editable .blend retained, no active source reference",
+      "retained_replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_holographic_Editable.blend",
+      "replacement_sha256": "a9ed9d12f9cb79dc639853b8ae47473356fe8844531b27135a3f253ddff9f7a7"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_lpvo_1_6x_Editable.blend1",
+      "target": "D:\\FPS3D\\FPSGAME\\trash\\rsh12-publication-20261006\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_lpvo_1_6x_Editable.blend1",
+      "bytes": 135778,
+      "sha256": "844b53b8e028355ae392cf50c748c781730d06715c398cae1841c9e4dc701edd",
+      "reason": "Superseded Blender automatic backup; editable .blend retained, no active source reference",
+      "retained_replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_lpvo_1_6x_Editable.blend",
+      "replacement_sha256": "a9aee102e90580c0616c45c9c88c9317e219337fc5dd471d2795ce332e327e28"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_panoramic_red_dot_Editable.blend1",
+      "target": "D:\\FPS3D\\FPSGAME\\trash\\rsh12-publication-20261006\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_panoramic_red_dot_Editable.blend1",
+      "bytes": 132527,
+      "sha256": "06134f14c1d39be4e95a33d449410c2b64543758a6312e16c441692a560b2a77",
+      "reason": "Superseded Blender automatic backup; editable .blend retained, no active source reference",
+      "retained_replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_panoramic_red_dot_Editable.blend",
+      "replacement_sha256": "63637f884be550d01482a1e283901e660f2a7b4e649eccb607fc548aa8fb3a13"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_prism_scope_2x_Editable.blend1",
+      "target": "D:\\FPS3D\\FPSGAME\\trash\\rsh12-publication-20261006\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_prism_scope_2x_Editable.blend1",
+      "bytes": 132385,
+      "sha256": "aa3f10471613ecb3313c1223043efed34b1e97083e2a2025fbe3060815f69244",
+      "reason": "Superseded Blender automatic backup; editable .blend retained, no active source reference",
+      "retained_replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Optics20261004\\Exports\\SM_RSH12_Rail_prism_scope_2x_Editable.blend",
+      "replacement_sha256": "5d1dcfc28d6b2ece57a51fd52a21d54ca6f0b49dc8e1e7cb66fb0e82ecf685c9"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12QuickDrawGrip20261005\\Integration20261005\\QuickDrawGrip_Icon.blend1",
+      "target": "D:\\FPS3D\\FPSGAME\\trash\\rsh12-publication-20261006\\SourceAssets\\RSH12QuickDrawGrip20261005\\Integration20261005\\QuickDrawGrip_Icon.blend1",
+      "bytes": 61380007,
+      "sha256": "3d3511537e8dcc8a20186163bb393055642bd2b69fee0fad1a7d865f26f93d4e",
+      "reason": "Superseded Blender automatic backup; editable .blend retained, no active source reference",
+      "retained_replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12QuickDrawGrip20261005\\Integration20261005\\QuickDrawGrip_Icon.blend",
+      "replacement_sha256": "0d5df3e214c97163a9251cdb9a70f5a663be1a16d980fbed697e015147e86d1f"
+    }
+  ]
+}

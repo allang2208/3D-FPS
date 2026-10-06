@@ -9,11 +9,12 @@ inline constexpr const TCHAR* Variant = TEXT("pso1_4x");
 inline constexpr const TCHAR* WetMaterialsPath = TEXT("/Game/Weapons/PSO1Russian20260923/DA_PSO1_WetMaterials");
 inline bool Supports(const FString& Definition)
 {
-    return Definition==TEXT("ue_akm") || Definition==TEXT("ue_a762") || Definition==TEXT("ue_pkm_lowpoly");
+    return Definition==TEXT("ue_akm") || Definition==TEXT("ue_a762") || Definition==TEXT("ue_pkm_lowpoly") || Definition==TEXT("ue_rsh12");
 }
 inline FString MeshPath(const FString& Definition)
 {
     if(!Supports(Definition))return FString();
+    if(Definition==TEXT("ue_rsh12"))return TEXT("/Game/Weapons/RSH12/PSO20261004/Meshes/SM_RSH12_PSO1");
     const TCHAR* Family=Definition==TEXT("ue_akm")?TEXT("AKM"):Definition==TEXT("ue_a762")?TEXT("A762"):TEXT("PKM");
     return FString::Printf(TEXT("/Game/Weapons/PSO1Russian20260923/%s/SM_PSO1_%s"),Family,Family);
 }

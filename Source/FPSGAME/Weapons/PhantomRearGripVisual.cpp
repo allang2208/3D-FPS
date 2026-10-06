@@ -9,6 +9,7 @@
 #include "AKMSovietCalibration.h"
 #include "DanWesson715FittedParts.h"
 #include "PistolGripSurface.h"
+#include "RSH12HeavyGrip.h"
 #include "GunsmithSystem.h"
 #include "Engine/GameInstance.h"
 #include "Components/StaticMeshComponent.h"
@@ -24,7 +25,7 @@ bool IsFactoryRearGrip(const FName& Slot)
 }
 }
 
-void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon)
+void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon, const FString& GripBody)
 {
     if (IsHK416Weapon())
     {
@@ -33,7 +34,8 @@ void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsm
         HK416Attachments::FactorySections(AKMViewmodel,TEXT("FactoryRearGrip"),!(Enabled&&RearGripAttachment&&RearGripAttachment->IsVisible()));
         return;
     }
-    if (bUseDanWesson715)
+    // RSH shares 715 animations, but its original grip receives a surface skin.
+    if (bUseDanWesson715 && !IsRSH12Weapon())
     {
         RearGripAttachment = DanWesson715FittedParts::Configure(this, AKMViewmodel,
             RearGripAttachment, Variant, bInventoryWeaponReady, false);
@@ -42,6 +44,11 @@ void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsm
     if (!Weapon && GetGameInstance())
         if (auto* Gunsmith = GetGameInstance()->GetSubsystem<UGunsmithSystem>())
             Weapon = Gunsmith->Weapon(ActiveInventoryWeaponDefinition);
+    if(IsRSH12Weapon())
+    {
+        RSH12HeavyGrip::Configure(this,AKMViewmodel,GripBodyAttachment,RearGripAttachment,Weapon,GripBody,Variant,bInventoryWeaponReady);
+        return;
+    }
     if (PistolGripSurface::Supports(Weapon))
     {
         RearGripAttachment = PistolGripSurface::Configure(this, AKMViewmodel,

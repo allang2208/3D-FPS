@@ -2,6 +2,7 @@
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/RSH12OpticAssets.h"
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
 #include "Engine/GameInstance.h"
@@ -13,7 +14,8 @@
 UGunsmithSystem* UM4GunsmithWidget::Model()const{return GetGameInstance()->GetSubsystem<UGunsmithSystem>();}
 void UM4GunsmithWidget::Choose(bool bHolo)
 {
-    ChooseOption(TEXT("optic"),bHolo?TEXT("holographic"):TEXT("false"));
+    const TCHAR* Sight=Model()->Definition()==TEXT("ue_rsh12")?RSH12OpticAssets::Square:TEXT("holographic");
+    ChooseOption(TEXT("optic"),bHolo?Sight:TEXT("false"));
 }
 bool UM4GunsmithWidget::ApplyDraft()
 {

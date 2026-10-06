@@ -16,6 +16,8 @@
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "DanWesson715WeaponAssets.h"
 #include "RSH12WeaponAssets.h"
+#include "RSH12OpticAssets.h"
+#include "RSH12HeavyGrip.h"
 #include "ASH12WeaponAssets.h"
 #include "DanWesson715FittedParts.h"
 #include "M1911MagazineVisual.h"
@@ -35,6 +37,7 @@
 #include "Camera/CameraComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Engine/GameInstance.h"
+#include "Engine/StaticMesh.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "Dom/JsonObject.h"
@@ -170,7 +173,7 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
         H.Sounds.Add(CueName,LoadObject<USoundBase>(nullptr,*Path));
     }
     H.Sounds.Add(TEXT("BoltRelease"),H.Sounds.FindRef(TEXT("ChargeRelease")));
-    if(!H.Revolver)H.Sounds.Add(TEXT("Suppressed"),LoadObject<USoundBase>(nullptr,PistolAudioAssets::Suppressed));
+    if(!H.Revolver || Item.Definition==RSH12WeaponAssets::Definition)H.Sounds.Add(TEXT("Suppressed"),LoadObject<USoundBase>(nullptr,PistolAudioAssets::Suppressed));
     if(G18)
     {
         for(int32 Variant=1;Variant<=4;++Variant)
@@ -191,8 +194,16 @@ void UPistolDualWieldComponent::LoadHand(int32 Index,const FColdSteelItem& Item)
     }
     H.FX->SetIndependentPistol(H.Revolver,false,nullptr);
     H.FX->Initialize(H.Mesh,Player->FirstPersonCamera);
+    H.ReloadCaseMeshes.Reset();H.ReloadLiveMeshes.Reset();H.ReloadCasesReleased=false;
+    if(Item.Definition==RSH12WeaponAssets::Definition)
+        for(int32 Chamber=0;Chamber<RSH12WeaponAssets::Capacity;++Chamber)
+        {
+            const FString BasePath=TEXT("/Game/Weapons/RSH12/DualReloadDrop20261004/SM_RSH12_");
+            const FString Suffix=FString::Printf(TEXT("_%s_%d"),Index?TEXT("l"):TEXT("r"),Chamber);
+            H.ReloadCaseMeshes.Add(LoadObject<UStaticMesh>(nullptr,*(BasePath+TEXT("Case")+Suffix)));
+            H.ReloadLiveMeshes.Add(LoadObject<UStaticMesh>(nullptr,*(BasePath+TEXT("Live")+Suffix)));
+        }
     H.NextShot=GetWorld()->GetTimeSeconds();H.LastShot=-10;H.Pattern=0;H.Bloom=0;H.Sprint=H.SprintBlend=0;H.Recipe.Empty();
-    StartAction(Index,TEXT("equip"));
 }
 
 bool UPistolDualWieldComponent::MatchesEquipment(const UColdSteelStatusModel* Model,bool bWeaponReady) const
@@ -259,16 +270,22 @@ void UPistolDualWieldComponent::RefreshEquipment(UColdSteelStatusModel* Model)
         auto& H=Hands[Side];H.Item=Side?*Off:*Main;
         H.FX->SetBigBlindEnabled(ColdSteelCombat::BigBlind(Player->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),&H.Item).Enabled);
         const auto Parts=G->Installed(H.Item);
-        H.Stats=G->Calculate(H.Item.Definition,Parts);
+        if(Side==0&&H.Item.Definition==RSH12WeaponAssets::Definition)
+            RSH12HeavyGrip::ShowFactory(H.Mesh,!(RSH12HeavyGrip::IsPart(Parts.FindRef(TEXT("grip_body")))
+                &&Player->GripBodyAttachment&&Player->GripBodyAttachment->IsVisible()));
+        H.Stats=G->Calculate(H.Item.Definition,Parts,true);
         H.Stats.Damage=ColdSteelWeaponStats::Damage(H.Item,Profile,H.Stats.Damage)*Profile->AmmoDamageMultiplier(H.Item);
         H.Stats.Interval=ColdSteelWeaponStats::Interval(&H.Item,Profile,H.Stats.Interval);
         H.Stats.Reload=ColdSteelWeaponStats::Reload(&H.Item,Profile,H.Stats.Reload);
         H.Stats.EmptyReload=ColdSteelWeaponStats::Reload(&H.Item,Profile,H.Stats.EmptyReload);
+        // Snapshot this hand's installed draw speed after its stats are ready.
+        if(Changed)StartAction(Side,TEXT("equip"));
         H.Rounds=FMath::Clamp(H.Item.Magazine,0,H.Stats.Capacity);
         H.Cases=H.Revolver?FMath::Clamp(int32(ColdSteelInventory::Number(H.Item,TEXT("revolver_case_count"),H.Rounds)),H.Rounds,H.Stats.Capacity):H.Rounds;
         H.Speedloader=H.Revolver && Parts.FindRef(TEXT("reload_device"))==
             (H.Item.Definition==RSH12WeaponAssets::Definition?RSH12WeaponAssets::Speedloader:DanWesson715WeaponAssets::Speedloader);
-        H.Suppressed=Parts.FindRef(TEXT("muzzle"))==TEXT("tactical_suppressor") || Parts.FindRef(TEXT("muzzle"))==TEXT("true") || Parts.FindRef(TEXT("muzzle"))==TEXT("multi_caliber_suppressor");
+        H.Suppressed=Parts.FindRef(TEXT("muzzle"))==TEXT("tactical_suppressor") || Parts.FindRef(TEXT("muzzle"))==TEXT("true") || Parts.FindRef(TEXT("muzzle"))==TEXT("multi_caliber_suppressor") ||
+            (H.Item.Definition==RSH12WeaponAssets::Definition && Parts.FindRef(TEXT("muzzle"))==TEXT("rsh12_heavy_suppressor"));
         // Right FX uses the primary attachment interface, left FX uses its own copied exit.
         H.FX->IndependentSuppressed=H.Suppressed;
         if(Side==0){H.FX->bUseCharacterMuzzle=true;H.Sounds.Add(TEXT("Suppressed"),Player->SuppressedFireSound);}
@@ -293,12 +310,15 @@ void UPistolDualWieldComponent::CopyLeftAttachments(const FColdSteelItem& Item,c
     if(!Rig)return;
     if(Created){Rig->ActiveInventoryWeaponDefinition=Item.Definition;Rig->bUseM4Infima=Rig->bUseQBZ191=false;Rig->bUseM1911=!Hands[1].Revolver;Rig->bUseDanWesson715=Hands[1].Revolver;Rig->InitializeWeaponVisuals();}
     Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));
-    Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")),Player->GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(Item.Definition));Rig->SetGunsmithTactical(TEXT(""));
+    Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")),Player->GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(Item.Definition),Parts.FindRef(TEXT("grip_body")));Rig->SetGunsmithTactical(TEXT(""));
+    if(Item.Definition==RSH12WeaponAssets::Definition)
+        RSH12HeavyGrip::ShowFactory(Hands[1].Mesh,!(Rig->GripBodyAttachment&&Rig->GripBodyAttachment->IsVisible()));
     Rig->SetGunsmithMagazineAttachment(Parts.FindRef(TEXT("magazine")));
+    if(Item.Definition==RSH12WeaponAssets::Definition)Rig->SetGunsmithHandstop(Parts.FindRef(TEXT("underbarrel")));
     if (!Hands[1].Revolver)
         M1911MagazineVisual::ShowFactoryMagazine(Hands[1].Mesh,
             !(Rig->LargeDrum && Rig->LargeDrum->IsVisible()));
-    if (Hands[1].Revolver)
+    if (Hands[1].Revolver && Item.Definition != RSH12WeaponAssets::Definition)
         DanWesson715FittedParts::ShowFactoryGrip(Hands[1].Mesh,
             !(Rig->RearGripAttachment && Rig->RearGripAttachment->IsVisible()));
     PitViper2011SICompensator::ShowFactory(Hands[1].Mesh,
@@ -337,7 +357,7 @@ void UPistolDualWieldComponent::CopyLeftAttachments(const FColdSteelItem& Item,c
     {
         Hands[1].Tactical=NewObject<UTacticalDeviceComponent>(Player);Player->AddInstanceComponent(Hands[1].Tactical);Hands[1].Tactical->RegisterComponent();
     }
-    Hands[1].Tactical->Configure(Hands[1].Item.Definition==PitViper2011WeaponAssets::Definition?TEXT("PitViper2011"):Hands[1].Item.Definition==G18WeaponAssets::Definition?TEXT("G18"):Hands[1].Revolver?TEXT("DanWesson715"):TEXT("M1911"),Parts.FindRef(TEXT("tactical")),Hands[1].Mesh,true);
+    Hands[1].Tactical->Configure(Hands[1].Item.Definition==RSH12WeaponAssets::Definition?TEXT("RSH12"):Hands[1].Item.Definition==PitViper2011WeaponAssets::Definition?TEXT("PitViper2011"):Hands[1].Item.Definition==G18WeaponAssets::Definition?TEXT("G18"):Hands[1].Revolver?TEXT("DanWesson715"):TEXT("M1911"),Parts.FindRef(TEXT("tactical")),Hands[1].Mesh,true);
     Hands[1].Sounds.Add(TEXT("Suppressed"),Rig->SuppressedFireSound);
     Hands[0].Sounds.Add(TEXT("Suppressed"),Player->SuppressedFireSound);
 }
@@ -345,6 +365,7 @@ void UPistolDualWieldComponent::CopyLeftAttachments(const FColdSteelItem& Item,c
 void UPistolDualWieldComponent::StartAction(int32 Index,const FString& Name,float Rate)
 {
     auto& H=Hands[Index];H.Action=H.Clips.FindRef(Name);H.ActionTime=0;H.ActionRate=Rate;H.ActionStarted=GetWorld()->GetTimeSeconds();H.PlayedCues.Empty();
+    if(Name==TEXT("equip"))H.ActionRate*=static_cast<float>(H.Stats.EquipRate());
     H.ActionBlendStarted=H.ActionStarted;
     H.ActionPoseProfile=PistolPoseFamily(Name);
 }
@@ -441,8 +462,10 @@ FString UPistolDualWieldComponent::QuickCombatClipKind(int32 Side,bool LeftStrik
         const FString Optic=Parts.FindRef(TEXT("optic")),Muzzle=Parts.FindRef(TEXT("muzzle")),Tactical=Parts.FindRef(TEXT("tactical"));
         // Every profile retains the full recovery revolution. Long cans use
         // the most canted axis, including when an optic/tactical is also fitted.
-        if(Muzzle==TEXT("true") || Muzzle==TEXT("tactical_suppressor") || Muzzle==TEXT("multi_caliber_suppressor"))Kind+=TEXT("_long");
+        if(Muzzle==TEXT("true") || Muzzle==TEXT("tactical_suppressor") || Muzzle==TEXT("multi_caliber_suppressor") ||
+           (H.Item.Definition==RSH12WeaponAssets::Definition && Muzzle==TEXT("rsh12_heavy_suppressor")))Kind+=TEXT("_long");
         else if(Optic==TEXT("holographic") || Optic==TEXT("panoramic_red_dot") || Optic==TEXT("eoth_holographic")
+            || (H.Item.Definition==RSH12WeaponAssets::Definition && RSH12OpticAssets::IsSquare(Optic))
             || Tactical==TEXT("laser") || Tactical==TEXT("flashlight"))Kind+=TEXT("_fitted");
     }
     if(!H.Revolver && H.Rounds==0)Kind+=TEXT("_empty");
@@ -693,6 +716,13 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
     H.Anim->DualPistolAimAlpha=Visible && !(Index==1 && Cast)
         ?(1-H.Sprint)*(1-Player->NearWallAlpha)*(1-Player->DodgePresentationWeight())*(FireAction?1.f:1-H.Anim->ActionAlpha):0.f;
     H.Anim->bRevolver=H.Revolver;H.Anim->RevolverLiveRounds=H.Rounds;H.Anim->RevolverCartridges=H.Cases;
+    // Ammo switching commits at insertion. Hide the released geometry during
+    // that interval without prematurely spending/refunding the old live rounds.
+    if(H.Item.Definition==RSH12WeaponAssets::Definition && H.Reloading && H.ReloadCasesReleased && !H.Seated)
+    {
+        const int32 Retained=H.ReloadSpeedloader || !H.PendingAmmoType.IsEmpty()?0:H.Rounds;
+        H.Anim->RevolverLiveRounds=Retained;H.Anim->RevolverCartridges=Retained;
+    }
     // Fade the final step out/in with the camera and rifle instead of dropping
     // the arm offset to zero on takeoff or restoring its full value on landing.
     const float Walk=Player->GroundLocomotionWeight*(1-H.Sprint);

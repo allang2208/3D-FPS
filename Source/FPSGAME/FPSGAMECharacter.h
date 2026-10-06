@@ -162,10 +162,11 @@ public:
     FString GetBipodDeploymentHint() const;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Weapon|Bipod") TObjectPtr<class UWeaponBipodDeploymentComponent> BipodDeployment;
     void SetGunsmithStock(const FString& Variant);
-    void SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon = nullptr);
+    void SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon = nullptr, const FString& GripBody = FString());
     void SetGunsmithTactical(const FString& Variant);
     UPROPERTY(Transient) TObjectPtr<class UTacticalDeviceComponent> TacticalDevice;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> RearGripAttachment;
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> GripBodyAttachment;
     /** 联机：远端玩家在服务端持有的影子档案（ColdSteelNet 联机层注入；主机自己的 pawn 不用，走单例）。 */
     UPROPERTY(Transient) TObjectPtr<class UColdSteelStatusModel> NetShadowProfile;
     class UColdSteelStatusModel* GetNetShadowProfile() const { return NetShadowProfile; }
@@ -184,7 +185,7 @@ public:
     bool HasAngledForegrip() const;
     FVector GetEffectiveMuzzleLocation() const;
     FVector GetEffectiveMuzzleForward() const;
-    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"));}
+    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"));}
     void SetGunsmithInspection(bool bInspect);
     void UpdateGunsmithCapture(class USceneCaptureComponent2D* Capture, bool bAim);
     bool HasGunsmithDrum() const {return bDrumVisual;}
@@ -556,6 +557,7 @@ private:
     void StartEquipCharge();
     void SetM1911Optic(const FString& Variant);
     void SetDanWesson715Optic(const FString& Variant);
+    void SetRSH12Optic(const FString& Variant);
     void SetM1911Muzzle(const FString& Variant);
     void RunEquipFramingAcceptance(float DeltaSeconds);
     void FinishWeaponAction();
@@ -834,4 +836,6 @@ private:
     // Transient success feedback in the existing hint row above stamina.
     UPROPERTY(Transient) double CowboyReloadHintUntil = -1.0;
     UPROPERTY(VisibleAnywhere, Category="Movement|Door") TObjectPtr<class UFPSDoorPushComponent> DoorPush;
+    // Refreshed with installed firearm stats; active actions snapshot this rate.
+    float FirearmEquipRate = 1.f;
 };

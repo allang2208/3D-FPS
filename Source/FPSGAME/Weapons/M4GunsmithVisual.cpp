@@ -29,6 +29,7 @@ void AFPSGAMECharacter::SetGunsmithOptic(bool bHolographic)
 }
 void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
 {
+    if (IsRSH12Weapon()) { SetRSH12Optic(Variant); return; }
     if (Variant == CommonHK416Parts::Optic)
     {
         if (!bInventoryWeaponReady) { SetGunsmithOpticVariant(TEXT("false")); return; }

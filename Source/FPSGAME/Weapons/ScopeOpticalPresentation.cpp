@@ -1,5 +1,6 @@
 #include "../FPSGAMECharacter.h"
 #include "Bow/BowWeaponComponent.h"
+#include "RSH12OpticAssets.h"
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/AssetManager.h"
@@ -43,6 +44,8 @@ bool AFPSGAMECharacter::HasBowScope() const
 float AFPSGAMECharacter::GetOpticMagnification() const
 {
     if(Bow && Bow->IsEquipped())return Bow->ScopeMagnification();
+    // The RSH's retained EOTH model is now its fixed 1.5x tactical square sight.
+    if(IsRSH12Weapon() && RSH12OpticAssets::Upgrade(OpticVariant)==RSH12OpticAssets::TacticalSquare)return 1.5f;
     return HasPSO1Scope()?4.f:(OpticVariant==TEXT("lpvo_1_6x")?LPVOMagnification:
         ((HasHandgunScope()||OpticVariant==TEXT("prism_scope_2x"))?2.f:1.f));
 }

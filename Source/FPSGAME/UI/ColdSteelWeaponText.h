@@ -21,6 +21,7 @@ inline constexpr const TCHAR* StaminaCost=TEXT("体力消耗");
 inline constexpr const TCHAR* BlockStaminaCost=TEXT("格挡体力消耗");
 inline constexpr const TCHAR* AttackDistance=TEXT("最大攻击距离");
 inline constexpr const TCHAR* ADS=TEXT("开镜耗时");
+inline constexpr const TCHAR* EquipSpeedBonus=TEXT("拔出速度加成");
 inline constexpr const TCHAR* ProjectileSpeed=TEXT("子弹速度");
 inline constexpr const TCHAR* Capacity=TEXT("弹匣容量");
 inline constexpr const TCHAR* Ammo=TEXT("弹药");

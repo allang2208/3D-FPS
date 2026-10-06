@@ -45,6 +45,7 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
         Add(TEXT("reload"),ColdSteelWeaponText::Reload,ColdSteelWeaponStats::Reload(&Item,Model,S.Reload),TEXT(" s"),2,true);
         Add(TEXT("capacity"),ColdSteelWeaponText::Capacity,S.Capacity,TEXT(" 发"));
         Add(TEXT("ads"),ColdSteelWeaponText::ADS,S.ADS*1000,TEXT(" ms"),0,true,false);
+        if(Item.Definition==TEXT("ue_rsh12"))Add(TEXT("equip_speed_bonus"),ColdSteelWeaponText::EquipSpeedBonus,S.EquipSpeedBonus*100.,TEXT("%"),0,false,false);
         Add(TEXT("empty_reload"),ColdSteelWeaponText::EmptyReload,ColdSteelWeaponStats::Reload(&Item,Model,S.EmptyReload),TEXT(" s"),2,true);
         Add(TEXT("recoil"),ColdSteelWeaponText::RecoilIndex,S.Recoil,TEXT(""),1,true,false);
         Add(TEXT("stability"),ColdSteelWeaponText::Stability,S.Handling.Stability,TEXT(" /100"),1,false,false);

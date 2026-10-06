@@ -16,6 +16,8 @@
 #include "QBZ191Attachments.h"
 #include "TacticalSuppressorAssets.h"
 #include "DanWesson715FittedParts.h"
+#include "RSH12MuzzleAssets.h"
+#include "PistolAudioAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -26,6 +28,41 @@
 
 void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
 {
+    if (IsRSH12Weapon())
+    {
+        const bool Enabled = bInventoryWeaponReady && RSH12MuzzleAssets::Supports(Variant);
+        SuppressedFireSound = LoadObject<USoundBase>(nullptr, PistolAudioAssets::Suppressed);
+        if (!Enabled)
+        {
+            if (MuzzleAttachment) { MuzzleAttachment->DestroyComponent(); MuzzleAttachment = nullptr; }
+            MuzzleVariant.Reset();
+            return;
+        }
+        if (!AKMViewmodel || !AKMViewmodel->GetSkeletalMeshAsset()) return;
+        auto* FittedMuzzleMesh = LoadObject<UStaticMesh>(nullptr, RSH12MuzzleAssets::FittedMeshPath(Variant));
+        if (!FittedMuzzleMesh) { UE_LOG(LogTemp, Error, TEXT("RSH12 muzzle asset is missing: %s"), *Variant); return; }
+        if (!MuzzleAttachment)
+        {
+            MuzzleAttachment = NewObject<UStaticMeshComponent>(this, TEXT("RSH12MuzzleAttachment"));
+            MuzzleAttachment->SetupAttachment(AKMViewmodel, TEXT("WPN_root"));
+            MuzzleAttachment->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            MuzzleAttachment->SetCastShadow(false);
+            MuzzleAttachment->bReceivesDecals = false;
+            MuzzleAttachment->RegisterComponent();
+        }
+        MuzzleAttachment->EmptyOverrideMaterials();
+        MuzzleAttachment->SetStaticMesh(FittedMuzzleMesh);
+        MuzzleAttachment->SetOnlyOwnerSee(AKMViewmodel->bOnlyOwnerSee);
+        MuzzleAttachment->SetFirstPersonPrimitiveType(AKMViewmodel->FirstPersonPrimitiveType);
+        MuzzleAttachment->SetRelativeTransform(RSH12MuzzleAssets::Mount());
+        MuzzleAttachment->SetVisibility(true);
+        MuzzleLocalTip = FVector(RSH12MuzzleAssets::TipLengthCM(Variant), 0.f, 0.f);
+        if (const auto* MuzzleSocket = FittedMuzzleMesh->FindSocket(TEXT("Muzzle")))
+            MuzzleLocalTip = MuzzleSocket->RelativeLocation;
+        MuzzleLocalAxis = FVector::ForwardVector;
+        MuzzleVariant = Variant;
+        return;
+    }
     if (Variant == CommonHK416Parts::Suppressor)
     {
         if (!bInventoryWeaponReady) { SetGunsmithMuzzle(TEXT("false")); return; }

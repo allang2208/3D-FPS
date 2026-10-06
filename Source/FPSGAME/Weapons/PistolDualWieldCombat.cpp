@@ -14,6 +14,8 @@
 #include "Camera/CameraComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Components/AudioComponent.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "FPSGunplayAnimInstance.h"
 #include "Engine/GameInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "Perception/AISense_Hearing.h"
@@ -164,6 +166,9 @@ void UPistolDualWieldComponent::BeginReload(int32 Index)
     H.ReloadCount=FMath::Min(H.Stats.Capacity-H.ReloadStart,Available);
     if(ResumeCycle)H.ReloadCount=1;
     H.Seated=0;H.CasesCleared=Switching||ResumeCycle||!H.Revolver || (H.Rounds>0 && !H.Speedloader);
+    H.ReloadCasesReleased=ResumeCycle || !H.Revolver;
+    if(H.Item.Definition==RSH12WeaponAssets::Definition && !Switching && !ResumeCycle)
+        H.CasesCleared=false;
     const bool Empty=Switching||ResumeCycle||H.Rounds==0;
     FString Clip;
     if(!H.Revolver){Clip=Empty?TEXT("reload_empty"):TEXT("reload");H.SourceLength=Empty?2.25f:1.75f;}
@@ -241,8 +246,14 @@ void UPistolDualWieldComponent::AdvanceReload(int32 Index,float Previous)
         return;
     }
     using namespace DanWesson715WeaponAssets;
-    const float EjectAt=H.ReloadSpeedloader?Eject/NormalReload*3.85f:EmptyCaseClear;
-    if(!H.CasesCleared && Source>=EjectAt)
+    const bool RSH=H.Item.Definition==RSH12WeaponAssets::Definition;
+    const float EjectAt=H.ReloadSpeedloader?Eject/NormalReload*3.85f:
+        RSH?(H.ReloadStart==0?Eject:Open+.06f):EmptyCaseClear;
+    if(RSH && !H.ReloadCasesReleased && Source>=EjectAt)
+    {
+        if(!ReleaseReloadCases(Index,EjectAt)){StopAction(Index);return;}
+    }
+    else if(!H.CasesCleared && Source>=EjectAt)
     {
         if(!Profile->EjectDualPistolCases(H.Item.InstanceId,H.ReloadSpeedloader)){StopAction(Index);return;}
         H.CasesCleared=true;
@@ -281,4 +292,48 @@ void UPistolDualWieldComponent::AdvanceReload(int32 Index,float Previous)
         Cue(Index,TEXT("SingleClose"),Begin+SingleStep*H.ReloadCount+.37f,Previous,Source);
     }
     CompleteReloadMechanism(Index,Source);
+}
+
+bool UPistolDualWieldComponent::ReleaseReloadCases(int32 Index,float ReleaseSource)
+{
+    auto& H=Hands[Index];
+    const bool DiscardLive=H.ReloadSpeedloader || !H.PendingAmmoType.IsEmpty();
+    const int32 First=DiscardLive?0:H.Rounds;
+    const int32 Count=FMath::Clamp(H.Cases,0,RSH12WeaponAssets::Capacity);
+    const int32 Live=H.Rounds;
+    const float Now=H.ActionTime;
+    const float ReleaseTime=ReleaseSource/H.SourceLength*H.Action->GetPlayLength();
+    const float Age=FMath::Max(0.f,(Now-ReleaseTime)/FMath::Max(.001f,H.ActionRate));
+    // Resolve the actual release pose before the inventory transaction masks
+    // its case bones. Sampling the previous rendered frame causes a visible gap.
+    H.ActionTime=ReleaseTime;
+    Pose(Index,0.f);
+    H.Mesh->TickAnimation(0.f,false);
+    H.Mesh->RefreshBoneTransforms();
+    TArray<FTransform,TInlineAllocator<5>> Frames;
+    for(int32 Chamber=First;Chamber<Count;++Chamber)
+    {
+        FTransform Frame=H.Mesh->GetSocketTransform(*FString::Printf(TEXT("WPN_Case_%d"),Chamber),RTS_World);
+        // The shared native rig carries a 100x root; exported static geometry
+        // is already centimetres. Preserve the posed frame without scaling twice.
+        Frame.SetScale3D(Frame.GetScale3D()*.01f);
+        Frames.Add(Frame);
+    }
+    const FVector Bore=H.Mesh->GetSocketQuaternion(TEXT("WPN_Cylinder")).RotateVector(
+        FVector(-.0871535167f,-.0000020575f,.9961948395f));
+    H.ActionTime=Now;
+    if(!H.CasesCleared && !Profile->EjectDualPistolCases(H.Item.InstanceId,H.ReloadSpeedloader))
+    {Pose(Index,0.f);return false;}
+    H.CasesCleared=true;H.ReloadCasesReleased=true;
+    for(int32 Chamber=First;Chamber<Count;++Chamber)
+    {
+        const auto& Meshes=Chamber<Live?H.ReloadLiveMeshes:H.ReloadCaseMeshes;
+        if(Meshes.IsValidIndex(Chamber) && Meshes[Chamber] && H.FX)
+            H.FX->OnReloadCartridge(Meshes[Chamber],Frames[Chamber-First],
+                Player->GetVelocity()-Bore*32.f+FVector(0,0,-18.f),Age);
+    }
+    Pose(Index,0.f);
+    H.Mesh->TickAnimation(0.f,false);
+    H.Mesh->RefreshBoneTransforms();
+    return true;
 }

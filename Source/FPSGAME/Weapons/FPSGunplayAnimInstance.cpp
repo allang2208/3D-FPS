@@ -132,10 +132,12 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
         {
             return Clip && Clip->GetPlayLength() > SMALL_NUMBER ? FMath::Fmod(Time, Clip->GetPlayLength()) : 0.0f;
         };
-        Idle.SetExplicitTime(LoopTime(Data->IdleClip, Data->BaseTime));
+        const float IdleTime = LoopTime(Data->IdleClip, Data->BaseTime);
+        const float AimTime = Data->AimClip == Data->IdleClip ? IdleTime : 0.f;
+        Idle.SetExplicitTime(IdleTime);
         DualAimReference.SetExplicitTime(LoopTime(Data->IdleClip, Data->BaseTime));
-        // A stable aim reference makes entering ADS deterministic. Breathing is a separate small pose layer.
-        Aim.SetExplicitTime(0.0f);
+        // Shared-grip ADS must sample the same frame on both sides of the blend.
+        Aim.SetExplicitTime(AimTime);
         Action.SetExplicitTime(Data->ActionTime);
         AimBlend.Alpha = Data->AimAlpha;
         ActionBlend.Alpha = Data->ActionClip ? Data->ActionAlpha : 0.0f;
@@ -154,7 +156,7 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
             Node.Profile=Data->GripProfile;Node.Clip=Clip;Node.Time=Time;
         };
         Profile(IdleProfile,Data->IdleClip,LoopTime(Data->IdleClip,Data->BaseTime));
-        Profile(AimProfile,Data->AimClip?Data->AimClip:Data->IdleClip,0.f);
+        Profile(AimProfile,Data->AimClip?Data->AimClip:Data->IdleClip,AimTime);
         Profile(ActionProfile,Data->ActionClip?Data->ActionClip:Data->IdleClip,Data->ActionTime);
         Profile(SprintProfile,Data->SprintClip?Data->SprintClip:Data->IdleClip,Data->SprintTime);
         Profile(SprintLoopProfile,Data->SprintLoopClip?Data->SprintLoopClip:Data->IdleClip,Data->SprintLoopTime);

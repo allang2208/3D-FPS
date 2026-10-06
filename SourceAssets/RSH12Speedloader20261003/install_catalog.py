@@ -7,6 +7,10 @@ weapon,length=json.JSONDecoder().raw_decode(text[start:]);original=text[start:st
 before=O/'BeforeCatalog';before.mkdir(exist_ok=True)
 if not (before/'rsh12.json').exists():(before/'rsh12.json').write_text(original,encoding='utf8')
 options=weapon['options']['reload_device'];options[:]=[p for p in options if p['id']!='rsh12_speedloader_5']
+for option in options:
+    if option['id']=='false':option['description']='五发弹巢；普通换弹保留余弹并逐发补入，空仓先退壳。装填次数按缺弹数与背包余弹确定。'
+for trait in weapon.get('traits',[]):
+    if '逐发' in trait.get('text',''):trait['text']='双动左轮；五发弹巢，可选逐发装填或五发快速装填器。'
 options.append(dict(id='rsh12_speedloader_5',name='五发快速装填器',
     description='五孔装填器，携带子弹后对孔压入、释放并抽离。每次换弹先退出弹巢内全部弹药，未击发余弹不返还背包；按可用弹药最多装入五发。',
     effects=[dict(text='普通与空仓换弹使用同一快速装填动作',benefit=1),dict(text='换弹丢弃弹巢内余弹，不返还背包',benefit=-1)],stats={}))
