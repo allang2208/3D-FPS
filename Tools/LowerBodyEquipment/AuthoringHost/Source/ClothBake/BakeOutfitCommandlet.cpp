@@ -2,6 +2,7 @@
 #include "Modules/ModuleManager.h"
 #include "Misc/PackageName.h"
 #include "Misc/Paths.h"
+#include "Misc/Parse.h"
 #include "UObject/SavePackage.h"
 #include "ChaosClothAsset/ClothAssetBase.h"
 #include "Engine/SkeletalMesh.h"
@@ -11,14 +12,20 @@ UBakeOutfitCommandlet::UBakeOutfitCommandlet() { IsClient=false; IsServer=false;
 int32 UBakeOutfitCommandlet::Main(const FString& Params) {
  FPackageName::RegisterMountPoint(TEXT("/Game/Outfits/"),TEXT("D:/FPS3D/FPSGAME/Content/Outfits/"));
  FModuleManager::LoadModuleChecked<IModuleInterface>(TEXT("ChaosClothAssetTools"));
- const TCHAR* Sources[]={TEXT("/Game/Outfits/Jeans/Jeans/ClothAssets/CA_jeans_m_med_nrw"),TEXT("/Game/Outfits/Cargopants/Cargopants/ClothAssets/CA_Cargopants_m_med_nrw"),TEXT("/Game/Outfits/CasualSneakers/CasualSneakers/ClothAssets/CA_casualsneakers_m_med_nrw")};
- const TCHAR* Names[]={TEXT("SK_Jeans_Donor"),TEXT("SK_Cargo_Donor"),TEXT("SK_Sneakers_Donor")};
- for(int32 I=0;I<3;++I) {
-  const UChaosClothAssetBase* Cloth=LoadObject<UChaosClothAssetBase>(nullptr,Sources[I]);
-  if(!Cloth) { UE_LOG(LogTemp,Error,TEXT("Cannot load %s"),Sources[I]); return 1; }
-  const FString Path=FString(TEXT("/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Donors/"))+Names[I];
+ TArray<FString> Sources={TEXT("/Game/Outfits/Jeans/Jeans/ClothAssets/CA_jeans_m_med_nrw"),TEXT("/Game/Outfits/Cargopants/Cargopants/ClothAssets/CA_Cargopants_m_med_nrw"),TEXT("/Game/Outfits/CasualSneakers/CasualSneakers/ClothAssets/CA_casualsneakers_m_med_nrw")};
+ TArray<FString> Names={TEXT("SK_Jeans_Donor"),TEXT("SK_Cargo_Donor"),TEXT("SK_Sneakers_Donor")};
+ FString Source,Name,Destination=TEXT("/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Donors");
+ if(FParse::Value(*Params,TEXT("Source="),Source)) {
+  if(!FParse::Value(*Params,TEXT("Name="),Name))return 4;
+  Sources={Source};Names={Name};
+  FParse::Value(*Params,TEXT("Destination="),Destination);
+ }
+ for(int32 I=0;I<Sources.Num();++I) {
+  const UChaosClothAssetBase* Cloth=LoadObject<UChaosClothAssetBase>(nullptr,*Sources[I]);
+  if(!Cloth) { UE_LOG(LogTemp,Error,TEXT("Cannot load %s"),*Sources[I]); return 1; }
+  const FString Path=Destination+TEXT("/")+Names[I];
   UPackage* Package=CreatePackage(*Path);
-  USkeletalMesh* Mesh=NewObject<USkeletalMesh>(Package,Names[I],RF_Public|RF_Standalone);
+  USkeletalMesh* Mesh=NewObject<USkeletalMesh>(Package,*Names[I],RF_Public|RF_Standalone);
   if(!Cloth->ExportToSkeletalMesh(*Mesh)) return 2;
   FAssetCompilingManager::Get().FinishAllCompilation();
   FSavePackageArgs Save; Save.TopLevelFlags=RF_Public|RF_Standalone; Save.SaveFlags=SAVE_NoError;

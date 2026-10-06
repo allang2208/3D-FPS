@@ -61,6 +61,24 @@ void UFPSPlayerBodyComponent::UpdateWorldOwnerVisibility(bool bHideFromOwner)
 
 void UFPSPlayerBodyComponent::ApplyCameraView(FMinimalViewInfo& View)
 {
+    if(Character.IsValid()&&Character->IsLocallyControlled())
+    {
+        const bool bPistol=Character->IsPistolWeapon();
+        const auto ViewmodelType=bPistol?EFirstPersonPrimitiveType::FirstPerson:EFirstPersonPrimitiveType::None;
+        // Apply a weapon-family transition before this frame is rendered;
+        // ordinary updates and newly attached parts use the existing refresh.
+        if(Character->AKMViewmodel&&Character->AKMViewmodel->FirstPersonPrimitiveType!=ViewmodelType)
+            UpdateOwnerVisibility();
+        if(bPistol&&!IsThirdPersonViewEnabled())
+        {
+            // Uniform render-space scaling about the eye preserves screen size,
+            // ADS and finger/gun contact while putting the viewmodel ahead of
+            // the world-space torso/trousers. Gameplay sockets stay untouched.
+            View.bUseFirstPersonParameters=true;
+            View.FirstPersonFOV=View.FOV;
+            View.FirstPersonScale=.25f;
+        }
+    }
     if (!IsThirdPersonViewEnabled()) return;
 
     // Pull back on the existing aim axis: the reticle and eye-origin gameplay rays

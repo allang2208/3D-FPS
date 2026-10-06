@@ -150,13 +150,15 @@ void UFPSPlayerBodyComponent::ApplyWorldBodyVisibility()
     // Only a body excluded from both rendering and shadows can skip the refresh.
     if(auto* Body=GetBodyMesh())
     {
-        const bool bDrawn=!bHidden&&Character.IsValid()&&(!Character->IsLocallyControlled()||IsThirdPersonViewEnabled()||ShouldWorldBodyCastShadow());
+        const bool bDrawn=!bHidden&&Character.IsValid()&&(!Character->IsLocallyControlled()||IsThirdPersonViewEnabled()
+            ||ShouldWorldBodyCastShadow()||(FirstPersonLowerBody&&ShouldShowFirstPersonLowerBody()));
         const auto Wanted=bDrawn?EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones
                                 :EVisibilityBasedAnimTickOption::AlwaysTickPose;
         if(Body->VisibilityBasedAnimTickOption!=Wanted)Body->VisibilityBasedAnimTickOption=Wanted;
     }
     // Apply each primitive's final shadow state, including stowed equipment.
     ApplyWorldBodyShadow();
+    UpdateFirstPersonLowerBodyVisibility();
 }
 
 UFPSPlayerBodyComponent::UFPSPlayerBodyComponent()
@@ -190,6 +192,7 @@ void UFPSPlayerBodyComponent::BeginPlay()
 }
 void UFPSPlayerBodyComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    if(FirstPersonLowerBody){FirstPersonLowerBody->DestroyComponent();FirstPersonLowerBody=nullptr;}
     ClearBow();
     ClearMotion();
     ++AppearanceRequest;
@@ -254,6 +257,7 @@ void UFPSPlayerBodyComponent::InitializeBody()
     if(!Character->IsLocallyControlled()&&GetNetMode()!=NM_Standalone)
     {RebuildWeapons(ReplicatedWeapons);ApplyOutfit(ReplicatedOutfit);}
     ApplyAppearance(ReplicatedAppearance);
+    InitializeFirstPersonLowerBody();
     ApplyWorldBodyVisibility();
     UpdateOwnerVisibility();
 }
@@ -299,11 +303,19 @@ void UFPSPlayerBodyComponent::UpdateOwnerVisibility()
     UFPSPerformanceMetricsSubsystem::CountVisibilityUpdate(this);
     FFPSPerformanceScope PerformanceScope(this,TEXT("PlayerBody.OwnerVisibility"));
     if(!Character.IsValid()||!Character->FirstPersonCamera)return;
+    // A network pawn can become locally controlled after BeginPlay.
+    InitializeFirstPersonLowerBody();
     const bool bThirdPerson=IsThirdPersonViewEnabled();
     UpdateWorldOwnerVisibility(!bThirdPerson);
+    // Compress only the owning pistol viewmodel's rendered depth. Sleeves,
+    // bare skin, gloves, optics and dual-wield parts must use the same space;
+    // scaling a sleeve alone would reverse its depth order against the hand.
+    const auto ViewmodelType=Character->IsLocallyControlled()&&Character->IsPistolWeapon()
+        ?EFirstPersonPrimitiveType::FirstPerson:EFirstPersonPrimitiveType::None;
     TArray<USceneComponent*> Children;Character->FirstPersonCamera->GetChildrenComponents(true,Children);
     for(auto* Child:Children)if(auto* Primitive=Cast<UPrimitiveComponent>(Child))
     {
+        if(Primitive->FirstPersonPrimitiveType!=ViewmodelType)Primitive->SetFirstPersonPrimitiveType(ViewmodelType);
         // Every setter below marks the primitive's render state dirty and
         // re-registers it in the shadow scene, so only touch what actually
         // changed: this runs again on every camera update and every 0.2 s.
@@ -366,6 +378,7 @@ void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
     if((DisplayState.bDual||DisplayState.bOffhandPistol)&&DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"))OffhandWeaponHiddenUntil=Now+.1f;
     VisibilityCountdown-=Delta;
     if(VisibilityCountdown<=0.f){VisibilityCountdown=.2f;UpdateOwnerVisibility();}
+    UpdateFirstPersonLowerBodyVisibility();
     UpdateWorldWeaponPresentation();
     UpdateBow();
     ApplyMotion(Delta);

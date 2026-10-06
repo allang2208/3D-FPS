@@ -61,7 +61,7 @@ private:
     bool bDirty = true;
     bool bEnding = false;
     void DiscoverSources();
-    void UpdatePresentation(USkeletalMeshComponent* Source,const TSharedPtr<FJsonObject>& Profile,bool bWorld);
+    void UpdatePresentation(USkeletalMeshComponent* Source,const TSharedPtr<FJsonObject>& Profile,bool bWorld,bool bLowerBody=false);
     void ReleasePresentation(FFPSOutfitPresentation& Presentation);
     void FollowVisibility(FFPSOutfitPresentation& Presentation);
 };

@@ -1,4 +1,5 @@
 #include "ColdSteelInventoryWidget.h"
+#include "ColdSteelEquipmentLayout.h"
 #include "ColdSteelStaffIcon.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
@@ -196,7 +197,7 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
     Box(12,11,2,16,GunsmithUI::Silver);Label(TEXT("随身装备"),23,9,16,GunsmithUI::Text,100);
     int32 Equipped=0;for(const auto& I:Model->Items())if(I.Place==1)++Equipped;
     Label(FString::Printf(TEXT("%d / %d"),Equipped,SlotNames().Num()),L.Width-92,12,12,GunsmithUI::Secondary,80,true);
-    for(int32 N=0;N<SlotNames().Num();++N){const float X=12+(N%3)*(L.GearWidth+6),Y=L.GearY+(N/3)*L.GearPitch;const int32 Index=Owner(Model->Items(),1,N);
+    for(int32 N=0;N<SlotNames().Num();++N){const int32 DisplayCell=ColdSteelEquipmentLayout::CellForSlot(N);const float X=12+(DisplayCell%3)*(L.GearWidth+6),Y=L.GearY+(DisplayCell/3)*L.GearPitch;const int32 Index=Owner(Model->Items(),1,N);
         if(Index>=0)Item(Model->Items()[Index],X,Y,L.GearWidth,L.GearHeight,false,false,N);
         else {const bool Lock=Locked(Model->Items(),N),Hover=HoverPlace==1&&PointerCell==N;
             Box(X,Y,L.GearWidth,L.GearHeight,GunsmithUI::Gray(Hover?65:18,Hover?120:90),Hover?GunsmithUI::Gray(230,95):GunsmithUI::Gray(220,28),ColdSteelUI::InventoryItemRadius);
@@ -241,7 +242,7 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
             FIntPoint PreviewSpan=PreviewCells;
             if(PreviewSpan.X*PreviewSpan.Y<=1&&I&&I->Width*I->Height>1)PreviewSpan=FIntPoint(I->Width,I->Height);
             X+=PreviewCell%18*L.Cell;Y=L.BagY+(PreviewCell-Start)/18*L.Cell;W=FMath::Min(PreviewSpan.X*L.Cell,L.Width-X-12);H=FMath::Min(PreviewSpan.Y*L.Cell,L.BagY+Rows*L.Cell-Y);}
-        else if(PreviewPlace==1){X+=PreviewCell%3*(L.GearWidth+6);Y=L.GearY+PreviewCell/3*L.GearPitch;W=L.GearWidth;}
+        else if(PreviewPlace==1){const int32 DisplayCell=ColdSteelEquipmentLayout::CellForSlot(PreviewCell);X+=DisplayCell%3*(L.GearWidth+6);Y=L.GearY+DisplayCell/3*L.GearPitch;W=L.GearWidth;}
         else if(PreviewPlace==ColdSteelCompartment::Place){X+=PreviewCell%L.CompGrid.X*L.Cell;Y=L.CompY+PreviewCell/L.CompGrid.X*L.Cell;W=PreviewCells.X*L.Cell;H=PreviewCells.Y*L.Cell;}
         const auto Color=I?(bPreviewValid?ColdSteelUI::Success:ColdSteelUI::Danger):ColdSteelUI::Accent;Box(X,Y,W,H,Fade(Color,.12f),Color,2,2,5);
     }

@@ -1,0 +1,1056 @@
+{
+  "task": "lower-equipment-retired-20261006",
+  "archive_root": "trash/lower-equipment-retired-20261006",
+  "files": [
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/build-editor.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/build-editor.json",
+      "bytes": 18345,
+      "sha256": "5791213a3a8875600a430e2bcd1066a1681b03bf974bb26ea12c9bf0fce56663",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/build-editor.log",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/build-editor.log",
+      "bytes": 5743,
+      "sha256": "abc0e1fe4d57610b4ea74cace39b6e81e3e093e4bc1d3bf8ac5d4085592e07c8",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/modular_outfits-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/modular_outfits-before.json",
+      "bytes": 93906,
+      "sha256": "6997508870e453ef8dcccf5c1ec1eff3d0e317c3ee97a1e1a244b313e246a813",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor-attempt1-console.txt",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor-attempt1-console.txt",
+      "bytes": 11502,
+      "sha256": "69eb8507f027be847a9744689607feca46a59e912ade2943b73387937d80dbd4",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor-attempt1.log",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor-attempt1.log",
+      "bytes": 22453,
+      "sha256": "d6caa03b9d514e7553cefccdf439764b03393d26720b3f39799c10c29b62b129",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor-backup-2026.10.04-10.01.16.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor-backup-2026.10.04-10.01.16.json",
+      "bytes": 68017,
+      "sha256": "80eaa115b53b1ea2482087930c1449b7bec150ff17a2726fc0164b8132475996",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor-backup-2026.10.04-10.01.16.log",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor-backup-2026.10.04-10.01.16.log",
+      "bytes": 22453,
+      "sha256": "d6caa03b9d514e7553cefccdf439764b03393d26720b3f39799c10c29b62b129",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor-console.txt",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor-console.txt",
+      "bytes": 6293,
+      "sha256": "0064e3c6247660a1e36cedd6bf41f2b284384433de58d8902fd1f4f12bf414bc",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor.json",
+      "bytes": 31929,
+      "sha256": "f55084b78c26c007c6753c9eb77e704cd36e1fe3fab931b487710c76f5246e88",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor.log",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/NativePoseV3/build-editor.log",
+      "bytes": 11416,
+      "sha256": "2a79490af377c1f040a156ea0da13794e3f416c97b73be772d5940272b272ade",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/NativePoseV3/modular_outfits-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/NativePoseV3/modular_outfits-before.json",
+      "bytes": 100895,
+      "sha256": "6c42227e1565a3047e87e0bc7588d227761631851b6d94ce432098efc1c19aca",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/NativePoseV3/native_equipment.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/NativePoseV3/native_equipment.json",
+      "bytes": 3044,
+      "sha256": "4654fe7d3f774e00a0da6019a625bd7af271896024379680c430af2389beb364",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/NativePoseV3/player_body-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/NativePoseV3/player_body-before.json",
+      "bytes": 9897,
+      "sha256": "d68d673dd5780ec962e7460d40626a895cbce15b97d27fd26df05c900a05973e",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/NativePoseV3/save-assets-console.txt",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/NativePoseV3/save-assets-console.txt",
+      "bytes": 32314,
+      "sha256": "8fe55c9db8675ed8801988164d870417135fec68f979339f7e4eb8065a22afb1",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/NativePoseV3/save-assets.log",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/NativePoseV3/save-assets.log",
+      "bytes": 279507,
+      "sha256": "800626ae63fc1613e9bc48a381ca3f5d2f16444e066f1a489032c92fa771f519",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/NativePoseV3/saved_assets.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/NativePoseV3/saved_assets.json",
+      "bytes": 410,
+      "sha256": "83bdefba03deacb1e094e2ffc474f6b9cbfb93c9bfb9ad03d59f6dc268f8bf3e",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/player_body-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/player_body-before.json",
+      "bytes": 9744,
+      "sha256": "3fa0df4c58c91feeadf0aef5f66697f0de2a3405b5f0e89ea073a80e516f52ed",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/save-assets-console.txt",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/save-assets-console.txt",
+      "bytes": 46105,
+      "sha256": "c7058779952d0e36175722b642eed38914ffbc01cc6befe82f314ba43336f7bf",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/save-assets.log",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/save-assets.log",
+      "bytes": 303094,
+      "sha256": "f3b3844e6d224eee9478fb1cc9c5bdfee82cb2485eb4316ad56b8eba89a9ef8b",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/saved_assets.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/saved_assets.json",
+      "bytes": 812,
+      "sha256": "b14c874b105b55abdd367c2a05381e8ff7f73796bc1bb92c9b566dd1fb08155f",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/modular_outfits-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/modular_outfits-before.json",
+      "bytes": 95743,
+      "sha256": "6ced29c2ae5d5dfb8e32b8a2a00f64c597b1f97462dccfcf34776c7331a6f750",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/player_body-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/player_body-before.json",
+      "bytes": 9905,
+      "sha256": "49877726aff3f3b4f0afce4197229ceb3c1c67864b3d91d8101fc4639ddebbbf",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/read-regions-result.txt",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/read-regions-result.txt",
+      "bytes": 2972,
+      "sha256": "21068126ceb8377b53c071cfce5028f7b7704bf637546ebf41f1a2caafa63729",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/register-result.txt",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/register-result.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/save-assets-console.txt",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/save-assets-console.txt",
+      "bytes": 38393,
+      "sha256": "3cc700250939506891b761e86778b32e06fb1b08a554200e989c96c61ee52918",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/save-assets.log",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/save-assets.log",
+      "bytes": 321972,
+      "sha256": "5d154898a5ac272d0e1d753540490fd51d2aae746c4ed363dba1c0aaba760a66",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/saved_assets.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/saved_assets.json",
+      "bytes": 6304,
+      "sha256": "f80f736063f8b110f8030832a00251ceaafff071fcf3c29e15acbc9569920f48",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/source-regions.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/FirstPersonLegs20261004/ThighOnlyV2/source-regions.json",
+      "bytes": 4270,
+      "sha256": "ae7cf59e677aa2c9b33b15dba65d616fac04e6605dc4244a950b2dbcd6b33401",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/NativePoseV3/SK_Jason_NativeLegs.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/NativePoseV3/SK_Jason_NativeLegs.uasset",
+      "bytes": 12568727,
+      "sha256": "62fc6dc710b14be3cdc0748140b2053e7553aab5d5d6721e249312d7bd3edf00",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/SK_Jason_FirstPersonLowerBody.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/SK_Jason_FirstPersonLowerBody.uasset",
+      "bytes": 5888452,
+      "sha256": "7d4c86503b83c0f38b297e227570ddc09973830fba64ba1a84a52c300c4324d0",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/SK_Jason_Lower_ue_chainmail_shirt.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/SK_Jason_Lower_ue_chainmail_shirt.uasset",
+      "bytes": 2160298,
+      "sha256": "6feb92828e17f06b2c2c80d2870611cfdd4f52239c3c8f6c31f59aae44d90830",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/SK_Jason_Lower_ue_field_sweater.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/SK_Jason_Lower_ue_field_sweater.uasset",
+      "bytes": 2163126,
+      "sha256": "cb68d371d8ad34a9da2db0b454a2a032789bd6551ee2c18b6a23349fac4eee2e",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/SK_Jason_Lower_ue_field_sweater_charcoal.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/SK_Jason_Lower_ue_field_sweater_charcoal.uasset",
+      "bytes": 2162431,
+      "sha256": "a9bcc80f1a95b684306c8500f17717d1a77225962a49bef080eeef569bfba64f",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_cargo_pants.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_cargo_pants.uasset",
+      "bytes": 2417360,
+      "sha256": "ba2b10de89712b8240cbe017952823be0a8a0e4220405e9bf174f35a14fc80c1",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_cargo_pants_ue_armored_boots.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_cargo_pants_ue_armored_boots.uasset",
+      "bytes": 2417422,
+      "sha256": "f7d6b3df2c096411cefb9817b1440d013e4e4ca7c2c442997694f6812c4d0fed",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_cargo_pants_ue_boots.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_cargo_pants_ue_boots.uasset",
+      "bytes": 2417179,
+      "sha256": "b132940ea94b6cdc3912bc8a07334385701a2c60f0f998436c1a862708748995",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_chainmail_pants.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_chainmail_pants.uasset",
+      "bytes": 21966494,
+      "sha256": "8700a3450f43fad58a3b3dec503e157b9fcb29958c55332c9246550ec980e7d7",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_chainmail_pants_ue_armored_boots.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_chainmail_pants_ue_armored_boots.uasset",
+      "bytes": 21930556,
+      "sha256": "22100148274ae91d1dabc28fc331382c010f3bfe8ef79f4f4ce92ac3e0c29d08",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_chainmail_pants_ue_boots.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_chainmail_pants_ue_boots.uasset",
+      "bytes": 21953973,
+      "sha256": "908e9b6b0f1b8d6594a46140fd36d61bb8d21ae362c32f86a93ce572dc455456",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_jeans.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_jeans.uasset",
+      "bytes": 2097276,
+      "sha256": "03c440c26e0a7a02a97922d6b3940613e30e2e4ed83a9de0a8223e2dfcf6e69d",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_jeans_ue_armored_boots.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_jeans_ue_armored_boots.uasset",
+      "bytes": 2092840,
+      "sha256": "006f3b9d45078b5e31e0f816e5f641fcfe8e02f4e3b4dbe8cd086730059f1da0",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_jeans_ue_boots.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_jeans_ue_boots.uasset",
+      "bytes": 2097793,
+      "sha256": "b0856ee46ebf44e427cfe64b8e29d61a52d62badcdf61c3a4e1ad594f5dc9a65",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_leather_pants.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_leather_pants.uasset",
+      "bytes": 17430733,
+      "sha256": "4318765817178840708f33bf0693003963fbdd1d82703b57b285d80be8ce8a42",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_leather_pants_ue_armored_boots.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_leather_pants_ue_armored_boots.uasset",
+      "bytes": 17766137,
+      "sha256": "72d21a3a7dcba29a36489b447b0f90ec3b62d4b6526750cc899a19fbaa4c543a",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_leather_pants_ue_boots.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_FP_ue_leather_pants_ue_boots.uasset",
+      "bytes": 17674094,
+      "sha256": "9a971cf770772891aaa726b6e8e1c33d098c0645714ce420b3b4170ff62dffbd",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_Jason_ThighsFeet.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/FirstPersonLegs20261004/ThighOnlyV2/SK_Jason_ThighsFeet.uasset",
+      "bytes": 4578242,
+      "sha256": "b2c4747087d7e03a132a3afcff3e213eda5dabbd4c124b1f5b3dc8ebdfeadb5c",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Source/FPSGAME/Characters/FPSFirstPersonLegsAnimInstance.cpp",
+      "destination": "trash/lower-equipment-retired-20261006/Source/FPSGAME/Characters/FPSFirstPersonLegsAnimInstance.cpp",
+      "bytes": 7312,
+      "sha256": "73a03c3eb50d176e88e3d3eb3a5e14f99f56800694378822157d71fa75539ef8",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Source/FPSGAME/Characters/FPSFirstPersonLegsAnimInstance.h",
+      "destination": "trash/lower-equipment-retired-20261006/Source/FPSGAME/Characters/FPSFirstPersonLegsAnimInstance.h",
+      "bytes": 503,
+      "sha256": "e707805e11296253f4e5402cbd416671ef7c94cdbfd4deedb984ece4139c3c03",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Docs/Characters/first-person-legs-20261004.md",
+      "destination": "trash/lower-equipment-retired-20261006/Docs/Characters/first-person-legs-20261004.md",
+      "bytes": 5702,
+      "sha256": "19b3aea706d6899dd8919debe8ccca2b4b9ea240795dd200f6b9125e29ff8fa0",
+      "reason": "Retired independent lower-body V1/V2/V3; no active caller.",
+      "replacement": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/build_native_legs.ps1",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/build_native_legs.ps1",
+      "bytes": 1541,
+      "sha256": "431e6dfc2798650889b24b0016c1c0fa77a73a975c5523aaad3cbb0207929853",
+      "reason": "Retired independent leg authoring/build entry.",
+      "replacement": "Tools/FirstPersonLegs/publish_shared_body.py"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/read_cut_regions.py",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/read_cut_regions.py",
+      "bytes": 1515,
+      "sha256": "baa373287be470461024157fd493ba6ea56a93090e5077e819de6419477e0b86",
+      "reason": "Retired independent leg authoring/build entry.",
+      "replacement": "Tools/FirstPersonLegs/publish_shared_body.py"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/register_thigh_only_v2.py",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/register_thigh_only_v2.py",
+      "bytes": 526,
+      "sha256": "794089515fc34f99e7742dff62acb59a1f013b4ee8caf5c6cf4807e04178ec73",
+      "reason": "Retired independent leg authoring/build entry.",
+      "replacement": "Tools/FirstPersonLegs/publish_shared_body.py"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/save_assets.py",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/save_assets.py",
+      "bytes": 6443,
+      "sha256": "2911a422de149a69a86e7258c2d39444912841c48cfb16f69caa082585b7f2a8",
+      "reason": "Retired independent leg authoring/build entry.",
+      "replacement": "Tools/FirstPersonLegs/publish_shared_body.py"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/save_background.ps1",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/save_background.ps1",
+      "bytes": 1091,
+      "sha256": "d3f35f775c46344643263cfce52d2de18297f24d54a11b33d9efaa556da13146",
+      "reason": "Retired independent leg authoring/build entry.",
+      "replacement": "Tools/FirstPersonLegs/publish_shared_body.py"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/save_native_legs_background.ps1",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/save_native_legs_background.ps1",
+      "bytes": 1111,
+      "sha256": "9951eb8ad000752f2b9f32d5292ac9c2333401518844e5d68206c763498b88e6",
+      "reason": "Retired independent leg authoring/build entry.",
+      "replacement": "Tools/FirstPersonLegs/publish_shared_body.py"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/save_native_legs_v3.py",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/save_native_legs_v3.py",
+      "bytes": 4903,
+      "sha256": "42a06ed88212b718a18ad7b60b376c008feae67e4e1174d49ee4f2f44df61c67",
+      "reason": "Retired independent leg authoring/build entry.",
+      "replacement": "Tools/FirstPersonLegs/publish_shared_body.py"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/save_thigh_only_background.ps1",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/save_thigh_only_background.ps1",
+      "bytes": 1112,
+      "sha256": "611dc413ddb64633aa80e131145e5d11a9c44fbad6da442dfa893d3ffab1484c",
+      "reason": "Retired independent leg authoring/build entry.",
+      "replacement": "Tools/FirstPersonLegs/publish_shared_body.py"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/save_thigh_only_v2.py",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/save_thigh_only_v2.py",
+      "bytes": 6469,
+      "sha256": "a4fcccd7f2d0361e70bbc41afb19205e193b7f0f8745e40cc761c41e9916c348",
+      "reason": "Retired independent leg authoring/build entry.",
+      "replacement": "Tools/FirstPersonLegs/publish_shared_body.py"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/OwnerBodyShared20261005/SK_Jason_Owner_ue_chainmail_shirt.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/OwnerBodyShared20261005/SK_Jason_Owner_ue_chainmail_shirt.uasset",
+      "bytes": 7027401,
+      "sha256": "1cf35d7d46148547484ad17f4517b871c9097f3f72bad663d36bcc1a4bf48c8b",
+      "reason": "Whole-face shoulder cut superseded by continuous intra-triangle seam.",
+      "replacement": "Tools/FirstPersonLegs/save_continuous_owner_shoulders.py"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/OwnerBodyShared20261005/SK_Jason_Owner_ue_field_sweater.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/OwnerBodyShared20261005/SK_Jason_Owner_ue_field_sweater.uasset",
+      "bytes": 7036684,
+      "sha256": "784ffc96b2e7b9fde6adfef8fed25abc8ec7400c227a0bdebeb7687e624fae1c",
+      "reason": "Whole-face shoulder cut superseded by continuous intra-triangle seam.",
+      "replacement": "Tools/FirstPersonLegs/save_continuous_owner_shoulders.py"
+    },
+    {
+      "source": "Content/Characters/ModularOutfit20260924/OwnerBodyShared20261005/SK_Jason_Owner_ue_field_sweater_charcoal.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/Content/Characters/ModularOutfit20260924/OwnerBodyShared20261005/SK_Jason_Owner_ue_field_sweater_charcoal.uasset",
+      "bytes": 5258522,
+      "sha256": "d76b34eecc8c82e4fa1870c35c6c01a4c69d3b680df3210ce3cb0a4a676af851",
+      "reason": "Whole-face shoulder cut superseded by continuous intra-triangle seam.",
+      "replacement": "Tools/FirstPersonLegs/save_continuous_owner_shoulders.py"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/save_shared_body_background.ps1",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/save_shared_body_background.ps1",
+      "bytes": 1266,
+      "sha256": "042cb6dd23ab7dbe2cddbf36d283dac56dfaac9d7f605febe42a797ffd8281f9",
+      "reason": "Whole-face shoulder cut superseded by continuous intra-triangle seam.",
+      "replacement": "Tools/FirstPersonLegs/save_continuous_owner_shoulders.py"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/save_shared_body_shirts.py",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/save_shared_body_shirts.py",
+      "bytes": 4671,
+      "sha256": "784ec1ff7d80c73cff8cb96698dd3795700af1a658a25bbcd6f380ce9af9bc7b",
+      "reason": "Whole-face shoulder cut superseded by continuous intra-triangle seam.",
+      "replacement": "Tools/FirstPersonLegs/save_continuous_owner_shoulders.py"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyFront20261005/Before/Content/ColdSteelData/player_body.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyFront20261005/Before/Content/ColdSteelData/player_body.json",
+      "bytes": 11516,
+      "sha256": "7c315442eaabcc6465d02fc4d2a5ff6ed785ff1b018c0a4ad7d04fc1d6240625",
+      "reason": "Earlier camera-forward settings rejected and superseded.",
+      "replacement": "Content/ColdSteelData/player_body.json:first_person_body"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyFront20261005/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyFront20261005/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "bytes": 12464,
+      "sha256": "81a74e7069d814447eb66653ac3436edd0c87e69d526cb865645bf87968ea511",
+      "reason": "Earlier camera-forward settings rejected and superseded.",
+      "replacement": "Content/ColdSteelData/player_body.json:first_person_body"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyFront20261005/Before/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyFront20261005/Before/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp",
+      "bytes": 5008,
+      "sha256": "8158dca6cac39db0b0db8af8010d9cd1b73b649aead6e86ad748fbe407c99a8c",
+      "reason": "Earlier camera-forward settings rejected and superseded.",
+      "replacement": "Content/ColdSteelData/player_body.json:first_person_body"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyFront20261005/build-editor-console.txt",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyFront20261005/build-editor-console.txt",
+      "bytes": 8484,
+      "sha256": "82729d8c1b0a7ef39d6897cfbd959a9e5fa16d342c692d6833a1a8889eb62209",
+      "reason": "Earlier camera-forward settings rejected and superseded.",
+      "replacement": "Content/ColdSteelData/player_body.json:first_person_body"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyFront20261005/build-editor.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyFront20261005/build-editor.json",
+      "bytes": 40648,
+      "sha256": "c0914a7c41cc627499d09d30b8cf3a79868bf5d6b6e7a71553d68b05f4822349",
+      "reason": "Earlier camera-forward settings rejected and superseded.",
+      "replacement": "Content/ColdSteelData/player_body.json:first_person_body"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyFront20261005/build-editor.log",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyFront20261005/build-editor.log",
+      "bytes": 14365,
+      "sha256": "38041d9cdfee96e074cac59012de836fbcfc2850b13a2ef0a9a23ee90fd14d9a",
+      "reason": "Earlier camera-forward settings rejected and superseded.",
+      "replacement": "Content/ColdSteelData/player_body.json:first_person_body"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/build_front_body.ps1",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/build_front_body.ps1",
+      "bytes": 1564,
+      "sha256": "01c8acc6cad0305959aabf5eae897035ecf5b26b09248334d52ea9eff4a345a8",
+      "reason": "Earlier camera-forward settings rejected and superseded.",
+      "replacement": "Content/ColdSteelData/player_body.json:first_person_body"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/read_pistol_clothing_input.py",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/read_pistol_clothing_input.py",
+      "bytes": 1489,
+      "sha256": "228e98dc33ba069903f7ba9670fe61045d01b331bd3365cea112fbcbd79aed3b",
+      "reason": "One-off live readers retired after user selected offline workflow.",
+      "replacement": "Tools/FirstPersonLegs/read_sleeve_assets_offline.py"
+    },
+    {
+      "source": "Tools/FirstPersonLegs/read_sleeve_spike_inputs.py",
+      "destination": "trash/lower-equipment-retired-20261006/Tools/FirstPersonLegs/read_sleeve_spike_inputs.py",
+      "bytes": 2569,
+      "sha256": "8a31b27944f8f4e416183179e4b4c3d1f10d585dd918f995cdc6f398e46caa47",
+      "reason": "One-off live readers retired after user selected offline workflow.",
+      "replacement": "Tools/FirstPersonLegs/read_sleeve_assets_offline.py"
+    },
+    {
+      "source": "SourceAssets/ArmoredBoots20261004/items-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/ArmoredBoots20261004/items-before.json",
+      "bytes": 123128,
+      "sha256": "a7ca77086c29fd765394dd881e036efc7eee4d0acf95e3b4eef2843670897fb3",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\ArmoredBoots20261004"
+    },
+    {
+      "source": "SourceAssets/ArmoredBoots20261004/modular_outfits-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/ArmoredBoots20261004/modular_outfits-before.json",
+      "bytes": 90731,
+      "sha256": "5bee72674c4a36daf377bbc80ceafbab741cd56204e8b185b93fa68bb2845c43",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\ArmoredBoots20261004"
+    },
+    {
+      "source": "SourceAssets/BootsEquipment20261004/items_before_boots.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/BootsEquipment20261004/items_before_boots.json",
+      "bytes": 121357,
+      "sha256": "e8b14b93530b6d4dd49847d3ffb18c5978e75783363cef30702c6be236eaff27",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\BootsEquipment20261004"
+    },
+    {
+      "source": "SourceAssets/BootsEquipment20261004/modular_outfits_before_boots.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/BootsEquipment20261004/modular_outfits_before_boots.json",
+      "bytes": 89296,
+      "sha256": "a5212adf19e7f2a74d690af6a8a66b74f5b21d417b9e7d079bac9dd6302e09d5",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\BootsEquipment20261004"
+    },
+    {
+      "source": "SourceAssets/BrownLeatherSet20261004/items-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/BrownLeatherSet20261004/items-before.json",
+      "bytes": 124013,
+      "sha256": "d9a2a7ba4faac28bb4762491d3e72b3977b600def5bd60da08a80ebadfbc1106",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\BrownLeatherSet20261004"
+    },
+    {
+      "source": "SourceAssets/BrownLeatherSet20261004/modular_outfits-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/BrownLeatherSet20261004/modular_outfits-before.json",
+      "bytes": 91681,
+      "sha256": "f8d611247541e0bfffa26541dc88a0e1d4fc8588b0f4d4fc77affa05bc6c99d3",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\BrownLeatherSet20261004"
+    },
+    {
+      "source": "SourceAssets/ChainmailPants20261004/items-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/ChainmailPants20261004/items-before.json",
+      "bytes": 122153,
+      "sha256": "579a16cf7933dd2ef35bc513dae250ab8d78a79063802181580fa8853a2785ce",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\ChainmailPants20261004"
+    },
+    {
+      "source": "SourceAssets/ChainmailPants20261004/outfits-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/ChainmailPants20261004/outfits-before.json",
+      "bytes": 90046,
+      "sha256": "a7dd167e26002afb73ae44c18ec8ec79fcd73dec468670feaed2365e15292342",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\ChainmailPants20261004"
+    },
+    {
+      "source": "SourceAssets/EquipmentReview20261006/Before/FPSModularOutfitComponent.cpp",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/EquipmentReview20261006/Before/FPSModularOutfitComponent.cpp",
+      "bytes": 27360,
+      "sha256": "df9b962a03d1c63ad4646fd23b82a7172fdccf1727054aef7daefe095017d4b9",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\EquipmentReview20261006"
+    },
+    {
+      "source": "SourceAssets/EquipmentReview20261006/Before/publish_shared_body.py",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/EquipmentReview20261006/Before/publish_shared_body.py",
+      "bytes": 3467,
+      "sha256": "a332f809a6f3a09a10c2ee7ccbc51dd13ceaab83ac21e3359a4dce1a36c08a79",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\EquipmentReview20261006"
+    },
+    {
+      "source": "SourceAssets/LowerBodyIcons20261004/Before/SM_Cargo_Display.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/LowerBodyIcons20261004/Before/SM_Cargo_Display.uasset",
+      "bytes": 803706,
+      "sha256": "6f6cf67ba8e468295117a8c1709ef62e480bd9a0c871a651898e6ed0fe457288",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\LowerBodyIcons20261004"
+    },
+    {
+      "source": "SourceAssets/LowerBodyIcons20261004/Before/SM_Jeans_Display.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/LowerBodyIcons20261004/Before/SM_Jeans_Display.uasset",
+      "bytes": 1008146,
+      "sha256": "41188ee5ceac56416713a0dbefda675e4fca0f575599e920906960dc7b02fd25",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\LowerBodyIcons20261004"
+    },
+    {
+      "source": "SourceAssets/LowerBodyIcons20261004/Before/SM_Sneakers_Display.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/LowerBodyIcons20261004/Before/SM_Sneakers_Display.uasset",
+      "bytes": 456058,
+      "sha256": "0cb383dab526ec99775a059181f70143881f189c8d4bfe718382cbbbb2c06826",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\LowerBodyIcons20261004"
+    },
+    {
+      "source": "SourceAssets/LowerBodyIcons20261004/Before/ue_cargo_pants.png",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/LowerBodyIcons20261004/Before/ue_cargo_pants.png",
+      "bytes": 42321,
+      "sha256": "e9e308efc17c8a447c8eaca0cc27ec6c87e38f5961c6a0c5d140d025cc265297",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\LowerBodyIcons20261004"
+    },
+    {
+      "source": "SourceAssets/LowerBodyIcons20261004/Before/ue_casual_sneakers.png",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/LowerBodyIcons20261004/Before/ue_casual_sneakers.png",
+      "bytes": 25913,
+      "sha256": "14b29e31c9e86debf382ace49fbc83754e4ea3017b13ee2b7f001a55fa8c563e",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\LowerBodyIcons20261004"
+    },
+    {
+      "source": "SourceAssets/LowerBodyIcons20261004/Before/ue_jeans.png",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/LowerBodyIcons20261004/Before/ue_jeans.png",
+      "bytes": 52347,
+      "sha256": "8053d29e80b2237f67ee2297702b8a14570dae4815dceea0d7f0d38ca57621d9",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\LowerBodyIcons20261004"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyFrontV2_20261005/Before/Content/ColdSteelData/player_body.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyFrontV2_20261005/Before/Content/ColdSteelData/player_body.json",
+      "bytes": 13814,
+      "sha256": "0df869db98561ac1fb920e7dedcfd7248c633f412e78fb594fd4c20c6e242e66",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\OwnerBodyFrontV2_20261005"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyFrontV2_20261005/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyFrontV2_20261005/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "bytes": 12507,
+      "sha256": "3525eb058976edf7a3ac10e2570fe5bd741145d9b6b97443cc9ccff022c529da",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\OwnerBodyFrontV2_20261005"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyFrontV2_20261005/Before/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyFrontV2_20261005/Before/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp",
+      "bytes": 5966,
+      "sha256": "c29e566c26ac1e67d2d194c63b15d307d9933b2eb847fa9a82ea05cbddc39bf3",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\OwnerBodyFrontV2_20261005"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyFrontV2_20261005/Before/Tools/FirstPersonLegs/publish_shared_body.py",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyFrontV2_20261005/Before/Tools/FirstPersonLegs/publish_shared_body.py",
+      "bytes": 2870,
+      "sha256": "57e2e03fc0b88cca865cdccf4dc5fa4a1a656d7488e13adb62ec814bdaf3b138",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\OwnerBodyFrontV2_20261005"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyShared20261005/Before/Content/ColdSteelData/modular_outfits.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyShared20261005/Before/Content/ColdSteelData/modular_outfits.json",
+      "bytes": 103004,
+      "sha256": "06f3b00d2badbb78618e172a824b25b42984da4c2500cd6a0718bbce0cc07b85",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\OwnerBodyShared20261005"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyShared20261005/Before/Content/ColdSteelData/player_body.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyShared20261005/Before/Content/ColdSteelData/player_body.json",
+      "bytes": 11344,
+      "sha256": "ed9dd886c4af6f75c1cd3a6ed97025ba3ec05b7462cb299d0a120799c37642e5",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\OwnerBodyShared20261005"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyShared20261005/Before/Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyShared20261005/Before/Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "bytes": 26484,
+      "sha256": "65e310e1c6f6d2ba62b2f3139f01198a2462e606c920558df8fb2544dd1fb66c",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\OwnerBodyShared20261005"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyShared20261005/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyShared20261005/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "bytes": 20742,
+      "sha256": "b1ef4b54479149548ab3aaa633a6becd1c2ade583026488236539d5cf57c5b0e",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\OwnerBodyShared20261005"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyShared20261005/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyShared20261005/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "bytes": 12055,
+      "sha256": "45a86ab8567b802b68406c0df7f2b49a4db0c391f9db21a5abec10f2f86674dc",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\OwnerBodyShared20261005"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyShared20261005/Before/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyShared20261005/Before/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp",
+      "bytes": 4968,
+      "sha256": "23baf4e64a733da0676fb20cda2a97d391ba4c17d04a9cd565f52028d57dc558",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\OwnerBodyShared20261005"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyShared20261005/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyShared20261005/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "bytes": 235997,
+      "sha256": "d6dbc6617a812baf682596a48dabe080f55fc820e22d07723b9ad6f43bfc3ecc",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\OwnerBodyShared20261005"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyShared20261005/before-publish-modular_outfits.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyShared20261005/before-publish-modular_outfits.json",
+      "bytes": 103004,
+      "sha256": "06f3b00d2badbb78618e172a824b25b42984da4c2500cd6a0718bbce0cc07b85",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\OwnerBodyShared20261005"
+    },
+    {
+      "source": "SourceAssets/OwnerBodyShared20261005/before-publish-player_body.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/OwnerBodyShared20261005/before-publish-player_body.json",
+      "bytes": 11344,
+      "sha256": "ed9dd886c4af6f75c1cd3a6ed97025ba3ec05b7462cb299d0a120799c37642e5",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\OwnerBodyShared20261005"
+    },
+    {
+      "source": "SourceAssets/PistolClothingRepair20261006/Before/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/PistolClothingRepair20261006/Before/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp",
+      "bytes": 3887,
+      "sha256": "e65f3243be5ea8ededf0ff53b023e9d01f9f0d9afa98c235db4912f1af4a5a3a",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\PistolClothingRepair20261006"
+    },
+    {
+      "source": "SourceAssets/PistolClothingRepair20261006/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/PistolClothingRepair20261006/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "bytes": 20666,
+      "sha256": "81804dea6c55055add865556d50629115e65f20a9c50a8cae0e7c33bdf0cbcb7",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\PistolClothingRepair20261006"
+    },
+    {
+      "source": "SourceAssets/SleeveSpikeRepair20261006/before-shoulder-publish-modular_outfits.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SleeveSpikeRepair20261006/before-shoulder-publish-modular_outfits.json",
+      "bytes": 104077,
+      "sha256": "c38b79d0bd6e0f0bd39f686bbca39c6a1840a8b4a241ceaa9ed1bbe1891df1e7",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SleeveSpikeRepair20261006"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Content/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/Icons/SM_SmokeGreyCapri_Display.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Content/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/Icons/SM_SmokeGreyCapri_Display.uasset",
+      "bytes": 2385727,
+      "sha256": "ffcb3f8919e5e47e8ace1cf041695f1d6ec02bdf1b09f5fc05c9a24a8170a0cb",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Content/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/Pickups/SM_SmokeGreyCapri.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Content/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/Pickups/SM_SmokeGreyCapri.uasset",
+      "bytes": 2376624,
+      "sha256": "5cf196c721b26a7bf49a47cdae76f0d9a5a570f6e7b87755d9139b32198a7182",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Content/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/SK_Jason_SmokeGreyCapri.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Content/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/SK_Jason_SmokeGreyCapri.uasset",
+      "bytes": 26982628,
+      "sha256": "ab2d30f463c7020d6f56d1f6c3e56039767015e33160ea90c0e17c0ce2ed9475",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Content/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/SK_Jason_SmokeGreyCapri_HighBootsFit.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Content/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/SK_Jason_SmokeGreyCapri_HighBootsFit.uasset",
+      "bytes": 26547782,
+      "sha256": "2f18098c22ab9e1a618883aa9d5d19e4a4126a88aa09a7247898b75571d371a9",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Content/ColdSteelData/Icons/ue_smoke_grey_capri.png",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Content/ColdSteelData/Icons/ue_smoke_grey_capri.png",
+      "bytes": 49472,
+      "sha256": "c69e7ff782c28050faaf9a8744bcd46f032ebe18174f15f5ceccc2701f136e42",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/snapshot.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/snapshot.json",
+      "bytes": 1204,
+      "sha256": "a448776f82f67314bd173b8c0b07ea3504333f81fc9ddb47157491649b0582f5",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/Capri_Construction.blend",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/Capri_Construction.blend",
+      "bytes": 1098494,
+      "sha256": "82dec25dd05d6a710433ba220e583797d3d9131c93c9df2656b63268a63cd754",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/Jason_SmokeGreyCapri.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/Jason_SmokeGreyCapri.json",
+      "bytes": 31159873,
+      "sha256": "4ababfab09ac3345633206372abeabc9dd6c179e9ff02cb0a0f19b6e7a4499ce",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/Jason_SmokeGreyCapri_Garment.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/Jason_SmokeGreyCapri_Garment.json",
+      "bytes": 30420176,
+      "sha256": "9b245c4126c02e702fe7d04aaf0098c9b60d80fba2702e4f015edec28afa6256",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/Jason_SmokeGreyCapri_HighBootsFit.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/Jason_SmokeGreyCapri_HighBootsFit.json",
+      "bytes": 30460566,
+      "sha256": "1cafe6bb546160a89fb66302a540228859bc2e29012a7e5c64f976fd9b742c6d",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/production.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/production.json",
+      "bytes": 166,
+      "sha256": "645b0c350849704364a2a622703bba77ab36896d62560fefd6f0a7f2d12c20ad",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/saved_assets.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/saved_assets.json",
+      "bytes": 1242,
+      "sha256": "87d3b03409f40c0a343a45fb64d43ba5b5f80ffba551be2802efaa7c954eb8ea",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/SmokeGreyCapri.blend",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/SmokeGreyCapri.blend",
+      "bytes": 14226263,
+      "sha256": "be5b98c608931abe629a0a1a2d69b90fb2e623617ad269a06b372087e76664d9",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/ue_smoke_grey_capri.png",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/SourceAssets/SmokeGreyCapri20261004/ue_smoke_grey_capri.png",
+      "bytes": 49472,
+      "sha256": "c69e7ff782c28050faaf9a8744bcd46f032ebe18174f15f5ceccc2701f136e42",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Tools/SmokeGreyCapri/author_geometry.py",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Tools/SmokeGreyCapri/author_geometry.py",
+      "bytes": 12704,
+      "sha256": "2f376f007ce4ffef2df956af719f34d9c616001cb5b4730fad3b841c60c01db3",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Tools/SmokeGreyCapri/run_background.ps1",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Tools/SmokeGreyCapri/run_background.ps1",
+      "bytes": 2225,
+      "sha256": "5c32bae35c4e60e3ce06b17952ae86245df17b5c9e5b7bb16d7e9c44921d2d9e",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Tools/SmokeGreyCapri/save_assets.py",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/BeforeCrotchFix20261005/Tools/SmokeGreyCapri/save_assets.py",
+      "bytes": 5167,
+      "sha256": "53f3bc8c5b7cab48294f5f32c80b9f0f76290e74da355d2f746dd993b21e668b",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/Capri_Construction.blend1",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/Capri_Construction.blend1",
+      "bytes": 1098494,
+      "sha256": "82dec25dd05d6a710433ba220e583797d3d9131c93c9df2656b63268a63cd754",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/items-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/items-before.json",
+      "bytes": 129523,
+      "sha256": "a100d331359513993223233405f025a2342780637b1a2d15c0be8ada16f48988",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/modular_outfits-before.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/modular_outfits-before.json",
+      "bytes": 101547,
+      "sha256": "0c80809e68a093ca5f5fe0157e5625ca8b2508c8e776a86700afab2be90ad72a",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/SmokeGreyCapri20261004/SmokeGreyCapri.blend1",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/SmokeGreyCapri20261004/SmokeGreyCapri.blend1",
+      "bytes": 14226263,
+      "sha256": "be5b98c608931abe629a0a1a2d69b90fb2e623617ad269a06b372087e76664d9",
+      "reason": "Superseded pre-change snapshot; retained for recovery in trash.",
+      "replacement": "SourceAssets\\SmokeGreyCapri20261004"
+    },
+    {
+      "source": "SourceAssets/ChainmailPants20261004/ArmorRefineV2/ArmorConstruction.blend1",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/ChainmailPants20261004/ArmorRefineV2/ArmorConstruction.blend1",
+      "bytes": 2970986,
+      "sha256": "42c0889a4ad649b5266ca8d5e218b8264e64ddd4548c3fea98a136480bb74fcf",
+      "reason": "Superseded source/package snapshot; current authored files retained.",
+      "replacement": "SourceAssets/ChainmailPants20261004/ArmorRefineV2"
+    },
+    {
+      "source": "SourceAssets/ChainmailPants20261004/ArmorRefineV2/ChainmailPants.blend1",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/ChainmailPants20261004/ArmorRefineV2/ChainmailPants.blend1",
+      "bytes": 19667257,
+      "sha256": "5ec7e990f3daba88ea9985ca7023a13579317492ebc40db4eded19e1d56dccbb",
+      "reason": "Superseded source/package snapshot; current authored files retained.",
+      "replacement": "SourceAssets/ChainmailPants20261004/ArmorRefineV2"
+    },
+    {
+      "source": "SourceAssets/ChainmailPants20261004/ArmorRefineV2/PreviousStaticPackages/SM_ChainmailPants.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/ChainmailPants20261004/ArmorRefineV2/PreviousStaticPackages/SM_ChainmailPants.uasset",
+      "bytes": 985922,
+      "sha256": "add859bed074a3cadbf87fe46deeeba7e70931c18e7e87d3eb02ad58f25bada0",
+      "reason": "Superseded source/package snapshot; current authored files retained.",
+      "replacement": "SourceAssets/ChainmailPants20261004/ArmorRefineV2"
+    },
+    {
+      "source": "SourceAssets/ChainmailPants20261004/ArmorRefineV2/PreviousStaticPackages/SM_ChainmailPants_Display.uasset",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/ChainmailPants20261004/ArmorRefineV2/PreviousStaticPackages/SM_ChainmailPants_Display.uasset",
+      "bytes": 992511,
+      "sha256": "0dac2dae28729d9b8ffc0d58c01b00342e2459969794ace1aa6891eb90dcc56b",
+      "reason": "Superseded source/package snapshot; current authored files retained.",
+      "replacement": "SourceAssets/ChainmailPants20261004/ArmorRefineV2"
+    },
+    {
+      "source": "SourceAssets/LowerBodyEquipment20261003/items_before_lower_body.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/LowerBodyEquipment20261003/items_before_lower_body.json",
+      "bytes": 119186,
+      "sha256": "ec02f0ed10bd29d1a4e86d1b0945879c40e290c768beb06cbb932869bd44cc79",
+      "reason": "Superseded source/package snapshot; current authored files retained.",
+      "replacement": "SourceAssets/LowerBodyEquipment20261003"
+    },
+    {
+      "source": "SourceAssets/LowerBodyEquipment20261003/modular_outfits_before_lower_body.json",
+      "destination": "trash/lower-equipment-retired-20261006/SourceAssets/LowerBodyEquipment20261003/modular_outfits_before_lower_body.json",
+      "bytes": 88141,
+      "sha256": "a86e7e5d07d314eb116590d06297ff7e4272fc36113524b018c59bac1946af85",
+      "reason": "Superseded source/package snapshot; current authored files retained.",
+      "replacement": "SourceAssets/LowerBodyEquipment20261003"
+    }
+  ],
+  "file_count": 131,
+  "bytes": 392929517.0
+}

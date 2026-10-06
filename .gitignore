@@ -2430,3 +2430,20 @@ __pycache__/
 
 # RSH local vendored build dependencies; retain on host, never publish as recipes.
 /SourceAssets/RSH12*/**/.deps/
+
+# Lower equipment and owner body: licensed dense inputs, media and receipts stay local.
+/SourceAssets/ArmoredBoots20261004/
+/SourceAssets/BootsEquipment20261004/
+/SourceAssets/BrownLeatherSet20261004/
+/SourceAssets/ChainmailPants20261004/
+/SourceAssets/EquipmentReview20261006/
+/SourceAssets/FirstPersonLegs20261004/
+/SourceAssets/LowerBodyEquipment20261003/
+/SourceAssets/LowerBodyIcons20261004/
+/SourceAssets/OwnerBodyFront20261005/
+/SourceAssets/OwnerBodyFrontV2_20261005/
+/SourceAssets/OwnerBodyShared20261005/
+/SourceAssets/PistolClothingRepair20261006/
+/SourceAssets/SleeveSpikeRepair20261006/
+/SourceAssets/SmokeGreyCapri20261004/
+/SourceAssets/LowerEquipmentPublication20261006/

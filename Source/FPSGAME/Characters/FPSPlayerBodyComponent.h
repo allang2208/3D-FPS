@@ -32,6 +32,11 @@ public:
     void RecordAcceptedHit(AActor* Attacker,float Damage,float MaxHealth);
     void RecordKnockback(const FVector& Direction,float Distance,float Duration);
     UFUNCTION(BlueprintPure, Category="Player Body") class USkeletalMeshComponent* GetBodyMesh() const;
+    /** Owner-only display of the shared world body and its exact pose. */
+    class USkeletalMeshComponent* GetFirstPersonLowerBodyMesh() const { return FirstPersonLowerBody.Get(); }
+    /** Stable anatomical eye offset; evaluated once with the camera, reused by melee aiming. */
+    void ApplyOwnerCameraOffset(FVector& Eye);
+    FVector GetOwnerCameraOffset() const { return OwnerCameraOffset; }
     /** Applies `fps.body.WorldBody` to the body, world weapon, attachment and outfit
      *  components. Safe to call every visibility refresh; only changed flags are set. */
     void ApplyWorldBodyVisibility();
@@ -184,6 +189,18 @@ private:
     TWeakObjectPtr<class UCombatStatusFormula> ReactionStatus;
     TWeakObjectPtr<class UPlayerGuardBreakComponent> ReactionGuard;
     float ReactionComponentRefresh=0.f;
+
+    UPROPERTY(Transient) TObjectPtr<class USkeletalMeshComponent> FirstPersonLowerBody;
+    bool bLowerBodyRequested=false;
+    void InitializeFirstPersonLowerBody();
+    void UpdateFirstPersonLowerBodyVisibility();
+    bool ShouldShowFirstPersonLowerBody() const;
+    FVector OwnerCameraOffset=FVector::ZeroVector;
+    float OwnerCameraForward=56.f;
+    float OwnerCameraCrouchForward=62.f;
+    float OwnerCameraLookDownForward=12.f;
+    float OwnerCameraLookDownDrop=0.f;
+    float OwnerCameraTorsoClearance=40.f;
 
 };
 

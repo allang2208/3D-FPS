@@ -1903,6 +1903,7 @@ FTransform AFPSGAMECharacter::GetMeleeAimTransform() const
 {
     FVector Eye=CameraRestLocation;
     Eye.Z=(bIsSliding || bIsCrouched)?SlidingCameraHeight:StandingCameraHeight;
+    if(const auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>())Eye+=Body->GetOwnerCameraOffset();
     const auto* Parent=FirstPersonCamera->GetAttachParent();
     const FTransform& ParentWorld=Parent?Parent->GetComponentTransform():GetActorTransform();
     const FQuat Aim=Controller?Controller->GetControlRotation().Quaternion():GetActorQuat();
@@ -1957,6 +1958,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     AdvanceSpring(LandingOffset, LandingVelocity, 150.0f, 20.0f, DeltaSeconds);
     FVector TargetLocation = CameraRestLocation;
     TargetLocation.Z = (bIsSliding || bIsCrouched) ? SlidingCameraHeight : StandingCameraHeight;
+    if(auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>())Body->ApplyOwnerCameraOffset(TargetLocation);
     float MovementRoll = 0.0f;
     float MovementPitch = 0.0f;
     if (GroundLocomotionWeight > 0.001f)

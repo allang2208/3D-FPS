@@ -1,4 +1,5 @@
 #include "ColdSteelInventoryWidget.h"
+#include "ColdSteelEquipmentLayout.h"
 #include "ColdSteelDragVisual.h"
 #include "ColdSteelHUDWidget.h"
 #include "../FPSGAMEPlayerController.h"
@@ -183,7 +184,7 @@ UColdSteelInventoryWidget::FBoardLayout UColdSteelInventoryWidget::Layout(const 
     int32 ViewWidth=0,ViewHeight=0;GetOwningPlayer()->GetViewportSize(ViewWidth,ViewHeight);
     L.GearHeight=ViewHeight<650?52.f:ViewHeight<850?60.f:76.f;
     L.GearY=32;L.GearPitch=L.GearHeight+6;
-    L.BagY=L.GearY+FMath::DivideAndRoundUp(SlotNames().Num(),3)*L.GearPitch-6+48;
+    L.BagY=L.GearY+ColdSteelEquipmentLayout::Rows*L.GearPitch-6+48;
     L.HotY=L.BagY+StorageRows()*L.Cell;
     // 背包装备撑出夹层时，在反馈行下方追加"夹层"区块（标题行 36px + 网格）。
     // 网格尺寸（长×宽＝列×行）由装备的背包定义，区块高度随行数伸缩。
@@ -201,11 +202,12 @@ bool UColdSteelInventoryWidget::Hit(const FGeometry& G,FVector2D Screen,int32& P
 {
     const auto L=Layout(G);const FVector2D P=G.AbsoluteToLocal(Screen)*Scale;Place=-1;Cell=-1;
     if(P.X<12||P.X>L.Width-12)return false;
-    if(!bWarehouse&&P.Y>=L.GearY&&P.Y<L.GearY+FMath::DivideAndRoundUp(SlotNames().Num(),3)*L.GearPitch-6){
+    if(!bWarehouse&&P.Y>=L.GearY&&P.Y<L.GearY+ColdSteelEquipmentLayout::Rows*L.GearPitch-6){
         const int32 Row=int32((P.Y-L.GearY)/L.GearPitch),Col=int32((P.X-12)/(L.GearWidth+6));
         if(Col>2||P.Y-L.GearY-Row*L.GearPitch>=L.GearHeight||P.X-12-Col*(L.GearWidth+6)>=L.GearWidth)return false;
-        if(Row*3+Col>=SlotNames().Num())return false;
-        Place=1;Cell=Row*3+Col;return true;
+        const int32 EquipmentSlot=ColdSteelEquipmentLayout::SlotForCell(Row*3+Col);
+        if(EquipmentSlot==INDEX_NONE)return false;
+        Place=1;Cell=EquipmentSlot;return true;
     }
     if(P.Y>=L.BagY&&P.Y<L.BagY+StorageRows()*L.Cell){Place=StoragePlace();Cell=StorageStart()+int32((P.Y-L.BagY)/L.Cell)*18+FMath::Clamp(int32((P.X-12)/L.Cell),0,17);return true;}
     if(L.CompY>0&&P.Y>=L.CompY&&P.Y<L.CompY+L.CompGrid.Y*L.Cell&&P.X<12+L.CompGrid.X*L.Cell)
@@ -287,7 +289,10 @@ FReply UColdSteelInventoryWidget::NativeOnKeyDown(const FGeometry& G,const FKeyE
     // G 已从键盘轮换武器改为符文长剑飞剑专用（面板内也不再消费它）。
     if(K==EKeys::SpaceBar){if(KeyboardCarry.IsEmpty())KeyboardCarry=IdAt(FocusPlace,FocusCell);else {const bool OK=DropAt(KeyboardCarry,FocusPlace,FocusCell);InteractionMessage=Model->ResultMessage();if(OK){KeyboardCarry.Empty();PreviewPlace=-1;}}return FReply::Handled();}
     if(K==EKeys::F){FocusPlace=bWarehouse?4:(FocusPlace==0?1:FocusPlace==1?(Model&&ColdSteelInventory::CompartmentCells(Model->Items())>0?ColdSteelCompartment::Place:0):0);FocusCell=StorageStart();}
-    else if(K==EKeys::Left||K==EKeys::Right||K==EKeys::Up||K==EKeys::Down){const FIntPoint CompGrid=Model?CompartmentGrid(Model->Items()):FIntPoint::ZeroValue;int32 Columns=(FocusPlace==0||FocusPlace==4)?18:FocusPlace==1?3:CompGrid.X;FocusCell+=K==EKeys::Left?-1:K==EKeys::Right?1:K==EKeys::Up?-Columns:Columns;FocusCell=FMath::Clamp(FocusCell,StorageStart(),bWarehouse?StorageStart()+ColdSteelWarehouse::CellsPerPage-1:FocusPlace==0?StorageRows()*18-1:FocusPlace==1?14:FMath::Max(0,CompGrid.X*CompGrid.Y-1));}
+    else if(K==EKeys::Left||K==EKeys::Right||K==EKeys::Up||K==EKeys::Down){
+        if(FocusPlace==1)FocusCell=ColdSteelEquipmentLayout::StepSlot(FocusCell,K==EKeys::Left?-1:K==EKeys::Right?1:0,K==EKeys::Up?-1:K==EKeys::Down?1:0);
+        else {const FIntPoint CompGrid=Model?CompartmentGrid(Model->Items()):FIntPoint::ZeroValue;const int32 Columns=(FocusPlace==0||FocusPlace==4)?18:CompGrid.X;FocusCell+=K==EKeys::Left?-1:K==EKeys::Right?1:K==EKeys::Up?-Columns:Columns;FocusCell=FMath::Clamp(FocusCell,StorageStart(),bWarehouse?StorageStart()+ColdSteelWarehouse::CellsPerPage-1:FocusPlace==0?StorageRows()*18-1:FMath::Max(0,CompGrid.X*CompGrid.Y-1));}
+    }
     else return Super::NativeOnKeyDown(G,E);
     Selected=IdAt(FocusPlace,FocusCell);bConfirmDrop=false;bKeyboardTooltip=true;
     if(bWarehouse)if(auto* Scroll=Cast<UScrollBox>(GetParent())){
@@ -316,7 +321,7 @@ void UColdSteelInventoryWidget::NativeOnDragDetected(const FGeometry& G,const FP
     else if(PressPlace==ColdSteelCompartment::Place)Drag->GrabOffset=FIntPoint(PressCell%L.CompGrid.X-I->Cell%L.CompGrid.X,PressCell/L.CompGrid.X-I->Cell/L.CompGrid.X);
     FVector2D Origin(12+I->Cell%18*L.Cell,L.BagY+(I->Cell-StorageStart())/18*L.Cell),Size(I->Width*L.Cell,I->Height*L.Cell);
     if(PressPlace==ColdSteelCompartment::Place)Origin=FVector2D(12+I->Cell%L.CompGrid.X*L.Cell,L.CompY+I->Cell/L.CompGrid.X*L.Cell);
-    if(PressPlace==1){Origin=FVector2D(12+PressCell%3*(L.GearWidth+6),L.GearY+PressCell/3*L.GearPitch);Size=FVector2D(L.GearWidth,L.GearHeight);}
+    if(PressPlace==1){const int32 DisplayCell=ColdSteelEquipmentLayout::CellForSlot(PressCell);Origin=FVector2D(12+DisplayCell%3*(L.GearWidth+6),L.GearY+DisplayCell/3*L.GearPitch);Size=FVector2D(L.GearWidth,L.GearHeight);}
     const FVector2D Grab(FMath::Clamp((Press.X-Origin.X)/Size.X,0.0,1.0),FMath::Clamp((Press.Y-Origin.Y)/Size.Y,0.0,1.0));
     if(PressPlace==1)Drag->GrabOffset=FIntPoint(FMath::Min(I->Width-1,int32(Grab.X*I->Width)),FMath::Min(I->Height-1,int32(Grab.Y*I->Height)));
     Drag->PointerVisual=CreateWidget<UColdSteelDragVisual>(GetOwningPlayer());

@@ -27,7 +27,8 @@ TAutoConsoleVariable<int32> CVarBareArmsCandidate(
 FString PresentationKey(USkeletalMeshComponent* Source,FName Shirt,FName Gloves,bool bCandidate,FName Pants=NAME_None,FName Shoes=NAME_None)
 {
     return Source->GetSkeletalMeshAsset()->GetPathName()+TEXT("|")+Shirt.ToString()+TEXT("|")+Gloves.ToString()
-        +(bCandidate?TEXT("|BareArms"):TEXT("|Default"))+TEXT("|")+Pants.ToString()+TEXT("|")+Shoes.ToString();
+        +(bCandidate?TEXT("|BareArms"):TEXT("|Default"))+TEXT("|")+Pants.ToString()+TEXT("|")+Shoes.ToString()
+        +(Source->ComponentHasTag(TEXT("SharedOwnerBody"))?TEXT("|SharedOwnerBody"):TEXT(""));
 }
 TSharedPtr<FJsonObject> Object(const TSharedPtr<FJsonObject>& Parent,const FString& Key)
 {
@@ -170,7 +171,10 @@ void UFPSModularOutfitComponent::DiscoverSources()
     const auto* Pawn=Cast<APawn>(GetOwner());
     const bool bTryCandidate=!bRestoreSourceArms&&!bWearingModularOutfit&&Pawn&&Pawn->IsLocallyControlled()
         &&CVarBareArmsCandidate.GetValueOnGameThread()==1;
-    if(!bWearingModularOutfit&&!bWearingLowerBody&&!bNativeBareHandsDefault&&!bTryCandidate&&!bRestoreSourceArms)
+    auto* BodyComponent=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();
+    auto* Body=BodyComponent?BodyComponent->GetBodyMesh():nullptr;
+    auto* LowerBody=BodyComponent?BodyComponent->GetFirstPersonLowerBodyMesh():nullptr;
+    if(!LowerBody&&!bWearingModularOutfit&&!bWearingLowerBody&&!bNativeBareHandsDefault&&!bTryCandidate&&!bRestoreSourceArms)
     {
         // Returning the candidate switch to zero restores original sections.
         for(auto& Load:PendingLoads)if(Load.Value)Load.Value->CancelHandle();
@@ -180,12 +184,10 @@ void UFPSModularOutfitComponent::DiscoverSources()
         return;
     }
     const auto Profiles=Object(Configuration,TEXT("profiles"));if(!Profiles)return;
-    auto* BodyComponent=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();
-    auto* Body=BodyComponent?BodyComponent->GetBodyMesh():nullptr;
     TArray<USkeletalMeshComponent*> Sources;GetOwner()->GetComponents(Sources);
     const auto WantsCandidate=[&](USkeletalMeshComponent* Source,const TSharedPtr<FJsonObject>& Profile)
     {
-        return bTryCandidate&&Source!=Body&&Source->bOnlyOwnerSee
+        return bTryCandidate&&Source!=Body&&Source!=LowerBody&&Source->bOnlyOwnerSee
             &&!Flag(Profile,TEXT("native_bare_arms"))
             &&!String(Profile,TEXT("bare_arms_candidate")).IsEmpty();
     };
@@ -195,43 +197,41 @@ void UFPSModularOutfitComponent::DiscoverSources()
             ||(Source->bOnlyOwnerSee&&Source->ComponentHasTag(TEXT("PreloadModularOutfit")))))
     {
         const auto Profile=Object(Profiles,Source->GetSkeletalMeshAsset()->GetPathName());
-        if(Source!=Body)
+        if(Source!=Body&&Source!=LowerBody)
         {
             const bool bBaked=Flag(Profile,TEXT("native_bare_arms"));
             if((bRestoreSourceArms&&!bBaked)||(bBaked&&!bRestoreSourceArms&&!bWearingModularOutfit))continue;
         }
-        CurrentKeys.Add(PresentationKey(Source,Equipped.FindRef(7),Equipped.FindRef(3),WantsCandidate(Source,Profile),
-            Source==Body?Equipped.FindRef(15):NAME_None,Source==Body?Equipped.FindRef(13):NAME_None));
+        const bool bHasLegs=Source==Body||Source==LowerBody;
+        CurrentKeys.Add(PresentationKey(Source,Equipped.FindRef(7),Source==LowerBody?NAME_None:Equipped.FindRef(3),WantsCandidate(Source,Profile),
+            bHasLegs?Equipped.FindRef(15):NAME_None,bHasLegs?Equipped.FindRef(13):NAME_None));
     }
     for(auto It=PendingLoads.CreateIterator();It;++It)
         if(!CurrentKeys.Contains(It.Key())||FailedLoads.Contains(It.Key()))
         {if(It.Value()&&!It.Value()->HasLoadCompleted())It.Value()->CancelHandle();It.RemoveCurrent();}
-    for(int32 I=Presentations.Num()-1;I>=0;--I)
-    {
-        auto& P=Presentations[I];auto* Source=P.Source.Get();
-        if(!Source||Source->GetSkeletalMeshAsset()!=P.SourceAsset||!CurrentKeys.Contains(P.Key))
-        {ReleasePresentation(P);Presentations.RemoveAt(I);}
-    }
+    TSet<USkeletalMeshComponent*> ActiveSources;
     for(auto* Source:Sources)
     {
         if(!IsValid(Source)||!Source->GetSkeletalMeshAsset()||Source->ComponentHasTag(TEXT("ModularOutfit")))continue;
         const bool bWorld=Source==Body;
+        const bool bLowerBody=Source==LowerBody;
+        const bool bHasLegs=bWorld||bLowerBody;
         if(bWorld&&FPSPlayerBodyWorldBodySuppressed())continue;
         if(!bWorld&&(!Pawn||!Pawn->IsLocallyControlled()))continue;
         auto Profile=Object(Profiles,Source->GetSkeletalMeshAsset()->GetPathName());
         if(!Profile)continue;
-        const bool bBakedBare=!bWorld&&Flag(Profile,TEXT("native_bare_arms"));
-        if(!bWorld&&bRestoreSourceArms&&!bBakedBare)continue;
+        const bool bBakedBare=!bHasLegs&&Flag(Profile,TEXT("native_bare_arms"));
+        if(!bHasLegs&&bRestoreSourceArms&&!bBakedBare)continue;
         // Baked viewmodels already contain the bare surface on their native rig.
         // No follower, async load or first-frame appearance swap is needed.
         if(bBakedBare&&!bWearingModularOutfit&&!bRestoreSourceArms)continue;
         const bool bOriginalGloves=bBakedBare&&bRestoreSourceArms;
         const bool bCandidate=WantsCandidate(Source,Profile);
-        if(!bWearingModularOutfit&&!(bWorld&&bWearingLowerBody)&&!bNativeBareHandsDefault&&!bCandidate&&!bOriginalGloves)continue;
+        if(!bLowerBody&&!bWearingModularOutfit&&!(bWorld&&bWearingLowerBody)&&!bNativeBareHandsDefault&&!bCandidate&&!bOriginalGloves)continue;
         // A future profile without a native default keeps its accepted source.
         // Never revive the old FBX-rebound base merely because the global default
         // is enabled for other weapons.
-        if(!bWearingModularOutfit&&!(bWorld&&bWearingLowerBody)&&!bCandidate&&String(Profile,TEXT("native_bare_skin")).IsEmpty())continue;
+        if(!bWearingModularOutfit&&!(bHasLegs&&bWearingLowerBody)&&!bCandidate&&String(Profile,TEXT("native_bare_skin")).IsEmpty())continue;
         // World weapon copies have the same mesh paths as viewmodels, but have
         // no camera-space ownership. Never grow a second pair of arms on them.
         if(!bWorld&&!Source->bOnlyOwnerSee)continue;
@@ -253,22 +253,38 @@ void UFPSModularOutfitComponent::DiscoverSources()
             Profile->SetStringField(TEXT("native_bare_skin"),String(Profile,TEXT("bare_arms_candidate")));
             Profile->SetBoolField(TEXT("candidate_active"),true);
         }
-        UpdatePresentation(Source,Profile,bWorld);
+        ActiveSources.Add(Source);
+        UpdatePresentation(Source,Profile,bWorld,bLowerBody);
+    }
+    // A new equipment key can still be loading. Keep the last complete outfit
+    // until UpdatePresentation commits its replacement; removing it by key here
+    // exposes the source body (or empties the owner-only body) between loads.
+    // Sources which no longer participate still restore their original sections.
+    for(int32 I=Presentations.Num()-1;I>=0;--I)
+    {
+        auto& P=Presentations[I];auto* Source=P.Source.Get();
+        if(!Source||Source->GetSkeletalMeshAsset()!=P.SourceAsset||!ActiveSources.Contains(Source))
+        {ReleasePresentation(P);Presentations.RemoveAt(I);}
     }
 }
-void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Source,const TSharedPtr<FJsonObject>& Profile,bool bWorld)
+void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Source,const TSharedPtr<FJsonObject>& Profile,bool bWorld,bool bLowerBody)
 {
     using namespace FPSModularOutfit;
+    const bool bHasLegs=bWorld||bLowerBody;
     const auto Recipes=Object(Configuration,TEXT("items"));
-    const auto Shirt=Flag(Profile,TEXT("restore_original_gloves"))?nullptr:Object(Recipes,Equipped.FindRef(7).ToString());
+    auto Shirt=Flag(Profile,TEXT("restore_original_gloves"))?nullptr:Object(Recipes,Equipped.FindRef(7).ToString());
+    const FString OwnerShirt=String(Object(Shirt,TEXT("owner_body_meshes")),*String(Profile,TEXT("rig_profile")));
+    // Only display an authored torso section set. A missing owner variant must
+    // not silently reintroduce a second pair of animated sleeves and hands.
+    if(bLowerBody&&OwnerShirt.IsEmpty())Shirt=nullptr;
     const auto GloveRecipe=Object(Recipes,Equipped.FindRef(3).ToString());
-    const TSharedPtr<FJsonObject> Gloves=String(GloveRecipe,TEXT("first_person_mode"))==TEXT("source_arms")
+    const TSharedPtr<FJsonObject> Gloves=bLowerBody||String(GloveRecipe,TEXT("first_person_mode"))==TEXT("source_arms")
         ?nullptr:GloveRecipe;
-    const auto Pants=bWorld?Object(Recipes,Equipped.FindRef(15).ToString()):nullptr;
-    const auto Shoes=bWorld?Object(Recipes,Equipped.FindRef(13).ToString()):nullptr;
+    const auto Pants=bHasLegs?Object(Recipes,Equipped.FindRef(15).ToString()):nullptr;
+    const auto Shoes=bHasLegs?Object(Recipes,Equipped.FindRef(13).ToString()):nullptr;
     bool bCandidate=false;Profile->TryGetBoolField(TEXT("candidate_active"),bCandidate);
-    FString Key=PresentationKey(Source,Equipped.FindRef(7),Equipped.FindRef(3),bCandidate,
-        bWorld?Equipped.FindRef(15):NAME_None,bWorld?Equipped.FindRef(13):NAME_None);
+    FString Key=PresentationKey(Source,Equipped.FindRef(7),bLowerBody?NAME_None:Equipped.FindRef(3),bCandidate,
+        bHasLegs?Equipped.FindRef(15):NAME_None,bHasLegs?Equipped.FindRef(13):NAME_None);
     auto* Existing=Presentations.FindByPredicate([Source](const auto& P){return P.Source==Source;});
     if(Existing&&Existing->Key==Key)
     {
@@ -293,19 +309,27 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     };
     if(Shirt)
     {
-        MeshPaths.Add(PartMesh(Shirt,TEXT("shirt")));
+        MeshPaths.Add(bLowerBody?OwnerShirt:PartMesh(Shirt,TEXT("shirt")));
         MaterialPaths.Add(String(Shirt,TEXT("material")));
     }
     // Optional per-slot view materials leave the saved meshes and world-body
     // materials intact. Load them in the same async batch as the outfit.
     TArray<FString> ShirtViewMaterials;
     const TArray<TSharedPtr<FJsonValue>>* ViewMaterials=nullptr;
-    if(!bWorld&&Shirt&&Shirt->TryGetArrayField(TEXT("first_person_materials"),ViewMaterials))
+    if(!bHasLegs&&Shirt&&Shirt->TryGetArrayField(TEXT("first_person_materials"),ViewMaterials))
         for(const auto& Value:*ViewMaterials)ShirtViewMaterials.Add(Value->AsString());
     bool bGloveInBase=false;if(Gloves)Gloves->TryGetBoolField(TEXT("glove_in_base"),bGloveInBase);
     if(Flag(Profile,TEXT("separate_gloves")))bGloveInBase=false;
     if(Gloves&&!bGloveInBase){MeshPaths.Add(PartMesh(Gloves,TEXT("gloves")));MaterialPaths.Add(String(Gloves,TEXT("material")));}
-    if(Pants){MeshPaths.Add(PartMesh(Pants,TEXT("pants")));MaterialPaths.Add(String(Pants,TEXT("material")));}
+    if(Pants)
+    {
+        // Boot-specific cuffs share the normal inventory item and follow the
+        // same async outfit load; switching shoes restores the default trousers.
+        const auto ShoeFit=Object(Object(Pants,TEXT("shoe_fit_meshes")),Equipped.FindRef(13).ToString());
+        const FString FittedPants=String(ShoeFit,*String(Profile,TEXT("rig_profile")));
+        MeshPaths.Add(FittedPants.IsEmpty()?PartMesh(Pants,TEXT("pants")):FittedPants);
+        MaterialPaths.Add(String(Pants,TEXT("material")));
+    }
     if(Shoes){MeshPaths.Add(PartMesh(Shoes,TEXT("shoes")));MaterialPaths.Add(String(Shoes,TEXT("material")));}
     TArray<FSoftObjectPath> Paths;
     bool bLoaded=true;
@@ -347,25 +371,44 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         Part->SetOnlyOwnerSee(Source->bOnlyOwnerSee);Part->SetOwnerNoSee(Source->bOwnerNoSee);
         Part->SetCastShadow(Source->CastShadow);Part->bCastHiddenShadow=Source->bCastHiddenShadow;
         Part->SetFirstPersonPrimitiveType(Source->FirstPersonPrimitiveType);
-        Part->SetVisibility(false);Part->SetLeaderPoseComponent(Source);
+        Part->SetVisibility(false);
+        // Owner skin/clothes consume the world body's buffer directly; the
+        // display anchor never adds a second pose or a second IK correction.
+        Part->SetLeaderPoseComponent(bLowerBody&&Source->LeaderPoseComponent.IsValid()?Source->LeaderPoseComponent.Get():Source);
+        if(bLowerBody)
+        {
+            Part->SetHiddenInSceneCapture(true);
+            Part->SetVisibleInRayTracing(false);
+            Part->bAffectDynamicIndirectLighting=false;
+        }
         Part->bUseAttachParentBound=true;Part->RegisterComponent();
         Part->SetComponentTickEnabled(false);
         if(!MaterialPaths[I].IsEmpty())
             for(int32 M=0;M<Part->GetNumMaterials();++M)Part->SetMaterial(M,Cast<UMaterialInterface>(FSoftObjectPath(MaterialPaths[I]).ResolveObject()));
         if(I==1&&Shirt)
+        {
             for(int32 M=0;M<FMath::Min(Part->GetNumMaterials(),ShirtViewMaterials.Num());++M)
                 Part->SetMaterial(M,Cast<UMaterialInterface>(FSoftObjectPath(ShirtViewMaterials[M]).ResolveObject()));
+            if(bLowerBody)
+            {
+                const auto HiddenByRig=Object(Shirt,TEXT("owner_body_hidden_materials"));
+                const auto Hidden=Numbers(HiddenByRig,*String(Profile,TEXT("rig_profile")));
+                const auto* Data=Part->GetSkeletalMeshAsset()->GetResourceForRendering();
+                if(Data)for(int32 L=0;L<Data->LODRenderData.Num();++L)for(int32 M:Hidden)Section(Part,M,L,false);
+            }
+        }
         NewParts.Add(Part);
     }
     // Cover the body only once the entire mesh/material recipe is resident.
     auto* Base=NewParts[0].Get();const auto* BaseData=Base->GetSkeletalMeshAsset()->GetResourceForRendering();
-    TArray<int32> Covered;
+    TArray<int32> Covered=Numbers(Profile,TEXT("base_hide_materials"));
+    if(bLowerBody)Covered.Append(Numbers(Profile,TEXT("owner_body_hidden_materials")));
     if(Shirt)
     {
         // Short sleeves retain the native arms. Body coverage is independent
         // because its torso section does not exist on first-person profiles.
-        const TCHAR* CoverageKey=bWorld&&Shirt->HasField(TEXT("world_covers"))?TEXT("world_covers"):TEXT("covers");
-        const auto RigCoverage=bWorld?Object(Shirt,TEXT("rig_world_covers")):nullptr;
+        const TCHAR* CoverageKey=bHasLegs&&Shirt->HasField(TEXT("world_covers"))?TEXT("world_covers"):TEXT("covers");
+        const auto RigCoverage=bHasLegs?Object(Shirt,TEXT("rig_world_covers")):nullptr;
         const FString Rig=String(Profile,TEXT("rig_profile"));
         if(RigCoverage&&RigCoverage->HasField(Rig))Covered.Append(Numbers(RigCoverage,*Rig));
         else Covered.Append(Shirt->HasField(CoverageKey)?Numbers(Shirt,CoverageKey):Numbers(Profile,TEXT("shirt_covers")));
@@ -384,7 +427,7 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     else Existing=&Presentations.AddDefaulted_GetRef();
     Existing->Source=Source;Existing->SourceAsset=Source->GetSkeletalMeshAsset();Existing->Key=Key;Existing->bWorld=bWorld;
     Existing->Parts=MoveTemp(NewParts);Existing->HiddenMaterials=Numbers(Profile,TEXT("hide_source_materials"));
-    if(!bWorld&&Shirt&&String(Shirt,TEXT("secondary_motion"))==TEXT("chainmail_shared_sway_v1")&&Existing->Parts.IsValidIndex(1))
+    if(!bHasLegs&&Shirt&&String(Shirt,TEXT("secondary_motion"))==TEXT("chainmail_shared_sway_v1")&&Existing->Parts.IsValidIndex(1))
     {
         Existing->SecondaryMotion=MakeShared<FFPSOutfitSecondaryMotion>();
         Existing->SecondaryMotion->Initialize(Source,Existing->Parts[1]);

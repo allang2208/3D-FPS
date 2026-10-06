@@ -1,7 +1,138 @@
 {
   "version": 1,
   "items": {
+    "ue_smoke_grey_capri": {
+      "slot": 15,
+      "material": "",
+      "appearance_family": "SmokeGreyCapri20261004",
+      "rig_meshes": {
+        "Jason": "/Game/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/SK_Jason_SmokeGreyCapri.SK_Jason_SmokeGreyCapri"
+      },
+      "rig_world_covers": {
+        "Jason": [
+          8,
+          10,
+          12,
+          14,
+          16
+        ]
+      },
+      "shoe_fit_meshes": {
+        "ue_armored_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/SK_Jason_SmokeGreyCapri_HighBootsFit.SK_Jason_SmokeGreyCapri_HighBootsFit"
+        },
+        "ue_leather_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/SK_Jason_SmokeGreyCapri_HighBootsFit.SK_Jason_SmokeGreyCapri_HighBootsFit"
+        }
+      }
+    },
+    "ue_leather_pants": {
+      "slot": 15,
+      "material": "",
+      "appearance_family": "BrownLeatherPants20261004",
+      "rig_meshes": {
+        "Jason": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/SK_Jason_LeatherPants.SK_Jason_LeatherPants"
+      },
+      "rig_world_covers": {
+        "Jason": [
+          8,
+          10,
+          11,
+          12,
+          14,
+          15,
+          16
+        ]
+      },
+      "shoe_fit_meshes": {
+        "ue_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/SK_Jason_LeatherPants_ShortBootsFit.SK_Jason_LeatherPants_ShortBootsFit"
+        },
+        "ue_armored_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/SK_Jason_LeatherPants_HighBootsFit.SK_Jason_LeatherPants_HighBootsFit"
+        },
+        "ue_leather_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/SK_Jason_LeatherPants_HighBootsFit.SK_Jason_LeatherPants_HighBootsFit"
+        }
+      }
+    },
+    "ue_leather_boots": {
+      "slot": 13,
+      "material": "",
+      "appearance_family": "BrownLeatherBoots20261004",
+      "rig_meshes": {
+        "Jason": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/SK_Jason_LeatherBoots.SK_Jason_LeatherBoots"
+      },
+      "rig_world_covers": {
+        "Jason": [
+          4,
+          11,
+          16,
+          13,
+          15
+        ]
+      }
+    },
+    "ue_armored_boots": {
+      "slot": 13,
+      "material": "",
+      "appearance_family": "ArmoredBoots20261004",
+      "rig_meshes": {
+        "Jason": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_ArmoredBoots.SK_Jason_ArmoredBoots"
+      },
+      "rig_world_covers": {
+        "Jason": [
+          4,
+          11,
+          16,
+          13,
+          15
+        ]
+      }
+    },
+    "ue_chainmail_pants": {
+      "slot": 15,
+      "material": "",
+      "appearance_family": "ChainmailPantsArmorRefineV2",
+      "rig_meshes": {
+        "Jason": "/Game/Characters/ModularOutfit20260924/ChainmailPants20261004/ArmorRefineV2/SK_Jason_ChainmailPants.SK_Jason_ChainmailPants"
+      },
+      "rig_world_covers": {
+        "Jason": [
+          8,
+          10,
+          11,
+          12,
+          14,
+          15,
+          16
+        ]
+      },
+      "shoe_fit_meshes": {
+        "ue_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/ChainmailPants20261004/ArmorRefineV2/SK_Jason_ChainmailPants_BootsFit.SK_Jason_ChainmailPants_BootsFit"
+        },
+        "ue_armored_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_ChainmailPants_ArmoredBootsFit.SK_Jason_ChainmailPants_ArmoredBootsFit"
+        },
+        "ue_leather_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_ChainmailPants_ArmoredBootsFit.SK_Jason_ChainmailPants_ArmoredBootsFit"
+        }
+      }
+    },
     "ue_field_sweater": {
+      "owner_body_hidden_materials": {
+        "Jason": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "owner_body_meshes": {
+        "Jason": "/Game/Characters/ModularOutfit20260924/OwnerShoulderSeam20261006/SK_Jason_Owner_ue_field_sweater.SK_Jason_Owner_ue_field_sweater"
+      },
       "slot": 7,
       "part": "shirt",
       "material": "",
@@ -52,6 +183,18 @@
       }
     },
     "ue_field_sweater_charcoal": {
+      "owner_body_hidden_materials": {
+        "Jason": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "owner_body_meshes": {
+        "Jason": "/Game/Characters/ModularOutfit20260924/OwnerShoulderSeam20261006/SK_Jason_Owner_ue_field_sweater_charcoal.SK_Jason_Owner_ue_field_sweater_charcoal"
+      },
       "slot": 7,
       "part": "shirt",
       "material": "",
@@ -265,6 +408,16 @@
       }
     },
     "ue_chainmail_shirt": {
+      "owner_body_hidden_materials": {
+        "Jason": [
+          3,
+          4,
+          5
+        ]
+      },
+      "owner_body_meshes": {
+        "Jason": "/Game/Characters/ModularOutfit20260924/OwnerShoulderSeam20261006/SK_Jason_Owner_ue_chainmail_shirt.SK_Jason_Owner_ue_chainmail_shirt"
+      },
       "slot": 7,
       "part": "shirt",
       "material": "",
@@ -325,8 +478,21 @@
           10,
           11,
           12,
-          14
+          14,
+          15,
+          16
         ]
+      },
+      "shoe_fit_meshes": {
+        "ue_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Jeans_BootsFit.SK_Jason_Jeans_BootsFit"
+        },
+        "ue_armored_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Jeans_ArmoredBootsFit.SK_Jason_Jeans_ArmoredBootsFit"
+        },
+        "ue_leather_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Jeans_ArmoredBootsFit.SK_Jason_Jeans_ArmoredBootsFit"
+        }
       }
     },
     "ue_cargo_pants": {
@@ -339,8 +505,21 @@
           9,
           10,
           12,
-          14
+          14,
+          15,
+          16
         ]
+      },
+      "shoe_fit_meshes": {
+        "ue_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Cargo_BootsFit.SK_Jason_Cargo_BootsFit"
+        },
+        "ue_armored_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Cargo_ArmoredBootsFit.SK_Jason_Cargo_ArmoredBootsFit"
+        },
+        "ue_leather_boots": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Cargo_ArmoredBootsFit.SK_Jason_Cargo_ArmoredBootsFit"
+        }
       }
     },
     "ue_casual_sneakers": {
@@ -350,6 +529,20 @@
       },
       "rig_world_covers": {
         "Jason": [
+          13
+        ]
+      }
+    },
+    "ue_boots": {
+      "slot": 13,
+      "rig_meshes": {
+        "Jason": "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Boots.SK_Jason_Boots"
+      },
+      "rig_world_covers": {
+        "Jason": [
+          4,
+          11,
+          15,
           13
         ]
       }
@@ -1153,8 +1346,15 @@
       "separate_gloves": true
     },
     "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Base.SK_Jason_Base": {
-      "base": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/SK_Jason_Base.SK_Jason_Base",
-      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/SK_Jason_Base.SK_Jason_Base",
+      "owner_body_hidden_materials": [
+        0,
+        1,
+        2,
+        5,
+        6
+      ],
+      "base": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Base.SK_Jason_Base",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Base.SK_Jason_Base",
       "shirt": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater",
       "gloves": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves.SK_Jason_ue_field_gloves",
       "hide_source_materials": [

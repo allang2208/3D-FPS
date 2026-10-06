@@ -81,6 +81,7 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 - 手枪动作、M1911/P9 迁移、空仓机械与回握缩尾：[手枪动作适配](references/pistol-adaptation.md)。M4 的拍击/装备拉栓合同不直接套到手枪。
 
+- 第一人称低头身体、裤鞋接入、肩口尖刺、裤裆漏空和换装异步交接：[共用身体与裤鞋装备](references/shared-owner-body-and-lower-equipment.md)。保留原生第一人称手部，身体共用世界姿态；连续分界和连续裆缝保持原生绑定，发布配置保留相机调参。
 - 制作或调整第一人称手套、衣物、袖口及独立换装：[第一人称手套与衣物标准工作流](references/first-person-equipment-workflow.md)。以认可的 V7 裸手拟合装备，沿用各原生骨架并复用动画，完成覆盖、材质、保存与配置接入；布料物理按宽松区域单独处理。
 - 手套／衣物高模细节、毛躁、针脚、使用磨损、浅层视差、厚度和金属材质，读 [手套衣物表面制作标准](references/glove-clothing-surface-production.md)；需要实际脚本／参数／家族路径再读 [制作配方与案例](references/glove-clothing-production-recipes.md)。按 [用途分配面数](../asset-model-workflow/references/geometry-budgets-by-use.md)，保留近景轮廓和关键关节，不强制减面。旧 [手部材质](references/hand-equipment-appearance.md) 与 [野外手套](references/field-glove-leather-and-hunt-shape.md) 仅按其版本范围参考，不能覆盖当前 V4／伴随家族；棕色、黑色、战术与钢甲保持各自身份。
 

@@ -1,4 +1,157 @@
 {
+  "ue_smoke_grey_capri": {
+    "id": "ue_smoke_grey_capri",
+    "name": "烟灰七分裤",
+    "category": "equipment",
+    "type": "裤装",
+    "equipSlot": "pants",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 40,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 10
+    },
+    "desc": "哑光烟灰棉斜纹七分裤，搭配炭灰短袖 T 恤。收窄裤腿、扁平侧袋、膝部省道和双折裤脚，露出下半段小腿。",
+    "ue_icon": "Icons/ue_smoke_grey_capri.png",
+    "icon_fallback": "裤",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/Pickups/SM_SmokeGreyCapri.SM_SmokeGreyCapri",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/Icons/SM_SmokeGreyCapri_Display.SM_SmokeGreyCapri_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": -90
+  },
+  "ue_leather_pants": {
+    "id": "ue_leather_pants",
+    "name": "棕色皮革裤",
+    "category": "equipment",
+    "type": "裤装",
+    "equipSlot": "pants",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 50,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 20
+    },
+    "desc": "分片裁剪的棕色皮革长裤，弧形拼缝、柔性护膝、腰带和收窄裤脚保留自然褶皱。可搭配同套皮革靴及露指手套。",
+    "ue_icon": "Icons/ue_leather_pants.png",
+    "icon_fallback": "裤",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/Pickups/SM_LeatherPants.SM_LeatherPants",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/Icons/SM_LeatherPants_Display.SM_LeatherPants_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": -90
+  },
+  "ue_leather_boots": {
+    "id": "ue_leather_boots",
+    "name": "棕色皮革靴",
+    "category": "equipment",
+    "type": "鞋靴",
+    "equipSlot": "boots",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 55,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 12
+    },
+    "bonusStats": {
+      "moveSpeedPercent": 0.05
+    },
+    "desc": "暖棕皮革高筒靴，皮革包头与加固后跟配双侧扣，沿条和靴口保留细缝线。与棕色露指皮革手套、皮革裤组成同款外观。",
+    "ue_icon": "Icons/ue_leather_boots.png",
+    "icon_fallback": "靴",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/Pickups/SM_LeatherBoots.SM_LeatherBoots",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/Icons/SM_LeatherBoots_Display.SM_LeatherBoots_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0
+  },
+  "ue_armored_boots": {
+    "id": "ue_armored_boots",
+    "name": "灰钢铠甲靴",
+    "category": "equipment",
+    "type": "鞋靴",
+    "equipSlot": "boots",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 85,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 24
+    },
+    "bonusStats": {
+      "moveSpeedPercent": -0.05
+    },
+    "desc": "灰钢护胫与脚背叠甲覆盖深色皮靴，独立护踝、卷边和侧扣保留活动接缝。高筒内衬可搭配收口长裤。",
+    "ue_icon": "Icons/ue_armored_boots.png",
+    "icon_fallback": "靴",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/Pickups/SM_ArmoredBoots.SM_ArmoredBoots",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/Icons/SM_ArmoredBoots_Display.SM_ArmoredBoots_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0
+  },
+  "ue_chainmail_pants": {
+    "id": "ue_chainmail_pants",
+    "name": "灰钢锁子甲裤",
+    "category": "equipment",
+    "type": "裤装",
+    "equipSlot": "pants",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 65,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 40
+    },
+    "bonusStats": {
+      "moveSpeedPercent": -0.05
+    },
+    "desc": "灰钢锁环织成的防护长裤，分片护腰覆盖胯部，金属护膝与上下叠片保护膝盖。裤腿渐收，裤口带内衬包边，可搭配运动鞋或皮靴。",
+    "ue_icon": "Icons/ue_chainmail_pants.png",
+    "icon_fallback": "甲",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ChainmailPants20261004/ArmorRefineV2/Pickups/SM_ChainmailPants.SM_ChainmailPants",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ChainmailPants20261004/ArmorRefineV2/Icons/SM_ChainmailPants_Display.SM_ChainmailPants_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": -90
+  },
+  "ue_boots": {
+    "id": "ue_boots",
+    "name": "系带皮靴",
+    "category": "equipment",
+    "type": "鞋靴",
+    "equipSlot": "boots",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 45,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 8
+    },
+    "desc": "为日常行走制作的系带皮靴，靴筒包覆脚踝，厚底与皮革拼接保留自然褶皱。可与长裤搭配，独立穿脱。",
+    "ue_icon": "Icons/ue_boots.png",
+    "icon_fallback": "靴",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/Pickups/SM_Boots.SM_Boots",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/Icons/SM_Boots_Display.SM_Boots_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0
+  },
   "ue_jeans": {
     "id": "ue_jeans",
     "name": "牛仔裤",
