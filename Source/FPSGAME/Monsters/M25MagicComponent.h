@@ -11,6 +11,7 @@ class UNiagaraSystem;
 class UStaticMesh;
 class UMaterialInterface;
 class USoundBase;
+class UAudioComponent;
 struct FStreamableHandle;
 
 UENUM()
@@ -62,7 +63,10 @@ public:
     UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<UStaticMesh> LanceIrisMesh;
     UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<UMaterialInterface> LanceBody;
     UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<UMaterialInterface> LanceIrisMat;
+    UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<UNiagaraSystem> LanceGatherAsset;
+    UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<UNiagaraSystem> LanceMuzzleAsset;
     UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<USoundBase> ReleaseSound;
+    UPROPERTY(EditDefaultsOnly, Category="M25|Magic|VFX") TSoftObjectPtr<USoundBase> LanceTailSound;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 protected:
@@ -73,6 +77,16 @@ protected:
 private:
     UPROPERTY(ReplicatedUsing=OnRep_CastState) FM25CastState CastState;
     UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> Charge;
+    UPROPERTY(Transient) TObjectPtr<UAudioComponent> ChargeVoice;
+    // Lance telegraph hardware (ray family): charging iris bloom at the electrode
+    // and a one-shot muzzle iris flash on release. Client-side only.
+    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> LanceIris;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> LanceIrisMID;
+    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> MuzzleIris;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> MuzzleIrisMID;
+    double MuzzleFlashAt = -1.;
+    double NextChargeArc = 0.;
+    EM25Spell PresentedSpell = EM25Spell::None;
     TWeakObjectPtr<AVortexCofferM25> Monster;
     TWeakObjectPtr<APawn> AttackTarget;
     TSharedPtr<FStreamableHandle> AssetLoad;

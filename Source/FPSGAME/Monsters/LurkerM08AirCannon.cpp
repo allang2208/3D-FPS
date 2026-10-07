@@ -231,6 +231,8 @@ void ALurkerM08Monster::EndPlay(const EEndPlayReason::Type Reason)
         AirChargePoseHandle.Reset();
     }
     if (AirChargeAudio) { AirChargeAudio->Stop(); AirChargeAudio = nullptr; }
+    if (IdleVoice) IdleVoice->Stop();
+    if (CrawlVoice) CrawlVoice->Stop();
     Super::EndPlay(Reason);
 }
 

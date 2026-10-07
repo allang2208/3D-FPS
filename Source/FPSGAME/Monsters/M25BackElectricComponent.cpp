@@ -1,7 +1,10 @@
 #include "M25BackElectricComponent.h"
+#include "VortexCofferM25.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/SplineComponent.h"
 #include "Components/PointLightComponent.h"
+#include "Components/AudioComponent.h"
+#include "Sound/SoundBase.h"
 #include "NiagaraComponent.h"
 #include "NiagaraSystem.h"
 #include "Engine/AssetManager.h"
@@ -105,6 +108,22 @@ void UM25BackElectricComponent::CreatePresentation()
     BackLight->SetIndirectLightingIntensity(0.f);
     BackLight->SetVolumetricScatteringIntensity(0.f);
     BackLight->RegisterComponent();
+
+    if (auto* M = Cast<AVortexCofferM25>(Owner); M && M->CrackleSound)
+    {
+        CrackleVoice = NewObject<UAudioComponent>(Owner);
+        Owner->AddInstanceComponent(CrackleVoice);
+        CrackleVoice->SetupAttachment(Body, TipNames[0]);
+        CrackleVoice->SetAutoActivate(false);
+        CrackleVoice->bAutoDestroy = false;
+        CrackleVoice->bAllowAnyoneToDestroyMe = false;
+        CrackleVoice->SetSound(M->CrackleSound);
+        CrackleVoice->bOverrideAttenuation = true;
+        CrackleVoice->AttenuationOverrides.bAttenuate = true;
+        CrackleVoice->AttenuationOverrides.bSpatialize = true;
+        CrackleVoice->AttenuationOverrides.FalloffDistance = 1600.f;
+        CrackleVoice->RegisterComponent();
+    }
 }
 
 float UM25BackElectricComponent::ViewDistance() const
@@ -210,6 +229,7 @@ void UM25BackElectricComponent::HidePresentation()
         Lanes[I].Alpha = 0.f;
     }
     if (BackLight) BackLight->SetIntensity(0.f);
+    if (CrackleVoice && CrackleVoice->IsPlaying()) CrackleVoice->Stop();
     bVisible = false;
 }
 
@@ -267,6 +287,11 @@ void UM25BackElectricComponent::TickComponent(float Delta, ELevelTick Type, FAct
     }
     if (BackLight)
         BackLight->SetIntensity(150.f*Peak*(1.f-FMath::SmoothStep(1000.f,1800.f,Distance)));
+    if (CrackleVoice)
+    {
+        CrackleVoice->SetVolumeMultiplier(FMath::Lerp(.3f, 1.f, Peak));
+        if (!CrackleVoice->IsPlaying()) CrackleVoice->Play();
+    }
 }
 
 void UM25BackElectricComponent::EndPlay(EEndPlayReason::Type Reason)
@@ -279,6 +304,7 @@ void UM25BackElectricComponent::EndPlay(EEndPlayReason::Type Reason)
     for (const auto& Path : Paths) if (Path) { GetOwner()->RemoveInstanceComponent(Path); Path->DestroyComponent(); }
     Paths.Reset();
     if (BackLight) { GetOwner()->RemoveInstanceComponent(BackLight); BackLight->DestroyComponent(); BackLight=nullptr; }
+    if (CrackleVoice) { GetOwner()->RemoveInstanceComponent(CrackleVoice); CrackleVoice->DestroyComponent(); CrackleVoice=nullptr; }
     Super::EndPlay(Reason);
 }
 

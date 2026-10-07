@@ -27,6 +27,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
+#include "Sound/SoundAttenuation.h"
 
 AM10Mawcrawler::AM10Mawcrawler(const FObjectInitializer& Initializer)
     : Super(Initializer.SetDefaultSubobjectClass<UM10MovementComponent>(CharacterMovementComponentName))
@@ -39,6 +40,18 @@ AM10Mawcrawler::AM10Mawcrawler(const FObjectInitializer& Initializer)
     HowlVoice->SetupAttachment(GetMesh(),TEXT("mouth_socket"));HowlVoice->bAutoActivate=false;
     HowlVoice->bOverrideAttenuation=true;HowlVoice->AttenuationOverrides.bAttenuate=true;
     HowlVoice->AttenuationOverrides.bSpatialize=true;HowlVoice->AttenuationOverrides.FalloffDistance=1800.f;
+    BodyVoice=CreateDefaultSubobject<UAudioComponent>(TEXT("BodyVoice"));
+    BodyVoice->SetupAttachment(GetMesh());BodyVoice->bAutoActivate=false;
+    BodyVoice->bOverrideAttenuation=true;BodyVoice->AttenuationOverrides.bAttenuate=true;
+    BodyVoice->AttenuationOverrides.bSpatialize=true;BodyVoice->AttenuationOverrides.FalloffDistance=1100.f;
+    CrawlVoice=CreateDefaultSubobject<UAudioComponent>(TEXT("CrawlVoice"));
+    CrawlVoice->SetupAttachment(GetMesh());CrawlVoice->bAutoActivate=false;
+    CrawlVoice->bOverrideAttenuation=true;CrawlVoice->AttenuationOverrides.bAttenuate=true;
+    CrawlVoice->AttenuationOverrides.bSpatialize=true;CrawlVoice->AttenuationOverrides.FalloffDistance=1400.f;
+    GasVoice=CreateDefaultSubobject<UAudioComponent>(TEXT("GasVoice"));
+    GasVoice->SetupAttachment(GetMesh(),TEXT("rump"));GasVoice->bAutoActivate=false;
+    GasVoice->bOverrideAttenuation=true;GasVoice->AttenuationOverrides.bAttenuate=true;
+    GasVoice->AttenuationOverrides.bSpatialize=true;GasVoice->AttenuationOverrides.FalloffDistance=1600.f;
     for(int32 I=0;I<3;++I)
     {
         auto* Wave=CreateDefaultSubobject<UStaticMeshComponent>(*FString::Printf(TEXT("HowlWave%d"),I));
@@ -57,12 +70,10 @@ AM10Mawcrawler::AM10Mawcrawler(const FObjectInitializer& Initializer)
     GetMesh()->SetAnimInstanceClass(UM10AnimInstance::StaticClass());
     GetMesh()->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
     auto* Move=GetCharacterMovement();Move->MaxWalkSpeed=WalkSpeed;
-    Move->MaxAcceleration=240.f;Move->BrakingDecelerationWalking=360.f;
-    Move->RotationRate=FRotator(0,75.f,0);Move->bOrientRotationToMovement=true;
-    Move->bCanWalkOffLedges=false;Move->bRunPhysicsWithNoController=true;Move->MaxStepHeight=30.f;
-    Move->GetNavAgentPropertiesRef().AgentRadius=225.f;
-    Move->GetNavAgentPropertiesRef().AgentHeight=450.f;
-    Move->GetNavAgentPropertiesRef().AgentStepHeight=30.f;
+    Move->MaxAcceleration=480.f;Move->BrakingDecelerationWalking=720.f;
+    Move->RotationRate=FRotator(0,150.f,0);Move->bOrientRotationToMovement=true;
+    Move->bCanWalkOffLedges=false;Move->bRunPhysicsWithNoController=true;
+    CastChecked<UMonsterCharacterMovementComponent>(Move)->ConfigureWideBodyStairs(225.f,450.f);
     bUseControllerRotationYaw=false;BaseEyeHeight=-180.f;
     AIControllerClass=AMonsterAIController::StaticClass();AutoPossessAI=EAutoPossessAI::PlacedInWorldOrSpawned;
     Tags.Add(TEXT("Enemy"));Tags.Add(TEXT("M10Mawcrawler"));
@@ -74,13 +85,22 @@ void AM10Mawcrawler::ApplyVisual()
     const auto Bounds=VisualMesh->GetBounds();
     GetMesh()->SetRelativeLocation(FVector(0,0,-GetCapsuleComponent()->GetUnscaledCapsuleHalfHeight()-(Bounds.Origin.Z-Bounds.BoxExtent.Z)));
 }
-void AM10Mawcrawler::OnConstruction(const FTransform& Transform){Super::OnConstruction(Transform);ApplyVisual();}
+void AM10Mawcrawler::OnConstruction(const FTransform& Transform)
+{
+    Super::OnConstruction(Transform);
+    CastChecked<UMonsterCharacterMovementComponent>(GetCharacterMovement())->ConfigureWideBodyStairs(225.f,450.f);
+    ApplyVisual();
+}
 void AM10Mawcrawler::BeginPlay()
 {
+    CastChecked<UMonsterCharacterMovementComponent>(GetCharacterMovement())->ConfigureWideBodyStairs(225.f,450.f);
     Super::BeginPlay();ApplyVisual();Home=GetActorLocation();
     if(HasAuthority()){MaxHealth*=float(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;}
     GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
     GetMesh()->AddTickPrerequisiteActor(this);GetMesh()->AddTickPrerequisiteComponent(Combat);
+    if(BodyVoice&&IdleSound)BodyVoice->SetSound(IdleSound);
+    if(CrawlVoice&&CrawlSound)CrawlVoice->SetSound(CrawlSound);
+    if(GasVoice&&GasSound)GasVoice->SetSound(GasSound);
     PrepareHowlPresentation();PrepareRearGas();PresentState();
     if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();
 }
@@ -89,6 +109,7 @@ void AM10Mawcrawler::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AM10Mawcrawler,State);DOREPLIFETIME(AM10Mawcrawler,Health);
     DOREPLIFETIME(AM10Mawcrawler,HowlStartedAt);
     DOREPLIFETIME(AM10Mawcrawler,RearGasStartedAt);
+    DOREPLIFETIME(AM10Mawcrawler,ThreatSerial);
 }
 void AM10Mawcrawler::OnRep_State(){StateSeconds=0.f;PresentState();}
 void AM10Mawcrawler::Play(UAnimSequence* Clip,bool Loop,bool ExternalClock,float Blend)
@@ -105,8 +126,19 @@ void AM10Mawcrawler::PresentState()
     if(State!=EM10State::RearGas)StopRearGas();
     const bool Moving=State==EM10State::Crawl||State==EM10State::Returning;
     GetCharacterMovement()->bOrientRotationToMovement=Moving;
+    UpdateLoopAudio();
     if((State==EM10State::Dying||State==EM10State::Corpse)&&CorpseRagdoll->TryStartSoftDeath(GetMesh()))return;
     if(State==EM10State::Corpse)return;
+    // State-driven one-shots play on every client from the replicated state.
+    if(GetNetMode()!=NM_DedicatedServer)
+    {
+        if(State==EM10State::Bite&&BiteSound)
+            UGameplayStatics::PlaySoundAtLocation(this,BiteSound,Mouth(),1.f,1.f,0.f,OneShotAttenuation(1600.f));
+        else if(State==EM10State::Stagger&&HitSound)
+            UGameplayStatics::PlaySoundAtLocation(this,HitSound,GetMesh()->GetSocketLocation(TEXT("body_front")),.9f,1.f,0.f,OneShotAttenuation(1200.f));
+        else if(State==EM10State::Dying&&DeathSound)
+            UGameplayStatics::PlaySoundAtLocation(this,DeathSound,GetMesh()->GetSocketLocation(TEXT("body_front")),1.f,1.f,0.f,OneShotAttenuation(1800.f));
+    }
     if(State==EM10State::Stagger){StartHitPresentation();return;}
     Play(Moving?MoveClip:State==EM10State::Bite?BiteClip:State==EM10State::Howl?HowlClip:State==EM10State::RearGas?RearGasClip:State==EM10State::Dying?DeathClip:IdleClip,
         Moving||State==EM10State::Idle,State==EM10State::Bite||State==EM10State::Dying||State==EM10State::Howl||State==EM10State::RearGas);
@@ -170,6 +202,7 @@ bool AM10Mawcrawler::GetCloseFacingYaw(float& Yaw) const
 bool AM10Mawcrawler::StartAttack(APawn* Victim)
 {
     if(!HasAuthority()||!CanAttack(Victim))return false;
+    if(ThreatCooldownLeft<=0.f){ThreatCooldownLeft=ThreatCooldown;++ThreatSerial;ForceNetUpdate();PresentThreat();}
     if(PrefersRearAttack(Victim))
     {
         Target=Victim;LockedYaw=GetActorRotation().Yaw;RearGasStartedAt=GetWorld()->GetTimeSeconds();
@@ -211,7 +244,7 @@ void AM10Mawcrawler::BiteContact()
 void AM10Mawcrawler::Tick(float Dt)
 {
     Super::Tick(Dt);StateSeconds+=Dt;
-    if(HasAuthority()){CooldownLeft=FMath::Max(0.f,CooldownLeft-Dt);HowlCooldownLeft=FMath::Max(0.f,HowlCooldownLeft-Dt);RearGasCooldownLeft=FMath::Max(0.f,RearGasCooldownLeft-Dt);}
+    if(HasAuthority()){CooldownLeft=FMath::Max(0.f,CooldownLeft-Dt);HowlCooldownLeft=FMath::Max(0.f,HowlCooldownLeft-Dt);RearGasCooldownLeft=FMath::Max(0.f,RearGasCooldownLeft-Dt);ThreatCooldownLeft=FMath::Max(0.f,ThreatCooldownLeft-Dt);}
     if(State==EM10State::Crawl||State==EM10State::Returning)
         if(auto* Anim=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))Anim->SetLocomotionRate(GetVelocity().Size2D()/FMath::Max(1.f,AnimationWalkSpeed));
     if(State==EM10State::Bite)
@@ -245,6 +278,34 @@ void AM10Mawcrawler::Tick(float Dt)
         {SetState(EM10State::Corpse);SetActorTickEnabled(false);}
         else if(CorpseRagdoll->WasAttempted()&&StateSeconds>=Duration)
         {Sample(Duration);CorpseRagdoll->FreezeAnimatedPose(GetMesh());SetState(EM10State::Corpse);SetActorTickEnabled(false);}
+    }
+}
+USoundAttenuation* AM10Mawcrawler::OneShotAttenuation(float Falloff) const
+{
+    auto* Attenuation=NewObject<USoundAttenuation>(const_cast<AM10Mawcrawler*>(this));
+    Attenuation->Attenuation.bAttenuate=true;Attenuation->Attenuation.bSpatialize=true;
+    Attenuation->Attenuation.FalloffDistance=Falloff;return Attenuation;
+}
+void AM10Mawcrawler::OnRep_Threat(){PresentThreat();}
+void AM10Mawcrawler::PresentThreat()
+{
+    if(GetNetMode()==NM_DedicatedServer||!ThreatSound)return;
+    UGameplayStatics::PlaySoundAtLocation(this,ThreatSound,Mouth(),1.f,1.f,0.f,OneShotAttenuation(1900.f));
+}
+void AM10Mawcrawler::UpdateLoopAudio()
+{
+    if(GetNetMode()==NM_DedicatedServer)return;
+    const bool Alive=!Dead()&&State!=EM10State::Corpse;
+    if(BodyVoice)
+    {
+        if(Alive&&BodyVoice->Sound){if(!BodyVoice->IsPlaying())BodyVoice->Play();}
+        else if(BodyVoice->IsPlaying())BodyVoice->Stop();
+    }
+    if(CrawlVoice)
+    {
+        const bool Moving=State==EM10State::Crawl||State==EM10State::Returning;
+        if(Alive&&Moving&&CrawlVoice->Sound){if(!CrawlVoice->IsPlaying())CrawlVoice->Play();}
+        else if(CrawlVoice->IsPlaying())CrawlVoice->Stop();
     }
 }
 void AM10Mawcrawler::InterruptAttack(float Seconds)

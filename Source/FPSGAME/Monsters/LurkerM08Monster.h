@@ -6,6 +6,8 @@
 #include "Engine/NetSerialization.h"
 #include "LurkerM08Monster.generated.h"
 
+class USoundAttenuation;
+
 USTRUCT()
 struct FLurkerM08RimInfluence
 {
@@ -66,6 +68,8 @@ protected:
     virtual FVector PouncePathPoint(const FVector& Start, const FVector& End, float Alpha) const override;
     virtual float PounceFlightDuration(const FVector& Start, const FVector& End) const override;
     virtual void FinishPounceMovement() override;
+    virtual bool ShouldPlaySoftDeathLeadIn() const override;
+    virtual void OnDeathPresentationStarted() override;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M08|Traversal") float ClimbSpeed = 270.f;
@@ -126,6 +130,20 @@ private:
     void FireAirCannon();
     UFUNCTION() void OnRep_AirCannon();
     UPROPERTY(Transient) TObjectPtr<class UAudioComponent> AirChargeAudio;
+public:
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="M08|Audio") TObjectPtr<class USoundBase> IdleSound;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="M08|Audio") TObjectPtr<class USoundBase> CrawlSound;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="M08|Audio") TObjectPtr<class USoundBase> BiteSound;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="M08|Audio") TObjectPtr<class USoundBase> PounceSound;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="M08|Audio") TObjectPtr<class USoundBase> HitSound;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="M08|Audio") TObjectPtr<class USoundBase> DeathSound;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="M08|Audio") TObjectPtr<class UAudioComponent> IdleVoice;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="M08|Audio") TObjectPtr<class UAudioComponent> CrawlVoice;
+private:
+    EWolfState LastAudioState = EWolfState::Idle;
+    bool bAudioVoicesSet = false;
+    void UpdateM08Audio();
+    USoundAttenuation* M08OneShotAttenuation(float Falloff) const;
     TWeakObjectPtr<APawn> AirCannonTarget;
     double AirCannonReadyAt = 0.;
     bool bAirCannonFired = false;

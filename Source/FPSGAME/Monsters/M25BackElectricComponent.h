@@ -9,6 +9,7 @@ class UNiagaraSystem;
 class USplineComponent;
 class USkeletalMeshComponent;
 class UPointLightComponent;
+class UAudioComponent;
 struct FStreamableHandle;
 
 /** Cosmetic electrode discharges. Four reusable lanes; no targeting or damage. */
@@ -48,6 +49,7 @@ private:
     UPROPERTY(Transient) TArray<TObjectPtr<USplineComponent>> Paths;
     UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> Arcs;
     UPROPERTY(Transient) TObjectPtr<UPointLightComponent> BackLight;
+    UPROPERTY(Transient) TObjectPtr<UAudioComponent> CrackleVoice;
     TSharedPtr<FStreamableHandle> LoadHandle;
     FRandomStream Cosmetic;
     bool bVisible = false;

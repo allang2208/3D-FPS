@@ -16,6 +16,7 @@
 #include "Animation/AnimSequence.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/AudioComponent.h"
 #include "Engine/DamageEvents.h"
 #include "Engine/GameInstance.h"
 #include "Engine/SkeletalMesh.h"
@@ -23,6 +24,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
+#include "Sound/SoundAttenuation.h"
 #include "Net/UnrealNetwork.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
@@ -35,6 +38,18 @@ ASpiralPillarM14::ASpiralPillarM14(const FObjectInitializer& Initializer)
     CorpseRagdoll=CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
     CorpseRagdoll->Rig=EMonsterCorpseRig::SpiralPillar;
     SoftBodyDeath=CreateDefaultSubobject<UM14SoftBodyDeathComponent>(TEXT("SoftBodyDeath"));
+    CrawlVoice=CreateDefaultSubobject<UAudioComponent>(TEXT("CrawlVoice"));
+    for (TObjectPtr<UAudioComponent> Voice : {CrawlVoice})
+    {
+        Voice->SetupAttachment(GetMesh(), TEXT("spine_01"));
+        Voice->bAutoActivate = false;
+        Voice->bAutoDestroy = false;
+        Voice->bAllowAnyoneToDestroyMe = false;
+        Voice->bOverrideAttenuation = true;
+        Voice->AttenuationOverrides.bAttenuate = true;
+        Voice->AttenuationOverrides.bSpatialize = true;
+    }
+    CrawlVoice->AttenuationOverrides.FalloffDistance = 1700.f;
     GetCapsuleComponent()->InitCapsuleSize(110.f,150.f);
     GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Ignore);
     GetMesh()->SetRelativeLocation(FVector(0,0,-150.f));
@@ -45,14 +60,11 @@ ASpiralPillarM14::ASpiralPillarM14(const FObjectInitializer& Initializer)
     GetMesh()->SetAnimInstanceClass(UFatZombieAnimInstance::StaticClass());
     GetMesh()->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
     auto* Move=GetCharacterMovement();Move->MaxWalkSpeed=WalkSpeed;
-    Move->MaxAcceleration=100.f;Move->BrakingDecelerationWalking=180.f;
-    Move->RotationRate=FRotator(0,25.f,0);Move->bOrientRotationToMovement=true;
-    Move->bCanWalkOffLedges=false;Move->MaxStepHeight=25.f;
-    // Reuse the existing large-creature navmesh; do not require a map rebuild.
-    Move->SetUpdateNavAgentWithOwnersCollisions(false);
-    Move->GetNavAgentPropertiesRef().AgentRadius=225.f;
-    Move->GetNavAgentPropertiesRef().AgentHeight=450.f;
-    Move->GetNavAgentPropertiesRef().AgentStepHeight=30.f;
+    Move->MaxAcceleration=200.f;Move->BrakingDecelerationWalking=360.f;
+    Move->RotationRate=FRotator(0,75.f,0);Move->bOrientRotationToMovement=true;
+    Move->bCanWalkOffLedges=false;
+    // Match the authored 125 cm spawn footprint, with clearance for the 110 cm capsule.
+    CastChecked<UMonsterCharacterMovementComponent>(Move)->ConfigureWideBodyStairs(125.f,300.f);
     bUseControllerRotationYaw=false;BaseEyeHeight=100.f;
     AIControllerClass=AMonsterAIController::StaticClass();AutoPossessAI=EAutoPossessAI::PlacedInWorldOrSpawned;
     Tags.Add(TEXT("Enemy"));Tags.Add(TEXT("SpiralPillarM14"));
@@ -80,7 +92,12 @@ void ASpiralPillarM14::ApplyVisual()
     const auto Bounds=VisualMesh->GetBounds();
     GetMesh()->SetRelativeLocation(FVector(0,0,-GetCapsuleComponent()->GetUnscaledCapsuleHalfHeight()-(Bounds.Origin.Z-Bounds.BoxExtent.Z)));
 }
-void ASpiralPillarM14::OnConstruction(const FTransform& Transform){Super::OnConstruction(Transform);ApplyVisual();}
+void ASpiralPillarM14::OnConstruction(const FTransform& Transform)
+{
+    Super::OnConstruction(Transform);
+    CastChecked<UMonsterCharacterMovementComponent>(GetCharacterMovement())->ConfigureWideBodyStairs(125.f,300.f);
+    ApplyVisual();
+}
 void ASpiralPillarM14::PossessedBy(AController* NewController)
 {
     Super::PossessedBy(NewController);
@@ -97,10 +114,16 @@ void ASpiralPillarM14::PossessedBy(AController* NewController)
 }
 void ASpiralPillarM14::BeginPlay()
 {
+    CastChecked<UMonsterCharacterMovementComponent>(GetCharacterMovement())->ConfigureWideBodyStairs(125.f,300.f);
     Super::BeginPlay();ApplyVisual();Home=GetActorLocation();PreviousYaw=GetActorRotation().Yaw;
     if(HasAuthority()){MaxHealth*=float(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;}
     GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
     GetMesh()->AddTickPrerequisiteActor(this);GetMesh()->AddTickPrerequisiteComponent(Combat);
+    if(GetNetMode()!=NM_DedicatedServer)
+    {
+        if(CrawlVoice)CrawlVoice->SetSound(CrawlSound);
+        UpdateLoopAudio();
+    }
     PresentState();if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();
 }
 void ASpiralPillarM14::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -119,6 +142,22 @@ void ASpiralPillarM14::Sample(float Seconds)
 }
 void ASpiralPillarM14::PresentState()
 {
+    // One-shots ride the replicated state edges; the same call runs on the
+    // authority via SetState, so listen servers stay covered.
+    if(GetNetMode()!=NM_DedicatedServer)
+    {
+        USoundBase* Cue=nullptr;FVector At=GetActorLocation();float Volume=1.f;
+        switch(State)
+        {
+        case EM14State::Bite: Cue=BiteSound;At=Mouth();Volume=.95f;break;
+        case EM14State::Spit: Cue=SpitSound;At=Mouth();break;
+        case EM14State::TrunkSlam: Cue=TrunkSlamSound;At=GetMesh()->GetSocketLocation(TEXT("spine_01"));break;
+        case EM14State::Whirlwind: Cue=WhirlwindSound;At=GetMesh()->GetSocketLocation(TEXT("spine_01"));break;
+        case EM14State::Dying: Cue=DeathSound;At=GetMesh()->GetSocketLocation(TEXT("spine_01"));break;
+        default:break;
+        }
+        if(Cue)UGameplayStatics::PlaySoundAtLocation(this,Cue,At,Volume,1.f,0.f,OneShotAttenuation(2400.f));
+    }
     const bool Moving=State==EM14State::Crawl||State==EM14State::Returning;
     GetCharacterMovement()->bOrientRotationToMovement=Moving;
     if((State==EM14State::Dying||State==EM14State::Corpse)&&SoftBodyDeathData&&
@@ -212,6 +251,7 @@ void ASpiralPillarM14::BiteContact()
 void ASpiralPillarM14::Tick(float Dt)
 {
     Super::Tick(Dt);StateSeconds+=Dt;
+    UpdateLoopAudio();
     if((State==EM14State::Dying||State==EM14State::Corpse)&&SoftBodyDeath->IsActive())
     {
         if(SoftBodyDeath->Advance(Dt))
@@ -223,12 +263,20 @@ void ASpiralPillarM14::Tick(float Dt)
     }
     const float CloseFacing=TrunkSlamClip&&SlamCooldownLeft<=0.f?FMath::Max(BiteTriggerRange,SlamTriggerRange)+35.f:BiteTriggerRange+35.f;
     const float FacingRange=SpitClip&&SpitCooldownLeft<=0.f?FMath::Max(CloseFacing,SpitMaxRange):CloseFacing;
-    if(HasAuthority()&&!Busy()&&State!=EM14State::Returning&&Target.IsValid()&&
-        FVector::DistSquared2D(GetActorLocation(),Target->GetActorLocation())<FMath::Square(FacingRange))
+    if(HasAuthority())
     {
-        const float Desired=(Target->GetActorLocation()-GetActorLocation()).Rotation().Yaw;
-        const float Delta=FMath::Clamp(FMath::FindDeltaAngleDegrees(GetActorRotation().Yaw,Desired),-25.f*Dt,25.f*Dt);
-        SetActorRotation(FRotator(0,GetActorRotation().Yaw+Delta,0));
+        const bool TrackTarget=!Busy()&&State!=EM14State::Returning&&Target.IsValid()&&
+            FVector::DistSquared2D(GetActorLocation(),Target->GetActorLocation())<FMath::Square(FacingRange);
+        auto* Movement=GetCharacterMovement();
+        // Nearby facing and path steering share one rate and one owner per frame.
+        Movement->bOrientRotationToMovement=!TrackTarget&&(State==EM14State::Crawl||State==EM14State::Returning);
+        if(TrackTarget)
+        {
+            const float Desired=(Target->GetActorLocation()-GetActorLocation()).Rotation().Yaw;
+            const float MaxStep=FMath::Max(0.f,float(Movement->RotationRate.Yaw))*Dt;
+            const float Delta=FMath::Clamp(FMath::FindDeltaAngleDegrees(GetActorRotation().Yaw,Desired),-MaxStep,MaxStep);
+            SetActorRotation(FRotator(0,GetActorRotation().Yaw+Delta,0));
+        }
     }
     const float Yaw=GetActorRotation().Yaw;
     const float Turn=FMath::FindDeltaAngleDegrees(PreviousYaw,Yaw)/FMath::Max(Dt,.001f);PreviousYaw=Yaw;
@@ -245,9 +293,18 @@ void ASpiralPillarM14::Tick(float Dt)
         if(auto* Anim=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))
         {
             UAnimSequence* Next=FMath::Abs(Turn)>8.f?(Turn<0?TurnLeftClip.Get():TurnRightClip.Get()):State==EM14State::Idle?IdleClip.Get():MoveClip.Get();
-            if(Next&&Anim->ActiveClip!=Next)Play(Next,true,false,.25f);
-            // Keep the source stride speed at 28: 56 cm/s needs 2x the original cycle.
-            Anim->SetLocomotionRate(Next==IdleClip?1.f:FMath::Max(GetVelocity().Size2D()/FMath::Max(1.f,AnimationWalkSpeed),FMath::Abs(Turn)/25.f));
+            // Preserve authored 28 cm/s and 25 deg/s; only actual travel/turning accelerates the cycle.
+            const float Rate=Next==IdleClip?1.f:FMath::Max(GetVelocity().Size2D()/FMath::Max(1.f,AnimationWalkSpeed),FMath::Abs(Turn)/25.f);
+            if(Next&&Anim->ActiveClip!=Next)
+            {
+                FMonsterClipTransition Transition;
+                Transition.bContinueOutgoingLoop=true;Transition.InitialPlayRate=Rate;
+                if(Next!=IdleClip&&(Anim->ActiveClip==MoveClip||Anim->ActiveClip==TurnLeftClip||Anim->ActiveClip==TurnRightClip)&&
+                    Anim->ActiveClip&&Anim->ActiveClip->GetPlayLength()>UE_SMALL_NUMBER)
+                    Transition.StartTime=FMath::Fmod(Anim->ClipTime/Anim->ActiveClip->GetPlayLength(),1.f)*Next->GetPlayLength();
+                Anim->TransitionTo(Next,true,false,.25f,Transition);
+            }
+            Anim->SetLocomotionRate(Rate);
         }
     }
     if(IsAttacking())TickAttack(Dt);
@@ -273,7 +330,14 @@ void ASpiralPillarM14::InterruptAttack(float Seconds)
     if(!HasAuthority()||Dead())return;bConsumed=true;ReactionSeconds=FMath::Max(.1f,Seconds);
     SetState(EM14State::Stagger);Combat->BeginReaction(ReactionSeconds);
 }
-void ASpiralPillarM14::StartHitPresentation(){if(!Dead())Play(Combat->HitClip,false,true,.08f);}
+void ASpiralPillarM14::StartHitPresentation()
+{
+    if(Dead())return;
+    if(GetNetMode()!=NM_DedicatedServer&&HitSound)
+        UGameplayStatics::PlaySoundAtLocation(this,HitSound,
+            GetMesh()->GetSocketLocation(TEXT("spine_01")),.9f,1.f,0.f,OneShotAttenuation(1300.f));
+    Play(Combat->HitClip,false,true,.08f);
+}
 void ASpiralPillarM14::SetHitPresentationTime(float Elapsed,float Remaining)
 {
     if(Dead()||!Combat->HitClip)return;const float Length=Combat->HitClip->GetPlayLength();
@@ -304,4 +368,24 @@ float ASpiralPillarM14::TakeDamage(float Damage,const FDamageEvent& Event,AContr
     }
     else Combat->ReceiveHit(Applied,EventInstigator?EventInstigator->GetPawn().Get():Cast<APawn>(Causer),MonsterToughness::FormOf(Event.DamageTypeClass));
     return Applied;
+}
+USoundAttenuation* ASpiralPillarM14::OneShotAttenuation(float Falloff) const
+{
+    auto* Attenuation=NewObject<USoundAttenuation>(const_cast<ASpiralPillarM14*>(this));
+    Attenuation->Attenuation.bAttenuate=true;
+    Attenuation->Attenuation.bSpatialize=true;
+    Attenuation->Attenuation.FalloffDistance=Falloff;
+    return Attenuation;
+}
+void ASpiralPillarM14::UpdateLoopAudio()
+{
+    if(GetNetMode()==NM_DedicatedServer)return;
+    const bool Alive=!Dead();
+    if(CrawlVoice)
+    {
+        const bool Moving=Alive&&(State==EM14State::Crawl||State==EM14State::Returning)
+            &&GetCharacterMovement()->IsMovingOnGround()&&GetVelocity().Size2D()>4.f;
+        if(Moving&&CrawlVoice->Sound){if(!CrawlVoice->IsPlaying())CrawlVoice->Play();}
+        else if(CrawlVoice->IsPlaying())CrawlVoice->Stop();
+    }
 }

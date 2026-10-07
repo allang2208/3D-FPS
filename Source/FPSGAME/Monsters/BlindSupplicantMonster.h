@@ -7,6 +7,7 @@
 class UBlindSupplicantAnimInstance;
 class UAudioComponent;
 class USoundBase;
+class USoundAttenuation;
 class UNiagaraComponent;
 enum class EM07MagicElement : uint8;
 
@@ -87,6 +88,7 @@ public:
 protected:
     virtual void StartStateAnimation(UAnimSequence* Clip, bool bLoop) override;
     virtual void SetAttackAnimationTime(float Seconds) override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     virtual float GetAttackDuration() const override;
     virtual void ProcessAttackContact(float Previous, float Current) override;
     virtual void SetWalkAnimationRate(float Rate) override;
@@ -136,6 +138,7 @@ private:
     void UpdateDeathPresentation();
     void ClearDeathHandoffPenetration();
     void RefreshLocomotionPresentation();
+    UAnimSequence* ChooseLocomotionClip(float Speed, const UAnimSequence* PreviousClip) const;
     FTimerHandle WallPresentationTimer;
     double DeathPresentationStart = -1.;
     float DeathGroundZ = 0.f;
@@ -153,8 +156,29 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Identity") TObjectPtr<USoundBase> WallMimicSound;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Identity", meta=(ClampMin="8", Units="s")) float WallMimicIntervalSeconds = 24.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Identity", meta=(ClampMin="0", ClampMax="1")) float WallMimicVolume = .65f;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="M07|Audio") TObjectPtr<USoundBase> IdleSound;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="M07|Audio") TObjectPtr<USoundBase> ChaseSound;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="M07|Audio") TObjectPtr<USoundBase> MeleeSound;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="M07|Audio") TObjectPtr<USoundBase> MagicGatherSound;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="M07|Audio") TObjectPtr<USoundBase> MagicReleaseSound;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="M07|Audio") TObjectPtr<USoundBase> HitSound;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="M07|Audio") TObjectPtr<USoundBase> DeathSound;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="M07|Audio") TObjectPtr<UAudioComponent> IdleVoice;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="M07|Audio") TObjectPtr<UAudioComponent> ChaseVoice;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="0", Units="cm")) float MagicChargeForwardOffsetCm = 65.f;
 private:
     FDelegateHandle MagicChargePoseHandle;
     float MagicChargeFraction = 0.f;
+    // Attack kind is authority-authored inside PrepareAttack; these let remote
+    // clients route gather/melee/release audio without a multicast round trip.
+    UPROPERTY(Replicated) uint8 AudioAttackKind = 0;
+    UPROPERTY(Replicated) bool AudioMagicReleased = false;
+    ENurseState LastAudioState = ENurseState::Idle;
+    bool bAudioVoicesSet = false;
+    bool bMagicReleaseHeard = false;
+    bool bPendingAttackCue = false;
+    double PendingAttackCueAt = 0.;
+    UPROPERTY(Transient) TObjectPtr<UAudioComponent> GatherVoice;
+    void UpdateM07Audio();
+    USoundAttenuation* M07OneShotAttenuation(float Falloff) const;
 };

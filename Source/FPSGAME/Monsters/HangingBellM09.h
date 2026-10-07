@@ -10,6 +10,7 @@ class UMaterialInterface;
 class UMaterialInstanceDynamic;
 class UStaticMesh;
 class USoundBase;
+class USoundAttenuation;
 class UStaticMeshComponent;
 class UInstancedStaticMeshComponent;
 class UAudioComponent;
@@ -120,6 +121,8 @@ private:
  void QueryGazeBeam(FVector& From,FVector& End,FHitResult& Hit) const;
  FVector Eye() const;
  FName StateClip() const;
+ USoundAttenuation* OneShotAttenuation(float Falloff) const;
+ EM09State PresentedState=EM09State::Idle;
  UPROPERTY() TObjectPtr<UAudioComponent> Voice;
  UPROPERTY() TObjectPtr<UStaticMeshComponent> Beam;
  UPROPERTY() TObjectPtr<UStaticMeshComponent> Charge;

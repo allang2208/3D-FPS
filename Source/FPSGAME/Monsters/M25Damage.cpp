@@ -17,6 +17,9 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/GameStateBase.h"
 #include "GameFramework/PlayerController.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/AudioComponent.h"
+#include "Sound/SoundBase.h"
 #include "Net/UnrealNetwork.h"
 
 void AVortexCofferM25::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -73,6 +76,9 @@ void AVortexCofferM25::InterruptAttack(float Seconds)
 void AVortexCofferM25::StartHitPresentation()
 {
     if (Dead()) return;
+    if (GetNetMode() != NM_DedicatedServer && HitSound)
+        UGameplayStatics::PlaySoundAtLocation(this, HitSound,
+            GetMesh()->GetSocketLocation(TEXT("socket_maw")), .9f, 1.f, 0.f, OneShotAttenuation(1200.f));
     bHitReaction = true;
     HitTime = 0.f;
     RefreshCombatPoseTick();
@@ -97,6 +103,9 @@ void AVortexCofferM25::FinishHitReaction()
 void AVortexCofferM25::OnRep_Death()
 {
     if (!Dead()) return;
+    if (GetNetMode() != NM_DedicatedServer && DeathSound)
+        UGameplayStatics::PlaySoundAtLocation(this, DeathSound,
+            GetMesh()->GetSocketLocation(TEXT("body_05")), 1.f, 1.f, 0.f, OneShotAttenuation(1800.f));
     CorpseRagdoll->TryStartSoftDeath(GetMesh());
     bHitReaction = false;
     CombatTarget.Reset();

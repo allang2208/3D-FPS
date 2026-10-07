@@ -15,6 +15,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "TimerManager.h"
+#include "Net/UnrealNetwork.h"
 #include "Sound/SoundAttenuation.h"
 #include "NiagaraComponent.h"
 #include "UObject/ConstructorHelpers.h"
@@ -102,6 +103,20 @@ ABlindSupplicantMonster::ABlindSupplicantMonster(const FObjectInitializer& Initi
     VoiceAttenuation.FalloffDistance = 1350.f;
     WallMimicVoice->SetAttenuationOverrides(VoiceAttenuation);
     WallMimicVoice->SetOverrideAttenuation(true);
+    IdleVoice = CreateDefaultSubobject<UAudioComponent>(TEXT("M07IdleVoice"));
+    IdleVoice->SetupAttachment(GetMesh(), TEXT("head"));
+    ChaseVoice = CreateDefaultSubobject<UAudioComponent>(TEXT("M07ChaseVoice"));
+    ChaseVoice->SetupAttachment(GetMesh());
+    for (TObjectPtr<UAudioComponent> Voice : {IdleVoice, ChaseVoice})
+    {
+        Voice->bAutoActivate = false;
+        Voice->bAutoDestroy = false;
+        Voice->bAllowAnyoneToDestroyMe = false;
+        Voice->bOverrideAttenuation = true;
+        Voice->AttenuationOverrides.bAttenuate = true;
+        Voice->AttenuationOverrides.bSpatialize = true;
+        Voice->AttenuationOverrides.FalloffDistance = 1600.f;
+    }
     AlignVisual();
 }
 
@@ -137,6 +152,13 @@ void ABlindSupplicantMonster::OnConstruction(const FTransform& Transform)
     AlignVisual();
 }
 
+void ABlindSupplicantMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(ABlindSupplicantMonster, AudioAttackKind);
+    DOREPLIFETIME(ABlindSupplicantMonster, AudioMagicReleased);
+}
+
 void ABlindSupplicantMonster::BeginPlay()
 {
     ApplyPlayerSkillCooldownDefaults();
@@ -153,6 +175,9 @@ void ABlindSupplicantMonster::EndPlay(const EEndPlayReason::Type Reason)
     CancelPendingAttack();
     GetWorldTimerManager().ClearTimer(WallPresentationTimer);
     StopWallMimic();
+    if (IdleVoice) IdleVoice->Stop();
+    if (ChaseVoice) ChaseVoice->Stop();
+    if (GatherVoice) { GatherVoice->Stop(); GatherVoice = nullptr; }
     Super::EndPlay(Reason);
 }
 
@@ -187,8 +212,7 @@ void ABlindSupplicantMonster::StartStateAnimation(UAnimSequence* Clip, bool bLoo
         if (State == ENurseState::Chase)
         {
             const float Speed = GetVelocity().Size2D();
-            Clip = Speed < (WalkSpeed + ChaseSpeed) * .5f && SlowWalkClip ? SlowWalkClip.Get() : ChaseClip.Get();
-            if (!Clip) Clip = WalkClip;
+            Clip = ChooseLocomotionClip(Speed, Animation->ActiveClip.Get());
             const float SourceSpeed = Clip == SlowWalkClip ? SourceWalkSpeed : SourceChaseSpeed;
             Transition.InitialPlayRate = FMath::Clamp(Speed / FMath::Max(1.f, SourceSpeed), 0.f, 2.f);
         }
@@ -213,6 +237,7 @@ void ABlindSupplicantMonster::SetAttackAnimationTime(float Seconds)
             // Keep the release pose fixed. ReleaseMagic takes its final target
             // snapshot and flight-time lead at contact; the projectile never homes.
             bMagicReleaseStarted = true;
+            AudioMagicReleased = true;
             // The release begins from the complete bent-elbow gathering pose,
             // not the previous frame's partly extended locomotion/charge snapshot.
             Animation->SetCombatTime(ActiveGatherDuration);
@@ -232,20 +257,25 @@ void ABlindSupplicantMonster::SetWalkAnimationRate(float Rate)
     RefreshLocomotionPresentation();
 }
 
+UAnimSequence* ABlindSupplicantMonster::ChooseLocomotionClip(float Speed, const UAnimSequence* PreviousClip) const
+{
+    const float PaceBoundary=(WalkSpeed+ChaseSpeed)*.5f;
+    const float PaceHysteresis=FMath::Abs(ChaseSpeed-WalkSpeed)*.45f;
+    // Switch before the slow gait reaches its 2x playback ceiling. Keep a
+    // separate return threshold so cornering does not alternate clips each frame.
+    const float RunStart=FMath::Min(PaceBoundary+PaceHysteresis,FMath::Max(1.f,SourceWalkSpeed)*2.f);
+    const float WalkStart=FMath::Min(PaceBoundary-PaceHysteresis,RunStart*.85f);
+    const float SwitchSpeed=PreviousClip==ChaseClip?WalkStart:RunStart;
+    UAnimSequence* Desired=Speed<SwitchSpeed&&SlowWalkClip?SlowWalkClip.Get():ChaseClip.Get();
+    return Desired?Desired:WalkClip.Get();
+}
+
 void ABlindSupplicantMonster::RefreshLocomotionPresentation()
 {
     auto* Animation = PosePlayer();
     if (!Animation || State != ENurseState::Chase) return;
     const float Speed = GetVelocity().Size2D();
-    const float PaceBoundary=(WalkSpeed+ChaseSpeed)*.5f;
-    const float PaceHysteresis=FMath::Abs(ChaseSpeed-WalkSpeed)*.45f;
-    // Keep phase-aligned gaits from repeatedly crossfading as path following
-    // accelerates/decelerates near the walk/run boundary.
-    float SwitchSpeed=PaceBoundary;
-    if (Animation->ActiveClip==SlowWalkClip) SwitchSpeed+=PaceHysteresis;
-    else if (Animation->ActiveClip==ChaseClip) SwitchSpeed-=PaceHysteresis;
-    UAnimSequence* Desired = Speed < SwitchSpeed && SlowWalkClip ? SlowWalkClip : ChaseClip;
-    if (!Desired) Desired = WalkClip;
+    UAnimSequence* Desired = ChooseLocomotionClip(Speed, Animation->ActiveClip.Get());
     if (!Desired) return;
     const float SourceSpeed = Desired == SlowWalkClip ? SourceWalkSpeed : SourceChaseSpeed;
     const float LocomotionRate = FMath::Clamp(Speed / FMath::Max(1.f, SourceSpeed), 0.f, 2.f);
@@ -329,6 +359,7 @@ void ABlindSupplicantMonster::Tick(float DeltaSeconds)
         bPresentingWallListen = false;
         StopWallMimic();
     }
+    UpdateM07Audio();
 }
 
 void ABlindSupplicantMonster::UpdateClothDistance(float DeltaSeconds)

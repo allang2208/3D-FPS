@@ -12,6 +12,8 @@
 #include "Materials/MaterialInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
+#include "Sound/SoundBase.h"
+#include "Sound/SoundAttenuation.h"
 #include "UObject/ConstructorHelpers.h"
 
 AM14MucusProjectile::AM14MucusProjectile()
@@ -28,6 +30,8 @@ AM14MucusProjectile::AM14MucusProjectile()
         Part->SetBoundsScale(3.f); // Includes the longer shader-deformed trailing neck.
     }
     Visual->SetRelativeScale3D(FVector(.25f,.19f,.19f));LiquidCore->SetRelativeScale3D(FVector(.8f,.78f,.78f));
+    static ConstructorHelpers::FObjectFinder<USoundBase> ImpactCue(TEXT("/Game/Monsters/SpiralPillarM14/Audio/AudioV1/S_M14_SpitImpact.S_M14_SpitImpact"));
+    if(ImpactCue.Object)ImpactSound=ImpactCue.Object;
 }
 
 void AM14MucusProjectile::BeginPlay()
@@ -94,6 +98,13 @@ void AM14MucusProjectile::ShowImpact_Implementation(const FHitResult& Hit,FVecto
     if(auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>())
     {
         FX->AddM14Impact(Hit,IncomingVelocity);
+    }
+    if(ImpactSound)
+    {
+        auto* Attenuation=NewObject<USoundAttenuation>(this);
+        Attenuation->Attenuation.bAttenuate=true;Attenuation->Attenuation.bSpatialize=true;
+        Attenuation->Attenuation.FalloffDistance=1500.f;
+        UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,Hit.Location,.85f,1.f,0.f,Attenuation);
     }
 }
 

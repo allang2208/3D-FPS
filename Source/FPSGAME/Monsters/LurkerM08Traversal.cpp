@@ -105,6 +105,8 @@ void ALurkerM08Monster::Tick(float Dt)
     // Native combat remains the only attack clock and damage owner.
     Super::Tick(Dt);
     TickAirCannon(Dt);
+    // Runs before the authority-only dead early-out so the Dying edge fires once.
+    UpdateM08Audio();
     auto* Movement = GetCharacterMovement();
     if (HasAuthority())
     {

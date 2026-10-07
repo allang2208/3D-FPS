@@ -2,6 +2,7 @@
 #include "LurkerM08AnimInstance.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/AudioComponent.h"
 #include "MonsterCombatComponent.h"
 #include "ZombieDogAppearanceComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -17,6 +18,8 @@ ALurkerM08Monster::ALurkerM08Monster(const FObjectInitializer& ObjectInitializer
 {
     MonsterDisplayName = FText::FromString(TEXT("伏窥者 M-08"));
     Tags.Remove(TEXT("Wolf")); Tags.AddUnique(TEXT("LurkerM08"));
+    // Navmesh is only the ground guide hint for surface crawling; keep its points straight.
+    ArcPathing.ArcStrength = 0.f; ArcPathing.ArcMidPoints = 0; ArcPathing.LaneOffset = 0.f;
     Level = 8; Rank = EMonsterRank::Normal; ExperienceReward = 300;
     MaxHealth = 340.f; PhysicalDefense = 24.f; MagicDefense = 14.f; CriticalResistance = 12.f;
     WalkSpeed = 150.f; ChaseSpeed = 315.f;
@@ -28,6 +31,20 @@ ALurkerM08Monster::ALurkerM08Monster(const FObjectInitializer& ObjectInitializer
     AirChargeRing->SetCanEverAffectNavigation(false);
     AirChargeRing->bReceivesDecals = false;
     AirChargeRing->SetHiddenInGame(true);
+    IdleVoice = CreateDefaultSubobject<UAudioComponent>(TEXT("IdleVoice"));
+    CrawlVoice = CreateDefaultSubobject<UAudioComponent>(TEXT("CrawlVoice"));
+    for (TObjectPtr<UAudioComponent> Voice : {IdleVoice, CrawlVoice})
+    {
+        Voice->SetupAttachment(GetMesh(), TEXT("chest"));
+        Voice->bAutoActivate = false;
+        Voice->bAutoDestroy = false;
+        Voice->bAllowAnyoneToDestroyMe = false;
+        Voice->bOverrideAttenuation = true;
+        Voice->AttenuationOverrides.bAttenuate = true;
+        Voice->AttenuationOverrides.bSpatialize = true;
+    }
+    IdleVoice->AttenuationOverrides.FalloffDistance = 1500.f;
+    CrawlVoice->AttenuationOverrides.FalloffDistance = 1800.f;
     AggroRadius = 1400.f; LeashRadius = 2200.f;
     bHowlOnEncounter = false; bUsePredictiveHunting = true;
     WoundAppearance->bEnabled = false;
@@ -52,6 +69,24 @@ ALurkerM08Monster::ALurkerM08Monster(const FObjectInitializer& ObjectInitializer
     auto& Agent = Movement->GetNavAgentPropertiesRef();
     Agent.AgentRadius = 70.f; Agent.AgentHeight = 140.f; Agent.AgentStepHeight = 40.f;
     Movement->SetUpdateNavAgentWithOwnersCollisions(false);
+}
+
+bool ALurkerM08Monster::ShouldPlaySoftDeathLeadIn() const
+{
+    // A low, four-point stance needs a visible loss of support before XPBD.
+    // Wall, ceiling and airborne deaths must release directly into gravity.
+    const auto* Movement = GetCharacterMovement();
+    return !bTraversalJump && !Movement->IsFalling() && Movement->MovementMode != MOVE_Flying
+        && ((bSurfaceAttached && SurfaceNormal.Z >= .65f) || Movement->IsMovingOnGround());
+}
+
+void ALurkerM08Monster::OnDeathPresentationStarted()
+{
+    bWantsSurfaceMove = bSurfaceAttached = bTraversalJump = false;
+    SurfacePath.Reset(); SurfaceVictim.Reset(); bHasSurfacePlan = false;
+    if (AirCannon.bActive) EndAirCannon();
+    // Immediate soft deaths disable actor Tick; emit the cue and stop loops now.
+    UpdateM08Audio();
 }
 
 int32 ALurkerM08Monster::AuthorLurkerPhysics(USkeletalMesh* AuthoredMesh)

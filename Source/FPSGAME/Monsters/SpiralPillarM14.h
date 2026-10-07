@@ -13,6 +13,9 @@ class UMonsterCombatComponent;
 class UMonsterCorpseRagdollComponent;
 class UM14SoftBodyData;
 class UM14SoftBodyDeathComponent;
+class UAudioComponent;
+class USoundBase;
+class USoundAttenuation;
 UENUM(BlueprintType)
 enum class EM14State : uint8 { Idle, Crawl, Returning, Bite, Stagger, Dying, Corpse, Spit, SweepLeft, SweepRight, TrunkSlam, Whirlwind };
 
@@ -45,7 +48,7 @@ public:
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") int32 Level=10;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") EMonsterRank Rank=EMonsterRank::Elite;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") int32 ExperienceReward=650;
-    UPROPERTY(EditAnywhere,Category="M14|Movement",meta=(ClampMin="0")) float WalkSpeed=56.f;
+    UPROPERTY(EditAnywhere,Category="M14|Movement",meta=(ClampMin="0")) float WalkSpeed=112.f;
     UPROPERTY(EditAnywhere,Category="M14|Animation",meta=(ClampMin="1")) float AnimationWalkSpeed=28.f;
     UPROPERTY(EditAnywhere,Category="M14|AI") float AggroRadius=3300.f;
     UPROPERTY(EditAnywhere,Category="M14|AI") float LeashRadius=4000.f;
@@ -147,7 +150,7 @@ private:
 public:
     UPROPERTY(EditDefaultsOnly,Category="M14|Assets") TObjectPtr<UAnimSequence> WhirlwindClip;
     UPROPERTY(EditAnywhere,Category="M14|Whirlwind",meta=(ClampMin="0")) float WhirlwindCooldown=12.f;
-    UPROPERTY(EditAnywhere,Category="M14|Whirlwind",meta=(ClampMin="0")) float WhirlwindTriggerRange=247.f;
+    UPROPERTY(EditAnywhere,Category="M14|Whirlwind",meta=(ClampMin="0")) float WhirlwindTriggerRange=308.75f;
     UPROPERTY(EditAnywhere,Category="M14|Whirlwind",meta=(ClampMin="0")) float WhirlwindDamageMultiplier=2.4f;
     UPROPERTY(EditAnywhere,Category="M14|Whirlwind",meta=(ClampMin="0")) float WhirlwindKnockback=250.f;
 private:
@@ -165,4 +168,17 @@ public:
     UFUNCTION(BlueprintCallable,Category="M14|Authoring") static bool ApplySupportSkin(USkeletalMesh* SourceMesh,const FString& DataFile,const TArray<FName>& SourceBones);
     UPROPERTY(EditDefaultsOnly,Category="M14|Death") TObjectPtr<UM14SoftBodyData> SoftBodyDeathData;
     UPROPERTY(VisibleAnywhere,Category="M14|Death") TObjectPtr<UM14SoftBodyDeathComponent> SoftBodyDeath;
+
+    // Authored cues; the projectile reads its own impact reference.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M14|Audio") TObjectPtr<USoundBase> CrawlSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M14|Audio") TObjectPtr<USoundBase> BiteSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M14|Audio") TObjectPtr<USoundBase> HitSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M14|Audio") TObjectPtr<USoundBase> DeathSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M14|Audio") TObjectPtr<USoundBase> SpitSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M14|Audio") TObjectPtr<USoundBase> TrunkSlamSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M14|Audio") TObjectPtr<USoundBase> WhirlwindSound;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="M14|Audio") TObjectPtr<UAudioComponent> CrawlVoice;
+    USoundAttenuation* OneShotAttenuation(float Falloff) const;
+private:
+    void UpdateLoopAudio();
 };

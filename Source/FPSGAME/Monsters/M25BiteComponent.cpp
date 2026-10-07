@@ -12,6 +12,7 @@
 #include "GameFramework/GameStateBase.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
 #include "Net/UnrealNetwork.h"
 
 UM25BiteComponent::UM25BiteComponent()
@@ -144,6 +145,9 @@ float UM25BiteComponent::AnimationWeight() const
 void UM25BiteComponent::OnRep_State()
 {
     SetComponentTickEnabled(State.bActive);
+    if (State.bActive && GetNetMode() != NM_DedicatedServer && Monster.IsValid() && Monster->BiteSound)
+        UGameplayStatics::PlaySoundAtLocation(this, Monster->BiteSound, Mouth(), .95f, 1.f, 0.f,
+            Monster->OneShotAttenuation(1500.f));
     if (Monster.IsValid()) Monster->RefreshCombatPoseTick();
 }
 

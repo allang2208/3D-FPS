@@ -104,6 +104,10 @@ Physics Asset 用躯干、头/下颌及每条肢体三段的实际权重表面�
 
 此次保留 V5 模型/权重和全部动作资产，通过原生动画节点接入。用户要求的源动作诊断发现弧行脚底样本最低约 -1.64 cm、部分支撑帧约 6.66 cm 悬空；这些是源动作采样，不是本轮 UE 实测结论。制作说明、原始诊断和构建回执见 `SourceAssets/M10ChenXia20261003/TerrainFeetV12`。未启动游戏或做实机地形验收。
 
+## 音效 V1（2026-10-04）
+
+按用户要求从公开渠道筛选并接入全套 CC0 音效：待机腹腔共鸣循环（3.2 s，躯干常响）、爬行湿足垫循环（2.4 s，Crawl/Returning）、撕咬 1.6 s（合咬峰值对位 0.70 s 接触）、嚎叫 3.0 s 共鸣吼（替换原手脑引用）、毒雾 7.0 s 湿嘶（rump 插座声道期）、受击 0.85 s、死亡 2.5 s（塌落对位 60% 物理交接）、威慑吼 2.4 s（`ThreatSerial` 复制触发、18 s 冷却）。一次性音效在 `PresentState` 按复制状态于各客户端播放，循环声按状态启停；源素材、制作脚本与许可记录位于 `SourceAssets/M10ChenXia20261003/AudioV1`（筛选过程在同目录 `AudioScout`）。当前源为 freesound 官方预览 MP3，可日后用账号下载原 WAV 重跑 `prepare_audio.py` 替换。2026-10-04 完成双构建与 commandlet 导入，8 个 SoundWave 落盘于 `Content/Monsters/M10Mawcrawler/Audio/AudioV1/`，BP CDO 已引用；游戏内试听未验证，回执见该目录 `asset_receipt.json` / `delivery.json`。
+
 ## 整理与公开恢复边界（2026-10-03）
 
 当前版本与历史阶段分开阅读；恢复顺序、V6 旧短攻击归档及公共源码的 SAN 接入边界见 [M10 整理发布](m10-publication-20261003.md)。V12 已构建，实机接地与形变未测试；公共 Git 不包含完整模型／UE 包或尚未公开的玩家生存模块。

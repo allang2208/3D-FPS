@@ -10,7 +10,10 @@
 #include "MonsterCombatComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/AudioComponent.h"
 #include "Engine/SkeletalMesh.h"
+#include "Sound/SoundBase.h"
+#include "Sound/SoundAttenuation.h"
 
 AVortexCofferM25::AVortexCofferM25(const FObjectInitializer& Initializer)
     : Super(Initializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(CharacterMovementComponentName)
@@ -25,6 +28,20 @@ AVortexCofferM25::AVortexCofferM25(const FObjectInitializer& Initializer)
     BackElectric = CreateDefaultSubobject<UM25BackElectricComponent>(TEXT("BackElectric"));
     Magic = CreateDefaultSubobject<UM25MagicComponent>(TEXT("MagicExecution"));
     Bite = CreateDefaultSubobject<UM25BiteComponent>(TEXT("BiteExecution"));
+    IdleVoice = CreateDefaultSubobject<UAudioComponent>(TEXT("IdleVoice"));
+    CrawlVoice = CreateDefaultSubobject<UAudioComponent>(TEXT("CrawlVoice"));
+    for (TObjectPtr<UAudioComponent> Voice : {IdleVoice, CrawlVoice})
+    {
+        Voice->SetupAttachment(GetMesh(), TEXT("body_05"));
+        Voice->bAutoActivate = false;
+        Voice->bAutoDestroy = false;
+        Voice->bAllowAnyoneToDestroyMe = false;
+        Voice->bOverrideAttenuation = true;
+        Voice->AttenuationOverrides.bAttenuate = true;
+        Voice->AttenuationOverrides.bSpatialize = true;
+    }
+    IdleVoice->AttenuationOverrides.FalloffDistance = 1400.f;
+    CrawlVoice->AttenuationOverrides.FalloffDistance = 1500.f;
     GetCapsuleComponent()->InitCapsuleSize(225.f, 225.f);
     GetMesh()->SetRelativeLocation(FVector(0, 0, -225.f));
     ApplyHitCollision();
@@ -36,17 +53,14 @@ AVortexCofferM25::AVortexCofferM25(const FObjectInitializer& Initializer)
 
     auto* Movement = GetCharacterMovement();
     Movement->MaxWalkSpeed = WalkSpeed;
-    Movement->MaxAcceleration = 90.f;
-    Movement->BrakingDecelerationWalking = 120.f;
-    Movement->RotationRate = FRotator(0, 55.f, 0);
+    Movement->MaxAcceleration = 480.f;
+    Movement->BrakingDecelerationWalking = 720.f;
+    Movement->RotationRate = FRotator(0, 150.f, 0);
     Movement->bOrientRotationToMovement = true;
     Movement->bCanWalkOffLedges = false;
     Movement->bRunPhysicsWithNoController = true;
-    Movement->MaxStepHeight = 30.f;
-    // Reuse the installed M10 large-body navigation agent.
-    Movement->GetNavAgentPropertiesRef().AgentRadius = 225.f;
-    Movement->GetNavAgentPropertiesRef().AgentHeight = 450.f;
-    Movement->GetNavAgentPropertiesRef().AgentStepHeight = 30.f;
+    // Share M10's large-body clearance and the HandBrain 40 cm stair limit.
+    CastChecked<UMonsterCharacterMovementComponent>(Movement)->ConfigureWideBodyStairs(225.f, 450.f);
     bUseControllerRotationYaw = false;
     BaseEyeHeight = -180.f;
     AIControllerClass = AMonsterAIController::StaticClass();
@@ -79,6 +93,7 @@ void AVortexCofferM25::ApplyVisual()
 void AVortexCofferM25::OnConstruction(const FTransform& Transform)
 {
     Super::OnConstruction(Transform);
+    CastChecked<UMonsterCharacterMovementComponent>(GetCharacterMovement())->ConfigureWideBodyStairs(225.f, 450.f);
     ApplyVisual();
     ApplyHitCollision();
     GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
@@ -86,6 +101,7 @@ void AVortexCofferM25::OnConstruction(const FTransform& Transform)
 
 void AVortexCofferM25::BeginPlay()
 {
+    CastChecked<UMonsterCharacterMovementComponent>(GetCharacterMovement())->ConfigureWideBodyStairs(225.f, 450.f);
     Super::BeginPlay();
     ApplyVisual();
     ApplyHitCollision();
@@ -98,8 +114,47 @@ void AVortexCofferM25::BeginPlay()
     Home = GetActorLocation();
     GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
     GetMesh()->AddTickPrerequisiteComponent(GetCharacterMovement());
+    if (GetNetMode() != NM_DedicatedServer)
+    {
+        if (IdleVoice) IdleVoice->SetSound(IdleSound);
+        if (CrawlVoice) CrawlVoice->SetSound(CrawlSound);
+        UpdateLoopAudio();
+    }
     if (auto* AI = Cast<AMonsterAIController>(GetController()))
         AI->UpdateKnowledge();
+}
+
+void AVortexCofferM25::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+    UpdateLoopAudio();
+}
+
+USoundAttenuation* AVortexCofferM25::OneShotAttenuation(float Falloff) const
+{
+    auto* Attenuation = NewObject<USoundAttenuation>(const_cast<AVortexCofferM25*>(this));
+    Attenuation->Attenuation.bAttenuate = true;
+    Attenuation->Attenuation.bSpatialize = true;
+    Attenuation->Attenuation.FalloffDistance = Falloff;
+    return Attenuation;
+}
+
+void AVortexCofferM25::UpdateLoopAudio()
+{
+    if (GetNetMode() == NM_DedicatedServer) return;
+    const bool Alive = !Dead();
+    if (IdleVoice)
+    {
+        if (Alive && IdleVoice->Sound) { if (!IdleVoice->IsPlaying()) IdleVoice->Play(); }
+        else if (IdleVoice->IsPlaying()) IdleVoice->Stop();
+    }
+    if (CrawlVoice)
+    {
+        const bool Moving = Alive && !Controlled()
+            && GetCharacterMovement()->IsMovingOnGround() && GetVelocity().Size2D() > 4.f;
+        if (Moving && CrawlVoice->Sound) { if (!CrawlVoice->IsPlaying()) CrawlVoice->Play(); }
+        else if (CrawlVoice->IsPlaying()) CrawlVoice->Stop();
+    }
 }
 
 bool AVortexCofferM25::CanAttackTarget(APawn* Target) const

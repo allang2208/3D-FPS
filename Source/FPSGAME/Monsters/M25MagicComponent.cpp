@@ -20,6 +20,7 @@
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
+#include "Components/AudioComponent.h"
 #include "Net/UnrealNetwork.h"
 
 UM25MagicComponent::UM25MagicComponent()
@@ -36,7 +37,10 @@ UM25MagicComponent::UM25MagicComponent()
     LanceBody = TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceBeam.M_ThunderLanceBeam")));
 
     LanceIrisMat = TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceIris.M_ThunderLanceIris")));
+    LanceGatherAsset = TSoftObjectPtr<UNiagaraSystem>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/LanceRay/NS_ThunderLanceGather.NS_ThunderLanceGather")));
+    LanceMuzzleAsset = TSoftObjectPtr<UNiagaraSystem>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/NS_ThunderLanceMuzzle.NS_ThunderLanceMuzzle")));
     ReleaseSound = TSoftObjectPtr<USoundBase>(FSoftObjectPath(TEXT("/Game/Skills/Lightning/S_LightningCast1.S_LightningCast1")));
+    LanceTailSound = TSoftObjectPtr<USoundBase>(FSoftObjectPath(TEXT("/Game/Skills/ElectricMagic/S_ElectricCast1.S_ElectricCast1")));
 }
 
 void UM25MagicComponent::BeginPlay()
@@ -50,7 +54,8 @@ void UM25MagicComponent::BeginPlay()
         TArray<FSoftObjectPath> Paths = {ChargeAsset.ToSoftObjectPath(), ArcAsset.ToSoftObjectPath(),
             ImpactAsset.ToSoftObjectPath(), LanceTube.ToSoftObjectPath(), LanceIrisMesh.ToSoftObjectPath(),
             LanceBody.ToSoftObjectPath(), LanceIrisMat.ToSoftObjectPath(),
-            ReleaseSound.ToSoftObjectPath()};
+            LanceGatherAsset.ToSoftObjectPath(), LanceMuzzleAsset.ToSoftObjectPath(),
+            ReleaseSound.ToSoftObjectPath(), LanceTailSound.ToSoftObjectPath()};
         AssetLoad = UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
             FStreamableDelegate::CreateWeakLambda(this, [this]() { UpdatePresentation(); }));
     }
@@ -145,7 +150,8 @@ bool UM25MagicComponent::CanAttack(APawn* Target) const
 {
     // Keep a local attack from starting before its telegraph can be presented.
     if (GetNetMode() != NM_DedicatedServer && (!ChargeAsset.Get() || !ArcAsset.Get()
-        || !LanceTube.Get() || !LanceIrisMesh.Get() || !LanceBody.Get() || !LanceIrisMat.Get())) return false;
+        || !LanceTube.Get() || !LanceIrisMesh.Get() || !LanceBody.Get() || !LanceIrisMat.Get()
+        || !LanceGatherAsset.Get() || !LanceMuzzleAsset.Get())) return false;
     return !IsBusy() && CanExecute() && SelectSpell(Target) != EM25Spell::None;
 }
 
@@ -210,31 +216,101 @@ void UM25MagicComponent::UpdatePresentation()
     if (!Monster.IsValid() || GetNetMode() == NM_DedicatedServer) return;
     const bool Charging = !Monster->Dead() && !Monster->Controlled() &&
         (CastState.Spell == EM25Spell::Lightning || CastState.Spell == EM25Spell::ThunderLance);
+    if (Charging ? CastState.Spell != PresentedSpell : PresentedSpell != EM25Spell::None)
+    {
+        // Spell transitions drive the charge voice; release/cancel silence it.
+        if (Charging)
+        {
+            auto* Sound = CastState.Spell == EM25Spell::ThunderLance
+                ? Monster->LanceChargeSound.Get() : Monster->ChargeSound.Get();
+            if (!ChargeVoice)
+            {
+                ChargeVoice = NewObject<UAudioComponent>(GetOwner(), TEXT("M25ChargeVoice"));
+                GetOwner()->AddInstanceComponent(ChargeVoice);
+                ChargeVoice->SetupAttachment(Monster->GetRootComponent());
+                ChargeVoice->SetAutoActivate(false);
+                ChargeVoice->bAutoDestroy = false;
+                ChargeVoice->bAllowAnyoneToDestroyMe = false;
+                ChargeVoice->bOverrideAttenuation = true;
+                ChargeVoice->AttenuationOverrides.bAttenuate = true;
+                ChargeVoice->AttenuationOverrides.bSpatialize = true;
+                ChargeVoice->AttenuationOverrides.FalloffDistance = 2000.f;
+                ChargeVoice->RegisterComponent();
+            }
+            ChargeVoice->Stop();
+            if (Sound)
+            {
+                ChargeVoice->SetSound(Sound);
+                ChargeVoice->SetWorldLocation(Origin(CastState.Spell));
+                ChargeVoice->Play();
+            }
+        }
+        else if (ChargeVoice) ChargeVoice->Stop();
+        PresentedSpell = Charging ? CastState.Spell : EM25Spell::None;
+    }
     if (!Charging)
     {
         if (Charge) Charge->DeactivateImmediate();
+        if (LanceIris) { GetOwner()->RemoveInstanceComponent(LanceIris); LanceIris->DestroyComponent(); LanceIris = nullptr; LanceIrisMID = nullptr; }
         return;
     }
-    if (!Charge && ChargeAsset.Get())
+    if (ChargeVoice) ChargeVoice->SetWorldLocation(Origin(CastState.Spell));
+    const bool Lance = CastState.Spell == EM25Spell::ThunderLance;
+    // The lance uses the ray family's dedicated gather; the ordinary bolt keeps NS_ThunderCharge.
+    UNiagaraSystem* WantedCharge = Lance ? LanceGatherAsset.Get() : ChargeAsset.Get();
+    if (!Charge && WantedCharge)
     {
         Charge = NewObject<UNiagaraComponent>(GetOwner(), TEXT("M25MagicCharge"));
         GetOwner()->AddInstanceComponent(Charge);
         Charge->SetAutoActivate(false);
-        Charge->SetAsset(ChargeAsset.Get());
         Charge->SetCastShadow(false);
         Charge->SetTickBehavior(ENiagaraTickBehavior::UsePrereqs);
         Charge->AddTickPrerequisiteComponent(this);
         Charge->RegisterComponent();
     }
     if (!Charge) return;
+    if (Charge->GetAsset() != WantedCharge) Charge->SetAsset(WantedCharge);
     const float Fraction = FMath::Clamp((Clock() - CastState.StartedAt) / FMath::Max(.01f, CastState.Duration), 0.f, 1.f);
-    const bool Lance = CastState.Spell == EM25Spell::ThunderLance;
     const FVector Position = Origin(CastState.Spell);
     Charge->SetWorldLocationAndRotation(Position, (FVector(CastState.Aim) - Position).Rotation());
-    const float Scale = (Lance ? .85f : .32f) * (.22f + .62f * FMath::SmoothStep(0.f, 1.f, Fraction));
+    const float Scale = Lance ? 1.6f : .32f * (.22f + .62f * FMath::SmoothStep(0.f, 1.f, Fraction));
     Charge->SetWorldScale3D(FVector(Scale));
     Charge->SetVariableFloat(TEXT("User.Charge"), Fraction);
     if (!Charge->IsActive()) Charge->Activate(true);
+    // Lance iris bloom (player lance recipe): an expanding iris plate pinned just ahead of the
+    // electrode, facing along the aim; strength/firepower track the charge fraction.
+    if (Lance && LanceIrisMesh.Get() && LanceIrisMat.Get())
+    {
+        if (!LanceIris)
+        {
+            LanceIris = NewObject<UStaticMeshComponent>(GetOwner(), TEXT("M25LanceChargeIris"));
+            GetOwner()->AddInstanceComponent(LanceIris);
+            LanceIris->SetupAttachment(GetOwner()->GetRootComponent());
+            LanceIris->SetAbsolute(true, true, true);
+            LanceIris->SetStaticMesh(LanceIrisMesh.Get());
+            LanceIris->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            LanceIris->SetCanEverAffectNavigation(false);
+            LanceIris->SetCastShadow(false);
+            LanceIris->SetReceivesDecals(false);
+            LanceIrisMID = UMaterialInstanceDynamic::Create(LanceIrisMat.Get(), this);
+            LanceIris->SetMaterial(0, LanceIrisMID);
+            LanceIris->RegisterComponent();
+        }
+        const FVector Forward = (FVector(CastState.Aim) - Position).GetSafeNormal();
+        LanceIris->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(-Forward).ToQuat(),
+            Position + Forward * 4.f, FVector(FVector::OneVector * (9.f + 16.f * Fraction))));
+        if (LanceIrisMID)
+        {
+            LanceIrisMID->SetScalarParameterValue(TEXT("Strength"), .25f + .75f * Fraction);
+            LanceIrisMID->SetScalarParameterValue(TEXT("Clock"), Clock() - CastState.StartedAt);
+            LanceIrisMID->SetScalarParameterValue(TEXT("FirePower"), Fraction);
+        }
+    }
+    else if (LanceIris)
+    {
+        GetOwner()->RemoveInstanceComponent(LanceIris); LanceIris->DestroyComponent();
+        LanceIris = nullptr; LanceIrisMID = nullptr;
+    }
 }
 
 void UM25MagicComponent::TickComponent(float Delta, ELevelTick Type, FActorComponentTickFunction* Tick)
@@ -257,6 +333,26 @@ void UM25MagicComponent::TickComponent(float Delta, ELevelTick Type, FActorCompo
                 return;
             }
             const float Remaining = FMath::Max(0.f, CastState.Duration - Elapsed);
+            // Lance windup tendrils (player lance recipe): real chain arcs converge on the
+            // electrode every ~130 ms once the charge is underway. Authority spawns them so
+            // the replicated arc actor rebuilds the same visual on every client.
+            const float FractionNow = FMath::Clamp(Elapsed / FMath::Max(.01f, CastState.Duration), 0.f, 1.f);
+            if (CastState.Spell == EM25Spell::ThunderLance && FractionNow >= .05f
+                && Clock() >= NextChargeArc && ArcAsset.Get())
+            {
+                NextChargeArc = Clock() + .13;
+                const FVector Position = Origin(CastState.Spell);
+                const FVector Forward = (FVector(CastState.Aim) - Position).GetSafeNormal();
+                FVector Right, Up; Forward.FindBestAxisVectors(Right, Up);
+                const float A = FMath::FRandRange(0.f, 2.f * PI), R = FMath::FRandRange(45.f, 80.f);
+                const FVector From = Position + (Right * FMath::Cos(A) + Up * FMath::Sin(A)) * R
+                    + Forward * FMath::FRandRange(-15.f, 35.f);
+                FLightningCast Tendril; Tendril.Duration = .10f; Tendril.Fade = .16f;
+                Tendril.Segments = 6; Tendril.Jitter = .18f;
+                FActorSpawnParameters Spawn; Spawn.Owner = Monster.Get();
+                if (auto* FX = GetWorld()->SpawnActor<AFPSLightningArc>(From, FRotator::ZeroRotator, Spawn))
+                    FX->InitializeArc(ArcAsset.Get(), From, Position, Tendril, 1.f, false, 38.f);
+            }
             if (!CastState.bAimLocked)
             {
                 CastState.Aim = TargetPoint(Target);
@@ -268,6 +364,27 @@ void UM25MagicComponent::TickComponent(float Delta, ELevelTick Type, FActorCompo
                 }
             }
             if (Elapsed >= CastState.Duration) Release();
+        }
+    }
+    // Muzzle iris flash decay (cosmetic; ~0.16 s, same curve as the player's lance).
+    if (MuzzleIris && GetNetMode() != NM_DedicatedServer)
+    {
+        const float FT = MuzzleFlashAt < 0. ? 1.f : float((Clock() - MuzzleFlashAt) / .16);
+        if (FT >= 1.f)
+        {
+            GetOwner()->RemoveInstanceComponent(MuzzleIris); MuzzleIris->DestroyComponent();
+            MuzzleIris = nullptr; MuzzleIrisMID = nullptr;
+        }
+        else
+        {
+            const float Ease = 1.f - FMath::Pow(1.f - FT, 2.2f);
+            MuzzleIris->SetWorldScale3D(FVector(FVector::OneVector * FMath::Lerp(26.f, 230.f, Ease)));
+            if (MuzzleIrisMID)
+            {
+                MuzzleIrisMID->SetScalarParameterValue(TEXT("Strength"), (1.f - FT) * 1.7f);
+                MuzzleIrisMID->SetScalarParameterValue(TEXT("Clock"), float(Clock() - MuzzleFlashAt));
+                MuzzleIrisMID->SetScalarParameterValue(TEXT("FirePower"), 1.f - FT * .5f);
+            }
         }
     }
     UpdatePresentation();
@@ -324,9 +441,44 @@ void UM25MagicComponent::Release()
     FActorSpawnParameters Spawn; Spawn.Owner = Monster.Get();
     if (auto* FX = GetWorld()->SpawnActor<AFPSLightningArc>(Start, FRotator::ZeroRotator, Spawn))
     {
-        if (Lance && (GetNetMode() == NM_DedicatedServer || (LanceTube.Get() && LanceIrisMesh.Get() && LanceBody.Get() && LanceIrisMat.Get())))
-            FX->InitializeColumn(LanceTube.Get(), LanceIrisMesh.Get(), LanceBody.Get(), LanceIrisMat.Get(), Start, End, Visual, 1.f, .32f);
-        else FX->InitializeArc(ArcAsset.Get(), Start, End, Visual, Lance ? 1.1f : .5f, true, Lance ? 55.f : 44.f);
+        // The lance always renders through the ray column; the chain-arc system is lightning-only.
+        if (Lance) FX->InitializeColumn(LanceTube.Get(), LanceIrisMesh.Get(), LanceBody.Get(), LanceIrisMat.Get(), Start, End, Visual, 1.f, .32f);
+        else FX->InitializeArc(ArcAsset.Get(), Start, End, Visual, .5f, true, 44.f);
+    }
+    // Lance release dressing (player recipe): chain arcs coil the column, a radial fan sprays
+    // off the muzzle, residual arcs scatter from the endpoint. Each spawned arc replicates.
+    if (Lance && ArcAsset.Get())
+    {
+        FLightningCast Wrap; Wrap.Duration = Visual.Duration + .1f; Wrap.Fade = FMath::Max(Visual.Fade, .5f);
+        Wrap.Segments = 26; Wrap.Jitter = .042f;
+        FLightningCast Fan; Fan.Duration = .09f; Fan.Fade = .2f; Fan.Segments = 5; Fan.Jitter = .3f;
+        FLightningCast Res; Res.Duration = .12f; Res.Fade = .3f; Res.Segments = 4; Res.Jitter = .3f;
+        FActorSpawnParameters SpawnArcs; SpawnArcs.Owner = Monster.Get();
+        auto Coil = [&](const FVector& A, const FVector& B, const FLightningCast& C, float Width, float Brightness)
+        {
+            if (auto* F = GetWorld()->SpawnActor<AFPSLightningArc>(A, FRotator::ZeroRotator, SpawnArcs))
+                F->InitializeArc(ArcAsset.Get(), A, B, C, Width, false, Brightness);
+        };
+        // Real lightning bolts coiling the column (tight jitter envelope hugging the beam).
+        for (int32 I = 0; I < 4; ++I) Coil(Start, End, Wrap, 1.2f, 52.f);
+        // Radial fan in the plane perpendicular to the launch axis.
+        FVector T1, T2; Direction.FindBestAxisVectors(T1, T2);
+        for (int32 I = 0; I < 6; ++I)
+        {
+            const float A = float(I) * 1.0472f + FMath::FRandRange(-.35f, .35f);
+            const FVector Out = (T1 * FMath::Cos(A) + T2 * FMath::Sin(A)).GetSafeNormal();
+            Coil(Start + Direction * 8.f, Start + Direction * 8.f + Out * FMath::FRandRange(150.f, 260.f), Fan, .85f, 42.f);
+        }
+        // Residual discharge arcs scatter off the endpoint: along the wall on a block, or back
+        // down the flight cone on an air end.
+        const FVector ExitDir = Blocked ? Normal : -Direction;
+        FVector R1, R2; ExitDir.FindBestAxisVectors(R1, R2);
+        for (int32 I = 0; I < (Blocked ? 3 : 2); ++I)
+        {
+            const FVector Scatter = (R1 * FMath::FRandRange(-1.f, 1.f) + R2 * FMath::FRandRange(-1.f, 1.f)
+                + ExitDir * FMath::FRandRange(.15f, .6f)).GetSafeNormal();
+            Coil(End, End + Scatter * FMath::FRandRange(160.f, 320.f), Res, .8f, 35.f);
+        }
     }
     MulticastImpact(Start, Impact, Normal, Blocked, Lance);
 }
@@ -335,11 +487,44 @@ void UM25MagicComponent::MulticastImpact_Implementation(FVector_NetQuantize Star
     FVector_NetQuantize Point, FVector_NetQuantizeNormal Normal, bool bSurfaceHit, bool bLance)
 {
     if (GetNetMode() == NM_DedicatedServer) return;
+    // Lance muzzle burst at the electrode, oriented along the beam (same as the player's lance).
+    const FVector BeamDir = (Point - Start).GetSafeNormal();
+    if (bLance && LanceMuzzleAsset.Get())
+        UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, LanceMuzzleAsset.Get(), Start,
+            FRotationMatrix::MakeFromX(BeamDir).Rotator(), FVector(1.f),
+            true, true, ENCPoolMethod::AutoRelease);
+    // Muzzle iris flash (player lance recipe): a quick expanding iris plate, ~0.16 s.
+    if (bLance && LanceIrisMesh.Get() && LanceIrisMat.Get())
+    {
+        if (!MuzzleIris)
+        {
+            MuzzleIris = NewObject<UStaticMeshComponent>(GetOwner(), TEXT("M25LanceMuzzleIris"));
+            GetOwner()->AddInstanceComponent(MuzzleIris);
+            MuzzleIris->SetupAttachment(GetOwner()->GetRootComponent());
+            MuzzleIris->SetAbsolute(true, true, true);
+            MuzzleIris->SetStaticMesh(LanceIrisMesh.Get());
+            MuzzleIris->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            MuzzleIris->SetCanEverAffectNavigation(false);
+            MuzzleIris->SetCastShadow(false);
+            MuzzleIris->SetReceivesDecals(false);
+            MuzzleIrisMID = UMaterialInstanceDynamic::Create(LanceIrisMat.Get(), this);
+            MuzzleIris->SetMaterial(0, MuzzleIrisMID);
+            MuzzleIris->RegisterComponent();
+        }
+        MuzzleIris->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(-BeamDir).ToQuat(),
+            Start + BeamDir * 6.f, FVector(FVector::OneVector * 26.f)));
+        MuzzleFlashAt = Clock();
+    }
     if (bSurfaceHit && ImpactAsset.Get())
         UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactAsset.Get(), Point,
             FRotationMatrix::MakeFromZ(Normal).Rotator(), FVector(bLance ? .85f : .45f),
             true, true, ENCPoolMethod::AutoRelease);
-    if (ReleaseSound.Get()) UGameplayStatics::PlaySoundAtLocation(this, ReleaseSound.Get(), Start, bLance ? .75f : .55f);
+    USoundBase* Sound = bLance && Monster.IsValid() && Monster->LanceReleaseSound
+        ? Monster->LanceReleaseSound.Get() : ReleaseSound.Get();
+    if (Sound) UGameplayStatics::PlaySoundAtLocation(this, Sound, Start, bLance ? 1.f : .55f);
+    // Player lance recipe: the discharge crack fires at the muzzle, the cast tail lands on the endpoint.
+    if (bLance && LanceTailSound.Get())
+        UGameplayStatics::PlaySoundAtLocation(this, LanceTailSound.Get(), Point, .8f);
 }
 
 void UM25MagicComponent::Cancel()
@@ -355,8 +540,12 @@ void UM25MagicComponent::EndPlay(EEndPlayReason::Type Reason)
     if (AssetLoad.IsValid()) AssetLoad->CancelHandle();
     AssetLoad.Reset();
     CastState.Spell = EM25Spell::None;
+    PresentedSpell = EM25Spell::None;
     if (Monster.IsValid()) Monster->RefreshCombatPoseTick();
     if (Charge) { Charge->DestroyComponent(); Charge = nullptr; }
+    if (ChargeVoice) { GetOwner()->RemoveInstanceComponent(ChargeVoice); ChargeVoice->DestroyComponent(); ChargeVoice = nullptr; }
+    if (LanceIris) { GetOwner()->RemoveInstanceComponent(LanceIris); LanceIris->DestroyComponent(); LanceIris = nullptr; LanceIrisMID = nullptr; }
+    if (MuzzleIris) { GetOwner()->RemoveInstanceComponent(MuzzleIris); MuzzleIris->DestroyComponent(); MuzzleIris = nullptr; MuzzleIrisMID = nullptr; }
     Super::EndPlay(Reason);
 }
 

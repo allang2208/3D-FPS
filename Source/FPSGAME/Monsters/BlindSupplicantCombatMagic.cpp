@@ -166,6 +166,7 @@ bool ABlindSupplicantMonster::PrepareAttack(APawn* Victim)
     LockedAimPoint = Victim->GetActorLocation();
     LockedAttackDirection = (LockedAimPoint - GetActorLocation()).GetSafeNormal2D();
     bAttackCommitted = bAttackCancelled = bMagicReleaseStarted = false;
+    AudioAttackKind = 0; AudioMagicReleased = false;
     const float MeleeReach = MonsterCombatTuning::AttackDistance(AttackRange) - 15.f;
     const bool Near = FVector::Dist2D(GetActorLocation(), LockedAimPoint) <= MeleeReach ||
         IceWallCombat::BlockingWall(this, Victim, MeleeReach);
@@ -173,6 +174,7 @@ bool ABlindSupplicantMonster::PrepareAttack(APawn* Victim)
     if (ElementIndex != INDEX_NONE)
     {
         ActiveAttack = static_cast<EAttack>(static_cast<uint8>(EAttack::Fireball) + ElementIndex);
+        AudioAttackKind = 2;
         const float Multipliers[] = {FireballDamageMultiplier, IceColumnDamageMultiplier, LightningDamageMultiplier};
         AttackDamageSnapshot = MagicAttack * Multipliers[ElementIndex];
         ActiveGatherDuration = MagicGatherClip->GetPlayLength();
@@ -187,6 +189,7 @@ bool ABlindSupplicantMonster::PrepareAttack(APawn* Victim)
     else
     {
         ActiveAttack = bNextAttackLeft || !MeleeRightClip ? EAttack::SweepLeft : EAttack::SweepRight;
+        AudioAttackKind = 1;
         bNextAttackLeft = !bNextAttackLeft;
         AttackClip = ActiveAttack == EAttack::SweepLeft ? MeleeLeftClip : MeleeRightClip;
         if (!AttackClip) { ActiveAttack = EAttack::None; return false; }

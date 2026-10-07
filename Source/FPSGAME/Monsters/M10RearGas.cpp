@@ -2,6 +2,7 @@
 #include "M10PoisonGas.h"
 #include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
+#include "Components/AudioComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/World.h"
@@ -75,15 +76,24 @@ void AM10Mawcrawler::TickRearGas()
         }
         if(StateSeconds>=RearGasWindup+RearGasChannel)StopRearGas();
     }
-    Sample(FMath::Min(StateSeconds,Duration));
+    Sample(FMath::Min(StateSeconds,Duration));UpdateGasPresentation(StateSeconds);
     if(HasAuthority()&&StateSeconds>=Duration)
     {
         SetState(EM10State::Idle);
         if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();
     }
 }
+void AM10Mawcrawler::UpdateGasPresentation(float Seconds)
+{
+    if(GetNetMode()==NM_DedicatedServer)return;
+    const float Elapsed=Seconds-RearGasWindup;
+    if(Elapsed<0.f)return;
+    if(Elapsed>=RearGasChannel){bGasVoiceStarted=false;if(GasVoice)GasVoice->Stop();return;}
+    if(!bGasVoiceStarted&&GasVoice&&GasSound){bGasVoiceStarted=true;GasVoice->Play(Elapsed);}
+}
 void AM10Mawcrawler::StopRearGas()
 {
+    bGasVoiceStarted=false;if(GasVoice)GasVoice->Stop();
     if(auto* Gas=ActiveRearGas.Get())Gas->StopEmission();
     ActiveRearGas.Reset();
 }

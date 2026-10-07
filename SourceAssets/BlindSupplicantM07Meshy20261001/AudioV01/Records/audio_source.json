@@ -1,0 +1,82 @@
+{
+  "pipeline": "CC0 previews staged in M10 AudioScout -> deterministic slice/pitch/layer + fully synthesized chant/robe/shimmer/gill layers in prepare_audio.py -> 48000 Hz mono PCM",
+  "note": "Flesh layers reuse the same freesound CC0 previews as the M-08/09/10/14/25 batches. Litany chant, robe rustle, magic shimmer and gill flutter are pure synthesis. Spell impact audio stays on the existing player-skill assets; SW_M07_WallMimic stays on its own timer.",
+  "sources": {
+    "621005": {
+      "author": "SamsterBirdies",
+      "license": "CC0",
+      "url": "https://freesound.org/s/621005/",
+      "used_in": [
+        "S_M07_Melee",
+        "S_M07_Death"
+      ]
+    },
+    "695999": {
+      "author": "SamanthaCastleberry",
+      "license": "CC0",
+      "url": "https://freesound.org/s/695999/",
+      "used_in": [
+        "S_M07_Idle",
+        "S_M07_Hit"
+      ]
+    },
+    "635042": {
+      "author": "sillygrizzlies",
+      "license": "CC0",
+      "url": "https://freesound.org/s/635042/",
+      "used_in": [
+        "S_M07_Melee",
+        "S_M07_Hit",
+        "S_M07_Death"
+      ]
+    },
+    "834075": {
+      "author": "Federicoy",
+      "license": "CC0",
+      "url": "https://freesound.org/s/834075/",
+      "used_in": [
+        "S_M07_Chase",
+        "S_M07_Death"
+      ]
+    },
+    "466830": {
+      "author": "Breviceps",
+      "license": "CC0",
+      "url": "https://freesound.org/s/466830/",
+      "used_in": [
+        "S_M07_MagicRelease"
+      ]
+    }
+  },
+  "outputs": {
+    "S_M07_Idle": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlindSupplicantM07Meshy20261001\\AudioV01\\Audio\\S_M07_Idle.wav",
+      "seconds": 3.4
+    },
+    "S_M07_Chase": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlindSupplicantM07Meshy20261001\\AudioV01\\Audio\\S_M07_Chase.wav",
+      "seconds": 2.3
+    },
+    "S_M07_Melee": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlindSupplicantM07Meshy20261001\\AudioV01\\Audio\\S_M07_Melee.wav",
+      "seconds": 0.9
+    },
+    "S_M07_MagicGather": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlindSupplicantM07Meshy20261001\\AudioV01\\Audio\\S_M07_MagicGather.wav",
+      "seconds": 2.2
+    },
+    "S_M07_MagicRelease": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlindSupplicantM07Meshy20261001\\AudioV01\\Audio\\S_M07_MagicRelease.wav",
+      "seconds": 1.0
+    },
+    "S_M07_Hit": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlindSupplicantM07Meshy20261001\\AudioV01\\Audio\\S_M07_Hit.wav",
+      "seconds": 0.65
+    },
+    "S_M07_Death": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BlindSupplicantM07Meshy20261001\\AudioV01\\Audio\\S_M07_Death.wav",
+      "seconds": 2.2
+    }
+  },
+  "tested": false
+}

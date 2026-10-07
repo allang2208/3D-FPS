@@ -1,0 +1,109 @@
+{
+  "pipeline": "CC0 previews staged in M10 AudioScout -> deterministic slice/pitch/layer + fully synthesized hardware layers in prepare_audio.py -> 48000 Hz mono PCM",
+  "note": "Organic layers reuse the same freesound CC0 previews as M-10/M-25 V1; swap for original WAVs when a freesound account download is available. Hardware layers (stud clang, seam creak, bolt rattle) are pure synthesis and carry no external rights.",
+  "sources": {
+    "621005": {
+      "author": "SamsterBirdies",
+      "license": "CC0",
+      "url": "https://freesound.org/s/621005/",
+      "used_in": [
+        "S_M14_TrunkSlam",
+        "S_M14_Death"
+      ]
+    },
+    "635042": {
+      "author": "sillygrizzlies",
+      "license": "CC0",
+      "url": "https://freesound.org/s/635042/",
+      "used_in": [
+        "S_M14_Bite",
+        "S_M14_SpitImpact",
+        "S_M14_Hit",
+        "S_M14_Death"
+      ]
+    },
+    "457294": {
+      "author": "brunoboselli",
+      "license": "CC0",
+      "url": "https://freesound.org/s/457294/",
+      "used_in": []
+    },
+    "568598": {
+      "author": "TheSoundBandit",
+      "license": "CC0",
+      "url": "https://freesound.org/s/568598/",
+      "used_in": [
+        "S_M14_Spit"
+      ]
+    },
+    "138477": {
+      "author": "JustInvoke",
+      "license": "CC0",
+      "url": "https://freesound.org/s/138477/",
+      "used_in": [
+        "S_M14_Spit"
+      ]
+    },
+    "834075": {
+      "author": "Federicoy",
+      "license": "CC0",
+      "url": "https://freesound.org/s/834075/",
+      "used_in": [
+        "S_M14_Crawl",
+        "S_M14_TrunkSlam",
+        "S_M14_Death"
+      ]
+    },
+    "467701": {
+      "author": "LucasDuff",
+      "license": "CC0",
+      "url": "https://freesound.org/s/467701/",
+      "used_in": [
+        "S_M14_Bite"
+      ]
+    },
+    "466830": {
+      "author": "Breviceps",
+      "license": "CC0",
+      "url": "https://freesound.org/s/466830/",
+      "used_in": [
+        "S_M14_Bite"
+      ]
+    }
+  },
+  "outputs": {
+    "S_M14_Crawl": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpiralPillarM14Meshy20261004\\AudioV01\\Audio\\S_M14_Crawl.wav",
+      "seconds": 2.6
+    },
+    "S_M14_Bite": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpiralPillarM14Meshy20261004\\AudioV01\\Audio\\S_M14_Bite.wav",
+      "seconds": 1.15
+    },
+    "S_M14_Spit": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpiralPillarM14Meshy20261004\\AudioV01\\Audio\\S_M14_Spit.wav",
+      "seconds": 1.3
+    },
+    "S_M14_SpitImpact": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpiralPillarM14Meshy20261004\\AudioV01\\Audio\\S_M14_SpitImpact.wav",
+      "seconds": 0.8
+    },
+    "S_M14_TrunkSlam": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpiralPillarM14Meshy20261004\\AudioV01\\Audio\\S_M14_TrunkSlam.wav",
+      "seconds": 1.5
+    },
+    "S_M14_Whirlwind": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpiralPillarM14Meshy20261004\\AudioV01\\Audio\\S_M14_Whirlwind.wav",
+      "seconds": 3.3
+    },
+    "S_M14_Hit": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpiralPillarM14Meshy20261004\\AudioV01\\Audio\\S_M14_Hit.wav",
+      "seconds": 0.7
+    },
+    "S_M14_Death": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpiralPillarM14Meshy20261004\\AudioV01\\Audio\\S_M14_Death.wav",
+      "seconds": 2.6
+    }
+  },
+  "tested": false
+}

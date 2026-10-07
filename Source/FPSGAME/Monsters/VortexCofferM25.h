@@ -13,6 +13,9 @@ class UM25BackElectricComponent;
 class UM25MagicComponent;
 class UM25BiteComponent;
 class UMonsterCorpseRagdollComponent;
+class UAudioComponent;
+class USoundBase;
+class USoundAttenuation;
 
 /** Wide-bodied M-25 with shared-tree locomotion and electrode-based electric attacks. */
 UCLASS()
@@ -22,6 +25,7 @@ class FPSGAME_API AVortexCofferM25 : public ACharacter
 public:
     explicit AVortexCofferM25(const FObjectInitializer& Initializer = FObjectInitializer::Get());
     virtual void OnConstruction(const FTransform& Transform) override;
+    virtual void Tick(float DeltaSeconds) override;
     virtual float TakeDamage(float Damage, const FDamageEvent& Event, AController* EventInstigator, AActor* Causer) override;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     virtual void GetActorEyesViewPoint(FVector& Location, FRotator& Rotation) const override;
@@ -33,7 +37,7 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Animation") TObjectPtr<UAnimSequence> IdleClip;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Animation") TObjectPtr<UAnimSequence> MoveClip;
     UPROPERTY(EditDefaultsOnly, Category="M25|Visual") float MeshYaw = 0.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Movement", meta=(ClampMin="0.0", Units="cm/s")) float WalkSpeed = 40.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Movement", meta=(ClampMin="0.0", Units="cm/s")) float WalkSpeed = 110.f;
     UPROPERTY(EditDefaultsOnly, Category="M25|Animation", meta=(ClampMin="1.0", Units="cm/s")) float AnimationWalkSpeed = 16.f;
     UPROPERTY(EditAnywhere, Category="M25|AI", meta=(Units="cm")) float AggroRadius = 3000.f;
     UPROPERTY(EditAnywhere, Category="M25|AI", meta=(Units="cm")) float LeashRadius = 4500.f;
@@ -98,4 +102,20 @@ private:
     bool bHasSearchGoal = false;
 public:
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="M25|Death") TObjectPtr<UMonsterCorpseRagdollComponent> CorpseRagdoll;
+
+    // Authored one-shots/loops; components below read these actor-level references.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Audio") TObjectPtr<USoundBase> IdleSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Audio") TObjectPtr<USoundBase> CrawlSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Audio") TObjectPtr<USoundBase> BiteSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Audio") TObjectPtr<USoundBase> HitSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Audio") TObjectPtr<USoundBase> DeathSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Audio") TObjectPtr<USoundBase> CrackleSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Audio") TObjectPtr<USoundBase> ChargeSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Audio") TObjectPtr<USoundBase> LanceChargeSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Audio") TObjectPtr<USoundBase> LanceReleaseSound;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="M25|Audio") TObjectPtr<UAudioComponent> IdleVoice;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="M25|Audio") TObjectPtr<UAudioComponent> CrawlVoice;
+    USoundAttenuation* OneShotAttenuation(float Falloff) const;
+private:
+    void UpdateLoopAudio();
 };

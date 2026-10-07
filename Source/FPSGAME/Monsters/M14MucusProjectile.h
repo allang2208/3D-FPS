@@ -6,6 +6,7 @@
 class ASpiralPillarM14;
 class UStaticMeshComponent;
 class UMaterialInterface;
+class USoundBase;
 
 /** One visible nonhoming shot; shared liquid FX are cosmetic only. */
 UCLASS()
@@ -28,6 +29,7 @@ private:
     UFUNCTION(NetMulticast,Unreliable) void ShowImpact(const FHitResult& Hit,FVector IncomingVelocity);
     void UpdateLiquidVisual(float Dt,const FVector& Start,const FVector& End);
     TWeakObjectPtr<ASpiralPillarM14> Shooter;
+    UPROPERTY(EditDefaultsOnly,Category="M14|Audio") TObjectPtr<USoundBase> ImpactSound;
     FVector Velocity=FVector::ZeroVector,PreviousVisualPosition=FVector::ZeroVector;
     float Remaining=0.f,HitDamage=0.f,SlowAmount=0.f,SlowDuration=0.f,VisualAge=0.f,TrailRemainder=0.f;
     int32 TrailSamples=0;

@@ -31,6 +31,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInterface.h"
 #include "Materials/MaterialInstanceDynamic.h"
+#include "Sound/SoundAttenuation.h"
 #include "Sound/SoundBase.h"
 #include "Net/UnrealNetwork.h"
 #include "UObject/ConstructorHelpers.h"
@@ -95,12 +96,26 @@ AHangingBellM09::AHangingBellM09()
  }
  static ConstructorHelpers::FObjectFinder<UAnimSequence> ResonanceClip(TEXT("/Game/Monsters/HangingBellM09/V07/Animations/A_M09_Resonance_V07.A_M09_Resonance_V07"));
  if(ResonanceClip.Object)Clips.Add(TEXT("Resonance"),ResonanceClip.Object);
- static ConstructorHelpers::FObjectFinder<USoundBase> ResonanceSound(TEXT("/Game/Monsters/HangingBellM09/V07/Audio/S_M09_Resonance_V07.S_M09_Resonance_V07"));
+ static ConstructorHelpers::FObjectFinder<USoundBase> ResonanceSound(TEXT("/Game/Monsters/HangingBellM09/V09/Audio/S_M09_Resonance_V09.S_M09_Resonance_V09"));
  if(ResonanceSound.Object)Sounds.Add(TEXT("Resonance"),ResonanceSound.Object);
  static ConstructorHelpers::FObjectFinder<UAnimSequence> GazeClip(TEXT("/Game/Monsters/HangingBellM09/V08/Animations/A_M09_Gaze_V08.A_M09_Gaze_V08"));
  if(GazeClip.Object)Clips.Add(TEXT("Gaze"),GazeClip.Object);
  static ConstructorHelpers::FObjectFinder<USoundBase> GazeSound(TEXT("/Game/Monsters/HangingBellM09/V08/Audio/S_M09_Gaze_V08.S_M09_Gaze_V08"));
  if(GazeSound.Object)Sounds.Add(TEXT("Gaze"),GazeSound.Object);
+ // AudioV01 fills the roles V04/V08 left silent (idle/travel) and replaces the
+ // thin synthesized cues with the membrane-chime family of Resonance V07.
+ for(const TCHAR* V1Role:{TEXT("Idle"),TEXT("Travel"),TEXT("Death"),TEXT("SwingLeft"),TEXT("SwingRight"),TEXT("Claw"),TEXT("Stagger")})
+ {
+  const FString SoundPath=FString::Printf(TEXT("/Game/Monsters/HangingBellM09/Audio/AudioV1/S_M09_%s.S_M09_%s"),V1Role,V1Role);
+  ConstructorHelpers::FObjectFinder<USoundBase> S(*SoundPath);if(S.Object)Sounds.Add(FName(V1Role),S.Object);
+ }
+ // Non-state cues: Alert fires on the first attack transition, RingDown covers the
+ // resonance tail that Voice->Stop() would otherwise cut at state exit.
+ for(const TCHAR* CueRole:{TEXT("Alert"),TEXT("RingDown")})
+ {
+  const FString CuePath=FString::Printf(TEXT("/Game/Monsters/HangingBellM09/Audio/AudioV1/S_M09_%s.S_M09_%s"),CueRole,CueRole);
+  ConstructorHelpers::FObjectFinder<USoundBase> S(*CuePath);if(S.Object)Sounds.Add(FName(CueRole),S.Object);
+ }
  GetCapsuleComponent()->InitCapsuleSize(85.f,137.f);
  GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
  GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Ignore);
@@ -207,6 +222,27 @@ void AHangingBellM09::PresentState()
   Voice->SetWorldLocation(State==EM09State::Resonance?ResonanceOrigin:Eye());
   Voice->SetSound(*S);Voice->Play(StateSeconds);
  }
+ if(GetNetMode()!=NM_DedicatedServer)
+ {
+  const EM09State Prev=PresentedState;PresentedState=State;
+  const bool IsAttack=State>=EM09State::SwingLeft&&State<=EM09State::Claw;
+  const bool WasAttack=Prev>=EM09State::SwingLeft&&Prev<=EM09State::Claw;
+  if(IsAttack&&!WasAttack)
+   if(auto* S=Sounds.Find(TEXT("Alert"));S&&*S)
+    UGameplayStatics::SpawnSoundAttached(*S,GetMesh(),TEXT("eye_01"),FVector::ZeroVector,
+     FRotator::ZeroRotator,EAttachLocation::KeepRelativeOffset,true,1.f,1.f,0.f,OneShotAttenuation(2400.f));
+  if(Prev==EM09State::Resonance&&!IsAttack&&!Dead())
+   if(auto* S=Sounds.Find(TEXT("RingDown"));S&&*S)
+    UGameplayStatics::PlaySoundAtLocation(this,*S,ResonanceOrigin,.9f,1.f,0.f,OneShotAttenuation(2600.f));
+ }
+}
+USoundAttenuation* AHangingBellM09::OneShotAttenuation(float Falloff) const
+{
+ auto* Attenuation=NewObject<USoundAttenuation>(const_cast<AHangingBellM09*>(this));
+ Attenuation->Attenuation.bAttenuate=true;
+ Attenuation->Attenuation.bSpatialize=true;
+ Attenuation->Attenuation.FalloffDistance=Falloff;
+ return Attenuation;
 }
 void AHangingBellM09::SetState(EM09State Next)
 {

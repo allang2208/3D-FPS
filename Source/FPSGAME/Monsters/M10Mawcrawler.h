@@ -11,6 +11,7 @@ class UMonsterCombatComponent;
 class UMonsterCorpseRagdollComponent;
 class UAudioComponent;
 class USoundBase;
+class USoundAttenuation;
 class UStaticMesh;
 class UStaticMeshComponent;
 class UMaterialInterface;
@@ -47,7 +48,7 @@ public:
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") int32 Level=10;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") EMonsterRank Rank=EMonsterRank::Elite;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") int32 ExperienceReward=650;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Movement",meta=(Units="cm/s")) float WalkSpeed=55.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Movement",meta=(Units="cm/s")) float WalkSpeed=110.f;
     UPROPERTY(EditAnywhere,Category="M10|Animation",meta=(ClampMin="1")) float AnimationWalkSpeed=46.153846f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|AI") float AggroRadius=1600.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|AI") float LeashRadius=2800.f;
@@ -96,9 +97,9 @@ public:
     UPROPERTY(EditAnywhere,Category="M10|Turning") float SlowTurnAngle=30.f;
     UPROPERTY(EditAnywhere,Category="M10|Turning") float PivotStartAngle=70.f;
     UPROPERTY(EditAnywhere,Category="M10|Turning") float PivotFinishAngle=25.f;
-    UPROPERTY(EditAnywhere,Category="M10|Turning") float MovingTurnSpeed=36.f;
-    UPROPERTY(EditAnywhere,Category="M10|Turning") float PivotTurnSpeed=30.f;
-    UPROPERTY(EditAnywhere,Category="M10|Turning") float TurnAcceleration=97.5f;
+    UPROPERTY(EditAnywhere,Category="M10|Turning") float MovingTurnSpeed=72.f;
+    UPROPERTY(EditAnywhere,Category="M10|Turning") float PivotTurnSpeed=60.f;
+    UPROPERTY(EditAnywhere,Category="M10|Turning") float TurnAcceleration=195.f;
     UPROPERTY(EditAnywhere,Category="M10|Turning") float BiteFacingAngle=15.f;
     bool GetCloseFacingYaw(float& Yaw) const;
     /** Unit ellipses expressed relative to the head bone, authored from each iris. */
@@ -165,4 +166,25 @@ private:
 public:
     /** Hold the nearer rear end only within gas range, independently of cooldowns. */
     bool PrefersRearAttack(const APawn* Victim) const;
+    UPROPERTY(EditDefaultsOnly,Category="M10|Audio") TObjectPtr<USoundBase> IdleSound;
+    UPROPERTY(EditDefaultsOnly,Category="M10|Audio") TObjectPtr<USoundBase> CrawlSound;
+    UPROPERTY(EditDefaultsOnly,Category="M10|Audio") TObjectPtr<USoundBase> BiteSound;
+    UPROPERTY(EditDefaultsOnly,Category="M10|Audio") TObjectPtr<USoundBase> HitSound;
+    UPROPERTY(EditDefaultsOnly,Category="M10|Audio") TObjectPtr<USoundBase> DeathSound;
+    UPROPERTY(EditDefaultsOnly,Category="M10|Audio") TObjectPtr<USoundBase> ThreatSound;
+    UPROPERTY(EditDefaultsOnly,Category="M10|Audio") TObjectPtr<USoundBase> GasSound;
+    UPROPERTY(EditAnywhere,Category="M10|Audio",meta=(Units="s",ClampMin="0")) float ThreatCooldown=18.f;
+    /** Bumped per committed attack so clients bark once per engagement. */
+    UPROPERTY(ReplicatedUsing=OnRep_Threat) uint8 ThreatSerial=0;
+private:
+    UFUNCTION() void OnRep_Threat();
+    void PresentThreat();
+    void UpdateLoopAudio();
+    void UpdateGasPresentation(float Seconds);
+    USoundAttenuation* OneShotAttenuation(float Falloff) const;
+    UPROPERTY() TObjectPtr<UAudioComponent> BodyVoice;
+    UPROPERTY() TObjectPtr<UAudioComponent> CrawlVoice;
+    UPROPERTY() TObjectPtr<UAudioComponent> GasVoice;
+    float ThreatCooldownLeft=0.f;
+    bool bGasVoiceStarted=false;
 };

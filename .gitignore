@@ -2515,3 +2515,18 @@ __pycache__/
 !/SourceAssets/BlessedLaser20261006/Model/MountRepair/surface_plan.json
 !/SourceAssets/WeaponAccessoriesPublication20261006/archive-manifest.json
 !/SourceAssets/WeaponAccessoriesPublication20261006/published-files.json
+
+# Monster audio AudioV01 (2026-10): recipes/prose/provenance public; WAV/MP3 media,
+# build/import logs and transport receipts stay local per task convention.
+!/SourceAssets/BlindSupplicantM07Meshy20261001/AudioV01/
+!/SourceAssets/BlindSupplicantM07Meshy20261001/AudioV01/*.py
+!/SourceAssets/BlindSupplicantM07Meshy20261001/AudioV01/*.ps1
+!/SourceAssets/BlindSupplicantM07Meshy20261001/AudioV01/*.md
+!/SourceAssets/BlindSupplicantM07Meshy20261001/AudioV01/Records/
+!/SourceAssets/BlindSupplicantM07Meshy20261001/AudioV01/Records/*.json
+!/SourceAssets/SpiralPillarM14Meshy20261004/AudioV01/
+!/SourceAssets/SpiralPillarM14Meshy20261004/AudioV01/*.py
+!/SourceAssets/SpiralPillarM14Meshy20261004/AudioV01/*.ps1
+!/SourceAssets/SpiralPillarM14Meshy20261004/AudioV01/*.md
+!/SourceAssets/SpiralPillarM14Meshy20261004/AudioV01/Records/
+!/SourceAssets/SpiralPillarM14Meshy20261004/AudioV01/Records/*.json
