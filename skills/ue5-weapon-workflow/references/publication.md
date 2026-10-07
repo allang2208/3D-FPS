@@ -64,6 +64,11 @@ git -c http.proxy=http://127.0.0.1:7890 ls-remote origin
 - **索引里出现别人的暂存条目**（本轮 `.gitignore`、`modular_outfits.json`、`FPSModularOutfitComponent.cpp`）：既不能替对方取消暂存，也不能顺手提交。用**临时索引**自建提交树，全程不碰共享索引：`$env:GIT_INDEX_FILE=Saved/tmp-index` → `git read-tree <base>` → 逐个 `git apply --cached --unidiff-zero --whitespace=nowarn --recount <补丁>` → `git add -- <纯属本次的文件>` → `git diff --cached` 复核 → `git write-tree` + `git commit-tree <tree> -p <base> -F <说明>` → `git update-ref refs/heads/<分支> <新提交>` → 清 `GIT_INDEX_FILE`。提交后把共享索引里本次文件的条目对齐到新提交（`git update-index --cacheinfo 100644,<blob>,<路径>`），免留"假暂存"。同一路径的脏工作区与暂存条目都不要重写。
 - **提交前远端 main 前进了**：非强制推送会被 `! [rejected] (non-fast-forward)` 正确拒绝（本轮 `155174d1` → `7382ff0b`）。先 `git log --oneline <旧base>..<新base>` 与 `git diff --stat <旧base> <新base>` 审这次推送，再看自己的补丁能否沿用：没被动过的文件直接重放，被动过的**针对新基线重新生成切片**（本轮只有 `items.json`，对方服装改动已发布，重生成后 6 个 hunk 只剩自己的 2 个）。在新 base 上用临时索引重放出线性提交再推；旧提交从未推送，留 reflog 即可，不做 force。
 - **一个补丁只应用一次**：`Get-ChildItem Saved\u0-*.patch` 批处理时，新生成的文件名也在通配范围内（本轮 `u0-items-new.patch` 被循环与显式调用各应用一次，`items.json` 出现 56 行重复、JSON 里同一键两次）。落地前用 `git diff --cached --numstat` 逐个核对增删行数。
+- **临时索引的基线会被本地并行提交推过去**（2026-10-07 苍龙发布）：
+  - **经过**：从 `read-tree` 到 `commit-tree` 之间，其他会话在本机直接提交并推送了两次（`85728402` → `95e33ca0` → `84f42fd3`）。当时提交前取的是“此刻的 HEAD”作为父提交，`update-ref` 的旧值也是这个新 HEAD，守卫照样通过。结果树仍是旧基线加上本次改动，相当于回滚了别人的 24 个文件。推送前 `git diff --cached --name-only <新HEAD>` 显示的文件数比预期多出很多，才发现问题；随后把分支指回对方提交，再在新基线上全部重建。
+  - **规则**：在 `read-tree` 时把基线写进文件；提交时用这个记下的基线做父提交，也作为 `update-ref <ref> <new> <记下的基线>` 的旧值，这样基线一变就会失败。提交前再 fetch 一次，确认 `HEAD == origin/main == 记下的基线`。
+  - **其他会话的提交可能带走你的工作区改动**：它们可能把你写在共享文件里的段落一起提交（本轮联机 SKILL 的苍龙一节随 `84f42fd3` 发布）。重建前先 `git diff <新HEAD> -- <文件>`，这类文件不要再插一次，否则会出现重复章节。
+  - **改名后同步共享索引**：`git restore --staged -- <路径>` 的路径清单要包含改名或删除的**旧路径**。`git diff --name-only` 开启改名检测时只列新路径，旧路径会在共享索引里残留为“已暂存新增”。
 
 ### 自己的行与并行改动相邻：改用 -U0 原子 hunk（2026-09-29）
 
