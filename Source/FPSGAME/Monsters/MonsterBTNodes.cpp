@@ -1,6 +1,7 @@
 #include "MonsterBTNodes.h"
 #include "MonsterAIController.h"
 #include "MonsterCombatComponent.h"
+#include "MantisM27Monster.h"
 #include "Mutant3.h"
 #include "WolfMonster.h"
 #include "M10Mawcrawler.h"
@@ -18,7 +19,13 @@ EBTNodeResult::Type UBTTask_MonsterAction::ExecuteTask(UBehaviorTreeComponent& O
  if(Action==EMonsterAction::Hold||Action==EMonsterAction::Idle)if(auto* M09=Cast<AHangingBellM09>(AI->GetPawn()))M09->StopCeiling();
  if(Action==EMonsterAction::Hold||Action==EMonsterAction::Idle||Action==EMonsterAction::Attack)
   if(auto* M08=Cast<ALurkerM08Monster>(AI->GetPawn()))M08->StopSurfaceNavigation();
- if(Action==EMonsterAction::Attack){AI->StopMovement();return AI->Combat()->TryAttack(Cast<APawn>(Owner.GetBlackboardComponent()->GetValueAsObject(TEXT("Target"))))?EBTNodeResult::Succeeded:EBTNodeResult::Failed;}
+ if(Action==EMonsterAction::Attack)
+ {
+  // M27 rechecks a moving target at execution time. Its accepted attack owns
+  // stopping movement; a stale CanAttack fact must not brake a failed swing.
+  if(!Cast<AMantisM27Monster>(AI->GetPawn()))AI->StopMovement();
+  return AI->Combat()->TryAttack(Cast<APawn>(Owner.GetBlackboardComponent()->GetValueAsObject(TEXT("Target"))))?EBTNodeResult::Succeeded:EBTNodeResult::Failed;
+ }
  const auto* M25=Cast<AVortexCofferM25>(AI->GetPawn());
  const bool Searching=Action==EMonsterAction::Idle&&M25&&M25->bSearchForPlayers&&AI->bDecisionEnabled;
  if(Action==EMonsterAction::Hold||(Action==EMonsterAction::Idle&&!Searching))
@@ -49,6 +56,13 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
  {
   if(C->IsBusy()||!AI->bDecisionEnabled||!AI->GetPawn()->IsActorTickEnabled()){AI->StopMovement();FinishLatentTask(Owner,EBTNodeResult::Aborted);return;}
   const bool Returning=Action==EMonsterAction::Return;FVector Dest=B->GetValueAsVector(Returning?TEXT("Home"):TEXT("LastKnown"));
+  if(auto* M27=Cast<AMantisM27Monster>(AI->GetPawn());M27&&M27->bCloaked&&!M27->IsCloakRecoveryReady()&&!Returning)
+  {
+   AI->ActiveAction=TEXT("Cloak: retreat / orbit / regenerate");
+   M27->NavigateWhileCloaked(AI,Dest);
+   if(Elapsed>=.25f)FinishLatentTask(Owner,EBTNodeResult::Succeeded);
+   return;
+  }
   if(auto* M09=Cast<AHangingBellM09>(AI->GetPawn()))
   {
    M09->NavigateCeiling(Dest,Returning);
@@ -72,6 +86,31 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
    // Hold a rear target only inside gas range, including during cooldown.
    // Beyond that range, normal navigation turns the M10 and resumes pursuit.
    AI->StopMovement();C->SetLocomotion(false);
+  }
+  else if(auto* M27=Cast<AMantisM27Monster>(AI->GetPawn()))
+  {
+   // A moving target can enter melee between knowledge-service updates. Use
+   // the live contact query and the common attack entry instead of waiting for
+   // another nav completion/Visible flag; walls, cloak, control and cooldown
+   // still pass through CanAttack. Never attack from the Return branch.
+   APawn* Known=!Returning?Cast<APawn>(B->GetValueAsObject(TEXT("Target"))):nullptr;
+   const bool InMelee=IsValid(Known)&&M27->CanMeleeFrom(Known,M27->GetActorLocation(),M27->MeleeStartDistance(Known));
+   if(InMelee&&C->TryAttack(Known))
+   {
+    AI->StopMovement();AI->ActiveAction=TEXT("M27: close melee");
+    FinishLatentTask(Owner,EBTNodeResult::Succeeded);return;
+   }
+   APawn* Victim=InMelee||B->GetValueAsBool(TEXT("Visible"))?Known:nullptr;
+   // During cooldown keep closing on a moving target. Stopping as soon as
+   // InMelee becomes true let that target leave again before the next swing.
+   const float MeleeStop=Victim?FMath::Max(M27->GetSimpleCollisionRadius()+Victim->GetSimpleCollisionRadius()+15.f,
+    M27->MeleeStartDistance(Victim)-65.f-FMath::Min(100.f,float(Victim->GetVelocity().Size2D())*.20f)):Stop;
+   const bool Reached=Victim
+    ? M27->GetCharacterMovement()->IsMovingOnGround()&&InMelee&&M27->GetHorizontalDistanceTo(Victim)<=MeleeStop
+    : SameLevel&&FVector::Dist2D(Dest,Feet)<=Stop;
+   AI->ActiveAction=M27->bCloaked?TEXT("Cloak: committed ambush approach"):TEXT("M27: melee / pounce approach");
+   if(Reached){AI->StopMovement();C->SetLocomotion(false);}
+   else C->SetLocomotion(AI->NavigateFeralTo(Dest,MeleeStop,Victim),Returning);
   }
   else if(auto* Mutant=Cast<AMutant3>(AI->GetPawn()))
   {
@@ -102,7 +141,21 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
  }
  if(Elapsed>=.25f)FinishLatentTask(Owner,EBTNodeResult::Succeeded);
 }
-EBTNodeResult::Type UBTTask_MonsterAction::AbortTask(UBehaviorTreeComponent& Owner,uint8* Memory){if(auto* AI=Owner.GetAIOwner()){AI->StopMovement();if(auto* M09=Cast<AHangingBellM09>(AI->GetPawn()))M09->StopCeiling();if(auto* M08=Cast<ALurkerM08Monster>(AI->GetPawn()))M08->StopSurfaceNavigation();}return EBTNodeResult::Aborted;}
+EBTNodeResult::Type UBTTask_MonsterAction::AbortTask(UBehaviorTreeComponent& Owner,uint8* Memory)
+{
+ if(auto* AI=Owner.GetAIOwner())
+ {
+  const auto* B=Owner.GetBlackboardComponent();
+  const bool MantisAttackHandoff=Action==EMonsterAction::Pursue&&Cast<AMantisM27Monster>(AI->GetPawn())&&B&&
+   B->GetValueAsBool(TEXT("CanAttack"))&&!B->GetValueAsBool(TEXT("Hold"))&&!B->GetValueAsBool(TEXT("Returning"));
+  // Keep the path only across this pursuit -> attack handoff. Successful
+  // melee/pounce stops it itself; control, return and other aborts still stop.
+  if(!MantisAttackHandoff)AI->StopMovement();
+  if(auto* M09=Cast<AHangingBellM09>(AI->GetPawn()))M09->StopCeiling();
+  if(auto* M08=Cast<ALurkerM08Monster>(AI->GetPawn()))M08->StopSurfaceNavigation();
+ }
+ return EBTNodeResult::Aborted;
+}
 UBTService_MonsterKnowledge::UBTService_MonsterKnowledge(){NodeName=TEXT("Update perception and combat facts");Interval=.1f;RandomDeviation=0;bCallTickOnSearchStart=true;}
 void UBTService_MonsterKnowledge::TickNode(UBehaviorTreeComponent& Owner,uint8* Memory,float Dt){Super::TickNode(Owner,Memory,Dt);if(auto* AI=Cast<AMonsterAIController>(Owner.GetAIOwner()))AI->UpdateKnowledge();}
 void UBTDecorator_MonsterFlag::Configure(FName Key){BlackboardKey.SelectedKeyName=Key;OperationType=uint8(EBasicKeyOperation::Set);FlowAbortMode=EBTFlowAbortMode::Both;NotifyObserver=EBTBlackboardRestart::ResultChange;NodeName=Key.ToString();}

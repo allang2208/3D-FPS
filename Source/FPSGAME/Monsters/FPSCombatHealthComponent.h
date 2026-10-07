@@ -29,6 +29,7 @@ private:
     UFUNCTION() void OnRep_Health();
     UFUNCTION() void OnDamage(AActor* Actor, float Damage, const UDamageType* Type, AController* Instigator, AActor* Causer);
     UFUNCTION(Client,Reliable) void ClientApplyM10HowlCripple(double ServerExpiresAt);
+    UFUNCTION(Client,Reliable) void ClientApplyM27HitStatus(AActor* Source, bool bPounce, bool bBleeding, double ServerHitAt);
     void Respawn();
     void RecordLagPose();
     struct FFPSLagPose { double Time; FVector Center; FVector Top; };

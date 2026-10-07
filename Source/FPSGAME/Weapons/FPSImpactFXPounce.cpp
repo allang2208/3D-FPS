@@ -5,14 +5,14 @@
 #include "GameFramework/Pawn.h"
 
 void UFPSImpactFXSubsystem::SpawnPounceLanding(const FHitResult& Ground, const FVector& Forward,
-    float Radius, float Angle, UCameraComponent* ViewCamera, const AActor* Source)
+    float Radius, float Angle, UCameraComponent* ViewCamera, const AActor* Source, bool bPlaySound)
 {
     if (!bReady || !Ground.bBlockingHit || !IsValid(ViewCamera)) return;
     const float Distance = FVector::Dist(Ground.ImpactPoint, ViewCamera->GetComponentLocation());
     if (Distance > 4000.f) return;
     // Two preallocated, spatial voices preserve existing tails and cap overlap.
     // Sound remains audible when the impact is behind the viewer.
-    if (PounceImpactSound && Distance < 2000.f)
+    if (bPlaySound && PounceImpactSound && Distance < 2000.f)
         for (const auto& Voice : PounceVoices)
             if (Voice && !Voice->IsPlaying())
             {

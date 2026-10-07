@@ -1,0 +1,1294 @@
+{
+  "task": "MantisM27",
+  "retained_packages": [],
+  "files": [
+    {
+      "source": "Content/Monsters/MantisM27/ClawV12/Animations/A_M27_LeftSlash_ClawV12.uasset",
+      "destination": "trash/mantis-m27-retired-20261007/Content/Monsters/MantisM27/ClawV12/Animations/A_M27_LeftSlash_ClawV12.uasset",
+      "bytes": 101633,
+      "sha256": "DE2FD9027B028D0B0B3426469D7616AA4AC102F3DCE62256A20462B244F8653F",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Content/Monsters/MantisM27/ClawV12/Animations/A_M27_RightSlash_ClawV12.uasset",
+      "destination": "trash/mantis-m27-retired-20261007/Content/Monsters/MantisM27/ClawV12/Animations/A_M27_RightSlash_ClawV12.uasset",
+      "bytes": 101639,
+      "sha256": "EE4B7FC4E551479E807554C0F85F985D5306BBDE132F7BB882768FA7981B88EE",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Content/Monsters/MantisM27/ClawV13/Animations/A_M27_LeftSlash_ClawV13.uasset",
+      "destination": "trash/mantis-m27-retired-20261007/Content/Monsters/MantisM27/ClawV13/Animations/A_M27_LeftSlash_ClawV13.uasset",
+      "bytes": 106566,
+      "sha256": "E15A209834D4C80960F0FA4FF9D7F64A6B30BC1C04CBEFF2891847335B7E3124",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Content/Monsters/MantisM27/ClawV13/Animations/A_M27_RightSlash_ClawV13.uasset",
+      "destination": "trash/mantis-m27-retired-20261007/Content/Monsters/MantisM27/ClawV13/Animations/A_M27_RightSlash_ClawV13.uasset",
+      "bytes": 106572,
+      "sha256": "0D99905697399CC97F01D37361BCDDFE706FB7B258020DB2550C8F36C2FE4C0E",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Content/Monsters/MantisM27/ClawV7/Animations/A_M27_LeftSlash_ClawV7.uasset",
+      "destination": "trash/mantis-m27-retired-20261007/Content/Monsters/MantisM27/ClawV7/Animations/A_M27_LeftSlash_ClawV7.uasset",
+      "bytes": 143925,
+      "sha256": "47636B97140C7F403578C8963CA2BEBD0440A06D0A05960047161E669D92FE1E",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Content/Monsters/MantisM27/ClawV7/Animations/A_M27_RightSlash_ClawV7.uasset",
+      "destination": "trash/mantis-m27-retired-20261007/Content/Monsters/MantisM27/ClawV7/Animations/A_M27_RightSlash_ClawV7.uasset",
+      "bytes": 143780,
+      "sha256": "1C434D94CEE4A1AC4B59367B1F2F4AEA3B5FCA448F67875D9FB63B7B8AA94BAC",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Content/Monsters/MantisM27/PounceV10/Animations/A_M27_PounceFlight_PounceV10.uasset",
+      "destination": "trash/mantis-m27-retired-20261007/Content/Monsters/MantisM27/PounceV10/Animations/A_M27_PounceFlight_PounceV10.uasset",
+      "bytes": 132387,
+      "sha256": "89A5C5E2CDF69B1E7A9BE312DD74C115C3C2A290FA49C8F405D97F0231B1EA9C",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Content/Monsters/MantisM27/PounceV10/Animations/A_M27_PounceLand_PounceV10.uasset",
+      "destination": "trash/mantis-m27-retired-20261007/Content/Monsters/MantisM27/PounceV10/Animations/A_M27_PounceLand_PounceV10.uasset",
+      "bytes": 149286,
+      "sha256": "7BC41C41DDED500F760BBB31E39A23234CB898A1264A651299869DBB6BABB036",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Content/Monsters/MantisM27/PounceV10/Animations/A_M27_PounceWindup_PounceV10.uasset",
+      "destination": "trash/mantis-m27-retired-20261007/Content/Monsters/MantisM27/PounceV10/Animations/A_M27_PounceWindup_PounceV10.uasset",
+      "bytes": 124096,
+      "sha256": "F77376125DE61AB0FE6345429B40A6B336AB3E133ED56D2ED876DC1A2264D1DB",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Content/Monsters/MantisM27/PounceV9/Animations/A_M27_PounceFlight_PounceV9.uasset",
+      "destination": "trash/mantis-m27-retired-20261007/Content/Monsters/MantisM27/PounceV9/Animations/A_M27_PounceFlight_PounceV9.uasset",
+      "bytes": 127078,
+      "sha256": "6551E205A51F3A1399122D3BB336A929D8D338B46DA0A3A0EFC0E5D2A4AFC1A3",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Content/Monsters/MantisM27/PounceV9/Animations/A_M27_PounceLand_PounceV9.uasset",
+      "destination": "trash/mantis-m27-retired-20261007/Content/Monsters/MantisM27/PounceV9/Animations/A_M27_PounceLand_PounceV9.uasset",
+      "bytes": 144214,
+      "sha256": "3CBBBFF23F3F0FACF414855AA3252962CC08908FF3F1D4A8FA8991E6C965AF6A",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Docs/Monsters/MantisM27ClawV12.md",
+      "destination": "trash/mantis-m27-retired-20261007/Docs/Monsters/MantisM27ClawV12.md",
+      "bytes": 4117,
+      "sha256": "C69031432BF710AA2FC1E2FFC1E5F5472F6A5FA53CF435B20E1F04FC4D8BE2EF",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Docs/Monsters/MantisM27ClawV13.md",
+      "destination": "trash/mantis-m27-retired-20261007/Docs/Monsters/MantisM27ClawV13.md",
+      "bytes": 3315,
+      "sha256": "BF4A8551CA9A89E588D92F18C5CDCD094C3AC785D9F91CF85AB947781727372C",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Docs/Monsters/MantisM27CombatV7.md",
+      "destination": "trash/mantis-m27-retired-20261007/Docs/Monsters/MantisM27CombatV7.md",
+      "bytes": 5143,
+      "sha256": "C0CD27C57A7A46ACF9A32528080900AFC55BCDC54FD898FBC2A9461C2BF66C81",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Docs/Monsters/MantisM27PounceV10.md",
+      "destination": "trash/mantis-m27-retired-20261007/Docs/Monsters/MantisM27PounceV10.md",
+      "bytes": 3274,
+      "sha256": "4D740A339FCB9914A717A086DFD4AEAED995DE282895234C47C463E11A25AF3E",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Docs/Monsters/MantisM27PounceV9.md",
+      "destination": "trash/mantis-m27-retired-20261007/Docs/Monsters/MantisM27PounceV9.md",
+      "bytes": 2809,
+      "sha256": "ACF10877E491504CBDCAA72FFA878FE8949D56082995450E29BFCE399AA55412",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/BindingV2/ue_import.pid",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/BindingV2/ue_import.pid",
+      "bytes": 7,
+      "sha256": "22459CFDC3414EB07066D95E149C9C8B0ED48351A9B2E5662B8024DAA7471EBA",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/ai_review_fixture_failure.txt",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/ai_review_fixture_failure.txt",
+      "bytes": 1075,
+      "sha256": "42BF2306ED664979092F9A49B087CB4701FD896873EC535E73498D33C88DA7F9",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/ai_review-backup-2026.10.07-10.08.10.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/ai_review-backup-2026.10.07-10.08.10.log",
+      "bytes": 277871,
+      "sha256": "3635AB0FCCCA2CEA7C0D51F8F5AD381E07F00609CC98638C0280992468C43819",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/ai_review.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/ai_review.log",
+      "bytes": 277667,
+      "sha256": "30BC904B691A49DE29482CFA6C83E3268315B1B40A80D8ADB6646617641E0CC8",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/ai_review.txt",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/ai_review.txt",
+      "bytes": 1209,
+      "sha256": "7312999BC800CEE35A44D07D2D370067F52CD03BC85E1ED093506D751AF45599",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/bridge_read_01.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/bridge_read_01.json",
+      "bytes": 689,
+      "sha256": "6700F08D1B0DF6D3DA15F0E629BBAB55CF2111E2A2602DCABAA050E7826FB677",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/build_FPSGAME-backup-2026.10.07-10.04.40.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/build_FPSGAME-backup-2026.10.07-10.04.40.json",
+      "bytes": 79984,
+      "sha256": "633E673F5D81E95489686FC58E7D1B36A017BD572E87C1A4C9B81220323A3244",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/build_FPSGAME-backup-2026.10.07-10.04.40.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/build_FPSGAME-backup-2026.10.07-10.04.40.log",
+      "bytes": 30098,
+      "sha256": "990FDF6E7C4C0903685FF2D91C65329FBDA7D3E6850951BE1A52E87545CEB6C2",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/build_FPSGAME.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/build_FPSGAME.json",
+      "bytes": 73394,
+      "sha256": "B262E1B39B0720C2B1D8CDCF14DD5071BFD21E9BA270C7D483D79DF52569DC9E",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/build_FPSGAME.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/build_FPSGAME.log",
+      "bytes": 27720,
+      "sha256": "8E5826BF7FF391CDB1614BC0D07182EFF9898194A14D47C04C9A0BBB6F7F9259",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/build_FPSGAMEEditor-backup-2026.10.07-10.01.43.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/build_FPSGAMEEditor-backup-2026.10.07-10.01.43.json",
+      "bytes": 94629,
+      "sha256": "DAA02B4F60024BA052000A23CE0C45D2DFB7333A5FF78DB55F58B142AE10B10A",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/build_FPSGAMEEditor-backup-2026.10.07-10.01.43.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/build_FPSGAMEEditor-backup-2026.10.07-10.01.43.log",
+      "bytes": 35268,
+      "sha256": "7FF33ACFAD3D709D707E7701F3A28BB46FED1273AC249DDD6005A111CF19A273",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/build_FPSGAMEEditor.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/build_FPSGAMEEditor.json",
+      "bytes": 87253,
+      "sha256": "B86B52365C87A820EAE1A269AD254447278E634761DBE8A620DAB54D1C4BF0EC",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/build_FPSGAMEEditor.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/build_FPSGAMEEditor.log",
+      "bytes": 32733,
+      "sha256": "750C18C80EF55FB10675694981EC4E968B2E392B046D6BA422FE8D32104B24CC",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Delivery/A_M27_LeftSlash_ClawV12.fbx",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Delivery/A_M27_LeftSlash_ClawV12.fbx",
+      "bytes": 355084,
+      "sha256": "3F7BB7AF77C300444A2EAF7FF94253F042257799B100849DA421A02EC799AFED",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Delivery/A_M27_RightSlash_ClawV12.fbx",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Delivery/A_M27_RightSlash_ClawV12.fbx",
+      "bytes": 355004,
+      "sha256": "4A10C453991FDF172CE7342F2DA538FCFB63F50A75A507973FD8E7DD77B06F1E",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Delivery/MantisM27_ClawV12.blend",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Delivery/MantisM27_ClawV12.blend",
+      "bytes": 16290471,
+      "sha256": "C172DAF9BD7CDDA5347BF24240CFB80B0CB58B993C0C8AFA5F70475EE02D600C",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Delivery/MantisM27_ClawV12.blend1",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Delivery/MantisM27_ClawV12.blend1",
+      "bytes": 16290174,
+      "sha256": "8CDF3E8B91528B0899C3710D92FEAD6C6FAC68723D2FAEB202D1EB69F634D50F",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Delivery/motion_manifest.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Delivery/motion_manifest.json",
+      "bytes": 1401,
+      "sha256": "72E8DB5D2E85A14DC69455E14726250030837F5BA6B5E38AF6D8CA36AD4A1BB1",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/import.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/import.log",
+      "bytes": 289036,
+      "sha256": "3A1FFD6CB75724BF0B39D80B2DA2240C30A7BCD7EE9D4500577935F501FF01D0",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/continuity_ClawV12.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/continuity_ClawV12.json",
+      "bytes": 1046,
+      "sha256": "0BC2589793282357C3C74A88E1978F3DFA97CCAAC8AE2A82EF2AF8DF1AA13373",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/continuity_ClawV3.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/continuity_ClawV3.json",
+      "bytes": 1048,
+      "sha256": "B57F18A2F03900D30527696FF70B88DBCDDB5E919D7038757645AF2C44358BE9",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/continuity.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/continuity.json",
+      "bytes": 210,
+      "sha256": "28FCDF7A1CE600079CE416DF443ADA08CEDE595913F1329D96584A3D965DA716",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/LeftSlash_00.png",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/LeftSlash_00.png",
+      "bytes": 182640,
+      "sha256": "470AFBBC0E34E2251DE4D7C51D7050969C0920BE0001AFDD0F219640AFC44FC8",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/LeftSlash_08.png",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/LeftSlash_08.png",
+      "bytes": 179303,
+      "sha256": "2D9B9FDC0C33B75F063A302EB7CE8557826BDFC78DEE83F5F88108D268D01099",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/LeftSlash_14.png",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/LeftSlash_14.png",
+      "bytes": 172320,
+      "sha256": "0FBC6F258AC8CE94AEE1798C16BB52B5AABDFC7481EA89BF82D09C66FD8308F1",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/LeftSlash_18.png",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/LeftSlash_18.png",
+      "bytes": 175899,
+      "sha256": "716FFDE8EECC2CBDA835E779D8474E30244B7D5A2C092C3D0882D2BCD67B4573",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/LeftSlash_26.png",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/LeftSlash_26.png",
+      "bytes": 178016,
+      "sha256": "7B0906642648F3EC8C356155CE32508A5FB4912B135C8688DA896724278D26E5",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/LeftSlash_36.png",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/LeftSlash_36.png",
+      "bytes": 183532,
+      "sha256": "971B88E8CDC6CD5A4BB0F436249D64DE4AE502DA55A3487DCCE8B98FD3392E38",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/poses.png",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/poses.png",
+      "bytes": 338548,
+      "sha256": "CE706718B7ABD81C9CC8562D4F16E89FAEBD35516CC8EBF42F973061141CDE4B",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/RightSlash_00.png",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/RightSlash_00.png",
+      "bytes": 182640,
+      "sha256": "50461452CBA5A8A33E570CB9B9A18E8A682B49364864F3E70460B7124063BC0D",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/RightSlash_08.png",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/RightSlash_08.png",
+      "bytes": 180873,
+      "sha256": "32E508235BA890610ED677E83C46E79399C11A7FD59EDF3C04C5986946D569C0",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/RightSlash_14.png",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/RightSlash_14.png",
+      "bytes": 180327,
+      "sha256": "16F0392DAA2E1A1C9D136A12E4DCE71CDCFC027C7DDE03F0ED61E39E8E923224",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/RightSlash_18.png",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/RightSlash_18.png",
+      "bytes": 179467,
+      "sha256": "FA79869F65CD4D3329C2B3E4075C4F4D09625AEFC774E25EA961FCD9DEDA3FBB",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/RightSlash_26.png",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/RightSlash_26.png",
+      "bytes": 178030,
+      "sha256": "7FACD86289E63A41EC8E8422D6ECFFBC054744FD997029B62FAF609585461C39",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/Inspection/RightSlash_36.png",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/Inspection/RightSlash_36.png",
+      "bytes": 182928,
+      "sha256": "0E27E7CEEA44A2908C02EE5CF2877EFFADFCDCAEA7847BC9B44CEDFC3BB01434",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/live_ai_before.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/live_ai_before.json",
+      "bytes": 669,
+      "sha256": "91439B1BD531FE9A9C16DE553B0488175BC5A1AF218A988CB4F39613EE7AC5FD",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV12/ue_claw_receipt.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV12/ue_claw_receipt.json",
+      "bytes": 1332,
+      "sha256": "0B7A92521B55585045FBD413684FC0818BFCB0534CF8D48DC5E9FF147C784D63",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV13/Delivery/A_M27_LeftSlash_ClawV13.fbx",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV13/Delivery/A_M27_LeftSlash_ClawV13.fbx",
+      "bytes": 347516,
+      "sha256": "C94513D0EDFD4BC11135E1334DC37FE418775185CE464391BE1535B79EA5BEA9",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV13/Delivery/A_M27_RightSlash_ClawV13.fbx",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV13/Delivery/A_M27_RightSlash_ClawV13.fbx",
+      "bytes": 347628,
+      "sha256": "00EC9E66AB65BB90E892275A48D82B374B2FDDF2A0851E9DCD1758207B3FFEF4",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV13/Delivery/MantisM27_ClawV13.blend",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV13/Delivery/MantisM27_ClawV13.blend",
+      "bytes": 16280663,
+      "sha256": "FC8FD6B63A2FD13FEF1CF287018C01D5B076AF121E4D2A60044220EB5DF39CE4",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV13/Delivery/motion_manifest.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV13/Delivery/motion_manifest.json",
+      "bytes": 1839,
+      "sha256": "19B8471DB1F7DB916DBEC743BF815FFC89A522A10E0692E13A678A28C88D3042",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV13/import.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV13/import.log",
+      "bytes": 291572,
+      "sha256": "6D754431140F34E4B14793E4558687B38CE0E87E3AFAE6D1F7874B324BD42D6D",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV13/ue_claw_receipt.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV13/ue_claw_receipt.json",
+      "bytes": 1015,
+      "sha256": "9CA883C6460D2E631A4454AB20ACED52CA96FCD7E308FA434512D9062EC1BC3A",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/ai_review.txt",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/ai_review.txt",
+      "bytes": 768,
+      "sha256": "88F0856F49061E5017983904F82DB1D76A7BCE2B5E1E54410D4B0693B06C468A",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/ai-review.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/ai-review.log",
+      "bytes": 278407,
+      "sha256": "AC6CD5367E232FBB0115AD654655948A7102E5E70E7728FB025185F56FCD7E8C",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/build-editor-backup-2026.10.06-14.09.10.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/build-editor-backup-2026.10.06-14.09.10.json",
+      "bytes": 53889,
+      "sha256": "EEAA2075C6C786DE024EF9FE5B06BD8837A0055F0DC7E493BC890B868C553BEA",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/build-editor-backup-2026.10.06-14.09.10.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/build-editor-backup-2026.10.06-14.09.10.log",
+      "bytes": 20636,
+      "sha256": "26EB2C623F589052154183E259FFBF38D1AD367FF56A310A8DC383B1899F7FA9",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/build-editor-backup-2026.10.06-14.19.33.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/build-editor-backup-2026.10.06-14.19.33.json",
+      "bytes": 132862,
+      "sha256": "A4F6C52E5A2EB8528111409830B0FE592C530921E9D5A9B118453C7BABC605A4",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/build-editor-backup-2026.10.06-14.19.33.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/build-editor-backup-2026.10.06-14.19.33.log",
+      "bytes": 45714,
+      "sha256": "21840F240761D4BEABD55DDA3A0EC29BF45C7F718BDB9CBDAC927D11E4D9D0AC",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/build-editor.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/build-editor.json",
+      "bytes": 44717,
+      "sha256": "6572B25C4D3F0FC356C9DC0B3A53C7072DDF0E9F28A62BCFD55500AACDB3B56E",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/build-editor.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/build-editor.log",
+      "bytes": 16270,
+      "sha256": "C48797C6330FE707C69B09FBECA1B2B75243C7859B0BAD55BB7201C4949D453F",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/build-game-backup-2026.10.06-14.02.52.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/build-game-backup-2026.10.06-14.02.52.json",
+      "bytes": 52585,
+      "sha256": "D14E223A8CAF51CCC8E8C784F22C4312D4D791077780656CACEC0098C131791F",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/build-game-backup-2026.10.06-14.02.52.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/build-game-backup-2026.10.06-14.02.52.log",
+      "bytes": 18367,
+      "sha256": "BD33F65C54368B99A0F80793A48D3C799EF22F7210832A3625488F2CB1D5CACA",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/build-game.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/build-game.json",
+      "bytes": 81970,
+      "sha256": "0B1828AE90F121F1806B31C6C170F0EF3CD7295C08BB8E17FABCA90B09D4CDEC",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/build-game.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/build-game.log",
+      "bytes": 30239,
+      "sha256": "C3B8474DAFD3B01F2FE583004A8855983DD5A77A3470FC1F376F3D9F64DBA7B5",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/combat_asset_receipt.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/combat_asset_receipt.json",
+      "bytes": 1046,
+      "sha256": "C492312F24F7D16E8FD85AE98733E56AE1D1A474D1EA8E5F92BE55D50F81F163",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/combat_receipt.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/combat_receipt.json",
+      "bytes": 774,
+      "sha256": "79FC375442F698B4B39EBDD2C0EC641403E31D748F6A5951BA2FF5B86D429192",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/Delivery/A_M27_LeftSlash_ClawV7.fbx",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/Delivery/A_M27_LeftSlash_ClawV7.fbx",
+      "bytes": 356012,
+      "sha256": "0B725F32BEB9885ED3D45D784DCA7A1973C877493956CCF8CDCB74F1E3535250",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/Delivery/A_M27_RightSlash_ClawV7.fbx",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/Delivery/A_M27_RightSlash_ClawV7.fbx",
+      "bytes": 356060,
+      "sha256": "7DEC358C7B4014305DD34135B1B3A20ABC6657387C99CD6AD84F1EEFDA4F043D",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/Delivery/MantisM27_ClawV7.blend",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/Delivery/MantisM27_ClawV7.blend",
+      "bytes": 16213291,
+      "sha256": "1402EF3CF3A9F4155AB70834666F7C52B8B5158BED155AF3A1211F7D70C6058A",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/Delivery/motion_manifest.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/Delivery/motion_manifest.json",
+      "bytes": 1169,
+      "sha256": "D64F7BB5BFD413645280ABDF7ACDE399DA8E13835A83540D77724E55F356417A",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/end_pie_bridge_01.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/end_pie_bridge_01.json",
+      "bytes": 133,
+      "sha256": "F9F83964B3DF88286D937E19473419CB9C085D0A76F083DEECB85DBF5AA9311D",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/import_bridge_01.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/import_bridge_01.json",
+      "bytes": 123,
+      "sha256": "C25D486F5CA6FA95D8D5F7FF62266703EB62A2912EF722F087CECD432067705F",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/live_ai_before.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/live_ai_before.json",
+      "bytes": 404,
+      "sha256": "E045B6AF6BB2E66416FF52E9BE22220C16417EF174CCA641E81C9BF953D82796",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/read_ai_bridge_01.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/read_ai_bridge_01.json",
+      "bytes": 429,
+      "sha256": "A2D43D825CC36DBF17650860F278580D52F5FBF057B7C1CF39979C45C3C5D329",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/save-combat.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/save-combat.log",
+      "bytes": 276492,
+      "sha256": "210F51941C579FBD39216742E5821B4E67BC9093ADD97831169A6A53DFEE63A0",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/source_blade_path.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/source_blade_path.json",
+      "bytes": 6923,
+      "sha256": "75E74FAF85ADEFEC462D9A7CEDA49BEEF6BA0AF165B745C686A4D5BCEEC80285",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ClawV7/ue_claw_receipt.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ClawV7/ue_claw_receipt.json",
+      "bytes": 873,
+      "sha256": "3E506DE3BE473104ACAD98868C55A922F3B13A8892F3944AC481714AAD3153D0",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/CombatV8/build-editor-backup-2026.10.06-15.36.36.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/CombatV8/build-editor-backup-2026.10.06-15.36.36.json",
+      "bytes": 150676,
+      "sha256": "E0EE6BC9031F14B718C939DFCC80B411BD9E6AF7DDD1A0A92ED81641D636BD27",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/CombatV8/build-editor-backup-2026.10.06-15.36.36.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/CombatV8/build-editor-backup-2026.10.06-15.36.36.log",
+      "bytes": 55305,
+      "sha256": "01A596BFD801DBE18EAC4FB26DF456558C4DCD87DE8CC1F019D9D0D45BE67C69",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/CombatV8/build-game-backup-2026.10.06-15.00.37.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/CombatV8/build-game-backup-2026.10.06-15.00.37.json",
+      "bytes": 49495,
+      "sha256": "6400D5D873CE8ED49D635C26D47FFC2D98B16F126889D833D1CA1807F1212F4F",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/CombatV8/build-game-backup-2026.10.06-15.00.37.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/CombatV8/build-game-backup-2026.10.06-15.00.37.log",
+      "bytes": 17278,
+      "sha256": "D5362303098DF82447AE5A026DFCD1BEDD7B6A7B92729EB6B59ACD18CB6ABD7A",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/MeshyImport20261005V1/commandlet.pid",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/MeshyImport20261005V1/commandlet.pid",
+      "bytes": 7,
+      "sha256": "2174D74E6928A4F0D6B77021CB0F00710621F9DE90648D97B7C11E3A8EE97ABA",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV10/author.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV10/author.log",
+      "bytes": 1133,
+      "sha256": "B5B3558B455C8F1A0DE57D4DB89F00A337D0FC386ED2A0B92A3826195B81721B",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV10/delivery_receipt.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV10/delivery_receipt.json",
+      "bytes": 457,
+      "sha256": "6A008F90C5AFA41DE8FC5A4722FFE6528133D01FC8D5C2535DE88555DCC4CC94",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV10/Delivery/A_M27_PounceFlight_PounceV10.fbx",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV10/Delivery/A_M27_PounceFlight_PounceV10.fbx",
+      "bytes": 348220,
+      "sha256": "432BCABDEC54FA2316EDD053F92CE1596FE4F55551B32521CFE729FF5A463B9A",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV10/Delivery/A_M27_PounceLand_PounceV10.fbx",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV10/Delivery/A_M27_PounceLand_PounceV10.fbx",
+      "bytes": 371932,
+      "sha256": "06D051B23402F291DF28D072EA91F5549AD6BBFE786732014286A24985AF5E36",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV10/Delivery/A_M27_PounceWindup_PounceV10.fbx",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV10/Delivery/A_M27_PounceWindup_PounceV10.fbx",
+      "bytes": 335804,
+      "sha256": "C8B028F18B1732BD01E5E7C32932ABD18ECB698D05D4739A3C442EA9D5C82E32",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV10/Delivery/MantisM27_PounceV10.blend",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV10/Delivery/MantisM27_PounceV10.blend",
+      "bytes": 16662606,
+      "sha256": "79F651FBA5E63FB9FE0DA8C7060D3CC4C765EB5D7222BB31E32E368A354E2CDE",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV10/Delivery/motion_manifest.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV10/Delivery/motion_manifest.json",
+      "bytes": 1554,
+      "sha256": "F9C0D0F59E1D252F1A06278356A1B5C1B613388C22DE6204896FAC9E907DB12C",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV10/import_bridge_01.txt",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV10/import_bridge_01.txt",
+      "bytes": 126,
+      "sha256": "5140EF391AB3485922D65F36DB08A37BA66EA202D95A4D54E5044E2DB42EC2F4",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV10/restore_bridge_01.txt",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV10/restore_bridge_01.txt",
+      "bytes": 124,
+      "sha256": "3EB6A8BFC0D913D010C23A417E50787B35C46C3E58E27C65B372790382D27C2E",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV10/restore_v6_receipt.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV10/restore_v6_receipt.json",
+      "bytes": 1027,
+      "sha256": "823B85B49CE4731935F03300968E1C781296A03B27033758AEE4E0779A6EEA91",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV10/ue_pounce_receipt.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV10/ue_pounce_receipt.json",
+      "bytes": 1072,
+      "sha256": "FA1EE64F59261877B7A40041A7C59D0466FBA63DE4DD401CA65006AEBE312FA0",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV11/Delivery/MantisM27_PounceV11.blend1",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV11/Delivery/MantisM27_PounceV11.blend1",
+      "bytes": 16662737,
+      "sha256": "9957B768674123325CA7D29B05FF255A002FE16997CC35AE7201DA4234D2CD6E",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV5/build-game-backup-2026.10.06-07.55.51.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV5/build-game-backup-2026.10.06-07.55.51.json",
+      "bytes": 61203,
+      "sha256": "D6CD411E24BF6265DAB5952BB7F2F78395E5617005060BED0CCAA753C52D0562",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV5/build-game-backup-2026.10.06-07.55.51.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV5/build-game-backup-2026.10.06-07.55.51.log",
+      "bytes": 21131,
+      "sha256": "5546833B0E9E426EA5A2A5CC73E6E7FC806F082289EC4F72CA14567289504306",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV5/Delivery/MantisM27_PounceV5.blend1",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV5/Delivery/MantisM27_PounceV5.blend1",
+      "bytes": 16048072,
+      "sha256": "7E114671E54B31E38268E3A2A878CA77A0830C18C5487CAF15CE5AC4A2FD92CE",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV9/author.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV9/author.log",
+      "bytes": 928,
+      "sha256": "E59C8E2513F81B5375EDB21179281D926145BCE0843CF351C93ACFED99F1C4CB",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV9/authoring_source_poses.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV9/authoring_source_poses.json",
+      "bytes": 12723,
+      "sha256": "A34754A333D561EBD7217FE312597A9D7328527E1A1139A10FD065B128E8E212",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV9/delivery_receipt.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV9/delivery_receipt.json",
+      "bytes": 404,
+      "sha256": "A27CF57F6B4689DC8EDD8FB9BF78A9D54C03BB3D1A73FEB271E3C4387594BBEA",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV9/Delivery/A_M27_PounceFlight_PounceV9.fbx",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV9/Delivery/A_M27_PounceFlight_PounceV9.fbx",
+      "bytes": 348236,
+      "sha256": "DB8D0532F31A8BDE6A146FD9EF62374745F6195A054340EEDC4A9AAC04851EDC",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV9/Delivery/A_M27_PounceLand_PounceV9.fbx",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV9/Delivery/A_M27_PounceLand_PounceV9.fbx",
+      "bytes": 372076,
+      "sha256": "5BEF1A5AD74EF7F36A9987048169E227112109FB6F9EDEF2E6EF154E7C290A75",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV9/Delivery/MantisM27_PounceV9.blend",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV9/Delivery/MantisM27_PounceV9.blend",
+      "bytes": 16559228,
+      "sha256": "4ED163BF434E7E51ABEBBC18666710CFA2FF15DF8255E5B9555FD5A1BD74CAED",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV9/Delivery/motion_manifest.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV9/Delivery/motion_manifest.json",
+      "bytes": 1345,
+      "sha256": "48D7F6C3919A81335DA9C72F9440E4C8DBDD91BC012C9C3C6343AA5071D1AD41",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV9/import_bridge_01.txt",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV9/import_bridge_01.txt",
+      "bytes": 472,
+      "sha256": "79676FFDA4634543CD5A182687C57FD24D54106FCB2428CBBDFBA0416E40AA7B",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV9/import_bridge_02.txt",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV9/import_bridge_02.txt",
+      "bytes": 210,
+      "sha256": "41984945FCF88E2463C4DD22D55CC290A46CFC0A7C467661E55A0176B06F549A",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV9/import-background.log",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV9/import-background.log",
+      "bytes": 289036,
+      "sha256": "E269CAF6C0D1DB11992DFB35CD3E8E1E1106BEB563660B279EBC52D0949E02B8",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/PounceV9/ue_pounce_receipt.json",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/PounceV9/ue_pounce_receipt.json",
+      "bytes": 806,
+      "sha256": "DFBFF9BB13A24242F156E242DB3AC03C0E28D0EB56537212D9AF1BB3D01E9651",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ProductionV1/commandlet.pid",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ProductionV1/commandlet.pid",
+      "bytes": 7,
+      "sha256": "59A76B8098DCDEF0FD0FC0659F9192B51D84AEAEB012FADCFC9DF7F4FCF58972",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ProductionV1/contact_commandlet.pid",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ProductionV1/contact_commandlet.pid",
+      "bytes": 7,
+      "sha256": "9575FB407B19DDEA54148583DBF519D1FBDF6390CEF8934088054B6F7C0FF396",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "SourceAssets/MantisM27/ProductionV1/lod_commandlet.pid",
+      "destination": "trash/mantis-m27-retired-20261007/SourceAssets/MantisM27/ProductionV1/lod_commandlet.pid",
+      "bytes": 6,
+      "sha256": "5891C1F510A554CE2C73605CFD099BC5FDC007488E1466E324CF94D45418F891",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/__pycache__/finish_contacts.cpython-311.pyc",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/__pycache__/finish_contacts.cpython-311.pyc",
+      "bytes": 2832,
+      "sha256": "1D4D395069DF3B085F045D3538BF2C85461650CE3C55C688A5D0DFFF89E2989E",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/__pycache__/finish_lods.cpython-311.pyc",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/__pycache__/finish_lods.cpython-311.pyc",
+      "bytes": 3800,
+      "sha256": "822AA6539D11752E6A6D15853B9B356CFEB2DACF073E7445698C3535209A94FD",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/author_claw_v12.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/author_claw_v12.py",
+      "bytes": 15894,
+      "sha256": "EDCEACE41270A1EECC035C6EC150CA45B9B294D267E0A17AAEB8D9443BD80024",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/author_claw_v13.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/author_claw_v13.py",
+      "bytes": 12851,
+      "sha256": "05FF31A44A3D9A75621EF6AFCEBF6646B473A5748F5E4F990A6DDF105AF4E756",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/author_claw_v7.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/author_claw_v7.py",
+      "bytes": 9157,
+      "sha256": "2511768E4061516851951246391AE077F5E3D2100D23712329E0F3A6E3EB65B3",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/author_pounce_v10.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/author_pounce_v10.py",
+      "bytes": 10778,
+      "sha256": "697DBC5C76325F206B5F68EDD8CB26567369913914C71EFE2834C5DC7B5220DC",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/author_pounce_v9.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/author_pounce_v9.py",
+      "bytes": 12863,
+      "sha256": "9DB3592318A68380833771E07FB91E9534F0250BC4CD540F0C985B3924538488",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/diagnose_claw_continuity_v12.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/diagnose_claw_continuity_v12.py",
+      "bytes": 4806,
+      "sha256": "0BD839F4EE2C791E75848296131AAF421138D2B154B768743837AE2B8F96EE8E",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/end_pie_for_binding_v2.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/end_pie_for_binding_v2.py",
+      "bytes": 351,
+      "sha256": "40EDD0EBAD5C7F01881F795E44FBC7C7D944DBC3532FDB03DDE5FA522240283F",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/finish_claw_v12.ps1",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/finish_claw_v12.ps1",
+      "bytes": 2982,
+      "sha256": "B3D6C57C840DDCCA2ACF75AF5B3B16655143A0FEB8E93C52D47EBCABB4905664",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/finish_claw_v13.ps1",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/finish_claw_v13.ps1",
+      "bytes": 1958,
+      "sha256": "DF6296C5487A7E4C876109409A08B3BA7348ADB44BCCF17D56700D6DAF6ED34D",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/import_claw_v12.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/import_claw_v12.py",
+      "bytes": 4906,
+      "sha256": "1C7F03D84E379CD1EF8BC3743555AF39FC6FB86A46541D7C18FA01E88D0E01CF",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/import_claw_v13.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/import_claw_v13.py",
+      "bytes": 5028,
+      "sha256": "853C8C1E685D3C3D589C93B2B874B2A16BB25BDB0C93C33C00DE1FD9A5B6DDC5",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/import_claw_v7.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/import_claw_v7.py",
+      "bytes": 4577,
+      "sha256": "BB2BB025E8565D101EB5E76CFEB0DBD2F166C1A42CF63F26D2833A7D52455E99",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/import_pounce_v10.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/import_pounce_v10.py",
+      "bytes": 4610,
+      "sha256": "B75EDC7D17FBD80CC6CC697E97476F983723F689E4BCC257A49AB6C1F9BC05BF",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/import_pounce_v9.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/import_pounce_v9.py",
+      "bytes": 4575,
+      "sha256": "E197CFCBB0EC789CE7F6B1F5D254D620C3288C5F341D3952AA25DA4CFA294B52",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/inspect_claw_v12.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/inspect_claw_v12.py",
+      "bytes": 4617,
+      "sha256": "2AE4A11CF7299BF823A6C9627901AB5239843BBEDCBA7EF40C7471C27740FB59",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/read_ai_v12.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/read_ai_v12.py",
+      "bytes": 2585,
+      "sha256": "98302C616F6CFDF23FEC46E0F809B95CB82187715C6D4210B71FD5256B818ECB",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/read_ai_v7.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/read_ai_v7.py",
+      "bytes": 2022,
+      "sha256": "970DC33D206C664A2D3901E77F1152CDC2C9DF7A245CC819810D738DA617CDD4",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/read_claw_pose_v7.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/read_claw_pose_v7.py",
+      "bytes": 1117,
+      "sha256": "8F56BEA6F8F7ADFBA06562A12F62717D6E9E6B0F679C8102780B96E1E6789CDB",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/read_pounce_v9_source.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/read_pounce_v9_source.py",
+      "bytes": 1405,
+      "sha256": "3F58D02C3B2202135B21FC33DBCF47A81D7712EE7A748E2D71347244C3AA231B",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/read_scythe_geometry_v13.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/read_scythe_geometry_v13.py",
+      "bytes": 937,
+      "sha256": "05AD01F279E3A069E695C3A59C844FB08340F706A603383FAF0B14E3B61E2487",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/restore_pounce_v6.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/restore_pounce_v6.py",
+      "bytes": 2073,
+      "sha256": "F4DD2BE52A15D18FECAF5A5F2A1F5357F172D0EFF882DA0554ABC93A3F2354C1",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    },
+    {
+      "source": "Tools/MantisM27/save_combat_v7.py",
+      "destination": "trash/mantis-m27-retired-20261007/Tools/MantisM27/save_combat_v7.py",
+      "bytes": 1411,
+      "sha256": "36C497259761387F3273A90CF5B2650CC2C26A00B0D11D376E68745956B9BB5F",
+      "reason": "Retired M27 candidate, replaced authoring tool, or regenerable previous-save/build residue",
+      "retained_replacement": "ClawV14 recovery / ClawV16 current; PounceV11 from PounceV6; current source and build receipts",
+      "moved": true
+    }
+  ],
+  "complete": true
+}

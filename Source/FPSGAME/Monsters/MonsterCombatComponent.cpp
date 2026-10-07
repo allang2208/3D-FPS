@@ -11,6 +11,7 @@
 #include "MonsterAIController.h"
 #include "NurseZombie.h"
 #include "BlindSupplicantMonster.h"
+#include "MantisM27Monster.h"
 #include "HumanoidKnockdownComponent.h"
 #include "Mutant3.h"
 #include "HandBrainMonster.h"
@@ -88,6 +89,8 @@ bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Na
  {Health=W->Health;MaxHealth=W->MaxHealth;Name=W->MonsterDisplayName;return true;}
  if(const auto* M07=Cast<ABlindSupplicantMonster>(GetOwner()))
  {Health=M07->Health;MaxHealth=M07->MaxHealth;Name=M07->MonsterDisplayName;return true;}
+ if(const auto* M27=Cast<AMantisM27Monster>(GetOwner()))
+ {Health=M27->Health;MaxHealth=M27->MaxHealth;Name=M27->MonsterDisplayName;return true;}
  if(const auto* N=Cast<ANurseZombie>(GetOwner()))
  {Health=N->Health;MaxHealth=N->MaxHealth;Name=FText::FromString(N->ActorHasTag(TEXT("SpitterZombie"))?TEXT("毒液僵尸"):N->ActorHasTag(TEXT("Witch"))?TEXT("巫婆"):N->ActorHasTag(TEXT("Mutant3"))?TEXT("突变体-3"):N->ActorHasTag(TEXT("FatZombie"))?TEXT("胖子僵尸"):TEXT("护士僵尸"));return true;}
  if(const auto* H=Cast<AHandBrainMonster>(GetOwner()))
@@ -161,6 +164,7 @@ void UMonsterCombatComponent::SetTarget(APawn* P)
 bool UMonsterCombatComponent::CanAttack(APawn* P) const
 {
  if(!IsValid(P)||IsBusy())return false;
+ if(const auto* M27=Cast<AMantisM27Monster>(GetOwner()))return M27->CanStartMantisAttack(P);
  if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->CanAttackTarget(P);
  if(const auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->CanAttack(P);
  if(const auto* M09=Cast<AHangingBellM09>(GetOwner()))return M09->CanAttack(P);
@@ -182,6 +186,7 @@ bool UMonsterCombatComponent::CanAttack(APawn* P) const
 bool UMonsterCombatComponent::TryAttack(APawn* P)
 {
  if(!GetOwner()->HasAuthority()||!CanAttack(P))return false;SetTarget(P);
+ if(auto* M27=Cast<AMantisM27Monster>(GetOwner());M27&&M27->WantsPounce(P))return M27->StartPounce(P);
  if(auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->StartAttack(P);
  if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->StartAttack(P);
  if(auto* M09=Cast<AHangingBellM09>(GetOwner()))return M09->StartAttack(P);
@@ -206,6 +211,7 @@ bool UMonsterCombatComponent::TryAttack(APawn* P)
 void UMonsterCombatComponent::SetLocomotion(bool Moving,bool Returning)
 {
  if(IsBusy())return;
+ if(const auto* M27=Cast<AMantisM27Monster>(GetOwner());M27&&!Moving&&M27->IsMeleeRecoveryPose())return;
  if(auto* M14=Cast<ASpiralPillarM14>(GetOwner())){M14->SetLocomotion(Moving,Returning);return;}
  if(auto* M09=Cast<AHangingBellM09>(GetOwner())){M09->SetLocomotion(Moving,Returning);return;}
  if(auto* M10=Cast<AM10Mawcrawler>(GetOwner())){M10->SetLocomotion(Moving,Returning);return;}

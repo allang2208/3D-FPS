@@ -88,6 +88,12 @@ __pycache__/
 /SourceAssets/FireballBurn20260914/source-inputs.json
 /SourceAssets/FireballSlowBurn20260914/material-source.json
 # A reviewed, redistributable asset can be explicitly allowlisted later.
+# M27: publish source recipes and recovery docs in Tools/Docs only.
+# Meshy/Epic payloads, dense animation/skin data, audio and receipts stay local.
+/SourceAssets/MantisM27/**
+!/SourceAssets/MantisM27/MeshyImport20261005V1/
+!/SourceAssets/MantisM27/MeshyImport20261005V1/intake_source.py
+!/SourceAssets/MantisM27/MeshyImport20261005V1/import_ue.py
 /Content/*
 !/Content/README.md
 !/Content/ColdSteelData/

@@ -1,4 +1,5 @@
 #include "MonsterAIController.h"
+#include "MantisM27Monster.h"
 #include "MonsterCombatComponent.h"
 #include "../Skills/IceWallCombat.h"
 #include "MonsterBTNodes.h"
@@ -114,7 +115,8 @@ void AMonsterAIController::UpdateKnowledge()
  const auto* M08=Cast<ALurkerM08Monster>(GetPawn());
  const auto* M09=Cast<AHangingBellM09>(GetPawn());
  const auto* M25=Cast<AVortexCofferM25>(GetPawn());
- const bool FeralPursuit=GetPawn()->IsA<AMutant3>()||(Canine&&Canine->bUsePredictiveHunting);
+ const auto* M27=Cast<AMantisM27Monster>(GetPawn());
+ const bool FeralPursuit=M27||GetPawn()->IsA<AMutant3>()||(Canine&&Canine->bUsePredictiveHunting);
  B->SetValueAsBool(TEXT("Hold"),Disabled||C->IsBusy());
  if(C->IsDead()){StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Dead"));ActiveAction=TEXT("Dead");return;}
  if(EncounterTarget.IsValid())KnownTarget=EncounterTarget;
@@ -163,7 +165,7 @@ void AMonsterAIController::UpdateKnowledge()
   if(const auto* Sight=Senses->GetSenseConfig<UAISenseConfig_Sight>())TrackingRange=FMath::Max(TrackingRange,Sight->LoseSightRadius);
  bool Visible=Valid&&C->AggroRange()>0&&
   (M08?FVector::Distance(KnownTarget->GetActorLocation(),GetPawn()->GetActorLocation()):FVector::Dist2D(KnownTarget->GetActorLocation(),GetPawn()->GetActorLocation()))<=TrackingRange&&
-  (M08?M08->HasHuntingSight(KnownTarget.Get()):M09?M09->HasAttackSight(KnownTarget.Get()):M07?M07->HasMagicSight(KnownTarget.Get()):LineOfSightTo(KnownTarget.Get()));
+  (M27?M27->HasAttackSight(KnownTarget.Get()):M08?M08->HasHuntingSight(KnownTarget.Get()):M09?M09->HasAttackSight(KnownTarget.Get()):M07?M07->HasMagicSight(KnownTarget.Get()):LineOfSightTo(KnownTarget.Get()));
  // A sealed boss encounter tracks its living entrant through cover. Attacks
  // still require sight; ordinary monsters keep the existing perception memory.
  const bool Locked=Valid&&EncounterTarget.IsValid()&&KnownTarget==EncounterTarget;
@@ -178,6 +180,8 @@ void AMonsterAIController::UpdateKnowledge()
  if(!Valid&&!(M25&&M25->bSearchForPlayers)&&(FVector::Dist2D(GetPawn()->GetNavAgentLocation(),HomeFeet)>80||FMath::Abs(GetPawn()->GetNavAgentLocation().Z-HomeFeet.Z)>50))bReturning=true;
  if(bReturning&&FVector::Dist2D(GetPawn()->GetNavAgentLocation(),HomeFeet)<80&&FMath::Abs(GetPawn()->GetNavAgentLocation().Z-HomeFeet.Z)<50){bReturning=false;KnownTarget.Reset();Valid=false;C->ReachedHome();LastEvidence=-100;}
  C->SetTarget(Valid&&!bReturning?KnownTarget.Get():nullptr);
+ if(!Disabled&&Valid&&!bReturning)
+  if(auto* EncounterMantis=Cast<AMantisM27Monster>(GetPawn()))EncounterMantis->NotifyCloakEncounter(KnownTarget.Get());
  B->SetValueAsObject(TEXT("Target"),Valid?KnownTarget.Get():nullptr);
  B->SetValueAsVector(TEXT("LastKnown"),LastKnown);B->SetValueAsVector(TEXT("Home"),HomeFeet);
  B->SetValueAsBool(TEXT("Visible"),Visible);B->SetValueAsBool(TEXT("Returning"),bReturning);

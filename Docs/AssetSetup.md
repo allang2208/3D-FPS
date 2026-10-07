@@ -1,5 +1,9 @@
 # 恢复完整 UE5 内容
 
+## 螳螂 M27（2026-10-07）
+
+当前为 BindingV2、RunV4、ClawV16、PounceV11、CloakV1、CombatV15 和 AudioV1。保留 Meshy 原始输入、ProductionV1、ClawV3、PounceV5/V6 及已认可的 ClawV14 恢复版本。声音 15 个 SoundWave 和蓝图已后台保存，Editor/Game 已构建；未试听或运行游戏。源码、作者配方、SKILL 和归档元数据公开，模型/PBR、授权派生动作、密集采样、音频与 UE 包留本机。恢复顺序和废案位置见 [螳螂发布与恢复](Monsters/MantisM27Publication20261007.md)。
+
 ## 裤鞋与第一人称共用身体（2026-10-06）
 
 恢复裤鞋九件、休闲鞋单只斜视图标、锁甲裤护膝护腰 V2、皮革裤靴、连续裆缝七分裤与本机连续肩口。保留原生第一人称手部，身体共用世界姿态；换装加载交接修复已有本机 DLL 构建记录。131 份旧腿模、旧肩口、旧镜头和快照带散列移入 trash。公开源码、配方与 SKILL；授权模型、密集绑定、图标及 UE 包留本机。恢复顺序、发布边界与历史检查范围见 [整理发布](Characters/lower-equipment-publication-20261006.md)。本轮没有运行游戏或画面验收。

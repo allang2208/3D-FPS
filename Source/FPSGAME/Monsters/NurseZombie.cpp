@@ -225,6 +225,13 @@ void ANurseZombie::InterruptAttack(float Seconds)
     Combat->BeginReaction(StaggerSeconds);
 }
 
+void ANurseZombie::CancelAttackForLocomotion()
+{
+    if (!HasAuthority() || (State != ENurseState::Attack && State != ENurseState::Recovery)) return;
+    bAttackConsumed = true;
+    SetState(ENurseState::Chase);
+}
+
 float ANurseZombie::TakeDamage(float Damage, const FDamageEvent& Event, AController* EventInstigator, AActor* Causer)
 {
     if (!HasAuthority() || State == ENurseState::Dead || Damage <= 0.f) return 0.f;

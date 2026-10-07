@@ -9,6 +9,7 @@
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "HandBrainMonster.h"
 #include "M10HowlDamage.h"
+#include "MantisM27AttackDamage.h"
 #include "M09ResonanceDamage.h"
 #include "PoisonMaggotMonster.h"
 #include "PoisonMaggotProjectile.h"
@@ -188,6 +189,19 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
     if(!IsDead()&&!bSurvivalLoss&&!(Type&&Type->IsA<UMaggotPoisonDamage>()))
         if(auto* Body=Actor->FindComponentByClass<UFPSPlayerBodyComponent>())
             Body->RecordAcceptedHit(Instigator&&Instigator->GetPawn()?Instigator->GetPawn():Attacker,Damage,MaxHealth);
+    // One roll per accepted M27 blade/landing hit. DoT ticks use a different
+    // damage type, so they cannot proc themselves or refresh the cripple.
+    if(Type&&Type->IsA<UMantisM27MeleeDamage>()&&Damage>0.f&&!IsDead())
+        if(const auto* Pawn=Cast<APawn>(Actor);Pawn&&Pawn->IsPlayerControlled())
+            if(auto* Status=UCombatStatusFormula::GetOrAdd(Actor);Status&&!Status->IsImmune())
+            {
+                const bool bPounce=Type->IsA<UMantisM27PounceDamage>();
+                const bool bBleeding=FMath::FRand()<UMantisM27MeleeDamage::BleedChance;
+                if(bPounce)Status->AddCripple(UMantisM27PounceDamage::CrippleSeconds);
+                if(bBleeding)Status->AddBleeding(Attacker,1);
+                if(!Pawn->IsLocallyControlled()&&(bPounce||bBleeding))
+                    ClientApplyM27HitStatus(Attacker,bPounce,bBleeding,GetWorld()->GetTimeSeconds());
+            }
     if(Type&&Type->IsA<UM10HowlDamage>())
     {
         // Exactly five SAN per accepted pulse; replaces the attacker's generic
@@ -255,6 +269,18 @@ void UFPSCombatHealthComponent::ClientApplyM10HowlCripple_Implementation(double 
     const auto* GS=GetWorld()->GetGameState();
     const float Remaining=GS?FMath::Clamp(float(ServerExpiresAt-GS->GetServerWorldTimeSeconds()),0.f,UM10HowlDamage::CrippleSeconds):UM10HowlDamage::CrippleSeconds;
     if(Remaining>0.f)UCombatStatusFormula::GetOrAdd(GetOwner())->AddCripple(Remaining);
+}
+
+void UFPSCombatHealthComponent::ClientApplyM27HitStatus_Implementation(AActor* Source, bool bPounce, bool bBleeding, double ServerHitAt)
+{
+    if(!GetOwner()||GetOwner()->HasAuthority()||IsDead())return;
+    auto* Status=UCombatStatusFormula::GetOrAdd(GetOwner());
+    const auto* GS=GetWorld()->GetGameState();
+    const float Age=GS?FMath::Max(0.f,float(GS->GetServerWorldTimeSeconds()-ServerHitAt)):0.f;
+    if(bPounce)Status->AddCripple(FMath::Max(0.f,UMantisM27PounceDamage::CrippleSeconds-Age));
+    // The server owns the chance roll and damage; the owning client mirrors
+    // the existing status clock/HUD, without a second random roll.
+    if(bBleeding)Status->AddBleeding(Source,1);
 }
 
 void UFPSCombatHealthComponent::Respawn()

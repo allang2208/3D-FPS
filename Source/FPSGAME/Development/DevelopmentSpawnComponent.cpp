@@ -28,6 +28,7 @@ UDevelopmentSpawnComponent::UDevelopmentSpawnComponent()
     Add(TEXT("SpitterZombie"), TEXT("毒液僵尸"), TEXT("/Game/Monsters/SpitterZombie/BP_SpitterZombie.BP_SpitterZombie_C"), 44.f);
     Add(TEXT("WitchRebuilt"), TEXT("巫婆"), TEXT("/Script/FPSGAME.WitchRebuiltMonster"), 65.f);
     Add(TEXT("BlindSupplicantM07"), TEXT("盲祷者 M-07"), TEXT("/Game/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.BP_BlindSupplicantM07_C"), 100.f);
+    Add(TEXT("MantisM27"), TEXT("螳螂 M27"), TEXT("/Game/Monsters/MantisM27/BP_MantisM27.BP_MantisM27_C"), 65.f);
     Add(TEXT("LurkerM08"), TEXT("伏窥者 M-08"), TEXT("/Game/Monsters/LurkerM08/BP_LurkerM08.BP_LurkerM08_C"), 135.f);
     Add(TEXT("FleshHand"), TEXT("异变巨手"), TEXT("/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C"), 120.f);
     Add(TEXT("FleshHandMinion"), TEXT("小皮肤手"), TEXT("/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C"), 40.f);

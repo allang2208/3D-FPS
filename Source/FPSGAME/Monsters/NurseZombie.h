@@ -52,6 +52,7 @@ public:
     UFUNCTION(BlueprintCallable, Category="Nurse|Placement", meta=(WorldContext="WorldContextObject"))
     static bool FindTestSpawn(UObject* WorldContextObject, FVector Origin, FRotator Facing, float PreferredDistance, float Side, FVector& Location);
 protected:
+    void CancelAttackForLocomotion();
     virtual void StartDeathPresentation();
     virtual void StartHitPresentation(UAnimSequence* Clip, float Duration);
     virtual void SetHitPresentationTime(UAnimSequence* Clip, float Elapsed, float Remaining);
@@ -64,9 +65,9 @@ protected:
     virtual void SetWalkAnimationRate(float Rate);
     // Called once after the shared contact checks consume this attack.
     virtual float ApplyMeleeDamage(APawn* Victim);
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 private:
     void SetState(ENurseState NewState);
-    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     UFUNCTION() void OnRep_State();
     bool CanSee(const AActor* Actor) const;
     void TryMelee();

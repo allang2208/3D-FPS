@@ -28,7 +28,13 @@ struct FMonsterGroundedTransition : FAnimNode_TwoWayBlend
     virtual void CacheBones_AnyThread(const FAnimationCacheBonesContext& Context) override
     {
         FAnimNode_TwoWayBlend::CacheBones_AnyThread(Context);
+        UpperBodyRoot.BoneName = TEXT("Spine02");
         UpperBodyRoot.Initialize(Context.AnimInstanceProxy->GetRequiredBones());
+        if (!UpperBodyRoot.IsValidToEvaluate(Context.AnimInstanceProxy->GetRequiredBones()))
+        {
+            UpperBodyRoot.BoneName = TEXT("spine_01"); // M27's grounded landing split.
+            UpperBodyRoot.Initialize(Context.AnimInstanceProxy->GetRequiredBones());
+        }
     }
 
     virtual void Evaluate_AnyThread(FPoseContext& Output) override
