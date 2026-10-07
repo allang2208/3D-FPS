@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-07",
+  "base": "84f42fd33d4306fdb8f3d23f63a4c813402ccff3 (origin/main after fetch)",
+  "staging": "temporary index (GIT_INDEX_FILE); shared index untouched; mixed files rebuilt from HEAD + this task's hunks only",
+  "base_moved_during_staging": "main advanced 85728402 -> 95e33ca0 -> 84f42fd3 (other sessions) while staging; a first local commit built on the stale tree was discarded before any push (ref restored to 84f42fd3) and every blob was rebuilt on 84f42fd3",
+  "multiplayer_skill": "the new section 13 (Azure Dragon case) had already been committed to origin/main inside 84f42fd3 from the shared worktree; this commit does not touch that file",
+  "files_in_commit": 70,
+  "diff_check": "git diff --cached --check: clean",
+  "foreign_marker_scan": "0 lines matching other sessions' markers (PanChi, SwordWaveTuning, BaseReachScale, WhirlwindTurns, Dealer, FullAutoTrigger, Super90, Jingang, FPSPlayerDeathMotion, AimYaw, ReactionCamera, ...)",
+  "dependency_gap_scan": "identifiers used by committed lines but mentioned only once in the committed Source tree are engine API or comment words only",
+  "secrets": "none in added lines",
+  "json": "valid",
+  "python_syntax": "all staged .py parse",
+  "markdown_links": "all relative links in staged .md resolve in the commit tree",
+  "binaries_or_trash_staged": "none (UE packages, Blend/FBX, PNG, logs and trash stay local per .gitignore)",
+  "largest_blob_bytes": 89248,
+  "build": "FPSGAME (Game) target built on the full workspace after the respawn-constant change: Succeeded. Earlier full-workspace Game/Editor builds recorded per revision. The committed subset was not compiled in an isolated worktree.",
+  "runtime_tested": false
+}

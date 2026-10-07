@@ -496,6 +496,7 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     // 基础 0.5 秒；剑身Ⅱ的金色符文强化再追加装备值（合计 1.0 秒），同一挥只结算一次。
     SwingCooldownReduceSeconds=bRuneSwordCooldownTrait?.5f+static_cast<float>(MeleeModifiers.CooldownReduceSecondsPerHit):0.f;bSwingCooldownReduced=false;
     SetClip(Clip,false);
+    ChooseAzureDragonClaw();
     if(OverheadFinisher)Elapsed=RuneSwordOverheadRhythm::FinisherEntry;
     if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
         Arms->LimitLocomotionEntry((RisingDragon?RuneSwordRisingDragon::WindupEnd:ContactStart-Elapsed)/FMath::Max(.01f,SwingRate));
@@ -749,7 +750,9 @@ void URuneSwordComponent::ReturnFromCharge()
 
 void URuneSwordComponent::CancelAction()
 {
-    StopAzureDragon();bSwingAzureDragon=false;
+    // The claws follow the Azure Dragon state every tick (a cancelled rake blends back to idle);
+    // cancelling an action no longer cuts them (V10.15).
+    bSwingAzureDragon=false;
     FinishHeavyTraining();
     bUppercut=false;
     FinishDashAttack();
@@ -1124,9 +1127,39 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
         Trace.bCleavePawns=false;
     }
     auto* Pawn=Character.Get();
+    if(bAzureDragonEquipped&&!bOverheadAttack&&!bThrustAttack&&!bPommelAttack&&!bUppercut&&!IsRisingDragonFinisher())
+    {
+        // Learn which way this clip's blade travels (aim space), so Azure Dragon raises the matching claw.
+        const auto Lateral=[](const FRuneSwordBladeSample& S)
+        {return float(FVector::DotProduct(S.Tip-S.Origin,FVector::CrossProduct(FVector::UpVector,S.Forward).GetSafeNormal()));};
+        AzureDragonSwingLateral+=Lateral(To)-Lateral(From);
+        if(FMath::Abs(AzureDragonSwingLateral)>20.f)AzureDragonClipSide.Add(CurrentClip,AzureDragonSwingLateral<0.f?int8(1):int8(-1));
+    }
     auto Hits=RuneSwordCombat::Query(GetWorld(),Pawn,From,To,AzureDragonRange(SwingReach),HitActors,Trace);
     const float TipExtension=SwingRangeMultiplier*SwingAzureDragonReachMultiplier;
-    if(TipExtension>1.f||(bUppercut&&UppercutReachGrowth>1.f))
+    float ClawNear=0.f,ClawFar=0.f;
+    if(AzureDragonClawSwing()&&AzureDragonClawBand(To.Origin,ClawNear,ClawFar))
+    {
+        // Azure Dragon (V10.11): the blade line runs from the player out to the claws' farthest talon
+        // point, swept along the sword's own path. Its pitch stays near level so a long stroke does not
+        // dive into the floor; walls still stop it and single-target strokes keep the nearest hit.
+        // V10.12: only the distance band that actually holds targets is swept (none = no sweep).
+        const auto ClawLine=[&](FRuneSwordBladeSample S)
+        {
+            FRotator Direction=(S.Tip-S.Origin).GetSafeNormal(SMALL_NUMBER,S.Forward).Rotation();
+            Direction.Pitch=FMath::Clamp(FRotator::NormalizeAxis(Direction.Pitch),AzureDragonReach::MinPitch,AzureDragonReach::MaxPitch);
+            S.Base=S.Origin+Direction.Vector()*ClawNear;S.Tip=S.Origin+Direction.Vector()*ClawFar;
+            return S;
+        };
+        FRuneSwordTraceSettings ClawTrace=Trace;
+        ClawTrace.Radius=FMath::Max(Trace.Radius,AzureDragonReach::TraceRadiusCM);
+        auto ClawHits=RuneSwordCombat::Query(GetWorld(),Pawn,ClawLine(From),ClawLine(To),AzureDragonReach::ClawReachCM,HitActors,ClawTrace);
+        // Report the eye as the origin: the lane start can be metres out, which the server's hit
+        // validation rejects as origin drift.
+        for(FHitResult& Hit:ClawHits){Hit.TraceStart=To.Origin;Hit.TraceEnd=Hit.ImpactPoint;}
+        Hits.Append(ClawHits);
+    }
+    else if(TipExtension>1.f||(bUppercut&&UppercutReachGrowth>1.f))
     {
         // Extend the tip's distance from the stable eye, retaining the hilt.
         // Keep the original blade pass as well so close contacts are not lost
@@ -1322,7 +1355,7 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
             {
                 const FVector Forward=AimNow.GetUnitAxis(EAxis::X).GetSafeNormal2D();
                 const auto Hits=RuneSwordCombat::QueryRectangle(GetWorld(),Character.Get(),Character->GetActorLocation(),Forward,
-                    AzureDragonRange(SwingReach),RuneSwordOverheadRhythm::FinisherRectangleHalfWidthCM,HitActors);
+                    AzureDragonSwingRange(SwingReach),RuneSwordOverheadRhythm::FinisherRectangleHalfWidthCM,HitActors);
                 ApplySwingHits(Hits,Forward);
             }
         }
@@ -1357,8 +1390,8 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
             if(!bSingleTarget||HitActors.IsEmpty())
             {
                 const auto LowHits=MeleeSmallTargets::QueryLowSector(GetWorld(),Character.Get(),EndFrame,
-                    AzureDragonRange(SwingReach),HitActors,!bSingleTarget,bThrustAttack?30.f:MeleeSmallTargets::LowArcDegrees,
-                    AzureDragonRange(MeleeSmallTargets::LowReachCM));
+                    AzureDragonSwingRange(SwingReach),HitActors,!bSingleTarget,bThrustAttack?30.f:MeleeSmallTargets::LowArcDegrees,
+                    AzureDragonSwingRange(MeleeSmallTargets::LowReachCM));
                 ApplySwingHits(LowHits,EndFrame.GetUnitAxis(EAxis::X));
             }
         }

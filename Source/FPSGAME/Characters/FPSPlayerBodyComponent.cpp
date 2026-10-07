@@ -386,6 +386,7 @@ void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
     {
         DisplayState=ReplicatedState;
         AdvanceBodyPresentation(DisplayState,ServerClock());
+        PresentRemoteAzureDragon();
     }
     // Keep weapons stowed through the short return from an interrupted hand pose.
     const float Now=ServerClock();

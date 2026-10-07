@@ -1,13 +1,15 @@
 param([string[]]$Targets=@('FPSGAME','FPSGAMEEditor'),[string]$EngineRoot='E:/Program Files (x86)/UE_5.8')
 $ErrorActionPreference='Stop'
 $taskProject=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
-$taskOutput=Join-Path $taskProject 'Saved/AzureDragonCoherentV9'
+$taskOutput=Join-Path $taskProject 'Saved/AzureDragonV10'
 [IO.Directory]::CreateDirectory($taskOutput)|Out-Null
 $taskReceipt=Join-Path $taskOutput 'delivery.json'
-$taskState=if(Test-Path -LiteralPath $taskReceipt){Get-Content -LiteralPath $taskReceipt -Raw|ConvertFrom-Json -AsHashtable}else{
-    @{gameBuild='pending';editorBuild='pending';gameplayTested=$false;rendered=$false;
-    sourceFiles=@('Source/FPSGAME/Weapons/RuneSwordAzureDragon.cpp','Source/FPSGAME/Weapons/AzureDragonEnergyComponent.cpp','Source/FPSGAME/Weapons/AzureDragonStrikeClock.h');
-    reusedAssets='Shared VisibilityV5 claw material';assetImportRequired=$true}}
+$taskState=@{gameBuild='pending';editorBuild='pending';gameplayTested=$false;rendered=$false;
+    sourceFiles=@('Source/FPSGAME/Weapons/RuneSwordAzureDragon.cpp','Source/FPSGAME/Weapons/AzureDragonEnergyComponent.cpp','Source/FPSGAME/Weapons/AzureDragonEnergyComponent.h','Source/FPSGAME/Weapons/AzureDragonStrikeClock.h');
+    assetImportRequired=$true}
+if(Test-Path -LiteralPath $taskReceipt){
+    try{$taskLoaded=Get-Content -LiteralPath $taskReceipt -Raw|ConvertFrom-Json
+        foreach($taskName in $taskLoaded.PSObject.Properties.Name){$taskState[$taskName]=$taskLoaded.$taskName}}catch{}}
 function Save-State {[IO.File]::WriteAllText($taskReceipt,($taskState|ConvertTo-Json -Depth 6),[Text.UTF8Encoding]::new($false))}
 Save-State
 foreach($taskTarget in $Targets){

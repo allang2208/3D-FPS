@@ -1,0 +1,1142 @@
+{
+  "task": "Azure Dragon V10 publication 2026-10-07",
+  "complete": true,
+  "archive_root": "trash/azure-dragon-retired-20261007",
+  "file_count": 113,
+  "bytes": 26437728,
+  "asset_count": 19,
+  "files": [
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/author-claw.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/author-claw.log",
+      "bytes": 1010,
+      "sha256": "e59c09b86311ec0707698022f247b56b8a3e32b1c8002aec4b8ccfbb3778e1d2",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "e59c09b86311ec0707698022f247b56b8a3e32b1c8002aec4b8ccfbb3778e1d2"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/author-energy.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/author-energy.log",
+      "bytes": 1557,
+      "sha256": "d4afd8fa328fdfa4842994589b351cc7fbde20792dfecf2f206e15f858bde906",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "d4afd8fa328fdfa4842994589b351cc7fbde20792dfecf2f206e15f858bde906"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/author_claw.py",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/author_claw.py",
+      "bytes": 8674,
+      "sha256": "d00096ee64a52e8165bc4d0ddb6cb0a6c0c14fa7a529d5fae3b5560b1aa12eb6",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "d00096ee64a52e8165bc4d0ddb6cb0a6c0c14fa7a529d5fae3b5560b1aa12eb6"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/author_energy.py",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/author_energy.py",
+      "bytes": 12337,
+      "sha256": "740547bf3d86225e93e3cab6f8d28b15d78e760de142a86ee63b517d6530f771",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "740547bf3d86225e93e3cab6f8d28b15d78e760de142a86ee63b517d6530f771"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/AzureDragonClaw_RakeV9.blend",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/AzureDragonClaw_RakeV9.blend",
+      "bytes": 183979,
+      "sha256": "b8269b56cd49157b6345ad347fcb2887194594867f1848bf966de63dbe963371",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "b8269b56cd49157b6345ad347fcb2887194594867f1848bf966de63dbe963371"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/AzureDragonEnergy_SolidV9.blend",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/AzureDragonEnergy_SolidV9.blend",
+      "bytes": 859973,
+      "sha256": "ab7f7b37715bcc9d6cdabf3c687f4867c5180f7b85629cce541c58f01026d8e1",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "ab7f7b37715bcc9d6cdabf3c687f4867c5180f7b85629cce541c58f01026d8e1"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/EnergyColumn.hlsl",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/EnergyColumn.hlsl",
+      "bytes": 1090,
+      "sha256": "93948e07af59bc0c10683d784e28b27b5e6da00caeebcbe05b792a737d84dbc0",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "93948e07af59bc0c10683d784e28b27b5e6da00caeebcbe05b792a737d84dbc0"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/EnergyCrest.hlsl",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/EnergyCrest.hlsl",
+      "bytes": 639,
+      "sha256": "f1efd557894d2cc5cfb2f7919f6fad43ffa5ae115f4cc0f9ad55348cb29833d7",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "f1efd557894d2cc5cfb2f7919f6fad43ffa5ae115f4cc0f9ad55348cb29833d7"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/EnergyFlame.hlsl",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/EnergyFlame.hlsl",
+      "bytes": 843,
+      "sha256": "9e36b44527d8f65f07386a51ce279dc5c4fe9d0eda648e2acd9cdd625694f16f",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "9e36b44527d8f65f07386a51ce279dc5c4fe9d0eda648e2acd9cdd625694f16f"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/EnergyHelix.hlsl",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/EnergyHelix.hlsl",
+      "bytes": 509,
+      "sha256": "b1c77714955bda6fa540f950beeb4a0b1e74e0873eaea2164b2b3ad774679ce4",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "b1c77714955bda6fa540f950beeb4a0b1e74e0873eaea2164b2b3ad774679ce4"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/Export/A_AzureDragonClaw_RakeV9.fbx",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/Export/A_AzureDragonClaw_RakeV9.fbx",
+      "bytes": 263580,
+      "sha256": "2f0b68124fd58f8eb29e03399dc6151f3c2ad4f9e29c7299b5eb71385d488977",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "2f0b68124fd58f8eb29e03399dc6151f3c2ad4f9e29c7299b5eb71385d488977"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/Export/meshes.json",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/Export/meshes.json",
+      "bytes": 896,
+      "sha256": "855cb694926ffabe5ad6055c49febff48cb6d5c338b1fcbf6ba4fc66b4efab47",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "855cb694926ffabe5ad6055c49febff48cb6d5c338b1fcbf6ba4fc66b4efab47"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/Export/rig.json",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/Export/rig.json",
+      "bytes": 3256,
+      "sha256": "e6c5ef2953e567fc526b8c8c785d955d4c0bed455a1f671d73ab41f022590244",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "e6c5ef2953e567fc526b8c8c785d955d4c0bed455a1f671d73ab41f022590244"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/Export/SK_AzureDragonClaw_RakeV9.fbx",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/Export/SK_AzureDragonClaw_RakeV9.fbx",
+      "bytes": 128268,
+      "sha256": "f48967335d5d02fb56383e9ea4368a74582d8265947bf4b4850e3a710b0dd25c",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "f48967335d5d02fb56383e9ea4368a74582d8265947bf4b4850e3a710b0dd25c"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/Export/SM_AzureDragonEnergyColumnV9.fbx",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/Export/SM_AzureDragonEnergyColumnV9.fbx",
+      "bytes": 121148,
+      "sha256": "acb7947564bf0a1d72c12b9566f30f9fabbb42862f4dd7b31e19cc31dad7af9c",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "acb7947564bf0a1d72c12b9566f30f9fabbb42862f4dd7b31e19cc31dad7af9c"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/Export/SM_AzureDragonEnergyCrestV9.fbx",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/Export/SM_AzureDragonEnergyCrestV9.fbx",
+      "bytes": 317932,
+      "sha256": "5c8bac142573fe0c510345a85ae4c45a27d509f20533172fd324777b4c97c833",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "5c8bac142573fe0c510345a85ae4c45a27d509f20533172fd324777b4c97c833"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/Export/SM_AzureDragonEnergyFlameV9.fbx",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/Export/SM_AzureDragonEnergyFlameV9.fbx",
+      "bytes": 493020,
+      "sha256": "fd7970af755bd5dfb69df2d66aba7d134d9cea607f93fcae60144be71c109a57",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "fd7970af755bd5dfb69df2d66aba7d134d9cea607f93fcae60144be71c109a57"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/Export/SM_AzureDragonEnergyHelixV9.fbx",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/Export/SM_AzureDragonEnergyHelixV9.fbx",
+      "bytes": 225708,
+      "sha256": "3c7dfeabdd9d211ed04969abdbb080cfb112d9bf11fa7a0b749b9edfe1a1c3fd",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "3c7dfeabdd9d211ed04969abdbb080cfb112d9bf11fa7a0b749b9edfe1a1c3fd"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/FlameMotion.hlsl",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/FlameMotion.hlsl",
+      "bytes": 435,
+      "sha256": "5fa25470db9668ed532d03d836c6e8c371b7a80d58aa7307a5fe444084e16184",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "5fa25470db9668ed532d03d836c6e8c371b7a80d58aa7307a5fe444084e16184"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/install-20261005-213921-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/install-20261005-213921-commandlet.log",
+      "bytes": 345158,
+      "sha256": "dc7f08d4644685bd0077ef0b7cc1b9e56d6b52d090a65e3518fd878ef617feb7",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "dc7f08d4644685bd0077ef0b7cc1b9e56d6b52d090a65e3518fd878ef617feb7"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/install-20261005-213921-console.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/install-20261005-213921-console.log",
+      "bytes": 70911,
+      "sha256": "7d18685365030a0a7f5f104a07ad9e1569493ea07a72c2894ba1af3f9adfe15b",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "7d18685365030a0a7f5f104a07ad9e1569493ea07a72c2894ba1af3f9adfe15b"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/install-20261005-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/install-20261005-bridge.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/install-receipt.json",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/install-receipt.json",
+      "bytes": 1410,
+      "sha256": "1875fa6697229c1110f539986041391c807b5e07e7c6ed2c21a2a7ffae6d6743",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "1875fa6697229c1110f539986041391c807b5e07e7c6ed2c21a2a7ffae6d6743"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/install_ue.py",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/install_ue.py",
+      "bytes": 10075,
+      "sha256": "dcc83941c24ee11c3faf0b422c534a3bf5ea27f677fc74a82ae6827df32cd51e",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "dcc83941c24ee11c3faf0b422c534a3bf5ea27f677fc74a82ae6827df32cd51e"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/README.md",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/README.md",
+      "bytes": 2532,
+      "sha256": "224daa03a4a808eab27d7d2579baa933d81a431b3cddaa87eb9c52244036c42f",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "224daa03a4a808eab27d7d2579baa933d81a431b3cddaa87eb9c52244036c42f"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/run_author.ps1",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/run_author.ps1",
+      "bytes": 522,
+      "sha256": "c1ef20016bd0093e67147515f0886054f019d0c0e808a94a6c906cebb166b9aa",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "c1ef20016bd0093e67147515f0886054f019d0c0e808a94a6c906cebb166b9aa"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/run_build.ps1",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/run_build.ps1",
+      "bytes": 2657,
+      "sha256": "ae24cbd00bb7cf79339e4aa768adf3deb53e2fad73ad5e3ec270b0c199653bb6",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "ae24cbd00bb7cf79339e4aa768adf3deb53e2fad73ad5e3ec270b0c199653bb6"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/CoherentV9/run_install.ps1",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/CoherentV9/run_install.ps1",
+      "bytes": 1813,
+      "sha256": "564fcca6b81b44a7e5b9782be90a8c8778def74bb88efc0c4e7fa64c92a0bbf4",
+      "kind": "source",
+      "reason": "Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawV10/install_fab_ue.py + author_fab_claw.py (Fab claw) and HudV10 (screen-space energy HUD)",
+      "readback_sha256": "564fcca6b81b44a7e5b9782be90a8c8778def74bb88efc0c4e7fa64c92a0bbf4"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/VisibilityV5/install-20261005-170106-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/VisibilityV5/install-20261005-170106-commandlet.log",
+      "bytes": 300555,
+      "sha256": "d445aba57dfed34562f07d0a552704581ec254a01e0bb46e722c73f991556572",
+      "kind": "source",
+      "reason": "Visibility patch for the V9-era shared claw material (retired with it)",
+      "retained_replacement": "none needed",
+      "readback_sha256": "d445aba57dfed34562f07d0a552704581ec254a01e0bb46e722c73f991556572"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/VisibilityV5/install-20261005-170106-console.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/VisibilityV5/install-20261005-170106-console.log",
+      "bytes": 37907,
+      "sha256": "a7ce5f0ba5d0523b009932afc1a82dc5c19e0560814f7fa72e9882f4e828cb47",
+      "kind": "source",
+      "reason": "Visibility patch for the V9-era shared claw material (retired with it)",
+      "retained_replacement": "none needed",
+      "readback_sha256": "a7ce5f0ba5d0523b009932afc1a82dc5c19e0560814f7fa72e9882f4e828cb47"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/VisibilityV5/install-receipt.json",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/VisibilityV5/install-receipt.json",
+      "bytes": 430,
+      "sha256": "d79990dbc9de5241d0f3a4a1a8a8286c70e7015d2e46cb722641ff6d26f33b48",
+      "kind": "source",
+      "reason": "Visibility patch for the V9-era shared claw material (retired with it)",
+      "retained_replacement": "none needed",
+      "readback_sha256": "d79990dbc9de5241d0f3a4a1a8a8286c70e7015d2e46cb722641ff6d26f33b48"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/VisibilityV5/install_ue.py",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/VisibilityV5/install_ue.py",
+      "bytes": 2368,
+      "sha256": "e1fcb4d8075aa2442a52029af8ce90575f437440ebddb0836a887770f5810963",
+      "kind": "source",
+      "reason": "Visibility patch for the V9-era shared claw material (retired with it)",
+      "retained_replacement": "none needed",
+      "readback_sha256": "e1fcb4d8075aa2442a52029af8ce90575f437440ebddb0836a887770f5810963"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/VisibilityV5/README.md",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/VisibilityV5/README.md",
+      "bytes": 623,
+      "sha256": "82cdabf28dbdf360e669841b0da98945831b681936fb50db0cdf56a6a37883b4",
+      "kind": "source",
+      "reason": "Visibility patch for the V9-era shared claw material (retired with it)",
+      "retained_replacement": "none needed",
+      "readback_sha256": "82cdabf28dbdf360e669841b0da98945831b681936fb50db0cdf56a6a37883b4"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/VisibilityV5/run_install.ps1",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/VisibilityV5/run_install.ps1",
+      "bytes": 1844,
+      "sha256": "a4a0f78df76c382617814237fd5bad94f9ef2afe924beb935cf76c6304f07b19",
+      "kind": "source",
+      "reason": "Visibility patch for the V9-era shared claw material (retired with it)",
+      "retained_replacement": "none needed",
+      "readback_sha256": "a4a0f78df76c382617814237fd5bad94f9ef2afe924beb935cf76c6304f07b19"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/install_rig_ue.py",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/install_rig_ue.py",
+      "bytes": 246,
+      "sha256": "9d81fa58a850f5535f21ee7cd9f686ded46828eefba1663175c12d077bd95947",
+      "kind": "source",
+      "reason": "Root forwarder into the retired CoherentV9 rig/installer",
+      "retained_replacement": "root install_current_ue.py (V10 chain)",
+      "readback_sha256": "9d81fa58a850f5535f21ee7cd9f686ded46828eefba1663175c12d077bd95947"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/rig_claw.py",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/rig_claw.py",
+      "bytes": 247,
+      "sha256": "84cde037c6c910074bf45ad40d651a8631d37b16b90a403b1643454ad0f43677",
+      "kind": "source",
+      "reason": "Root forwarder into the retired CoherentV9 rig/installer",
+      "retained_replacement": "root install_current_ue.py (V10 chain)",
+      "readback_sha256": "84cde037c6c910074bf45ad40d651a8631d37b16b90a403b1643454ad0f43677"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/AzureDragon.hlsl",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/AzureDragon.hlsl",
+      "bytes": 487,
+      "sha256": "055f239a45c09d49b78881355aa3e80b3b4ad2882a69040dbc010098b9ddb103",
+      "kind": "source",
+      "reason": "HLSL of the V9-era shared claw material M_AzureDragonClaw (no remaining user)",
+      "retained_replacement": "ClawV10/AzureDragonClawFabV10.hlsl",
+      "readback_sha256": "055f239a45c09d49b78881355aa3e80b3b4ad2882a69040dbc010098b9ddb103"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/author_claw_v10.py",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/author_claw_v10.py",
+      "bytes": 26966,
+      "sha256": "44693c2b7a9353beeb8a4837c5715dfcba3b26ce8eee7823215f682914ae722c",
+      "kind": "source",
+      "reason": "V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawV10/author_fab_claw.py + install_fab_ue.py; textures now via install_textures_ue.py",
+      "readback_sha256": "44693c2b7a9353beeb8a4837c5715dfcba3b26ce8eee7823215f682914ae722c"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install_ue.py",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install_ue.py",
+      "bytes": 11913,
+      "sha256": "235f4df997b96922a9e6f1b9b11d8ae80e7d918cae46dd569d606da47f98e0a6",
+      "kind": "source",
+      "reason": "V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawV10/author_fab_claw.py + install_fab_ue.py; textures now via install_textures_ue.py",
+      "readback_sha256": "235f4df997b96922a9e6f1b9b11d8ae80e7d918cae46dd569d606da47f98e0a6"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawV10.hlsl",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawV10.hlsl",
+      "bytes": 4032,
+      "sha256": "96314c8f0d6292bd6d9031d60340e9933e64da521b08dd1bab94fb5b829c018e",
+      "kind": "source",
+      "reason": "V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawV10/author_fab_claw.py + install_fab_ue.py; textures now via install_textures_ue.py",
+      "readback_sha256": "96314c8f0d6292bd6d9031d60340e9933e64da521b08dd1bab94fb5b829c018e"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawTrailV10.hlsl",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawTrailV10.hlsl",
+      "bytes": 785,
+      "sha256": "4ec4f7760f1d00625c9cb4a4d6df6f4c092af29faa035c93174eb909f21fdf9a",
+      "kind": "source",
+      "reason": "V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawV10/author_fab_claw.py + install_fab_ue.py; textures now via install_textures_ue.py",
+      "readback_sha256": "4ec4f7760f1d00625c9cb4a4d6df6f4c092af29faa035c93174eb909f21fdf9a"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawV10.blend",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawV10.blend",
+      "bytes": 2195731,
+      "sha256": "ef641264143c96a3d5c5e956780e4dd4334fb6a8f12d6ed1eb3211555a777753",
+      "kind": "source",
+      "reason": "V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawV10/author_fab_claw.py + install_fab_ue.py; textures now via install_textures_ue.py",
+      "readback_sha256": "ef641264143c96a3d5c5e956780e4dd4334fb6a8f12d6ed1eb3211555a777753"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawV10.blend1",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawV10.blend1",
+      "bytes": 2195683,
+      "sha256": "a25407928a84fd7e26a7897bb04171d4d3f2f751aee760970f683066c207617f",
+      "kind": "source",
+      "reason": "V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawV10/author_fab_claw.py + install_fab_ue.py; textures now via install_textures_ue.py",
+      "readback_sha256": "a25407928a84fd7e26a7897bb04171d4d3f2f751aee760970f683066c207617f"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-receipt.json",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-receipt.json",
+      "bytes": 876,
+      "sha256": "9e2e66a370d73b3fa9ae3c90d220ec28f11292bad151f9d472b719aff54c48ca",
+      "kind": "source",
+      "reason": "V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawV10/author_fab_claw.py + install_fab_ue.py; textures now via install_textures_ue.py",
+      "readback_sha256": "9e2e66a370d73b3fa9ae3c90d220ec28f11292bad151f9d472b719aff54c48ca"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/Export/SK_AzureDragonClawV10.fbx",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/Export/SK_AzureDragonClawV10.fbx",
+      "bytes": 2331948,
+      "sha256": "9cfe470595664639274b9d1b17ca7167f50d5ed40fa040b025431c3958b382e5",
+      "kind": "source",
+      "reason": "V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawV10/author_fab_claw.py + install_fab_ue.py; textures now via install_textures_ue.py",
+      "readback_sha256": "9cfe470595664639274b9d1b17ca7167f50d5ed40fa040b025431c3958b382e5"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/Export/A_AzureDragonClawRakeV10.fbx",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/Export/A_AzureDragonClawRakeV10.fbx",
+      "bytes": 2475404,
+      "sha256": "0e58a8fbb4c261d64e0b860a96840468e922f2d50b2e63a34aa874cb167471fb",
+      "kind": "source",
+      "reason": "V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawV10/author_fab_claw.py + install_fab_ue.py; textures now via install_textures_ue.py",
+      "readback_sha256": "0e58a8fbb4c261d64e0b860a96840468e922f2d50b2e63a34aa874cb167471fb"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/Export/rig.json",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/Export/rig.json",
+      "bytes": 2506,
+      "sha256": "3eace67555d14152c443ceb7bc3bb792f48a43414680692592cef22fa9bdb9ea",
+      "kind": "source",
+      "reason": "V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawV10/author_fab_claw.py + install_fab_ue.py; textures now via install_textures_ue.py",
+      "readback_sha256": "3eace67555d14152c443ceb7bc3bb792f48a43414680692592cef22fa9bdb9ea"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/patch_material_usage.py",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/patch_material_usage.py",
+      "bytes": 1447,
+      "sha256": "84609c6cf01bfed1daaef54a163218d268a8dcc15f088b87c38438444cdddd91",
+      "kind": "source",
+      "reason": "One-off usage patch for the retired original-claw material",
+      "retained_replacement": "install_fab_ue.py sets usage itself",
+      "readback_sha256": "84609c6cf01bfed1daaef54a163218d268a8dcc15f088b87c38438444cdddd91"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/patch-usage-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/patch-usage-commandlet.log",
+      "bytes": 279579,
+      "sha256": "ae3fdc93d692f68120e043eded52b4ac0f4fd159e1afd1cdf466585795735a1f",
+      "kind": "source",
+      "reason": "One-off usage patch for the retired original-claw material",
+      "retained_replacement": "install_fab_ue.py sets usage itself",
+      "readback_sha256": "ae3fdc93d692f68120e043eded52b4ac0f4fd159e1afd1cdf466585795735a1f"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/patch-usage-receipt.json",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/patch-usage-receipt.json",
+      "bytes": 159,
+      "sha256": "619608e6b86215fdcb98a03f6f0c16ff20c2f0b44cdeb7f9c76c855e60c995cc",
+      "kind": "source",
+      "reason": "One-off usage patch for the retired original-claw material",
+      "retained_replacement": "install_fab_ue.py sets usage itself",
+      "readback_sha256": "619608e6b86215fdcb98a03f6f0c16ff20c2f0b44cdeb7f9c76c855e60c995cc"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawEmberV10.hlsl",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawEmberV10.hlsl",
+      "bytes": 1604,
+      "sha256": "28942564d59e51be698ecde597e04f26eff1171c1bf1a02fd61c6a07c89f8a3e",
+      "kind": "source",
+      "reason": "Talon embers removed in V10.8",
+      "retained_replacement": "AzureDragonClawRiftV10.hlsl",
+      "readback_sha256": "28942564d59e51be698ecde597e04f26eff1171c1bf1a02fd61c6a07c89f8a3e"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawTrailFabV10.hlsl",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawTrailFabV10.hlsl",
+      "bytes": 981,
+      "sha256": "6a6158920510d1186183c09fe7bb6ac8b402ea5732fef56a143009111b1a31d7",
+      "kind": "source",
+      "reason": "Fab talon trail replaced by rift scars in V10.8",
+      "retained_replacement": "AzureDragonClawRiftV10.hlsl",
+      "readback_sha256": "6a6158920510d1186183c09fe7bb6ac8b402ea5732fef56a143009111b1a31d7"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawFabV10.blend1",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/AzureDragonClawFabV10.blend1",
+      "bytes": 738615,
+      "sha256": "9dee93a4c9b6f6fa3808745984d250c0f4da607250e1dfd6667ba7c52edcb913",
+      "kind": "source",
+      "reason": "Blender auto-backup; AzureDragonClawFabV10.blend is current",
+      "retained_replacement": "ClawV10/AzureDragonClawFabV10.blend",
+      "readback_sha256": "9dee93a4c9b6f6fa3808745984d250c0f4da607250e1dfd6667ba7c52edcb913"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/probe_fire_pack.py",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/probe_fire_pack.py",
+      "bytes": 985,
+      "sha256": "2a9d41522594042af007d78633f0e727860c230c75684ba74f10511cf1ec8ef2",
+      "kind": "source",
+      "reason": "One-off read-only probe of the Realistic Vol2 fire atlas layout",
+      "retained_replacement": "findings recorded in Docs/Combat/enchant-azure-dragon-v10-20261006.md",
+      "readback_sha256": "2a9d41522594042af007d78633f0e727860c230c75684ba74f10511cf1ec8ef2"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-105047-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-105047-bridge.txt",
+      "bytes": 1708,
+      "sha256": "e96ccc210127980666b62cf900fac351875f0e24c5d6120d7a2f9ec527ee27c3",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "e96ccc210127980666b62cf900fac351875f0e24c5d6120d7a2f9ec527ee27c3"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-105119-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-105119-bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-105527-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-105527-commandlet.log",
+      "bytes": 301749,
+      "sha256": "56c2fa4b0c127e66fa7d9caab11b1f938f91efca8d5296a097f4bdb2137aadf4",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "56c2fa4b0c127e66fa7d9caab11b1f938f91efca8d5296a097f4bdb2137aadf4"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-105527-console.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-105527-console.log",
+      "bytes": 83752,
+      "sha256": "eaab9273e0c4277e435f25aaa0d7d5a7395df35e9e8e2aa1e70f24a4105f8b4d",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "eaab9273e0c4277e435f25aaa0d7d5a7395df35e9e8e2aa1e70f24a4105f8b4d"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-105645-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-105645-commandlet.log",
+      "bytes": 310111,
+      "sha256": "46ab03913e4b99abdd3d6c2ae21ab23749d4c3193177eb110ee8cbfa8e669b11",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "46ab03913e4b99abdd3d6c2ae21ab23749d4c3193177eb110ee8cbfa8e669b11"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-105645-console.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-105645-console.log",
+      "bytes": 87786,
+      "sha256": "c26ad5de3ac48c1ebd544a70e07e0da81308dff9c84968bb00e10842cd7a5208",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "c26ad5de3ac48c1ebd544a70e07e0da81308dff9c84968bb00e10842cd7a5208"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-115229-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-115229-bridge.txt",
+      "bytes": 881,
+      "sha256": "70f1d8a527663346d6b0bb5af8be47f210dcda0f2b1200b46d5eb67e803f88d7",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "70f1d8a527663346d6b0bb5af8be47f210dcda0f2b1200b46d5eb67e803f88d7"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-120804-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-120804-commandlet.log",
+      "bytes": 302281,
+      "sha256": "32b4bbf19caf5a438ceec096911237068bcdddfc33f29ad0166a69c41034f417",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "32b4bbf19caf5a438ceec096911237068bcdddfc33f29ad0166a69c41034f417"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-120804-console.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-120804-console.log",
+      "bytes": 81768,
+      "sha256": "44f5e981b061a93ae0f4ba42b0beb5f6c5b50ef97ede2830553423c5c65541af",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "44f5e981b061a93ae0f4ba42b0beb5f6c5b50ef97ede2830553423c5c65541af"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-124853-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-124853-bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-130511-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-130511-bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-130602-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-130602-commandlet.log",
+      "bytes": 312603,
+      "sha256": "7fd2cc4bed1dfc65f3e6023700fd33751ae2773fc87693a7954b8740c584ca04",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "7fd2cc4bed1dfc65f3e6023700fd33751ae2773fc87693a7954b8740c584ca04"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-130602-console.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-130602-console.log",
+      "bytes": 97700,
+      "sha256": "cffce7daf9446d33d775548e3b1ca78afc5171af6ba2ee7db8915666273ef2d8",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "cffce7daf9446d33d775548e3b1ca78afc5171af6ba2ee7db8915666273ef2d8"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-133113-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-133113-bridge.txt",
+      "bytes": 893,
+      "sha256": "0ee479bc81c2f99f1dbf8eaef5a69ac7e54f92e81c2efe484eec5dd00a3a8af2",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "0ee479bc81c2f99f1dbf8eaef5a69ac7e54f92e81c2efe484eec5dd00a3a8af2"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-133259-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-133259-bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-133524-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-133524-commandlet.log",
+      "bytes": 305719,
+      "sha256": "5d3971d21b20b9873bae5a44411a65bd5ea8167962c1214b51c3b6ea8033d249",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "5d3971d21b20b9873bae5a44411a65bd5ea8167962c1214b51c3b6ea8033d249"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-133524-console.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-133524-console.log",
+      "bytes": 86938,
+      "sha256": "d0e41c93c7509501288b0a1e4fb42502d341e8a33ea049af15a5786c8dabfa68",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "d0e41c93c7509501288b0a1e4fb42502d341e8a33ea049af15a5786c8dabfa68"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-211519-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-211519-bridge.txt",
+      "bytes": 893,
+      "sha256": "1222b2a6ea20f9bab41594179d6b87336101c6ec048de107b7e5689f28cd6b46",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "1222b2a6ea20f9bab41594179d6b87336101c6ec048de107b7e5689f28cd6b46"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-211526-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-211526-bridge.txt",
+      "bytes": 893,
+      "sha256": "1222b2a6ea20f9bab41594179d6b87336101c6ec048de107b7e5689f28cd6b46",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "1222b2a6ea20f9bab41594179d6b87336101c6ec048de107b7e5689f28cd6b46"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-212112-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-212112-bridge.txt",
+      "bytes": 1488,
+      "sha256": "0d391fc5dcc03a47cf6834967ed19d1e04768656212750f399d58163c8ddc6da",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "0d391fc5dcc03a47cf6834967ed19d1e04768656212750f399d58163c8ddc6da"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-212208-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-212208-bridge.txt",
+      "bytes": 885,
+      "sha256": "625f28ee9037f811de1bf53bc8f744ea0d13c9b29dc151ab50a448a1353a7f59",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "625f28ee9037f811de1bf53bc8f744ea0d13c9b29dc151ab50a448a1353a7f59"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-212421-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-212421-bridge.txt",
+      "bytes": 893,
+      "sha256": "247f506ab929c32088c808396a74376b746f666749a1e4f74fd4e7ab71a9e580",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "247f506ab929c32088c808396a74376b746f666749a1e4f74fd4e7ab71a9e580"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-214823-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-214823-bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-215207-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-215207-commandlet.log",
+      "bytes": 311729,
+      "sha256": "29294dbd05d7ff152b9220215fe2a364a59dac35e90adea302c1d4c7819fa1a9",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "29294dbd05d7ff152b9220215fe2a364a59dac35e90adea302c1d4c7819fa1a9"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-215207-console.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-215207-console.log",
+      "bytes": 99860,
+      "sha256": "8edeea7a4229631094d3c721c9b7558e03a4f86191dc6bfc50a4375c33c16c6f",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "8edeea7a4229631094d3c721c9b7558e03a4f86191dc6bfc50a4375c33c16c6f"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-220933-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-220933-commandlet.log",
+      "bytes": 309764,
+      "sha256": "de0f83b577de97c391cbb2a79a44a6995ecd5f70e3f4d8c2c4669ab1b8acb476",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "de0f83b577de97c391cbb2a79a44a6995ecd5f70e3f4d8c2c4669ab1b8acb476"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261006-220933-console.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261006-220933-console.log",
+      "bytes": 93970,
+      "sha256": "0f6cd4cea3954089dc0bf2f860897a31b4a92d51782522ea31791afb8adb606c",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "0f6cd4cea3954089dc0bf2f860897a31b4a92d51782522ea31791afb8adb606c"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261007-000856-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261007-000856-bridge.txt",
+      "bytes": 893,
+      "sha256": "26540ca7162f177435140942becb9a8a4863d1639282a8b8912c0fdcc9ed35ef",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "26540ca7162f177435140942becb9a8a4863d1639282a8b8912c0fdcc9ed35ef"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261007-001045-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261007-001045-bridge.txt",
+      "bytes": 893,
+      "sha256": "26540ca7162f177435140942becb9a8a4863d1639282a8b8912c0fdcc9ed35ef",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "26540ca7162f177435140942becb9a8a4863d1639282a8b8912c0fdcc9ed35ef"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261007-094752-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261007-094752-bridge.txt",
+      "bytes": 893,
+      "sha256": "b85946a234a13c3afb80fabc2f30edf39bfd54f22b6a870892fed49765b9f9c3",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "b85946a234a13c3afb80fabc2f30edf39bfd54f22b6a870892fed49765b9f9c3"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261007-095210-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261007-095210-bridge.txt",
+      "bytes": 544,
+      "sha256": "af44014144437efa21d8cd658f54139eac6e866c3670e083c27e448efd483d07",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "af44014144437efa21d8cd658f54139eac6e866c3670e083c27e448efd483d07"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261007-162803-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261007-162803-commandlet.log",
+      "bytes": 325545,
+      "sha256": "56fce95c94a7de0f7985de4fda6941747524dad7b5368020605b9e3e2574177e",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "56fce95c94a7de0f7985de4fda6941747524dad7b5368020605b9e3e2574177e"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261007-162803-console.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261007-162803-console.log",
+      "bytes": 123122,
+      "sha256": "53a1b8f41769e61a01d97ec28cde212eba9a21b6c3029d2ae395f0471ef8c6e9",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "53a1b8f41769e61a01d97ec28cde212eba9a21b6c3029d2ae395f0471ef8c6e9"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261007-181616-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261007-181616-commandlet.log",
+      "bytes": 319044,
+      "sha256": "44627d51cac67b963e8d8f307cfd123c4876b074434fedc54729e7e1b7a6eb68",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "44627d51cac67b963e8d8f307cfd123c4876b074434fedc54729e7e1b7a6eb68"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261007-181616-console.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261007-181616-console.log",
+      "bytes": 109096,
+      "sha256": "00ccd87affeb05d1ffac10660381a8822779c5aabe85d93e8a22bd8f7064af80",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "00ccd87affeb05d1ffac10660381a8822779c5aabe85d93e8a22bd8f7064af80"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261007-195926-commandlet.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261007-195926-commandlet.log",
+      "bytes": 326213,
+      "sha256": "cfec048fa7a12be8906cc1a0dafc0a30757f09fff249c9339b33a39671aa13b2",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "cfec048fa7a12be8906cc1a0dafc0a30757f09fff249c9339b33a39671aa13b2"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/ClawV10/install-20261007-195926-console.log",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/ClawV10/install-20261007-195926-console.log",
+      "bytes": 122006,
+      "sha256": "3bc72640d98645e4366b9e76be4cad17ca0bb592b58d5b798fcaa7aded18448b",
+      "kind": "log",
+      "reason": "Superseded install run log / bridge output (latest run kept)",
+      "retained_replacement": "ClawV10/install-20261007-230001-*.log",
+      "readback_sha256": "3bc72640d98645e4366b9e76be4cad17ca0bb592b58d5b798fcaa7aded18448b"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/HudV10/install-20261006-104551-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/HudV10/install-20261006-104551-bridge.txt",
+      "bytes": 885,
+      "sha256": "da71b75dd7f00076881d641e2477dafb6b454154f5fd925b1cf985b65a00df48",
+      "kind": "log",
+      "reason": "Superseded HUD install bridge output (latest commandlet log kept)",
+      "retained_replacement": "HudV10/install-20261006-162702-*.log",
+      "readback_sha256": "da71b75dd7f00076881d641e2477dafb6b454154f5fd925b1cf985b65a00df48"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/HudV10/install-20261006-105000-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/HudV10/install-20261006-105000-bridge.txt",
+      "bytes": 982,
+      "sha256": "22ccaf08da2a852487ad2cb473003332bf4372e6c13989bd737ddebb78feaa87",
+      "kind": "log",
+      "reason": "Superseded HUD install bridge output (latest commandlet log kept)",
+      "retained_replacement": "HudV10/install-20261006-162702-*.log",
+      "readback_sha256": "22ccaf08da2a852487ad2cb473003332bf4372e6c13989bd737ddebb78feaa87"
+    },
+    {
+      "source": "SourceAssets/AzureDragon20261004/HudV10/install-20261006-105037-bridge.txt",
+      "destination": "trash/azure-dragon-retired-20261007/SourceAssets/AzureDragon20261004/HudV10/install-20261006-105037-bridge.txt",
+      "bytes": 538,
+      "sha256": "860464881a77374fc3e520ac9ac87ba8e121d264f5eed9f7688857181dc1063b",
+      "kind": "log",
+      "reason": "Superseded HUD install bridge output (latest commandlet log kept)",
+      "retained_replacement": "HudV10/install-20261006-162702-*.log",
+      "readback_sha256": "860464881a77374fc3e520ac9ac87ba8e121d264f5eed9f7688857181dc1063b"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/CoherentV9/Animations/A_AzureDragonClaw_RakeV9.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/CoherentV9/Animations/A_AzureDragonClaw_RakeV9.uasset",
+      "bytes": 59191,
+      "sha256": "85fd100559009f463e89478eea5099fb2794ec801aeb330a667a19f273b08551",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "85fd100559009f463e89478eea5099fb2794ec801aeb330a667a19f273b08551"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/CoherentV9/Materials/M_AzureDragonEnergyColumnV9.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/CoherentV9/Materials/M_AzureDragonEnergyColumnV9.uasset",
+      "bytes": 13482,
+      "sha256": "d28e1069880450f2dcf2ffe150218c5b38724a604d121804725384d4d0194af0",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "d28e1069880450f2dcf2ffe150218c5b38724a604d121804725384d4d0194af0"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/CoherentV9/Materials/M_AzureDragonEnergyCrestV9.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/CoherentV9/Materials/M_AzureDragonEnergyCrestV9.uasset",
+      "bytes": 13026,
+      "sha256": "c1fd2d5866ff8254af7282a1ff2f6e2ca83a3d350588f9ef7253a40e4bd03931",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "c1fd2d5866ff8254af7282a1ff2f6e2ca83a3d350588f9ef7253a40e4bd03931"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/CoherentV9/Materials/M_AzureDragonEnergyFlameV9.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/CoherentV9/Materials/M_AzureDragonEnergyFlameV9.uasset",
+      "bytes": 16983,
+      "sha256": "b5c263759e12bfdc17d21148f73bd6b1ab8143e0eab3b0844da26f57f4d7e618",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "b5c263759e12bfdc17d21148f73bd6b1ab8143e0eab3b0844da26f57f4d7e618"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/CoherentV9/Materials/M_AzureDragonEnergyHelixV9.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/CoherentV9/Materials/M_AzureDragonEnergyHelixV9.uasset",
+      "bytes": 12896,
+      "sha256": "5c78f2c7539eb0eecefc707da56e0f73d4bd05892b22a258efbf6240d02e46fb",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "5c78f2c7539eb0eecefc707da56e0f73d4bd05892b22a258efbf6240d02e46fb"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/CoherentV9/Meshes/SK_AzureDragonClaw_RakeV9.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/CoherentV9/Meshes/SK_AzureDragonClaw_RakeV9.uasset",
+      "bytes": 405130,
+      "sha256": "bf7f779061f69c42510920c4b81ce1fe5e481ae63f4d3442ff52f8bbd8b6dcf8",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "bf7f779061f69c42510920c4b81ce1fe5e481ae63f4d3442ff52f8bbd8b6dcf8"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/CoherentV9/Meshes/SK_AzureDragonClaw_RakeV9_Skeleton.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/CoherentV9/Meshes/SK_AzureDragonClaw_RakeV9_Skeleton.uasset",
+      "bytes": 5607,
+      "sha256": "b3d4993cfbdfdcac6f9755b9831f514d3b7f93b660da3ae14fe92046fd3ea60c",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "b3d4993cfbdfdcac6f9755b9831f514d3b7f93b660da3ae14fe92046fd3ea60c"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/CoherentV9/Meshes/SM_AzureDragonEnergyColumnV9.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/CoherentV9/Meshes/SM_AzureDragonEnergyColumnV9.uasset",
+      "bytes": 161119,
+      "sha256": "bd58846503b2b73e8c50098aae4256003bb6a29e4ceebb4be92a9e6376343583",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "bd58846503b2b73e8c50098aae4256003bb6a29e4ceebb4be92a9e6376343583"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/CoherentV9/Meshes/SM_AzureDragonEnergyCrestV9.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/CoherentV9/Meshes/SM_AzureDragonEnergyCrestV9.uasset",
+      "bytes": 381203,
+      "sha256": "29fb56662736414f0080f97059bd1f8c023e2f74b3ac9804b56c6b7e269fb0e1",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "29fb56662736414f0080f97059bd1f8c023e2f74b3ac9804b56c6b7e269fb0e1"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/CoherentV9/Meshes/SM_AzureDragonEnergyFlameV9.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/CoherentV9/Meshes/SM_AzureDragonEnergyFlameV9.uasset",
+      "bytes": 572464,
+      "sha256": "6fffb74249a12a8e148253dd2ee13311233698fd4fbba6f1467e42509717c14e",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "6fffb74249a12a8e148253dd2ee13311233698fd4fbba6f1467e42509717c14e"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/CoherentV9/Meshes/SM_AzureDragonEnergyHelixV9.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/CoherentV9/Meshes/SM_AzureDragonEnergyHelixV9.uasset",
+      "bytes": 276171,
+      "sha256": "035cd55c380b27ee892e969ff133b0f0c6cce8486da43e7b58b99619cb9c76db",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); Coherent V9 claw and energy vessel: rejected by the user on 2026-10-05, superseded by the accepted V10",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "035cd55c380b27ee892e969ff133b0f0c6cce8486da43e7b58b99619cb9c76db"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/ClawV10/Meshes/SK_AzureDragonClawV10.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/ClawV10/Meshes/SK_AzureDragonClawV10.uasset",
+      "bytes": 6572009,
+      "sha256": "31e0e31dfb022a32e73dfe4cdb20087cf37f0ab225fd54e4f306e306cfa36bae",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "31e0e31dfb022a32e73dfe4cdb20087cf37f0ab225fd54e4f306e306cfa36bae"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/ClawV10/Meshes/SK_AzureDragonClawV10_Skeleton.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/ClawV10/Meshes/SK_AzureDragonClawV10_Skeleton.uasset",
+      "bytes": 6098,
+      "sha256": "4a8f0de11a542641726a8b981af7903bcba1a39be39167378d26ab0e5329af01",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "4a8f0de11a542641726a8b981af7903bcba1a39be39167378d26ab0e5329af01"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/ClawV10/Animations/A_AzureDragonClawRakeV10.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/ClawV10/Animations/A_AzureDragonClawRakeV10.uasset",
+      "bytes": 54026,
+      "sha256": "c5a437bff95657068f37d2a4d648495d473140aff2aff5f54bc318094cd80529",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "c5a437bff95657068f37d2a4d648495d473140aff2aff5f54bc318094cd80529"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/ClawV10/Materials/M_AzureDragonClawTrailV10.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/ClawV10/Materials/M_AzureDragonClawTrailV10.uasset",
+      "bytes": 10464,
+      "sha256": "cc8a134a014bc4a7708c91125286e742467e496e93b34e90089bef25c1e6eb85",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "cc8a134a014bc4a7708c91125286e742467e496e93b34e90089bef25c1e6eb85"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/ClawV10/Materials/M_AzureDragonClawV10.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/ClawV10/Materials/M_AzureDragonClawV10.uasset",
+      "bytes": 24038,
+      "sha256": "99c88381e5d2631bb9e12a3665c8db144a64709753a499476ea410ca534dcfac",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); V10.1 original Blender claw: replaced by the library Fab claw at the user's request (V10.2)",
+      "retained_replacement": "ClawFab (Fab claw) / HudV10",
+      "readback_sha256": "99c88381e5d2631bb9e12a3665c8db144a64709753a499476ea410ca534dcfac"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/ClawFab/Materials/M_AzureDragonClawEmberV10.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/ClawFab/Materials/M_AzureDragonClawEmberV10.uasset",
+      "bytes": 19384,
+      "sha256": "049c8e8a3b99a3f20cded4b444fe451fa56cf2204734ab92caed1037abefc07c",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); embers removed in V10.8",
+      "retained_replacement": "M_AzureDragonClawRiftV10",
+      "readback_sha256": "049c8e8a3b99a3f20cded4b444fe451fa56cf2204734ab92caed1037abefc07c"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/ClawFab/Materials/M_AzureDragonClawTrailFabV10.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/ClawFab/Materials/M_AzureDragonClawTrailFabV10.uasset",
+      "bytes": 17829,
+      "sha256": "b086f17c71b3ecc4b665a8830eb4940faea0f6529d180d6931b4e24578dd3ea6",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); trail replaced by rift scars",
+      "retained_replacement": "M_AzureDragonClawRiftV10",
+      "readback_sha256": "b086f17c71b3ecc4b665a8830eb4940faea0f6529d180d6931b4e24578dd3ea6"
+    },
+    {
+      "source": "Content/Weapons/AzureDragon20261004/Materials/M_AzureDragonClaw.uasset",
+      "destination": "trash/azure-dragon-retired-20261007/Content/Weapons/AzureDragon20261004/Materials/M_AzureDragonClaw.uasset",
+      "bytes": 17627,
+      "sha256": "62e2c96cacfa01e13de07f70ff8ebbf862ed9712bc4a9d69cbe95dc5b1788861",
+      "kind": "asset",
+      "reason": "Unreferenced UE package (asset registry: no referencers outside this set, 2026-10-07); V9-era shared claw material",
+      "retained_replacement": "M_AzureDragonClawFabV10",
+      "readback_sha256": "62e2c96cacfa01e13de07f70ff8ebbf862ed9712bc4a9d69cbe95dc5b1788861"
+    }
+  ],
+  "active_status": "V10 Fab claw + HudV10 live; effects accepted by the user 2026-10-07; not runtime-tested by the agent",
+  "runtime_tested": false
+}

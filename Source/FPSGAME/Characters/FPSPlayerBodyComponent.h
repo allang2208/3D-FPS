@@ -93,6 +93,8 @@ private:
     /** 服务端：为非本机控制的远端 pawn 组装权威身体态——服务端可信事实
      *  （CMC 意图位/装备/瞄准俯仰）+ 客户端汇报的离散动作。 */
     FFPSBodyState SampleRemoteAuthorityState() const;
+    /** Other players' Azure Dragon claws on this machine, from the replicated presentation. */
+    void PresentRemoteAzureDragon();
     EFPSBodyAction ReportedAction = EFPSBodyAction::None;
     FName ReportedActionVariant;
     float ReportedActionStartedAt = -100.f;

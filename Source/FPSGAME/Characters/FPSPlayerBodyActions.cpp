@@ -114,6 +114,9 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleLocalState() const
         else if(Sword->bEquipping)Timed(EFPSBodyAction::Equip,Sword->Elapsed,Length);
         else if(Sword->bInspecting)Timed(EFPSBodyAction::Inspect,Sword->Elapsed,Length);
     }
+    // Azure Dragon claws, also after the sword is put away or on death (their dissolve plays on).
+    if(Pawn->RuneSword)
+        Pawn->RuneSword->SampleAzureDragonNet(State.AzureFlags,State.AzureSourceLength,State.AzureEntryTime,State.AzureChargeStartedAt,Now);
     if(const auto* Bow=Pawn->FindComponentByClass<UBowWeaponComponent>();Bow&&Bow->IsEquipped())SampleBowState(*Bow,State);
     if(const auto* Staff=Pawn->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())
     {
@@ -241,6 +244,10 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleRemoteAuthorityState() const
         State.ActionStartedAt=R.ActionStartedAt;State.ActionDuration=R.ActionDuration;State.ActionEntryFraction=R.ActionEntryFraction;
         State.bHasActionProgress=R.bHasActionProgress;State.ActionProgress=R.ActionProgress;
         State.ActionWeight=R.ActionWeight;State.ContactFraction=R.ContactFraction;State.ReleaseFraction=R.ReleaseFraction;
+        // Azure Dragon claws are cosmetic (sanitized on receipt). Not gated on the held weapon: a
+        // weapon switch or death plays their dissolve on the other players' screens too.
+        State.AzureFlags=R.AzureFlags;State.AzureSourceLength=R.AzureSourceLength;
+        State.AzureEntryTime=R.AzureEntryTime;State.AzureChargeStartedAt=R.AzureChargeStartedAt;
         State.RightHand=R.RightHand;State.LeftHand=R.LeftHand;
         State.PresentationSampledAt=R.PresentationSampledAt;State.ActionProgressRate=R.ActionProgressRate;
         if(State.Family==TEXT("Bow"))
@@ -283,6 +290,17 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleRemoteAuthorityState() const
         State.ActionStartedAt=ReplicatedState.Action==EFPSBodyAction::Dead?ReplicatedState.ActionStartedAt:Now;
     }
     return State;
+}
+
+void UFPSPlayerBodyComponent::PresentRemoteAzureDragon()
+{
+    // Another player's Azure Dragon claws, rebuilt on this machine from the replicated presentation
+    // (the sword executor itself does not run for remote pawns on clients).
+    if(GetNetMode()==NM_DedicatedServer||!Character.IsValid()||!Character->RuneSword)return;
+    const auto& S=DisplayState;
+    const float Length=S.AzureSourceLength;
+    Character->RuneSword->PresentAzureDragonRemote(S.AzureFlags,S.ActionProgress*Length,S.ContactFraction*Length,
+        S.ReleaseFraction*Length,S.AzureEntryTime,ServerClock()-S.AzureChargeStartedAt);
 }
 
 void UFPSPlayerBodyComponent::ServerRecordAction(EFPSBodyAction Action,FName Variant,float Duration)

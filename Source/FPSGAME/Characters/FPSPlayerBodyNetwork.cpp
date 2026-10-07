@@ -13,6 +13,7 @@ bool IsTransition(const FFPSBodyState& A,const FFPSBodyState& B)
         ||A.bHasHandholds!=B.bHasHandholds||A.bDual!=B.bDual||A.bOffhandPistol!=B.bOffhandPistol
         ||A.RightHand.bReloading!=B.RightHand.bReloading||A.LeftHand.bReloading!=B.LeftHand.bReloading
         ||A.RightHand.bEquipping!=B.RightHand.bEquipping||A.LeftHand.bEquipping!=B.LeftHand.bEquipping
+        ||A.AzureFlags!=B.AzureFlags
         ||(A.bHasActionProgress&&A.ActionProgress+.08f<B.ActionProgress)
         ||(A.Motion!=EFPSBodyMotion::Ground&&A.MotionProgress+.08f<B.MotionProgress)
         ||(A.RightHand.Progress+.08f<B.RightHand.Progress)
@@ -80,6 +81,9 @@ void UFPSPlayerBodyComponent::AcceptBodyPresentation(const FFPSBodyState& Incomi
     {Next.BowClip=NAME_None;Next.BowNock=FVector::ZeroVector;Next.bBowArrow=false;}
     Next.ActionEntryFraction=FMath::Clamp(Unit(Next.ActionEntryFraction),0.f,Unit(Next.ContactFraction,.5f));
     Next.ContactFraction=Unit(Next.ContactFraction,.5f);Next.ReleaseFraction=Unit(Next.ReleaseFraction,.8f);
+    Next.AzureSourceLength=FMath::IsFinite(Next.AzureSourceLength)?FMath::Clamp(Next.AzureSourceLength,0.f,10.f):0.f;
+    Next.AzureEntryTime=FMath::IsFinite(Next.AzureEntryTime)?FMath::Clamp(Next.AzureEntryTime,0.f,Next.AzureSourceLength):0.f;
+    Next.AzureChargeStartedAt=FMath::IsFinite(Next.AzureChargeStartedAt)?FMath::Clamp(Next.AzureChargeStartedAt,Now-30.f,Now):Now;
     Next.ActionProgressRate=SafeRate(Next.ActionProgressRate);Next.MotionProgressRate=SafeRate(Next.MotionProgressRate);
     Next.MotionProgress=Unit(Next.MotionProgress);Next.MotionContact=Unit(Next.MotionContact,.25f);
     Next.MotionRelease=FMath::Max(Next.MotionContact,Unit(Next.MotionRelease,.75f));

@@ -160,8 +160,8 @@ void URuneSwordComponent::TickUppercut(float Delta)
             SweepBlade(Previous,Current);Previous=Current;
         }
         if(HitActors.IsEmpty())ApplySwingHits(MeleeSmallTargets::QueryLowSector(
-            GetWorld(),Character.Get(),EndFrame,AzureDragonRange(SwingReach),HitActors,false,30.f,
-            AzureDragonRange(bUppercut?UppercutLowReachCM:MeleeSmallTargets::LowReachCM)),EndFrame.GetUnitAxis(EAxis::X));
+            GetWorld(),Character.Get(),EndFrame,AzureDragonSwingRange(SwingReach),HitActors,false,30.f,
+            AzureDragonSwingRange(bUppercut?UppercutLowReachCM:MeleeSmallTargets::LowReachCM)),EndFrame.GetUnitAxis(EAxis::X));
     }
     SamplePose(Next);PreviousAimFrame=AimNow;Elapsed=Next;
     if(Next>=ContactEnd)FinishHeavyTraining();

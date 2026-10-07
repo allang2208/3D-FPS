@@ -33,7 +33,7 @@ struct FColdSteelNetHitReport
     UPROPERTY() float ClaimedDamage = 0.f;
     /** 汇聚附魔消耗的弹数（0/1=无汇聚）；服务端按影子档案同参数复算倍率。 */
     UPROPERTY() uint8 ConvergenceRounds = 0;
-    /** bit0 bMeleeStrike / bit1 bRifle / bit2 bPistol / bit3 bMelee / bit4 bRicochet / bit5 bInheritedCritical / bit6 bFiredRound */
+    /** bit0 bMeleeStrike / bit1 bRifle / bit2 bPistol / bit3 bMelee / bit4 bRicochet / bit5 bInheritedCritical / bit6 bFiredRound / bit7 Azure Dragon active */
     UPROPERTY() uint8 Flags = 0;
     /** 攻击语义位（与 FColdSteelSkillShot::AttackMeta 同码）：0x0F=连段阶段，0x10=重击，0x20=旋风，0x40=裂斩波。 */
     UPROPERTY() uint8 AttackMeta = 0;

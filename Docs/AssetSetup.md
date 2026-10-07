@@ -1,5 +1,17 @@
 # 恢复完整 UE5 内容
 
+## 苍龙 V10（2026-10-07）
+
+**运行版本**：Fab 龙爪 `/Game/Weapons/AzureDragon20261004/ClawFab`（9 个资产）+ 能量条 `HudV10`（6 个）。另外依赖共享法线 `Textures/T_AzureDragonNormal`、`ClawV10/Textures` 的脉络贴图，以及本机已授权的 Realistic Starter VFX Pack Vol2 火焰序列 `T_Fire_F`／`T_Fire_D`（只读引用）。用户已确认特效与判定，后续几版尚待体验。
+
+**恢复**：根目录 `SourceAssets/AzureDragon20261004/run_install.ps1` 依次执行共享法线 → `ClawV10/install_textures_ue.py` → `HudV10/install_hud_ue.py` → `ClawV10/install_fab_ue.py`。
+
+**本机输入**：Fab 原模型、百炼生成源图、Blend／FBX 和回执只留本机。
+
+**本轮归档**：113 份废案（19 个 UE 包：V9 爪与能量、V10.1 原创爪、旧爪痕／余烬材质、V9 共享爪材质）已带散列移入本机 `trash/azure-dragon-retired-20261007`。
+
+公开范围与归档清单见 [苍龙 V10 整理发布](Combat/enchant-azure-dragon-v10-publication-20261007.md)。本轮没有运行游戏或画面验收。
+
 ## 螳螂 M27（2026-10-07）
 
 当前为 BindingV2、RunV4、ClawV16、PounceV11、CloakV1、CombatV15 和 AudioV1。保留 Meshy 原始输入、ProductionV1、ClawV3、PounceV5/V6 及已认可的 ClawV14 恢复版本。声音 15 个 SoundWave 和蓝图已后台保存，Editor/Game 已构建；未试听或运行游戏。源码、作者配方、SKILL 和归档元数据公开，模型/PBR、授权派生动作、密集采样、音频与 UE 包留本机。恢复顺序和废案位置见 [螳螂发布与恢复](Monsters/MantisM27Publication20261007.md)。

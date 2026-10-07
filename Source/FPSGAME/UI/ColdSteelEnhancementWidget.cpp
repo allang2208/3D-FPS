@@ -9,6 +9,7 @@
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/AzureDragonReach.h"
 #include "../Weapons/Bow/BowStats.h"
 #include "Engine/GameInstance.h"
 #include "Engine/Texture2D.h"
@@ -279,6 +280,16 @@ void UColdSteelEnhancementWidget::Refresh()
                 if(E->Effect(After,TEXT("bigBlind"))>0.)
                     Summary(FString::Printf(TEXT("命中获得赌注：暴击伤害倍率每层 +%.1f，最多 %.0f 层；命中刷新 %.0f 秒，仅附魔手枪暴击后清空；枪口金色脉冲"),
                         E->Effect(After,TEXT("wagerCriticalBonusPerStack")),E->Effect(After,TEXT("wagerMaxStacks")),E->Effect(After,TEXT("wagerSeconds"))),12,ColdSteelUI::TextSecondary);
+                if(E->Effect(After,TEXT("azureDragonClaw"))>0.)
+                {
+                    const double Required=FMath::Max(1.,E->Effect(After,TEXT("azureDragonHitsToSummon"),9.));
+                    Summary(FString::Printf(TEXT("仅限剑类：每次攻击有效命中积蓄 %g%%，%.0f 次攻击积满后激活 %.0f 秒；同次攻击只充能一次"),100./Required,Required,E->Effect(After,TEXT("azureDragonActiveSeconds"),30.)),12,ColdSteelUI::TextSecondary);
+                    Summary(TEXT("从下一次出手开始，持续期间每次攻击都生效"),12,ColdSteelUI::TextSecondary);
+                    Summary(FString::Printf(TEXT("斩击、重击、上挑延伸到龙爪爪尖约 %.1f 米（其余攻击距离 +%g%%），物理伤害 ×%g；另行结算翻倍前角色物理攻击值的 %g%% 魔法伤害"),
+                        AzureDragonReach::ClawReachCM/100.,(E->Effect(After,TEXT("azureDragonReachMultiplier"),1.5)-1.)*100.,E->Effect(After,TEXT("azureDragonPhysicalMultiplier"),2.),
+                        E->Effect(After,TEXT("azureDragonMagicAttackScale"),1.)*100.),12,ColdSteelUI::TextSecondary);
+                    Summary(TEXT("停止攻击保留未满能量；切换武器、移除附魔或死亡清空。龙爪随剑同步，激活期间能量随时间燃烧，不刷新"),12,ColdSteelUI::TextSecondary);
+                }
                 if(E->Effect(After,TEXT("shatterBullet"))>0.)
                     Summary(FString::Printf(TEXT("命中后向 %.0f 米内弹射一颗，继承 %.0f%% 伤害；击杀时全员弹射"),E->Effect(After,TEXT("shatterRadiusM")),E->Effect(After,TEXT("shatterDamageScale"))*100),12,ColdSteelUI::TextSecondary);
                 if(E->Effect(After,TEXT("electrifiedMelee"))>0.)

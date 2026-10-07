@@ -1,12 +1,12 @@
 param([string]$EngineRoot='E:/Program Files (x86)/UE_5.8')
 $ErrorActionPreference='Stop'
 $taskProject=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
-$taskScript=Join-Path $PSScriptRoot 'install_ue.py'
+$taskScript=Join-Path $PSScriptRoot 'install_hud_ue.py'
 $taskStamp=[DateTime]::Now.ToString('yyyyMMdd-HHmmss')
 function Invoke-ExistingBridge {
     & (Join-Path $taskProject 'Tools/AssetPipeline/mcp_call_codex.ps1') -PythonScript $taskScript `
-        -OutputFile (Join-Path $PSScriptRoot "install-$taskStamp-bridge.txt") -MaxOutputChars 2000 -QueueWaitSeconds 600
-    if($LASTEXITCODE -ne 0){throw 'Azure Dragon visibility save failed; existing editor preserved.'}
+        -OutputFile (Join-Path $PSScriptRoot "install-$taskStamp-bridge.txt") -MaxOutputChars 2200 -QueueWaitSeconds 600
+    if($LASTEXITCODE -ne 0){throw 'Azure Dragon HUD V10 save failed; existing editor preserved.'}
 }
 if(Get-Process UnrealEditor -ErrorAction SilentlyContinue){Invoke-ExistingBridge;exit 0}
 $taskNotified=$false
@@ -14,7 +14,7 @@ while(Get-CimInstance Win32_Process | Where-Object {
     $_.Name -match '^(UnrealBuildTool|cl|link|UnrealEditor-Cmd)\.exe$' -or
     ($_.Name -eq 'dotnet.exe' -and $_.CommandLine -match 'UnrealBuildTool')
 }){
-    if(-not $taskNotified){Write-Output 'Waiting for the current native build or asset commandlet.';$taskNotified=$true}
+    if(-not $taskNotified){Write-Output 'Waiting for current native build or asset commandlet.';$taskNotified=$true}
     Start-Sleep -Seconds 10
 }
 if(Get-Process UnrealEditor -ErrorAction SilentlyContinue){Invoke-ExistingBridge;exit 0}
@@ -23,5 +23,5 @@ if(Get-Process UnrealEditor -ErrorAction SilentlyContinue){Invoke-ExistingBridge
     -unattended -nop4 -nosplash -nosound -RenderOffscreen `
     '-ini:EditorPerProjectUserSettings:[/Script/ModelContextProtocolEngine.ModelContextProtocolSettings]:bAutoStartServer=False' `
     "-abslog=$PSScriptRoot/install-$taskStamp-commandlet.log" *> "$PSScriptRoot/install-$taskStamp-console.log"
-if($LASTEXITCODE -ne 0){throw "Azure Dragon visibility save failed; see install-$taskStamp-commandlet.log."}
-Write-Output 'AZURE_DRAGON_VISIBILITY_V5_SAVED'
+if($LASTEXITCODE -ne 0){throw "Azure Dragon HUD V10 save failed; see install-$taskStamp-commandlet.log."}
+Write-Output 'AZURE_DRAGON_HUD_V10_SAVED'

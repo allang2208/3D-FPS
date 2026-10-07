@@ -76,7 +76,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - 伐木斧、矿镐的双手装备、低伤害自卫、采集范围与旧存档迁移：[采集工具战斗接入](references/harvesting-tools.md)。同文档含 2026-09-24 的四栏数值改造口径（握把／握柄／改件／主部件，采集与自卫分开结算，真实时钟与作者秒换算）；改 `tool-gunsmith.json` 后跑 `Tools/Production/check_tool_modification_consistency.py` 做离线自检，口径与枪械的 `check_attachment_consistency.py` 同源。
 - 砍树木材占 1×2、掉落全程只用短原木 `SM_PoplarLog_Solid_A`、图标按枪械剪影居中离线栅格化：[木材掉落与图标](references/harvest-wood-drop.md)。不要用场景捕获导出当图标交付。
 - 新增或修改**附魔卷轴**（前缀/后缀、类别限制键、效果数值、战斗消费点、提示栏与掉落）：[附魔卷轴设计与接入](references/enchantment-scrolls.md)。四处数据缺一不可；读附魔字段一律判空，战斗侧在档案刷新时缓存参数、不在开火循环里读 JSON。
-- 传说后缀「苍龙」当前未达标、待返工；九次充能／30 秒、左右双爪与伤害合同，V6／V7／V9 被否定的视觉边界及废案恢复：[苍龙待办与归档](references/azure-dragon-pending.md)。仅沉淀结构与失败教训，不将已保存模型／绑骨动作视为认可模板。
+- 传说后缀「苍龙」V10（2026-10-07 用户确认特效合格、范围成功）：九次充能／30 秒、斩击类延伸到爪尖约 15.6 m、世界空间双爪、自定义深度自遮挡、裂空式爪痕、到期／死亡／切换的粒子消散、联机表现同步与服务端伤害复原等可复用做法，以及 V9／V10.1 废案归档：[苍龙现状与做法](references/azure-dragon-pending.md)。
 - 整理废案、更新 Git 或用户授权推送：[清理与发布](references/publication.md)。
 
 ## 执行主线

@@ -1,12 +1,14 @@
-param([string]$EngineRoot='E:/Program Files (x86)/UE_5.8')
+param([string]$EngineRoot='E:/Program Files (x86)/UE_5.8',[string]$Script='install_fab_ue.py')
 $ErrorActionPreference='Stop'
 $taskProject=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
-$taskScript=Join-Path $PSScriptRoot 'install_ue.py'
+# Default: the live Fab claw. -Script install_textures_ue.py restores its vein/smoke reference textures
+# (fresh restore: run that first). The V10.1 original claw was retired on 2026-10-07.
+$taskScript=Join-Path $PSScriptRoot $Script
 $taskStamp=[DateTime]::Now.ToString('yyyyMMdd-HHmmss')
 function Invoke-ExistingBridge {
     & (Join-Path $taskProject 'Tools/AssetPipeline/mcp_call_codex.ps1') -PythonScript $taskScript `
         -OutputFile (Join-Path $PSScriptRoot "install-$taskStamp-bridge.txt") -MaxOutputChars 2200 -QueueWaitSeconds 600
-    if($LASTEXITCODE -ne 0){throw 'Azure Dragon Coherent V9 save failed; existing editor preserved.'}
+    if($LASTEXITCODE -ne 0){throw 'Azure Dragon Claw V10 save failed; existing editor preserved.'}
 }
 if(Get-Process UnrealEditor -ErrorAction SilentlyContinue){Invoke-ExistingBridge;exit 0}
 $taskNotified=$false
@@ -23,5 +25,5 @@ if(Get-Process UnrealEditor -ErrorAction SilentlyContinue){Invoke-ExistingBridge
     -unattended -nop4 -nosplash -nosound -RenderOffscreen `
     '-ini:EditorPerProjectUserSettings:[/Script/ModelContextProtocolEngine.ModelContextProtocolSettings]:bAutoStartServer=False' `
     "-abslog=$PSScriptRoot/install-$taskStamp-commandlet.log" *> "$PSScriptRoot/install-$taskStamp-console.log"
-if($LASTEXITCODE -ne 0){throw "Azure Dragon Coherent V9 save failed; see install-$taskStamp-commandlet.log."}
-Write-Output 'AZURE_DRAGON_COHERENT_V9_SAVED'
+if($LASTEXITCODE -ne 0){throw "Azure Dragon Claw V10 save failed; see install-$taskStamp-commandlet.log."}
+Write-Output 'AZURE_DRAGON_CLAW_V10_SAVED'

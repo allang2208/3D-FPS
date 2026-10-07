@@ -28,6 +28,8 @@
 #include "../UI/ColdSteelInventoryTypes.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Weapons/ColdSteelEnchantmentCombat.h"
+#include "../Weapons/AzureDragonReach.h"
+#include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/ModularSwordVisual.h"
@@ -588,7 +590,13 @@ bool AColdSteelPlayerState::ValidateHitReport(const FColdSteelNetHitReport& Repo
     }
     float MaxRange = bUnarmed?UnarmedPunch::ReachCM+120.f:Shooter->TraceDistance*1.25f;
     if(Report.AttackMeta==SwordUppercut::AttackMeta&&OutDeclaredItem&&ColdSteelInventory::IsTwoHandedSword(*OutDeclaredItem))
+    {
         MaxRange=static_cast<float>(ColdSteelMelee::UppercutReachCM(ShadowModel))*1.25f;
+        // 苍龙激活期间上挑延伸到龙爪爪尖最远处；激活窗口在客户端，按所持剑带苍龙附魔放宽。
+        const auto* Enhancement=GI?GI->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
+        if(Enhancement&&Enhancement->Effect(*OutDeclaredItem,TEXT("azureDragonClaw"))>0.)
+            MaxRange=FMath::Max(MaxRange,AzureDragonReach::ClawReachCM*1.1f);
+    }
     if (FVector::Dist(Shooter->GetActorLocation(), FVector(Report.ImpactPoint)) > MaxRange)
     { OutReason = TEXT("range"); return false; }
     const float Range = FVector::Dist(FVector(Report.AimOrigin), FVector(Report.ImpactPoint));
@@ -742,6 +750,15 @@ void AColdSteelPlayerState::ServerReportHit_Implementation(const FColdSteelNetHi
         else if((Shot.AttackMeta&0x0F)==3)Shot.ToughnessDamageMultiplier*=Modifiers.ComboThirdToughness;
     }
     if (Report.AttackForm != 0) Shot.AttackForm = static_cast<EMonsterAttackForm>(Report.AttackForm);
+    // 苍龙：激活窗口在客户端，只信任申报位；数值全部取服务端的附魔与影子档案（翻倍前物理攻击）。
+    if ((Report.Flags & (1 << 7)) && Declared && Shot.bMelee)
+        if (const auto* Enhancement = GetGameInstance() ? GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>() : nullptr;
+            Enhancement && Enhancement->Effect(*Declared, TEXT("azureDragonClaw")) > 0.)
+        {
+            Shot.AzureDragonPhysicalMultiplier = FMath::Max(1.f, static_cast<float>(Enhancement->Effect(*Declared, TEXT("azureDragonPhysicalMultiplier"), 2.)));
+            Shot.AzureDragonMagicDamage = FMath::Max(0.f, ShadowModel->Derived(TEXT("atk")))
+                * FMath::Max(0.f, static_cast<float>(Enhancement->Effect(*Declared, TEXT("azureDragonMagicAttackScale"), 1.)));
+        }
 
     // 自报伤害钳制在服务端武器包络内：汇聚倍率服务端复算，
     // 消耗弹数按影子装备弹匣容量上界（客户端申报的 Rounds 本身不可信——无界会放大 cap）。
@@ -798,6 +815,9 @@ void AColdSteelPlayerState::ClientConfirmHit_Implementation(const FColdSteelNetH
     Result.bCritical = Receipt.bCritical;
     Result.bKilled = Receipt.bKilled;
     LocalChar->NotifyConfirmedWeaponHit(Receipt.Target, Receipt.Applied, &Result, true);
+    // 远端客户端本地命中不结算伤害，苍龙蓄能以服务端回执为准（每次攻击仍只充能一次）。
+    if (auto* Sword = LocalChar->FindComponentByClass<URuneSwordComponent>())
+        Sword->NotifyAzureDragonNetHit(Receipt.Target, Receipt.Applied, Receipt.bKilled);
     UE_LOG(LogTemp, Warning, TEXT("MPTEST hit confirmed on client: target=%s applied=%.1f"),
         *GetNameSafe(Receipt.Target), Receipt.Applied);
 }
@@ -1085,6 +1105,8 @@ bool AColdSteelPlayerState::ForwardHit(AActor* Shooter, const FHitResult& Hit, f
     if (Shot.bInheritedCritical) Report.Flags |= 1 << 5;
     // bFiredRound：真正消耗弹药的一发（枪/弓），不含近战挥砍与握把砸击。
     if (!Shot.bMelee && !Shot.bMeleeStrike) Report.Flags |= 1 << 6;
+    // 苍龙激活中的出手：服务端核对所持剑带苍龙附魔后复原物理倍率与追加魔法伤害。
+    if (Shot.AzureDragonPhysicalMultiplier > 1.f) Report.Flags |= 1 << 7;
     PS->ServerReportHit(Report);
     return true;
 }

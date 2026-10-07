@@ -9,6 +9,7 @@
 #include "RuneSwordPommelRhythm.h"
 #include "RuneSwordOverheadRhythm.h"
 #include "RuneSwordHitQuery.h"
+#include "AzureDragonReach.h"
 #include "MeleeWeaponStats.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "UObject/StrongObjectPtr.h"
@@ -29,7 +30,23 @@ class UMaterialInterface;
 class UAzureDragonEnergyComponent;
 class UFPSCombatHealthComponent;
 class UNiagaraSystem;
+class UDynamicMeshComponent;
 struct FStreamableHandle;
+
+/** One recorded point of an Azure Dragon rake's five talon paths, in the claws' body frame. */
+struct FAzureDragonTrailSample
+{
+    float Time=0.f;
+    FVector3f Tips[5];
+};
+
+/** One rake's five talon rift scars: the bounded tip path, cut while raking, then held and dissolved. */
+struct FAzureDragonRift
+{
+    TArray<FAzureDragonTrailSample> Path;
+    float LastCut=-10.f,Width=0.f;
+    uint8 Claw=255;
+};
 
 /** Standalone first-person sword. The inventory owns the equipped instance and saves. */
 UCLASS(ClassGroup=(Weapons), meta=(BlueprintSpawnableComponent))
@@ -85,6 +102,14 @@ public:
     bool GetFireMagicBladePoints(FVector& Base,FVector& Tip) const;
     /** Presentation attachment, independent of the combat-only Blade_Base/Tip animation tracks. */
     bool GetEnchantmentBladeAttachment(USceneComponent*& Parent,FName& Socket,FTransform& LocalFrame,float& Length) const;
+    /** Online clients resolve hits on the server: its receipt stands in for the local result when charging Azure Dragon. */
+    void NotifyAzureDragonNetHit(AActor* Target,float Applied,bool bKilled);
+    /** Online: the owner's cosmetic Azure Dragon state for the body presentation (flags: bit0 active,
+     *  bit1 claw strike, bit2 right claw, bits3-4 stroke 0 horizontal/1 heavy/2 overhead/3 rising, bit5 heavy windup,
+     *  bit6 dissolve, bit7 faster death dissolve). */
+    void SampleAzureDragonNet(uint8& Flags,float& SourceLength,float& Entry,float& ChargeStart,float ServerNow) const;
+    /** Online: another player's claws on this machine, from their replicated body state (source seconds). */
+    void PresentAzureDragonRemote(uint8 Flags,float Source,float StrikeContactStart,float StrikeContactEnd,float Entry,float Held);
 private:
     friend class URuneSwordAuditCommandlet;
     friend class UFPSConsumableAuditCommandlet;
@@ -275,10 +300,94 @@ private:
     void ClearAzureDragonEnergy();
     void CaptureAzureDragonAttack(UColdSteelStatusModel* Profile);
     float AzureDragonRange(float BaseRange) const { return BaseRange*SwingAzureDragonReachMultiplier; }
+    // V10.11: slash-type swings (slashes, heavy and overhead strokes, uppercut) reach from the player to
+    // the claws' farthest talon point while active; thrust, pommel, dash, whirlwind and quick combat keep
+    // AzureDragonRange (x1.5).
+    bool AzureDragonClawSwing() const
+    { return bSwingAzureDragonActive&&!bThrustAttack&&!bPommelAttack&&!bDashAttack&&!bWhirlwind&&!bQuickCombatStrike; }
+    float AzureDragonSwingRange(float BaseRange) const
+    { return AzureDragonClawSwing()?FMath::Max(BaseRange,AzureDragonReach::ClawReachCM):AzureDragonRange(BaseRange); }
     float AzureDragonActiveUntil=0.f,AzureDragonSeconds=30.f,AzureDragonReachMultiplier=1.5f;
     float AzureDragonPhysicalMultiplier=2.f,AzureDragonMagicScale=1.f,SwingAzureDragonReachMultiplier=1.f;
     bool bSwingAzureDragonActive=false;
     bool bSwingAzureDragonCharged=false;
     // Append cosmetic state so existing sword members keep their layout.
     uint8 AzureDragonNextClaw=0,SwingAzureDragonClaw=0;
+    // Five talon rift scars per rake, two scar sets (one reusable ribbon mesh each) so the last rake's
+    // scars keep dissolving while the next rake cuts new ones.
+    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> AzureDragonTrailMaterial;
+    UPROPERTY(Transient) TArray<TObjectPtr<UDynamicMeshComponent>> AzureDragonRiftMeshes;
+    UPROPERTY(Transient) TArray<TObjectPtr<UMaterialInstanceDynamic>> AzureDragonRiftMIDs;
+    FAzureDragonRift AzureDragonRifts[2];
+    int32 AzureDragonRiftCutting=INDEX_NONE;    // scar set the current rake is cutting
+    void UpdateAzureDragonTrail(const FVector& Origin,const FQuat& Frame,const FVector& Eye,int32 Claw,float Strength,float Size);
+    // Unseen custom-depth followers (front-surface test for the glass) and the arm-end fire cards.
+    UPROPERTY(Transient) TArray<TObjectPtr<USkeletalMeshComponent>> AzureDragonClawDepth;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> AzureDragonFlameMaterial;
+    UPROPERTY(Transient) TObjectPtr<UDynamicMeshComponent> AzureDragonFlames;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> AzureDragonFlameMID;
+    void UpdateAzureDragonFlames(const FVector& Eye,const FQuat& View,const float* ClawStrength);
+    // One camera punch and claw flash per rake, when it crosses the contact point.
+    bool bAzureDragonImpactFired=false;
+    float AzureDragonImpactTime=-10.f;
+    // World-space body anchor (eye position + yaw) followed with inertia; the claws live in this frame.
+    FVector AzureDragonAnchor=FVector::ZeroVector;
+    float AzureDragonAnchorYaw=0.f;
+    bool bAzureDragonAnchored=false;
+    // Idle-loop clock per claw (V10.10): restarted when its rake ends; < 0 = unset (desynced on summon).
+    float AzureDragonIdleStart[2]={-1.f,-1.f};
+    // V10.12: claw side from the blade's lateral motion (clip -> +1 right claw, -1 left, 0 vertical),
+    // measured once per clip and weapon; a short transform blend whenever a claw changes what it is
+    // doing (strike start, cancel, combo hand-over, charge release); per-frame claw-line target band.
+    TMap<FName,int8> AzureDragonClipSide;
+    float AzureDragonSwingLateral=0.f;          // this swing's blade travel to the right (aim space, cm)
+    void ChooseAzureDragonClaw();
+    uint32 AzureDragonSwingSerial=0,AzureDragonClawMode[2]={0u,0u};
+    float AzureDragonStrikeEntry=-1.f,AzureDragonBlendStart[2]={-10.f,-10.f};
+    FVector AzureDragonShownPalm[2]={FVector::ZeroVector,FVector::ZeroVector},AzureDragonBlendPalm[2]={FVector::ZeroVector,FVector::ZeroVector};
+    FQuat AzureDragonShownRotation[2]={FQuat::Identity,FQuat::Identity},AzureDragonBlendRotation[2]={FQuat::Identity,FQuat::Identity};
+    bool bAzureDragonShown=false;
+    bool AzureDragonClawBand(const FVector& Origin,float& OutNear,float& OutFar);
+    uint64 AzureDragonBandFrame=0;
+    float AzureDragonBandNear=0.f,AzureDragonBandFar=0.f;
+    // V10.13: one presented frame of the claws, from the owner's sword state or from another player's
+    // replicated body state on this machine.
+    struct FAzureDragonFrame
+    {
+        bool bActive=false,bStriking=false,bCharging=false,bVertical=false,bRising=false,bHeavy=false;
+        uint8 Claw=0;
+        float Source=0.f,HitStart=0.f,HitEnd=0.f,Entry=-1.f,Held=0.f,Rate=1.f,SummonAge=0.f;
+        bool bDissolving=false;                                      // V10.14 expiry: erode and blow away
+        float DissolveStart=-100.f,DissolveAge=0.f,DissolveRate=1.f; // age already scaled by the rate
+        int32 MoteBudget=0;                                          // motes per claw for this viewer
+        FVector Eye=FVector::ZeroVector,ViewEye=FVector::ZeroVector; // the claws' owner / the viewing camera
+        float Yaw=0.f;
+        FRotator View=FRotator::ZeroRotator;
+        class APlayerController* ShakePC=nullptr;                    // the owner's camera only
+    };
+    bool LocalAzureDragonFrame(FAzureDragonFrame& Out) const;
+    void PresentAzureDragon(const FAzureDragonFrame& Frame);
+    bool bAzureDragonRemote=false,bAzureDragonRemoteActive=false,bAzureDragonRemoteStriking=false;
+    float AzureDragonRemoteSummonAt=0.f,AzureDragonRemoteLastSource=0.f;
+    // V10.14: on expiry the claws erode along a wind front and blow away as motes: CPU-simulated
+    // camera-facing quads in one fixed-topology mesh, seeded once per dissolve from a bounded set of
+    // skinned vertices, only live motes updated (positions only), hidden when done.
+    struct FAzureDragonMote
+    {
+        FVector Local=FVector::ZeroVector,Position=FVector::ZeroVector,Velocity=FVector::ZeroVector;
+        float Birth=0.f,Life=1.f,Size=10.f,Phase=0.f;
+        bool bBorn=false,bDead=false;
+    };
+    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> AzureDragonDustMaterial;
+    UPROPERTY(Transient) TObjectPtr<UDynamicMeshComponent> AzureDragonDust;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> AzureDragonDustMID;
+    TArray<FAzureDragonMote> AzureDragonMotes;
+    float AzureDragonDissolveStart=-100.f,AzureDragonSummonedAt=0.f,AzureDragonMoteSeed=-1000.f;
+    float AzureDragonRemoteDissolveAt=-100.f;
+    bool bAzureDragonRemoteDissolving=false;
+    // V10.15: expiry, death, weapon switch, unequip and enchant removal all start the dissolve (death
+    // faster, finishing before the respawn); gameplay state still clears at once.
+    float AzureDragonDissolveRate=1.f,AzureDragonRemoteDissolveRate=1.f;
+    void BeginAzureDragonDissolve(float Rate);
+    void UpdateAzureDragonDust(const FAzureDragonFrame& Frame,const FVector& Wind,const FVector* Center,const FVector* Axis);
 };

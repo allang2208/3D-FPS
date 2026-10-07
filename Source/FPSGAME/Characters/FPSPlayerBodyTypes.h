@@ -106,6 +106,12 @@ struct FFPSBodyState
     UPROPERTY() bool bBowCarryAxis = false;
     UPROPERTY() FFPSBodyMotionSample Contacts;
     UPROPERTY() float ActionEntryFraction=0.f;
+    // Azure Dragon claws (cosmetic, see URuneSwordComponent::SampleAzureDragonNet): flags, strike clip
+    // length and entry (source seconds), heavy charge start (server clock).
+    UPROPERTY() uint8 AzureFlags=0;
+    UPROPERTY() float AzureSourceLength=0.f;
+    UPROPERTY() float AzureEntryTime=0.f;
+    UPROPERTY() float AzureChargeStartedAt=0.f;
 };
 
 USTRUCT()
