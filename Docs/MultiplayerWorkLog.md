@@ -121,6 +121,34 @@
 
 **验证**：`Build.bat FPSGAMEEditor` Succeeded（两轮修正：`NetCast::Send` 参数放宽到 `AActor*` 收组件 GetOwner；组件无 `HasAuthority()/GetGameInstance()` 便捷函数改 `GetOwner()->`/`GetWorld()->` 取；`FPSMagicPreview::AimPoint` 收 `const APawn*`）。运行时验证点（留用户）：每个法术在客户端凝聚→释放→远端见到对应表现；命中伤害只算一次；取消/弃置退蓝正确；雷云域的周期性落雷远端可见。
 
+## 3.22 节后增量收口：表现上行/玩家死亡/门族/怪物音频/命中元数据（2026-10-06，skill 已同步，未实测）
+
+节后联机面又长出六块模式，本节补记，细节以 `skills/ue5-multiplayer-netcode/SKILL.md`（同日重排为 13 节 53 条）为准。
+
+**远端形象双向通道**：客户端 `SampleLocalState`→`ServerBodyTransition`（动作沿 reliable）/`ServerBodySnapshot`（80ms unreliable）上行自家 pawn；服务端 `AcceptBodyPresentation` 逐字段消毒（枚举界/NaN/时长≤60s/时戳窗/支点≤500cm/序号单调）存 `ReportedPresentation`；10Hz `SampleRemoteAuthorityState` 只合并表现字段（武器/族/瞄准/位移与玩法值不采），0.6s 不新鲜回落纯权威采样→`ReplicatedState` 下发。消耗品借 `EFPSBodyAction::Consume` 走同一条（`ActionStartedAt=ServerClock()-Age` 回填）。
+
+**玩家死亡**：`UFPSCombatHealthComponent` 复制 `DeathStartedAt`（服务器钟）+`bDeathFromCrouch`，判死 `ForceNetUpdate`；`ApplyPlayerDeath` 权威/OnRep 各端同跑（中断优先动作→禁输入→停走→pawn 停 tick，body/相机组件独立 tick 续播倒地轨）；本机死亡相机 `death_presentation` JSON 轨+`SetManualCameraFade`，`ReleaseDeathCamera` 只归还本次 fade（CameraManager 跨 pawn 存活）。
+
+**门族权威**（首个非玩家 Pawn 复制交互对象）：`FColdSteelDoorNetState{From,To,Speed,StartedAt}` 一次权威过渡，OnRep 按服务器钟重算 CurrentAngle（迟到加入自动补齐）；门 actor 属服务端，上行通道挂自家 pawn 的 `UFPSDoorPushComponent`：`ServerToggleDoor`/`ServerReleaseDoor`/撞门三段+`ClientPushResult` 撤本地起手；`ServerCanInteract` 全链复验（LOS 首挡=目标门/朝向/冲刺意图=远端 `bWantsToSprint`）；子类 Contact/Key/Drag/Sliding/Revolving 共享同结构；`fps.DoorPush.Debug` 沿闸门链输出拒绝原因。
+
+**怪物离散表现/音频**：一次性提示统一"复制序号+服务器钟沿"不走 multicast（`AttackSequence+AttackStartedAt`/`ThreatSerial`/`PouncePhase`/`bCloaked`，M27 OnRep `SetCombatTime(ServerClock()-StartedAt)` 中途进招也对时）；循环声=各端本地 `UAudioComponent` 由复制态驱动；`NM_DedicatedServer` 是音频/表现总闸；奖励归属走服务端影子档不用"本地 controller"做门禁（M25 客机不吐撕咬奖励修复）。
+
+**命中元数据服务端重建**：`GuardAttackSerial`（同挥目标组）+`GuardSourceInstance`/`DealerSourceInstance`/`ZhenmoSourceInstance` 由服务端按*服务端物品*回填；`bRisingDragonFinisher`/`ToughnessDamageMultiplier` 经 `ColdSteelMelee::Evaluate(Declared,ShadowModel)` 复算，客户端申报效果标志一律不采；AttackMeta 编码 0x0F 连段/0x10 重/0x14 上挑/0x20 旋风/0x40 裂斩/0x80 快攻（0x20|0x80 不吃韧性倍率）。
+
+**杂项**：`FLAG_Custom_3`=架枪意图位（SavedMove 压缩位也是服务端读远端按键意图的唯一可信口）；影子档案经 `ApplyColdSteelProfile→Configure` 灌进服务端 pawn 附魔组件（Zhenmo/Jingang/Dealer 是 CreateDefaultSubobject）；`Plugins/ColdSteelNet` 在库内但 `Plugins/` 被 .gitignore（提交 `git add -f`）；`ServerReportBodyAction` PlayerState 端点已接线无调用方（离散动作由表现上行覆盖）。
+
+**本节修复**：门钥匙环 `AFPSGAMECharacter::DoorKeys` 原只在服务端写入且未复制——客机交互提示"有钥匙"分支读本机 pawn 恒为空、键门恒显"需要钥匙"（开锁功能正常仅文案偏差）。已把 `DoorKeys` 转 `UPROPERTY(Replicated)` + `DOREPLIFETIME_CONDITION(COND_OwnerOnly)`（FPSGAMECharacter 首个复制成员，`GetLifetimeReplicatedProps` 落 `FPSGAMECharacterProfile.cpp`），持有者客机镜像自己的钥匙环，提示恢复正确。
+
+**门打不开修复（2026-10-07）**：日志 `两侧摆动空间均被阻挡，拒绝开门` 定位到 10-04 新加的"两侧皆堵拒开"判定误伤——门洞只比门板宽几厘米，门板摆扫时铰链侧角尖擦进紧贴的门梃/过梁凸包（PowerTheme 整屋壳 UCX 距门板铰链边仅 ~3cm）。`IsSwingBlocked`（门/窗同口径）新增两类豁免：**门板容身壳**（门板平面方向放宽 ~10cm 收集的贴合构件——门套/侧梃/过梁/嵌着门板的墙壳分段；厚度方向不放宽，正面顶住门板的箱子仍算阻挡）+ **门族门板互免**（双开门两叶子铰链各在外缘互不死锁）。阻挡者现在写日志（`摆动被挡：方向/进度/阻挡=Actor:Component`），滑动门 `IsSlideBlocked` 同步输出阻挡者名。另修客机 `TraceTarget` 白名单：旧写法只认 `AColdSteelDoor`/`AColdSteelWindow`，滑动门/旋转门在客机 E 交互失效——改为复用 `UFPSDoorPushComponent::IsNativeDoor` 单一口径。
+
+**撞门重试锁存修复（2026-10-07 续）**：实测日志显示客机探测命中闭门后触发起手→服务端复核拒收（`左手施法占用`）→`ClientPushResult(false)` 撤本地动作，之后 `LastDoor` 把同一扇门永久锁存（直到松开 Shift/视线离开），一次瞬态拒绝=这扇门该次冲刺内永远免疫。修法：触发点武装 `SameDoorRetryAt=now+.55s`（兜底 `BeginPush` 姿态捕获早期失败——它不走 `Cancel`），`Cancel` 失败/中止时在回执时刻再武装一次（>服务端 .2s 节流窗），`Advance` 的同门跳过改为"冷却内才跳过"——0.55s 后继续冲刺对着同门自动重试，由服务端占用门收敛终态。另给 `左手施法占用` 加逐项分解：`AFPSGAMECharacter::DescribeLeftHandBusy()` 按 `IsLeftHandBusyForCast` 同序输出激活谓词（法杖 NotReady 时附 busy/视模可见性细目），客户端 `CanStart` 与服务端 `ServerCanInteract` 共用该字符串——下次出现"客户端过、服务端拒"的两端分歧时日志直接点名卡在哪个字段（服务端副本的视图模型可见性/`WeaponState`/副本忙位是已知疑似点）。
+
+**失败日志去 cvar 化（同日晚）**：复测发现整轮 PIE 零门日志——`fps.DoorPush.Debug` 不跨会话持久，用户没重新开就完全静默。把链上所有**稀有失败/尝试节点**改为无条件输出：触发起手、`BeginPush` 失败、服务端复核拒绝（含 `[谓词分解]`）、节流拒绝、接触时刻复核拒绝、开门失败、客户端失败回执、E 键客户端请求被拒、E 键服务端拒绝。每帧探测类（`探测：首个遮挡`/`未触发`/`朝向拒绝`/`冲刺中但CanStart拒绝`）仍留在 cvar 后防刷屏。此后"撞不开门"的报告不再需要先教用户开开关。
+
+**左手占用自拒根因修复（同日晚，实测定位）**：去 cvar 化后日志立刻指认——`服务器起手拒绝：原因=左手施法占用[DoorPush]`，且起手与拒绝同毫秒（同进程内评估）。根因：`IsLeftHandBusyForCast`/`IsCastBlockingLeftHandAction`/`IsSpellGestureBlocking` 三谓词首项都是 `IsDoorPushActive()`（读组件 `bActive`）；本机/主机/PIE 上发起端与权威端是同一实例，`BeginPush` 先置 `bActive=true` 再发 `ServerBeginPush`，复核时读到"正在推的门推就是这次推"，恒自拒。远端客机服务端副本 `bActive` 恒假所以不误伤，但这是语义巧合不是设计。修法：三谓词加 `bIgnoreDoorPush` 参数（默认 false 不影响施法/其他调用方），门推组件 `CanStart`/`ServerCanInteract` 两处门禁统一传 `true`——并发语义不损：客户端侧 `bActive` 期间 `Advance` 提前 return 根本到不了探测，服务端侧 `ServerDoor`+`LastServerRequest` 节流挡并发请求。
+
+**未做/遗留**：运行时双进程验收未跑（用户规则）；`ServerReportBodyAction` 备用端点待后续离散动作需求再启用或清理。
+
 ## 3.17 通用施法通道 + 火球服务端化打样（2026-10-02，代码自查过，编译因 Live Coding 占用未跑）
 
 **架构（A 模式打样）**：`FColdSteelNetCastRequest{SkillId,Phase,AimPoint}` + `PlayerState.ServerCastSpell`（Server Reliable）+ `ClientCastResult` 回执（Client Reliable）。Phase：0=凝聚 1=发射 2=凝聚期取消(退蓝清CD) 3=弃置悬停体(只清占用)。服务端 `ExecuteCastRequest` 按 SkillId 分派（当前仅 `fireball`），影子档案校验 pawn/死亡/冷却/法耗并 `BeginFireballCast` 扣账，orb 由服务端生成（`bReplicates`+`SetReplicateMovement`），各端靠 actor 复制看表现。**新法术接入=SkillId 注册+ExecuteCastRequest 加分支+组件侧 SendNetCast 调用**，不加新 RPC。

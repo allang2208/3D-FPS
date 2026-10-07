@@ -1,11 +1,17 @@
 #include "ColdSteelDoor.h"
+#include "ColdSteelSlidingDoor.h"
+#include "ColdSteelRevolvingDoor.h"
+#include "ColdSteelWindow.h"
 #include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine/OverlapResult.h"
 #include "Engine/World.h"
 #include "Engine/StaticMesh.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
+#include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInterface.h"
+#include "Sound/SoundBase.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Net/UnrealNetwork.h"
 
@@ -20,6 +26,9 @@ namespace
     // 匿名命名空间在合并块里是共享的，同名常量会报 C2374 重定义。
     const TCHAR* SingleDoorLeafMesh=TEXT("/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40");
     const TCHAR* SingleDoorFrameMesh=TEXT("/Game/Props/SingleDoor20260918/SM_SingleDoorFrame_D40.SM_SingleDoorFrame_D40");
+    // 开/关门音效（qubodup DoorSet，CC0）：子类（铁门）在构造里换成自己的声音。
+    const TCHAR* DoorOpenSoundPath=TEXT("/Game/Audio/Interactions/DoorAudio20261004/S_Door_Open.S_Door_Open");
+    const TCHAR* DoorCloseSoundPath=TEXT("/Game/Audio/Interactions/DoorAudio20261004/S_Door_Close.S_Door_Close");
     // 构造期占位值：BeginPlay 的 AlignGeometry 会按网格包围盒重算铰链与门板位置，改网格无需改这里。
     constexpr float LeafHalfWidth=45.f;
     constexpr float LeafCenterZ=100.f;
@@ -52,6 +61,18 @@ AColdSteelDoor::AColdSteelDoor()
     static ConstructorHelpers::FObjectFinder<UStaticMesh> FrameAsset(SingleDoorFrameMesh);
     if(LeafAsset.Succeeded())Leaf->SetStaticMesh(LeafAsset.Object);
     if(FrameAsset.Succeeded())Frame->SetStaticMesh(FrameAsset.Object);
+    static ConstructorHelpers::FObjectFinder<USoundBase> OpenSoundAsset(DoorOpenSoundPath);
+    static ConstructorHelpers::FObjectFinder<USoundBase> CloseSoundAsset(DoorCloseSoundPath);
+    if(OpenSoundAsset.Succeeded())OpenSound=OpenSoundAsset.Object;
+    if(CloseSoundAsset.Succeeded())CloseSound=CloseSoundAsset.Object;
+}
+
+void AColdSteelDoor::MulticastDoorSound_Implementation(bool bOpening)
+{
+    // 服务器组播（本地也执行）：门所在位置空间化播放；专服无声卡，跳过。
+    if(GetNetMode()==NM_DedicatedServer)return;
+    if(auto* Sound=bOpening?OpenSound.Get():CloseSound.Get())
+        UGameplayStatics::PlaySoundAtLocation(this,Sound,GetActorLocation());
 }
 
 void AColdSteelDoor::BeginPlay()
@@ -136,6 +157,21 @@ bool AColdSteelDoor::IsSwingBlocked(float DirectionSign) const
     FCollisionQueryParams Params(SCENE_QUERY_STAT(ColdSteelDoorSwing),false,this);
     Params.AddIgnoredActor(this);
     if(const AActor* Parent=GetAttachParentActor())Params.AddIgnoredActor(Parent);
+    // 「门套」豁免：门板容身处周围一圈构件（门框、门梃、过梁、门槛，以及嵌着门板的墙壳分段）
+    // 不算阻挡；只有扫掠途中才首次碰到的实体才算障碍。门洞往往只比门板宽几厘米，
+    // 门板旋转时铰链侧角尖会擦进紧贴的侧梃凸包——所以豁免盒在门板平面方向放宽，
+    // 但厚度方向保持原样：正面顶住门板的箱子仍然算障碍。
+    // 没有这条，嵌进房间壳体门洞的门板两个方向都被"挡"而永远拒开（2026-10-07 实测）。
+    TSet<const UPrimitiveComponent*> Housing;
+    {
+        const FVector Extent=LeafTestExtent();
+        const FCollisionShape HousingShape=FCollisionShape::MakeBox(
+            FVector(Extent.X,Extent.Y+10.f,Extent.Z+10.f));
+        TArray<FOverlapResult> Rest;
+        const FTransform LeafNow=Leaf->GetComponentTransform();
+        if(World->OverlapMultiByObjectType(Rest,LeafNow.TransformPosition(LeafOriginCm),LeafNow.GetRotation(),ObjectParams,HousingShape,Params))
+            for(const FOverlapResult& Hit:Rest)if(Hit.Component.IsValid())Housing.Add(Hit.Component.Get());
+    }
     const FTransform ActorTransform=GetActorTransform();
     const FTransform LeafLocal=Leaf->GetRelativeTransform();
     const FTransform HingeLocal=Hinge->GetRelativeTransform();
@@ -146,8 +182,21 @@ bool AColdSteelDoor::IsSwingBlocked(float DirectionSign) const
         const FTransform HingeOpen(FQuat(FRotator(0.f,Full*Fraction,0.f)),HingeLocal.GetLocation());
         const FTransform LeafOpen=LeafLocal*HingeOpen*ActorTransform;
         const FVector Centre=LeafOpen.TransformPosition(LeafOriginCm);
-        if(World->OverlapAnyTestByObjectType(Centre,LeafOpen.GetRotation(),ObjectParams,Shape,Params))
+        TArray<FOverlapResult> Hits;
+        if(!World->OverlapMultiByObjectType(Hits,Centre,LeafOpen.GetRotation(),ObjectParams,Shape,Params))continue;
+        for(const FOverlapResult& Hit:Hits)
+        {
+            const UPrimitiveComponent* Comp=Hit.Component.Get();
+            if(!Comp||Housing.Contains(Comp))continue;
+            const AActor* Blocker=Hit.GetActor();
+            // 门族互免：双开门的两扇门板铰链各在门洞外缘、扫掠路径平行不相交，
+            // 即使几何上擦到也同属可开启的门板，不该互相否决。
+            if(Blocker&&(Cast<AColdSteelDoor>(Blocker)||Cast<AColdSteelWindow>(Blocker)||
+                Cast<AColdSteelSlidingDoor>(Blocker)||Cast<AColdSteelRevolvingDoor>(Blocker)))continue;
+            UE_LOG(LogTemp,Display,TEXT("ColdSteelDoor %s 摆动被挡：方向=%s 进度=%.2f 阻挡=%s:%s"),
+                *GetName(),DirectionSign>=0.f?TEXT("+"):TEXT("-"),Fraction,*GetNameSafe(Blocker),*GetNameSafe(Comp));
             return true;
+        }
     }
     return false;
 }
@@ -233,10 +282,9 @@ float AColdSteelDoor::AngleSignForWorldSide(float WorldSideSign) const
 void AColdSteelDoor::OpenDoor()
 {OpenDoorFrom(nullptr);}
 
-void AColdSteelDoor::OpenDoorFrom(const APawn* InstigatorPawn)
+bool AColdSteelDoor::OpenDoorFrom(const APawn* InstigatorPawn)
 {
-    if(!HasAuthority()||bOpen)return;
-    bOpen=true;
+    if(!HasAuthority()||bOpen)return bOpen;
     // 默认方向由玩家决定：门朝玩家的**反侧**开（等于玩家把门推开），而不是固定方向。
     // 只有在拿不到玩家位置时才退回配置方向 OpenAngleDegrees 的符号。
     float Preferred=(OpenAngleDegrees>=0.f)?1.f:-1.f;
@@ -249,17 +297,26 @@ void AColdSteelDoor::OpenDoorFrom(const APawn* InstigatorPawn)
     if(IsSwingBlocked(Preferred))
     {
         const float Other=-Preferred;
-        // 两侧都被挡住时保持默认方向：宁可夹着开，也不要出现“门完全打不开”。
         if(!IsSwingBlocked(Other)){OpenDirection=Other;bOpenFlipped=true;}
+        else
+        {
+            // 两侧摆动空间都被实体挡住：拒绝开门，不穿墙（2026-10-04 用户拍板：
+            // “两侧都被堵时无法开门，除非移除阻挡物”）。玩家自身不算阻挡（IsSwingBlocked 不查 Pawn）。
+            UE_LOG(LogTemp,Display,TEXT("ColdSteelDoor %s 两侧摆动空间均被阻挡，拒绝开门"),*GetName());
+            return false;
+        }
     }
+    bOpen=true;
     TargetAngle=FMath::Abs(OpenAngleDegrees)*OpenDirection;
     AutoCloseRemaining=AutoCloseSeconds;
     PublishSwing();
+    MulticastDoorSound(true);
     UE_LOG(LogTemp,Display,TEXT("ColdSteelDoor %s 铰链侧=Y%s 玩家侧=%s 开门方向=%s %s"),*GetName(),
         HingeSign>0.f?TEXT("+"):TEXT("-"),
         bHasPlayer?(PlayerSide>0.f?TEXT("+X"):TEXT("-X")):TEXT("未知"),
         OpenDirection>=0.f?TEXT("+"):TEXT("-"),
         bOpenFlipped?TEXT("（推开侧被挡，已反向开）"):TEXT("（朝玩家反侧开）"));
+    return true;
 }
 
 void AColdSteelDoor::CloseDoor()
@@ -269,6 +326,7 @@ void AColdSteelDoor::CloseDoor()
     TargetAngle=0.f;
     AutoCloseRemaining=0.f;
     PublishSwing();
+    MulticastDoorSound(false);
 }
 
 void AColdSteelDoor::Tick(float DeltaSeconds)

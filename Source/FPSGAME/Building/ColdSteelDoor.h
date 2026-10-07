@@ -8,6 +8,7 @@
 class UStaticMeshComponent;
 class UStaticMesh;
 class UMaterialInterface;
+class USoundBase;
 
 /**
  * 本工程自己的门（单扇平开＋门框），用于建造面板与关卡里的可交互门。
@@ -32,8 +33,11 @@ public:
     AColdSteelDoor();
     virtual void Tick(float DeltaSeconds) override;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-    void OpenDoorFrom(const APawn* InstigatorPawn);
-    void ToggleDoorFrom(const APawn* InstigatorPawn);
+    /** 尝试开门：返回 false 表示被拒（两侧摆动空间都被实体挡住时不开门，2026-10-04 用户拍板）。 */
+    virtual bool OpenDoorFrom(const APawn* InstigatorPawn);
+    virtual void ToggleDoorFrom(const APawn* InstigatorPawn);
+    /** 拖拽门（子类）用：松开 E 时在当前角度停住。基类默认无操作。 */
+    virtual void ReleaseDoor() {}
 
     UFUNCTION(BlueprintCallable, Category="Door") void ToggleDoor();
     UFUNCTION(BlueprintCallable, Category="Door") void OpenDoor();
@@ -48,8 +52,13 @@ public:
 
 protected:
     virtual void BeginPlay() override;
-private:
+    // 以下开合机制对门族子类（接触门／键门／拖拽门）开放：共享铰链、角度机与复制口径。
     void ApplyAngle(float DeltaSeconds);
+    /** 开/关门音效（服务器组播，门所在位置空间化）；铁门/键门等子类可替换默认声音。 */
+    UPROPERTY(EditAnywhere, Category="Door|Audio") TObjectPtr<USoundBase> OpenSound;
+    UPROPERTY(EditAnywhere, Category="Door|Audio") TObjectPtr<USoundBase> CloseSound;
+    UFUNCTION(NetMulticast, Reliable)
+    void MulticastDoorSound(bool bOpening);
     /** 按包围盒摆放门框与门板：网格 pivot 不在中心时也能贴地并对齐（StarterContent 的 pivot 在底边／角上）。 */
     void AlignGeometry();
     /** 缓存门板包围盒，用于开门前的摆动空间检测。 */
@@ -58,6 +67,9 @@ private:
      * 门板朝 DirectionSign 侧扫过去是否被实体挡住。
      * 检测用门板碰撞盒在 25%／50%／75%／100% 开合角上做重叠查询；只查询世界实体
      * （WorldStatic／WorldDynamic／Destructible：地形、体素、构件、残骸），**玩家与其它 Pawn 不参与判定**。
+     * 豁免两类：门板容身壳内的组件——在门板平面方向放宽约 10cm 的贴合构件
+     * （门套/侧梃/过梁/门槛/嵌着门板的墙壳分段；厚度方向不放宽，正面障碍物仍算数），
+     * 以及其他门族门板（双开门互不死锁）。命中的阻挡者会写进日志便于排查。
      */
     bool IsSwingBlocked(float DirectionSign) const;
     /** 摆动检测用的碰撞盒（比门板略缩，避免与地面／门框贴合面产生假阻塞）。 */

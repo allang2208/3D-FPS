@@ -93,16 +93,24 @@ bool TriggerPistolQuickCombat();
     // Spells select the held staff/right hand, otherwise the original left hand.
     bool IsSpellHandHeld() const;
     bool IsSpellHandBusy() const;
-    bool IsSpellGestureBlocking() const;
+    bool IsSpellGestureBlocking(bool bIgnoreDoorPush=false) const;
     // Physical left-hand users (including potions) keep their own occupancy.
-    bool IsLeftHandBusyForCast() const;
+    // bIgnoreDoorPush：门推组件验证"这次推"自身时传入——同实例（单机/主机/PIE 假客机）
+    // 上 BeginPush 先置 bActive 再发 RPC，自查会把本次起手误当占用而恒拒；
+    // 远端客机服务端副本 bActive 恒假不受影响。并发由客户端 bActive 早退+服务端 ServerDoor 节流分管。
+    bool IsLeftHandBusyForCast(bool bIgnoreDoorPush=false) const;
+    /** 分解 IsLeftHandBusyForCast 的激活谓词（联机排查两端分歧用）：返回逗号分隔的触发项，空闲时为空串。 */
+    FString DescribeLeftHandBusy(bool bIgnoreDoorPush=false) const;
     // The off-hand pistol of an akimbo pair holds the left hand until the loadout
     // changes, so left-hand spells refuse the request instead of queueing behind it.
     bool IsLeftHandHeldForCast() const;
     bool IsCastingWithLeftHand() const;
-    bool IsCastBlockingLeftHandAction() const;
+    bool IsCastBlockingLeftHandAction(bool bIgnoreDoorPush=false) const;
     bool IsDoorPushActive() const;
     bool IsSwitchingWeapon() const;
+    /** 门钥匙环（本次会话有效，不进存档）：AColdSteelKeyPickup 走入拾取时写入，AColdSteelKeyDoor 开锁时读取。 */
+    void GrantDoorKey(FName KeyId) { if (!KeyId.IsNone()) DoorKeys.AddUnique(KeyId); }
+    bool HasDoorKey(FName KeyId) const { return !KeyId.IsNone() && DoorKeys.Contains(KeyId); }
     bool CanStartQuickCombatPriority() const;
     void InterruptActionsForPriority(bool bWeaponSwitch);
     /** Leave firearm inspection before dispatching a new command, without changing shot cooldowns. */
@@ -296,6 +304,7 @@ protected:
     /** 联机断流冻结——模拟代理超过 0.5s 没收到移动更新就冻结本地 SimulateMovement
      *  （引擎默认用最后速度持续前推，服务器卡顿时观察者本地角色会自走出图永不回来）。 */
     virtual void OnRep_ReplicatedMovement() override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     float LastNetMovementAt = 0.f;
 public:
     /** 联机取证：客户端自动驾驶注入（-MPClientWalk，真实输入路径复现移动分叉）。 */
@@ -841,6 +850,9 @@ private:
     // Transient success feedback in the existing hint row above stamina.
     UPROPERTY(Transient) double CowboyReloadHintUntil = -1.0;
     UPROPERTY(VisibleAnywhere, Category="Movement|Door") TObjectPtr<class UFPSDoorPushComponent> DoorPush;
+    /** 门钥匙环：会话内有效、不进存档（见 GrantDoorKey 注释）。服务端写入，仅复制给持有者——
+     *  客机的交互提示要读本机 pawn 的钥匙环（ColdSteelWorldInteraction），其他端不需要。 */
+    UPROPERTY(Replicated) TArray<FName> DoorKeys;
     // Refreshed with installed firearm stats; active actions snapshot this rate.
     float FirearmEquipRate = 1.f;
 };

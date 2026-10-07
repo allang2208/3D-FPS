@@ -9,7 +9,12 @@
 #include "../Building/SmeltingSystem.h"
 #include "../Building/ColdSteelDoorInteraction.h"
 #include "../Building/ColdSteelDoor.h"
+#include "../Movement/FPSDoorPushComponent.h"
 #include "../Building/ColdSteelWindow.h"
+#include "../Building/ColdSteelContactDoor.h"
+#include "../Building/ColdSteelKeyDoor.h"
+#include "../Building/ColdSteelDragDoor.h"
+#include "../FPSGAMECharacter.h"
 #include "../Building/ColdSteelFountain.h"
 #include "../Survival/FPSSurvivalComponent.h"
 #include "../Items/FPSPotionUseComponent.h"
@@ -58,8 +63,9 @@ AActor* ColdSteelWorldInteraction::TraceTarget(const APlayerController* PC,float
         if (Hit.bBlockingHit)
         {
             AActor* Target=Hit.GetActor();
-            // Only native, server-replicated doors are enabled for client E here.
-            return PC->GetNetMode()!=NM_Client||Cast<AColdSteelDoor>(Target)||Cast<AColdSteelWindow>(Target)?Target:nullptr;
+            // 客户端只放行服务器权威的原生门族（E 走 pawn 上的 DoorPush RPC 枢纽）；
+            // 直接用同一套 IsNativeDoor 口径，避免新增门子类时这条白名单漏项。
+            return PC->GetNetMode()!=NM_Client||UFPSDoorPushComponent::IsNativeDoor(Target)?Target:nullptr;
         }
     }
     return nullptr;
@@ -322,6 +328,22 @@ ColdSteelWorldInteraction::FInteractionHint ColdSteelWorldInteraction::ResolveIn
     if(IsForgingStation(Target)){Hint.Text=TEXT("铸造台 · 锻造 / 冶炼领锭");return Hint;}
     if(IsSmeltingFurnace(Target)){Hint.Text=SmeltingFurnacePrompt(Target);return Hint;}
     if(IsWorkbench(Target)){Hint.Text=WorkbenchPrompt(Target);return Hint;}
-    if(UColdSteelDoorInteraction::IsDoor(Target)){Hint.Text=TEXT("门 · 开／关");return Hint;}
+    if(UColdSteelDoorInteraction::IsDoor(Target))
+    {
+        // 按门种给提示：锁况/拖拽/铁门的语义不同，其余原生门与包门统一“开／关”。
+        if(const auto* KeyDoor=Cast<AColdSteelKeyDoor>(Target))
+        {
+            bool bHasKey=false;
+            if(KeyDoor->IsLocked())
+                if(const auto* PC=Target->GetWorld()?Target->GetWorld()->GetFirstPlayerController():nullptr)
+                    if(const auto* Player=Cast<AFPSGAMECharacter>(PC->GetPawn()))
+                        bHasKey=Player->HasDoorKey(KeyDoor->GetKeyId());
+            Hint.Text=KeyDoor->IsLocked()?(bHasKey?TEXT("键门 · 用钥匙解锁"):TEXT("键门 · 上锁（需要钥匙）")):TEXT("键门 · 开／关");
+            return Hint;
+        }
+        if(Target->IsA<AColdSteelDragDoor>()){Hint.Text=TEXT("拖拽门 · 按住拖动，松手停住");return Hint;}
+        if(Target->IsA<AColdSteelContactDoor>()){Hint.Text=TEXT("铁门 · 直接撞开");return Hint;}
+        Hint.Text=TEXT("门 · 开／关");return Hint;
+    }
     return Hint;
 }

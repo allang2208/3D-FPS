@@ -3259,9 +3259,9 @@ bool AFPSGAMECharacter::IsSpellHandBusy() const
     if(Staff&&Staff->IsEquipped())return IsTraversing()||!Staff->CanBeginCast();
     return IsLeftHandBusyForCast();
 }
-bool AFPSGAMECharacter::IsLeftHandBusyForCast() const
+bool AFPSGAMECharacter::IsLeftHandBusyForCast(bool bIgnoreDoorPush) const
 {
-    if(IsDoorPushActive())return true;
+    if(!bIgnoreDoorPush&&IsDoorPushActive())return true;
     if(Staff&&Staff->IsEquipped()&&!Staff->CanBeginCast())return true;
     if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
     if(HasOffhandPistol() && DualPistols->LeftBusy())return true;
@@ -3269,6 +3269,26 @@ bool AFPSGAMECharacter::IsLeftHandBusyForCast() const
     if(RuneSword && RuneSword->IsBusy())return true;
     const auto* Tools=FindComponentByClass<UProductionToolComponent>();
     return Tools && Tools->IsBusy();
+}
+FString AFPSGAMECharacter::DescribeLeftHandBusy(bool bIgnoreDoorPush) const
+{
+    // 与 IsLeftHandBusyForCast 逐项同序展开：服务端对远端 pawn 复核时（撞门/E 交互）
+    // 这些字段是副本状态，客户端通过而服务端拒收的歧义要能在日志里直接指认。
+    TArray<FString> On;
+    if(!bIgnoreDoorPush&&IsDoorPushActive())On.Add(TEXT("DoorPush"));
+    if(Staff&&Staff->IsEquipped())On.Add(Staff->CanBeginCast()
+        ?TEXT("StaffEquipped"):FString::Printf(TEXT("StaffNotReady(busy=%d,staffVis=%d,armsVis=%d)"),
+            Staff->IsBusy()?1:0,(Staff->AssemblyRoot()&&Staff->AssemblyRoot()->IsVisible())?1:0,
+            (Staff->ArmsMesh()&&Staff->ArmsMesh()->IsVisible())?1:0));
+    if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())On.Add(TEXT("Potion"));
+    if(HasOffhandPistol()&&DualPistols&&DualPistols->LeftBusy())On.Add(TEXT("OffhandPistol"));
+    if(IsTraversing())On.Add(TEXT("Traversing"));
+    if(WeaponState!=EAKMWeaponState::Idle)On.Add(FString::Printf(TEXT("WeaponState=%d"),int32(WeaponState)));
+    if(bAimHeld||bIsAiming||ADSProgress>UE_KINDA_SMALL_NUMBER)
+        On.Add(FString::Printf(TEXT("Aim(held=%d,aiming=%d,ads=%.2f)"),bAimHeld?1:0,bIsAiming?1:0,ADSProgress));
+    if(RuneSword&&RuneSword->IsBusy())On.Add(TEXT("RuneSwordBusy"));
+    if(const auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsBusy())On.Add(TEXT("ToolBusy"));
+    return FString::Join(On,TEXT(","));
 }
 bool AFPSGAMECharacter::IsCastingWithLeftHand() const
 {
@@ -3299,9 +3319,9 @@ void AFPSGAMECharacter::SuspendWeaponForMenu()
     if(auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>())FireMagic->CancelPending();
     if(auto* Blizzard=FindComponentByClass<UFPSBlizzardComponent>())Blizzard->SuspendPreview();
 }
-bool AFPSGAMECharacter::IsCastBlockingLeftHandAction() const
+bool AFPSGAMECharacter::IsCastBlockingLeftHandAction(bool bIgnoreDoorPush) const
 {
-    if(IsDoorPushActive())return true;
+    if(!bIgnoreDoorPush&&IsDoorPushActive())return true;
     if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
     if(const auto* Bash=FindComponentByClass<UFPSQuickCombatComponent>();Bash&&Bash->IsOccupyingLeftHand())return true;
     // Staff gestures and their queued requests reserve the right hand. Keep
@@ -3311,11 +3331,11 @@ bool AFPSGAMECharacter::IsCastBlockingLeftHandAction() const
         const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
         return Magic&&Magic->IsOccupyingLeftHand();
     }
-    return IsSpellGestureBlocking();
+    return IsSpellGestureBlocking(bIgnoreDoorPush);
 }
-bool AFPSGAMECharacter::IsSpellGestureBlocking() const
+bool AFPSGAMECharacter::IsSpellGestureBlocking(bool bIgnoreDoorPush) const
 {
-    if(IsDoorPushActive())return true;
+    if(!bIgnoreDoorPush&&IsDoorPushActive())return true;
     const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
     const auto* Ice=FindComponentByClass<UFPSIceSpikeComponent>();
     if(const auto* IceWall=FindComponentByClass<UFPSIceWallComponent>();IceWall&&IceWall->HasQueuedAction())return true;

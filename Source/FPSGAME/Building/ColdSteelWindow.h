@@ -29,7 +29,8 @@ public:
     AColdSteelWindow();
     virtual void Tick(float DeltaSeconds) override;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-    void OpenWindowFrom(const APawn* InstigatorPawn);
+    /** 尝试开窗：返回 false 表示被拒（两侧摆动空间都被实体挡住时不开，与门同一口径）。 */
+    virtual bool OpenWindowFrom(const APawn* InstigatorPawn);
     void ToggleWindowFrom(const APawn* InstigatorPawn);
 
     UFUNCTION(BlueprintCallable, Category="Window") void ToggleWindow();
@@ -76,6 +77,9 @@ private:
      * 两扇窗扇按 SwingSign 侧（+1／−1）扫过去是否被实体挡住。
      * 检测用窗扇碰撞盒在 25%／50%／75%／100% 开合角上做重叠查询；只查世界实体
      * （WorldStatic／WorldDynamic／Destructible：地形、体素、构件、残骸），玩家与其它 Pawn 不参与判定。
+     * 豁免两类（与门同一口径）：窗扇容身壳内的组件（扇面方向放宽约 10cm 的贴合构件：
+     * 窗套/侧梃/过梁/嵌着窗扇的墙壳；厚度方向不放宽），以及其他门族扇板。
+     * 命中的阻挡者会写进日志便于排查。
      */
     bool IsSwingBlocked(float SwingSign) const;
     /** 摆动检测用的碰撞盒（比窗扇略缩，避免与窗框、临格体素贴合面产生假阻塞）。 */
@@ -89,6 +93,11 @@ private:
      */
     void UpdateLeafPawnCollision();
     void SetLeavesPawnBlocking(bool bBlock);
+    /** 开/关窗音效（服务器组播，与门同一套 CC0 声）。 */
+    UPROPERTY(EditAnywhere, Category="Window|Audio") TObjectPtr<class USoundBase> OpenSound;
+    UPROPERTY(EditAnywhere, Category="Window|Audio") TObjectPtr<class USoundBase> CloseSound;
+    UFUNCTION(NetMulticast, Reliable)
+    void MulticastWindowSound(bool bOpening);
     /** 玩家站在窗的哪一侧（窗的本地 X 轴，+1／−1）；没有本地玩家时返回 false。 */
     bool TryGetPlayerSideSign(float& OutSign,const APawn* InstigatorPawn) const;
     /** 一次性自检日志：打印窗框与两扇窗扇的世界包围盒，便于确认贴地、居中与洞口对齐。 */

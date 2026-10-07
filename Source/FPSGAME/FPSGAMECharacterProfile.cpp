@@ -20,6 +20,15 @@
 #include "Weapons/ColdSteelEnchantmentCombat.h"
 #include "Movement/FPSTraversalComponent.h"
 #include "Multiplayer/ColdSteelPlayerState.h"
+#include "Net/UnrealNetwork.h"
+
+void AFPSGAMECharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    // 门钥匙环只复制给持有者：服务端 GrantDoorKey 写入权威集合，客机交互提示
+    // （ColdSteelWorldInteraction 键门"有钥匙"分支）读本机 pawn 的镜像；其他端不需要。
+    DOREPLIFETIME_CONDITION(AFPSGAMECharacter, DoorKeys, COND_OwnerOnly);
+}
 
 void AFPSGAMECharacter::ApplyWeaponAttachmentPresentation(const TMap<FString,FString>& Parts)
 {

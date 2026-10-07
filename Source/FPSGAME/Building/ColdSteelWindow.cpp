@@ -1,11 +1,17 @@
 #include "ColdSteelWindow.h"
+#include "ColdSteelDoor.h"
+#include "ColdSteelSlidingDoor.h"
+#include "ColdSteelRevolvingDoor.h"
 #include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine/OverlapResult.h"
 #include "Engine/World.h"
 #include "Engine/StaticMesh.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
+#include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInterface.h"
+#include "Sound/SoundBase.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Net/UnrealNetwork.h"
 
@@ -26,6 +32,11 @@ AColdSteelWindow::AColdSteelWindow()
     PrimaryActorTick.bCanEverTick=true;
     bReplicates=true;SetReplicateMovement(true);
     SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("WindowRoot")));
+
+    static ConstructorHelpers::FObjectFinder<USoundBase> OpenSoundAsset(TEXT("/Game/Audio/Interactions/DoorAudio20261004/S_Door_Open.S_Door_Open"));
+    static ConstructorHelpers::FObjectFinder<USoundBase> CloseSoundAsset(TEXT("/Game/Audio/Interactions/DoorAudio20261004/S_Door_Close.S_Door_Close"));
+    if(OpenSoundAsset.Succeeded())OpenSound=OpenSoundAsset.Object;
+    if(CloseSoundAsset.Succeeded())CloseSound=CloseSoundAsset.Object;
 
     Frame=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WindowFrame"));
     Frame->SetupAttachment(GetRootComponent());
@@ -162,6 +173,24 @@ bool AColdSteelWindow::IsSwingBlocked(float DirectionSign) const
     FCollisionQueryParams Params(SCENE_QUERY_STAT(ColdSteelWindowSwing),false,this);
     Params.AddIgnoredActor(this);
     if(const AActor* Parent=GetAttachParentActor())Params.AddIgnoredActor(Parent);
+    // 「窗套」豁免：窗扇容身处周围一圈构件（窗套、侧梃、过梁、窗台，以及嵌着窗扇的墙壳分段）
+    // 不算阻挡；只有扫掠途中才首次碰到的实体才算障碍（与门同一口径）。窗口只比窗扇宽几厘米，
+    // 窗扇旋转时铰链侧角尖会擦进紧贴的边梃凸包——所以豁免盒在扇面方向放宽，
+    // 厚度方向保持原样：正面顶住窗扇的物件仍然算障碍。
+    TSet<const UPrimitiveComponent*> Housing;
+    {
+        const FVector Extent=LeafTestExtent();
+        const FCollisionShape HousingShape=FCollisionShape::MakeBox(
+            FVector(Extent.X,Extent.Y+10.f,Extent.Z+10.f));
+        TArray<FOverlapResult> Rest;
+        for(const UStaticMeshComponent* Leaf:{LeafLeft.Get(),LeafRight.Get()})
+        {
+            if(!Leaf)continue;
+            const FTransform LeafNow=Leaf->GetComponentTransform();
+            if(World->OverlapMultiByObjectType(Rest,LeafNow.TransformPosition(LeafOriginCm),LeafNow.GetRotation(),ObjectParams,HousingShape,Params))
+                for(const FOverlapResult& Hit:Rest)if(Hit.Component.IsValid())Housing.Add(Hit.Component.Get());
+        }
+    }
     // 检测位置按**候选开向**摆：铰链贴面与窗扇偏移都由 DirectionSign 推出来，不用当前铰链位置——
     // 否则“换向再判定”会比真实开到位的位置偏半个铰链贴面差（4 cm），贴边的墙就可能误判。
     const float OpeningHalfY=FMath::Max(1.f,FrameExtentCm.Y-FrameMemberCm);
@@ -182,8 +211,20 @@ bool AColdSteelWindow::IsSwingBlocked(float DirectionSign) const
             const FVector Pivot=ActorTransform.TransformPosition(Hinge[Index]+Rotation.RotateVector(Centre[Index]-Hinge[Index]));
             const FQuat WorldRotation=ActorTransform.GetRotation()*Rotation;
             const FVector WorldCentre=Pivot+WorldRotation.RotateVector(LeafOriginCm);
-            if(World->OverlapAnyTestByObjectType(WorldCentre,WorldRotation,ObjectParams,Shape,Params))
+            TArray<FOverlapResult> Hits;
+            if(!World->OverlapMultiByObjectType(Hits,WorldCentre,WorldRotation,ObjectParams,Shape,Params))continue;
+            for(const FOverlapResult& Hit:Hits)
+            {
+                const UPrimitiveComponent* Comp=Hit.Component.Get();
+                if(!Comp||Housing.Contains(Comp))continue;
+                const AActor* Blocker=Hit.GetActor();
+                // 门族互免：同窗/门扇互不死锁（与门同一口径）。
+                if(Blocker&&(Cast<AColdSteelDoor>(Blocker)||Cast<AColdSteelWindow>(Blocker)||
+                    Cast<AColdSteelSlidingDoor>(Blocker)||Cast<AColdSteelRevolvingDoor>(Blocker)))continue;
+                UE_LOG(LogTemp,Display,TEXT("ColdSteelWindow %s 摆动被挡：方向=%s 进度=%.2f 扇=%d 阻挡=%s:%s"),
+                    *GetName(),DirectionSign>=0.f?TEXT("+"):TEXT("-"),Fraction,Index,*GetNameSafe(Blocker),*GetNameSafe(Comp));
                 return true;
+            }
         }
     }
     return false;
@@ -284,10 +325,9 @@ bool AColdSteelWindow::TryGetPlayerSideSign(float& OutSign,const APawn* Instigat
 void AColdSteelWindow::OpenWindow()
 {OpenWindowFrom(nullptr);}
 
-void AColdSteelWindow::OpenWindowFrom(const APawn* InstigatorPawn)
+bool AColdSteelWindow::OpenWindowFrom(const APawn* InstigatorPawn)
 {
-    if(!HasAuthority()||bOpen)return;
-    bOpen=true;
+    if(!HasAuthority()||bOpen)return bOpen;
     // 默认方向由玩家决定：窗朝玩家的**反侧**开（等于玩家把窗推开），而不是固定方向。
     // 只有在拿不到玩家位置时才退回本地 +X 侧。
     float Preferred=1.f;
@@ -300,18 +340,26 @@ void AColdSteelWindow::OpenWindowFrom(const APawn* InstigatorPawn)
     if(IsSwingBlocked(Preferred))
     {
         const float Other=-Preferred;
-        // 两侧都被挡住时保持默认方向：宁可夹着开，也不要出现“窗完全打不开”。
-        if(!IsSwingBlocked(Other)){SwingSign=Other;bOpenFlipped=true;}
+        // 两侧摆动空间都被实体挡住：拒绝开窗，不穿墙（与门同一口径，2026-10-04 用户拍板）。
+        if(IsSwingBlocked(Other))
+        {
+            UE_LOG(LogTemp,Display,TEXT("ColdSteelWindow %s 两侧摆动空间均被阻挡，拒绝开窗"),*GetName());
+            return false;
+        }
+        SwingSign=Other;bOpenFlipped=true;
     }
     // 先定开向再摆铰链贴面，否则窗扇会切进窗框边梃。
     ApplyHingeDepth();
+    bOpen=true;
     TargetAngle=FMath::Abs(OpenAngleDegrees);
     AutoCloseRemaining=AutoCloseSeconds;
     PublishSwing();
+    MulticastWindowSound(true);
     UE_LOG(LogTemp,Display,TEXT("ColdSteelWindow %s 玩家侧=%s 开向=%s %s"),*GetName(),
         bHasPlayer?(PlayerSide>0.f?TEXT("+X"):TEXT("-X")):TEXT("未知"),
         SwingSign>=0.f?TEXT("+X"):TEXT("-X"),
         bOpenFlipped?TEXT("（推开侧被挡，已反向开）"):TEXT("（朝玩家反侧开）"));
+    return true;
 }
 
 void AColdSteelWindow::CloseWindow()
@@ -321,6 +369,14 @@ void AColdSteelWindow::CloseWindow()
     TargetAngle=0.f;
     AutoCloseRemaining=0.f;
     PublishSwing();
+    MulticastWindowSound(false);
+}
+
+void AColdSteelWindow::MulticastWindowSound_Implementation(bool bOpening)
+{
+    if(GetNetMode()==NM_DedicatedServer)return;
+    if(auto* Sound=bOpening?OpenSound.Get():CloseSound.Get())
+        UGameplayStatics::PlaySoundAtLocation(this,Sound,GetActorLocation());
 }
 
 void AColdSteelWindow::Tick(float DeltaSeconds)

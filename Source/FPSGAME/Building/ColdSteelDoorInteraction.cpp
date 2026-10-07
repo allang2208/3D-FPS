@@ -115,7 +115,7 @@ bool UColdSteelDoorInteraction::TryInteract(AActor* Target, APawn* Player, FStri
 {
     OutMessage.Empty();
     if (!Target || !Player) return false;
-    if(Cast<AColdSteelDoor>(Target)||Cast<AColdSteelWindow>(Target))
+    if(UFPSDoorPushComponent::IsNativeDoor(Target))
         if(auto* Push=Player->FindComponentByClass<UFPSDoorPushComponent>())return Push->RequestDoorInteraction(Target);
     UFunction* Entry = FindEntry(Target);
     if (!Entry)
