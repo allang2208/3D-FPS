@@ -1,6 +1,7 @@
 #include "FPSTraversalComponent.h"
 #include "FPSTraversalArmsComponent.h"
 #include "../FPSGAMECharacter.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Camera/CameraComponent.h"
@@ -54,6 +55,11 @@ void UFPSTraversalComponent::SetWeaponHiddenForTraversal(bool bHidden)
     for (const auto& Entry:HiddenWeaponComponents)
         if (Entry.Key.IsValid()) Entry.Key->SetHiddenInGame(Entry.Value);
     HiddenWeaponComponents.Reset();
+}
+
+USkeletalMeshComponent* UFPSTraversalComponent::GetFirstPersonArms() const
+{
+    return Arms.Get();
 }
 
 void UFPSTraversalComponent::InitializePresentation()
@@ -131,6 +137,9 @@ bool UFPSTraversalComponent::TryStart(bool bAvailable, bool bLogRejection)
     C->GetCharacterMovement()->StopMovementImmediately(); C->ConsumeMovementInputVector();
     C->JumpBufferRemaining=0.f; C->StopJumping(); bJumpRequestConsumed=true;
     C->GetCharacterMovement()->DisableMovement(); bTraversing=true;
+    // Apply the current camera mode before the first visible hand frame; the
+    // periodic owner refresh may not have seen these world-anchored arms yet.
+    if (auto* Body=C->FindComponentByClass<UFPSPlayerBodyComponent>()) Body->RefreshViewMode();
     UE_LOG(LogTemp,Display,TEXT("TRAVERSAL_START action=%d height=%.1f clip=%s destination=%s rate=%.2f seconds=%.3f air=%d entry_vz=%.1f"),(int32)T.Action,T.Probe.Height,*ActiveClip->GetName(),*T.Destination.ToString(),PlaybackRate,Duration/PlaybackRate,T.Probe.bAirborne,EntryVelocity.Z);
     return true;
 }

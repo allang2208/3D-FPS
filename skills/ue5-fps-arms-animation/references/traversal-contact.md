@@ -12,6 +12,9 @@
 
 ## 动画交接
 
+- 第三人称出现额外手臂时，先核对组件归属：`TraversalArms` 固定在世界墙沿，未挂相机，单独遍历相机子树会漏掉它。通过 `GetFirstPersonArms()` 将该组件及衣袖／手套子树加入 `FPSPlayerBodyComponent::UpdateOwnerVisibility`，开始动作与切换视角立即刷新。视角只管理 `OwnerNoSee/OnlyOwnerSee`；接触窗口、收手、完成和取消仍由执行器管理 `Visibility/HiddenInGame`，避免切回第一人称复活已结束的动作。
+- 世界锚定的攀爬手臂保持 `FirstPersonPrimitiveType::None`，不要套用当前手枪的第一人称深度缩放。隐藏后仍需求值其骨骼：现有攀爬镜头读取 `head` 和手部位置，不能因第三人称不可见而停止这套手臂求值。衣物异步创建时继承源组件的 owner 标志，后续可见性跟随不能清除这些标志。
+- 查找第三人称动作时，区分完整全身供体和第一人称派生资产。FPSGAME 本机 `GASPTraversal20260910/Reference` 保留 Epic 的 Vault／Mantle／Climb 完整源；`/Game/Movement/Traversal/Native` 已改制为第一人称手臂，不是 Jason 全身成品。重定向时保留髋腿发力，接触读取执行器墙沿点，根位移不能和胶囊路线重复叠加。素材在本机不等于第三人称已接入；细节见工程 `Docs/Characters/traversal-view-visibility-20261007.md`。
 - 2026-09-30 法杖：`StaffAssembly` 与 `StaffV7Arms` 独立挂在相机下，不属于 `AKMViewmodel` 子树；两者及子组件必须进入同一可恢复的 `HiddenInGame` 控制，按现有攀爬手臂显示窗口交接，结束或取消恢复原隐藏状态。已装备的法杖手臂使用 `PreloadModularOutfit` 保留临时隐藏期间的锁子甲／手套，卸下法杖移除；隐藏期间跳过该手臂手动骨骼求值，恢复当帧重新采样。不要隐藏整个相机子树。修改记录见 `Docs/Weapons/staff-traversal-visibility-20260930.md`；未进行游戏测试。
 - 2026-09-13 用户截图补充：爬墙收尾露出左臂内侧／袖口截面，应处理攀爬手臂与镜头的相对轨迹，不能仅处理持枪手臂重叠。FPSGAME 在 Release 停止源起身尾段，接触 IK 同时归零；松手姿态随镜头回归平移，再沿镜头前下方退出，替代 EndCorrection 整体搬移和单纯世界 -Z 下移。镜头独立回归，不能再从已收手的 head 位移反向驱动镜头。保持抓墙接触、动作执行时间和碰撞路线；此次未测试，等待用户实机反馈。
 - 2026-09-13：FPSGAME 两套手臂按同一时钟互斥显示。持枪退出在源时间 0.06 秒完成，此后才显示攀爬手臂；Release + 0.12 秒收手结束后才恢复持枪。武器附件使用可恢复的 HiddenInGame 临时控制，避免各自 SetVisibility 更新露出部件；正常结束和取消均恢复原隐藏状态。攀爬不得触发换弹的居中持枪构图。该修改未主动测试，交由用户实机确认。

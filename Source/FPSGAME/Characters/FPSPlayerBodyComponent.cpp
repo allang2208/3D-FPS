@@ -9,6 +9,7 @@
 #include "FPSPlayerBodyAnimInstance.h"
 #include "FPSPlayerBodyPoses.h"
 #include "../FPSGAMECharacter.h"
+#include "../Movement/FPSTraversalComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/PistolDualWieldComponent.h"
 #include "../Production/ProductionToolComponent.h"
@@ -312,10 +313,10 @@ void UFPSPlayerBodyComponent::UpdateOwnerVisibility()
     // scaling a sleeve alone would reverse its depth order against the hand.
     const auto ViewmodelType=Character->IsLocallyControlled()&&Character->IsPistolWeapon()
         ?EFirstPersonPrimitiveType::FirstPerson:EFirstPersonPrimitiveType::None;
-    TArray<USceneComponent*> Children;Character->FirstPersonCamera->GetChildrenComponents(true,Children);
-    for(auto* Child:Children)if(auto* Primitive=Cast<UPrimitiveComponent>(Child))
+    const auto ApplyFirstPersonVisibility=[&](USceneComponent* Child,EFirstPersonPrimitiveType PrimitiveType)
     {
-        if(Primitive->FirstPersonPrimitiveType!=ViewmodelType)Primitive->SetFirstPersonPrimitiveType(ViewmodelType);
+        auto* Primitive=Cast<UPrimitiveComponent>(Child);if(!Primitive)return;
+        if(Primitive->FirstPersonPrimitiveType!=PrimitiveType)Primitive->SetFirstPersonPrimitiveType(PrimitiveType);
         // Every setter below marks the primitive's render state dirty and
         // re-registers it in the shadow scene, so only touch what actually
         // changed: this runs again on every camera update and every 0.2 s.
@@ -324,6 +325,20 @@ void UFPSPlayerBodyComponent::UpdateOwnerVisibility()
         const bool bHideFromOwner=bThirdPerson||Character->ScopeHiddenParts.Contains(Primitive);
         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Primitive,/*bOnlyOwnerSee=*/true,/*bOwnerNoSee=*/bHideFromOwner);
         FPSBodyEquipment::ApplyShadowFlags(Primitive,false);
+    };
+    TArray<USceneComponent*> Children;Character->FirstPersonCamera->GetChildrenComponents(true,Children);
+    for(auto* Child:Children)ApplyFirstPersonVisibility(Child,ViewmodelType);
+    if(const auto* Traversal=Character->FindComponentByClass<UFPSTraversalComponent>())
+    {
+        if(auto* Arms=Traversal->GetFirstPersonArms())
+        {
+            // Traversal anchors FPS hands in world space, so camera descendants
+            // alone miss both these arms and their sleeve/glove followers.
+            // Keep their render space unchanged even when a pistol is equipped.
+            ApplyFirstPersonVisibility(Arms,EFirstPersonPrimitiveType::None);
+            Children.Reset();Arms->GetChildrenComponents(true,Children);
+            for(auto* Child:Children)ApplyFirstPersonVisibility(Child,EFirstPersonPrimitiveType::None);
+        }
     }
     // Reapply visibility and the remote/hidden-shadow bone-update policy.
     // fps.body.WorldBody 0 overrides all of it: the switch has to be re-applied here

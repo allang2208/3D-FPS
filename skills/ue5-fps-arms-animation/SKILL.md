@@ -87,7 +87,7 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 - 直立握把与棱镜阻手器共用动作、新增“垂直握把类”成员：[垂直握把类母版](references/vertical-grip-family.md)。复用已接受的 VRE 手型与原动作时序，按尺寸校准整手方向和握点；小阻手器用自然拳形包住。
 
-- 第一人称翻越/攀爬、点按及空中接墙、镜头选墙、支撑失效与强控中断、表面适配：[攀爬接触与镜头交接](references/traversal-contact.md)。锁子甲上臂破碎、毛衣已修而另一衣物仍失败时，另读 [攀爬锁子甲肩部旧结构](references/traversal-chainmail-shoulder-repair.md)，按装备与绑定定位来源，肩口只连接厚度环。
+- 第一人称翻越/攀爬、第三人称重复手臂、点按及空中接墙、镜头选墙、支撑失效与强控中断、表面适配：[攀爬接触与镜头交接](references/traversal-contact.md)。重复手臂先检查世界锚定组件是否漏出相机子树隐藏范围；锁子甲上臂破碎、毛衣已修而另一衣物仍失败时，另读 [攀爬锁子甲肩部旧结构](references/traversal-chainmail-shoulder-repair.md)，按装备与绑定定位来源，肩口只连接厚度环。
 
 - 复刻／迁移参考动作、或动手前要先量（可达性、指尖到目标、视锥+近平面穿模、局部 vs 世界向量、换弹可见性、重定向共轭）：[先量后写](references/measure-before-writing.md)。
 - 手指扭曲、穿模、抓握、腕肘变形、重定时或冲击感：[姿态与接触方法](references/pose-contact.md)。

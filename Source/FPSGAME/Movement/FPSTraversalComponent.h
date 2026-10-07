@@ -6,6 +6,7 @@
 
 class ACharacter;
 class USceneComponent;
+class USkeletalMeshComponent;
 
 USTRUCT(BlueprintType)
 struct FPSGAME_API FFPSTraversalHandhold
@@ -53,6 +54,8 @@ public:
     static bool IsStableSurface(const UPrimitiveComponent* Surface);
     void Advance(float DeltaSeconds);
     void UpdatePresentation(float DeltaSeconds);
+    // World-anchored FPS hands are outside the camera's attachment tree.
+    USkeletalMeshComponent* GetFirstPersonArms() const;
     void Cancel();
     UFUNCTION(BlueprintPure, Category="FPS|Traversal") bool IsTraversing() const { return bTraversing; }
     UFUNCTION(BlueprintPure, Category="FPS|Traversal") bool IsCameraRecovering() const { return bReturningCamera; }
