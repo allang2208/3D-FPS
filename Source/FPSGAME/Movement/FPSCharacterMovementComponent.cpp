@@ -1,4 +1,5 @@
 #include "FPSCharacterMovementComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Weapons/WeaponBipodDeploymentComponent.h"
@@ -133,6 +134,7 @@ FNetworkPredictionData_Client* UFPSCharacterMovementComponent::GetPredictionData
 
 bool UFPSCharacterMovementComponent::DoJump(bool bReplayingMoves, float DeltaTime)
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(CharacterOwner))return false;
     if(IsBipodMovementLocked())return false;
     if (const auto* Player = Cast<AFPSGAMECharacter>(CharacterOwner); Player && Player->IsMeleeSkillMovementLocked()) return false;
     if (IsDodging()) return false;
@@ -169,6 +171,7 @@ bool UFPSCharacterMovementComponent::IsBipodMovementLocked() const
 
 float UFPSCharacterMovementComponent::GetMaxSpeed() const
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(CharacterOwner))return 0.f;
     if(IsBipodMovementLocked())return 0.f;
     if (const auto* Player = Cast<AFPSGAMECharacter>(CharacterOwner); Player && Player->IsMeleeSkillMovementLocked()) return 0.f;
     const auto* Status=GetOwner()?GetOwner()->FindComponentByClass<UCombatStatusFormula>():nullptr;

@@ -14,6 +14,8 @@ public:
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
     virtual void OnTeleported() override;
     virtual bool IsWalkable(const FHitResult& Hit) const override;
+    /** Native capsule support for bodies spanning several stair treads. Reapply after BP defaults. */
+    void ConfigureWideBodyStairs(float NavigationRadius, float NavigationHeight);
     float GetMeshStairOffset() const { return MeshStairOffset; }
 
 private:

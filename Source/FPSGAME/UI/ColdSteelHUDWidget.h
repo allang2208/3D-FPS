@@ -204,6 +204,8 @@ private:
     UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> StaminaSlot;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> StaminaValue;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> DashAttackReadyText;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> CaptureEscapeHint;
+    int32 DisplayedCaptureEscapeHits=INDEX_NONE;
     UPROPERTY(Transient) TObjectPtr<USizeBox> StaminaMeterSize;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelResourceMeter> StaminaMeter;
     UPROPERTY(Transient) TObjectPtr<UProgressBar> StaminaSheetBar;

@@ -2739,3 +2739,18 @@ __pycache__/
 /SourceAssets/AttachmentDetails20261008/**
 !/SourceAssets/AttachmentDetails20261008/**/
 !/SourceAssets/AttachmentDetails20261008/build_native.ps1
+
+# BoundCongregate paused 2026-10-08: public recipes/code only; licensed inputs,
+# geometry/skin/corpse samples, engine packages, media and receipts remain local.
+/SourceAssets/BoundCongregateConcept20261006/**
+/SourceAssets/BoundCongregateMeshy20261006/**
+!/SourceAssets/BoundCongregateMeshy20261006/Authoring/
+!/SourceAssets/BoundCongregateMeshy20261006/Authoring/rig_recipe.json
+!/SourceAssets/BoundCongregateMeshy20261006/MeleeV17/
+!/SourceAssets/BoundCongregateMeshy20261006/MeleeV17/motion_contract.json
+!/SourceAssets/BoundCongregateMeshy20261006/TentacleWhipV4/
+!/SourceAssets/BoundCongregateMeshy20261006/TentacleWhipV4/motion_recipe.json
+!/SourceAssets/BoundCongregateMeshy20261006/TentacleWhipV4/Reference/
+!/SourceAssets/BoundCongregateMeshy20261006/TentacleWhipV4/Reference/LICENSE
+!/SourceAssets/BoundCongregateMeshy20261006/TentacleWhipV4/Reference/SOURCE.md
+/Tools/BoundCongregate/*.log

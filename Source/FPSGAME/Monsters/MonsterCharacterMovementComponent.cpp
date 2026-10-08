@@ -22,6 +22,21 @@ bool UMonsterCharacterMovementComponent::IsWalkable(const FHitResult& Hit) const
         Hit.ImpactPoint.Z - FrameFloorZ > MaxStepHeight + .1f);
 }
 
+void UMonsterCharacterMovementComponent::ConfigureWideBodyStairs(float NavigationRadius, float NavigationHeight)
+{
+    MaxStepHeight = 40.f;
+    // A full-radius flat box can intersect several higher risers before the
+    // broad capsule reaches them, leaving only a line floor below its centre.
+    // Use UE's capsule support; IsWalkable still rejects an over-height tread,
+    // and StepUp retains swept clearance, edge tolerance and failed-move rollback.
+    bUseFlatBaseForFloorChecks = false;
+    SetUpdateNavAgentWithOwnersCollisions(false);
+    auto& Agent = GetNavAgentPropertiesRef();
+    Agent.AgentRadius = NavigationRadius;
+    Agent.AgentHeight = NavigationHeight;
+    Agent.AgentStepHeight = MaxStepHeight;
+}
+
 bool UMonsterCharacterMovementComponent::CanOffsetMesh() const
 {
     const auto* Mesh = CharacterOwner ? CharacterOwner->GetMesh() : nullptr;

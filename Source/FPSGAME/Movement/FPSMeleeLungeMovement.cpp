@@ -1,4 +1,5 @@
 #include "FPSCharacterMovementComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "Engine/ScopedMovementUpdate.h"
@@ -7,6 +8,7 @@
 
 bool UFPSCharacterMovementComponent::BeginMeleeDashMomentum(const FVector& IncomingVelocity)
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(CharacterOwner))return false;
     if(!CharacterOwner || !UpdatedComponent || GetNetMode()==NM_Client ||
         (!IsMovingOnGround() && !IsFalling()) || IncomingVelocity.ContainsNaN() ||
         IncomingVelocity.SizeSquared2D()<=1.f)return false;

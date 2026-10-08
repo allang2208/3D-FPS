@@ -29,6 +29,7 @@
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Building/VoxelBuildComponent.h"
 #include "../Movement/FPSCharacterMovementComponent.h"
 #include "Animation/AnimSequence.h"
@@ -566,6 +567,17 @@ void URuneSwordComponent::QuickCombatContractHit()
     // 调用方须先 SamplePose 到接触帧（ReadBlade 读的是当前骨姿态）。
     auto* Pawn=Character.Get();
     if(!Pawn||!GetWorld())return;
+    if(bQuickCombatStrike)
+    {
+        auto* Capture=Pawn->FindComponentByClass<UBoundCongregateCaptureComponent>();
+        if(Capture&&Capture->HitRestraintWithQuickMelee())
+        {
+            bImpactFeedbackPlayed=true;ImpactAge=0.f;
+            Pawn->RefreshQuickCombatCamera();
+            if(PommelHitSound)UGameplayStatics::PlaySound2D(this,PommelHitSound,1.f,1.f);
+            return;
+        }
+    }
     const auto Aim=Pawn->GetMeleeAimTransform();
     const FVector Direction=Aim.GetUnitAxis(EAxis::X);
     FVector Start=Aim.GetLocation();

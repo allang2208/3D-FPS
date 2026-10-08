@@ -7,6 +7,7 @@
 #include "../FPSGAMEPlayerController.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "FPSCastingMeshComponent.h"
 #include "../Weapons/FPSGunplayAnimInstance.h"
 #include "../Weapons/MeleeSmallTargetQuery.h"
@@ -496,6 +497,19 @@ void UFPSQuickCombatComponent::ContactHit()
     if(!Player||!Profile||!GetWorld())return;
     auto Stats=Profile->QuickCombatStats();
     const bool bUnarmed=Style==EQuickCombatStyle::UnarmedPunch;
+    if(!bUnarmed)
+    {
+        auto* Capture=Player->FindComponentByClass<UBoundCongregateCaptureComponent>();
+        if(Capture&&Capture->HitRestraintWithQuickMelee())
+        {
+            // The F contact strikes the coil around us, instead of also sweeping
+            // through a second target in front. Keep the held weapon's hit feel.
+            ImpactAge=0.f;ImpactStrength=1.f;Player->RefreshQuickCombatCamera();
+            if(ImpactSound)UGameplayStatics::PlaySound2D(this,ImpactSound,.9f,.9f);
+            if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.8f,1.f);
+            return;
+        }
+    }
     if(bUnarmed){Stats.Damage=UnarmedPunch::Damage(Profile);Stats.RangeCM=UnarmedPunch::ReachCM;Stats.KnockbackCM=0.f;}
     // 打击射线：起点用握把底（与作者源 clip 的接触位置一致），方向用玩家瞄准
     // （与其它武器/技能同一合同）；不再从眼位沿视线前扫，也不再取实时姿态方向。

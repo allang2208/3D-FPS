@@ -1,0 +1,12 @@
+{
+  "revision": "LocomotionV2",
+  "fps": 30,
+  "duration_seconds": 1.6,
+  "stance_fraction": 0.72,
+  "stride_m": 0.576,
+  "turn_speed_degrees": 14.0,
+  "body_lowering_m": 0.055,
+  "leg_phase": [0.0, 0.2, 0.4, 0.6, 0.8, 0.5, 0.7, 0.9, 0.1, 0.3],
+  "leg_lift_m": [0.12, 0.10, 0.135, 0.105, 0.09, 0.10, 0.125, 0.095, 0.12, 0.11],
+  "roles": ["Walk", "TurnLeft", "TurnRight"]
+}

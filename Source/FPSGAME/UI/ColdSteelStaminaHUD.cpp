@@ -17,6 +17,8 @@
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/WeaponBipodDeploymentComponent.h"
 #include "../Skills/FPSElectricMagicComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
+#include "../Monsters/FPSCombatHealthComponent.h"
 
 void UColdSteelHUDWidget::BuildStamina(UCanvasPanel* Root)
 {
@@ -34,6 +36,13 @@ void UColdSteelHUDWidget::BuildStamina(UCanvasPanel* Root)
     auto* DashSlot=Root->AddChildToCanvas(DashAttackReadyText);
     DashSlot->SetAnchors(FAnchors(.5f,1));DashSlot->SetAlignment(FVector2D(.5f,1));DashSlot->SetZOrder(29);
     DashAttackReadyText->SetVisibility(ESlateVisibility::Collapsed);
+    CaptureEscapeHint=WidgetTree->ConstructWidget<UTextBlock>();
+    CaptureEscapeHint->SetJustification(ETextJustify::Center);CaptureEscapeHint->SetAutoWrapText(true);
+    CaptureEscapeHint->SetColorAndOpacity(ColdSteelUI::Warning);
+    CaptureEscapeHint->SetShadowOffset(FVector2D(1,1));CaptureEscapeHint->SetShadowColorAndOpacity(FLinearColor(0,0,0,.8f));
+    auto* CaptureSlot=Root->AddChildToCanvas(CaptureEscapeHint);
+    CaptureSlot->SetAnchors(FAnchors(.5f,1));CaptureSlot->SetAlignment(FVector2D(.5f,1));CaptureSlot->SetZOrder(29);
+    CaptureEscapeHint->SetVisibility(ESlateVisibility::Collapsed);DisplayedCaptureEscapeHits=INDEX_NONE;
     UpdateStaminaLayout(GetCachedGeometry());RefreshStamina();
 }
 void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
@@ -102,6 +111,32 @@ void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
         DashAttackReadyText->SetFont(ColdSteelUI::TextFont(16*.75f/S));
         if(auto* DashCanvasSlot=Cast<UCanvasPanelSlot>(DashAttackReadyText->Slot))
         {DashCanvasSlot->SetPosition(StaminaSlot->GetPosition()+FVector2D(0,-25/S));DashCanvasSlot->SetSize(FVector2D(FMath::Min(400.f/S,FMath::Max(1.f,View.X-24/S)),26/S));}
+    }
+    if(CaptureEscapeHint)
+    {
+        const auto* Pawn=GetOwningPlayerPawn();
+        const auto* Capture=Pawn?Pawn->FindComponentByClass<UBoundCongregateCaptureComponent>():nullptr;
+        const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+        const bool Show=Capture&&Capture->IsHeld()&&!(Health&&Health->IsDead())&&!bInventoryOpen&&!bExternalDrawerOpen;
+        CaptureEscapeHint->SetVisibility(Show?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+        if(Show)
+        {
+            const int32 Hits=Capture->GetEscapeHits();
+            if(DisplayedCaptureEscapeHits!=Hits)
+            {
+                DisplayedCaptureEscapeHits=Hits;
+                CaptureEscapeHint->SetText(FText::Format(NSLOCTEXT("ColdSteelHUD","TentacleEscapeHint",
+                    "被触手缠绕 · 按 F 快速近战挣脱（{0}/{1}）"),FText::AsNumber(Hits),
+                    FText::AsNumber(UBoundCongregateCaptureComponent::RequiredEscapeHits)));
+            }
+            CaptureEscapeHint->SetFont(ColdSteelUI::TextFont(18*.75f/S));
+            if(auto* CaptureSlot=Cast<UCanvasPanelSlot>(CaptureEscapeHint->Slot))
+            {
+                CaptureSlot->SetPosition(StaminaSlot->GetPosition()+FVector2D(0,-57/S));
+                CaptureSlot->SetSize(FVector2D(FMath::Min(600.f/S,FMath::Max(1.f,View.X-24/S)),42/S));
+            }
+        }
+        else DisplayedCaptureEscapeHits=INDEX_NONE;
     }
     if(StaminaLayoutView.Equals(View,.1f)&&FMath::IsNearlyEqual(S,StaminaLayoutScale,.0001f))return;
     StaminaLayoutView=View;StaminaLayoutScale=S;

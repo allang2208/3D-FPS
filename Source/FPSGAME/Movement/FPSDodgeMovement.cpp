@@ -1,4 +1,5 @@
 #include "FPSCharacterMovementComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "FPSDodgeRootMotionSource.h"
 #include "Engine/World.h"
 #include "GameFramework/Character.h"
@@ -6,6 +7,7 @@
 
 bool UFPSCharacterMovementComponent::StartDodge(const FVector& Direction, float DistanceCM, float DurationSeconds)
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(CharacterOwner))return false;
     // 联机：闪避发起端是本地预测的自主代理（或 listen 主机 pawn）；远端副本不调用本函数——
     // 闪避位移以 RootMotionSource 存进 SavedMove，服务端经 SavedRootMotion 自动回放。
     if (!CharacterOwner || !UpdatedComponent || IsDodging() ||

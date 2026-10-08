@@ -62,6 +62,7 @@
 #include "Building/VoxelBuildComponent.h"
 #include "Engine/GameInstance.h"
 #include "Monsters/FPSCombatHealthComponent.h"
+#include "Monsters/BoundCongregateCaptureComponent.h"
 #include "Survival/FPSSurvivalComponent.h"
 #include "Weapons/FPSGunplayAnimInstance.h"
 #include "Weapons/M4DrumReloadTiming.h"
@@ -916,7 +917,8 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
 bool AFPSGAMECharacter::IsMeleeSkillMovementLocked() const
 {
     const auto* Electric=FindComponentByClass<UFPSElectricMagicComponent>();
-    return (Electric&&Electric->IsCharging())||(RuneSword && (RuneSword->IsWhirlwindActive() || RuneSword->IsDashAttackActive()));
+    return UBoundCongregateCaptureComponent::IsCaptured(this)||(Electric&&Electric->IsCharging())||
+        (RuneSword && (RuneSword->IsWhirlwindActive() || RuneSword->IsDashAttackActive()));
 }
 
 void AFPSGAMECharacter::StopMovementForMeleeSkill()

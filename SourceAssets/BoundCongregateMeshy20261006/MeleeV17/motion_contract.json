@@ -1,0 +1,7 @@
+{
+  "fps": 120,
+  "bite": {"duration": 1.4, "windup_end": 0.48, "contact": 0.56, "contact_hold_end": 0.60, "turn_end": 0.42},
+  "flurry": {"duration": 2.15, "strike_starts": [0.44, 0.64, 0.84, 1.04, 1.50], "contacts": [0.52, 0.72, 0.92, 1.12, 1.60], "contact_hold_seconds": 0.035, "turn_end": 0.38},
+  "reference": "https://diamondlobby.com/elden-ring/reach-the-starting-location-elden-ring/",
+  "source_note": "Original animation on existing BoundCongregate V14 rig. Rhythm reference only; no Elden Ring game assets/data. V17 separates loading, accelerating release, brief impact and recoil; no mesh or skin changes."
+}

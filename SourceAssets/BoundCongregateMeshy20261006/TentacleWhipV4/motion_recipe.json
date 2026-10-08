@@ -1,0 +1,20 @@
+{
+  "reference": "https://github.com/MosesAndLily/whip-project-targeting",
+  "reference_commit": "8025f9f156bf3cf591afbedca18eaa03e3846d4a",
+  "method": "minimum-jerk proximal motor with passive damped ball-joint whip; body clearance and length-preserving direction smoothing",
+  "mujoco": "3.15.0",
+  "source_seconds": 0.8320000000000001,
+  "windup_seconds": 1.1,
+  "strike_seconds": 0.62,
+  "anchor_bone": 7,
+  "proximal_drive_segments": 10,
+  "direction_smoothing_segments": 1.15,
+  "frames": 105,
+  "socket_end_cm": [
+    356.5869363803241,
+    122.71944629874096,
+    -111.10812789810342
+  ],
+  "physics_drives_tip": true,
+  "gameplay_tested": false
+}

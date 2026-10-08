@@ -1,5 +1,9 @@
 # 恢复完整 UE5 内容
 
+## 缚群（2026-10-08 衣物暂停）
+
+V18、V19 衣物均被用户否定，保留已保存 V19 现场、现有身体／骨架／攻击及原 PBR。618 个旧快照、废弃输出和过程资料带散列移入本机 trash。公开源码、作者脚本、少量配方、BSD 参考许可与 SKILL；Meshy 原模型、模型派生物、纹理、密集采样、UE 包和日志留本机。恢复依赖及未完成边界见 [缚群暂停与发布](Monsters/bound-congregate-paused-publication-20261008.md)，仅 Git 源码不足以恢复完整怪物。
+
 ## 苍龙 V10（2026-10-07）
 
 **运行版本**：Fab 龙爪 `/Game/Weapons/AzureDragon20261004/ClawFab`（9 个资产）+ 能量条 `HudV10`（6 个）。另外依赖共享法线 `Textures/T_AzureDragonNormal`、`ClawV10/Textures` 的脉络贴图，以及本机已授权的 Realistic Starter VFX Pack Vol2 火焰序列 `T_Fire_F`／`T_Fire_D`（只读引用）。用户已确认特效与判定，后续几版尚待体验。
