@@ -1,0 +1,321 @@
+{
+  "date": "2026-10-08",
+  "scope": "This conversation M-series work only",
+  "files": [
+    {
+      "original": "Tools/MonsterAI/produce_alien_geometry.py",
+      "destination": "trash/m-series-retired-20261008/Tools/MonsterAI/produce_alien_geometry.py",
+      "bytes": 13882,
+      "sha256": "2012c34ce73c513bd75fb95225305aff96fc590d6c05fd0c484c1bcfb2a0fb32",
+      "reason": "Cancelled UE reduction pipeline",
+      "retained_replacement": "Tools/MonsterAI/author_anatomy_repair_v5.py"
+    },
+    {
+      "original": "Tools/MonsterAI/Invoke-AlienGeometry.ps1",
+      "destination": "trash/m-series-retired-20261008/Tools/MonsterAI/Invoke-AlienGeometry.ps1",
+      "bytes": 4034,
+      "sha256": "b004c830c7c80d60abef7fa7efdb71b844c56d39ed07dd82c4db4df0f4822716",
+      "reason": "Cancelled UE reduction entrypoint",
+      "retained_replacement": "Tools/MonsterAI/Invoke-MeshyRemeshV3.ps1"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/Before/Monsters/HangingBellM09/V04/SK_M09.uasset",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/Before/Monsters/HangingBellM09/V04/SK_M09.uasset",
+      "bytes": 317922915,
+      "sha256": "1125a8e4162a5c02e78f086735feb673f043f052bf7c37bd88634a6bc71c7b3b",
+      "reason": "Backup for cancelled unsaved UE reduction attempt",
+      "retained_replacement": "Current species Before folders and retained original Blender masters"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/Before/Monsters/SpiralPillarM14/SK_M14_SupportSkin_v15.uasset",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/Before/Monsters/SpiralPillarM14/SK_M14_SupportSkin_v15.uasset",
+      "bytes": 643312034,
+      "sha256": "abb826137bd407656f5a44acc2c2c6bd7a92c5216d315b211c01b490795b4f52",
+      "reason": "Backup for cancelled unsaved UE reduction attempt",
+      "retained_replacement": "Current species Before folders and retained original Blender masters"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-224022.json",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-224022.json",
+      "bytes": 51024,
+      "sha256": "51fadf72b396b9f8384d9c2892e90c1372b567c08b523a81abe5df68f0feaec0",
+      "reason": "Historical interrupted reduction build records",
+      "retained_replacement": "Current movement and death delivery records"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-224022.log",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-224022.log",
+      "bytes": 15647,
+      "sha256": "006c517dd6e29b628cf5a9074def327a3ae937ecca15982555e77853a6da3674",
+      "reason": "Historical interrupted reduction build records",
+      "retained_replacement": "Current movement and death delivery records"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-224022.log.stdout",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-224022.log.stdout",
+      "bytes": 1664,
+      "sha256": "4cc7b25d1a831d64143ca51582ce6a57dcdadbc07c0a2cb82e403a5b39e16efc",
+      "reason": "Historical interrupted reduction build records",
+      "retained_replacement": "Current movement and death delivery records"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-224431.json",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-224431.json",
+      "bytes": 94018,
+      "sha256": "ff575a29dddd69467c52a8b9aa785656eb7a08063f2045cac1dd5650fa0ab91c",
+      "reason": "Historical interrupted reduction build records",
+      "retained_replacement": "Current movement and death delivery records"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-224431.log",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-224431.log",
+      "bytes": 34342,
+      "sha256": "38579dcba1e7ae42bbf81bbd1238ae9c02f3df697c26746d79a64e583a32f6bb",
+      "reason": "Historical interrupted reduction build records",
+      "retained_replacement": "Current movement and death delivery records"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-224431.log.stdout",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-224431.log.stdout",
+      "bytes": 25041,
+      "sha256": "7580d7f110354f075126acf2c98993da191513cea6a3118dc2f138f76820336a",
+      "reason": "Historical interrupted reduction build records",
+      "retained_replacement": "Current movement and death delivery records"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-231659.json",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-231659.json",
+      "bytes": 152470,
+      "sha256": "ec38af75f9a068a24b4a7bbb394ff9e909936ef362ca8f1d526b49c5f62b5bd5",
+      "reason": "Historical interrupted reduction build records",
+      "retained_replacement": "Current movement and death delivery records"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-231659.log",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-231659.log",
+      "bytes": 56727,
+      "sha256": "01a33ef723bb4992f2ee2bdadd7bd5f757af32349d22ac71fa546e096f7d15b2",
+      "reason": "Historical interrupted reduction build records",
+      "retained_replacement": "Current movement and death delivery records"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-231659.log.stdout",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/Build/build_FPSGAME_20261006-231659.log.stdout",
+      "bytes": 41166,
+      "sha256": "65ebb87a894d03356e985ce16b8f000b9537c1da7aefa67feed5943e16d82e44",
+      "reason": "Historical interrupted reduction build records",
+      "retained_replacement": "Current movement and death delivery records"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/Build/build_FPSGAME.json",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/Build/build_FPSGAME.json",
+      "bytes": 177,
+      "sha256": "57b3346b8010a8237ec58916fee8bd355b84968350f0381ba8f3282da09f4381",
+      "reason": "Historical interrupted reduction build records",
+      "retained_replacement": "Current movement and death delivery records"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/HangingBellM09/bridge-20261006-230636.txt",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/HangingBellM09/bridge-20261006-230636.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/AnatomyRepairV5/HangingBellM09"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/HangingBellM09/bridge-20261006-230930.txt",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/HangingBellM09/bridge-20261006-230930.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/AnatomyRepairV5/HangingBellM09"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/HangingBellM09/console-20261006-231336.log",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/HangingBellM09/console-20261006-231336.log",
+      "bytes": 31104,
+      "sha256": "1a7d5ade831b2b38c39a5b066b3265c4fb29cc777066c9124d3b04247ecd03c6",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/AnatomyRepairV5/HangingBellM09"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/HangingBellM09/delivery.json",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/HangingBellM09/delivery.json",
+      "bytes": 7968,
+      "sha256": "202f00a5318febc397742a9c1b7b35495955ad6cf2b3c90309e0b97909fe7fff",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/AnatomyRepairV5/HangingBellM09"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/HangingBellM09/entry-20261006-230636.py",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/HangingBellM09/entry-20261006-230636.py",
+      "bytes": 183,
+      "sha256": "b97da50f762158e7dc1ec97791ccaba6ea39468c8a03a04b4d84b80a32f67612",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/AnatomyRepairV5/HangingBellM09"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/HangingBellM09/entry-20261006-230930.py",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/HangingBellM09/entry-20261006-230930.py",
+      "bytes": 183,
+      "sha256": "b97da50f762158e7dc1ec97791ccaba6ea39468c8a03a04b4d84b80a32f67612",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/AnatomyRepairV5/HangingBellM09"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/HangingBellM09/production-20261006-231336.log",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/HangingBellM09/production-20261006-231336.log",
+      "bytes": 280115,
+      "sha256": "b321bf5dd94f1fd97e3d2d8f8a5353b055023c5f06bfda4c04767cb147c91e0e",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/AnatomyRepairV5/HangingBellM09"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/bridge-20261006-223544.txt",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/bridge-20261006-223544.txt",
+      "bytes": 1241,
+      "sha256": "4b776c161825dba8ea2690d02c0224328a42cb6855304e1bfc8fbc227a0f3ba5",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/bridge-20261006-223827.txt",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/bridge-20261006-223827.txt",
+      "bytes": 140,
+      "sha256": "8dd8c409d30e11bfe19b77f8f156c07a4c3df10d4760980cf2a65def4ad34f19",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/bridge-20261006-223848.txt",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/bridge-20261006-223848.txt",
+      "bytes": 140,
+      "sha256": "8dd8c409d30e11bfe19b77f8f156c07a4c3df10d4760980cf2a65def4ad34f19",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/bridge-20261006-223909.txt",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/bridge-20261006-223909.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/bridge-20261006-230458.txt",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/bridge-20261006-230458.txt",
+      "bytes": 1343,
+      "sha256": "638d6bcec120ea8a30588a3fa5a433be38f93b6e599436cce2d13003944f60aa",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/console-20261006-225451.log",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/console-20261006-225451.log",
+      "bytes": 35733,
+      "sha256": "c19658144b9fa17e3aacab94e3a2d7a3bae927d0d4ae6b0e4e0ea133a9b41b73",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/console-20261006-225748.log",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/console-20261006-225748.log",
+      "bytes": 34155,
+      "sha256": "afd330d726a68f46e7bd2fd100c16669d5ba338c1b253f14233a27516cc33f5c",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/delivery.json",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/delivery.json",
+      "bytes": 4065,
+      "sha256": "7047a2a8bb6eda945d7c6c9bfdde041387ece4889a6238fc0cb87cfc138f14dd",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/entry-20261006-223544.py",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/entry-20261006-223544.py",
+      "bytes": 144,
+      "sha256": "141a3bc07456f1c0750f54f8c4a7df25b79813ac60b81c14f37dde8fc7f31497",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/entry-20261006-223827.py",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/entry-20261006-223827.py",
+      "bytes": 184,
+      "sha256": "c1e21bb4a5c4f3f0804b5a90cb9aaba143319129af82d7e8bb361cc746b7c2a7",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/entry-20261006-223848.py",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/entry-20261006-223848.py",
+      "bytes": 184,
+      "sha256": "c1e21bb4a5c4f3f0804b5a90cb9aaba143319129af82d7e8bb361cc746b7c2a7",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/entry-20261006-223909.py",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/entry-20261006-223909.py",
+      "bytes": 184,
+      "sha256": "c1e21bb4a5c4f3f0804b5a90cb9aaba143319129af82d7e8bb361cc746b7c2a7",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/entry-20261006-230458.py",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/entry-20261006-230458.py",
+      "bytes": 184,
+      "sha256": "c1e21bb4a5c4f3f0804b5a90cb9aaba143319129af82d7e8bb361cc746b7c2a7",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/production-20261006-225451.log",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/production-20261006-225451.log",
+      "bytes": 280758,
+      "sha256": "4c8881d863e8a18cea0b7f4c2fe423fc4871876b7871bd6099227076211268b8",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "SourceAssets/AlienGeometry20261006/SpiralPillarM14/production-20261006-225748.log",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/AlienGeometry20261006/SpiralPillarM14/production-20261006-225748.log",
+      "bytes": 276571,
+      "sha256": "74d57ff2b0929e10e68864158bac29e703612ec1668f2260c3126fd214284fe9",
+      "reason": "Cancelled UE reduction attempt records",
+      "retained_replacement": "SourceAssets/AlienGeometry20261006/RemeshV4Teeth/SpiralPillarM14"
+    },
+    {
+      "original": "Content/Monsters/GeometryLODs20261006/HangingBellM09/DA_HangingBellM09_Living_LODs.uasset",
+      "destination": "trash/m-series-retired-20261008/Content/Monsters/GeometryLODs20261006/HangingBellM09/DA_HangingBellM09_Living_LODs.uasset",
+      "bytes": 13542,
+      "sha256": "6affffe9931e3bdecf395c791d0094c40bed4bb7e0cd2562ce583ade07844d60",
+      "reason": "Unused parameter assets from cancelled UE reduction; absent from current M09/M14 mesh package references",
+      "retained_replacement": "Offline four-level FBX imports"
+    },
+    {
+      "original": "Content/Monsters/GeometryLODs20261006/SpiralPillarM14/DA_SpiralPillarM14_Living_LODs.uasset",
+      "destination": "trash/m-series-retired-20261008/Content/Monsters/GeometryLODs20261006/SpiralPillarM14/DA_SpiralPillarM14_Living_LODs.uasset",
+      "bytes": 10208,
+      "sha256": "d1c77be52fa5cc5f0118884f29d6fce5f5db7393332577c6ff92073e2323b902",
+      "reason": "Unused parameter assets from cancelled UE reduction; absent from current M09/M14 mesh package references",
+      "retained_replacement": "Offline four-level FBX imports"
+    },
+    {
+      "original": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV21/Authoring/M14_StagedBite_v21.blend1",
+      "destination": "trash/m-series-retired-20261008/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV21/Authoring/M14_StagedBite_v21.blend1",
+      "bytes": 230139403,
+      "sha256": "8e463b8fb27fc6770be420171933d082ed47fe73a814b564ca0c6c0facac8846",
+      "reason": "Blender automatic previous-save copy",
+      "retained_replacement": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV21/Authoring/M14_StagedBite_v21.blend"
+    }
+  ],
+  "count": 39,
+  "bytes": 1192843083.0,
+  "hash_verified": true
+}

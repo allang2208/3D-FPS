@@ -37,6 +37,27 @@ void UMonsterCharacterMovementComponent::ConfigureWideBodyStairs(float Navigatio
     Agent.AgentStepHeight = MaxStepHeight;
 }
 
+void UMonsterCharacterMovementComponent::RefreshFloorReference()
+{
+    bHaveFrameFloor = IsMovingOnGround() && CurrentFloor.IsWalkableFloor() && UpdatedComponent && CharacterOwner;
+    if (bHaveFrameFloor)
+    {
+        // SetFromLineTrace retains the rejected sweep's ImpactPoint.
+        FrameFloorZ = CurrentFloor.bLineTrace ? UpdatedComponent->GetComponentLocation().Z -
+            CharacterOwner->GetCapsuleComponent()->GetScaledCapsuleHalfHeight() - CurrentFloor.LineDist :
+            CurrentFloor.HitResult.ImpactPoint.Z;
+    }
+}
+
+void UMonsterCharacterMovementComponent::MoveAlongFloor(const FVector& InVelocity, float DeltaSeconds,
+    FStepDownResult* OutStepDownResult)
+{
+    // PhysWalking may accept more than one step within a frame. The next
+    // substep must compare against that accepted support, not the tick's first floor.
+    RefreshFloorReference();
+    Super::MoveAlongFloor(InVelocity, DeltaSeconds, OutStepDownResult);
+}
+
 bool UMonsterCharacterMovementComponent::CanOffsetMesh() const
 {
     const auto* Mesh = CharacterOwner ? CharacterOwner->GetMesh() : nullptr;
@@ -58,15 +79,7 @@ void UMonsterCharacterMovementComponent::ApplyMeshOffset(float Offset)
 void UMonsterCharacterMovementComponent::TickComponent(float DeltaTime, ELevelTick TickType,
     FActorComponentTickFunction* ThisTickFunction)
 {
-    bHaveFrameFloor = IsMovingOnGround() && CurrentFloor.IsWalkableFloor() && UpdatedComponent && CharacterOwner;
-    if (bHaveFrameFloor)
-    {
-        // A line fallback keeps the rejected sweep's ImpactPoint in UE. Its actual
-        // supporting floor is below the feet by LineDist, not at that high edge.
-        FrameFloorZ = CurrentFloor.bLineTrace ? UpdatedComponent->GetComponentLocation().Z -
-            CharacterOwner->GetCapsuleComponent()->GetScaledCapsuleHalfHeight() - CurrentFloor.LineDist :
-            CurrentFloor.HitResult.ImpactPoint.Z;
-    }
+    RefreshFloorReference();
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
     // Freeze at the last visible pose on death; never pull a corpse back to its capsule.
     if (!CanOffsetMesh() || MovementMode == MOVE_None) return;

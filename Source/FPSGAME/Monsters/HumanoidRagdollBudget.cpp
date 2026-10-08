@@ -63,7 +63,7 @@ void UHumanoidRagdollBudget::Release(UObject* Candidate)
     Active.RemoveAll([Candidate](const auto& Entry){return !Entry.IsValid() || Entry.Get()==Candidate;});
 }
 
-void UHumanoidRagdollBudget::RegisterFrozenMesh(USkeletalMeshComponent* Mesh)
+void UHumanoidRagdollBudget::RegisterFrozenMesh(USkinnedMeshComponent* Mesh)
 {
     if (!Mesh || GetWorld()->GetNetMode() == NM_DedicatedServer) return;
     Mesh->SetForcedLOD(0);
@@ -85,9 +85,10 @@ void UHumanoidRagdollBudget::UpdateFrozenLODs()
     {
         auto* Mesh = Entry.Get();
         if (!Mesh->UpdateLODStatus()) continue;
-        // Use the renderer's screen-size/streaming choice for every view. The
-        // original full snapshot remains held, including when LOD0 returns.
-        Mesh->TickAnimation(0.f, false);
+        // Poseable soft corpses already hold every render-bone transform and
+        // must not restart animation or the solver when the distance changes.
+        if (auto* SkeletalMesh = Cast<USkeletalMeshComponent>(Mesh))
+            SkeletalMesh->TickAnimation(0.f, false);
         Mesh->RefreshBoneTransforms();
     }
     if (FrozenMeshes.IsEmpty()) GetWorld()->GetTimerManager().ClearTimer(FrozenLODTimer);

@@ -1,0 +1,1321 @@
+{
+  "started": "2026-10-06T22:24:16.141043",
+  "complete": true,
+  "actors": [
+    {
+      "id": "BlindSupplicantM07",
+      "label": "盲祷者 M-07",
+      "class_path": "/Game/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.BP_BlindSupplicantM07_C",
+      "visual_property": "/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18.SK_M07_BodyMotionV18",
+      "component_mesh": "/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18.SK_M07_BodyMotionV18",
+      "active_mesh": "/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18.SK_M07_BodyMotionV18",
+      "component_forced_lod": 0,
+      "component_min_lod": 0,
+      "component_scale": "<Struct 'Vector' (0x00000240874F61B0) {x: 1.000000, y: 1.000000, z: 1.000000}>",
+      "lod_behavior_properties": {
+        "bMinion": null,
+        "bUseCoherentGillMotion": false,
+        "ClothResumeDistance": 1200.0,
+        "ClothSuspendDistance": 1600.0
+      },
+      "skeletal_components": [
+        {
+          "component": "CharacterMesh0",
+          "mesh": "/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18.SK_M07_BodyMotionV18",
+          "visible": true
+        }
+      ],
+      "corpse_meshes": []
+    },
+    {
+      "id": "MantisM27",
+      "label": "螳螂-M27",
+      "class_path": "/Game/Monsters/MantisM27/BP_MantisM27.BP_MantisM27_C",
+      "visual_property": "/Game/Monsters/MantisM27/BindingV2/SK_MantisM27_BindingV2.SK_MantisM27_BindingV2",
+      "component_mesh": "/Game/Monsters/MantisM27/BindingV2/SK_MantisM27_BindingV2.SK_MantisM27_BindingV2",
+      "active_mesh": "/Game/Monsters/MantisM27/BindingV2/SK_MantisM27_BindingV2.SK_MantisM27_BindingV2",
+      "component_forced_lod": 0,
+      "component_min_lod": 0,
+      "component_scale": "<Struct 'Vector' (0x00000240886101B0) {x: 1.000000, y: 1.000000, z: 1.000000}>",
+      "lod_behavior_properties": {
+        "bMinion": null,
+        "bUseCoherentGillMotion": null,
+        "ClothResumeDistance": null,
+        "ClothSuspendDistance": null
+      },
+      "skeletal_components": [
+        {
+          "component": "CharacterMesh0",
+          "mesh": "/Game/Monsters/MantisM27/BindingV2/SK_MantisM27_BindingV2.SK_MantisM27_BindingV2",
+          "visible": true
+        }
+      ],
+      "corpse_meshes": []
+    },
+    {
+      "id": "LurkerM08",
+      "label": "伏窥者 M-08",
+      "class_path": "/Game/Monsters/LurkerM08/BP_LurkerM08.BP_LurkerM08_C",
+      "visual_property": null,
+      "component_mesh": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+      "active_mesh": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+      "component_forced_lod": 0,
+      "component_min_lod": 0,
+      "component_scale": "<Struct 'Vector' (0x000002408FD379B0) {x: 1.000000, y: 1.000000, z: 1.000000}>",
+      "lod_behavior_properties": {
+        "bMinion": null,
+        "bUseCoherentGillMotion": null,
+        "ClothResumeDistance": null,
+        "ClothSuspendDistance": null
+      },
+      "skeletal_components": [
+        {
+          "component": "CharacterMesh0",
+          "mesh": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+          "visible": true
+        }
+      ],
+      "corpse_meshes": [
+        "/Game/Monsters/SoftCorpseV1/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse"
+      ]
+    },
+    {
+      "id": "FleshHand",
+      "label": "异变巨手",
+      "class_path": "/Game/Monsters/FleshHand/BP_FleshHand.BP_FleshHand_C",
+      "visual_property": "/Game/Monsters/FleshHand/SK_FleshHand_Green.SK_FleshHand_Green",
+      "component_mesh": "/Game/Monsters/FleshHand/SK_FleshHand_Green.SK_FleshHand_Green",
+      "active_mesh": "/Game/Monsters/FleshHand/SK_FleshHand_Green.SK_FleshHand_Green",
+      "component_forced_lod": 0,
+      "component_min_lod": 0,
+      "component_scale": "<Struct 'Vector' (0x00000240A45C31B0) {x: 2.000000, y: 2.000000, z: 2.000000}>",
+      "lod_behavior_properties": {
+        "bMinion": false,
+        "bUseCoherentGillMotion": null,
+        "ClothResumeDistance": null,
+        "ClothSuspendDistance": null
+      },
+      "skeletal_components": [
+        {
+          "component": "CharacterMesh0",
+          "mesh": "/Game/Monsters/FleshHand/SK_FleshHand_Green.SK_FleshHand_Green",
+          "visible": true
+        }
+      ],
+      "corpse_meshes": [
+        "/Game/Monsters/SoftCorpseV1/FleshHand/SK_FleshHand_SoftCorpse.SK_FleshHand_SoftCorpse"
+      ]
+    },
+    {
+      "id": "FleshHandMinion",
+      "label": "小皮肤手",
+      "class_path": "/Game/Monsters/FleshHand/BP_FleshHandMinion.BP_FleshHandMinion_C",
+      "visual_property": "/Game/Monsters/FleshHand/SK_FleshHand_Green.SK_FleshHand_Green",
+      "component_mesh": "/Game/Monsters/FleshHand/SK_FleshHand_Green.SK_FleshHand_Green",
+      "active_mesh": "/Game/Monsters/FleshHand/SK_FleshHand_Green.SK_FleshHand_Green",
+      "component_forced_lod": 0,
+      "component_min_lod": 0,
+      "component_scale": "<Struct 'Vector' (0x00000240AD3EA9B0) {x: 0.650000, y: 0.650000, z: 0.650000}>",
+      "lod_behavior_properties": {
+        "bMinion": true,
+        "bUseCoherentGillMotion": null,
+        "ClothResumeDistance": null,
+        "ClothSuspendDistance": null
+      },
+      "skeletal_components": [
+        {
+          "component": "CharacterMesh0",
+          "mesh": "/Game/Monsters/FleshHand/SK_FleshHand_Green.SK_FleshHand_Green",
+          "visible": true
+        }
+      ],
+      "corpse_meshes": [
+        "/Game/Monsters/SoftCorpseV1/FleshHand/SK_FleshHand_SoftCorpse.SK_FleshHand_SoftCorpse"
+      ]
+    },
+    {
+      "id": "HandBrain",
+      "label": "手脑",
+      "class_path": "/Game/Monsters/HandBrain/BP_HandBrain.BP_HandBrain_C",
+      "visual_property": "/Game/Monsters/HandBrain/StyleV1/SK_HandBrain_StyleV1.SK_HandBrain_StyleV1",
+      "component_mesh": "/Game/Monsters/HandBrain/StyleV1/SK_HandBrain_StyleV1.SK_HandBrain_StyleV1",
+      "active_mesh": "/Game/Monsters/HandBrain/StyleV1/SK_HandBrain_StyleV1.SK_HandBrain_StyleV1",
+      "component_forced_lod": 0,
+      "component_min_lod": 0,
+      "component_scale": "<Struct 'Vector' (0x00000240AD7F61B0) {x: 1.000000, y: 1.000000, z: 1.000000}>",
+      "lod_behavior_properties": {
+        "bMinion": null,
+        "bUseCoherentGillMotion": null,
+        "ClothResumeDistance": null,
+        "ClothSuspendDistance": null
+      },
+      "skeletal_components": [
+        {
+          "component": "CharacterMesh0",
+          "mesh": "/Game/Monsters/HandBrain/StyleV1/SK_HandBrain_StyleV1.SK_HandBrain_StyleV1",
+          "visible": true
+        }
+      ],
+      "corpse_meshes": [
+        "/Game/Monsters/SoftCorpseV1/HandBrain/SK_HandBrain_SoftCorpse.SK_HandBrain_SoftCorpse"
+      ]
+    },
+    {
+      "id": "PoisonMaggot",
+      "label": "毒蛆",
+      "class_path": "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C",
+      "visual_property": "/Game/Monsters/PoisonMaggot/StyleV1/SK_PoisonMaggot_StyleV1.SK_PoisonMaggot_StyleV1",
+      "component_mesh": "/Game/Monsters/PoisonMaggot/StyleV1/SK_PoisonMaggot_StyleV1.SK_PoisonMaggot_StyleV1",
+      "active_mesh": "/Game/Monsters/PoisonMaggot/StyleV1/SK_PoisonMaggot_StyleV1.SK_PoisonMaggot_StyleV1",
+      "component_forced_lod": 0,
+      "component_min_lod": 0,
+      "component_scale": "<Struct 'Vector' (0x00000240AEFF61B0) {x: 1.000000, y: 1.000000, z: 1.000000}>",
+      "lod_behavior_properties": {
+        "bMinion": null,
+        "bUseCoherentGillMotion": null,
+        "ClothResumeDistance": null,
+        "ClothSuspendDistance": null
+      },
+      "skeletal_components": [
+        {
+          "component": "CharacterMesh0",
+          "mesh": "/Game/Monsters/PoisonMaggot/StyleV1/SK_PoisonMaggot_StyleV1.SK_PoisonMaggot_StyleV1",
+          "visible": true
+        }
+      ],
+      "corpse_meshes": [
+        "/Game/Monsters/SoftCorpseV1/PoisonMaggot/SK_PoisonMaggot_SoftCorpse.SK_PoisonMaggot_SoftCorpse"
+      ]
+    },
+    {
+      "id": "HangingBellM09",
+      "label": "悬钟 M-09（天花板）",
+      "class_path": "/Script/FPSGAME.HangingBellM09",
+      "visual_property": "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09",
+      "component_mesh": null,
+      "active_mesh": "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09",
+      "component_forced_lod": 0,
+      "component_min_lod": 0,
+      "component_scale": "<Struct 'Vector' (0x0000023FE896DDB0) {x: 1.000000, y: 1.000000, z: 1.000000}>",
+      "lod_behavior_properties": {
+        "bMinion": null,
+        "bUseCoherentGillMotion": null,
+        "ClothResumeDistance": null,
+        "ClothSuspendDistance": null
+      },
+      "skeletal_components": [],
+      "corpse_meshes": [
+        "/Game/Monsters/SoftCorpseV1/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse"
+      ]
+    },
+    {
+      "id": "VortexCofferM25",
+      "label": "涡电匣 M-25",
+      "class_path": "/Game/Monsters/VortexCofferM25/BP_VortexCofferM25.BP_VortexCofferM25_C",
+      "visual_property": "/Game/Monsters/VortexCofferM25/OptimizedV01/SK_M25_VortexCoffer_Game_V01.SK_M25_VortexCoffer_Game_V01",
+      "component_mesh": "/Game/Monsters/VortexCofferM25/OptimizedV01/SK_M25_VortexCoffer_Game_V01.SK_M25_VortexCoffer_Game_V01",
+      "active_mesh": "/Game/Monsters/VortexCofferM25/OptimizedV01/SK_M25_VortexCoffer_Game_V01.SK_M25_VortexCoffer_Game_V01",
+      "component_forced_lod": 0,
+      "component_min_lod": 0,
+      "component_scale": "<Struct 'Vector' (0x00000240B35719B0) {x: 1.000000, y: 1.000000, z: 1.000000}>",
+      "lod_behavior_properties": {
+        "bMinion": null,
+        "bUseCoherentGillMotion": null,
+        "ClothResumeDistance": null,
+        "ClothSuspendDistance": null
+      },
+      "skeletal_components": [
+        {
+          "component": "CharacterMesh0",
+          "mesh": "/Game/Monsters/VortexCofferM25/OptimizedV01/SK_M25_VortexCoffer_Game_V01.SK_M25_VortexCoffer_Game_V01",
+          "visible": true
+        }
+      ],
+      "corpse_meshes": [
+        "/Game/Monsters/SoftCorpseV1/VortexCofferM25/SK_VortexCofferM25_SoftCorpse.SK_VortexCofferM25_SoftCorpse"
+      ]
+    },
+    {
+      "id": "M10Mawcrawler",
+      "label": "沉匣 M-10",
+      "class_path": "/Game/Monsters/M10Mawcrawler/BP_M10Mawcrawler.BP_M10Mawcrawler_C",
+      "visual_property": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5",
+      "component_mesh": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5",
+      "active_mesh": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5",
+      "component_forced_lod": 0,
+      "component_min_lod": 0,
+      "component_scale": "<Struct 'Vector' (0x00000240C61B8DB0) {x: 1.000000, y: 1.000000, z: 1.000000}>",
+      "lod_behavior_properties": {
+        "bMinion": null,
+        "bUseCoherentGillMotion": null,
+        "ClothResumeDistance": null,
+        "ClothSuspendDistance": null
+      },
+      "skeletal_components": [
+        {
+          "component": "CharacterMesh0",
+          "mesh": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5",
+          "visible": true
+        }
+      ],
+      "corpse_meshes": [
+        "/Game/Monsters/SoftCorpseV1/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse.SK_M10Mawcrawler_SoftCorpse"
+      ]
+    },
+    {
+      "id": "SpiralPillarM14",
+      "label": "螺柱 M-14",
+      "class_path": "/Game/Monsters/SpiralPillarM14/BP_SpiralPillarM14.BP_SpiralPillarM14_C",
+      "visual_property": "/Game/Monsters/SpiralPillarM14/SK_M14_SupportSkin_v15.SK_M14_SupportSkin_v15",
+      "component_mesh": "/Game/Monsters/SpiralPillarM14/SK_M14_SupportSkin_v15.SK_M14_SupportSkin_v15",
+      "active_mesh": "/Game/Monsters/SpiralPillarM14/SK_M14_SupportSkin_v15.SK_M14_SupportSkin_v15",
+      "component_forced_lod": 0,
+      "component_min_lod": 0,
+      "component_scale": "<Struct 'Vector' (0x00000240CB75C9B0) {x: 1.000000, y: 1.000000, z: 1.000000}>",
+      "lod_behavior_properties": {
+        "bMinion": null,
+        "bUseCoherentGillMotion": null,
+        "ClothResumeDistance": null,
+        "ClothSuspendDistance": null
+      },
+      "skeletal_components": [
+        {
+          "component": "CharacterMesh0",
+          "mesh": "/Game/Monsters/SpiralPillarM14/SK_M14_SupportSkin_v15.SK_M14_SupportSkin_v15",
+          "visible": true
+        }
+      ],
+      "corpse_meshes": [
+        "/Game/Monsters/SpiralPillarM14/SK_M14_XPBDCorpse_v19.SK_M14_XPBDCorpse_v19"
+      ]
+    },
+    {
+      "id": "HundredEyedSlag",
+      "label": "百目炉渣",
+      "class_path": "/Script/FPSGAME.HundredEyedSlagMonster",
+      "visual_property": "/Game/Monsters/HundredEyedSlag/ArticulationV12/SK_HundredEyedSlag_V12.SK_HundredEyedSlag_V12",
+      "component_mesh": "/Game/Monsters/HundredEyedSlag/ArticulationV12/SK_HundredEyedSlag_V12.SK_HundredEyedSlag_V12",
+      "active_mesh": "/Game/Monsters/HundredEyedSlag/ArticulationV12/SK_HundredEyedSlag_V12.SK_HundredEyedSlag_V12",
+      "component_forced_lod": 0,
+      "component_min_lod": 0,
+      "component_scale": "<Struct 'Vector' (0x000002405BA231B0) {x: 1.000000, y: 1.000000, z: 1.000000}>",
+      "lod_behavior_properties": {
+        "bMinion": null,
+        "bUseCoherentGillMotion": null,
+        "ClothResumeDistance": null,
+        "ClothSuspendDistance": null
+      },
+      "skeletal_components": [
+        {
+          "component": "CharacterMesh0",
+          "mesh": "/Game/Monsters/HundredEyedSlag/ArticulationV12/SK_HundredEyedSlag_V12.SK_HundredEyedSlag_V12",
+          "visible": true
+        }
+      ],
+      "corpse_meshes": []
+    }
+  ],
+  "meshes": {
+    "/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18.SK_M07_BodyMotionV18": {
+      "path": "/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18.SK_M07_BodyMotionV18",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "207321",
+        "Vertices": "145458",
+        "LODs": "3",
+        "Bones": "83",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "8",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 145458,
+          "sections": 2,
+          "triangles": 207321,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        },
+        {
+          "index": 1,
+          "vertices": 81266,
+          "sections": 2,
+          "triangles": 82927,
+          "screen_size": 0.18000000715255737,
+          "target_triangle_fraction": 0.4000000059604645
+        },
+        {
+          "index": 2,
+          "vertices": 79939,
+          "sections": 2,
+          "triangles": 80487,
+          "screen_size": 0.06499999761581421,
+          "target_triangle_fraction": 0.15000000596046448
+        }
+      ],
+      "lod_count": 3,
+      "materials": [
+        "/Game/Monsters/BlindSupplicantM07/Materials/M07_Body_OriginalV07.M07_Body_OriginalV07",
+        "/Game/Monsters/BlindSupplicantM07/Materials/M07_Gills_OriginalV07.M07_Gills_OriginalV07"
+      ],
+      "skeleton": "/Game/Monsters/BlindSupplicantM07/SK_M07_ReferenceOriginalV11.SK_M07_ReferenceOriginalV11",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/BlindSupplicantM07Meshy20261001/ShoulderClothV38/SK_M07_Display_ShoulderV38.fbx"
+      ],
+      "corpse_bindings": [],
+      "user_data_classes": []
+    },
+    "/Game/Monsters/MantisM27/BindingV2/SK_MantisM27_BindingV2.SK_MantisM27_BindingV2": {
+      "path": "/Game/Monsters/MantisM27/BindingV2/SK_MantisM27_BindingV2.SK_MantisM27_BindingV2",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "197761",
+        "Vertices": "186956",
+        "LODs": "4",
+        "Bones": "38",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 186956,
+          "sections": 1,
+          "triangles": 197761,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        },
+        {
+          "index": 1,
+          "vertices": 120186,
+          "sections": 1,
+          "triangles": 98879,
+          "screen_size": 0.44999998807907104,
+          "target_triangle_fraction": 0.5
+        },
+        {
+          "index": 2,
+          "vertices": 60376,
+          "sections": 1,
+          "triangles": 39551,
+          "screen_size": 0.20000000298023224,
+          "target_triangle_fraction": 0.20000000298023224
+        },
+        {
+          "index": 3,
+          "vertices": 27116,
+          "sections": 1,
+          "triangles": 15818,
+          "screen_size": 0.09000000357627869,
+          "target_triangle_fraction": 0.07999999821186066
+        }
+      ],
+      "lod_count": 4,
+      "materials": [
+        "/Game/Monsters/MantisM27/ProductionV1/Materials/M_M27_OriginalPBR.M_M27_OriginalPBR"
+      ],
+      "skeleton": "/Game/Monsters/MantisM27/BindingV2/SK_MantisM27_BindingV2_Skeleton.SK_MantisM27_BindingV2_Skeleton",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": "/Game/Monsters/MantisM27/BindingV2/LOD_MantisM27_BindingV2.LOD_MantisM27_BindingV2",
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/MantisM27/BindingV2/Delivery/SK_MantisM27_BindingV2.fbx"
+      ],
+      "corpse_bindings": [],
+      "user_data_classes": []
+    },
+    "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03": {
+      "path": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "1250160",
+        "Vertices": "662645",
+        "LODs": "1",
+        "Bones": "70",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 662645,
+          "sections": 2,
+          "triangles": 1250160,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/LurkerM08/Materials/M_M08_Skin.M_M08_Skin",
+        "/Game/Monsters/LurkerM08/Materials/M_M08_InnerArch.M_M08_InnerArch"
+      ],
+      "skeleton": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03_Skeleton.SK_LurkerM08_CanineV03_Skeleton",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/Monsters/LurkerM08/CanineRigV03_20261004/SK_LurkerM08_CanineV03.fbx"
+      ],
+      "corpse_bindings": [
+        {
+          "binding": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03:MonsterSoftCorpseBinding_0",
+          "data": "/Game/Monsters/SoftCorpseV1/LurkerM08/DA_LurkerM08_SoftCorpse.DA_LurkerM08_SoftCorpse",
+          "mesh": "/Game/Monsters/SoftCorpseV1/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse",
+          "method": "binding exists + unique hard package dependency + data asset CorpseMesh; protected Binding.Data not directly read"
+        }
+      ],
+      "user_data_classes": [
+        "MonsterSoftCorpseBinding"
+      ],
+      "soft_corpse_dependency_paths": [
+        "/Game/Monsters/SoftCorpseV1/LurkerM08/DA_LurkerM08_SoftCorpse"
+      ]
+    },
+    "/Game/Monsters/SoftCorpseV1/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse": {
+      "path": "/Game/Monsters/SoftCorpseV1/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "1250160",
+        "Vertices": "662645",
+        "LODs": "1",
+        "Bones": "725",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 662645,
+          "sections": 2,
+          "triangles": 1250160,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/SoftCorpseV1/Materials/M_M08_Skin_ce4de6ba_Corpse.M_M08_Skin_ce4de6ba_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/M_M08_InnerArch_4aa7e351_Corpse.M_M08_InnerArch_4aa7e351_Corpse"
+      ],
+      "skeleton": "/Game/Monsters/SoftCorpseV1/LurkerM08/SKEL_LurkerM08_SoftCorpse.SKEL_LurkerM08_SoftCorpse",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/Monsters/LurkerM08/CanineRigV03_20261004/SK_LurkerM08_CanineV03.fbx"
+      ],
+      "corpse_bindings": [],
+      "user_data_classes": []
+    },
+    "/Game/Monsters/FleshHand/SK_FleshHand_Green.SK_FleshHand_Green": {
+      "path": "/Game/Monsters/FleshHand/SK_FleshHand_Green.SK_FleshHand_Green",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "27270",
+        "Vertices": "18275",
+        "LODs": "3",
+        "Bones": "23",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 18275,
+          "sections": 1,
+          "triangles": 27270,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        },
+        {
+          "index": 1,
+          "vertices": 9129,
+          "sections": 1,
+          "triangles": 13634,
+          "screen_size": 0.41999998688697815,
+          "target_triangle_fraction": 1.0
+        },
+        {
+          "index": 2,
+          "vertices": 4091,
+          "sections": 1,
+          "triangles": 5454,
+          "screen_size": 0.1599999964237213,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 3,
+      "materials": [
+        "/Game/Monsters/FleshHand/MI_FleshHand_GreenSkin.MI_FleshHand_GreenSkin"
+      ],
+      "skeleton": "/Game/Monsters/FleshHand/SK_FleshHand_Green_Skeleton.SK_FleshHand_Green_Skeleton",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/FleshHand20260926/LocalRig/SK_FleshHand_Green_LocalRigV1.fbx"
+      ],
+      "corpse_bindings": [
+        {
+          "binding": "/Game/Monsters/FleshHand/SK_FleshHand_Green.SK_FleshHand_Green:MonsterSoftCorpseBinding_0",
+          "data": "/Game/Monsters/SoftCorpseV1/FleshHand/DA_FleshHand_SoftCorpse.DA_FleshHand_SoftCorpse",
+          "mesh": "/Game/Monsters/SoftCorpseV1/FleshHand/SK_FleshHand_SoftCorpse.SK_FleshHand_SoftCorpse",
+          "method": "binding exists + unique hard package dependency + data asset CorpseMesh; protected Binding.Data not directly read"
+        }
+      ],
+      "user_data_classes": [
+        "MonsterSoftCorpseBinding"
+      ],
+      "soft_corpse_dependency_paths": [
+        "/Game/Monsters/SoftCorpseV1/FleshHand/DA_FleshHand_SoftCorpse"
+      ]
+    },
+    "/Game/Monsters/SoftCorpseV1/FleshHand/SK_FleshHand_SoftCorpse.SK_FleshHand_SoftCorpse": {
+      "path": "/Game/Monsters/SoftCorpseV1/FleshHand/SK_FleshHand_SoftCorpse.SK_FleshHand_SoftCorpse",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "27270",
+        "Vertices": "18275",
+        "LODs": "1",
+        "Bones": "690",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 18275,
+          "sections": 1,
+          "triangles": 27270,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/SoftCorpseV1/Materials/MI_FleshHand_GreenSkin_966d75db_Corpse.MI_FleshHand_GreenSkin_966d75db_Corpse"
+      ],
+      "skeleton": "/Game/Monsters/SoftCorpseV1/FleshHand/SKEL_FleshHand_SoftCorpse.SKEL_FleshHand_SoftCorpse",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "E:/Program Files (x86)/UE_5.8/SourceAssets/FleshHand20260926/LocalRig/SK_FleshHand_Green_LocalRigV1.fbx"
+      ],
+      "corpse_bindings": [],
+      "user_data_classes": []
+    },
+    "/Game/Monsters/HandBrain/StyleV1/SK_HandBrain_StyleV1.SK_HandBrain_StyleV1": {
+      "path": "/Game/Monsters/HandBrain/StyleV1/SK_HandBrain_StyleV1.SK_HandBrain_StyleV1",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "230023",
+        "Vertices": "173565",
+        "LODs": "1",
+        "Bones": "39",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "8",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 173565,
+          "sections": 6,
+          "triangles": 230023,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/HandBrain/StyleV1/MI_StyleV1_handbrain_HandBrain_Body_0.MI_StyleV1_handbrain_HandBrain_Body_0",
+        "/Game/Monsters/HandBrain/StyleV1/MI_StyleV1_handbrain_HandBrain_Body_1.MI_StyleV1_handbrain_HandBrain_Body_1",
+        "/Game/Monsters/HandBrain/StyleV1/MI_StyleV1_handbrain_HandBrain_Body_2.MI_StyleV1_handbrain_HandBrain_Body_2",
+        "/Game/Monsters/HandBrain/StyleV1/MI_StyleV1_handbrain_HandBrain_AttackArm_0.MI_StyleV1_handbrain_HandBrain_AttackArm_0",
+        "/Game/Monsters/HandBrain/StyleV1/MI_StyleV1_handbrain_HandBrain_CrownHands_0.MI_StyleV1_handbrain_HandBrain_CrownHands_0",
+        "/Game/Monsters/HandBrain/StyleV1/MI_StyleV1_handbrain_HandBrain_OralTeeth_0.MI_StyleV1_handbrain_HandBrain_OralTeeth_0"
+      ],
+      "skeleton": "/Game/Monsters/HandBrain/SK_HandBrain_Skeleton.SK_HandBrain_Skeleton",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/MonsterStyleV1/handbrain/SK_handbrain_StyleV1.fbx"
+      ],
+      "corpse_bindings": [
+        {
+          "binding": "/Game/Monsters/HandBrain/StyleV1/SK_HandBrain_StyleV1.SK_HandBrain_StyleV1:MonsterSoftCorpseBinding_0",
+          "data": "/Game/Monsters/SoftCorpseV1/HandBrain/DA_HandBrain_SoftCorpse.DA_HandBrain_SoftCorpse",
+          "mesh": "/Game/Monsters/SoftCorpseV1/HandBrain/SK_HandBrain_SoftCorpse.SK_HandBrain_SoftCorpse",
+          "method": "binding exists + unique hard package dependency + data asset CorpseMesh; protected Binding.Data not directly read"
+        }
+      ],
+      "user_data_classes": [
+        "MonsterSoftCorpseBinding"
+      ],
+      "soft_corpse_dependency_paths": [
+        "/Game/Monsters/SoftCorpseV1/HandBrain/DA_HandBrain_SoftCorpse"
+      ]
+    },
+    "/Game/Monsters/SoftCorpseV1/HandBrain/SK_HandBrain_SoftCorpse.SK_HandBrain_SoftCorpse": {
+      "path": "/Game/Monsters/SoftCorpseV1/HandBrain/SK_HandBrain_SoftCorpse.SK_HandBrain_SoftCorpse",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "186560",
+        "Vertices": "142630",
+        "LODs": "1",
+        "Bones": "733",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 142630,
+          "sections": 4,
+          "triangles": 186560,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/SoftCorpseV1/Materials/MI_StyleV1_handbrain_HandBrain_Body_0_35f3f15f_Corpse.MI_StyleV1_handbrain_HandBrain_Body_0_35f3f15f_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/MI_StyleV1_handbrain_HandBrain_Body_1_b71737b7_Corpse.MI_StyleV1_handbrain_HandBrain_Body_1_b71737b7_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/MI_StyleV1_handbrain_HandBrain_Body_2_fd739988_Corpse.MI_StyleV1_handbrain_HandBrain_Body_2_fd739988_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/MI_StyleV1_handbrain_HandBrain_AttackArm_0_8a16d1e3_Corpse.MI_StyleV1_handbrain_HandBrain_AttackArm_0_8a16d1e3_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/MI_StyleV1_handbrain_HandBrain_CrownHands_0_7db00a59_Corpse.MI_StyleV1_handbrain_HandBrain_CrownHands_0_7db00a59_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/MI_StyleV1_handbrain_HandBrain_OralTeeth_0_00c92012_Corpse.MI_StyleV1_handbrain_HandBrain_OralTeeth_0_00c92012_Corpse"
+      ],
+      "skeleton": "/Game/Monsters/SoftCorpseV1/HandBrain/SKEL_HandBrain_SoftCorpse.SKEL_HandBrain_SoftCorpse",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/MonsterStyleV1/handbrain/SK_handbrain_StyleV1.fbx"
+      ],
+      "corpse_bindings": [],
+      "user_data_classes": []
+    },
+    "/Game/Monsters/PoisonMaggot/StyleV1/SK_PoisonMaggot_StyleV1.SK_PoisonMaggot_StyleV1": {
+      "path": "/Game/Monsters/PoisonMaggot/StyleV1/SK_PoisonMaggot_StyleV1.SK_PoisonMaggot_StyleV1",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "40336",
+        "Vertices": "26962",
+        "LODs": "1",
+        "Bones": "38",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 26962,
+          "sections": 1,
+          "triangles": 40336,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/PoisonMaggot/StyleV1/MI_StyleV1_maggot_PoisonMaggot_Retopo_0.MI_StyleV1_maggot_PoisonMaggot_Retopo_0"
+      ],
+      "skeleton": "/Game/Monsters/PoisonMaggot/SK_PoisonMaggot_Skeleton.SK_PoisonMaggot_Skeleton",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/MonsterStyleV1/maggot/SK_maggot_StyleV1.fbx"
+      ],
+      "corpse_bindings": [
+        {
+          "binding": "/Game/Monsters/PoisonMaggot/StyleV1/SK_PoisonMaggot_StyleV1.SK_PoisonMaggot_StyleV1:MonsterSoftCorpseBinding_0",
+          "data": "/Game/Monsters/SoftCorpseV1/PoisonMaggot/DA_PoisonMaggot_SoftCorpse.DA_PoisonMaggot_SoftCorpse",
+          "mesh": "/Game/Monsters/SoftCorpseV1/PoisonMaggot/SK_PoisonMaggot_SoftCorpse.SK_PoisonMaggot_SoftCorpse",
+          "method": "binding exists + unique hard package dependency + data asset CorpseMesh; protected Binding.Data not directly read"
+        }
+      ],
+      "user_data_classes": [
+        "MonsterSoftCorpseBinding"
+      ],
+      "soft_corpse_dependency_paths": [
+        "/Game/Monsters/SoftCorpseV1/PoisonMaggot/DA_PoisonMaggot_SoftCorpse"
+      ]
+    },
+    "/Game/Monsters/SoftCorpseV1/PoisonMaggot/SK_PoisonMaggot_SoftCorpse.SK_PoisonMaggot_SoftCorpse": {
+      "path": "/Game/Monsters/SoftCorpseV1/PoisonMaggot/SK_PoisonMaggot_SoftCorpse.SK_PoisonMaggot_SoftCorpse",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "40336",
+        "Vertices": "26962",
+        "LODs": "1",
+        "Bones": "680",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 26962,
+          "sections": 1,
+          "triangles": 40336,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/SoftCorpseV1/Materials/MI_StyleV1_maggot_PoisonMaggot_Retopo_0_f8dd52e5_Corpse.MI_StyleV1_maggot_PoisonMaggot_Retopo_0_f8dd52e5_Corpse"
+      ],
+      "skeleton": "/Game/Monsters/SoftCorpseV1/PoisonMaggot/SKEL_PoisonMaggot_SoftCorpse.SKEL_PoisonMaggot_SoftCorpse",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/MonsterStyleV1/maggot/SK_maggot_StyleV1.fbx"
+      ],
+      "corpse_bindings": [],
+      "user_data_classes": []
+    },
+    "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09": {
+      "path": "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "2179898",
+        "Vertices": "1252977",
+        "LODs": "1",
+        "Bones": "114",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "5",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 1252977,
+          "sections": 6,
+          "triangles": 2179898,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/HangingBellM09/V04/Materials/M_M09_Body.M_M09_Body",
+        "/Game/Monsters/HangingBellM09/V04/Materials/M_M09_Body.M_M09_Body",
+        "/Game/Monsters/HangingBellM09/V04/Materials/M_M09_Body.M_M09_Body",
+        "/Game/Monsters/HangingBellM09/V04/Materials/M_M09_Body.M_M09_Body",
+        "/Game/Monsters/HangingBellM09/V04/Materials/M_M09_Body.M_M09_Body",
+        "/Game/Monsters/HangingBellM09/V04/Materials/M_M09_Body.M_M09_Body"
+      ],
+      "skeleton": "/Game/Monsters/HangingBellM09/V04/SK_M09_Skeleton.SK_M09_Skeleton",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/HangingBellM09Meshy20261003/ArmContinuityV16/Exports/M09_ContinuousArms_V16.fbx"
+      ],
+      "corpse_bindings": [
+        {
+          "binding": "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09:MonsterSoftCorpseBinding_0",
+          "data": "/Game/Monsters/SoftCorpseV1/HangingBellM09/DA_HangingBellM09_SoftCorpse.DA_HangingBellM09_SoftCorpse",
+          "mesh": "/Game/Monsters/SoftCorpseV1/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse",
+          "method": "binding exists + unique hard package dependency + data asset CorpseMesh; protected Binding.Data not directly read"
+        }
+      ],
+      "user_data_classes": [
+        "MonsterSoftCorpseBinding"
+      ],
+      "soft_corpse_dependency_paths": [
+        "/Game/Monsters/SoftCorpseV1/HangingBellM09/DA_HangingBellM09_SoftCorpse"
+      ]
+    },
+    "/Game/Monsters/SoftCorpseV1/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse": {
+      "path": "/Game/Monsters/SoftCorpseV1/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "2179898",
+        "Vertices": "1252977",
+        "LODs": "1",
+        "Bones": "729",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 1252977,
+          "sections": 6,
+          "triangles": 2179898,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/SoftCorpseV1/Materials/M_M09_Body_b221fa66_Corpse.M_M09_Body_b221fa66_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/M_M09_Body_b221fa66_Corpse.M_M09_Body_b221fa66_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/M_M09_Body_b221fa66_Corpse.M_M09_Body_b221fa66_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/M_M09_Body_b221fa66_Corpse.M_M09_Body_b221fa66_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/M_M09_Body_b221fa66_Corpse.M_M09_Body_b221fa66_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/M_M09_Body_b221fa66_Corpse.M_M09_Body_b221fa66_Corpse"
+      ],
+      "skeleton": "/Game/Monsters/SoftCorpseV1/HangingBellM09/SKEL_HangingBellM09_SoftCorpse.SKEL_HangingBellM09_SoftCorpse",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/HangingBellM09Meshy20261003/ArmContinuityV16/Exports/M09_ContinuousArms_V16.fbx"
+      ],
+      "corpse_bindings": [],
+      "user_data_classes": []
+    },
+    "/Game/Monsters/VortexCofferM25/OptimizedV01/SK_M25_VortexCoffer_Game_V01.SK_M25_VortexCoffer_Game_V01": {
+      "path": "/Game/Monsters/VortexCofferM25/OptimizedV01/SK_M25_VortexCoffer_Game_V01.SK_M25_VortexCoffer_Game_V01",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "349998",
+        "Vertices": "298231",
+        "LODs": "4",
+        "Bones": "148",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 298231,
+          "sections": 1,
+          "triangles": 349998,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        },
+        {
+          "index": 1,
+          "vertices": 126034,
+          "sections": 1,
+          "triangles": 119998,
+          "screen_size": 0.550000011920929,
+          "target_triangle_fraction": 1.0
+        },
+        {
+          "index": 2,
+          "vertices": 55550,
+          "sections": 1,
+          "triangles": 39996,
+          "screen_size": 0.2199999988079071,
+          "target_triangle_fraction": 1.0
+        },
+        {
+          "index": 3,
+          "vertices": 18553,
+          "sections": 1,
+          "triangles": 9984,
+          "screen_size": 0.07999999821186066,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 4,
+      "materials": [
+        "/Game/Monsters/VortexCofferM25/Materials/M_M25_MeshySurface.M_M25_MeshySurface"
+      ],
+      "skeleton": "/Game/Monsters/VortexCofferM25/SK_M25_VortexCoffer_Skeleton.SK_M25_VortexCoffer_Skeleton",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 1,
+      "lod_settings": "/Game/Monsters/VortexCofferM25/OptimizedV01/DA_M25_GameLODs_V01.DA_M25_GameLODs_V01",
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/M25VortexCoffer20261004/OptimizationV01/SK_M25_VortexCoffer_Game_V01.fbx"
+      ],
+      "corpse_bindings": [
+        {
+          "binding": "/Game/Monsters/VortexCofferM25/OptimizedV01/SK_M25_VortexCoffer_Game_V01.SK_M25_VortexCoffer_Game_V01:MonsterSoftCorpseBinding_0",
+          "data": "/Game/Monsters/SoftCorpseV1/VortexCofferM25/DA_VortexCofferM25_SoftCorpse.DA_VortexCofferM25_SoftCorpse",
+          "mesh": "/Game/Monsters/SoftCorpseV1/VortexCofferM25/SK_VortexCofferM25_SoftCorpse.SK_VortexCofferM25_SoftCorpse",
+          "method": "binding exists + unique hard package dependency + data asset CorpseMesh; protected Binding.Data not directly read"
+        }
+      ],
+      "user_data_classes": [
+        "MonsterSoftCorpseBinding"
+      ],
+      "soft_corpse_dependency_paths": [
+        "/Game/Monsters/SoftCorpseV1/VortexCofferM25/DA_VortexCofferM25_SoftCorpse"
+      ]
+    },
+    "/Game/Monsters/SoftCorpseV1/VortexCofferM25/SK_VortexCofferM25_SoftCorpse.SK_VortexCofferM25_SoftCorpse": {
+      "path": "/Game/Monsters/SoftCorpseV1/VortexCofferM25/SK_VortexCofferM25_SoftCorpse.SK_VortexCofferM25_SoftCorpse",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "349998",
+        "Vertices": "298231",
+        "LODs": "1",
+        "Bones": "809",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 298231,
+          "sections": 1,
+          "triangles": 349998,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/SoftCorpseV1/Materials/M_M25_MeshySurface_35336fa2_Corpse.M_M25_MeshySurface_35336fa2_Corpse"
+      ],
+      "skeleton": "/Game/Monsters/SoftCorpseV1/VortexCofferM25/SKEL_VortexCofferM25_SoftCorpse.SKEL_VortexCofferM25_SoftCorpse",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 1,
+      "lod_settings": "/Game/Monsters/VortexCofferM25/OptimizedV01/DA_M25_GameLODs_V01.DA_M25_GameLODs_V01",
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/M25VortexCoffer20261004/OptimizationV01/SK_M25_VortexCoffer_Game_V01.fbx"
+      ],
+      "corpse_bindings": [],
+      "user_data_classes": []
+    },
+    "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5": {
+      "path": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "1258623",
+        "Vertices": "669828",
+        "LODs": "1",
+        "Bones": "62",
+        "MorphTargets": "2",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 669828,
+          "sections": 4,
+          "triangles": 1258623,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/M_M10_OralGum.M_M10_OralGum",
+        "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/M_M10_OralInterior.M_M10_OralInterior",
+        "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/M_M10_OralTeeth.M_M10_OralTeeth",
+        "/Game/Monsters/M10Mawcrawler/Materials/M_M10_MeshySurface.M_M10_MeshySurface"
+      ],
+      "skeleton": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5_Skeleton.SK_M10_SurfaceRig_V5_Skeleton",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/M10ChenXia20261003/SurfaceRigV5/Delivery/SK_M10_SurfaceRig_V5.fbx"
+      ],
+      "corpse_bindings": [
+        {
+          "binding": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5:MonsterSoftCorpseBinding_0",
+          "data": "/Game/Monsters/SoftCorpseV1/M10Mawcrawler/DA_M10Mawcrawler_SoftCorpse.DA_M10Mawcrawler_SoftCorpse",
+          "mesh": "/Game/Monsters/SoftCorpseV1/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse.SK_M10Mawcrawler_SoftCorpse",
+          "method": "binding exists + unique hard package dependency + data asset CorpseMesh; protected Binding.Data not directly read"
+        }
+      ],
+      "user_data_classes": [
+        "MonsterSoftCorpseBinding"
+      ],
+      "soft_corpse_dependency_paths": [
+        "/Game/Monsters/SoftCorpseV1/M10Mawcrawler/DA_M10Mawcrawler_SoftCorpse"
+      ]
+    },
+    "/Game/Monsters/SoftCorpseV1/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse.SK_M10Mawcrawler_SoftCorpse": {
+      "path": "/Game/Monsters/SoftCorpseV1/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse.SK_M10Mawcrawler_SoftCorpse",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "1258623",
+        "Vertices": "669828",
+        "LODs": "1",
+        "Bones": "728",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 669828,
+          "sections": 4,
+          "triangles": 1258623,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/SoftCorpseV1/Materials/M_M10_OralGum_901612d3_Corpse.M_M10_OralGum_901612d3_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/M_M10_OralInterior_2fd133e3_Corpse.M_M10_OralInterior_2fd133e3_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/M_M10_OralTeeth_197586dc_Corpse.M_M10_OralTeeth_197586dc_Corpse",
+        "/Game/Monsters/SoftCorpseV1/Materials/M_M10_MeshySurface_361043c4_Corpse.M_M10_MeshySurface_361043c4_Corpse"
+      ],
+      "skeleton": "/Game/Monsters/SoftCorpseV1/M10Mawcrawler/SKEL_M10Mawcrawler_SoftCorpse.SKEL_M10Mawcrawler_SoftCorpse",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/M10ChenXia20261003/SurfaceRigV5/Delivery/SK_M10_SurfaceRig_V5.fbx"
+      ],
+      "corpse_bindings": [],
+      "user_data_classes": []
+    },
+    "/Game/Monsters/SpiralPillarM14/SK_M14_SupportSkin_v15.SK_M14_SupportSkin_v15": {
+      "path": "/Game/Monsters/SpiralPillarM14/SK_M14_SupportSkin_v15.SK_M14_SupportSkin_v15",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "1936942",
+        "Vertices": "1081296",
+        "LODs": "1",
+        "Bones": "49",
+        "MorphTargets": "9",
+        "MaxBoneInfluences": "8",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 1081296,
+          "sections": 4,
+          "triangles": 1936942,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/SpiralPillarM14/Materials/M_M14_Body.M_M14_Body",
+        "/Game/Monsters/SpiralPillarM14/Materials/M_M14_Metal.M_M14_Metal",
+        "/Game/Monsters/SpiralPillarM14/Materials/M_M14_Mouth.M_M14_Mouth",
+        "/Game/Monsters/SpiralPillarM14/Materials/M_M14_Membrane.M_M14_Membrane"
+      ],
+      "skeleton": "/Game/Monsters/SpiralPillarM14/SK_M14_Skeleton.SK_M14_Skeleton",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV01/Exports/M14_Skeletal_v01.fbx"
+      ],
+      "corpse_bindings": [],
+      "user_data_classes": []
+    },
+    "/Game/Monsters/SpiralPillarM14/SK_M14_XPBDCorpse_v19.SK_M14_XPBDCorpse_v19": {
+      "path": "/Game/Monsters/SpiralPillarM14/SK_M14_XPBDCorpse_v19.SK_M14_XPBDCorpse_v19",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "1936942",
+        "Vertices": "1081296",
+        "LODs": "1",
+        "Bones": "572",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 1081296,
+          "sections": 4,
+          "triangles": 1936942,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        }
+      ],
+      "lod_count": 1,
+      "materials": [
+        "/Game/Monsters/SpiralPillarM14/SoftCorpseV18/M_M14_Body_SoftCorpse.M_M14_Body_SoftCorpse",
+        "/Game/Monsters/SpiralPillarM14/SoftCorpseV18/M_M14_Metal_SoftCorpse.M_M14_Metal_SoftCorpse",
+        "/Game/Monsters/SpiralPillarM14/SoftCorpseV18/M_M14_Mouth_SoftCorpse.M_M14_Mouth_SoftCorpse",
+        "/Game/Monsters/SpiralPillarM14/SoftCorpseV18/M_M14_Membrane_SoftCorpse.M_M14_Membrane_SoftCorpse"
+      ],
+      "skeleton": "/Game/Monsters/SpiralPillarM14/SKEL_M14_XPBDCorpse_v19.SKEL_M14_XPBDCorpse_v19",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": null,
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/SpiralPillarM14Meshy20261004/ProductionV01/Exports/M14_Skeletal_v01.fbx"
+      ],
+      "corpse_bindings": [],
+      "user_data_classes": []
+    },
+    "/Game/Monsters/HundredEyedSlag/ArticulationV12/SK_HundredEyedSlag_V12.SK_HundredEyedSlag_V12": {
+      "path": "/Game/Monsters/HundredEyedSlag/ArticulationV12/SK_HundredEyedSlag_V12.SK_HundredEyedSlag_V12",
+      "kind": "SkeletalMesh",
+      "tags": {
+        "Triangles": "100000",
+        "Vertices": "82516",
+        "LODs": "3",
+        "Bones": "44",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4",
+        "NaniteEnabled": "False",
+        "NaniteTriangles": "0",
+        "NaniteVertices": "0"
+      },
+      "lods": [
+        {
+          "index": 0,
+          "vertices": 82516,
+          "sections": 1,
+          "triangles": 100000,
+          "screen_size": 1.0,
+          "target_triangle_fraction": 1.0
+        },
+        {
+          "index": 1,
+          "vertices": 32607,
+          "sections": 1,
+          "triangles": 44999,
+          "screen_size": 0.3799999952316284,
+          "target_triangle_fraction": 0.44999998807907104
+        },
+        {
+          "index": 2,
+          "vertices": 11941,
+          "sections": 1,
+          "triangles": 13999,
+          "screen_size": 0.15000000596046448,
+          "target_triangle_fraction": 0.14000000059604645
+        }
+      ],
+      "lod_count": 3,
+      "materials": [
+        "/Game/Monsters/HundredEyedSlag/PolishV2/Materials/M_HundredEyedSlag_Skin_V2.M_HundredEyedSlag_Skin_V2"
+      ],
+      "skeleton": "/Game/Monsters/HundredEyedSlag/V1/SK_HundredEyedSlag_V1_Skeleton.SK_HundredEyedSlag_V1_Skeleton",
+      "min_lod": 0,
+      "ray_tracing_min_lod": 0,
+      "lod_settings": "/Game/Monsters/HundredEyedSlag/RuntimeV3/LOD_HundredEyedSlag_RuntimeV3.LOD_HundredEyedSlag_RuntimeV3",
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/HundredEyedSlagMeshy20260930/ArticulationV12/Delivery/SK_HundredEyedSlag_V12.fbx"
+      ],
+      "corpse_bindings": [],
+      "user_data_classes": []
+    }
+  },
+  "errors": [],
+  "assets_saved": false,
+  "gameplay_run": false,
+  "performance_measured": false,
+  "registry_source": "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp",
+  "registry_entries": 20,
+  "dirty_before": [
+    "/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18"
+  ],
+  "authored_corpse_manifest": [
+    {
+      "key": "PoisonMaggot",
+      "source": "/Game/Monsters/PoisonMaggot/StyleV1/SK_PoisonMaggot_StyleV1.SK_PoisonMaggot_StyleV1",
+      "manifest_mesh": "/Game/Monsters/SoftCorpseV1/PoisonMaggot/SK_PoisonMaggot_SoftCorpse",
+      "data": "/Game/Monsters/SoftCorpseV1/PoisonMaggot/DA_PoisonMaggot_SoftCorpse.DA_PoisonMaggot_SoftCorpse",
+      "actual_data_mesh": "/Game/Monsters/SoftCorpseV1/PoisonMaggot/SK_PoisonMaggot_SoftCorpse.SK_PoisonMaggot_SoftCorpse"
+    },
+    {
+      "key": "HandBrain",
+      "source": "/Game/Monsters/HandBrain/StyleV1/SK_HandBrain_StyleV1.SK_HandBrain_StyleV1",
+      "manifest_mesh": "/Game/Monsters/SoftCorpseV1/HandBrain/SK_HandBrain_SoftCorpse",
+      "data": "/Game/Monsters/SoftCorpseV1/HandBrain/DA_HandBrain_SoftCorpse.DA_HandBrain_SoftCorpse",
+      "actual_data_mesh": "/Game/Monsters/SoftCorpseV1/HandBrain/SK_HandBrain_SoftCorpse.SK_HandBrain_SoftCorpse"
+    },
+    {
+      "key": "FleshHand",
+      "source": "/Game/Monsters/FleshHand/SK_FleshHand_Green.SK_FleshHand_Green",
+      "manifest_mesh": "/Game/Monsters/SoftCorpseV1/FleshHand/SK_FleshHand_SoftCorpse",
+      "data": "/Game/Monsters/SoftCorpseV1/FleshHand/DA_FleshHand_SoftCorpse.DA_FleshHand_SoftCorpse",
+      "actual_data_mesh": "/Game/Monsters/SoftCorpseV1/FleshHand/SK_FleshHand_SoftCorpse.SK_FleshHand_SoftCorpse"
+    },
+    {
+      "key": "LurkerM08",
+      "source": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+      "manifest_mesh": "/Game/Monsters/SoftCorpseV1/LurkerM08/SK_LurkerM08_SoftCorpse",
+      "data": "/Game/Monsters/SoftCorpseV1/LurkerM08/DA_LurkerM08_SoftCorpse.DA_LurkerM08_SoftCorpse",
+      "actual_data_mesh": "/Game/Monsters/SoftCorpseV1/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse"
+    },
+    {
+      "key": "HangingBellM09",
+      "source": "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09",
+      "manifest_mesh": "/Game/Monsters/SoftCorpseV1/HangingBellM09/SK_HangingBellM09_SoftCorpse",
+      "data": "/Game/Monsters/SoftCorpseV1/HangingBellM09/DA_HangingBellM09_SoftCorpse.DA_HangingBellM09_SoftCorpse",
+      "actual_data_mesh": "/Game/Monsters/SoftCorpseV1/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse"
+    },
+    {
+      "key": "M10Mawcrawler",
+      "source": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5",
+      "manifest_mesh": "/Game/Monsters/SoftCorpseV1/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse",
+      "data": "/Game/Monsters/SoftCorpseV1/M10Mawcrawler/DA_M10Mawcrawler_SoftCorpse.DA_M10Mawcrawler_SoftCorpse",
+      "actual_data_mesh": "/Game/Monsters/SoftCorpseV1/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse.SK_M10Mawcrawler_SoftCorpse"
+    },
+    {
+      "key": "VortexCofferM25",
+      "source": "/Game/Monsters/VortexCofferM25/OptimizedV01/SK_M25_VortexCoffer_Game_V01.SK_M25_VortexCoffer_Game_V01",
+      "manifest_mesh": "/Game/Monsters/SoftCorpseV1/VortexCofferM25/SK_VortexCofferM25_SoftCorpse",
+      "data": "/Game/Monsters/SoftCorpseV1/VortexCofferM25/DA_VortexCofferM25_SoftCorpse.DA_VortexCofferM25_SoftCorpse",
+      "actual_data_mesh": "/Game/Monsters/SoftCorpseV1/VortexCofferM25/SK_VortexCofferM25_SoftCorpse.SK_VortexCofferM25_SoftCorpse"
+    }
+  ],
+  "dirty_after": [
+    "/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18"
+  ],
+  "finished": "2026-10-06T22:24:25.484087"
+}

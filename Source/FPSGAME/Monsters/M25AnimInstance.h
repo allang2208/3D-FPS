@@ -4,7 +4,7 @@
 #include "Animation/AnimInstance.h"
 #include "M25AnimInstance.generated.h"
 
-/** Independent idle clock and distance-driven crawl phase, blended over 0.25 s. */
+/** Independent idle clock and movement-driven crawl phase, blended over 0.25 s. */
 UCLASS(Transient)
 class FPSGAME_API UM25AnimInstance : public UAnimInstance
 {
@@ -25,4 +25,6 @@ protected:
     virtual void DestroyAnimInstanceProxy(FAnimInstanceProxy* Proxy) override;
 private:
     bool bCrawling = false;
+    float LastYaw = 0.f, SmoothedYawRate = 0.f;
+    bool bHaveYaw = false;
 };

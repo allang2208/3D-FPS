@@ -64,6 +64,9 @@ M-07 背膜最新为 V38：V37 修正主体材质缺少 Clothing 用途，V38 �
 
 融合多肢怪物的触手根部、分段甩鞭、缠绕脱离、移速同步和衣物失败边界，读 [缚群与暂停恢复](references/bound-congregate.md)。缚群 V18、V19 衣物均被用户否定，2026-10-08 已暂停；复用巫婆机制不等于裁片适配成功。保留混合母版和已接入攻击，归档与公开恢复边界见专用参考。
 
+
+跨物种减面与动画保留读 [非人形减面与重绑](references/nonhumanoid-remesh.md)；移速、转身、步态相位、宽体楼梯和快速攻击时序读 [M 系列移动与动作时钟](references/m-series-locomotion.md)。当前案例已保存，游戏表现仍由用户体验。
+
 ## 四足怪物与通用动作模板（2026-09-14）
 
 裸皮犬、多骨架犬科重定向、F6 根单位异常及预测飞扑，补读 [Meshy 犬科与预测攻击](references/canine-meshy-and-hunting.md)。用户认可的跑姿模板是 MeshyV2 + GodotRunNaturalV3，勿与退役 WolfV3 混淆。

@@ -182,6 +182,7 @@ void AWolfMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLife
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(AWolfMonster, State);
+    DOREPLIFETIME(AWolfMonster, SoftDeathLeadSeconds);
 }
 void AWolfMonster::OnRep_State()
 {
@@ -191,7 +192,13 @@ void AWolfMonster::OnRep_State()
 void AWolfMonster::EnterState(EWolfState NewState)
 {
     State = NewState; StateSeconds = 0.f;
-    if((State==EWolfState::Dying||State==EWolfState::Ragdoll)&&CorpseRagdoll->TryStartSoftDeath(GetMesh()))return;
+    if (Dead()) OnDeathPresentationStarted();
+    // A replicated handoff may arrive before the client's last lead-in frame.
+    // Capture the same authored pose before hiding the live mesh.
+    if (State == EWolfState::Ragdoll && SoftDeathLeadSeconds > 0.f && !CorpseRagdoll->HasSoftDeath())
+        SampleAction(TEXT("Death"), SoftDeathLeadSeconds);
+    if ((State == EWolfState::Ragdoll || (State == EWolfState::Dying && SoftDeathLeadSeconds <= 0.f))
+        && CorpseRagdoll->TryStartSoftDeath(GetMesh())) return;
     const bool Moving = State == EWolfState::Chase || State == EWolfState::Returning;
     GetCharacterMovement()->bOrientRotationToMovement = Moving;
     GetCharacterMovement()->MaxWalkSpeed = State == EWolfState::Returning ? WalkSpeed : ChaseSpeed;
@@ -409,7 +416,15 @@ void AWolfMonster::AlertPack()
 void AWolfMonster::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
-    if (!HasAuthority()) return;
+    if (!HasAuthority())
+    {
+        if (State == EWolfState::Dying && SoftDeathLeadSeconds > 0.f)
+        {
+            StateSeconds = FMath::Min(SoftDeathLeadSeconds, StateSeconds + FMath::Max(0.f, DeltaSeconds));
+            SampleAction(TEXT("Death"), StateSeconds);
+        }
+        return;
+    }
     const float Previous = StateSeconds;
     StateSeconds += FMath::Max(0.f, DeltaSeconds);
     BiteCooldownLeft = FMath::Max(0.f, BiteCooldownLeft - DeltaSeconds);
@@ -417,7 +432,8 @@ void AWolfMonster::Tick(float DeltaSeconds)
     if (State == EWolfState::Dying)
     {
         const float End = ClipLength(TEXT("Death"));
-        const float Handoff = End * FMath::Clamp(DeathAnimationFraction, 0.f, 1.f);
+        const float Handoff = SoftDeathLeadSeconds > 0.f ? SoftDeathLeadSeconds
+            : End * FMath::Clamp(DeathAnimationFraction, 0.f, 1.f);
         const bool bTryPhysics = bUseRagdoll && !CorpseRagdoll->WasAttempted();
         SampleAction(TEXT("Death"), FMath::Min(StateSeconds, bTryPhysics ? Handoff : End));
         CorpseRagdoll->RecordDeathPose(GetMesh(), DeltaSeconds, true);
@@ -505,6 +521,8 @@ float AWolfMonster::TakeDamage(float Damage, const FDamageEvent& Event, AControl
 void AWolfMonster::Die(AController* Killer)
 {
     if (Dead()) return;
+    SoftDeathLeadSeconds = ShouldPlaySoftDeathLeadIn()
+        ? ClipLength(TEXT("Death")) * FMath::Clamp(DeathAnimationFraction, 0.f, 1.f) : 0.f;
     CorpseRagdoll->PrepareDeath(GetMesh());
     bAttackConsumed = true; Target.Reset(); FinishPounceMovement();
     EnterState(EWolfState::Dying);
@@ -522,7 +540,7 @@ void AWolfMonster::EnterRagdoll()
 {
     if (State != EWolfState::Dying) return;
     auto* Body = GetMesh();
-    if (CorpseRagdoll->Start(Body)) { State = EWolfState::Ragdoll; StateSeconds = 0.f; }
+    if (CorpseRagdoll->Start(Body)) { State = EWolfState::Ragdoll; StateSeconds = 0.f; ForceNetUpdate(); }
 }
 void AWolfMonster::EndPlay(const EEndPlayReason::Type Reason)
 {

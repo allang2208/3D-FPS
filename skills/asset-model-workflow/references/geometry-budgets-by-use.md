@@ -88,3 +88,7 @@ Nanite 的源面数与传统 LOD0 预算分开记录。启用 Nanite 不等于�
 - 状态：作者源／导出／已保存资产／配置接入，以及是否有用户要求的实测。
 
 方法来源：[Epic 渲染优化指南](https://dev.epicgames.com/documentation/en-us/unreal-engine/guidelines-for-optimizing-rendering-for-real-time-in-unreal-engine)、[Nanite 概览](https://dev.epicgames.com/documentation/en-us/unreal-engine/nanite-virtualized-geometry-in-unreal-engine)。上述项目面数区间不来自官方文档；官方能力随版本变化，涉及路线切换时按当前引擎再确定支持范围。
+
+## 8. 原始生成模型减面与后期结构
+
+用户交回的低模若直接来自原始生成模型，后期做过的开口、内壁、牙齿或连接结构不会随它自动保留。先分清原始低模与认可母版，离线恢复关键结构并分区制作 LOD，再短批次导入。几何重连时保留逐角 UV，匹配各区域贴图和变形绑定；输入十万级不等于修复后的准确三角数。怪物案例及软体尸体重绑见 [非人形减面与重绑](../../ue5-monster-workflow/references/nonhumanoid-remesh.md)。

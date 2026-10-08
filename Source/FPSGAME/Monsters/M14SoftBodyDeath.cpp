@@ -66,6 +66,11 @@ bool UM14SoftBodyDeathComponent::Start(USkeletalMeshComponent* LivingMesh,UM14So
         Display->SetComponentTickEnabled(false);
         BindFrames=Data->CorpseMesh->GetRefSkeleton().GetRefBonePose();
         UpdateMesh();
+        // Production LODs are reduced from the already XPBD-bound corpse and
+        // retain its full skeleton. Single-LOD legacy corpses stay on LOD0.
+        // The shared timer also updates settled corpses without restarting Tick.
+        if(Display->GetNumLODs()>1)
+            GetWorld()->GetSubsystem<UHumanoidRagdollBudget>()->RegisterFrozenMesh(Display);
     }
     LivingMesh->SetVisibility(false,true);LivingMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     LivingMesh->SetSimulatePhysics(false);LivingMesh->SetComponentTickEnabled(false);LivingMesh->bPauseAnims=true;
@@ -78,7 +83,11 @@ void UM14SoftBodyDeathComponent::RefreshContact(int32 I)
     FCollisionQueryParams Params(SCENE_QUERY_STAT(M14SoftDeathContact),true,GetOwner());
     FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_WorldStatic);Objects.AddObjectTypesToQuery(ECC_WorldDynamic);
     const FVector World=ToWorld(Positions[I]);FHitResult Hit;
-    if(GetWorld()->LineTraceSingleByObjectType(Hit,World+FVector(0,0,35),World-FVector(0,0,650),Objects,Params)&&Hit.Normal.Z>.15)
+    // Begin at the node, not above it: a hanging corpse's old +35 cm start
+    // can cross a thin ceiling and mistake its upper face for floor support.
+    // Initial overlap recovery belongs to the sphere sweep below.
+    if(GetWorld()->LineTraceSingleByObjectType(Hit,World,World-FVector(0,0,650),Objects,Params)
+        &&!Hit.bStartPenetrating&&Hit.ImpactNormal.Z>.15&&Hit.ImpactPoint.Z<=World.Z)
     {GroundPoint[I]=ToSimulation(Hit.ImpactPoint);GroundNormal[I]=Hit.ImpactNormal;}
     else GroundNormal[I]=FVector::ZeroVector;
     WallNormal[I]=FVector::ZeroVector;
@@ -178,7 +187,9 @@ void UM14SoftBodyDeathComponent::Substep(float Dt)
     for(int32 I=0;I<Positions.Num();++I)
     {
         InvMass[I]=I<Data->SoftNodeCount?1.f:.35f;
-        if(Elapsed<.12f&&Data->Nodes[I].Rest.Z<12.){InvMass[I]=0.f;Velocities[I]=FVector::ZeroVector;continue;}
+        // Only an actual floor contact can briefly hold the original footing.
+        // Low bind-pose nodes on a hanging body are still airborne.
+        if(Elapsed<.12f&&Grounded[I]&&Data->Nodes[I].Rest.Z<12.){InvMass[I]=0.f;Velocities[I]=FVector::ZeroVector;continue;}
         Velocities[I]=(Velocities[I]+FVector(0,0,-9.81)*Dt)*FMath::Exp(-3.f*Dt);
         Positions[I]+=Velocities[I]*Dt;
     }

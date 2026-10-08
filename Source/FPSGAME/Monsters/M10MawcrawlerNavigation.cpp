@@ -6,6 +6,7 @@
 #if WITH_EDITOR
 #include "Engine/Engine.h"
 #include "Engine/World.h"
+#include "Engine/Level.h"
 #include "EngineUtils.h"
 #include "NavigationSystem.h"
 #include "NavigationData.h"
@@ -48,13 +49,14 @@ void ConfigureM10RuntimeGeneration(ARecastNavMesh* Data)
 
 FString ProduceM10Navigation(UWorld* World)
 {
+    const bool bRuntimeTemplate = World->GetOutermost()->GetName() == TEXT("/Game/GameMaps/L_Dungeon_Randomized");
     auto Receipt = MakeShared<FJsonObject>();
     Receipt->SetBoolField(TEXT("saved"), false);
     Receipt->SetBoolField(TEXT("navigation_built"), false);
     Receipt->SetBoolField(TEXT("runtime_tested"), false);
     Receipt->SetStringField(TEXT("map"), World->GetOutermost()->GetName());
-    Receipt->SetStringField(TEXT("source_revision"), TEXT("M10DedicatedRigV1"));
-    Receipt->SetStringField(TEXT("operation"), TEXT("Preserve M10 saved tiles on load; rebuild its tiles synchronously; save existing map"));
+    Receipt->SetStringField(TEXT("source_revision"), TEXT("MSeriesGroundTraversal20261006"));
+    Receipt->SetStringField(TEXT("operation"), TEXT("Rebuild M10/M25 40 cm stairs and dedicated M14 navigation; preserve other agents and authored bounds"));
 
     auto* Nav = FNavigationSystem::GetCurrent<UNavigationSystemV1>(World);
     if (!Nav)
@@ -69,28 +71,32 @@ FString ProduceM10Navigation(UWorld* World)
     }
 
     const auto& PersistentAgents = GetDefault<UNavigationSystemV1>()->GetSupportedAgents();
-    int32 AgentIndex = INDEX_NONE;
-    for (int32 Index = 0; Index < PersistentAgents.Num(); ++Index)
-        if (PersistentAgents[Index].Name == TEXT("M10Mawcrawler")) AgentIndex = Index;
-    if (AgentIndex == INDEX_NONE ||
-        !FMath::IsNearlyEqual(PersistentAgents[AgentIndex].AgentRadius, 225.f) ||
-        !FMath::IsNearlyEqual(PersistentAgents[AgentIndex].AgentHeight, 450.f))
+    TArray<int32> AgentIndices;
+    for (FName Name : {FName(TEXT("M10Mawcrawler")), FName(TEXT("SpiralPillarM14"))})
     {
-        Receipt->SetStringField(TEXT("error"), TEXT("The persistent M10 navigation profile must remain radius 225 / height 450 cm."));
-        return M10NavigationReceipt(Receipt);
+        const int32 Index = PersistentAgents.IndexOfByPredicate([Name](const auto& Agent) { return Agent.Name == Name; });
+        const bool bM10 = Name == TEXT("M10Mawcrawler");
+        if (Index == INDEX_NONE ||
+            !FMath::IsNearlyEqual(PersistentAgents[Index].AgentRadius, bM10 ? 225.f : 125.f) ||
+            !FMath::IsNearlyEqual(PersistentAgents[Index].AgentHeight, bM10 ? 450.f : 300.f) ||
+            !FMath::IsNearlyEqual(PersistentAgents[Index].AgentStepHeight, 40.f))
+        {
+            Receipt->SetStringField(TEXT("error"), FString::Printf(TEXT("Missing or incompatible 40 cm stair profile: %s"), *Name.ToString()));
+            return M10NavigationReceipt(Receipt);
+        }
+        AgentIndices.Add(Index);
     }
-    const FNavDataConfig M10Config = PersistentAgents[AgentIndex];
     auto PreservedMask = Nav->GetSupportedAgentsMask();
-    PreservedMask.Set(AgentIndex);
+    for (int32 Index : AgentIndices) PreservedMask.Set(Index);
     Nav->OverrideSupportedAgents(PersistentAgents);
     Nav->SetSupportedAgentsMask(PreservedMask);
 
     TArray<TSharedPtr<FJsonValue>> Bounds;
     for (TActorIterator<ANavMeshBoundsVolume> It(World); It; ++It)
     {
-        // Add only M10 to authored coverage: no brush movement, expansion or
+        // Add only the repaired profiles: no brush movement, expansion or
         // replacement of other agents' selectors is part of this repair.
-        It->SupportedAgents.Set(AgentIndex);
+        for (int32 Index : AgentIndices) It->SupportedAgents.Set(Index);
         It->MarkPackageDirty();
         Nav->OnNavigationBoundsUpdated(*It);
         auto Item = MakeShared<FJsonObject>();
@@ -121,52 +127,46 @@ FString ProduceM10Navigation(UWorld* World)
         return M10NavigationReceipt(Receipt);
     }
 
-    ARecastNavMesh* M10Data = nullptr;
-    for (TActorIterator<ARecastNavMesh> It(World); It; ++It)
+    TArray<TSharedPtr<FJsonValue>> Profiles;
+    for (int32 AgentIndex : AgentIndices)
     {
-        if (It->GetConfig().Name == TEXT("M10Mawcrawler"))
+        const auto& Config = PersistentAgents[AgentIndex];
+        // Resolve the registered agent that path following actually uses. A
+        // rejected legacy actor may still be enumerable during world startup.
+        auto* Data = Cast<ARecastNavMesh>(Nav->GetNavDataForAgentName(Config.Name));
+        if (!IsValid(Data) || !Data->GetConfig().IsEquivalent(Config))
         {
-            if (M10Data)
-            {
-                Receipt->SetStringField(TEXT("error"), TEXT("The map has duplicate M10 navigation actors; no map was saved."));
-                return M10NavigationReceipt(Receipt);
-            }
-            M10Data = *It;
+            Receipt->SetStringField(TEXT("error"), FString::Printf(TEXT("Map initialization did not register %s"), *Config.Name.ToString()));
+            return M10NavigationReceipt(Receipt);
         }
+        auto Profile = MakeShared<FJsonObject>();
+        Profile->SetStringField(TEXT("name"), Config.Name.ToString());
+        Profile->SetNumberField(TEXT("previous_active_tiles"), Data->GetNumActiveTiles());
+        Data->SetConfig(Config); // Applies step height to every Recast resolution.
+        ConfigureM10RuntimeGeneration(Data);
+        Data->RebuildAll();
+        Data->EnsureBuildCompletion();
+        const int32 ActiveTiles = Data->GetNumActiveTiles();
+        Profile->SetNumberField(TEXT("active_tiles"), ActiveTiles);
+        Profile->SetStringField(TEXT("navigation_data"), Data->GetPathName());
+        Profile->SetNumberField(TEXT("profile_index"), AgentIndex);
+        Profile->SetNumberField(TEXT("radius_cm"), Config.AgentRadius);
+        Profile->SetNumberField(TEXT("height_cm"), Config.AgentHeight);
+        Profile->SetNumberField(TEXT("step_cm"), Config.AgentStepHeight);
+        Profiles.Add(MakeShared<FJsonValueObject>(Profile));
+        Receipt->SetArrayField(TEXT("profiles"), Profiles);
+        // The randomized dungeon is an empty production template. Its existing
+        // generator moves the saved bounds and builds tiles after room assembly.
+        if (ActiveTiles <= 0 && !bRuntimeTemplate)
+        {
+            Receipt->SetStringField(TEXT("error"), TEXT("Navigation production yielded no active tiles; no map was saved."));
+            return M10NavigationReceipt(Receipt);
+        }
+        Data->MarkPackageDirty();
     }
-    if (!M10Data)
-    {
-        Receipt->SetStringField(TEXT("error"), TEXT("The map initialization did not register the M10 navigation actor."));
-        return M10NavigationReceipt(Receipt);
-    }
-
-    Receipt->SetNumberField(TEXT("previous_active_tiles"), M10Data->GetNumActiveTiles());
-    Receipt->SetNumberField(TEXT("previous_radius_cm"), M10Data->GetConfig().AgentRadius);
-    Receipt->SetNumberField(TEXT("previous_height_cm"), M10Data->GetConfig().AgentHeight);
-    M10Data->SetConfig(M10Config);
-    ConfigureM10RuntimeGeneration(M10Data);
-    if (const auto* Force = FindFProperty<FBoolProperty>(ANavigationData::StaticClass(), TEXT("bForceRebuildOnLoad")))
-        Receipt->SetBoolField(TEXT("force_rebuild_on_load"), Force->GetPropertyValue_InContainer(M10Data));
+    Receipt->SetBoolField(TEXT("force_rebuild_on_load"), false);
     Receipt->SetStringField(TEXT("runtime_generation"), TEXT("Dynamic"));
-    M10Data->RebuildAll();
-    M10Data->EnsureBuildCompletion();
-    const int32 ActiveTiles = M10Data->GetNumActiveTiles();
-    Receipt->SetNumberField(TEXT("active_tiles"), ActiveTiles);
-    Receipt->SetStringField(TEXT("navigation_data"), M10Data->GetPathName());
-    Receipt->SetNumberField(TEXT("profile_index"), AgentIndex);
-    Receipt->SetNumberField(TEXT("radius_cm"), M10Config.AgentRadius);
-    Receipt->SetNumberField(TEXT("height_cm"), M10Config.AgentHeight);
-    Receipt->SetNumberField(TEXT("step_cm"), M10Config.AgentStepHeight);
     Receipt->SetArrayField(TEXT("authored_bounds"), Bounds);
-    if (ActiveTiles <= 0)
-    {
-        // An actor alone was the previous receipt's completion condition.
-        // Empty production output cannot be called a saved navigable asset.
-        Receipt->SetStringField(TEXT("error"), TEXT("M10 tile generation produced no active data; the map was not saved."));
-        return M10NavigationReceipt(Receipt);
-    }
-
-    M10Data->MarkPackageDirty();
     World->MarkPackageDirty();
     auto* Package = World->GetOutermost();
     FSavePackageArgs Save;
@@ -175,7 +175,8 @@ FString ProduceM10Navigation(UWorld* World)
     const FString Filename = FPackageName::LongPackageNameToFilename(
         Package->GetName(), FPackageName::GetMapPackageExtension());
     const bool bSaved = UPackage::SavePackage(Package, World, *Filename, Save);
-    Receipt->SetBoolField(TEXT("navigation_built"), true);
+    Receipt->SetBoolField(TEXT("navigation_built"), !bRuntimeTemplate);
+    Receipt->SetBoolField(TEXT("runtime_template_saved"), bRuntimeTemplate && bSaved);
     Receipt->SetBoolField(TEXT("saved"), bSaved);
     if (!bSaved) Receipt->SetStringField(TEXT("error"), TEXT("The navigation map package could not be saved."));
     return M10NavigationReceipt(Receipt);
@@ -186,8 +187,9 @@ FString ProduceM10Navigation(UWorld* World)
 FString AM10Mawcrawler::BuildMapNavigation(const FString& MapPackageName)
 {
 #if WITH_EDITOR
-    if (!IsRunningCommandlet() || MapPackageName != TEXT("/Game/GameMaps/DayNight_Lighting"))
-        return TEXT("{\"saved\":false,\"error\":\"This repair is limited to the M10 background map-production commandlet.\"}");
+    if (!IsRunningCommandlet() || (MapPackageName != TEXT("/Game/GameMaps/DayNight_Lighting") &&
+        MapPackageName != TEXT("/Game/GameMaps/L_Dungeon_Randomized")))
+        return TEXT("{\"saved\":false,\"error\":\"This producer only supports the existing DayNight map and randomized-dungeon template.\"}");
     auto* Package = LoadPackage(nullptr, *MapPackageName, LOAD_None);
     auto* World = Package ? UWorld::FindWorldInPackage(Package) : nullptr;
     if (!World || World->IsPartitionedWorld())
@@ -197,6 +199,19 @@ FString AM10Mawcrawler::BuildMapNavigation(const FString& MapPackageName)
     if (!bHadRoot) World->AddToRoot();
     const bool bCreatedContext = GEngine->GetWorldContextFromWorld(World) == nullptr;
     if (bCreatedContext) GEngine->CreateNewWorldContext(EWorldType::Editor).SetCurrentWorld(World);
+    // Upgrade the saved 30 cm actor before InitWorld registers it. Otherwise
+    // registration rejects its old step profile and auto-creates a replacement,
+    // leaving a stale actor beside the new one during this authoring operation.
+    const auto& Agents = GetDefault<UNavigationSystemV1>()->GetSupportedAgents();
+    for (AActor* Actor : World->PersistentLevel->Actors)
+    {
+        auto* Data = Cast<ARecastNavMesh>(Actor);
+        if (!IsValid(Data) || Data->IsActorBeingDestroyed()) continue;
+        const FName Name = Data->GetConfig().Name;
+        if (Name != TEXT("M10Mawcrawler") && Name != TEXT("SpiralPillarM14")) continue;
+        if (const auto* Config = Agents.FindByPredicate([Name](const auto& Agent) { return Agent.Name == Name; }))
+            Data->SetConfig(*Config);
+    }
     if (!World->IsInitialized())
         World->InitWorld(UWorld::InitializationValues().AllowAudioPlayback(false)
             .RequiresHitProxies(false).CreateAISystem(false).ShouldSimulatePhysics(false).CreateFXSystem(false));

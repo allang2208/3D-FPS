@@ -73,13 +73,14 @@ void UM10AnimInstance::NativeUpdateAnimation(float Dt)
     Super::NativeUpdateAnimation(Dt);
     const auto* M=Cast<AM10Mawcrawler>(TryGetPawnOwner());if(!M)return;
     const float Yaw=M->GetActorRotation().Yaw;
-    const float ActualYawRate=HaveYaw&&Dt>SMALL_NUMBER?FMath::Clamp(FMath::FindDeltaAngleDegrees(LastYaw,Yaw)/Dt,-50.f,50.f):0.f;
+    const float MaxYawRate=FMath::Max(M->MovingTurnSpeed,M->PivotTurnSpeed);
+    const float ActualYawRate=HaveYaw&&Dt>SMALL_NUMBER?FMath::Clamp(FMath::FindDeltaAngleDegrees(LastYaw,Yaw)/Dt,-MaxYawRate,MaxYawRate):0.f;
     HaveYaw=true;LastYaw=Yaw;
     LocomotionAllowed=!M->Busy()&&M->GetCharacterMovement()->IsMovingOnGround();
     if(!LocomotionAllowed){LocomotionWeight=0.f;SmoothedYawRate=0.f;GaitRate=0.f;return;}
     SmoothedYawRate=FMath::FInterpTo(SmoothedYawRate,ActualYawRate,Dt,14.f);
-    // Keep the authored degrees per step: 1.5x actor yaw rate drives 1.5x
-    // turning cadence here, without a second multiplier on the shared clips.
+    // Keep the authored distance and degrees per step. Faster translation and
+    // turning advance this same phase without rescaling the source clips.
     const float Speed=M->GetVelocity().Size2D(),WalkRate=Speed/FMath::Max(1.f,M->AnimationWalkSpeed),TurnRate=FMath::Abs(SmoothedYawRate)/10.f;
     const float Rate=FMath::Max(WalkRate,TurnRate);
     GaitRate=Rate;

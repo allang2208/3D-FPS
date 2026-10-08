@@ -1,0 +1,14 @@
+{
+  "revision": "M14SlamV22_20261006",
+  "source_action": "A_M14_TrunkSlam_v13",
+  "action": "A_M14_TrunkSlam_v22",
+  "sound": "S_M14_TrunkSlam_v22",
+  "export_fps": 60,
+  "anticipation_end_seconds": 0.35,
+  "contact_seconds": 0.55,
+  "rebound_peak_seconds": 0.65,
+  "recovery_start_seconds": 0.78,
+  "duration_seconds": 1.7,
+  "stun_seconds": 2.0,
+  "knockback_cm": 500.0
+}

@@ -42,7 +42,7 @@ void FM10FootPlantNode::Prepare(const AM10Mawcrawler* Monster,float Phase,float 
 {
     Serial=GFrameCounter;Dt=FMath::Clamp(DeltaSeconds,0.f,.1f);
     CyclePhase=Phase;StanceFraction=Stance;PlantWeight=Weight;Walking=IsWalking;
-    StepSeconds=FMath::Clamp(.28f/FMath::Max(1.f,Rate),.09f,.22f);
+    StepSeconds=FMath::Clamp(.28f/FMath::Max(1.f,Rate),.045f,.22f);
     if(!Monster){Enabled=GroundEnabled=false;return;}
     auto* Mesh=Monster->GetMesh();const auto* Move=Monster->GetCharacterMovement();
     const FTransform Next=Mesh->GetComponentTransform();

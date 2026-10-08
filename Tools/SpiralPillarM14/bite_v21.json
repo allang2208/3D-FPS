@@ -1,0 +1,15 @@
+{
+  "revision": "M14BiteV21_20261006",
+  "source_action": "A_M14_Bite_v08",
+  "action": "A_M14_Bite_v21",
+  "sound": "S_M14_Bite_v21",
+  "export_fps": 60,
+  "anticipation_end_seconds": 0.5,
+  "anticipation_extension_fraction": 0.22,
+  "maximum_extension_seconds": 0.75,
+  "contact_seconds": 0.8,
+  "jaw_clench_fraction": -1.5,
+  "recoil_start_seconds": 0.8166666666666667,
+  "recovery_start_seconds": 0.98,
+  "duration_seconds": 1.5
+}

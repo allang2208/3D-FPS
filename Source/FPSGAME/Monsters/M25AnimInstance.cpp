@@ -63,6 +63,8 @@ void UM25AnimInstance::NativeInitializeAnimation()
     Super::NativeInitializeAnimation();
     IdleTime = CrawlTime = LocomotionWeight = 0.f;
     bCrawling = false;
+    LastYaw = SmoothedYawRate = 0.f;
+    bHaveYaw = false;
     BiteTime = BiteWeight = 0.f;
     HitTime = HitWeight = DeathTime = DeathWeight = 0.f;
 }
@@ -87,17 +89,30 @@ void UM25AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
         BiteWeight = Monster->Bite->AnimationWeight();
     }
     else BiteWeight = FMath::FInterpConstantTo(BiteWeight, 0.f, DeltaSeconds, 1.f / .14f);
+    const auto* Movement = Monster->GetCharacterMovement();
     const float Speed = Monster->GetVelocity().Size2D();
-    const bool Grounded = Monster->GetCharacterMovement()->IsMovingOnGround();
-    bCrawling = Grounded && Speed > (bCrawling ? .3f : 1.f);
+    const bool Grounded = Movement->IsMovingOnGround();
+    const float Yaw = Monster->GetActorRotation().Yaw;
+    const float MaxYawRate = FMath::Max(0.f, float(Movement->RotationRate.Yaw));
+    const float YawRate = bHaveYaw && DeltaSeconds > SMALL_NUMBER
+        ? FMath::Clamp(FMath::FindDeltaAngleDegrees(LastYaw, Yaw) / DeltaSeconds, -MaxYawRate, MaxYawRate) : 0.f;
+    LastYaw = Yaw;
+    bHaveYaw = true;
+    SmoothedYawRate = Grounded && !Monster->Controlled()
+        ? FMath::FInterpTo(SmoothedYawRate, YawRate, DeltaSeconds, 14.f) : 0.f;
+    // Reuse the crawl support cycle while turning in place. Full steering rate
+    // uses full walking cadence; translation and turning share one continuous phase.
+    const float TurnSpeed = FMath::Abs(SmoothedYawRate) / FMath::Max(1.f, MaxYawRate) * Monster->WalkSpeed;
+    const float GaitSpeed = FMath::Max(Speed, TurnSpeed);
+    bCrawling = Grounded && GaitSpeed > (bCrawling ? .3f : 1.f);
     LocomotionWeight = FMath::FInterpConstantTo(LocomotionWeight, bCrawling ? 1.f : 0.f, DeltaSeconds, 4.f);
     if (Monster->IdleClip)
         IdleTime = FMath::Fmod(IdleTime + DeltaSeconds, FMath::Max(.01f, Monster->IdleClip->GetPlayLength()));
-    // Retain phase when stopped; advancing it from velocity keeps the in-place
-    // tendril cycle matched to CharacterMovement instead of applying root motion twice.
+    // Keep the authored stride speed unchanged so doubling actual movement
+    // doubles the tendril cadence without resetting the phase on a turn.
     if (Grounded && Monster->MoveClip)
     {
-        const float Rate = Speed / FMath::Max(1.f, Monster->AnimationWalkSpeed);
+        const float Rate = GaitSpeed / FMath::Max(1.f, Monster->AnimationWalkSpeed);
         CrawlTime = FMath::Fmod(CrawlTime + DeltaSeconds * Rate, FMath::Max(.01f, Monster->MoveClip->GetPlayLength()));
     }
 }

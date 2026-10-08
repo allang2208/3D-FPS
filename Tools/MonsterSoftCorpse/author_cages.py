@@ -86,5 +86,6 @@ def author(item):
     print('SOFT_CORPSE_AUTHORED', item['key'], len(nodes), len(tets), flush=True)
 
 
-for entry in json.loads((ROOT/'sources.json').read_text(encoding='utf8')):
-    author(entry)
+if __name__ == '__main__':
+    for entry in json.loads((ROOT/'sources.json').read_text(encoding='utf8')):
+        author(entry)

@@ -109,6 +109,8 @@ public:
     /** Real flight duration; default retains the authored source-time duration. */
     virtual float PounceFlightDuration(const FVector& Start, const FVector& End) const;
     virtual void FinishPounceMovement();
+    virtual bool ShouldPlaySoftDeathLeadIn() const { return false; }
+    virtual void OnDeathPresentationStarted() {}
  private:
     void AlignVisual();
     UQuadrupedTemplateAnimInstance* Animation() const;
@@ -152,4 +154,7 @@ public:
     bool bPackAlertSent = false;
 public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf|Death") TObjectPtr<class UMonsterCorpseRagdollComponent> CorpseRagdoll;
+private:
+    // Captured before releasing surface support; clients use the same decision.
+    UPROPERTY(Replicated) float SoftDeathLeadSeconds = 0.f;
 };
