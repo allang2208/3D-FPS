@@ -1,0 +1,14 @@
+{
+  "source": "project-authored ground vector; user-approved imagegen blade",
+  "field": "Artwork/Zhenmo_Bagua_Field.svg",
+  "blade": "Artwork/Zhenmo_Blade_Rune.png",
+  "blade_revision": "BladeTalismanV4",
+  "blade_pixels": [
+    724,
+    2172
+  ],
+  "blade_design_source": "BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png",
+  "blade_prompt": "BladeTalismanV4/executed-prompt.txt",
+  "runtime_color": "gold; mask imported as grayscale",
+  "historic_blade_archive": "../../Docs/Archives/xuanchi-zhenyue-20261008.json"
+}

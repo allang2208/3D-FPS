@@ -390,4 +390,6 @@ private:
     float AzureDragonDissolveRate=1.f,AzureDragonRemoteDissolveRate=1.f;
     void BeginAzureDragonDissolve(float Rate);
     void UpdateAzureDragonDust(const FAzureDragonFrame& Frame,const FVector& Wind,const FVector* Center,const FVector* Axis);
+    bool bPanChiUppercut=false;
+    float PanChiUppercutDamage=0.f;
 };

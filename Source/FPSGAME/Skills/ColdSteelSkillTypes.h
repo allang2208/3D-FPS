@@ -162,6 +162,7 @@ struct FColdSteelSkillShot
     // Direct blade action identity; shared by every target hit by the same swing.
     uint32 GuardAttackSerial=0;
     FString GuardSourceInstance;
+    FString ZhenmoSourceInstance;
     float QuickCombatRuneVulnerability=0, QuickCombatRuneVulnerabilitySeconds=0;
     /** Azure Dragon: direct sword contact only; a second point-damage transaction. */
     float AzureDragonPhysicalMultiplier=1.f,AzureDragonMagicDamage=0.f;

@@ -76,7 +76,10 @@ void UM4GunsmithWidget::CapturePreview()
     if(!FMath::IsNearlyEqual(Studio->DirectionalLight->Intensity,KeyLevel))Studio->SetLightBrightness(KeyLevel);
     if(StudioFill&&!FMath::IsNearlyEqual(StudioFill->Intensity,FillLevel))StudioFill->SetIntensity(FillLevel);
     if(!FMath::IsNearlyEqual(Studio->SkyLight->Intensity,SkyLevel))Studio->SetSkyBrightness(SkyLevel);
-    GunsmithPreviewLighting::Update(*Capture,LightBounds,bGraphite201||bPitViper2011);
+    // The broad XuanChi blade and pale silk highlights clip under the default
+    // studio softboxes. Preserve the authored PBR colors with a lower light flux.
+    const bool bXuanChi=StandaloneMelee&&StandaloneKey.Contains(TEXT("|ue_xuanchi_zhenyue|"));
+    GunsmithPreviewLighting::Update(*Capture,LightBounds,bGraphite201||bPitViper2011,bXuanChi?.025f:1.f);
     PreviewCoverageCapture->ShowOnlyComponents=Capture->ShowOnlyComponents;
     PreviewCoverageCapture->SetWorldTransform(Capture->GetComponentTransform());
     PreviewCoverageCapture->ProjectionType=Capture->ProjectionType;

@@ -1,0 +1,152 @@
+{
+  "weapon": "ue_xuanchi_zhenyue",
+  "options": [
+    {
+      "option": "shock_wrap",
+      "mesh": "SM_XuanChi_Grip_shock_wrap_V1",
+      "length_cm": 25.0,
+      "pommel_offset_cm": [
+        0,
+        0,
+        -0.0
+      ],
+      "triangles": 97072,
+      "retained_end_regions_m": [
+        [
+          -0.035,
+          0
+        ],
+        [
+          -0.25,
+          -0.225
+        ]
+      ],
+      "materials": [
+        "M_XuanChi_Hilt_V2",
+        "M_SharedGrip_Leather",
+        "M_XuanChi_GripCopper",
+        "M_SharedGrip_Textile"
+      ],
+      "animation_folder": null
+    },
+    {
+      "option": "swift_grip",
+      "mesh": "SM_XuanChi_Grip_swift_grip_V1",
+      "length_cm": 25.0,
+      "pommel_offset_cm": [
+        0,
+        0,
+        -0.0
+      ],
+      "triangles": 97072,
+      "retained_end_regions_m": [
+        [
+          -0.035,
+          0
+        ],
+        [
+          -0.25,
+          -0.225
+        ]
+      ],
+      "materials": [
+        "M_XuanChi_Hilt_V2",
+        "M_SharedGrip_Leather",
+        "M_XuanChi_GripCopper",
+        "M_SharedGrip_Textile"
+      ],
+      "animation_folder": null
+    },
+    {
+      "option": "long_twohand",
+      "mesh": "SM_XuanChi_Grip_long_twohand_V1",
+      "length_cm": 28.5,
+      "pommel_offset_cm": [
+        0,
+        0,
+        -3.5000000000000004
+      ],
+      "triangles": 97072,
+      "retained_end_regions_m": [
+        [
+          -0.035,
+          0
+        ],
+        [
+          -0.25,
+          -0.225
+        ]
+      ],
+      "materials": [
+        "M_XuanChi_Hilt_V2",
+        "M_SharedGrip_Leather",
+        "M_XuanChi_GripCopper",
+        "M_SharedGrip_Textile"
+      ],
+      "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations"
+    },
+    {
+      "option": "iron_spine_power_grip",
+      "mesh": "SM_XuanChi_Grip_iron_spine_power_grip_V1",
+      "length_cm": 25.0,
+      "pommel_offset_cm": [
+        0,
+        0,
+        -0.0
+      ],
+      "triangles": 97072,
+      "retained_end_regions_m": [
+        [
+          -0.035,
+          0
+        ],
+        [
+          -0.25,
+          -0.225
+        ]
+      ],
+      "materials": [
+        "M_XuanChi_Hilt_V2",
+        "M_SharedGrip_Leather",
+        "M_XuanChi_GripCopper",
+        "M_SharedGrip_Textile"
+      ],
+      "animation_folder": null
+    },
+    {
+      "option": "lockweave_guard_grip",
+      "mesh": "SM_XuanChi_Grip_lockweave_guard_grip_V1",
+      "length_cm": 25.0,
+      "pommel_offset_cm": [
+        0,
+        0,
+        -0.0
+      ],
+      "triangles": 97072,
+      "retained_end_regions_m": [
+        [
+          -0.035,
+          0
+        ],
+        [
+          -0.25,
+          -0.225
+        ]
+      ],
+      "materials": [
+        "M_XuanChi_Hilt_V2",
+        "M_SharedGrip_Leather",
+        "M_XuanChi_GripCopper",
+        "M_SharedGrip_Textile"
+      ],
+      "animation_folder": null
+    }
+  ],
+  "source": "../SurfaceV2/XuanChi_SurfaceV2_Editable.blend",
+  "factory_length_cm": 25,
+  "long_grip_extension_cm": 3.5,
+  "geometry": "Retained exact upper/lower rims and native UV/normals; continuous inset wraps inside the source hand envelope",
+  "current_bone_mount": "unchanged; retain 4.5 cm grip clearance correction",
+  "game_tested": false,
+  "acceptance_render_run": false
+}

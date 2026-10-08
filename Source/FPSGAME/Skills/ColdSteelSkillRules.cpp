@@ -483,6 +483,8 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
             {
                 const auto Melee=ColdSteelMelee::Evaluate(*I,M);
                 Shot.DamagePanel=Melee.DamageParts;
+                // Equipped passive crit is already included by Derived(crit).
+                if(Melee.Modifiers.ZhenmoSeconds>0.)Shot.ZhenmoSourceInstance=I->InstanceId;
                 Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+float(Melee.Modifiers.PhysicalArmorPenetration),0.f,1.f);
                 Shot.ToughnessDamageMultiplier=Melee.Modifiers.ToughnessDamage;
                 Shot.QuickCombatTigerRoarToughnessBonus=Melee.Modifiers.QuickCombatTigerRoarToughnessBonus;

@@ -13,16 +13,19 @@ inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotK
         return EGunsmithModificationTier::Legendary;
     if(SlotKey==TEXT("tactical")&&Id==TacticalDeviceVariants::BlessedLaser)
         return EGunsmithModificationTier::Legendary;
+    if(Weapon==TEXT("ue_xuanchi_zhenyue")&&SlotKey==TEXT("blade_2")&&(Id==TEXT("zhenmo_rune")||Id==TEXT("jingang_rune")))
+        return EGunsmithModificationTier::Legendary;
     const bool VipGrip=Weapon==TEXT("ue_pit_viper2011")&&SlotKey==TEXT("reargrip")&&Id==TEXT("pit_viper_vip_scales");
     const bool SiMuzzle=Weapon==TEXT("ue_pit_viper2011")&&SlotKey==TEXT("muzzle")&&Id==TEXT("pit_viper_si_compensator");
     const bool G18Drum=Weapon==TEXT("ue_g18")&&SlotKey==TEXT("magazine")&&Id==TEXT("g18_drum_50");
     const bool Special=
         VipGrip || SiMuzzle || G18Drum ||
+        (Weapon==TEXT("ue_xuanchi_zhenyue") && SlotKey==TEXT("guard") && Id==TEXT("panchi_zhanyue")) ||
         (Weapon==TEXT("ue_rsh12") && SlotKey==TEXT("muzzle") &&
             (Id==TEXT("rsh12_heavy_suppressor")||Id==TEXT("rsh12_large_caliber_brake"))) ||
         (Weapon==TEXT("ue_rsh12") && SlotKey==TEXT("grip_body") && (Id==TEXT("rsh12_heavy_grip")||Id==TEXT("rsh12_quickdraw_grip"))) ||
         (Weapon==TEXT("ue_rsh12") && SlotKey==TEXT("optic") && RSH12OpticAssets::IsSquare(Id)) ||
-        (Weapon==TEXT("ue_tang_dao") &&
+        ((Weapon==TEXT("ue_tang_dao")||Weapon==TEXT("ue_xuanchi_zhenyue")) &&
             ((SlotKey==TEXT("blade_1") && (Id==TEXT("yanling_edge")||Id==TEXT("tengyun_dragon"))) ||
              (SlotKey==TEXT("blade_2") && (Id==TEXT("auspicious_cloud_rune")||Id==TEXT("mountain_rune"))) ||
              (SlotKey==TEXT("guard") && (Id==TEXT("xuan_cloud_dragon")||Id==TEXT("phoenix_feather"))) ||

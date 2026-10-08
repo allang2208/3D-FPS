@@ -1,0 +1,25 @@
+{
+  "generator": "built-in image_gen",
+  "created": "2026-10-06",
+  "source_text": "Public-domain Diamond Sutra, Kumarajiva translation; https://dlbs.liberal.ntu.edu.tw/BDLM/sutra/html/T08/T08n0235.htm",
+  "artworks": [
+    {
+      "file": "Artwork/Jingang_Hud_Atlas.png",
+      "transparent_background": false,
+      "prompt": "Production emissive MASK ATLAS for a Chinese game's golden Diamond Sutra floating HUD. Flat raster texture, WIDE LANDSCAPE exactly 3:2. Pure WHITE brush calligraphy on solid pure BLACK background, no gold, no lighting, no paper grain, no shadows, no border, no labels, no punctuation, no ornaments, no watermark. Divide the canvas into THREE EXACTLY EQUAL vertical columns. Each column is an independent panel with TWO vertical lines of traditional Chinese running-cursive calligraphy, FOUR characters per line. Characters must be accurate and legible authentic elegant Chinese xingshu with graceful flowing joins, variable stroke thickness and restrained flying-white dry-brush detail. All strokes kept inside 15%-85% of each column's width and 12%-88% canvas height, balanced spacious composition. LEFT PANEL: right vertical line top to bottom exactly '應無所住', left vertical line top to bottom exactly '而生其心'. MIDDLE PANEL: right vertical line top to bottom exactly '不取於相', left vertical line top to bottom exactly '如如不動'. RIGHT PANEL: right vertical line top to bottom exactly '凡所有相', left vertical line top to bottom exactly '皆是虛妄'. Do not reorder, replace, repeat or omit any character. These are three different authentic excerpts, not random runic glyphs. Each panel has consistent brush weight, scale and equal vertical extents. Strong white strokes and clean black negative space for readable alpha masking at HUD scale. No visible panel dividers."
+    },
+    {
+      "file": "Artwork/Jingang_Blade_Mask.png",
+      "transparent_background": false,
+      "prompt": "Create a production black-and-white emissive calligraphy mask for the approved Chinese sword 金刚符文. Landscape very WIDE, approximately 4:1. Solid pure BLACK background. ONE uninterrupted horizontal line of exact WHITE Chinese running-cursive brush calligraphy, reading left to right: 一切有為法 如夢幻泡影 如露亦如電 應作如是觀 . All twenty characters must be accurate, in that order, no extra characters, no missing characters, no punctuation. Beautiful fluid Chinese xingshu-caoshu, cursive joined motions, varied stroke width, slightly irregular expressive baseline, controlled dry-brush flying-white, graceful tapering terminals. Even visual density across the band. Four phrases separated only by a small breathing gap and a tiny thin auspicious-cloud curl, cloud ornament very sparse and subordinate. Content fills central 88% of width and central 45% of height, keep broad pure-black margins. Stroke thickness robust enough for game weapon rendering. No sword, no metal, no gradient, no lighting, no shadow, no border, no title, no watermark, no paper texture. This is a flat MASK whose white brush strokes will be mapped to gold metal emission in an engine; crisp silhouette is essential. Similar to elegant actual handwritten sutra text inlaid along a long narrow sword blade."
+    },
+    {
+      "file": "Artwork/Jingang_Icon.png",
+      "transparent_background": true,
+      "references": ["../ZhenmoRune20261005/zhenmo_rune_icon.png"],
+      "prompt": "Edit this inventory icon for a NEW Chinese calligraphy sword rune 金刚符文. Preserve EXACTLY the entire existing square scratched steel frame, four corner rivets, inner circular silver rim and opaque dark textured interior. Replace ONLY the central yin-yang bagua medallion including all eight trigrams with two large vertically arranged graceful running-cursive Chinese characters, top '金' bottom '剛', carved raised SILVER metal in genuine Chinese brush stroke shapes, strongly readable bold thick-thin strokes with small flying-white relief. Add only two tiny silver auspicious cloud curls around the lettering within the inner circle, no medallion behind it. Neutral GRAYSCALE only, no gold or colored glow. Single centrally balanced emblem occupies 70% of inner circle height. No captions or labels or additional text. No sword, no lotus, no bagua. Real scratched silver shallow relief and dark engraved recesses, same upper-left studio light as reference. Genuine transparent background outside square frame, dark opaque interior. Square 1024px or larger."
+    }
+  ],
+  "concept": "Artwork/ApprovedConcept.png; approved by user in current conversation",
+  "runtime_tested": false
+}

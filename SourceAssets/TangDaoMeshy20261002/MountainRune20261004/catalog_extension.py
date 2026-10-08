@@ -39,8 +39,8 @@ def install():
     file=DATA/'melee-gunsmith.json'
     catalog=json.loads(file.read_text(encoding='utf-8-sig'))
     column=next(c for c in catalog['columns'] if c['key']=='blade_2')
-    option={'id':'mountain_rune','name':'山岳符文','weapons':['ue_tang_dao'],
-        'description':'唐刀专属。三峰主印与层叠岩脉沿刀身展开，土黄刻纹间缓缓浮起琥珀微光。借山岳之重增强攻击、击退与削韧。',
+    option={'id':'mountain_rune','name':'山岳符文','weapons':['ue_tang_dao','ue_xuanchi_zhenyue'],
+        'description':'唐刀与玄螭镇岳限定。三峰主印与层叠岩脉沿刃身展开，土黄刻纹间缓缓浮起琥珀微光。借山岳之重增强攻击、击退与削韧。',
         'appearance':'三峰山印 · 层岩刻纹 · 土黄微光',
         'effects':[{'text':'全部近战攻击伤害 +10%（含属性、附加伤害及快速近战）','benefit':1},
                    {'text':'攻击时所有击退效果 +50%（含快速近战、旋风、冲刺斩）','benefit':1},

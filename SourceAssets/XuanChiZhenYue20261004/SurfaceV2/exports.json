@@ -1,0 +1,14 @@
+{
+  "revision": "SurfaceV2",
+  "ue_root": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2",
+  "meshes": [
+    "SM_XuanChi_Guard_V2",
+    "SM_XuanChi_Blade_V2",
+    "SM_XuanChi_Grip_V2",
+    "SM_XuanChi_Pommel_V2",
+    "SM_XuanChi_Complete_V2"
+  ],
+  "junction_z_cm": 15.722115337848663,
+  "blade_depth_cm": 0.032,
+  "tested": false
+}

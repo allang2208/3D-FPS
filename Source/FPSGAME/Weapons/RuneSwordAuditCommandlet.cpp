@@ -13,6 +13,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
+#include "Misc/Parse.h"
 
 namespace
 {
@@ -40,6 +41,7 @@ TArray<FHitResult> RuneLegacyQuery(UWorld* World,AActor* Owner,const FRuneSwordB
 
 int32 URuneSwordAuditCommandlet::Main(const FString& Params)
 {
+    if(FParse::Param(*Params,TEXT("XuanChiRunesOnly")))return AuditXuanChiRunes();
     FString Report;int32 Checks=0,Failures=0;
     auto Note=[&](const FString& Line){Report+=Line+TEXT("\n");UE_LOG(LogTemp,Display,TEXT("%s"),*Line);};
     auto Check=[&](bool Pass,const FString& Name){++Checks;if(!Pass)++Failures;Note(FString::Printf(TEXT("SWORD_AUDIT %s %s"),Pass?TEXT("PASS"):TEXT("FAIL"),*Name));};

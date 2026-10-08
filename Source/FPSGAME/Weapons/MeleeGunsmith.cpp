@@ -44,6 +44,7 @@ void UGunsmithSystem::LoadMeleeCatalog()
             const auto Data=Entry->AsObject();FGunsmithOption Part;
             Part.Id=Data->GetStringField(TEXT("id"));Part.Name=Data->GetStringField(TEXT("name"));
             Part.Description=Data->GetStringField(TEXT("description"));
+            Part.ReadSpecialEffects(Data);
             const TArray<TSharedPtr<FJsonValue>>* Compatible=nullptr;
             if(Data->TryGetArrayField(TEXT("weapons"),Compatible))for(const auto& Id:*Compatible)Part.CompatibleWeapons.Add(Id->AsString());
             for(const auto& Effect:Data->GetArrayField(TEXT("effects")))
@@ -108,6 +109,24 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("cloven_seconds"),Part.Melee.ClovenSeconds);
             Stats->TryGetNumberField(TEXT("cloven_physical_mult"),Part.Melee.ClovenPhysical);
             Stats->TryGetNumberField(TEXT("cloven_toughness_mult"),Part.Melee.ClovenToughness);
+            Stats->TryGetNumberField(TEXT("critical_chance_add"),Part.Melee.CriticalChanceAdd);
+            Stats->TryGetNumberField(TEXT("zhenmo_seconds"),Part.Melee.ZhenmoSeconds);
+            Stats->TryGetNumberField(TEXT("zhenmo_radius_cm"),Part.Melee.ZhenmoRadiusCM);
+            Stats->TryGetNumberField(TEXT("zhenmo_damage_taken_bonus"),Part.Melee.ZhenmoDamageTakenBonus);
+            Stats->TryGetNumberField(TEXT("zhenmo_slow"),Part.Melee.ZhenmoSlow);
+            Stats->TryGetNumberField(TEXT("jingang_bonus"),Part.Melee.JingangBonus);
+            Stats->TryGetNumberField(TEXT("jingang_high_threshold"),Part.Melee.JingangHighThreshold);
+            Stats->TryGetNumberField(TEXT("jingang_low_threshold"),Part.Melee.JingangLowThreshold);
+            Stats->TryGetNumberField(TEXT("jingang_leech_seconds"),Part.Melee.JingangLeechSeconds);
+            Stats->TryGetNumberField(TEXT("jingang_leech_ratio"),Part.Melee.JingangLeechRatio);
+            Stats->TryGetNumberField(TEXT("panchi_seconds"),Part.Melee.PanChiSeconds);
+            Stats->TryGetNumberField(TEXT("panchi_max_stacks"),Part.Melee.PanChiMaxStacks);
+            Stats->TryGetNumberField(TEXT("panchi_toughness_per_stack"),Part.Melee.PanChiToughnessPerStack);
+            Stats->TryGetNumberField(TEXT("panchi_cooldown"),Part.Melee.PanChiCooldown);
+            Stats->TryGetNumberField(TEXT("panchi_radius_cm"),Part.Melee.PanChiRadiusCM);
+            Stats->TryGetNumberField(TEXT("panchi_angle_degrees"),Part.Melee.PanChiAngleDegrees);
+            Stats->TryGetNumberField(TEXT("panchi_pull_cm"),Part.Melee.PanChiPullCM);
+            Stats->TryGetNumberField(TEXT("panchi_magic_damage_scale"),Part.Melee.PanChiMagicDamageScale);
             FactoryOptions.FindChecked(Key).Add(MoveTemp(Part));
         }
     }

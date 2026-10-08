@@ -1,0 +1,56 @@
+{
+  "revision": "SurfaceV2",
+  "request": "Remove mismatched sword-to-guard transition; unify metal and give engraving physical relief using the existing texture-offset method.",
+  "geometry": {
+    "input": "../ModelV1/XuanChi_Modular_Editable.blend",
+    "output": "XuanChi_SurfaceV2_Editable.blend",
+    "junction_cm": 15.722115337848663,
+    "method": "Smooth local collar deformation into the same eight-sided blade section. Upper collar corner normals become the analytic steel face normals. Blade retains the same section for its first 2 cm.",
+    "unchanged": "Lower ornate crossguard, grip contact, pommel, independent tassel and gameplay dimensions."
+  },
+  "steel": {
+    "srgb_palette_255": [
+      108,
+      113,
+      116
+    ],
+    "roughness_base": 0.38,
+    "metallic": 0.97,
+    "nonmetal_regions": "Original atlas metal mask preserves jade, black wrapping and red silk.",
+    "root_uv": "Upper collar and blade share x / 11 cm + 0.5, z / 120 cm; FBX handles V convention.",
+    "scope": "Legacy V2 blade only; current blade uses BladeV3/surface_recipe.json"
+  },
+  "relief": {
+    "source": "../ModelV1/Textures/Blade_Engraving_Mask.png",
+    "method_reference": "Tools/ModularOutfit/black_leather_relief.ush",
+    "groove_depth_mm": 0.3,
+    "pom_depth_cm": 0.032,
+    "maps": "Height, tangent normal, AO, roughness and muted albedo share one groove field.",
+    "steps": "8 coarse + 2 refinement, maximum 8 source texels, shared UV and original screen gradients for all PBR samples.",
+    "fade": "Blade edge, distance 100-280 cm, grazing angle and coarse mip attenuation; skip search when faded.",
+    "scope": "Shallow surface relief, without changing blade silhouette or gameplay collision."
+  },
+  "publication": {
+    "assets": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2",
+    "catalog": "Content/ColdSteelData/xuanchi-zhenyue-modules.json",
+    "material_references": "Own unified steel materials, unchanged tassel WPO graph with new atlas textures, corresponding whirlwind copies.",
+    "native_code_changed": false,
+    "native_build_required": false,
+    "game_tests_run": false,
+    "acceptance_render_run": false,
+    "status_source": "import_receipt.json and catalog_receipt.json describe actual asset save and publication status."
+  },
+  "hilt_finish": {
+    "name": "bright copper",
+    "srgb_palette_255": [
+      222,
+      157,
+      109
+    ],
+    "roughness_base": 0.31,
+    "metallic": 0.97,
+    "mask": "Original Image_1.jpg metallic channel",
+    "scope": "Guard, pommel ring and shared metal fittings; nonmetal jade, wrapping and silk retain their source colors",
+    "normal": "Existing Hilt_Normal.png unchanged during finish-only updates"
+  }
+}

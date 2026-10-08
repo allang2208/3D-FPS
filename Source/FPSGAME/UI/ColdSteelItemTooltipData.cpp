@@ -263,6 +263,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             }
             else if(G->IsMelee(I.Definition))
             {
+                Delta(C,TEXT("暴击率"),S.Melee.CriticalChanceAdd,TEXT("个百分点"));
                 Delta(C,ColdSteelWeaponText::BaseDamageModifier,(S.Melee.Damage-1)*100,TEXT("%"));
                 Delta(C,TEXT("全部近战攻击伤害"),(S.Melee.AllAttackDamage-1)*100,TEXT("%"));
                 Delta(C,TEXT("三连击第二段伤害"),(S.Melee.ComboSecond-1)*100,TEXT("%"));

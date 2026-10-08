@@ -9,5 +9,5 @@ namespace GunsmithPreviewLighting
 {
     void Create(FPreviewScene& Scene, USceneCaptureComponent2D& Capture);
     // Bounds are in capture space and include the complete visible assembly.
-    void Update(USceneCaptureComponent2D& Capture, const FBox& ViewBounds, bool bGraphite201 = false);
+    void Update(USceneCaptureComponent2D& Capture, const FBox& ViewBounds, bool bGraphite201 = false, float SoftboxIntensityScale = 1.f);
 }

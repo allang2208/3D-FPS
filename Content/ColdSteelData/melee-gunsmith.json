@@ -224,7 +224,8 @@
           "weapons": [
             "ue_rune_sword",
             "ue_highland_claymore",
-            "ue_tang_dao"
+            "ue_tang_dao",
+            "ue_xuanchi_zhenyue"
           ],
           "description": "紫色侵蚀裂纹沿刃面闪烁。智力与精神转为附加魔法伤害，随连击和重击倍率放大，再按魔法防御结算。寒晶已自带此效果。",
           "effects": [
@@ -322,9 +323,10 @@
           "id": "auspicious_cloud_rune",
           "name": "祥云符文",
           "weapons": [
-            "ue_tang_dao"
+            "ue_tang_dao",
+            "ue_xuanchi_zhenyue"
           ],
-          "description": "唐刀专属。卷云主印向刀尖收成流云，淡金云纹间流转玉青微光。云气托刃，出手更快、更省耐力，击杀时回收体力，削弱攻击造成的韧性伤害。",
+          "description": "唐刀与玄螭镇岳限定。卷云主印向刃尖收成流云，淡金云纹间流转玉青微光。云气托刃，出手更快、更省耐力，击杀时回收体力，削弱攻击造成的韧性伤害。",
           "appearance": "卷云主印 · 淡金云纹 · 玉青流光",
           "effects": [
             {
@@ -349,15 +351,17 @@
             "stamina_mult": 0.85,
             "toughness_damage_mult": 0.9,
             "kill_stamina_max_ratio": 0.15
-          }
+          },
+          "tier": "special"
         },
         {
           "id": "mountain_rune",
           "name": "山岳符文",
           "weapons": [
-            "ue_tang_dao"
+            "ue_tang_dao",
+            "ue_xuanchi_zhenyue"
           ],
-          "description": "唐刀专属。三峰主印与层叠岩脉沿刀身展开，土黄刻纹间缓缓浮起琥珀微光。借山岳之重增强攻击、击退与削韧。",
+          "description": "唐刀与玄螭镇岳限定。三峰主印与层叠岩脉沿刃身展开，土黄刻纹间缓缓浮起琥珀微光。借山岳之重增强攻击、击退与削韧。",
           "appearance": "三峰山印 · 层岩刻纹 · 土黄微光",
           "effects": [
             {
@@ -377,7 +381,99 @@
             "all_attack_knockback_mult": 1.5,
             "toughness_damage_mult": 1.5,
             "all_attack_damage_mult": 1.1
-          }
+          },
+          "tier": "special"
+        },
+        {
+          "id": "zhenmo_rune",
+          "name": "镇魔符文",
+          "tier": "legendary",
+          "weapons": [
+            "ue_xuanchi_zhenyue"
+          ],
+          "description": "镇岳专属传说符文。八卦镇印与凌厉篆符交织，折锋金线沿剑脊贯通。",
+          "effects": [
+            {
+              "text": "暴击率 +25个百分点",
+              "benefit": 1
+            },
+            {
+              "text": "攻击暴击触发镇魔阵，持续15秒；重复触发刷新，不叠加",
+              "benefit": 1
+            },
+            {
+              "text": "阵法随玩家移动，半径15米",
+              "benefit": 1
+            },
+            {
+              "text": "阵内怪物受到的全部伤害 +25%",
+              "benefit": 1
+            },
+            {
+              "text": "阵内怪物移动速度 -50%；离阵即解除",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "critical_chance_add": 25,
+            "zhenmo_seconds": 15,
+            "zhenmo_radius_cm": 1500,
+            "zhenmo_damage_taken_bonus": 0.25,
+            "zhenmo_slow": 0.5
+          },
+          "special_effects": [
+            "暴击触发｜攻击暴击展开镇魔阵，持续15秒；再次暴击刷新时间，效果不叠加。",
+            "镇魔阵｜随玩家移动，半径15米。阵内怪物受到的全部伤害提高25%，移动速度降低50%；离阵即解除。"
+          ]
+        },
+        {
+          "id": "jingang_rune",
+          "name": "金刚符文",
+          "tier": "legendary",
+          "weapons": [
+            "ue_xuanchi_zhenyue"
+          ],
+          "description": "镇岳专属传说符文。金刚经行草鎏入剑脊，随生命状态显现无住、如如、破相三境；持剑护体，临危返照。",
+          "stats": {
+            "jingang_bonus": 0.25,
+            "jingang_high_threshold": 0.7,
+            "jingang_low_threshold": 0.3,
+            "jingang_leech_seconds": 10,
+            "jingang_leech_ratio": 0.1
+          },
+          "effects": [
+            {
+              "text": "持握时物理防御、魔法防御 +25%",
+              "benefit": 1
+            },
+            {
+              "text": "生命值 ≥70%：物理伤害、魔法伤害 +25%",
+              "benefit": 1
+            },
+            {
+              "text": "生命值 ≥30% 且 <70%：攻击速度 +25%，技能冷却缩减 25%",
+              "benefit": 1
+            },
+            {
+              "text": "生命值 <30%：物理／魔法防御、物理／魔法伤害、攻击速度、技能冷却缩减均为 +50%",
+              "benefit": 1
+            },
+            {
+              "text": "进入低血量获得10秒攻击吸血，实际伤害的10%转化为生命；低血量攻击命中刷新至10秒",
+              "benefit": 1
+            },
+            {
+              "text": "回血离开低血量保留剩余吸血时间；切换武器或卸下符文立即失去全部效果",
+              "benefit": 0
+            }
+          ],
+          "special_effects": [
+            "高血量 · 生命≥70%｜物理伤害、魔法伤害提高25%。",
+            "中血量 · 30%≤生命<70%｜攻击速度提高25%，技能冷却缩减25%。",
+            "低血量 · 生命<30%｜双防、双伤、攻速与冷却缩减均变为50%，替代上述加成，不额外叠加。",
+            "攻击吸血｜进入低血量获得10秒吸血，实际攻击伤害的10%转化为生命；低血量攻击命中刷新至10秒，回血脱离低血量保留剩余时间。",
+            "解除｜切换武器或卸下符文，立即清除全部加成及吸血。"
+          ]
         }
       ]
     },
@@ -394,7 +490,8 @@
             "ue_frost_crystal_sword",
             "ue_rune_sword",
             "ue_highland_claymore",
-            "ue_tang_dao"
+            "ue_tang_dao",
+            "ue_xuanchi_zhenyue"
           ],
           "description": "宽厚防护翼，偏重格挡减伤和稳固招架。",
           "effects": [
@@ -424,7 +521,8 @@
             "ue_frost_crystal_sword",
             "ue_rune_sword",
             "ue_highland_claymore",
-            "ue_tang_dao"
+            "ue_tang_dao",
+            "ue_xuanchi_zhenyue"
           ],
           "description": "上挑护翼，偏重招架反击。扩大弹反判定窗口；成功弹反获得攻速与耐力激励，再次弹反刷新持续时间。",
           "effects": [
@@ -455,7 +553,8 @@
             "ue_frost_crystal_sword",
             "ue_rune_sword",
             "ue_highland_claymore",
-            "ue_tang_dao"
+            "ue_tang_dao",
+            "ue_xuanchi_zhenyue"
           ],
           "description": "收窄轻翼，偏重灵活出手和耐力续航。",
           "effects": [
@@ -588,6 +687,44 @@
             "phoenix_heal_max_ratio": 0.02,
             "phoenix_heal_hits": 3
           }
+        },
+        {
+          "id": "panchi_zhanyue",
+          "name": "蟠螭展岳",
+          "tier": "special",
+          "weapons": [
+            "ue_xuanchi_zhenyue"
+          ],
+          "description": "玄螭镇岳专属特殊护手。双螭护玉，云翼展岳；格挡蓄势，上挑引龙，金阵聚敌。",
+          "appearance": "宽展铜翼 · 贯通云孔 · 原厂青玉与刀根接座",
+          "effects": [
+            {
+              "text": "常驻效果｜格挡受击耐力消耗降低20%。",
+              "benefit": 1
+            },
+            {
+              "text": "触发条件｜格挡+1层，完美弹反+2层，上限3层、持续8秒。至少1层且冷却就绪时，主动上挑消耗全部蓄势，免准备释放强化升龙，冷却8秒。",
+              "benefit": 1
+            },
+            {
+              "text": "伤害与削韧｜金龙造成100%重击魔法伤害，每目标一次；本次上挑每层额外削韧+20%，最高+60%。释放时无需命中，将阵心半径10米内的普通或已破韧怪物向阵心拉近最多5米。",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "block_stamina_mult": 0.8,
+            "panchi_seconds": 8,
+            "panchi_max_stacks": 3,
+            "panchi_toughness_per_stack": 0.2,
+            "panchi_cooldown": 8,
+            "panchi_pull_cm": 500,
+            "panchi_radius_cm": 1000,
+            "panchi_magic_damage_scale": 1.0
+          },
+          "special_effects": [
+            "触发条件｜格挡+1层，完美弹反+2层，上限3层、持续8秒。至少1层且冷却就绪时，主动上挑消耗全部蓄势，免准备释放强化升龙，冷却8秒。",
+            "伤害与削韧｜金龙造成100%重击魔法伤害，每目标一次；本次上挑每层额外削韧+20%，最高+60%。释放时无需命中，将阵心半径10米内的普通或已破韧怪物向阵心拉近最多5米。"
+          ]
         }
       ]
     },
@@ -675,7 +812,8 @@
           "weapons": [
             "ue_rune_sword",
             "ue_frost_crystal_sword",
-            "ue_highland_claymore"
+            "ue_highland_claymore",
+            "ue_xuanchi_zhenyue"
           ],
           "description": "贴平钢脊支撑三段皮革握区，偏重重击破韧，出手稍慢。伤害与削韧增益仅作用于重击，包含护手转换的重击。",
           "effects": [
@@ -704,7 +842,8 @@
           "weapons": [
             "ue_rune_sword",
             "ue_frost_crystal_sword",
-            "ue_highland_claymore"
+            "ue_highland_claymore",
+            "ue_xuanchi_zhenyue"
           ],
           "description": "交错锁纹织带贴合握区，提升格挡稳定性与受击续航。格挡减伤沿原有上限计算。",
           "effects": [
@@ -1008,6 +1147,23 @@
         {
           "icon": "neutral",
           "text": "刀刃、护手、握柄、柄尾与刃面符文可独立改造"
+        }
+      ]
+    },
+    {
+      "id": "ue_xuanchi_zhenyue",
+      "traits": [
+        {
+          "icon": "mechanic",
+          "text": "双手持剑，占用副手；两次横斩后接突刺"
+        },
+        {
+          "icon": "mechanic",
+          "text": "支持蓄力重击、格挡与既有近战技能"
+        },
+        {
+          "icon": "neutral",
+          "text": "原装环首带赤绳玉坠和随动作摆动的剑穗"
         }
       ]
     }

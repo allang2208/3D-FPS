@@ -1,5 +1,7 @@
 #include "RuneSwordComponent.h"
 #include "TangDaoGuardComponent.h"
+#include "PanChiGuardComponent.h"
+#include "RuneSwordMeshComponent.h"
 #include "RuneSwordUppercutMotion.h"
 #include "RuneSwordRisingDragon.h"
 #include "RuneSwordCombatTuning.h"
@@ -65,6 +67,11 @@ bool URuneSwordComponent::BeginUppercut()
     const auto Stats=ColdSteelMelee::Evaluate(*Item,Profile);
     if(bInspecting)CancelAction();
     bUppercut=true;
+    const auto* PanChi=Character->FindComponentByClass<UPanChiGuardComponent>();
+    bPanChiUppercut=PanChi&&PanChi->CanEmpowerUppercut();
+    // Preserve the approved full-heavy magic damage, independent of the
+    // active uppercut's own 70% heavy formula and mastery level.
+    PanChiUppercutDamage=Stats.Damage*Stats.HeavyMultiplier;
     bThrustAttack=bPommelAttack=bOverheadAttack=bHeavyAttack=bQuickCombatStrike=false;
     bHeavyTrainingPending=false;HeavyTrainingHits=HeavyTrainingKills=0;
     HitActors.Reset();SwingTrainingHits=0;
@@ -87,6 +94,7 @@ bool URuneSwordComponent::BeginUppercut()
     SwingSkills.bRifle=SwingSkills.bPistol=false;SwingSkills.WeakpointPercent=0.f;
     SwingSkills.AttackMeta=SwordUppercut::AttackMeta;
     UTangDaoGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
+    UPanChiGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
     SwingSkills.AttackForm=EMonsterAttackForm::Blade;
     SwingSkills.ToughnessDamageMultiplier*=Stats.Modifiers.HeavyToughness;
     // Use the same attack speed snapshot as ordinary and quick-combat swings.
@@ -103,7 +111,14 @@ bool URuneSwordComponent::BeginUppercut()
     Animations.Add(TEXT("Uppercut"),Clip);
     SetClip(TEXT("Uppercut"),false);
     PreviousAimFrame=Character->GetMeleeAimTransform();
-    return true;
+    if(bPanChiUppercut)
+    {
+        // Remove the entire preparation segment, retaining stroke, stride,
+        // recovery and the normal stamina/cooldown commit at release.
+        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();
+        Elapsed=ContactStart;SamplePose(Elapsed);TickUppercut(0.f);
+    }
+    return bUppercut;
 }
 
 void URuneSwordComponent::TickUppercut(float Delta)
@@ -164,6 +179,15 @@ void URuneSwordComponent::TickUppercut(float Delta)
             AzureDragonSwingRange(bUppercut?UppercutLowReachCM:MeleeSmallTargets::LowReachCM)),EndFrame.GetUnitAxis(EAxis::X));
     }
     SamplePose(Next);PreviousAimFrame=AimNow;Elapsed=Next;
+    // Release only after this tick has applied the complete stride and pose.
+    // Read the actual landing position/facing now, never a windup origin or a
+    // predicted 150 cm endpoint (a wall may have shortened the real movement).
+    if(!RisingDragon&&bUppercut&&bPanChiUppercut&&Elapsed>=RuneSwordUppercutMotion::SkillLungeEnd)
+    {
+        bPanChiUppercut=false;
+        if(auto* Guard=Character->FindComponentByClass<UPanChiGuardComponent>())
+            Guard->ReleaseUppercutDragon(Character->GetMeleeAimTransform(),PanChiUppercutDamage,SwingSkills,HitSound);
+    }
     if(Next>=ContactEnd)FinishHeavyTraining();
     if(!bUppercut&&!IsRisingDragonFinisher())return; // Training/save callbacks may cancel the current action.
     if(Elapsed>=End)
@@ -174,7 +198,7 @@ void URuneSwordComponent::TickUppercut(float Delta)
             bAttacking=bQueuedAttack=bQueuedQuickCombat=false;
             LastAttackEnd=GetWorld()->GetTimeSeconds();
         }
-        bUppercut=false;bLungeStarted=bLungeBlocked=false;LungeDirection=FVector::ZeroVector;
+        bUppercut=bPanChiUppercut=false;bLungeStarted=bLungeBlocked=false;LungeDirection=FVector::ZeroVector;
         SetClip(TEXT("Idle"),true);
         if(QueuedSkill)BeginQuickCombatStrike();else if(Queued)BeginAttack();
     }

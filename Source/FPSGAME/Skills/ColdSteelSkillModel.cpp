@@ -1,4 +1,5 @@
 #include "ColdSteelSkillRules.h"
+#include "../Weapons/ZhenmoRuneComponent.h"
 #include "MeleeToughnessTuning.h"
 #include "SwordUppercutTuning.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -14,6 +15,7 @@
 #include "../Weapons/FPSMeleeLightningComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/TangDaoGuardComponent.h"
+#include "../Weapons/PanChiGuardComponent.h"
 #include "../Weapons/RuneSwordRisingDragon.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
@@ -179,6 +181,9 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     auto* TangGuard=Shooter?Shooter->FindComponentByClass<UTangDaoGuardComponent>():nullptr;
     const bool bGuardContact=TangGuard&&bAliveBefore&&Damage>0.f&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter);
     float GuardToughnessBonus=0.f;
+    auto* PanChi=Shooter?Shooter->FindComponentByClass<UPanChiGuardComponent>():nullptr;
+    const bool bPanChiContact=bAliveBefore&&Damage>0.f&&PanChi&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter);
+    const float PanChiToughness=bPanChiContact?PanChi->UppercutToughnessMultiplier(Shot):1.f;
     if(bGuardContact)Amount*=TangGuard->ConsumeDragon(Shot,GuardToughnessBonus);
     float WagerBonus=0.f;
     // 普通暴击与要害暴击共用这一次判定；继承伤害的次生命中不重复叠层。
@@ -236,7 +241,7 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     // 命中形式的唯一收口：所有武器命中都在这里标注，受击端据此折算削韧。
     const MonsterToughness::FScopedForm FormScope(Shot.AttackForm);
     const float FixedToughness=Shot.bMelee&&!Shot.bRicochet?MeleeToughness::FixedBaseFor(Shot.AttackMeta):-1.f;
-    auto ApplyToughness=[&](){return Combat?Combat->ApplyHitWithToughnessScale(Shot.ToughnessDamageMultiplier,ApplyDamage,FixedToughness,GuardToughnessBonus):ApplyDamage();};
+    auto ApplyToughness=[&](){return Combat?Combat->ApplyHitWithToughnessScale(Shot.ToughnessDamageMultiplier*PanChiToughness,ApplyDamage,FixedToughness,GuardToughnessBonus):ApplyDamage();};
     float Applied=(Combat&&bFirearmWithoutStagger&&!Combat->UsesToughnessBar())?Combat->ApplyHitWithReactionScale(0.f,ApplyToughness):ApplyToughness();
     FWeaponDamageParts AppliedParts=WeaponHit.Mitigated.LimitedTo(Applied);
     // A real second damage transaction, with its own magic defense and remaining
@@ -263,6 +268,10 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     }
     const bool bDirectKill=bAliveBefore&&Applied>0.f&&(!IsValid(Victim)||Victim->IsActorBeingDestroyed()||Combat->IsDead());
     if(bGuardContact)TangGuard->ConfirmBladeHit(Shot);
+    if(bAliveBefore&&Applied>0.f&&Training.bCritical&&!Shot.bRicochet&&Shot.bMelee
+        &&!Shot.ZhenmoSourceInstance.IsEmpty()&&Shooter&&Shooter->HasAuthority()
+        &&Victim&&!Victim->ActorHasTag(TEXT("Friendly"))&&!Victim->ActorHasTag(TEXT("Companion")))
+        if(auto* Rune=Shooter->FindComponentByClass<UZhenmoRuneComponent>())Rune->ConfirmCritical(Shot.ZhenmoSourceInstance);
     // Normal stage 3 keeps its own damage formula; the launch now obeys poise.
     // Settle here for both standalone and authoritative remote hits.
     if(bAliveBefore&&Amount>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()

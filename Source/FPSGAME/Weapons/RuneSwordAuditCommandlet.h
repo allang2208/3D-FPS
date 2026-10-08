@@ -8,4 +8,6 @@ class URuneSwordAuditCommandlet : public UCommandlet
     GENERATED_BODY()
 public:
     virtual int32 Main(const FString& Params) override;
+private:
+    int32 AuditXuanChiRunes();
 };

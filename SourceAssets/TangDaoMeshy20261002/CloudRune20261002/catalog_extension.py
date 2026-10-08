@@ -40,8 +40,8 @@ def add_bindings(bindings):
 
 def add_option(gunsmith):
     column=next(c for c in gunsmith['columns'] if c['key']=='blade_2')
-    option={'id':ID,'name':'祥云符文','weapons':['ue_tang_dao'],
-        'description':'唐刀专属。卷云主印向刀尖收成流云，淡金云纹间流转玉青微光。云气托刃，出手更快、更省耐力，击杀时回收体力，削弱攻击造成的韧性伤害。',
+    option={'id':ID,'name':'祥云符文','weapons':['ue_tang_dao','ue_xuanchi_zhenyue'],
+        'description':'唐刀与玄螭镇岳限定。卷云主印向刃尖收成流云，淡金云纹间流转玉青微光。云气托刃，出手更快、更省耐力，击杀时回收体力，削弱攻击造成的韧性伤害。',
         'appearance':'卷云主印 · 淡金云纹 · 玉青流光',
         'effects':[{'text':'攻击速度 +10%','benefit':1},
                    {'text':'攻击耐力消耗 -15%','benefit':1},

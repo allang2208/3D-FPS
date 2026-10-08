@@ -38,6 +38,24 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
         Overview.Add({Name,FString::Printf(TEXT("%.*f%s"),Digits,Base,Unit),FString::Printf(TEXT("%.*f%s"),Digits,Final,Unit),
             Same?TEXT("—"):FString::Printf(TEXT("%+.*f%s"),Digits,Delta,Unit),Same?0:((Delta>0)!=Lower?1:-1)});
     };
+    if(Before.Modifiers.CriticalChanceAdd>0.||After.Modifiers.CriticalChanceAdd>0.)
+        Row(TEXT("改造暴击率加成"),Before.Modifiers.CriticalChanceAdd,After.Modifiers.CriticalChanceAdd,0,TEXT("%"));
+    if(Before.Modifiers.ZhenmoSeconds>0.||After.Modifiers.ZhenmoSeconds>0.)
+    {
+        Row(TEXT("镇魔阵持续时间"),Before.Modifiers.ZhenmoSeconds,After.Modifiers.ZhenmoSeconds,0,TEXT(" s"));
+        Row(TEXT("镇魔阵半径"),Before.Modifiers.ZhenmoRadiusCM/100.,After.Modifiers.ZhenmoRadiusCM/100.,0,TEXT(" m"));
+        Row(TEXT("阵内怪物所受伤害增加"),Before.Modifiers.ZhenmoDamageTakenBonus*100.,After.Modifiers.ZhenmoDamageTakenBonus*100.,0,TEXT("%"));
+        Row(TEXT("阵内怪物移动减速"),Before.Modifiers.ZhenmoSlow*100.,After.Modifiers.ZhenmoSlow*100.,0,TEXT("%"));
+    }
+    if(Before.Modifiers.JingangBonus>0.||After.Modifiers.JingangBonus>0.)
+    {
+        Row(TEXT("金刚物理／魔法防御加成"),Before.Modifiers.JingangBonus*100.,After.Modifiers.JingangBonus*100.,0,TEXT("%"));
+        Row(TEXT("高血量物理／魔法伤害加成"),Before.Modifiers.JingangBonus*100.,After.Modifiers.JingangBonus*100.,0,TEXT("%"));
+        Row(TEXT("中血量攻速／冷却缩减"),Before.Modifiers.JingangBonus*100.,After.Modifiers.JingangBonus*100.,0,TEXT("%"));
+        Row(TEXT("低血量上述全部加成"),Before.Modifiers.JingangBonus*200.,After.Modifiers.JingangBonus*200.,0,TEXT("%"));
+        Row(TEXT("攻击吸血比例"),Before.Modifiers.JingangLeechRatio*100.,After.Modifiers.JingangLeechRatio*100.,0,TEXT("%"));
+        Row(TEXT("攻击吸血持续时间"),Before.Modifiers.JingangLeechSeconds,After.Modifiers.JingangLeechSeconds,0,TEXT(" s"));
+    }
     Row(ColdSteelWeaponText::TotalDamage,Before.Damage,After.Damage,2,TEXT(""));
     Row(ColdSteelWeaponText::BasePhysical,Before.DamageParts.BasePhysical,After.DamageParts.BasePhysical,2,TEXT(""));
     Row(ColdSteelWeaponText::AddedPhysical,Before.DamageParts.AddedPhysical,After.DamageParts.AddedPhysical,2,TEXT(""));

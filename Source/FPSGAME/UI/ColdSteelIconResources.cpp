@@ -108,9 +108,11 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             Add(TEXT("/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/T_RuneSword_NativeMask"));
             Add(TEXT("/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/T_RuneSword_GuardNativeMask"));
         }
-        else if(D==ColdSteelFrostRunes::TangDao&&Visual==ColdSteelFrostRunes::AuspiciousCloud)
+        else if(D==ColdSteelFrostRunes::XuanChi&&(Visual==ColdSteelFrostRunes::Jingang||Visual==ColdSteelFrostRunes::Zhenmo))
+            Add(Visual==ColdSteelFrostRunes::Jingang?ColdSteelFrostRunes::JingangMask:ColdSteelFrostRunes::ZhenmoMask,true);
+        else if(ColdSteelFrostRunes::SupportsEasternRunes(D)&&(Visual==ColdSteelFrostRunes::AuspiciousCloud||Visual==ColdSteelFrostRunes::Mountain))
         {
-            Add(ColdSteelFrostRunes::CloudMask,true);
+            Add(Visual==ColdSteelFrostRunes::Mountain?ColdSteelFrostRunes::MountainMask:ColdSteelFrostRunes::CloudMask,true);
         }
         else if(!Visual.IsEmpty()&&Visual!=TEXT("false"))
         {

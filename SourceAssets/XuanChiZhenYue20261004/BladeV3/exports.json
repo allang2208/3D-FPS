@@ -1,0 +1,110 @@
+{
+  "revision": "BladeV3",
+  "ue_root": "/Game/Weapons/XuanChiZhenYue20261004/BladeV3",
+  "meshes": [
+    "SM_XuanChi_Blade_V3",
+    "SM_XuanChi_Guard_V3",
+    "SM_XuanChi_Complete_V3"
+  ],
+  "ornament_source": "ModelV1/XuanChi_Modular_Editable.blend",
+  "guard_operation": "Remove fused blade backing outside original ornament silhouette; retained face attributes unchanged",
+  "blade_root_cm": -1.8,
+  "blade_tip_cm": 120,
+  "body_thickness_mm": 8,
+  "tip_taper_start_cm": 112,
+  "ornament_outline_pixel_space": [
+    [
+      331,
+      551
+    ],
+    [
+      334,
+      507
+    ],
+    [
+      369,
+      505
+    ],
+    [
+      399,
+      490
+    ],
+    [
+      422,
+      466
+    ],
+    [
+      430,
+      437
+    ],
+    [
+      423,
+      375
+    ],
+    [
+      421,
+      314
+    ],
+    [
+      426,
+      274
+    ],
+    [
+      449,
+      230
+    ],
+    [
+      481,
+      184
+    ],
+    [
+      510,
+      136
+    ],
+    [
+      541,
+      184
+    ],
+    [
+      574,
+      230
+    ],
+    [
+      594,
+      273
+    ],
+    [
+      601,
+      313
+    ],
+    [
+      599,
+      373
+    ],
+    [
+      594,
+      437
+    ],
+    [
+      602,
+      467
+    ],
+    [
+      624,
+      490
+    ],
+    [
+      658,
+      505
+    ],
+    [
+      690,
+      507
+    ],
+    [
+      697,
+      551
+    ]
+  ],
+  "game_tested": false
+}

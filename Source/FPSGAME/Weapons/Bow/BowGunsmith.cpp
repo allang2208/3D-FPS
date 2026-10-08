@@ -22,6 +22,7 @@ void UGunsmithSystem::LoadBowCatalog()
         {
             auto O=Entry->AsObject();FGunsmithOption Part;
             Part.Id=O->GetStringField(TEXT("id"));Part.Name=O->GetStringField(TEXT("name"));Part.Description=O->GetStringField(TEXT("description"));
+            Part.ReadSpecialEffects(O);
             O->TryGetStringField(TEXT("appearance"),Part.Appearance);Part.BowVisual=O->GetObjectField(TEXT("visual"));
             const auto S=O->GetObjectField(TEXT("stats"));
             S->TryGetNumberField(TEXT("damage_mult"),Part.Bow.Damage);S->TryGetNumberField(TEXT("draw_mult"),Part.Bow.Draw);

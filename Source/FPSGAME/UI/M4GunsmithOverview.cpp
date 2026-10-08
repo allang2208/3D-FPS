@@ -1,3 +1,4 @@
+#include "../Weapons/GunsmithModificationTier.h"
 #include "ColdSteelWeaponText.h"
 #include "M4GunsmithWidget.h"
 #include "ColdSteelUIStyle.h"
@@ -132,10 +133,23 @@ void UM4GunsmithWidget::RefreshPresentation()
         {
             const bool ChangedCategory=OptionsCategory!=SelectedCategory;
             OptionScroll->ClearChildren();OptionCards.Reset();OptionsSignature=Signature;OptionsCategory=SelectedCategory;
-            if(Options)for(const auto& O:*Options)
+            for(int32 Rank=0;Options&&Rank<3;++Rank)
             {
-                auto Card=BuildOption(SelectedCategory,O.Id);OptionCards.Add(O.Id,Card);
-                OptionScroll->AddSlot().Padding(0,0,10,4)[Card];
+                const auto Tier=static_cast<EGunsmithModificationTier>(Rank);
+                auto Cards=SNew(SHorizontalBox);int32 Count=0;
+                for(const auto& O:*Options)
+                {
+                    if(ColdSteelModification::Tier(G->Definition(),SelectedCategory,O.Id)!=Tier)continue;
+                    auto Card=BuildOption(SelectedCategory,O.Id);OptionCards.Add(O.Id,Card);
+                    Cards->AddSlot().AutoWidth().Padding(0,0,10,0)[Card];++Count;
+                }
+                if(!Count)continue;
+                const auto Color=Rank==2?ColdSteelUI::LegendaryText:Rank==1?ColdSteelUI::ExclusiveText:GunsmithUI::Secondary;
+                OptionScroll->AddSlot().Padding(0,0,10,4)
+                    [SNew(SVerticalBox)
+                        +SVerticalBox::Slot().AutoHeight().Padding(2,0,0,6)
+                        [Text(ColdSteelModification::Label(Tier),12,Color)]
+                        +SVerticalBox::Slot().AutoHeight()[Cards]];
             }
             if(ChangedCategory)OptionScroll->ScrollToStart();
         }

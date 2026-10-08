@@ -1,4 +1,5 @@
 #include "FPSCombatHealthComponent.h"
+#include "../Weapons/JingangRuneComponent.h"
 #include "../Survival/FPSSurvivalComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "../Combat/CoreCombatFormula.h"
@@ -186,6 +187,7 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
     AActor* Attacker=Causer?Causer:(Instigator?Instigator->GetPawn():nullptr);
     if(!Actor->IsA<AFPSGAMECharacter>())Damage=DamageAfterArmor(Damage,Type,Attacker);
     Health = FMath::Max(0.f, Health - Damage);
+    if(auto* Rune=Actor->FindComponentByClass<UJingangRuneComponent>())Rune->ObserveHealth();
     if(!IsDead()&&!bSurvivalLoss&&!(Type&&Type->IsA<UMaggotPoisonDamage>()))
         if(auto* Body=Actor->FindComponentByClass<UFPSPlayerBodyComponent>())
             Body->RecordAcceptedHit(Instigator&&Instigator->GetPawn()?Instigator->GetPawn():Attacker,Damage,MaxHealth);

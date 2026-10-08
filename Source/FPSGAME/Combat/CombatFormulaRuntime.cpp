@@ -1,4 +1,5 @@
 #include "CombatFormulaRuntime.h"
+#include "../Weapons/JingangRuneComponent.h"
 #include "CoreCombatFormula.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "CombatStatusFormula.h"
@@ -42,13 +43,18 @@ float CombatFormulaRuntime::MonsterCriticalResistance(const AActor* Target)
 }
 float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UDamageType* Type,AActor* Source)
 {
-    if(Type&&Type->IsA<UCombatDirectDamage>())return Damage;
+    if(Type&&Type->IsA<UCombatDirectDamage>())
+    {
+        const auto* Field=Target->FindComponentByClass<UCombatStatusFormula>();
+        return Damage*(Field?Field->ZhenmoDamageMultiplier():1.f);
+    }
     if(ActiveWeaponHit&&ActiveWeaponHit->Target==Target&&!ActiveWeaponHit->bResolved&&!IsMagic(Type))
     {
         auto& Hit=*ActiveWeaponHit;
         const auto* Status=Target->FindComponentByClass<UCombatStatusFormula>();
         const auto* SourceStatus=Source?Source->FindComponentByClass<UCombatStatusFormula>():nullptr;
-        double Common=1;
+        double Common=UJingangRuneComponent::OutgoingMultiplier(Source);
+        if(Status)Common*=Status->ZhenmoDamageMultiplier();
         if(Target->GetGameInstance())if(const auto* P=Target->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
             Common*=P->TributeEffect(TEXT("monsterDamageTakenPercent"));
         auto Resolve=[&](double Amount,bool Magic)
@@ -94,8 +100,10 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
         if(ActiveMagicHit->CriticalResult)*ActiveMagicHit->CriticalResult=Critical;
         if(Critical)Result=CoreCombatFormula::CriticalDamage(Result,ActiveMagicHit->Bonus);
     }
+    // Equipped-only, evaluated on contact for spells as well as direct attacks.
+    Result=std::floor(Result*UJingangRuneComponent::OutgoingMultiplier(Source));
     // 旧链尾段：来源侧减益（骆驼惊吓等）→ 标记 → 圣佑，逐段取整。
     if(const auto* SourceStatus=Source?Source->FindComponentByClass<UCombatStatusFormula>():nullptr)Result=std::floor(Result*SourceStatus->OutgoingDamageMultiplier());
     if(Status)Result=std::floor(Result*Status->MarkedMultiplier());
-    return Status?std::floor(Result*Status->FinalMultiplier()):Result;
+    return Status?std::floor(Result*Status->FinalMultiplier()*Status->ZhenmoDamageMultiplier()):Result;
 }

@@ -38,6 +38,7 @@ void UGunsmithSystem::LoadToolCatalog()
             const auto Data=Entry->AsObject();FGunsmithOption Part;
             Part.Id=Data->GetStringField(TEXT("id"));Part.Name=Data->GetStringField(TEXT("name"));
             Part.Description=Data->GetStringField(TEXT("description"));
+            Part.ReadSpecialEffects(Data);
             Data->TryGetStringField(TEXT("appearance"),Part.Appearance);
             const TArray<TSharedPtr<FJsonValue>>* Compatible=nullptr;
             if(Data->TryGetArrayField(TEXT("weapons"),Compatible))for(const auto& Id:*Compatible)Part.CompatibleWeapons.Add(Id->AsString());

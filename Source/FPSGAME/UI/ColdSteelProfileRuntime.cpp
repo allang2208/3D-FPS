@@ -1,4 +1,5 @@
 #include "../Dungeon/DungeonLayout.h"
+#include "../Weapons/JingangRuneComponent.h"
 #include "ColdSteelStatusModel.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "../Weapons/WeaponReloadStages.h"
@@ -377,6 +378,19 @@ bool UColdSteelStatusModel::ReloadProfile()
             {
                 ItemData->SetStringField(TEXT("weaponType"),CatalogType);
                 I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+            }
+            // Zhenyue's base reach is catalog tuning, not an instance upgrade.
+            // Assign the current value so loading repeatedly never compounds it.
+            if(I.Definition==TEXT("ue_xuanchi_zhenyue")&&CatalogData&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+            {
+                double CatalogReach=0.,StoredReach=0.;
+                if(CatalogData->TryGetNumberField(TEXT("melee_reach_cm"),CatalogReach)&&
+                    (!ItemData->TryGetNumberField(TEXT("melee_reach_cm"),StoredReach)||StoredReach!=CatalogReach))
+                {
+                    ItemData->SetNumberField(TEXT("melee_reach_cm"),CatalogReach);
+                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
             }
             // 条目说明同样以目录为准。物品实例存的是创建当时的目录快照，
             // 所以只改 items.json 时，已经持有的武器仍显示旧介绍
@@ -860,6 +874,9 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
     if(HasNoAbilityCooldown())Current.WhirlwindCooldown=0.f;
     else Current.WhirlwindCooldown=FMath::Max(0.f,Current.WhirlwindCooldown-Delta);
     Current.SwordUppercutCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.SwordUppercutCooldown-Delta);
+    // Dynamic cooldown reduction stops on unequip and never shortens an attack recovery.
+    if(const auto* Rune=UJingangRuneComponent::From(this))
+        ReduceAllAbilityCooldowns(Delta*(1.f/Rune->CooldownMultiplier()-1.f));
     TickFormulaBuffs(Delta);
     TickStamina(Delta,Pawn);
     if(Delta>0)if(auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&!Health->IsDead()){

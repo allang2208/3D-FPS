@@ -31,6 +31,7 @@
 #include "../Weapons/AzureDragonReach.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/JingangRuneComponent.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/Unarmed/UnarmedPunchTuning.h"
@@ -792,6 +793,10 @@ void AColdSteelPlayerState::ServerReportHit_Implementation(const FColdSteelNetHi
 
     FWeaponDamageResult Receipt;
     const float Applied = Model->ApplySkillWeaponHit(Shooter, Hit, Damage, FVector(Report.Direction), Shot, &Receipt);
+    // Remote hit feedback runs on the client, where lifesteal cannot change health.
+    // Settle once on the authoritative pawn using the actual applied damage.
+    if (auto* Rune = Shooter->FindComponentByClass<UJingangRuneComponent>())
+        Rune->ConfirmAttack(Report.Target, Applied);
     UE_LOG(LogTemp, Warning, TEXT("MPTEST hit applied: shooter=%s target=%s dmg=%.1f crit=%d killed=%d"),
         *GetNameSafe(Shooter), *GetNameSafe(Report.Target), Applied, Receipt.bCritical ? 1 : 0, Receipt.bKilled ? 1 : 0);
     bServerDirty = true;

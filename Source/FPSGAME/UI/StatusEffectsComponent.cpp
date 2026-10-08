@@ -1,4 +1,7 @@
 #include "StatusEffectsComponent.h"
+#include "../Weapons/JingangRuneComponent.h"
+#include "../Weapons/PanChiGuardComponent.h"
+#include "../Weapons/ZhenmoRuneComponent.h"
 #include "../Weapons/TangDaoGuardComponent.h"
 #include "../Monsters/PoisonMaggotProjectile.h"
 #include "../Monsters/HandBrainFearComponent.h"
@@ -53,6 +56,19 @@ void UStatusEffectsComponent::Notify(AActor* Owner){if(auto* C=GetOrCreate(Owner
 TArray<FStatusEffectView> UStatusEffectsComponent::Snapshot() const
 {
  TArray<FStatusEffectView> Result;if(auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>())if(H->IsDead())return Result;
+ if(const auto* Guard=GetOwner()->FindComponentByClass<UPanChiGuardComponent>();Guard&&Guard->IsActive())
+ {
+  if(Guard->Charges()>0){auto V=Definition(TEXT("panchiCharge"));V.Stacks=Guard->Charges();V.Duration=Guard->Duration();V.Remaining=Guard->Remaining();Result.Add(V);}
+  if(Guard->CooldownRemaining()>0.f){auto V=Definition(TEXT("panchiCooldown"));V.Duration=Guard->CooldownDuration();V.Remaining=Guard->CooldownRemaining();Result.Add(V);}
+ }
+ if(const auto* Rune=GetOwner()->FindComponentByClass<UZhenmoRuneComponent>();Rune&&Rune->Remaining()>0.f)
+ {auto V=Definition(TEXT("zhenmoField"));V.Duration=Rune->Duration();V.Remaining=Rune->Remaining();V.Stacks=1;Result.Add(V);}
+ if(const auto* Rune=GetOwner()->FindComponentByClass<UJingangRuneComponent>();Rune&&Rune->State()!=EJingangState::None)
+ {
+  const auto S=Rune->State();auto V=Definition(S==EJingangState::High?TEXT("jingangHigh"):S==EJingangState::Middle?TEXT("jingangMiddle"):TEXT("jingangLow"));
+  V.Persistent=true;V.DurationText=TEXT("随生命值切换 · 换武器解除");Result.Add(V);
+  if(Rune->LeechRemaining()>0.f){auto L=Definition(TEXT("jingangLeech"));L.Duration=Rune->LeechDuration();L.Remaining=Rune->LeechRemaining();Result.Add(L);}
+ }
  if(const auto* Guard=GetOwner()->FindComponentByClass<UTangDaoGuardComponent>())
  {
   if(const float Remaining=Guard->DragonRemaining();Remaining>0.f)

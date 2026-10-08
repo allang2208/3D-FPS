@@ -1,4 +1,5 @@
 #include "CombatStatusFormula.h"
+#include "../Weapons/ZhenmoRuneComponent.h"
 #include "../Weapons/TangDaoGuardComponent.h"
 #include "ProgressiveInfectionComponent.h"
 #include "GameFramework/Actor.h"
@@ -253,6 +254,27 @@ float UCombatStatusFormula::OutgoingDamageMultiplier()const
     if(!Pawn||!Pawn->IsPlayerControlled())Multiplier*=UProgressiveInfectionComponent::AttributeMultiplier(GetOwner());
     return Multiplier;
 }
+void UCombatStatusFormula::AddZhenmoSource(UZhenmoRuneComponent* Source)
+{
+    ZhenmoSources.RemoveAll([](const auto& Entry){return !Entry.IsValid();});
+    if(Source)ZhenmoSources.AddUnique(Source);
+}
+void UCombatStatusFormula::RemoveZhenmoSource(UZhenmoRuneComponent* Source)
+{ZhenmoSources.Remove(Source);}
+float UCombatStatusFormula::ZhenmoDamageMultiplier() const
+{
+    float Bonus=0.f;
+    if(!IsImmune())for(const auto& Source:ZhenmoSources)
+        if(Source.IsValid()&&Source->Affects(GetOwner()))Bonus=FMath::Max(Bonus,Source->DamageBonus());
+    return 1.f+Bonus;
+}
+float UCombatStatusFormula::ZhenmoMovementMultiplier() const
+{
+    float Slow=0.f;
+    if(!IsImmune())for(const auto& Source:ZhenmoSources)
+        if(Source.IsValid()&&Source->Affects(GetOwner()))Slow=FMath::Max(Slow,Source->Slow());
+    return 1.f-FMath::Clamp(Slow,0.f,1.f);
+}
 float UCombatStatusFormula::MovementMultiplier()const
 {
     if(FrozenTime>0||StunTime>0||BindTime>0||PetrifyTime>0)return 0.f;
@@ -261,7 +283,7 @@ float UCombatStatusFormula::MovementMultiplier()const
     if(WaxTime>0)Mul*=FMath::Max(0.f,1-WaxPct);
     if(WeaponHasteTime>0)Mul*=WeaponHasteMul;
     if(InspireTime>0)Mul*=InspireSpeed;
-    return Mul;
+    return Mul*ZhenmoMovementMultiplier();
 }
 void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)
 {

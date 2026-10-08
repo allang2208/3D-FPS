@@ -11,6 +11,7 @@ class FPSGAME_API UCombatDirectDamage : public UDamageType { GENERATED_BODY() };
 UCLASS()
 class FPSGAME_API UStatusMagicDamage : public UDamageType { GENERATED_BODY() };
 
+class UZhenmoRuneComponent;
 /** Target-owned temporary reductions; seconds in UE, milliseconds in gamedev. */
 UCLASS(ClassGroup=(Combat),meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UCombatStatusFormula : public UActorComponent
@@ -24,6 +25,10 @@ public:
     UFUNCTION(BlueprintCallable) void AddHolyWard(float Multiplier,float Seconds);
     UFUNCTION(BlueprintCallable) void AddMagicVulnerability(int32 Stacks=1);
     void AddRuneMagicVulnerability(float Ratio,float Seconds);
+    void AddZhenmoSource(UZhenmoRuneComponent* Source);
+    void RemoveZhenmoSource(UZhenmoRuneComponent* Source);
+    float ZhenmoDamageMultiplier() const;
+    float ZhenmoMovementMultiplier() const;
     /** 虎啸：三类韧性抵抗归零，受到的韧性伤害提高；重复命中刷新，不叠加。 */
     void AddTigerRoar(float ToughnessBonus,float Seconds);
     float TigerRoarRemaining() const;
@@ -130,6 +135,7 @@ public:
     UFUNCTION(BlueprintCallable) int32 CleanseDebuffs(int32 Count);
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)override;
 private:
+    TArray<TWeakObjectPtr<UZhenmoRuneComponent>> ZhenmoSources;
     void InterruptOwnerActions(float Seconds);
     bool bImmune=false;
     int32 ElectrifiedStacks=0;

@@ -20,10 +20,11 @@ bool IsNativeGold(UMaterialInterface* Material)
     return Base&&Base->GetName()==TEXT("M_AzureRunesword_NativeGold");
 }
 
-bool IsTangDaoRuneSurface(UMaterialInterface* Material)
+bool IsNativeRuneSurface(UMaterialInterface* Material)
 {
     const auto* Base=Material?Material->GetBaseMaterial():nullptr;
-    return Base&&Base->GetName().StartsWith(TEXT("M_TangDaoBladeRuneSurface"));
+    return Base&&(Base->GetName().StartsWith(TEXT("M_TangDaoBladeRuneSurface"))||
+        Base->GetName().StartsWith(TEXT("M_XuanChiBladeRuneSurface")));
 }
 
 UMaterialInterface* FactoryMaterial(UMeshComponent* Mesh,int32 Slot)
@@ -56,9 +57,11 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
     const bool bGolden=VisualRune==TEXT("golden_glow_rune");
     const bool bSpirit=bFrost&&VisualRune==ColdSteelFrostRunes::SpiritBurst;
     const bool bWild=Definition==TEXT("ue_highland_claymore")&&VisualRune==TEXT("wild_rune");
-    const bool bCloud=Definition==ColdSteelFrostRunes::TangDao&&VisualRune==ColdSteelFrostRunes::AuspiciousCloud;
-    const bool bMountain=Definition==ColdSteelFrostRunes::TangDao&&VisualRune==ColdSteelFrostRunes::Mountain;
-    const int32 Mode=bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:VisualRune==TEXT("conduction_rune")?2:-1;
+    const bool bCloud=ColdSteelFrostRunes::SupportsEasternRunes(Definition)&&VisualRune==ColdSteelFrostRunes::AuspiciousCloud;
+    const bool bMountain=ColdSteelFrostRunes::SupportsEasternRunes(Definition)&&VisualRune==ColdSteelFrostRunes::Mountain;
+    const bool bZhenmo=Definition==ColdSteelFrostRunes::XuanChi&&VisualRune==ColdSteelFrostRunes::Zhenmo;
+    const bool bJingang=Definition==ColdSteelFrostRunes::XuanChi&&VisualRune==ColdSteelFrostRunes::Jingang;
+    const int32 Mode=bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:VisualRune==TEXT("conduction_rune")?2:-1;
     auto IsOurs=[](UMaterialInterface* M){auto* Base=M?M->GetBaseMaterial():nullptr;return Base&&(Base->GetName().StartsWith(TEXT("M_SilverRuneSurface"))||Base->GetName()==TEXT("M_SilverRuneSurfaceV2"));};
     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
     {
@@ -104,9 +107,9 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
         }
         // A transient MID has an arbitrary object name; classify its source material.
         const FString Name=Base?Base->GetBaseMaterial()->GetName():FString();
-        if(IsTangDaoRuneSurface(Base))
+        if(IsNativeRuneSurface(Base))
         {
-            // TangDao's refined Substrate surface draws its own rune emission.
+            // The refined Substrate blade draws its own rune emission.
             // Both held and workbench blades use this material, with no second
             // translucent draw on the same steel faces.
             if(IsOurs(Current))Mesh->SetOverlayMaterial(nullptr,true,Slot);
@@ -119,7 +122,7 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
             SurfaceMID->SetScalarParameterValue(TEXT("GlowStrength"),bMountain?.88f:bCloud?1.05f:1.25f);
             if(Mode>=0&&(Changed||!SurfaceMID->K2_GetTextureParameterValue(TEXT("RuneTexture"))))
             {
-                const FString Mask=bMountain?FString(ColdSteelFrostRunes::MountainMask):bCloud?FString(ColdSteelFrostRunes::CloudMask):TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+VisualRune;
+                const FString Mask=bJingang?FString(ColdSteelFrostRunes::JingangMask):bZhenmo?FString(ColdSteelFrostRunes::ZhenmoMask):bMountain?FString(ColdSteelFrostRunes::MountainMask):bCloud?FString(ColdSteelFrostRunes::CloudMask):TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+VisualRune;
                 auto* Texture=LoadObject<UTexture>(nullptr,*Mask);
                 SurfaceMID->SetTextureParameterValue(TEXT("RuneTexture"),Texture);
             }
@@ -173,7 +176,7 @@ bool ColdSteelMeleeRune::UpdatePose(UMeshComponent* Mesh,double PreviewTime)
             Active=true;
         }
         auto* MID=Cast<UMaterialInstanceDynamic>(Mesh->GetMaterial(Slot));
-        if(IsTangDaoRuneSurface(MID))
+        if(IsNativeRuneSurface(MID))
         {
             if(MID->K2_GetScalarParameterValue(TEXT("RuneMode"))<0.f)continue;
         }

@@ -94,7 +94,7 @@ for name,new in entries.items():
  file,live=load_live(name);live['slots']['grip'].update(new);write(file,live)
 file,live=load_live('melee-gunsmith.json')
 column=next(c for c in live['columns'] if c['key']=='grip')
-weapons=['ue_rune_sword','ue_frost_crystal_sword','ue_highland_claymore']
+weapons=['ue_rune_sword','ue_frost_crystal_sword','ue_highland_claymore','ue_xuanchi_zhenyue']
 new_options=[
  {'id':'iron_spine_power_grip','name':'铁脊强攻柄','weapons':weapons,
   'description':'贴平钢脊支撑三段皮革握区，偏重重击破韧，出手稍慢。伤害与削韧增益仅作用于重击，包含护手转换的重击。',

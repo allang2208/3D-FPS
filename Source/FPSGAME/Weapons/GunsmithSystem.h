@@ -52,6 +52,13 @@ struct FMeleeModifiers
     double AllAttackKnockback=1;
     // Full direct attack damage, including attribute/added damage and quick combat.
     double AllAttackDamage=1;
+    double CriticalChanceAdd=0;
+    double ZhenmoSeconds=0,ZhenmoRadiusCM=0,ZhenmoDamageTakenBonus=0,ZhenmoSlow=0;
+    double JingangBonus=0,JingangHighThreshold=0,JingangLowThreshold=0,JingangLeechSeconds=0,JingangLeechRatio=0;
+    double PanChiSeconds=0,PanChiMaxStacks=0,PanChiToughnessPerStack=0,PanChiCooldown=0;
+    double PanChiRadiusCM=0,PanChiAngleDegrees=0,PanChiPullCM=0;
+    double PanChiMagicDamageScale=1;
+
 };
 /**
  * 采集工具（伐木斧、矿镐）改造倍率：倍率相乘、绝对值相加，1／0 = 未改造。
@@ -99,6 +106,14 @@ struct FGunsmithOption
     /** 数值改造先行时如实说明当前外观归属；空串表示沿用本槽 factory 外形。 */
     FString Appearance;
     TArray<TPair<FString,int32>> Effects;
+    // Conditional mechanics are independent of the permanent numeric cards.
+    TArray<FString> SpecialEffects;
+    void ReadSpecialEffects(const TSharedPtr<FJsonObject>& Data)
+    {
+        const TArray<TSharedPtr<FJsonValue>>* Lines=nullptr;
+        if(Data->TryGetArrayField(TEXT("special_effects"),Lines))
+            for(const auto& Line:*Lines)SpecialEffects.Add(Line->AsString());
+    }
     // EmptyReload defaults to Reload, so an option only needs the extra catalog
     // key (empty_reload_mult) when normal and empty reload must differ.
     double ADS=0, ADSSeconds=0, Recoil=1, Shake=1, Stability=1, Speed=1, Interval=1, Spread=1, Range=1, Reload=1, EmptyReload=1;

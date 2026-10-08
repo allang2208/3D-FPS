@@ -1,0 +1,102 @@
+[
+  {
+    "key": "pommel_ballast_hardened",
+    "label": "陨星锤首",
+    "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\RuneSword_Pommels_PBR.blend",
+    "source_object": "SM_RunePommel_Meteor",
+    "runtime_mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_Meteor.SM_RunePommel_Meteor",
+    "source_image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SharedPommelIcons20261005\\Sources\\pommel_ballast_hardened.png",
+    "shared_body_only": true,
+    "mount_axis": "+Z toward grip, body extends -Z",
+    "camera": "front -Y level orthographic",
+    "materials": [
+      "IconGray_M_RunePommel_meteor_Opaque",
+      "IconGray_M_RunePommel_meteor_Crystal"
+    ],
+    "purpose": "Requested production icon input; no game test"
+  },
+  {
+    "key": "pommel_ballast_rune",
+    "label": "凝碧星核",
+    "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\RuneSword_Pommels_PBR.blend",
+    "source_object": "SM_RunePommel_JadeStar",
+    "runtime_mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_JadeStar.SM_RunePommel_JadeStar",
+    "source_image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SharedPommelIcons20261005\\Sources\\pommel_ballast_rune.png",
+    "shared_body_only": true,
+    "mount_axis": "+Z toward grip, body extends -Z",
+    "camera": "front -Y level orthographic",
+    "materials": [
+      "IconGray_M_RunePommel_jade_core_Opaque",
+      "IconGray_M_RunePommel_jade_core_Crystal"
+    ],
+    "purpose": "Requested production icon input; no game test"
+  },
+  {
+    "key": "pommel_ballast_magic_orb",
+    "label": "疾星配重",
+    "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\RuneSword_Pommels_PBR.blend",
+    "source_object": "SM_RunePommel_Swiftstar",
+    "runtime_mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_Swiftstar.SM_RunePommel_Swiftstar",
+    "source_image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SharedPommelIcons20261005\\Sources\\pommel_ballast_magic_orb.png",
+    "shared_body_only": true,
+    "mount_axis": "+Z toward grip, body extends -Z",
+    "camera": "front -Y level orthographic",
+    "materials": [
+      "IconGray_M_RunePommel_swift_Opaque"
+    ],
+    "purpose": "Requested production icon input; no game test"
+  },
+  {
+    "key": "pommel_pommel_hardened",
+    "label": "硬化配重",
+    "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_hardened\\FrostPommel_Editable.blend",
+    "source_object": "SM_FrostPommel_ballast_hardened",
+    "runtime_mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/SM_FrostPommel_ballast_hardened.SM_FrostPommel_ballast_hardened",
+    "source_image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SharedPommelIcons20261005\\Sources\\pommel_pommel_hardened.png",
+    "shared_body_only": true,
+    "mount_axis": "+Z toward grip, body extends -Z",
+    "camera": "front -Y level orthographic",
+    "materials": [
+      "IconGray_M_FrostPommel_Collar",
+      "IconGray_M_FrostPommel_Bronze",
+      "IconGray_M_FrostPommel_Crystal"
+    ],
+    "purpose": "Requested production icon input; no game test"
+  },
+  {
+    "key": "pommel_pommel_runic",
+    "label": "符文配重",
+    "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_rune\\FrostPommel_Editable.blend",
+    "source_object": "SM_FrostPommel_ballast_rune",
+    "runtime_mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/SM_FrostPommel_ballast_rune.SM_FrostPommel_ballast_rune",
+    "source_image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SharedPommelIcons20261005\\Sources\\pommel_pommel_runic.png",
+    "shared_body_only": true,
+    "mount_axis": "+Z toward grip, body extends -Z",
+    "camera": "front -Y level orthographic",
+    "materials": [
+      "IconGray_M_FrostPommel_Collar.001",
+      "IconGray_M_FrostPommel_Bronze.001",
+      "IconGray_M_FrostPommel_Crystal.001",
+      "IconGray_M_FrostPommel_InlayBorder",
+      "IconGray_M_FrostPommel_SilverInlay"
+    ],
+    "purpose": "Requested production icon input; no game test"
+  },
+  {
+    "key": "pommel_pommel_mana_orb",
+    "label": "魔力球配重",
+    "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_magic_orb\\FrostPommel_Editable.blend",
+    "source_object": "SM_FrostPommel_ballast_magic_orb",
+    "runtime_mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/SM_FrostPommel_ballast_magic_orb.SM_FrostPommel_ballast_magic_orb",
+    "source_image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SharedPommelIcons20261005\\Sources\\pommel_pommel_mana_orb.png",
+    "shared_body_only": true,
+    "mount_axis": "+Z toward grip, body extends -Z",
+    "camera": "front -Y level orthographic",
+    "materials": [
+      "IconGray_M_FrostPommel_Collar.002",
+      "IconGray_M_FrostPommel_Bronze.002",
+      "IconGray_M_FrostPommel_Crystal.002"
+    ],
+    "purpose": "Requested production icon input; no game test"
+  }
+]

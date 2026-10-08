@@ -1,4 +1,5 @@
 #include "ModularSwordVisual.h"
+#include "SwordTasselMeshComponent.h"
 #include "MeleeRuneVisual.h"
 #include "FrostSwordRunes.h"
 #include "../UI/ColdSteelInventoryTypes.h"
@@ -120,10 +121,14 @@ void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TAr
     {
         if(!Path.IsEmpty())Out.AddUnique(FSoftObjectPath(Path.Contains(TEXT("."))?Path:Path+TEXT(".")+FPaths::GetCleanFilename(Path)));
     };
-    if(Item.Definition==ColdSteelFrostRunes::TangDao&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::AuspiciousCloud)
+    if(ColdSteelFrostRunes::SupportsEasternRunes(Item.Definition)&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::AuspiciousCloud)
         Add(ColdSteelFrostRunes::CloudMask);
-    if(Item.Definition==ColdSteelFrostRunes::TangDao&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::Mountain)
+    if(ColdSteelFrostRunes::SupportsEasternRunes(Item.Definition)&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::Mountain)
         Add(ColdSteelFrostRunes::MountainMask);
+    if(Item.Definition==ColdSteelFrostRunes::XuanChi&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::Zhenmo)
+        Add(ColdSteelFrostRunes::ZhenmoMask);
+    if(Item.Definition==ColdSteelFrostRunes::XuanChi&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::Jingang)
+        Add(ColdSteelFrostRunes::JingangMask);
     const auto Gather=[&Add](const TSharedPtr<FJsonObject>& Spec)
     {
         FString Mesh; if(Spec->TryGetStringField(TEXT("mesh"),Mesh))Add(Mesh);
@@ -137,6 +142,8 @@ void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TAr
             Gather(Spec);
             const TSharedPtr<FJsonObject>* Adapter=nullptr;
             if(Spec->TryGetObjectField(TEXT("adapter"),Adapter))Gather(*Adapter);
+            const TSharedPtr<FJsonObject>* Tassel=nullptr;
+            if(Spec->TryGetObjectField(TEXT("tassel"),Tassel))Gather(*Tassel);
         }
 }
 
@@ -205,6 +212,12 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
             auto* Mount=LoadObject<UStaticMesh>(nullptr,*(*Adapter)->GetStringField(TEXT("mesh")));if(!Mount)return false;
             Plan.Add({TEXT("pommel_mount"),*Adapter,Mount,{}});
         }
+        const TSharedPtr<FJsonObject>* Tassel=nullptr;
+        if(FCString::Strcmp(Slot,TEXT("pommel"))==0&&Spec->TryGetObjectField(TEXT("tassel"),Tassel))
+        {
+            auto* Tail=LoadObject<UStaticMesh>(nullptr,*(*Tassel)->GetStringField(TEXT("mesh")));if(!Tail)return false;
+            Plan.Add({TEXT("tassel"),*Tassel,Tail,{}});
+        }
     }
     for(auto& Entry:Plan)
     {
@@ -231,7 +244,7 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
             for(auto* Child:Components(Blade))if(Child!=Blade&&Child->ComponentHasTag(SlotTag)){Mesh=Child;break;}
             if(!Mesh)
             {
-                Mesh=NewObject<UStaticMeshComponent>(Blade,NAME_None,RF_Transient);
+                Mesh=Entry.Slot==TEXT("tassel")?NewObject<USwordTasselMeshComponent>(Blade,NAME_None,RF_Transient):NewObject<UStaticMeshComponent>(Blade,NAME_None,RF_Transient);
                 if(auto* Owner=Mesh->GetOwner())Owner->AddInstanceComponent(Mesh);
                 Mesh->ComponentTags.Add(PartTag);Mesh->ComponentTags.Add(SlotTag);
                 Mesh->SetupAttachment(Blade);Mesh->SetMobility(EComponentMobility::Movable);
@@ -241,7 +254,7 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
                 Mesh->SetForcedLodModel(Blade->GetForcedLodModel());
                 Mesh->RegisterComponentWithWorld(Blade->GetWorld());
             }
-            const bool AtPommel=Entry.Slot==TEXT("pommel")||Entry.Slot==TEXT("pommel_mount");
+            const bool AtPommel=Entry.Slot==TEXT("pommel")||Entry.Slot==TEXT("pommel_mount")||Entry.Slot==TEXT("tassel");
             Mesh->SetRelativeLocation(Vector(Entry.Spec,TEXT("location_cm"))+(AtPommel?PommelOffset:FVector::ZeroVector));
             const FVector Rotation=Vector(Entry.Spec,TEXT("rotation_deg"));
             Mesh->SetRelativeRotation(FRotator(Rotation.X,Rotation.Y,Rotation.Z));
@@ -255,6 +268,7 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
             const int32 Index=Mesh->GetMaterialIndex(Pair.Key);
             if(Index!=INDEX_NONE)Mesh->SetMaterial(Index,Pair.Value);
         }
+        if(auto* Tassel=Cast<USwordTasselMeshComponent>(Mesh))Tassel->Configure(Entry.Spec);
     }
     ColdSteelMeleeRune::Apply(Blade,IncludeRune?Parts.FindRef(TEXT("blade_2")):FString(),Item.Definition);
     if(Item.Definition==TEXT("ue_rune_sword"))
@@ -269,7 +283,9 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
     {
         if(auto* M=Cast<UMaterialInstanceDynamic>(Blade->GetOverlayMaterial(true,Slot)))
         {const FVector D=Vector(Spec,TEXT("rune_dimensions_cm"),FVector(12,10,63));M->SetVectorParameterValue(TEXT("Dimensions"),FLinearColor(D.X,D.Y,D.Z,0));}
-        if(auto* M=Cast<UMaterialInstanceDynamic>(Blade->GetMaterial(Slot));M&&M->GetBaseMaterial()->GetName().StartsWith(TEXT("M_TangDaoBladeRuneSurface")))
+        if(auto* M=Cast<UMaterialInstanceDynamic>(Blade->GetMaterial(Slot));M&&
+            (M->GetBaseMaterial()->GetName().StartsWith(TEXT("M_TangDaoBladeRuneSurface"))||
+             M->GetBaseMaterial()->GetName().StartsWith(TEXT("M_XuanChiBladeRuneSurface"))))
         {const FVector D=Vector(Spec,TEXT("rune_dimensions_cm"),FVector(12,10,63));M->SetVectorParameterValue(TEXT("Dimensions"),FLinearColor(D.X,D.Y,D.Z,0));}
     }
     Blade->ComponentTags.RemoveAll([](FName Tag){return Tag.ToString().StartsWith(KeyPrefix);});
@@ -299,8 +315,14 @@ FString ColdSteelModularSword::Appearance(const FColdSteelItem& Item,const FStri
 {
     if(!Supports(Item))return {};
     const bool Factory=Option.IsEmpty()||Option==TEXT("false")||Option==TEXT("factory");
-    if(Slot==TEXT("blade_2")&&Item.Definition==ColdSteelFrostRunes::TangDao&&Option==ColdSteelFrostRunes::AuspiciousCloud)
+    if(Slot==TEXT("blade_2")&&ColdSteelFrostRunes::SupportsEasternRunes(Item.Definition)&&Option==ColdSteelFrostRunes::AuspiciousCloud)
         return TEXT("卷云主印 · 淡金云纹 · 玉青流光");
+    if(Slot==TEXT("blade_2")&&ColdSteelFrostRunes::SupportsEasternRunes(Item.Definition)&&Option==ColdSteelFrostRunes::Mountain)
+        return TEXT("三峰山印 · 层岩刻纹 · 土黄微光");
+    if(Slot==TEXT("blade_2")&&Item.Definition==ColdSteelFrostRunes::XuanChi&&Option==ColdSteelFrostRunes::Zhenmo)
+        return TEXT("金色太极八卦主印 · 沿刃符线 · 镇岳专属传说");
+    if(Slot==TEXT("blade_2")&&Item.Definition==ColdSteelFrostRunes::XuanChi&&Option==ColdSteelFrostRunes::Jingang)
+        return TEXT("金刚经行草 · 金色渐变经文 · 镇岳专属传说");
     if(Slot==TEXT("blade_2"))return Factory?TEXT("保留原有刃面纹样"):TEXT("剑刃表面符文");
     const TSharedPtr<FJsonObject>* Slots=nullptr,*Choices=nullptr,*Spec=nullptr;
     const auto Root=Catalog(Item);

@@ -12,6 +12,7 @@
 #include "../Skills/EnemyAttackDamage.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/TangDaoGuardComponent.h"
+#include "../Weapons/PanChiGuardComponent.h"
 #include "Engine/DamageEvents.h"
 #include "Engine/GameInstance.h"
 #include "GameFramework/ProjectileMovementComponent.h"
@@ -103,7 +104,12 @@ float AFPSGAMECharacter::TakeDamage(float DamageAmount, const FDamageEvent& Dama
     const auto* Type=DamageEvent.DamageTypeClass?DamageEvent.DamageTypeClass->GetDefaultObject<UDamageType>():nullptr;
     AActor* Attacker=EventInstigator?EventInstigator->GetPawn():DamageCauser;
     if(Health)DamageAmount=Health->DamageAfterArmor(DamageAmount,Type,Attacker);
-    if(!Direct && RuneSword && RuneSword->IsEquipped())DamageAmount=RuneSword->ResolveGuardDamage(DamageAmount,Type,EventInstigator,DamageCauser);
+    if(!Direct)
+    {
+        if(auto* PanChi=FindComponentByClass<UPanChiGuardComponent>();PanChi&&HasAuthority()&&!IsLocallyControlled()&&PanChi->IsActive())
+            DamageAmount=PanChi->ResolveRemoteGuard(DamageAmount,Type,EventInstigator,DamageCauser);
+        else if(RuneSword&&RuneSword->IsEquipped())DamageAmount=RuneSword->ResolveGuardDamage(DamageAmount,Type,EventInstigator,DamageCauser);
+    }
     // Independent multiplier after existing armor, status and block reductions.
     if(const auto* Guard=FindComponentByClass<UTangDaoGuardComponent>())DamageAmount*=Guard->DamageTakenMultiplier();
     if(DebugInvincible)return 0.f;

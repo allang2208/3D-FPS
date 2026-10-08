@@ -1,0 +1,17 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-06",
+  "prompts": {
+    "blade": "Use case: precise-object-edit. Game gunsmith factory blade-II rune icon. Edit the supplied framed sword blade icon. Keep the thick beveled square silver-metal frame, four corner rivets, inset silver circle and textured charcoal backing upright and unchanged. Rotate ONLY the centered silver sword blade 90 degrees counterclockwise into a fully horizontal composition, pointed tip LEFT, flat blade root RIGHT. Preserve its original slim symmetric double-edged straight silhouette, sharp central ridge, bright steel bevels and intricate paired cloud-dragon scroll engravings. Keep the whole blade fully contained inside the circular border with generous margin. The blade's original engravings are the factory rune surface: show their fine etched relief clearly without added magical symbols, no added handle or guard. Strict achromatic grayscale across all visible parts. Frame and its charcoal panel fully opaque; preserve actual alpha transparency only in the narrow area outside the frame silhouette. Single square production icon, no text, numbers, labels or watermark.",
+    "grip": "Use case: precise-object-edit. Game gunsmith factory grip icon. Image 1 is the exact edit target, image 2 is ONLY the orientation/style reference. In image 1 keep the thick square beveled silver frame, four corner rivets, silver inner circle and charcoal backing upright and unchanged. Rotate ONLY its existing vertical double-length sword grip 90 degrees counterclockwise, so the former TOP terminal is now LEFT and the former BOTTOM broad flared terminal is RIGHT. Center the grip horizontally like image 2. Preserve the exact identity and proportions from IMAGE 1: two long crosshatched wrap sections, engraved rectangular central metal band, narrow decorated metal bands near both ends, the two original flared/cup terminals. Do not copy the differently shaped grip from image 2. Whole grip fits fully inside the circle with margin. Crisp photorealistic metal and wrap relief, strict achromatic silver/gray/black. Frame and backing are fully opaque, preserve actual alpha transparency only outside the square frame silhouette. Single square production icon. No text, numbers, labels, watermark or additional objects."
+  },
+  "generated_images": {
+    "blade": "exec-4be523e1-83b5-4a93-a55d-aa7ffe68014d.png",
+    "grip": "exec-33b8f6dc-65f1-475d-bbbb-e7c910561bcc.png"
+  },
+  "references": [
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_xuanchi_zhenyue_blade_1_false.png",
+    "Before/ue_xuanchi_zhenyue_grip_false.png",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_tang_dao_grip_false.png"
+  ]
+}

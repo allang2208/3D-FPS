@@ -1,0 +1,46 @@
+{
+  "asset_name": "玄螭镇岳",
+  "asset_id": "XuanChiZhenYue",
+  "date": "2026-10-04",
+  "phase": "concept_three_view",
+  "status": "candidate_for_user_review",
+  "type": "Chinese two-handed heavy jian",
+  "files": {
+    "original_reference": "original_reference.png",
+    "three_view": "xuanchi_zhenyue_three_view_v1.png",
+    "prompt": "imagegen_prompt.txt"
+  },
+  "generation": {
+    "mode": "built-in image_gen",
+    "reference_role": "user-supplied sword design",
+    "transparency": false
+  },
+  "views": [
+    "front",
+    "right side",
+    "back"
+  ],
+  "design_targets_cm": {
+    "rigid_length_excluding_tassel": 160,
+    "blade_length": 120,
+    "usable_grip_length": [
+      28,
+      30
+    ],
+    "blade_root_width": [
+      9,
+      10
+    ],
+    "guard_span": 20,
+    "blade_ridge_thickness_at_root": 0.9
+  },
+  "notes": [
+    "本轮按用户要求先交付命名与三视图；尚未制作三维模型或导入UE。",
+    "160/120 cm沿用用户参考图标示，其他数值为本轮拟定设计尺寸，并非图像测量值。",
+    "背面与侧面隐蔽结构属于依据参考造型的设计补全，不是原作者三维结构的精确复原。",
+    "下一阶段按剑刃、护手、握把、环首配重及独立剑穗划分制作；精确厚度、截面和接口由本地建模确定。",
+    "此图为概念参考，非工程尺寸图；进入多视图生成管线前另行制作独立视角输入。",
+    "原参考由用户提供；保留来源，不声称原图或派生设计已获得公开再分发许可。",
+    "未打开UE，未执行测试或游戏验收。"
+  ]
+}

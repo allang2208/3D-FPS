@@ -1,0 +1,31 @@
+{
+  "revision": "BladeV3",
+  "body_thickness_mm": 8,
+  "finish": "bright silver blade; bright copper hilt metal via original atlas mask",
+  "blade_srgb_palette_255": [
+    208,
+    216,
+    224
+  ],
+  "roughness_base": 0.32,
+  "metallic": 0.97,
+  "constant_thickness_through_z_cm": 112,
+  "tip_z_cm": 120,
+  "engraving_depth_mm": 0.14,
+  "pom_max_depth_cm": 0.016,
+  "texture_size": [
+    1024,
+    4096
+  ],
+  "normal_encoding": "OpenGL; flip green on UE import",
+  "texture_residency": {
+    "never_stream": true,
+    "lod_bias": 0,
+    "color_group": "Weapon",
+    "normal_group": "WeaponNormalMap",
+    "scope": "Four blade maps only"
+  },
+  "ornaments": "V1 original geometry and UV; V2 existing hilt material",
+  "blade": "single continuous mesh, buried root to tip; no inherited blade collar",
+  "testing": "not run; user controlled"
+}

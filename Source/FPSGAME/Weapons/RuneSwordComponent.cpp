@@ -1,5 +1,6 @@
 #include "RuneSwordComponent.h"
 #include "TangDaoGuardComponent.h"
+#include "PanChiGuardComponent.h"
 #include "RuneSwordMeshComponent.h"
 #include "RuneSwordWhirlwindFeel.h"
 #include "RuneSwordOverheadFeel.h"
@@ -17,6 +18,7 @@
 #include "../Skills/QuickCombatImpactShake.h"
 #include "ColdSteelEnchantmentCombat.h"
 #include "FPSRiftSlashProjectile.h"
+#include "SwordWaveTuning.h"
 #include "GunsmithSystem.h"
 #include "Engine/AssetManager.h"
 #include "Engine/StreamableManager.h"
@@ -449,9 +451,10 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
             const auto* Gunsmith=GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
             if(Heavy&&Enchant&&Gunsmith&&Gunsmith->IsMelee(Item->Definition)&&Enchant->Effect(*Item,TEXT("riftSlash"))>0.)
             {
-                SwingWaveRange=100.f*Enchant->Effect(*Item,TEXT("riftSlashRangeM"));
+                const auto Flight=SwordWaveTuning::RiftFlight(Enchant,Item);
+                SwingWaveRange=Flight.RangeCM;
                 SwingWaveScale=Enchant->Effect(*Item,TEXT("riftSlashDamageScale"));
-                SwingWaveSpeed=100.f*Enchant->Effect(*Item,TEXT("riftSlashSpeedM"),18.);
+                SwingWaveSpeed=Flight.SpeedCM;
             }
         }
         if(!Profile->SpendStamina(StaminaOverride>=0.f?StaminaOverride:ColdSteelMelee::AttackStamina(Profile->Equipped(),Profile))){bQueuedAttack=false;return false;}
@@ -486,6 +489,7 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     // 联机上报：轻重击/连段语义，服务端按影子档案的 MeleeModifiers 同参复算倍率。
     SwingSkills.AttackMeta = uint8(Heavy ? 0x10 : (ComboStage & 0x0F));
     UTangDaoGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
+    UPanChiGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
     SwingSkills.bRisingDragonFinisher=RisingDragon;
     // The stage keeps its existing grip/global poise modifiers when its motion changes.
     if(ComboStage==3&&!Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.ComboThirdToughness;
@@ -754,7 +758,7 @@ void URuneSwordComponent::CancelAction()
     // cancelling an action no longer cuts them (V10.15).
     bSwingAzureDragon=false;
     FinishHeavyTraining();
-    bUppercut=false;
+    bUppercut=bPanChiUppercut=false;
     FinishDashAttack();
     FinishWhirlwind();
     FinishHeavyTraining();bAutoHeavyRelease=false;
@@ -1136,7 +1140,11 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
         if(FMath::Abs(AzureDragonSwingLateral)>20.f)AzureDragonClipSide.Add(CurrentClip,AzureDragonSwingLateral<0.f?int8(1):int8(-1));
     }
     auto Hits=RuneSwordCombat::Query(GetWorld(),Pawn,From,To,AzureDragonRange(SwingReach),HitActors,Trace);
-    const float TipExtension=SwingRangeMultiplier*SwingAzureDragonReachMultiplier;
+    // Blade motion was authored against the shared 180 cm base reach. Extend
+    // its contact path with base tuning as well as the distance cap; retain
+    // the existing sweep width and independent counterweight contact.
+    const float BaseReachScale=bPommelAttack?1.f:Reach/180.f;
+    const float TipExtension=SwingRangeMultiplier*SwingAzureDragonReachMultiplier*BaseReachScale;
     float ClawNear=0.f,ClawFar=0.f;
     if(AzureDragonClawSwing()&&AzureDragonClawBand(To.Origin,ClawNear,ClawFar))
     {

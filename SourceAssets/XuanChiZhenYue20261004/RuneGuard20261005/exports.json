@@ -1,0 +1,47 @@
+{
+  "source": "../BladeV3/XuanChi_BladeV3_Editable.blend",
+  "options": [
+    {
+      "option": "bastion_guard",
+      "mesh": "SM_XuanChi_Guard_bastion_guard_V1",
+      "label": "壁垒护手",
+      "appearance": "宽翼厚铜护手 · 保留云螭浮雕与中央玉饰",
+      "source_triangles": 126920,
+      "interface": "xuanchi_hilt_v1",
+      "outer_wing_reach_delta_cm": 2.6,
+      "outer_wing_lift_cm": 0.5,
+      "outer_wing_thickness_multiplier": 1.35
+    },
+    {
+      "option": "riposte_guard",
+      "mesh": "SM_XuanChi_Guard_riposte_guard_V1",
+      "label": "反击护手",
+      "appearance": "上挑云钩双翼 · 保留云螭浮雕与中央玉饰",
+      "source_triangles": 126920,
+      "interface": "xuanchi_hilt_v1",
+      "outer_wing_reach_delta_cm": 1.0,
+      "outer_wing_lift_cm": 2.1999999999999997,
+      "outer_wing_thickness_multiplier": 1.08
+    },
+    {
+      "option": "light_guard",
+      "mesh": "SM_XuanChi_Guard_light_guard_V1",
+      "label": "轻量护手",
+      "appearance": "收翼薄铜护手 · 保留云螭浮雕与中央玉饰",
+      "source_triangles": 126920,
+      "interface": "xuanchi_hilt_v1",
+      "outer_wing_reach_delta_cm": -1.2,
+      "outer_wing_lift_cm": 0.4,
+      "outer_wing_thickness_multiplier": 0.72
+    }
+  ],
+  "unchanged_center_half_width_cm": 4.5,
+  "wing_transition_cm": [
+    4.5,
+    10.0
+  ],
+  "surface": "Retained native UV, split-normal boundaries, bright copper/jade PBR and silver buried return lip",
+  "mount": "Retain the current 4.5 cm grip correction",
+  "game_tested": false,
+  "acceptance_render_run": false
+}

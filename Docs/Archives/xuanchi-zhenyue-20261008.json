@@ -1,0 +1,298 @@
+[
+  {
+    "source": "SourceAssets/XuanChiZhenYue20261004/BladeV3/XuanChi_BladeV3_Editable.blend1",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/XuanChiZhenYue20261004/BladeV3/XuanChi_BladeV3_Editable.blend1",
+    "bytes": 165417282,
+    "sha256": "2c9b66df429bc19cfcaec1ca71c98be370d4ee5b64f9825feebc65a62d66b6cf",
+    "reason": "Automatic Blender previous-save copy; current editable source retained",
+    "replacement": "SourceAssets/XuanChiZhenYue20261004/BladeV3/XuanChi_BladeV3_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/XuanChiZhenYue20261004/ModelV1/Icons/XuanChi_PartIcons_Editable.blend1",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/XuanChiZhenYue20261004/ModelV1/Icons/XuanChi_PartIcons_Editable.blend1",
+    "bytes": 104837785,
+    "sha256": "3e031aa0fa3cb57fa89bbd8f9cd8b46573886d134f8210577ea8ae5ac1a57ad1",
+    "reason": "Automatic Blender previous-save copy; current editable source retained",
+    "replacement": "SourceAssets/XuanChiZhenYue20261004/ModelV1/Icons/XuanChi_PartIcons_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/XuanChiZhenYue20261004/PanChiGuard20261006/Icons/PanChi_Icon_Editable.blend1",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/XuanChiZhenYue20261004/PanChiGuard20261006/Icons/PanChi_Icon_Editable.blend1",
+    "bytes": 190950735,
+    "sha256": "3d91f2f4d537676dc7f67b048a3732cee9658a8cdf1c590ec50451d0363b17db",
+    "reason": "Automatic Blender previous-save copy; current editable source retained",
+    "replacement": "SourceAssets/XuanChiZhenYue20261004/PanChiGuard20261006/Icons/PanChi_Icon_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/XuanChiZhenYue20261004/SurfaceV2/XuanChi_SurfaceV2_Editable.blend1",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/XuanChiZhenYue20261004/SurfaceV2/XuanChi_SurfaceV2_Editable.blend1",
+    "bytes": 155719251,
+    "sha256": "7ee5d2e853532f14b1274a6a1c1ebeb2bf7f28c11b328a48f45d2540f425548e",
+    "reason": "Automatic Blender previous-save copy; current editable source retained",
+    "replacement": "SourceAssets/XuanChiZhenYue20261004/SurfaceV2/XuanChi_SurfaceV2_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/edit_integration.py",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/edit_integration.py",
+    "bytes": 12608,
+    "sha256": "921fcb8e6d5c7e2c32cd4f53b67da4e5daf40ec7f5b8a8e25044415a356ec061",
+    "reason": "One-time native source migration already applied; not a reusable installer",
+    "replacement": "Source/FPSGAME/Weapons/ZhenmoRuneComponent.cpp"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/Artwork/Zhenmo_Blade_Rune.svg",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/Artwork/Zhenmo_Blade_Rune.svg",
+    "bytes": 27025,
+    "sha256": "ee8b525765b62ebad95f409f341705c5d76cf59ec3413f4bcf94823838580d04",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/asset_receipt.json",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/asset_receipt.json",
+    "bytes": 416,
+    "sha256": "54f168e8b46351e7c23e17803dbeb8e7fa1b901018e4f376b9b173f24b9290d5",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/build-FPSGAME.log",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/build-FPSGAME.log",
+    "bytes": 1940,
+    "sha256": "3271344c22f9338c1e7f603700a2fa5a2ad22ebe69dbfab736c76a4d68057fe1",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/build-FPSGAMEEditor.log",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/build-FPSGAMEEditor.log",
+    "bytes": 2002,
+    "sha256": "c7b690f89087db6049906b2d758d08698ebf8488599fa7d044e40a0e85edfee4",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/build-status.json",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/build-status.json",
+    "bytes": 108,
+    "sha256": "c8875ba535d06f025a863ec6cbb69adc901d83a002074c08146dffee96c4b400",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/build_and_save.ps1",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/build_and_save.ps1",
+    "bytes": 3225,
+    "sha256": "d78097c41f13966f0051d1468e247defb33a21bd43b4c34061f09bfa894c9e9d",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/filigree.py",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/filigree.py",
+    "bytes": 6602,
+    "sha256": "1c9e4f432f513f258fd10e1cec96f8198e28d18670557afe96da6c7219311a37",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/install_blade_mask.py",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/install_blade_mask.py",
+    "bytes": 2834,
+    "sha256": "78db90383c0133e91de87bb8fc40bec4212bf01aa4991140456917d91d2a50aa",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/install_blade_mask.py.console.log",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/install_blade_mask.py.console.log",
+    "bytes": 66892,
+    "sha256": "3da7f48daf2118fc9e9085131bb6b1810703ff6bfd5496f3f4808a809ef31e54",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/install_blade_mask.py.log",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/install_blade_mask.py.log",
+    "bytes": 281396,
+    "sha256": "d39f92cbd4f7bf8aa242c86390873b9ba69a10445afd019ad84214fccdce2457",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/production.md",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/production.md",
+    "bytes": 1503,
+    "sha256": "8093b4f9c9158321c176bcdaf97dc35c80cf4cf8826f5ff11a3a89a8da5496f8",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/Zhenmo_Blade_Rune.svg",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/Zhenmo_Blade_Rune.svg",
+    "bytes": 27025,
+    "sha256": "ee8b525765b62ebad95f409f341705c5d76cf59ec3413f4bcf94823838580d04",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/Before/artwork_manifest.json",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/Before/artwork_manifest.json",
+    "bytes": 370,
+    "sha256": "08de950c22bc30f69f58ec6fa0a0883a826f6c148819cd61814330e6e068b8e8",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/Before/T_Mask_zhenmo_rune.uasset",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/Before/T_Mask_zhenmo_rune.uasset",
+    "bytes": 281152,
+    "sha256": "966ac205e69075ac1e87f5b1e2c4ca81f848eb06bb51008e63d6a8fbca827cfc",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/Before/Zhenmo_Blade_Rune.png",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/Before/Zhenmo_Blade_Rune.png",
+    "bytes": 515947,
+    "sha256": "5f8a3074e443e017935a96fb6f5d7b08a0df0e5fcdd9581745a666989b4e37df",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/Before/Zhenmo_Blade_Rune.svg",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/Before/Zhenmo_Blade_Rune.svg",
+    "bytes": 38823,
+    "sha256": "88bba04217097f9ac3f3dd0df75e47c6356ea2d6e30f74300c7570d0324e65aa",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeAngularV3/__pycache__/filigree.cpython-311.pyc",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeAngularV3/__pycache__/filigree.cpython-311.pyc",
+    "bytes": 11419,
+    "sha256": "079db8ce6cee6249ccfb48144b48a3ef9d95dae363bb866db0088efa8489e413",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/asset-commandlet.log",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/asset-commandlet.log",
+    "bytes": 282213,
+    "sha256": "619dd5744f9eb49d7f819fc0d56f980338d28c6cd57735bf9743aa51c2513c40",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/asset-console.log",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/asset-console.log",
+    "bytes": 34873,
+    "sha256": "a33c4a677e97f218a3bb304cd9dca41048971ea63d47665897a24f66ead7a0dd",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/asset_receipt.json",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/asset_receipt.json",
+    "bytes": 382,
+    "sha256": "d22bcafab1c39571bff47030dad7ee0658f17d7d2862d1d3aa51fd7fcfda2f40",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/filigree.py",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/filigree.py",
+    "bytes": 7297,
+    "sha256": "218b70464d03d117a11213f8efbb2de5e191289162d5d232500409d37c5536b6",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/install_blade_mask.py",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/install_blade_mask.py",
+    "bytes": 2748,
+    "sha256": "ade612316e2667d6b8599f78ac11eb558d248535e860defb3443abd737abae52",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/production.md",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/production.md",
+    "bytes": 1435,
+    "sha256": "852d3ed861daec68e9c7ac6e23b62c5e80beff94b252b4d2404b7f11449cc215",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/save_assets.ps1",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/save_assets.ps1",
+    "bytes": 1832,
+    "sha256": "6f4eb9640c6094cfbd88d9a0c00b19ab73f1c9dc2a0e650d2a0d3abfb5342e04",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/Before/artwork_manifest.json",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/Before/artwork_manifest.json",
+    "bytes": 225,
+    "sha256": "2a42fc80ebfc0c86b81342c92827cc92bbfc32d32244d5b8f445fef61ff7cb18",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/Before/author_artwork.py",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/Before/author_artwork.py",
+    "bytes": 3695,
+    "sha256": "8c8422d5b8e1915f256e88db5baf81dda10671cab507d3ff3b1e0ee2ad90542d",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/Before/install_assets.py",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/Before/install_assets.py",
+    "bytes": 8304,
+    "sha256": "cf6eb8e97a2bf746a6a8156d4d94cf26b5fd339c4833e7e3ff733b3d0570d255",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/Before/T_Mask_zhenmo_rune.uasset",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/Before/T_Mask_zhenmo_rune.uasset",
+    "bytes": 40181,
+    "sha256": "14ab6b6a653c6c9b12444f7642ecd74df2610683e2dc594859c14278c69ea2ff",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/Before/Artwork/Zhenmo_Blade_Rune.png",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/Before/Artwork/Zhenmo_Blade_Rune.png",
+    "bytes": 75288,
+    "sha256": "beb72049d0415cc98c468c00f215c24e0e129317babe88f318862778e6d67c26",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/Before/Artwork/Zhenmo_Blade_Rune.svg",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/Before/Artwork/Zhenmo_Blade_Rune.svg",
+    "bytes": 4464,
+    "sha256": "34a3aae015fa75ed6e564fecdeb33ecabf7333100ed1934e3a52d2806ee42178",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/__pycache__/filigree.cpython-311.pyc",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/ZhenmoRune20261005/BladeFiligreeV2/__pycache__/filigree.cpython-311.pyc",
+    "bytes": 10225,
+    "sha256": "91f28956e4809fa83a6953ddc92320caf1e911f71e4fb9dd685bbb384b1d197d",
+    "reason": "Rejected blade artwork superseded by user-approved talisman V4",
+    "replacement": "SourceAssets/ZhenmoRune20261005/BladeTalismanV4/Zhenmo_Blade_Talisman_V4_Concept.png"
+  },
+  {
+    "source": "SourceAssets/JingangRune20261006/edit_sources.py",
+    "destination": "trash/xuanchi-zhenyue-20261008/SourceAssets/JingangRune20261006/edit_sources.py",
+    "bytes": 8868,
+    "sha256": "ea69625eec6937a41c95bdc3e1a3cdd89373e0fc567b177c3c529056e243ee50",
+    "reason": "One-time native source migration already applied; not a reusable installer",
+    "replacement": "Source/FPSGAME/Weapons/JingangRuneComponent.cpp"
+  }
+]

@@ -15,6 +15,30 @@
 #include "HandBrainMonster.h"
 #include "FleshHandMonster.h"
 #include "FleshHandKnockdownComponent.h"
+#include "MonsterCoreStats.h"
+#include "../Combat/CombatStatusFormula.h"
+#include "Components/CapsuleComponent.h"
+
+void UMonsterCombatComponent::ReceiveDirectedPull(APawn* Attacker,const FVector& Destination,float MaximumDistanceCM)
+{
+    auto* Pawn=Cast<ACharacter>(GetOwner());
+    if(!Pawn||!Pawn->HasAuthority()||IsDead()||IsKnockedDown()||MaximumDistanceCM<=0.f
+        ||Pawn->ActorHasTag(TEXT("KnockbackImmune"))||Pawn->ActorHasTag(TEXT("ControlImmune"))||Pawn->ActorHasTag(TEXT("Boss")))return;
+    if(const auto* Status=Pawn->FindComponentByClass<UCombatStatusFormula>();Status&&Status->IsImmune())return;
+    FMonsterCoreStats Stats;MonsterCoreStats::Get(Pawn,Stats);
+    if(Stats.Rank==EMonsterRank::Boss)return;
+    if(Stats.Rank==EMonsterRank::Elite||Stats.Rank==EMonsterRank::Lord)
+        MaximumDistanceCM*=1.f-ToughnessResistance(EMonsterAttackForm::Impact);
+    const FVector Offset=Destination-Pawn->GetActorLocation();
+    const float StopDistance=Pawn->GetCapsuleComponent()->GetScaledCapsuleRadius()+20.f;
+    const float Distance=FMath::Min(MaximumDistanceCM,FMath::Max(0.f,Offset.Size2D()-StopDistance));
+    if(Distance<=0.f)return;
+    MeleePushDirection=Offset.GetSafeNormal2D();MeleePushDistance=Distance;MeleePushAge=0.f;
+    // No extra stun, launch, poise reset or teleport. Existing movement sweep owns walls/floor.
+    Pawn->GetCharacterMovement()->StopMovementImmediately();
+    if(auto* AI=Cast<AMonsterAIController>(Pawn->GetController())){AI->StopMovement();AI->RememberDamage(Attacker);}
+    Pawn->ForceNetUpdate();
+}
 
 void UMonsterCombatComponent::ReceiveMeleeKnockback(APawn* Attacker,float DistanceCM)
 {

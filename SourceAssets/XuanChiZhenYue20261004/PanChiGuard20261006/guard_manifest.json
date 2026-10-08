@@ -1,0 +1,59 @@
+{
+  "id": "panchi_zhanyue",
+  "name": "蟠螭展岳",
+  "weapon": "ue_xuanchi_zhenyue",
+  "slot": "guard",
+  "tier": "special",
+  "stats": {
+    "block_stamina_mult": 0.8,
+    "panchi_seconds": 8,
+    "panchi_max_stacks": 3,
+    "panchi_toughness_per_stack": 0.2,
+    "panchi_cooldown": 8,
+    "panchi_pull_cm": 500,
+    "panchi_radius_cm": 1000,
+    "panchi_magic_damage_scale": 1.0
+  },
+  "interface": "xuanchi_hilt_v1",
+  "ue_root": "/Game/Weapons/XuanChiZhenYue20261004/PanChiGuard20261006",
+  "mesh_name": "SM_XuanChi_Guard_PanChiZhanYue_V1",
+  "mesh": "/Game/Weapons/XuanChiZhenYue20261004/PanChiGuard20261006/Meshes/SM_XuanChi_Guard_PanChiZhanYue_V1.SM_XuanChi_Guard_PanChiZhanYue_V1",
+  "materials": {
+    "M_XuanChi_PanChiWing_V1": "/Game/Weapons/XuanChiZhenYue20261004/PanChiGuard20261006/Materials/M_XuanChi_PanChiWing_V1.M_XuanChi_PanChiWing_V1"
+  },
+  "location_cm": [
+    0,
+    0,
+    0
+  ],
+  "rotation_deg": [
+    0,
+    0,
+    0
+  ],
+  "scale": [
+    1,
+    1,
+    1
+  ],
+  "lod_triangles": [
+    272682,
+    149975,
+    68170
+  ],
+  "design_span_cm": 40,
+  "max_relief_mm": 3.2,
+  "texture_size": [
+    2048,
+    1024
+  ],
+  "center_source": "../BladeV3/XuanChi_BladeV3_Editable.blend:SM_XuanChi_Guard_V3",
+  "retained_center_half_width_cm": 6.4,
+  "process": "Blender retained native center, curved closed mirrored casting and commissioned sculpt-height relief",
+  "source_art": "Ornament/Wing_HeightSource.png",
+  "runtime_tested": false,
+  "acceptance_render_run": false,
+  "effect_revision": "PanChiFormationPull20261007",
+  "effect_name": "强化升龙",
+  "effect_art": "../PanChiUppercut20261007/GuardSeal/PanChi_GuardSeal_V1.png"
+}

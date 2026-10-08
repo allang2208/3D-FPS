@@ -110,6 +110,7 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
         for(const auto& S:O->GetObjectField(TEXT("options"))->Values){TArray<FGunsmithOption> Options;
             for(const auto& Entry:S.Value->AsArray()){const auto P=Entry->AsObject();FGunsmithOption A;A.Id=P->GetStringField(TEXT("id"));A.Name=P->GetStringField(TEXT("name"));A.Description=P->GetStringField(TEXT("description"));
                 for(const auto& E:P->GetArrayField(TEXT("effects")))A.Effects.Emplace(E->AsObject()->GetStringField(TEXT("text")),Num(E->AsObject(),TEXT("benefit")));
+                A.ReadSpecialEffects(P);
                 const auto T=P->GetObjectField(TEXT("stats"));A.ADS=Num(T,TEXT("ads_percent"));A.Recoil=Num(T,TEXT("recoil_mult"),1);A.Shake=Num(T,TEXT("shake_mult"),1);A.Stability=Num(T,TEXT("stability_mult"),1);
                 A.EquipSpeedBonus=Num(T,TEXT("equip_speed_bonus"));
                 A.ADSSeconds=Num(T,TEXT("ads_seconds"));A.Speed=Num(T,TEXT("bullet_speed_mult"),1);A.Interval=Num(T,TEXT("fire_interval_mult"),1);A.Spread=Num(T,TEXT("hip_spread_mult"),1);A.Range=Num(T,TEXT("range_mult"),1);A.Reload=Num(T,TEXT("reload_mult"),1);A.EmptyReload=Num(T,TEXT("empty_reload_mult"),A.Reload);A.Magazine=Num(T,TEXT("mag_delta"));Options.Add(A);
@@ -208,6 +209,24 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.HeavyDamage*=M.HeavyDamage;R.Melee.Knockback*=M.Knockback;
             R.Melee.AllAttackKnockback*=M.AllAttackKnockback;
             R.Melee.AllAttackDamage*=M.AllAttackDamage;
+            R.Melee.CriticalChanceAdd+=M.CriticalChanceAdd;
+            R.Melee.ZhenmoSeconds+=M.ZhenmoSeconds;
+            R.Melee.ZhenmoRadiusCM+=M.ZhenmoRadiusCM;
+            R.Melee.ZhenmoDamageTakenBonus+=M.ZhenmoDamageTakenBonus;
+            R.Melee.ZhenmoSlow+=M.ZhenmoSlow;
+            R.Melee.JingangBonus+=M.JingangBonus;
+            R.Melee.JingangHighThreshold+=M.JingangHighThreshold;
+            R.Melee.JingangLowThreshold+=M.JingangLowThreshold;
+            R.Melee.JingangLeechSeconds+=M.JingangLeechSeconds;
+            R.Melee.JingangLeechRatio+=M.JingangLeechRatio;
+            R.Melee.PanChiSeconds=FMath::Max(R.Melee.PanChiSeconds,M.PanChiSeconds);
+            R.Melee.PanChiMaxStacks=FMath::Max(R.Melee.PanChiMaxStacks,M.PanChiMaxStacks);
+            R.Melee.PanChiToughnessPerStack=FMath::Max(R.Melee.PanChiToughnessPerStack,M.PanChiToughnessPerStack);
+            R.Melee.PanChiCooldown=FMath::Max(R.Melee.PanChiCooldown,M.PanChiCooldown);
+            R.Melee.PanChiRadiusCM=FMath::Max(R.Melee.PanChiRadiusCM,M.PanChiRadiusCM);
+            R.Melee.PanChiAngleDegrees=FMath::Max(R.Melee.PanChiAngleDegrees,M.PanChiAngleDegrees);
+            R.Melee.PanChiPullCM=FMath::Max(R.Melee.PanChiPullCM,M.PanChiPullCM);
+
             R.Melee.HeavyDamageAdd+=M.HeavyDamageAdd;
             R.Melee.HeavyChargeSpeedBonus+=M.HeavyChargeSpeedBonus;
             R.Melee.HeavyToughness*=M.HeavyToughness;

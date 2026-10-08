@@ -1,0 +1,81 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\XuanChiZhenYue20261004\\BladeV3\\XuanChi_BladeV3_Editable.blend",
+  "options": [
+    {
+      "option": "extended_edge",
+      "mesh": "SM_XuanChi_Blade_extended_edge_V1",
+      "label": "延锋刃",
+      "visual_tip_cm": 138.0,
+      "body_thickness_mm": 8.0,
+      "width_multiplier": 1.0,
+      "rune_dimensions_cm": [
+        11,
+        2,
+        126
+      ],
+      "source_triangles": 5036,
+      "interface": "xuanchi_hilt_v1",
+      "trace_tip_cm": [
+        0,
+        0,
+        120
+      ],
+      "trace_note": "Range modifier is applied by the existing combat path; do not apply it a second time to the catalog trace point"
+    },
+    {
+      "option": "heavy_spine",
+      "mesh": "SM_XuanChi_Blade_heavy_spine_V1",
+      "label": "重脊刃",
+      "visual_tip_cm": 120.0,
+      "body_thickness_mm": 12.0,
+      "width_multiplier": 1.18,
+      "rune_dimensions_cm": [
+        12.98,
+        2,
+        108
+      ],
+      "source_triangles": 5036,
+      "interface": "xuanchi_hilt_v1",
+      "trace_tip_cm": [
+        0,
+        0,
+        120
+      ],
+      "trace_note": "Range modifier is applied by the existing combat path; do not apply it a second time to the catalog trace point"
+    },
+    {
+      "option": "feather_edge",
+      "mesh": "SM_XuanChi_Blade_feather_edge_V1",
+      "label": "轻羽刃",
+      "visual_tip_cm": 120.0,
+      "body_thickness_mm": 6.24,
+      "width_multiplier": 0.8,
+      "rune_dimensions_cm": [
+        8.8,
+        2,
+        108
+      ],
+      "source_triangles": 5036,
+      "interface": "xuanchi_hilt_v1",
+      "trace_tip_cm": [
+        0,
+        0,
+        120
+      ],
+      "trace_note": "Range modifier is applied by the existing combat path; do not apply it a second time to the catalog trace point"
+    }
+  ],
+  "material": "/Game/Weapons/XuanChiZhenYue20261004/BladeV3/Materials/M_XuanChi_SteelRelief_V3",
+  "root_preserved_cm": [
+    -1.8,
+    18
+  ],
+  "transition_cm": [
+    18,
+    32
+  ],
+  "surface": "Reuse current silver BaseColor, ORM, Normal and bounded POM; original UV and split-normal boundaries retained",
+  "hilt_and_grip_mount": "unchanged; retains latest 4.5 cm relative grip adjustment",
+  "tests_run": false,
+  "acceptance_render_run": false
+}

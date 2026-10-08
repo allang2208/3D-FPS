@@ -3,6 +3,11 @@ name: ue5-weapon-workflow
 description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻重攻击、连击、突刺、格挡、第一人称弓与可替换部件表（弓体／弓弦／箭台按槽名改造），以及新枪与手模接入、枪匠配件、ADS、机械部件、音效、武器数据与装备存档闭环。用于 FPSGAME 的武器标准工作流；手臂姿态与换弹精修转 ue5-fps-arms-animation。
 ---
 
+- 改造台配件说明统一采用 [配件详情：能力增减卡片＋特效说明](references/attachment-detail-presentation.md)；常驻属性与触发机制分区，不因已有数值卡片隐藏特效。
+
+- 东方重剑的刃根、符文贴图、贴地阵法、护手释放与挂饰接口，读取 [东方重剑、符文与护手制作经验](references/eastern-sword-runes.md)；保留认可原图，按活动依赖归档旧版。
+
+
 - 弓的箭种模型、R 轮盘、弹药袋、1.5 倍系数迁移及命中回收，读取 [弓箭种、数值与回收](references/bow-arrow-ammunition.md)。
 
 ## UE5 默认开发方式（用户确定，2026-09-23）

@@ -356,7 +356,12 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
             &&FPaths::FileExists(FramedDirectory/(CommonIconKey+TEXT(".png"))))));
     if(Framed)IconDirectory=FramedDirectory;
     // Common modifications share one brush; factory parts retain their weapon key.
-    const bool UseWeaponIcon=!SharedFirearmOption&&FPaths::FileExists(IconDirectory/(WeaponIconKey+TEXT(".png")));
+    // A common melee option has one icon across every compatible weapon.
+    // Keep exclusive modifications and factory parts on their own authored keys.
+    const bool SharedMeleeOption=IsMeleeWorkbench()&&!Legendary&&Id!=TEXT("false")
+        &&FPaths::FileExists(IconDirectory/(CommonIconKey+TEXT(".png")));
+    const bool UseWeaponIcon=!SharedFirearmOption&&!SharedMeleeOption
+        &&FPaths::FileExists(IconDirectory/(WeaponIconKey+TEXT(".png")));
     const FString IconKey=UseWeaponIcon?WeaponIconKey:CommonIconKey;
     if(!AttachmentBrushes.Contains(IconKey)&&FPaths::FileExists(IconDirectory/(IconKey+TEXT(".png"))))
     {

@@ -424,6 +424,7 @@ void UMonsterCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorCompo
  bStunned=StunSecondsRemaining()>0.f;
  if(!bStunned)bParryReaction=false;
  AdvanceToughnessBar();
+ TickFormationPull(Dt);
  if(IsKnockedDown())return;
  TickParryPush(Dt);
  TickMeleePush(Dt);

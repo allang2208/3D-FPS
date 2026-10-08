@@ -33,6 +33,7 @@ public:
     bool IsCorpse() const { return bCorpse; }
     bool IsFrozen() const { return Phase == EHumanoidKnockdownPhase::FrozenCorpse; }
     bool GetRecoverySupport(FVector& Point, FVector& Normal) const;
+    void OffsetRecoverySupport(const FVector& Delta);
     bool CanReleaseCorpseBudget() const;
     void FreezeForBudget();
     int32 SimulatedBodyCount() const { return PhysicsBodyCount; }

@@ -34,6 +34,11 @@ bool UHumanoidKnockdownComponent::GetRecoverySupport(FVector& Point,FVector& Nor
     return true;
 }
 
+void UHumanoidKnockdownComponent::OffsetRecoverySupport(const FVector& Delta)
+{
+    if(!bCorpse&&Phase==EHumanoidKnockdownPhase::GettingUp)RecoveryFloorPoint+=Delta;
+}
+
 void UHumanoidKnockdownComponent::BeginPlay()
 {
     Super::BeginPlay();

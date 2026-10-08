@@ -1,5 +1,8 @@
 #include "FPSGAMECharacter.h"
+#include "Weapons/JingangRuneComponent.h"
 #include "Weapons/TangDaoGuardComponent.h"
+#include "Weapons/PanChiGuardComponent.h"
+#include "Weapons/ZhenmoRuneComponent.h"
 #include "Windows/AllowWindowsPlatformTypes.h"
 #include <Windows.h>
 #include "Windows/HideWindowsPlatformTypes.h"
@@ -222,6 +225,9 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     BipodDeployment=CreateDefaultSubobject<UWeaponBipodDeploymentComponent>(TEXT("BipodDeployment"));
     RuneSword=CreateDefaultSubobject<URuneSwordComponent>(TEXT("RuneSword"));
     CreateDefaultSubobject<UTangDaoGuardComponent>(TEXT("TangDaoGuardEffects"));
+    CreateDefaultSubobject<UPanChiGuardComponent>(TEXT("PanChiGuardEffects"));
+    CreateDefaultSubobject<UZhenmoRuneComponent>(TEXT("ZhenmoRuneEffects"));
+    CreateDefaultSubobject<UJingangRuneComponent>(TEXT("JingangRuneEffects"));
     RuneOrbBlades=CreateDefaultSubobject<URuneOrbBladesComponent>(TEXT("RuneOrbBlades"));
     Bow=CreateDefaultSubobject<UBowWeaponComponent>(TEXT("Bow"));
     Staff=CreateDefaultSubobject<UStaffWeaponComponent>(TEXT("Staff"));

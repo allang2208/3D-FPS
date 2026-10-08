@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Weapons/JingangRuneComponent.h"
 #include "Monsters/MonsterCombatComponent.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
@@ -7,6 +8,7 @@
 void AFPSGAMECharacter::NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage,const FWeaponDamageResult* DamageResult,bool bFirearmHit)
 {
     if (Target == this || !Cast<APawn>(Target) || AppliedDamage <= 0.f || !GetWorld()) return;
+    if(auto* Rune=FindComponentByClass<UJingangRuneComponent>())Rune->ConfirmAttack(Target,AppliedDamage);
     LastConfirmedWeaponHitTime = GetWorld()->GetTimeSeconds();
     LastMonsterHit = FMonsterHitFeedback();
     const auto* Combat = Target->FindComponentByClass<UMonsterCombatComponent>();

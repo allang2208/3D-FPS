@@ -1,0 +1,23 @@
+{
+  "generator": "built-in image_gen",
+  "mode": "edit",
+  "frame_reference": "SourceAssets/XuanChiZhenYue20261004/CommonBlades20261005/Icons/frame_reference.png",
+  "subject_source": "CommonBlades20261005/XuanChi_CommonBlades_Editable.blend",
+  "icons": [
+    {
+      "option": "extended_edge",
+      "prompt": "Create ONE production game modification icon for the shared 'extended edge' sword-blade option. Image 1 is the exact approved square metallic frame STYLE/template: retain its thick beveled square frame, four round corner rivets, single thin inner circular silver ring, inset charcoal metal backing, and narrow transparent outer border. Replace ONLY its central blade with the actual blade in Image 2, which is a production render and is the exact geometric identity reference. Preserve Image 2's long slender symmetric taper, straight long central body, pointed spear-like tip, root width, double bevels and shallow paired dragon/cloud engravings. Show one complete blade only, upright tip at top, root at bottom, no hilt/handle/crossguard/tassel, no extra elements. Uniformly fit its full silhouette inside the circle with margin; never stretch its width separately or crop. Strict achromatic neutral gray and silver, no color or glow, preserve metallic surface relief with controlled highlights and readable etched grooves. Frame backing remains opaque; only a very narrow outside edge transparent. No writing, symbols, labels, watermarks, visual effects, or extra parts. Square high-resolution PNG icon.",
+      "generated_source": "C:/Users/allan/.codex/generated_images/01a10595-afd0-7041-822f-b919030af9b3/exec-7531d426-ba17-4fde-90b1-25db570006d8.png"
+    },
+    {
+      "option": "heavy_spine",
+      "prompt": "Create ONE production game modification icon for the shared 'heavy spine' sword blade option. Image 1 is the approved icon-frame template, STYLE reference only: exactly retain its thick beveled square gunmetal frame, four round corner rivets, silver inner circular ring and recessed charcoal backing. Its thin blade is NOT the subject. Replace the blade with exactly the actual heavier blade in Image 2. Image 2 is the production model silhouette/geometry/engraving reference: retain its symmetric broad straight upper body, thicker central ridge and bevels, narrow lower root with smoothly expanding shoulder near its lower quarter, and symmetric pointed tip. Faithfully preserve proportions and dragon/cloud etchings. This blade is broader than the blade in Image 1. One complete blade only, upright tip up, root down, no hilt/handle/crossguard/tassel. Fit the entire actual silhouette inside the circle with margin using uniform scaling, no stretching or cropping. Strict achromatic silver and charcoal grayscale with metal texture and crisp surface relief; avoid pure-white flat fill and blown highlights, avoid all color/glow. Opaque dark backing inside the frame; extremely narrow transparency outside. No words, labels, watermarks, decorative added spikes, gems, or extra parts. Square PNG.",
+      "generated_source": "C:/Users/allan/.codex/generated_images/01a10595-afd0-7041-822f-b919030af9b3/exec-7cb07bea-b1a8-42d1-8509-82072dd06851.png"
+    },
+    {
+      "option": "feather_edge",
+      "prompt": "Create ONE production game modification icon for the shared 'feather edge' lightweight sword-blade option. Image 1 is only the exact approved metallic icon frame template: retain its thick square beveled gunmetal frame, four corner round rivets, thin circular inner silver ring, inset charcoal backing. Replace its blade with the exact actual blade geometry of Image 2. Image 2 is the sole blade identity reference: especially preserve its very narrow symmetric long light blade body, two slim silver cutting bevels and central ridge, pointed taper, and the subtle smoothly wider lower root/shoulder area. Preserve the paired shallow dragon/cloud etched pattern rather than inventing symbols. One complete actual blade only, centered upright tip up and root down. No hilt, handle, guard, pommel, tassel or additions. Keep exact width-to-length proportions of Image 2 using uniform scaling to fit inside circle with margin; never crop or broaden it to fill space. Strict achromatic silver/gray icon, readable etched grooves and metal texture, controlled highlights, no glow/colors or flat white fill. Opaque charcoal backing within frame and only tiny transparent border outside. Square PNG, no text, labels, watermark, gems, feather illustrations or extra objects.",
+      "generated_source": "C:/Users/allan/.codex/generated_images/01a10595-afd0-7041-822f-b919030af9b3/exec-23db7960-180a-4b46-9826-ca954a0f01e7.png"
+    }
+  ]
+}

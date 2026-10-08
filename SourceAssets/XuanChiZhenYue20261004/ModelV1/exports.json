@@ -1,0 +1,160 @@
+{
+  "weapon": "ue_xuanchi_zhenyue",
+  "ue_root": "/Game/Weapons/XuanChiZhenYue20261004",
+  "parts": [
+    {
+      "slot": "guard",
+      "mesh": "SM_XuanChi_Guard",
+      "location_cm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "triangles": 125586
+    },
+    {
+      "slot": "grip",
+      "mesh": "SM_XuanChi_Grip",
+      "location_cm": [
+        0.0,
+        0.0,
+        -5.000000074505806
+      ],
+      "triangles": 91694
+    },
+    {
+      "slot": "pommel",
+      "mesh": "SM_XuanChi_Pommel",
+      "location_cm": [
+        0.0,
+        0.0,
+        -30.000001192092896
+      ],
+      "triangles": 17673
+    },
+    {
+      "slot": "tassel",
+      "mesh": "SM_XuanChi_Tassel",
+      "location_cm": [
+        0.0,
+        0.0,
+        -37.99999952316284
+      ],
+      "triangles": 293183
+    },
+    {
+      "slot": "blade_1",
+      "mesh": "SM_XuanChi_Blade",
+      "location_cm": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 3852,
+      "trace_base_cm": [
+        0,
+        0,
+        12
+      ],
+      "trace_tip_cm": [
+        0,
+        0,
+        120
+      ],
+      "rune_dimensions_cm": [
+        11,
+        2,
+        108
+      ]
+    }
+  ],
+  "adapters": {
+    "frost_hilt_v1": {
+      "mesh": "SM_XuanChi_Adapter_frost_hilt_v1",
+      "depth_cm": 0.8,
+      "scale": 1
+    },
+    "shared_sword_pommel_v1": {
+      "mesh": "SM_XuanChi_Adapter_shared_sword_pommel_v1",
+      "depth_cm": 0.8,
+      "scale": 0.9
+    }
+  },
+  "world_mesh": "SM_XuanChi_Complete",
+  "arms_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+  "animation_folder": "/Game/Weapons/AzureRunesword20260913",
+  "tassel_guides_cm": [
+    [
+      0,
+      0,
+      0.0
+    ],
+    [
+      0,
+      0,
+      -4.4997712073810145
+    ],
+    [
+      0,
+      0,
+      -6.099624780104867
+    ],
+    [
+      0,
+      0,
+      -11.19915804316215
+    ],
+    [
+      0,
+      0,
+      -14.998810278381303
+    ],
+    [
+      0,
+      0,
+      -20.09834354143858
+    ],
+    [
+      0,
+      0,
+      -25.897812742562543
+    ],
+    [
+      0,
+      0,
+      -31.499999999999993
+    ]
+  ],
+  "tassel_collision_capsules_cm": [
+    [
+      0,
+      0,
+      8,
+      0,
+      0,
+      34,
+      2.4
+    ],
+    [
+      0,
+      0,
+      46,
+      0,
+      0,
+      155,
+      5.1
+    ],
+    [
+      -10,
+      0,
+      40,
+      10,
+      0,
+      40,
+      3.0
+    ]
+  ],
+  "blade_rebuilt": true,
+  "rigid_length_cm": 160,
+  "tested": false
+}

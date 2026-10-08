@@ -1124,6 +1124,69 @@
       "description": "物理防御提高10%，魔法防御提高20%；本次地牢有效。",
       "kind": "buff",
       "group": "tribute"
+    },
+    {
+      "type": "zhenmoField",
+      "icon": "☯",
+      "name": "镇魔八卦阵",
+      "kind": "buff",
+      "group": "weapon",
+      "color": "E2B653",
+      "description": "暴击展开随身八卦阵，半径15米；阵内怪物承伤提高25%，移动速度降低50%。持续15秒，暴击刷新。"
+    },
+    {
+      "type": "jingangHigh",
+      "icon": "金",
+      "name": "金刚·无住",
+      "kind": "buff",
+      "group": "weapon",
+      "color": "E9BD67",
+      "description": "應無所住，而生其心。生命≥70%：物理／魔法防御提高25%，物理／魔法伤害提高25%。"
+    },
+    {
+      "type": "jingangMiddle",
+      "icon": "金",
+      "name": "金刚·如如",
+      "kind": "buff",
+      "group": "weapon",
+      "color": "E9BD67",
+      "description": "不取於相，如如不動。生命≥30%且<70%：物理／魔法防御提高25%，攻击速度提高25%，技能冷却缩减25%。"
+    },
+    {
+      "type": "jingangLow",
+      "icon": "金",
+      "name": "金刚·破相",
+      "kind": "buff",
+      "group": "weapon",
+      "color": "E9BD67",
+      "description": "凡所有相，皆是虛妄。生命<30%：物理／魔法防御、物理／魔法伤害、攻击速度提高50%，技能冷却缩减50%。"
+    },
+    {
+      "type": "jingangLeech",
+      "icon": "金",
+      "name": "金刚·返照",
+      "kind": "buff",
+      "group": "weapon",
+      "color": "E9BD67",
+      "description": "攻击造成的实际伤害有10%转化为生命。进入低血量触发10秒，低血量攻击命中刷新；离开低血量保留剩余时间，切武器立即解除。"
+    },
+    {
+      "type": "panchiCharge",
+      "name": "蟠螭蓄势",
+      "icon": "螭",
+      "color": "#e7be70",
+      "description": "至少1层蓄势且冷却就绪时，主动上挑免准备释放强化升龙。金龙造成完整重击100%的魔法伤害，本次上挑每层额外削韧+20%（最多3层）；释放时无需命中，将阵心半径10米内的普通或已破韧怪物向阵心拉近最多5米。",
+      "kind": "buff",
+      "group": "triggered"
+    },
+    {
+      "type": "panchiCooldown",
+      "name": "双螭调息",
+      "icon": "岳",
+      "color": "#bd9256",
+      "description": "强化升龙正在冷却，仍可通过格挡蓄势。冷却就绪后由下一次主动上挑触发免准备的升龙金阵。切换武器不重置冷却。",
+      "kind": "cooldown",
+      "group": "triggered"
     }
   ]
 }

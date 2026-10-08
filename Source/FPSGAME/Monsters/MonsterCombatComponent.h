@@ -73,6 +73,10 @@ public:
  float ApplyHitWithToughnessScale(float Multiplier,TFunctionRef<float()> ApplyDamage,float FixedBaseDamage=-1.f,float BonusBaseDamage=0.f);
  void ReceiveParry(APawn* Defender,float Seconds,float KnockbackCM);
  void ReceiveMeleeKnockback(APawn* Attacker,float DistanceCM);
+ /** Ground pull with collision, impact resistance and explicit boss immunity. */
+ void ReceiveDirectedPull(APawn* Attacker,const FVector& Destination,float MaximumDistanceCM);
+ /** Formation release: ordinary ranks or a currently broken bar; no hit required. */
+ void ReceiveFormationPull(APawn* Attacker,const FVector& Destination,float MaximumDistanceCM);
  UFUNCTION(BlueprintCallable,Category="Monster|Knockdown")
  bool ReceiveKnockdown(APawn* Attacker,FVector LaunchVelocity,float DownSeconds=.7f);
  /** Special launch bypasses immunity tags, but still requires zero poise or a broken bar. */
@@ -143,4 +147,7 @@ private:
  void ApplyToughnessReaction(float Seconds);
  float IncomingToughnessBaseDamage=-1.f;
  float IncomingToughnessBonusBaseDamage=0.f;
+ FVector FormationPullCenter=FVector::ZeroVector;
+ float FormationPullDistance=0.f,FormationPullAge=0.f;
+ void TickFormationPull(float Delta);
 };

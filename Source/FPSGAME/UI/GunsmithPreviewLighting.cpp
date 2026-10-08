@@ -47,7 +47,7 @@ void Create(FPreviewScene& Scene, USceneCaptureComponent2D& Capture)
     }
 }
 
-void Update(USceneCaptureComponent2D& Capture, const FBox& ViewBounds, bool bGraphite201)
+void Update(USceneCaptureComponent2D& Capture, const FBox& ViewBounds, bool bGraphite201, float SoftboxIntensityScale)
 {
     if (!ViewBounds.IsValid) return;
     const FVector Center = ViewBounds.GetCenter();
@@ -68,7 +68,7 @@ void Update(USceneCaptureComponent2D& Capture, const FBox& ViewBounds, bool bGra
             const float FinishScale = !bGraphite201 ? 1.f :
                 Light->ComponentHasTag(TEXT("GunsmithStudioFill")) ? .45f :
                 Light->ComponentHasTag(TEXT("GunsmithStudioKey")) ? .75f : .9f;
-            const float Lumens = Source.Lumens*Scale*Scale*FinishScale;
+            const float Lumens = Source.Lumens*Scale*Scale*FinishScale*SoftboxIntensityScale;
             if (!FMath::IsNearlyEqual(Light->Intensity, Lumens, .01f)) Light->SetIntensity(Lumens);
             if (!FMath::IsNearlyEqual(Light->SourceWidth, Source.Width*Scale, .01f)) Light->SetSourceWidth(Source.Width*Scale);
             if (!FMath::IsNearlyEqual(Light->SourceHeight, Source.Height*Scale, .01f)) Light->SetSourceHeight(Source.Height*Scale);

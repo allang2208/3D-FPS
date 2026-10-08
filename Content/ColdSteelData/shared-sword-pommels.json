@@ -107,6 +107,1578 @@
           "M_FrostPommel_Bronze": "/Game/Weapons/TangDao20261002/SurfaceV2/Materials/M_TangDao_pommel_mana_orb_M_FrostPommel_Bronze.M_TangDao_pommel_mana_orb_M_FrostPommel_Bronze"
         }
       }
+    },
+    "xuanchi_ring_tail_v1": {
+      "ballast_hardened": {
+        "adapter": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/PommelTails20261005/Meshes/SM_XuanChi_PommelMount_ballast_hardened.SM_XuanChi_PommelMount_ballast_hardened",
+          "location_cm": [
+            0,
+            0,
+            -30
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "interface": "xuanchi_shared_sword_pommel_v1_terminal_ring",
+          "materials": {
+            "M_XuanChi_ExistingMount": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Mount_V2.M_XuanChi_Mount_V2",
+            "M_XuanChi_TerminalCopper": "/Game/Weapons/XuanChiZhenYue20261004/CommonGrips20261005/Materials/M_XuanChi_GripCopper.M_XuanChi_GripCopper"
+          }
+        },
+        "tassel": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/PommelTails20261005/Meshes/SM_XuanChi_RingAndTassel.SM_XuanChi_RingAndTassel",
+          "location_cm": [
+            0,
+            0,
+            -48.940001702308656
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "guides_cm": [
+            [
+              0,
+              0,
+              0.0
+            ],
+            [
+              0,
+              0,
+              -4.4997712073810145
+            ],
+            [
+              0,
+              0,
+              -6.099624780104867
+            ],
+            [
+              0,
+              0,
+              -11.19915804316215
+            ],
+            [
+              0,
+              0,
+              -14.998810278381303
+            ],
+            [
+              0,
+              0,
+              -20.09834354143858
+            ],
+            [
+              0,
+              0,
+              -25.897812742562543
+            ],
+            [
+              0,
+              0,
+              -31.499999999999993
+            ]
+          ],
+          "collision_capsules_cm": [
+            [
+              0,
+              0,
+              18.940002179145814,
+              0,
+              0,
+              44.940002179145814,
+              2.4
+            ],
+            [
+              0,
+              0,
+              56.940002179145814,
+              0,
+              0,
+              165.9400021791458,
+              5.1
+            ],
+            [
+              -10,
+              0,
+              50.940002179145814,
+              10,
+              0,
+              50.940002179145814,
+              3.0
+            ],
+            [
+              0,
+              0,
+              16.74000186920166,
+              0,
+              0,
+              9.799998331069947,
+              4.083817052355596
+            ]
+          ],
+          "materials": {
+            "M_XuanChi_WeightedTassel": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Tassel_V2.M_XuanChi_Tassel_V2",
+            "M_XuanChi_RetainedRing": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Hilt_V2.M_XuanChi_Hilt_V2"
+          },
+          "appearance": "原雕铜环 · 赤绳玉坠与柔性剑穗"
+        },
+        "appearance": "陨星锤首 · 剑类通用配重 · 环首玉坠"
+      },
+      "ballast_rune": {
+        "adapter": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/PommelTails20261005/Meshes/SM_XuanChi_PommelMount_ballast_rune.SM_XuanChi_PommelMount_ballast_rune",
+          "location_cm": [
+            0,
+            0,
+            -30
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "interface": "xuanchi_shared_sword_pommel_v1_terminal_ring",
+          "materials": {
+            "M_XuanChi_ExistingMount_001": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Mount_V2.M_XuanChi_Mount_V2",
+            "M_XuanChi_TerminalCopper": "/Game/Weapons/XuanChiZhenYue20261004/CommonGrips20261005/Materials/M_XuanChi_GripCopper.M_XuanChi_GripCopper"
+          }
+        },
+        "tassel": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/PommelTails20261005/Meshes/SM_XuanChi_RingAndTassel.SM_XuanChi_RingAndTassel",
+          "location_cm": [
+            0,
+            0,
+            -49.9120014667511
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "guides_cm": [
+            [
+              0,
+              0,
+              0.0
+            ],
+            [
+              0,
+              0,
+              -4.4997712073810145
+            ],
+            [
+              0,
+              0,
+              -6.099624780104867
+            ],
+            [
+              0,
+              0,
+              -11.19915804316215
+            ],
+            [
+              0,
+              0,
+              -14.998810278381303
+            ],
+            [
+              0,
+              0,
+              -20.09834354143858
+            ],
+            [
+              0,
+              0,
+              -25.897812742562543
+            ],
+            [
+              0,
+              0,
+              -31.499999999999993
+            ]
+          ],
+          "collision_capsules_cm": [
+            [
+              0,
+              0,
+              19.91200194358826,
+              0,
+              0,
+              45.91200194358826,
+              2.4
+            ],
+            [
+              0,
+              0,
+              57.91200194358826,
+              0,
+              0,
+              166.91200194358825,
+              5.1
+            ],
+            [
+              -10,
+              0,
+              51.91200194358826,
+              10,
+              0,
+              51.91200194358826,
+              3.0
+            ],
+            [
+              0,
+              0,
+              17.712001633644103,
+              0,
+              0,
+              9.799998331069947,
+              3.620358740055413
+            ]
+          ],
+          "materials": {
+            "M_XuanChi_WeightedTassel": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Tassel_V2.M_XuanChi_Tassel_V2",
+            "M_XuanChi_RetainedRing": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Hilt_V2.M_XuanChi_Hilt_V2"
+          },
+          "appearance": "原雕铜环 · 赤绳玉坠与柔性剑穗"
+        },
+        "appearance": "凝碧星核 · 剑类通用配重 · 环首玉坠"
+      },
+      "ballast_magic_orb": {
+        "adapter": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/PommelTails20261005/Meshes/SM_XuanChi_PommelMount_ballast_magic_orb.SM_XuanChi_PommelMount_ballast_magic_orb",
+          "location_cm": [
+            0,
+            0,
+            -30
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "interface": "xuanchi_shared_sword_pommel_v1_terminal_ring",
+          "materials": {
+            "M_XuanChi_ExistingMount_002": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Mount_V2.M_XuanChi_Mount_V2",
+            "M_XuanChi_TerminalCopper": "/Game/Weapons/XuanChiZhenYue20261004/CommonGrips20261005/Materials/M_XuanChi_GripCopper.M_XuanChi_GripCopper"
+          }
+        },
+        "tassel": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/PommelTails20261005/Meshes/SM_XuanChi_RingAndTassel.SM_XuanChi_RingAndTassel",
+          "location_cm": [
+            0,
+            0,
+            -50.2539980173111
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "guides_cm": [
+            [
+              0,
+              0,
+              0.0
+            ],
+            [
+              0,
+              0,
+              -4.4997712073810145
+            ],
+            [
+              0,
+              0,
+              -6.099624780104867
+            ],
+            [
+              0,
+              0,
+              -11.19915804316215
+            ],
+            [
+              0,
+              0,
+              -14.998810278381303
+            ],
+            [
+              0,
+              0,
+              -20.09834354143858
+            ],
+            [
+              0,
+              0,
+              -25.897812742562543
+            ],
+            [
+              0,
+              0,
+              -31.499999999999993
+            ]
+          ],
+          "collision_capsules_cm": [
+            [
+              0,
+              0,
+              20.253998494148256,
+              0,
+              0,
+              46.253998494148256,
+              2.4
+            ],
+            [
+              0,
+              0,
+              58.253998494148256,
+              0,
+              0,
+              167.25399849414825,
+              5.1
+            ],
+            [
+              -10,
+              0,
+              52.253998494148256,
+              10,
+              0,
+              52.253998494148256,
+              3.0
+            ],
+            [
+              0,
+              0,
+              18.0539981842041,
+              0,
+              0,
+              9.799998331069947,
+              2.147855764577419
+            ]
+          ],
+          "materials": {
+            "M_XuanChi_WeightedTassel": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Tassel_V2.M_XuanChi_Tassel_V2",
+            "M_XuanChi_RetainedRing": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Hilt_V2.M_XuanChi_Hilt_V2"
+          },
+          "appearance": "原雕铜环 · 赤绳玉坠与柔性剑穗"
+        },
+        "appearance": "疾星配重 · 剑类通用配重 · 环首玉坠"
+      },
+      "pommel_hardened": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_hardened.M_SixPommel_RuneSilver_pommel_hardened"
+        },
+        "adapter": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/PommelTails20261005/Meshes/SM_XuanChi_PommelMount_pommel_hardened.SM_XuanChi_PommelMount_pommel_hardened",
+          "location_cm": [
+            0,
+            0,
+            -30
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "interface": "xuanchi_frost_hilt_v1_terminal_ring",
+          "materials": {
+            "M_XuanChi_ExistingMount_003": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Mount_V2.M_XuanChi_Mount_V2",
+            "M_XuanChi_TerminalCopper": "/Game/Weapons/XuanChiZhenYue20261004/CommonGrips20261005/Materials/M_XuanChi_GripCopper.M_XuanChi_GripCopper"
+          }
+        },
+        "tassel": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/PommelTails20261005/Meshes/SM_XuanChi_RingAndTassel.SM_XuanChi_RingAndTassel",
+          "location_cm": [
+            0,
+            0,
+            -46.02599618434906
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "guides_cm": [
+            [
+              0,
+              0,
+              0.0
+            ],
+            [
+              0,
+              0,
+              -4.4997712073810145
+            ],
+            [
+              0,
+              0,
+              -6.099624780104867
+            ],
+            [
+              0,
+              0,
+              -11.19915804316215
+            ],
+            [
+              0,
+              0,
+              -14.998810278381303
+            ],
+            [
+              0,
+              0,
+              -20.09834354143858
+            ],
+            [
+              0,
+              0,
+              -25.897812742562543
+            ],
+            [
+              0,
+              0,
+              -31.499999999999993
+            ]
+          ],
+          "collision_capsules_cm": [
+            [
+              0,
+              0,
+              16.02599666118622,
+              0,
+              0,
+              42.02599666118622,
+              2.4
+            ],
+            [
+              0,
+              0,
+              54.02599666118622,
+              0,
+              0,
+              163.0259966611862,
+              5.1
+            ],
+            [
+              -10,
+              0,
+              48.02599666118622,
+              10,
+              0,
+              48.02599666118622,
+              3.0
+            ],
+            [
+              0,
+              0,
+              13.825996351242065,
+              0,
+              0,
+              9.799998331069947,
+              3.9489847811466423
+            ]
+          ],
+          "materials": {
+            "M_XuanChi_WeightedTassel": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Tassel_V2.M_XuanChi_Tassel_V2",
+            "M_XuanChi_RetainedRing": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Hilt_V2.M_XuanChi_Hilt_V2"
+          },
+          "appearance": "原雕铜环 · 赤绳玉坠与柔性剑穗"
+        },
+        "appearance": "硬化配重 · 剑类通用配重 · 环首玉坠"
+      },
+      "pommel_runic": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_runic.M_SixPommel_RuneSilver_pommel_runic",
+          "M_FrostPommel_InlayBorder": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_InlayBorder.M_SixPommel_RuneSilver_InlayBorder"
+        },
+        "adapter": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/PommelTails20261005/Meshes/SM_XuanChi_PommelMount_pommel_runic.SM_XuanChi_PommelMount_pommel_runic",
+          "location_cm": [
+            0,
+            0,
+            -30
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "interface": "xuanchi_frost_hilt_v1_terminal_ring",
+          "materials": {
+            "M_XuanChi_ExistingMount_004": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Mount_V2.M_XuanChi_Mount_V2",
+            "M_XuanChi_TerminalCopper": "/Game/Weapons/XuanChiZhenYue20261004/CommonGrips20261005/Materials/M_XuanChi_GripCopper.M_XuanChi_GripCopper"
+          }
+        },
+        "tassel": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/PommelTails20261005/Meshes/SM_XuanChi_RingAndTassel.SM_XuanChi_RingAndTassel",
+          "location_cm": [
+            0,
+            0,
+            -47.03674194812775
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "guides_cm": [
+            [
+              0,
+              0,
+              0.0
+            ],
+            [
+              0,
+              0,
+              -4.4997712073810145
+            ],
+            [
+              0,
+              0,
+              -6.099624780104867
+            ],
+            [
+              0,
+              0,
+              -11.19915804316215
+            ],
+            [
+              0,
+              0,
+              -14.998810278381303
+            ],
+            [
+              0,
+              0,
+              -20.09834354143858
+            ],
+            [
+              0,
+              0,
+              -25.897812742562543
+            ],
+            [
+              0,
+              0,
+              -31.499999999999993
+            ]
+          ],
+          "collision_capsules_cm": [
+            [
+              0,
+              0,
+              17.036742424964906,
+              0,
+              0,
+              43.036742424964906,
+              2.4
+            ],
+            [
+              0,
+              0,
+              55.036742424964906,
+              0,
+              0,
+              164.0367424249649,
+              5.1
+            ],
+            [
+              -10,
+              0,
+              49.036742424964906,
+              10,
+              0,
+              49.036742424964906,
+              3.0
+            ],
+            [
+              0,
+              0,
+              14.836742115020751,
+              0,
+              0,
+              9.799998331069947,
+              3.6673546474367296
+            ]
+          ],
+          "materials": {
+            "M_XuanChi_WeightedTassel": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Tassel_V2.M_XuanChi_Tassel_V2",
+            "M_XuanChi_RetainedRing": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Hilt_V2.M_XuanChi_Hilt_V2"
+          },
+          "appearance": "原雕铜环 · 赤绳玉坠与柔性剑穗"
+        },
+        "appearance": "符文配重 · 剑类通用配重 · 环首玉坠"
+      },
+      "pommel_mana_orb": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_mana_orb.M_SixPommel_RuneSilver_pommel_mana_orb"
+        },
+        "adapter": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/PommelTails20261005/Meshes/SM_XuanChi_PommelMount_pommel_mana_orb.SM_XuanChi_PommelMount_pommel_mana_orb",
+          "location_cm": [
+            0,
+            0,
+            -30
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "interface": "xuanchi_frost_hilt_v1_terminal_ring",
+          "materials": {
+            "M_XuanChi_ExistingMount_005": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Mount_V2.M_XuanChi_Mount_V2",
+            "M_XuanChi_TerminalCopper": "/Game/Weapons/XuanChiZhenYue20261004/CommonGrips20261005/Materials/M_XuanChi_GripCopper.M_XuanChi_GripCopper"
+          }
+        },
+        "tassel": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/PommelTails20261005/Meshes/SM_XuanChi_RingAndTassel.SM_XuanChi_RingAndTassel",
+          "location_cm": [
+            0,
+            0,
+            -46.7125522851944
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "guides_cm": [
+            [
+              0,
+              0,
+              0.0
+            ],
+            [
+              0,
+              0,
+              -4.4997712073810145
+            ],
+            [
+              0,
+              0,
+              -6.099624780104867
+            ],
+            [
+              0,
+              0,
+              -11.19915804316215
+            ],
+            [
+              0,
+              0,
+              -14.998810278381303
+            ],
+            [
+              0,
+              0,
+              -20.09834354143858
+            ],
+            [
+              0,
+              0,
+              -25.897812742562543
+            ],
+            [
+              0,
+              0,
+              -31.499999999999993
+            ]
+          ],
+          "collision_capsules_cm": [
+            [
+              0,
+              0,
+              16.712552762031557,
+              0,
+              0,
+              42.71255276203156,
+              2.4
+            ],
+            [
+              0,
+              0,
+              54.71255276203156,
+              0,
+              0,
+              163.71255276203155,
+              5.1
+            ],
+            [
+              -10,
+              0,
+              48.71255276203156,
+              10,
+              0,
+              48.71255276203156,
+              3.0
+            ],
+            [
+              0,
+              0,
+              14.512552452087402,
+              0,
+              0,
+              9.799998331069947,
+              3.5984199568186748
+            ]
+          ],
+          "materials": {
+            "M_XuanChi_WeightedTassel": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Tassel_V2.M_XuanChi_Tassel_V2",
+            "M_XuanChi_RetainedRing": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Hilt_V2.M_XuanChi_Hilt_V2"
+          },
+          "appearance": "原雕铜环 · 赤绳玉坠与柔性剑穗"
+        },
+        "appearance": "魔力球配重 · 剑类通用配重 · 环首玉坠"
+      }
+    },
+    "xuanchi_direct_tail_v2": {
+      "ballast_hardened": {
+        "adapter": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/DirectPommelTails20261005/Meshes/SM_XuanChi_DirectPommelMount_ballast_hardened.SM_XuanChi_DirectPommelMount_ballast_hardened",
+          "location_cm": [
+            0,
+            0,
+            -30
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "interface": "xuanchi_shared_sword_pommel_v1_direct_tassel",
+          "materials": {
+            "M_XuanChi_ExistingMount": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Mount_V2.M_XuanChi_Mount_V2",
+            "M_XuanChi_TerminalCopper": "/Game/Weapons/XuanChiZhenYue20261004/CommonGrips20261005/Materials/M_XuanChi_GripCopper.M_XuanChi_GripCopper"
+          }
+        },
+        "tassel": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/DirectPommelTails20261005/Meshes/SM_XuanChi_DirectTassel.SM_XuanChi_DirectTassel",
+          "location_cm": [
+            0,
+            0,
+            -41.41000337123871
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "guides_cm": [
+            [
+              0,
+              0,
+              0.0
+            ],
+            [
+              0,
+              0,
+              -4.4997712073810145
+            ],
+            [
+              0,
+              0,
+              -6.099624780104867
+            ],
+            [
+              0,
+              0,
+              -11.19915804316215
+            ],
+            [
+              0,
+              0,
+              -14.998810278381303
+            ],
+            [
+              0,
+              0,
+              -20.09834354143858
+            ],
+            [
+              0,
+              0,
+              -25.897812742562543
+            ],
+            [
+              0,
+              0,
+              -31.499999999999993
+            ]
+          ],
+          "collision_capsules_cm": [
+            [
+              0,
+              0,
+              11.410003848075867,
+              0,
+              0,
+              37.41000384807587,
+              2.4
+            ],
+            [
+              0,
+              0,
+              49.41000384807587,
+              0,
+              0,
+              158.41000384807586,
+              5.1
+            ],
+            [
+              -10,
+              0,
+              43.41000384807587,
+              10,
+              0,
+              43.41000384807587,
+              3.0
+            ],
+            [
+              0,
+              0,
+              6.526186485776116,
+              0,
+              0,
+              5.303817052355595,
+              4.083817052355596
+            ]
+          ],
+          "materials": {
+            "M_XuanChi_WeightedTassel": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Tassel_V2.M_XuanChi_Tassel_V2"
+          },
+          "appearance": "末端直连赤绳玉坠与柔性剑穗"
+        },
+        "appearance": "陨星锤首 · 剑类通用配重 · 直连玉坠"
+      },
+      "ballast_rune": {
+        "adapter": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/DirectPommelTails20261005/Meshes/SM_XuanChi_DirectPommelMount_ballast_rune.SM_XuanChi_DirectPommelMount_ballast_rune",
+          "location_cm": [
+            0,
+            0,
+            -30
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "interface": "xuanchi_shared_sword_pommel_v1_direct_tassel",
+          "materials": {
+            "M_XuanChi_ExistingMount_001": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Mount_V2.M_XuanChi_Mount_V2",
+            "M_XuanChi_TerminalCopper": "/Game/Weapons/XuanChiZhenYue20261004/CommonGrips20261005/Materials/M_XuanChi_GripCopper.M_XuanChi_GripCopper"
+          }
+        },
+        "tassel": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/DirectPommelTails20261005/Meshes/SM_XuanChi_DirectTassel.SM_XuanChi_DirectTassel",
+          "location_cm": [
+            0,
+            0,
+            -42.38200313568115
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "guides_cm": [
+            [
+              0,
+              0,
+              0.0
+            ],
+            [
+              0,
+              0,
+              -4.4997712073810145
+            ],
+            [
+              0,
+              0,
+              -6.099624780104867
+            ],
+            [
+              0,
+              0,
+              -11.19915804316215
+            ],
+            [
+              0,
+              0,
+              -14.998810278381303
+            ],
+            [
+              0,
+              0,
+              -20.09834354143858
+            ],
+            [
+              0,
+              0,
+              -25.897812742562543
+            ],
+            [
+              0,
+              0,
+              -31.499999999999993
+            ]
+          ],
+          "collision_capsules_cm": [
+            [
+              0,
+              0,
+              12.38200361251831,
+              0,
+              0,
+              38.38200361251831,
+              2.4
+            ],
+            [
+              0,
+              0,
+              50.38200361251831,
+              0,
+              0,
+              159.3820036125183,
+              5.1
+            ],
+            [
+              -10,
+              0,
+              44.38200361251831,
+              10,
+              0,
+              44.38200361251831,
+              3.0
+            ],
+            [
+              0,
+              0,
+              7.961644562518743,
+              0,
+              0,
+              4.840358740055412,
+              3.620358740055413
+            ]
+          ],
+          "materials": {
+            "M_XuanChi_WeightedTassel": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Tassel_V2.M_XuanChi_Tassel_V2"
+          },
+          "appearance": "末端直连赤绳玉坠与柔性剑穗"
+        },
+        "appearance": "凝碧星核 · 剑类通用配重 · 直连玉坠"
+      },
+      "ballast_magic_orb": {
+        "adapter": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/DirectPommelTails20261005/Meshes/SM_XuanChi_DirectPommelMount_ballast_magic_orb.SM_XuanChi_DirectPommelMount_ballast_magic_orb",
+          "location_cm": [
+            0,
+            0,
+            -30
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "interface": "xuanchi_shared_sword_pommel_v1_direct_tassel",
+          "materials": {
+            "M_XuanChi_ExistingMount_002": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Mount_V2.M_XuanChi_Mount_V2",
+            "M_XuanChi_TerminalCopper": "/Game/Weapons/XuanChiZhenYue20261004/CommonGrips20261005/Materials/M_XuanChi_GripCopper.M_XuanChi_GripCopper"
+          }
+        },
+        "tassel": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/DirectPommelTails20261005/Meshes/SM_XuanChi_DirectTassel.SM_XuanChi_DirectTassel",
+          "location_cm": [
+            0,
+            0,
+            -42.72399968624115
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "guides_cm": [
+            [
+              0,
+              0,
+              0.0
+            ],
+            [
+              0,
+              0,
+              -4.4997712073810145
+            ],
+            [
+              0,
+              0,
+              -6.099624780104867
+            ],
+            [
+              0,
+              0,
+              -11.19915804316215
+            ],
+            [
+              0,
+              0,
+              -14.998810278381303
+            ],
+            [
+              0,
+              0,
+              -20.09834354143858
+            ],
+            [
+              0,
+              0,
+              -25.897812742562543
+            ],
+            [
+              0,
+              0,
+              -31.499999999999993
+            ]
+          ],
+          "collision_capsules_cm": [
+            [
+              0,
+              0,
+              12.724000163078308,
+              0,
+              0,
+              38.72400016307831,
+              2.4
+            ],
+            [
+              0,
+              0,
+              50.72400016307831,
+              0,
+              0,
+              159.7240001630783,
+              5.1
+            ],
+            [
+              -10,
+              0,
+              44.72400016307831,
+              10,
+              0,
+              44.72400016307831,
+              3.0
+            ],
+            [
+              0,
+              0,
+              9.776144088556734,
+              0,
+              0,
+              3.3678557645774174,
+              2.147855764577419
+            ]
+          ],
+          "materials": {
+            "M_XuanChi_WeightedTassel": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Tassel_V2.M_XuanChi_Tassel_V2"
+          },
+          "appearance": "末端直连赤绳玉坠与柔性剑穗"
+        },
+        "appearance": "疾星配重 · 剑类通用配重 · 直连玉坠"
+      },
+      "pommel_hardened": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_hardened.M_SixPommel_RuneSilver_pommel_hardened"
+        },
+        "adapter": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/DirectPommelTails20261005/Meshes/SM_XuanChi_DirectPommelMount_pommel_hardened.SM_XuanChi_DirectPommelMount_pommel_hardened",
+          "location_cm": [
+            0,
+            0,
+            -30
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "interface": "xuanchi_frost_hilt_v1_direct_tassel",
+          "materials": {
+            "M_XuanChi_ExistingMount_003": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Mount_V2.M_XuanChi_Mount_V2",
+            "M_XuanChi_TerminalCopper": "/Game/Weapons/XuanChiZhenYue20261004/CommonGrips20261005/Materials/M_XuanChi_GripCopper.M_XuanChi_GripCopper"
+          }
+        },
+        "tassel": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/DirectPommelTails20261005/Meshes/SM_XuanChi_DirectTassel.SM_XuanChi_DirectTassel",
+          "location_cm": [
+            0,
+            0,
+            -38.495997853279114
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "guides_cm": [
+            [
+              0,
+              0,
+              0.0
+            ],
+            [
+              0,
+              0,
+              -4.4997712073810145
+            ],
+            [
+              0,
+              0,
+              -6.099624780104867
+            ],
+            [
+              0,
+              0,
+              -11.19915804316215
+            ],
+            [
+              0,
+              0,
+              -14.998810278381303
+            ],
+            [
+              0,
+              0,
+              -20.09834354143858
+            ],
+            [
+              0,
+              0,
+              -25.897812742562543
+            ],
+            [
+              0,
+              0,
+              -31.499999999999993
+            ]
+          ],
+          "collision_capsules_cm": [
+            [
+              0,
+              0,
+              8.495998330116272,
+              0,
+              0,
+              34.49599833011627,
+              2.4
+            ],
+            [
+              0,
+              0,
+              46.49599833011627,
+              0,
+              0,
+              155.49599833011627,
+              5.1
+            ],
+            [
+              -10,
+              0,
+              40.49599833011627,
+              10,
+              0,
+              40.49599833011627,
+              3.0
+            ],
+            [
+              0,
+              0,
+              5.168984781146642,
+              0,
+              0,
+              5.168984781146642,
+              3.9489847811466423
+            ]
+          ],
+          "materials": {
+            "M_XuanChi_WeightedTassel": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Tassel_V2.M_XuanChi_Tassel_V2"
+          },
+          "appearance": "末端直连赤绳玉坠与柔性剑穗"
+        },
+        "appearance": "硬化配重 · 剑类通用配重 · 直连玉坠"
+      },
+      "pommel_runic": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_runic.M_SixPommel_RuneSilver_pommel_runic",
+          "M_FrostPommel_InlayBorder": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_InlayBorder.M_SixPommel_RuneSilver_InlayBorder"
+        },
+        "adapter": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/DirectPommelTails20261005/Meshes/SM_XuanChi_DirectPommelMount_pommel_runic.SM_XuanChi_DirectPommelMount_pommel_runic",
+          "location_cm": [
+            0,
+            0,
+            -30
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "interface": "xuanchi_frost_hilt_v1_direct_tassel",
+          "materials": {
+            "M_XuanChi_ExistingMount_004": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Mount_V2.M_XuanChi_Mount_V2",
+            "M_XuanChi_TerminalCopper": "/Game/Weapons/XuanChiZhenYue20261004/CommonGrips20261005/Materials/M_XuanChi_GripCopper.M_XuanChi_GripCopper"
+          }
+        },
+        "tassel": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/DirectPommelTails20261005/Meshes/SM_XuanChi_DirectTassel.SM_XuanChi_DirectTassel",
+          "location_cm": [
+            0,
+            0,
+            -39.5067436170578
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "guides_cm": [
+            [
+              0,
+              0,
+              0.0
+            ],
+            [
+              0,
+              0,
+              -4.4997712073810145
+            ],
+            [
+              0,
+              0,
+              -6.099624780104867
+            ],
+            [
+              0,
+              0,
+              -11.19915804316215
+            ],
+            [
+              0,
+              0,
+              -14.998810278381303
+            ],
+            [
+              0,
+              0,
+              -20.09834354143858
+            ],
+            [
+              0,
+              0,
+              -25.897812742562543
+            ],
+            [
+              0,
+              0,
+              -31.499999999999993
+            ]
+          ],
+          "collision_capsules_cm": [
+            [
+              0,
+              0,
+              9.506744093894959,
+              0,
+              0,
+              35.50674409389496,
+              2.4
+            ],
+            [
+              0,
+              0,
+              47.50674409389496,
+              0,
+              0,
+              156.50674409389495,
+              5.1
+            ],
+            [
+              -10,
+              0,
+              41.50674409389496,
+              10,
+              0,
+              41.50674409389496,
+              3.0
+            ],
+            [
+              0,
+              0,
+              5.039389136514075,
+              0,
+              0,
+              4.887354647436728,
+              3.6673546474367296
+            ]
+          ],
+          "materials": {
+            "M_XuanChi_WeightedTassel": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Tassel_V2.M_XuanChi_Tassel_V2"
+          },
+          "appearance": "末端直连赤绳玉坠与柔性剑穗"
+        },
+        "appearance": "符文配重 · 剑类通用配重 · 直连玉坠"
+      },
+      "pommel_mana_orb": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_mana_orb.M_SixPommel_RuneSilver_pommel_mana_orb"
+        },
+        "adapter": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/DirectPommelTails20261005/Meshes/SM_XuanChi_DirectPommelMount_pommel_mana_orb.SM_XuanChi_DirectPommelMount_pommel_mana_orb",
+          "location_cm": [
+            0,
+            0,
+            -30
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "interface": "xuanchi_frost_hilt_v1_direct_tassel",
+          "materials": {
+            "M_XuanChi_ExistingMount_005": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Mount_V2.M_XuanChi_Mount_V2",
+            "M_XuanChi_TerminalCopper": "/Game/Weapons/XuanChiZhenYue20261004/CommonGrips20261005/Materials/M_XuanChi_GripCopper.M_XuanChi_GripCopper"
+          }
+        },
+        "tassel": {
+          "mesh": "/Game/Weapons/XuanChiZhenYue20261004/DirectPommelTails20261005/Meshes/SM_XuanChi_DirectTassel.SM_XuanChi_DirectTassel",
+          "location_cm": [
+            0,
+            0,
+            -39.18255395412445
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "guides_cm": [
+            [
+              0,
+              0,
+              0.0
+            ],
+            [
+              0,
+              0,
+              -4.4997712073810145
+            ],
+            [
+              0,
+              0,
+              -6.099624780104867
+            ],
+            [
+              0,
+              0,
+              -11.19915804316215
+            ],
+            [
+              0,
+              0,
+              -14.998810278381303
+            ],
+            [
+              0,
+              0,
+              -20.09834354143858
+            ],
+            [
+              0,
+              0,
+              -25.897812742562543
+            ],
+            [
+              0,
+              0,
+              -31.499999999999993
+            ]
+          ],
+          "collision_capsules_cm": [
+            [
+              0,
+              0,
+              9.18255443096161,
+              0,
+              0,
+              35.18255443096161,
+              2.4
+            ],
+            [
+              0,
+              0,
+              47.18255443096161,
+              0,
+              0,
+              156.1825544309616,
+              5.1
+            ],
+            [
+              -10,
+              0,
+              41.18255443096161,
+              10,
+              0,
+              41.18255443096161,
+              3.0
+            ],
+            [
+              0,
+              0,
+              4.818419956818674,
+              0,
+              0,
+              4.818419956818674,
+              3.5984199568186748
+            ]
+          ],
+          "materials": {
+            "M_XuanChi_WeightedTassel": "/Game/Weapons/XuanChiZhenYue20261004/SurfaceV2/Materials/M_XuanChi_Tassel_V2.M_XuanChi_Tassel_V2"
+          },
+          "appearance": "末端直连赤绳玉坠与柔性剑穗"
+        },
+        "appearance": "魔力球配重 · 剑类通用配重 · 直连玉坠"
+      }
     }
   },
   "interfaces": [

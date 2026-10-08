@@ -1,0 +1,9 @@
+{
+  "generator": "built-in image_gen",
+  "subject": "guard_panchi_zhanyue_subject.png",
+  "source_model": "../PanChi_Guard_Editable.blend",
+  "output": "guard_panchi_zhanyue.png",
+  "shared_key": "guard_panchi_zhanyue",
+  "frame_template": "../../../FirearmFramedIcons20260930/muzzle_brake_framed_v2.png",
+  "prompt": "Create ONE square production game attachment icon by combining the two references. Image 1 is the ACTUAL FINISHED 3D MODEL subject, exact identity and geometry; Image 2 is ONLY the approved metallic icon frame template. Replace the muzzle device in Image 2 with the complete sword crossguard from Image 1. Preserve Image 1's exact tall pointed central blade collar, smaller adjacent upturned prongs, circular jade bezel now grayscale, shallow lower collar, symmetrical long outstretched dragon-cloud sculpted wings and their real holes, curled raised wing tips, exact full width-to-height proportions and engraved relief. It is one crossguard ONLY, no sword blade, handle, tassel, extra parts, extra dragons or redesign. Keep its upright central collar and horizontal wings as in the actual model image. Uniformly scale the whole subject to fit COMPLETELY INSIDE the circular ring with margin; no cropping, no independent width compression, no part of it touches the ring. Match the thick beveled silver/gunmetal SQUARE frame, FOUR corner rivets, one inner circular silver ring and opaque inset charcoal backing of Image 2. Strict ACHROMATIC grayscale, including central jewel; preserve dimensional relief and readable dark grooves with controlled silver highlights. No pure white flat fill, colored glow, words, labels, markings or watermark. Only a very narrow outer margin beyond the square frame is transparent; inner panel is opaque. Faithful compositing of an actual modeled guard, not a new concept design."
+}
