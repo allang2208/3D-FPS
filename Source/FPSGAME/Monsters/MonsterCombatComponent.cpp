@@ -95,7 +95,14 @@ bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Na
  if(const auto* M27=Cast<AMantisM27Monster>(GetOwner()))
  {Health=M27->Health;MaxHealth=M27->MaxHealth;Name=M27->MonsterDisplayName;return true;}
  if(const auto* N=Cast<ANurseZombie>(GetOwner()))
- {Health=N->Health;MaxHealth=N->MaxHealth;Name=FText::FromString(N->ActorHasTag(TEXT("SpitterZombie"))?TEXT("毒液僵尸"):N->ActorHasTag(TEXT("Witch"))?TEXT("巫婆"):N->ActorHasTag(TEXT("Mutant3"))?TEXT("突变体-3"):N->ActorHasTag(TEXT("FatZombie"))?TEXT("胖子僵尸"):TEXT("护士僵尸"));return true;}
+ {
+  Health=N->Health;MaxHealth=N->MaxHealth;
+  if(N->ActorHasTag(TEXT("FacelessSecurity")))Name=FText::FromString(TEXT("安保员 M-03"));
+  else if(N->ActorHasTag(TEXT("FacelessReceptionist")))Name=FText::FromString(TEXT("接待员 M-04"));
+  else if(N->ActorHasTag(TEXT("FacelessResearcher")))Name=FText::FromString(TEXT("研究员 M-05"));
+  else Name=FText::FromString(N->ActorHasTag(TEXT("SpitterZombie"))?TEXT("毒液僵尸"):N->ActorHasTag(TEXT("Witch"))?TEXT("巫婆"):N->ActorHasTag(TEXT("Mutant3"))?TEXT("突变体-3"):N->ActorHasTag(TEXT("FatZombie"))?TEXT("胖子僵尸"):TEXT("护士僵尸"));
+  return true;
+ }
  if(const auto* H=Cast<AHandBrainMonster>(GetOwner()))
  {Health=H->Health;MaxHealth=H->MaxHealth;Name=FText::FromString(TEXT("手脑"));return true;}
  if(const auto* M=Cast<APoisonMaggotMonster>(GetOwner()))

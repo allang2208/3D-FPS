@@ -1,0 +1,823 @@
+{
+    "schema":  1,
+    "archive_root":  "trash/faceless-staff-retired-20261009",
+    "status":  "archived_and_sha256_verified",
+    "files":  [
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/Authoring/FacelessReceptionist_V01.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/Authoring/FacelessReceptionist_V01.blend1",
+                      "bytes":  34503908,
+                      "sha256":  "993c7d1790bf257fa9db44c15e6552fc429d4cc057021ea518d24324392bf7ad",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/Authoring/FacelessReceptionist_V01.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/Delivery/FacelessReceptionist_Clothing_V01.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/Delivery/FacelessReceptionist_Clothing_V01.glb",
+                      "bytes":  11446912,
+                      "sha256":  "63eb3905fceea4abab7da519e980f8042808ec5bf384a226fd325e6eabd5671f",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/Delivery/FacelessReceptionist_V01.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/Delivery/FacelessReceptionist_V01.glb",
+                      "bytes":  34396460,
+                      "sha256":  "a768410992d1e24c6893ba1bb6631e5dedab9fe5a58fd29714cd83f80d1066db",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/Delivery/SK_FacelessReceptionist_V01.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/Delivery/SK_FacelessReceptionist_V01.fbx",
+                      "bytes":  12872636,
+                      "sha256":  "ad7814f9496d44d45d5ae137eb8891ab8011f16a9a14831c669ebe2c457780bb",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/Preview20261008/FacelessReceptionist_V01_ThreeView.png",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/Preview20261008/FacelessReceptionist_V01_ThreeView.png",
+                      "bytes":  4936529,
+                      "sha256":  "85d3f234d01c56eee3f9a20d469747f4d706411b90724cdb14a492175e1525dd",
+                      "reason":  "Superseded outfit preview; source reference and current editable outfit retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/Preview20261008/preview_receipt.json",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/Preview20261008/preview_receipt.json",
+                      "bytes":  371,
+                      "sha256":  "a1a9dc125e8f0a4de431a5a865395052c4fd51d6326f116aea39cb80b0ddaf9f",
+                      "reason":  "Superseded outfit preview; source reference and current editable outfit retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V02/Authoring/FacelessReceptionist_V02.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V02/Authoring/FacelessReceptionist_V02.blend1",
+                      "bytes":  49922315,
+                      "sha256":  "0290e37019f39eacf3dc8922b7ca79cd6e56f66cb312c82247cbe27f503ca1aa",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V02/Authoring/FacelessReceptionist_V02.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V02/Delivery/FacelessReceptionist_Clothing_V02.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V02/Delivery/FacelessReceptionist_Clothing_V02.glb",
+                      "bytes":  14069332,
+                      "sha256":  "815ba30e74ba47609083b4b97edb021552c5d094e9601d579169b9d8bd4716e6",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V02/Delivery/FacelessReceptionist_V02.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V02/Delivery/FacelessReceptionist_V02.glb",
+                      "bytes":  37017896,
+                      "sha256":  "e267db4aa01d81fed6edfd4e94812d505b14e38a42073b46fd6a86457bc4d2b9",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V02/Delivery/SK_FacelessReceptionist_V02.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V02/Delivery/SK_FacelessReceptionist_V02.fbx",
+                      "bytes":  15732732,
+                      "sha256":  "ca695bbb047881fc5015d867779dfadfdd29b10a6ca470ae29bb7d87ac2e96bf",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V02/Preview20261008/FacelessReceptionist_V02_ThreeView.png",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V02/Preview20261008/FacelessReceptionist_V02_ThreeView.png",
+                      "bytes":  4781888,
+                      "sha256":  "a5fa961cda7dce1199431cb3fac993943741eb439d792dbbcb9c1dbf0099c204",
+                      "reason":  "Superseded outfit preview; source reference and current editable outfit retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V02/Preview20261008/preview_receipt.json",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V02/Preview20261008/preview_receipt.json",
+                      "bytes":  381,
+                      "sha256":  "d0932f014885bd3fbdbe98e134dfc079b51a686ee42a5a9a3e05982423e1b2a3",
+                      "reason":  "Superseded outfit preview; source reference and current editable outfit retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V03/Authoring/FacelessReceptionist_V03.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V03/Authoring/FacelessReceptionist_V03.blend1",
+                      "bytes":  43019791,
+                      "sha256":  "3e3b0f5a35ee343f677c50b5ebfc52d34674f0e47d844658678694f0932266ca",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V03/Authoring/FacelessReceptionist_V03.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V03/Authoring/FacelessReceptionist_V03_Fit.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V03/Authoring/FacelessReceptionist_V03_Fit.blend1",
+                      "bytes":  42372671,
+                      "sha256":  "e7409ee36888d39eb1c8ab961ae6e77d3c60d6ca1c014ed5bb9530ba4473f64e",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V03/Authoring/FacelessReceptionist_V03_Fit.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V03/Delivery/FacelessReceptionist_Clothing_V03.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V03/Delivery/FacelessReceptionist_Clothing_V03.glb",
+                      "bytes":  13872676,
+                      "sha256":  "d1a0fcff0a86f0db63864c7b0eba6a9b13fe933bd5d9f8a37cfa62745aa82f5f",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V03/Delivery/FacelessReceptionist_V03.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V03/Delivery/FacelessReceptionist_V03.glb",
+                      "bytes":  36821260,
+                      "sha256":  "7ef7afc3cf7ac3f8a0783a0470a1fd4bf5e0afcc989d8db270d957405c3f0e68",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V03/Delivery/SK_FacelessReceptionist_Clothing_V03.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V03/Delivery/SK_FacelessReceptionist_Clothing_V03.fbx",
+                      "bytes":  8221724,
+                      "sha256":  "c2e9410993174deee5a888c5fd9bff7e2774d2340d3c0b364da6cad49b1770c4",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V03/Delivery/SK_FacelessReceptionist_V03.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V03/Delivery/SK_FacelessReceptionist_V03.fbx",
+                      "bytes":  16845980,
+                      "sha256":  "09f3d29574648cde97bd131f11f0428270382fe4031ca25540a8d7cac1e0285b",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V03/Preview20261008/FacelessReceptionist_V03_ThreeView.png",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V03/Preview20261008/FacelessReceptionist_V03_ThreeView.png",
+                      "bytes":  4751527,
+                      "sha256":  "83600ceb18efebae5ef22c6b711b520988d412840422f78df480d162e0f686cf",
+                      "reason":  "Superseded outfit preview; source reference and current editable outfit retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V03/Preview20261008/preview_receipt.json",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V03/Preview20261008/preview_receipt.json",
+                      "bytes":  381,
+                      "sha256":  "8f2ba8a98deb59c926370007c3ec371a1b49b24fd4bfde5a038535d25a46daf0",
+                      "reason":  "Superseded outfit preview; source reference and current editable outfit retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V04/Authoring/FacelessReceptionist_V04.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V04/Authoring/FacelessReceptionist_V04.blend1",
+                      "bytes":  62963244,
+                      "sha256":  "50cdb3bfb41765d88f263a3d07dc748a463a76e97e7759a5580da164adad7bcd",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V04/Authoring/FacelessReceptionist_V04.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V04/Delivery/FacelessReceptionist_Clothing_V04.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V04/Delivery/FacelessReceptionist_Clothing_V04.glb",
+                      "bytes":  80415004,
+                      "sha256":  "3459c23368bf06dab4fdd1c0039088758662d8883ddc48c7e1061d96550a6bce",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V04/Delivery/FacelessReceptionist_V04.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V04/Delivery/FacelessReceptionist_V04.glb",
+                      "bytes":  96972304,
+                      "sha256":  "053e39f8a8c531b86304f21aa5900ed9b75c4626db3d30a3617b6e70385f5c19",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V04/Delivery/SK_FacelessReceptionist_Clothing_V04.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V04/Delivery/SK_FacelessReceptionist_Clothing_V04.fbx",
+                      "bytes":  49571820,
+                      "sha256":  "66c720f32340f80377c9297fcb9e5807dd5c4b70f4fd38ff198e0a799ce71949",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessReceptionist20261007/V04/Delivery/SK_FacelessReceptionist_V04.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessReceptionist20261007/V04/Delivery/SK_FacelessReceptionist_V04.fbx",
+                      "bytes":  53925212,
+                      "sha256":  "75a577cc6c8e54a8842e6ec41d3cf7208944b268e8f43128f79506af4e136a01",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessReceptionist20261007/V05/Delivery/SK_FacelessReceptionist_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V01/Authoring/FacelessResearcher_V01.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V01/Authoring/FacelessResearcher_V01.blend1",
+                      "bytes":  25627068,
+                      "sha256":  "b5f3d606ac735910c25b4dcc8d98ef5d2a5d7589a0342377baa48771d1e836bc",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V01/Authoring/FacelessResearcher_V01.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V01/Delivery/FacelessResearcher_Clothing_V01.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V01/Delivery/FacelessResearcher_Clothing_V01.glb",
+                      "bytes":  67769792,
+                      "sha256":  "a08ae481315766170a7617017a2ad13521ce7b6a0034896f33fc42c50d7e98d8",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V01/Delivery/FacelessResearcher_V01.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V01/Delivery/FacelessResearcher_V01.glb",
+                      "bytes":  77931276,
+                      "sha256":  "41f7dc5f8c73c6f3025289950a341532d3f79e4293a8b9c9841e1bf371428e21",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V01/Delivery/SK_FacelessResearcher_Clothing_V01.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V01/Delivery/SK_FacelessResearcher_Clothing_V01.fbx",
+                      "bytes":  44852092,
+                      "sha256":  "2eb58265ec268602dfc8c1ff21a475d0fe5b8f5750fc34b85195f8ff90435607",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V01/Delivery/SK_FacelessResearcher_V01.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V01/Delivery/SK_FacelessResearcher_V01.fbx",
+                      "bytes":  46132108,
+                      "sha256":  "1023fd7f65388074244c7458125556002b41023caa7f6f54b254169c6486c14b",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V02/Authoring/FacelessResearcher_V02.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V02/Authoring/FacelessResearcher_V02.blend1",
+                      "bytes":  62664013,
+                      "sha256":  "33b64e2b04da8b34be9f8558bc970a46a9563dc787d3a934b765cf6b350736d0",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V02/Authoring/FacelessResearcher_V02.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V02/Delivery/FacelessResearcher_Clothing_V02.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V02/Delivery/FacelessResearcher_Clothing_V02.glb",
+                      "bytes":  89577284,
+                      "sha256":  "0e295a3f657974625d34aff99d82afe6ffcc5529b056f762ddb5f666682c762e",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V02/Delivery/FacelessResearcher_V02.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V02/Delivery/FacelessResearcher_V02.glb",
+                      "bytes":  99738768,
+                      "sha256":  "b45af2b4aa2f34dc61a669a4048f0f204f45e76fea604020bc34c68a2d02e121",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V02/Delivery/SK_FacelessResearcher_Clothing_V02.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V02/Delivery/SK_FacelessResearcher_Clothing_V02.fbx",
+                      "bytes":  60974700,
+                      "sha256":  "ba228c49774c68661da2e601fb6fd10c42c144d57e27983f4a479dc257a08bf0",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V02/Delivery/SK_FacelessResearcher_V02.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V02/Delivery/SK_FacelessResearcher_V02.fbx",
+                      "bytes":  62254476,
+                      "sha256":  "02677b138d240c7c8c7e93a32429b97d11ba8eb1e7c2c8706f19acb36fd5e02e",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V03/Delivery/FacelessResearcher_Clothing_V03.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V03/Delivery/FacelessResearcher_Clothing_V03.glb",
+                      "bytes":  145003212,
+                      "sha256":  "e96d8367a6f07702195da2d336622cbf04afe0a50d8be354000dda419a2224bd",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V03/Delivery/FacelessResearcher_V03.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V03/Delivery/FacelessResearcher_V03.glb",
+                      "bytes":  155164708,
+                      "sha256":  "a64d90c07fdc929b798babd106e057d825e56f668de9bf1d92e41d95c8f69663",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V03/Delivery/SK_FacelessResearcher_Clothing_V03.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V03/Delivery/SK_FacelessResearcher_Clothing_V03.fbx",
+                      "bytes":  109963772,
+                      "sha256":  "ecb21e1a4d0910a19039feb742949ea181aa1fa952da16cf606fbd9087cc7e84",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V03/Delivery/SK_FacelessResearcher_V03.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V03/Delivery/SK_FacelessResearcher_V03.fbx",
+                      "bytes":  111242860,
+                      "sha256":  "40fca4f9a4c83072d4ce240948970b4b72f0f58dbe9a813b86244787df38288a",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V04/Authoring/FacelessResearcher_V04.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V04/Authoring/FacelessResearcher_V04.blend1",
+                      "bytes":  71289155,
+                      "sha256":  "0b9972f6a5f1a4c0091e8adee239063f566a0fc44cac59385c54cfb2aaf6a20c",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V04/Authoring/FacelessResearcher_V04.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V04/Delivery/FacelessResearcher_Clothing_V04.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V04/Delivery/FacelessResearcher_Clothing_V04.glb",
+                      "bytes":  123419568,
+                      "sha256":  "061b7cb1117ea894dd2e6dbc0ea597da60ad2a9564869e35d9c9b6049e89ff44",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V04/Delivery/FacelessResearcher_V04.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V04/Delivery/FacelessResearcher_V04.glb",
+                      "bytes":  133581064,
+                      "sha256":  "caa4a72f8aad9852b488f2dd75989db3bbe0d66f09aae2591753cc494c08a11b",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V04/Delivery/SK_FacelessResearcher_Clothing_V04.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V04/Delivery/SK_FacelessResearcher_Clothing_V04.fbx",
+                      "bytes":  86578108,
+                      "sha256":  "1501da9e5b4ee7a0677cfc4866cf465a79d7f8768950c84de287efa5add4558f",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V04/Delivery/SK_FacelessResearcher_V04.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V04/Delivery/SK_FacelessResearcher_V04.fbx",
+                      "bytes":  87858492,
+                      "sha256":  "f9b93564a0afbe468f6c899132c69156a03c06c110ad09182031d95b13085d3a",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessResearcher20261009/V05/Delivery/SK_FacelessResearcher_V05.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V05/SourceBackup/FatZombieAnimInstance.cpp.before",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V05/SourceBackup/FatZombieAnimInstance.cpp.before",
+                      "bytes":  14906,
+                      "sha256":  "6ae08c47e54d8cd31fe10707df6d511386a87190cc1ab837a718d1bfa8bcced6",
+                      "reason":  "Pre-change recovery snapshot; current source or Blueprint retained",
+                      "retained_replacement":  "Source/FPSGAME/Monsters/FatZombieAnimInstance.cpp"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessResearcher20261009/V05/SourceBackup/NurseZombie.cpp.before",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessResearcher20261009/V05/SourceBackup/NurseZombie.cpp.before",
+                      "bytes":  16129,
+                      "sha256":  "344d75fb4a30c19892d6bea25cc38eff041e6cba875708dfcda98d91325a418d",
+                      "reason":  "Pre-change recovery snapshot; current source or Blueprint retained",
+                      "retained_replacement":  "Source/FPSGAME/Monsters/NurseZombie.cpp"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V01/Authoring/FacelessSecurity_V01.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V01/Authoring/FacelessSecurity_V01.blend1",
+                      "bytes":  26670402,
+                      "sha256":  "ea23b989bcd25e1018483750930eeb759f055790a89d53c621c093dba508d919",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V01/Authoring/FacelessSecurity_V01.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V01/Delivery/FacelessSecurity_Clothing_V01.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V01/Delivery/FacelessSecurity_Clothing_V01.glb",
+                      "bytes":  4669948,
+                      "sha256":  "04e995e782b2e18b7a4457dba775a7c0a553f222dc44502e3dc4c1c5bf786038",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V01/Delivery/FacelessSecurity_V01.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V01/Delivery/FacelessSecurity_V01.glb",
+                      "bytes":  16749480,
+                      "sha256":  "3cdd9814685f9cff20d8d35569e1b3b75ca1574a2189d29bf682f9e10164019a",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V01/Delivery/SK_FacelessSecurity_Clothing_V01.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V01/Delivery/SK_FacelessSecurity_Clothing_V01.fbx",
+                      "bytes":  5418620,
+                      "sha256":  "33fb0a4ea819509315065667424d527f199266a601a7921f4425ca69b47db34e",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V01/Delivery/SK_FacelessSecurity_V01.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V01/Delivery/SK_FacelessSecurity_V01.fbx",
+                      "bytes":  6560204,
+                      "sha256":  "24b22ced3188b70295ceeffa3d8aad7d0319d00de0588f9953fe6c159d0940c5",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V02/Before/BP_FacelessSecurity.uasset",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V02/Before/BP_FacelessSecurity.uasset",
+                      "bytes":  26041,
+                      "sha256":  "a34190f0def8aa1519f0c7a8af4bdfba3c8b3dc559c4b7d917c953643c4c7a49",
+                      "reason":  "Pre-change recovery snapshot; current source or Blueprint retained",
+                      "retained_replacement":  "Content/Monsters/FacelessSecurity/BP_FacelessSecurity.uasset"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V02/Before/previous_state.json",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V02/Before/previous_state.json",
+                      "bytes":  429,
+                      "sha256":  "3a99f295af58057edf4642b4552782cfe35317cb77389bc94cb36fe9e70130dc",
+                      "reason":  "Pre-change recovery snapshot; current source or Blueprint retained",
+                      "retained_replacement":  "Content/Monsters/FacelessSecurity/BP_FacelessSecurity.uasset"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V02/Motion/FacelessSecurity_MaleMotion_V02.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V02/Motion/FacelessSecurity_MaleMotion_V02.blend1",
+                      "bytes":  47806458,
+                      "sha256":  "0ba522b77a6df957a1428992fc5541d08fa8ccbc9e6057bc84731db8753c6c83",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V02/Motion/FacelessSecurity_MaleMotion_V02.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V03/Authoring/FacelessSecurity_V03.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V03/Authoring/FacelessSecurity_V03.blend1",
+                      "bytes":  39010373,
+                      "sha256":  "38b83f07f77702484bf9915267b431a12528b7b78cb7fe1d30d30dd42bc251e1",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V03/Authoring/FacelessSecurity_V03.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V03/Before/BP_FacelessSecurity.uasset",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V03/Before/BP_FacelessSecurity.uasset",
+                      "bytes":  26395,
+                      "sha256":  "8623985e97cfc6e2684a2ba0ed6f99487d1117aa4a5c71548043fd5d6c40fa92",
+                      "reason":  "Pre-change recovery snapshot; current source or Blueprint retained",
+                      "retained_replacement":  "Content/Monsters/FacelessSecurity/BP_FacelessSecurity.uasset"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V03/Before/previous_state.json",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V03/Before/previous_state.json",
+                      "bytes":  497,
+                      "sha256":  "51e47c160f91b3e41713d7c063a95e9955249bbce45efad0d19d98a7c1c6e447",
+                      "reason":  "Pre-change recovery snapshot; current source or Blueprint retained",
+                      "retained_replacement":  "Content/Monsters/FacelessSecurity/BP_FacelessSecurity.uasset"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V03/Delivery/FacelessSecurity_Clothing_V03.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V03/Delivery/FacelessSecurity_Clothing_V03.glb",
+                      "bytes":  4998532,
+                      "sha256":  "cce3ae82440f0a220dd64c683292faf711c726f077f5f2c5f1212a8834376c50",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V03/Delivery/FacelessSecurity_V03.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V03/Delivery/FacelessSecurity_V03.glb",
+                      "bytes":  18103992,
+                      "sha256":  "b106dd2d7321ebc523444f793b802310ccb0aa653f37ade1e9ec5c520d61e1e1",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V03/Delivery/SK_FacelessSecurity_Clothing_V03.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V03/Delivery/SK_FacelessSecurity_Clothing_V03.fbx",
+                      "bytes":  5972924,
+                      "sha256":  "1223c2425ac9b7b0561cd9fcaadd9f3c14b3b812f49acbfa2cae1b6b091a7489",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V03/Delivery/SK_FacelessSecurity_V03.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V03/Delivery/SK_FacelessSecurity_V03.fbx",
+                      "bytes":  8010572,
+                      "sha256":  "a755f9894756113cc8b0483dc5d4257926e3e11828d9729d4cec30eb3eb2a8ef",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V04/Delivery/FacelessSecurity_Clothing_V04.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V04/Delivery/FacelessSecurity_Clothing_V04.glb",
+                      "bytes":  5564248,
+                      "sha256":  "a3da38e1561774639468210330182088ad21b62dc44e80c0763d582a99b7945f",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V04/Delivery/FacelessSecurity_V04.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V04/Delivery/FacelessSecurity_V04.glb",
+                      "bytes":  18669712,
+                      "sha256":  "858d237fbc86997cedde3fdc517b59efdf53ff92e841b890b859dfb72f98f84d",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V04/Delivery/SK_FacelessSecurity_Clothing_V04.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V04/Delivery/SK_FacelessSecurity_Clothing_V04.fbx",
+                      "bytes":  6160220,
+                      "sha256":  "29621dfb1196878f1f5bbb9fd9984eea06497645c5e648b6427c24b5a14b2bab",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V04/Delivery/SK_FacelessSecurity_V04.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V04/Delivery/SK_FacelessSecurity_V04.fbx",
+                      "bytes":  8197820,
+                      "sha256":  "d3fb6a11103baf4835b2e1df00bf72d4303e3f32c236eea6c1c8dc454f0eff05",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V05/Authoring/FacelessSecurity_V05.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V05/Authoring/FacelessSecurity_V05.blend1",
+                      "bytes":  36428226,
+                      "sha256":  "b7f33c116398004fc8689d0077fa34fa8558efc5974a08cc5f70e4de8971172d",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V05/Authoring/FacelessSecurity_V05.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V05/Before/BP_FacelessSecurity.uasset",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V05/Before/BP_FacelessSecurity.uasset",
+                      "bytes":  26541,
+                      "sha256":  "07a64d20cdc19b5a9c75194fb07bc2ba8ac7b8ea243705ab56363f995e36bd97",
+                      "reason":  "Pre-change recovery snapshot; current source or Blueprint retained",
+                      "retained_replacement":  "Content/Monsters/FacelessSecurity/BP_FacelessSecurity.uasset"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V05/Before/previous_state.json",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V05/Before/previous_state.json",
+                      "bytes":  497,
+                      "sha256":  "71d33db03ac2c7a23fbf81798436f9e82037cca748a3470113692341d94bf332",
+                      "reason":  "Pre-change recovery snapshot; current source or Blueprint retained",
+                      "retained_replacement":  "Content/Monsters/FacelessSecurity/BP_FacelessSecurity.uasset"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V05/Delivery/FacelessSecurity_Clothing_V05.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V05/Delivery/FacelessSecurity_Clothing_V05.glb",
+                      "bytes":  4884964,
+                      "sha256":  "06cab274ace44c7f16ab67540db0bd86b080d4423ab09fcc8ad4925c5da13031",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V05/Delivery/FacelessSecurity_V05.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V05/Delivery/FacelessSecurity_V05.glb",
+                      "bytes":  17990944,
+                      "sha256":  "888a2c6ce914e55ddd3317f3c3302724cf94b93254e9cf54a52c6a531e15bc84",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V05/Delivery/SK_FacelessSecurity_Clothing_V05.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V05/Delivery/SK_FacelessSecurity_Clothing_V05.fbx",
+                      "bytes":  5272892,
+                      "sha256":  "68f8a8a0eaff3a4afb36469e5a65d4b270f68a5d7f53dd662d309f42feeb193a",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V05/Delivery/SK_FacelessSecurity_V05.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V05/Delivery/SK_FacelessSecurity_V05.fbx",
+                      "bytes":  7313180,
+                      "sha256":  "00fb719d3f88224f1c12514e2c769e0c0846e03679316e997a400f7354462b3c",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V06/Delivery/FacelessSecurity_Clothing_V06.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V06/Delivery/FacelessSecurity_Clothing_V06.glb",
+                      "bytes":  5096852,
+                      "sha256":  "e4ba58cee09c74674593d93937c839f495bd325574d6e8424be88b0de8548d0f",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V06/Delivery/FacelessSecurity_V06.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V06/Delivery/FacelessSecurity_V06.glb",
+                      "bytes":  18202896,
+                      "sha256":  "041d584a4526a74e32320c2167e42f929254e2d5229157f33bada14791ebfb54",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V06/Delivery/SK_FacelessSecurity_Clothing_V06.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V06/Delivery/SK_FacelessSecurity_Clothing_V06.fbx",
+                      "bytes":  6180572,
+                      "sha256":  "4edad166bcf9af8da72faf31b6bdceac3546dd54319c2431373294ad9fcd8dc8",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V06/Delivery/SK_FacelessSecurity_V06.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V06/Delivery/SK_FacelessSecurity_V06.fbx",
+                      "bytes":  8214812,
+                      "sha256":  "71353b947d8f9111df02f82ca4ea7e7ae9dc2e30b3d4beb84e0c1301c63f61fe",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V07/Delivery/FacelessSecurity_Clothing_V07.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V07/Delivery/FacelessSecurity_Clothing_V07.glb",
+                      "bytes":  5085272,
+                      "sha256":  "935a50caa7f428ce2ca93f95d23d7e31a5c4ca7b4a9be2d23fe18856d9a681fb",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V07/Delivery/FacelessSecurity_V07.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V07/Delivery/FacelessSecurity_V07.glb",
+                      "bytes":  18191316,
+                      "sha256":  "f8c456220781269561d48ff6b5c407a97b752a6260157733fafba680bba90988",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V07/Delivery/SK_FacelessSecurity_Clothing_V07.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V07/Delivery/SK_FacelessSecurity_Clothing_V07.fbx",
+                      "bytes":  6167276,
+                      "sha256":  "afe8e0909f606866ec1d2b04cfe88724fa0ec9c964fd3d8c9f36f5f933c1f852",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V07/Delivery/SK_FacelessSecurity_V07.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V07/Delivery/SK_FacelessSecurity_V07.fbx",
+                      "bytes":  8201724,
+                      "sha256":  "209e229d848580551db8edf9e00dcc71126247a85478447cb3708adae6173940",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V08/Authoring/FacelessSecurity_V08.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V08/Authoring/FacelessSecurity_V08.blend1",
+                      "bytes":  36639462,
+                      "sha256":  "41ca30d02f1e05d5bd0f6a0e629c5e956ad9bbb0eb525a9971977ed915e3edfb",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V08/Authoring/FacelessSecurity_V08.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V08/Delivery/FacelessSecurity_Clothing_V08.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V08/Delivery/FacelessSecurity_Clothing_V08.glb",
+                      "bytes":  5092560,
+                      "sha256":  "ec180690be95c82cb02442546acc19c46870ab25625851dd07bd0df31e6af376",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V08/Delivery/FacelessSecurity_V08.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V08/Delivery/FacelessSecurity_V08.glb",
+                      "bytes":  18198604,
+                      "sha256":  "4d6781caafc9a130738d781c5305a4e3ce7f83a81898f8c2b0cb393f97c29931",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V08/Delivery/SK_FacelessSecurity_Clothing_V08.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V08/Delivery/SK_FacelessSecurity_Clothing_V08.fbx",
+                      "bytes":  5444140,
+                      "sha256":  "9a822741d56bbf9f95325dd795020be16ee4d8324cf0adebc32e844277206dc6",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V08/Delivery/SK_FacelessSecurity_V08.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V08/Delivery/SK_FacelessSecurity_V08.fbx",
+                      "bytes":  7485212,
+                      "sha256":  "8181a12813309dddb14930ba4df6b69107ea6910063e904a2229113ee15b66ef",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V09/Authoring/FacelessSecurity_V09.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V09/Authoring/FacelessSecurity_V09.blend1",
+                      "bytes":  45109271,
+                      "sha256":  "76d390f2c7fbe3d918f072abec13cf9a2f8feb758be035ee67567870032e039f",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V09/Authoring/FacelessSecurity_V09.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V09/Delivery/FacelessSecurity_Clothing_V09.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V09/Delivery/FacelessSecurity_Clothing_V09.glb",
+                      "bytes":  6849984,
+                      "sha256":  "79ca3033455cf780ebb92950ced691eb443547635f19c3c2e1367dd7862eaf17",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V09/Delivery/FacelessSecurity_V09.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V09/Delivery/FacelessSecurity_V09.glb",
+                      "bytes":  20778712,
+                      "sha256":  "f0617d3f6893a1d0c235efb9c24eedab2d7b71f90f4bd4f4396408f2a19d914f",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V09/Delivery/SK_FacelessSecurity_Clothing_V09.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V09/Delivery/SK_FacelessSecurity_Clothing_V09.fbx",
+                      "bytes":  7685388,
+                      "sha256":  "3054b1b3ca6568cd29982b76c2ec88a83e2d7685641c2338ce7ee8f9d9426413",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V09/Delivery/SK_FacelessSecurity_V09.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V09/Delivery/SK_FacelessSecurity_V09.fbx",
+                      "bytes":  10493692,
+                      "sha256":  "3fef1c24d076a99faac2fc8da581f27742c3f9dffe133ceb8ac26f0544f73c83",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V10/Delivery/FacelessSecurity_Clothing_V10.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V10/Delivery/FacelessSecurity_Clothing_V10.glb",
+                      "bytes":  6849984,
+                      "sha256":  "79ca3033455cf780ebb92950ced691eb443547635f19c3c2e1367dd7862eaf17",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V10/Delivery/FacelessSecurity_V10.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V10/Delivery/FacelessSecurity_V10.glb",
+                      "bytes":  19878712,
+                      "sha256":  "ad3b2e22998d499d4fd7ae0734fef2690d29bbbeb2a00ee331a6762d2e74fe95",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V10/Delivery/SK_FacelessSecurity_Clothing_V10.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V10/Delivery/SK_FacelessSecurity_Clothing_V10.fbx",
+                      "bytes":  7685388,
+                      "sha256":  "48f89ef62b7c95cb203e35225d1fcc618e4a91ead23c897bdbdec427d6b01194",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V10/Delivery/SK_FacelessSecurity_V10.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V10/Delivery/SK_FacelessSecurity_V10.fbx",
+                      "bytes":  9686876,
+                      "sha256":  "61b28c29ccb46f3cc17338706f5568a83d4f894ae4856dbc68a2850922997f94",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V11/Delivery/FacelessSecurity_Clothing_V11.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V11/Delivery/FacelessSecurity_Clothing_V11.glb",
+                      "bytes":  6852888,
+                      "sha256":  "79de5454318569d3d90e5c2be3f6354860876a89a8d6acb63a9408a615f85c1c",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V11/Delivery/FacelessSecurity_V11.glb",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V11/Delivery/FacelessSecurity_V11.glb",
+                      "bytes":  19881624,
+                      "sha256":  "f7018ae13381049482f05daa920af75c396c2935f30909bb723773213c3b1e15",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V11/Delivery/SK_FacelessSecurity_Clothing_V11.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V11/Delivery/SK_FacelessSecurity_Clothing_V11.fbx",
+                      "bytes":  7687148,
+                      "sha256":  "21ba5eb071f3b574e7d9eb00b8c78d5b03f28345a9b1c1debdb55160ebd63796",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V11/Delivery/SK_FacelessSecurity_V11.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V11/Delivery/SK_FacelessSecurity_V11.fbx",
+                      "bytes":  9687868,
+                      "sha256":  "64509787eda6f6a74215258ac40cad202917fa89d4250f5a6dc880178efa9ab7",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Delivery/SK_FacelessSecurity_V13.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V11/Delivery/SM_SecurityServiceCap_V11.fbx",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V11/Delivery/SM_SecurityServiceCap_V11.fbx",
+                      "bytes":  307260,
+                      "sha256":  "a22b3ed8bac7cb4934bdd8d219188b261142e90d50afddf4f8495a8c3c8bc2fa",
+                      "reason":  "Superseded clothing or outfit delivery export; current export and authoring dependencies retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V14/Delivery/SM_SecurityServiceCap_V14.fbx"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessSecurity20261008/V13/Authoring/FacelessSecurity_V13.blend1",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessSecurity20261008/V13/Authoring/FacelessSecurity_V13.blend1",
+                      "bytes":  40923257,
+                      "sha256":  "69c71c0bfed9d3a36de50d00f3deb0ee0d04ca4a04a8859e912883d0885b9557",
+                      "reason":  "Superseded Blender automatic backup; editable main file retained",
+                      "retained_replacement":  "SourceAssets/FacelessSecurity20261008/V13/Authoring/FacelessSecurity_V13.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessStaffStates20261009/SourceBackup/FatZombieAnimInstance.cpp.before",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessStaffStates20261009/SourceBackup/FatZombieAnimInstance.cpp.before",
+                      "bytes":  16358,
+                      "sha256":  "64c124751dbc07c3ed359133292c12fc6bd5fcac0411a0c7f8e40642f46ddd4e",
+                      "reason":  "Pre-change C++ snapshot; current source retained",
+                      "retained_replacement":  "Source/FPSGAME/Monsters/FatZombieAnimInstance.cpp"
+                  },
+                  {
+                      "source":  "SourceAssets/FacelessStaffStates20261009/SourceBackup/NurseZombie.cpp.before",
+                      "destination":  "trash/faceless-staff-retired-20261009/SourceAssets/FacelessStaffStates20261009/SourceBackup/NurseZombie.cpp.before",
+                      "bytes":  18458,
+                      "sha256":  "b33c9174013dd6cf007ba6a05e10bfca99084277bf7a5a791c2d2c12f82538da",
+                      "reason":  "Pre-change C++ snapshot; current source retained",
+                      "retained_replacement":  "Source/FPSGAME/Monsters/NurseZombie.cpp"
+                  }
+              ]
+}

@@ -3071,3 +3071,8 @@ __pycache__/
 !/SourceAssets/ThemeThirdRoomTreasure20261007/install_background.ps1
 !/SourceAssets/ThemeThirdRoomTreasure20261007/sync_sources.py
 !/SourceAssets/ThemeThirdRoomTreasure20261007/treasure.py
+
+# Faceless staff: original recipes in Tools; local licensed/derived payloads stay private.
+/SourceAssets/Faceless*/**/*
+!/SourceAssets/Faceless*/**/
+!/SourceAssets/Faceless*/**/*.md

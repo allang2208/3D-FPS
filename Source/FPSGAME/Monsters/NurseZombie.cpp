@@ -1,4 +1,5 @@
 #include "NurseZombie.h"
+#include "FatZombieAnimInstance.h"
 #include "Net/UnrealNetwork.h"
 #include "MonsterReactionTiming.h"
 #include "../Combat/CombatFormulaRuntime.h"
@@ -32,6 +33,15 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
+namespace
+{
+bool UsesFacelessStaffTransitions(const AActor* Actor)
+{
+    return Actor->ActorHasTag(TEXT("FacelessResearcher")) ||
+        Actor->ActorHasTag(TEXT("FacelessReceptionist")) ||
+        Actor->ActorHasTag(TEXT("FacelessSecurity"));
+}
+}
 ANurseZombie::ANurseZombie(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName)
         .SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
@@ -109,20 +119,64 @@ void ANurseZombie::SetState(ENurseState NewState)
 
 void ANurseZombie::StartStateAnimation(UAnimSequence* Clip,bool bLoop)
 {
+    if (UsesFacelessStaffTransitions(this))
+    {
+        if (!Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))
+            GetMesh()->SetAnimInstanceClass(UFatZombieAnimInstance::StaticClass());
+        if (auto* Animation = Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))
+        {
+            FMonsterClipTransition Settings;
+            Settings.InitialPlayRate = Clip ? Clip->RateScale : 1.f;
+            if (bLoop && Clip == WalkClip)
+                Settings.InitialPlayRate *= FMath::Clamp(GetVelocity().Size2D()/26.f,.15f,3.5f);
+            Settings.bContinueOutgoingLoop = bLoop;
+            Animation->TransitionTo(Clip,bLoop,!bLoop,bLoop?.24f:.10f,Settings);
+            PresentedClip = Clip;
+            return;
+        }
+    }
     GetMesh()->PlayAnimation(Clip,bLoop);
     PresentedClip = Clip;
     GetMesh()->SetPlayRate(bLoop?1.f:0.f);
 }
-void ANurseZombie::SetAttackAnimationTime(float Seconds) { GetMesh()->SetPosition(Seconds,false); }
+void ANurseZombie::SetAttackAnimationTime(float Seconds)
+{
+    if (UsesFacelessStaffTransitions(this))
+        if (auto* Animation = Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))
+        { Animation->SetCombatTime(Seconds); return; }
+    GetMesh()->SetPosition(Seconds,false);
+}
 float ANurseZombie::GetAttackDuration() const { return AttackClip ? AttackClip->GetPlayLength() : 0.f; }
 void ANurseZombie::ProcessAttackContact(float Previous, float Current)
 {
     if (Previous <= ContactEnd && Current >= ContactTime) TryMelee();
 }
-void ANurseZombie::SetWalkAnimationRate(float Rate) { GetMesh()->SetPlayRate(Rate); }
+void ANurseZombie::SetWalkAnimationRate(float Rate)
+{
+    if (UsesFacelessStaffTransitions(this))
+        if (auto* Animation = Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))
+        { Animation->SetLocomotionRate(Rate*(WalkClip?WalkClip->RateScale:1.f)); return; }
+    GetMesh()->SetPlayRate(Rate);
+}
 
 void ANurseZombie::StartHitPresentation(UAnimSequence* Clip, float Duration)
 {
+    if (Clip && UsesFacelessStaffTransitions(this))
+    {
+        if (!Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))
+            GetMesh()->SetAnimInstanceClass(UFatZombieAnimInstance::StaticClass());
+        if (auto* Animation = Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))
+        {
+            // Repeated hits reuse the player but recapture the visible pose;
+            // the reset reaction clock must not revive an older snapshot.
+            const float BlendSeconds = Animation->ActiveClip == Clip ? .04f : .07f;
+            Animation->TransitionTo(Clip,false,true,BlendSeconds);
+            Animation->SetControlledBlendTime(0.f);
+            Animation->SetCombatTime(0.f);
+            PresentedClip = Clip;
+            return;
+        }
+    }
     // Automatic fire re-issues the same reaction every bullet. PlayAnimation
     // rebuilds the single-node player on each call; restarting the sample time
     // produces the identical pose without that per-bullet animation churn.
@@ -153,6 +207,13 @@ void ANurseZombie::SetHitPresentationTime(UAnimSequence* Clip, float Elapsed, fl
     const float Time = Combat->IsImmobileReaction() ? FMath::Min(Elapsed,.15f) : !Combat->bStunned ?
         MonsterReactionTiming::StaggerSample(Elapsed,Remaining,Length,.15f,.15f) :
         (Elapsed < .15f ? Elapsed : (Remaining > .4f ? .15f : Length - FMath::Max(0.f, Remaining)));
+    if (UsesFacelessStaffTransitions(this))
+        if (auto* Animation = Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))
+        {
+            Animation->SetCombatTime(FMath::Clamp(Time,0.f,Length));
+            Animation->SetControlledBlendTime(Elapsed);
+            return;
+        }
     GetMesh()->SetPosition(FMath::Clamp(Time, 0.f, Clip->GetPlayLength()), false);
 }
 

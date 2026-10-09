@@ -25,6 +25,9 @@ UDevelopmentSpawnComponent::UDevelopmentSpawnComponent()
     Add(TEXT("FatZombie"), TEXT("胖子僵尸"), TEXT("/Script/FPSGAME.FatZombie"), 60.f);
     Add(TEXT("Mutant3"), TEXT("突变体-3"), TEXT("/Script/FPSGAME.Mutant3"), 50.f);
     Add(TEXT("NurseZombie"), TEXT("护士僵尸"), TEXT("/Game/Monsters/NurseZombie/BP_NurseZombie.BP_NurseZombie_C"), 44.f);
+    Add(TEXT("FacelessReceptionist"), TEXT("接待员 M-04"), TEXT("/Game/Monsters/FacelessReceptionist/BP_FacelessReceptionist.BP_FacelessReceptionist_C"), 44.f);
+    Add(TEXT("FacelessSecurity"), TEXT("安保员 M-03"), TEXT("/Game/Monsters/FacelessSecurity/BP_FacelessSecurity.BP_FacelessSecurity_C"), 44.f);
+    Add(TEXT("FacelessResearcher"), TEXT("研究员 M-05"), TEXT("/Game/Monsters/FacelessResearcher/BP_FacelessResearcher.BP_FacelessResearcher_C"), 44.f);
     Add(TEXT("SpitterZombie"), TEXT("毒液僵尸"), TEXT("/Game/Monsters/SpitterZombie/BP_SpitterZombie.BP_SpitterZombie_C"), 44.f);
     Add(TEXT("WitchRebuilt"), TEXT("巫婆"), TEXT("/Script/FPSGAME.WitchRebuiltMonster"), 65.f);
     Add(TEXT("BlindSupplicantM07"), TEXT("盲祷者 M-07"), TEXT("/Game/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.BP_BlindSupplicantM07_C"), 100.f);

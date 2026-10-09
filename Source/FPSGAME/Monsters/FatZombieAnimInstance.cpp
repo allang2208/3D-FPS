@@ -65,9 +65,35 @@ struct FMonsterGroundedTransition : FAnimNode_TwoWayBlend
     }
 };
 
+/** Fitted staff clothing must fade with the captured body pose, not from zero. */
+struct FFacelessStaffCurvePoseSnapshot : FAnimNode_PoseSnapshot
+{
+    TMap<FName, float> ClothingCurves;
+
+    void CaptureClothingCurves(const UAnimInstance* Instance)
+    {
+        ClothingCurves.Reset();
+        const APawn* Owner = Instance ? Instance->TryGetPawnOwner() : nullptr;
+        if (!Owner || !(Owner->ActorHasTag(TEXT("FacelessResearcher")) ||
+            Owner->ActorHasTag(TEXT("FacelessReceptionist")))) return;
+        for (const auto& Curve : Instance->GetAnimationCurveList(EAnimCurveType::AttributeCurve))
+        {
+            if (!FMath::IsNearlyZero(Curve.Value) && Curve.Key.ToString().StartsWith(TEXT("FR")))
+                ClothingCurves.Add(Curve.Key, Curve.Value);
+        }
+    }
+
+    virtual void Evaluate_AnyThread(FPoseContext& Output) override
+    {
+        FAnimNode_PoseSnapshot::Evaluate_AnyThread(Output);
+        if (Snapshot.bIsValid)
+            for (const auto& Curve : ClothingCurves) Output.Curve.Set(Curve.Key, Curve.Value);
+    }
+};
+
 struct FFatZombieAnimProxy : FAnimInstanceProxy
 {
-    FAnimNode_PoseSnapshot Previous;
+    FFacelessStaffCurvePoseSnapshot Previous;
     FAnimNode_SequenceEvaluator_Standalone Outgoing;
     FAnimNode_TwoWayBlend Source;
     FAnimNode_SequenceEvaluator_Standalone Current;
@@ -133,6 +159,10 @@ void UFatZombieAnimInstance::TransitionTo(UAnimSequence* Clip, bool bLoop, bool 
     const FMonsterClipTransition& Settings)
 {
     if (!Clip) return;
+    // Several derived players own a different proxy layout. Only the exact
+    // shared player exposes this snapshot node; the faceless staff use it.
+    if (GetClass() == UFatZombieAnimInstance::StaticClass())
+        GetProxyOnGameThread<FFatZombieAnimProxy>().Previous.CaptureClothingCurves(this);
     // A fully established locomotion source can keep stepping during the fade.
     // Interrupted blends/reactions must instead start at the visible snapshot.
     OutgoingLoop = Settings.bContinueOutgoingLoop && ActiveClip && bLooping &&
@@ -170,6 +200,8 @@ void UFatZombieAnimInstance::SetCombatTime(float Seconds)
 
 void UFatZombieAnimInstance::HoldSnapshot(const FPoseSnapshot& Pose)
 {
+    if (GetClass() == UFatZombieAnimInstance::StaticClass())
+        GetProxyOnGameThread<FFatZombieAnimProxy>().Previous.CaptureClothingCurves(this);
     bExternalReactionBlend = false;
     ActiveClip = nullptr; OutgoingLoop = nullptr; PendingHitClip = nullptr;
     PreviousPose = Pose; BlendAlpha = 0.f; BlendDuration = BlendElapsed = 0.f;
