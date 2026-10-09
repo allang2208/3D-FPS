@@ -2773,3 +2773,18 @@ __pycache__/
 /SourceAssets/BenelliM4Super9020261006/Original/**
 /SourceAssets/BenelliM4Super9020261006/Sources/**
 /SourceAssets/Super90AAnimStudy20261007/README.md
+
+# Recoil and casing-port publication: recipes and sparse calibration only.
+# Licensed meshes, dense sampled poses, views, local receipts and backups stay local.
+/Tools/Weapons/CasingPorts20261009/**
+!/Tools/Weapons/CasingPorts20261009/*.py
+!/Tools/Weapons/CasingPorts20261009/*.ps1
+!/Tools/Weapons/CasingPorts20261009/README.md
+!/Tools/Weapons/CasingPorts20261009/calibration.json
+/Tools/Weapons/RifleAxialRecoil20261008/**
+!/Tools/Weapons/RifleAxialRecoil20261008/*.py
+!/Tools/Weapons/RifleAxialRecoil20261008/*.ps1
+!/Tools/Weapons/RifleAxialRecoil20261008/README.md
+!/Tools/Weapons/RifleAxialRecoil20261008/recipe.json
+/Tools/Weapons/RifleAxialRecoil20261009/**
+!/Tools/Weapons/RifleAxialRecoil20261009/finish_backend.ps1

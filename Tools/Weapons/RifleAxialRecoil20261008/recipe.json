@@ -1,0 +1,28 @@
+{
+  "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire.A_AKM_fire",
+  "reference_ads": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire.A_AKM_aim_fire",
+  "source_hz": 240,
+  "curve_hz": 60,
+  "hip_peak_cm": 1.9343424864367404,
+  "ads_peak_cm": 1.5,
+  "weapons": [
+    "ue_qbz191",
+    "ue_a762",
+    "ue_akm",
+    "ue_lmg201",
+    "ue_pkm_lowpoly",
+    "ue_svd"
+  ],
+  "pkm_native_subtraction": {
+    "fire": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_fire.A_PKM_fire",
+    "aim_fire": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_aim_fire.A_PKM_aim_fire",
+    "requires_active_fire": true
+  },
+  "svd": {
+    "ads_peak_cm": 1.2,
+    "tail_fade_start": 0.12,
+    "tail_end": 0.3
+  },
+  "ash12": "Disable duplicate clip compensation at caller; retain original springs and stats",
+  "ballistic_changes": false
+}

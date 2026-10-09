@@ -101,6 +101,7 @@
 #include "Sound/SoundBase.h"
 #include "Sound/SoundConcurrency.h"
 #include "Weapons/FPSVisualRecoil.h"
+#include "Weapons/RifleAxialRecoil.h"
 #include "Weapons/WeaponBipodDeploymentComponent.h"
 #include "Weapons/PistolLocomotionAssets.h"
 #include "Weapons/M4TacticalSprintComponent.h"
@@ -2300,11 +2301,31 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     const auto RecoilProfile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima || bUseM16);
     // A negative multiplier flips the whole compensation, which is how the
     // direction of the added motion is checked in game without a rebuild.
-    const float ClipWave=FPSVisualRecoil::ClipWave(ClipRecoilSeconds)*ClipRecoilScale.GetValueOnGameThread()*BipodRecoil;
-    const FVector ClipPosition=RecoilProfile.ClipPosition*ClipWave;
+    const auto AxialProfile=RifleAxialRecoil::ForWeapon(ActiveInventoryWeaponDefinition);
+    const bool bReferenceAxialRecoil=AxialProfile!=RifleAxialRecoil::EProfile::None;
+    // The compensated pulse and authored fire clip must start at the actual
+    // shot, not at the beginning of the frame in which it happened.
+    const float ClipAge=bReferenceAxialRecoil&&ClipRecoilSeconds>=0.f
+        ?static_cast<float>(FMath::Max(0.0,GetWorld()->GetTimeSeconds()-LastShotWorldTime)):ClipRecoilSeconds;
+    // ASH-12 already carries the full reference motion in its fire sequences.
+    // Remove only the duplicate clip layer; keep its heavier spring profile.
+    const float ClipGain=bUseASH12?0.f:ClipRecoilScale.GetValueOnGameThread()*BipodRecoil;
+    const float ClipWave=FPSVisualRecoil::ClipWave(ClipAge)*ClipGain;
+    FVector ClipPosition=RecoilProfile.ClipPosition*ClipWave;
     const FVector ClipRotation=RecoilProfile.ClipRotation*ClipWave;
-    const FVector ClipADSPosition=RecoilProfile.ClipADSPosition*ClipWave;
+    FVector ClipADSPosition=RecoilProfile.ClipADSPosition*ClipWave;
     const FVector ClipADSRotation=RecoilProfile.ClipADSRotation*ClipWave;
+    if(bReferenceAxialRecoil)
+    {
+        // Preserve the reference's short rearward punch and forward rebound.
+        // QBZ and PKM carry their own pulses; remove those contributions by
+        // time rather than subtracting a peak from a different waveform.
+        const bool bNativeFireActive=ActiveActionAnimation &&
+            (ActiveActionAnimation==FireAnimation || ActiveActionAnimation==AimFireAnimation);
+        const FVector2D Axial=RifleAxialRecoil::Compensation(ClipAge,AxialProfile,bNativeFireActive);
+        ClipPosition.Z=Axial.X*ClipGain;
+        ClipADSPosition.Z=Axial.Y*ClipGain;
+    }
     FVector HipOffset(GunKickPosition.X, GunKickPosition.Y * 0.4f, GunKickPosition.Z * AKMSource::HipAxialScale);
     HipOffset += GunJitterPosition * 0.35f;
     HipOffset.X = 0.018f * FMath::Tanh(HipOffset.X / 0.018f);
@@ -3825,7 +3846,8 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         const bool bQuickCombatAction = WeaponState == EAKMWeaponState::QuickCombat;
         // Pit Viper's fast slide cycle shares the actual shot clock; input may
         // arrive after the interval covered by this frame's DeltaSeconds.
-        if ((bUseDanWesson715 || bPKMWeapon || IsPitViperWeapon() || IsSuper90Weapon()) && bFireAction)
+        if ((bUseDanWesson715 || bPKMWeapon || IsPitViperWeapon() || IsSuper90Weapon()
+            || bUseASH12 || RifleAxialRecoil::ForWeapon(ActiveInventoryWeaponDefinition)!=RifleAxialRecoil::EProfile::None) && bFireAction)
             ActionElapsed = static_cast<float>(FMath::Max(0.0, GetWorld()->GetTimeSeconds() - LastShotWorldTime));
         else if (bQuickCombatAction || IsReloading() || WeaponState == EAKMWeaponState::Inspecting || ((bUsingM4Infima || bUseQBZ191 || IsPistolWeapon()) && WeaponState == EAKMWeaponState::Equipping)) ActionElapsed = WeaponStateElapsed;
         else ActionElapsed += DeltaSeconds;

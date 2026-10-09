@@ -1,0 +1,150 @@
+{
+  "date": "2026-10-09",
+  "scope": "Current recoil and casing-port work only",
+  "status": "archived-and-hash-readback-complete",
+  "archive_root": "trash/weapon-gunplay-retired-20261009",
+  "files": [
+    {
+      "source": "Tools/Weapons/CasingPorts20261009/BeforeSource-092132/FPSWeaponFXComponent.cpp",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/CasingPorts20261009/BeforeSource-092132/FPSWeaponFXComponent.cpp",
+      "bytes": 91699,
+      "sha256": "b6f12a6fc950fa855f3746f1abdd4353a584192f49579ccf4e8f82fc2717f6bb",
+      "reason": "Superseded pre-edit snapshot; may contain parallel work, restore individual hunks only.",
+      "retained": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.* and CasingPortCalibration.h"
+    },
+    {
+      "source": "Tools/Weapons/CasingPorts20261009/BeforeSource-092132/FPSWeaponFXComponent.h",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/CasingPorts20261009/BeforeSource-092132/FPSWeaponFXComponent.h",
+      "bytes": 13093,
+      "sha256": "ad6f1db0e5fe10a30b16aa34f73aae5e53d4d61ad4cb6aa316081bcce87f326a",
+      "reason": "Superseded pre-edit snapshot; may contain parallel work, restore individual hunks only.",
+      "retained": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.* and CasingPortCalibration.h"
+    },
+    {
+      "source": "Tools/Weapons/RifleAxialRecoil20261008/Before/FPSGAMECharacter.cpp",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/RifleAxialRecoil20261008/Before/FPSGAMECharacter.cpp",
+      "bytes": 246206,
+      "sha256": "43da3841f2b73c9a902564762a2a5ff183295c4ef2ab8778ae21d427bbda15d5",
+      "reason": "Superseded pre-edit snapshot; may contain parallel work, restore individual hunks only.",
+      "retained": "Source/FPSGAME/FPSGAMECharacter.cpp and Weapons/RifleAxialRecoil.h"
+    },
+    {
+      "source": "Tools/Weapons/RifleAxialRecoil20261009/Before/FPSGAMECharacter.cpp",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/RifleAxialRecoil20261009/Before/FPSGAMECharacter.cpp",
+      "bytes": 247250,
+      "sha256": "47d8b4cbe0d361215a506c83edc8e66ccd5883b9bd24181907a415ede0b3a841",
+      "reason": "Superseded pre-edit snapshot; may contain parallel work, restore individual hunks only.",
+      "retained": "Current RifleAxialRecoil.h, make_axial_profile.py and recipe.json"
+    },
+    {
+      "source": "Tools/Weapons/RifleAxialRecoil20261009/Before/make_axial_profile.py",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/RifleAxialRecoil20261009/Before/make_axial_profile.py",
+      "bytes": 2611,
+      "sha256": "c6af8f11996cb395a671140c5cbc862fd4c7f67e1a372173a54b240c733066d7",
+      "reason": "Superseded pre-edit snapshot; may contain parallel work, restore individual hunks only.",
+      "retained": "Current RifleAxialRecoil.h, make_axial_profile.py and recipe.json"
+    },
+    {
+      "source": "Tools/Weapons/RifleAxialRecoil20261009/Before/recipe.json",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/RifleAxialRecoil20261009/Before/recipe.json",
+      "bytes": 354,
+      "sha256": "d364e762bc9d40cb26dce78fe44628b1fb00fdea7a22c1b67500a873082f7339",
+      "reason": "Superseded pre-edit snapshot; may contain parallel work, restore individual hunks only.",
+      "retained": "Current RifleAxialRecoil.h, make_axial_profile.py and recipe.json"
+    },
+    {
+      "source": "Tools/Weapons/RifleAxialRecoil20261009/Before/RifleAxialRecoil.h",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/RifleAxialRecoil20261009/Before/RifleAxialRecoil.h",
+      "bytes": 4460,
+      "sha256": "8869c6247e57331b30e02d91a121400ff87319fc4187a6900008fbbbc822042f",
+      "reason": "Superseded pre-edit snapshot; may contain parallel work, restore individual hunks only.",
+      "retained": "Current RifleAxialRecoil.h, make_axial_profile.py and recipe.json"
+    },
+    {
+      "source": "Tools/Weapons/CasingPorts20261009/geometry.log",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/CasingPorts20261009/geometry.log",
+      "bytes": 686,
+      "sha256": "c48668472c0d12852354e561b397508352ccb48e962840ebab1537ec34c20c1c",
+      "reason": "Superseded render attempt: missing world.",
+      "retained": "read_mesh_reference.py, ports_before.json, geometry_report.json and geometry-3.log"
+    },
+    {
+      "source": "Tools/Weapons/CasingPorts20261009/geometry-2.log",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/CasingPorts20261009/geometry-2.log",
+      "bytes": 1042,
+      "sha256": "3b97d7b3e197806b579cb62bd59945916e02a14e96ccfb220e1b71006d4afca7",
+      "reason": "Superseded geometry attempt: Skeleton pose did not match mesh bind pose.",
+      "retained": "read_mesh_reference.py, ports_before.json, geometry_report.json and geometry-3.log"
+    },
+    {
+      "source": "Tools/Weapons/CasingPorts20261009/read-mesh-reference.log",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/CasingPorts20261009/read-mesh-reference.log",
+      "bytes": 2545,
+      "sha256": "21518633411d0c57c0b73e447431395d21a70f12aff65c14b3caed19c3f3aa01",
+      "reason": "Rejected component probe returned zero socket transforms.",
+      "retained": "read_mesh_reference.py, ports_before.json, geometry_report.json and geometry-3.log"
+    },
+    {
+      "source": "Tools/Weapons/CasingPorts20261009/read-mesh-reference-2.log",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/CasingPorts20261009/read-mesh-reference-2.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Empty abandoned read request.",
+      "retained": "read_mesh_reference.py, ports_before.json, geometry_report.json and geometry-3.log"
+    },
+    {
+      "source": "Tools/Weapons/RifleAxialRecoil20261008/backend-final.log",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/RifleAxialRecoil20261008/backend-final.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Empty superseded build wrapper output.",
+      "retained": "Current read_motion.py, motion_before.json, final build logs and native-build-receipt.json"
+    },
+    {
+      "source": "Tools/Weapons/RifleAxialRecoil20261008/read-motion.log",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/RifleAxialRecoil20261008/read-motion.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Empty abandoned read output.",
+      "retained": "Current read_motion.py, motion_before.json, final build logs and native-build-receipt.json"
+    },
+    {
+      "source": "Tools/Weapons/RifleAxialRecoil20261008/read-motion-final.log",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/RifleAxialRecoil20261008/read-motion-final.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Empty abandoned read output.",
+      "retained": "Current read_motion.py, motion_before.json, final build logs and native-build-receipt.json"
+    },
+    {
+      "source": "Tools/Weapons/RifleAxialRecoil20261008/read-motion-retry.log",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/RifleAxialRecoil20261008/read-motion-retry.log",
+      "bytes": 619,
+      "sha256": "7a58c5bfbf2661f266b13df5e58b008cf660a35a1f568b268718a6604857e08d",
+      "reason": "Failed rate_scale property access, superseded by the completed asset read.",
+      "retained": "Current read_motion.py, motion_before.json, final build logs and native-build-receipt.json"
+    },
+    {
+      "source": "Tools/Weapons/RifleAxialRecoil20261008/livecoding-request.json",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/RifleAxialRecoil20261008/livecoding-request.json",
+      "bytes": 115,
+      "sha256": "59a799d79d915bf87ca871e60271307d9f63c21d9e56ce7cf64d939ad78e0223",
+      "reason": "One-off historical Live Coding request, superseded by regular DLL build.",
+      "retained": "Current read_motion.py, motion_before.json, final build logs and native-build-receipt.json"
+    },
+    {
+      "source": "Tools/Weapons/RifleAxialRecoil20261008/livecoding-result.txt",
+      "destination": "trash/weapon-gunplay-retired-20261009/Tools/Weapons/RifleAxialRecoil20261008/livecoding-result.txt",
+      "bytes": 496,
+      "sha256": "a5977a9ca465f4e3114f492d093c61602f42943471b1713ff1b1b11f7e76e2b8",
+      "reason": "One-off transport result, superseded by final native build receipt.",
+      "retained": "Current read_motion.py, motion_before.json, final build logs and native-build-receipt.json"
+    }
+  ],
+  "retained_local": [
+    "Active FBX/NPZ geometry and before/after views",
+    "Dense motion and mesh-reference captures",
+    "Successful native build logs and receipts"
+  ],
+  "publication_boundary": "No meshes, sampled poses, binary assets, logs, backups or trash payloads are published."
+}

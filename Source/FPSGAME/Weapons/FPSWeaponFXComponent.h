@@ -201,8 +201,11 @@ private:
     float LastADSMultiplier = 1.0f;
     float LastWeaponFlashMultiplier = 1.0f;
     float LastSuppression = 1.0f;
-    // Authored rifle frame relative to WPN_root; independent of camera and folding sights.
+    // Physical gun frame and measured receiver/slide port, cached per mesh.
     FQuat CasingFrameInRoot = FQuat::Identity;
+    FName CasingAnchorSocket = TEXT("WPN_SOCKET_Eject");
+    FVector CasingPortInAnchor = FVector::ZeroVector;
+    float CasingOutwardSide = 1.0f;
     bool bReady = false;
     void CreateBigBlindGlow(UMaterialInterface* Material);
     void UpdateBigBlindGlow();

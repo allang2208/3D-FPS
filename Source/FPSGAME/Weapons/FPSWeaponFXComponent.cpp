@@ -7,6 +7,7 @@
 #include "LMG201WeaponAssets.h"
 #include "PKMLowpolyWeaponAssets.h"
 #include "ASH12WeaponAssets.h"
+#include "CasingPortCalibration.h"
 #include "../FPSGAMECharacter.h"
 
 #include "Camera/CameraComponent.h"
@@ -407,9 +408,23 @@ void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCa
     const FTransform Root = Bone(TEXT("WPN_root"));
     const FTransform Rear = Bone(TEXT("WPN_RearSight"));
     const FVector Forward = (Bone(TEXT("WPN_FrontSight")).GetLocation() - Rear.GetLocation()).GetSafeNormal();
-    // Use the same authored rail normal as the rifle's gunsmith attachments.
-    const FVector Up = ((AKMSoviet::Matches(WeaponMesh) || A762WeaponAssets::Matches(WeaponMesh) || LMG201WeaponAssets::Matches(WeaponMesh)) ? Root : Rear).GetRotation().GetAxisZ();
+    // Sight bone rotations are not a universal rail normal: on the pistols and
+    // Super90 they can point along the bore. Build a fixed frame from positions
+    // in the mesh bind pose, never from the camera or animated folding sights.
+    const FVector Up = Rear.GetLocation() - Bone(TEXT("WPN_SOCKET_Muzzle")).GetLocation();
     CasingFrameInRoot = Root.GetRotation().Inverse() * FRotationMatrix::MakeFromXZ(Forward, Up).ToQuat();
+    CasingAnchorSocket = EjectSocket;
+    CasingPortInAnchor = FVector::ZeroVector;
+    CasingOutwardSide = 1.0f;
+    if (const auto* Port = CasingPortCalibration::Find(WeaponMesh->GetSkeletalMeshAsset()->GetPathName()))
+    {
+        CasingAnchorSocket = Port->Anchor;
+        // Native WPN_root is scaled 100x. Convert measured cm to its local units,
+        // then to the receiver/slide anchor so the opening follows its own part.
+        CasingPortInAnchor = Bone(Port->Anchor).InverseTransformPosition(
+            Root.TransformPosition(Port->RootCentimetres * .01f));
+        CasingOutwardSide = Port->OutwardSide;
+    }
     PreviousMuzzlePosition = MuzzleLocation();
     PreviousMuzzleForward = MuzzleForward();
     UE_LOG(LogTemp, Display, TEXT("GUNPLAY_FX_READY muzzle=%s eject=%s max_particles=%d"), *MuzzleSocket.ToString(), *EjectSocket.ToString(), MaxParticles);
@@ -1152,12 +1167,14 @@ void UFPSWeaponFXComponent::SpawnCasing()
     if (FFPSWeaponFXParticle* P = Acquire(WeaponFX::Casing, Geometry, Surface))
     {
         // Sample the physical port once. A free casing never remains attached to the gun/camera.
-        P->Position = WeaponMesh->GetSocketTransform(EjectSocket, RTS_World).GetLocation();
+        const FTransform Port(WeaponMesh->GetSocketQuaternion(TEXT("WPN_root")) * CasingFrameInRoot,
+            WeaponMesh->GetSocketTransform(CasingAnchorSocket).TransformPosition(CasingPortInAnchor));
+        P->Position = Port.GetLocation();
+        const FQuat Frame = Port.GetRotation();
         if (bRifle)
         {
-            const FQuat Frame = WeaponMesh->GetSocketQuaternion(TEXT("WPN_root")) * CasingFrameInRoot;
             P->Velocity = Frame.RotateVector(FVector(FMath::FRandRange(-70.0f, -35.0f),
-                FMath::FRandRange(185.0f, 260.0f), FMath::FRandRange(70.0f, 125.0f)))
+                CasingOutwardSide * FMath::FRandRange(185.0f, 260.0f), FMath::FRandRange(70.0f, 125.0f)))
                 + GetOwner()->GetVelocity();
             P->Acceleration = FVector(0.0f, 0.0f, GetWorld()->GetGravityZ());
             const float LengthCM = bSuper90 ? 7.f : PKMLowpolyWeaponAssets::Matches(WeaponMesh) ? 5.4f : Character->bUseASH12 ? ASH12WeaponAssets::TracerLengthCM
@@ -1175,9 +1192,11 @@ void UFPSWeaponFXComponent::SpawnCasing()
         }
         else
         {
-            P->Velocity = Camera->GetRightVector() * FMath::FRandRange(140.0f, 215.0f)
-                + Camera->GetUpVector() * FMath::FRandRange(75.0f, 125.0f) - MuzzleForward() * 30.0f;
+            P->Velocity = Frame.RotateVector(FVector(-30.0f,
+                CasingOutwardSide * FMath::FRandRange(140.0f, 215.0f), FMath::FRandRange(75.0f, 125.0f)))
+                + GetOwner()->GetVelocity();
             P->Acceleration = FVector(0.0f, 0.0f, -650.0f);
+            P->Rotation = (Frame * FQuat::FindBetweenNormals(FVector::UpVector, FVector::ForwardVector)).Rotator();
             P->Size = FVector(0.80f, 0.80f, 2.6f);
             P->Spin = FRotator(400.0f, 650.0f, 100.0f);
         }
