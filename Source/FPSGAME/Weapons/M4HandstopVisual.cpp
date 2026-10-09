@@ -18,6 +18,7 @@
 #include "Animation/AnimSequence.h"
 #include "VerticalGripAnimationFamily.h"
 #include "RSH12ForegripAssets.h"
+#include "Super90ForegripAssets.h"
 
 void AFPSGAMECharacter::InitializePrismGripAnimations()
 {
@@ -55,6 +56,15 @@ void AFPSGAMECharacter::InitializePrismGripAnimations()
 
 void AFPSGAMECharacter::SetGunsmithHandstop(const FString& Variant)
 {
+    if(IsSuper90Weapon())
+    {
+        AngledForegrip=Super90ForegripAssets::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bInventoryWeaponReady&&Variant==TEXT("angled_foregrip"));
+        CantedForegrip=Super90ForegripAssets::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bInventoryWeaponReady&&Variant==TEXT("canted_foregrip"));
+        const bool Tactical=Variant==TEXT("tactical_vertical_foregrip");
+        VerticalForegrip=Super90ForegripAssets::Configure(this,AKMViewmodel,VerticalForegrip,Tactical?TEXT("tactical_vertical"):TEXT("vertical"),bInventoryWeaponReady&&(Tactical||Variant==TEXT("vertical_foregrip")));
+        PrismHandstop=Super90ForegripAssets::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),bInventoryWeaponReady&&Variant==TEXT("prism_handstop"));
+        return;
+    }
     if(IsRSH12Weapon())
     {
         AngledForegrip=RSH12ForegripAssets::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bInventoryWeaponReady&&Variant==TEXT("angled_foregrip"));

@@ -129,3 +129,5 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 ## 改造效果与结算范围
 
 统一攻击速度、全部攻击伤害/击退、唐刀触发护手、脚架及法杖吊坠时，读取 [改造效果合同](references/attachment-effect-contracts.md)。目录解析、汇总、快照、权威命中、面板及制作入口须表达同一适用范围。
+
+- Super90 的 UV／原生轴、挂载弹与独立弹药、冲刺通道和暂停装填的恢复边界：[Super90 原生导入经验](references/super90-native-integration.md)。

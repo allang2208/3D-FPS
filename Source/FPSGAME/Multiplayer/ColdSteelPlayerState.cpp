@@ -1,5 +1,6 @@
 #include "ColdSteelPlayerState.h"
 #include "../FPSGAMECharacter.h"
+#include "../Weapons/Super90WeaponAssets.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../Survival/FPSSurvivalComponent.h"
@@ -573,7 +574,9 @@ bool AColdSteelPlayerState::ValidateHitReport(const FColdSteelNetHitReport& Repo
     const double Interval = bUnarmed?double(StaffQuickCombatMotion::Length):FMath::Max(0.05, Shooter->EffectiveFireInterval());
     FireTokenBucket = FMath::Min(6.f, FireTokenBucket + static_cast<float>((Now - LastFireTokenRefillAt) / Interval));
     LastFireTokenRefillAt = Now;
-    if (FireTokenBucket < 1.f) { OutReason = TEXT("rate"); return false; }
+    const float HitTokenCost=OutDeclaredItem&&OutDeclaredItem->Definition==Super90WeaponAssets::Definition
+        && Report.AttackMeta==0?1.f/Super90WeaponAssets::PelletCount:1.f;
+    if (FireTokenBucket < HitTokenCost) { OutReason = TEXT("rate"); return false; }
 
     // 几何合理性（抗明显伪造）。投射物（箭/法杖弹/裂斩波/弹道弹）的 TraceStart 是
     // 弹体飞行末段位置、远离射手属正常——只对直线类命中保留 600cm 原点漂移检查；
@@ -648,7 +651,7 @@ bool AColdSteelPlayerState::ValidateHitReport(const FColdSteelNetHitReport& Repo
         }
     }
 
-    FireTokenBucket -= 1.f;
+    FireTokenBucket -= HitTokenCost;
     return true;
 }
 
@@ -704,7 +707,8 @@ float AColdSteelPlayerState::ComputeServerDamage(AFPSGAMECharacter* Shooter,
 
     // 枪械 hitscan 与弹道投射物：面板 × 汇聚(已按弹匣容量钳) × 服务端距离衰减。
     const float Distance = FVector::Dist(FVector(Report.AimOrigin), FVector(Report.ImpactPoint));
-    return Panel * ConvergenceScale
+    const float PelletScale=Item&&Item->Definition==Super90WeaponAssets::Definition?1.f/Super90WeaponAssets::PelletCount:1.f;
+    return Panel * ConvergenceScale * PelletScale
         * WeaponDamageFalloff::Multiplier(Distance, Shooter->EffectiveWeaponRangeCM);
 }
 

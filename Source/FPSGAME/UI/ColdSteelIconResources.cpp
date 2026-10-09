@@ -4,6 +4,8 @@
 #include "../Weapons/LegendaryTacticalStock.h"
 #include "../Weapons/CommonHK416Parts.h"
 #include "ColdSteelWeaponIcons.h"
+#include "../Weapons/Super90WeaponAssets.h"
+#include "../Weapons/Super90SpeedloaderAssets.h"
 #include "ColdSteelEquipmentIconSource.h"
 #include "ColdSteelMeleePreview.h"
 #include "ColdSteelStaffPreview.h"
@@ -30,6 +32,8 @@
 #include "../Weapons/DanWesson715WeaponAssets.h"
 #include "../Weapons/RSH12WeaponAssets.h"
 #include "../Weapons/RSH12OpticAssets.h"
+#include "../Weapons/Super90OpticAssets.h"
+#include "../Weapons/Super90ForegripAssets.h"
 #include "../Weapons/RSH12MuzzleAssets.h"
 #include "../Weapons/RSH12TacticalAssets.h"
 #include "../Weapons/TacticalDeviceVariants.h"
@@ -127,7 +131,8 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
     }
     else
     {
-        if(D==TEXT("ue_svd")){Add(SVDWeaponAssets::MeshPath,true);Add(SVDWeaponAssets::AnimationPath(TEXT("idle")),true);}
+        if(D==TEXT("ue_super90")){Add(Super90WeaponAssets::MeshPath,true);Add(Super90WeaponAssets::AnimationPath(TEXT("idle")),true);}
+        else if(D==TEXT("ue_svd")){Add(SVDWeaponAssets::MeshPath,true);Add(SVDWeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_lmg201"))
         {
             Add(LMG201WeaponAssets::MeshPath,true);Add(LMG201WeaponAssets::AnimationPath(TEXT("idle")),true);
@@ -177,6 +182,11 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             }
             if(Part.Key==TEXT("tactical"))Key=TacticalDeviceVariants::MeshVariant(Key);
             if(Key.IsEmpty()||Key==TEXT("false")||Key==TEXT("factory"))continue;
+            if(D==Super90WeaponAssets::Definition&&Part.Key==TEXT("reload_device")&&Key==Super90SpeedloaderAssets::Id)
+            {
+                Add(Super90SpeedloaderAssets::Guide,true);
+                continue;
+            }
             if(D==PitViper2011WeaponAssets::Definition && Part.Key==TEXT("muzzle") && Key==PitViper2011SICompensator::Part)
             {
                 Add(PitViper2011SICompensator::MeshPath,true);
@@ -195,6 +205,18 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             if (D == RSH12WeaponAssets::Definition && Part.Key == TEXT("muzzle") && RSH12MuzzleAssets::Supports(Key))
             {
                 Add(RSH12MuzzleAssets::FittedMeshPath(Key), true);
+                continue;
+            }
+            if (D == TEXT("ue_super90") && Part.Key == TEXT("optic") && Super90OpticAssets::Supports(Key))
+            {
+                Add(Super90OpticAssets::MeshPath(Key),true);
+                if(Key==TEXT("lpvo_1_6x"))Add(Super90OpticAssets::MeshPath(TEXT("lpvo_ring")),true);
+                continue;
+            }
+            if(D==TEXT("ue_super90")&&Part.Key==TEXT("underbarrel"))
+            {
+                const FString GripFamily=Super90ForegripAssets::Family(Key);
+                if(!GripFamily.IsEmpty())Add(Super90ForegripAssets::MeshPath(GripFamily),true);
                 continue;
             }
             if (D == RSH12WeaponAssets::Definition && Part.Key == TEXT("optic") && RSH12OpticAssets::Supports(Key))

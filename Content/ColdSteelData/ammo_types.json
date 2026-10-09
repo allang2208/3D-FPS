@@ -332,6 +332,21 @@
       "poison_stacks": 0,
       "bleed_stacks": 1,
       "projectile_mesh": "/Game/Weapons/DarkBow20260925/ArrowVariants20260927/SM_Arrow_Serrated.SM_Arrow_Serrated"
+    },
+    {
+      "id": "ammo_12g",
+      "group": "ammo_12g",
+      "group_name": "12 gauge",
+      "name": "00 Buck",
+      "tier_name": "绿阶",
+      "tier_color": "#4CAA70",
+      "description": "八弹丸鹿弹，适用于管式弹仓霰弹枪。",
+      "icon": "Icons/Super90Source20261006/ammo_12g.png",
+      "order": 100,
+      "enabled": true,
+      "allow_infinite_reserve": true,
+      "damage_multiplier": 1.0,
+      "physical_armor_penetration": 0.0
     }
   ]
 }

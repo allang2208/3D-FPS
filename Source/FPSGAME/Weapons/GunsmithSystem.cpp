@@ -10,6 +10,8 @@
 #include "DanWesson715WeaponAssets.h"
 #include "RSH12WeaponAssets.h"
 #include "RSH12OpticAssets.h"
+#include "Super90WeaponAssets.h"
+#include "Super90SpeedloaderAssets.h"
 #include "Animation/AnimSequence.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelItemReadCache.h"
@@ -290,6 +292,13 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
         &&Part(Normalize(D,P),DanWesson715WeaponAssets::ReloadDeviceSlot)==
             (D==RSH12WeaponAssets::Definition?RSH12WeaponAssets::Speedloader:DanWesson715WeaponAssets::Speedloader))
     {R.Reload=DanWesson715WeaponAssets::EmptyReload;R.EmptyReload=DanWesson715WeaponAssets::EmptyReload;}
+    if(D==Super90WeaponAssets::Definition&&Part(Normalize(D,P),TEXT("reload_device"))==Super90SpeedloaderAssets::Id)
+    {
+        // Catalog seconds describe the complete loader operation in this mode.
+        // Keep the existing base speed increase and all later skill multipliers.
+        R.Reload*=Super90SpeedloaderAssets::NormalReference/Super90WeaponAssets::SingleReload;
+        R.EmptyReload*=Super90SpeedloaderAssets::EmptyReference/Super90WeaponAssets::FullReload;
+    }
     for(const auto& Pair:Normalize(D,P))
     {
         auto A=*Option(D,Pair.Key,Pair.Value);

@@ -5,6 +5,7 @@
 #include "FPSBodyWeaponMeshComponent.h"
 #include "../Weapons/FPSGunplayAnimInstance.h"
 #include "../Weapons/WeaponGripProfile.h"
+#include "../Weapons/Super90WeaponAssets.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/RuneSwordComponent.h"
@@ -135,10 +136,14 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
         Result.PoseFamily=TEXT("Gun");
         Result.HoldClip=Gun->bGripIdle&&Gun->GripIdleFamily?Gun->GripIdleFamily.Get():(Gun->IdleClip?Gun->IdleClip.Get():Idle);
     }
+    const bool bSuper90=Asset->GetPathName()==Super90WeaponAssets::MeshPath;
     for(int32 I=0;I<Asset->GetMaterials().Num();++I)
     {
         Result.Materials.Add(FPSBodyEquipment::PersistentMaterial(Source->GetMaterial(I)));
-        if(FPSBodyEquipment::IsArmMaterial(Asset->GetMaterials()[I].MaterialSlotName.ToString()))Result.HiddenMaterials.Add(I);
+        const FName Slot=Asset->GetMaterials()[I].MaterialSlotName;
+        // A parked first-person reload cartridge is not part of the carried gun.
+        if(FPSBodyEquipment::IsArmMaterial(Slot.ToString())
+            ||(bSuper90&&Slot==Super90WeaponAssets::LooseShellMaterial))Result.HiddenMaterials.Add(I);
     }
     TArray<USceneComponent*> Children;Source->GetChildrenComponents(true,Children);
     for(auto* Child:Children)if(auto* Part=Cast<UStaticMeshComponent>(Child);Part&&Part->GetStaticMesh()&&Result.Parts.Num()<64)

@@ -276,6 +276,34 @@ void Equip(float Time, float End, FPose& Follow, FPose& Impacts)
     Impact(Impacts, Time, 18.f / 60.f, .22f, {1.20f, -.30f, -.85f}, {-.48f, 0.f, .12f});
     Impact(Impacts, Time, 22.f / 60.f, .26f, {-2.25f, .32f, 1.20f}, {.38f, 0.f, -.38f});
 }
+
+void Super90Loader(float Time, float End, TConstArrayView<float> Contacts,
+    bool bEmpty, bool bCycle, FPose& Follow, FPose& Impacts)
+{
+    if (Contacts.Num() < 3) return;
+    const float Dock = Contacts[0], LastShell = Contacts[1], Bolt = Contacts[2];
+    // The whole supported gun already carries the authored pressure movement.
+    // The head follows lightly; contacts add one short response, not a shake
+    // for every cartridge or an impulse selected by the sound queue index.
+    if (!bCycle)
+    {
+        const float Return = LastShell + (bEmpty ? 49.f : 2.f) / 60.f;
+        const float Lift = FMath::SmoothStep(5.f / 60.f, 30.f / 60.f, Time)
+            * (1.f - FMath::SmoothStep(Return, End, Time));
+        const float Pressure = FMath::SmoothStep(Dock, 114.f / 60.f, Time)
+            * (1.f - FMath::SmoothStep(LastShell, LastShell + 7.f / 60.f, Time));
+        Follow.Angles = FVector(-.025f, -.015f, .085f) * Lift
+            + FVector(.025f, 0.f, -.02f) * Pressure;
+        Follow.Position = FVector(-.018f, -.012f, -.008f) * Lift;
+        Impact(Impacts, Time, Dock, .14f,
+            {-.025f, .006f, -.035f}, {-.009f, .003f, .006f});
+        Impact(Impacts, Time, LastShell, .16f,
+            {.045f, -.008f, .025f}, {-.012f, 0.f, .009f});
+    }
+    if (bEmpty)
+        Impact(Impacts, Time, Bolt, FMath::Min(.18f, End - Bolt),
+            {-.07f, .008f, .035f}, {.014f, .003f, -.008f});
+}
 }
 
 UWeaponActionCameraComponent::UWeaponActionCameraComponent()
@@ -320,7 +348,12 @@ void UWeaponActionCameraComponent::Apply(UCameraComponent& Camera, EM4CameraActi
     if (Action != EM4CameraAction::None && Weight > 0.f && SourceDuration > 0.f)
     {
         const float Time = FMath::Clamp(SourceSeconds, 0.f, SourceDuration);
-        if (Action == EM4CameraAction::RSH12Reload || Action == EM4CameraAction::RSH12ReloadEmpty)
+        if (Action == EM4CameraAction::Super90Loader || Action == EM4CameraAction::Super90LoaderEmpty
+            || Action == EM4CameraAction::Super90LoaderCycle)
+            WeaponActionCamera::Super90Loader(Time, SourceDuration, ContactSeconds,
+                Action != EM4CameraAction::Super90Loader, Action == EM4CameraAction::Super90LoaderCycle,
+                Follow, Impacts);
+        else if (Action == EM4CameraAction::RSH12Reload || Action == EM4CameraAction::RSH12ReloadEmpty)
             WeaponActionCamera::ReloadRSH12(Time, SourceDuration, ContactSeconds,
                 Action == EM4CameraAction::RSH12ReloadEmpty, Follow, Impacts);
         else if (Action == EM4CameraAction::PKMEquip)

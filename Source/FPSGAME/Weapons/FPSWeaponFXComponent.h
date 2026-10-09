@@ -165,6 +165,8 @@ private:
     UPROPERTY(Transient) TObjectPtr<UPointLightComponent> FlashLight;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UStaticMesh> CardMesh;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UStaticMesh> CylinderMesh;
+    UPROPERTY(Transient) TObjectPtr<UStaticMesh> Super90CasingMesh;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> Super90CasingMaterial;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UStaticMesh> RifleCasingMesh;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> RifleCasingMaterial;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> FlashMaterial;

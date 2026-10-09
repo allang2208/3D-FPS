@@ -4194,5 +4194,92 @@
     "hit_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Hit.Sword_Hit",
     "icon_fallback": "玄螭镇岳",
     "modular_sword_catalog": "xuanchi-zhenyue-modules.json"
+  },
+  "ue_super90": {
+    "id": "ue_super90",
+    "name": "M4 Super90",
+    "category": "weapon",
+    "type": "武器",
+    "equipSlot": "weapon",
+    "weaponType": "shotgun",
+    "weaponTypeTag": "霰弹枪",
+    "isTwoHanded": true,
+    "rarity": "common",
+    "stack_max": 1,
+    "grid_w": 4,
+    "grid_h": 2,
+    "icon": "Icons/ue_super90.png",
+    "ue_icon": "Icons/ue_super90.png",
+    "stats": [
+      {
+        "name": "基础伤害",
+        "value": "80"
+      },
+      {
+        "name": "弹仓容量",
+        "value": "7"
+      }
+    ],
+    "desc": "使用 12 号鹿弹的半自动霰弹枪。每次扣扳机发射一发弹药，散布的八颗弹丸分别结算命中，近距离集中火力更强。管式弹仓逐发补弹，空仓装填后释放枪机；装弹时开火可提前结束补弹。"
+  },
+  "ue_hardknuckle_gloves": {
+    "id": "ue_hardknuckle_gloves",
+    "name": "硬壳战术手套",
+    "category": "equipment",
+    "type": "护甲",
+    "equipSlot": "gloves",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 35,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 5,
+      "perEnhance": 1
+    },
+    "desc": "硬质护指关节与织物掌背，沿用源模型的独立手套网格和 PBR 表面。",
+    "ue_icon": "Icons/Super90Source20261006/ue_hardknuckle_gloves.png",
+    "icon_fallback": "手",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Pickups/SM_ue_hardknuckle_gloves.SM_ue_hardknuckle_gloves",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Pickups/SM_ue_hardknuckle_gloves.SM_ue_hardknuckle_gloves",
+    "world_material": ""
+  },
+  "ue_st6_sleeves": {
+    "id": "ue_st6_sleeves",
+    "name": "ST6 战术衣袖",
+    "category": "equipment",
+    "type": "护甲",
+    "equipSlot": "armor",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 35,
+    "grid_w": 3,
+    "grid_h": 2,
+    "defense": {
+      "base": 6,
+      "perEnhance": 1
+    },
+    "desc": "独立的 ST6 战术衣袖，保留源模型的袖口、布料纹理与褶皱。此装备为双臂衣袖。",
+    "ue_icon": "Icons/Super90Source20261006/ue_st6_sleeves.png",
+    "icon_fallback": "衣",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Pickups/SM_ue_st6_sleeves.SM_ue_st6_sleeves",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Pickups/SM_ue_st6_sleeves.SM_ue_st6_sleeves",
+    "world_material": ""
+  },
+  "ammo_12g": {
+    "id": "ammo_12g",
+    "name": "12 号鹿弹",
+    "category": "ammo",
+    "type": "弹药",
+    "stack_max": 60,
+    "maxStack": 60,
+    "grid_w": 1,
+    "grid_h": 1,
+    "rarity": "common",
+    "icon": "Icons/Super90Source20261006/ammo_12g.png",
+    "ue_icon": "Icons/Super90Source20261006/ammo_12g.png",
+    "desc": "12 号霰弹枪弹药，每发内含八颗鹿弹弹丸。"
   }
 }

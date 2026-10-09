@@ -355,6 +355,12 @@ void UFPSWeaponFXComponent::UpdateBigBlindGlow()
 }
 void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCameraComponent* InCamera)
 {
+    if(const auto* ShotgunOwner=Cast<AFPSGAMECharacter>(GetOwner());ShotgunOwner&&ShotgunOwner->IsSuper90Weapon()&&!Super90CasingMesh)
+    {
+        Super90CasingMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/Super90/Cransh20261006/Parts/SM_Super90_Casing"));
+        Super90CasingMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Weapons/Super90/Cransh20261006/Materials/M_S90_12gauge"));
+    }
+
     if (WeaponMesh) RemoveTickPrerequisiteComponent(WeaponMesh);
     StopEmission();
     for (FFPSWeaponFXParticle& P : Particles) Release(P);
@@ -1138,9 +1144,11 @@ void UFPSWeaponFXComponent::SpawnCasing()
     if (ShouldHideCasings()) return;
     const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
     const bool bRifle = !bIndependentPistol && Character && !Character->IsPistolWeapon();
-    const bool bUseRifleMesh = bRifle && RifleCasingMesh && RifleCasingMaterial;
-    UStaticMesh* Geometry = bUseRifleMesh ? RifleCasingMesh.Get() : CylinderMesh.Get();
-    UMaterialInterface* Surface = bUseRifleMesh ? RifleCasingMaterial.Get() : BrassMaterial.Get();
+    const bool bSuper90=bRifle&&Character->IsSuper90Weapon();
+    const bool bUseSuper90Mesh=bSuper90&&Super90CasingMesh&&Super90CasingMaterial;
+    const bool bUseRifleMesh=bRifle&&RifleCasingMesh&&RifleCasingMaterial;
+    UStaticMesh* Geometry=bUseSuper90Mesh?Super90CasingMesh.Get():bUseRifleMesh?RifleCasingMesh.Get():CylinderMesh.Get();
+    UMaterialInterface* Surface=bUseSuper90Mesh?Super90CasingMaterial.Get():bUseRifleMesh?RifleCasingMaterial.Get():BrassMaterial.Get();
     if (FFPSWeaponFXParticle* P = Acquire(WeaponFX::Casing, Geometry, Surface))
     {
         // Sample the physical port once. A free casing never remains attached to the gun/camera.
@@ -1152,7 +1160,7 @@ void UFPSWeaponFXComponent::SpawnCasing()
                 FMath::FRandRange(185.0f, 260.0f), FMath::FRandRange(70.0f, 125.0f)))
                 + GetOwner()->GetVelocity();
             P->Acceleration = FVector(0.0f, 0.0f, GetWorld()->GetGravityZ());
-            const float LengthCM = PKMLowpolyWeaponAssets::Matches(WeaponMesh) ? 5.4f : Character->bUseASH12 ? ASH12WeaponAssets::TracerLengthCM
+            const float LengthCM = bSuper90 ? 7.f : PKMLowpolyWeaponAssets::Matches(WeaponMesh) ? 5.4f : Character->bUseASH12 ? ASH12WeaponAssets::TracerLengthCM
                 : Character->bUseQBZ191 ? 4.2f : (AKMSoviet::Matches(WeaponMesh) || A762WeaponAssets::Matches(WeaponMesh)) ? 3.9f : 4.5f;
             const FVector Extent = Geometry->GetBounds().BoxExtent;
             const int32 LongAxis = Extent.X > Extent.Y ? (Extent.X > Extent.Z ? 0 : 2) : (Extent.Y > Extent.Z ? 1 : 2);
@@ -1160,7 +1168,7 @@ void UFPSWeaponFXComponent::SpawnCasing()
             MeshAxis[LongAxis] = 1.0f;
             P->Rotation = (Frame * FQuat::FindBetweenNormals(MeshAxis, FVector::ForwardVector)).Rotator();
             // The owned shell is not a 100 cm engine primitive. Preserve its proportions.
-            P->Size = bUseRifleMesh ? FVector(100.0f * LengthCM / FMath::Max(0.01f, float(Extent[LongAxis] * 2.0)))
+            P->Size = (bUseSuper90Mesh||bUseRifleMesh) ? FVector(100.0f * LengthCM / FMath::Max(0.01f, float(Extent[LongAxis] * 2.0)))
                 : FVector(0.95f, 0.95f, LengthCM);
             P->Spin = FRotator(FMath::FRandRange(650.0f, 1150.0f),
                 FMath::FRandRange(-950.0f, 950.0f), FMath::FRandRange(350.0f, 850.0f));

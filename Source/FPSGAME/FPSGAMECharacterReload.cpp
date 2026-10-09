@@ -81,6 +81,7 @@ void AFPSGAMECharacter::InitializeReloadStages(bool CycleOnly)
 
 bool AFPSGAMECharacter::AdvanceReloadStages()
 {
+    if(IsSuper90Weapon())return AdvanceSuper90Reload();
     auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Profile || !ActiveActionAnimation){InterruptReload();return false;}
     const float Source=ReloadSourceTime(WeaponStateElapsed);

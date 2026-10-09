@@ -74,6 +74,7 @@ public:
     bool SampleRSH12Presentation(UAnimSequence* Clip);
     bool IsG18Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_g18"); }
     bool IsPitViperWeapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_pit_viper2011"); }
+    bool IsSuper90Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_super90"); }
     bool IsHK416Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_hk416"); }
     bool UsesSingleShotTrigger() const { return !IsG18Weapon() && (IsPistolWeapon() || bSingleShotTrigger); }
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UPistolDualWieldComponent> DualPistols;
@@ -572,11 +573,38 @@ private:
     void SetM1911Optic(const FString& Variant);
     void SetDanWesson715Optic(const FString& Variant);
     void SetRSH12Optic(const FString& Variant);
+    void SetSuper90Optic(const FString& Variant);
     void SetM1911Muzzle(const FString& Variant);
     void RunEquipFramingAcceptance(float DeltaSeconds);
     void FinishWeaponAction();
     void FinishReload();
     bool NeedsReloadCycle() const;
+    void BeginSuper90Reload();
+    bool AdvanceSuper90Reload();
+    void FinishSuper90Reload();
+    float Super90ReloadSourceTime(float RuntimeTime) const;
+    void InitializeSuper90Speedloader();
+    void SetSuper90Speedloader(bool bEnabled);
+    void UpdateSuper90SpeedloaderVisual();
+    void ClearSuper90SpeedloaderAction();
+    void SetSuper90LoaderCues();
+    bool bSuper90LoaderInstalled = false;
+    bool bSuper90SpeedReload = false;
+    UPROPERTY(Transient) TArray<TObjectPtr<UAnimSequence>> Super90LoaderNormal;
+    UPROPERTY(Transient) TArray<TObjectPtr<UAnimSequence>> Super90LoaderEmpty;
+    UPROPERTY(Transient) TObjectPtr<USkeletalMesh> Super90LoaderPropMesh;
+    UPROPERTY(Transient) TObjectPtr<USkeletalMeshComponent> Super90LoaderProps;
+    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> Super90LoaderGuide;
+    int32 Super90ReloadCount = 0;
+    int32 Super90ReloadCommitted = 0;
+    float Super90ReloadRate = 1.f;
+    float Super90ReloadTail = 0.f;
+    float Super90SingleInsert = 44.f/60.f;
+    float Super90SingleLength = 99.f/60.f;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> Super90ReloadAlternateAnimation;
+    bool bSuper90CancelReload = false;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> Super90WalkAnimation;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> Super90RunAnimation;
     void InitializeReloadStages(bool CycleOnly);
     bool AdvanceReloadStages();
     void InterruptReload();

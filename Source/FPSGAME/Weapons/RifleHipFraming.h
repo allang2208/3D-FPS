@@ -20,6 +20,7 @@ private:
     bool bReferenceReady = false;
     bool bReady = false;
     bool bAKMSights = false;
+    FVector GunUpAxis = FVector::UpVector;
     TWeakObjectPtr<UAnimSequence> SampledIdle;
     TWeakObjectPtr<UWeaponGripProfile> SampledProfile;
     FVector MeshScale = FVector::OneVector;

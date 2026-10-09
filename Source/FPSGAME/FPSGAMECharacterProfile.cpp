@@ -19,6 +19,7 @@
 #include "Weapons/GunsmithSystem.h"
 #include "Weapons/LMG201WeaponAssets.h"
 #include "Weapons/RSH12WeaponAssets.h"
+#include "Weapons/Super90SpeedloaderAssets.h"
 #include "Weapons/WeaponStatEvaluation.h"
 #include "Weapons/ColdSteelEnchantmentCombat.h"
 #include "Movement/FPSTraversalComponent.h"
@@ -48,6 +49,7 @@ void AFPSGAMECharacter::ApplyWeaponAttachmentPresentation(const TMap<FString,FSt
     if(Changed(TEXT("stock")))SetGunsmithStock(Parts.FindRef(TEXT("stock")));
     if(Changed(TEXT("reargrip"))||Changed(TEXT("grip_body")))SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")),nullptr,Parts.FindRef(TEXT("grip_body")));
     if(Changed(TEXT("tactical")))SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));
+    if(Changed(TEXT("reload_device")))SetSuper90Speedloader(IsSuper90Weapon()&&Parts.FindRef(TEXT("reload_device"))==Super90SpeedloaderAssets::Id);
     AppliedWeaponVisualParts=Parts;
     bWeaponVisualPartsApplied=true;
 }
@@ -67,7 +69,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     const FString ToolId=Tool?Tool->InstanceId:FString();
     const bool WasWeaponReady=bInventoryWeaponReady;
     const bool WasDual=HasOffhandPistol();
-    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&((I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"))||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_a762")||I->Definition==TEXT("ue_lmg201")||I->Definition==TEXT("ue_svd")||I->Definition==TEXT("ue_pkm_lowpoly")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18")||I->Definition==TEXT("ue_pit_viper2011"))||(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12"))));
+    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&((I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"))||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_a762")||I->Definition==TEXT("ue_lmg201")||I->Definition==TEXT("ue_super90")||I->Definition==TEXT("ue_svd")||I->Definition==TEXT("ue_pkm_lowpoly")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18")||I->Definition==TEXT("ue_pit_viper2011"))||(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12"))));
     const bool ChangedDual=DualPistols && !DualPistols->MatchesEquipment(Profile,bInventoryWeaponReady);
     const bool ChangedWeapon=ActiveInventoryWeapon!=Id||ActiveInventoryWeaponDefinition!=Definition
         ||WasWeaponReady!=bInventoryWeaponReady||ChangedDual||ActiveProductionToolInstance!=ToolId;
@@ -144,6 +146,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         const auto& VisualParts=I&&Gunsmith->IsOpen()&&Gunsmith->Instance()==I->InstanceId?Gunsmith->Draft():Parts;
         ApplyWeaponAttachmentPresentation(VisualParts);
         bDrumInstalled=Parts.FindRef(TEXT("magazine"))==TEXT("large_drum");
+        bSuper90LoaderInstalled=IsSuper90Weapon()&&Parts.FindRef(TEXT("reload_device"))==Super90SpeedloaderAssets::Id;
         bRevolverSpeedloaderInstalled=bUseDanWesson715&&Parts.FindRef(TEXT("reload_device"))==
             (IsRSH12Weapon()?RSH12WeaponAssets::Speedloader:DanWesson715WeaponAssets::Speedloader);
         ADSInDuration=Defaults->ADSInDuration;

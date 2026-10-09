@@ -2754,3 +2754,22 @@ __pycache__/
 !/SourceAssets/BoundCongregateMeshy20261006/TentacleWhipV4/Reference/LICENSE
 !/SourceAssets/BoundCongregateMeshy20261006/TentacleWhipV4/Reference/SOURCE.md
 /Tools/BoundCongregate/*.log
+
+# Super90 publication: recipes and prose only; licensed assets / dense captures stay local.
+/SourceAssets/BenelliM4Super9020261006/**
+!/SourceAssets/BenelliM4Super9020261006/**/
+!/SourceAssets/BenelliM4Super9020261006/**/*.py
+!/SourceAssets/BenelliM4Super9020261006/**/*.ps1
+!/SourceAssets/BenelliM4Super9020261006/**/*.md
+/SourceAssets/Super90*/**
+!/SourceAssets/Super90*/**/
+!/SourceAssets/Super90*/**/*.py
+!/SourceAssets/Super90*/**/*.ps1
+!/SourceAssets/Super90*/**/*.md
+/SourceAssets/Super90*/**/Before/**
+/SourceAssets/Super90*/**/pydeps/**
+/SourceAssets/Super90*/**/Original/**
+/SourceAssets/Super90*/**/Sources/**
+/SourceAssets/BenelliM4Super9020261006/Original/**
+/SourceAssets/BenelliM4Super9020261006/Sources/**
+/SourceAssets/Super90AAnimStudy20261007/README.md

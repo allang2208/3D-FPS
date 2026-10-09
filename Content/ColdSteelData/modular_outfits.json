@@ -160,7 +160,8 @@
         "Traversal": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/Traversal/SK_Traversal_FieldSweater.SK_Traversal_FieldSweater",
         "Bow": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/Bow/SK_Bow_FieldSweater.SK_Bow_FieldSweater",
         "LMG201": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/LMG201/SK_LMG201_FieldSweater.SK_LMG201_FieldSweater",
-        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater",
+        "Super90": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_field_sweater.SK_Super90_ue_field_sweater"
       },
       "appearance_family": "FieldSweaterKnit20260929",
       "world_covers": [
@@ -222,7 +223,8 @@
         "Traversal": "/Game/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/TraversalV2/SK_Traversal_Charcoal.SK_Traversal_Charcoal",
         "Bow": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/Bow/SK_Bow_Charcoal.SK_Bow_Charcoal",
         "LMG201": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/LMG201/SK_LMG201_Charcoal.SK_LMG201_Charcoal",
-        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater_charcoal.SK_Jason_ue_field_sweater_charcoal"
+        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater_charcoal.SK_Jason_ue_field_sweater_charcoal",
+        "Super90": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_field_sweater_charcoal.SK_Super90_ue_field_sweater_charcoal"
       },
       "appearance_family": "CharcoalCottonTShirt20260929",
       "covers": [],
@@ -271,7 +273,8 @@
         "Traversal": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Traversal/SK_Traversal_Fingerless_Detail.SK_Traversal_Fingerless_Detail",
         "Bow": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Bow/SK_Bow_Fingerless_Detail.SK_Bow_Fingerless_Detail",
         "LMG201": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/PKM/SK_PKM_Fingerless_Detail.SK_PKM_Fingerless_Detail",
-        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves.SK_Jason_ue_field_gloves"
+        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves.SK_Jason_ue_field_gloves",
+        "Super90": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_field_gloves.SK_Super90_ue_field_gloves"
       },
       "covers": [],
       "skin_meshes": {
@@ -297,7 +300,8 @@
         "M1911_r": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_r/SK_M1911_r_255d2a5d7d_WristCoverage.SK_M1911_r_255d2a5d7d_WristCoverage",
         "Traversal": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Traversal/SK_Traversal_ecaf719ab9_WristCoverage.SK_Traversal_ecaf719ab9_WristCoverage",
         "Bow": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Bow/SK_Bow_bb1815a212_WristCoverage.SK_Bow_bb1815a212_WristCoverage",
-        "LMG201": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/PKM/SK_PKM_e6cc8363b9_WristCoverage.SK_PKM_e6cc8363b9_WristCoverage"
+        "LMG201": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/PKM/SK_PKM_e6cc8363b9_WristCoverage.SK_PKM_e6cc8363b9_WristCoverage",
+        "Super90": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_skin_ue_field_gloves.SK_Super90_skin_ue_field_gloves"
       },
       "glove_in_base": true,
       "appearance_family": "FingerlessDetail20260928"
@@ -330,7 +334,8 @@
         "Traversal": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Traversal/SK_Traversal_BlackLeatherDetail.SK_Traversal_BlackLeatherDetail",
         "Bow": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Bow/SK_Bow_BlackLeatherDetail.SK_Bow_BlackLeatherDetail",
         "LMG201": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/PKM/SK_PKM_BlackLeatherDetail.SK_PKM_BlackLeatherDetail",
-        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves_black.SK_Jason_ue_field_gloves_black"
+        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves_black.SK_Jason_ue_field_gloves_black",
+        "Super90": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_field_gloves_black.SK_Super90_ue_field_gloves_black"
       },
       "covers": [
         2
@@ -365,7 +370,8 @@
         "Traversal": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Traversal/SK_Traversal_Tactical_Detail.SK_Traversal_Tactical_Detail",
         "Bow": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Bow/SK_Bow_Tactical_Detail.SK_Bow_Tactical_Detail",
         "LMG201": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/PKM/SK_PKM_Tactical_Detail.SK_PKM_Tactical_Detail",
-        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_original_gloves.SK_Jason_ue_original_gloves"
+        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_original_gloves.SK_Jason_ue_original_gloves",
+        "Super90": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_original_gloves.SK_Super90_ue_original_gloves"
       },
       "covers": [
         2
@@ -404,7 +410,8 @@
         "Traversal": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Traversal/SK_Traversal_Steel_Detail.SK_Traversal_Steel_Detail",
         "Bow": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Bow/SK_Bow_Steel_Detail.SK_Bow_Steel_Detail",
         "LMG201": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/PKM/SK_PKM_Steel_Detail.SK_PKM_Steel_Detail",
-        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_steel_gauntlets.SK_Jason_ue_steel_gauntlets"
+        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_steel_gauntlets.SK_Jason_ue_steel_gauntlets",
+        "Super90": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_steel_gauntlets.SK_Super90_ue_steel_gauntlets"
       }
     },
     "ue_chainmail_shirt": {
@@ -446,7 +453,8 @@
         "Traversal": "/Game/Characters/ModularOutfit20260924/TraversalSleeveRepair20261003/SK_Traversal_ChainmailShirt.SK_Traversal_ChainmailShirt",
         "Bow": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/Bow/SK_Bow_ChainmailShirt.SK_Bow_ChainmailShirt",
         "LMG201": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/LMG201/SK_LMG201_Chainmail.SK_LMG201_Chainmail",
-        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_chainmail_shirt.SK_Jason_ue_chainmail_shirt"
+        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_chainmail_shirt.SK_Jason_ue_chainmail_shirt",
+        "Super90": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_chainmail_shirt.SK_Super90_ue_chainmail_shirt"
       },
       "secondary_motion": "chainmail_shared_sway_v1",
       "first_person_materials": [
@@ -544,6 +552,84 @@
           11,
           15,
           13
+        ]
+      }
+    },
+    "ue_hardknuckle_gloves": {
+      "slot": 3,
+      "material": "",
+      "appearance_family": "Super90Source20261006",
+      "rig_meshes": {
+        "Super90": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_HardKnuckle.SK_Super90_HardKnuckle",
+        "M4": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M4/SK_M4_ue_hardknuckle_gloves.SK_M4_ue_hardknuckle_gloves",
+        "A762": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/A762/SK_A762_ue_hardknuckle_gloves.SK_A762_ue_hardknuckle_gloves",
+        "AKM": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/AKM/SK_AKM_ue_hardknuckle_gloves.SK_AKM_ue_hardknuckle_gloves",
+        "ASH12": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ASH12/SK_ASH12_ue_hardknuckle_gloves.SK_ASH12_ue_hardknuckle_gloves",
+        "Axe": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Axe/SK_Axe_ue_hardknuckle_gloves.SK_Axe_ue_hardknuckle_gloves",
+        "Body": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Body/SK_Body_ue_hardknuckle_gloves.SK_Body_ue_hardknuckle_gloves",
+        "Bow": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Bow/SK_Bow_ue_hardknuckle_gloves.SK_Bow_ue_hardknuckle_gloves",
+        "DW715": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/DW715/SK_DW715_ue_hardknuckle_gloves.SK_DW715_ue_hardknuckle_gloves",
+        "DW715_l": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/DW715_l/SK_DW715_l_ue_hardknuckle_gloves.SK_DW715_l_ue_hardknuckle_gloves",
+        "DW715_r": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/DW715_r/SK_DW715_r_ue_hardknuckle_gloves.SK_DW715_r_ue_hardknuckle_gloves",
+        "FrostArms": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/FrostArms/SK_FrostArms_ue_hardknuckle_gloves.SK_FrostArms_ue_hardknuckle_gloves",
+        "FrostSword": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/FrostSword/SK_FrostSword_ue_hardknuckle_gloves.SK_FrostSword_ue_hardknuckle_gloves",
+        "Jason": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Jason/SK_Jason_ue_hardknuckle_gloves.SK_Jason_ue_hardknuckle_gloves",
+        "LMG201": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/LMG201/SK_LMG201_ue_hardknuckle_gloves.SK_LMG201_ue_hardknuckle_gloves",
+        "M16": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M16/SK_M16_ue_hardknuckle_gloves.SK_M16_ue_hardknuckle_gloves",
+        "M1911": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M1911/SK_M1911_ue_hardknuckle_gloves.SK_M1911_ue_hardknuckle_gloves",
+        "M1911_l": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M1911_l/SK_M1911_l_ue_hardknuckle_gloves.SK_M1911_l_ue_hardknuckle_gloves",
+        "M1911_r": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M1911_r/SK_M1911_r_ue_hardknuckle_gloves.SK_M1911_r_ue_hardknuckle_gloves",
+        "Pickaxe": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Pickaxe/SK_Pickaxe_ue_hardknuckle_gloves.SK_Pickaxe_ue_hardknuckle_gloves",
+        "PKM": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/PKM/SK_PKM_ue_hardknuckle_gloves.SK_PKM_ue_hardknuckle_gloves",
+        "QBZ191": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/QBZ191/SK_QBZ191_ue_hardknuckle_gloves.SK_QBZ191_ue_hardknuckle_gloves",
+        "RuneSword": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/RuneSword/SK_RuneSword_ue_hardknuckle_gloves.SK_RuneSword_ue_hardknuckle_gloves",
+        "SVD": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/SVD/SK_SVD_ue_hardknuckle_gloves.SK_SVD_ue_hardknuckle_gloves",
+        "Traversal": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Traversal/SK_Traversal_ue_hardknuckle_gloves.SK_Traversal_ue_hardknuckle_gloves"
+      }
+    },
+    "ue_st6_sleeves": {
+      "slot": 7,
+      "material": "",
+      "appearance_family": "Super90Source20261006",
+      "rig_meshes": {
+        "Super90": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ST6Sleeves.SK_Super90_ST6Sleeves",
+        "M4": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M4/SK_M4_ue_st6_sleeves.SK_M4_ue_st6_sleeves",
+        "A762": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/A762/SK_A762_ue_st6_sleeves.SK_A762_ue_st6_sleeves",
+        "AKM": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/AKM/SK_AKM_ue_st6_sleeves.SK_AKM_ue_st6_sleeves",
+        "ASH12": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ASH12/SK_ASH12_ue_st6_sleeves.SK_ASH12_ue_st6_sleeves",
+        "Axe": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Axe/SK_Axe_ue_st6_sleeves.SK_Axe_ue_st6_sleeves",
+        "Body": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Body/SK_Body_ue_st6_sleeves.SK_Body_ue_st6_sleeves",
+        "Bow": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Bow/SK_Bow_ue_st6_sleeves.SK_Bow_ue_st6_sleeves",
+        "DW715": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/DW715/SK_DW715_ue_st6_sleeves.SK_DW715_ue_st6_sleeves",
+        "DW715_l": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/DW715_l/SK_DW715_l_ue_st6_sleeves.SK_DW715_l_ue_st6_sleeves",
+        "DW715_r": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/DW715_r/SK_DW715_r_ue_st6_sleeves.SK_DW715_r_ue_st6_sleeves",
+        "FrostArms": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/FrostArms/SK_FrostArms_ue_st6_sleeves.SK_FrostArms_ue_st6_sleeves",
+        "FrostSword": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/FrostSword/SK_FrostSword_ue_st6_sleeves.SK_FrostSword_ue_st6_sleeves",
+        "Jason": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Jason/SK_Jason_ue_st6_sleeves.SK_Jason_ue_st6_sleeves",
+        "LMG201": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/LMG201/SK_LMG201_ue_st6_sleeves.SK_LMG201_ue_st6_sleeves",
+        "M16": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M16/SK_M16_ue_st6_sleeves.SK_M16_ue_st6_sleeves",
+        "M1911": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M1911/SK_M1911_ue_st6_sleeves.SK_M1911_ue_st6_sleeves",
+        "M1911_l": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M1911_l/SK_M1911_l_ue_st6_sleeves.SK_M1911_l_ue_st6_sleeves",
+        "M1911_r": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M1911_r/SK_M1911_r_ue_st6_sleeves.SK_M1911_r_ue_st6_sleeves",
+        "Pickaxe": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Pickaxe/SK_Pickaxe_ue_st6_sleeves.SK_Pickaxe_ue_st6_sleeves",
+        "PKM": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/PKM/SK_PKM_ue_st6_sleeves.SK_PKM_ue_st6_sleeves",
+        "QBZ191": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/QBZ191/SK_QBZ191_ue_st6_sleeves.SK_QBZ191_ue_st6_sleeves",
+        "RuneSword": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/RuneSword/SK_RuneSword_ue_st6_sleeves.SK_RuneSword_ue_st6_sleeves",
+        "SVD": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/SVD/SK_SVD_ue_st6_sleeves.SK_SVD_ue_st6_sleeves",
+        "Traversal": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Traversal/SK_Traversal_ue_st6_sleeves.SK_Traversal_ue_st6_sleeves"
+      },
+      "world_covers": [
+        0,
+        1
+      ],
+      "rig_world_covers": {
+        "Body": [
+          0,
+          1
+        ],
+        "Jason": [
+          0,
+          1
         ]
       }
     }
@@ -1571,6 +1657,27 @@
       "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715_l/SK_DW715_l_BareArmsV7.SK_DW715_l_BareArmsV7",
       "native_bare_arms": true,
       "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_DW715_l_OriginalGlovedArms.SK_DW715_l_OriginalGlovedArms"
+    },
+    "/Game/Weapons/Super90/Cransh20261006/SK_Super90_V7.SK_Super90_V7": {
+      "rig_profile": "Super90",
+      "base": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_BareArmsV7.SK_Super90_BareArmsV7",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_BareArmsV7.SK_Super90_BareArmsV7",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_BareArmsV7.SK_Super90_BareArmsV7",
+      "native_bare_arms": true,
+      "hide_source_materials": [
+        1,
+        2,
+        3
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "shirt": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ST6Sleeves.SK_Super90_ST6Sleeves",
+      "gloves": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_HardKnuckle.SK_Super90_HardKnuckle"
     }
   },
   "native_bare_hands_default": false

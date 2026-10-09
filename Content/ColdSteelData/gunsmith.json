@@ -8960,7 +8960,313 @@
         "stock": "hk416_stock",
         "reargrip": "hk416_reargrip"
       }
-}
+},
+    {
+      "id": "ue_super90",
+      "model": "M4Super90",
+      "name": "M4 Super90",
+      "allowed": [
+        "optic",
+        "muzzle",
+        "underbarrel",
+        "stock",
+        "magazine",
+        "reload_device"
+      ],
+      "base": {
+        "ammo_item_id": "ammo_12g",
+        "mag_size": 7,
+        "ads_smooth": 12,
+        "recoil": 145,
+        "camera_shake": 120,
+        "spread_mult": 1.5,
+        "fire_interval": 0.65,
+        "reload_time": 1.2692307692307692,
+        "empty_reload_time": 5.435897435897435,
+        "damage": 80,
+        "bullet_speed": 380,
+        "effective_range": 35,
+        "stability_mult": 1
+      },
+      "options": {
+        "optic": [
+          {
+            "id": "false",
+            "name": "原厂鬼环瞄具",
+            "description": "使用 M4 Super90 原装结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "holographic",
+            "name": "全息瞄准镜",
+            "description": "安装于机匣顶部导轨的环形分划全息瞄准镜。",
+            "effects": [
+              {
+                "text": "1×全息瞄具；开镜耗时不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          },
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          },
+          {
+            "id": "panoramic_red_dot",
+            "name": "全景薄框红点瞄具",
+            "description": "1×宽视窗薄框红点，石墨色阳极氧化壳体、独立镀膜镜片和亮度按键。",
+            "effects": [
+              {
+                "text": "1×红点瞄具；开镜耗时不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          },
+          {
+            "id": "prism_scope_2x",
+            "name": "紧凑型二倍棱镜瞄具",
+            "description": "固定 2× 放大，短镜筒、镀膜镜片与中心十字分划，配窄导轨底座。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05
+            }
+          },
+          {
+            "id": "lpvo_1_6x",
+            "name": "1–6× 低倍可变瞄准镜",
+            "description": "长镜筒、双环悬臂座与倍率拨杆；瞄准时滚轮调节 1～6×，每格 0.5×。",
+            "effects": [
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1
+            }
+          }
+        ],
+        "muzzle": [
+          {
+            "id": "false",
+            "name": "原厂枪口",
+            "description": "使用 M4 Super90 原装结构。",
+            "effects": [],
+            "stats": {}
+          }
+        ],
+        "underbarrel": [
+          {
+            "id": "false",
+            "name": "原厂护木",
+            "description": "使用 M4 Super90 原装结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "vertical_foregrip",
+            "name": "垂直握把",
+            "description": "直筒式前握把，四指环握与拇指对握，使用专用支撑及换弹回握动作。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            }
+          },
+          {
+            "id": "canted_foregrip",
+            "name": "45°侧倾握把",
+            "description": "向枪身左下方侧倾，左手外侧包握，使用专用支撑及换弹回握动作。",
+            "effects": [
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "腰射随机散布减少20%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.85,
+              "stability_mult": 0.85,
+              "hip_spread_mult": 0.8
+            }
+          },
+          {
+            "id": "tactical_vertical_foregrip",
+            "name": "战术垂直握把",
+            "description": "收颈式聚合物前握把，带侧面凹区与横向防滑纹，金属夹座适配护木下导轨。",
+            "effects": [
+              {
+                "text": "缩短开镜耗时",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.25
+            }
+          },
+          {
+            "id": "prism_handstop",
+            "name": "棱镜阻手器",
+            "description": "棱面短阻手器，带防滑纹理，安装于 M4 护木下方。",
+            "effects": [
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力降低5%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高25%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.1,
+              "recoil_mult": 0.95,
+              "stability_mult": 1.25,
+              "hip_spread_mult": 0.95
+            }
+          },
+          {
+            "id": "angled_foregrip",
+            "name": "共振二代前握把",
+            "description": "紧凑镂空前握把，食指、中指和无名指穿孔抓握，拇指与小拇指在外侧贴合，沿用 M4 金属与防滑材质。",
+            "effects": [
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15
+            }
+          }
+        ],
+        "stock": [
+          {
+            "id": "false",
+            "name": "原厂枪托",
+            "description": "使用 M4 Super90 原装结构。",
+            "effects": [],
+            "stats": {}
+          }
+        ],
+        "magazine": [
+          {
+            "id": "false",
+            "name": "原厂管式弹仓",
+            "description": "使用 M4 Super90 原装结构。",
+            "effects": [],
+            "stats": {}
+          }
+        ],
+        "reload_device": [
+          {
+            "id": "false",
+            "name": "逐发装填",
+            "description": "保持枪身侧倾，逐发补入管仓；未受打断时持续补满。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "super90_tube_loader",
+            "name": "管式快速装填器",
+            "description": "通过装填口导向件成组补弹。左手推送到位后张掌回握，装填管与推杆脱手下落。",
+            "effects": [
+              {
+                "text": "成组补弹；普通换弹耗时按完整装填器动作计算",
+                "benefit": 1
+              },
+              {
+                "text": "打断时完成当前入仓弹药，随后释放装填器并回握",
+                "benefit": 0
+              },
+              {
+                "text": "空仓装填后释放枪机；未入仓的弹药不扣除",
+                "benefit": 0
+              }
+            ],
+            "stats": {
+              "reload_mult": 1.5294117647058825,
+              "empty_reload_mult": 1.5294117647058825
+            }
+          }
+        ]
+      },
+      "traits": [
+        {
+          "icon": "mechanic",
+          "text": "半自动；一发鹿弹产生八颗独立命中的弹丸，面板显示整发合计伤害"
+        },
+        {
+          "icon": "mechanic",
+          "text": "逐发补弹；空仓装填后闭合枪机；开火可结束补弹"
+        },
+        {
+          "icon": "drawback",
+          "text": "弹丸向外扩散，远距离命中率与伤害降低"
+        },
+        {
+          "icon": "neutral",
+          "text": "机匣导轨支持通用光学瞄具；装镜时收起原厂鬼环与准星"
+        }
+      ]
+    }
 ],
   "common_options": {
     "tactical": [

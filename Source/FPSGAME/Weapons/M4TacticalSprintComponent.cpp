@@ -10,6 +10,7 @@
 #include "M16Attachments.h"
 #include "A762WeaponAssets.h"
 #include "SVDWeaponAssets.h"
+#include "Super90WeaponAssets.h"
 #include "PKMLowpolyWeaponAssets.h"
 #include "A762Attachments.h"
 #include "SVDAttachments.h"
@@ -51,6 +52,15 @@ void UM4TacticalSprintComponent::Configure(ERifleSprintWeapon Weapon)
                 SharedClips.Add(Profile?Layer->Playback():Layer->Base.Get());
             }
         if(SharedClips.Num()==18){Clips=MoveTemp(SharedClips);return;}
+    }
+    if (Weapon==ERifleSprintWeapon::Super90)
+    {
+        // Native base motion; installed foregrips apply their matching sparse
+        // entry/return layers in the existing animation profile channels.
+        for(int32 Grip=0;Grip<6;++Grip)
+            for(const TCHAR* Role:{TEXT("enter"),TEXT("loop"),TEXT("exit")})
+                Clips.Add(LoadObject<UAnimSequence>(nullptr,*Super90WeaponAssets::SprintAnimationPath(Role)));
+        return;
     }
     if (bHK416)
     {

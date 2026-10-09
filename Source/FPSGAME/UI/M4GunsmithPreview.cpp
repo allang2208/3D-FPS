@@ -5,6 +5,7 @@
 #include "Engine/StreamableManager.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/Super90WeaponAssets.h"
 #include "../FPSGAMECharacter.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Engine/TextureRenderTarget2D.h"
@@ -113,7 +114,7 @@ void UM4GunsmithWidget::SyncStudioPreview()
     TSet<UMeshComponent*> VisibleCopies;
     for(const auto& Weak:Sources)
     {
-        auto* Source=Cast<UMeshComponent>(Weak.Get());if(!Source||!Source->IsVisible())continue;
+        auto* Source=Cast<UMeshComponent>(Weak.Get());if(!Source||!Source->IsVisible()||Source->ComponentHasTag(TEXT("WeaponReloadProp")))continue;
         auto*& Copy=StudioCopies.FindOrAdd(Source);
         if(!Copy)
         {
@@ -142,14 +143,18 @@ void UM4GunsmithWidget::SyncStudioPreview()
             if(const auto* Asset=Skinned->GetSkeletalMeshAsset())if(const auto* Render=Asset->GetResourceForRendering())
             {
                 auto* SkinnedCopy=Cast<USkeletalMeshComponent>(Copy);
-                TArray<bool,TInlineAllocator<32>> ArmMaterials;
+                // The loose reload shell belongs to the animation, not the
+                // assembled shotgun. Exclude its section before fitting bounds.
+                const bool bSuper90=Asset->GetPathName()==Super90WeaponAssets::MeshPath;
+                TArray<bool,TInlineAllocator<32>> ExcludedMaterials;
                 for(const auto& Material:Asset->GetMaterials())
-                    ArmMaterials.Add(!bAimPreview&&GunsmithStudioVisibility::IsArmMaterial(Material.MaterialSlotName));
+                    ExcludedMaterials.Add((!bAimPreview&&GunsmithStudioVisibility::IsArmMaterial(Material.MaterialSlotName))
+                        ||(bSuper90&&Material.MaterialSlotName==TEXT("12gauge")));
                 for(int32 L=0;L<Render->LODRenderData.Num();++L)
                     for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
                     {
                         const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
-                        const bool bShow=Skinned->IsMaterialSectionShown(M,L)&&!(ArmMaterials.IsValidIndex(M)&&ArmMaterials[M]);
+                        const bool bShow=Skinned->IsMaterialSectionShown(M,L)&&!(ExcludedMaterials.IsValidIndex(M)&&ExcludedMaterials[M]);
                         if(SkinnedCopy->IsMaterialSectionShown(M,L)!=bShow)SkinnedCopy->ShowMaterialSection(M,S,bShow,L);
                     }
             }

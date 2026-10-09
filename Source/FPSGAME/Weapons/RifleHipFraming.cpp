@@ -9,7 +9,7 @@ namespace RifleHipFraming
 bool Supports(const FString& Definition)
 {
     // Explicit scope: do not change either machine gun, including their grip families.
-    return Definition == TEXT("ue_m4a1") || Definition == TEXT("ue_hk416")
+    return Definition == TEXT("ue_super90") || Definition == TEXT("ue_m4a1") || Definition == TEXT("ue_hk416")
         || Definition == TEXT("ue_qbz191") || Definition == TEXT("ue_akm")
         || Definition == TEXT("ue_m16a2") || Definition == TEXT("ue_ash12")
         || Definition == TEXT("ue_a762") || Definition == TEXT("ue_svd");
@@ -25,6 +25,7 @@ FVector PresentationOffset(const FString& Definition)
     else if (Definition == TEXT("ue_akm") || Definition == TEXT("ue_a762")) Forward = 9.f;
     else if (Definition == TEXT("ue_ash12")) Forward = 8.f;
     else if (Definition == TEXT("ue_svd")) Forward = 10.f;
+    else if (Definition == TEXT("ue_super90")) Forward = 6.f;
     return FVector(Forward, 0.f, 0.f);
 }
 
@@ -45,7 +46,8 @@ bool SampleBone(const UAnimSequence& Idle, FName Bone, FTransform& Pose,const FW
 }
 
 bool SampleFrame(UAnimSequence* Idle, const FVector& Scale, bool bAKMSights,
-    FVector& Hand, FQuat& AxisFrame,UWeaponGripProfile* Profile=nullptr)
+    FVector& Hand, FQuat& AxisFrame,UWeaponGripProfile* Profile=nullptr,
+    const FVector& GunUpAxis=FVector::UpVector)
 {
     if (!Idle || !Idle->GetSkeleton()) return false;
     FTransform HandPose, RootPose, RearPose, FrontPose;
@@ -58,7 +60,7 @@ bool SampleFrame(UAnimSequence* Idle, const FVector& Scale, bool bAKMSights,
     const FVector Rear = bAKMSights ? RootPose.TransformPosition(AKMSoviet::Rear) : RearPose.GetLocation();
     const FVector Front = bAKMSights ? RootPose.TransformPosition(AKMSoviet::Front) : FrontPose.GetLocation();
     const FVector Axis = ((Front - Rear) * Scale).GetSafeNormal();
-    const FVector Up = (RootPose.GetRotation().RotateVector(FVector::UpVector) * Scale).GetSafeNormal();
+    const FVector Up = (RootPose.GetRotation().RotateVector(GunUpAxis) * Scale).GetSafeNormal();
     Hand = HandPose.GetLocation() * Scale;
     if (Axis.IsNearlyZero() || (Axis ^ Up).IsNearlyZero() || Hand.ContainsNaN()) return false;
     AxisFrame = FRotationMatrix::MakeFromXZ(Axis, Up).ToQuat();
@@ -81,6 +83,9 @@ void FRifleHipFraming::Initialize(const FString& Definition, UAnimSequence* Idle
     if (!RifleHipFraming::SampleFrame(Reference, Scale, false, Hand, Axis)) return;
     MeshScale = Scale;
     bAKMSights = bMeasuredAKMSights;
+    // Super90 retains its native UE bind: physical up is bone-local -Y.
+    // The shared M4 ruler above still uses its own bone-local Z.
+    GunUpAxis = Definition == TEXT("ue_super90") ? -FVector::RightVector : FVector::UpVector;
     const FVector ReferenceHand = Anchor + BaseRotation.RotateVector(Hand);
     TargetHand = ReferenceHand + RifleHipFraming::PresentationOffset(Definition);
     TargetAxis = BaseRotation.Quaternion() * Axis;
@@ -96,7 +101,7 @@ void FRifleHipFraming::SelectIdle(UAnimSequence* Idle,UWeaponGripProfile* Profil
     bReady = false;
     FVector Hand;
     FQuat Axis;
-    if (!RifleHipFraming::SampleFrame(Idle, MeshScale, bAKMSights, Hand, Axis,Profile)) return;
+    if (!RifleHipFraming::SampleFrame(Idle, MeshScale, bAKMSights, Hand, Axis,Profile,GunUpAxis)) return;
 
     // Rigid movement of gun AND arms: common weapon axis and a per-rifle wrist depth.
     // The presentation offset is included once in TargetHand, not accumulated on grip changes.

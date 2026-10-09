@@ -23,6 +23,9 @@ namespace QuickCombatRifleMotion
     // Bone-space Y reverses on FBX import; these are no-scale centimetres.
     inline FVector ReferenceStockPointCM(const FString& MeshPath)
     {
+        // Super90 has a native +Z rear axis. Buttplate from the author's
+        // installed body, converted to no-scale UE bone-space centimetres.
+        if (MeshPath.Contains(TEXT("/Super90/"))) return FVector(.030971f, 5.224671f, 51.443630f);
         if (MeshPath.Contains(TEXT("/SVDDragunov20260922/"))) return FVector(0.f,-34.8f,-3.5f);
         if (MeshPath.Contains(TEXT("/PKMLowpoly20260922/"))) return FVector(-.003818f, -35.9063f, -2.7f);
         if (MeshPath.Contains(TEXT("/ASH12/"))) return FVector(0.343015f, -45.591554f, -4.261902f);
