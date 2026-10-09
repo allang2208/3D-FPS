@@ -1,0 +1,5195 @@
+{
+  "revision": "power_theme_refine_v2_20261004",
+  "status": "draft_only_not_registered",
+  "schema_source": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+  "coordinate_space": "UE centimetres, local to each module",
+  "modules": [
+    {
+      "id": "SwitchgearGallery",
+      "family_id": "SwitchgearGallery",
+      "role": "room",
+      "revision": "power_theme_refine_v2_20261004",
+      "min": [
+        -919.9999999999999,
+        -1120.0,
+        -30.0
+      ],
+      "max": [
+        919.9999999999999,
+        819.9999999999999,
+        509.99999999999994
+      ],
+      "cells": [
+        {
+          "min": [
+            -919.9999999999999,
+            -819.9999999999999,
+            -30.0
+          ],
+          "max": [
+            919.9999999999999,
+            819.9999999999999,
+            509.99999999999994
+          ]
+        },
+        {
+          "min": [
+            -320.0,
+            -1120.0,
+            -30.0
+          ],
+          "max": [
+            320.0,
+            -819.9999999999999,
+            390.0
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "Entry",
+          "position": [
+            -900.0,
+            -0.0,
+            0.0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width": 300.0,
+          "height": 280.0
+        },
+        {
+          "id": "Exit",
+          "position": [
+            900.0,
+            -0.0,
+            0.0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width": 300.0,
+          "height": 280.0
+        }
+      ],
+      "port_pairs": [
+        [
+          0,
+          1
+        ]
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Structure",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_FloorFinish",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Trim",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Roof",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_RoofFrame",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Markings",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Cablework",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_SwitchgearGallery_Signs",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Hardware",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Hangers",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            -600.0,
+            580.0,
+            0.0
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            -600.0,
+            -580.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            -200.0,
+            580.0,
+            0.0
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            -200.0,
+            -580.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            200.0,
+            580.0,
+            0.0
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            200.0,
+            -580.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            600.0,
+            580.0,
+            0.0
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            600.0,
+            -580.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Desk",
+          "position": [
+            90.0,
+            -1038.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+          "position": [
+            90.0,
+            -950.0,
+            0.13999999999999999
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsCabinet_Carcass",
+          "position": [
+            -125.0,
+            -1050.0,
+            0.0
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            -740.0,
+            -0.0,
+            383.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            -400.0,
+            -0.0,
+            413.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            400.0,
+            -0.0,
+            413.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            0.0,
+            -910.0,
+            323.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -430.99999999999994,
+            796.821,
+            0.0
+          ],
+          "yaw": -90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            201.5,
+            796.821,
+            0.0
+          ],
+          "yaw": -90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            834.0,
+            796.821,
+            0.0
+          ],
+          "yaw": -90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -834.0,
+            -796.821,
+            0.0
+          ],
+          "yaw": 90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            430.99999999999994,
+            -796.821,
+            0.0
+          ],
+          "yaw": 90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -896.8209999999999,
+            741.5,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            896.8209999999999,
+            338.5,
+            0.0
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -896.8209999999999,
+            -338.5,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            896.8209999999999,
+            -741.5,
+            0.0
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        }
+      ],
+      "lights": [
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 3400.0,
+          "fade_range_cm": 500.0,
+          "position": [
+            -740.0,
+            -0.0,
+            370.0
+          ],
+          "intensity": 450.0,
+          "radius": 470.0,
+          "type": "point",
+          "color": [
+            1,
+            0.81,
+            0.58
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 470.0
+        },
+        {
+          "cast_shadows": true,
+          "role": "path",
+          "max_draw_distance_cm": 3400.0,
+          "fade_range_cm": 500.0,
+          "position": [
+            -400.0,
+            -0.0,
+            400.0
+          ],
+          "intensity": 950.0,
+          "radius": 760.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 760.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 3400.0,
+          "fade_range_cm": 500.0,
+          "position": [
+            400.0,
+            -0.0,
+            400.0
+          ],
+          "intensity": 950.0,
+          "radius": 760.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 760.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 3400.0,
+          "fade_range_cm": 500.0,
+          "position": [
+            0.0,
+            -910.0,
+            310.0
+          ],
+          "intensity": 380.0,
+          "radius": 380.0,
+          "type": "point",
+          "color": [
+            1,
+            0.81,
+            0.59
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 380.0
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            -500.0,
+            -0.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            0.0,
+            -170.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            500.0,
+            -0.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            -400.0,
+            350.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            400.0,
+            -340.0,
+            0.0
+          ],
+          "role": "power_combat"
+        }
+      ],
+      "props": [],
+      "runtime_actors": [
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+          "hinge": [
+            -30.7,
+            -23.299999999999997,
+            9
+          ],
+          "opening_motion": "Swing",
+          "opened_yaw": -105,
+          "storage_pages": 2,
+          "caption": "供能站防护用品柜",
+          "door_materials": [
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Green",
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels"
+          ],
+          "type": "scene_container",
+          "container_id": "PowerTheme20261004RefineV2.SwitchgearGallery.PPE_01",
+          "position": [
+            -257.0,
+            -960.0,
+            0.0
+          ],
+          "yaw": 90.0,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "storage_pages": 1,
+          "caption": "供能站检修记录 1",
+          "door_materials": [
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Gray",
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Canvas",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Paper"
+          ],
+          "type": "scene_container",
+          "container_id": "PowerTheme20261004RefineV2.SwitchgearGallery.Records_01_Drawer1",
+          "position": [
+            -125.0,
+            -1050.0,
+            11.0
+          ],
+          "yaw": -180.0,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "storage_pages": 1,
+          "caption": "供能站检修记录 2",
+          "door_materials": [
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Gray",
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Canvas",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Paper"
+          ],
+          "type": "scene_container",
+          "container_id": "PowerTheme20261004RefineV2.SwitchgearGallery.Records_01_Drawer2",
+          "position": [
+            -125.0,
+            -1050.0,
+            45.0
+          ],
+          "yaw": -180.0,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "storage_pages": 1,
+          "caption": "供能站检修记录 3",
+          "door_materials": [
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Gray",
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Canvas",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Paper"
+          ],
+          "type": "scene_container",
+          "container_id": "PowerTheme20261004RefineV2.SwitchgearGallery.Records_01_Drawer3",
+          "position": [
+            -125.0,
+            -1050.0,
+            79.0
+          ],
+          "yaw": -180.0,
+          "initial_open_fraction": 0.0
+        }
+      ],
+      "runtime_assets": [
+        "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Canvas",
+        "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Gray",
+        "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Green",
+        "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Paper",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+        "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels",
+        "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_ContainerOutline_V4",
+        "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      ],
+      "walk_mask": [
+        {
+          "min": [
+            -850.0,
+            -210.0,
+            0.0
+          ],
+          "max": [
+            850.0,
+            210.0,
+            260.0
+          ]
+        },
+        {
+          "min": [
+            -260.0,
+            -1040.0,
+            0.0
+          ],
+          "max": [
+            260.0,
+            -210.0,
+            260.0
+          ]
+        }
+      ],
+      "selection": {
+        "chance_per_run": 0.0,
+        "max_per_run": 1
+      },
+      "authoring_only": true,
+      "route_intent": {
+        "registration": "pending_explicit_user_acceptance",
+        "fixed_theme_order": [
+          "SwitchgearGallery",
+          "GeneratorHall",
+          "AccumulatorControl"
+        ]
+      }
+    },
+    {
+      "id": "GeneratorHall",
+      "family_id": "GeneratorHall",
+      "role": "room",
+      "revision": "power_theme_refine_v2_20261004",
+      "min": [
+        -1320.0,
+        -1120.0,
+        -30.0
+      ],
+      "max": [
+        1320.0,
+        1120.0,
+        940.0
+      ],
+      "cells": [
+        {
+          "min": [
+            -1320.0,
+            -1120.0,
+            -30.0
+          ],
+          "max": [
+            1320.0,
+            1120.0,
+            940.0
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "Entry",
+          "position": [
+            -1300.0,
+            -0.0,
+            0.0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width": 300.0,
+          "height": 280.0
+        },
+        {
+          "id": "Exit",
+          "position": [
+            1300.0,
+            -0.0,
+            0.0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width": 300.0,
+          "height": 280.0
+        }
+      ],
+      "port_pairs": [
+        [
+          0,
+          1
+        ]
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Structure",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_FloorFinish",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Trim",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Roof",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Hardware",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_RoofFrame",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Rails",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "guardrail_drop": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Markings",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Cablework",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Pipework",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_GeneratorHall_Signs",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Hangers",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+          "position": [
+            -260.0,
+            -893.0,
+            240.14000000000001
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            -1225.0,
+            810.0,
+            0.0
+          ],
+          "yaw": -90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            1225.0,
+            810.0,
+            0.0
+          ],
+          "yaw": 90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            -800.0,
+            -0.0,
+            593.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            800.0,
+            -0.0,
+            593.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            0.0,
+            430.0,
+            673.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            0.0,
+            -430.0,
+            673.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            0.0,
+            -919.9999999999999,
+            523.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            -1065.0,
+            -500.0,
+            523.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            1065.0,
+            -500.0,
+            523.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -807.0,
+            1096.821,
+            0.0
+          ],
+          "yaw": -90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -337.0,
+            1096.821,
+            0.0
+          ],
+          "yaw": -90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            201.5,
+            1096.821,
+            0.0
+          ],
+          "yaw": -90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            753.0,
+            1096.821,
+            0.0
+          ],
+          "yaw": -90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            1223.0,
+            1096.821,
+            0.0
+          ],
+          "yaw": -90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -1180.0,
+            -1096.821,
+            240.0
+          ],
+          "yaw": 90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -600.0,
+            -1096.821,
+            240.0
+          ],
+          "yaw": 90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            0.0,
+            -1096.821,
+            240.0
+          ],
+          "yaw": 90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            600.0,
+            -1096.821,
+            240.0
+          ],
+          "yaw": 90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -1296.821,
+            1031.5000000000002,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            1296.821,
+            628.5,
+            0.0
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -1296.821,
+            -628.5,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            1296.821,
+            -1031.5000000000002,
+            0.0
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Generator",
+          "position": [
+            0.0,
+            425.0,
+            28.000000000000004
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Generator",
+          "position": [
+            0.0,
+            -425.0,
+            28.000000000000004
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_ControlConsole_Refined",
+          "position": [
+            -260.0,
+            -1003.9999999999999,
+            240.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        }
+      ],
+      "lights": [
+        {
+          "cast_shadows": true,
+          "role": "path",
+          "max_draw_distance_cm": 3400.0,
+          "fade_range_cm": 500.0,
+          "position": [
+            -800.0,
+            -0.0,
+            580.0
+          ],
+          "intensity": 1500.0,
+          "radius": 1100.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1100.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 3400.0,
+          "fade_range_cm": 500.0,
+          "position": [
+            800.0,
+            -0.0,
+            580.0
+          ],
+          "intensity": 1500.0,
+          "radius": 1100.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1100.0
+        },
+        {
+          "cast_shadows": true,
+          "role": "path",
+          "max_draw_distance_cm": 3400.0,
+          "fade_range_cm": 500.0,
+          "position": [
+            0.0,
+            430.0,
+            660.0
+          ],
+          "intensity": 1800.0,
+          "radius": 1200.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1200.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 3400.0,
+          "fade_range_cm": 500.0,
+          "position": [
+            0.0,
+            -430.0,
+            660.0
+          ],
+          "intensity": 1700.0,
+          "radius": 1200.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1200.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 3400.0,
+          "fade_range_cm": 500.0,
+          "position": [
+            0.0,
+            -919.9999999999999,
+            509.99999999999994
+          ],
+          "intensity": 780.0,
+          "radius": 840.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 840.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 3400.0,
+          "fade_range_cm": 500.0,
+          "position": [
+            -1065.0,
+            -500.0,
+            509.99999999999994
+          ],
+          "intensity": 350.0,
+          "radius": 520.0,
+          "type": "point",
+          "color": [
+            1,
+            0.81,
+            0.58
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 520.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 3400.0,
+          "fade_range_cm": 500.0,
+          "position": [
+            1065.0,
+            -500.0,
+            509.99999999999994
+          ],
+          "intensity": 350.0,
+          "radius": 520.0,
+          "type": "point",
+          "color": [
+            1,
+            0.81,
+            0.58
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 520.0
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            -800.0,
+            -0.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            800.0,
+            -0.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            -800.0,
+            720.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            700.0,
+            720.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            0.0,
+            -890.0,
+            240.0
+          ],
+          "role": "power_combat"
+        }
+      ],
+      "props": [],
+      "runtime_actors": [
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+          "hinge": [
+            -30.7,
+            -23.299999999999997,
+            9
+          ],
+          "opening_motion": "Swing",
+          "opened_yaw": -105,
+          "storage_pages": 2,
+          "caption": "供能站防护用品柜",
+          "door_materials": [
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Green",
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels"
+          ],
+          "type": "scene_container",
+          "container_id": "PowerTheme20261004RefineV2.GeneratorHall.PPE_02",
+          "position": [
+            -860.0,
+            1035.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "initial_open_fraction": 0.0
+        }
+      ],
+      "runtime_assets": [
+        "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Green",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+        "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels",
+        "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_ContainerOutline_V4",
+        "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      ],
+      "walk_mask": [
+        {
+          "min": [
+            -1260.0,
+            -190.0,
+            0.0
+          ],
+          "max": [
+            1260.0,
+            190.0,
+            280.0
+          ]
+        },
+        {
+          "min": [
+            -1240.0,
+            190.0,
+            0.0
+          ],
+          "max": [
+            -600.0,
+            969.9999999999999,
+            280.0
+          ]
+        },
+        {
+          "min": [
+            600.0,
+            190.0,
+            0.0
+          ],
+          "max": [
+            1240.0,
+            969.9999999999999,
+            280.0
+          ]
+        },
+        {
+          "min": [
+            -940.0,
+            -1025.0,
+            240.0
+          ],
+          "max": [
+            940.0,
+            -765.0,
+            470.0
+          ]
+        }
+      ],
+      "selection": {
+        "chance_per_run": 0.0,
+        "max_per_run": 1
+      },
+      "authoring_only": true,
+      "route_intent": {
+        "registration": "pending_explicit_user_acceptance",
+        "fixed_theme_order": [
+          "SwitchgearGallery",
+          "GeneratorHall",
+          "AccumulatorControl"
+        ]
+      }
+    },
+    {
+      "id": "AccumulatorControl",
+      "family_id": "AccumulatorControl",
+      "role": "room",
+      "revision": "power_theme_refine_v2_20261004",
+      "min": [
+        -2275.0,
+        -2275.0,
+        -34.0
+      ],
+      "max": [
+        2275.0,
+        2275.0,
+        1205.9999999999998
+      ],
+      "cells": [
+        {
+          "min": [
+            -667.0832032063167,
+            2175.0,
+            -34.0
+          ],
+          "max": [
+            667.0832032063167,
+            2275.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -932.7379053088815,
+            2075.0,
+            -34.0
+          ],
+          "max": [
+            932.7379053088815,
+            2175.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1129.1589790636215,
+            1975.0,
+            -34.0
+          ],
+          "max": [
+            1129.1589790636215,
+            2075.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1288.4098726725126,
+            1875.0,
+            -34.0
+          ],
+          "max": [
+            1288.4098726725126,
+            1975.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1423.0249470757708,
+            1775.0,
+            -34.0
+          ],
+          "max": [
+            1423.0249470757708,
+            1875.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1539.4804318340653,
+            1675.0,
+            -34.0
+          ],
+          "max": [
+            1539.4804318340653,
+            1775.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1641.6455159382003,
+            1575.0,
+            -34.0
+          ],
+          "max": [
+            1641.6455159382003,
+            1675.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1732.0508075688774,
+            1475.0,
+            -34.0
+          ],
+          "max": [
+            1732.0508075688774,
+            1575.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1812.456896039186,
+            1375.0,
+            -34.0
+          ],
+          "max": [
+            1812.456896039186,
+            1475.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1884.1443681416774,
+            1275.0,
+            -34.0
+          ],
+          "max": [
+            1884.1443681416774,
+            1375.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1948.0759738778158,
+            1175.0,
+            -34.0
+          ],
+          "max": [
+            1948.0759738778158,
+            1275.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2004.9937655763422,
+            1075.0,
+            -34.0
+          ],
+          "max": [
+            2004.9937655763422,
+            1175.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2055.4804791094466,
+            975.0,
+            -34.0
+          ],
+          "max": [
+            2055.4804791094466,
+            1075.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2100.0,
+            875.0,
+            -34.0
+          ],
+          "max": [
+            2100.0,
+            975.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2138.9249636207437,
+            775.0,
+            -34.0
+          ],
+          "max": [
+            2138.9249636207437,
+            875.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2172.556098240043,
+            675.0,
+            -34.0
+          ],
+          "max": [
+            2172.556098240043,
+            775.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2201.136070305514,
+            575.0,
+            -34.0
+          ],
+          "max": [
+            2201.136070305514,
+            675.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2224.859546128699,
+            475.0,
+            -34.0
+          ],
+          "max": [
+            2224.859546128699,
+            575.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2243.8805672316876,
+            375.0,
+            -34.0
+          ],
+          "max": [
+            2243.8805672316876,
+            475.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2258.317958127243,
+            275.0,
+            -34.0
+          ],
+          "max": [
+            2258.317958127243,
+            375.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2268.259244442751,
+            175.0,
+            -34.0
+          ],
+          "max": [
+            2268.259244442751,
+            275.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2273.7634001804145,
+            75.0,
+            -34.0
+          ],
+          "max": [
+            2273.7634001804145,
+            175.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2275.0,
+            -25.0,
+            -34.0
+          ],
+          "max": [
+            2275.0,
+            75.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2274.862633215465,
+            -125.0,
+            -34.0
+          ],
+          "max": [
+            2274.862633215465,
+            -25.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2271.5633383201093,
+            -225.0,
+            -34.0
+          ],
+          "max": [
+            2271.5633383201093,
+            -125.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2263.8462845343543,
+            -325.0,
+            -34.0
+          ],
+          "max": [
+            2263.8462845343543,
+            -225.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2251.6660498395404,
+            -425.0,
+            -34.0
+          ],
+          "max": [
+            2251.6660498395404,
+            -325.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2234.949663862701,
+            -525.0,
+            -34.0
+          ],
+          "max": [
+            2234.949663862701,
+            -425.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2213.5943621178653,
+            -625.0,
+            -34.0
+          ],
+          "max": [
+            2213.5943621178653,
+            -525.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2187.464285422736,
+            -725.0,
+            -34.0
+          ],
+          "max": [
+            2187.464285422736,
+            -625.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2156.3858652847825,
+            -825.0,
+            -34.0
+          ],
+          "max": [
+            2156.3858652847825,
+            -725.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2120.1415047114187,
+            -925.0,
+            -34.0
+          ],
+          "max": [
+            2120.1415047114187,
+            -825.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2078.460969082653,
+            -1025.0,
+            -34.0
+          ],
+          "max": [
+            2078.460969082653,
+            -925.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -2031.00960115899,
+            -1125.0,
+            -34.0
+          ],
+          "max": [
+            2031.00960115899,
+            -1025.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1977.371993328519,
+            -1225.0,
+            -34.0
+          ],
+          "max": [
+            1977.371993328519,
+            -1125.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1917.0289512680813,
+            -1325.0,
+            -34.0
+          ],
+          "max": [
+            1917.0289512680813,
+            -1225.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1849.324200890693,
+            -1425.0,
+            -34.0
+          ],
+          "max": [
+            1849.324200890693,
+            -1325.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1773.41478509682,
+            -1525.0,
+            -34.0
+          ],
+          "max": [
+            1773.41478509682,
+            -1425.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1688.1943016134135,
+            -1625.0,
+            -34.0
+          ],
+          "max": [
+            1688.1943016134135,
+            -1525.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1592.1683328090658,
+            -1725.0,
+            -34.0
+          ],
+          "max": [
+            1592.1683328090658,
+            -1625.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1483.2396974191327,
+            -1825.0,
+            -34.0
+          ],
+          "max": [
+            1483.2396974191327,
+            -1725.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1358.3077707206123,
+            -1925.0,
+            -34.0
+          ],
+          "max": [
+            1358.3077707206123,
+            -1825.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1212.435565298214,
+            -2025.0,
+            -34.0
+          ],
+          "max": [
+            1212.435565298214,
+            -1925.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -1036.822067666386,
+            -2125.0,
+            -34.0
+          ],
+          "max": [
+            1036.822067666386,
+            -2025.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -812.4038404635961,
+            -2225.0,
+            -34.0
+          ],
+          "max": [
+            812.4038404635961,
+            -2125.0,
+            1205.9999999999998
+          ]
+        },
+        {
+          "min": [
+            -474.3416490252569,
+            -2275.0,
+            -34.0
+          ],
+          "max": [
+            474.3416490252569,
+            -2225.0,
+            1205.9999999999998
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "Entry",
+          "position": [
+            -2243.1841208425135,
+            -0.0,
+            0.0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        },
+        {
+          "id": "Exit",
+          "position": [
+            2243.1841208425135,
+            -0.0,
+            0.0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width": 300,
+          "height": 280.0
+        }
+      ],
+      "port_pairs": [
+        [
+          0,
+          1
+        ]
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Structure",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Trim",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Roof",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_DadoBacking",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_RoofFrame",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Hardware",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_GalleryDeck",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Rails",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "guardrail_drop": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Markings",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Equipment",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Signs",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Pipework",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_ControlRoom",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Cablework",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Hangers",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+          "position": [
+            -490.00000000000006,
+            -1600.0,
+            384.14
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+          "position": [
+            0.0,
+            -1600.0,
+            384.14
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+          "position": [
+            490.00000000000006,
+            -1600.0,
+            384.14
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            2082.8683976208195,
+            -367.2658957655576,
+            0.0
+          ],
+          "yaw": 80.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            -2082.8683976208195,
+            -367.2658957655575,
+            0.0
+          ],
+          "yaw": -80.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            -2082.8683976208195,
+            367.2658957655579,
+            0.0
+          ],
+          "yaw": -100.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            2082.8683976208195,
+            367.26589576555773,
+            0.0
+          ],
+          "yaw": -260.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            -750.0,
+            -1495.0,
+            384.0
+          ],
+          "yaw": -90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+          "position": [
+            750.0,
+            -1495.0,
+            384.0
+          ],
+          "yaw": 90.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsCabinet_Carcass",
+          "position": [
+            -440.00000000000006,
+            -1950.0,
+            384.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            2102.8487653051056,
+            -772.0647788209181,
+            0.0
+          ],
+          "yaw": -195.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            1579.5395361799076,
+            -1588.4306110389464,
+            0.0
+          ],
+          "yaw": -220.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -1838.5829428835827,
+            -1279.714700461999,
+            0.0
+          ],
+          "yaw": -320.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -2207.1528404814208,
+            -382.79667082642436,
+            0.0
+          ],
+          "yaw": -345.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -2162.1366701331626,
+            585.8514932186129,
+            0.0
+          ],
+          "yaw": -370.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -1711.969761076935,
+            1444.7202115285793,
+            0.0
+          ],
+          "yaw": -395.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            -941.0063811374367,
+            2032.8708623765615,
+            0.0
+          ],
+          "yaw": -420.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            6.286939324863505,
+            2240.0931736949974,
+            0.0
+          ],
+          "yaw": -445.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            952.4021852709379,
+            2027.5569116382758,
+            0.0
+          ],
+          "yaw": -470.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            1720.0520944786813,
+            1435.0880616605036,
+            0.0
+          ],
+          "yaw": -495.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+          "position": [
+            2165.3910293985205,
+            573.7060590942159,
+            0.0
+          ],
+          "yaw": -520.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            0.0,
+            -0.0,
+            1048.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            1117.894234338657,
+            -463.0469531617586,
+            783.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            463.0469531617587,
+            -1117.894234338657,
+            783.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            -463.04695316175855,
+            -1117.894234338657,
+            783.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            -1117.894234338657,
+            -463.0469531617588,
+            783.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            -1117.894234338657,
+            463.04695316175855,
+            783.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            -463.04695316175935,
+            1117.8942343386566,
+            783.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            463.0469531617589,
+            1117.8942343386568,
+            783.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            1117.8942343386566,
+            463.04695316175935,
+            783.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            1400.0714267493643,
+            -1400.071426749364,
+            713.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            -1400.071426749364,
+            -1400.0714267493643,
+            713.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            -1400.0714267493645,
+            1400.071426749364,
+            713.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            1400.0714267493638,
+            1400.0714267493645,
+            713.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            -500.0,
+            -1680.0,
+            697.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            0.0,
+            -1680.0,
+            697.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            500.0,
+            -1680.0,
+            697.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_DispatchDesk",
+          "position": [
+            -730.0,
+            -1995.0,
+            384.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics",
+          "position": [
+            -730.0,
+            -1995.0,
+            384.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic",
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_WorkshopScreenCN",
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+            "/Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Keycaps",
+            "/Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Legends",
+            "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Lamp",
+            "/Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Display"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_PartsRack",
+          "position": [
+            -53.9905661,
+            -1623.1815638,
+            0.0
+          ],
+          "yaw": 150.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_0",
+          "position": [
+            -53.9905661,
+            -1623.1815638,
+            0.0
+          ],
+          "yaw": 150.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+            "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic",
+            "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_WorkshopPrintCN",
+            "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Copper"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/ArtPass20260922/Meshes/SM_Prop_StepLadder",
+          "position": [
+            -1220.0,
+            -1730.0,
+            0.0
+          ],
+          "yaw": 150.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_MotorStand",
+          "position": [
+            1167.469762,
+            -1095.7841041,
+            0.0
+          ],
+          "yaw": -150.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService",
+          "position": [
+            1167.469762,
+            -1095.7841041,
+            0.0
+          ],
+          "yaw": -150.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true,
+          "materials": [
+            "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+            "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Copper",
+            "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_WorkshopPrintCN"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_Accumulator",
+          "position": [
+            0.0,
+            -0.0,
+            20.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_ControlConsole_Refined",
+          "position": [
+            -490.00000000000006,
+            -1475.0,
+            384.0
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_ControlConsole_Refined",
+          "position": [
+            0.0,
+            -1475.0,
+            384.0
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_ControlConsole_Refined",
+          "position": [
+            490.00000000000006,
+            -1475.0,
+            384.0
+          ],
+          "yaw": -180.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        }
+      ],
+      "lights": [
+        {
+          "cast_shadows": true,
+          "role": "path",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "position": [
+            0.0,
+            -0.0,
+            1035.0
+          ],
+          "intensity": 3800.0,
+          "radius": 2100.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 2100.0
+        },
+        {
+          "cast_shadows": true,
+          "role": "path",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "position": [
+            1117.894234338657,
+            -463.0469531617586,
+            770.0
+          ],
+          "intensity": 1800.0,
+          "radius": 1350.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1350.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "position": [
+            463.0469531617587,
+            -1117.894234338657,
+            770.0
+          ],
+          "intensity": 1800.0,
+          "radius": 1350.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1350.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "position": [
+            -463.04695316175855,
+            -1117.894234338657,
+            770.0
+          ],
+          "intensity": 1800.0,
+          "radius": 1350.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1350.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "position": [
+            -1117.894234338657,
+            -463.0469531617588,
+            770.0
+          ],
+          "intensity": 1800.0,
+          "radius": 1350.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1350.0
+        },
+        {
+          "cast_shadows": true,
+          "role": "path",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "position": [
+            -1117.894234338657,
+            463.04695316175855,
+            770.0
+          ],
+          "intensity": 1800.0,
+          "radius": 1350.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1350.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "position": [
+            -463.04695316175935,
+            1117.8942343386566,
+            770.0
+          ],
+          "intensity": 1800.0,
+          "radius": 1350.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1350.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "position": [
+            463.0469531617589,
+            1117.8942343386568,
+            770.0
+          ],
+          "intensity": 1800.0,
+          "radius": 1350.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1350.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "position": [
+            1117.8942343386566,
+            463.04695316175935,
+            770.0
+          ],
+          "intensity": 1800.0,
+          "radius": 1350.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1350.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "position": [
+            1400.0714267493643,
+            -1400.071426749364,
+            700.0
+          ],
+          "intensity": 950.0,
+          "radius": 1050.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1050.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "position": [
+            -1400.071426749364,
+            -1400.0714267493643,
+            700.0
+          ],
+          "intensity": 950.0,
+          "radius": 1050.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1050.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "position": [
+            -1400.0714267493645,
+            1400.071426749364,
+            700.0
+          ],
+          "intensity": 950.0,
+          "radius": 1050.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1050.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "position": [
+            1400.0714267493638,
+            1400.0714267493645,
+            700.0
+          ],
+          "intensity": 950.0,
+          "radius": 1050.0,
+          "type": "point",
+          "color": [
+            0.74,
+            0.83,
+            0.86
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 1050.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "control",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "ceiling_m": 7.24,
+          "position": [
+            -500.0,
+            -1680.0,
+            684.0
+          ],
+          "intensity": 700.0,
+          "radius": 520.0,
+          "type": "point",
+          "color": [
+            0.88,
+            0.9,
+            0.78
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 520.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "control",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "ceiling_m": 7.24,
+          "position": [
+            0.0,
+            -1680.0,
+            684.0
+          ],
+          "intensity": 700.0,
+          "radius": 520.0,
+          "type": "point",
+          "color": [
+            0.88,
+            0.9,
+            0.78
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 520.0
+        },
+        {
+          "cast_shadows": false,
+          "role": "control",
+          "max_draw_distance_cm": 5400.0,
+          "fade_range_cm": 700.0,
+          "ceiling_m": 7.24,
+          "position": [
+            500.0,
+            -1680.0,
+            684.0
+          ],
+          "intensity": 700.0,
+          "radius": 520.0,
+          "type": "point",
+          "color": [
+            0.88,
+            0.9,
+            0.78
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 520.0
+        }
+      ],
+      "anchors": [
+        {
+          "position": [
+            -1200.0,
+            -0.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            1200.0,
+            -0.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            0.0,
+            1200.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            -900.0,
+            -900.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            900.0,
+            -900.0,
+            0.0
+          ],
+          "role": "power_combat"
+        },
+        {
+          "position": [
+            0.0,
+            -2000.0,
+            384.0
+          ],
+          "role": "power_combat"
+        }
+      ],
+      "props": [
+        {
+          "skeletal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+          "closed_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose",
+          "opening_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.A_TreasureChest_Opening",
+          "material_overrides": {},
+          "collision_extent": [
+            59.47500228881836,
+            74.26250076293945,
+            55.087501525878906
+          ],
+          "collision_center": [
+            6.174999237060547,
+            5.167499542236328,
+            55.087501525878906
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "position": [
+            0,
+            2100,
+            384.3
+          ],
+          "yaw": 270,
+          "identity": "power_outer_gallery_treasure",
+          "role": "power_outer_gallery"
+        }
+      ],
+      "runtime_actors": [
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+          "hinge": [
+            -30.7,
+            -23.299999999999997,
+            9
+          ],
+          "opening_motion": "Swing",
+          "opened_yaw": -105,
+          "storage_pages": 2,
+          "caption": "总控室防护用品柜",
+          "door_materials": [
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Green",
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels"
+          ],
+          "type": "scene_container",
+          "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.PPE_03",
+          "position": [
+            -680.0,
+            -1957.9999999999998,
+            384.0
+          ],
+          "yaw": -180.0,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+          "hinge": [
+            -30.7,
+            -23.299999999999997,
+            9
+          ],
+          "opening_motion": "Swing",
+          "opened_yaw": -105,
+          "storage_pages": 2,
+          "caption": "总控室防护用品柜",
+          "door_materials": [
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Green",
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels"
+          ],
+          "type": "scene_container",
+          "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.PPE_04",
+          "position": [
+            680.0,
+            -1957.9999999999998,
+            384.0
+          ],
+          "yaw": -180.0,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "storage_pages": 1,
+          "caption": "总控室检修记录 1",
+          "door_materials": [
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Gray",
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Canvas",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Paper"
+          ],
+          "type": "scene_container",
+          "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.Records_02_Drawer1",
+          "position": [
+            -440.00000000000006,
+            -1950.0,
+            395.0
+          ],
+          "yaw": -0.0,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "storage_pages": 1,
+          "caption": "总控室检修记录 2",
+          "door_materials": [
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Gray",
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Canvas",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Paper"
+          ],
+          "type": "scene_container",
+          "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.Records_02_Drawer2",
+          "position": [
+            -440.00000000000006,
+            -1950.0,
+            429.0
+          ],
+          "yaw": -0.0,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "storage_pages": 1,
+          "caption": "总控室检修记录 3",
+          "door_materials": [
+            "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Gray",
+            "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Canvas",
+            "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Paper"
+          ],
+          "type": "scene_container",
+          "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.Records_02_Drawer3",
+          "position": [
+            -440.00000000000006,
+            -1950.0,
+            463.0
+          ],
+          "yaw": -0.0,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "id": "UpperControlFrontGlass00",
+          "type": "glass_window",
+          "position": [
+            -600,
+            -1330.0,
+            580.0
+          ],
+          "yaw": -90,
+          "dimensions_cm": [
+            392.0,
+            200.0,
+            0.8
+          ],
+          "pane": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontPaneV5",
+          "fracture": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontFractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+        },
+        {
+          "id": "UpperControlFrontGlass01",
+          "type": "glass_window",
+          "position": [
+            -200,
+            -1330.0,
+            580.0
+          ],
+          "yaw": -90,
+          "dimensions_cm": [
+            392.0,
+            200.0,
+            0.8
+          ],
+          "pane": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontPaneV5",
+          "fracture": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontFractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+        },
+        {
+          "id": "UpperControlFrontGlass02",
+          "type": "glass_window",
+          "position": [
+            200,
+            -1330.0,
+            580.0
+          ],
+          "yaw": -90,
+          "dimensions_cm": [
+            392.0,
+            200.0,
+            0.8
+          ],
+          "pane": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontPaneV5",
+          "fracture": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontFractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+        },
+        {
+          "id": "UpperControlFrontGlass03",
+          "type": "glass_window",
+          "position": [
+            600,
+            -1330.0,
+            580.0
+          ],
+          "yaw": -90,
+          "dimensions_cm": [
+            392.0,
+            200.0,
+            0.8
+          ],
+          "pane": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontPaneV5",
+          "fracture": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontFractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+        },
+        {
+          "id": "UpperControlSideGlass-1",
+          "type": "glass_window",
+          "position": [
+            -800,
+            -1471.5,
+            580.0
+          ],
+          "yaw": 0,
+          "dimensions_cm": [
+            273.5,
+            200.0,
+            0.8
+          ],
+          "pane": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlSidePaneV5",
+          "fracture": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlSideFractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+        },
+        {
+          "id": "UpperControlSideGlass1",
+          "type": "glass_window",
+          "position": [
+            800,
+            -1471.5,
+            580.0
+          ],
+          "yaw": 0,
+          "dimensions_cm": [
+            273.5,
+            200.0,
+            0.8
+          ],
+          "pane": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlSidePaneV5",
+          "fracture": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlSideFractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+        },
+        {
+          "id": "UpperControlDoor-1_0",
+          "type": "solid_door",
+          "position": [
+            -800,
+            -1673.75,
+            385.5
+          ],
+          "yaw": 0,
+          "leaf": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf",
+          "positive_hinge": true,
+          "open_seconds": 0.55,
+          "auto_close_seconds": 0
+        },
+        {
+          "id": "UpperControlDoor-1_1",
+          "type": "solid_door",
+          "position": [
+            -800,
+            -1786.25,
+            385.5
+          ],
+          "yaw": 0,
+          "leaf": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf",
+          "positive_hinge": false,
+          "open_seconds": 0.55,
+          "auto_close_seconds": 0
+        },
+        {
+          "id": "UpperControlDoor1_0",
+          "type": "solid_door",
+          "position": [
+            800,
+            -1673.75,
+            385.5
+          ],
+          "yaw": 0,
+          "leaf": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf",
+          "positive_hinge": true,
+          "open_seconds": 0.55,
+          "auto_close_seconds": 0
+        },
+        {
+          "id": "UpperControlDoor1_1",
+          "type": "solid_door",
+          "position": [
+            800,
+            -1786.25,
+            385.5
+          ],
+          "yaw": 0,
+          "leaf": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf",
+          "positive_hinge": false,
+          "open_seconds": 0.55,
+          "auto_close_seconds": 0
+        },
+        {
+          "type": "scene_container",
+          "container_id": "PowerTheme20261004RefineV2.Server.ControlServerRack01",
+          "position": [
+            220.00000000000003,
+            -1925.0,
+            384.0
+          ],
+          "yaw": -0.0,
+          "body": "/Game/Dungeons/PowerTheme20261004/ServerContainers20261006/Meshes/SM_Power_ServerContainer_Body",
+          "door": "/Game/Dungeons/PowerTheme20261004/ServerContainers20261006/Meshes/SM_Power_ServerContainer_Cartridge",
+          "caption": "服务器模块",
+          "storage_pages": 1,
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            32,
+            0
+          ],
+          "hinge": [
+            -20.9,
+            52.45,
+            158.0
+          ],
+          "initial_open_fraction": 0
+        },
+        {
+          "type": "scene_container",
+          "container_id": "PowerTheme20261004RefineV2.Server.ControlServerRack02",
+          "position": [
+            340.00000000000006,
+            -1925.0,
+            384.0
+          ],
+          "yaw": -0.0,
+          "body": "/Game/Dungeons/PowerTheme20261004/ServerContainers20261006/Meshes/SM_Power_ServerContainer_Body",
+          "door": "/Game/Dungeons/PowerTheme20261004/ServerContainers20261006/Meshes/SM_Power_ServerContainer_Cartridge",
+          "caption": "服务器模块",
+          "storage_pages": 1,
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            32,
+            0
+          ],
+          "hinge": [
+            -20.9,
+            52.45,
+            158.0
+          ],
+          "initial_open_fraction": 0
+        }
+      ],
+      "runtime_assets": [
+        "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Canvas",
+        "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Gray",
+        "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Green",
+        "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Paper",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+        "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+        "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels",
+        "/Game/Dungeons/PowerTheme20261004/ServerContainers20261006/Meshes/SM_Power_ServerContainer_Body",
+        "/Game/Dungeons/PowerTheme20261004/ServerContainers20261006/Meshes/SM_Power_ServerContainer_Cartridge",
+        "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontFractureV5",
+        "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontPaneV5",
+        "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlSideFractureV5",
+        "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlSidePaneV5",
+        "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_ContainerOutline_V4",
+        "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+        "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf",
+        "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+        "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+        "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+        "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose",
+        "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.A_TreasureChest_Opening"
+      ],
+      "walk_mask": [
+        {
+          "min": [
+            -2193.1841208425135,
+            -210.0,
+            0.0
+          ],
+          "max": [
+            -500.0,
+            210.0,
+            280.0
+          ]
+        },
+        {
+          "min": [
+            500.0,
+            -210.0,
+            0.0
+          ],
+          "max": [
+            2193.1841208425135,
+            210.0,
+            280.0
+          ]
+        },
+        {
+          "min": [
+            -1300.0,
+            500.0,
+            0.0
+          ],
+          "max": [
+            1300.0,
+            1000.0,
+            280.0
+          ]
+        },
+        {
+          "min": [
+            -770.0,
+            -2014.0217709212393,
+            0.0
+          ],
+          "max": [
+            770.0,
+            -1660.0000000000002,
+            280.0
+          ]
+        }
+      ],
+      "selection": {
+        "chance_per_run": 0.0,
+        "max_per_run": 1
+      },
+      "authoring_only": true,
+      "route_intent": {
+        "registration": "pending_explicit_user_acceptance",
+        "fixed_theme_order": [
+          "SwitchgearGallery",
+          "GeneratorHall",
+          "AccumulatorControl"
+        ],
+        "upper_control_room": {
+          "floor_cm": 384,
+          "stairs_width_cm": 240,
+          "front_balcony_clear_width_cm": 204,
+          "side_door_clear_width_cm": 230,
+          "design": "Two side entrances, front observation balcony, rear cross-aisle and ground-level through route"
+        }
+      },
+      "upper_control_revision": "20261005"
+    },
+    {
+      "id": "Link01",
+      "family_id": "Link01",
+      "role": "corridor",
+      "revision": "power_theme_refine_v2_20261004",
+      "min": [
+        -300.0,
+        -191.0,
+        -30.0
+      ],
+      "max": [
+        300.0,
+        191.0,
+        350.0
+      ],
+      "cells": [
+        {
+          "min": [
+            -300.0,
+            -191.0,
+            -30.0
+          ],
+          "max": [
+            300.0,
+            191.0,
+            350.0
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "Entry",
+          "position": [
+            -300.0,
+            -0.0,
+            0.0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width": 312.0,
+          "height": 280.0
+        },
+        {
+          "id": "Exit",
+          "position": [
+            300.0,
+            -0.0,
+            0.0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width": 312.0,
+          "height": 280.0
+        }
+      ],
+      "port_pairs": [
+        [
+          0,
+          1
+        ]
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link01_Structure",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link01_FloorFinish",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link01_Trim",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link01_Roof",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link01_Cablework",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link01_Hangers",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            0.0,
+            -0.0,
+            308.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        }
+      ],
+      "lights": [
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 3400.0,
+          "fade_range_cm": 500.0,
+          "position": [
+            0.0,
+            -0.0,
+            295.0
+          ],
+          "intensity": 240.0,
+          "radius": 370.0,
+          "type": "point",
+          "color": [
+            1,
+            0.81,
+            0.58
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 370.0
+        }
+      ],
+      "anchors": [],
+      "props": [],
+      "runtime_actors": [],
+      "runtime_assets": [],
+      "walk_mask": [
+        {
+          "min": [
+            -300.0,
+            -191.0,
+            -30.0
+          ],
+          "max": [
+            300.0,
+            191.0,
+            350.0
+          ]
+        }
+      ],
+      "selection": {
+        "chance_per_run": 0.0,
+        "max_per_run": 1
+      },
+      "authoring_only": true,
+      "route_intent": {
+        "registration": "pending_explicit_user_acceptance",
+        "fixed_theme_order": [
+          "SwitchgearGallery",
+          "GeneratorHall",
+          "AccumulatorControl"
+        ]
+      }
+    },
+    {
+      "id": "Link02",
+      "family_id": "Link02",
+      "role": "corridor",
+      "revision": "power_theme_refine_v2_20261004",
+      "min": [
+        -300.0,
+        -191.0,
+        -30.0
+      ],
+      "max": [
+        300.0,
+        191.0,
+        350.0
+      ],
+      "cells": [
+        {
+          "min": [
+            -300.0,
+            -191.0,
+            -30.0
+          ],
+          "max": [
+            300.0,
+            191.0,
+            350.0
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "Entry",
+          "position": [
+            -300.0,
+            -0.0,
+            0.0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width": 312.0,
+          "height": 280.0
+        },
+        {
+          "id": "Exit",
+          "position": [
+            300.0,
+            -0.0,
+            0.0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width": 312.0,
+          "height": 280.0
+        }
+      ],
+      "port_pairs": [
+        [
+          0,
+          1
+        ]
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link02_Structure",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link02_FloorFinish",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link02_Trim",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link02_Roof",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link02_Cablework",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link02_Hangers",
+          "position": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+          "position": [
+            0.0,
+            -0.0,
+            308.0
+          ],
+          "yaw": -0.0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        }
+      ],
+      "lights": [
+        {
+          "cast_shadows": false,
+          "role": "path",
+          "max_draw_distance_cm": 3400.0,
+          "fade_range_cm": 500.0,
+          "position": [
+            0.0,
+            -0.0,
+            295.0
+          ],
+          "intensity": 240.0,
+          "radius": 370.0,
+          "type": "point",
+          "color": [
+            1,
+            0.81,
+            0.58
+          ],
+          "indirect_lighting_intensity": 0.7,
+          "optimized_radius_cm": 370.0
+        }
+      ],
+      "anchors": [],
+      "props": [],
+      "runtime_actors": [],
+      "runtime_assets": [],
+      "walk_mask": [
+        {
+          "min": [
+            -300.0,
+            -191.0,
+            -30.0
+          ],
+          "max": [
+            300.0,
+            191.0,
+            350.0
+          ]
+        }
+      ],
+      "selection": {
+        "chance_per_run": 0.0,
+        "max_per_run": 1
+      },
+      "authoring_only": true,
+      "route_intent": {
+        "registration": "pending_explicit_user_acceptance",
+        "fixed_theme_order": [
+          "SwitchgearGallery",
+          "GeneratorHall",
+          "AccumulatorControl"
+        ]
+      }
+    }
+  ],
+  "proposed_sequence": [
+    "SwitchgearGallery",
+    "GeneratorHall",
+    "AccumulatorControl"
+  ],
+  "subject_placements": [
+    {
+      "id": "SwitchgearGallery",
+      "position": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "GeneratorHall",
+      "position": [
+        2800.0,
+        -0.0,
+        0.0
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "AccumulatorControl",
+      "position": [
+        6943.184120842514,
+        -0.0,
+        0.0
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "Link01",
+      "position": [
+        1200.0,
+        -0.0,
+        0.0
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "Link02",
+      "position": [
+        4400.0,
+        -0.0,
+        0.0
+      ],
+      "yaw": 0
+    }
+  ],
+  "module_asset_paths": [
+    "/Game/Dungeons/ArtPass20260922/Materials/MI_Prop_StepLadder_All",
+    "/Game/Dungeons/ArtPass20260922/Meshes/SM_Prop_StepLadder",
+    "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+    "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+    "/Game/Dungeons/AtmosphereV2/TileFracture/Materials/M_CeramicFractureCore",
+    "/Game/Dungeons/AtmosphereV2/TileFracture/Meshes/SM_TileFracture_EntryEnd",
+    "/Game/Dungeons/AtmosphereV2/TilePolish/Materials/M_TileCeramicCore.M_TileCeramicCore",
+    "/Game/Dungeons/AtmosphereV2/TilePolish/Materials/M_TileGlazeAtlas.M_TileGlazeAtlas",
+    "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Bed.MI_WallMortar_Bed",
+    "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Finish.MI_WallMortar_Finish",
+    "/Game/Dungeons/DataArchive20260930/EquipmentV1/Materials/M_ArchiveEquipment_Atlas",
+    "/Game/Dungeons/DataArchive20260930/EquipmentV2/Materials/M_ArchiveEquipment_Atlas",
+    "/Game/Dungeons/DataArchive20260930/EquipmentV2/Meshes/SM_Archive_DispatchConsole_V2",
+    "/Game/Dungeons/FacilityPropPolish20260928/Materials/M_FacilityProp_Atlas",
+    "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Canvas",
+    "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Charcoal",
+    "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Filter",
+    "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Gray",
+    "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Green",
+    "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Labels",
+    "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Paper",
+    "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+    "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+    "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsCabinet_Carcass",
+    "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+    "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+    "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+    "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_CabinetChinese",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_Ceramic",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ContainerLabels",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_Copper",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_Dark",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_Labels",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_Red",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ServerChinese",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_WorkshopPrintCN",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_WorkshopScreenCN",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Cablework",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_ControlRoom",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_DadoBacking",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Equipment",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_GalleryDeck",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Hangers",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Hardware",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Markings",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Pipework",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Rails",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Roof",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_RoofFrame",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Structure",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Trim",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Generator",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Cablework",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_FloorFinish",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Hangers",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Hardware",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Markings",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Pipework",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Rails",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Roof",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_RoofFrame",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Structure",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Trim",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link01_Cablework",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link01_FloorFinish",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link01_Hangers",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link01_Roof",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link01_Structure",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link01_Trim",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link02_Cablework",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link02_FloorFinish",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link02_Hangers",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link02_Roof",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link02_Structure",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Link02_Trim",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Cablework",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_FloorFinish",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Hangers",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Hardware",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Markings",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Roof",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_RoofFrame",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Structure",
+    "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Trim",
+    "/Game/Dungeons/PowerTheme20261004/ServerContainers20261006/Meshes/SM_Power_ServerContainer_Body",
+    "/Game/Dungeons/PowerTheme20261004/ServerContainers20261006/Meshes/SM_Power_ServerContainer_Cartridge",
+    "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Materials/M_Power_TextCards",
+    "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Archive_ServerRack_V1",
+    "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+    "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_Accumulator",
+    "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_AccumulatorControl_Signs",
+    "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_ControlConsole_Refined",
+    "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_GeneratorHall_Signs",
+    "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_SwitchgearGallery_Signs",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Cablework",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_ControlRoom",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_GalleryDeck",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Hangers",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Hardware",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Markings",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Rails",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_RoofFrame",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Signs",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Structure",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Trim",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontFractureV5",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontPaneV5",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlSideFractureV5",
+    "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlSidePaneV5",
+    "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+    "/Game/Dungeons/SeamMetal20260923/Materials/MI_BridgeDeck",
+    "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+    "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+    "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+    "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_LampGlass",
+    "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+    "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Desk",
+    "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture",
+    "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_ContainerOutline_V4",
+    "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+    "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6",
+    "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Copper",
+    "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Lamp",
+    "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic",
+    "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print",
+    "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Screen",
+    "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_DispatchDesk",
+    "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_MotorStand",
+    "/Game/Dungeons/StationWorkshop20261003/Meshes/SM_SW_PartsRack",
+    "/Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Display",
+    "/Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Keycaps",
+    "/Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Legends",
+    "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics",
+    "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService",
+    "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf",
+    "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_0",
+    "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+    "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint",
+    "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+    "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose",
+    "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.A_TreasureChest_Opening",
+    "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+    "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+  ],
+  "hard_references_saved": false,
+  "runtime_activation": false,
+  "preview_caps_included": false,
+  "required_container_outline": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_ContainerOutline_V4",
+  "container_rewards_deferred": true,
+  "navigation_and_spawn_configuration": "pending accepted production integration; no enemies spawned",
+  "text_card_revision": "TextCards20261005",
+  "upper_control_revision": "UpperControlRoom20261005",
+  "server_container_revision": "ServerContainers20261006"
+}

@@ -1,0 +1,888 @@
+{
+  "Drainage": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Drainage_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_Drainage_000",
+      "holes": [
+        {
+          "position": [
+            -451.8948059082031,
+            -1191.6318359375,
+            -3.814697265625e-06
+          ],
+          "parts": [
+            0,
+            9,
+            11
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "ShoredBreach": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_ShoredBreach_000",
+      "holes": [
+        {
+          "position": [
+            132.0,
+            -507.2904968261719,
+            3.814697265625e-06
+          ],
+          "parts": [
+            0,
+            2,
+            4
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "VentilationLoop": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_VentilationLoop_000",
+      "holes": [
+        {
+          "position": [
+            132.0,
+            -1348.0,
+            0.0
+          ],
+          "parts": [
+            0,
+            7,
+            9
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "FreightTransfer": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_FreightTransfer_000",
+      "holes": [
+        {
+          "position": [
+            972.0,
+            -468.0,
+            3.814697265625e-06
+          ],
+          "parts": [
+            0,
+            3,
+            4
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "BossConfluence": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_BossConfluence_000",
+      "holes": [
+        {
+          "position": [
+            -568.0,
+            -1068.0,
+            0.0
+          ],
+          "parts": [
+            0,
+            2,
+            4
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "BossPumpHall": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_BossPumpHall_000",
+      "holes": [
+        {
+          "position": [
+            -1368.0,
+            -398.0,
+            0.0
+          ],
+          "parts": [
+            0,
+            1,
+            18,
+            29,
+            31
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "AbandonedTransitStation": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AbandonedTransitStation_000",
+      "holes": [
+        {
+          "position": [
+            -325.0,
+            1425.0,
+            0.20000076293945312
+          ],
+          "parts": [
+            0,
+            1,
+            4,
+            5,
+            7,
+            9,
+            32,
+            34
+          ],
+          "radius": 72
+        }
+      ]
+    },
+    {
+      "part_index": 1,
+      "source": "/Game/Dungeons/TransitStation20260928/Meshes/SM_Station_Paving",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AbandonedTransitStation_001",
+      "holes": [
+        {
+          "position": [
+            -325.0,
+            1425.0,
+            0.20000076293945312
+          ],
+          "parts": [
+            0,
+            1,
+            4,
+            5,
+            7,
+            9,
+            32,
+            34
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "AbandonedIsolationWard": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_FloorSlabs",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AbandonedIsolationWard_000",
+      "holes": [
+        {
+          "position": [
+            -1848.0,
+            -1568.0,
+            4.199993133544922
+          ],
+          "parts": [
+            0,
+            1,
+            3,
+            6
+          ],
+          "radius": 72
+        }
+      ]
+    },
+    {
+      "part_index": 1,
+      "source": "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_FloorFinish",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AbandonedIsolationWard_001",
+      "holes": [
+        {
+          "position": [
+            -1848.0,
+            -1568.0,
+            4.199993133544922
+          ],
+          "parts": [
+            0,
+            1,
+            3,
+            6
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "AbandonedIncineratorHall": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/IncineratorHall20260929/AshStationV3/Meshes/SM_Incinerator_Floors_AshV3",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AbandonedIncineratorHall_000",
+      "holes": [
+        {
+          "position": [
+            -1120.0,
+            -930.0,
+            0.0
+          ],
+          "parts": [
+            0,
+            2,
+            3,
+            5,
+            16,
+            40,
+            44,
+            45
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "AbandonedDataArchive": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AbandonedDataArchive_000",
+      "holes": [
+        {
+          "position": [
+            410.0,
+            -1070.0,
+            0.0
+          ],
+          "parts": [
+            0,
+            1,
+            6
+          ],
+          "radius": 72
+        }
+      ]
+    },
+    {
+      "part_index": 1,
+      "source": "/Game/Dungeons/DataArchive20260930/Meshes/SM_DataArchive_Paving",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AbandonedDataArchive_001",
+      "holes": [
+        {
+          "position": [
+            410.0,
+            -1070.0,
+            0.0
+          ],
+          "parts": [
+            0,
+            1,
+            6
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "AbandonedAnatomyTheatre": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AbandonedAnatomyTheatre_000",
+      "holes": [
+        {
+          "position": [
+            -750.0,
+            730.0,
+            -3.814697265625e-06
+          ],
+          "parts": [
+            0,
+            1,
+            2,
+            16
+          ],
+          "radius": 72
+        },
+        {
+          "position": [
+            -150.0,
+            730.0,
+            7.62939453125e-06
+          ],
+          "parts": [
+            0,
+            1,
+            2,
+            16
+          ],
+          "radius": 72
+        }
+      ]
+    },
+    {
+      "part_index": 1,
+      "source": "/Game/Dungeons/AnatomyTheatre20261001/Meshes/SM_AnatomyTheatre_Paving",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AbandonedAnatomyTheatre_001",
+      "holes": [
+        {
+          "position": [
+            -750.0,
+            730.0,
+            -3.814697265625e-06
+          ],
+          "parts": [
+            0,
+            1,
+            2,
+            16
+          ],
+          "radius": 72
+        },
+        {
+          "position": [
+            -150.0,
+            730.0,
+            7.62939453125e-06
+          ],
+          "parts": [
+            0,
+            1,
+            2,
+            16
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "AbandonedFlueGasStation": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AbandonedFlueGasStation_000",
+      "holes": [
+        {
+          "position": [
+            1295.0,
+            -104.0,
+            0.20000457763671875
+          ],
+          "parts": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "radius": 72
+        }
+      ]
+    },
+    {
+      "part_index": 1,
+      "source": "/Game/Dungeons/FlueGasStation20261001/Meshes/SM_FlueGas_Paving",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AbandonedFlueGasStation_001",
+      "holes": [
+        {
+          "position": [
+            1295.0,
+            -104.0,
+            0.20000457763671875
+          ],
+          "parts": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "AbandonedCargoWarehouse": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AbandonedCargoWarehouse_000",
+      "holes": [
+        {
+          "position": [
+            -5.0,
+            1255.0,
+            0.1999969482421875
+          ],
+          "parts": [
+            0,
+            1,
+            2,
+            5,
+            15,
+            19
+          ],
+          "radius": 72
+        }
+      ]
+    },
+    {
+      "part_index": 1,
+      "source": "/Game/Dungeons/CargoWarehouse20261001/Meshes/SM_CargoWarehouse_Paving",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AbandonedCargoWarehouse_001",
+      "holes": [
+        {
+          "position": [
+            -5.0,
+            1255.0,
+            0.1999969482421875
+          ],
+          "parts": [
+            0,
+            1,
+            2,
+            5,
+            15,
+            19
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "FreightTransfer_WarehouseLink": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_FreightTransfer_WarehouseLink_000",
+      "holes": [
+        {
+          "position": [
+            372.0,
+            -1110.0,
+            -3.814697265625e-06
+          ],
+          "parts": [
+            0,
+            4,
+            5,
+            8,
+            10
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "StaffDormitory": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Dormitory_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_StaffDormitory_000",
+      "holes": [
+        {
+          "position": [
+            1190.0,
+            -864.0,
+            7.62939453125e-06
+          ],
+          "parts": [
+            0,
+            1,
+            3
+          ],
+          "radius": 72
+        }
+      ]
+    },
+    {
+      "part_index": 1,
+      "source": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Meshes/SM_Staff_Dormitory_FloorFinish_V3",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_StaffDormitory_001",
+      "holes": [
+        {
+          "position": [
+            1190.0,
+            -864.0,
+            7.62939453125e-06
+          ],
+          "parts": [
+            0,
+            1,
+            3
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "StaffChangingShowers": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Meshes/SM_Staff_ChangingShowers_Floors_V3",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_StaffChangingShowers_000",
+      "holes": [
+        {
+          "position": [
+            -530.0,
+            -964.0,
+            0.0
+          ],
+          "parts": [
+            0,
+            1,
+            3
+          ],
+          "radius": 72
+        }
+      ]
+    },
+    {
+      "part_index": 1,
+      "source": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Meshes/SM_Staff_ChangingShowers_FloorFinish_V3",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_StaffChangingShowers_001",
+      "holes": [
+        {
+          "position": [
+            -530.0,
+            -964.0,
+            0.0
+          ],
+          "parts": [
+            0,
+            1,
+            3
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "StaffRecreation": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_StaffRecreation_000",
+      "holes": [
+        {
+          "position": [
+            -1310.0,
+            976.0,
+            3.814697265625e-06
+          ],
+          "parts": [
+            0,
+            1,
+            3
+          ],
+          "radius": 72
+        }
+      ]
+    },
+    {
+      "part_index": 1,
+      "source": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Meshes/SM_Staff_Recreation_FloorFinish_V3",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_StaffRecreation_001",
+      "holes": [
+        {
+          "position": [
+            -1310.0,
+            976.0,
+            3.814697265625e-06
+          ],
+          "parts": [
+            0,
+            1,
+            3
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "EcoNursery": [
+    {
+      "part_index": 6,
+      "source": "/Game/Dungeons/Ecology20261004/RefineV3/NurseryFinal/Meshes/SM_EcoNursery_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_EcoNursery_006",
+      "holes": [
+        {
+          "position": [
+            -150.0,
+            -864.0,
+            0.0
+          ],
+          "parts": [
+            0,
+            2,
+            5,
+            6,
+            7,
+            13
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "EcoHydroponics": [
+    {
+      "part_index": 5,
+      "source": "/Game/Dungeons/Ecology20261004/RefineV3/Meshes/SM_EcoHydroponics_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_EcoHydroponics_005",
+      "holes": [
+        {
+          "position": [
+            -490.0,
+            1276.0,
+            7.62939453125e-06
+          ],
+          "parts": [
+            0,
+            1,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "EcoBiosphere": [
+    {
+      "part_index": 5,
+      "source": "/Game/Dungeons/Ecology20261004/RefineV5/Meshes/SM_EcoBiosphere_Floors",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_EcoBiosphere_005",
+      "holes": [
+        {
+          "position": [
+            -1370.0,
+            -1514.0,
+            3.814697265625e-06
+          ],
+          "parts": [
+            0,
+            1,
+            4,
+            5,
+            6,
+            16
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "SwitchgearGallery": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Structure",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_SwitchgearGallery_000",
+      "holes": [
+        {
+          "position": [
+            -770.0,
+            470.0,
+            0.09999465942382812
+          ],
+          "parts": [
+            0,
+            1,
+            2
+          ],
+          "radius": 72
+        }
+      ]
+    },
+    {
+      "part_index": 1,
+      "source": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_FloorFinish",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_SwitchgearGallery_001",
+      "holes": [
+        {
+          "position": [
+            -770.0,
+            470.0,
+            0.09999465942382812
+          ],
+          "parts": [
+            0,
+            1,
+            2
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "GeneratorHall": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Structure",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_GeneratorHall_000",
+      "holes": [
+        {
+          "position": [
+            -690.0,
+            950.0,
+            0.10000228881835938
+          ],
+          "parts": [
+            0,
+            1
+          ],
+          "radius": 72
+        }
+      ]
+    },
+    {
+      "part_index": 1,
+      "source": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_FloorFinish",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_GeneratorHall_001",
+      "holes": [
+        {
+          "position": [
+            -690.0,
+            950.0,
+            0.10000228881835938
+          ],
+          "parts": [
+            0,
+            1
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "AccumulatorControl": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Structure",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_AccumulatorControl_000",
+      "holes": [
+        {
+          "position": [
+            -2005.0,
+            -565.0,
+            3.814697265625e-06
+          ],
+          "parts": [
+            0,
+            1,
+            3,
+            9
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "FacilityReceptionHall": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Foundations",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_FacilityReceptionHall_000",
+      "holes": [
+        {
+          "position": [
+            -1260.0,
+            -1530.0,
+            0.0
+          ],
+          "parts": [
+            0,
+            1,
+            6,
+            56,
+            59,
+            124
+          ],
+          "radius": 72
+        }
+      ]
+    },
+    {
+      "part_index": 1,
+      "source": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_GroundFloor",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_FacilityReceptionHall_001",
+      "holes": [
+        {
+          "position": [
+            -1260.0,
+            -1530.0,
+            0.0
+          ],
+          "parts": [
+            0,
+            1,
+            6,
+            56,
+            59,
+            124
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ],
+  "FacilityTransit": [
+    {
+      "part_index": 0,
+      "source": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Slab",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_FacilityTransit_000",
+      "holes": [
+        {
+          "position": [
+            2350.0,
+            -250.0,
+            3.814697265625e-06
+          ],
+          "parts": [
+            0,
+            1,
+            2,
+            6
+          ],
+          "radius": 72
+        }
+      ]
+    },
+    {
+      "part_index": 1,
+      "source": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Floor",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Floors/SM_EntryFloor_FacilityTransit_001",
+      "holes": [
+        {
+          "position": [
+            2350.0,
+            -250.0,
+            3.814697265625e-06
+          ],
+          "parts": [
+            0,
+            1,
+            2,
+            6
+          ],
+          "radius": 72
+        }
+      ]
+    }
+  ]
+}

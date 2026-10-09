@@ -1,0 +1,418 @@
+{
+  "meshes": [
+    {
+      "name": "SM_RHU_Planters",
+      "kind": "Planters",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_Planters",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\UpperProps20261007\\Authored\\SM_RHU_Planters.fbx",
+      "sha256": "69daffba889e0ca36d0623e633d91a02ece8adbb81bb3d40e5fc1362984da321",
+      "materials": {
+        "RHU_Stone": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Stone"
+      },
+      "triangles": 24280,
+      "collision": true,
+      "collision_hulls": 10,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RHU_PlanterSoil",
+      "kind": "PlanterSoil",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_PlanterSoil",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\UpperProps20261007\\Authored\\SM_RHU_PlanterSoil.fbx",
+      "sha256": "2be1380ae7dd305f297fdef067e47b1d7912c4ebfff98dbd80409cb6a12d6e30",
+      "materials": {
+        "RHU_Soil": "/Game/Dungeons/Ecology20261004/RefineV5/Materials/M_Eco_SoilBed"
+      },
+      "triangles": 1880,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RHU_PlanterTrim",
+      "kind": "PlanterTrim",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_PlanterTrim",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\UpperProps20261007\\Authored\\SM_RHU_PlanterTrim.fbx",
+      "sha256": "b623114b8e65243160b5871a60483899b9560c670809e29cd0bd35c6dddb2058",
+      "materials": {
+        "RHU_Brass": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Brass"
+      },
+      "triangles": 20480,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RHU_WasteBins",
+      "kind": "WasteBins",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_WasteBins",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\UpperProps20261007\\Authored\\SM_RHU_WasteBins.fbx",
+      "sha256": "265cac44a0c666ab020e8117d6e184fab11d9a815f5ebe56827e07b2629f8421",
+      "materials": {
+        "RHU_SatinSteel": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Materials/M_RHU_SatinSteel",
+        "RHU_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+        "RHU_BinLiner": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Materials/M_RHU_BinLiner",
+        "RHU_BinPaint": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Materials/M_RHU_BinPaint",
+        "RHU_Paper": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Paper"
+      },
+      "triangles": 181740,
+      "collision": true,
+      "collision_hulls": 5,
+      "nanite": true,
+      "cast_shadow": true
+    }
+  ],
+  "roles": {
+    "Concrete": {
+      "basecolor_linear": [
+        0.29,
+        0.28,
+        0.25
+      ],
+      "roughness": 0.85,
+      "metallic": 0,
+      "uv_meters": 1.0,
+      "uv_meters_override": 2,
+      "existing_ue_path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+      "required_existing": true
+    },
+    "Paint": {
+      "basecolor_linear": [
+        0.13,
+        0.17,
+        0.125
+      ],
+      "roughness": 0.53,
+      "metallic": 0.04,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+      "required_existing": true
+    },
+    "Steel": {
+      "basecolor_linear": [
+        0.24,
+        0.265,
+        0.27
+      ],
+      "roughness": 0.39,
+      "metallic": 0.92,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+      "required_existing": true
+    },
+    "Enamel": {
+      "basecolor_linear": [
+        0.17,
+        0.205,
+        0.145
+      ],
+      "roughness": 0.5,
+      "metallic": 0.03,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+      "required_existing": true
+    },
+    "Yellow": {
+      "basecolor_linear": [
+        0.5,
+        0.31,
+        0.055
+      ],
+      "roughness": 0.56,
+      "metallic": 0.03,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+      "required_existing": true
+    },
+    "Rubber": {
+      "basecolor_linear": [
+        0.018,
+        0.021,
+        0.019
+      ],
+      "roughness": 0.88,
+      "metallic": 0,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+      "required_existing": true
+    },
+    "Floor": {
+      "basecolor_linear": [
+        0.35,
+        0.36,
+        0.33
+      ],
+      "roughness": 0.65,
+      "metallic": 0,
+      "uv_meters": 1.2,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Floor",
+      "new_authored": true
+    },
+    "Stone": {
+      "basecolor_linear": [
+        0.54,
+        0.51,
+        0.43
+      ],
+      "roughness": 0.64,
+      "metallic": 0,
+      "uv_meters": 1.2,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Stone",
+      "new_authored": true
+    },
+    "Teal": {
+      "basecolor_linear": [
+        0.032,
+        0.077,
+        0.07
+      ],
+      "roughness": 0.51,
+      "metallic": 0.12,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+      "new_authored": true
+    },
+    "Brass": {
+      "basecolor_linear": [
+        0.27,
+        0.2,
+        0.1
+      ],
+      "roughness": 0.42,
+      "metallic": 0.75,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Brass",
+      "new_authored": true
+    },
+    "Dark": {
+      "basecolor_linear": [
+        0.02,
+        0.027,
+        0.027
+      ],
+      "roughness": 0.77,
+      "metallic": 0.12,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Dark",
+      "new_authored": true
+    },
+    "White": {
+      "basecolor_linear": [
+        0.63,
+        0.62,
+        0.55
+      ],
+      "roughness": 0.6,
+      "metallic": 0,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_White",
+      "new_authored": true
+    },
+    "Glow": {
+      "basecolor_linear": [
+        0.8,
+        0.88,
+        0.76
+      ],
+      "roughness": 0.4,
+      "metallic": 0,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Glow",
+      "new_authored": true
+    },
+    "Red": {
+      "basecolor_linear": [
+        0.26,
+        0.045,
+        0.032
+      ],
+      "roughness": 0.53,
+      "metallic": 0,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Red",
+      "new_authored": true
+    },
+    "Wood": {
+      "basecolor_linear": [
+        0.23,
+        0.16,
+        0.085
+      ],
+      "roughness": 0.7,
+      "metallic": 0,
+      "uv_meters": 1.72,
+      "existing_ue_path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+      "new_authored": false
+    },
+    "Soil": {
+      "basecolor_linear": [
+        0.055,
+        0.033,
+        0.02
+      ],
+      "roughness": 0.94,
+      "metallic": 0,
+      "uv_meters": 0.65,
+      "existing_ue_path": "/Game/Dungeons/Ecology20261004/RefineV5/Materials/M_Eco_SoilBed",
+      "new_authored": false
+    },
+    "Labels": {
+      "basecolor_linear": [
+        0.6,
+        0.65,
+        0.57
+      ],
+      "roughness": 0.76,
+      "metallic": 0,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Labels",
+      "new_authored": true
+    },
+    "SatinSteel": {
+      "basecolor_linear": [
+        0.42,
+        0.45,
+        0.46
+      ],
+      "roughness": 0.48,
+      "metallic": 0.9,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Materials/M_RHU_SatinSteel"
+    },
+    "BinPaint": {
+      "basecolor_linear": [
+        0.034,
+        0.065,
+        0.053
+      ],
+      "roughness": 0.68,
+      "metallic": 0,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Materials/M_RHU_BinPaint"
+    },
+    "BinLiner": {
+      "basecolor_linear": [
+        0.013,
+        0.018,
+        0.016
+      ],
+      "roughness": 0.43,
+      "metallic": 0,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Materials/M_RHU_BinLiner"
+    },
+    "Paper": {
+      "basecolor_linear": [
+        0.64,
+        0.62,
+        0.53
+      ],
+      "roughness": 0.8,
+      "metallic": 0,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Paper"
+    }
+  },
+  "pots": [
+    [
+      -21,
+      -8,
+      0
+    ],
+    [
+      -21,
+      8,
+      0
+    ],
+    [
+      -3,
+      15.25,
+      0
+    ],
+    [
+      2,
+      15.25,
+      0
+    ],
+    [
+      8,
+      -14.7,
+      0
+    ],
+    [
+      12,
+      -14.7,
+      0
+    ],
+    [
+      -20.4,
+      -15.9,
+      4.5
+    ],
+    [
+      -20.4,
+      15.78,
+      4.5
+    ],
+    [
+      11.3,
+      -15.88,
+      4.5
+    ],
+    [
+      11.3,
+      15.9,
+      4.5
+    ]
+  ],
+  "bins": [
+    [
+      -14,
+      -15.9,
+      0
+    ],
+    [
+      -1,
+      15.9,
+      0
+    ],
+    [
+      22.9,
+      12,
+      0
+    ],
+    [
+      -22.5,
+      -15.8,
+      4.5
+    ],
+    [
+      -22.5,
+      15.8,
+      4.5
+    ]
+  ]
+}

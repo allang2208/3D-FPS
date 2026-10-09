@@ -2,6 +2,7 @@
 #include "AuthoredDungeonGenerator.h"
 
 #include "Components/PointLightComponent.h"
+#include "Components/PrimitiveComponent.h"
 #include "Engine/Light.h"
 #include "EngineUtils.h"
 #include "Engine/GameViewportClient.h"
@@ -22,6 +23,12 @@ static TAutoConsoleVariable<int32> Optimize(
 static TAutoConsoleVariable<int32> RoomCulling(
     TEXT("fps.Dungeon.Lighting.RoomCulling"), 1,
     TEXT("Fade generated and preserved start-area local lights by room/portal candidates. 0 keeps all room lights enabled."));
+static TAutoConsoleVariable<int32> GeometryCulling(
+    TEXT("fps.Dungeon.Rendering.RoomCulling"), 1,
+    TEXT("Standalone only: hide distant generated static render groups outside room/portal candidates. Collision and gameplay remain active."));
+static TAutoConsoleVariable<float> GeometryKeepDistance(
+    TEXT("fps.Dungeon.Rendering.KeepDistanceCm"), 3000.f,
+    TEXT("Always retain geometry in rooms within this distance of the viewer, including off-screen shadow/reflection surroundings."));
 
 bool IsOptimizationEnabled() { return Optimize.GetValueOnGameThread() != 0; }
 }
@@ -31,18 +38,20 @@ void AAuthoredDungeonGenerator::EndPlay(const EEndPlayReason::Type EndPlayReason
     CancelAssembly();
     ResetRoomLighting();
     LightModules.Reset();
+    RenderGroups.Reset();GenerationResources.Reset();
     Super::EndPlay(EndPlayReason);
 }
 
 void AAuthoredDungeonGenerator::StartRoomLighting()
 {
-    if (!GetWorld()->IsGameWorld() || GetNetMode() == NM_Client || !bLightingOptimizationApplied) return;
+    if (!GetWorld()->IsGameWorld() || GetNetMode() != NM_Standalone) return;
     if (LightModules.IsEmpty()) return;
     auto& Start = LightModules.Last();
     // Only adopt standalone local lights inside the reserved start; never edit the level asset.
     // Generated actors already belong to their own modules.
     for (TActorIterator<ALight> It(GetWorld()); It; ++It)
     {
+        if(!bLightingOptimizationApplied)break;
         ALight* Actor = *It;
         if (Actor->ActorHasTag(TEXT("DungeonRouteGenerated"))) continue;
         ULocalLightComponent* Light = Cast<ULocalLightComponent>(Actor->GetLightComponent());
@@ -66,11 +75,13 @@ void AAuthoredDungeonGenerator::StartRoomLighting()
     LastLightingUpdateSeconds = GetWorld()->GetTimeSeconds();
     for (auto& Module : LightModules) Module.LastWantedSeconds = LastLightingUpdateSeconds;
     GetWorldTimerManager().SetTimer(RoomLightingTimer, this, &ThisClass::UpdateRoomLighting, .1f, true);
+    UpdateRoomLighting();
 }
 
 void AAuthoredDungeonGenerator::ResetRoomLighting()
 {
     GetWorldTimerManager().ClearTimer(RoomLightingTimer);
+    ResetRoomRendering();
     for (auto& Module : LightModules)
         for (auto& State : Module.Lights)
             if (State.bPreservedActor)
@@ -93,14 +104,20 @@ void AAuthoredDungeonGenerator::UpdateRoomLighting()
     LastLightingUpdateSeconds = Now;
     TArray<bool> Wanted;
     Wanted.Init(true, LightModules.Num());
+    const bool bCullLights=bLightingOptimizationApplied&&AuthoredDungeonLighting::RoomCulling.GetValueOnGameThread()!=0;
+    const bool bCullGeometry=AuthoredDungeonLighting::GeometryCulling.GetValueOnGameThread()!=0;
+    FVector ViewPosition=FVector::ZeroVector;
+    bool bHasView=false;
 
     APlayerController* Viewer = GetWorld()->GetFirstPlayerController();
-    if (Viewer && Viewer->GetViewTarget() && bLightingOptimizationApplied
-        && AuthoredDungeonLighting::RoomCulling.GetValueOnGameThread() != 0)
+    // A one-view policy cannot safely control global visibility in split screen.
+    const bool bSingleView=GetWorld()->GetNumPlayerControllers()==1;
+    if (Viewer && Viewer->GetViewTarget() && bSingleView && (bCullLights||bCullGeometry))
     {
         FVector Eye;
         FRotator Rotation;
         Viewer->GetPlayerViewPoint(Eye, Rotation);
+        ViewPosition=Eye;bHasView=true;
         FConvexVolume Frustum;
         bool bHasProjection = false;
         if (const ULocalPlayer* Player = Viewer->GetLocalPlayer())
@@ -181,7 +198,7 @@ void AAuthoredDungeonGenerator::UpdateRoomLighting()
     {
         auto& Module = LightModules[Index];
         if (Wanted[Index]) Module.LastWantedSeconds = Now;
-        const bool bKeep = Wanted[Index] || Now - Module.LastWantedSeconds < 1.0;
+        const bool bKeep = !bCullLights || Wanted[Index] || Now - Module.LastWantedSeconds < 1.0;
         for (auto& State : Module.Lights)
         {
             ULocalLightComponent* Light = State.Component.Get();
@@ -192,5 +209,65 @@ void AAuthoredDungeonGenerator::UpdateRoomLighting()
             Light->SetIntensity(State.FullIntensity * FMath::SmoothStep(0.f, 1.f, State.Alpha));
             Light->SetVisibility(State.Alpha > 0.f);
         }
+    }
+    UpdateRoomRendering(Wanted,bHasView?&ViewPosition:nullptr,Now);
+}
+
+void AAuthoredDungeonGenerator::ResetRoomRendering()
+{
+    for(auto& Group:RenderGroups)
+        if(Group.bHiddenByScheduler)
+        {
+            if(auto* Component=Group.Component.Get())Component->SetVisibility(true);
+            Group.bHiddenByScheduler=false;
+        }
+    RoomHideCursor=0;
+}
+
+void AAuthoredDungeonGenerator::UpdateRoomRendering(const TArray<bool>& Wanted,const FVector* Eye,double Now)
+{
+    if(RenderGroups.IsEmpty())return;
+    if(!Eye||AuthoredDungeonLighting::GeometryCulling.GetValueOnGameThread()==0)
+    {ResetRoomRendering();return;}
+    DungeonPerformance::FScope Scope(this,TEXT("Dungeon.RoomRendering"));
+    const double KeepDistance=FMath::Max(0.f,AuthoredDungeonLighting::GeometryKeepDistance.GetValueOnGameThread());
+    TArray<bool> Keep;
+    Keep.Init(true,LightModules.Num());
+    for(int32 I=0;I<LightModules.Num();++I)
+    {
+        const auto& Module=LightModules[I];
+        Keep[I]=Wanted[I]||Now-Module.LastWantedSeconds<3.;
+        if(!Keep[I])for(const FBox& Cell:Module.Cells)
+            if(Cell.ComputeSquaredDistanceToPoint(*Eye)<=FMath::Square(KeepDistance))
+            {Keep[I]=true;break;}
+    }
+    auto IsWanted=[&Keep](const FAuthoredDungeonRenderGroup& Group)
+    {
+        // A shared ISM stays visible if ANY owning room needs it.
+        for(int32 Module:Group.Modules)if(!Keep.IsValidIndex(Module)||Keep[Module])return true;
+        return false;
+    };
+    // Restore newly approached/visible rooms first. Never budget restoration behind
+    // retirement, so a camera turn or teleport does not wait for a distant-hide queue.
+    for(auto& Group:RenderGroups)
+        if(Group.bHiddenByScheduler&&IsWanted(Group))
+        {
+            if(auto* Component=Group.Component.Get())Component->SetVisibility(true);
+            Group.bHiddenByScheduler=false;
+        }
+    const double Begin=FPlatformTime::Seconds();
+    int32 Hidden=0;
+    for(int32 Visited=0;Visited<RenderGroups.Num();++Visited)
+    {
+        RoomHideCursor%=RenderGroups.Num();
+        auto& Group=RenderGroups[RoomHideCursor++];
+        if(!Group.bHiddenByScheduler&&!IsWanted(Group))
+            if(auto* Component=Group.Component.Get();Component&&Component->IsVisible())
+            {
+                Component->SetVisibility(false);
+                Group.bHiddenByScheduler=true;
+                ++Hidden;
+            }
+        if(Hidden>=32||FPlatformTime::Seconds()-Begin>=.001)break;
     }
 }

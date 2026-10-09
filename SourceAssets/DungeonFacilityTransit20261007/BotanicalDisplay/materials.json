@@ -1,0 +1,113 @@
+{
+  "Steel": {
+    "basecolor_linear": [
+      0.29177064981753587,
+      0.33716361504833037,
+      0.3419144249086609
+    ],
+    "roughness": 0.5,
+    "metallic": 0.88,
+    "uv_meters": 0.65,
+    "family": "Steel",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+  },
+  "Graphite": {
+    "basecolor_linear": [
+      0.0202885630566524,
+      0.02518685962736163,
+      0.026241221894849898
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite"
+  },
+  "Gasket": {
+    "basecolor_linear": [
+      0.011612245179743885,
+      0.012983032342173012,
+      0.011612245179743885
+    ],
+    "roughness": 0.5,
+    "metallic": 0.0,
+    "uv_meters": 0.4,
+    "family": "Rubber",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+  },
+  "EC": {
+    "basecolor_linear": [
+      0.05448027644244237,
+      0.11443537382697373,
+      0.05780543019106723
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_EC"
+  },
+  "Stone": {
+    "basecolor_linear": [
+      0.54,
+      0.51,
+      0.43
+    ],
+    "roughness": 0.64,
+    "metallic": 0,
+    "uv_meters": 1.2,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Stone",
+    "new_authored": false
+  },
+  "Brass": {
+    "basecolor_linear": [
+      0.27,
+      0.2,
+      0.1
+    ],
+    "roughness": 0.42,
+    "metallic": 0.75,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Brass",
+    "new_authored": false
+  },
+  "Glow": {
+    "basecolor_linear": [
+      0.8,
+      0.88,
+      0.76
+    ],
+    "roughness": 0.4,
+    "metallic": 0,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Glow",
+    "new_authored": false
+  },
+  "Soil": {
+    "basecolor_linear": [
+      0.055,
+      0.033,
+      0.02
+    ],
+    "roughness": 0.94,
+    "metallic": 0,
+    "uv_meters": 0.65,
+    "existing_ue_path": "/Game/Dungeons/Ecology20261004/RefineV5/Materials/M_Eco_SoilBed",
+    "new_authored": false
+  },
+  "Labels": {
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Materials/M_BotanicalDisplay_Label",
+    "basecolor_linear": [
+      0.05,
+      0.09,
+      0.065
+    ],
+    "roughness": 0.65,
+    "metallic": 0.12,
+    "uv_meters": 1
+  }
+}

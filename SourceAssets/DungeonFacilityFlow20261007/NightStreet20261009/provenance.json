@@ -1,0 +1,32 @@
+{
+  "created": "2026-10-09",
+  "asset_type": "original AI-generated night street backdrop",
+  "generation_tool": "OpenAI image_gen.imagegen",
+  "source_image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\NightStreet20261009\\Authored\\Textures\\T_Reception_NightStreet.png",
+  "sha256": "edde9b8069fedbe23878f6e43c3262e64e3ed0ad63ff47ecfe221e311986f3ee",
+  "source_dimensions": [
+    1774,
+    887
+  ],
+  "import_dimensions": [
+    2048,
+    1024
+  ],
+  "import_resampling": "UE power-of-two stretch, same 2:1 aspect; streamed BC7 mip chain",
+  "design_brief": "Eye-level abandoned industrial street at night, damp asphalt, concrete and brick factories, restrained amber streetlamps, blue-grey sky, distant haze. No people, legible signs, HUD, entrance or grille. Fixed 2:1 aspect; soft distance baked into original image.",
+  "reference_repositories": [
+    {
+      "url": "https://github.com/oculus-samples/Unreal-RenderingTechniques#portals",
+      "use": "Read-only conceptual reference: prebaked environment with parallax correction. No code, texture or repository assets copied."
+    },
+    {
+      "url": "https://github.com/osreboot/Parallax-Materials",
+      "use": "Read-only alternative reviewed. Plugin not installed; no source or assets copied."
+    }
+  ],
+  "implementation": "Original Blender geometry and UE material graph; no external plugin dependency, scene capture or runtime render target.",
+  "existing_assets": "Original reception label atlas, steel material, wall concrete and accepted closed metal grille reused within FPSGAME.",
+  "tests_run": false,
+  "game_run": false,
+  "rendered_acceptance": false
+}

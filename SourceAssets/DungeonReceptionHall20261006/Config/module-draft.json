@@ -1,0 +1,3646 @@
+{
+  "status": "draft_only_not_registered",
+  "modules": [
+    {
+      "id": "FacilityReceptionHall",
+      "family_id": "FacilityReceptionHall",
+      "role": "room",
+      "revision": "20261007-refine2",
+      "min": [
+        -2730,
+        -1680,
+        -40
+      ],
+      "max": [
+        2730,
+        1680,
+        1030
+      ],
+      "cells": [
+        {
+          "min": [
+            -2430,
+            -1680,
+            -40
+          ],
+          "max": [
+            2430,
+            1680,
+            1030
+          ]
+        },
+        {
+          "min": [
+            -2730,
+            -230,
+            -30
+          ],
+          "max": [
+            -2400,
+            230,
+            366
+          ]
+        },
+        {
+          "min": [
+            2400,
+            -180,
+            -30
+          ],
+          "max": [
+            2730,
+            180,
+            326
+          ]
+        }
+      ],
+      "ports": [
+        {
+          "id": "arrival",
+          "position": [
+            -2700,
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "width": 400,
+          "height": 340.0
+        },
+        {
+          "id": "facility",
+          "position": [
+            2700,
+            0,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "width": 300,
+          "height": 300
+        }
+      ],
+      "port_pairs": [
+        [
+          0,
+          1
+        ]
+      ],
+      "parts": [
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Foundations",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_GroundFloor",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_OuterWalls",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_WallTrim",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_PortalFrames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Vestibules",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_VestibuleDetails",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Roof",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_RoofBeams",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Columns",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Fasteners",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_MezzanineStructure",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_UpperFloor",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_GalleryColumns",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_GalleryFascia",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Balustrades",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true,
+          "guardrail_drop": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairTreads",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairNosings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairCarriages",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairLandings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairSupports",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_OfficeWalls",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_OfficeCeilings",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_OfficeFrames",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Signs",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Hardware",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_ReceptionCounter",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ReceptionFluting",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ReceptionHardware",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ReceptionCanopy",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_QueueBases",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_QueueBelts",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_SecurityArches",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_SecurityDetails",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_BaggageConveyor",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ConveyorDetails",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_BaggageScanner",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ScannerCurtains",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_InspectionTrays",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_SignHangers",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_LightFixtures",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_LightDiffusers",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false,
+          "materials": [
+            "/Game/Dungeons/HallLighting20261007/Materials/M_ReceptionDiffusers"
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_LightHangers",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_AcousticBacking",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_AcousticSlats",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_DirectoryStand",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Ventilation",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_VentGrilles",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_MechanicalHangers",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Conduit",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": false
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ElectricalJunctions",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_WallClock",
+          "position": [
+            0,
+            -12.0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ClockHands",
+          "position": [
+            0,
+            -12.0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_SecurityBarriers",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_SecurityBelts",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeBoards",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeBoardMounts",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeStorage",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeSupplies",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_DeskSupplies",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeCoatHooks",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_LoungeDetails",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_Planters",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_PlanterSoil",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_PlanterTrim",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_WasteBins",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Sofa",
+          "position": [
+            -2070.0,
+            1530.0,
+            0
+          ],
+          "yaw": -180,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_CoffeeTable",
+          "position": [
+            -2070.0,
+            1355.0,
+            0
+          ],
+          "yaw": -180,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Sofa",
+          "position": [
+            -1689.9999999999998,
+            1530.0,
+            0
+          ],
+          "yaw": -180,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_CoffeeTable",
+          "position": [
+            -1689.9999999999998,
+            1355.0,
+            0
+          ],
+          "yaw": -180,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Sofa",
+          "position": [
+            -2070.0,
+            -1530.0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_CoffeeTable",
+          "position": [
+            -2070.0,
+            -1355.0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Sofa",
+          "position": [
+            -1689.9999999999998,
+            -1530.0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_CoffeeTable",
+          "position": [
+            -1689.9999999999998,
+            -1355.0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+          "position": [
+            -1700.0,
+            1575.0,
+            450.0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+          "position": [
+            -1700.0,
+            -1575.0,
+            450.0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+          "position": [
+            -1100.0,
+            1575.0,
+            450.0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+          "position": [
+            -1100.0,
+            -1575.0,
+            450.0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+          "position": [
+            -500.0,
+            1575.0,
+            450.0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+          "position": [
+            -500.0,
+            -1575.0,
+            450.0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+          "position": [
+            100.0,
+            1555.0,
+            450.0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+          "position": [
+            100.0,
+            -1555.0,
+            450.0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+          "position": [
+            700.0,
+            1575.0,
+            450.0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+          "position": [
+            700.0,
+            -1575.0,
+            450.0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/RoomDetailsV5/Meshes/SM_Staff_WaterDispenser_V5",
+          "position": [
+            -1200.0,
+            1590.0,
+            0
+          ],
+          "yaw": -180,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/RoomDetailsV5/Meshes/SM_Staff_WaterDispenser_V5",
+          "position": [
+            0.0,
+            -1590.0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/StaffLiving20261002/RoomDetailsV5/Meshes/SM_Staff_WaterDispenser_V5",
+          "position": [
+            2340.0,
+            -0.0,
+            450.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+          "position": [
+            -400.0,
+            -1225.5,
+            0
+          ],
+          "yaw": -180,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+          "position": [
+            -1010.0,
+            -1425.0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+          "position": [
+            -400.0,
+            -1228.0,
+            0
+          ],
+          "yaw": -180,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+          "position": [
+            -60.00000000000006,
+            -1225.5,
+            0
+          ],
+          "yaw": -180,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+          "position": [
+            -670.0,
+            -1425.0,
+            0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+          "position": [
+            -60.00000000000006,
+            -1228.0,
+            0
+          ],
+          "yaw": -180,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+          "position": [
+            2382.0,
+            -169.99999999999994,
+            450.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+          "position": [
+            2389.0,
+            -169.99999999999994,
+            450.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+          "position": [
+            2303.0,
+            522.0000000000001,
+            527.6
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+          "position": [
+            2185.0,
+            440.00000000000006,
+            450.0
+          ],
+          "yaw": -90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+          "position": [
+            2382.0,
+            570.0000000000001,
+            450.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+          "position": [
+            2389.0,
+            570.0000000000001,
+            450.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+          "position": [
+            2303.0,
+            1262.0,
+            527.6
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+          "position": [
+            2185.0,
+            1180.0,
+            450.0
+          ],
+          "yaw": -90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+          "position": [
+            2080.0,
+            1380.0,
+            450.0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+          "position": [
+            2382.0,
+            -1050.0,
+            450.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+          "position": [
+            2389.0,
+            -1050.0,
+            450.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+          "position": [
+            2303.0,
+            -358.00000000000006,
+            527.6
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+          "position": [
+            2185.0,
+            -440.00000000000006,
+            450.0
+          ],
+          "yaw": -90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+          "position": [
+            2382.0,
+            -1789.9999999999998,
+            450.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+          "position": [
+            2389.0,
+            -1789.9999999999998,
+            450.0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+          "position": [
+            2303.0,
+            -1098.0,
+            527.6
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+          "position": [
+            2185.0,
+            -1180.0,
+            450.0
+          ],
+          "yaw": -90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+          "position": [
+            2080.0,
+            -1380.0,
+            450.0
+          ],
+          "yaw": 0,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+          "position": [
+            2382.0,
+            320.0000000000001,
+            0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+          "position": [
+            2389.0,
+            320.0000000000001,
+            0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+          "position": [
+            2185.0,
+            930.0000000000001,
+            0
+          ],
+          "yaw": -90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+          "position": [
+            2382.0,
+            -1540.0,
+            0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+          "position": [
+            2389.0,
+            -1540.0,
+            0
+          ],
+          "yaw": 90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+          "position": [
+            2185.0,
+            -930.0000000000001,
+            0
+          ],
+          "yaw": -90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsCabinet_Carcass",
+          "position": [
+            -380.0,
+            -1580.0,
+            0
+          ],
+          "yaw": -180,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsCabinet_Carcass",
+          "position": [
+            2340.0,
+            229.99999999999997,
+            450.0
+          ],
+          "yaw": -90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsCabinet_Carcass",
+          "position": [
+            2340.0,
+            -229.99999999999997,
+            450.0
+          ],
+          "yaw": -90,
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "collision": true,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_01_03",
+          "position": [
+            -2100.222933302089,
+            800.1503380345449,
+            58.85497315237629
+          ],
+          "yaw": 0,
+          "scale": [
+            0.5827677036635027,
+            0.5827677036635027,
+            0.5827677036635027
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_01_01",
+          "position": [
+            -2100.818699548189,
+            -798.4202659764372,
+            59.3133802027449
+          ],
+          "yaw": -71,
+          "scale": [
+            0.6892662020567611,
+            0.6892662020567611,
+            0.6892662020567611
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_01_02",
+          "position": [
+            -300.2431270484883,
+            -1524.9679032438423,
+            58.733046390452984
+          ],
+          "yaw": -142,
+          "scale": [
+            0.605335840724355,
+            0.605335840724355,
+            0.605335840724355
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_03_02",
+          "position": [
+            199.6063104769973,
+            -1525.0508859403392,
+            57.99429469496759
+          ],
+          "yaw": -213,
+          "scale": [
+            1.1340043642079702,
+            1.1340043642079702,
+            1.1340043642079702
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_03_03",
+          "position": [
+            799.8708542023265,
+            1470.3647821024172,
+            58.19185342884978
+          ],
+          "yaw": -284,
+          "scale": [
+            1.5649646255641716,
+            1.5649646255641716,
+            1.5649646255641716
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_03_01",
+          "position": [
+            1199.230789003345,
+            1469.8635444701774,
+            57.80834119739894
+          ],
+          "yaw": -355,
+          "scale": [
+            2.387007531230428,
+            2.387007531230428,
+            2.387007531230428
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_01",
+          "position": [
+            -2040.1128189918581,
+            1590.2426739397697,
+            508.20008075335306
+          ],
+          "yaw": -426,
+          "scale": [
+            0.477153489510253,
+            0.477153489510253,
+            0.477153489510253
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_03",
+          "position": [
+            -2040.0000113187104,
+            -1578.0000103975929,
+            509.66521628375324
+          ],
+          "yaw": -497,
+          "scale": [
+            0.5357073885872774,
+            0.5357073885872774,
+            0.5357073885872774
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_02",
+          "position": [
+            1130.0000000238774,
+            1588.0000000778548,
+            507.5845336330019
+          ],
+          "yaw": -568,
+          "scale": [
+            0.5455053950500643,
+            0.5455053950500643,
+            0.5455053950500643
+          ],
+          "collision": false,
+          "cast_shadow": true
+        },
+        {
+          "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_01",
+          "position": [
+            1129.8871810081419,
+            -1589.7573260602303,
+            508.20008075335306
+          ],
+          "yaw": -426,
+          "scale": [
+            0.477153489510253,
+            0.477153489510253,
+            0.477153489510253
+          ],
+          "collision": false,
+          "cast_shadow": true
+        }
+      ],
+      "lights": [
+        {
+          "position": [
+            -1400,
+            600,
+            850.0
+          ],
+          "type": "spot",
+          "intensity": 11182.244232287661,
+          "radius": 1496.0,
+          "optimized_radius_cm": 1496.0,
+          "cast_shadows": true,
+          "color": [
+            0.72,
+            0.84,
+            0.8
+          ],
+          "role": "main",
+          "max_draw_distance_cm": 5000,
+          "fade_range_cm": 650,
+          "pitch": -90,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            -1400,
+            -600,
+            850.0
+          ],
+          "type": "spot",
+          "intensity": 11182.244232287661,
+          "radius": 1496.0,
+          "optimized_radius_cm": 1496.0,
+          "cast_shadows": true,
+          "color": [
+            0.72,
+            0.84,
+            0.8
+          ],
+          "role": "main",
+          "max_draw_distance_cm": 5000,
+          "fade_range_cm": 650,
+          "pitch": -90,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.08,
+          "volumetric_scattering_intensity": 0.06,
+          "light_function": "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_037efaad73",
+          "light_function_fade_distance": 6000
+        },
+        {
+          "position": [
+            0,
+            600,
+            850.0
+          ],
+          "type": "spot",
+          "intensity": 11182.244232287661,
+          "radius": 1496.0,
+          "optimized_radius_cm": 1496.0,
+          "cast_shadows": false,
+          "color": [
+            0.72,
+            0.84,
+            0.8
+          ],
+          "role": "main",
+          "max_draw_distance_cm": 5000,
+          "fade_range_cm": 650,
+          "pitch": -90,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            0,
+            -600,
+            850.0
+          ],
+          "type": "spot",
+          "intensity": 0.0,
+          "radius": 1496.0,
+          "optimized_radius_cm": 1496.0,
+          "cast_shadows": false,
+          "color": [
+            0.72,
+            0.84,
+            0.8
+          ],
+          "role": "main",
+          "max_draw_distance_cm": 5000,
+          "fade_range_cm": 650,
+          "pitch": -90,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            1400,
+            600,
+            850.0
+          ],
+          "type": "spot",
+          "intensity": 11182.244232287661,
+          "radius": 1496.0,
+          "optimized_radius_cm": 1496.0,
+          "cast_shadows": true,
+          "color": [
+            0.72,
+            0.84,
+            0.8
+          ],
+          "role": "main",
+          "max_draw_distance_cm": 5000,
+          "fade_range_cm": 650,
+          "pitch": -90,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.08,
+          "volumetric_scattering_intensity": 0.06,
+          "light_function": "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_7630b51264",
+          "light_function_fade_distance": 6000
+        },
+        {
+          "position": [
+            1400,
+            -600,
+            850.0
+          ],
+          "type": "spot",
+          "intensity": 11182.244232287661,
+          "radius": 1496.0,
+          "optimized_radius_cm": 1496.0,
+          "cast_shadows": true,
+          "color": [
+            0.72,
+            0.84,
+            0.8
+          ],
+          "role": "main",
+          "max_draw_distance_cm": 5000,
+          "fade_range_cm": 650,
+          "pitch": -90,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            -2000,
+            1325.0,
+            365.0
+          ],
+          "type": "point",
+          "intensity": 0,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            -2000,
+            -1325.0,
+            365.0
+          ],
+          "type": "point",
+          "intensity": 909.9999999999999,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            -800,
+            1325.0,
+            365.0
+          ],
+          "type": "point",
+          "intensity": 909.9999999999999,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            -800,
+            -1325.0,
+            308.0
+          ],
+          "type": "point",
+          "intensity": 909.9999999999999,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            400,
+            1325.0,
+            365.0
+          ],
+          "type": "point",
+          "intensity": 909.9999999999999,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            400,
+            -1325.0,
+            365.0
+          ],
+          "type": "point",
+          "intensity": 909.9999999999999,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.08,
+          "volumetric_scattering_intensity": 0.06,
+          "light_function": "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_458d1b5226",
+          "light_function_fade_distance": 6000
+        },
+        {
+          "position": [
+            2000,
+            1325.0,
+            365.0
+          ],
+          "type": "point",
+          "intensity": 909.9999999999999,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            2000,
+            -1325.0,
+            365.0
+          ],
+          "type": "point",
+          "intensity": 909.9999999999999,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            -2100,
+            0,
+            810.0
+          ],
+          "type": "point",
+          "intensity": 1020.0,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            -800,
+            1320.0,
+            810.0
+          ],
+          "type": "point",
+          "intensity": 1020.0,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            -800,
+            -1320.0,
+            810.0
+          ],
+          "type": "point",
+          "intensity": 1020.0,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            700,
+            1320.0,
+            810.0
+          ],
+          "type": "point",
+          "intensity": 1020.0,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.08,
+          "volumetric_scattering_intensity": 0.06,
+          "light_function": "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_ddfce53250",
+          "light_function_fade_distance": 6000
+        },
+        {
+          "position": [
+            700,
+            -1320.0,
+            810.0
+          ],
+          "type": "point",
+          "intensity": 1020.0,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            2140.0,
+            760.0,
+            810.0
+          ],
+          "type": "point",
+          "intensity": 1020.0,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            2140.0,
+            -760.0,
+            810.0
+          ],
+          "type": "point",
+          "intensity": 0,
+          "radius": 704.0,
+          "optimized_radius_cm": 704.0,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            -2550.0,
+            0,
+            254.99999999999997
+          ],
+          "type": "point",
+          "intensity": 700.0,
+          "radius": 440.00000000000006,
+          "optimized_radius_cm": 440.00000000000006,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        },
+        {
+          "position": [
+            2550.0,
+            0,
+            254.99999999999997
+          ],
+          "type": "point",
+          "intensity": 700.0,
+          "radius": 440.00000000000006,
+          "optimized_radius_cm": 440.00000000000006,
+          "cast_shadows": false,
+          "color": [
+            0.91,
+            0.82,
+            0.64
+          ],
+          "role": "local",
+          "max_draw_distance_cm": 3200,
+          "fade_range_cm": 650,
+          "pitch": 0,
+          "outer_cone_degrees": 74,
+          "inner_cone_degrees": 52,
+          "indirect_lighting_intensity": 0.32,
+          "volumetric_scattering_intensity": 0.06
+        }
+      ],
+      "runtime_actors": [
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+          "hinge": [
+            -30.7,
+            -23.299999999999997,
+            9
+          ],
+          "opening_motion": "Swing",
+          "opened_yaw": -105,
+          "caption": "访客寄存柜 01",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.VisitorLocker1",
+          "position": [
+            2340.0,
+            1080.0,
+            0
+          ],
+          "yaw": -90,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+          "hinge": [
+            -30.7,
+            -23.299999999999997,
+            9
+          ],
+          "opening_motion": "Swing",
+          "opened_yaw": -105,
+          "caption": "访客寄存柜 02",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.VisitorLocker2",
+          "position": [
+            2340.0,
+            1162.0,
+            0
+          ],
+          "yaw": -90,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+          "hinge": [
+            -30.7,
+            -23.299999999999997,
+            9
+          ],
+          "opening_motion": "Swing",
+          "opened_yaw": -105,
+          "caption": "访客寄存柜 03",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.VisitorLocker3",
+          "position": [
+            2340.0,
+            1244.0000000000002,
+            0
+          ],
+          "yaw": -90,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+          "hinge": [
+            -30.7,
+            -23.299999999999997,
+            9
+          ],
+          "opening_motion": "Swing",
+          "opened_yaw": -105,
+          "caption": "访客寄存柜 04",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.VisitorLocker4",
+          "position": [
+            2340.0,
+            1326.0000000000002,
+            0
+          ],
+          "yaw": -90,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+          "hinge": [
+            -30.7,
+            -23.299999999999997,
+            9
+          ],
+          "opening_motion": "Swing",
+          "opened_yaw": -105,
+          "caption": "访客寄存柜 05",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.VisitorLocker5",
+          "position": [
+            2340.0,
+            1408.0,
+            0
+          ],
+          "yaw": -90,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+          "hinge": [
+            -30.7,
+            -23.299999999999997,
+            9
+          ],
+          "opening_motion": "Swing",
+          "opened_yaw": -105,
+          "caption": "访客寄存柜 06",
+          "storage_pages": 2,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.VisitorLocker6",
+          "position": [
+            2340.0,
+            1490.0,
+            0
+          ],
+          "yaw": -90,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "caption": "访客记录 · 登记资料",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.ReceptionRecords0",
+          "position": [
+            -380.0,
+            -1580.0,
+            11.0
+          ],
+          "yaw": -180,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "caption": "访客记录 · 通行凭证",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.ReceptionRecords1",
+          "position": [
+            -380.0,
+            -1580.0,
+            45.0
+          ],
+          "yaw": -180,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "caption": "访客记录 · 接待档案",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.ReceptionRecords2",
+          "position": [
+            -380.0,
+            -1580.0,
+            79.0
+          ],
+          "yaw": -180,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "caption": "访客记录 · 登记资料",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.UpperRecordsSouth0",
+          "position": [
+            2340.0,
+            229.99999999999997,
+            461.00000000000006
+          ],
+          "yaw": -90,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "caption": "访客记录 · 通行凭证",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.UpperRecordsSouth1",
+          "position": [
+            2340.0,
+            229.99999999999997,
+            495.0
+          ],
+          "yaw": -90,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "caption": "访客记录 · 接待档案",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.UpperRecordsSouth2",
+          "position": [
+            2340.0,
+            229.99999999999997,
+            529.0
+          ],
+          "yaw": -90,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "caption": "访客记录 · 登记资料",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.UpperRecordsNorth0",
+          "position": [
+            2340.0,
+            -229.99999999999997,
+            461.00000000000006
+          ],
+          "yaw": -90,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "caption": "访客记录 · 通行凭证",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.UpperRecordsNorth1",
+          "position": [
+            2340.0,
+            -229.99999999999997,
+            495.0
+          ],
+          "yaw": -90,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+          "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+          "hinge": [
+            0,
+            0,
+            0
+          ],
+          "opening_motion": "Drawer",
+          "drawer_travel": [
+            0,
+            -32.994,
+            0
+          ],
+          "caption": "访客记录 · 接待档案",
+          "storage_pages": 1,
+          "type": "scene_container",
+          "container_id": "ReceptionHall20261006.UpperRecordsNorth2",
+          "position": [
+            2340.0,
+            -229.99999999999997,
+            529.0
+          ],
+          "yaw": -90,
+          "initial_open_fraction": 0.0
+        },
+        {
+          "id": "OfficeDoor_-1",
+          "type": "solid_door",
+          "position": [
+            1900,
+            800,
+            450.0
+          ],
+          "yaw": 0,
+          "leaf": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf",
+          "positive_hinge": false,
+          "open_seconds": 0.55,
+          "auto_close_seconds": 0
+        },
+        {
+          "id": "OfficeDoor_1",
+          "type": "solid_door",
+          "position": [
+            1900,
+            -800,
+            450.0
+          ],
+          "yaw": 0,
+          "leaf": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf",
+          "positive_hinge": true,
+          "open_seconds": 0.55,
+          "auto_close_seconds": 0
+        },
+        {
+          "id": "OfficeGlass_-1_0",
+          "type": "glass_window",
+          "position": [
+            1900,
+            1376.9166666666667,
+            645.0
+          ],
+          "yaw": 0,
+          "pane": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+          "fracture": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+          "dimensions_cm": [
+            199.16666666666674,
+            195.0,
+            0.8
+          ]
+        },
+        {
+          "id": "OfficeGlass_-1_1",
+          "type": "glass_window",
+          "position": [
+            1900,
+            1170.75,
+            645.0
+          ],
+          "yaw": 0,
+          "pane": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+          "fracture": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+          "dimensions_cm": [
+            199.16666666666674,
+            195.0,
+            0.8
+          ]
+        },
+        {
+          "id": "OfficeGlass_-1_2",
+          "type": "glass_window",
+          "position": [
+            1900,
+            964.5833333333334,
+            645.0
+          ],
+          "yaw": 0,
+          "pane": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+          "fracture": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+          "dimensions_cm": [
+            199.16666666666637,
+            195.0,
+            0.8
+          ]
+        },
+        {
+          "id": "OfficeGlass_-1_3",
+          "type": "glass_window",
+          "position": [
+            1900,
+            635.4166666666666,
+            645.0
+          ],
+          "yaw": 0,
+          "pane": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+          "fracture": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+          "dimensions_cm": [
+            199.16666666666666,
+            195.0,
+            0.8
+          ]
+        },
+        {
+          "id": "OfficeGlass_-1_4",
+          "type": "glass_window",
+          "position": [
+            1900,
+            429.25000000000006,
+            645.0
+          ],
+          "yaw": 0,
+          "pane": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+          "fracture": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+          "dimensions_cm": [
+            199.16666666666666,
+            195.0,
+            0.8
+          ]
+        },
+        {
+          "id": "OfficeGlass_-1_5",
+          "type": "glass_window",
+          "position": [
+            1900,
+            223.08333333333334,
+            645.0
+          ],
+          "yaw": 0,
+          "pane": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+          "fracture": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+          "dimensions_cm": [
+            199.16666666666666,
+            195.0,
+            0.8
+          ]
+        },
+        {
+          "id": "OfficeGlass_1_6",
+          "type": "glass_window",
+          "position": [
+            1900,
+            -223.08333333333334,
+            645.0
+          ],
+          "yaw": 0,
+          "pane": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+          "fracture": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+          "dimensions_cm": [
+            199.16666666666666,
+            195.0,
+            0.8
+          ]
+        },
+        {
+          "id": "OfficeGlass_1_7",
+          "type": "glass_window",
+          "position": [
+            1900,
+            -429.25000000000006,
+            645.0
+          ],
+          "yaw": 0,
+          "pane": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+          "fracture": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+          "dimensions_cm": [
+            199.16666666666666,
+            195.0,
+            0.8
+          ]
+        },
+        {
+          "id": "OfficeGlass_1_8",
+          "type": "glass_window",
+          "position": [
+            1900,
+            -635.4166666666666,
+            645.0
+          ],
+          "yaw": 0,
+          "pane": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+          "fracture": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+          "dimensions_cm": [
+            199.16666666666666,
+            195.0,
+            0.8
+          ]
+        },
+        {
+          "id": "OfficeGlass_1_9",
+          "type": "glass_window",
+          "position": [
+            1900,
+            -964.5833333333334,
+            645.0
+          ],
+          "yaw": 0,
+          "pane": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+          "fracture": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+          "dimensions_cm": [
+            199.16666666666674,
+            195.0,
+            0.8
+          ]
+        },
+        {
+          "id": "OfficeGlass_1_10",
+          "type": "glass_window",
+          "position": [
+            1900,
+            -1170.75,
+            645.0
+          ],
+          "yaw": 0,
+          "pane": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+          "fracture": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+          "dimensions_cm": [
+            199.16666666666657,
+            195.0,
+            0.8
+          ]
+        },
+        {
+          "id": "OfficeGlass_1_11",
+          "type": "glass_window",
+          "position": [
+            1900,
+            -1376.9166666666667,
+            645.0
+          ],
+          "yaw": 0,
+          "pane": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+          "fracture": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+          "fracture_material": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+          "impact_particles": "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+          "sound": "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0",
+          "dimensions_cm": [
+            199.16666666666674,
+            195.0,
+            0.8
+          ]
+        }
+      ],
+      "runtime_assets": [
+        "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_037efaad73",
+        "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_458d1b5226",
+        "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_7630b51264",
+        "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_ddfce53250",
+        "/Game/Dungeons/HallLighting20261007/Materials/M_ReceptionDiffusers",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsCabinet_Carcass",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+        "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+        "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_AcousticBacking",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_AcousticSlats",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_BaggageConveyor",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_BaggageScanner",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Balustrades",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ClockHands",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Columns",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Conduit",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ConveyorDetails",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_DirectoryStand",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ElectricalJunctions",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Fasteners",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Foundations",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_GalleryColumns",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_GalleryFascia",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_GroundFloor",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_InspectionTrays",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_LightDiffusers",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_LightFixtures",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_LightHangers",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_MechanicalHangers",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_MezzanineStructure",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_OfficeCeilings",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_OfficeFrames",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_OfficeWalls",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_OuterWalls",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_PortalFrames",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_QueueBases",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_QueueBelts",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ReceptionCanopy",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ReceptionFluting",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ReceptionHardware",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Roof",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_RoofBeams",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ScannerCurtains",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_SecurityArches",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_SecurityDetails",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_SignHangers",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairCarriages",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairLandings",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairNosings",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairSupports",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairTreads",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_UpperFloor",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_VentGrilles",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Ventilation",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_VestibuleDetails",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Vestibules",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_WallClock",
+        "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_WallTrim",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_DeskSupplies",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Hardware",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_LoungeDetails",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeBoardMounts",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeBoards",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeCoatHooks",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeStorage",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeSupplies",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_ReceptionCounter",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_SecurityBarriers",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_SecurityBelts",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Signs",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Sofa",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+        "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_CoffeeTable",
+        "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_PlanterSoil",
+        "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_PlanterTrim",
+        "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_Planters",
+        "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_WasteBins",
+        "/Game/Dungeons/StaffLiving20261002/RoomDetailsV5/Meshes/SM_Staff_WaterDispenser_V5",
+        "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf",
+        "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+        "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_01_01",
+        "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_01_02",
+        "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_01_03",
+        "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_01",
+        "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_02",
+        "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_03",
+        "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_03_01",
+        "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_03_02",
+        "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_03_03",
+        "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+      ],
+      "anchors": [],
+      "props": [],
+      "walk_mask": [
+        {
+          "min": [
+            -2400,
+            -1650,
+            0
+          ],
+          "max": [
+            2400,
+            1650,
+            450
+          ]
+        }
+      ],
+      "selection": {
+        "chance_per_run": 0,
+        "max_per_run": 1
+      },
+      "authoring_only": true,
+      "route_intent": {
+        "registration": "pending_user_acceptance",
+        "placement": "future dungeon first room"
+      },
+      "postprocess_lighting": {
+        "auto_exposure_min_brightness": 0.95,
+        "auto_exposure_max_brightness": 0.95,
+        "auto_exposure_bias": -0.25,
+        "indirect_lighting_intensity": 0.8,
+        "bloom_intensity": 0.08,
+        "vignette_intensity": 0.25
+      },
+      "lighting_revision": "abandoned_halls_20261008_brightness_v3"
+    }
+  ],
+  "module_asset_paths": [
+    "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_037efaad73",
+    "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_458d1b5226",
+    "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_7630b51264",
+    "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_ddfce53250",
+    "/Game/Dungeons/HallLighting20261007/Materials/M_ReceptionDiffusers",
+    "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+    "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+    "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsCabinet_Carcass",
+    "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+    "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+    "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassFragmentsV5",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_AcousticBacking",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_AcousticSlats",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_BaggageConveyor",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_BaggageScanner",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Balustrades",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ClockHands",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Columns",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Conduit",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ConveyorDetails",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_DirectoryStand",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ElectricalJunctions",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Fasteners",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Foundations",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_GalleryColumns",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_GalleryFascia",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_GroundFloor",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_InspectionTrays",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_LightDiffusers",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_LightFixtures",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_LightHangers",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_MechanicalHangers",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_MezzanineStructure",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0FractureV5",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Office0PaneV5",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_OfficeCeilings",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_OfficeFrames",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_OfficeWalls",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_OuterWalls",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_PortalFrames",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_QueueBases",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_QueueBelts",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ReceptionCanopy",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ReceptionFluting",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ReceptionHardware",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Roof",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_RoofBeams",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_ScannerCurtains",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_SecurityArches",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_SecurityDetails",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_SignHangers",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairCarriages",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairLandings",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairNosings",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairSupports",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairTreads",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_UpperFloor",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_VentGrilles",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Ventilation",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_VestibuleDetails",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Vestibules",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_WallClock",
+    "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_WallTrim",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_DeskSupplies",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Hardware",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_LoungeDetails",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeBoardMounts",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeBoards",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeCoatHooks",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeStorage",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeSupplies",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_ReceptionCounter",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_SecurityBarriers",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_SecurityBelts",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Signs",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Sofa",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_CoffeeTable",
+    "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_PlanterSoil",
+    "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_PlanterTrim",
+    "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_Planters",
+    "/Game/Dungeons/ReceptionHall20261006/UpperProps20261007/Meshes/SM_RHU_WasteBins",
+    "/Game/Dungeons/StaffLiving20261002/RoomDetailsV5/Meshes/SM_Staff_WaterDispenser_V5",
+    "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf",
+    "/Game/NiagaraExamples/FX_Weapons/Impacts/NS_Impact_Glass",
+    "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_01_01",
+    "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_01_02",
+    "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_01_03",
+    "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_01",
+    "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_02",
+    "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_03",
+    "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_03_01",
+    "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_03_02",
+    "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_03_03",
+    "/Game/Weapons/GunplayFX/Impacts/S_Impact_Glass_0"
+  ],
+  "hard_references_saved": false,
+  "runtime_activation": false,
+  "preview_caps_included": false,
+  "container_rewards_deferred": true,
+  "navigation_and_spawn_configuration": "Reserved for accepted production integration",
+  "tests_run": false
+}

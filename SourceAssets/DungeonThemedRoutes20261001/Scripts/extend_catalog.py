@@ -92,6 +92,14 @@ def extend(catalog):
     if (treatment/'Receipts/install.json').exists() and read(treatment/'Receipts/install.json').get('stage')=='map_saved':
         import runpy
         result=runpy.run_path(str(treatment/'Scripts/extend_catalog.py'))['extend'](result)
+    ecology=ROOT.parent/'DungeonEcology20261004/Production20261005'
+    if (ecology/'Receipts/install.json').exists() and read(ecology/'Receipts/install.json').get('stage')=='map_saved':
+        import runpy
+        result=runpy.run_path(str(ecology/'Scripts/extend_catalog.py'))['extend'](result)
+    flow=ROOT.parent/'DungeonFacilityFlow20261007'
+    if (flow/'Receipts/install.json').exists() and read(flow/'Receipts/install.json').get('stage')=='map_saved':
+        import runpy
+        result=runpy.run_path(str(flow/'extend_catalog.py'))['extend'](result)
     return result
 
 def asset_paths(v):

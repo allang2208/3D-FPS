@@ -1,0 +1,16 @@
+{
+  "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\NightStreetCube20261009\\Authored\\T_Reception_IndustrialNightCube.dds",
+  "sha256": "7f02b7b4d12e4e1bf1536c2dde72c153ea8825270a83717ce34ee97db51986de",
+  "size": 2048,
+  "faces": [
+    "PX",
+    "NX",
+    "PY",
+    "NY",
+    "PZ",
+    "NZ"
+  ],
+  "format": "DDS DX10 RGBA8 sRGB cubemap",
+  "coordinate_mapping": "cube=(Blender X, Blender Z, Blender Y); UE local view=(-Y,+Z,-X)",
+  "pixel_resampling": false
+}

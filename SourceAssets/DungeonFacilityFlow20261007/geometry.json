@@ -1,0 +1,114 @@
+{
+  "meshes": [
+    {
+      "name": "SM_FacilityFlow_OuterWalls",
+      "kind": "OuterWalls",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityFlow_OuterWalls",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityFlow_OuterWalls.fbx",
+      "sha256": "51d1a5af6a1b08b90b42beb4cd3fda07037f612fbcb7f0bd6fc827712f182e06",
+      "materials": {
+        "FF_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+        "FF_FractureConcrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "collision": true,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_FacilityFlow_WallTrim",
+      "kind": "WallTrim",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityFlow_WallTrim",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityFlow_WallTrim.fbx",
+      "sha256": "9a21c96a41199cdd3ce3769ba1944a1124a41b23c71cfadbbe352ddf814872e3",
+      "materials": {
+        "FF_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal"
+      },
+      "collision": false,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_FacilityFlow_FrontClosure",
+      "kind": "FrontClosure",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityFlow_FrontClosure",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityFlow_FrontClosure.fbx",
+      "sha256": "7f48b933ddf63a733e6efa6837e11b5197cb88c21b2abb96cdd0973333e2c158",
+      "materials": {
+        "FF_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+        "FF_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "FF_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "collision": true,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_FacilityFlow_BreachRebar",
+      "kind": "BreachRebar",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityFlow_BreachRebar",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityFlow_BreachRebar.fbx",
+      "sha256": "3b4a1d4f538cd80e269b76524a8aba313242e109b67134f937d0ea9418060fab",
+      "materials": {
+        "FF_ServicePaint": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "FF_ServiceHardware": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "collision": false,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_FacilityFlow_BreachThreshold",
+      "kind": "BreachThreshold",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityFlow_BreachThreshold",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityFlow_BreachThreshold.fbx",
+      "sha256": "f6210cf79f3bd3cc322ef8d4647c414192224982be64b8b65e943e62601ae79b",
+      "materials": {
+        "FF_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "collision": true,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_FacilityFlow_Passage",
+      "kind": "Passage",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityFlow_Passage",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityFlow_Passage.fbx",
+      "sha256": "0b7efb892781a2fafc16310689dbf8fa26f3c92ac86a6c654a317b3baad4c5d3",
+      "materials": {
+        "FF_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "collision": true,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_FacilityFlow_PassageDetails",
+      "kind": "PassageDetails",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityFlow_PassageDetails",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityFlow_PassageDetails.fbx",
+      "sha256": "23d79c247350f8755bf28164caae3753aaf97237ef4c5f0da698b9a479b37440",
+      "materials": {
+        "FF_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "FF_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "FF_FractureConcrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "collision": false,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_FacilityFlow_PassageDiffusers",
+      "kind": "PassageDiffusers",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityFlow_PassageDiffusers",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityFlow_PassageDiffusers.fbx",
+      "sha256": "23466a83d210df132a6d9733e8e61a59306546427ec0db65a8e2248306a3e0d0",
+      "materials": {
+        "FF_Glow": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Glow"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true
+    }
+  ]
+}

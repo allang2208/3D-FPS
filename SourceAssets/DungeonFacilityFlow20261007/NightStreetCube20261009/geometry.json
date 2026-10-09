@@ -1,0 +1,34 @@
+{
+  "meshes": [
+    {
+      "name": "SM_ReceptionCube_NearPortico",
+      "kind": "NearPortico",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/NightStreetCube20261009/Meshes/SM_ReceptionCube_NearPortico",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\NightStreetCube20261009\\Authored\\SM_ReceptionCube_NearPortico.fbx",
+      "sha256": "5b5fc05024e57020774a8950ea9f0df504c8165090b09f1c5ec130bfa3cb60fb",
+      "materials": {
+        "PC_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+        "PC_Paint": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "PC_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 7416
+    },
+    {
+      "name": "SM_ReceptionCube_Background",
+      "kind": "Background",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/NightStreetCube20261009/Meshes/SM_ReceptionCube_Background",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\NightStreetCube20261009\\Authored\\SM_ReceptionCube_Background.fbx",
+      "sha256": "107d514261e544b8793fdf81ce2b40b81f2fdb81195fb885caa27b3f94475872",
+      "materials": {
+        "PC_Cube": "/Game/Dungeons/FacilityFlow20261007/NightStreetCube20261009/Materials/M_Reception_IndustrialNightCube"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false,
+      "triangles": 8
+    }
+  ]
+}

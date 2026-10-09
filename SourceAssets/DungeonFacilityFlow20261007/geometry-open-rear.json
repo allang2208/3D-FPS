@@ -1,0 +1,17 @@
+{
+  "meshes": [
+    {
+      "name": "SM_FacilityFlow_PassageOpenRear",
+      "kind": "Passage",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityFlow_PassageOpenRear",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityFlow_PassageOpenRear.fbx",
+      "sha256": "126352d562f975135a91b334d688edfd099205fef594e18c029e02b15321d1e7",
+      "materials": {
+        "FF_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "collision": true,
+      "nanite": true,
+      "cast_shadow": true
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-09",
+  "revision": "reception_continuous_street_cube_20261009",
+  "method": "One authored 3D scene, six 90-degree Blender Cycles production texture bakes, native DDS cube container.",
+  "source_scene": "Authored/IndustrialNightStreetSource.blend",
+  "near_scene": "Authored/ReceptionPortico.blend",
+  "background_is_not_an_expanded_photograph": true,
+  "original_geometry": "Factories, loading shutters, framed windows, pipes, utility poles, suspended wires, street lamps, silos, chimneys, road, kerbs and canopy reveals authored with project geometry toolkit.",
+  "reused_foliage": [
+    "/Game/RuralAustralia/StaticMeshes/Vegetation/Tree_M_01/SM_Tree_M_01.SM_Tree_M_01",
+    "/Game/RuralAustralia/StaticMeshes/Vegetation/Tree_M_03/SM_Tree_M_03.SM_Tree_M_03"
+  ],
+  "reused_material_sources": "Sources/Foliage/materials.json records the existing project texture paths exported for the bake. Asset provenance remains with the project RuralAustralia content. No third-party files downloaded.",
+  "surface_materials": [
+    "/Game/Dungeons/FacilityFlow20261007/NightStreetCube20261009/Materials/M_Reception_IndustrialNightCube",
+    "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+    "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+    "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+  ],
+  "reference": "https://github.com/oculus-samples/Unreal-RenderingTechniques#portals",
+  "reference_usage": "Conceptual reference only; no repository code or assets copied.",
+  "production_bake": {
+    "engine": "Blender 5.1.2 Cycles OptiX",
+    "face_size": 2048,
+    "samples": 96,
+    "view_transform": "AgX",
+    "faces": 6,
+    "stage": "six_faces_baked"
+  },
+  "cube": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\NightStreetCube20261009\\Authored\\T_Reception_IndustrialNightCube.dds",
+    "sha256": "7f02b7b4d12e4e1bf1536c2dde72c153ea8825270a83717ce34ee97db51986de",
+    "size": 2048,
+    "faces": [
+      "PX",
+      "NX",
+      "PY",
+      "NY",
+      "PZ",
+      "NZ"
+    ],
+    "format": "DDS DX10 RGBA8 sRGB cubemap",
+    "coordinate_mapping": "cube=(Blender X, Blender Z, Blender Y); UE local view=(-Y,+Z,-X)",
+    "pixel_resampling": false
+  },
+  "formal_gameplay_import_contains": [
+    "2 small meshes",
+    "1 cubemap material",
+    "1 static cubemap"
+  ],
+  "game_run": false,
+  "acceptance_rendered": false,
+  "tests_run": false
+}

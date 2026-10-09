@@ -1,0 +1,178 @@
+{
+  "meshes": [
+    {
+      "name": "SM_Entry_DoorBody",
+      "kind": "DoorBody",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_DoorBody",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\SpawnEntries20261009\\Authored\\SM_Entry_DoorBody.fbx",
+      "sha256": "e65aaa9e4363d6e7ddc842b9f1ad301064e1cceac3be73816ae0a64a49d532db",
+      "materials": {
+        "Entry_Black": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "Entry_Paint": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "Entry_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 8204
+    },
+    {
+      "name": "SM_Entry_DoorLeaf",
+      "kind": "DoorLeaf",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_DoorLeaf",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\SpawnEntries20261009\\Authored\\SM_Entry_DoorLeaf.fbx",
+      "sha256": "a4b85794a6f33421a470f9749e2838b736278dc46c60abfef255ce174ce5d79a",
+      "materials": {
+        "Entry_Paint": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "Entry_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "Entry_Black": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 5060
+    },
+    {
+      "name": "SM_Entry_DoorLeafRight",
+      "kind": "DoorLeafRight",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_DoorLeafRight",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\SpawnEntries20261009\\Authored\\SM_Entry_DoorLeafRight.fbx",
+      "sha256": "02185424cc5a82c73615cd87685ed780fd561bf132e7a3e66cfb58e5048fde24",
+      "materials": {
+        "Entry_Paint": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "Entry_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "Entry_Black": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 5060
+    },
+    {
+      "name": "SM_Entry_HatchBody",
+      "kind": "HatchBody",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_HatchBody",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\SpawnEntries20261009\\Authored\\SM_Entry_HatchBody.fbx",
+      "sha256": "3f034ac1cf81c8505ecf7b25ef108ad4e592a3e0696354e885286eb09c2f3fce",
+      "materials": {
+        "Entry_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "Entry_Black": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 13208
+    },
+    {
+      "name": "SM_Entry_HatchLeaf",
+      "kind": "HatchLeaf",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_HatchLeaf",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\SpawnEntries20261009\\Authored\\SM_Entry_HatchLeaf.fbx",
+      "sha256": "30a518afdf77ea35cb86c898ce13c1d5eb490b9e7fd66070d23709b3ae172f8b",
+      "materials": {
+        "Entry_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "Entry_Black": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 10672
+    },
+    {
+      "name": "SM_Entry_VentBody",
+      "kind": "VentBody",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_VentBody",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\SpawnEntries20261009\\Authored\\SM_Entry_VentBody.fbx",
+      "sha256": "6585079bad2d344ef5499b90c6b835e34f05b45de2da94574a7678f4aa5c0551",
+      "materials": {
+        "Entry_Paint": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "Entry_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "Entry_Black": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 7436
+    },
+    {
+      "name": "SM_Entry_VentLeaf",
+      "kind": "VentLeaf",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_VentLeaf",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\SpawnEntries20261009\\Authored\\SM_Entry_VentLeaf.fbx",
+      "sha256": "7eb1e13e490799caf6278ee7e8ed0ef2919d789e816a4989fd1a11390efe012b",
+      "materials": {
+        "Entry_Black": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "Entry_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "Entry_Paint": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 3760
+    },
+    {
+      "name": "SM_Entry_VentLargeBody",
+      "kind": "VentLargeBody",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_VentLargeBody",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\SpawnEntries20261009\\Authored\\SM_Entry_VentLargeBody.fbx",
+      "sha256": "c05de5cefe2de360a4885c93630d6fe08823d15c54d87226dc0a31ab772c6879",
+      "materials": {
+        "Entry_Paint": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "Entry_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "Entry_Black": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 7244
+    },
+    {
+      "name": "SM_Entry_VentLargeLeaf",
+      "kind": "VentLargeLeaf",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_VentLargeLeaf",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\SpawnEntries20261009\\Authored\\SM_Entry_VentLargeLeaf.fbx",
+      "sha256": "f42c413d9f0858eeda4121a54f89e16ab93ab5fa7492d55e83df0c1b92602114",
+      "materials": {
+        "Entry_Black": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "Entry_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "Entry_Paint": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 3760
+    },
+    {
+      "name": "SM_Entry_VentCompactBody",
+      "kind": "VentCompactBody",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_VentCompactBody",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\SpawnEntries20261009\\Authored\\SM_Entry_VentCompactBody.fbx",
+      "sha256": "5dc1c406551ef46214c96c9aefa16551d1e57c7fbc3924dedae3dae4623162d2",
+      "materials": {
+        "Entry_Paint": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "Entry_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "Entry_Black": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 7244
+    },
+    {
+      "name": "SM_Entry_VentCompactLeaf",
+      "kind": "VentCompactLeaf",
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_VentCompactLeaf",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\SpawnEntries20261009\\Authored\\SM_Entry_VentCompactLeaf.fbx",
+      "sha256": "b179b7d4a78b48abb9e854f731c0e203999e195c174875fb14dc81947327d541",
+      "materials": {
+        "Entry_Black": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6",
+        "Entry_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "Entry_Paint": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 3760
+    }
+  ]
+}

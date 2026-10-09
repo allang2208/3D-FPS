@@ -1,0 +1,424 @@
+{
+  "meshes": [
+    {
+      "name": "SM_FacilityPair_freight__medical",
+      "key": "freight__medical",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_freight__medical",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_freight__medical.fbx",
+      "sha256": "28da0d10fd06d0ebf6c4f3ed481435e812ab67d24a8fc2d0367dfd46ff385e4a",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_freight__treatment",
+      "key": "freight__treatment",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_freight__treatment",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_freight__treatment.fbx",
+      "sha256": "bae53812542205d6a5990efd25b682d139f94054286c25f50f5777fdcdc03859",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_freight__staff_living",
+      "key": "freight__staff_living",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_freight__staff_living",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_freight__staff_living.fbx",
+      "sha256": "a0d3de7b207af15baebc1c8c5fa70a0252d5531fb836052d6e1192f534e391f7",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_freight__ecology",
+      "key": "freight__ecology",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_freight__ecology",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_freight__ecology.fbx",
+      "sha256": "244c5551a5cecb4cd6953b81ee7d14ea1828293436b05fe02606a114837a3162",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_freight__power",
+      "key": "freight__power",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_freight__power",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_freight__power.fbx",
+      "sha256": "3b605b194ce455cd24908986e6cf559b52b45ed53a97e3b2f8186717aecb3280",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_medical__freight",
+      "key": "medical__freight",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_medical__freight",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_medical__freight.fbx",
+      "sha256": "b8eb7e21014566c79293b26dec3aa377e0566e569514407b74bf98da7e154b49",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_medical__treatment",
+      "key": "medical__treatment",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_medical__treatment",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_medical__treatment.fbx",
+      "sha256": "d8bd63717164f0829573f59a46a8b015bb7f40bd0880611b6debd323dbeca5a8",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_medical__staff_living",
+      "key": "medical__staff_living",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_medical__staff_living",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_medical__staff_living.fbx",
+      "sha256": "5b8982f00d5ba9780406c8a0ff18a68585a75480cbf7d8b2ac31d2fd8991ac5f",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_medical__ecology",
+      "key": "medical__ecology",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_medical__ecology",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_medical__ecology.fbx",
+      "sha256": "32f68540c837bfdecaea58262355f868a11eae198d43a938487a2a01aca6977a",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_medical__power",
+      "key": "medical__power",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_medical__power",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_medical__power.fbx",
+      "sha256": "a709b72091955dc6fd71504d17f36ad88f4e6e390694d87c683ba090e2c9b57b",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_treatment__freight",
+      "key": "treatment__freight",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_treatment__freight",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_treatment__freight.fbx",
+      "sha256": "58553b4d01d07cf85f8ac58b3aaa18c970022ae88e460ff371a0f0603aae3259",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_treatment__medical",
+      "key": "treatment__medical",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_treatment__medical",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_treatment__medical.fbx",
+      "sha256": "dbaa225123aaa14f0291196e32feb7cb3fb9aef4e17b7e8039c4d45efc279762",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_treatment__staff_living",
+      "key": "treatment__staff_living",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_treatment__staff_living",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_treatment__staff_living.fbx",
+      "sha256": "8614527e6c8ffa1b8c83fb0f1b37b70af2320056ea287810c4d7a7e2311a34df",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_treatment__ecology",
+      "key": "treatment__ecology",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_treatment__ecology",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_treatment__ecology.fbx",
+      "sha256": "849de9dc38dc972bf89aa2bfa53efe3d533da17da6bf84287cc5f05734263cef",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_treatment__power",
+      "key": "treatment__power",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_treatment__power",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_treatment__power.fbx",
+      "sha256": "28a3d3b935d64878f3885985bd80c90be65744937b62cb1252b2659e8e127378",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_staff_living__freight",
+      "key": "staff_living__freight",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_staff_living__freight",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_staff_living__freight.fbx",
+      "sha256": "56476ce9a9d3a5ee393f5ac35e61fc6be8411421c1504a7774c37ef0bf2f9e00",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_staff_living__medical",
+      "key": "staff_living__medical",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_staff_living__medical",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_staff_living__medical.fbx",
+      "sha256": "1641339a62b6303d351e96cb3140ce15365c5d065deb6c465270d77f28b383b5",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_staff_living__treatment",
+      "key": "staff_living__treatment",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_staff_living__treatment",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_staff_living__treatment.fbx",
+      "sha256": "410cfe68bf058e5783e2c483371e47daa4d77d45274c7bf72a75865a090efb29",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_staff_living__ecology",
+      "key": "staff_living__ecology",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_staff_living__ecology",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_staff_living__ecology.fbx",
+      "sha256": "083ec6f741f9c4f8c98862821b58ee05c1673cb8bba8a83aface61b55b017adb",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_staff_living__power",
+      "key": "staff_living__power",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_staff_living__power",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_staff_living__power.fbx",
+      "sha256": "b07fb5e7782fdb51c57287b976efb9da55ba8f76a619ff6252358b665e38dd74",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_ecology__freight",
+      "key": "ecology__freight",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_ecology__freight",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_ecology__freight.fbx",
+      "sha256": "f4009611a6479fcc7d369a3e2decd290887e03c414e974f8942ad912d4f45427",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_ecology__medical",
+      "key": "ecology__medical",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_ecology__medical",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_ecology__medical.fbx",
+      "sha256": "cfcd2cc4463e55d7f0c627377a717af4eedb9478fbcb7de76b4e9574e57edb37",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_ecology__treatment",
+      "key": "ecology__treatment",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_ecology__treatment",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_ecology__treatment.fbx",
+      "sha256": "687d31ec22ed2890948e8831fe437456efe9fc67e30d727c5eb10e3a35f29433",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_ecology__staff_living",
+      "key": "ecology__staff_living",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_ecology__staff_living",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_ecology__staff_living.fbx",
+      "sha256": "6de3122d205ca44f03becef6b1ada033dc0b4b70be6971efdda273321199eb32",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_ecology__power",
+      "key": "ecology__power",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_ecology__power",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_ecology__power.fbx",
+      "sha256": "d2e95b42928ae21b21e9f33a605ca7504c44404852fb919aa3882eee17100391",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_power__freight",
+      "key": "power__freight",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_power__freight",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_power__freight.fbx",
+      "sha256": "cf877297ad690f11f5a01425d98a277321ae797f216b4d89277b5dcd1263a9e3",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_power__medical",
+      "key": "power__medical",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_power__medical",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_power__medical.fbx",
+      "sha256": "a9dba17e4eeb12e8a62a15af590fa39add886de09567367646304b417b157779",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_power__treatment",
+      "key": "power__treatment",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_power__treatment",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_power__treatment.fbx",
+      "sha256": "2e169b3891d7ecb357f95e29dd97312a7cda3cb614a05eddb0a1a44ed623676c",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_power__staff_living",
+      "key": "power__staff_living",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_power__staff_living",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_power__staff_living.fbx",
+      "sha256": "dd1db949bb602dc47aa13a194894a718ed7a7098274e4f9e05b43b7af2c6798f",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_FacilityPair_power__ecology",
+      "key": "power__ecology",
+      "kind": "PairSign",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityPair_power__ecology",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityPair_power__ecology.fbx",
+      "sha256": "93d404dfae7fe871a4c1d98e428636d37dd0a5aa3a1458c79bf1755416d98bf9",
+      "materials": {
+        "FF_Pairs": "/Game/Dungeons/FacilityFlow20261007/Materials/M_FacilityRoutePairs"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false
+    }
+  ]
+}

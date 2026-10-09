@@ -9,6 +9,15 @@ void ConfigureThemeLevels(int32 Attempt,double FloorZ)
     // above, on, and below the common transition floor. No room-count redraw.
     const int32 Profile=(Attempt-2)/2;
     const double Rise=Profile%6<4?1620.:Profile%6==4?1080.:540.;
+    if(bPairedFacility)
+    {
+        // The terminal is anchored to the last spine room. Keep it on the hub
+        // floor; outer paired routes rise/fall and return through authored ramps.
+        const double Sign=Profile%2?1.:-1.;
+        ThemeCoreLevels.Add(TEXT("Route1"),0.);
+        ThemeCoreLevels.Add(TEXT("Route2"),Rise*Sign);
+        ThemeCoreLevels.Add(TEXT("Route3"),-Rise*Sign);return;
+    }
     const double Levels[3]={0.,Rise,-Rise};
     for(int32 R=1;R<=3;++R)
         ThemeCoreLevels.Add(FString::Printf(TEXT("Route%d"),R),Levels[(R-1+Profile)%3]);
@@ -30,7 +39,17 @@ void ThemeRoomLinks(TArray<FShortLink>& Links,const FSocket& Start,const FString
 {
     if(!bThemedRoutes||ThemeRamps.IsEmpty())return;
     const double TargetZ=ThemeRoomFloor(Route,Ordinal),Delta=TargetZ-Start.P.Z;
-    if(FMath::Abs(Delta)<.1)return;
+    if(FMath::Abs(Delta)<.1)
+    {
+        if(bPairedFacility&&ThemeGapAllowsBridge(Route,Ordinal-Step,Ordinal))
+        {
+            const FVector P=Start.P,F=Start.N,R(-F.Y,F.X,0);
+            for(double Length:{1440.,1840.,2240.})AddShortLink(Links,Start,{P,P+F*Length},0.,ThemeBridgeLimit);
+            for(double Sign:{-1.,1.})for(double Lead:{480.,800.})for(double Tail:{800.,1200.})
+            {const FVector Corner=P+F*Lead;AddShortLink(Links,Start,{P,Corner,Corner+R*Sign*Tail},0.,ThemeBridgeLimit);}
+        }
+        return;
+    }
     const auto Flat=MoveTemp(Links);Links.Reset();
     if(!ThemeGapAllowsBridge(Route,Ordinal-Step,Ordinal))return;
     for(int32 Ramp:ThemeRamps)

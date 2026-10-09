@@ -1,0 +1,272 @@
+[
+  {
+    "key": "freight__medical",
+    "rect": [
+      0,
+      0,
+      1024,
+      256
+    ]
+  },
+  {
+    "key": "freight__treatment",
+    "rect": [
+      1024,
+      0,
+      2048,
+      256
+    ]
+  },
+  {
+    "key": "freight__staff_living",
+    "rect": [
+      2048,
+      0,
+      3072,
+      256
+    ]
+  },
+  {
+    "key": "freight__ecology",
+    "rect": [
+      3072,
+      0,
+      4096,
+      256
+    ]
+  },
+  {
+    "key": "freight__power",
+    "rect": [
+      0,
+      256,
+      1024,
+      512
+    ]
+  },
+  {
+    "key": "medical__freight",
+    "rect": [
+      1024,
+      256,
+      2048,
+      512
+    ]
+  },
+  {
+    "key": "medical__treatment",
+    "rect": [
+      2048,
+      256,
+      3072,
+      512
+    ]
+  },
+  {
+    "key": "medical__staff_living",
+    "rect": [
+      3072,
+      256,
+      4096,
+      512
+    ]
+  },
+  {
+    "key": "medical__ecology",
+    "rect": [
+      0,
+      512,
+      1024,
+      768
+    ]
+  },
+  {
+    "key": "medical__power",
+    "rect": [
+      1024,
+      512,
+      2048,
+      768
+    ]
+  },
+  {
+    "key": "treatment__freight",
+    "rect": [
+      2048,
+      512,
+      3072,
+      768
+    ]
+  },
+  {
+    "key": "treatment__medical",
+    "rect": [
+      3072,
+      512,
+      4096,
+      768
+    ]
+  },
+  {
+    "key": "treatment__staff_living",
+    "rect": [
+      0,
+      768,
+      1024,
+      1024
+    ]
+  },
+  {
+    "key": "treatment__ecology",
+    "rect": [
+      1024,
+      768,
+      2048,
+      1024
+    ]
+  },
+  {
+    "key": "treatment__power",
+    "rect": [
+      2048,
+      768,
+      3072,
+      1024
+    ]
+  },
+  {
+    "key": "staff_living__freight",
+    "rect": [
+      3072,
+      768,
+      4096,
+      1024
+    ]
+  },
+  {
+    "key": "staff_living__medical",
+    "rect": [
+      0,
+      1024,
+      1024,
+      1280
+    ]
+  },
+  {
+    "key": "staff_living__treatment",
+    "rect": [
+      1024,
+      1024,
+      2048,
+      1280
+    ]
+  },
+  {
+    "key": "staff_living__ecology",
+    "rect": [
+      2048,
+      1024,
+      3072,
+      1280
+    ]
+  },
+  {
+    "key": "staff_living__power",
+    "rect": [
+      3072,
+      1024,
+      4096,
+      1280
+    ]
+  },
+  {
+    "key": "ecology__freight",
+    "rect": [
+      0,
+      1280,
+      1024,
+      1536
+    ]
+  },
+  {
+    "key": "ecology__medical",
+    "rect": [
+      1024,
+      1280,
+      2048,
+      1536
+    ]
+  },
+  {
+    "key": "ecology__treatment",
+    "rect": [
+      2048,
+      1280,
+      3072,
+      1536
+    ]
+  },
+  {
+    "key": "ecology__staff_living",
+    "rect": [
+      3072,
+      1280,
+      4096,
+      1536
+    ]
+  },
+  {
+    "key": "ecology__power",
+    "rect": [
+      0,
+      1536,
+      1024,
+      1792
+    ]
+  },
+  {
+    "key": "power__freight",
+    "rect": [
+      1024,
+      1536,
+      2048,
+      1792
+    ]
+  },
+  {
+    "key": "power__medical",
+    "rect": [
+      2048,
+      1536,
+      3072,
+      1792
+    ]
+  },
+  {
+    "key": "power__treatment",
+    "rect": [
+      3072,
+      1536,
+      4096,
+      1792
+    ]
+  },
+  {
+    "key": "power__staff_living",
+    "rect": [
+      0,
+      1792,
+      1024,
+      2048
+    ]
+  },
+  {
+    "key": "power__ecology",
+    "rect": [
+      1024,
+      1792,
+      2048,
+      2048
+    ]
+  }
+]

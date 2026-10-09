@@ -1,0 +1,277 @@
+{
+  "base": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005",
+  "meshes": [
+    {
+      "name": "SM_Power_AccumulatorControl_Structure",
+      "kind": "Structure",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Structure",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Structure",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_AccumulatorControl_Structure.fbx",
+      "sha256": "ab008221f3dd6c4afe402f0e562f4d1f04e7afa0ea1dee928f2a7b9baddcfc7d",
+      "materials": {
+        "PW_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+        "PW_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "PW_Paint": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 50456,
+      "collision": true,
+      "collision_hulls": 258,
+      "nanite": true,
+      "cast_shadow": true,
+      "fracture_shards": 0
+    },
+    {
+      "name": "SM_Power_AccumulatorControl_Trim",
+      "kind": "Trim",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Trim",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Trim",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_AccumulatorControl_Trim.fbx",
+      "sha256": "3886fad828f7bfc55d706d277268bf729e9a744147368e42b3b9328920d7fba5",
+      "materials": {
+        "PW_Paint": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "PW_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "PW_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "PW_Dark": "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_Dark",
+        "PW_Deck": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BridgeDeck"
+      },
+      "triangles": 100392,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "fracture_shards": 0
+    },
+    {
+      "name": "SM_Power_AccumulatorControl_RoofFrame",
+      "kind": "RoofFrame",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_RoofFrame",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_RoofFrame",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_AccumulatorControl_RoofFrame.fbx",
+      "sha256": "b70281d8449e2fc7551ada93d440c9b47999a014cd947e04e856ef3edd2336eb",
+      "materials": {
+        "PW_Paint": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "PW_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 45624,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "fracture_shards": 0
+    },
+    {
+      "name": "SM_Power_AccumulatorControl_Hardware",
+      "kind": "Hardware",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Hardware",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Hardware",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_AccumulatorControl_Hardware.fbx",
+      "sha256": "288b76fa5a8cc11cc61d6241b3d02334bf6273ee684a693d45fff3727edba418",
+      "materials": {
+        "PW_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "PW_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      "triangles": 22296,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": false,
+      "cast_shadow": false,
+      "fracture_shards": 0
+    },
+    {
+      "name": "SM_Power_AccumulatorControl_GalleryDeck",
+      "kind": "GalleryDeck",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_GalleryDeck",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_GalleryDeck",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_AccumulatorControl_GalleryDeck.fbx",
+      "sha256": "e8f9bbcd8c9898fb5946a6af520e5fb0ca1a9e2bac6ab8c6d1b10acf073f2998",
+      "materials": {
+        "PW_Deck": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BridgeDeck"
+      },
+      "triangles": 18540,
+      "collision": true,
+      "collision_hulls": 97,
+      "nanite": true,
+      "cast_shadow": true,
+      "fracture_shards": 0
+    },
+    {
+      "name": "SM_Power_AccumulatorControl_Rails",
+      "kind": "Rails",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Rails",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Rails",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_AccumulatorControl_Rails.fbx",
+      "sha256": "866de87d7100ff5e9c03197016f0f3af0cf68439b0c6e25852beae262dec5ad6",
+      "materials": {
+        "PW_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "PW_Paint": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "PW_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 28320,
+      "collision": true,
+      "collision_hulls": 183,
+      "nanite": true,
+      "cast_shadow": true,
+      "fracture_shards": 0
+    },
+    {
+      "name": "SM_Power_AccumulatorControl_Markings",
+      "kind": "Markings",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Markings",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Markings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_AccumulatorControl_Markings.fbx",
+      "sha256": "96a6c564bd6883313e8a4cf7bd463953693ea65a2fc8dcdd01f9e789aa17f9fd",
+      "materials": {
+        "PW_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      "triangles": 1048,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": false,
+      "cast_shadow": false,
+      "fracture_shards": 0
+    },
+    {
+      "name": "SM_Power_AccumulatorControl_Signs",
+      "kind": "Signs",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Signs",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_AccumulatorControl_Signs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_AccumulatorControl_Signs.fbx",
+      "sha256": "c551cc759e2e937f22d027da186eb108f23297c5547ba7f83a03ad26cfc62da9",
+      "materials": {
+        "PW_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "PW_Labels": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Materials/M_Power_TextCards"
+      },
+      "triangles": 120,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": false,
+      "cast_shadow": false,
+      "fracture_shards": 0
+    },
+    {
+      "name": "SM_Power_AccumulatorControl_ControlRoom",
+      "kind": "ControlRoom",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_ControlRoom",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_ControlRoom",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_AccumulatorControl_ControlRoom.fbx",
+      "sha256": "48174101661f50cdd09cb17d8ae0cc94d2112ee81ad80f125c2f35a0994d14ae",
+      "materials": {
+        "PW_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+        "PW_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "PW_Paint": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "PW_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      "triangles": 14100,
+      "collision": true,
+      "collision_hulls": 31,
+      "nanite": true,
+      "cast_shadow": true,
+      "fracture_shards": 0
+    },
+    {
+      "name": "SM_Power_AccumulatorControl_Cablework",
+      "kind": "Cablework",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Cablework",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Cablework",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_AccumulatorControl_Cablework.fbx",
+      "sha256": "cbf82a835b2cd06194748ac56df993cc58acc2629acb424ceabe9c7e1363a6b4",
+      "materials": {
+        "PW_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "PW_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      "triangles": 11880,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": false,
+      "cast_shadow": true,
+      "fracture_shards": 0
+    },
+    {
+      "name": "SM_Power_AccumulatorControl_Hangers",
+      "kind": "Hangers",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_AccumulatorControl_Hangers",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Hangers",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_AccumulatorControl_Hangers.fbx",
+      "sha256": "85dddfef08202e20f72fdb320a0885980d50fe3b5b883c5009ea2e0199793268",
+      "materials": {
+        "PW_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 1536,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": false,
+      "cast_shadow": false,
+      "fracture_shards": 0
+    },
+    {
+      "name": "SM_Power_UpperControlFrontPaneV5",
+      "kind": "Glass",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontPaneV5",
+      "previous_mesh": null,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_UpperControlFrontPaneV5.fbx",
+      "sha256": "f987aef7c029be425c79f8703251b6ee634781ac05154993a9d95ff8c07ccab6",
+      "materials": {
+        "RS_Glass": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+      },
+      "triangles": 12,
+      "collision": true,
+      "collision_hulls": 1,
+      "nanite": false,
+      "cast_shadow": false,
+      "fracture_shards": 0
+    },
+    {
+      "name": "SM_Power_UpperControlFrontFractureV5",
+      "kind": "Fracture",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlFrontFractureV5",
+      "previous_mesh": null,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_UpperControlFrontFractureV5.fbx",
+      "sha256": "6f0f4e4463f998d11240d1bcf3baad70106025aaa88e531d2c93659f786cb9e2",
+      "materials": {
+        "RS_Glass": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+      },
+      "triangles": 4100,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": false,
+      "cast_shadow": false,
+      "fracture_shards": 216
+    },
+    {
+      "name": "SM_Power_UpperControlSidePaneV5",
+      "kind": "Glass",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlSidePaneV5",
+      "previous_mesh": null,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_UpperControlSidePaneV5.fbx",
+      "sha256": "0d6608dcae1cc8e821ffcf29fcd89cd83c10382a3b9624a825c9d5ad07d4aecf",
+      "materials": {
+        "RS_Glass": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+      },
+      "triangles": 12,
+      "collision": true,
+      "collision_hulls": 1,
+      "nanite": false,
+      "cast_shadow": false,
+      "fracture_shards": 0
+    },
+    {
+      "name": "SM_Power_UpperControlSideFractureV5",
+      "kind": "Fracture",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/UpperControlRoom20261005/Meshes/SM_Power_UpperControlSideFractureV5",
+      "previous_mesh": null,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\UpperControlRoom20261005\\Authored\\SM_Power_UpperControlSideFractureV5.fbx",
+      "sha256": "aa4c46b62c05692d7c6b82c547c4d64605494a50a5046ae57cb01581d678b05f",
+      "materials": {
+        "RS_Glass": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+      },
+      "triangles": 3164,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": false,
+      "cast_shadow": false,
+      "fracture_shards": 168
+    }
+  ],
+  "tests_run": false,
+  "rendered": false
+}

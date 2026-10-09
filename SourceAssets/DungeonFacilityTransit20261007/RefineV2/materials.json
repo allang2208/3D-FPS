@@ -1,0 +1,422 @@
+{
+  "Concrete": {
+    "basecolor_linear": [
+      0.29,
+      0.28,
+      0.25
+    ],
+    "roughness": 0.85,
+    "metallic": 0,
+    "uv_meters": 1.0,
+    "uv_meters_override": 2,
+    "existing_ue_path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+    "required_existing": true,
+    "new_authored": false
+  },
+  "Paint": {
+    "basecolor_linear": [
+      0.13,
+      0.17,
+      0.125
+    ],
+    "roughness": 0.53,
+    "metallic": 0.04,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+    "required_existing": true,
+    "new_authored": false
+  },
+  "Steel": {
+    "basecolor_linear": [
+      0.29177064981753587,
+      0.33716361504833037,
+      0.3419144249086609
+    ],
+    "roughness": 0.5,
+    "metallic": 0.88,
+    "uv_meters": 0.65,
+    "family": "Steel",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+  },
+  "Enamel": {
+    "basecolor_linear": [
+      0.17,
+      0.205,
+      0.145
+    ],
+    "roughness": 0.5,
+    "metallic": 0.03,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+    "required_existing": true,
+    "new_authored": false
+  },
+  "Yellow": {
+    "basecolor_linear": [
+      0.41254261348390375,
+      0.25015828472995344,
+      0.03189603307301153
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_SafetyYellow"
+  },
+  "Rubber": {
+    "basecolor_linear": [
+      0.011612245179743885,
+      0.012983032342173012,
+      0.011612245179743885
+    ],
+    "roughness": 0.5,
+    "metallic": 0.0,
+    "uv_meters": 0.4,
+    "family": "Rubber",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+  },
+  "Floor": {
+    "basecolor_linear": [
+      0.35,
+      0.36,
+      0.33
+    ],
+    "roughness": 0.65,
+    "metallic": 0,
+    "uv_meters": 1.2,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Floor",
+    "new_authored": false
+  },
+  "Stone": {
+    "basecolor_linear": [
+      0.54,
+      0.51,
+      0.43
+    ],
+    "roughness": 0.64,
+    "metallic": 0,
+    "uv_meters": 1.2,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Stone",
+    "new_authored": false
+  },
+  "Teal": {
+    "basecolor_linear": [
+      0.032,
+      0.077,
+      0.07
+    ],
+    "roughness": 0.51,
+    "metallic": 0.12,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+    "new_authored": false
+  },
+  "Brass": {
+    "basecolor_linear": [
+      0.27,
+      0.2,
+      0.1
+    ],
+    "roughness": 0.42,
+    "metallic": 0.75,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Brass",
+    "new_authored": false
+  },
+  "Dark": {
+    "basecolor_linear": [
+      0.0202885630566524,
+      0.02518685962736163,
+      0.026241221894849898
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite"
+  },
+  "White": {
+    "basecolor_linear": [
+      0.4620769996544071,
+      0.4620769996544071,
+      0.39157247774972326
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Ivory"
+  },
+  "Glow": {
+    "basecolor_linear": [
+      0.8,
+      0.88,
+      0.76
+    ],
+    "roughness": 0.4,
+    "metallic": 0,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Glow",
+    "new_authored": false
+  },
+  "Red": {
+    "basecolor_linear": [
+      0.25415209433082675,
+      0.017641954488384078,
+      0.011612245179743885
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_SafetyRed"
+  },
+  "Wood": {
+    "basecolor_linear": [
+      0.23,
+      0.16,
+      0.085
+    ],
+    "roughness": 0.7,
+    "metallic": 0,
+    "uv_meters": 1.72,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Wood",
+    "new_authored": false
+  },
+  "Soil": {
+    "basecolor_linear": [
+      0.055,
+      0.033,
+      0.02
+    ],
+    "roughness": 0.94,
+    "metallic": 0,
+    "uv_meters": 0.65,
+    "existing_ue_path": "/Game/Dungeons/Ecology20261004/RefineV5/Materials/M_Eco_SoilBed",
+    "new_authored": false
+  },
+  "Labels": {
+    "basecolor_linear": [
+      0.2,
+      0.3,
+      0.25
+    ],
+    "roughness": 0.75,
+    "metallic": 0,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/Materials/M_FT_Labels",
+    "new_authored": true
+  },
+  "FR": {
+    "basecolor_linear": [
+      0.0382043715953465,
+      0.06847816984440017,
+      0.08437621154414882
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_FR"
+  },
+  "MD": {
+    "basecolor_linear": [
+      0.1714411007328226,
+      0.27467731206038465,
+      0.25015828472995344
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_MD"
+  },
+  "TR": {
+    "basecolor_linear": [
+      0.1714411007328226,
+      0.04817182422688942,
+      0.016807375752887384
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_TR"
+  },
+  "ST": {
+    "basecolor_linear": [
+      0.10461648409110419,
+      0.09305896284668745,
+      0.046665086336880095
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_ST"
+  },
+  "EC": {
+    "basecolor_linear": [
+      0.05448027644244237,
+      0.11443537382697373,
+      0.05780543019106723
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_EC"
+  },
+  "PW": {
+    "basecolor_linear": [
+      0.31854677812509186,
+      0.19120168274079138,
+      0.02518685962736163
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_PW"
+  },
+  "Ceramic": {
+    "basecolor_linear": [
+      0.6038273388553378,
+      0.5711248294648731,
+      0.44520119451622786
+    ],
+    "roughness": 0.5,
+    "metallic": 0.0,
+    "uv_meters": 0.4,
+    "family": "Ceramic",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Porcelain"
+  },
+  "Copper": {
+    "basecolor_linear": [
+      0.27,
+      0.2,
+      0.1
+    ],
+    "roughness": 0.42,
+    "metallic": 0.75,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Brass",
+    "new_authored": false
+  },
+  "Graphite": {
+    "basecolor_linear": [
+      0.0202885630566524,
+      0.02518685962736163,
+      0.026241221894849898
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite"
+  },
+  "Ivory": {
+    "basecolor_linear": [
+      0.4620769996544071,
+      0.4620769996544071,
+      0.39157247774972326
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Ivory"
+  },
+  "Gasket": {
+    "basecolor_linear": [
+      0.011612245179743885,
+      0.012983032342173012,
+      0.011612245179743885
+    ],
+    "roughness": 0.5,
+    "metallic": 0.0,
+    "uv_meters": 0.4,
+    "family": "Rubber",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+  },
+  "Brushed": {
+    "basecolor_linear": [
+      0.29177064981753587,
+      0.33716361504833037,
+      0.3419144249086609
+    ],
+    "roughness": 0.5,
+    "metallic": 0.88,
+    "uv_meters": 0.65,
+    "family": "Steel",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+  },
+  "Porcelain": {
+    "basecolor_linear": [
+      0.6038273388553378,
+      0.5711248294648731,
+      0.44520119451622786
+    ],
+    "roughness": 0.5,
+    "metallic": 0.0,
+    "uv_meters": 0.4,
+    "family": "Ceramic",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Porcelain"
+  },
+  "SafetyRed": {
+    "basecolor_linear": [
+      0.25415209433082675,
+      0.017641954488384078,
+      0.011612245179743885
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_SafetyRed"
+  },
+  "SafetyYellow": {
+    "basecolor_linear": [
+      0.41254261348390375,
+      0.25015828472995344,
+      0.03189603307301153
+    ],
+    "roughness": 0.5,
+    "metallic": 0.04,
+    "uv_meters": 0.4,
+    "family": "Paint",
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_SafetyYellow"
+  },
+  "TechLabels": {
+    "basecolor_linear": [
+      0.2,
+      0.2,
+      0.2
+    ],
+    "roughness": 0.7,
+    "metallic": 0.1,
+    "uv_meters": 1,
+    "new_authored": true,
+    "existing_ue_path": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_TechLabels"
+  }
+}

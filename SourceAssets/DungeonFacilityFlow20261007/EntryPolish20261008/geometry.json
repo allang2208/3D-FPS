@@ -1,0 +1,65 @@
+{
+  "meshes": [
+    {
+      "name": "SM_EntryPolish_PassageHardware_UV2",
+      "kind": "PassageHardware",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/EntryPolish20261008/Meshes/SM_EntryPolish_PassageHardware_UV2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\EntryPolish20261008\\Authored\\SM_EntryPolish_PassageHardware_UV2.fbx",
+      "sha256": "0d88d4c8a863e97865adf84473d525b2ba8601778d34409c8ff3d3fad905cf37",
+      "materials": {
+        "EP_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "EP_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+        "EP_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "EP_Enamel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel"
+      },
+      "collision": false,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 73596
+    },
+    {
+      "name": "SM_EntryPolish_PassageDiffusers_UV2",
+      "kind": "PassageDiffusers",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/EntryPolish20261008/Meshes/SM_EntryPolish_PassageDiffusers_UV2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\EntryPolish20261008\\Authored\\SM_EntryPolish_PassageDiffusers_UV2.fbx",
+      "sha256": "c1a3cc0f72869b7cc37e838ff3de938db67bb201d25f729160b23606291013e7",
+      "materials": {
+        "EP_Glow": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Glow"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false,
+      "triangles": 2228
+    },
+    {
+      "name": "SM_EntryPolish_BreachAggregate_UV2",
+      "kind": "BreachAggregate",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/EntryPolish20261008/Meshes/SM_EntryPolish_BreachAggregate_UV2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\EntryPolish20261008\\Authored\\SM_EntryPolish_BreachAggregate_UV2.fbx",
+      "sha256": "33c9e738ff8712b4d61d346a9c142e6a142b317b92c57dcb0b6d6093d9b8ac49",
+      "materials": {
+        "EP_Aggregate": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_BrokenConcrete"
+      },
+      "collision": false,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 3020
+    },
+    {
+      "name": "SM_EntryPolish_BreachThreshold_V3",
+      "kind": "BreachThreshold",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/EntryPolish20261008/Meshes/SM_EntryPolish_BreachThreshold_V3",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\EntryPolish20261008\\Authored\\SM_EntryPolish_BreachThreshold_V3.fbx",
+      "sha256": "41864389c9c4611621ec4e7a90b6b65fd6faa4e10e07319b203153516e03a09f",
+      "materials": {
+        "EP_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "EP_Dark": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Dark",
+        "EP_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      "collision": false,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 1620
+    }
+  ]
+}

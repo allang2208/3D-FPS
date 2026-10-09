@@ -1,0 +1,423 @@
+{
+  "meshes": [
+    {
+      "name": "SM_SW_Electrical",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_SW_Electrical.fbx",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Steel",
+        "RS_Paint": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Paint",
+        "RS_Plastic": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Plastic",
+        "RS_Rubber": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Rubber",
+        "RS_Labels": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Labels"
+      },
+      "triangles": 6354,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "Electrical",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_Electrical",
+      "sha256": "7e7acff054536bc26df3ee09b60c246f13ec3a54be4c075c4b3106bcd361a775",
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_SW_DispatchElectronics",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_SW_DispatchElectronics.fbx",
+      "materials": {
+        "RS_Plastic": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Plastic",
+        "RS_Rubber": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Rubber",
+        "RS_Screen": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Screen",
+        "RS_Steel": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Steel",
+        "RS_Keycaps": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Keycaps",
+        "RS_Legends": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Legends",
+        "RS_Lamp": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Lamp",
+        "RS_Display": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Display"
+      },
+      "triangles": 57886,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kind": "DispatchElectronics",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+      "sha256": "ed63370e3eb02f37ee9a3c6ef20e720857d1b3873788fcabad2df4977e7d6fde",
+      "cast_shadow": true
+    }
+  ],
+  "keylabels": [
+    {
+      "text": "Esc",
+      "index": 0
+    },
+    {
+      "text": "F1",
+      "index": 1
+    },
+    {
+      "text": "F2",
+      "index": 2
+    },
+    {
+      "text": "F3",
+      "index": 3
+    },
+    {
+      "text": "F4",
+      "index": 4
+    },
+    {
+      "text": "F5",
+      "index": 5
+    },
+    {
+      "text": "F6",
+      "index": 6
+    },
+    {
+      "text": "F7",
+      "index": 7
+    },
+    {
+      "text": "F8",
+      "index": 8
+    },
+    {
+      "text": "F9",
+      "index": 9
+    },
+    {
+      "text": "F10",
+      "index": 10
+    },
+    {
+      "text": "F11",
+      "index": 11
+    },
+    {
+      "text": "F12",
+      "index": 12
+    },
+    {
+      "text": "`",
+      "index": 13
+    },
+    {
+      "text": "1",
+      "index": 14
+    },
+    {
+      "text": "2",
+      "index": 15
+    },
+    {
+      "text": "3",
+      "index": 16
+    },
+    {
+      "text": "4",
+      "index": 17
+    },
+    {
+      "text": "5",
+      "index": 18
+    },
+    {
+      "text": "6",
+      "index": 19
+    },
+    {
+      "text": "7",
+      "index": 20
+    },
+    {
+      "text": "8",
+      "index": 21
+    },
+    {
+      "text": "9",
+      "index": 22
+    },
+    {
+      "text": "0",
+      "index": 23
+    },
+    {
+      "text": "-",
+      "index": 24
+    },
+    {
+      "text": "=",
+      "index": 25
+    },
+    {
+      "text": "Back",
+      "index": 26
+    },
+    {
+      "text": "Tab",
+      "index": 27
+    },
+    {
+      "text": "Q",
+      "index": 28
+    },
+    {
+      "text": "W",
+      "index": 29
+    },
+    {
+      "text": "E",
+      "index": 30
+    },
+    {
+      "text": "R",
+      "index": 31
+    },
+    {
+      "text": "T",
+      "index": 32
+    },
+    {
+      "text": "Y",
+      "index": 33
+    },
+    {
+      "text": "U",
+      "index": 34
+    },
+    {
+      "text": "I",
+      "index": 35
+    },
+    {
+      "text": "O",
+      "index": 36
+    },
+    {
+      "text": "P",
+      "index": 37
+    },
+    {
+      "text": "[",
+      "index": 38
+    },
+    {
+      "text": "]",
+      "index": 39
+    },
+    {
+      "text": "Caps",
+      "index": 40
+    },
+    {
+      "text": "A",
+      "index": 41
+    },
+    {
+      "text": "S",
+      "index": 42
+    },
+    {
+      "text": "D",
+      "index": 43
+    },
+    {
+      "text": "F",
+      "index": 44
+    },
+    {
+      "text": "G",
+      "index": 45
+    },
+    {
+      "text": "H",
+      "index": 46
+    },
+    {
+      "text": "J",
+      "index": 47
+    },
+    {
+      "text": "K",
+      "index": 48
+    },
+    {
+      "text": "L",
+      "index": 49
+    },
+    {
+      "text": ";",
+      "index": 50
+    },
+    {
+      "text": "Enter",
+      "index": 51
+    },
+    {
+      "text": "Shift",
+      "index": 52
+    },
+    {
+      "text": "Z",
+      "index": 53
+    },
+    {
+      "text": "X",
+      "index": 54
+    },
+    {
+      "text": "C",
+      "index": 55
+    },
+    {
+      "text": "V",
+      "index": 56
+    },
+    {
+      "text": "B",
+      "index": 57
+    },
+    {
+      "text": "N",
+      "index": 58
+    },
+    {
+      "text": "M",
+      "index": 59
+    },
+    {
+      "text": ",",
+      "index": 60
+    },
+    {
+      "text": ".",
+      "index": 61
+    },
+    {
+      "text": "/",
+      "index": 62
+    },
+    {
+      "text": "Shift",
+      "index": 63
+    },
+    {
+      "text": "Ctrl",
+      "index": 64
+    },
+    {
+      "text": "Win",
+      "index": 65
+    },
+    {
+      "text": "Alt",
+      "index": 66
+    },
+    {
+      "text": "Alt",
+      "index": 67
+    },
+    {
+      "text": "Fn",
+      "index": 68
+    },
+    {
+      "text": "Ctrl",
+      "index": 69
+    },
+    {
+      "text": "Space",
+      "index": 70
+    },
+    {
+      "text": "Ins",
+      "index": 71
+    },
+    {
+      "text": "Home",
+      "index": 72
+    },
+    {
+      "text": "PgUp",
+      "index": 73
+    },
+    {
+      "text": "Del",
+      "index": 74
+    },
+    {
+      "text": "End",
+      "index": 75
+    },
+    {
+      "text": "PgDn",
+      "index": 76
+    },
+    {
+      "text": "Num",
+      "index": 77
+    },
+    {
+      "text": "/",
+      "index": 78
+    },
+    {
+      "text": "*",
+      "index": 79
+    },
+    {
+      "text": "7",
+      "index": 80
+    },
+    {
+      "text": "8",
+      "index": 81
+    },
+    {
+      "text": "9",
+      "index": 82
+    },
+    {
+      "text": "4",
+      "index": 83
+    },
+    {
+      "text": "5",
+      "index": 84
+    },
+    {
+      "text": "6",
+      "index": 85
+    },
+    {
+      "text": "1",
+      "index": 86
+    },
+    {
+      "text": "2",
+      "index": 87
+    },
+    {
+      "text": "3",
+      "index": 88
+    },
+    {
+      "text": "0",
+      "index": 89
+    },
+    {
+      "text": ".",
+      "index": 90
+    },
+    {
+      "text": "+",
+      "index": 91
+    }
+  ]
+}

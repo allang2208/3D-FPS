@@ -17,7 +17,7 @@ public:
     UPROPERTY(EditAnywhere, Category="Dungeon") int32 PreviewSeed=92247;
     UPROPERTY(EditAnywhere, Category="Dungeon") bool bRandomizeOnEntry=true;
     UPROPERTY(EditAnywhere, Category="Dungeon", meta=(MultiLine=true)) FString ModuleCatalogJson;
-    /** Hard references keep every authored mesh/material available in packaged builds. */
+    /** Legacy import compatibility. PreSave moves these references to ModuleAssetPaths. */
     UPROPERTY(EditAnywhere, Category="Dungeon") TArray<TObjectPtr<UObject>> ModuleAssets;
     UPROPERTY(VisibleAnywhere, Category="Dungeon") int32 GeneratedSeed=0;
     UPROPERTY(VisibleAnywhere, Category="Dungeon") FString LayoutDescription;
@@ -26,6 +26,9 @@ public:
     /** On-demand CPU preparation report. Never represents GPU work or frame-time savings. */
     FString GetGenerationMetricsJson() const;
     bool IsPreparationPending() const { return BuildState.IsValid(); }
+#if WITH_EDITOR
+    virtual void PreSave(FObjectPreSaveContext SaveContext) override;
+#endif
 protected:
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
@@ -55,4 +58,13 @@ private:
     FTimerHandle RoomLightingTimer;
     double LastLightingUpdateSeconds = 0.0;
     bool bLightingOptimizationApplied = false;
+    TArray<FAuthoredDungeonRenderGroup> RenderGroups;
+    int32 RoomHideCursor = 0;
+    void UpdateRoomRendering(const TArray<bool>& Wanted, const FVector* Eye, double Now);
+    void ResetRoomRendering();
+    bool PumpGenerationResources();
+    void CancelGenerationResources();
+public:
+    /** Cook dependencies without eagerly loading every possible room with the map. */
+    UPROPERTY(EditAnywhere, Category="Dungeon") TArray<TSoftObjectPtr<UObject>> ModuleAssetPaths;
 };

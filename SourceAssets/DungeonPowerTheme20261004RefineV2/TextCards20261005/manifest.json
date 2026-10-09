@@ -1,0 +1,289 @@
+{
+  "base": "/Game/Dungeons/PowerTheme20261004/TextCards20261005",
+  "meshes": [
+    {
+      "name": "SM_Power_SwitchgearGallery_Signs",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\Authored\\SM_Power_SwitchgearGallery_Signs.fbx",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_SwitchgearGallery_Signs",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_SwitchgearGallery_Signs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\TextCards20261005\\Authored\\SM_Power_SwitchgearGallery_Signs.fbx",
+      "sha256": "7d81cbc5c4a64067d83c7e552f141ee9633e9645aad58bb5dd0f7e1e30b55903",
+      "plates": 4,
+      "replaced_faces": 56,
+      "details": [
+        {
+          "id": "SM_Power_SwitchgearGallery_Signs_00_Switchgear",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_SwitchgearGallery_Signs_01_Exit",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_SwitchgearGallery_Signs_02_Danger",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_SwitchgearGallery_Signs_03_Route",
+          "removed_faces": 14
+        }
+      ],
+      "text_slot": 1,
+      "collision_hulls": 0,
+      "nanite": false
+    },
+    {
+      "name": "SM_Power_GeneratorHall_Signs",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\Authored\\SM_Power_GeneratorHall_Signs.fbx",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_GeneratorHall_Signs",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_GeneratorHall_Signs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\TextCards20261005\\Authored\\SM_Power_GeneratorHall_Signs.fbx",
+      "sha256": "c4919b2889b9fa369255b5da66b863b30c9123af9b4f74ea0b5705a85d3a65d9",
+      "plates": 5,
+      "replaced_faces": 70,
+      "details": [
+        {
+          "id": "SM_Power_GeneratorHall_Signs_04_Generators",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_GeneratorHall_Signs_05_Warning",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_GeneratorHall_Signs_06_Danger",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_GeneratorHall_Signs_07_Gallery",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_GeneratorHall_Signs_08_Exit",
+          "removed_faces": 14
+        }
+      ],
+      "text_slot": 1,
+      "collision_hulls": 0,
+      "nanite": false
+    },
+    {
+      "name": "SM_Power_AccumulatorControl_Signs",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\Authored\\SM_Power_AccumulatorControl_Signs.fbx",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_AccumulatorControl_Signs",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_AccumulatorControl_Signs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\TextCards20261005\\Authored\\SM_Power_AccumulatorControl_Signs.fbx",
+      "sha256": "352cd5a4f795b728d7c6882658adb0f646b9b79aceac4ae2c7e75dd9b5e3749f",
+      "plates": 10,
+      "replaced_faces": 140,
+      "details": [
+        {
+          "id": "SM_Power_AccumulatorControl_Signs_09_MainBus",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_AccumulatorControl_Signs_10_Cooling",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_AccumulatorControl_Signs_11_MainBus",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_AccumulatorControl_Signs_12_Cooling",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_AccumulatorControl_Signs_13_ControlRoom",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_AccumulatorControl_Signs_14_Exit",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_AccumulatorControl_Signs_15_Exit",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_AccumulatorControl_Signs_16_Accumulator",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_AccumulatorControl_Signs_17_Danger",
+          "removed_faces": 14
+        },
+        {
+          "id": "SM_Power_AccumulatorControl_Signs_18_Exit",
+          "removed_faces": 14
+        }
+      ],
+      "text_slot": 1,
+      "collision_hulls": 0,
+      "nanite": false
+    },
+    {
+      "name": "SM_Power_Accumulator",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\Authored\\SM_Power_Accumulator.fbx",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_Accumulator",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_Accumulator",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\TextCards20261005\\Authored\\SM_Power_Accumulator.fbx",
+      "sha256": "e3d62f07670970ce1c1dcd27cce82c312ce9f45ace0f9de4872aa48c20d93ed4",
+      "plates": 8,
+      "replaced_faces": 2608,
+      "details": [
+        {
+          "id": "SM_Power_Accumulator_19_Cooling",
+          "removed_faces": 326
+        },
+        {
+          "id": "SM_Power_Accumulator_20_Cooling",
+          "removed_faces": 326
+        },
+        {
+          "id": "SM_Power_Accumulator_21_Cooling",
+          "removed_faces": 326
+        },
+        {
+          "id": "SM_Power_Accumulator_22_Cooling",
+          "removed_faces": 326
+        },
+        {
+          "id": "SM_Power_Accumulator_23_Core",
+          "removed_faces": 326
+        },
+        {
+          "id": "SM_Power_Accumulator_24_Danger",
+          "removed_faces": 326
+        },
+        {
+          "id": "SM_Power_Accumulator_25_MainBus",
+          "removed_faces": 326
+        },
+        {
+          "id": "SM_Power_Accumulator_26_MainBus",
+          "removed_faces": 326
+        }
+      ],
+      "text_slot": 8,
+      "collision_hulls": 28,
+      "nanite": true
+    },
+    {
+      "name": "SM_Power_ControlConsole_Refined",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\Authored\\SM_Power_ControlConsole_Refined.fbx",
+      "previous_mesh": "/Game/Dungeons/PowerTheme20261004/RefineV2/Meshes/SM_Power_ControlConsole_Refined",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Power_ControlConsole_Refined",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\TextCards20261005\\Authored\\SM_Power_ControlConsole_Refined.fbx",
+      "sha256": "3448ccce950907ce56684e40869bba8d0a90970f4fe9471a8bf5b052c3f226e4",
+      "plates": 8,
+      "replaced_faces": 5104,
+      "details": [
+        {
+          "id": "SM_Power_ControlConsole_Refined_27_console_service",
+          "removed_faces": 638
+        },
+        {
+          "id": "SM_Power_ControlConsole_Refined_28_console_id",
+          "removed_faces": 638
+        },
+        {
+          "id": "SM_Power_ControlConsole_Refined_29_console_meter_v",
+          "removed_faces": 638
+        },
+        {
+          "id": "SM_Power_ControlConsole_Refined_30_console_meter_a",
+          "removed_faces": 638
+        },
+        {
+          "id": "SM_Power_ControlConsole_Refined_31_console_select",
+          "removed_faces": 638
+        },
+        {
+          "id": "SM_Power_ControlConsole_Refined_32_console_title",
+          "removed_faces": 638
+        },
+        {
+          "id": "SM_Power_ControlConsole_Refined_33_console_status",
+          "removed_faces": 638
+        },
+        {
+          "id": "SM_Power_ControlConsole_Refined_34_console_emergency",
+          "removed_faces": 638
+        }
+      ],
+      "text_slot": 8,
+      "collision_hulls": 4,
+      "nanite": true
+    },
+    {
+      "name": "SM_Facility_PowerCabinet",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityPropPolish20260928\\Authored\\SM_Facility_PowerCabinet.fbx",
+      "previous_mesh": "/Game/Dungeons/FacilityScenes20260927/Meshes/SM_Facility_PowerCabinet",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Facility_PowerCabinet",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\TextCards20261005\\Authored\\SM_Facility_PowerCabinet.fbx",
+      "sha256": "9b70b7377e04a44fd134bf3924eb173ae860b8d2f16ce8417a926b38f9ce23bf",
+      "plates": 7,
+      "replaced_faces": 746,
+      "details": [
+        {
+          "id": "SM_Facility_PowerCabinet_35_cabinet_left",
+          "removed_faces": 138
+        },
+        {
+          "id": "SM_Facility_PowerCabinet_36_buttons",
+          "removed_faces": 94
+        },
+        {
+          "id": "SM_Facility_PowerCabinet_37_rating",
+          "removed_faces": 94
+        },
+        {
+          "id": "SM_Facility_PowerCabinet_38_cabinet_right",
+          "removed_faces": 138
+        },
+        {
+          "id": "SM_Facility_PowerCabinet_39_buttons",
+          "removed_faces": 94
+        },
+        {
+          "id": "SM_Facility_PowerCabinet_40_warning",
+          "removed_faces": 94
+        },
+        {
+          "id": "SM_Facility_PowerCabinet_41_service",
+          "removed_faces": 94
+        }
+      ],
+      "text_slot": 1,
+      "collision_hulls": 1,
+      "nanite": true
+    },
+    {
+      "name": "SM_Archive_ServerRack_V1",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonDataArchive20260930\\Equipment20260930\\Authored\\SM_Archive_ServerRack_V1.fbx",
+      "previous_mesh": "/Game/Dungeons/DataArchive20260930/EquipmentV1/Meshes/SM_Archive_ServerRack_V1",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Meshes/SM_Archive_ServerRack_V1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\TextCards20261005\\Authored\\SM_Archive_ServerRack_V1.fbx",
+      "sha256": "6f15f3f15f40d3a84a5c5a4fef272c69909905b4a0cffd022089e2764aacf2f0",
+      "plates": 2,
+      "replaced_faces": 352,
+      "details": [
+        {
+          "id": "SM_Archive_ServerRack_V1_42_server_plate",
+          "removed_faces": 176
+        },
+        {
+          "id": "SM_Archive_ServerRack_V1_43_server_plate",
+          "removed_faces": 176
+        }
+      ],
+      "text_slot": 1,
+      "collision_hulls": 1,
+      "nanite": true
+    }
+  ],
+  "texture": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\TextCards20261005\\Authored\\T_Power_TextCards.png",
+  "tests_run": false,
+  "rendered": false
+}

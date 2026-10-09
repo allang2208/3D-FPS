@@ -13,6 +13,8 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 
 # Quick Start
 
+- 大厅门框漏空/闪动、告示牌、关闭出怪设施基础、双主题路线和门外街景，读取 [设施收口与静态布景](references/facility-reveals-and-static-fixtures.md)。区分活跃母版与废案、场景模型与刷怪玩法。
+
 - 固定主题组合、错层坡道、路线预算及清房后开闸，读取 [主题路线与房间闸门](references/themed-routes-and-room-gates.md)。
 
 - 新场景/房间开发、统一栏杆翻越、控制台直达预览及用户确认后的样板清理，先读 [场景开发标准流程](references/scene-development-standard.md)。默认不新增祭坛出征入口；正式接入收尾包含样板退役。

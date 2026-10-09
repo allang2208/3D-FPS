@@ -1,0 +1,886 @@
+{
+  "base": "/Game/Dungeons/FacilityTransit20261007/RefineV3",
+  "meshes": [
+    {
+      "name": "SM_FT3_freight_StructuralBody",
+      "room": "freight",
+      "kind": "StructuralBody",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_freight_StructuralBody",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_freight_StructuralBody.fbx",
+      "sha256": "fd65002967def3fbb9d6875ffecb10f3ccd5e0902a400abd90b861157218c9b6",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 940,
+      "collision": true,
+      "collision_hulls": 5,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_freight_PassagePanels",
+      "room": "freight",
+      "kind": "PassagePanels",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_freight_PassagePanels",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_freight_PassagePanels.fbx",
+      "sha256": "9b0908c43594b85dec1dec0bb199a5d812f391fa6b9433980ce283a5409736ba",
+      "materials": {
+        "FT3_Graphite": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite"
+      },
+      "triangles": 1504,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_freight_PassageKickplate",
+      "room": "freight",
+      "kind": "PassageKickplate",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_freight_PassageKickplate",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_freight_PassageKickplate.fbx",
+      "sha256": "1d3106e146112b3a80662a5f18b58d0ae3c712d81de02e0c6c63e697ec6214a9",
+      "materials": {
+        "FT3_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 1504,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_freight_PassageReveals",
+      "room": "freight",
+      "kind": "PassageReveals",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_freight_PassageReveals",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_freight_PassageReveals.fbx",
+      "sha256": "f90d395e4734e9b94e820d54d28553947670d541fb6d439adf6f1bf66aec12ae",
+      "materials": {
+        "FT3_FR": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_FR"
+      },
+      "triangles": 752,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_freight_LiningBacker",
+      "room": "freight",
+      "kind": "LiningBacker",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_freight_LiningBacker",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_freight_LiningBacker.fbx",
+      "sha256": "4a6c2e72fd36862d3928884cc4af487d3378fd1fb3c775155365989eb585f749",
+      "materials": {
+        "FT3_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+      },
+      "triangles": 376,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_freight_EntryReturns",
+      "room": "freight",
+      "kind": "EntryReturns",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_freight_EntryReturns",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_freight_EntryReturns.fbx",
+      "sha256": "11250c94c6595f93c3ef61ee6eaf58dd5662ce0f2c9bc949587840dbc56b4f07",
+      "materials": {
+        "FT3_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 376,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_freight_Throat",
+      "room": "freight",
+      "kind": "Throat",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_freight_Throat",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_freight_Throat.fbx",
+      "sha256": "a280568bc02ada67205130ecd753ffdcd0de43af61797b987ef4543732e9dd31",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 376,
+      "collision": true,
+      "collision_hulls": 2,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_medical_StructuralBody",
+      "room": "medical",
+      "kind": "StructuralBody",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_medical_StructuralBody",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_medical_StructuralBody.fbx",
+      "sha256": "06a4b14b4cad19db07533d718b0aaed974b4fdf173796cfa7b1b66bdee108c7c",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 940,
+      "collision": true,
+      "collision_hulls": 5,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_medical_PassagePanels",
+      "room": "medical",
+      "kind": "PassagePanels",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_medical_PassagePanels",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_medical_PassagePanels.fbx",
+      "sha256": "d6cdfc402b03eedb6eb37548bd2eca6b7385ab34f45e59acab4ae7f8d6ea33b7",
+      "materials": {
+        "FT3_Ivory": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Ivory"
+      },
+      "triangles": 1504,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_medical_PassageKickplate",
+      "room": "medical",
+      "kind": "PassageKickplate",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_medical_PassageKickplate",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_medical_PassageKickplate.fbx",
+      "sha256": "4282237bb2863a97cbe6ebb4ba0fe824294599aa26efc8b21bdb78822b20e1f3",
+      "materials": {
+        "FT3_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 1504,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_medical_PassageReveals",
+      "room": "medical",
+      "kind": "PassageReveals",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_medical_PassageReveals",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_medical_PassageReveals.fbx",
+      "sha256": "108a6904fec479785f5db6b9834e2d6de275cb2d816e3c8d90b5998e63c0105c",
+      "materials": {
+        "FT3_MD": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_MD"
+      },
+      "triangles": 752,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_medical_LiningBacker",
+      "room": "medical",
+      "kind": "LiningBacker",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_medical_LiningBacker",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_medical_LiningBacker.fbx",
+      "sha256": "e3ac0f6b053ccf89e9d565b95ce68022f4b6cf7c9def4876266eaf9763bbb846",
+      "materials": {
+        "FT3_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+      },
+      "triangles": 376,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_medical_EntryReturns",
+      "room": "medical",
+      "kind": "EntryReturns",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_medical_EntryReturns",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_medical_EntryReturns.fbx",
+      "sha256": "fb1c58930023f76081921637235f36966b70e33b72ac5f4105098a3b73a35a1e",
+      "materials": {
+        "FT3_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 376,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_medical_Throat",
+      "room": "medical",
+      "kind": "Throat",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_medical_Throat",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_medical_Throat.fbx",
+      "sha256": "1e68ff390ab67e0d9c0ee897752c661cc7752eff7f23bef8be530ba336fe2109",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 376,
+      "collision": true,
+      "collision_hulls": 2,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_treatment_StructuralBody",
+      "room": "treatment",
+      "kind": "StructuralBody",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_treatment_StructuralBody",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_treatment_StructuralBody.fbx",
+      "sha256": "5be6056b1275985e27029a151bf09fa8df4f0ad77c340fe42139501f5fa2d7e1",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 940,
+      "collision": true,
+      "collision_hulls": 5,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_treatment_PassagePanels",
+      "room": "treatment",
+      "kind": "PassagePanels",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_treatment_PassagePanels",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_treatment_PassagePanels.fbx",
+      "sha256": "8f889371011702875c8e2176dce10d0911160eed34a031fb69768426341a3eda",
+      "materials": {
+        "FT3_Graphite": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite"
+      },
+      "triangles": 1504,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_treatment_PassageKickplate",
+      "room": "treatment",
+      "kind": "PassageKickplate",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_treatment_PassageKickplate",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_treatment_PassageKickplate.fbx",
+      "sha256": "312652ce7da0ed4919bac4f26832f54d89ebcca4b4113525fe2045f3e5237071",
+      "materials": {
+        "FT3_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 1504,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_treatment_PassageReveals",
+      "room": "treatment",
+      "kind": "PassageReveals",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_treatment_PassageReveals",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_treatment_PassageReveals.fbx",
+      "sha256": "c1c05c8faa0bcb0fedae2bcd3c3e09ccca1d0369f35b109c1c7f393812f45bca",
+      "materials": {
+        "FT3_TR": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_TR"
+      },
+      "triangles": 752,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_treatment_LiningBacker",
+      "room": "treatment",
+      "kind": "LiningBacker",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_treatment_LiningBacker",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_treatment_LiningBacker.fbx",
+      "sha256": "5e2b37922253ae1fbaf91ade961243d6e9b031f92572471be9f6c7ad2bde2201",
+      "materials": {
+        "FT3_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+      },
+      "triangles": 376,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_treatment_EntryReturns",
+      "room": "treatment",
+      "kind": "EntryReturns",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_treatment_EntryReturns",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_treatment_EntryReturns.fbx",
+      "sha256": "0269d6612f52a4e8a0c9a7bef93673a7469dff5bd42f8f1247a4668a97fd74fb",
+      "materials": {
+        "FT3_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 376,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_treatment_Throat",
+      "room": "treatment",
+      "kind": "Throat",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_treatment_Throat",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_treatment_Throat.fbx",
+      "sha256": "6ad2a8891f4aefaedcffd8fecfdf734f171f36e634bb06cb6fa383e288d452cb",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 376,
+      "collision": true,
+      "collision_hulls": 2,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_staff_living_StructuralBody",
+      "room": "staff_living",
+      "kind": "StructuralBody",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_staff_living_StructuralBody",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_staff_living_StructuralBody.fbx",
+      "sha256": "ed8879bccf168f85edc9d3d84440c8129dab8ebf17aae27d1088682226b1e91e",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 940,
+      "collision": true,
+      "collision_hulls": 5,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_staff_living_PassagePanels",
+      "room": "staff_living",
+      "kind": "PassagePanels",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_staff_living_PassagePanels",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_staff_living_PassagePanels.fbx",
+      "sha256": "f3cabb79c5d77716764f92ed885655691b0cdf77397b682c3c7695eefbe7409d",
+      "materials": {
+        "FT3_Ivory": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Ivory"
+      },
+      "triangles": 1504,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_staff_living_PassageKickplate",
+      "room": "staff_living",
+      "kind": "PassageKickplate",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_staff_living_PassageKickplate",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_staff_living_PassageKickplate.fbx",
+      "sha256": "ef83c25fa7b2843b98b88245c0888a5bb212fc988645cac0ed4bcd24580b79a9",
+      "materials": {
+        "FT3_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 1504,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_staff_living_PassageReveals",
+      "room": "staff_living",
+      "kind": "PassageReveals",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_staff_living_PassageReveals",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_staff_living_PassageReveals.fbx",
+      "sha256": "42c2908c26d8fa8f7eaf2f02d9f2e7fad1fd3824aa7fe320897538f163d7918e",
+      "materials": {
+        "FT3_ST": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_ST"
+      },
+      "triangles": 752,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_staff_living_LiningBacker",
+      "room": "staff_living",
+      "kind": "LiningBacker",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_staff_living_LiningBacker",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_staff_living_LiningBacker.fbx",
+      "sha256": "f691c78b7cb5fc5b9eca4a47a49a643c47d63b1378d1c6b2219786352d344726",
+      "materials": {
+        "FT3_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+      },
+      "triangles": 376,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_staff_living_EntryReturns",
+      "room": "staff_living",
+      "kind": "EntryReturns",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_staff_living_EntryReturns",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_staff_living_EntryReturns.fbx",
+      "sha256": "c1d0cbe4a91fa320da8281dc766722d283e22c81d1140ccde4077f10695b7c11",
+      "materials": {
+        "FT3_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 376,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_staff_living_Throat",
+      "room": "staff_living",
+      "kind": "Throat",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_staff_living_Throat",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_staff_living_Throat.fbx",
+      "sha256": "0aef3b1f36954f91a9ce92b12305ed66bc6d58d77dbd5bbb2d3b36cbe11ef627",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 376,
+      "collision": true,
+      "collision_hulls": 2,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_ecology_StructuralBody",
+      "room": "ecology",
+      "kind": "StructuralBody",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_ecology_StructuralBody",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_ecology_StructuralBody.fbx",
+      "sha256": "95e312ca256247a206b913b60ba088c1b28938ad2f85c19cfe604b6264e1dfba",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 940,
+      "collision": true,
+      "collision_hulls": 5,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_ecology_PassagePanels",
+      "room": "ecology",
+      "kind": "PassagePanels",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_ecology_PassagePanels",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_ecology_PassagePanels.fbx",
+      "sha256": "c69c4ab87c9671475b176aa4bcb089ee8a2df5e0d7b0e522abcdb1080890debc",
+      "materials": {
+        "FT3_Ivory": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Ivory"
+      },
+      "triangles": 1504,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_ecology_PassageKickplate",
+      "room": "ecology",
+      "kind": "PassageKickplate",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_ecology_PassageKickplate",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_ecology_PassageKickplate.fbx",
+      "sha256": "8ff3e1acb5756cab1502586083b13e99bede577b21dcb403b626063701c5dc83",
+      "materials": {
+        "FT3_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 1504,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_ecology_PassageReveals",
+      "room": "ecology",
+      "kind": "PassageReveals",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_ecology_PassageReveals",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_ecology_PassageReveals.fbx",
+      "sha256": "4efe3554ce08aa1257d9cdf88bbc294cfcf06c1daa1c3b3385e6a08f3cd1fd06",
+      "materials": {
+        "FT3_EC": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_EC"
+      },
+      "triangles": 752,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_ecology_LiningBacker",
+      "room": "ecology",
+      "kind": "LiningBacker",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_ecology_LiningBacker",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_ecology_LiningBacker.fbx",
+      "sha256": "27f9ade5a005ef2048156be5120f70d13f62344cdc740e44fcaced72548bc0e3",
+      "materials": {
+        "FT3_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+      },
+      "triangles": 376,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_ecology_EntryReturns",
+      "room": "ecology",
+      "kind": "EntryReturns",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_ecology_EntryReturns",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_ecology_EntryReturns.fbx",
+      "sha256": "b5df127a16cd765d337305470f95034754b5874df20b12223c881b7d5fe5b837",
+      "materials": {
+        "FT3_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 376,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_ecology_Throat",
+      "room": "ecology",
+      "kind": "Throat",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_ecology_Throat",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_ecology_Throat.fbx",
+      "sha256": "fce46a1fb39f3e77342446b7b2cf4e07053b5a37154f723c0eb23182333b0170",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 376,
+      "collision": true,
+      "collision_hulls": 2,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_power_StructuralBody",
+      "room": "power",
+      "kind": "StructuralBody",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_power_StructuralBody",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_power_StructuralBody.fbx",
+      "sha256": "e8b6243e133dc230f4d00b3ccfa2cac323ead688a27928a8c7c0893e51c14329",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 940,
+      "collision": true,
+      "collision_hulls": 5,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_power_PassagePanels",
+      "room": "power",
+      "kind": "PassagePanels",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_power_PassagePanels",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_power_PassagePanels.fbx",
+      "sha256": "8868175da793297fd47bec761f9e639a3b6dfe4ad774e19d9c454999497631b9",
+      "materials": {
+        "FT3_Graphite": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite"
+      },
+      "triangles": 1504,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_power_PassageKickplate",
+      "room": "power",
+      "kind": "PassageKickplate",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_power_PassageKickplate",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_power_PassageKickplate.fbx",
+      "sha256": "7b152da61fb50092fb56b76586d6637f1e4cc06dcc616e52f7ee4aea8e63d660",
+      "materials": {
+        "FT3_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 1504,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_power_PassageReveals",
+      "room": "power",
+      "kind": "PassageReveals",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_power_PassageReveals",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_power_PassageReveals.fbx",
+      "sha256": "0459e34fb008dc3f8f0597d357958d17574e57172c92b71c1cb3adfd994e5591",
+      "materials": {
+        "FT3_PW": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_PW"
+      },
+      "triangles": 752,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_power_LiningBacker",
+      "room": "power",
+      "kind": "LiningBacker",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_power_LiningBacker",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_power_LiningBacker.fbx",
+      "sha256": "5e74970467fc8c6bfc1f6575a61d2d121952477daf14e7c58d87f9267ea75891",
+      "materials": {
+        "FT3_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+      },
+      "triangles": 376,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_power_EntryReturns",
+      "room": "power",
+      "kind": "EntryReturns",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_power_EntryReturns",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_power_EntryReturns.fbx",
+      "sha256": "87279fa57d6d1042eb9e4ec707e332623df998262922e0d5561cfd7c5e413a20",
+      "materials": {
+        "FT3_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 376,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_power_Throat",
+      "room": "power",
+      "kind": "Throat",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_power_Throat",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_power_Throat.fbx",
+      "sha256": "34e96362a21ace1571454343ca62f9ffd3448fba9603bc5a2a2a7960420a4a9f",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 376,
+      "collision": true,
+      "collision_hulls": 2,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_Hall_GalleryFascia",
+      "room": "Hall",
+      "kind": "GalleryFascia",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_GalleryFascia",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_Hall_GalleryFascia.fbx",
+      "sha256": "6505279871c1610e38bc88daf273dbe73005d3d00aab72423b3efa8e299a4598",
+      "materials": {
+        "FT3_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal"
+      },
+      "triangles": 564,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_Hall_Rails",
+      "room": "Hall",
+      "kind": "Rails",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_Rails",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_Hall_Rails.fbx",
+      "sha256": "6c37bf22bcf1d5fe0006c3acbe04236f730b00218670e54f00936d56a8b4395d",
+      "materials": {
+        "FT3_Yellow": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_SafetyYellow",
+        "FT3_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FT3_Paint": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "triangles": 37344,
+      "collision": true,
+      "collision_hulls": 19,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_Hall_Steps",
+      "room": "Hall",
+      "kind": "Steps",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_Steps",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_Hall_Steps.fbx",
+      "sha256": "9df882d3a23476f47a9c65f03376b7454461fffaf065b062487b9aeec9810447",
+      "materials": {
+        "FT3_Stone": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Stone"
+      },
+      "triangles": 10528,
+      "collision": true,
+      "collision_hulls": 56,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_Hall_Nosings",
+      "room": "Hall",
+      "kind": "Nosings",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_Nosings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_Hall_Nosings.fbx",
+      "sha256": "52cd46365bcd7372a52aa0a8a59b10e336438780cbd05043084c8cb3f3c1ae5d",
+      "materials": {
+        "FT3_Dark": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite"
+      },
+      "triangles": 10528,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_Hall_StairSupport",
+      "room": "Hall",
+      "kind": "StairSupport",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_StairSupport",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_Hall_StairSupport.fbx",
+      "sha256": "31aabf390fa4b2264cc44182e1be3aa514ca6b341125ef527e8a8b75ab448b60",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 5744,
+      "collision": true,
+      "collision_hulls": 4,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_Hall_Landings",
+      "room": "Hall",
+      "kind": "Landings",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_Landings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_Hall_Landings.fbx",
+      "sha256": "20aa9f9ad211321c722ee1ea4e060ce078d9ee0b05b0bbabdcc182804b04c6f8",
+      "materials": {
+        "FT3_Stone": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Stone"
+      },
+      "triangles": 376,
+      "collision": true,
+      "collision_hulls": 2,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_Hall_StairPiers",
+      "room": "Hall",
+      "kind": "StairPiers",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_StairPiers",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_Hall_StairPiers.fbx",
+      "sha256": "a3e85d156a66d105ac2ea122407af62ef80e97073279b7d4ef9291907d4c411c",
+      "materials": {
+        "FT3_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 376,
+      "collision": true,
+      "collision_hulls": 2,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT3_PPELocker_Body",
+      "room": "PPE",
+      "kind": "PPEBody",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_PPELocker_Body",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\RefineV3\\Authored\\SM_FT3_PPELocker_Body.fbx",
+      "sha256": "62d6f87a038977438a633c21ce78144322d8a5a90e04c159540ab18a12bf31d2",
+      "materials": {
+        "RS_Green": "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Green",
+        "RS_Charcoal": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite",
+        "RS_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "RS_Fabric": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Materials/M_FT3_PPEFabric",
+        "RS_Seam": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Materials/M_FT3_PPEFabric",
+        "RS_Webbing": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket",
+        "RS_PPELabels": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Materials/M_FT3_PPELabels",
+        "RS_Rubber": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket",
+        "RS_Gray": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Ivory",
+        "RS_Filter": "/Game/Dungeons/IncineratorContainers20261003/Materials/M_Treatment_Filter"
+      },
+      "triangles": 162672,
+      "collision": true,
+      "collision_hulls": 9,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    }
+  ],
+  "stair_kinds": [
+    "GalleryFascia",
+    "Landings",
+    "Nosings",
+    "Rails",
+    "StairPiers",
+    "StairSupport",
+    "Steps"
+  ],
+  "portal_kinds": [
+    "EntryReturns",
+    "LiningBacker",
+    "PassageKickplate",
+    "PassagePanels",
+    "PassageReveals",
+    "StructuralBody",
+    "Throat"
+  ],
+  "tests_run": false,
+  "rendered": false
+}

@@ -1,0 +1,6 @@
+"""Read only the editor state needed to select a safe map writer."""
+import unreal as u,json,os
+world=u.get_editor_subsystem(u.UnrealEditorSubsystem).get_editor_world()
+print('POWER_UPPER_EDITOR_STATE '+json.dumps(dict(pid=os.getpid(),world=world.get_path_name() if world else None,
+    pie=u.get_editor_subsystem(u.LevelEditorSubsystem).is_in_play_in_editor(),
+    dirty=[p.get_path_name() for p in u.EditorLoadingAndSavingUtils.get_dirty_map_packages()])))

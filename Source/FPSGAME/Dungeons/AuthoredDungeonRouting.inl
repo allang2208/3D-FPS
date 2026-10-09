@@ -121,18 +121,26 @@ bool RouteTo(FSocket Start,const FSocket& Goal,const FString& Route,double MaxLe
         return true;
     };
     // Heading is part of the search state, avoiding an unnecessary turn in a narrow lane.
-    struct FOpen {double F;int32 State;bool operator<(const FOpen& Other)const{return F>Other.F;}};
+    // Length is a geometric constraint. Prefer fewer turns only when the
+    // estimated lengths tie; a bend must not consume corridor allowance.
+    struct FOpen
+    {
+        double F,Walk;int32 Turns,State;
+        bool operator<(const FOpen& Other)const{return F!=Other.F?F>Other.F:Turns>Other.Turns;}
+    };
     std::priority_queue<FOpen> Open;
     TArray<double> Cost;Cost.Init(TNumericLimits<double>::Max(),Count*4);
+    TArray<int32> TurnCount;TurnCount.Init(MAX_int32,Count*4);
     TArray<int32> Parent;Parent.Init(-1,Count*4);
     auto Direction=[](FVector V){return FMath::Abs(V.X)>.5?(V.X>0?0:1):(V.Y>0?2:3);};
-    const int32 Initial=First*4+Direction(Start.N);Cost[Initial]=0;Open.push({0,Initial});
+    const int32 Initial=First*4+Direction(Start.N);Cost[Initial]=0;TurnCount[Initial]=0;Open.push({0,0,0,Initial});
     int32 Found=-1,Expanded=0;
     while(!Open.empty()&&++Expanded<(ExpansionLimit>0?ExpansionLimit:bCompactBoss?600:160000))
     {
         if(!CanSearch())return false;
         if(bCompactBoss&&--CompactBudget<0)return false;
         const auto Current=Open.top();Open.pop();const int32 State=Current.State,Node=State/4,Heading=State%4;
+        if(Current.Walk!=Cost[State]||Current.Turns!=TurnCount[State])continue;
         if(Node==Last&&Heading==Direction(-Goal.N)){Found=State;break;}
         const int32 IX=Node%NX,IY=Node/NX;
         const int32 Nexts[4]={IX+1<NX?Node+1:-1,IX>0?Node-1:-1,IY+1<NY?Node+NX:-1,IY>0?Node-NX:-1};
@@ -146,11 +154,13 @@ bool RouteTo(FSocket Start,const FSocket& Goal,const FString& Route,double MaxLe
                 int32 Previous=State;while(Parent[Previous]>=0&&Parent[Previous]%4==Heading)Previous=Parent[Previous];
                 if((P-Position(Previous/4)).Size()<500&&Node!=First)continue;
             }
-            const double Candidate=Cost[State]+(P-Q).Size()+(D==Heading?0:120);
+            const double Candidate=Cost[State]+(P-Q).Size();
+            const int32 CandidateTurns=TurnCount[State]+(D==Heading?0:1);
             if(Candidate+FMath::Abs(Q.X-B.X)+FMath::Abs(Q.Y-B.Y)+2*Lead>MaxLength)continue;
-            const int32 Target=Next*4+D;if(Candidate>=Cost[Target])continue;
-            Cost[Target]=Candidate;Parent[Target]=State;
-            Open.push({Candidate+FMath::Abs(Q.X-B.X)+FMath::Abs(Q.Y-B.Y),Target});
+            const int32 Target=Next*4+D;
+            if(Candidate>Cost[Target]||(Candidate==Cost[Target]&&CandidateTurns>=TurnCount[Target]))continue;
+            Cost[Target]=Candidate;TurnCount[Target]=CandidateTurns;Parent[Target]=State;
+            Open.push({Candidate+FMath::Abs(Q.X-B.X)+FMath::Abs(Q.Y-B.Y),Candidate,CandidateTurns,Target});
         }
     }
     if(Found<0)return false;

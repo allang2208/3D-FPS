@@ -1,0 +1,162 @@
+{
+  "room": "AccumulatorControl",
+  "moved_parts": [
+    "MainControlConsole01",
+    "MainControlConsole02",
+    "MainControlConsole03",
+    "MainControlChair01",
+    "MainControlChair02",
+    "MainControlChair03",
+    "ControlAuxCabinet_-1",
+    "ControlAuxCabinet_1",
+    "PPE_03_Body",
+    "PPE_03_Door",
+    "PPE_04_Body",
+    "PPE_04_Door",
+    "Records_02_Carcass",
+    "Records_02_Drawer1_Frame",
+    "Records_02_Drawer1_Tray",
+    "Records_02_Drawer2_Frame",
+    "Records_02_Drawer2_Tray",
+    "Records_02_Drawer3_Frame",
+    "Records_02_Drawer3_Tray",
+    "Fixture_ControlRoom00",
+    "Fixture_ControlRoom01",
+    "Fixture_ControlRoom02",
+    "ControlRecordsDesk",
+    "ControlRecordsElectronics",
+    "ControlServerRack01",
+    "ControlServerRack02"
+  ],
+  "moved_lights": [
+    "ControlRoom00",
+    "ControlRoom01",
+    "ControlRoom02"
+  ],
+  "interactions": {
+    "glass": [
+      {
+        "id": "UpperControlFrontGlass00",
+        "position_m": [
+          -6,
+          13.3,
+          5.8
+        ],
+        "yaw_deg": 90,
+        "kind": "Front",
+        "width_m": 3.92,
+        "height_m": 2.0
+      },
+      {
+        "id": "UpperControlFrontGlass01",
+        "position_m": [
+          -2,
+          13.3,
+          5.8
+        ],
+        "yaw_deg": 90,
+        "kind": "Front",
+        "width_m": 3.92,
+        "height_m": 2.0
+      },
+      {
+        "id": "UpperControlFrontGlass02",
+        "position_m": [
+          2,
+          13.3,
+          5.8
+        ],
+        "yaw_deg": 90,
+        "kind": "Front",
+        "width_m": 3.92,
+        "height_m": 2.0
+      },
+      {
+        "id": "UpperControlFrontGlass03",
+        "position_m": [
+          6,
+          13.3,
+          5.8
+        ],
+        "yaw_deg": 90,
+        "kind": "Front",
+        "width_m": 3.92,
+        "height_m": 2.0
+      },
+      {
+        "id": "UpperControlSideGlass-1",
+        "position_m": [
+          -8,
+          14.715,
+          5.8
+        ],
+        "yaw_deg": 0,
+        "kind": "Side",
+        "width_m": 2.735,
+        "height_m": 2.0
+      },
+      {
+        "id": "UpperControlSideGlass1",
+        "position_m": [
+          8,
+          14.715,
+          5.8
+        ],
+        "yaw_deg": 0,
+        "kind": "Side",
+        "width_m": 2.735,
+        "height_m": 2.0
+      }
+    ],
+    "doors": [
+      {
+        "id": "UpperControlDoor-1_0",
+        "position_m": [
+          -8,
+          16.7375,
+          3.855
+        ],
+        "yaw_deg": 0,
+        "positive_hinge": true,
+        "open_angle_degrees": 85,
+        "leaf_mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf"
+      },
+      {
+        "id": "UpperControlDoor-1_1",
+        "position_m": [
+          -8,
+          17.8625,
+          3.855
+        ],
+        "yaw_deg": 0,
+        "positive_hinge": false,
+        "open_angle_degrees": 85,
+        "leaf_mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf"
+      },
+      {
+        "id": "UpperControlDoor1_0",
+        "position_m": [
+          8,
+          16.7375,
+          3.855
+        ],
+        "yaw_deg": 0,
+        "positive_hinge": true,
+        "open_angle_degrees": 85,
+        "leaf_mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf"
+      },
+      {
+        "id": "UpperControlDoor1_1",
+        "position_m": [
+          8,
+          17.8625,
+          3.855
+        ],
+        "yaw_deg": 0,
+        "positive_hinge": false,
+        "open_angle_degrees": 85,
+        "leaf_mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf"
+      }
+    ]
+  }
+}

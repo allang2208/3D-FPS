@@ -1,0 +1,279 @@
+{
+  "stage": "read_saved_placements",
+  "maps": [
+    {
+      "path": "/Game/GameMaps/L_Dungeon_Randomized",
+      "exists": true,
+      "routes": [
+        {
+          "id": "freight",
+          "sequence": [
+            "FreightTransfer_WarehouseLink",
+            "AbandonedCargoWarehouse",
+            "AbandonedTransitStation"
+          ]
+        },
+        {
+          "id": "medical",
+          "sequence": [
+            "Drainage",
+            "AbandonedIsolationWard",
+            "AbandonedAnatomyTheatre"
+          ]
+        },
+        {
+          "id": "treatment",
+          "sequence": [
+            "ShoredBreach",
+            "AbandonedIncineratorHall",
+            "AbandonedFlueGasStation"
+          ]
+        },
+        {
+          "id": "staff_living",
+          "sequence": [
+            "StaffDormitory",
+            "StaffChangingShowers",
+            "StaffRecreation"
+          ]
+        }
+      ],
+      "third_rooms": [
+        {
+          "route": "freight",
+          "module": "AbandonedTransitStation",
+          "props": [
+            {
+              "skeletal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+              "closed_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose",
+              "material_overrides": {},
+              "position": [
+                2650,
+                0,
+                480.8
+              ],
+              "yaw": 180,
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "role": "station_upper_platform",
+              "collision_extent": [
+                59.47500228881836,
+                74.26250076293945,
+                55.087501525878906
+              ],
+              "collision_center": [
+                6.174999237060547,
+                5.167499542236328,
+                55.087501525878906
+              ],
+              "identity": "station_upper_platform",
+              "opening_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.A_TreasureChest_Opening",
+              "station_workshop_prop": true
+            }
+          ]
+        },
+        {
+          "route": "medical",
+          "module": "AbandonedAnatomyTheatre",
+          "props": []
+        },
+        {
+          "route": "treatment",
+          "module": "AbandonedFlueGasStation",
+          "props": [
+            {
+              "skeletal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+              "closed_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose",
+              "material_overrides": {},
+              "position": [
+                300,
+                -1095,
+                0.5
+              ],
+              "yaw": 90,
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "role": "flue_under_platform",
+              "collision_extent": [
+                59.47500228881836,
+                74.26250076293945,
+                55.087501525878906
+              ],
+              "collision_center": [
+                6.174999237060547,
+                5.167499542236328,
+                55.087501525878906
+              ],
+              "identity": "flue_under_platform",
+              "opening_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.A_TreasureChest_Opening",
+              "flue_under_platform_chest": true
+            }
+          ]
+        },
+        {
+          "route": "staff_living",
+          "module": "StaffRecreation",
+          "props": [
+            {
+              "skeletal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+              "closed_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose",
+              "material_overrides": {},
+              "position": [
+                1035,
+                -915,
+                0.4
+              ],
+              "yaw": 90,
+              "scale": [
+                1,
+                1,
+                1
+              ],
+              "role": "staff_restroom_cache",
+              "collision_extent": [
+                59.47500228881836,
+                74.26250076293945,
+                55.087501525878906
+              ],
+              "collision_center": [
+                6.174999237060547,
+                5.167499542236328,
+                55.087501525878906
+              ],
+              "identity": "staff_activity_restroom",
+              "opening_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.A_TreasureChest_Opening",
+              "scene_loot_expansion": true
+            }
+          ]
+        }
+      ],
+      "chests": [
+        {
+          "label": "DGN_G_072_Approach_Treasure7_SkeletalMeshActor",
+          "position": [
+            4335.998901289426,
+            -7861.241694328375,
+            94.0
+          ],
+          "yaw": 90.00000000000006,
+          "tags": [
+            "DungeonRouteGenerated",
+            "Approach_Treasure7",
+            "DungeonModule.72.Treasure",
+            "DungeonTreasureChest",
+            "FutureTreasureLoot"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FreightTransit_Theme_Subject",
+      "exists": true,
+      "chests": [
+        {
+          "label": "StationWorkshop_UpperPlatformChest_0",
+          "position": [
+            10410.0,
+            -1400.0,
+            480.8
+          ],
+          "yaw": 180.0,
+          "tags": [
+            "Station.Workshop.Preview",
+            "StationLine.Subject",
+            "DungeonTreasureChest",
+            "FutureTreasureLoot",
+            "DungeonTreasure.HubTest",
+            "DungeonChestClaim.StationLine.UpperPlatform"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_Hospital_Theme_Subject",
+      "exists": true,
+      "chests": []
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_Incinerator_Theme_Subject",
+      "exists": true,
+      "chests": [
+        {
+          "label": "IncineratorLine_FlueUnderPlatformTreasure",
+          "position": [
+            7944.379174839705,
+            -1740.4434465430677,
+            0.5
+          ],
+          "yaw": 89.99999999999999,
+          "tags": [
+            "IncineratorLine.Subject",
+            "AbandonedFlueGasStation",
+            "FlueUnderPlatformChest.Preview",
+            "DungeonTreasureChest",
+            "FutureTreasureLoot",
+            "DungeonChestClaim.IncineratorLine.FlueUnderPlatform"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_Ecology_Theme_Subject",
+      "exists": true,
+      "chests": [
+        {
+          "label": "EcoSubject_EcoBiosphere_UpperPlatformTreasure",
+          "position": [
+            9300.0,
+            -1510.0,
+            300.3
+          ],
+          "yaw": 89.99999999999999,
+          "tags": [
+            "Ecology.Subject",
+            "EcoBiosphere",
+            "Ecology.UpperPlatformTreasure",
+            "DungeonTreasureChest",
+            "FutureTreasureLoot",
+            "DungeonTreasure.HubTest",
+            "DungeonChestClaim.EcologySubject.L_Ecology_Theme_Subject.UpperPlatform"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_PowerTheme20261004_Subject",
+      "exists": true,
+      "chests": []
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_StaffLiving_Theme_Subject",
+      "exists": true,
+      "chests": [
+        {
+          "label": "StaffTest_StaffRecreation_Treasure_0",
+          "position": [
+            7935.0,
+            -1515.0,
+            0.4
+          ],
+          "yaw": 89.99999999999999,
+          "tags": [
+            "StaffLivingTest.Subject",
+            "StaffRecreation",
+            "DungeonTreasureChest",
+            "FutureTreasureLoot",
+            "DungeonChestClaim.StaffLivingTest.staff_activity_restroom"
+          ]
+        }
+      ]
+    }
+  ],
+  "tests_run": false
+}

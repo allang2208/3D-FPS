@@ -1,0 +1,65 @@
+{
+  "meshes": [
+    {
+      "name": "SM_ReceptionNight_Signs",
+      "kind": "Signs",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/NightStreet20261009/Meshes/SM_ReceptionNight_Signs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\NightStreet20261009\\Authored\\SM_ReceptionNight_Signs.fbx",
+      "sha256": "972ce2df020ab4d6787517f3df92d7a7eb439d7237e08d5191e991d3db45337c",
+      "materials": {
+        "RH_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RH_Labels": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Labels"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false,
+      "triangles": 324
+    },
+    {
+      "name": "SM_ReceptionNight_Forecourt",
+      "kind": "Forecourt",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/NightStreet20261009/Meshes/SM_ReceptionNight_Forecourt",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\NightStreet20261009\\Authored\\SM_ReceptionNight_Forecourt.fbx",
+      "sha256": "ceb1f801ea5cbf37282819d727b6251fc883653d79b3758612ec906eefcb097b",
+      "materials": {
+        "NS_Asphalt": "/Game/Dungeons/FacilityFlow20261007/NightStreet20261009/Materials/M_NightStreet_Asphalt",
+        "NS_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 972
+    },
+    {
+      "name": "SM_ReceptionNight_Drain",
+      "kind": "Drain",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/NightStreet20261009/Meshes/SM_ReceptionNight_Drain",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\NightStreet20261009\\Authored\\SM_ReceptionNight_Drain.fbx",
+      "sha256": "31ec36c25a250ef4641bb762b428a9a8c721988eeb470cf32038a299cf3a7092",
+      "materials": {
+        "NS_DarkSteel": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "NS_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": true,
+      "triangles": 1836
+    },
+    {
+      "name": "SM_ReceptionNight_Background",
+      "kind": "Background",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/NightStreet20261009/Meshes/SM_ReceptionNight_Background",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\NightStreet20261009\\Authored\\SM_ReceptionNight_Background.fbx",
+      "sha256": "59cfaf96fb5c1a3a6b1affab2c298e5e864c35704b3bf595a83444c0d8098a6b",
+      "materials": {
+        "NS_Background": "/Game/Dungeons/FacilityFlow20261007/NightStreet20261009/Materials/M_NightStreet_Background"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false,
+      "triangles": 8
+    }
+  ],
+  "corrected_printed_triangles": 8,
+  "street_inside_existing_bounds": true
+}

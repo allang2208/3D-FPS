@@ -1,0 +1,56 @@
+{
+  "base": "/Game/Dungeons/PowerTheme20261004/ServerContainers20261006",
+  "source_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\TextCards20261005\\Authored\\SM_Archive_ServerRack_V1.fbx",
+  "source_sha256": "6f15f3f15f40d3a84a5c5a4fef272c69909905b4a0cffd022089e2764aacf2f0",
+  "meshes": [
+    {
+      "name": "SM_Power_ServerContainer_Body",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/ServerContainers20261006/Meshes/SM_Power_ServerContainer_Body",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\ServerContainers20261006\\Authored\\SM_Power_ServerContainer_Body.fbx",
+      "sha256": "e70910897e83ababdcf246b5792ff3b5ee983a8e8ada555e20162ac1592f1b17",
+      "materials": {
+        "ArchiveEquipment_Atlas": "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ServerChinese",
+        "PW_TextCards20261005": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Materials/M_Power_TextCards"
+      },
+      "nanite": true,
+      "collision_hulls": 1,
+      "triangles": 56544,
+      "pivot_blender_m": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_Power_ServerContainer_Cartridge",
+      "mesh": "/Game/Dungeons/PowerTheme20261004/ServerContainers20261006/Meshes/SM_Power_ServerContainer_Cartridge",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonPowerTheme20261004RefineV2\\ServerContainers20261006\\Authored\\SM_Power_ServerContainer_Cartridge.fbx",
+      "sha256": "19c3e833ea8e68c300600bcf7eda7d3b679dcbf95b065cfd4fa6dc62d22b30bf",
+      "materials": {
+        "ArchiveEquipment_Atlas": "/Game/Dungeons/PowerTheme20261004/RefineV2/Materials/M_Power_ServerChinese",
+        "PW_TextCards20261005": "/Game/Dungeons/PowerTheme20261004/TextCards20261005/Materials/M_Power_TextCards"
+      },
+      "nanite": false,
+      "collision_hulls": 1,
+      "triangles": 11906,
+      "pivot_blender_m": [
+        -0.20900000631809235,
+        -0.5245000123977661,
+        1.5800000429153442
+      ]
+    }
+  ],
+  "hinge_ue_cm": [
+    -20.9,
+    52.45,
+    158.0
+  ],
+  "travel_ue_cm": [
+    0,
+    32,
+    0
+  ],
+  "opening_seconds": 0.55,
+  "tests_run": false,
+  "rendered": false
+}

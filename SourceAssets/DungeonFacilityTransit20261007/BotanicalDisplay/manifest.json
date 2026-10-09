@@ -1,0 +1,505 @@
+{
+  "base": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay",
+  "meshes": [
+    {
+      "name": "SM_FT_Botanical_Plinth",
+      "room": "Botanical",
+      "kind": "Plinth",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_Plinth",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_Plinth.fbx",
+      "sha256": "74bb29e6a741662b81b3b9e71d4b628a428df117ccdb5f08da5c8839b75eb14b",
+      "materials": {
+        "FT_Graphite": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite"
+      },
+      "triangles": 5468,
+      "collision": true,
+      "collision_hulls": 1,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_StoneRim",
+      "room": "Botanical",
+      "kind": "StoneRim",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_StoneRim",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_StoneRim.fbx",
+      "sha256": "d50fe0903bedce05e3a07190945f94910927b16be32d629032032187fd26941a",
+      "materials": {
+        "FT_Stone": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Stone"
+      },
+      "triangles": 3456,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_FootTrim",
+      "room": "Botanical",
+      "kind": "FootTrim",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_FootTrim",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_FootTrim.fbx",
+      "sha256": "421fd16c6a7de50d93fc94854908fa32355c13a9c72a312f2567304599540c5b",
+      "materials": {
+        "FT_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 3456,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_BaseTrim",
+      "room": "Botanical",
+      "kind": "BaseTrim",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_BaseTrim",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_BaseTrim.fbx",
+      "sha256": "c47bdcba25cf3f33aed6c9ea67bc2b62ed0ba92bcbf2ce67d5194ffd7d640899",
+      "materials": {
+        "FT_Brass": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Brass"
+      },
+      "triangles": 3456,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_GlazingShoe",
+      "room": "Botanical",
+      "kind": "GlazingShoe",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_GlazingShoe",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_GlazingShoe.fbx",
+      "sha256": "03b12c28bbf81c486101cb7ea245c7caf233d058a765aafba80a631e987ca0e7",
+      "materials": {
+        "FT_EC": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_EC"
+      },
+      "triangles": 3456,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_Soil",
+      "room": "Botanical",
+      "kind": "Soil",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_Soil",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_Soil.fbx",
+      "sha256": "00ff95804d8a27330a00178c1e3ec413bf429969b03c8e3475680a6704a99246",
+      "materials": {
+        "FT_Soil": "/Game/Dungeons/Ecology20261004/RefineV5/Materials/M_Eco_SoilBed"
+      },
+      "triangles": 2944,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": false,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_Mullions",
+      "room": "Botanical",
+      "kind": "Mullions",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_Mullions",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_Mullions.fbx",
+      "sha256": "d5d4c8c1f6640c2ddec5c253bcb3364d696b326b167fa67bdb56f77ca771ab15",
+      "materials": {
+        "FT_EC": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_EC"
+      },
+      "triangles": 1296,
+      "collision": true,
+      "collision_hulls": 12,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_FrameCaps",
+      "room": "Botanical",
+      "kind": "FrameCaps",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_FrameCaps",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_FrameCaps.fbx",
+      "sha256": "bc9bb1be1a4e08f386c4624f5ee95cbcd3cf68e2de7a9c38046d4a7a4258123f",
+      "materials": {
+        "FT_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 2592,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_Fasteners",
+      "room": "Botanical",
+      "kind": "Fasteners",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_Fasteners",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_Fasteners.fbx",
+      "sha256": "79c9da327a4d97fcac60db0fdda4fcb42b5303a938138f073946dde6b5cd5162",
+      "materials": {
+        "FT_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 9728,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_PaneSeats",
+      "room": "Botanical",
+      "kind": "PaneSeats",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_PaneSeats",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_PaneSeats.fbx",
+      "sha256": "b8ffc4361ef0f22e6beeb33960d721d73597b3a24400174cd5403392dd59279f",
+      "materials": {
+        "FT_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+      },
+      "triangles": 5184,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": false,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_Crown",
+      "room": "Botanical",
+      "kind": "Crown",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_Crown",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_Crown.fbx",
+      "sha256": "20078687058eff7ecbc2b4883d9663e7e25001b3a9358b0f0e151618532affdc",
+      "materials": {
+        "FT_EC": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_EC"
+      },
+      "triangles": 3456,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": false,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_CrownTrim",
+      "room": "Botanical",
+      "kind": "CrownTrim",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_CrownTrim",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_CrownTrim.fbx",
+      "sha256": "b65d7b7a042cd6186f8f2a81327a94794d49efa1449547b52a447f2a95462429",
+      "materials": {
+        "FT_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 3456,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": false,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_CrownLiner",
+      "room": "Botanical",
+      "kind": "CrownLiner",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_CrownLiner",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_CrownLiner.fbx",
+      "sha256": "609f79b6739b56e034080776326b1650442760695c91974c70ed8f1499b142d0",
+      "materials": {
+        "FT_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+      },
+      "triangles": 3456,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": false,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_LightDiffuser",
+      "room": "Botanical",
+      "kind": "LightDiffuser",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_LightDiffuser",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_LightDiffuser.fbx",
+      "sha256": "2652408facb7a79ce23969a82d0d607af98b410d8e3b091c1c4adddbc4ca0851",
+      "materials": {
+        "FT_Glow": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Glow"
+      },
+      "triangles": 3456,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": false,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_RoofRibs",
+      "room": "Botanical",
+      "kind": "RoofRibs",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_RoofRibs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_RoofRibs.fbx",
+      "sha256": "ed361ac6b3265c9c4c04439d1a61756b2f19699b93c60d98d7c31d39e4cce8b5",
+      "materials": {
+        "FT_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 216,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": false,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_LampHousings",
+      "room": "Botanical",
+      "kind": "LampHousings",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_LampHousings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_LampHousings.fbx",
+      "sha256": "6bc8c25feada906ba38450587f449402c3e4d62e0a1afa883cf28d2127af462e",
+      "materials": {
+        "FT_Graphite": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite"
+      },
+      "triangles": 216,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": false,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_LampDiffusers",
+      "room": "Botanical",
+      "kind": "LampDiffusers",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_LampDiffusers",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_LampDiffusers.fbx",
+      "sha256": "80fedb49fe7c50717979aa5461098d5258749f7a20bf566237a9996bea0c7da1",
+      "materials": {
+        "FT_Glow": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Glow"
+      },
+      "triangles": 216,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": false,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_Irrigation",
+      "room": "Botanical",
+      "kind": "Irrigation",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_Irrigation",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_Irrigation.fbx",
+      "sha256": "2c5bd2496a1e2ee9ddc79d9a70132ed543f6b950d046a1b3dae2d6b3cfaded5a",
+      "materials": {
+        "FT_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+      },
+      "triangles": 3572,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": false,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_PipeClips",
+      "room": "Botanical",
+      "kind": "PipeClips",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_PipeClips",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_PipeClips.fbx",
+      "sha256": "58407833b1111d50b91446ab81bd2a48fa4565147c7d4e1e98b4846ccedc1462",
+      "materials": {
+        "FT_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 1296,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_Drippers",
+      "room": "Botanical",
+      "kind": "Drippers",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_Drippers",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_Drippers.fbx",
+      "sha256": "4cb5ef7e89af013e98942bfa4d7baddc33053aedb85808b3b423d0bb37adf1d3",
+      "materials": {
+        "FT_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket",
+        "FT_EC": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_EC"
+      },
+      "triangles": 10080,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": false,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_BaseSeams",
+      "room": "Botanical",
+      "kind": "BaseSeams",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_BaseSeams",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_BaseSeams.fbx",
+      "sha256": "89551d891096dd1b47c834d0b106adf1cbde0a67be516ca4e6c3bb2ee030e353",
+      "materials": {
+        "FT_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+      },
+      "triangles": 1296,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_ServiceCover",
+      "room": "Botanical",
+      "kind": "ServiceCover",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_ServiceCover",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_ServiceCover.fbx",
+      "sha256": "eee16f1880e40a674f9bb43e0dc003421f31a2e7a3ca5a8647c424fecb8d469c",
+      "materials": {
+        "FT_EC": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_EC"
+      },
+      "triangles": 108,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_CoverVents",
+      "room": "Botanical",
+      "kind": "CoverVents",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_CoverVents",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_CoverVents.fbx",
+      "sha256": "6b773569c5ac0df793ed52a820cb333ba33731e28aceb659eefe222b6b9ff3fe",
+      "materials": {
+        "FT_Graphite": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite"
+      },
+      "triangles": 756,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_Signs",
+      "room": "Botanical",
+      "kind": "Signs",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_Signs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_Signs.fbx",
+      "sha256": "9ed669f66533f6693bcd07052a30f158f6617951837b22bdc5f7f4615041404a",
+      "materials": {
+        "FT_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FT_Labels": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Materials/M_BotanicalDisplay_Label"
+      },
+      "triangles": 12,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": false,
+      "cast_shadow": false,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_LabelSupports",
+      "room": "Botanical",
+      "kind": "LabelSupports",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_LabelSupports",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_LabelSupports.fbx",
+      "sha256": "b4191f15b0135dd6238f2469b61a8a162f9dda06ba5ca216aca650104714956d",
+      "materials": {
+        "FT_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 216,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_FloorGuidance",
+      "room": "Botanical",
+      "kind": "FloorGuidance",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_FloorGuidance",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_FloorGuidance.fbx",
+      "sha256": "1e4b964a6c41c624c8dcc00175122cb90c6f9177ff3c4f3d040e8095f8036066",
+      "materials": {
+        "FT_Brass": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Brass"
+      },
+      "triangles": 3864,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "preview_only": false
+    },
+    {
+      "name": "SM_FT_Botanical_DisplayPaneV5",
+      "room": "Botanical",
+      "kind": "Glass",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_DisplayPaneV5",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_DisplayPaneV5.fbx",
+      "sha256": "c5801b208efa625ae0844cc5ec7fd32365368c37bda2098460a52e273717973a",
+      "materials": {
+        "FT_Glass": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+      },
+      "triangles": 12,
+      "collision": true,
+      "collision_hulls": 1,
+      "nanite": false,
+      "cast_shadow": false,
+      "preview_only": false,
+      "shards": 0
+    },
+    {
+      "name": "SM_FT_Botanical_DisplayFractureV5",
+      "room": "Botanical",
+      "kind": "Fracture",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_DisplayFractureV5",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_DisplayFractureV5.fbx",
+      "sha256": "dff7c8806427f29c711779d512277040bddf1a753f193e21116c4abc4c83e211",
+      "materials": {
+        "FT_Glass": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+      },
+      "triangles": 2200,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": false,
+      "cast_shadow": false,
+      "preview_only": false,
+      "shards": 119
+    },
+    {
+      "name": "SM_FT_Botanical_RoofGlass",
+      "room": "Botanical",
+      "kind": "Glass",
+      "mesh": "/Game/Dungeons/FacilityTransit20261007/BotanicalDisplay/Meshes/SM_FT_Botanical_RoofGlass",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityTransit20261007\\BotanicalDisplay\\Authored\\SM_FT_Botanical_RoofGlass.fbx",
+      "sha256": "b455da3ed204fc7a27aad433f80f8b6c70ee1a30661a20b6c1f2147e3488d43f",
+      "materials": {
+        "FT_Glass": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+      },
+      "triangles": 572,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": false,
+      "cast_shadow": false,
+      "preview_only": false,
+      "roof": true
+    }
+  ],
+  "tests_run": false,
+  "rendered": false
+}

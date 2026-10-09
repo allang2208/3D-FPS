@@ -1,0 +1,207 @@
+{
+  "Concrete": {
+    "basecolor_linear": [
+      0.29,
+      0.28,
+      0.25
+    ],
+    "roughness": 0.85,
+    "metallic": 0,
+    "uv_meters": 1.0,
+    "uv_meters_override": 2,
+    "existing_ue_path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+    "required_existing": true
+  },
+  "Paint": {
+    "basecolor_linear": [
+      0.13,
+      0.17,
+      0.125
+    ],
+    "roughness": 0.53,
+    "metallic": 0.04,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+    "required_existing": true
+  },
+  "Steel": {
+    "basecolor_linear": [
+      0.24,
+      0.265,
+      0.27
+    ],
+    "roughness": 0.39,
+    "metallic": 0.92,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+    "required_existing": true
+  },
+  "Enamel": {
+    "basecolor_linear": [
+      0.17,
+      0.205,
+      0.145
+    ],
+    "roughness": 0.5,
+    "metallic": 0.03,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+    "required_existing": true
+  },
+  "Yellow": {
+    "basecolor_linear": [
+      0.5,
+      0.31,
+      0.055
+    ],
+    "roughness": 0.56,
+    "metallic": 0.03,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+    "required_existing": true
+  },
+  "Rubber": {
+    "basecolor_linear": [
+      0.018,
+      0.021,
+      0.019
+    ],
+    "roughness": 0.88,
+    "metallic": 0,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+    "required_existing": true
+  },
+  "Floor": {
+    "basecolor_linear": [
+      0.35,
+      0.36,
+      0.33
+    ],
+    "roughness": 0.65,
+    "metallic": 0,
+    "uv_meters": 1.2,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Floor",
+    "new_authored": true
+  },
+  "Stone": {
+    "basecolor_linear": [
+      0.54,
+      0.51,
+      0.43
+    ],
+    "roughness": 0.64,
+    "metallic": 0,
+    "uv_meters": 1.2,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Stone",
+    "new_authored": true
+  },
+  "Teal": {
+    "basecolor_linear": [
+      0.032,
+      0.077,
+      0.07
+    ],
+    "roughness": 0.51,
+    "metallic": 0.12,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+    "new_authored": true
+  },
+  "Brass": {
+    "basecolor_linear": [
+      0.27,
+      0.2,
+      0.1
+    ],
+    "roughness": 0.42,
+    "metallic": 0.75,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Brass",
+    "new_authored": true
+  },
+  "Dark": {
+    "basecolor_linear": [
+      0.02,
+      0.027,
+      0.027
+    ],
+    "roughness": 0.77,
+    "metallic": 0.12,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Dark",
+    "new_authored": true
+  },
+  "White": {
+    "basecolor_linear": [
+      0.63,
+      0.62,
+      0.55
+    ],
+    "roughness": 0.6,
+    "metallic": 0,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_White",
+    "new_authored": true
+  },
+  "Glow": {
+    "basecolor_linear": [
+      0.8,
+      0.88,
+      0.76
+    ],
+    "roughness": 0.4,
+    "metallic": 0,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Glow",
+    "new_authored": true
+  },
+  "Red": {
+    "basecolor_linear": [
+      0.26,
+      0.045,
+      0.032
+    ],
+    "roughness": 0.53,
+    "metallic": 0,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Red",
+    "new_authored": true
+  },
+  "Wood": {
+    "basecolor_linear": [
+      0.23,
+      0.16,
+      0.085
+    ],
+    "roughness": 0.7,
+    "metallic": 0,
+    "uv_meters": 1.72,
+    "existing_ue_path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3",
+    "new_authored": false
+  },
+  "Soil": {
+    "basecolor_linear": [
+      0.055,
+      0.033,
+      0.02
+    ],
+    "roughness": 0.94,
+    "metallic": 0,
+    "uv_meters": 0.65,
+    "existing_ue_path": "/Game/Dungeons/Ecology20261004/RefineV5/Materials/M_Eco_SoilBed",
+    "new_authored": false
+  },
+  "Labels": {
+    "basecolor_linear": [
+      0.6,
+      0.65,
+      0.57
+    ],
+    "roughness": 0.76,
+    "metallic": 0,
+    "uv_meters": 1,
+    "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Labels",
+    "new_authored": true
+  }
+}

@@ -1,0 +1,570 @@
+{
+  "meshes": [
+    {
+      "name": "SM_RH2_Signs",
+      "kind": "Signs",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Signs",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_RH2_Signs.fbx",
+      "sha256": "e72576701f279e1373fb40189515e80ec2038d72f63bda82c91714cfa419c7bf",
+      "materials": {
+        "RH_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RH_Labels": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Labels"
+      },
+      "triangles": 324,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": false,
+      "cast_shadow": false
+    },
+    {
+      "name": "SM_RH2_Hardware",
+      "kind": "Hardware",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Hardware",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_RH2_Hardware.fbx",
+      "sha256": "80ceeae9108dfea84103c887844919659942c6d7dc00bb826824fdbc2ae2d399",
+      "materials": {
+        "RH_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 32832,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RH2_ReceptionCounter",
+      "kind": "ReceptionCounter",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_ReceptionCounter",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_RH2_ReceptionCounter.fbx",
+      "sha256": "a962d7721d49b1209f9bda9ae8a92f9fb6483f511cd612dae75edb01a4c22a99",
+      "materials": {
+        "RH_Wood": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Wood",
+        "RH_Dark": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Dark",
+        "RH_Stone": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Stone",
+        "RH_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "RH_Brass": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Brass"
+      },
+      "triangles": 1404,
+      "collision": true,
+      "collision_hulls": 12,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RH2_Sofa",
+      "kind": "Sofa",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Sofa",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_RH2_Sofa.fbx",
+      "sha256": "d5789be5cc5c2f260f100322f25ee06f4d932cbbb3a9a34b811905e1a5fbdc75",
+      "materials": {
+        "RH_Fabric": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Fabric",
+        "RH_Seam": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Seam",
+        "RH_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 33524,
+      "collision": true,
+      "collision_hulls": 2,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RH2_SecurityBarriers",
+      "kind": "SecurityBarriers",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_SecurityBarriers",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_RH2_SecurityBarriers.fbx",
+      "sha256": "74fcd13dba3559726ff680c68745abc91dab7f74d39a1655a105909769356ac5",
+      "materials": {
+        "RH_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RH_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal"
+      },
+      "triangles": 26960,
+      "collision": true,
+      "collision_hulls": 30,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RH2_SecurityBelts",
+      "kind": "SecurityBelts",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_SecurityBelts",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_RH2_SecurityBelts.fbx",
+      "sha256": "931e4d574c5c8f3595db7e650c24b8f4405f26b5b1005d6c09e01e22d739a490",
+      "materials": {
+        "RH_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal"
+      },
+      "triangles": 1512,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RH2_OfficeBoards",
+      "kind": "OfficeBoards",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeBoards",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_RH2_OfficeBoards.fbx",
+      "sha256": "d5dc789e945a408832f7fbe76968ae3d0cf91f26c597eb975fdf6a7573d58a96",
+      "materials": {
+        "RH_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RH_Boards": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Boards"
+      },
+      "triangles": 48,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": false,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RH2_OfficeBoardMounts",
+      "kind": "OfficeBoardMounts",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeBoardMounts",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_RH2_OfficeBoardMounts.fbx",
+      "sha256": "d00975e2d0756e752700964795a5ba3b721dec61ec3af4385eb1b42c33769dcc",
+      "materials": {
+        "RH_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 4864,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RH2_OfficeStorage",
+      "kind": "OfficeStorage",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeStorage",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_RH2_OfficeStorage.fbx",
+      "sha256": "6d7946cf96ab4e07e834784d8e981f8c64bd2254334528a08a28cd1bcc0ec702",
+      "materials": {
+        "RH_Wood": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Wood",
+        "RH_Dark": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Dark",
+        "RH_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "RH_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 5768,
+      "collision": true,
+      "collision_hulls": 4,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RH2_OfficeSupplies",
+      "kind": "OfficeSupplies",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeSupplies",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_RH2_OfficeSupplies.fbx",
+      "sha256": "381dca5caced3862371fd4d42924558e6ceecb0a283cec9662c423b630bd47fc",
+      "materials": {
+        "RH_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "RH_Paper": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Paper",
+        "RH_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RH_Blue": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Blue",
+        "RH_ABS": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_ABS"
+      },
+      "triangles": 30312,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RH2_DeskSupplies",
+      "kind": "DeskSupplies",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_DeskSupplies",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_RH2_DeskSupplies.fbx",
+      "sha256": "444a562e35bbd2a8058cabf15cc4bcceecf05e7faa78f119916238ff7c4b5710",
+      "materials": {
+        "RH_ABS": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_ABS",
+        "RH_Brass": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Brass",
+        "RH_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "RH_Blue": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Blue",
+        "RH_Paper": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Paper"
+      },
+      "triangles": 9712,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RH2_OfficeCoatHooks",
+      "kind": "OfficeCoatHooks",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_OfficeCoatHooks",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_RH2_OfficeCoatHooks.fbx",
+      "sha256": "f3baf59dceb3b4d3ab3cb54283920442dc9775c487d2a9957fb51e515666cbf8",
+      "materials": {
+        "RH_Wood": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Wood",
+        "RH_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "triangles": 4024,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_RH2_LoungeDetails",
+      "kind": "LoungeDetails",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_LoungeDetails",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007\\Authored\\SM_RH2_LoungeDetails.fbx",
+      "sha256": "31a8ec60febfeef1389897469479c251a4907b069025ea998d6032fe07b8c210",
+      "materials": {
+        "RH_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "RH_Paper": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Paper",
+        "RH_White": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_White"
+      },
+      "triangles": 12768,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": true,
+      "cast_shadow": true
+    }
+  ],
+  "roles": {
+    "Concrete": {
+      "basecolor_linear": [
+        0.29,
+        0.28,
+        0.25
+      ],
+      "roughness": 0.85,
+      "metallic": 0,
+      "uv_meters": 1.0,
+      "uv_meters_override": 2,
+      "existing_ue_path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+      "required_existing": true
+    },
+    "Paint": {
+      "basecolor_linear": [
+        0.13,
+        0.17,
+        0.125
+      ],
+      "roughness": 0.53,
+      "metallic": 0.04,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+      "required_existing": true
+    },
+    "Steel": {
+      "basecolor_linear": [
+        0.24,
+        0.265,
+        0.27
+      ],
+      "roughness": 0.39,
+      "metallic": 0.92,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+      "required_existing": true
+    },
+    "Enamel": {
+      "basecolor_linear": [
+        0.17,
+        0.205,
+        0.145
+      ],
+      "roughness": 0.5,
+      "metallic": 0.03,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+      "required_existing": true
+    },
+    "Yellow": {
+      "basecolor_linear": [
+        0.5,
+        0.31,
+        0.055
+      ],
+      "roughness": 0.56,
+      "metallic": 0.03,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+      "required_existing": true
+    },
+    "Rubber": {
+      "basecolor_linear": [
+        0.018,
+        0.021,
+        0.019
+      ],
+      "roughness": 0.88,
+      "metallic": 0,
+      "uv_meters": 1.0,
+      "existing_ue_path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+      "required_existing": true
+    },
+    "Floor": {
+      "basecolor_linear": [
+        0.35,
+        0.36,
+        0.33
+      ],
+      "roughness": 0.65,
+      "metallic": 0,
+      "uv_meters": 1.2,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Floor",
+      "new_authored": true
+    },
+    "Stone": {
+      "basecolor_linear": [
+        0.54,
+        0.51,
+        0.43
+      ],
+      "roughness": 0.64,
+      "metallic": 0,
+      "uv_meters": 1.2,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Stone",
+      "new_authored": true
+    },
+    "Teal": {
+      "basecolor_linear": [
+        0.032,
+        0.077,
+        0.07
+      ],
+      "roughness": 0.51,
+      "metallic": 0.12,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+      "new_authored": true
+    },
+    "Brass": {
+      "basecolor_linear": [
+        0.27,
+        0.2,
+        0.1
+      ],
+      "roughness": 0.42,
+      "metallic": 0.75,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Brass",
+      "new_authored": true
+    },
+    "Dark": {
+      "basecolor_linear": [
+        0.02,
+        0.027,
+        0.027
+      ],
+      "roughness": 0.77,
+      "metallic": 0.12,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Dark",
+      "new_authored": true
+    },
+    "White": {
+      "basecolor_linear": [
+        0.63,
+        0.62,
+        0.55
+      ],
+      "roughness": 0.6,
+      "metallic": 0,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_White",
+      "new_authored": true
+    },
+    "Glow": {
+      "basecolor_linear": [
+        0.8,
+        0.88,
+        0.76
+      ],
+      "roughness": 0.4,
+      "metallic": 0,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Glow",
+      "new_authored": true
+    },
+    "Red": {
+      "basecolor_linear": [
+        0.26,
+        0.045,
+        0.032
+      ],
+      "roughness": 0.53,
+      "metallic": 0,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Red",
+      "new_authored": true
+    },
+    "Wood": {
+      "basecolor_linear": [
+        0.14,
+        0.083,
+        0.046
+      ],
+      "roughness": 0.62,
+      "metallic": 0,
+      "uv_meters": 1.2,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Wood"
+    },
+    "Soil": {
+      "basecolor_linear": [
+        0.055,
+        0.033,
+        0.02
+      ],
+      "roughness": 0.94,
+      "metallic": 0,
+      "uv_meters": 0.65,
+      "existing_ue_path": "/Game/Dungeons/Ecology20261004/RefineV5/Materials/M_Eco_SoilBed",
+      "new_authored": false
+    },
+    "Labels": {
+      "basecolor_linear": [
+        0.6,
+        0.65,
+        0.57
+      ],
+      "roughness": 0.76,
+      "metallic": 0,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Labels",
+      "new_authored": true
+    },
+    "Fabric": {
+      "basecolor_linear": [
+        0.12,
+        0.17,
+        0.135
+      ],
+      "roughness": 0.83,
+      "metallic": 0,
+      "uv_meters": 0.25,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Fabric"
+    },
+    "Seam": {
+      "basecolor_linear": [
+        0.065,
+        0.085,
+        0.073
+      ],
+      "roughness": 0.86,
+      "metallic": 0,
+      "uv_meters": 0.25,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Seam"
+    },
+    "Boards": {
+      "basecolor_linear": [
+        0.7,
+        0.69,
+        0.59
+      ],
+      "roughness": 0.85,
+      "metallic": 0,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Boards"
+    },
+    "Paper": {
+      "basecolor_linear": [
+        0.72,
+        0.7,
+        0.61
+      ],
+      "roughness": 0.85,
+      "metallic": 0,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Paper"
+    },
+    "ABS": {
+      "basecolor_linear": [
+        0.025,
+        0.033,
+        0.035
+      ],
+      "roughness": 0.48,
+      "metallic": 0,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_ABS"
+    },
+    "Blue": {
+      "basecolor_linear": [
+        0.028,
+        0.055,
+        0.073
+      ],
+      "roughness": 0.72,
+      "metallic": 0,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Blue"
+    },
+    "Leather": {
+      "basecolor_linear": [
+        0.05,
+        0.077,
+        0.07
+      ],
+      "roughness": 0.7,
+      "metallic": 0,
+      "uv_meters": 1,
+      "existing_ue_path": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Leather"
+    }
+  }
+}

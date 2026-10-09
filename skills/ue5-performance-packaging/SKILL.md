@@ -19,6 +19,8 @@ description: UE5.6-UE5.8 performance budgeting, regression diagnosis, and packag
 
 # Quick Start
 
+- 地牢选中路线异步准备、共享 ISM 房间可见性和取消回滚，读取 [地牢房间资源准备](references/dungeon-room-streaming.md)；异步加载、隐藏和卸载是不同操作。
+
 - 启动前完整预加载、两档加载与纹理池准备，读取 [进入场景前的资源准备](references/entry-resource-preparation.md)，区分结构就绪、材质/纹理就绪和有限显存预算。
 - Distinguish feature development, requested performance diagnosis, and packaging readiness.
 - For development, apply the relevant FPSGAME performance constraints to the changed path.

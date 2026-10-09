@@ -1,0 +1,25 @@
+{
+  "meshes": [
+    {
+      "name": "SM_FacilityFlow_RelocatedSigns",
+      "kind": "RelocatedSigns",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/Meshes/SM_FacilityFlow_RelocatedSigns",
+      "position_m": [
+        0,
+        0,
+        0
+      ],
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Authored\\SM_FacilityFlow_RelocatedSigns.fbx",
+      "sha256": "52c8caac4b6ac2a849eb1f750b51130cd1dbf539dfe704226e47a8ba8c5f4cad",
+      "materials": {
+        "RH_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RH_Labels": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Labels"
+      },
+      "triangles": 324,
+      "collision": false,
+      "collision_hulls": 0,
+      "nanite": false,
+      "cast_shadow": false
+    }
+  ]
+}

@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 
 class ULocalLightComponent;
+class UPrimitiveComponent;
 
 namespace AuthoredDungeonLighting
 {
@@ -33,4 +34,12 @@ struct FAuthoredDungeonLightModule
     TArray<FAuthoredDungeonLight> Lights;
     bool bConnector = false;
     double LastWantedSeconds = -1.0;
+};
+
+/** One render component may contain instances belonging to several connected rooms. */
+struct FAuthoredDungeonRenderGroup
+{
+    TWeakObjectPtr<UPrimitiveComponent> Component;
+    TArray<int32> Modules;
+    bool bHiddenByScheduler = false;
 };

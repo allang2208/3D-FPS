@@ -12,6 +12,8 @@
 #include "Materials/MaterialInterface.h"
 #include "NiagaraSystem.h"
 #include "Sound/SoundBase.h"
+#include "Sound/AmbientSound.h"
+#include "Components/AudioComponent.h"
 
 namespace
 {
@@ -161,6 +163,20 @@ AActor* WardRoomAssembly::Spawn(UWorld* World,AActor* Owner,const J& S,
         Decal->SetDecalMaterial(Cast<UMaterialInterface>(Resolve(S->GetStringField(TEXT("material")))));
         Decal->DecalSize=Vec(S,TEXT("decal_size"));Decal->SetSortOrder(S->GetIntegerField(TEXT("sort_order")));
         Decal->SetFadeScreenSize(S->GetNumberField(TEXT("fade_screen_size")));Decal->RegisterComponent();
+    }
+    else if(Type==TEXT("ambient_sound"))
+    {
+        auto* Ambient=World->SpawnActorDeferred<AAmbientSound>(AAmbientSound::StaticClass(),At,Owner,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+        if(!Ambient)return nullptr;
+        auto* Audio=Ambient->GetAudioComponent();
+        Audio->SetSound(Cast<USoundBase>(Resolve(S->GetStringField(TEXT("sound")))));
+        Audio->SetVolumeMultiplier(S->GetNumberField(TEXT("volume")));
+        Audio->bOverrideAttenuation=true;
+        auto& Attenuation=Audio->AttenuationOverrides;
+        Attenuation.bAttenuate=true;Attenuation.bSpatialize=true;
+        Attenuation.AttenuationShapeExtents=FVector(S->GetNumberField(TEXT("inner_radius_cm")),0,0);
+        Attenuation.FalloffDistance=S->GetNumberField(TEXT("falloff_cm"));
+        Result=Ambient;
     }
     else if(Type==TEXT("post_process"))
     {

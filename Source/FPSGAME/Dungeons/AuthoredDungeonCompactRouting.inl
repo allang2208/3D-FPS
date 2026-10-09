@@ -6,12 +6,16 @@ int32 CompactBudget=0;
 double SpineLinkLimit=ShortLinkLimit;
 bool bCompactLaneHint=true,bForwardTerminalHint=true;
 bool bExtendedSpineHint=false;
+// Joint planning grows complete routes without reserving the terminal for one
+// of them. This is scoped to candidate enumeration, never final acceptance.
+bool bJointRouteCandidates=false;
 TArray<double> TerminalWalkLengths;
 TArray<FSocket> CompactLeads;
 FString CompactFailure;
 int32 LastBridgeDepth=0;
 double LastBridgeDistance=0;
 bool bLayoutProbe=false;
+TMap<FString,int32> ProbeRejects;
 int32 ProbeDepth=-1;
 TArray<FPlaced> ProbePieces;
 FSocket ProbeLead,ProbeTop;
@@ -51,7 +55,11 @@ bool JoinedWallSeam(int32 Module,const FTransform& Transform,int32 Other,const F
         // The old 25 cm allowance rejected every real sleeve on that mandatory
         // room. Only matched door faces get this tolerance; body overlaps still
         // fail below. Keep the existing wider treasure collar exception.
-        const double JoinDepth=(Module==Treasure||Pieces[Other].Module==Treasure?45.:30.)+.1;
+        double LocalDepth=30.,OtherDepth=30.;
+        Modules[Module].Data->TryGetNumberField(TEXT("port_seam_depth_cm"),LocalDepth);
+        Modules[Pieces[Other].Module].Data->TryGetNumberField(TEXT("port_seam_depth_cm"),OtherDepth);
+        const double JoinDepth=FMath::Max(Module==Treasure||Pieces[Other].Module==Treasure?45.:30.,
+            FMath::Max(LocalDepth,OtherDepth))+.1;
         // Occupancy cells include room height (and the full stair drop), so Z is
         // verified by the matched floor datum rather than clipped to lintel height.
         const double HalfWidth=P.Width*.5+30.;
@@ -118,7 +126,7 @@ bool ReserveCompactTerminal(FSocket Entry,TArray<FSocket>& Tops)
 struct FCompactBeam {TArray<FPlaced> Layout;FSocket End;double Score=0;double JoinCost=0;};
 
 bool GrowCompactRooms(int32 Count,FSocket Start,const FSocket& Goal,const FString& Route,
-                      TArray<FCompactBeam>& Beam,bool AnchorTerminal=false,TFunction<bool()> Complete={},int32 FirstOrdinal=0,int32 Step=1)
+                      TArray<FCompactBeam>& Beam,bool AnchorTerminal=false,TFunction<bool()> Complete={},int32 FirstOrdinal=0,int32 Step=1,int32 DeferredRooms=0)
 {
     LastBridgeDepth=0;LastBridgeDistance=(Start.P-Goal.P).Size();
     const TArray<FPlaced> Base=Pieces;
@@ -138,13 +146,20 @@ bool GrowCompactRooms(int32 Count,FSocket Start,const FSocket& Goal,const FStrin
         if(!CanSearch()){Pieces=Base;return false;}
         TArray<FCompactBeam> Next;
         const int32 Ordinal=FirstOrdinal+Depth*Step;
-        const int32 Remaining=Count-Depth-1;
+        // A paired branch can reserve one complete theme from the far end.
+        // Its open socket still needs room for the other theme, so retain the
+        // same reach/spacing costs without trying to close this half-chain.
+        const int32 Remaining=Count-Depth-1+DeferredRooms;
         const auto RemainingSpan=bThemedRoutes?ThemeSpanRange(Route,Ordinal+Step,Remaining,Step):FVector2D::ZeroVector;
         const double BuiltSpan=bThemedRoutes?ThemeSpanRange(Route,FirstOrdinal,Depth+1,Step).X:0.;
         double RemainingLinks=Remaining*ShortLinkLimit;
         if(bThemedRoutes)for(int32 I=0;I<Remaining;++I)
-            if(FMath::Abs(ThemeRoomFloor(Route,Ordinal+I*Step)-ThemeRoomFloor(Route,Ordinal+(I+1)*Step))>.1)
+        {
+            const int32 A=Ordinal+I*Step,B=A+Step;
+            if(FMath::Abs(ThemeRoomFloor(Route,A)-ThemeRoomFloor(Route,B))>.1)
                 RemainingLinks+=ThemeRampLinkLimit-ShortLinkLimit;
+            else if(ThemeGapAllowsBridge(Route,A,B))RemainingLinks+=ThemeBridgeLimit-ShortLinkLimit;
+        }
         // A beam layer must not spend the entire branch budget before the next
         // room is considered. Allocate work across states AND remaining depths.
         // Interior/port variants made the former exhaustive 24-state expansion
@@ -161,7 +176,6 @@ bool GrowCompactRooms(int32 Count,FSocket Start,const FSocket& Goal,const FStrin
             int32 ChoiceRank=0;
             auto Links=RoomLinks(State.End);
             ThemeRoomLinks(Links,State.End,Route,Ordinal,Step);
-            if(AnchorTerminal)Links.RemoveAll([&](const FShortLink& Link){return Link.Ramp<0&&Link.Length+State.End.ReservedLead>SpineLinkLimit+.1;});
             for(const auto& Choice:Choices)
             {
                 if(StateStartBudget-CompactBudget>=StateLimit)break;
@@ -173,10 +187,13 @@ bool GrowCompactRooms(int32 Count,FSocket Start,const FSocket& Goal,const FStrin
                 const int32 ChoiceLimit=FMath::Max(1,
                     (StateLimit-(StateStartBudget-CompactBudget))/FMath::Max(1,Choices.Num()-ChoiceRank+1));
                 auto Ranked=Links;
+                if(bPairedFacility&&FMath::Abs(ThemeRoomFloor(Route,Ordinal)-State.End.P.Z)<.1)
+                    AddRoomClearanceLinks(Ranked,Choice.Key,Choice.Value,State.End,
+                        ThemeGapAllowsBridge(Route,Ordinal-Step,Ordinal)?ThemeBridgeLimit:ShortLinkLimit);
                 if(Remaining==0&&!AnchorTerminal)
                 {
                     if(!bThemedRoutes||FMath::Abs(ThemeRoomFloor(Route,Ordinal)-State.End.P.Z)<.1)
-                        AddTargetRoomLinks(Ranked,Choice.Key,Choice.Value,State.End,Goal,Choice.Exit);
+                        AddTargetRoomLinks(Ranked,Choice.Key,Choice.Value,State.End,Goal,Choice.Exit,ClosureLimit);
                     // Reject impossible last-room closures before they consume
                     // placement budget or displace a joinable beam candidate.
                     Ranked.RemoveAll([&](const FShortLink& Link)
@@ -193,10 +210,14 @@ bool GrowCompactRooms(int32 Count,FSocket Start,const FSocket& Goal,const FStrin
                 // elevation as ordinary candidates, including reverse growth.
                 if(bThemedRoutes&&!ThemeRamps.IsEmpty())Ranked.RemoveAll([&](const FShortLink& Link)
                 {return FMath::Abs(Link.End.P.Z-ThemeRoomFloor(Route,Ordinal))>.1;});
+                // Apply the spine policy after all geometry-derived candidates
+                // have been added, including room-clearance bends.
+                if(AnchorTerminal)Ranked.RemoveAll([&](const FShortLink& Link)
+                {return Link.Ramp<0&&!Link.bBridge&&Link.Length+State.End.ReservedLead>SpineLinkLimit+.1;});
                 FilterThemedLinks(Ranked,Route,Ordinal,Step);
                 Ranked.StableSort([&](const FShortLink& A,const FShortLink& B)
                 {
-                    if(AnchorTerminal)return LinkChoiceCost(A,State.End,Route)<LinkChoiceCost(B,State.End,Route);
+                    if(AnchorTerminal&&!bJointRouteCandidates)return LinkChoiceCost(A,State.End,Route)<LinkChoiceCost(B,State.End,Route);
                     if(bThemedRoutes)
                     {
                         auto Cost=[&](const FShortLink& L)
@@ -213,6 +234,7 @@ bool GrowCompactRooms(int32 Count,FSocket Start,const FSocket& Goal,const FStrin
                            LinkGoalCost(B,Choice.Key,Choice.Value,Goal,Remaining,Choice.Exit)-LinkCost(B)+LinkChoiceCost(B,State.End,Route)*.25;
                 });
                 int32 Accepted=0;
+                TMap<int32,int32> AcceptedHeadings;
                 for(const auto& Link:Ranked)
                 {
                     if(StateStartBudget-CompactBudget>=StateLimit||ChoiceStartBudget-CompactBudget>=ChoiceLimit)break;
@@ -220,6 +242,11 @@ bool GrowCompactRooms(int32 Count,FSocket Start,const FSocket& Goal,const FStrin
                     const FTransform Candidate=Fit(Choice.Key,Choice.Value,Link.End);
                     const auto& ExitPort=Modules[Choice.Key].Ports[Choice.Exit];
                     const FVector ExitNormal=Candidate.TransformVectorNoScale(ExitPort.N);
+                    const int32 Heading=FMath::RoundToInt(ExitNormal.Rotation().Yaw/90.);
+                    // Preserve real turns as well as straight length variants.
+                    // Three nearby straight samples used to fill every state
+                    // before a collision-free corner could be considered.
+                    if(bPairedFacility&&AcceptedHeadings.FindRef(Heading)>=2)continue;
                     const double SpineFacing=FVector::DotProduct(ExitNormal,LaneForward);
                     // Intermediate rooms may fold the spine back within its
                     // collision-checked lane. Forbidding a backwards exit made
@@ -232,7 +259,11 @@ bool GrowCompactRooms(int32 Count,FSocket Start,const FSocket& Goal,const FStrin
                         const FVector ExitPosition=Candidate.TransformPosition(ExitPort.P)+ExitNormal*ExitLeadLength;
                         // Optimistic upper reach, never a relaxed collision/length rule.
                         const double Reach=bThemedRoutes?RemainingSpan.Y+RemainingLinks:Remaining*(MaxRoomSpan+ShortLinkLimit);
-                        if((ExitPosition-Goal.P).Size()>Reach+ClosureLimit+.1)continue;
+                        if((ExitPosition-Goal.P).Size()>Reach+ClosureLimit+.1)
+                        {
+                            if(bLayoutProbe)++ProbeRejects.FindOrAdd(Route+TEXT("/")+Modules[Choice.Key].Id+TEXT("/reach"));
+                            continue;
+                        }
                     }
                     Pieces=State.Layout;FSocket S;
                     const double Repetition=RoomRepetitionCost(Choice.Key,Route);
@@ -250,7 +281,8 @@ bool GrowCompactRooms(int32 Count,FSocket Start,const FSocket& Goal,const FStrin
                     const double SpinePosition=bExtendedSpineHint?
                         FMath::Abs(Forward-(bThemedRoutes?BuiltSpan*.65+(Depth+1)*PreferredLinkLength*.5:(Depth+1)*(MinRoomSpan+PreferredLinkLength*.5))):
                         FMath::Max(0.,Forward)*2.;
-                    const double PositionCost=AnchorTerminal?
+                    const double PositionCost=bJointRouteCandidates?
+                        ThemeDistanceCost(FVector::Dist2D(S.P,Goal.P),RemainingSpan.X,Remaining):AnchorTerminal?
                         FMath::Abs(FVector::DotProduct(S.P-LaneCenter,LaneRight))*(bCompactLaneHint?1.2:.1)+
                             SpinePosition:
                         (bThemedRoutes?ThemeDistanceCost(Distance,RemainingSpan.X,Remaining):Distance)+Facing;
@@ -269,7 +301,7 @@ bool GrowCompactRooms(int32 Count,FSocket Start,const FSocket& Goal,const FStrin
                         TArray<FCompactBeam> Completed;Completed.Add({Pieces,S,Score,JoinCost});
                         Beam=MoveTemp(Completed);Pieces=Base;LastBridgeDepth=Count;LastBridgeDistance=0;return true;
                     }
-                    if(AnchorTerminal&&Remaining==0)
+                    if(AnchorTerminal&&Remaining==0&&!bJointRouteCandidates)
                     {
                         // The stairs and boss hub must fit before the beam drops
                         // alternatives. A short spine can overlap its own terminal.
@@ -292,7 +324,8 @@ bool GrowCompactRooms(int32 Count,FSocket Start,const FSocket& Goal,const FStrin
                         Score=ReachCost*4.+JoinCost*.15+(Repetition+FamilyJitter[Modules[Choice.Key].Family])*.15;
                     }
                     Next.Add({Pieces,S,Score,JoinCost});
-                    if(++Accepted==3)break;
+                    ++AcceptedHeadings.FindOrAdd(Heading);
+                    if(++Accepted==(bPairedFacility?6:3))break;
                 }
             }
         }
@@ -310,7 +343,7 @@ bool GrowCompactRooms(int32 Count,FSocket Start,const FSocket& Goal,const FStrin
             if(Buckets.Contains(Key))continue;
             // The last room has an exact two-sided solve. Preserve more of its
             // potential starting sockets instead of pruning them by distance.
-            const int32 BeamLimit=!AnchorTerminal&&Depth+2==Count?128:24;
+            const int32 BeamLimit=bJointRouteCandidates?64:!AnchorTerminal&&Depth+2==Count?128:24;
             Buckets.Add(Key);Beam.Add(MoveTemp(Candidate));if(Beam.Num()==BeamLimit)break;
         }
     }
@@ -336,9 +369,13 @@ TArray<FCompactBeam> CompactEndRooms(const FSocket& Top,const FSocket& Lead,cons
     for(int32 M:Combat)if(RoomAllowed(M,Route))RoomSpan=FMath::Min(RoomSpan,(Modules[M].Ports[0].P-Modules[M].Ports[1].P).Size());
     const double RemainingSpan=bThemedRoutes?ThemeSpanRange(Route,0,Remaining).X*.65:Remaining*RoomSpan;
     auto Links=RoomLinks(Top);
-    // The last room-to-stair sleeve is part of the existing terminal walking
-    // budget (80 cm). Flexibility belongs upstream, not in a longer boss lead.
-    if(Pieces.IsValidIndex(Top.Owner)&&Pieces[Top.Owner].Module==StairDrop)
+    // A paired route ends in a core room, which may be above/below the terminal.
+    // Grow backwards through its authored return ramp before placing that room.
+    ThemeRoomLinks(Links,Top,Route,Remaining,-1);
+    // Same-floor terminal joins still use the original 80 cm sleeve. Elevation
+    // changes use the bounded ramp budget already assigned to this route.
+    if(Pieces.IsValidIndex(Top.Owner)&&Pieces[Top.Owner].Module==StairDrop&&
+       (!bThemedRoutes||FMath::Abs(ThemeRoomFloor(Route,Remaining)-Top.P.Z)<.1))
         Links.RemoveAll([](const FShortLink& Link){return Link.Turns!=0||!FMath::IsNearlyEqual(Link.Length,ExitLeadLength,.1);});
     for(const auto& Tail:Tails)
     {
@@ -368,6 +405,58 @@ bool ConnectCompactBranch(int32 Count,const FSocket& Lead,const FSocket& Top,con
 {
     LastBridgeDepth=0;LastBridgeDistance=(Lead.P-Top.P).Size();
     const TArray<FPlaced> Base=Pieces;
+    if(bPairedFacility&&Count==6)
+    {
+        // Close between the two themes, where the authored bridge is allowed.
+        // Reserving only room six forced the exact solve inside the second
+        // theme (a 12 m join), discarding valid 3+3 layouts at the wider boundary.
+        // Both orientations retain the fixed six-room order and all collisions.
+        for(int32 Direction=0;Direction<2&&CompactBudget>0;++Direction)
+        {
+            Pieces=Base;
+            // Neither the first half-chain nor its sibling continuation may
+            // spend the other direction's share of this branch's budget.
+            const int32 OtherDirectionReserve=Direction==0?CompactBudget/2:0;
+            CompactBudget-=OtherDirectionReserve;
+            const bool Reverse=Direction==0;
+            const FSocket& Near=Reverse?Top:Lead;
+            const FSocket& Far=Reverse?Lead:Top;
+            const int32 Available=CompactBudget;
+            const int32 HalfQuota=FMath::Min(Available,1800);
+            CompactBudget=HalfQuota;
+            TArray<FCompactBeam> Halves;
+            const bool HalfReady=GrowCompactRooms(3,Near,Far,Route,Halves,false,{},Reverse?5:0,Reverse?-1:1,3);
+            CompactBudget=Available-(HalfQuota-FMath::Max(0,CompactBudget));
+            if(!HalfReady){CompactBudget+=OtherDirectionReserve;continue;}
+            for(auto& Half:Halves)
+            {
+                if(CompactBudget<=0||!CanSearch())break;
+                Pieces=Half.Layout;
+                const int32 BranchAvailable=CompactBudget;
+                const int32 TrialQuota=FMath::Min(BranchAvailable,2400);
+                CompactBudget=TrialQuota;
+                int32 ContinuationSpent=0,RetiredQuota=0;
+                auto Finish=[&]()
+                {
+                    if(!Complete)return true;
+                    const int32 Left=FMath::Max(0,CompactBudget),Spent=TrialQuota-Left-RetiredQuota;
+                    const int32 Quota=FMath::Min(BranchAvailable-Spent-ContinuationSpent,12000);
+                    if(Quota<=0){RetiredQuota+=Left;CompactBudget=0;return false;}
+                    CompactBudget=Quota;
+                    const bool Done=Complete();
+                    ContinuationSpent+=Quota-FMath::Max(0,CompactBudget);
+                    CompactBudget=FMath::Min(Left,FMath::Max(0,BranchAvailable-Spent-ContinuationSpent));
+                    RetiredQuota+=Left-CompactBudget;
+                    return Done;
+                };
+                const bool Connected=BridgeRooms(3,Far,Half.End,Route,Finish,Reverse?0:5,Reverse?1:-1);
+                CompactBudget=FMath::Max(0,BranchAvailable-(TrialQuota-FMath::Max(0,CompactBudget)-RetiredQuota)-ContinuationSpent);
+                if(Connected){CompactBudget+=OtherDirectionReserve;return true;}
+            }
+            CompactBudget+=OtherDirectionReserve;
+        }
+        Pieces=Base;return false;
+    }
     auto Ends=CompactEndRooms(Top,Lead,Route,Count-1);
     // Retain end-room alternatives. A failed middle chain must be able to
     // release the endpoint, not repeat the same greedy reservation six times.
@@ -430,6 +519,7 @@ bool AnchorCompactTerminal(const FSocket& Exit,TArray<FSocket>& Tops)
 bool BuildCompact(int32 Seed,const FSocket& Start,double Deadline)
 {
     int32 Prefixes=0,Terminals=0,MostBranches=0;
+    int32 DeepestSpine=0;FString BlockedSpineRoom;
     FString FinalReject;
     // Explore authored prefixes within the same bounded planning window.
     constexpr int32 CompactTries=64;
@@ -442,7 +532,15 @@ bool BuildCompact(int32 Seed,const FSocket& Start,double Deadline)
         bool LoggedFailure=false;
         Random.Initialize(int32(uint32(Seed)+uint32(Attempt)*7919u));SearchBudget=2500;CompactBudget=40000;
         bThemeBridgeSearch=bThemedRoutes&&Attempt>=2;
-        ConfigureThemeLevels(Attempt,Start.P.Z);
+        // Give every arrangement adjacent compact/general attempts at the same
+        // elevation. Six arrangements must not share the parity of the policy.
+        const int32 FacilityAttempt=FMath::Max(0,Attempt-2);
+        const int32 Arrangement=bPairedFacility&&Attempt>=2?(FacilityAttempt/2)%6:0;
+        if(!SelectFacilityArrangement(Arrangement))return false;
+        // Offset the profile by arrangement so every twelve-attempt block still
+        // includes all authored elevation profiles; rotate them on later blocks.
+        const int32 LevelAttempt=bPairedFacility&&Attempt>=2?2+2*((FacilityAttempt/12+Arrangement)%6):Attempt;
+        ConfigureThemeLevels(LevelAttempt,Start.P.Z);
         // Lanes and forward facing are search hints, not geometry contracts.
         // Retain the quick aligned attempt, then permit rigid folded layouts.
         bCompactLaneHint=Attempt==0;bForwardTerminalHint=Attempt<16;
@@ -484,7 +582,17 @@ bool BuildCompact(int32 Seed,const FSocket& Start,double Deadline)
         // plus greedy first/last reservations left 8-16 m for 1-2 entire rooms
         // in seed 231395984. Increasing retries cannot make that space fit.
         TArray<FCompactBeam> Spines;
-        if(!GrowCompactRooms(Counts[1],Leads[0],Leads[0],TEXT("Route1"),Spines,true))continue;
+        if(!GrowCompactRooms(Counts[1],Leads[0],Leads[0],TEXT("Route1"),Spines,true))
+        {
+            if(LastBridgeDepth>=DeepestSpine)
+            {
+                DeepestSpine=LastBridgeDepth;
+                const int32 Required=ThemeRequirement(TEXT("Route1"),DeepestSpine);
+                BlockedSpineRoom=Modules.IsValidIndex(Required)?Modules[Required].Id:TEXT("终点接口");
+            }
+            continue;
+        }
+        DeepestSpine=Counts[1];BlockedSpineRoom=TEXT("终点接口");
         for(auto& Spine:Spines)
         {
             if(CompactBudget<=0)break;
@@ -547,8 +655,9 @@ bool BuildCompact(int32 Seed,const FSocket& Start,double Deadline)
         }
         Pieces=Prefix;
     }
-    CompactFailure=FString::Printf(TEXT("%s；前段=%d，按中路出口定位终点=%d，最多连接支路=%d；%s保留原场景"),
+    CompactFailure=FString::Printf(TEXT("%s；前段=%d，中路房间=%d/%d，受阻=%s，按中路出口定位终点=%d，最多连接支路=%d；%s保留原场景"),
         MostBranches==3?TEXT("三条路线已接通，但未找到满足全部约束的完整布局"):
             bThemedRoutes?TEXT("主题路线连接未完成"):TEXT("地下终点短连接未完成"),
-        Prefixes,Terminals,MostBranches,FinalReject.IsEmpty()?TEXT(""):*(FinalReject+TEXT("；")));return false;
+        Prefixes,DeepestSpine,TopologyCounts[1],*BlockedSpineRoom,Terminals,MostBranches,
+        FinalReject.IsEmpty()?TEXT(""):*(FinalReject+TEXT("；")));return false;
 }

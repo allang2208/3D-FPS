@@ -1,0 +1,1666 @@
+[
+  {
+    "mesh": "SM_Power_SwitchgearGallery_Signs",
+    "center": [
+      0,
+      -7.81,
+      3.35
+    ],
+    "normal": [
+      0,
+      1,
+      0
+    ],
+    "width": 3.8,
+    "height": 0.9,
+    "key": "Switchgear",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_SwitchgearGallery_Signs_00_Switchgear",
+    "rect": [
+      20,
+      20,
+      1044,
+      262.5263157894737
+    ],
+    "text": [
+      {
+        "text": "01 配电检修廊",
+        "font_size_px": 88
+      },
+      {
+        "text": "配电设备 · 检修通道",
+        "font_size_px": 71
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_SwitchgearGallery_Signs",
+    "center": [
+      8.79,
+      0,
+      3.4
+    ],
+    "normal": [
+      -1,
+      0,
+      0
+    ],
+    "width": 2.2,
+    "height": 0.62,
+    "key": "Exit",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_SwitchgearGallery_Signs_01_Exit",
+    "rect": [
+      1076,
+      20,
+      2100,
+      308.58181818181816
+    ],
+    "text": [
+      {
+        "text": "继续前行",
+        "font_size_px": 105
+      },
+      {
+        "text": "设备区域 · 授权进入",
+        "font_size_px": 84
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_SwitchgearGallery_Signs",
+    "center": [
+      -8.79,
+      2.7,
+      2.1
+    ],
+    "normal": [
+      1,
+      0,
+      0
+    ],
+    "width": 1.45,
+    "height": 0.6,
+    "key": "Danger",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_SwitchgearGallery_Signs_02_Danger",
+    "rect": [
+      2132,
+      20,
+      3156,
+      443.7241379310345
+    ],
+    "text": [
+      {
+        "text": "高压危险",
+        "font_size_px": 155
+      },
+      {
+        "text": "检修前必须切断电源",
+        "font_size_px": 88
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_SwitchgearGallery_Signs",
+    "center": [
+      0,
+      10.8,
+      2.62
+    ],
+    "normal": [
+      0,
+      -1,
+      0
+    ],
+    "width": 2.2,
+    "height": 0.63,
+    "key": "Route",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_SwitchgearGallery_Signs_03_Route",
+    "rect": [
+      20,
+      476,
+      1044,
+      769.2363636363636
+    ],
+    "text": [
+      {
+        "text": "供能检修通道",
+        "font_size_px": 107
+      },
+      {
+        "text": "设备维护 · 保持畅通",
+        "font_size_px": 85
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_GeneratorHall_Signs",
+    "center": [
+      0,
+      -10.8,
+      4.35
+    ],
+    "normal": [
+      0,
+      1,
+      0
+    ],
+    "width": 4.4,
+    "height": 1.05,
+    "key": "Generators",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_GeneratorHall_Signs_04_Generators",
+    "rect": [
+      1076,
+      476,
+      2100,
+      720.3636363636364
+    ],
+    "text": [
+      {
+        "text": "02 双机发电厅",
+        "font_size_px": 89
+      },
+      {
+        "text": "主机组 · 检修平台",
+        "font_size_px": 71
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_GeneratorHall_Signs",
+    "center": [
+      -7,
+      -10.8,
+      2.4
+    ],
+    "normal": [
+      0,
+      1,
+      0
+    ],
+    "width": 1.8,
+    "height": 0.65,
+    "key": "Warning",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_GeneratorHall_Signs_05_Warning",
+    "rect": [
+      2132,
+      476,
+      3156,
+      845.7777777777778
+    ],
+    "text": [
+      {
+        "text": "旋转机械",
+        "font_size_px": 135
+      },
+      {
+        "text": "严禁拆除防护罩",
+        "font_size_px": 108
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_GeneratorHall_Signs",
+    "center": [
+      7,
+      -10.8,
+      2.4
+    ],
+    "normal": [
+      0,
+      1,
+      0
+    ],
+    "width": 1.8,
+    "height": 0.65,
+    "key": "Danger",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_GeneratorHall_Signs_06_Danger",
+    "rect": [
+      20,
+      878,
+      1044,
+      1247.7777777777778
+    ],
+    "text": [
+      {
+        "text": "高压危险",
+        "font_size_px": 135
+      },
+      {
+        "text": "检修前必须切断电源",
+        "font_size_px": 89
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_GeneratorHall_Signs",
+    "center": [
+      0,
+      7.52,
+      3.22
+    ],
+    "normal": [
+      0,
+      -1,
+      0
+    ],
+    "width": 3.0,
+    "height": 0.68,
+    "key": "Gallery",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_GeneratorHall_Signs_07_Gallery",
+    "rect": [
+      1076,
+      878,
+      2100,
+      1110.1066666666666
+    ],
+    "text": [
+      {
+        "text": "检修平台",
+        "font_size_px": 85
+      },
+      {
+        "text": "保持通道畅通",
+        "font_size_px": 68
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_GeneratorHall_Signs",
+    "center": [
+      12.8,
+      0,
+      3.45
+    ],
+    "normal": [
+      -1,
+      0,
+      0
+    ],
+    "width": 2.2,
+    "height": 0.62,
+    "key": "Exit",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_GeneratorHall_Signs_08_Exit",
+    "rect": [
+      1076,
+      20,
+      2100,
+      308.58181818181816
+    ],
+    "text": [
+      {
+        "text": "继续前行",
+        "font_size_px": 105
+      },
+      {
+        "text": "设备区域 · 授权进入",
+        "font_size_px": 84
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_AccumulatorControl_Signs",
+    "center": [
+      17.64788055419922,
+      11.027620315551758,
+      2.56
+    ],
+    "normal": [
+      -0.8480480909347534,
+      -0.5299192667007446,
+      0
+    ],
+    "width": 1.3,
+    "height": 0.3,
+    "key": "MainBus",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_AccumulatorControl_Signs_09_MainBus",
+    "rect": [
+      2132,
+      878,
+      3156,
+      1114.3076923076924
+    ],
+    "text": [
+      {
+        "text": "主母线",
+        "font_size_px": 87
+      },
+      {
+        "text": "带电区域 · 严禁触碰",
+        "font_size_px": 69
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_AccumulatorControl_Signs",
+    "center": [
+      -17.64788055419922,
+      11.027620315551758,
+      2.56
+    ],
+    "normal": [
+      0.8480480909347534,
+      -0.5299192667007446,
+      0
+    ],
+    "width": 1.3,
+    "height": 0.3,
+    "key": "Cooling",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_AccumulatorControl_Signs_10_Cooling",
+    "rect": [
+      20,
+      1280,
+      1044,
+      1516.3076923076924
+    ],
+    "text": [
+      {
+        "text": "冷却循环",
+        "font_size_px": 87
+      },
+      {
+        "text": "供水 · 回水 · 保持畅通",
+        "font_size_px": 69
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_AccumulatorControl_Signs",
+    "center": [
+      -18.860265731811523,
+      -8.794686317443848,
+      2.56
+    ],
+    "normal": [
+      0.9063078165054321,
+      0.4226182699203491,
+      0
+    ],
+    "width": 1.3,
+    "height": 0.3,
+    "key": "MainBus",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_AccumulatorControl_Signs_11_MainBus",
+    "rect": [
+      2132,
+      878,
+      3156,
+      1114.3076923076924
+    ],
+    "text": [
+      {
+        "text": "主母线",
+        "font_size_px": 87
+      },
+      {
+        "text": "带电区域 · 严禁触碰",
+        "font_size_px": 69
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_AccumulatorControl_Signs",
+    "center": [
+      18.860265731811523,
+      -8.794686317443848,
+      2.56
+    ],
+    "normal": [
+      -0.9063078165054321,
+      0.4226182699203491,
+      0
+    ],
+    "width": 1.3,
+    "height": 0.3,
+    "key": "Cooling",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_AccumulatorControl_Signs_12_Cooling",
+    "rect": [
+      20,
+      1280,
+      1044,
+      1516.3076923076924
+    ],
+    "text": [
+      {
+        "text": "冷却循环",
+        "font_size_px": 87
+      },
+      {
+        "text": "供水 · 回水 · 保持畅通",
+        "font_size_px": 69
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_AccumulatorControl_Signs",
+    "center": [
+      0,
+      16.085,
+      3.04
+    ],
+    "normal": [
+      0,
+      -1,
+      0
+    ],
+    "width": 3.8,
+    "height": 0.62,
+    "key": "ControlRoom",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_AccumulatorControl_Signs_13_ControlRoom",
+    "rect": [
+      1076,
+      1280,
+      2100,
+      1447.0736842105264
+    ],
+    "text": [
+      {
+        "text": "主控制室",
+        "font_size_px": 61
+      },
+      {
+        "text": "配电监测 · 机组调控",
+        "font_size_px": 49
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_AccumulatorControl_Signs",
+    "center": [
+      -5.9,
+      16.475,
+      2.8
+    ],
+    "normal": [
+      0,
+      1,
+      0
+    ],
+    "width": 1.35,
+    "height": 0.3,
+    "key": "Exit",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_AccumulatorControl_Signs_14_Exit",
+    "rect": [
+      2132,
+      1280,
+      3156,
+      1507.5555555555557
+    ],
+    "text": [
+      {
+        "text": "继续前行",
+        "font_size_px": 83
+      },
+      {
+        "text": "设备区域 · 授权进入",
+        "font_size_px": 66
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_AccumulatorControl_Signs",
+    "center": [
+      5.9,
+      16.475,
+      2.8
+    ],
+    "normal": [
+      0,
+      1,
+      0
+    ],
+    "width": 1.35,
+    "height": 0.3,
+    "key": "Exit",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_AccumulatorControl_Signs_15_Exit",
+    "rect": [
+      2132,
+      1280,
+      3156,
+      1507.5555555555557
+    ],
+    "text": [
+      {
+        "text": "继续前行",
+        "font_size_px": 83
+      },
+      {
+        "text": "设备区域 · 授权进入",
+        "font_size_px": 66
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_AccumulatorControl_Signs",
+    "center": [
+      0,
+      -21.9,
+      4.9
+    ],
+    "normal": [
+      0,
+      1,
+      0
+    ],
+    "width": 5.5,
+    "height": 1.12,
+    "key": "Accumulator",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_AccumulatorControl_Signs_16_Accumulator",
+    "rect": [
+      20,
+      1549,
+      1044,
+      1757.5236363636363
+    ],
+    "text": [
+      {
+        "text": "03 蓄能调控厅",
+        "font_size_px": 76
+      },
+      {
+        "text": "储能核心 · 主控制室",
+        "font_size_px": 61
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_AccumulatorControl_Signs",
+    "center": [
+      -21.7642513415698,
+      3.8376247264391594,
+      2.15
+    ],
+    "normal": [
+      0.984807753012208,
+      -0.17364817766693028,
+      0
+    ],
+    "width": 1.8,
+    "height": 0.65,
+    "key": "Danger",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_AccumulatorControl_Signs_17_Danger",
+    "rect": [
+      20,
+      878,
+      1044,
+      1247.7777777777778
+    ],
+    "text": [
+      {
+        "text": "高压危险",
+        "font_size_px": 135
+      },
+      {
+        "text": "检修前必须切断电源",
+        "font_size_px": 89
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_AccumulatorControl_Signs",
+    "center": [
+      22.196841208425134,
+      0,
+      3.45
+    ],
+    "normal": [
+      -1,
+      0,
+      0
+    ],
+    "width": 2.2,
+    "height": 0.62,
+    "key": "Exit",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_AccumulatorControl_Signs_18_Exit",
+    "rect": [
+      1076,
+      20,
+      2100,
+      308.58181818181816
+    ],
+    "text": [
+      {
+        "text": "继续前行",
+        "font_size_px": 105
+      },
+      {
+        "text": "设备区域 · 授权进入",
+        "font_size_px": 84
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_Accumulator",
+    "center": [
+      2.7782225608825684,
+      2.1701107025146484,
+      4.619999885559082
+    ],
+    "normal": [
+      0.7071067690849304,
+      0.7071067690849304,
+      0.0
+    ],
+    "width": 0.63,
+    "height": 0.165,
+    "key": "Cooling",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_Accumulator_19_Cooling",
+    "rect": [
+      1076,
+      1549,
+      1716,
+      1716.6190476190477
+    ],
+    "text": [
+      {
+        "text": "冷却循环",
+        "font_size_px": 61
+      },
+      {
+        "text": "供水 · 回水 · 保持畅通",
+        "font_size_px": 49
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_Accumulator",
+    "center": [
+      -2.1701107025146484,
+      2.7782225608825684,
+      4.619999885559082
+    ],
+    "normal": [
+      -0.7071067690849304,
+      0.7071067690849304,
+      0.0
+    ],
+    "width": 0.63,
+    "height": 0.165,
+    "key": "Cooling",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_Accumulator_20_Cooling",
+    "rect": [
+      1076,
+      1549,
+      1716,
+      1716.6190476190477
+    ],
+    "text": [
+      {
+        "text": "冷却循环",
+        "font_size_px": 61
+      },
+      {
+        "text": "供水 · 回水 · 保持畅通",
+        "font_size_px": 49
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_Accumulator",
+    "center": [
+      -2.7782225608825684,
+      -2.1701107025146484,
+      4.619999885559082
+    ],
+    "normal": [
+      -0.7071067690849304,
+      -0.7071067690849304,
+      0.0
+    ],
+    "width": 0.63,
+    "height": 0.165,
+    "key": "Cooling",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_Accumulator_21_Cooling",
+    "rect": [
+      1076,
+      1549,
+      1716,
+      1716.6190476190477
+    ],
+    "text": [
+      {
+        "text": "冷却循环",
+        "font_size_px": 61
+      },
+      {
+        "text": "供水 · 回水 · 保持畅通",
+        "font_size_px": 49
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_Accumulator",
+    "center": [
+      2.1701107025146484,
+      -2.7782225608825684,
+      4.619999885559082
+    ],
+    "normal": [
+      0.7071067690849304,
+      -0.7071067690849304,
+      0.0
+    ],
+    "width": 0.63,
+    "height": 0.165,
+    "key": "Cooling",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_Accumulator_22_Cooling",
+    "rect": [
+      1076,
+      1549,
+      1716,
+      1716.6190476190477
+    ],
+    "text": [
+      {
+        "text": "冷却循环",
+        "font_size_px": 61
+      },
+      {
+        "text": "供水 · 回水 · 保持畅通",
+        "font_size_px": 49
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_Accumulator",
+    "center": [
+      1.8620754089920832e-16,
+      -3.0409998893737793,
+      4.139999866485596
+    ],
+    "normal": [
+      6.123234262925839e-17,
+      -1.0,
+      0.0
+    ],
+    "width": 0.93,
+    "height": 0.24,
+    "key": "Core",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_Accumulator_23_Core",
+    "rect": [
+      1748,
+      1549,
+      2388,
+      1714.1612903225807
+    ],
+    "text": [
+      {
+        "text": "飞轮蓄能机组",
+        "font_size_px": 60
+      },
+      {
+        "text": "转子密封 · 内有储能",
+        "font_size_px": 48
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_Accumulator",
+    "center": [
+      1.863912411696441e-16,
+      -3.0439999103546143,
+      3.609999895095825
+    ],
+    "normal": [
+      6.123234262925839e-17,
+      -1.0,
+      0.0
+    ],
+    "width": 0.43,
+    "height": 0.29,
+    "key": "Danger",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_Accumulator_24_Danger",
+    "rect": [
+      2420,
+      1549,
+      3060,
+      1980.6279069767443
+    ],
+    "text": [
+      {
+        "text": "高压危险",
+        "font_size_px": 118
+      },
+      {
+        "text": "检修前必须切断电源",
+        "font_size_px": 52
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_Accumulator",
+    "center": [
+      2.0096454890627274e-16,
+      3.2820000648498535,
+      2.690000057220459
+    ],
+    "normal": [
+      6.123234262925839e-17,
+      1.0,
+      0.0
+    ],
+    "width": 0.86,
+    "height": 0.2,
+    "key": "MainBus",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_Accumulator_25_MainBus",
+    "rect": [
+      3092,
+      1549,
+      3732,
+      1697.8372093023256
+    ],
+    "text": [
+      {
+        "text": "主母线",
+        "font_size_px": 55
+      },
+      {
+        "text": "带电区域 · 严禁触碰",
+        "font_size_px": 44
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_Accumulator",
+    "center": [
+      0,
+      -2.125,
+      5.98
+    ],
+    "normal": [
+      0,
+      -1,
+      0
+    ],
+    "width": 0.94,
+    "height": 0.17,
+    "key": "MainBus",
+    "family": "power",
+    "old_depth": 0.0181,
+    "old_margin": 1e-05,
+    "old_front": 2e-05,
+    "depth": 0.018,
+    "id": "SM_Power_Accumulator_26_MainBus",
+    "rect": [
+      20,
+      2013,
+      660,
+      2128.744680851064
+    ],
+    "text": [
+      {
+        "text": "主母线",
+        "font_size_px": 42
+      },
+      {
+        "text": "带电区域 · 严禁触碰",
+        "font_size_px": 33
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_ControlConsole_Refined",
+    "center": [
+      0,
+      -0.445,
+      0.537
+    ],
+    "normal": [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    "width": 0.491,
+    "height": 0.078,
+    "key": "console_service",
+    "family": "power",
+    "old_depth": 0.0052,
+    "old_margin": 0.0036,
+    "old_front": 2e-05,
+    "depth": 0.005,
+    "id": "SM_Power_ControlConsole_Refined_27_console_service",
+    "rect": [
+      692,
+      2013,
+      1332,
+      2114.6700610997964
+    ],
+    "text": [
+      {
+        "text": "检修前切断电源",
+        "font_size_px": 65
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_ControlConsole_Refined",
+    "center": [
+      -0.9850000143051147,
+      -0.17866262793540955,
+      1.0943918228149414
+    ],
+    "normal": [
+      0.0,
+      -0.18223552405834198,
+      0.9832549095153809
+    ],
+    "width": 0.468,
+    "height": 0.056,
+    "key": "console_id",
+    "family": "power",
+    "old_depth": 0.0052,
+    "old_margin": 0.0036,
+    "old_front": 2e-05,
+    "depth": 0.005,
+    "id": "SM_Power_ControlConsole_Refined_28_console_id",
+    "rect": [
+      1364,
+      2013,
+      2004,
+      2089.5811965811968
+    ],
+    "text": [
+      {
+        "text": "控制柜 02",
+        "font_size_px": 46
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_ControlConsole_Refined",
+    "center": [
+      -1.1119999885559082,
+      0.06848998367786407,
+      1.7974101305007935
+    ],
+    "normal": [
+      0.0,
+      -0.9510565400123596,
+      0.30901700258255005
+    ],
+    "width": 0.309,
+    "height": 0.05,
+    "key": "console_meter_v",
+    "family": "power",
+    "old_depth": 0.0052,
+    "old_margin": 0.0036,
+    "old_front": 2e-05,
+    "depth": 0.005,
+    "id": "SM_Power_ControlConsole_Refined_29_console_meter_v",
+    "rect": [
+      2036,
+      2013,
+      2676,
+      2116.559870550162
+    ],
+    "text": [
+      {
+        "text": "母线电压",
+        "font_size_px": 67
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_ControlConsole_Refined",
+    "center": [
+      -0.734000027179718,
+      0.06848998367786407,
+      1.7974101305007935
+    ],
+    "normal": [
+      0.0,
+      -0.9510565400123596,
+      0.30901700258255005
+    ],
+    "width": 0.309,
+    "height": 0.05,
+    "key": "console_meter_a",
+    "family": "power",
+    "old_depth": 0.0052,
+    "old_margin": 0.0036,
+    "old_front": 2e-05,
+    "depth": 0.005,
+    "id": "SM_Power_ControlConsole_Refined_30_console_meter_a",
+    "rect": [
+      2708,
+      2013,
+      3348,
+      2116.559870550162
+    ],
+    "text": [
+      {
+        "text": "充放电流",
+        "font_size_px": 67
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_ControlConsole_Refined",
+    "center": [
+      -0.921999990940094,
+      -0.1314440220594406,
+      1.1820764541625977
+    ],
+    "normal": [
+      0.0,
+      -0.9510565400123596,
+      0.30901700258255005
+    ],
+    "width": 0.66,
+    "height": 0.061,
+    "key": "console_select",
+    "family": "power",
+    "old_depth": 0.0052,
+    "old_margin": 0.0036,
+    "old_front": 2e-05,
+    "depth": 0.005,
+    "id": "SM_Power_ControlConsole_Refined_31_console_select",
+    "rect": [
+      3380,
+      2013,
+      4020,
+      2072.151515151515
+    ],
+    "text": [
+      {
+        "text": "就地／远程",
+        "font_size_px": 32
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_ControlConsole_Refined",
+    "center": [
+      0.0,
+      0.0724351778626442,
+      1.8192602396011353
+    ],
+    "normal": [
+      0.0,
+      -0.9510565400123596,
+      0.30901700258255005
+    ],
+    "width": 0.839,
+    "height": 0.054,
+    "key": "console_title",
+    "family": "power",
+    "old_depth": 0.0052,
+    "old_margin": 0.0036,
+    "old_front": 2e-05,
+    "depth": 0.005,
+    "id": "SM_Power_ControlConsole_Refined_32_console_title",
+    "rect": [
+      20,
+      2161,
+      660,
+      2202.19189511323
+    ],
+    "text": [
+      {
+        "text": "机组控制台",
+        "font_size_px": 18
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_ControlConsole_Refined",
+    "center": [
+      0.9160000085830688,
+      0.07371926307678223,
+      1.8167401552200317
+    ],
+    "normal": [
+      0.0,
+      -0.9510565400123596,
+      0.30901700258255005
+    ],
+    "width": 0.699,
+    "height": 0.051,
+    "key": "console_status",
+    "family": "power",
+    "old_depth": 0.0052,
+    "old_margin": 0.0036,
+    "old_front": 2e-05,
+    "depth": 0.005,
+    "id": "SM_Power_ControlConsole_Refined_33_console_status",
+    "rect": [
+      692,
+      2161,
+      1332,
+      2207.695278969957
+    ],
+    "text": [
+      {
+        "text": "机组状态",
+        "font_size_px": 22
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Power_ControlConsole_Refined",
+    "center": [
+      0.8109999895095825,
+      -0.125335693359375,
+      1.210584044456482
+    ],
+    "normal": [
+      0.0,
+      -0.9510565400123596,
+      0.30901700258255005
+    ],
+    "width": 0.44,
+    "height": 0.063,
+    "key": "console_emergency",
+    "family": "power",
+    "old_depth": 0.0052,
+    "old_margin": 0.0036,
+    "old_front": 2e-05,
+    "depth": 0.005,
+    "id": "SM_Power_ControlConsole_Refined_34_console_emergency",
+    "rect": [
+      1364,
+      2161,
+      2004,
+      2252.6363636363635
+    ],
+    "text": [
+      {
+        "text": "紧急停机",
+        "font_size_px": 57
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Facility_PowerCabinet",
+    "center": [
+      -0.4,
+      -0.302,
+      1.716
+    ],
+    "normal": [
+      0,
+      -1,
+      0
+    ],
+    "width": 0.32,
+    "height": 0.083,
+    "key": "cabinet_left",
+    "family": "cabinet",
+    "old_depth": 0.0016,
+    "old_front": 0.0005,
+    "old_margin": 1e-05,
+    "depth": 0.0025,
+    "id": "SM_Facility_PowerCabinet_35_cabinet_left",
+    "rect": [
+      2036,
+      2161,
+      2676,
+      2327.0
+    ],
+    "text": [
+      {
+        "text": "供能站 · 配电系统",
+        "font_size_px": 42
+      },
+      {
+        "text": "机组控制",
+        "font_size_px": 33
+      },
+      {
+        "text": "01号配电柜 · 一区",
+        "font_size_px": 33
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Facility_PowerCabinet",
+    "center": [
+      -0.4,
+      -0.302,
+      1.205
+    ],
+    "normal": [
+      0,
+      -1,
+      0
+    ],
+    "width": 0.335,
+    "height": 0.054,
+    "key": "buttons",
+    "family": "cabinet",
+    "old_depth": 0.0016,
+    "old_front": 0.0005,
+    "old_margin": 1e-05,
+    "depth": 0.0025,
+    "id": "SM_Facility_PowerCabinet_36_buttons",
+    "rect": [
+      2708,
+      2161,
+      3348,
+      2264.1641791044776
+    ],
+    "text": [
+      {
+        "text": "启动",
+        "font_size_px": 37
+      },
+      {
+        "text": "停止",
+        "font_size_px": 29
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Facility_PowerCabinet",
+    "center": [
+      -0.4,
+      -0.302,
+      0.811
+    ],
+    "normal": [
+      0,
+      -1,
+      0
+    ],
+    "width": 0.273,
+    "height": 0.113,
+    "key": "rating",
+    "family": "cabinet",
+    "old_depth": 0.0016,
+    "old_front": 0.0005,
+    "old_margin": 1e-05,
+    "depth": 0.0025,
+    "id": "SM_Facility_PowerCabinet_37_rating",
+    "rect": [
+      3380,
+      2161,
+      4020,
+      2425.908424908425
+    ],
+    "text": [
+      {
+        "text": "供能站 · 配电设备",
+        "font_size_px": 51
+      },
+      {
+        "text": "07号柜 · 三相交流",
+        "font_size_px": 40
+      },
+      {
+        "text": "380伏 · 50赫兹 · 60安",
+        "font_size_px": 40
+      },
+      {
+        "text": "编号04-2781 · 防护等级54",
+        "font_size_px": 40
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Facility_PowerCabinet",
+    "center": [
+      0.4,
+      -0.302,
+      1.716
+    ],
+    "normal": [
+      0,
+      -1,
+      0
+    ],
+    "width": 0.32,
+    "height": 0.083,
+    "key": "cabinet_right",
+    "family": "cabinet",
+    "old_depth": 0.0016,
+    "old_front": 0.0005,
+    "old_margin": 1e-05,
+    "depth": 0.0025,
+    "id": "SM_Facility_PowerCabinet_38_cabinet_right",
+    "rect": [
+      20,
+      2458,
+      660,
+      2624.0
+    ],
+    "text": [
+      {
+        "text": "供能站 · 配电系统",
+        "font_size_px": 42
+      },
+      {
+        "text": "辅助供电",
+        "font_size_px": 33
+      },
+      {
+        "text": "02号配电柜 · 二区",
+        "font_size_px": 33
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Facility_PowerCabinet",
+    "center": [
+      0.4,
+      -0.302,
+      1.205
+    ],
+    "normal": [
+      0,
+      -1,
+      0
+    ],
+    "width": 0.335,
+    "height": 0.054,
+    "key": "buttons",
+    "family": "cabinet",
+    "old_depth": 0.0016,
+    "old_front": 0.0005,
+    "old_margin": 1e-05,
+    "depth": 0.0025,
+    "id": "SM_Facility_PowerCabinet_39_buttons",
+    "rect": [
+      2708,
+      2161,
+      3348,
+      2264.1641791044776
+    ],
+    "text": [
+      {
+        "text": "启动",
+        "font_size_px": 37
+      },
+      {
+        "text": "停止",
+        "font_size_px": 29
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Facility_PowerCabinet",
+    "center": [
+      0.4,
+      -0.302,
+      0.811
+    ],
+    "normal": [
+      0,
+      -1,
+      0
+    ],
+    "width": 0.273,
+    "height": 0.113,
+    "key": "warning",
+    "family": "cabinet",
+    "old_depth": 0.0016,
+    "old_front": 0.0005,
+    "old_margin": 1e-05,
+    "depth": 0.0025,
+    "id": "SM_Facility_PowerCabinet_40_warning",
+    "rect": [
+      692,
+      2458,
+      1332,
+      2722.908424908425
+    ],
+    "text": [
+      {
+        "text": "高压危险 · 380伏",
+        "font_size_px": 66
+      },
+      {
+        "text": "检修前切断电源",
+        "font_size_px": 53
+      },
+      {
+        "text": "仅限授权人员",
+        "font_size_px": 53
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Facility_PowerCabinet",
+    "center": [
+      0.7925,
+      -0.003,
+      1.27
+    ],
+    "normal": [
+      1,
+      0,
+      0
+    ],
+    "width": 0.23,
+    "height": 0.079,
+    "key": "service",
+    "family": "cabinet",
+    "old_depth": 0.0016,
+    "old_front": 0.0005,
+    "old_margin": 1e-05,
+    "depth": 0.0025,
+    "id": "SM_Facility_PowerCabinet_41_service",
+    "rect": [
+      1364,
+      2458,
+      2004,
+      2677.826086956522
+    ],
+    "text": [
+      {
+        "text": "检修记录 · 07号柜",
+        "font_size_px": 55
+      },
+      {
+        "text": "上次检查：14／09",
+        "font_size_px": 44
+      },
+      {
+        "text": "已断电 · 禁止合闸",
+        "font_size_px": 44
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Archive_ServerRack_V1",
+    "center": [
+      0.139,
+      -0.5517,
+      1.875
+    ],
+    "normal": [
+      0,
+      -1,
+      0
+    ],
+    "width": 0.2,
+    "height": 0.022,
+    "key": "server_plate",
+    "family": "server",
+    "old_depth": 0.0065,
+    "old_front": 0.0005,
+    "old_margin": 0.0046,
+    "depth": 0.005,
+    "id": "SM_Archive_ServerRack_V1_42_server_plate",
+    "rect": [
+      2036,
+      2458,
+      2676,
+      2528.4
+    ],
+    "text": [
+      {
+        "text": "数据系统 · 04号机柜",
+        "font_size_px": 22
+      },
+      {
+        "text": "检修前切断主电源",
+        "font_size_px": 18
+      }
+    ]
+  },
+  {
+    "mesh": "SM_Archive_ServerRack_V1",
+    "center": [
+      0,
+      -0.5467,
+      2.078
+    ],
+    "normal": [
+      0,
+      -1,
+      0
+    ],
+    "width": 0.14,
+    "height": 0.044,
+    "key": "server_plate",
+    "family": "server",
+    "old_depth": 0.0065,
+    "old_front": 0.0005,
+    "old_margin": 0.0046,
+    "depth": 0.005,
+    "id": "SM_Archive_ServerRack_V1_43_server_plate",
+    "rect": [
+      2708,
+      2458,
+      3348,
+      2659.142857142857
+    ],
+    "text": [
+      {
+        "text": "数据系统 · 04号机柜",
+        "font_size_px": 63
+      },
+      {
+        "text": "检修前切断主电源",
+        "font_size_px": 58
+      }
+    ]
+  }
+]

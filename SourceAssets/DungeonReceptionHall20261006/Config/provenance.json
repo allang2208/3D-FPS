@@ -1,0 +1,14 @@
+{
+  "new_geometry": "Original dimensioned reception hall architecture and furniture, produced locally",
+  "new_artwork": "Original Chinese typography atlas and seeded terrazzo PBR",
+  "reuse": "Existing approved project assets and materials remain unchanged",
+  "source_modules": [
+    "DungeonStaffLiving20261002",
+    "StationWorkshop20261003",
+    "IncineratorContainers20261003",
+    "DungeonEcology20261004"
+  ],
+  "imported_foliage": "Existing PN_tropicalGroundPlants project assets; no new external download",
+  "geometry_library": "Private snapshot of PowerTheme precision primitives",
+  "tests_run": false
+}

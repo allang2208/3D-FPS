@@ -1,0 +1,112 @@
+{
+  "original": [
+    "Architecture, horticulture equipment, pipes, root paths and labels by this author",
+    "Seed and records inserts derived from project-original treatment cabinet"
+  ],
+  "reused": [
+    {
+      "source": "PN_tropicalGroundPlants",
+      "use": "Existing installed meshes and their materials; retained locally"
+    },
+    {
+      "source": "UnrealNormandy",
+      "use": "Installed scanned bark textures"
+    },
+    {
+      "source": "Existing FPSGAME dungeon assets",
+      "use": "Concrete, industrial metal, ceramic surface authors and interactive containers"
+    },
+    {
+      "source": "StaffLiving20261002",
+      "use": "Reuse project-authored desks and chairs with their installed materials"
+    },
+    {
+      "source": "HospitalDoctorOffice20261003",
+      "use": "Reuse project-authored document, clipboard and pen desktop assembly"
+    }
+  ],
+  "distribution": "Third-party binaries remain local; no new download or license acquisition.",
+  "revision": "ecology_subject_v7_20261005",
+  "original_v3": [
+    "Sealed office glazing and wall/roof joints",
+    "Hollow specimen jars, caps, contents and labels",
+    "Perforated grow rafts, net baskets, pipe rerouting and dry-apron stairs"
+  ],
+  "original_v4": [
+    "column-free container bays and pot/root anchor placement",
+    "coarse-pipe convex collision matching bends and flanges",
+    "expanded soil bed, texture-matched relief and indoor ceiling/services revision"
+  ],
+  "reused_v4": [
+    {
+      "source": "Rural Australia by Andrew Svanberg Hamilton",
+      "url": "https://www.fab.com/listings/1c1467ce-a2f5-4be1-8988-9069f90a8571",
+      "asset": "/Game/RuralAustralia/StaticMeshes/Vegetation/Tree_M_03/SM_Tree_M_03",
+      "use": "Existing installed tree, original textures and LODs; ecology-only indoor material instances"
+    },
+    {
+      "source": "DungeonWorkshopSurface20260921",
+      "asset": "SOURCE_UtilityDetail in DungeonWorkshopSurfaceDetails.blend",
+      "use": "Extract existing detailed double wall socket, preserving materials; remove old floating primitive assembly"
+    },
+    {
+      "source": "UnrealNormandy",
+      "asset": "T_LC_GroundSoilExcavated_00A",
+      "use": "Existing albedo, normal, packed RHAOM and real height texture for pot and ground soil"
+    }
+  ],
+  "original_v5": [
+    "Fitted whole-pane and fracture geometry for nursery and monitoring windows",
+    "Basin-floor supports, separated vault pipes, framed monitoring room facade",
+    "Clipped undulating garden soil with pedestrian paths, edging and planting layout"
+  ],
+  "reused_v5": [
+    {
+      "source": "DungeonIsolationWard20260929",
+      "use": "Existing clipped-pane fracture authoring and WardBreakableGlass runtime, fragment material and glass impact effects"
+    },
+    {
+      "source": "StationWorkshop20261003/RefineV2",
+      "use": "Existing glass surface and personnel door mesh, native ColdSteelDoor interaction"
+    },
+    {
+      "source": "UnrealNormandy",
+      "use": "Existing excavated-soil PBR maps; correct Masks sampler for height texture"
+    },
+    {
+      "source": "RuralAustralia and PN_tropicalGroundPlants",
+      "use": "Existing tree and plant meshes; uniform root-aligned scaling and indoor tree material instances"
+    }
+  ],
+  "original_v6": [
+    "Full-depth masonry window reveal and fitted simple collision",
+    "Northwest bed removal and denser bounded garden planting"
+  ],
+  "reused_v6": [
+    {
+      "asset": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics",
+      "use": "Extract complete monitor, keyboard and mouse pieces with original UVs and materials; no remodeling"
+    },
+    {
+      "asset": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair",
+      "use": "Monitoring desk chair"
+    },
+    {
+      "assets": [
+        "/Game/RuralAustralia/StaticMeshes/Vegetation/Tree_L_01/SM_Tree_L_01",
+        "/Game/RuralAustralia/StaticMeshes/Vegetation/Tree_M_01/SM_Tree_M_01",
+        "/Game/RuralAustralia/StaticMeshes/Vegetation/Tree_M_02/SM_Tree_M_02",
+        "/Game/RuralAustralia/StaticMeshes/Vegetation/Tree_M_03/SM_Tree_M_03",
+        "/Game/RuralAustralia/StaticMeshes/Vegetation/Tree_M_04/SM_Tree_M_04"
+      ],
+      "use": "Existing RuralAustralia tree forms with original LODs and textures, indoor material instances"
+    }
+  ],
+  "original_v7": [
+    "Continuous window reveal and flange topology",
+    "Wall-based office furniture layout"
+  ],
+  "retained_v7": [
+    "All original furniture meshes, desktop equipment, interactive cabinet IDs, plants, trees, lighting and materials"
+  ]
+}

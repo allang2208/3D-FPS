@@ -1,0 +1,101 @@
+[
+  {
+    "action": "backup",
+    "source": "Source/FPSGAME/Dungeons/DungeonRoomEncounter.cpp",
+    "sha256": "A9AA29E4F0F4B7B73258BD402294775089E2800EFC167A0D1E51423EFDE2C12B",
+    "destination": "trash/dungeon-emergence-withdrawn-20261009/Source/FPSGAME/Dungeons/DungeonRoomEncounter.cpp",
+    "size_bytes": 17676,
+    "reason": "用户撤回怪物出入口运行扩展；backup 为修改前备份，retired 为退役原文件。",
+    "replacement": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/recipe.py"
+  },
+  {
+    "action": "backup",
+    "source": "Source/FPSGAME/Dungeons/DungeonRoomEncounter.h",
+    "sha256": "71F35C64F7B50E6C200E3F552D8008FEF4B1506EF6D20AAF3110112E56DB599D",
+    "destination": "trash/dungeon-emergence-withdrawn-20261009/Source/FPSGAME/Dungeons/DungeonRoomEncounter.h",
+    "size_bytes": 4050,
+    "reason": "用户撤回怪物出入口运行扩展；backup 为修改前备份，retired 为退役原文件。",
+    "replacement": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/recipe.py"
+  },
+  {
+    "action": "backup",
+    "source": "Source/FPSGAME/Dungeons/WardRoomAssembly.cpp",
+    "sha256": "A4D6645AFF8F232598881CE90C3397A48CD28A25E1841B8C392D4875FAD7AAEA",
+    "destination": "trash/dungeon-emergence-withdrawn-20261009/Source/FPSGAME/Dungeons/WardRoomAssembly.cpp",
+    "size_bytes": 14210,
+    "reason": "用户撤回怪物出入口运行扩展；backup 为修改前备份，retired 为退役原文件。",
+    "replacement": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/recipe.py"
+  },
+  {
+    "action": "backup",
+    "source": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/recipe.py",
+    "sha256": "80F681A4825DF135AAF2A0357540FEE098641DCE6A116A30598EA93A283FF11A",
+    "destination": "trash/dungeon-emergence-withdrawn-20261009/SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/recipe.py",
+    "size_bytes": 3494,
+    "reason": "用户撤回怪物出入口运行扩展；backup 为修改前备份，retired 为退役原文件。",
+    "replacement": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/recipe.py"
+  },
+  {
+    "action": "backup",
+    "source": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/install.py",
+    "sha256": "2EC74348782E9416500745FC0DECEEFD8941BDD9F3884F76AE9364E413ED782D",
+    "destination": "trash/dungeon-emergence-withdrawn-20261009/SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/install.py",
+    "size_bytes": 9219,
+    "reason": "用户撤回怪物出入口运行扩展；backup 为修改前备份，retired 为退役原文件。",
+    "replacement": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/recipe.py"
+  },
+  {
+    "action": "backup",
+    "source": "Docs/Gameplay/dungeon-spawn-entries-20261009.md",
+    "sha256": "38396FB57F29E939E85B80570864EF0214B7302E5AAF220FEDA4CDE0DA317C17",
+    "destination": "trash/dungeon-emergence-withdrawn-20261009/Docs/Gameplay/dungeon-spawn-entries-20261009.md",
+    "size_bytes": 4768,
+    "reason": "用户撤回怪物出入口运行扩展；backup 为修改前备份，retired 为退役原文件。",
+    "replacement": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/recipe.py"
+  },
+  {
+    "action": "retired",
+    "source": "Source/FPSGAME/Dungeons/DungeonSpawnEntry.h",
+    "sha256": "9E5945AA331841A4495C437E9D37573EB2C74D1C7FE5041BC875CB46959D4809",
+    "destination": "trash/dungeon-emergence-withdrawn-20261009/Source/FPSGAME/Dungeons/DungeonSpawnEntry.h",
+    "size_bytes": 2309,
+    "reason": "用户撤回怪物出入口运行扩展；backup 为修改前备份，retired 为退役原文件。",
+    "replacement": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/recipe.py"
+  },
+  {
+    "action": "retired",
+    "source": "Source/FPSGAME/Dungeons/DungeonSpawnEntry.cpp",
+    "sha256": "C447C250A284D70FEB9A38C0A6D6DE72B3FE4BD45C06DC8B2D335A5D0A3064A5",
+    "destination": "trash/dungeon-emergence-withdrawn-20261009/Source/FPSGAME/Dungeons/DungeonSpawnEntry.cpp",
+    "size_bytes": 13782,
+    "reason": "用户撤回怪物出入口运行扩展；backup 为修改前备份，retired 为退役原文件。",
+    "replacement": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/recipe.py"
+  },
+  {
+    "action": "retired",
+    "source": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/read_monsters.py",
+    "sha256": "CDA403629DC37EB1C0583810F9EE19042EA39C67E5D16C7C9AEA47748D11C800",
+    "destination": "trash/dungeon-emergence-withdrawn-20261009/SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/read_monsters.py",
+    "size_bytes": 1167,
+    "reason": "用户撤回怪物出入口运行扩展；backup 为修改前备份，retired 为退役原文件。",
+    "replacement": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/recipe.py"
+  },
+  {
+    "action": "retired",
+    "source": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/check_saved.py",
+    "sha256": "E6F9E6673618180D1F07C1455AE3F656523DC62E708ED245F33A1220B81DB307",
+    "destination": "trash/dungeon-emergence-withdrawn-20261009/SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/check_saved.py",
+    "size_bytes": 5391,
+    "reason": "用户撤回怪物出入口运行扩展；backup 为修改前备份，retired 为退役原文件。",
+    "replacement": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/recipe.py"
+  },
+  {
+    "action": "retired",
+    "source": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/check_floors.py",
+    "sha256": "E7C7067950BDFF5DE78B3431ECB95267010A814C882EDE80F1DB920DFB433621",
+    "destination": "trash/dungeon-emergence-withdrawn-20261009/SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/check_floors.py",
+    "size_bytes": 1626,
+    "reason": "用户撤回怪物出入口运行扩展；backup 为修改前备份，retired 为退役原文件。",
+    "replacement": "SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/recipe.py"
+  }
+]

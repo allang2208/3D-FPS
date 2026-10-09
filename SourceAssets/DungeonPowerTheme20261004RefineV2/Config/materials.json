@@ -1,0 +1,247 @@
+{
+  "Concrete": {
+    "basecolor_linear": [
+      0.29,
+      0.28,
+      0.25
+    ],
+    "roughness": 0.85,
+    "metallic": 0,
+    "uv_meters": 1.0,
+    "uv_meters_override": 2,
+    "existing_ue_path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+    "required_existing": true
+  },
+  "Floor": {
+    "basecolor_linear": [
+      0.22,
+      0.23,
+      0.21
+    ],
+    "roughness": 0.82,
+    "metallic": 0,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete",
+    "required_existing": true
+  },
+  "Paint": {
+    "basecolor_linear": [
+      0.13,
+      0.17,
+      0.125
+    ],
+    "roughness": 0.53,
+    "metallic": 0.04,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+    "required_existing": true
+  },
+  "Steel": {
+    "basecolor_linear": [
+      0.24,
+      0.265,
+      0.27
+    ],
+    "roughness": 0.39,
+    "metallic": 0.92,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+    "required_existing": true
+  },
+  "Enamel": {
+    "basecolor_linear": [
+      0.17,
+      0.205,
+      0.145
+    ],
+    "roughness": 0.5,
+    "metallic": 0.03,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel",
+    "required_existing": true
+  },
+  "Deck": {
+    "basecolor_linear": [
+      0.16,
+      0.18,
+      0.17
+    ],
+    "roughness": 0.53,
+    "metallic": 0.86,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BridgeDeck",
+    "required_existing": true
+  },
+  "Yellow": {
+    "basecolor_linear": [
+      0.5,
+      0.31,
+      0.055
+    ],
+    "roughness": 0.56,
+    "metallic": 0.03,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+    "required_existing": true
+  },
+  "Rubber": {
+    "basecolor_linear": [
+      0.018,
+      0.021,
+      0.019
+    ],
+    "roughness": 0.88,
+    "metallic": 0,
+    "uv_meters": 1.0,
+    "existing_ue_path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber",
+    "required_existing": true
+  },
+  "Copper": {
+    "basecolor_linear": [
+      0.5,
+      0.23,
+      0.105
+    ],
+    "roughness": 0.4,
+    "metallic": 0.9,
+    "uv_meters": 1.0,
+    "new_authored": true
+  },
+  "Ceramic": {
+    "basecolor_linear": [
+      0.72,
+      0.7,
+      0.58
+    ],
+    "roughness": 0.3,
+    "metallic": 0.02,
+    "uv_meters": 1.0,
+    "new_authored": true
+  },
+  "Red": {
+    "basecolor_linear": [
+      0.24,
+      0.035,
+      0.026
+    ],
+    "roughness": 0.68,
+    "metallic": 0.06,
+    "uv_meters": 1.0,
+    "new_authored": true
+  },
+  "Dark": {
+    "basecolor_linear": [
+      0.029,
+      0.035,
+      0.031
+    ],
+    "roughness": 0.8,
+    "metallic": 0.35,
+    "uv_meters": 1.0,
+    "new_authored": true
+  },
+  "Labels": {
+    "basecolor_linear": [
+      0.6,
+      0.57,
+      0.46
+    ],
+    "roughness": 0.7,
+    "metallic": 0.0,
+    "uv_meters": 1.0,
+    "textures": {
+      "basecolor": "Authored/Textures/T_Power_Labels_BaseColor.png"
+    },
+    "new_authored": true
+  },
+  "ContainerLabels": {
+    "basecolor_linear": [
+      0.6,
+      0.57,
+      0.46
+    ],
+    "roughness": 0.7,
+    "metallic": 0,
+    "uv_meters": 1,
+    "new_authored": true,
+    "textures": {
+      "basecolor": "Authored/Textures/T_Power_ContainerLabels_BaseColor.png"
+    }
+  },
+  "CabinetChinese": {
+    "basecolor_linear": [
+      1,
+      1,
+      1
+    ],
+    "roughness": 0.7,
+    "metallic": 0,
+    "uv_meters": 1,
+    "new_authored": true,
+    "textures": {
+      "basecolor": "Authored/Textures/T_Power_CabinetSource_BaseColor.png",
+      "normal": {
+        "path": "Authored/Textures/T_Power_CabinetSource_NormalGL.png",
+        "normal_convention": "OpenGL"
+      },
+      "orm": "Authored/Textures/T_Power_CabinetSource_ORM.png",
+      "labeloverlay": "Authored/Textures/T_Power_CabinetChinese_Overlay.png"
+    },
+    "provenance": "Original FacilityProp PBR copied unchanged; Chinese plate artwork is a separate alpha overlay. Shared UE material untouched."
+  },
+  "ServerChinese": {
+    "basecolor_linear": [
+      1,
+      1,
+      1
+    ],
+    "roughness": 0.7,
+    "metallic": 0,
+    "uv_meters": 1,
+    "new_authored": true,
+    "textures": {
+      "basecolor": "Authored/Textures/T_Power_ServerSource_BaseColor.png",
+      "normal": {
+        "path": "Authored/Textures/T_Power_ServerSource_NormalDX.png",
+        "normal_convention": "DirectX"
+      },
+      "orm": "Authored/Textures/T_Power_ServerSource_ORM.png",
+      "labeloverlay": "Authored/Textures/T_Power_ServerChinese_Overlay.png"
+    },
+    "provenance": "Original DataArchive EquipmentV1 PBR copied unchanged; Chinese labels use separate alpha artwork. Shared mesh and UE material untouched."
+  },
+  "WorkshopPrintCN": {
+    "basecolor_linear": [
+      1,
+      1,
+      1
+    ],
+    "roughness": 0.86,
+    "metallic": 0,
+    "uv_meters": 1,
+    "new_authored": true,
+    "textures": {
+      "basecolor": "Authored/Textures/T_Power_WorkshopSource_BaseColor.png",
+      "labeloverlay": "Authored/Textures/T_Power_WorkshopChinese_Overlay.png"
+    },
+    "provenance": "Original Workshop PrintAtlas unchanged. Theme-only Chinese alpha artwork. Original shader roughness/emission preserved."
+  },
+  "WorkshopScreenCN": {
+    "basecolor_linear": [
+      1,
+      1,
+      1
+    ],
+    "roughness": 0.29,
+    "metallic": 0,
+    "uv_meters": 1,
+    "new_authored": true,
+    "textures": {
+      "basecolor": "Authored/Textures/T_Power_WorkshopSource_BaseColor.png",
+      "labeloverlay": "Authored/Textures/T_Power_WorkshopChinese_Overlay.png"
+    },
+    "provenance": "Original Workshop PrintAtlas unchanged. Theme-only Chinese alpha artwork. Original shader roughness/emission preserved.",
+    "emissive_strength": 0.3,
+    "emissive_from_basecolor": true
+  }
+}

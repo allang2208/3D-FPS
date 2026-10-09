@@ -1,0 +1,63 @@
+{
+  "meshes": [
+    {
+      "name": "SM_FrontEntry_Signs",
+      "kind": "Signs",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/FrontEntry20261008/Meshes/SM_FrontEntry_Signs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\FrontEntry20261008\\Authored\\SM_FrontEntry_Signs.fbx",
+      "sha256": "6fefb76147173f5bccc81d05aee8b80b87b3fd6f3702d56a84974f3901904161",
+      "materials": {
+        "RH_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RH_Labels": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Labels"
+      },
+      "collision": false,
+      "nanite": false,
+      "cast_shadow": false,
+      "triangles": 324
+    },
+    {
+      "name": "SM_FrontEntry_Mounts",
+      "kind": "Mounts",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/FrontEntry20261008/Meshes/SM_FrontEntry_Mounts",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\FrontEntry20261008\\Authored\\SM_FrontEntry_Mounts.fbx",
+      "sha256": "8f7265a68d54e2a2789537033eb18e78bbe0aa4e916c3ee507cbc1d93e551466",
+      "materials": {
+        "RH_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "collision": false,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 32832
+    },
+    {
+      "name": "SM_FrontEntry_LoungeDetails",
+      "kind": "LoungeDetails",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/FrontEntry20261008/Meshes/SM_FrontEntry_LoungeDetails",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\FrontEntry20261008\\Authored\\SM_FrontEntry_LoungeDetails.fbx",
+      "sha256": "8686c7ed54ce748054c189a74dc5d52c270dace5fc12ccfd08dccefd7f57740a",
+      "materials": {
+        "RH_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "RH_Paper": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Paper",
+        "RH_White": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_White"
+      },
+      "collision": false,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 12768
+    },
+    {
+      "name": "SM_FrontEntry_PortalFrames",
+      "kind": "PortalFrames",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/FrontEntry20261008/Meshes/SM_FrontEntry_PortalFrames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\FrontEntry20261008\\Authored\\SM_FrontEntry_PortalFrames.fbx",
+      "sha256": "92516850672d195f6ee76ca9265859a5197ddaebf6ddb8d10f5231e230c70098",
+      "materials": {
+        "FE_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal"
+      },
+      "collision": true,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 72
+    }
+  ]
+}

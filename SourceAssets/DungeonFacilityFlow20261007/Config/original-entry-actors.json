@@ -1,0 +1,3107 @@
+{
+  "revision": "original_workshop_shrine_entry_20261008",
+  "actors": [
+    {
+      "label": "DGN_A_AV2_ServiceRecess_Floor",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_ServiceBays",
+        "SourceLabel:DGN_AV2_ServiceRecess_Floor"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_ServiceRecess_Floor.SM_V2_ServiceRecess_Floor",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Light_Entry",
+      "class_name": "PointLight",
+      "position": [
+        130.0,
+        -200.0,
+        330.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Lighting",
+        "SourceLabel:DGN_AV2_Light_Entry"
+      ],
+      "light": {
+        "intensity": 2900,
+        "attenuation_radius": 540,
+        "color": [
+          0.71,
+          0.83,
+          1
+        ],
+        "source_radius": 7,
+        "source_length": 65,
+        "cast_shadows": true
+      }
+    },
+    {
+      "label": "DGN_A_AV2_Corridor_North",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_Corridor_North"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_Corridor_North.SM_V2_Corridor_North",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_Room_WS_FloorDetails",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonRoomInteriors20260921",
+        "SourceLabel:DGN_Room_WS_FloorDetails"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Authored/SM_Room_WS_FloorDetails.SM_Room_WS_FloorDetails",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_RuinNiche",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_RuinNiche",
+        "SourceLabel:DGN_AV2_RuinNiche"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_RuinNiche.SM_V2_RuinNiche",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_WSTools_CeilingFixtures",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonWorkshopTools20260921",
+        "SourceLabel:DGN_WSTools_CeilingFixtures"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Meshes/SM_WSSculpt_CeilingFixtures.SM_WSSculpt_CeilingFixtures",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_ShrineV2_Rubble",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1500.0,
+        -400.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "shrine-room-v2-20260927"
+      ],
+      "mesh": "/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_Rubble.SM_ShrineV2_Rubble",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_ShrineV2_Ribs",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1500.0,
+        -400.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "shrine-room-v2-20260927"
+      ],
+      "mesh": "/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_Ribs.SM_ShrineV2_Ribs",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Corridor_North_Tiles",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_Corridor_North_Tiles"
+      ],
+      "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_Corridor_North_Damage0_Tiles.SM_RS_Start_Corridor_North_Damage0_Tiles",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Workshop_Ceiling",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_ServiceBays",
+        "SourceLabel:DGN_AV2_Workshop_Ceiling"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Services/Meshes/SM_Services_Workshop_Ceiling.SM_Services_Workshop_Ceiling",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_WetPatches",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_WetPatches"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/GateWater/Meshes/SM_DungeonShallowPuddles.SM_DungeonShallowPuddles",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Natural_Decal_Leak",
+      "class_name": "DecalActor",
+      "position": [
+        380.0,
+        -385.0,
+        192.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "SourceLabel:DGN_AV2_Natural_Decal_Leak"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalLeakVertical",
+        "size": [
+          5,
+          85,
+          188
+        ],
+        "sort": 4
+      }
+    },
+    {
+      "label": "DGN_A_ShrineV2_EntranceConcrete",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1500.0,
+        -400.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "shrine-room-v2-20260927"
+      ],
+      "mesh": "/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_EntranceConcrete.SM_ShrineV2_EntranceConcrete",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_EndLanding_Ceiling",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Terminus",
+        "SourceLabel:DGN_AV2_EndLanding_Ceiling"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Services/Meshes/SM_Services_EndLanding_Ceiling.SM_Services_EndLanding_Ceiling",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Dogleg_Ceiling",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Terminus",
+        "SourceLabel:DGN_AV2_Dogleg_Ceiling"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Services/Meshes/SM_Services_Dogleg_Ceiling.SM_Services_Dogleg_Ceiling",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Natural_Decal_Silt",
+      "class_name": "DecalActor",
+      "position": [
+        380.0,
+        -376.0,
+        1.5
+      ],
+      "rotation": {
+        "pitch": -90.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "SourceLabel:DGN_AV2_Natural_Decal_Silt"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalSilt",
+        "size": [
+          5,
+          22,
+          77
+        ],
+        "sort": 3
+      }
+    },
+    {
+      "label": "DGN_A_ShrineV2_EntranceRebar",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1500.0,
+        -400.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "shrine-room-v2-20260927"
+      ],
+      "mesh": "/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_EntranceRebar.SM_ShrineV2_EntranceRebar",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_Room_Decal_Leak_Valve",
+      "class_name": "DecalActor",
+      "position": [
+        682.0,
+        405.0,
+        154.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": -0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonRoomInteriors20260921",
+        "SourceLabel:DGN_Room_Decal_Leak_Valve"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalLeakVertical",
+        "size": [
+          4,
+          30,
+          101
+        ],
+        "sort": 5
+      }
+    },
+    {
+      "label": "DGN_A_AV2_Corridor_South_Tiles",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_Corridor_South_Tiles"
+      ],
+      "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_Corridor_South_Damage0_Tiles.SM_RS_Start_Corridor_South_Damage0_Tiles",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Workshop",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_ServiceBays",
+        "SourceLabel:DGN_AV2_Workshop"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_Workshop.SM_V2_Workshop",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_EndLanding",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Terminus",
+        "SourceLabel:DGN_AV2_EndLanding"
+      ],
+      "mesh": "/Game/Dungeons/AuthoredExpansion20260922/Meshes/SM_Sample_EndLanding_Open.SM_Sample_EndLanding_Open",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_ServiceRecess_Ceiling",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_ServiceBays",
+        "SourceLabel:DGN_AV2_ServiceRecess_Ceiling"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Services/Meshes/SM_Services_ServiceRecess_Ceiling.SM_Services_ServiceRecess_Ceiling",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_TilePolish_Leak_4",
+      "class_name": "DecalActor",
+      "position": [
+        1140.0,
+        -784.0,
+        152.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "SourceLabel:DGN_AV2_TilePolish_Leak_4"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/TilePolish/Materials/M_TileLeak",
+        "size": [
+          5,
+          68,
+          142
+        ],
+        "sort": 2
+      }
+    },
+    {
+      "label": "DGN_A_Maintenance_RecessPanel",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1510.0,
+        183.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 180.0,
+        "roll": -0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "SourceLabel:DGN_Maintenance_RecessPanel"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Maintenance/Meshes/SM_MaintenanceCabinet.SM_MaintenanceCabinet",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_Room_Decal_Oil_Cart",
+      "class_name": "DecalActor",
+      "position": [
+        937.0,
+        104.0,
+        2.0
+      ],
+      "rotation": {
+        "pitch": -90.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonRoomInteriors20260921",
+        "SourceLabel:DGN_Room_Decal_Oil_Cart"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Oil",
+        "size": [
+          4,
+          31,
+          41
+        ],
+        "sort": 5
+      }
+    },
+    {
+      "label": "DGN_A_AV2_Light_Breach",
+      "class_name": "PointLight",
+      "position": [
+        1710.0000000000002,
+        -310.0,
+        325.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Lighting",
+        "SourceLabel:DGN_AV2_Light_Breach"
+      ],
+      "light": {
+        "intensity": 450,
+        "attenuation_radius": 500,
+        "color": [
+          1,
+          1,
+          1
+        ],
+        "source_radius": 7,
+        "source_length": 65,
+        "cast_shadows": true,
+        "use_temperature": true,
+        "temperature": 4400
+      }
+    },
+    {
+      "label": "DGN_A_AV2_Natural_Decal_Dust",
+      "class_name": "DecalActor",
+      "position": [
+        150.0,
+        -43.0,
+        1.5
+      ],
+      "rotation": {
+        "pitch": -90.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "SourceLabel:DGN_AV2_Natural_Decal_Dust"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalDust",
+        "size": [
+          5,
+          30,
+          60
+        ],
+        "sort": 3
+      }
+    },
+    {
+      "label": "DGN_A_AV2_MachineBay_Floor",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_ServiceBays",
+        "SourceLabel:DGN_AV2_MachineBay_Floor"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_MachineBay_Floor.SM_V2_MachineBay_Floor",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_EndStairs",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Terminus",
+        "SourceLabel:DGN_AV2_EndStairs"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_EndStairs.SM_V2_EndStairs",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_ShrineV2_Floor",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1500.0,
+        -400.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "shrine-room-v2-20260927"
+      ],
+      "mesh": "/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_Floor.SM_ShrineV2_Floor",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_TilePolish_Leak_5",
+      "class_name": "DecalActor",
+      "position": [
+        1790.0,
+        -15.0,
+        148.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": -0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "SourceLabel:DGN_AV2_TilePolish_Leak_5"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/TilePolish/Materials/M_TileLeak",
+        "size": [
+          5,
+          64,
+          137
+        ],
+        "sort": 2
+      }
+    },
+    {
+      "label": "DGN_Start_ShrineStatue",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1825.0,
+        -1024.0,
+        54.5
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.Shrine",
+        "DungeonStart.ShrineStatue"
+      ],
+      "existing_service": true
+    },
+    {
+      "label": "DGN_A_AV2_EntryEnd_Tiles",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Terminus",
+        "SourceLabel:DGN_AV2_EntryEnd_Tiles"
+      ],
+      "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_EntryEnd_Damage0_Tiles.SM_RS_Start_EntryEnd_Damage0_Tiles",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_Room_WS_CartDetail",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonRoomInteriors20260921",
+        "SourceLabel:DGN_Room_WS_CartDetail"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Meshes/SM_WSDetail_CabinetHardware.SM_WSDetail_CabinetHardware",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_ShrineV2_Earth",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1500.0,
+        -400.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "shrine-room-v2-20260927"
+      ],
+      "mesh": "/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_Earth.SM_ShrineV2_Earth",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_ServiceDoor",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Terminus",
+        "SourceLabel:DGN_AV2_ServiceDoor"
+      ],
+      "mesh": "/Game/Dungeons/AuthoredExpansion20260922/Meshes/SM_Sample_ServiceDoor_Open.SM_Sample_ServiceDoor_Open",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_BayHeaders",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_BayHeaders"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_BayHeaders.SM_V2_BayHeaders",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_ShrineV2_SconceLeft",
+      "class_name": "PointLight",
+      "position": [
+        1640.0,
+        -1063.0,
+        211.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "DungeonLight.Accent"
+      ],
+      "light": {
+        "intensity": 550,
+        "attenuation_radius": 400,
+        "use_temperature": true,
+        "temperature": 3400,
+        "source_radius": 7,
+        "cast_shadows": true,
+        "color": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "label": "DGN_A_Room_WS_CableTray",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonRoomInteriors20260921",
+        "SourceLabel:DGN_Room_WS_CableTray"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Authored/SM_Room_WS_CableTray.SM_Room_WS_CableTray",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Damp_1",
+      "class_name": "DecalActor",
+      "position": [
+        1150.0,
+        -14.0,
+        136.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": -0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_SurfaceHistory",
+        "SourceLabel:DGN_AV2_Damp_1"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/Materials/M_LocalDampStreak",
+        "size": [
+          22,
+          43,
+          123
+        ],
+        "sort": 1
+      }
+    },
+    {
+      "label": "DGN_A_AV2_Drains",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_Drains"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_Drains.SM_V2_Drains",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_MainCorridor_Floor",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_MainCorridor_Floor"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_MainCorridor_Floor.SM_V2_MainCorridor_Floor",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Damp_7",
+      "class_name": "DecalActor",
+      "position": [
+        2583.0,
+        -548.0,
+        169.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_SurfaceHistory",
+        "SourceLabel:DGN_AV2_Damp_7"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/Materials/M_LocalDampStreak",
+        "size": [
+          22,
+          66,
+          165
+        ],
+        "sort": 1
+      }
+    },
+    {
+      "label": "DGN_A_WSTools_CeilingArea",
+      "class_name": "RectLight",
+      "position": [
+        600.0,
+        180.0,
+        295.0
+      ],
+      "rotation": {
+        "pitch": -90.0,
+        "yaw": 90.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonWorkshopTools20260921",
+        "SourceLabel:DGN_WSTools_CeilingArea"
+      ],
+      "light": {
+        "intensity": 850.0,
+        "temperature": 4300.0,
+        "use_temperature": true,
+        "cast_shadows": true,
+        "attenuation_radius": 475.0,
+        "source_width": 118.19999694824219,
+        "source_height": 18.299999237060547,
+        "barn_door_angle": 72.0,
+        "barn_door_length": 8.0
+      }
+    },
+    {
+      "label": "DGN_A_ShrineV2_Niche",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1500.0,
+        -400.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "shrine-room-v2-20260927"
+      ],
+      "mesh": "/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_Niche.SM_ShrineV2_Niche",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_Room_WS_PartsRack",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonRoomInteriors20260921",
+        "SourceLabel:DGN_Room_WS_PartsRack"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Meshes/SM_WSDetail_RackFrame.SM_WSDetail_RackFrame",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Workshop_Floor",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_ServiceBays",
+        "SourceLabel:DGN_AV2_Workshop_Floor"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_Workshop_Floor.SM_V2_Workshop_Floor",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_ShrineV2_SideMasonry",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1500.0,
+        -400.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "shrine-room-v2-20260927"
+      ],
+      "mesh": "/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_SideMasonry.SM_ShrineV2_SideMasonry",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Natural_SurfaceDebris",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "SourceLabel:DGN_AV2_Natural_SurfaceDebris"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/NaturalPass/Structure/SM_Natural_SurfaceDebris.SM_Natural_SurfaceDebris",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_ConcreteSupports",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_ConcreteSupports"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_ConcreteSupports.SM_V2_ConcreteSupports",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Damp_6",
+      "class_name": "DecalActor",
+      "position": [
+        1517.0,
+        204.0,
+        126.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": -0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_SurfaceHistory",
+        "SourceLabel:DGN_AV2_Damp_6"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/Materials/M_LocalDampStreak",
+        "size": [
+          22,
+          91,
+          123
+        ],
+        "sort": 1
+      }
+    },
+    {
+      "label": "DGN_A_AV2_Light_Recess",
+      "class_name": "PointLight",
+      "position": [
+        1520.0,
+        135.0,
+        250.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Lighting",
+        "SourceLabel:DGN_AV2_Light_Recess"
+      ],
+      "light": {
+        "intensity": 1450,
+        "attenuation_radius": 320,
+        "color": [
+          1,
+          0.59,
+          0.29
+        ],
+        "source_radius": 7,
+        "source_length": 65,
+        "cast_shadows": true
+      }
+    },
+    {
+      "label": "DGN_A_ShrineV2_Pedestal",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1500.0,
+        -400.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "shrine-room-v2-20260927"
+      ],
+      "mesh": "/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_Pedestal.SM_ShrineV2_Pedestal",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_ShrineV2_Sconces",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1500.0,
+        -400.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "shrine-room-v2-20260927"
+      ],
+      "mesh": "/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_Sconces.SM_ShrineV2_Sconces",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Workshop_Tiles",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_ServiceBays",
+        "SourceLabel:DGN_AV2_Workshop_Tiles"
+      ],
+      "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_Workshop_Damage0_Tiles.SM_RS_Start_Workshop_Damage0_Tiles",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_ShrineV2_SconceRight",
+      "class_name": "PointLight",
+      "position": [
+        2010.0,
+        -1063.0,
+        211.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "DungeonLight.Accent"
+      ],
+      "light": {
+        "intensity": 550,
+        "attenuation_radius": 400,
+        "use_temperature": true,
+        "temperature": 3400,
+        "source_radius": 7,
+        "cast_shadows": true,
+        "color": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "label": "DGN_A_WSDetail_Markings",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonWorkshopDetail20260921",
+        "SourceLabel:DGN_WSDetail_Markings"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopRackPolish/Meshes/SM_WSRack_Markings.SM_WSRack_Markings",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_Room_WS_RackContents",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonRoomInteriors20260921",
+        "SourceLabel:DGN_Room_WS_RackContents"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopRackPolish/Meshes/SM_WSRack_Stock.SM_WSRack_Stock",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_WSTools_BenchArea",
+      "class_name": "RectLight",
+      "position": [
+        840.0,
+        310.0,
+        304.5
+      ],
+      "rotation": {
+        "pitch": -90.0,
+        "yaw": 90.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonWorkshopTools20260921",
+        "SourceLabel:DGN_WSTools_BenchArea"
+      ],
+      "light": {
+        "intensity": 420.0,
+        "temperature": 4300.0,
+        "use_temperature": true,
+        "cast_shadows": true,
+        "attenuation_radius": 345.0,
+        "source_width": 90.19999694824219,
+        "source_height": 18.299999237060547,
+        "barn_door_angle": 72.0,
+        "barn_door_length": 8.0
+      }
+    },
+    {
+      "label": "DGN_A_AV2_ServiceRecess",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_ServiceBays",
+        "SourceLabel:DGN_AV2_ServiceRecess"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_ServiceRecess.SM_V2_ServiceRecess",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_HangingCables",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_HangingCables"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Services/Meshes/SM_Services_HangingCables.SM_Services_HangingCables",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_LightFixtures",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_LightFixtures"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Meshes/SM_WSTools_OtherFixturesWithoutRuin.SM_WSTools_OtherFixturesWithoutRuin",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_ShrineV2_Vault",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1500.0,
+        -400.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "shrine-room-v2-20260927"
+      ],
+      "mesh": "/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_Vault.SM_ShrineV2_Vault",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_WSDetail_Wear",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonWorkshopDetail20260921",
+        "SourceLabel:DGN_WSDetail_Wear"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Meshes/SM_WSDetail_Wear.SM_WSDetail_Wear",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_EntryEnd",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Terminus",
+        "SourceLabel:DGN_AV2_EntryEnd"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_EntryEnd.SM_V2_EntryEnd",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_MachineBay_Tiles",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_ServiceBays",
+        "SourceLabel:DGN_AV2_MachineBay_Tiles"
+      ],
+      "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_MachineBay_Damage0_Tiles.SM_RS_Start_MachineBay_Damage0_Tiles",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Dogleg_Floor",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Terminus",
+        "SourceLabel:DGN_AV2_Dogleg_Floor"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_Dogleg_Floor.SM_V2_Dogleg_Floor",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_AV2_PlayerStart",
+      "class_name": "PlayerStart",
+      "position": [
+        140.0,
+        -205.0,
+        102.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor"
+      ],
+      "existing_service": true
+    },
+    {
+      "label": "DGN_A_Room_WS_BenchStorage",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonRoomInteriors20260921",
+        "SourceLabel:DGN_Room_WS_BenchStorage"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Authored/SM_Room_WS_BenchStorage.SM_Room_WS_BenchStorage",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Light_Corridor",
+      "class_name": "PointLight",
+      "position": [
+        840.0,
+        -200.0,
+        325.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Lighting",
+        "SourceLabel:DGN_AV2_Light_Corridor"
+      ],
+      "light": {
+        "intensity": 3600,
+        "attenuation_radius": 580,
+        "color": [
+          0.71,
+          0.83,
+          1
+        ],
+        "source_radius": 7,
+        "source_length": 65,
+        "cast_shadows": true
+      }
+    },
+    {
+      "label": "DGN_A_AV2_Corridor_South",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_Corridor_South"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_Corridor_South.SM_V2_Corridor_South",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_WSDetail_WhiteboardFrame",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonWorkshopDetail20260921",
+        "SourceLabel:DGN_WSDetail_WhiteboardFrame"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Meshes/SM_WSDetail_WhiteboardFrame.SM_WSDetail_WhiteboardFrame",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_MainCorridor_Ceiling",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_MainCorridor_Ceiling"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Services/Meshes/SM_Services_MainCorridor_Ceiling.SM_Services_MainCorridor_Ceiling",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_ServicePipes",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_ServicePipes"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Services/Meshes/SM_Services_ServicePipes.SM_Services_ServicePipes",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_Room_WS_Utilities",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonRoomInteriors20260921",
+        "SourceLabel:DGN_Room_WS_Utilities"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Meshes/SM_WSDetail_ServiceLines.SM_WSDetail_ServiceLines",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_ServiceRecess_Tiles",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_ServiceBays",
+        "SourceLabel:DGN_AV2_ServiceRecess_Tiles"
+      ],
+      "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_ServiceRecess_Damage0_Tiles.SM_RS_Start_ServiceRecess_Damage0_Tiles",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_ShrineV2_Backing",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1500.0,
+        -400.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "shrine-room-v2-20260927"
+      ],
+      "mesh": "/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_Backing.SM_ShrineV2_Backing",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_Maintenance_MachinePanel",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1165.0,
+        -763.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "SourceLabel:DGN_Maintenance_MachinePanel"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Maintenance/Meshes/SM_MaintenanceCabinet.SM_MaintenanceCabinet",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Light_Exit",
+      "class_name": "PointLight",
+      "position": [
+        2400.0,
+        -1350.0,
+        359.99999999999994
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Lighting",
+        "SourceLabel:DGN_AV2_Light_Exit"
+      ],
+      "light": {
+        "intensity": 2300,
+        "attenuation_radius": 440,
+        "color": [
+          1,
+          0.59,
+          0.29
+        ],
+        "source_radius": 7,
+        "source_length": 65,
+        "cast_shadows": true
+      }
+    },
+    {
+      "label": "DGN_A_AV2_Light_MachineBay",
+      "class_name": "PointLight",
+      "position": [
+        1070.0,
+        -660.0,
+        334.99999999999994
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Lighting",
+        "SourceLabel:DGN_AV2_Light_MachineBay"
+      ],
+      "light": {
+        "intensity": 3100,
+        "attenuation_radius": 450,
+        "color": [
+          0.71,
+          0.83,
+          1
+        ],
+        "source_radius": 7,
+        "source_length": 65,
+        "cast_shadows": true
+      }
+    },
+    {
+      "label": "DGN_A_AV2_Dogleg_Tiles",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Terminus",
+        "SourceLabel:DGN_AV2_Dogleg_Tiles"
+      ],
+      "mesh": "/Game/Dungeons/WallDamage20260923/Meshes/SM_RS_Start_Dogleg_Damage0_Tiles.SM_RS_Start_Dogleg_Damage0_Tiles",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Damp_3",
+      "class_name": "DecalActor",
+      "position": [
+        1541.0,
+        -369.0,
+        170.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_SurfaceHistory",
+        "SourceLabel:DGN_AV2_Damp_3"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/Materials/M_LocalDampStreak",
+        "size": [
+          20,
+          68,
+          166
+        ],
+        "sort": 1
+      }
+    },
+    {
+      "label": "DGN_Link_InspectionLight",
+      "class_name": "PointLight",
+      "position": [
+        2400.0,
+        -1480.0,
+        308.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [],
+      "light": {
+        "intensity": 350,
+        "attenuation_radius": 360,
+        "color": [
+          0.78,
+          0.87,
+          1
+        ],
+        "source_radius": 5,
+        "cast_shadows": false
+      }
+    },
+    {
+      "label": "DGN_A_AV2_Dogleg",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Terminus",
+        "SourceLabel:DGN_AV2_Dogleg"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_Dogleg.SM_V2_Dogleg",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Damp_2",
+      "class_name": "DecalActor",
+      "position": [
+        1342.0,
+        -385.0,
+        141.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_SurfaceHistory",
+        "SourceLabel:DGN_AV2_Damp_2"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/Materials/M_LocalDampStreak",
+        "size": [
+          23,
+          51,
+          141
+        ],
+        "sort": 1
+      }
+    },
+    {
+      "label": "DGN_A_AV2_EndStairRails",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Terminus",
+        "SourceLabel:DGN_AV2_EndStairRails"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_EndStairRails.SM_V2_EndStairRails",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_Link_A_B",
+      "class_name": "StaticMeshActor",
+      "position": [
+        2400.0,
+        -1400.0,
+        94.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [],
+      "mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_StartServiceTransition.SM_StartServiceTransition",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_MachineBay_Ceiling",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_ServiceBays",
+        "SourceLabel:DGN_AV2_MachineBay_Ceiling"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Services/Meshes/SM_Services_MachineBay_Ceiling.SM_Services_MachineBay_Ceiling",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Damp_5",
+      "class_name": "DecalActor",
+      "position": [
+        1118.0,
+        -784.0,
+        153.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": -90.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_SurfaceHistory",
+        "SourceLabel:DGN_AV2_Damp_5"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/Materials/M_LocalDampStreak",
+        "size": [
+          23,
+          99,
+          143
+        ],
+        "sort": 1
+      }
+    },
+    {
+      "label": "DGN_A_AV2_MachineBay",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_ServiceBays",
+        "SourceLabel:DGN_AV2_MachineBay"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_MachineBay.SM_V2_MachineBay",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_CableTrays",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Corridor",
+        "SourceLabel:DGN_AV2_CableTrays"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Services/Meshes/SM_Services_CableTrays.SM_Services_CableTrays",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_Room_Decal_Dust_Shelf",
+      "class_name": "DecalActor",
+      "position": [
+        442.0,
+        142.0,
+        2.0
+      ],
+      "rotation": {
+        "pitch": -90.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonRoomInteriors20260921",
+        "SourceLabel:DGN_Room_Decal_Dust_Shelf"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalDust",
+        "size": [
+          4,
+          32,
+          85
+        ],
+        "sort": 5
+      }
+    },
+    {
+      "label": "DGN_A_AV2_EndLanding_Tiles",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Terminus",
+        "SourceLabel:DGN_AV2_EndLanding_Tiles"
+      ],
+      "mesh": "/Game/Dungeons/AuthoredExpansion20260922/Meshes/SM_Sample_EndLanding_Tiles_Open.SM_Sample_EndLanding_Tiles_Open",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_EndLanding_Floor",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Terminus",
+        "SourceLabel:DGN_AV2_EndLanding_Floor"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/Structure/SM_V2_EndLanding_Floor.SM_V2_EndLanding_Floor",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_WorkbenchKit_Main",
+      "class_name": "BP_Workbench_InUse_C",
+      "position": [
+        1000.0,
+        148.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "LayoutLocked",
+        "SourceLabel:DGN_WorkbenchKit_Main",
+        "DungeonStart.Workbench",
+        "WorkbenchKit",
+        "Variant_InUse"
+      ],
+      "existing_service": true
+    },
+    {
+      "label": "DGN_A_WSDetail_WhiteboardFace",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonWorkshopDetail20260921",
+        "SourceLabel:DGN_WSDetail_WhiteboardFace"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Meshes/SM_WSDetail_WhiteboardFace.SM_WSDetail_WhiteboardFace",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Natural_Decal_Wet",
+      "class_name": "DecalActor",
+      "position": [
+        380.0,
+        -364.0,
+        1.5
+      ],
+      "rotation": {
+        "pitch": -90.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "SourceLabel:DGN_AV2_Natural_Decal_Wet"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalWet",
+        "size": [
+          5,
+          32,
+          73
+        ],
+        "sort": 3
+      }
+    },
+    {
+      "label": "DGN_A_Room_WS_Cables",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonRoomInteriors20260921",
+        "SourceLabel:DGN_Room_WS_Cables"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Meshes/SM_WSTools_CeilingCables.SM_WSTools_CeilingCables",
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_Room_Decal_Oil_Bench",
+      "class_name": "DecalActor",
+      "position": [
+        892.0,
+        286.0,
+        2.0
+      ],
+      "rotation": {
+        "pitch": -90.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonRoomInteriors20260921",
+        "SourceLabel:DGN_Room_Decal_Oil_Bench"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Oil",
+        "size": [
+          4,
+          17,
+          29
+        ],
+        "sort": 5
+      }
+    },
+    {
+      "label": "DGN_A_AV2_MachineGrille",
+      "class_name": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_ServiceBays",
+        "SourceLabel:DGN_AV2_MachineGrille"
+      ],
+      "mesh": "/Game/Dungeons/AtmosphereV2/GateWater/Meshes/SM_DungeonRefinedGrille.SM_DungeonRefinedGrille",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_Start_WarehouseCabinet",
+      "class_name": "DungeonStorageCabinet",
+      "position": [
+        939.9999694824219,
+        94.19991874694824,
+        17.75
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.Warehouse",
+        "DungeonStorageCabinet"
+      ],
+      "existing_service": true
+    },
+    {
+      "label": "DGN_A_ShrineV2_BackMasonry",
+      "class_name": "StaticMeshActor",
+      "position": [
+        1500.0,
+        -400.0,
+        0.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DungeonStart.ShrineRoom",
+        "shrine-room-v2-20260927"
+      ],
+      "mesh": "/Game/Dungeons/ShrineV2_20260927/Meshes/SM_ShrineV2_BackMasonry.SM_ShrineV2_BackMasonry",
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "label": "DGN_A_AV2_Light_Turn",
+      "class_name": "PointLight",
+      "position": [
+        2380.0,
+        -520.0,
+        357.99999999999994
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "DGN_AV2",
+        "DungeonRegion_Lighting",
+        "SourceLabel:DGN_AV2_Light_Turn"
+      ],
+      "light": {
+        "intensity": 3000,
+        "attenuation_radius": 570,
+        "color": [
+          0.71,
+          0.83,
+          1
+        ],
+        "source_radius": 7,
+        "source_length": 65,
+        "cast_shadows": true
+      }
+    },
+    {
+      "label": "DGN_A_AV2_TilePolish_Leak_3",
+      "class_name": "DecalActor",
+      "position": [
+        645.0,
+        405.0,
+        149.0
+      ],
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 90.0,
+        "roll": -0.0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "tags": [
+        "SourceLabel:DGN_AV2_TilePolish_Leak_3"
+      ],
+      "decal": {
+        "material": "/Game/Dungeons/AtmosphereV2/TilePolish/Materials/M_TileLeak",
+        "size": [
+          5,
+          75,
+          138
+        ],
+        "sort": 2
+      }
+    }
+  ],
+  "omitted_retired_labels": [
+    "DGN_A_AV2_AncientArch",
+    "DGN_A_AV2_AncientPlinth",
+    "DGN_A_AV2_Breach_Rebar",
+    "DGN_A_AV2_Breach_Shoring",
+    "DGN_A_AV2_Breach_Structural",
+    "DGN_A_AV2_Damp_0",
+    "DGN_A_AV2_Damp_4",
+    "DGN_A_AV2_Damp_8",
+    "DGN_A_AV2_Light_Ruin",
+    "DGN_A_AV2_Light_Workshop",
+    "DGN_A_AV2_RuinNiche_Ceiling",
+    "DGN_A_AV2_RuinNiche_Floor",
+    "DGN_A_AV2_TilePolish_Leak_0",
+    "DGN_A_AV2_TilePolish_Leak_1",
+    "DGN_A_AV2_TilePolish_Leak_2",
+    "DGN_A_Room_RU_AncientArch",
+    "DGN_A_Room_RU_BackMasonry",
+    "DGN_A_Room_RU_BankFragments",
+    "DGN_A_Room_RU_Cable",
+    "DGN_A_Room_RU_EarthBank",
+    "DGN_A_Room_RU_EmbeddedPlinth",
+    "DGN_A_Room_RU_EntryBeam",
+    "DGN_A_Room_RU_Foundation",
+    "DGN_A_Room_RU_ModernCeiling",
+    "DGN_A_Room_RU_OldFlagstones",
+    "DGN_A_Room_RU_OldMasonry",
+    "DGN_A_Room_RU_Overhang",
+    "DGN_A_Room_RU_Shoring",
+    "DGN_A_Room_RU_ShoringDetail",
+    "DGN_A_Room_RU_Threshold",
+    "DGN_A_Room_RU_ThresholdEarth",
+    "DGN_A_Room_RU_VaultBacking",
+    "DGN_A_Room_RU_VaultStones",
+    "DGN_A_Room_RU_WorkLamp",
+    "DGN_A_Room_RU_WorkLightSource",
+    "DGN_A_Room_WS_HandTools",
+    "DGN_A_Room_WS_TaskLightSource",
+    "DGN_A_RuinEarth_Apron_0",
+    "DGN_A_RuinEarth_Apron_1",
+    "DGN_A_RuinEarth_Apron_2",
+    "DGN_A_RuinEarth_Apron_3",
+    "DGN_A_RuinEarth_Apron_4",
+    "DGN_A_RuinEarth_Apron_5",
+    "DGN_A_RuinEarth_Apron_6",
+    "DGN_A_RuinEarth_BankLeft",
+    "DGN_A_RuinEarth_BankRight",
+    "DGN_A_RuinEarth_FineFill",
+    "DGN_A_RuinEarth_Pebbles_0",
+    "DGN_A_RuinEarth_Pebbles_1",
+    "DGN_A_RuinEarth_Pebbles_10",
+    "DGN_A_RuinEarth_Pebbles_11",
+    "DGN_A_RuinEarth_Pebbles_12",
+    "DGN_A_RuinEarth_Pebbles_13",
+    "DGN_A_RuinEarth_Pebbles_14",
+    "DGN_A_RuinEarth_Pebbles_15",
+    "DGN_A_RuinEarth_Pebbles_16",
+    "DGN_A_RuinEarth_Pebbles_17",
+    "DGN_A_RuinEarth_Pebbles_18",
+    "DGN_A_RuinEarth_Pebbles_19",
+    "DGN_A_RuinEarth_Pebbles_2",
+    "DGN_A_RuinEarth_Pebbles_20",
+    "DGN_A_RuinEarth_Pebbles_21",
+    "DGN_A_RuinEarth_Pebbles_22",
+    "DGN_A_RuinEarth_Pebbles_23",
+    "DGN_A_RuinEarth_Pebbles_24",
+    "DGN_A_RuinEarth_Pebbles_25",
+    "DGN_A_RuinEarth_Pebbles_3",
+    "DGN_A_RuinEarth_Pebbles_4",
+    "DGN_A_RuinEarth_Pebbles_5",
+    "DGN_A_RuinEarth_Pebbles_6",
+    "DGN_A_RuinEarth_Pebbles_7",
+    "DGN_A_RuinEarth_Pebbles_8",
+    "DGN_A_RuinEarth_Pebbles_9",
+    "DGN_A_RuinEarth_Rubble_0",
+    "DGN_A_RuinEarth_Rubble_1",
+    "DGN_A_RuinEarth_Rubble_2",
+    "DGN_A_RuinEarth_ThresholdRamp",
+    "DGN_A_WSTools_TaskCable",
+    "DGN_A_WSTools_ToolWear"
+  ],
+  "source": "Sources/fixed-actors.json and original authoring manifests",
+  "tests_run": false
+}

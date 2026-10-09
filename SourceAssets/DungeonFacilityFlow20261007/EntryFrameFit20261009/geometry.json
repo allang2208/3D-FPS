@@ -1,0 +1,25 @@
+{
+  "meshes": [
+    {
+      "name": "SM_EntryFrameFit_PortalFrames",
+      "kind": "PortalFrames",
+      "mesh": "/Game/Dungeons/FacilityFlow20261007/EntryFrameFit20261009/Meshes/SM_EntryFrameFit_PortalFrames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\EntryFrameFit20261009\\Authored\\SM_EntryFrameFit_PortalFrames.fbx",
+      "sha256": "9eaac6c4cd3ae1d27a8b24c2fb1cb548933367893d21d313c729511e8d3a1ce7",
+      "materials": {
+        "FE_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal"
+      },
+      "collision": true,
+      "nanite": true,
+      "cast_shadow": true
+    }
+  ],
+  "west_reveal_back_cm": -2479,
+  "west_reveal_front_cm": -2375.5,
+  "old_reveal_back_cm": -2424.5,
+  "grille_depth_cm": [
+    -2453.3,
+    -2436.6
+  ],
+  "east_frame_unchanged": true
+}

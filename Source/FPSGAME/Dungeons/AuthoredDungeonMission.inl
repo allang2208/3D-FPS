@@ -2,7 +2,7 @@
 // candidate set; failed embeddings remain explicitly unrealized in the manifest.
 bool bMissionEnabled=false;
 int32 ForkLeft=-1,ForkRight=-1,RequestedGrammar=0,ActualGrammar=0,SplitAfter=0;
-double CorridorBudget=0,RouteBudget=0,CorridorTotal=0,LongestRouteEstimate=0;
+double BaseCorridorBudget=0,CorridorBudget=0,RouteBudget=0,CorridorTotal=0,LongestRouteEstimate=0;
 TArray<double> RouteEstimates;
 // FixedWalk belongs to authored rooms/hubs and the shared terminal. Only Links
 // can grow with the embedding; their allowance comes from the drawn room slots.
@@ -14,6 +14,21 @@ TMap<FString,int32> MissionRouteStarts;
 
 FString MissionRoom(const FString& Route,int32 Ordinal)const
 {return FString::Printf(TEXT("%s.%d"),*Route,Ordinal);}
+
+double PairedRouteLinkAllowance(int32 RouteIndex)const
+{
+    const FString Route=FString::Printf(TEXT("Route%d"),RouteIndex);
+    double Allowance=0;
+    // Six rooms have seven joins: hub -> first, five between rooms, last ->
+    // terminal. A join gets one allowance, chosen from its actual floor delta.
+    for(int32 Next=0;Next<=Counts[RouteIndex];++Next)
+    {
+        const bool Bridge=ThemeGapAllowsBridge(Route,Next-1,Next);
+        const bool ChangesFloor=FMath::Abs(ThemeRoomFloor(Route,Next-1)-ThemeRoomFloor(Route,Next))>.1;
+        Allowance+=!Bridge?ShortLinkLimit:ChangesFloor?ThemeRampLinkLimit:ThemeBridgeLimit;
+    }
+    return Allowance;
+}
 
 void ConfigureMission(int32 Seed,const JObject& Catalog)
 {
@@ -30,12 +45,13 @@ void ConfigureMission(int32 Seed,const JObject& Catalog)
     (*Rules)->TryGetNumberField(TEXT("fixed_corridor_cm"),Fixed);
     RouteBudget=36000;(*Rules)->TryGetNumberField(TEXT("route_estimate_max_cm"),RouteBudget);
     int32 RoomCount=0;for(int32 Count:TopologyCounts)RoomCount+=Count;
-    CorridorBudget=FMath::Max(0.,Fixed+PerRoom*RoomCount);
-    if(bThemedRoutes)
+    BaseCorridorBudget=FMath::Max(0.,Fixed+PerRoom*RoomCount);
+    CorridorBudget=BaseCorridorBudget;
+    if(bThemedRoutes&&!bPairedFacility)
     {
         // Each core may change floor at its entrance and return at its exit;
         // the final planar closure stays compact. Count real ramp walking length.
-        const double ExtraPerRoute=2.*(ThemeRampLinkLimit-ShortLinkLimit)+ThemeBridgeLimit-ShortLinkLimit;
+        const double ExtraPerRoute=2.*(ThemeRampLinkLimit-ShortLinkLimit)+(ThemeBridgeLimit-ShortLinkLimit);
         CorridorBudget+=3.*ExtraPerRoute;
         // The themed route limit is measured per selected room chain below.
         // The legacy scalar limit cannot represent 5-7 rooms of different sizes.
@@ -48,6 +64,7 @@ void MakeMissionGraph(int32 Grammar)
     auto Add=[&](FString From,FString To,FString Purpose,bool Optional=false)
     {MissionEdges.Add({From,To,Purpose,Optional,false});};
     FString Previous=TEXT("entry");
+    if(bPairedFacility){Add(Previous,TEXT("reception"),TEXT("side_breach_entry"));Previous=TEXT("reception");}
     for(int32 I=0;I<Counts[0];++I)
     {
         const FString Id=MissionRoom(TEXT("Approach"),I);Add(Previous,Id,TEXT("approach"));Previous=Id;
@@ -91,7 +108,16 @@ bool BuildMissionPrefix(const FSocket& Start,TArray<FSocket>& Leads,int32 Attemp
     if(bMissionEnabled)MakeMissionGraph(Grammar);else MissionEdges.Reset();
     MissionRouteStarts.Reset();
     FSocket S=Start,Early;int32 Hub=INDEX_NONE;
-    if(Grammar)
+    if(bPairedFacility)
+    {
+        if(!Compatible(S,FacilityEntrance,0)||!Place(FacilityEntrance,Fit(FacilityEntrance,0,S),TEXT("Approach"),-2,S.Owner))return false;
+        Pieces.Last().MissionId=TEXT("entry");S=Socket(Pieces.Num()-1,1);
+        if(!Compatible(S,FacilityReception,0)||!Place(FacilityReception,Fit(FacilityReception,0,S),TEXT("Approach"),-2,S.Owner))return false;
+        Pieces.Last().MissionId=TEXT("reception");S=Socket(Pieces.Num()-1,1);
+        if(!Compatible(S,Junction,0)||!Place(Junction,Fit(Junction,0,S),TEXT("Junction"),-2,S.Owner))return false;
+        Hub=Pieces.Num()-1;Leads={Socket(Hub,1),Socket(Hub,2),Socket(Hub,3)};
+    }
+    else if(Grammar)
     {
         if(!Chain(SplitAfter,S,TEXT("Approach"))||!Corridor(1,S,TEXT("Approach")))return false;
         const int32 First=Grammar==1?ForkLeft:ForkRight,Last=Grammar==1?ForkRight:ForkLeft;
@@ -153,7 +179,7 @@ void BindMainMissions(const FSocket& Start)
             // Crossing the early fork advances the approach stage as well.
             // Otherwise its following room shares the fork's depth and lags the
             // branch stages by one despite being physically farther from entry.
-            P.MissionDepth=I+1+(Route==TEXT("Approach")?(ActualGrammar&&I>=SplitAfter?1:0):EarlyBranch?SplitAfter+1:Counts[0]+(ActualGrammar?2:1));
+            P.MissionDepth=I+1+(Route==TEXT("Approach")?(ActualGrammar&&I>=SplitAfter?1:0):EarlyBranch?SplitAfter+1:Counts[0]+(bPairedFacility?2:ActualGrammar?2:1));
             P.EncounterRole=Route==TEXT("Route1")?TEXT("risk"):Route==TEXT("Approach")?TEXT("approach"):TEXT("exploration");
             P.ThreatBonus=Route==TEXT("Route1")?2:0;P.RewardMultiplier=Route==TEXT("Route1")?1.5:1.;
             if(Route==TEXT("Route1")&&I==Rooms.Num()-1)P.EncounterRole=TEXT("risk_elite");
@@ -163,8 +189,9 @@ void BindMainMissions(const FSocket& Start)
     int32 MaxStage=0;for(const auto& P:Pieces)MaxStage=FMath::Max(MaxStage,P.MissionDepth);
     for(auto& P:Pieces)
     {
+        if(P.MissionId==TEXT("reception"))P.MissionDepth=1;
         if(P.MissionId==TEXT("fork.early"))P.MissionDepth=SplitAfter+1;
-        if(P.MissionId==TEXT("fork.late"))P.MissionDepth=Counts[0]+(ActualGrammar?2:1);
+        if(P.MissionId==TEXT("fork.late"))P.MissionDepth=Counts[0]+(bPairedFacility?2:ActualGrammar?2:1);
         if(P.Module==BossConfluence){P.MissionId=TEXT("confluence");P.MissionDepth=MaxStage+1;}
         if(bThemedRoutes&&P.Module==SharedArchive){P.MissionId=TEXT("archive");P.MissionDepth=MaxStage+2;P.EncounterRole=TEXT("special_combat");}
         if(P.Module==BossRoom){P.MissionId=TEXT("boss");P.MissionDepth=MaxStage+(bThemedRoutes?3:2);}
@@ -184,6 +211,15 @@ bool MeasureMissionBudget()
 {
     CorridorTotal=0;LongestRouteEstimate=0;RouteEstimates.Reset();RouteLengthDetails.Reset();TMap<FString,double> Lengths;
     if(bThemedRoutes)RouteBudget=0;
+    if(bPairedFacility)
+    {
+        // Elevation and bridge permission are selected per search attempt.
+        // Recompute their unique join increments instead of adding both planar
+        // and ramp increments to the same entrance/exit (or to the level spine).
+        CorridorBudget=BaseCorridorBudget;
+        for(int32 R=1;R<=3;++R)
+            CorridorBudget+=PairedRouteLinkAllowance(R)-(Counts[R]+1)*ShortLinkLimit;
+    }
     TArray<double> PieceLengths;
     for(int32 I=0;I<Pieces.Num();++I)
     {
@@ -278,10 +314,16 @@ bool MeasureMissionBudget()
                 // Approach: entry -> A rooms -> fork (A+1 joins).
                 // Branch: fork -> R rooms -> descent (R+1 joins).
                 // Count doorway links, never their tessellated mesh pieces.
-                Detail.LinkLimit=(Counts[0]+Counts[R]+2)*ShortLinkLimit;
-                if(bThemeBridgeSearch)Detail.LinkLimit+=ThemeBridgeLimit-ShortLinkLimit;
-                if(FMath::Abs(ThemeCoreLevels.FindRef(Route))>.1)
-                    Detail.LinkLimit+=2.*(ThemeRampLinkLimit-ShortLinkLimit);
+                // The paired reception/hub prefix is directly socketed: it
+                // contributes fixed authored walk, not another variable join.
+                if(bPairedFacility)Detail.LinkLimit=PairedRouteLinkAllowance(R);
+                else
+                {
+                    Detail.LinkLimit=(Counts[0]+Counts[R]+2)*ShortLinkLimit;
+                    if(bThemeBridgeSearch)Detail.LinkLimit+=ThemeBridgeLimit-ShortLinkLimit;
+                    if(FMath::Abs(ThemeCoreLevels.FindRef(Route))>.1)
+                        Detail.LinkLimit+=2.*(ThemeRampLinkLimit-ShortLinkLimit);
+                }
                 RoutesWithinBudget&=Detail.Links<=Detail.LinkLimit+.1;
                 RouteBudget=FMath::Max(RouteBudget,Detail.FixedWalk+Detail.LinkLimit);
             }

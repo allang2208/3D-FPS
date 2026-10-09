@@ -1,0 +1,2468 @@
+{
+  "id": "FacilityReceptionHall",
+  "revision": "20261007-refine2",
+  "phase": "independent_subject",
+  "base": "/Game/Dungeons/ReceptionHall20261006",
+  "map": "/Game/GameMaps/Design/L_ReceptionHall_Subject",
+  "dimensions_m": [
+    48,
+    33,
+    10
+  ],
+  "upper_floor_m": 4.5,
+  "station_reference_m": [
+    48,
+    33,
+    11.7
+  ],
+  "player_start_m": [
+    -25.6,
+    0,
+    1.05
+  ],
+  "parts": [
+    {
+      "id": "Lounge_-1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Sofa",
+      "position_m": [
+        -20.7,
+        -15.3,
+        0
+      ],
+      "yaw_deg": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "Table_-1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_CoffeeTable",
+      "position_m": [
+        -20.7,
+        -13.55,
+        0
+      ],
+      "yaw_deg": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "Lounge_-1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Sofa",
+      "position_m": [
+        -16.9,
+        -15.3,
+        0
+      ],
+      "yaw_deg": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "Table_-1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_CoffeeTable",
+      "position_m": [
+        -16.9,
+        -13.55,
+        0
+      ],
+      "yaw_deg": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "Lounge_1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Sofa",
+      "position_m": [
+        -20.7,
+        15.3,
+        0
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "Table_1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_CoffeeTable",
+      "position_m": [
+        -20.7,
+        13.55,
+        0
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "Lounge_1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_RH2_Sofa",
+      "position_m": [
+        -16.9,
+        15.3,
+        0
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "Table_1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_CoffeeTable",
+      "position_m": [
+        -16.9,
+        13.55,
+        0
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "UpperBench_-1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+      "position_m": [
+        -17.0,
+        -15.75,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "UpperBench_1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+      "position_m": [
+        -17.0,
+        15.75,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "UpperBench_-1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+      "position_m": [
+        -11.0,
+        -15.75,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "UpperBench_1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+      "position_m": [
+        -11.0,
+        15.75,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "UpperBench_-1_2",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+      "position_m": [
+        -5.0,
+        -15.75,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "UpperBench_1_2",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+      "position_m": [
+        -5.0,
+        15.75,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "UpperBench_-1_3",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+      "position_m": [
+        1.0,
+        -15.55,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "UpperBench_1_3",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+      "position_m": [
+        1.0,
+        15.55,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "UpperBench_-1_4",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+      "position_m": [
+        7.0,
+        -15.75,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "UpperBench_1_4",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+      "position_m": [
+        7.0,
+        15.75,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "SouthWater",
+      "mesh": "/Game/Dungeons/StaffLiving20261002/RoomDetailsV5/Meshes/SM_Staff_WaterDispenser_V5",
+      "position_m": [
+        -12.0,
+        -15.9,
+        0
+      ],
+      "yaw_deg": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "NorthWater",
+      "mesh": "/Game/Dungeons/StaffLiving20261002/RoomDetailsV5/Meshes/SM_Staff_WaterDispenser_V5",
+      "position_m": [
+        0.0,
+        15.9,
+        0
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "UpperWater",
+      "mesh": "/Game/Dungeons/StaffLiving20261002/RoomDetailsV5/Meshes/SM_Staff_WaterDispenser_V5",
+      "position_m": [
+        23.4,
+        0.0,
+        4.5
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "ReceptionMonitor_-10.1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+      "position_m": [
+        -4.0,
+        12.254999999999999,
+        0
+      ],
+      "yaw_deg": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "ReceptionChair_-10.1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+      "position_m": [
+        -10.1,
+        14.25,
+        0
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "ReceptionPaper_-10.1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+      "position_m": [
+        -4.0,
+        12.28,
+        0
+      ],
+      "yaw_deg": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "ReceptionMonitor_-6.7",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+      "position_m": [
+        -0.6000000000000005,
+        12.254999999999999,
+        0
+      ],
+      "yaw_deg": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "ReceptionChair_-6.7",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+      "position_m": [
+        -6.7,
+        14.25,
+        0
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "ReceptionPaper_-6.7",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+      "position_m": [
+        -0.6000000000000005,
+        12.28,
+        0
+      ],
+      "yaw_deg": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficeDesk_-1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+      "position_m": [
+        23.82,
+        1.6999999999999993,
+        4.5
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficePC_-1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+      "position_m": [
+        23.89,
+        1.6999999999999993,
+        4.5
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficePaper_-1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+      "position_m": [
+        23.03,
+        -5.220000000000001,
+        5.276
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficeChair_-1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+      "position_m": [
+        21.85,
+        -4.4,
+        4.5
+      ],
+      "yaw_deg": 90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficeDesk_-1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+      "position_m": [
+        23.82,
+        -5.700000000000001,
+        4.5
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficePC_-1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+      "position_m": [
+        23.89,
+        -5.700000000000001,
+        4.5
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficePaper_-1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+      "position_m": [
+        23.03,
+        -12.620000000000001,
+        5.276
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficeChair_-1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+      "position_m": [
+        21.85,
+        -11.8,
+        4.5
+      ],
+      "yaw_deg": 90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficeGuestBench_-1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+      "position_m": [
+        20.8,
+        -13.8,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficeDesk_1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+      "position_m": [
+        23.82,
+        10.5,
+        4.5
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficePC_1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+      "position_m": [
+        23.89,
+        10.5,
+        4.5
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficePaper_1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+      "position_m": [
+        23.03,
+        3.5800000000000005,
+        5.276
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficeChair_1_0",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+      "position_m": [
+        21.85,
+        4.4,
+        4.5
+      ],
+      "yaw_deg": 90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficeDesk_1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+      "position_m": [
+        23.82,
+        17.9,
+        4.5
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficePC_1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+      "position_m": [
+        23.89,
+        17.9,
+        4.5
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficePaper_1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+      "position_m": [
+        23.03,
+        10.98,
+        5.276
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficeChair_1_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+      "position_m": [
+        21.85,
+        11.8,
+        4.5
+      ],
+      "yaw_deg": 90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "OfficeGuestBench_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_ChangingBench",
+      "position_m": [
+        20.8,
+        13.8,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "SecurityDesk_-1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+      "position_m": [
+        23.82,
+        -3.200000000000001,
+        0
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "SecurityPC_-1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+      "position_m": [
+        23.89,
+        -3.200000000000001,
+        0
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "SecurityChair_-1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+      "position_m": [
+        21.85,
+        -9.3,
+        0
+      ],
+      "yaw_deg": 90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "SecurityDesk_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchDesk",
+      "position_m": [
+        23.82,
+        15.4,
+        0
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "SecurityPC_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchElectronics",
+      "position_m": [
+        23.89,
+        15.4,
+        0
+      ],
+      "yaw_deg": -90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "SecurityChair_1",
+      "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+      "position_m": [
+        21.85,
+        9.3,
+        0
+      ],
+      "yaw_deg": 90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "ReceptionRecords",
+      "mesh": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsCabinet_Carcass",
+      "position_m": [
+        -3.8,
+        15.8,
+        0
+      ],
+      "yaw_deg": 180,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "UpperRecordsSouth",
+      "mesh": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsCabinet_Carcass",
+      "position_m": [
+        23.4,
+        -2.3,
+        4.5
+      ],
+      "yaw_deg": 90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "UpperRecordsNorth",
+      "mesh": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsCabinet_Carcass",
+      "position_m": [
+        23.4,
+        2.3,
+        4.5
+      ],
+      "yaw_deg": 90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": true,
+      "cast_shadow": true
+    },
+    {
+      "id": "PlanterPlant0",
+      "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_01_03",
+      "position_m": [
+        -21.002229333020892,
+        -8.001503380345449,
+        0.5885497315237629
+      ],
+      "yaw_deg": 0,
+      "scale": [
+        0.5827677036635027,
+        0.5827677036635027,
+        0.5827677036635027
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "PlanterPlant1",
+      "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_01_01",
+      "position_m": [
+        -21.008186995481893,
+        7.984202659764373,
+        0.593133802027449
+      ],
+      "yaw_deg": 71,
+      "scale": [
+        0.6892662020567611,
+        0.6892662020567611,
+        0.6892662020567611
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "PlanterPlant2",
+      "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_01_02",
+      "position_m": [
+        -3.002431270484883,
+        15.249679032438424,
+        0.5873304639045298
+      ],
+      "yaw_deg": 142,
+      "scale": [
+        0.605335840724355,
+        0.605335840724355,
+        0.605335840724355
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "PlanterPlant3",
+      "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_03_02",
+      "position_m": [
+        1.9960631047699728,
+        15.250508859403391,
+        0.579942946949676
+      ],
+      "yaw_deg": 213,
+      "scale": [
+        1.1340043642079702,
+        1.1340043642079702,
+        1.1340043642079702
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "PlanterPlant4",
+      "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_03_03",
+      "position_m": [
+        7.998708542023265,
+        -14.703647821024171,
+        0.5819185342884978
+      ],
+      "yaw_deg": 284,
+      "scale": [
+        1.5649646255641716,
+        1.5649646255641716,
+        1.5649646255641716
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "PlanterPlant5",
+      "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_03_01",
+      "position_m": [
+        11.99230789003345,
+        -14.698635444701774,
+        0.5780834119739894
+      ],
+      "yaw_deg": 355,
+      "scale": [
+        2.387007531230428,
+        2.387007531230428,
+        2.387007531230428
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "PlanterPlant6",
+      "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_01",
+      "position_m": [
+        -20.40112818991858,
+        -15.902426739397697,
+        5.082000807533531
+      ],
+      "yaw_deg": 426,
+      "scale": [
+        0.477153489510253,
+        0.477153489510253,
+        0.477153489510253
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "PlanterPlant7",
+      "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_03",
+      "position_m": [
+        -20.400000113187104,
+        15.78000010397593,
+        5.0966521628375325
+      ],
+      "yaw_deg": 497,
+      "scale": [
+        0.5357073885872774,
+        0.5357073885872774,
+        0.5357073885872774
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "PlanterPlant8",
+      "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_02",
+      "position_m": [
+        11.300000000238775,
+        -15.880000000778548,
+        5.075845336330019
+      ],
+      "yaw_deg": 568,
+      "scale": [
+        0.5455053950500643,
+        0.5455053950500643,
+        0.5455053950500643
+      ],
+      "collision": false,
+      "cast_shadow": true
+    },
+    {
+      "id": "PlanterPlant9",
+      "mesh": "/Game/PN_tropicalGroundPlants/Meshes/tropicalPlant_02_01",
+      "position_m": [
+        11.298871810081419,
+        15.897573260602304,
+        5.082000807533531
+      ],
+      "yaw_deg": 426,
+      "scale": [
+        0.477153489510253,
+        0.477153489510253,
+        0.477153489510253
+      ],
+      "collision": false,
+      "cast_shadow": true
+    }
+  ],
+  "lights": [
+    {
+      "id": "Atrium_-14_-6",
+      "position_m": [
+        -14,
+        -6,
+        8.5
+      ],
+      "radius": 14.96,
+      "intensity": 4050.0000000000005,
+      "cast_shadows": true,
+      "type": "spot",
+      "outer_cone_degrees": 74,
+      "inner_cone_degrees": 52,
+      "role": "main",
+      "original_intensity": 14000,
+      "original_radius": 17,
+      "fault": "steady",
+      "phase": 0.02,
+      "emission": 0.8,
+      "color": [
+        0.72,
+        0.84,
+        0.8
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 5000,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Atrium_-14_6",
+      "position_m": [
+        -14,
+        6,
+        8.5
+      ],
+      "radius": 14.96,
+      "intensity": 4050.0000000000005,
+      "cast_shadows": true,
+      "type": "spot",
+      "outer_cone_degrees": 74,
+      "inner_cone_degrees": 52,
+      "role": "main",
+      "original_intensity": 14000,
+      "original_radius": 17,
+      "fault": "flicker",
+      "phase": 5.94,
+      "emission": 2.2,
+      "color": [
+        0.72,
+        0.84,
+        0.8
+      ],
+      "indirect_lighting_intensity": 0.08,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 5000,
+      "fade_range_cm": 650,
+      "light_function": "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_037efaad73",
+      "light_function_fade_distance": 6000
+    },
+    {
+      "id": "Atrium_0_-6",
+      "position_m": [
+        0,
+        -6,
+        8.5
+      ],
+      "radius": 14.96,
+      "intensity": 4050.0000000000005,
+      "cast_shadows": false,
+      "type": "spot",
+      "outer_cone_degrees": 74,
+      "inner_cone_degrees": 52,
+      "role": "main",
+      "original_intensity": 14000,
+      "original_radius": 17,
+      "fault": "steady",
+      "phase": 7.07,
+      "emission": 0.8,
+      "color": [
+        0.72,
+        0.84,
+        0.8
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 5000,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Atrium_0_6",
+      "position_m": [
+        0,
+        6,
+        8.5
+      ],
+      "radius": 14.96,
+      "intensity": 0,
+      "cast_shadows": false,
+      "type": "spot",
+      "outer_cone_degrees": 74,
+      "inner_cone_degrees": 52,
+      "role": "main",
+      "original_intensity": 14000,
+      "original_radius": 17,
+      "fault": "dead",
+      "phase": 17.6,
+      "emission": 0.8,
+      "color": [
+        0.72,
+        0.84,
+        0.8
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 5000,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Atrium_14_-6",
+      "position_m": [
+        14,
+        -6,
+        8.5
+      ],
+      "radius": 14.96,
+      "intensity": 4050.0000000000005,
+      "cast_shadows": true,
+      "type": "spot",
+      "outer_cone_degrees": 74,
+      "inner_cone_degrees": 52,
+      "role": "main",
+      "original_intensity": 14000,
+      "original_radius": 17,
+      "fault": "flicker",
+      "phase": 16.47,
+      "emission": 2.2,
+      "color": [
+        0.72,
+        0.84,
+        0.8
+      ],
+      "indirect_lighting_intensity": 0.08,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 5000,
+      "fade_range_cm": 650,
+      "light_function": "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_7630b51264",
+      "light_function_fade_distance": 6000
+    },
+    {
+      "id": "Atrium_14_6",
+      "position_m": [
+        14,
+        6,
+        8.5
+      ],
+      "radius": 14.96,
+      "intensity": 4050.0000000000005,
+      "cast_shadows": true,
+      "type": "spot",
+      "outer_cone_degrees": 74,
+      "inner_cone_degrees": 52,
+      "role": "main",
+      "original_intensity": 14000,
+      "original_radius": 17,
+      "fault": "steady",
+      "phase": 11.33,
+      "emission": 0.8,
+      "color": [
+        0.72,
+        0.84,
+        0.8
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 5000,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Ground_-20_-13.25",
+      "position_m": [
+        -20,
+        -13.25,
+        3.65
+      ],
+      "radius": 7.04,
+      "intensity": 0,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 2600,
+      "original_radius": 8,
+      "fault": "dead",
+      "phase": 8.73,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Ground_-20_13.25",
+      "position_m": [
+        -20,
+        13.25,
+        3.65
+      ],
+      "radius": 7.04,
+      "intensity": 909.9999999999999,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 2600,
+      "original_radius": 8,
+      "fault": "steady",
+      "phase": 16.71,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Ground_-8_-13.25",
+      "position_m": [
+        -8,
+        -13.25,
+        3.65
+      ],
+      "radius": 7.04,
+      "intensity": 909.9999999999999,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 2600,
+      "original_radius": 8,
+      "fault": "steady",
+      "phase": 10.05,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Ground_-8_13.25",
+      "position_m": [
+        -8,
+        13.25,
+        3.08
+      ],
+      "radius": 7.04,
+      "intensity": 909.9999999999999,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 2600,
+      "original_radius": 8,
+      "fault": "steady",
+      "phase": 3.5,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Ground_4_-13.25",
+      "position_m": [
+        4,
+        -13.25,
+        3.65
+      ],
+      "radius": 7.04,
+      "intensity": 909.9999999999999,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 2600,
+      "original_radius": 8,
+      "fault": "steady",
+      "phase": 6.51,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Ground_4_13.25",
+      "position_m": [
+        4,
+        13.25,
+        3.65
+      ],
+      "radius": 7.04,
+      "intensity": 909.9999999999999,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 2600,
+      "original_radius": 8,
+      "fault": "flicker",
+      "phase": 14.97,
+      "emission": 1.8,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.08,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "light_function": "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_458d1b5226",
+      "light_function_fade_distance": 6000
+    },
+    {
+      "id": "Ground_20_-13.25",
+      "position_m": [
+        20,
+        -13.25,
+        3.65
+      ],
+      "radius": 7.04,
+      "intensity": 909.9999999999999,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 2600,
+      "original_radius": 8,
+      "fault": "steady",
+      "phase": 4.12,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Ground_20_13.25",
+      "position_m": [
+        20,
+        13.25,
+        3.65
+      ],
+      "radius": 7.04,
+      "intensity": 909.9999999999999,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 2600,
+      "original_radius": 8,
+      "fault": "steady",
+      "phase": 8.43,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Upper_-21_0",
+      "position_m": [
+        -21,
+        0,
+        8.1
+      ],
+      "radius": 7.04,
+      "intensity": 1020.0,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 3200,
+      "original_radius": 8,
+      "fault": "steady",
+      "phase": 15.79,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Upper_-8_-13.2",
+      "position_m": [
+        -8,
+        -13.2,
+        8.1
+      ],
+      "radius": 7.04,
+      "intensity": 1020.0,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 3200,
+      "original_radius": 8,
+      "fault": "steady",
+      "phase": 13.39,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Upper_-8_13.2",
+      "position_m": [
+        -8,
+        13.2,
+        8.1
+      ],
+      "radius": 7.04,
+      "intensity": 1020.0,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 3200,
+      "original_radius": 8,
+      "fault": "steady",
+      "phase": 9.72,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Upper_7_-13.2",
+      "position_m": [
+        7,
+        -13.2,
+        8.1
+      ],
+      "radius": 7.04,
+      "intensity": 1020.0,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 3200,
+      "original_radius": 8,
+      "fault": "flicker",
+      "phase": 17.17,
+      "emission": 1.8,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.08,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "light_function": "/Game/Dungeons/HallLighting20261007/Materials/MI_Fault_ddfce53250",
+      "light_function_fade_distance": 6000
+    },
+    {
+      "id": "Upper_7_13.2",
+      "position_m": [
+        7,
+        13.2,
+        8.1
+      ],
+      "radius": 7.04,
+      "intensity": 1020.0,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 3200,
+      "original_radius": 8,
+      "fault": "steady",
+      "phase": 18.19,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Upper_21.4_-7.6",
+      "position_m": [
+        21.4,
+        -7.6,
+        8.1
+      ],
+      "radius": 7.04,
+      "intensity": 1020.0,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 3200,
+      "original_radius": 8,
+      "fault": "steady",
+      "phase": 5.01,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Upper_21.4_7.6",
+      "position_m": [
+        21.4,
+        7.6,
+        8.1
+      ],
+      "radius": 7.04,
+      "intensity": 0,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 3200,
+      "original_radius": 8,
+      "fault": "dead",
+      "phase": 11.88,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Vestibule_-25.5",
+      "position_m": [
+        -25.5,
+        0,
+        2.55
+      ],
+      "radius": 4.4,
+      "intensity": 700.0,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 1300,
+      "original_radius": 5,
+      "fault": "steady",
+      "phase": 9.01,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    },
+    {
+      "id": "Vestibule_25.5",
+      "position_m": [
+        25.5,
+        0,
+        2.55
+      ],
+      "radius": 4.4,
+      "intensity": 700.0,
+      "cast_shadows": false,
+      "type": "point",
+      "role": "local",
+      "original_intensity": 1300,
+      "original_radius": 5,
+      "fault": "steady",
+      "phase": 9.72,
+      "emission": 0.65,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.06,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650
+    }
+  ],
+  "containers": [
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+      "hinge": [
+        -30.7,
+        -23.299999999999997,
+        9
+      ],
+      "opening_motion": "Swing",
+      "opened_yaw": -105,
+      "caption": "访客寄存柜 01",
+      "storage_pages": 2,
+      "dimensions_m": [
+        0.64,
+        0.525,
+        1.7
+      ],
+      "type": "scene_container",
+      "id": "VisitorLocker1",
+      "position_m": [
+        23.4,
+        -10.8,
+        0
+      ],
+      "yaw_deg": 90
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+      "hinge": [
+        -30.7,
+        -23.299999999999997,
+        9
+      ],
+      "opening_motion": "Swing",
+      "opened_yaw": -105,
+      "caption": "访客寄存柜 02",
+      "storage_pages": 2,
+      "dimensions_m": [
+        0.64,
+        0.525,
+        1.7
+      ],
+      "type": "scene_container",
+      "id": "VisitorLocker2",
+      "position_m": [
+        23.4,
+        -11.620000000000001,
+        0
+      ],
+      "yaw_deg": 90
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+      "hinge": [
+        -30.7,
+        -23.299999999999997,
+        9
+      ],
+      "opening_motion": "Swing",
+      "opened_yaw": -105,
+      "caption": "访客寄存柜 03",
+      "storage_pages": 2,
+      "dimensions_m": [
+        0.64,
+        0.525,
+        1.7
+      ],
+      "type": "scene_container",
+      "id": "VisitorLocker3",
+      "position_m": [
+        23.4,
+        -12.440000000000001,
+        0
+      ],
+      "yaw_deg": 90
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+      "hinge": [
+        -30.7,
+        -23.299999999999997,
+        9
+      ],
+      "opening_motion": "Swing",
+      "opened_yaw": -105,
+      "caption": "访客寄存柜 04",
+      "storage_pages": 2,
+      "dimensions_m": [
+        0.64,
+        0.525,
+        1.7
+      ],
+      "type": "scene_container",
+      "id": "VisitorLocker4",
+      "position_m": [
+        23.4,
+        -13.260000000000002,
+        0
+      ],
+      "yaw_deg": 90
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+      "hinge": [
+        -30.7,
+        -23.299999999999997,
+        9
+      ],
+      "opening_motion": "Swing",
+      "opened_yaw": -105,
+      "caption": "访客寄存柜 05",
+      "storage_pages": 2,
+      "dimensions_m": [
+        0.64,
+        0.525,
+        1.7
+      ],
+      "type": "scene_container",
+      "id": "VisitorLocker5",
+      "position_m": [
+        23.4,
+        -14.08,
+        0
+      ],
+      "yaw_deg": 90
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Body",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_PPELocker_Door",
+      "hinge": [
+        -30.7,
+        -23.299999999999997,
+        9
+      ],
+      "opening_motion": "Swing",
+      "opened_yaw": -105,
+      "caption": "访客寄存柜 06",
+      "storage_pages": 2,
+      "dimensions_m": [
+        0.64,
+        0.525,
+        1.7
+      ],
+      "type": "scene_container",
+      "id": "VisitorLocker6",
+      "position_m": [
+        23.4,
+        -14.9,
+        0
+      ],
+      "yaw_deg": 90
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+      "hinge": [
+        0,
+        0,
+        0
+      ],
+      "opening_motion": "Drawer",
+      "drawer_travel": [
+        0,
+        -32.994,
+        0
+      ],
+      "caption": "访客记录 · 登记资料",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.71,
+        0.513,
+        0.29
+      ],
+      "type": "scene_container",
+      "id": "ReceptionRecords0",
+      "position_m": [
+        -3.8,
+        15.8,
+        0.11
+      ],
+      "yaw_deg": 180
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+      "hinge": [
+        0,
+        0,
+        0
+      ],
+      "opening_motion": "Drawer",
+      "drawer_travel": [
+        0,
+        -32.994,
+        0
+      ],
+      "caption": "访客记录 · 通行凭证",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.71,
+        0.513,
+        0.29
+      ],
+      "type": "scene_container",
+      "id": "ReceptionRecords1",
+      "position_m": [
+        -3.8,
+        15.8,
+        0.45
+      ],
+      "yaw_deg": 180
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+      "hinge": [
+        0,
+        0,
+        0
+      ],
+      "opening_motion": "Drawer",
+      "drawer_travel": [
+        0,
+        -32.994,
+        0
+      ],
+      "caption": "访客记录 · 接待档案",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.71,
+        0.513,
+        0.29
+      ],
+      "type": "scene_container",
+      "id": "ReceptionRecords2",
+      "position_m": [
+        -3.8,
+        15.8,
+        0.79
+      ],
+      "yaw_deg": 180
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+      "hinge": [
+        0,
+        0,
+        0
+      ],
+      "opening_motion": "Drawer",
+      "drawer_travel": [
+        0,
+        -32.994,
+        0
+      ],
+      "caption": "访客记录 · 登记资料",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.71,
+        0.513,
+        0.29
+      ],
+      "type": "scene_container",
+      "id": "UpperRecordsSouth0",
+      "position_m": [
+        23.4,
+        -2.3,
+        4.61
+      ],
+      "yaw_deg": 90
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+      "hinge": [
+        0,
+        0,
+        0
+      ],
+      "opening_motion": "Drawer",
+      "drawer_travel": [
+        0,
+        -32.994,
+        0
+      ],
+      "caption": "访客记录 · 通行凭证",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.71,
+        0.513,
+        0.29
+      ],
+      "type": "scene_container",
+      "id": "UpperRecordsSouth1",
+      "position_m": [
+        23.4,
+        -2.3,
+        4.95
+      ],
+      "yaw_deg": 90
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+      "hinge": [
+        0,
+        0,
+        0
+      ],
+      "opening_motion": "Drawer",
+      "drawer_travel": [
+        0,
+        -32.994,
+        0
+      ],
+      "caption": "访客记录 · 接待档案",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.71,
+        0.513,
+        0.29
+      ],
+      "type": "scene_container",
+      "id": "UpperRecordsSouth2",
+      "position_m": [
+        23.4,
+        -2.3,
+        5.29
+      ],
+      "yaw_deg": 90
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+      "hinge": [
+        0,
+        0,
+        0
+      ],
+      "opening_motion": "Drawer",
+      "drawer_travel": [
+        0,
+        -32.994,
+        0
+      ],
+      "caption": "访客记录 · 登记资料",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.71,
+        0.513,
+        0.29
+      ],
+      "type": "scene_container",
+      "id": "UpperRecordsNorth0",
+      "position_m": [
+        23.4,
+        2.3,
+        4.61
+      ],
+      "yaw_deg": 90
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+      "hinge": [
+        0,
+        0,
+        0
+      ],
+      "opening_motion": "Drawer",
+      "drawer_travel": [
+        0,
+        -32.994,
+        0
+      ],
+      "caption": "访客记录 · 通行凭证",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.71,
+        0.513,
+        0.29
+      ],
+      "type": "scene_container",
+      "id": "UpperRecordsNorth1",
+      "position_m": [
+        23.4,
+        2.3,
+        4.95
+      ],
+      "yaw_deg": 90
+    },
+    {
+      "body": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Frame",
+      "door": "/Game/Dungeons/IncineratorContainers20261003/Meshes/SM_Treatment_RecordsDrawer_Tray",
+      "hinge": [
+        0,
+        0,
+        0
+      ],
+      "opening_motion": "Drawer",
+      "drawer_travel": [
+        0,
+        -32.994,
+        0
+      ],
+      "caption": "访客记录 · 接待档案",
+      "storage_pages": 1,
+      "dimensions_m": [
+        0.71,
+        0.513,
+        0.29
+      ],
+      "type": "scene_container",
+      "id": "UpperRecordsNorth2",
+      "position_m": [
+        23.4,
+        2.3,
+        5.29
+      ],
+      "yaw_deg": 90
+    }
+  ],
+  "glass": [
+    {
+      "id": "OfficeGlass_-1_0",
+      "position_m": [
+        19,
+        -13.769166666666667,
+        6.45
+      ],
+      "yaw_deg": 0,
+      "width_m": 1.9916666666666674,
+      "height_m": 1.95,
+      "glass_kind": "Office0"
+    },
+    {
+      "id": "OfficeGlass_-1_1",
+      "position_m": [
+        19,
+        -11.7075,
+        6.45
+      ],
+      "yaw_deg": 0,
+      "width_m": 1.9916666666666674,
+      "height_m": 1.95,
+      "glass_kind": "Office0"
+    },
+    {
+      "id": "OfficeGlass_-1_2",
+      "position_m": [
+        19,
+        -9.645833333333334,
+        6.45
+      ],
+      "yaw_deg": 0,
+      "width_m": 1.9916666666666638,
+      "height_m": 1.95,
+      "glass_kind": "Office0"
+    },
+    {
+      "id": "OfficeGlass_-1_3",
+      "position_m": [
+        19,
+        -6.354166666666666,
+        6.45
+      ],
+      "yaw_deg": 0,
+      "width_m": 1.9916666666666665,
+      "height_m": 1.95,
+      "glass_kind": "Office0"
+    },
+    {
+      "id": "OfficeGlass_-1_4",
+      "position_m": [
+        19,
+        -4.2925,
+        6.45
+      ],
+      "yaw_deg": 0,
+      "width_m": 1.9916666666666665,
+      "height_m": 1.95,
+      "glass_kind": "Office0"
+    },
+    {
+      "id": "OfficeGlass_-1_5",
+      "position_m": [
+        19,
+        -2.2308333333333334,
+        6.45
+      ],
+      "yaw_deg": 0,
+      "width_m": 1.9916666666666665,
+      "height_m": 1.95,
+      "glass_kind": "Office0"
+    },
+    {
+      "id": "OfficeGlass_1_6",
+      "position_m": [
+        19,
+        2.2308333333333334,
+        6.45
+      ],
+      "yaw_deg": 0,
+      "width_m": 1.9916666666666665,
+      "height_m": 1.95,
+      "glass_kind": "Office0"
+    },
+    {
+      "id": "OfficeGlass_1_7",
+      "position_m": [
+        19,
+        4.2925,
+        6.45
+      ],
+      "yaw_deg": 0,
+      "width_m": 1.9916666666666665,
+      "height_m": 1.95,
+      "glass_kind": "Office0"
+    },
+    {
+      "id": "OfficeGlass_1_8",
+      "position_m": [
+        19,
+        6.354166666666666,
+        6.45
+      ],
+      "yaw_deg": 0,
+      "width_m": 1.9916666666666665,
+      "height_m": 1.95,
+      "glass_kind": "Office0"
+    },
+    {
+      "id": "OfficeGlass_1_9",
+      "position_m": [
+        19,
+        9.645833333333334,
+        6.45
+      ],
+      "yaw_deg": 0,
+      "width_m": 1.9916666666666674,
+      "height_m": 1.95,
+      "glass_kind": "Office0"
+    },
+    {
+      "id": "OfficeGlass_1_10",
+      "position_m": [
+        19,
+        11.7075,
+        6.45
+      ],
+      "yaw_deg": 0,
+      "width_m": 1.9916666666666656,
+      "height_m": 1.95,
+      "glass_kind": "Office0"
+    },
+    {
+      "id": "OfficeGlass_1_11",
+      "position_m": [
+        19,
+        13.769166666666667,
+        6.45
+      ],
+      "yaw_deg": 0,
+      "width_m": 1.9916666666666674,
+      "height_m": 1.95,
+      "glass_kind": "Office0"
+    }
+  ],
+  "doors": [
+    {
+      "id": "OfficeDoor_-1",
+      "position_m": [
+        19,
+        -8,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "positive_hinge": false,
+      "leaf_mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf"
+    },
+    {
+      "id": "OfficeDoor_1",
+      "position_m": [
+        19,
+        8,
+        4.5
+      ],
+      "yaw_deg": 0,
+      "positive_hinge": true,
+      "leaf_mesh": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf"
+    }
+  ],
+  "pots": [
+    [
+      -21,
+      -8,
+      0
+    ],
+    [
+      -21,
+      8,
+      0
+    ],
+    [
+      -3,
+      15.25,
+      0
+    ],
+    [
+      2,
+      15.25,
+      0
+    ],
+    [
+      8,
+      -14.7,
+      0
+    ],
+    [
+      12,
+      -14.7,
+      0
+    ],
+    [
+      -20.4,
+      -15.9,
+      4.5
+    ],
+    [
+      -20.4,
+      15.78,
+      4.5
+    ],
+    [
+      11.3,
+      -15.88,
+      4.5
+    ],
+    [
+      11.3,
+      15.9,
+      4.5
+    ]
+  ],
+  "ports": [
+    {
+      "id": "arrival",
+      "position": [
+        -27,
+        0,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "width": 4,
+      "height": 3.4
+    },
+    {
+      "id": "facility",
+      "position": [
+        27,
+        0,
+        0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "width": 3,
+      "height": 3
+    }
+  ],
+  "reception_counter": {
+    "x": [
+      -12,
+      -3
+    ],
+    "y": [
+      12.0,
+      13.7
+    ]
+  },
+  "lighting_budget": {
+    "total": 23,
+    "shadowed": 4
+  },
+  "production_registered": false,
+  "tests_run": false,
+  "rendered": false,
+  "route_intent": "Future dungeon first room; independent subject pending user acceptance",
+  "active_refinement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonReceptionHall20261006\\Refine20261007",
+  "lighting_revision": "abandoned_halls_20261008_brightness_v3",
+  "lighting_profile_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HallLighting20261007\\profile.py",
+  "postprocess_lighting": {
+    "auto_exposure_min_brightness": 0.95,
+    "auto_exposure_max_brightness": 0.95,
+    "auto_exposure_bias": -0.25,
+    "indirect_lighting_intensity": 0.8,
+    "bloom_intensity": 0.08,
+    "vignette_intensity": 0.25
+  },
+  "upper_props_revision": "20261007-wall-placement-and-detailed-bins"
+}
