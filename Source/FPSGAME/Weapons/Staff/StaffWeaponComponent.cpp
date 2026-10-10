@@ -11,6 +11,7 @@
 #include "../../Skills/QuickCombatPistolMotion.h"
 #include "../MeleeSmallTargetQuery.h"
 #include "../WeaponStatEvaluation.h"
+#include "../MeleeWeaponStats.h"
 #include "../../Combat/WeaponDamageTypes.h"
 #include "../../FPSGAMECharacter.h"
 #include "../../Items/FPSPotionUseComponent.h"
@@ -218,6 +219,9 @@ void UStaffWeaponComponent::BeginPrimaryAttack()
     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());if(!IsEquipped()||IsBusy()||!Pawn||!Staff||!Staff->IsVisible()||Pawn->IsSpellGestureBlocking()||Pawn->IsCastBlockingLeftHandAction())return;
     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     auto* P=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();const auto* I=P->Equipped();if(!I||I->InstanceId!=Instance)return;
+    // Match ordinary punches: debit once on entry, including misses; failed
+    // payment leaves the carry/action state untouched and cancellation refunds nothing.
+    if(!P->SpendStamina(ColdSteelMelee::UnarmedAttackStamina(P)))return;
     Damage=ColdSteelWeaponStats::Damage(*I,P,3);Duration=FMath::Max(.1,double(ColdSteelWeaponStats::Interval(I,P,.5)));
     Shot=ColdSteelSkills::Snapshot(Pawn,I);Shot.bRifle=false;Shot.bPistol=false;Shot.WeakpointPercent=0;Shot.AttackForm=EMonsterAttackForm::Blunt;Shot.bMeleeStrike=true;
     const auto Entry=CarryPoseInCamera();CancelAction();AttackEntry=Entry;Age=0;

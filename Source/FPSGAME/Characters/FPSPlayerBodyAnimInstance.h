@@ -38,6 +38,7 @@ public:
     // Game-thread equipment adapter; the proxy copies these before evaluation.
     TArray<FTransform> EquipmentFingers;
     uint8 EquipmentGripHands = 0;
+    int32 SpellbookEquipmentIndex = INDEX_NONE;
     bool bBowPose = false;
     FTransform BowHands[2];
     FQuat StaffHandRotation=FQuat::Identity;
@@ -45,6 +46,9 @@ public:
     FTransform ActionHands[2];
     uint8 ActionFingerMask=0,ActionWristMask=0;
     bool bCoupledActionWrists=false;
+    FVector ConsumeMouthInHead=FVector::ZeroVector;
+    FVector ConsumePropContact=FVector::ZeroVector;
+    bool bHasConsumeProp=false;
 protected:
     virtual FAnimInstanceProxy* CreateAnimInstanceProxy() override;
     virtual void DestroyAnimInstanceProxy(FAnimInstanceProxy* Proxy) override;

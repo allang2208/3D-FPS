@@ -1,4 +1,5 @@
 #include "MeleeWeaponStats.h"
+#include "Staff/StaffCatalog.h"
 #include "TangDaoGuardComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Skills/SwordUppercutTuning.h"
@@ -95,6 +96,8 @@ double MeleeStaminaScale(const UColdSteelStatusModel* Profile)
 
 double ColdSteelMelee::AttackStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile)
 {
+    // The HUD attack count and the staff executor share ordinary punch cost.
+    if(Item&&ColdSteelStaff::IsStaff(*Item))return UnarmedAttackStamina(Profile);
     // 采集工具按采集体力结算（改造倍率作用在同一份实值上），不套用近战 15 点口径。
     if(Item&&ColdSteelInventory::IsEquippedProductionTool(*Item))
     {

@@ -1,0 +1,1026 @@
+[
+  {
+    "source": "Docs/Characters/third-person-eat-restoration-20261010.md",
+    "destination": "trash/third-person-actions-retired-20261010/Docs/Characters/third-person-eat-restoration-20261010.md",
+    "bytes": 1438,
+    "sha256": "1d4829c9e405986ddd643ecfd91e03c0d2810f8166553c902ad0783973d2275e",
+    "reason": "Rejected raw UAL2 food restoration",
+    "replacement": "Docs/Characters/third-person-food-native-20261010.md"
+  },
+  {
+    "source": "Source/FPSGAME/Characters/FPSBodyStaffGripData.h",
+    "destination": "trash/third-person-actions-retired-20261010/Source/FPSGAME/Characters/FPSBodyStaffGripData.h",
+    "bytes": 6338,
+    "sha256": "92793a2ba58edfb7fdaafd492a8816fd6e0384b2e6a9eae0bb24c231fa19ef5c",
+    "reason": "Unused rejected generated grasp table; runtime transfers accepted FPS grasp",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonBookPush20261010/diagnosis-summary-entry-delta.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonBookPush20261010/diagnosis-summary-entry-delta.json",
+    "bytes": 2139,
+    "sha256": "bf647500bd679eada1387d0555b6b070c25857b950cedf4d56c2b9553c5a682f",
+    "reason": "Intermediate book-push diagnosis superseded by final result",
+    "replacement": "SourceAssets/ThirdPersonBookPush20261010/proxy-diagnosis-final.json"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonBookPush20261010/diagnosis-summary.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonBookPush20261010/diagnosis-summary.json",
+    "bytes": 2141,
+    "sha256": "868239a95b5a25629459983d36bfba04041dd98ae66eb4b2469ada4c16e420b1",
+    "reason": "Intermediate book-push diagnosis superseded by final result",
+    "replacement": "SourceAssets/ThirdPersonBookPush20261010/proxy-diagnosis-final.json"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonBookPush20261010/proxy-diagnosis-entry-delta.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonBookPush20261010/proxy-diagnosis-entry-delta.json",
+    "bytes": 22715239,
+    "sha256": "734366fcaf3be3e65f13f1ff1a1f871f7af98dde3c0fafcd6451ea399e62496f",
+    "reason": "Intermediate book-push diagnosis superseded by final result",
+    "replacement": "SourceAssets/ThirdPersonBookPush20261010/proxy-diagnosis-final.json"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonBookPush20261010/proxy-diagnosis.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonBookPush20261010/proxy-diagnosis.json",
+    "bytes": 22715785,
+    "sha256": "76e3d982cc8bc59b8098ec5604c57f95e8c136a3b78bed5e2d9ae9b0f29e110c",
+    "reason": "Intermediate book-push diagnosis superseded by final result",
+    "replacement": "SourceAssets/ThirdPersonBookPush20261010/proxy-diagnosis-final.json"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonEatRestore20261010/build-editor.log",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonEatRestore20261010/build-editor.log",
+    "bytes": 10815,
+    "sha256": "9ed291c5891f7ad029b09748220a5d7d245c597d154fc28643a3c14a4f5edc13",
+    "reason": "Rejected raw UAL2 food restoration",
+    "replacement": "SourceAssets/ThirdPersonFoodNative20261010"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonEatRestore20261010/build-game.log",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonEatRestore20261010/build-game.log",
+    "bytes": 10641,
+    "sha256": "d2d1e3740d1ccd5bbf44bd8c05bcc494f3524389d6383f270472691e615637e1",
+    "reason": "Rejected raw UAL2 food restoration",
+    "replacement": "SourceAssets/ThirdPersonFoodNative20261010"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonEatRestore20261010/restoration.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonEatRestore20261010/restoration.json",
+    "bytes": 1150,
+    "sha256": "a76cee6b6cdea87aff15e59ec460f821af420998415161b6faa92fe956e3aa55",
+    "reason": "Rejected raw UAL2 food restoration",
+    "replacement": "SourceAssets/ThirdPersonFoodNative20261010"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonFoodReview20261010/readback-01.txt",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonFoodReview20261010/readback-01.txt",
+    "bytes": 677,
+    "sha256": "3bde07b22ff339af50ef6a5bd541982151175599d7b0d32e36a3315e8ac715a3",
+    "reason": "Failed read-only API attempt",
+    "replacement": "SourceAssets/ThirdPersonFoodReview20261010/saved-animation-review.json"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonFoodUpperarmFix20261010/before-assets-saved.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonFoodUpperarmFix20261010/before-assets-saved.json",
+    "bytes": 909,
+    "sha256": "691f89a8cb7339ac576ed68382ec066b51c23fec7cfb90487df1cc99afe51f90",
+    "reason": "Food pose before upper-arm overwrite fix",
+    "replacement": "SourceAssets/ThirdPersonFoodNative20261010/authored.json"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonFoodUpperarmFix20261010/before-author.py",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonFoodUpperarmFix20261010/before-author.py",
+    "bytes": 10197,
+    "sha256": "2b37fcf1e0e85f6f13773afe9f2bb9b778f03b58d42e7905d5c1a24e4cc9e5da",
+    "reason": "Food pose before upper-arm overwrite fix",
+    "replacement": "SourceAssets/ThirdPersonFoodNative20261010/authored.json"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonFoodUpperarmFix20261010/before-authored.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonFoodUpperarmFix20261010/before-authored.json",
+    "bytes": 18674925,
+    "sha256": "34e6feae9fed42fb3e1c2d541e6b410a54444bff30a1e6f83a3b80426dae3dee",
+    "reason": "Food pose before upper-arm overwrite fix",
+    "replacement": "SourceAssets/ThirdPersonFoodNative20261010/authored.json"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonFoodUpperarmFix20261010/before-saved-poses.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonFoodUpperarmFix20261010/before-saved-poses.json",
+    "bytes": 572357,
+    "sha256": "e587c2e8010b3b6d52e5a8b3d666bd3ac1550a81758832d64aa318f303f9ac74",
+    "reason": "Food pose before upper-arm overwrite fix",
+    "replacement": "SourceAssets/ThirdPersonFoodNative20261010/authored.json"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffCombat20261009/Before/DefaultGame.ini",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffCombat20261009/Before/DefaultGame.ini",
+    "bytes": 20053,
+    "sha256": "ea9bf017591f08729501e4b3c42022f05ef8bbac0544ef63ab0529b3fd9a56c3",
+    "reason": "Superseded rollback snapshot; current production retained",
+    "replacement": "Source/FPSGAME/Characters"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffCombat20261009/Before/FPSBodySwordPose.inl",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffCombat20261009/Before/FPSBodySwordPose.inl",
+    "bytes": 7415,
+    "sha256": "73a30e4199b375cd4b3531070c19e4d249373ed80aae3963204a4c61d6c6834f",
+    "reason": "Superseded rollback snapshot; current production retained",
+    "replacement": "Source/FPSGAME/Characters"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffCombat20261009/Before/FPSPlayerBodyAnimInstance.cpp",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffCombat20261009/Before/FPSPlayerBodyAnimInstance.cpp",
+    "bytes": 82472,
+    "sha256": "bfcf0115aa92f595151a10f8f4bf3bba93667fa0c31fecd9ab82085b90043e41",
+    "reason": "Superseded rollback snapshot; current production retained",
+    "replacement": "Source/FPSGAME/Characters"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffCombat20261009/Before/player_body.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffCombat20261009/Before/player_body.json",
+    "bytes": 27604,
+    "sha256": "37c2686ace39cbb66c6774e7b863aa66042def8940a4c893bc6eaccb682576a3",
+    "reason": "Superseded rollback snapshot; current production retained",
+    "replacement": "Source/FPSGAME/Characters"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGrip20261009/Before/FPSPlayerBodyEquipment.cpp",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGrip20261009/Before/FPSPlayerBodyEquipment.cpp",
+    "bytes": 36599,
+    "sha256": "2041f3224295764fbfd5f62362b22344bf2070e10c49cb2dfae0bce20a06a496",
+    "reason": "Superseded rollback snapshot; current production retained",
+    "replacement": "Source/FPSGAME/Characters"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGrip20261009/Before/FPSPlayerBodyMotion.cpp",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGrip20261009/Before/FPSPlayerBodyMotion.cpp",
+    "bytes": 30705,
+    "sha256": "999372bb2cac4da179efb375be0c35b733235eb09d5443111900ad8d8d188c7f",
+    "reason": "Superseded rollback snapshot; current production retained",
+    "replacement": "Source/FPSGAME/Characters"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate1-front.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate1-front.png",
+    "bytes": 349627,
+    "sha256": "057c2befff6ee16be5a1e3bd9d647a7a8020333536be525ea27af6b3c0ea95c4",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate1-palm.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate1-palm.png",
+    "bytes": 345711,
+    "sha256": "a73edb84bffad1ae9109210d55941aad275251ef2a01ce7d0730af62cfc958df",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate1-side.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate1-side.png",
+    "bytes": 344020,
+    "sha256": "191840e368cba8160fb6fdbbdf5021a7467de53d522e7dd2a7873664130ebc60",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate1.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate1.blend",
+    "bytes": 1961241,
+    "sha256": "b1fccf90f1a3186a92ed62347f1d703f27127fcc291ef236e9fe12d9eac13494",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate3-front.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate3-front.png",
+    "bytes": 364955,
+    "sha256": "d7ace0432e1cd558b19ddf8814d2eab763eee6eea090e3ff732e70420cc0b159",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate3-palm.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate3-palm.png",
+    "bytes": 363885,
+    "sha256": "a9588d635bc22ee0a767fba7a8e0f4ca71d609d1e14e3071e4e825ff447a78c5",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate3-side.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate3-side.png",
+    "bytes": 334317,
+    "sha256": "7a590065dbf1963af9c525edc057d219b4c0f2aabc197f0634d610230c2bd9ec",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate3.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate3.blend",
+    "bytes": 1957984,
+    "sha256": "c5f49895593a1968d1df3dee1793a22ebb99046ad8d816c97c8504b45de66239",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate4-front.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate4-front.png",
+    "bytes": 364363,
+    "sha256": "9232e25abfb940700d9e3dba581094b70fe17c0c2b6003839078f92a32d562eb",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate4-palm.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate4-palm.png",
+    "bytes": 356255,
+    "sha256": "9245d4d6ba69ebfcdedced15bbb60615f62f48e76d298e8597f734ce7af8e17f",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate4-side.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate4-side.png",
+    "bytes": 341241,
+    "sha256": "3d8a445c1864be2904ed1a4415dc3a7e7d1db1f324a437df0ac66fb876ca1a65",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate4.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate4.blend",
+    "bytes": 1961499,
+    "sha256": "68a2ad65820a1b148b980d9032b881eec7776b8bd3accdee8902f4da20774ebc",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate5-front.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate5-front.png",
+    "bytes": 370306,
+    "sha256": "cfc3e381a5140632c58c0a317dac0fa3072b7abab8a42e0ccb733f52b5c93d76",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate5-palm.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate5-palm.png",
+    "bytes": 362730,
+    "sha256": "1906af8128318d156e5089efc4aa6ed187a9985bf9d1fd41fff0b9ce214348d6",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate5-side.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate5-side.png",
+    "bytes": 336159,
+    "sha256": "5aa86ab3f5240a19947e006fbe2a56177d15486bb721d40b4f7c94923a7c3ea4",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate5.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate5.blend",
+    "bytes": 1958196,
+    "sha256": "d12ea7246b09c098cc112fa48f21ab5537f52ecc26d77c712b2194e84d1544af",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate6-front.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate6-front.png",
+    "bytes": 370879,
+    "sha256": "efbc95656914e2741266ad33ff72304a5c3ffca085b7fff8b7ecd69a317eaa59",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate6-palm.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate6-palm.png",
+    "bytes": 362382,
+    "sha256": "da46aeca40ec67db2ccda7accc8f76895eecbea332bce63dc4a6d84276d70eeb",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate6-side.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate6-side.png",
+    "bytes": 340287,
+    "sha256": "977b16c555ba25d3a28ffa411b65a9e8d819c5f7f6b89715a2df920d52bef2e3",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate6.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate6.blend",
+    "bytes": 1958805,
+    "sha256": "2a68b93f1ed225e5e79009ea41a11b3425d91afe610ba4c3582cd0627ff12f3e",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate7-front.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate7-front.png",
+    "bytes": 374284,
+    "sha256": "72a4f2dda6c3690488dfe6f07e137a1c434a5fdb009585476fc46d9beb816281",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate7-palm.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate7-palm.png",
+    "bytes": 360400,
+    "sha256": "e9a323cca9887c7d84c9383da5b4193b56d7a230c95c47b900984bd315cadf90",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate7-side.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate7-side.png",
+    "bytes": 339144,
+    "sha256": "1e37849280d54af4067e991d387d56e9606f750c278cb3340cbdc2c2beed095f",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate7.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate7.blend",
+    "bytes": 1960860,
+    "sha256": "801b5c12f4228e86cb826df05e57d7ef601752798c88769bae8a07b7da9de5a0",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/candidate7.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/candidate7.json",
+    "bytes": 2318,
+    "sha256": "9ea5e037278e060003eebf532e94bb96d6194b1068ee8926f366f55717074a76",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/final-carry-front.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/final-carry-front.png",
+    "bytes": 337801,
+    "sha256": "de7c81b8c38a4b3cc6401b2ac1a3d0c70fcab659ad116084eed0ea6e4ef3c4e8",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/final-carry-palm.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/final-carry-palm.png",
+    "bytes": 328487,
+    "sha256": "6054c463a5f9ea3cbb98455b2bb0ddeffb4f8ab856e3322ced94cd5ece7ce096",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/final-carry-side.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/final-carry-side.png",
+    "bytes": 309809,
+    "sha256": "2f972b06bb52aefee1eb8280ca0deb3f1c8db7d7144cee6e57df1d00596f0d72",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/final-carry.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/final-carry.blend",
+    "bytes": 2724650,
+    "sha256": "2972b9f7846c1be8dbfc55064af0de652e5cbe8f16b693bb0a8d725791cf8070",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/final-cast-front.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/final-cast-front.png",
+    "bytes": 298234,
+    "sha256": "97440968960b4a21d47b496b37df5c7688031fdc4940837a7e879fb80c967ac2",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/final-cast-palm.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/final-cast-palm.png",
+    "bytes": 299417,
+    "sha256": "ebb35ba6e78f80c5b3a678eb4fa576d190bcf3ea068b748fe9f51895929a4827",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/final-cast-side.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/final-cast-side.png",
+    "bytes": 308027,
+    "sha256": "e255101bd50552271c01085fcbc98e2ef3a51faa38202864dc50a7d42e506725",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/final-cast.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/final-cast.blend",
+    "bytes": 2769827,
+    "sha256": "cce64087cac4c4c0b29022b37595d7b1a2f4c88682512b770a8c0d092b7a79c6",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/final-grip-front.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/final-grip-front.png",
+    "bytes": 375409,
+    "sha256": "fa9e8e5821486fd1a94b228b7e3d73f6add17e40b31b58ec760dfaad6dff80a9",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/final-grip-palm.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/final-grip-palm.png",
+    "bytes": 363946,
+    "sha256": "e8767351ce82c5bb6a0a3926f2389d802c83397be9d2f34300d80a3f6b1f5974",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/final-grip-side.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/final-grip-side.png",
+    "bytes": 341629,
+    "sha256": "c99c5af7b3b403e4d8359a3a8aebfaf420172b4cb5a7e158da23174d34f82a58",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/final-grip.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/final-grip.blend",
+    "bytes": 2346802,
+    "sha256": "f467f981d1c2748f1ed37e395bc51e3a09652ec88694a676158dbf9d37959138",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/rejected-front.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/rejected-front.png",
+    "bytes": 339192,
+    "sha256": "b886c4de1fd351eef5f33f0886500cc3048539d6ee26e15818ba894e1d612e58",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/rejected-palm.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/rejected-palm.png",
+    "bytes": 361862,
+    "sha256": "4b27c0b137984154013be0a434e05d14f7117e21b9be20107ba6fd56c73f7676",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/rejected-side.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/rejected-side.png",
+    "bytes": 368820,
+    "sha256": "dbd502220cc6cc2a56d7f95f97e0bfc8b313055bf980109e69425ade7a140e3c",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/rejected.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/rejected.blend",
+    "bytes": 1964634,
+    "sha256": "b2cc7f54fc0da0b94ca329cb4cf11cbf067b2cb8fd3faf1ee6c0b0061e310b3a",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/render-candidate1.log",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/render-candidate1.log",
+    "bytes": 989,
+    "sha256": "5c41715631abf78cd1d9014f0ccd6fa5ac96c991f8b800d9e215384c9a7ff00d",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/render-candidate3.log",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/render-candidate3.log",
+    "bytes": 989,
+    "sha256": "c52a561d229e0e618a5b8833673b098f254b0a0d92e8a4cccf932014bcbeefb0",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/render-candidate4.log",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/render-candidate4.log",
+    "bytes": 989,
+    "sha256": "3c3c5831b695ccca876d30b4d16de5564926fe7a0d750ddc6318461401f9b1de",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/render-candidate5.log",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/render-candidate5.log",
+    "bytes": 989,
+    "sha256": "9e2c9d4f8c91699595a650a2c307d9262feef39e06cfafc6b9a549e7c1a6b667",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/render-candidate6.log",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/render-candidate6.log",
+    "bytes": 989,
+    "sha256": "03a37b136dae6dce3c5f572c9289ee36bae4baf8465a942947709380f33a468b",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/render-candidate7.log",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/render-candidate7.log",
+    "bytes": 989,
+    "sha256": "8e56d8979c2d10e2b90cbbf9d95a2655eeb44f8a8cb5421f552cbae807f93f3b",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/render-final-carry.log",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/render-final-carry.log",
+    "bytes": 993,
+    "sha256": "86365e373f8cbbdeb0897550ca6decac43f3940c6a2f57f084676f7937928146",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/render-final-cast.log",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/render-final-cast.log",
+    "bytes": 989,
+    "sha256": "035103afa0bcc80e11adbfa5827b06b0803ed51264cdb6a995ac048a126de63c",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/render-final-grip.log",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/render-final-grip.log",
+    "bytes": 989,
+    "sha256": "5af9b4f86f3a7840806e085756dbbe9bfc864d8ade81dfd592488b1c85189335",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/render-rejected.log",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/render-rejected.log",
+    "bytes": 981,
+    "sha256": "135c64af4756e3e0b0f9d2d86bda4ffc7e26b2b7e060bfcdb45d2d54971c17bb",
+    "reason": "Rejected manual grip candidate or its obsolete preview",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripVRE20261009/Before/FPSBodyStaffGrip.h",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripVRE20261009/Before/FPSBodyStaffGrip.h",
+    "bytes": 1572,
+    "sha256": "ba1b44370f7d6ea7aa08f867bdfcae75f7bbc60f2e6176fbd98ff2d5bf14e3dd",
+    "reason": "Superseded rollback snapshot; current production retained",
+    "replacement": "Source/FPSGAME/Characters"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripVRE20261009/Before/FPSBodyStaffGripData.h",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripVRE20261009/Before/FPSBodyStaffGripData.h",
+    "bytes": 5700,
+    "sha256": "d3e036e72aad222a966b1fb20a1c82510b23a2d1fc673fb6d2bbbabad399be4e",
+    "reason": "Superseded rollback snapshot; current production retained",
+    "replacement": "Source/FPSGAME/Characters"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripVRE20261009/Before/FPSPlayerBodyMotion.cpp",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripVRE20261009/Before/FPSPlayerBodyMotion.cpp",
+    "bytes": 31234,
+    "sha256": "1bdf3ee0cc6c0b0083f2bd63f1225d115430650707c24c35e3dcc99fdd4bb883",
+    "reason": "Superseded rollback snapshot; current production retained",
+    "replacement": "Source/FPSGAME/Characters"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/FPSBodyStaffGripData-before.h",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/FPSBodyStaffGripData-before.h",
+    "bytes": 6349,
+    "sha256": "eca027bbad69d96eb2a4fde7e303505bf168ac0e526db0a4f53ac913e81e66b3",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/FPSBodyStaffGripData.h",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/FPSBodyStaffGripData.h",
+    "bytes": 6338,
+    "sha256": "92793a2ba58edfb7fdaafd492a8816fd6e0384b2e6a9eae0bb24c231fa19ef5c",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/before-back.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/before-back.png",
+    "bytes": 519336,
+    "sha256": "d00c122b324a7726de38b1f22ff942fd3b7fe0eb2dee27bf377cc7f788241996",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/before-thumb.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/before-thumb.png",
+    "bytes": 492994,
+    "sha256": "fcea8c3269d21cc175f981db397aae870b0569e98697955dbb3e6e6f11ee9110",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/before-view.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/before-view.json",
+    "bytes": 6414684,
+    "sha256": "7dd330d7682e8fba1b8ac9df4f8d2e86ea1d28fc543b482aa6094a8dc5bce243",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/before.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/before.blend",
+    "bytes": 2541371,
+    "sha256": "8766168f8c27172598477395eba649daa80b40e6bf6fd9028aa89021940d0ab3",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/direct-back.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/direct-back.png",
+    "bytes": 481851,
+    "sha256": "ae75e19b15158b38d0bc37ab428b5623259fc071d0bb881dbf5eff9a46715046",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/direct-bind.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/direct-bind.json",
+    "bytes": 10070393,
+    "sha256": "8cea75abe24258aa60034853deeb4203d93b61f7e2cc7620857de5c0c4e85584",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/direct-thumb.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/direct-thumb.png",
+    "bytes": 498332,
+    "sha256": "f0b9911e8a6ad90abbb48050cea75fd43d19f99bf54138ad2747732d60e8d4e4",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/direct-view.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/direct-view.json",
+    "bytes": 6411570,
+    "sha256": "482272a7b20901b539c0586a3e82c070a1f76167244ef38ee08b97c3034ed07e",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/direct.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/direct.blend",
+    "bytes": 2544293,
+    "sha256": "4f08ec1853e4d284c2976d74f3b876f72611c28b23346e92870f15ddb0d9fe11",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/final-back.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/final-back.png",
+    "bytes": 480826,
+    "sha256": "143371f26ef61d24c2650e66089dda5203978ce8a6755c58a7ec70722e6e23ae",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/final-thumb.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/final-thumb.png",
+    "bytes": 496394,
+    "sha256": "ba662c8333123b96bac22445eb31d966542557549a512e038547bdbe060c25e9",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/final-view.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/final-view.json",
+    "bytes": 6408499,
+    "sha256": "fe27a34eb57132e120472d813bc11c14dfa9d0f5182bcb7942e092491877fc71",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/final.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/final.blend",
+    "bytes": 2544316,
+    "sha256": "b03bb7053601190fdebe59671779a0c5258840d21f6f17283c67877cf1629d62",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/nativefit-back.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/nativefit-back.png",
+    "bytes": 481107,
+    "sha256": "44c3cad23d88d0460e7d6e6527863098ea7d4f02c97d3de9ec051ddfddca6341",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/nativefit-thumb.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/nativefit-thumb.png",
+    "bytes": 496816,
+    "sha256": "c5bf7026d14edd0020c201c23a277f651c24b46a9d265350b717f32d4019ef4b",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/nativefit-view.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/nativefit-view.json",
+    "bytes": 6411338,
+    "sha256": "e0e177851a4a6064938d1ea334f95b400f10f6349111f7efa6f06a3c5bf8991a",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/nativefit.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/nativefit.blend",
+    "bytes": 2544460,
+    "sha256": "efc743dfcf515b85568007edd6ed00e5552d46f6e232148e2c6b3ce5fd179b22",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/plated-back.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/plated-back.png",
+    "bytes": 485500,
+    "sha256": "5e499591d2fa72010ea845514f9d558daa18984c945041eda48c167eb45a6b65",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/plated-thumb.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/plated-thumb.png",
+    "bytes": 499449,
+    "sha256": "b35f77ab0c70408a0bb434071cdba400a3d9fc5338d2e9190776cf6a7ab605c5",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/plated-view.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/plated-view.json",
+    "bytes": 6410115,
+    "sha256": "77a807d86f2e3d4f452a34567368c73541b8a4d6e9b91f463ef0a6ca8cf29339",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/plated.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/plated.blend",
+    "bytes": 2544356,
+    "sha256": "f0343ebdc52fdff93dde9a8da835df6b806cf5c9172dcfd6c94697aabb0ffaa4",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/rebuilt-back.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/rebuilt-back.png",
+    "bytes": 533498,
+    "sha256": "0c19c1702fb55b60790736eab782a25d4912bab2f1e822b081b5626b5148d05f",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/rebuilt-thumb.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/rebuilt-thumb.png",
+    "bytes": 505506,
+    "sha256": "ccebf98bdcb5fee5dd32a7a8acad7e154be04e71393271d4db09900799736f2c",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/rebuilt-view.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/rebuilt-view.json",
+    "bytes": 6416501,
+    "sha256": "c3926f4191cd8e70065c3fcfc69b0a691fad1c8177e99b0da12fd2de3a480447",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/rebuilt.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/rebuilt.blend",
+    "bytes": 2543762,
+    "sha256": "a6c781a0ccbe76429b93b37e09165a8ce891ce285a94a541942ad17155bdfd71",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/smooth-back.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/smooth-back.png",
+    "bytes": 493694,
+    "sha256": "f8d7c23cedac16ada1a4c4140ca9336c53cbabc8297455c64b9c74b030514d21",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/smooth-thumb.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/smooth-thumb.png",
+    "bytes": 504641,
+    "sha256": "ef27a4bf6cbaaeb4af9d9f40c2ec4658a22cd407991dc8b92e3053d24f5ac28d",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/smooth-view.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/smooth-view.json",
+    "bytes": 6415430,
+    "sha256": "a508df527d51c665ac50634f9b5d0a02b2660005a5e738bdf199f77fbe76d29b",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/smooth.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/smooth.blend",
+    "bytes": 2543813,
+    "sha256": "0b1c908525428c370922a6c89e41780bcb9bc24fcd8417f6659e9ad9c7a5312a",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/thumb-back.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/thumb-back.png",
+    "bytes": 481307,
+    "sha256": "782988b44aca564419b484af0e01f6a0942802dccbd12e122b18cd232c039fb4",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/thumb-thumb.png",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/thumb-thumb.png",
+    "bytes": 496125,
+    "sha256": "a6f5c408565e2f9820641e241318f8d492102730e71adde827137d3ced1ee44e",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/thumb-view.json",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/thumb-view.json",
+    "bytes": 6408323,
+    "sha256": "372d60c708c3922ce094e79920536f83b54714f82301eb478eaf4a8f14b3dd1d",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffThumbSteel20261009/thumb.blend",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffThumbSteel20261009/thumb.blend",
+    "bytes": 2544246,
+    "sha256": "4b0e15e6e9f554f185119fadedf6faf3e3b648dd24e861749d862a1938bb2ef9",
+    "reason": "Superseded thumb/steel trial or its preview; required geometry inputs retained",
+    "replacement": "SourceAssets/ThirdPersonStaffSurfaceRepair20261009"
+  },
+  {
+    "source": "Docs/Characters/third-person-staff-grip-20261009.md",
+    "destination": "trash/third-person-actions-retired-20261010/Docs/Characters/third-person-staff-grip-20261009.md",
+    "bytes": 3213,
+    "sha256": "fb29be00d526cc6c831387f9dae9b18804ff5ad245d147476686b74e6a08ea4d",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "Docs/Characters/third-person-staff-vre-grip-20261009.md",
+    "destination": "trash/third-person-actions-retired-20261010/Docs/Characters/third-person-staff-vre-grip-20261009.md",
+    "bytes": 3172,
+    "sha256": "bfe9600e9993ba295feeac6c83a61d1efa219a58ec249fe75a7523b8341e3d4f",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "Docs/Characters/third-person-staff-facing-20261009.md",
+    "destination": "trash/third-person-actions-retired-20261010/Docs/Characters/third-person-staff-facing-20261009.md",
+    "bytes": 4042,
+    "sha256": "62a03e484339c5f2ddf0a16abcf46aece50243e9acb24b6342ded21789ba8ee2",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "Docs/Characters/third-person-staff-thumb-steel-20261009.md",
+    "destination": "trash/third-person-actions-retired-20261010/Docs/Characters/third-person-staff-thumb-steel-20261009.md",
+    "bytes": 3469,
+    "sha256": "f7c8a2a44c8aac24628894211c47e6052ab17e1538aaf5f17425e0e6e6297b3c",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "Docs/Characters/third-person-staff-wrist-20261009.md",
+    "destination": "trash/third-person-actions-retired-20261010/Docs/Characters/third-person-staff-wrist-20261009.md",
+    "bytes": 3128,
+    "sha256": "d151b438d2c15cc58e08a07c95bb749cd89719f55c9d47f237455b8474f6b437",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGrip20261009/README.md",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGrip20261009/README.md",
+    "bytes": 269,
+    "sha256": "cd7abe97d31913642588091afb46581aa92b7b6e45623c4738baf7aaa26e5ebe",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripVRE20261009/FPSBodyStaffGripData.h",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripVRE20261009/FPSBodyStaffGripData.h",
+    "bytes": 6279,
+    "sha256": "326b14c0ead06beafdfa165202582274ae6c254422d4c2a6be2050222e5eacad",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "SourceAssets/ThirdPersonStaffGripFacing20261009/FPSBodyStaffGripData.h",
+    "destination": "trash/third-person-actions-retired-20261010/SourceAssets/ThirdPersonStaffGripFacing20261009/FPSBodyStaffGripData.h",
+    "bytes": 6349,
+    "sha256": "eca027bbad69d96eb2a4fde7e303505bf168ac0e526db0a4f53ac913e81e66b3",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "Tools/PlayerBody/apply_staff_wrist20261009.py",
+    "destination": "trash/third-person-actions-retired-20261010/Tools/PlayerBody/apply_staff_wrist20261009.py",
+    "bytes": 641,
+    "sha256": "4a380f9b29c6baceeff5b2238a6af1d53a42a461abddac3712e7a89b10f67a13",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "Tools/PlayerBody/compile_staff_grip_facing20261009.py",
+    "destination": "trash/third-person-actions-retired-20261010/Tools/PlayerBody/compile_staff_grip_facing20261009.py",
+    "bytes": 240,
+    "sha256": "ed8b38b7717f887f3dc04fbb90798d70585b98cb84d34c9805771b860aaf4322",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "Tools/PlayerBody/end_play_for_staff_grip20261009.py",
+    "destination": "trash/third-person-actions-retired-20261010/Tools/PlayerBody/end_play_for_staff_grip20261009.py",
+    "bytes": 443,
+    "sha256": "af089c22a1d743e5e68d177aa9baac672d5b00390203fa11d8abf70f4048eca4",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "Tools/PlayerBody/end_play_staff_carry_save20261010.py",
+    "destination": "trash/third-person-actions-retired-20261010/Tools/PlayerBody/end_play_staff_carry_save20261010.py",
+    "bytes": 281,
+    "sha256": "d2ae7f92fc7f8f6333be440be9237ff5cae2925289ec30e8008220e22b4509dd",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "Tools/PlayerBody/end_play_wizard_drink20261010.py",
+    "destination": "trash/third-person-actions-retired-20261010/Tools/PlayerBody/end_play_wizard_drink20261010.py",
+    "bytes": 276,
+    "sha256": "4287e163ab3570fd4c41a3666c7b89b32227a61daf986bf22cc929c1665d3ac0",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "Tools/PlayerBody/end_staff_wrist_play20261009.py",
+    "destination": "trash/third-person-actions-retired-20261010/Tools/PlayerBody/end_staff_wrist_play20261009.py",
+    "bytes": 281,
+    "sha256": "78690963518f7bb7a8e0f85a6d31ebbe681c2d1271cec0a95c5b27dcae574ba6",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "Tools/PlayerBody/resume_staff_carry_save20261010.py",
+    "destination": "trash/third-person-actions-retired-20261010/Tools/PlayerBody/resume_staff_carry_save20261010.py",
+    "bytes": 715,
+    "sha256": "0cc5987f00307cd6abde6c97e3388a3190520557a84dc9ad7ead4c1039e3435d",
+    "reason": "Superseded case writeup, unused generated table, or completed one-off editor dispatch; current recovery documented separately",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  },
+  {
+    "source": "Tools/PlayerBody/author_staff_grip.py",
+    "destination": "trash/third-person-actions-retired-20261010/Tools/PlayerBody/author_staff_grip.py",
+    "bytes": 14053,
+    "sha256": "14d89d4767893b2ff01f1950b778c505a01dba8499bcb5e9795166f13fa06e68",
+    "reason": "Retired manual grasp generators write the unused grip table",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "Tools/PlayerBody/author_staff_vre_grip.py",
+    "destination": "trash/third-person-actions-retired-20261010/Tools/PlayerBody/author_staff_vre_grip.py",
+    "bytes": 11783,
+    "sha256": "9802d8e1b622821893b44555d31f6a0b6cdb5abba88b68ea6d83793a52dd549c",
+    "reason": "Retired manual grasp generators write the unused grip table",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "Tools/PlayerBody/author_staff_thumb20261009.py",
+    "destination": "trash/third-person-actions-retired-20261010/Tools/PlayerBody/author_staff_thumb20261009.py",
+    "bytes": 5025,
+    "sha256": "b7a6d6461b4eac2464bd73032839015995043a4a654a6e4092302aaa0d3887ba",
+    "reason": "Retired manual grasp generators write the unused grip table",
+    "replacement": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h"
+  },
+  {
+    "source": "Tools/PlayerBody/save_and_inspect_staff_grip20261009.py",
+    "destination": "trash/third-person-actions-retired-20261010/Tools/PlayerBody/save_and_inspect_staff_grip20261009.py",
+    "bytes": 2538,
+    "sha256": "2e48056203a28f858de79f27321eced9536e6bb1893e56311902530e85dff6da",
+    "reason": "Completed save-and-inspect dispatch would overwrite the current strike mapping with a historical fallback",
+    "replacement": "Docs/Publication/ThirdPersonActions20261010/README.md"
+  }
+]

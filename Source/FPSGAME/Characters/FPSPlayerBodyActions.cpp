@@ -163,11 +163,13 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleLocalState() const
         if(Bash->GetStyle()==EQuickCombatStyle::SpellbookPush)State.ActionVariant=TEXT("SpellbookPush");
     }
     // IsCastingWithLeftHand intentionally includes gun bash for input arbitration.
-    // Presentation must ask the spell owner, not reinterpret that shared busy flag.
-    if(const auto* FireballMagic=Pawn->FindComponentByClass<UFPSFireballComponent>();FireballMagic&&FireballMagic->IsOccupyingLeftHand())
+    // Both staff and left-palm presentation read the actual gesture clock.
+    // Physical left-hand occupancy intentionally excludes staff gestures.
+    if(const auto* FireballMagic=Pawn->FindComponentByClass<UFPSFireballComponent>();FireballMagic&&FireballMagic->IsGestureActive())
     {
         State.Action=EFPSBodyAction::Cast;State.bHasActionProgress=true;State.ActionDuration=0.f;
         State.ActionProgress=FireballMagic->HandPhaseFraction();State.ReleaseFraction=FireballMagic->HandReleaseFraction();
+        if(FireballMagic->IsStaffCasting())State.ContactFraction=StaffCastMotion::ContactSeconds/StaffCastMotion::SwingSeconds;
         switch(FireballMagic->GetHandPhase())
         {
         case EFireballHandPhase::Raising:State.ActionVariant=TEXT("Gather");break;

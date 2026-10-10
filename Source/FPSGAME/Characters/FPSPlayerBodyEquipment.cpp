@@ -13,8 +13,10 @@
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Weapons/Staff/StaffAssembly.h"
 #include "../Weapons/Staff/StaffGripPose.h"
+#include "../Weapons/Unarmed/FPSUnarmedHandPose.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Weapons/Spellbook/SpellbookAuthoredGrip.h"
+#include "FPSBodyStaffGrip.h"
 #include "../Weapons/PistolDualWieldComponent.h"
 #include "../Production/ProductionToolComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -278,6 +280,9 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
         Key+=TEXT("|")+W.Mesh.ToSoftObjectPath().ToString()+TEXT("|")+W.HoldClip.ToSoftObjectPath().ToString();
         Key+=TEXT("|")+W.StaticMesh.ToSoftObjectPath().ToString()+TEXT("|")+W.StaticGrip.ToString();
         Key+=TEXT("|")+W.GripProfile.ToSoftObjectPath().ToString()+FString::Printf(TEXT("|%s:%d:%d"),*W.PoseFamily.ToString(),W.AttachHand,W.StaffVariant);
+        // Discard cached fitted mounts/palm poses when this source-sharing
+        // implementation replaces the old third-person-only grip table.
+        if(W.PoseFamily==TEXT("Staff"))Key+=TEXT("|StaffFromFirstPerson20261009|UnarmedFreeHand20261009|StaffSurfaceFit20261009");
         for(const auto& Clip:W.MotionClips)Key+=TEXT("|")+Clip.Role.ToString()+Clip.Sequence.ToSoftObjectPath().ToString();
         if(W.PoseFamily==TEXT("Bow"))Key+=TEXT("|")+W.Bow.UpperTip.ToString()+W.Bow.LowerTip.ToString()+W.Bow.Brace.ToString()+W.Bow.ArrowRest.ToString()
             +FString::Printf(TEXT("|%.6f:%.6f:%.6f:%.6f"),W.Bow.StringRadius,W.Bow.ArrowRadius,W.Bow.ArrowLength,W.Bow.FlexDistribution);
@@ -332,7 +337,7 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
     MotionBindings.Reset();MotionMaps.Reset();MotionEquipmentIndices.Reset();
     if(WorldStaffLight){WorldStaffLight->DestroyComponent();WorldStaffLight=nullptr;}WorldStaffMaterials.Reset();LastWorldLight=-1.f;
     ClearBow();
-    if(BodyAnimation){BodyAnimation->bHasLeftGrip=false;BodyAnimation->EquipmentGripHands=0;BodyAnimation->EquipmentFingers.Reset();BodyAnimation->bBowPose=false;}
+    if(BodyAnimation){BodyAnimation->bHasLeftGrip=false;BodyAnimation->EquipmentGripHands=0;BodyAnimation->SpellbookEquipmentIndex=INDEX_NONE;BodyAnimation->EquipmentFingers.Reset();BodyAnimation->bBowPose=false;}
     for(int32 Index=0;Index<Weapons.Num();++Index)
     {
         const auto& Definition=Weapons[Index];
@@ -356,6 +361,7 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
                 {
                     Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=1<<Side;
                     Part->SetRelativeTransform(SpellbookAuthoredGrip::BookInHand*Grip.Mount);
+                    BodyAnimation->SpellbookEquipmentIndex=Index;
                 }
             }
             WorldEquipmentHands.Add(Part,static_cast<uint8>(Side));
@@ -369,9 +375,23 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
                 FFPSBodyGripRig Grip;Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_r"),BodyHand);
                 if(Grip.IsValid())
                 {
-                    Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=1<<Side;
+                    FPSBodyStaffGrip::AdaptMount(Grip,Definition.StaffVariant);
+                    if(!FPSBodyStaffGrip::Transfer(Grip,Ref,Pose,BodyAnimation->EquipmentFingers,Definition.StaffVariant))
+                        Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);
+                    BodyAnimation->EquipmentGripHands|=1<<Side;
                     Part->SetRelativeTransform(FTransform(-StaffGripPose::HoldPoint())*Hold.HandInGrip.Inverse()*Grip.Mount);
                     BodyAnimation->StaffHandRotation=(Grip.Mount.Inverse()*Pose[Grip.SourceHand]*FTransform(FRotator(0,90,0))).GetRotation();
+                }
+                const bool HasOffhand=Weapons.ContainsByPredicate([](const FFPSBodyWeapon& Weapon){return Weapon.AttachHand==1;});
+                if(!HasOffhand&&FPSUnarmedHandPose::Build(Ref,TEXT("hand_l"),Pose))
+                {
+                    FFPSBodyGripRig FreeHand;
+                    FreeHand.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),TEXT("hand_l"));
+                    // Reuse the complete FPS fist, including its thumb and palm
+                    // fan. Only finger descendants are applied: the native
+                    // unarmed walk/run still owns shoulder, elbow and wrist.
+                    if(FPSBodyStaffGrip::Transfer(FreeHand,Ref,Pose,BodyAnimation->EquipmentFingers))
+                        BodyAnimation->EquipmentGripHands|=2;
                 }
             }
             FPSBodyEquipment::WorldVisibility(Part);

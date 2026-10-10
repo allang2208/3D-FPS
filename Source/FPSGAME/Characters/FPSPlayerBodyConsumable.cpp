@@ -1,4 +1,5 @@
 #include "FPSPlayerBodyComponent.h"
+#include "FPSPlayerBodyAnimInstance.h"
 #include "../FPSGAMECharacter.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "../Items/PotionVisuals.h"
@@ -27,6 +28,7 @@ void UFPSPlayerBodyComponent::CreateConsumable(FName Definition)
     ++ConsumableRequest;if(ConsumableLoad){ConsumableLoad->CancelHandle();ConsumableLoad.Reset();}
     for(const auto& Part:ConsumableParts)if(Part)Part->DestroyComponent();ConsumableParts.Reset();ConsumableLiquid=nullptr;
     WorldConsumable=Definition;LastLiquidLevel=-10000.f;
+    if(BodyAnimation)BodyAnimation->bHasConsumeProp=false;
     if(Definition.IsNone())return;
     TArray<FSoftObjectPath> Paths;const FString Name=Definition.ToString();
     const int32 Tier=PotionVisuals::FindTier(Name);
@@ -53,6 +55,12 @@ void UFPSPlayerBodyComponent::CreateConsumable(FName Definition)
             Part->SetStaticMesh(Asset);Part->SetupAttachment(GetBodyMesh(),TEXT("hand_l"));
             Part->SetCollisionEnabled(ECollisionEnabled::NoCollision);Part->SetCanEverAffectNavigation(false);Part->SetVisibility(false);
             Part->RegisterComponent();ConsumableParts[I]=Part;
+            if(I==0&&BodyAnimation)
+            {
+                const auto Bounds=Asset->GetBounds();
+                BodyAnimation->ConsumePropContact=Bounds.Origin+FVector(0,0,Bounds.BoxExtent.Z);
+                BodyAnimation->bHasConsumeProp=true;
+            }
             if(I==1&&Paths.Num()>3)if(auto* Material=Cast<UMaterialInterface>(Paths[3].ResolveObject()))
             {ConsumableLiquid=UMaterialInstanceDynamic::Create(Material,this);Part->SetMaterial(0,ConsumableLiquid);}
         }

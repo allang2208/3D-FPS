@@ -69,7 +69,20 @@
     "Fall": "/Game/Characters/JasonPlayer20261003/Animations/J_MM_Fall_Loop.J_MM_Fall_Loop",
     "Land": "/Game/Characters/JasonPlayer20261003/Animations/J_MM_Land.J_MM_Land",
     "Dead": "/Game/Characters/JasonPlayer20261003/Animations/J_MM_Death_Front_01.J_MM_Death_Front_01",
-    "Melee.Grip": "/Game/Characters/JasonPlayer20261003/Grip/A_Jason_SwordGrip.A_Jason_SwordGrip"
+    "Melee.Grip": "/Game/Characters/JasonPlayer20261003/Grip/A_Jason_SwordGrip.A_Jason_SwordGrip",
+    "Consume.Drink": "/Game/Characters/JasonPlayer20261003/WizardDrink20261010/Animations/J_Wizard_Drink_NativeArm.J_Wizard_Drink_NativeArm",
+    "Consume.EatBread": "/Game/Characters/JasonPlayer20261003/FoodNative20261010/Animations/J_Food_Bread_NativeArm.J_Food_Bread_NativeArm",
+    "Consume.EatBaguette": "/Game/Characters/JasonPlayer20261003/FoodNative20261010/Animations/J_Food_Baguette_NativeArm.J_Food_Baguette_NativeArm",
+    "Unarmed.FullBody.PunchRight": "/Game/Characters/JasonPlayer20261003/StaffPunch20261009/Animations/J_KayKit_Unarmed_FullBody_PunchRight.J_KayKit_Unarmed_FullBody_PunchRight",
+    "Unarmed.FullBody.PunchLeft": "/Game/Characters/JasonPlayer20261003/StaffPunch20261009/Animations/J_KayKit_Unarmed_FullBody_PunchLeft.J_KayKit_Unarmed_FullBody_PunchLeft",
+    "Staff.FullBody.Strike": "/Game/Characters/JasonPlayer20261003/StaffStrikeCarry20261010/Animations/J_StaffStrike_FromCarry.J_StaffStrike_FromCarry",
+    "Staff.FullBody.CastGather": "/Game/Characters/JasonPlayer20261003/StaffCast20261009/Animations/J_KayKit_Staff_FullBody_CastGather.J_KayKit_Staff_FullBody_CastGather",
+    "Staff.FullBody.CastRelease": "/Game/Characters/JasonPlayer20261003/StaffCast20261009/Animations/J_KayKit_Staff_FullBody_CastRelease.J_KayKit_Staff_FullBody_CastRelease",
+    "Staff.NativeArm.Carry": "/Game/Characters/JasonPlayer20261003/StaffCarryClearance20261010/Animations/J_StaffClearance_Carry.J_StaffClearance_Carry",
+    "Staff.NativeArm.CastGather": "/Game/Characters/JasonPlayer20261003/StaffCarryClearance20261010/Animations/J_StaffClearance_CastGather.J_StaffClearance_CastGather",
+    "Staff.NativeArm.CastRelease": "/Game/Characters/JasonPlayer20261003/StaffCarryClearance20261010/Animations/J_StaffClearance_CastRelease.J_StaffClearance_CastRelease",
+    "Staff.BookCarry": "/Game/Characters/JasonPlayer20261003/BookCarryRelax20261010/Animations/J_BookCarry_Relaxed.J_BookCarry_Relaxed",
+    "Staff.BookPush": "/Game/Characters/JasonPlayer20261003/BookPush20261010/Animations/J_BookPush_NativeArm.J_BookPush_NativeArm"
   },
   "outfits": {
     "ue_mountain_backpack": {
@@ -139,5 +152,10 @@
     2,
     5,
     6
+  ],
+  "consume_mouth_in_head": [
+    1.7976117506468363,
+    10.382977287936123,
+    0.5845123614372896
   ]
 }

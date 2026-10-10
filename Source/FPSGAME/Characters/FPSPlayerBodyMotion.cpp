@@ -2,6 +2,7 @@
 #include "FPSPlayerBodyAnimInstance.h"
 #include "FPSBodyWeaponMeshComponent.h"
 #include "FPSPlayerBodyPoses.h"
+#include "FPSBodyStaffGrip.h"
 #include "../FPSGAMECharacter.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "../Movement/FPSDoorPushComponent.h"
@@ -33,6 +34,9 @@ FFPSBodyGripRig* UFPSPlayerBodyComponent::MotionMap(USkeletalMeshComponent* Sour
     {if(MotionMaps[I].SourceAsset==Source->GetSkeletalMeshAsset())return &MotionMaps[I].Rig;MotionMaps.RemoveAt(I);break;}
     auto& Map=MotionMaps.AddDefaulted_GetRef();Map.Source=Source;Map.SourceAsset=Source->GetSkeletalMeshAsset();Map.Hand=Hand;Map.Side=Side;
     Map.Rig.Initialize(Source->GetSkeletalMeshAsset()->GetRefSkeleton(),Body->GetSkeletalMeshAsset()->GetRefSkeleton(),Hand,Side==0?TEXT("hand_r"):TEXT("hand_l"));
+    if(Side==0&&Hand==TEXT("hand_r")&&Cast<UStaffArmsMeshComponent>(Source))
+        if(const auto* Staff=Source->GetOwner()->FindComponentByClass<UStaffWeaponComponent>())
+            FPSBodyStaffGrip::AdaptMount(Map.Rig,Staff->GripVariant());
     AddTickPrerequisiteComponent(Source);
     return &Map.Rig;
 }
@@ -40,7 +44,14 @@ void UFPSPlayerBodyComponent::CaptureMotionHand(USkeletalMeshComponent* Source,F
 {
     auto* Map=MotionMap(Source,Hand,Side);if(!Map||!Map->IsValid())return;
     const auto& Pose=Source->GetComponentSpaceTransforms();if(!Pose.IsValidIndex(Map->SourceHand))return;
-    TArray<FTransform> Native;Map->Transfer(Pose,Native);if(Native.IsEmpty())return;
+    TArray<FTransform> Native;
+    if(Side==0&&Hand==TEXT("hand_r")&&Cast<UStaffArmsMeshComponent>(Source))
+    {
+        const auto* Staff=Source->GetOwner()->FindComponentByClass<UStaffWeaponComponent>();
+        FPSBodyStaffGrip::Transfer(*Map,Source->GetSkeletalMeshAsset()->GetRefSkeleton(),Pose,Native,Staff?Staff->GripVariant():0);
+    }
+    if(Native.IsEmpty())Map->Transfer(Pose,Native);
+    if(Native.IsEmpty())return;
     Sample.Fingers|=1<<Side;
     for(int32 D=0;D<Map->Digits.Num();++D)for(int32 J=0;J<3;++J)
         Sample.Hands[Side].Fingers[D*3+J]=Native[Map->Digits[D].Target[J]].GetRotation();
@@ -76,7 +87,9 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
         Sample.Light=StaffCastMotion::Ease(Staff->IlluminationBlend);
         if(Staff->IlluminationGestureAge>=0.f){Sample.Channel=TEXT("StaffLight");State.Action=EFPSBodyAction::StaffLight;}
         if(Bash){Sample.Channel=Pawn->HasOffhandPistol()?TEXT("StaffOffhandBash"):TEXT("StaffPunch");State.ActionVariant=Sample.Channel;}
-        if(Cast){Sample.Channel=TEXT("StaffCast");State.Action=EFPSBodyAction::Cast;State.ActionVariant=TEXT("StaffCast");}
+        // Channel identifies the casting hand; ActionVariant retains the real
+        // Gather/Ready/Release/Recover phase published by the spell executor.
+        if(Cast&&Magic->IsStaffCasting())Sample.Channel=TEXT("StaffCast");
     }
     else if(Cast)Sample.Channel=TEXT("Cast");
     else if(Bash&&State.Family==TEXT("Unarmed"))Sample.Channel=TEXT("Fist");
@@ -140,6 +153,8 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
             Rig.Root=Static->GetComponentTransform().GetRelativeTransform(Rigid(Hand*Source->GetComponentTransform()))*NativeMount;
             Rig.Visible=Drawn(Static);
         }
+        // Keep the world offhand hidden while the consumable owns it.
+        if(Side==1&&Potion&&Potion->IsOffhandWeaponHidden())Rig.Visible=false;
         for(int32 Bone:D.MotionBones)Rig.Bones.Add(Pose.IsValidIndex(Bone)?Pose[Bone]:FTransform::Identity);
         for(const auto& Weak:D.SourceParts)
         {
@@ -151,7 +166,10 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
         for(int32 M=0;M<FMath::Min(32,Source->GetNumMaterials());++M)
             if(Source->IsMaterialSectionShown(M,0))Rig.Sections|=1u<<M;
     }
-    if(Staff&&Staff->IsEquipped()&&!Pawn->HasOffhandPistol()&&!Pawn->IsOffhandSpellbookPresented()&&(Bash||Cast||Staff->IlluminationGestureAge>=0.f))
+    // The cached FPS unarmed fist owns ordinary staff carry/run. Sample the
+    // live left hand only when its actual action takes over that free hand.
+    if(Staff&&Staff->IsEquipped()&&!Pawn->HasOffhandPistol()&&!Pawn->IsOffhandSpellbookPresented()
+        &&(Bash||Staff->IlluminationGestureAge>=0.f))
         CaptureMotionHand(Staff->ArmsMesh(),TEXT("hand_l"),1,Bash,Sample);
     if(auto* Unarmed=Pawn->FindComponentByClass<UFPSUnarmedIdleComponent>();Unarmed&&Unarmed->IsEquipped())
         for(int32 Side=0;Side<(Pawn->HasOffhandSpellbook()?1:2);++Side)CaptureMotionHand(Unarmed->Arms,Side==0?TEXT("hand_r"):TEXT("hand_l"),Side,Bash,Sample);
@@ -175,6 +193,17 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
     if(Potion&&(Potion->IsActive()||PendingDiscardFlags))
     {
         Sample.Channel=TEXT("Consume");State.Action=EFPSBodyAction::Consume;
+        // Both views follow the item's real use clock, including offhand stow.
+        // Body markers retime the donor; no animation notify consumes an item.
+        const auto& Use=Potion->Motion;const float Age=Potion->Age();
+        State.ActionVariant=Potion->PresentationDefinition;
+        State.ActionDuration=Use.Duration;State.ActionStartedAt=ServerClock()-Age;
+        State.bHasActionProgress=true;
+        State.ActionProgress=FMath::Clamp(Age/FMath::Max(Use.Duration,SMALL_NUMBER),0.f,1.f);
+        State.ActionWeight=Potion->IsActive()?Use.Layer(Age):0.f;
+        State.ContactFraction=Use.DrinkStart/Use.Duration;
+        State.ReleaseFraction=Use.DrinkEnd/Use.Duration;
+        State.ActionEntryFraction=Use.Grab/Use.Duration;
         Sample.Consumable=Potion->PresentationDefinition;Sample.ConsumableSerial=Potion->PresentationSerial;
         Sample.DiscardFlags=PendingDiscardFlags;
         Sample.DroppedBottle=bPendingBottleDrop;Sample.CoupledWrists=false;
@@ -248,6 +277,20 @@ void UFPSPlayerBodyComponent::ApplyMotion(float Delta)
         }
     }
     BodyAnimation->ActionFingers=Ref.GetRefBonePose();
+    if(DisplayState.Family==TEXT("Staff")&&(Incoming.Fingers&1)&&
+        (BodyAnimation->EquipmentGripHands&1)&&BodyAnimation->EquipmentFingers.Num()==Ref.GetNum())
+    {
+        // The existing contact packet carries fifteen joints. The staff palm
+        // fan belongs to the equipped native grip and is identical on owner
+        // and remote bodies; preserve it before overlaying those live joints.
+        for(int32 D=1;D<5;++D)
+        {
+            const int32 Finger=MotionFingerBones[0][D*3];
+            if(Finger==INDEX_NONE)continue;
+            const int32 Palm=Ref.GetParentIndex(Finger);
+            if(Palm!=INDEX_NONE)BodyAnimation->ActionFingers[Palm]=BodyAnimation->EquipmentFingers[Palm];
+        }
+    }
     for(int32 Side=0;Side<2;++Side)if(Incoming.Fingers&(1<<Side))
     {
         for(int32 J=0;J<15;++J)

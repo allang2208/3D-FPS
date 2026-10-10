@@ -1,0 +1,605 @@
+{
+  "description": "Selected changed files only; this inventory excludes itself. SHA-256 uses LF-normalized Git publication content.",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 172752,
+      "sha256": "c4cd6c9c960226f9ece3cf5cf8d8fa5835d23f9fc00ebd442af3648ab2d05e1a",
+      "selection": "whole"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 20203,
+      "sha256": "7bf92a485ca26f98a3f3e6f98b55be1cefc3ff47bcf51cc3eb4c1bfc3944f446",
+      "selection": "partial"
+    },
+    {
+      "path": "Content/ColdSteelData/modular_outfits.json",
+      "bytes": 104238,
+      "sha256": "ea2874ba59583dcb69bba5b54c7a5735f29a3c7bceb5fc8f13f13b1ac909ccba",
+      "selection": "whole"
+    },
+    {
+      "path": "Content/ColdSteelData/player_body.json",
+      "bytes": 12228,
+      "sha256": "5e498010f7a72396250473c346cc2753163167f56870c2df9115447923cc666f",
+      "selection": "partial"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 95409,
+      "sha256": "dc46041dbdefb57012f341a64a44eb25328e5615cde9d865c29ada6d1ca0fc05",
+      "selection": "partial"
+    },
+    {
+      "path": "Docs/Characters/third-person-book-push-20261010.md",
+      "bytes": 2822,
+      "sha256": "c5592ce0c44b4d45725d53cf638d8da29443087936929192988c8d180feb4d47",
+      "selection": "whole"
+    },
+    {
+      "path": "Docs/Characters/third-person-food-native-20261010.md",
+      "bytes": 6705,
+      "sha256": "38068e293e0be0f17ecc02e5c44e7828a475245f20f5c3b1b24eb64ef3f6ff6a",
+      "selection": "whole"
+    },
+    {
+      "path": "Docs/Characters/third-person-staff-arm-support-20261009.md",
+      "bytes": 2052,
+      "sha256": "82044fef45df3b0795b8ace677c5dc518d35b2fd93ffd014bc68225ffcf04252",
+      "selection": "whole"
+    },
+    {
+      "path": "Docs/Characters/third-person-staff-cast-20261009.md",
+      "bytes": 4191,
+      "sha256": "97a29670a2b06fff26a4368a9cb1d6394100591fcd9a51676f8d45a16f8a53fa",
+      "selection": "whole"
+    },
+    {
+      "path": "Docs/Characters/third-person-staff-combat-20261009.md",
+      "bytes": 2946,
+      "sha256": "af83748ffa85371df1a726b833babdb1144c3392390f2efe49ccdad80357852b",
+      "selection": "whole"
+    },
+    {
+      "path": "Docs/Characters/third-person-staff-first-person-grip-20261009.md",
+      "bytes": 2963,
+      "sha256": "6da4cf9eee518649161f4927394078c07ad1b6769dbc016215bb43fa428a685b",
+      "selection": "whole"
+    },
+    {
+      "path": "Docs/Characters/third-person-staff-free-hand-20261009.md",
+      "bytes": 1767,
+      "sha256": "e1192c50d10fac68720f6d87faca893cfb8b01cfe054ee4be8ef415145b1684e",
+      "selection": "whole"
+    },
+    {
+      "path": "Docs/Characters/third-person-wizard-drink-20261010.md",
+      "bytes": 3379,
+      "sha256": "e9a4d9d7ea5a6f9a7f8ccf4568e404e9b55f50aa19a5331a7315a455979423e7",
+      "selection": "whole"
+    },
+    {
+      "path": "Docs/Publication/ThirdPersonActions20261010/README.md",
+      "bytes": 7701,
+      "sha256": "c6d413b830d8792b3cf7f57f1aa95e6eb767b8a6dc0aa84272069ca8d095866a",
+      "selection": "whole"
+    },
+    {
+      "path": "Docs/Publication/ThirdPersonActions20261010/archive-manifest.json",
+      "bytes": 61344,
+      "sha256": "42755956b5deafd7e25adcc26599f42bb4793c611b5d7d0e85adc78807cc6c17",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyBookCarryPose.inl",
+      "bytes": 3879,
+      "sha256": "eb2792332ca563fc556cb0bbf142a266a6a8520949b338ab8741df71c13d99d3",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyConsumePose.inl",
+      "bytes": 3341,
+      "sha256": "70d4cc49ce1ad728317d2c325fa7e852d4975092cd5ca7e874ac0c122bfadfab",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyHandAttackData.h",
+      "bytes": 247,
+      "sha256": "f29ae47faeacbd861929e79361c3ca99e3d99a0d2fd18cb3ce6a6b0d6e50ed6f",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyHandAttackMotion.h",
+      "bytes": 1159,
+      "sha256": "094a02017d2c85b7d0fc8920985c787e258a041f23891aee19093f0c76aa6adc",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffArmPose.inl",
+      "bytes": 5593,
+      "sha256": "7cda275ce6f9e49c32cad760dad242a375345f4ca3b469833b1b2f62cc4fc0bf",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffCarryPose.inl",
+      "bytes": 2462,
+      "sha256": "ef7d94af0860c5191f2e4489180320fc38534b80d5c6149aa7073ae68b487f2e",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffCastData.h",
+      "bytes": 239,
+      "sha256": "9fb3f98480d88dc5b137c5a6b5e3e4fac4b08a984f2e0f1798a2a09471e856e5",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffCastPose.inl",
+      "bytes": 5079,
+      "sha256": "87dea4fc7676a6302741c225b7589525d256603fcb1eb5733b1631ea3d932a9b",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffContactFit.h",
+      "bytes": 4720,
+      "sha256": "fd732e42d90b3bf367646770571e9d841c8ccd3fe8d58bc219fb483f61899b7b",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffGrip.h",
+      "bytes": 4763,
+      "sha256": "611e1532beb8d4a11416f3c74d96b47fe4932ff758ef841bc4efffd31ac6c575",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyStaffStrikePose.inl",
+      "bytes": 1150,
+      "sha256": "204a1c0b26b18cf040721ebe6fee1a1f6d0cebe9848b62da1fd0978960fe2a19",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySwordMotion.h",
+      "bytes": 2816,
+      "sha256": "80c1e9bf66a3c86a316c695d97cbb90849541a781746d75929f9a6def6cbd490",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySwordPose.inl",
+      "bytes": 10733,
+      "sha256": "ec647245e69e0f00e31169a9b7045772fce28660e44b2515f661dce762b6c0ff",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBookPushDiagnosis.cpp",
+      "bytes": 8815,
+      "sha256": "0b6b306938d9e419c1398a2bbc2f4eae493781b1c6ae0d25b1bf452c4af8f3d2",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "bytes": 19899,
+      "sha256": "737b01ad28ed12b9f9c2e06ec2c5ffc3acaca59a030c6ccf2c18c98556a1c64b",
+      "selection": "partial"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "bytes": 77466,
+      "sha256": "246ebd74fb256c29e221084f7e5ad042969c82b0e882bb16c23bf932693d2e0b",
+      "selection": "partial"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h",
+      "bytes": 1942,
+      "sha256": "0e10a41e8c28776fecc6f07b23401c0ef8ea5aa921c277cebba0ded3bab123c2",
+      "selection": "partial"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "bytes": 22040,
+      "sha256": "c68d97b4f0c4f9438319b53c5bf2b84149c86aa67981f3c4dc1fb97bd579a3f6",
+      "selection": "partial"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp",
+      "bytes": 7811,
+      "sha256": "7508e68188fccf2acddf4d9bce7d403813d36998689272af3576de70d68a16a8",
+      "selection": "partial"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "bytes": 39588,
+      "sha256": "800438825d19b30bf23417bf587d3a1deba61f23072e2a352d4d093b77a61f81",
+      "selection": "partial"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "bytes": 22919,
+      "sha256": "9b0facdbd5da9f4635b0294306818e236b4eee01e65ee06b0902005de433db6c",
+      "selection": "partial"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSStaffPoseDiagnosis.cpp",
+      "bytes": 10607,
+      "sha256": "926cbb7e5c8d1b5dc1ebcd79b3f17fbb67e38228753df095419784ab97e04be7",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "bytes": 7871,
+      "sha256": "af9225718ee0a79c519ba9963e62b0b89e7451eb7ca9339a509688da37ff7f7e",
+      "selection": "partial"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp",
+      "bytes": 21520,
+      "sha256": "8e0f25f8357a0bca9f301deeb0e537313492be473bd9f3301a66b878daeda29f",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedHandPose.h",
+      "bytes": 328,
+      "sha256": "adc6ce625b6be34055bbf79fc433fe3aba758f564ba959b25c5d9d19802bba40",
+      "selection": "whole"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.cpp",
+      "bytes": 18134,
+      "sha256": "71e8308dc5d3b298ec9cc9bf07cc102b4a8fd6801c5abfe3c005a53f74fe1cf0",
+      "selection": "whole"
+    },
+    {
+      "path": "SourceAssets/ThirdPersonSwordDonorRepair20261006/adapt_donor.py",
+      "bytes": 11520,
+      "sha256": "f6b721642afafd670e49ecb3bca2192eed6217114b78474038e68a345de159a2",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/analyze_book_push20261010.py",
+      "bytes": 2547,
+      "sha256": "3c7b3fa29597d3b78df3a1f5d8b2f1ae5453c93ecf3443c8d3d9635ec39a64ba",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/analyze_staff_pose_diagnosis20261009.py",
+      "bytes": 2911,
+      "sha256": "be1124b20d05ed3111a124aabf9b9288f76bf146f2cef3a4c7c119f403f66429",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/author_book_carry_relax20261010.py",
+      "bytes": 2820,
+      "sha256": "82d6eaf3a53f172c41a59b756a3a90da7e2e8cd3c381337818445ad30d333852",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/author_book_push20261010.py",
+      "bytes": 3204,
+      "sha256": "666d08d0cda4232d382bde59fe2f1c53167094deb549a325ac6831a7ee50af7b",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/author_food_native20261010.py",
+      "bytes": 10806,
+      "sha256": "28ea789b9f5d1dc7b0f09b92bd9e8d2c5f96ccdf56cc03b2cd1b37a45503964d",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/author_jason_steel_layers20261009.py",
+      "bytes": 5428,
+      "sha256": "c9fa0db36a6442784894e33fbef2052e67aedc8de1c266da4f600f7f9d581b80",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/author_motifect_staff_arm20261010.py",
+      "bytes": 6720,
+      "sha256": "599cff652961d35298e75dcb1666f35efb391dcf08d7a87a11754206f4a730a4",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/author_staff_carry_clearance20261010.py",
+      "bytes": 5380,
+      "sha256": "50f0805126382946fedae2555afc60fc53b3b6716a00f1e424c3016568c47e36",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/author_staff_cast20261009.py",
+      "bytes": 6127,
+      "sha256": "405add3cac64c7f1ac95b31e37ffca3ed85f52745c4ccb852dfe6234c43636aa",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/author_staff_combat20261009.py",
+      "bytes": 5929,
+      "sha256": "581c9df8e82ef35fc6bf767d93f24e0c5ed6f7b98c0badf66b29a439e2f47398",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/author_staff_grip_facing20261009.py",
+      "bytes": 15312,
+      "sha256": "7ba0b0bdaefb7160eca2c68b01bb86baf3a6acf8bada57f38e11cdb6279cc398",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/author_staff_strike_carry20261010.py",
+      "bytes": 3928,
+      "sha256": "901cdd19569e5ce506bd549d93d805ff878f121e8e6c7f8ade63bed9c86d75f9",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/author_staff_surface_repair20261009.py",
+      "bytes": 7754,
+      "sha256": "2c361948ae6fa267815ec7d50ebb0087fc691c3f6d91fa674352607f21f3eaa7",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/author_wizard_drink20261010.py",
+      "bytes": 7930,
+      "sha256": "8ec696b0db8c0ff8bc7388e8ffd5d5e6d88a21ad5f59e9bda851d50f0bb62adb",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/check_staff_contact_fit20261009.py",
+      "bytes": 2111,
+      "sha256": "b44f8031d073071654d6f802a863c139cd4972cedf759e56a47b1332413c67c5",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/diagnose_staff_carry_clearance20261010.py",
+      "bytes": 6103,
+      "sha256": "6aac58834cedf0c4b37e3c31fcaae0b41d4063ae69b0651505dad4127548b40d",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/fit_staff_contact20261009.py",
+      "bytes": 6494,
+      "sha256": "ca5c1d04f87da03f9b1093528040dfcf0e08f40350f7dc6021be5793bf47f63b",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/inspect_staff_grip_facing20261009.py",
+      "bytes": 5217,
+      "sha256": "6d8ae7f6f06db97da2b06ded4d4d9d3428e908a77962f4a14f20f2c1970cc753",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/prepare_consume20261006.py",
+      "bytes": 4289,
+      "sha256": "ea07caf0689677a4e4b0e77b1423d6cce1eaa9834f755ddcd6430efa4593e97e",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/prepare_consume_contacts.py",
+      "bytes": 1344,
+      "sha256": "4025915a5f14b35b0d328b70e7947cccc86f6a940c113e3e23121d6fa636be2c",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/prepare_staff_cast20261009.py",
+      "bytes": 4258,
+      "sha256": "f15bf419773e476ed7230b9a0d1a66e17b3034e2e80bddd832b2de5f34e4832c",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/prepare_staff_combat20261009.py",
+      "bytes": 3545,
+      "sha256": "a4ca60d9113af5ac7329bd781bbaf270234f9a0e52e57e7242147abb09b7582d",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/prepare_staff_steel_view20261009.py",
+      "bytes": 751,
+      "sha256": "a0f2d9d5bbbc60ae92030be561f3c25a1de0b508c9f378ec6a2eecdbc17c8d5f",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/prepare_wizard_drink20261010.py",
+      "bytes": 3776,
+      "sha256": "6532da6714c4ee27ade20d7d5f6f19494c80a832c5698fb85d21a4b43e1e96d3",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/read_book_push_context20261010.py",
+      "bytes": 1447,
+      "sha256": "96805834d0936d472d5e33815f15d45a2f74e778690d51153c38e7074d6143dc",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/read_motifect_staff_sources20261010.py",
+      "bytes": 2004,
+      "sha256": "a83e42b7b9727eecbe4af32247b6ce8622a06ad510da1f885a852de1c7ce64eb",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/read_staff_animation_candidates20261010.py",
+      "bytes": 1985,
+      "sha256": "9a8e9576ba44c2a5a1717f8fa4c3700e1783bbf724a0465df87b3357354b81a5",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/read_staff_carry_clearance20261010.py",
+      "bytes": 2100,
+      "sha256": "00fdd26c573d78d34f157a30d424abee0d899a5a483c94ae4fee3f6922d1a694",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/read_staff_carry_gaits20261010.py",
+      "bytes": 1325,
+      "sha256": "9513681ff78fc5df816b5a5875f92477a6baca56e1009f4d780483d631f950b1",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/read_staff_grip_facing20261009.py",
+      "bytes": 1964,
+      "sha256": "291f2d3a3cbd250843c52e1c4aff97984a8bce00b2b83de0d4cf3def79fa0623",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/read_staff_grip_mesh20261009.py",
+      "bytes": 1737,
+      "sha256": "f754ffa95aef4e3da19c655273ceaeda0a32c2d0e84e285751b755d78775384d",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/read_staff_repair_inputs20261009.py",
+      "bytes": 2294,
+      "sha256": "a4fb563e060d2c632b58f38b93868a1653826025dec1d3e915474d73f282ace1",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/read_staff_thumb_steel20261009.py",
+      "bytes": 2186,
+      "sha256": "efa4409618939977252dc5bd726a55c46e80e7b6ffb46139c45c6a4da8a7ca72",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/read_staff_wrist_failure20261009.py",
+      "bytes": 1558,
+      "sha256": "d1e607c1b4795341b2a1a3c8506ded736ee05790dc0d23eca26296dc51b4698e",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/read_wizard_drink20261010.py",
+      "bytes": 2807,
+      "sha256": "118a4424d34c9cbd7397637544573cf2362830614304a3f1c777bdd5f6d6a4a8",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/render_staff_grip_facing20261009.py",
+      "bytes": 6196,
+      "sha256": "f78e3288205ee2eef8df26b0a8f46f6ee42f03dbb2f3e9f1851025066071c622",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/render_staff_pose_diagnosis20261009.py",
+      "bytes": 4984,
+      "sha256": "47e65767f63b4b193b009d654cadc6696bdb32bcd6b99488c10b82a25f0307ab",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/render_staff_steel_view20261009.py",
+      "bytes": 2985,
+      "sha256": "a17fc8510fa0f2d3a5fdd8201187dab886c5a3734323cecf03486c06c11ae567",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/repair_food_upperarm20261010.py",
+      "bytes": 5245,
+      "sha256": "722f1e643ccaee2236ccd6fdefb7d263fbdbe83938abb521614f0cc9c3f9f548",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/review_food_native20261010.py",
+      "bytes": 5138,
+      "sha256": "c687dd3952c44526a9562e6db75a5d52ee800ffa2abff5e82cf00bb61229dcbe",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/run_book_push_diagnosis20261010.py",
+      "bytes": 619,
+      "sha256": "9b1d566041297c4d5efc29d439462775e40fa7db4b62d290ed702de2c3b6bb1d",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/run_staff_pose_diagnosis20261009.py",
+      "bytes": 238,
+      "sha256": "102562bd377574ad6d4be3ca7dd858cd94bc4a5584876d167283126e6a0ca980",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/run_staff_surface_check20261009.py",
+      "bytes": 324,
+      "sha256": "c5b74be98a50f0d6ced18901a77850adb0269ca8e9a8f0b049845b15a7525188",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/save_book_carry_relax20261010.py",
+      "bytes": 4028,
+      "sha256": "d8874b113ede5626e47f7ed6ea470e9ff74e55f8084679bda7202ed419e371b2",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/save_book_push20261010.py",
+      "bytes": 4226,
+      "sha256": "4161897cdcb52bf37c9f615e9d6357abb48618fcd89ff2f13b22cf34ba02a8bd",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/save_food_native20261010.py",
+      "bytes": 4636,
+      "sha256": "559cb446d46781d96e6d74892ad8864318b6c27ad402c5c32a87bdaad37c8bf9",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/save_motifect_staff_arm20261010.py",
+      "bytes": 3501,
+      "sha256": "e989697b791f4d3620ed56cd9cf44578be8b5940052b155f7c32fc8282787008",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/save_staff_carry_clearance20261010.py",
+      "bytes": 3545,
+      "sha256": "66ea614a5827447d31f38fe6ff2af9001fd67d6410f81b66ba091124ee4e7a61",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/save_staff_cast20261009.py",
+      "bytes": 3861,
+      "sha256": "46bd358886d53169801403299f982226d890930f1d4ec1ffd7498b2d529a6136",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/save_staff_combat20261009.py",
+      "bytes": 3868,
+      "sha256": "2e534edf96c86b293483ceb5052e8316105f025b19202982834171acf2571b5d",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/save_staff_strike_carry20261010.py",
+      "bytes": 4242,
+      "sha256": "688d1ba96f438f39c3637dab7a7ed7ed7b851df44196ac0b6852d8cb041a03e5",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/save_staff_surface_repair20261009.py",
+      "bytes": 3000,
+      "sha256": "027200061fe88521b7f4747ed7ef2e3cd941036214b64fb824f97b953dcbd0c1",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/save_staff_thumb_steel20261009.py",
+      "bytes": 3417,
+      "sha256": "50ee3b5eb2752dbe26df738cd346ed4b3fc1b6fec010098c4f17b90e57db0465",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/save_wizard_drink20261010.py",
+      "bytes": 3965,
+      "sha256": "cb8c69a996360a6afdd7ac459999ee5b258609101439b5beb696147af62296fb",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/staff_arm_fit.py",
+      "bytes": 2240,
+      "sha256": "46ccb6e1606e3d69b78b3211000f0811b73d0ba9d9a1efe748736418a6bf33cb",
+      "selection": "whole"
+    },
+    {
+      "path": "Tools/PlayerBody/staff_thumb_steel_math.py",
+      "bytes": 2906,
+      "sha256": "da17c6311429f4554cb378ea3366f3aac264cf115d9f00cf471f94259faf9c7a",
+      "selection": "whole"
+    },
+    {
+      "path": "skills/ue5-cpp-gameplay/references/player-world-body.md",
+      "bytes": 8178,
+      "sha256": "6fbe1c1968ebd2a046f944f4336e9257bf316dc5d6633749b71968de55ffd28a",
+      "selection": "partial"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/food-and-drink-grasp.md",
+      "bytes": 5512,
+      "sha256": "01cb61f959db60fa968bbb14d7c605d78489ef863cbc971262983c256c10082a",
+      "selection": "partial"
+    }
+  ]
+}

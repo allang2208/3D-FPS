@@ -1,4 +1,5 @@
 #include "FPSUnarmedIdleComponent.h"
+#include "FPSUnarmedHandPose.h"
 #include "UnarmedAuthoredLocomotion20261001.h"
 #include "../../FPSGAMECharacter.h"
 #include "../../FPSGAMEPlayerController.h"
@@ -21,6 +22,26 @@
 namespace
 {
 const FSoftObjectPath UnarmedArmsAssetPath(TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7"));
+}
+
+bool FPSUnarmedHandPose::Build(const FReferenceSkeleton& Skeleton,FName Hand,TArray<FTransform>& Pose)
+{
+    namespace Motion=UnarmedAuthoredLocomotion20261001;
+    const int32 Wrist=Skeleton.FindBoneIndex(Hand);
+    if(Wrist==INDEX_NONE)return false;
+    Pose=Skeleton.GetRefBonePose();
+    for(int32 B=0;B<Motion::BoneCount;++B)
+    {
+        const int32 Bone=Skeleton.FindBoneIndex(Motion::Names[B]);
+        if(Bone!=INDEX_NONE&&Skeleton.BoneIsChildOf(Bone,Wrist))
+            Pose[Bone].SetRotation(Motion::Idle[0][B].Rotation.GetNormalized());
+    }
+    for(int32 Bone=0;Bone<Pose.Num();++Bone)
+    {
+        const int32 Parent=Skeleton.GetParentIndex(Bone);
+        if(Parent!=INDEX_NONE)Pose[Bone]=Pose[Bone]*Pose[Parent];
+    }
+    return true;
 }
 
 void UFPSUnarmedArmsMeshComponent::SetMotionSample(float Weight,float EnterWeight,float Phase,float Move,float Run)

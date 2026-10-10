@@ -621,3 +621,7 @@ RSH 后续采用状态（2026-10-04）：用户已认可 [双手握姿与 ADS �
 ## Super90 散弹枪（2026-10-09）
 
 源码、原生导入配方、瞄具／前握把、装备派生和 R5 快速近战的当前恢复入口见 [Super90 整理发布](Weapons/super90-publication-20261009.md)。511 份旧稿／备份已归档到本机 trash；模型、声音、完整姿态、Blender 与 UE 包留在合法本机。快速装填仍暂停，R5 左臂只完成落盘、尚未获用户认可。本次仅进行用户要求的发布检查，未启动 UE 或游戏测试。
+
+## 第三人称法杖、持书与进食／饮用（2026-10-10）
+
+当前制作、配置入口、合法素材依赖、归档清单和发布边界见[第三人称动作源码发布与恢复](Publication/ThirdPersonActions20261010/README.md)。右手与空闲左手复用已认可第一人称抓握，整臂使用当前 CarryClearance／StrikeCarry／BookCarryRelax／BookPush 派生；饮用使用 WizardDrink，进食使用已修复上臂覆盖问题的 FoodNative。六组新动画已补齐 Cook 目录；本次没有执行打包。Fab 原包、完整关键帧、派生 uasset 和退役文件留本机，不能仅凭公开配方重建全部资产。

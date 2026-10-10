@@ -2,6 +2,10 @@
 #include "FPSPlayerBodyPoses.h"
 #include "FPSBodyGrounding.h"
 #include "FPSBodyMeleePose.h"
+#include "FPSBodySwordMotion.h"
+#include "FPSBodyHandAttackMotion.h"
+#include "FPSBodyHandAttackData.h"
+#include "FPSBodyStaffCastData.h"
 #include "Animation/AnimInstanceProxy.h"
 #include "Animation/AnimSequence.h"
 #include "Animation/BoneReference.h"
@@ -136,8 +140,40 @@ struct FUpperLayer : FAnimNode_Base
 // Small world-body corrections. Bone transforms are derived locally, never replicated.
 struct FControls : FAnimNode_Base
 {
-    FPoseLink Source,Neutral,Grip;
+    FPoseLink Source,Neutral,Grip,Sword,StaffCast,StaffCarry,BookCarry,BookPush,Consume;
+    bool bStaffCarryActive=false,bStaffNativeCast=false,bStaffNativeArmApplied=false;
+    bool bStaffNativeStrike=false,bStaffQuickCarry=false;
+    TArray<uint8> StaffMotionBones;
+    TArray<uint8> BookMotionBones;
+    bool bBookCarryActive=false,bHadBookCarry=false;
+    float BookCarryAge=0.f;
+    TArray<FTransform> LastBookCarryPose,BookCarryEntryPose;
+    bool bBookPushActive=false,bHadBookPush=false;
+    float BookPushProgress=0.f,LastBookPushProgress=0.f,BookPushEntryProgress=0.f;
+    TArray<FTransform> BookPushEntryDelta;
+    bool bStaffCastActive=false,bHadStaffCast=false;
+    FName StaffCastPhase,LastStaffCastPhase;
+    float StaffCastProgress=0.f,LastStaffCastProgress=0.f,StaffCastEntryProgress=0.f;
+    TArray<FTransform> LastStaffCastPose,StaffCastEntryPose;
+    FTransform LastStaffCastChest=FTransform::Identity,StaffCastEntryChest=FTransform::Identity;
+    float ConsumeWeight=0.f,ConsumeContactWeight=0.f;
+    bool bHasConsumeProp=false,bConsumeNativeArm=false;
+    FVector ConsumeMouthInHead=FVector::ZeroVector,ConsumePropContact=FVector::ZeroVector;
+    TArray<uint8> ConsumeBones;
+    float SwordWeight=0.f,SwordLegWeight=0.f,SwordTransitionAge=1.f,SwordAttackLegOwnership=0.f;
+    float LastSwordGripRoll=0.f,SwordEntryGripRoll=0.f;
+    float LastSwordGripSlide=0.f,SwordEntryGripSlide=0.f;
+    float SwordSupportThumbWeight=0.f;
+    bool bSwordChanged=false,bSwordNativeGrip=false;
+    TArray<uint8> SwordUpperBones;
+    // The existing grounded library mixer also hosts single-hand combat.
+    TArray<uint8> LibraryArmBones;
+    uint8 LibraryPreserveHands=0;
+    bool bHandAttackLibrary=false,bStaffAttackLibrary=false;
+    TArray<FTransform> LastSwordPose,SwordEntryPose;
     TArray<FCompactPoseBoneIndex> GripBones[2];
+    TArray<uint8> SwordSupportThumbBones;
+    TArray<FCompactPoseBoneIndex> StaffArmHelpers;
     float GripWeights[2]={0.f,0.f};
     bool bSwordGrip=false;
     TArray<FTransform> EquipmentFingers;
@@ -164,6 +200,9 @@ struct FControls : FAnimNode_Base
     FVector Handholds[2];
     FVector PoseScale=FVector::OneVector;
     FTransform LastHands[2],EntryHands[2];
+    FTransform LastSwordTorso=FTransform::Identity;
+    FTransform SwordRestTorso=FTransform::Identity;
+    bool bHadSwordPair=false,bHasSwordRestTorso=false;
     FTransform CastRecoveryEntry=FTransform::Identity;
     float CastRecoveryStartProgress=0.f;
     EFPSBodyAction LastAction=EFPSBodyAction::None;
@@ -181,13 +220,56 @@ struct FControls : FAnimNode_Base
         Feet[0].BoneName=TEXT("foot_r");Feet[1].BoneName=TEXT("foot_l");
         Toes[0].BoneName=TEXT("ball_r");Toes[1].BoneName=TEXT("ball_l");
     }
-    virtual void Initialize_AnyThread(const FAnimationInitializeContext& C) override { Source.Initialize(C);Neutral.Initialize(C);Grip.Initialize(C); }
+    virtual void Initialize_AnyThread(const FAnimationInitializeContext& C) override { Source.Initialize(C);Neutral.Initialize(C);Grip.Initialize(C);Sword.Initialize(C);StaffCast.Initialize(C);StaffCarry.Initialize(C);BookCarry.Initialize(C);BookPush.Initialize(C);Consume.Initialize(C); }
     virtual void CacheBones_AnyThread(const FAnimationCacheBonesContext& C) override
     {
-        Source.CacheBones(C);Neutral.CacheBones(C);Grip.CacheBones(C);bHasHandHistory=false;const auto& Bones=C.AnimInstanceProxy->GetRequiredBones();
+        Source.CacheBones(C);Neutral.CacheBones(C);Grip.CacheBones(C);Sword.CacheBones(C);StaffCast.CacheBones(C);StaffCarry.CacheBones(C);BookCarry.CacheBones(C);BookPush.CacheBones(C);Consume.CacheBones(C);bHasHandHistory=false;bHadSwordPair=false;bHasSwordRestTorso=false;const auto& Bones=C.AnimInstanceProxy->GetRequiredBones();
+        bHadBookCarry=false;BookCarryAge=0.f;LastBookCarryPose.Reset();BookCarryEntryPose.Reset();
+        bHadBookPush=false;BookPushEntryDelta.Reset();
+        bHadStaffCast=false;LastStaffCastPose.Reset();StaffCastEntryPose.Reset();
         Pelvis.Initialize(Bones);Spine.Initialize(Bones);ChestBase.Initialize(Bones);Head.Initialize(Bones);
         for(auto& B:Hands)B.Initialize(Bones);for(auto& B:Feet)B.Initialize(Bones);for(auto& B:Toes)B.Initialize(Bones);
         const auto& Ref=Bones.GetReferenceSkeleton();
+        StaffArmHelpers.Reset();
+        const int32 StaffUpper=Ref.FindBoneIndex(TEXT("upperarm_r"));
+        const int32 StaffLower=Ref.FindBoneIndex(TEXT("lowerarm_r"));
+        const int32 StaffHand=Ref.FindBoneIndex(TEXT("hand_r"));
+        if(StaffUpper!=INDEX_NONE&&StaffHand!=INDEX_NONE)
+            for(int32 I=0;I<Bones.GetCompactPoseNumBones();++I)
+            {
+                const FCompactPoseBoneIndex Bone(I);
+                const int32 MeshBone=Bones.MakeMeshPoseIndex(Bone).GetInt();
+                if(MeshBone!=StaffLower&&MeshBone!=StaffHand&&Ref.BoneIsChildOf(MeshBone,StaffUpper)
+                    &&!Ref.BoneIsChildOf(MeshBone,StaffHand))StaffArmHelpers.Add(Bone);
+            }
+        LastSwordPose.Reset();SwordEntryPose.Reset();LastSwordGripRoll=0.f;SwordEntryGripRoll=0.f;
+        LastSwordGripSlide=0.f;SwordEntryGripSlide=0.f;
+        SwordUpperBones.Init(0,Bones.GetCompactPoseNumBones());
+        LibraryArmBones.Init(0,Bones.GetCompactPoseNumBones());
+        const int32 UpperRoot=Ref.FindBoneIndex(TEXT("spine_01"));
+        const int32 ArmRoots[2]={Ref.FindBoneIndex(TEXT("clavicle_r")),Ref.FindBoneIndex(TEXT("clavicle_l"))};
+        for(int32 I=0;I<LibraryArmBones.Num();++I)
+            for(int32 Parent=Bones.MakeMeshPoseIndex(FCompactPoseBoneIndex(I)).GetInt();Parent!=INDEX_NONE;Parent=Ref.GetParentIndex(Parent))
+                for(int32 Side=0;Side<2;++Side)if(Parent==ArmRoots[Side])LibraryArmBones[I]|=1<<Side;
+        StaffMotionBones.Init(0,Bones.GetCompactPoseNumBones());
+        BookMotionBones.Init(0,Bones.GetCompactPoseNumBones());
+        const int32 BookHand=Ref.FindBoneIndex(TEXT("hand_l"));
+        for(int32 I=0;I<StaffMotionBones.Num();++I)
+        {
+            const int32 MeshBone=Bones.MakeMeshPoseIndex(FCompactPoseBoneIndex(I)).GetInt();
+            StaffMotionBones[I]=(LibraryArmBones[I]&1)&&StaffHand!=INDEX_NONE&&
+                (MeshBone==StaffHand||!Ref.BoneIsChildOf(MeshBone,StaffHand));
+            BookMotionBones[I]=(LibraryArmBones[I]&2)&&BookHand!=INDEX_NONE&&
+                (MeshBone==BookHand||!Ref.BoneIsChildOf(MeshBone,BookHand));
+        }
+        for(int32 I=0;I<SwordUpperBones.Num();++I)
+            for(int32 Parent=Bones.MakeMeshPoseIndex(FCompactPoseBoneIndex(I)).GetInt();Parent!=INDEX_NONE;Parent=Ref.GetParentIndex(Parent))
+                if(Parent==UpperRoot){SwordUpperBones[I]=1;break;}
+        ConsumeBones=SwordUpperBones;
+        const int32 RightClavicle=Ref.FindBoneIndex(TEXT("clavicle_r"));
+        for(int32 I=0;I<ConsumeBones.Num();++I)
+            for(int32 Parent=Bones.MakeMeshPoseIndex(FCompactPoseBoneIndex(I)).GetInt();Parent!=INDEX_NONE;Parent=Ref.GetParentIndex(Parent))
+                if(Parent==RightClavicle){ConsumeBones[I]=0;break;}
         for(int32 I=0;I<2;++I)
         {
             RawFeet[I]=FFPSBodyFootSeed();
@@ -198,6 +280,7 @@ struct FControls : FAnimNode_Base
             const int32 ToeIndex=Ref.FindBoneIndex(Toes[I].BoneName);
             ToeRest[I]=ToeIndex!=INDEX_NONE?Ref.GetRefBonePose()[ToeIndex].GetRotation():FQuat::Identity;
         }
+        SwordSupportThumbBones.Init(0,Bones.GetCompactPoseNumBones());
         for(int32 Side=0;Side<2;++Side)
         {
             GripBones[Side].Reset();
@@ -209,11 +292,25 @@ struct FControls : FAnimNode_Base
                 // Include MetaHuman metacarpals and weighted finger helpers,
                 // excluding the wrist whose contact remains owned by body IK.
                 for(int32 Parent=Ref.GetParentIndex(Bones.MakeMeshPoseIndex(Bone).GetInt());Parent!=INDEX_NONE;Parent=Ref.GetParentIndex(Parent))
-                    if(Parent==Hand){GripBones[Side].Add(Bone);break;}
+                    if(Parent==Hand)
+                    {
+                        GripBones[Side].Add(Bone);
+                        if(Side==1&&Ref.GetBoneName(Bones.MakeMeshPoseIndex(Bone).GetInt()).ToString().StartsWith(TEXT("thumb_")))
+                            SwordSupportThumbBones[I]=1;
+                        break;
+                    }
             }
         }
     }
-    virtual void Update_AnyThread(const FAnimationUpdateContext& C) override { Source.Update(C);Neutral.Update(C);Grip.Update(C); }
+    virtual void Update_AnyThread(const FAnimationUpdateContext& C) override { Source.Update(C);Neutral.Update(C);Grip.Update(C);if(SwordWeight>ZERO_ANIMWEIGHT_THRESH)Sword.Update(C);if(bStaffCastActive)StaffCast.Update(C);if(bStaffCarryActive)StaffCarry.Update(C);if(bBookCarryActive)BookCarry.Update(C);if(bBookPushActive)BookPush.Update(C);if(ConsumeWeight>ZERO_ANIMWEIGHT_THRESH)Consume.Update(C); }
+    void BlendStaffCarry(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+    void BlendStaffStrike(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+    void AnchorStaffArm(FPoseContext& Authored,FCSPose<FCompactPose>& Pose,int32 Side=0);
+    void BlendBookCarry(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+    void BlendStaffCast(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+    void FitStaffArm(FCSPose<FCompactPose>& Pose);
+    void BlendSword(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+    void BlendConsume(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
     static void Solve(FCSPose<FCompactPose>& Pose,const FBoneReference& End,const FTransform& Target,const FVector& Pole,float Weight)
     {
         const auto& Bones=Pose.GetPose().GetBoneContainer();if(!End.IsValidToEvaluate(Bones)||Weight<=0.f)return;
@@ -228,7 +325,7 @@ struct FControls : FAnimNode_Base
         Changes.Emplace(R,Root);Changes.Emplace(J,Joint);Changes.Emplace(E,Tip);
         Pose.LocalBlendCSBoneTransforms(Changes,Weight);
     }
-    void FitSwordGrip(FCSPose<FCompactPose>& Pose,FTransform (&Targets)[2]) const
+    void FitHandPair(FCSPose<FCompactPose>& Pose,FTransform (&Targets)[2]) const
     {
         const auto& Bones=Pose.GetPose().GetBoneContainer();
         FVector Center[2];double Radius[2];
@@ -475,7 +572,13 @@ struct FControls : FAnimNode_Base
             bool AdjustHand[2]={Melee||(Gun&&!FreeLeft)||State.bDual,OffhandPistol||(bLeftGrip&&!FreeLeft)||PistolBash};
             if(State.Family==TEXT("Staff"))
             {
-                Targets[0].SetLocation(FVector(-27,29,109-40*Crouch)*PoseScale);
+                // Carry the shaft ahead of the shoulder with room to open the
+                // elbow. Follow the live shoulder through gait/crouch instead
+                // of folding the arm into a fixed high point beside the chest.
+                const auto Wrist=Hands[0].GetCompactPoseIndex(Bones);
+                const auto Shoulder=Bones.GetParentBoneIndex(Bones.GetParentBoneIndex(Wrist));
+                Targets[0].SetLocation(Pose.GetComponentSpaceTransform(Shoulder).GetLocation()
+                    +FVector(-18,32,-16)*PoseScale);
                 Targets[0].SetRotation(StaffHandRotation);
                 // Preserve the authored wrist/shaft relationship while the arm
                 // supports the staff; primary swings share the action clock.
@@ -522,7 +625,7 @@ struct FControls : FAnimNode_Base
             else if(bLeftGrip&&!FreeLeft&&!PistolBash)Targets[1]=LeftGrip*Targets[0];
             if(PistolBash&&!State.bDual)
                 Targets[1].SetLocation(FVector(30,18,110-40*Crouch)*PoseScale);
-            const bool BowActive=bBowPose&&State.Family==TEXT("Bow")&&State.Action!=EFPSBodyAction::Cast&&!ActionWristMask&&!FPSBodyPoses::Traversing(State.Motion);
+            const bool BowActive=bBowPose&&State.Family==TEXT("Bow")&&State.Action!=EFPSBodyAction::Cast&&State.Action!=EFPSBodyAction::Consume&&!ActionWristMask&&!FPSBodyPoses::Traversing(State.Motion);
             if(BowActive)
             {
                 const FQuat PitchRotation(FVector::ForwardVector,FMath::DegreesToRadians(FMath::Clamp(State.AimPitch,-65.f,65.f)));
@@ -540,7 +643,7 @@ struct FControls : FAnimNode_Base
                     AdjustHand[I]=true;
                 }
             }
-            const bool RecoveringCast=State.Action==EFPSBodyAction::Cast&&State.ActionVariant==TEXT("Recover");
+            const bool RecoveringCast=State.Action==EFPSBodyAction::Cast&&State.Contacts.Channel!=TEXT("StaffCast")&&State.ActionVariant==TEXT("Recover");
             if(RecoveringCast)
             {
                 if(!bHasHandHistory||LastAction!=EFPSBodyAction::Cast||LastVariant!=TEXT("Recover"))
@@ -552,7 +655,7 @@ struct FControls : FAnimNode_Base
                 FTransform Recovered;Recovered.Blend(CastRecoveryEntry,Targets[1],Return);
                 Targets[1]=Recovered;AdjustHand[1]=true;
             }
-            else if(State.Action==EFPSBodyAction::Cast&&State.ActionVariant!=TEXT("StaffCast"))
+            else if(State.Action==EFPSBodyAction::Cast&&State.Contacts.Channel!=TEXT("StaffCast"))
             {Targets[1]=FPSBodyPoses::CastHand(State,Crouch,Targets[1],PoseScale);AdjustHand[1]=true;}
             for(int32 I=0;I<2;++I)if(ActionWristMask&(1<<I)){Targets[I]=ActionHands[I];AdjustHand[I]=true;}
             // A cancelled traversal must blend from LastHands, not keep chasing stale world contacts.
@@ -576,12 +679,12 @@ struct FControls : FAnimNode_Base
                 if(!BowActive&&bHasHandHistory&&Blend<1.f&&!(I==1&&RecoveringCast))
                 {FTransform Mixed;Mixed.Blend(EntryHands[I],Targets[I],Blend);Targets[I]=Mixed;}
             const bool SwordPair=State.Family==TEXT("Melee")&&bLeftGrip&&!Traversing&&
-                State.Action!=EFPSBodyAction::Cast&&
+                State.Action!=EFPSBodyAction::Cast&&State.Action!=EFPSBodyAction::Consume&&
                 ((bCoupledActionWrists&&ActionWristMask==3)||ActionWristMask==0);
             if(SwordPair)
             {
                 Targets[1]=(ActionWristMask==3?DynamicLeftFromRight:LeftGrip)*Targets[0];
-                FitSwordGrip(Pose,Targets);
+                FitHandPair(Pose,Targets);
             }
             for(int32 I=0;I<2;++I)
             {
@@ -602,8 +705,17 @@ struct FControls : FAnimNode_Base
                 Solve(Pose,Hands[0],Targets[0],FVector(-65,0,110-40*Crouch)*PoseScale,1.f);
                 for(int32 I=0;I<2;++I)LastHands[I]=Pose.GetComponentSpaceTransform(Hands[I].GetCompactPoseIndex(Bones));
             }
-            bHasHandHistory=true;
+            bHasHandHistory=true;bHadSwordPair=SwordPair;
         }
+        bStaffNativeArmApplied=false;
+        BlendStaffCarry(Out,Pose);
+        BlendSword(Out,Pose);
+        // A left jab's torso layer can otherwise drag the preserved right wrist
+        // and re-solve its elbow. Restore the complete current support chain.
+        if(bStaffQuickCarry&&SwordWeight>ZERO_ANIMWEIGHT_THRESH)BlendStaffCarry(Out,Pose);
+        BlendStaffCast(Out,Pose);
+        BlendBookCarry(Out,Pose);
+        BlendConsume(Out,Pose);
         if(State.Action!=EFPSBodyAction::Dead&&ChestBase.IsValidToEvaluate(Bones))
         {
             const float Age=FMath::Clamp((Clock-Reactions.HitAt)/.42f,0.f,1.f);
@@ -624,12 +736,26 @@ struct FControls : FAnimNode_Base
                 R.Reset();R.Emplace(B,Nod);Pose.LocalBlendCSBoneTransforms(R,1.f);
             }
         }
+        FitStaffArm(Pose);
         // Safe conversion only writes bones still marked as component space.
         // Ancestor corrections (including an identity chest reaction) can have
         // already converted solved arms/legs back to local space in this pose.
         // Preserve those locals instead of retaining the original idle animation.
         Out.Pose=Pose.GetPose();
         FCSPose<FCompactPose>::ConvertComponentPosesToLocalPosesSafe(Pose,Out.Pose);
+        if(bStaffCastActive)
+        {
+            LastStaffCastPose.SetNum(Bones.GetCompactPoseNumBones());
+            for(int32 I=0;I<LastStaffCastPose.Num();++I)LastStaffCastPose[I]=Out.Pose[FCompactPoseBoneIndex(I)];
+            LastStaffCastChest=Pose.GetComponentSpaceTransform(ChestBase.GetCompactPoseIndex(Bones));
+            LastStaffCastChest.AddToTranslation(-Pose.GetComponentSpaceTransform(Pelvis.GetCompactPoseIndex(Bones)).GetLocation());
+        }
+        if(bBookCarryActive)
+        {
+            LastBookCarryPose.SetNum(Bones.GetCompactPoseNumBones());
+            for(int32 I=0;I<BookMotionBones.Num();++I)if(BookMotionBones[I])LastBookCarryPose[I]=Out.Pose[FCompactPoseBoneIndex(I)];
+        }
+        else LastBookCarryPose.Reset();
         // Melee uses unarmed locomotion. Wrist IK alone leaves its fingers open;
         // layer the native grip after IK, retaining all wrist/weapon transforms.
         if(bSwordGrip||EquipmentGripHands||ActionFingerMask)
@@ -645,7 +771,7 @@ struct FControls : FAnimNode_Base
                 const bool Gun=State.Family==TEXT("Rifle")||State.Family==TEXT("Pistol");
                 if(Gun&&Side==1&&!State.bDual&&(State.Action==EFPSBodyAction::Reload||State.Action==EFPSBodyAction::ReloadEmpty||State.Action==EFPSBodyAction::Equip||State.Action==EFPSBodyAction::GunBash))Contact=0.f;
                 if((State.bDual||(Side==1&&State.bOffhandPistol))&&(Side==0?State.RightHand:State.LeftHand).bReloading)Contact=0.f;
-                if(Side==1&&State.Action==EFPSBodyAction::Cast)
+                if(Side==1&&State.Action==EFPSBodyAction::Cast&&State.Contacts.Channel!=TEXT("StaffCast"))
                 {
                     const float Return=(State.ActionProgress-CastRecoveryStartProgress)/FMath::Max(.001f,1.f-CastRecoveryStartProgress);
                     Contact*=State.ActionVariant==TEXT("Recover")?Ease((Return-.55f)/.45f):0.f;
@@ -655,9 +781,17 @@ struct FControls : FAnimNode_Base
                 for(const auto Bone:GripBones[Side])
                 {
                     const int32 MeshBone=Bones.MakeMeshPoseIndex(Bone).GetInt();
-                    const FTransform& Target=(ActionFingerMask&(1<<Side))&&ActionFingers.IsValidIndex(MeshBone)?ActionFingers[MeshBone]
+                    FTransform Target=(ActionFingerMask&(1<<Side))&&ActionFingers.IsValidIndex(MeshBone)?ActionFingers[MeshBone]
                         :EquipmentHand&&EquipmentFingers.IsValidIndex(MeshBone)?EquipmentFingers[MeshBone]
                         :(bSwordGrip?Hold.Pose[Bone]:Out.Pose[Bone]);
+                    // Only the two fitted overhead takes opt in. Keep their
+                    // support thumb below the upper hand instead of restoring
+                    // the equipment's extended thumb after the body blend.
+                    if(SwordSupportThumbWeight>ZERO_ANIMWEIGHT_THRESH&&SwordSupportThumbBones[Bone.GetInt()])
+                    {
+                        FTransform Fitted;Fitted.Blend(Target,LastSwordPose[Bone.GetInt()],SwordSupportThumbWeight);
+                        Target=Fitted;
+                    }
                     FTransform Blended;Blended.Blend(Out.Pose[Bone],Target,GripWeights[Side]);
                     Out.Pose[Bone]=Blended;
                 }
@@ -667,12 +801,24 @@ struct FControls : FAnimNode_Base
     }
 };
 
+#include "FPSBodySwordPose.inl"
+#include "FPSBodyStaffCastPose.inl"
+#include "FPSBodyStaffCarryPose.inl"
+#include "FPSBodyStaffStrikePose.inl"
+#include "FPSBodyBookCarryPose.inl"
+#include "FPSBodyStaffArmPose.inl"
+#include "FPSBodyConsumePose.inl"
 struct FProxy : FAnimInstanceProxy
 {
-    FAnimNode_SequenceEvaluator_Standalone Idle,Neutral,WalkA,WalkB,JogA,JogB,Air,Action,Death,Grip;
+    FAnimNode_SequenceEvaluator_Standalone Idle,Neutral,WalkA,WalkB,JogA,JogB,Air,Action,Death,Grip,Sword,StaffCast,StaffCarry,BookCarry,BookPush,Consume;
     FAnimNode_TwoWayBlend Walk,Jog,Pace,Movement,AirBlend,DeathBlend;
     FUpperLayer Upper,AirHold;
     FControls Controls;
+    UAnimSequence* SwordAsset=nullptr;
+    FName SwordKey;
+    float SwordContact=.4f,SwordRelease=.65f;
+    UAnimSequence* ConsumeAsset=nullptr;
+    float ConsumeContact=.3f,ConsumeRelease=.7f;
     TMap<const UAnimSequence*,FStrideTiming> Strides;
     float SmoothedSpeed=0.f,SmoothedHeading=0.f,GaitCycles=0.f;
     bool bHasHeading=false;
@@ -693,11 +839,18 @@ struct FProxy : FAnimInstanceProxy
         AirHold.Base.SetLinkNode(&AirBlend);AirHold.Upper.SetLinkNode(&Idle);
         Upper.Base.SetLinkNode(&AirHold);Upper.Upper.SetLinkNode(&Action);
         Controls.Source.SetLinkNode(&Upper);Controls.Neutral.SetLinkNode(&Neutral);Controls.Grip.SetLinkNode(&Grip);
+        Controls.Sword.SetLinkNode(&Sword);
+        Controls.StaffCast.SetLinkNode(&StaffCast);
+        Controls.StaffCarry.SetLinkNode(&StaffCarry);
+        Controls.BookCarry.SetLinkNode(&BookCarry);
+        Controls.BookPush.SetLinkNode(&BookPush);
+        Controls.Consume.SetLinkNode(&Consume);
         DeathBlend.A.SetLinkNode(&Controls);DeathBlend.B.SetLinkNode(&Death);
     }
     virtual FAnimNode_Base* GetCustomRootNode() override {return &DeathBlend;}
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
-    {Nodes.Append({&Idle,&Neutral,&WalkA,&WalkB,&JogA,&JogB,&Walk,&Jog,&Pace,&Movement,&Air,&AirBlend,&AirHold,&Action,&Upper,&Grip,&Controls,&Death,&DeathBlend});}
+    {Nodes.Append({&Idle,&Neutral,&WalkA,&WalkB,&JogA,&JogB,&Walk,&Jog,&Pace,&Movement,
+        &Air,&AirBlend,&AirHold,&Action,&Upper,&Grip,&Sword,&StaffCast,&StaffCarry,&BookCarry,&BookPush,&Consume,&Controls,&Death,&DeathBlend});}
     virtual void PreUpdate(UAnimInstance* Instance,float Delta) override
     {
         FAnimInstanceProxy::PreUpdate(Instance,Delta);
@@ -788,6 +941,193 @@ struct FProxy : FAnimInstanceProxy
         Controls.ActionFingers=D->ActionFingers;Controls.ActionFingerMask=D->ActionFingerMask;
         Controls.ActionWristMask=D->ActionWristMask;Controls.ActionHands[0]=D->ActionHands[0];Controls.ActionHands[1]=D->ActionHands[1];
         Controls.bCoupledActionWrists=D->bCoupledActionWrists;
+        const FName HandAttackKey=FPSBodyHandAttackMotion::Clip(D->BodyState);
+        const FName NextSwordKey=HandAttackKey.IsNone()?FPSBodySwordMotion::Clip(D->BodyState):HandAttackKey;
+        auto* NextSwordAsset=D->Clips.FindRef(NextSwordKey).Get();
+        const bool HasSwordAction=NextSwordAsset&&IdleClip&&NextSwordAsset->GetSkeleton()==IdleClip->GetSkeleton();
+        // Whirlwind phase endpoints are authored to match; a second temporal
+        // crossfade would drag the wrists and planted foot behind actor yaw.
+        const bool WhirlwindPhaseChange=D->BodyState.Action==EFPSBodyAction::Whirlwind&&
+            (SwordKey==TEXT("Melee.FullBody.Whirlwind.Start")||SwordKey==TEXT("Melee.FullBody.Whirlwind.Loop")||
+             SwordKey==TEXT("Melee.FullBody.TangDao.Whirlwind.Start")||SwordKey==TEXT("Melee.FullBody.TangDao.Whirlwind.Loop"));
+        Controls.bSwordChanged=HasSwordAction&&NextSwordKey!=SwordKey&&!WhirlwindPhaseChange;
+        if(HasSwordAction)
+        {
+            Controls.bHandAttackLibrary=!HandAttackKey.IsNone();
+            Controls.bStaffAttackLibrary=HandAttackKey==TEXT("Staff.FullBody.Strike");
+            Controls.LibraryPreserveHands=Controls.bHandAttackLibrary?FPSBodyHandAttackMotion::PreserveHands(D->BodyState):0;
+            if(NextSwordAsset!=SwordAsset)
+            {
+                SwordAsset=NextSwordAsset;SwordContact=.4f;SwordRelease=.65f;Controls.bSwordNativeGrip=false;
+                Controls.bStaffNativeStrike=false;
+                for(const auto& Marker:SwordAsset->AuthoredSyncMarkers)
+                {
+                    if(Marker.MarkerName==TEXT("Contact"))SwordContact=Marker.Time/SwordAsset->GetPlayLength();
+                    if(Marker.MarkerName==TEXT("Release"))SwordRelease=Marker.Time/SwordAsset->GetPlayLength();
+                    if(Marker.MarkerName==TEXT("NativeSwordGrip"))Controls.bSwordNativeGrip=true;
+                    if(Marker.MarkerName==TEXT("NativeStaffArm"))Controls.bStaffNativeStrike=true;
+                }
+            }
+            SwordKey=NextSwordKey;
+            const auto& S=D->BodyState;
+            const float P=FPSBodyPoses::Progress(S,D->Clock);
+            float Sample=P;
+            if(S.Action==EFPSBodyAction::Whirlwind)Sample=FPSBodySwordMotion::WhirlwindSample(S,P);
+            else if(S.Action==EFPSBodyAction::Charge)Sample=Ease(P)*SwordContact*.7f;
+            else if(S.Action==EFPSBodyAction::Guard)Sample=P*.35f;
+            else if(S.Action!=EFPSBodyAction::GuardHit&&S.Action!=EFPSBodyAction::GuardBreak)
+            {
+                const float Hit=FMath::Clamp(S.ContactFraction,.01f,.98f);
+                const float Release=FMath::Clamp(S.ReleaseFraction,Hit+.001f,.99f);
+                const float Entry=FMath::Clamp(S.ActionEntryFraction,0.f,Hit-.001f);
+                const float ContactPose=SwordContact;
+                const float ReleasePose=SwordRelease;
+                Sample=P<=Hit?FMath::Lerp(0.f,ContactPose,FMath::Clamp((P-Entry)/(Hit-Entry),0.f,1.f)):
+                    P<=Release?FMath::Lerp(ContactPose,ReleasePose,(P-Hit)/(Release-Hit)):
+                    FMath::Lerp(ReleasePose,1.f,(P-Release)/(1.f-Release));
+            }
+            Set(Sword,SwordAsset,Sample*SwordAsset->GetPlayLength(),false);
+            // The fading base is an ordinary carry. No procedural FPS attack
+            // effort or wrist trajectory is added underneath the authored body.
+            Controls.State.Action=EFPSBodyAction::None;Controls.State.ActionVariant=NAME_None;
+            Controls.ActionWristMask&=Controls.LibraryPreserveHands;Controls.bCoupledActionWrists=false;
+        }
+        else if(!SwordAsset)Set(Sword,IdleClip,0.f,false);
+        const float SwordTarget=HasSwordAction?FMath::Clamp(D->BodyState.ActionWeight,0.f,1.f):0.f;
+        Controls.SwordWeight=FMath::FInterpConstantTo(Controls.SwordWeight,SwordTarget,Dt,HasSwordAction?12.5f:10.f);
+        // Committed Kwang skills retain their authored weight shift and step.
+        // Dash travel keeps locomotion until the executor starts its windup;
+        // capsule translation is still owned by the existing sword gameplay.
+        const bool CommittedSword=HasSwordAction&&(D->BodyState.Action==EFPSBodyAction::Whirlwind||
+            (D->BodyState.Action==EFPSBodyAction::HeavyStrike&&D->BodyState.ActionVariant!=TEXT("HeavyRelease")));
+        float AttackLegs=CommittedSword?1.f:0.f;
+        if(CommittedSword&&D->BodyState.ActionVariant==TEXT("DashOverhead"))
+        {
+            const auto& S=D->BodyState;
+            const float Windup=FMath::Max(.001f,S.ContactFraction-S.ActionEntryFraction);
+            AttackLegs=Ease((FPSBodyPoses::Progress(S,D->Clock)-S.ActionEntryFraction)/(Windup*.45f));
+        }
+        Controls.SwordAttackLegOwnership=FMath::FInterpConstantTo(Controls.SwordAttackLegOwnership,AttackLegs,Dt,12.5f);
+        const float CarryLegs=1.f-FMath::Clamp(SmoothedSpeed/120.f,0.f,1.f);
+        Controls.SwordLegWeight=FMath::Lerp(CarryLegs,1.f,Controls.SwordAttackLegOwnership)*
+            (1.f-D->CrouchAlpha)*(1.f-D->MotionAlpha)*(1.f-D->AirAlpha);
+        // KayKit's exaggerated lunge/step is removed in the Jason adaptation.
+        // Grounding, crouch and locomotion continue to own the lower body.
+        if(Controls.bHandAttackLibrary)Controls.SwordLegWeight=0.f;
+        if(Controls.SwordWeight<=ZERO_ANIMWEIGHT_THRESH)SwordKey=NAME_None;
+        const auto& Casting=D->BodyState;
+        const bool StaffGesture=Casting.Family==TEXT("Staff")&&Casting.Action==EFPSBodyAction::Cast&&
+            Casting.Contacts.Channel==TEXT("StaffCast")&&!FPSBodyPoses::Traversing(Casting.Motion);
+        auto* Carry=Clip(TEXT("Staff.NativeArm.Carry"));
+        Controls.bStaffCarryActive=Casting.Family==TEXT("Staff")&&Carry&&IdleClip&&Carry->GetSkeleton()==IdleClip->GetSkeleton()&&
+            !FPSBodyPoses::Traversing(Casting.Motion)&&Casting.Action!=EFPSBodyAction::Dead;
+        Controls.bStaffQuickCarry=Controls.bStaffCarryActive&&Casting.Action==EFPSBodyAction::GunBash;
+        // Quick melee owns the left hand. The FPS staff rig also publishes a
+        // right wrist during that action, but it must not replace world carry.
+        if(Controls.bStaffQuickCarry)Controls.ActionWristMask&=~uint8(1);
+        // The selected source opening is slowed into a quiet carry cycle. The
+        // live gait still owns the chest and legs; the book keeps its left arm.
+        Set(StaffCarry,Controls.bStaffCarryActive?Carry:IdleClip,D->Clock*.35f,true);
+        auto* BookHold=Clip(TEXT("Staff.BookCarry"));
+        const int32 BookIndex=D->SpellbookEquipmentIndex;
+        const bool BookVisible=BookIndex!=INDEX_NONE&&(!Casting.Contacts.Rigs.IsValidIndex(BookIndex)||
+            !Casting.Contacts.Rigs[BookIndex].Valid||Casting.Contacts.Rigs[BookIndex].Visible);
+        Controls.bBookCarryActive=Casting.Family==TEXT("Staff")&&BookVisible&&BookHold&&IdleClip&&
+            BookHold->GetSkeleton()==IdleClip->GetSkeleton()&&Casting.Action!=EFPSBodyAction::Dead;
+        Set(BookCarry,Controls.bBookCarryActive?BookHold:IdleClip,0.f,false);
+        auto* BookStrike=Clip(TEXT("Staff.BookPush"));
+        Controls.bBookPushActive=Controls.bBookCarryActive&&BookStrike&&
+            BookStrike->GetSkeleton()==IdleClip->GetSkeleton()&&!FPSBodyPoses::Traversing(Casting.Motion)&&
+            Casting.Action==EFPSBodyAction::GunBash&&Casting.ActionVariant==TEXT("SpellbookPush");
+        Controls.BookPushProgress=Controls.bBookPushActive?FPSBodyPoses::Progress(Casting,D->Clock):0.f;
+        Set(BookPush,Controls.bBookPushActive?BookStrike:IdleClip,
+            Controls.bBookPushActive?Controls.BookPushProgress*BookStrike->GetPlayLength():0.f,false);
+        if(Controls.bBookPushActive)
+        {
+            // The full native support arm owns the shove. Do not first force
+            // its wrist to the camera-space hand or add generic pistol effort.
+            Controls.ActionWristMask&=~uint8(2);Controls.bCoupledActionWrists=false;
+            Controls.State.Action=EFPSBodyAction::None;Controls.State.ActionVariant=NAME_None;
+        }
+        auto* CastGather=Clip(TEXT("Staff.NativeArm.CastGather"));
+        auto* CastRelease=Clip(TEXT("Staff.NativeArm.CastRelease"));
+        Controls.bStaffNativeCast=CastGather&&CastRelease&&IdleClip&&
+            CastGather->GetSkeleton()==IdleClip->GetSkeleton()&&CastRelease->GetSkeleton()==IdleClip->GetSkeleton();
+        if(!Controls.bStaffNativeCast)
+        {CastGather=Clip(TEXT("Staff.FullBody.CastGather"));CastRelease=Clip(TEXT("Staff.FullBody.CastRelease"));}
+        Controls.bStaffCastActive=StaffGesture&&CastGather&&CastRelease&&IdleClip&&
+            CastGather->GetSkeleton()==IdleClip->GetSkeleton()&&CastRelease->GetSkeleton()==IdleClip->GetSkeleton();
+        if(Controls.bStaffCastActive)
+        {
+            Controls.StaffCastPhase=Casting.ActionVariant;
+            Controls.StaffCastProgress=FPSBodyPoses::Progress(Casting,D->Clock);
+            auto* CastAsset=CastGather;
+            float Sample=Casting.ActionVariant==TEXT("Gather")?Controls.StaffCastProgress:1.f;
+            if(Casting.ActionVariant==TEXT("Release"))
+            {
+                CastAsset=CastRelease;
+                float Contact=.65f;
+                for(const auto& Marker:CastAsset->AuthoredSyncMarkers)
+                    if(Marker.MarkerName==TEXT("Contact"))Contact=Marker.Time/CastAsset->GetPlayLength();
+                const float Hit=FMath::Clamp(Casting.ContactFraction,.01f,.99f),P=Controls.StaffCastProgress;
+                Sample=P<=Hit?Contact*P/Hit:FMath::Lerp(Contact,1.f,(P-Hit)/(1.f-Hit));
+            }
+            Set(StaffCast,CastAsset,Sample*CastAsset->GetPlayLength(),false);
+            // The full native chain owns casting. Keep the base as a live carry
+            // for recovery and leave an offhand pistol's independent wrist intact.
+            Controls.State.Action=EFPSBodyAction::None;Controls.State.ActionVariant=NAME_None;
+            Controls.ActionWristMask&=~uint8(1);Controls.bCoupledActionWrists=false;
+        }
+        else Set(StaffCast,IdleClip,0.f,false);
+        const auto& Use=D->BodyState;
+        FName ConsumeKey;
+        if(Use.Action==EFPSBodyAction::Consume&&!FPSBodyPoses::Traversing(Use.Motion))
+            ConsumeKey=Use.Contacts.Consumable==TEXT("baguette_bread")?TEXT("Consume.EatBaguette"):
+                Use.Contacts.Consumable==TEXT("bread")?TEXT("Consume.EatBread"):TEXT("Consume.Drink");
+        auto* NextConsume=D->Clips.FindRef(ConsumeKey).Get();
+        const bool HasConsume=NextConsume&&IdleClip&&NextConsume->GetSkeleton()==IdleClip->GetSkeleton();
+        Controls.ConsumeContactWeight=0.f;
+        if(HasConsume)
+        {
+            if(NextConsume!=ConsumeAsset)
+            {
+                ConsumeAsset=NextConsume;ConsumeContact=.3f;ConsumeRelease=.7f;Controls.bConsumeNativeArm=false;
+                for(const auto& Marker:ConsumeAsset->AuthoredSyncMarkers)
+                {
+                    if(Marker.MarkerName==TEXT("Contact"))ConsumeContact=Marker.Time/ConsumeAsset->GetPlayLength();
+                    if(Marker.MarkerName==TEXT("Release"))ConsumeRelease=Marker.Time/ConsumeAsset->GetPlayLength();
+                    if(Marker.MarkerName==TEXT("NativeConsumeArm"))Controls.bConsumeNativeArm=true;
+                }
+            }
+            const float P=FPSBodyPoses::Progress(Use,D->Clock);
+            const float Contact=FMath::Clamp(Use.ContactFraction,.01f,.98f);
+            const float Release=FMath::Clamp(Use.ReleaseFraction,Contact+.001f,.99f);
+            const float Entry=FMath::Clamp(Use.ActionEntryFraction,0.f,Contact-.001f);
+            const bool NativeFood=Controls.bConsumeNativeArm&&ConsumeKey!=TEXT("Consume.Drink");
+            // The native food clips are authored on the actual item-use clock,
+            // including the grab lead-in and the late bite. Keep drink retiming.
+            const float Sample=NativeFood?P:P<=Contact?FMath::Lerp(0.f,ConsumeContact,FMath::Clamp((P-Entry)/(Contact-Entry),0.f,1.f)):
+                P<=Release?FMath::Lerp(ConsumeContact,ConsumeRelease,(P-Contact)/(Release-Contact)):
+                FMath::Lerp(ConsumeRelease,1.f,(P-Release)/(1.f-Release));
+            Set(Consume,ConsumeAsset,Sample*ConsumeAsset->GetPlayLength(),false);
+            // Only correct the food's final bite with the rigid arm/prop lever;
+            // do not pull the whole slow approach onto the lips prematurely.
+            if(NativeFood)
+                Controls.ConsumeContactWeight=Ease((Sample-ConsumeContact+.06f)/.06f)*
+                    (1.f-Ease((Sample-ConsumeRelease)/.08f));
+            else if(ConsumeKey==TEXT("Consume.Drink"))
+                Controls.ConsumeContactWeight=Ease((Sample-.075f)/FMath::Max(.001f,ConsumeContact-.075f))*
+                    (1.f-Ease((Sample-ConsumeRelease)/FMath::Max(.001f,1.f-ConsumeRelease)));
+            Controls.ActionWristMask&=~uint8(2);Controls.bCoupledActionWrists=false;
+        }
+        else if(!ConsumeAsset)Set(Consume,IdleClip,0.f,false);
+        const float ConsumeTarget=HasConsume?FMath::Clamp(Use.ActionWeight,0.f,1.f):0.f;
+        Controls.ConsumeWeight=FMath::FInterpConstantTo(Controls.ConsumeWeight,ConsumeTarget,Dt,HasConsume?12.5f:10.f);
+        Controls.ConsumeMouthInHead=D->ConsumeMouthInHead;
+        Controls.ConsumePropContact=D->ConsumePropContact;
+        Controls.bHasConsumeProp=D->bHasConsumeProp;
+        // The anatomical grip table owns palm facing. Carry and library clips
+        // share it without an extra global wrist yaw correction.
         Controls.StaffHandRotation=D->StaffHandRotation;
         Controls.bBowPose=D->bBowPose;Controls.BowHands[0]=D->BowHands[0];Controls.BowHands[1]=D->BowHands[1];
         Set(Death,Clip(TEXT("Dead")),Elapsed,false);DeathBlend.Alpha=D->BodyState.Action==EFPSBodyAction::Dead?Ease(Elapsed/.12f):0.f;

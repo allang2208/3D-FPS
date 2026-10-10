@@ -249,6 +249,9 @@ void UFPSPlayerBodyComponent::InitializeBody()
         const TArray<TSharedPtr<FJsonValue>>* Scale=nullptr;
         if(Configuration->TryGetArrayField(TEXT("pose_scale"),Scale)&&Scale->Num()==3)
             BodyAnimation->PoseScale=FVector((*Scale)[0]->AsNumber(),(*Scale)[1]->AsNumber(),(*Scale)[2]->AsNumber());
+        const TArray<TSharedPtr<FJsonValue>>* Mouth=nullptr;
+        if(Configuration->TryGetArrayField(TEXT("consume_mouth_in_head"),Mouth)&&Mouth->Num()==3)
+            BodyAnimation->ConsumeMouthInHead=FVector((*Mouth)[0]->AsNumber(),(*Mouth)[1]->AsNumber(),(*Mouth)[2]->AsNumber());
         const TSharedPtr<FJsonObject>* Clips=nullptr;
         if(Configuration->TryGetObjectField(TEXT("clips"),Clips))for(const auto& Pair:(*Clips)->Values)
             if(auto* Sequence=LoadObject<UAnimSequence>(nullptr,*Pair.Value->AsString()))BodyAnimation->Clips.Add(FName(*Pair.Key),Sequence);
