@@ -15,7 +15,7 @@ void UGunsmithSystem::LoadStaffCatalog()
         for(const auto& O:Col->GetArrayField(TEXT("options")))
         {
             const auto D=O->AsObject();FGunsmithOption Part;Part.Id=D->GetStringField(TEXT("id"));Part.Name=D->GetStringField(TEXT("name"));
-            Part.Description=D->GetStringField(TEXT("description"));Part.Appearance=TEXT("独立长杖部件");Part.Effects.Emplace(Part.Description,1);
+            Part.Description=D->GetStringField(TEXT("description"));Part.Appearance=TEXT("长杖 · ")+Col->GetStringField(TEXT("name"));
             Part.ReadSpecialEffects(D);
             Options.FindChecked(Key).Add(MoveTemp(Part));
         }

@@ -1,0 +1,12 @@
+float branch = floor((1.0 - UV.y) * 16.0 + 0.5);
+float clock = Clock * (6.3 + branch * 0.17) + branch * 0.239;
+float eventID = floor(clock);
+float phase = frac(clock);
+float gate = step(0.34, frac(sin((eventID + branch * 19.31) * 37.71) * 43123.12));
+float flash = exp(-phase * 10.0) + 0.48 * exp(-pow((phase - 0.43) / 0.07, 2.0));
+float run = pow(saturate(1.0 - abs(frac(UV.x * 1.4 - Clock * 2.6 + branch * 0.19) - 0.5) * 2.0), 8.0);
+float3 violet = float3(0.32, 0.12, 1.0);
+float3 whiteCore = float3(0.74, 0.59, 1.0);
+float power = (0.12 + gate * flash * 1.6 + run * 0.34) * lerp(1.0, 12.0, Core);
+float3 color = lerp(violet, whiteCore, Core);
+return color * power;

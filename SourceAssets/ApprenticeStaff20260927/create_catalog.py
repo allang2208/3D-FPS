@@ -1,9 +1,13 @@
 import json
 from pathlib import Path
+from attachment_copy import apply_copy
 ROOT=Path(__file__).resolve().parent
 CONTENT=ROOT.parents[1]/'Content/ColdSteelData'
 legacy=json.loads((ROOT/'Reference/legacy-contract.json').read_text(encoding='utf-8'))
 item=legacy['runtime_item_contract'].copy()
+# Legacy imports predate the equipment rarity removal; do not recreate it.
+item.pop('rarity',None)
+item.pop('grade',None)
 item.update({'id':'ue_apprentice_staff','name':'学徒长杖','type':'长杖','stack_max':1,'grid_w':1,'grid_h':4,
     'isTwoHanded':False,'weaponCategory':'mainhand','equipSlot':'weapon',
     'weaponTypeTag':'长杖','staff_revision':1,'melee_damage':3,'melee_reach_cm':165,'attack_seconds':.5,
@@ -30,5 +34,6 @@ for slot in legacy['craft']['slots']:
     columns.append(col)
 catalog={'version':1,'weapons':[{'id':'ue_apprentice_staff','traits':[{'icon':'special','text':'晶辉照明：按 G 开关杖头光源，播放一次抬杖蓄光与收势动作后恢复待机；照明无冷却、无消耗、持续时间不限，收起长杖后熄灭。'},{'icon':'magic','text':'当前主手增加魔法攻击；六槽改造随武器实例保存。'},{'icon':'mechanic','text':'主手限定的单手武器，副手可装备手枪或魔法书；右键发射副手手枪，无副手时不触发交互。杖冠须匹配杖头专精才能激活。'}]}],
          'columns':columns}  # UE staff customization is free, matching firearm workbenches.
+apply_copy(catalog)
 for filename,value in [('staffs.json',{'ue_apprentice_staff':item}),('staff-gunsmith.json',catalog)]:
     (CONTENT/filename).write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

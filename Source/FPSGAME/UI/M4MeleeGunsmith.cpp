@@ -30,8 +30,6 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     const auto Parts=bCompareFactory?FGunsmithParts():Model()->Installed(Item);
     const auto Before=ColdSteelMelee::Evaluate(Item,Profile,&Parts);
     const auto After=ColdSteelMelee::Evaluate(Item,Profile,&Model()->Draft());
-    const bool OverheadFinisher=ColdSteelModularSword::UsesOverheadFinisher(Item,&Model()->Draft());
-    const bool RisingDragon=ColdSteelModularSword::UsesRisingDragonFinisher(Item,&Model()->Draft());
     auto Row=[this](const TCHAR* Name,double Base,double Final,int32 Digits,const TCHAR* Unit,bool Lower=false)
     {
         const double Delta=Final-Base;const bool Same=FMath::Abs(Delta)<.00001;
@@ -57,18 +55,10 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
         Row(TEXT("攻击吸血持续时间"),Before.Modifiers.JingangLeechSeconds,After.Modifiers.JingangLeechSeconds,0,TEXT(" s"));
     }
     Row(ColdSteelWeaponText::TotalDamage,Before.Damage,After.Damage,2,TEXT(""));
-    Row(ColdSteelWeaponText::BasePhysical,Before.DamageParts.BasePhysical,After.DamageParts.BasePhysical,2,TEXT(""));
-    Row(ColdSteelWeaponText::AddedPhysical,Before.DamageParts.AddedPhysical,After.DamageParts.AddedPhysical,2,TEXT(""));
-    Row(ColdSteelWeaponText::AddedMagic,Before.DamageParts.AddedMagic,After.DamageParts.AddedMagic,2,TEXT(""));
     if(ColdSteelInventory::Number(Item,TEXT("innate_erosion_intelligence"))>0||ColdSteelInventory::Number(Item,TEXT("innate_erosion_wisdom"))>0)
         Row(TEXT("自带侵蚀伤害倍率"),Before.Modifiers.InnateErosionMultiplier,After.Modifiers.InnateErosionMultiplier,2,TEXT("×"));
-    Row(TEXT("第二段横斩伤害"),Before.ComboSecondDamage,After.ComboSecondDamage,2,TEXT(""));
-    Row(RisingDragon?TEXT("第三段升龙伤害"):OverheadFinisher?TEXT("第三段竖劈伤害"):TEXT("第三段突刺伤害"),Before.ComboThirdDamage,After.ComboThirdDamage,2,TEXT(""));
-    Row(RisingDragon?TEXT("第三段升龙韧性伤害倍率"):OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),Before.Modifiers.ThirdThrustToughnessMultiplier(),After.Modifiers.ThirdThrustToughnessMultiplier(),2,TEXT("×"));
     Row(TEXT("重击伤害倍率"),Before.HeavyMultiplier,After.HeavyMultiplier,2,TEXT("×"));
     Row(TEXT("重击蓄力速度加成"),Before.HeavyChargeSpeedBonus*100.,After.HeavyChargeSpeedBonus*100.,0,TEXT("%"));
-    Row(TEXT("重击蓄力时间"),Before.HeavyChargeSeconds,After.HeavyChargeSeconds,2,TEXT(" s"),true);
-    Row(TEXT("重击总伤害"),Before.Damage*Before.HeavyMultiplier,After.Damage*After.HeavyMultiplier,2,TEXT(""));
     Row(TEXT("重击韧性伤害倍率"),Before.Modifiers.HeavyToughnessMultiplier(),After.Modifiers.HeavyToughnessMultiplier(),2,TEXT("×"));
     Row(TEXT("攻击击退距离"),Before.KnockbackCM,After.KnockbackCM,1,TEXT(" cm"));
     if(Before.Modifiers.AllAttackKnockback!=1.||After.Modifiers.AllAttackKnockback!=1.)
@@ -76,7 +66,6 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     if(Before.Modifiers.AllAttackDamage!=1.||After.Modifiers.AllAttackDamage!=1.)
         Row(TEXT("全部近战攻击伤害倍率"),Before.Modifiers.AllAttackDamage,After.Modifiers.AllAttackDamage,2,TEXT("×"));
     Row(TEXT("快速近战伤害倍率"),Before.QuickCombat.DamageMultiplier,After.QuickCombat.DamageMultiplier,2,TEXT("×"));
-    Row(TEXT("快速近战伤害"),Before.QuickCombat.Damage,After.QuickCombat.Damage,2,TEXT(""));
     Row(TEXT("快速近战击退距离"),Before.QuickCombat.KnockbackCM,After.QuickCombat.KnockbackCM,1,TEXT(" cm"));
     Row(TEXT("快速近战韧性伤害倍率"),Before.QuickCombat.ToughnessMultiplier,After.QuickCombat.ToughnessMultiplier,2,TEXT("×"));
     Row(ColdSteelWeaponText::QuickCombatBleed,Before.QuickCombat.BleedChance*100,After.QuickCombat.BleedChance*100,0,TEXT("%"));
@@ -100,8 +89,6 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     Row(ColdSteelWeaponText::RuneVulnerability,Before.Modifiers.RuneVulnerability*100,After.Modifiers.RuneVulnerability*100,0,TEXT("%"));
     Row(TEXT("剑刃易伤持续时间"),Before.Modifiers.RuneVulnerabilitySeconds,After.Modifiers.RuneVulnerabilitySeconds,0,TEXT(" s"));
     Row(ColdSteelWeaponText::AttackInterval,Before.AttackSeconds*1000,After.AttackSeconds*1000,0,TEXT(" ms"),true);
-    Row(RisingDragon?TEXT("升龙时间"):OverheadFinisher?TEXT("竖劈时间"):TEXT("突刺时间"),Before.ThrustSeconds,After.ThrustSeconds,2,TEXT(" s"),true);
-    Row(TEXT("普通挥砍距离"),Before.SlashReach/100,After.SlashReach/100,2,TEXT(" m"));
     Row(ColdSteelWeaponText::AttackDistance,Before.ThrustReach/100,After.ThrustReach/100,2,TEXT(" m"));
     Row(ColdSteelWeaponText::StaminaCost,Before.AttackStamina,After.AttackStamina,2,TEXT(""),true);
     Row(TEXT("命中硬直时间倍率"),Before.Modifiers.HitReaction,After.Modifiers.HitReaction,2,TEXT("×"));

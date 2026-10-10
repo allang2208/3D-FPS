@@ -1,0 +1,49 @@
+{
+  "tool": "built-in imagegen",
+  "style_reference": "Content/ColdSteelData/AttachmentIcons20260913/ue_xuanchi_zhenyue_blade_2_zhenmo_rune.png",
+  "base_prompt": "Use case: precise-object-edit. Produce one final square game rune-modification icon, 1024x1024 PNG. Image 1 is the approved Zhenmo rune icon and is the EXACT style and frame reference: preserve the thick beveled dark-steel square frame, clipped corners, four round rivets, inner silver ring, scratched recessed dark backplate, proportions, frontal orthographic view, upper-left neutral lighting, realistic silver relief quality. Replace ONLY the central Bagua/yin-yang emblem with the subject specified below. The new central emblem stands alone directly on the dark plate, occupies about 64-70% of the canvas and fits entirely inside the inner ring. It must show ONLY the defining rune symbol. NO sword, blade, hilt, weapon fragment, shield, object carrying the rune, person or hands. No label, letters, numbers or watermark. Strictly neutral silver-white and charcoal monochrome with crisp silhouette and dimensional beveled metal relief, not flat vector art and not glowing haze. Opaque dark interior, extremely narrow genuinely transparent outer edge outside the frame. Preserve the frame exactly rather than redesigning it. ",
+  "entries": [
+    {
+      "id": "haste_rune",
+      "name": "急速符文",
+      "subject": "Subject: HASTE / swiftness. One cohesive wind sigil made from three sweeping forked, angular tapered strokes moving left, staggered uneven lengths converging at a sharp leftward point, with two small trailing wind notches. It is an abstract wind rune, NOT a bird, sword or arrow item. Bold readable flowing negative spaces and sharp forked ends.",
+      "ref": null
+    },
+    {
+      "id": "resonance_rune",
+      "name": "共鸣符文",
+      "subject": "Subject: RESONANCE. From image 2 use the main central four-point sparkle surrounded by two concentric broken rings and tiny four cardinal diamond nodes. Extract and enlarge this ONE central resonance seal; remove the long vertical repeating strip and secondary seals. Symmetric, circular pulsing-wave motif in dimensional silver.",
+      "ref": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeRuneMods20260915\\Generated\\resonance_rune.png"
+    },
+    {
+      "id": "erosion_rune",
+      "name": "侵蚀符文",
+      "subject": "Subject: EROSION. From image 2 extract one large jagged branching fissure sigil: a broken diamond at the center split by an irregular vertical rift, with a few sharp branching thorn-like cracks and 3 small detached shards. Compact bold fractured emblem, preserve damaged irregular edges; no long repeated strip. Contrast strongly with smooth concentric rings or geometric circuitry.",
+      "ref": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeRuneMods20260915\\Generated\\erosion_rune.png"
+    },
+    {
+      "id": "conduction_rune",
+      "name": "导魔符文",
+      "subject": "Subject: ARCANE CONDUCTION. From image 2 extract one bold central hollow diamond node with paired symmetrical angular circuit paths branching upward and downward to smaller diamond terminals. A compact arcane channel / circuit sigil, clean geometric routed lines, five or seven clear terminal nodes, beveled silver relief. No long repeating strip, electricity cloud or lightning bolt replacing the circuit.",
+      "ref": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeRuneMods20260915\\Generated\\conduction_rune.png"
+    },
+    {
+      "id": "spirit_burst_rune",
+      "name": "精神迸发符文",
+      "subject": "Subject: SPIRIT BURST. Inspired by image 2, one central elongated faceted diamond spirit core with two outward-expanding broken ripple rings and four small sharp ray accents. Simplify into one clearly readable embossed silver rune emblem, convey a pulse bursting outward. Remove all purple/blue color and large metal jewel-holder structure from image 2. No jewelry item, no sword, no carrying plate besides the dark frame backplate.",
+      "ref": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSpiritBurst20260922\\spirit_burst_generated.png"
+    },
+    {
+      "id": "wild_rune",
+      "name": "蛮荒符文",
+      "subject": "Subject: WILD / primal ferocity. One compact tribal beast-jaw rune: a bold angular open fanged jaw silhouette framing three diagonal torn claw-slash marks. The jaw is a stylized silver rune sigil, not a realistic animal head. Rough chipped edges and primitive carved-metal character; open dark negative space between fangs and slashes. No shield or armor, no weapon, no red energy, no decorative text.",
+      "ref": null
+    },
+    {
+      "id": "golden_glow_rune",
+      "name": "金色符文强化",
+      "subject": "Subject: ENHANCED ANCIENT RUNE. One upright archaic geometric seal formed by a central hollow rhombus intersected by a straight spine, mirrored angular hooked arms and a nested smaller diamond, with a restrained four-point radiance crown and two short halo arcs indicating empowered ancient inscriptions. Keep clear silhouette distinct from the Conduction circuit rune: no terminal nodes, no circuit branches. Despite the in-world golden light, this menu icon is strictly neutral silver relief with no yellow or gold color. No weapon or carrier.",
+      "ref": null
+    }
+  ]
+}

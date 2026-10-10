@@ -27,7 +27,7 @@ public:
     float HandNoticeAlpha() const;
     float HandNoticeRise() const;
     // ── 联机 ──
-    bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow);
+    bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FLightningCast& Spell);
     void NetCastRejected(uint8 Phase,uint8 Code);
     void NetCastCancelled(uint8 Phase);
 protected:

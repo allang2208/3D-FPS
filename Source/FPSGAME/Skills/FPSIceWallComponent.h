@@ -40,7 +40,7 @@ public:
     UNiagaraSystem* ColdMistSystem() const { return ColdMistAsset.Get(); }
     UNiagaraSystem* LandingSystem() const { return LandingAsset.Get(); }
     // ── 联机 ──
-    bool NetCommitWall(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow);
+    bool NetCommitWall(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FIceWallCast& C);
     void NetCastRejected(uint8 Phase,uint8 Code);
     void NetCastCancelled(uint8 Phase);
 protected:

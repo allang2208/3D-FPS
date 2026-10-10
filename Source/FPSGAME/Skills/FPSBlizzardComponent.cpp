@@ -192,9 +192,8 @@ void UFPSBlizzardComponent::CancelPending()
     PaidMana=0;PreparedAge=0;
 }
 // ── 联机服务端入口：客人上报落点→重验→权威暴风雪区生成（复制回各端） ──
-bool UFPSBlizzardComponent::NetCommitZone(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow)
+bool UFPSBlizzardComponent::NetCommitZone(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FBlizzardCast& Spell)
 {
-    const auto Spell=Shadow->BlizzardStats();
     if(FVector::Dist2D(Caster->GetActorLocation(),Req.AimPoint)>Spell.Range)return false;
     if(Req.AimNormal.Z<.45f)return false;
     FVector Axis=FVector::VectorPlaneProject(Req.AimAxis,Req.AimNormal.GetSafeNormal()).GetSafeNormal();

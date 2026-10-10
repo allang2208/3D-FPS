@@ -34,7 +34,7 @@ public:
     float HandNoticeAlpha() const;
     float HandNoticeRise() const;
     // ── 联机 ──
-    bool NetCommitZone(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow);
+    bool NetCommitZone(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FBlizzardCast& Spell);
     void NetCastRejected(uint8 Phase,uint8 Code);
     void NetCastCancelled(uint8 Phase);
 protected:

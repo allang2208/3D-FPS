@@ -1,0 +1,17 @@
+{
+  "id": "haste_rune",
+  "name": "急速符文",
+  "slot": "blade_2",
+  "tier": "common",
+  "stats": {
+    "attack_speed_mult": 1.1
+  },
+  "description": "疾风折纹沿剑脊收束，黄色流光向剑尖掠过。",
+  "appearance": "疾风折纹 · 黄色流光",
+  "source": "Original project wind mask; imagegen rune-symbol icon following Zhenmo/Jingang framing",
+  "mask": "T_Mask_haste_rune.png",
+  "icon": "blade_2_haste_rune.png",
+  "visual_palette": "yellow core and yellow halo; existing traveling-current timing",
+  "runtime_tested": false,
+  "icon_source": "../RuneSymbolIcons20261009/Masters/blade_2_haste_rune.png"
+}

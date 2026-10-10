@@ -36,7 +36,7 @@ FIceWallCast UColdSteelStatusModel::IceWallStats(int32 AtLevel) const
     C.ChillRadius=T.ChillRadius*T.UnitsToCM;C.ChillInterval=T.ChillInterval;
     C.ChillDuration=T.ChillDuration;C.ChillSlow=T.ChillSlow;C.ChillStacks=T.ChillStacks;
     double CostFactor=1,CooldownReduction=0,ChainDamage=1;
-    const auto* Player=UGameplayStatics::GetPlayerPawn(this,0);
+    const auto* Player=RuntimePawn();
     const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
     const int32 Chain=Status?Status->ChainSpellStacks():0;
     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))

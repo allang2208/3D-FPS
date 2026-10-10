@@ -2,6 +2,8 @@
 #include "CoreMinimal.h"
 struct FColdSteelItem;
 class UStaticMeshComponent;
+class UStaticMesh;
+class FJsonObject;
 namespace ColdSteelStaffAssembly
 {
     void Gather(const FColdSteelItem& Item,TArray<FSoftObjectPath>& Paths);
@@ -9,4 +11,5 @@ namespace ColdSteelStaffAssembly
     void Clear(UStaticMeshComponent* Root);
     TArray<UStaticMeshComponent*> Components(UStaticMeshComponent* Root);
     FBox Bounds(UStaticMeshComponent* Root);
+    TSharedPtr<FJsonObject> TailDynamics(const UStaticMesh* Mesh);
 }

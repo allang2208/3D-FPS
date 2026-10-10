@@ -281,9 +281,8 @@ void UFPSFireMagicComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
     DOREPLIFETIME(UFPSFireMagicComponent,NetArmorCast);
 }
 // ── 联机服务端入口：陨星定点生成（复制各端）/焰甲服务端权威激活 ──
-bool UFPSFireMagicComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow)
+bool UFPSFireMagicComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FFireMagicCast& Spell)
 {
-    const auto Spell=Shadow->FireMagicStats(Req.SkillId);
     CastSnapshot=Spell;
     if(Req.SkillId==TEXT("meteor"))
     {
@@ -296,6 +295,8 @@ bool UFPSFireMagicComponent::NetRelease(APawn* Caster,const FColdSteelNetCastReq
         if(!Strike||!Strike->InitializeStrike(Caster,Spell,Req.AimPoint,Req.AimNormal))
         {if(Strike)Strike->Destroy();return false;}
         Strikes.Add(Strike);
+        if(auto* Status=UCombatStatusFormula::GetOrAdd(Caster))
+        {if(Spell.bGrantChain)Status->AddChainSpell();if(Spell.CastHasteStacks>0)Status->AddHaste(Spell.CastHasteStacks,Spell.CastHasteDuration);}
         Shadow->FinishFireMagicCast(Req.SkillId,FFireMagicRewards()); // 陨星自治收尾：其内部 Rewards 空这里先结预扣，实际击杀经验由 Strike->Finish 再算？口径对齐单机：ReleaseAtContact 不 Finish——陨星 Finish 时才结。
         return true;
     }

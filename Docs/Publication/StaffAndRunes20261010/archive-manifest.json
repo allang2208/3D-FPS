@@ -1,0 +1,1136 @@
+[
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/author_blender.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/author_blender.py",
+    "bytes": 24858,
+    "sha256": "85e7dafb4067ffc4fd5b86f438f12176d646a7d1b9958934a244aead539b63b4",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/author_default.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/author_default.py",
+    "bytes": 7709,
+    "sha256": "46adb74ecb585bef2190908617f4b0c2966dd1e4937ccd7a1450d9ff3a631e40",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/author-01.log",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/author-01.log",
+    "bytes": 4004,
+    "sha256": "5b0d4e4ef9fa0032e8d3a3bf437cbe2e3a8142e3ded137301cd3230444a3828a",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/author-receipt.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/author-receipt.json",
+    "bytes": 2852,
+    "sha256": "a61b13e49f169a89936c5688dec3f1867bd5d64d31a4efbcdfcce235714f2411",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/build_author.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/build_author.py",
+    "bytes": 5933,
+    "sha256": "b73d4a148d0b7e3c7ec23fff500e96d1049822d0df753eef5c86793bee0cf29a",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/build_installer.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/build_installer.py",
+    "bytes": 2616,
+    "sha256": "eeb6f5f889fb213cb91d44ac126a2c316383f553614fef3f9c260868c9735dae",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/core_displacement.hlsl",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/core_displacement.hlsl",
+    "bytes": 1120,
+    "sha256": "2dacd45618b4f276ae967c0fd01b8fa77580039b5f5009a2407468c123db9068",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/core_radiance.hlsl",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/core_radiance.hlsl",
+    "bytes": 687,
+    "sha256": "460a919e682eccc748ade33081da0ef048b5fbc0f826cffe0df2935c58a682bb",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/inputs.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/inputs.json",
+    "bytes": 8575,
+    "sha256": "b2b01d6d06a7e3f6df78b13355380bff43973afbfec9620df2ee121068f95d6d",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/install_ue.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/install_ue.py",
+    "bytes": 16289,
+    "sha256": "937bf82789ab1cf514fc437f863381d963482b267368f0f3b01b7e2fbd88e30b",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/install-01.txt",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/install-01.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/install-02.txt",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/install-02.txt",
+    "bytes": 210,
+    "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/install-20261009-200953-commandlet.log",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/install-20261009-200953-commandlet.log",
+    "bytes": 421909,
+    "sha256": "6706e6d7309d085806f15a8e31783882de7b0abba9bfec7042118705293ef16d",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/install-20261009-200953-console.log",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/install-20261009-200953-console.log",
+    "bytes": 119121,
+    "sha256": "910f20160156c0f05853b79604534dfba1fa0fdfabc76885cf17f743ba95a131",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/install-receipt.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/install-receipt.json",
+    "bytes": 8033,
+    "sha256": "a443b38a81e7bf41e71eae8313bfa0900cedda70643067f5667fdc23b8086f02",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/prepare_inputs.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/prepare_inputs.py",
+    "bytes": 2791,
+    "sha256": "17a8783d11d01bb778d4a88e3e1faaa46d564e0df111804c95ab2494bbe0beb7",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/prepare_rollback.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/prepare_rollback.py",
+    "bytes": 564,
+    "sha256": "d0d38727b20daf4d088067c284e2bdf0a5a3de31dcc87ef8b873f07f1ef487ec",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/prepare-01.txt",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/prepare-01.txt",
+    "bytes": 129,
+    "sha256": "67c9da77d87e87686c922971f6448217de351bf989dc13ea0cb86842b6c44a9b",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/README.md",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/README.md",
+    "bytes": 1389,
+    "sha256": "9dc1a395af845449d0b0ff2e77d32f2e172542381dd18616aadf2538358d3a28",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/rejected.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/rejected.json",
+    "bytes": 223,
+    "sha256": "d219b78a9586858bdd7a62835274378d7435cb92cf5c25e4febb0cfc97d2dec3",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/restore_previous_ue.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/restore_previous_ue.py",
+    "bytes": 3658,
+    "sha256": "fac066339f1384321e972a9251e0982defc6c2c430a2ad7345f0b98dcbbb61db",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/rollback-01.txt",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/rollback-01.txt",
+    "bytes": 210,
+    "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/rollback-20261009-202449-bridge.txt",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/rollback-20261009-202449-bridge.txt",
+    "bytes": 121,
+    "sha256": "8861f6e91bb5d8efc804f5382ad1eb8d8ad11beda73c83a9ce866aed55840109",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/rollback-preparation.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/rollback-preparation.json",
+    "bytes": 51,
+    "sha256": "fd549b756e135915a2c011445ada36dbbf8aa9e6e39cb689937fdbca0a1c97d0",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/rollback-prepare-01.txt",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/rollback-prepare-01.txt",
+    "bytes": 134,
+    "sha256": "5724915ba7fa8a25e5fa4db754cc44a988528471aa4e67597c38fd5109d38aa3",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/rollback-receipt.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/rollback-receipt.json",
+    "bytes": 3580,
+    "sha256": "8668472718d0982c607db22326f91381736e7b8d74fa4c3bf78221ace6880727",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/run_install.ps1",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/run_install.ps1",
+    "bytes": 2633,
+    "sha256": "0c88b695390a4ad9613280e5938ab82c087ece4c4f2d1ed5df4cbce057414e0c",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/run_rollback.ps1",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/run_rollback.ps1",
+    "bytes": 2662,
+    "sha256": "1f92bc95efbf0bbad767e4c8149d8601cb8e5007ad4d1b692dfa10c17a849c60",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Staff_ElementalCrystals_V39.blend",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Staff_ElementalCrystals_V39.blend",
+    "bytes": 6860778,
+    "sha256": "4c4bb81044b6b353bd6fd296918ea0aa5474f8064073513e9431f8b69350419a",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV37/Materials/M_StaffCraft_Jade_V37.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV37/Materials/M_StaffCraft_Jade_V37.uasset",
+    "bytes": 28210,
+    "sha256": "84d4aceb758bda570c4415653e28cd3c08d9c68a8eb4130ff1a2d5a9dbffe5f0",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV37/Materials/M_StaffCraft_Mount_V37.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV37/Materials/M_StaffCraft_Mount_V37.uasset",
+    "bytes": 13676,
+    "sha256": "e04aae2854ad3d7757c344523f06d414f191d2c4041892f86b43db2ae86c72db",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV38/Materials/M_StaffCraft_Ice_V38.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV38/Materials/M_StaffCraft_Ice_V38.uasset",
+    "bytes": 26756,
+    "sha256": "963ba9661d63d10bb13b9a24072a636485ca7c48515e242f3554633ba0655c61",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV38/Materials/M_StaffCraft_Magma_V38.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV38/Materials/M_StaffCraft_Magma_V38.uasset",
+    "bytes": 28259,
+    "sha256": "dd010637433d969e8b6d63262ecc22132561126262c8059fb3e2fcbf0eaea383",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV38/Materials/M_StaffCraft_Mount_V38.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV38/Materials/M_StaffCraft_Mount_V38.uasset",
+    "bytes": 13676,
+    "sha256": "6c99ff7b8f73470db821faabbd5e2b1e2d44892901248b533fabb0de9f6d1c7e",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV38/Materials/M_StaffCraft_Storm_V38.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV38/Materials/M_StaffCraft_Storm_V38.uasset",
+    "bytes": 29508,
+    "sha256": "ae6494669ad13720ad3475d5179ecc7e65a40f4c5559e3351e79ac16f5146841",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV38/Materials/M_StaffCraft_StormInner_V38.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/ElementHeadsV38/Materials/M_StaffCraft_StormInner_V38.uasset",
+    "bytes": 20833,
+    "sha256": "ff61179240fb81d47a124a4bdbd7f559a3be6e9d8a23a7e24e0c410ad79ca794",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_Base.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_Base.uasset",
+    "bytes": 2466079,
+    "sha256": "1a3e62938b0821524c81402110110cc6fdcbaa97d20b1afa9b0fb062d064ccdd",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_false.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_false.uasset",
+    "bytes": 96284,
+    "sha256": "33370f5558ae86cba16c4f7f8dd1e63cd1c8409563f39b5ca96bc1060588e137",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_frozen_crystal.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_frozen_crystal.uasset",
+    "bytes": 125486,
+    "sha256": "5021b506643d450cfc4dc3f026bc75d0f727485189f70dec3a0246c1e9a02481",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_jade_spirit_crystal.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_jade_spirit_crystal.uasset",
+    "bytes": 163962,
+    "sha256": "5de59f36b82b75849349815de07ef6259fc6db6725689edf2b72b1ab61098255",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_magma_core.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_magma_core.uasset",
+    "bytes": 293242,
+    "sha256": "14db1ad5f75107c0a86f6dc400fdd713a7db8d24e923d4e335651d967995b7ff",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_storm_core.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_storm_core.uasset",
+    "bytes": 295360,
+    "sha256": "2fed42b08bef287ef3a9d9e4158252d360c9829817d4dbd11c57e6da9b36b165",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/QuartzAimV22/Materials/M_Staff_QuartzDenseV22.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/QuartzAimV22/Materials/M_Staff_QuartzDenseV22.uasset",
+    "bytes": 38391,
+    "sha256": "facf662e95ec80b35ef4d1363ed7582bc166a312f781cd06f54b503574ca1e2a",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/SolidRepairV19/Materials/M_Staff_BranchWoodV19.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/SolidRepairV19/Materials/M_Staff_BranchWoodV19.uasset",
+    "bytes": 15887,
+    "sha256": "4bc1df10a08f5ad2b7dbb0e63d8d52d1227ca2479abb85c355a348ff2c9399b7",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/SolidRepairV19/Materials/M_Staff_HempV19.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Before/Content/Weapons/ApprenticeStaff20260927/SolidRepairV19/Materials/M_Staff_HempV19.uasset",
+    "bytes": 13293,
+    "sha256": "d2540bc8f28a87e062a439269f50596c25704eda7f169bf0fb8019cd24afa4af",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/external-materials.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/external-materials.json",
+    "bytes": 223,
+    "sha256": "fadfa68d53e071889449c3f280866f47ebcaba1bedcb62d755a78aba0e230084",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/materials.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/materials.json",
+    "bytes": 1719,
+    "sha256": "bdf8f9867924d5a8f9631d39772967ff7a239190e45df0483f38cc625310f976",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/meshes.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/meshes.json",
+    "bytes": 2278,
+    "sha256": "d08369521e402f3d5862ef754d18803a53efc18146122a8b7a7eff251697904a",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/SM_Staff_Base.fbx",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/SM_Staff_Base.fbx",
+    "bytes": 2781436,
+    "sha256": "d234b211e4c56c407bba8a47a88feb5cf32b1f00dad428ee85839813b4b2b30f",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/SM_Staff_head_crystal_false.fbx",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/SM_Staff_head_crystal_false.fbx",
+    "bytes": 108076,
+    "sha256": "f67a07aa81df93222272c84855b899ca3b33497938b63221e93dbad6f4d1905a",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/SM_Staff_head_crystal_frozen_crystal.fbx",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/SM_Staff_head_crystal_frozen_crystal.fbx",
+    "bytes": 105260,
+    "sha256": "612d539ef66fc79115a0203a561d9d8e0424069f45ab41fccca1037d312fbe84",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/SM_Staff_head_crystal_jade_spirit_crystal.fbx",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/SM_Staff_head_crystal_jade_spirit_crystal.fbx",
+    "bytes": 126028,
+    "sha256": "b47a76c7709cf39ba9b1dbc193a67aa42179a8683d21817f79b02505af457d70",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/SM_Staff_head_crystal_magma_core.fbx",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/SM_Staff_head_crystal_magma_core.fbx",
+    "bytes": 252508,
+    "sha256": "daeb8c3653aed3f544c2ceaa6fc5db689304759688265c67b374cc8e57a8e493",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/SM_Staff_head_crystal_storm_core.fbx",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/SM_Staff_head_crystal_storm_core.fbx",
+    "bytes": 190412,
+    "sha256": "2a6b708082d4c8eb1fbba72afa8ec647ef734620d67e277e7d6d75431aa38420",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Ice_BaseColor_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Ice_BaseColor_V39.png",
+    "bytes": 362495,
+    "sha256": "ee4f901d87ec2d81003cd6ee86caf61ce39549be4d61420abbb73acc7712ea75",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Ice_Normal_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Ice_Normal_V39.png",
+    "bytes": 188003,
+    "sha256": "c187b5584af1b18e198c90e0b962be33949b3d7ea45d4c9c7f006eccf3cbaba8",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Ice_RGE_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Ice_RGE_V39.png",
+    "bytes": 179428,
+    "sha256": "522748cc03b7102cdb3296ecc7c8d117bbc7da521a105cb529a9ca93034c8e85",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Jade_BaseColor_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Jade_BaseColor_V39.png",
+    "bytes": 672814,
+    "sha256": "773a20ed33d4b94dcc7af707bdd0fce487ea2648e5e5b42cb03b92720e9a9ce6",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Jade_Normal_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Jade_Normal_V39.png",
+    "bytes": 16386,
+    "sha256": "ef9c00700a9d98b2c8804d0d5d554aab743ff760fdab796767328af03fd6b72e",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Jade_RGE_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Jade_RGE_V39.png",
+    "bytes": 188986,
+    "sha256": "94868688bdea0ff8852a2452232929d238907052dfd52799f8c6548ee76c73d7",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Magma_BaseColor_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Magma_BaseColor_V39.png",
+    "bytes": 896236,
+    "sha256": "fcb7b8143f25014e6f66af3f0aa23e7702869c083daccfd5ae9c56fa0e654102",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Magma_Normal_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Magma_Normal_V39.png",
+    "bytes": 791090,
+    "sha256": "56920cc39c5b78480d75222e2def24951b39544fd658303ea4e346e651f0a9d7",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Magma_RGE_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Magma_RGE_V39.png",
+    "bytes": 1089432,
+    "sha256": "739debca0fa1055806b50560cc5d94eae717ea051469957646c78cf052f1631b",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Mount_BaseColor_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Mount_BaseColor_V39.png",
+    "bytes": 589252,
+    "sha256": "899820ab2e671ae386f8bb45e759f82f514100b0137ed12b75807e3ac2238a29",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Mount_Normal_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Mount_Normal_V39.png",
+    "bytes": 139749,
+    "sha256": "f7e81c85384cc176562b5a7b5933b304360794623008e463726729fe5222e8ab",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Mount_RGE_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Mount_RGE_V39.png",
+    "bytes": 369469,
+    "sha256": "e2048507883403acebb18ce4f59912360a304d72cec2877239bdcc4a624f4b21",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_QuartzFrame_BaseColor_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_QuartzFrame_BaseColor_V39.png",
+    "bytes": 363938,
+    "sha256": "9997c77b0c10ea9fbc29bc995f1126d99b3b8198819db129c84e886d33d62a98",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_QuartzFrame_Normal_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_QuartzFrame_Normal_V39.png",
+    "bytes": 656618,
+    "sha256": "8e0848155f9ced0878c1c48d7f2649c9ec216aef679a3f86f5491e632f5959ab",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_QuartzFrame_RGE_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_QuartzFrame_RGE_V39.png",
+    "bytes": 179119,
+    "sha256": "20e55793b05cfdb68e205bb3b325824b5575395b2acc0fb01ae3f0611babb878",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_QuartzWindow_BaseColor_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_QuartzWindow_BaseColor_V39.png",
+    "bytes": 469442,
+    "sha256": "b067c5a3c31a784caf733b625ae2412cb59d0bce87a4c2b3e659bda20045aa51",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_QuartzWindow_Normal_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_QuartzWindow_Normal_V39.png",
+    "bytes": 1176362,
+    "sha256": "6282d34e2c0c3543440eeff380e1441f3f73e864300524cc416d140042d3ce31",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_QuartzWindow_RGE_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_QuartzWindow_RGE_V39.png",
+    "bytes": 276716,
+    "sha256": "46f52699d4d2515189d006b81b6c535c7f052cdc602d24cb9f176960690c6fc2",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Storm_BaseColor_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Storm_BaseColor_V39.png",
+    "bytes": 615004,
+    "sha256": "41616211b2a7f0bc2dd76d9a378c2b58c20fe1a994d7ed9334684144c1426d51",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Storm_Normal_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Storm_Normal_V39.png",
+    "bytes": 210551,
+    "sha256": "1b4617a85ba3cab0d6d87c45a1c57df340ee3fd4be2030c8c8b7ac0191c53c56",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Storm_RGE_V39.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Export/Textures/T_StaffCraft_Storm_RGE_V39.png",
+    "bytes": 320562,
+    "sha256": "46ab4fc5a2ff85534b9681132421a9b2d3626435b9609fad53d3ef998061e368",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Inputs/SM_Staff_Base.fbx",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Inputs/SM_Staff_Base.fbx",
+    "bytes": 5704432,
+    "sha256": "9751aa60bce213d8f53dd772001b260a3e5f0adb7b7f179a02adca921120be33",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Inputs/SM_Staff_head_crystal_false.fbx",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Inputs/SM_Staff_head_crystal_false.fbx",
+    "bytes": 127328,
+    "sha256": "e51a9ce9d37d01008b1372923eba752d83975ff5b2cfd2fbbac0c62438f95a60",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Inputs/SM_Staff_head_crystal_frozen_crystal.fbx",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Inputs/SM_Staff_head_crystal_frozen_crystal.fbx",
+    "bytes": 227824,
+    "sha256": "31e2446296a780688cf7236f5800f199589a12a1c2c226fca73fe7490a8703a7",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Inputs/SM_Staff_head_crystal_jade_spirit_crystal.fbx",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Inputs/SM_Staff_head_crystal_jade_spirit_crystal.fbx",
+    "bytes": 324160,
+    "sha256": "a01970104dc3896ff7638eecfca6df5452da9395861d3b7afa8c7450f76e2829",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Inputs/SM_Staff_head_crystal_magma_core.fbx",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Inputs/SM_Staff_head_crystal_magma_core.fbx",
+    "bytes": 641600,
+    "sha256": "8793be0b9f3f7dad7ade39685c48b7bd4be730f4c6d4fb051728fabe1e3311df",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Inputs/SM_Staff_head_crystal_storm_core.fbx",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/SilhouetteV39/Inputs/SM_Staff_head_crystal_storm_core.fbx",
+    "bytes": 577184,
+    "sha256": "d5bc8eaf066c215523682d45713c2985df1e814c1e11055de888172a37117850",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/author_wear.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/author_wear.py",
+    "bytes": 8681,
+    "sha256": "cc7dba2294926482a4ee29920bff8cfad15bf4c7b504e89c15cf5553c50ad36d",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/author-receipt.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/author-receipt.json",
+    "bytes": 668,
+    "sha256": "2de00e095984d89cf3339d920785223b47ea93a7d20c6175c79a5f9d32d9fbfe",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/install_ue.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/install_ue.py",
+    "bytes": 4909,
+    "sha256": "57d451c6f838ffe0cced7bee37d5ded0f836929278d8332e7abed289c938fc15",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/install-20261009-204601-bridge.txt",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/install-20261009-204601-bridge.txt",
+    "bytes": 188,
+    "sha256": "6a48e324ae694a2c8142bb935a062890ff9ff4eb2c8945eb9567ae6b205f3547",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/install-receipt.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/install-receipt.json",
+    "bytes": 2057,
+    "sha256": "4315108b48d15d401efcdd8e0691b9447dd1cd0d9254e972cdbce2787cc6e7a4",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/OpticalChord.hlsl",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/OpticalChord.hlsl",
+    "bytes": 5951,
+    "sha256": "5607d61927b9a9cd4bfbafb8abe5a9288132cf57bd44715344dc92600992e5eb",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/parameters.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/parameters.json",
+    "bytes": 897,
+    "sha256": "58996096cffc1f2941c1d5dff21e0a458fa23ba1b51d5cc74c9ea761c9342122",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/rejected.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/rejected.json",
+    "bytes": 179,
+    "sha256": "f90af8e80f6e72661301e751b808c0dc3986557ec729ac7526e151ce9c5e7fe9",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/run_install.ps1",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/run_install.ps1",
+    "bytes": 2684,
+    "sha256": "7c239119ee4231c683c0be519a0e3c569b2d31ec0f25c44250e0a952cc86a559",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/Staff_QuartzWear_V40.blend",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/Staff_QuartzWear_V40.blend",
+    "bytes": 39791033,
+    "sha256": "9aa30a20c3a1661383f446c264642a1e6a332af2483e96b51fded6bf4d9e8455",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/ue_material.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/ue_material.py",
+    "bytes": 12485,
+    "sha256": "99da6e8d2551a1cdd6bc8c50aa6f778f1c962163ae53946349ab6762050032ee",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/Before/Content/UI/GunsmithWorkbench/M_StaffQuartzPreviewV23.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/Before/Content/UI/GunsmithWorkbench/M_StaffQuartzPreviewV23.uasset",
+    "bytes": 35091,
+    "sha256": "235872dcf57d5209a6ddb974642bdcb110058c57f4bec0ef87535e3f9ccf9234",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/Before/Content/Weapons/ApprenticeStaff20260927/QuartzAimV22/Materials/M_Staff_QuartzDenseV22.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/Before/Content/Weapons/ApprenticeStaff20260927/QuartzAimV22/Materials/M_Staff_QuartzDenseV22.uasset",
+    "bytes": 38391,
+    "sha256": "facf662e95ec80b35ef4d1363ed7582bc166a312f781cd06f54b503574ca1e2a",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/Export/Textures/T_QuartzWear_Masks_V40.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/Export/Textures/T_QuartzWear_Masks_V40.png",
+    "bytes": 146375,
+    "sha256": "f9f0375e316253020cb502d79796ac25c3f43bfd7a346d0358fed0d2b96e3766",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/ApprenticeStaff20260927/QuartzWearV40/Export/Textures/T_QuartzWear_Normal_V40.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/ApprenticeStaff20260927/QuartzWearV40/Export/Textures/T_QuartzWear_Normal_V40.png",
+    "bytes": 143053,
+    "sha256": "a52de6fb8aaccad2c5b9097085ba16cb0884d696660e2a3a3f58bf068234d65c",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/blade_2_haste_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/blade_2_haste_rune.png",
+    "bytes": 3010004,
+    "sha256": "9f1693df8439416dd0308a65eab3159300404ea03c5d956793e142582e015cc6",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/build_receipt.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/build_receipt.json",
+    "bytes": 483,
+    "sha256": "39b84e4ac2333c21c23fb756283d971a1a48f1f940a5ae375fc8aa768267dd1e",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/compile_live.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/compile_live.py",
+    "bytes": 979,
+    "sha256": "44e679bb977b848f94b4eb074004c36c8b3aa5d15f15b22112de34df441525bc",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/compile_request.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/compile_request.json",
+    "bytes": 230,
+    "sha256": "ad901d8b0405f498225aba798592425b238f2979cc1b14e63a21327de861b2b3",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/compile-01.txt",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/compile-01.txt",
+    "bytes": 227,
+    "sha256": "024d49476e3b2ca3d3d999e382a451ff0693692ef8eb58f8c17be7379a2bbf8f",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/deployment.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/deployment.json",
+    "bytes": 548,
+    "sha256": "4698e5b6d1bde563cd4240095cbd3a5e2f2358e1b64dddcfa6608ace9df83999",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/editor_context.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/editor_context.json",
+    "bytes": 401,
+    "sha256": "d4b67a1c1c53dd5af86dc0721d131b9f8cd30db27324ecfda1aa6c31f6395719",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/editor-context-01.txt",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/editor-context-01.txt",
+    "bytes": 358,
+    "sha256": "496d3f2636ab76f0d79c30fc79e2cf4f82c5bd7da4a79f0f07c1d45e35b8c4ae",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/end-play-01.txt",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/end-play-01.txt",
+    "bytes": 137,
+    "sha256": "645a89eb4a6d1c098c9e898a2a00909dd1f700efa60551470b90bf4fc59a949c",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/imagegen-prompt.txt",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/imagegen-prompt.txt",
+    "bytes": 1570,
+    "sha256": "c58ca4f39f79ba99dc3755fdbfacf13c4ec1e2b5d09d9edc0dcea4ddefa575ac",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/import_receipt.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/import_receipt.json",
+    "bytes": 259,
+    "sha256": "1665198487935b47bc4dd0bd916dc8784f62c3cdd5217bde0a97cc85719ffef8",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/import-01.txt",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/import-01.txt",
+    "bytes": 115,
+    "sha256": "d4a6fe0990d2b614c8bd89409c0b45c7a8e93110df9c4242d3a43248541d33a6",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/install_icon.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/install_icon.py",
+    "bytes": 1526,
+    "sha256": "de8c5fdb6df594474b6643dcfd8d42ce7c1c0b659aadee187a21b23e85a74e30",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/read_editor_context.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/read_editor_context.py",
+    "bytes": 829,
+    "sha256": "67db796e8ec084ed39efc46f6a4338e3c464b6accb2456026ee0ed81f54c19f1",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/README.md",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/README.md",
+    "bytes": 2350,
+    "sha256": "47d938ab79d42d7ef00e90f4daf5e12672593c14424a3d79392715298fbb9a82",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/update_authoring.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/update_authoring.py",
+    "bytes": 1323,
+    "sha256": "3e07d68e19ac31575c2adfbe83acc3794dbbf788d937cd99c9f10550e9c57f83",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/update_catalog.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/update_catalog.py",
+    "bytes": 1960,
+    "sha256": "d9026bbcc9e05c59f43ddebce9231a1902c1b294b2feb06e048cf049679303cc",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/Before/Content/ColdSteelData/melee-gunsmith.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/Before/Content/ColdSteelData/melee-gunsmith.json",
+    "bytes": 39724,
+    "sha256": "cfcf8d60646ae6a3c27dd90e558bcfd1007cd28b2e7e8c7fc88f64d454b85918",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_haste_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_haste_rune.png",
+    "bytes": 76527,
+    "sha256": "77ae08ecd29eea0fa8593d19c7b5fde46fd80226ee0b4dcdc78bd1ed72219457",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_haste_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_haste_rune.uasset",
+    "bytes": 84915,
+    "sha256": "26939e03af4854a3fdf391b86e8c7a59b760f883fc0f475ea070c0fb6ef510c8",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/Before/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/Before/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp",
+    "bytes": 12091,
+    "sha256": "00290d20c071ca40cb118a003456095cda82a02f52ef3f331c48b6d7068fdc1c",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/Before/Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/Before/Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+    "bytes": 20307,
+    "sha256": "df208debdff8c4e54c3ff43da7e98bf8c22da97c12cd7968454306c5fc30cb0b",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/Before/SourceAssets/HasteRune20261009/author_assets.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/Before/SourceAssets/HasteRune20261009/author_assets.py",
+    "bytes": 4237,
+    "sha256": "087819374b0fab4d9f443da69f07eb4de3f1a9eed7489fad6093d9b77c99b727",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/Before/SourceAssets/HasteRune20261009/design.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/Before/SourceAssets/HasteRune20261009/design.json",
+    "bytes": 547,
+    "sha256": "c701485b61eb7e8470cf9b40999301500f5195e1a7a051a7655fecc3408bce58",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/HasteRuneYellowIcon20261009/Before/SourceAssets/HasteRune20261009/option.json",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/HasteRuneYellowIcon20261009/Before/SourceAssets/HasteRune20261009/option.json",
+    "bytes": 349,
+    "sha256": "340e8113969c42ef1e5e3d8b27d51df30590a3a140e4e3dedc06507e4f801c74",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_conduction_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_conduction_rune.png",
+    "bytes": 2765092,
+    "sha256": "8b08b39096effa4b8692b8c8bbe8d68f120ffa0025d71b345e545556cc4ee8d9",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_conduction_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_conduction_rune.uasset",
+    "bytes": 2642791,
+    "sha256": "69ceab16fbcdd5bbeb6da2670a72cb2742ac1d1c75acebb65a5fa1edad432b9b",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_erosion_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_erosion_rune.png",
+    "bytes": 2769206,
+    "sha256": "faf2c90568563880ccb3c882bb9a0cb9cc72a2b53a3715f3d67227116aeb1084",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_erosion_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_erosion_rune.uasset",
+    "bytes": 2657130,
+    "sha256": "1f424dd4f196610840da9793ae27f427c1ca8d48f0d23d103500a6356f815194",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_haste_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_haste_rune.png",
+    "bytes": 3010004,
+    "sha256": "9f1693df8439416dd0308a65eab3159300404ea03c5d956793e142582e015cc6",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_haste_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_haste_rune.uasset",
+    "bytes": 2651186,
+    "sha256": "71df454754cef546703c80c22f7da4068023491fc129ce9336e8027852123ec0",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_resonance_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_resonance_rune.png",
+    "bytes": 2785242,
+    "sha256": "03088559b5a0afeef19a672fdd434c6f6636e1695386cfe49a14d68b0123fb26",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_resonance_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/blade_2_resonance_rune.uasset",
+    "bytes": 2661251,
+    "sha256": "916050b2d3e2e263106bd921c338f1684269fb4d6673bb34a9c0f7fae93c64ce",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_blade_2_conduction_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_blade_2_conduction_rune.png",
+    "bytes": 2810395,
+    "sha256": "0735850a8d09f3708f3851ab5bcf9e82d4e90c3940ca87c43f0e474bf73b7185",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_blade_2_conduction_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_blade_2_conduction_rune.uasset",
+    "bytes": 2678889,
+    "sha256": "ded2d204f701bcbffb3f28e670c19c09d3b9c041eb9cb9e9712edf1d9969163f",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_blade_2_resonance_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_blade_2_resonance_rune.png",
+    "bytes": 2714535,
+    "sha256": "d3c2fde3bcc03d7fb75239d03aec957a5eb94be9dba75faa2ddaf696e132a90a",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_blade_2_resonance_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_blade_2_resonance_rune.uasset",
+    "bytes": 2600966,
+    "sha256": "ac4bbc20bcba517a5f5f53230a9ffc7d975b13c3f3c6f55596391616201706ed",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_blade_2_spirit_burst_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_blade_2_spirit_burst_rune.png",
+    "bytes": 2663376,
+    "sha256": "650dee8cd6532616fa3b31e74e0c8423ad29f68287fa2aba5e2a56c0db5e5f98",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_blade_2_spirit_burst_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_blade_2_spirit_burst_rune.uasset",
+    "bytes": 2562680,
+    "sha256": "0d9878074535cc4501263d324117208ea249ed9845c521a5bd2866c5b69dc438",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_conduction_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_conduction_rune.png",
+    "bytes": 2694156,
+    "sha256": "281de32740992dff31174968dd38ff690771df7d4d0e39b468e52dcdc10206d1",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_conduction_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_conduction_rune.uasset",
+    "bytes": 2585463,
+    "sha256": "ddc17d877a840e6e78e0889dd6e3a4af6b54b0e5964f899f6613bc0b14613acc",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_erosion_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_erosion_rune.png",
+    "bytes": 2697094,
+    "sha256": "5598035e900f3b3e7fdeb8f6985e1d0c7e7fe5b722ea9a89bea60b7f85ba5c63",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_erosion_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_erosion_rune.uasset",
+    "bytes": 2583841,
+    "sha256": "9e1bd31616b58d46f060bff3c80193b57684a07272700450ed8a8d08a506d99a",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_golden_glow_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_golden_glow_rune.png",
+    "bytes": 862062,
+    "sha256": "0e169acbd518379f11a6af617fa82acb5704a0ce72de1965e87e8a65513056ac",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_golden_glow_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_golden_glow_rune.uasset",
+    "bytes": 885600,
+    "sha256": "af2b73e3901628e4c86fbadbeffe1e5662200e55d7b7bd2eec333dca389d4f97",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_resonance_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_resonance_rune.png",
+    "bytes": 2719351,
+    "sha256": "982b17a95f9ce064f0d5c6af4b3dfcfecb7341cbe18c603dbfd1cc8de88449cd",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_resonance_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_resonance_rune.uasset",
+    "bytes": 2602512,
+    "sha256": "85119d007b7a57b32a50d882d4281a22cbf01ac55ad2da3a18516d5755adcf72",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_wild_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_wild_rune.png",
+    "bytes": 2749200,
+    "sha256": "40ffa7c1f1f50d6386c544b2fa3436c1226f1bbf18c9fba72a0634516e3b539f",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_wild_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_wild_rune.uasset",
+    "bytes": 2618563,
+    "sha256": "fc59c2b6fd178def8752c69cf6c72a3741f271bd28b1c9f8b921bd3be5c759ec",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_conduction_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_conduction_rune.png",
+    "bytes": 2765092,
+    "sha256": "8b08b39096effa4b8692b8c8bbe8d68f120ffa0025d71b345e545556cc4ee8d9",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_conduction_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_conduction_rune.uasset",
+    "bytes": 2642831,
+    "sha256": "ea30549b12e4da3a00afa1c3f42f2586a13654d16b12441c3565e4825a0b73b3",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_erosion_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_erosion_rune.png",
+    "bytes": 2769206,
+    "sha256": "faf2c90568563880ccb3c882bb9a0cb9cc72a2b53a3715f3d67227116aeb1084",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_erosion_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_erosion_rune.uasset",
+    "bytes": 2657170,
+    "sha256": "cb967b42690bca5e2a2662351c3a59facc85453def39a970846c1bafe63fe39f",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_golden_glow_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_golden_glow_rune.png",
+    "bytes": 2753424,
+    "sha256": "91410334148cc72c25376f2d2c25f91b88a3ffd57e7371d8ac2fa6ffe247ae17",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_golden_glow_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_golden_glow_rune.uasset",
+    "bytes": 2635393,
+    "sha256": "997baadedc174fe3e86e4115af1ced7ba8d95dcc479dc9e58e0c6e94e27abacc",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_resonance_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_resonance_rune.png",
+    "bytes": 2785242,
+    "sha256": "03088559b5a0afeef19a672fdd434c6f6636e1695386cfe49a14d68b0123fb26",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_resonance_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_blade_2_resonance_rune.uasset",
+    "bytes": 2661291,
+    "sha256": "3f5864ad55363987c1b1bc54aeb35aa26c96339e5e2260c251f9bb7ae699a91f",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_tang_dao_blade_2_conduction_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_tang_dao_blade_2_conduction_rune.png",
+    "bytes": 2765092,
+    "sha256": "8b08b39096effa4b8692b8c8bbe8d68f120ffa0025d71b345e545556cc4ee8d9",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_tang_dao_blade_2_conduction_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_tang_dao_blade_2_conduction_rune.uasset",
+    "bytes": 2627861,
+    "sha256": "2ab3c17a440d45dc44606e7ad19187557da3412bfa63dbc4e563c3ba06b3c3da",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_tang_dao_blade_2_erosion_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_tang_dao_blade_2_erosion_rune.png",
+    "bytes": 2769206,
+    "sha256": "faf2c90568563880ccb3c882bb9a0cb9cc72a2b53a3715f3d67227116aeb1084",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_tang_dao_blade_2_erosion_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_tang_dao_blade_2_erosion_rune.uasset",
+    "bytes": 2642272,
+    "sha256": "40201aa0823c75d3d7b39b428c2b6e8fa98f03c4dc1c0d2899e697288c6b7ec6",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_tang_dao_blade_2_resonance_rune.png",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_tang_dao_blade_2_resonance_rune.png",
+    "bytes": 2785242,
+    "sha256": "03088559b5a0afeef19a672fdd434c6f6636e1695386cfe49a14d68b0123fb26",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_tang_dao_blade_2_resonance_rune.uasset",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/Content/ColdSteelData/AttachmentIcons20260913/ue_tang_dao_blade_2_resonance_rune.uasset",
+    "bytes": 2646233,
+    "sha256": "7eb9886b7024b67142446129c5713744a755f719330038382190b4bb58bcdf98",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "SourceAssets/RuneSymbolIcons20261009/Before/SourceAssets/HasteRune20261009/author_assets.py",
+    "destination": "trash/staff-runes-retired-20261010/SourceAssets/RuneSymbolIcons20261009/Before/SourceAssets/HasteRune20261009/author_assets.py",
+    "bytes": 2493,
+    "sha256": "90f58ae3878d6d76b202e4a6c039573a3b726b9bbfa033b5511c825365f430e6",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "Docs/Weapons/staff-silhouette-v39-20261009.md",
+    "destination": "trash/staff-runes-retired-20261010/Docs/Weapons/staff-silhouette-v39-20261009.md",
+    "bytes": 4545,
+    "sha256": "4dd7306508b5ffb38e26d1a5974c44e2aefcdfe08774e7b94c4fbde2f13347eb",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  },
+  {
+    "source": "Docs/Weapons/staff-quartz-wear-20261009.md",
+    "destination": "trash/staff-runes-retired-20261010/Docs/Weapons/staff-quartz-wear-20261009.md",
+    "bytes": 3266,
+    "sha256": "f126ba48a7401cdeab745c3e6c731de3fd27e18056d1393d54d64e38b550df36",
+    "reason": "Rejected or superseded staff/rune revision; active sources preserved"
+  }
+]

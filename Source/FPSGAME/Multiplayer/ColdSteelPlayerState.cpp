@@ -1,4 +1,5 @@
 #include "ColdSteelPlayerState.h"
+#include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "Components/PrimitiveComponent.h"
 #include "../FPSGAMECharacter.h"
@@ -951,7 +952,7 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
         {
             if (PendingCastSkill != TEXT("iceWall")) { Reject(3); return; }
             auto* Wall = Pawn->FindComponentByClass<UFPSIceWallComponent>();
-            if (!Wall || !Wall->NetCommitWall(Pawn, Request, ShadowModel)) { Reject(7); return; }
+            if (!Wall || !Wall->NetCommitWall(Pawn, Request, ShadowModel, PendingIceWallStats)) { Reject(7); return; }
             PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
             Accept(); return;
         }
@@ -959,7 +960,7 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
         {
             if (PendingCastSkill != TEXT("blizzard")) { Reject(3); return; }
             auto* B = Pawn->FindComponentByClass<UFPSBlizzardComponent>();
-            if (!B || !B->NetCommitZone(Pawn, Request, ShadowModel)) { Reject(7); return; }
+            if (!B || !B->NetCommitZone(Pawn, Request, ShadowModel, PendingBlizzardStats)) { Reject(7); return; }
             PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
             Accept(); return;
         }
@@ -967,7 +968,7 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
         {
             if (PendingCastSkill != TEXT("holyLight")) { Reject(3); return; }
             auto* H = Pawn->FindComponentByClass<UFPSHolyLightComponent>();
-            if (!H || !H->NetRelease(Pawn, Request, ShadowModel)) { Reject(7); return; }
+            if (!H || !H->NetRelease(Pawn, Request, ShadowModel, PendingHolyLightStats)) { Reject(7); return; }
             PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
             Accept(); return;
         }
@@ -975,7 +976,7 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
         {
             if (PendingCastSkill != TEXT("lightning")) { Reject(3); return; }
             auto* L = Pawn->FindComponentByClass<UFPSLightningComponent>();
-            if (!L || !L->NetRelease(Pawn, Request, ShadowModel)) { Reject(7); return; }
+            if (!L || !L->NetRelease(Pawn, Request, ShadowModel, PendingLightningStats)) { Reject(7); return; }
             PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
             Accept(); return;
         }
@@ -983,7 +984,7 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
         {
             if (PendingCastSkill != Request.SkillId) { Reject(3); return; }
             auto* F = Pawn->FindComponentByClass<UFPSFireMagicComponent>();
-            if (!F || !F->NetRelease(Pawn, Request, ShadowModel)) { Reject(7); return; }
+            if (!F || !F->NetRelease(Pawn, Request, ShadowModel, PendingFireMagicStats)) { Reject(7); return; }
             PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
             Accept(); return;
         }
@@ -991,7 +992,7 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
         {
             if (PendingCastSkill != Request.SkillId) { Reject(3); return; }
             auto* E = Pawn->FindComponentByClass<UFPSElectricMagicComponent>();
-            if (!E || !E->NetRelease(Pawn, Request, ShadowModel)) { Reject(7); return; }
+            if (!E || !E->NetRelease(Pawn, Request, ShadowModel, PendingElectricMagicStats)) { Reject(7); return; }
             PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
             Accept(); return;
         }
@@ -1025,38 +1026,46 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
         const FIceWallCast Stats = ShadowModel->IceWallStats();
         if (!ShadowModel->BeginIceWallCast(Stats)) { Reject(6); return; }
         PendingCastPaidMana = Stats.ManaCost;
+        PendingIceWallStats = Stats;
     }
     else if (Request.SkillId == TEXT("blizzard"))
     {
         const FBlizzardCast Stats = ShadowModel->BlizzardStats();
         if (!ShadowModel->BeginBlizzardCast(Stats)) { Reject(6); return; }
         PendingCastPaidMana = Stats.ManaCost;
+        PendingBlizzardStats = Stats;
     }
     else if (Request.SkillId == TEXT("holyLight"))
     {
         const FHolyLightCast Stats = ShadowModel->HolyLightStats();
         if (!ShadowModel->BeginHolyLightCast(Stats)) { Reject(6); return; }
         PendingCastPaidMana = Stats.ManaCost;
+        PendingHolyLightStats = Stats;
     }
     else if (Request.SkillId == TEXT("lightning"))
     {
         const FLightningCast Stats = ShadowModel->LightningStats();
         if (!ShadowModel->BeginLightningCast(Stats)) { Reject(6); return; }
         PendingCastPaidMana = Stats.ManaCost;
+        PendingLightningStats = Stats;
     }
     else if (FireMagic::IsSkill(Request.SkillId))
     {
         const FFireMagicCast Stats = ShadowModel->FireMagicStats(Request.SkillId);
         if (!ShadowModel->BeginFireMagicCast(Stats)) { Reject(6); return; }
         PendingCastPaidMana = Stats.ManaCost;
+        PendingFireMagicStats = Stats;
     }
     else if (ElectricMagic::IsSkill(Request.SkillId))
     {
         const FElectricMagicCast Stats = ShadowModel->ElectricMagicStats(Request.SkillId);
         if (!ShadowModel->BeginElectricMagicCast(Request.SkillId, Stats)) { Reject(6); return; }
         PendingCastPaidMana = Stats.Hit.ManaCost;
+        PendingElectricMagicStats = Stats;
     }
     PendingCastSkill = Request.SkillId; PendingCastAt = Now;
+    // Snapshot first, then consume: match local casts, including later cancellation.
+    if(auto* Status=Pawn->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
     Accept();
 }
 

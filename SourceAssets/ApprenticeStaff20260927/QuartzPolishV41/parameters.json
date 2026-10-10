@@ -1,0 +1,21 @@
+{
+  "revision": 41,
+  "stage": "polished-facet-reflections-on-v36",
+  "ior": 1.544,
+  "extinction_per_cm": [0.195, 0.184, 0.18],
+  "medium_albedo": [0.16, 0.17, 0.175],
+  "root_density_add": 0.16,
+  "roughness_min": 0.05,
+  "roughness_max": 0.085,
+  "bevel_roughness": 0.055,
+  "surface_normal_strength": 0.0,
+  "world_screen_space_reflections": true,
+  "preview_screen_space_reflections": false,
+  "forward_blends_sky_light_cubemaps": true,
+  "light_color": [1.0, 0.94, 0.82],
+  "light_surface_gain": 0.38,
+  "max_macro_planes": 24,
+  "minimum_plane_area_fraction": 0.002,
+  "runtime_tested": false,
+  "rendered": false
+}

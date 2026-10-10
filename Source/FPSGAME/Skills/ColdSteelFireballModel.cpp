@@ -101,7 +101,7 @@ FFireballCast UColdSteelStatusModel::FireballStats(int32 AtLevel) const
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {
             auto Craft=[&](const TCHAR* K){return E->CraftEffect(*I,K);};
-            const auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);
+            const auto* Pawn=RuntimePawn();
             const auto* Status=Pawn?Pawn->FindComponentByClass<UCombatStatusFormula>():nullptr;
             const int32 Chain=Status?Status->ChainSpellStacks():0;
             C.Damage=FMath::FloorToFloat(C.Damage*(1+Craft(TEXT("magicDamagePercent"))+Craft(TEXT("fireDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent"))));

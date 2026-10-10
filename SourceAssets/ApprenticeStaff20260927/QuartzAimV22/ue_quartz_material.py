@@ -9,6 +9,10 @@ DEST='/Game/Weapons/ApprenticeStaff20260927/QuartzAimV22/Materials'
 L=u.MaterialEditingLibrary
 
 def build_quartz_material(rebuild=False, preview=False):
+    optics=ROOT.parent/'QuartzOpticsV36'
+    optics_receipt=optics/'install-receipt.json'
+    if optics_receipt.exists() and json.loads(optics_receipt.read_text(encoding='utf-8')).get('complete'):
+        return runpy.run_path(str(optics/'ue_material.py'))['build_quartz_material'](rebuild=rebuild,preview=preview)
     # V35 keeps the stable world/UI paths, but has its own surface/transmission
     # recipe. Old reimport entry points must not rebuild the withdrawn look.
     surface=ROOT.parent/'QuartzSurfaceV35'

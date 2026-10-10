@@ -20,6 +20,8 @@ inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotK
     const bool G18Drum=Weapon==TEXT("ue_g18")&&SlotKey==TEXT("magazine")&&Id==TEXT("g18_drum_50");
     const bool Special=
         VipGrip || SiMuzzle || G18Drum ||
+        ((Weapon==TEXT("ue_frost_crystal_sword")||Weapon==TEXT("ue_rune_sword")) &&
+            SlotKey==TEXT("pommel") && (Id==TEXT("pommel_mana_orb")||Id==TEXT("ballast_rune"))) ||
         (Weapon==TEXT("ue_xuanchi_zhenyue") && SlotKey==TEXT("guard") && Id==TEXT("panchi_zhanyue")) ||
         (Weapon==TEXT("ue_rsh12") && SlotKey==TEXT("muzzle") &&
             (Id==TEXT("rsh12_heavy_suppressor")||Id==TEXT("rsh12_large_caliber_brake"))) ||

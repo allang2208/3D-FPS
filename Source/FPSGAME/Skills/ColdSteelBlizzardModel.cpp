@@ -31,7 +31,7 @@ FBlizzardCast UColdSteelStatusModel::BlizzardStats(int32 AtLevel) const
     C.CriticalChance=Derived(TEXT("crit"));C.CriticalDamageBonus=CriticalStrikeEffect().CriticalDamageBonus;
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     C.MagicDamageBonus=(1+SetEffect(TEXT("magicDamage")))*Rune.MagicDamage-1;
-    const auto* Player=UGameplayStatics::GetPlayerPawn(this,0);
+    const auto* Player=RuntimePawn();
     const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
     const int32 Chain=Status?Status->ChainSpellStacks():0;
     float DamageFactor=MagicImplementMultiplier(),CostFactor=1,CooldownReduction=0;

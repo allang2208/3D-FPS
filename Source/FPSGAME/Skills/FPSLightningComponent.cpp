@@ -217,9 +217,8 @@ void UFPSLightningComponent::RunChain(APawn* Player,UColdSteelStatusModel* M,AAc
     }
 }
 // ── 联机服务端入口：首目标重验→权威跑链→伤害/感电/过载全在服务端 ──
-bool UFPSLightningComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow)
+bool UFPSLightningComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FLightningCast& Spell)
 {
-    const auto Spell=Shadow->LightningStats();
     AActor* First=Req.Target.Get();
     if(!IsValid(First)||!IsTarget(First))return false;
     const FVector Eye=Caster->GetPawnViewLocation();

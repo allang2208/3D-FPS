@@ -1,0 +1,20 @@
+{
+  "revision": 36,
+  "stage": "facet-and-geometric-absorption",
+  "ior": 1.544,
+  "extinction_per_cm": [0.195, 0.184, 0.18],
+  "medium_albedo": [0.16, 0.17, 0.175],
+  "root_density_add": 0.16,
+  "roughness_min": 0.085,
+  "roughness_max": 0.14,
+  "roughness_growth_add": 0.008,
+  "roughness_pit_add": 0.018,
+  "roughness_bevel_add": 0.012,
+  "surface_normal_strength": 0.3,
+  "light_color": [1.0, 0.94, 0.82],
+  "light_surface_gain": 0.38,
+  "max_macro_planes": 24,
+  "minimum_plane_area_fraction": 0.002,
+  "runtime_tested": false,
+  "rendered": false
+}

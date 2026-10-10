@@ -13,6 +13,7 @@
 #include "../WeaponStatEvaluation.h"
 #include "../../Combat/WeaponDamageTypes.h"
 #include "../../FPSGAMECharacter.h"
+#include "../../Items/FPSPotionUseComponent.h"
 #include "../../Skills/ColdSteelSkillRules.h"
 #include "../../Skills/FPSFireballComponent.h"
 #include "../../UI/ColdSteelStatusModel.h"
@@ -125,7 +126,10 @@ void UStaffWeaponComponent::RefreshEquipment(UColdSteelStatusModel* P)
     else Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,MoveTemp(Ready),FStreamableManager::AsyncLoadHighPriority);
 }
 bool UStaffWeaponComponent::CanBeginCast() const
-{return IsEquipped()&&!IsBusy()&&Staff&&Staff->IsVisible()&&Arms&&Arms->IsVisible();}
+{
+    const auto* Potion=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();
+    return (!Potion||!Potion->IsActive())&&IsEquipped()&&!IsBusy()&&Staff&&Staff->IsVisible()&&Arms&&Arms->IsVisible();
+}
 FStaffCastPose UStaffWeaponComponent::CarryPoseInCamera() const
 {
     // Pos is the hand's contact point, not the centre of the 160 cm mesh.
@@ -211,7 +215,7 @@ void UStaffWeaponComponent::GetCameraMotion(FVector& Location,FRotator& Rotation
 }
 void UStaffWeaponComponent::BeginPrimaryAttack()
 {
-    auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());if(!IsEquipped()||IsBusy()||!Pawn||!Staff||!Staff->IsVisible()||Pawn->IsSpellGestureBlocking())return;
+    auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());if(!IsEquipped()||IsBusy()||!Pawn||!Staff||!Staff->IsVisible()||Pawn->IsSpellGestureBlocking()||Pawn->IsCastBlockingLeftHandAction())return;
     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     auto* P=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();const auto* I=P->Equipped();if(!I||I->InstanceId!=Instance)return;
     Damage=ColdSteelWeaponStats::Damage(*I,P,3);Duration=FMath::Max(.1,double(ColdSteelWeaponStats::Interval(I,P,.5)));

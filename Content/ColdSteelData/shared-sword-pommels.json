@@ -8,9 +8,13 @@
       "appearance": "陨星锤首 · 剑类通用配重"
     },
     "ballast_rune": {
+      "weapons": [
+        "ue_frost_crystal_sword",
+        "ue_rune_sword"
+      ],
       "mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_JadeStar.SM_RunePommel_JadeStar",
       "interface": "shared_sword_pommel_v1",
-      "appearance": "凝碧星核 · 剑类通用配重"
+      "appearance": "凝碧星核 · 寒晶与苍蓝星辉专属特殊改造"
     },
     "ballast_magic_orb": {
       "mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_Swiftstar.SM_RunePommel_Swiftstar",
@@ -28,9 +32,13 @@
       "appearance": "符文配重 · 剑类通用配重"
     },
     "pommel_mana_orb": {
+      "weapons": [
+        "ue_frost_crystal_sword",
+        "ue_rune_sword"
+      ],
       "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/SM_FrostPommel_ballast_magic_orb.SM_FrostPommel_ballast_magic_orb",
       "interface": "frost_hilt_v1",
-      "appearance": "魔力球配重 · 剑类通用配重"
+      "appearance": "魔力球配重 · 寒晶与苍蓝星辉专属特殊改造"
     }
   },
   "finishes": {

@@ -82,7 +82,7 @@ void UStaffWeaponComponent::ToggleIllumination()
     // Repeated clicks toggle immediately; only a free arm starts another gesture.
     // Snapshot the previous gesture so a click midway through recovery cannot jump.
     bIlluminationOn=!bIlluminationOn;
-    if(!IsBusy()&&!Pawn->IsSpellGestureBlocking())
+    if(CanBeginCast()&&!Pawn->IsSpellGestureBlocking())
     {
         IlluminationGestureEntry=CarryPoseInCamera();
         IlluminationGestureAge=0.f;

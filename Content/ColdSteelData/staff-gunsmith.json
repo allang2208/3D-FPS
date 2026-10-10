@@ -30,47 +30,53 @@
         {
           "id": "frozen_crystal",
           "name": "永冻冰晶",
-          "description": "杖头嵌入永不融化的冰晶，冰锥技能生成的冰锥+1",
+          "description": "白色冰晶保留冷硬棱面与清晰冰脊。",
           "effects": {
             "staffSpecialty": "ice",
             "iceSpikeCountDelta": 1
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_frozen_crystal.SM_Staff_head_crystal_frozen_crystal",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_frozen_crystal.T_frozen_crystal"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_frozen_crystal.T_frozen_crystal",
+          "special_effects": []
         },
         {
           "id": "magma_core",
           "name": "熔岩晶核",
-          "description": "杖头封存一滴熔岩精华，火球爆炸范围（判定范围）+50%",
+          "description": "不规则熔岩球以深色岩壳包裹炽热裂隙。",
           "effects": {
             "staffSpecialty": "fire",
             "fireballExplosionRadiusPercent": 0.5
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_magma_core.SM_Staff_head_crystal_magma_core",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_magma_core.T_magma_core"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_magma_core.T_magma_core",
+          "special_effects": []
         },
         {
           "id": "jade_spirit_crystal",
           "name": "翠灵水晶",
-          "description": "杖头镶嵌蕴含生命脉动的翠灵水晶，圣光释放后给目标添加持续3秒的续疗buff，每秒恢复最大生命值1%",
+          "description": "翠绿晶体嵌入杖头，棱面映出柔和灵光。",
           "effects": {
             "staffSpecialty": "light",
             "holyLightHoTStacks": 1,
             "holyLightHoTSeconds": 3
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_jade_spirit_crystal.SM_Staff_head_crystal_jade_spirit_crystal",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_jade_spirit_crystal.T_jade_spirit_crystal"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_jade_spirit_crystal.T_jade_spirit_crystal",
+          "special_effects": [
+            "续疗｜圣光治疗友方后附加1层续疗，并增加3秒持续时间；每层每秒恢复1%最大生命。"
+          ]
         },
         {
           "id": "storm_core",
           "name": "风暴核心",
-          "description": "杖头束缚一团微型雷云，闪电传导目标数+1",
+          "description": "紫色晶壳包裹不断变幻的闪电核心。",
           "effects": {
             "staffSpecialty": "electric",
             "lightningChainTargetsDelta": 1
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_storm_core.SM_Staff_head_crystal_storm_core",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_storm_core.T_storm_core"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_storm_core.T_storm_core",
+          "special_effects": []
         }
       ]
     },
@@ -84,46 +90,58 @@
         {
           "id": "spike_crown",
           "name": "尖刺",
-          "description": "杖冠缠绕冰刺，当杖头为冰系专精时冰魔法伤害+25%",
+          "description": "冰刺沿杖冠向外生长，形成尖锐轮廓。",
           "effects": {
             "iceDamagePercent": 0.25
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_crown_spike_crown.SM_Staff_crown_spike_crown",
           "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_spike_crown.T_spike_crown",
-          "requires_specialty": "ice"
+          "requires_specialty": "ice",
+          "special_effects": [
+            "冰系共鸣｜匹配冰系杖头时，冰系法术伤害+25%。"
+          ]
         },
         {
           "id": "current_crown",
           "name": "电流",
-          "description": "杖冠带电，当杖头为电系专精时电魔法伤害+25%",
+          "description": "金属杖冠环绕细密电光。",
           "effects": {
             "electricDamagePercent": 0.25
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_crown_current_crown.SM_Staff_crown_current_crown",
           "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_current_crown.T_current_crown",
-          "requires_specialty": "electric"
+          "requires_specialty": "electric",
+          "special_effects": [
+            "电系共鸣｜匹配电系杖头时，电系法术伤害+25%。"
+          ]
         },
         {
           "id": "wreath_crown",
           "name": "花环",
-          "description": "杖冠编织圣光花环，当杖头为光系专精时光魔法的生命恢复量+25%",
+          "description": "花环沿杖冠交织，流露柔和圣光。",
           "effects": {
             "lightHealPercent": 0.25
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_crown_wreath_crown.SM_Staff_crown_wreath_crown",
           "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_wreath_crown.T_wreath_crown",
-          "requires_specialty": "light"
+          "requires_specialty": "light",
+          "special_effects": [
+            "光系共鸣｜匹配光系杖头时，光系法术治疗量+25%。"
+          ]
         },
         {
           "id": "heat_crown",
           "name": "热浪",
-          "description": "杖冠散发灼热气息，当杖头为火系专精时火魔法伤害+25%",
+          "description": "杖冠边缘泛出炽热的熔光。",
           "effects": {
             "fireDamagePercent": 0.25
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_crown_heat_crown.SM_Staff_crown_heat_crown",
           "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_heat_crown.T_heat_crown",
-          "requires_specialty": "fire"
+          "requires_specialty": "fire",
+          "special_effects": [
+            "火系共鸣｜匹配火系杖头时，火系法术伤害+25%。"
+          ]
         }
       ]
     },
@@ -137,35 +155,38 @@
         {
           "id": "eagle_eye_rune",
           "name": "鹰眼符文",
-          "description": "杖身铭刻鹰眼符文，所有魔法的释放距离+25%，MP消耗+25%",
+          "description": "鹰眼纹样沿杖身展开。",
           "effects": {
             "magicRangePercent": 0.25,
             "magicMpCostPercent": 0.25
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_shaft_rune_eagle_eye_rune.SM_Staff_shaft_rune_eagle_eye_rune",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_eagle_eye_rune.T_eagle_eye_rune"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_eagle_eye_rune.T_eagle_eye_rune",
+          "special_effects": []
         },
         {
           "id": "crit_rune",
           "name": "暴击符文",
-          "description": "杖身铭刻暴击符文，魔法的暴击率增加25个百分点，MP消耗+25%",
+          "description": "锐利符纹刻入杖身表面。",
           "effects": {
             "magicCritPercent": 0.25,
             "magicMpCostPercent": 0.25
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_shaft_rune_crit_rune.SM_Staff_shaft_rune_crit_rune",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_crit_rune.T_crit_rune"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_crit_rune.T_crit_rune",
+          "special_effects": []
         },
         {
           "id": "storm_rune",
           "name": "风暴符文",
-          "description": "杖身铭刻风暴符文，魔法的冷却时间-25%，MP消耗+25%",
+          "description": "旋转风暴纹样刻入杖身。",
           "effects": {
             "magicCooldownPercent": 0.25,
             "magicMpCostPercent": 0.25
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_shaft_rune_storm_rune.SM_Staff_shaft_rune_storm_rune",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_storm_rune.T_storm_rune"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_storm_rune.T_storm_rune",
+          "special_effects": []
         }
       ]
     },
@@ -179,36 +200,43 @@
         {
           "id": "alloy_grip",
           "name": "合金",
-          "description": "合金握柄使施法动作速度提高25%（前后摇耗时缩短20%），所有魔法的MP消耗+5%",
+          "description": "合金衬片包覆握柄，边缘保留细密金属纹理。",
           "effects": {
             "castSpeedPercent": 0.25,
             "magicMpCostPercent": 0.05
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_grip_lining_alloy_grip.SM_Staff_grip_lining_alloy_grip",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_alloy_grip.T_alloy_grip"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_alloy_grip.T_alloy_grip",
+          "special_effects": []
         },
         {
           "id": "pine_grip",
           "name": "松木",
-          "description": "松木握柄在施法任意魔法后获得持续10秒的链式强化buff，可叠加，下次施法伤害+2%×层数，MP消耗+5%×层数",
+          "description": "松木握柄保留清晰木纹。",
           "effects": {
             "chainSpellDamagePercent": 0.02,
             "chainSpellMpCostPercent": 0.05
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_grip_lining_pine_grip.SM_Staff_grip_lining_pine_grip",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_pine_grip.T_pine_grip"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_pine_grip.T_pine_grip",
+          "special_effects": [
+            "链式强化｜施法后获得1层强化并增加10秒持续时间；下次施法消耗已有层数，每层使法术伤害+2%、耗蓝+5%。"
+          ]
         },
         {
           "id": "sandalwood_grip",
           "name": "檀木",
-          "description": "檀木握柄在施法任意魔法后给自身添加5秒1层加速效果，所有魔法的MP消耗+5%",
+          "description": "深色檀木包覆握柄，表面温润细密。",
           "effects": {
             "castHasteDuration": 5000,
             "castHasteStacks": 1,
             "magicMpCostPercent": 0.05
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_grip_lining_sandalwood_grip.SM_Staff_grip_lining_sandalwood_grip",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_sandalwood_grip.T_sandalwood_grip"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_sandalwood_grip.T_sandalwood_grip",
+          "special_effects": [
+            "余韵加速｜施法后获得1层移动加速，并增加5秒持续时间。"
+          ]
         }
       ]
     },
@@ -222,46 +250,58 @@
         {
           "id": "ice_soul_pendant",
           "name": "冰魄吊坠",
-          "description": "冰系魔法造成伤害时给目标添加一层持续3秒的寒冷，每层降低5%移动速度",
+          "description": "冰晶尾坠悬于杖尾，透出冷色微光。",
           "effects": {
             "iceChillSlowPercent": 0.05,
             "iceChillDuration": 3000
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_tail_charm_ice_soul_pendant.SM_Staff_tail_charm_ice_soul_pendant",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_ice_soul_pendant.T_ice_soul_pendant"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_ice_soul_pendant.T_ice_soul_pendant",
+          "special_effects": [
+            "寒冷｜冰系法术造成伤害时附加1层寒冷，并增加3秒持续时间；每层使移速-5%。"
+          ]
         },
         {
           "id": "thunder_bell",
           "name": "爆鸣雷铃",
-          "description": "电系魔法造成伤害时附加0.25秒眩晕，若目标已有眩晕则延长0.25秒",
+          "description": "金属铃坠环绕细微电光。",
           "effects": {
             "electricStunExtendMs": 250
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_tail_charm_thunder_bell.SM_Staff_tail_charm_thunder_bell",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_thunder_bell.T_thunder_bell"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_thunder_bell.T_thunder_bell",
+          "special_effects": [
+            "震慑｜电系法术造成伤害时附加0.25秒眩晕；目标已眩晕时延长0.25秒。"
+          ]
         },
         {
           "id": "purification_vine",
           "name": "净厄藤坠",
-          "description": "光系魔法对友方造成治疗时给目标添加持续5秒的2层加速buff",
+          "description": "净化藤蔓沿杖尾缠绕垂落。",
           "effects": {
             "lightHasteStacks": 2,
             "lightHasteDuration": 5000
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_tail_charm_purification_vine.SM_Staff_tail_charm_purification_vine",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_purification_vine.T_purification_vine"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_purification_vine.T_purification_vine",
+          "special_effects": [
+            "净化加速｜光系法术治疗友方时赋予2层移动加速；每层增加5秒持续时间。"
+          ]
         },
         {
           "id": "flame_pendant",
           "name": "烈焰吊坠",
-          "description": "火系魔法造成伤害时给目标添加持续3秒的灼伤，每0.5秒造成施法者魔法伤害×0.5的伤害",
+          "description": "炽红尾坠包裹暗色金属边框。",
           "effects": {
             "fireBurnDamageMul": 0.5,
             "fireBurnTickMs": 500,
             "fireBurnDuration": 3000
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_tail_charm_flame_pendant.SM_Staff_tail_charm_flame_pendant",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_flame_pendant.T_flame_pendant"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_flame_pendant.T_flame_pendant",
+          "special_effects": [
+            "灼伤｜火系法术造成伤害时附加灼伤，持续3秒。"
+          ]
         }
       ]
     },
@@ -275,23 +315,25 @@
         {
           "id": "chain_mana",
           "name": "链式",
-          "description": "导魔管线采用链式传导，所有魔法伤害+10%，MP消耗+15%",
+          "description": "链式导魔纹路沿杖身交错延伸。",
           "effects": {
             "magicDamagePercent": 0.1,
             "magicMpCostPercent": 0.15
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_mana_line_chain_mana.SM_Staff_mana_line_chain_mana",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_chain_mana.T_chain_mana"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_chain_mana.T_chain_mana",
+          "special_effects": []
         },
         {
           "id": "direct_mana",
           "name": "直流",
-          "description": "导魔管线采用直流通道，所有魔法的MP消耗-30%",
+          "description": "笔直导魔纹路贯穿杖身。",
           "effects": {
             "magicMpCostPercent": -0.3
           },
           "mesh": "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_mana_line_direct_mana.SM_Staff_mana_line_direct_mana",
-          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_direct_mana.T_direct_mana"
+          "icon": "/Game/Weapons/ApprenticeStaff20260927/Icons/T_direct_mana.T_direct_mana",
+          "special_effects": []
         }
       ]
     }

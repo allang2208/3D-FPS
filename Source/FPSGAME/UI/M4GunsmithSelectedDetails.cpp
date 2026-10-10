@@ -262,25 +262,21 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         const bool OverheadFinisher=ColdSteelModularSword::UsesOverheadFinisher(*Item,&Gunsmith->Draft());
         const bool RisingDragon=ColdSteelModularSword::UsesRisingDragonFinisher(*Item,&Gunsmith->Draft());
         const auto& M=Option->Melee;
+        // Show direct modifiers only. Combo stages and additional damage amounts
+        // are omitted from both selected details and the overview.
+        const bool CompactBlade=SelectedCategory==TEXT("blade_1");
         auto Percent=[](double Mult){return (Mult-1.)*100.;};
         auto Ratio=[](double W,double N){return W>.00001?(N/W-1.)*100.:0.;};
-        AddValue(ColdSteelWeaponText::TotalDamage,Was.Damage,Now.Damage,2,TEXT(""),false,Ratio(Was.Damage,Now.Damage));
-        if(SelectedCategory==TEXT("blade_1")&&Id!=TEXT("false"))
+        if(CompactBlade&&Id!=TEXT("false")&&Option->SpecialEffects.IsEmpty())
         {
-            if(RisingDragon)AddEffect(TEXT("连段变化｜第三段普攻变为升龙，准备时间缩短50%；攻速仍按挥砍节奏计算。"));
-            else if(OverheadFinisher)AddEffect(TEXT("连段变化｜第三段普攻变为大幅度竖劈，使用前向扇形判定。"));
+            if(RisingDragon)AddEffect(TEXT("连段变化｜连段收尾变为升龙，准备时间缩短50%；攻速仍按挥砍节奏计算。"));
+            else if(OverheadFinisher)AddEffect(TEXT("连段变化｜连段收尾变为冲刺竖劈，使用前方矩形判定。"));
         }
-        AddValue(ColdSteelWeaponText::BasePhysical,Was.DamageParts.BasePhysical,Now.DamageParts.BasePhysical,2,TEXT(""),false,Percent(M.Damage*M.AllAttackDamage));
+        if(!FMath::IsNearlyEqual(M.PhysicalDamage,1.))
+            AddValue(TEXT("物理伤害"),Was.DamageParts.BasePhysical+Was.DamageParts.AddedPhysical,Now.DamageParts.BasePhysical+Now.DamageParts.AddedPhysical,2,TEXT(""),false,Percent(M.PhysicalDamage));
+        if(!FMath::IsNearlyEqual(M.Damage,1.))AddValue(ColdSteelWeaponText::BasePhysical,Was.DamageParts.BasePhysical,Now.DamageParts.BasePhysical,2,TEXT(""),false,Percent(M.Damage*M.AllAttackDamage));
         AddValue(TEXT("全部近战攻击伤害倍率"),Was.Modifiers.AllAttackDamage,Now.Modifiers.AllAttackDamage,2,TEXT("×"),false,Percent(M.AllAttackDamage));
-        AddValue(ColdSteelWeaponText::AddedPhysical,Was.DamageParts.AddedPhysical,Now.DamageParts.AddedPhysical,2,TEXT(""),false,Ratio(Was.DamageParts.AddedPhysical,Now.DamageParts.AddedPhysical));
-        AddValue(ColdSteelWeaponText::AddedMagic,Was.DamageParts.AddedMagic,Now.DamageParts.AddedMagic,2,TEXT(""),false,Ratio(Was.DamageParts.AddedMagic,Now.DamageParts.AddedMagic));
-        AddValue(TEXT("第二段横斩伤害"),Was.ComboSecondDamage,Now.ComboSecondDamage,2,TEXT(""),false,Percent(M.ComboSecond));
-        AddValue(RisingDragon?TEXT("第三段升龙伤害"):OverheadFinisher?TEXT("第三段竖劈伤害"):TEXT("第三段突刺伤害"),Was.ComboThirdDamage,Now.ComboThirdDamage,2,TEXT(""),false,Percent(M.ComboThird));
-        AddValue(RisingDragon?TEXT("第三段升龙韧性伤害倍率"):OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),Was.Modifiers.ThirdThrustToughnessMultiplier(),Now.Modifiers.ThirdThrustToughnessMultiplier(),2,TEXT("×"),false,Percent(M.ComboThirdToughness));
         AddValue(TEXT("攻击速度倍率"),Was.AttackRate,Now.AttackRate,2,TEXT("×"),false,Percent(M.AttackSpeed));
-        AddValue(TEXT("普通攻击耗时"),Was.AttackSeconds,Now.AttackSeconds,2,TEXT(" s"),true,Ratio(Was.AttackSeconds,Now.AttackSeconds));
-        AddValue(RisingDragon?TEXT("升龙耗时"):OverheadFinisher?TEXT("竖劈耗时"):TEXT("突刺耗时"),Was.ThrustSeconds,Now.ThrustSeconds,2,TEXT(" s"),true,Ratio(Was.ThrustSeconds,Now.ThrustSeconds));
-        AddValue(TEXT("普通挥砍距离"),Was.SlashReach/100,Now.SlashReach/100,2,TEXT(" m"),false,Percent(M.Range));
         AddValue(ColdSteelWeaponText::AttackDistance,Was.ThrustReach/100,Now.ThrustReach/100,2,TEXT(" m"),false,Percent(M.Range));
         AddValue(ColdSteelWeaponText::StaminaCost,Was.AttackStamina,Now.AttackStamina,2,TEXT(""),true,Percent(M.Stamina));
         if(M.KillStaminaMaxRatio>0.)AddEffect(FString::Printf(TEXT("击杀恢复｜击杀目标后，恢复最大体力的%.0f%%。"),M.KillStaminaMaxRatio*100.));
@@ -305,15 +301,12 @@ void UM4GunsmithWidget::RefreshSelectedOption()
         AddValue(TEXT("改造物理防御穿透"),Was.Modifiers.PhysicalArmorPenetration*100,Now.Modifiers.PhysicalArmorPenetration*100,0,TEXT("%"));
         AddValue(TEXT("重击伤害倍率"),Was.HeavyMultiplier,Now.HeavyMultiplier,2,TEXT("×"),false,Ratio(Was.HeavyMultiplier,Now.HeavyMultiplier));
         AddValue(TEXT("重击蓄力速度加成"),Was.HeavyChargeSpeedBonus*100.,Now.HeavyChargeSpeedBonus*100.,0,TEXT("%"));
-        AddValue(TEXT("重击蓄力时间"),Was.HeavyChargeSeconds,Now.HeavyChargeSeconds,2,TEXT(" s"),true,Ratio(Was.HeavyChargeSeconds,Now.HeavyChargeSeconds));
-        AddValue(TEXT("重击总伤害"),Was.Damage*Was.HeavyMultiplier,Now.Damage*Now.HeavyMultiplier,2,TEXT(""),false,Ratio(Was.Damage*Was.HeavyMultiplier,Now.Damage*Now.HeavyMultiplier));
-        AddValue(TEXT("重击韧性伤害倍率"),Was.Modifiers.HeavyToughnessMultiplier(),Now.Modifiers.HeavyToughnessMultiplier(),2,TEXT("×"),false,Percent(M.HeavyToughness));
+        if(!FMath::IsNearlyEqual(M.HeavyToughness,1.))AddValue(TEXT("重击韧性伤害倍率"),Was.Modifiers.HeavyToughnessMultiplier(),Now.Modifiers.HeavyToughnessMultiplier(),2,TEXT("×"),false,Percent(M.HeavyToughness));
         AddValue(TEXT("攻击击退距离"),Was.KnockbackCM,Now.KnockbackCM,1,TEXT(" cm"),false,Percent(M.Knockback*M.AllAttackKnockback));
         AddValue(TEXT("全部攻击击退倍率"),Was.Modifiers.AllAttackKnockback,Now.Modifiers.AllAttackKnockback,2,TEXT("×"),false,Percent(M.AllAttackKnockback));
-        AddValue(TEXT("快速近战伤害倍率"),Was.QuickCombat.DamageMultiplier,Now.QuickCombat.DamageMultiplier,2,TEXT("×"),false,Ratio(Was.QuickCombat.DamageMultiplier,Now.QuickCombat.DamageMultiplier));
-        AddValue(TEXT("快速近战伤害"),Was.QuickCombat.Damage,Now.QuickCombat.Damage,2,TEXT(""),false,Ratio(Was.QuickCombat.Damage,Now.QuickCombat.Damage));
+        if(!FMath::IsNearlyZero(M.QuickCombatDamageAdd))AddValue(TEXT("快速近战伤害倍率"),Was.QuickCombat.DamageMultiplier,Now.QuickCombat.DamageMultiplier,2,TEXT("×"),false,Ratio(Was.QuickCombat.DamageMultiplier,Now.QuickCombat.DamageMultiplier));
         AddValue(TEXT("快速近战击退距离"),Was.QuickCombat.KnockbackCM,Now.QuickCombat.KnockbackCM,1,TEXT(" cm"),false,Percent(M.QuickCombatKnockback*M.AllAttackKnockback));
-        AddValue(TEXT("快速近战韧性伤害倍率"),Was.QuickCombat.ToughnessMultiplier,Now.QuickCombat.ToughnessMultiplier,2,TEXT("×"),false,Percent(M.QuickCombatToughness));
+        if(!FMath::IsNearlyEqual(M.QuickCombatToughness,1.))AddValue(TEXT("快速近战韧性伤害倍率"),Was.QuickCombat.ToughnessMultiplier,Now.QuickCombat.ToughnessMultiplier,2,TEXT("×"),false,Percent(M.QuickCombatToughness));
         if(M.QuickCombatBleedChance>0.)AddEffect(FString::Printf(TEXT("出血｜快速近战命中有%.0f%%概率施加1层出血。"),M.QuickCombatBleedChance*100.));
         if(M.QuickCombatTigerRoarSeconds>0.)AddEffect(FString::Printf(TEXT("虎啸｜快速近战命中后，使目标韧性承伤提高%.0f%%，冲击、利器、钝器的韧性抵抗归零，持续%.0f秒。重复命中刷新，不叠加。"),M.QuickCombatTigerRoarToughnessBonus*100.,M.QuickCombatTigerRoarSeconds));
         if(M.QuickCombatPhysicalVulnerabilitySeconds>0.)AddEffect(FString::Printf(TEXT("物理易伤｜快速近战命中后，目标受到的物理伤害提高%.0f%%，持续%.0f秒。重复命中刷新，不叠加。"),M.QuickCombatPhysicalVulnerabilityBonus*100.,M.QuickCombatPhysicalVulnerabilitySeconds));
@@ -336,7 +329,7 @@ void UM4GunsmithWidget::RefreshSelectedOption()
             AddEffect(TEXT("消耗规则｜按重击消耗体力，出手即消耗强化，挥空也消耗；最多保留一次，再次弹反刷新。突刺与技能不消耗强化。"));
         }
         if(!FMath::IsNearlyEqual(M.Range,1.))ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
-            [Paragraph(TEXT("范围改造影响挥砍与突刺；快速近战使用技能自身的判定范围。"),12,GunsmithUI::Muted)];
+            [Paragraph(TEXT("距离加成作用于挥砍、突刺，不影响快速近战。"),12,GunsmithUI::Muted)];
     }
     if(RowCount==0)
         ModificationList->AddSlot().AutoHeight().Padding(0,0,0,8)

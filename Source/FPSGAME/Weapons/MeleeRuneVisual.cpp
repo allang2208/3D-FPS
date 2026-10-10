@@ -27,6 +27,20 @@ bool IsNativeRuneSurface(UMaterialInterface* Material)
         Base->GetName().StartsWith(TEXT("M_XuanChiBladeRuneSurface")));
 }
 
+void ApplyHastePalette(UMaterialInstanceDynamic* Material,bool bHaste)
+{
+    // Haste keeps the traveling-current animation but has its own yellow ink.
+    // Restore parent colors on selection changes so conduction remains blue.
+    const auto SetColor=[Material,bHaste](FName Name,const FLinearColor& Yellow)
+    {
+        FLinearColor Color=Yellow;
+        if(bHaste||(Material->Parent&&Material->Parent->GetVectorParameterValue(FMaterialParameterInfo(Name),Color)))
+            Material->SetVectorParameterValue(Name,Color);
+    };
+    SetColor(TEXT("ConductionCoreColor"),FLinearColor(.90f,.68f,.008f,1.f));
+    SetColor(TEXT("ConductionGlowColor"),FLinearColor(1.f,.82f,.012f,1.f));
+}
+
 UMaterialInterface* FactoryMaterial(UMeshComponent* Mesh,int32 Slot)
 {
     if(const auto* Static=Cast<UStaticMeshComponent>(Mesh))
@@ -61,7 +75,7 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
     const bool bMountain=ColdSteelFrostRunes::SupportsEasternRunes(Definition)&&VisualRune==ColdSteelFrostRunes::Mountain;
     const bool bZhenmo=Definition==ColdSteelFrostRunes::XuanChi&&VisualRune==ColdSteelFrostRunes::Zhenmo;
     const bool bJingang=Definition==ColdSteelFrostRunes::XuanChi&&VisualRune==ColdSteelFrostRunes::Jingang;
-    const int32 Mode=bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:VisualRune==TEXT("conduction_rune")?2:-1;
+    const int32 Mode=bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:(VisualRune==TEXT("conduction_rune")||VisualRune==TEXT("haste_rune"))?2:-1;
     auto IsOurs=[](UMaterialInterface* M){auto* Base=M?M->GetBaseMaterial():nullptr;return Base&&(Base->GetName().StartsWith(TEXT("M_SilverRuneSurface"))||Base->GetName()==TEXT("M_SilverRuneSurfaceV2"));};
     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
     {
@@ -115,12 +129,14 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
             if(IsOurs(Current))Mesh->SetOverlayMaterial(nullptr,true,Slot);
             auto* SurfaceMID=Cast<UMaterialInstanceDynamic>(Base);
             if(!SurfaceMID){SurfaceMID=UMaterialInstanceDynamic::Create(Base,Mesh);Mesh->SetMaterial(Slot,SurfaceMID);}
-            const bool Changed=SurfaceMID->K2_GetScalarParameterValue(TEXT("RuneMode"))!=Mode;
             SurfaceMID->SetScalarParameterValue(TEXT("RuneMode"),Mode);
             SurfaceMID->SetScalarParameterValue(TEXT("GoldenTint"),0.f);
+            ApplyHastePalette(SurfaceMID,VisualRune==TEXT("haste_rune"));
             SurfaceMID->SetScalarParameterValue(TEXT("BaseBrightness"),bMountain?.72f:bCloud?.60f:.85f);
             SurfaceMID->SetScalarParameterValue(TEXT("GlowStrength"),bMountain?.88f:bCloud?1.05f:1.25f);
-            if(Mode>=0&&(Changed||!SurfaceMID->K2_GetTextureParameterValue(TEXT("RuneTexture"))))
+            // Selection changes can share a palette while using a different mask.
+            // Apply runs on assembly/selection; pose updates never reload textures.
+            if(Mode>=0)
             {
                 const FString Mask=bJingang?FString(ColdSteelFrostRunes::JingangMask):bZhenmo?FString(ColdSteelFrostRunes::ZhenmoMask):bMountain?FString(ColdSteelFrostRunes::MountainMask):bCloud?FString(ColdSteelFrostRunes::CloudMask):TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+VisualRune;
                 auto* Texture=LoadObject<UTexture>(nullptr,*Mask);
@@ -143,9 +159,10 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
             MID=UMaterialInstanceDynamic::Create(Material,Mesh);Mesh->SetOverlayMaterial(MID,true,Slot);
         }
         MID->SetScalarParameterValue(TEXT("GoldenTint"),bGolden?1.f:0.f);
+        ApplyHastePalette(MID,VisualRune==TEXT("haste_rune"));
         MID->SetScalarParameterValue(TEXT("BaseBrightness"),bInnate?.65f:.85f);
         MID->SetScalarParameterValue(TEXT("GlowStrength"),bInnate?.75f:1.25f);
-        if(MID->K2_GetScalarParameterValue(TEXT("RuneMode"))!=Mode||!MID->K2_GetTextureParameterValue(TEXT("RuneTexture")))
+        // Refresh the selected mask even when the previous rune used this palette.
         {
             // Other swords retain their existing projected rune appearance.
             FString MaskName=bSpirit?TEXT("erosion_rune"):VisualRune;

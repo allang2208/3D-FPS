@@ -1,0 +1,10 @@
+{
+  "revision": 42,
+  "stage": "clean-elemental-surfaces-and-reflections",
+  "heads": {
+    "Ice": {"version": 38, "id": "frozen_crystal", "roughness": 0.12, "normal_strength": 0.0},
+    "Magma": {"version": 38, "id": "magma_core", "crust_roughness": 0.55, "molten_roughness": 0.24, "heat_mask_gain": 1.45, "normal_strength": 0.25},
+    "Jade": {"version": 37, "id": "jade_spirit_crystal", "roughness_min": 0.13, "roughness_max": 0.18, "normal_strength": 0.0},
+    "Storm": {"version": 38, "id": "storm_core", "roughness": 0.065, "normal_strength": 0.0, "screen_space_reflections": true}
+  }
+}

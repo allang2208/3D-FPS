@@ -46,6 +46,12 @@ TSharedPtr<FJsonObject> Catalog(const FColdSteelItem& Item)
         for(const auto& Pair:Library->GetObjectField(TEXT("options"))->Values)
         {
             auto Spec=MakeShared<FJsonObject>();Spec->Values=Pair.Value->AsObject()->Values;
+            // Shared geometry follows the same weapon restriction as the workbench.
+            // Unsupported legacy selections then resolve to this sword's factory pommel.
+            const TArray<TSharedPtr<FJsonValue>>* Compatible=nullptr;
+            if(Spec->TryGetArrayField(TEXT("weapons"),Compatible)&&!Compatible->IsEmpty()&&
+                !Compatible->ContainsByPredicate([&](const TSharedPtr<FJsonValue>& Id){return Id->AsString()==Item.Definition;}))
+            {Choices->RemoveField(Pair.Key);continue;}
             const TSharedPtr<FJsonObject>* Interfaces=nullptr,*Fitting=nullptr;
             FString Interface;Spec->TryGetStringField(TEXT("interface"),Interface);
             if((*Profile)->TryGetObjectField(TEXT("interfaces"),Interfaces))
@@ -323,6 +329,7 @@ FString ColdSteelModularSword::Appearance(const FColdSteelItem& Item,const FStri
         return TEXT("金色太极八卦主印 · 沿刃符线 · 镇岳专属传说");
     if(Slot==TEXT("blade_2")&&Item.Definition==ColdSteelFrostRunes::XuanChi&&Option==ColdSteelFrostRunes::Jingang)
         return TEXT("金刚经行草 · 金色渐变经文 · 镇岳专属传说");
+    if(Slot==TEXT("blade_2")&&Option==TEXT("haste_rune"))return TEXT("疾风折纹 · 黄色流光");
     if(Slot==TEXT("blade_2"))return Factory?TEXT("保留原有刃面纹样"):TEXT("剑刃表面符文");
     const TSharedPtr<FJsonObject>* Slots=nullptr,*Choices=nullptr,*Spec=nullptr;
     const auto Root=Catalog(Item);

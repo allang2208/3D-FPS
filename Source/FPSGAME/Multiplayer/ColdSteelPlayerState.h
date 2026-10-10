@@ -3,6 +3,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerState.h"
 #include "../UI/ColdSteelInventoryTypes.h"
+#include "../Skills/IceWallTypes.h"
+#include "../Skills/BlizzardTypes.h"
+#include "../Skills/HolyLightTypes.h"
+#include "../Skills/LightningTypes.h"
+#include "../Skills/FireMagicTypes.h"
+#include "../Skills/ElectricMagicTypes.h"
 #include "ColdSteelPlayerState.generated.h"
 
 class UColdSteelStatusModel;
@@ -205,6 +211,13 @@ private:
     FName PendingCastSkill = NAME_None;
     double PendingCastAt = -100.0;
     float PendingCastPaidMana = 0.f;
+    // Authoritative paid-cast snapshots survive chain consumption until release.
+    FIceWallCast PendingIceWallStats;
+    FBlizzardCast PendingBlizzardStats;
+    FHolyLightCast PendingHolyLightStats;
+    FLightningCast PendingLightningStats;
+    FFireMagicCast PendingFireMagicStats;
+    FElectricMagicCast PendingElectricMagicStats;
     double LastCastRequestAt = -100.0;
 
     /** 上传节流载体（复用对象，避免每 2s 新建）。 */

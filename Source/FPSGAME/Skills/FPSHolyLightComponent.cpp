@@ -172,9 +172,8 @@ void UFPSHolyLightComponent::InterruptPending()
     // Healing/damage and an already released light keep their own lifetime.
 }
 // ── 联机服务端入口：验证上报目标→权威治疗/伤害→生成复制光柱 ──
-bool UFPSHolyLightComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow)
+bool UFPSHolyLightComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FHolyLightCast& Spell)
 {
-    const auto Spell=Shadow->HolyLightStats();
     AActor* Target=(Req.Variant&1)?static_cast<AActor*>(Caster):Req.Target.Get();
     if(!Target||!IsValid(Target))return false;
     const bool bSelf=Target==Caster;

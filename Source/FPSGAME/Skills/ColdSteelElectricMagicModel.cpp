@@ -1,4 +1,5 @@
 #include "../UI/ColdSteelStatusModel.h"
+#include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Weapons/MeleeWeaponStats.h"
@@ -39,7 +40,7 @@ FElectricMagicCast UColdSteelStatusModel::ElectricMagicStats(FName Id,int32 AtLe
     C.HalfWidth=T.HalfWidth*T.UnitsToCM;C.Knockback=(T.KnockbackBase+FMath::FloorToFloat(Growth*T.KnockbackGrowth))*T.UnitsToCM;
     C.EndRadius=T.EndRadius*T.UnitsToCM;
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
-    const auto* Player=UGameplayStatics::GetPlayerPawn(this,0);
+    const auto* Player=RuntimePawn();
     const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
     const int32 Chain=Status?Status->ChainSpellStacks():0;
     double DamageFactor=1,CostFactor=1,CooldownReduction=0;

@@ -1,0 +1,6 @@
+{
+  "false": {"color": [0.62, 0.42, 0.23], "uv_scale": [1.0, 1.0, 1.0], "roughness": 0.40, "roughness_variation": 0.11, "pore_normal": 0.25, "grain_contrast": 0.78, "metallic": 0, "finish": "close-grained natural wood, lightly waxed"},
+  "pine_grip": {"color": [0.98, 0.77, 0.43], "uv_scale": [1.0, 0.80, 1.0], "roughness": 0.32, "roughness_variation": 0.075, "pore_normal": 0.17, "grain_contrast": 0.68, "metallic": 0, "finish": "warm pine, sanded and sealed, restrained growth rings"},
+  "sandalwood_grip": {"color": [0.43, 0.17, 0.075], "uv_scale": [2.0, 0.82, 1.0], "roughness": 0.245, "roughness_variation": 0.06, "pore_normal": 0.105, "grain_contrast": 0.88, "metallic": 0, "finish": "dense dark sandalwood, fine longitudinal grain and oil polish"},
+  "alloy_grip": {"color": [0.33, 0.38, 0.43], "roughness": 0.285, "roughness_variation": 0.055, "pore_normal": 0.065, "metallic": 1, "finish": "satin machined alloy with polished raised bands"}
+}

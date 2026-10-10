@@ -51,6 +51,7 @@ void UGunsmithSystem::LoadMeleeCatalog()
                 Part.Effects.Emplace(Effect->AsObject()->GetStringField(TEXT("text")),int32(Effect->AsObject()->GetNumberField(TEXT("benefit"))));
             const auto Stats=Data->GetObjectField(TEXT("stats"));
             Stats->TryGetNumberField(TEXT("damage_mult"),Part.Melee.Damage);
+            Stats->TryGetNumberField(TEXT("physical_damage_mult"),Part.Melee.PhysicalDamage);
             Stats->TryGetNumberField(TEXT("attack_speed_mult"),Part.Melee.AttackSpeed);
             Stats->TryGetNumberField(TEXT("range_mult"),Part.Melee.Range);
             Stats->TryGetNumberField(TEXT("stamina_mult"),Part.Melee.Stamina);

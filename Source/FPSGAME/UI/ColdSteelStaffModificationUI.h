@@ -14,9 +14,10 @@ namespace ColdSteelStaffUI
         const TCHAR* Unit;
         bool bLowerBetter;
         bool bAlwaysInOverview;
-        bool bTriggerPeriod = false;
     };
 
+    // Trigger parameters and conditional crowns belong to catalog special_effects.
+    // Share this direct-attribute list across details, overview and item tooltips.
     inline const FEffectField Fields[] = {
         {TEXT("magicDamagePercent"),TEXT("法术伤害加成"),100,1,TEXT("%"),false,true},
         {TEXT("magicCritPercent"),TEXT("法术暴击率加成"),100,1,TEXT("%"),false,true},
@@ -24,33 +25,14 @@ namespace ColdSteelStaffUI
         {TEXT("magicRangePercent"),TEXT("法术距离加成"),100,1,TEXT("%"),false,true},
         {TEXT("magicCooldownPercent"),TEXT("法术冷却缩减"),100,1,TEXT("%"),false,true},
         {TEXT("castSpeedPercent"),TEXT("施法速度加成"),100,1,TEXT("%"),false,true},
-        {TEXT("fireDamagePercent"),TEXT("火系伤害加成"),100,1,TEXT("%"),false,true},
-        {TEXT("iceDamagePercent"),TEXT("冰系伤害加成"),100,1,TEXT("%"),false,true},
-        {TEXT("electricDamagePercent"),TEXT("电系伤害加成"),100,1,TEXT("%"),false,true},
-        {TEXT("lightHealPercent"),TEXT("光系治疗加成"),100,1,TEXT("%"),false,true},
         {TEXT("iceSpikeCountDelta"),TEXT("冰锥数量加成"),1,0,TEXT(" 枚"),false,false},
         {TEXT("fireballExplosionRadiusPercent"),TEXT("火球爆炸范围加成"),100,1,TEXT("%"),false,false},
-        {TEXT("lightningChainTargetsDelta"),TEXT("闪电传导目标加成"),1,0,TEXT(" 个"),false,false},
-        {TEXT("holyLightHoTStacks"),TEXT("圣光续疗层数"),1,0,TEXT(" 层"),false,false},
-        {TEXT("holyLightHoTSeconds"),TEXT("圣光续疗持续时间"),1,2,TEXT(" s"),false,false},
-        {TEXT("chainSpellDamagePercent"),TEXT("链式强化伤害（每层）"),100,1,TEXT("%"),false,false},
-        {TEXT("chainSpellMpCostPercent"),TEXT("链式强化耗蓝（每层）"),100,1,TEXT("%"),true,false},
-        {TEXT("castHasteStacks"),TEXT("施法后自身加速层数"),1,0,TEXT(" 层"),false,false},
-        {TEXT("castHasteDuration"),TEXT("施法后自身加速时间"),.001,2,TEXT(" s"),false,false},
-        {TEXT("iceChillSlowPercent"),TEXT("寒冷减速（每层）"),100,1,TEXT("%"),false,false},
-        {TEXT("iceChillDuration"),TEXT("寒冷持续时间"),.001,2,TEXT(" s"),false,false},
-        {TEXT("electricStunExtendMs"),TEXT("附加／延长眩晕时间"),.001,2,TEXT(" s"),false,false},
-        {TEXT("lightHasteStacks"),TEXT("光系治疗目标加速层数"),1,0,TEXT(" 层"),false,false},
-        {TEXT("lightHasteDuration"),TEXT("光系治疗目标加速时间"),.001,2,TEXT(" s"),false,false},
-        {TEXT("fireBurnDamageMul"),TEXT("灼伤每跳魔法伤害倍率"),1,2,TEXT("×"),false,false},
-        {TEXT("fireBurnTickMs"),TEXT("灼伤跳伤间隔"),.001,2,TEXT(" s"),true,false,true},
-        {TEXT("fireBurnDuration"),TEXT("灼伤持续时间"),.001,2,TEXT(" s"),false,false}
+        {TEXT("lightningChainTargetsDelta"),TEXT("闪电传导目标加成"),1,0,TEXT(" 个"),false,false}
     };
 
-    inline bool LowerBetter(const FEffectField& Field, double Before, double After)
+    inline bool LowerBetter(const FEffectField& Field, double /*Before*/, double /*After*/)
     {
-        // 原厂没有灼伤时 0 表示未触发，不是比 0.5 秒更快的跳伤。
-        return Field.bTriggerPeriod && (Before <= 0 || After <= 0) ? false : Field.bLowerBetter;
+        return Field.bLowerBetter;
     }
 
     inline TSharedPtr<FJsonObject> Part(const FString& Slot, const FString& Id)

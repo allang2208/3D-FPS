@@ -18,6 +18,12 @@ L = u.MaterialEditingLibrary
 
 
 def build_quartz_material(rebuild=False, preview=False, candidate=False):
+    # V35 still owns geometry. Preserve a successfully installed V36 optical
+    # material when the older full-surface installer rebuilds stable paths.
+    optics = ROOT.parent / 'QuartzOpticsV36'
+    receipt = optics / 'install-receipt.json'
+    if not candidate and receipt.exists() and json.loads(receipt.read_text(encoding='utf-8')).get('complete'):
+        return runpy.run_path(str(optics / 'ue_material.py'))['build_quartz_material'](rebuild=rebuild, preview=preview)
     path = (DEST + '/Materials/' + ('M_QuartzSurfacePreview_V35' if preview else 'M_QuartzSurface_V35')
             if candidate else PREVIEW if preview else WORLD)
     material = u.load_asset(path)

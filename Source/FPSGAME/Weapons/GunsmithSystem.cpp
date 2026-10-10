@@ -199,7 +199,7 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
         for(const auto& Pair:Normalize(D,P))
         {
             const auto& M=Option(D,Pair.Key,Pair.Value)->Melee;
-            R.Melee.Damage*=M.Damage;R.Melee.AttackSpeed*=M.AttackSpeed;R.Melee.Range*=M.Range;
+            R.Melee.Damage*=M.Damage;R.Melee.PhysicalDamage*=M.PhysicalDamage;R.Melee.AttackSpeed*=M.AttackSpeed;R.Melee.Range*=M.Range;
             R.Melee.Stamina*=M.Stamina;R.Melee.BlockStamina*=M.BlockStamina;R.Melee.HitReaction*=M.HitReaction;R.Melee.BlockReduction*=M.BlockReduction;
             R.Melee.KillStaminaMaxRatio=FMath::Clamp(R.Melee.KillStaminaMaxRatio+M.KillStaminaMaxRatio,0.,1.);
             R.Melee.ToughnessDamage*=M.ToughnessDamage;
@@ -263,7 +263,7 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.PhoenixHealHits=FMath::Max(R.Melee.PhoenixHealHits,M.PhoenixHealHits);
             ++R.ActiveParts;
         }
-        R.Damage*=R.Melee.Damage*R.Melee.AllAttackDamage;R.Interval/=R.Melee.AttackSpeed;R.Range*=R.Melee.Range;
+        R.Damage*=R.Melee.Damage*R.Melee.PhysicalDamage*R.Melee.AllAttackDamage;R.Interval/=R.Melee.AttackSpeed;R.Range*=R.Melee.Range;
         return R;
     }
     if(IsTool(D))

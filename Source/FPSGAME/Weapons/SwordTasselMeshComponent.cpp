@@ -29,6 +29,11 @@ void USwordTasselMeshComponent::Configure(const TSharedPtr<FJsonObject>& Spec)
     }
     Lengths.Reset();for(int32 I=0;I<7;++I)Lengths.Add(FVector::Dist(Rest[I],Rest[I+1]));
     InverseMass={0.,1.,.30,.30,.65,1.,1.,1.};
+    // Other hanging ornaments can supply their own mass distribution while
+    // the ZhenYue jade/cord balance keeps its original defaults.
+    const TArray<TSharedPtr<FJsonValue>>* Masses=nullptr;
+    if(Spec->TryGetArrayField(TEXT("inverse_masses"),Masses)&&Masses->Num()==8)
+        for(int32 I=1;I<8;++I)InverseMass[I]=FMath::Max(.01,(*Masses)[I]->AsNumber());
     const TArray<TSharedPtr<FJsonValue>>* Shapes=nullptr;
     if(Spec->TryGetArrayField(TEXT("collision_capsules_cm"),Shapes))
         for(const auto& Value:*Shapes)

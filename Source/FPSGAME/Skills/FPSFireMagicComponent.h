@@ -31,7 +31,7 @@ public:
     void NotifyMeteorImpact(const FVector& Point);
     void GetCameraMotion(FVector& Location,FRotator& Rotation) const;
     // ── 联机 ──
-    bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow);
+    bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FFireMagicCast& Spell);
     void NetCastRejected(uint8 Phase,uint8 Code);
     void NetCastCancelled(uint8 Phase);
 protected:

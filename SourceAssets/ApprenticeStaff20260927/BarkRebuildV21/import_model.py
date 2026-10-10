@@ -14,13 +14,15 @@ DEST = BASE + '/BarkRebuildV21'
 E = u.EditorAssetLibrary
 A = u.AssetToolsHelpers.get_asset_tools()
 entries = json.loads((ROOT / 'Export/meshes.json').read_text(encoding='utf-8'))
-# Once V33 is installed, subsequent full staff imports must retain its four
-# authored crystal heads rather than restore the old flat-colour V21 pieces.
+# Preserve the latest installed elemental heads when reimporting the full staff.
 craft_root = ROOT.parent / 'CrystalCraftV33'
-craft_receipt = craft_root / 'install-receipt.json'
-if craft_receipt.exists() and json.loads(craft_receipt.read_text(encoding='utf-8')).get('complete'):
-    crafted = {e['name']: e for e in json.loads((craft_root / 'Export/meshes.json').read_text(encoding='utf-8'))}
-    entries = [crafted.get(e['name'], e) for e in entries]
+for craft_version in ('CrystalCraftV33', 'ElementHeadsV37', 'ElementHeadsV38'):
+    candidate_root = ROOT.parent / craft_version
+    craft_receipt = candidate_root / 'install-receipt.json'
+    if craft_receipt.exists() and json.loads(craft_receipt.read_text(encoding='utf-8')).get('complete'):
+        craft_root = candidate_root
+        crafted = {e['name']: e for e in json.loads((craft_root / 'Export/meshes.json').read_text(encoding='utf-8'))}
+        entries = [crafted.get(e['name'], e) for e in entries]
 # Preserve the current default quartz candidate, independently of V33's four
 # elemental heads. Only Base and the factory crystal have V35 replacements.
 surface_root = ROOT.parent / 'QuartzSurfaceV35'
@@ -31,6 +33,24 @@ if surface_receipt.exists() and json.loads(surface_receipt.read_text(encoding='u
         if entry['name'] in surfaced:
             # Preserve canonical material names expected by this older loader.
             entry['fbx'] = surfaced[entry['name']]['fbx']
+# Crown refinements are independent of the elemental-head and quartz branches.
+crown_root = ROOT.parent / 'CrownRefinement20261009'
+crown_receipt = crown_root / 'install-receipt.json'
+if crown_receipt.exists() and json.loads(crown_receipt.read_text(encoding='utf-8')).get('complete'):
+    crowns = {e['name']: e for e in json.loads((crown_root / 'Export/meshes.json').read_text(encoding='utf-8'))}
+    entries = [crowns.get(e['name'], e) for e in entries]
+# Keep the installed authored rune masks and bark-conforming surfaces as well.
+rune_root = ROOT.parent / 'RuneRefinement20261009'
+rune_receipt = rune_root / 'install-receipt.json'
+if rune_receipt.exists() and json.loads(rune_receipt.read_text(encoding='utf-8')).get('complete'):
+    runes = {e['name']: e for e in json.loads((rune_root / 'Export/meshes.json').read_text(encoding='utf-8'))}
+    entries = [runes.get(e['name'], e) for e in entries]
+# Grip surfaces and physically weighted tail ornaments have their own source.
+grip_tail_root = ROOT.parent / 'GripTailRefinement20261009'
+grip_tail_receipt = grip_tail_root / 'install-receipt.json'
+if grip_tail_receipt.exists() and json.loads(grip_tail_receipt.read_text(encoding='utf-8')).get('complete'):
+    grip_tails = {e['name']: e for e in json.loads((grip_tail_root / 'Export/meshes.json').read_text(encoding='utf-8'))}
+    entries = [grip_tails.get(e['name'], e) for e in entries]
 receipt_path = ROOT / 'import-receipt.json'
 receipt = {
     'revision': 21, 'complete': False, 'tested': False, 'preview_rendered': False,
@@ -66,9 +86,13 @@ static_editor = u.get_editor_subsystem(u.StaticMeshEditorSubsystem) or u.new_obj
 
 def full_precision(mesh):
     settings = static_editor.get_lod_build_settings(mesh, 0)
-    if not settings.use_full_precision_u_vs:
-        settings.use_full_precision_u_vs = True
-        static_editor.set_lod_build_settings(mesh, 0, settings)
+    settings.use_full_precision_u_vs = True
+    weighted = next((e for e in entries if e['name'] == mesh.get_name() and e.get('tail_dynamics')), None)
+    if weighted:
+        settings.generate_lightmap_u_vs = False
+        ns = mesh.get_editor_property('nanite_settings'); ns.enabled = False
+        mesh.set_editor_property('nanite_settings', ns)
+    static_editor.set_lod_build_settings(mesh, 0, settings)
 
 
 materials = {}
@@ -81,7 +105,15 @@ for name in ('M_Staff_ice', 'M_Staff_fire', 'M_Staff_light', 'M_Staff_electric',
 for entry in entries:
     for name in entry['materials']:
         if name.startswith('M_StaffCraft_'):
-            materials[name] = u.load_asset(BASE + '/CrystalCraftV33/Materials/' + name)
+            material_version = ('ElementHeadsV38' if name.endswith('_V38') else
+                                'ElementHeadsV37' if name.endswith('_V37') else 'CrystalCraftV33')
+            materials[name] = u.load_asset(BASE + '/' + material_version + '/Materials/' + name)
+        elif name.startswith('M_StaffCrown_'):
+            materials[name] = u.load_asset(BASE + '/CrownRefinement20261009/Materials/' + name)
+        elif name.startswith('M_StaffRuneCraft_'):
+            materials[name] = u.load_asset(BASE + '/RuneRefinement20261009/Materials/' + name)
+        elif name.startswith(('MI_StaffGripCraft_', 'M_StaffTailCraft_')):
+            materials[name] = u.load_asset(BASE + '/GripTailRefinement20261009/Materials/' + name)
 for name, material in materials.items():
     if not material:
         raise RuntimeError('Missing existing staff material ' + name)
@@ -103,10 +135,12 @@ try:
         'combine_meshes': True, 'auto_generate_collision': False,
         'import_uniform_scale': 1, 'convert_scene': True, 'convert_scene_unit': False,
         'normal_import_method': u.FBXNormalImportMethod.FBXNIM_IMPORT_NORMALS,
+        'vertex_color_import_option': u.VertexColorImportOption.REPLACE,
     }.items():
         data.set_editor_property(key, value)
 
     for entry in entries:
+        data.set_editor_property('generate_lightmap_u_vs', not entry.get('tail_dynamics', False))
         task = u.AssetImportTask()
         for key, value in {
             'filename': entry['fbx'], 'destination_path': DEST + '/Meshes',
@@ -142,6 +176,7 @@ try:
             record()
         new = u.load_asset(DEST + '/Meshes/' + entry['name'])
         if old:
+            full_precision(old)
             dm, status = u.GeometryScript_AssetUtils.copy_mesh_from_static_mesh(
                 new, u.DynamicMesh(), u.GeometryScriptCopyMeshFromAssetOptions(), u.GeometryScriptMeshReadLOD())
             if status != u.GeometryScriptOutcomePins.SUCCESS:

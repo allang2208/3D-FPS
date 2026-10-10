@@ -35,7 +35,7 @@ public:
     float HandNoticeRise() const;
     UFPSElectricMagicComponent();
     // ── 联机 ──
-    bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow);
+    bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FElectricMagicCast& Spell);
     void NetCastRejected(uint8 Phase,uint8 Code);
     void NetCastCancelled(uint8 Phase);
 protected:

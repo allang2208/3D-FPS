@@ -45,5 +45,12 @@ FWeaponDamageParts ColdSteelWeaponDamage::Evaluate(const FColdSteelItem& Item,co
     // Attacker-side magic bonuses are already included in the panel, before any
     // attack multiplier or target defense. Do not apply them again on contact.
     R.AddedMagic*=FMath::Max(0.,(1+(Profile?Profile->SetEffect(TEXT("magicDamage")):0))*(Melee?Melee->MagicDamage:1));
+    // Apply physical-only modifiers after additions are assembled so magic
+    // based on the original physical base does not inherit this bonus.
+    if(Melee)
+    {
+        R.BasePhysical*=Melee->PhysicalDamage;
+        R.AddedPhysical*=Melee->PhysicalDamage;
+    }
     return Melee?R.Scaled(Melee->AllAttackDamage):R;
 }

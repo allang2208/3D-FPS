@@ -1,0 +1,16 @@
+{
+  "id": "haste_rune",
+  "name": "急速符文",
+  "tier": "common",
+  "description": "疾风折纹沿剑脊收束，黄色流光向剑尖掠过。",
+  "appearance": "疾风折纹 · 黄色流光",
+  "effects": [
+    {
+      "text": "攻击速度 +10%",
+      "benefit": 1
+    }
+  ],
+  "stats": {
+    "attack_speed_mult": 1.1
+  }
+}

@@ -251,9 +251,8 @@ void UFPSIceWallComponent::Cancel()
     PaidMana=0;if(auto* H=Hands())H->CancelSpellGesture(this);
 }
 // ── 联机服务端入口：客人上报放置点→重验→权威墙生成（复制回各端） ──
-bool UFPSIceWallComponent::NetCommitWall(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow)
+bool UFPSIceWallComponent::NetCommitWall(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FIceWallCast& C)
 {
-    const auto C=Shadow->IceWallStats();
     FIceWallPlacement Plan;
     Plan.Location=Req.AimPoint;
     Plan.Shape=Req.Variant==1?EIceWallShape::Low:EIceWallShape::High;

@@ -484,9 +484,8 @@ void UFPSElectricMagicComponent::CancelPending(bool bRefund)
     if(Hands())Hands()->CancelSpellGesture(this);
 }
 // ── 联机服务端入口：风暴域权威激活 / 雷枪充能射线重算 ──
-bool UFPSElectricMagicComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow)
+bool UFPSElectricMagicComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FElectricMagicCast& Spell)
 {
-    const auto Spell=Shadow->ElectricMagicStats(Req.SkillId);
     if(Spell.bRequiresStaff&&!Shadow->HasEquippedStaff())return false;
     if(Req.SkillId==TEXT("stormDomain"))
     {

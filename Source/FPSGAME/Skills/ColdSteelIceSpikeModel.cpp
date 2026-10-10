@@ -37,7 +37,7 @@ FIceSpikeCast UColdSteelStatusModel::IceSpikeStats(int32 AtLevel) const
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     C.MagicDamageBonus=(1+SetEffect(TEXT("magicDamage")))*Rune.MagicDamage-1;
     double DamageFactor=1,CostFactor=1,CooldownReduction=0;
-    const auto* Player=UGameplayStatics::GetPlayerPawn(this,0);
+    const auto* Player=RuntimePawn();
     const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
     const int32 Chain=Status?Status->ChainSpellStacks():0;
     // Only the active staff contributes spell crafting. The immutable cast survives weapon swaps.

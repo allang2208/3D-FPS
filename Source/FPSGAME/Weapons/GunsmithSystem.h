@@ -58,6 +58,9 @@ struct FMeleeModifiers
     double PanChiSeconds=0,PanChiMaxStacks=0,PanChiToughnessPerStack=0,PanChiCooldown=0;
     double PanChiRadiusCM=0,PanChiAngleDegrees=0,PanChiPullCM=0;
     double PanChiMagicDamageScale=1;
+    // Blade physical channel, after base/attribute/additional damage is assembled.
+    // Separate from Damage (weapon base) and AllAttackDamage (all channels/actions).
+    double PhysicalDamage=1;
 
 };
 /**

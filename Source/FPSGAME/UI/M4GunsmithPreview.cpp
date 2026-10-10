@@ -51,6 +51,9 @@ void UM4GunsmithWidget::InitializePreview()
     PreviewMaterial->SetTextureParameterValue(TEXT("PreviewCoverage"),PreviewCoverageTarget);
     PreviewBrush.SetResourceObject(PreviewMaterial);PreviewBrush.ImageSize=FVector2D(1200,800);PreviewBrush.DrawAs=ESlateBrushDrawType::Image;
     Studio=MakeUnique<FPreviewScene>(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false).SetTransactional(false).SetForceMipsResident(false).SetLightBrightness(6.f).SetSkyBrightness(1.f));
+    // This widget owns the preview clock in both PIE and packaged games.
+    // Prevent GameEngine from advancing the same world a second time.
+    Studio->GetWorld()->SetShouldTick(false);
     Studio->SetSkyCubemap(LoadObject<UTextureCube>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment.T_StudioEnvironment")));
     Studio->DirectionalLight->SetForwardShadingPriority(1);
     StudioFill=NewObject<UDirectionalLightComponent>(GetTransientPackage(),NAME_None,RF_Transient);
@@ -289,6 +292,7 @@ void UM4GunsmithWidget::NativeTick(const FGeometry& Geometry,float Delta)
 }
 void UM4GunsmithWidget::TickCapture(float Delta)
 {
+    if(Studio)Studio->GetWorld()->Tick(LEVELTICK_TimeOnly,Delta);
     CaptureAccumulator+=Delta;PreviewMotion=FMath::Max(0.f,PreviewMotion-Delta);
     UpdatePreviewStreaming(Delta);
     if(PreviewTarget&&PreviewSurface)
@@ -303,7 +307,8 @@ void UM4GunsmithWidget::TickCapture(float Delta)
             {PreviewTarget->ResizeTarget(Width,Height);PreviewCoverageTarget->ResizeTarget(Width,Height);PreviewBrush.ImageSize=FVector2D(Width,Height);CaptureAccumulator=1.f;PreviewMotion=FMath::Max(PreviewMotion,1.f);}
         }
     }
-    if(!Capture||CaptureAccumulator<((PreviewMotion>0||bPreviewStreamingPending)?1.f/30.f:.2f))return;
+    const bool AnimatedStaff=StandaloneMelee&&StandaloneMelee->ComponentHasTag(TEXT("StaffAssembly"));
+    if(!Capture||CaptureAccumulator<((AnimatedStaff||PreviewMotion>0||bPreviewStreamingPending)?1.f/30.f:.2f))return;
     CaptureAccumulator=0;
     if(StandaloneMelee){if(ColdSteelBowAssembly::IsBowRoot(StandaloneMelee))SyncStandaloneBowPreview();else SyncStandaloneMeleePreview();CapturePreview();return;}
     if(bStandalone){if(StandaloneRig){StandaloneRig->UpdateGunsmithCapture(Capture,bAimPreview);SyncStudioPreview();CapturePreview();}return;}

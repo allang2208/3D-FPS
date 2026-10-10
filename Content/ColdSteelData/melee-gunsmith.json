@@ -10,36 +10,31 @@
         {
           "id": "extended_edge",
           "name": "延锋刃",
-          "description": "延展刃势，偏重范围压制，以出手速度和耐力换取距离与伤害。",
+          "description": "修长刃形与延展剑尖，保持流畅的切削轮廓。",
           "effects": [
             {
-              "text": "攻击范围 +15%",
+              "text": "物理伤害 +5%",
               "benefit": 1
             },
             {
-              "text": "基础伤害 +5%",
+              "text": "攻击距离 +15%",
               "benefit": 1
             },
             {
-              "text": "攻击速度 -10%",
-              "benefit": -1
-            },
-            {
-              "text": "耐力消耗 +5%",
+              "text": "体力消耗 +5%",
               "benefit": -1
             }
           ],
           "stats": {
             "range_mult": 1.15,
-            "damage_mult": 1.05,
-            "attack_speed_mult": 0.9,
-            "stamina_mult": 1.05
+            "stamina_mult": 1.05,
+            "physical_damage_mult": 1.05
           }
         },
         {
           "id": "heavy_spine",
           "name": "重脊刃",
-          "description": "厚重剑脊，偏重单次爆发与命中硬直，出手更慢。",
+          "description": "加厚剑脊与宽阔刃面，呈现厚重的钢刃轮廓。",
           "effects": [
             {
               "text": "基础伤害 +20%",
@@ -63,7 +58,7 @@
         {
           "id": "feather_edge",
           "name": "轻羽刃",
-          "description": "轻快刃势，偏重连续进攻和耐力续航，格挡能力降低。",
+          "description": "收窄削薄的轻巧刃形，刃线简洁利落。",
           "effects": [
             {
               "text": "攻击速度 +15%",
@@ -87,7 +82,7 @@
         {
           "id": "highland_broadblade",
           "name": "阔锋重刃",
-          "description": "高地双手剑专属。宽肩钢刃与加厚剑脊形成重剑轮廓，中央符文保留原比例；偏重单次伤害与命中硬直。",
+          "description": "高地双手剑专属。宽肩钢刃配加厚剑脊，中央符文保持原有比例。",
           "effects": [
             {
               "text": "基础伤害 +20%",
@@ -114,16 +109,8 @@
         {
           "id": "highland_ridge_piercer",
           "name": "棱脊穿甲刃",
-          "description": "高地双手剑专属。窄直钢刃以四面棱脊支撑长尖，强化第三段突刺的伤害与削韧，并提高物理穿甲，以整体伤害换取贯穿能力。",
+          "description": "高地双手剑专属。窄直钢刃以四面棱脊支撑修长剑尖。",
           "effects": [
-            {
-              "text": "第三段突刺伤害倍率 +40%",
-              "benefit": 1
-            },
-            {
-              "text": "第三段突刺韧性伤害 +40%",
-              "benefit": 1
-            },
             {
               "text": "物理防御穿透 +10%",
               "benefit": 1
@@ -149,15 +136,11 @@
           "weapons": [
             "ue_tang_dao"
           ],
-          "description": "唐刀专属刀身。燕翎折锋与双槽导势强化连段收尾，第三段改为过顶竖劈，打击前方矩形区域；连续进攻更耗耐力，格挡能力略有降低。",
+          "description": "唐刀专属。燕翎折锋配双导槽与层叠锻钢纹，保留原有龙纹。",
           "effects": [
             {
-              "text": "第三段改为冲刺竖劈动作 · 前方矩形判定",
+              "text": "连段收尾改为冲刺竖劈动作 · 前方矩形判定",
               "benefit": 0
-            },
-            {
-              "text": "第三段攻击伤害 +40%",
-              "benefit": 1
             },
             {
               "text": "攻击耐力消耗 +10%",
@@ -172,7 +155,10 @@
             "combo_third_damage_mult": 1.4,
             "stamina_mult": 1.1,
             "block_reduction_mult": 0.9
-          }
+          },
+          "special_effects": [
+            "连段变化｜连段收尾改为冲刺竖劈，打击前方矩形区域。"
+          ]
         },
         {
           "id": "tengyun_dragon",
@@ -180,21 +166,25 @@
           "weapons": [
             "ue_tang_dao"
           ],
-          "description": "唐刀专属刀身。弧形刀尖接修长龙脊导槽，鎏金游龙沿刃面腾行，流云暗纹与层叠水波锻纹交织。提升攻击速度，普攻第三段化为升龙并缩短准备；目标韧性为0或已破韧时可将其击飞。",
+          "description": "唐刀专属。弧形刀尖接修长龙脊，鎏金游龙交织流云与水波锻纹。",
           "effects": [
             {
               "text": "攻击速度 +10%",
               "benefit": 1
             },
             {
-              "text": "普攻第三段：升龙 · 准备时间 -50% · 第三段伤害 +30% · 无韧性或破韧时击飞",
+              "text": "连段收尾改为升龙 · 准备时间 -50% · 无韧性或破韧时击飞",
               "benefit": 1
             }
           ],
           "stats": {
             "attack_speed_mult": 1.1,
             "combo_third_damage_mult": 1.3
-          }
+          },
+          "special_effects": [
+            "连段变化｜连段收尾改为升龙，准备时间缩短50%。",
+            "击飞｜升龙命中无韧性或已破韧的目标时，将其击飞。"
+          ]
         }
       ]
     },
@@ -204,6 +194,22 @@
       "default": "原装剑身Ⅱ",
       "description": "剑刃表面的符文改造。原装保留这把剑已有的刃面纹样，不叠加改造符文。",
       "options": [
+        {
+          "id": "haste_rune",
+          "name": "急速符文",
+          "tier": "common",
+          "description": "疾风折纹沿剑脊收束，黄色流光向剑尖掠过。",
+          "appearance": "疾风折纹 · 黄色流光",
+          "effects": [
+            {
+              "text": "攻击速度 +10%",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "attack_speed_mult": 1.1
+          }
+        },
         {
           "id": "resonance_rune",
           "name": "共鸣符文",
@@ -920,7 +926,11 @@
         {
           "id": "pommel_mana_orb",
           "name": "魔力球配重",
-          "description": "银色支架包覆蓝色魔力晶球，手持时强化魔法伤害并提高魔法值消耗。",
+          "weapons": [
+            "ue_frost_crystal_sword",
+            "ue_rune_sword"
+          ],
+          "description": "寒晶与苍蓝星辉双手剑专属。银色支架包覆蓝色魔力晶球，手持时强化魔法伤害并提高魔法值消耗。",
           "effects": [
             {
               "text": "魔法伤害 +10%",
@@ -995,16 +1005,20 @@
         {
           "id": "ballast_rune",
           "name": "凝碧星核",
-          "description": "银色护架包覆凝碧星核，快速近战（配重锤打击）命中施加魔法易伤。",
+          "weapons": [
+            "ue_frost_crystal_sword",
+            "ue_rune_sword"
+          ],
+          "description": "寒晶与苍蓝星辉双手剑专属。银色护架包覆凝碧星核，快速近战（配重锤打击）命中施加魔法易伤。",
           "effects": [
             {
-              "text": "快速近战命中施加魔法易伤 +10% · 持续10秒",
+              "text": "快速近战命中施加魔法易伤 +15% · 持续15秒",
               "benefit": 1
             }
           ],
           "stats": {
-            "quick_combat_rune_vulnerability": 0.1,
-            "quick_combat_rune_vulnerability_seconds": 10
+            "quick_combat_rune_vulnerability": 0.15,
+            "quick_combat_rune_vulnerability_seconds": 15
           }
         },
         {
@@ -1088,10 +1102,6 @@
         {
           "icon": "drawback",
           "text": "飞剑全部发射或超时后进入 15 秒冷却；击杀可缩短冷却"
-        },
-        {
-          "icon": "mechanic",
-          "text": "三段连击、蓄力重击、突刺与格挡；剑刃、护手、握把、配重锤与刃面符文可独立改造"
         }
       ]
     },
@@ -1109,10 +1119,6 @@
         {
           "icon": "drawback",
           "text": "侵蚀已与晶体融为一体：普通侵蚀符文会被自动转化为精神迸发符文"
-        },
-        {
-          "icon": "mechanic",
-          "text": "三段连击、蓄力重击与格挡；剑刃、护手、握把、配重与刃面符文可独立改造"
         }
       ]
     },
@@ -1120,16 +1126,8 @@
       "id": "ue_highland_claymore",
       "traits": [
         {
-          "icon": "mechanic",
-          "text": "三段连击、蓄力重击、突刺与格挡"
-        },
-        {
-          "icon": "mechanic",
-          "text": "弧形护手与圆盘配重把重心前移，适合双手发力"
-        },
-        {
-          "icon": "neutral",
-          "text": "剑刃、护手、握把、配重与刃面符文可独立改造"
+          "icon": "special",
+          "text": "重击蓄力速度 +25%"
         }
       ]
     },
@@ -1137,16 +1135,8 @@
       "id": "ue_tang_dao",
       "traits": [
         {
-          "icon": "mechanic",
-          "text": "双手持刀，占用副手；普通攻击按两次横斩与一次突刺循环"
-        },
-        {
-          "icon": "mechanic",
-          "text": "支持蓄力重击、格挡与既有近战技能"
-        },
-        {
-          "icon": "neutral",
-          "text": "刀刃、护手、握柄、柄尾与刃面符文可独立改造"
+          "icon": "special",
+          "text": "攻击速度 +25%"
         }
       ]
     },
@@ -1154,16 +1144,8 @@
       "id": "ue_xuanchi_zhenyue",
       "traits": [
         {
-          "icon": "mechanic",
-          "text": "双手持剑，占用副手；两次横斩后接突刺"
-        },
-        {
-          "icon": "mechanic",
-          "text": "支持蓄力重击、格挡与既有近战技能"
-        },
-        {
-          "icon": "neutral",
-          "text": "原装环首带赤绳玉坠和随动作摆动的剑穗"
+          "icon": "special",
+          "text": "攻击距离 +25%（挥砍 450cm / 突刺 514cm）"
         }
       ]
     }

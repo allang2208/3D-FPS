@@ -1,0 +1,767 @@
+[
+  {
+    "path": ".gitignore",
+    "bytes": 168423,
+    "sha256": "0a206d2f8e85e7e9ea51e0fd9cda09743bf16b6b6c9565b9ee55a388cf023734"
+  },
+  {
+    "path": "Content/ColdSteelData/melee-gunsmith.json",
+    "bytes": 38571,
+    "sha256": "498bd8964c23988be5c1f3c3921c823e94a4f896105d946e1ad023a286191f2b"
+  },
+  {
+    "path": "Content/ColdSteelData/shared-sword-pommels.json",
+    "bytes": 48186,
+    "sha256": "c42a0ee247a9022561112043efa6cfccabed9580a5cfe72dbf948c88667304a1"
+  },
+  {
+    "path": "Content/ColdSteelData/staff-gunsmith.json",
+    "bytes": 13995,
+    "sha256": "be5a68496c4a2652efbacff6215f91984fd422c235caf759502186553ca55a4c"
+  },
+  {
+    "path": "Content/ColdSteelData/staff-tail-dynamics.json",
+    "bytes": 4570,
+    "sha256": "3656a696c40be18d54b099cb4e3595ce31b08c0509de8b720050a7cfae9310ac"
+  },
+  {
+    "path": "Docs/AssetSetup.md",
+    "bytes": 94302,
+    "sha256": "a956d4d15e177d5be61ebe7e32dedc81b63a8e78da592c2d8954a740192cdc48"
+  },
+  {
+    "path": "Docs/Publication/StaffAndRunes20261010/README.md",
+    "bytes": 3909,
+    "sha256": "4dc2d0c7bca5743cd605b7b0f0cd0903cfc3f8fcb4ae41cda3ae8feffbe9a5d6"
+  },
+  {
+    "path": "Docs/Publication/StaffAndRunes20261010/archive-manifest.json",
+    "bytes": 76147,
+    "sha256": "2c8396b8fc2259fd5bda49ce8c5a7256914b3662b5bd35a84f6faf97cb391118"
+  },
+  {
+    "path": "Docs/Publication/StaffAndRunes20261010/retained-packages.json",
+    "bytes": 10502,
+    "sha256": "63424c5361ef9176066edaa330039162567d8569d91ed53ac1f18fc50b0c016c"
+  },
+  {
+    "path": "Docs/Weapons/staff-crown-refinement-20261009.md",
+    "bytes": 4162,
+    "sha256": "124bacae2198961f11ce26bbbd454b5bbcc84a01b4c264995d875eb118245e83"
+  },
+  {
+    "path": "Docs/Weapons/staff-element-heads-v37-20261009.md",
+    "bytes": 4273,
+    "sha256": "99397f743630edf5bd4cf023bd54d6c04aa8c7e7614fe2b329141d5f841d71ac"
+  },
+  {
+    "path": "Docs/Weapons/staff-element-heads-v38-20261009.md",
+    "bytes": 4012,
+    "sha256": "0a606e459cc828a872740f5afc0eddcf3e0f5152bfcf94ecf6f21f1e09d82b55"
+  },
+  {
+    "path": "Docs/Weapons/staff-element-polish-20261009.md",
+    "bytes": 3939,
+    "sha256": "8b11e8dcce5c724b7abd53387e3c855ea9acf370538bb7881e462470e1371a4e"
+  },
+  {
+    "path": "Docs/Weapons/staff-grip-tail-refinement-20261009.md",
+    "bytes": 5235,
+    "sha256": "088bea0a02545d37f8bcd4704662c07beacef5b8459c38e7897faffcd0938d7e"
+  },
+  {
+    "path": "Docs/Weapons/staff-quartz-optics-20261009.md",
+    "bytes": 5233,
+    "sha256": "da34de8eb8f93f0adace4cf6627459b966992e4be7de56e9a99736d556ebbed5"
+  },
+  {
+    "path": "Docs/Weapons/staff-quartz-polish-20261009.md",
+    "bytes": 3679,
+    "sha256": "26cb7d7b23498aaa58c7957366383ccf0325c24cd66ccdba4982db56debb455a"
+  },
+  {
+    "path": "Docs/Weapons/staff-rune-refinement-20261009.md",
+    "bytes": 4496,
+    "sha256": "8ef762cf1adc8976efde5de13e79040b1b7d626082192e2e5a3b63880b72a470"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "bytes": 58005,
+    "sha256": "b695bcbf9b66ecf779d9b69b850dc006a3b5c1333149d451dfbbe01eb3bd89b0"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "bytes": 12850,
+    "sha256": "445525d63461568bd757a4a41fdaa1636cc07dc00b66aa0c0f1ad51e44831958"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelBlizzardModel.cpp",
+    "bytes": 7042,
+    "sha256": "afda25a1de33a4dcdc26f2945960d89635d31a75c8f30e50ef90e81c21691b4a"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelElectricMagicModel.cpp",
+    "bytes": 6775,
+    "sha256": "735bce6bff2eabf5e15e23adb3793e384bb69afa5bdb2f27f0f4e6cf04f9270e"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp",
+    "bytes": 8249,
+    "sha256": "a30801c481ea0ec0b523b03eed6c56977204662529e0e224c48053c483a27b4c"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+    "bytes": 14076,
+    "sha256": "0697d473d363aa3fd540925eae86732f6732fc6f64289bde5d1da91c9b110ac4"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelHolyLightModel.cpp",
+    "bytes": 9094,
+    "sha256": "a74f035039fd0993c5da3e173da7047097fd59a1cee9bbd98e06acaa7005de11"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+    "bytes": 8227,
+    "sha256": "f5980ef9d339c419f5609d4fd07c5770c9c30c59c32d3081c6716f6cba5fd08a"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp",
+    "bytes": 8256,
+    "sha256": "6ec3f11214e518b49d47b69ab478d5bc05a54632882e3c29bd9fedf5e11af848"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+    "bytes": 8920,
+    "sha256": "c4ab663b48a58398859df57561c2ac4a18dc32708c60cbd48ffb17a4f65c16a3"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSBlizzardComponent.cpp",
+    "bytes": 19359,
+    "sha256": "23b59027ee02bf8ce95159657e5b5f84ecdc45a5d57319de839a637d15935f51"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSBlizzardComponent.h",
+    "bytes": 3247,
+    "sha256": "00d24c9f69c93bce518a401d7f80bdfc5ff7b57f03f8d84d873638e22295fa43"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp",
+    "bytes": 40371,
+    "sha256": "260353f01659c456f70ef6c2ea34de7e615b72a86c60db31f4db732bfa18fa5b"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSElectricMagicComponent.h",
+    "bytes": 5623,
+    "sha256": "9c7701d4d9e6b159567fbe3ad194c2980c8084387c60d709388722266895e5d9"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+    "bytes": 23980,
+    "sha256": "e19b5441e9996e097b12d073c4d8b52f1d0db5dea31f39116c166300b7eaae95"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+    "bytes": 3679,
+    "sha256": "d3f255aed7def89a6551cf1672586692f2b7974a8bfa8558961931bc641fd7ff"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSHolyLightComponent.cpp",
+    "bytes": 14400,
+    "sha256": "ce129f5ef487ea7d286b38bda45f7d473dfc4444a4a8c35b4daf9c69a84bdaf7"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSHolyLightComponent.h",
+    "bytes": 2304,
+    "sha256": "4d35025a7e7097a88e5319bf6df389103e70c3ea74639c0f016c515712e599dc"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSIceWallComponent.cpp",
+    "bytes": 19906,
+    "sha256": "39169d41814cdc5a9b052d493928b75226cf96f6078c75a20e331c128aebfe7d"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSIceWallComponent.h",
+    "bytes": 3961,
+    "sha256": "da6d320a6217556dba0af7768e8003c095d7e9622a45be57226e7320fdb749e5"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSLightningComponent.cpp",
+    "bytes": 17463,
+    "sha256": "b6ceaa29d3dcc8fe2b734f349349b8972bf59b6451d90c337ca01efdfef037ff"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSLightningComponent.h",
+    "bytes": 2635,
+    "sha256": "6f16d4653aca3a97672a8f17dffe0c42ae80daf69726f4e28c7288a96c27c76a"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+    "bytes": 58059,
+    "sha256": "f81daea4a97c42941715b8fbe5666856e3887fc0069c5820e04d385f6dc6c9db"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelStaffModificationUI.h",
+    "bytes": 3754,
+    "sha256": "cd241fe62db6995883c9186e33e06e6ddf8de2c09858aaef343268e1891c5cf0"
+  },
+  {
+    "path": "Source/FPSGAME/UI/M4GunsmithPreview.cpp",
+    "bytes": 22841,
+    "sha256": "52845d8b1b2e013706b9c0ff509c96533ab9c3bb9911857e20c667e7ee7712cf"
+  },
+  {
+    "path": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+    "bytes": 30492,
+    "sha256": "8eb1b0b092455f9819017d8973e65217e398354507bdbe969fe3975f80260f56"
+  },
+  {
+    "path": "Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "bytes": 10531,
+    "sha256": "9ef6ed51a797d432d5857883fd86be6c3a91d09212ff87a93f2e4fd584a06fd9"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+    "bytes": 3519,
+    "sha256": "3d1adb0fcacfc0c44bd1d680600330dbb5406e7841a4dd98fb47521a63087759"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+    "bytes": 28411,
+    "sha256": "b71b4324fb022533679abf516bb33eb2e2a49b6a74221ac7a026c842e154fbbc"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+    "bytes": 12989,
+    "sha256": "d48f11e4a6d625ef48d88eccd37f5a78145d1c66346fa3a684ea085a4969de5b"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/MeleeGunsmith.cpp",
+    "bytes": 12287,
+    "sha256": "45576bb4026037ea86309080d2af8ae612de1d31364074e99278badba82848e4"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/MeleeRuneVisual.cpp",
+    "bytes": 12920,
+    "sha256": "825236ec54e59863e3dcae17edf0414cbd01f060b7add96a10b1e5d551be083c"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+    "bytes": 20307,
+    "sha256": "9fee14bf832167503161e87c38fd849e6fcbd0c8fcec15674f05ddf887500866"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Staff/StaffAssembly.cpp",
+    "bytes": 4324,
+    "sha256": "2cc3b705f348b293a4b8d446aa85cc4ff99e2ff2bf8a6a409f43cf69475e18c3"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Staff/StaffAssembly.h",
+    "bytes": 541,
+    "sha256": "814ec5f5b093a3d62d50746ffb42ea69760f6580f6882d840e187f6bd4d64c77"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Staff/StaffGunsmith.cpp",
+    "bytes": 1993,
+    "sha256": "0d6c04728f7730c5a023049538192026d739352ed3793e72235c57b9d82eba5b"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Staff/StaffIllumination.cpp",
+    "bytes": 7201,
+    "sha256": "65602c956ca4db3d62e5dab5e9b7c14b0820f15968f67611e061117c3f04186b"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp",
+    "bytes": 21248,
+    "sha256": "8b23ac06a38784ba72db06935b5f0c1e152c97fdf80cbe032c4452c14b64f5cb"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/SwordTasselMeshComponent.cpp",
+    "bytes": 7104,
+    "sha256": "783917e99822902036698881aaefeab5bf6236e25b3d570e8470f1eb37bb5ec5"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/WeaponDamagePanel.cpp",
+    "bytes": 3230,
+    "sha256": "89ad1ff6657f42df2248f6afdd44bfc252ef0f8e58884f2dc951df1ed667452e"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/BarkRebuildV21/import_model.py",
+    "bytes": 11261,
+    "sha256": "777426edc050fce1fd2a6e51cec2853d914970e112b5020d01145f7799dc2fef"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/CrownRefinement20261009/author_blender.py",
+    "bytes": 17689,
+    "sha256": "55a1704b9315d9c6c475bfe95654da680fb4af5cc310c2fa13017ea670f59d4f"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/CrownRefinement20261009/capture_inputs.py",
+    "bytes": 1985,
+    "sha256": "1bf9288d90d2c23fae62caf6654e9cb3216488229b4cbb27b841d3c40e813e70"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/CrownRefinement20261009/install_ue.py",
+    "bytes": 10753,
+    "sha256": "92dc296095730d0f33d92a678ec560205e8382abeba18a3be9ba811a45fd1142"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/CrownRefinement20261009/run_install.ps1",
+    "bytes": 1427,
+    "sha256": "7f16db091cc77d2599064fa3ee4144f9912ba4e378e3ddba4a4747389e969ca6"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV37/README.md",
+    "bytes": 912,
+    "sha256": "b6f0378ee828a3d116146069e47cb24f733874b0b6e51d2b19e58015cfeaf4e6"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV37/author_blender.py",
+    "bytes": 20913,
+    "sha256": "99ccfebe7782a081ae5eda385bf46ec09d0964ede1890eda26ddf09d812db76f"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV37/build_author.py",
+    "bytes": 12164,
+    "sha256": "f4895718034f4e8473b1184153a78843803ea37c24a7d26a0e8df12254e49bba"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV37/build_installer.py",
+    "bytes": 2634,
+    "sha256": "3261fcf0d72047c78179b86aa221754f5f4300c70ed089a64e2cb241add10b11"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV37/install_ue.py",
+    "bytes": 14140,
+    "sha256": "8f8cce9adb77cdd11c627166faa0b741a474847a926d89cba07576baade9de1e"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV37/prepare_inputs.py",
+    "bytes": 2550,
+    "sha256": "96c9b545fb25c5dd2728419e40c716e171b69b49ac577e1f0050a520eb962371"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV37/prepare_install_state.py",
+    "bytes": 366,
+    "sha256": "5c4fe15e53d44ce90ba59a6b137e72c532f7e36e32ad17a205f3a93898463928"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV37/read_authoring_source.py",
+    "bytes": 805,
+    "sha256": "3669dcb6fde5124d9b83e878e7a1b82fcce855598e184ad0934a978230a4f6bf"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV38/README.md",
+    "bytes": 941,
+    "sha256": "3c1d4a103c3218a54c224be62e7386fe24d5e290f4e9ea7a32c178313c470efd"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV38/author_blender.py",
+    "bytes": 22787,
+    "sha256": "e6101a03182a2cd43334c2f71f638c8845f15ff15fa61eda641f9de0f3f9d933"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV38/build_author.py",
+    "bytes": 6554,
+    "sha256": "4100e72a7f71d6c3128fad90129cebf1992f02a8b9cee8023d9cccbe90f5ae79"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV38/build_installer.py",
+    "bytes": 3178,
+    "sha256": "fd73a369439d04aa40bc89807c0b6aa3c02cb74f0f9fc3d69125b4c2464934ec"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV38/core_displacement.hlsl",
+    "bytes": 1101,
+    "sha256": "ae8c1b678d1d8d4492caa98672320396cdfbbc522eec4be9538232b8c50e4a53"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV38/core_radiance.hlsl",
+    "bytes": 668,
+    "sha256": "abe050cf9cf22f6ecc1f47f8bc26a38a02de7dbc5087747ae7b68aa01fbd393b"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV38/install_ue.py",
+    "bytes": 15502,
+    "sha256": "b5d3b8934a8b6da1a1a62c67340f371fc3146e104ecf1d15499c4a3db6b0bd43"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV38/prepare_inputs.py",
+    "bytes": 2630,
+    "sha256": "1427d40b3eb332b8bdc96c826bdc7b1f3bb297d9f26293856696fc4121f8b126"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementHeadsV38/resume_own_partial.py",
+    "bytes": 334,
+    "sha256": "4d8fff12fbb0d96ea85104974e83d541198306ff64aa370364ac37bfb13102a4"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementPolishV42/author_surfaces.py",
+    "bytes": 4432,
+    "sha256": "ec166bd21bd70bd3567273016d21fd006cd5d4de5d86a2e6bf5520c26746426d"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementPolishV42/install_ue.py",
+    "bytes": 4041,
+    "sha256": "fa88bbcd564578b5acade1f4538f5be9cae20e3be6a9e694705ae3b033769896"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementPolishV42/parameters.json",
+    "bytes": 594,
+    "sha256": "4dcde88036c3d97feaf62dfdd28c8dea8bffb80110ee26f7bfef1dd5d03a2595"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementPolishV42/run_install.ps1",
+    "bytes": 2696,
+    "sha256": "c8c04436200cf7b0aca7d363939cfe23624798a1f8bfb475e128a1567fdae962"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/ElementPolishV42/ue_material.py",
+    "bytes": 5128,
+    "sha256": "a7dbb35a9ca7fc385208fe33239799246d50d1fcb114a65c926c631e2ee27f0f"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/GripTailRefinement20261009/author_blender.py",
+    "bytes": 9482,
+    "sha256": "c873c7c8b155b740b53448ac5bb5f5b79c168436eadef6fc48c721cbae7a174e"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/GripTailRefinement20261009/compile_live.py",
+    "bytes": 844,
+    "sha256": "f57d1dbbdbb279b0078890a7f058859cd82f0ffd6ac64fe5f62e6e05022fd207"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/GripTailRefinement20261009/install_ue.py",
+    "bytes": 17531,
+    "sha256": "d237b8080320099e225295709d2a4ceb611bbceb973db9d0317f41db5a89b9b8"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/GripTailRefinement20261009/read_inputs.py",
+    "bytes": 1391,
+    "sha256": "94574fa0185c693ea20425383cd407e66d3eea8d667a947aa010bbe57971c3f3"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/GripTailRefinement20261009/resume_meshes.py",
+    "bytes": 413,
+    "sha256": "6a5cf7de2555dff4d6713792655fe2696751bab4fe638550b936486a6db52d5a"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/GripTailRefinement20261009/run_grain_scale.ps1",
+    "bytes": 1722,
+    "sha256": "f56c84a520fc1e2784516ae608d082182ff0dace57a8b88291ea488c6af7dd54"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/GripTailRefinement20261009/run_install.ps1",
+    "bytes": 1716,
+    "sha256": "6af6a191e73c18563fe4dd232d7078a43b5cfe64958e3380f0a4cc69c2b4fc27"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/GripTailRefinement20261009/run_resume.ps1",
+    "bytes": 1719,
+    "sha256": "a3fb25f6febdeb55454c57dd91c2bf7c7abcb01f16091b1e09c543cbc32711cb"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/GripTailRefinement20261009/save_grain_scale.py",
+    "bytes": 1569,
+    "sha256": "965c4d2c537a1350486580307d791fa5edb6b1eba4770fff461725f2d844b46e"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/GripTailRefinement20261009/surfaces.json",
+    "bytes": 952,
+    "sha256": "5bb3c32c0354f7ddf5d37581122265ee894ef44c2659920c278a06cbd49883d8"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzAimV22/ue_quartz_material.py",
+    "bytes": 5143,
+    "sha256": "77e58a3b7da40287801871aee4f18c76d8286511437fab474a5d4857aa8ebc31"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzOpticsV36/OpticalChord.hlsl",
+    "bytes": 5860,
+    "sha256": "8878b241a0b421279d5df9e9338c387ca457601415bac71b0212b512b8987f30"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzOpticsV36/author_editable.py",
+    "bytes": 4643,
+    "sha256": "0a7aa82d5b16cfc1c08d70fb9744b3029340d5c3796504dff16ebf8602a0b2e3"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzOpticsV36/author_optics.py",
+    "bytes": 3721,
+    "sha256": "1a2fc4e5116e6eeac9f578e792f09e4d0629b6abdc1dd9ab9bdf31f71676147a"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzOpticsV36/install_ue.py",
+    "bytes": 5272,
+    "sha256": "9e4e03909d4b5b1dffab0d1842da7eb174543d1ef9910e721ca8464204a0c703"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzOpticsV36/parameters.json",
+    "bytes": 555,
+    "sha256": "8281d65fd5a9864bcd7fa53ab38ffa1cbe15966352b1952995d6d43080d0f459"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzOpticsV36/restore_offline.py",
+    "bytes": 1226,
+    "sha256": "d52f1c5a135d67d74df4f2ee019ed7e8f79abb5b70a6454e2d942c85ce98a51c"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzOpticsV36/run_install.ps1",
+    "bytes": 1967,
+    "sha256": "062954833b453fb2bf07a135b6d1dc23bc85adaabd8dba206614bb367e5a3246"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzOpticsV36/ue_material.py",
+    "bytes": 10915,
+    "sha256": "e79a1903431978eddf04e2566a55dace57706c5f52a03c3f9e49fc3de8654334"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzPolishV41/OpticalChord.hlsl",
+    "bytes": 5860,
+    "sha256": "8878b241a0b421279d5df9e9338c387ca457601415bac71b0212b512b8987f30"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzPolishV41/author_polish.py",
+    "bytes": 4055,
+    "sha256": "96f3173769a41fba27f2d199684190f24048f641bd2b8990c5b099aab4e8fd40"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzPolishV41/install_ue.py",
+    "bytes": 3752,
+    "sha256": "bbb5d358a8c035a1957e72e80b289e8bb23db689aff73233c478ffb474377758"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzPolishV41/parameters.json",
+    "bytes": 623,
+    "sha256": "1f7d92c6c9b1d51ea55d881ebaac8624d1265f70f2f2347510805fa9feb928e9"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzPolishV41/prepare_install.py",
+    "bytes": 503,
+    "sha256": "1076d980bee58889c3ccac20a3d224e7be7ea354bc2f08d54420870612d8554f"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzPolishV41/run_install.ps1",
+    "bytes": 2692,
+    "sha256": "dff2f6f2374d754cc2f60060841fe4d23ea4c5edc8b3b90f64d11ed5588e954b"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzPolishV41/ue_material.py",
+    "bytes": 10620,
+    "sha256": "f58996b7e01f876fe93a1a09c7c610cf504f6f4cbf21388c28126194f9a822ac"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/QuartzSurfaceV35/ue_material.py",
+    "bytes": 7558,
+    "sha256": "d7766db184be60c96021a3ba04d0ed1a46280b63101e0e54bb2a7a0c578abde4"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/RuneRefinement20261009/author_blender.py",
+    "bytes": 7391,
+    "sha256": "fcf13d9db82b6977a5b52d74113e90910ff4712ea5498f58e18bbfbd6e2f866e"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/RuneRefinement20261009/install_ue.py",
+    "bytes": 12180,
+    "sha256": "a84d509252ccadb43f7a5bdb9e530c6f4659ab26e24ec889ffebb123d02e5b6b"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/RuneRefinement20261009/palette.json",
+    "bytes": 308,
+    "sha256": "fb1692e2983ee5086f1e36b5f3fbf0c1eed90ab887cc764ba9aeeab4d804fb85"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/RuneRefinement20261009/prompts.json",
+    "bytes": 5002,
+    "sha256": "b395108084f0216864d5b2c7e9a73eb628c037ee5a004c5256aa70d59a6e7595"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/RuneRefinement20261009/read_installed.py",
+    "bytes": 1135,
+    "sha256": "64683651764e8f71d805aeed47443352f676775c5eb27bd1eadc1ccd9f9c11c7"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/RuneRefinement20261009/rune_field.hlsl",
+    "bytes": 1074,
+    "sha256": "7c2010b79d9bdc497e70ec5928b24e1b093152f9580a7c8513091ae9c83c4cd5"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/RuneRefinement20261009/rune_glow.hlsl",
+    "bytes": 660,
+    "sha256": "c5c1964a4f4c9fc9bb7c8f5352a3bf0c6f4bf3a970c640058c8901e9ad5e6488"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/attachment_copy.py",
+    "bytes": 3356,
+    "sha256": "d52e7e505ef0b9c76d5ebe7a9d13664d1309ff445befb92b30f1fca8360ca0ad"
+  },
+  {
+    "path": "SourceAssets/ApprenticeStaff20260927/create_catalog.py",
+    "bytes": 3296,
+    "sha256": "f3591ec6ad11ed337587d00fbfb92088dbe8603053bb76edb0e4db09883be89c"
+  },
+  {
+    "path": "SourceAssets/ArcaneSwordPommelsExclusive20261009/README.md",
+    "bytes": 2462,
+    "sha256": "ca8193bf558d2e6261289e88dc41baec40a447653d82ad1cd97a489c0115b1ed"
+  },
+  {
+    "path": "SourceAssets/ArcaneSwordPommelsExclusive20261009/apply_changes.py",
+    "bytes": 3201,
+    "sha256": "f5ba5fb8397680f61799d803b74acf09db7ce2bdb8060a08f763a6f70f7b2003"
+  },
+  {
+    "path": "SourceAssets/ArcaneSwordPommelsExclusive20261009/compile_live.py",
+    "bytes": 863,
+    "sha256": "7608b455170fd0a2542005a029bb5d81aaca44a52e576d8a373a493afb14b3be"
+  },
+  {
+    "path": "SourceAssets/DirectAttributeDetails20261009/README.md",
+    "bytes": 1283,
+    "sha256": "60df6147abcda06ec47a093c0d85d6898d095c1798e72f37fea17006021b8454"
+  },
+  {
+    "path": "SourceAssets/FrostSpiritVisibility20261009/README.md",
+    "bytes": 4628,
+    "sha256": "9f1eed06e7671ba4b148d43aeb2a2f7d3a043544a2ffac091fc94bb107f12de7"
+  },
+  {
+    "path": "SourceAssets/FrostSpiritVisibility20261009/finish_material_build.py",
+    "bytes": 2074,
+    "sha256": "2a5289f4f0f4edf861e5ac64c4e1170642a7238329caf04f2ffbcc5660df6c75"
+  },
+  {
+    "path": "SourceAssets/FrostSpiritVisibility20261009/install_material.py",
+    "bytes": 5364,
+    "sha256": "3058e8ac725ac8de2fb2e66a0de75bd40dd21870d4402f30c05fc0670a22f334"
+  },
+  {
+    "path": "SourceAssets/FrostSpiritVisibility20261009/parameters.json",
+    "bytes": 108,
+    "sha256": "6fb754b68a0c4d4a6f4f00be77de2bb2319f3db3be5bc6d38b1537042b8213f3"
+  },
+  {
+    "path": "SourceAssets/FrostSpiritVisibility20261009/prepare_source.py",
+    "bytes": 1894,
+    "sha256": "897a3dd55598deb4e4210d73b44d5000a57f9584056ee5c79716be17660cbc5c"
+  },
+  {
+    "path": "SourceAssets/FrostSpiritVisibility20261009/read_editor_material.py",
+    "bytes": 1308,
+    "sha256": "40c5885d28aefe13e6ca0f86c5b03049793573ee87c8053718745f2a04a80935"
+  },
+  {
+    "path": "SourceAssets/FrostSpiritVisibility20261009/read_loaded_build.py",
+    "bytes": 2679,
+    "sha256": "bdd5ba2fb0e9329858e942616a89cc7a7daaeca4c607775d9983951d9eeba556"
+  },
+  {
+    "path": "SourceAssets/FrostSpiritVisibility20261009/read_state.py",
+    "bytes": 2856,
+    "sha256": "f0847730737a5bd7ca427e5d575b88fe16345917c4516d4148e13074b39cd643"
+  },
+  {
+    "path": "SourceAssets/FrostSpiritVisibility20261009/spirit_visible.hlsl",
+    "bytes": 4401,
+    "sha256": "676c6582b490af4f4e38c47ee6a34697c25303a96055ba72aa65536a525136c3"
+  },
+  {
+    "path": "SourceAssets/HasteRune20261009/README.md",
+    "bytes": 2524,
+    "sha256": "3b58b0d8101a0913303def07a25c787f5cd40974bd22409bc70ce59d8e0cae86"
+  },
+  {
+    "path": "SourceAssets/HasteRune20261009/apply_source.py",
+    "bytes": 2265,
+    "sha256": "8bbb567dc6e8cce0e758b68af354caaee3c192d16780af3d48457c9be878e624"
+  },
+  {
+    "path": "SourceAssets/HasteRune20261009/author_assets.py",
+    "bytes": 2472,
+    "sha256": "6f586d0aa636db87267b60087a08932cc32280357331164ba96c4dce1114718b"
+  },
+  {
+    "path": "SourceAssets/HasteRune20261009/design.json",
+    "bytes": 632,
+    "sha256": "0a016d93c63a14056f7db0a11d97425b7e647e739d9f3f4814dc37d6e1784ea1"
+  },
+  {
+    "path": "SourceAssets/HasteRune20261009/end_play.py",
+    "bytes": 245,
+    "sha256": "a40cadfba1e153a13a9f49c12e44b4f1959b25940a4842622eb4fc73b88b6f68"
+  },
+  {
+    "path": "SourceAssets/HasteRune20261009/finish_headless.py",
+    "bytes": 515,
+    "sha256": "b6c4e7dc13ced83849911cab672f51f4f527cd4560fe0952b4176d9b4246d2cc"
+  },
+  {
+    "path": "SourceAssets/HasteRune20261009/finish_install.py",
+    "bytes": 848,
+    "sha256": "b8440ec8817747744fa446fa576c21648cf6db90f6431975dea16de097df3ffc"
+  },
+  {
+    "path": "SourceAssets/HasteRune20261009/haste_rune_mask.svg",
+    "bytes": 868,
+    "sha256": "49c439f0857c4db39653427ad60305c8f7b00a85482b4d9e20d28abac1a4c317"
+  },
+  {
+    "path": "SourceAssets/HasteRune20261009/import_assets.py",
+    "bytes": 2252,
+    "sha256": "57bdb0996f5aad9781d943707f41fe5e57f604b61d116515bc7ebac09fe13926"
+  },
+  {
+    "path": "SourceAssets/HasteRune20261009/install_catalog.py",
+    "bytes": 1363,
+    "sha256": "4fb00761df0a1c8e794ec0eecebbf0f1ee768a8e824c5a9eeadac26a2508973a"
+  },
+  {
+    "path": "SourceAssets/HasteRune20261009/option.json",
+    "bytes": 333,
+    "sha256": "4f2d9f974e91fd98eb0ceb94bdd4021355276efb6e15c0082c450323bec415a5"
+  },
+  {
+    "path": "SourceAssets/MeleeBladeDetails20261009/README.md",
+    "bytes": 2230,
+    "sha256": "ddcd11433c98788865d7b78360c566256b9d23c952b6512a27e0e009e91eedb5"
+  },
+  {
+    "path": "SourceAssets/RuneSymbolIcons20261009/README.md",
+    "bytes": 2101,
+    "sha256": "573c44f6722a22e9646134cacec629cb7dbef25be0e117a594ce0a77f4301cc1"
+  },
+  {
+    "path": "SourceAssets/RuneSymbolIcons20261009/deploy_pngs.py",
+    "bytes": 2494,
+    "sha256": "27a669e42d16b889cad688b2032da91b969c69e540a8a72ac0f9b9bcad18875e"
+  },
+  {
+    "path": "SourceAssets/RuneSymbolIcons20261009/generation-prompts.json",
+    "bytes": 5282,
+    "sha256": "b2bf4f98929c22dc127643aad47c24cbd5eb2eaa16cdd31764f09ee96f74d2a1"
+  },
+  {
+    "path": "SourceAssets/RuneSymbolIcons20261009/import_icons.py",
+    "bytes": 1908,
+    "sha256": "849102340c6df48b56c3249de055a0b7c59d2605c77d1624296712d8326537ab"
+  },
+  {
+    "path": "SourceAssets/RuneSymbolIcons20261009/run_import.ps1",
+    "bytes": 1400,
+    "sha256": "7a3b5f7b530db911435f1a70dfe506fbfe2d4a2102c64fcaf314e2359f582069"
+  },
+  {
+    "path": "skills/ue5-weapon-workflow/references/attachment-detail-presentation.md",
+    "bytes": 8864,
+    "sha256": "650ab8799e2fb0718ca60e4891d2c583506215ec394acd79054cc086868076aa"
+  },
+  {
+    "path": "skills/ue5-weapon-workflow/references/attachment-icons.md",
+    "bytes": 17978,
+    "sha256": "80bac748c132f1697e498184fbdf0b0ef0933e755bde634b617ab37d6efa8b0b"
+  },
+  {
+    "path": "skills/ue5-weapon-workflow/references/staff-modular-production.md",
+    "bytes": 17552,
+    "sha256": "206d6190a87ba988fc2316a3aa33838445c651e5efabafeabf3840a736ea4156"
+  }
+]
