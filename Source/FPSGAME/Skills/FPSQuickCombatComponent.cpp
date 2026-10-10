@@ -17,6 +17,8 @@
 #include "../Weapons/Bow/BowQuickCombatMotion.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Weapons/Staff/StaffQuickCombatMotion.h"
+#include "../Weapons/Spellbook/SpellbookComponent.h"
+#include "../Weapons/Spellbook/SpellbookAuthoredStrike.h"
 #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "../Weapons/Unarmed/UnarmedPunchTuning.h"
 #include "../Weapons/MeleeWeaponStats.h"
@@ -93,6 +95,16 @@ void UFPSQuickCombatComponent::ConfigureForStaffOffhandPistol(float Length)
 {
     ConfigureForClipLength(Length,true);
     Style=EQuickCombatStyle::StaffOffhandPistol;
+}
+
+void UFPSQuickCombatComponent::ConfigureForSpellbookPush()
+{
+    Style=EQuickCombatStyle::SpellbookPush;
+    ClipLength=AttackEnd=SpellbookAuthoredStrike::Length;
+    ReleaseEnd=SpellbookAuthoredStrike::Release;
+    CockEnd=SpellbookAuthoredStrike::Cock;
+    ContactTime=SpellbookAuthoredStrike::Contact;
+    FollowEnd=SpellbookAuthoredStrike::Follow;
 }
 
 void UFPSQuickCombatComponent::ConfigureForUnarmedPunch()
@@ -242,7 +254,7 @@ void UFPSQuickCombatComponent::GetCameraMotion(FVector& Location,FRotator& Rotat
         AddImpact();
         return;
     }
-    if(Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::UnarmedPunch)
+    if(Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::UnarmedPunch||Style==EQuickCombatStyle::SpellbookPush)
     {
         const float T=PhaseFraction(),K=FMath::SmoothStep(0.f,1.f,T);
         switch(Phase)
@@ -264,6 +276,11 @@ void UFPSQuickCombatComponent::GetCameraMotion(FVector& Location,FRotator& Rotat
         if(Style==EQuickCombatStyle::UnarmedPunch)
             if(const auto* Hands=GetOwner()->FindComponentByClass<UFPSUnarmedIdleComponent>();Hands&&Hands->GetPunchSide()==1)
             {Location.Y=-Location.Y;Rotation.Yaw=-Rotation.Yaw;Rotation.Roll=-Rotation.Roll;}
+        if(Style==EQuickCombatStyle::SpellbookPush)
+        {
+            Location*=FVector(.65f,.2f,.4f);
+            Rotation.Pitch*=.6f;Rotation.Yaw*=.2f;Rotation.Roll*=.2f;
+        }
         AddImpact();return;
     }
     if(Style==EQuickCombatStyle::Bow)
@@ -369,6 +386,7 @@ void UFPSQuickCombatComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     // advance twice or let the wall-clock state finish through a hit stop.
     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
     if(Style==EQuickCombatStyle::UnarmedPunch&&Player)return; // advanced once before the character camera
+    if(Style==EQuickCombatStyle::SpellbookPush&&Player)return;
     if(Player&&Player->HasOffhandPistol()&&(Style==EQuickCombatStyle::DualPistol||Style==EQuickCombatStyle::StaffOffhandPistol))return;
     if(Style==EQuickCombatStyle::StaffPunch&&Player)
         if(const auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())return;
@@ -389,9 +407,14 @@ void UFPSQuickCombatComponent::AdvanceAction(float Delta)
     const auto* Staff=Player?Player->FindComponentByClass<UStaffWeaponComponent>():nullptr;
     const auto* Dual=Player?Player->FindComponentByClass<UPistolDualWieldComponent>():nullptr;
     const auto* Hands=Player?Player->FindComponentByClass<UFPSUnarmedIdleComponent>():nullptr;
+    const auto* Book=Player?Player->FindComponentByClass<USpellbookComponent>():nullptr;
     const bool bStaff=Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::StaffOffhandPistol;
     const bool bUnarmed=Style==EQuickCombatStyle::UnarmedPunch;
-    const bool bWeaponMatches=Player&&(bUnarmed
+    const bool bBook=Style==EQuickCombatStyle::SpellbookPush;
+    const bool bWeaponMatches=Player&&(bBook
+        ?(Book&&Book->OwnsLeftHand()&&!Player->IsDoorPushActive()
+            &&!AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Player->GetController())))
+        :bUnarmed
         ?(Hands&&Hands->IsEquipped()&&!Player->IsTraversing()
             &&!AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Player->GetController())))
         :bStaff
@@ -470,7 +493,7 @@ void UFPSQuickCombatComponent::AdvanceAction(float Delta)
         ActionAge+=Remaining*ASH12RecoveryRate;
         Phase=PhaseForAge(ActionAge);
     }
-    else if(bStaff||bUnarmed)
+    else if(bStaff||bUnarmed||bBook)
     {
         const float NextAge=ActionAge+Delta;
         if(!bContactDone&&NextAge>=ContactTime)
@@ -532,6 +555,7 @@ void UFPSQuickCombatComponent::ContactHit()
     }
     // 手枪：握把底（手骨 + 相机空间偏移）；步枪：枪身前段（枪口沿枪轴回撤，跟随实际挥击姿态）。
     const bool bBow=Style==EQuickCombatStyle::Bow;
+    const bool bBook=Style==EQuickCombatStyle::SpellbookPush;
     const bool bPunch=Style==EQuickCombatStyle::StaffPunch||bUnarmed;
     const bool bOffhand=Style==EQuickCombatStyle::StaffOffhandPistol;
     const bool bRifle=IsRifleStyle();
@@ -539,7 +563,10 @@ void UFPSQuickCombatComponent::ContactHit()
     auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();
     auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();
     auto* Hands=Player->FindComponentByClass<UFPSUnarmedIdleComponent>();
-    const bool bProbe=bUnarmed
+    auto* Book=Player->FindComponentByClass<USpellbookComponent>();
+    const bool bProbe=bBook
+        ?(Book&&Book->GetQuickCombatStrikeProbe(ProbeOrigin))
+        :bUnarmed
         ?(Hands&&Hands->GetStrikeProbe(ProbeOrigin))
         :bPunch
         ?(Staff&&Staff->GetQuickCombatStrikeProbe(ProbeOrigin,ContactTime))
@@ -550,10 +577,11 @@ void UFPSQuickCombatComponent::ContactHit()
         :(bRifle
             ?(Viewmodel&&Viewmodel->GetRifleStockMeleeProbe(ProbeOrigin,Style==EQuickCombatStyle::M4ReferenceRifle))
             :(Viewmodel&&Viewmodel->GetQuickCombatStrikeProbe(ProbeOrigin)));
+    if(bBook&&!bProbe)return;
     if(bProbe)Start=ProbeOrigin;
     FHitResult Hit;
     // 单目标：实际接触优先；小手低位范围补充共用同一次伤害结算。
-    const float Radius=bPunch?StaffQuickCombatMotion::QueryRadiusCM:bBow?BowQuickCombatMotion::QueryRadiusCM
+    const float Radius=bBook?SpellbookAuthoredStrike::QueryRadiusCM:bPunch?StaffQuickCombatMotion::QueryRadiusCM:bBow?BowQuickCombatMotion::QueryRadiusCM
         :bRifle?QuickCombatRifleMotion::QueryRadiusCM:QuickCombatPistolMotion::QueryRadiusCM;
     const bool bHit=MeleeSmallTargets::QueryQuickContact(GetWorld(),Player,Aim,Start,Stats.RangeCM,Radius,Hit);
     // One impulse per damage query, including misses. Keep hit confirmation
@@ -564,8 +592,8 @@ void UFPSQuickCombatComponent::ContactHit()
     const FString TargetName=Target?Target->GetName():FString(TEXT("无"));
     // R0 诊断：一次动作只打一行，标出射线来源、起点与命中对象，方便对实机反馈。
     UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 接触 武器=%s 射线=%s 起点=%s 方向=%s 距离=%.0f 目标=%s"),
-        bUnarmed?TEXT("空手拳击"):bPunch?TEXT("法杖左拳"):bOffhand?TEXT("法杖副手枪"):bBow?TEXT("弓"):bRifle?TEXT("步枪"):TEXT("手枪"),
-        bProbe?(bUnarmed?(Hands->GetPunchSide()==1?TEXT("右拳指节"):TEXT("左拳指节")):bPunch?TEXT("左拳指节"):bOffhand?TEXT("左手持枪拳"):bBow?TEXT("弓身下段"):bRifle?(Style==EQuickCombatStyle::M4ReferenceRifle?TEXT("M4枪托"):TEXT("枪身前段")):TEXT("握把底")):TEXT("眼位回退"),
+        bBook?TEXT("魔法书前击"):bUnarmed?TEXT("空手拳击"):bPunch?TEXT("法杖左拳"):bOffhand?TEXT("法杖副手枪"):bBow?TEXT("弓"):bRifle?TEXT("步枪"):TEXT("手枪"),
+        bProbe?(bBook?TEXT("书页外沿"):bUnarmed?(Hands->GetPunchSide()==1?TEXT("右拳指节"):TEXT("左拳指节")):bPunch?TEXT("左拳指节"):bOffhand?TEXT("左手持枪拳"):bBow?TEXT("弓身下段"):bRifle?(Style==EQuickCombatStyle::M4ReferenceRifle?TEXT("M4枪托"):TEXT("枪身前段")):TEXT("握把底")):TEXT("眼位回退"),
         *Start.ToCompactString(),*Direction.ToCompactString(),Stats.RangeCM,*TargetName);
     if(bHit && UWardBreakableGlass::BreakHit(Hit,Direction))
     {ImpactAge=0.f;ImpactStrength=1.f;return;}
@@ -579,7 +607,8 @@ void UFPSQuickCombatComponent::ContactHit()
         Shot.CriticalChance=Profile->Derived(TEXT("crit"));
         Shot.CriticalDamageBonus=Profile->CriticalStrikeEffect().CriticalDamageBonus;
     }
-    else Shot=ColdSteelSkills::Snapshot(Player,bOffhand&&Dual?&Dual->Hand(1).Item:bBow?Profile->ActiveBow():Profile->Equipped(),false);
+    else Shot=ColdSteelSkills::Snapshot(Player,bBook?Profile->Equipped(Profile->Snapshot().ActiveWeaponSlot==6?8:11)
+        :bOffhand&&Dual?&Dual->Hand(1).Item:bBow?Profile->ActiveBow():Profile->Equipped(),false);
     // 步枪版走 rifleMastery 修炼（与枪械命中同一口径），手枪版走 pistolMastery。
     Shot.bRifle=bRifle;Shot.bPistol=IsPistolStyle();Shot.WeakpointPercent=0;
     // 握把底/枪身砸击是钝器动作，按钝器折算削韧；同时标记为手持枪械发动的近战打击，

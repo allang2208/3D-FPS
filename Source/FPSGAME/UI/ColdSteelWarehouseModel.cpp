@@ -40,11 +40,11 @@ FColdSteelProposal UColdSteelStatusModel::ProposeCompartment(const FString& Id,i
 bool UColdSteelStatusModel::GrantStartingArmory()
 {
     auto State=Snapshot();bool Changed=false;
-    for (const TCHAR* Definition : {TEXT("ue_super90"), TEXT("ue_hk416"), TEXT("ue_pit_viper2011"), TEXT("ue_g18"), TEXT("ue_svd"), TEXT("ue_pkm_lowpoly"), TEXT("ue_a762"), TEXT("ue_lmg201"), TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_rsh12"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword"), TEXT("ue_frost_crystal_sword"), TEXT("ue_highland_claymore"), TEXT("ue_apprentice_staff"), TEXT("ue_tang_dao"), TEXT("ue_xuanchi_zhenyue")})
+    for (const TCHAR* Definition : {TEXT("ue_super90"), TEXT("ue_hk416"), TEXT("ue_pit_viper2011"), TEXT("ue_g18"), TEXT("ue_svd"), TEXT("ue_pkm_lowpoly"), TEXT("ue_a762"), TEXT("ue_lmg201"), TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_rsh12"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword"), TEXT("ue_frost_crystal_sword"), TEXT("ue_highland_claymore"), TEXT("ue_apprentice_staff"), TEXT("ue_alchemy_spellbook"), TEXT("ue_tang_dao"), TEXT("ue_xuanchi_zhenyue")})
     {
         if(State.ArmoryReceived.Contains(Definition))continue;
         auto Gun=CreateItem(Definition);if(Gun.Data.IsEmpty())return false;
-        Gun.Magazine=IsMeleeWeapon(Gun)?0:FString(Definition)==TEXT("ue_pit_viper2011")?15:FString(Definition)==TEXT("ue_g18")?17:FString(Definition)==TEXT("ue_super90")?7:FString(Definition)==TEXT("ue_svd")?10:FString(Definition)==TEXT("ue_pkm_lowpoly")?100:FString(Definition)==TEXT("ue_m1911")?7:FString(Definition)==TEXT("ue_rsh12")?5:FString(Definition)==TEXT("ue_dan_wesson715")?6:FString(Definition)==TEXT("ue_ash12")?20:30;
+        Gun.Magazine=(IsMeleeWeapon(Gun)||FString(Definition)==TEXT("ue_alchemy_spellbook"))?0:FString(Definition)==TEXT("ue_pit_viper2011")?15:FString(Definition)==TEXT("ue_g18")?17:FString(Definition)==TEXT("ue_super90")?7:FString(Definition)==TEXT("ue_svd")?10:FString(Definition)==TEXT("ue_pkm_lowpoly")?100:FString(Definition)==TEXT("ue_m1911")?7:FString(Definition)==TEXT("ue_rsh12")?5:FString(Definition)==TEXT("ue_dan_wesson715")?6:FString(Definition)==TEXT("ue_ash12")?20:30;
         if(!ColdSteelWarehouse::Insert(State.Items,Gun,WarehouseCapacity()))return false;
         if(FString(Definition)==TEXT("ue_super90"))
         {

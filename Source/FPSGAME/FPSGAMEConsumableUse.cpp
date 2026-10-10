@@ -2,6 +2,7 @@
 #include "Weapons/RuneSwordComponent.h"
 #include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/Staff/StaffWeaponComponent.h"
+#include "Weapons/Spellbook/SpellbookComponent.h"
 #include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "Weapons/PistolDualWieldComponent.h"
 #include "Production/ProductionToolComponent.h"
@@ -31,6 +32,7 @@ bool AFPSGAMECharacter::CanBeginConsumableUse() const
 void AFPSGAMECharacter::PrepareForConsumableUse()
 {
     InterruptWeaponInspection();
+    if(Spellbook)Spellbook->CancelFocus();
     // Clearing intent is essential: holding RMB must not reacquire ADS next tick.
     bAimHeld=false;SetAimingState(false);
     if(RuneSword && RuneSword->IsEquipped() && (RuneSword->IsBusy() || RuneSword->IsInspecting()))
@@ -40,6 +42,7 @@ void AFPSGAMECharacter::PrepareForConsumableUse()
 
 USkeletalMeshComponent* AFPSGAMECharacter::ConsumableHands() const
 {
+    if(HasOffhandSpellbook())return Spellbook->ArmsMesh();
     if(HasOffhandPistol())return DualPistols->Hand(1).Mesh.Get();
     if(RuneSword && RuneSword->IsEquipped())return RuneSword->ArmsMesh();
     if(const auto* Tool=FindComponentByClass<UProductionToolComponent>();Tool && Tool->IsEquipped())return Tool->ArmsMesh();

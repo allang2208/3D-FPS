@@ -57,7 +57,7 @@ bool AFPSGAMECharacter::CanStartQuickCombatPriority() const
     if(const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();Health && Health->IsDead())return false;
     if(QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand())return false;
     if(RuneSword && RuneSword->IsQuickCombatActive())return false;
-    return bInventoryWeaponReady || (RuneSword && RuneSword->IsEquipped()) || (Bow && Bow->IsEquipped()) || (Staff && Staff->IsEquipped());
+    return bInventoryWeaponReady || HasOffhandSpellbook() || (RuneSword && RuneSword->IsEquipped()) || (Bow && Bow->IsEquipped()) || (Staff && Staff->IsEquipped());
 }
 
 void AFPSGAMECharacter::InterruptActionsForPriority(bool bWeaponSwitch)

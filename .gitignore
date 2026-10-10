@@ -3147,3 +3147,15 @@ __pycache__/
 !/SourceAssets/HasteRune20261009/option.json
 !/SourceAssets/HasteRune20261009/design.json
 !/SourceAssets/RuneSymbolIcons20261009/generation-prompts.json
+
+# Spellbook pause/publication: recipes and prose only; source media,
+# dense authoring records, imported content, backups and receipts stay local.
+/SourceAssets/SpellbookEvildeer20261009/**
+!/SourceAssets/SpellbookEvildeer20261009/**/
+!/SourceAssets/SpellbookEvildeer20261009/**/*.py
+!/SourceAssets/SpellbookEvildeer20261009/**/*.md
+!/SourceAssets/SpellbookEvildeer20261009/**/*.hlsl
+/SourceAssets/SpellbookEvildeer20261009/**/Before/
+/SourceAssets/SpellbookEvildeer20261009/**/__pycache__/
+!/Content/ColdSteelData/Licenses/
+!/Content/ColdSteelData/Licenses/SpellbookEvildeer20261009.txt

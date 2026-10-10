@@ -30,7 +30,7 @@ FTransform UStaffArmsMeshComponent::AuthoredContactInCamera(const FStaffCastPose
 void UStaffArmsMeshComponent::FinalizeBoneTransform()
 {
     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
-    const bool OffhandPistol=Player&&Player->HasOffhandPistol();
+    const bool OffhandPistol=Player&&(Player->HasOffhandPistol()||Player->IsOffhandSpellbookPresented());
     // Only one rig owns the left arm, including potion/spell overlays and outfit followers.
     bApplyLeftHandCast=!OffhandPistol;
     auto* Weapon=GetOwner()?GetOwner()->FindComponentByClass<UStaffWeaponComponent>():nullptr;

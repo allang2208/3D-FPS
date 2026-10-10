@@ -160,6 +160,7 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleLocalState() const
             const auto* Hands=Pawn->FindComponentByClass<UFPSUnarmedIdleComponent>();
             State.ActionVariant=Hands&&Hands->GetPunchSide()==0?TEXT("PunchLeft"):TEXT("PunchRight");
         }
+        if(Bash->GetStyle()==EQuickCombatStyle::SpellbookPush)State.ActionVariant=TEXT("SpellbookPush");
     }
     // IsCastingWithLeftHand intentionally includes gun bash for input arbitration.
     // Presentation must ask the spell owner, not reinterpret that shared busy flag.

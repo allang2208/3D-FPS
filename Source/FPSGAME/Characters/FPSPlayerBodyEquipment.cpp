@@ -13,6 +13,8 @@
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Weapons/Staff/StaffAssembly.h"
 #include "../Weapons/Staff/StaffGripPose.h"
+#include "../Weapons/Spellbook/SpellbookComponent.h"
+#include "../Weapons/Spellbook/SpellbookAuthoredGrip.h"
 #include "../Weapons/PistolDualWieldComponent.h"
 #include "../Production/ProductionToolComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -251,6 +253,18 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
             Weapons.Add(MoveTemp(Entry));
         }
     }
+    if(const auto* Spellbook=Pawn->FindComponentByClass<USpellbookComponent>();Spellbook&&Spellbook->IsEquipped())
+    {
+        const auto* Book=Spellbook->BookMesh();auto* Arms=Spellbook->ArmsMesh();
+        if(Book&&Book->GetStaticMesh()&&Arms&&Arms->GetSkeletalMeshAsset())
+        {
+            FFPSBodyWeapon Entry;Entry.StaticMesh=Book->GetStaticMesh();Entry.Mesh=Arms->GetSkeletalMeshAsset();
+            Entry.StaticSource=Spellbook->BookMesh();Entry.Source=Arms;Entry.GripBone=TEXT("hand_l");
+            Entry.AttachHand=1;Entry.PoseFamily=TEXT("Spellbook");Entry.StaticGrip=SpellbookAuthoredGrip::BookInHand;
+            for(int32 M=0;M<Book->GetNumMaterials();++M)Entry.Materials.Add(FPSBodyEquipment::PersistentMaterial(Book->GetMaterial(M)));
+            Weapons.Add(MoveTemp(Entry));
+        }
+    }
     for(auto& W:Weapons)
     {
         FString Schema=W.Mesh.ToSoftObjectPath().ToString()+W.StaticMesh.ToSoftObjectPath().ToString()+W.GripBone.ToString();
@@ -331,6 +345,19 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
             GetOwner()->AddInstanceComponent(Part);Part->SetStaticMesh(Static);
             Part->SetupAttachment(Body,BodyHand);Part->SetRelativeTransform(Definition.StaticGrip);
             if(Definition.PoseFamily==TEXT("Shovel"))BuildShovelGrip(Definition,*Part);
+            if(Definition.PoseFamily==TEXT("Spellbook"))if(auto* Native=Definition.Mesh.LoadSynchronous();Native&&BodyAnimation)
+            {
+                const auto& Ref=Native->GetRefSkeleton();auto Pose=Ref.GetRefBonePose();
+                for(const auto& Finger:SpellbookAuthoredGrip::Fingers)
+                    if(const int32 I=Ref.FindBoneIndex(Finger.Name);I>=0)Pose[I].SetRotation(Finger.Rotation.GetNormalized());
+                for(int32 I=0;I<Pose.Num();++I)if(Ref.GetParentIndex(I)>=0)Pose[I]=Pose[I]*Pose[Ref.GetParentIndex(I)];
+                FFPSBodyGripRig Grip;Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),BodyHand);
+                if(Grip.IsValid())
+                {
+                    Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=1<<Side;
+                    Part->SetRelativeTransform(SpellbookAuthoredGrip::BookInHand*Grip.Mount);
+                }
+            }
             WorldEquipmentHands.Add(Part,static_cast<uint8>(Side));
             if(Definition.PoseFamily==TEXT("Staff"))if(auto* Native=Definition.Mesh.LoadSynchronous();Native&&BodyAnimation)
             {

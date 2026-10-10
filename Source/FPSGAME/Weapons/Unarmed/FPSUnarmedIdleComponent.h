@@ -43,7 +43,7 @@ private:
     void ApplyPunchPose(TArray<FTransform>& LocalPose);
 };
 
-/** Local first-person fists when the active primary and offhand are empty. */
+/** Empty primary: two fists, or the free right fist beside an offhand book. */
 UCLASS(ClassGroup=(Player))
 class FPSGAME_API UFPSUnarmedIdleComponent : public UActorComponent
 {
@@ -52,7 +52,7 @@ class FPSGAME_API UFPSUnarmedIdleComponent : public UActorComponent
     friend class UFPSConsumableAuditCommandlet;
 public:
     UFPSUnarmedIdleComponent();
-    bool IsEquipped() const {return bHandsEmpty&&bEquipmentResolved;}
+    bool IsEquipped() const {return (bHandsEmpty||bBookOffhandOnly)&&bEquipmentResolved;}
     USkeletalMeshComponent* ArmsMesh() const { return Arms; }
     bool IsPunching() const;
     bool IsTriggerHeld() const {return bTriggerHeld;}
@@ -72,6 +72,7 @@ private:
     TSharedPtr<FStreamableHandle> Load;
     FDelegateHandle EquipmentChanged;
     bool bHandsEmpty=false,bLoadRequested=false,bEquipmentResolved=false;
+    bool bBookOffhandOnly=false;
     float CycleTime=0.f,VisibleAge=0.f;
     void RefreshEquipment();
     void LoadArms();

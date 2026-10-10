@@ -1,4 +1,5 @@
 #include "FPSCastingMeshComponent.h"
+#include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "../Movement/FPSDoorPushComponent.h"
 #include "FPSFireballComponent.h"
@@ -38,7 +39,10 @@ void UFPSCastingMeshComponent::CacheCastSkeleton()
 
 void UFPSCastingMeshComponent::FinalizeBoneTransform()
 {
-    auto* Magic=bApplyLeftHandCast&&GetOwner()?GetOwner()->FindComponentByClass<UFPSFireballComponent>():nullptr;
+    const auto* Book=GetOwner()?GetOwner()->FindComponentByClass<USpellbookComponent>():nullptr;
+    const bool OtherLeftRig=Book&&Book->ArmsMesh()!=this&&Book->OwnsLeftHand();
+    const bool ApplyLeft=bApplyLeftHandCast&&!OtherLeftRig;
+    auto* Magic=ApplyLeft&&GetOwner()?GetOwner()->FindComponentByClass<UFPSFireballComponent>():nullptr;
     const bool bCastActive=Magic&&Magic->IsOccupyingLeftHand();
     bool bApplied=false;
     if(bCastActive&&IsVisible()&&!bHiddenInGame){ApplyCastPose(Magic);bApplied=true;}
@@ -47,11 +51,21 @@ void UFPSCastingMeshComponent::FinalizeBoneTransform()
     CarryHandleDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
     OutgoingBeltDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
     LMG201BeltDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
-    if(bApplyLeftHandCast&&IsVisible()&&!bHiddenInGame&&GetOwner())
+    if(ApplyLeft&&IsVisible()&&!bHiddenInGame&&GetOwner())
         if(auto* Potion=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())Potion->ApplyHandPose(*this);
-    if(bApplyLeftHandCast&&IsVisible()&&!bHiddenInGame&&GetOwner())
+    if(ApplyLeft&&IsVisible()&&!bHiddenInGame&&GetOwner())
         if(auto* Push=GetOwner()->FindComponentByClass<UFPSDoorPushComponent>();Push&&Push->IsActive())Push->ApplyHandPose(*this);
     OutfitArmClearance.Apply(*this, GetEditableComponentSpaceTransforms());
+    if(OtherLeftRig)
+    {
+        if(PoseMesh.Get()!=GetSkeletalMeshAsset())CacheCastSkeleton();
+        auto& Pose=GetEditableComponentSpaceTransforms();
+        if(Pose.IsValidIndex(CastClavicleIndex))
+        {
+            const FTransform Hidden(FQuat::Identity,Pose[CastClavicleIndex].GetLocation(),FVector::ZeroVector);
+            for(const int32 I:LeftBones)Pose[I]=Hidden;
+        }
+    }
     Super::FinalizeBoneTransform();
 }
 

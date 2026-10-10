@@ -325,6 +325,31 @@ bool UColdSteelStatusModel::ReloadProfile()
     // Refresh authorized material rarity and scroll presentation on existing instances.
     for(auto& I:Clean.Items)
     {
+        if(I.Definition==TEXT("ue_alchemy_spellbook"))
+        {
+            // Refresh only presentation fields on books already in a save.
+            const FString* Catalog=Definitions.Find(I.Definition);
+            TSharedPtr<FJsonObject> Data,Defaults;
+            if(Catalog&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Catalog),Defaults)&&Defaults)
+            {
+                bool Updated=false;
+                for(const TCHAR* Key:{TEXT("ue_icon"),TEXT("ue_equipment_icon_mesh")})
+                {
+                    FString Value,Old;Data->TryGetStringField(Key,Old);
+                    if(Defaults->TryGetStringField(Key,Value)&&Value!=Old)
+                    {Data->SetStringField(Key,Value);Updated=true;}
+                }
+                for(const TCHAR* Key:{TEXT("ue_icon_pitch"),TEXT("ue_icon_yaw"),TEXT("ue_icon_roll")})
+                {
+                    double Value=0,Old=0;
+                    if(Defaults->TryGetNumberField(Key,Value)&&(!Data->TryGetNumberField(Key,Old)||Value!=Old))
+                    {Data->SetNumberField(Key,Value);Updated=true;}
+                }
+                if(Updated)
+                {I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+            }
+        }
         if(I.Definition==TEXT("wood"))
         {
             const FIntPoint Size=ColdSteelInventory::Footprint(I);

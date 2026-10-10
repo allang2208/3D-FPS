@@ -192,7 +192,7 @@ bool UFPSPotionUseComponent::TryBegin(const FString& ItemId,const FString& Defin
     }
     StopSwallowAudio();bSwallowStarted=false;
     UsingItem=PendingItemId;PresentationDefinition=*Definition;++PresentationSerial;
-    bStowOffhand=Player->HasOffhandPistol();
+    bStowOffhand=Player->HasOffhandPistol()||Player->HasOffhandSpellbook();
     bCommitted=bUncapped=bDiscarded=false;
     // Keep every authored contact/audio/release time relative to actual use;
     // the leading equipment transition must never consume the item early.

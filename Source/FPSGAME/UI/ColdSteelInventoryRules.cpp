@@ -46,7 +46,8 @@ FIntPoint BaseFootprint(const FColdSteelItem& I)
     if(Firearm&&Type!=TEXT("pistol")&&Ranged!=TEXT("pistol")&&Two)return FIntPoint(5,2);
     const int32 W=Number(I,TEXT("grid_w")),H=Number(I,TEXT("grid_h"));if(W>0&&H>0)return FIntPoint(W,H);
     if(Type==TEXT("pistol"))return FIntPoint(3,2);
-    if(Type==TEXT("shield")||Type==TEXT("spellbook")||Type==TEXT("magic_book")||Category==TEXT("magic_book"))return FIntPoint(2,3);
+    if(Type==TEXT("spellbook")||Type==TEXT("magic_book")||Category==TEXT("magic_book"))return FIntPoint(2,2);
+    if(Type==TEXT("shield"))return FIntPoint(2,3);
     if(Firearm)return FIntPoint(8,2);
     if(Category==TEXT("weapon_melee"))return Two?FIntPoint(2,4):FIntPoint(1,3);
     if(!Type.IsEmpty()||Category==TEXT("weapon"))return Two?FIntPoint(8,2):FIntPoint(3,2);
@@ -458,6 +459,7 @@ bool MigrateAuthoredGridFootprints(FColdSteelProfile& Profile,bool& Changed,FStr
         {nullptr,TEXT("copperIngot"),2,1},
         {nullptr,TEXT("silverIngot"),2,1},
         {nullptr,TEXT("goldIngot"),2,1},
+        {nullptr,TEXT("ue_alchemy_spellbook"),2,2},
     };
     if(!ValidateProfile(Profile,Reason,false))return false;
     auto Next=Profile;

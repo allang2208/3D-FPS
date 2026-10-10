@@ -161,20 +161,23 @@ void UFPSUnarmedIdleComponent::BeginPlay()
 void UFPSUnarmedIdleComponent::RefreshEquipment()
 {
     const bool WasEmpty=bHandsEmpty;
-    bHandsEmpty=false;bEquipmentResolved=false;
+    const bool WasBook=bBookOffhandOnly;
+    bHandsEmpty=false;bBookOffhandOnly=false;bEquipmentResolved=false;
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
     if(Model.IsValid()&&Pawn&&Pawn->IsLocallyControlled())
     {
         // Snapshot is read on profile publication, never on the animation tick.
         const auto State=Model->Snapshot();const int32 Offhand=State.ActiveWeaponSlot==6?8:11;
         bHandsEmpty=!Model->Equipped(State.ActiveWeaponSlot)&&!Model->Equipped(Offhand)&&!Model->ActiveProductionTool();
+        const auto* Left=Model->Equipped(Offhand);
+        bBookOffhandOnly=!Model->Equipped(State.ActiveWeaponSlot)&&Left&&Left->Definition==TEXT("ue_alchemy_spellbook")&&!Model->ActiveProductionTool();
         bEquipmentResolved=true;
     }
-    if(!bHandsEmpty)CancelAttack();
-    if(WasEmpty!=bHandsEmpty)NextPunchSide=1;
+    if(!IsEquipped()||WasBook!=bBookOffhandOnly)CancelAttack();
+    if(WasEmpty!=bHandsEmpty||WasBook!=bBookOffhandOnly)NextPunchSide=1;
     if(Arms)
     {
-        if(bHandsEmpty)Arms->ComponentTags.AddUnique(TEXT("PreloadModularOutfit"));
+        if(bHandsEmpty||bBookOffhandOnly)Arms->ComponentTags.AddUnique(TEXT("PreloadModularOutfit"));
         else Arms->ComponentTags.Remove(TEXT("PreloadModularOutfit"));
     }
     UpdateVisibility();
@@ -209,7 +212,7 @@ void UFPSUnarmedIdleComponent::ApplyLoadedArms()
 bool UFPSUnarmedIdleComponent::ShouldShow() const
 {
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
-    if(!bHandsEmpty||!Arms||!Arms->GetSkeletalMeshAsset()||!Pawn||!Pawn->IsLocallyControlled()||Pawn->IsTraversing())return false;
+    if((!bHandsEmpty&&!bBookOffhandOnly)||!Arms||!Arms->GetSkeletalMeshAsset()||!Pawn||!Pawn->IsLocallyControlled()||Pawn->IsTraversing())return false;
     const auto* PC=Cast<APlayerController>(Pawn->GetController());
     if(!PC||PC->GetViewTarget()!=Pawn)return false;
     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
@@ -284,7 +287,8 @@ bool UFPSUnarmedIdleComponent::BeginPunch()
     Arms->CapturePunchEntry();
     Quick->ConfigureForUnarmedPunch();
     if(!Quick->BeginAction())return false;
-    PunchSide=NextPunchSide;NextPunchSide=1-NextPunchSide;
+    PunchSide=bBookOffhandOnly?1:NextPunchSide;
+    NextPunchSide=bBookOffhandOnly?1:1-NextPunchSide;
     Cast<AFPSGAMECharacter>(GetOwner())->ExitSprintForWeapon();
     RefreshPunchSample();
     return true;

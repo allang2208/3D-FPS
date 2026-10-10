@@ -22,6 +22,7 @@
 #include "../Weapons/Bow/BowWeaponComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+#include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
@@ -153,6 +154,7 @@ bool UColdSteelStatusModel::TriggerQuickCombat()
     if(!Player)return false;
     if(UBoundCongregateCaptureComponent::IsCaptured(Player))
         if(auto* Hands=Player->FindComponentByClass<UFPSUnarmedIdleComponent>();Hands&&Hands->IsEquipped())return Hands->BeginPunch();
+    if(auto* Book=Player->FindComponentByClass<USpellbookComponent>();Book&&Book->IsEquipped())return Book->BeginQuickCombat();
     if(auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())return Staff->BeginQuickCombat();
     if(auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();Bow && Bow->IsEquipped())return Bow->BeginQuickCombat();
     if(auto* Sword=Player->FindComponentByClass<URuneSwordComponent>())

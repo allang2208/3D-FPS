@@ -28,6 +28,8 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 ## 按问题读取
 
+- 魔法书侧握到悬浮阅读、开合或落掌回握，及重复翻转/腕臂扭曲：[魔法书开合衔接](references/spellbook-transitions.md)。区分握持、掌向与阅读终点；当前 V17 仅为暂停现场，recover 仍待重做。
+
 - 左轮换枪体后的握持穿透、单动拨锤／ADS 交接，或静态源烘焙开火导致视模消失：[左轮握持与拨锤](references/revolver-grip-cock.md)。使用 POSE 求值、完整混合蒙皮和原始绝对拟合；RSH 旧单动稿已退出当前路线；双动共用动作、ADS 同步和短枪腕臂见 [左轮共用握姿](references/revolver-shared-grip.md)。
 
 - 撞门护拳、跨武器左臂偏转、腕部变细及弓的入场／恢复：[撞门护拳与原生绑定](references/door-guard-native-binding.md)。区分原厂持握参考姿态和整体坐标基底，整链适配并保持实时恢复，不能只追加腕部补偿。

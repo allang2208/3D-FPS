@@ -32,10 +32,11 @@ bool UColdSteelWeaponIcons::PrepareEquipment(const FColdSteelItem& Item)
     MaterialMesh->EmptyOverrideMaterials();
     MaterialMesh->SetStaticMesh(Asset);
     const FBoxSphereBounds Local=Asset->GetBounds();
-    // 装备图标正面直拍：网格 -Y 面是包体外侧正面（包盖/扣具），yaw -90 使其正对相机；
-    // +Y 面是两条肩带所在的内侧（顶点壳层实测：Y- 满幅 7277 顶点，Y+ 仅 1838 凸起）。
+    // Default backpack front is -Y. Other equipment supplies its display-only
+    // orientation; the spellbook needs roll to put its -Y long axis upright.
     const FQuat Orient=FRotator(ColdSteelInventory::Number(Item,TEXT("ue_icon_pitch"),0),
-        ColdSteelInventory::Number(Item,TEXT("ue_icon_yaw"),-90),0).Quaternion();
+        ColdSteelInventory::Number(Item,TEXT("ue_icon_yaw"),-90),
+        ColdSteelInventory::Number(Item,TEXT("ue_icon_roll"),0)).Quaternion();
     const FTransform Pose(Orient,-(Orient.RotateVector(Local.Origin)),FVector::OneVector);
     MaterialMesh->SetWorldTransform(Pose);
     // 圆角装备摸不到旋转后包围盒的角：AABB 取景会让 91% 填充的合同落成约七成。

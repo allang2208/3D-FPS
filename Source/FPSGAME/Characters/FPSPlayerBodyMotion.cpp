@@ -12,6 +12,7 @@
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Weapons/Staff/StaffArmsMeshComponent.h"
 #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+#include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/PointLightComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -57,6 +58,8 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
     auto& Sample=State.Contacts;Sample=FFPSBodyMotionSample();auto* Pawn=Character.Get();if(!Pawn||!GetBodyMesh())return;
     const auto* Magic=Pawn->FindComponentByClass<UFPSFireballComponent>();
     const auto* Quick=Pawn->FindComponentByClass<UFPSQuickCombatComponent>();
+    const auto* Book=Pawn->FindComponentByClass<USpellbookComponent>();
+    const bool BookFocus=Book&&Book->IsFocusActive();
     const auto* Staff=Pawn->FindComponentByClass<UStaffWeaponComponent>();
     const auto* Bipod=Pawn->FindComponentByClass<UWeaponBipodDeploymentComponent>();
     auto* Potion=Pawn->FindComponentByClass<UFPSPotionUseComponent>();
@@ -77,12 +80,19 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
     }
     else if(Cast)Sample.Channel=TEXT("Cast");
     else if(Bash&&State.Family==TEXT("Unarmed"))Sample.Channel=TEXT("Fist");
+    if(Bash&&Quick->GetStyle()==EQuickCombatStyle::SpellbookPush)
+    {Sample.Channel=TEXT("SpellbookPush");State.ActionVariant=Sample.Channel;}
     Sample.Rigs.SetNum(FMath::Min(LocalWeapons.Num(),2));
     for(int32 I=0;I<Sample.Rigs.Num();++I)
     {
         const auto& D=LocalWeapons[I];auto& Rig=Sample.Rigs[I];auto* Source=D.Source.Get();
         if(D.PoseFamily==TEXT("Bow"))continue; // bow owns its existing marker/string sampler
         if(D.PoseFamily.IsNone()&&!Inspect)continue;
+        if(D.PoseFamily==TEXT("Spellbook")&&!Drawn(Source))
+        {
+            Rig.Valid=true;Rig.Schema=D.MotionSchema;Rig.Visible=false;
+            continue; // the primary's support hand owns reload/inspection while the book is stowed
+        }
         const int32 Side=D.AttachHand;auto* Map=MotionMap(Source,D.GripBone,Side);
         if(!Map||!Map->IsValid())continue;
         const auto& Pose=Source->GetComponentSpaceTransforms();if(!Pose.IsValidIndex(Map->SourceHand))continue;
@@ -93,10 +103,11 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
         const bool NativeMelee=D.PoseFamily==TEXT("Sword")||D.PoseFamily==TEXT("Tool");
         const bool StaffAction=D.PoseFamily==TEXT("Staff")&&(Cast||Bash||Staff->IlluminationGestureAge>=0.f||Staff->IsEquipping()||Staff->IsPrimaryAttacking());
         const auto& HandState=Side==0?State.RightHand:State.LeftHand;
-        const bool Drive=NativeMelee||Reload||Inspect||Mount||StaffAction||(Side==1&&Bash)||HandState.bReloading||HandState.bEquipping
+        const bool Drive=NativeMelee||Reload||Inspect||Mount||StaffAction||(Side==1&&(Bash||BookFocus))||HandState.bReloading||HandState.bEquipping
             ||(D.PoseFamily==TEXT("Gun")&&State.Action==EFPSBodyAction::Equip);
         CaptureMotionHand(Source,D.GripBone,Side,Drive,Sample);
-        if(I==0&&LocalWeapons.Num()==1&&D.PoseFamily!=TEXT("Staff"))
+        const bool BookStowed=Pawn->HasOffhandSpellbook()&&!Pawn->IsOffhandSpellbookPresented();
+        if(I==0&&(LocalWeapons.Num()==1||BookStowed)&&D.PoseFamily!=TEXT("Staff")&&D.PoseFamily!=TEXT("Spellbook"))
         {
             CaptureMotionHand(Source,TEXT("hand_l"),1,Drive,Sample);Sample.CoupledWrists=Drive;
             if(const auto* Left=MotionMap(Source,TEXT("hand_l"),1);Left&&Left->IsValid()&&Pose.IsValidIndex(Left->SourceHand))
@@ -140,10 +151,10 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
         for(int32 M=0;M<FMath::Min(32,Source->GetNumMaterials());++M)
             if(Source->IsMaterialSectionShown(M,0))Rig.Sections|=1u<<M;
     }
-    if(Staff&&Staff->IsEquipped()&&!Pawn->HasOffhandPistol()&&(Bash||Cast||Staff->IlluminationGestureAge>=0.f))
+    if(Staff&&Staff->IsEquipped()&&!Pawn->HasOffhandPistol()&&!Pawn->IsOffhandSpellbookPresented()&&(Bash||Cast||Staff->IlluminationGestureAge>=0.f))
         CaptureMotionHand(Staff->ArmsMesh(),TEXT("hand_l"),1,Bash,Sample);
     if(auto* Unarmed=Pawn->FindComponentByClass<UFPSUnarmedIdleComponent>();Unarmed&&Unarmed->IsEquipped())
-        for(int32 Side=0;Side<2;++Side)CaptureMotionHand(Unarmed->Arms,Side==0?TEXT("hand_r"):TEXT("hand_l"),Side,Bash,Sample);
+        for(int32 Side=0;Side<(Pawn->HasOffhandSpellbook()?1:2);++Side)CaptureMotionHand(Unarmed->Arms,Side==0?TEXT("hand_r"):TEXT("hand_l"),Side,Bash,Sample);
     // Native overlays run after base weapon motion. Read their actual owning mesh.
     if(Cast&&!Magic->IsStaffCasting())
     {

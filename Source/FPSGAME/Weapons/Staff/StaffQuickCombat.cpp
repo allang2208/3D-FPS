@@ -17,6 +17,7 @@ bool UStaffWeaponComponent::BeginQuickCombat()
 {
     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
     if(!IsEquipped()||IsEquipping()||!Pawn||!Pawn->CanStartQuickCombatPriority()
+        ||Pawn->HasOffhandSpellbook()
         ||!Staff||!Staff->IsVisible()||!Arms||!Arms->IsVisible())return false;
     if(Pawn->HasOffhandPistol())
     {

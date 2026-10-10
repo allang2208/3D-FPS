@@ -27,6 +27,7 @@
 #include "Weapons/RuneOrbBladesComponent.h"
 #include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/Staff/StaffWeaponComponent.h"
+#include "Weapons/Spellbook/SpellbookComponent.h"
 #include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "Movement/FPSDoorPushComponent.h"
 #include "Weapons/FrostRuneVisualDiagnosis.h"
@@ -236,6 +237,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     Bow=CreateDefaultSubobject<UBowWeaponComponent>(TEXT("Bow"));
     Staff=CreateDefaultSubobject<UStaffWeaponComponent>(TEXT("Staff"));
     UnarmedIdle=CreateDefaultSubobject<UFPSUnarmedIdleComponent>(TEXT("UnarmedIdle"));
+    Spellbook=CreateDefaultSubobject<USpellbookComponent>(TEXT("OffhandSpellbook"));
     DoorPush=CreateDefaultSubobject<UFPSDoorPushComponent>(TEXT("SprintDoorPush"));
     CreateDefaultSubobject<UFPSCombatHealthComponent>(TEXT("CombatHealth"));
     CreateDefaultSubobject<UFPSSurvivalComponent>(TEXT("SurvivalResources"));
@@ -1131,6 +1133,7 @@ void AFPSGAMECharacter::FireInputReleased()
 void AFPSGAMECharacter::FireReleased()
 {
     if(UnarmedIdle)UnarmedIdle->CancelAttack();
+    if(Spellbook)Spellbook->CancelFocus();
     if(Staff)Staff->CancelAction();
     bFireHeld=false;bPistolShotPending=false;GetWorldTimerManager().ClearTimer(FireTimerHandle);
     bBurstTriggerHeld=false;BurstShotsRemaining=0;
@@ -1149,7 +1152,7 @@ void AFPSGAMECharacter::AimPressed()
     InterruptWeaponInspection();
     if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;
     if(HasOffhandPistol()){DualPistols->Trigger(1,true);return;}
-    if(Staff&&Staff->IsEquipped())return;
+    if(Staff&&Staff->IsEquipped()){if(Spellbook)Spellbook->ToggleFocus();return;}
     if(IsCastBlockingLeftHandAction())return;
     if(RuneSword && RuneSword->IsEquipped()){ExitSprintForWeapon();RuneSword->BeginGuard();return;}
     // 弓的右键＝稳持（压住满拉呼吸抖动），不进枪械机瞄状态机。
@@ -1978,6 +1981,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     if(Bow)Bow->AdvanceActionBeforeCamera(DeltaSeconds);
     if(Staff)Staff->AdvanceActionBeforeCamera(DeltaSeconds);
     if(UnarmedIdle)UnarmedIdle->AdvanceActionBeforeCamera(DeltaSeconds);
+    if(Spellbook)Spellbook->AdvanceActionBeforeCamera(DeltaSeconds);
     UpdateADSProgress();
     CameraADSFactor = FMath::SmoothStep(0.0f, 1.0f, ADSProgress);
     WeaponADSFactor = CameraADSFactor;
@@ -3414,7 +3418,9 @@ bool AFPSGAMECharacter::IsCastingWithLeftHand() const
     const auto* Bash=FindComponentByClass<UFPSQuickCombatComponent>();
     return (Magic && Magic->IsOccupyingLeftHand())||(Bash&&Bash->IsOccupyingLeftHand());
 }
-bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return HasOffhandPistol(); }
+bool AFPSGAMECharacter::HasOffhandSpellbook() const {return Spellbook&&Spellbook->IsEquipped();}
+bool AFPSGAMECharacter::IsOffhandSpellbookPresented() const {return Spellbook&&Spellbook->OwnsLeftHand();}
+bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return HasOffhandPistol()||HasOffhandSpellbook(); }
 void AFPSGAMECharacter::SuspendWeaponForMenu()
 {
     InterruptWeaponInspection();

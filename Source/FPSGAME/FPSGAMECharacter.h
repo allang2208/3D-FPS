@@ -55,6 +55,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UBowWeaponComponent;
     friend class UStaffWeaponComponent;
     friend class UFPSUnarmedIdleComponent;
+    friend class USpellbookComponent;
     friend class UFPSElectricMagicComponent;
     friend struct FStaffLocomotion;
 
@@ -81,6 +82,8 @@ public:
     UPROPERTY(VisibleAnywhere, Category="Skills") TObjectPtr<class UFPSQuickCombatComponent> QuickCombatPistol;
     bool IsDualWieldingPistols() const;
     bool HasOffhandPistol() const;
+    bool HasOffhandSpellbook() const;
+    bool IsOffhandSpellbookPresented() const;
     /** 手枪版快速进战：单持松左手、右手持枪握把前砸；仲裁通过后转交动作组件。 */
 bool TriggerPistolQuickCombat();
     /** 步枪版快速进战（M4 枪托砸击）：双手持枪的整枪动作；仲裁通过后转交同一动作组件。 */
@@ -883,4 +886,5 @@ private:
     UPROPERTY(Replicated) TArray<FName> DoorKeys;
     // Refreshed with installed firearm stats; active actions snapshot this rate.
     float FirearmEquipRate = 1.f;
+    UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class USpellbookComponent> Spellbook;
 };

@@ -17,7 +17,7 @@ enum class EQuickCombatBashPhase : uint8 { None, Release, Cock, Smash, Follow, R
 // 单一绝对时钟 ActionAge 驱动阶段/镜头/接触点，全部由 clip 长度换算，不逐段累计。
 // 两种武器的动作本体都在作者源 clip 里（手枪 DW715、步枪 M4 六个握把配置），
 // 本组件不参与姿态——只给出命中探针来源、结算时机与镜头语言。
-enum class EQuickCombatStyle : uint8 { Pistol, Rifle, M4ReferenceRifle, DualPistol, Bow, StaffPunch, StaffOffhandPistol, UnarmedPunch };
+enum class EQuickCombatStyle : uint8 { Pistol, Rifle, M4ReferenceRifle, DualPistol, Bow, StaffPunch, StaffOffhandPistol, UnarmedPunch, SpellbookPush };
 
 UCLASS(ClassGroup=(Skills),meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UFPSQuickCombatComponent : public UActorComponent
@@ -46,6 +46,7 @@ public:
     void ConfigureForRifle(float Length,bool bM4Reference=false);
     void ConfigureForBow(float Length);
     void ConfigureForStaffPunch();
+    void ConfigureForSpellbookPush();
     // Ordinary primary punches share the contact clock, without casting/training the F skill.
     void ConfigureForUnarmedPunch();
     void ConfigureForStaffOffhandPistol(float Length);
