@@ -1,3 +1,4 @@
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "RuneSwordComponent.h"
 #include "TangDaoGuardComponent.h"
 #include "PanChiGuardComponent.h"
@@ -54,6 +55,7 @@ FString URuneSwordComponent::UppercutStatusText() const
 
 bool URuneSwordComponent::CanBeginUppercut() const
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return false;
     return UppercutStatusText().IsEmpty();
 }
 

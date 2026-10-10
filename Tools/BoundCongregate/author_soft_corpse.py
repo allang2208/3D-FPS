@@ -17,12 +17,41 @@ v12='--surface-fit-v12' in sys.argv
 v14='--garment-v14' in sys.argv
 v18='--garment-v18' in sys.argv
 v19='--garment-v19' in sys.argv
+v20='--garment-v20' in sys.argv
+v21='--garment-v21' in sys.argv
+v23='--garment-v23' in sys.argv
+v24='--garment-v24' in sys.argv
+v25='--garment-v25' in sys.argv
+if '--garment-v29' in sys.argv:
+    module.ROOT=root/'SourceAssets/BoundCongregateMeshy20261006/TentacleReachV29/SoftCorpse'
+    module.author(dict(key='BoundCongregate',source='/Game/Monsters/BoundCongregate/TentacleReachV29/SK_BoundCongregate_TentacleReachV29'))
+    sys.exit(0)
 module.ROOT=root/('SourceAssets/BoundCongregateMeshy20261006/TentacleWhipV4/SoftCorpse' if v4 else 'SourceAssets/BoundCongregateMeshy20261006/TentacleWhipV3/SoftCorpse' if whip else 'SourceAssets/BoundCongregateMeshy20261006/TentacleRepairV2/SoftCorpse' if v2 else 'SourceAssets/BoundCongregateMeshy20261006/RigRepairV3/SoftCorpse' if v3 else 'SourceAssets/BoundCongregateMeshy20261006/SoftCorpse')
 if v6:module.ROOT=root/'SourceAssets/BoundCongregateMeshy20261006/TentacleDynamicsV6/SoftCorpse'
 if v7:module.ROOT=root/'SourceAssets/BoundCongregateMeshy20261006/ClothContactV7/SoftCorpse'
 if v8:module.ROOT=root/'SourceAssets/BoundCongregateMeshy20261006/ClothMotionV8/SoftCorpse'
 if v9:module.ROOT=root/'SourceAssets/BoundCongregateMeshy20261006/ClothContactV9/SoftCorpse'
 if v10:module.ROOT=root/'SourceAssets/BoundCongregateMeshy20261006/FullWhipV10/SoftCorpse'
+if v25:
+    module.ROOT=root/'SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV25/SoftCorpse'
+    module.author(dict(key='BoundCongregate',source='/Game/Monsters/BoundCongregate/GarmentDrapeV25/SK_BoundCongregate_GarmentDrapeV25'))
+    sys.exit(0)
+if v24:
+    module.ROOT=root/'SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV24/SoftCorpse'
+    module.author(dict(key='BoundCongregate',source='/Game/Monsters/BoundCongregate/GarmentDrapeV24/SK_BoundCongregate_GarmentDrapeV24'))
+    sys.exit(0)
+if v23:
+    module.ROOT=root/'SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/SoftCorpse'
+    module.author(dict(key='BoundCongregate',source='/Game/Monsters/BoundCongregate/GarmentDrapeV23/SK_BoundCongregate_GarmentDrapeV23'))
+    sys.exit(0)
+if v21:
+    module.ROOT=root/'SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/SoftCorpse'
+    module.author(dict(key='BoundCongregate',source='/Game/Monsters/BoundCongregate/GarmentDrapeV21/SK_BoundCongregate_GarmentDrapeV21'))
+    sys.exit(0)
+if v20:
+    module.ROOT=root/'SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/SoftCorpse'
+    module.author(dict(key='BoundCongregate',source='/Game/Monsters/BoundCongregate/GarmentDrapeV20/SK_BoundCongregate_GarmentDrapeV20'))
+    sys.exit(0)
 if v19:
     module.ROOT=root/'SourceAssets/BoundCongregateMeshy20261006/GarmentRebuildV19/SoftCorpse'
     module.author(dict(key='BoundCongregate',source='/Game/Monsters/BoundCongregate/GarmentRebuildV19/SK_BoundCongregate_GarmentRebuildV19'))

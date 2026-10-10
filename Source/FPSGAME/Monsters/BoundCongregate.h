@@ -11,6 +11,7 @@ class USkeletalMesh;
 class UPhysicsAsset;
 class USoundBase;
 class UAudioComponent;
+class UCapsuleComponent;
 
 UENUM()
 enum class EBoundCongregateState : uint8 { Idle, Crawl, Bite, Stagger, Dead, TentacleWindup, TentacleStrike, TentacleWrap, TentacleDrag, TentacleRecover, Flurry };
@@ -27,6 +28,7 @@ struct FBoundCongregateState
     UPROPERTY() float ReleasedWrap=0.f;
     UPROPERTY() float ReleasedWeight=1.f;
     UPROPERTY() float ReleasedStrike=1.f;
+    UPROPERTY() double TentacleRecoveryStartedAt=-1.;
 };
 
 /** Ten donor limbs and separate torn garments; decisions use the shared monster tree. */
@@ -64,11 +66,11 @@ public:
     UPROPERTY(EditAnywhere,Category="Movement") float AnimationWalkSpeed=50.f;
     UPROPERTY(EditAnywhere,Category="AI") float AggroRadius=2400.f;
     UPROPERTY(EditAnywhere,Category="AI") float LeashRadius=3600.f;
-    UPROPERTY(EditAnywhere,Category="Combat") float BiteTriggerRange=280.f;
-    UPROPERTY(EditAnywhere,Category="Combat") float BiteReach=120.f;
+    UPROPERTY(EditAnywhere,Category="Combat") float BiteTriggerRange=350.f;
+    UPROPERTY(EditAnywhere,Category="Combat") float BiteReach=235.f;
     UPROPERTY(EditAnywhere,Category="Combat") float BiteDamage=55.f;
     UPROPERTY(EditAnywhere,Category="Combat") float BiteCooldown=2.5f;
-    UPROPERTY(EditAnywhere,Category="Combat") float BiteContactSeconds=.92f;
+    UPROPERTY(EditAnywhere,Category="Combat") float BiteContactSeconds=.56f;
     UPROPERTY(EditAnywhere,Category="Death") float CorpseSeconds=25.f;
     UPROPERTY(VisibleInstanceOnly,Category="AI") FVector Home=FVector::ZeroVector;
     UPROPERTY(ReplicatedUsing=OnRep_State) FBoundCongregateState NetState;
@@ -127,14 +129,17 @@ public:
     UPROPERTY(EditAnywhere,Category="Combat|Flurry",meta=(ClampMin="0")) float FlurryFinisherDamage=32.f;
     UPROPERTY(EditAnywhere,Category="Combat|Flurry",meta=(ClampMin="0.1")) float FlurryCooldown=4.5f;
     UPROPERTY(EditAnywhere,Category="Combat|Flurry",meta=(ClampMin="1")) float FlurryPalmRadius=45.f;
-    bool TentacleActive() const { return NetState.State>=EBoundCongregateState::TentacleWindup&&NetState.State<=EBoundCongregateState::TentacleRecover; }
+    bool TentacleActive() const { return !Dead()&&(NetState.CapturedTarget||TentacleRecovering()||(NetState.State>=EBoundCongregateState::TentacleWindup&&NetState.State<=EBoundCongregateState::TentacleRecover)); }
+    bool TentacleRecovering() const { return !Dead()&&!NetState.CapturedTarget&&(NetState.State==EBoundCongregateState::TentacleRecover||(NetState.TentacleRecoveryStartedAt>=0.&&TentacleRecoveryElapsed()<TentacleRecoverSeconds)); }
+    double TentacleRecoveryElapsed() const { return NetState.TentacleRecoveryStartedAt>=0.?FMath::Max(0.,Clock()-NetState.TentacleRecoveryStartedAt):StateElapsed(); }
     bool IsDragging(const ACharacter* Victim) const;
     FVector CapturePullVelocity(const ACharacter* Victim) const;
     void CancelTentacle();
-    UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0")) float TentacleRange=360.f;
+    UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0")) float TentacleRange=3000.f;
+    float TentacleReleaseDuration() const;
     UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0.1")) float TentacleCooldown=2.f;
     UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0.1")) float TentacleWindupSeconds=.62f;
-    UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0.1")) float TentacleStrikeSeconds=.135f;
+    UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0.01")) float TentacleStrikeSeconds=.09f;
     UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0.1")) float TentacleWrapSeconds=.4f;
     UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0.1")) float TentacleHoldSeconds=3.5f;
     UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0.1")) float TentacleRecoverSeconds=.48f;
@@ -154,4 +159,16 @@ private:
     FVector PreviousTentacleTip=FVector::ZeroVector,LastCapturedPosition=FVector::ZeroVector;
     float TentacleBlockedSeconds=0.f;
     bool bTentacleFinalPoseRequested=false;
+public:
+    UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="1")) float TentacleMaxHealth=300.f;
+    UPROPERTY(Replicated,VisibleInstanceOnly,Category="Combat|Tentacle") float TentacleHealth=300.f;
+    bool IsTentacleHit(const FHitResult& Hit) const;
+    static bool IsTentaclePart(const FHitResult& Hit);
+    float ApplyTentacleShot(float Damage);
+private:
+    void UpdateTentacleHitShapes();
+    void UpdateTentacleHitShapeState();
+    void BeginCapturedBite(ACharacter* Victim);
+    TArray<TWeakObjectPtr<UCapsuleComponent>> TentacleHitShapes;
+    FDelegateHandle TentaclePoseHandle;
 };

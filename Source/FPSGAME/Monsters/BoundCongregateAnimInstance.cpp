@@ -31,7 +31,7 @@ struct FCongregateFeet : FAnimNode_SkeletalControlBase
     FLeg Legs[10];FTransform Frame;FPoseSnapshot UncorrectedPose;
     FCongregateWhipBody* BodyDrive=nullptr;
     float Phase=0,TraceAge=1,Dt=0;
-    bool Enabled=false,Walking=false,Attack=false,AuthoredMelee=false;
+    bool Enabled=false,Walking=false,Attack=false,AuthoredMelee=false,GroundSlap=false;
     uint64 Serial=0,Evaluated=0;
     FCongregateFeet()
     {
@@ -67,7 +67,8 @@ struct FCongregateFeet : FAnimNode_SkeletalControlBase
     void Prepare(const ABoundCongregate* M,float P,bool W,float Delta)
     {
         Dt=FMath::Clamp(Delta,0.f,.1f);Serial=GFrameCounter;Phase=P;Walking=W;Attack=M->Busy();
-        AuthoredMelee=M->NetState.State==EBoundCongregateState::Bite||M->NetState.State==EBoundCongregateState::Flurry;
+        GroundSlap=M->NetState.State==EBoundCongregateState::Flurry;
+        AuthoredMelee=M->NetState.State==EBoundCongregateState::Bite||GroundSlap;
         Enabled=!M->Dead()&&M->GetCharacterMovement()->IsMovingOnGround();Frame=M->GetMesh()->GetComponentTransform();
         if(!Enabled||Dt<=0)return;
         TraceAge+=Dt;if(TraceAge<1.f/15.f)return;TraceAge=0;
@@ -113,7 +114,10 @@ struct FCongregateFeet : FAnimNode_SkeletalControlBase
             if(L.bGround)
             {
                 const float Lift=FMath::Max(0.f,float(Goal.Z-Frame.GetLocation().Z)-L.Sole);
-                DesiredCorrection.Z=L.Ground+L.Sole+Lift-Goal.Z;
+                // The ground-slap clip includes the palm thickness and lift.
+                // Preserve it while translating to terrain; clamping to the
+                // standing wrist height would undo the ground-slap contact.
+                DesiredCorrection.Z=GroundSlap?L.Ground-Frame.GetLocation().Z:L.Ground+L.Sole+Lift-Goal.Z;
             }
             if(L.bLocked)
             {
@@ -138,6 +142,10 @@ struct FCongregateFeet : FAnimNode_SkeletalControlBase
                 L.Correction.X=Horizontal.X;L.Correction.Y=Horizontal.Y;
                 L.Correction.Z=FMath::FInterpConstantTo(L.Correction.Z,DesiredCorrection.Z,Dt,140.f);
             }
+            // Preserve the complete authored joint frames on level ground.
+            // Re-solving an unchanged melee chain can only disturb its root
+            // orientation; terrain correction still uses the existing solver.
+            if(AuthoredMelee&&L.Correction.IsNearlyZero(.01f))continue;
             Goal+=L.Correction;
             FVector End=Frame.InverseTransformPosition(Goal),D=End-Upper.GetLocation();
             End=Upper.GetLocation()+D.GetSafeNormal()*FMath::Min(float(D.Size()),Reach*.98f);
@@ -258,7 +266,7 @@ void UBoundCongregateAnimInstance::NativeUpdateAnimation(float Dt)
             UAnimSequence* Clip=Moving?M->MoveClip.Get():Turning?(YawRate>0?M->TurnRightClip.Get():M->TurnLeftClip.Get()):M->IdleClip.Get();
             // Keep the authored 14 deg/s reference; allow the doubled yaw speed
             // to advance the same foot-contact phase without clipping its rate.
-            const float Rate=Moving?Speed/FMath::Max(1.f,M->AnimationWalkSpeed):Turning?FMath::Clamp(FMath::Abs(YawRate)/BoundCongregateGait::TurnSpeed,.1f,5.f):1.f;
+            const float Rate=Moving?Speed/FMath::Max(1.f,M->AnimationWalkSpeed):Turning?FMath::Clamp(FMath::Abs(YawRate)/BoundCongregateGait::TurnSpeed,.1f,10.f):1.f;
             if(Clip!=ActiveClip)
             {
                 FMonsterClipTransition Settings;

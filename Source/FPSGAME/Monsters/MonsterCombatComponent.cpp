@@ -81,7 +81,7 @@ void UMonsterCombatComponent::BeginPlay()
 }
 bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Name) const
 {
- if(const auto* BC=Cast<ABoundCongregate>(GetOwner())){Health=BC->Health;MaxHealth=BC->MaxHealth;Name=FText::FromString(TEXT("缚群"));return true;}
+ if(const auto* BC=Cast<ABoundCongregate>(GetOwner())){Health=BC->Health;MaxHealth=BC->MaxHealth;Name=FText::FromString(TEXT("缚群 M-88"));return true;}
  if(const auto* M25=Cast<AVortexCofferM25>(GetOwner())){Health=M25->Health;MaxHealth=M25->MaxHealth;Name=FText::FromString(TEXT("涡电匣 M-25"));return true;}
  if(const auto* M14=Cast<ASpiralPillarM14>(GetOwner())){Health=M14->Health;MaxHealth=M14->MaxHealth;Name=FText::FromString(TEXT("螺柱 M-14"));return true;}
  if(const auto* M09=Cast<AHangingBellM09>(GetOwner())){Health=M09->Health;MaxHealth=M09->MaxHealth;Name=FText::FromString(TEXT("悬钟 M-09"));return true;}

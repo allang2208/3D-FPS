@@ -1,4 +1,5 @@
 #include "FPSHolyLightComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "FPSHolyLightEffect.h"
 #include "HolyLightTargets.h"
@@ -82,6 +83,7 @@ float UFPSHolyLightComponent::CooldownFraction() const
 {const auto* M=Model();return M?FMath::Clamp(M->HolyLightCooldown()/FMath::Max(.1f,M->HolyLightCooldownDuration()),0.f,1.f):0;}
 void UFPSHolyLightComponent::Trigger(bool bSelf)
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
     if(!Player||!M||!Player->IsLocallyControlled())return;
     if(const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;

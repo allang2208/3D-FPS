@@ -5,6 +5,7 @@
 #include "../Weapons/TangDaoGuardComponent.h"
 #include "../Monsters/PoisonMaggotProjectile.h"
 #include "../Monsters/HandBrainFearComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../Combat/ProgressiveInfectionComponent.h"
 #include "../Combat/CombatStatusFormula.h"
@@ -56,6 +57,12 @@ void UStatusEffectsComponent::Notify(AActor* Owner){if(auto* C=GetOrCreate(Owner
 TArray<FStatusEffectView> UStatusEffectsComponent::Snapshot() const
 {
  TArray<FStatusEffectView> Result;if(auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>())if(H->IsDead())return Result;
+ if(const auto* Capture=GetOwner()->FindComponentByClass<UBoundCongregateCaptureComponent>();Capture&&Capture->IsHeld())
+ {
+  auto V=Definition(TEXT("tentacleEntangled"));V.Persistent=true;V.DurationText=TEXT("挣脱或拖至近身解除");
+  V.Description+=FString::Printf(TEXT(" 触手生命：%.0f / %.0f。"),Capture->GetTentacleHealth(),Capture->GetTentacleMaxHealth());
+  Result.Add(V);
+ }
  if(const auto* Guard=GetOwner()->FindComponentByClass<UPanChiGuardComponent>();Guard&&Guard->IsActive())
  {
   if(Guard->Charges()>0){auto V=Definition(TEXT("panchiCharge"));V.Stacks=Guard->Charges();V.Duration=Guard->Duration();V.Remaining=Guard->Remaining();Result.Add(V);}

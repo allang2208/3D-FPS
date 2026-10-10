@@ -4,6 +4,7 @@
 namespace BoundCongregateTentacleTiming
 {
 inline constexpr float PreviousStrikeSeconds=.62f;
+inline constexpr float ContactRadius=24.f;
 
 struct FReleaseSample { float Phase,Rate; };
 

@@ -171,6 +171,26 @@ bool UM14SoftBodyData::BuildCorpse(USkeletalMesh* Mesh,USkeleton* CorpseSkeleton
         for(int32 J:Bound){const double D=FVector::DistSquared(Data->Nodes[I].Rest,Data->Nodes[J].Rest);if(D<Best){Best=D;Closest=J;}}
         Data->Nodes[I].SourceBones=Data->Nodes[Closest].SourceBones;Data->Nodes[I].SourceWeights=Data->Nodes[Closest].SourceWeights;
     }
+    // Optional anatomical stations retain a precise live-pose source even
+    // where distant parts of a coiled appendage are spatially adjacent.
+    const TArray<TSharedPtr<FJsonValue>>* StationWeights=nullptr;
+    if(Json->TryGetArrayField(TEXT("node_source_weights"),StationWeights))
+    {
+        if(StationWeights->Num()!=Data->SoftNodeCount)return false;
+        for(int32 I=0;I<Data->SoftNodeCount;++I)
+        {
+            const auto& Row=(*StationWeights)[I]->AsArray();if(Row.IsEmpty())continue;
+            auto& N=Data->Nodes[I];N.SourceBones.Reset();N.SourceWeights.Reset();float Total=0.f;
+            for(const auto& V:Row)
+            {
+                const auto& Pair=V->AsArray();if(Pair.Num()!=2)return false;
+                const int32 B=int32(Pair[0]->AsNumber());const float W=float(Pair[1]->AsNumber());
+                if(B<0||B>=SourceBones||W<=0.f)return false;
+                N.SourceBones.Add(B);N.SourceWeights.Add(W);Total+=W;
+            }
+            for(float& W:N.SourceWeights)W/=Total;
+        }
+    }
     for(int32 I=0;I<Data->Hardware.Num();++I)
     {
         auto& H=Data->Hardware[I];int32 Best=Base;
@@ -235,13 +255,37 @@ bool UM14SoftBodyData::ExportSurface(USkeletalMesh* Mesh,const FString& File,con
         Description=Mesh->GetMeshDescription(0);
     }
     const auto Positions=Description->GetVertexPositions();
+    // Companion authoring data permits anatomical cages without guessing the
+    // branch from spatial proximity (coiled tentacles often touch the torso).
+    const auto& Ref=Mesh->GetRefSkeleton();auto Frames=Ref.GetRefBonePose();
+    TArray<TSharedPtr<FJsonValue>> Bones,Parents,Heads,Skin;
+    for(int32 I=0;I<Ref.GetNum();++I)
+    {
+        const int32 Parent=Ref.GetParentIndex(I);
+        if(Parent>=0)Frames[I]*=Frames[Parent];
+        Bones.Add(MakeShared<FJsonValueString>(Ref.GetBoneName(I).ToString()));
+        Parents.Add(MakeShared<FJsonValueNumber>(Parent));
+        const FVector P=Frames[I].GetLocation()*.01;
+        Heads.Add(MakeShared<FJsonValueArray>(TArray<TSharedPtr<FJsonValue>>{
+            MakeShared<FJsonValueNumber>(P.X),MakeShared<FJsonValueNumber>(P.Y),MakeShared<FJsonValueNumber>(P.Z)}));
+    }
+    const auto Weights=FSkeletalMeshAttributes(*Description).GetVertexSkinWeights();
     FBufferArchive Bytes;
     int32 Count=Description->Vertices().Num();Bytes<<Count;
     for(const FVertexID V:Description->Vertices().GetElementIDs())
     {
         FVector3f P=Positions[V]*.01f;Bytes<<P.X<<P.Y<<P.Z;
+        TArray<TSharedPtr<FJsonValue>> Row;
+        for(const auto& W:Weights.Get(V))
+            Row.Add(MakeShared<FJsonValueArray>(TArray<TSharedPtr<FJsonValue>>{
+                MakeShared<FJsonValueNumber>(W.GetBoneIndex()),MakeShared<FJsonValueNumber>(W.GetWeight())}));
+        Skin.Add(MakeShared<FJsonValueArray>(Row));
     }
-    return FFileHelper::SaveArrayToFile(Bytes,*File);
+    auto SkinJson=MakeShared<FJsonObject>();SkinJson->SetArrayField(TEXT("bones"),Bones);
+    SkinJson->SetArrayField(TEXT("parents"),Parents);SkinJson->SetArrayField(TEXT("heads_m"),Heads);
+    SkinJson->SetArrayField(TEXT("weights"),Skin);FString SkinText;
+    FJsonSerializer::Serialize(SkinJson,TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&SkinText));
+    return FFileHelper::SaveArrayToFile(Bytes,*File)&&FFileHelper::SaveStringToFile(SkinText,*(File+TEXT(".skin.json")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
 #else
     return false;
 #endif

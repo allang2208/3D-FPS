@@ -1,0 +1,22 @@
+{
+  "flurry_range": 280.0,
+  "flurry_palm_radius": 115.0,
+  "flurry_damage": 18.0,
+  "flurry_finisher_damage": 32.0,
+  "flurry_cooldown": 4.5,
+  "bite_trigger_range": 280.0,
+  "bite_reach": 125.0,
+  "bite_damage": 55.0,
+  "bite_contact_seconds": 0.5600000023841858,
+  "bite_cooldown": 2.5,
+  "tentacle_range": 360.0,
+  "tentacle_windup_seconds": 0.6200000047683716,
+  "tentacle_strike_seconds": 0.13500000536441803,
+  "tentacle_recover_seconds": 0.47999998927116394,
+  "tentacle_cooldown": 20.0,
+  "tentacle_impact_damage": 20.0,
+  "tentacle_tick_damage": 8.0,
+  "visual_mesh": "/Game/Monsters/BoundCongregate/GarmentDrapeV25/SK_BoundCongregate_GarmentDrapeV25.SK_BoundCongregate_GarmentDrapeV25",
+  "flurry_clip": "/Game/Monsters/BoundCongregate/FlurryV27/A_BoundCongregate_FlurryV27.A_BoundCongregate_FlurryV27",
+  "bite_clip": "/Game/Monsters/BoundCongregate/MeleeV17/A_BoundCongregate_BiteV17.A_BoundCongregate_BiteV17"
+}

@@ -41,6 +41,7 @@ namespace ColdSteelCombat
     FPSGAME_API float ComposureRecoilMultiplier(AActor* Shooter);
     FPSGAME_API FColdSteelShotEffects Snapshot(AActor* Shooter,const FColdSteelItem* Item=nullptr);
     FPSGAME_API void OnHit(AActor* Target,AActor* Shooter,int32 Poison);
+    FPSGAME_API void OnHit(const FHitResult& Hit,AActor* Shooter,int32 Poison);
     // 三个数值同属一次附魔，缺一项即视为未附魔，避免半套数据改动射速。
     FPSGAME_API FColdSteelTurboRamp TurboRamp(const UColdSteelEnhancementSystem* Enhancement,const FColdSteelItem* Item);
     // 持续开火 HeldSeconds 后的攻击间隔倍率；未附魔恒为 1。

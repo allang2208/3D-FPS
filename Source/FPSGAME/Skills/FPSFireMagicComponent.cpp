@@ -1,4 +1,5 @@
 #include "FPSFireMagicComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "FPSMeteorStrike.h"
 #include "FPSFireballComponent.h"
@@ -98,6 +99,7 @@ bool UFPSFireMagicComponent::SelectGround(const FFireMagicCast& Spell,FVector& P
 }
 void UFPSFireMagicComponent::Trigger(FName Skill)
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
     if(!FireMagic::IsSkill(Skill)||!Player||!M||!Player->IsLocallyControlled())return;
     if(const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;

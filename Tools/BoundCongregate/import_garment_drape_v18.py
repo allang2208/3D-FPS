@@ -17,7 +17,7 @@ E=u.EditorAssetLibrary
 AT=u.AssetToolsHelpers.get_asset_tools()
 report={'revision':REVISION,'saved':False,'gameplay_tested':False,'assets':[],
         'source_fbx_sha256':hashlib.sha256((OUT/(NAME+'.fbx')).read_bytes()).hexdigest(),
-        'native_changes':True,'preserved':'anatomy, tentacle rig, animations and current Blueprint gameplay tuning'}
+        'native_changes':True,'preserved':globals().get('BC_GARMENT_PRESERVED','anatomy, tentacle rig, animations and current Blueprint gameplay tuning')}
 
 if STAGE=='finish':
     report=json.loads((OUT/'delivery.json').read_text(encoding='utf8'))
@@ -83,6 +83,9 @@ try:
         if not mesh:raise RuntimeError('Skeletal import failed.')
         old_materials={str(slot.get_editor_property('imported_material_slot_name')):
                        slot.get_editor_property('material_interface') for slot in source.get_editor_property('materials')}
+        material_author=globals().get('BC_GARMENT_MATERIAL_AUTHOR')
+        if material_author:
+            old_materials.update(material_author())
         # Blender may suffix reused proxy materials with .001. They are hidden
         # build inputs; normalize only their suffix, retaining the live fabrics.
         for key,material in list(old_materials.items()):
@@ -106,10 +109,14 @@ try:
             # attachment drive and authored hem travel must be serialized together.
             if config.get_editor_property('bUseCCD') or abs(config.get_editor_property('CollisionThickness')-.7)>.001 or abs(config.get_editor_property('Density')-.52)>.001:
                 raise RuntimeError('Unexpected loaded garment builder; do not activate the candidate.')
+            if VERSION=='V21' and abs(config.get_editor_property('BendingStiffnessWeighted').get_editor_property('low')-.04)>.001:
+                raise RuntimeError('V21 authoring function is not loaded; retain the active monster.')
+            if VERSION in ('V23','V24','V25','V29') and abs(config.get_editor_property('BendingStiffnessWeighted').get_editor_property('low')-.09)>.001:
+                raise RuntimeError(VERSION+' authoring function is not loaded; retain the active monster.')
             report['cloth_assets'].append(cloth.get_name())
         E.set_metadata_tag(mesh,'GarmentRevision',REVISION)
-        E.set_metadata_tag(mesh,'ClothCollisionRevision','V13-bone-local-capsule-dimensions')
-        E.set_metadata_tag(mesh,'GarmentMaterials','Unmodified live source material references; retained weave UV scale and wear masks')
+        E.set_metadata_tag(mesh,'ClothCollisionRevision',globals().get('BC_GARMENT_COLLISION_REVISION','V13-bone-local-capsule-dimensions'))
+        E.set_metadata_tag(mesh,'GarmentMaterials',globals().get('BC_GARMENT_MATERIAL_REVISION','Unmodified live source material references; retained weave UV scale and wear masks'))
         for asset in (skeleton,mesh):save(asset)
         # New garment topology needs its own complete continuous-death embedding.
         corpse=duplicate(mesh,DEST+'/Corpse/SK_BoundCongregate_Corpse'+VERSION)

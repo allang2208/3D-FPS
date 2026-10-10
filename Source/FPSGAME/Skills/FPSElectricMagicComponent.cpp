@@ -1,4 +1,5 @@
 #include "FPSElectricMagicComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "FPSFireballComponent.h"
 #include "FPSLightningArc.h"
 #include "LightningDamage.h"
@@ -158,6 +159,7 @@ FString UFPSElectricMagicComponent::StatusText(FName Skill) const
 }
 void UFPSElectricMagicComponent::Trigger(FName Skill)
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return;
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
     if(!ElectricMagic::IsSkill(Skill)||!P||!M||!P->IsLocallyControlled())return;
     if(CommittedSkill==TEXT("thunderLance")&&Skill==CommittedSkill){ReleaseLance();return;}

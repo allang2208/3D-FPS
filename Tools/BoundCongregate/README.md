@@ -1,8 +1,8 @@
-# BoundCongregate / 缚群
+# BoundCongregate / 缚群 M-88
 
-衣物于 2026-10-08 因用户反馈不合格而暂停。V18、V19 不是认可模板；保留脚本用于恢复制作现场，不能自动执行以覆盖用户配置。
+当前为 V29 活体与 V25 衣物、认可的 V28 拍击、V33 撕咬判定、一次快速近战挣脱和 V34 无支撑死亡。V32 死亡运动被否定，但其独立尸体仍供 V34 使用；V34 已构建保存、未游戏测试。
 
-当前状态、版本依赖、许可和本机输入见 [暂停与发布记录](../../Docs/Monsters/bound-congregate-paused-publication-20261008.md)。归档文件原路径和 SHA-256 见 [清单](../../Docs/Monsters/bound-congregate-retirement-20261008.json)。
+当前状态、恢复顺序和公开边界见 [2026-10-10 发布记录](../../Docs/Monsters/bound-congregate-publication-20261010.md)。308 个新归档文件的原路径和 SHA-256 见 [本次清单](../../Docs/Monsters/bound-congregate-retirement-20261010.json)；早期 618 项归档仍见 [历史清单](../../Docs/Monsters/bound-congregate-retirement-20261008.json)。V20/V21/V23 衣物、V22/V26/V27 拍击工具已退役到 trash，不能从历史文档直接重跑覆盖当前配置。
 
 `author_*` 在 Blender 或相应外部 Python 环境执行；`import_*` 依赖 UE Python 和已存在的模板资产。必要编辑器操作经过现有 `Tools/AssetPipeline/mcp_call_codex.ps1` 批次互斥；不主动打开或关闭 UE。`finish_*.ps1` 为历史分阶段入口，有些包含当时明确要求的诊断，不作为默认一键恢复入口。
 

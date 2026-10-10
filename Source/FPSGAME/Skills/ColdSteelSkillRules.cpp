@@ -13,6 +13,7 @@
 #include "../Monsters/HangingBellM09.h"
 #include "../Monsters/VortexCofferM25.h"
 #include "../Monsters/SpiralPillarM14.h"
+#include "../Monsters/BoundCongregate.h"
 #include "../Props/FPSPracticeTarget.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
@@ -572,6 +573,10 @@ float ColdSteelSkills::ApplyHit(AActor* Shooter,const FHitResult& Hit,float Dama
     if(!M&&Shooter&&Shooter->GetGameInstance())M=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if (M)
     {
+        // Detached restraint health is not a full monster contact. This also
+        // keeps delayed/invalid part reports out of torso damage and procs.
+        if(ABoundCongregate::IsTentaclePart(Hit))
+            return M->ApplySkillWeaponHit(Shooter,Hit,Damage,Direction,Shot,Result);
         // Capture eligibility before the original victim dies. This common fired-shot
         // path covers flying, hitscan, blocked-muzzle and either dual-wield hand.
         const bool bShatter=Shooter->HasAuthority()&&!Shot.bRicochet&&Shot.ShatterRadiusCM>0.f

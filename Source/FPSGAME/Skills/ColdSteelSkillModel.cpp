@@ -7,6 +7,8 @@
 #include "../Combat/CoreCombatFormula.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Monsters/MonsterCombatComponent.h"
+#include "../Monsters/BoundCongregate.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Monsters/MonsterIdleBreathingMeshComponent.h"
 #include "../Monsters/PoisonMaggotProjectile.h"
 #include "../Combat/CombatStatusFormula.h"
@@ -19,6 +21,7 @@
 #include "../Weapons/RuneSwordRisingDragon.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
+#include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
@@ -148,6 +151,8 @@ bool UColdSteelStatusModel::TriggerQuickCombat()
     }
     auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
     if(!Player)return false;
+    if(UBoundCongregateCaptureComponent::IsCaptured(Player))
+        if(auto* Hands=Player->FindComponentByClass<UFPSUnarmedIdleComponent>();Hands&&Hands->IsEquipped())return Hands->BeginPunch();
     if(auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())return Staff->BeginQuickCombat();
     if(auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();Bow && Bow->IsEquipped())return Bow->BeginQuickCombat();
     if(auto* Sword=Player->FindComponentByClass<URuneSwordComponent>())
@@ -166,6 +171,21 @@ float UColdSteelStatusModel::RifleWeaponDamage(const FColdSteelItem& Item,float 
 }
 float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result)
 {
+    if(auto* Bound=Cast<ABoundCongregate>(Hit.GetActor());Bound&&Bound->IsTentaclePart(Hit))
+    {
+        // The exposed restraint is its own 300 HP organ, with no torso armor,
+        // body stagger, kill reward or duplicated on-hit status transaction.
+        const bool Firearm=!Shot.bMelee&&!Shot.bMeleeStrike&&(Shot.bRifle||Shot.bPistol||Shot.BulletSpeedCM>0.f||
+            Shot.MasteryId==TEXT("shotgunMastery")||Shot.MasteryId==TEXT("machineGunMastery"));
+        const float Applied=Firearm&&Bound->IsTentacleHit(Hit)?Bound->ApplyTentacleShot(Damage):0.f;
+        if(Result)
+        {
+            *Result={};Result->bResolved=true;
+            Result->BeforeDefense=Shot.DamagePanel.Total()>0?Shot.DamagePanel.Scaled(Damage/Shot.DamagePanel.Total()):FWeaponDamageParts{Damage,0,0,0};
+            Result->AfterDefense=Result->BeforeDefense;Result->Applied=Result->BeforeDefense.LimitedTo(Applied);
+        }
+        return Applied;
+    }
     AActor* Victim=Hit.GetActor(); const auto* Pawn=Cast<APawn>(Shooter);
     auto* Combat=Victim?Victim->FindComponentByClass<UMonsterCombatComponent>():nullptr;
     const bool bAliveBefore=Combat&&!Combat->IsDead();

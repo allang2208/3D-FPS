@@ -9,6 +9,7 @@
 #include "TimerManager.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/MonsterCombatComponent.h"
+#include "../Monsters/BoundCongregate.h"
 #include "GunsmithSystem.h"
 
 ColdSteelCombat::FComposure ColdSteelCombat::Calm(const UColdSteelEnhancementSystem* Enhancement,const FColdSteelItem* Item)
@@ -85,6 +86,10 @@ double ColdSteelCombat::ConvergenceShotScale(const FColdSteelConvergence& Conver
 {
     if(!Convergence.Enabled)return 1.;
     return Convergence.DamageScale*FMath::Max(0,Rounds);
+}
+void ColdSteelCombat::OnHit(const FHitResult& Hit,AActor* Shooter,int32 Poison)
+{
+    if(!ABoundCongregate::IsTentaclePart(Hit))OnHit(Hit.GetActor(),Shooter,Poison);
 }
 void ColdSteelCombat::OnHit(AActor* Target,AActor* Shooter,int32 Poison)
 {

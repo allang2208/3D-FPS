@@ -78,7 +78,7 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
                 const float Applied = ColdSteelSkills::ApplyHit(GetOwner(),Hit,HitDamage,R.Direction,R.Training,&DamageResult);
                 if(auto* Shooter=Cast<AFPSGAMECharacter>(GetOwner())) Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true);
             }
-            ColdSteelCombat::OnHit(Hit.GetActor(),GetOwner(),R.Poison);
+            ColdSteelCombat::OnHit(Hit,GetOwner(),R.Poison);
             if(RoundFX&&(!RiverFX||!RiverFX->IsSubmergedRiverbed(Hit)))RoundFX->OnImpact(Hit);
             if(R.Training.bRicochet&&ShatterFX)
                 ShatterFX->Burst(Hit.ImpactPoint,Hit.ImpactNormal,EShatterBurst::Arrival);

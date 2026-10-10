@@ -32,10 +32,22 @@ bool UM14SoftBodyDeathComponent::Start(USkeletalMeshComponent* LivingMesh,UM14So
         Positions[I]=ToSimulation(P);Initial[I]=Positions[I];
         const float Height=FMath::Clamp(float(N.Rest.Z/300.),0.f,1.f);
         const FVector Buckle=GetOwner()->GetActorForwardVector()*(.42*Height)+GetOwner()->GetActorRightVector()*(.10*FMath::Sin(Height*7.));
-        Velocities[I]=InheritedVelocity.GetClampedToMaxSize(150.)*.01+Buckle;
+        Velocities[I]=Data->bCollapseInPlace?
+            FVector(0,0,FMath::Clamp(InheritedVelocity.Z,-150.,0.))*.01:
+            InheritedVelocity.GetClampedToMaxSize(150.)*.01+Buckle;
         if(I>=Data->SoftNodeCount)InvMass[I]=.35f;
     }
     Previous=Positions;TracePosition=Positions;
+    TArray<uint8> Unsupported;Unsupported.Init(0,Count);
+    if(Data->bCollapseInPlace)
+        for(int32 I:Data->UnsupportedNodes)if(Unsupported.IsValidIndex(I))Unsupported[I]=1;
+    RelaxedEdges.Reserve(Data->Edges.Num());RelaxedTets.Reserve(Data->Tets.Num());
+    for(const auto& E:Data->Edges)RelaxedEdges.Add(E.Kind==0&&(Unsupported[E.A]||Unsupported[E.B]));
+    for(const auto& T:Data->Tets)
+    {
+        uint8 Relaxed=0;for(int32 I:T.Nodes)Relaxed|=Unsupported[I];
+        RelaxedTets.Add(Relaxed);
+    }
     for(const auto& E:Data->Edges)Lengths.Add(float(FVector::Distance(Positions[E.A],Positions[E.B])));
     for(const auto& T:Data->Tets)
     {
@@ -189,8 +201,9 @@ void UM14SoftBodyDeathComponent::Substep(float Dt)
         InvMass[I]=I<Data->SoftNodeCount?1.f:.35f;
         // Only an actual floor contact can briefly hold the original footing.
         // Low bind-pose nodes on a hanging body are still airborne.
-        if(Elapsed<.12f&&Grounded[I]&&Data->Nodes[I].Rest.Z<12.){InvMass[I]=0.f;Velocities[I]=FVector::ZeroVector;continue;}
-        Velocities[I]=(Velocities[I]+FVector(0,0,-9.81)*Dt)*FMath::Exp(-3.f*Dt);
+        if(!Data->bCollapseInPlace&&Elapsed<.12f&&Grounded[I]&&Data->Nodes[I].Rest.Z<12.){InvMass[I]=0.f;Velocities[I]=FVector::ZeroVector;continue;}
+        const float AirDamping=Data->bCollapseInPlace?1.2f:3.f;
+        Velocities[I]=(Velocities[I]+FVector(0,0,-9.81)*Dt)*FMath::Exp(-AirDamping*Dt);
         Positions[I]+=Velocities[I]*Dt;
     }
     PredictedVelocities=Velocities;
@@ -201,11 +214,20 @@ void UM14SoftBodyDeathComponent::Substep(float Dt)
         {
             const auto& N=Data->Tets[I].Nodes;FVector* P[4]={&Positions[N[0]],&Positions[N[1]],&Positions[N[2]],&Positions[N[3]]};
             const double W[4]={InvMass[N[0]],InvMass[N[1]],InvMass[N[2]],InvMass[N[3]]};
-            M14XPBD::VolumeConstraint(P,W,Volumes[I],3.e-7,Dt,VolumeLambda[I],BarrierLambda[I]);
+            // Released appendages retain an inversion barrier, but their volume
+            // pressure must no longer hold the torso up through the feet.
+            const double Compliance=RelaxedTets[I]?3.e-5:3.e-7;
+            M14XPBD::VolumeConstraint(P,W,Volumes[I],Compliance,Dt,VolumeLambda[I],BarrierLambda[I]);
         }
         for(int32 I=0;I<Data->Edges.Num();++I)
         {
             const auto& E=Data->Edges[I];
+            if(RelaxedEdges[I]&&FVector::DistSquared(Positions[E.A],Positions[E.B])<=FMath::Square(Lengths[I]))
+            {
+                // A limp limb can fold/shorten; no restorative compression
+                // force pushes its grounded end back against the body.
+                EdgeLambda[I]=0.f;continue;
+            }
             const double Compliance=E.Kind==0?3.e-4:E.Kind==1?0.:E.Kind==3?1.e-6:2.e-6;
             M14XPBD::Distance(Positions[E.A],Positions[E.B],InvMass[E.A],InvMass[E.B],Lengths[I],Compliance,Dt,EdgeLambda[I]);
         }
@@ -255,12 +277,13 @@ void UM14SoftBodyDeathComponent::DampInternalVelocity(float Dt)
 {
     // Dissipate only relative strain velocity, preserving whole-body falling
     // and rotation instead of masking chatter by freezing the visible mesh.
-    for(int32 Pass=0;Pass<2;++Pass)for(const auto& E:Data->Edges)
+    for(int32 Pass=0;Pass<2;++Pass)for(int32 I=0;I<Data->Edges.Num();++I)
     {
+        const auto& E=Data->Edges[I];
         const double Sum=InvMass[E.A]+InvMass[E.B];if(Sum<=0.)continue;
         const FVector Axis=(Positions[E.A]-Positions[E.B]).GetSafeNormal();
         const double Relative=(Velocities[E.A]-Velocities[E.B]).Dot(Axis);
-        const double Damping=1.-FMath::Exp(-(E.Kind==3?12.:4.)*Dt);
+        const double Damping=1.-FMath::Exp(-(RelaxedEdges[I]?.7:E.Kind==3?12.:4.)*Dt);
         const FVector Impulse=Axis*(Relative*Damping/Sum);
         Velocities[E.A]-=Impulse*InvMass[E.A];Velocities[E.B]+=Impulse*InvMass[E.B];
     }

@@ -1,4 +1,5 @@
 #include "FPSBlizzardComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "FPSBlizzardZone.h"
 #include "FPSFireballComponent.h"
 #include "FireMagicArea.h"
@@ -95,6 +96,7 @@ bool UFPSBlizzardComponent::SelectGround(const FBlizzardCast& Spell,FString& Fai
 }
 void UFPSBlizzardComponent::Trigger()
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return;
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
     if(!P||!M||!P->IsLocallyControlled()||!InputAvailable())return;
     if(const auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;

@@ -2598,7 +2598,7 @@ void AFPSGAMECharacter::FireShot()
         FWeaponDamageResult DamageResult;
         const float Applied=ColdSteelSkills::ApplyHit(this,Hit,HitDamage,PelletDirection,Training,&DamageResult);
         NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true);
-        ColdSteelCombat::OnHit(Hit.GetActor(),this,Effects.Poison);
+        ColdSteelCombat::OnHit(Hit,this,Effects.Poison);
         if(!bLastShotMuzzleBlocked&&ProjectileSpeedCM<=0){
             FHitResult NextHit=Hit;int32 Remaining=Effects.Piercing;
             while(Remaining-->0&&Cast<APawn>(NextHit.GetActor())){
@@ -2611,7 +2611,7 @@ void AFPSGAMECharacter::FireShot()
                     const float NextApplied=ColdSteelSkills::ApplyHit(this,NextHit,NextDamage,PelletDirection,Training,&NextResult);
                     NotifyConfirmedWeaponHit(NextHit.GetActor(),NextApplied,&NextResult,true);
                 }
-                ColdSteelCombat::OnHit(NextHit.GetActor(),this,Effects.Poison);WeaponFX->OnImpact(NextHit);
+                ColdSteelCombat::OnHit(NextHit,this,Effects.Poison);WeaponFX->OnImpact(NextHit);
             }
         }
         if (ColdSteelSkills::IsCriticalHit(Hit))
@@ -3369,12 +3369,14 @@ bool AFPSGAMECharacter::IsSpellHandHeld() const
 }
 bool AFPSGAMECharacter::IsSpellHandBusy() const
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(this))return true;
     if(IsDoorPushActive())return true;
     if(Staff&&Staff->IsEquipped())return IsTraversing()||!Staff->CanBeginCast();
     return IsLeftHandBusyForCast();
 }
 bool AFPSGAMECharacter::IsLeftHandBusyForCast(bool bIgnoreDoorPush) const
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(this))return true;
     if(!bIgnoreDoorPush&&IsDoorPushActive())return true;
     if(Staff&&Staff->IsEquipped()&&!Staff->CanBeginCast())return true;
     if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;

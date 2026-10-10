@@ -7,6 +7,7 @@
 #include "BoundCongregateWhipMotion.inl"
 #include "BoundCongregateTentacleTiming.h"
 #include "BoundCongregateTentacleGround.h"
+#include "BoundCongregateTentacleReach.h"
 
 /** Isolated original appendage. Old curl/feeler weights never drive an attack. */
 struct FCongregateTentacle : FAnimNode_SkeletalControlBase
@@ -57,27 +58,30 @@ struct FCongregateTentacle : FAnimNode_SkeletalControlBase
         const auto State=Monster->NetState.State;const float T=float(Monster->StateElapsed());
         const FTransform& Frame=Monster->GetMesh()->GetComponentTransform();
         const auto* Target=Monster->NetState.CapturedTarget.Get();
-        Aim=Frame.InverseTransformPosition(Target?Target->GetActorLocation():Monster->NetState.TentacleAim);
+        const FVector TargetPosition=Target?Target->GetActorLocation():FVector(Monster->NetState.TentacleAim);
+        Aim=Frame.InverseTransformPosition(Monster->GetActorLocation()+
+            (TargetPosition-Monster->GetActorLocation()).GetClampedToMaxSize(Monster->TentacleRange));
         Forward=Frame.InverseTransformVectorNoScale(Monster->GetActorForwardVector());
         Right=Frame.InverseTransformVectorNoScale(Monster->GetActorRightVector());
         Radius=Monster->NetState.TentacleRadius;
         Windup=State==EBoundCongregateState::TentacleWindup;
         Releasing=State==EBoundCongregateState::TentacleStrike;
-        Recovering=State==EBoundCongregateState::TentacleRecover;
-        const float Recovery=BoundCongregateTentacleTiming::RecoveryPhase(T,Monster->TentacleRecoverSeconds);
-        const float PreviousRecovery=BoundCongregateTentacleTiming::RecoveryPhase(T-Dt,Monster->TentacleRecoverSeconds);
+        Recovering=Monster->TentacleRecovering();
+        const float RecoveryTime=float(Monster->TentacleRecoveryElapsed());
+        const float Recovery=BoundCongregateTentacleTiming::RecoveryPhase(RecoveryTime,Monster->TentacleRecoverSeconds);
+        const float PreviousRecovery=BoundCongregateTentacleTiming::RecoveryPhase(RecoveryTime-Dt,Monster->TentacleRecoverSeconds);
         RecoveryFollow=FMath::Clamp((Recovery-PreviousRecovery)/FMath::Max(UE_SMALL_NUMBER,1.f-PreviousRecovery),0.f,1.f);
         // Continuous rear loading; no held final quarter before release.
         Weight=Windup?FMath::SmoothStep(0.f,Monster->TentacleWindupSeconds,T):1.f;
         LoadPhase=FMath::Clamp(T/Monster->TentacleWindupSeconds,0.f,1.f);
-        const auto Release=BoundCongregateTentacleTiming::Release(T,Monster->TentacleStrikeSeconds);
+        const auto Release=BoundCongregateTentacleTiming::Release(T,Monster->TentacleReleaseDuration());
         Strike=Releasing?Release.Phase:Windup?0.f:1.f;
         // The authored stroke now runs 3x faster with a further nonlinear burst.
         // Its old fixed speed cap would delay the visible pose into recovery.
-        ReleaseSpeedScale=BoundCongregateTentacleTiming::PreviousStrikeSeconds/FMath::Max(.001f,Monster->TentacleStrikeSeconds)*FMath::Max(1.f,Release.Rate);
+        ReleaseSpeedScale=BoundCongregateTentacleTiming::PreviousStrikeSeconds/FMath::Max(.001f,Monster->TentacleReleaseDuration())*FMath::Max(1.f,Release.Rate);
         Wrap=State==EBoundCongregateState::TentacleWrap?FMath::SmoothStep(0.f,Monster->TentacleWrapSeconds,T):
-            State==EBoundCongregateState::TentacleDrag?1.f:0.f;
-        if(State==EBoundCongregateState::TentacleRecover)
+            Monster->NetState.CapturedTarget?1.f:0.f;
+        if(Recovering)
         {
             const float Fade=1.f-Recovery;
             Weight=Monster->NetState.ReleasedWeight*Fade;Strike=Monster->NetState.ReleasedStrike*Fade;Wrap=Monster->NetState.ReleasedWrap*Fade;
@@ -95,10 +99,10 @@ struct FCongregateTentacle : FAnimNode_SkeletalControlBase
         {LastFinal[I]=Original[I];LastLocal[I]=Original[I].GetRelativeTransform(Original[I-1]);}
         const FVector Root=Original[Anchor].GetLocation(),Up=FVector::UpVector;
         const FVector RootTangent=(Original[Anchor+1].GetLocation()-Root).GetSafeNormal();
-        if(Windup||Releasing)
+        if(!Recovering)
         {
-            // Play the root-driven physical throw. Aim rotates its attack plane;
-            // it never drags the tip or replaces the travelling whip wave by IK.
+            // Retain the root-driven recorded wave and shoulder transition.
+            // The distal deployment pass adds reach after the muscular base.
             const FVector Direction=(Aim-Root).GetSafeNormal2D();
             const FVector Across=FVector::CrossProduct(Direction,Up).GetSafeNormal();
             const FVector Contact=BoundWhipMotion::Sample(1.f,Count-Anchor-1);
@@ -176,128 +180,31 @@ struct FCongregateTentacle : FAnimNode_SkeletalControlBase
         }
         else
         {
-        // Load the length BEHIND the shoulder, then throw it over the shoulder
-        // in one fast forward stroke. The old front/up target read as raising.
-        const FVector DrawnTip=Root-Forward*230.f+Right*85.f+Up*20.f;
-        const FVector Center=FMath::Lerp(DrawnTip,Aim,Strike)+Up*(95.f*FMath::Sin(PI*Strike));
-        const FVector Direction=(Aim-Root).GetSafeNormal2D();
-        const FVector Side=FVector::CrossProduct(Up,Direction).GetSafeNormal();
-        const FVector End=Center-Direction*Radius*Wrap;
-        FVector Curve[81];float Arc[81]={};
-        constexpr int32 StemSamples=56;
-        FVector RestCurve[StemSamples+1];
-        for(int32 I=0;I<=StemSamples;++I)
-        {
-            const float Position=float(I)*(Count-1-Anchor)/StemSamples;
-            const int32 J=FMath::Min(Count-2,Anchor+FMath::FloorToInt(Position));
-            RestCurve[I]=FMath::Lerp(Original[J].GetLocation(),Original[J+1].GetLocation(),Position-float(J-Anchor));
+            // Retract the actual visible long pose, with the shared nonlinear
+            // recovery clock. Interpolating component stations contracts before
+            // folding and avoids swinging a thirty-metre rigid lever overhead.
+            for(int32 I=0;I<Count;++I)
+                Goals[I]=I<=Anchor?Original[I].GetLocation():FMath::Lerp(
+                    LastFinal[I].GetLocation(),Original[I].GetLocation(),RecoveryFollow);
         }
-        const FVector Bow=(-Forward*(1.f-Strike)+Right*(.65f-.85f*Strike)+Up*.55f).GetSafeNormal();
-        auto MakeStem=[&](float Amplitude)
-        {
-            // Keep the root exit tangent short and fixed. Surplus length is
-            // folded behind the body, not put into a tall vertical root spike.
-            const FVector C1=Root+RootTangent*60.f;
-            const FVector C2=End-Direction*(75.f*Strike)+Bow*Amplitude;
-            float Length=0.f;
-            for(int32 I=0;I<=StemSamples;++I)
-            {
-                const float U=float(I)/StemSamples,V=1-U;
-                Curve[I]=Root*(V*V*V)+C1*(3*V*V*U)+C2*(3*V*U*U)+End*(U*U*U);
-                if(Windup)Curve[I]=FMath::Lerp(RestCurve[I],Curve[I],Weight)+Up*(150.f*U*FMath::Sin(PI*Weight));
-                if(I)Length+=FVector::Distance(Curve[I-1],Curve[I]);
-            }
-            return Length;
-        };
-        const float StemLength=MakeStem(0.f);
-        // Reserve actual chain length for the coil. Distant contact starts as
-        // a hook, then closes further as the victim is pulled towards the body.
-        const float CoilAngle=FMath::Clamp((TotalLength-StemLength-8.f)/FMath::Max(1.f,Radius),0.f,2.f*PI*.88f)*Wrap;
-        const float CoilLength=FMath::Sqrt(FMath::Square(CoilAngle*Radius*Wrap)+FMath::Square(12.f*Wrap));
-        const float DesiredStem=FMath::Max(StemLength,TotalLength*1.002f-CoilLength);
-        // Fit the WHOLE length into one broad bow. A short guide plus FABRIK
-        // distributed surplus length as dozens of tiny alternating folds.
-        float Low=0.f,High=TotalLength*2.5f/(Windup?FMath::Max(.2f,Weight):1.f);
-        for(int32 Iteration=0;Iteration<14;++Iteration)
-        {
-            const float Middle=(Low+High)*.5f;
-            if(MakeStem(Middle)<DesiredStem)Low=Middle;else High=Middle;
-        }
-        MakeStem((Low+High)*.5f);
-        for(int32 I=StemSamples+1;I<81;++I)
-        {
-            const float U=float(I-StemSamples)/(80-StemSamples),Angle=CoilAngle*U;
-            Curve[I]=Windup?Curve[StemSamples]:Center+(-Direction*FMath::Cos(Angle)+Side*FMath::Sin(Angle))*(Radius*Wrap)+Up*(12.f*Wrap*U);
-        }
-        for(int32 I=1;I<81;++I)Arc[I]=Arc[I-1]+FVector::Distance(Curve[I-1],Curve[I]);
-        float Along=0;
-        for(int32 I=0;I<=Anchor;++I)Goals[I]=Original[I].GetLocation();
-        for(int32 I=Anchor+1;I<Count;++I)
-        {
-            Along+=Lengths[I-1];const float Distance=Arc[80]*Along/TotalLength;
-            int32 J=1;while(J<80&&Arc[J]<Distance)++J;
-            Goals[I]=FMath::Lerp(Curve[J-1],Curve[J],(Distance-Arc[J-1])/FMath::Max(.001f,Arc[J]-Arc[J-1]));
-            // Windup blending happens inside MakeStem, before fitting its arc
-            // length. Blending joint positions here would shorten the guide
-            // and force FABRIK to put surplus length into small unwanted folds.
-            if(!Filtered)LastGoals[I]=HaveFinal?LastFinal[I].GetLocation():Original[I].GetLocation();
-            if(Serial!=Evaluated)LastGoals[I]=FMath::VInterpConstantTo(LastGoals[I],Goals[I],Dt,Releasing?6500.f:Windup?1200.f:1000.f);
-            Goals[I]=LastGoals[I];
-        }
-        Filtered=true;Evaluated=Serial;
-        const FVector Tip=Root+(Goals[Count-1]-Root).GetClampedToMaxSize(TotalLength*.98f);
-        // FABRIK preserves every original segment length; the winding guide only
-        // supplies the bend directions, it never scales the existing flesh.
-        for(int32 Iteration=0;Iteration<16;++Iteration)
-        {
-            Goals[Count-1]=Tip;
-            for(int32 I=Count-2;I>=Anchor;--I)Goals[I]=Goals[I+1]+(Goals[I]-Goals[I+1]).GetSafeNormal()*Lengths[I];
-            Goals[Anchor]=Root;
-            for(int32 I=Anchor+1;I<Count;++I)Goals[I]=Goals[I-1]+(Goals[I]-Goals[I-1]).GetSafeNormal()*Lengths[I-1];
-        }
-        }
+        if(!Windup&&!Recovering)
+            BoundCongregateTentacleReach::Deploy(Goals,Lengths,Aim,Strike,Wrap,Radius);
         FQuat Transport=FQuat::Identity;
-        FTransform Desired[Count],Proposed[Count];
-        Desired[Anchor-1]=Original[Anchor-1];
+        FTransform Candidate[Count];
+        for(int32 I=0;I<Anchor;++I)Candidate[I]=Original[I];
         for(int32 I=Anchor;I<Count;++I)
         {
             const int32 A=I==Count-1?I-1:I,B=A+1;
-            const FVector OldDirection=(Original[B].GetLocation()-Original[A].GetLocation()).GetSafeNormal();
-            const FVector NewDirection=(Goals[B]-Goals[A]).GetSafeNormal();
-            // Parallel transport a single frame down the chain. Independent
-            // shortest-arc rotations on each bone introduced alternating roll.
-            Transport=(FQuat::FindBetweenNormals(Transport.RotateVector(OldDirection),NewDirection)*Transport).GetNormalized();
-            Desired[I]=Original[I];Desired[I].SetLocation(Goals[I]);Desired[I].SetRotation((Transport*Original[I].GetRotation()).GetNormalized());
-            // Follow the previous visible local pose, not a fresh ref-to-goal
-            // shortest-arc blend on every frame. The latter changes branches
-            // at 180 degrees and whips the whole downstream chain across space.
-            FTransform Local=Original[I].GetRelativeTransform(Original[I-1]);
-            const FTransform TargetLocal=Desired[I].GetRelativeTransform(Desired[I-1]);
-            const float Follow=Recovering?RecoveryFollow:(Windup||Releasing)?1.f:1.f-FMath::Exp(-Dt*28.f);
-            Local.SetRotation(FQuat::Slerp(LastLocal[I].GetRotation(),Recovering?Local.GetRotation():TargetLocal.GetRotation(),Follow).GetNormalized());
-            Proposed[I]=Local;
-        }
-        FTransform Candidate[Count];
-        for(int32 I=0;I<Anchor;++I)Candidate[I]=Original[I];
-        auto Compose=[&](float Fraction)
-        {
-            FTransform Parent=Original[Anchor-1];float Maximum=0.f;
-            for(int32 I=Anchor;I<Count;++I)
-            {
-                FTransform Local=Proposed[I];Local.SetRotation(FQuat::Slerp(LastLocal[I].GetRotation(),Local.GetRotation(),Fraction).GetNormalized());
-                Candidate[I]=Local*Parent;Parent=Candidate[I];
-                Maximum=FMath::Max(Maximum,float(FVector::Distance(Candidate[I].GetLocation(),LastFinal[I].GetLocation())));
-            }
-            return Maximum;
-        };
-        const float Limit=(Windup?1800.f:Recovering?1500.f:Releasing?8000.f*ReleaseSpeedScale:1800.f)*Dt;
-        float Fraction=1.f;
-        if(Compose(1.f)>Limit)
-        {
-            float LowerFraction=0.f,UpperFraction=1.f;
-            for(int32 Iteration=0;Iteration<10;++Iteration)
-            {const float Middle=(LowerFraction+UpperFraction)*.5f;if(Compose(Middle)>Limit)UpperFraction=Middle;else LowerFraction=Middle;}
-            Fraction=LowerFraction;Compose(Fraction);
+            const FVector Rest=Original[B].GetLocation()-Original[A].GetLocation();
+            const FVector Segment=Goals[B]-Goals[A];
+            Transport=(FQuat::FindBetweenNormals(Transport.RotateVector(Rest.GetSafeNormal()),Segment.GetSafeNormal())*Transport).GetNormalized();
+            Candidate[I]=Original[I];
+            Candidate[I].SetLocation(Goals[I]);
+            Candidate[I].SetRotation((Transport*Original[I].GetRotation()).GetNormalized());
+            float Stretch=Segment.Size()/FMath::Max(.001,Rest.Size());
+            if(I>Anchor)
+                Stretch=.5f*(Stretch+float(FVector::Distance(Goals[I],Goals[I-1])/FMath::Max(.001f,Lengths[I-1])));
+            Candidate[I].SetScale3D(BoundCongregateTentacleReach::SectionScale(Original[I],Rest,Stretch,I));
         }
         if(Ground)Ground->Constrain(Candidate,Anchor);
         for(int32 I=Anchor;I<Count;++I)

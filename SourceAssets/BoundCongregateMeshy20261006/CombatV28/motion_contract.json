@@ -1,0 +1,52 @@
+{
+  "fps": 240,
+  "bite": {
+    "duration": 1.55,
+    "windup_end": 0.48,
+    "contact": 0.56,
+    "contact_hold_end": 0.6,
+    "turn_end": 0.42
+  },
+  "flurry": {
+    "duration": 2.4,
+    "load_begins": [
+      0.025,
+      0.14,
+      0.29,
+      0.43
+    ],
+    "strike_starts": [
+      0.525,
+      0.75,
+      0.975,
+      1.2,
+      1.7916666667
+    ],
+    "contacts": [
+      0.6,
+      0.825,
+      1.05,
+      1.275,
+      1.875
+    ],
+    "contact_hold_seconds": 0.075,
+    "finisher_hold_seconds": 0.1,
+    "turn_end": 0.38,
+    "limbs": [
+      "L1",
+      "R1",
+      "L2",
+      "R2",
+      [
+        "L1",
+        "R1"
+      ]
+    ],
+    "impact_radius_cm": 172.5,
+    "finisher_radius_bonus_cm": 60.0,
+    "damage_height_cm": 75.0,
+    "motion_shape": "Slow curved load, held preparation, accelerating cubic downstroke, abrupt planted impact, delayed body compression and damped recovery. Uniform phase speed is forbidden.",
+    "damage_policy": "Server ground footprint at each contacting palm; player pawns once per beat, including the double-palm finisher. Existing melee damage and defenses retained."
+  },
+  "source_note": "Original V28 full-body flurry and pronounced bite on the retained V25 rig. Stable upper-limb frames retained, paired brace steps support increased torso movement. No extracted game animation."
+}

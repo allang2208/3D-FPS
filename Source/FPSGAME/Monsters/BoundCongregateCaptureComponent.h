@@ -19,8 +19,10 @@ public:
     void Release(ABoundCongregate* Captor);
     bool IsHeldBy(const ABoundCongregate* Captor) const;
     bool IsHeld() const;
-    static constexpr int32 RequiredEscapeHits=3;
+    static constexpr int32 RequiredEscapeHits=1;
     int32 GetEscapeHits() const { return EscapeHits; }
+    float GetTentacleHealth() const;
+    float GetTentacleMaxHealth() const;
     /** Called once at the authored F quick-melee contact, not on key press. */
     bool HitRestraintWithQuickMelee();
     virtual void TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick) override;
@@ -33,4 +35,6 @@ private:
     void ApplyControl();
     void ClearControl();
     uint16 PullMotionId=0;
+    UFUNCTION(Server,Reliable) void ServerQuickMeleeContact();
+    double NextEscapeContact=0.;
 };

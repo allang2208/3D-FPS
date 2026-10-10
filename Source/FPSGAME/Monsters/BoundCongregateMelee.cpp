@@ -3,10 +3,15 @@
 #include "FPSCombatHealthComponent.h"
 #include "../Skills/EnemyAttackDamage.h"
 #include "../Skills/IceWallCombat.h"
+#include "../Skills/FPSIceWall.h"
+#include "../Weapons/FPSImpactFXSubsystem.h"
 #include "Animation/AnimSequence.h"
+#include "Camera/CameraComponent.h"
 #include "Components/AudioComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
+#include "Engine/OverlapResult.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 bool ABoundCongregate::CanBite(APawn* Victim) const
@@ -37,6 +42,9 @@ void ABoundCongregate::TickMelee(float Dt)
         while(NextFlurrySound<HitCount&&T>=Contacts[NextFlurrySound])
         {
             const int32 Beat=NextFlurrySound++;
+            // Clients replay the same ground contact for local pooled effects;
+            // authority settles damage through NextFlurryHit below.
+            if(!HasAuthority()&&T-Contacts[Beat]<.2f)FlurryContact(Beat,T);
             if(GetNetMode()!=NM_DedicatedServer&&FlurrySound&&T-Contacts[Beat]<.2f)
             {ActionVoice->SetSound(FlurrySound);ActionVoice->SetVolumeMultiplier(Beat==HitCount-1?1.f:.65f);ActionVoice->Play();}
         }
@@ -46,7 +54,7 @@ void ABoundCongregate::TickMelee(float Dt)
     if(!IsValid(Victim)||(VictimHealth&&VictimHealth->IsDead()))
     {bContactConsumed=true;NextAttack=Clock()+.35f;SetState(EBoundCongregateState::Idle);return;}
     // Aim only while visibly loading; the committed strokes can be sidestepped.
-    const float TurnUntil=Flurry?TurnEnd:BiteTurnEnd;
+    const float TurnUntil=Flurry?TurnEnd:BiteWindupEnd;
     if(T<TurnUntil)
         AttackYaw=FMath::FixedTurn(AttackYaw,(Victim->GetActorLocation()-GetActorLocation()).Rotation().Yaw,110.f*Dt);
     SetActorRotation(FRotator(0,AttackYaw,0));
@@ -62,15 +70,19 @@ void ABoundCongregate::TickMelee(float Dt)
             if(NetState.State!=EBoundCongregateState::Flurry)return;
         }
     }
-    else if(!bContactConsumed&&T>=BiteContactSeconds)
+    else if(!bContactConsumed&&T>=BiteContactSeconds-.02f)
     {
-        bContactConsumed=true;
-        if(T-BiteContactSeconds<=.2f)
+        // V28 closes at .56 s, holds full extension until .65 s, then tears
+        // back. Follow that short closing/hold interval instead of spending
+        // the entire bite on one range query at .56 s.
+        const float Close=BiteContactSeconds+.09f;
+        if(T<=Close||(T-Dt<=Close&&T-Close<=.2f))
         {
-            Sample(BiteContactSeconds);GetMesh()->TickAnimation(0,false);GetMesh()->RefreshBoneTransforms();Contact();
+            Sample(FMath::Min(T,Close));GetMesh()->TickAnimation(0,false);GetMesh()->RefreshBoneTransforms();Contact();
             if(NetState.State!=EBoundCongregateState::Bite)return;
             Sample(T);
         }
+        if(T>=Close)bContactConsumed=true;
     }
     const UAnimSequence* Clip=Flurry?FlurryClip.Get():BiteClip.Get();
     if(T>=(Clip?Clip->GetPlayLength():Flurry?Duration:BiteDuration))
@@ -80,45 +92,75 @@ void ABoundCongregate::TickMelee(float Dt)
 void ABoundCongregate::FlurryContact(int32 Beat,float PlaybackTime)
 {
     using namespace BoundCongregateMeleeTiming;
-    APawn* Victim=Target.Get();if(!IsValid(Victim))return;
     const bool Finisher=Beat==HitCount-1;
     const float Damage=Finisher?FlurryFinisherDamage:FlurryDamage;
-    // Three exact clip samples cover the fast curved stroke with two sweeps.
-    // The final double slap is one beat and can damage the same victim only once.
-    const FName Bones[]={TEXT("leg_L1_foot"),TEXT("leg_R1_foot")};
-    FVector Points[2][3];
-    for(int32 Step=0;Step<3;++Step)
-    {
-        // Only sweep the committed release, never the preceding load arc.
-        Sample(FMath::Lerp(StrikeStarts[Beat],Contacts[Beat],Step*.5f));
-        GetMesh()->TickAnimation(0,false);GetMesh()->RefreshBoneTransforms();
-        // The foot joint is at the wrist/ankle. Centre the sphere over the
-        // palm/sole, halfway along the original approximately 20 cm end bone.
-        for(int32 Side=0;Side<2;++Side)Points[Side][Step]=GetMesh()->GetSocketLocation(Bones[Side])+GetActorForwardVector()*10.f;
-    }
+    const float Radius=FMath::Max(1.f,FlurryPalmRadius)+(Finisher?FinisherRadiusBonus:0.f);
+    const FName Bones[]={TEXT("leg_L1_foot"),TEXT("leg_R1_foot"),TEXT("leg_L2_foot"),TEXT("leg_R2_foot")};
+    Sample(Contacts[Beat]);GetMesh()->TickAnimation(0,false);GetMesh()->RefreshBoneTransforms();
+    FVector Palms[4];
+    for(int32 Limb=0;Limb<4;++Limb)
+        if(LimbMasks[Beat]&(1u<<Limb))Palms[Limb]=GetMesh()->GetSocketLocation(Bones[Limb])+GetActorForwardVector()*10.f;
+    const FVector Body=GetMesh()->GetSocketLocation(TEXT("maw"));
     Sample(PlaybackTime);
-    if(IceWallCombat::ApplyMelee(this,Victim,FlurryRange,Damage))return;
-    float R=0,H=0;Victim->GetSimpleCollisionCylinder(R,H);
-    const FVector Center=Victim->GetActorLocation(),Axis(0,0,FMath::Max(0.f,H-R));
-    FCollisionQueryParams Q(SCENE_QUERY_STAT(CongregatePalmContact),false,this);Q.AddIgnoredActor(Victim);
-    const float Radius=FlurryPalmRadius+(Finisher?8.f:0.f);
-    for(int32 Side=0;Side<2;++Side)
+    FCollisionQueryParams Q(SCENE_QUERY_STAT(CongregateGroundSlap),false,this);
+    FCollisionObjectQueryParams FloorObjects;FloorObjects.AddObjectTypesToQuery(ECC_WorldStatic);FloorObjects.AddObjectTypesToQuery(ECC_WorldDynamic);
+    // The union of two final palm circles remains one damage beat per player.
+    TSet<APawn*> Damaged;
+    TSet<AFPSIceWall*> DamagedWalls;
+    auto StrikeCover=[&](const FHitResult& Block)
     {
-        if(!Finisher&&Side!=Beat%2)continue;
-        for(int32 Segment=0;Segment<2;++Segment)
+        if(!HasAuthority())return;
+        if(auto* Wall=Cast<AFPSIceWall>(Block.GetActor());Wall&&Wall->IsSolid()&&!DamagedWalls.Contains(Wall))
         {
-            FVector OnStroke,OnVictim;
-            FMath::SegmentDistToSegmentSafe(Points[Side][Segment],Points[Side][Segment+1],Center-Axis,Center+Axis,OnStroke,OnVictim);
-            if(FVector::DistSquared(OnStroke,OnVictim)>FMath::Square(Radius+R))continue;
+            DamagedWalls.Add(Wall);
+            UGameplayStatics::ApplyPointDamage(Wall,Damage,GetActorForwardVector(),Block,GetController(),this,UEnemyMeleeDamage::StaticClass());
+        }
+    };
+    UCameraComponent* Camera=nullptr;
+    UFPSImpactFXSubsystem* FX=nullptr;
+    if(GetNetMode()!=NM_DedicatedServer)
+    {
+        FX=GetWorld()->GetSubsystem<UFPSImpactFXSubsystem>();
+        if(const APawn* Viewer=UGameplayStatics::GetPlayerPawn(this,0))Camera=Viewer->FindComponentByClass<UCameraComponent>();
+    }
+    for(int32 Limb=0;Limb<4;++Limb)
+    {
+        if(!(LimbMasks[Beat]&(1u<<Limb)))continue;
+        FHitResult Ground;
+        // Only an actual nearby walkable surface can produce a ground slam.
+        if(!GetWorld()->LineTraceSingleByObjectType(Ground,Palms[Limb]+FVector(0,0,20),Palms[Limb]-FVector(0,0,70),FloorObjects,Q)||
+            !GetCharacterMovement()->IsWalkable(Ground)||!Ground.GetComponent()||
+            Ground.GetComponent()->GetCollisionResponseToChannel(ECC_Pawn)!=ECR_Block)continue;
+        const FVector Origin=Ground.ImpactPoint;
+        FHitResult Cover;
+        if(GetWorld()->LineTraceSingleByObjectType(Cover,Body,Origin+FVector(0,0,12),FloorObjects,Q))
+        {StrikeCover(Cover);continue;}
+        if(FX)FX->SpawnPounceLanding(Ground,GetActorForwardVector(),Radius,360.f,Camera,this,false);
+        if(!HasAuthority())continue;
+        TArray<FOverlapResult> Overlaps;
+        GetWorld()->OverlapMultiByObjectType(Overlaps,Origin+FVector(0,0,GroundDamageHeight*.5f),FQuat::Identity,
+            FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeBox(FVector(Radius,Radius,GroundDamageHeight*.5f+20.f)),Q);
+        for(const auto& Overlap:Overlaps)
+        {
+            auto* Victim=Cast<APawn>(Overlap.GetActor());
+            if(!IsValid(Victim)||!Victim->IsPlayerControlled()||Damaged.Contains(Victim))continue;
+            const auto* VictimHealth=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
+            if(VictimHealth&&VictimHealth->IsDead())continue;
+            float R=0,H=0;Victim->GetSimpleCollisionCylinder(R,H);
+            const FVector Center=Victim->GetActorLocation();
+            const float FeetZ=Center.Z-H;
+            if(FVector::DistSquared2D(Origin,Center)>FMath::Square(Radius+R)||
+                FeetZ-Origin.Z>GroundDamageHeight||FeetZ-Origin.Z< -25.f)continue;
+            FCollisionQueryParams Sight=Q;Sight.AddIgnoredActor(Victim);
+            const FVector Contact(Center.X,Center.Y,FeetZ+FMath::Min(H,45.f));
             FHitResult Block;
-            // Both the body-to-hand and hand-to-victim lines must be open.
-            // Prevent an authored limb arc reaching through a wall or pillar.
-            if(GetWorld()->LineTraceSingleByChannel(Block,GetMesh()->GetSocketLocation(TEXT("maw")),OnStroke,ECC_Visibility,Q)||
-               GetWorld()->LineTraceSingleByChannel(Block,OnStroke,OnVictim,ECC_Visibility,Q))continue;
-            const FVector Direction=(OnVictim-OnStroke).GetSafeNormal();
-            FHitResult Hit;Hit.Location=Hit.ImpactPoint=OnVictim-Direction*R;Hit.ImpactNormal=-Direction;
+            if(GetWorld()->LineTraceSingleByChannel(Block,Origin+FVector(0,0,15),Contact,ECC_Visibility,Sight))
+            {StrikeCover(Block);continue;}
+            const FVector Direction=(Contact-Origin).GetSafeNormal();
+            FHitResult Hit;Hit.Location=Hit.ImpactPoint=Contact-Direction*R;Hit.ImpactNormal=-Direction;
+            Damaged.Add(Victim);
             UGameplayStatics::ApplyPointDamage(Victim,Damage,Direction,Hit,GetController(),this,UEnemyMeleeDamage::StaticClass());
-            return;
+            if(NetState.State!=EBoundCongregateState::Flurry)return;
         }
     }
 }

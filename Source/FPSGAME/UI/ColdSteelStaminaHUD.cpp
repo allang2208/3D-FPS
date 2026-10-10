@@ -122,13 +122,13 @@ void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
         if(Show)
         {
             const int32 Hits=Capture->GetEscapeHits();
-            if(DisplayedCaptureEscapeHits!=Hits)
-            {
-                DisplayedCaptureEscapeHits=Hits;
-                CaptureEscapeHint->SetText(FText::Format(NSLOCTEXT("ColdSteelHUD","TentacleEscapeHint",
-                    "被触手缠绕 · 按 F 快速近战挣脱（{0}/{1}）"),FText::AsNumber(Hits),
-                    FText::AsNumber(UBoundCongregateCaptureComponent::RequiredEscapeHits)));
-            }
+            DisplayedCaptureEscapeHits=Hits;
+            const FText Hint=FText::Format(NSLOCTEXT("ColdSteelHUD","TentacleEscapeHintV30",
+                "缠绕 · F 挣脱 {0}/{1} · 射击触手 {2}/{3}"),FText::AsNumber(Hits),
+                FText::AsNumber(UBoundCongregateCaptureComponent::RequiredEscapeHits),
+                FText::AsNumber(FMath::CeilToInt(Capture->GetTentacleHealth())),
+                FText::AsNumber(FMath::CeilToInt(Capture->GetTentacleMaxHealth())));
+            if(!CaptureEscapeHint->GetText().EqualTo(Hint))CaptureEscapeHint->SetText(Hint);
             CaptureEscapeHint->SetFont(ColdSteelUI::TextFont(18*.75f/S));
             if(auto* CaptureSlot=Cast<UCanvasPanelSlot>(CaptureEscapeHint->Slot))
             {

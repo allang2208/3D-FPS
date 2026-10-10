@@ -1,3 +1,4 @@
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "RuneSwordComponent.h"
 #include "TangDaoGuardComponent.h"
 #include "RuneSwordMeshComponent.h"
@@ -34,6 +35,7 @@ float WhirlwindEntry(float Time,float Duration)
 
 bool URuneSwordComponent::BeginWhirlwind()
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return false;
     if(bInspecting)CancelAction();
     if(!IsEquipped()||IsBusy()||bGuardHeld||!CanUse()||!Viewmodel||!Camera||
         Character->IsCastBlockingLeftHandAction()||Character->IsDodging()||Character->IsSliding())return false;

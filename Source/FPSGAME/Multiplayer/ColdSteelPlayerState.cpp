@@ -1,4 +1,6 @@
 #include "ColdSteelPlayerState.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
+#include "Components/PrimitiveComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/Super90WeaponAssets.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
@@ -743,6 +745,7 @@ void AColdSteelPlayerState::ServerReportHit_Implementation(const FColdSteelNetHi
     Shot.bRicochet = (Report.Flags & (1 << 4)) != 0;
     Shot.bInheritedCritical = (Report.Flags & (1 << 5)) != 0;
     Shot.AttackMeta = Report.AttackMeta;
+    if(UBoundCongregateCaptureComponent::IsCaptured(Shooter)&&Shot.bMelee&&(Report.AttackMeta&(0x10|0x20))&&!(Report.AttackMeta&0x80))return;
     Shot.GuardAttackSerial=Report.GuardAttackSerial;
     Shot.GuardSourceInstance=Declared?Declared->InstanceId:FString();
     // Reconstruct the attachment effect from the server's item, not a client flag.
@@ -920,6 +923,10 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
         return;
     }
 
+    // Restraint blocks both prepare and release, while cancellation/refunds
+    // above remain available. Firearm reports use their separate hit path.
+    if(UBoundCongregateCaptureComponent::IsCaptured(Pawn)){Reject(8);return;}
+
     // ── Phase 1 释放：按技能分派到组件服务端入口（影子档案校验在里面）。 ──
     if (Request.Phase == 1)
     {
@@ -1091,6 +1098,8 @@ bool AColdSteelPlayerState::ForwardHit(AActor* Shooter, const FHitResult& Hit, f
     Report.ImpactPoint = Hit.ImpactPoint;
     Report.HitNormal = Hit.ImpactNormal;
     Report.BoneName = Hit.BoneName;
+    if(const auto* Part=Hit.GetComponent();Part&&Part->ComponentHasTag(TEXT("BoundCongregateTentacle")))
+        Report.BoneName=Part->GetAttachSocketName();
     Report.Direction = Direction;
     Report.ItemDefinition = Shot.ItemDefinition;
     Report.ClaimedDamage = Damage;

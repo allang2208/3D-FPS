@@ -1,6 +1,15 @@
 {
   "effects": [
     {
+      "type": "tentacleEntangled",
+      "icon": "缠",
+      "name": "缠绕",
+      "color": "#9b7b9c",
+      "description": "被缚群 M-88 的触手缠住，无法移动、施法或使用技能；仍可射击与快速近战。快速近战命中1次或射击耗尽触手300点生命可挣脱；拖至近身后解除并接撕咬。不会因时间、遮挡或净化自动解除。",
+      "kind": "debuff",
+      "group": "combat"
+    },
+    {
       "type": "tangDragonMight",
       "name": "龙威",
       "icon": "龙",

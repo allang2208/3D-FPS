@@ -65,6 +65,7 @@ URuneSwordComponent::URuneSwordComponent()
 
 bool URuneSwordComponent::TriggerHeavySkill()
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return false;
     if(!IsEquipped()||IsBusy()||!CanUse())return false;
     BeginHeavyCharge();
     bAutoHeavyRelease=bCharging;
@@ -702,6 +703,7 @@ FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
 
 void URuneSwordComponent::BeginHeavyCharge()
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return;
     if(bWhirlwind||bDashAttack)return;
     if(bInspecting)CancelAction();
     if(!IsEquipped() || IsBusy() || !CanUse() || !Viewmodel || !Viewmodel->GetSkeletalMeshAsset())return;

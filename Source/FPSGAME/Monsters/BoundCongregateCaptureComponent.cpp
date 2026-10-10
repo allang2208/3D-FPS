@@ -2,9 +2,13 @@
 #include "BoundCongregate.h"
 #include "FPSCombatHealthComponent.h"
 #include "../Combat/CombatStatusFormula.h"
+#include "../Skills/FPSFireballComponent.h"
+#include "../Weapons/RuneSwordComponent.h"
+#include "../UI/StatusEffectsComponent.h"
 #include "../Movement/FPSCharacterMovementComponent.h"
 #include "../Movement/FPSTraversalComponent.h"
 #include "GameFramework/RootMotionSource.h"
+#include "Engine/World.h"
 #include "Net/UnrealNetwork.h"
 
 UBoundCongregateCaptureComponent::UBoundCongregateCaptureComponent()
@@ -27,13 +31,23 @@ bool UBoundCongregateCaptureComponent::IsCaptured(const AActor* Victim)
 }
 bool UBoundCongregateCaptureComponent::IsHeld() const
 {
-    return IsValid(Source)&&!Source->Dead()&&!Source->Controlled();
+    return IsValid(Source)&&!Source->Dead();
 }
+float UBoundCongregateCaptureComponent::GetTentacleHealth() const {return IsValid(Source)?Source->TentacleHealth:0.f;}
+float UBoundCongregateCaptureComponent::GetTentacleMaxHealth() const {return IsValid(Source)?Source->TentacleMaxHealth:300.f;}
 bool UBoundCongregateCaptureComponent::IsHeldBy(const ABoundCongregate* Captor) const {return Source==Captor;}
 bool UBoundCongregateCaptureComponent::HitRestraintWithQuickMelee()
 {
-    if(!GetOwner()->HasAuthority()||!IsHeld())return false;
+    if(!IsHeld())return false;
+    if(!GetOwner()->HasAuthority())
+    {
+        const auto* Victim=Cast<APawn>(GetOwner());
+        if(!Victim||!Victim->IsLocallyControlled())return false;
+        ServerQuickMeleeContact();return true;
+    }
     if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
+    if(GetWorld()->GetTimeSeconds()<NextEscapeContact)return true;
+    NextEscapeContact=GetWorld()->GetTimeSeconds()+.2;
     // Each weapon's existing contact latch admits exactly one hit per F action.
     // The restraint is on the victim, so escape does not require facing the captor.
     ++EscapeHits;
@@ -41,6 +55,7 @@ bool UBoundCongregateCaptureComponent::HitRestraintWithQuickMelee()
     if(EscapeHits>=RequiredEscapeHits)Source->CancelTentacle();
     return true;
 }
+void UBoundCongregateCaptureComponent::ServerQuickMeleeContact_Implementation(){HitRestraintWithQuickMelee();}
 bool UBoundCongregateCaptureComponent::Capture(ABoundCongregate* Captor)
 {
     auto* Victim=Cast<ACharacter>(GetOwner());
@@ -48,7 +63,7 @@ bool UBoundCongregateCaptureComponent::Capture(ABoundCongregate* Captor)
     const auto* Health=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
     const auto* Status=Victim->FindComponentByClass<UCombatStatusFormula>();
     if((Health&&(Health->IsDead()||Health->IsInvulnerable()))||(Status&&Status->IsImmune()))return false;
-    EscapeHits=0;Source=Captor;ApplyControl();Victim->ForceNetUpdate();return true;
+    EscapeHits=0;NextEscapeContact=0.;Source=Captor;ApplyControl();Victim->ForceNetUpdate();return true;
 }
 void UBoundCongregateCaptureComponent::Release(ABoundCongregate* Captor)
 {
@@ -61,6 +76,9 @@ void UBoundCongregateCaptureComponent::ApplyControl()
     auto* Victim=Cast<ACharacter>(GetOwner());if(!Victim)return;
     if(auto* Traversal=Victim->FindComponentByClass<UFPSTraversalComponent>())Traversal->Cancel();
     if(auto* Movement=Cast<UFPSCharacterMovementComponent>(Victim->GetCharacterMovement()))Movement->CancelDodge();
+    if(auto* Hands=Victim->FindComponentByClass<UFPSFireballComponent>())Hands->InterruptForPriority();
+    if(auto* Sword=Victim->FindComponentByClass<URuneSwordComponent>())Sword->CancelAction();
+    UStatusEffectsComponent::Notify(Victim);
     // IgnoreMoveInput is also treated as a full weapon/UI action lock. Use the
     // character's movement-only gate so held hands, aim and F remain available.
     Victim->StopJumping();Victim->ConsumeMovementInputVector();
@@ -75,13 +93,13 @@ void UBoundCongregateCaptureComponent::ClearControl()
         if(PullMotionId){Move->RemoveRootMotionSourceByID(PullMotionId);Move->Velocity.X=Move->Velocity.Y=0;}
         Move->RemoveTickPrerequisiteComponent(this);
     }
-    PullMotionId=0;SetComponentTickEnabled(false);
+    PullMotionId=0;SetComponentTickEnabled(false);UStatusEffectsComponent::Notify(GetOwner());
 }
 void UBoundCongregateCaptureComponent::TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Dt,Type,Tick);
     auto* Victim=Cast<ACharacter>(GetOwner());
-    if(!Victim||!IsValid(Source)||Source->Dead()||Source->Controlled()){ClearControl();return;}
+    if(!Victim||!IsValid(Source)||Source->Dead()){ClearControl();return;}
     if(const auto* Health=Victim->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())
     {if(Victim->HasAuthority())Source->CancelTentacle();else ClearControl();return;}
     if(!Victim->HasAuthority()&&!Victim->IsLocallyControlled())return;

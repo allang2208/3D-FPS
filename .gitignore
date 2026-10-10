@@ -2740,7 +2740,7 @@ __pycache__/
 !/SourceAssets/AttachmentDetails20261008/**/
 !/SourceAssets/AttachmentDetails20261008/build_native.ps1
 
-# BoundCongregate paused 2026-10-08: public recipes/code only; licensed inputs,
+# BoundCongregate V34 2026-10-10: public recipes/code only; licensed inputs,
 # geometry/skin/corpse samples, engine packages, media and receipts remain local.
 /SourceAssets/BoundCongregateConcept20261006/**
 /SourceAssets/BoundCongregateMeshy20261006/**
@@ -2753,6 +2753,9 @@ __pycache__/
 !/SourceAssets/BoundCongregateMeshy20261006/TentacleWhipV4/Reference/
 !/SourceAssets/BoundCongregateMeshy20261006/TentacleWhipV4/Reference/LICENSE
 !/SourceAssets/BoundCongregateMeshy20261006/TentacleWhipV4/Reference/SOURCE.md
+!/SourceAssets/BoundCongregateMeshy20261006/CombatV28/
+!/SourceAssets/BoundCongregateMeshy20261006/CombatV28/motion_contract.json
+!/SourceAssets/BoundCongregateMeshy20261006/CombatV28/before_values.json
 /Tools/BoundCongregate/*.log
 
 # Super90 publication: recipes and prose only; licensed assets / dense captures stay local.

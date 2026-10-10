@@ -1,3 +1,4 @@
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "RuneSwordComponent.h"
 #include "TangDaoGuardComponent.h"
 #include "../FPSGAMECharacter.h"
@@ -64,6 +65,7 @@ float URuneSwordComponent::DashReadyFraction() const
 
 bool URuneSwordComponent::TryBeginDashAttack()
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return false;
     TRACE_CPUPROFILER_EVENT_SCOPE(DashAttack_Entry);
     const double BeginSeconds=FPlatformTime::Seconds();
     auto* Pawn=Character.Get();

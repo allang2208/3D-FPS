@@ -1,0 +1,2474 @@
+{
+  "date": "2026-10-10",
+  "scope": "BoundCongregate V20-V34 publication",
+  "archive": "trash/bound-congregate-publication-20261010",
+  "count": 308,
+  "bytes": 334796183.0,
+  "complete": true,
+  "files": [
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/BiteV33/before/BP_BoundCongregate.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/BiteV33/before/BP_BoundCongregate.uasset",
+      "bytes": 30424,
+      "sha256": "ec821988d10673f96a11a89c39fe34b200b2b0abf744883d8a43deab8164e2b9",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/BiteV33/read-bridge.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/BiteV33/read-bridge.txt",
+      "bytes": 4694,
+      "sha256": "8dc733bcb19f5d5b86a1e18fd0a0fc7e42eede0ce4cf04da0699e8effcc1d375",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/BiteV33/stop-pie.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/BiteV33/stop-pie.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/CaptureV30/before/BP_BoundCongregate.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/CaptureV30/before/BP_BoundCongregate.uasset",
+      "bytes": 30259,
+      "sha256": "8d96c856b7f2d056984021ce43ec330e9dc7754fa0a414a75398643a8c4e55c9",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/CaptureV30/build-FPSGAME-backup-2026.10.09-14.44.30.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/CaptureV30/build-FPSGAME-backup-2026.10.09-14.44.30.log",
+      "bytes": 25521,
+      "sha256": "19daa79e60ca60e12b90230329000bd7bac6588c8edeaef09cadfa2fc8e8fe9c",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/CaptureV30/build-FPSGAMEEditor-backup-2026.10.09-14.42.31.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/CaptureV30/build-FPSGAMEEditor-backup-2026.10.09-14.42.31.log",
+      "bytes": 28174,
+      "sha256": "fb8aa8b3089d10c862ac3a477e1d3d915598d7b01cee9dd399a39d8173bcdf5a",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/CombatV28/before/BP_BoundCongregate.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/CombatV28/before/BP_BoundCongregate.uasset",
+      "bytes": 30278,
+      "sha256": "7caa4f6aa45f0d0177d21b9991babdcec056a5e5ef74f0a0256c7be4aa4c86b4",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/CombatV28/BoundCongregate_CombatV28.blend1",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/CombatV28/BoundCongregate_CombatV28.blend1",
+      "bytes": 16817379,
+      "sha256": "b5485003eabb5d8f386408807c850c50bd28bb099e9ed4113dc61f01736e3076",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV32/before/SK_BoundCongregate_TentacleReachV29.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV32/before/SK_BoundCongregate_TentacleReachV29.uasset",
+      "bytes": 44059637,
+      "sha256": "531905f61a007a5a67d77f4cf0dd98e76273beea8dd1e8beb487ebf8ffbba6d4",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV32/compile-bridge-02.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV32/compile-bridge-02.txt",
+      "bytes": 529,
+      "sha256": "87da5fc748b44cbb5883e85ca57d4c964b400627fdc8fcef680639410205a3dc",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV32/compile-bridge-03.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV32/compile-bridge-03.txt",
+      "bytes": 1343,
+      "sha256": "638d6bcec120ea8a30588a3fa5a433be38f93b6e599436cce2d13003944f60aa",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV32/compile-bridge.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV32/compile-bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV32/install-bridge-final-02.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV32/install-bridge-final-02.txt",
+      "bytes": 113,
+      "sha256": "fb3df55bdee84bd7d1fb56d0e57dcc280abb759582e121e28be8171a878ebe35",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV32/install-bridge-final.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV32/install-bridge-final.txt",
+      "bytes": 584,
+      "sha256": "eedde033301ac9e7c47547b980e309537b2a88ed2b7ced578283d770c4b193ab",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV32/stop-pie-02.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV32/stop-pie-02.txt",
+      "bytes": 125,
+      "sha256": "6c57a4d853976c33845a79f25547dca0ae146386fa1b54ead1ad00d47284e5c3",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV32/stop-pie.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV32/stop-pie.txt",
+      "bytes": 125,
+      "sha256": "21a0c2a04fe8c8b6e91a7215a3201f96f95dcf5ddca377eaef06670d12b54333",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV34/before/SK_BoundCongregate_TentacleReachV29.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV34/before/SK_BoundCongregate_TentacleReachV29.uasset",
+      "bytes": 44067055,
+      "sha256": "ea199ed9a6a9ba915664fbce22b13cbd91f9742e0a6eaa7fcf6ad0e19ffe83fe",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV34/finish-bridge.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV34/finish-bridge.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV34/install-backup-2026.10.09-16.49.48.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV34/install-backup-2026.10.09-16.49.48.log",
+      "bytes": 279938,
+      "sha256": "1c271e2a7fcd26de090926b4d34061109d4be9c9e620bc3e1a4619f612ba1e00",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV34/install-bridge-final.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV34/install-bridge-final.txt",
+      "bytes": 605,
+      "sha256": "87f56a3ea5871567cb14b250cef3d54b7fd82d62a9407d8f43dc117663dccb4e",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV34/install-bridge.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV34/install-bridge.txt",
+      "bytes": 605,
+      "sha256": "87f56a3ea5871567cb14b250cef3d54b7fd82d62a9407d8f43dc117663dccb4e",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/DeathV34/stop-pie.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/DeathV34/stop-pie.txt",
+      "bytes": 125,
+      "sha256": "689a651ffc8229abe9888a2abe7cf1bd4b1734c1d0155e503b005638d7a758e2",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/A_BoundCongregate_FlurryV22.fbx",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/A_BoundCongregate_FlurryV22.fbx",
+      "bytes": 2489004,
+      "sha256": "045e4e58374dfe66f46b34196b7e2bc4f311dfeffecd0ef744dfe0ec41031166",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/author.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/author.log",
+      "bytes": 762,
+      "sha256": "8a76045503a602e90fe483ae87be46348d3aa7cb77e920455748b62a7ae243b9",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/before/BP_BoundCongregate.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/before/BP_BoundCongregate.uasset",
+      "bytes": 30097,
+      "sha256": "de6c2c3ac0f3cef83e983fdabb74524312847f7c70379cc70e740bf5764ca191",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/BoundCongregate_FlurryV22.blend",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/BoundCongregate_FlurryV22.blend",
+      "bytes": 15048222,
+      "sha256": "fe1bca7a4e95e9afcd5306dbc48a9bd5bebe4f85b764ecaff684f80b9deba9ad",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/build-FPSGAME-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/build-FPSGAME-console.log",
+      "bytes": 1072,
+      "sha256": "f739093db010d8b75a5058339140762c6a6ae33309f6ef8b9e88c04d7b5ed7c6",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/build-FPSGAME.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/build-FPSGAME.json",
+      "bytes": 18274,
+      "sha256": "789540b2b9d9da093d3456ba37be9881355502b0c1cb91fc6719f64fb5f9aca6",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/build-FPSGAME.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/build-FPSGAME.log",
+      "bytes": 5647,
+      "sha256": "bfdb9f544e30f1956a2056e2a08f341d2c915c983b397c105b0729993422d9af",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/build-FPSGAMEEditor-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/build-FPSGAMEEditor-console.log",
+      "bytes": 1115,
+      "sha256": "5b9bf0646f80962105f9e880742e9493804575ade300b1dda3a394f016b578d2",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/build-FPSGAMEEditor.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/build-FPSGAMEEditor.json",
+      "bytes": 18301,
+      "sha256": "5188a31256360e9965a9891536679d0e73cd8df7e15b3b2249e5c943ca611540",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/build-FPSGAMEEditor.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/build-FPSGAMEEditor.log",
+      "bytes": 5731,
+      "sha256": "8c88791135d55df7898bad3ac021163da5b9c92db4367b347252074f4a5e40f6",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/delivery.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/delivery.json",
+      "bytes": 1942,
+      "sha256": "63bc8dd077b94198c6e883883afee7b5196644f957f695bfd35a317665122ece",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/import-final-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/import-final-console.log",
+      "bytes": 34027,
+      "sha256": "f32e40a8d87dcdd0a8f1839a41b8d8c471ef0681f186b9bdc368039757a14a01",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/import-final.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/import-final.log",
+      "bytes": 292028,
+      "sha256": "92eff85f8ebdc31e227d4c67e1647fd5ad879c0748400827773e7dd8f7dd01f3",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/motion_contract.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/motion_contract.json",
+      "bytes": 874,
+      "sha256": "cb38a36ee7f19d5dc612d0c34681c5ded6286cb8a01edc18266552b903b24c74",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/motion_manifest.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/motion_manifest.json",
+      "bytes": 589,
+      "sha256": "9f83b5e0e681533e10cc70bc6ae26fadf1411cff5fdb8d35b6832c890350c64c",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/Flurry_V17_V22_sheet.jpg",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/Flurry_V17_V22_sheet.jpg",
+      "bytes": 486069,
+      "sha256": "c99872a54845488c23d6e68f59a5a3e5e585adf8d48da8fb9d9a0c1a541a1a0c",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/Flurry_V17_V22.gif",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/Flurry_V17_V22.gif",
+      "bytes": 11600624,
+      "sha256": "898684ee6cf8866a48b42770279dd1b1352d64698980e53d34ce277d8b978267",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/render.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/render.log",
+      "bytes": 14099,
+      "sha256": "f9418f4152d7d943fa8c90c93aa89c7de3e7c080d0f01cac4b1e8c0a2ee10930",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/review.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/review.log",
+      "bytes": 2103,
+      "sha256": "0ea41ac4d97a2728d8af8d55afb9ab844055f42be76e98ccf05ee9f85e789e28",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/source-review.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/source-review.json",
+      "bytes": 14699,
+      "sha256": "8374e6caf8a38f7ee0f07349bae08c8b03656ec238c8d6d1da3c3d9ed9097f2e",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/ue_compressed_review.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/ue_compressed_review.json",
+      "bytes": 12635,
+      "sha256": "ff8d580c836274efddfe87d19c3c91b024fb0d91463fd0c03a01148568c37513",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/ue-review-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/ue-review-console.log",
+      "bytes": 33022,
+      "sha256": "721fa87c2dc455c2df0b50b4a15e27f74fad963ddd8d98fecefeffa7be4a635d",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/ue-review.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/ue-review.log",
+      "bytes": 279007,
+      "sha256": "bb7458706f5ec5501a848f6976edfee727c1991bae126b4143b54fc524abbdfd",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17-joints.npz",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17-joints.npz",
+      "bytes": 541204,
+      "sha256": "548a350e5916a7d5be5666d031c0dd771b966ff6c28c8e7666b07a5cb8b87408",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/000.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/000.png",
+      "bytes": 286902,
+      "sha256": "e1771718c6446f26bf4c449df6a78a66cb3e5b2bee7b27b852b31588e6c985da",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/001.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/001.png",
+      "bytes": 285688,
+      "sha256": "77bb26e2c932f249fbd3375db54bc0572624c66da98e495990f72875cafe3baf",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/002.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/002.png",
+      "bytes": 284843,
+      "sha256": "18f65eb24fec3b0b2b65f2953a8b8ac92907a1c08011a27ff34acdee9b355e00",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/003.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/003.png",
+      "bytes": 284223,
+      "sha256": "cbe5c827639e2bb07c6df2bfb4b8f501804e91c5c7e194250354c78ea8ed49a5",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/004.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/004.png",
+      "bytes": 284019,
+      "sha256": "20bee8d2287e62ce44f2df4b1e1904f7363e9aeeddee00f1e18b85e0f9e40340",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/005.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/005.png",
+      "bytes": 283284,
+      "sha256": "bed3a2680995691ec3e5c676d9ea045f6f814ec34eda70d0de7f0d6082ccfdea",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/006.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/006.png",
+      "bytes": 282660,
+      "sha256": "5ecbb73cc436db3031c7c64b888fddfed33e291df37cf812a1de33586b439165",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/007.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/007.png",
+      "bytes": 281508,
+      "sha256": "62dd094a1327518ea69f7cfef288cc0bb145de36849734016065d086c2d06aa2",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/008.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/008.png",
+      "bytes": 281283,
+      "sha256": "bfe0776036eae6a3cf0a30162b3f10411f2f9097c0beb6085d44ba3b455fafad",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/009.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/009.png",
+      "bytes": 281082,
+      "sha256": "0b3056c914cb5bd83273105daabd89ba866b67febab9d11d7b52687ddeaedd4d",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/010.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/010.png",
+      "bytes": 281307,
+      "sha256": "bca7e87c2c05a215dc0d2a7060d628155c79268c7d00f7ada0151a61b992b371",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/011.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/011.png",
+      "bytes": 281243,
+      "sha256": "a967f5cfd53d1c1ed6c7425094c557ec74db61306f0ea482e168101ec299ebb7",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/012.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/012.png",
+      "bytes": 281436,
+      "sha256": "6d5ba7dbc1fb0c74711d09b0f5b4ff5b8174bff5795bb9e2009eb4bc4b4086bc",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/013.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/013.png",
+      "bytes": 281757,
+      "sha256": "ec90995d769604a3cc5d286b7e35aee955ff99ecda1099bf284fa47bdf756993",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/014.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/014.png",
+      "bytes": 281721,
+      "sha256": "6a27393f3425dd1bfea234839faeda069e8ee86629c30613afe9b1e45559ab6a",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/015.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/015.png",
+      "bytes": 282220,
+      "sha256": "519479e8078d90ea055a1e555bcfa4d0a7355f533ec0b2e168c31c7d5d4a4b83",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/016.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/016.png",
+      "bytes": 283535,
+      "sha256": "a9331b0d935285f52bde7fa9b0bafee2f63731b619fff20df3f2e9b1ef9ce1dd",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/017.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/017.png",
+      "bytes": 284406,
+      "sha256": "996eaf66d6b1fd4a4128f0889bf968aff2fdf1e06f95e474beada06d0c40aaf4",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/018.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/018.png",
+      "bytes": 283941,
+      "sha256": "564f6ce4534fa16b6f178c1cdc21b8080361913157559f9959a798f7dcc3cfa6",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/019.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/019.png",
+      "bytes": 283822,
+      "sha256": "7d885abdf9e7777fa08457a5479b7805c8f85db0970c02cd97f3fbd9675f6c32",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/020.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/020.png",
+      "bytes": 283610,
+      "sha256": "359d8b14700e5be04f32742d75f5653602ecde9f3f2f33ca8ada76ccde105a34",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/021.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/021.png",
+      "bytes": 283499,
+      "sha256": "24755f1acf72657f3dc59d02f591262b0b915f2b260bc9727aabf1ed433e3a8a",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/022.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/022.png",
+      "bytes": 284199,
+      "sha256": "2603f02e0b33a52f3ba6d908e47839b54cbdbdc0ceebc5e3d067d459347cc8c7",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/023.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/023.png",
+      "bytes": 282686,
+      "sha256": "af882bd94392baf1d70e52b0b1ce7170509364e6bd76623e0b9ee47f1fb88b22",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/024.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/024.png",
+      "bytes": 282483,
+      "sha256": "13bf7a88a0334baa204f4df6926aead15497d05e874aed522a5325850f9f08f6",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/025.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/025.png",
+      "bytes": 283449,
+      "sha256": "de4edd53ee8d54bf02f88eb06b55af124e11321c2c0d3b8683a4d3e07fc70f80",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/026.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/026.png",
+      "bytes": 284072,
+      "sha256": "bb4c25620ec40cb989a4f5ebaf7b62371e53531b251a00ff6128b70547835ce3",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/027.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/027.png",
+      "bytes": 284097,
+      "sha256": "bfda5d7ba3c9bc4061a4491f4dad2441c97fc654f29727a7ba5613e71927ef83",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/028.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/028.png",
+      "bytes": 283436,
+      "sha256": "5dc4e80095fc5075330392fb944ccb387ce80128705505bae931db2e553c51e7",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/029.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/029.png",
+      "bytes": 284328,
+      "sha256": "ef2f8471184b5adafb8f2e3ad6675623c5299a148c735d69bc7a4d3c6a5d0555",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/030.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/030.png",
+      "bytes": 284239,
+      "sha256": "745ab3db5ffe378bd6769cb88f65f29cbfdd899713ab397f716f131ab7231598",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/031.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/031.png",
+      "bytes": 284359,
+      "sha256": "ad45931538b0909ef60c06149d24dae75e8249948a8e1a4014a09681bfe696fe",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/032.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/032.png",
+      "bytes": 283387,
+      "sha256": "8d14e83858b26d94fb54ee8f523f43ea571b6dcc9da5e89c389d7d57f4f68708",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/033.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/033.png",
+      "bytes": 282473,
+      "sha256": "84505e998221d89599683afce2210f43d31c53361bade2a8a4abea29f7db1b51",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/034.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/034.png",
+      "bytes": 281241,
+      "sha256": "84a8c51e8f314042f55e6c38b5c261638d0759f5d0d467d4b28d785aefd547fc",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/035.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/035.png",
+      "bytes": 281313,
+      "sha256": "b3836d8a5da943d75b7e3a43ff88425e3ab913019942e4ea6f23ba1fd7aae839",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/036.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/036.png",
+      "bytes": 281313,
+      "sha256": "920d2a0f635d94e85dfef2a2e3245056e158a34bb8fbdbc6cec1d02943e9a688",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/037.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/037.png",
+      "bytes": 281793,
+      "sha256": "ce4fd2f456baf27a173d96f06067134318007a0b84ecfca612400652bbd2fb22",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/038.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/038.png",
+      "bytes": 283700,
+      "sha256": "119578570d7bbe9a368b4658c69fe2aebb5d526f6a547cdeff244d7f468ee034",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/039.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/039.png",
+      "bytes": 283710,
+      "sha256": "fabc179a0f4602632c98732bff13b15224bf5b03296e71f5444050c14470e758",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/040.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/040.png",
+      "bytes": 284199,
+      "sha256": "2a433f5d5ff650ed8dc7f4ebfec120d3f389a3e84f67b39dde3deb6999f53401",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/041.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/041.png",
+      "bytes": 285088,
+      "sha256": "cab89dfc852038fd3a7029e95bd3ea417a6ad11614ad080463bcac9e13633398",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/042.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/042.png",
+      "bytes": 285318,
+      "sha256": "f82ffa262ac2a595e1194cac56071b3d66856ecca765a6c13f18c0e43321cc01",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/043.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/043.png",
+      "bytes": 284792,
+      "sha256": "ec9202adaace43eab71137ec2b75b8cfcadac9e472d14e079ccd16caac6d69e0",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/044.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/044.png",
+      "bytes": 285138,
+      "sha256": "2f967876b0a5b91c9cd6940a110cde4410778106418dd0910a9b7af0186ca036",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/045.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/045.png",
+      "bytes": 285360,
+      "sha256": "c9a2d59ccd442374de63e1ac353bf94f2c85544fc37353c52d218b7961b00de6",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/046.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/046.png",
+      "bytes": 284566,
+      "sha256": "695c41db0d205b4f9135db0bf8cf7d8e425d54cad7b6f1ed17ed56dd1d3529ec",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/047.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/047.png",
+      "bytes": 284806,
+      "sha256": "57ec752a5610b1fc77bac3f7dbedf2735ee761b4d8d7d1c5a69578da0d6dc01c",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/048.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/048.png",
+      "bytes": 285029,
+      "sha256": "b2a67af7bd27f23667212c038e784a29785b7fb98e598bb24c2d1fc26cdff81a",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/049.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/049.png",
+      "bytes": 285392,
+      "sha256": "762f3d3785797f9d6716c3bc5c546e3999f4d885e6a8f3cfd2ba46b38b52c804",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/050.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/050.png",
+      "bytes": 286710,
+      "sha256": "9edfb2d8a45122bf939db6392f8c95c736e135358e09307aae331b11ab79d9fb",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/051.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/051.png",
+      "bytes": 287164,
+      "sha256": "b1dcc2720ebfc118719597fabe651a9ca0c25783ffa5a6f645200b948ff86096",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/052.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V17/052.png",
+      "bytes": 286902,
+      "sha256": "b9786e8cf382e37f6424fe6b90ebd9726822a7092171a8e5ebace926e38915b3",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22-joints.npz",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22-joints.npz",
+      "bytes": 645897,
+      "sha256": "0ba13e2fc02f457aa43165f249a65d35b1dc26e42169b89d5f259247f00be7cd",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/000.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/000.png",
+      "bytes": 286902,
+      "sha256": "26c77bd67ad499a21f0d008a3c37ee32813f8c26e1c6961b36bd99c4deb3f499",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/001.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/001.png",
+      "bytes": 287136,
+      "sha256": "0de0af27afb0f4b8496fbe79a21f0f58ae89259a9039ec8498adedff946e8e55",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/002.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/002.png",
+      "bytes": 287138,
+      "sha256": "9a6788aba12a03285c1c618b63cbb441d9bcbc492b9886247a4559a719fcd908",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/003.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/003.png",
+      "bytes": 287321,
+      "sha256": "748507aca779a2a7a82d011568817013c03c0975302819e9a9cb8cb4aaba19f4",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/004.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/004.png",
+      "bytes": 286658,
+      "sha256": "4941cdfa2628b0f1af96834a5807b9e766f8c106f96831f633e410241ffe4ba1",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/005.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/005.png",
+      "bytes": 286451,
+      "sha256": "f31c56c71962c37eabc47538f23f19609b0973da56240adb55482c1559f6e438",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/006.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/006.png",
+      "bytes": 286329,
+      "sha256": "56a2d24cdff3a17b7a63064855d261ebb876bf93b99756aeba975c20ededcd14",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/007.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/007.png",
+      "bytes": 286814,
+      "sha256": "d2c54d313bdbaf3825310bb124aef6aeddae8cea1d2957a535de83ea29018689",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/008.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/008.png",
+      "bytes": 286955,
+      "sha256": "40b443ae596c614bec68892c4978bee377ec76359fdd783347d4869a013837ff",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/009.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/009.png",
+      "bytes": 285976,
+      "sha256": "c13abc21b5d8d3880834d26d3bf33b9f37292bc4c8e0374b0611320419ad3967",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/010.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/010.png",
+      "bytes": 285846,
+      "sha256": "a96001caa4b017150306f7aaa2ba6bbebf5af4c4ace79c558ff4caff23ecc56d",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/011.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/011.png",
+      "bytes": 285655,
+      "sha256": "82b28b56e6d688dd8c5d8cb31e77e3902be3a67ad6e25be46bb05659154249b0",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/012.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/012.png",
+      "bytes": 285155,
+      "sha256": "ae322826274a67e5c385b9744ba329574b2cc0042feaa69913df4a326a676ca0",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/013.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/013.png",
+      "bytes": 284741,
+      "sha256": "3eb46ee495bafcf71fdefaa638d835eab749fab7e86168b9242185d6bb66c73f",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/014.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/014.png",
+      "bytes": 283632,
+      "sha256": "597e510b7767d8d28a56f1d23b6e2245f39ca513b7f6a012a9bcdeb3bbd26a5c",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/015.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/015.png",
+      "bytes": 283668,
+      "sha256": "71c69189c459c33177ab77ec9cdecf7d6031b878abfec32153da2b523dee0e68",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/016.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/016.png",
+      "bytes": 283620,
+      "sha256": "1d171587b265b2d67e7bdd4b00e3568910dfae483d05c8d41e3c9733ec4d8df5",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/017.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/017.png",
+      "bytes": 284230,
+      "sha256": "69e4b2cd0744ecac7905821c3b7e5c79b1632db763c49118968ce2ed89ce083f",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/018.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/018.png",
+      "bytes": 283129,
+      "sha256": "6644336ee39dad758d1e40be56dbe448c376178dcac0db22392f470fe46a6d75",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/019.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/019.png",
+      "bytes": 282610,
+      "sha256": "760d9585202c8f501764db2689d40eef9c43d7cb545a5b6f37f6064be335d35d",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/020.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/020.png",
+      "bytes": 281874,
+      "sha256": "87a3cbc2f007179a0d4b11b84155544392466a2a2aa0afbc2689156109d41bfd",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/021.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/021.png",
+      "bytes": 279922,
+      "sha256": "48a6bd7e5fdb08d1ea83453a79b6b2464cf1e7aab85d86f97578d2cd31719c01",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/022.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/022.png",
+      "bytes": 281826,
+      "sha256": "cb55b0cd66ed520bfe3c51075870a05c6e798c327f8517abee850c506d14cb17",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/023.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/023.png",
+      "bytes": 280879,
+      "sha256": "1664ef97cea7e396c2c64f2a8b47b0aedaa2f0f430547a6dacfc09db2f47104b",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/024.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/024.png",
+      "bytes": 279292,
+      "sha256": "d5d2e2f173efbe7bc734d3718248cee662aceab3b14b1ee8ac1d3df35c2fc71e",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/025.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/025.png",
+      "bytes": 278928,
+      "sha256": "4b34ca2473129a2c464d6e0645407b38fca8f3e167a24602236df588c6fc6375",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/026.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/026.png",
+      "bytes": 278029,
+      "sha256": "f701f9743302e25414e9c25cddcc5a51df316cfb120ec6b23aee01d937220b18",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/027.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/027.png",
+      "bytes": 278042,
+      "sha256": "47efb9aa47774413d32c3c63fd8dd83908f61a7c77952a894187cc6ef5cc0e60",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/028.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/028.png",
+      "bytes": 278554,
+      "sha256": "82225b967b49664ec0ca0c18c18793046cedb579c3bed404bd654b4ee71b654e",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/029.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/029.png",
+      "bytes": 278237,
+      "sha256": "75a473b37230a6bfca2481c02e79f31789eedff6356d718e350766e10b71162d",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/030.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/030.png",
+      "bytes": 277776,
+      "sha256": "65b8e9acf506cbea75345e2ad882d5a818ebaed93d19b1ba14df640e3d829612",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/031.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/031.png",
+      "bytes": 278580,
+      "sha256": "64a7891a44022654d0d724bb3d15898d4859f5ee59cc19afbb291f6397931e3a",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/032.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/032.png",
+      "bytes": 278480,
+      "sha256": "3d070edc83b9c8d26ee9c229fc09b2499b5ca6405eba7264c1e4802697489c7e",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/033.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/033.png",
+      "bytes": 278352,
+      "sha256": "c7aed0603c67be0dbcb32346a2daaab2ef6b9ea4a101453377c133db998dcb1d",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/034.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/034.png",
+      "bytes": 278081,
+      "sha256": "8fd2c9aeadefc8b278c2e10127e737f0ded3439838b28c626766661a559c8676",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/035.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/035.png",
+      "bytes": 278195,
+      "sha256": "b02e6088ade643d5074131edfcf26d0a719b8a39729f6d436fb187e4795707b9",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/036.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/036.png",
+      "bytes": 278629,
+      "sha256": "40853e72cab690e1f4d3e133c83ab7202150e13b781f2a942caba9e0584aefdb",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/037.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/037.png",
+      "bytes": 281375,
+      "sha256": "023fab6b300450db2fd14d0361ed1eb42cb9531276bb15aa70caaff03805b75d",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/038.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/038.png",
+      "bytes": 282735,
+      "sha256": "37d1f160a9bff84c103ca023900882fbdc233ba663728fcb0d64089986fbfb00",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/039.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/039.png",
+      "bytes": 283076,
+      "sha256": "9d86e4b141071d0efcf3de2a5498ebcb2298eb3e59b1b620ce2d3d8b869b98e6",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/040.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/040.png",
+      "bytes": 283797,
+      "sha256": "877d71ae3fa0812d6a4a0e25f258f5c03366b2117b897aba26a54fa29bdc4061",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/041.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/041.png",
+      "bytes": 284267,
+      "sha256": "ecedc9f9116ebc8859c19e37facdd5eddb8739dc0d2da9f60fee1d37fe0fcb8d",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/042.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/042.png",
+      "bytes": 284733,
+      "sha256": "29e0ddf19713191a41d41cfadb4c47a7547579ad7e0b717bcf0eb3fb2bebf920",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/043.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/043.png",
+      "bytes": 285132,
+      "sha256": "3be32427df842e5ca03f73b23aea0abbcee487ea42fae6c4dc24a9dfb041a1d8",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/044.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/044.png",
+      "bytes": 285309,
+      "sha256": "af7a5a6436ed1167c7b2453e9f6a217c1bcd293aa38edf2e8b9c46a7210eb9e2",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/045.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/045.png",
+      "bytes": 286104,
+      "sha256": "f8f88afbbced286e8139af0961be351cafbdfab68ca19c1daec2507e0aca515e",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/046.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/046.png",
+      "bytes": 285814,
+      "sha256": "1a79a00f9e8afdc303df4e641b4dacc970e4f29bfb3bb2187f53b173d148957b",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/047.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/047.png",
+      "bytes": 286035,
+      "sha256": "38e3a135339406e525b023a57a552c429018f64d5fa1112ef81bf3f4eedd6b7d",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/048.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/048.png",
+      "bytes": 286209,
+      "sha256": "8cc9b2f511989ff1945438dbeb08d71937396cf896438fcde5ab197c0a3a01bb",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/049.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/049.png",
+      "bytes": 286989,
+      "sha256": "89ff534134dc1d457f4c545ba5b8da0b8f627858496bbd0de702c518aea0acc1",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/050.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/050.png",
+      "bytes": 287095,
+      "sha256": "1c11b275fbe8d3cfc573fda21757a834bcb739b4b50389529180a9a9ec0e54e0",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/051.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/051.png",
+      "bytes": 286747,
+      "sha256": "130f97f964355e90434739742443206a8f24ed399538a299eb6d5a11ccba9c15",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/052.png",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV22/Review/V22/052.png",
+      "bytes": 286902,
+      "sha256": "614a5f6f2e90efe43e2c1e910b758742ac761a9a7179bc8b2cdccf7fa1a76b84",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV26/A_BoundCongregate_FlurryV26.fbx",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV26/A_BoundCongregate_FlurryV26.fbx",
+      "bytes": 2923148,
+      "sha256": "282bdacc3b9691e3050d531ffd58c532d1a43e35905abb2cabde85d11704c4dc",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV26/before/BP_BoundCongregate.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV26/before/BP_BoundCongregate.uasset",
+      "bytes": 30098,
+      "sha256": "7c70cad31b5dfdd11438c924967f1f2f67e1fc2627d1da57bdad1e9667e886fb",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV26/BoundCongregate_FlurryV26.blend",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV26/BoundCongregate_FlurryV26.blend",
+      "bytes": 14376431,
+      "sha256": "72804013566bc2cca287fdd579ba37dd4a1541f9aea2ac71f8ffcc32174b718a",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV26/delivery.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV26/delivery.json",
+      "bytes": 2172,
+      "sha256": "ac847504d1d45d6d1fa27f68757c41e9694429ba2313b7dc1382cb32bd995b4d",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV26/import-final-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV26/import-final-console.log",
+      "bytes": 34788,
+      "sha256": "15033f1596e26c91c55b218c90909bf43707ec06144ca69fe38ca4258ccd99a7",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV26/import-final.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV26/import-final.log",
+      "bytes": 292789,
+      "sha256": "67e66f3e9356484fc2a97f05cc0a562e5510f97e311dede04110b3ce083ef41d",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV26/motion_contract.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV26/motion_contract.json",
+      "bytes": 908,
+      "sha256": "f60ee941888945c53431754cc17ce2ddefd9c5243d206be9c8b43fc9d92e2575",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV26/motion_manifest.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV26/motion_manifest.json",
+      "bytes": 821,
+      "sha256": "08f8cb750d5dbc9abb86a054715e52ca249bb4d182f2cdffdd1a7c9be453b71e",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV27/A_BoundCongregate_FlurryV27.fbx",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV27/A_BoundCongregate_FlurryV27.fbx",
+      "bytes": 4497068,
+      "sha256": "bad6542b9934d6e87414b28f6ebf28bacae8b40cb7ec9d727c0f6ba0036d57cd",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV27/before/BP_BoundCongregate.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV27/before/BP_BoundCongregate.uasset",
+      "bytes": 30152,
+      "sha256": "13eafd6cd8ccf779a81309e8715ce1aa32703dd0f2349fb251ec9dd7b6d8f1b7",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV27/BoundCongregate_FlurryV27.blend",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV27/BoundCongregate_FlurryV27.blend",
+      "bytes": 15426756,
+      "sha256": "1985220db2d9167e719f53610ff0dfb48df8d88bcd91fef3ce506a952e008280",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV27/compile-01.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV27/compile-01.txt",
+      "bytes": 210,
+      "sha256": "e463bc7a4ffce44231b4f286487e0c39caf3769263de451af9a273d9406f3ca9",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV27/compile-evidence.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV27/compile-evidence.txt",
+      "bytes": 338,
+      "sha256": "44a0280f2a76348476898d91f22f4ff930ec887baba69d8fde275eb2de0d0bd7",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV27/compile-request.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV27/compile-request.json",
+      "bytes": 287,
+      "sha256": "c2d24ca88ace72978e89bd9ae7a3def77493db3fbf37611c60301b27740b6c1b",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV27/delivery.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV27/delivery.json",
+      "bytes": 2514,
+      "sha256": "150d739a6da973c75745b171de85223bf4b5cc475a3a62b95ee6163051e4187f",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV27/end-play-01.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV27/end-play-01.txt",
+      "bytes": 55,
+      "sha256": "6a12e8c34000dcd144736f5ff1c5d6e4508886edbaab2f12baa9be147639169e",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV27/import-01.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV27/import-01.txt",
+      "bytes": 125,
+      "sha256": "12da82adac0e022586646678c0ef556f781bd805a1a885237f1ed6506332a7c0",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV27/motion_contract.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV27/motion_contract.json",
+      "bytes": 1197,
+      "sha256": "bf48fea6778e6678001fcd7994ea0967762eab1f24b71de56502ae19ab23e798",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/FlurryV27/motion_manifest.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/FlurryV27/motion_manifest.json",
+      "bytes": 845,
+      "sha256": "efc69aee4a99a58cf985b0d20da8f89132b5e551e4ded605868b59eb7ad4b82d",
+      "reason": "Superseded attack authoring output and its historical review; V28 reads V25 directly.",
+      "replacement": "CombatV28 accepted flurry and bite source"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/garment-v20-author-02.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/garment-v20-author-02.log",
+      "bytes": 3355,
+      "sha256": "bfe716faeb7547a8ba23a66ce6a499288c3f1116bfedc4f9f07efb1d8399c957",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/garment-v20-author.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/garment-v20-author.log",
+      "bytes": 1492,
+      "sha256": "2e1c36418eb01a57a7ec59fe01bc996417fa8ff68c0ce17755baad936fb808a0",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/author-delivery.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/author-delivery.log",
+      "bytes": 3375,
+      "sha256": "6e554b4542c0859e898e6c9e0dd842ee43614ebc24d1b907a7adcba4ca79aa1c",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/author-final-02.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/author-final-02.log",
+      "bytes": 3375,
+      "sha256": "2d417f877ed115b2b333854cb5224b170ba4625ea04c249611da4dd2ea6e3ac2",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/author-final.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/author-final.log",
+      "bytes": 3118,
+      "sha256": "e31b3792845f43ea1a02a25e684a4cbdb0f2eff24a2c72304844b143883b8f1f",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/authoring.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/authoring.json",
+      "bytes": 2120,
+      "sha256": "89e8d7f8f5e10a971bc9cd0cf24297caf5271c6051ce0d72b3950900e7ecb6bf",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/before/BP_BoundCongregate.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/before/BP_BoundCongregate.uasset",
+      "bytes": 30229,
+      "sha256": "a428047b1307d4d8e7eeb5bba3e283e1853f593c13c2894ae6795ae8b848b69d",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/BoundCongregate_GarmentDrapeV20.blend",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/BoundCongregate_GarmentDrapeV20.blend",
+      "bytes": 14068620,
+      "sha256": "3ec01cf85242414d8ae9ad0c0363ffdb03f8609205d55540e6edee69e56e5867",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/BoundCongregate_GarmentDrapeV20.blend1",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/BoundCongregate_GarmentDrapeV20.blend1",
+      "bytes": 14067109,
+      "sha256": "f602e0bd2bb134e4d54a57f264372599e3ce127a1b8d9ffe56948ded616556fc",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/build-FPSGAME-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/build-FPSGAME-console.log",
+      "bytes": 1084,
+      "sha256": "7e0a0d7fadf740c1f099fe31a76c54ff8354485ed45d4ea56ba998860acce382",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/build-FPSGAME.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/build-FPSGAME.json",
+      "bytes": 18769,
+      "sha256": "54a44fbfc363b16745af2e7b25274f579e3803f916552e17255c0b7cf332487c",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/build-FPSGAME.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/build-FPSGAME.log",
+      "bytes": 5825,
+      "sha256": "cb14e14651b1d6f66acf61693321eafd3919ae0164b8fc56a54febcd39746323",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/build-FPSGAMEEditor-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/build-FPSGAMEEditor-console.log",
+      "bytes": 1127,
+      "sha256": "67bf76113bb944b75670ffa683b6b9cbd5599b01c7689cf28df177e6fd82d1af",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/build-FPSGAMEEditor.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/build-FPSGAMEEditor.json",
+      "bytes": 18349,
+      "sha256": "03a78ff6f928da3a824391e4c97c6e73247d94e355fe8f54c50b04584a2167bf",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/build-FPSGAMEEditor.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/build-FPSGAMEEditor.log",
+      "bytes": 5761,
+      "sha256": "95efac91ae0e96d31b4036250bb5ace86276ff933be54bee49c12649fd4a02b8",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/collision_recipe.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/collision_recipe.json",
+      "bytes": 5455,
+      "sha256": "1719a4a86781dcd31ac950eaf12d1bb5e638fa4913023b52bb1ef73f0dab3eac",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/compile-editor-01.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/compile-editor-01.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/delivery.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/delivery.json",
+      "bytes": 1743,
+      "sha256": "557063a412919d7749061059e6a67634c40d26bddd31550621be64c7331944bd",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/import-final-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/import-final-console.log",
+      "bytes": 63692,
+      "sha256": "8d391cefbcf230e6af8b6136b8c30fa84f7102798f481bc4753527426f059acb",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/import-final.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/import-final.log",
+      "bytes": 344566,
+      "sha256": "4cc6f2ae2a43645f9c862a98b786615d88774e1bc2e9f7c40d0aa5fe3f8552a7",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/material-delivery.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/material-delivery.json",
+      "bytes": 640,
+      "sha256": "47f4927eba27bb7ad6b74f6fccf762f4616e734e30619c74eac72b02953d3d35",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/SK_BoundCongregate_GarmentDrapeV20.fbx",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/SK_BoundCongregate_GarmentDrapeV20.fbx",
+      "bytes": 12272396,
+      "sha256": "f12015fa79f054b015e8ed9ff694f9ccb3a98d7d8ea9a04260e961d71bc80541",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/SoftCorpse/BoundCongregate/authoring.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/SoftCorpse/BoundCongregate/authoring.json",
+      "bytes": 202,
+      "sha256": "e2935d50c1fce1193e7db5d401cfe62405e78fde9d69a886b93c09f539f91227",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/SoftCorpse/BoundCongregate/cage.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/SoftCorpse/BoundCongregate/cage.json",
+      "bytes": 79674,
+      "sha256": "eda7ba8db086068db128a067b53f6a947ba77d4afb3a9368e06422c44c7e2671",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/SoftCorpse/BoundCongregate/embedding.bin",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/SoftCorpse/BoundCongregate/embedding.bin",
+      "bytes": 5704616,
+      "sha256": "0bfe011a438cc859f0d674bdec4a84d9edffe02fd342b78dd916d9684f86b8c1",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/SoftCorpse/BoundCongregate/surface.bin",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV20/SoftCorpse/BoundCongregate/surface.bin",
+      "bytes": 1322632,
+      "sha256": "1d9bbebd1d20f08a3567cbed4d824bbfa5fae2afbd13e3637493794933a4ab04",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/author-delivery.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/author-delivery.log",
+      "bytes": 3438,
+      "sha256": "53338cc41f81e2b83cb6432fd5e591535e9f14317c4c505d34e0d44db5f3081b",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/authoring.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/authoring.json",
+      "bytes": 2180,
+      "sha256": "162eb80d345d3181248ff0536045f153b76e902a781e826e6eb619e7d0b30c0b",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/before/BP_BoundCongregate.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/before/BP_BoundCongregate.uasset",
+      "bytes": 30097,
+      "sha256": "dfd43e386c1b5bc3bd1e5c80e10f631457879dbf11e444f63a73fdb754f268d7",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/BoundCongregate_GarmentDrapeV21.blend",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/BoundCongregate_GarmentDrapeV21.blend",
+      "bytes": 14058843,
+      "sha256": "6291a004543faaac0097a90493159bc6b56e101c39f00021ee73e8516525f4dc",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/build-FPSGAME-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/build-FPSGAME-console.log",
+      "bytes": 8914,
+      "sha256": "5d09236d2ce16ac2f68a049306ceb6122731a77e53cd6f07689590192ebad932",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/build-FPSGAME.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/build-FPSGAME.json",
+      "bytes": 36989,
+      "sha256": "69e8124b7820cf3f242ef6c3504f13b8198d64971e420f3efc1b91f1cbfe31d0",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/build-FPSGAME.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/build-FPSGAME.log",
+      "bytes": 13868,
+      "sha256": "0f51af4d2dce254bc42dd1b39622a3edf72fd0fc485624a3427ecda4e59458d6",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/build-FPSGAMEEditor-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/build-FPSGAMEEditor-console.log",
+      "bytes": 9060,
+      "sha256": "9412e133a91af0debf9d347a36132d7c6ab189f5e7d7720767e36b50ed109600",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/build-FPSGAMEEditor.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/build-FPSGAMEEditor.json",
+      "bytes": 37415,
+      "sha256": "1907a57c7ca7ecc3784a8d400be9ee2e8740926e5b2985ea897d8e62852e9940",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/build-FPSGAMEEditor.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/build-FPSGAMEEditor.log",
+      "bytes": 14156,
+      "sha256": "a00f19c93c88c6243b6640c1312841cec6e425a90c3d3b1057aab7a9df3e9043",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/collision_recipe.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/collision_recipe.json",
+      "bytes": 3137,
+      "sha256": "18dd69c72056b04ec9906dd83b6dc54b6c21e9d6e91bf8a292ff6ef1307b222d",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/compile-editor-01.txt",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/compile-editor-01.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/delivery.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/delivery.json",
+      "bytes": 1737,
+      "sha256": "827ecf42c1f9d1a105227855ce4da2004e46766b439445c8be7e344859394b74",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/import-final-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/import-final-console.log",
+      "bytes": 63788,
+      "sha256": "724bdaeeda63180dfc14df3bcdda8b731faa9919de8cab7aaef24ffd0987ed4a",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/import-final.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/import-final.log",
+      "bytes": 344622,
+      "sha256": "eb9f8f09c6649768b1dd8e29a9327025a937aa7f07a55ced84287af720262e26",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/material-delivery.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/material-delivery.json",
+      "bytes": 640,
+      "sha256": "eac57d972f0063fde9e893783163a8d73bddf50f7dc0cf6cc4bebcbba35b5311",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/SK_BoundCongregate_GarmentDrapeV21.fbx",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/SK_BoundCongregate_GarmentDrapeV21.fbx",
+      "bytes": 12231484,
+      "sha256": "63c7ca7da8a319ee57945dc0cc20a895cf2ee3405e59acc1a7e81366d271584c",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/SoftCorpse/BoundCongregate/authoring.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/SoftCorpse/BoundCongregate/authoring.json",
+      "bytes": 202,
+      "sha256": "2efe784e3e8020df8883e65f74ee1abd4587cd23732188bdba664b169fd11f54",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/SoftCorpse/BoundCongregate/cage.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/SoftCorpse/BoundCongregate/cage.json",
+      "bytes": 79839,
+      "sha256": "96220fa3a70dbd74885790d5570e740b7fb851599eec06007c9d6532a250f024",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/SoftCorpse/BoundCongregate/embedding.bin",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/SoftCorpse/BoundCongregate/embedding.bin",
+      "bytes": 5703680,
+      "sha256": "ce6d1d7fde15fe5f3bf023c4d857a807f0af11e61169143f935b389788fd15d7",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/SoftCorpse/BoundCongregate/surface.bin",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV21/SoftCorpse/BoundCongregate/surface.bin",
+      "bytes": 1322464,
+      "sha256": "4444816cbc342d570dc5304e0c9002e96b290e55047e21d6dd98332af2edacce",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/authoring.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/authoring.json",
+      "bytes": 2225,
+      "sha256": "4118ad5c3450e5e8407ea4f9395423a6c250ef61e8ccefb0ce9b6a5d860d540b",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/before/BP_BoundCongregate.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/before/BP_BoundCongregate.uasset",
+      "bytes": 30098,
+      "sha256": "8aae827c6d4caa1e4072c41d5359daf111c5efd9650e86d3358e305b2a770a71",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/BoundCongregate_GarmentDrapeV23.blend",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/BoundCongregate_GarmentDrapeV23.blend",
+      "bytes": 13808426,
+      "sha256": "8577d0a61251b629b23c691007722348da81c01e6e308de042afd7c0d8bbabb0",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/BoundCongregate_GarmentDrapeV23.blend1",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/BoundCongregate_GarmentDrapeV23.blend1",
+      "bytes": 13814596,
+      "sha256": "b6e3b9053414730ce4d58ccd9774632921887034d38bf8c84e78d4cff80f0b2f",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/build-FPSGAME-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/build-FPSGAME-console.log",
+      "bytes": 9210,
+      "sha256": "bfc7f38900c619659aeb3247aee0774ca7bd880e4312f51d21b212d8c3a41454",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/build-FPSGAME.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/build-FPSGAME.json",
+      "bytes": 47458,
+      "sha256": "0d013e4875c7d0e8b182447ad3c13f24c1dafc3b3828c27dbd9badd787d18e69",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/build-FPSGAME.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/build-FPSGAME.log",
+      "bytes": 17099,
+      "sha256": "32929c3873def5a3b52054353aa8a0da10a4820f248bb01f185357747c801b37",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/build-FPSGAMEEditor-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/build-FPSGAMEEditor-console.log",
+      "bytes": 9354,
+      "sha256": "bafefac5ed12c2f9aa10460e27d0d01d28a64082795319d1df1249b479539a48",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/build-FPSGAMEEditor.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/build-FPSGAMEEditor.json",
+      "bytes": 48517,
+      "sha256": "346c682f10d134d4eadc7ebbdc330573e67bdfd5c0a18369798ada983072f1d7",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/build-FPSGAMEEditor.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/build-FPSGAMEEditor.log",
+      "bytes": 17597,
+      "sha256": "e4d58ae7a5885c8c72909a08c34df48a83d82b27a39c100fef954af11912428e",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/collision_recipe.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/collision_recipe.json",
+      "bytes": 4626,
+      "sha256": "70ae0d82ec9f2544e63f8a730350795a6b26c479254de0240dfb4c3a5b6b2b35",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/delivery.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/delivery.json",
+      "bytes": 1959,
+      "sha256": "2a0d4c281df393913af0d1471fa01a278c632efb47bf78819627871be135cba5",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/import-contact-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/import-contact-console.log",
+      "bytes": 33614,
+      "sha256": "c5db7ee90e98192a3b94db8269f0dd6d921902d33dcad7953d336938b86af6b3",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/import-contact.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/import-contact.log",
+      "bytes": 281701,
+      "sha256": "2e64091315d0857d6e8d694e5c71172c2feb89393b248384087a975cf641db36",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/import-final-console.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/import-final-console.log",
+      "bytes": 63621,
+      "sha256": "437dc83a32896760654c9eada00b8c720925aae966e7a71ebf67fd165a43776d",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/import-final.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/import-final.log",
+      "bytes": 343920,
+      "sha256": "0f811e0d49e84ea51f4a5ffa72fe8fdbb1191fd93d5ca22ec8a900a62d17f8b9",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/material-delivery.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/material-delivery.json",
+      "bytes": 640,
+      "sha256": "dac37a3a58afc1f230f4c2e5924a2f9fffa9629ac843da245abe6f6c794eda59",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/SK_BoundCongregate_GarmentDrapeV23.fbx",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/SK_BoundCongregate_GarmentDrapeV23.fbx",
+      "bytes": 12167244,
+      "sha256": "12ab3223189d0cff502b70d5c79c92c575b7debab7f75a2f31fa5382bb78f083",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/SoftCorpse/BoundCongregate/authoring.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/SoftCorpse/BoundCongregate/authoring.json",
+      "bytes": 202,
+      "sha256": "fff036c1c9ba8b02ed8a585b51bf3fb701746d99965ab37442f9f6f38888eb26",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/SoftCorpse/BoundCongregate/cage.json",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/SoftCorpse/BoundCongregate/cage.json",
+      "bytes": 79777,
+      "sha256": "a25b0f5bf10025d16a7a1ffacd5ef702f640e73e9f085ffa04708c281a156326",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/SoftCorpse/BoundCongregate/embedding.bin",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/SoftCorpse/BoundCongregate/embedding.bin",
+      "bytes": 5340616,
+      "sha256": "307ed73e0f70be848eac0719c6ca69a5634938bae78c30422075b898fb316952",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/SoftCorpse/BoundCongregate/surface.bin",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV23/SoftCorpse/BoundCongregate/surface.bin",
+      "bytes": 1275892,
+      "sha256": "138eb0a6864fb3de72700c6d69fcf74e022743420612c473226508c32d79142c",
+      "reason": "Rejected floating/intersecting garment candidate; no current source reads this output.",
+      "replacement": "GarmentDrapeV24 reference, GarmentDrapeV25 source, TentacleReachV29 live mesh"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV24/before/BP_BoundCongregate.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV24/before/BP_BoundCongregate.uasset",
+      "bytes": 30098,
+      "sha256": "07142f71f1013372ff82132d03aec677e741a9b1c50861afaaf3d6ea47fc1cc3",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV25/before/BP_BoundCongregate.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV25/before/BP_BoundCongregate.uasset",
+      "bytes": 30224,
+      "sha256": "62bfabf9faab35429c3de8c2b1475ef1b393d2222ec297d064d9086572c57355",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV25/build-FPSGAMEEditor-backup-2026.10.09-12.06.42.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/GarmentDrapeV25/build-FPSGAMEEditor-backup-2026.10.09-12.06.42.log",
+      "bytes": 19063,
+      "sha256": "4329bf97543300ddb6da2f3efa388718a50587c971af8aff84c053cca2fbbdf3",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/ReviewV31/build-FPSGAME-backup-2026.10.09-15.33.10.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/ReviewV31/build-FPSGAME-backup-2026.10.09-15.33.10.log",
+      "bytes": 15391,
+      "sha256": "97a585083c965603c6cbcaa0ec122ac8c4487abf02807be1b4beb0c8d81f451d",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/ReviewV31/build-FPSGAME-backup-2026.10.09-15.35.24.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/ReviewV31/build-FPSGAME-backup-2026.10.09-15.35.24.log",
+      "bytes": 15433,
+      "sha256": "f244db2520db0f601217e2a0cf9f7eb6bdcdc5ba1dc56c7bb3e364afa16bbd3d",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/ReviewV31/build-FPSGAMEEditor-backup-2026.10.09-15.28.07.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/ReviewV31/build-FPSGAMEEditor-backup-2026.10.09-15.28.07.log",
+      "bytes": 17349,
+      "sha256": "3f0d79760684e54928225fde731418d717bb4bed56b3fa3712112d4055d6d5a4",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/ReviewV31/build-FPSGAMEEditor-backup-2026.10.09-15.29.15.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/ReviewV31/build-FPSGAMEEditor-backup-2026.10.09-15.29.15.log",
+      "bytes": 16856,
+      "sha256": "9f1036835bd53281d5993fb640dc172a315aba51c9f19822b14f64b16a51c58b",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/ReviewV31/build-FPSGAMEEditor-backup-2026.10.09-15.35.00.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/ReviewV31/build-FPSGAMEEditor-backup-2026.10.09-15.35.00.log",
+      "bytes": 15958,
+      "sha256": "04c6975fe43b48c0e5c58a9a2f99ebc0c1c021caa093e8a74b3f284323dfda6d",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/ReviewV31/review-final-backup-2026.10.09-15.36.06.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/ReviewV31/review-final-backup-2026.10.09-15.36.06.log",
+      "bytes": 278948,
+      "sha256": "b380c1140701405618bd9e06cb9b81978a3b8da07ee0b38b81cc36e4439cd032",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/TentacleReachV29/before/BP_BoundCongregate.uasset",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/TentacleReachV29/before/BP_BoundCongregate.uasset",
+      "bytes": 30315,
+      "sha256": "132ce7366cac2a55a9533144d45b7679807b48c672fc8571a09976b1964ab766",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/TentacleReachV29/build-FPSGAME-backup-2026.10.09-14.16.52.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/TentacleReachV29/build-FPSGAME-backup-2026.10.09-14.16.52.log",
+      "bytes": 19308,
+      "sha256": "be33437341ae81ddae046b8e0e8b9773dd43078c01730620230e9f6a451d4e7c",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "SourceAssets/BoundCongregateMeshy20261006/TentacleReachV29/build-FPSGAMEEditor-backup-2026.10.09-14.16.16.log",
+      "destination": "trash/bound-congregate-publication-20261010/SourceAssets/BoundCongregateMeshy20261006/TentacleReachV29/build-FPSGAMEEditor-backup-2026.10.09-14.16.16.log",
+      "bytes": 20586,
+      "sha256": "bd0e138e8f947f12d1b21ff9cfd3a7e1cc16763a06e0b2c54b9229ff91a3c5bf",
+      "reason": "Superseded snapshot or completed transport/retry record; retained here for recovery.",
+      "replacement": "Current authored source, delivery.json and final build/save logs at original paths"
+    },
+    {
+      "source": "Tools/BoundCongregate/__pycache__/materials_cloth_v8.cpython-311.pyc",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/__pycache__/materials_cloth_v8.cpython-311.pyc",
+      "bytes": 8064,
+      "sha256": "27493b6531d434fab6c219ffee1400c4d1ce85f11e487a0e129e7dbe86309356",
+      "reason": "Generated Python bytecode for finished production.",
+      "replacement": "Retained Python source"
+    },
+    {
+      "source": "Tools/BoundCongregate/__pycache__/materials_garment_v20.cpython-311.pyc",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/__pycache__/materials_garment_v20.cpython-311.pyc",
+      "bytes": 7375,
+      "sha256": "afead2a3b29bfb5f103cdfb574e4f4bc5632b09ab8924fec2abe56c1a9e56a0e",
+      "reason": "Generated Python bytecode for finished production.",
+      "replacement": "Retained Python source"
+    },
+    {
+      "source": "Tools/BoundCongregate/__pycache__/materials_garment_v21.cpython-311.pyc",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/__pycache__/materials_garment_v21.cpython-311.pyc",
+      "bytes": 7375,
+      "sha256": "2c722601321f54cb98060c94595e8b8a3dcf57e001dc73e3b6d5e9ac7daa835f",
+      "reason": "Generated Python bytecode for finished production.",
+      "replacement": "Retained Python source"
+    },
+    {
+      "source": "Tools/BoundCongregate/__pycache__/materials_garment_v23.cpython-311.pyc",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/__pycache__/materials_garment_v23.cpython-311.pyc",
+      "bytes": 7375,
+      "sha256": "071aa1913e261ff3278c1a5109be49ca69f874a325f9c653457f6e22611c5a23",
+      "reason": "Generated Python bytecode for finished production.",
+      "replacement": "Retained Python source"
+    },
+    {
+      "source": "Tools/BoundCongregate/__pycache__/materials_garment_v24.cpython-311.pyc",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/__pycache__/materials_garment_v24.cpython-311.pyc",
+      "bytes": 7375,
+      "sha256": "e5bcd7a075bf74ab22c43d26eba90f0356c093579a66d9889412e46b4d1b9ce1",
+      "reason": "Generated Python bytecode for finished production.",
+      "replacement": "Retained Python source"
+    },
+    {
+      "source": "Tools/BoundCongregate/__pycache__/materials_garment_v25.cpython-311.pyc",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/__pycache__/materials_garment_v25.cpython-311.pyc",
+      "bytes": 7375,
+      "sha256": "1adf9d7e8e735b019309706763a62b9c5abe42f67d2b452a45da2cc3cf1c5172",
+      "reason": "Generated Python bytecode for finished production.",
+      "replacement": "Retained Python source"
+    },
+    {
+      "source": "Tools/BoundCongregate/__pycache__/simulate_whip_v4.cpython-311.pyc",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/__pycache__/simulate_whip_v4.cpython-311.pyc",
+      "bytes": 12188,
+      "sha256": "196bdb50ff37858f98457c13f662dcdd0a3b604a4190279b3827313248db5aa2",
+      "reason": "Generated Python bytecode for finished production.",
+      "replacement": "Retained Python source"
+    },
+    {
+      "source": "Tools/BoundCongregate/assemble_flurry_v22.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/assemble_flurry_v22.py",
+      "bytes": 896,
+      "sha256": "b04595f7894c8baf953cd722464a72a24c71682e043a13850cd506b0b457b184",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/author_flurry_v22.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/author_flurry_v22.py",
+      "bytes": 15127,
+      "sha256": "16b7515b709fac43502e4a550b89910be28461074b7f75add04ddb9c7829b2cf",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/author_flurry_v26.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/author_flurry_v26.py",
+      "bytes": 16900,
+      "sha256": "b315538e5618ccb640c8e1d58f58409a383b5e7d3cd54e3cf59f59685431e2ce",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/author_flurry_v27.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/author_flurry_v27.py",
+      "bytes": 15780,
+      "sha256": "8411a06659c5b00861610524de3a287617f12d7990a74866a392462447de96d7",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/author_garment_v20.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/author_garment_v20.py",
+      "bytes": 25856,
+      "sha256": "38fdc34fc1001bf9342d83d59583218b83e7da8d3a9029736ac5b47e01dc89ca",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/author_garment_v21.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/author_garment_v21.py",
+      "bytes": 27432,
+      "sha256": "3a2ac47b9937e89abf949ed2efc03453d4360cb8674f899a244ad3b8691df51e",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/author_garment_v23.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/author_garment_v23.py",
+      "bytes": 25156,
+      "sha256": "4b3a1aff66946a8f21226ace724102396a936ea422662af0d946e72bca16dacd",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/close_for_bite_v33_build.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/close_for_bite_v33_build.py",
+      "bytes": 788,
+      "sha256": "34dc2dc9dca3baf308ab596c7a33a299cda4d5f4fb4ad88efb1459cd1663d486",
+      "reason": "Completed one-off editor stop/compile/retry helper.",
+      "replacement": "Normal background build/install scripts; existing editor bridge only when needed"
+    },
+    {
+      "source": "Tools/BoundCongregate/close_for_capture_v30_build.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/close_for_capture_v30_build.py",
+      "bytes": 867,
+      "sha256": "ca77a0c5c4399af11f15b814287f18dec71e4365502515c2bae5299d66570044",
+      "reason": "Completed one-off editor stop/compile/retry helper.",
+      "replacement": "Normal background build/install scripts; existing editor bridge only when needed"
+    },
+    {
+      "source": "Tools/BoundCongregate/compile_combat_v28_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/compile_combat_v28_editor.py",
+      "bytes": 1092,
+      "sha256": "79e78af76feeeb0044f989b80432c9011ba76e05bcef7bceb53288d7ea1627af",
+      "reason": "Completed one-off editor stop/compile/retry helper.",
+      "replacement": "Normal background build/install scripts; existing editor bridge only when needed"
+    },
+    {
+      "source": "Tools/BoundCongregate/compile_death_v32_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/compile_death_v32_editor.py",
+      "bytes": 546,
+      "sha256": "3d85cafd843f57f05f79b5ab854355d6f825b1b4d40dece53090848545957b91",
+      "reason": "Completed one-off editor stop/compile/retry helper.",
+      "replacement": "Normal background build/install scripts; existing editor bridge only when needed"
+    },
+    {
+      "source": "Tools/BoundCongregate/compile_flurry_v27_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/compile_flurry_v27_editor.py",
+      "bytes": 1070,
+      "sha256": "5e5321a320a2ce6095b2bc7e14f59d4995af6d36d83eac76a0c8e019d5aaaf72",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/compile_garment_v20_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/compile_garment_v20_editor.py",
+      "bytes": 1055,
+      "sha256": "09d85f53cf12da6e549ddd482ff3301f1f00ecc970171961ed35748eaed57df0",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/compile_garment_v21_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/compile_garment_v21_editor.py",
+      "bytes": 1074,
+      "sha256": "83617850e2057f4327cde46a5931788031970da64180b7d537067799cd796b1e",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/compile_garment_v23_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/compile_garment_v23_editor.py",
+      "bytes": 1074,
+      "sha256": "9e39b2e12b663fbf1f89b9258ea2f3300406e4985afcd9c02d6d8b432998d113",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/compile_garment_v24_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/compile_garment_v24_editor.py",
+      "bytes": 1074,
+      "sha256": "d75050ccab1a0aed45e70c3544141662785205cf2c5553466d7b5b4164f5ad9b",
+      "reason": "Completed one-off editor stop/compile/retry helper.",
+      "replacement": "Normal background build/install scripts; existing editor bridge only when needed"
+    },
+    {
+      "source": "Tools/BoundCongregate/compile_garment_v25_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/compile_garment_v25_editor.py",
+      "bytes": 1100,
+      "sha256": "b56468294d6985a53bf675f993410f93509c11fdd44851d13e307448ddf9b486",
+      "reason": "Completed one-off editor stop/compile/retry helper.",
+      "replacement": "Normal background build/install scripts; existing editor bridge only when needed"
+    },
+    {
+      "source": "Tools/BoundCongregate/create_flurry_v22_sources.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/create_flurry_v22_sources.py",
+      "bytes": 8354,
+      "sha256": "60f58d36cb3da4b6b7b1bb05f08f430a409901715db265f38dfac28897c5cbee",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/end_play_for_combat_v28.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/end_play_for_combat_v28.py",
+      "bytes": 501,
+      "sha256": "472c535f43dffd3ba09e9fae1d1d3cbed8d0e648b97b41a1fac89bc893d3eefb",
+      "reason": "Completed one-off editor stop/compile/retry helper.",
+      "replacement": "Normal background build/install scripts; existing editor bridge only when needed"
+    },
+    {
+      "source": "Tools/BoundCongregate/end_play_for_flurry_v27.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/end_play_for_flurry_v27.py",
+      "bytes": 501,
+      "sha256": "3c8a59112538c8642056925f4f012fb0c5a8db96d134b077141cf96acdaaa9ac",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/end_play_for_garment_v24.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/end_play_for_garment_v24.py",
+      "bytes": 494,
+      "sha256": "c7604b7e74f8f66e133b5361aafccf500717d2c73526e840264b39c91a8d27f8",
+      "reason": "Completed one-off editor stop/compile/retry helper.",
+      "replacement": "Normal background build/install scripts; existing editor bridge only when needed"
+    },
+    {
+      "source": "Tools/BoundCongregate/end_play_for_garment_v25.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/end_play_for_garment_v25.py",
+      "bytes": 494,
+      "sha256": "62fa43187f307f8ad20392fbdcf2401c22609fa4854d03629968e03bf88fe987",
+      "reason": "Completed one-off editor stop/compile/retry helper.",
+      "replacement": "Normal background build/install scripts; existing editor bridge only when needed"
+    },
+    {
+      "source": "Tools/BoundCongregate/finish_death_v34_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/finish_death_v34_editor.py",
+      "bytes": 1390,
+      "sha256": "58cc5c23bce972c427aa1040b38262ed0d485466c3e1bc186f37f89440446c75",
+      "reason": "Completed one-off editor stop/compile/retry helper.",
+      "replacement": "Normal background build/install scripts; existing editor bridge only when needed"
+    },
+    {
+      "source": "Tools/BoundCongregate/finish_flurry_v22.ps1",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/finish_flurry_v22.ps1",
+      "bytes": 3263,
+      "sha256": "70f7e055c524437e81bae75372777ace78805e65630a4902369fe98674bf7bcf",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/finish_garment_v20_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/finish_garment_v20_editor.py",
+      "bytes": 208,
+      "sha256": "d18599b4b4ddb6fa750b8750e956ff75165d5c35349ae2e32a72d2b30c333735",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/finish_garment_v20.ps1",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/finish_garment_v20.ps1",
+      "bytes": 2820,
+      "sha256": "80f67aa661fdd829c450a5106b7f31a6cb33c1666e371051afb805ebf446f4c3",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/finish_garment_v21_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/finish_garment_v21_editor.py",
+      "bytes": 212,
+      "sha256": "27ee2a7d89eaa538b87565db9434551a19301678b2139eae89b9a10853afeeb1",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/finish_garment_v21.ps1",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/finish_garment_v21.ps1",
+      "bytes": 2820,
+      "sha256": "deedff851866001e68ea074bf7699373bc734dd94f3cd6e99e5ee6fc75826d39",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/finish_garment_v23_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/finish_garment_v23_editor.py",
+      "bytes": 212,
+      "sha256": "3d3e46c2eeaf2a66655b0cf94e6f7328748f6263265a0ecc9fd8b64834dd5437",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/finish_garment_v23.ps1",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/finish_garment_v23.ps1",
+      "bytes": 2820,
+      "sha256": "be3120c205bb3c1619fc95306250932a7e0cfc1ad73ce62aa7ababfe333cdf2e",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/import_flurry_v22.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/import_flurry_v22.py",
+      "bytes": 4237,
+      "sha256": "896a185c5ed675969792337784ac6d29853821902945ef73e6b0ead6311bd3ef",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/import_flurry_v26.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/import_flurry_v26.py",
+      "bytes": 4346,
+      "sha256": "95d1ea013aa8d2d235021f3f3dfe711375e14deeda55366ede41f7f93d655030",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/import_flurry_v27.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/import_flurry_v27.py",
+      "bytes": 4371,
+      "sha256": "3fc6cdfd6f70de6eec74cf7dc692ab90115199048d2ee240e8e0d129f0e610c1",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/import_garment_v20.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/import_garment_v20.py",
+      "bytes": 786,
+      "sha256": "e3efbd7b8895e0fd71718eb480672c9187dbbcdc7f6554a0f83752a11c21ff56",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/import_garment_v21.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/import_garment_v21.py",
+      "bytes": 795,
+      "sha256": "f4a8670a0573fc65c3f924d881102e33de8173429453ca802643e58f15597cb0",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/import_garment_v23.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/import_garment_v23.py",
+      "bytes": 822,
+      "sha256": "7eb71d26d5b53ff42fb4fbe478bccb4d0943b9ff9d4bbc7c480bc117bcea27bf",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/materials_garment_v20.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/materials_garment_v20.py",
+      "bytes": 4289,
+      "sha256": "67ccf698f8a5cddf7d81fc958d1b2162e992a5d16cc286e58b846c148b292c72",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/materials_garment_v21.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/materials_garment_v21.py",
+      "bytes": 4363,
+      "sha256": "754c7308dcf4926c6cf09addf4d40fc19456321013d9dcb6a578abae0d59cba9",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/materials_garment_v23.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/materials_garment_v23.py",
+      "bytes": 4363,
+      "sha256": "edeb0eea7431e05717d5101ff890e0f9087749269d15d3a86d9cb1cbd66cc6e5",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/prepare_garment_v20_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/prepare_garment_v20_editor.py",
+      "bytes": 209,
+      "sha256": "aca93605fa50a690487f1f46b6bcfbcd894056dd404d2cf4d374e15ca3562ece",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/prepare_garment_v21_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/prepare_garment_v21_editor.py",
+      "bytes": 213,
+      "sha256": "f8d5054fd64f0a9b69eb0a02b2daaa05441c440d8125fe7a9238ee18fa508ab7",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/prepare_garment_v23_editor.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/prepare_garment_v23_editor.py",
+      "bytes": 213,
+      "sha256": "3612832908a4d07594db61673928ff2a12de8cea7d0c7be10c32c481b6006659",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/rebind_garment_v23_contact.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/rebind_garment_v23_contact.py",
+      "bytes": 1387,
+      "sha256": "2cb62de5e58a63aa778ef400583ba2dd2fe860eed512ebce2abb8e7644ad6f05",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/review_flurry_v22.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/review_flurry_v22.py",
+      "bytes": 4772,
+      "sha256": "9cbf5f81f14de6ad7f03ff3df293b8fe243c5ca7cb7b8895040f12b62e631570",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/review_ue_flurry_v22.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/review_ue_flurry_v22.py",
+      "bytes": 3429,
+      "sha256": "bbd0153f64a47e44238ba79428025b3d73fb59977cf626ddc33b1496aad68637",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/revise_garment_v21_source.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/revise_garment_v21_source.py",
+      "bytes": 8450,
+      "sha256": "a50f9acf83e845a214e3f2e68d58cc7d225bb54420930dcbadef466da5747557",
+      "reason": "Retired candidate author/import/review entry; recover explicitly before replaying history.",
+      "replacement": "author_garment_v25.py, author_combat_v28.py and current import tools"
+    },
+    {
+      "source": "Tools/BoundCongregate/stop_pie_bite_v33.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/stop_pie_bite_v33.py",
+      "bytes": 228,
+      "sha256": "30f6c0a451ef11ee2fd18250ae5360f496f6ae6ba95a9a469fa318654b54931b",
+      "reason": "Completed one-off editor stop/compile/retry helper.",
+      "replacement": "Normal background build/install scripts; existing editor bridge only when needed"
+    },
+    {
+      "source": "Tools/BoundCongregate/stop_pie_death_v32.py",
+      "destination": "trash/bound-congregate-publication-20261010/Tools/BoundCongregate/stop_pie_death_v32.py",
+      "bytes": 218,
+      "sha256": "641789d2a6ec2254f40271a304ad68f943506fb251c354dc4e9fe26a4c33604c",
+      "reason": "Completed one-off editor stop/compile/retry helper.",
+      "replacement": "Normal background build/install scripts; existing editor bridge only when needed"
+    }
+  ]
+}

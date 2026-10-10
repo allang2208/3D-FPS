@@ -1,4 +1,5 @@
 #include "RuneOrbBladesComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "RuneOrbBladeProjectile.h"
 #include "../Skills/FPSFireballComponent.h"
 #include "../Weapons/MeleeWeaponStats.h"
@@ -70,6 +71,7 @@ int32 URuneOrbBladesComponent::AvailableBladeCount() const
 
 void URuneOrbBladesComponent::Trigger()
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return;
     if (!CanUse() || Cooldown > 0.f) return;
     // The press only queues a request; the blade row appears with the raised-hand
     // gather gesture and each launch rides the release push (shared fireball hands).

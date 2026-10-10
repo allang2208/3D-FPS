@@ -28,20 +28,27 @@ bool ABoundCongregate::CanTentacle(APawn* Pawn) const
     if(!BoundTentacle::Available(Victim)||Busy()||Clock()<NextTentacle||UBoundCongregateCaptureComponent::IsCaptured(Victim))return false;
     if(!GetMesh()->DoesSocketExist(TEXT("attack_tentacle_00"))||!GetMesh()->DoesSocketExist(TEXT("attack_tentacle_56")))return false;
     const FVector Delta=Victim->GetActorLocation()-GetActorLocation();
-    // The isolated organ has its own measured chain and fixed proximal collar.
-    // Reserve distal length for the coil instead of stretching shared skin.
+    // V29 extends only the isolated distal flesh; the shared collar stays fixed.
     if(Victim->GetCapsuleComponent()->GetScaledCapsuleRadius()>60.f)return false;
     // Keep the whip eligible at close range as well. Tying its minimum range
     // to the bite left only a narrow ring in which it could ever be selected.
-    return Delta.Size2D()<=TentacleRange&&FMath::Abs(Delta.Z)<180.f&&
+    return Delta.Size()<=TentacleRange&&FMath::Abs(Delta.Z)<180.f&&
         FMath::Abs(FMath::FindDeltaAngleDegrees(GetActorRotation().Yaw,Delta.Rotation().Yaw))<=60.f&&HasSight(Victim);
+}
+float ABoundCongregate::TentacleReleaseDuration() const
+{
+    // Keep the accepted close-range snap. A full 30 m release gets a readable
+    // 180 ms burst, still much faster than the 620 ms muscular preparation.
+    const float Distance=FVector::Distance(NetState.TentacleAim,GetActorLocation());
+    return TentacleStrikeSeconds+.09f*FMath::SmoothStep(400.f,3000.f,Distance);
 }
 bool ABoundCongregate::BeginTentacle(APawn* Pawn)
 {
     auto* Victim=Cast<ACharacter>(Pawn);if(!HasAuthority()||!CanTentacle(Victim))return false;
     Target=Victim;AttackYaw=GetActorRotation().Yaw;NextTentacle=Clock()+TentacleCooldown;
     NetState.TentacleAim=Victim->GetActorLocation();NetState.TentacleRadius=BoundTentacle::Radius(Victim);
-    NetState.CapturedTarget=nullptr;NetState.ReleasedWrap=0.f;TentacleBlockedSeconds=0.f;
+    NetState.CapturedTarget=nullptr;NetState.ReleasedWrap=0.f;NetState.TentacleRecoveryStartedAt=-1.;TentacleBlockedSeconds=0.f;
+    TentacleHealth=TentacleMaxHealth;
     PreviousTentacleTip=GetMesh()->GetSocketLocation(TEXT("attack_tentacle_56"));
     SetState(EBoundCongregateState::TentacleWindup);
     if(auto* AI=Cast<AMonsterAIController>(GetController())){AI->StopMovement();AI->UpdateKnowledge();}
@@ -71,6 +78,9 @@ void ABoundCongregate::TentacleHit(ACharacter* Victim,const FHitResult& Hit)
 }
 void ABoundCongregate::TickTentacle(float Dt)
 {
+    if(NetState.CapturedTarget)
+        AttackYaw=FMath::FixedTurn(AttackYaw,(NetState.CapturedTarget->GetActorLocation()-GetActorLocation()).Rotation().Yaw,
+            GetCharacterMovement()->RotationRate.Yaw*Dt);
     SetActorRotation(FRotator(0,AttackYaw,0));
     const float T=float(StateElapsed());
     if(NetState.State==EBoundCongregateState::TentacleWindup)
@@ -79,7 +89,7 @@ void ABoundCongregate::TickTentacle(float Dt)
         if(T>=TentacleWindupSeconds)
         {
             // Commit the aim once. The release can be sidestepped or dodged.
-            NetState.TentacleAim=Target->GetActorLocation();
+            NetState.TentacleAim=GetActorLocation()+(Target->GetActorLocation()-GetActorLocation()).GetClampedToMaxSize(TentacleRange);
             bTentacleFinalPoseRequested=false;
             PreviousTentacleTip=GetMesh()->GetSocketLocation(TEXT("attack_tentacle_56"));SetState(EBoundCongregateState::TentacleStrike);
         }
@@ -88,15 +98,25 @@ void ABoundCongregate::TickTentacle(float Dt)
     {
         const FVector Tip=GetMesh()->GetSocketLocation(TEXT("attack_tentacle_56"));
         FCollisionQueryParams Query(SCENE_QUERY_STAT(CongregateTentacle),false,this);FHitResult Hit;
-        if(GetWorld()->SweepSingleByChannel(Hit,PreviousTentacleTip,Tip,FQuat::Identity,ECC_Pawn,FCollisionShape::MakeSphere(16.f),Query))
+        const auto Shape=FCollisionShape::MakeSphere(BoundCongregateTentacleTiming::ContactRadius);
+        bool bContact=GetWorld()->SweepSingleByChannel(Hit,PreviousTentacleTip,Tip,FQuat::Identity,ECC_Pawn,Shape,Query);
+        // Include the visible terminal shaft as well as the moving tip. The
+        // faster throw keeps its continuous temporal sweep and cover blocking.
+        for(int32 I=48;I<56&&!bContact;++I)
+            bContact=GetWorld()->SweepSingleByChannel(Hit,
+                GetMesh()->GetSocketLocation(FName(FString::Printf(TEXT("attack_tentacle_%02d"),I))),
+                GetMesh()->GetSocketLocation(FName(FString::Printf(TEXT("attack_tentacle_%02d"),I+1))),
+                FQuat::Identity,ECC_Pawn,Shape,Query);
+        if(bContact)
         {
-            if(auto* Victim=Cast<ACharacter>(Hit.GetActor());Victim&&Victim==Target.Get())TentacleHit(Victim,Hit);
+            if(auto* Victim=Cast<ACharacter>(Hit.GetActor());Victim&&Victim==Target.Get()&&
+                FVector::DistSquared(Victim->GetActorLocation(),GetActorLocation())<=FMath::Square(TentacleRange))TentacleHit(Victim,Hit);
             if(NetState.State==EBoundCongregateState::TentacleStrike){EndTentacle(true);return;}
         }
         PreviousTentacleTip=Tip;
         // Mesh evaluation follows this actor. Request the terminal pose once,
         // sweep it on the next tick, then cut to recovery without a fixed hold.
-        if(NetState.State==EBoundCongregateState::TentacleStrike&&T>=TentacleStrikeSeconds)
+        if(NetState.State==EBoundCongregateState::TentacleStrike&&T>=TentacleReleaseDuration())
         {
             if(bTentacleFinalPoseRequested)EndTentacle(true);
             else bTentacleFinalPoseRequested=true;
@@ -106,19 +126,16 @@ void ABoundCongregate::TickTentacle(float Dt)
     {
         auto* Victim=NetState.CapturedTarget.Get();
         const auto* Capture=Victim?Victim->FindComponentByClass<UBoundCongregateCaptureComponent>():nullptr;
-        if(!BoundTentacle::Available(Victim)||!Capture||!Capture->IsHeldBy(this)||!HasSight(Victim)||
-            FVector::DistSquared(Victim->GetActorLocation(),GetActorLocation())>FMath::Square(TentacleRange+100.f))
+        const auto* VictimHealth=Victim?Victim->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+        if(!IsValid(Victim)||Victim->IsActorBeingDestroyed()||(VictimHealth&&VictimHealth->IsDead())||!Capture||!Capture->IsHeldBy(this))
         {EndTentacle(true);return;}
-        const FVector Tip=GetMesh()->GetSocketLocation(TEXT("attack_tentacle_56"));
-        // Contact cannot persist while the visible organ is out of reach.
-        if(T>.25f&&FVector::DistSquared(Tip,Victim->GetActorLocation())>FMath::Square(125.f)){EndTentacle(true);return;}
+        const FVector Delta=Victim->GetActorLocation()-GetActorLocation();
+        // Capture is persistent: cover, elapsed time and blocked swept motion
+        // pause the pull rather than granting an automatic escape.
+        if(Delta.Size2D()<=BiteTriggerRange&&FMath::Abs(Delta.Z)<180.f&&HasSight(Victim)&&BiteClip)
+        {BeginCapturedBite(Victim);return;}
         if(NetState.State==EBoundCongregateState::TentacleWrap)
         {if(T>=TentacleWrapSeconds)SetState(EBoundCongregateState::TentacleDrag);return;}
-        if(T>=TentacleHoldSeconds){EndTentacle(true);return;}
-        const bool WantsPull=CapturePullVelocity(Victim).SizeSquared2D()>100.f;
-        TentacleBlockedSeconds=WantsPull&&FVector::DistSquared2D(Victim->GetActorLocation(),LastCapturedPosition)<FMath::Square(Dt*5.f)?TentacleBlockedSeconds+Dt:0.f;
-        LastCapturedPosition=Victim->GetActorLocation();
-        if(TentacleBlockedSeconds>.55f){EndTentacle(true);return;}
         if(Clock()>=NextSqueeze)
         {
             NextSqueeze=Clock()+FMath::Max(.1f,TentacleDamageInterval);
@@ -126,8 +143,19 @@ void ABoundCongregate::TickTentacle(float Dt)
             UGameplayStatics::ApplyDamage(Victim,TentacleTickDamage,GetController(),this,UDamageType::StaticClass());
         }
     }
-    else if(NetState.State==EBoundCongregateState::TentacleRecover&&T>=TentacleRecoverSeconds)
+    else if(NetState.State==EBoundCongregateState::TentacleRecover&&TentacleRecoveryElapsed()>=TentacleRecoverSeconds)
     {NetState.ReleasedWrap=0.f;SetState(EBoundCongregateState::Idle);}
+}
+void ABoundCongregate::BeginCapturedBite(ACharacter* Victim)
+{
+    // The combo bypasses the ordinary attack chooser/cooldown. Release the
+    // player's restraint now; the bite still has its normal visible windup.
+    EndTentacle(false);
+    NetState.ReleasedWrap=FMath::Max(.001f,NetState.ReleasedWrap);
+    Target=Victim;AttackYaw=(Victim->GetActorLocation()-GetActorLocation()).Rotation().Yaw;
+    bContactConsumed=false;NextBite=Clock()+BiteCooldown;AttackChoice=1;
+    SetState(EBoundCongregateState::Bite);
+    if(auto* AI=Cast<AMonsterAIController>(GetController())){AI->StopMovement();AI->UpdateKnowledge();}
 }
 void ABoundCongregate::EndTentacle(bool bRecover)
 {
@@ -136,9 +164,9 @@ void ABoundCongregate::EndTentacle(bool bRecover)
     const float Elapsed=float(StateElapsed());
     NetState.ReleasedWeight=NetState.State==EBoundCongregateState::TentacleWindup?FMath::SmoothStep(0.f,TentacleWindupSeconds,Elapsed):1.f;
     NetState.ReleasedStrike=NetState.State==EBoundCongregateState::TentacleWindup?0.f:
-        NetState.State==EBoundCongregateState::TentacleStrike?BoundCongregateTentacleTiming::Release(Elapsed,TentacleStrikeSeconds).Phase:1.f;
-    NetState.ReleasedWrap=NetState.State==EBoundCongregateState::TentacleDrag?1.f:
-        NetState.State==EBoundCongregateState::TentacleWrap?FMath::SmoothStep(0.f,TentacleWrapSeconds,Elapsed):0.f;
+        NetState.State==EBoundCongregateState::TentacleStrike?BoundCongregateTentacleTiming::Release(Elapsed,TentacleReleaseDuration()).Phase:1.f;
+    NetState.ReleasedWrap=NetState.State==EBoundCongregateState::TentacleWrap?FMath::SmoothStep(0.f,TentacleWrapSeconds,Elapsed):
+        NetState.CapturedTarget?1.f:0.f;
     if(auto* Victim=NetState.CapturedTarget.Get())
     {
         NetState.TentacleAim=Victim->GetActorLocation();
@@ -147,9 +175,24 @@ void ABoundCongregate::EndTentacle(bool bRecover)
     NetState.CapturedTarget=nullptr;
     if(WasTentacle)
     {
+        // Recovery keeps its own replicated clock when a hit reaction or bite
+        // owns the body state. Escaping during a stagger must not snap the coil.
+        NetState.TentacleRecoveryStartedAt=Clock();
         NextAttack=FMath::Max(NextAttack,Clock()+TentacleRecoverSeconds+.25f);
         if(bRecover)SetState(EBoundCongregateState::TentacleRecover);
     }
 }
-void ABoundCongregate::CancelTentacle(){if(HasAuthority()&&TentacleActive()&&NetState.State!=EBoundCongregateState::TentacleRecover)EndTentacle(true);}
-void ABoundCongregate::EndPlay(const EEndPlayReason::Type Reason){EndTentacle(false);Super::EndPlay(Reason);}
+void ABoundCongregate::CancelTentacle()
+{
+    if(!HasAuthority()||!TentacleActive()||TentacleRecovering())return;
+    const bool KeepReaction=Controlled();
+    EndTentacle(!KeepReaction);
+    if(KeepReaction){UpdateTentacleHitShapeState();ForceNetUpdate();}
+}
+void ABoundCongregate::EndPlay(const EEndPlayReason::Type Reason)
+{
+    EndTentacle(false);
+    if(TentaclePoseHandle.IsValid())GetMesh()->UnregisterOnBoneTransformsFinalizedDelegate(TentaclePoseHandle);
+    TentaclePoseHandle.Reset();
+    Super::EndPlay(Reason);
+}

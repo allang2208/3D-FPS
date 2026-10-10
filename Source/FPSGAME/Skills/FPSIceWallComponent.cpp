@@ -1,4 +1,5 @@
 #include "FPSIceWallComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "NetCastUtils.h"
 #include "FPSIceWall.h"
 #include "IceWallPlacement.h"
@@ -85,6 +86,7 @@ AFPSIceWall* UFPSIceWallComponent::SpawnWall(bool bGhost,const FIceWallCast& Cas
 }
 void UFPSIceWallComponent::Trigger()
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return;
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
     if(!P||!M||!P->IsLocallyControlled()||!InputAvailable())return;
     if(auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;

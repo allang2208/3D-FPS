@@ -497,7 +497,7 @@ void UFPSQuickCombatComponent::ContactHit()
     if(!Player||!Profile||!GetWorld())return;
     auto Stats=Profile->QuickCombatStats();
     const bool bUnarmed=Style==EQuickCombatStyle::UnarmedPunch;
-    if(!bUnarmed)
+    // Bare hands use the same authored contact when struggling out of a coil.
     {
         auto* Capture=Player->FindComponentByClass<UBoundCongregateCaptureComponent>();
         if(Capture&&Capture->HitRestraintWithQuickMelee())

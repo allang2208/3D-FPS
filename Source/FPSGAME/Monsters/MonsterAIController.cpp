@@ -1,4 +1,5 @@
 #include "MonsterAIController.h"
+#include "BoundCongregate.h"
 #include "MantisM27Monster.h"
 #include "MonsterCombatComponent.h"
 #include "../Skills/IceWallCombat.h"
@@ -51,6 +52,16 @@ UMonsterCombatComponent* AMonsterAIController::Combat() const{return GetPawn()?G
 void AMonsterAIController::OnPossess(APawn* P)
 {
  Super::OnPossess(P);if(!HasAuthority())return;
+ if(const auto* BC=Cast<ABoundCongregate>(P))
+ {
+  // The generic 16 m perception radius must not hide players that the V29
+  // tentacle can visibly reach. Other monster sight configurations stay local.
+  auto* Sight=NewObject<UAISenseConfig_Sight>(this);
+  Sight->SightRadius=BC->AggroRadius;Sight->LoseSightRadius=BC->AggroRadius+300.f;
+  Sight->PeripheralVisionAngleDegrees=100.f;Sight->SetMaxAge(MemorySeconds);
+  Sight->DetectionByAffiliation.bDetectEnemies=Sight->DetectionByAffiliation.bDetectFriendlies=Sight->DetectionByAffiliation.bDetectNeutrals=true;
+  Senses->ConfigureSense(*Sight);Senses->RequestStimuliListenerUpdate();
+ }
  if(const auto* M08=Cast<ALurkerM08Monster>(P))
  {
   MemorySeconds=FMath::Max(MemorySeconds,30.f);

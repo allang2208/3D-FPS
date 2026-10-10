@@ -59,6 +59,10 @@ public:
     UPROPERTY() TArray<FTransform> SourceRefFrames;
     UPROPERTY() int32 SoftNodeCount=0;
     UPROPERTY() float SpacingCm=24.f;
+    /** No authored shove, locomotion drift or temporary foot anchors. */
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Monster|Corpse") bool bCollapseInPlace=false;
+    /** Appendage nodes whose tissue must not act as a compressive support strut. */
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Monster|Corpse") TArray<int32> UnsupportedNodes;
     UFUNCTION(BlueprintCallable,Category="M14|Authoring")
     static bool BuildCorpse(USkeletalMesh* Mesh,USkeleton* CorpseSkeleton,UM14SoftBodyData* Data,const FString& CageFile,const FString& EmbeddingFile);
     UFUNCTION(BlueprintCallable,Category="Monster|Corpse Authoring")
@@ -109,6 +113,7 @@ private:
     TArray<FTransform> BindFrames;
     TArray<FIntPoint> SelfContactPairs;
     TArray<uint8> Grounded;
+    TArray<uint8> RelaxedEdges,RelaxedTets;
     FVector Origin=FVector::ZeroVector;
     FTransform MeshToWorld;
     float Accumulator=0.f,Elapsed=0.f,QuietSeconds=0.f,BudgetRetry=0.f;

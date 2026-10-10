@@ -9,6 +9,11 @@
 #include "ChaosCloth/ChaosClothConfig.h"
 #include "Rendering/SkeletalMeshModel.h"
 #include "Rendering/SkeletalMeshLODModel.h"
+#include "Dom/JsonObject.h"
+#include "Serialization/JsonReader.h"
+#include "Serialization/JsonSerializer.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 #endif
 
 float ABoundCongregate::ReferenceFacingYaw(USkeletalMesh* Mesh)
@@ -82,6 +87,21 @@ bool ABoundCongregate::BuildGarmentSimulation(USkeletalMesh* Mesh)
 {
 #if WITH_EDITOR
     if(!Mesh||!Mesh->GetImportedModel()||Mesh->GetImportedModel()->LODModels.IsEmpty())return false;
+    const bool ExpandedGarment=Mesh->GetName().Contains(TEXT("GarmentDrapeV25"))||Mesh->GetName().Contains(TEXT("TentacleReachV29"));
+    const bool SkinnedGarment=ExpandedGarment||Mesh->GetName().Contains(TEXT("GarmentDrapeV24"));
+    const bool FittedContact=SkinnedGarment||Mesh->GetName().Contains(TEXT("GarmentDrapeV23"));
+    const bool ContactDrape=Mesh->GetName().Contains(TEXT("GarmentDrapeV21"));
+    const bool GravityDrape=FittedContact||ContactDrape||Mesh->GetName().Contains(TEXT("GarmentDrapeV20"));
+    TSharedPtr<FJsonObject> AuthoredContact;
+    if(GravityDrape)
+    {
+        FString Recipe;
+        const FString Path=FPaths::ProjectDir()/TEXT("SourceAssets/BoundCongregateMeshy20261006")/
+            (ExpandedGarment?TEXT("GarmentDrapeV25"):SkinnedGarment?TEXT("GarmentDrapeV24"):FittedContact?TEXT("GarmentDrapeV23"):ContactDrape?TEXT("GarmentDrapeV21"):TEXT("GarmentDrapeV20"))/TEXT("collision_recipe.json");
+        if(!FFileHelper::LoadFileToString(Recipe,*Path)||
+            !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Recipe),AuthoredContact))return false;
+        AuthoredContact=AuthoredContact->GetObjectField(TEXT("garments"));
+    }
     // Bind/unbind each requests PostEditChange. Defer the rebuild until section
     // mappings AND UserSectionsData agree, and keep LOD references valid.
     FScopedSkeletalMeshPostEditChange GarmentEdit(Mesh);
@@ -91,7 +111,7 @@ bool ABoundCongregate::BuildGarmentSimulation(USkeletalMesh* Mesh)
     // SurfaceFitV12 uses skin-relative backstops for detailed contact, with
     // interior capsules for moving neighbouring flesh. Inflated convex shells
     // would push the newly fitted cloth away from its anatomical support.
-    const bool RebuiltGarment=Mesh->GetName().Contains(TEXT("GarmentRebuildV19"));
+    const bool RebuiltGarment=GravityDrape||Mesh->GetName().Contains(TEXT("GarmentRebuildV19"));
     const bool TailoredDrape=RebuiltGarment||Mesh->GetName().Contains(TEXT("GarmentDrapeV18"));
     const bool SurfaceFit=TailoredDrape||Mesh->GetName().Contains(TEXT("SurfaceFitV12"));
     const auto& Ref=Mesh->GetRefSkeleton();auto Frames=Ref.GetRefBonePose();
@@ -195,7 +215,7 @@ bool ABoundCongregate::BuildGarmentSimulation(USkeletalMesh* Mesh)
         ClothBounds=ClothBounds.ExpandBy(16.f);
         ActiveClothBounds=ClothBounds.ExpandBy(10.f);
         TArray<TPair<double,int32>> CollisionCandidates;
-        for(int32 Bone=0;Bone<Ref.GetNum();++Bone)
+        for(int32 Bone=0;!GravityDrape&&Bone<Ref.GetNum();++Bone)
         {
             const FString Name=Ref.GetBoneName(Bone).ToString();
             const bool Torso=Name==TEXT("body")||Name==TEXT("body_front")||Name==TEXT("body_rear");
@@ -222,7 +242,47 @@ bool ABoundCongregate::BuildGarmentSimulation(USkeletalMesh* Mesh)
                 else SurfaceHull(Collision,Bone);
             }
         }
-        if(TailoredDrape)
+        if(GravityDrape)
+        {
+            // These contact volumes were authored by spatial anatomy alongside
+            // the garment. A fused donor bone's remote flesh is not a collider.
+            const TArray<TSharedPtr<FJsonValue>>* Capsules=nullptr;
+            if(!AuthoredContact->TryGetArrayField(RenderMat,Capsules))return false;
+            for(const auto& Value:*Capsules)
+            {
+                const auto Shape=Value->AsObject();
+                const FName BoneName(*Shape->GetStringField(TEXT("bone")));
+                const int32 Bone=Ref.FindBoneIndex(BoneName);
+                if(Bone==INDEX_NONE)return false;
+                auto ReadPoint=[&](const TCHAR* Key)
+                {
+                    const auto& V=Shape->GetArrayField(Key);
+                    return FVector(V[0]->AsNumber(),V[1]->AsNumber(),V[2]->AsNumber());
+                };
+                const FVector A=ReadPoint(TEXT("a")),B=ReadPoint(TEXT("b"));
+                const double Scale=Frames[Bone].GetScale3D().GetAbsMax();
+                USkeletalBodySetup* Body=nullptr;
+                for(USkeletalBodySetup* Existing:Collision->SkeletalBodySetups)
+                    if(Existing->BoneName==BoneName){Body=Existing;break;}
+                if(!Body)
+                {
+                    Body=NewObject<USkeletalBodySetup>(Collision);
+                    Body->BoneName=BoneName;Body->PhysicsType=PhysType_Kinematic;
+                    Body->CollisionTraceFlag=CTF_UseSimpleAsComplex;
+                    Collision->SkeletalBodySetups.Add(Body);
+                }
+                FKSphylElem Capsule;
+                Capsule.Center=Frames[Bone].InverseTransformPosition((A+B)*.5);
+                Capsule.Radius=Shape->GetNumberField(TEXT("radius_cm"))/Scale;
+                Capsule.Length=(B-A).Size()/Scale;
+                const FVector Axis=(B-A).IsNearlyZero()?FVector::UpVector:
+                    Frames[Bone].InverseTransformVectorNoScale(B-A).GetSafeNormal();
+                Capsule.Rotation=FQuat::FindBetweenNormals(FVector::UpVector,Axis).Rotator();
+                Body->AggGeom.SphylElems.Add(Capsule);
+                Body->InvalidatePhysicsData();Body->CreatePhysicsMeshes();
+            }
+        }
+        else if(TailoredDrape)
         {
             CollisionCandidates.Sort([](const auto& A,const auto& B){return A.Key<B.Key;});
             for(const auto& Candidate:CollisionCandidates)SurfaceHull(Collision,Candidate.Value);
@@ -232,11 +292,15 @@ bool ABoundCongregate::BuildGarmentSimulation(USkeletalMesh* Mesh)
         for(int32 R=0;R<LOD.Sections.Num();++R)
             if(Mesh->GetMaterials()[LOD.Sections[R].MaterialIndex].ImportedMaterialSlotName.ToString()==RenderMat){RenderSection=R;break;}
         if(RenderSection==INDEX_NONE)return false;
-        TArray<FVector> Locations;TArray<float> Travels,AttachmentDrive;
+        TArray<FVector> Locations;TArray<float> Travels,AttachmentDrive,SurfaceContact;
         // Blender FLOAT_COLOR is exported to sRGB vertex bytes by FBX. Decode
         // before using it as a distance, otherwise 1-2 cm becomes 7-10 cm.
         for(const auto& V:Section.SoftVertices)
-        {const FLinearColor Masks(V.Color);Locations.Add(FVector(V.Position));Travels.Add(Masks.R*45.f);AttachmentDrive.Add(Masks.A);}
+        {
+            const FLinearColor Masks(V.Color);Locations.Add(FVector(V.Position));
+            Travels.Add(Masks.R*45.f);AttachmentDrive.Add(Masks.A);
+            SurfaceContact.Add(FittedContact?FMath::Clamp(V.UVs[1].X,0.f,1.f):0.f);
+        }
         FSkeletalMeshClothBuildParams Params;Params.AssetName=FString::Printf(TEXT("BC_DrapeV9_%d_Extract"),Count);
         Params.LodIndex=0;Params.SourceSection=SectionIndex;Params.bRemoveFromMesh=true;Params.PhysicsAsset=Collision;
         auto* Extracted=Cast<UClothingAssetCommon>(NewObject<UClothingAssetFactory>()->CreateFromSkeletalMesh(Mesh,Params));
@@ -247,6 +311,8 @@ bool ABoundCongregate::BuildGarmentSimulation(USkeletalMesh* Mesh)
         auto& Layer=Cloth->LodData[0];Layer.PointWeightMaps.Reset();Layer.bUseMultipleInfluences=false;Layer.bSmoothTransition=true;
         FPointWeightMap Distance(Layer.PhysicalMeshData.Vertices.Num());
         FPointWeightMap Drive(Layer.PhysicalMeshData.Vertices.Num());
+        TArray<float> ContactWeights;ContactWeights.SetNum(Distance.Num());
+        TArray<float> ContactTravel;ContactTravel.SetNum(Distance.Num());
         Drive.Name=TEXT("SeamToHemAttachmentDrive");Drive.bEnabled=true;Drive.CurrentTarget=uint8(EWeightMapTargetCommon::AnimDriveStiffness);
         Distance.Name=TEXT("PinnedSeamsFreeTornHem");Distance.bEnabled=true;Distance.CurrentTarget=uint8(EWeightMapTargetCommon::MaxDistance);
         for(int32 I=0;I<Distance.Num();++I)
@@ -255,16 +321,32 @@ bool ABoundCongregate::BuildGarmentSimulation(USkeletalMesh* Mesh)
             for(int32 J=0;J<Locations.Num();++J){const double D=FVector::DistSquared(P,Locations[J]);if(D<Best){Best=D;Closest=J;}}
             Distance[I]=Travels[Closest]<(TailoredDrape?.02f:.75f)?0.f:Travels[Closest];
             Drive[I]=AttachmentDrive[Closest];
+            ContactWeights[I]=SurfaceContact[Closest];
+            ContactTravel[I]=Distance[I];
         }
         Layer.PointWeightMaps.Add(MoveTemp(Distance));
         if(TailoredDrape)Layer.PointWeightMaps.Add(MoveTemp(Drive));
         for(const auto Target:{EWeightMapTargetCommon::BackstopDistance,EWeightMapTargetCommon::BackstopRadius})
         {
+            // A backstop on every vertex locks the offset of the skinned rest
+            // shell. The V21 hanging cloth contacts the interior body shapes
+            // and must be able to fall inward as well as downward.
+            if(ContactDrape)continue;
             FPointWeightMap Backstop(Layer.PhysicalMeshData.Vertices.Num());
             Backstop.Name=Target==EWeightMapTargetCommon::BackstopDistance?TEXT("FleshContactOffset"):TEXT("FleshContactRadius");
             Backstop.bEnabled=true;Backstop.CurrentTarget=uint8(Target);
             for(int32 I=0;I<Backstop.Num();++I)
-                Backstop[I]=Target==EWeightMapTargetCommon::BackstopDistance?(TailoredDrape?.4f:0.f):(TailoredDrape?(LongDrape?14.f:8.f):20.f);
+            {
+                if(FittedContact)
+                {
+                    // Contact follows the same local skin as the fitted surface.
+                    // Only actual free-hanging areas fade out the inward barrier;
+                    // there is no expanded, rigid rest shell around the creature.
+                    Backstop[I]=Target==EWeightMapTargetCommon::BackstopDistance?.15f:
+                        ContactWeights[I]*FMath::Max(10.f,3.f*ContactTravel[I]);
+                }
+                else Backstop[I]=Target==EWeightMapTargetCommon::BackstopDistance?(TailoredDrape?.4f:0.f):(TailoredDrape?(LongDrape?14.f:8.f):20.f);
+            }
             Layer.PointWeightMaps.Add(MoveTemp(Backstop));
         }
         Cloth->PhysicsAsset=Collision;
@@ -302,6 +384,35 @@ bool ABoundCongregate::BuildGarmentSimulation(USkeletalMesh* Mesh)
             // seams. The new surface needs no second cloth layer or custom Tick.
             Config->TetherScale={1.f,1.f};
             Config->AnimDriveStiffness=LongDrape?FChaosClothWeightedValue{.10f,.50f}:FChaosClothWeightedValue{.25f,.65f};
+        }
+        if(GravityDrape)
+        {
+            // Rest folds now come from a gravity-settled pattern. Keep the seam
+            // attached while allowing the free cloth to hang, not chase a shell.
+            Config->BendingStiffnessWeighted={.075f,.075f};
+            Config->AnimDriveStiffness=LongDrape?FChaosClothWeightedValue{.025f,.55f}:FChaosClothWeightedValue{.10f,.65f};
+        }
+        if(ContactDrape)
+        {
+            // Match the Witch's gravity-led hem, retaining only a narrow seam
+            // drive. These values are serialized into the new clothing assets.
+            Config->BendingStiffnessWeighted={.04f,.04f};
+            Config->BucklingRatio=.5f;Config->BucklingStiffnessWeighted={.015f,.015f};
+            Config->AnimDriveStiffness=LongDrape?FChaosClothWeightedValue{.004f,.06f}:FChaosClothWeightedValue{.008f,.08f};
+            Config->AnimDriveDamping={.10f,.10f};
+            Config->GravityScale=1.f;Config->Lift={0.f,0.f};Config->Pressure={0.f,0.f};
+            Config->Drag={.015f,.015f};Config->FrictionCoefficient=.18f;
+            Config->LinearVelocityScale=FVector(.85f);Config->AngularVelocityScale=.8f;
+        }
+        if(FittedContact)
+        {
+            Config->BendingStiffnessWeighted={.09f,.09f};
+            Config->BucklingRatio=.45f;Config->BucklingStiffnessWeighted={.045f,.045f};
+            Config->AnimDriveStiffness=LongDrape?FChaosClothWeightedValue{.02f,.32f}:FChaosClothWeightedValue{.04f,.40f};
+            Config->AnimDriveDamping={.30f,.30f};
+            Config->GravityScale=1.f;Config->Lift={0.f,0.f};Config->Pressure={0.f,0.f};
+            Config->Drag={.015f,.015f};Config->FrictionCoefficient=.30f;
+            Config->LinearVelocityScale=FVector(.55f);Config->AngularVelocityScale=.45f;
         }
         Cloth->ClothConfigs.Add(Config->GetClass()->GetFName(),Config);
         auto* Shared=NewObject<UChaosClothSharedSimConfig>(Cloth);Shared->IterationCount=6;Shared->MaxIterationCount=8;Shared->SubdivisionCount=2;

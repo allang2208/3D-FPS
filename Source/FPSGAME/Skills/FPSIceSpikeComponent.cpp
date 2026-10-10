@@ -1,4 +1,5 @@
 #include "FPSIceSpikeComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "FPSIceSpikeVolley.h"
 #include "FPSFireballComponent.h"
 #include "../FPSGAMECharacter.h"
@@ -73,6 +74,7 @@ float UFPSIceSpikeComponent::CooldownFraction() const
 {auto* M=Model();return M&&!Active.IsValid()?FMath::Clamp(M->IceSpikeCooldown()/FMath::Max(.1f,M->IceSpikeCooldownDuration()),0.f,1.f):0.f;}
 void UFPSIceSpikeComponent::Trigger()
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
     if(!Player||!M||!Player->IsLocallyControlled())return;
     if(auto* H=Player->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead())return;

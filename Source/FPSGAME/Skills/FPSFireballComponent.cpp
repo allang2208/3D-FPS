@@ -1,4 +1,5 @@
 #include "FPSFireballComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Weapons/Staff/StaffChargeFlow.h"
@@ -232,6 +233,7 @@ float UFPSFireballComponent::CooldownFraction() const
 }
 void UFPSFireballComponent::Trigger()
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* P=Model();
     if(!Player||!P||!Player->IsLocallyControlled()||!GetWorld())return;
     // 联机：客人照常走本地手势与门槛，只有"生球/发射"两个世界效果换成服务端权威。

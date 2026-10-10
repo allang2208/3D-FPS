@@ -21,15 +21,16 @@ struct FCongregateWhipDriveState
         Forward=Frame.InverseTransformVectorNoScale(M->GetActorForwardVector()).GetSafeNormal();
         Right=Frame.InverseTransformVectorNoScale(M->GetActorRightVector()).GetSafeNormal();
         const auto State=M->NetState.State;const float T=float(M->StateElapsed());
-        if(State==EBoundCongregateState::TentacleRecover)
+        if(M->TentacleRecovering())
         {
             if(!WasRecovering)
             {ReleasedRootPitch=RootPitch;ReleasedRootYaw=RootYaw;ReleasedBodyPitch=BodyPitch;ReleasedBodyShift=BodyShift;ReleasedBodyDrop=BodyDrop;}
-            const float U=FMath::Clamp(T/FMath::Max(.001f,M->TentacleRecoverSeconds),0.f,1.f);
-            const float Fade=1.f-BoundCongregateTentacleTiming::RecoveryPhase(T,M->TentacleRecoverSeconds);
+            const float RecoveryTime=float(M->TentacleRecoveryElapsed());
+            const float U=FMath::Clamp(RecoveryTime/FMath::Max(.001f,M->TentacleRecoverSeconds),0.f,1.f);
+            const float Fade=1.f-BoundCongregateTentacleTiming::RecoveryPhase(RecoveryTime,M->TentacleRecoverSeconds);
             // A single restrained opposite recoil; the endpoint still returns
             // exactly to the locomotion pose with no held final frame.
-            const float Rebound=-4.f*FMath::Sin(2.f*PI*U)*FMath::Sin(PI*U)*Fade;
+            const float Rebound=-7.f*FMath::Sin(2.f*PI*U)*FMath::Sin(PI*U)*Fade;
             RootPitch=ReleasedRootPitch*Fade+Rebound;RootYaw=ReleasedRootYaw*Fade;
             BodyPitch=ReleasedBodyPitch*Fade;BodyShift=ReleasedBodyShift*Fade;BodyDrop=ReleasedBodyDrop*Fade;
             WasRecovering=true;return;
@@ -39,27 +40,27 @@ struct FCongregateWhipDriveState
         {
             const float U=FMath::Clamp(T/FMath::Max(.001f,M->TentacleWindupSeconds),0.f,1.f);
             const float Load=U*U*(2.f-U);
-            RootPitch=-32.f*Load;RootYaw=9.f*Load;
-            BodyPitch=-4.f*Load;BodyShift=-4.f*Load;BodyDrop=-3.f*Load;
+            RootPitch=-38.f*Load;RootYaw=12.f*Load;
+            BodyPitch=-6.f*Load;BodyShift=-8.f*Load;BodyDrop=-5.f*Load;
         }
         else if(State==EBoundCongregateState::TentacleStrike)
         {
-            const float U=FMath::Clamp(T/FMath::Max(.001f,M->TentacleStrikeSeconds),0.f,1.f);
+            const float U=FMath::Clamp(T/FMath::Max(.001f,M->TentacleReleaseDuration()),0.f,1.f);
             // The thick base leads the distal whip: maximum torque is reached
             // during the first half, followed by braking while the tip overtakes.
             const float Drive=FMath::SmoothStep(0.f,.48f,U),Brake=FMath::SmoothStep(.48f,1.f,U);
-            RootPitch=FMath::Lerp(-32.f,42.f,Drive)-26.f*Brake;
-            RootYaw=FMath::Lerp(9.f,-7.f,Drive)+7.f*Brake;
-            BodyPitch=FMath::Lerp(-4.f,6.f,Drive)-4.5f*Brake;
-            BodyShift=FMath::Lerp(-4.f,7.f,Drive)-5.f*Brake;BodyDrop=-3.f-2.f*FMath::Sin(PI*U);
+            RootPitch=FMath::Lerp(-38.f,52.f,Drive)-34.f*Brake;
+            RootYaw=FMath::Lerp(12.f,-10.f,Drive)+10.f*Brake;
+            BodyPitch=FMath::Lerp(-6.f,8.f,Drive)-6.f*Brake;
+            BodyShift=FMath::Lerp(-8.f,14.f,Drive)-11.f*Brake;BodyDrop=-5.f-3.f*FMath::Sin(PI*U);
         }
         else
         {
             // Capture may interrupt the throw before its last frame. Ease the
             // existing driver into the held pose rather than resetting its base.
             const float Follow=FMath::SmoothStep(0.f,.12f,T);
-            RootPitch=FMath::Lerp(RootPitch,16.f,Follow);RootYaw=FMath::Lerp(RootYaw,0.f,Follow);
-            BodyPitch=FMath::Lerp(BodyPitch,1.5f,Follow);BodyShift=FMath::Lerp(BodyShift,2.f,Follow);BodyDrop=FMath::Lerp(BodyDrop,-3.f,Follow);
+            RootPitch=FMath::Lerp(RootPitch,18.f,Follow);RootYaw=FMath::Lerp(RootYaw,0.f,Follow);
+            BodyPitch=FMath::Lerp(BodyPitch,2.f,Follow);BodyShift=FMath::Lerp(BodyShift,3.f,Follow);BodyDrop=FMath::Lerp(BodyDrop,-5.f,Follow);
         }
     }
 };

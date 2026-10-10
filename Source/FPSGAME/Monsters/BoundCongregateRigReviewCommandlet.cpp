@@ -18,6 +18,11 @@
 
 int32 UBoundCongregateRigReviewCommandlet::Main(const FString& Params)
 {
+    if(FParse::Param(*Params,TEXT("CaptureV31")))
+    {
+        extern int32 ReviewBoundCongregateCaptureV31();
+        return ReviewBoundCongregateCaptureV31();
+    }
     if(FParse::Param(*Params,TEXT("MovementSpeed")))
     {
         extern int32 ReviewBoundCongregateMovementSpeed();

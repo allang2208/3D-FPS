@@ -89,7 +89,7 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
             Shot.BulletFX=H.FX;
             const float Applied=ColdSteelSkills::ApplyHit(Player,Blocked,Damage,Direction,Shot,&DamageResult);
             Player->NotifyConfirmedWeaponHit(Blocked.GetActor(),Applied,&DamageResult,true);
-            ColdSteelCombat::OnHit(Blocked.GetActor(),Player,ColdSteelCombat::Snapshot(Player,&H.Item).Poison);
+            ColdSteelCombat::OnHit(Blocked,Player,ColdSteelCombat::Snapshot(Player,&H.Item).Poison);
         }
         H.FX->OnImpact(Blocked);
     }

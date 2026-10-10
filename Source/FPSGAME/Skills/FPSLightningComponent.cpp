@@ -1,4 +1,5 @@
 #include "FPSLightningComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "FPSLightningArc.h"
 #include "FPSFireballComponent.h"
@@ -82,6 +83,7 @@ float UFPSLightningComponent::CooldownFraction() const
 {const auto* M=Model();return M?FMath::Clamp(M->LightningCooldown()/FMath::Max(.1f,M->LightningCooldownDuration()),0.f,1.f):0;}
 void UFPSLightningComponent::Trigger()
 {
+    if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
     if(!Player||!M||!Player->IsLocallyControlled())return; // M2: 联机放开（伤害权威化在 M3）
     if(const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;

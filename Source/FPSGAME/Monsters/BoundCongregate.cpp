@@ -5,6 +5,7 @@
 #include "MonsterCharacterMovementComponent.h"
 #include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
+#include "../Combat/CombatStatusFormula.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "../Skills/EnemyAttackDamage.h"
@@ -85,6 +86,7 @@ void ABoundCongregate::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(ABoundCongregate,NetState);
     DOREPLIFETIME(ABoundCongregate,Health);DOREPLIFETIME(ABoundCongregate,MaxHealth);
+    DOREPLIFETIME(ABoundCongregate,TentacleHealth);
 }
 void ABoundCongregate::GetActorEyesViewPoint(FVector& P,FRotator& R) const
 {P=GetMesh()->GetSocketLocation(TEXT("scent_01"));R=GetActorRotation();}
@@ -97,6 +99,12 @@ void ABoundCongregate::SetState(EBoundCongregateState State)
 }
 void ABoundCongregate::PresentState()
 {
+    UpdateTentacleHitShapeState();
+    // Enclose a deployed distal organ even when the body's physics bounds are
+    // off screen. Keep the normal bounds outside tentacle attacks; never enlarge
+    // the gameplay capsule or the imported bounds used for floor alignment.
+    const float Reach=TentacleActive()?FMath::Min(TentacleRange,float(FVector::Distance(GetActorLocation(),NetState.TentacleAim))):0.f;
+    GetMesh()->SetBoundsScale(VisualMesh?1.f+Reach/FMath::Max(100.f,VisualMesh->GetBounds().SphereRadius):1.f);
     NextFlurrySound=0;ActionVoice->SetVolumeMultiplier(1.f);
     if(Dead())
     {
@@ -108,7 +116,7 @@ void ABoundCongregate::PresentState()
     GetCharacterMovement()->bOrientRotationToMovement=!Busy();
     // Locomotion selection belongs to the velocity-driven animation instance.
     // A replicated Crawl/Idle notification must not reset its current foot phase.
-    if(auto* Anim=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance());Anim&&TentacleActive())
+    if(auto* Anim=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance());Anim&&TentacleActive()&&!Controlled()&&NetState.State!=EBoundCongregateState::Bite)
     {
         if(NetState.State==EBoundCongregateState::TentacleWindup||Anim->ActiveClip!=IdleClip||!Anim->bLooping)
             Anim->TransitionTo(IdleClip,true,false,.2f);
@@ -156,6 +164,7 @@ bool ABoundCongregate::StartAttack(APawn* Victim)
         }
         if(Choice==0?!CanBite(Victim):!CanFlurry(Victim))continue;
         Target=Victim;AttackYaw=GetActorRotation().Yaw;bContactConsumed=false;NextFlurryHit=0;
+        NetState.ReleasedWrap=0.f;
         if(Choice==0)NextBite=Clock()+BiteCooldown;else NextFlurry=Clock()+FlurryCooldown;
         AttackChoice=(Choice+1)%3;
         SetState(Choice==0?EBoundCongregateState::Bite:EBoundCongregateState::Flurry);
@@ -166,31 +175,41 @@ bool ABoundCongregate::StartAttack(APawn* Victim)
 }
 void ABoundCongregate::Contact()
 {
-    bContactConsumed=true;APawn* Victim=Target.Get();if(!IsValid(Victim))return;
-    if(IceWallCombat::ApplyMelee(this,Victim,BiteTriggerRange,BiteDamage))return;
+    APawn* Victim=Target.Get();if(!IsValid(Victim))return;
+    // A miss leaves the remaining jaw-closing window available. A blocked or
+    // valid contact consumes the bite even if armour/parry prevents damage.
+    if(IceWallCombat::ApplyMelee(this,Victim,BiteTriggerRange,BiteDamage))
+    {bContactConsumed=true;return;}
     const FVector From=GetMesh()->GetSocketLocation(TEXT("maw"));const FVector D=Victim->GetActorLocation()-From;
     float R=0,H=0;Victim->GetSimpleCollisionCylinder(R,H);
     if(D.Size2D()-R>BiteReach||FMath::Abs(D.Z)>H+40||FVector::DotProduct(D.GetSafeNormal2D(),GetActorForwardVector())<.35||!HasSight(Victim))return;
+    bContactConsumed=true;
     FHitResult Hit;Hit.Location=Hit.ImpactPoint=From+D.GetSafeNormal()*FMath::Max(0.f,float(D.Size())-R);
     Hit.ImpactNormal=-GetActorForwardVector();
-    UGameplayStatics::ApplyPointDamage(Victim,BiteDamage,GetActorForwardVector(),Hit,GetController(),this,UEnemyMeleeDamage::StaticClass());
+    const float Applied=UGameplayStatics::ApplyPointDamage(Victim,BiteDamage,GetActorForwardVector(),Hit,GetController(),this,UEnemyMeleeDamage::StaticClass());
+    if(Applied>0.f)
+    {
+        auto* Status=UCombatStatusFormula::GetOrAdd(Victim);
+        Status->AddBleeding(this,3);Status->AddCripple(5.f);
+    }
 }
 void ABoundCongregate::Tick(float Dt)
 {
     Super::Tick(Dt);const float T=float(StateElapsed());
-    if(TentacleActive())
+    if(Controlled())
+    {if(HasAuthority()&&T>=ReactionSeconds)Combat->FinishReaction();}
+    else if(NetState.State==EBoundCongregateState::Bite||NetState.State==EBoundCongregateState::Flurry)TickMelee(Dt);
+    else if(TentacleActive()&&!Controlled())
     {
         if(HasAuthority())TickTentacle(Dt);
     }
-    else if(NetState.State==EBoundCongregateState::Bite||NetState.State==EBoundCongregateState::Flurry)TickMelee(Dt);
-    else if(Controlled()&&HasAuthority()&&T>=ReactionSeconds)Combat->FinishReaction();
     else if(Dead())
     {
         const float Length=DeathClip?DeathClip->GetPlayLength():2.2f;Sample(FMath::Min(T,Length));
         if(T>=Length){CorpseRagdoll->FreezeAnimatedPose(GetMesh());SetActorTickEnabled(false);}
     }
     else if(HasAuthority()&&Target.IsValid()&&GetVelocity().SizeSquared2D()<9&&
-        FVector::DistSquared2D(Target->GetActorLocation(),GetActorLocation())<FMath::Square(FMath::Max(BiteTriggerRange,TentacleRange)+50))
+        FVector::DistSquared2D(Target->GetActorLocation(),GetActorLocation())<FMath::Square(FMath::Max3(BiteTriggerRange,FlurryRange,TentacleRange)+50))
     {
         FRotator R=GetActorRotation();R.Yaw=FMath::FixedTurn(R.Yaw,(Target->GetActorLocation()-GetActorLocation()).Rotation().Yaw,GetCharacterMovement()->RotationRate.Yaw*Dt);SetActorRotation(R);
     }
@@ -210,23 +229,33 @@ void ABoundCongregate::Tick(float Dt)
 void ABoundCongregate::InterruptAttack(float Seconds)
 {
     if(!HasAuthority()||Dead())return;bContactConsumed=true;ReactionSeconds=FMath::Max(.1f,Seconds);
-    EndTentacle(false);
+    // A body stagger cannot release a living restraint. Resume pulling after
+    // the reaction; killing the monster still clears capture normally.
+    if(!NetState.CapturedTarget)EndTentacle(false);
     SetState(EBoundCongregateState::Stagger);Combat->BeginReaction(ReactionSeconds);
 }
 void ABoundCongregate::StartHitPresentation()
 {if(!Dead())if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->TransitionTo(HitClip,false,true,.08f);}
 void ABoundCongregate::SetHitPresentationTime(float Elapsed,float Remaining)
 {if(!Dead()&&HitClip)Sample(FMath::Clamp(Elapsed<.15f?Elapsed:Remaining>.35f?.15f:HitClip->GetPlayLength()-Remaining,0.f,HitClip->GetPlayLength()));}
-void ABoundCongregate::FinishHitReaction(){if(HasAuthority()&&Controlled())SetState(EBoundCongregateState::Idle);}
+void ABoundCongregate::FinishHitReaction(){if(HasAuthority()&&Controlled())SetState(NetState.CapturedTarget?EBoundCongregateState::TentacleDrag:EBoundCongregateState::Idle);}
 float ABoundCongregate::TakeDamage(float Damage,const FDamageEvent& Event,AController* EventInstigator,AActor* Causer)
 {
     if(!HasAuthority()||Dead()||Damage<=0)return 0;
+    // Gun contacts on the deployed organ are handled by ApplyTentacleShot.
+    // A spell or ordinary melee query hitting its capsule cannot redirect that
+    // point hit into the main body's health or break the restraint indirectly.
+    if(Event.IsOfType(FPointDamageEvent::ClassID)&&IsTentaclePart(static_cast<const FPointDamageEvent&>(Event).HitInfo))return 0.f;
     const float Reduced=CombatFormulaRuntime::MitigateMonster(this,Damage,Event.DamageTypeClass?Event.DamageTypeClass->GetDefaultObject<UDamageType>():nullptr,Causer);
     const float Applied=UDevelopmentTuningSubsystem::ShouldOneHitKill(this,EventInstigator,Causer)?Health:FMath::Min(Health,Reduced);
     if(Applied<=0)return 0;Health-=Applied;Super::TakeDamage(Applied,Event,EventInstigator,Causer);
     if(Health<=0)
     {
-        bContactConsumed=true;EndTentacle(false);Target.Reset();CorpseRagdoll->PrepareDeath(GetMesh());SetState(EBoundCongregateState::Dead);SetLifeSpan(CorpseSeconds);
+        bContactConsumed=true;
+        // Capture the displayed flurry/bite/deployed-tentacle pose before
+        // releasing the victim or resetting the procedural attack drivers.
+        CorpseRagdoll->PrepareDeath(GetMesh());CorpseRagdoll->TryStartSoftDeath(GetMesh());
+        EndTentacle(false);Target.Reset();SetState(EBoundCongregateState::Dead);SetLifeSpan(CorpseSeconds);
         if(auto* AI=Cast<AMonsterAIController>(GetController())){AI->StopMovement();AI->UpdateKnowledge();}
         ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),EventInstigator,this);
         if(auto* PC=Cast<APlayerController>(EventInstigator);PC&&PC->IsLocalController()&&GetGameInstance())
