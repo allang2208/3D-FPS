@@ -24,7 +24,7 @@ description: 为 FPSGAME 制作非枪械物品：写实图标、按形态分流�
 
 地面原木空心、树皮碎裂、树桩断面贴图或封面制作，读取 [实心原木与断面](references/solid-timber-and-cut-surfaces.md)。树木倾倒逻辑转 `ue5-world-interaction`，不重复生成已认可的母版。
 
-制作、改色或接入消耗品、材料、弹药包装、卷轴时，按需读取 [图标到模型及稀有度光效](references/non-weapon-items.md)。其中包含透明图标提取、薄壁烘焙、UE 材质变体、旧存档字段迁移、中心光晕与竖直光柱、废案归档和发布边界。枪械模型、枪械配件及第一人称手臂不使用此技能替代其专用工作流。
+制作、改色或接入消耗品、材料、弹药包装、卷轴时，按需读取 [图标到模型及稀有度光效](references/non-weapon-items.md)。其中包含透明图标提取、薄壁烘焙、UE 材质变体、旧存档字段迁移、中心光晕与竖直光柱、废案归档和发布边界。 武器／装备取消稀有度及按强化分档的掉落光束也读该参考；共享传说色为鲜红 #FF3030。枪械模型、枪械配件及第一人称手臂不使用此技能替代其专用工作流。
 
 背包装备（便携背包、登山包等 equipSlot=backpack 的代码接入与新配置）读取 [背包装备：字段合同与夹层尺寸约定](references/backpack-equipment.md)：主背包扩格按 bagExtraCells 每 18 格一行；**夹层尺寸约定＝长×宽（列×行）**，`bagCompartmentColumns/Rows` 定义、缺省 6×6、`bagCompartmentCells` 只作开关、容量一律＝列×行；占位阶段不做建模贴图。
 

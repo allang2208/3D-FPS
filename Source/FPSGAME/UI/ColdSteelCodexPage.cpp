@@ -918,8 +918,6 @@ TArray<TSharedRef<SWidget>> UColdSteelCodexPage::WeaponDetailRows(const FString&
         TArray<TSharedRef<SWidget>> Rows;
         Rows.Add(DetailRow(TEXT("名称"), ColdSteelInventory::Text(Probe, TEXT("name")), ColdSteelUI::TextPrimary));
         Rows.Add(DetailRow(TEXT("类型"), ColdSteelInventory::Text(Probe, TEXT("type")), ColdSteelUI::TextPrimary));
-        const FString Rarity = ColdSteelInventory::Text(Probe, TEXT("rarity"));
-        Rows.Add(DetailRow(TEXT("稀有度"), ColdSteelUI::RarityLabel(Rarity), ColdSteelUI::RarityColor(Rarity)));
         Rows.Add(DetailRow(TEXT("持握"), ColdSteelInventory::Flag(Probe, TEXT("isTwoHanded")) ? TEXT("双手") : TEXT("单手"), ColdSteelUI::TextPrimary));
         Rows.Add(DetailRow(TEXT("装备槽"), ColdSteelInventory::Text(Probe, TEXT("equipSlot")), ColdSteelUI::TextPrimary));
         Cards.Add(SectionCard(TEXT("基本信息"), Rows));

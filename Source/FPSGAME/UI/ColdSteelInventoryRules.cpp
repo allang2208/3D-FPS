@@ -1,5 +1,6 @@
 #include "ColdSteelInventoryTypes.h"
 #include "ColdSteelItemReadCache.h"
+#include "ColdSteelItemRarity.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "ColdSteelSwapPlacement.h"
 #include "ColdSteelWarehouseRules.h"
@@ -24,7 +25,16 @@ static TSharedPtr<const FJsonObject> ReadOnlyObject(const FColdSteelItem& Item)
 {
     return ColdSteelItemData::Read(Item.Data);
 }
-FString Text(const FColdSteelItem& Item, const TCHAR* Key) { auto O = ReadOnlyObject(Item); FString V; if(O) O->TryGetStringField(Key,V); return V; }
+FString Text(const FColdSteelItem& Item, const TCHAR* Key)
+{
+    auto O=ReadOnlyObject(Item);FString V;
+    if(O)
+    {
+        if((FCString::Strcmp(Key,TEXT("rarity"))==0||FCString::Strcmp(Key,TEXT("grade"))==0)&&ColdSteelItemRarity::IsEquipment(*O))return V;
+        O->TryGetStringField(Key,V);
+    }
+    return V;
+}
 double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default) { auto O=ReadOnlyObject(Item); double V=Default; if(O) O->TryGetNumberField(Key,V); return V; }
 bool Flag(const FColdSteelItem& Item, const TCHAR* Key) { if((IsDualPistol(Item)||Text(Item,TEXT("weaponType"))==TEXT("staff")) && FCString::Strcmp(Key,TEXT("isTwoHanded"))==0)return false; auto O=ReadOnlyObject(Item); bool V=false; if(O) O->TryGetBoolField(Key,V); return V; }
 FIntPoint BaseFootprint(const FColdSteelItem& I)

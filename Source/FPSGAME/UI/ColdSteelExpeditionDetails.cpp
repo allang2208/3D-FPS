@@ -142,10 +142,11 @@ void UColdSteelExpeditionWidget::LoadNextRewardIcon()
 TSharedRef<SWidget> UColdSteelExpeditionWidget::RewardCard(FColdSteelExpeditionReward& Reward)
 {
     const auto Brush=Reward.Brush;
+    const FString RarityLabel=ColdSteelUI::RarityLabel(Reward.Content.Rarity);
     auto Details=SNew(SVerticalBox);
     Details->AddSlot().AutoHeight().Padding(0,0,0,8)[Label(Reward.Content.Name,20,ColdSteelUI::ItemTooltipText)];
     Details->AddSlot().AutoHeight().Padding(0,0,0,8)
-        [Label(ColdSteelUI::RarityLabel(Reward.Content.Rarity)+TEXT(" · ")+Reward.Content.Type,12,ColdSteelUI::ItemTooltipGold)];
+        [Label(RarityLabel.IsEmpty()?Reward.Content.Type:RarityLabel+TEXT(" · ")+Reward.Content.Type,12,ColdSteelUI::ItemTooltipGold)];
     if(!Reward.Content.Description.IsEmpty())Details->AddSlot().AutoHeight().Padding(0,0,0,10)
         [Label(Reward.Content.Description,14,ColdSteelUI::ItemTooltipText)];
     for(const auto& Stat:Reward.Content.Summary)
@@ -167,7 +168,7 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::RewardCard(FColdSteelExpeditionR
         +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)
             [SNew(SVerticalBox)
                 +SVerticalBox::Slot().AutoHeight()[Label(Reward.Content.Name,14,ColdSteelUI::TextPrimary)]
-                +SVerticalBox::Slot().AutoHeight().Padding(0,6,0,0)[Label(ColdSteelUI::RarityLabel(Reward.Content.Rarity),12,ColdSteelUI::RarityColor(Reward.Content.Rarity))]
+                +SVerticalBox::Slot().AutoHeight().Padding(0,6,0,0)[Label(RarityLabel.IsEmpty()?Reward.Content.Type:RarityLabel,12,ColdSteelUI::RarityColor(Reward.Content.Rarity))]
                 +SVerticalBox::Slot().AutoHeight().Padding(0,4,0,0)[Label(TEXT("可能获得"),12,ColdSteelUI::TextTertiary)]];
     Reward.Image=Image;
     return SNew(SBorder).BorderImage(&HeroBrush).Padding(12).ToolTip(Tip)

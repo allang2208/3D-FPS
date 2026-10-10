@@ -1,4 +1,5 @@
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelItemRarity.h"
 #include "ColdSteelWarehouseRules.h"
 using namespace ColdSteelInventory;
 int32 UColdSteelStatusModel::OpenStorageCapacity() const
@@ -149,7 +150,8 @@ bool UColdSteelStatusModel::SortWarehouse(const FString& Mode,int32 Category)
         if(Mode==TEXT("category")&&(AC==Category)!=(BC==Category))return AC==Category;
         if(Mode==TEXT("price")&&Number(A,TEXT("price"))!=Number(B,TEXT("price")))return Number(A,TEXT("price"))>Number(B,TEXT("price"));
         if(Mode==TEXT("category")&&AC!=Category&&AC!=BC)return AC<BC;
-        int32 AR=FMath::Max(0,Rarities.Find(Text(A,TEXT("rarity")))),BR=FMath::Max(0,Rarities.Find(Text(B,TEXT("rarity"))));
+        const int32 AR=ColdSteelItemRarity::IsEquipment(A)?INDEX_NONE:FMath::Max(0,Rarities.Find(Text(A,TEXT("rarity"))));
+        const int32 BR=ColdSteelItemRarity::IsEquipment(B)?INDEX_NONE:FMath::Max(0,Rarities.Find(Text(B,TEXT("rarity"))));
         if(AR!=BR)return AR>BR;if(Mode==TEXT("rarity")&&AC!=BC)return AC<BC;
         return Text(A,TEXT("name"))<Text(B,TEXT("name"));
     });

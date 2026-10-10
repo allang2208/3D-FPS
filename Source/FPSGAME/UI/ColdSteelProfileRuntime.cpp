@@ -1,6 +1,7 @@
 #include "../Dungeon/DungeonLayout.h"
 #include "../Weapons/JingangRuneComponent.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelItemRarity.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "../Weapons/WeaponReloadStages.h"
 #include "../Weapons/PistolDualWieldComponent.h"
@@ -114,6 +115,11 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     if(FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root))
         for(const auto& Pair:Root->Values){FString Data;FJsonSerializer::Serialize(Pair.Value->AsObject().ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Data));Definitions.Add(FString(*Pair.Key),Data);}
     LoadProductionDefinitions();LoadBowDefinitions();LoadStaffDefinitions();LoadAmmoCatalog();
+    for(auto& Pair:Definitions)
+    {
+        FColdSteelItem Item;Item.Definition=Pair.Key;Item.Data=Pair.Value;
+        if(ColdSteelItemRarity::Normalize(Item))Pair.Value=MoveTemp(Item.Data);
+    }
     SaveSlot=TEXT("ColdSteelPlayer"); FString Requested;
     bAudit=FString(FCommandLine::Get()).Contains(TEXT("Audit"));
     if(FParse::Value(FCommandLine::Get(),TEXT("ColdSteelProfile="),Requested)) {
@@ -161,13 +167,17 @@ UColdSteelStatusModel* UColdSteelStatusModel::CreateShadowModel(const FColdSteel
     Shadow->QuickCombatSkill=QuickCombatSkill;
     Shadow->RuneBladesSkill=RuneBladesSkill;
     Shadow->StaffLightSkill=StaffLightSkill;
-    Shadow->Publish(GuestProfile);
+    auto Migrated=GuestProfile;
+    ColdSteelItemRarity::Normalize(Migrated.Items);
+    Shadow->Publish(Migrated);
     Shadow->bPersistenceBlocked=true;
     return Shadow;
 }
 void UColdSteelStatusModel::AdoptNetMirror(const FColdSteelProfile& External)
 {
-    Publish(External);
+    auto Migrated=External;
+    ColdSteelItemRarity::Normalize(Migrated.Items);
+    Publish(Migrated);
 }
 bool UColdSteelStatusModel::CommitState(FColdSteelProfile State)
 {
@@ -190,6 +200,7 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
     if(!NormalizeAmmo(State,AmmoChanged)){Message=TEXT("弹药数据迁移失败，原存档保留");return false;}
     NormalizeProductionState(State);
     NormalizeStaffState(State);
+    ColdSteelItemRarity::Normalize(State.Items);
     // Equipment has the highest action priority. Only a successfully published
     // equipment change interrupts the outgoing action in ApplyColdSteelProfile.
     ColdSteelSkills::Migrate(State);
@@ -581,6 +592,7 @@ bool UColdSteelStatusModel::ReloadProfile()
     Removed = NormalizeBowState(Clean) || Removed;
     NormalizeProductionState(Clean);
     NormalizeStaffState(Clean);
+    Removed = ColdSteelItemRarity::Normalize(Clean.Items) || Removed;
     const auto Previous=Snapshot();bPersistenceBlocked=false;
     // Commit through the checked A/B transaction; never reset the player's save.
     if(Removed){Publish(Best->Profile);if(!CommitState(Clean)){Publish(Previous);bPersistenceBlocked=true;return false;}}
@@ -671,6 +683,7 @@ FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)
 {
     FColdSteelItem I;I.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);I.Definition=Def;I.Count=Count;
     if(const FString* Data=Definitions.Find(Def))I.Data=*Data;
+    ColdSteelItemRarity::Normalize(I);
     I.LoadedAmmoType=AmmoGroupFor(I);
     I.Magazine=(IsMeleeWeapon(I)||IsBow(I))?0:Number(I,TEXT("gunsmith_base_mag"),30);
     if(IsMeleeWeapon(I)||IsBow(I))I.Reserve=0;

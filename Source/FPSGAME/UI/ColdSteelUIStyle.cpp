@@ -25,7 +25,9 @@ namespace
 
 FLinearColor ColdSteelUI::RarityColor(const FString& Rarity)
 {
-    static const TMap<FString,FString> Colors={{TEXT("common"),TEXT("B9C2D5FF")},{TEXT("uncommon"),TEXT("8BC8ACFF")},{TEXT("rare"),TEXT("85B4E8FF")},{TEXT("epic"),TEXT("B695DEFF")},{TEXT("mythic"),TEXT("E3B278FF")},{TEXT("legendary"),TEXT("E78B9FFF")}};
+    // Code-backed override also updates editors whose static palette was already initialized.
+    if(Rarity==TEXT("legendary"))return FLinearColor::FromSRGBColor(FColor(255,48,48));
+    static const TMap<FString,FString> Colors={{TEXT("common"),TEXT("B9C2D5FF")},{TEXT("uncommon"),TEXT("8BC8ACFF")},{TEXT("rare"),TEXT("85B4E8FF")},{TEXT("epic"),TEXT("B695DEFF")},{TEXT("mythic"),TEXT("E3B278FF")}};
     const auto* Hex=Colors.Find(Rarity);return Hex?FLinearColor::FromSRGBColor(FColor::FromHex(*Hex)):TextSecondary;
 }
 FString ColdSteelUI::RarityLabel(const FString& Rarity)

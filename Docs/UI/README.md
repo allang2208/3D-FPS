@@ -1,5 +1,9 @@
 # 当前 UE5 UI 与库存
 
+- [武器与装备取消稀有度](equipment-no-rarity-plan-20261009.md)
+- [强化等级掉落光束与鲜红传说色](../Art/equipment-enhancement-loot-glow-20261009.md)
+- [装备稀有度与光束整理发布（2026-10-10）](../Publication/equipment-rarity-loot-glow-20261010.md)
+
 实现位于 `Source/FPSGAME/UI/`，物品与枪匠数据位于 `Content/ColdSteelData/`。新面板和栏目先走 [面板与栏目工作流](../../UI-WORKFLOW.md)，使用 [规划模板](panel-column-plan-template.md)；视觉统一使用 [冷钢 UI 正式规则](ui-cold-steel-design-system.md)，冲突的旧字体、配色、透明度和按钮条款由该文替换。
 
 - [2026-09-15 UI 与必要系统发布、归档和资源恢复](ui-panel-publication-20260915.md)

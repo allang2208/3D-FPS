@@ -1,4 +1,5 @@
 #include "ColdSteelItemTooltipData.h"
+#include "ColdSteelItemRarity.h"
 #include "ColdSteelWeaponText.h"
 #include "../Combat/CombatItemFormula.h"
 #include "ColdSteelStatusModel.h"
@@ -56,7 +57,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     O=CombatItemFormula::Read(I);if(!O)return Out;
     Out.Name=String(O,TEXT("name"),I.Definition);Out.Type=String(O,TEXT("type"),Category(String(O,TEXT("category"))));
     if(ColdSteelInventory::IsBow(I))Out.Type=String(O,TEXT("weaponTypeTag"),TEXT("弓"));
-    Out.Rarity=String(O,TEXT("rarity"),TEXT("common"));Out.Level=Number(O,TEXT("level"));Out.Icon=String(O,TEXT("ue_icon"));Out.Description=String(O,TEXT("desc"));
+    Out.Rarity=ColdSteelItemRarity::IsEquipment(*O)?FString():String(O,TEXT("rarity"),TEXT("common"));Out.Level=Number(O,TEXT("level"));Out.Icon=String(O,TEXT("ue_icon"));Out.Description=String(O,TEXT("desc"));
     const int32 Enhance=Number(O,TEXT("enhanceLevel"));if(Enhance>0)Out.Enhancement=FString::Printf(TEXT("已强化 +%d"),Enhance);
     // 采集工具的「强化」是外观档位（独立字段 tool_enhance_level），与武器「已强化 +N」
     // 同一位置口径但不同措辞：这里写档位与材质名，不进武器的数值语义。铁铲无目录等级。
@@ -89,7 +90,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(C,TEXT("有效命中"),N(Number(Forge,TEXT("hits")))+TEXT(" / ")+N(Number(Forge,TEXT("total"),20)));
         Row(C,TEXT("工艺倍率"),FString::Printf(TEXT("×%.3f"),Multiplier));
         Row(C,TEXT("作用范围"),TEXT("作用于基础伤害计算，已计入武器总伤害；附加伤害按各自公式结算，不统一乘此倍率。"));
-        Row(C,TEXT("品质说明"),TEXT("锻造品质由本次锻打表现决定，与物品稀有度、强化等级分别记录。"));
+        Row(C,TEXT("品质说明"),TEXT("工艺品质由本次锻打表现决定，与强化等级独立记录。"));
     }
     if(const J Assembly=Object(O,TEXT("_assemblyQuality")))
     {

@@ -311,7 +311,9 @@ void UColdSteelItemTooltip::UpdateRows()
 {
     auto Set=[](UTextBlock* Block,const FString& Value){if(Block&&Block->GetText().ToString()!=Value)Block->SetText(FText::FromString(Value));};
     Set(TitleText,Presentation.Name);
-    FString Meta=Presentation.Type+TEXT(" · ")+ColdSteelUI::RarityLabel(Presentation.Rarity);
+    FString Meta=Presentation.Type;
+    const FString RarityLabel=ColdSteelUI::RarityLabel(Presentation.Rarity);
+    if(!RarityLabel.IsEmpty())Meta+=(Meta.IsEmpty()?FString():TEXT(" · "))+RarityLabel;
     if(Presentation.Level>0)Meta+=FString::Printf(TEXT(" · Lv.%d"),Presentation.Level);
     if(!Presentation.Enhancement.IsEmpty())Meta+=TEXT(" · ")+Presentation.Enhancement;
     Set(MetaText,Meta);Set(LocationText,Presentation.Location);Set(ScopeText,Presentation.ValueScope);Set(ComparisonText,Presentation.ComparisonTitle);

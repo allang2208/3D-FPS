@@ -76,7 +76,7 @@ void UColdSteelInventoryWidget::RefreshPresentation()
     auto* Guns=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
     for(const auto& I:Model->Items()){
         TSharedPtr<FJsonObject> Data;if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)||!Data)continue;
-        auto& P=Presentation.Add(I.InstanceId);Data->TryGetStringField(TEXT("name"),P.Name);Data->TryGetStringField(TEXT("rarity"),P.Rarity);
+        auto& P=Presentation.Add(I.InstanceId);Data->TryGetStringField(TEXT("name"),P.Name);P.Rarity=Text(I,TEXT("rarity"));
         // 口径与 ColdSteelInventory::IsMeleeWeapon 一致（符文剑、斧／镐、weapon_melee 类别），
         // 但 category 直接从这份已解析的 Data 取，不在每帧绘制里重读 Item.Data。
         FString Category;Data->TryGetStringField(TEXT("category"),Category);
