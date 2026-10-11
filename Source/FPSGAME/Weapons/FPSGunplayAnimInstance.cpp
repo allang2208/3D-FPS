@@ -10,6 +10,7 @@
 #include "GripPoseLayer.h"
 #include "WeaponGripProfile.h"
 #include "WeaponGripProfileNode.h"
+#include "Super90SupportArmNode.h"
 
 // Apply cartridge visibility after blending so a partially loaded cylinder
 // never gains live rounds from the idle pose. Baked extraction stays intact.
@@ -69,6 +70,7 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
     FAnimNode_SequenceEvaluator_Standalone DualAimReference;
     FPistolDualAimNode DualAim;
     FSteelGauntletPoseNode SteelGauntletPose;
+    FSuper90SupportArmNode Super90SupportArm;
     // GripLayer56: one layer per channel, before the channels are blended.
     FGripPoseLayerNode IdleGrip, SprintGrip, AimGrip, ActionGrip;
     FWeaponGripProfileNode IdleProfile, AimProfile, ActionProfile, SprintProfile, SprintLoopProfile;
@@ -96,12 +98,13 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
         DualAim.Source.SetLinkNode(&CartridgePose);
         DualAim.Reference.SetLinkNode(&DualAimReference);
         SteelGauntletPose.Source.SetLinkNode(&DualAim);
+        Super90SupportArm.Source.SetLinkNode(&SteelGauntletPose);
     }
 
-    virtual FAnimNode_Base* GetCustomRootNode() override { return &SteelGauntletPose; }
+    virtual FAnimNode_Base* GetCustomRootNode() override { return &Super90SupportArm; }
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {
-        Nodes.Append({&Idle, &Sprint, &SprintLoop, &SprintMotionBlend, &SprintBlend, &Aim, &Action, &AimBlend, &ActionBlend, &CartridgePose, &DualAimReference, &DualAim, &SteelGauntletPose,
+        Nodes.Append({&Idle, &Sprint, &SprintLoop, &SprintMotionBlend, &SprintBlend, &Aim, &Action, &AimBlend, &ActionBlend, &CartridgePose, &DualAimReference, &DualAim, &SteelGauntletPose, &Super90SupportArm,
             &IdleGrip, &SprintGrip, &AimGrip, &ActionGrip,
             &IdleProfile, &AimProfile, &ActionProfile, &SprintProfile, &SprintLoopProfile});
     }
@@ -161,6 +164,7 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
         Profile(SprintProfile,Data->SprintClip?Data->SprintClip:Data->IdleClip,Data->SprintTime);
         Profile(SprintLoopProfile,Data->SprintLoopClip?Data->SprintLoopClip:Data->IdleClip,Data->SprintLoopTime);
         SteelGauntletPose.Configure(*Data);
+        Super90SupportArm.Configure(*GetSkelMeshComponent());
     }
 };
 

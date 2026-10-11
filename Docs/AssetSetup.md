@@ -618,9 +618,41 @@ RSH 后续采用状态（2026-10-04）：用户已认可 [双手握姿与 ADS �
 
 镇岳、镇魔／金刚符文、蟠螭展岳护手及共用改造的现行制作入口、许可边界与本机恢复要求见 [镇岳发布记录](Weapons/xuanchi-publication-20261008.md)。公共仓库仅含源码、目录与作者配方；认可图片、用户 Meshy 模型、Blend／FBX、uasset、字体及活动导入回执仍需从许可完整备份恢复。
 
-## Super90 散弹枪（2026-10-09）
+## Super90 散弹枪（2026-10-12）
 
-源码、原生导入配方、瞄具／前握把、装备派生和 R5 快速近战的当前恢复入口见 [Super90 整理发布](Weapons/super90-publication-20261009.md)。511 份旧稿／备份已归档到本机 trash；模型、声音、完整姿态、Blender 与 UE 包留在合法本机。快速装填仍暂停，R5 左臂只完成落盘、尚未获用户认可。本次仅进行用户要求的发布检查，未启动 UE 或游戏测试。
+最新整理、恢复依赖与发布边界见 [10 月 12 日整理记录](Weapons/super90-publication-20261012.md)。本轮 598 份废案／旧备份已带 SHA256 移入 trash；下述版本沿革不覆盖最上方的当前入口。
+
+快速装填的最新播放节奏为 [R25 前 30% 对准／后 70% 推进](Weapons/super90-speedloader-r25-align-drive-20261012.md)。用户已确认现有动作，保留当前资产轨迹；`Super90LoaderPushTiming.h` 将完整推进源帧 86–110 映射为 30 个属性帧，前 30% 行程占 18 帧，后 70% 占 12 帧，之后按原速延后六帧。恢复入口 `SourceAssets/Super90LoaderR25_20261012/author_timing.py`；需一起保留 `FPSGAMECharacterSuper90.cpp` 的动作时长与源时间结算、`Super90SpeedloaderVisual.cpp` 的声音队列时钟。原声、镜头强度、完整推进和一次补满保持，未运行游戏测试。
+
+普通空仓收尾的最新播放节奏为 [R2](Weapons/super90-native-empty-pacing-r2-20261010.md)：用户否定上一版的过快节奏，现保持下述 7.4 秒姿态资产，用运行时单调 Hermite 源时钟将 1.4 秒源尾段展至 2.16 秒属性时钟（基础倍率下约 1.66 秒），并同步音效反算与中断续作。时间表和源备份在 `SourceAssets/Super90NativeEmptyPacingR2_20261010/`，恢复时保留两份 C++ 的节奏映射；不能把资产片长直接当作游戏收尾时长。未运行游戏测试。
+
+普通空仓最新采用[抓握拉机柄收尾](Weapons/super90-native-empty-grasped-bolt-20261010.md)，作者源 `SourceAssets/Super90NativeEmptyBolt20261010/`。保留原逐发装填，接 0.3 秒源时长的右手回握，再接原速 1.1 秒 R24 cycle；总源长 7.4 秒，保留 5 mm 枪机额外后拉。普通空仓序列及四份 Profile 对应条目已保存，`save_receipt.json` 为 completed=true，五套可编辑动作位于 `Super90_NativeEmpty_Editable.blend`；其他动作条目保持。恢复需同步三份 C++ 文件的拉柄时钟、音效跳段映射和 cycle-only 续作逻辑，不能仅恢复动画或把 `FullReload` 属性换算参考改为新片长。Editor / Game 构建完成，未运行游戏测试。
+
+普通移动最新采用[待机右手握姿](Weapons/super90-locomotion-idle-right-grip-20261010.md)，作者源 `SourceAssets/Super90LocomotionIdleGrip20261010/`。用户认可当前 idle；walk / run 的完整右链按各自待机枪身空间关系制作，保留原移动起伏。两份原生动画和四份 Profile 已保存，回执 `save_receipt.json` 为 completed=true；十套动作保存在 `Super90_Locomotion_IdleGrip_Editable.blend`。恢复时在原移动动画与握把配置之上应用此补丁，不能反向改写认可的 idle。未运行游戏测试。
+
+快速近战最新右臂修订为 [RightArmR9](Weapons/super90-quick-melee-right-arm-r9-20261010.md)，作者源在 `SourceAssets/Super90QuickMelee20261008/RightArmR9/`。R8 的右前臂轮廓仍被用户指出问题；R9 取消辅助骨向腕锚偏移和完整腕弯混入，按实际站位分配轴向转动，并局部平顺两份 Super90 网格的右肘表面。保留右掌、手指、肩肘路线以及 [R7](Weapons/super90-quick-melee-20261008.md) 的枪路、左臂竖直折叠和动作时钟。近战序列、四份握把 Profile、两份网格共七项及五套可编辑动作已保存；回执 `RightArmR9/save_receipt.json` 为 completed=true。运行保留原近战交接曲线及已编译 `Super90SupportArmNode.cpp`，恢复时保留 R5 校准、R23 左肘补丁及 R9 右肘补丁。R24 快速拉栓及其他动作轨道保持，无新 C++ 改动。本轮后台保存，未运行游戏或新增渲染，待用户体验。
+
+快速拉栓机械修正现为 [R24](Weapons/super90-speedloader-r24-bolt-rear-stop-20261010.md)：用户红圈处是枪机后端越过机匣后上表面，额外后拉由 24 mm 缩至 5 mm，左掌接触位移同步修正，松手后平滑交给原回握。八个动画及四份握把 Profile 已后台实际保存，保留 R7 近战和全部其他条目。作者源、局部平移补丁和保存回执位于 `SourceAssets/Super90LoaderR24_20261010/`；没有新增 C++、没有运行游戏或新增渲染，待用户体验。
+
+手臂支撑基线仍为 [R23](Weapons/super90-speedloader-r23-wrist-support-clearance-20261010.md)：最终姿态后的 Super90 左臂支撑覆盖待机和换弹，修正辅助骨扭转及肩肘；局部平顺裸臂肘部，调整空仓抓握掌心／拇指与接近绕行。R23 的手部数值没有覆盖本次枪机穿模，不能作为机械件已修复的证据。恢复时先保留 `SourceAssets/Super90LoaderR23_20261010/` 的支撑代码和两网格表面修正，再应用 R24 的两骨平移补丁；保留 R21 发力反馈、R22 镜头、完整推进速度、声音、一次补满与 60 ms 间隔。下述 R14–R22 为历史沿革。
+
+源码、原生导入配方、瞄具／前握把、装备派生和 R5 快速近战的恢复入口见 [Super90 整理发布](Weapons/super90-publication-20261009.md)。511 份旧稿／备份已归档到本机 trash；模型、声音、完整姿态、Blender 与 UE 包留在合法本机。快速装填 R11 因手臂扭曲、细节不可见被用户否定；R12 按“枪托抵肩、参考枪姿与取景”重做。R13 随后因推进像接触即结束被用户否定。用户现已确认 [R14 完整推进](Weapons/super90-speedloader-r14-preserved-push-20261009.md) 装填动作没有问题。当前 [R15 原声与推进加速](Weapons/super90-speedloader-r15-audio-drive-20261009.md) 保留认可轨迹，推进 48 → 36 帧，并从参考视频截取七段独立快速装填声音；普通逐发声音保持。15 段动画、四份握把配置及七段 SoundWave 已保存，沿用当前模型、材质和 idle。后续按用户要求继续制作 [R16](Weapons/super90-speedloader-r16-snappy-push-20261009.md)，推进再由 36 → 24 帧，最初松手 5 → 3 帧；七段原声保持，同步接触与镜头时钟。当前编译边界见 R16 记录；R16 节奏与 R5 左臂仍待用户体验，本轮未启动游戏测试。
+
+Super90 快速装填手部续修（2026-10-09）：用户明确手臂没有问题，仅修推完后的反手拉栓手部。当前 [R17](Weapons/super90-speedloader-r17-hand-hook-20261009.md) 只修改左手五指旋转，采用食指主勾、中指辅助、拇指张开及复进前松指；保留 R16 腕部、手臂、完整推进与音画时钟。八个空仓／单独拉栓动画和四份握把配置已通过现有编辑器桥保存；未改 C++，未进行游戏测试。
+
+后续曾制作 [R18](Weapons/super90-speedloader-r18-direct-drive-20261009.md)，其换弹部分随后已被否定：直接从完整推进起点进入换弹，推完快速松手与回握，空仓保留拉栓；Super90 基础射击间隔由 650 ms 改为 60 ms，最快下限也为 60 ms。14 个动画、四份握把配置及常规 Editor/Game 编译均已完成，未运行游戏测试。
+
+当前 Super90 换弹已[恢复 R17](Weapons/super90-restore-r17-20261009.md)：完整取出、对接、推动、松手、空仓拉栓与回握，以及原音画时钟均已恢复，重新保存 18 项资产并完成常规编译。60 ms 基础射击间隔与下限保留。用户真正要求的是保持动作原速、提前掏出、消除阶段间等待，不能删取出／对接或整体快放；该新节奏尚未另行实施。
+
+随后按追加要求制作 [R19 一次补满与上臂避让](Weapons/super90-speedloader-r19-full-fill-arm-20261009.md)：快速装填在原压实点一次结算全部可装弹药，左臂在保留腕点、手型和时间轴的基础上作 4° 弯面避让。当前 normal／empty 的 14 个动画和四份握把配置已保存为 R19；cycle-only 保留 R17。作者源、导出、导入回执及覆盖前备份在 `SourceAssets/Super90LoaderR19_20261009/`，原生构建回执同目录记录。没有主动运行游戏或渲染。
+
+当前左臂更新为 [R20 松手／拉栓臂根修正](Weapons/super90-speedloader-r20-shoulder-clearance-20261010.md)：R19 在锁子甲截图中仍暴露近身上臂，本轮按真实衣袖和当前腰射锚点调整该段肩肘，保留手部、节奏和完整推进。14 个动画、四份握把配置已后台导入落盘；作者源及回执在 `SourceAssets/Super90LoaderR20_20261010/`。本轮按用户明确要求进行源画面与导入采样检查，未启动游戏测试。
+
+Super90 当前继续更新为 [R21 发力反馈与抓握拉栓](Weapons/super90-speedloader-r21-response-grasp-20261010.md)：在用户确认的动作与原速上增加枪体、右臂的短促回弹和较小、稍迟的屏幕反馈；拉栓改为四指收拢、食中指承拉、拇指侧向支撑。15 个 loader 动画、四份握把配置已后台保存，Editor／Game 必要构建成功。保留 R20 左臂避让、原声、机械时点与一次补满，制作源和回执在 `SourceAssets/Super90LoaderR21_20261010/`；本轮未渲染、未运行游戏或测试。
+
+屏幕强度随后按用户要求更新为 [R22](Weapons/super90-speedloader-r22-camera-strength-20261010.md)：保留上述 R21 动画资产，对接／压实／拉栓相机冲量按 ASH-12／PKM 及项目共用倍率标定，参考背景轨迹保持。仅修改相机源码和生成曲线，不重导入资产；制作源及必要构建回执在 `SourceAssets/Super90LoaderR22_20261010/`。
+
+R21 初次导入的动画目录误写为 `Speedloader21261007`，因此上述初次保存不代表运行时已使用新动画。2026-10-10 已修复 `import_r21.py` 并重新后台保存到实际使用的 `Speedloader20261007`：15 个动画、四份握把配置共 19 项，日志 `SourceAssets/Super90LoaderR21_20261010/import-commandlet-20261010-111457.log`。错误回执和修复前配置保留在 `PathFixBefore/`，R22 镜头代码不变，未运行游戏测试。
 
 ## 第三人称法杖、持书与进食／饮用（2026-10-10）
 

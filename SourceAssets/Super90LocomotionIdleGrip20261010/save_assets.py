@@ -1,0 +1,118 @@
+"""Save only walk/run right-chain keys and their matching profile deltas."""
+import json
+import shutil
+from pathlib import Path
+import unreal as u
+
+O = Path(__file__).parent
+P = O.parents[1]
+D = json.loads((O / 'animation_patch.json').read_text())
+E = u.EditorAssetLibrary
+WRITE = set(D['right_bones'])
+if u.get_editor_subsystem(u.UnrealEditorSubsystem).get_game_world():
+    raise RuntimeError('PIE active; no assets changed')
+receipt = dict(completed=False, revision=D['revision'], saved=[], runtime_tested=False,
+               idle_reference=D['idle_reference'], right_bones=D['right_bones'])
+
+
+def record():
+    (O / 'save_receipt.json').write_text(json.dumps(receipt, indent=2))
+
+
+def load(path):
+    asset = u.load_asset(path)
+    if not asset:
+        raise RuntimeError('Missing ' + path)
+    return asset
+
+
+def backup(asset):
+    rel = asset.get_path_name().split('.')[0].removeprefix('/Game/') + '.uasset'
+    src, dst = P / 'Content' / rel, O / 'Before/Content' / rel
+    if not dst.exists():
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dst)
+
+
+def save(asset):
+    if not E.save_loaded_asset(asset, False):
+        raise RuntimeError('Could not save ' + asset.get_path_name())
+    receipt['saved'].append(asset.get_path_name())
+    record()
+
+
+def merge_profile(asset, patch):
+    # Plain values only: no reflected array views survive its replacement.
+    payload = dict(family=str(asset.get_editor_property('family')), clips=[])
+    retained, found = {}, set()
+    for clip in asset.get_editor_property('clips'):
+        base = clip.get_editor_property('base').get_path_name()
+        tracks = [dict(bone=str(t.get_editor_property('bone')), times=list(t.get_editor_property('times')),
+                       values=list(t.get_editor_property('values'))) for t in clip.get_editor_property('tracks')]
+        old = clip.get_editor_property('retained')
+        if old:
+            retained[base] = old.get_path_name()
+        if base in patch:
+            if old:
+                raise RuntimeError('Preserve retained locomotion clip ' + base)
+            tracks = [t for t in tracks if t['bone'] not in WRITE] + patch[base]['tracks']
+            found.add(base)
+        payload['clips'].append(dict(base=base, duration=float(clip.get_editor_property('duration')), tracks=tracks))
+    if found != set(patch):
+        raise RuntimeError('Installed walking/running profile entries changed')
+    return payload, retained
+
+
+targets = {c['path'].split('.')[0] for c in D['clips'].values()}
+targets.update(p['path'].split('.')[0] for p in D['profiles'].values())
+dirty = [p.get_name() for p in u.EditorLoadingAndSavingUtils.get_dirty_content_packages() if p.get_name() in targets]
+if dirty:
+    raise RuntimeError('Preserve unsaved target assets: ' + str(dirty))
+animations, profiles = {}, {}
+for role, spec in D['clips'].items():
+    clip = load(spec['path'])
+    if abs(clip.get_play_length() - spec['duration']) > .0001:
+        raise RuntimeError('Source duration changed: ' + role)
+    backup(clip)
+    animations[role] = clip
+for family, spec in D['profiles'].items():
+    asset = load(spec['path'])
+    payload, retained = merge_profile(asset, spec['clips'])
+    backup(asset)
+    profiles[family] = asset, payload, retained
+record()
+for role, clip in animations.items():
+    spec = D['clips'][role]
+    controller = clip.get_editor_property('controller')
+    controller.open_bracket('Super90 locomotion right hold matches accepted idle', False)
+    try:
+        for track in spec['tracks']:
+            keys = [track['values'][i:i + 10] for i in range(0, len(track['values']), 10)]
+            if len(keys) == 1:
+                keys *= spec['frames'] + 1
+            if not controller.set_bone_track_keys(track['bone'], [u.Vector(*v[:3]) for v in keys],
+                    [u.Quat(*v[3:7]) for v in keys], [u.Vector(*v[7:]) for v in keys], False):
+                raise RuntimeError('Cannot write ' + track['bone'])
+    finally:
+        controller.close_bracket(False)
+    if not u.WeaponAnimationAuthoring.finalize_authored_animation(clip):
+        raise RuntimeError('Cannot finalize ' + role)
+    E.set_metadata_tag(clip, 'Super90LocomotionRightGrip', D['revision'] + '; current idle full right chain in gun space')
+    E.set_metadata_tag(clip, 'Super90LocomotionAuthoringScript', str(O / 'author_motion.py'))
+    save(clip)
+for family, (asset, payload, retained) in profiles.items():
+    if not asset.set_shared_clips_from_json(json.dumps(payload)):
+        raise RuntimeError('Cannot write locomotion profile: ' + family)
+    if retained:
+        rows = list(asset.get_editor_property('clips'))
+        for i, row in enumerate(rows):
+            path = row.get_editor_property('base').get_path_name()
+            if path in retained:
+                row.set_editor_property('retained', load(retained[path]))
+                rows[i] = row
+        asset.set_editor_property('clips', rows)
+    E.set_metadata_tag(asset, 'Super90LocomotionRightGrip', D['revision'] + '; only walk/run right-chain deltas')
+    save(asset)
+receipt['completed'] = True
+record()
+print('SUPER90_LOCOMOTION_IDLE_GRIP_SAVED', len(receipt['saved']), 'assets; no gameplay test', flush=True)

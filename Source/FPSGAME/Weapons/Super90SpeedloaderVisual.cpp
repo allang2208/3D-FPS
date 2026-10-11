@@ -1,12 +1,14 @@
 #include "../FPSGAMECharacter.h"
 #include "Super90SpeedloaderAssets.h"
 #include "Super90WeaponAssets.h"
+#include "Super90LoaderAudioReference.h"
 #include "Animation/AnimSequence.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/StaticMesh.h"
 #include "Rendering/SkeletalMeshRenderData.h"
+#include "Sound/SoundBase.h"
 
 namespace Super90WeaponAssets
 {
@@ -28,7 +30,7 @@ void SetLooseShellVisible(USkeletalMeshComponent* Mesh,bool Show)
 
 void AFPSGAMECharacter::InitializeSuper90Speedloader()
 {
-    Super90LoaderNormal.Reset();Super90LoaderEmpty.Reset();Super90LoaderPropMesh=nullptr;
+    Super90LoaderNormal.Reset();Super90LoaderEmpty.Reset();Super90LoaderSounds.Reset();Super90LoaderPropMesh=nullptr;
     if(!IsSuper90Weapon())return;
     using namespace Super90SpeedloaderAssets;
     Super90LoaderNormal.SetNum(Capacity+1);Super90LoaderEmpty.SetNum(Capacity+1);
@@ -38,6 +40,9 @@ void AFPSGAMECharacter::InitializeSuper90Speedloader()
         Super90LoaderEmpty[Count]=LoadObject<UAnimSequence>(nullptr,*Animation(Count,true));
     }
     Super90LoaderPropMesh=LoadObject<USkeletalMesh>(nullptr,Props);
+    // Load once with the equipped weapon, never at a mechanical contact/tick.
+    for(const auto& Cue:Super90LoaderAudioReference::Cues)
+        Super90LoaderSounds.Add(LoadObject<USoundBase>(nullptr,Cue.Asset));
 }
 
 void AFPSGAMECharacter::SetSuper90Speedloader(bool bEnabled)
@@ -111,14 +116,23 @@ void AFPSGAMECharacter::ClearSuper90SpeedloaderAction()
 void AFPSGAMECharacter::SetSuper90LoaderCues()
 {
     MechanicalCueTimes.Reset();MechanicalCueSounds.Reset();
-    if(Super90ReloadCount>0)
+    int32 Index=0;
+    for(const auto& Cue:Super90LoaderAudioReference::Cues)
     {
-        MechanicalCueTimes.Add(Super90SpeedloaderAssets::Insert);MechanicalCueSounds.Add(MagInsertSound);
+        // Normal loads stop after tube removal; cycle-only plays the bolt pair.
+        const bool bBolt=Cue.CycleFrame>=0.f;
+        const float Frame=Super90ReloadCount>0?Cue.Frame:Cue.CycleFrame;
+        if(Frame>=0.f&&(!bBolt||bPendingEmptyReload))
+        {
+            MechanicalCueTimes.Add(Frame/60.f);
+            MechanicalCueSounds.Add(Super90LoaderSounds.IsValidIndex(Index)?Super90LoaderSounds[Index].Get():nullptr);
+        }
+        ++Index;
     }
     const float Ready=Super90SpeedloaderAssets::Release(Super90ReloadCount);
-    if(bPendingEmptyReload){MechanicalCueTimes.Add(Ready);MechanicalCueSounds.Add(ChargeReleaseSound);}
-    ReloadStages={Super90SpeedloaderAssets::Insert,Super90SpeedloaderAssets::LastContact(Super90ReloadCount),Ready};
+    ReloadStages={Super90ReloadTail,Super90SpeedloaderAssets::FeedContact(Super90ReloadTail,FMath::Max(0,Super90ReloadCount-1)),Ready};
     NextMechanicalCue=0;
-    while(NextMechanicalCue<MechanicalCueTimes.Num()&&MechanicalCueTimes[NextMechanicalCue]<WeaponStateElapsed*Super90ReloadRate)
+    const float SourceTime=Super90ReloadSourceTime(WeaponStateElapsed);
+    while(NextMechanicalCue<MechanicalCueTimes.Num()&&MechanicalCueTimes[NextMechanicalCue]<SourceTime)
         ++NextMechanicalCue;
 }

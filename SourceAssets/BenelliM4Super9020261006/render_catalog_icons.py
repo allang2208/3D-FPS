@@ -1,4 +1,4 @@
-import bpy,math
+import bpy,math,subprocess
 from mathutils import Vector
 from pathlib import Path
 O=Path(r'D:/FPS3D/FPSGAME/SourceAssets/BenelliM4Super9020261006');P=O.parents[1];out=P/'Content/ColdSteelData/Icons/Super90Source20261006';out.mkdir(exist_ok=True)
@@ -20,7 +20,12 @@ def render(name,obs,direction,filepath):
  cam.location=center+Vector(direction).normalized()*max(1,extent*3);cam.rotation_euler=(center-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.ortho_scale=extent*1.22
  for l in lights:l.rotation_euler=(center-l.location).to_track_quat('-Z','Y').to_euler()
  s.render.filepath=str(filepath);bpy.ops.render.render(write_still=True)
-render('gun',[o for o in s.objects if o.name in ['Super90_body','Super90_bolt','Super90_loading_gate','Super90_trigger']],(1,-.12,.42),P/'Content/ColdSteelData/Icons/ue_super90.png')
+# The original Blend predates the saved WS1 surfaces and final mesh. Export the
+# gun with the same UE assembly/materials/framing as the live inventory icon.
+# Its old square Blender render produced missing-texture magenta, facing right.
+subprocess.run(['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',
+ str(P/'Tools/UI/build_weapon_catalog_icons.ps1'),'-Definitions','ue_super90'],
+ cwd=str(P),check=True)
 render('gloves',[bpy.data.objects['SM_ue_hardknuckle_gloves']],(.4,-1,.7),out/'ue_hardknuckle_gloves.png')
 render('sleeves',[bpy.data.objects['SM_ue_st6_sleeves']],(.4,-1,.7),out/'ue_st6_sleeves.png')
 render('shell',[bpy.data.objects['SM_Super90_Casing']],(.8,-1,.6),out/'ammo_12g.png')

@@ -1884,7 +1884,7 @@ void AFPSGAMECharacter::UpdateWeaponState(float DeltaSeconds)
     // action for the elapsed interval which preceded the input event.
     WeaponStateElapsed = static_cast<float>(FMath::Max(0.0, GetWorld()->GetTimeSeconds() - WeaponActionStartedAt));
     if(IsReloading() && !AdvanceReloadStages())return;
-    const float CueClock = (bUsingM4Infima||HasLMG201ClothBox()) && IsReloading() ? ReloadSourceTime(WeaponStateElapsed) : WeaponStateElapsed;
+    const float CueClock = (bUsingM4Infima||HasLMG201ClothBox()||IsSuper90Weapon()) && IsReloading() ? ReloadSourceTime(WeaponStateElapsed) : WeaponStateElapsed;
     while (NextMechanicalCue < MechanicalCueTimes.Num() && CueClock + 0.000001f >= MechanicalCueTimes[NextMechanicalCue])
     {
         EmitMechanicalCue(NextMechanicalCue);
@@ -2119,7 +2119,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
                 {
                     CameraAction = Super90ReloadCount == 0 ? EM4CameraAction::Super90LoaderCycle
                         : bPendingEmptyReload ? EM4CameraAction::Super90LoaderEmpty : EM4CameraAction::Super90Loader;
-                    ClothCameraContacts = {87.f / 60.f, Super90SpeedloaderAssets::LastContact(Super90ReloadCount),
+                    ClothCameraContacts = {Super90SpeedloaderAssets::Dock, Super90SpeedloaderAssets::LastContact(Super90ReloadCount),
                         Super90SpeedloaderAssets::Release(Super90ReloadCount)};
                     CameraContacts = ClothCameraContacts;
                 }
@@ -2427,7 +2427,8 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
 double AFPSGAMECharacter::EffectiveFireInterval() const
 {
     const double Base = FMath::Max(0.001, static_cast<double>(FireInterval));
-    return Base * ColdSteelCombat::TurboIntervalMultiplier(TurboRampParams, TurboRampSeconds);
+    const double Interval = Base * ColdSteelCombat::TurboIntervalMultiplier(TurboRampParams, TurboRampSeconds);
+    return IsSuper90Weapon()?FMath::Max(Super90WeaponAssets::MinimumAttackInterval,Interval):Interval;
 }
 
 void AFPSGAMECharacter::UpdateTurboRamp(float DeltaSeconds)
@@ -2511,6 +2512,8 @@ void AFPSGAMECharacter::FireShot()
     }
     const double ShotInterval = EffectiveFireInterval();
     NextAllowedShotTime += ShotInterval;
+    // Super90's minimum is an actual inter-shot gap, including after a hitch.
+    if(IsSuper90Weapon())NextAllowedShotTime=FMath::Max(NextAllowedShotTime,Now+ShotInterval);
     if (bUseM16 && (--BurstShotsRemaining == 0 || MagazineAmmo == 0))
     {
         BurstShotsRemaining=0;
@@ -2532,6 +2535,14 @@ void AFPSGAMECharacter::FireShot()
         ShotAnimationRate = FMath::Max(1.0f, Animation->GetPlayLength() / FMath::Max(0.01f, static_cast<float>(ShotInterval)));
     if(Animation && IsRSH12Weapon())
         ShotAnimationRate=Animation->GetPlayLength()/FMath::Max(.01f,float(ShotInterval));
+    if(Animation && IsSuper90Weapon())
+    {
+        // Fit recoil/bolt cycling to the new 60 ms cadence. The last-round
+        // source appends an inspection, which is not part of a shot cycle.
+        const float ShotLength=Animation==PistolFireLastAnimation
+            ?FMath::Min(Animation->GetPlayLength(),22.f/60.f):Animation->GetPlayLength();
+        ShotAnimationRate=FMath::Max(1.f,ShotLength/FMath::Max(.01f,float(ShotInterval)));
+    }
     PlayWeaponAnimation(Animation, false, ShotAnimationRate);
     if(IsRSH12Weapon())
     {
@@ -3704,7 +3715,18 @@ void AFPSGAMECharacter::EmitMechanicalCue(int32 CueIndex)
 {
     USoundBase* Sound = MechanicalCueSounds.IsValidIndex(CueIndex) ? MechanicalCueSounds[CueIndex].Get() : nullptr;
     const bool bSourceCueClock = (bUsingM4Infima||HasLMG201ClothBox()) && IsReloading();
-    const float ScheduledTime = bSourceCueClock ? ReloadRuntimeTime(MechanicalCueTimes[CueIndex]) : MechanicalCueTimes[CueIndex];
+    const bool bSuper90CueClock = IsSuper90Weapon() && IsReloading();
+    const auto CueRuntimeTime = [this,bSourceCueClock,bSuper90CueClock](float Time)
+    {
+        if(bSuper90CueClock)
+        {
+            // Invert the same source clock used by both hands and the bolt:
+            // it includes skipped shell loops and the paced ordinary tail.
+            return ReloadRuntimeTime(Time);
+        }
+        return bSourceCueClock ? ReloadRuntimeTime(Time) : Time;
+    };
+    const float ScheduledTime = CueRuntimeTime(MechanicalCueTimes[CueIndex]);
     const float Lateness = FMath::Max(0.0f, WeaponStateElapsed - ScheduledTime);
     const bool bPKMReload = (PKMLowpolyWeaponAssets::Matches(AKMViewmodel)) && IsReloading();
     const int32 BoltReleaseCueIndex = HasLMG201ClothBox()?INDEX_NONE:bPKMReload ? (bPendingEmptyReload ? 8 : INDEX_NONE)
@@ -3716,12 +3738,13 @@ void AFPSGAMECharacter::EmitMechanicalCue(int32 CueIndex)
     // A short clip is still relevant until the next contact (or action end).
     // Using clip duration here dropped the seat click on a 170 ms render hitch.
     const float ContactValidUntil = MechanicalCueTimes.IsValidIndex(CueIndex + 1)
-        ? (bSourceCueClock ? ReloadRuntimeTime(MechanicalCueTimes[CueIndex + 1]) : MechanicalCueTimes[CueIndex + 1])
+        ? CueRuntimeTime(MechanicalCueTimes[CueIndex + 1])
         : WeaponStateDuration;
     const bool bPlayContact = Sound && (((bUsingM4Infima) && !bDrumInstalled)
         ? WeaponStateElapsed < ContactValidUntil
         : Lateness < Sound->GetDuration());
-    const bool bRecordedLoader = bUseDanWesson715 && IsReloading() && !bRevolverSingleReload;
+    const bool bRecordedLoader = (bUseDanWesson715 && IsReloading() && !bRevolverSingleReload)
+        || (bSuper90CueClock && bSuper90SpeedReload);
     if (bPlayContact && (!bRecordedLoader || Lateness < Sound->GetDuration()))
         PlayMechanicalSound(Sound, ContactVolume, bRecordedLoader ? Lateness : 0.f);
     if (bDrumInstalled && FParse::Param(FCommandLine::Get(),TEXT("DrumGripAudit")))

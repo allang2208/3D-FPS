@@ -1,4 +1,5 @@
 #include "WeaponStatEvaluation.h"
+#include "Super90WeaponAssets.h"
 #include "WeaponDamagePanel.h"
 #include "Bow/BowDamageTuning.h"
 #include "GunsmithSystem.h"
@@ -32,7 +33,8 @@ double ColdSteelWeaponStats::BowDrawSpeedBonus(const FColdSteelItem* Item,const 
 }
 double ColdSteelWeaponStats::Interval(const FColdSteelItem* Item,const UColdSteelStatusModel* Model,double Base)
 {
-    if(!Model)return Base;
+    const bool bSuper90=Item&&Item->Definition==Super90WeaponAssets::Definition;
+    if(!Model)return bSuper90?FMath::Max(Super90WeaponAssets::MinimumAttackInterval,Base):Base;
     // Firearms are catalog-tuned: the character's attack rate no longer shortens
     // the fire interval (2026-09-17). Melee keeps its own dex-based attack rate.
     // Only item and skill sources still modify the interval here.
@@ -46,7 +48,7 @@ double ColdSteelWeaponStats::Interval(const FColdSteelItem* Item,const UColdStee
     if(Item)if(const auto* Enhancement=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         Result*=Enhancement->Effect(*Item,TEXT("attackIntervalMul"),1);
     if(Item&&Model->WeaponMastery(Item)==TEXT("bowMastery"))Result*=1-Model->MasteryEffect(TEXT("bowMastery")).CooldownReduction;
-    return Result;
+    return bSuper90?FMath::Max(Super90WeaponAssets::MinimumAttackInterval,double(Result)):Result;
 }
 double ColdSteelWeaponStats::Reload(const FColdSteelItem* Item,const UColdSteelStatusModel* Model,double Base)
 {
@@ -68,7 +70,7 @@ FString ColdSteelWeaponStats::AmmoName(const FString& Definition)
 {
     static const TMap<FString,FString> Names={{TEXT("ammo_556"),TEXT("5.56 mm")},{TEXT("ammo_762"),TEXT("7.62x39mm")},{TEXT("ammo_pkm_762x54r"),TEXT("7.62x54R mm")},
         {TEXT("ammo_58"),TEXT("5.8 mm")},{TEXT("ammo_9mm"),TEXT("9 mm")},{TEXT("ammo_45acp"),TEXT(".45 ACP")},
-        {TEXT("ammo_357"),TEXT(".357 MAG")},{TEXT("ammo_127"),TEXT("12.7 mm")}};
+        {TEXT("ammo_12g"),TEXT("12 gauge")},{TEXT("ammo_357"),TEXT(".357 MAG")},{TEXT("ammo_127"),TEXT("12.7 mm")}};
     const auto* Name=Names.Find(Definition);
     return Name?*Name:Definition.IsEmpty()?FString():TEXT("未知口径");
 }

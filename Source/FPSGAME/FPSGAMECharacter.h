@@ -595,6 +595,7 @@ private:
     bool bSuper90SpeedReload = false;
     UPROPERTY(Transient) TArray<TObjectPtr<UAnimSequence>> Super90LoaderNormal;
     UPROPERTY(Transient) TArray<TObjectPtr<UAnimSequence>> Super90LoaderEmpty;
+    UPROPERTY(Transient) TArray<TObjectPtr<USoundBase>> Super90LoaderSounds;
     UPROPERTY(Transient) TObjectPtr<USkeletalMesh> Super90LoaderPropMesh;
     UPROPERTY(Transient) TObjectPtr<USkeletalMeshComponent> Super90LoaderProps;
     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> Super90LoaderGuide;

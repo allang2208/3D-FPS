@@ -135,3 +135,7 @@ For independent third-person animation alongside the accepted first-person arms,
 ## 弹鼓参考与双持启动
 
 照片弹鼓方向、步枪托鼓手型迁移或双持出生混入单持姿态时，读取 [弹鼓参考与双持启动](references/drum-reference-and-dual-startup.md)。先区分接口与鼓体坐标、动作倍率与作者时长、生命周期顺序与动画实例归属。
+
+## Super90 分段节奏与腕臂续修
+
+- 用户认可动作而只要求慢对准／快推进，或修腕臂、拉栓穿模时，读取 [Super90 共用源时钟与局部修订](references/super90-shared-clock.md)。保留有效作者输入，区分历史废案、已保存资产和待用户体验的最新节奏。

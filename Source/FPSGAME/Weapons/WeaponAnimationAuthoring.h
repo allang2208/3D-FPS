@@ -15,4 +15,8 @@ public:
     /** Rebind an animation copy without converting its local bone transforms. */
     UFUNCTION(BlueprintCallable, Category="Weapons|Authoring")
     static bool RebindNativeAnimation(UAnimSequence* Sequence, USkeleton* TargetSkeleton);
+
+    /** Finish controller-authored data and sync compression to its source rate. */
+    UFUNCTION(BlueprintCallable, Category="Weapons|Authoring")
+    static bool FinalizeAuthoredAnimation(UAnimSequence* Sequence);
 };
