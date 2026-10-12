@@ -9,6 +9,7 @@
 #include "ASH12WeaponAssets.h"
 #include "CasingPortCalibration.h"
 #include "../FPSGAMECharacter.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
 
 #include "Camera/CameraComponent.h"
 #include "Components/DynamicMeshComponent.h"
@@ -371,6 +372,11 @@ void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCa
     bReady = false;
     if (!GetWorld() || GetWorld()->GetNetMode() == NM_DedicatedServer || !WeaponMesh || !Camera) return;
     AddTickPrerequisiteComponent(WeaponMesh);
+    if(auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>())
+    {
+        AddTickPrerequisiteComponent(Body);
+        if(auto* Mesh=Body->GetBodyMesh())AddTickPrerequisiteComponent(Mesh);
+    }
     bReady = CardMesh && CylinderMesh && FlashMaterial && SmokeMaterial && BrassMaterial
         && WeaponMesh->DoesSocketExist(MuzzleSocket) && WeaponMesh->DoesSocketExist(EjectSocket);
     if (!bReady)
@@ -428,6 +434,62 @@ void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCa
     PreviousMuzzlePosition = MuzzleLocation();
     PreviousMuzzleForward = MuzzleForward();
     UE_LOG(LogTemp, Display, TEXT("GUNPLAY_FX_READY muzzle=%s eject=%s max_particles=%d"), *MuzzleSocket.ToString(), *EjectSocket.ToString(), MaxParticles);
+    PrewarmShotFX();
+}
+
+void UFPSWeaponFXComponent::ResolveCasingAsset(bool bRifle, bool bSuper90, UStaticMesh*& OutMesh, UMaterialInterface*& OutMaterial) const
+{
+    const bool bUseSuper90Mesh = bSuper90 && Super90CasingMesh && Super90CasingMaterial;
+    const bool bUseRifleMesh = bRifle && RifleCasingMesh && RifleCasingMaterial;
+    OutMesh = bUseSuper90Mesh ? Super90CasingMesh.Get() : bUseRifleMesh ? RifleCasingMesh.Get() : CylinderMesh.Get();
+    OutMaterial = bUseSuper90Mesh ? Super90CasingMaterial.Get() : bUseRifleMesh ? RifleCasingMaterial.Get() : BrassMaterial.Get();
+}
+
+void UFPSWeaponFXComponent::PrewarmShotFX()
+{
+    if (!bReady || !GetWorld() || GetWorld()->GetNetMode() == NM_DedicatedServer) return;
+    // The Niagara instances were previously created inside the first shot: SetAsset and
+    // registration issue the async system compile, and the first Activate waited on it.
+    // Doing it at equip hides the compile inside the already-blocking weapon swap.
+    // Activate+DeactivateImmediate forces the instance build; deactivated before any
+    // tick it emits nothing.
+    const auto WarmSystem = [this](UNiagaraSystem* System) -> UNiagaraComponent*
+    {
+        UNiagaraComponent* FX = NewObject<UNiagaraComponent>(GetOwner());
+        FX->SetAutoActivate(false);
+        FX->SetAutoDestroy(false);
+        FX->SetTickBehavior(ENiagaraTickBehavior::ForceTickLast);
+        FX->SetAsset(System);
+        FX->SetCastShadow(false);
+        FX->RegisterComponent();
+        FX->Activate(false);
+        FX->DeactivateImmediate();
+        return FX;
+    };
+    const auto WarmIntoPool = [this,&WarmSystem](UNiagaraSystem* System)
+    {
+        if (!System || EpicFXPool.ContainsByPredicate([System](const UNiagaraComponent* FX) { return FX->GetAsset() == System; })) return;
+        EpicFXPool.Add(WarmSystem(System));
+    };
+    WarmIntoPool(EpicMuzzleSystem.Get());
+    WarmIntoPool(SmokeImpulseSystem.Get());
+    if (!SmokeStream && EpicSmokeSystem.Get()) SmokeStream = WarmSystem(EpicSmokeSystem.Get());
+
+    // The first casing and tracer also allocate their mesh components and dynamic
+    // materials inside the shot path; build and release one entry each now.
+    if (!ShouldHideCasings())
+    {
+        const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
+        const bool bRifle = !bIndependentPistol && Character && !Character->IsPistolWeapon();
+        const bool bSuper90 = bRifle && Character->IsSuper90Weapon();
+        UStaticMesh* Geometry = nullptr;
+        UMaterialInterface* Surface = nullptr;
+        ResolveCasingAsset(bRifle, bSuper90, Geometry, Surface);
+        if (Geometry && Surface)
+            if (FFPSWeaponFXParticle* P = Acquire(WeaponFX::Casing, Geometry, Surface)) Release(*P);
+    }
+    if (TracerMaterial && CylinderMesh)
+        if (FFPSWeaponFXTracer* T = AcquireTracer(INDEX_NONE)) ReleaseTracer(*T);
 }
 
 void UFPSWeaponFXComponent::SetIndependentPistol(bool Revolver,bool Suppressed,USceneComponent* Exit)
@@ -435,23 +497,34 @@ void UFPSWeaponFXComponent::SetIndependentPistol(bool Revolver,bool Suppressed,U
     bIndependentPistol=true;bIndependentRevolver=Revolver;IndependentSuppressed=Suppressed;
     IndependentExit=Exit;bUseCharacterMuzzle=false;
 }
-FVector UFPSWeaponFXComponent::MuzzleLocation() const
+FTransform UFPSWeaponFXComponent::PresentationFrame(const FTransform& NativeFrame,const USceneComponent* Anchor) const
 {
-    if(IsValid(IndependentExit))return IndependentExit->GetComponentLocation();
-    if(bUseCharacterMuzzle)if(const auto* C=Cast<AFPSGAMECharacter>(GetOwner()))return C->GetEffectiveMuzzleLocation();
-    return WeaponMesh->GetSocketLocation(MuzzleSocket);
+    if(const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();Body&&Body->IsThirdPersonViewEnabled())
+    {
+        FTransform WorldFrame;
+        if(Body->ResolveWorldWeaponFrame(WeaponMesh,Anchor,NativeFrame,WorldFrame))return WorldFrame;
+    }
+    return NativeFrame;
 }
-
-FVector UFPSWeaponFXComponent::MuzzleForward() const
+FTransform UFPSWeaponFXComponent::MuzzleTransform() const
 {
-    if(IsValid(IndependentExit))return IndependentExit->GetForwardVector();
-    if(bUseCharacterMuzzle)if(const auto* C=Cast<AFPSGAMECharacter>(GetOwner()))return C->GetEffectiveMuzzleForward();
-    if(bIndependentPistol)return (WeaponMesh->GetSocketLocation(TEXT("WPN_FrontSight"))-WeaponMesh->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
+    if(bUseMuzzleSnapshot)return MuzzleSnapshot;
+    if(IsValid(IndependentExit))return PresentationFrame(IndependentExit->GetComponentTransform(),IndependentExit);
+    if(bUseCharacterMuzzle)if(const auto* C=Cast<AFPSGAMECharacter>(GetOwner()))return C->GetEffectiveMuzzleTransform();
     // Imported WPN local Y lies along the bore; mirrored source rigs need a sign correction.
-    FVector Forward = WeaponMesh->GetSocketQuaternion(MuzzleSocket).GetAxisY();
-    if (FVector::DotProduct(Forward, Camera->GetForwardVector()) < 0.0f) Forward *= -1.0f;
-    return Forward.GetSafeNormal();
+    FVector Forward;
+    if(bIndependentPistol)Forward=(WeaponMesh->GetSocketLocation(TEXT("WPN_FrontSight"))-WeaponMesh->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
+    else
+    {
+        Forward=WeaponMesh->GetSocketQuaternion(MuzzleSocket).GetAxisY();
+        if(FVector::DotProduct(Forward,Camera->GetForwardVector())<0.f)Forward=-Forward;
+    }
+    return PresentationFrame(FTransform(Forward.Rotation(),WeaponMesh->GetSocketLocation(MuzzleSocket)));
 }
+FVector UFPSWeaponFXComponent::MuzzleLocation() const
+{return MuzzleTransform().GetLocation();}
+FVector UFPSWeaponFXComponent::MuzzleForward() const
+{return MuzzleTransform().GetRotation().GetAxisX();}
 
 FFPSWeaponFXParticle* UFPSWeaponFXComponent::Acquire(uint8 Kind, UStaticMesh* Geometry, UMaterialInterface* BaseMaterial)
 {
@@ -938,6 +1011,8 @@ bool UFPSWeaponFXComponent::SpawnEpicFX(FVector Position,FVector Forward,float S
     for(const auto& Candidate:EpicFXPool)if(Candidate->GetAsset()==System&&!Candidate->IsActive()){FX=Candidate;break;}
     if(!FX&&EpicFXPool.Num()<24){
         FX=NewObject<UNiagaraComponent>(GetOwner());FX->SetAutoActivate(false);FX->SetAutoDestroy(false);
+        // Keep Niagara batched, but consume this frame's PostUpdateWork muzzle placement.
+        FX->SetTickBehavior(ENiagaraTickBehavior::ForceTickLast);
         FX->SetAsset(System);FX->SetCastShadow(false);FX->RegisterComponent();EpicFXPool.Add(FX);
     }
     if(!FX)return true;
@@ -992,6 +1067,7 @@ void UFPSWeaponFXComponent::SpawnSmokeImpulse(bool bADS)
         FX = NewObject<UNiagaraComponent>(GetOwner());
         FX->SetAutoActivate(false);
         FX->SetAutoDestroy(false);
+        FX->SetTickBehavior(ENiagaraTickBehavior::ForceTickLast);
         FX->SetAsset(SmokeImpulseSystem);
         FX->SetCastShadow(false);
         FX->RegisterComponent();
@@ -1036,11 +1112,14 @@ void UFPSWeaponFXComponent::UpdateSmokeStream(float DeltaTime)
     const float TargetRate = Now < SmokeTailUntil
         ? FMath::Lerp(FMath::Lerp(26.f, 36.f, Heat), TailRate, TailBlend) : 0.f;
     if (!SmokeStream && TargetRate <= 0.f) return;
+    // A prewarmed stream stays registered but dormant until the first shot feeds it.
+    if (SmokeStream && !SmokeStream->IsActive() && TargetRate <= 0.f && SmokeEmissionRate <= 0.f) return;
     if (!SmokeStream)
     {
         SmokeStream = NewObject<UNiagaraComponent>(GetOwner());
         SmokeStream->SetAutoActivate(false);
         SmokeStream->SetAutoDestroy(false);
+        SmokeStream->SetTickBehavior(ENiagaraTickBehavior::ForceTickLast);
         SmokeStream->SetAsset(EpicSmokeSystem);
         SmokeStream->SetCastShadow(false);
         SmokeStream->RegisterComponent();
@@ -1080,8 +1159,13 @@ void UFPSWeaponFXComponent::UpdateSmokeStream(float DeltaTime)
 }
 
 void UFPSWeaponFXComponent::OnShot(bool bADS)
+{if(bReady)OnShotAtMuzzle(bADS,MuzzleTransform());}
+
+void UFPSWeaponFXComponent::OnShotAtMuzzle(bool bADS,const FTransform& ShotMuzzle)
 {
     if (!bReady) return;
+    TGuardValue<FTransform> FrameGuard(MuzzleSnapshot,ShotMuzzle);
+    TGuardValue<bool> SnapshotGuard(bUseMuzzleSnapshot,true);
     const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
     const bool bRSH12=WeaponMesh && WeaponMesh->GetSkeletalMeshAsset()
         && WeaponMesh->GetSkeletalMeshAsset()->GetName().Contains(TEXT("RSH12"));
@@ -1148,9 +1232,12 @@ void UFPSWeaponFXComponent::OnShot(bool bADS)
 bool UFPSWeaponFXComponent::ShouldHideCasings() const
 {
     if(bIndependentPistol)return false;
+    // Scope compensation belongs to the first-person optic. In third person it
+    // would shift the muzzle flash ahead of the visible barrel/suppressor.
+    if(const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();Body&&Body->IsThirdPersonViewEnabled())return false;
     const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
     // LPVO at 1x is still scope mode. Cover both aim-in and the remaining scope fade-out.
-    return Character && (Character->GetGunsmithOpticVariant() == TEXT("lpvo_1_6x") || Character->HasPSO1Scope())
+    return Character && (Character->GetGunsmithOpticVariant() == TEXT("lpvo_1_6x") || Character->HasPSO1Scope() || Character->HasThermalScope())
         && (Character->IsAiming() || Character->GetScopePresentationAlpha() > 0.0f);
 }
 
@@ -1160,17 +1247,18 @@ void UFPSWeaponFXComponent::SpawnCasing()
     const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
     const bool bRifle = !bIndependentPistol && Character && !Character->IsPistolWeapon();
     const bool bSuper90=bRifle&&Character->IsSuper90Weapon();
-    const bool bUseSuper90Mesh=bSuper90&&Super90CasingMesh&&Super90CasingMaterial;
-    const bool bUseRifleMesh=bRifle&&RifleCasingMesh&&RifleCasingMaterial;
-    UStaticMesh* Geometry=bUseSuper90Mesh?Super90CasingMesh.Get():bUseRifleMesh?RifleCasingMesh.Get():CylinderMesh.Get();
-    UMaterialInterface* Surface=bUseSuper90Mesh?Super90CasingMaterial.Get():bUseRifleMesh?RifleCasingMaterial.Get():BrassMaterial.Get();
+    UStaticMesh* Geometry=nullptr;
+    UMaterialInterface* Surface=nullptr;
+    ResolveCasingAsset(bRifle,bSuper90,Geometry,Surface);
+    const bool bUseSuper90Mesh=Geometry==Super90CasingMesh;
+    const bool bUseRifleMesh=Geometry==RifleCasingMesh;
     if (FFPSWeaponFXParticle* P = Acquire(WeaponFX::Casing, Geometry, Surface))
     {
         // Sample the physical port once. A free casing never remains attached to the gun/camera.
-        const FTransform Port(WeaponMesh->GetSocketQuaternion(TEXT("WPN_root")) * CasingFrameInRoot,
-            WeaponMesh->GetSocketTransform(CasingAnchorSocket).TransformPosition(CasingPortInAnchor));
-        P->Position = Port.GetLocation();
-        const FQuat Frame = Port.GetRotation();
+        const FTransform Port=PresentationFrame(FTransform(WeaponMesh->GetSocketQuaternion(TEXT("WPN_root"))*CasingFrameInRoot,
+            WeaponMesh->GetSocketTransform(CasingAnchorSocket).TransformPosition(CasingPortInAnchor)));
+        P->Position=Port.GetLocation();
+        const FQuat Frame=Port.GetRotation();
         if (bRifle)
         {
             P->Velocity = Frame.RotateVector(FVector(FMath::FRandRange(-70.0f, -35.0f),
@@ -1350,6 +1438,11 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
         SetComponentTickEnabled(false);
         return;
     }
+    // All gun-attached effects consume the same completed body pose this tick.
+    // Emitted smoke/tracers remain in world space after their birth.
+    const FTransform Frame=MuzzleTransform();
+    TGuardValue<FTransform> FrameGuard(MuzzleSnapshot,Frame);
+    TGuardValue<bool> SnapshotGuard(bUseMuzzleSnapshot,true);
     UpdateBigBlindGlow();
     if(!bReady){if(!bBigBlindEnabled)SetComponentTickEnabled(false);return;}
     for(const auto& FX:EpicFXPool)if(FX->IsActive()&&FX->GetAsset()==EpicMuzzleSystem)

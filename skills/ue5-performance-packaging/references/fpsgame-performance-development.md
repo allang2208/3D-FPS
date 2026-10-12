@@ -70,6 +70,12 @@
 
 地牢性能日志按本次 run 的进入前、释放玩家后分别统计；进入阶段的图标准备或导航警告不能直接解释几分钟后的转视角慢帧。没有对应 CPU/GPU 帧采样时只列候选原因，不把“可能是加载”写成结论。当前案例见工程 `Docs/Performance/dungeon-walking-stutter-20260927.md`；本次未取得有效卡顿 trace，房间组件预算和资源复用不是已测出的帧率改善。
 
+## 武器特效首发懒初始化（2026-10-10）
+
+"只有第一枪顿卡、后续流畅"的既定根因模式：枪口 Niagara 系统（MuzzleFlashV10/SmokeShotV15/SmokeStreamV15）与弹壳/曳光的 MeshComp+MID 全部在首次 `SpawnEpicFX`/`Acquire`/`AcquireTracer` 懒建——`SetAsset`+注册+首次 Activate 同步等待系统编译（日志实测 0.118 s），与射速无关。谁打全局第一发谁付这笔成本（用户曾误判为 HK416 专属——该枪恰好先开火）。
+修复口径（`FPSWeaponFXComponent::PrewarmShotFX`，`Initialize()` 装备时调用）：预注册三个 Niagara 池组件并 Activate→DeactivateImmediate 强建实例，预建弹壳/曳光各一条池条目；Deactivate 在首 tick 前完成故无视觉副作用，池上限与复用路径不变。预建的非激活烟流须在 `UpdateSmokeStream` 加休眠早退，否则每 tick 白写十几个 Niagara 变量。构建通过、未实机验收；残留首发卡顿候选方向为 PSO/着色器首次创建、音效首载与武器网格流送——取证用 `fpssyncload [阈值ms]`（`FPSLoadHitchProbe.cpp`，输出 `Saved/Profiling/LoadHitch/`）。
+附属教训：逐发 JSON 解析绕过 `ColdSteelItemData` 缓存（`UGunsmithSystem::Installed`）属常驻小税而非首发卡顿根因，不要把两者混谈。
+
 ## 怪物倒地与尸体预算（2026-10-03）
 
 身体物理统一受活跃怪物／刚体总数／新尸体准入预算约束；尸体必须真实接地并持续稳定才定姿释放，不能为性能按期限冻结半空姿势。死亡定姿后关闭角色、战斗、移动、网格与布料的剩余计算；现有多 LOD 用共享低频、仅层级变化刷新保留的完整快照。无低 LOD 资产不承诺减面收益，法杖等独立道具另计。实施细节集中在 [怪物接地与收尾](../../ue5-monster-workflow/references/humanoid-knockdown.md)，本次来源为工程 `Docs/Monsters/monster-ragdoll-performance-20261003.md`；普通构建成功与实际性能测量分别报告。

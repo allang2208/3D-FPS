@@ -93,11 +93,14 @@ public:
     void SetIndependentPistol(bool Revolver,bool Suppressed,class USceneComponent* Exit);
     /** 持有附魔手枪时显示持续金色脉冲；不用命中或赌注层数驱动外观。 */
     void SetBigBlindEnabled(bool Enabled);
+    FTransform ShotTransform() const { return MuzzleTransform(); }
     FVector ShotOrigin() const { return MuzzleLocation(); }
     FVector ShotForward() const { return MuzzleForward(); }
     bool IndependentSuppressed=false;
     bool bUseCharacterMuzzle=true;
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnShot(bool bADS);
+    /** The trigger captures this frame before restarting fire animation/recoil. */
+    void OnShotAtMuzzle(bool bADS,const FTransform& ShotMuzzle);
     /** Detached reload geometry; Frame uses centimetres and unit mesh scale. */
     void OnReloadCartridge(UStaticMesh* Geometry,const FTransform& Frame,const FVector& Velocity,float InitialAge);
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnImpact(const FHitResult& Hit);
@@ -136,6 +139,8 @@ private:
     bool SpawnEpicFX(FVector Position, FVector Forward, float Scale);
     void SpawnSmokeImpulse(bool bADS);
     void UpdateSmokeStream(float DeltaTime);
+    void ResolveCasingAsset(bool bRifle, bool bSuper90, UStaticMesh*& OutMesh, UMaterialInterface*& OutMaterial) const;
+    void PrewarmShotFX();
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UNiagaraSystem> EpicMuzzleSystem;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UNiagaraSystem> EpicSmokeSystem;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UNiagaraSystem> SmokeImpulseSystem;
@@ -148,6 +153,10 @@ private:
     void AdvanceParticle(FFPSWeaponFXParticle& Particle, float DeltaTime);
     FVector MuzzleLocation() const;
     FVector MuzzleForward() const;
+    FTransform MuzzleTransform() const;
+    FTransform PresentationFrame(const FTransform& NativeFrame,const class USceneComponent* Anchor=nullptr) const;
+    FTransform MuzzleSnapshot=FTransform::Identity;
+    bool bUseMuzzleSnapshot=false;
     void ApplyParticleTransform(FFPSWeaponFXParticle& Particle);
     // Tracer streaks live in their own pool: a streak's primitive must keep a continuous
     // transform history (motion vectors) and must never be taken over by a casing or smoke puff.
