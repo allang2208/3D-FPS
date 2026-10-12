@@ -214,16 +214,17 @@
     "ue_icon_pitch": -18,
     "ue_icon_yaw": -60
   },
-  "gold": {
-    "id": "gold",
-    "name": "金币",
-    "category": "gold",
+  "souls": {
+    "id": "souls",
+    "name": "灵魂",
+    "category": "currency",
     "type": "货币",
-    "desc": "用于装备强化等交易的通用货币。",
+    "desc": "击败敌人与获得奖励时汇入的灵魂，用于装备强化等交易。直接计入持有余额，不占背包空间。",
     "rarity": "common",
     "stack_max": 9007199254740991,
     "price": 1,
-    "icon_fallback": "金"
+    "ue_icon": "Currency/soul-gold-flame.png",
+    "icon_fallback": "魂"
   },
   "aluminumOre": {
     "category": "tribute",
@@ -631,7 +632,7 @@
     "stack_max": 999,
     "stats": [
       {
-        "name": "金币掉落",
+        "name": "灵魂掉落",
         "value": "+2%"
       },
       {
@@ -716,7 +717,7 @@
     "stack_max": 999,
     "stats": [
       {
-        "name": "金币掉落",
+        "name": "灵魂掉落",
         "value": "+2%"
       },
       {
@@ -947,7 +948,7 @@
     "stack_max": 999,
     "stats": [
       {
-        "name": "金币掉落",
+        "name": "灵魂掉落",
         "value": "+8%"
       },
       {
@@ -1185,7 +1186,7 @@
     "stack_max": 999,
     "stats": [
       {
-        "name": "金币掉落",
+        "name": "灵魂掉落",
         "value": "+1%"
       },
       {
@@ -1221,7 +1222,7 @@
         "value": "+8%"
       },
       {
-        "name": "金币掉落",
+        "name": "灵魂掉落",
         "value": "-2%"
       }
     ],
@@ -1563,6 +1564,22 @@
     "stack_max": 99,
     "type": "附魔卷轴"
   },
+  "enchant_scroll_boundless_strength": {
+    "rarity": "epic",
+    "category": "enhancement",
+    "desc": "为近战武器或弓附魔前缀「力大无穷」。力量 +15；近战武器重击蓄力速度 +30%，弓类拉弓速度 +30%，与改造件的同类速度加成相加。改造件 +15% 与本附魔 +30% 合计 +45%，蓄力或拉弓时间为基础时间 ÷ 1.45。",
+    "grade": "epic",
+    "grid_w": 1,
+    "grid_h": 2,
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
+    "icon_fallback": "✦",
+    "name": "附魔卷轴：力大无穷",
+    "price": 4000,
+    "scroll_id": "boundlessStrength",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
   "enchant_scroll_azure_dragon": {
     "rarity": "legendary",
     "category": "enhancement",
@@ -1579,19 +1596,19 @@
     "stack_max": 99,
     "type": "附魔卷轴"
   },
-  "enchant_scroll_boundless_strength": {
-    "rarity": "epic",
+  "enchant_scroll_dealer": {
+    "rarity": "legendary",
     "category": "enhancement",
-    "desc": "为近战武器或弓附魔前缀「力大无穷」。力量 +15；近战武器重击蓄力速度 +30%，弓类拉弓速度 +30%，与改造件的同类速度加成相加。改造件 +15% 与本附魔 +30% 合计 +45%，蓄力或拉弓时间为基础时间 ÷ 1.45。",
-    "grade": "epic",
+    "desc": "为左轮手枪附魔传说后缀「庄家」。每轮两张随机底牌，每次子弹有效命中敌人抽一张公共牌，同一手不重复；第五次命中后七张取最佳五张，按德州牌型结算本次伤害并消耗整手。高牌 ×1、一对 ×1.5、两对 ×1.75、三条 ×2、顺子 ×2.5、同花 ×3、葫芦 ×4、四条 ×5、同花顺 ×7。暴击保留已发牌，优先补全七张内仍可组成的同花顺；无法完成时正常随机。首次抽牌显示上方两张底牌，下方依次排列五张公共牌，各自漂浮并随相机移动；结算时保持原位，以轮廓火焰标识最佳五张。",
+    "grade": "legendary",
     "grid_w": 1,
     "grid_h": 2,
     "icon": "Icons/magic_scroll_realistic_v1.png",
     "ue_icon": "Icons/magic_scroll_realistic_v1.png",
-    "icon_fallback": "✦",
-    "name": "附魔卷轴：力大无穷",
-    "price": 4000,
-    "scroll_id": "boundlessStrength",
+    "icon_fallback": "♠",
+    "name": "附魔卷轴：庄家",
+    "price": 8000,
+    "scroll_id": "dealer",
     "stack_max": 99,
     "type": "附魔卷轴"
   },
@@ -1890,7 +1907,7 @@
     "stack_max": 999,
     "stats": [
       {
-        "name": "金币掉落",
+        "name": "灵魂掉落",
         "value": "+6%"
       },
       {
@@ -1932,7 +1949,7 @@
     "stack_max": 999,
     "stats": [
       {
-        "name": "金币掉落",
+        "name": "灵魂掉落",
         "value": "+6%"
       },
       {
@@ -2561,7 +2578,7 @@
     "stack_max": 999,
     "stats": [
       {
-        "name": "金币掉落",
+        "name": "灵魂掉落",
         "value": "+13%"
       },
       {
@@ -3183,7 +3200,7 @@
   },
   "wheat": {
     "category": "tribute",
-    "desc": "一束金色的麦穗，蕴含着丰收的祝福。放入祭品池后，击杀怪物时掉落的金币增加25%，玩家生命值自然恢复每秒加1。",
+    "desc": "一束金色的麦穗，蕴含着丰收的祝福。放入祭品池后，击杀怪物时掉落的灵魂增加25%，玩家生命值自然恢复每秒加1。",
     "dropImage": "assets/items/麦穗.png",
     "effects": {
       "goldPercent": 25.0,
@@ -3202,7 +3219,7 @@
     "stack_max": 999,
     "stats": [
       {
-        "name": "金币加成",
+        "name": "灵魂加成",
         "value": "+25%"
       },
       {
@@ -3606,6 +3623,7 @@
     "ue_icon": "Icons/ue_highland_claymore.png",
     "melee_damage": 55,
     "melee_reach_cm": 180,
+    "heavy_charge_speed_bonus": 0.25,
     "attack_seconds": 1.775,
     "contact_start": 0.85,
     "contact_end": 0.965,
@@ -3897,10 +3915,10 @@
     "level": 1,
     "enhanceLevel": 0,
     "desc": "龙炉工坊为远行护卫锻造的长刀，刀身保留龙纹装饰，护手与裹柄便于双手发力。以连续横斩压迫近敌，接突刺追击；蓄力重斩需要留出起势时间，遇到反击可转入格挡。刀刃、护手、握柄、柄尾与刃面符文均可独立改造。",
-    "ue_icon": "Icons/ue_tang_dao_surface_v2.png",
+    "ue_icon": "Icons/ue_tang_dao.png",
     "melee_damage": 55,
     "melee_reach_cm": 180,
-    "attack_seconds": 1.775,
+    "attack_seconds": 1.42,
     "contact_start": 0.85,
     "contact_end": 0.965,
     "viewmodel_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
@@ -4054,34 +4072,34 @@
     "world_mesh": "/Game/Items/Consumables/Bread20261003/SM_Bread.SM_Bread"
   },
   "ue_rsh12": {
-  "id": "ue_rsh12",
-  "name": "RSH-12",
-  "icon": "Icons/ue_rsh12.png",
-  "ue_icon": "Icons/ue_rsh12.png",
-  "icon_fallback": "RSH12",
-  "category": "weapon",
-  "weaponType": "pistol",
-  "rangedType": "pistol",
-  "weaponTypeTag": "左轮手枪",
-  "equipSlot": "weapon",
-  "isTwoHanded": false,
-  "stack_max": 1,
-  "grid_w": 3,
-  "grid_h": 2,
-  "type": "武器",
-  "gunsmith_base_mag": 5,
-  "desc": "俄罗斯大口径双动左轮，使用12.7毫米弹药与五发弹巢。沿用715原生握持和动作，单持、双持与副手均逐发装填；空仓先退壳，非空仓保留余弹。",
-  "stats": [
-    {
-      "name": "物理攻击",
-      "value": "90"
-    },
-    {
-      "name": "弹巢容量",
-      "value": "5"
-    }
-  ]
-},
+    "id": "ue_rsh12",
+    "name": "RSH-12",
+    "icon": "Icons/ue_rsh12.png",
+    "ue_icon": "Icons/ue_rsh12.png",
+    "icon_fallback": "RSH12",
+    "category": "weapon",
+    "weaponType": "pistol",
+    "rangedType": "pistol",
+    "weaponTypeTag": "左轮手枪",
+    "equipSlot": "weapon",
+    "isTwoHanded": false,
+    "stack_max": 1,
+    "grid_w": 3,
+    "grid_h": 2,
+    "type": "武器",
+    "gunsmith_base_mag": 5,
+    "desc": "俄罗斯大口径双动左轮，使用12.7毫米弹药与五发弹巢。沿用715原生握持和动作，单持、双持与副手均逐发装填；空仓先退壳，非空仓保留余弹。",
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "102"
+      },
+      {
+        "name": "弹巢容量",
+        "value": "5"
+      }
+    ]
+  },
   "soda_can": {
     "id": "soda_can",
     "name": "罐装汽水",

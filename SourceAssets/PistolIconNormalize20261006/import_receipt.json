@@ -1,0 +1,28 @@
+{
+  "saved": [
+    "/Game/ColdSteelData/Icons/ue_g18.ue_g18",
+    "/Game/ColdSteelData/Icons/ue_pit_viper2011.ue_pit_viper2011"
+  ],
+  "icons": {
+    "ue_g18": {
+      "asset": "/Game/ColdSteelData/Icons/ue_g18.ue_g18",
+      "png": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\Icons\\ue_g18.png",
+      "size": [
+        480,
+        320
+      ],
+      "sha256": "945955657a563a431642b395f113678018e819b849d2b8ddb7fa5cfd9d106ddd"
+    },
+    "ue_pit_viper2011": {
+      "asset": "/Game/ColdSteelData/Icons/ue_pit_viper2011.ue_pit_viper2011",
+      "png": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\Icons\\ue_pit_viper2011.png",
+      "size": [
+        480,
+        320
+      ],
+      "sha256": "456914174009bd7671f8e046980ef1e1f3b296a1fbc7011c9d706fc413b99977"
+    }
+  },
+  "runtime_tested": false,
+  "status": "pistol_icons_normalized_saved"
+}
