@@ -10,6 +10,11 @@ struct FFPSBodyMotionBinding
     TArray<TWeakObjectPtr<class UStaticMeshComponent>> Parts;
     TArray<FTransform> FrozenPose;
     TArray<FTransform> FrozenParts;
+    int32 NativeWeaponRoot=INDEX_NONE;
+    // Sword carry keeps its ordinary idle/walk pose on an independent clip clock.
+    FName LocomotionClip;
+    float LocomotionTime=0.f;
+    TArray<FTransform> LocomotionPose;
     FTransform Mount=FTransform::Identity;
     uint32 LastSections=0;
     bool bHasSections=false;

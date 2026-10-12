@@ -20,8 +20,15 @@ bool UFPSPlayerBodyComponent::IsThirdPersonViewEnabled() const
         UDevelopmentTuningSubsystem::IsPlayerOptionEnabled(Character.Get(), EDevelopmentTuningOption::ThirdPersonView);
 }
 
+bool UFPSPlayerBodyComponent::IsFixedThirdPersonViewEnabled() const
+{
+    return IsThirdPersonViewEnabled() &&
+        UDevelopmentTuningSubsystem::IsPlayerOptionEnabled(Character.Get(), EDevelopmentTuningOption::FixedThirdPersonView);
+}
+
 void UFPSPlayerBodyComponent::RefreshViewMode()
 {
+    if (!IsFixedThirdPersonViewEnabled()) bFixedThirdPersonCameraCaptured=false;
     UpdateOwnerVisibility();
 }
 
@@ -79,7 +86,26 @@ void UFPSPlayerBodyComponent::ApplyCameraView(FMinimalViewInfo& View)
             View.FirstPersonScale=.25f;
         }
     }
-    if (!IsThirdPersonViewEnabled()) return;
+    if (!IsThirdPersonViewEnabled())
+    {
+        bFixedThirdPersonCameraCaptured=false;
+        return;
+    }
+
+    const bool bFixedView=IsFixedThirdPersonViewEnabled();
+    if (!bFixedView) bFixedThirdPersonCameraCaptured=false;
+    View.bUseFirstPersonParameters=false;
+    if (bFixedView && bFixedThirdPersonCameraCaptured)
+    {
+        // Only the rendered observation POV is held. Never freeze control yaw
+        // or the eye component: whirlwind, dash, aim and hit queries still run.
+        const FVector Eye=View.Location;
+        View.Location=FixedThirdPersonLocation;
+        View.Rotation=FixedThirdPersonRotation;
+        View.FOV=FixedThirdPersonFOV;
+        UpdateWorldOwnerVisibility(FVector::DistSquared(Eye,View.Location)<FMath::Square(60.f));
+        return;
+    }
 
     // Pull back on the existing aim axis: the reticle and eye-origin gameplay rays
     // still point at the same target. Never move the first-person component itself;
@@ -91,6 +117,16 @@ void UFPSPlayerBodyComponent::ApplyCameraView(FMinimalViewInfo& View)
     View.Location = GetWorld()->SweepSingleByChannel(Hit, Eye, Desired, FQuat::Identity,
         ECC_Camera, FCollisionShape::MakeSphere(12.f), Query)
         ? (Hit.bStartPenetrating ? Eye : Hit.Location) : Desired;
+
+    if (bFixedView)
+    {
+        // Capture the collision-adjusted third-person view once, including
+        // when the button was enabled directly from first person.
+        FixedThirdPersonLocation=View.Location;
+        FixedThirdPersonRotation=View.Rotation;
+        FixedThirdPersonFOV=View.FOV;
+        bFixedThirdPersonCameraCaptured=true;
+    }
 
     // Hide only from the owning view when an obstacle pushes the camera into the
     // character. Hidden-shadow behavior and visibility to other players remain.

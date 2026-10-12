@@ -93,6 +93,7 @@ private:
     float RealContactSeconds() const { return ContactSeconds/RateScale; }
     float RealSwingSeconds() const { return SwingSeconds/RateScale; }
     void ApplyToolStats(const FColdSteelItem* Item,UColdSteelStatusModel* Profile);
+    bool CanPresent() const;
     bool CanUse() const;
     /** Shared single-target query for the hint and the contact event. */
     bool TraceAxeContact(FProductionResource& Resource,FHitResult& Hit,FString& Reason) const;

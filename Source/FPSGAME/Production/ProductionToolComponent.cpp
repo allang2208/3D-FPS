@@ -195,14 +195,21 @@ void UProductionToolComponent::RefreshHeldTool()
         }));
 }
 
-bool UProductionToolComponent::CanUse() const
+bool UProductionToolComponent::CanPresent() const
 {
     auto* Pawn=Character.Get();
     const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
     const auto* Building=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
-    return !AFPSGAMEPlayerController::BlocksOngoingActions(PC) &&
-        !Pawn->IsTraversing() && (!Health || !Health->IsDead()) && (!Building || !Building->IsBuilding());
+    return PC && !Pawn->IsTraversing() && (!Health || !Health->IsDead())
+        && (!Building || !Building->IsBuilding() || Building->IsPanelOpen());
+}
+
+bool UProductionToolComponent::CanUse() const
+{
+    const auto* PC=Character.IsValid()?Cast<APlayerController>(Character->GetController()):nullptr;
+    const auto* Building=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
+    return CanPresent() && !AFPSGAMEPlayerController::BlocksOngoingActions(PC) && (!Building || !Building->IsBuilding());
 }
 
 void UProductionToolComponent::BeginUse()
@@ -363,11 +370,12 @@ void UProductionToolComponent::AdvanceActionBeforeCamera(float Delta)
 void UProductionToolComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
+    const bool Present=IsEquipped() && CanPresent();
     const bool Usable=IsEquipped() && CanUse();
-    if (ToolMesh) ToolMesh->SetVisibility(Usable && !bUsesArms && ToolMesh->GetStaticMesh());
-    if (Viewmodel) Viewmodel->SetVisibility(Usable && bUsesArms && HasReadyPresentation());
+    if (ToolMesh) ToolMesh->SetVisibility(Present && !bUsesArms && ToolMesh->GetStaticMesh());
+    if (Viewmodel) Viewmodel->SetVisibility(Present && bUsesArms && HasReadyPresentation());
     if (!Usable) CancelUse();
-    if(Usable && bUsesArms && HasReadyPresentation())UpdateHandPresentation(Delta);
+    if(Present && bUsesArms && HasReadyPresentation())UpdateHandPresentation(Delta);
     FeedbackSeconds=FMath::Max(0.f,FeedbackSeconds-Delta);
     HintCountdown-=Delta;
     if (HintCountdown<=0) { HintCountdown=.15f; UpdateHint(); }

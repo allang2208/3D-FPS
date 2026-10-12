@@ -141,3 +141,5 @@ FPSGAME first/third person animation, world equipment and outfits: [player world
 ## 生存与消耗品（2026-10-03）
 
 [饥饿、水分与 SAN](references/survival-state-and-attribute-penalties.md)：组件真源、分段消耗、组合属性倍率、归零边界通知与存档保持。
+
+- F6 面板固定动作观察镜头：[对应流程](references/fixed-third-person-observation.md)。

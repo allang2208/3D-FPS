@@ -2,6 +2,7 @@
 #include "FPSPlayerBodyAnimInstance.h"
 #include "FPSBodyWeaponMeshComponent.h"
 #include "FPSPlayerBodyPoses.h"
+#include "FPSBodySwordMotion.h"
 #include "FPSBodyStaffGrip.h"
 #include "../FPSGAMECharacter.h"
 #include "../Items/FPSPotionUseComponent.h"
@@ -10,20 +11,45 @@
 #include "../Skills/FPSFireballComponent.h"
 #include "../Skills/FPSQuickCombatComponent.h"
 #include "../Weapons/WeaponBipodDeploymentComponent.h"
+#include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Weapons/Staff/StaffArmsMeshComponent.h"
 #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/PointLightComponent.h"
+#include "Animation/AnimSequence.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Engine/World.h"
 #include "Engine/SkeletalMesh.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Rendering/SkeletalMeshRenderData.h"
 
 namespace
 {
-FTransform Rigid(FTransform T){T.SetScale3D(FVector::OneVector);return T;}
+FTransform BodyMotionRigidTransform(FTransform T){T.SetScale3D(FVector::OneVector);return T;}
 bool Drawn(const UPrimitiveComponent* C){return C&&C->IsVisible()&&!C->bHiddenInGame;}
+}
+
+void UFPSPlayerBodyComponent::UpdateSwordGripMount()
+{
+    if(!BodyAnimation)return;
+    const float GripRoll=BodyAnimation->GetCurveValue(TEXT("SwordGripRoll"));
+    const float GripSlide=BodyAnimation->GetCurveValue(TEXT("SwordGripSlide"));
+    for(auto& Binding:MotionBindings)
+    {
+        if(Binding.Definition.PoseFamily!=TEXT("Sword")||!Binding.Smoothed.Valid||
+            !Binding.FrozenPose.IsValidIndex(Binding.NativeWeaponRoot))continue;
+        auto* Root=Binding.Mesh.IsValid()?static_cast<UPrimitiveComponent*>(Binding.Mesh.Get()):Binding.Static.Get();
+        if(!Root||IsWorldWeaponStowed(Root))continue;
+        // The fitted wrist can turn and slide along the handle independently
+        // from the blade. Undo both at the frozen native weapon pivot so an
+        // upper/lower hand exchange retains the authored blade trajectory.
+        const FTransform Weapon=BodyMotionRigidTransform(Binding.FrozenPose[Binding.NativeWeaponRoot]);
+        const FTransform GripCorrection(FQuat(FVector::UpVector,FMath::DegreesToRadians(-GripRoll)),FVector(0,0,-GripSlide));
+        const FTransform Pivot=Weapon.Inverse()*GripCorrection*Weapon;
+        Root->SetRelativeTransform(Pivot*Binding.Smoothed.Root);
+    }
 }
 
 FFPSBodyGripRig* UFPSPlayerBodyComponent::MotionMap(USkeletalMeshComponent* Source,FName Hand,int32 Side)
@@ -40,10 +66,10 @@ FFPSBodyGripRig* UFPSPlayerBodyComponent::MotionMap(USkeletalMeshComponent* Sour
     AddTickPrerequisiteComponent(Source);
     return &Map.Rig;
 }
-void UFPSPlayerBodyComponent::CaptureMotionHand(USkeletalMeshComponent* Source,FName Hand,int32 Side,bool Wrist,FFPSBodyMotionSample& Sample)
+void UFPSPlayerBodyComponent::CaptureMotionHand(USkeletalMeshComponent* Source,FName Hand,int32 Side,bool Wrist,FFPSBodyMotionSample& Sample,const TArray<FTransform>* PoseOverride)
 {
     auto* Map=MotionMap(Source,Hand,Side);if(!Map||!Map->IsValid())return;
-    const auto& Pose=Source->GetComponentSpaceTransforms();if(!Pose.IsValidIndex(Map->SourceHand))return;
+    const auto& Pose=PoseOverride?*PoseOverride:Source->GetComponentSpaceTransforms();if(!Pose.IsValidIndex(Map->SourceHand))return;
     TArray<FTransform> Native;
     if(Side==0&&Hand==TEXT("hand_r")&&Cast<UStaffArmsMeshComponent>(Source))
     {
@@ -60,7 +86,7 @@ void UFPSPlayerBodyComponent::CaptureMotionHand(USkeletalMeshComponent* Source,F
         Sample.Wrists|=1<<Side;
         // The gameplay eye stays at the character in F6; these are body-space
         // contacts, independent of the third-person observation camera.
-        Sample.Hands[Side].Wrist=Rigid(Map->Mount.Inverse()*Rigid(Pose[Map->SourceHand])
+        Sample.Hands[Side].Wrist=BodyMotionRigidTransform(Map->Mount.Inverse()*BodyMotionRigidTransform(Pose[Map->SourceHand])
             *Source->GetComponentTransform().GetRelativeTransform(GetBodyMesh()->GetComponentTransform()));
     }
 }
@@ -72,6 +98,7 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
     const auto* Book=Pawn->FindComponentByClass<USpellbookComponent>();
     const bool BookFocus=Book&&Book->IsFocusActive();
     const auto* Staff=Pawn->FindComponentByClass<UStaffWeaponComponent>();
+    const auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();
     const auto* Bipod=Pawn->FindComponentByClass<UWeaponBipodDeploymentComponent>();
     auto* Potion=Pawn->FindComponentByClass<UFPSPotionUseComponent>();
     auto* Door=Pawn->FindComponentByClass<UFPSDoorPushComponent>();
@@ -108,25 +135,72 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
         }
         const int32 Side=D.AttachHand;auto* Map=MotionMap(Source,D.GripBone,Side);
         if(!Map||!Map->IsValid())continue;
-        const auto& Pose=Source->GetComponentSpaceTransforms();if(!Pose.IsValidIndex(Map->SourceHand))continue;
-        Rig.Valid=true;Rig.Schema=D.MotionSchema;
-        const FTransform Hand=Rigid(Pose[Map->SourceHand]);
+        const FName FullBodyClip=FPSBodySwordMotion::Clip(State);
+        const bool FullBodySword=D.PoseFamily==TEXT("Sword")&&BodyAnimation&&
+            !FullBodyClip.IsNone()&&BodyAnimation->Clips.FindRef(FullBodyClip);
+        UFPSBodyWeaponMeshComponent* CarryRig=nullptr;
+        if(D.PoseFamily==TEXT("Sword")&&Sword&&MotionBindings.IsValidIndex(I))
+        {
+            auto& Binding=MotionBindings[I];
+            const bool Ordinary=State.Action==EFPSBodyAction::None&&(Sword->CurrentClip==TEXT("Idle")
+                ||Sword->CurrentClip==TEXT("Walk")||Sword->IsTacticalSprintClip(Sword->CurrentClip));
+            const bool Moving=Pawn->GetCharacterMovement()->IsMovingOnGround()&&!State.bSliding
+                &&Pawn->GetVelocity().SizeSquared2D()>400.f;
+            const FName ClipName=Moving?TEXT("Walk"):TEXT("Idle");
+            auto* Clip=Ordinary?Sword->Animations.FindRef(ClipName).Get():nullptr;
+            if(Clip&&Binding.Mesh.IsValid())
+            {
+                CarryRig=Binding.Mesh.Get();
+                if(Binding.LocomotionClip!=ClipName)
+                {
+                    // ApplyMotion publishes mechanical bones over a frozen hand pose.
+                    // Restore the last complete carry before capturing an idle/walk blend.
+                    if(!Binding.LocomotionPose.IsEmpty())
+                    {
+                        CarryRig->PublishMechanicalPose(Binding.LocomotionPose);
+                        CarryRig->CaptureHoldTransition(.12f);
+                    }
+                    else CarryRig->CaptureHoldTransition(0.f);
+                    CarryRig->PlayAnimation(Clip,true);CarryRig->SetPlayRate(0.f);
+                    Binding.LocomotionClip=ClipName;Binding.LocomotionTime=0.f;
+                }
+                const float Delta=GetWorld()->GetDeltaSeconds();
+                Binding.LocomotionTime=FMath::Fmod(Binding.LocomotionTime+Delta*(Moving&&State.bSprinting?1.45f:1.f),FMath::Max(.01f,Clip->GetPlayLength()));
+                CarryRig->AdvanceHoldTransition(Delta);
+                CarryRig->SetPosition(Binding.LocomotionTime,false);CarryRig->TickAnimation(0.f,false);CarryRig->RefreshBoneTransforms();
+                Binding.LocomotionPose=CarryRig->GetComponentSpaceTransforms();
+                State.ActionVariant=ClipName;
+            }
+            else {Binding.LocomotionClip=NAME_None;Binding.LocomotionPose.Reset();}
+        }
+        // Both wrists, fingers, blade bones and socket attachments use this same
+        // ordinary carry sample. Sprint enter/loop/exit cannot leak through parts.
+        // An authored third-person action owns the wrists. Use only the frozen
+        // equipment bind for fingers, sword bones and attachments; an FPS swing
+        // must not rotate the blade a second time after the body has moved it.
+        const bool FrozenSword=FullBodySword&&MotionBindings.IsValidIndex(I)&&!MotionBindings[I].FrozenPose.IsEmpty();
+        const auto& SourcePose=FrozenSword?MotionBindings[I].FrozenPose:
+            (CarryRig?CarryRig->GetComponentSpaceTransforms():Source->GetComponentSpaceTransforms());
         const FTransform NativeMount=Map->Mount; // CaptureMotionHand may grow the map array.
         const int32 SourceHand=Map->SourceHand;
-        const bool NativeMelee=D.PoseFamily==TEXT("Sword")||D.PoseFamily==TEXT("Tool");
+        const bool NativeMelee=(D.PoseFamily==TEXT("Sword")&&!FrozenSword)||D.PoseFamily==TEXT("Tool");
         const bool StaffAction=D.PoseFamily==TEXT("Staff")&&(Cast||Bash||Staff->IlluminationGestureAge>=0.f||Staff->IsEquipping()||Staff->IsPrimaryAttacking());
         const auto& HandState=Side==0?State.RightHand:State.LeftHand;
         const bool Drive=NativeMelee||Reload||Inspect||Mount||StaffAction||(Side==1&&(Bash||BookFocus))||HandState.bReloading||HandState.bEquipping
             ||(D.PoseFamily==TEXT("Gun")&&State.Action==EFPSBodyAction::Equip);
-        CaptureMotionHand(Source,D.GripBone,Side,Drive,Sample);
+        const auto& Pose=SourcePose;
+        if(!Pose.IsValidIndex(SourceHand))continue;
+        Rig.Valid=true;Rig.Schema=D.MotionSchema;
+        const FTransform Hand=BodyMotionRigidTransform(Pose[SourceHand]);
+        CaptureMotionHand(Source,D.GripBone,Side,Drive,Sample,&Pose);
         const bool BookStowed=Pawn->HasOffhandSpellbook()&&!Pawn->IsOffhandSpellbookPresented();
         if(I==0&&(LocalWeapons.Num()==1||BookStowed)&&D.PoseFamily!=TEXT("Staff")&&D.PoseFamily!=TEXT("Spellbook"))
         {
-            CaptureMotionHand(Source,TEXT("hand_l"),1,Drive,Sample);Sample.CoupledWrists=Drive;
+            CaptureMotionHand(Source,TEXT("hand_l"),1,Drive,Sample,&Pose);Sample.CoupledWrists=Drive;
             if(const auto* Left=MotionMap(Source,TEXT("hand_l"),1);Left&&Left->IsValid()&&Pose.IsValidIndex(Left->SourceHand))
             {
                 Sample.HasSupportGrip=true;
-                Sample.SupportGrip=Left->Mount.Inverse()*Rigid(Pose[Left->SourceHand]).GetRelativeTransform(Hand)*NativeMount;
+                Sample.SupportGrip=Left->Mount.Inverse()*BodyMotionRigidTransform(Pose[Left->SourceHand]).GetRelativeTransform(Hand)*NativeMount;
             }
         }
         if(NativeMelee&&MotionBindings.IsValidIndex(I)&&MotionBindings[I].FrozenPose.IsValidIndex(SourceHand))
@@ -134,7 +208,7 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
             // Reuse the complete authored swing, not an idle grip plus a pulse.
             // Rebase its hand trajectory around a world-body ready position:
             // the FPS camera's eye height/feedback must not pin both hands to the face.
-            const FTransform Ready=NativeMount.Inverse()*Rigid(MotionBindings[I].FrozenPose[SourceHand]);
+            const FTransform Ready=NativeMount.Inverse()*BodyMotionRigidTransform(MotionBindings[I].FrozenPose[SourceHand]);
             const FTransform Current=NativeMount.Inverse()*Hand;
             const FQuat Frame=(GetBodyMesh()->GetComponentQuat().Inverse()*
                 FRotator(State.AimPitch,Pawn->GetActorRotation().Yaw,0.f).Quaternion()*FRotator(0,90,0).Quaternion()).GetNormalized();
@@ -150,15 +224,29 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
         Rig.Visible=Drawn(Source);
         if(auto* Static=D.StaticSource.Get())
         {
-            Rig.Root=Static->GetComponentTransform().GetRelativeTransform(Rigid(Hand*Source->GetComponentTransform()))*NativeMount;
+            Rig.Root=Static->GetComponentTransform().GetRelativeTransform(BodyMotionRigidTransform(Hand*Source->GetComponentTransform()))*NativeMount;
             Rig.Visible=Drawn(Static);
         }
-        // Keep the world offhand hidden while the consumable owns it.
+        // The consumable owns the left wrist while its equipped gun is stowed.
+        // Carry this visibility to the world body and remote presentation too.
         if(Side==1&&Potion&&Potion->IsOffhandWeaponHidden())Rig.Visible=false;
-        for(int32 Bone:D.MotionBones)Rig.Bones.Add(Pose.IsValidIndex(Bone)?Pose[Bone]:FTransform::Identity);
-        for(const auto& Weak:D.SourceParts)
+        for(int32 Bone:D.MotionBones)
         {
-            auto* Part=Weak.Get();Rig.Parts.Add(Part?Part->GetComponentTransform().GetRelativeTransform(
+            const FTransform Transform=SourcePose.IsValidIndex(Bone)?SourcePose[Bone]:FTransform::Identity;
+            Rig.Bones.Add(Transform);
+        }
+        for(int32 P=0;P<D.SourceParts.Num();++P)
+        {
+            auto* Part=D.SourceParts[P].Get();
+            if(FrozenSword&&MotionBindings[I].FrozenParts.IsValidIndex(P))
+                Rig.Parts.Add(MotionBindings[I].FrozenParts[P]);
+            else if(CarryRig&&Part&&D.Parts.IsValidIndex(P))
+            {
+                const FName Socket=D.Parts[P].Socket;
+                const FTransform Local=Part->GetComponentTransform().GetRelativeTransform(Source->GetSocketTransform(Socket));
+                Rig.Parts.Add(Local*CarryRig->GetSocketTransform(Socket,RTS_Component));
+            }
+            else Rig.Parts.Add(Part?Part->GetComponentTransform().GetRelativeTransform(
                 D.StaticSource.IsValid()?D.StaticSource->GetComponentTransform():Source->GetComponentTransform()):FTransform::Identity);
             Rig.VisibleParts.Add(Drawn(Part)?1:0);
         }
@@ -218,7 +306,7 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
         auto* Source=Potion->ActiveHands.Get();CaptureMotionHand(Source,TEXT("hand_l"),1,true,Sample);
         if(auto* Map=MotionMap(Source,TEXT("hand_l"),1);Map&&Map->IsValid())
         {
-            const FTransform Hand=Rigid(Source->GetSocketTransform(TEXT("hand_l")));
+            const FTransform Hand=BodyMotionRigidTransform(Source->GetSocketTransform(TEXT("hand_l")));
             UStaticMeshComponent* Parts[]={Potion->Bottle,Potion->Liquid,Potion->Stopper};
             for(int32 Part=0;Part<3;++Part)if(Parts[Part])
             {

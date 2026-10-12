@@ -12,6 +12,7 @@
 #include "../Weapons/RuneSwordMeshComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Weapons/Staff/StaffAssembly.h"
+#include "../Weapons/SwordTasselMeshComponent.h"
 #include "../Weapons/Staff/StaffGripPose.h"
 #include "../Weapons/Unarmed/FPSUnarmedHandPose.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
@@ -401,11 +402,19 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
             MotionEquipmentIndices.Add(Part,Index);
             for(const auto& Attachment:Definition.Parts)if(auto* ChildMesh=Attachment.Mesh.LoadSynchronous())
             {
-                auto* Child=NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);GetOwner()->AddInstanceComponent(Child);
+                const auto TailSpec=Definition.PoseFamily==TEXT("Staff")?ColdSteelStaffAssembly::TailDynamics(ChildMesh):nullptr;
+                UStaticMeshComponent* Child=TailSpec?NewObject<USwordTasselMeshComponent>(GetOwner(),NAME_None,RF_Transient):NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);
+                GetOwner()->AddInstanceComponent(Child);
                 Child->SetStaticMesh(ChildMesh);Child->SetupAttachment(Part);Child->SetRelativeTransform(Attachment.RelativeTransform);
                 WorldEquipmentHands.Add(Child,static_cast<uint8>(Side));FPSBodyEquipment::WorldVisibility(Child);
                 for(int32 I=0;I<Attachment.Materials.Num();++I)if(auto* M=Attachment.Materials[I].LoadSynchronous())Child->SetMaterial(I,M);
                 Child->RegisterComponent();WorldParts.Add(Child);
+                if(auto* Tail=Cast<USwordTasselMeshComponent>(Child))
+                {
+                    Tail->Configure(TailSpec);
+                    Tail->AddTickPrerequisiteComponent(this);
+                    Tail->AddTickPrerequisiteComponent(Body);
+                }
                 Motion.Parts.Add(Child);
                 MotionEquipmentIndices.Add(Child,Index);
             }
@@ -463,6 +472,7 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
             }
         Weapon->SetComponentTickEnabled(false);WorldWeapons.Add(Weapon);
         Motion.Mesh=Weapon;Motion.FrozenPose=Weapon->GetComponentSpaceTransforms();
+        Motion.NativeWeaponRoot=Asset->GetRefSkeleton().FindBoneIndex(TEXT("WPN_root"));
         if(Definition.PoseFamily!=TEXT("Bow"))MotionEquipmentIndices.Add(Weapon,Index);
         if(Definition.PoseFamily==TEXT("Bow")){BuildBow(Definition,Weapon);continue;}
         if(Index==0&&Weapons.Num()==1&&BodyAnimation&&Weapon->DoesSocketExist(TEXT("hand_l")))

@@ -565,6 +565,43 @@ struct FControls : FAnimNode_Base
             FTransform Targets[2]={Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones)),Pose.GetComponentSpaceTransform(Hands[1].GetCompactPoseIndex(Bones))};
             const bool Melee=State.Family==TEXT("Melee")||State.Family==TEXT("Tool");
             const bool Gun=State.Family==TEXT("Rifle")||State.Family==TEXT("Pistol");
+            const bool SwordPair=State.Family==TEXT("Melee")&&bLeftGrip&&!Traversing&&
+                State.Action!=EFPSBodyAction::Cast&&State.Action!=EFPSBodyAction::Consume&&
+                ((bCoupledActionWrists&&ActionWristMask==3)||ActionWristMask==0);
+            FVector SwordAnchorOffset=FVector::ZeroVector;
+            FQuat SwordTorsoRotation=FQuat::Identity;
+            if(SwordPair)
+            {
+                // CaptureMotion's ready anchor is authored above the feet, before
+                // terrain/crouch/aim corrections. Attach that anchor to the
+                // current solved torso; leave the sampled swing delta and wrist
+                // orientation intact so aim is not applied a second time.
+                const auto TorsoIndex=Spine.GetCompactPoseIndex(Bones);
+                FTransform Torso=Pose.GetComponentSpaceTransform(TorsoIndex);
+                if(!bHasSwordRestTorso)
+                {
+                    // Melee's neutral input is always the standing Unarmed.Idle
+                    // sample at time zero. Cache it until the body bones change.
+                    FPoseContext Rest(Out);Neutral.Evaluate(Rest);
+                    FCSPose<FCompactPose> RestCS;RestCS.InitPose(Rest.Pose);
+                    SwordRestTorso=RestCS.GetComponentSpaceTransform(TorsoIndex);
+                    SwordRestTorso.SetScale3D(FVector::OneVector);bHasSwordRestTorso=true;
+                }
+                Torso.SetScale3D(FVector::OneVector);
+                const FVector Ready=FPSBodyPoses::SwordReady(0.f)*PoseScale;
+                const FVector SupportedReady=Torso.TransformPosition(SwordRestTorso.InverseTransformPosition(Ready));
+                SwordAnchorOffset=SupportedReady-FPSBodyPoses::SwordReady(Crouch)*PoseScale;
+                SwordTorsoRotation=(Torso.GetRotation()*SwordRestTorso.GetRotation().Inverse()).GetNormalized();
+                // Transition snapshots must move with the chest on every stair.
+                // Blending toward an old component-space snapshot otherwise
+                // holds the arms behind while the torso changes height/pitch.
+                if(bHasHandHistory&&bHadSwordPair)for(int32 I=0;I<2;++I)
+                {
+                    LastHands[I]=LastHands[I].GetRelativeTransform(LastSwordTorso)*Torso;
+                    if(HandBlendAge<.1f)EntryHands[I]=EntryHands[I].GetRelativeTransform(LastSwordTorso)*Torso;
+                }
+                LastSwordTorso=Torso;
+            }
             if(!State.bDual)Targets[0]=FPSBodyPoses::RightHand(State,T,Crouch,Aim,Sprint,Targets[0],PoseScale);
             const bool FreeLeft=!Melee&&(State.Action==EFPSBodyAction::Reload||State.Action==EFPSBodyAction::ReloadEmpty||State.Action==EFPSBodyAction::Equip);
             const bool PistolBash=State.Action==EFPSBodyAction::GunBash&&State.Family==TEXT("Pistol");
@@ -658,6 +695,7 @@ struct FControls : FAnimNode_Base
             else if(State.Action==EFPSBodyAction::Cast&&State.Contacts.Channel!=TEXT("StaffCast"))
             {Targets[1]=FPSBodyPoses::CastHand(State,Crouch,Targets[1],PoseScale);AdjustHand[1]=true;}
             for(int32 I=0;I<2;++I)if(ActionWristMask&(1<<I)){Targets[I]=ActionHands[I];AdjustHand[I]=true;}
+            if(SwordPair)for(auto& Target:Targets)Target.AddToTranslation(SwordAnchorOffset);
             // A cancelled traversal must blend from LastHands, not keep chasing stale world contacts.
             if(FPSBodyPoses::Traversing(State.Motion)&&MotionWeight>ZERO_ANIMWEIGHT_THRESH)
             {
@@ -665,7 +703,12 @@ struct FControls : FAnimNode_Base
                 for(int32 I=0;I<2;++I)
                 {Targets[I].SetLocation(FMath::Lerp(Targets[I].GetLocation(),Handholds[I],Plant*MotionWeight));AdjustHand[I]=true;}
             }
-            if(bHasHandHistory&&(LastAction!=State.Action||LastVariant!=State.ActionVariant||LastActionWristMask!=ActionWristMask))
+            // The source sword already owns idle/walk/sprint transitions. Adding
+            // another 100 ms wrist transition on each locomotion clip change
+            // delays the arms relative to the sampled weapon and body.
+            const bool ContinuousSwordTravel=SwordPair&&bHadSwordPair&&bCoupledActionWrists&&
+                ActionWristMask==3&&LastActionWristMask==3&&State.Action==EFPSBodyAction::None&&LastAction==EFPSBodyAction::None;
+            if(bHasHandHistory&&!ContinuousSwordTravel&&(LastAction!=State.Action||LastVariant!=State.ActionVariant||LastActionWristMask!=ActionWristMask))
             {
                 EntryHands[0]=LastHands[0];EntryHands[1]=LastHands[1];HandBlendAge=0.f;
             }
@@ -678,9 +721,6 @@ struct FControls : FAnimNode_Base
             for(int32 I=0;I<2;++I)
                 if(!BowActive&&bHasHandHistory&&Blend<1.f&&!(I==1&&RecoveringCast))
                 {FTransform Mixed;Mixed.Blend(EntryHands[I],Targets[I],Blend);Targets[I]=Mixed;}
-            const bool SwordPair=State.Family==TEXT("Melee")&&bLeftGrip&&!Traversing&&
-                State.Action!=EFPSBodyAction::Cast&&State.Action!=EFPSBodyAction::Consume&&
-                ((bCoupledActionWrists&&ActionWristMask==3)||ActionWristMask==0);
             if(SwordPair)
             {
                 Targets[1]=(ActionWristMask==3?DynamicLeftFromRight:LeftGrip)*Targets[0];
@@ -692,7 +732,14 @@ struct FControls : FAnimNode_Base
                     Targets[1]=LeftGrip*Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones));
                 if(I==1&&bCoupledActionWrists&&ActionWristMask==3&&!Traversing)
                     Targets[1]=DynamicLeftFromRight*Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones));
-                if(!BowActive&&(AdjustHand[I]||(bHasHandHistory&&Blend<1.f)))Solve(Pose,Hands[I],Targets[I],FVector(I==0?-65:65,10,105-40*Crouch)*PoseScale,1.f);
+                FVector ElbowPole=FVector(I==0?-65:65,10,105-40*Crouch)*PoseScale;
+                if(SwordPair)
+                {
+                    const auto Wrist=Hands[I].GetCompactPoseIndex(Bones),Elbow=Bones.GetParentBoneIndex(Wrist),Shoulder=Bones.GetParentBoneIndex(Elbow);
+                    ElbowPole=Pose.GetComponentSpaceTransform(Shoulder).GetLocation()+
+                        SwordTorsoRotation.RotateVector(FVector(I==0?-40:40,10,-35)*PoseScale);
+                }
+                if(!BowActive&&(AdjustHand[I]||(bHasHandHistory&&Blend<1.f)))Solve(Pose,Hands[I],Targets[I],ElbowPole,1.f);
                 LastHands[I]=Pose.GetComponentSpaceTransform(Hands[I].GetCompactPoseIndex(Bones));
             }
             if(BowActive)

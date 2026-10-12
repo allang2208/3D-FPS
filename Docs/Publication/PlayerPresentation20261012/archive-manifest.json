@@ -1,0 +1,247 @@
+{
+  "scope": "player presentation 20261009-20261012",
+  "count": 30,
+  "bytes": 129830048,
+  "files": [
+    {
+      "original": "SourceAssets/BackpackStraps20261012/Before/SK_Jason_Backpack.uasset",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/BackpackStraps20261012/Before/SK_Jason_Backpack.uasset",
+      "bytes": 7007564,
+      "sha256": "6a68910dbad58cfee06cd092ffbcae92fde15a60a04317a6825a52f085b0e840",
+      "reason": "Pre-repair overwritten asset/source backup",
+      "replacement": "SourceAssets/BackpackStraps20261012/saved.json"
+    },
+    {
+      "original": "SourceAssets/PlayerWaistSeam20261012/Before/Content/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/SK_Jason_SmokeGreyCapri.uasset",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/PlayerWaistSeam20261012/Before/Content/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/SK_Jason_SmokeGreyCapri.uasset",
+      "bytes": 26887166,
+      "sha256": "02bd2f72c7ea2b65ad4ab4f3523fdc58b61be083c2f514c12c984e39acf31fbc",
+      "reason": "Pre-repair overwritten asset/source backup",
+      "replacement": "SourceAssets/PlayerWaistSeam20261012/saved.json"
+    },
+    {
+      "original": "SourceAssets/PlayerWaistSeam20261012/Before/Content/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/SK_Jason_SmokeGreyCapri_HighBootsFit.uasset",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/PlayerWaistSeam20261012/Before/Content/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/SK_Jason_SmokeGreyCapri_HighBootsFit.uasset",
+      "bytes": 26495535,
+      "sha256": "1c976a1e8eb82b95313e88eab3fe792cbbdd6cc8397bb5619d5dd1ee3329967b",
+      "reason": "Pre-repair overwritten asset/source backup",
+      "replacement": "SourceAssets/PlayerWaistSeam20261012/saved.json"
+    },
+    {
+      "original": "SourceAssets/PlayerWaistSeam20261012/Before/SourceAssets/SmokeGreyCapri20261004/Jason_SmokeGreyCapri.json",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/PlayerWaistSeam20261012/Before/SourceAssets/SmokeGreyCapri20261004/Jason_SmokeGreyCapri.json",
+      "bytes": 31122901,
+      "sha256": "39a5b32f112add45b3b258ad351798eb2d63de040f5360f7e45fc77a35bdddd6",
+      "reason": "Pre-repair overwritten asset/source backup",
+      "replacement": "SourceAssets/PlayerWaistSeam20261012/saved.json"
+    },
+    {
+      "original": "SourceAssets/PlayerWaistSeam20261012/Before/SourceAssets/SmokeGreyCapri20261004/Jason_SmokeGreyCapri_HighBootsFit.json",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/PlayerWaistSeam20261012/Before/SourceAssets/SmokeGreyCapri20261004/Jason_SmokeGreyCapri_HighBootsFit.json",
+      "bytes": 30422524,
+      "sha256": "700cb3b7c63bc5b443e17f11c8fba2a8d0f74547688d995dc79a645e05e3f186",
+      "reason": "Pre-repair overwritten asset/source backup",
+      "replacement": "SourceAssets/PlayerWaistSeam20261012/saved.json"
+    },
+    {
+      "original": "SourceAssets/JasonEquipmentRepair20261003/ShoulderStraps/SK_Jason_Backpack_before.uasset",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/JasonEquipmentRepair20261003/ShoulderStraps/SK_Jason_Backpack_before.uasset",
+      "bytes": 6963868,
+      "sha256": "f2052c364baac42c33d0f20fc810c8ea0a63c024c874285964d17fcde87a9ab0",
+      "reason": "Superseded shoulder-only backup",
+      "replacement": "SourceAssets/BackpackStraps20261012/backpack_repaired.json"
+    },
+    {
+      "original": "SourceAssets/BackpackStraps20261012/save-01.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/BackpackStraps20261012/save-01.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/BackpackStraps20261012 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/PlayerWaistSeam20261012/save-bridge-01.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/PlayerWaistSeam20261012/save-bridge-01.txt",
+      "bytes": 430,
+      "sha256": "2c2f560e03695a7d9166e0a5a2bd3df72c0b132cf2a00cf1d055d38cc833f10e",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/PlayerWaistSeam20261012 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/PlayerWaistSeam20261012/save-waist-api-attempt.log",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/PlayerWaistSeam20261012/save-waist-api-attempt.log",
+      "bytes": 284391,
+      "sha256": "84fe78f6477b116d99bfc11793f7f2f7f6c03bc8852a1a62e2e94b4063dac276",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/PlayerWaistSeam20261012 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/PlayerWaistSeam20261012/save-waist-console.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/PlayerWaistSeam20261012/save-waist-console.txt",
+      "bytes": 34443,
+      "sha256": "c6ab8c8f166657d2e936063466ca080e93dd338063a87440a085c8eeecf1e1bb",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/PlayerWaistSeam20261012 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/PlayerWaistSeam20261012/save-waist.log",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/PlayerWaistSeam20261012/save-waist.log",
+      "bytes": 284391,
+      "sha256": "84fe78f6477b116d99bfc11793f7f2f7f6c03bc8852a1a62e2e94b4063dac276",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/PlayerWaistSeam20261012 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonDashArm20261010/graph-bridge.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonDashArm20261010/graph-bridge.txt",
+      "bytes": 1343,
+      "sha256": "638d6bcec120ea8a30588a3fa5a433be38f93b6e599436cce2d13003944f60aa",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonDashArm20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonMeleeRegression20261010/capture-before-bridge.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonMeleeRegression20261010/capture-before-bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonMeleeRegression20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonMeleeRegression20261010/capture-before-wait-bridge.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonMeleeRegression20261010/capture-before-wait-bridge.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonMeleeRegression20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonMeleeRegression20261010/next-capture.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonMeleeRegression20261010/next-capture.txt",
+      "bytes": 8,
+      "sha256": "a6456ed3bde94789512c42c563637b929da22b9b5611962bd2c8ff63343d8195",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonMeleeRegression20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordGripPair20261010/live-bridge.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonSwordGripPair20261010/live-bridge.txt",
+      "bytes": 681,
+      "sha256": "585e9c7b22b4e33c5caf7cba44ed5e005349f0bf24ece52d3d4e56eac9360017",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonSwordGripPair20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordGripPair20261010/live-bridge2.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonSwordGripPair20261010/live-bridge2.txt",
+      "bytes": 558,
+      "sha256": "2316115bdae29ef5a5a317415dd11427e522a57375d07e31536f9771ba039924",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonSwordGripPair20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordGripPair20261010/read-handle.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonSwordGripPair20261010/read-handle.txt",
+      "bytes": 94,
+      "sha256": "43ca4001f8cf5b8301b44344ccb49510dc88c9e0b47b3aa97c71fcd98a3d7f93",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonSwordGripPair20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordGripPair20261010/read-handle2.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonSwordGripPair20261010/read-handle2.txt",
+      "bytes": 94,
+      "sha256": "43ca4001f8cf5b8301b44344ccb49510dc88c9e0b47b3aa97c71fcd98a3d7f93",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonSwordGripPair20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordGripPair20261010/save-bridge.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonSwordGripPair20261010/save-bridge.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonSwordGripPair20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordArmSwap20261010/save-bridge-01.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonSwordArmSwap20261010/save-bridge-01.txt",
+      "bytes": 1014,
+      "sha256": "e54c7bb294e85fc349f848a98f7840901be297184b3af01d8827cdd84deefdb1",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonSwordArmSwap20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordArmSwap20261010/save-stderr.log",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonSwordArmSwap20261010/save-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonSwordArmSwap20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordLeftContact20261010/save-bridge-01.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonSwordLeftContact20261010/save-bridge-01.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonSwordLeftContact20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonSwordLeftContact20261010/save-stderr.log",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonSwordLeftContact20261010/save-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonSwordLeftContact20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonTangDaoWhirlwind20261010/save-commandlet.log",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonTangDaoWhirlwind20261010/save-commandlet.log",
+      "bytes": 283935,
+      "sha256": "7ef4b7627df27ac65b67971fa778a58713bf03f4b29247e8b031bd337bf62fee",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonTangDaoWhirlwind20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonTangDaoWhirlwind20261010/save-stdout.log",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonTangDaoWhirlwind20261010/save-stdout.log",
+      "bytes": 38268,
+      "sha256": "c7a14faa5b484bd4d771942432c36232921b7ce301ddea8f1d7e74ad84e5d483",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonTangDaoWhirlwind20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonTangDaoWhirlwind20261010/save-stderr.log",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonTangDaoWhirlwind20261010/save-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonTangDaoWhirlwind20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonTangDaoWhirlwind20261010/save-final-stderr.log",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonTangDaoWhirlwind20261010/save-final-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonTangDaoWhirlwind20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonWhirlwindFacing20261010/read-bridge-01.txt",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonWhirlwindFacing20261010/read-bridge-01.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonWhirlwindFacing20261010 (current sources and final receipts retained)"
+    },
+    {
+      "original": "SourceAssets/ThirdPersonWhirlwindFacing20261010/read-stderr.log",
+      "archived": "trash/player-presentation-retired-20261012/SourceAssets/ThirdPersonWhirlwindFacing20261010/read-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed/empty transport or superseded attempt; later successful receipt retained",
+      "replacement": "SourceAssets/ThirdPersonWhirlwindFacing20261010 (current sources and final receipts retained)"
+    }
+  ]
+}

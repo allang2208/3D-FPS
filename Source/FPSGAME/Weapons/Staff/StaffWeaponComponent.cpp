@@ -35,7 +35,7 @@
 
 namespace
 {
-    const TCHAR* ArmsPath=TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7");
+    const TCHAR* StaffArmsPath=TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7");
     const TCHAR* StaffSwingPath=TEXT("/Game/Items/ProductionTools/GripMotion20260913/S_Harvest_Swing.S_Harvest_Swing");
     const TCHAR* StaffImpactPath=TEXT("/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick.S_MeleeHit_Quick");
 }
@@ -73,7 +73,7 @@ void UStaffWeaponComponent::RefreshEquipment(UColdSteelStatusModel* P)
     // temporary render gate. Unequipping releases this retention above.
     Arms->ComponentTags.AddUnique(TEXT("PreloadModularOutfit"));
     const auto Resolved=ColdSteelStaff::Resolve(*I);
-    TArray<FSoftObjectPath> Paths;ColdSteelStaffAssembly::Gather(Resolved,Paths);Paths.AddUnique(FSoftObjectPath(ArmsPath));
+    TArray<FSoftObjectPath> Paths;ColdSteelStaffAssembly::Gather(Resolved,Paths);Paths.AddUnique(FSoftObjectPath(StaffArmsPath));
     // Presentation depends on the installed meshes, not every inventory field.
     // Offhand/stat refreshes must not hide and reload an unchanged main hand.
     FString Key=I->InstanceId+TEXT("|")+I->Definition;
@@ -94,7 +94,7 @@ void UStaffWeaponComponent::RefreshEquipment(UColdSteelStatusModel* P)
     auto Ready=FStreamableDelegate::CreateWeakLambda(this,[this,Key,Resolved,NewInstance]()
     {
         if(Recipe!=Key||!Staff||!Arms)return;
-        auto* Skin=Cast<USkeletalMesh>(FSoftObjectPath(ArmsPath).ResolveObject());if(!Skin)return;
+        auto* Skin=Cast<USkeletalMesh>(FSoftObjectPath(StaffArmsPath).ResolveObject());if(!Skin)return;
         if(!ColdSteelStaffAssembly::Apply(Staff,Resolved))return;
         AuthoredGripVariant=StaffGripPose::VariantForMesh(ColdSteelInventory::Text(Resolved,TEXT("staff_part_grip_lining_mesh")));
         SwingSound=Cast<USoundBase>(FSoftObjectPath(StaffSwingPath).ResolveObject());

@@ -3,6 +3,7 @@ import copy,json
 from pathlib import Path
 import numpy as np
 from scipy.ndimage import maximum_filter1d,gaussian_filter1d
+from native_waist import append_native_waist
 R=Path('D:/FPS3D/FPSGAME/SourceAssets/SmokeGreyCapri20261004')
 garment=json.loads((R/'Jason_SmokeGreyCapri_Garment.json').read_text())
 calf=json.loads((R/'native_calf.json').read_text())
@@ -33,6 +34,8 @@ for fi,face in enumerate(calf['triangles']):
         standard['triangle_materials'].append(5);count+=1
 standard['parts'].append(dict(name='Native_ExposedCalves',first_vertex=start,vertices=len(standard['positions'])-start,triangles=count,material=5))
 standard['contract']+='; original native skin UV/weights below 33cm overlaps hem internally; no floating closed calf cap'
+waist=json.loads((R/'native_waist.json').read_text())
+append_native_waist(standard,waist)
 (R/'Jason_SmokeGreyCapri.json').write_text(json.dumps(standard,separators=(',',':')),encoding='utf-8')
 
 # Complete cross-section deformation keeps seams and cloth thickness apart.
@@ -58,6 +61,7 @@ for axis in range(3):
 normal_matrix=np.transpose(np.linalg.inv(jac),(0,2,1));faces=np.array(high['triangles'],int)
 ns=np.einsum('fcij,fcj->fci',normal_matrix[faces],np.array(high['normals']));ns/=np.maximum(np.linalg.norm(ns,axis=2,keepdims=True),1e-12)
 high['normals']=ns.tolist();high['contract']+='; high boots tuck; fully covered calf skin omitted'
+append_native_waist(high,waist)
 (R/'Jason_SmokeGreyCapri_HighBootsFit.json').write_text(json.dumps(high,separators=(',',':')),encoding='utf-8')
 (R/'fit_construction.json').write_text(json.dumps(dict(standard='garment plus native exposed calf',short_boots='standard garment; calf stays native inside shaft',high_boots='tucked hem; no hidden calf draw section',pants_covers=[8,10,12,14,16],native_calf_triangles=count,runtime_tested=False),indent=2),encoding='utf-8')
 print('CAPRI_RUNTIME_GEOMETRY_PREPARED',count,flush=True)

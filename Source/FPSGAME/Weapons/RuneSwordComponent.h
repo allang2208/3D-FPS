@@ -245,6 +245,7 @@ private:
     bool IsWalkInspectStride() const;
     bool ShouldBreakWalkInspect() const;
     float WalkInspectDelay=0.f;
+    bool CanPresent() const;
     bool CanUse() const;
     bool StartSwing(FName Clip, bool Heavy, float StaminaOverride=-1.f);
     bool StartQuickCombatStrike();

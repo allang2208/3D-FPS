@@ -92,6 +92,7 @@ void UFPSPlayerBodyComponent::UpdateConsumable(const FFPSBodyMotionSample& Sampl
 }
 void UFPSPlayerBodyComponent::OnBodyPoseFinalized()
 {
+    UpdateSwordGripMount();
     if(!QueuedWorldDiscards)return;
     if(GetBodyMesh())GetBodyMesh()->UpdateChildTransforms();
     for(int32 I=0;I<3;++I)if(QueuedWorldDiscards&(1<<I))

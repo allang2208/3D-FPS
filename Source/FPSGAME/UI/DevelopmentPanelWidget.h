@@ -99,6 +99,7 @@ private:
     UFUNCTION() void NoCooldownClicked();
     UFUNCTION() void FreeBuildingClicked();
     UFUNCTION() void ThirdPersonViewClicked();
+    UFUNCTION() void FixedThirdPersonViewClicked();
     UFUNCTION() void DisableTuningClicked();
     UFUNCTION() void GenerateItemClicked();
     UFUNCTION() void GrantLevelClicked();

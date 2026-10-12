@@ -57,6 +57,7 @@ void UDevelopmentPanelWidget::BuildTuningPage(UVerticalBox* Page)
     struct FOptionCopy { EDevelopmentTuningOption Option; const TCHAR* Title; const TCHAR* Help; const TCHAR* Name; };
     const FOptionCopy Options[] = {
         {EDevelopmentTuningOption::ThirdPersonView, TEXT("玩家视角"), TEXT("点击切换第一人称／第三人称；第三人称显示全身，镜头遇墙自动拉近。"), TEXT("DevelopmentThirdPersonView")},
+        {EDevelopmentTuningOption::FixedThirdPersonView, TEXT("第三人称固定视角"), TEXT("开启后固定第三人称镜头的位置与朝向。关闭面板后照常移动、攻击和施法；关闭此项恢复跟随，再次开启可固定新位置。"), TEXT("DevelopmentFixedThirdPersonView")},
         {EDevelopmentTuningOption::Invincible, TEXT("无敌"), TEXT("免疫受到的伤害，生命值不再因受击降低。"), TEXT("DevelopmentInvincible")},
         {EDevelopmentTuningOption::OneHitKill, TEXT("秒杀"), TEXT("玩家有效命中即可击杀敌方怪物，照常结算掉落与经验。"), TEXT("DevelopmentOneHitKill")},
         {EDevelopmentTuningOption::InfiniteReserveAmmo, TEXT("无限备弹"), TEXT("换弹不消耗背包弹药，弹匣打空后仍需换弹。"), TEXT("DevelopmentInfiniteAmmo")},
@@ -95,6 +96,7 @@ void UDevelopmentPanelWidget::BuildTuningPage(UVerticalBox* Page)
         case EDevelopmentTuningOption::NoAbilityCooldown: Button->OnClicked.AddDynamic(this,&ThisClass::NoCooldownClicked); break;
         case EDevelopmentTuningOption::FreeBuilding: Button->OnClicked.AddDynamic(this,&ThisClass::FreeBuildingClicked); break;
         case EDevelopmentTuningOption::ThirdPersonView: Button->OnClicked.AddDynamic(this,&ThisClass::ThirdPersonViewClicked); break;
+        case EDevelopmentTuningOption::FixedThirdPersonView: Button->OnClicked.AddDynamic(this,&ThisClass::FixedThirdPersonViewClicked); break;
         }
         TuningRows.Add(Row);
     }
@@ -146,8 +148,10 @@ void UDevelopmentPanelWidget::RefreshTuning()
         if (auto* Label = Cast<UTextBlock>(Button->GetContent()))
         {
             const bool bViewSwitch = Row.Option == EDevelopmentTuningOption::ThirdPersonView;
+            const bool bFixedViewSwitch = Row.Option == EDevelopmentTuningOption::FixedThirdPersonView;
             Label->SetText(FText::FromString(bViewSwitch
                 ? (bEnabled ? TEXT("第三人称") : TEXT("第一人称"))
+                : bFixedViewSwitch ? (bEnabled ? TEXT("已固定") : TEXT("未固定"))
                 : (bEnabled ? TEXT("已开启") : TEXT("已关闭"))));
             Label->SetColorAndOpacity(bEnabled ? ColdSteelUI::TextPrimary : ColdSteelUI::TextSecondary);
         }
@@ -174,6 +178,7 @@ void UDevelopmentPanelWidget::InfiniteManaClicked() { ToggleTuning(EDevelopmentT
 void UDevelopmentPanelWidget::NoCooldownClicked() { ToggleTuning(EDevelopmentTuningOption::NoAbilityCooldown); }
 void UDevelopmentPanelWidget::FreeBuildingClicked() { ToggleTuning(EDevelopmentTuningOption::FreeBuilding); }
 void UDevelopmentPanelWidget::ThirdPersonViewClicked() { ToggleTuning(EDevelopmentTuningOption::ThirdPersonView); }
+void UDevelopmentPanelWidget::FixedThirdPersonViewClicked() { ToggleTuning(EDevelopmentTuningOption::FixedThirdPersonView); }
 void UDevelopmentPanelWidget::DisableTuningClicked()
 {
     if (auto* Tuning = UDevelopmentTuningSubsystem::Find(this)) Tuning->DisableAll(GetOwningPlayer());

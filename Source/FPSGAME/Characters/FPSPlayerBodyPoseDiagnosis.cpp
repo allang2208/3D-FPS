@@ -14,7 +14,7 @@
 
 namespace FPSBodyPoseDiagnosis
 {
-// Explicit, headless diagnosis of the reported Tang Dao contact. No gameplay or asset saves.
+// Explicit carry/contact and opt-in dash-arm pose diagnosis. No gameplay or asset saves.
 static void Run(const TArray<FString>& Args)
 {
     FString Text;TSharedPtr<FJsonObject> Config;
@@ -65,10 +65,57 @@ static void Run(const TArray<FString>& Args)
         Row->SetStringField(TEXT("final"),Body->GetSocketTransform(Hand,RTS_Component).GetLocation().ToString());Report->SetObjectField(Side,Row);
     }
     Report->SetNumberField(TEXT("wrist_spacing"),FVector::Distance(Body->GetSocketLocation(TEXT("hand_r")),Body->GetSocketLocation(TEXT("hand_l"))));
+    if(Args.Num()>1&&Args[1]==TEXT("dash-arm"))
+    {
+        auto* Clip=Anim->Clips.FindRef(TEXT("Melee.FullBody.DashOverhead")).Get();
+        auto* Reference=MakeMesh(Asset);
+        TArray<TSharedPtr<FJsonValue>> Samples;
+        const auto Pack=[](const FTransform& T)
+        {
+            const auto P=T.GetLocation();const auto Q=T.GetRotation();const auto S=T.GetScale3D();
+            TArray<TSharedPtr<FJsonValue>> V;
+            for(double X:{P.X,P.Y,P.Z,Q.X,Q.Y,Q.Z,Q.W,S.X,S.Y,S.Z})V.Add(MakeShared<FJsonValueNumber>(X));
+            return MakeShared<FJsonValueArray>(V);
+        };
+        if(Clip)for(float Progress:{.1f,.2f,.3f,.4f,.5f,.6f,.7f,.8f,.9f})
+        {
+            float Contact=.4f,Release=.65f;
+            for(const auto& Marker:Clip->AuthoredSyncMarkers)
+            {
+                if(Marker.MarkerName==TEXT("Contact"))Contact=Marker.Time/Clip->GetPlayLength();
+                if(Marker.MarkerName==TEXT("Release"))Release=Marker.Time/Clip->GetPlayLength();
+            }
+            auto& State=Anim->BodyState;State.Action=EFPSBodyAction::HeavyStrike;State.ActionVariant=TEXT("DashOverhead");
+            State.bHasActionProgress=true;State.ActionProgress=Progress;State.ActionWeight=1.f;
+            State.ContactFraction=.25f;State.ReleaseFraction=.75f;State.ActionEntryFraction=0.f;
+            const float Sample=Progress<=.25f?FMath::Lerp(0.f,Contact,Progress/.25f):
+                Progress<=.75f?FMath::Lerp(Contact,Release,(Progress-.25f)/.5f):
+                FMath::Lerp(Release,1.f,(Progress-.75f)/.25f);
+            Reference->PlayAnimation(Clip,false);Reference->SetPosition(Sample*Clip->GetPlayLength(),false);
+            Reference->TickAnimation(0.f,false);Reference->RefreshBoneTransforms();
+            for(int32 I=0;I<20;++I){Anim->Clock+=1.f/60.f;Body->TickAnimation(1.f/60.f,false);Body->RefreshBoneTransforms();}
+            const auto& Ref=Asset->GetRefSkeleton();const auto& A=Body->GetComponentSpaceTransforms();
+            const auto& B=Reference->GetComponentSpaceTransforms();
+            auto Row=MakeShared<FJsonObject>(),Actual=MakeShared<FJsonObject>(),Authored=MakeShared<FJsonObject>();
+            Row->SetNumberField(TEXT("progress"),Progress);Row->SetNumberField(TEXT("sample"),Sample);
+            Row->SetNumberField(TEXT("grip_roll"),Anim->GetCurveValue(TEXT("SwordGripRoll")));
+            for(int32 Bone=0;Bone<Ref.GetNum();++Bone)
+            {
+                if(!A.IsValidIndex(Bone)||!B.IsValidIndex(Bone))continue;
+                const int32 Parent=Ref.GetParentIndex(Bone);const FString Name=Ref.GetBoneName(Bone).ToString();
+                Actual->SetField(Name,Pack(Parent==INDEX_NONE?A[Bone]:A[Bone].GetRelativeTransform(A[Parent])));
+                Authored->SetField(Name,Pack(Parent==INDEX_NONE?B[Bone]:B[Bone].GetRelativeTransform(B[Parent])));
+            }
+            Row->SetObjectField(TEXT("actual_local"),Actual);Row->SetObjectField(TEXT("authored_local"),Authored);
+            Samples.Add(MakeShared<FJsonValueObject>(Row));
+        }
+        Report->SetArrayField(TEXT("dash_samples"),Samples);
+        if(Clip)Report->SetStringField(TEXT("dash_clip"),Clip->GetPathName());
+    }
     FString Output;FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&Output));
     const FString Path=Args.IsEmpty()?FPaths::ProjectSavedDir()/TEXT("SwordPoseDiagnosis.json"):Args[0];FFileHelper::SaveStringToFile(Output,*Path);
     World->DestroyWorld(false);UE_LOG(LogTemp,Display,TEXT("SWORD_POSE_DIAGNOSIS %s"),*Path);
 }
-static FAutoConsoleCommand Command(TEXT("fps.body.DiagnoseSwordPose"),TEXT("Explicit headless Tang Dao body contact diagnosis; optional output file."),FConsoleCommandWithArgsDelegate::CreateStatic(&Run));
+static FAutoConsoleCommand Command(TEXT("fps.body.DiagnoseSwordPose"),TEXT("Explicit body contact diagnosis: [output file] [dash-arm]."),FConsoleCommandWithArgsDelegate::CreateStatic(&Run));
 }
 #endif

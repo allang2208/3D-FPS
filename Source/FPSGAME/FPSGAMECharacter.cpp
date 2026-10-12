@@ -3441,6 +3441,10 @@ void AFPSGAMECharacter::SuspendWeaponForMenu()
     CancelAmmoSelection();
     InterruptReload();
     if(HasOffhandPistol())DualPistols->InterruptReloads();
+    // These manual action clocks must also yield before a menu pauses the world.
+    // FireReleased below already settles the sword, staff and bow without firing.
+    if(auto* Tool=FindComponentByClass<UProductionToolComponent>())Tool->CancelUse();
+    if(QuickCombatPistol)QuickCombatPistol->Cancel();
     FireReleased();AimReleased();
     // A menu owns the keyboard from here on, so the preview's key release will never arrive.
     if(auto* Fireball=FindComponentByClass<UFPSFireballComponent>())Fireball->SetAimPreview(false);

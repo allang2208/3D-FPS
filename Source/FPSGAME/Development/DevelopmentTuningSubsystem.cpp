@@ -52,10 +52,16 @@ bool UDevelopmentTuningSubsystem::ShouldOneHitKill(const AActor* Victim, AContro
 
 bool UDevelopmentTuningSubsystem::SetEnabled(EDevelopmentTuningOption Option, bool bEnabled, APlayerController* Player)
 {
-    if (!CanEdit(Player) || uint8(Option) > uint8(EDevelopmentTuningOption::ThirdPersonView)) return false;
+    if (!CanEdit(Player) || uint8(Option) > uint8(EDevelopmentTuningOption::FixedThirdPersonView)) return false;
     if (Option == EDevelopmentTuningOption::InfiniteReserveAmmo) bReserveAmmoOverride = true;
     if (bEnabled) EnabledOptions.Add(Option);
     else EnabledOptions.Remove(Option);
+    // Fixed observation uses the same world body and equipment visibility as
+    // ordinary third person. Returning to first person also releases the lock.
+    if (Option == EDevelopmentTuningOption::FixedThirdPersonView && bEnabled)
+        EnabledOptions.Add(EDevelopmentTuningOption::ThirdPersonView);
+    else if (Option == EDevelopmentTuningOption::ThirdPersonView && !bEnabled)
+        EnabledOptions.Remove(EDevelopmentTuningOption::FixedThirdPersonView);
     PublishChange();
     return true;
 }

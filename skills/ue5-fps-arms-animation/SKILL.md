@@ -139,3 +139,5 @@ For independent third-person animation alongside the accepted first-person arms,
 ## Super90 分段节奏与腕臂续修
 
 - 用户认可动作而只要求慢对准／快推进，或修腕臂、拉栓穿模时，读取 [Super90 共用源时钟与局部修订](references/super90-shared-clock.md)。保留有效作者输入，区分历史废案、已保存资产和待用户体验的最新节奏。
+
+- 第三人称持剑握柄接触、旋风方向和版本恢复：[对应流程](references/third-person-sword-contact.md)。

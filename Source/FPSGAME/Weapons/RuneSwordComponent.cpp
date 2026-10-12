@@ -221,7 +221,7 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     bEquipping=true;SetClip(TEXT("Equip"),false);
     if(!CurrentAnimation){bEquipping=false;SetClip(TEXT("Idle"),true);}
     ScheduleWalkInspect(false);
-    Viewmodel->SetVisibility(CanUse(),true);
+    Viewmodel->SetVisibility(CanPresent(),true);
 }
 
 void URuneSwordComponent::RefreshModularSword(const FColdSteelItem* Item)
@@ -245,13 +245,21 @@ void URuneSwordComponent::RefreshModularSword(const FColdSteelItem* Item)
     ModularBladeBase=ColdSteelModularSword::BladePoint(*Item,false);ModularBladeTip=ColdSteelModularSword::BladePoint(*Item,true);
 }
 
-bool URuneSwordComponent::CanUse() const
+bool URuneSwordComponent::CanPresent() const
 {
     auto* Pawn=Character.Get();const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
     const auto* Build=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
-    return !AFPSGAMEPlayerController::BlocksOngoingActions(PC) &&
-        !Pawn->IsTraversing() && (!Health || !Health->IsDead()) && (!Build || !Build->IsBuilding());
+    // A panel owns input, but the equipped rig still owns its idle presentation.
+    return PC && !Pawn->IsTraversing() && (!Health || !Health->IsDead())
+        && (!Build || !Build->IsBuilding() || Build->IsPanelOpen());
+}
+
+bool URuneSwordComponent::CanUse() const
+{
+    const auto* PC=Character.IsValid()?Cast<APlayerController>(Character->GetController()):nullptr;
+    const auto* Build=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
+    return CanPresent() && !AFPSGAMEPlayerController::BlocksOngoingActions(PC) && (!Build || !Build->IsBuilding());
 }
 
 void URuneSwordComponent::SetClip(FName Name,bool bLoop)
@@ -1295,10 +1303,29 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     if(JumpPresentationRoot)
         JumpPresentationRoot->SetRelativeTransform(Character->GetWeaponJumpTransform(EFirstPersonJumpRig::Sword));
     if(TickGuardBreak(Delta))return;
-    const bool Usable=CanUse();Viewmodel->SetVisibility(Usable && Viewmodel->GetSkeletalMeshAsset(),true);
+    const bool Present=CanPresent();
+    const bool Usable=CanUse();Viewmodel->SetVisibility(Present && Viewmodel->GetSkeletalMeshAsset(),true);
     if(!Usable)ClearClovenCounter();
     TickClovenCounter(Delta);
-    if(!Usable){if(IsBusy()||bInspecting)CancelAction();ImpactAge=1.f;StopRift();return;}
+    if(!Usable)
+    {
+        if(IsBusy()||bInspecting)CancelAction();
+        ImpactAge=1.f;StopRift();
+        if(Present)
+        {
+            // These clips are sampled manually. Keep breathing behind UI without
+            // advancing attacks, queued input or automatic inspection.
+            if(CurrentClip!=TEXT("Idle"))SetClip(TEXT("Idle"),true);
+            if(CurrentAnimation)
+            {
+                Elapsed=FMath::Fmod(Elapsed+Delta,FMath::Max(.01f,CurrentAnimation->GetPlayLength()));
+                SamplePose(Elapsed);
+            }
+            Viewmodel->SetRelativeLocation(FMath::VInterpTo(Viewmodel->GetRelativeLocation(),FVector::ZeroVector,Delta,9.f));
+            Viewmodel->SetRelativeRotation(FMath::RInterpTo(Viewmodel->GetRelativeRotation(),FRotator(0,90,0),Delta,9.f));
+        }
+        return;
+    }
     if((bUppercut || IsRisingDragonFinisher() || bCharging || bReturningCharge || bInspecting) && Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
     ImpactAge=FMath::Min(1.f,ImpactAge+Delta);
     TickRift(Delta);

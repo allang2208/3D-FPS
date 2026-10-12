@@ -144,6 +144,10 @@ void URuneSwordComponent::TickWhirlwind(float Delta)
         if(WhirlwindPause>0.f||Elapsed>=End-UE_SMALL_NUMBER)break;
     }
     if(!bWhirlwind)return;
+    // PlayerController already faced the pawn before this PostPhysics action
+    // advanced control yaw. Publish the same final heading on the world body
+    // now; otherwise third-person hands lag the rotating camera by one frame.
+    Character->FaceRotation(Character->GetController()->GetControlRotation(),0.f);
     // Contact can change the impulse after the last angular substep. Compose
     // that final feedback before publishing the attached arms and weapon.
     Character->RefreshQuickCombatCamera();

@@ -46,6 +46,7 @@ public:
     void ApplyWorldBodyShadow();
     /** Local F6 view only; keeps the first-person camera as the gameplay aim anchor. */
     bool IsThirdPersonViewEnabled() const;
+    bool IsFixedThirdPersonViewEnabled() const;
     void ApplyCameraView(struct FMinimalViewInfo& View);
     void ApplyInteractionView(FVector& Eye, FRotator& View) const;
     void RefreshViewMode();
@@ -162,12 +163,13 @@ private:
     FFPSBodyGripRig* MotionMap(class USkeletalMeshComponent* Source,FName Hand,int32 Side);
     void CaptureMotion(FFPSBodyState& State);
     void ApplyMotion(float Delta);
-    void CaptureMotionHand(class USkeletalMeshComponent* Source,FName Hand,int32 Side,bool Wrist,FFPSBodyMotionSample& Sample);
+    void CaptureMotionHand(class USkeletalMeshComponent* Source,FName Hand,int32 Side,bool Wrist,FFPSBodyMotionSample& Sample,const TArray<FTransform>* PoseOverride=nullptr);
     void UpdateConsumable(const FFPSBodyMotionSample& Sample);
     void CreateConsumable(FName Definition);
     void ReleaseConsumable(int32 Part,const FVector& Velocity,float Lifetime);
     void ClearMotion();
     void OnBodyPoseFinalized();
+    void UpdateSwordGripMount();
     FDelegateHandle BodyPoseFinalizedHandle;
     uint8 QueuedWorldDiscards=0;
     bool bPendingBottleDrop=false,bQueuedBottleDrop=false;
@@ -203,6 +205,13 @@ private:
     float OwnerCameraLookDownForward=12.f;
     float OwnerCameraLookDownDrop=0.f;
     float OwnerCameraTorsoClearance=40.f;
+
+    // Session-only observation pose. The gameplay eye and control rotation
+    // continue driving inputs, aiming and all first-person action clocks.
+    bool bFixedThirdPersonCameraCaptured=false;
+    FVector FixedThirdPersonLocation=FVector::ZeroVector;
+    FRotator FixedThirdPersonRotation=FRotator::ZeroRotator;
+    float FixedThirdPersonFOV=90.f;
 
 };
 

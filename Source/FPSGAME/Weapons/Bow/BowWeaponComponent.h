@@ -186,6 +186,7 @@ private:
     static const TCHAR* ClipNock;
 
     /** Door push may keep the held pose sampling while its input remains blocked. */
+    bool CanPresent(bool bAllowDoorPushPresentation = false) const;
     bool CanUse(bool bAllowDoorPushPresentation = false) const;
     void SetStage(EBowStage Next, float Seconds, float StartSeconds = 0.f);
     void ApplyNumbers(const FColdSteelItem* Item);

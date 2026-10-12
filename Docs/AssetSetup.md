@@ -657,3 +657,7 @@ R21 初次导入的动画目录误写为 `Speedloader21261007`，因此上述初
 ## 第三人称法杖、持书与进食／饮用（2026-10-10）
 
 当前制作、配置入口、合法素材依赖、归档清单和发布边界见[第三人称动作源码发布与恢复](Publication/ThirdPersonActions20261010/README.md)。右手与空闲左手复用已认可第一人称抓握，整臂使用当前 CarryClearance／StrikeCarry／BookCarryRelax／BookPush 派生；饮用使用 WizardDrink，进食使用已修复上臂覆盖问题的 FoodNative。六组新动画已补齐 Cook 目录；本次没有执行打包。Fab 原包、完整关键帧、派生 uasset 和退役文件留本机，不能仅凭公开配方重建全部资产。
+
+## 玩家观察、近战与穿戴修复（2026-10-12）
+
+公开面板中装备待机、F6 固定第三人称、剑术挂接同步、两段竖劈及唐刀旋风的制作配方、七分裤腰部与背包背带修复。模型、原生动作、密集绑定、UE 包及日志仍留本机。30 份旧备份和失败中间产物已带 SHA-256 移入 trash；恢复链、当前方向、资产许可边界及未游戏测试范围见 [整理发布](Publication/PlayerPresentation20261012/README.md)。

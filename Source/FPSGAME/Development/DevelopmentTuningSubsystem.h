@@ -20,7 +20,9 @@ enum class EDevelopmentTuningOption : uint8
     /** 建造不消耗资源：放置体素块时不扣背包／仓库里的体块。 */
     FreeBuilding,
     /** Local development view; off is the existing first-person camera. */
-    ThirdPersonView
+    ThirdPersonView,
+    /** Hold the third-person observation camera in world space for action viewing. */
+    FixedThirdPersonView
 };
 
 /** Single-player session overrides. These flags are deliberately absent from the profile/save. */

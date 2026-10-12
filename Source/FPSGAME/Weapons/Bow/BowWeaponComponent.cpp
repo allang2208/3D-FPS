@@ -609,7 +609,7 @@ void UBowWeaponComponent::ApplyParts(const FColdSteelItem* Item)
     CollectPartAssets(Item);
 }
 
-bool UBowWeaponComponent::CanUse(bool bAllowDoorPushPresentation) const
+bool UBowWeaponComponent::CanPresent(bool bAllowDoorPushPresentation) const
 {
     auto* Pawn = Character.Get();
     if (!Pawn) return false;
@@ -620,9 +620,17 @@ bool UBowWeaponComponent::CanUse(bool bAllowDoorPushPresentation) const
     const bool bOwnQuickCombat = Stage == EBowStage::QuickCombat && Bash
         && Bash->GetStyle() == EQuickCombatStyle::Bow && Bash->IsOccupyingLeftHand();
     const bool bDoorPushPresentation = bAllowDoorPushPresentation && Pawn->IsDoorPushActive();
-    return bPresentationReady && !AFPSGAMEPlayerController::BlocksOngoingActions(PC) && !Pawn->IsTraversing()
+    return PC && bPresentationReady && !Pawn->IsTraversing()
         && (!Pawn->IsCastBlockingLeftHandAction() || bOwnQuickCombat || bDoorPushPresentation)
-        && (!Health || !Health->IsDead()) && (!Building || !Building->IsBuilding());
+        && (!Health || !Health->IsDead()) && (!Building || !Building->IsBuilding() || Building->IsPanelOpen());
+}
+
+bool UBowWeaponComponent::CanUse(bool bAllowDoorPushPresentation) const
+{
+    const auto* PC = Character.IsValid() ? Cast<APlayerController>(Character->GetController()) : nullptr;
+    const auto* Building = PC ? PC->FindComponentByClass<UVoxelBuildComponent>() : nullptr;
+    return CanPresent(bAllowDoorPushPresentation) && !AFPSGAMEPlayerController::BlocksOngoingActions(PC)
+        && (!Building || !Building->IsBuilding());
 }
 
 float UBowWeaponComponent::DrawFraction() const
@@ -907,7 +915,7 @@ void UBowWeaponComponent::CancelAction(bool bImmediate)
     if (Stage == EBowStage::Stowed) return;
     if ((Stage == EBowStage::Drawing || Stage == EBowStage::Holding) && bArrowNocked)
         ShowFeedback(TEXT("收弓：箭仍在弦上"));
-    if (IsEquipped() && CanUse()) SetStage(EBowStage::Ready, 0.f);
+    if (IsEquipped() && CanPresent(true)) SetStage(EBowStage::Ready, 0.f);
     else { Stage = EBowStage::Stowed; Elapsed = -1.f; HoldElapsed = 0.f; }
 }
 
@@ -1148,7 +1156,7 @@ void UBowWeaponComponent::AdvanceActionBeforeCamera(float Delta)
         Weight = FMath::Clamp(Weight + FMath::Max(0.f, Delta) * (bTarget ? 1.f / In : -1.f / Out), 0.f, 1.f);
     };
     AdvanceAimWeight(Delta, bUsable && bSteadyHeld);
-    AdvanceWeight(CrouchProgress, bUsable && Character.IsValid() && Character->bIsCrouched,
+    AdvanceWeight(CrouchProgress, CanPresent(true) && Character.IsValid() && Character->bIsCrouched,
         CrouchInSeconds, CrouchOutSeconds);
     AdvanceLocomotion(Delta, bUsable);
     // Keep the right/lower resting position. Rotate into the crosshair during
@@ -1172,6 +1180,14 @@ void UBowWeaponComponent::AdvanceActionBeforeCamera(float Delta)
     if (!bUsable)
     {
         CancelAction();
+        if (CanPresent(true))
+        {
+            // Keep the manual idle clock live under UI. No draw/release stage
+            // advances here, and a retained arrow stays in the inventory.
+            if (Stage == EBowStage::Stowed) SetStage(EBowStage::Ready, 0.f);
+            Viewmodel->AdvanceEntry(Delta);
+            VisualTime += Delta;
+        }
         return;
     }
     if (ReleaseFeedbackAge >= 0.f) ReleaseFeedbackAge += Delta;
@@ -1629,8 +1645,8 @@ void UBowWeaponComponent::SampleArms()
 void UBowWeaponComponent::TickComponent(float Delta, ELevelTick Type, FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta, Type, Tick);
-    const bool Usable = IsEquipped() && CanUse(true);
-    if (!Usable)
+    const bool Present = IsEquipped() && CanPresent(true);
+    if (!Present)
     {
         if (Stage != EBowStage::Stowed) CancelAction();
         for (auto& Pair : Parts) if (Pair.Value) Pair.Value->SetPartVisible(false);
