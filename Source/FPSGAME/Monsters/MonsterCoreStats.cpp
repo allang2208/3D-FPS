@@ -4,6 +4,7 @@
 #include "M10Mawcrawler.h"
 #include "SpiralPillarM14.h"
 #include "HangingBellM09.h"
+#include "LurkerM08Monster.h"
 #include "HandBrainMonster.h"
 #include "FleshHandMonster.h"
 #include "PoisonMaggotMonster.h"
@@ -64,6 +65,9 @@ bool Get(const AActor* Target,FMonsterCoreStats& Out)
     else if(const auto* H=Cast<AHandBrainMonster>(Target)){Fill(75,65,40,14.4,H->Level>0?H->Level:12,H->Rank,EMonsterToughnessClass::Colossal);} // {50,25,30,40,20,10}
     else if(const auto* Mg=Cast<APoisonMaggotMonster>(Target)){Fill(35,36,22,8.16,Mg->Level>0?Mg->Level:4,Mg->Rank,EMonsterToughnessClass::Caster);} // {7,13,24,22,24,13}
     else if(const auto* D=Cast<AInfectedDogMonster>(Target)){Fill(34,13,18,7.64,D->Level,D->Rank,EMonsterToughnessClass::Canine);} // {24,32,4,18,10,6}
+    // Must precede the AWolfMonster catch-all: M08 inherits it, and its authored
+    // defenses (24/14/12) were previously shadowed by the wolf row's 12/8/5.
+    else if(const auto* M08=Cast<ALurkerM08Monster>(Target)){Fill(FMath::RoundToInt(M08->PhysicalDefense),FMath::RoundToInt(M08->MagicDefense),FMath::RoundToInt(M08->CriticalResistance),6.5,M08->Level,M08->Rank,EMonsterToughnessClass::Canine);}
     else if(const auto* W=Cast<AWolfMonster>(Target)){Fill(12,8,5,5.06,W->Level>0?W->Level:5,W->Rank,EMonsterToughnessClass::Canine);} // {16,28,3,5,6,8}
     else if(const auto* F=Cast<AFatZombie>(Target)){Fill(35,4,20,4.6,F->Level>0?F->Level:4,F->Rank,EMonsterToughnessClass::Heavy);} // {18,6,3,20,3,5}
     else if(const auto* U=Cast<AMutant3>(Target)){Fill(75,13,40,11.84,U->Level>0?U->Level:9,U->Rank,EMonsterToughnessClass::Heavy);} // {50,30,5,40,10,6}

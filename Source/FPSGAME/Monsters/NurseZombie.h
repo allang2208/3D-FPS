@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "MonsterCoreStats.h"
+#include "MonsterArcPathing.h"
 #include "NurseZombie.generated.h"
 
 class UAnimSequence;
@@ -10,11 +11,15 @@ UENUM(BlueprintType)
 enum class ENurseState : uint8 { Idle, Chase, Attack, Stagger, Dead, Recovery, KnockedDown, GettingUp };
 
 UCLASS(Blueprintable)
-class FPSGAME_API ANurseZombie : public ACharacter
+class FPSGAME_API ANurseZombie : public ACharacter, public IAPS_MoveToInterface
 {
     GENERATED_BODY()
 public:
     ANurseZombie(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+    // APS arc shaping on the Nurse nav data; subclasses tune or disable it through ArcPathing.
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Pathing") FMonsterArcPathingTuning ArcPathing;
+    virtual void GetMoveToParameters_Implementation(float& ArcStrength, int32& NumMidPoints, EAPSArcMidpointMode& MidpointMode, float& LaneOffset) const override;
+    virtual void FindCustomPath_Implementation(FVector const& StartLocation, FVector const& EndLocation, TArray<FVector>& OutPath, float ArcStrength, UWorld* World, bool& bUseCustomPath, bool& bFound) const override;
     friend class UMonsterCombatComponent;
     friend class UHumanoidKnockdownComponent;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Nurse|Combat") TObjectPtr<class UMonsterCombatComponent> Combat;
@@ -27,13 +32,13 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Animation") TObjectPtr<USkeletalMesh> VisualMesh;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Animation") TObjectPtr<UAnimSequence> WalkClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Animation") TObjectPtr<UAnimSequence> AttackClip;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float MaxHealth = 120.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float MaxHealth = 250.f;
     // Source: tutorial-runtime.json enemyXp.zombie[0]. Tunable per encounter.
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") int32 ExperienceReward = 241;
     // 配置等级与品阶（原 enemy-config 口径；奖励按等级/品阶核算，见 MonsterCoreStats）。
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") int32 Level = 3;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") EMonsterRank Rank = EMonsterRank::Normal;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float AttackDamage = 15.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float AttackDamage = 22.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float AggroRadius = 1200.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float AttackRange = 145.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float ContactTime = 1.4f;
@@ -41,7 +46,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float RecoveryTime = .8f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float WalkSpeed = 90.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float CorpseSeconds = 15.f;
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") float Health = 120.f;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") float Health = 250.f;
     /** 复制给远端：客户端 OnRep 重放 SetState 驱动同款动画/表现切换。 */
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat", ReplicatedUsing=OnRep_State) ENurseState State = ENurseState::Idle;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") int32 SuccessfulHits = 0;

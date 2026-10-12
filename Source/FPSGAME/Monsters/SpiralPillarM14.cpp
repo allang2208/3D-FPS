@@ -61,7 +61,7 @@ ASpiralPillarM14::ASpiralPillarM14(const FObjectInitializer& Initializer)
     GetMesh()->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
     auto* Move=GetCharacterMovement();Move->MaxWalkSpeed=WalkSpeed;
     Move->MaxAcceleration=200.f;Move->BrakingDecelerationWalking=360.f;
-    Move->RotationRate=FRotator(0,75.f,0);Move->bOrientRotationToMovement=true;
+    Move->RotationRate=FRotator(0,120.f,0);Move->bOrientRotationToMovement=true;
     Move->bCanWalkOffLedges=false;
     // Match the authored 125 cm spawn footprint, with clearance for the 110 cm capsule.
     CastChecked<UMonsterCharacterMovementComponent>(Move)->ConfigureWideBodyStairs(125.f,300.f);

@@ -15,6 +15,7 @@
 #include "WitchMonster.h"
 #include "SpitterZombie.h"
 #include "BlindSupplicantMonster.h"
+#include "MantisM27Monster.h"
 #include "NurseZombie.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
@@ -42,6 +43,7 @@ const TCHAR* SpeciesOf(const AActor* Monster)
     if(Cast<AWitchMonster>(Monster)||Monster->ActorHasTag(TEXT("Witch")))return TEXT("witch");
     if(Cast<ASpitterZombie>(Monster)||Monster->ActorHasTag(TEXT("SpitterZombie")))return TEXT("spitter");
     if(Cast<ABlindSupplicantMonster>(Monster))return TEXT("blind_supplicant_m07");
+    if(Cast<AMantisM27Monster>(Monster))return TEXT("mantis_m27");
     if(Cast<ANurseZombie>(Monster))return TEXT("nurse");
     return nullptr;
 }

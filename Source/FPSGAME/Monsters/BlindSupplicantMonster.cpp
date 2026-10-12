@@ -33,19 +33,20 @@ ABlindSupplicantMonster::ABlindSupplicantMonster(const FObjectInitializer& Initi
     Movement->NavAgentProps.AgentStepHeight = 40.f;
     Movement->MaxStepHeight = 40.f;
     // Provisional encounter tuning; data remains editable for user playtesting.
-    MaxHealth = Health = 420.f;
-    AttackDamage = 36.f;
+    MaxHealth = Health = 3000.f;
+    AttackDamage = 85.f;
     AttackRange = 180.f;
     WalkSpeed = 160.f;
     Movement->MaxWalkSpeed = ChaseSpeed;
+    Movement->RotationRate = FRotator(0, 260.f, 0);
     Level = 7;
-    Rank = EMonsterRank::Elite;
+    Rank = EMonsterRank::Lord;
     ExperienceReward = 360;
-    RecoveryTime = .9f;
+    RecoveryTime = .75f;
     CorpseSeconds = 18.f;
     ContactTime = LeftContactTime;
     ContactEnd = ContactTime + ContactWindowSeconds;
-    AggroRadius = 1400.f;
+    AggroRadius = 2500.f;
 
     static ConstructorHelpers::FObjectFinder<USkeletalMesh> Model(TEXT("/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18.SK_M07_BodyMotionV18"));
     VisualMesh = Model.Object;

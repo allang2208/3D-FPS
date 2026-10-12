@@ -107,7 +107,7 @@ private:
     mutable TWeakObjectPtr<APawn> AttackPlanTarget;
     mutable bool bAttackPlanValid = false;
 public:
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M08|Air Cannon") float AirCannonDamage = 48.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M08|Air Cannon") float AirCannonDamage = 60.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M08|Air Cannon", meta=(Units="s", ClampMin="0")) float AirCannonStunSeconds = 3.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M08|Air Cannon", meta=(Units="s", ClampMin="0")) float AirCannonCooldown = 20.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M08|Air Cannon", meta=(Units="cm")) float AirCannonMinRange = 280.f;

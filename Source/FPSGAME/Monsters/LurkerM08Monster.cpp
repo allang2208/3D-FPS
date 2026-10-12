@@ -20,9 +20,9 @@ ALurkerM08Monster::ALurkerM08Monster(const FObjectInitializer& ObjectInitializer
     Tags.Remove(TEXT("Wolf")); Tags.AddUnique(TEXT("LurkerM08"));
     // Navmesh is only the ground guide hint for surface crawling; keep its points straight.
     ArcPathing.ArcStrength = 0.f; ArcPathing.ArcMidPoints = 0; ArcPathing.LaneOffset = 0.f;
-    Level = 8; Rank = EMonsterRank::Normal; ExperienceReward = 300;
-    MaxHealth = 340.f; PhysicalDefense = 24.f; MagicDefense = 14.f; CriticalResistance = 12.f;
-    WalkSpeed = 150.f; ChaseSpeed = 315.f;
+    Level = 8; Rank = EMonsterRank::Elite; ExperienceReward = 300;
+    MaxHealth = 1400.f; PhysicalDefense = 24.f; MagicDefense = 14.f; CriticalResistance = 12.f;
+    WalkSpeed = 150.f; ChaseSpeed = 380.f;
     GetMesh()->SetAnimInstanceClass(ULurkerM08AnimInstance::StaticClass());
     AirChargeRing = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("AirChargeRing"));
     AirChargeRing->SetupAttachment(GetRootComponent());
@@ -45,13 +45,13 @@ ALurkerM08Monster::ALurkerM08Monster(const FObjectInitializer& ObjectInitializer
     }
     IdleVoice->AttenuationOverrides.FalloffDistance = 1500.f;
     CrawlVoice->AttenuationOverrides.FalloffDistance = 1800.f;
-    AggroRadius = 1400.f; LeashRadius = 2200.f;
+    AggroRadius = 2500.f; LeashRadius = 3200.f;
     bHowlOnEncounter = false; bUsePredictiveHunting = true;
     WoundAppearance->bEnabled = false;
-    BiteDamage = 32.f; BiteTriggerRange = 165.f; ContactRadius = 38.f;
-    BiteWindup = .12f; BiteCooldown = 1.35f; BiteRecovery = .26f;
-    PounceDamage = 48.f; PounceMinRange = 145.f; PounceMaxRange = 700.f;
-    PounceWindup = .06f; PounceCooldown = 3.8f; PounceRecovery = .16f;
+    BiteDamage = 55.f; BiteTriggerRange = 165.f; ContactRadius = 38.f;
+    BiteWindup = .12f; BiteCooldown = 1.15f; BiteRecovery = .26f;
+    PounceDamage = 72.f; PounceMinRange = 145.f; PounceMaxRange = 700.f;
+    PounceWindup = .06f; PounceCooldown = 3.2f; PounceRecovery = .16f;
     PounceTravelStart = .24f; PounceTravelEnd = .74f; PounceArcHeight = 18.f;
     PounceLeadStrength = .55f; PounceMaxLeadDistance = 85.f; PounceStandOff = 130.f;
     BiteContactSlack = 18.f; BiteContactAngle = 100.f;

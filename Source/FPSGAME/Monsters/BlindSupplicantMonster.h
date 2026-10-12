@@ -42,14 +42,14 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Animation") TObjectPtr<UAnimSequence> MagicGatherClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Animation") TObjectPtr<UAnimSequence> MagicReleaseClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic") bool bMagicAttacksEnabled = true;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="0")) float MagicAttack = 40.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="0")) float MagicAttack = 70.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="0")) float FireballDamageMultiplier = 1.6f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="0")) float IceColumnDamageMultiplier = 1.4f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="0")) float LightningDamageMultiplier = 1.5f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic") bool bUsePlayerSkillCooldowns = true;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="0", Units="s")) float FireballCooldown = 12.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="0", Units="s")) float IceColumnCooldown = 12.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="0", Units="s")) float LightningCooldown = 12.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="0", Units="s")) float FireballCooldown = 9.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="0", Units="s")) float IceColumnCooldown = 9.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="0", Units="s")) float LightningCooldown = 9.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="100", Units="cm")) float FireballRange = 1400.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="100", Units="cm")) float IceColumnRange = 1500.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Magic", meta=(ClampMin="100", Units="cm")) float LightningRange = 1200.f;
@@ -64,7 +64,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Animation", meta=(ClampMin="0", Units="s")) float AnimationBlendSeconds = .18f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Animation", meta=(ClampMin="1", Units="cm/s")) float SourceWalkSpeed = 160.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Animation", meta=(ClampMin="1", Units="cm/s")) float SourceChaseSpeed = 360.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Combat", meta=(ClampMin="1", Units="cm/s")) float ChaseSpeed = 360.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Combat", meta=(ClampMin="1", Units="cm/s")) float ChaseSpeed = 420.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Cloth", meta=(ClampMin="100", Units="cm")) float ClothResumeDistance = 650.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Cloth", meta=(ClampMin="100", Units="cm")) float ClothSuspendDistance = 850.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Cloth") bool bEnableGillBoneClearance = true;

@@ -41,21 +41,21 @@ public:
     UPROPERTY(EditDefaultsOnly,Category="M14|Assets") TObjectPtr<UAnimSequence> TurnRightClip;
     UPROPERTY(EditDefaultsOnly,Category="M14|Assets") TObjectPtr<UAnimSequence> BiteClip;
     UPROPERTY(EditDefaultsOnly,Category="M14|Assets") TObjectPtr<UAnimSequence> DeathClip;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") float MaxHealth=1800.f;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") float PhysicalAttack=48.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") float MaxHealth=2000.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") float PhysicalAttack=70.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") float PhysicalDefense=40.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") float MagicDefense=20.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") int32 Level=10;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") EMonsterRank Rank=EMonsterRank::Elite;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") int32 ExperienceReward=650;
-    UPROPERTY(EditAnywhere,Category="M14|Movement",meta=(ClampMin="0")) float WalkSpeed=112.f;
+    UPROPERTY(EditAnywhere,Category="M14|Movement",meta=(ClampMin="0")) float WalkSpeed=150.f;
     UPROPERTY(EditAnywhere,Category="M14|Animation",meta=(ClampMin="1")) float AnimationWalkSpeed=28.f;
     UPROPERTY(EditAnywhere,Category="M14|AI") float AggroRadius=3300.f;
     UPROPERTY(EditAnywhere,Category="M14|AI") float LeashRadius=4000.f;
     UPROPERTY(EditAnywhere,Category="M14|Bite") float BiteTriggerRange=185.f;
     UPROPERTY(EditAnywhere,Category="M14|Bite") float MouthReach=70.f;
     UPROPERTY(EditAnywhere,Category="M14|Bite") float BiteContactSeconds=.86f;
-    UPROPERTY(EditAnywhere,Category="M14|Bite") float BiteCooldown=3.2f;
+    UPROPERTY(EditAnywhere,Category="M14|Bite") float BiteCooldown=2.6f;
     UPROPERTY(EditAnywhere,Category="M14|Death") float CorpseSeconds=20.f;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Replicated,Category="M14") float Health=1800.f;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,ReplicatedUsing=OnRep_State,Category="M14") EM14State State=EM14State::Idle;
@@ -110,7 +110,7 @@ public:
     UPROPERTY(EditAnywhere,Category="M14|Sweep") float SweepTriggerRange=250.f;
     UPROPERTY(EditAnywhere,Category="M14|Sweep") float SweepStartSeconds=.80f;
     UPROPERTY(EditAnywhere,Category="M14|Sweep") float SweepEndSeconds=1.20f;
-    UPROPERTY(EditAnywhere,Category="M14|Sweep") float SweepCooldown=4.8f;
+    UPROPERTY(EditAnywhere,Category="M14|Sweep") float SweepCooldown=4.f;
     UPROPERTY(EditAnywhere,Category="M14|Sweep") float SweepDamageMultiplier=.9f;
     UPROPERTY(EditAnywhere,Category="M14|Sweep") float SweepRadius=18.f;
     float AttackStopRange() const;
@@ -138,7 +138,7 @@ public:
     UPROPERTY(EditAnywhere,Category="M14|TrunkSlam") float SlamMinRange=190.f;
     UPROPERTY(EditAnywhere,Category="M14|TrunkSlam") float SlamTriggerRange=320.f;
     UPROPERTY(EditAnywhere,Category="M14|TrunkSlam") float SlamContactSeconds=1.20f;
-    UPROPERTY(EditAnywhere,Category="M14|TrunkSlam") float SlamCooldown=6.f;
+    UPROPERTY(EditAnywhere,Category="M14|TrunkSlam") float SlamCooldown=5.f;
     UPROPERTY(EditAnywhere,Category="M14|TrunkSlam") float SlamDamageMultiplier=1.35f;
     UPROPERTY(EditAnywhere,Category="M14|TrunkSlam") float SlamBodyRadius=45.f;
     UFUNCTION(BlueprintCallable,Category="M14|Authoring") static bool ApplyHardwareSkin(USkeletalMesh* SourceMesh,const FString& DataFile,const TArray<FName>& SourceBones);
@@ -149,7 +149,7 @@ private:
     bool StartCorpsePhysics();
 public:
     UPROPERTY(EditDefaultsOnly,Category="M14|Assets") TObjectPtr<UAnimSequence> WhirlwindClip;
-    UPROPERTY(EditAnywhere,Category="M14|Whirlwind",meta=(ClampMin="0")) float WhirlwindCooldown=12.f;
+    UPROPERTY(EditAnywhere,Category="M14|Whirlwind",meta=(ClampMin="0")) float WhirlwindCooldown=10.f;
     UPROPERTY(EditAnywhere,Category="M14|Whirlwind",meta=(ClampMin="0")) float WhirlwindTriggerRange=308.75f;
     UPROPERTY(EditAnywhere,Category="M14|Whirlwind",meta=(ClampMin="0")) float WhirlwindDamageMultiplier=2.4f;
     UPROPERTY(EditAnywhere,Category="M14|Whirlwind",meta=(ClampMin="0")) float WhirlwindKnockback=250.f;

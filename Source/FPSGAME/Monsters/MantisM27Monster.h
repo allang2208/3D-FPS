@@ -62,10 +62,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M27|Pounce") float PounceMinRange = 280.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M27|Pounce") float PounceMaxRange = 1125.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M27|Pounce") float PounceFlightSeconds = .65f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M27|Pounce") float PounceCooldownSeconds = 5.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M27|Pounce") float PounceCooldownSeconds = 4.2f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M27|Pounce") float PounceImpactRadius = 330.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M27|Pounce") float PounceImpactAngle = 160.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M27|Pounce") float PounceDamageScale = 1.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M27|Pounce") float PounceDamageScale = 1.3f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M27|Cloak") float ShadowStrikeMultiplier = 2.f;
 protected:
     virtual void StartStateAnimation(UAnimSequence* Clip, bool bLoop) override;

@@ -71,7 +71,7 @@ AM10Mawcrawler::AM10Mawcrawler(const FObjectInitializer& Initializer)
     GetMesh()->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
     auto* Move=GetCharacterMovement();Move->MaxWalkSpeed=WalkSpeed;
     Move->MaxAcceleration=480.f;Move->BrakingDecelerationWalking=720.f;
-    Move->RotationRate=FRotator(0,150.f,0);Move->bOrientRotationToMovement=true;
+    Move->RotationRate=FRotator(0,190.f,0);Move->bOrientRotationToMovement=true;
     Move->bCanWalkOffLedges=false;Move->bRunPhysicsWithNoController=true;
     CastChecked<UMonsterCharacterMovementComponent>(Move)->ConfigureWideBodyStairs(225.f,450.f);
     bUseControllerRotationYaw=false;BaseEyeHeight=-180.f;

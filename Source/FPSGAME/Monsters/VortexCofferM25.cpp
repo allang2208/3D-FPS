@@ -55,7 +55,7 @@ AVortexCofferM25::AVortexCofferM25(const FObjectInitializer& Initializer)
     Movement->MaxWalkSpeed = WalkSpeed;
     Movement->MaxAcceleration = 480.f;
     Movement->BrakingDecelerationWalking = 720.f;
-    Movement->RotationRate = FRotator(0, 150.f, 0);
+    Movement->RotationRate = FRotator(0, 190.f, 0);
     Movement->bOrientRotationToMovement = true;
     Movement->bCanWalkOffLedges = false;
     Movement->bRunPhysicsWithNoController = true;

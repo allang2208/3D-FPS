@@ -43,7 +43,7 @@ public:
     FVector ElectrodeLocation() const;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Magic") bool bAttacksEnabled = true;
     // Final authored monster attack: no player attribute conversion is applied here.
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Magic", meta=(ClampMin="0")) float MagicAttack = 60.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Magic", meta=(ClampMin="0")) float MagicAttack = 85.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Magic", meta=(ClampMin="0")) float LightningMultiplier = 1.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Magic", meta=(ClampMin="0")) float LanceMultiplier = 2.5f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Magic", meta=(ClampMin="0", Units="s")) float LightningCooldown = 3.f;

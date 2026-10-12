@@ -37,7 +37,7 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Animation") TObjectPtr<UAnimSequence> IdleClip;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Animation") TObjectPtr<UAnimSequence> MoveClip;
     UPROPERTY(EditDefaultsOnly, Category="M25|Visual") float MeshYaw = 0.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Movement", meta=(ClampMin="0.0", Units="cm/s")) float WalkSpeed = 110.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Movement", meta=(ClampMin="0.0", Units="cm/s")) float WalkSpeed = 150.f;
     UPROPERTY(EditDefaultsOnly, Category="M25|Animation", meta=(ClampMin="1.0", Units="cm/s")) float AnimationWalkSpeed = 16.f;
     UPROPERTY(EditAnywhere, Category="M25|AI", meta=(Units="cm")) float AggroRadius = 3000.f;
     UPROPERTY(EditAnywhere, Category="M25|AI", meta=(Units="cm")) float LeashRadius = 4500.f;
@@ -60,13 +60,13 @@ public:
     void RefreshCombatPoseTick();
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="M25|Bite") TObjectPtr<UM25BiteComponent> Bite;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Animation") TObjectPtr<UAnimSequence> BiteClip;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category="M25|Vitals", meta=(ClampMin="1")) float MaxHealth = 1500.f;
-    UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Replicated, Category="M25|Vitals") float Health = 1500.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category="M25|Vitals", meta=(ClampMin="1")) float MaxHealth = 3000.f;
+    UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Replicated, Category="M25|Vitals") float Health = 3000.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Vitals", meta=(ClampMin="0")) int32 PhysicalDefense = 25;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Vitals", meta=(ClampMin="0")) int32 MagicalDefense = 40;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Vitals", meta=(ClampMin="1")) int32 Level = 8;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Vitals") EMonsterRank Rank = EMonsterRank::Normal;
-    UPROPERTY(EditAnywhere, Category="M25|Vitals") int32 ExperienceReward = 100;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Vitals") EMonsterRank Rank = EMonsterRank::Lord;
+    UPROPERTY(EditAnywhere, Category="M25|Vitals") int32 ExperienceReward = 300;
     UPROPERTY(EditDefaultsOnly, Category="M25|Hit") TObjectPtr<UPhysicsAsset> HitSurfacePhysics;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Animation") TObjectPtr<UAnimSequence> HitClip;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Animation") TObjectPtr<UAnimSequence> DeathClip;

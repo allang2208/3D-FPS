@@ -32,8 +32,8 @@ public:
     float AnimationTime() const;
     float AnimationWeight() const;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Bite") bool bBiteEnabled = true;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Bite", meta=(ClampMin="0")) float PhysicalAttack = 65.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Bite", meta=(ClampMin="0", Units="s")) float BiteCooldown = 2.5f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Bite", meta=(ClampMin="0")) float PhysicalAttack = 88.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Bite", meta=(ClampMin="0", Units="s")) float BiteCooldown = 2.1f;
     UPROPERTY(EditAnywhere, Category="M25|Bite", meta=(ClampMin="1", Units="cm")) float TriggerReach = 110.f;
     UPROPERTY(EditAnywhere, Category="M25|Bite", meta=(ClampMin="1", ClampMax="89", Units="deg")) float HalfAngle = 40.f;
     UPROPERTY(EditAnywhere, Category="M25|Bite", meta=(ClampMin="1", Units="cm")) float ContactRadius = 80.f;

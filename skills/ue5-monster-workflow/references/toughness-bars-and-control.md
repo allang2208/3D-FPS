@@ -6,6 +6,8 @@
 
 Content/ColdSteelData/monster-toughness.json 按真实物种与实例品阶配置，正值限定200/400/600/800/1000，普通与杂鱼默认0。不能因为某物种有精英列便赋给普通实例。未列高阶物种用精英200、领主600、Boss1000；已有明确配置按物种覆盖。JSON按 GameInstance 缓存，权威生成时读取，不在命中或Tick解析。
 
+**接入两步缺一不可**（2026-10-12 补齐案例）：`SpeciesOf` 加 cast **且** JSON `species` 表加同名键——M-25 曾只有 cast 没有 JSON 条目（落 rank 默认），M-27 两者皆缺（且其 cast 必须排在父类 `ANurseZombie` 之前，否则被护士物种吞掉）。两只新条目为 `vortex_coffer_m25`、`mantis_m27`，各 200/400/600。
+
 MonsterToughnessBar.cpp 的阶段为 Guarded → Broken → Recovering → Guarded。精英/领主/Boss破韧窗口3/4/5秒，后续线性回满4/6/8秒。破韧命中可短硬直，但不续窗口；回韧期仍扣血、不重复削韧、不打断回满。未破韧脱离有效削韧3秒后每秒恢复上限10%。归巢重置当前条与阶段。
 
 用 FMonsterToughnessState 一次复制累计值、上限、阶段、结束时刻和破韧次数；客户端按服务器时钟显示回满，不能从没有复制的本地字段画条。显式眩晕单独复制到期时刻，普通受击事件不能把历史最长时长重新加到当前时间。

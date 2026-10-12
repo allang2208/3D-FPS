@@ -87,3 +87,27 @@ matk=floor(.5int+.5wis)、mdef=floor(1.2wis+.3int)、crit=floor(2+luck)、maxHp=
 
 RankExperienceMultiplier（elite×2/lord×4/boss×20）此前**只在图鉴显示、未进结算管线**；
 2026-09-29 起在 `ScaleKillExperience` 内乘上——AwardKill 与火球延迟击杀两条路径都经由此函数，一处修改自动成对生效。未注册目标恒为 1。诊断用 `EXP_KILL` 逐杀日志（victim/base/granted/playerLv/tribute/exp 进度）。
+
+## 阶级划分与 Cast 顺序坑（2026-10-12 用户拍板）
+
+`Get()` 的 if/else 链按 `Cast<>` 顺序短路：**子类必须排在父类兜底之前**，否则子类
+构造器写的防御字段是死值。已发生案例：M-08（继承 `AWolfMonster`）构造写 24/14/12，
+此前被狼行 12/8/5 吞掉；修复是把 `ALurkerM08Monster` 分支插在 wolf 行之前并按
+`RoundToInt` 读自身字段（权重 6.5，对齐 L8 精英级伏击者）。同理 `SpeciesOf`（韧性
+物种映射）中 `AMantisM27Monster` 必须排在 `ANurseZombie` 之前。新增继承系怪物时
+两条链都要检查顺序。
+
+当前阶级表（ctor/头文件默认 Rank 字段为准，BP 不覆写——已按字节探测确认）：
+普通=无面职员三人（安保 M-03/接待 M-04/研究 M-05，皆 `ANurseZombie` 的 `Faceless*`
+标签 BP 变体）及护士本体；精英=M-08、M-09、M-14、M-27；首领=M-07、M-10、M-25、
+M-88；Boss 留空。提级自动联动：经验 ×2/×4、韧性条 200/400-600（物种条目见
+`toughness-bars-and-control.md`）、战斗等级加成 +3/+5、编队拉扯（`MonsterFormationPull`
+仅 Normal/Minor）失效、近战击退抗性上升。
+
+同级 HP/主攻区间（以 AKM≈750 DPS / 手枪 450-845 锚定 TTK）：普通 200-350 HP /
+18-28 伤（~0.4s）；精英 1400-2000 / 55-75（~2-2.7s）；首领 2800-3600 / 85-110
+（~3.7-4.8s）。大招/伏击技允许超上限（M14 旋风 168、M25 雷枪 212、M27 影袭 110、
+M07 法术 98-112），它们由 10-20s 冷却约束。仇恨半径提到 2500+ 时**必须同步检查
+LeashRadius ≥ AggroRadius**，否则刚仇恨即脱战（M08/M09 曾 2200 束缚<2500 仇恨）。
+改追速后 `SourceChaseSpeed`/`SourceMoveSpeed`（动画源速分母）保持不变，播放速率
+由实际速度自动缩放。

@@ -56,9 +56,9 @@ public:
     UPROPERTY(EditDefaultsOnly,Category="Animation") TObjectPtr<UAnimSequence> HitClip;
     UPROPERTY(EditDefaultsOnly,Category="Animation") TObjectPtr<UAnimSequence> DeathClip;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Vitals",Replicated) float Health=1800.f;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Vitals",Replicated) float MaxHealth=1800.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Vitals",Replicated) float MaxHealth=3200.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Vitals") int32 Level=10;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Vitals") EMonsterRank Rank=EMonsterRank::Normal;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Vitals") EMonsterRank Rank=EMonsterRank::Lord;
     UPROPERTY(EditAnywhere,Category="Vitals") int32 PhysicalDefense=45;
     UPROPERTY(EditAnywhere,Category="Vitals") int32 MagicDefense=25;
     UPROPERTY(EditAnywhere,Category="Vitals") int32 ExperienceReward=150;
@@ -68,7 +68,7 @@ public:
     UPROPERTY(EditAnywhere,Category="AI") float LeashRadius=3600.f;
     UPROPERTY(EditAnywhere,Category="Combat") float BiteTriggerRange=350.f;
     UPROPERTY(EditAnywhere,Category="Combat") float BiteReach=235.f;
-    UPROPERTY(EditAnywhere,Category="Combat") float BiteDamage=55.f;
+    UPROPERTY(EditAnywhere,Category="Combat") float BiteDamage=90.f;
     UPROPERTY(EditAnywhere,Category="Combat") float BiteCooldown=2.5f;
     UPROPERTY(EditAnywhere,Category="Combat") float BiteContactSeconds=.56f;
     UPROPERTY(EditAnywhere,Category="Death") float CorpseSeconds=25.f;
@@ -125,8 +125,8 @@ private:
     uint8 AttackChoice=0,NextFlurryHit=0,NextFlurrySound=0;
 public:
     UPROPERTY(EditAnywhere,Category="Combat|Flurry",meta=(ClampMin="0")) float FlurryRange=280.f;
-    UPROPERTY(EditAnywhere,Category="Combat|Flurry",meta=(ClampMin="0")) float FlurryDamage=18.f;
-    UPROPERTY(EditAnywhere,Category="Combat|Flurry",meta=(ClampMin="0")) float FlurryFinisherDamage=32.f;
+    UPROPERTY(EditAnywhere,Category="Combat|Flurry",meta=(ClampMin="0")) float FlurryDamage=24.f;
+    UPROPERTY(EditAnywhere,Category="Combat|Flurry",meta=(ClampMin="0")) float FlurryFinisherDamage=45.f;
     UPROPERTY(EditAnywhere,Category="Combat|Flurry",meta=(ClampMin="0.1")) float FlurryCooldown=4.5f;
     UPROPERTY(EditAnywhere,Category="Combat|Flurry",meta=(ClampMin="1")) float FlurryPalmRadius=45.f;
     bool TentacleActive() const { return !Dead()&&(NetState.CapturedTarget||TentacleRecovering()||(NetState.State>=EBoundCongregateState::TentacleWindup&&NetState.State<=EBoundCongregateState::TentacleRecover)); }
@@ -143,8 +143,8 @@ public:
     UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0.1")) float TentacleWrapSeconds=.4f;
     UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0.1")) float TentacleHoldSeconds=3.5f;
     UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0.1")) float TentacleRecoverSeconds=.48f;
-    UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0")) float TentacleImpactDamage=20.f;
-    UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0")) float TentacleTickDamage=8.f;
+    UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0")) float TentacleImpactDamage=28.f;
+    UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0")) float TentacleTickDamage=11.f;
     UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0.1")) float TentacleDamageInterval=.5f;
     UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="0")) float TentaclePullSpeed=65.f;
 protected:
@@ -160,7 +160,7 @@ private:
     float TentacleBlockedSeconds=0.f;
     bool bTentacleFinalPoseRequested=false;
 public:
-    UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="1")) float TentacleMaxHealth=300.f;
+    UPROPERTY(EditAnywhere,Category="Combat|Tentacle",meta=(ClampMin="1")) float TentacleMaxHealth=400.f;
     UPROPERTY(Replicated,VisibleInstanceOnly,Category="Combat|Tentacle") float TentacleHealth=300.f;
     bool IsTentacleHit(const FHitResult& Hit) const;
     static bool IsTentaclePart(const FHitResult& Hit);

@@ -40,7 +40,7 @@ namespace
 {
 // Translation retains V19's double speed. Turning uses its own faster cadence.
 constexpr float CeilingLocomotionRate=2.f;
-constexpr float TurnDegreesPerSecond=120.f;
+constexpr float TurnDegreesPerSecond=160.f;
 constexpr float CeilingTurnAnimationRate=TurnDegreesPerSecond/30.f;
 constexpr float AuthoredGripStepSeconds=.6f;
 constexpr float ResonanceLock=.80f;
@@ -474,7 +474,7 @@ void AHangingBellM09::ResonancePulse()
   if(D.SizeSquared()>FMath::Square(ResonanceRange)||
      FVector::DotProduct(D.GetSafeNormal(),ResonanceDirection)<ResonanceConeCos||!HasResonanceSight(P,ResonanceOrigin))continue;
   FHitResult Hit;Hit.Location=Hit.ImpactPoint=Point;
-  UGameplayStatics::ApplyPointDamage(P,MagicAttack*.45f,ResonanceDirection,Hit,GetController(),this,UM09ResonanceDamage::StaticClass());
+  UGameplayStatics::ApplyPointDamage(P,MagicAttack*.6f,ResonanceDirection,Hit,GetController(),this,UM09ResonanceDamage::StaticClass());
   if(Dead()||State!=EM09State::Resonance)return;
  }
 }

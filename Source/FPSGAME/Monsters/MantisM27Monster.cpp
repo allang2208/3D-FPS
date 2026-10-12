@@ -24,10 +24,10 @@ AMantisM27Monster::AMantisM27Monster(const FObjectInitializer& Initializer) : Su
     // Preserve the 190.27 cm source and use the existing 192 cm human nav agent.
     GetCapsuleComponent()->InitCapsuleSize(34.f, 96.f);
     GetCharacterMovement()->MaxWalkSpeed = WalkSpeed = SourceMoveSpeed;
-    MaxHealth = Health = 280.f; AttackDamage = 32.f;
-    Level = 7; Rank = EMonsterRank::Normal; ExperienceReward = 320;
-    AggroRadius = 1500.f; AttackRange = 190.f;
-    ContactTime = .48f; ContactEnd = .68f; RecoveryTime = .45f; CorpseSeconds = 20.f;
+    MaxHealth = Health = 1400.f; AttackDamage = 55.f;
+    Level = 7; Rank = EMonsterRank::Elite; ExperienceReward = 320;
+    AggroRadius = 2500.f; AttackRange = 190.f;
+    ContactTime = .48f; ContactEnd = .68f; RecoveryTime = .38f; CorpseSeconds = 20.f;
 }
 
 void AMantisM27Monster::AlignVisual()

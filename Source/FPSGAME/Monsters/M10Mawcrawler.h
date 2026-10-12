@@ -41,21 +41,21 @@ public:
     UPROPERTY(EditDefaultsOnly,Category="M10|Assets") TObjectPtr<UAnimSequence> MoveClip;
     UPROPERTY(EditDefaultsOnly,Category="M10|Assets") TObjectPtr<UAnimSequence> BiteClip;
     UPROPERTY(EditDefaultsOnly,Category="M10|Assets") TObjectPtr<UAnimSequence> DeathClip;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float MaxHealth=1800.f;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float PhysicalAttack=55.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float MaxHealth=3200.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float PhysicalAttack=90.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float PhysicalDefense=45.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float MagicDefense=20.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") int32 Level=10;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") EMonsterRank Rank=EMonsterRank::Elite;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") EMonsterRank Rank=EMonsterRank::Lord;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") int32 ExperienceReward=650;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Movement",meta=(Units="cm/s")) float WalkSpeed=110.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Movement",meta=(Units="cm/s")) float WalkSpeed=150.f;
     UPROPERTY(EditAnywhere,Category="M10|Animation",meta=(ClampMin="1")) float AnimationWalkSpeed=46.153846f;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|AI") float AggroRadius=1600.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|AI") float AggroRadius=2500.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|AI") float LeashRadius=2800.f;
     UPROPERTY(EditAnywhere,Category="M10|Bite",meta=(Units="cm")) float BiteTriggerRange=450.f;
     UPROPERTY(EditAnywhere,Category="M10|Bite",meta=(Units="cm")) float MouthReach=150.f;
     UPROPERTY(EditAnywhere,Category="M10|Bite",meta=(Units="s")) float BiteContactSeconds=.70f;
-    UPROPERTY(EditAnywhere,Category="M10|Bite",meta=(Units="s")) float BiteCooldown=3.2f;
+    UPROPERTY(EditAnywhere,Category="M10|Bite",meta=(Units="s")) float BiteCooldown=2.6f;
     UPROPERTY(EditAnywhere,Category="M10|Death") float CorpseSeconds=20.f;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Replicated,Category="M10") float Health=1800.f;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,ReplicatedUsing=OnRep_State,Category="M10") EM10State State=EM10State::Idle;
@@ -118,7 +118,7 @@ public:
     UPROPERTY(EditDefaultsOnly,Category="M10|Howl") TObjectPtr<UMaterialInterface> HowlWaveMaterial;
     UPROPERTY(EditAnywhere,Category="M10|Howl",meta=(Units="cm",ClampMin="1")) float HowlRange=1000.f;
     UPROPERTY(EditAnywhere,Category="M10|Howl",meta=(Units="deg",ClampMin="1",ClampMax="180")) float HowlAngle=120.f;
-    UPROPERTY(EditAnywhere,Category="M10|Howl",meta=(ClampMin="0")) float HowlDamagePerTick=27.5f;
+    UPROPERTY(EditAnywhere,Category="M10|Howl",meta=(ClampMin="0")) float HowlDamagePerTick=34.f;
     UPROPERTY(EditAnywhere,Category="M10|Howl",meta=(Units="s",ClampMin="0")) float HowlCooldown=30.f;
 private:
     // Authored clip: 0.6 s windup, [0.6,3.6) channel, 0.6 s recovery.
