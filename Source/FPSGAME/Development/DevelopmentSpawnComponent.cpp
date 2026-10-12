@@ -42,6 +42,7 @@ UDevelopmentSpawnComponent::UDevelopmentSpawnComponent()
     Add(TEXT("M10Mawcrawler"), TEXT("沉匣 M-10"), TEXT("/Game/Monsters/M10Mawcrawler/BP_M10Mawcrawler.BP_M10Mawcrawler_C"), 225.f);
     Add(TEXT("SpiralPillarM14"), TEXT("螺柱 M-14"), TEXT("/Game/Monsters/SpiralPillarM14/BP_SpiralPillarM14.BP_SpiralPillarM14_C"), 125.f);
     Add(TEXT("BoundCongregate"), TEXT("缚群 M-88"), TEXT("/Game/Monsters/BoundCongregate/BP_BoundCongregate.BP_BoundCongregate_C"), 225.f);
+    Add(TEXT("BellowSacLobber"), TEXT("鼓囊 M-09"), TEXT("/Game/Monsters/BellowSacLobber/BP_BellowSacLobber.BP_BellowSacLobber_C"), 135.f);
     Add(TEXT("Wolf"), TEXT("野狼"), TEXT("/Game/Monsters/Wolf/BP_WolfMonster.BP_WolfMonster_C"), 100.f);
     Add(TEXT("ZombieDog"), TEXT("僵尸犬"), TEXT("/Game/Monsters/ZombieDog/V1/BP_ZombieDog.BP_ZombieDog_C"), 100.f);
     Add(TEXT("InfectedDog"), TEXT("感染犬"), TEXT("/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C"), 100.f);

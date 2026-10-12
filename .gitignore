@@ -3284,3 +3284,13 @@ __pycache__/
 # Spellbook final authoring parameters (no dense poses or binary assets).
 !/SourceAssets/SpellbookEvildeer20261009/Focus/IntegratedV30/motion-settings.json
 !/SourceAssets/SpellbookEvildeer20261009/QuickMelee/playback-clock.json
+
+# M-series/Bellow closeout: original recipes live in Tools; media, dense
+# authoring records, import receipts and rollback packages remain local.
+/SourceAssets/BellowSacLobberMeshy20261012/**
+!/SourceAssets/BellowSacLobberMeshy20261012/**/
+!/SourceAssets/BellowSacLobberMeshy20261012/**/*.md
+/SourceAssets/BellowSacLobberConcept20261012/**
+!/SourceAssets/BellowSacLobberConcept20261012/**/
+!/SourceAssets/BellowSacLobberConcept20261012/README.md
+!/SourceAssets/BellowSacLobberConcept20261012/imagegen_prompt_v01.txt

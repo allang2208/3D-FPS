@@ -2502,7 +2502,9 @@ void AFPSGAMECharacter::FireShot()
     if(MagazineAmmo==0 && IsCastBlockingLeftHandAction())bReloadAfterCasting=true;
     if (UsesSingleShotTrigger()) bPistolShotPending = false;
     ++ShotsFired;
-    UAISense_Hearing::ReportNoiseEvent(this,GetActorLocation(),1.f,this,IsMuzzleSuppressed()?500.f:1800.f,TEXT("Gunshot"));
+    const bool bSuppressedNoise = IsMuzzleSuppressed();
+    UAISense_Hearing::ReportNoiseEvent(this,GetActorLocation(),1.f,this,bSuppressedNoise?1000.f:3600.f,
+        bSuppressedNoise?TEXT("GunshotSuppressed"):TEXT("Gunshot"));
     LastShotWorldTime = Now; // Actual execution time, not a backdated cadence deadline.
     if (TriggerFirstShotWorldTime < 0.0) TriggerFirstShotWorldTime = Now;
     // 联机：远端身体开火姿势用的时刻戳（unreliable，偶发丢包只少一声远端枪响表现）。

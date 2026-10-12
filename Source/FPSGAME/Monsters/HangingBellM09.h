@@ -72,6 +72,7 @@ public:
  void SetLocomotion(bool Moving,bool Returning=false);
  void NavigateCeiling(FVector Destination,bool Returning);
  void StopCeiling();
+ bool TryWanderCeiling(FVector DesiredCenter,FVector& GoalCenter);
  FVector CeilingCenter() const{return GetActorLocation()+FVector(0,0,143);}
  void InitializeHang(AM09CeilingRoute* InRoute);
  void InterruptAttack(float Seconds);
@@ -99,6 +100,7 @@ private:
  bool ResolveCeilingGrip(const FTransform& Frame,int32 Side,FVector& Position,FQuat& Rotation) const;
  void FollowCeilingHeight(float Dt);
  void UpdateCeilingAnimationRate();
+ float CeilingIdleMovementScale() const;
  void TickAttack(float Previous);
  void UpdateFX();
  void EnterDeath();

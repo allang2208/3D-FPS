@@ -1,4 +1,6 @@
 #include "DungeonRunSubsystem.h"
+#include "FacilityHallEncounter.h"
+#include "DungeonThemeEncounter.h"
 #include "AuthoredDungeonGenerator.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/StatusEffectsComponent.h"
@@ -86,6 +88,42 @@ void UDungeonRunSubsystem::BindCompletedDungeon(AAuthoredDungeonGenerator* InGen
     bActive = true;
     InitializeShrine();
 
+    if (World->GetNetMode() != NM_Client)
+    {
+        TArray<int32> HallRooms;
+        TArray<FDungeonRunDoor> ForwardDoors;
+        for (const auto& Node : Nodes)
+            if (AFacilityHallEncounter::IsHall(Node.Module)) HallRooms.Add(Node.Id);
+        // FacilityTransit is the authored three-way junction. Its fourth socket
+        // leads back into reception and belongs inside the same combat area.
+        for (const auto& Node : Nodes)
+            if (Node.Module == TEXT("FacilityTransit"))
+                for (const auto& Door : Node.Doors)
+                    if (!HallRooms.Contains(Door.Neighbor)) ForwardDoors.Add(Door);
+        FActorSpawnParameters ThemeParams;
+        ThemeParams.Owner = InGenerator; ThemeParams.ObjectFlags |= RF_Transient;
+        if (HallRooms.Num() == 2 && ForwardDoors.Num() == 3)
+        {
+            auto* Area = World->SpawnActor<ADungeonThemeEncounter>(ADungeonThemeEncounter::StaticClass(), FTransform::Identity, ThemeParams);
+            if (Area && Area->Configure(this, InGenerator, HallRooms, ForwardDoors)) HallTheme = Area;
+            else if (Area) Area->Destroy();
+        }
+        if (!HallRooms.IsEmpty() && !HallTheme.IsValid())
+            UE_LOG(LogTemp, Error, TEXT("[DungeonTheme] Hall area unavailable: rooms=%d forward_doors=%d; expected two halls and three authored exits."), HallRooms.Num(), ForwardDoors.Num());
+        for (const auto& Node : Nodes)
+        {
+            if (!HallTheme.IsValid() || !AFacilityHallEncounter::IsHall(Node.Module)) continue;
+            FActorSpawnParameters Params;
+            Params.Owner = InGenerator;
+            Params.ObjectFlags |= RF_Transient;
+            if (auto* Encounter = World->SpawnActor<AFacilityHallEncounter>(AFacilityHallEncounter::StaticClass(), FTransform::Identity, Params))
+            {
+                HallEncounters.Add(Encounter);
+                Encounter->Configure(this, Node.Id, InGenerator, HallTheme.Get());
+            }
+        }
+    }
+
     int32 CombatCount = 0;
     for (const FDungeonRunNode& N : Nodes) if (N.bCombatRoom) ++CombatCount;
     UE_LOG(LogTemp, Log, TEXT("[DungeonRun] 运行绑定：Seed=%d 节点=%d 战斗房=%d 刷怪配置=%d RunId=%s"),
@@ -95,6 +133,10 @@ void UDungeonRunSubsystem::BindCompletedDungeon(AAuthoredDungeonGenerator* InGen
 void UDungeonRunSubsystem::UnbindDungeon()
 {
     bActive = false;
+    for (auto& Encounter : HallEncounters) if (Encounter.IsValid()) Encounter->Destroy();
+    HallEncounters.Reset();
+    if (HallTheme.IsValid()) HallTheme->Destroy();
+    HallTheme.Reset();
     bShrineClaimed=false;
     ShrineConfig.Reset();ShrineActor.Reset();ShrineEffects.Reset();ShrineBlessing=NAME_None;
     ShrineName.Reset();ShrineDescription.Reset();ShrineHealFraction=0;
@@ -301,6 +343,7 @@ bool UDungeonRunSubsystem::ParseLayoutManifest(const FString& Json)
         int32 Floor = 0;
         if (N->TryGetNumberField(TEXT("floor"), Floor)) Node.Floor = Floor;
         Node.Origin = ReadVec3(N, TEXT("origin"));
+        N->TryGetNumberField(TEXT("yaw"), Node.Yaw);
         const FVector VMin = ReadVec3(N, TEXT("volume_min"));
         const FVector VMax = ReadVec3(N, TEXT("volume_max"));
         Node.Volume = FBox(FVector::Min(VMin, VMax), FVector::Max(VMin, VMax));

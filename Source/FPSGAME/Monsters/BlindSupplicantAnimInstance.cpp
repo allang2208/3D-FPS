@@ -4,6 +4,7 @@
 #include "M07GillContactNode.h"
 #include "M07MembraneMotionNode.h"
 #include "M07FootSupportSamples.h"
+#include "MonsterSurfaceGroundingNode.h"
 #include "MonsterRecoveryGroundNode.h"
 #include "Animation/AnimInstanceProxy.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -105,14 +106,17 @@ struct FPresentationProxy : FAnimInstanceProxy
     FAnimNode_SequenceEvaluator_Standalone Current;
     FSupportedTransition Transition;
     FAnimNode_ConvertLocalToComponentSpace ToComponent;
+    FMonsterSurfaceGroundingNode SurfaceGround;
     FM07MembraneMotionNode MembraneMotion;
     FM07GillContactNode GillContact;
     FMonsterRecoveryGroundNode RecoveryGround;
     FAnimNode_ConvertComponentToLocalSpace ToLocal;
     FVector PreviousVelocity=FVector::ZeroVector;
     bool bHasVelocity=false;
+    const UAnimSequence* LastGroundClip=nullptr;
+    float LastGroundBlend=1.f;
 
-    explicit FPresentationProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance)
+    explicit FPresentationProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance), SurfaceGround(Instance)
     {
         Previous.Mode = ESnapshotSourceMode::SnapshotPin;
         Source.A.SetLinkNode(&Previous);
@@ -120,7 +124,8 @@ struct FPresentationProxy : FAnimInstanceProxy
         Transition.A.SetLinkNode(&Source);
         Transition.B.SetLinkNode(&Current);
         ToComponent.LocalPose.SetLinkNode(&Transition);
-        MembraneMotion.ComponentPose.SetLinkNode(&ToComponent);
+        SurfaceGround.ComponentPose.SetLinkNode(&ToComponent);
+        MembraneMotion.ComponentPose.SetLinkNode(&SurfaceGround);
         GillContact.ComponentPose.SetLinkNode(&MembraneMotion);
         RecoveryGround.ComponentPose.SetLinkNode(&GillContact);
         ToLocal.ComponentPose.SetLinkNode(&RecoveryGround);
@@ -128,13 +133,15 @@ struct FPresentationProxy : FAnimInstanceProxy
     virtual FAnimNode_Base* GetCustomRootNode() override { return &ToLocal; }
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {
-        Nodes.Append({&Previous, &Outgoing, &Source, &Current, &Transition, &ToComponent, &MembraneMotion, &GillContact, &RecoveryGround, &ToLocal});
+        Nodes.Append({&Previous, &Outgoing, &Source, &Current, &Transition, &ToComponent, &SurfaceGround, &MembraneMotion, &GillContact, &RecoveryGround, &ToLocal});
     }
     virtual void PreUpdate(UAnimInstance* Instance, float DeltaSeconds) override
     {
         FAnimInstanceProxy::PreUpdate(Instance, DeltaSeconds);
         const auto* Data = CastChecked<UBlindSupplicantAnimInstance>(Instance);
         const auto* Monster=Cast<ABlindSupplicantMonster>(Instance->TryGetPawnOwner());
+        const bool GroundWasActive=SurfaceGround.IsGrounding();
+        SurfaceGround.Prepare(Monster,DeltaSeconds);
         RecoveryGround.Prepare(Monster);
         const bool bCoherent=Monster && Monster->bUseCoherentGillMotion && Monster->State!=ENurseState::Dead &&
             (!Monster->Knockdown || !Monster->Knockdown->IsControlling());
@@ -163,7 +170,10 @@ struct FPresentationProxy : FAnimInstanceProxy
             GillContact.SampleStride=bNear?1:3;
             GillContact.SolverPasses=bNear?2:1;
         }
-        Previous.Snapshot = Data->PreviousPose;
+        if (!SurfaceGround.IsGrounding() || !GroundWasActive) Previous.Snapshot=Data->PreviousPose;
+        else if (Data->ActiveClip!=LastGroundClip || Data->BlendAlpha<LastGroundBlend || !Previous.Snapshot.bIsValid)
+            Previous.Snapshot=SurfaceGround.UncorrectedPose.bIsValid?SurfaceGround.UncorrectedPose:Data->PreviousPose;
+        LastGroundClip=Data->ActiveClip; LastGroundBlend=Data->BlendAlpha;
         Outgoing.SetSequence(Data->OutgoingLoop);
         Outgoing.SetShouldLoop(true);
         Outgoing.SetTeleportToExplicitTime(true);

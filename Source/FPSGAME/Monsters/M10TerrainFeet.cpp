@@ -6,6 +6,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "PhysicsEngine/PhysicsAsset.h"
 #include "PhysicsEngine/SkeletalBodySetup.h"
+#include "MonsterGroundSupport.h"
 
 void FM10FootPlantNode::CacheSupportGeometry(const AM10Mawcrawler* Monster)
 {
@@ -60,25 +61,39 @@ void FM10FootPlantNode::Prepare(const AM10Mawcrawler* Monster,float Phase,float 
         return;
     }
     TraceElapsed+=Dt;
-    if(TraceElapsed>=.05f)
+    if(TraceElapsed>=MonsterGroundSupport::QueryInterval(Mesh))
     {
         TraceElapsed=0.f;
-        FCollisionQueryParams Query(SCENE_QUERY_STAT(M10TerrainFeet),false,Monster);
-        FCollisionObjectQueryParams Objects;
-        Objects.AddObjectTypesToQuery(ECC_WorldStatic);Objects.AddObjectTypesToQuery(ECC_WorldDynamic);Objects.AddObjectTypesToQuery(ECC_PhysicsBody);
+        FMonsterGroundProbe Probe(Monster);
         const float BaseZ=Frame.TransformPosition(FVector(0,0,BaseFloorZ)).Z;
         auto Trace=[&](FVector At,FHitResult& Hit)
         {
-            const bool Found=Monster->GetWorld()->LineTraceSingleByObjectType(Hit,FVector(At.X,At.Y,BaseZ+100.f),FVector(At.X,At.Y,BaseZ-160.f),Objects,Query);
-            return Found&&!Hit.bStartPenetrating&&Hit.ImpactNormal.Z>=Move->GetWalkableFloorZ()&&Hit.GetComponent()&&Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Pawn)==ECR_Block;
+            return Probe.Trace(Monster->GetWorld(),FVector(At.X,At.Y,BaseZ+100.f),FVector(At.X,At.Y,BaseZ-160.f),FVector::UpVector,Move->GetWalkableFloorZ(),Hit);
         };
         FVector Points[8];int32 Count=0;FVector Mean=FVector::ZeroVector;
         for(int32 I=0;I<8;++I)
         {
             auto& S=Supports[I];if(S.Bone==INDEX_NONE)continue;
             // Read the previous evaluated contact on the game thread only.
-            FHitResult Hit;S.Valid=Trace(Mesh->GetBoneTransform(S.Bone).GetLocation(),Hit);
-            if(S.Valid){S.Point=Hit.ImpactPoint;S.Normal=Hit.ImpactNormal;Points[Count]=S.Point;Mean+=Points[Count++];}
+            const FTransform Foot=Mesh->GetBoneTransform(S.Bone);
+            FVector Ends[2]={Foot.GetLocation(),Foot.GetLocation()};
+            double Along[2]={TNumericLimits<double>::Max(),-TNumericLimits<double>::Max()};
+            const FVector Forward=Frame.TransformVectorNoScale(ReferenceForward);
+            for(const FVector& Local:S.Sole)
+            {
+                const FVector World=Foot.TransformPosition(Local);const double Distance=FVector::DotProduct(World-Foot.GetLocation(),Forward);
+                if(Distance<Along[0]){Along[0]=Distance;Ends[0]=World;}
+                if(Distance>Along[1]){Along[1]=Distance;Ends[1]=World;}
+            }
+            S.Valid=false;double Best=-TNumericLimits<double>::Max();
+            for(const FVector& At:Ends)
+            {
+                FHitResult Hit;if(!Trace(At,Hit))continue;
+                const FVector N=Hit.ImpactNormal,D=Foot.GetLocation()-Hit.ImpactPoint;
+                const double Height=Hit.ImpactPoint.Z-(N.X*D.X+N.Y*D.Y)/N.Z;
+                if(Height>Best){Best=Height;S.Point=Hit.ImpactPoint;S.Normal=N;S.Valid=true;}
+            }
+            if(S.Valid){Points[Count]=FVector(Foot.GetLocation().X,Foot.GetLocation().Y,Best);Mean+=Points[Count++];}
         }
         if(Count>=3)
         {

@@ -240,10 +240,19 @@ void UM14SoftBodyDeathComponent::Substep(float Dt)
     for(int32 I=0;I<Positions.Num();++I)
         Velocities[I]=(Positions[I]-Previous[I])/Dt;
     DampInternalVelocity(Dt);
+    const bool ReportImpact=OnGroundImpact.IsBound()&&!bGroundImpactSent;
+    float ImpactSpeed=0.f;FVector ImpactPoint=FVector::ZeroVector;
     for(int32 I=0;I<Positions.Num();++I)
     {
         if(Grounded[I])
         {
+            // Use the solver's existing contact and incoming velocity. Standing
+            // feet and tiny settling corrections do not count as a body fall.
+            if(ReportImpact&&Initial[I].Z-Positions[I].Z>.10)
+            {
+                const float Incoming=float(-PredictedVelocities[I].Dot(GroundNormal[I]));
+                if(Incoming>ImpactSpeed){ImpactSpeed=Incoming;ImpactPoint=ToWorld(GroundPoint[I]);}
+            }
             const double NormalSpeed=Velocities[I].Dot(GroundNormal[I]);
             const FVector Tangent=Velocities[I]-NormalSpeed*GroundNormal[I];
             // Zero restitution: depenetration cannot become a new upward kick.
@@ -257,6 +266,11 @@ void UM14SoftBodyDeathComponent::Substep(float Dt)
             Velocities[I]+=WallNormal[I]*(FMath::Clamp(Speed,0.,Outward)-Speed);
         }
         Velocities[I]=Velocities[I].GetClampedToMaxSize(8.);
+    }
+    if(ReportImpact&&ImpactSpeed>.65f)
+    {
+        bGroundImpactSent=true;
+        OnGroundImpact.Broadcast(ImpactPoint,ImpactSpeed*100.f);
     }
 }
 

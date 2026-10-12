@@ -1,5 +1,6 @@
 #include "MonsterAIController.h"
 #include "BoundCongregate.h"
+#include "BellowSacLobber.h"
 #include "MantisM27Monster.h"
 #include "MonsterCombatComponent.h"
 #include "../Skills/IceWallCombat.h"
@@ -11,6 +12,7 @@
 #include "VortexCofferM25.h"
 #include "LurkerM08Monster.h"
 #include "FPSCombatHealthComponent.h"
+#include "../Dungeons/DungeonThemeEncounter.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/BlackboardData.h"
@@ -42,8 +44,8 @@ AMonsterAIController::AMonsterAIController()
 {
  Senses=CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("MonsterPerception"));SetPerceptionComponent(*Senses);
  auto* Sight=CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight"));Sight->SightRadius=1600;Sight->LoseSightRadius=1900;Sight->PeripheralVisionAngleDegrees=100;Sight->SetMaxAge(12);
- Sight->DetectionByAffiliation.bDetectEnemies=Sight->DetectionByAffiliation.bDetectFriendlies=Sight->DetectionByAffiliation.bDetectNeutrals=true;
- auto* Hearing=CreateDefaultSubobject<UAISenseConfig_Hearing>(TEXT("Hearing"));Hearing->HearingRange=1800;Hearing->SetMaxAge(8);Hearing->DetectionByAffiliation=Sight->DetectionByAffiliation;
+ Sight->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,true);
+ auto* Hearing=CreateDefaultSubobject<UAISenseConfig_Hearing>(TEXT("Hearing"));Hearing->HearingRange=1800;Hearing->SetMaxAge(8);Hearing->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,true);
  auto* Damage=CreateDefaultSubobject<UAISenseConfig_Damage>(TEXT("DamageSense"));Damage->SetMaxAge(12);
  Senses->ConfigureSense(*Sight);Senses->ConfigureSense(*Hearing);Senses->ConfigureSense(*Damage);Senses->SetDominantSense(Sight->GetSenseImplementation());
  Senses->OnTargetPerceptionUpdated.AddDynamic(this,&AMonsterAIController::Perceived);
@@ -52,75 +54,47 @@ UMonsterCombatComponent* AMonsterAIController::Combat() const{return GetPawn()?G
 void AMonsterAIController::OnPossess(APawn* P)
 {
  Super::OnPossess(P);if(!HasAuthority())return;
- if(const auto* BC=Cast<ABoundCongregate>(P))
+ WanderRandom.Initialize(FMath::Rand());bWanderActive=bWanderMoving=false;WanderFailures=0;
+ KnownTarget.Reset();EncounterTarget.Reset();EncounterArea.Reset();PendingDamageTarget.Reset();
+ bConfirmedTarget=bPendingGroupAlert=bReturning=false;PassiveDiscoveryAt=-1.f;LastEvidence=-100.f;
+ NextBroadcast=0.f;
+ NextWanderUpdate=0.f;NextWanderMove=GetWorld()->GetTimeSeconds()+WanderRandom.FRandRange(.5f,3.f);
+ const bool OmniSight=P->IsA<ALurkerM08Monster>()||P->IsA<AVortexCofferM25>();
+ if(P->IsA<ALurkerM08Monster>())MemorySeconds=FMath::Max(MemorySeconds,30.f);
+ auto* Sight=NewObject<UAISenseConfig_Sight>(this);
+ // The monster's AggroRadius is the one active discovery range, including BP
+ // overrides. Do not silently cap long-range species at the old default 16 m.
+ Sight->SightRadius=Combat()?FMath::Max(0.f,Combat()->AggroRange()):1600.f;
+ Sight->LoseSightRadius=Sight->SightRadius+(OmniSight?500.f:300.f);
+ Sight->PeripheralVisionAngleDegrees=OmniSight?180.f:100.f;Sight->SetMaxAge(MemorySeconds);
+ Sight->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,true);
+ Senses->ConfigureSense(*Sight);
+ if(const auto* Bellow=Cast<ABellowSacLobber>(P);Bellow&&Bellow->bSoundSensitive)
  {
-  // The generic 16 m perception radius must not hide players that the V29
-  // tentacle can visibly reach. Other monster sight configurations stay local.
-  auto* Sight=NewObject<UAISenseConfig_Sight>(this);
-  Sight->SightRadius=BC->AggroRadius;Sight->LoseSightRadius=BC->AggroRadius+300.f;
-  Sight->PeripheralVisionAngleDegrees=100.f;Sight->SetMaxAge(MemorySeconds);
-  Sight->DetectionByAffiliation.bDetectEnemies=Sight->DetectionByAffiliation.bDetectFriendlies=Sight->DetectionByAffiliation.bDetectNeutrals=true;
-  Senses->ConfigureSense(*Sight);Senses->RequestStimuliListenerUpdate();
+  auto* Hearing=NewObject<UAISenseConfig_Hearing>(this);
+  Hearing->HearingRange=FMath::Max(0.f,Bellow->HearingRadius);Hearing->SetMaxAge(8.f);
+  Hearing->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,true);
+  Senses->ConfigureSense(*Hearing);
  }
- if(const auto* M08=Cast<ALurkerM08Monster>(P))
- {
-  MemorySeconds=FMath::Max(MemorySeconds,30.f);
-  auto* Sight=NewObject<UAISenseConfig_Sight>(this);
-  Sight->SightRadius=M08->AggroRadius;Sight->LoseSightRadius=M08->AggroRadius+500.f;
-  // Body facing changes during wall traversal; it must not blind acquisition.
-  Sight->PeripheralVisionAngleDegrees=180.f;Sight->SetMaxAge(MemorySeconds);
-  Sight->DetectionByAffiliation.bDetectEnemies=Sight->DetectionByAffiliation.bDetectFriendlies=Sight->DetectionByAffiliation.bDetectNeutrals=true;
-  Senses->ConfigureSense(*Sight);Senses->RequestStimuliListenerUpdate();
- }
- if(const auto* M09=Cast<AHangingBellM09>(P))
- {
-  // M09's 20 m attack must also acquire targets beyond the default 16 m sight.
-  auto* Sight=NewObject<UAISenseConfig_Sight>(this);
-  Sight->SightRadius=M09->AggroRadius;Sight->LoseSightRadius=M09->AggroRadius+300.f;
-  Sight->PeripheralVisionAngleDegrees=100.f;Sight->SetMaxAge(12.f);
-  Sight->DetectionByAffiliation.bDetectEnemies=Sight->DetectionByAffiliation.bDetectFriendlies=Sight->DetectionByAffiliation.bDetectNeutrals=true;
-  Senses->ConfigureSense(*Sight);Senses->RequestStimuliListenerUpdate();
- }
- if(const auto* M25=Cast<AVortexCofferM25>(P))
- {
-  auto* Sight=NewObject<UAISenseConfig_Sight>(this);
-  Sight->SightRadius=M25->AggroRadius;Sight->LoseSightRadius=M25->AggroRadius+500.f;
-  Sight->PeripheralVisionAngleDegrees=180.f;Sight->SetMaxAge(MemorySeconds);
-  Sight->DetectionByAffiliation.bDetectEnemies=Sight->DetectionByAffiliation.bDetectFriendlies=Sight->DetectionByAffiliation.bDetectNeutrals=true;
-  Senses->ConfigureSense(*Sight);Senses->RequestStimuliListenerUpdate();
- }
+ Senses->RequestStimuliListenerUpdate();
  if(Behavior){RunBehaviorTree(Behavior);UpdateKnowledge();UE_LOG(LogTemp,Display,TEXT("MONSTER_BT_READY %s tree=%s"),*P->GetName(),*Behavior->GetPathName());}
  else UE_LOG(LogTemp,Error,TEXT("MONSTER_BT_MISSING %s"),*P->GetName());
 }
-void AMonsterAIController::OnUnPossess(){StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Unpossessed"));KnownTarget.Reset();EncounterTarget.Reset();Super::OnUnPossess();}
-void AMonsterAIController::SetDecisionEnabled(bool Enabled){bDecisionEnabled=Enabled;if(!Enabled)StopMovement();UpdateKnowledge();}
-void AMonsterAIController::Perceived(AActor* Actor,FAIStimulus Stimulus)
-{
- auto* P=Cast<APawn>(Actor);auto* C=Combat();
- if(!P||!P->IsPlayerControlled()||!C||C->IsDead()||C->AggroRange()<=0||!Stimulus.WasSuccessfullySensed())return;
- if(const auto* M08=Cast<ALurkerM08Monster>(GetPawn());M08&&KnownTarget.IsValid()&&KnownTarget.Get()!=P)
-  if(const auto* Health=KnownTarget->FindComponentByClass<UFPSCombatHealthComponent>();
-     (!Health||!Health->IsDead())&&M08->HasHuntingSight(KnownTarget.Get()))return;
- KnownTarget=P;
- // Stimuli are usually at torso/weapon height. Preserve their XY evidence,
- // but store a feet-height navigation goal for characters on stacked floors.
- LastKnown=Stimulus.StimulusLocation;
- LastKnown.Z-=P->GetActorLocation().Z-P->GetNavAgentLocation().Z;
- LastEvidence=GetWorld()->GetTimeSeconds();UpdateKnowledge();
-}
-void AMonsterAIController::RememberDamage(APawn* P)
-{
- if(!IsValid(P)||P==GetPawn())return;KnownTarget=P;LastKnown=P->GetNavAgentLocation();LastEvidence=GetWorld()->GetTimeSeconds();UpdateKnowledge();
-}
+void AMonsterAIController::OnUnPossess(){StopWander();StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Unpossessed"));KnownTarget.Reset();EncounterTarget.Reset();EncounterArea.Reset();PendingDamageTarget.Reset();bPendingGroupAlert=false;PassiveDiscoveryAt=-1.f;Super::OnUnPossess();}
+void AMonsterAIController::SetDecisionEnabled(bool Enabled){bDecisionEnabled=Enabled;if(!Enabled){StopWander();StopMovement();}UpdateKnowledge();}
 void AMonsterAIController::SetEncounterTarget(APawn* P)
 {
  EncounterTarget=P;bReturning=false;
- if(IsValid(P))RememberDamage(P);
+ if(IsValid(P)){DiscoverPlayer(P,false);UpdateKnowledge();}
 }
 void AMonsterAIController::UpdateKnowledge()
 {
  auto* C=Combat();auto* B=GetBlackboardComponent();if(!C||!B||!GetPawn())return;
  const bool Disabled=!bDecisionEnabled||!GetPawn()->IsActorTickEnabled();
+ if(!Disabled)ConsumePassiveDiscovery();
+ const bool HadTarget=B->GetValueAsBool(TEXT("HasTarget"));
+ const bool ReactingToHit=PendingDamageTarget.IsValid();
+ if(Disabled||C->IsBusy()||ReactingToHit)StopWander();
  const auto* Canine=Cast<AWolfMonster>(GetPawn());
  const auto* M07=Cast<ABlindSupplicantMonster>(GetPawn());
  const auto* M08=Cast<ALurkerM08Monster>(GetPawn());
@@ -128,20 +102,20 @@ void AMonsterAIController::UpdateKnowledge()
  const auto* M25=Cast<AVortexCofferM25>(GetPawn());
  const auto* M27=Cast<AMantisM27Monster>(GetPawn());
  const bool FeralPursuit=M27||GetPawn()->IsA<AMutant3>()||(Canine&&Canine->bUsePredictiveHunting);
- B->SetValueAsBool(TEXT("Hold"),Disabled||C->IsBusy());
- if(C->IsDead()){StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Dead"));ActiveAction=TEXT("Dead");return;}
+ B->SetValueAsBool(TEXT("Hold"),Disabled||C->IsBusy()||ReactingToHit);
+ if(C->IsDead()){PendingDamageTarget.Reset();bPendingGroupAlert=false;StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Dead"));ActiveAction=TEXT("Dead");return;}
  if(EncounterTarget.IsValid())KnownTarget=EncounterTarget;
  // Perception updates report changes, not every visible frame. Reacquire from
  // its sight cache after a home/target reset without requiring a second event.
- if(!KnownTarget.IsValid()&&(!bReturning||FeralPursuit)&&C->AggroRange()>0)
+ if(!ReactingToHit&&!KnownTarget.IsValid()&&(!bReturning||FeralPursuit)&&C->AggroRange()>0)
  {
   TArray<AActor*> Seen;Senses->GetCurrentlyPerceivedActors(UAISense_Sight::StaticClass(),Seen);
   float Best=FMath::Square(C->AggroRange());
   for(auto* Actor:Seen)if(auto* P=Cast<APawn>(Actor))if(P->IsPlayerControlled())
   {
    auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();
-   const float D=M08?FVector::DistSquared(P->GetActorLocation(),GetPawn()->GetActorLocation()):FVector::DistSquared2D(P->GetActorLocation(),GetPawn()->GetActorLocation());
-   if((!Health||!Health->IsDead())&&D<Best&&(!M08||M08->HasHuntingSight(P))){Best=D;KnownTarget=P;LastKnown=P->GetNavAgentLocation();LastEvidence=GetWorld()->GetTimeSeconds();}
+   const float D=FVector::DistSquared(P->GetActorLocation(),GetPawn()->GetActorLocation());
+   if((!Health||!Health->IsDead())&&D<Best&&CanSeePlayer(P,true)){Best=D;DiscoverPlayer(P,true);}
   }
   // Sight perception samples the target center. M07 can acquire an exposed
   // upper body over low cover through the same segment used to select spells.
@@ -157,11 +131,11 @@ void AMonsterAIController::UpdateKnowledge()
     if(!IsValid(P)||!P->IsPlayerControlled())continue;
     const auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();
     const FVector Delta=P->GetActorLocation()-GetPawn()->GetActorLocation();
-    const float D=M08?Delta.SizeSquared():Delta.SizeSquared2D();
+    const float D=Delta.SizeSquared();
     if((Health&&Health->IsDead())||D>=Best||
        FVector::DotProduct(GetPawn()->GetActorForwardVector().GetSafeNormal2D(),Delta.GetSafeNormal2D())<ConeCos||
        !(M08?M08->HasHuntingSight(P):M25?LineOfSightTo(P):M07->HasMagicSight(P)))continue;
-    Best=D;KnownTarget=P;LastKnown=P->GetNavAgentLocation();LastEvidence=GetWorld()->GetTimeSeconds();
+    Best=D;DiscoverPlayer(P,true);
    }
   }
  }
@@ -171,34 +145,42 @@ void AMonsterAIController::UpdateKnowledge()
  // Detection and retention are different distances. Once this hunter knows
  // a target, honor perception's lose-sight radius instead of expiring memory
  // just because the player stepped outside the initial 12 m aggro radius.
- float TrackingRange=C->AggroRange();
- if(FeralPursuit&&TrackingRange>0)
-  if(const auto* Sight=Senses->GetSenseConfig<UAISenseConfig_Sight>())TrackingRange=FMath::Max(TrackingRange,Sight->LoseSightRadius);
- bool Visible=Valid&&C->AggroRange()>0&&
-  (M08?FVector::Distance(KnownTarget->GetActorLocation(),GetPawn()->GetActorLocation()):FVector::Dist2D(KnownTarget->GetActorLocation(),GetPawn()->GetActorLocation()))<=TrackingRange&&
-  (M27?M27->HasAttackSight(KnownTarget.Get()):M08?M08->HasHuntingSight(KnownTarget.Get()):M09?M09->HasAttackSight(KnownTarget.Get()):M07?M07->HasMagicSight(KnownTarget.Get()):LineOfSightTo(KnownTarget.Get()));
- // A sealed boss encounter tracks its living entrant through cover. Attacks
- // still require sight; ordinary monsters keep the existing perception memory.
+ bool Visible=!ReactingToHit&&Valid&&CanSeePlayer(KnownTarget.Get(),!bConfirmedTarget);
+ if(Visible&&!bConfirmedTarget)DiscoverPlayer(KnownTarget.Get(),true);
+ // Preserve explicit encounter locks for their existing callers. Hall area
+ // membership alone never supplies a target or refreshes its memory.
  const bool Locked=Valid&&EncounterTarget.IsValid()&&KnownTarget==EncounterTarget;
- if(Visible||Locked){LastKnown=KnownTarget->GetNavAgentLocation();LastEvidence=Now;}
- if(!Valid||C->AggroRange()<=0||Now-LastEvidence>MemorySeconds){KnownTarget.Reset();Valid=false;}
+ // Alerted monsters share a live target lock for the existing memory window.
+ // Occlusion stops attacks, but does not immediately erase the pursuit target.
+ if(Valid&&(bConfirmedTarget||Locked))LastKnown=KnownTarget->GetNavAgentLocation();
+ if(Visible||Locked){LastEvidence=Now;EvidenceLifetime=MemorySeconds;}
+ if(!Valid||C->AggroRange()<=0||Now-LastEvidence>EvidenceLifetime){KnownTarget.Reset();Valid=Visible=bConfirmedTarget=false;bPendingGroupAlert=false;}
  // A feral hunter keeps a living target while it is seen or remembered. The
  // shared 24 m home leash used to override sight, then reacquire the same
  // player at home forever. Other monsters retain their configured home leash.
  if(Valid&&FeralPursuit)bReturning=false;
+ // The two halls share a large combat area. A confirmed chase inside this
+ // area must not hit the ordinary 24 m home leash halfway across the hall.
+ else if(const auto* Area=Cast<ADungeonThemeEncounter>(EncounterArea.Get());
+     Valid&&bConfirmedTarget&&Area&&Area->ContainsLocation(LastKnown)&&
+     Area->ContainsLocation(GetPawn()->GetActorLocation()))bReturning=false;
  else if(FVector::Dist2D(GetPawn()->GetActorLocation(),C->Home())>C->LeashRange())bReturning=true;
  const FVector HomeFeet=M08?M08->HomeSupportLocation():C->Home()-(GetPawn()->GetActorLocation()-GetPawn()->GetNavAgentLocation());
- if(!Valid&&!(M25&&M25->bSearchForPlayers)&&(FVector::Dist2D(GetPawn()->GetNavAgentLocation(),HomeFeet)>80||FMath::Abs(GetPawn()->GetNavAgentLocation().Z-HomeFeet.Z)>50))bReturning=true;
+ // Losing a remembered enemy returns home; an unaware wanderer may move away
+ // from home without the old 80 cm idle check cancelling every stroll.
+ if(!Valid&&HadTarget&&!PendingDamageTarget.IsValid()&&(FVector::Dist2D(GetPawn()->GetNavAgentLocation(),HomeFeet)>80||FMath::Abs(GetPawn()->GetNavAgentLocation().Z-HomeFeet.Z)>50))bReturning=true;
  if(bReturning&&FVector::Dist2D(GetPawn()->GetNavAgentLocation(),HomeFeet)<80&&FMath::Abs(GetPawn()->GetNavAgentLocation().Z-HomeFeet.Z)<50){bReturning=false;KnownTarget.Reset();Valid=false;C->ReachedHome();LastEvidence=-100;}
- C->SetTarget(Valid&&!bReturning?KnownTarget.Get():nullptr);
- if(!Disabled&&Valid&&!bReturning)
+ C->SetTarget(Valid&&bConfirmedTarget&&!bReturning?KnownTarget.Get():nullptr);
+ if(Valid||bReturning)StopWander();
+ if(!Disabled&&Valid&&bConfirmedTarget&&!bReturning)
   if(auto* EncounterMantis=Cast<AMantisM27Monster>(GetPawn()))EncounterMantis->NotifyCloakEncounter(KnownTarget.Get());
  B->SetValueAsObject(TEXT("Target"),Valid?KnownTarget.Get():nullptr);
  B->SetValueAsVector(TEXT("LastKnown"),LastKnown);B->SetValueAsVector(TEXT("Home"),HomeFeet);
  B->SetValueAsBool(TEXT("Visible"),Visible);B->SetValueAsBool(TEXT("Returning"),bReturning);
- const bool WallInWay=Valid&&!Visible&&IceWallCombat::BlockingWall(GetPawn(),KnownTarget.Get(),C->AggroRange());
+ const bool WallInWay=Valid&&bConfirmedTarget&&!Visible&&IceWallCombat::BlockingWall(GetPawn(),KnownTarget.Get(),C->AggroRange());
  B->SetValueAsBool(TEXT("CanAttack"),!bReturning&&(Visible||WallInWay)&&C->CanAttack(KnownTarget.Get()));
  B->SetValueAsBool(TEXT("HasTarget"),Valid&&!bReturning);
+ if(!Disabled&&Valid&&!bReturning&&bPendingGroupAlert)BroadcastGroupAlert();
 }
 void AMonsterAIController::NavigateTo(FVector Destination,float Acceptance)
 {

@@ -26,6 +26,11 @@ public:
     void ClearImpactDecalsForComponent(const UPrimitiveComponent* Component);
     void SpawnPounceLanding(const FHitResult& Ground, const FVector& Forward, float Radius, float Angle, UCameraComponent* ViewCamera, const AActor* Source, bool bPlaySound = true);
     void SpawnSlagSlam(const FHitResult& Ground, const FVector& Forward, float Radius, UCameraComponent* ViewCamera, const AActor* Source);
+    void SpawnSacRupture(const FVector& Origin, const FVector& Normal, float Radius, UCameraComponent* ViewCamera);
+    void PlaySacImpact(const FVector& Position, bool bBurst);
+    USoundBase* SacFlightCue() const { return SacFlightSound.Get(); }
+    USoundBase* SacFuseCue() const { return SacFuseSound.Get(); }
+    static float SacAudioGain();
     virtual void OnWorldBeginPlay(UWorld& InWorld) override;
     virtual void Deinitialize() override;
     virtual void Tick(float DeltaTime) override;
@@ -40,9 +45,10 @@ private:
     static constexpr int32 BloodMistSlots = 24;
     static constexpr int32 BloodDropSlots = 96;
     static constexpr int32 GroundWaveSlots = 4;
+    static constexpr int32 PressureWaveSlots = 4;
     static constexpr int32 MaxActiveParticles = 192;
-    static constexpr int32 ParticleSlots = SparkSlots + DustSlots + ChipSlots + BloodMistSlots + BloodDropSlots + GroundWaveSlots;
-    static constexpr int32 ParticleGroups = 6;
+    static constexpr int32 ParticleSlots = SparkSlots + DustSlots + ChipSlots + BloodMistSlots + BloodDropSlots + GroundWaveSlots + PressureWaveSlots;
+    static constexpr int32 ParticleGroups = 7;
     static constexpr int32 DecalSlots = 24;
     static constexpr int32 BloodDecalSlots = 48;
     static constexpr int32 VoiceSlots = 6;
@@ -83,6 +89,12 @@ UPROPERTY() TArray<TObjectPtr<USoundBase>> Sounds;
 /** Gun-hit cue used instead of the generic flesh bank when a round lands on a body. */
     UPROPERTY() TObjectPtr<USoundBase> GunHitSound;
     UPROPERTY() TObjectPtr<USoundBase> PounceImpactSound;
+    UPROPERTY() TObjectPtr<USoundBase> SacFlightSound;
+    UPROPERTY() TObjectPtr<USoundBase> SacFuseSound;
+    UPROPERTY() TObjectPtr<USoundBase> SacRuptureSound;
+    UPROPERTY() TObjectPtr<USoundBase> SacContactSound;
+    UPROPERTY(Transient) TArray<TObjectPtr<UAudioComponent>> SacVoices;
+    double SacVoiceUntil[6] = {};
     UPROPERTY(Transient) TArray<TObjectPtr<UInstancedStaticMeshComponent>> Renderers;
     UPROPERTY(Transient) TArray<TObjectPtr<UDecalComponent>> Decals;
     UPROPERTY(Transient) TArray<TObjectPtr<UDecalComponent>> BloodDecals;

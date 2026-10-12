@@ -10,6 +10,16 @@
 #include "GameFramework/Character.h"
 #include "UObject/ConstructorHelpers.h"
 
+TArray<FString> ADungeonRoomGate::AssetPaths()
+{
+    return {
+        TEXT("/Game/Dungeons/EliteGate20260926/Meshes/SM_EliteGrillePanel.SM_EliteGrillePanel"),
+        TEXT("/Game/Dungeons/EliteGate20260926/Meshes/SM_EliteGrilleGuideLeft.SM_EliteGrilleGuideLeft"),
+        TEXT("/Game/Dungeons/EliteGate20260926/Meshes/SM_EliteGrilleGuideRight.SM_EliteGrilleGuideRight"),
+        TEXT("/Game/Dungeons/EliteGate20260926/Meshes/SM_EliteGrilleHead.SM_EliteGrilleHead")
+    };
+}
+
 ADungeonRoomGate::ADungeonRoomGate()
 {
     RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("GrilleRoot"));
@@ -27,10 +37,11 @@ ADungeonRoomGate::ADungeonRoomGate()
         Part->SetCanEverAffectNavigation(false);
     }
     // Hard references keep this runtime-spawned kit and its source finishes in cooks.
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> PanelAsset(TEXT("/Game/Dungeons/EliteGate20260926/Meshes/SM_EliteGrillePanel.SM_EliteGrillePanel"));
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> LeftAsset(TEXT("/Game/Dungeons/EliteGate20260926/Meshes/SM_EliteGrilleGuideLeft.SM_EliteGrilleGuideLeft"));
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> RightAsset(TEXT("/Game/Dungeons/EliteGate20260926/Meshes/SM_EliteGrilleGuideRight.SM_EliteGrilleGuideRight"));
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> HeadAsset(TEXT("/Game/Dungeons/EliteGate20260926/Meshes/SM_EliteGrilleHead.SM_EliteGrilleHead"));
+    static const TArray<FString> Assets = AssetPaths();
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> PanelAsset(*Assets[0]);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> LeftAsset(*Assets[1]);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> RightAsset(*Assets[2]);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> HeadAsset(*Assets[3]);
     if (PanelAsset.Succeeded()) Panels->SetStaticMesh(PanelAsset.Object);
     if (LeftAsset.Succeeded()) GuideLeft->SetStaticMesh(LeftAsset.Object);
     if (RightAsset.Succeeded()) GuideRight->SetStaticMesh(RightAsset.Object);

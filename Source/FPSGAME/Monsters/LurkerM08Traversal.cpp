@@ -91,6 +91,32 @@ void ALurkerM08Monster::StopSurfaceNavigation()
     if (!bTraversalJump && bSurfaceAttached) GetCharacterMovement()->StopMovementImmediately();
     if (!Busy()) SetLocomotion(false, false);
 }
+bool ALurkerM08Monster::TryWanderSurface(FVector DesiredCenter, FVector& GoalCenter)
+{
+    if (!bSurfaceAttached || Busy() || Combat->IsControlled()) return false;
+    // Short continuous steps on the current support plane. Idle wandering never
+    // launches the combat surface search or a traversal leap across a gap.
+    const FVector Start = GetActorLocation();
+    const int32 Steps = FMath::Clamp(FMath::CeilToInt(FVector::Distance(Start, DesiredCenter) / 50.f), 1, 10);
+    TArray<FLurkerSurfacePoint> Points;
+    FVector Previous = Start;
+    for (int32 I = 1; I <= Steps; ++I)
+    {
+        const FVector Near = FMath::Lerp(Start, DesiredCenter, float(I) / Steps);
+        FLurkerSurfacePoint Point;
+        if (!LurkerSurfaceRoute::Support(GetWorld(), this, Near + SurfaceNormal * 15.f,
+            Near - SurfaceNormal * (BodyRadius() + 40.f), BodyRadius(), Point)
+            || FVector::DotProduct(Point.Normal, SurfaceNormal) < .85f
+            || !LurkerSurfaceRoute::Segment(GetWorld(), this, Previous, Point.Center, BodyRadius())) return false;
+        Points.Add(Point); Previous = Point.Center;
+    }
+    GoalCenter = Points.Last().Center;
+    SurfacePath = MoveTemp(Points); SurfaceGoal = PlannedSurfaceGoal = GoalCenter;
+    SurfaceVictim.Reset(); RecentSupports.Reset(); bSurfaceReturning = false;
+    bHasSurfacePlan = bWantsSurfaceMove = true; RouteAge = StuckSeconds = 0.f;
+    SetLocomotion(true, false);
+    return true;
+}
 void ALurkerM08Monster::OrientToSurface(FVector Direction, FVector Normal, float Dt)
 {
     FVector Forward = FVector::VectorPlaneProject(Direction, Normal).GetSafeNormal();
@@ -159,6 +185,9 @@ void ALurkerM08Monster::TickSurface(float Dt)
             || !Hit.GetActor() || Hit.GetActor()->IsA<APawn>()) { DetachSurface(); return; }
     }
     if (Busy() || !bWantsSurfaceMove) return;
+    const auto* AI = Cast<AMonsterAIController>(GetController());
+    const bool Wandering = AI && AI->IsWandering();
+    if (Wandering && SurfacePath.IsEmpty()) { StopSurfaceNavigation(); return; }
     if (SurfacePath.IsEmpty() && RouteAge >= .7f)
     {
         RouteAge = 0.f;
@@ -178,7 +207,8 @@ void ALurkerM08Monster::TickSurface(float Dt)
     }
     const FLurkerSurfacePoint Next = SurfacePath[0];
     const FVector Delta = Next.Center - GetActorLocation();
-    const float Speed = bSurfaceReturning ? WalkSpeed : Next.Normal.Z > .65f ? ChaseSpeed : ClimbSpeed;
+    const float Speed = (bSurfaceReturning ? WalkSpeed : Next.Normal.Z > .65f ? ChaseSpeed : ClimbSpeed)
+        * (AI ? AI->IdleMovementScale() : 1.f);
     SetLocomotion(true, bSurfaceReturning);
     GetCharacterMovement()->bOrientRotationToMovement = false;
     const FVector Before = GetActorLocation();

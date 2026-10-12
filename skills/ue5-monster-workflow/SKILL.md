@@ -175,3 +175,5 @@ M-07 背膜最新为 V38：V37 修正主体材质缺少 Clothing 用途，V38 �
 ## 韧性条与控制合同
 
 调整怪物五档韧性、破韧恢复、基础削韧和击飞/击倒门槛时，读取 [韧性条与控制](references/toughness-bars-and-control.md)。保留击退独立、权威阶段复制与显式眩晕时钟；历史联机审计未结案项另行记录。
+
+鼓囊 M-09 的原骨架动作、单时钟抛射、屏边爆炸方向提示、事件音效和混合版本恢复读 [鼓囊与爆炸物提示](references/bellow-sac-lobber.md)。其制作与构建状态不代表游戏验收；逐足地形适配继续看 [M 系列移动与动作时钟](references/m-series-locomotion.md)。

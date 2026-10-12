@@ -1,0 +1,456 @@
+{
+  "readback_verified": true,
+  "entries": [
+    {
+      "bytes": 20956,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallWaves20261012/Before/Config/DefaultGame.ini",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallWaves20261012/Before/Config/DefaultGame.ini",
+      "sha256": "1ff40d1371d80eb4480fb55a0047a95dfcbfbbe813a613780d5039f6dc6c9785"
+    },
+    {
+      "bytes": 121724,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallWaves20261012/Before/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallWaves20261012/Before/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "sha256": "4b9e6cc6a165cf10d37d05c894d8a05d85e13d50545fdabc2b5346cb9203296a"
+    },
+    {
+      "bytes": 18479,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallWaves20261012/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallWaves20261012/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "sha256": "016c0a0e700eb3bfe5050447407f0d57750877efdbcc735e04552c9e35a6d019"
+    },
+    {
+      "bytes": 7399,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallWaves20261012/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallWaves20261012/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "sha256": "6e68d3fe3c1f75b4400c5763cce042ba8e1cac6f52c20ede0a9016ec739123c4"
+    },
+    {
+      "bytes": 17829,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallWaves20261012/Before/Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallWaves20261012/Before/Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "sha256": "053f0237275b2b393cf5dbdbe97a610a51afaa1bc31b84b367a7a8ba0c63df20"
+    },
+    {
+      "bytes": 5255,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallThemeGates20261012/Before/Docs/Gameplay/facility-hall-waves-20261012.md",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallThemeGates20261012/Before/Docs/Gameplay/facility-hall-waves-20261012.md",
+      "sha256": "df4c51897b01202d7e163bef6e510e0ecaf83695187728609cb2654994d8eae3"
+    },
+    {
+      "bytes": 122494,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "sha256": "b1c168233ab34140b1a1458eaf393ff77b6fd3c95754d5bbf6ae5f7345b971da"
+    },
+    {
+      "bytes": 10031,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/DungeonRoomGate.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/DungeonRoomGate.cpp",
+      "sha256": "c380e4202de915827ae826123b065e0c24a25deb6aa06ee4646c111fe358d35f"
+    },
+    {
+      "bytes": 1426,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/DungeonRoomGate.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/DungeonRoomGate.h",
+      "sha256": "9c0079c45135679f562ec0bf6ede6dcae7fc4ebe9d25b8800e6624b30860dbc1"
+    },
+    {
+      "bytes": 19254,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "sha256": "b27fb161389caff2b7850e79bda5176812d9aa01a93adcf931574b0348073958"
+    },
+    {
+      "bytes": 7473,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "sha256": "64be998af10e7ee0456bfd77ec5d54e4805a6bcede96b58543c095165f14e645"
+    },
+    {
+      "bytes": 17447,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "sha256": "2a73b7ab84fd44d4e0237db66c71dde95dbffd684b0d828567e66dd493528c47"
+    },
+    {
+      "bytes": 2428,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallThemeGates20261012/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "sha256": "c80b13d5bb4b3323af67af2159eff9310b45ad8921b4c2516844c237d124f188"
+    },
+    {
+      "bytes": 37699,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterWander20261012/Before/HangingBellM09.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterWander20261012/Before/HangingBellM09.cpp",
+      "sha256": "b4bff2c8cfa90345f4cbf09953d3231f2893c2c69360c3cf3ce6368cfb5310fa"
+    },
+    {
+      "bytes": 8925,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterWander20261012/Before/HangingBellM09.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterWander20261012/Before/HangingBellM09.h",
+      "sha256": "fc032fbf5276f7d3b13819915f39423b4a8189bd9b215cb5ec5c5b7abbb67634"
+    },
+    {
+      "bytes": 9684,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterWander20261012/Before/LurkerM08Monster.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterWander20261012/Before/LurkerM08Monster.h",
+      "sha256": "61b2cc3253a0c46ccf11d4bfb6f10309dfb3913ed6ee3a923f82afe16201381a"
+    },
+    {
+      "bytes": 22209,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterWander20261012/Before/LurkerM08Traversal.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterWander20261012/Before/LurkerM08Traversal.cpp",
+      "sha256": "d4a9c47213ad2cbc727bed7f511cc141e28e60c612231047bcb163eb52eac7ec"
+    },
+    {
+      "bytes": 18073,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterWander20261012/Before/MonsterAIController.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterWander20261012/Before/MonsterAIController.cpp",
+      "sha256": "56e414142e8ade8641fa753f5f047bd5aca559ab7e602e392159d470454f98ae"
+    },
+    {
+      "bytes": 2197,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterWander20261012/Before/MonsterAIController.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterWander20261012/Before/MonsterAIController.h",
+      "sha256": "34884b8c046d1380e3674a227b960ed3fe4a16a1b9aa1865aa3ba901a2f473fd"
+    },
+    {
+      "bytes": 9327,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterWander20261012/Before/MonsterBTNodes.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterWander20261012/Before/MonsterBTNodes.cpp",
+      "sha256": "b82f98edc5dc392d755c9cc96c50fae0088fbccbafde57a8151fe21a1b0dd877"
+    },
+    {
+      "bytes": 4405,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterWander20261012/Before/MonsterCharacterMovementComponent.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterWander20261012/Before/MonsterCharacterMovementComponent.cpp",
+      "sha256": "03122d6d29b4bc9660e447a7c79eec49968cb5f7ed52ea1586f29a79d9a8bdd6"
+    },
+    {
+      "bytes": 1314,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterWander20261012/Before/MonsterCharacterMovementComponent.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterWander20261012/Before/MonsterCharacterMovementComponent.h",
+      "sha256": "ceade9bcf739909cb53defec46613c951e34a7213f1ac1289a1c2b680d4e3e01"
+    },
+    {
+      "bytes": 4712,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp",
+      "sha256": "72f60e658b2a8d706151609f365183074f77027960b8ea2fa68dff54f9897a26"
+    },
+    {
+      "bytes": 1241,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h",
+      "sha256": "589d532dcddefb5df62ba887e8855159f25df52f8246ff1ca598272e8e50b50b"
+    },
+    {
+      "bytes": 17591,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "sha256": "e5fd2375a2cb77e1c5d9c2d54f4eca228defc58d6afffccfa6e2088132f3d5c0"
+    },
+    {
+      "bytes": 2523,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "sha256": "df3af824e849d2f6f7f6a86508d221f318adb79ef6aaa639683434c8cf9aaa19"
+    },
+    {
+      "bytes": 18555,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "sha256": "75ed987cbcb6e1c17374e1755b432198ec0f0b538ee7f4f571c451583ccd9cb7"
+    },
+    {
+      "bytes": 2921,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Monsters/MonsterAIController.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Monsters/MonsterAIController.h",
+      "sha256": "a80d7f3cfca57a7822920fa14a8a00ec306b4e4583364fd35f81f708ca5398d7"
+    },
+    {
+      "bytes": 8846,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Monsters/MonsterBTNodes.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MonsterAwareness20261012/Before/Source/FPSGAME/Monsters/MonsterBTNodes.cpp",
+      "sha256": "d5f3342f36f276a397bc3840d41021260737d66b818d52291d5a88b7a256bdd8"
+    },
+    {
+      "bytes": 21163,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/BellowSacLobber20261012/Before/DefaultGame.ini",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/BellowSacLobber20261012/Before/DefaultGame.ini",
+      "sha256": "200f12087e6be4401f602b8772b51acb454d6c574b2ee9d5aed284c69d678dea"
+    },
+    {
+      "bytes": 14308,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/BellowSacLobber20261012/Before/DevelopmentSpawnComponent.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/BellowSacLobber20261012/Before/DevelopmentSpawnComponent.cpp",
+      "sha256": "1a574b969096981ba804e02adc43626d02f1b08aa76fdb38653b95e7860b8fbb"
+    },
+    {
+      "bytes": 20765,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallBellow20261012/Before/DungeonRunSubsystem.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallBellow20261012/Before/DungeonRunSubsystem.cpp",
+      "sha256": "4037e769446a61458aaa9d25093b47803fa5663834d95e8b6cf3e6e48fce1018"
+    },
+    {
+      "bytes": 7534,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallBellow20261012/Before/DungeonRunSubsystem.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallBellow20261012/Before/DungeonRunSubsystem.h",
+      "sha256": "ad47dda6b1bd8254211215e228d684ce85e77fb4f2619c1ad5b1a8b693abb8a0"
+    },
+    {
+      "bytes": 19037,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallBellow20261012/Before/FacilityHallEncounter.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallBellow20261012/Before/FacilityHallEncounter.cpp",
+      "sha256": "af6619f411822c11d35f8ba840d5db6dfa7d0b575a004575fc1ab44e158044e6"
+    },
+    {
+      "bytes": 2615,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallBellow20261012/Before/FacilityHallEncounter.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallBellow20261012/Before/FacilityHallEncounter.h",
+      "sha256": "348c02156fac0690e72b7b89b9222c0e91d16c0eff1c04f4936e2d1462f8f0e4"
+    },
+    {
+      "bytes": 5089,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/HallBellow20261012/Before/FPSDodgeMovement.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/HallBellow20261012/Before/FPSDodgeMovement.cpp",
+      "sha256": "2c78c9090c92a44fd97d156ce551a910f6d06f8977e2e20303f8566704000848"
+    },
+    {
+      "bytes": 14162,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/BellowEdgeWarnings20261012/Before/ColdSteelExplosiveWarnings.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/BellowEdgeWarnings20261012/Before/ColdSteelExplosiveWarnings.cpp",
+      "sha256": "707c66ea72c407d4c79fd758e0c154f30de08f373d8ab081494c97c7cc96d7de"
+    },
+    {
+      "bytes": 43250,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/BellowMuteCharge20261012/Before/BP_BellowSacLobber.uasset",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/BellowMuteCharge20261012/Before/BP_BellowSacLobber.uasset",
+      "sha256": "be57c495cd342cec89377d9bcdef53dcec231c2ef3ac61249efb4d865451b6c8"
+    },
+    {
+      "bytes": 4953,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/BellowMuteCharge20261012/Before/import_creature_audio_v10.py",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/BellowMuteCharge20261012/Before/import_creature_audio_v10.py",
+      "sha256": "5be6cdc855bfca24e3547101ad6cc1680e285161f80ed5fedf48c32579808cf5"
+    },
+    {
+      "bytes": 14464,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/BellowStairFeet20261012/Before/QuadrupedAnimationTemplate.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/BellowStairFeet20261012/Before/QuadrupedAnimationTemplate.cpp",
+      "sha256": "7741367f4249b3ee6c0070d0c38072f09913772cd8fefec589f10e838400cf21"
+    },
+    {
+      "bytes": 15031,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MSeriesGrounding20261012/Before/BellowGroundingNode.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MSeriesGrounding20261012/Before/BellowGroundingNode.cpp",
+      "sha256": "967fc5e7d6734a3cc80e8449e20e12e5866059cb03c9eddd7f6c95613ac868a2"
+    },
+    {
+      "bytes": 9137,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MSeriesGrounding20261012/Before/BlindSupplicantAnimInstance.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MSeriesGrounding20261012/Before/BlindSupplicantAnimInstance.cpp",
+      "sha256": "85adadd8314dff216ea1800fabbed3b3127f2ac400edf1d7affbb80beb8c9344"
+    },
+    {
+      "bytes": 17598,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MSeriesGrounding20261012/Before/BoundCongregateAnimInstance.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MSeriesGrounding20261012/Before/BoundCongregateAnimInstance.cpp",
+      "sha256": "d5aaa853d73c0c42fab6f8e36dd355e7cfcc3c6edae7bda9ad73e0734541226d"
+    },
+    {
+      "bytes": 5064,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MSeriesGrounding20261012/Before/BoundCongregateTentacleGround.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MSeriesGrounding20261012/Before/BoundCongregateTentacleGround.h",
+      "sha256": "6c541060477b4dde30818b397ccabe42377243adc5bcfbc23aec975c96f777ff"
+    },
+    {
+      "bytes": 16435,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MSeriesGrounding20261012/Before/FatZombieAnimInstance.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MSeriesGrounding20261012/Before/FatZombieAnimInstance.cpp",
+      "sha256": "3e31aadf3e9c75fa3e6becc18c0ddf4763a322115ab2ab17e9f630ff21d76678"
+    },
+    {
+      "bytes": 28525,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MSeriesGrounding20261012/Before/LurkerM08ContactNode.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MSeriesGrounding20261012/Before/LurkerM08ContactNode.cpp",
+      "sha256": "e6c6636a823a752b3336fdc7f465ab409d81507562fe6392a939f4d9b6183949"
+    },
+    {
+      "bytes": 3830,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MSeriesGrounding20261012/Before/LurkerM08ContactNode.h",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MSeriesGrounding20261012/Before/LurkerM08ContactNode.h",
+      "sha256": "ec2b989c34fe47011997fd30bd751f713673666449cb4a81eb2e57e2b30f0bf1"
+    },
+    {
+      "bytes": 6266,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MSeriesGrounding20261012/Before/M09CeilingRoute.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MSeriesGrounding20261012/Before/M09CeilingRoute.cpp",
+      "sha256": "0ac3e3754c57240bfbfbcce9a9d9111f92a46844f47cfd3db8a5a9c1e88e6975"
+    },
+    {
+      "bytes": 7649,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MSeriesGrounding20261012/Before/M10TerrainFeet.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MSeriesGrounding20261012/Before/M10TerrainFeet.cpp",
+      "sha256": "b68683d9df5eb5419958afc0dccad80f3e4ddeef7f1062b1ff776833ac6195b0"
+    },
+    {
+      "bytes": 6016,
+      "reason": "Completed iteration rollback snapshot; retained recoverably, superseded by current production source and assets",
+      "destination": "trash/m-series-closeout-20261012/Saved/MSeriesGrounding20261012/Before/M25AnimInstance.cpp",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Saved/MSeriesGrounding20261012/Before/M25AnimInstance.cpp",
+      "sha256": "ac0e2d47fb5b7d65b4996128e68abd1f59b2168d0328f073d4f25067a2414549"
+    },
+    {
+      "bytes": 473,
+      "reason": "Completed one-off editor close or interrupted-import recovery; not part of normal reconstruction",
+      "destination": "trash/m-series-closeout-20261012/Tools/BellowSacLobber/authorized_end_and_close_v02.py",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Tools/BellowSacLobber/authorized_end_and_close_v02.py",
+      "sha256": "ef7d9ea8a98cf1ec9b10d07df9b226855491f08af8991dd4c85be70c8917fd87"
+    },
+    {
+      "bytes": 497,
+      "reason": "Completed one-off editor close or interrupted-import recovery; not part of normal reconstruction",
+      "destination": "trash/m-series-closeout-20261012/Tools/BellowSacLobber/close_clean_editor_v02.py",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Tools/BellowSacLobber/close_clean_editor_v02.py",
+      "sha256": "fb8acbb56ab3cc99af3ea7276680ab48d20b4b5f35fc9d7abafde8405c37db08"
+    },
+    {
+      "bytes": 480,
+      "reason": "Completed one-off editor close or interrupted-import recovery; not part of normal reconstruction",
+      "destination": "trash/m-series-closeout-20261012/Tools/BellowSacLobber/editor_close_readiness_v02.py",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Tools/BellowSacLobber/editor_close_readiness_v02.py",
+      "sha256": "ce854424640874344a5b0c7f40beed4a7d5a92f62adc2257728530f9a5a7a0bf"
+    },
+    {
+      "bytes": 1387,
+      "reason": "Completed one-off editor close or interrupted-import recovery; not part of normal reconstruction",
+      "destination": "trash/m-series-closeout-20261012/Tools/BellowSacLobber/save_authorized_icons_close_v11.py",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Tools/BellowSacLobber/save_authorized_icons_close_v11.py",
+      "sha256": "adf4514c98017bbc0cad059197b6e7690f44bd14040d340bfc21f5ef45331dbb"
+    },
+    {
+      "bytes": 137,
+      "reason": "Completed one-off editor close or interrupted-import recovery; not part of normal reconstruction",
+      "destination": "trash/m-series-closeout-20261012/Tools/BellowSacLobber/stop_pie_for_native_install_v02.py",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Tools/BellowSacLobber/stop_pie_for_native_install_v02.py",
+      "sha256": "14e1980f9e9dacf1717dd6963dccfdf3ce5cb5fa008af47e418dfcc07263cbee"
+    },
+    {
+      "bytes": 518,
+      "reason": "Completed one-off editor close or interrupted-import recovery; not part of normal reconstruction",
+      "destination": "trash/m-series-closeout-20261012/Tools/BellowSacLobber/resume_nozzle_pressure_v03.py",
+      "replacement": "Current Source/, Tools/BellowSacLobber/, production Content/ and retained SourceAssets/; see closeout README",
+      "source": "Tools/BellowSacLobber/resume_nozzle_pressure_v03.py",
+      "sha256": "828dc524abd44c44bf88377bcc90e6e0ea84bb7b23b27cb7e9391477b7b1052d"
+    }
+  ],
+  "archive": "trash/m-series-closeout-20261012",
+  "bytes": 828800.0,
+  "files": 56
+}

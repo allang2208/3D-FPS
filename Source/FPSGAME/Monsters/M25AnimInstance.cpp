@@ -6,13 +6,18 @@
 #include "AnimNodes/AnimNode_SequenceEvaluator.h"
 #include "AnimNodes/AnimNode_TwoWayBlend.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Animation/AnimNodeSpaceConversions.h"
+#include "MonsterSurfaceGroundingNode.h"
 
 struct FM25AnimProxy : FAnimInstanceProxy
 {
     FAnimNode_SequenceEvaluator_Standalone Idle, Crawl, Bite, Hit, Death;
     FAnimNode_TwoWayBlend Locomotion, AttackPose, HitPose, FinalPose;
+    FAnimNode_ConvertLocalToComponentSpace ToComponent;
+    FMonsterSurfaceGroundingNode SurfaceGround;
+    FAnimNode_ConvertComponentToLocalSpace ToLocal;
 
-    explicit FM25AnimProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance)
+    explicit FM25AnimProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance), SurfaceGround(Instance)
     {
         Locomotion.A.SetLinkNode(&Idle);
         Locomotion.B.SetLinkNode(&Crawl);
@@ -22,11 +27,14 @@ struct FM25AnimProxy : FAnimInstanceProxy
         HitPose.B.SetLinkNode(&Hit);
         FinalPose.A.SetLinkNode(&HitPose);
         FinalPose.B.SetLinkNode(&Death);
+        ToComponent.LocalPose.SetLinkNode(&FinalPose);
+        SurfaceGround.ComponentPose.SetLinkNode(&ToComponent);
+        ToLocal.ComponentPose.SetLinkNode(&SurfaceGround);
     }
-    virtual FAnimNode_Base* GetCustomRootNode() override { return &FinalPose; }
+    virtual FAnimNode_Base* GetCustomRootNode() override { return &ToLocal; }
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {
-        Nodes.Append({ &Idle, &Crawl, &Bite, &Hit, &Death, &Locomotion, &AttackPose, &HitPose, &FinalPose });
+        Nodes.Append({ &Idle, &Crawl, &Bite, &Hit, &Death, &Locomotion, &AttackPose, &HitPose, &FinalPose, &ToComponent, &SurfaceGround, &ToLocal });
     }
     static void Sample(FAnimNode_SequenceEvaluator_Standalone& Node, UAnimSequence* Clip, float Time, bool bLoop = true)
     {
@@ -40,6 +48,7 @@ struct FM25AnimProxy : FAnimInstanceProxy
         FAnimInstanceProxy::PreUpdate(Instance, DeltaSeconds);
         const auto* Anim = CastChecked<UM25AnimInstance>(Instance);
         const auto* Monster = Cast<AVortexCofferM25>(Anim->TryGetPawnOwner());
+        SurfaceGround.Prepare(Monster,DeltaSeconds);
         if (!Monster) return;
         Sample(Idle, Monster->IdleClip, Anim->IdleTime);
         Sample(Crawl, Monster->MoveClip, Anim->CrawlTime);

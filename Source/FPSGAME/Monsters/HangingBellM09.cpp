@@ -266,6 +266,21 @@ void AHangingBellM09::SetLocomotion(bool Moving,bool Returning)
  if(State!=Next)SetState(Next);
 }
 void AHangingBellM09::StopCeiling(){bWantsMove=false;Path.Reset();if(!Busy())SetLocomotion(false);}
+float AHangingBellM09::CeilingIdleMovementScale() const
+{
+ const auto* AI=Cast<AMonsterAIController>(GetController());
+ return AI?AI->IdleMovementScale():1.f;
+}
+bool AHangingBellM09::TryWanderCeiling(FVector DesiredCenter,FVector& GoalCenter)
+{
+ if(Busy()||!bInitialized)return false;
+ FVector End;
+ if(!AM09CeilingRoute::FindSupport(GetWorld(),DesiredCenter+FVector(0,0,143),this,End)
+  ||!AM09CeilingRoute::ClearSegment(GetWorld(),CeilingCenter(),End,this))return false;
+ Path.Reset();Path.Add(End);LastDestination=End;PathAge=0.f;
+ GoalCenter=End-FVector(0,0,143);DesiredYaw=(End-CeilingCenter()).Rotation().Yaw;
+ SetLocomotion(true,false);return true;
+}
 void AHangingBellM09::NavigateCeiling(FVector Destination,bool Returning)
 {
  if(Busy()||!bInitialized)return;
@@ -284,7 +299,7 @@ void AHangingBellM09::NavigateCeiling(FVector Destination,bool Returning)
 void AHangingBellM09::UpdateCeilingAnimationRate()
 {
  const bool Turning=FMath::Abs(FMath::FindDeltaAngleDegrees(GetActorRotation().Yaw,DesiredYaw))>4.f;
- const float Rate=Turning?CeilingTurnAnimationRate:CeilingLocomotionRate;
+ const float Rate=(Turning?CeilingTurnAnimationRate:CeilingLocomotionRate)*CeilingIdleMovementScale();
  if(CeilingAnimationRate!=Rate){CeilingAnimationRate=Rate;ForceNetUpdate();}
 }
 bool AHangingBellM09::ResolveCeilingGrip(const FTransform& Frame,int32 Side,FVector& Position,FQuat& Rotation) const
@@ -329,8 +344,8 @@ void AHangingBellM09::TickGrips(float Dt,bool Moving)
   // Pick the rate at grip boundaries so an airborne hand keeps a continuous arc.
   UpdateCeilingAnimationRate();
   const float StepSeconds=AuthoredGripStepSeconds/CeilingAnimationRate;
-  const FVector Travel=Path.IsEmpty()?FVector::ZeroVector:((Path[0]-CeilingCenter())*FVector(1,1,0)).GetClampedToMaxSize(CeilingSpeed*CeilingLocomotionRate*StepSeconds);
-  const float Yaw=FMath::FixedTurn(GetActorRotation().Yaw,DesiredYaw,TurnDegreesPerSecond*StepSeconds*(4.f/3.f));
+  const FVector Travel=Path.IsEmpty()?FVector::ZeroVector:((Path[0]-CeilingCenter())*FVector(1,1,0)).GetClampedToMaxSize(CeilingSpeed*CeilingLocomotionRate*CeilingIdleMovementScale()*StepSeconds);
+  const float Yaw=FMath::FixedTurn(GetActorRotation().Yaw,DesiredYaw,TurnDegreesPerSecond*CeilingIdleMovementScale()*StepSeconds*(4.f/3.f));
   const FTransform Future(FRotator(0,Yaw,0),GetActorLocation()+Travel);
   FVector End;FQuat Rotation;
   if(ResolveCeilingGrip(Future,GripSide,End,Rotation))
@@ -364,11 +379,11 @@ void AHangingBellM09::TickCeiling(float Dt)
  {
   FollowCeilingHeight(Dt);GetCharacterMovement()->Velocity=(GetActorLocation()-Before)/FMath::Max(.001f,Dt);return;
  }
- const float Yaw=FMath::FixedTurn(GetActorRotation().Yaw,DesiredYaw,TurnDegreesPerSecond*Dt);SetActorRotation(FRotator(0,Yaw,0));
+ const float Yaw=FMath::FixedTurn(GetActorRotation().Yaw,DesiredYaw,TurnDegreesPerSecond*CeilingIdleMovementScale()*Dt);SetActorRotation(FRotator(0,Yaw,0));
  if(!Path.IsEmpty())
  {
   const FVector Old=CeilingCenter(),Delta=(Path[0]-Old)*FVector(1,1,0);
-  const float Step=FMath::Min(Delta.Size(),CeilingSpeed*CeilingLocomotionRate*Dt);
+  const float Step=FMath::Min(Delta.Size(),CeilingSpeed*CeilingLocomotionRate*CeilingIdleMovementScale()*Dt);
   FVector Next=Old+Delta.GetSafeNormal()*Step;Next.Z=CeilingSurfaceHeight;
   FVector Contact;
   if(AM09CeilingRoute::FindSupport(GetWorld(),Next,this,Contact))

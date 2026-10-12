@@ -114,7 +114,8 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
         if(Sound)Player->PlayFireVoice(Sound,H.Suppressed?.7f:1.5f);
     }
     else if(Sound)UGameplayStatics::PlaySound2D(this,Sound,H.Item.Definition==RSH12WeaponAssets::Definition?.9f:H.Suppressed?.7f:1.5f,1.f);
-    UAISense_Hearing::ReportNoiseEvent(this,Player->GetActorLocation(),1.f,Player,H.Suppressed?500.f:1800.f,TEXT("Gunshot"));
+    UAISense_Hearing::ReportNoiseEvent(this,Player->GetActorLocation(),1.f,Player,H.Suppressed?1000.f:3600.f,
+        H.Suppressed?TEXT("GunshotSuppressed"):TEXT("Gunshot"));
     const auto FeedbackHandling=ColdSteelCombat::ComposureHandling(Player,H.Stats.Handling);
     const auto Pattern=FWeaponHandling::Pattern(H.Pattern);
     if(auto* Controller=Player->GetController())

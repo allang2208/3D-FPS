@@ -3,6 +3,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "MonsterGroundSupport.h"
 
 /** Game-thread terrain samples, consumed by both passive and attacking poses. */
 struct FCongregateTentacleGround
@@ -17,19 +18,15 @@ struct FCongregateTentacleGround
     {
         Frame=M->GetMesh()->GetComponentTransform();Enabled=!M->Dead();
         if(!Enabled)return;
-        Age+=Dt;if(Age<(M->TentacleActive()?1.f/30.f:1.f/15.f))return;Age=0;
-        FCollisionQueryParams Query(SCENE_QUERY_STAT(CongregateTentacleGround),false,M);
-        if(IsValid(M->NetState.CapturedTarget.Get()))Query.AddIgnoredActor(M->NetState.CapturedTarget.Get());
-        FCollisionObjectQueryParams Objects;
-        Objects.AddObjectTypesToQuery(ECC_WorldStatic);Objects.AddObjectTypesToQuery(ECC_WorldDynamic);
+        Age+=Dt;if(Age<MonsterGroundSupport::QueryInterval(M->GetMesh(),M->TentacleActive()?1.f/30.f:1.f/15.f))return;Age=0;
+        FMonsterGroundProbe Probe(M);
         for(int32 S=0;S<SampleCount;++S)
         {
             const FVector P=S<13?M->GetMesh()->GetSocketLocation(FName(FString::Printf(TEXT("attack_tentacle_%02d"),8+S*4))):
                 S==13?M->GetActorLocation():M->TentacleActive()?FVector(M->NetState.TentacleAim):M->GetActorLocation();
             FHitResult Hit;auto& C=Contacts[S];
-            C.Valid=M->GetWorld()->LineTraceSingleByObjectType(Hit,FVector(P.X,P.Y,FMath::Max(P.Z+40.,Frame.GetLocation().Z+100.)),
-                FVector(P.X,P.Y,Frame.GetLocation().Z-240.),Objects,Query)&&Hit.ImpactNormal.Z>=M->GetCharacterMovement()->GetWalkableFloorZ()&&
-                Hit.GetComponent()&&Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Pawn)==ECR_Block;
+            C.Valid=Probe.Trace(M->GetWorld(),FVector(P.X,P.Y,FMath::Max(P.Z+40.,Frame.GetLocation().Z+100.)),
+                FVector(P.X,P.Y,Frame.GetLocation().Z-240.),FVector::UpVector,M->GetCharacterMovement()->GetWalkableFloorZ(),Hit);
             if(C.Valid){C.Position=Hit.ImpactPoint;C.Normal=Hit.ImpactNormal;}
         }
     }

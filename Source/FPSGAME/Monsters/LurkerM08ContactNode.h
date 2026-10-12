@@ -54,6 +54,8 @@ private:
     };
     FMouthPlane MouthPlanes[3];
     bool CannonSupport = false;
+    bool AuthoredSupport = false;
+    FVector ActionFootOffsets[4] = {};
     TWeakObjectPtr<USkeletalMesh> CachedMesh;
     TArray<int32> Parents;
     TMap<FName, int32> Indices;

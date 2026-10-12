@@ -21,8 +21,8 @@ namespace FPSImpact
     static TAutoConsoleVariable<float> MaxDistance(TEXT("fps.Impact.MaxDistance"), 12000.f, TEXT("Impact FX cull distance in cm, adjusted for optics."));
     static TAutoConsoleVariable<float> DetailDistance(TEXT("fps.Impact.DetailDistance"), 2500.f, TEXT("Full impact detail distance in cm."));
     static TAutoConsoleVariable<float> BurstsPerSecond(TEXT("fps.Impact.BurstsPerSecond"), 40.f, TEXT("World-wide cosmetic impact rate; no effect on damage."));
-    constexpr int32 Starts[] = {0,48,72,104,128,224};
-    constexpr int32 Counts[] = {48,24,32,24,96,4};
+    constexpr int32 Starts[] = {0,48,72,104,128,224,228};
+    constexpr int32 Counts[] = {48,24,32,24,96,4,4};
     constexpr const TCHAR* Names[] = {TEXT("Metal"),TEXT("Wood"),TEXT("Stone"),TEXT("Dirt"),TEXT("Glass"),TEXT("Flesh")};
     EFPSImpactSurface FromName(const FString& Name)
     {
@@ -65,6 +65,13 @@ UFPSImpactFXSubsystem::UFPSImpactFXSubsystem()
     GunHitSound = GunHit.Object;
     ConstructorHelpers::FObjectFinder<UMaterialInterface> GroundWave(TEXT("/Game/Monsters/Mutant3Meshy/Effects/M_Mutant3LandingWave.M_Mutant3LandingWave"));
     ParticleMaterials.Add(GroundWave.Object);
+    ConstructorHelpers::FObjectFinder<UMaterialInterface> SacWave(TEXT("/Game/Monsters/BellowSacLobber/V04/FX/M_BellowPressureWave.M_BellowPressureWave"));
+    ParticleMaterials.Add(SacWave.Object);
+    ConstructorHelpers::FObjectFinder<USoundBase> Flight(TEXT("/Game/Monsters/BellowSacLobber/V04/Audio/S_BellowFlight.S_BellowFlight"));
+    ConstructorHelpers::FObjectFinder<USoundBase> Fuse(TEXT("/Game/Monsters/BellowSacLobber/V04/Audio/S_BellowFuse.S_BellowFuse"));
+    ConstructorHelpers::FObjectFinder<USoundBase> Rupture(TEXT("/Game/Monsters/BellowSacLobber/V04/Audio/S_BellowRupture.S_BellowRupture"));
+    ConstructorHelpers::FObjectFinder<USoundBase> Contact(TEXT("/Game/Monsters/BellowSacLobber/V04/Audio/S_BellowContact.S_BellowContact"));
+    SacFlightSound=Flight.Object; SacFuseSound=Fuse.Object; SacRuptureSound=Rupture.Object; SacContactSound=Contact.Object;
     ConstructorHelpers::FObjectFinder<USoundBase> PounceSound(TEXT("/Game/Monsters/Mutant3Meshy/Effects/S_Mutant3PounceImpact.S_Mutant3PounceImpact"));
     PounceImpactSound = PounceSound.Object;
     for (const TCHAR* Name : FPSImpact::Names)
@@ -164,6 +171,19 @@ void UFPSImpactFXSubsystem::OnWorldBeginPlay(UWorld& InWorld)
         PounceVoices.Add(Voice);
     }
     LastBudgetTime = InWorld.GetTimeSeconds();
+    // Separate bounded voices keep gunfire from stealing the danger/rupture cue.
+    Attenuation.AttenuationShapeExtents=FVector(250.f);
+    Attenuation.FalloffDistance=2150.f;
+    Attenuation.DistanceAlgorithm=EAttenuationDistanceModel::Linear;
+    Attenuation.OcclusionVolumeAttenuation=.55f;
+    Attenuation.OcclusionLowPassFilterFrequency=1800.f;
+    for (int32 I=0; I<6; ++I)
+    {
+        auto* Voice=NewObject<UAudioComponent>(this);
+        Voice->bAutoDestroy=false; Voice->SetAutoActivate(false);
+        Voice->bOverrideAttenuation=true; Voice->SetAttenuationOverrides(Attenuation);
+        Voice->RegisterComponentWithWorld(&InWorld); SacVoices.Add(Voice);
+    }
     bReady = true;
 }
 
@@ -572,7 +592,7 @@ void UFPSImpactFXSubsystem::Tick(float DeltaTime)
             }
             const FVector Velocity=P.Velocity*Damping+FVector(0,0,P.Gravity*Age);
             FQuat Rotation=(P.Rotation+P.Spin*Age).Quaternion();
-            if(Group!=2 && Group!=5)
+            if(Group!=2 && Group!=5 && Group!=6)
             {
                 const FVector Facing=(Eye-Position).GetSafeNormal();
                 Rotation=(Group==0 || Group==4)?FRotationMatrix::MakeFromZY(Facing,Velocity).ToQuat()
@@ -608,6 +628,8 @@ void UFPSImpactFXSubsystem::Deinitialize()
     for(const auto& Decal:BloodDecals)if(Decal)Decal->DestroyComponent();
     for(const auto& Voice:Voices)if(Voice){Voice->Stop();Voice->DestroyComponent();}
     for(const auto& Voice:PounceVoices)if(Voice){Voice->Stop();Voice->DestroyComponent();}
+    for(const auto& Voice:SacVoices)if(Voice){Voice->Stop();Voice->DestroyComponent();}
+    SacVoices.Reset();
     PounceVoices.Reset();
     Renderers.Reset();Decals.Reset();BloodDecals.Reset();Voices.Reset();SurfaceCache.Reset();Camera.Reset();
     LastBloodLanding=FHitResult();LastBloodVictim.Reset();

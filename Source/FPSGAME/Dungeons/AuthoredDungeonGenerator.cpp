@@ -45,14 +45,14 @@
 #include "Misc/SecureHash.h"
 #include "TimerManager.h"
 #include "DungeonBossEncounter.h"
-#include "DungeonProgressionGate.h"
+#include "FacilityHallEncounter.h"
+#include "DungeonRoomGate.h"
 #include "WardRoomAssembly.h"
 #include "StaffLivingRoomAssembly.h"
 #include "CargoWarehouseContainers.h"
 #include "StationWorkshopAssembly.h"
 #include "DungeonWallArt.h"
 #include "DungeonRunSubsystem.h"
-#include "DungeonSpawnDirector.h"
 #include "AuthoredDungeonRoomScenes.h"
 #include "../Monsters/HandBrainMonster.h"
 #include "../SceneTestPortal.h"
@@ -911,6 +911,12 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     const TArray<TSharedPtr<FJsonValue>>* Statues=nullptr;
     if(Catalog->TryGetObjectField(TEXT("start_shrine"),Shrine)&&(*Shrine)->TryGetArrayField(TEXT("statues"),Statues))
         for(const auto& Statue:*Statues)QueueAsset(Statue->AsObject()->GetStringField(TEXT("mesh")));
+    if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
+        {return AFacilityHallEncounter::IsHall(Plan.Modules[Piece.Module].Id);}))
+    {
+        for(const FString& Path:AFacilityHallEncounter::PreparationAssetPaths())QueueAsset(Path);
+        for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
+    }
     bool RequireNavigation=false;Catalog->TryGetBoolField(TEXT("navigation_required"),RequireNavigation);
     if(RequireNavigation)State->Jobs.Add({TEXT("Dungeon.Resources"),[this,State]()
     {
@@ -980,7 +986,9 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             }
             bool bGuardrailDrop=false;Part->TryGetBoolField(TEXT("guardrail_drop"),bGuardrailDrop);
             bool bAuthoredInstance=false;Part->TryGetBoolField(TEXT("instanced"),bAuthoredInstance);
-            const bool bInstance=!Dressing&&!Fluid&&!Hazard&&!Part->HasField(TEXT("ward_frame"))&&!Part->HasField(TEXT("blood_receiver"))&&!bGuardrailDrop&&DungeonInstancing.GetValueOnGameThread()!=0&&(Mesh->HasValidNaniteData()||bAuthoredInstance)
+            const bool bHallDoor=State->bRuntime&&Part->HasField(TEXT("fixture_id"))&&
+                AFacilityHallEncounter::IsDoorLeaf(State->Plan.Modules[Piece.Module].Id,Part->GetStringField(TEXT("mesh")));
+            const bool bInstance=!bHallDoor&&!Dressing&&!Fluid&&!Hazard&&!Part->HasField(TEXT("ward_frame"))&&!Part->HasField(TEXT("blood_receiver"))&&!bGuardrailDrop&&DungeonInstancing.GetValueOnGameThread()!=0&&(Mesh->HasValidNaniteData()||bAuthoredInstance)
                 &&State->InstanceCandidates.FindRef(Key)>1;
             if(bInstance)
             {
@@ -1016,6 +1024,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
                 A=S;C=S->GetStaticMeshComponent();if(!Fluid)++State->StaticFallbacks;
             }
             OwnGenerated(A,Index);
+            if(bHallDoor)A->Tags.Add(FName(*(TEXT("DungeonHallDoor.")+Part->GetStringField(TEXT("fixture_id")))));
             if(bGuardrailDrop)A->Tags.Add(TEXT("Traversal.GuardrailDrop"));
             FString WardFrame;
             if(Part->TryGetStringField(TEXT("ward_frame"),WardFrame))
@@ -1028,12 +1037,12 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             // UE rejects SetStaticMesh on that component. Configure it while unregistered so both
             // the render proxy and physics body are created from the assigned mesh on registration.
             if(C->IsRegistered())C->UnregisterComponent();
-            C->SetCanEverAffectNavigation(PartAffectsNavigation(Part));C->SetStaticMesh(Mesh);
+            C->SetCanEverAffectNavigation(!bHallDoor&&PartAffectsNavigation(Part));C->SetStaticMesh(Mesh);
             if(C->GetStaticMesh()!=Mesh)
             {State->Error=TEXT("地牢网格赋值失败：")+Part->GetStringField(TEXT("mesh"));return;}
             if(Dressing){A->Tags.Add(TEXT("DungeonDressing"));++State->DressingProps;}
             const auto& Materials=Part->GetArrayField(TEXT("materials"));for(int32 I=0;I<Materials.Num();++I)if(!Materials[I]->AsString().IsEmpty())C->SetMaterial(I,Cast<UMaterialInterface>(ResolveGenerationAsset(Materials[I]->AsString())));
-            C->SetMobility(Fluid?EComponentMobility::Movable:EComponentMobility::Static);
+            C->SetMobility(Fluid||bHallDoor?EComponentMobility::Movable:EComponentMobility::Static);
             const FString MeshPath=Part->GetStringField(TEXT("mesh"));
             bool CastShadow=!Fluid;
             if(bOptimizeLights)
@@ -1073,21 +1082,6 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             }
             if(auto* WaterFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())WaterFX->RegisterWaterSurface(C);
             ++State->Parts;
-            }});
-        }
-        const JObject* ProgressGate=nullptr;
-        if(D->TryGetObjectField(TEXT("progression_gate"),ProgressGate))
-        {
-            const JObject Spec=*ProgressGate;const FString MeshPath=Spec->GetStringField(TEXT("mesh"));QueueAsset(MeshPath);
-            State->Jobs.Add({TEXT("Dungeon.ProgressionGate"),[this,State,Spec,Piece,Index,MeshPath]()
-            {
-                UStaticMesh* Mesh=Cast<UStaticMesh>(ResolveGenerationAsset(MeshPath));
-                if(!Mesh){State->Error=TEXT("推进闸门缺少模型：")+MeshPath;return;}
-                const FTransform Local(FRotator(0,Spec->GetNumberField(TEXT("yaw")),0),Vec(Spec,TEXT("position")),Vec(Spec,TEXT("scale")));
-                auto* Gate=GetWorld()->SpawnActorDeferred<ADungeonProgressionGate>(ADungeonProgressionGate::StaticClass(),Local*Piece.Transform,this,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
-                if(!Gate){State->Error=TEXT("推进闸门创建失败");return;}
-                Gate->Configure(Mesh,Index,Spec->GetBoolField(TEXT("any_route")),Vec(Spec,TEXT("clear_size")),Vec(Spec,TEXT("travel")));
-                Gate->FinishSpawning(Local*Piece.Transform);OwnGenerated(Gate,Index);
             }});
         }
         const TArray<TSharedPtr<FJsonValue>>* WardAssets=nullptr;
@@ -1348,19 +1342,6 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         }
     }
     State->PendingDescription=FString::Printf(TEXT("Seed %d | V5 grammar %d | %s | approach %d rooms | branches %d / %d / %d rooms | loops %d/%d | %d modules | treasure %d"),Seed,Plan.ActualGrammar,*Plan.TopologyRecipe,Plan.Counts[0],Plan.Counts[1],Plan.Counts[2],Plan.Counts[3],Plan.LoopConnections.Num(),Plan.LoopGoal,Plan.Pieces.Num(),Plan.TreasureCount);
-    if(State->bRuntime)
-    {
-        // Keep the start corridor clear. Return travel belongs to the final reward exit.
-        // 刷怪导演：随布局装配一次（job 队列天然单次），Configure 只缓存指针；
-        // 武装（Activate）在导航构建完成的收尾批执行。编辑器预览路径零怪物。
-        State->Jobs.Add({TEXT("Dungeon.SpawnDirector"),[this,State]()
-        {
-            FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-            auto* Director=GetWorld()->SpawnActor<ADungeonSpawnDirector>(ADungeonSpawnDirector::StaticClass(),GetActorTransform(),Spawn);
-            if(!Director){State->Error=TEXT("地牢刷怪导演创建失败");return;}
-            OwnGenerated(Director,-1);Director->Configure(this);
-        }});
-    }
     if(bDressRooms) State->Jobs.Add({TEXT("Dungeon.DressingScene"),[this,State]()
     {
         FBox Bounds(ForceInit);for(const auto& Piece:State->Plan.Pieces) Bounds+=Piece.Bounds;
@@ -1720,7 +1701,6 @@ void AAuthoredDungeonGenerator::FinishAssembly(bool bSynchronous)
     GeneratedActors.RemoveAll([](const TObjectPtr<AActor>& Actor){return !IsValid(Actor);});
     for(AActor* Actor:GeneratedActors)if(auto* Hazard=Cast<ADungeonPusChannel>(Actor))Hazard->ActivateDamage();
     for(AActor* Actor:GeneratedActors)if(auto* Encounter=Cast<ADungeonBossEncounter>(Actor))Encounter->ActivateEncounter();
-    for(AActor* Actor:GeneratedActors)if(auto* Director=Cast<ADungeonSpawnDirector>(Actor))Director->Activate();
     StartRoomLighting();ReleasePlayers();
     if(auto* Loading=DungeonLoading(this))
     {

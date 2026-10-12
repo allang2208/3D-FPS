@@ -10,6 +10,8 @@
 #include "LurkerM08AnimInstance.h"
 #include "LurkerM08ContactNode.h"
 #include "LurkerM08Monster.h"
+#include "BellowSacLobber.h"
+#include "BellowGroundingNode.h"
 
 UAnimSequence* UQuadrupedAnimationSet::FindSequence(FName Name) const
 {
@@ -28,6 +30,10 @@ struct FQuadrupedTemplateProxy : FAnimInstanceProxy
     FLurkerM08ContactNode M08Contact;
     FAnimNode_ConvertComponentToLocalSpace M08ToLocal;
     bool bM08 = false;
+    FAnimNode_ConvertLocalToComponentSpace BellowToComponent;
+    FBellowGroundingNode BellowGrounding;
+    FAnimNode_ConvertComponentToLocalSpace BellowToLocal;
+    bool bBellow = false;
 
     explicit FQuadrupedTemplateProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance)
     {
@@ -50,6 +56,17 @@ struct FQuadrupedTemplateProxy : FAnimInstanceProxy
             // the new pose has been corrected, never apply support twice.
             Transition.B.SetLinkNode(&M08ToLocal);
         }
+        // Class defaults are outered to the script package and have no owning mesh.
+        const auto* OwnerMesh = Cast<USkeletalMeshComponent>(Instance->GetOuter());
+        bBellow = Cast<ABellowSacLobber>(OwnerMesh ? OwnerMesh->GetOwner() : nullptr) != nullptr;
+        if (bBellow)
+        {
+            BellowToComponent.LocalPose.SetLinkNode(&Selection);
+            BellowGrounding.ComponentPose.SetLinkNode(&BellowToComponent);
+            BellowToLocal.ComponentPose.SetLinkNode(&BellowGrounding);
+            // Previous snapshots already include grounding, as with the M-08 branch.
+            Transition.B.SetLinkNode(&BellowToLocal);
+        }
     }
     virtual FAnimNode_Base* GetCustomRootNode() override { return &Transition; }
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
@@ -57,6 +74,7 @@ struct FQuadrupedTemplateProxy : FAnimInstanceProxy
         Nodes.Append({&Idle, &Walk, &Run, &Action, &WalkLeft, &WalkRight, &RunLeft, &RunRight,
             &WalkSide, &WalkHeading, &RunSide, &RunHeading, &Gaits, &Locomotion, &Selection, &Previous, &Transition});
         if (bM08) Nodes.Append({&M08ToComponent, &M08Contact, &M08ToLocal});
+        if (bBellow) Nodes.Append({&BellowToComponent, &BellowGrounding, &BellowToLocal});
     }
     static void SetPose(FAnimNode_SequenceEvaluator_Standalone& Node, UAnimSequence* Clip, float Seconds, bool bLoop)
     {
@@ -98,6 +116,7 @@ struct FQuadrupedTemplateProxy : FAnimInstanceProxy
         Previous.Snapshot = Data->PreviousPose;
         Transition.Alpha = Data->PreviousPose.bIsValid ? Data->TransitionAlpha : 1.f;
         if (bM08) M08Contact.Prepare(Cast<ALurkerM08Monster>(Instance->GetOwningActor()), Data, DeltaSeconds);
+        if (bBellow) BellowGrounding.Prepare(Cast<ABellowSacLobber>(Instance->GetOwningActor()), Data, DeltaSeconds);
     }
 };
 

@@ -4,6 +4,7 @@
 #include "MantisM27Monster.h"
 #include "Mutant3.h"
 #include "WolfMonster.h"
+#include "BellowSacLobber.h"
 #include "M10Mawcrawler.h"
 #include "HangingBellM09.h"
 #include "LurkerM08Monster.h"
@@ -16,8 +17,9 @@ EBTNodeResult::Type UBTTask_MonsterAction::ExecuteTask(UBehaviorTreeComponent& O
 {
  Elapsed=0;auto* AI=Cast<AMonsterAIController>(Owner.GetAIOwner());if(!AI||!AI->Combat())return EBTNodeResult::Failed;
  AI->ActiveAction=NodeName;
- if(Action==EMonsterAction::Hold||Action==EMonsterAction::Idle)if(auto* M09=Cast<AHangingBellM09>(AI->GetPawn()))M09->StopCeiling();
- if(Action==EMonsterAction::Hold||Action==EMonsterAction::Idle||Action==EMonsterAction::Attack)
+ if(Action!=EMonsterAction::Idle)AI->StopWander();
+ if(Action==EMonsterAction::Hold)if(auto* M09=Cast<AHangingBellM09>(AI->GetPawn()))M09->StopCeiling();
+ if(Action==EMonsterAction::Hold||Action==EMonsterAction::Attack)
   if(auto* M08=Cast<ALurkerM08Monster>(AI->GetPawn()))M08->StopSurfaceNavigation();
  if(Action==EMonsterAction::Attack)
  {
@@ -26,10 +28,8 @@ EBTNodeResult::Type UBTTask_MonsterAction::ExecuteTask(UBehaviorTreeComponent& O
   if(!Cast<AMantisM27Monster>(AI->GetPawn()))AI->StopMovement();
   return AI->Combat()->TryAttack(Cast<APawn>(Owner.GetBlackboardComponent()->GetValueAsObject(TEXT("Target"))))?EBTNodeResult::Succeeded:EBTNodeResult::Failed;
  }
- const auto* M25=Cast<AVortexCofferM25>(AI->GetPawn());
- const bool Searching=Action==EMonsterAction::Idle&&M25&&M25->bSearchForPlayers&&AI->bDecisionEnabled;
- if(Action==EMonsterAction::Hold||(Action==EMonsterAction::Idle&&!Searching))
- {AI->StopMovement();if(Action==EMonsterAction::Idle)AI->Combat()->SetLocomotion(false);}
+ if(Action==EMonsterAction::Hold)AI->StopMovement();
+ if(Action==EMonsterAction::Idle)AI->TickWander();
  return EBTNodeResult::InProgress;
 }
 void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory,float Dt)
@@ -38,24 +38,22 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
  Elapsed+=Dt;auto* C=AI->Combat();auto* B=Owner.GetBlackboardComponent();
  if(Action==EMonsterAction::Idle)
  {
-  if(auto* M25=Cast<AVortexCofferM25>(AI->GetPawn());M25&&M25->bSearchForPlayers)
-  {
-   if(C->IsBusy()||!AI->bDecisionEnabled||!M25->IsActorTickEnabled())
-   {AI->StopMovement();FinishLatentTask(Owner,EBTNodeResult::Aborted);return;}
-   FVector SearchGoal;
-   if(M25->SearchDestination(SearchGoal))
-   {
-    AI->ActiveAction=TEXT("Search for player");
-    AI->NavigateTo(SearchGoal,65.f);
-    if(AI->bNavigationFailed){M25->DeferSearch();AI->StopMovement();}
-   }
-   else AI->StopMovement();
-  }
+  AI->TickWander();
+  // Blackboard decorators abort this persistent task on detection/control.
+  // Retain the destination and animation phase across the entire stroll.
+  return;
  }
  if(Action==EMonsterAction::Pursue||Action==EMonsterAction::Return)
  {
   if(C->IsBusy()||!AI->bDecisionEnabled||!AI->GetPawn()->IsActorTickEnabled()){AI->StopMovement();FinishLatentTask(Owner,EBTNodeResult::Aborted);return;}
   const bool Returning=Action==EMonsterAction::Return;FVector Dest=B->GetValueAsVector(Returning?TEXT("Home"):TEXT("LastKnown"));
+  if(auto* Lobber=Cast<ABellowSacLobber>(AI->GetPawn());Lobber&&!Returning)
+  {
+   APawn* Visible=B->GetValueAsBool(TEXT("Visible"))?Cast<APawn>(B->GetValueAsObject(TEXT("Target"))):nullptr;
+   Lobber->NavigateCombat(AI,Visible,Dest);
+   if(Elapsed>=.25f)FinishLatentTask(Owner,EBTNodeResult::Succeeded);
+   return;
+  }
   if(auto* M27=Cast<AMantisM27Monster>(AI->GetPawn());M27&&M27->bCloaked&&!M27->IsCloakRecoveryReady()&&!Returning)
   {
    AI->ActiveAction=TEXT("Cloak: retreat / orbit / regenerate");
@@ -90,11 +88,11 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
   else if(auto* M27=Cast<AMantisM27Monster>(AI->GetPawn()))
   {
    // A moving target can enter melee between knowledge-service updates. Use
-   // the live contact query and the common attack entry instead of waiting for
-   // another nav completion/Visible flag; walls, cloak, control and cooldown
-   // still pass through CanAttack. Never attack from the Return branch.
+   // the live contact query and common attack entry while sight is confirmed;
+   // walls, cloak, control and cooldown still pass through CanAttack. A noise
+   // investigation must not turn into a melee attack through its Target key.
    APawn* Known=!Returning?Cast<APawn>(B->GetValueAsObject(TEXT("Target"))):nullptr;
-   const bool InMelee=IsValid(Known)&&M27->CanMeleeFrom(Known,M27->GetActorLocation(),M27->MeleeStartDistance(Known));
+   const bool InMelee=B->GetValueAsBool(TEXT("Visible"))&&IsValid(Known)&&M27->CanMeleeFrom(Known,M27->GetActorLocation(),M27->MeleeStartDistance(Known));
    if(InMelee&&C->TryAttack(Known))
    {
     AI->StopMovement();AI->ActiveAction=TEXT("M27: close melee");
@@ -145,6 +143,7 @@ EBTNodeResult::Type UBTTask_MonsterAction::AbortTask(UBehaviorTreeComponent& Own
 {
  if(auto* AI=Owner.GetAIOwner())
  {
+  if(auto* MonsterAI=Cast<AMonsterAIController>(AI))MonsterAI->StopWander();
   const auto* B=Owner.GetBlackboardComponent();
   const bool MantisAttackHandoff=Action==EMonsterAction::Pursue&&Cast<AMantisM27Monster>(AI->GetPawn())&&B&&
    B->GetValueAsBool(TEXT("CanAttack"))&&!B->GetValueAsBool(TEXT("Hold"))&&!B->GetValueAsBool(TEXT("Returning"));

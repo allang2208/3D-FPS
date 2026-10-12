@@ -191,6 +191,31 @@ bool UM14SoftBodyData::BuildCorpse(USkeletalMesh* Mesh,USkeleton* CorpseSkeleton
             for(float& W:N.SourceWeights)W/=Total;
         }
     }
+    // Optional species anatomy: classify released support from the same cooked
+    // source weights used for live-pose handoff, never guessed spatial bounds.
+    const TArray<TSharedPtr<FJsonValue>>* UnsupportedBones=nullptr;
+    if(Json->TryGetArrayField(TEXT("unsupported_source_bones"),UnsupportedBones))
+    {
+        TSet<int32> ReleasedBones;
+        for(const auto& Name:*UnsupportedBones)
+        {
+            const int32 Bone=Ref.FindBoneIndex(FName(*Name->AsString()));
+            if(Bone==INDEX_NONE)return false;
+            ReleasedBones.Add(Bone);
+        }
+        double MinWeight=.65;
+        Json->TryGetNumberField(TEXT("unsupported_min_weight"),MinWeight);
+        Data->UnsupportedNodes.Reset();
+        for(int32 I=0;I<Data->SoftNodeCount;++I)
+        {
+            const auto& N=Data->Nodes[I];float Weight=0.f;
+            for(int32 J=0;J<N.SourceBones.Num();++J)
+                if(ReleasedBones.Contains(N.SourceBones[J]))Weight+=N.SourceWeights[J];
+            if(Weight>=MinWeight)Data->UnsupportedNodes.Add(I);
+        }
+        if(!ReleasedBones.IsEmpty()&&Data->UnsupportedNodes.IsEmpty())return false;
+        Json->TryGetBoolField(TEXT("collapse_in_place"),Data->bCollapseInPlace);
+    }
     for(int32 I=0;I<Data->Hardware.Num();++I)
     {
         auto& H=Data->Hardware[I];int32 Best=Base;

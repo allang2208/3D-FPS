@@ -9,6 +9,7 @@
 #include "Engine/World.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "TwoBoneIK.h"
+#include "MonsterGroundSupport.h"
 
 namespace
 {
@@ -90,8 +91,12 @@ void FLurkerM08ContactNode::Prepare(const ALurkerM08Monster* M, const UQuadruped
     const bool Supported=M->bSurfaceAttached||Movement->IsMovingOnGround();
     const bool WasActionSupport=ActionSupport;
     ActionTime=Anim->ActionTime;
-    ActionSupport=Supported&&(Cannon||(Leap&&(ActionTime<.24f||(ActionTime>=.74f&&ActionTime<1.14f))));
+    // Every grounded non-leap action keeps support, including bite and hit.
+    // Preserve authored limb motion below instead of forcing a locomotion pose.
+    ActionSupport=Supported&&((!Anim->ActiveAction.IsNone()&&!Leap)||(Leap&&(ActionTime<.24f||(ActionTime>=.74f&&ActionTime<1.14f))));
     CannonSupport=Cannon&&ActionSupport;
+    AuthoredSupport=ActionSupport&&!Cannon&&!Leap;
+    if(!AuthoredSupport)for(auto& Offset:ActionFootOffsets)Offset=FVector::ZeroVector;
     FlightOnly=Leap&&!Supported&&ActionTime>=.24f&&ActionTime<.74f;
     const bool Locomotion=(Anim->ActiveAction.IsNone()&&!M->bTraversalJump&&Supported)||ActionSupport||FlightOnly;
     if (!Locomotion||M->Dead()||Mesh->IsSimulatingPhysics())
@@ -130,9 +135,9 @@ void FLurkerM08ContactNode::Prepare(const ALurkerM08Monster* M, const UQuadruped
         for (auto& Plane:MouthPlanes) Plane.Valid=false;
     }
     QueryAge+=StepDt;
-    // Four bounded probes at 30 Hz, no worker-thread world access.
-    const bool Query=QueryAge>=1.f/30.f; if (Query) QueryAge=0.f;
-    FCollisionQueryParams Params(SCENE_QUERY_STAT(M08FootSupport),false,M);
+    // Bounded scene probes, with lower frequency away from the view.
+    const bool Query=QueryAge>=MonsterGroundSupport::QueryInterval(Mesh,1.f/30.f); if (Query) QueryAge=0.f;
+    FMonsterGroundProbe GroundProbe(M);
     // Only the supported cannon adds these three bounded probes. The worker
     // consumes copied planes and skin samples; no world or mesh queries there.
     if (Query && CannonSupport && !MouthSamples.IsEmpty())
@@ -142,8 +147,7 @@ void FLurkerM08ContactNode::Prepare(const ALurkerM08Monster* M, const UQuadruped
             auto& Plane=MouthPlanes[I];
             const FVector Probe=Frame.TransformPosition(MouthProbeCS+RightCS*((I-1)*18.f));
             FHitResult Hit;
-            Plane.Valid=M->GetWorld()->LineTraceSingleByChannel(Hit,Probe+Up*60.f,Probe-Up*100.f,ECC_Pawn,Params)
-                && Hit.bBlockingHit && !Cast<APawn>(Hit.GetActor()) && FVector::DotProduct(Hit.ImpactNormal,Up)>.2f;
+            Plane.Valid=GroundProbe.Trace(M->GetWorld(),Probe+Up*60.f,Probe-Up*100.f,Up,.2f,Hit);
             if (Plane.Valid)
             {
                 Plane.Point=Frame.InverseTransformPosition(Hit.ImpactPoint);
@@ -158,7 +162,7 @@ void FLurkerM08ContactNode::Prepare(const ALurkerM08Monster* M, const UQuadruped
         F.ContactAge+=StepDt;
         F.Load=0.f;
         const float LandingReach=Leap&&ActionSupport&&ActionTime>=.74f?(I<2?16.f:-8.f):0.f;
-        Home[I]=Frame.TransformPosition(F.Reference+ForwardCS*LandingReach);
+        Home[I]=Frame.TransformPosition(F.Reference+ForwardCS*LandingReach+(AuthoredSupport?ActionFootOffsets[I]:FVector::ZeroVector));
         if (Leap&&ActionSupport&&ActionTime<.24f&&I<2&&ActionTime>=.19f+I*.018f)
         { F.Planted=F.Swing=F.Valid=false;continue; }
         if (Leap&&ActionSupport&&ActionTime>=.74f&&ActionTime<(I<2?.74f:.84f)+(I%2)*.028f)
@@ -180,15 +184,22 @@ void FLurkerM08ContactNode::Prepare(const ALurkerM08Monster* M, const UQuadruped
             const FVector Ahead=ActionSupport?FVector::ZeroVector:(Velocity*Lead + FVector::CrossProduct(Up,Offset)*YawRate*.09f).GetClampedToMaxSize(I<2?42.f:36.f);
             const FVector Probe=Home[I]+Ahead;
             FHitResult Hit;
-            F.Valid=M->GetWorld()->LineTraceSingleByChannel(Hit,Probe+Up*45.f,Probe-Up*110.f,ECC_Pawn,Params) &&
-                Hit.bBlockingHit && !Cast<APawn>(Hit.GetActor()) && FVector::DotProduct(Hit.ImpactNormal,Up)>.2f;
+            F.Valid=false;double Best=-TNumericLimits<double>::Max();
+            for(float SampleOffset:{-5.f,5.f})
+            {
+                const FVector At=Probe+Forward*SampleOffset;FHitResult Contact;
+                if(!GroundProbe.Trace(M->GetWorld(),At+Up*65.f,At-Up*140.f,Up,M->bSurfaceAttached?.2f:Movement->GetWalkableFloorZ(),Contact))continue;
+                const double Height=FVector::DotProduct(Contact.ImpactPoint-Probe,Contact.ImpactNormal)/FVector::DotProduct(Contact.ImpactNormal,Up);
+                if(Height>Best){Best=Height;Hit=Contact;F.Valid=true;}
+            }
             if (F.Valid)
             {
                 F.CandidateNormal=Hit.ImpactNormal.GetSafeNormal();
-                F.Candidate=Hit.ImpactPoint+F.CandidateNormal*(F.Height*Frame.GetScale3D().Z);
+                F.Candidate=Probe+Up*Best+F.CandidateNormal*(F.Height*Frame.GetScale3D().Z);
                 F.CandidateRotation=(FQuat::FindBetweenNormals(Up,F.CandidateNormal)*Frame.GetRotation()*F.ReferenceRotation).GetNormalized();
                 F.CandidateBase=Hit.GetComponent();
             }
+            else if(!F.Swing){F.Planted=false;F.Base.Reset();}
         }
         auto Plant=[&]()
         {
@@ -206,6 +217,16 @@ void FLurkerM08ContactNode::Prepare(const ALurkerM08Monster* M, const UQuadruped
         };
         if (!F.Planted && !F.Swing && F.Valid)
         { F.Position=F.Candidate; F.Normal=F.CandidateNormal; F.Rotation=F.CandidateRotation; Plant(); }
+        if(AuthoredSupport&&F.Valid)
+        {
+            // Follow the scene under the authored attack feet; do not retain
+            // a walking foot lock from a different tread for the entire bite.
+            const float Blend=1.f-FMath::Exp(-12.f*StepDt);
+            F.Position=FMath::Lerp(F.Position,F.Candidate,Blend);
+            F.Normal=FMath::Lerp(F.Normal,F.CandidateNormal,Blend).GetSafeNormal();
+            F.Rotation=FQuat::Slerp(F.Rotation,F.CandidateRotation,Blend).GetNormalized();
+            F.Swing=false;Plant();
+        }
         if (F.Swing)
         {
             F.Time+=StepDt; const float T=FMath::Clamp(F.Time/F.Duration,0.f,1.f), S=Ease(T);
@@ -267,10 +288,10 @@ void FLurkerM08ContactNode::Prepare(const ALurkerM08Monster* M, const UQuadruped
         F.RotationCS=(Frame.GetRotation().Inverse()*F.Rotation).GetNormalized();
     }
     FVector Desired=Sum>0.f ? Support/Sum : FVector::ZeroVector;
-    const float Height=FMath::Clamp(float(FVector::DotProduct(Desired,UpCS)),-14.f,14.f);
+    const float Height=FMath::Clamp(float(FVector::DotProduct(Desired,UpCS)),-45.f,35.f);
     Desired=FVector::VectorPlaneProject(Desired,UpCS).GetClampedToMaxSize(7.f)*.65f + UpCS*(Height-2.0f*GaitRatio);
     Damped(BodyOffset,BodyVelocity,Desired,StepDt);
-    Pitch=FMath::FInterpTo(Pitch,FMath::Clamp((FrontHeight-RearHeight)/190.f,-.10f,.10f),StepDt,10.f);
+    Pitch=FMath::FInterpTo(Pitch,FMath::Clamp((FrontHeight-RearHeight)/190.f,-.26f,.26f),StepDt,10.f);
     if (ActionSupport || Contacts==0)
     {
         ResetLocomotionMotion();
@@ -441,6 +462,35 @@ void FLurkerM08ContactNode::EvaluateSkeletalControl_AnyThread(FComponentSpacePos
         FTransform T=Pose[Chest]; T.AddToTranslation(UpCS*(Lift*.65f)); Set(Chest,T);
         if (Neck!=INDEX_NONE) { T=Pose[Neck]; T.AddToTranslation(UpCS*(Lift*.35f)); Set(Neck,T); }
     }
+    FVector TerrainGoals[4];FQuat TerrainRotations[4];
+    float ReachDrop=0.f;
+    for(int32 I=0;I<4;++I)
+    {
+        const auto& F=Feet[I];
+        TerrainGoals[I]=F.GoalCS;TerrainRotations[I]=F.RotationCS;
+        if(!F.Planted&&!F.Swing)continue;
+        const int32 U=Index(UpperNames[I]),L=Index(LowerNames[I]),A=Index(AnkleNames[I]),E=Index(FootNames[I]);
+        if(AuthoredSupport)
+        {
+            const FVector Raw=Original[E].GetLocation();
+            ActionFootOffsets[I]=FVector::VectorPlaneProject(Raw-F.Reference,UpCS);
+            const float Lift=FMath::Max(0.f,float(FVector::DotProduct(Raw-F.Reference,UpCS)));
+            const FVector Normal=F.RotationCS.RotateVector(F.ReferenceRotation.Inverse().RotateVector(UpCS)).GetSafeNormal();
+            TerrainGoals[I]=Raw+UpCS*(FVector::DotProduct(F.GoalCS-Raw,Normal)/FMath::Max(.2,float(FVector::DotProduct(Normal,UpCS)))+Lift);
+            TerrainRotations[I]=(F.RotationCS*F.ReferenceRotation.Inverse()*Original[E].GetRotation()).GetNormalized();
+            if(Lift>5.f)continue;
+        }
+        if(F.Swing||CannonSupport)continue;
+        const FVector Root=Pose[U].GetLocation(),D=Root-TerrainGoals[I];
+        const float Reach=(FVector::Distance(Root,Pose[L].GetLocation())+FVector::Distance(Pose[L].GetLocation(),Pose[A].GetLocation())+
+            FVector::Distance(Pose[A].GetLocation(),Pose[E].GetLocation()))*.975f;
+        const double Vertical=Reach*Reach-FVector::VectorPlaneProject(D,UpCS).SizeSquared();
+        if(Vertical>0.)ReachDrop=FMath::Min(ReachDrop,float(FMath::Sqrt(Vertical)-FVector::DotProduct(D,UpCS)));
+    }
+    if(ReachDrop<0.f)
+    {
+        FTransform T=Pose[Pelvis];T.AddToTranslation(UpCS*FMath::Clamp(ReachDrop,-25.f,0.f));Set(Pelvis,T);
+    }
     for (int32 I=0; I<4; ++I)
     {
         const auto& F=Feet[I]; if (!F.Planted && !F.Swing) continue;
@@ -461,7 +511,7 @@ void FLurkerM08ContactNode::EvaluateSkeletalControl_AnyThread(FComponentSpacePos
         const float L1=FVector::Distance(Upper.GetLocation(),Lower.GetLocation()),L2=FVector::Distance(Lower.GetLocation(),Ankle.GetLocation());
         const float L3=I<2?0.f:FVector::Distance(Ankle.GetLocation(),Pose[E].GetLocation());
         const FVector Root=Upper.GetLocation();
-        FVector Goal=F.GoalCS;
+        FVector Goal=TerrainGoals[I];
         FVector Direction=(Goal-Root).GetSafeNormal();
         const float Distance=FMath::Clamp(float(FVector::Distance(Goal,Root)),FMath::Abs(L1-L2)+1.f,(L1+L2)*.975f+L3);
         Goal=Root+Direction*Distance;
@@ -485,7 +535,7 @@ void FLurkerM08ContactNode::EvaluateSkeletalControl_AnyThread(FComponentSpacePos
             FTransform H=Pose[A]; const FVector Before=(Pose[E].GetLocation()-H.GetLocation()).GetSafeNormal();
             H.SetRotation((FQuat::FindBetweenNormals(Before,(Goal-H.GetLocation()).GetSafeNormal())*H.GetRotation()).GetNormalized()); Set(A,H);
         }
-        FTransform Foot=Pose[E]; Foot.SetRotation((FQuat(RightCS,.14f*F.Curl)*F.RotationCS).GetNormalized()); Set(E,Foot);
+        FTransform Foot=Pose[E]; Foot.SetRotation((FQuat(RightCS,.14f*F.Curl)*TerrainRotations[I]).GetNormalized()); Set(E,Foot);
         if (I<2)
             for (int32 Digit=1; Digit<=5; ++Digit)
                 for (int32 Joint=1; Joint<=2; ++Joint)

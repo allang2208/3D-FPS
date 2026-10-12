@@ -18,6 +18,7 @@ class FPSGAME_API ADungeonRoomGate : public AActor
     GENERATED_BODY()
 public:
     ADungeonRoomGate();
+    static TArray<FString> AssetPaths();
     bool Configure(const FDungeonRunDoor& Door);
     void SetOpenFraction(float Fraction);
     /** Close the full doorway to pawns immediately while the visible grille travels. */

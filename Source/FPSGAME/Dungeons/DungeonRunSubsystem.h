@@ -39,6 +39,8 @@ struct FDungeonRunNode
     double RewardMultiplier=1.;
     int32 Floor = 0;
     FVector Origin = FVector::ZeroVector;
+    /** Authored module orientation, used for floor-specific local spawn regions. */
+    double Yaw = 0.;
     FBox Volume = FBox(ForceInit);
     /** Shortest room depth from the entry; connectors add 0, rooms add 1. */
     int32 Depth = 0;
@@ -146,6 +148,8 @@ private:
     UColdSteelStatusModel* StatusModel() const;
 
     TWeakObjectPtr<AAuthoredDungeonGenerator> Generator;
+    TArray<TWeakObjectPtr<class AFacilityHallEncounter>> HallEncounters;
+    TWeakObjectPtr<class ADungeonThemeEncounter> HallTheme;
     TArray<FDungeonRunNode> Nodes;
     TArray<FString> RoomIds;
     TMap<FString, TSharedPtr<FJsonObject>> SpawnConfigs;

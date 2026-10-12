@@ -49,6 +49,7 @@ public:
     virtual bool CanBiteFrom(const APawn* Victim, const FVector& From, float Range) const override;
     void NavigateSurface(FVector Destination, bool bReturning, APawn* VisibleTarget);
     void StopSurfaceNavigation();
+    bool TryWanderSurface(FVector DesiredCenter, FVector& GoalCenter);
     FVector HomeSupportLocation() const { return InitialHomeSupport; }
     float LeapPitchCorrection(bool Traversal, float SourceSeconds) const;
     virtual bool CanAttack(APawn* Victim) const override;

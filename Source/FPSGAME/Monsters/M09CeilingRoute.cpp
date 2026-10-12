@@ -2,6 +2,7 @@
 #include "HangingBellM09.h"
 #include "Components/SceneComponent.h"
 #include "Components/PrimitiveComponent.h"
+#include "Components/SkinnedMeshComponent.h"
 #include "GameFramework/Volume.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
@@ -26,7 +27,7 @@ bool TraceM09Ceiling(UWorld* World,FVector From,FVector To,const AActor* Ignore,
  for(const FHitResult& Hit:Hits)
  {
   const auto* Actor=Hit.GetActor();const auto* Component=Hit.GetComponent();
-  if(Hit.bStartPenetrating||Hit.ImpactNormal.Z>-.45f||!Actor||!Component||Actor->IsA<APawn>()||Actor->IsA<AVolume>())continue;
+  if(Hit.bStartPenetrating||Hit.ImpactNormal.Z>-.45f||!Actor||!Component||Actor->IsA<APawn>()||Actor->IsA<AVolume>()||Component->IsA<USkinnedMeshComponent>())continue;
   if(Component->GetCollisionResponseToChannel(ECC_Pawn)!=ECR_Block&&Component->GetCollisionResponseToChannel(ECC_Visibility)!=ECR_Block)continue;
   const float Score=PreferredHeight?FMath::Abs(Hit.ImpactPoint.Z-*PreferredHeight):Hit.Distance;
   if(Score>=Best)continue;

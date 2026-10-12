@@ -9,6 +9,7 @@ class USkeletalMesh;
 class USkeleton;
 class USkeletalMeshComponent;
 class UPoseableMeshComponent;
+DECLARE_MULTICAST_DELEGATE_TwoParams(FSoftCorpseGroundImpact, const FVector&, float);
 
 USTRUCT()
 struct FM14SoftNode
@@ -92,6 +93,7 @@ public:
     int32 SimulatedBodyCount() const { return 32; } // Shared-budget cost reservation, not tetrahedron count.
     bool CanReleaseCorpseBudget() const { return bSettled||QuietSeconds>.2f; }
     void FreezeForBudget();
+    FSoftCorpseGroundImpact OnGroundImpact;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
     void Substep(float Dt);
@@ -119,5 +121,6 @@ private:
     float Accumulator=0.f,Elapsed=0.f,QuietSeconds=0.f,BudgetRetry=0.f;
     int32 ContactCursor=0;
     bool bSettled=false,bBudget=false;
+    bool bGroundImpactSent=false;
     float WorldSpacingCm=24.f;
 };

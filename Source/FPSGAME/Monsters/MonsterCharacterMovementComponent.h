@@ -11,6 +11,7 @@ class FPSGAME_API UMonsterCharacterMovementComponent : public UFPSCharacterMovem
     GENERATED_BODY()
 public:
     UMonsterCharacterMovementComponent();
+    virtual float GetMaxSpeed() const override;
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
     virtual void OnTeleported() override;
     virtual bool IsWalkable(const FHitResult& Hit) const override;

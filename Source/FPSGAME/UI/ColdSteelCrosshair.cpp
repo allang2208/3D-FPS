@@ -1,4 +1,5 @@
 #include "ColdSteelHUDWidget.h"
+#include "ColdSteelExplosiveWarnings.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelHUDLayout.h"
 #include "ColdSteelWorldInteraction.h"
@@ -15,10 +16,11 @@
 int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& Geometry,
     const FSlateRect& Clip,FSlateWindowElementList& Elements,int32 Layer,const FWidgetStyle& Style,bool Enabled) const
 {
-    const auto* PC=GetOwningPlayer();
+    auto* PC=GetOwningPlayer();
     const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
     int32 Result=Super::NativePaint(Args,Geometry,Clip,Elements,Layer,Style,Enabled);
     Result=PaintHUDNavigation(Geometry,Elements,Result,Style);
+    Result=ColdSteelExplosiveWarnings::Paint(PC,Geometry,Elements,Result,Style.GetColorAndOpacityTint());
     if(!Character||bInventoryOpen||bExternalDrawerOpen||bWarehouseOpen||PC->bShowMouseCursor||Character->IsAmmoWheelOpen())return Result;
     const FVector2D Center=Geometry.GetLocalSize()*.5;
     const float Scale=Geometry.GetLocalSize().Y/1080.f;

@@ -3,6 +3,7 @@
 #include "MonsterCombatComponent.h"
 #include "MonsterReactionTiming.h"
 #include "MonsterRecoveryGroundNode.h"
+#include "MonsterSurfaceGroundingNode.h"
 #include "Animation/AnimInstanceProxy.h"
 #include "Animation/AnimSequence.h"
 #include "Animation/AnimNodeSpaceConversions.h"
@@ -101,10 +102,13 @@ struct FFatZombieAnimProxy : FAnimInstanceProxy
     FAnimNode_ConvertLocalToComponentSpace ToComponent;
     FAnimNode_ModifyBone LowerRecoil;
     FAnimNode_ModifyBone UpperRecoil;
+    FMonsterSurfaceGroundingNode SurfaceGround;
     FMonsterRecoveryGroundNode RecoveryGround;
     FAnimNode_ConvertComponentToLocalSpace ToLocal;
+    const UAnimSequence* LastGroundClip=nullptr;
+    float LastGroundBlend=1.f;
 
-    explicit FFatZombieAnimProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance)
+    explicit FFatZombieAnimProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance), SurfaceGround(Instance)
     {
         Previous.Mode = ESnapshotSourceMode::SnapshotPin;
         Source.A.SetLinkNode(&Previous);
@@ -114,7 +118,8 @@ struct FFatZombieAnimProxy : FAnimInstanceProxy
         ToComponent.LocalPose.SetLinkNode(&Transition);
         LowerRecoil.ComponentPose.SetLinkNode(&ToComponent);
         UpperRecoil.ComponentPose.SetLinkNode(&LowerRecoil);
-        RecoveryGround.ComponentPose.SetLinkNode(&UpperRecoil);
+        SurfaceGround.ComponentPose.SetLinkNode(&UpperRecoil);
+        RecoveryGround.ComponentPose.SetLinkNode(&SurfaceGround);
         ToLocal.ComponentPose.SetLinkNode(&RecoveryGround);
         LowerRecoil.BoneToModify.BoneName = TEXT("Spine02");
         UpperRecoil.BoneToModify.BoneName = TEXT("Spine");
@@ -128,14 +133,22 @@ struct FFatZombieAnimProxy : FAnimInstanceProxy
     virtual FAnimNode_Base* GetCustomRootNode() override { return &ToLocal; }
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {
-        Nodes.Append({&Previous, &Outgoing, &Source, &Current, &Transition, &ToComponent, &LowerRecoil, &UpperRecoil, &RecoveryGround, &ToLocal});
+        Nodes.Append({&Previous, &Outgoing, &Source, &Current, &Transition, &ToComponent, &LowerRecoil, &UpperRecoil, &SurfaceGround, &RecoveryGround, &ToLocal});
     }
     virtual void PreUpdate(UAnimInstance* Instance, float DeltaSeconds) override
     {
         FAnimInstanceProxy::PreUpdate(Instance, DeltaSeconds);
         const auto* Data = CastChecked<UFatZombieAnimInstance>(Instance);
+        const bool GroundWasActive=SurfaceGround.IsGrounding();
+        SurfaceGround.Prepare(Cast<ACharacter>(Instance->TryGetPawnOwner()),DeltaSeconds);
         RecoveryGround.Prepare(Cast<ANurseZombie>(Instance->TryGetPawnOwner()));
-        Previous.Snapshot = Data->PreviousPose;
+        if (!SurfaceGround.IsGrounding() || !GroundWasActive)
+            Previous.Snapshot=Data->PreviousPose;
+        else if (Data->ActiveClip!=LastGroundClip || Data->BlendAlpha<LastGroundBlend || !Previous.Snapshot.bIsValid)
+            // The overlay is applied once, after blending; never blend its old
+            // body offset back into the source and then apply it a second time.
+            Previous.Snapshot=SurfaceGround.UncorrectedPose.bIsValid?SurfaceGround.UncorrectedPose:Data->PreviousPose;
+        LastGroundClip=Data->ActiveClip; LastGroundBlend=Data->BlendAlpha;
         Outgoing.SetSequence(Data->OutgoingLoop);
         Outgoing.SetShouldLoop(true);
         Outgoing.SetTeleportToExplicitTime(true);

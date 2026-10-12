@@ -80,6 +80,9 @@ bool UMonsterCorpseRagdollComponent::TryStartSoftDeath(USkeletalMeshComponent* M
     {
         SoftDeath=NewObject<UM14SoftBodyDeathComponent>(GetOwner());
         SoftDeath->RegisterComponent();
+        if(OnSoftBodyImpact.IsBound())
+            SoftDeath->OnGroundImpact.AddWeakLambda(this,[this](const FVector& Location,float SpeedCm)
+            { OnSoftBodyImpact.Broadcast(Location,SpeedCm); });
     }
     const FVector Velocity=bHavePreviousPose?InheritedVelocity:GetOwner()->GetVelocity();
     if(!SoftDeath->Start(Mesh,Binding->Data,Velocity))return false;

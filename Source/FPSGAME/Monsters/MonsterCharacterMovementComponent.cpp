@@ -1,4 +1,5 @@
 #include "MonsterCharacterMovementComponent.h"
+#include "MonsterAIController.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/Character.h"
@@ -11,6 +12,13 @@ UMonsterCharacterMovementComponent::UMonsterCharacterMovementComponent()
     // also guards early corner perching by broad capsules.
     bUseFlatBaseForFloorChecks = true;
     GetNavAgentPropertiesRef().AgentStepHeight = MaxStepHeight;
+}
+
+float UMonsterCharacterMovementComponent::GetMaxSpeed() const
+{
+    const auto* AI = CharacterOwner ? Cast<AMonsterAIController>(CharacterOwner->GetController()) : nullptr;
+    // Layer onto the current species/status speed; never overwrite or cache MaxWalkSpeed.
+    return Super::GetMaxSpeed() * (AI ? AI->IdleMovementScale() : 1.f);
 }
 
 bool UMonsterCharacterMovementComponent::IsWalkable(const FHitResult& Hit) const
