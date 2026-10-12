@@ -14,6 +14,8 @@
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/RSH12MuzzleAssets.h"
+#include "../Weapons/Super90WeaponAssets.h"
+#include "../Weapons/Super90SpeedloaderAssets.h"
 #include "Animation/AnimSequence.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -179,8 +181,8 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     }
     const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);
     // One fitting per tick; the game-thread component APIs are not thread safe.
-    if(AttachmentStep<9){
-        const TCHAR* Slots[]={TEXT("underbarrel"),TEXT("optic"),TEXT("magazine"),TEXT("muzzle"),TEXT("stock"),TEXT("reargrip"),TEXT("tactical"),TEXT("bipod"),TEXT("sights")};
+    if(AttachmentStep<10){
+        const TCHAR* Slots[]={TEXT("underbarrel"),TEXT("optic"),TEXT("magazine"),TEXT("muzzle"),TEXT("stock"),TEXT("reargrip"),TEXT("tactical"),TEXT("bipod"),TEXT("reload_device"),TEXT("sights")};
         FFPSPerformanceScope FitScope(bCatalogExport?nullptr:GetGameInstance(),TEXT("Icon.AttachmentSlice"),Slots[AttachmentStep]);
         switch(AttachmentStep++){
         case 0:Rig->SetGunsmithHandstop(Parts.FindRef(TEXT("underbarrel")));break;
@@ -191,6 +193,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         case 5:Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")),bCatalogExport?nullptr:GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition),Parts.FindRef(TEXT("grip_body")));break;
         case 6:Rig->SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));break;
         case 7:Rig->SetGunsmithBipod(Parts.FindRef(TEXT("bipod")));break;
+        case 8:Rig->SetSuper90Speedloader(I.Definition==Super90WeaponAssets::Definition&&Parts.FindRef(TEXT("reload_device"))==Super90SpeedloaderAssets::Id);break;
         default:Rig->UpdateFoldingSights(1.f);break;
         }
         return true;

@@ -34,6 +34,7 @@ bool FFPSBodyMotionSample::NetSerialize(FArchive& Ar,UPackageMap*,bool& Success)
     {
         Ar.SerializeBits(&Rig.Valid,1);if(!Rig.Valid){if(Ar.IsLoading()){Rig.Bones.Reset();Rig.Parts.Reset();Rig.VisibleParts.Reset();}continue;}
         Ar<<Rig.Schema;Transform(Ar,Rig.Root);Ar<<Rig.Sections;Ar.SerializeBits(&Rig.Visible,1);
+        Ar.SerializeBits(&Rig.ReloadPropVisible,1);
         for(int32 Kind=0;Kind<2;++Kind)
         {
             auto& Array=Kind==0?Rig.Bones:Rig.Parts;
@@ -74,7 +75,7 @@ bool FFPSBodyMotionSample::Identical(const FFPSBodyMotionSample* Other,uint32) c
     for(int32 I=0;I<Rigs.Num();++I)
     {
         const auto& A=Rigs[I];const auto& R=B.Rigs[I];if(A.Valid!=R.Valid)return false;if(!A.Valid)continue;
-        if(A.Schema!=R.Schema||A.Sections!=R.Sections||A.Visible!=R.Visible||!A.Root.Equals(R.Root)||A.Bones.Num()!=R.Bones.Num()
+        if(A.Schema!=R.Schema||A.Sections!=R.Sections||A.Visible!=R.Visible||A.ReloadPropVisible!=R.ReloadPropVisible||!A.Root.Equals(R.Root)||A.Bones.Num()!=R.Bones.Num()
             ||A.Parts.Num()!=R.Parts.Num()||A.VisibleParts!=R.VisibleParts)return false;
         for(int32 J=0;J<A.Bones.Num();++J)if(!A.Bones[J].Equals(R.Bones[J]))return false;
         for(int32 J=0;J<A.Parts.Num();++J)if(!A.Parts[J].Equals(R.Parts[J]))return false;

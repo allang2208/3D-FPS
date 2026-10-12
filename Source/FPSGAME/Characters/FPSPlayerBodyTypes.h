@@ -171,8 +171,14 @@ struct FFPSBodyWeapon
     UPROPERTY() TArray<int32> MotionBones;
     UPROPERTY() uint32 MotionSchema=0;
     UPROPERTY() FVector StaffLightLocation=FVector::ZeroVector;
+    UPROPERTY() TSoftObjectPtr<class USkeletalMesh> ReloadPropMesh;
+    UPROPERTY() TArray<TSoftObjectPtr<class UMaterialInterface>> ReloadPropMaterials;
+    UPROPERTY() int32 MuzzlePart=INDEX_NONE;
+    UPROPERTY() FVector MuzzleTip=FVector::ZeroVector;
+    UPROPERTY() FVector MuzzleAxis=FVector::ForwardVector;
     // Local adapters are never serialized as equipment or accepted from clients.
     TWeakObjectPtr<class USkeletalMeshComponent> Source;
+    TWeakObjectPtr<class USkeletalMeshComponent> ReloadPropSource;
     TWeakObjectPtr<class UStaticMeshComponent> StaticSource;
     TArray<TWeakObjectPtr<class UStaticMeshComponent>> SourceParts;
 };

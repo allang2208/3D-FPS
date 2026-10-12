@@ -17,6 +17,7 @@
 #include "TacticalSuppressorAssets.h"
 #include "DanWesson715FittedParts.h"
 #include "RSH12MuzzleAssets.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
 #include "PistolAudioAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -228,17 +229,38 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
         }
     }
 }
+FTransform AFPSGAMECharacter::GetEffectiveMuzzleTransform() const
+{
+    FVector Position,Forward;
+    const USceneComponent* Anchor=nullptr;
+    if(!MuzzleVariant.IsEmpty()&&MuzzleAttachment)
+    {
+        Anchor=MuzzleAttachment;
+        Position=Anchor->GetComponentTransform().TransformPosition(MuzzleLocalTip);
+        Forward=Anchor->GetComponentQuat().RotateVector(MuzzleLocalAxis);
+    }
+    else
+    {
+        if(bUseM16)Position=AKMViewmodel->GetSocketTransform(M16WeaponAssets::MuzzleMountBone).TransformPosition(FVector(0.f,M16WeaponAssets::FactoryMuzzleLengthCM*.01f,0.f));
+        else if(AKMSoviet::Matches(AKMViewmodel))Position=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(AKMSoviet::Muzzle);
+        else Position=AKMViewmodel->GetSocketLocation(TEXT("WPN_SOCKET_Muzzle"));
+        if(bUseM16)Forward=AKMViewmodel->GetSocketQuaternion(M16WeaponAssets::MuzzleMountBone).GetAxisY();
+        else if(IsPistolWeapon()||IsSuper90Weapon())Forward=(AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-AKMViewmodel->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
+        else
+        {
+            Forward=AKMViewmodel->GetSocketQuaternion(TEXT("WPN_SOCKET_Muzzle")).GetAxisY();
+            if(FVector::DotProduct(Forward,FirstPersonCamera->GetForwardVector())<0)Forward=-Forward;
+        }
+    }
+    FTransform Frame(Forward.Rotation(),Position);
+    if(const auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>();Body&&Body->IsThirdPersonViewEnabled())
+    {
+        FTransform WorldFrame;
+        if(Body->ResolveWorldWeaponFrame(AKMViewmodel,Anchor,Frame,WorldFrame))Frame=WorldFrame;
+    }
+    return Frame;
+}
 FVector AFPSGAMECharacter::GetEffectiveMuzzleLocation() const
-{
-    if(bUseM16&&MuzzleVariant.IsEmpty())return AKMViewmodel->GetSocketTransform(M16WeaponAssets::MuzzleMountBone).TransformPosition(FVector(0.f,M16WeaponAssets::FactoryMuzzleLengthCM*.01f,0.f));
-    if(AKMSoviet::Matches(AKMViewmodel)&&MuzzleVariant.IsEmpty())return AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(AKMSoviet::Muzzle);
-    return !MuzzleVariant.IsEmpty()&&MuzzleAttachment?MuzzleAttachment->GetComponentTransform().TransformPosition(MuzzleLocalTip):AKMViewmodel->GetSocketLocation(TEXT("WPN_SOCKET_Muzzle"));
-}
+{return GetEffectiveMuzzleTransform().GetLocation();}
 FVector AFPSGAMECharacter::GetEffectiveMuzzleForward() const
-{
-    if(!MuzzleVariant.IsEmpty()&&MuzzleAttachment)return MuzzleAttachment->GetComponentQuat().RotateVector(MuzzleLocalAxis);
-    if(bUseM16)return AKMViewmodel->GetSocketQuaternion(M16WeaponAssets::MuzzleMountBone).GetAxisY();
-    if(IsPistolWeapon())return (AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-AKMViewmodel->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
-    FVector F=AKMViewmodel->GetSocketQuaternion(TEXT("WPN_SOCKET_Muzzle")).GetAxisY();
-    return FVector::DotProduct(F,FirstPersonCamera->GetForwardVector())<0?-F:F;
-}
+{return GetEffectiveMuzzleTransform().GetRotation().GetAxisX();}

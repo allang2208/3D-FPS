@@ -47,9 +47,17 @@ public:
     /** Local F6 view only; keeps the first-person camera as the gameplay aim anchor. */
     bool IsThirdPersonViewEnabled() const;
     bool IsFixedThirdPersonViewEnabled() const;
+    /** Resolve an existing world copy of one native weapon attachment. */
+    bool ResolveWorldWeaponPart(const class USkeletalMeshComponent* Source,const class UStaticMeshComponent* SourcePart,
+        class USkeletalMeshComponent*& WorldHost,class UStaticMeshComponent*& WorldPart) const;
+    /** Transfer a native muzzle/port frame through its visible weapon or attachment. */
+    bool ResolveWorldWeaponFrame(const class USkeletalMeshComponent* Source,const class USceneComponent* SourceAnchor,
+        const FTransform& SourceFrame,FTransform& WorldFrame) const;
     void ApplyCameraView(struct FMinimalViewInfo& View);
     void ApplyInteractionView(FVector& Eye, FRotator& View) const;
     void RefreshViewMode();
+    void PresentSuper90Shot(bool bAiming,bool bSuppressed);
+    class UFPSWeaponFXComponent* GetRemoteGunFX() const {return RemoteGunFX;}
     // The accepted first-person consumable executor supplies visual release events.
     bool PresentConsumableDiscard(class UStaticMeshComponent* Source,const FVector& Velocity,float Lifetime);
     /** Only catalog IDs are accepted. Persists the owning player's choice. */
@@ -65,6 +73,12 @@ private:
     TWeakObjectPtr<class AFPSGAMECharacter> Character;
     UPROPERTY(Transient) TObjectPtr<class UFPSPlayerBodyAnimInstance> BodyAnimation;
     UPROPERTY(Transient) TArray<TObjectPtr<class USkeletalMeshComponent>> WorldWeapons;
+    UPROPERTY(Transient) TArray<TObjectPtr<class USkeletalMeshComponent>> WorldReloadProps;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UTacticalDeviceComponent>> WorldTacticalDevices;
+    UPROPERTY(Transient) TObjectPtr<class UFPSWeaponFXComponent> RemoteGunFX;
+    UPROPERTY(Transient) TObjectPtr<class USoundBase> RemoteGunSound;
+    UPROPERTY(Transient) TObjectPtr<class USoundBase> RemoteSuppressedGunSound;
+    UPROPERTY(Transient) TObjectPtr<class USoundConcurrency> RemoteGunConcurrency;
     UPROPERTY(Transient) TArray<TObjectPtr<class UStaticMeshComponent>> WorldParts;
     // Includes the weapon and every copied part; array indices can change when an asset is absent.
     TMap<TWeakObjectPtr<class UPrimitiveComponent>, uint8> WorldEquipmentHands;

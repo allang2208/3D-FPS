@@ -119,17 +119,21 @@ void AFPSGAMECharacter::SetSuper90LoaderCues()
     int32 Index=0;
     for(const auto& Cue:Super90LoaderAudioReference::Cues)
     {
-        // Normal loads stop after tube removal; cycle-only plays the bolt pair.
+        // Retain loader handling cues; the old overhand bolt pair is retired.
         const bool bBolt=Cue.CycleFrame>=0.f;
-        const float Frame=Super90ReloadCount>0?Cue.Frame:Cue.CycleFrame;
-        if(Frame>=0.f&&(!bBolt||bPendingEmptyReload))
+        if(Super90ReloadCount>0&&!bBolt)
         {
-            MechanicalCueTimes.Add(Frame/60.f);
+            MechanicalCueTimes.Add(Cue.Frame/60.f);
             MechanicalCueSounds.Add(Super90LoaderSounds.IsValidIndex(Index)?Super90LoaderSounds[Index].Get():nullptr);
         }
         ++Index;
     }
     const float Ready=Super90SpeedloaderAssets::Release(Super90ReloadCount);
+    if(bPendingEmptyReload)
+    {
+        MechanicalCueTimes.Add(Ready);
+        MechanicalCueSounds.Add(ChargeReleaseSound);
+    }
     ReloadStages={Super90ReloadTail,Super90SpeedloaderAssets::FeedContact(Super90ReloadTail,FMath::Max(0,Super90ReloadCount-1)),Ready};
     NextMechanicalCue=0;
     const float SourceTime=Super90ReloadSourceTime(WeaponStateElapsed);

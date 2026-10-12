@@ -10,6 +10,7 @@ class FPSGAME_API UTacticalDeviceComponent : public UActorComponent
 public:
     UTacticalDeviceComponent();
     void Configure(const FString& Family,const FString& Variant,class USkeletalMeshComponent* Rifle,bool Enabled);
+    void ConfigureWorld(const FString& Variant,class USkeletalMeshComponent* Rifle,class UStaticMeshComponent* Device);
     void SetPresentationHidden(bool Hidden);
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Function) override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
@@ -17,6 +18,7 @@ private:
     FString Kind,AssetPath;
     bool bUseAuthoredEmitterAxis=false;
     bool bPresentationHidden=false;
+    bool bWorldPresentation=false;
     /**
      * 开镜对齐的时间窗（秒）。开镜过渡期间光束保持沿枪管，等 ADS 完全到位
      * （WeaponADSFactor >= ADSSettleThreshold）后才在这么长的时间内迅速转到准星。

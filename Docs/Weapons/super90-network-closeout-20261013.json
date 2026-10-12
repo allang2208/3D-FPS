@@ -1,0 +1,82 @@
+{
+  "weapon": "SUPER90",
+  "date": "2026-10-13",
+  "scope": "此前六项修复的源码接入、引用与正式 Editor 构建收尾",
+  "development_status": "source_and_editor_build_complete_runtime_pending",
+  "items": [
+    {
+      "id": 1,
+      "feature": "换弹种与发射快照",
+      "code_status": "已接入",
+      "evidence": "可靠换弹请求在服务端提交弹种；每颗弹丸携带发射时弹药与技能快照。"
+    },
+    {
+      "id": 2,
+      "feature": "完整飞行距离衰减",
+      "code_status": "已接入",
+      "evidence": "弹丸记录 LaunchOrigin 和 TraveledCM；命中采用累计飞行距离，旧命中上报保留发射起点。"
+    },
+    {
+      "id": 3,
+      "feature": "服务端开火、扣弹与装填",
+      "code_status": "已接入",
+      "evidence": "服务端发射真实弹丸并按装填接触提交弹药；客户端预测弹丸仅表现；拒绝重复枪弹命中上报；旧档案上传按弹药修订号合并。"
+    },
+    {
+      "id": 4,
+      "feature": "远端换弹子弹与快速装填器",
+      "code_status": "已接入",
+      "evidence": "机械区段遮罩和装填器显示位随动作同步，骨骼装填器跟随世界枪械姿态；动作失配时清除残留道具。"
+    },
+    {
+      "id": 5,
+      "feature": "远端战术灯、激光与开火表现",
+      "code_status": "已接入",
+      "evidence": "世界挂件复用适配插口；远端开火组播连接空间音效、枪口效果与表现弹道；主机观战不重复发射表现弹丸。"
+    },
+    {
+      "id": 6,
+      "feature": "四段圆环准星与弹药散布",
+      "code_status": "已接入",
+      "evidence": "圆环投影包含腰射方形偏移的角点及弹丸锥角；独头弹排除多弹丸锥角；ADS 保持既有准星隐藏规则。"
+    }
+  ],
+  "closeout_fixes": [
+    "服务端装填数量、速度、普通/空仓/装填器/仅闭锁类型回传并校正本机动作；保留已有动作素材和进行中的装填时钟。",
+    "软打断先计算服务端停止边界再发送回包，避免回包恢复旧数量；已确认边界不会被本机旧预测再次缩短。",
+    "旧档案上传拒绝不再打断仍获服务端认可的换弹。",
+    "远端动作失配恢复静止姿态时隐藏原生换弹子弹，避免保留上一帧显示状态。"
+  ],
+  "asset_status": {
+    "new_imports_required": false,
+    "existing_files_checked": [
+      "Content/Weapons/Super90/Cransh20261006/SK_Super90_V7.uasset",
+      "Content/Weapons/Super90/Speedloader20261007/SK_Super90_LoaderProps.uasset",
+      "Content/Weapons/Super90/Speedloader20261007/Animations: cycle、normal 1–7、empty 1–7，共 15 份",
+      "Content/Weapons/Super90/GameDevAudio20261007/S_Super90_Fire.uasset",
+      "Content/Weapons/AKM/SuppressedAudio20260921/S_AKM_Suppressed.uasset"
+    ],
+    "boundary": "检查实际磁盘文件与代码引用；本轮未加载或渲染 UE 资产。"
+  },
+  "build": {
+    "target": "FPSGAMEEditor Win64 Development",
+    "result": "Succeeded",
+    "log": "Saved/Super90Closeout20261013/Editor.final.stdout.log",
+    "full_build_log": "Saved/Super90Closeout20261013/Editor.stdout.log",
+    "final_status": "Target is up to date; Result: Succeeded; 32 recorded source dependencies unchanged",
+    "binary": "Binaries/Win64/UnrealEditor-FPSGAME.dll"
+  },
+  "recovery": {
+    "initial_backups": "Saved/Super90NetworkRepair20261012/Before",
+    "closeout_backups": "Saved/Super90Closeout20261013/Before",
+    "source_manifest": "Saved/Super90Closeout20261013/source_manifest_final.json",
+    "policy": "保留源资产、既有动作和备份；未删除共享或待用户体验的资源。"
+  },
+  "validation_boundary": {
+    "performed": "六项源码接入核对、相关资产文件存在性检查、修改差异检查和必要构建。",
+    "not_performed": "未启动 UE/PIE、双端联机、延迟或丢包测试、视觉或动画验收。",
+    "user_runtime_focus": "主机/客机切换三种弹药后射击；普通、空仓与快速装填的中断续装；远端道具、灯光、激光与枪口表现。",
+    "scope_limit": "本次是 SUPER90 枪弹与装填权威化；通用库存、制作和拾取仍沿用项目既有同步架构，不代表全局反作弊或联机运行验收。"
+  },
+  "publication": "2026-10-13 按 WORKFLOW.md 进行源码范围拆分、废案归档与 Git 发布；参见 super90-publication-20261012.md 的最新更新。二进制及素材仅本机保留，拆分公开快照未单独编译。"
+}

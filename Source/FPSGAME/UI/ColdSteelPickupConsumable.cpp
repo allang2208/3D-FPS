@@ -13,6 +13,19 @@
 bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
 {
     const FString& Id=Item.Definition;
+    if(Id==TEXT("ammo_12g")||Id==TEXT("ammo_12g_flechette")||Id==TEXT("ammo_12g_slug"))
+    {
+        // Resolve by definition so existing saved drops also receive the authored carton.
+        const TCHAR* Variant=Id==TEXT("ammo_12g")?TEXT("Buckshot"):Id==TEXT("ammo_12g_flechette")?TEXT("Flechette"):TEXT("Slug");
+        const FString Path=FString::Printf(TEXT("/Game/Items/Ammo12Gauge20261012/Meshes/SM_12G_%s_Box.SM_12G_%s_Box"),Variant,Variant);
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,*Path);
+        if(!Asset)return false;
+        const auto Bounds=Asset->GetBounds();
+        Mesh->EmptyOverrideMaterials();Mesh->SetStaticMesh(Asset);
+        Mesh->SetRelativeScale3D(FVector(1));Mesh->SetRelativeLocation(-Bounds.Origin);
+        Body->SetBoxExtent(Bounds.BoxExtent.ComponentMax(FVector(1.f)));
+        return true;
+    }
     if(ColdSteelStaff::IsStaff(Item))
     {
         return BuildStaff(Item);

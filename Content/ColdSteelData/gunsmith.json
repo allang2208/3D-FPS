@@ -9006,19 +9006,19 @@
         "optic",
         "muzzle",
         "underbarrel",
+        "reargrip",
         "stock",
         "magazine",
         "reload_device",
-        "tactical",
-        "tactical_secondary"
+        "tactical"
       ],
       "base": {
         "ammo_item_id": "ammo_12g",
         "mag_size": 7,
         "ads_smooth": 12,
-        "recoil": 145,
+        "recoil": 290,
         "camera_shake": 120,
-        "spread_mult": 1.5,
+        "spread_mult": 2.25,
         "fire_interval": 0.06,
         "reload_time": 1.2692307692307692,
         "empty_reload_time": 5.435897435897435,
@@ -9324,6 +9324,82 @@
               }
             ],
             "stats": {}
+          }
+        ],
+        "reargrip": [
+          {
+            "id": "false",
+            "name": "原厂后握把",
+            "description": "拆下改造后握把，恢复这把枪的原厂后握把。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "phantom_reargrip",
+            "name": "幻影后握把",
+            "description": "镂空框架后握把，带横向防滑纹理。开镜耗时增加、后坐力降低，但增加腰射随机散布。",
+            "effects": [
+              {
+                "text": "开镜耗时增加15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.15,
+              "recoil_mult": 0.9,
+              "hip_spread_mult": 1.1
+            }
+          },
+          {
+            "id": "stable_antislip_reargrip",
+            "name": "稳固防滑后握",
+            "description": "实心人体工学后握把，指槽与橡胶防滑面提升握持稳定性。",
+            "effects": [
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15
+            }
+          },
+          {
+            "id": "balanced_reargrip",
+            "name": "均衡后握把",
+            "description": "实心聚合物后握把，带横向防滑纹理与对应枪型的连接件，降低后坐力并提升枪械稳定性。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            }
           }
         ]
       },

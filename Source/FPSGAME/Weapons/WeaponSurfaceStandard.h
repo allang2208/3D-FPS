@@ -22,6 +22,10 @@ inline UMaterialInterface* SelfWetSource(UMaterialInterface* Material)
     if(const auto* MID=Cast<UMaterialInstanceDynamic>(Material))Asset=MID->Parent;
     if(!Asset||!Asset->IsAsset())return nullptr;
     const UMaterial* Base=Asset->GetBaseMaterial();
-    return Base&&Base->GetOutermost()->GetFName()==MasterPackage()?Asset:nullptr;
+    if(!Base)return nullptr;
+    const FName Package=Base->GetOutermost()->GetFName();
+    // SUPER90 rear grips use the same wet layer with a vertex-masked polymer/metal finish.
+    static const FName Super90RearGripMaster(TEXT("/Game/Weapons/Super90/RearGrips20261012/Materials/M_Super90RearGripSurface"));
+    return Package==MasterPackage()||Package==Super90RearGripMaster?Asset:nullptr;
 }
 }

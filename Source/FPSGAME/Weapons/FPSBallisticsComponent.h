@@ -8,7 +8,7 @@ class USoundBase;
 struct FColdSteelItem;
 struct FFPSFlyingRound
 {
-    FVector Position,Direction;
+    FVector Position,Direction,LaunchOrigin;
     float Speed=0,Remaining=0,Damage=0;
     float TraveledCM=0,EffectiveRangeCM=0;
     double Timestamp=0;
@@ -21,6 +21,7 @@ struct FFPSFlyingRound
     bool bShowTracer=true;
     // 汇聚附魔：本发是整匣聚合弹，曳光走加粗纯白 + 螺旋环绕的表现分支。
     bool bConverged=false;
+    bool bCosmeticOnly=false;
     bool bRiverEntryPlayed=false;
     int32 Piercing=0,Poison=0;
     FColdSteelSkillShot Training;
@@ -34,7 +35,7 @@ class FPSGAME_API UFPSBallisticsComponent : public UActorComponent
     GENERATED_BODY()
 public:
     UFPSBallisticsComponent();
-    void Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM=0,const FColdSteelItem* ShotItem=nullptr,bool bConverged=false);
+    void Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM=0,const FColdSteelItem* ShotItem=nullptr,bool bConverged=false,bool bCosmeticOnly=false);
     static bool IsShatterEnemy(AActor* Target,AActor* Shooter);
     /** Enqueue children outside the active round array; no recursive Launch/JSON reads. */
     void QueueShatter(const FHitResult& Hit,const FColdSteelSkillShot& Shot,const FWeaponDamageResult& Receipt);

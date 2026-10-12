@@ -58,6 +58,8 @@
 
 ## 2026-10-12 当前状态与恢复
 
-快速装填已经恢复开发，用户认可完整动作；当前 R24 姿态叠加 R25 分段播放时钟，新节奏待用户体验。普通空仓采用 NativeEmptyBolt＋PacingR2，快速近战采用 RightArmR9，移动右链统一认可的 idle。Super90 基础和最低射击间隔均为 60 ms；快速装填在压实点一次补齐可装弹药，普通装填仍逐发处理。镜头参考其他长枪的接触强度，不重复叠加枪手烘焙冲量。
+快速装填已在 R24/R25 基线上继续修订：当前普通空仓为 Super90CranshRelease20261012，快速装填及仅闭锁收尾为 Super90LoaderRelease20261012 的按压释放；推进末端至回握另叠加 Super90LoaderArmRoot20261012 支撑修正。R25 推进时钟仍保留；旧 NativeEmptyBolt＋PacingR2 属于已替代的反手拉柄尾段。快速近战采用 RightArmR9，移动右链统一认可的 idle。新修订仍需用户体验。Super90 基础和最低射击间隔均为 60 ms；快速装填在压实点一次补齐可装弹药，普通装填仍逐发处理。镜头参考其他长枪的接触强度，不重复叠加枪手烘焙冲量。
 
 详见手臂技能 [Super90 共用时钟与局部修订](../../ue5-fps-arms-animation/references/super90-shared-clock.md) 和工程 `Docs/Weapons/super90-publication-20261012.md`。R10/R11/R13/R18 已移入 `trash/super90-retired-20261012/`，历史参数不是当前模板；R12、R14–R17 及后继依赖留在原位。游戏二进制、第三方完整采样、音视频和模型保留本机，公开配方不等于完整资产安装。
+
+弹药／联机合同见 [霰弹枪权威与表现](shotgun-authority-and-presentation.md)。2026-10-13 归档仅移动确认废案；MPFB 目录中的 inputs.json 和 materials_saved.json 仍被当前表面制作读取，不能随废案目录整体移走。

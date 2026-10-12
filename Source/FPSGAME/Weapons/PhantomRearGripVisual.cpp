@@ -1,4 +1,5 @@
 #include "HK416Attachments.h"
+#include "Super90RearGripAssets.h"
 #include "HK416WeaponAssets.h"
 #include "AR416Furniture.h"
 #include "LMG201Attachments.h"
@@ -27,6 +28,11 @@ bool IsFactoryRearGrip(const FName& Slot)
 
 void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon, const FString& GripBody)
 {
+    if(IsSuper90Weapon())
+    {
+        RearGripAttachment=Super90RearGripAssets::Configure(this,AKMViewmodel,RearGripAttachment,Variant,bInventoryWeaponReady);
+        return;
+    }
     if (IsHK416Weapon())
     {
         const bool Enabled=bInventoryWeaponReady&&(Variant==HK416WeaponAssets::RearGripPart||Variant==TEXT("phantom_reargrip")||Variant==TEXT("stable_antislip_reargrip")||Variant==TEXT("balanced_reargrip"));

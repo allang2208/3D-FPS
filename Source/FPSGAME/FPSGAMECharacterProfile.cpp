@@ -159,6 +159,9 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
             EffectiveWeaponRangeCM=FMath::Max(1.f,static_cast<float>(Stats.Range*100.));
             // Keep ballistic lifetime separate from the full-damage range.
             TraceDistance=FMath::Max(Defaults->TraceDistance,EffectiveWeaponRangeCM*3.f);
+            const float AmmoRange=Profile->AmmoRangeMultiplier(*I);
+            EffectiveWeaponRangeCM*=AmmoRange;
+            TraceDistance*=AmmoRange;
             // Every catalog weapon, M4 included, drives cadence from the same
             // gunsmith data the panel and tooltips read. The old M4 exception
             // silently ignored the catalog fire interval.

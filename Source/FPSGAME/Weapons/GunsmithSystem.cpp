@@ -1,4 +1,5 @@
 #include "GunsmithSystem.h"
+#include "TacticalDeviceVariants.h"
 #include "G18WeaponAssets.h"
 #include "PitViper2011WeaponAssets.h"
 #include "Staff/StaffCatalog.h"
@@ -140,6 +141,14 @@ FGunsmithParts UGunsmithSystem::Normalize(const FString& D,const FGunsmithParts&
     for(const auto& P:Input)
     {
         FString Slot=P.Key;
+        // Super90 now has one underside mount. Retain the primary device, or
+        // migrate a legacy secondary-only loadout without depending on map order.
+        if(D==Super90WeaponAssets::Definition && Slot==TacticalDeviceVariants::SecondarySlot)
+        {
+            const FString Primary=Input.FindRef(TacticalDeviceVariants::PrimarySlot);
+            if(Primary!=TEXT("false") && Option(D,TacticalDeviceVariants::PrimarySlot,Primary))continue;
+            Slot=TacticalDeviceVariants::PrimarySlot;
+        }
         // Earlier PKM instances stored the optional bipod in the grip slot.
         // Only an explicitly installed old bipod migrates; empty/new loadouts
         // stay empty, and an explicit new-slot choice always wins.
@@ -296,8 +305,8 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
     {
         // Catalog seconds describe the complete loader operation in this mode.
         // Keep the existing base speed increase and all later skill multipliers.
-        R.Reload*=Super90SpeedloaderAssets::NormalReference/Super90WeaponAssets::SingleReload;
-        R.EmptyReload*=Super90SpeedloaderAssets::EmptyReference/Super90WeaponAssets::FullReload;
+        R.Reload*=Super90SpeedloaderAssets::NormalPacedReference/Super90WeaponAssets::SingleReload;
+        R.EmptyReload*=Super90SpeedloaderAssets::EmptyPacedReference/Super90WeaponAssets::FullReload;
     }
     for(const auto& Pair:Normalize(D,P))
     {

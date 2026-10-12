@@ -9,6 +9,7 @@
 #include "../Skills/LightningTypes.h"
 #include "../Skills/FireMagicTypes.h"
 #include "../Skills/ElectricMagicTypes.h"
+#include "Super90NetworkTypes.h"
 #include "ColdSteelPlayerState.generated.h"
 
 class UColdSteelStatusModel;
@@ -140,7 +141,20 @@ public:
 
     /** 档案快照分块上行（客户端→服务端）。TMap 不能直接 RPC，序列化成字节流按 1KB 分片。 */
     UFUNCTION(Server, Reliable)
-    void ServerSubmitProfileChunk(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk);
+    void ServerSubmitProfileChunk(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision);
+
+    uint32 RequestSuper90Shot(const FString& Weapon,const FVector& Eye,const FVector& Muzzle,const FVector& Aim,bool Aiming,int32 PredictedRounds);
+    void RequestSuper90Reload(const FString& Weapon,const FString& Ammo);
+    void CancelSuper90Reload(bool Soft);
+    bool IsSuper90ReloadPending() const {return bSuper90ReloadPending;}
+    bool IsSuper90ServerReady(const FString& Weapon) const {return Super90ServerWeapons.Contains(Weapon);}
+    UFUNCTION(Server,Reliable) void ServerSuper90Shot(uint32 Sequence,const FString& Weapon,FVector_NetQuantize Eye,
+        FVector_NetQuantize Muzzle,FVector_NetQuantizeNormal Aim,bool Aiming,double FiredAt);
+    UFUNCTION(Server,Reliable) void ServerSuper90Reload(uint32 Sequence,const FString& Weapon,const FString& Ammo);
+    UFUNCTION(Server,Reliable) void ServerSuper90Cancel(uint32 Sequence,bool Soft);
+    UFUNCTION(Client,Reliable) void ClientSuper90Ammo(const FSuper90NetAmmoState& State);
+    UFUNCTION(NetMulticast,Unreliable) void MulticastSuper90Shot(class AFPSGAMECharacter* Shooter,FVector_NetQuantize Muzzle,
+        const TArray<FVector_NetQuantizeNormal>& Directions,float Speed,float Range,bool Aiming,bool Suppressed);
 
     /** 客户端命中上报：只报开火几何与武器声明，数值由服务端按影子档案重算。 */
     UFUNCTION(Server, Reliable)
@@ -185,6 +199,22 @@ public:
     void SaveShadowToHostDisk();
 
 private:
+    uint32 Super90LocalSequence=0,Super90ProcessedSequence=0,Super90Revision=0,Super90AppliedRevision=0;
+    uint32 PendingSuper90Revision=0,IncomingSuper90Revision=0;
+    TArray<FSuper90PredictedShot> Super90PredictedShots;
+    TSet<FString> Super90ServerWeapons;
+    TArray<int64> Super90PouchDelta={0,0,0},Super90AppliedPouchDelta={0,0,0};
+    TMap<uint32,TArray<int64>> Super90PouchHistory;
+    FSuper90ServerReload Super90Reload;
+    bool bSuper90ReloadPending=false,bSuper90SoftCancelSent=false;
+    double Super90LastFireTime=-100.,Super90NextFireTime=-100.;
+    void TickSuper90Authority(float DeltaSeconds);
+    void SendSuper90Ammo(bool Rejected=false);
+    void RecordSuper90PouchChange(const FColdSteelProfile& Before,const FColdSteelProfile& After);
+    bool RebaseSuper90Upload(FColdSteelProfile& Incoming,const FColdSteelProfile& Previous) const;
+    void PreserveSuper90ClientAmmo(FColdSteelProfile& Incoming) const;
+    class AFPSGAMECharacter* Super90AuthorityPawn(const FString& Weapon);
+    void FinishSuper90AuthorityReload();
     void ApplyGuestProfile(const FColdSteelProfile& Profile);
     void ApplyShadowToServerPawn();
     void TickUpload(float DeltaSeconds);

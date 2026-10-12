@@ -121,6 +121,7 @@ void AColdSteelPlayerState::Tick(float DeltaSeconds)
         // 影子档案随服务端时钟走：冷却衰减/法力回复/增益结算不再等客户端 30s 兜底上行。
         if (ShadowModel && Pawn && ShadowPawn.Get() == Pawn)
             ShadowModel->TickRuntime(DeltaSeconds, Pawn);
+        TickSuper90Authority(DeltaSeconds);
         // 施法看门狗：凝聚球在外部消亡（悬停超时/世界清理）而 Phase 未落地——回收占用并退款。
         if (PendingCastSkill == FireballSkillId && !PendingCastOrb.IsValid())
         {
@@ -276,6 +277,7 @@ void AColdSteelPlayerState::ApplyGuestProfile(const FColdSteelProfile& GuestProf
         // 任一侧的增量都不会被对方旧快照回滚。
         const FColdSteelProfile Prev = ShadowModel->Snapshot();
         FColdSteelProfile Adopted = GuestProfile;
+        if(!RebaseSuper90Upload(Adopted,Prev)){SendSuper90Ammo(true);return;}
         // A profile upload may have been captured before the focus-break RPC.
         SpellbookFocusMana::Merge(Adopted,Prev.SpellbookFocusManaLoss);
         // Ongoing survival is server-owned; inventory uploads must not refill or rewind it.
@@ -300,6 +302,7 @@ void AColdSteelPlayerState::ApplyGuestProfile(const FColdSteelProfile& GuestProf
         ShadowModel->AdoptNetMirror(Adopted);
     }
     ApplyShadowToServerPawn();
+    SendSuper90Ammo();
     bServerDirty = true;
     ServerSaveTimer = 20.f;
 }
@@ -432,6 +435,7 @@ void AColdSteelPlayerState::TickUpload(float DeltaSeconds)
             if ((bStructural || bVitalFlush) && PendingUpload.Num() == 0)
             {
                 PendingUpload = MoveTemp(Blob);
+                PendingSuper90Revision=Super90AppliedRevision;
                 PendingNormBlob = MoveTemp(NormBlob);
                 PendingUploadId = ++UploadCounter;
                 NextChunkIndex = 0;
@@ -451,7 +455,7 @@ void AColdSteelPlayerState::TickUpload(float DeltaSeconds)
             const int32 Count = FMath::Min(ProfileChunkSize, PendingUpload.Num() - Start);
             TArray<uint8> Chunk;
             Chunk.Append(PendingUpload.GetData() + Start, Count);
-            ServerSubmitProfileChunk(PendingUploadId, NextChunkIndex, PendingTotalChunks, Chunk);
+            ServerSubmitProfileChunk(PendingUploadId, NextChunkIndex, PendingTotalChunks, Chunk,PendingSuper90Revision);
             ++NextChunkIndex;
             ++SentThisTick;
         }
@@ -475,6 +479,7 @@ void AColdSteelPlayerState::OnRep_MirrorBlob()
     UColdSteelStatusModel* Model = GI ? GI->GetSubsystem<UColdSteelStatusModel>() : nullptr;
     UColdSteelProfileSave* Save = Model && MirrorBlob.Num() > 0 ? BlobToSave(MirrorBlob) : nullptr;
     if (!Model || !Save) return;
+    Model->SyncRuntime();
 
     // 冲突消解：本机在上次上行后未改 → 全量镜像；有本地变更 → 只并入服务端口径的修行字段。
     bool bLocalClean = false;
@@ -492,6 +497,7 @@ void AColdSteelPlayerState::OnRep_MirrorBlob()
     }
     if (bLocalClean&&Save->Profile.SpellbookFocusManaLoss>=Model->SpellbookFocusManaLossTotal())
     {
+        PreserveSuper90ClientAmmo(Save->Profile);
         Model->AdoptNetMirror(Save->Profile);
     }
     else
@@ -504,12 +510,13 @@ void AColdSteelPlayerState::OnRep_MirrorBlob()
         Merged.Points = Save->Profile.Points;
         Merged.Kills = Save->Profile.Kills;
         Merged.Skills = Save->Profile.Skills;
+        PreserveSuper90ClientAmmo(Merged);
         Model->AdoptNetMirror(Merged);
     }
     UE_LOG(LogTemp, Warning, TEXT("MPTEST mirror applied: %dB lv=%d"), MirrorBlob.Num(), Save->Profile.Level);
 }
 
-void AColdSteelPlayerState::ServerSubmitProfileChunk_Implementation(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk)
+void AColdSteelPlayerState::ServerSubmitProfileChunk_Implementation(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision)
 {
     if (GetLocalRole() != ROLE_Authority || TotalChunks <= 0 || TotalChunks > 512 ||
         ChunkIndex < 0 || ChunkIndex >= TotalChunks || Chunk.Num() <= 0 || Chunk.Num() > ProfileChunkSize)
@@ -522,9 +529,10 @@ void AColdSteelPlayerState::ServerSubmitProfileChunk_Implementation(int32 Upload
         IncomingBlob.Reset();
         IncomingReceived = 0;
         IncomingTotal = TotalChunks;
+        IncomingSuper90Revision=AmmoRevision;
     }
     // reliable 同 actor 通道保序：按到达顺序尾接即可，偏移不符说明丢包/重放，丢弃该包。
-    if (ChunkIndex * ProfileChunkSize != IncomingBlob.Num())
+    if (ChunkIndex * ProfileChunkSize != IncomingBlob.Num()||IncomingTotal!=TotalChunks||IncomingSuper90Revision!=AmmoRevision)
     {
         return;
     }
@@ -585,8 +593,16 @@ bool AColdSteelPlayerState::ValidateHitReport(const FColdSteelNetHitReport& Repo
     const double Interval = bUnarmed?double(StaffQuickCombatMotion::Length):FMath::Max(0.05, Shooter->EffectiveFireInterval());
     FireTokenBucket = FMath::Min(6.f, FireTokenBucket + static_cast<float>((Now - LastFireTokenRefillAt) / Interval));
     LastFireTokenRefillAt = Now;
-    const float HitTokenCost=OutDeclaredItem&&OutDeclaredItem->Definition==Super90WeaponAssets::Definition
-        && Report.AttackMeta==0?1.f/Super90WeaponAssets::PelletCount:1.f;
+    float HitTokenCost=1.f;
+    if(OutDeclaredItem&&OutDeclaredItem->Definition==Super90WeaponAssets::Definition&&Report.AttackMeta==0)
+    {
+        const auto* Ammo=ShadowModel->AmmoType(ShadowModel->AmmoDefinitionFor(*OutDeclaredItem));
+        int32 ExtraTargets=Ammo?Ammo->TargetPenetration:0;
+        if(const auto* Enhancement=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
+            ExtraTargets+=FMath::Clamp(int32(Enhancement->Effect(*OutDeclaredItem,TEXT("piercingBonus"))),0,8);
+        // A single flechette cartridge can legitimately report two bodies per dart.
+        HitTokenCost=1.f/(ShadowModel->AmmoProjectileCount(*OutDeclaredItem,Super90WeaponAssets::PelletCount)*(1+ExtraTargets));
+    }
     if (FireTokenBucket < HitTokenCost) { OutReason = TEXT("rate"); return false; }
 
     // 几何合理性（抗明显伪造）。投射物（箭/法杖弹/裂斩波/弹道弹）的 TraceStart 是
@@ -718,7 +734,9 @@ float AColdSteelPlayerState::ComputeServerDamage(AFPSGAMECharacter* Shooter,
 
     // 枪械 hitscan 与弹道投射物：面板 × 汇聚(已按弹匣容量钳) × 服务端距离衰减。
     const float Distance = FVector::Dist(FVector(Report.AimOrigin), FVector(Report.ImpactPoint));
-    const float PelletScale=Item&&Item->Definition==Super90WeaponAssets::Definition?1.f/Super90WeaponAssets::PelletCount:1.f;
+    const bool bShotgun=Item&&Item->Definition==Super90WeaponAssets::Definition;
+    const float PelletScale=bShotgun?ShadowModel->AmmoDamageMultiplier(*Item)
+        /ShadowModel->AmmoProjectileCount(*Item,Super90WeaponAssets::PelletCount):1.f;
     return Panel * ConvergenceScale * PelletScale
         * WeaponDamageFalloff::Multiplier(Distance, Shooter->EffectiveWeaponRangeCM);
 }
@@ -726,6 +744,10 @@ float AColdSteelPlayerState::ComputeServerDamage(AFPSGAMECharacter* Shooter,
 void AColdSteelPlayerState::ServerReportHit_Implementation(const FColdSteelNetHitReport& Report)
 {
     if (GetLocalRole() != ROLE_Authority) return;
+    // SUPER90 firearm hits are generated by server projectiles. A second
+    // client hit report must never deal damage again (melee remains separate).
+    if(Report.ItemDefinition==Super90WeaponAssets::Definition
+        &&(!(Report.AttackMeta&0x80)||(Report.Flags&(1<<6))))return;
     APlayerController* PC = Cast<APlayerController>(GetOwner());
     AFPSGAMECharacter* Shooter = PC ? Cast<AFPSGAMECharacter>(PC->GetPawn()) : nullptr;
 
@@ -858,6 +880,7 @@ void AColdSteelPlayerState::ServerReportBodyAction_Implementation(uint8 Action, 
 
 void AColdSteelPlayerState::ServerReportShotStamp_Implementation()
 {
+    if(const auto* Pawn=Cast<AFPSGAMECharacter>(GetPawn());Pawn&&Pawn->IsSuper90Weapon())return;
     const double Now = GetWorld()->GetGameState()
         ? GetWorld()->GetGameState()->GetServerWorldTimeSeconds()
         : GetWorld()->GetTimeSeconds();

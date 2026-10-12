@@ -12,7 +12,7 @@
 
 本例 R25 从 R21 保存的枪身空间轨迹定位源帧 86–110 的 30% 位置为约 92.50245；映射至新帧 86–104–116，前后占 18／12 帧，基础 1.3 倍率下约 0.231／0.154 秒。总推进约 0.385 秒，后续源动作原速后移六帧。数值仅属于本枪当前源；不能推广到其他枪或其他版本。
 
-普通空仓 R2 独立保留：7.4 秒源资产的末 1.4 秒以单调时钟展开到 2.16 秒属性时间，基础倍率约 1.66 秒；提前结束逐发装填、续作拉栓、音效和上膛沿同一映射。不能只把 `FullReload` 属性改为新片长。
+历史普通空仓 R2（后被 Cransh 按压释放替代，不能重新安装到当前普通空仓）：7.4 秒源资产的末 1.4 秒以单调时钟展开到 2.16 秒属性时间，基础倍率约 1.66 秒；提前结束逐发装填、续作拉栓、音效和上膛沿同一映射。不能只把 `FullReload` 属性改为新片长。
 
 ## 接触、辅助骨与真实几何
 
@@ -27,6 +27,16 @@
 
 Profile 只合并目标动作／目标骨轨道；读取 UE 反射结构数组后，先复制普通值和资产引用再替换容器，不能跨重建持有旧视图。动画压缩完成后保存，正式资产路径以运行消费者为准。R21 曾误写 `Speedloader21261007`；脚本存在或错误路径下保存成功不等于完成接入。
 
-最新播放源为 `SourceAssets/Super90LoaderR25_20261012/author_timing.py` 和 `Weapons/Super90LoaderPushTiming.h`，姿态仍为 R24 及其依赖；近战右臂为 `Super90QuickMelee20261008/RightArmR9`，普通空仓为 NativeEmptyBolt＋NativeEmptyPacingR2。R25 依赖 R21 source_poses 与 R16 audio_provenance，R9 仍读取 R8 animation_patch；这些旧输入不能当废案移动。
+R25 推进播放源为 `SourceAssets/Super90LoaderR25_20261012/author_timing.py` 和 `Weapons/Super90LoaderPushTiming.h`，在 R24 基线上继续保留释放与臂根修订；近战右臂为 `Super90QuickMelee20261008/RightArmR9`，普通空仓及 loader 的最新按压释放入口见下节。R25 依赖 R21 source_poses 与 R16 audio_provenance，R9 仍读取 R8 animation_patch；这些旧输入不能当废案移动。
 
 R25 的 Editor／Game 常规构建已落盘；本次发布没有再次构建或运行游戏。用户认可的是此前动作，R25 新节奏与各局部修订不据此自动判定验收通过。当前恢复入口、许可边界与归档清单见工程 `Docs/Weapons/super90-publication-20261012.md`；旧暂停、R5/R17“当前版本”描述仅代表对应历史时间。
+
+## 2026-10-13：按压释放与原生表面恢复
+
+- 当前普通空仓尾段来自 `Super90CranshRelease20261012`：前 360 帧保留逐发装填，闭栓音效与可射击事件共用源帧 374。快速装填与仅闭锁续作由 `Super90LoaderRelease20261012` 和 `Super90ReleaseTiming.h` 管理，不能把普通空仓的绝对事件帧套给短 cycle。
+- `Super90LoaderArmRoot20261012` 修正推送末端至回握的左臂支撑；检查入口 `Super90LoaderArmCheck20261012` 针对原护木及四类握把。约束真实上臂开口边界、最终动画压缩和运行支撑节点，不以肩骨点离开画面代替开口隐藏。过去的检查记录只对应当时资产，后续改动不自动继承无穿模结论。
+- 用户只要求纹路和关节微调时，保留原生绑定、权重、拓扑及已认可抓握。MPFB 整臂几何迁移和 Super90BareRefine 的权重／私有坐标方案均已被用户要求回退，不能重新作为默认优化方案。
+- 当前表面入口为 `Super90JointSurface20261012`：基于安装中的原生表面做毫米级有界局部修形，统一跨分段法线及腕部过渡场。材质使用本枪 PreSkinnedPosition/Normal，不能把 M4 打包坐标直接套到经过 FBX 转换的 Super90。`Super90SkinClean20261011` 仍为 shader 来源，不能因为较旧而归档。
+- 枪挂散弹材质错误先核对 imported_material_slot_name、LOD section 与真实 UV。重导可能保留旧显示槽名；按旧标签强行着色会把弹壳或枪体分到错误材质。不要仅改一层颜色掩盖槽位错配。
+
+恢复链和归档边界见工程 `Docs/Weapons/super90-publication-20261012.md` 末尾更新，联机动画回执见枪械技能 `shotgun-authority-and-presentation.md`。个人与工程镜像同步维护；本轮归档发布未运行游戏或追加动画验收。

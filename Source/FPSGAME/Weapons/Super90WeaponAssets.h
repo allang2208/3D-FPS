@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "Super90ReleaseTiming.h"
 
 class USkeletalMeshComponent;
 
@@ -11,20 +12,21 @@ inline constexpr const TCHAR* LooseShellMaterial=TEXT("12gauge");
 // The source rig parks its reload cartridge below the gun outside feed clips.
 void SetLooseShellVisible(USkeletalMeshComponent* Mesh,bool bVisible);
 inline constexpr int32 PelletCount=8;
-inline constexpr float PelletConeDegrees=2.5f;
+inline constexpr float PelletConeDegrees=3.75f; // Original 2.5-degree cone x 1.5.
+inline constexpr float ADSPelletSpreadScale=.75f;
 inline constexpr double MinimumAttackInterval=0.060;
 inline constexpr float SingleReload=99.f/60.f;
-// Stat reference retained so appending the grasped bolt tail does not speed
-// up the established per-shell feed or change speedloader stat conversion.
+// Cransh's native full reload reference; keep established shell-feed speed
+// and speedloader stat conversion unchanged.
 inline constexpr float FullReload=424.f/60.f;
 inline constexpr float Insert=44.f/60.f;
 inline constexpr float LoopStep=50.f/60.f;
 inline constexpr float TailBegin=6.f;
-// Ordinary empty: 18 frames to regrip, then the existing 66-frame R24 cycle.
-inline constexpr float NativeCycleBegin=378.f/60.f;
-inline constexpr float BoltPull=NativeCycleBegin+32.218914f/60.f;
-inline constexpr float NativeBoltReleaseCue=NativeCycleBegin+38.382387f/60.f;
-inline constexpr float BoltRelease=NativeCycleBegin+1.1f*32.f/52.f;
+// Ordinary empty and interrupted continuation both press the bolt release.
+inline constexpr float CycleBoltReleaseCue=Super90ReleaseTiming::CycleClosed;
+inline constexpr float CycleBoltReady=Super90ReleaseTiming::CycleClosed;
+inline constexpr float NativeBoltReleaseCue=374.f/60.f;
+inline constexpr float BoltRelease=374.f/60.f;
 inline FString AnimationPath(const TCHAR* Kind)
 {
     return FString::Printf(TEXT("/Game/Weapons/Super90/Cransh20261006/Animations/A_Super90_%s.A_Super90_%s"),Kind,Kind);

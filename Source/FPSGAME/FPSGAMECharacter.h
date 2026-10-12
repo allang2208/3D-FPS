@@ -19,6 +19,7 @@ class UFPSWeaponFXComponent;
 class UFPSGunplayAnimInstance;
 class UWeaponGripProfile;
 struct FGunsmithWeapon;
+struct FSuper90NetAmmoState;
 
 enum class EFirstPersonJumpRig : uint8 { Rifle, Pistol, Sword };
 
@@ -200,6 +201,7 @@ public:
     bool HasLMG201ClothBox() const;
     bool HasCantedForegrip() const;
     bool HasAngledForegrip() const;
+    FTransform GetEffectiveMuzzleTransform() const;
     FVector GetEffectiveMuzzleLocation() const;
     FVector GetEffectiveMuzzleForward() const;
     bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"));}
@@ -583,6 +585,8 @@ private:
     void FinishReload();
     bool NeedsReloadCycle() const;
     void BeginSuper90Reload();
+    void ReconcileSuper90Reload(const FSuper90NetAmmoState& Receipt);
+    void SetSuper90ReloadCues();
     bool AdvanceSuper90Reload();
     void FinishSuper90Reload();
     float Super90ReloadSourceTime(float RuntimeTime) const;

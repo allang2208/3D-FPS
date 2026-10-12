@@ -16,6 +16,7 @@
 #include "../Weapons/Staff/StaffArmsMeshComponent.h"
 #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
+#include "../Weapons/Super90WeaponAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/PointLightComponent.h"
 #include "Animation/AnimSequence.h"
@@ -50,6 +51,54 @@ void UFPSPlayerBodyComponent::UpdateSwordGripMount()
         const FTransform Pivot=Weapon.Inverse()*GripCorrection*Weapon;
         Root->SetRelativeTransform(Pivot*Binding.Smoothed.Root);
     }
+}
+
+bool UFPSPlayerBodyComponent::ResolveWorldWeaponPart(const USkeletalMeshComponent* Source,const UStaticMeshComponent* SourcePart,
+    USkeletalMeshComponent*& WorldHost,UStaticMeshComponent*& WorldPart) const
+{
+    WorldHost=nullptr;WorldPart=nullptr;
+    for(int32 I=0;I<LocalWeapons.Num();++I)
+    {
+        if(LocalWeapons[I].Source.Get()!=Source||!MotionBindings.IsValidIndex(I))continue;
+        const int32 Part=LocalWeapons[I].SourceParts.IndexOfByPredicate([&](const auto& P){return P.Get()==SourcePart;});
+        const auto& Binding=MotionBindings[I];
+        if(!Binding.Parts.IsValidIndex(Part))return false;
+        WorldHost=Binding.Mesh.Get();WorldPart=Binding.Parts[Part].Get();
+        return Drawn(WorldHost)&&Drawn(WorldPart);
+    }
+    return false;
+}
+
+bool UFPSPlayerBodyComponent::ResolveWorldWeaponFrame(const USkeletalMeshComponent* Source,const USceneComponent* SourceAnchor,
+    const FTransform& SourceFrame,FTransform& WorldFrame) const
+{
+    if(!Source)return false;
+    for(int32 I=0;I<LocalWeapons.Num();++I)
+    {
+        if(LocalWeapons[I].Source.Get()!=Source||!MotionBindings.IsValidIndex(I))continue;
+        const auto& Binding=MotionBindings[I];auto* Weapon=Binding.Mesh.Get();
+        if(!Drawn(Weapon))return false;
+        // The offhand exit is a scene marker below its copied muzzle attachment.
+        // Match that ancestor so barrel motion and the actual suppressor length
+        // use the same part transform as the geometry being rendered.
+        for(auto* Anchor=SourceAnchor;Anchor&&Anchor!=Source;Anchor=Anchor->GetAttachParent())
+        {
+            const int32 Part=LocalWeapons[I].SourceParts.IndexOfByPredicate([&](const auto& P){return P.Get()==Anchor;});
+            if(!Binding.Parts.IsValidIndex(Part))continue;
+            auto* VisiblePart=Binding.Parts[Part].Get();if(!Drawn(VisiblePart))continue;
+            WorldFrame=SourceFrame.GetRelativeTransform(Anchor->GetComponentTransform())*VisiblePart->GetComponentTransform();
+            WorldFrame.SetScale3D(FVector::OneVector);return true;
+        }
+        // Rifle world poses are rebased to the owning wrist. Mapping component
+        // origins would therefore add the viewmodel offset a second time. Use
+        // the matching mechanical root, with centimetres independent of the
+        // imported bone scale (some native rigs store scale 100).
+        const FTransform NativeRoot=BodyMotionRigidTransform(Source->GetSocketTransform(TEXT("WPN_root")));
+        const FTransform WorldRoot=BodyMotionRigidTransform(Weapon->GetSocketTransform(TEXT("WPN_root")));
+        WorldFrame=SourceFrame.GetRelativeTransform(NativeRoot)*WorldRoot;
+        WorldFrame.SetScale3D(FVector::OneVector);return true;
+    }
+    return false;
 }
 
 FFPSBodyGripRig* UFPSPlayerBodyComponent::MotionMap(USkeletalMeshComponent* Source,FName Hand,int32 Side)
@@ -222,6 +271,7 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
         }
         Rig.Root=Hand.Inverse()*NativeMount;
         Rig.Visible=Drawn(Source);
+        Rig.ReloadPropVisible=Drawn(D.ReloadPropSource.Get());
         if(auto* Static=D.StaticSource.Get())
         {
             Rig.Root=Static->GetComponentTransform().GetRelativeTransform(BodyMotionRigidTransform(Hand*Source->GetComponentTransform()))*NativeMount;
@@ -399,10 +449,17 @@ void UFPSPlayerBodyComponent::ApplyMotion(float Delta)
         auto* Root=Binding.Mesh.IsValid()?static_cast<UPrimitiveComponent*>(Binding.Mesh.Get()):Binding.Static.Get();if(!Root)continue;
         if(!R.Valid||R.Schema!=Binding.Definition.MotionSchema||R.Bones.Num()!=Binding.Definition.MotionBones.Num()||R.Parts.Num()!=Binding.Parts.Num())
         {
+            if(auto* Prop=Binding.ReloadProp.Get())
+            {Prop->SetVisibility(false);Prop->SetHiddenInGame(true);FPSBodyEquipment::ApplyShadowFlags(Prop,false);}
             if(Binding.Smoothed.Valid)
             {
                 Root->SetRelativeTransform(Binding.Mount);
-                if(Binding.Mesh.IsValid())Binding.Mesh->PublishMechanicalPose(Binding.FrozenPose);
+                if(auto* Mesh=Binding.Mesh.Get())
+                {
+                    Mesh->PublishMechanicalPose(Binding.FrozenPose);
+                    if(Binding.Definition.Mesh.ToSoftObjectPath().ToString()==Super90WeaponAssets::MeshPath)
+                        Super90WeaponAssets::SetLooseShellVisible(Mesh,false);
+                }
                 for(int32 P=0;P<Binding.Parts.Num();++P)if(Binding.Parts[P].IsValid())Binding.Parts[P]->SetRelativeTransform(Binding.FrozenParts[P]);
                 Binding.Smoothed.Valid=false;Binding.bHasSections=false;
             }
@@ -427,12 +484,20 @@ void UFPSPlayerBodyComponent::ApplyMotion(float Delta)
         const bool Visible=R.Visible&&!IsWorldWeaponStowed(Root)&&!FPSPlayerBodyWorldBodyHidden();
         if(Root->IsVisible()!=Visible)Root->SetVisibility(Visible);
         if(Root->bHiddenInGame==Visible)Root->SetHiddenInGame(!Visible);
+        if(auto* Prop=Binding.ReloadProp.Get())
+        {
+            const bool Show=Visible&&R.ReloadPropVisible;
+            if(Prop->IsVisible()!=Show)Prop->SetVisibility(Show);
+            if(Prop->bHiddenInGame==Show)Prop->SetHiddenInGame(!Show);
+            FPSBodyEquipment::ApplyShadowFlags(Prop,Show&&ShouldWorldBodyCastShadow());
+        }
         FPSBodyEquipment::ApplyShadowFlags(Root,Visible&&ShouldWorldBodyCastShadow());
         if(auto* Mesh=Binding.Mesh.Get())
         {
             auto Pose=Binding.FrozenPose;
             for(int32 B=0;B<R.Bones.Num();++B)if(Pose.IsValidIndex(Binding.Definition.MotionBones[B]))Pose[Binding.Definition.MotionBones[B]]=Smooth.Bones[B];
             Mesh->PublishMechanicalPose(Pose);
+            if(auto* Prop=Binding.ReloadProp.Get())Prop->MarkRenderDynamicDataDirty();
             if(const auto* Render=Mesh->GetSkeletalMeshAsset()->GetResourceForRendering();Render&&(!Binding.bHasSections||Binding.LastSections!=R.Sections))
             {
                 for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)

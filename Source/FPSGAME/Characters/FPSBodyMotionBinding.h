@@ -6,6 +6,7 @@ struct FFPSBodyMotionBinding
 {
     FFPSBodyWeapon Definition;
     TWeakObjectPtr<class UFPSBodyWeaponMeshComponent> Mesh;
+    TWeakObjectPtr<class USkeletalMeshComponent> ReloadProp;
     TWeakObjectPtr<class UStaticMeshComponent> Static;
     TArray<TWeakObjectPtr<class UStaticMeshComponent>> Parts;
     TArray<FTransform> FrozenPose;

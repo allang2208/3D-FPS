@@ -30,6 +30,9 @@ void UColdSteelStatusModel::LoadAmmoCatalog()
             if(Row->TryGetNumberField(TEXT("order"),Number))Type.Order=FMath::Clamp(Number,-100000.,100000.);
             if(Row->TryGetNumberField(TEXT("damage_multiplier"),Number)&&FMath::IsFinite(Number))Type.DamageMultiplier=FMath::Clamp(Number,0.,100.);
             if(Row->TryGetNumberField(TEXT("physical_armor_penetration"),Number)&&FMath::IsFinite(Number))Type.PhysicalArmorPenetration=FMath::Clamp(Number,0.,1.);
+            if(Row->TryGetNumberField(TEXT("projectile_count"),Number)&&FMath::IsFinite(Number))Type.ProjectileCount=int32(FMath::Clamp(Number,0.,32.));
+            if(Row->TryGetNumberField(TEXT("target_penetration"),Number)&&FMath::IsFinite(Number))Type.TargetPenetration=int32(FMath::Clamp(Number,0.,8.));
+            if(Row->TryGetNumberField(TEXT("range_multiplier"),Number)&&FMath::IsFinite(Number))Type.RangeMultiplier=FMath::Clamp(Number,.1,10.);
             if(Row->TryGetNumberField(TEXT("poison_stacks"),Number)&&FMath::IsFinite(Number))Type.PoisonStacks=FMath::Clamp(int32(Number),0,20);
             if(Row->TryGetNumberField(TEXT("bleed_stacks"),Number)&&FMath::IsFinite(Number))Type.BleedStacks=FMath::Clamp(int32(Number),0,20);
             if(!Type.Id.IsEmpty()&&!Type.Group.IsEmpty()&&!AmmoType(Type.Id))AmmoTypes.Add(MoveTemp(Type));
@@ -79,6 +82,10 @@ float UColdSteelStatusModel::AmmoDamageMultiplier(const FColdSteelItem& Item) co
 {const auto* Type=AmmoType(AmmoDefinitionFor(Item));return Type?Type->DamageMultiplier:1.f;}
 float UColdSteelStatusModel::AmmoArmorPenetration(const FColdSteelItem& Item) const
 {const auto* Type=AmmoType(AmmoDefinitionFor(Item));return Type?Type->PhysicalArmorPenetration:0.f;}
+int32 UColdSteelStatusModel::AmmoProjectileCount(const FColdSteelItem& Item,int32 DefaultCount) const
+{const auto* Type=AmmoType(AmmoDefinitionFor(Item));return Type&&Type->ProjectileCount>0?Type->ProjectileCount:DefaultCount;}
+float UColdSteelStatusModel::AmmoRangeMultiplier(const FColdSteelItem& Item) const
+{const auto* Type=AmmoType(AmmoDefinitionFor(Item));return Type?Type->RangeMultiplier:1.f;}
 bool UColdSteelStatusModel::AddAmmoToState(FColdSteelProfile& State,const FString& Id,int64 Count) const
 {
     if(!AmmoType(Id)||Count<0||Count>ColdSteelAmmo::MaxCount)return false;

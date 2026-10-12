@@ -62,16 +62,24 @@ if surface_receipt.exists():
   if slot!='MountSteel':materials[slot]=load(entry['asset'])
 base=load('/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7')
 skin=[x.material_interface for x in base.materials]
+# Super90 surface cleanup is isolated from shared skin and mesh authoring.
+import sys
+sys.path.insert(0,str(P/'SourceAssets/Super90JointSurface20261012'))
+from ue_pipeline import create_materials,bind_materials
+create_materials()
 def bind(mesh):
- slots=list(mesh.materials);arm=[]
+ slots=[slot.copy() for slot in mesh.materials];arm=[]
  for i,v in enumerate(slots):
-  n=re.sub(r'[._]\d{3}$','',str(v.material_slot_name))
-  if n in materials:v.material_interface=materials[n]
+  # FBX reimport can retain the old editor label while the imported surface
+  # order changes. The imported identity owns gun/shell material selection.
+  imported_name=str(v.get_editor_property('imported_material_slot_name'))
+  n=re.sub(r'[._]\d{3}$','',imported_name if imported_name not in ('','None') else str(v.material_slot_name))
+  if n in materials:v.material_interface=materials[n];v.material_slot_name=n
   else:
    index=0 if 'upper' in n.lower() else 1 if ('fore' in n.lower() or 'lower' in n.lower()) else 2
    v.material_interface=skin[min(index,len(skin)-1)];v.material_slot_name='Manny_S90_'+n.removeprefix('Manny_S90_');arm.append(i)
   slots[i]=v
- mesh.set_editor_property('materials',slots);mesh.set_editor_property('physics_asset',None);save(mesh);return arm
+ mesh.set_editor_property('materials',slots);bind_materials(mesh);mesh.set_editor_property('physics_asset',None);save(mesh);return arm
 flag='Interchange.FeatureFlags.Import.FBX';previous=u.SystemLibrary.get_console_variable_int_value(flag);u.SystemLibrary.execute_console_command(None,flag+' 0')
 try:
  def mesh_opt(skeleton=None,import_tangents=False):

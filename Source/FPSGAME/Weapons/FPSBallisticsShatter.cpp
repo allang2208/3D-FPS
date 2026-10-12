@@ -75,7 +75,7 @@ void UFPSBallisticsComponent::QueueShatter(const FHitResult& Hit,const FColdStee
         if(Direction.IsNearlyZero())continue;
         FFPSFlyingRound Child;
         Child.Id=NextRoundId++;
-        Child.Position=Origin;Child.Direction=Direction;
+        Child.Position=Origin;Child.LaunchOrigin=Origin;Child.Direction=Direction;
         Child.Speed=Speed;Child.Remaining=Radius;
         Child.Damage=ChildShot.DamagePanel.Total();
         // EffectiveRangeCM=0 means no second falloff over this short bounce.

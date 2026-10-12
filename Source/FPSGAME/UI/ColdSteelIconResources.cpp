@@ -34,6 +34,7 @@
 #include "../Weapons/RSH12OpticAssets.h"
 #include "../Weapons/Super90OpticAssets.h"
 #include "../Weapons/Super90ForegripAssets.h"
+#include "../Weapons/Super90RearGripAssets.h"
 #include "../Weapons/RSH12MuzzleAssets.h"
 #include "../Weapons/RSH12TacticalAssets.h"
 #include "../Weapons/TacticalDeviceVariants.h"
@@ -175,6 +176,12 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
                 Add(LegendaryTacticalStock::MeshPath(D),true);
                 continue;
             }
+            if(Part.Key==TEXT("tactical")&&D==Super90WeaponAssets::Definition)
+            {
+                if(TacticalDeviceVariants::IsLaser(Key)||Key==TEXT("flashlight"))
+                    Add(TacticalDeviceVariants::Super90MeshPath(Key),true);
+                continue;
+            }
             if(Part.Key==TEXT("tactical")&&Key==TacticalDeviceVariants::BlessedLaser)
             {
                 Add(TacticalDeviceVariants::BlessedMeshPath(TacticalDeviceVariants::FamilyForDefinition(D)));
@@ -217,6 +224,11 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             {
                 const FString GripFamily=Super90ForegripAssets::Family(Key);
                 if(!GripFamily.IsEmpty())Add(Super90ForegripAssets::MeshPath(GripFamily),true);
+                continue;
+            }
+            if(D==TEXT("ue_super90")&&Part.Key==TEXT("reargrip"))
+            {
+                if(Super90RearGripAssets::Supports(Key))Add(Super90RearGripAssets::MeshPath(Key),true);
                 continue;
             }
             if (D == RSH12WeaponAssets::Definition && Part.Key == TEXT("optic") && RSH12OpticAssets::Supports(Key))

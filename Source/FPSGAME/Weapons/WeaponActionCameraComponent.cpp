@@ -2,6 +2,7 @@
 #include "Camera/CameraComponent.h"
 #include "Super90LoaderCameraReference.h"
 #include "Super90LoaderAudioReference.h"
+#include "Super90ReleaseTiming.h"
 #include "HAL/IConsoleManager.h"
 
 // Live strength dial for the reload/equip camera layer. The pose keys below stay
@@ -293,8 +294,18 @@ void Super90Loader(float Time, float End, bool bEmpty, bool bCycle, float Horizo
     // Keep the measured background framing at its recorded amplitude. Contact
     // feedback below uses the same strength path as the other long guns.
     using namespace Super90LoaderCameraReference;
-    const FVector Screen = bCycle ? Super90Reference(Cycle, Time)
-        : bEmpty ? Super90Reference(Empty, Time) : Super90Reference(Normal, Time);
+    FVector Screen = FVector::ZeroVector;
+    if (!bCycle)
+    {
+        Screen = bEmpty ? Super90Reference(Empty, Time) : Super90Reference(Normal, Time);
+        if (bEmpty && Time > Super90ReleaseTiming::Withdrawal)
+        {
+            // The authored button press replaces the old overhand camera sweep.
+            const float T = FMath::Clamp((Time - Super90ReleaseTiming::Withdrawal)
+                / (Super90ReleaseTiming::Press - Super90ReleaseTiming::Withdrawal), 0.f, 1.f);
+            Screen = Super90Reference(Empty, Super90ReleaseTiming::Withdrawal) * (1.f - T*T*(3.f-2.f*T));
+        }
+    }
     const float TanHalfFOV = FMath::Tan(FMath::DegreesToRadians(HorizontalFOV * .5f));
     Follow.Angles = FVector(
         FMath::RadiansToDegrees(FMath::Atan(2.f * Screen.Y * TanHalfFOV)),
@@ -324,13 +335,10 @@ void Super90Loader(float Time, float End, bool bEmpty, bool bCycle, float Horizo
     }
     if (bEmpty)
     {
-        const float Pull = (bCycle ? Cues[5].CycleFrame : Cues[5].Frame) / 60.f;
-        const float Release = (bCycle ? Cues[6].CycleFrame : Cues[6].Frame) / 60.f;
-        // Same rear/front feedback as ASH-12 and PKM, on Super90's own contacts.
-        Impact(Impacts, ResponseTime, Pull, Release - Pull,
-            {.35f, -.06f, 0.f}, {-.18f, .02f, .04f});
-        Impact(Impacts, ResponseTime, Release, FMath::Min(.34f, ResponseEnd - Release),
-            {-1.25f, .14f, 0.f}, {.25f, .03f, -.16f});
+        const float Release = bCycle ? Super90ReleaseTiming::CycleClosed : Super90ReleaseTiming::Closed;
+        // A short closure beat accompanies the press, with no preceding pull.
+        Impact(Impacts, ResponseTime, Release, FMath::Min(.22f, ResponseEnd - Release),
+            {-.45f, .05f, 0.f}, {.10f, .01f, -.06f});
     }
 }
 }

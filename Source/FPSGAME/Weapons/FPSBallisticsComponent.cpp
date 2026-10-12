@@ -2,6 +2,7 @@
 #include "WeaponDamageFalloff.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "../FPSGAMECharacter.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "FPSWeaponFXComponent.h"
 #include "FPSShatterFXSubsystem.h"
 #include "ColdSteelEnchantmentCombat.h"
@@ -22,7 +23,7 @@ static TAutoConsoleVariable<int32> CVarTracerEvery(TEXT("fps.Tracer.Every"),1,
 
 UFPSBallisticsComponent::UFPSBallisticsComponent()
 {PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.bStartWithTickEnabled=false;}
-void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM,const FColdSteelItem* ShotItem,bool bConverged)
+void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM,const FColdSteelItem* ShotItem,bool bConverged,bool bCosmeticOnly)
 {
     if(!GetWorld()||!FMath::IsFinite(SpeedCM)||SpeedCM<=0||RangeCM<=0||Direction.IsNearlyZero())return;
     LastLaunchStart=Start;
@@ -40,6 +41,8 @@ void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float Speed
     Rounds.Last().bShowTracer=(TracerRoundCounter++%TracerInterval)==0;
     // 表现分支随弹丸一起走：命中或到射程回收前，这条段一直认这个标记。
     Rounds.Last().bConverged=bConverged;
+    Rounds.Last().LaunchOrigin=Start;
+    Rounds.Last().bCosmeticOnly=bCosmeticOnly;
     SetComponentTickEnabled(true);
 }
 void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)
@@ -70,19 +73,32 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
             {Params.AddIgnoredActor(Hit.GetActor());continue;}
             ++ImpactCount;
             LastImpactPoint=Hit.ImpactPoint;
-            if(Hit.GetActor())
+            if(Hit.GetActor()&&!R.bCosmeticOnly)
             {
                 const float HitDistance=R.TraveledCM+FVector::Distance(Start,Hit.ImpactPoint);
                 const float HitDamage=R.Damage*WeaponDamageFalloff::Multiplier(HitDistance,R.EffectiveRangeCM);
                 FWeaponDamageResult DamageResult;
+                // Network hit reports require the launch origin, not the last
+                // frame's short sweep segment, to reproduce full-range falloff.
+                Hit.TraceStart=R.LaunchOrigin;
                 const float Applied = ColdSteelSkills::ApplyHit(GetOwner(),Hit,HitDamage,R.Direction,R.Training,&DamageResult);
-                if(auto* Shooter=Cast<AFPSGAMECharacter>(GetOwner())) Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true);
+                if(auto* Shooter=Cast<AFPSGAMECharacter>(GetOwner()))
+                {
+                    Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true);
+                    if(Shooter->HasAuthority()&&!Shooter->IsLocallyControlled())
+                        if(auto* PS=Shooter->GetPlayerState<AColdSteelPlayerState>())
+                        {
+                            FColdSteelNetHitReceipt Receipt;Receipt.Target=Hit.GetActor();Receipt.Applied=Applied;
+                            Receipt.bCritical=DamageResult.bCritical;Receipt.bKilled=DamageResult.bKilled;
+                            PS->ClientConfirmHit(Receipt);
+                        }
+                }
             }
-            ColdSteelCombat::OnHit(Hit,GetOwner(),R.Poison);
+            if(!R.bCosmeticOnly)ColdSteelCombat::OnHit(Hit,GetOwner(),R.Poison);
             if(RoundFX&&(!RiverFX||!RiverFX->IsSubmergedRiverbed(Hit)))RoundFX->OnImpact(Hit);
             if(R.Training.bRicochet&&ShatterFX)
                 ShatterFX->Burst(Hit.ImpactPoint,Hit.ImpactNormal,EShatterBurst::Arrival);
-            if(!R.Training.bRicochet&&HeadshotSound&&ColdSteelSkills::IsCriticalHit(Hit))UGameplayStatics::PlaySound2D(this,HeadshotSound,.630957f);
+            if(!R.bCosmeticOnly&&!R.Training.bRicochet&&HeadshotSound&&ColdSteelSkills::IsCriticalHit(Hit))UGameplayStatics::PlaySound2D(this,HeadshotSound,.630957f);
             // Penetrate targets, never walls. Each target takes damage once per round.
             if(R.Piercing>0&&Cast<APawn>(Hit.GetActor())){--R.Piercing;R.HitActors.Add(Hit.GetActor());Params.AddIgnoredActor(Hit.GetActor());R.Position=Hit.ImpactPoint;continue;}
             Stopped=true;break;

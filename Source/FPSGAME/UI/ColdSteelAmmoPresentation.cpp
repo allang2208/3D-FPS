@@ -4,6 +4,12 @@
 #include "Misc/Paths.h"
 #include "Styling/SlateBrush.h"
 
+void UColdSteelStatusModel::PrepareAmmoIcon(const FString& Id)
+{
+    if(const auto* Cached=AmmoIconBrushes.Find(Id))
+        if(!Cached->IsValid())AmmoIconBrushes.Remove(Id);
+    AmmoIcon(Id);
+}
 const FSlateBrush* UColdSteelStatusModel::AmmoIcon(const FString& Id)
 {
     if(const auto* Cached=AmmoIconBrushes.Find(Id))return Cached->Get();
@@ -23,6 +29,10 @@ FString UColdSteelStatusModel::AmmoEffectSummary(const FString& Id) const
     const FString Damage=FMath::IsNearlyZero(Bonus)?TEXT("无增伤"):FString::Printf(TEXT("伤害 %+.0f%%"),Bonus);
     FString Summary=Damage+(Type->PhysicalArmorPenetration>0?
         FString::Printf(TEXT(" · 无视 %.0f%% 物理护甲"),Type->PhysicalArmorPenetration*100):TEXT(" · 无护甲穿透"));
+    if(Type->Group==TEXT("ammo_12g"))
+        Summary=FString::Printf(TEXT("每发 %d 颗 · 整发伤害 %.0f%% · 射程 ×%g"),Type->ProjectileCount,Type->DamageMultiplier*100,Type->RangeMultiplier)
+            +(Type->PhysicalArmorPenetration>0?FString::Printf(TEXT(" · 无视 %.0f%% 物理护甲"),Type->PhysicalArmorPenetration*100):TEXT(" · 无护甲穿透"));
+    if(Type->TargetPenetration>0)Summary+=FString::Printf(TEXT(" · 目标穿透 +%d"),Type->TargetPenetration);
     if(Type->PoisonStacks>0)Summary+=FString::Printf(TEXT(" · 命中叠加 %d 层中毒"),Type->PoisonStacks);
     if(Type->BleedStacks>0)Summary+=FString::Printf(TEXT(" · 命中叠加 %d 层流血"),Type->BleedStacks);
     return Summary;

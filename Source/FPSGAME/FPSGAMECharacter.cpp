@@ -1,5 +1,6 @@
 #include "FPSGAMECharacter.h"
 #include "Weapons/Super90WeaponAssets.h"
+#include "Weapons/Super90Spread.h"
 #include "Weapons/Super90SpeedloaderAssets.h"
 #include "Weapons/JingangRuneComponent.h"
 #include "Weapons/TangDaoGuardComponent.h"
@@ -2480,6 +2481,9 @@ void AFPSGAMECharacter::FireShot()
     if(IsDualWieldingPistols())return;
     if(BipodDeployment && BipodDeployment->BlocksFire())return;
     if (!bInventoryWeaponReady) return;
+    auto* Super90PS=IsSuper90Weapon()?GetPlayerState<AColdSteelPlayerState>():nullptr;
+    const bool PredictSuper90=IsSuper90Weapon()&&GetNetMode()==NM_Client;
+    if(PredictSuper90&&(!Super90PS||!Super90PS->IsSuper90ServerReady(ActiveInventoryWeapon)||Super90PS->IsSuper90ReloadPending()))return;
     if (bUseM16 && BurstShotsRemaining <= 0) return;
     const float WeaponAudioGain = bUseQBZ191 || IsRSH12Weapon() ? 1.0f : 2.0f;
     const double Now = GetWorld()->GetTimeSeconds();
@@ -2503,12 +2507,12 @@ void AFPSGAMECharacter::FireShot()
     if (UsesSingleShotTrigger()) bPistolShotPending = false;
     ++ShotsFired;
     const bool bSuppressedNoise = IsMuzzleSuppressed();
-    UAISense_Hearing::ReportNoiseEvent(this,GetActorLocation(),1.f,this,bSuppressedNoise?1000.f:3600.f,
+    if(!PredictSuper90)UAISense_Hearing::ReportNoiseEvent(this,GetActorLocation(),1.f,this,bSuppressedNoise?1000.f:3600.f,
         bSuppressedNoise?TEXT("GunshotSuppressed"):TEXT("Gunshot"));
     LastShotWorldTime = Now; // Actual execution time, not a backdated cadence deadline.
     if (TriggerFirstShotWorldTime < 0.0) TriggerFirstShotWorldTime = Now;
     // 联机：远端身体开火姿势用的时刻戳（unreliable，偶发丢包只少一声远端枪响表现）。
-    if (!HasAuthority())
+    if (!HasAuthority()&&!PredictSuper90)
     {
         if (auto* PS = GetPlayerState<AColdSteelPlayerState>()) PS->ServerReportShotStamp();
     }
@@ -2524,8 +2528,21 @@ void AFPSGAMECharacter::FireShot()
     }
     // Snapshot visible aim before restarting the mechanical action or adding recoil.
     const FVector TraceStart = FirstPersonCamera->GetComponentLocation();
-    const FVector TraceDirection = ComputeShotDirection();
-    const FVector Muzzle = GetEffectiveMuzzleLocation() + GetEffectiveMuzzleForward().GetSafeNormal() * 2.f; // 2 cm clearance beyond the current attachment exit, before animation.
+    FVector TraceDirection = ComputeShotDirection();
+    const FTransform ShotMuzzle=GetEffectiveMuzzleTransform();
+    const FVector Muzzle=ShotMuzzle.GetLocation()+ShotMuzzle.GetRotation().GetAxisX()*2.f; // 2 cm clearance beyond the visible exit, before animation.
+    FRandomStream Super90Random;
+    const bool PreciseSuper90Aim=bIsAiming||WeaponADSFactor>.98f;
+    if(PredictSuper90)
+    {
+        const FVector Aim=PreciseSuper90Aim?TraceDirection:FirstPersonCamera->GetForwardVector();
+        const uint32 Sequence=Super90PS->RequestSuper90Shot(ActiveInventoryWeapon,TraceStart,Muzzle,Aim,PreciseSuper90Aim,ConvergenceRounds);
+        Super90Random.Initialize(Super90Spread::Seed(Sequence));
+        const FRotationMatrix Basis(Aim.Rotation());
+        const float Spread=PreciseSuper90Aim?0.f:GetHipSpread();
+        const float X=Super90Random.FRandRange(-Spread,Spread),Y=Super90Random.FRandRange(-Spread,Spread);
+        TraceDirection=(Aim+Basis.GetUnitAxis(EAxis::Y)*X+Basis.GetUnitAxis(EAxis::Z)*Y).GetSafeNormal();
+    }
     UAnimSequence* Animation = bIsAiming ? AimFireAnimation : FireAnimation;
     if (bUseM1911 && MagazineAmmo == 0)
         Animation = bIsAiming ? PistolAimFireLastAnimation : PistolFireLastAnimation;
@@ -2583,13 +2600,18 @@ void AFPSGAMECharacter::FireShot()
     else PlayFireVoice(ShotSound, AKMSource::FireVolume * (IsPistolWeapon() ? 1.5f : 1.0f) * WeaponAudioGain);
 
     // 汇聚把整匣伤害聚合到这一发；伤害类型仍由 Shot.DamagePanel 的比例决定，不因缩放改变。
-    const int32 PelletCount=IsSuper90Weapon()?Super90WeaponAssets::PelletCount:1;
+    const auto* ShotProfile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const auto* ShotItem=ShotProfile?ShotProfile->FindItem(ActiveInventoryWeapon):nullptr;
+    const int32 NativePelletCount=IsSuper90Weapon()?Super90WeaponAssets::PelletCount:1;
+    const int32 PelletCount=ShotItem?ShotProfile->AmmoProjectileCount(*ShotItem,NativePelletCount):NativePelletCount;
+    const float PelletCone=Super90Spread::ConeRadians(PelletCount,PreciseSuper90Aim);
     const float ShotDamage=DamagePerShot*ConvergenceScale/PelletCount;
     const auto Training=ColdSteelSkills::Snapshot(this,nullptr,true);
     const auto Effects=ColdSteelCombat::Snapshot(this);
+    TArray<FVector_NetQuantizeNormal> ShotDirections;
     for(int32 Pellet=0;Pellet<PelletCount;++Pellet)
     {
-    const FVector PelletDirection=PelletCount>1?FMath::VRandCone(TraceDirection,FMath::DegreesToRadians(Super90WeaponAssets::PelletConeDegrees)):TraceDirection;
+    const FVector PelletDirection=PelletCount>1?(PredictSuper90?Super90Random.VRandCone(TraceDirection,PelletCone):FMath::VRandCone(TraceDirection,PelletCone)):TraceDirection;
     FHitResult Hit;
     FCollisionQueryParams Params(SCENE_QUERY_STAT(AKMFire), true, this);
     Params.bReturnPhysicalMaterial = true;
@@ -2602,14 +2624,19 @@ void AFPSGAMECharacter::FireShot()
     bLastShotMuzzleBlocked = bHit;
     if (!bHit)
     {
-        if(ProjectileSpeedCM>0)Ballistics->Launch(Muzzle,(AimTarget-Muzzle).GetSafeNormal(),ProjectileSpeedCM,TraceDistance,ShotDamage,WeaponFX,CriticalHitSound,EffectiveWeaponRangeCM,nullptr,ConvergenceParams.Enabled);
+        if(ProjectileSpeedCM>0)
+        {
+            const FVector Flight=(AimTarget-Muzzle).GetSafeNormal();
+            if(IsSuper90Weapon())ShotDirections.Add(Flight);
+            Ballistics->Launch(Muzzle,Flight,ProjectileSpeedCM,TraceDistance,ShotDamage,WeaponFX,CriticalHitSound,EffectiveWeaponRangeCM,ShotItem,ConvergenceParams.Enabled,PredictSuper90);
+        }
         else
         {
             bHit=GetWorld()->LineTraceSingleByChannel(Hit,Muzzle,AimTarget+PelletDirection*2.f,ECC_Visibility,Params);
             WeaponFX->OnTracerSegment(Muzzle,bHit?Hit.ImpactPoint:AimTarget,ConvergenceParams.Enabled);
         }
     }
-    if (bHit && Hit.GetActor())
+    if (bHit && Hit.GetActor()&&!PredictSuper90)
     {
         const float HitDamage=ShotDamage*WeaponDamageFalloff::Multiplier(FVector::Distance(Muzzle,Hit.ImpactPoint),EffectiveWeaponRangeCM);
         FWeaponDamageResult DamageResult;
@@ -2636,7 +2663,9 @@ void AFPSGAMECharacter::FireShot()
     }
     if (bHit) WeaponFX->OnImpact(Hit);
     }
-    WeaponFX->OnShot(bIsAiming);
+    if(Super90PS&&HasAuthority()&&GetNetMode()!=NM_Standalone)
+        Super90PS->MulticastSuper90Shot(this,Muzzle,ShotDirections,ProjectileSpeedCM,TraceDistance,PreciseSuper90Aim,bSuppressedNoise);
+    WeaponFX->OnShotAtMuzzle(bIsAiming,ShotMuzzle);
     ApplyShotFeedback();
     if(!bIsAiming)CurrentSpread = FMath::Min(0.018f, CurrentSpread + 0.003f);
 }
@@ -2809,7 +2838,15 @@ FVector2D AFPSGAMECharacter::GetCrosshairHalfExtent(FVector2D LocalSize) const
     int32 Width=0,Height=0;PC->GetViewportSize(Width,Height);
     if(Width<=0||Height<=0)return FVector2D::ZeroVector;
     const FVector Center=FirstPersonCamera->GetComponentLocation()+FirstPersonCamera->GetForwardVector()*1000.f;
-    const float Spread=GetHipSpread()*1000.f;
+    float SpreadTangent=GetHipSpread();
+    if(IsSuper90Weapon())
+    {
+        const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+        const auto* Item=Model?Model->FindItem(ActiveInventoryWeapon):nullptr;
+        const int32 Pellets=Item?Model->AmmoProjectileCount(*Item,Super90WeaponAssets::PelletCount):Super90WeaponAssets::PelletCount;
+        SpreadTangent=Super90Spread::RingTangent(SpreadTangent,Pellets);
+    }
+    const float Spread=SpreadTangent*1000.f;
     FVector2D ScreenCenter,Right,Up;
     if(!PC->ProjectWorldLocationToScreen(Center,ScreenCenter,true)
         ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetRightVector()*Spread,Right,true)
@@ -3044,7 +3081,7 @@ void AFPSGAMECharacter::FinishReload()
 
 bool AFPSGAMECharacter::HasInfiniteReserveAmmo() const
 {
-    const auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    const auto* Model=NetShadowProfile?NetShadowProfile.Get():GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     return HasInfiniteReserveAmmoFor(Model?Model->AmmoDefinition():FString());
 }
 bool AFPSGAMECharacter::HasInfiniteReserveAmmoFor(const FString& AmmoType) const

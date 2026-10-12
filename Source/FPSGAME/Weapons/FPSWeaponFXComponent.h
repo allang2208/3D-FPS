@@ -91,6 +91,12 @@ public:
     UFUNCTION(BlueprintCallable, Category="Weapon FX")
     void Initialize(USkeletalMeshComponent* InWeaponMesh, UCameraComponent* InCamera);
     void SetIndependentPistol(bool Revolver,bool Suppressed,class USceneComponent* Exit);
+    void SetWorldGunSuppressed(bool Suppressed){bWorldGun=true;bWorldGunSuppressed=Suppressed;bUseCharacterMuzzle=false;}
+    void SetWorldMuzzle(UStaticMeshComponent* Part,FVector Tip,FVector Axis);
+    bool bWorldGun=false,bWorldGunSuppressed=false;
+    TWeakObjectPtr<class APlayerCameraManager> WorldViewCamera;
+    TWeakObjectPtr<UStaticMeshComponent> WorldMuzzlePart;
+    FVector WorldMuzzleTip=FVector::ZeroVector,WorldMuzzleAxis=FVector::ForwardVector;
     /** 持有附魔手枪时显示持续金色脉冲；不用命中或赌注层数驱动外观。 */
     void SetBigBlindEnabled(bool Enabled);
     FTransform ShotTransform() const { return MuzzleTransform(); }

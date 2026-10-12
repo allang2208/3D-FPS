@@ -67,7 +67,8 @@ int32 UColdSteelAmmoWheel::AddDisc(const FString& Id,int32 Hand)
     Disc.bBow=ColdSteelInventory::IsBow(*Gun);
     Disc.LoadedId=Model->AmmoDefinitionFor(*Gun);
     Disc.Caption=ColdSteelInventory::Text(*Gun,TEXT("name"));
-    for(const auto& Choice:Disc.Choices)Model->AmmoIcon(Choice.Id);
+    // Retry a failed file load once when opening, never on every paint.
+    for(const auto& Choice:Disc.Choices)Model->PrepareAmmoIcon(Choice.Id);
     if(const auto* Type=Model->AmmoType(Disc.LoadedId))Disc.Caption+=TEXT(" · ")+Type->GroupName;
     if(Hand>=0)Disc.Caption+=(Hand?TEXT(" · 副手"):TEXT(" · 主手"));
     Discs.Add(MoveTemp(Disc));
@@ -75,11 +76,13 @@ int32 UColdSteelAmmoWheel::AddDisc(const FString& Id,int32 Hand)
 }
 void UColdSteelAmmoWheel::OpenForWeapon(const FString& Id,int32 Hand)
 {
+    FramedIcons.Reset();
     Discs.Reset();bDualDiscs=false;Pointer=FVector2D::ZeroVector;ActiveDisc=INDEX_NONE;
     AddDisc(Id,Hand);
 }
 void UColdSteelAmmoWheel::OpenForDualPistols(const FString& MainId,const FString& OffId)
 {
+    FramedIcons.Reset();
     Discs.Reset();Pointer=FVector2D::ZeroVector;ActiveDisc=INDEX_NONE;
     // 左副手、右主手；任何一只手取不到物品就退回单盘（组中心仍在中点，行为不变）。
     AddDisc(OffId,1);AddDisc(MainId,0);
@@ -190,7 +193,7 @@ int32 UColdSteelAmmoWheel::NativePaint(const FPaintArgs& Args,const FGeometry& G
     {
         const auto Font=Numeric?ColdSteelUI::NumberFont(Pixels*.75f/Scale):ColdSteelUI::TextFont(Pixels*.75f/Scale,Medium);
         const FVector2D Size=FSlateApplication::Get().GetRenderer()->GetFontMeasureService()->Measure(Text,Font);
-        FSlateDrawElement::MakeText(Out,Layer+4,G.ToPaintGeometry(Size,FSlateLayoutTransform(FVector2D(At)-Size*.5)),Text,Font,ESlateDrawEffect::None,Color);
+        FSlateDrawElement::MakeText(Out,Layer+6,G.ToPaintGeometry(Size,FSlateLayoutTransform(FVector2D(At)-Size*.5)),Text,Font,ESlateDrawEffect::None,Color);
     };
     // 环形带：Radii 与 Colors 一一对应，沿 A0→A1 生成三角带。整圈（0→2π）用于连续底盘、
     // 内圈环与外沿阴影，单段（扇区起止角）用于扇区与等级标识。几何都建在盘自己的原点上。
@@ -337,23 +340,29 @@ int32 UColdSteelAmmoWheel::NativePaint(const FPaintArgs& Args,const FGeometry& G
                 // 所以轮盘上用中心裁切版本把主体放大，底板只做中性凹槽，不再叠加等级色——
                 // 以前"照片自带色场 + 等级色底板"两层色块叠在一起，主体被淹没。等级色只留在内圈标识弧上。
                 const auto* Icon=Count<=6?FramedIcon(Choice.Id):nullptr;
+                // Three-choice shotgun wheels have room for vertical image/label columns.
+                // Lift the lower two images to keep their captions inside the circular rim.
+                const FVector2f CellCenter=Along(CellRho)+(Count==3&&Dir.Y>0?FVector2f(0,-18.f*Fit/Scale):FVector2f::ZeroVector);
                 if(Icon)
                 {
                     // 悬停放大只向内长：外沿与四角留在原处，不会因为悬停而戳出盘沿。
                     const float Side=CellSide*(SelectedSector?1.06f:1.f);
                     const FVector2D IconSize(Side);
-                    const FVector2D IconAt=FVector2D(Along(CellRho-(Side-CellSide)*.5f))-IconSize*.5;
+                    const FVector2D IconAt=FVector2D(CellCenter-Dir*((Side-CellSide)*.5f))-IconSize*.5;
                     const float Pad=4.f/Scale;
                     const auto IconSlot=ColdSteelUI::RoundedBrush(FLinearColor::White,ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1.f/Scale);
                     FSlateDrawElement::MakeBox(Out,Layer+4,G.ToPaintGeometry(IconSize+FVector2D(Pad*2),FSlateLayoutTransform(IconAt-FVector2D(Pad))),&IconSlot,
                         ESlateDrawEffect::None,Dimmed(SlotFill,Dim));
-                    FSlateDrawElement::MakeBox(Out,Layer+4,G.ToPaintGeometry(IconSize,FSlateLayoutTransform(IconAt)),Icon,
+                    // A separate layer prevents the opaque slot batch from covering the image.
+                    FSlateDrawElement::MakeBox(Out,Layer+5,G.ToPaintGeometry(IconSize,FSlateLayoutTransform(IconAt)),Icon,
                         ESlateDrawEffect::None,Choice.Count==0?FLinearColor(.55f,.55f,.55f,1):FLinearColor::White);
                 }
                 // 名称与数量留在格内；"当前装填／已用尽／待切换"不再占格——盘心已经显示悬停项的名称、
                 // 剩余发数与动作提示，当前装填另有内圈银白标识弧，状态行是冗余的，去掉它才腾出图标的位置。
-                TextAt(Choice.Name,Along(Icon?CellNameRho:R*.67f+21.f*Fit/Scale),14*Fit,Color,false,SelectedSector);
-                TextAt(FString::Printf(TEXT("%lld"),Choice.Count),Along(Icon?CellCountRho:R*.67f-2.f*Fit/Scale),20*Fit,Color,true);
+                const FVector2f NameAt=Icon&&Count==3?CellCenter+FVector2f(0,CellSide*.5f+NameDrop):Along(Icon?CellNameRho:R*.67f+21.f*Fit/Scale);
+                const FVector2f CountAt=Icon&&Count==3?NameAt+FVector2f(0,CountDrop):Along(Icon?CellCountRho:R*.67f-2.f*Fit/Scale);
+                TextAt(Choice.Name,NameAt,14*Fit,Color,false,SelectedSector);
+                TextAt(FString::Printf(TEXT("%lld"),Choice.Count),CountAt,20*Fit,Color,true);
             }
             else if(Count<=24)TextAt(FString::FromInt(I+1),TextAt2,14*Fit,Color,true);
             // Dense wheels still split equally; full hovered names/counts live in the
@@ -375,10 +384,10 @@ int32 UColdSteelAmmoWheel::NativePaint(const FPaintArgs& Args,const FGeometry& G
     if(!SelectedAmmo().IsEmpty())
     {
         const auto Glow=ColdSteelUI::RoundedBrush(FLinearColor::White,7.f/Scale,FLinearColor::Transparent,0.f);
-        FSlateDrawElement::MakeBox(Out,Layer+5,G.ToPaintGeometry(FVector2D(14/Scale),FSlateLayoutTransform(FVector2D(Point)-FVector2D(7/Scale))),&Glow,
+        FSlateDrawElement::MakeBox(Out,Layer+7,G.ToPaintGeometry(FVector2D(14/Scale),FSlateLayoutTransform(FVector2D(Point)-FVector2D(7/Scale))),&Glow,
             ESlateDrawEffect::None,FLinearColor(ColdSteelUI::Accent.R,ColdSteelUI::Accent.G,ColdSteelUI::Accent.B,.28f));
     }
     const auto Dot=ColdSteelUI::RoundedBrush(FLinearColor::White,4/Scale,FLinearColor::Black,1/Scale);
-    FSlateDrawElement::MakeBox(Out,Layer+5,G.ToPaintGeometry(FVector2D(8/Scale),FSlateLayoutTransform(FVector2D(Point)-FVector2D(4/Scale))),&Dot,ESlateDrawEffect::None,ColdSteelUI::TextPrimary);
-    return Layer+5;
+    FSlateDrawElement::MakeBox(Out,Layer+7,G.ToPaintGeometry(FVector2D(8/Scale),FSlateLayoutTransform(FVector2D(Point)-FVector2D(4/Scale))),&Dot,ESlateDrawEffect::None,ColdSteelUI::TextPrimary);
+    return Layer+7;
 }

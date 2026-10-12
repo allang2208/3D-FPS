@@ -10,10 +10,11 @@
 #include "Animation/AnimSequence.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
+#include "Multiplayer/ColdSteelPlayerState.h"
 
 bool AFPSGAMECharacter::NeedsReloadCycle() const
 {
-    const auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    const auto* Profile=NetShadowProfile?NetShadowProfile.Get():GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     const auto* Item=Profile?Profile->FindItem(ActiveInventoryWeapon):nullptr;
     return Item && WeaponReloadStages::NeedsCycle(*Item);
 }
@@ -132,6 +133,8 @@ bool AFPSGAMECharacter::AdvanceReloadStages()
 
 void AFPSGAMECharacter::InterruptReload()
 {
+    if(IsSuper90Weapon()&&GetNetMode()==NM_Client)
+        if(auto* PS=GetPlayerState<AColdSteelPlayerState>())PS->CancelSuper90Reload(false);
     if(WeaponState!=EAKMWeaponState::Reloading && WeaponState!=EAKMWeaponState::ReloadingEmpty)return;
     StopMechanicalAudio();
     WeaponStateDuration=FMath::Max(0.f,float(GetWorld()->GetTimeSeconds()-WeaponActionStartedAt));
@@ -143,6 +146,8 @@ void AFPSGAMECharacter::InterruptReload()
 
 void AFPSGAMECharacter::ServicePendingReloadCycle()
 {
+    if(IsSuper90Weapon()&&GetNetMode()==NM_Client)
+        if(const auto* PS=GetPlayerState<AColdSteelPlayerState>();PS&&PS->IsSuper90ReloadPending())return;
     if(IsDualWieldingPistols() || !bInventoryWeaponReady || IsWeaponBusy() || IsChoosingAmmo()
         || IsCastBlockingLeftHandAction() || !NeedsReloadCycle())return;
     if(AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(GetController())))return;

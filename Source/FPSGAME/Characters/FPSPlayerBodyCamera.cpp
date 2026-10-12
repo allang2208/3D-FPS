@@ -59,6 +59,7 @@ void UFPSPlayerBodyComponent::UpdateWorldOwnerVisibility(bool bHideFromOwner)
     FPSBodyEquipment::ApplyOwnerVisibilityFlags(GetBodyMesh(),/*bOnlyOwnerSee=*/false,bHideFromOwner);
     for (auto Weapon : WorldWeapons) FPSBodyEquipment::ApplyOwnerVisibilityFlags(Weapon,/*bOnlyOwnerSee=*/false,bHideFromOwner);
     for (auto Part : WorldParts) FPSBodyEquipment::ApplyOwnerVisibilityFlags(Part,/*bOnlyOwnerSee=*/false,bHideFromOwner);
+    for (auto Prop : WorldReloadProps) FPSBodyEquipment::ApplyOwnerVisibilityFlags(Prop,/*bOnlyOwnerSee=*/false,bHideFromOwner);
     UpdateBowVisibility(bHideFromOwner);
     for (auto Outfit : OutfitMeshes) FPSBodyEquipment::ApplyOwnerVisibilityFlags(Outfit,/*bOnlyOwnerSee=*/false,bHideFromOwner);
     for (auto Outfit : OutfitStaticMeshes) FPSBodyEquipment::ApplyOwnerVisibilityFlags(Outfit,/*bOnlyOwnerSee=*/false,bHideFromOwner);

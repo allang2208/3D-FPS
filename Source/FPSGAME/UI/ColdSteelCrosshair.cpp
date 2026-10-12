@@ -149,6 +149,45 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
     if(!bBow&&Character->IsAiming())return Result+2;
     const float BowAim=bBow?Bow->AimAlpha():0.f;
     const FVector2D Extent=Character->GetCrosshairHalfExtent(Geometry.GetLocalSize());
+    if(!bBow&&Character->HasInventoryWeapon()&&Character->IsSuper90Weapon())
+    {
+        // Four open quadrants, with gaps on the horizontal/vertical axes.
+        // Cache the unit arc; only its projected radius changes with hip spread.
+        constexpr int32 ArcSegments=24;
+        static const TArray<FVector2D> UnitArc=[]
+        {
+            TArray<FVector2D> Points;
+            Points.Reserve(ArcSegments+1);
+            for(int32 I=0;I<=ArcSegments;++I)
+            {
+                const float Angle=FMath::DegreesToRadians(5.f+80.f*I/ArcSegments);
+                Points.Emplace(FMath::Cos(Angle),FMath::Sin(Angle));
+            }
+            return Points;
+        }();
+        const float Stroke=FMath::Max(1.25f,2.f*Scale);
+        const float Border=FMath::Max(.65f,.85f*Scale);
+        // Keep the inner edge at the existing spread boundary, as with the bars.
+        const float Radius=FMath::Max(Extent.X,Extent.Y)+Stroke*.5f;
+        TArray<FVector2D> Points;
+        Points.SetNumUninitialized(UnitArc.Num());
+        for(int32 Quadrant=0;Quadrant<4;++Quadrant)
+        {
+            for(int32 I=0;I<UnitArc.Num();++I)
+            {
+                const FVector2D P=UnitArc[I];
+                const FVector2D Direction=Quadrant==0?P:Quadrant==1?FVector2D(-P.Y,P.X)
+                    :Quadrant==2?-P:FVector2D(P.Y,-P.X);
+                Points[I]=Center+Direction*Radius;
+            }
+            FSlateDrawElement::MakeLines(Elements,Result+1,Geometry.ToPaintGeometry(),Points,
+                ESlateDrawEffect::None,FLinearColor(0,0,0,.72f)*Style.GetColorAndOpacityTint(),true,Stroke+Border*2.f);
+            // Keep the hit marker on Result+2 above both strokes.
+            FSlateDrawElement::MakeLines(Elements,Result+1,Geometry.ToPaintGeometry(),Points,
+                ESlateDrawEffect::None,FLinearColor::White*Style.GetColorAndOpacityTint(),true,Stroke);
+        }
+        return Result+2;
+    }
     const float Length=9.f*Scale,HalfWidth=1.5f*Scale;
     const FSlateBrush* Brush=FCoreStyle::Get().GetBrush("WhiteBrush");
     // A fitted physical pin takes over in ADS; keep the fallback dot only

@@ -18,6 +18,7 @@ struct FFPSBodyMotionRig
     TArray<uint8> VisibleParts;
     uint32 Sections=MAX_uint32;
     bool Visible=true;
+    bool ReloadPropVisible=false;
     bool Valid=false;
 };
 

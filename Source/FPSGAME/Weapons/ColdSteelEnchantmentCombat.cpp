@@ -55,8 +55,16 @@ ColdSteelCombat::FBigBlind ColdSteelCombat::BigBlind(const UColdSteelEnhancement
 FColdSteelShotEffects ColdSteelCombat::Snapshot(AActor* Source,const FColdSteelItem* Item)
 {
     FColdSteelShotEffects R;auto* Pawn=Cast<AFPSGAMECharacter>(Source);if(!Pawn||!Pawn->GetController()||!Pawn->IsPlayerControlled())return R;
-    auto* P=Pawn->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();auto* E=Pawn->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
-    if(P&&E)if(const auto* I=Item?Item:P->Equipped()){R.Piercing=FMath::Clamp(int32(E->Effect(*I,TEXT("piercingBonus"))),0,8);R.Poison=E->Effect(*I,TEXT("poisonOnHit"))?FMath::Max(1,int32(E->Effect(*I,TEXT("poisonStacks"),1))):0;}return R;
+    auto* P=Pawn->GetNetShadowProfile();
+    if(!P)P=Pawn->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    auto* E=Pawn->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
+    if(P)if(const auto* I=Item?Item:P->Equipped())
+    {
+        if(E){R.Piercing=FMath::Clamp(int32(E->Effect(*I,TEXT("piercingBonus"))),0,8);R.Poison=E->Effect(*I,TEXT("poisonOnHit"))?FMath::Max(1,int32(E->Effect(*I,TEXT("poisonStacks"),1))):0;}
+        // Extra bodies per projectile, independent of armor reduction and walls.
+        if(const auto* Ammo=P->AmmoType(P->AmmoDefinitionFor(*I)))R.Piercing+=Ammo->TargetPenetration;
+    }
+    return R;
 }
 FColdSteelTurboRamp ColdSteelCombat::TurboRamp(const UColdSteelEnhancementSystem* Enhancement,const FColdSteelItem* Item)
 {

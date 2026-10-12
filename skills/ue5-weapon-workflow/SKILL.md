@@ -135,3 +135,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 ## 副手魔法书
 
 - 魔法书属性、强化、浮窗、专注与联机打断，读取[副手魔法书：属性、专注与恢复](references/spellbook-focus-and-publication.md)。区分单件／总魔攻、瞬时动画／权威结算及活动源输入／废案。
+
+## 霰弹枪弹药与联机收尾
+
+- SUPER90 弹药快照、权威装填回执、远端道具／枪口和轮盘缺图处理，读取 [霰弹枪权威与表现](references/shotgun-authority-and-presentation.md)。记录实际构建与尚未进行的联机体验，避免用保存或编译替代运行验收。

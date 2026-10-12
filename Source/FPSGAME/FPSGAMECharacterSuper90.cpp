@@ -7,58 +7,31 @@
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
-
-namespace
-{
-// Pace the ordinary empty tail independently from the unchanged shell feeds.
-// The source clock still owns both hands, grip deltas, the bolt and sound cues.
-constexpr float NativeEmptyTailPace = 2.16f;
-constexpr float NativeCyclePaceStart = .36f;
-float NativeEmptyTailSourceTime(float PaceTime)
-{
-    struct FKnot { float Pace; float Source; float Slope; };
-    // Positive monotone Hermite tangents avoid a stop at every phase boundary.
-    static constexpr FKnot Knots[] = {
-        {0.f, 0.f, 1.f},                                  // Last shell seated
-        {.36f, .3f, .672718808f},                          // Right hand regripped
-        {1.02f, .659615385f, .671927995f},                 // Left grasp established
-        {1.24f, .836981900f, .710573668f},                 // Pull cue
-        {1.40f, .939706450f, .698404430f},                 // Release cue
-        {1.45f, .976923077f, .483721508f},                 // Bolt closed
-        {1.51f, .998076923f, .417424620f},                 // Hand clearing handle
-        {NativeEmptyTailPace, 1.4f, .861662083f}           // Back on foregrip
-    };
-    const float Time = FMath::Clamp(PaceTime, 0.f, NativeEmptyTailPace);
-    for (int32 I = 1; I < UE_ARRAY_COUNT(Knots); ++I)
-    {
-        const FKnot& A = Knots[I - 1];
-        const FKnot& B = Knots[I];
-        if (Time > B.Pace) continue;
-        const float Span = B.Pace - A.Pace;
-        const float T = (Time - A.Pace) / Span;
-        const float T2 = T * T, T3 = T2 * T;
-        return (2.f * T3 - 3.f * T2 + 1.f) * A.Source
-            + (T3 - 2.f * T2 + T) * Span * A.Slope
-            + (-2.f * T3 + 3.f * T2) * B.Source
-            + (T3 - T2) * Span * B.Slope;
-    }
-    return Knots[UE_ARRAY_COUNT(Knots) - 1].Source;
-}
-}
+#include "Multiplayer/ColdSteelPlayerState.h"
 
 void AFPSGAMECharacter::BeginSuper90Reload()
 {
     using namespace Super90WeaponAssets;
+    // Remote pawns are reloaded by PlayerState authority, never by their
+    // automatic empty-magazine tick against the host's local inventory.
+    if(!IsLocallyControlled()&&GetNetMode()!=NM_Standalone)return;
     if(!bInventoryWeaponReady || IsWeaponBusy() || IsCastBlockingLeftHandAction())return;
-    const bool CycleOnly=NeedsReloadCycle();
-    if(!CycleOnly && (MagazineAmmo>=MagazineCapacity || (!HasInfiniteReserveAmmo()&&ReserveAmmo<=0)))return;
+    auto* PS=GetPlayerState<AColdSteelPlayerState>();
+    if(GetNetMode()==NM_Client&&(!PS||!PS->IsSuper90ServerReady(ActiveInventoryWeapon)||PS->IsSuper90ReloadPending()))return;
+    auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const bool Switching=!PendingAmmoType.IsEmpty();
+    if(Switching&&(!Profile||!Profile->CanSwitchAmmo(PendingAmmoWeapon,PendingAmmoType)))return;
+    const bool CycleOnly=!Switching&&NeedsReloadCycle();
+    if(!Switching&&!CycleOnly && (MagazineAmmo>=MagazineCapacity || (!HasInfiniteReserveAmmo()&&ReserveAmmo<=0)))return;
     // Preserve only the final recoil window, not the source's appended inspection.
     if(IsRevolverFireActionPlaying()){bRevolverReloadAfterFire=true;return;}
     bRevolverReloadAfterFire=false;
-    bPendingEmptyReload=CycleOnly||MagazineAmmo==0;
+    bPendingEmptyReload=Switching||CycleOnly||MagazineAmmo==0;
     // One action owns the raise, every shell, and the final return to the grip.
     // The normal variant keeps the bolt closed throughout the same feed loops.
-    Super90ReloadCount=CycleOnly?0:FMath::Min(MagazineCapacity-MagazineAmmo,HasInfiniteReserveAmmo()?MagazineCapacity:ReserveAmmo);
+    const int32 Available=Switching?int32(FMath::Min<int64>(MagazineCapacity,Profile->PouchCount(PendingAmmoType)))
+        :HasInfiniteReserveAmmo()?MagazineCapacity:ReserveAmmo;
+    Super90ReloadCount=CycleOnly?0:FMath::Min(MagazineCapacity-(Switching?0:MagazineAmmo),Available);
     bSuper90SpeedReload=bSuper90LoaderInstalled;
     UAnimSequence* Clip=bPendingEmptyReload?ReloadEmptyAnimation.Get():ReloadAnimation.Get();
     if(bSuper90SpeedReload)
@@ -90,8 +63,8 @@ void AFPSGAMECharacter::BeginSuper90Reload()
     // Normal reload stats still describe one shell, not an entire seven-shell fill.
     Super90ReloadRate=bPendingEmptyReload?FullReload/FMath::Max(.01f,EmptyReloadDuration):SingleReload/FMath::Max(.01f,ReloadDuration);
     if(bSuper90SpeedReload)Super90ReloadRate=bPendingEmptyReload
-        ?Super90SpeedloaderAssets::EmptyReference/FMath::Max(.01f,EmptyReloadDuration)
-        :Super90SpeedloaderAssets::NormalReference/FMath::Max(.01f,ReloadDuration);
+        ?Super90SpeedloaderAssets::EmptyPacedReference/FMath::Max(.01f,EmptyReloadDuration)
+        :Super90SpeedloaderAssets::NormalPacedReference/FMath::Max(.01f,ReloadDuration);
     // Native shell loops use a tail boundary; loader presentation retains its
     // original contact clock while ammo commits once at the end of the push.
     Super90ReloadTail=bSuper90SpeedReload?Super90SpeedloaderAssets::FirstContact(Super90ReloadCount):TailForCount(Super90ReloadCount);
@@ -102,17 +75,21 @@ void AFPSGAMECharacter::BeginSuper90Reload()
     if(bSuper90SpeedReload||CycleOnly)WeaponStateDuration=Super90SingleLength/Super90ReloadRate;
     if(bSuper90SpeedReload && Super90ReloadCount>0)
         WeaponStateDuration=(Super90SingleLength+Super90LoaderPushTiming::ExtraDuration)/Super90ReloadRate;
-    if(!bSuper90SpeedReload && bPendingEmptyReload)
-        WeaponStateDuration=(CycleOnly?NativeEmptyTailPace-NativeCyclePaceStart:Super90ReloadTail+NativeEmptyTailPace)/Super90ReloadRate;
     PlayWeaponAnimation(Clip,false,Super90ReloadRate);
     ActionDuration=WeaponStateDuration;
+    if(GetNetMode()==NM_Client)PS->RequestSuper90Reload(ActiveInventoryWeapon,PendingAmmoType);
     UpdateSuper90SpeedloaderVisual();
+    SetSuper90ReloadCues();
+}
+
+void AFPSGAMECharacter::SetSuper90ReloadCues()
+{
+    using namespace Super90WeaponAssets;
     if(bSuper90SpeedReload)
     {
         SetSuper90LoaderCues();return;
     }
-    const float BoltCueOffset=CycleOnly?NativeCycleBegin:0.f;
-    ReloadStages={Insert,TailBegin,BoltRelease-BoltCueOffset};
+    ReloadStages={Insert,TailBegin,bReloadCycleOnly?CycleBoltReady:BoltRelease};
     MechanicalCueTimes.Reset();MechanicalCueSounds.Reset();NextMechanicalCue=0;
     for(int32 I=0;I<Super90ReloadCount;++I)
     {
@@ -121,9 +98,59 @@ void AFPSGAMECharacter::BeginSuper90Reload()
     }
     if(bPendingEmptyReload)
     {
-        MechanicalCueTimes.Append({BoltPull-BoltCueOffset,NativeBoltReleaseCue-BoltCueOffset});
-        MechanicalCueSounds.Append({ChargePullSound,ChargeReleaseSound});
+        if(bReloadCycleOnly)
+        {
+            MechanicalCueTimes.Add(CycleBoltReleaseCue);
+            MechanicalCueSounds.Add(ChargeReleaseSound);
+        }
+        else
+        {
+            MechanicalCueTimes.Add(NativeBoltReleaseCue);
+            MechanicalCueSounds.Add(ChargeReleaseSound);
+        }
     }
+    const float SourceTime=Super90ReloadSourceTime(WeaponStateElapsed);
+    while(NextMechanicalCue<MechanicalCueTimes.Num()&&MechanicalCueTimes[NextMechanicalCue]<SourceTime)
+        ++NextMechanicalCue;
+}
+
+void AFPSGAMECharacter::ReconcileSuper90Reload(const FSuper90NetAmmoState& Receipt)
+{
+    if(!IsSuper90Weapon()||!IsReloading()||ActiveInventoryWeapon!=Receipt.ReloadWeapon)return;
+    // Once accepted, the server's stop boundary wins over the earlier local
+    // prediction. Re-running that prediction would shorten the plan again.
+    if(Receipt.ReloadStopRequested)bSuper90CancelReload=false;
+    if(Super90ReloadCount==Receipt.ReloadCount&&bPendingEmptyReload==Receipt.ReloadEmpty
+        &&bSuper90SpeedReload==Receipt.ReloadLoader&&bReloadCycleOnly==Receipt.ReloadCycleOnly
+        &&FMath::IsNearlyEqual(Super90ReloadRate,Receipt.ReloadRate))return;
+
+    using namespace Super90WeaponAssets;
+    UAnimSequence* Clip=Receipt.ReloadEmpty?ReloadEmptyAnimation.Get():ReloadAnimation.Get();
+    if(Receipt.ReloadLoader||Receipt.ReloadCycleOnly)
+    {
+        const auto& Clips=Receipt.ReloadEmpty?Super90LoaderEmpty:Super90LoaderNormal;
+        const int32 Index=FMath::Min(Receipt.ReloadCount,Super90SpeedloaderAssets::Capacity);
+        Clip=Clips.IsValidIndex(Index)?Clips[Index].Get():nullptr;
+    }
+    if(!Clip)return;
+    // Preserve the in-progress feed clock; never restart the accepted gesture
+    // or re-consume ammunition when a count/rate correction arrives.
+    const float FeedTime=WeaponStateElapsed*Super90ReloadRate;
+    Super90ReloadCount=Receipt.ReloadCount;
+    Super90ReloadCommitted=FMath::Min(Super90ReloadCommitted,Super90ReloadCount);
+    bPendingEmptyReload=Receipt.ReloadEmpty;bSuper90SpeedReload=Receipt.ReloadLoader;
+    bReloadCycleOnly=Receipt.ReloadCycleOnly;
+    Super90ReloadRate=Receipt.ReloadRate;Super90SingleLength=Clip->GetPlayLength();
+    Super90ReloadTail=bSuper90SpeedReload?Super90SpeedloaderAssets::FirstContact(Super90ReloadCount):TailForCount(Super90ReloadCount);
+    WeaponState=bPendingEmptyReload?EAKMWeaponState::ReloadingEmpty:EAKMWeaponState::Reloading;
+    WeaponStateElapsed=FeedTime/Super90ReloadRate;
+    WeaponActionStartedAt=GetWorld()->GetTimeSeconds()-WeaponStateElapsed;
+    WeaponStateDuration=(Super90ReloadTail+Super90SingleLength-TailBegin)/Super90ReloadRate;
+    if(bSuper90SpeedReload||bReloadCycleOnly)
+        WeaponStateDuration=(Super90SingleLength+(bSuper90SpeedReload&&Super90ReloadCount>0?Super90LoaderPushTiming::ExtraDuration:0.f))/Super90ReloadRate;
+    PlayWeaponAnimation(Clip,false,Super90ReloadRate);
+    ActionElapsed=WeaponStateElapsed;ActionDuration=WeaponStateDuration;
+    SetSuper90ReloadCues();UpdateSuper90SpeedloaderVisual();
 }
 
 float AFPSGAMECharacter::Super90ReloadSourceTime(float RuntimeTime) const
@@ -133,9 +160,7 @@ float AFPSGAMECharacter::Super90ReloadSourceTime(float RuntimeTime) const
     if(bSuper90SpeedReload)
         return FMath::Min(Super90ReloadCount>0?Super90LoaderPushTiming::SourceTime(Time):Time,Super90SingleLength);
     if(bReloadCycleOnly)
-        return FMath::Clamp(NativeEmptyTailSourceTime(Time+NativeCyclePaceStart)-(NativeCycleBegin-TailBegin),0.f,Super90SingleLength);
-    if(bPendingEmptyReload && Time>=Super90ReloadTail)
-        return FMath::Min(Super90SingleLength,TailBegin+NativeEmptyTailSourceTime(Time-Super90ReloadTail));
+        return FMath::Min(Time,Super90SingleLength);
     // Skip unused feed loops only once, after the last shell. Both variants
     // stay canted until this boundary; only the empty variant closes the bolt.
     return Time>=Super90ReloadTail
@@ -151,16 +176,35 @@ bool AFPSGAMECharacter::AdvanceSuper90Reload()
     // Contacts use the uncut clock. Jumping to the animation tail must never
     // commit shells whose source frames were skipped.
     const float FeedTime=WeaponStateElapsed*Super90ReloadRate;
+    const bool NetworkOwner=GetNetMode()==NM_Client;
+    if(NetworkOwner&&bSuper90CancelReload)
+        if(auto* PS=GetPlayerState<AColdSteelPlayerState>())PS->CancelSuper90Reload(true);
     if(bSuper90SpeedReload)
     {
         using namespace Super90SpeedloaderAssets;
         const float LoaderSourceTime=Super90ReloadSourceTime(WeaponStateElapsed);
+        if(NetworkOwner)
+        {
+            if(Super90ReloadCount>0&&LoaderSourceTime+1.e-6f>=LastContact(Super90ReloadCount))
+            {Super90ReloadCommitted=Super90ReloadCount;bReloadAmmoCommitted=true;PendingAmmoType.Reset();PendingAmmoWeapon.Reset();}
+            UpdateSuper90SpeedloaderVisual();return true;
+        }
         // Fire/aim requests must not turn a full loader stroke into a one-shell
         // reload. Commit the entire prepared fill atomically when seated, using
         // the inventory transaction for reserves, training and pending bolt state.
         if(!bReloadAmmoCommitted && Super90ReloadCount>0 && LoaderSourceTime+1.e-6f>=LastContact(Super90ReloadCount))
         {
-            const int32 Loaded=Profile->ConsumeAmmo(Super90ReloadCount,true,false,bPendingEmptyReload?1:0);
+            int32 Loaded=0;
+            if(!PendingAmmoType.IsEmpty())
+            {
+                // Refund the previous tube only when the new loader seats.
+                if(Profile->CommitAmmoSwitch(PendingAmmoWeapon,PendingAmmoType,MagazineCapacity,1,Super90ReloadCount))
+                {
+                    if(const auto* Gun=Profile->FindItem(ActiveInventoryWeapon))Loaded=Gun->Magazine;
+                    PendingAmmoType.Reset();PendingAmmoWeapon.Reset();
+                }
+            }
+            else Loaded=Profile->ConsumeAmmo(Super90ReloadCount,true,false,bPendingEmptyReload?1:0);
             if(Loaded<=0){InterruptReload();return false;}
             Super90ReloadCommitted=Loaded;bReloadAmmoCommitted=true;
         }
@@ -179,24 +223,36 @@ bool AFPSGAMECharacter::AdvanceSuper90Reload()
             Super90ReloadCount=StopAfter;
             Super90ReloadTail=TailForCount(StopAfter);
             WeaponStateDuration=ActionDuration=(Super90ReloadTail+Super90SingleLength-TailBegin)/Super90ReloadRate;
-            if(bPendingEmptyReload)
-                WeaponStateDuration=ActionDuration=(Super90ReloadTail+NativeEmptyTailPace)/Super90ReloadRate;
             MechanicalCueTimes.SetNum(StopAfter);MechanicalCueSounds.SetNum(StopAfter);
             if(bPendingEmptyReload)
             {
-                MechanicalCueTimes.Append({BoltPull,NativeBoltReleaseCue});
-                MechanicalCueSounds.Append({ChargePullSound,ChargeReleaseSound});
+                MechanicalCueTimes.Add(NativeBoltReleaseCue);
+                MechanicalCueSounds.Add(ChargeReleaseSound);
             }
         }
     }
     while(Super90ReloadCommitted<Super90ReloadCount && FeedTime+1.e-6f>=Insert+Super90ReloadCommitted*LoopStep)
     {
         const bool Final=Super90ReloadCommitted+1==Super90ReloadCount;
-        if(Profile->ConsumeAmmo(1,Final,true,bPendingEmptyReload?1:0)!=1){InterruptReload();return false;}
+        // The first seated shell changes the whole tube type atomically; later
+        // shell contacts use the ordinary per-shell path and can be interrupted.
+        const bool Switching=!PendingAmmoType.IsEmpty();
+        if(NetworkOwner)
+        {
+            // Animation contacts only. The server receipt owns pouch, magazine,
+            // selected ammunition and bolt-ready state.
+            ++Super90ReloadCommitted;bReloadAmmoCommitted=true;
+            PendingAmmoType.Reset();PendingAmmoWeapon.Reset();continue;
+        }
+        const bool Loaded=Switching
+            ?Profile->CommitAmmoSwitch(PendingAmmoWeapon,PendingAmmoType,MagazineCapacity,1,1,Final)
+            :Profile->ConsumeAmmo(1,Final,true,bPendingEmptyReload?1:0)==1;
+        if(!Loaded){InterruptReload();return false;}
+        if(Switching){PendingAmmoType.Reset();PendingAmmoWeapon.Reset();}
         ++Super90ReloadCommitted;bReloadAmmoCommitted=true;
     }
-    const float Ready= BoltRelease-(bReloadCycleOnly?NativeCycleBegin:0.f);
-    if(bPendingEmptyReload && Super90ReloadSourceTime(WeaponStateElapsed)+1.e-6f>=Ready && NeedsReloadCycle())
+    const float Ready=bReloadCycleOnly?CycleBoltReady:BoltRelease;
+    if(!NetworkOwner&&bPendingEmptyReload && Super90ReloadSourceTime(WeaponStateElapsed)+1.e-6f>=Ready && NeedsReloadCycle())
         if(!Profile->CompleteWeaponReloadCycle(ActiveInventoryWeapon)){InterruptReload();return false;}
     UpdateSuper90SpeedloaderVisual();
     return true;

@@ -403,8 +403,11 @@ public:
     bool CompleteWeaponReloadCycle(const FString& WeaponId);
     float AmmoDamageMultiplier(const FColdSteelItem& Item) const;
     float AmmoArmorPenetration(const FColdSteelItem& Item) const;
+    int32 AmmoProjectileCount(const FColdSteelItem& Item,int32 DefaultCount=1) const;
+    float AmmoRangeMultiplier(const FColdSteelItem& Item) const;
     FString AmmoEffectSummary(const FString& Id) const;
     const FSlateBrush* AmmoIcon(const FString& Id);
+    void PrepareAmmoIcon(const FString& Id);
     int32 AmmoCountFor(const FColdSteelItem& Item) const;
     int32 ReloadDualPistol(const FString& InstanceId,int32 Requested,int32 Capacity,bool Completed,int32 NeedsCycle=0);
     // Cowboy transfers real pouch rounds only and finishes the mechanism in the
@@ -443,6 +446,7 @@ public:
     bool ApplyFireMagicHit(APawn* Shooter,AActor* Target,const FFireMagicCast& Spell,float Damage,FFireMagicRewards& Rewards);
     void FinishFireMagicCast(FName Id,const FFireMagicRewards& Rewards);
 private:
+    friend class UShotgunAmmoIconDiagnosisCommandlet;
     friend class UFPSPotionUseComponent;
     bool UseConsumableAtContact(const FString& Id,bool bPotionContact);
     TArray<FColdSteelAmmoType> AmmoTypes;

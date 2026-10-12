@@ -6,6 +6,8 @@
 #include "../Weapons/FPSGunplayAnimInstance.h"
 #include "../Weapons/WeaponGripProfile.h"
 #include "../Weapons/Super90WeaponAssets.h"
+#include "../Weapons/TacticalDeviceComponent.h"
+#include "../Weapons/FPSWeaponFXComponent.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/RuneSwordComponent.h"
@@ -146,11 +148,21 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
     {
         Result.Materials.Add(FPSBodyEquipment::PersistentMaterial(Source->GetMaterial(I)));
         const FName Slot=Asset->GetMaterials()[I].MaterialSlotName;
-        // A parked first-person reload cartridge is not part of the carried gun.
-        if(FPSBodyEquipment::IsArmMaterial(Slot.ToString())
-            ||(bSuper90&&Slot==Super90WeaponAssets::LooseShellMaterial))Result.HiddenMaterials.Add(I);
+        // Reload cartridge visibility is carried by the motion section mask.
+        // Only arms and intentionally replaced factory parts stay hidden.
+        if(FPSBodyEquipment::IsArmMaterial(Slot.ToString()))Result.HiddenMaterials.Add(I);
+        if(bSuper90&&Slot==TEXT("S90_FactoryRearGrip")&&!Source->IsMaterialSectionShown(I,0))
+            Result.HiddenMaterials.AddUnique(I);
     }
     TArray<USceneComponent*> Children;Source->GetChildrenComponents(true,Children);
+    for(auto* Child:Children)if(auto* Prop=Cast<USkeletalMeshComponent>(Child);
+        Prop&&Prop->ComponentHasTag(TEXT("WeaponReloadProp")))
+    {
+        Result.ReloadPropMesh=Prop->GetSkeletalMeshAsset();Result.ReloadPropSource=Prop;
+        for(int32 M=0;M<Prop->GetNumMaterials();++M)
+            Result.ReloadPropMaterials.Add(FPSBodyEquipment::PersistentMaterial(Prop->GetMaterial(M)));
+        break;
+    }
     for(auto* Child:Children)if(auto* Part=Cast<UStaticMeshComponent>(Child);Part&&Part->GetStaticMesh()&&Result.Parts.Num()<64)
     {
         FFPSBodyAttachment Entry;Entry.Mesh=Part->GetStaticMesh();
@@ -161,6 +173,11 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
         {Branch=Branch->GetAttachParent();Entry.RelativeTransform=Entry.RelativeTransform*Branch->GetRelativeTransform();}
         Entry.Socket=Branch->GetAttachSocketName();
         for(int32 I=0;I<Part->GetNumMaterials();++I)Entry.Materials.Add(FPSBodyEquipment::PersistentMaterial(Part->GetMaterial(I)));
+        if(bSuper90&&Character.IsValid()&&Part==Character->MuzzleAttachment)
+        {
+            Result.MuzzlePart=Result.Parts.Num();Result.MuzzleTip=Character->MuzzleLocalTip;
+            Result.MuzzleAxis=Character->MuzzleLocalAxis;
+        }
         Result.Parts.Add(MoveTemp(Entry));
         Result.SourceParts.Add(Part);
     }
@@ -273,6 +290,7 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
         FString Schema=W.Mesh.ToSoftObjectPath().ToString()+W.StaticMesh.ToSoftObjectPath().ToString()+W.GripBone.ToString();
         for(int32 B:W.MotionBones)Schema+=FString::Printf(TEXT("|%d"),B);
         for(const auto& P:W.Parts)Schema+=TEXT("|")+P.Mesh.ToSoftObjectPath().ToString()+P.Socket.ToString();
+        if(!W.ReloadPropMesh.IsNull())Schema+=TEXT("|")+W.ReloadPropMesh.ToSoftObjectPath().ToString();
         W.MotionSchema=FCrc::StrCrc32(*Schema);
     }
     FString Key=DisplayState.Weapon.ToString();
@@ -281,6 +299,9 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
         Key+=TEXT("|")+W.Mesh.ToSoftObjectPath().ToString()+TEXT("|")+W.HoldClip.ToSoftObjectPath().ToString();
         Key+=TEXT("|")+W.StaticMesh.ToSoftObjectPath().ToString()+TEXT("|")+W.StaticGrip.ToString();
         Key+=TEXT("|")+W.GripProfile.ToSoftObjectPath().ToString()+FString::Printf(TEXT("|%s:%d:%d"),*W.PoseFamily.ToString(),W.AttachHand,W.StaffVariant);
+        Key+=TEXT("|")+W.ReloadPropMesh.ToSoftObjectPath().ToString();
+        for(const auto& Material:W.ReloadPropMaterials)Key+=TEXT("|")+Material.ToSoftObjectPath().ToString();
+        if(W.MuzzlePart!=INDEX_NONE)Key+=FString::Printf(TEXT("|exit:%d|%s|%s"),W.MuzzlePart,*W.MuzzleTip.ToString(),*W.MuzzleAxis.ToString());
         // Discard cached fitted mounts/palm poses when this source-sharing
         // implementation replaces the old third-person-only grip table.
         if(W.PoseFamily==TEXT("Staff"))Key+=TEXT("|StaffFromFirstPerson20261009|UnarmedFreeHand20261009|StaffSurfaceFit20261009");
@@ -332,7 +353,11 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
     auto* Body=GetBodyMesh();if(!Body)return;
     if(FPSPlayerBodyWorldBodySuppressed())return;
     UFPSPerformanceMetricsSubsystem::CountEquipmentRebuild(this);
+    for(auto Device:WorldTacticalDevices)if(Device)Device->DestroyComponent();WorldTacticalDevices.Reset();
+    if(RemoteGunFX){RemoteGunFX->DestroyComponent();RemoteGunFX=nullptr;}
+    RemoteGunSound=nullptr;RemoteSuppressedGunSound=nullptr;
     for(auto Part:WorldParts)if(Part)Part->DestroyComponent();WorldParts.Reset();
+    for(auto Prop:WorldReloadProps)if(Prop)Prop->DestroyComponent();WorldReloadProps.Reset();
     for(auto Weapon:WorldWeapons)if(Weapon)Weapon->DestroyComponent();WorldWeapons.Reset();
     WorldEquipmentHands.Reset();
     MotionBindings.Reset();MotionMaps.Reset();MotionEquipmentIndices.Reset();
@@ -468,10 +493,23 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
             for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
             {
                 const int32 Material=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
-                Weapon->ShowMaterialSection(Material,S,!Definition.HiddenMaterials.Contains(Material),L);
+                const bool ParkedShell=Asset->GetPathName()==Super90WeaponAssets::MeshPath
+                    &&Asset->GetMaterials()[Material].MaterialSlotName==Super90WeaponAssets::LooseShellMaterial;
+                Weapon->ShowMaterialSection(Material,S,!Definition.HiddenMaterials.Contains(Material)&&!ParkedShell,L);
             }
         Weapon->SetComponentTickEnabled(false);WorldWeapons.Add(Weapon);
         Motion.Mesh=Weapon;Motion.FrozenPose=Weapon->GetComponentSpaceTransforms();
+        if(auto* PropAsset=Definition.ReloadPropMesh.LoadSynchronous())
+        {
+            auto* Prop=NewObject<USkeletalMeshComponent>(GetOwner(),NAME_None,RF_Transient);
+            GetOwner()->AddInstanceComponent(Prop);Prop->SetSkeletalMeshAsset(PropAsset);
+            Prop->SetupAttachment(Weapon);FPSBodyEquipment::WorldVisibility(Prop);
+            for(int32 M=0;M<Definition.ReloadPropMaterials.Num();++M)
+                if(auto* Material=Definition.ReloadPropMaterials[M].LoadSynchronous())Prop->SetMaterial(M,Material);
+            Prop->bUseAttachParentBound=true;Prop->SetLeaderPoseComponent(Weapon);
+            Prop->RegisterComponent();Prop->SetVisibility(false);
+            WorldReloadProps.Add(Prop);WorldEquipmentHands.Add(Prop,static_cast<uint8>(Side));Motion.ReloadProp=Prop;
+        }
         Motion.NativeWeaponRoot=Asset->GetRefSkeleton().FindBoneIndex(TEXT("WPN_root"));
         if(Definition.PoseFamily!=TEXT("Bow"))MotionEquipmentIndices.Add(Weapon,Index);
         if(Definition.PoseFamily==TEXT("Bow")){BuildBow(Definition,Weapon);continue;}
@@ -505,6 +543,26 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
             Part->RegisterComponent();WorldParts.Add(Part);
             Motion.Parts.Add(Part);
             MotionEquipmentIndices.Add(Part,Index);
+            if(!Character->IsLocallyControlled()&&AssetPart->GetPathName().Contains(TEXT("/Super90/TacticalBottom")))
+            {
+                const FString Name=AssetPart->GetName();
+                const FString Kind=Name.Contains(TEXT("blessed_laser"))?TEXT("blessed_laser"):
+                    Name.Contains(TEXT("flashlight"))?TEXT("flashlight"):TEXT("laser");
+                auto* Device=NewObject<UTacticalDeviceComponent>(GetOwner(),NAME_None,RF_Transient);
+                GetOwner()->AddInstanceComponent(Device);Device->RegisterComponent();
+                Device->ConfigureWorld(Kind,Weapon,Part);WorldTacticalDevices.Add(Device);
+            }
+        }
+        if(!Character->IsLocallyControlled()&&Asset->GetPathName()==Super90WeaponAssets::MeshPath)
+        {
+            RemoteGunFX=NewObject<UFPSWeaponFXComponent>(GetOwner(),NAME_None,RF_Transient);
+            GetOwner()->AddInstanceComponent(RemoteGunFX);RemoteGunFX->RegisterComponent();
+            RemoteGunFX->SetWorldGunSuppressed(false);
+            if(Motion.Parts.IsValidIndex(Definition.MuzzlePart))
+                RemoteGunFX->SetWorldMuzzle(Motion.Parts[Definition.MuzzlePart].Get(),Definition.MuzzleTip,Definition.MuzzleAxis);
+            RemoteGunFX->Initialize(Weapon,Character->FirstPersonCamera);
+            RemoteGunSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/Super90/GameDevAudio20261007/S_Super90_Fire.S_Super90_Fire"));
+            RemoteSuppressedGunSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/AKM/SuppressedAudio20260921/S_AKM_Suppressed"));
         }
     }
     for(auto& Binding:MotionBindings)
@@ -625,7 +683,7 @@ void UFPSPlayerBodyComponent::ApplyOutfit(const TArray<FFPSBodyOutfitSlot>& Outf
             TArray<USkeletalMeshComponent*> Meshes;GetOwner()->GetComponents(Meshes);
             for(auto* Mesh:Meshes)
             {
-                if(Mesh==Body||WorldWeapons.Contains(Mesh)||OutfitMeshes.Contains(Mesh)||!Mesh->GetSkeletalMeshAsset())continue;
+                if(Mesh==Body||WorldWeapons.Contains(Mesh)||WorldReloadProps.Contains(Mesh)||OutfitMeshes.Contains(Mesh)||!Mesh->GetSkeletalMeshAsset())continue;
                 for(const auto& Pair:(*Overrides)->Values)
                 {
                     const int32 Slot=Mesh->GetMaterialIndex(FName(*Pair.Key));

@@ -41,6 +41,7 @@ protected:
     virtual void NativeDestruct() override;
     virtual int32 NativePaint(const FPaintArgs&,const FGeometry&,const FSlateRect&,FSlateWindowElementList&,int32,const FWidgetStyle&,bool) const override;
 private:
+    friend class UShotgunAmmoIconDiagnosisCommandlet;
     // 半径比例坐标以组中心为原点：单盘时组中心就是盘心，双盘时是两盘中点。
     struct FLayout
     {

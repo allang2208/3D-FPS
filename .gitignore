@@ -3294,3 +3294,14 @@ __pycache__/
 !/SourceAssets/BellowSacLobberConcept20261012/**/
 !/SourceAssets/BellowSacLobberConcept20261012/README.md
 !/SourceAssets/BellowSacLobberConcept20261012/imagegen_prompt_v01.txt
+
+# Super90 closeout: preserve local recovery inputs, generated surfaces and media.
+/SourceAssets/BareSkinMPFB20261010/**
+/SourceAssets/BareSkinSurfaceRework20261010/**
+/SourceAssets/Ammo12Gauge20261012/**
+!/SourceAssets/Ammo12Gauge20261012/**/
+!/SourceAssets/Ammo12Gauge20261012/*.py
+!/SourceAssets/Ammo12Gauge20261012/*.ps1
+!/SourceAssets/Ammo12Gauge20261012/*.md
+/SourceAssets/Ammo12Gauge20261012/**/Before/
+/SourceAssets/Ammo12Gauge20261012/**/__pycache__/

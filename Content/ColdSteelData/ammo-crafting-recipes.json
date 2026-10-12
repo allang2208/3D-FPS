@@ -418,6 +418,69 @@
         "item": "ammo_pkm_762x54r",
         "count": 30
       }
+    },
+    {
+      "id": "craft_ammo_12g",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_12g",
+        "count": 12
+      }
+    },
+    {
+      "id": "craft_ammo_12g_flechette",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "ironIngot",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_12g_flechette",
+        "count": 8
+      }
+    },
+    {
+      "id": "craft_ammo_12g_slug",
+      "inputs": [
+        {
+          "item": "copperIngot",
+          "count": 1
+        },
+        {
+          "item": "leadOre",
+          "count": 1
+        },
+        {
+          "item": "sulfurOre",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "ammo_12g_slug",
+        "count": 8
+      }
     }
   ]
 }

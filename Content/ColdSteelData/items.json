@@ -4280,7 +4280,7 @@
   },
   "ammo_12g": {
     "id": "ammo_12g",
-    "name": "12 号鹿弹",
+    "name": "12 号00 鹿弹",
     "category": "ammo",
     "type": "弹药",
     "stack_max": 60,
@@ -4288,8 +4288,39 @@
     "grid_w": 1,
     "grid_h": 1,
     "rarity": "common",
-    "icon": "Icons/Super90Source20261006/ammo_12g.png",
-    "ue_icon": "Icons/Super90Source20261006/ammo_12g.png",
-    "desc": "12 号霰弹枪弹药，每发内含八颗鹿弹弹丸。"
+    "icon": "Icons/Ammo12Gauge20261012/buckshot.png",
+    "ue_icon": "Icons/Ammo12Gauge20261012/buckshot.png",
+    "desc": "参考 LE133 00 的 12 号鹿弹。每发 8 颗弹丸，保留标准整发伤害与射程，无额外目标穿透和护甲穿透，适合近距离。",
+    "world_mesh": "/Game/Items/Ammo12Gauge20261012/Meshes/SM_12G_Buckshot_Box.SM_12G_Buckshot_Box"
+  },
+  "ammo_12g_flechette": {
+    "id": "ammo_12g_flechette",
+    "name": "12 号箭型弹",
+    "category": "ammo",
+    "type": "弹药",
+    "stack_max": 60,
+    "maxStack": 60,
+    "grid_w": 1,
+    "grid_h": 1,
+    "rarity": "rare",
+    "icon": "Icons/Ammo12Gauge20261012/flechette.png",
+    "ue_icon": "Icons/Ammo12Gauge20261012/flechette.png",
+    "desc": "参考 Sabot Designs 12 GA Flechette 的游戏箭型弹。每发 8 枚，整发伤害为鹿弹的 90%，每枚可额外穿透 1 个目标；射程不变，不赋予穿墙或护甲穿透。弹丸数量与效果为游戏设定。",
+    "world_mesh": "/Game/Items/Ammo12Gauge20261012/Meshes/SM_12G_Flechette_Box.SM_12G_Flechette_Box"
+  },
+  "ammo_12g_slug": {
+    "id": "ammo_12g_slug",
+    "name": "12 号独头弹",
+    "category": "ammo",
+    "type": "弹药",
+    "stack_max": 60,
+    "maxStack": 60,
+    "grid_w": 1,
+    "grid_h": 1,
+    "rarity": "rare",
+    "icon": "Icons/Ammo12Gauge20261012/slug.png",
+    "ue_icon": "Icons/Ammo12Gauge20261012/slug.png",
+    "desc": "参考 F127 RS 的 12 号独头弹。每发 1 颗，伤害为标准散弹整发全部弹丸总伤害的 75%，射程翻倍，无视 10% 物理护甲；不额外穿透目标。",
+    "world_mesh": "/Game/Items/Ammo12Gauge20261012/Meshes/SM_12G_Slug_Box.SM_12G_Slug_Box"
   }
 }

@@ -11,6 +11,10 @@ struct FColdSteelAmmoType
     bool AllowInfiniteReserve=false;
     float DamageMultiplier=1.f;
     float PhysicalArmorPenetration=0.f;
+    /** Zero keeps the weapon's native projectile count; damage is always per cartridge. */
+    int32 ProjectileCount=0;
+    int32 TargetPenetration=0;
+    float RangeMultiplier=1.f;
     int32 PoisonStacks=0, BleedStacks=0;
     /** Optional complete arrow mesh: same 76 cm shaft/nock contact as the bow. */
     FString ProjectileMesh;

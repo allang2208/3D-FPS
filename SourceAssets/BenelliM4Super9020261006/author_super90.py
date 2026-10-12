@@ -113,6 +113,11 @@ for ob in loaded.objects:
   for n,w in row.items():ob.vertex_groups[n].add([i],w/total,'REPLACE')
  ob.parent=r;ob.matrix_parent_inverse=Matrix.Identity(4);ob.matrix_basis=Matrix.Identity(4);ob.modifiers.clear();ob.modifiers.new('Native V7 Binding','ARMATURE').object=r;ob.name='Super90_V7_'+ob.name;arms.append(ob)
 bpy.data.objects.remove(bare_rig,do_unlink=True)
+# Super90 owns a local continuous-surface variant on its unchanged native bind.
+import sys
+sys.path.insert(0,str(P/'SourceAssets/Super90JointSurface20261012'))
+from blender_surface import apply_to_blender
+arms=apply_to_blender(arms,r)
 # Keep source outfit separately; it never replaces the unequipped V7 base.
 glove=objects['hardknuckle'];sleeve=objects['sleeve'];gun=objects['benelli_m4_TTI_Benelli_M4_0'];shell=objects['12g_12gauge_0']
 # Separate the gun's existing mechanical regions and material islands without cutting faces.

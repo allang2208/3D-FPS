@@ -9,6 +9,7 @@
 #include "SVDAttachments.h"
 #include "PKMAttachments.h"
 #include "../FPSGAMECharacter.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
 #include "M16Attachments.h"
 #include "AKMSovietCalibration.h"
 #include "GunsmithSystem.h"
@@ -46,6 +47,18 @@ FTransform ASH12TacticalMount(const USkeletalMeshComponent* Mesh)
     const FQuat LeftSideRotation=Rotation*FQuat(FVector::ForwardVector,PI);
     const FTransform Mount(LeftSideRotation,Rear.GetLocation()+Rotation.RotateVector(FVector(29.5f,-3.19f,-8.25f)));
     return Mount.GetRelativeTransform(Root);
+}
+
+FTransform Super90TacticalMount(const USkeletalMeshComponent* Mesh)
+{
+    const auto& Ref=Mesh->GetSkeletalMeshAsset()->GetRefSkeleton();
+    FTransform Root=FTransform::Identity;
+    for(int32 I=Ref.FindBoneIndex(TEXT("WPN_root"));I!=INDEX_NONE;I=Ref.GetParentIndex(I))Root=Root*Ref.GetRefBonePose()[I];
+    const FQuat Forward=FRotationMatrix::MakeFromXZ(FVector(0,-1,0),FVector::UpVector).ToQuat();
+    // Canonical underside assembly: +X follows the barrel, +Z faces the host.
+    // The fitted bearing sits ahead of the foregrip; source emitter is the origin.
+    const FTransform Seat(Forward,FVector(0,-32.f,-84.f));
+    return Seat.GetRelativeTransform(Root);
 }
 
 FTransform PistolTacticalMount(const USkeletalMeshComponent* Mesh, bool CanonicalForward)
@@ -120,23 +133,39 @@ void UTacticalDeviceComponent::SetPresentationHidden(bool Hidden)
 {
     bPresentationHidden=Hidden;if(Body)Body->SetVisibility(!Hidden && IsComponentTickEnabled());if(Hidden)HideEffects();
 }
+void UTacticalDeviceComponent::ConfigureWorld(const FString& Variant,USkeletalMeshComponent* Rifle,UStaticMeshComponent* Device)
+{
+    bWorldPresentation=true;Body=Device;
+    Configure(TEXT("Super90"),Variant,Rifle,Device!=nullptr);
+}
 void UTacticalDeviceComponent::Configure(const FString& Family,const FString& RequestedVariant,USkeletalMeshComponent* Rifle,bool Enabled)
 {
     HideEffects();Kind=RequestedVariant;Host=Rifle;
     const FString Variant=TacticalDeviceVariants::MeshVariant(RequestedVariant);
     // A new attachment or weapon must not inherit the previous one's alignment.
     ResetLaserAim();
+    // The world body publishes its posed weapon after the first-person rig.
+    // Read the emitter only after that pose and its attached parts are current.
+    if(auto* WorldBody=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>())
+    {
+        AddTickPrerequisiteComponent(WorldBody);
+        if(auto* WorldMesh=WorldBody->GetBodyMesh())AddTickPrerequisiteComponent(WorldMesh);
+    }
     if(Body)Body->SetVisibility(false);
-    const bool Active=Enabled&&Rifle&&(Variant==TEXT("laser")||Variant==TEXT("flashlight"));
+    const bool Active=Enabled&&Rifle&&Rifle->GetSkeletalMeshAsset()&&(Variant==TEXT("laser")||Variant==TEXT("flashlight"));
     SetComponentTickEnabled(Active);
     if(!Active)return;
     const bool RSH=Family==TEXT("RSH12");
-    bUseAuthoredEmitterAxis=RSH;
+    // Super90's WPN_root up axis is not the gun's up axis. Projecting its sight
+    // line onto that plane sends the hip beam down; the fitted sockets encode
+    // the actual barrel axis and follow the same native root through all poses.
+    bUseAuthoredEmitterAxis=RSH||Family==TEXT("Super90");
     const bool Revolver=Family==TEXT("DanWesson715");
     const bool PitViper=Family==TEXT("PitViper2011");
     const bool Pistol=Family==TEXT("M1911")||Family==TEXT("G18")||PitViper||Revolver||RSH;
     const bool ASH=Family==TEXT("ASH12");
-    const FString Path=Kind==TacticalDeviceVariants::BlessedLaser?TacticalDeviceVariants::BlessedMeshPath(Family):RSH?RSH12TacticalAssets::MeshPath(Variant):Family==TEXT("HK416")?HK416WeaponAssets::AttachmentPath(Variant):Family==TEXT("LMG201")?LMG201Attachments::MeshPath(Variant):Family==TEXT("SVD")?SVDAttachments::MeshPath(Variant):Family==TEXT("PKM")?PKMAttachments::MeshPath(Variant):Family==TEXT("A762")?A762Attachments::MeshPath(Variant):Family==TEXT("M16")?M16Attachments::MeshPath(Variant):ASH
+    const bool Super90=Family==TEXT("Super90");
+    const FString Path=Super90?TacticalDeviceVariants::Super90MeshPath(Kind):Kind==TacticalDeviceVariants::BlessedLaser?TacticalDeviceVariants::BlessedMeshPath(Family):RSH?RSH12TacticalAssets::MeshPath(Variant):Family==TEXT("HK416")?HK416WeaponAssets::AttachmentPath(Variant):Family==TEXT("LMG201")?LMG201Attachments::MeshPath(Variant):Family==TEXT("SVD")?SVDAttachments::MeshPath(Variant):Family==TEXT("PKM")?PKMAttachments::MeshPath(Variant):Family==TEXT("A762")?A762Attachments::MeshPath(Variant):Family==TEXT("M16")?M16Attachments::MeshPath(Variant):ASH
         ?FString::Printf(TEXT("/Game/Weapons/ASH12/TacticalDevices20260920/%s/SM_ASH12_%s"),*Variant,*Variant)
         :PitViper?PitViper2011WeaponAssets::AttachmentPath(Variant):Family==TEXT("G18")?G18WeaponAssets::AttachmentPath(Variant):Revolver?DanWesson715WeaponAssets::AttachmentPath(Variant):Pistol
         ?FString::Printf(TEXT("/Game/Weapons/M1911/CompactFit20260913/%s/SM_TacticalDevice"),*Variant)
@@ -155,7 +184,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Re
         Body->EmptyOverrideMaterials();
         Body->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,*Path));AssetPath=Path;
     }
-    if(Kind!=TacticalDeviceVariants::BlessedLaser&&Family!=TEXT("HK416")&&!Pistol&&!ASH&&Family!=TEXT("LMG201")&&Family!=TEXT("SVD")&&Family!=TEXT("PKM")&&Family!=TEXT("A762")&&Family!=TEXT("M16")&&Variant==TEXT("laser"))
+    if(!Super90&&Kind!=TacticalDeviceVariants::BlessedLaser&&Family!=TEXT("HK416")&&!Pistol&&!ASH&&Family!=TEXT("LMG201")&&Family!=TEXT("SVD")&&Family!=TEXT("PKM")&&Family!=TEXT("A762")&&Family!=TEXT("M16")&&Variant==TEXT("laser"))
     {
         const FString OpticalPath=FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/%s/laser/M_%s_laser_Body_OpticalV2"),*Family,*Family);
         if(auto* Optical=LoadObject<UMaterialInterface>(nullptr,*OpticalPath))
@@ -164,7 +193,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Re
             if(Slot!=INDEX_NONE)Body->SetMaterial(Slot,Optical);
         }
     }
-    if(Family!=TEXT("HK416")&&!Pistol&&!ASH&&Family!=TEXT("LMG201")&&Family!=TEXT("SVD")&&Family!=TEXT("PKM")&&Family!=TEXT("A762")&&Family!=TEXT("M16")&&Variant==TEXT("flashlight"))
+    if(!Super90&&Family!=TEXT("HK416")&&!Pistol&&!ASH&&Family!=TEXT("LMG201")&&Family!=TEXT("SVD")&&Family!=TEXT("PKM")&&Family!=TEXT("A762")&&Family!=TEXT("M16")&&Variant==TEXT("flashlight"))
     {
         const FString MaterialPath=FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/HunyuanV3/%s/flashlight/M_%s_flashlight_Body_MetalTail"),*Family,*Family);
         if(auto* MetalTail=LoadObject<UMaterialInterface>(nullptr,*MaterialPath))
@@ -174,11 +203,12 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Re
         }
     }
     // Reused components inherit the current host, including when leaving RSH.
-    Body->AttachToComponent(Rifle,FAttachmentTransformRules::KeepRelativeTransform,TEXT("WPN_root"));
+    if(!bWorldPresentation)Body->AttachToComponent(Rifle,FAttachmentTransformRules::KeepRelativeTransform,TEXT("WPN_root"));
     Body->SetOnlyOwnerSee(Rifle->bOnlyOwnerSee);
     Body->SetFirstPersonPrimitiveType(Rifle->FirstPersonPrimitiveType);
-    Body->SetRelativeTransform(RSH?RSH12TacticalAssets::Mount():Family==TEXT("HK416")?HK416Attachments::ReferenceMount(Rifle):ASH?ASH12TacticalMount(Rifle):Pistol?PistolTacticalMount(Rifle,PitViper):FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));
-    Body->SetVisibility(Body->GetStaticMesh()!=nullptr);
+    FTransform Mount=Super90?Super90TacticalMount(Rifle):RSH?RSH12TacticalAssets::Mount():Family==TEXT("HK416")?HK416Attachments::ReferenceMount(Rifle):ASH?ASH12TacticalMount(Rifle):Pistol?PistolTacticalMount(Rifle,PitViper):FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f));
+    if(!bWorldPresentation)Body->SetRelativeTransform(Mount);
+    Body->SetVisibility(!bPresentationHidden&&Body->GetStaticMesh()!=nullptr);
     auto MakeEffect=[&](const TCHAR* Name,const TCHAR* Mesh,const TCHAR* Material)
     {
         auto* C=NewObject<UStaticMeshComponent>(GetOwner());
@@ -222,24 +252,32 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     if(bPresentationHidden){HideEffects();return;}
     const auto* C=Cast<AFPSGAMECharacter>(GetOwner());
     // Preview and dropped-weapon rigs keep geometry, never illuminate the live world.
-    if(!C||!C->GetController()||!C->FirstPersonCamera||!C->IsLocallyControlled()||C->IsHidden()||(!C->HasInventoryWeapon()&&!C->HasOffhandPistol())||C->IsTraversing()||!Host||!Host->IsVisible()||!Body||!Body->IsVisible()||!Body->GetStaticMesh()){HideEffects();return;}
-    if(auto* G=C->GetGameInstance()->GetSubsystem<UGunsmithSystem>();G&&G->IsOpen()){HideEffects();return;}
-    if(!Body->DoesSocketExist(TEXT("Emitter"))){HideEffects();return;}
-    const FVector Origin=Body->GetSocketLocation(TEXT("Emitter"));
+    if(!C||C->IsHidden()||!Host||!Host->IsVisible()||Host->bHiddenInGame||!Body||!Body->IsVisible()||Body->bHiddenInGame||!Body->GetStaticMesh()){HideEffects();return;}
+    if(!bWorldPresentation&&(!C->GetController()||!C->FirstPersonCamera||!C->IsLocallyControlled()||(!C->HasInventoryWeapon()&&!C->HasOffhandPistol())||C->IsTraversing())){HideEffects();return;}
+    if(!bWorldPresentation)if(auto* G=C->GetGameInstance()->GetSubsystem<UGunsmithSystem>();G&&G->IsOpen()){HideEffects();return;}
+    USkeletalMeshComponent* VisibleHost=Host;
+    UStaticMeshComponent* VisibleDevice=Body;
+    const auto* WorldBody=C->FindComponentByClass<UFPSPlayerBodyComponent>();
+    const bool ThirdPerson=bWorldPresentation||(WorldBody&&WorldBody->IsThirdPersonViewEnabled());
+    if(ThirdPerson&&!bWorldPresentation&&!WorldBody->ResolveWorldWeaponPart(Host,Body,VisibleHost,VisibleDevice))
+    {HideEffects();return;}
+    if(ThirdPerson)VisibleHost->UpdateChildTransforms();
+    if(!VisibleDevice->DoesSocketExist(TEXT("Emitter"))){HideEffects();return;}
+    const FVector Origin=VisibleDevice->GetSocketLocation(TEXT("Emitter"));
     // Direction comes from the weapon's own sight axis; the mesh sockets only
     // supply the emitter position the player sees. See WeaponForwardAxis above.
     FVector LocalForward;
     FVector Direction;
-    if(bUseAuthoredEmitterAxis && Body->DoesSocketExist(TEXT("AimGuide")))
-        Direction=(Body->GetSocketLocation(TEXT("AimGuide"))-Origin).GetSafeNormal();
-    else if(WeaponForwardAxis(Host,LocalForward))
-        Direction=Host->GetSocketRotation(TEXT("WPN_root")).RotateVector(LocalForward);
-    else if(Body->DoesSocketExist(TEXT("AimGuide")))
-        Direction=(Body->GetSocketLocation(TEXT("AimGuide"))-Origin).GetSafeNormal();
+    if(bUseAuthoredEmitterAxis && VisibleDevice->DoesSocketExist(TEXT("AimGuide")))
+        Direction=(VisibleDevice->GetSocketLocation(TEXT("AimGuide"))-Origin).GetSafeNormal();
+    else if(WeaponForwardAxis(VisibleHost,LocalForward))
+        Direction=VisibleHost->GetSocketRotation(TEXT("WPN_root")).RotateVector(LocalForward);
+    else if(VisibleDevice->DoesSocketExist(TEXT("AimGuide")))
+        Direction=(VisibleDevice->GetSocketLocation(TEXT("AimGuide"))-Origin).GetSafeNormal();
     else
         {HideEffects();return;}
     FCollisionQueryParams Params(SCENE_QUERY_STAT(TacticalDevice),true,C);FHitResult Hit;
-    const FVector Eye=C->FirstPersonCamera->GetComponentLocation();
+    FVector Eye=bWorldPresentation?C->GetPawnViewLocation():C->FirstPersonCamera->GetComponentLocation();
     // An emitter clipping through a wall must not light or lase the far side.
     if(GetWorld()->LineTraceSingleByChannel(Hit,Eye,Origin,ECC_Visibility,Params)){HideEffects();return;}
     if(Kind==TEXT("flashlight"))
@@ -265,7 +303,7 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     // Primitive data is instance-local; the shared material and hipfire
     // appearance remain unchanged. No new trace or per-frame material load.
     const auto* PC=Cast<APlayerController>(C->GetController());
-    const float ScopeAlpha=PC&&!PC->bShowMouseCursor?C->GetScopePresentationAlpha():0.f;
+    const float ScopeAlpha=!ThirdPerson&&PC&&!PC->bShowMouseCursor?C->GetScopePresentationAlpha():0.f;
     Dot->SetCustomPrimitiveDataFloat(0,ScopeAlpha);
     Beam->SetCustomPrimitiveDataFloat(0,ScopeAlpha);
     // Converge only once ADS has actually settled. bIsAiming is true from the
@@ -276,7 +314,9 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     // The blend is evaluated from the elapsed settle time, not accumulated per
     // frame: a repeated frame-to-frame lerp only approaches asymptotically and
     // would take about 0.28 s at 60 fps to land a nominal 0.08 s window.
-    const bool bADSSettled = C->WeaponADSFactor >= ADSSettleThreshold;
+    // World-body rifles now aim their physical barrel. Independently steering
+    // the world laser to the camera target conceals a stale or moving gun pose.
+    const bool bADSSettled = !ThirdPerson && C->WeaponADSFactor >= ADSSettleThreshold;
     if(!bADSSettled)
     {
         bLaserSettled=false;
@@ -347,7 +387,8 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
 void UTacticalDeviceComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
     HideEffects();
-    for(auto* C:{Body.Get(),Dot.Get(),Beam.Get()})if(C)C->DestroyComponent();
+    if(!bWorldPresentation&&Body)Body->DestroyComponent();
+    for(auto* C:{Dot.Get(),Beam.Get()})if(C)C->DestroyComponent();
     if(Light)Light->DestroyComponent();
     Super::EndPlay(Reason);
 }
@@ -358,6 +399,6 @@ void AFPSGAMECharacter::SetGunsmithTactical(const FString& Variant)
         if(!TacticalDeviceVariants::IsLaser(Variant)&&Variant!=TEXT("flashlight"))return;
         TacticalDevice=NewObject<UTacticalDeviceComponent>(this,TEXT("TacticalDevice"));TacticalDevice->RegisterComponent();
     }
-    const FString Family=IsRSH12Weapon()?TEXT("RSH12"):IsHK416Weapon()?TEXT("HK416"):IsPitViperWeapon()?TEXT("PitViper2011"):IsG18Weapon()?TEXT("G18"):LMG201WeaponAssets::Matches(AKMViewmodel)?TEXT("LMG201"):SVDWeaponAssets::Matches(AKMViewmodel)?TEXT("SVD"):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?TEXT("PKM"):A762WeaponAssets::Matches(AKMViewmodel)?TEXT("A762"):bUseM16?TEXT("M16"):bUseASH12?TEXT("ASH12"):bUseDanWesson715?TEXT("DanWesson715"):bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
+    const FString Family=IsSuper90Weapon()?TEXT("Super90"):IsRSH12Weapon()?TEXT("RSH12"):IsHK416Weapon()?TEXT("HK416"):IsPitViperWeapon()?TEXT("PitViper2011"):IsG18Weapon()?TEXT("G18"):LMG201WeaponAssets::Matches(AKMViewmodel)?TEXT("LMG201"):SVDWeaponAssets::Matches(AKMViewmodel)?TEXT("SVD"):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?TEXT("PKM"):A762WeaponAssets::Matches(AKMViewmodel)?TEXT("A762"):bUseM16?TEXT("M16"):bUseASH12?TEXT("ASH12"):bUseDanWesson715?TEXT("DanWesson715"):bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
     TacticalDevice->Configure(Family,Variant,AKMViewmodel,bInventoryWeaponReady);
 }
