@@ -112,3 +112,7 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 ## 武器改造对法术与近战技能的覆盖
 
 处理法杖吊坠跨法术漏用、重复眩晕、混合寒冷或近战技能漏掉装备倍率时，读取 [改造效果合同](../ue5-weapon-workflow/references/attachment-effect-contracts.md)。额外状态进入施法快照并由共同权威命中施加，表现层不得重复结算；无伤害光环与次生伤害按各自语义处理。
+
+## 魔法书专注与施法快照
+
+- 法杖＋副手书的施法加速、减耗、受击扣魔及影子档案事务，读取[副手魔法书](../ue5-weapon-workflow/references/spellbook-focus-and-publication.md)。派生电系法术只应用一次专注；客户端反应与服务器扣魔通过轮次和累计记录衔接。

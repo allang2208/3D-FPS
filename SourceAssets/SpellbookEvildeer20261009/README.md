@@ -1,6 +1,6 @@
 # 蓝紫金纹魔法书素材
 
-> **2026-10-10 已暂停。** 当前为 V17 恢复原阅读方向、原开掌的已编译现场，视觉未确认、recover 待重做。历史版本不作为当前认可模板。后续任务及归档见[暂停记录](../../Docs/Weapons/spellbook-paused-20261010.md)。
+> **2026-10-12 当前入口：** V30 自然开合、16 面书页与 UV 方向修正、受击快速翻页／合书／落掌及 V3 拇指避让、空手同速近战、魔攻强化和服务器专注结算均已接入。完整恢复顺序、检查结果、废案和公开边界见[本轮收尾发布](../../Docs/Publication/Spellbook20261012/README.md)。下文旧三页和早期动作参数仅为源模型沿革。
 
 使用 evildeer 的 [Magic book set](https://sketchfab.com/3d-models/magic-book-set-ee1747b4d426446ba5f14bcf2aec8400) 中 `book2`：蓝紫色、金色卷纹的 **Elemental Alchemy**。本目录为 2026-10-09 的独立素材制作目录。
 

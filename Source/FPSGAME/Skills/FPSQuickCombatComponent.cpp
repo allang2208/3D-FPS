@@ -99,12 +99,10 @@ void UFPSQuickCombatComponent::ConfigureForStaffOffhandPistol(float Length)
 
 void UFPSQuickCombatComponent::ConfigureForSpellbookPush()
 {
+    // The book shares the unarmed jab's phase/contact clock. Its pose layer
+    // retimes the fixed-grip source with SpellbookQuickCombatMotion.
+    ConfigureForStaffPunch();
     Style=EQuickCombatStyle::SpellbookPush;
-    ClipLength=AttackEnd=SpellbookAuthoredStrike::Length;
-    ReleaseEnd=SpellbookAuthoredStrike::Release;
-    CockEnd=SpellbookAuthoredStrike::Cock;
-    ContactTime=SpellbookAuthoredStrike::Contact;
-    FollowEnd=SpellbookAuthoredStrike::Follow;
 }
 
 void UFPSQuickCombatComponent::ConfigureForUnarmedPunch()
@@ -276,11 +274,8 @@ void UFPSQuickCombatComponent::GetCameraMotion(FVector& Location,FRotator& Rotat
         if(Style==EQuickCombatStyle::UnarmedPunch)
             if(const auto* Hands=GetOwner()->FindComponentByClass<UFPSUnarmedIdleComponent>();Hands&&Hands->GetPunchSide()==1)
             {Location.Y=-Location.Y;Rotation.Yaw=-Rotation.Yaw;Rotation.Roll=-Rotation.Roll;}
-        if(Style==EQuickCombatStyle::SpellbookPush)
-        {
-            Location*=FVector(.65f,.2f,.4f);
-            Rotation.Pitch*=.6f;Rotation.Yaw*=.2f;Rotation.Roll*=.2f;
-        }
+        // Spellbook uses the same left-jab camera drive/recoil and shared
+        // contact impulse as the unarmed punch, without a second attenuation.
         AddImpact();return;
     }
     if(Style==EQuickCombatStyle::Bow)

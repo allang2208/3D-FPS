@@ -228,7 +228,10 @@ void UColdSteelItemTooltip::AddDetails(UVerticalBox* Body)
             FString PendingHeading;
             for(int32 Index=0;Index<Main.Rows.Num();++Index)
             {
-                const auto& Row=Main.Rows[Index];if(Row.bSection){PendingHeading=Row.Label;continue;}
+                const auto& Row=Main.Rows[Index];
+                // Preview mechanisms are already visible above the details, once per view.
+                if(Row.bPreview){if(Row.bSection)PendingHeading.Empty();continue;}
+                if(Row.bSection){PendingHeading=Row.Label;continue;}
                 if(Presentation.Summary.ContainsByPredicate([&](const auto& Core){return Core.Label==Row.Label&&Core.Value==Row.Value;}))continue;
                 if(!PendingHeading.IsEmpty()){AddRow(Rows,{PendingHeading,TEXT(""),0,true},CardIndex,Index);PendingHeading.Empty();}
                 AddRow(Rows,Row,CardIndex,Index);
@@ -301,6 +304,12 @@ void UColdSteelItemTooltip::BuildCards()
     Cards=WidgetTree->ConstructWidget<UHorizontalBox>();Vertical->AddChild(Cards);auto* Body=WidgetTree->ConstructWidget<UVerticalBox>();Cards->AddChildToHorizontalBox(Body)->SetSize(TooltipFill());
     AddCoreGrid(Body);
     ScopeText=Text(TEXT(""),12,ColdSteelUI::ItemTooltipSecondary);Body->AddChildToVerticalBox(ScopeText)->SetPadding(FMargin(0,7/Scale,0,0));
+    if(!Presentation.Cards.IsEmpty())
+    {
+        const int32 CardIndex=Presentation.Cards.Num()-1;const auto& Main=Presentation.Cards[CardIndex];
+        for(int32 Index=0;Index<Main.Rows.Num();++Index)
+            if(Main.Rows[Index].bPreview)AddRow(Body,Main.Rows[Index],CardIndex,Index);
+    }
     if(bPinned)AddDetails(Body);
     FooterFrame=WidgetTree->ConstructWidget<UBorder>();FooterFrame->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,0,FLinearColor::Transparent,0));FooterFrame->SetPadding(FMargin(16/Scale,10/Scale,16/Scale,12/Scale));RootColumn->AddChildToVerticalBox(FooterFrame);
     auto* Footer=WidgetTree->ConstructWidget<UVerticalBox>();FooterFrame->SetContent(Footer);AddRule(Footer,0,9);

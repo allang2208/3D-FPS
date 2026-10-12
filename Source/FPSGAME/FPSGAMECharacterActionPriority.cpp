@@ -10,6 +10,7 @@
 #include "Weapons/RuneSwordComponent.h"
 #include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/Staff/StaffWeaponComponent.h"
+#include "Weapons/Spellbook/SpellbookComponent.h"
 #include "Weapons/RuneOrbBladesComponent.h"
 #include "Production/ProductionToolComponent.h"
 #include "Movement/FPSTraversalComponent.h"
@@ -52,6 +53,7 @@ bool AFPSGAMECharacter::IsSwitchingWeapon() const
 
 bool AFPSGAMECharacter::CanStartQuickCombatPriority() const
 {
+    if(Spellbook&&Spellbook->IsFocusActive())return false;
     if(IsDoorPushActive() || IsSwitchingWeapon() || bResolvingActionInterrupt || !IsLocallyControlled())return false;
     if(AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(GetController())))return false;
     if(const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();Health && Health->IsDead())return false;

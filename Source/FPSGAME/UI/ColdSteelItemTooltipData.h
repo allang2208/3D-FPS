@@ -12,6 +12,9 @@ struct FColdSteelTooltipRow
     FString CompactValue;
     bool bStacked=false;
     bool bDashedAfter=false;
+    // Show this mechanism after the core grid in both hover and pinned views.
+    // Its source stays in the main card for other item-detail consumers.
+    bool bPreview=false;
 };
 struct FColdSteelTooltipCard
 {
@@ -41,3 +44,5 @@ struct FColdSteelTooltipContent
 FPSGAME_API FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& Item,UColdSteelStatusModel* Model,UGunsmithSystem* Gunsmith);
 void CompleteColdSteelTooltipSummary(const FColdSteelItem& Item,UColdSteelStatusModel* Model,UGunsmithSystem* Gunsmith,FColdSteelTooltipContent& Content);
 void AppendColdSteelTooltipAttackFormula(const FColdSteelItem& Item,UColdSteelStatusModel* Model,double WeaponBase,FColdSteelTooltipCard& Card);
+
+void AppendColdSteelTooltipMagicFormula(const FColdSteelItem& Item,UColdSteelStatusModel* Model,FColdSteelTooltipCard& Card);

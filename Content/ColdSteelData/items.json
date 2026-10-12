@@ -4261,7 +4261,22 @@
     "desc": "蓝紫色金纹封面的元素炼金书，左手从书脊侧握持。",
     "world_mesh": "/Game/Weapons/SpellbookEvildeer20261009/Meshes/SM_Spellbook_Alchemy_Closed.SM_Spellbook_Alchemy_Closed",
     "ue_equipment_icon_mesh": "/Game/Weapons/SpellbookEvildeer20261009/Meshes/SM_Spellbook_Alchemy_Closed.SM_Spellbook_Alchemy_Closed",
-    "world_material": ""
+    "world_material": "",
+    "matkFormula": {
+      "base": 2,
+      "intMul": 0.2,
+      "wisMul": 0.2,
+      "enhanceBase": 0.4,
+      "enhanceIntMul": 0.08,
+      "enhanceWisMul": 0.08
+    },
+    "focusEffects": {
+      "castSpeedMultiplier": 2,
+      "manaCostMultiplier": 0.75,
+      "movementMultiplier": 0.67,
+      "interruptMaxManaFraction": 0.25
+    },
+    "spellbookStatsRevision": 2
   },
   "ammo_12g": {
     "id": "ammo_12g",

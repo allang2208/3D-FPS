@@ -1,4 +1,5 @@
 #include "FPSCombatHealthComponent.h"
+#include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Weapons/JingangRuneComponent.h"
 #include "../Survival/FPSSurvivalComponent.h"
 #include "Net/UnrealNetwork.h"
@@ -187,6 +188,9 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
     AActor* Attacker=Causer?Causer:(Instigator?Instigator->GetPawn():nullptr);
     if(!Actor->IsA<AFPSGAMECharacter>())Damage=DamageAfterArmor(Damage,Type,Attacker);
     Health = FMath::Max(0.f, Health - Damage);
+    // Only accepted damage interrupts focus; dodge, guard and immunity have
+    // already rejected their hits. Hunger/dehydration are not weapon impacts.
+    if(!bSurvivalLoss)if(auto* Book=Actor->FindComponentByClass<USpellbookComponent>())Book->InterruptFocusFromDamage();
     if(auto* Rune=Actor->FindComponentByClass<UJingangRuneComponent>())Rune->ObserveHealth();
     if(!IsDead()&&!bSurvivalLoss&&!(Type&&Type->IsA<UMaggotPoisonDamage>()))
         if(auto* Body=Actor->FindComponentByClass<UFPSPlayerBodyComponent>())

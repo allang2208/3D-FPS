@@ -57,6 +57,7 @@ FIceWallCast UColdSteelStatusModel::IceWallStats(int32 AtLevel) const
     C.Damage=FMath::FloorToFloat(FMath::FloorToFloat(C.FixedDamage+C.IntelligenceContribution+C.WisdomContribution)*ChainDamage);
     C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor)*float(Rune.MagicCost));
     C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.MagicCooldown;
+    ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
     return C;
 }
 

@@ -47,6 +47,13 @@ public:
     double SetEffect(FName Key) const;
     double AdjustCombatStat(FName Key,double Value) const;
     double EquipmentMagicAttack() const;
+    double ItemMagicAttack(const FColdSteelItem& Item) const;
+    const FColdSteelItem* ActiveSpellbook() const;
+    void ApplySpellbookFocus(float& CastSpeed,float& ManaCost) const;
+    float SpellbookFocusMovementMultiplier() const;
+    bool ApplySpellbookFocusBreak();
+    double SpellbookFocusManaLossTotal() const {return Current.SpellbookFocusManaLoss;}
+    void ReconcileSpellbookFocusManaLoss(double Total);
     UFUNCTION(BlueprintPure) double TributeEffect(FName Key) const;
     /** 献祭 "special" 块聚合（取最强值，原样毫秒/百分比）。 */
     UFUNCTION(BlueprintPure) double TributeSpecial(FName Key) const;
@@ -149,7 +156,7 @@ public:
     bool CommitElectricMagicRelease(FName Id);
     void FinishElectricMagicCast(FName Id,const FElectricMagicRewards& Rewards);
     FColdSteelSkillProgress LightningProgress() const;
-    FLightningCast LightningStats(int32 AtLevel=-1) const;
+    FLightningCast LightningStats(int32 AtLevel=-1,bool bApplyFocus=true) const;
     float LightningCooldown() const { return HasNoAbilityCooldown()?0.f:Current.LightningCooldown; }
     float LightningCooldownDuration() const { return Current.LightningCooldownDuration; }
     bool BeginLightningCast(const FLightningCast& Cast);
@@ -479,6 +486,7 @@ private:
     FString SaveSlot;
     FString Message;
     bool bPersistenceBlocked=false;
+    bool bNetShadowProfile=false;
     bool bAudit=false;
     float SaveAccumulator=0;
     TWeakObjectPtr<class AFPSWeatherManager> TreeGrowthWeather;

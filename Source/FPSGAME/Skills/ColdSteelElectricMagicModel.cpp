@@ -23,7 +23,7 @@ FElectricMagicCast UColdSteelStatusModel::ElectricMagicStats(FName Id,int32 AtLe
     const auto& D=ElectricMagicDefinition(Id);const auto& T=D.ElectricMagic;
     const int32 L=FMath::Clamp(AtLevel<0?ElectricMagicProgress(Id).Level:AtLevel,1,D.MaxLevel);
     const float Growth=float(L-1)/FMath::Max(1,D.MaxLevel-1);
-    FElectricMagicCast C;C.Hit=LightningStats();auto& H=C.Hit;
+    FElectricMagicCast C;C.Hit=LightningStats(-1,false);auto& H=C.Hit;
     H.DamageBase=T.DamageBase+L*T.DamagePerLevel;
     H.MagicMultiplier=T.MagicBase+L*T.MagicPerLevel;H.IntelligenceMultiplier=T.IntelligenceBase+L*T.IntelligencePerLevel;
     H.ManaCost=T.ManaBase+FMath::FloorToFloat(Growth*T.ManaGrowth);
@@ -61,6 +61,7 @@ FElectricMagicCast UColdSteelStatusModel::ElectricMagicStats(FName Id,int32 AtLe
     H.Damage=FMath::FloorToFloat(FMath::FloorToDouble(H.DamageBase+Derived(TEXT("matk"))*H.MagicMultiplier+Attribute(TEXT("int"))*H.IntelligenceMultiplier)*DamageFactor*MagicImplementMultiplier());
     H.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(H.ManaCost*CostFactor)*float(Rune.MagicCost));
     H.Cooldown=FMath::Clamp(H.Cooldown*float(FMath::Max(.2,(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown")))))*float(Rune.MagicCooldown),0.f,300.f);
+    ApplySpellbookFocus(H.CastSpeed,H.ManaCost);
     return C;
 }
 bool UColdSteelStatusModel::BeginElectricMagicCast(FName Id,const FElectricMagicCast& Spell)

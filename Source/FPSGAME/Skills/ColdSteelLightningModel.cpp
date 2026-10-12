@@ -18,7 +18,7 @@
 FColdSteelSkillProgress UColdSteelStatusModel::LightningProgress() const
 {const auto* P=Current.Skills.Find(LightningSkill.Id);return P?*P:FColdSteelSkillProgress();}
 
-FLightningCast UColdSteelStatusModel::LightningStats(int32 AtLevel) const
+FLightningCast UColdSteelStatusModel::LightningStats(int32 AtLevel,bool bApplyFocus) const
 {
     const int32 L=FMath::Clamp(AtLevel<0?LightningProgress().Level:AtLevel,1,LightningSkill.MaxLevel);
     const auto& T=LightningSkill.Lightning;FLightningCast C;
@@ -63,6 +63,7 @@ FLightningCast UColdSteelStatusModel::LightningStats(int32 AtLevel) const
     C.Damage=FMath::FloorToFloat(FMath::FloorToDouble(C.DamageBase+Matk*C.MagicMultiplier+Intelligence*C.IntelligenceMultiplier)*DamageFactor*MagicImplementMultiplier());
     C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor)*float(Rune.MagicCost));
     C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.MagicCooldown;
+    if(bApplyFocus)ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
     return C;
 }
 

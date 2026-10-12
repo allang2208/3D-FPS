@@ -127,11 +127,15 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
         if(S.HarvestRadiusCM>0)Add(TEXT("harvest_radius"),ColdSteelWeaponText::HarvestRadius,S.HarvestRadiusCM,TEXT(" cm"),0,false,false);
         if(S.BonusHarvestChance>0)Add(TEXT("bonus_harvest"),TEXT("额外产出几率"),S.BonusHarvestChance*100,TEXT("%"),0,false,false);
     }
+    else if(Item.Definition==TEXT("ue_alchemy_spellbook"))
+    {
+        if(Model)Add(TEXT("equipment_magic_attack"),ColdSteelWeaponText::EquipmentMagicAttack,Model->ItemMagicAttack(Item),TEXT(""),2);
+    }
     else if(ColdSteelInventory::Text(Item,TEXT("weaponType"))==TEXT("staff"))
     {
         const auto Damage=ColdSteelWeaponStats::DamageParts(Item,Model,3);
         Add(TEXT("damage"),ColdSteelWeaponText::TotalDamage,Damage.Total(),TEXT(""),2);
-        if(Model)Add(TEXT("equipment_magic_attack"),TEXT("装备魔攻"),Model->EquipmentMagicAttack(),TEXT(""),2);
+        if(Model)Add(TEXT("equipment_magic_attack"),ColdSteelWeaponText::EquipmentMagicAttack,Model->ItemMagicAttack(Item),TEXT(""),2);
         Add(TEXT("base_physical_damage"),ColdSteelWeaponText::BasePhysical,Damage.BasePhysical,TEXT(""),2,false,false);
         if(Damage.AddedPhysical>0)Add(TEXT("added_physical_damage"),ColdSteelWeaponText::AddedPhysical,Damage.AddedPhysical,TEXT(""),2,false,false);
         if(Damage.AddedMagic>0)Add(TEXT("added_magic_damage"),ColdSteelWeaponText::AddedMagic,Damage.AddedMagic,TEXT(""),2,false,false);
@@ -197,7 +201,8 @@ void CompleteColdSteelTooltipSummary(const FColdSteelItem& Item,UColdSteelStatus
             if(const auto* V=Values.FindByPredicate([&](const auto& Entry){return Entry.Key==Key;}))Out.Summary.Add({V->Label,Format(V->Value,V->Digits)+V->Unit});
     }
     else for(const auto& V:Values)if(V.Core&&Out.Summary.Num()<4)Out.Summary.Add({V.Label,Format(V.Value,V.Digits)+V.Unit});
-    if(ColdSteelInventory::IsBow(Item))Out.ValueScope=ColdSteelWeaponText::BowScope;
+    if(Item.Definition==TEXT("ue_alchemy_spellbook"))Out.ValueScope=TEXT("装备魔攻按当前智力、精神与强化等级计算；装备于当前副手时生效。");
+    else if(ColdSteelInventory::IsBow(Item))Out.ValueScope=ColdSteelWeaponText::BowScope;
     else if(ColdSteelInventory::IsTwoHandedSword(Item))Out.ValueScope=TEXT("按当前角色、强化和改造计算，以普通攻击为准；伤害未计暴击、要害和目标防御。体力为单次攻击消耗；最大攻击距离含突刺。");
     else if(ColdSteelInventory::IsEquippedProductionTool(Item))Out.ValueScope=TEXT("按当前角色与改造计算，以单次挥砍为准；伤害未计暴击、要害、目标防御及距离衰减。采集数值独立列出。");
     else if(Weapon)Out.ValueScope=TEXT("按当前角色、强化和改造计算，以单次射击为准；武器总伤害未计弹种倍率、暴击、要害、目标防御及距离衰减。后坐力指数越低越好，枪械稳定性越高越好。");

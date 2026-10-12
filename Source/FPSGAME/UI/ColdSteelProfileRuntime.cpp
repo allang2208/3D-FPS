@@ -171,6 +171,7 @@ UColdSteelStatusModel* UColdSteelStatusModel::CreateShadowModel(const FColdSteel
     ColdSteelItemRarity::Normalize(Migrated.Items);
     Shadow->Publish(Migrated);
     Shadow->bPersistenceBlocked=true;
+    Shadow->bNetShadowProfile=true;
     return Shadow;
 }
 void UColdSteelStatusModel::AdoptNetMirror(const FColdSteelProfile& External)
@@ -193,8 +194,14 @@ bool UColdSteelStatusModel::SetPlayerAppearance(FName HeadId,FName HairId)
 bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn)
 {
     // M2 联机：放开监听服/客户端的档案写入（各自写各自磁盘副本）；专用服拒绝（无本地玩家档案语义）。
-    // 影子模型永远被 bPersistenceBlocked 拦截，持久化由联机会话显式处理。
-    if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()==NM_DedicatedServer)){Message=TEXT("当前玩家数据不可写入");return false;}
+    // Shadow gameplay transactions are authoritative in memory. Only their disk
+    // writes are blocked: the PlayerState owns guest persistence and mirroring.
+    if(bNetShadowProfile)
+    {
+        const auto* AuthorityPawn=RuntimePawn();
+        if(!AuthorityPawn||!AuthorityPawn->HasAuthority())return false;
+    }
+    else if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()==NM_DedicatedServer)){Message=TEXT("当前玩家数据不可写入");return false;}
     RemoveRetiredWeapons(State);
     bool AmmoChanged=false;
     if(!NormalizeAmmo(State,AmmoChanged)){Message=TEXT("弹药数据迁移失败，原存档保留");return false;}
@@ -216,6 +223,12 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
     if(bAudit&&AuditFailNextSave){AuditFailNextSave=false;Message=TEXT("验收注入：保存失败，操作未提交");return false;}
     State.Version=2;
     State.Generation=Current.Generation+1;
+    if(bNetShadowProfile)
+    {
+        Publish(State);
+        if(bApplyPawn)ApplyToPawn();
+        OnChanged.Broadcast();return true;
+    }
     auto* Save=Cast<UColdSteelProfileSave>(UGameplayStatics::CreateSaveGameObject(UColdSteelProfileSave::StaticClass()));Save->Profile=State;
     const FString Slot=SaveSlot+(State.Generation%2?TEXT("_A"):TEXT("_B"));
     if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0)){Message=TEXT("保存失败，操作未提交");return false;}
@@ -327,7 +340,7 @@ bool UColdSteelStatusModel::ReloadProfile()
     {
         if(I.Definition==TEXT("ue_alchemy_spellbook"))
         {
-            // Refresh only presentation fields on books already in a save.
+            // Refresh definition-owned presentation and balance fields; retain instance enhancement.
             const FString* Catalog=Definitions.Find(I.Definition);
             TSharedPtr<FJsonObject> Data,Defaults;
             if(Catalog&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
@@ -345,6 +358,14 @@ bool UColdSteelStatusModel::ReloadProfile()
                     double Value=0,Old=0;
                     if(Defaults->TryGetNumberField(Key,Value)&&(!Data->TryGetNumberField(Key,Old)||Value!=Old))
                     {Data->SetNumberField(Key,Value);Updated=true;}
+                }
+                double Revision=0,OldRevision=0;
+                Data->TryGetNumberField(TEXT("spellbookStatsRevision"),OldRevision);
+                if(Defaults->TryGetNumberField(TEXT("spellbookStatsRevision"),Revision)&&OldRevision<Revision)
+                {
+                    for(const TCHAR* Key:{TEXT("matkFormula"),TEXT("focusEffects"),TEXT("spellbookStatsRevision")})
+                        if(const auto* Value=Defaults->Values.Find(Key))Data->SetField(Key,*Value);
+                    Updated=true;
                 }
                 if(Updated)
                 {I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}

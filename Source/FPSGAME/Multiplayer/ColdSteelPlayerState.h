@@ -14,6 +14,7 @@
 class UColdSteelStatusModel;
 class UColdSteelProfileSave;
 class APlayerController;
+class AFPSGAMECharacter;
 struct FColdSteelSkillShot;
 struct FHitResult;
 
@@ -164,6 +165,13 @@ public:
     /** 施法回执：Code 0=受理；其余为拒因，Phase 回传以便本地收尾。 */
     UFUNCTION(Client, Reliable)
     void ClientCastResult(FName SkillId, uint8 Phase, uint8 Code);
+
+    /** Focus intent shares the reliable cast channel: 0 cancel, 1 open, 2 close. */
+    UFUNCTION(Server, Reliable)
+    void ServerSetSpellbookFocus(AFPSGAMECharacter* Character,uint32 Session,uint8 State);
+    UFUNCTION(Client, Reliable)
+    void ClientSpellbookFocusStopped(AFPSGAMECharacter* Character,uint32 Session,bool Interrupted,double ManaLossTotal);
+    void NotifySpellbookFocusStopped(AFPSGAMECharacter* Character,uint32 Session,bool Interrupted);
 
     /** 服务端最近一次已接受的合法命中时刻（服务端时钟域）——远端身体开火表现读它。 */
     double LastValidatedShotAt = -100.0;

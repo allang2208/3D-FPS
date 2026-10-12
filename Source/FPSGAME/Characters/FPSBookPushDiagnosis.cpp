@@ -4,6 +4,7 @@
 #include "FPSPlayerBodyAnimInstance.h"
 #include "FPSPlayerBodyGrip.h"
 #include "../Weapons/Spellbook/SpellbookAuthoredStrike.h"
+#include "../Weapons/Spellbook/SpellbookQuickCombatMotion.h"
 #include "../Weapons/Spellbook/SpellbookCarryTuning.h"
 #include "Animation/AnimSequence.h"
 #include "AssetCompilingManager.h"
@@ -91,12 +92,12 @@ static void Run(const TArray<FString>& Args)
         for(int32 Frame=-1;Frame<=84;++Frame)
         {
             const float Time=Frame*Step;
-            const bool Active=Time>=0.f&&Time<SpellbookAuthoredStrike::Length&&(!Cancel||Time<.20f);
+            const bool Active=Time>=0.f&&Time<SpellbookQuickCombatMotion::Length&&(!Cancel||Time<.20f);
             auto& State=Anim->BodyState;State.Action=Active?EFPSBodyAction::GunBash:EFPSBodyAction::None;
             State.ActionVariant=Active?FName(TEXT("SpellbookPush")):NAME_None;State.Contacts.Channel=State.ActionVariant;
-            State.bHasActionProgress=true;State.ActionProgress=FMath::Clamp(Time/SpellbookAuthoredStrike::Length,0.f,1.f);
-            State.ContactFraction=SpellbookAuthoredStrike::Contact/SpellbookAuthoredStrike::Length;
-            const auto Source=SourcePose(FMath::Clamp(Time,0.f,SpellbookAuthoredStrike::Length));
+            State.bHasActionProgress=true;State.ActionProgress=FMath::Clamp(Time/SpellbookQuickCombatMotion::Length,0.f,1.f);
+            State.ContactFraction=StaffQuickCombatMotion::Contact/SpellbookQuickCombatMotion::Length;
+            const auto Source=SourcePose(SpellbookQuickCombatMotion::SourceTime(Time));
             auto Hand=Source[Rig.SourceHand];Hand.SetScale3D(FVector::OneVector);
             Anim->ActionHands[1]=Rig.Mount.Inverse()*Hand*FTransform(FRotator(0,90,0),FVector(0,0,170-SpellbookCarryTuning::LowerCm));
             Anim->ActionWristMask=Active?2:0;Anim->ActionFingerMask=2;Anim->ActionFingers=Anim->EquipmentFingers;

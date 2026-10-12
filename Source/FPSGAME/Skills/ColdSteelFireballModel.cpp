@@ -113,7 +113,8 @@ FFireballCast UColdSteelStatusModel::FireballStats(int32 AtLevel) const
             C.BurnMagicAttack=Derived(TEXT("matk"));C.BurnMultiplier=Craft(TEXT("fireBurnDamageMul"));
             C.BurnSeconds=E->CraftEffect(*I,TEXT("fireBurnDuration"),3000)/1000;C.BurnTick=E->CraftEffect(*I,TEXT("fireBurnTickMs"),500)/1000;
         }
-    C.HoverDuration=F.HoverDuration;return C;
+    C.HoverDuration=F.HoverDuration;ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
+    return C;
 }
 
 bool UColdSteelStatusModel::BeginFireballCast()

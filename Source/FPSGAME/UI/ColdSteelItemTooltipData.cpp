@@ -46,8 +46,8 @@ void DamageRows(FColdSteelTooltipCard& C,const FWeaponDamageParts& D)
 void Section(FColdSteelTooltipCard& C,const FString& Label){C.Rows.Add({Label,TEXT(""),0,true});}
 // 附魔说明用整行宽行：标签折进内容前缘（标签：内容），文字从最左开始，尽量一行读完。
 void Note(FColdSteelTooltipCard& C,const FString& Label,const FString& Val,int32 Tone=0){if(Val.IsEmpty())return;C.Rows.Add({TEXT(""),Label.IsEmpty()?Val:Label+TEXT("：")+Val,Tone});}
-FString Category(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon_ranged"),TEXT("远程武器")},{TEXT("weapon_bow"),TEXT("远程武器")},{TEXT("weapon_melee"),TEXT("近战武器")},{TEXT("weapon_magic"),TEXT("魔法武器")},{TEXT("weapon"),TEXT("武器")},{TEXT("tool"),TEXT("生产工具")},{TEXT("armor"),TEXT("防具")},{TEXT("equipment"),TEXT("装备")},{TEXT("accessory"),TEXT("饰品")},{TEXT("consumable"),TEXT("消耗品")},{TEXT("material"),TEXT("材料")},{TEXT("enhancement"),TEXT("强化道具")},{TEXT("tribute"),TEXT("贡品")},{TEXT("gold"),TEXT("金币")}};const auto* V=M.Find(K);return V?*V:K;}
-FString EquipSlotLabel(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon"),TEXT("武器槽")},{TEXT("armor"),TEXT("防具槽")},{TEXT("gloves"),TEXT("手套槽")},{TEXT("pants"),TEXT("裤子槽")},{TEXT("boots"),TEXT("鞋靴槽")},{TEXT("backpack"),TEXT("背包装备槽")}};const auto* V=M.Find(K);return V?*V:K;}
+FString Category(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon_ranged"),TEXT("远程武器")},{TEXT("weapon_bow"),TEXT("远程武器")},{TEXT("weapon_melee"),TEXT("近战武器")},{TEXT("weapon_magic"),TEXT("魔法武器")},{TEXT("magic_book"),TEXT("魔法书")},{TEXT("weapon"),TEXT("武器")},{TEXT("tool"),TEXT("生产工具")},{TEXT("armor"),TEXT("防具")},{TEXT("equipment"),TEXT("装备")},{TEXT("accessory"),TEXT("饰品")},{TEXT("consumable"),TEXT("消耗品")},{TEXT("material"),TEXT("材料")},{TEXT("enhancement"),TEXT("强化道具")},{TEXT("tribute"),TEXT("贡品")},{TEXT("gold"),TEXT("金币")}};const auto* V=M.Find(K);return V?*V:K;}
+FString EquipSlotLabel(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon"),TEXT("武器槽")},{TEXT("offhand"),TEXT("副手槽")},{TEXT("armor"),TEXT("防具槽")},{TEXT("gloves"),TEXT("手套槽")},{TEXT("pants"),TEXT("裤子槽")},{TEXT("boots"),TEXT("鞋靴槽")},{TEXT("backpack"),TEXT("背包装备槽")}};const auto* V=M.Find(K);return V?*V:K;}
 void Delta(FColdSteelTooltipCard& C,const FString& Label,double V,const TCHAR* Unit,bool Lower=false){if(FMath::Abs(V)>.00001)Row(C,Label,Signed(V,Unit),(V>0)!=Lower?1:-1);}
 // 附魔只存攻击间隔倍率；玩家口径用射速倍率表达，1/3 与 2 倍都读得懂。
 FString RateMultiplier(double IntervalMultiplier){return IntervalMultiplier>1.?FString::Printf(TEXT("1/%s"),*N(IntervalMultiplier)):N(1./IntervalMultiplier);}
@@ -359,7 +359,8 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(Weapon&&(Label==ColdSteelWeaponText::Capacity||Label==TEXT("弹巢容量")))continue;
         bool Positive=false;St->TryGetBoolField(TEXT("pos"),Positive);if(!Label.IsEmpty())Row(Main,Label,Val,Positive?1:0);}
     Section(Main,TEXT("物品信息"));Row(Main,TEXT("分类"),Category(String(O,TEXT("category"))));
-    Row(Main,TEXT("武器类型"),String(O,TEXT("weaponTypeTag"),String(O,TEXT("weaponType"))));Row(Main,TEXT("装备槽位"),EquipSlotLabel(String(O,TEXT("equipSlot"))));
+    const FString WeaponType=String(O,TEXT("weaponTypeTag"),String(O,TEXT("weaponType")));
+    Row(Main,TEXT("武器类型"),WeaponType==TEXT("spellbook")?TEXT("魔法书"):WeaponType);Row(Main,TEXT("装备槽位"),EquipSlotLabel(String(O,TEXT("equipSlot"))));
     const FString Cat=String(O,TEXT("category"));const J Defense=Object(O,TEXT("defense"));
     if(ColdSteelInventory::IsTwoHandedSword(I)){
         Section(Main,ColdSteelWeaponText::CombatParameters);AppendColdSteelTooltipAttackFormula(I,Model,Number(O,TEXT("melee_damage"),55),Main);
@@ -494,21 +495,30 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             Row(Main,ColdSteelWeaponText::AmmoAdjustedDamage,N(BowDamage.Total()*Model->AmmoDamageMultiplier(I)));
         }
         Row(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
+    }else if(I.Definition==TEXT("ue_alchemy_spellbook")){
+        Section(Main,TEXT("魔攻与强化"));AppendColdSteelTooltipMagicFormula(I,Model,Main);
+        if(const auto* Enhancement=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr)
+            Row(Main,ColdSteelWeaponText::EnhancementLimit,TEXT("+")+FString::FromInt(Enhancement->MaxLevel(I)));
+        if(const auto Focus=Object(O,TEXT("focusEffects")))
+        {
+            const int32 PreviewStart=Main.Rows.Num();
+            Section(Main,ColdSteelWeaponText::Focus);
+            Note(Main,TEXT(""),TEXT("搭配法杖，右键进入专注；完全展开书本后获得施法增益。"));
+            const double Speed=(Number(Focus,TEXT("castSpeedMultiplier"),1)-1)*100;
+            const double Cost=(Number(Focus,TEXT("manaCostMultiplier"),1)-1)*100;
+            Delta(Main,ColdSteelWeaponText::CastSpeed,Speed,TEXT("%"));
+            Delta(Main,ColdSteelWeaponText::ManaCost,Cost,TEXT("%"),true);
+            Delta(Main,TEXT("移动速度"),(Number(Focus,TEXT("movementMultiplier"),.67)-1)*100,TEXT("%"));
+            Note(Main,TEXT(""),TEXT("进入专注即减速；专注及收书期间无法快速近战。"));
+            Note(Main,TEXT(""),FString::Printf(TEXT("受击打断专注，损失最大魔法值的 %s%%（最低扣至 0）。"),*N(Number(Focus,TEXT("interruptMaxManaFraction"),.25)*100)));
+            Note(Main,TEXT(""),TEXT("开始合书、切换装备或专注中断时增益与减速结束；主动收书不扣除魔法值。"));
+            for(int32 Index=PreviewStart;Index<Main.Rows.Num();++Index)Main.Rows[Index].bPreview=true;
+        }
     }else if(ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff")){
         Section(Main,ColdSteelWeaponText::CombatParameters);AppendColdSteelTooltipAttackFormula(I,Model,3,Main);
         DamageRows(Main,ColdSteelWeaponStats::DamageParts(I,Model,3));
         Row(Main,ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,.5)*1000))+TEXT(" ms"));
-        // 装备魔攻 = 实值行（与角色端 EquipmentMagicAttack 同源取值），公式表达式以堆叠行随后——
-        // 结构对齐枪械的「攻击力计算公式 → 数值行」；挥杖的基伤走钝击物理，故分项保留物理口径。
-        if(const auto MF=Object(O,TEXT("matkFormula")))
-        {
-            const auto Coef=[&](double M,double E)->FString{FString R=N(M);if(!FMath::IsNearlyEqual(E,0.))R+=TEXT("+")+N(E)+TEXT("×强化");return R;};
-            const double EnhanceBase=Number(MF,TEXT("enhanceBase"));
-            if(Model)Row(Main,TEXT("装备魔攻"),N(Model->EquipmentMagicAttack()));
-            Main.Rows.Add({TEXT("装备魔攻公式"),N(Number(MF,TEXT("base")))+(EnhanceBase>0?TEXT(" + ")+N(EnhanceBase)+TEXT("×强化等级"):FString())
-                +TEXT(" + 智力×(")+Coef(Number(MF,TEXT("intMul")),Number(MF,TEXT("enhanceIntMul")))+TEXT(")")
-                +TEXT(" + 精神×(")+Coef(Number(MF,TEXT("wisMul")),Number(MF,TEXT("enhanceWisMul")))+TEXT(")"),0,true});
-        }
+        AppendColdSteelTooltipMagicFormula(I,Model,Main);
         Row(Main,TEXT("握持"),TEXT("单手主手；左键挥杖，技能快捷键施法"));
     }else if(Weapon){Section(Main,ColdSteelWeaponText::CombatParameters);AppendColdSteelTooltipAttackFormula(I,Model,S.Damage,Main);
         const auto DamageParts=ColdSteelWeaponStats::DamageParts(I,Model,S.Damage);

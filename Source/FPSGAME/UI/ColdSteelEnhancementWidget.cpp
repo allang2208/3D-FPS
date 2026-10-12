@@ -351,6 +351,13 @@ void UColdSteelEnhancementWidget::Refresh()
             Row(TEXT("额外穿透目标"),bCompareBase?0:E->Effect(*I,TEXT("piercingBonus")),E->Effect(After,TEXT("piercingBonus")),0);
             Row(TEXT("命中叠毒层数"),bCompareBase?0:E->Effect(*I,TEXT("poisonStacks")),E->Effect(After,TEXT("poisonStacks")),0);
         }
+        else if(I->Definition==TEXT("ue_alchemy_spellbook")||ColdSteelInventory::Text(*I,TEXT("weaponType"))==TEXT("staff"))
+        {
+            auto Comparison=*I;
+            if(bCompareBase){TSharedPtr<FJsonObject> Data;if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Comparison.Data),Data)){Data->SetNumberField(TEXT("enhanceLevel"),0);Data->RemoveField(TEXT("_enchantEffects"));FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Comparison.Data));}}
+            Row(ColdSteelWeaponText::EquipmentMagicAttack,P->ItemMagicAttack(Comparison),P->ItemMagicAttack(After),0);
+            Row(TEXT("强化等级"),bCompareBase?0:Number(*I,TEXT("enhanceLevel")),Number(After,TEXT("enhanceLevel")),0);
+        }
         else
         {
             Row(TEXT("装备防御"),E->Defense(*I),E->Defense(After));

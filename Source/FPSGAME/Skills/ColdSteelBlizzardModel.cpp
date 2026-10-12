@@ -53,6 +53,7 @@ FBlizzardCast UColdSteelStatusModel::BlizzardStats(int32 AtLevel) const
     C.Damage=FMath::FloorToFloat(C.Damage*DamageFactor);
     C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor)*float(Rune.MagicCost));
     C.Cooldown=FMath::Clamp(C.Cooldown*float(FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown")))))*float(Rune.MagicCooldown),0.f,300.f);
+    ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
     return C;
 }
 bool UColdSteelStatusModel::BeginBlizzardCast(const FBlizzardCast& Spell)

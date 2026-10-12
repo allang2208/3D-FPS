@@ -9,6 +9,8 @@
 #include "Serialization/JsonSerializer.h"
 #include "CoreCombatFormula.h"
 #include "CombatItemFormula.h"
+#include "../Weapons/Spellbook/SpellbookComponent.h"
+#include "../Weapons/Spellbook/SpellbookFocusMana.h"
 #include "../Dungeons/DungeonRunSubsystem.h"
 namespace
 {
@@ -112,12 +114,59 @@ double UColdSteelStatusModel::AdjustCombatStat(FName Key,double Value)const
     if(Key==TEXT("atk")||Key==TEXT("matk")||Key==TEXT("def")||Key==TEXT("mdef")||Key==TEXT("crit"))Value=std::floor(Value*TributeEffect(Percent));
     return Value;
 }
+double UColdSteelStatusModel::ItemMagicAttack(const FColdSteelItem& Item)const
+{
+    const FString Type=ColdSteelInventory::Text(Item,TEXT("weaponType"));
+    if(Type!=TEXT("staff")&&Type!=TEXT("spellbook"))return 0;
+    const auto F=Obj(Read(&Item),TEXT("matkFormula"));if(!F)return 0;
+    const double L=ColdSteelInventory::Number(Item,TEXT("enhanceLevel"));
+    return CoreCombatFormula::Round(Num(F,TEXT("base"))+L*Num(F,TEXT("enhanceBase"))+Attribute(TEXT("intt"))*(Num(F,TEXT("intMul"))+L*Num(F,TEXT("enhanceIntMul")))+Attribute(TEXT("wis"))*(Num(F,TEXT("wisMul"))+L*Num(F,TEXT("enhanceWisMul"))));
+}
+const FColdSteelItem* UColdSteelStatusModel::ActiveSpellbook()const
+{
+    if(ActiveProductionTool())return nullptr;
+    const int32 Slot=Current.ActiveWeaponSlot==6?8:11;
+    if(ColdSteelInventory::Locked(Current.Items,Slot))return nullptr;
+    const auto* Book=Equipped(Slot);
+    return Book&&Book->Definition==TEXT("ue_alchemy_spellbook")?Book:nullptr;
+}
 double UColdSteelStatusModel::EquipmentMagicAttack()const
 {
-    const auto* I=Equipped();if(!I||ColdSteelInventory::Text(*I,TEXT("weaponType"))!=TEXT("staff"))return 0;
-    const auto F=Obj(Read(I),TEXT("matkFormula"));if(!F)return 0;
-    const double L=ColdSteelInventory::Number(*I,TEXT("enhanceLevel"));
-    return CoreCombatFormula::Round(Num(F,TEXT("base"))+L*Num(F,TEXT("enhanceBase"))+Attribute(TEXT("intt"))*(Num(F,TEXT("intMul"))+L*Num(F,TEXT("enhanceIntMul")))+Attribute(TEXT("wis"))*(Num(F,TEXT("wisMul"))+L*Num(F,TEXT("enhanceWisMul"))));
+    const auto* Main=Equipped();const auto* Book=ActiveSpellbook();
+    return (Main?ItemMagicAttack(*Main):0)+(Book?ItemMagicAttack(*Book):0);
+}
+void UColdSteelStatusModel::ApplySpellbookFocus(float& CastSpeed,float& ManaCost)const
+{
+    const auto* Book=ActiveSpellbook();if(!Book)return;
+    const auto* Pawn=RuntimePawn();
+    const auto* Focus=Pawn?Pawn->FindComponentByClass<USpellbookComponent>():nullptr;
+    if(!Focus||!Focus->IsFocusEmpowered())return;
+    const auto Effects=Obj(Read(Book),TEXT("focusEffects"));
+    CastSpeed*=float(Num(Effects,TEXT("castSpeedMultiplier"),1));
+    // Apply after the spell's existing cost modifiers, without an extra integer rounding.
+    ManaCost*=float(Num(Effects,TEXT("manaCostMultiplier"),1));
+}
+float UColdSteelStatusModel::SpellbookFocusMovementMultiplier()const
+{
+    return float(Num(Obj(Read(ActiveSpellbook()),TEXT("focusEffects")),TEXT("movementMultiplier"),.67));
+}
+bool UColdSteelStatusModel::ApplySpellbookFocusBreak()
+{
+    const auto* Book=ActiveSpellbook();if(!Book||HasInfiniteMana())return true;
+    const float Fraction=float(Num(Obj(Read(Book),TEXT("focusEffects")),TEXT("interruptMaxManaFraction"),.25));
+    // This is a loss, not a cast cost: no affordability gate or focus discount.
+    SpellbookFocusMana::Merge(Current,Current.SpellbookFocusManaLoss+Derived(TEXT("maxMp"))*Fraction);
+    // Publish the loss immediately and use the existing combat autosave queue;
+    // never perform synchronous slot writes or re-equip during the hit reaction.
+    bTrainingDirty=true;TrainingFlushAccumulator=0.f;
+    OnChanged.Broadcast();return true;
+}
+void UColdSteelStatusModel::ReconcileSpellbookFocusManaLoss(double Total)
+{
+    if(!FMath::IsFinite(Total)||Total<=Current.SpellbookFocusManaLoss)return;
+    SpellbookFocusMana::Merge(Current,Total);
+    bTrainingDirty=true;TrainingFlushAccumulator=0.f;
+    OnChanged.Broadcast();
 }
 float UColdSteelStatusModel::CombatMoveMultiplier()const
 {return SetEffect(TEXT("speed"))*FMath::Max(.5,1+DungeonEffect(TEXT("moveSpeedPercent"))/100.)*TributeEffect(TEXT("moveSpeedPercent"))*FMath::Max(.5,1.+EquipmentBonus(TEXT("moveSpeedPercent")));}

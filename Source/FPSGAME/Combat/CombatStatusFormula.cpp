@@ -1,4 +1,5 @@
 #include "CombatStatusFormula.h"
+#include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Weapons/ZhenmoRuneComponent.h"
 #include "../Weapons/TangDaoGuardComponent.h"
 #include "ProgressiveInfectionComponent.h"
@@ -283,7 +284,8 @@ float UCombatStatusFormula::MovementMultiplier()const
     if(WaxTime>0)Mul*=FMath::Max(0.f,1-WaxPct);
     if(WeaponHasteTime>0)Mul*=WeaponHasteMul;
     if(InspireTime>0)Mul*=InspireSpeed;
-    return Mul*ZhenmoMovementMultiplier();
+    const auto* Book=GetOwner()->FindComponentByClass<USpellbookComponent>();
+    return Mul*ZhenmoMovementMultiplier()*(Book?Book->FocusMovementMultiplier():1.f);
 }
 void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)
 {

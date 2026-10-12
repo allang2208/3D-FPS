@@ -3281,3 +3281,6 @@ __pycache__/
 !/SourceAssets/ThirdPersonSwordKwang20261006/**/
 !/SourceAssets/ThirdPersonSwordKwang20261006/**/*.py
 !/SourceAssets/ThirdPersonSwordKwang20261006/**/*.md
+# Spellbook final authoring parameters (no dense poses or binary assets).
+!/SourceAssets/SpellbookEvildeer20261009/Focus/IntegratedV30/motion-settings.json
+!/SourceAssets/SpellbookEvildeer20261009/QuickMelee/playback-clock.json

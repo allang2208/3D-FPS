@@ -1,7 +1,9 @@
 #include "ColdSteelItemTooltipData.h"
+#include "ColdSteelWeaponText.h"
 #include "ColdSteelEnhancementSystem.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelItemReadCache.h"
+#include "../Combat/CombatItemFormula.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "Engine/GameInstance.h"
 
@@ -97,4 +99,35 @@ void AppendColdSteelTooltipAttackFormula(const FColdSteelItem& Item,UColdSteelSt
             bBow?FormulaNumber(WeaponBase)+TEXT("+")+FormulaNumber(WeaponBase*Enhancement->IncreasePerLevel())+TEXT("L")+AttackTerm:
             FormulaNumber(WeaponBase)+TEXT("×(1+")+FormulaNumber(Enhancement->IncreasePerLevel())+TEXT("L)")+AttackTerm));
     }
+}
+
+void AppendColdSteelTooltipMagicFormula(const FColdSteelItem& Item,UColdSteelStatusModel* Model,FColdSteelTooltipCard& Card)
+{
+    const auto Data=CombatItemFormula::ReadOnly(Item);const TSharedPtr<FJsonObject>* Formula=nullptr;
+    if(!Data||!Data->TryGetObjectField(TEXT("matkFormula"),Formula))return;
+    const auto Value=[&](const TCHAR* Key){return FormulaValue(*Formula,Key);};
+    if(Model)Card.Rows.Add({ColdSteelWeaponText::EquipmentMagicAttack,FormulaNumber(Model->ItemMagicAttack(Item))});
+    FString Base=FormulaNumber(Value(TEXT("base"))),Enhanced=Base;
+    const double Flat=Value(TEXT("enhanceBase"));
+    if(Flat!=0)Enhanced+=TEXT("+")+FormulaNumber(Flat)+TEXT("L");
+    TArray<FFormulaGroup> Groups;
+    for(const bool Wisdom:{false,true})
+    {
+        const double Coefficient=Value(Wisdom?TEXT("wisMul"):TEXT("intMul"));
+        const double PerLevel=Value(Wisdom?TEXT("enhanceWisMul"):TEXT("enhanceIntMul"));
+        if(Coefficient==0&&PerLevel==0)continue;
+        auto* Group=Groups.FindByPredicate([&](const auto& Entry){return Entry.Base==Coefficient&&Entry.PerLevel==PerLevel;});
+        if(!Group){Group=&Groups.AddDefaulted_GetRef();Group->Base=Coefficient;Group->PerLevel=PerLevel;}
+        Group->Names.Add(Wisdom?TEXT("精神"):TEXT("智力"));
+    }
+    for(const auto& Group:Groups)
+    {
+        FString Names=FString::Join(Group.Names,TEXT("+"));
+        if(Group.Names.Num()>1)Names=TEXT("(")+Names+TEXT(")");
+        if(Group.Base!=0)Base+=TEXT("+")+FormulaNumber(Group.Base)+TEXT("×")+Names;
+        const FString Factor=Group.PerLevel==0?FormulaNumber(Group.Base):TEXT("(")+FormulaNumber(Group.Base)+TEXT("+")+FormulaNumber(Group.PerLevel)+TEXT("L)");
+        Enhanced+=TEXT("+")+Factor+TEXT("×")+Names;
+    }
+    FormulaRow(Card,ColdSteelWeaponText::MagicAttackFormula,Base);
+    FormulaRow(Card,ColdSteelWeaponText::EnhancedMagicAttackFormula,Enhanced);
 }

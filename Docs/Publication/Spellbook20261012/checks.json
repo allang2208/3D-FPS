@@ -1,0 +1,66 @@
+{
+  "largest_file_bytes": 1089957,
+  "python_syntax_files": 19,
+  "magic_attack_reference": "ue_apprentice_staff",
+  "magic_attack_at_int_wis_10": [
+    6,
+    16,
+    26,
+    36
+  ],
+  "opening_clock": {
+    "length": 1.12,
+    "monotonic_samples": 10001,
+    "source_end": 1.95
+  },
+  "quick_combat": {
+    "total": 0.5516666666666666,
+    "contact": 0.1716666666666667
+  },
+  "saved_asset_receipts": {
+    "PagesV1/import-receipt.json": true,
+    "PagesV1/OrientationV2/import-receipt.json": true
+  },
+  "current_soft_assets": [
+    {
+      "package": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7",
+      "bytes": 8755357
+    },
+    {
+      "package": "/Game/Weapons/SpellbookEvildeer20261009/Meshes/SM_Spellbook_Alchemy_Closed",
+      "bytes": 29543
+    },
+    {
+      "package": "/Game/Weapons/SpellbookEvildeer20261009/PagesV1/Meshes/SK_Spellbook_Alchemy_16Pages",
+      "bytes": 1446665
+    },
+    {
+      "package": "/Game/Weapons/SpellbookEvildeer20261009/PagesV1/Animations/A_Spellbook_16Pages_Open",
+      "bytes": 398562
+    },
+    {
+      "package": "/Game/Weapons/SpellbookEvildeer20261009/PagesV1/Animations/A_Spellbook_16Pages_Flip",
+      "bytes": 1232290
+    },
+    {
+      "package": "/Game/Weapons/SpellbookEvildeer20261009/Effects/M_Spellbook_GoldOrbit",
+      "bytes": 10472
+    }
+  ],
+  "active_source_dependencies": "present",
+  "archive": {
+    "files": 627,
+    "bytes": 1005058714,
+    "sha256_match": true
+  },
+  "skill_references_synchronized": true,
+  "runtime_tested": false,
+  "visual_tested": false,
+  "initial_staged_paths": 101,
+  "final_staged_paths": 103,
+  "mana_cpp_assertions": 9,
+  "local_editor_build": "Succeeded (Target is up to date)",
+  "local_game_build": "Succeeded (Target is up to date)",
+  "isolated_build": "Blocked in UHT by pre-existing untracked MonsterArcPathing.h dependency in baseline NurseZombie.h",
+  "baseline": "0f7d489718b8e7e112a4b413b57e9829a73f011e"
+}

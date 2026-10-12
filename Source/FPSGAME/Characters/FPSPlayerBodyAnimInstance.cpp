@@ -6,6 +6,7 @@
 #include "FPSBodyHandAttackMotion.h"
 #include "FPSBodyHandAttackData.h"
 #include "FPSBodyStaffCastData.h"
+#include "../Weapons/Spellbook/SpellbookQuickCombatMotion.h"
 #include "Animation/AnimInstanceProxy.h"
 #include "Animation/AnimSequence.h"
 #include "Animation/BoneReference.h"
@@ -1086,7 +1087,10 @@ struct FProxy : FAnimInstanceProxy
         Controls.bBookPushActive=Controls.bBookCarryActive&&BookStrike&&
             BookStrike->GetSkeleton()==IdleClip->GetSkeleton()&&!FPSBodyPoses::Traversing(Casting.Motion)&&
             Casting.Action==EFPSBodyAction::GunBash&&Casting.ActionVariant==TEXT("SpellbookPush");
-        Controls.BookPushProgress=Controls.bBookPushActive?FPSBodyPoses::Progress(Casting,D->Clock):0.f;
+        // Native body clip retains its original book shove keys. Sample and
+        // blend it in the same retimed source phase as the first-person arm.
+        Controls.BookPushProgress=Controls.bBookPushActive?
+            SpellbookQuickCombatMotion::SourceProgress(FPSBodyPoses::Progress(Casting,D->Clock)):0.f;
         Set(BookPush,Controls.bBookPushActive?BookStrike:IdleClip,
             Controls.bBookPushActive?Controls.BookPushProgress*BookStrike->GetPlayLength():0.f,false);
         if(Controls.bBookPushActive)

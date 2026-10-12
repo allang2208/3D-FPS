@@ -1,5 +1,7 @@
 #include "SpellbookComponent.h"
+#include "SpellbookBookOrientation.h"
 #include "SpellbookFocusMotion.h"
+#include "SpellbookFocusInterruptMotion.h"
 #include "Components/DynamicMeshComponent.h"
 #include "DynamicMesh/DynamicMesh3.h"
 #include "DynamicMesh/DynamicMeshAttributeSet.h"
@@ -65,6 +67,7 @@ void USpellbookComponent::CreateFocusGold(UMaterialInterface* Material)
     if(FocusGold||!Material||!FocusBook)return;
     auto* Pawn=GetOwner();FocusGold=NewObject<UDynamicMeshComponent>(Pawn,TEXT("SpellbookGoldOrbits"));
     Pawn->AddInstanceComponent(FocusGold);FocusGold->SetupAttachment(FocusBook);
+    FocusGold->SetRelativeTransform(SpellbookBookOrientation::ReadingSurface());
     FocusGold->SetCollisionEnabled(ECollisionEnabled::NoCollision);FocusGold->SetGenerateOverlapEvents(false);
     FocusGold->SetCanEverAffectNavigation(false);FocusGold->SetCastShadow(false);
     FocusGold->bReceivesDecals=false;FocusGold->SetVisibility(false);FocusGold->RegisterComponent();
@@ -82,9 +85,10 @@ void USpellbookComponent::PresentFocusGold()
 {
     if(!FocusGoldMaterial)return;
     namespace Motion=SpellbookFocusMotion;
-    GoldFade=Motion::Ease(.18f,.85f,OpenAlpha);
+    GoldFade=bFocusInterrupted?InterruptGoldFade*(1.f-Motion::Ease(0.f,SpellbookFocusInterruptMotion::GoldOut,InterruptAge))
+        :Motion::Ease(.18f,.85f,OpenAlpha);
     const float Activity=FMath::Abs(FMath::Sin(2.f*PI*PagePhase/Motion::PageCycle));
-    FocusGoldMaterial->SetScalarParameterValue(TEXT("GoldAge"),FocusAge+(bFocusClosing?CloseAge:0.f));
+    FocusGoldMaterial->SetScalarParameterValue(TEXT("GoldAge"),FocusAge+(bFocusInterrupted?InterruptAge:(bFocusClosing?CloseAge:0.f)));
     FocusGoldMaterial->SetScalarParameterValue(TEXT("Fade"),GoldFade);
     FocusGoldMaterial->SetScalarParameterValue(TEXT("PageActivity"),Activity);
 }

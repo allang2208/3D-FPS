@@ -328,6 +328,8 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
 }
 static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool AllowLegacyWood)
 {
+    if(!FMath::IsFinite(P.SpellbookFocusManaLoss)||P.SpellbookFocusManaLoss<0.0)
+    {Reason=TEXT("专注打断扣魔记录无效");return false;}
     if(P.AmmoPouchVersion<0||P.AmmoPouchVersion>1){Reason=TEXT("弹药袋版本无效");return false;}
     for(const auto& Pair:P.AmmoPouch)if(Pair.Key.IsEmpty()||Pair.Value<0||Pair.Value>9007199254740991ll){Reason=TEXT("弹药袋数量无效");return false;}
     if(!ColdSteelSkills::Validate(P,Reason))return false;

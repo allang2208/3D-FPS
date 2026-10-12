@@ -1,0 +1,11 @@
+{
+  "revision": "PunchTimingV2",
+  "clock_source": "Source/FPSGAME/Weapons/Staff/StaffQuickCombatMotion.h",
+  "runtime_mapping": "Source/FPSGAME/Weapons/Spellbook/SpellbookQuickCombatMotion.h",
+  "phases": ["Entry", "Release", "Drive", "Contact", "Follow", "Recover", "End"],
+  "source_times": [0.0, 0.025, 0.055, 0.14, 0.185, 0.24, 0.43],
+  "playback_times": [0.0, 0.055, 0.115, 0.1716666666666667, 0.2516666666666667, 0.2916666666666667, 0.5516666666666666],
+  "camera_feedback": "Same phase motion and shared contact impulse as the left unarmed jab",
+  "damage_values_changed": false,
+  "runtime_tested": false
+}

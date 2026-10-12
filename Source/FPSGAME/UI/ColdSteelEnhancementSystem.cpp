@@ -36,7 +36,7 @@ void UColdSteelEnhancementSystem::Initialize(FSubsystemCollectionBase& C)
 bool UColdSteelEnhancementSystem::Supports(const FColdSteelItem& I)const
 {
     if(!Ready||I.Count!=1||(I.Place!=0&&I.Place!=1))return false;
-    if(ColdSteelInventory::IsMeleeWeapon(I)||ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff")||ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))return true;
+    if(ColdSteelInventory::IsMeleeWeapon(I)||ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff")||I.Definition==TEXT("ue_alchemy_spellbook")||ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))return true;
     return Num(ReadObj(CombatItemFormula::ReadOnly(I),TEXT("defense")),TEXT("perEnhance"))>0;
 }
 bool UColdSteelEnhancementSystem::CanEnchant(const FColdSteelItem& I,const FColdSteelEnchantOption& O)const
@@ -59,7 +59,7 @@ bool UColdSteelEnhancementSystem::CanEnchant(const FColdSteelItem& I,const FCold
     return O.Restriction==TEXT("weapon");
 }
 const FColdSteelEnchantOption* UColdSteelEnhancementSystem::Scroll(const FString& Id)const{return Options.FindByPredicate([&](const auto& O){return O.Id==Id;});}
-int32 UColdSteelEnhancementSystem::MaxLevel(const FColdSteelItem& I)const{return (ColdSteelInventory::IsMeleeWeapon(I)||ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff")||ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))?WeaponMax:ArmorMax;}
+int32 UColdSteelEnhancementSystem::MaxLevel(const FColdSteelItem& I)const{return (ColdSteelInventory::IsMeleeWeapon(I)||ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff")||I.Definition==TEXT("ue_alchemy_spellbook")||ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))?WeaponMax:ArmorMax;}
 double UColdSteelEnhancementSystem::Effect(const FColdSteelItem& I,const TCHAR* Key,double Default)const
 {
     const auto Data=ColdSteelItemData::Read(I.Data);

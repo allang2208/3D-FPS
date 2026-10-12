@@ -40,6 +40,8 @@
 #include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/Unarmed/UnarmedPunchTuning.h"
 #include "../Weapons/Staff/StaffQuickCombatMotion.h"
+#include "../Weapons/Spellbook/SpellbookComponent.h"
+#include "../Weapons/Spellbook/SpellbookFocusMana.h"
 #include "../Weapons/Bow/BowStats.h"
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "../Weapons/WeaponDamageFalloff.h"
@@ -274,6 +276,8 @@ void AColdSteelPlayerState::ApplyGuestProfile(const FColdSteelProfile& GuestProf
         // 任一侧的增量都不会被对方旧快照回滚。
         const FColdSteelProfile Prev = ShadowModel->Snapshot();
         FColdSteelProfile Adopted = GuestProfile;
+        // A profile upload may have been captured before the focus-break RPC.
+        SpellbookFocusMana::Merge(Adopted,Prev.SpellbookFocusManaLoss);
         // Ongoing survival is server-owned; inventory uploads must not refill or rewind it.
         Adopted.Survival=Prev.Survival;
         if(const auto* Character=Cast<AFPSGAMECharacter>(GetPawn()))
@@ -486,13 +490,14 @@ void AColdSteelPlayerState::OnRep_MirrorBlob()
         SaveToBlob(ScratchSave, CurrentBlob);
         bLocalClean = (CurrentBlob == LastSentBlob);
     }
-    if (bLocalClean)
+    if (bLocalClean&&Save->Profile.SpellbookFocusManaLoss>=Model->SpellbookFocusManaLossTotal())
     {
         Model->AdoptNetMirror(Save->Profile);
     }
     else
     {
         FColdSteelProfile Merged = Model->Snapshot();
+        SpellbookFocusMana::Merge(Merged,Save->Profile.SpellbookFocusManaLoss);
         Merged.Survival=Save->Profile.Survival;
         Merged.Level = Save->Profile.Level;
         Merged.Experience = Save->Profile.Experience;
@@ -553,6 +558,9 @@ bool AColdSteelPlayerState::ValidateHitReport(const FColdSteelNetHitReport& Repo
     if (!Shooter) { OutReason = TEXT("no pawn"); return false; }
     if (UFPSCombatHealthComponent* HP = Shooter->FindComponentByClass<UFPSCombatHealthComponent>())
         if (HP->IsDead()) { OutReason = TEXT("shooter dead"); return false; }
+    if(Report.AttackMeta&0x80)
+        if(const auto* Spellbook=Shooter->FindComponentByClass<USpellbookComponent>();Spellbook&&Spellbook->IsFocusActive())
+        {OutReason=TEXT("spellbook focus occupies quick melee");return false;}
 
     // 武器声明必须匹配服务端影子的持握武器——主手或双持副手任一同型号槽位。
     // Quick combat allows an empty declaration; ordinary punches require both active hands empty.

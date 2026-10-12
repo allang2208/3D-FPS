@@ -26,9 +26,9 @@ public:
     virtual void FinalizeBoneTransform() override;
     void CaptureQuickCombatEntry(uint32 Serial);
     void CaptureFocusEntry();
-    void CaptureFocusReturn(bool Detached);
+    void CaptureFocusInterrupt();
     void SetFocusPose(float Time,float Weight,bool Returning) {FocusPoseTime=Time;FocusPoseWeight=Weight;bFocusReturning=Returning;}
-    void SetFocusReturn(float Progress) {FocusPoseTime=0.f;FocusPoseWeight=1.f;bFocusReturning=true;ReturnProgress=Progress;}
+    void SetFocusReturn(float SourceTime) {SetFocusPose(SourceTime,1.f,true);}
 private:
     TWeakObjectPtr<USkeletalMesh> CachedMesh;
     TArray<FTransform> Reference;
@@ -41,14 +41,12 @@ private:
     void ApplyQuickCombat(TArray<FTransform>& LocalPose);
     TArray<TArray<FTransform>> FocusKeys;
     TArray<FTransform> FocusEntry;
+    TArray<FTransform> InterruptEntry;
     float FocusPoseTime=-1.f,FocusPoseWeight=0.f;
     bool bFocusReturning=false;
     void CacheFocusPose();
     void ApplyFocusPose(TArray<FTransform>& LocalPose);
-    TArray<TArray<FTransform>> ReturnKeys;
-    TArray<FTransform> ReturnEntry;
-    float ReturnProgress=0.f;
-    bool bReturnDetached=false;
+    void ApplyFocusInterruptPose(TArray<FTransform>& LocalPose,const class USpellbookComponent& Book);
 };
 
 /** Offhand spellbook: fixed-grip F shove, or staff-only RMB focus with animated pages. */
@@ -66,8 +64,18 @@ public:
     bool GetQuickCombatStrikeProbe(FVector& Origin);
     bool ToggleFocus();
     void CancelFocus();
-    bool IsFocusActive() const {return FocusAge>=0.f;}
-    FVector FocusCatchOffset() const;
+    bool IsFocusActive() const;
+    bool IsFocusEmpowered() const;
+    bool IsConcentrating() const;
+    float FocusMovementMultiplier() const {return IsConcentrating()?FocusMoveMultiplier:1.f;}
+    void InterruptFocusFromDamage();
+    void ApplyNetFocusRequest(uint32 Session,uint8 State);
+    void ReceiveNetFocusStopped(uint32 Session,bool Interrupted);
+    bool IsFocusInterrupted() const {return bFocusInterrupted;}
+    float FocusInterruptAge() const {return InterruptAge;}
+    float FocusInterruptContactSource() const {return InterruptContactSource;}
+    FTransform FocusHandSway(float PoseTime) const;
+    float FocusRecoveryBlend() const;
     USkeletalMeshComponent* ArmsMesh() const {return Arms;}
     UStaticMeshComponent* BookMesh() const {return Book;}
     virtual void BeginPlay() override;
@@ -90,14 +98,33 @@ private:
     UPROPERTY(Transient) TObjectPtr<USkeletalMeshComponent> FocusWorldBook;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> OpenClip;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> FlipClip;
-    bool bFocusPair=false,bFocusDesired=false,bFocusClosing=false,bFocusDetached=false,bQueuedBookStrike=false;
+    bool bFocusPair=false,bFocusDesired=false,bFocusClosing=false,bFocusDetached=false,bFocusInterrupted=false;
+    float FocusMoveMultiplier=.67f,InterruptAge=0.f,InterruptContactSource=0.f;
+    float InterruptOpenAlpha=0.f,InterruptGoldFade=0.f;
+    TArray<FTransform> InterruptBookEntry,InterruptBookClosed;
+    FTransform InterruptBookFrame=FTransform::Identity;
     float FocusAge=-1.f,PagePhase=0.f,PageAlpha=0.f,OpenAlpha=0.f,DetachAge=0.f;
-    float CloseAge=0.f,ClosePageAlpha=0.f,CloseOpenAlpha=0.f,CloseResetSeconds=0.f,CloseBookSeconds=0.f;
+    float CloseAge=0.f,ClosePageAlpha=0.f,ReturnStartTime=0.f,CloseBookSeconds=0.f;
+    TArray<int32> PageBones;
+    TArray<FTransform> ClosePageDeltas;
     FTransform FocusDepartCamera=FTransform::Identity,FocusReturnCamera=FTransform::Identity;
     void CreateFocusMeshes();
     void BeginCloseFocus();
     void AdvanceFocus(float Delta);
     void PresentFocusBook();
+    void AdvanceFocusInterrupt(float Delta);
+    void PresentFocusInterruptBook();
+    void BeginFocusInterruptPresentation();
+    // Transient authority state for remote pawns; independent of first-person meshes.
+    uint32 FocusSession=0,NetFocusSession=0;
+    double NetFocusStartedAt=-1.0,NetFocusBusyUntil=0.0;
+    FString NetFocusBook,NetFocusStaff;
+    bool bApplyingFocusReply=false;
+    bool UsesNetFocusAuthority() const;
+    bool NetFocusEquipmentValid() const;
+    void AdvanceNetFocus();
+    void SendFocusRequest(uint8 State);
+    void StopNetFocus(bool Interrupted);
     UPROPERTY(Transient) TObjectPtr<UDynamicMeshComponent> FocusGold;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> FocusGoldMaterial;
     float GoldFade=0.f;

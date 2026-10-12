@@ -172,6 +172,8 @@ struct FColdSteelProfile
     UPROPERTY() TArray<FColdSteelQuickBinding> QuickBindings;
     UPROPERTY() float Health = 200;
     UPROPERTY() float Mana = 250;
+    /** Cumulative focus-break charges already included in Mana; legacy saves default to zero. */
+    UPROPERTY() double SpellbookFocusManaLoss = 0;
     UPROPERTY() int32 StaminaVersion = 0;
     UPROPERTY() float Stamina = 100;
     UPROPERTY() float StaminaRecoveryDelay = 0;
