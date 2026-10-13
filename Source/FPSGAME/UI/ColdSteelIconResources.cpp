@@ -35,6 +35,7 @@
 #include "../Weapons/Super90OpticAssets.h"
 #include "../Weapons/Super90ForegripAssets.h"
 #include "../Weapons/Super90RearGripAssets.h"
+#include "../Weapons/Super90StockAssets.h"
 #include "../Weapons/RSH12MuzzleAssets.h"
 #include "../Weapons/RSH12TacticalAssets.h"
 #include "../Weapons/TacticalDeviceVariants.h"
@@ -171,6 +172,11 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         for(const auto& Part:Parts)
         {
             FString Key=Part.Value;
+            if(D==Super90WeaponAssets::Definition&&Part.Key==TEXT("stock"))
+            {
+                if(Super90StockAssets::Supports(Key))Add(Super90StockAssets::MeshPath(Key),true);
+                continue;
+            }
             if(Part.Key==TEXT("stock")&&Key==LegendaryTacticalStock::Part)
             {
                 Add(LegendaryTacticalStock::MeshPath(D),true);

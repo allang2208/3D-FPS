@@ -9240,9 +9240,134 @@
           {
             "id": "false",
             "name": "原厂枪托",
-            "description": "使用 M4 Super90 原装结构。",
+            "description": "恢复 SUPER90 原厂肩托、尾垫和衔接结构。",
             "effects": [],
             "stats": {}
+          },
+          {
+            "id": "skeleton",
+            "name": "骨架枪托",
+            "description": "双管上梁、镂空后架与橡胶抵肩垫，通过 SUPER90 专用连接杆安装。",
+            "effects": [
+              {
+                "text": "开镜耗时减少20%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力增加15%",
+                "benefit": -1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.2,
+              "recoil_mult": 1.15,
+              "stability_mult": 1.1
+            }
+          },
+          {
+            "id": "core_stock",
+            "name": "镂空轻型枪托",
+            "description": "轻量化镂空托架配橡胶肩垫，前端通过连接杆接入原装接座。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.05
+            }
+          },
+          {
+            "id": "qr_performance",
+            "name": "高性能后托",
+            "description": "宽贴腮面、镂空斜撑后架与橡胶肩垫，配有 SUPER90 专用连接杆。",
+            "effects": [
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少30%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.7
+            }
+          },
+          {
+            "id": "tactical_telescopic",
+            "name": "战术伸缩枪托",
+            "description": "带贴腮面与伸缩套筒的战术枪托，通过连接杆与原装前端接座衔接。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加25%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 1.25
+            }
+          },
+          {
+            "id": "legendary_adjustable_tactical_stock",
+            "name": "可调式战术后托",
+            "description": "连续贴腮面、镂空托架与宽橡胶肩垫，保留香槟色饰条和红色嵌片，以连接杆固定。",
+            "effects": [
+              {
+                "text": "后坐力降低35%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高30%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.65,
+              "stability_mult": 1.3,
+              "ads_percent": -0.1,
+              "hip_spread_mult": 1.15
+            }
           }
         ],
         "magazine": [

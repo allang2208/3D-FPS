@@ -1,0 +1,47 @@
+{
+  "task": "Super90 common stocks",
+  "retained_recovery": "Before/SK_Super90_V7.uasset, Inputs, native geometry, current Blend/FBX and install receipts",
+  "date": "2026-10-13",
+  "files": [
+    {
+      "retained": "SourceAssets/Super90CommonStocks20261013/core_stock_Editable.blend",
+      "reason": "Superseded authoring auto-backup before closed donor socket transition",
+      "bytes": 4736091,
+      "destination": "trash/super90-stock-closeout-20261013/AuthoringAutosaves/core_stock_Editable.blend1",
+      "original": "SourceAssets/Super90CommonStocks20261013/Before/AuthoringAutosaves/core_stock_Editable.blend1",
+      "sha256": "ffa518b515e98bdb4d1b1124a052401ed11f62b0d600e386508d33728b5adbaa"
+    },
+    {
+      "retained": "SourceAssets/Super90CommonStocks20261013/legendary_adjustable_tactical_stock_Editable.blend",
+      "reason": "Superseded authoring auto-backup before closed donor socket transition",
+      "bytes": 4240864,
+      "destination": "trash/super90-stock-closeout-20261013/AuthoringAutosaves/legendary_adjustable_tactical_stock_Editable.blend1",
+      "original": "SourceAssets/Super90CommonStocks20261013/Before/AuthoringAutosaves/legendary_adjustable_tactical_stock_Editable.blend1",
+      "sha256": "1caea9b9f137d8cd00d2dd8d7fa4ec0878475342f1edd6ffd9ffc8c2aec221fb"
+    },
+    {
+      "retained": "SourceAssets/Super90CommonStocks20261013/qr_performance_Editable.blend",
+      "reason": "Superseded authoring auto-backup before closed donor socket transition",
+      "bytes": 37106047,
+      "destination": "trash/super90-stock-closeout-20261013/AuthoringAutosaves/qr_performance_Editable.blend1",
+      "original": "SourceAssets/Super90CommonStocks20261013/Before/AuthoringAutosaves/qr_performance_Editable.blend1",
+      "sha256": "c0c93030fae58073aa30ad5484e3482265531adfee4fa372ccbdd12193d97382"
+    },
+    {
+      "retained": "SourceAssets/Super90CommonStocks20261013/skeleton_Editable.blend",
+      "reason": "Superseded authoring auto-backup before closed donor socket transition",
+      "bytes": 1800328,
+      "destination": "trash/super90-stock-closeout-20261013/AuthoringAutosaves/skeleton_Editable.blend1",
+      "original": "SourceAssets/Super90CommonStocks20261013/Before/AuthoringAutosaves/skeleton_Editable.blend1",
+      "sha256": "1dcc8437c3c8ce2741ab3221d044f0b58af9afefa34e8d32537e0b829394af1b"
+    },
+    {
+      "retained": "SourceAssets/Super90CommonStocks20261013/tactical_telescopic_Editable.blend",
+      "reason": "Superseded authoring auto-backup before closed donor socket transition",
+      "bytes": 5106340,
+      "destination": "trash/super90-stock-closeout-20261013/AuthoringAutosaves/tactical_telescopic_Editable.blend1",
+      "original": "SourceAssets/Super90CommonStocks20261013/Before/AuthoringAutosaves/tactical_telescopic_Editable.blend1",
+      "sha256": "b4c83a8ddcebf79b9c951db20061d922cfb9d27be6b00840b5dd35dc3341e8b7"
+    }
+  ]
+}
