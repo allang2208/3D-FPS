@@ -1,0 +1,51 @@
+地牢刷怪资源准备修订（2026-10-13 第二批）
+
+依据
+Saved/PerformanceDiagnosis20261013-1004/diagnosis.txt 及两份 10:04 F6 JSON。
+已确认首批刷怪期间存在显存超预算；材质日志另有首次使用补编译问题。
+本批没有声称二者能解释全部十几秒低帧，没有用理论资源减少量换算 FPS。
+
+已实际保存的资产
+新增 DungeonMaterialUsageRepairCommandlet，按明确的 22 项清单修正用途标志，
+等待资产/着色器编译完成，仅保存目标基材质。Workbench 木材实例解析到 M_WBK_Wood；
+保留实例参数、材质图、纹理分辨率和几何。
+清单：Tools/Performance/dungeon_material_usage_20261013.json。
+22 个基材质编译并保存成功；后台 commandlet 退出码 0，日志 0 errors。
+回执：Saved/DungeonResourceFix20261013/receipt.json。
+原始资产：Saved/DungeonResourceFix20261013/backup/。
+生产日志：Saved/DungeonResourceFix20261013/material-repair.log。
+
+对应生产脚本
+修订囊袋弹体、员工台球/台球杆、球拍、书籍、货运门、工作台基材质的用途标志，
+防止重新生产时恢复缺失标志；WorkshopSurface 的现有导入脚本已包含 Nanite 设置，
+本批保存其旧资产设置即可，不重复修改它的纹理生成器。
+
+怪物 PSO 准备
+AuthoredDungeonGenerator 在选定怪物类异步载入后，将四种大厅怪物加入准备队列。
+复制未注册的组件模板，使用实际运行绑定的网格：Nurse.VisualMesh 或
+Wolf.AnimationSet.ReferenceMesh，不能只取可能尚未配置的 CDO 网格组件。
+囊袋弹体额外按原组件类复制普通网格及 ISM 碎片模板，绑定同一实际材质。
+不生成怪物/攻击 Actor，不注册组件，不分配额外预览世界，不运行 AI、动画或物理。
+在现有装配预算中提交预缓存，轮询本批组件请求完成后才完成加载；无同步 GPU 等待。
+取消/完成时释放模板引用；120 秒未完成会沿现有加载错误返回，不永远等待。
+F6 地牢准备报告新增 monster_pso_components / monster_pso_classes_submitted。
+此项只覆盖 PSO/派生数据准备，不表示每只怪物的 SkinCache、光追结构、纹理驻留都已完成。
+必要的首次准备可能增加加载阶段时间，不能保证加载更快。
+
+辅助资源缓存
+ColdSteelPickupStudio 原来按每种枪型永久保留一个 AFPSGAMECharacter 装配角色。
+现在只保留最近两种枪型，按最近使用顺序淘汰多余角色，正常销毁其注册组件。
+已生成掉落物持有独立模型、姿态与材质引用，不依赖被淘汰角色。
+保留已有包围盒缓存；不触发全局强制 GC，不改武器外观或掉落规则。
+重新使用被淘汰枪型时会重新创建辅助角色；实际释放量与重建耗时尚未实测。
+这一项是防止缓存继续累积，不是已经证实能单独释放 1 GiB 或修复首批刷怪的主因。
+
+交付边界
+常规 Editor 构建成功：Saved/BuildEditor/build-20261013-103030.log。
+先前资产工具构建：Saved/BuildEditor/build-20261013-102541.log。
+源码修改前备份：Saved/TaskBackups/DungeonResourceFix20261013/。
+未启动交互编辑器、PIE、性能采集或运行验收；由用户自行试玩。
+画质、Lumen/光追、模型面数、衣服形变、怪物数量及波次规则保持原样。
+远房共享几何/碰撞/导航的资源卸载尚未改造；大场景整体显存超预算仍未证实已解决。
+后续若仍有持续低帧，沿已有资源记录和原 GPU trace 继续定位实际驻留来源，
+不能把本次 PSO 准备或辅助缓存上限当作全部 GPU 资源已就绪。

@@ -37,6 +37,8 @@ public:
     void SetHitReactionTime(float Elapsed, float Remaining);
     void SetLocomotionRate(float Rate) { TargetPlayRate = FMath::Max(0.f, Rate); }
     virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+    /** Read-only diagnosis on the game thread after parallel animation completes. */
+    int32 GetCapturedClothingCurveCount() const;
 
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> ActiveClip;
     UPROPERTY(Transient) FPoseSnapshot PreviousPose;

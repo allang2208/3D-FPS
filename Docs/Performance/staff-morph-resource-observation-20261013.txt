@@ -1,0 +1,58 @@
+无面员工衣服形变：首批冗余更新修订与资源观察
+日期：2026-10-13
+
+依据
+Saved/DungeonEntryCaptures/20261012-154840-442768/diagnosis-20261013.txt
+该次刷怪后约十秒低帧的主要开销在渲染侧，MorphUpdate 已对应到
+SK_FacelessReceptionist_V05 / SK_FacelessResearcher_V05 的衣服修正形变。
+还不能把其高耗时完全归因为形变计算或显存驻留，也不能判定模型面数是根因。
+
+本批修改
+1. 共享 FatZombie 动画过渡不再永久强制更新新旧两路。
+   只在需要下半身落地修正的有效过渡中保留双路更新，确保 alpha=0 时目标腿部仍更新。
+   普通过渡沿用引擎的权重相关性；完成过渡后不再重复复制旧姿态，释放不用的衣服曲线快照。
+   新过渡、打断、HoldSnapshot 仍捕获当前衣服曲线；没有删除或停用衣服防穿模修正。
+   这是已确认的 CPU 冗余工作修订；未证明旧曲线在过渡完成后仍进入 GPU 输出。
+   因此不能把此改动等同于解决全部 GPU MorphUpdate 开销。
+
+2. 现有性能记录增加被动资源观察，复用 F6 导出，schema_version=10。
+   在性能记录开启且世界已开始运行时，每秒至多两次；只允许一个在途观察。
+   保存最近 360 个完成样本（通常约三分钟），独立于普通帧统计窗口。
+   清空记录/重新开始记录时清空；异步回调通过世界弱引用和记录代次隔离。
+   每条样本最多记录 64 个员工，每个最多展开 8 条非零形变的名称和权重。
+   活动形变总数和批次数仍统计该员工完整的非零形变列表，展开截断有明确标志。
+   观察开关：fps.Perf.RenderResourceSampling（默认 1，设为 0 可停止新增资源样本）。
+
+3. 自动入地牢追踪脚本增加 Counters 通道，收录本批显存/活动形变计数。
+   本批没有启动新追踪、PIE、编辑器或其他验收。
+
+F6 JSON 新字段：render_resource_history.samples
+- game_seconds / render_seconds / rhi_seconds：各线程观察时刻；不是同一帧 GPU 计时。
+- game_gather_ms / game_publish_ms：采样自身两段游戏线程耗时。
+- async_latency_ms：异步命令从发起到返回的延迟，不是 GPU 工作耗时。
+- local_memory / system_memory：RHI 已发布的进程级预算、占用、可用、超预算字节数。
+  包括编辑器与其他世界；不是某只怪物的独占显存。预算为 0 的段返回 null。
+  over_budget_bytes 是超预算量，不是迁移/驱逐流量，也不是 page fault 计数。
+  读取沿 RHI 命令队列执行；不刷新命令队列、不等待 GPU，不调用会影响流送的纹理查询。
+- staff：当前世界指定两类员工的组件/网格、动画过渡、活动形变及渲染对象观察。
+  并行动画评估尚未收尾时跳过其可变动画数据，不为采样等待动画任务。
+- captured_clothing_curves：旧姿态衣服曲线快照条数，仅适用于该原生代理。
+- observed_render_lod / lod_vertices / lod_sections：渲染线程观察的 LOD 元数据。
+- observed_active_morph_batches：游戏线程所见非零权重在渲染线程所见 LOD 中的输入批次数。
+  两个时刻不同；不是实测 GPU dispatch 次数或耗时。
+- shared_morph_buffer_logical_bytes：该资产 LOD 共享压缩形变输入缓冲区的逻辑大小。
+  同一资产实例会重复引用它，不能逐怪物相加当作实际显存，更不能等同物理驻留大小。
+- render_object_changed_since_sample / rt_skin_cache_entry_changed_since_sample：
+  连续样本间内部标识是否变化；首次观察为 null，不导出地址。
+  只能发现观察点间变化，不能统计所有创建/重建事件，内存地址复用也可能漏掉变化。
+  rt_skin_cache_entry 是公开接口能取得的光追条目；rt_skin_cache_separate 标记其是否分离。
+  它不能代表所有光栅 SkinCache 分配，不提供精确 SkinCache 字节数。
+
+边界与交付
+保留画质、灯光、材质、几何、形变资产和刷怪机制。本批没有改引擎源码。
+Editor 常规后台构建成功：Saved/BuildEditor/build-20261013-003256.log。
+实际低帧改善、动作/衣服表现及新记录运行情况未测试，交由用户试玩。
+下次正常进入地牢、遇到低帧后，在同次试玩中尽快用 F6 导出即可，不必卡在低帧瞬间。
+新的资源记录用于决定后续是否需要局部衣物形变改造或处理显存压力，不预先降低表现。
+
+本批修改前的文件备份：Saved/TaskBackups/StaffMorphResources-20261013/

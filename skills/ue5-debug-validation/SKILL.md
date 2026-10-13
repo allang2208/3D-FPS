@@ -178,3 +178,5 @@ FPSGAME traversal geometry, camera handoff and surface IK: [traversal contact](.
   假"出画"）。
 - 产物在 `Saved/<Task>Audit/<label>/`；对照视频用 ffmpeg 拼帧（imageio_ffmpeg 自带
   ffmpeg：`-framerate 10 -i Frame_%04d.png` + `setpts` 慢放 + `eq` 提亮）。
+
+- 预览世界释放、EndPIE 或 DynamicWind 渲染线程异常：读取 [预览场景生命周期](references/preview-scene-lifecycle.md)。

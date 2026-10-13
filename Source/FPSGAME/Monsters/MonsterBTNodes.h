@@ -24,6 +24,8 @@ class FPSGAME_API UBTService_MonsterKnowledge : public UBTService
  GENERATED_BODY()
 public: UBTService_MonsterKnowledge();
  virtual void TickNode(UBehaviorTreeComponent& Owner,uint8* Memory,float Dt) override;
+protected:
+ virtual void ScheduleNextTick(UBehaviorTreeComponent& Owner,uint8* Memory) override;
 };
 UCLASS()
 class FPSGAME_API UBTDecorator_MonsterFlag : public UBTDecorator_Blackboard

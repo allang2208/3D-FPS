@@ -1,4 +1,5 @@
 #include "ColdSteelMonsterPortraits.h"
+#include "ColdSteelPreviewScene.h"
 
 #include "Async/Async.h"
 #include "Components/DirectionalLightComponent.h"
@@ -59,13 +60,16 @@ const FSlateBrush* UColdSteelMonsterPortraits::Find(const FString& KeyValue) con
 
 bool UColdSteelMonsterPortraits::EnsureStudio()
 {
-    if (Studio) return true;
+    if (Studio && Capture && Target) return true;
     // 与武器图标同一套工作室参数（灯光方向、天空、无物理），保证两张图的光照风格一致。
-    Studio = MakeUnique<FPreviewScene>(FPreviewScene::ConstructionValues()
+    if (!Studio)
+    {
+    Studio = MakeUnique<FColdSteelPreviewScene>(FPreviewScene::ConstructionValues()
         .SetEditor(false).SetCreatePhysicsScene(false).SetTransactional(false)
         .SetForceMipsResident(false).SetLightBrightness(6.f).SetSkyBrightness(1.f));
     Studio->SetSkyCubemap(LoadObject<UTextureCube>(nullptr, TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment.T_StudioEnvironment")));
     Studio->DirectionalLight->SetWorldRotation(FRotator(-35, -35, 0));
+    }
 
     Capture = NewObject<USceneCaptureComponent2D>(GetTransientPackage(), NAME_None, RF_Transient);
     Capture->SetCaptureSortPriority(INT32_MAX);
@@ -94,8 +98,9 @@ bool UColdSteelMonsterPortraits::EnsureStudio()
 
 void UColdSteelMonsterPortraits::TeardownStudio()
 {
-    // 预览场景与 512x768 RGBA16f 渲染目标合计约 6MB 常驻显存／内存；图鉴关闭后
-    // 没有任何理由继续留着，且 FPreviewScene 会持续参与场景更新。这里整段拆掉。
+    // Retire subjects/capture/RHI target immediately, retain only the empty
+    // scene shell. FPreviewScene destruction otherwise requests full-purge GC
+    // on panel close, potentially coinciding with the next monster wave.
     CancelReadback();
     ResetAsyncLoad();
     ResetSubject();
@@ -106,8 +111,8 @@ void UColdSteelMonsterPortraits::TeardownStudio()
         Capture->DestroyComponent();
     }
     Capture = nullptr;
+    if (Target) Target->ReleaseResource();
     Target = nullptr;
-    Studio.Reset();
     // Materials/Textures 是对被摄体材质的引用，被摄体已销毁，一并放手避免吊住资产。
     CaptureMaterials.Empty();
     CaptureTextures.Empty();
@@ -116,6 +121,7 @@ void UColdSteelMonsterPortraits::TeardownStudio()
     ActiveIndex = 0;
     ReadinessPolls = 0;
     WaitStartSeconds = 0.0;
+    if (Studio) Studio->SuspendRendering();
 }
 
 void UColdSteelMonsterPortraits::ReleaseIdleResources()
@@ -596,6 +602,7 @@ void UColdSteelMonsterPortraits::Deinitialize()
     Failed.Empty();
     OnReady.Clear();
     TeardownStudio();
+    Studio.Reset();
     Cache.Empty();
     Textures.Empty();
     Super::Deinitialize();

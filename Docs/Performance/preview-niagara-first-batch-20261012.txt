@@ -1,0 +1,42 @@
+预览资源回收与首次编译准备（2026-10-12）
+
+范围
+按用户要求保留画质、怪物模型与动作、刷怪数量与时序、AI 和技能效果。
+不启动试玩，不修改 PSO、纹理池、Lumen、光追、分辨率或粒子数量配置。
+
+武器图标闲置回收
+ColdSteelWeaponIcons 在完成当前作业后，若物品图标面板关闭持续 3 秒，则释放 Capture、RGBA16f 渲染目标、拍图角色与静态模型、材质/纹理强引用及加载请求。保留已生成图片、配方键、包围盒缓存、排队请求和失败记录。
+原 IsTickable 只在队列非空时运行，队列完成后无法进入清理；现在还在持有 Capture 时允许 Tick，完成回收后恢复无作业不 Tick。
+在途 GPU 回读按原流程完成或超时后回收，不通过 FlushRenderingCommands 或同步 GPU 等待清理。渲染目标以 ReleaseResource 排队释放；共享模型和纹理由正常引擎生命周期处理，不强制卸载或垃圾回收。
+保留空的 FPreviewScene 壳直到 Deinitialize：本机 PreviewScene.cpp 的析构默认 ForceGarbageCollection(true)，战斗中直接销毁整个预览世界会请求全量 GC。常驻空壳仍有少量开销；本次不声称整个预览世界的显存已经归零。
+再次生成未缓存图标时按原有分阶段路径重建 Capture 和模型，保持原分辨率、相机、照明与材质。拾取模型缓存属于丢弃物品准备，不随图标回收删除。
+新增 Icon.TargetCreate / Icon.TargetReadback / Icon.TargetRelease trace bookmark，记录资源路径与实际尺寸，便于对齐后续 RDG 记录。
+
+首次 Niagara 编译
+现有作者脚本已经调用 RainAssetEditor.compile_rain 再保存，不能把问题描述为作者流程完全未编译。
+本机 NiagaraSystem.cpp 在资源源图与编译数据不同步时，默认按需推迟编译；异步加载完成不代表这部分编译已经执行。
+本批通过 Tools/Performance/prepare_traced_niagara.py，复用既有 CompileRain 的 RequestCompile(false) 与 WaitForCompilationComplete(true,false)，在后台完成 VM 和 GPU shader 编译，再仅保存两项已在轨迹出现的系统：
+  /Game/Skills/Lightning/NS_LightningChain
+  /Game/Skills/ElectricMagic/StormDomainV2/NS_StormDomainCloud
+每次制作先备份原 uasset，逐项记录保存结果与 SHA-256，输出 Saved/NiagaraCompilePreparation/<job>/receipt.json。
+CompileRain 补充编译前 deferred/pending 和编译后 pending 日志，并要求 VM/GPU 请求均完成才返回成功。未改编译强制标志、系统图、用户参数、发射器和实际施法时钟。
+实际制作日志还发现 M_StormDomainCloud 缺少本机 SM6 shader map。制作脚本进一步调用 MaterialEditingLibrary.get_statistics；本机引擎中该接口会提交缺失的材质编译任务并执行该材质资源的 FinishCompilation，将着色器缓存写入本机 DDC。它不修改材质图或参数，也不强制重编整个项目；此处用于完成后台编译，不是运行性能测试。
+补齐材质缓存的第二次制作显示，闪电链跨进程重载仍产生 deferred 编译标记，不能仅凭 uasset 已保存宣称消除了首次使用停顿。TransitLoadingSubsystem 因此在 Editor 单机地牢准备开始时异步取得现有闪电链，提前提交非强制编译并逐帧 PollForCompilationComplete(false)，待 VM/GPU 请求完成才结束加载遮罩。快速和完整加载模式都覆盖；没有在游戏 Tick 中调用 WaitForCompilationComplete 或 FlushRenderingCommands，没有改变刷怪代码。该工作只存在于 WITH_EDITOR，打包游戏不增加这项编辑器编译阶段。
+当前电系组件已在并行制作中改用 StormClouds/RollingV1 云系统。本批保存的是旧性能记录明确指出的 ElectricMagic/StormDomainV2 资产，没有覆盖新云系统或把旧云重新接回游戏；不能声称已经预编译新云的所有依赖。
+这是编译数据制作和持久化；并不保证所有动态 GPU 管线首次创建都已预热。源图、依赖或引擎变化可能再次使编译数据失效。
+
+继续定位渲染资源分配
+旧记录的 Cpu/Gpu 通道给出 AllocatePlacedTexture 118 ms，但没有启用记录资源身份的 RDG 通道，无法从已有文件还原那张纹理的名称；不能直接归罪于图标系统。
+新增按需入口 Tools/Performance/capture_dungeon_render_resources.py，复用原采集器，额外启用 RDG，并缩短为首次观察到怪物后 10 秒。它记录渲染图的资源名称、尺寸、字节数、所属 pass 和临时分配缓存命中信息。
+默认 capture_dungeon_entry.py 仍维持原 30 秒行为，不自动启用 RDG。新入口尚未运行，未打开或停止 PIE。
+RDG 属于较详细采样，有额外开销；用于找资源归属，不能与未启用该通道的记录直接比较 FPS。
+
+源码备份
+Saved/TaskBackups/PreviewCompileFirstBatch-20261012-224634/
+
+制作与构建状态
+常规 FPSGAMEEditor Win64 Development 构建于 2026-10-12 23:07 成功链接本批源码，日志：Saved/WoodworkingClearTable20261012/Editor-final-06.log（Result: Succeeded；77.64 秒）。已使用本项目现有构建结果，无需重复编译。
+两项 Niagara 资产于 23:13 编译保存成功，commandlet 退出码为 0。NS_LightningChain 加载时 deferred_before=1、pending_before=1，完成后 pending_after=0；NS_StormDomainCloud 加载时无等待中的 Niagara 请求。首次落盘回执：Saved/NiagaraCompilePreparation/20261012-231326-440086/receipt.json。
+上述材质缓存于 23:17 完成，制作 commandlet 退出码为 0；该材质的编译等待耗时 1.084 秒。最终资产回执：Saved/NiagaraCompilePreparation/20261012-231739-927045/receipt.json；日志：Saved/BuildEditor/niagara-first-batch-material-cache-20261012.log。
+加载遮罩内的闪电链编译接入也已完成常规 FPSGAMEEditor Win64 Development 构建，退出码 0；最终日志：Saved/BuildEditor/preview-niagara-entry-final-20261012.log（Result: Succeeded；18.98 秒）。
+未打开 UE 编辑器或启动游戏，未进行运行、画面或帧率验收。118 ms 渲染资源分配的具体纹理仍待包含 RDG 资源身份的新记录；本批仅完成归属采样入口和图标资源生命周期标记，未声称已修复该分配停顿。

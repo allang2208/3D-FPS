@@ -67,7 +67,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTextureRenderTarget2D> Target;
     UPROPERTY(Transient) TArray<TObjectPtr<UMaterialInterface>> CaptureMaterials;
     UPROPERTY(Transient) TArray<TObjectPtr<UTexture>> CaptureTextures;
-    TUniquePtr<class FPreviewScene> Studio;
+    TUniquePtr<class FColdSteelPreviewScene> Studio;
     TSharedPtr<FStreamableHandle> ResourceLoad;
     TArray<FSoftObjectPath> RequiredResources;
     /** 当前回读包；必须按实例持有，不能做成文件级静态，否则多 GameInstance 会互相覆盖。 */

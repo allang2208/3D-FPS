@@ -1,0 +1,224 @@
+{
+  "date": "2026-10-13",
+  "scope": "Superseded artifacts from dungeon performance work only; original traces, crash reports, active code and assets retained",
+  "count": 31,
+  "files": [
+    {
+      "source": "Saved/TaskBackups/MonsterAttribution-20261013-203420/capture_dungeon_entry.py",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/TaskBackups/MonsterAttribution-20261013-203420/capture_dungeon_entry.py",
+      "bytes": 9286,
+      "sha256": "108aaa8046b7ca67ccb375f52581674a8c993c092b6b7292ccf8525fc84b9275",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/TaskBackups/MonsterAttribution-20261013-203420/Monsters/FatZombieAnimInstance.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/TaskBackups/MonsterAttribution-20261013-203420/Monsters/FatZombieAnimInstance.cpp",
+      "bytes": 18320,
+      "sha256": "8e271a368575e3485e14bdcbc5ff9869191fc065c7b289cedf735f1861ab9934",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/TaskBackups/MonsterAttribution-20261013-203420/Monsters/MonsterAIController.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/TaskBackups/MonsterAttribution-20261013-203420/Monsters/MonsterAIController.cpp",
+      "bytes": 17247,
+      "sha256": "c1d184902058eaefd100044a975ed8857376e568db75a758d4d5ba92ae44911d",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/TaskBackups/MonsterAttribution-20261013-203420/Monsters/MonsterAwareness.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/TaskBackups/MonsterAttribution-20261013-203420/Monsters/MonsterAwareness.cpp",
+      "bytes": 9614,
+      "sha256": "0cc8eedfcc0ed2e21a7106ffc830dd5ff571cd43bfee7728088ea11f9bf88a42",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/TaskBackups/MonsterAttribution-20261013-203420/Monsters/MonsterBTNodes.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/TaskBackups/MonsterAttribution-20261013-203420/Monsters/MonsterBTNodes.cpp",
+      "bytes": 10056,
+      "sha256": "f620fce88248d14665c370653cfb284fe5370fa2d17edd375b1fa4550a78fe00",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/TaskBackups/MonsterAttribution-20261013-203420/Monsters/MonsterNavigationCache.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/TaskBackups/MonsterAttribution-20261013-203420/Monsters/MonsterNavigationCache.cpp",
+      "bytes": 1428,
+      "sha256": "b53fcfdc6178216ba160a6392d96ebfcbf2f0664f94f7a8a7bea8157a052c222",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/TaskBackups/MonsterAttribution-20261013-203420/Monsters/MonsterWander.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/TaskBackups/MonsterAttribution-20261013-203420/Monsters/MonsterWander.cpp",
+      "bytes": 7619,
+      "sha256": "a2af83568ec747e9bf15c0784b5ecf42f831f5b03e2570daceec40478bc1c621",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/TaskBackups/MonsterAttribution-20261013-203420/UI/FPSPerformanceEvents.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/TaskBackups/MonsterAttribution-20261013-203420/UI/FPSPerformanceEvents.cpp",
+      "bytes": 6049,
+      "sha256": "6260f274a70471cfb804c5da360802bf8467bc0c0b66a5092e72503f8056a111",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/TaskBackups/MonsterAttribution-20261013-203420/UI/FPSPerformanceMetricsResources.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/TaskBackups/MonsterAttribution-20261013-203420/UI/FPSPerformanceMetricsResources.cpp",
+      "bytes": 19373,
+      "sha256": "c377da29e3e417fed2e74ca0868970de8757e6811b5fcd756195c0b22c1c9157",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/TaskBackups/PreviewWindLifecycle-20261013/ColdSteelPreviewScene.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/TaskBackups/PreviewWindLifecycle-20261013/ColdSteelPreviewScene.cpp",
+      "bytes": 3032,
+      "sha256": "c292be4b1fe4a4e8ec442b1eae1641c8ba73b6cf6d5a758b6ecf55ff4e640caf",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/TaskBackups/PreviewWindLifecycle-20261013/ColdSteelPreviewScene.h",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/TaskBackups/PreviewWindLifecycle-20261013/ColdSteelPreviewScene.h",
+      "bytes": 661,
+      "sha256": "32ffc5d9bbc9405849e546b693099deea664836776dc9962d2d82a3d7d7304d7",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/manifest.json",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/manifest.json",
+      "bytes": 1831,
+      "sha256": "3ad39c70251ff6992b61a14d8b98df3dde5f802abc667c115bed166927b65a9e",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/Config/DefaultEngine.ini",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/Config/DefaultEngine.ini",
+      "bytes": 7862,
+      "sha256": "ada1d50e05675766e842910f9e4e04fae7ba0526a372096ded848fd0917f2b16",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "bytes": 31655,
+      "sha256": "6bd3884714cdaafe080541b823603c793dc414811449c042a0f8375fade532e9",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "bytes": 3591,
+      "sha256": "a04da8f55ff7df99d784327dafaa58f4923056801b309eba1c11299fe04e87cd",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp",
+      "bytes": 4304,
+      "sha256": "c78146ed07b2a813bd316eb21392d34edd4f808ba7848642cce1060c66aa3035",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/Source/FPSGAME/Monsters/NurseZombie.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/Source/FPSGAME/Monsters/NurseZombie.cpp",
+      "bytes": 20731,
+      "sha256": "d6dc60e2228c905f07b42471a71bdf34e9adb490eb39137619147d6895abd411",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/Source/FPSGAME/Monsters/NurseZombie.h",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/Source/FPSGAME/Monsters/NurseZombie.h",
+      "bytes": 6553,
+      "sha256": "332d8b1da62e51bbba96a04d3a52250b96270bc2aa6d854643a7de724dff16cd",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/ColdSteelMonsterPortraits.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/ColdSteelMonsterPortraits.cpp",
+      "bytes": 25673,
+      "sha256": "8b243d782dae5d9320fcbd29724670bbde43a24504dab48313943c3d3ab2cd2b",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/ColdSteelMonsterPortraits.h",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/ColdSteelMonsterPortraits.h",
+      "bytes": 6019,
+      "sha256": "8afee7cbe49c4eba1131d705d703870b0e49d81ade38bf49fe303fafc99da9f3",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+      "bytes": 5586,
+      "sha256": "dcabcf12532abf6158c932b30e68ee0168bc96a19ebdd8576a1c9b336435f48d",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/ColdSteelPickupStudio.h",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/ColdSteelPickupStudio.h",
+      "bytes": 1244,
+      "sha256": "1b3919417dbb395ef0041ba93360a3c6d97e48f49132081941e93595c29905e9",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+      "bytes": 39559,
+      "sha256": "ef571392744a9ddd7a2eb9770909bc7f6766fbd2f0e960287533b7e93722e1ce",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/ColdSteelWeaponIcons.h",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/ColdSteelWeaponIcons.h",
+      "bytes": 5441,
+      "sha256": "3aef37ad0f7bb1311de628465b57135f2aae4eb53cbbf24cd86be9416b66a47e",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/FPSPerformanceMetricsScene.cpp",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/Before/Source/FPSGAME/UI/FPSPerformanceMetricsScene.cpp",
+      "bytes": 16324,
+      "sha256": "e5387973f536b6c2f2eeed6300bab6342ec467eba8a0858512f1da76e6b906f6",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/StaleLinkObjects/FPSGAMECharacterProfile.cpp.obj",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/StaleLinkObjects/FPSGAMECharacterProfile.cpp.obj",
+      "bytes": 3798083,
+      "sha256": "0fefa45c49ba1540f87ce5e9522fc4d726cd3a19e51a43f9dc5199795b144a7d",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/StaleLinkObjects/Module.FPSGAME.10.cpp.obj",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/StaleLinkObjects/Module.FPSGAME.10.cpp.obj",
+      "bytes": 26421777,
+      "sha256": "2e9660bfc86f2388a845a7810359e97dcbc0294beba9889d18f1691bf6452923",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/stale-door-key-symbols.json",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/stale-door-key-symbols.json",
+      "bytes": 85411,
+      "sha256": "ee056049bae725580301e7a87db8739b10436e066e5b119445e84a86a01b9136",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceResidency20261013/stale-linked-objects.json",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceResidency20261013/stale-linked-objects.json",
+      "bytes": 53987,
+      "sha256": "a12f4344977a6385dcd74f4e1bc326056396236d6eff28587a950d65d65a83f9",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceAttribution20261013/probe_capture_api_20261013.py",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceAttribution20261013/probe_capture_api_20261013.py",
+      "bytes": 297,
+      "sha256": "b4cab15fa718d453baa44951bf242fc64b0456269c45ad9c3eeb6e840fb110a0",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    },
+    {
+      "source": "Saved/PerformanceAttribution20261013/recover_capture_20261013.py",
+      "destination": "trash/dungeon-performance-retired-20261013/Saved/PerformanceAttribution20261013/recover_capture_20261013.py",
+      "bytes": 1073,
+      "sha256": "b9404728e426730837533f1de2629a6a6b504d94271c5c096177cdf37eba4665",
+      "reason": "Superseded task snapshot or completed one-shot diagnostic/link investigation; retained for recovery."
+    }
+  ]
+}

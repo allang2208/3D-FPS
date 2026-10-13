@@ -1,4 +1,6 @@
 #include "MonsterAIController.h"
+#include "ProfilingDebugging/CpuProfilerTrace.h"
+#include "MonsterNavigationCache.h"
 #include "BoundCongregate.h"
 #include "BellowSacLobber.h"
 #include "MantisM27Monster.h"
@@ -44,11 +46,21 @@ AMonsterAIController::AMonsterAIController()
 {
  Senses=CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("MonsterPerception"));SetPerceptionComponent(*Senses);
  auto* Sight=CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight"));Sight->SightRadius=1600;Sight->LoseSightRadius=1900;Sight->PeripheralVisionAngleDegrees=100;Sight->SetMaxAge(12);
- Sight->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,true);
+ Sight->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,false);
  auto* Hearing=CreateDefaultSubobject<UAISenseConfig_Hearing>(TEXT("Hearing"));Hearing->HearingRange=1800;Hearing->SetMaxAge(8);Hearing->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,true);
  auto* Damage=CreateDefaultSubobject<UAISenseConfig_Damage>(TEXT("DamageSense"));Damage->SetMaxAge(12);
  Senses->ConfigureSense(*Sight);Senses->ConfigureSense(*Hearing);Senses->ConfigureSense(*Damage);Senses->SetDominantSense(Sight->GetSenseImplementation());
  Senses->OnTargetPerceptionUpdated.AddDynamic(this,&AMonsterAIController::Perceived);
+}
+ETeamAttitude::Type AMonsterAIController::GetTeamAttitudeTowards(const AActor& Other) const
+{
+ // Perceived/UpdateKnowledge only consume players. Reject fellow monsters
+ // before native sight allocates observer-target queries for the whole crowd.
+ // The combat component exists before possession; no global team IDs change.
+ const auto* TargetPawn=Cast<APawn>(&Other);
+ if(TargetPawn&&!TargetPawn->IsPlayerControlled()&&TargetPawn->FindComponentByClass<UMonsterCombatComponent>())
+  return ETeamAttitude::Friendly;
+ return Super::GetTeamAttitudeTowards(Other);
 }
 UMonsterCombatComponent* AMonsterAIController::Combat() const{return GetPawn()?GetPawn()->FindComponentByClass<UMonsterCombatComponent>():nullptr;}
 void AMonsterAIController::OnPossess(APawn* P)
@@ -67,7 +79,7 @@ void AMonsterAIController::OnPossess(APawn* P)
  Sight->SightRadius=Combat()?FMath::Max(0.f,Combat()->AggroRange()):1600.f;
  Sight->LoseSightRadius=Sight->SightRadius+(OmniSight?500.f:300.f);
  Sight->PeripheralVisionAngleDegrees=OmniSight?180.f:100.f;Sight->SetMaxAge(MemorySeconds);
- Sight->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,true);
+ Sight->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,false);
  Senses->ConfigureSense(*Sight);
  if(const auto* Bellow=Cast<ABellowSacLobber>(P);Bellow&&Bellow->bSoundSensitive)
  {
@@ -89,6 +101,7 @@ void AMonsterAIController::SetEncounterTarget(APawn* P)
 }
 void AMonsterAIController::UpdateKnowledge()
 {
+ TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_UpdateKnowledge);
  auto* C=Combat();auto* B=GetBlackboardComponent();if(!C||!B||!GetPawn())return;
  const bool Disabled=!bDecisionEnabled||!GetPawn()->IsActorTickEnabled();
  if(!Disabled)ConsumePassiveDiscovery();
@@ -184,8 +197,10 @@ void AMonsterAIController::UpdateKnowledge()
 }
 void AMonsterAIController::NavigateTo(FVector Destination,float Acceptance)
 {
+ TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_NavigateAttempt);
  const float Now=GetWorld()->GetTimeSeconds();if(Now-LastMove<.65f)return;
  if(GetMoveStatus()==EPathFollowingStatus::Moving&&FVector::DistSquared(Destination,LastDestination)<FMath::Square(45.f))return;
+ TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_NavigateAdmitted);
  LastMove=Now;LastDestination=Destination;++NavigationRequests;
  auto* Nav=FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());
  const auto& Agent=GetNavAgentPropertiesRef();
@@ -195,13 +210,17 @@ void AMonsterAIController::NavigateTo(FVector Destination,float Acceptance)
  // Search laterally for its walkable interior, with a short vertical window so
  // a missing upper-floor polygon cannot silently select the ground floor.
  const float XY=FMath::Max(100.f,Agent.AgentRadius*2.f+30.f);
- if(!Data||!Nav->ProjectPointToNavigation(Destination,Goal,FVector(XY,XY,100),Data))
+ if(!Data||!GetWorld()->GetSubsystem<UMonsterNavigationCache>()->Project(Nav,Data,Destination,FVector(XY,XY,100),Goal))
  {
   bNavigationFailed=true;
   UE_LOG(LogTemp,Warning,TEXT("MONSTER_NAV_FAILED %s reason=goal_projection feet=%s nav=%s"),*GetNameSafe(GetPawn()),*Destination.ToString(),*GetNameSafe(Data));
   return;
  }
- const auto Result=MoveToLocation(Goal.Location,Acceptance,false,true,false,false,nullptr,false);
+ EPathFollowingRequestResult::Type Result;
+ {
+  TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_MoveToLocation);
+  Result=MoveToLocation(Goal.Location,Acceptance,false,true,false,false,nullptr,false);
+ }
  bNavigationFailed=Result==EPathFollowingRequestResult::Failed;
  if(bNavigationFailed)UE_LOG(LogTemp,Warning,TEXT("MONSTER_NAV_FAILED %s reason=path start=%s goal=%s nav=%s"),*GetNameSafe(GetPawn()),*GetNavAgentLocation().ToString(),*Goal.Location.ToString(),*GetNameSafe(Data));
 }

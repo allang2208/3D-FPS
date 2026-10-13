@@ -1,0 +1,77 @@
+随机地牢 AI / 形变渲染同次自动采样（2026-10-13）
+
+目的
+将寻路、索敌、群体警报、动画与 GPU 形变的耗时放入同一次追踪。
+本批只增加诊断。未改画质、模型、形变权重、导航结果、决策间隔、波次或战斗规则。
+
+入口
+Tools/Performance/capture_dungeon_monster_attribution.py
+通过现有 Tools/AssetPipeline/mcp_call_codex.ps1 -PythonScript 接入已经运行的编辑器。
+必须先完成常规 Editor 构建；脚本要求 fps.Perf.MonsterCaptureVersion=1。
+不启动编辑器或 PIE，不停止用户试玩。应在进入随机地牢前挂载。
+
+捕获窗口
+等待随机地牢 World 出现时开始，最长等待 20 分钟。
+首次观察到有 Controller 的无面职员后，再记录 40 秒；整段录制最多 300 秒。
+未激活的延迟创建身体没有 Controller，不触发首批怪物倒计时。
+Python 观察间隔为 0.5 秒，不是引擎帧时间，也不是精确出生时刻。
+精确出生与波次时点使用新加入的 FPS.Hall.SpawnActivated / Wave2Triggered 等原生 Bookmark。
+用户只需正常进入迎宾大厅、经历刷怪并继续运行至少 45 秒，无需把握卡顿瞬间。
+采样时避免编译或切后台；已有暂停/前后台状态、Log 和 Task 轨迹用于标识受干扰区间。
+
+CPU 标记
+- MonsterAI_KnowledgeService / UpdateKnowledge：定时服务与所有入口的索敌事实更新。
+- MonsterAI_PerceptionCallback / DamageDiscovery / PassiveDiscovery：感知及受击触发。
+- MonsterAI_CanSeePlayer / SightTrace / HearingTrace：范围筛选后实际可见性/听觉遮挡查询。
+- MonsterAI_GroupAlertAttempt / Admitted / Overlap / Recipient：警报请求、通过预算、空间查询及逐个通知。
+- MonsterAI_NavigateAttempt / Admitted / MoveToLocation：请求、通过原有节流、路径调用。
+- MonsterAI_WanderAttempt / Update / ChooseWanderDestination / WanderMoveToLocation：闲逛更新与路径。
+- MonsterNavigation_ProjectionCacheHit / Miss / UncachedWhileBuilding：导航投影缓存与建图期间旁路。
+- MonsterAI_TaskExecute / TaskTick：行为树任务，包含特殊怪物导航调用。
+- MonsterAnim_UpdateAnimation / ProxyPreUpdate / CaptureClothingCurves /
+  ApplyCapturedClothingCurves：动画和衣服曲线 CPU 工作，不冒充 GPU 形变耗时。
+所有 scope 仅观察原代码；次数来自 trace 事件，不在每次查询写日志或 JSON。
+
+原生任务 / GPU
+记录 Cpu、Frame、Gpu、Bookmark、Region、ThreadIdleScope、LoadTime、AssetLoadTime、Log、Counters、Task。
+临时增加引擎 named stat scopes 引用，使同步/异步导航与导航格重建等已有引擎作用域进入 CPU 轨迹。
+GPU 读取原生 MorphUpdate、Normalize、Scatter、SkinCacheDispatch、光追几何更新及提交/等待事件。
+复用 F6 既有的至多 2 Hz 显存预算、活动形变、动画过渡、实际渲染 LOD、MeshObject 和 SkinCache 观察。
+增加同时间轴的存活怪物、未 BeginPlay 准备实例、排队生成数量计数器。
+Python 附带每只 AI 的 action、累计 NavigationRequests 和最近失败状态，计数不等于耗时。
+
+诊断负担与恢复
+使用已存在的 CPU/GPU 追踪，不开启 RDG 全量资源图；它会显著增加记录规模。
+本次暂时关闭 fps.Perf.GpuResourceInventory 全量 RHI 清点，保留被动资源观察。
+恢复进入前的记录开关、资源观察、全量清点开关，并释放本批增加的 named stat 引用。
+已有 trace 时拒绝抢占；已有本脚本 armed/recording/exporting 时不重复挂载。
+提前离开世界时保存已有 trace；不把不完整窗口写成完整复现。
+
+自动输出
+Saved/DungeonEntryCaptures/<UTC timestamp>/capture.utrace
+Saved/DungeonEntryCaptures/<UTC timestamp>/capture.json
+Saved/DungeonEntryCaptures/<UTC timestamp>/performance-report-receipt.json
+receipt 指向 Saved/PerformanceReports/ 下自动导出的 F6 格式补充 JSON。
+导出场景扫描和序列化在停止 trace 后发生，不计入战斗测量区间。
+exporting 表示 trace 已停止、仍待 JSON；complete 且 receipt.saved=true 才是两份数据齐全。
+
+归因规则
+CPU scope 按线程计算包含/独占耗时和调用数；不得重复相加父子范围。
+导航后台线程与动画并行任务不能只看 GameThread；跨线程时间也不能直接相加为帧时间。
+GPU 事件包含队列/同步/驻留影响，不能全部称为纯着色器计算。
+GPU/游戏/渲染资源观察时间分别保存，不伪造逐帧对齐；未知保持未知。
+先比较同次刷怪前、刷怪、刷怪后低帧与恢复窗口，再决定修复方向。
+此脚本不暂停 AI、不隐藏模型、不关闭衣服或光追，不做玩法 A/B。
+
+制作状态
+源码、脚本和说明已落盘。常规 FPSGAMEEditor Win64 Development 构建成功，
+26 actions，37.32 秒；日志 Saved/PerformanceAttribution20261013/editor-build.log。
+两份 Python 脚本编译解析成功，没有因此执行或启动游戏。
+2026-10-13 22:14 已挂入用户打开的编辑器（PID 137720），状态 armed。
+本次输出目录 Saved/DungeonEntryCaptures/20261013-141431-711385/。
+挂载时尚未开始试玩或采得新一轮游戏数据，不能宣称卡顿已修复。
+
+后续 22:22 更新：第一轮因 Python get_pawn 接口错误在首次刷怪时结束；F6 战斗记录已恢复。
+collector_version=2 改为 get_controlled_pawn，接口已读回确认，并隔离可选 AI 上下文错误。
+第二轮只挂载、尚未开始，退出旧试玩时遇到 DynamicWind 崩溃。详见
+monster-attribution-and-preview-crash-20261013.txt；先修预览场景释放通知，再继续采样。

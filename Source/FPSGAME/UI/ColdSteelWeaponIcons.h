@@ -2,7 +2,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Tickable.h"
-#include "PreviewScene.h"
+#include "ColdSteelPreviewScene.h"
 #include "ColdSteelInventoryTypes.h"
 #include "FPSPerformanceMetrics.h"
 #include "Styling/SlateBrush.h"
@@ -20,7 +20,7 @@ class FPSGAME_API UColdSteelWeaponIcons : public UGameInstanceSubsystem, public 
 public:
     virtual void Deinitialize() override;
     virtual void Tick(float DeltaTime) override;
-    virtual bool IsTickable() const override {return !IsTemplate()&&!Queue.IsEmpty();}
+    virtual bool IsTickable() const override {return !IsTemplate()&&(!Queue.IsEmpty()||Capture!=nullptr);}
     virtual TStatId GetStatId() const override {RETURN_QUICK_DECLARE_CYCLE_STAT(UColdSteelWeaponIcons,STATGROUP_Tickables);}
     virtual UWorld* GetTickableGameObjectWorld() const override {return GetWorld();}
     bool Supports(const FColdSteelItem& Item) const;
@@ -60,7 +60,7 @@ private:
     UPROPERTY(Transient) TArray<TObjectPtr<class UMeshComponent>> CaptureMeshes;
     UPROPERTY(Transient) TArray<TObjectPtr<class UMaterialInterface>> CaptureMaterials;
     UPROPERTY(Transient) TArray<TObjectPtr<class UTexture>> CaptureTextures;
-    TUniquePtr<FPreviewScene> Studio;
+    TUniquePtr<FColdSteelPreviewScene> Studio;
     TSharedPtr<FStreamableHandle> ResourceLoad;
     TArray<FSoftObjectPath> RequiredResources;
     int32 PrepareStep=0, AttachmentStep=0, BoundsSection=0;
@@ -83,11 +83,13 @@ private:
     bool bBoundsCacheHit=false;
     float Warmup=0;
     double AttemptStartSeconds=0.0;
+    double StudioIdleSince=0.0;
     int32 Stage=0,Completed=0;
     bool bCatalogExport=false;
     bool Prepare(const FColdSteelItem& Item);
     void BeginResourceLoad(const FColdSteelItem& Item);
     void ResetPreparation();
+    void ReleaseIdleStudioResources();
     bool PrepareMelee(const FColdSteelItem& Item);
     bool PrepareBow(const FColdSteelItem& Item);
     bool PrepareMaterial(const FColdSteelItem& Item);

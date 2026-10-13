@@ -1,0 +1,223 @@
+{
+  "base_commit": "a0c381ceff508da0c6baeae8eb71d3eecf5c9272",
+  "contract": "Apply only with the recorded LF-normalized preimage hashes. Some preimages require unpublished gameplay/network work and are not present in public HEAD. The working project already contains the result; do not apply it there again.",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp",
+      "head_blob_sha256": "a7f1bc485cdea253a7a7418193b3531f3569ef6b99444787db4b72c91f97895a",
+      "required_preimage_sha256_lf": "a7f1bc485cdea253a7a7418193b3531f3569ef6b99444787db4b72c91f97895a",
+      "result_sha256_lf": "2873b8c90a109b4c678e7cffec1da9f30bb6139817836e4a659c470c8161a71a",
+      "requires_unpublished_context": false,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h",
+      "head_blob_sha256": "5969e91fbc465e9a652a5e7a3227452c6d4754e00fe3bd26350cb10c09465be4",
+      "required_preimage_sha256_lf": "5969e91fbc465e9a652a5e7a3227452c6d4754e00fe3bd26350cb10c09465be4",
+      "result_sha256_lf": "7e860657a3c1a1b9cdc4937fdc19d8a357177cf5d1fa50f55dc1846e150b2633",
+      "requires_unpublished_context": false,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.cpp",
+      "head_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "required_preimage_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf": "ab17247dcbb8b8a603da8f7f2919d4b01d253c8bd4088a6be743d7c813b82c90",
+      "requires_unpublished_context": false,
+      "new_file": true
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.h",
+      "head_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "required_preimage_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf": "f7d161814c84be154980dfa9f48d245df6b751f2c1b20d705242445bbeb138e8",
+      "requires_unpublished_context": false,
+      "new_file": true
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonMonsterRenderPreparation.h",
+      "head_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "required_preimage_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf": "3b0af8cfffa5789d64f7456254f5de428c07039bfe0d5dc1adb51b9af5c9b0e8",
+      "requires_unpublished_context": false,
+      "new_file": true
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonWallStains.inl",
+      "head_blob_sha256": "cce67b463d7d7072e213c1ea4b4f81eaf0f684cd49a5dd6d389423a6e293aa63",
+      "required_preimage_sha256_lf": "cce67b463d7d7072e213c1ea4b4f81eaf0f684cd49a5dd6d389423a6e293aa63",
+      "result_sha256_lf": "cdbf5cbca93ace7f89d0aca14dc2960fb93149978ef093303b489ca741a0043e",
+      "requires_unpublished_context": false,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceCaptureCommands.cpp",
+      "head_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "required_preimage_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf": "3cf225f422aeaedf76f0b5f38a8c4a974bb92fbff82e1724966e20b43a7fba9e",
+      "requires_unpublished_context": false,
+      "new_file": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceEncounterCapture.cpp",
+      "head_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "required_preimage_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf": "f90998f0fd33e5dcf2e1b9d95f990b5b95fdd0e9771277bf70f3984b1048281d",
+      "requires_unpublished_context": false,
+      "new_file": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceGpuInventory.cpp",
+      "head_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "required_preimage_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf": "4a4f40c68ceeaf89d5e2eb13e3892e50c9c96c0e118553c6195750ce2f898ab1",
+      "requires_unpublished_context": false,
+      "new_file": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceMetricsResources.cpp",
+      "head_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "required_preimage_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256_lf": "283ec12576e51c3a82ff7e8716fdac888603f1d21bcc6e9bd23a96e83f288fd6",
+      "requires_unpublished_context": false,
+      "new_file": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceEvents.cpp",
+      "head_blob_sha256": "d50836e9d1c75acb02da5c3e9ece78543bd73df4cd44579950fa15299308bdf1",
+      "required_preimage_sha256_lf": "d50836e9d1c75acb02da5c3e9ece78543bd73df4cd44579950fa15299308bdf1",
+      "result_sha256_lf": "ca66331d43c732b8dd1ea3694008af3faff745c2806dd941c09489d02951b232",
+      "requires_unpublished_context": false,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceMetrics.cpp",
+      "head_blob_sha256": "bdeef116f35b7962d597625c04e9a80a6e09e53d09e75640d81857cf33210e06",
+      "required_preimage_sha256_lf": "bdeef116f35b7962d597625c04e9a80a6e09e53d09e75640d81857cf33210e06",
+      "result_sha256_lf": "999823906a6077e95d50a7f6076bada88914d0d87722df36e18a967c1bca75ab",
+      "requires_unpublished_context": false,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceMetrics.h",
+      "head_blob_sha256": "2e6f46e716cff32f01f648ce56c0a18f422ac4f80881eb6a8d0cd90dd276b2da",
+      "required_preimage_sha256_lf": "2e6f46e716cff32f01f648ce56c0a18f422ac4f80881eb6a8d0cd90dd276b2da",
+      "result_sha256_lf": "e5fb885eafa47887834950015949abaea7633396c5594588007626c7603a028d",
+      "requires_unpublished_context": false,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceMetricsExport.cpp",
+      "head_blob_sha256": "a9a4445029c3cbb149f06966258e6abe7076257c6782d667d057726b92da1f1e",
+      "required_preimage_sha256_lf": "a9a4445029c3cbb149f06966258e6abe7076257c6782d667d057726b92da1f1e",
+      "result_sha256_lf": "08eea44886ccededbb0a800f5294de08bf9f853a08199579dfde131766cf0474",
+      "requires_unpublished_context": false,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSPerformanceMetricsScene.cpp",
+      "head_blob_sha256": "e5387973f536b6c2f2eeed6300bab6342ec467eba8a0858512f1da76e6b906f6",
+      "required_preimage_sha256_lf": "e5387973f536b6c2f2eeed6300bab6342ec467eba8a0858512f1da76e6b906f6",
+      "result_sha256_lf": "162e59d0c416fdacfd59567801fe410f40ab5e80c2c275b9f58fa4019d37d7a2",
+      "requires_unpublished_context": false,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/DevelopmentPerformancePanel.cpp",
+      "head_blob_sha256": "6941e7c1a5d5e12f8b2d221ad1e344a6f220ca2384387de4f4813d1c6770777e",
+      "required_preimage_sha256_lf": "6941e7c1a5d5e12f8b2d221ad1e344a6f220ca2384387de4f4813d1c6770777e",
+      "result_sha256_lf": "6f12717580fa35fcac03ac5774e36a103498b5a3b5cace9eb79a145597c6f2ec",
+      "requires_unpublished_context": false,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/DevelopmentPanelWidget.h",
+      "head_blob_sha256": "09e69033734079a7e89f98f798c16702e366946f96561bdadfc2cbf8086201f4",
+      "required_preimage_sha256_lf": "09e69033734079a7e89f98f798c16702e366946f96561bdadfc2cbf8086201f4",
+      "result_sha256_lf": "9a11db0ce82721a495e54072c3a4a8fb8a2e84233f7e53ff347ffbb756300bd1",
+      "requires_unpublished_context": false,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/GameResourcePreparation.cpp",
+      "head_blob_sha256": "3395e7b8b1ab2944b22cf92f3dbe904a166e43e0b4e0fd3d9bf8358272b6add9",
+      "required_preimage_sha256_lf": "3395e7b8b1ab2944b22cf92f3dbe904a166e43e0b4e0fd3d9bf8358272b6add9",
+      "result_sha256_lf": "e12c1b864b549c20269e22e19740d748567c5e9c1177f06e9abfed9ad1be9dc3",
+      "requires_unpublished_context": false,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/GameResourcePreparation.h",
+      "head_blob_sha256": "c94b06c88e576c38327b8dc3852be0dbf5418b23189bcaf3d6548acbfdbe9afb",
+      "required_preimage_sha256_lf": "c94b06c88e576c38327b8dc3852be0dbf5418b23189bcaf3d6548acbfdbe9afb",
+      "result_sha256_lf": "91d2e85984ec40ee1c71957b64e47258e27062493705d66c6294b2c81a6b2198",
+      "requires_unpublished_context": false,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "head_blob_sha256": "f25e847dbbf0f9000602de288ce57e46f95e6bfc8ededeb3969b2e0c41e8da73",
+      "required_preimage_sha256_lf": "ac9659f9b42f34245447a349992d8ed86ac583d9aa6f2253a553082c0b561147",
+      "result_sha256_lf": "c30918d31e6cd7edc19596eb3f79de38bbc77d35bb481f3989e6bd1ae2685afe",
+      "requires_unpublished_context": true,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h",
+      "head_blob_sha256": "bc841602fec91259a9392034b535fd695c9bf6a80c9211e809f92bbf89f7e65b",
+      "required_preimage_sha256_lf": "81c5a065aa9063ab281463e0ac17411e376bd7a39929504d8cf3b96a40899437",
+      "result_sha256_lf": "34915ff070bfa58c0f7df94346374a3fa81ba5bcabb83f44cf2543df20ebc23a",
+      "requires_unpublished_context": true,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "head_blob_sha256": "0fbb375d5947187fb26fb3429ca2dad99c82455038b7da84286d044d7f62add9",
+      "required_preimage_sha256_lf": "79c5bb2930b047f967eb90938ab7fe73c18e47eb7d5f438bb3c14e08d6304983",
+      "result_sha256_lf": "8160e578a779863cc3b39dff74db4f273d67038e0de03a63d034957848333874",
+      "requires_unpublished_context": true,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "head_blob_sha256": "120ee2eec1ddf243d71a40f0c88db34b36c579275ff093391c9584c47b5d5eb8",
+      "required_preimage_sha256_lf": "08abb407d59358c32eac0640790b9346e52d87cd8313d942fd112c0d9104c37e",
+      "result_sha256_lf": "01ad7100933e73bc42281e853df9c38f6ef6fb7021693ba183a4f2f394fffe81",
+      "requires_unpublished_context": true,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.cpp",
+      "head_blob_sha256": "73da9370531d2f1b53a9786b0dc5dc2c045a6a137242f0bde3b4c800cf93ad42",
+      "required_preimage_sha256_lf": "3a2705f6592bb89299fcbd3242859fc95c52d340c2dee3001d1dfced8b186d87",
+      "result_sha256_lf": "05957946ac77a831a1fe6222283b837b6b0e659017d215587f3f137d311003ca",
+      "requires_unpublished_context": true,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.h",
+      "head_blob_sha256": "387b92b02f5574f2ebb22455da8a4c1785e114684fc4ede1cc4639f59c315b5c",
+      "required_preimage_sha256_lf": "d2af4be75c408f2fd6f17f0bad92115c936f0ad973a24cfe2f7a6bc2a946bee0",
+      "result_sha256_lf": "47cd5bb0aafdf715388e3d77282249d3f80cf22f296d20043687d76a07254f9b",
+      "requires_unpublished_context": true,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+      "head_blob_sha256": "61dee38e8f6022e1d7608592ac673fb5b52b33636b0a53dac0ea03a4106aa29e",
+      "required_preimage_sha256_lf": "d13a182648253d5810963eb75dff0f69605f5b4b1b24d0a6e51c361672e3b8c7",
+      "result_sha256_lf": "d60df5309cde53d54f57720147ae1695353e0c833aba49f6c46da68ae2b40a87",
+      "requires_unpublished_context": true,
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.h",
+      "head_blob_sha256": "10cfe0f5b191aacd3793218227cd6bc96b3de784e4298e9fc0940d34b54abd9e",
+      "required_preimage_sha256_lf": "dfc2c59e1f6abf34fff6b50c7eafa6d18cedc1f475af113ebdd91f50f2348340",
+      "result_sha256_lf": "7d8af1c82a000fcd3e8aacfac70a03ab188f349d4d9a65a9c72afdc5cf038e21",
+      "requires_unpublished_context": true,
+      "new_file": false
+    }
+  ],
+  "patch_format": "Zero-context unified diff; validate exact preimage hashes, then git apply --unidiff-zero. No unconditional application to public HEAD."
+}

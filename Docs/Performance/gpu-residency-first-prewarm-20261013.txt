@@ -1,0 +1,75 @@
+显存大项与实际实例预热：首批接入（2026-10-13）
+
+依据
+用户要求：原工程、原地牢；先处理显存大项，再接实际 GPU 预热；保留画质、刷怪和战斗规则。
+输入：performance-20261013-100154-7CAB608A49DEFB17A520FC964C06AF9A.json。
+schema 11，4 次 RHI 详采：生成开始、生成就绪、第一波开始、第一波 +10 秒。
+详采分析：Saved/PerformanceResidency20261013/inventory-analysis.json。
+源码备份：同目录 Before/，按修改文件保留原有并行工作，没有回退到 Git HEAD。
+
+数据发现及边界
+1. 四次快照均有两项 Shadow.Virtual.PhysicalPagePool，每项逻辑分配 512 MiB；
+   对应 HZB 页池也有两项，每项约 85.38 MiB，多种 Lumen 图集同样为两项。
+   资源没有 Scene owner，不能把每个重复名字直接指定给编辑器或预览世界。
+2. 六张 PWL 天空 HDR 各 96 MiB，合计 576 MiB；部分 resident_flag 为 false。
+   保留其精度、压缩格式和内容，未对可能仍被编辑器/天气使用的共享纹理强制 ReleaseResource。
+3. 刷怪前后非 transient 逻辑分配约 12.13→12.46 GiB；职员身体 owner 的分配明显增加。
+   两类 morph 共享输入约 69.17 MiB，不能按怪物只数重复相乘。
+4. 最严重 DXGI 样本 CurrentUsage-Budget 约 885.5 MiB。
+   RHI 清单的逻辑分配和 resident 标志不等于独占物理显存；transient 可能别名共享。
+   Top128 / Top64 截断也意味着不能将榜单中没有出现的资源当作占用为零。
+5. 本次记录最终只有 17 活怪，种类 4 投手 / 4 接待 / 5 安保 / 4 研究员，随机种子
+   1677081024，与前次两厅 35 怪不是同条件收益对比；没有据此计算优化百分比。
+
+已经落盘的修改
+
+A. PIE 编辑器场景释放
+Config/DefaultEngine.ini：r.PurgeEditorSceneDuringPIE=1。
+使用本机 UE 自带生命周期：SetPlayInEditorWorld → UWorld::PurgeScene，EndPIE → RestoreScene。
+编辑器场景在试玩期间使用空渲染场景，结束后恢复，避免完整编辑器与游戏 FScene 同时保留。
+保留游戏世界的 VSM、Lumen、光追、纹理池和分辨率；对独立运行没有这项编辑器收益。
+这是进入/退出 PIE 的生命周期工作，不在刷怪时反复释放/重建。配置在下次启动编辑器生效。
+F6 cvar_snapshot 增加这个值，后续可判断新配置是否实际加载。
+
+B. 闲置预览世界释放渲染场景
+新增 FColdSteelPreviewScene，接入武器图标、怪物立绘和掉落装配工作室。
+此前回收捕获目标与被摄体后保留整个 FPreviewScene，避免析构引发全量 GC；但它仍持有 FScene。
+现在保留 UObject 世界壳，闲置时注销组件、结束 FX、释放该工作室的 FScene，让其 VSM、
+Lumen、SkinCache 等缓存有机会回收。重新需要捕获时按原 feature level、灯光和配置恢复。
+不销毁游戏世界，不修改全局 GC 设置，不调用 FlushRenderingCommands 或阻塞 GPU fence。
+已经生成的独立图标缓存、拾取边界缓存保留；不改变 UI 画布尺寸与捕获画质。
+实际可释放字节尚未实测，不能把清单中整套重复缓存全部宣称为这三个工作室的占用。
+
+C. 复用同一个职员身体的实际 GPU 工作
+新增 FFacilityMonsterGpuWarmup，接入已有 FacilityHallEncounter / FacilityHallSpawnSubsystem。
+保留原有最多两个准备实例、每大厅一个、有效显存余量至少 1 GiB、正式生成优先的策略。
+仅注册将来正式使用的职员身体组件，仍不执行 Actor construction、BeginPlay、AI、
+移动和战斗计时。主体不进入普通视图、阴影、GI、光追场景贡献，也不参与碰撞。
+用同一游戏世界内的 64×64 一次性私有捕获执行身体的光栅蒙皮/衣物 morph 路径，
+等待正常渲染注册和 PSO 准备之后才提交；每帧至多接纳一次捕获。
+GPU fence 只异步轮询；捕获完成即回收捕获组件和目标，实际身体保留到正式激活。
+激活前恢复全部临时身体设置；继续原 FindSpawn / RNG / 门冷却 / FinishSpawning / AI 路径。
+未预热、未完成或没有预算时，正式生成到点仍照常进行，不为预热推迟怪物。
+身体组件不 unregister；UE 5.8 的渲染状态重建路径可以转交 morph buffer 与 SkinCache entry。
+新增事件 Hall.GpuWarmupBegin / Hall.GpuWarmupEnd，后者明确 submitted、gpu_complete
+以及 scope=raster_skin_morph；不把渲染线程 fence 误称为 GPU 完成。
+
+预热覆盖的明确限制
+此批覆盖原先可提前分配的三种职员身体，是实际执行 GPU 工作的一步。
+投手附属组织/弹体、随机精英、完整动态光追结构以及后续所有动作的资源仍未全部覆盖。
+捕获关闭光追和场景照明以防准备实例影响正式世界；不将它写成完整光追预热。
+未来扩展要沿同一实际实例与预算合同推进，不能创建一整波隐藏替身后销毁，再正式重建。
+如果编辑器重复场景释放后仍有持续 GPU 高耗时，需要 GPU pass 证据定位形变、阴影和光追
+更新的独占开销，不直接降低怪物几何、衣物表现或灯光质量。
+
+构建与体验
+项目当前常规 FPSGAMEEditor Win64 Development 构建成功：217 actions，443.66 秒，
+结果 Succeeded，Editor DLL 已链接。该共享构建覆盖了本批最终保存的源码。
+日志保存在 Saved/PerformanceResidency20261013/editor-build-20261013-184328.log。
+前序构建修复了本批的 EngineModule 头文件依赖和 UHT 所需的完整预热类型定义；
+另外遇到门钥匙方法旧类内实现残留的链接冲突，保留并行功能源码，最终重编后消除。
+此时另有 FPSGAME Game 目标正在构建；本记录只确认已完成的 Editor 目标。
+未自动打开 UE、运行 PIE、截图或启动性能测试；实际收益及运行效果由用户复测。
+后续用户测试：首次进入地牢并开 GPU 详采，经历刷怪后再导出；另外确认关闭/重开图鉴、
+图标重新生成正常，PIE 结束后编辑器视口恢复。比较同分辨率和相近怪物数量下的显存预算，
+并看预热结束事件是否 submitted=1 / gpu_complete=1，而不是只看总 FPS。

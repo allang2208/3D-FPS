@@ -1,4 +1,6 @@
 #include "MonsterAIController.h"
+#include "ProfilingDebugging/CpuProfilerTrace.h"
+#include "MonsterNavigationCache.h"
 #include "MonsterCombatComponent.h"
 #include "LurkerM08Monster.h"
 #include "HangingBellM09.h"
@@ -56,6 +58,7 @@ void AMonsterAIController::PauseWander(float Now, bool Failed)
 
 bool AMonsterAIController::ChooseWanderDestination()
 {
+    TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_ChooseWanderDestination);
     APawn* MonsterPawn = GetPawn();
     auto* C = Combat();
     auto* M08 = Cast<ALurkerM08Monster>(MonsterPawn);
@@ -90,7 +93,7 @@ bool AMonsterAIController::ChooseWanderDestination()
     FNavLocation Goal;
     const FVector DesiredFeet = Desired - (Position - Feet);
     const float Extent = FMath::Max(80.f, Agent.AgentRadius);
-    if (!Data || !Nav->ProjectPointToNavigation(DesiredFeet, Goal, FVector(Extent, Extent, 75.f), Data)) return false;
+    if (!Data || !GetWorld()->GetSubsystem<UMonsterNavigationCache>()->Project(Nav, Data, DesiredFeet, FVector(Extent, Extent, 75.f), Goal)) return false;
     const FVector HomeFeet = C->Home() - (Position - Feet);
     if (FVector::DistSquared2D(Goal.Location, HomeFeet) > FMath::Square(Radius)
         || FMath::Abs(Goal.Location.Z - HomeFeet.Z) > 100.f
@@ -99,7 +102,11 @@ bool AMonsterAIController::ChooseWanderDestination()
     // path or issue a second random-reachable flood search for the same point.
     ++NavigationRequests;
     C->SetLocomotion(true);
-    const auto Result = MoveToLocation(Goal.Location, 45.f, false, true, false, false, nullptr, false);
+    EPathFollowingRequestResult::Type Result;
+    {
+        TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_WanderMoveToLocation);
+        Result = MoveToLocation(Goal.Location, 45.f, false, true, false, false, nullptr, false);
+    }
     bNavigationFailed = Result == EPathFollowingRequestResult::Failed;
     if (Result != EPathFollowingRequestResult::RequestSuccessful) return false;
     WanderGoal = Goal.Location + (Position - Feet);
@@ -108,6 +115,7 @@ bool AMonsterAIController::ChooseWanderDestination()
 
 void AMonsterAIController::TickWander()
 {
+    TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_WanderAttempt);
     APawn* MonsterPawn = GetPawn();
     auto* C = Combat();
     const auto* B = GetBlackboardComponent();
@@ -116,6 +124,7 @@ void AMonsterAIController::TickWander()
     { StopWander(); return; }
     const float Now = GetWorld()->GetTimeSeconds();
     if (Now < NextWanderUpdate) return;
+    TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_WanderUpdate);
     NextWanderUpdate = Now + .2f;
     if (!bWanderActive)
     {

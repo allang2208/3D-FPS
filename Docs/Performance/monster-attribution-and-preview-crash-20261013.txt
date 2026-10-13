@@ -1,0 +1,54 @@
+2026-10-13 晚间：自动采样恢复及预览场景崩溃修订
+
+采样失误与恢复
+首轮目录 Saved/DungeonEntryCaptures/20261013-141431-711385/。
+追踪在首次职员被观察到时停止，错误为 MonsterAIController 没有 Python get_pawn 接口。
+记录 63.45 秒，主要是进入地牢和刷怪前；不能作为刷怪后 AI/GPU 分项证据。
+已按本机 Controller.h 的 ScriptName 改用 get_controlled_pawn，且在当前 UE 默认对象上
+读回 pawn getter 和四个 AI 属性成功。额外 AI 状态读取出错时单独记录缺失，不再中断原生追踪。
+采样脚本 collector_version=2；已在旧地牢内挂载时等待退出后再进入新世界。
+
+首轮 F6 战斗记录已从仍在运行的地牢恢复并保存：
+Saved/PerformanceReports/performance-20261013-142031-BDE673EC4E29760E6D67168499012C75.json
+离线摘要：首轮目录 recovered-analysis.json。
+同次 2552x1222，种子 1874942016；这是阶段描述，不是与旧种子/旧版本的对照收益。
+迎宾第二波后 5-10 秒：平均帧时间 40.87 ms（约 24.5 FPS），游戏线程发布读数均值
+37.80 ms，GPU 发布读数均值 30.71 ms。异步发布读数不能相加或当作同一帧的精确对应。
+该波 20 秒内 Hall.SpawnAttempt 累计 18.92 ms、单次最大 1.85 ms；仅代表同步创建调用，
+不包括随后 AI、动画、渲染或异步任务。不能把每帧的几十毫秒直接归给 SpawnActor。
+三份保留战斗窗口的被动显存样本均未报告超预算；最小预算余量约 1,073 / 644 / 470 MB。
+该事实不能排除微小时间尺度的驻留/驱动问题，但不支持继续把显存超预算当成这次唯一解释。
+
+崩溃时点与明确源码缺陷
+用户退出大厅试玩，22:22:43 BeginTearingDown；22:22:45 清理预览世界与地牢时崩溃。
+Saved/Crashes/UECC-Windows-BFEA5BEF4CD2641D41B8B7A906100487_0000/。
+前两帧为 DynamicWind DLL +0x7139 / +0xd6e2；19:09 崩溃记录也有相同模块偏移。
+修正版第二轮目录 20261013-142241-229197 当时仍 armed、等待离开旧世界，尚未开始追踪。
+不能把该次崩溃称为新一轮测量的结果。
+
+本机引擎源码证据：
+DynamicWindSubsystem.cpp：PostInitialize 为世界创建持有 FScene 的 TransformProvider；
+在 OnPreRecreateScene 通知中释放，在 OnPostRecreateScene 中重新创建。
+PreDeinitialize 还会调用 ReleaseTransformProvider，渲染线程再执行 Provider.Unregister。
+DynamicWindProvider.cpp：Unregister 通过保存的 Scene 引用访问 FSkinningTransformProvider。
+此前 ColdSteelPreviewScene::SuspendRendering 直接 Scene->Release / Scene=null，漏掉这对通知；
+旧 provider 因此可能在场景已经销毁后才从世界清理路径访问旧 Scene。
+这是一项明确的生命周期缺陷，与本次调用栈/清理时点吻合；尚未完成修订后的运行复测。
+DynamicWind 默认给预览世界也创建子系统，并不要求大厅内放置某个风场物件。
+
+修订
+ColdSteelPreviewScene.cpp 在组件移除后、Scene::Release 前发送 OnPreRecreateScene；
+恢复渲染场景和关卡资源后、组件重新注册前发送 OnPostRecreateScene。
+按引擎 UWorld::RecreateScene 的顺序排入正常渲染队列，不增加每帧 flush 或 GPU 等待。
+不关闭 DynamicWind、光追、Lumen、衣物或任何大厅物件，不修改 AI/刷怪/战斗。
+非 Editor 构建没有这对引擎委托，保守保留预览 FScene 到正常世界清理；调用方仍回收
+闲置模型、捕获及 render target。独立运行的完整预览场景显存回收不宣称已完成。
+修改前备份：Saved/TaskBackups/PreviewWindLifecycle-20261013/。
+
+当前状态
+用户关闭 UE 后，22:29 已完成常规 FPSGAMEEditor Win64 Development 构建：
+36 actions，42.22 秒，Result: Succeeded，Editor DLL 已链接落盘。
+日志：Saved/PreviewWindLifecycle20261013/editor-build-20261013-222913.log。
+未自动打开 UE、启动 PIE 或运行退出场景复测；编译成功不代表崩溃已通过运行验证。
+collector_version=2 脚本已准备好，旧编辑器崩溃后回调已丢失；下次打开 UE 后需要重新挂载。
+后续先观察退出试玩是否正常，再以正常画质、正常刷怪规则继续 AI/GPU 同次采样。

@@ -1,4 +1,5 @@
 #include "FatZombieAnimInstance.h"
+#include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "NurseZombie.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterReactionTiming.h"
@@ -19,11 +20,13 @@ struct FMonsterGroundedTransition : FAnimNode_TwoWayBlend
     FBoneReference UpperBodyRoot;
     bool bGroundLowerBody = false;
 
+    void SetAlwaysUpdateChildren(bool bEnabled) { bAlwaysUpdateChildren = bEnabled; }
+
     FMonsterGroundedTransition()
     {
         UpperBodyRoot.BoneName = TEXT("Spine02");
-        // The destination legs are required even on the first frame (alpha 0).
-        bAlwaysUpdateChildren = true;
+        // PreUpdate enables both children only for an active grounded blend.
+        bAlwaysUpdateChildren = false;
     }
 
     virtual void CacheBones_AnyThread(const FAnimationCacheBonesContext& Context) override
@@ -73,6 +76,7 @@ struct FFacelessStaffCurvePoseSnapshot : FAnimNode_PoseSnapshot
 
     void CaptureClothingCurves(const UAnimInstance* Instance)
     {
+        TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAnim_CaptureClothingCurves);
         ClothingCurves.Reset();
         const APawn* Owner = Instance ? Instance->TryGetPawnOwner() : nullptr;
         if (!Owner || !(Owner->ActorHasTag(TEXT("FacelessResearcher")) ||
@@ -87,6 +91,7 @@ struct FFacelessStaffCurvePoseSnapshot : FAnimNode_PoseSnapshot
     virtual void Evaluate_AnyThread(FPoseContext& Output) override
     {
         FAnimNode_PoseSnapshot::Evaluate_AnyThread(Output);
+        TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAnim_ApplyCapturedClothingCurves);
         if (Snapshot.bIsValid)
             for (const auto& Curve : ClothingCurves) Output.Curve.Set(Curve.Key, Curve.Value);
     }
@@ -137,12 +142,19 @@ struct FFatZombieAnimProxy : FAnimInstanceProxy
     }
     virtual void PreUpdate(UAnimInstance* Instance, float DeltaSeconds) override
     {
+        TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAnim_ProxyPreUpdate);
         FAnimInstanceProxy::PreUpdate(Instance, DeltaSeconds);
         const auto* Data = CastChecked<UFatZombieAnimInstance>(Instance);
         const bool GroundWasActive=SurfaceGround.IsGrounding();
         SurfaceGround.Prepare(Cast<ACharacter>(Instance->TryGetPawnOwner()),DeltaSeconds);
         RecoveryGround.Prepare(Cast<ANurseZombie>(Instance->TryGetPawnOwner()));
-        if (!SurfaceGround.IsGrounding() || !GroundWasActive)
+        const float TransitionAlpha = Data->PreviousPose.bIsValid ? Data->BlendAlpha : 1.f;
+        const bool bUsesPreviousPose = !FAnimWeight::IsFullWeight(TransitionAlpha);
+        if (!bUsesPreviousPose)
+            // This branch is no longer evaluated. A new transition captures the
+            // current visible clothing again before it needs a source snapshot.
+            Previous.ClothingCurves.Reset();
+        else if (!SurfaceGround.IsGrounding() || !GroundWasActive)
             Previous.Snapshot=Data->PreviousPose;
         else if (Data->ActiveClip!=LastGroundClip || Data->BlendAlpha<LastGroundBlend || !Previous.Snapshot.bIsValid)
             // The overlay is applied once, after blending; never blend its old
@@ -159,14 +171,23 @@ struct FFatZombieAnimProxy : FAnimInstanceProxy
         // Explicit sampling produces poses, never a second damage/root-motion clock.
         Current.SetTeleportToExplicitTime(true);
         Current.SetExplicitTime(Data->ClipTime);
-        Transition.Alpha = Data->PreviousPose.bIsValid ? Data->BlendAlpha : 1.f;
+        Transition.Alpha = TransitionAlpha;
         Transition.bGroundLowerBody = Data->bGroundLowerBody;
+        // Grounded transitions evaluate destination legs even at alpha zero.
+        // Ordinary/completed blends use the engine's normal relevance pruning.
+        Transition.SetAlwaysUpdateChildren(Data->bGroundLowerBody && bUsesPreviousPose);
         const float Angle = Data->HitRotationVector.Size();
         const FVector Axis = Angle > SMALL_NUMBER ? Data->HitRotationVector / Angle : FVector::RightVector;
         LowerRecoil.Rotation = FQuat(Axis, Angle * .65f).Rotator();
         UpperRecoil.Rotation = FQuat(Axis, Angle * .35f).Rotator();
     }
 };
+
+int32 UFatZombieAnimInstance::GetCapturedClothingCurveCount() const
+{
+    return GetClass() == StaticClass()
+        ? GetProxyOnGameThread<FFatZombieAnimProxy>().Previous.ClothingCurves.Num() : -1;
+}
 
 void UFatZombieAnimInstance::TransitionTo(UAnimSequence* Clip, bool bLoop, bool bCombatClock, float BlendSeconds,
     const FMonsterClipTransition& Settings)
@@ -338,6 +359,7 @@ void UFatZombieAnimInstance::SetHitReactionTime(float Elapsed, float Remaining)
 
 void UFatZombieAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
+    TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAnim_UpdateAnimation);
     Super::NativeUpdateAnimation(DeltaSeconds);
     if (!ActiveClip) return;
     // The shared reaction clock owns the dedicated hit clip while controlled.

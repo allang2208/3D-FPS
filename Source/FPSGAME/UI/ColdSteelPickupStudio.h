@@ -1,7 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "PreviewScene.h"
+#include "ColdSteelPreviewScene.h"
+#include "Containers/Ticker.h"
 #include "ColdSteelInventoryTypes.h"
 #include "ColdSteelPickupStudio.generated.h"
 
@@ -14,9 +15,16 @@ public:
     class AFPSGAMECharacter* Acquire(const FString& Definition,bool& Created);
     FString Key(const FColdSteelItem& Item) const;
     void Warm(const FColdSteelItem& Item, const FBox* PreparedBounds = nullptr);
+    virtual void Initialize(FSubsystemCollectionBase& Collection) override;
+    void ReleaseIdleRigs(bool bEnteringDungeon = false);
     virtual void Deinitialize() override;
     TMap<FString,FBox> Bounds;
 private:
-    TUniquePtr<FPreviewScene> Studio;
+    TUniquePtr<FColdSteelPreviewScene> Studio;
     UPROPERTY(Transient) TMap<FString,TObjectPtr<class AFPSGAMECharacter>> Rigs;
+    // The source rig is used synchronously; pickups copy its pose/materials.
+    // Retain the two most recently used families, not one character per gun forever.
+    TArray<FString> RigUseOrder;
+    TMap<FString,double> LastUseSeconds;
+    FTSTicker::FDelegateHandle IdleTicker;
 };

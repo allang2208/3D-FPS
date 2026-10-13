@@ -1,0 +1,59 @@
+现有地牢：资源准备、闲置回收与怪物调度首批实现
+日期：2026-10-13
+依据：crowd-50-existing-project-plan-20261013.txt。
+范围：原工程、原地牢；没有新增地图或工程副本，没有改模型、贴图、光照、波次和战斗数值。
+
+已实现
+
+1. 实际怪种与准备清单统一
+FacilityHallEncounter 新增 SelectedMonsterClassPaths(RunSeed)。类加载和 PSO 准备均使用本局实际选择的四种大厅怪物及随机迎宾精英。
+DungeonMonsterRenderPreparation 按 VisualMesh 解析 M 系列的实际身体，Wolf 派生继续使用 AnimationSet.ReferenceMesh，覆盖原来固定四类之外的精英。
+复制未注册的组件模板提交 PSO 请求，包含 CDO 已绑定的辅助静态/骨骼组件与螳螂隐身材质组合；保留囊袋弹体及 ISM 碎片的原准备。
+从选中类及原生组件的直接软对象属性收集资源并异步请求，结束后由当前地牢持有，取消时结束未完成请求。
+这个收集范围不声称覆盖运行时任意字符串路径、Blueprint 动态逻辑或所有容器内部软引用；加载特效资产也不等于完成 Niagara GPU 模拟预热。
+F6 生成报告增加 monster_pso_classes_requested、monster_soft_dependencies_requested，原 submitted 计数保留。
+
+2. 已确定的闲置资源回收
+ColdSteelPickupStudio 原有两种枪型 LRU 保留，但每个辅助装配角色空闲 5 秒后开始退出，每秒最多回收一个。
+进入地牢生成阶段主动释放剩余辅助角色；真实掉落物使用独立姿态、组件和材质引用，包围盒缓存保留。
+ColdSteelMonsterPortraits 在图鉴关闭时显式释放渲染目标的 RHI 资源、捕获组件和被摄体，保留已生成的小图缓存。
+图鉴保留空预览场景壳至子系统结束，避免 FPreviewScene 析构在关闭图鉴时触发全量 GC；重开时重建捕获和目标。
+没有强制 GC、扩大纹理池、降低 mip、修改 Lumen/光追或卸载仍承担碰撞/导航/阴影的房间。
+实际显存释放量未测量，不把这两项写成已经找回 1 GiB，或已解决整个进程的超预算。
+
+3. 有界的提前对象分配
+复用 FacilityHallSpawnSubsystem，正式生成请求始终优先，保留全局 50 ms 及每大厅 200 ms 节奏。
+最多保留两个已准备实例，每大厅最多一个。使用现有 2 Hz RHI 记录：最近两秒内有效且余量至少 1 GiB 才准入；记录不可用时沿正常生成，不延迟波次。
+当前接入三种普通职员、Standalone。精英/其他物种和联机继续原生成路径，均受前述资源准备覆盖。
+提前执行 SpawnActor 的对象与原生子对象分配，使用 bDeferConstruction；原生组件暂不注册，不生成额外渲染实例或碰撞体。
+待准备实例单独保存，不填入 Slot.Monster，不计入战斗；隐藏、不可伤害，无 AI、BeginPlay 或战斗计时器。
+正式时点仍执行原来的位置合法性、随机放置、门口冷却、品阶、标签、事件绑定与 FinishSpawning。
+最终位置由引擎 deferred transform 流程应用；Nurse 的 OnConstruction 恢复原生组件注册，随后才进入正常初始化和 AI/BeginPlay。
+取消或退出时销毁未激活实例。只提前准备一次再使用一次，没有引入死后重用和泛型状态重置。
+这一步只分离对象分配；组件注册、实际蒙皮/形变/光追缓冲的首次工作仍可能出现在正式激活。没有把“隐藏实例存在”写成 GPU 全部就绪。
+
+4. 多怪物调度与重复工作
+MonsterKnowledge BT 服务按每个控制器的固定相位安排正常周期；原 Interval 保留，首次树搜索和受击/感知的直接更新仍即时执行。
+不修改 Actor Tick、CharacterMovement、攻击接触窗口、冷却、受击、倒地或尸体寿命。
+MonsterNavigationCache 在各 World 中复用同帧、相同导航数据、相同精确坐标及范围的目的地投影，最多缓存 64 项，下一帧清空；导航构建/锁定时直接走原查询。
+追击及漫游共用该投影缓存，原路径请求、起点、停止距离与 0.65 秒节流保留。不共享不同起点的路径，不量化位置，不追加追击延迟或限制攻击人数。
+已有漫游/群体警觉/尸体/特效预算继续使用，没有叠加第二套全局限流。
+
+5. 后续记录
+F6 资源历史增加 hall_prepared_instances、hall_pending_spawn_requests；现有帧时间、显存、形变观察保留。
+新增代码 scope：FacilityHallSpawn_PrepareNative、FacilityHallSpawn_ActivatePrepared、MonsterNavigation_ProjectGoal、FPS_Pickup_ReleaseIdleRig。
+没有启动新的采样或测试。
+
+仍未完成的深层工作
+
+- 逐资源 GPU 驻留/驱逐归因及远房渲染资源拆分；可见性关闭依然不等于卸载。
+- 实际实例 GPU 预热，以及对所有怪物/联机扩展的完整激活合同。
+- 完整 Actor 回收重用、动画共享和衣物子网格重构；这些没有作为这批已经完成的优化。
+- 40–50 怪同场景的运行和性能验收；首用与热缓存、旧尸体和技能叠加仍需分别观察。
+
+必要构建
+等待原有原生构建退出后，通过 Tools/Build/Build-Editor.ps1 完成常规 FPSGAMEEditor Win64 Development 构建。
+结果：Succeeded，退出码 0，77 个 action，87.30 秒；FPSGAME 和 ColdSteelNet Editor DLL 链接成功。
+日志：Saved/BuildEditor/build-20261013-123224.log。
+构建中出现既有 API 弃用警告，没有本批构建错误。
+没有启动 UE、PIE、截图、基准测试或验收；游戏效果由用户测试。编译成功不代表十秒卡顿或显存超预算已通过运行验证。

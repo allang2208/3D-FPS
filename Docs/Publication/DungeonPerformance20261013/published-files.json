@@ -1,0 +1,325 @@
+{
+  "date": "2026-10-13",
+  "base_commit": "a0c381ceff508da0c6baeae8eb71d3eecf5c9272",
+  "scope": "22 direct code/config files plus tools, documentation, references and dependency-qualified integration patch. This manifest excludes itself. Hashes normalize UTF-8 without BOM to LF.",
+  "files": [
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPreviewScene.cpp",
+      "bytes_lf": 3682,
+      "sha256_lf": "4f90b5ebc0e4f7acc2d1ae0978fa3918315184710c4eb758e85d6bd35642831c",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPreviewScene.h",
+      "bytes_lf": 734,
+      "sha256_lf": "598eed49a9a9a77f59021cb26c9e0ec432c329ec0dbedae10926fdbd162f49d9",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMonsterPortraits.cpp",
+      "bytes_lf": 25761,
+      "sha256_lf": "8b8716e5d981f991afee6a545c9a106291413004a7b27bbf88ae22a02d337e73",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMonsterPortraits.h",
+      "bytes_lf": 6029,
+      "sha256_lf": "021d2961b2378f302be4ef301aaee9a8eb24571014b4f7b95bde457d0cac1e1a",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+      "bytes_lf": 5630,
+      "sha256_lf": "fe8d101419bac01ddc6ae605e2835549948a1b2abd299b4bbe744a5c8a755baf",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupStudio.h",
+      "bytes_lf": 1262,
+      "sha256_lf": "7bdb301af1daf5f72447533337ba131cf51f876a7df83d746d55b21b1266d292",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIcons.h",
+      "bytes_lf": 5351,
+      "sha256_lf": "aa3e4a084eb32c1431d7adcdcfe13e18b6028d6fbfaf9689c7410a2e48877c7f",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIconReadback.cpp",
+      "bytes_lf": 8971,
+      "sha256_lf": "ea8cc62e138d23e25732b52384e6fde623d6b42dccb24982cd13ed913efd9ed3",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FatZombieAnimInstance.cpp",
+      "bytes_lf": 18653,
+      "sha256_lf": "0d389120bfa52a6f22da90c34319a38e47b0062c6bfc78c1fd5be8aedc1d4a55",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FatZombieAnimInstance.h",
+      "bytes_lf": 2991,
+      "sha256_lf": "1a0c31cd878b1ef5c6440b2131bcfc2de0a96e696504903c3cc98e90e539ed50",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterNavigationCache.cpp",
+      "bytes_lf": 1651,
+      "sha256_lf": "97f89ca65a44bd4e668c1af5000377411643c69938ecfc8d79e695c20e796c0f",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterNavigationCache.h",
+      "bytes_lf": 839,
+      "sha256_lf": "489a287b7aabe381e5e4f0e2b6e47e1b9f9e106efb3371d144865191e66a6a45",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterBTNodes.cpp",
+      "bytes_lf": 10104,
+      "sha256_lf": "cf96bdd9ba4c9c0e195cf0ebbd53835bdd4517d3860d3397f47b477fc05e7f84",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterBTNodes.h",
+      "bytes_lf": 1266,
+      "sha256_lf": "46c04732e44af7684f8e490f98859ba88151efcbccc0b5579ba648e0261b01b7",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterWander.cpp",
+      "bytes_lf": 7979,
+      "sha256_lf": "9ea1eb065b4322a09fd0cccee15327897617628b7df79093deaa82ec24bc0100",
+      "partial_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAIController.h",
+      "bytes_lf": 4077,
+      "sha256_lf": "781dc97efa5a398088f09250a8326b03246521f8ad0c4ce48c61371a6aee2db2",
+      "partial_file": false
+    },
+    {
+      "path": "Config/DefaultEngine.ini",
+      "bytes_lf": 7635,
+      "sha256_lf": "283b7c766a5c8df3f1b93cee7c0c7589b46a01a34cf6c867b9109e007b7eff4d",
+      "partial_file": true
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+      "bytes_lf": 38805,
+      "sha256_lf": "2b5f8e6d3371d0822d04262e1074006229cec0a8241f7565bd6ce0165549c7df",
+      "partial_file": true
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "bytes_lf": 34561,
+      "sha256_lf": "cd2f3bdf6644983afb6bbf1dfa5e4b3972e5960ffd595e661ebd0d54dca313ec",
+      "partial_file": true
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+      "bytes_lf": 3702,
+      "sha256_lf": "544cf5c686a7430d3a2e7a1b3d12a6a949b912bfd9da97c0df98f35dbeec09a0",
+      "partial_file": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "bytes_lf": 17400,
+      "sha256_lf": "b068aa860adec68d9e4c1002a5bce43726e1b2297aa36c5fdc450a92367e260a",
+      "partial_file": true
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAwareness.cpp",
+      "bytes_lf": 10420,
+      "sha256_lf": "8ce98df77c770b552067e68656ae410137cf541e30ae76cfc1655df70685df2e",
+      "partial_file": true
+    },
+    {
+      "path": "Docs/Backlog.md",
+      "bytes_lf": 59348,
+      "sha256_lf": "8999c4f343a8d4006539b02735f62154cec09dc5db8f65b6555b63ad580d36d2",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes_lf": 109966,
+      "sha256_lf": "a827ced91efc11af6dddec4d6a605edd83db00e27ae9134f27a02a9331b3d538",
+      "partial_file": true
+    },
+    {
+      "path": "skills/ue5-debug-validation/SKILL.md",
+      "bytes_lf": 13289,
+      "sha256_lf": "d25f2c2cd23db788463b741142abd41e58cb3935214ce7b1853d7a0500005192",
+      "partial_file": true
+    },
+    {
+      "path": "skills/ue5-debug-validation/references/preview-scene-lifecycle.md",
+      "bytes_lf": 1730,
+      "sha256_lf": "a81b55db8ec389724a4bf2f63d66927c166a25b7afa2fc581f6d17e6993ae4c7",
+      "partial_file": false
+    },
+    {
+      "path": "skills/ue5-performance-packaging/references/performance-panel-attribution.md",
+      "bytes_lf": 4614,
+      "sha256_lf": "279fc0ef3f2c9883b6af53981f7425dc04345a81b8371c4933e7d0c8b16966ae",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/crowd-50-existing-project-plan-20261013.txt",
+      "bytes_lf": 17717,
+      "sha256_lf": "c1ee8fda75a99711edb510e865a47fa488c93a6fd290e8299ed87162a57ebe97",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/crowd-resource-implementation-20261013.txt",
+      "bytes_lf": 5673,
+      "sha256_lf": "2190c616c0e584180008d2948ad44791b1748be460d043ec2bd0019541a0a133",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/dungeon-async-room-rendering-20261008.md",
+      "bytes_lf": 4251,
+      "sha256_lf": "8329068cc5a6daa14b35ec7949112734c4d47cc58749fbb4249ee7453f8fa3c6",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/dungeon-entry-autocapture-20261012.md",
+      "bytes_lf": 6812,
+      "sha256_lf": "108e81eb42bcc93ae75f4e641bbe40dd578fbb57c6e73fef84ca185488a1ef95",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/dungeon-entry-collision-fix-20261012.md",
+      "bytes_lf": 3277,
+      "sha256_lf": "df5a648e0fd9ef876d9a31d409e1cd0d9034d48505c3408219e7ee7387b0cc76",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/dungeon-entry-overlap-20261012.md",
+      "bytes_lf": 4133,
+      "sha256_lf": "bdc0c88696334f27ffe3bed0eb7877d9df32bb6b6fc889f71fb12c116c821a86",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/dungeon-entry-pipeline-20261012.md",
+      "bytes_lf": 3872,
+      "sha256_lf": "e69fbc7ff3fff4ff58d71b2cedf4ce0efabfe07af1b9d68d936060ae40fae029",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/dungeon-post-entry-stutter-20261012.md",
+      "bytes_lf": 3818,
+      "sha256_lf": "56c7e5fe0fcb2315ec5bd238852e3162cbbbebb4f55e864f51702570908e8f4f",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/dungeon-resource-fix-20261013.txt",
+      "bytes_lf": 3680,
+      "sha256_lf": "9bfdb7b30252a3855294a40f2ed97b6b4758ca2a8f23e80249ce75f868a84dd6",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/dungeon-spawn-scheduling-20261012.md",
+      "bytes_lf": 4865,
+      "sha256_lf": "163261a985871e65f5600792d404b8ea47c6eac69dffee188f3366ec3e41d4ab",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/f6-encounter-export-20261013.txt",
+      "bytes_lf": 4364,
+      "sha256_lf": "77400205dd2cdb8210b4d6ad765200311052ed7ab8967c0890fe48dfa8e85b01",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/gpu-residency-first-prewarm-20261013.txt",
+      "bytes_lf": 6286,
+      "sha256_lf": "c685f2378f758bd2f8c085945f8524ef7d8b70f61f8d5032a6ca09520454ec5c",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/monster-ai-render-autocapture-20261013.txt",
+      "bytes_lf": 5702,
+      "sha256_lf": "605701129778a2be80257bb59f526ed301ff829bd717c2b7e1540f8cd42557b1",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/monster-attribution-and-preview-crash-20261013.txt",
+      "bytes_lf": 4291,
+      "sha256_lf": "a0fc9f7ede0024928f425eaad41b5d76f013a64f4a9b839f2803d8ec7b19d180",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/monster-crowd-trace-20261012.md",
+      "bytes_lf": 5498,
+      "sha256_lf": "1a25fad265bd324c330bf79571e6da63562372a204d46ae90e8b2c7fb8ff8078",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/preview-niagara-first-batch-20261012.txt",
+      "bytes_lf": 6342,
+      "sha256_lf": "b5215d2a0c2b5616e55cb3e5fa54274980447a2cf9c7303707810e88413e83a7",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Performance/staff-morph-resource-observation-20261013.txt",
+      "bytes_lf": 4614,
+      "sha256_lf": "4af0333cee7dcc927f32d3be4a41606bbbbf3b1e5fd9243c2404d9afb772fa4b",
+      "partial_file": false
+    },
+    {
+      "path": "Tools/Performance/capture_dungeon_entry.py",
+      "bytes_lf": 15450,
+      "sha256_lf": "b959eae51f41c7ceec3725294fea1028bc2b525437e1fc287f05bc4af743aeca",
+      "partial_file": false
+    },
+    {
+      "path": "Tools/Performance/capture_dungeon_monster_attribution.py",
+      "bytes_lf": 596,
+      "sha256_lf": "f50bb0d25fff22e98ed6d8729d3676afe3e061fd5262a4340e41e084970b92bc",
+      "partial_file": false
+    },
+    {
+      "path": "Tools/Performance/capture_dungeon_render_resources.py",
+      "bytes_lf": 422,
+      "sha256_lf": "82c37043efe079d6b828acf5317230e0fc915c103aa948a319f62818889cb3d6",
+      "partial_file": false
+    },
+    {
+      "path": "Tools/Performance/prepare_traced_niagara.py",
+      "bytes_lf": 4190,
+      "sha256_lf": "f3ed4128ea23fdd3fc8c7fbcfaba14048db5e9815014614fe5ce6606232ec8a9",
+      "partial_file": false
+    },
+    {
+      "path": "Tools/Performance/dungeon_material_usage_20261013.json",
+      "bytes_lf": 2967,
+      "sha256_lf": "0d46b03619d69d10a06897e890a45ae1d51e5671c0fba374f4ddf3256ad28298",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Publication/DungeonPerformance20261013/archive-manifest.json",
+      "bytes_lf": 15206,
+      "sha256_lf": "a35cfae19b3c85021e97fca1ed44f9e5c088b2ac404e39de5bd926a11f19a6e1",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Publication/DungeonPerformance20261013/integration-manifest.json",
+      "bytes_lf": 12365,
+      "sha256_lf": "beaa9657686977638c1b651ed851d41f69d2d9e608b242a073d34f4cd5ece143",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Publication/DungeonPerformance20261013/README.md",
+      "bytes_lf": 5506,
+      "sha256_lf": "ad353a9b81b33789feb5d6ef368acfc4f662b21c1fed18bd510866deb0cffc09",
+      "partial_file": false
+    },
+    {
+      "path": "Docs/Publication/DungeonPerformance20261013/runtime-integration.patch",
+      "bytes_lf": 144711,
+      "sha256_lf": "33f95bafe9f6db91241506514156d61af4235f5b3ada81eea93c1bd3404f150a",
+      "partial_file": false
+    }
+  ]
+}

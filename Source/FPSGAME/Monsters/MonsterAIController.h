@@ -12,6 +12,7 @@ class FPSGAME_API AMonsterAIController : public AAIController
  GENERATED_BODY()
 public:
  AMonsterAIController();
+ virtual ETeamAttitude::Type GetTeamAttitudeTowards(const AActor& Other) const override;
  virtual void OnPossess(APawn* Pawn) override;
  virtual void OnUnPossess() override;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MonsterAI") TObjectPtr<UBehaviorTree> Behavior;

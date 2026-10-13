@@ -1,4 +1,5 @@
 #include "MonsterAIController.h"
+#include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "MonsterCombatComponent.h"
 #include "FPSCombatHealthComponent.h"
 #include "BlindSupplicantMonster.h"
@@ -37,6 +38,7 @@ bool TakeGroupAlertBudget()
 
 bool AMonsterAIController::CanSeePlayer(APawn* Player, bool RequireFacing) const
 {
+    TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_CanSeePlayer);
     const auto* C = Combat();
     if (!GetPawn() || !C || C->AggroRange() <= 0.f || !LivingPlayer(Player)) return false;
     const auto* Sight = Senses->GetSenseConfig<UAISenseConfig_Sight>();
@@ -49,6 +51,7 @@ bool AMonsterAIController::CanSeePlayer(APawn* Player, bool RequireFacing) const
         const float Cone = FMath::Cos(FMath::DegreesToRadians(Sight->PeripheralVisionAngleDegrees));
         if (FVector::DotProduct(GetPawn()->GetActorForwardVector().GetSafeNormal2D(), Delta.GetSafeNormal2D()) < Cone) return false;
     }
+    TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_SightTrace);
     if (const auto* M27 = Cast<AMantisM27Monster>(GetPawn())) return M27->HasAttackSight(Player);
     if (const auto* M08 = Cast<ALurkerM08Monster>(GetPawn())) return M08->HasHuntingSight(Player);
     if (const auto* M09 = Cast<AHangingBellM09>(GetPawn())) return M09->HasAttackSight(Player);
@@ -58,6 +61,7 @@ bool AMonsterAIController::CanSeePlayer(APawn* Player, bool RequireFacing) const
 
 void AMonsterAIController::DiscoverPlayer(APawn* Player, bool Broadcast)
 {
+    TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_DiscoverPlayer);
     const auto* C = Combat();
     if (!HasAuthority() || !bDecisionEnabled || !GetPawn() || !GetPawn()->IsActorTickEnabled()
         || !C || C->IsDead() || C->AggroRange() <= 0.f || !LivingPlayer(Player)) return;
@@ -74,6 +78,7 @@ void AMonsterAIController::DiscoverPlayer(APawn* Player, bool Broadcast)
 
 void AMonsterAIController::Perceived(AActor* Actor, FAIStimulus Stimulus)
 {
+    TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_PerceptionCallback);
     auto* Player = Cast<APawn>(Actor);
     const auto* C = Combat();
     if (!HasAuthority() || !bDecisionEnabled || !GetPawn() || !GetPawn()->IsActorTickEnabled()
@@ -104,7 +109,11 @@ void AMonsterAIController::Perceived(AActor* Actor, FAIStimulus Stimulus)
         FCollisionQueryParams Query(SCENE_QUERY_STAT(MonsterNoise), false, GetPawn());
         Query.AddIgnoredActor(Player);
         FHitResult Hit;
-        const bool Occluded = GetWorld()->LineTraceSingleByChannel(Hit, From, Stimulus.StimulusLocation, ECC_Visibility, Query);
+        bool Occluded;
+        {
+            TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_HearingTrace);
+            Occluded = GetWorld()->LineTraceSingleByChannel(Hit, From, Stimulus.StimulusLocation, ECC_Visibility, Query);
+        }
         if (Occluded && DistanceSq > FMath::Square((Hearing ? Hearing->HearingRange : 1800.f) * (Sensitive ? .65f : .35f))) return;
         // Sensitive gunshot discovery shares the visual/group-warning path.
         // A pending 1-2 second hit-reaction deadline still takes precedence.
@@ -121,6 +130,7 @@ void AMonsterAIController::Perceived(AActor* Actor, FAIStimulus Stimulus)
 
 void AMonsterAIController::RememberDamage(APawn* Player)
 {
+    TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_DamageDiscovery);
     const auto* C = Combat();
     if (!HasAuthority() || !bDecisionEnabled || !GetPawn() || !GetPawn()->IsActorTickEnabled()
         || !LivingPlayer(Player) || !C || C->IsDead() || C->AggroRange() <= 0.f) return;
@@ -145,6 +155,7 @@ void AMonsterAIController::RememberDamage(APawn* Player)
 
 void AMonsterAIController::ConsumePassiveDiscovery()
 {
+    TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_PassiveDiscovery);
     if (PassiveDiscoveryAt < 0.f) return;
     if (!LivingPlayer(PendingDamageTarget.Get())) { PendingDamageTarget.Reset(); PassiveDiscoveryAt = -1.f; return; }
     if (GetWorld()->GetTimeSeconds() < PassiveDiscoveryAt) return;
@@ -155,18 +166,23 @@ void AMonsterAIController::ConsumePassiveDiscovery()
 
 void AMonsterAIController::BroadcastGroupAlert()
 {
+    TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_GroupAlertAttempt);
     const float Now = GetWorld()->GetTimeSeconds();
     if (!bPendingGroupAlert || !LivingPlayer(KnownTarget.Get()) || Now < NextBroadcast) return;
     if (GroupAlertRadius <= 0.f) { bPendingGroupAlert = false; return; }
     if (!TakeGroupAlertBudget()) return;
+    TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_GroupAlertAdmitted);
     bPendingGroupAlert = false;
     NextBroadcast = Now + FMath::Max(1.f, GroupAlertCooldown);
     const FVector Center = GetPawn()->GetActorLocation();
     APawn* Player = KnownTarget.Get();
     TArray<FOverlapResult> Hits;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(MonsterGroupAlert), false, GetPawn());
-    GetWorld()->OverlapMultiByObjectType(Hits, Center, FQuat::Identity, FCollisionObjectQueryParams(ECC_Pawn),
-        FCollisionShape::MakeSphere(GroupAlertRadius), Query);
+    {
+        TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_GroupAlertOverlap);
+        GetWorld()->OverlapMultiByObjectType(Hits, Center, FQuat::Identity, FCollisionObjectQueryParams(ECC_Pawn),
+            FCollisionShape::MakeSphere(GroupAlertRadius), Query);
+    }
     TSet<AMonsterAIController*> Recipients;
     for (const auto& Hit : Hits)
     {
@@ -181,6 +197,7 @@ void AMonsterAIController::BroadcastGroupAlert()
         if (Ally->bConfirmedTarget && LivingPlayer(Ally->KnownTarget.Get())) continue;
         // Exactly one hop from the triggering monster, including upper/lower
         // floors in this sphere. No recursive broadcast, no wall-ray per ally.
+        TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_GroupAlertRecipient);
         Ally->DiscoverPlayer(Player, false);
         Ally->UpdateKnowledge();
     }

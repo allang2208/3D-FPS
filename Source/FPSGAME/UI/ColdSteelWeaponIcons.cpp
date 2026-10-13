@@ -1,7 +1,9 @@
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelEquipmentIconSource.h"
+#include "TransitLoadingSubsystem.h"
 #include "FPSPerformanceMetrics.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
+#include "ProfilingDebugging/MiscTrace.h"
 #include "ColdSteelMeleePreview.h"
 #include "../Weapons/MeleeRuneVisual.h"
 #include "../Weapons/ModularSwordVisual.h"
@@ -12,6 +14,7 @@
 #include "../Production/ProductionHarvestAssets.h"
 #include "../Characters/FPSPlayerBodyTypes.h"
 #include "../FPSGAMECharacter.h"
+#include "../FPSGAMEPlayerController.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/RSH12MuzzleAssets.h"
 #include "../Weapons/Super90WeaponAssets.h"
@@ -108,14 +111,42 @@ const FSlateBrush* UColdSteelWeaponIcons::Find(const FColdSteelItem& I) const
 }
 void UColdSteelWeaponIcons::Deinitialize()
 {
-    CancelReadback();
-    ResetPreparation();
-    Queue.Empty();Pending.Empty();OnReady.Clear();if(Capture){Capture->TextureTarget=nullptr;Studio->RemoveComponent(Capture);Capture->DestroyComponent();}
+    ReleaseIdleStudioResources();
+    Queue.Empty();Pending.Empty();OnReady.Clear();Studio.Reset();
+    Cache.Empty();PreparedBoundsCache.Empty();Textures.Empty();Failed.Empty();RecentFailures.Empty();Super::Deinitialize();
+}
+
+void UColdSteelWeaponIcons::ReleaseIdleStudioResources()
+{
+    TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Icon_ReleaseIdleResources);
+    CancelReadback();ResetPreparation();CaptureMaterialStatus.Reset();
+    if(Capture)
+    {
+        Capture->ShowOnlyComponents.Reset();Capture->TextureTarget=nullptr;
+        if(Studio)Studio->RemoveComponent(Capture);
+        Capture->DestroyComponent();Capture=nullptr;
+    }
+    // This target has no streamed platform data: ReleaseResource queues its RHI
+    // release without waiting for the GPU. Completed icon textures stay cached.
+    if(Target)
+    {
+        TRACE_BOOKMARK(TEXT("Icon.TargetRelease %s %dx%d"),*Target->GetPathName(),Target->SizeX,Target->SizeY);
+        Target->ReleaseResource();Target=nullptr;
+    }
     CaptureMeshes.Empty();CaptureMaterials.Empty();CaptureTextures.Empty();
-    if(MeleeMesh){ColdSteelStaffAssembly::Clear(MeleeMesh);ColdSteelModularSword::Clear(MeleeMesh);Studio->RemoveComponent(MeleeMesh);MeleeMesh->DestroyComponent();MeleeMesh=nullptr;}
-    if(MaterialMesh){Studio->RemoveComponent(MaterialMesh);MaterialMesh->DestroyComponent();MaterialMesh=nullptr;}
-    if(BowMesh){ColdSteelBowAssembly::Clear(BowMesh);Studio->RemoveComponent(BowMesh);BowMesh->DestroyComponent();BowMesh=nullptr;}
-    Capture=nullptr;Rig=nullptr;Studio.Reset();Target=nullptr;Cache.Empty();PreparedBoundsCache.Empty();Textures.Empty();Failed.Empty();RecentFailures.Empty();Super::Deinitialize();
+    if(Rig)
+    {
+        TInlineComponentArray<UActorComponent*> Parts(Rig);
+        for(auto* Part:Parts)if(Studio)Studio->RemoveComponent(Part);
+        Rig->Destroy();Rig=nullptr;
+    }
+    if(MeleeMesh){ColdSteelStaffAssembly::Clear(MeleeMesh);ColdSteelModularSword::Clear(MeleeMesh);if(Studio)Studio->RemoveComponent(MeleeMesh);MeleeMesh->DestroyComponent();MeleeMesh=nullptr;}
+    if(MaterialMesh){if(Studio)Studio->RemoveComponent(MaterialMesh);MaterialMesh->DestroyComponent();MaterialMesh=nullptr;}
+    if(BowMesh){ColdSteelBowAssembly::Clear(BowMesh);if(Studio)Studio->RemoveComponent(BowMesh);BowMesh->DestroyComponent();BowMesh=nullptr;}
+    RigDefinition.Reset();StudioIdleSince=0.0;
+    // Retain the UObject shell, release its VSM/Lumen/skin-cache renderer.
+    if(Studio)Studio->SuspendRendering();
+    UE_LOG(LogTemp,Display,TEXT("WeaponIcon: released idle capture and subjects; cached_icons=%d"),Cache.Num());
 }
 bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
 {
@@ -124,12 +155,16 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     if(PrepareStep==0){
     if(!Studio){
         FFPSPerformanceScope StudioScope(bCatalogExport?nullptr:GetGameInstance(),TEXT("Icon.CreateStudio"));
-        Studio=MakeUnique<FPreviewScene>(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false).SetTransactional(false).SetForceMipsResident(false).SetLightBrightness(6.f).SetSkyBrightness(1.f));
+        Studio=MakeUnique<FColdSteelPreviewScene>(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false).SetTransactional(false).SetForceMipsResident(false).SetLightBrightness(6.f).SetSkyBrightness(1.f));
         Studio->SetSkyCubemap(LoadObject<UTextureCube>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment.T_StudioEnvironment")));
         Studio->DirectionalLight->SetWorldRotation(FRotator(-35,-35,0));
         Studio->DirectionalLight->SetForwardShadingPriority(1);
         auto* Fill=NewObject<UDirectionalLightComponent>(GetTransientPackage(),NAME_None,RF_Transient);Fill->SetIntensity(3.f);Fill->SetCastShadows(false);Fill->SetLightColor(FLinearColor(.82f,.91f,1.f));Studio->AddComponent(Fill,FTransform(FRotator(-15,150,0)));Studio->UpdateCaptureContents();
+    }
+    if(!Capture){
+        TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Icon_CreateRenderTarget);
         Target=NewObject<UTextureRenderTarget2D>(this);Target->RenderTargetFormat=RTF_RGBA16f;Target->ClearColor=FLinearColor(0,0,0,1);Target->InitAutoFormat(768,320);Target->UpdateResourceImmediate(true);
+        TRACE_BOOKMARK(TEXT("Icon.TargetCreate %s %dx%d"),*Target->GetPathName(),Target->SizeX,Target->SizeY);
         Capture=NewObject<USceneCaptureComponent2D>(GetTransientPackage(),NAME_None,RF_Transient);Capture->TextureTarget=Target;Capture->CaptureSource=SCS_SceneColorHDR;Capture->ProjectionType=ECameraProjectionMode::Orthographic;Capture->PrimitiveRenderMode=ESceneCapturePrimitiveRenderMode::PRM_UseShowOnlyList;
         Capture->bCaptureEveryFrame=false;Capture->bCaptureOnMovement=false;Capture->ShowFlags.SetAtmosphere(false);Capture->ShowFlags.SetFog(false);Capture->ShowFlags.SetVolumetricFog(false);Capture->ShowFlags.SetMotionBlur(false);Capture->ShowFlags.SetBloom(false);
         Capture->PostProcessSettings.bOverride_AutoExposureMethod=true;Capture->PostProcessSettings.AutoExposureMethod=AEM_Manual;Studio->AddComponent(Capture,FTransform::Identity);
@@ -424,9 +459,36 @@ void UColdSteelWeaponIcons::DeferCurrentJob(double Now)
 
 void UColdSteelWeaponIcons::Tick(float Delta)
 {
-    if(Queue.IsEmpty())return;
     const double Now=FPlatformTime::Seconds();
+    if(!bCatalogExport&&Stage==0)
+    {
+        const auto* Player=Cast<AFPSGAMEPlayerController>(GetGameInstance()->GetFirstLocalPlayerController());
+        if(!Player||!Player->IsItemIconPanelOpen())
+        {
+            if(Capture)
+            {
+                if(StudioIdleSince==0.0)StudioIdleSince=Now;
+                else if(Now-StudioIdleSince>=3.0)ReleaseIdleStudioResources();
+            }
+            if(!Queue.IsEmpty())SetWaitState(TEXT("ItemPanelClosed"));
+            return;
+        }
+        StudioIdleSince=0.0;
+    }
+    if(Queue.IsEmpty())return;
     if(Stage==0){
+        // Keep new studio work out of scene preparation and ordinary gameplay.
+        // Cached/catalog icons remain available until an item panel needs live
+        // thumbnails. Finish an already active job, including its GPU readback.
+        if(!bCatalogExport)
+        {
+            if(const auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>();
+               Loading&&Loading->IsHoldingGameplayInput())
+            {SetWaitState(TEXT("ScenePreparation"));return;}
+            const auto* Player=Cast<AFPSGAMEPlayerController>(GetGameInstance()->GetFirstLocalPlayerController());
+            if(!Player||!Player->IsItemIconPanelOpen())
+            {SetWaitState(TEXT("ItemPanelClosed"));return;}
+        }
         const int32 Eligible=Queue.IndexOfByPredicate([Now](const FJob& Job){return Job.RetryAfterSeconds<=Now;});
         if(Eligible==INDEX_NONE){SetWaitState(TEXT("RetryCooldown"));return;}
         if(Eligible>0){FJob Next=MoveTemp(Queue[Eligible]);Queue.RemoveAt(Eligible);Queue.Insert(MoveTemp(Next),0);}

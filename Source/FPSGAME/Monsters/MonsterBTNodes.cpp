@@ -1,4 +1,5 @@
 #include "MonsterBTNodes.h"
+#include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "MonsterAIController.h"
 #include "MonsterCombatComponent.h"
 #include "MantisM27Monster.h"
@@ -15,6 +16,7 @@
 UBTTask_MonsterAction::UBTTask_MonsterAction(){bCreateNodeInstance=true;bNotifyTick=true;}
 EBTNodeResult::Type UBTTask_MonsterAction::ExecuteTask(UBehaviorTreeComponent& Owner,uint8* Memory)
 {
+ TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_TaskExecute);
  Elapsed=0;auto* AI=Cast<AMonsterAIController>(Owner.GetAIOwner());if(!AI||!AI->Combat())return EBTNodeResult::Failed;
  AI->ActiveAction=NodeName;
  if(Action!=EMonsterAction::Idle)AI->StopWander();
@@ -34,6 +36,7 @@ EBTNodeResult::Type UBTTask_MonsterAction::ExecuteTask(UBehaviorTreeComponent& O
 }
 void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory,float Dt)
 {
+ TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_TaskTick);
  auto* AI=Cast<AMonsterAIController>(Owner.GetAIOwner());if(!AI||!AI->Combat()){FinishLatentTask(Owner,EBTNodeResult::Failed);return;}
  Elapsed+=Dt;auto* C=AI->Combat();auto* B=Owner.GetBlackboardComponent();
  if(Action==EMonsterAction::Idle)
@@ -156,5 +159,24 @@ EBTNodeResult::Type UBTTask_MonsterAction::AbortTask(UBehaviorTreeComponent& Own
  return EBTNodeResult::Aborted;
 }
 UBTService_MonsterKnowledge::UBTService_MonsterKnowledge(){NodeName=TEXT("Update perception and combat facts");Interval=.1f;RandomDeviation=0;bCallTickOnSearchStart=true;}
-void UBTService_MonsterKnowledge::TickNode(UBehaviorTreeComponent& Owner,uint8* Memory,float Dt){Super::TickNode(Owner,Memory,Dt);if(auto* AI=Cast<AMonsterAIController>(Owner.GetAIOwner()))AI->UpdateKnowledge();}
+void UBTService_MonsterKnowledge::ScheduleNextTick(UBehaviorTreeComponent& Owner,uint8* Memory)
+{
+ // Keep search-start/urgent updates immediate and the existing frequency.
+ // Fixed per-owner phase spreads regular services without storing mutable
+ // state on a BT template shared by all monsters or delaying combat ticks.
+ const auto* AI=Owner.GetAIOwner();
+ if(!AI||!Owner.GetWorld()||RandomDeviation>0.f){Super::ScheduleNextTick(Owner,Memory);return;}
+ const double Period=FMath::Max(.001f,Interval);
+ const uint32 PhaseKey=AI->GetUniqueID()*2654435761u;
+ const double Phase=double(PhaseKey&65535u)/65536.*Period;
+ const double Now=Owner.GetWorld()->GetTimeSeconds();
+ const double Remainder=FMath::Fmod(Now+Phase,Period);
+ SetNextTickTime(Memory,float(FMath::Max(.00001,Period-Remainder)));
+}
+void UBTService_MonsterKnowledge::TickNode(UBehaviorTreeComponent& Owner,uint8* Memory,float Dt)
+{
+ TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_KnowledgeService);
+ Super::TickNode(Owner,Memory,Dt);
+ if(auto* AI=Cast<AMonsterAIController>(Owner.GetAIOwner()))AI->UpdateKnowledge();
+}
 void UBTDecorator_MonsterFlag::Configure(FName Key){BlackboardKey.SelectedKeyName=Key;OperationType=uint8(EBasicKeyOperation::Set);FlowAbortMode=EBTFlowAbortMode::Both;NotifyObserver=EBTBlackboardRestart::ResultChange;NodeName=Key.ToString();}

@@ -8,6 +8,7 @@
 #include "Engine/TextureRenderTarget2D.h"
 #include "Math/Float16Color.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
+#include "ProfilingDebugging/MiscTrace.h"
 #include "RHIGPUReadback.h"
 #include "RenderingThread.h"
 #include "TextureResource.h"
@@ -30,6 +31,7 @@ void UColdSteelWeaponIcons::BeginReadback(const FString& Key)
     FFPSPerformanceScope Scope(bCatalogExport?nullptr:GetGameInstance(),TEXT("Icon.ReadbackSubmit"),Key);
     auto Packet=MakeShared<FColdSteelIconReadback,ESPMode::ThreadSafe>();
     Packet->Recipe=Key;Packet->Width=Target->SizeX;Packet->Height=Target->SizeY;
+    TRACE_BOOKMARK(TEXT("Icon.TargetReadback %s %dx%d recipe=%s"),*Target->GetPathName(),Packet->Width,Packet->Height,*Key);
     Packet->SubmittedSeconds=FPlatformTime::Seconds();
     PendingReadback=Packet;
     auto* Resource=Target->GameThread_GetRenderTargetResource();

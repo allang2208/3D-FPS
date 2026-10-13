@@ -6,6 +6,30 @@
 #include "../Weapons/GunsmithSystem.h"
 #include "Engine/GameInstance.h"
 
+void UColdSteelPickupStudio::Initialize(FSubsystemCollectionBase& Collection)
+{
+    Super::Initialize(Collection);
+    IdleTicker=FTSTicker::GetCoreTicker().AddTicker(FTickerDelegate::CreateWeakLambda(this,[this](float)
+    { ReleaseIdleRigs(); return true; }),1.f);
+}
+
+void UColdSteelPickupStudio::ReleaseIdleRigs(bool bEnteringDungeon)
+{
+    const double Now=FPlatformTime::Seconds();
+    for(int32 Index=RigUseOrder.Num()-1;Index>=0;--Index)
+    {
+        const FString Key=RigUseOrder[Index];
+        if(!bEnteringDungeon && Now-LastUseSeconds.FindRef(Key)<5.)continue;
+        TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Pickup_ReleaseIdleRig);
+        if(auto* Rig=Rigs.Find(Key);Rig&&IsValid(*Rig))(*Rig)->Destroy();
+        Rigs.Remove(Key);LastUseSeconds.Remove(Key);RigUseOrder.RemoveAt(Index);
+        // At most one retirement per idle tick. Keep the empty world shell:
+        // FPreviewScene destruction forces a full GC in this engine.
+        if(!bEnteringDungeon)break;
+    }
+    if(Rigs.IsEmpty()&&Studio)Studio->SuspendRendering();
+}
+
 FString UColdSteelPickupStudio::Key(const FColdSteelItem& Item) const
 {
     const auto Parts=GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(Item);
@@ -14,10 +38,25 @@ FString UColdSteelPickupStudio::Key(const FColdSteelItem& Item) const
 }
 AFPSGAMECharacter* UColdSteelPickupStudio::Acquire(const FString& Definition,bool& Created)
 {
-    Created=false;if(auto* Existing=Rigs.Find(Definition))return *Existing;
+    Created=false;
+    LastUseSeconds.Add(Definition,FPlatformTime::Seconds());
+    if(auto* Existing=Rigs.Find(Definition);Existing&&IsValid(*Existing))
+    {
+        RigUseOrder.Remove(Definition);RigUseOrder.Add(Definition);
+        return *Existing;
+    }
+    Rigs.Remove(Definition);RigUseOrder.Remove(Definition);
+    while(RigUseOrder.Num()>=2)
+    {
+        const FString Retired=RigUseOrder[0];RigUseOrder.RemoveAt(0);
+        if(auto* Old=Rigs.Find(Retired);Old&&IsValid(*Old))(*Old)->Destroy();
+        Rigs.Remove(Retired);
+        LastUseSeconds.Remove(Retired);
+    }
     TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Pickup_CreateRig);
     FFPSPerformanceScope RigScope(GetGameInstance(),TEXT("Pickup.CreateRig"));
-    if(!Studio)Studio=MakeUnique<FPreviewScene>(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false).SetTransactional(false).SetCreateDefaultLighting(false).SetForceMipsResident(false).AllowAudioPlayback(false));
+    if(!Studio)Studio=MakeUnique<FColdSteelPreviewScene>(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false).SetTransactional(false).SetCreateDefaultLighting(false).SetForceMipsResident(false).AllowAudioPlayback(false));
+    Studio->ResumeRendering();
     FActorSpawnParameters Spawn;Spawn.ObjectFlags=RF_Transient;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 #if WITH_EDITOR
     // SpawnActor can inherit another world's BeginPlay call depth. Mark the rig
@@ -25,7 +64,7 @@ AFPSGAMECharacter* UColdSteelPickupStudio::Acquire(const FString& Definition,boo
     Spawn.bTemporaryEditorActor=true;
 #endif
     auto* Rig=Studio->GetWorld()->SpawnActor<AFPSGAMECharacter>(FVector::ZeroVector,FRotator::ZeroRotator,Spawn);
-    if(Rig){Rig->SetActorTickEnabled(false);Rig->SetActorEnableCollision(false);Rigs.Add(Definition,Rig);Created=true;}return Rig;
+    if(Rig){Rig->SetActorTickEnabled(false);Rig->SetActorEnableCollision(false);Rigs.Add(Definition,Rig);RigUseOrder.Add(Definition);Created=true;}return Rig;
 }
 void UColdSteelPickupStudio::Warm(const FColdSteelItem& Item, const FBox* PreparedBounds)
 {
@@ -41,7 +80,8 @@ void UColdSteelPickupStudio::Warm(const FColdSteelItem& Item, const FBox* Prepar
     }
     // The icon studio has already loaded this recipe. Prepare collision bounds before mouse release.
     // Acquire/build must initialize a new rig together, so only create the world here.
-    if(!Studio)Studio=MakeUnique<FPreviewScene>(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false).SetTransactional(false).SetCreateDefaultLighting(false).SetForceMipsResident(false).AllowAudioPlayback(false));
+    if(!Studio)Studio=MakeUnique<FColdSteelPreviewScene>(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false).SetTransactional(false).SetCreateDefaultLighting(false).SetForceMipsResident(false).AllowAudioPlayback(false));
+    Studio->ResumeRendering();
     FActorSpawnParameters Spawn;Spawn.ObjectFlags=RF_Transient;
 #if WITH_EDITOR
     Spawn.bTemporaryEditorActor=true;
@@ -51,6 +91,7 @@ void UColdSteelPickupStudio::Warm(const FColdSteelItem& Item, const FBox* Prepar
 }
 void UColdSteelPickupStudio::Deinitialize()
 {
+    FTSTicker::GetCoreTicker().RemoveTicker(IdleTicker);
     for(auto& Pair:Rigs)if(IsValid(Pair.Value))Pair.Value->Destroy();
-    Rigs.Empty();Bounds.Empty();Studio.Reset();Super::Deinitialize();
+    Rigs.Empty();RigUseOrder.Empty();LastUseSeconds.Empty();Bounds.Empty();Studio.Reset();Super::Deinitialize();
 }

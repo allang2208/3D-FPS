@@ -546,6 +546,11 @@ void AFPSGAMEPlayerController::ToggleInventory()
     }
 }
 
+bool AFPSGAMEPlayerController::IsItemIconPanelOpen() const
+{
+    return (ColdSteelHUD && ColdSteelHUD->IsInventoryOpen()) || EnhancementPanel != nullptr;
+}
+
 bool AFPSGAMEPlayerController::IsCursorOnlyInteraction() const
 {
     return bShowMouseCursor && !IsMoveInputIgnored() && !IsLookInputIgnored() &&

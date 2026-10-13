@@ -1,0 +1,2622 @@
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp b/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp
+--- a/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp
+@@ -2,0 +3 @@
++#include "FacilityMonsterGpuWarmup.h"
+@@ -3,0 +5,2 @@
++#include "Engine/GameInstance.h"
++#include "../UI/FPSPerformanceMetrics.h"
+@@ -14,0 +18,15 @@
++    PreparationPending.RemoveAll([Hall](const auto& Entry) { return !Entry.IsValid() || Entry.Get() == Hall; });
++    PreparedHalls.RemoveAll([Hall](const auto& Entry) { return !Entry.IsValid() || Entry.Get() == Hall; });
++}
++
++void UFacilityHallSpawnSubsystem::RequestPreparation(AFacilityHallEncounter* Hall)
++{
++    if (IsValid(Hall) && Hall->GetWorld()==GetWorld() && GetWorld()->GetNetMode()==NM_Standalone)
++        PreparationPending.AddUnique(Hall);
++}
++
++int32 UFacilityHallSpawnSubsystem::PreparedCount() const
++{
++    int32 Count=0;
++    for (const auto& Hall:PreparedHalls) if (Hall.IsValid() && Hall->PreparedMonster.IsValid()) ++Count;
++    return Count;
+@@ -19 +37 @@
+-    return Super::IsTickable() && !Pending.IsEmpty();
++    return Super::IsTickable() && (!Pending.IsEmpty() || !PreparationPending.IsEmpty() || !PreparedHalls.IsEmpty());
+@@ -32 +50,10 @@
+-    if (Now < NextAttemptAt) return;
++    PreparedHalls.RemoveAll([](const auto& Entry){return !Entry.IsValid() || !Entry->PreparedMonster.IsValid();});
++    const auto* Metrics=World->GetSubsystem<UFPSPerformanceMetricsSubsystem>();
++    bool bAllowWarmup=!bRenderRegistrationPending && (Pending.IsEmpty() || Now<NextAttemptAt)
++        && Metrics && Metrics->HasRecentRenderHeadroom(1024ull*1024ull*1024ull);
++    for(const auto& Hall:PreparedHalls)
++        if(Hall.IsValid()&&Hall->PreparedGpuWarmup)
++        {
++            if(Hall->PreparedGpuWarmup->Tick(bAllowWarmup))
++                bAllowWarmup=false; // At most one optional capture admission this frame.
++        }
+@@ -35 +62,2 @@
+-    if (bRenderRegistrationPending && !SpawnRenderFence.IsFenceComplete()) return;
++    if (bRenderRegistrationPending && !SpawnRenderFence.IsFenceComplete())
++    { PreparationDecision=TEXT("render_registration_wait"); return; }
+@@ -39 +67,19 @@
+-    if (Pending.IsEmpty()) return;
++    if (Pending.IsEmpty() || Now < NextAttemptAt)
++    {
++        if (Now < NextPreparationAt) return;
++        NextPreparationAt=Now+.1;
++        PreparationPending.RemoveAll([](const auto& Entry){return !Entry.IsValid();});
++        PreparedHalls.RemoveAll([](const auto& Entry){return !Entry.IsValid() || !Entry->PreparedMonster.IsValid();});
++        // Never reserve an entire wave. Use the existing passive RHI sample;
++        // no query flush, GPU wait or new high-frequency resource scan.
++        if (PreparationPending.IsEmpty()) {PreparationDecision=TEXT("no_request");return;}
++        if (PreparedCount()>=2) {PreparationDecision=TEXT("prepared_capacity");return;}
++        if (!Metrics || !Metrics->HasRecentRenderHeadroom(1024ull*1024ull*1024ull))
++        {PreparationDecision=TEXT("budget_unknown_or_below_reserve");return;}
++        const auto Hall=PreparationPending[0]; PreparationPending.RemoveAt(0);
++        LastAttemptFrame=GFrameCounter;
++        if (Hall.IsValid() && Hall->PrepareNextSlot())
++        {PreparedHalls.AddUnique(Hall);PreparationDecision=TEXT("prepared");}
++        else PreparationDecision=TEXT("no_eligible_slot");
++        return;
++    }
+@@ -43,0 +90 @@
++    PreparationDecision=TEXT("due_spawn_priority");
+@@ -55,0 +103,2 @@
++    for (const auto& Hall:PreparedHalls) if (Hall.IsValid()) Hall->DiscardPreparedMonster();
++    PreparedHalls.Reset(); PreparationPending.Reset();
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h b/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h
+--- a/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h
++++ b/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h
+@@ -10 +10 @@
+-/** Shares staff spawn admission across halls without retaining unused monster instances. */
++/** One admission queue; bounded optional preparation never postpones a due wave. */
+@@ -16,0 +17 @@
++    void RequestPreparation(AFacilityHallEncounter* Hall);
+@@ -21,0 +23,3 @@
++    int32 PreparedCount() const;
++    int32 PendingCount() const { return Pending.Num(); }
++    FName PreparationLastDecision() const { return PreparationDecision; }
+@@ -24,0 +29,3 @@
++    TArray<TWeakObjectPtr<AFacilityHallEncounter>> PreparationPending;
++    TArray<TWeakObjectPtr<AFacilityHallEncounter>> PreparedHalls;
++    double NextPreparationAt = 0.;
+@@ -28,0 +36 @@
++    FName PreparationDecision=TEXT("not_requested");
+diff --git a/Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.cpp b/Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.cpp
+@@ -0,0 +1,158 @@
++#include "FacilityMonsterGpuWarmup.h"
++#include "../Monsters/NurseZombie.h"
++#include "../UI/FPSPerformanceMetrics.h"
++#include "Animation/AnimSequence.h"
++#include "Engine/SkeletalMesh.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Components/SceneCaptureComponent2D.h"
++#include "Engine/TextureRenderTarget2D.h"
++#include "Engine/World.h"
++#include "RHI.h"
++#include "RHICommandList.h"
++#include "RenderingThread.h"
++
++struct FFacilityWarmupCompletion
++{
++    FGPUFenceRHIRef Fence;
++    TAtomic<bool> Ready{false};
++    TAtomic<bool> PollQueued{false};
++};
++
++FFacilityMonsterGpuWarmup::FFacilityMonsterGpuWarmup(ANurseZombie* Monster)
++{
++    if (!Monster || Monster->HasActorBegunPlay() || !Monster->VisualMesh || !Monster->IdleClip) return;
++    auto* Mesh = Monster->GetMesh();
++    Body = Mesh;
++    StartedAt = FPlatformTime::Seconds();
++    OriginalRelativeTransform = Mesh->GetRelativeTransform();
++    OriginalForcedLOD = Mesh->GetForcedLOD();
++    bOriginalCastShadow = Mesh->CastShadow;
++    bOriginalAffectLighting = Mesh->bAffectDynamicIndirectLighting;
++    bOriginalRayTracing = Mesh->bVisibleInRayTracing;
++    bOriginalCaptureOnly = Mesh->bVisibleInSceneCaptureOnly;
++    bOriginalHidden = Mesh->bHiddenInGame;
++    bOriginalVisible = Mesh->IsVisible();
++    bOriginalTick = Mesh->PrimaryComponentTick.bStartWithTickEnabled;
++    // Register only the real visual body. Capsule, movement, combat and AI remain
++    // unregistered until the existing FinishSpawning path runs at its original time.
++    Monster->SetActorHiddenInGame(false);
++    Mesh->SetSkeletalMeshAsset(Monster->VisualMesh);
++    Mesh->SetVisibleInSceneCaptureOnly(true);
++    Mesh->SetHiddenInGame(false);
++    Mesh->SetVisibility(true);
++    Mesh->SetCastShadow(false);
++    Mesh->SetAffectDynamicIndirectLighting(false);
++    Mesh->SetVisibleInRayTracing(false);
++    // Exclude this temporary view from other scene captures as well by staging far
++    // below the level. It never contributes collision, shadows, GI or reflections.
++    Mesh->SetRelativeLocation(OriginalRelativeTransform.GetLocation() + FVector(0, 0, -1000000.));
++    Mesh->SetForcedLOD(1);
++    Mesh->SetComponentTickEnabled(false);
++    Mesh->RegisterComponentWithWorld(Monster->GetWorld());
++    Mesh->PlayAnimation(Monster->IdleClip, false);
++    Mesh->SetPosition(0.f, false);
++    Mesh->TickAnimation(0.f, false);
++    Mesh->RefreshBoneTransforms();
++    Mesh->UpdateComponentToWorld();
++    Mesh->MarkRenderDynamicDataDirty();
++    Completion = MakeShared<FFacilityWarmupCompletion, ESPMode::ThreadSafe>();
++    UFPSPerformanceMetricsSubsystem::RecordMarker(Monster, TEXT("Hall.GpuWarmupBegin"), Monster->GetPathName(), true);
++}
++
++FFacilityMonsterGpuWarmup::~FFacilityMonsterGpuWarmup()
++{
++    RestoreForActivation();
++}
++
++bool FFacilityMonsterGpuWarmup::Tick(bool bAllowSubmission)
++{
++    auto* Mesh = Body.Get();
++    if (!Mesh || bRestored || !Completion) return false;
++    if (IsReady()) { ReleaseCapture(); return false; }
++    if (bSubmitted)
++    {
++        if (Completion->PollQueued.Exchange(true)) return false;
++        const auto State = Completion;
++        ENQUEUE_RENDER_COMMAND(FacilityWarmupPoll)([State](FRHICommandListImmediate&)
++        {
++            if (State->Fence.IsValid() && State->Fence->Poll()) State->Ready.Store(true);
++            State->PollQueued.Store(false);
++        });
++        return false;
++    }
++    // Let normal end-of-frame updates register the render state. Do not block
++    // the gameplay thread waiting for compilation, render commands or the GPU.
++    if (!bAllowSubmission || Mesh->IsPSOPrecaching() || !Mesh->MeshObject || Mesh->IsRenderStateDirty()) return false;
++    if (FPlatformTime::Seconds() - StartedAt > 5.) return false;
++    Target.Reset(NewObject<UTextureRenderTarget2D>(GetTransientPackage(), NAME_None, RF_Transient));
++    Target->RenderTargetFormat = RTF_RGBA8;
++    Target->InitAutoFormat(64, 64);
++    Capture.Reset(NewObject<USceneCaptureComponent2D>(GetTransientPackage(), NAME_None, RF_Transient));
++    Capture->TextureTarget = Target.Get();
++    Capture->bCaptureEveryFrame = false;
++    Capture->bCaptureOnMovement = false;
++    Capture->bUseRayTracingIfEnabled = false;
++    Capture->CaptureSource = SCS_SceneColorHDR;
++    Capture->PrimitiveRenderMode = ESceneCapturePrimitiveRenderMode::PRM_UseShowOnlyList;
++    Capture->ShowOnlyComponent(Mesh);
++    Capture->ShowFlags.SetLighting(false);
++    Capture->ShowFlags.SetDynamicShadows(false);
++    Capture->ShowFlags.SetPostProcessing(false);
++    Capture->ShowFlags.SetAtmosphere(false);
++    Capture->ShowFlags.SetFog(false);
++    Capture->ShowFlags.SetVolumetricFog(false);
++    Capture->ShowFlags.SetLumenGlobalIllumination(false);
++    Capture->ShowFlags.SetLumenReflections(false);
++    const FVector Center = Mesh->Bounds.Origin;
++    Capture->SetWorldLocation(Center - FVector(FMath::Max(300., double(Mesh->Bounds.SphereRadius) * 3.), 0, 0));
++    Capture->SetWorldRotation(FRotator::ZeroRotator);
++    Capture->RegisterComponentWithWorld(Mesh->GetWorld());
++    Capture->CaptureScene();
++    const auto State = Completion;
++    ENQUEUE_RENDER_COMMAND(FacilityWarmupFence)([State](FRHICommandListImmediate& RHICmdList)
++    {
++        State->Fence = RHICreateGPUFence(TEXT("FacilityStaffBodyWarmup"));
++        RHICmdList.WriteGPUFence(State->Fence);
++    });
++    bSubmitted = true;
++    return true;
++}
++
++bool FFacilityMonsterGpuWarmup::IsReady() const
++{
++    return Completion.IsValid() && Completion->Ready.Load();
++}
++
++void FFacilityMonsterGpuWarmup::ReleaseCapture()
++{
++    if (Capture.IsValid())
++    {
++        Capture->TextureTarget = nullptr;
++        Capture->DestroyComponent();
++        Capture.Reset();
++    }
++    if (Target.IsValid()) { Target->ReleaseResource(); Target.Reset(); }
++}
++
++void FFacilityMonsterGpuWarmup::RestoreForActivation()
++{
++    if (bRestored) return;
++    bRestored = true;
++    ReleaseCapture();
++    if (auto* Mesh = Body.Get())
++    {
++        UFPSPerformanceMetricsSubsystem::RecordMarker(Mesh, TEXT("Hall.GpuWarmupEnd"),
++            FString::Printf(TEXT("body=%s submitted=%d gpu_complete=%d scope=raster_skin_morph"), *Mesh->GetPathName(), bSubmitted, IsReady()), true);
++        Mesh->SetRelativeTransform(OriginalRelativeTransform);
++        Mesh->SetForcedLOD(OriginalForcedLOD);
++        Mesh->SetVisibleInSceneCaptureOnly(bOriginalCaptureOnly);
++        Mesh->SetCastShadow(bOriginalCastShadow);
++        Mesh->SetAffectDynamicIndirectLighting(bOriginalAffectLighting);
++        Mesh->SetVisibleInRayTracing(bOriginalRayTracing);
++        Mesh->SetVisibility(bOriginalVisible);
++        Mesh->SetHiddenInGame(bOriginalHidden);
++        Mesh->SetComponentTickEnabled(bOriginalTick);
++        // Keep this registered component. UE 5.8 render-state recreation transfers
++        // its morph buffers and skin-cache entry; unregistering would discard them.
++    }
++}
+diff --git a/Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.h b/Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.h
+@@ -0,0 +1,36 @@
++#pragma once
++
++#include "CoreMinimal.h"
++#include "UObject/StrongObjectPtr.h"
++
++class ANurseZombie;
++class USkeletalMeshComponent;
++class USceneCaptureComponent2D;
++class UTextureRenderTarget2D;
++struct FFacilityWarmupCompletion;
++
++/** Warm the SAME deferred staff body used at activation. No AI, damage or battle clock. */
++class FFacilityMonsterGpuWarmup
++{
++public:
++    explicit FFacilityMonsterGpuWarmup(ANurseZombie* Monster);
++    ~FFacilityMonsterGpuWarmup();
++    /** Returns true only when this call submits a capture. */
++    bool Tick(bool bAllowSubmission);
++    bool IsReady() const;
++    void RestoreForActivation();
++
++private:
++    void ReleaseCapture();
++    TWeakObjectPtr<USkeletalMeshComponent> Body;
++    TStrongObjectPtr<USceneCaptureComponent2D> Capture;
++    TStrongObjectPtr<UTextureRenderTarget2D> Target;
++    TSharedPtr<FFacilityWarmupCompletion, ESPMode::ThreadSafe> Completion;
++    FTransform OriginalRelativeTransform;
++    double StartedAt = 0.;
++    int32 OriginalForcedLOD = 0;
++    bool bOriginalCastShadow = false, bOriginalAffectLighting = false, bOriginalRayTracing = false;
++    bool bOriginalCaptureOnly = false, bOriginalHidden = false, bOriginalVisible = true;
++    bool bOriginalTick = false;
++    bool bSubmitted = false, bRestored = false;
++};
+diff --git a/Source/FPSGAME/Dungeons/DungeonMonsterRenderPreparation.h b/Source/FPSGAME/Dungeons/DungeonMonsterRenderPreparation.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonMonsterRenderPreparation.h
+@@ -0,0 +1,162 @@
++#pragma once
++
++#include "CoreMinimal.h"
++#include "Components/PrimitiveComponent.h"
++#include "Components/SkinnedMeshComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/SkinnedAsset.h"
++#include "Engine/World.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "UObject/UnrealType.h"
++#include "Materials/MaterialInterface.h"
++#include "GameFramework/Actor.h"
++#include "Rendering/SkeletalMeshRenderData.h"
++#include "UObject/StrongObjectPtr.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/BellowSacLobber.h"
++#include "../Monsters/BellowSacProjectile.h"
++#include "../Monsters/QuadrupedAnimationTemplate.h"
++
++/** Precache only loaded encounter templates; never spawn/register hidden monsters. */
++struct FDungeonMonsterRenderPreparation
++{
++    TArray<TWeakObjectPtr<UClass>> Classes;
++    TArray<TStrongObjectPtr<UPrimitiveComponent>> Components;
++    int32 SubmitCursor = 0;
++    double StartedAt = 0.;
++    TArray<TSharedPtr<FStreamableHandle>> DependencyLoads;
++    int32 DependencyPathsRequested = 0;
++
++    ~FDungeonMonsterRenderPreparation()
++    {
++        for (const auto& Handle : DependencyLoads)
++            if (Handle.IsValid() && !Handle->HasLoadCompleted()) Handle->CancelHandle();
++    }
++
++    static USkeletalMesh* BodyMesh(const ACharacter* Defaults)
++    {
++        USkeletalMesh* Mesh = Defaults->GetMesh()->GetSkeletalMeshAsset();
++        // All ground M-series except Wolf derivatives expose the actual body
++        // through VisualMesh; their native OnConstruction binds it later.
++        if (const auto* Property = FindFProperty<FObjectPropertyBase>(Defaults->GetClass(), TEXT("VisualMesh")))
++            if (auto* Visual = Cast<USkeletalMesh>(Property->GetObjectPropertyValue_InContainer(Defaults))) Mesh = Visual;
++        if (const auto* Wolf = Cast<AWolfMonster>(Defaults); Wolf && Wolf->AnimationSet)
++            Mesh = Wolf->AnimationSet->ReferenceMesh;
++        return Mesh;
++    }
++
++    void RetainDependencies(TArray<TObjectPtr<UObject>>& Assets) const
++    {
++        // Skills can keep soft references after BeginPlay. Keep this run's
++        // selected dependencies alive, not every species in the catalogue.
++        for (const auto& Handle : DependencyLoads)
++            if (Handle.IsValid())
++            {
++                TArray<UObject*> Loaded;
++                Handle->GetLoadedAssets(Loaded);
++                for (UObject* Asset : Loaded) if (Asset) Assets.AddUnique(Asset);
++            }
++    }
++
++    void AddClass(UClass* Class)
++    {
++        if (!Class || !Class->IsChildOf(AActor::StaticClass())) return;
++        if (Classes.Contains(Class)) return;
++        Classes.Add(Class);
++        TArray<FSoftObjectPath> Paths;
++        auto Collect = [&Paths](const UObject* Object)
++        {
++            for (TFieldIterator<FSoftObjectProperty> It(Object->GetClass()); It; ++It)
++            {
++                for (int32 Index = 0; Index < It->ArrayDim; ++Index)
++                {
++                    const auto* Value = It->GetPropertyValuePtr_InContainer(Object, Index);
++                    if (Value && !Value->IsNull()) Paths.AddUnique(Value->ToSoftObjectPath());
++                }
++            }
++        };
++        const auto* Defaults = Class->GetDefaultObject<AActor>();
++        Collect(Defaults);
++        TInlineComponentArray<UActorComponent*> Parts(Defaults);
++        for (const auto* Part : Parts) Collect(Part);
++        if (!Paths.IsEmpty())
++        {
++            DependencyPathsRequested += Paths.Num();
++            DependencyLoads.Add(UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths));
++        }
++        if (StartedAt == 0.) StartedAt = FPlatformTime::Seconds();
++    }
++
++    bool Pump(double Deadline, FString& Error)
++    {
++        while (SubmitCursor < Classes.Num() && FPlatformTime::Seconds() < Deadline)
++        {
++            const UClass* Class = Classes[SubmitCursor].Get();
++            const auto* Defaults = Class ? Cast<ACharacter>(Class->GetDefaultObject()) : nullptr;
++            if (!Defaults) { ++SubmitCursor; continue; }
++            USkeletalMesh* Mesh = BodyMesh(Defaults);
++            // These species bind their authored mesh in OnConstruction. Reading
++            // only the CDO's component would silently precache an empty/wrong mesh.
++            const auto* Bellow = Cast<ABellowSacLobber>(Defaults);
++            if (!Mesh) { Error = TEXT("怪物缺少渲染网格：") + Class->GetPathName(); return false; }
++            const auto* Data = Mesh->IsCompiling() ? nullptr : Mesh->GetResourceForRendering();
++            if (!Data || !Data->IsLODDataReady() || (Bellow && Bellow->SacMesh && Bellow->SacMesh->IsCompiling())) break;
++            auto* Component = NewObject<USkeletalMeshComponent>(GetTransientPackage(), NAME_None, RF_Transient, Defaults->GetMesh());
++            Components.Emplace(Component);
++            Component->SetSkeletalMeshAsset(Mesh);
++            Component->PrecachePSOs();
++            // Native auxiliary meshes with an assigned template are part of
++            // the real recipe too (weapons, tissue, props and cloth proxies).
++            TInlineComponentArray<UMeshComponent*> MeshTemplates(Defaults);
++            for (auto* Template : MeshTemplates)
++            {
++                if (Template == Defaults->GetMesh()) continue;
++                if (auto* Static = Cast<UStaticMeshComponent>(Template); Static && Static->GetStaticMesh())
++                {
++                    auto* Part = NewObject<UStaticMeshComponent>(GetTransientPackage(), Static->GetClass(), NAME_None, RF_Transient, Static);
++                    Components.Emplace(Part); Part->PrecachePSOs();
++                }
++                else if (auto* Skinned = Cast<USkeletalMeshComponent>(Template); Skinned && Skinned->GetSkeletalMeshAsset())
++                {
++                    auto* Part = NewObject<USkeletalMeshComponent>(GetTransientPackage(), NAME_None, RF_Transient, Skinned);
++                    Components.Emplace(Part); Part->PrecachePSOs();
++                }
++            }
++            if (const auto* Property = FindFProperty<FObjectPropertyBase>(Defaults->GetClass(), TEXT("CloakMaterial")))
++                if (auto* Material = Cast<UMaterialInterface>(Property->GetObjectPropertyValue_InContainer(Defaults)))
++                {
++                    auto* Cloaked = NewObject<USkeletalMeshComponent>(GetTransientPackage(), NAME_None, RF_Transient, Defaults->GetMesh());
++                    Components.Emplace(Cloaked); Cloaked->SetSkeletalMeshAsset(Mesh);
++                    for (int32 Slot = 0; Slot < Cloaked->GetNumMaterials(); ++Slot) Cloaked->SetMaterial(Slot, Material);
++                    Cloaked->PrecachePSOs();
++                }
++            if (Bellow && Bellow->SacMesh)
++            {
++                // Match both the capsule and instanced fragments, without spawning
++                // an attack, registering components or allocating a preview world.
++                const auto* Projectile = GetDefault<ABellowSacProjectile>();
++                TInlineComponentArray<UStaticMeshComponent*> Templates(Projectile);
++                for (auto* Template : Templates)
++                {
++                    auto* Part = NewObject<UStaticMeshComponent>(GetTransientPackage(), Template->GetClass(), NAME_None, RF_Transient, Template);
++                    Components.Emplace(Part);
++                    Part->SetStaticMesh(Bellow->SacMesh);
++                    Part->SetMaterial(0, Bellow->SacMaterial);
++                    Part->PrecachePSOs();
++                }
++            }
++            ++SubmitCursor;
++        }
++        bool bReady = SubmitCursor == Classes.Num();
++        for (const auto& Handle : DependencyLoads)
++            if (Handle.IsValid()) bReady &= Handle->HasLoadCompleted() || Handle->WasCanceled();
++        for (const auto& Component : Components) bReady &= !Component->IsPSOPrecaching();
++        if (!bReady && FPlatformTime::Seconds() - StartedAt > 120.)
++            Error = TEXT("怪物材质与渲染管线准备超时");
++        return bReady;
++    }
++};
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonWallStains.inl b/Source/FPSGAME/Dungeons/AuthoredDungeonWallStains.inl
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonWallStains.inl
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonWallStains.inl
+@@ -2 +2 @@
+-// Applied only after successful runtime assembly; never changes layout/collision.
++// Preparation is resumable and finishes before player release.
+@@ -9 +9 @@
+-static void Apply(UWorld* World,int32 Seed)
++struct FPreparation
+@@ -11,5 +11 @@
+-    if(!World||!World->IsGameWorld())return;
+-    struct FCandidate { UDecalComponent* Component; uint32 Key; uint32 Rank; };
+-    TArray<FCandidate> Candidates;
+-    const FName CandidateTag(TEXT("DungeonWallStain.Candidate"));
+-    for(TActorIterator<ADecalActor> It(World);It;++It)
++    struct FCandidate
+@@ -17,10 +13,21 @@
+-        UDecalComponent* C=It->GetDecal();
+-        UMaterialInterface* Material=C?C->GetDecalMaterial():nullptr;
+-        if(!Material||FMath::Abs(C->GetForwardVector().Z)>.3)continue;
+-        const FString Path=Material->GetBaseMaterial()->GetPathName();
+-        if(Path!=TEXT("/Game/Dungeons/AtmosphereV2/Materials/M_LocalDampStreak.M_LocalDampStreak")&&
+-           Path!=TEXT("/Game/Dungeons/AtmosphereV2/TilePolish/Materials/M_TileLeak.M_TileLeak")&&
+-           Path!=TEXT("/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalLeakVertical.M_NaturalLeakVertical"))continue;
+-        // Do not resurrect decals explicitly disabled by the room author. Our own
+-        // thinning is reversible on a later seed in the same world.
+-        if(!C->ComponentHasTag(CandidateTag))
++        TWeakObjectPtr<UDecalComponent> Component;
++        uint32 Key,Rank;
++        int32 Order;
++    };
++    struct FRankAfter
++    {
++        bool operator()(const FCandidate& A,const FCandidate& B) const
++        {return A.Rank==B.Rank?A.Order>B.Order:A.Rank>B.Rank;}
++    };
++    TUniquePtr<TActorIterator<ADecalActor>> Iterator;
++    std::priority_queue<FCandidate,std::vector<FCandidate>,FRankAfter> Candidates;
++    TMap<FIntPoint,TArray<FVector>> RetainedCells;
++    int32 CandidateCount=0,RetainedCount=0,Limit=0;
++    float Chance=0;
++    bool bStarted=false,bCollected=false,bDone=false;
++
++    bool Pump(UWorld* World,int32 Seed,double Deadline)
++    {
++        if(bDone||!World||!World->IsGameWorld())return true;
++        if(FPlatformTime::Seconds()>=Deadline)return false;
++        if(!bStarted)
+@@ -28,2 +35,3 @@
+-            if(!C->IsVisible()||C->bHiddenInGame||It->IsHidden())continue;
+-            C->ComponentTags.Add(CandidateTag);
++            Iterator=MakeUnique<TActorIterator<ADecalActor>>(World);
++            Chance=FMath::Clamp(KeepFraction.GetValueOnGameThread(),0.f,1.f);
++            bStarted=true;
+@@ -31,5 +39,61 @@
+-        const FVector P=C->GetComponentLocation();
+-        const uint32 Key=HashCombineFast(GetTypeHash(Path),HashCombineFast(
+-            GetTypeHash(FMath::RoundToInt(P.X)),HashCombineFast(
+-                GetTypeHash(FMath::RoundToInt(P.Y)),GetTypeHash(FMath::RoundToInt(P.Z)))));
+-        Candidates.Add({C,Key,HashCombineFast(uint32(Seed)^0x17A923C5u,Key)});
++        const FName CandidateTag(TEXT("DungeonWallStain.Candidate"));
++        while(!bCollected&&FPlatformTime::Seconds()<Deadline)
++        {
++            if(!*Iterator)
++            {Iterator.Reset();Limit=FMath::CeilToInt(CandidateCount*Chance);bCollected=true;break;}
++            ADecalActor* Actor=**Iterator;++(*Iterator);
++            if(!IsValid(Actor))continue;
++            UDecalComponent* C=Actor->GetDecal();
++            UMaterialInterface* Material=C?C->GetDecalMaterial():nullptr;
++            if(!Material||FMath::Abs(C->GetForwardVector().Z)>.3)continue;
++            const FString Path=Material->GetBaseMaterial()->GetPathName();
++            if(Path!=TEXT("/Game/Dungeons/AtmosphereV2/Materials/M_LocalDampStreak.M_LocalDampStreak")&&
++               Path!=TEXT("/Game/Dungeons/AtmosphereV2/TilePolish/Materials/M_TileLeak.M_TileLeak")&&
++               Path!=TEXT("/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalLeakVertical.M_NaturalLeakVertical"))continue;
++            if(!C->ComponentHasTag(CandidateTag))
++            {
++                if(!C->IsVisible()||C->bHiddenInGame||Actor->IsHidden())continue;
++                C->ComponentTags.Add(CandidateTag);
++            }
++            const FVector P=C->GetComponentLocation();
++            const uint32 Key=HashCombineFast(GetTypeHash(Path),HashCombineFast(
++                GetTypeHash(FMath::RoundToInt(P.X)),HashCombineFast(
++                    GetTypeHash(FMath::RoundToInt(P.Y)),GetTypeHash(FMath::RoundToInt(P.Z)))));
++            // Incremental rank ordering avoids a whole-array finishing sort.
++            Candidates.push({C,Key,HashCombineFast(uint32(Seed)^0x17A923C5u,Key),CandidateCount++});
++        }
++        while(bCollected&&!Candidates.empty()&&FPlatformTime::Seconds()<Deadline)
++        {
++            const FCandidate Candidate=Candidates.top();Candidates.pop();
++            UDecalComponent* C=Candidate.Component.Get();
++            if(!C)continue;
++            FRandomStream Random(int32(HashCombineFast(uint32(Seed)^0x78AD459Bu,Candidate.Key)));
++            bool Keep=Random.FRand()<Chance&&RetainedCount<Limit;
++            const FVector P=C->GetComponentLocation();
++            const FIntPoint Cell(FMath::FloorToInt(P.X/180.),FMath::FloorToInt(P.Y/180.));
++            // Only these cells can intersect the original 180cm exclusion radius.
++            for(int32 X=-1;Keep&&X<=1;++X)for(int32 Y=-1;Keep&&Y<=1;++Y)
++                if(const auto* Nearby=RetainedCells.Find(Cell+FIntPoint(X,Y)))
++                    for(const FVector& Other:*Nearby)
++                        if(FMath::Abs(P.Z-Other.Z)<240&&FVector::DistSquared2D(P,Other)<FMath::Square(180.))
++                        {Keep=false;break;}
++            C->SetVisibility(Keep);
++            if(!Keep)continue;
++            RetainedCells.FindOrAdd(Cell).Add(P);++RetainedCount;
++            C->DecalSize.X=FMath::Min(C->DecalSize.X,8.);
++            UMaterialInstanceDynamic* MID=Cast<UMaterialInstanceDynamic>(C->GetDecalMaterial());
++            if(!MID)MID=C->CreateDynamicMaterialInstance();
++            if(MID)
++            {
++                MID->SetScalarParameterValue(TEXT("StainOpacity"),Random.FRandRange(.22f,.34f));
++                MID->SetScalarParameterValue(TEXT("StainVariant"),float(Random.RandRange(0,3)));
++                MID->SetScalarParameterValue(TEXT("StainWidth"),Random.FRandRange(.66f,.94f));
++                MID->SetScalarParameterValue(TEXT("StainLength"),Random.FRandRange(.55f,.95f));
++                MID->SetScalarParameterValue(TEXT("StainOffset"),Random.FRandRange(-.07f,.07f));
++                MID->SetScalarParameterValue(TEXT("StainMirror"),float(Random.RandRange(0,1)));
++                MID->SetScalarParameterValue(TEXT("StainRoughness"),Random.FRandRange(.65f,.8f));
++            }
++            C->MarkRenderStateDirty();
++        }
++        bDone=bCollected&&Candidates.empty();
++        return bDone;
+@@ -37,36 +101 @@
+-    Candidates.Sort([](const FCandidate& A,const FCandidate& B){return A.Rank<B.Rank;});
+-    const float Chance=FMath::Clamp(KeepFraction.GetValueOnGameThread(),0.f,1.f);
+-    const int32 Limit=FMath::CeilToInt(Candidates.Num()*Chance);
+-    TArray<FVector> Retained;
+-    for(const FCandidate& Candidate:Candidates)
+-    {
+-        UDecalComponent* C=Candidate.Component;
+-        FRandomStream Random(int32(HashCombineFast(uint32(Seed)^0x78AD459Bu,Candidate.Key)));
+-        bool Keep=Random.FRand()<Chance&&Retained.Num()<Limit;
+-        const FVector P=C->GetComponentLocation();
+-        if(Keep)for(const FVector& Other:Retained)
+-        {
+-            // Reject overlapping neighbouring anchors, including old layers that
+-            // described the same leak more than once.
+-            if(FMath::Abs(P.Z-Other.Z)<240&&FVector::DistSquared2D(P,Other)<FMath::Square(180.))
+-            {Keep=false;break;}
+-        }
+-        C->SetVisibility(Keep);
+-        if(!Keep)continue;
+-        Retained.Add(P);
+-        // Shallow projection reduces staining of adjacent rails and hardware.
+-        C->DecalSize.X=FMath::Min(C->DecalSize.X,8.);
+-        UMaterialInstanceDynamic* MID=Cast<UMaterialInstanceDynamic>(C->GetDecalMaterial());
+-        if(!MID)MID=C->CreateDynamicMaterialInstance();
+-        if(MID)
+-        {
+-            MID->SetScalarParameterValue(TEXT("StainOpacity"),Random.FRandRange(.22f,.34f));
+-            MID->SetScalarParameterValue(TEXT("StainVariant"),float(Random.RandRange(0,3)));
+-            MID->SetScalarParameterValue(TEXT("StainWidth"),Random.FRandRange(.66f,.94f));
+-            MID->SetScalarParameterValue(TEXT("StainLength"),Random.FRandRange(.55f,.95f));
+-            MID->SetScalarParameterValue(TEXT("StainOffset"),Random.FRandRange(-.07f,.07f));
+-            MID->SetScalarParameterValue(TEXT("StainMirror"),float(Random.RandRange(0,1)));
+-            MID->SetScalarParameterValue(TEXT("StainRoughness"),Random.FRandRange(.65f,.8f));
+-        }
+-        C->MarkRenderStateDirty();
+-    }
++};
+@@ -74 +102,0 @@
+-}
+diff --git a/Source/FPSGAME/UI/FPSPerformanceCaptureCommands.cpp b/Source/FPSGAME/UI/FPSPerformanceCaptureCommands.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/FPSPerformanceCaptureCommands.cpp
+@@ -0,0 +1,81 @@
++#include "FPSPerformanceMetrics.h"
++#include "CoreGlobals.h"
++#include "Dom/JsonObject.h"
++#include "Engine/World.h"
++#include "HAL/IConsoleManager.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Serialization/JsonSerializer.h"
++
++namespace
++{
++TAutoConsoleVariable<int32> MonsterCaptureVersion(TEXT("fps.Perf.MonsterCaptureVersion"), 1,
++    TEXT("Version of the opt-in AI and render attribution capture."), ECVF_ReadOnly);
++TWeakObjectPtr<UFPSPerformanceMetricsSubsystem> CaptureMetrics;
++bool bCaptureActive = false, bPreviousRecording = false;
++int32 PreviousSampling = 1, PreviousInventory = 0;
++
++void EndCaptureResources()
++{
++    if (!bCaptureActive) return;
++    if (auto* Metrics = CaptureMetrics.Get()) Metrics->SetRecording(bPreviousRecording);
++    if (auto* CVar = IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Perf.RenderResourceSampling")))
++        CVar->Set(PreviousSampling, ECVF_SetByConsole);
++    if (auto* CVar = IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Perf.GpuResourceInventory")))
++        CVar->Set(PreviousInventory, ECVF_SetByConsole);
++    // Match the engine's stat namedevents reference-counted enable/disable.
++    GCycleStatsShouldEmitNamedEvents = FMath::Max(0, GCycleStatsShouldEmitNamedEvents - 1);
++    CaptureMetrics.Reset();
++    bCaptureActive = false;
++}
++
++FAutoConsoleCommandWithWorldAndArgs MonsterCapture(TEXT("fps.Perf.MonsterCapture"),
++    TEXT("Diagnostic only: begin | end | export <receipt.json under Saved>. No gameplay or quality changes."),
++    FConsoleCommandWithWorldAndArgsDelegate::CreateLambda([](const TArray<FString>& Args, UWorld* World)
++    {
++        if (Args.IsEmpty()) return;
++        if (Args[0] == TEXT("end")) { EndCaptureResources(); return; }
++        auto* Metrics = World ? World->GetSubsystem<UFPSPerformanceMetricsSubsystem>() : nullptr;
++        if (!Metrics) return;
++        if (Args[0] == TEXT("begin"))
++        {
++            if (bCaptureActive) return;
++            CaptureMetrics = Metrics;
++            bPreviousRecording = Metrics->IsRecording();
++            Metrics->SetRecording(true);
++            if (auto* CVar = IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Perf.RenderResourceSampling")))
++            { PreviousSampling = CVar->GetInt(); CVar->Set(1, ECVF_SetByConsole); }
++            // Full RHI allocation enumeration can itself stall allocation.
++            // Keep the passive budget/morph observer, omit that costly inventory.
++            if (auto* CVar = IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Perf.GpuResourceInventory")))
++            { PreviousInventory = CVar->GetInt(); CVar->Set(0, ECVF_SetByConsole); }
++            ++GCycleStatsShouldEmitNamedEvents;
++            bCaptureActive = true;
++            UE_LOG(LogTemp, Display, TEXT("MONSTER_CAPTURE_RESOURCES_BEGIN"));
++        }
++        else if (Args[0] == TEXT("export") && Args.Num() == 2)
++        {
++            FString Receipt = FPaths::ConvertRelativePathToFull(Args[1]);
++            FPaths::NormalizeFilename(Receipt);
++            FPaths::CollapseRelativeDirectories(Receipt);
++            const FString Saved = FPaths::ConvertRelativePathToFull(FPaths::ProjectSavedDir());
++            if (!FPaths::IsUnderDirectory(Receipt, Saved)) return;
++            // Called only after stopping the trace: the scene scan and JSON
++            // serialization must not become part of the measured combat window.
++            const auto Snapshot = Metrics->BuildSnapshot(10, World->GetFirstPlayerController());
++            UFPSPerformanceMetricsSubsystem::ExportSnapshotAsync(Snapshot,
++                [Receipt](bool bSaved, const FString& Path, double ElapsedMs)
++                {
++                    auto Root = MakeShared<FJsonObject>();
++                    Root->SetBoolField(TEXT("saved"), bSaved);
++                    Root->SetStringField(TEXT("report_path"), Path);
++                    Root->SetNumberField(TEXT("export_ms"), ElapsedMs);
++                    Root->SetStringField(TEXT("completed_utc"), FDateTime::UtcNow().ToIso8601());
++                    FString Json;
++                    FJsonSerializer::Serialize(Root, TJsonWriterFactory<>::Create(&Json));
++                    FFileHelper::SaveStringToFile(Json, *Receipt, FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
++                    UE_LOG(LogTemp, Display, TEXT("MONSTER_CAPTURE_REPORT saved=%d path=%s"), bSaved, *Path);
++                });
++        }
++    }));
++}
+diff --git a/Source/FPSGAME/UI/FPSPerformanceEncounterCapture.cpp b/Source/FPSGAME/UI/FPSPerformanceEncounterCapture.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/FPSPerformanceEncounterCapture.cpp
+@@ -0,0 +1,146 @@
++#include "FPSPerformanceMetrics.h"
++#include "HAL/IConsoleManager.h"
++#include "Dom/JsonObject.h"
++
++namespace
++{
++TAutoConsoleVariable<int32> GpuInventoryMode(TEXT("fps.Perf.GpuResourceInventory"),0,
++    TEXT("Opt-in event-triggered tracked RHI inventory. Enumeration may stall resource allocation; its interval/cost is exported."));
++}
++
++bool UFPSPerformanceMetricsSubsystem::IsGpuInventoryEnabled() { return GpuInventoryMode.GetValueOnGameThread()!=0; }
++void UFPSPerformanceMetricsSubsystem::SetGpuInventoryEnabled(bool bEnabled)
++{ GpuInventoryMode->Set(bEnabled?1:0,ECVF_SetByConsole); }
++
++void UFPSPerformanceMetricsSubsystem::ResetEncounterDiagnostics()
++{
++    ActiveCombatWindow.Reset(); CombatWindows.Reset(); EncounterEvents.Reset(); GpuResourceInventories.Reset();
++    GpuInventoryRequests.Reset(); bGpuInventoryPending=false; NextGpuInventorySeconds=0.;
++    CombatWindowsOverwritten=EncounterEventsOverwritten=GpuInventoriesOverwritten=0;
++}
++
++void UFPSPerformanceMetricsSubsystem::StartCombatWindow(const UObject* Context, const FString& Reason)
++{
++    auto* Self=Find(Context);
++    if(!Self || !Self->bRecording)return;
++    const double Now=FPlatformTime::Seconds();
++    if(Self->ActiveCombatWindow && Now>Self->ActiveCombatWindow->RequestedEndSeconds) Self->ArchiveCombatWindow(true);
++    if(!Self->ActiveCombatWindow)
++    {
++        Self->ActiveCombatWindow=MakeUnique<FFPSCombatWindow>();
++        auto& Window=*Self->ActiveCombatWindow;
++        Window.Trigger=Reason; Window.TriggerSeconds=Now; Window.RequestedEndSeconds=Now+20.;
++        const int32 First=(Self->WriteIndex-Self->SampleCount+MaxSamples)%MaxSamples;
++        for(int32 I=0;I<Self->SampleCount;++I)
++        {
++            const auto& Frame=Self->FrameSamples[(First+I)%MaxSamples];
++            if(Frame.Seconds<Now-3.)continue;
++            if(Window.Frames.Num()<MaxCombatFrames)Window.Frames.Add(Frame);
++            else Window.bFrameCapacityLimited=true;
++        }
++        for(const auto& Event:Self->EncounterEvents)
++            if(Event.EndSeconds>=Now-3.)Window.Events.Add(Event);
++        RequestGpuResourceInventory(Context,Reason+TEXT(" / wave-start"));
++        RequestGpuResourceInventory(Context,Reason+TEXT(" / wave+10s"),10.);
++    }
++    else
++    {
++        // Two halls often start together. Keep one window; additional triggers
++        // can extend it, but never retain an unbounded session of per-frame data.
++        auto& Window=*Self->ActiveCombatWindow;
++        Window.RequestedEndSeconds=FMath::Min(Window.TriggerSeconds+30.,FMath::Max(Window.RequestedEndSeconds,Now+20.));
++    }
++    RecordMarker(Context,TEXT("Hall.CaptureTrigger"),Reason,true);
++}
++
++void UFPSPerformanceMetricsSubsystem::ArchiveCombatWindow(bool bComplete)
++{
++    if(!ActiveCombatWindow)return;
++    CopyResourcesForWindow(*ActiveCombatWindow);
++    ActiveCombatWindow->bComplete=bComplete && !ActiveCombatWindow->bFrameCapacityLimited
++        && !ActiveCombatWindow->Frames.IsEmpty()
++        && ActiveCombatWindow->Frames.Last().Seconds>=ActiveCombatWindow->RequestedEndSeconds;
++    if(CombatWindows.Num()>=MaxCombatWindows){CombatWindows.RemoveAt(0);++CombatWindowsOverwritten;}
++    CombatWindows.Add(MakeShared<FFPSCombatWindow>(MoveTemp(*ActiveCombatWindow)));
++    ActiveCombatWindow.Reset();
++}
++
++void UFPSPerformanceMetricsSubsystem::CopyResourcesForWindow(FFPSCombatWindow& Window) const
++{
++    Window.ResourceSamples.Reset();
++    const int32 First=RenderResourceSamples.Num()==MaxRenderResourceSamples?RenderResourceWriteIndex:0;
++    for(int32 I=0;I<RenderResourceSamples.Num();++I)
++    {
++        const auto& Row=RenderResourceSamples[(First+I)%RenderResourceSamples.Num()];
++        const double Seconds=Row->GetNumberField(TEXT("game_seconds"));
++        if(Seconds>=Window.TriggerSeconds-3. && Seconds<=Window.RequestedEndSeconds)Window.ResourceSamples.Add(Row);
++    }
++}
++
++void UFPSPerformanceMetricsSubsystem::UpdateEncounterCapture(const FFPSRecordedFrame& Frame)
++{
++    if(ActiveCombatWindow)
++    {
++        auto& Window=*ActiveCombatWindow;
++        if(Window.Frames.IsEmpty() || Window.Frames.Last().FrameId!=Frame.FrameId)
++        {
++            if(Window.Frames.Num()<MaxCombatFrames)Window.Frames.Add(Frame);
++            else Window.bFrameCapacityLimited=true;
++        }
++        if(Frame.Seconds>=Window.RequestedEndSeconds)ArchiveCombatWindow(true);
++    }
++    PumpGpuResourceInventory(Frame.Seconds);
++}
++
++void UFPSPerformanceMetricsSubsystem::KeepEncounterEvent(const FFPSPerformanceEvent& Event)
++{
++    if(Event.bRetainForEncounter)
++    {
++        if(EncounterEvents.Num()>=MaxEncounterEvents){EncounterEvents.RemoveAt(0);++EncounterEventsOverwritten;}
++        EncounterEvents.Add(Event);
++    }
++    if(ActiveCombatWindow && (Event.bRetainForEncounter || Event.Stage==TEXT("Engine.GarbageCollection")
++        || Event.Stage==TEXT("Engine.SyncLoadPackageStart") || Event.Stage==TEXT("Engine.AsyncLoadingFlushStart")))
++    {
++        auto& Window=*ActiveCombatWindow;
++        if(Window.Events.Num()<MaxEncounterEvents)Window.Events.Add(Event);
++        else ++Window.EventsDiscarded;
++    }
++}
++
++void UFPSPerformanceMetricsSubsystem::ReadEncounterDiagnostics(FFPSPerformanceSnapshot& Snapshot) const
++{
++    Snapshot.CombatWindows=CombatWindows;
++    if(ActiveCombatWindow)
++    {
++        auto Copy=MakeShared<FFPSCombatWindow>(*ActiveCombatWindow);
++        CopyResourcesForWindow(*Copy);Snapshot.CombatWindows.Add(Copy);
++    }
++    Snapshot.EncounterEvents=EncounterEvents;
++    Snapshot.GpuResourceInventories=GpuResourceInventories;
++    Snapshot.CombatWindowsOverwritten=CombatWindowsOverwritten;
++    Snapshot.EncounterEventsOverwritten=EncounterEventsOverwritten;
++    Snapshot.GpuInventoriesOverwritten=GpuInventoriesOverwritten;
++    Snapshot.bGpuInventoryEnabled=IsGpuInventoryEnabled();
++    Snapshot.bGpuInventoryPending=bGpuInventoryPending;
++    Snapshot.GpuInventoryQueued=GpuInventoryRequests.Num();
++}
++
++void UFPSPerformanceMetricsSubsystem::RequestGpuResourceInventory(const UObject* Context,const FString& Reason,double DelaySeconds)
++{
++    auto* Self=Find(Context);
++    if(!Self || !Self->bRecording || !IsGpuInventoryEnabled())return;
++    const double Now=FPlatformTime::Seconds(), Due=Now+FMath::Max(0.,DelaySeconds);
++    for(auto& Request:Self->GpuInventoryRequests)
++        if(FMath::Abs(Request.Due-Due)<1.)
++        { Request.Reason=(Request.Reason+TEXT("; ")+Reason).Left(512);return; }
++    // Preserve a requested future sample; coalesce excess reasons into the last
++    // request rather than creating a scan for every monster in a wave.
++    if(Self->GpuInventoryRequests.Num()>=4)
++    {
++        auto& Last=Self->GpuInventoryRequests.Last();
++        Last.Reason=(Last.Reason+TEXT("; coalesced: ")+Reason).Left(512);return;
++    }
++    Self->GpuInventoryRequests.Add({Reason,Due,Now,GFrameCounter});
++    Self->GpuInventoryRequests.Sort([](const auto& A,const auto& B){return A.Due<B.Due;});
++}
+diff --git a/Source/FPSGAME/UI/FPSPerformanceGpuInventory.cpp b/Source/FPSGAME/UI/FPSPerformanceGpuInventory.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/FPSPerformanceGpuInventory.cpp
+@@ -0,0 +1,142 @@
++#include "FPSPerformanceMetrics.h"
++#include "Async/Async.h"
++#include "Dom/JsonObject.h"
++#include "RHI.h"
++#include "RenderingThread.h"
++#include "RHICommandList.h"
++#include "ProfilingDebugging/CpuProfilerTrace.h"
++
++namespace
++{
++struct FResourceGroup
++{
++    uint64 Bytes=0, NonTransientBytes=0, ResidentFlagBytes=0;
++    int32 Count=0;
++    void Add(const FRHIResourceStats& R)
++    {
++        Bytes+=R.SizeInBytes; ++Count;
++        if(!R.bTransient)NonTransientBytes+=R.SizeInBytes;
++        if(R.bResident)ResidentFlagBytes+=R.SizeInBytes;
++    }
++};
++
++TUniquePtr<FJsonObject> BuildInventory(const TArray<TSharedPtr<FRHIResourceStats>>& Stats)
++{
++    auto Result=MakeUnique<FJsonObject>();
++    TMap<FString,FResourceGroup> ByType, ByOwner;
++    FResourceGroup Total;
++    int32 UnknownOwner=0;
++    uint64 UnknownOwnerBytes=0;
++    TArray<TSharedPtr<FJsonValue>> Rows;
++    constexpr int32 MaxRows=128, MaxOwners=64;
++    // Engine returns resources sorted by allocation size. Aggregate all entries
++    // before truncating the exported detail, on a worker after releasing its lock.
++    for(const auto& Ptr:Stats)
++    {
++        if(!Ptr)continue;
++        const auto& R=*Ptr;
++        Total.Add(R); ByType.FindOrAdd(R.Type).Add(R);
++        const FString Owner=R.OwnerName.IsNone()?TEXT("<untracked owner>"):R.OwnerName.ToString();
++        ByOwner.FindOrAdd(Owner).Add(R);
++        if(R.OwnerName.IsNone()){++UnknownOwner;UnknownOwnerBytes+=R.SizeInBytes;}
++        if(Rows.Num()>=MaxRows)continue;
++        auto Row=MakeShared<FJsonObject>();
++        Row->SetStringField(TEXT("name"),R.Name.ToString());
++        if(R.OwnerName.IsNone())Row->SetField(TEXT("owner"),MakeShared<FJsonValueNull>());
++        else Row->SetStringField(TEXT("owner"),Owner);
++        Row->SetStringField(TEXT("type"),R.Type); Row->SetStringField(TEXT("flags"),R.Flags);
++        Row->SetNumberField(TEXT("allocation_bytes"),double(R.SizeInBytes));
++        Row->SetBoolField(TEXT("resident_flag"),R.bResident);
++        Row->SetBoolField(TEXT("has_flags"),R.bHasFlags);
++        Row->SetBoolField(TEXT("transient"),R.bTransient);
++        Row->SetBoolField(TEXT("streamable"),R.bStreaming);
++        Row->SetBoolField(TEXT("render_target"),R.bRenderTarget);
++        Row->SetBoolField(TEXT("depth_stencil"),R.bDepthStencil);
++        Row->SetBoolField(TEXT("uav"),R.bUnorderedAccessView);
++        Row->SetBoolField(TEXT("ray_tracing_acceleration_structure"),R.bRayTracingAccelerationStructure);
++        Row->SetBoolField(TEXT("marked_for_delete"),R.bMarkedForDelete);
++        Rows.Add(MakeShared<FJsonValueObject>(Row));
++    }
++    auto GroupRows=[](const TMap<FString,FResourceGroup>& Groups,int32 Limit)
++    {
++        TArray<FString> Keys; Groups.GetKeys(Keys);
++        Keys.Sort([&Groups](const FString& A,const FString& B){return Groups[A].Bytes>Groups[B].Bytes;});
++        TArray<TSharedPtr<FJsonValue>> Out;
++        for(int32 I=0;I<FMath::Min(Keys.Num(),Limit);++I)
++        {
++            const auto& G=Groups[Keys[I]];auto Row=MakeShared<FJsonObject>();
++            Row->SetStringField(TEXT("key"),Keys[I]);Row->SetNumberField(TEXT("resource_count"),G.Count);
++            Row->SetNumberField(TEXT("allocation_bytes"),double(G.Bytes));
++            Row->SetNumberField(TEXT("non_transient_allocation_bytes"),double(G.NonTransientBytes));
++            Row->SetNumberField(TEXT("resident_flag_allocation_bytes"),double(G.ResidentFlagBytes));
++            Out.Add(MakeShared<FJsonValueObject>(Row));
++        }
++        return Out;
++    };
++    Result->SetStringField(TEXT("status"),Stats.IsEmpty()?TEXT("no_tracked_resources"):TEXT("captured"));
++    Result->SetNumberField(TEXT("tracked_resource_count"),Total.Count);
++    Result->SetNumberField(TEXT("allocation_bytes"),double(Total.Bytes));
++    Result->SetNumberField(TEXT("non_transient_allocation_bytes"),double(Total.NonTransientBytes));
++    Result->SetNumberField(TEXT("resident_flag_allocation_bytes"),double(Total.ResidentFlagBytes));
++    Result->SetNumberField(TEXT("unknown_owner_count"),UnknownOwner);
++    Result->SetNumberField(TEXT("unknown_owner_allocation_bytes"),double(UnknownOwnerBytes));
++    Result->SetNumberField(TEXT("owner_group_count"),ByOwner.Num());
++    Result->SetBoolField(TEXT("resource_details_truncated"),Total.Count>MaxRows);
++    Result->SetBoolField(TEXT("owner_details_truncated"),ByOwner.Num()>MaxOwners);
++    Result->SetArrayField(TEXT("top_resources"),Rows);
++    Result->SetArrayField(TEXT("by_type"),GroupRows(ByType,64));
++    Result->SetArrayField(TEXT("top_owners"),GroupRows(ByOwner,MaxOwners));
++    return Result;
++}
++}
++
++void UFPSPerformanceMetricsSubsystem::PumpGpuResourceInventory(double Now)
++{
++    if(!IsGpuInventoryEnabled()){GpuInventoryRequests.Reset();return;}
++    if(bGpuInventoryPending || GpuInventoryRequests.IsEmpty() || Now<NextGpuInventorySeconds
++        || Now<GpuInventoryRequests[0].Due)return;
++    const auto Request=GpuInventoryRequests[0];GpuInventoryRequests.RemoveAt(0);
++    bGpuInventoryPending=true;NextGpuInventorySeconds=Now+5.;
++    const uint64 Generation=CaptureGeneration;
++    const TWeakObjectPtr<UFPSPerformanceMetricsSubsystem> WeakThis(this);
++    RecordMarker(this,TEXT("Observer.GpuInventoryQueued"),Request.Reason,true);
++    ENQUEUE_RENDER_COMMAND(FPSGpuInventory)([WeakThis,Generation,Request](FRHICommandListImmediate&)
++    {
++        TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Perf_GpuInventoryEnumeration);
++        const double Begin=FPlatformTime::Seconds();
++        const uint64 RenderFrame=GFrameNumberRenderThread;
++        TArray<TSharedPtr<FRHIResourceStats>> Stats;
++#if RHI_ENABLE_RESOURCE_INFO
++        RHIGetTrackedResourceStats(Stats);
++#endif
++        const double End=FPlatformTime::Seconds();
++        Async(EAsyncExecution::ThreadPool,[WeakThis,Generation,Request,Begin,End,RenderFrame,Stats=MoveTemp(Stats)]() mutable
++        {
++            const double AggregateBegin=FPlatformTime::Seconds();
++            auto Row=BuildInventory(Stats);
++#if !RHI_ENABLE_RESOURCE_INFO
++            Row->SetStringField(TEXT("status"),TEXT("resource_tracking_not_compiled"));
++#endif
++            Row->SetStringField(TEXT("reason"),Request.Reason);
++            Row->SetStringField(TEXT("requested_engine_frame"),LexToString(Request.RequestedFrame));
++            Row->SetStringField(TEXT("collection_render_frame"),LexToString(RenderFrame));
++            Row->SetNumberField(TEXT("requested_seconds"),Request.RequestedSeconds);
++            Row->SetNumberField(TEXT("scheduled_seconds"),Request.Due);
++            Row->SetNumberField(TEXT("enumeration_start_seconds"),Begin);
++            Row->SetNumberField(TEXT("enumeration_end_seconds"),End);
++            Row->SetNumberField(TEXT("enumeration_ms"),(End-Begin)*1000.);
++            Row->SetNumberField(TEXT("worker_aggregation_ms"),(FPlatformTime::Seconds()-AggregateBegin)*1000.);
++            AsyncTask(ENamedThreads::GameThread,[WeakThis,Generation,Row=MoveTemp(Row)]() mutable
++            {
++                auto* Self=WeakThis.Get();
++                if(!Self || Self->CaptureGeneration!=Generation)return;
++                Self->bGpuInventoryPending=false;
++                if(!Self->bRecording)return;
++                Row->SetNumberField(TEXT("published_seconds"),FPlatformTime::Seconds());
++                if(Self->GpuResourceInventories.Num()>=MaxGpuInventories)
++                {Self->GpuResourceInventories.RemoveAt(0);++Self->GpuInventoriesOverwritten;}
++                Self->GpuResourceInventories.Add(MakeShareable(Row.Release()));
++            });
++        });
++    });
++}
+diff --git a/Source/FPSGAME/UI/FPSPerformanceMetricsResources.cpp b/Source/FPSGAME/UI/FPSPerformanceMetricsResources.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/FPSPerformanceMetricsResources.cpp
+@@ -0,0 +1,333 @@
++#include "FPSPerformanceMetrics.h"
++
++#include "../Monsters/FatZombieAnimInstance.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "../Dungeons/FacilityHallSpawnSubsystem.h"
++#include "Animation/AnimSequence.h"
++#include "Animation/MorphTarget.h"
++#include "Async/Async.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Dom/JsonObject.h"
++#include "DynamicRHI.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/World.h"
++#include "EngineUtils.h"
++#include "HAL/IConsoleManager.h"
++#include "ProfilingDebugging/CountersTrace.h"
++#include "Rendering/SkeletalMeshRenderData.h"
++#include "RenderingThread.h"
++#include "RHICommandList.h"
++#include "RHIStats.h"
++#include "SkeletalRenderPublic.h"
++
++namespace FPSRenderResources
++{
++TAutoConsoleVariable<int32> Sampling(TEXT("fps.Perf.RenderResourceSampling"), 1,
++    TEXT("Passively record published GPU memory and staff morph state at most twice per second."));
++TRACE_DECLARE_INT_COUNTER(LocalBudget, TEXT("FPS/Resources/LocalBudgetBytes"));
++TRACE_DECLARE_INT_COUNTER(LocalUsed, TEXT("FPS/Resources/LocalUsedBytes"));
++TRACE_DECLARE_INT_COUNTER(LocalOverBudget, TEXT("FPS/Resources/LocalOverBudgetBytes"));
++TRACE_DECLARE_INT_COUNTER(StaffActiveMorphs, TEXT("FPS/Resources/ObservedStaffActiveMorphs"));
++TRACE_DECLARE_INT_COUNTER(MonstersAlive, TEXT("FPS/Resources/MonstersAlive"));
++TRACE_DECLARE_INT_COUNTER(MonstersPrepared, TEXT("FPS/Resources/MonstersNotBegunPlay"));
++TRACE_DECLARE_INT_COUNTER(HallPendingSpawns, TEXT("FPS/Resources/HallPendingSpawns"));
++
++constexpr int32 MaxStaff = 64;
++constexpr int32 MaxMorphDetails = 8;
++
++struct FStaff
++{
++    FString Path, Asset, Clip, OutgoingClip;
++    bool bParallelEvaluation = false, bVisible = false, bMorphsKnown = false, bAnimationKnown = false;
++    int32 CapturedCurves = -1;
++    float BlendAlpha = 1.f;
++    struct FMorph { FString Name; int32 Index; float Weight; };
++    TArray<FMorph> Morphs;
++    // Used only by the immediately enqueued render command, never by the RHI callback.
++    const FSkeletalMeshObject* MeshObject = nullptr;
++    uint64 MeshHandle = 0, SkinCacheHandle = 0;
++    int32 Lod = INDEX_NONE, Vertices = 0, Sections = 0, StoredMorphs = 0;
++    uint32 AllMorphBatches = 0, ActiveMorphBatches = 0;
++    uint64 MorphBufferBytes = 0;
++    bool bRenderDataKnown = false, bSkinCacheKnown = false, bSeparateRayTracingCache = false;
++};
++
++struct FSample
++{
++    double GameSeconds = 0, RenderSeconds = 0, RhiSeconds = 0, GatherMs = 0;
++    uint64 GameFrame = 0, RenderFrame = 0;
++    int32 StaffCount = 0;
++    int32 PreparedInstances = 0, PendingSpawns = 0;
++    FName PreparationDecision;
++    struct FMonsterCounts { int32 Alive=0,Dead=0,Prepared=0,Simulating=0,MeshTick=0; };
++    TMap<FString,FMonsterCounts> Monsters;
++    TArray<FStaff> Staff;
++    FRHIMemoryStats Memory;
++};
++
++void SetMemorySegment(FJsonObject& Row, const TCHAR* Name, uint64 Budget, uint64 Used,
++    uint64 Available, uint64 OverBudget)
++{
++    if (Budget == 0)
++    {
++        Row.SetField(Name, MakeShared<FJsonValueNull>());
++        return;
++    }
++    const auto Segment = MakeShared<FJsonObject>();
++    Segment->SetNumberField(TEXT("budget_bytes"), static_cast<double>(Budget));
++    Segment->SetNumberField(TEXT("used_bytes"), static_cast<double>(Used));
++    Segment->SetNumberField(TEXT("available_bytes"), static_cast<double>(Available));
++    Segment->SetNumberField(TEXT("over_budget_bytes"), static_cast<double>(OverBudget));
++    Row.SetObjectField(Name, Segment);
++}
++}
++
++void UFPSPerformanceMetricsSubsystem::SampleRenderResources(double Now)
++{
++    using namespace FPSRenderResources;
++    if (!Sampling.GetValueOnGameThread() || bRenderResourceSamplePending || Now < NextRenderResourceSampleSeconds
++        || !GDynamicRHI || GetWorld()->GetNetMode() == NM_DedicatedServer)
++        return;
++
++    NextRenderResourceSampleSeconds = Now + 0.5;
++    bRenderResourceSamplePending = true;
++    const uint64 Generation = CaptureGeneration;
++    const TWeakObjectPtr<UFPSPerformanceMetricsSubsystem> WeakThis(this);
++    const auto Sample = MakeShared<FSample, ESPMode::ThreadSafe>();
++    Sample->GameSeconds = FPlatformTime::Seconds();
++    Sample->GameFrame = GFrameCounter;
++    if (const auto* Spawns=GetWorld()->GetSubsystem<UFacilityHallSpawnSubsystem>())
++    {
++        Sample->PreparedInstances=Spawns->PreparedCount();
++        Sample->PendingSpawns=Spawns->PendingCount();
++        Sample->PreparationDecision=Spawns->PreparationLastDecision();
++    }
++    for (TActorIterator<ACharacter> It(GetWorld()); It; ++It)
++    {
++        const auto* Combat=It->FindComponentByClass<UMonsterCombatComponent>();
++        if(!Combat)continue;
++        auto& Counts=Sample->Monsters.FindOrAdd(It->GetClass()->GetPathName());
++        if(!It->HasActorBegunPlay())++Counts.Prepared;
++        else if(Combat->IsDead())++Counts.Dead;
++        else ++Counts.Alive;
++        if(const auto* Body=It->GetMesh())
++        {
++            Counts.Simulating+=Body->IsSimulatingPhysics();
++            Counts.MeshTick+=Body->IsComponentTickEnabled()&&Body->IsRegistered();
++        }
++        if (!It->ActorHasTag(TEXT("FacelessResearcher")) && !It->ActorHasTag(TEXT("FacelessReceptionist")))
++            continue;
++        ++Sample->StaffCount;
++        if (Sample->Staff.Num() >= MaxStaff) continue;
++        USkeletalMeshComponent* Mesh = It->GetMesh();
++        if (!Mesh) continue;
++        FStaff& Staff = Sample->Staff.AddDefaulted_GetRef();
++        Staff.Path = Mesh->GetPathName();
++        Staff.Asset = GetPathNameSafe(Mesh->GetSkeletalMeshAsset());
++        Staff.bVisible = Mesh->IsVisible();
++        Staff.bParallelEvaluation = Mesh->IsRunningParallelEvaluation();
++        Staff.MeshObject = Mesh->GetMeshObject();
++        Staff.MeshHandle = reinterpret_cast<UPTRINT>(Staff.MeshObject);
++        // Never wait for parallel animation to inspect its mutable results/proxy.
++        if (Staff.bParallelEvaluation) continue;
++        Staff.bMorphsKnown = true;
++        for (const auto& Morph : Mesh->ActiveMorphTargets)
++        {
++            if (!Morph.Key || !Mesh->MorphTargetWeights.IsValidIndex(Morph.Value)) continue;
++            const float Weight = Mesh->MorphTargetWeights[Morph.Value];
++            if (Weight != 0.f)
++                Staff.Morphs.Add({Morph.Key->GetName(), Morph.Value, Weight});
++        }
++        if (const auto* Anim = Cast<UFatZombieAnimInstance>(Mesh->GetAnimInstance()))
++        {
++            Staff.bAnimationKnown = true;
++            Staff.Clip = GetPathNameSafe(Anim->ActiveClip);
++            Staff.OutgoingClip = GetPathNameSafe(Anim->OutgoingLoop);
++            Staff.BlendAlpha = Anim->BlendAlpha;
++            Staff.CapturedCurves = Anim->GetCapturedClothingCurveCount();
++        }
++    }
++    Sample->GatherMs = (FPlatformTime::Seconds() - Sample->GameSeconds) * 1000.0;
++
++    ENQUEUE_RENDER_COMMAND(FPSObserveStaffRenderResources)(
++        [Sample, WeakThis, Generation](FRHICommandListImmediate& RHICmdList)
++        {
++            Sample->RenderSeconds = FPlatformTime::Seconds();
++            Sample->RenderFrame = GFrameNumberRenderThread;
++            // Mesh-object destruction is also ordered on the render command queue.
++            for (FStaff& Staff : Sample->Staff)
++            {
++                const FSkeletalMeshObject* Object = Staff.MeshObject;
++                Staff.MeshObject = nullptr;
++                if (!Object) continue;
++                Staff.Lod = Object->GetLOD();
++                const auto& RenderData = Object->GetSkeletalMeshRenderData();
++                if (RenderData.LODRenderData.IsValidIndex(Staff.Lod))
++                {
++                    const auto& Lod = RenderData.LODRenderData[Staff.Lod];
++                    Staff.bRenderDataKnown = true;
++                    Staff.Vertices = Lod.GetNumVertices();
++                    Staff.Sections = Lod.RenderSections.Num();
++                    const auto& Morphs = Lod.MorphTargetVertexInfoBuffers;
++                    Staff.StoredMorphs = Morphs.GetNumMorphs();
++                    Staff.AllMorphBatches = Morphs.GetNumBatches();
++                    Staff.MorphBufferBytes = Morphs.MorphDataBuffer.IsValid() ? Morphs.MorphDataBuffer->GetSize() : 0;
++                    for (const auto& Morph : Staff.Morphs)
++                        if (Morph.Index >= 0 && Morph.Index < Staff.StoredMorphs)
++                            Staff.ActiveMorphBatches += Morphs.GetNumBatches(Morph.Index);
++                }
++#if RHI_RAYTRACING
++                Staff.bSkinCacheKnown = true;
++                Staff.bSeparateRayTracingCache = Object->ShouldUseSeparateSkinCacheEntryForRayTracing();
++                Staff.SkinCacheHandle = reinterpret_cast<UPTRINT>(Object->GetSkinCacheEntryForRayTracing());
++#endif
++            }
++            // D3D12 publishes these counters at RHI EndFrame. Read in that same
++            // command stream; never flush or query/update texture-streaming state.
++            RHICmdList.EnqueueLambda([Sample, WeakThis, Generation](FRHICommandListBase&)
++            {
++                Sample->RhiSeconds = FPlatformTime::Seconds();
++                if (GDynamicRHI) RHIGetMemoryStats(Sample->Memory);
++                AsyncTask(ENamedThreads::GameThread, [Sample, WeakThis, Generation]
++                {
++                    UFPSPerformanceMetricsSubsystem* Self = WeakThis.Get();
++                    if (!Self || Self->CaptureGeneration != Generation) return;
++                    Self->bRenderResourceSamplePending = false;
++                    Self->RenderBudgetBytes = Sample->Memory.BudgetLocal;
++                    Self->RenderUsedBytes = Sample->Memory.UsedLocal;
++                    Self->RenderBudgetSeconds = Sample->RhiSeconds;
++                    if (!Self->bRecording) return;
++                    const double PublishStart = FPlatformTime::Seconds();
++                    const auto Row = MakeShared<FJsonObject>();
++                    Row->SetNumberField(TEXT("game_seconds"), Sample->GameSeconds);
++                    Row->SetNumberField(TEXT("render_seconds"), Sample->RenderSeconds);
++                    Row->SetNumberField(TEXT("rhi_seconds"), Sample->RhiSeconds);
++                    Row->SetNumberField(TEXT("completed_seconds"), PublishStart);
++                    Row->SetStringField(TEXT("game_frame"), LexToString(Sample->GameFrame));
++                    Row->SetStringField(TEXT("render_frame"), LexToString(Sample->RenderFrame));
++                    Row->SetNumberField(TEXT("game_gather_ms"), Sample->GatherMs);
++                    Row->SetNumberField(TEXT("async_latency_ms"), (PublishStart - Sample->GameSeconds) * 1000.0);
++                    Row->SetBoolField(TEXT("memory_valid"), Sample->Memory.IsValid());
++                    SetMemorySegment(*Row, TEXT("local_memory"), Sample->Memory.BudgetLocal, Sample->Memory.UsedLocal,
++                        Sample->Memory.AvailableLocal, Sample->Memory.DemotedLocal);
++                    SetMemorySegment(*Row, TEXT("system_memory"), Sample->Memory.BudgetSystem, Sample->Memory.UsedSystem,
++                        Sample->Memory.AvailableSystem, Sample->Memory.DemotedSystem);
++                    if (Sample->Memory.BudgetLocal)
++                    {
++                        TRACE_COUNTER_SET(LocalBudget, Sample->Memory.BudgetLocal);
++                        TRACE_COUNTER_SET(LocalUsed, Sample->Memory.UsedLocal);
++                        TRACE_COUNTER_SET(LocalOverBudget, Sample->Memory.DemotedLocal);
++                    }
++                    Row->SetNumberField(TEXT("staff_count"), Sample->StaffCount);
++                    Row->SetNumberField(TEXT("hall_prepared_instances"), Sample->PreparedInstances);
++                    Row->SetNumberField(TEXT("hall_pending_spawn_requests"), Sample->PendingSpawns);
++                    Row->SetStringField(TEXT("hall_preparation_last_decision"), Sample->PreparationDecision.ToString());
++                    TArray<TSharedPtr<FJsonValue>> MonsterRows;
++                    int32 Alive=0,Dead=0,Prepared=0,Simulating=0;
++                    for(const auto& Pair:Sample->Monsters)
++                    {
++                        auto Counts=MakeShared<FJsonObject>();Counts->SetStringField(TEXT("class"),Pair.Key);
++                        Counts->SetNumberField(TEXT("alive"),Pair.Value.Alive);Counts->SetNumberField(TEXT("dead"),Pair.Value.Dead);
++                        Counts->SetNumberField(TEXT("not_begun_play"),Pair.Value.Prepared);
++                        Counts->SetNumberField(TEXT("body_simulating_physics"),Pair.Value.Simulating);
++                        Counts->SetNumberField(TEXT("registered_body_tick_enabled"),Pair.Value.MeshTick);
++                        MonsterRows.Add(MakeShared<FJsonValueObject>(Counts));
++                        Alive+=Pair.Value.Alive;Dead+=Pair.Value.Dead;Prepared+=Pair.Value.Prepared;Simulating+=Pair.Value.Simulating;
++                    }
++                    Row->SetArrayField(TEXT("monster_classes"),MonsterRows);
++                    Row->SetNumberField(TEXT("monsters_alive"),Alive);Row->SetNumberField(TEXT("monsters_dead"),Dead);
++                    Row->SetNumberField(TEXT("monsters_not_begun_play"),Prepared);
++                    TRACE_COUNTER_SET(MonstersAlive, Alive);
++                    TRACE_COUNTER_SET(MonstersPrepared, Prepared);
++                    TRACE_COUNTER_SET(HallPendingSpawns, Sample->PendingSpawns);
++                    Row->SetNumberField(TEXT("monster_bodies_simulating_physics"),Simulating);
++                    Row->SetBoolField(TEXT("staff_details_truncated"), Sample->StaffCount > Sample->Staff.Num());
++                    TArray<TSharedPtr<FJsonValue>> StaffRows;
++                    TMap<FString, FObservedRenderHandles> CurrentHandles;
++                    int32 ObservedMorphs = 0;
++                    for (const FStaff& Staff : Sample->Staff)
++                    {
++                        const auto Item = MakeShared<FJsonObject>();
++                        Item->SetStringField(TEXT("component"), Staff.Path);
++                        Item->SetStringField(TEXT("asset"), Staff.Asset);
++                        Item->SetBoolField(TEXT("visible_flag"), Staff.bVisible);
++                        Item->SetBoolField(TEXT("parallel_evaluation_pending"), Staff.bParallelEvaluation);
++                        if (Staff.bAnimationKnown)
++                        {
++                            Item->SetStringField(TEXT("active_clip"), Staff.Clip);
++                            Item->SetStringField(TEXT("outgoing_clip"), Staff.OutgoingClip);
++                            Item->SetNumberField(TEXT("transition_alpha"), Staff.BlendAlpha);
++                        }
++                        else
++                        {
++                            Item->SetField(TEXT("active_clip"), MakeShared<FJsonValueNull>());
++                            Item->SetField(TEXT("outgoing_clip"), MakeShared<FJsonValueNull>());
++                            Item->SetField(TEXT("transition_alpha"), MakeShared<FJsonValueNull>());
++                        }
++                        if (Staff.CapturedCurves >= 0)
++                            Item->SetNumberField(TEXT("captured_clothing_curves"), Staff.CapturedCurves);
++                        else Item->SetField(TEXT("captured_clothing_curves"), MakeShared<FJsonValueNull>());
++                        if (Staff.bMorphsKnown)
++                        {
++                            ObservedMorphs += Staff.Morphs.Num();
++                            Item->SetNumberField(TEXT("active_morph_count"), Staff.Morphs.Num());
++                            TArray<TSharedPtr<FJsonValue>> MorphRows;
++                            for (int32 I = 0; I < FMath::Min(Staff.Morphs.Num(), MaxMorphDetails); ++I)
++                            {
++                                const auto MorphRow = MakeShared<FJsonObject>();
++                                MorphRow->SetStringField(TEXT("name"), Staff.Morphs[I].Name);
++                                MorphRow->SetNumberField(TEXT("index"), Staff.Morphs[I].Index);
++                                MorphRow->SetNumberField(TEXT("weight"), Staff.Morphs[I].Weight);
++                                MorphRows.Add(MakeShared<FJsonValueObject>(MorphRow));
++                            }
++                            Item->SetArrayField(TEXT("active_morphs"), MorphRows);
++                            Item->SetBoolField(TEXT("morph_details_truncated"), Staff.Morphs.Num() > MaxMorphDetails);
++                        }
++                        else Item->SetField(TEXT("active_morph_count"), MakeShared<FJsonValueNull>());
++                        if (Staff.bRenderDataKnown)
++                        {
++                            Item->SetNumberField(TEXT("observed_render_lod"), Staff.Lod);
++                            Item->SetNumberField(TEXT("lod_vertices"), Staff.Vertices);
++                            Item->SetNumberField(TEXT("lod_sections"), Staff.Sections);
++                            Item->SetNumberField(TEXT("stored_morph_count"), Staff.StoredMorphs);
++                            Item->SetNumberField(TEXT("stored_morph_batches"), Staff.AllMorphBatches);
++                            Item->SetNumberField(TEXT("shared_morph_buffer_logical_bytes"), static_cast<double>(Staff.MorphBufferBytes));
++                            if (Staff.bMorphsKnown)
++                                Item->SetNumberField(TEXT("observed_active_morph_batches"), Staff.ActiveMorphBatches);
++                            else Item->SetField(TEXT("observed_active_morph_batches"), MakeShared<FJsonValueNull>());
++                        }
++                        else Item->SetField(TEXT("observed_render_lod"), MakeShared<FJsonValueNull>());
++                        const FObservedRenderHandles* Previous = Self->PreviousRenderHandles.Find(Staff.Path);
++                        Item->SetBoolField(TEXT("render_object_present"), Staff.MeshHandle != 0);
++                        if (Previous)
++                            Item->SetBoolField(TEXT("render_object_changed_since_sample"), Previous->Mesh != Staff.MeshHandle);
++                        else Item->SetField(TEXT("render_object_changed_since_sample"), MakeShared<FJsonValueNull>());
++                        if (Staff.bSkinCacheKnown)
++                        {
++                            Item->SetBoolField(TEXT("rt_skin_cache_entry_present"), Staff.SkinCacheHandle != 0);
++                            Item->SetBoolField(TEXT("rt_skin_cache_separate"), Staff.bSeparateRayTracingCache);
++                            if (Previous)
++                                Item->SetBoolField(TEXT("rt_skin_cache_entry_changed_since_sample"), Previous->SkinCache != Staff.SkinCacheHandle);
++                            else Item->SetField(TEXT("rt_skin_cache_entry_changed_since_sample"), MakeShared<FJsonValueNull>());
++                        }
++                        else Item->SetField(TEXT("rt_skin_cache_entry_present"), MakeShared<FJsonValueNull>());
++                        CurrentHandles.Add(Staff.Path, {Staff.MeshHandle, Staff.SkinCacheHandle});
++                        StaffRows.Add(MakeShared<FJsonValueObject>(Item));
++                    }
++                    TRACE_COUNTER_SET(StaffActiveMorphs, ObservedMorphs);
++                    Row->SetArrayField(TEXT("staff"), StaffRows);
++                    Self->PreviousRenderHandles = MoveTemp(CurrentHandles);
++                    Row->SetNumberField(TEXT("game_publish_ms"), (FPlatformTime::Seconds() - PublishStart) * 1000.0);
++                    if (Self->RenderResourceSamples.Num() < MaxRenderResourceSamples)
++                        Self->RenderResourceSamples.Add(Row);
++                    else
++                    {
++                        Self->RenderResourceSamples[Self->RenderResourceWriteIndex] = Row;
++                        Self->RenderResourceWriteIndex = (Self->RenderResourceWriteIndex + 1) % MaxRenderResourceSamples;
++                        ++Self->RenderResourceSamplesOverwritten;
++                    }
++                });
++            });
++        });
++}
+diff --git a/Source/FPSGAME/UI/FPSPerformanceEvents.cpp b/Source/FPSGAME/UI/FPSPerformanceEvents.cpp
+--- a/Source/FPSGAME/UI/FPSPerformanceEvents.cpp
++++ b/Source/FPSGAME/UI/FPSPerformanceEvents.cpp
+@@ -1,0 +2 @@
++#include "ProfilingDebugging/MiscTrace.h"
+@@ -25 +26 @@
+-uint64 UFPSPerformanceMetricsSubsystem::BeginEvent(FName Stage, const FString& Key)
++uint64 UFPSPerformanceMetricsSubsystem::BeginEvent(FName Stage, const FString& Key, bool bRetainForEncounter)
+@@ -30,0 +32 @@
++    Event.bRetainForEncounter = bRetainForEncounter;
+@@ -54,0 +57 @@
++    KeepEncounterEvent(Event);
+@@ -73 +76 @@
+-void UFPSPerformanceMetricsSubsystem::RecordMarker(const UObject* Context, FName Stage, const FString& Detail)
++void UFPSPerformanceMetricsSubsystem::RecordMarker(const UObject* Context, FName Stage, const FString& Detail, bool bRetainForEncounter)
+@@ -81,0 +85 @@
++    Event.bRetainForEncounter = bRetainForEncounter;
+@@ -83,0 +88 @@
++    if (bRetainForEncounter) TRACE_BOOKMARK(TEXT("FPS.%s %s"), *Stage.ToString(), *Detail);
+@@ -136 +141 @@
+-FFPSPerformanceScope::FFPSPerformanceScope(const UObject* Context, FName Stage, const FString& Key)
++FFPSPerformanceScope::FFPSPerformanceScope(const UObject* Context, FName Stage, const FString& Key, bool bRetainForEncounter)
+@@ -142 +147 @@
+-        EventId = Owner->BeginEvent(Stage, Key);
++        EventId = Owner->BeginEvent(Stage, Key, bRetainForEncounter);
+diff --git a/Source/FPSGAME/UI/FPSPerformanceMetrics.cpp b/Source/FPSGAME/UI/FPSPerformanceMetrics.cpp
+--- a/Source/FPSGAME/UI/FPSPerformanceMetrics.cpp
++++ b/Source/FPSGAME/UI/FPSPerformanceMetrics.cpp
+@@ -80,0 +81 @@
++    ResetEncounterDiagnostics();
+@@ -87,0 +89,2 @@
++    RenderResourceSamples.Empty();
++    PreviousRenderHandles.Empty();
+@@ -93,0 +97,7 @@
++    ResetEncounterDiagnostics();
++    RenderResourceSamples.Reset();
++    PreviousRenderHandles.Reset();
++    RenderResourceWriteIndex = 0;
++    RenderResourceSamplesOverwritten = 0;
++    NextRenderResourceSampleSeconds = 0.0;
++    bRenderResourceSamplePending = false;
+@@ -120 +130 @@
+-    else InvalidateActiveEvents();
++    else { ArchiveCombatWindow(false); InvalidateActiveEvents(); GpuInventoryRequests.Reset(); }
+@@ -170,0 +181,2 @@
++    UpdateEncounterCapture(Sample);
++    SampleRenderResources(Now);
+@@ -233,0 +246,6 @@
++    Snapshot.RenderResourceSamplesOverwritten = RenderResourceSamplesOverwritten;
++    ReadEncounterDiagnostics(Snapshot);
++    Snapshot.RenderResourceSamples.Reserve(RenderResourceSamples.Num());
++    const int32 FirstResource = RenderResourceSamples.Num() == MaxRenderResourceSamples ? RenderResourceWriteIndex : 0;
++    for (int32 I = 0; I < RenderResourceSamples.Num(); ++I)
++        Snapshot.RenderResourceSamples.Add(RenderResourceSamples[(FirstResource + I) % RenderResourceSamples.Num()]);
+diff --git a/Source/FPSGAME/UI/FPSPerformanceMetrics.h b/Source/FPSGAME/UI/FPSPerformanceMetrics.h
+--- a/Source/FPSGAME/UI/FPSPerformanceMetrics.h
++++ b/Source/FPSGAME/UI/FPSPerformanceMetrics.h
+@@ -12,0 +13 @@
++class FJsonObject;
+@@ -123,0 +125 @@
++    bool bRetainForEncounter = false;
+@@ -136,0 +139,12 @@
++};
++
++/** Immutable once archived; independent of the UI's rolling window. */
++struct FFPSCombatWindow
++{
++    double TriggerSeconds=0., RequestedEndSeconds=0.;
++    FString Trigger;
++    TArray<FFPSRecordedFrame> Frames;
++    TArray<FFPSPerformanceEvent> Events;
++    TArray<TSharedPtr<FJsonObject>> ResourceSamples;
++    bool bComplete=false, bFrameCapacityLimited=false;
++    uint64 EventsDiscarded=0;
+@@ -257,0 +272,9 @@
++    // Published rows are immutable; snapshot/export copies share their values.
++    TArray<TSharedPtr<FJsonObject>> RenderResourceSamples;
++    uint64 RenderResourceSamplesOverwritten = 0;
++    TArray<TSharedPtr<const FFPSCombatWindow>> CombatWindows;
++    TArray<FFPSPerformanceEvent> EncounterEvents;
++    TArray<TSharedPtr<FJsonObject>> GpuResourceInventories;
++    uint64 CombatWindowsOverwritten=0, EncounterEventsOverwritten=0, GpuInventoriesOverwritten=0;
++    int32 GpuInventoryQueued=0;
++    bool bGpuInventoryEnabled=false, bGpuInventoryPending=false;
+@@ -299,0 +323,6 @@
++    /** Optional preparation only; unknown/stale samples must not delay gameplay. */
++    bool HasRecentRenderHeadroom(uint64 ReserveBytes) const
++    {
++        return RenderBudgetBytes>0 && FPlatformTime::Seconds()-RenderBudgetSeconds<2.0
++            && RenderUsedBytes<RenderBudgetBytes && RenderBudgetBytes-RenderUsedBytes>=ReserveBytes;
++    }
+@@ -306 +335,5 @@
+-    static void RecordMarker(const UObject* Context, FName Stage, const FString& Detail = FString());
++    static void RecordMarker(const UObject* Context, FName Stage, const FString& Detail = FString(), bool bRetainForEncounter=false);
++    static void StartCombatWindow(const UObject* Context, const FString& Reason);
++    static void RequestGpuResourceInventory(const UObject* Context, const FString& Reason, double DelaySeconds=0.);
++    static bool IsGpuInventoryEnabled();
++    static void SetGpuInventoryEnabled(bool bEnabled);
+@@ -325,0 +359,8 @@
++    void SampleRenderResources(double Now);
++    void UpdateEncounterCapture(const FFPSRecordedFrame& Frame);
++    void ArchiveCombatWindow(bool bComplete);
++    void CopyResourcesForWindow(FFPSCombatWindow& Window) const;
++    void KeepEncounterEvent(const FFPSPerformanceEvent& Event);
++    void PumpGpuResourceInventory(double Now);
++    void ResetEncounterDiagnostics();
++    void ReadEncounterDiagnostics(FFPSPerformanceSnapshot& Snapshot) const;
+@@ -327 +368 @@
+-    uint64 BeginEvent(FName Stage, const FString& Key);
++    uint64 BeginEvent(FName Stage, const FString& Key, bool bRetainForEncounter=false);
+@@ -382,0 +424,23 @@
++    double NextRenderResourceSampleSeconds = 0.0;
++    uint64 RenderBudgetBytes = 0, RenderUsedBytes = 0;
++    double RenderBudgetSeconds = -100.;
++    bool bRenderResourceSamplePending = false;
++    TArray<TSharedPtr<FJsonObject>> RenderResourceSamples;
++    int32 RenderResourceWriteIndex = 0;
++    uint64 RenderResourceSamplesOverwritten = 0;
++    struct FObservedRenderHandles { uint64 Mesh = 0, SkinCache = 0; };
++    TMap<FString, FObservedRenderHandles> PreviousRenderHandles;
++    TUniquePtr<FFPSCombatWindow> ActiveCombatWindow;
++    TArray<TSharedPtr<const FFPSCombatWindow>> CombatWindows;
++    TArray<FFPSPerformanceEvent> EncounterEvents;
++    TArray<TSharedPtr<FJsonObject>> GpuResourceInventories;
++    uint64 CombatWindowsOverwritten=0, EncounterEventsOverwritten=0, GpuInventoriesOverwritten=0;
++    struct FInventoryRequest { FString Reason; double Due=0., RequestedSeconds=0.; uint64 RequestedFrame=0; };
++    TArray<FInventoryRequest> GpuInventoryRequests;
++    bool bGpuInventoryPending=false;
++    double NextGpuInventorySeconds=0.;
++    static constexpr int32 MaxCombatWindows=4;
++    static constexpr int32 MaxCombatFrames=4096;
++    static constexpr int32 MaxEncounterEvents=512;
++    static constexpr int32 MaxGpuInventories=6;
++    static constexpr int32 MaxRenderResourceSamples = 360;
+@@ -396 +460 @@
+-    FFPSPerformanceScope(const UObject* Context, FName Stage, const FString& Key = FString());
++    FFPSPerformanceScope(const UObject* Context, FName Stage, const FString& Key = FString(), bool bRetainForEncounter=false);
+diff --git a/Source/FPSGAME/UI/FPSPerformanceMetricsExport.cpp b/Source/FPSGAME/UI/FPSPerformanceMetricsExport.cpp
+--- a/Source/FPSGAME/UI/FPSPerformanceMetricsExport.cpp
++++ b/Source/FPSGAME/UI/FPSPerformanceMetricsExport.cpp
+@@ -14,0 +15,28 @@
++// Snapshot JSON is immutable, but its default shared reference counters are
++// not thread-safe. Read without copying those references; build worker-owned
++// values for serialization, and return the retained snapshot to the game thread.
++TSharedRef<FJsonObject> CopyResourceObject(const FJsonObject& Source);
++TSharedPtr<FJsonValue> CopyResourceValue(const FJsonValue& Source)
++{
++    switch(Source.Type)
++    {
++    case EJson::Object:return MakeShared<FJsonValueObject>(CopyResourceObject(*Source.AsObject()));
++    case EJson::Array:
++    {
++        TArray<TSharedPtr<FJsonValue>> Values;
++        for(const auto& Value:Source.AsArray())Values.Add(Value?CopyResourceValue(*Value):MakeShared<FJsonValueNull>());
++        return MakeShared<FJsonValueArray>(MoveTemp(Values));
++    }
++    case EJson::String:return MakeShared<FJsonValueString>(Source.AsString());
++    case EJson::Number:return MakeShared<FJsonValueNumber>(Source.AsNumber());
++    case EJson::Boolean:return MakeShared<FJsonValueBoolean>(Source.AsBool());
++    default:return MakeShared<FJsonValueNull>();
++    }
++}
++TSharedRef<FJsonObject> CopyResourceObject(const FJsonObject& Source)
++{
++    auto Result=MakeShared<FJsonObject>();
++    for(const auto& Pair:Source.Values)Result->SetField(Pair.Key,Pair.Value?CopyResourceValue(*Pair.Value):MakeShared<FJsonValueNull>());
++    return Result;
++}
++
+@@ -370 +398 @@
+-    Root->SetNumberField(TEXT("schema_version"), 9);
++    Root->SetNumberField(TEXT("schema_version"), 11);
+@@ -371,0 +400,77 @@
++    auto Encounters=MakeShared<FJsonObject>();
++    Encounters->SetStringField(TEXT("contract"),TEXT("Automatic on each hall wave's first successful spawn: up to 3s preceding and 20s following frames, nearby triggers merged up to 30s. Four archived windows plus one active, max 4096 frames each. Independent from UI rolling window; clear/restart discards history. Timers retain their original asynchronous/process-wide semantics. No per-actor GPU time is inferred."));
++    Encounters->SetNumberField(TEXT("archived_window_capacity"),MaxCombatWindows);
++    Encounters->SetNumberField(TEXT("frame_capacity_per_window"),MaxCombatFrames);
++    Encounters->SetNumberField(TEXT("event_capacity"),MaxEncounterEvents);
++    Encounters->SetStringField(TEXT("windows_overwritten_since_clear"),LexToString(Snapshot.CombatWindowsOverwritten));
++    Encounters->SetStringField(TEXT("events_overwritten_since_clear"),LexToString(Snapshot.EncounterEventsOverwritten));
++    const auto RetainedEvents=[](const TArray<FFPSPerformanceEvent>& Events)
++    {
++        TSet<uint64> Ids;for(const auto& E:Events)Ids.Add(E.Id);
++        TArray<TSharedPtr<FJsonValue>> Rows;
++        for(auto E:Events){E.bParentMissing=E.ParentId!=0&&!Ids.Contains(E.ParentId);Rows.Add(MakeShared<FJsonValueObject>(EventJson(E)));}
++        return Rows;
++    };
++    Encounters->SetArrayField(TEXT("lifecycle_events"),RetainedEvents(Snapshot.EncounterEvents));
++    TArray<TSharedPtr<FJsonValue>> Windows;
++    for(const auto& Ptr:Snapshot.CombatWindows)
++    {
++        if(!Ptr)continue;const auto& Window=*Ptr;auto Row=MakeShared<FJsonObject>();
++        Row->SetStringField(TEXT("trigger"),Window.Trigger);
++        Row->SetNumberField(TEXT("trigger_seconds"),Window.TriggerSeconds);
++        Row->SetNumberField(TEXT("requested_end_seconds"),Window.RequestedEndSeconds);
++        Row->SetBoolField(TEXT("post_window_complete"),Window.bComplete);
++        Row->SetBoolField(TEXT("frame_capacity_limited"),Window.bFrameCapacityLimited);
++        Row->SetStringField(TEXT("events_discarded"),LexToString(Window.EventsDiscarded));
++        TArray<TSharedPtr<FJsonValue>> Frames;TArray<float> Durations;
++        int32 Over50=0,Over100=0,Paused=0,Background=0;double Sum=0.;
++        for(const auto& Frame:Window.Frames)
++        {
++            Frames.Add(MakeShared<FJsonValueObject>(RecordedFrameJson(Frame)));
++            Durations.Add(Frame.FrameMs);Sum+=Frame.FrameMs;
++            Over50+=Frame.FrameMs>=50.f;Over100+=Frame.FrameMs>=100.f;Paused+=Frame.bPaused;Background+=Frame.bBackground;
++        }
++        Row->SetArrayField(TEXT("frames"),Frames);
++        Row->SetArrayField(TEXT("events"),RetainedEvents(Window.Events));
++        TArray<TSharedPtr<FJsonValue>> WindowResources;
++        for(const auto& Resource:Window.ResourceSamples)WindowResources.Add(MakeShared<FJsonValueObject>(CopyResourceObject(*Resource)));
++        Row->SetArrayField(TEXT("completed_resource_samples"),WindowResources);
++        Row->SetStringField(TEXT("resource_sample_contract"),TEXT("Completed 2Hz observations available when window archived/snapshotted. Late asynchronous results may be absent; game/render/RHI timestamps remain separate."));
++        Row->SetNumberField(TEXT("frame_count"),Frames.Num());
++        Row->SetNumberField(TEXT("frames_at_least_50ms"),Over50);Row->SetNumberField(TEXT("frames_at_least_100ms"),Over100);
++        Row->SetNumberField(TEXT("paused_frames"),Paused);Row->SetNumberField(TEXT("background_frames"),Background);
++        if(!Durations.IsEmpty())
++        {
++            Durations.Sort();
++            Row->SetNumberField(TEXT("actual_start_seconds"),Window.Frames[0].StartSeconds);
++            Row->SetNumberField(TEXT("actual_end_seconds"),Window.Frames.Last().Seconds);
++            Row->SetNumberField(TEXT("frame_average_ms"),Sum/Durations.Num());
++            Row->SetNumberField(TEXT("frame_p95_ms"),Durations[FMath::CeilToInt(.95f*Durations.Num())-1]);
++            Row->SetNumberField(TEXT("frame_p99_ms"),Durations[FMath::CeilToInt(.99f*Durations.Num())-1]);
++            Row->SetNumberField(TEXT("frame_peak_ms"),Durations.Last());
++        }
++        Windows.Add(MakeShared<FJsonValueObject>(Row));
++    }
++    Encounters->SetArrayField(TEXT("windows"),Windows);
++    Root->SetObjectField(TEXT("encounter_diagnostics"),Encounters);
++    auto Inventory=MakeShared<FJsonObject>();
++    Inventory->SetStringField(TEXT("contract"),TEXT("Opt-in tracked RHI resource inventory, process-wide including editor/other worlds. Minimum 5s between submissions, one in flight; event requests may be coalesced/delayed. Engine enumeration holds a resource-tracking lock and is indivisible: its explicit start/end/ms is diagnostic overhead. Aggregation is on a worker. Allocation sums/resident flags are NOT unique physical VRAM usage; transient aliases may overlap, untracked/driver allocations and per-resource page-fault/eviction/allocation call stacks are unavailable. Owner None remains unknown. No rendering flush or GPU wait."));
++    Inventory->SetBoolField(TEXT("enabled_at_snapshot"),Snapshot.bGpuInventoryEnabled);
++    Inventory->SetBoolField(TEXT("pending_at_snapshot"),Snapshot.bGpuInventoryPending);
++    Inventory->SetNumberField(TEXT("queued_at_snapshot"),Snapshot.GpuInventoryQueued);
++    Inventory->SetNumberField(TEXT("capacity"),MaxGpuInventories);
++    Inventory->SetStringField(TEXT("overwritten_since_clear"),LexToString(Snapshot.GpuInventoriesOverwritten));
++    TArray<TSharedPtr<FJsonValue>> Inventories;
++    for(const auto& Row:Snapshot.GpuResourceInventories)Inventories.Add(MakeShared<FJsonValueObject>(CopyResourceObject(*Row)));
++    Inventory->SetArrayField(TEXT("snapshots"),Inventories);
++    Root->SetObjectField(TEXT("gpu_resource_inventory"),Inventory);
++    auto Resources = MakeShared<FJsonObject>();
++    Resources->SetStringField(TEXT("contract"), TEXT("At most 2Hz since clear/restart while recording; newest 360 completed observations, separate from the frame window. GPU memory is process-wide RHI-published data including editor/other worlds. monster_classes counts current-World Characters with MonsterCombatComponent; body simulation/Tick flags are not measured solver/animation execution. Detailed staff morph observations cover FacelessResearcher/FacelessReceptionist only. Game/render/RHI timestamps are separate, not same-frame GPU timings. Missing data is null. No flush, texture-streaming update or gameplay mutation."));
++    Resources->SetNumberField(TEXT("capacity"), MaxRenderResourceSamples);
++    Resources->SetNumberField(TEXT("sample_interval_seconds"), .5);
++    Resources->SetStringField(TEXT("overwritten_since_clear"), LexToString(Snapshot.RenderResourceSamplesOverwritten));
++    TArray<TSharedPtr<FJsonValue>> ResourceRows;
++    for (const auto& Row : Snapshot.RenderResourceSamples)
++        ResourceRows.Add(MakeShared<FJsonValueObject>(CopyResourceObject(*Row)));
++    Resources->SetArrayField(TEXT("samples"), ResourceRows);
++    Root->SetObjectField(TEXT("render_resource_history"), Resources);
+@@ -382 +487 @@
+-    Root->SetStringField(TEXT("unavailable"), TEXT("CPU subsystems outside instrumented scopes, detailed engine waits, aligned thread/GPU source frames, GPU passes, actual animation evaluations, actual rendered LOD/Nanite/instances/occlusion, Niagara particles, memory, loading durations"));
++    Root->SetStringField(TEXT("unavailable"), TEXT("CPU subsystems outside instrumented scopes, detailed engine waits, aligned thread/GPU source frames, GPU passes, actual animation evaluations, general actual rendered LOD/Nanite/instances/occlusion, Niagara particles, per-resource residency/page faults and exact SkinCache allocation bytes, loading durations"));
+@@ -580,2 +685,3 @@
+-        AsyncTask(ENamedThreads::GameThread, [Completion = MoveTemp(Completion), bSaved, Path = MoveTemp(Path), ElapsedMs]() mutable
+-        {
++        AsyncTask(ENamedThreads::GameThread, [Completion = MoveTemp(Completion), bSaved, Path = MoveTemp(Path), ElapsedMs, Retained=MoveTemp(Copy)]() mutable
++        {
++            Retained.RenderResourceSamples.Reset();Retained.GpuResourceInventories.Reset();Retained.CombatWindows.Reset();
+diff --git a/Source/FPSGAME/UI/FPSPerformanceMetricsScene.cpp b/Source/FPSGAME/UI/FPSPerformanceMetricsScene.cpp
+--- a/Source/FPSGAME/UI/FPSPerformanceMetricsScene.cpp
++++ b/Source/FPSGAME/UI/FPSPerformanceMetricsScene.cpp
+@@ -201 +201 @@
+-        TEXT("sg.GlobalIlluminationQuality"), TEXT("sg.ReflectionQuality"),
++        TEXT("sg.GlobalIlluminationQuality"), TEXT("sg.ReflectionQuality"), TEXT("r.PurgeEditorSceneDuringPIE"),
+diff --git a/Source/FPSGAME/UI/DevelopmentPerformancePanel.cpp b/Source/FPSGAME/UI/DevelopmentPerformancePanel.cpp
+--- a/Source/FPSGAME/UI/DevelopmentPerformancePanel.cpp
++++ b/Source/FPSGAME/UI/DevelopmentPerformancePanel.cpp
+@@ -89,0 +90,3 @@
++    PerformanceGpuInventoryButton=CreatePanelButton(TEXT("GPU 资源详采：关"),TEXT("DevelopmentGpuInventory"));
++    PerformanceGpuInventoryButton->OnClicked.AddDynamic(this,&ThisClass::PerformanceGpuInventoryClicked);
++    AddControl(PerformanceGpuInventoryButton,184.f);
+@@ -106,0 +110 @@
++    Body(TEXT("刷怪会自动保留前 3 秒、后 20 秒记录；无需在卡顿瞬间导出。GPU 资源详采为可选项，开启后按事件限频采集，额外枚举耗时单独记录。"));
+@@ -155 +159 @@
+-        PerformanceResetButton.Get(), PerformanceExportButton.Get()})
++        PerformanceResetButton.Get(), PerformanceExportButton.Get(), PerformanceGpuInventoryButton.Get()})
+@@ -171,0 +176,11 @@
++
++void UDevelopmentPanelWidget::PerformanceGpuInventoryClicked()
++{
++    const bool Enabled=!UFPSPerformanceMetricsSubsystem::IsGpuInventoryEnabled();
++    UFPSPerformanceMetricsSubsystem::SetGpuInventoryEnabled(Enabled);
++    if(Enabled)UFPSPerformanceMetricsSubsystem::RequestGpuResourceInventory(this,TEXT("F6 inventory enabled / baseline"));
++    ButtonText(PerformanceGpuInventoryButton,Enabled?TEXT("GPU 资源详采：开"):TEXT("GPU 资源详采：关"));
++    if(PerformanceMessage)SetPerformanceText(PerformanceMessage,FText::FromString(Enabled
++        ?TEXT("已开启事件资源详采；采集耗时会写入 JSON。正常进入地牢、刷怪后再导出即可。")
++        :TEXT("已关闭新的 GPU 明细请求；已完成记录保留，普通刷怪记录继续。")));
++}
+@@ -268,0 +284 @@
++        ButtonText(PerformanceGpuInventoryButton,Metrics->IsGpuInventoryEnabled()?TEXT("GPU 资源详采：开"):TEXT("GPU 资源详采：关"));
+diff --git a/Source/FPSGAME/UI/DevelopmentPanelWidget.h b/Source/FPSGAME/UI/DevelopmentPanelWidget.h
+--- a/Source/FPSGAME/UI/DevelopmentPanelWidget.h
++++ b/Source/FPSGAME/UI/DevelopmentPanelWidget.h
+@@ -92,0 +93 @@
++    UFUNCTION() void PerformanceGpuInventoryClicked();
+@@ -149,0 +151 @@
++    UPROPERTY(Transient) TObjectPtr<UButton> PerformanceGpuInventoryButton;
+diff --git a/Source/FPSGAME/UI/GameResourcePreparation.cpp b/Source/FPSGAME/UI/GameResourcePreparation.cpp
+--- a/Source/FPSGAME/UI/GameResourcePreparation.cpp
++++ b/Source/FPSGAME/UI/GameResourcePreparation.cpp
+@@ -9,0 +10 @@
++#include "Materials/MaterialInstanceDynamic.h"
+@@ -11,0 +13 @@
++#include "ProfilingDebugging/CpuProfilerTrace.h"
+@@ -16,0 +19,8 @@
++bool UsesVisibleResources(const UPrimitiveComponent* Component)
++{
++    if (!IsValid(Component) || !Component->IsRegistered()) return false;
++    const bool Hidden = !Component->IsVisible() || Component->bHiddenInGame ||
++        (Component->GetOwner() && Component->GetOwner()->IsHidden());
++    return !Hidden || (Component->CastShadow && Component->bCastHiddenShadow);
++}
++
+@@ -26 +36,2 @@
+-FGameResourcePreparation::FGameResourcePreparation(UWorld* World) : Scene(World)
++FGameResourcePreparation::FGameResourcePreparation(UWorld* World, bool bDuringSceneAssembly)
++    : Scene(World), bSceneAssembling(bDuringSceneAssembly)
+@@ -28,0 +40,44 @@
++    if(World)
++    {
++        ActorSpawnedHandle=World->AddOnActorSpawnedHandler(
++            FOnActorSpawned::FDelegate::CreateRaw(this,&FGameResourcePreparation::TrackActor));
++        for(TActorIterator<AActor> It(World);It;++It)TrackActor(*It);
++    }
++    if(!bSceneAssembling)StartCollection();
++}
++
++FGameResourcePreparation::~FGameResourcePreparation() { StopTrackingActors();ReleaseProtection(); }
++
++void FGameResourcePreparation::TrackActor(AActor* Actor)
++{
++    if(IsValid(Actor)&&!SeenActors.Contains(Actor))
++    {SeenActors.Add(Actor);KnownActors.Add(Actor);}
++}
++
++void FGameResourcePreparation::StopTrackingActors()
++{
++    if(auto* World=Scene.Get();World&&ActorSpawnedHandle.IsValid())World->RemoveOnActorSpawnedHandler(ActorSpawnedHandle);
++    ActorSpawnedHandle.Reset();
++    KnownActors.Reset();SeenActors.Reset();
++    // Reuse the bounded entry-material cache for residency handoff; it contains
++    // weak references and is released with the final protected texture.
++    if(!bReady)MaterialTextures.Reset();
++    WarmActors.Reset();QueuedWarmActors.Reset();WarmMaterials.Reset();
++    WarmTextures.Reset();SeenWarmTextures.Reset();RequestedWarmTextures.Reset();
++}
++
++void FGameResourcePreparation::QueueAssembledActor(AActor* Actor)
++{
++    TrackActor(Actor);
++    if(bSceneAssembling&&IsValid(Actor)&&!QueuedWarmActors.Contains(Actor))
++    {QueuedWarmActors.Add(Actor);WarmActors.Add(Actor);}
++}
++
++void FGameResourcePreparation::FinishSceneAssembly()
++{
++    if(!bSceneAssembling)return;
++    bSceneAssembling=false;
++    WarmActors.Reset();QueuedWarmActors.Reset();WarmMaterials.Reset();WarmTextures.Reset();SeenWarmTextures.Reset();RequestedWarmTextures.Reset();
++    // Final eligibility is evaluated after room visibility is applied. Speculative
++    // requests never pin hidden rooms or become part of the final required set.
++    StartedAt=FPlatformTime::Seconds();
+@@ -32 +87,58 @@
+-FGameResourcePreparation::~FGameResourcePreparation() { ReleaseProtection(); }
++void FGameResourcePreparation::GetMaterialTextures(UMaterialInterface* Material,TArray<UTexture*>& Out)
++{
++    // Dynamic parameters can change during scene finishing/late weapon setup.
++    const auto* Resource=Material->GetMaterialResource(GetFeatureLevelShaderPlatform_Checked(Scene->GetFeatureLevel()));
++    const auto* ShaderMap=Resource?Resource->GetGameThreadShaderMap():nullptr;
++    const bool bCacheable=!Material->IsA<UMaterialInstanceDynamic>()&&ShaderMap&&ShaderMap->IsValidForRendering();
++    if(bCacheable)if(const auto* Cached=MaterialTextures.Find(Material))
++    {for(const auto& Texture:*Cached)if(auto* Value=Texture.Get())Out.Add(Value);return;}
++    Material->GetUsedTextures(Out,{},GetFeatureLevelShaderPlatform_Checked(Scene->GetFeatureLevel()));
++    if(bCacheable)
++    {
++        auto& Cached=MaterialTextures.FindOrAdd(Material);
++        for(auto* Texture:Out)if(Texture)Cached.Add(Texture);
++    }
++}
++
++void FGameResourcePreparation::PumpAssemblyWarmup(double Deadline)
++{
++    const double CollectionDeadline=FPlatformTime::Seconds()+FMath::Max(0.,Deadline-FPlatformTime::Seconds())*.5;
++    while(WarmActorCursor<WarmActors.Num()&&FPlatformTime::Seconds()<CollectionDeadline)
++    {
++        const auto Weak=WarmActors[WarmActorCursor++];QueuedWarmActors.Remove(Weak);
++        if(auto* Actor=Weak.Get();IsValid(Actor))
++        {
++            TInlineComponentArray<UPrimitiveComponent*> Primitives(Actor);
++            for(auto* Component:Primitives)
++            {
++                if(!Component->IsRegistered())continue;
++                TArray<UMaterialInterface*> Used;Component->GetUsedMaterials(Used);
++                for(auto* Material:Used)if(Material&&!WarmMaterials.Contains(Material))
++                {
++                    TArray<UTexture*> UsedTextures;GetMaterialTextures(Material,UsedTextures);
++                    if(!UsedTextures.IsEmpty())WarmMaterials.Add(Material);
++                    for(auto* UsedTexture:UsedTextures)
++                        if(auto* Texture=Cast<UTexture2D>(UsedTexture);Texture&&!Texture->IsCurrentlyVirtualTextured()&&!SeenWarmTextures.Contains(Texture))
++                        {SeenWarmTextures.Add(Texture);WarmTextures.Add(Texture);}
++                }
++            }
++        }
++    }
++    if(WarmActorCursor==WarmActors.Num()){WarmActors.Reset();WarmActorCursor=0;}
++    const int64 Pool=IStreamingManager::Get().GetRenderAssetStreamingManager().GetPoolSize();
++    for(int32 Remaining=WarmTextures.Num();Remaining>0&&FPlatformTime::Seconds()<Deadline;--Remaining)
++    {
++        if(WarmTextureCursor>=WarmTextures.Num())WarmTextureCursor=0;
++        auto* Texture=WarmTextures[WarmTextureCursor++].Get();
++        if(!Texture||RequestedWarmTextures.Contains(Texture)||!Texture->RenderResourceSupportsStreaming())continue;
++        const auto& State=Texture->GetStreamableResourceState();
++        if(!State.IsValid()||Texture->HasPendingInitOrStreaming())continue;
++        const int64 Bytes=Texture->CalcTextureMemorySizeEnum(TMC_AllMipsBiased);
++        // Speculative work is bounded and evictable. Final preparation still
++        // measures the visible set before registering residency protection.
++        if(Pool<=0||WarmRequestBytes+Bytes>Pool*.85)continue;
++        const int32 Required=GameEntryResources::RequiredMips(Texture);
++        if(State.NumResidentLODs>=Required||Texture->StreamIn(Required,true))
++        {WarmRequestBytes+=Bytes;RequestedWarmTextures.Add(Texture);}
++    }
++}
+@@ -40,0 +153,58 @@
++    ResidencyInUse.Reset();ResidencyMaterials.Reset();UnusedSince.Reset();MaterialTextures.Reset();
++}
++
++void FGameResourcePreparation::TickResidency()
++{
++    if (!HasResidencyWork() || IStreamingManager::HasShutdown()) return;
++    UWorld* World = Scene.Get();
++    if (!World) { ReleaseProtection(); return; }
++    if (World->IsPaused()) return;
++    const double Now = World->GetTimeSeconds();
++    if (Now < NextResidencyPass) return;
++    TRACE_CPUPROFILER_EVENT_SCOPE(GameEntry_ReleaseUnusedResidency);
++    const double Deadline = FPlatformTime::Seconds() + .001;
++    if (ResidencyCursor == INDEX_NONE)
++    {
++        ResidencyCursor = 0;
++        ResidencyInUse.Reset();
++        ResidencyMaterials.Reset();
++    }
++    // Only revisit the prepared component set, never scan the whole world. A
++    // shared texture stays protected if any eligible component still uses it.
++    while (ResidencyCursor < Components.Num() && FPlatformTime::Seconds() < Deadline)
++    {
++        auto* Component = Components[ResidencyCursor++].Get();
++        if (!GameEntryResources::UsesVisibleResources(Component)) continue;
++        TArray<UMaterialInterface*> Used;
++        Component->GetUsedMaterials(Used);
++        for (auto* Material : Used)
++        {
++            if (!Material || ResidencyMaterials.Contains(Material)) continue;
++            ResidencyMaterials.Add(Material);
++            TArray<UTexture*> UsedTextures;
++            GetMaterialTextures(Material, UsedTextures);
++            for (auto* Texture : UsedTextures)
++                if (auto* Texture2D = Cast<UTexture2D>(Texture); Texture2D && Protected.Contains(Texture2D))
++                    ResidencyInUse.Add(Texture2D);
++        }
++    }
++    if (ResidencyCursor < Components.Num()) return;
++    auto& Manager = IStreamingManager::Get().GetRenderAssetStreamingManager();
++    for (auto It = Protected.CreateIterator(); It; ++It)
++    {
++        const auto Weak = *It;
++        auto* Texture = Weak.Get();
++        if (Texture && ResidencyInUse.Contains(Weak)) { UnusedSince.Remove(Weak); continue; }
++        // Keep entry quality across the fade and brief visibility/equipment
++        // transitions. Removing protection permits eviction; it never forces it.
++        double* Since = UnusedSince.Find(Weak);
++        if (Texture && !Since) { UnusedSince.Add(Weak, Now); continue; }
++        if (Texture && Now - *Since < 5.) continue;
++        if (Texture) Manager.UnregisterStreamOutProtectedAsset(Texture);
++        UnusedSince.Remove(Weak);
++        It.RemoveCurrent();
++    }
++    ResidencyCursor = INDEX_NONE;
++    NextResidencyPass = Now + 1.;
++    ResidencyInUse.Reset();ResidencyMaterials.Reset();
++    if (Protected.IsEmpty()) MaterialTextures.Reset();
+@@ -46,2 +216,5 @@
+-    if (auto* World = Scene.Get())
+-        for (TActorIterator<AActor> It(World); It; ++It) Actors.Add(*It);
++    // Spawn tracking includes late callbacks; reuse the registry on quiet passes.
++    // Streamed-in level actors can arrive without the spawn delegate.
++    if(auto* World=Scene.Get();World&&!World->GetStreamingLevels().IsEmpty())
++        for(TActorIterator<AActor> It(World);It;++It)TrackActor(*It);
++    Actors=KnownActors;
+@@ -53 +226 @@
+-    if (!Component || !Component->IsRegistered()) return;
++    if (!GameEntryResources::UsesVisibleResources(Component)) return;
+@@ -56,3 +228,0 @@
+-    const bool Hidden=!Component->IsVisible()||Component->bHiddenInGame||
+-        (Component->GetOwner()&&Component->GetOwner()->IsHidden());
+-    if(Hidden&&!Component->bCastHiddenShadow)return;
+@@ -68 +238 @@
+-        Material->GetUsedTextures(UsedTextures, {}, GetFeatureLevelShaderPlatform_Checked(Scene->GetFeatureLevel()));
++        GetMaterialTextures(Material,UsedTextures);
+@@ -79,0 +250 @@
++    StopTrackingActors();
+@@ -89,0 +261 @@
++    if(bSceneAssembling){PumpAssemblyWarmup(Now+.002);return;}
+@@ -208,0 +381 @@
++            StopTrackingActors();
+diff --git a/Source/FPSGAME/UI/GameResourcePreparation.h b/Source/FPSGAME/UI/GameResourcePreparation.h
+--- a/Source/FPSGAME/UI/GameResourcePreparation.h
++++ b/Source/FPSGAME/UI/GameResourcePreparation.h
+@@ -17 +17 @@
+-    explicit FGameResourcePreparation(UWorld* World);
++    explicit FGameResourcePreparation(UWorld* World, bool bDuringSceneAssembly = false);
+@@ -19,0 +20,5 @@
++    void QueueAssembledActor(AActor* Actor);
++    void FinishSceneAssembly();
++    /** Bounded handoff of unused entry textures to normal streaming after gameplay starts. */
++    void TickResidency();
++    bool HasResidencyWork() const { return bReady && !Protected.IsEmpty(); }
+@@ -29,0 +35,4 @@
++    void TrackActor(AActor* Actor);
++    void StopTrackingActors();
++    void PumpAssemblyWarmup(double Deadline);
++    void GetMaterialTextures(UMaterialInterface* Material, TArray<UTexture*>& Out);
+@@ -30,0 +40,13 @@
++    FDelegateHandle ActorSpawnedHandle;
++    TArray<TWeakObjectPtr<AActor>> KnownActors;
++    TSet<TWeakObjectPtr<AActor>> SeenActors;
++    TArray<TWeakObjectPtr<AActor>> WarmActors;
++    TSet<TWeakObjectPtr<AActor>> QueuedWarmActors;
++    TSet<TWeakObjectPtr<UMaterialInterface>> WarmMaterials;
++    TArray<TWeakObjectPtr<UTexture2D>> WarmTextures;
++    TSet<TWeakObjectPtr<UTexture2D>> SeenWarmTextures;
++    TSet<TWeakObjectPtr<UTexture2D>> RequestedWarmTextures;
++    TMap<TWeakObjectPtr<UMaterialInterface>, TArray<TWeakObjectPtr<UTexture>>> MaterialTextures;
++    int32 WarmActorCursor = 0, WarmTextureCursor = 0;
++    int64 WarmRequestBytes = 0;
++    bool bSceneAssembling = false;
+@@ -39,0 +62,5 @@
++    TSet<TWeakObjectPtr<UTexture2D>> ResidencyInUse;
++    TSet<TWeakObjectPtr<UMaterialInterface>> ResidencyMaterials;
++    TMap<TWeakObjectPtr<UTexture2D>, double> UnusedSince;
++    int32 ResidencyCursor = INDEX_NONE;
++    double NextResidencyPass = 0.;
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+@@ -49,0 +50,3 @@
++#include "DungeonMonsterRenderPreparation.h"
++#include "../UI/ColdSteelPickupStudio.h"
++#include "../UI/FPSPerformanceMetrics.h"
+@@ -62,0 +66 @@
++#include <queue>
+@@ -67 +70,0 @@
+-#include <queue>
+@@ -335 +338,12 @@
+-    struct FJob { FName Stage; TFunction<void()> Run; };
++    struct FInstanceBatch
++    {
++        TWeakObjectPtr<UInstancedStaticMeshComponent> Component;
++        TArray<FTransform> Transforms;
++    };
++    struct FJob
++    {
++        FName Stage;
++        TFunction<void()> Run;
++        TArray<int32> Resources;
++        int32 ReadyCursor=0;
++    };
+@@ -338 +352 @@
+-        TArray<FString> Paths;
++        TArray<int32> Resources;
+@@ -340,0 +355 @@
++        int32 AdoptCursor=0;
+@@ -345,0 +361,2 @@
++    FDungeonMonsterRenderPreparation MonsterRendering;
++    TSet<FString> SelectedMonsterClasses;
+@@ -347,0 +365,5 @@
++    TArray<FInstanceBatch> InstanceBatches;
++    TMap<UInstancedStaticMeshComponent*,int32> InstanceBatchIndices;
++    int32 FullInstanceBatch=INDEX_NONE,InstanceFlushCursor=0,PendingInstances=0,InstanceBatchSubmissions=0;
++    bool bFlushingInstances=false;
++    FName InstancePhase;
+@@ -349,0 +372 @@
++    DungeonWallStains::FPreparation WallStains;
+@@ -354,0 +378 @@
++    int32 WarmupActorCursor=0;
+@@ -355,0 +380 @@
++    double PhysicsWaitStartedAt=0;
+@@ -364,0 +390,2 @@
++    TArray<int32> ResourceLoadOrder;
++    TArray<bool> ResourceReady;
+@@ -366,0 +394,2 @@
++    int32 JobsWhileLoading=0,ResourceWaitSlices=0;
++    double LastBudgetMs=0;
+@@ -378 +407,5 @@
+-    TEXT("Game-thread assembly budget per frame, milliseconds. One indivisible mesh/physics registration may exceed it."));
++    TEXT("Shared resource/assembly budget without a standalone loading overlay, milliseconds. One indivisible mesh/physics registration may exceed it."));
++TAutoConsoleVariable<float> DungeonLoadingBuildBudget(TEXT("fps.Dungeon.Generation.LoadingBudgetMs"),8.f,
++    TEXT("Shared resource/assembly budget while a standalone loading overlay holds input, milliseconds. Clamped to 0.25-16 ms."));
++TAutoConsoleVariable<int32> DungeonLoadingResourceBatches(TEXT("fps.Dungeon.Generation.LoadingResourceBatches"),4,
++    TEXT("Maximum in-flight resource batches behind the standalone loading overlay (1-8). Other contexts retain two batches."));
+@@ -389,0 +423,7 @@
++}
++
++bool PartIsFluid(const AuthoredDungeon::JObject& Part)
++{
++    bool Fluid=false;
++    Part->TryGetBoolField(TEXT("fluid"),Fluid);
++    return Fluid;
+@@ -399 +439 @@
+-    return Affects&&!Part->GetBoolField(TEXT("fluid"))&&Part->GetBoolField(TEXT("collision"));
++    return Affects&&!PartIsFluid(Part)&&Part->GetBoolField(TEXT("collision"));
+@@ -422,0 +463,12 @@
++bool UseDungeonLoadingBudget(const AActor* Actor)
++{
++    const auto* Loading=DungeonLoading(Actor);
++    return Actor->GetWorld()->GetNetMode()==NM_Standalone&&Loading&&Loading->IsHoldingGameplayInput();
++}
++
++double DungeonGenerationBudgetSeconds(bool bLoading)
++{
++    return FMath::Clamp(double(bLoading?DungeonLoadingBuildBudget.GetValueOnGameThread():
++        DungeonBuildBudget.GetValueOnGameThread()),.25,16.)/1000.;
++}
++
+@@ -500,0 +553,4 @@
++        UFPSPerformanceMetricsSubsystem::RecordMarker(this,TEXT("Dungeon.ResourcePreparationBegin"),FString::FromInt(Seed),true);
++        UFPSPerformanceMetricsSubsystem::RequestGpuResourceInventory(this,TEXT("Dungeon resource preparation begin"));
++        if(auto* Instance=GetGameInstance())
++            Instance->GetSubsystem<UColdSteelPickupStudio>()->ReleaseIdleRigs(true);
+@@ -925,7 +981,20 @@
+-    TSet<FString> QueuedAssets;
+-    auto QueueAsset=[this,State,&QueuedAssets](const FString& Path)
+-    {
+-        if(Path.IsEmpty()||QueuedAssets.Contains(Path))return;
+-        QueuedAssets.Add(Path);
+-        if(State->bRuntime)State->ResourcePaths.Add(Path);
+-        else State->Jobs.Add({TEXT("Dungeon.Resources"),[this,Path](){ResolveGenerationAsset(Path);}});
++    TMap<FString,int32> QueuedAssets;
++    TArray<int32> PendingJobResources;
++    auto QueueAsset=[this,State,&QueuedAssets,&PendingJobResources](const FString& Path)
++    {
++        if(Path.IsEmpty())return;
++        const int32* Existing=QueuedAssets.Find(Path);
++        const int32 Resource=Existing?*Existing:State->ResourcePaths.Num();
++        if(!Existing)
++        {
++            QueuedAssets.Add(Path,Resource);
++            if(State->bRuntime)State->ResourcePaths.Add(Path);
++            else State->Jobs.Add({TEXT("Dungeon.Resources"),[this,Path](){ResolveGenerationAsset(Path);}});
++        }
++        // A shared asset must remain a dependency of every job using it.
++        if(State->bRuntime)PendingJobResources.AddUnique(Resource);
++    };
++    auto QueueJob=[State,&PendingJobResources](FAuthoredDungeonBuildState::FJob Job)
++    {
++        Job.Resources=MoveTemp(PendingJobResources);
++        State->Jobs.Add(MoveTemp(Job));
+@@ -938,0 +1008 @@
++    // Delayed shrine dependencies are required at commit, not by the first mesh.
+@@ -942 +1012,2 @@
+-        for(const FString& Path:AFacilityHallEncounter::PreparationAssetPaths())QueueAsset(Path);
++        for(const FString& Path:AFacilityHallEncounter::SelectedMonsterClassPaths(State->Seed))State->SelectedMonsterClasses.Add(Path);
++        for(const FString& Path:AFacilityHallEncounter::PreparationAssetPaths(State->Seed))QueueAsset(Path);
+@@ -951,0 +1023 @@
++    PendingJobResources.Reset();
+@@ -1000 +1072 @@
+-            if(!Part->GetBoolField(TEXT("fluid"))&&!Part->HasField(TEXT("half_size")))++State->InstanceCandidates.FindOrAdd(Key);
++            if(!PartIsFluid(Part)&&!Part->HasField(TEXT("half_size")))++State->InstanceCandidates.FindOrAdd(Key);
+@@ -1002 +1074 @@
+-            State->Jobs.Add({Stage,[this,State,Part,Piece,Index,Params,bOptimizeLights,Key,Dressing,bDressRooms,D]()
++            QueueJob({Stage,[this,State,Part,Piece,Index,Params,bOptimizeLights,Key,Dressing,bDressRooms,D]()
+@@ -1007 +1079 @@
+-            const bool Hazard=Part->HasField(TEXT("half_size")),Fluid=Part->GetBoolField(TEXT("fluid"));
++            const bool Hazard=Part->HasField(TEXT("half_size")),Fluid=PartIsFluid(Part);
+@@ -1029 +1101,4 @@
+-                    Existing->AddInstance(T,true);
++                    const int32 BatchIndex=State->InstanceBatchIndices.FindChecked(Existing);
++                    auto& Batch=State->InstanceBatches[BatchIndex];
++                    Batch.Transforms.Add(T);++State->PendingInstances;
++                    if(Batch.Transforms.Num()>=32)State->FullInstanceBatch=BatchIndex;
+@@ -1099 +1174,5 @@
+-                Instances->AddInstance(T,true);
++                Instances->PreAllocateInstancesMemory(State->InstanceCandidates.FindRef(Key));
++                const int32 BatchIndex=State->InstanceBatches.AddDefaulted();
++                State->InstanceBatches[BatchIndex].Component=Instances;
++                State->InstanceBatches[BatchIndex].Transforms.Add(T);
++                State->InstanceBatchIndices.Add(Instances,BatchIndex);++State->PendingInstances;
+@@ -1121,0 +1201 @@
++        const TArray<int32> WardResources=MoveTemp(PendingJobResources);
+@@ -1124,0 +1205,2 @@
++            // Runtime constructors/scatterers can also use the module's shared pool.
++            PendingJobResources=WardResources;
+@@ -1152 +1234 @@
+-            State->Jobs.Add({TEXT("Dungeon.WardActors"),[this,State,Spec,Piece,Index,Spawned,bMonsterDoors]()
++            QueueJob({TEXT("Dungeon.WardActors"),[this,State,Spec,Piece,Index,Spawned,bMonsterDoors]()
+@@ -1172 +1254 @@
+-                State->Jobs.Add({Type==TEXT("beds")?FName(TEXT("Dungeon.WardFurniture")):FName(TEXT("Dungeon.WardBlood")),
++                QueueJob({Type==TEXT("beds")?FName(TEXT("Dungeon.WardFurniture")):FName(TEXT("Dungeon.WardBlood")),
+@@ -1177,0 +1260 @@
++                            if(auto* Loading=DungeonLoading(Actor))Loading->QueueDungeonResourceWarmup(Actor);
+@@ -1191 +1274 @@
+-            State->Jobs.Add({TEXT("Dungeon.Props"),[this,State,Prop,Piece,Index,Params]()
++            QueueJob({TEXT("Dungeon.Props"),[this,State,Prop,Piece,Index,Params]()
+@@ -1242 +1325 @@
+-            State->Jobs.Add({TEXT("Dungeon.BossEncounter"),[this,State,Encounter,Reward,Piece,Index]()
++            QueueJob({TEXT("Dungeon.TerminalFixtures"),[this,State,Fixtures,Reward,Piece,Index]()
+@@ -1282 +1365 @@
+-            State->Jobs.Add({TEXT("Dungeon.Lights"),[this,State,L,Piece,Index,Params,bOptimizeLights,Corridor,BossHall,LightRole]()
++            QueueJob({TEXT("Dungeon.Lights"),[this,State,L,Piece,Index,Params,bOptimizeLights,Corridor,BossHall,LightRole]()
+@@ -1377 +1460 @@
+-            const JObject P=V->AsObject();State->Jobs.Add({TEXT("Dungeon.Anchors"),[this,State,P,Piece,Index,Params]()
++            const JObject P=V->AsObject();QueueJob({TEXT("Dungeon.Anchors"),[this,State,P,Piece,Index,Params]()
+@@ -1408,0 +1492,9 @@
++    // Match requests to the existing dependency-safe assembly order. Later decor
++    // and delayed-use assets must not occupy every slot ahead of the first shell.
++    State->ResourceReady.Init(false,State->ResourcePaths.Num());
++    TArray<bool> Scheduled;
++    Scheduled.Init(false,State->ResourcePaths.Num());
++    for(const auto& Job:State->Jobs)for(int32 Resource:Job.Resources)
++        if(!Scheduled[Resource]){Scheduled[Resource]=true;State->ResourceLoadOrder.Add(Resource);}
++    for(int32 Resource=0;Resource<State->ResourcePaths.Num();++Resource)
++        if(!Scheduled[Resource])State->ResourceLoadOrder.Add(Resource);
+@@ -1451,0 +1544,3 @@
++    if (Asset && BuildState->bRuntime && GetNetMode() != NM_DedicatedServer &&
++        BuildState->SelectedMonsterClasses.Contains(Path))
++        BuildState->MonsterRendering.AddClass(Cast<UClass>(Asset));
+@@ -1455 +1550 @@
+-bool AAuthoredDungeonGenerator::PumpGenerationResources()
++bool AAuthoredDungeonGenerator::PumpGenerationResources(double Deadline,int32 MaxInFlight)
+@@ -1461 +1555,0 @@
+-    const double Budget=FMath::Clamp(double(DungeonBuildBudget.GetValueOnGameThread()),.25,16.)/1000.;
+@@ -1464 +1558 @@
+-    for(int32 I=State.ResourceBatches.Num()-1;I>=0;--I)
++    for(int32 I=0;I<State.ResourceBatches.Num()&&State.Error.IsEmpty()&&FPlatformTime::Seconds()<Deadline;)
+@@ -1472 +1566,2 @@
+-                State.Error=TEXT("地牢资源加载超时：")+Batch.Paths[0];
++                State.Error=TEXT("地牢资源加载超时：")+State.ResourcePaths[Batch.Resources[0]];
++            ++I;
+@@ -1475,3 +1570,18 @@
+-        for(const FString& Path:Batch.Paths)
+-        {
+-            if(!ResolveGenerationAsset(Path))break;
++        while(Batch.AdoptCursor<Batch.Resources.Num()&&FPlatformTime::Seconds()<Deadline)
++        {
++            const int32 Resource=Batch.Resources[Batch.AdoptCursor];
++            UObject* Asset=ResolveGenerationAsset(State.ResourcePaths[Resource]);
++            if(!Asset)break;
++            // Package loading can finish before editor derived-data work. Do not
++            // release gameplay while the prepared meshes are compiling.
++            const auto* StaticMesh=Cast<UStaticMesh>(Asset);
++            const auto* SkeletalMesh=Cast<USkeletalMesh>(Asset);
++            const bool bAssetCompiling=(StaticMesh&&StaticMesh->IsCompiling())||(SkeletalMesh&&SkeletalMesh->IsCompiling());
++            if(bAssetCompiling)
++            {
++                if(FPlatformTime::Seconds()-Batch.StartedAt>120.)
++                    State.Error=TEXT("地牢资源编译等待超时：")+State.ResourcePaths[Resource];
++                break; // Retain the handle and let compilation advance next frame.
++            }
++            State.ResourceReady[Resource]=true;
++            ++Batch.AdoptCursor;
+@@ -1480,7 +1590,11 @@
+-        Batch.Handle->ReleaseHandle();
+-        State.ResourceBatches.RemoveAtSwap(I);
+-        if(!State.Error.IsEmpty()||FPlatformTime::Seconds()-Begin>=Budget)break;
+-    }
+-    constexpr int32 BatchSize=32,MaxInFlight=2;
+-    while(State.Error.IsEmpty()&&State.ResourceCursor<State.ResourcePaths.Num()
+-        &&State.ResourceBatches.Num()<MaxInFlight&&FPlatformTime::Seconds()-Begin<Budget)
++        if(Batch.AdoptCursor==Batch.Resources.Num())
++        {
++            Batch.Handle->ReleaseHandle();
++            State.ResourceBatches.RemoveAt(I);
++        }
++        else ++I; // Keep the handle until every object is protected by GenerationResources.
++        if(!State.Error.IsEmpty())break;
++    }
++    constexpr int32 BatchSize=32;
++    while(State.Error.IsEmpty()&&State.ResourceCursor<State.ResourceLoadOrder.Num()
++        &&State.ResourceBatches.Num()<MaxInFlight&&FPlatformTime::Seconds()<Deadline)
+@@ -1490,4 +1604,4 @@
+-        for(int32 I=0;I<BatchSize&&State.ResourceCursor<State.ResourcePaths.Num();++I)
+-        {
+-            const FString& Path=State.ResourcePaths[State.ResourceCursor++];
+-            Batch.Paths.Add(Path);Params.TargetsToStream.Add(GenerationAssetPath(Path));
++        for(int32 I=0;I<BatchSize&&State.ResourceCursor<State.ResourceLoadOrder.Num();++I)
++        {
++            const int32 Resource=State.ResourceLoadOrder[State.ResourceCursor++];
++            Batch.Resources.Add(Resource);Params.TargetsToStream.Add(GenerationAssetPath(State.ResourcePaths[Resource]));
+@@ -1499 +1613 @@
+-        {State.Error=TEXT("地牢资源请求失败：")+Batch.Paths[0];break;}
++        {State.Error=TEXT("地牢资源请求失败：")+State.ResourcePaths[Batch.Resources[0]];break;}
+@@ -1503,6 +1617 @@
+-    const bool bReady=State.ResourcesCompleted==State.ResourcePaths.Num();
+-    if(!bReady&&State.Error.IsEmpty())
+-        if(auto* Loading=DungeonLoading(this))Loading->UpdatePreparation(
+-            FText::FromString(FString::Printf(TEXT("正在异步载入地牢资源（%d/%d）…"),State.ResourcesCompleted,State.ResourcePaths.Num())),
+-            .1f+.12f*float(State.ResourcesCompleted)/FMath::Max(1,State.ResourcePaths.Num()));
+-    return bReady||!State.Error.IsEmpty();
++    return State.ResourcesCompleted==State.ResourcePaths.Num();
+@@ -1563 +1672,14 @@
+-    if(State->Error.IsEmpty()&&!PumpGenerationResources())return;
++    const double Start=FPlatformTime::Seconds();
++    const bool bLoadingBudget=UseDungeonLoadingBudget(this);
++    const double Budget=DungeonGenerationBudgetSeconds(bLoadingBudget);
++    State->LastBudgetMs=Budget*1000.;
++    const int32 InitialResourcesCompleted=State->ResourcesCompleted;
++    // Resource adoption shares the slice instead of adding a second full budget.
++    // Reserve most of the slice for ready jobs, while I/O continues asynchronously.
++    const int32 MaxInFlight=bLoadingBudget?FMath::Clamp(DungeonLoadingResourceBatches.GetValueOnGameThread(),1,8):2;
++    const bool bPackagesReady=State->Error.IsEmpty()&&PumpGenerationResources(Start+Budget*.25,MaxInFlight);
++    // Share the existing loading slice; poll only this encounter's PSOs, never
++    // block the game thread or wait for unrelated editor/global compilation.
++    const bool bMonsterRenderingReady=State->MonsterRendering.Pump(Start+Budget*.35,State->Error);
++    const bool bResourcesReady=bPackagesReady&&bMonsterRenderingReady;
++    bool bWaitingResources=false;
+@@ -1564,0 +1687 @@
++    const int32 InitialInstanceBatches=State->InstanceBatchSubmissions;
+@@ -1570,5 +1693,3 @@
+-        const double Start=FPlatformTime::Seconds();
+-        const double Budget=FMath::Clamp(double(DungeonBuildBudget.GetValueOnGameThread()),.25,16.)/1000.;
+-        do
+-        {
+-            // Complete the newly configured actor before starting another job. Keeping
++        while(State->Error.IsEmpty()&&(bSynchronous||FPlatformTime::Seconds()-Start<Budget))
++        {
++            // Complete the newly configured actor/batch before starting another job. Keeping
+@@ -1576,2 +1697,2 @@
+-            // at commit. Existing ISM groups already have a physics state when AddInstance
+-            // appends another instance, so UE creates that instance's body with the job.
++            // at commit. ISM appends are submitted in bounded batches; the first
++            // nonempty batch creates the component's initial physics state here.
+@@ -1581,0 +1703 @@
++                FString PendingPhysicsName;
+@@ -1593 +1715,2 @@
+-                            if(Primitive->IsAsyncCreatePhysicsStateRunning()){bPendingPhysics=true;continue;}
++                            if(Primitive->IsCompiling()||Primitive->IsAsyncCreatePhysicsStateRunning())
++                            {bPendingPhysics=true;PendingPhysicsName=Primitive->GetPathName();continue;}
+@@ -1604 +1727,2 @@
+-                                if(Primitive->IsAsyncCreatePhysicsStateRunning()){bPendingPhysics=true;continue;}
++                                if(Primitive->IsCompiling()||Primitive->IsAsyncCreatePhysicsStateRunning())
++                                {bPendingPhysics=true;PendingPhysicsName=Primitive->GetPathName();continue;}
+@@ -1606,0 +1731,5 @@
++                                    const auto* StaticComponent=Cast<UStaticMeshComponent>(Primitive);
++                                    UE_LOG(LogTemp,Error,TEXT("AuthoredDungeon collider unavailable: component=%s class=%s mesh=%s profile=%s"),
++                                        *Primitive->GetPathName(),*Primitive->GetClass()->GetName(),
++                                        StaticComponent?*GetPathNameSafe(StaticComponent->GetStaticMesh()):TEXT("<non-static>"),
++                                        *Primitive->GetCollisionProfileName().ToString());
+@@ -1616 +1745,10 @@
+-                if(bPendingPhysics||!State->Error.IsEmpty())break;
++                if(!State->Error.IsEmpty())break;
++                if(bPendingPhysics)
++                {
++                    if(State->PhysicsWaitStartedAt==0)State->PhysicsWaitStartedAt=FPlatformTime::Seconds();
++                    else if(FPlatformTime::Seconds()-State->PhysicsWaitStartedAt>120.)
++                        State->Error=TEXT("地牢碰撞准备等待超时：")+PendingPhysicsName;
++                    State->LoadingStatus=FText::FromString(TEXT("正在等待地牢网格与碰撞就绪…"));
++                    break;
++                }
++                State->PhysicsWaitStartedAt=0;
+@@ -1619,0 +1758,34 @@
++            if(State->FullInstanceBatch!=INDEX_NONE||State->bFlushingInstances)
++            {
++                int32 BatchIndex=State->FullInstanceBatch;
++                State->FullInstanceBatch=INDEX_NONE;
++                if(BatchIndex==INDEX_NONE)
++                {
++                    if(State->InstanceFlushCursor>=State->InstanceBatches.Num())
++                    {State->bFlushingInstances=false;continue;}
++                    BatchIndex=State->InstanceFlushCursor++;
++                }
++                auto& Batch=State->InstanceBatches[BatchIndex];
++                if(Batch.Transforms.IsEmpty())continue;
++                const double BatchStart=FPlatformTime::Seconds();
++                if(auto* Instances=Batch.Component.Get())
++                {
++                    DungeonPerformance::FScope InstanceScope(this,TEXT("Dungeon.InstanceBatch"));
++                    // One navigation notification per batch; retain navigation and
++                    // all per-instance collision before dependent actor/scatter jobs.
++                    Instances->AddInstances(Batch.Transforms,false,true,true);
++                    State->PhysicsRefreshActor=Instances->GetOwner();
++                    ++State->InstanceBatchSubmissions;
++                }
++                else State->Error=TEXT("地牢实例组在批量提交前失效");
++                State->PendingInstances-=Batch.Transforms.Num();Batch.Transforms.Reset();
++                State->PhaseMs.FindOrAdd(TEXT("Dungeon.InstanceBatch"))+=(FPlatformTime::Seconds()-BatchStart)*1000.;
++                continue;
++            }
++            const FName NextPhase=State->Jobs.IsValidIndex(State->Cursor)?State->Jobs[State->Cursor].Stage:NAME_None;
++            if(NextPhase!=State->InstancePhase)
++            {
++                State->InstancePhase=NextPhase;
++                if(State->PendingInstances>0)
++                {State->bFlushingInstances=true;State->InstanceFlushCursor=0;continue;}
++            }
+@@ -1621,0 +1794,4 @@
++            while(Job.ReadyCursor<Job.Resources.Num()&&State->ResourceReady[Job.Resources[Job.ReadyCursor]])
++                ++Job.ReadyCursor;
++            if(Job.ReadyCursor<Job.Resources.Num())
++            {bWaitingResources=true;++State->ResourceWaitSlices;break;}
+@@ -1630,0 +1807 @@
++            if(!bResourcesReady)++State->JobsWhileLoading;
+@@ -1632 +1809,6 @@
+-        }while(State->Error.IsEmpty()&&(bSynchronous||FPlatformTime::Seconds()-Start<Budget));
++            // OwnGenerated runs before component setup; publish only after the
++            // complete job so warmup cannot read half-configured materials.
++            if(auto* Loading=DungeonLoading(this);Loading&&State->bStaging)
++                while(State->WarmupActorCursor<GeneratedActors.Num())
++                    Loading->QueueDungeonResourceWarmup(GeneratedActors[State->WarmupActorCursor++]);
++        }
+@@ -1644 +1826,2 @@
+-    if(State->Cursor>=State->Jobs.Num()&&State->PhysicsActorCursor>=GeneratedActors.Num()&&!State->PhysicsRefreshActor.IsValid())
++    if(bResourcesReady&&State->Cursor>=State->Jobs.Num()&&State->PendingInstances==0&&
++        State->PhysicsActorCursor>=GeneratedActors.Num()&&!State->PhysicsRefreshActor.IsValid())
+@@ -1647 +1830,3 @@
+-        if(!bSynchronous&&(State->Cursor!=InitialJobCursor||State->PhysicsActorCursor!=InitialPhysicsCursor||bInitialPhysicsRefresh))
++        if(!bSynchronous&&(State->Cursor!=InitialJobCursor||State->PhysicsActorCursor!=InitialPhysicsCursor||
++            bInitialPhysicsRefresh||State->ResourcesCompleted!=InitialResourcesCompleted||
++            State->InstanceBatchSubmissions!=InitialInstanceBatches))
+@@ -1653,0 +1839,6 @@
++    if(bWaitingResources||State->LoadingStatus.IsEmpty()||(!bResourcesReady&&State->Cursor>=State->Jobs.Num()))
++        State->LoadingStatus=FText::FromString(FString::Printf(TEXT("正在异步准备地牢资源（%d/%d）…"),
++            State->ResourcesCompleted,State->ResourcePaths.Num()));
++    if (bPackagesReady && !bMonsterRenderingReady)
++        State->LoadingStatus=FText::FromString(TEXT("正在准备怪物渲染资源…"));
++    const float ResourceProgress=bResourcesReady?1.f:float(State->ResourcesCompleted)/FMath::Max(1,State->ResourcePaths.Num());
+@@ -1655 +1846 @@
+-        .22f+.66f*float(State->Cursor)/FMath::Max(1,State->Jobs.Num()));
++        .1f+.12f*ResourceProgress+.66f*float(State->Cursor)/FMath::Max(1,State->Jobs.Num()));
+@@ -1665 +1856 @@
+-    const double Budget=FMath::Clamp(double(DungeonBuildBudget.GetValueOnGameThread()),.25,16.)/1000.;
++    const double Budget=DungeonGenerationBudgetSeconds(UseDungeonLoadingBudget(this));
+@@ -1734,0 +1926,12 @@
++    {
++        const double StainsStarted=FPlatformTime::Seconds();
++        DungeonPerformance::FScope StainsScope(this,TEXT("Dungeon.WallStains"));
++        const bool bStainsReady=State->WallStains.Pump(GetWorld(),State->Seed,
++            bSynchronous?TNumericLimits<double>::Max():FinalizeStarted+Budget);
++        State->PhaseMs.FindOrAdd(TEXT("Dungeon.WallStains"))+=(FPlatformTime::Seconds()-StainsStarted)*1000.;
++        if(!bStainsReady)
++        {
++            if(auto* Loading=DungeonLoading(this))Loading->UpdatePreparation(FText::FromString(TEXT("正在完成墙面细节…")),.985f);
++            RecordFinalize();return;
++        }
++    }
+@@ -1736 +1938,0 @@
+-    DungeonWallStains::Apply(GetWorld(),GeneratedSeed);
+@@ -1744,0 +1947,2 @@
++    UFPSPerformanceMetricsSubsystem::RecordMarker(this,TEXT("Dungeon.ResourcePreparationReady"),LayoutDescription,true);
++    UFPSPerformanceMetricsSubsystem::RequestGpuResourceInventory(this,TEXT("Dungeon ready before gameplay"));
+@@ -1750,0 +1955 @@
++    State->MonsterRendering.RetainDependencies(GenerationResources);
+@@ -1786 +1991 @@
+-    Report->SetStringField(TEXT("contract"),TEXT("CPU preparation for this generation. Layout search runs on a worker in game worlds. Stage values are inclusive synchronous game-thread wall times, not additive with AssemblySlice/Finalize, GPU timings or measured FPS improvements. MeshCollision covers collidable mesh setup; PhysicsActivation covers staged actor body creation. Teardown/Reveal are also time sliced before navigation and player release. A single indivisible job can exceed BudgetMs. Planning data is not read until worker completion."));
++    Report->SetStringField(TEXT("contract"),TEXT("CPU preparation for this generation. Layout search runs on a worker in game worlds. Resources overlap dependency-ready assembly jobs within one game-thread budget; peak_slice_ms includes resource adoption and assembly. Stage values are inclusive synchronous game-thread wall times, not additive with AssemblySlice/Finalize, GPU timings or measured FPS improvements. MeshCollision covers collidable mesh setup; PhysicsActivation covers staged actor body creation. Teardown/Reveal are also time sliced before navigation and player release. A single indivisible job can exceed the selected budget. Planning data is not read until worker completion."));
+@@ -1791,0 +1997,3 @@
++    Report->SetNumberField(TEXT("loading_budget_ms"),DungeonLoadingBuildBudget.GetValueOnGameThread());
++    Report->SetNumberField(TEXT("last_slice_budget_ms"),S.LastBudgetMs);
++    Report->SetNumberField(TEXT("loading_resource_batches"),FMath::Clamp(DungeonLoadingResourceBatches.GetValueOnGameThread(),1,8));
+@@ -1796,0 +2005,2 @@
++    Report->SetNumberField(TEXT("jobs_while_resources_pending"),S.JobsWhileLoading);
++    Report->SetNumberField(TEXT("resource_dependency_wait_slices"),S.ResourceWaitSlices);
+@@ -1797,0 +2008 @@
++    Report->SetNumberField(TEXT("instance_batch_submissions"),S.InstanceBatchSubmissions);
+@@ -1811,0 +2023,4 @@
++    Report->SetNumberField(TEXT("monster_pso_components"),S.MonsterRendering.Components.Num());
++    Report->SetNumberField(TEXT("monster_pso_classes_submitted"),S.MonsterRendering.SubmitCursor);
++    Report->SetNumberField(TEXT("monster_pso_classes_requested"),S.MonsterRendering.Classes.Num());
++    Report->SetNumberField(TEXT("monster_soft_dependencies_requested"),S.MonsterRendering.DependencyPathsRequested);
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h
+@@ -75 +75 @@
+-    bool PumpGenerationResources();
++    bool PumpGenerationResources(double Deadline, int32 MaxInFlight);
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+@@ -1,0 +2 @@
++#include "FacilityMonsterGpuWarmup.h"
+@@ -2,0 +4 @@
++#include "../UI/FPSPerformanceMetrics.h"
+@@ -89,3 +91,3 @@
+-TArray<FString> AFacilityHallEncounter::PreparationAssetPaths()
+-{
+-    TArray<FString> Paths = MonsterClassPaths();
++TArray<FString> AFacilityHallEncounter::PreparationAssetPaths(int32 RunSeed)
++{
++    TArray<FString> Paths = SelectedMonsterClassPaths(RunSeed);
+@@ -95,0 +98,8 @@
++    return Paths;
++}
++
++TArray<FString> AFacilityHallEncounter::SelectedMonsterClassPaths(int32 RunSeed)
++{
++    TArray<FString> Paths = MonsterClassPaths();
++    const FString Elite = ObjectiveEliteClassPath(RunSeed);
++    if (!Elite.IsEmpty()) Paths.AddUnique(Elite);
+@@ -297,0 +308,2 @@
++AFacilityHallEncounter::~AFacilityHallEncounter() = default;
++
+@@ -300,0 +313,2 @@
++    const FString PerfKey=FString::Printf(TEXT("room=%d module=%s slot=%d wave=%d"),Room.Id,*Room.Module,SlotIndex,SlotIndex>=FirstWaveCount?2:1);
++    FFPSPerformanceScope SpawnScope(this,TEXT("Hall.SpawnAttempt"),PerfKey,true);
+@@ -325,2 +339,23 @@
+-    auto* Monster = GetWorld()->SpawnActorDeferred<ACharacter>(Members[Slot.Member], Transform, this, nullptr,
+-        ESpawnActorCollisionHandlingMethod::DontSpawnIfColliding);
++    ACharacter* Monster = nullptr;
++    const bool bPreparedHit=PreparedSlot == SlotIndex && PreparedMonster.IsValid();
++    if (bPreparedHit)
++    {
++        TRACE_CPUPROFILER_EVENT_SCOPE(FacilityHallSpawn_ActivatePrepared);
++        Monster = PreparedMonster.Get();
++        if(PreparedGpuWarmup)PreparedGpuWarmup->RestoreForActivation();
++        PreparedGpuWarmup.Reset();
++        PreparedMonster.Reset(); PreparedSlot = INDEX_NONE;
++        // Placement and RNG run above at the original spawn time. BeginPlay,
++        // AI possession, timers and all gameplay initialization run below once.
++        Monster->Tags = MoveTemp(PreparedTags);
++        Monster->SetActorHiddenInGame(bPreparedHidden);
++        Monster->SetCanBeDamaged(bPreparedDamage);
++        Monster->SetActorEnableCollision(bPreparedCollision);
++        Monster->SpawnCollisionHandlingMethod = ESpawnActorCollisionHandlingMethod::DontSpawnIfColliding;
++    }
++    else
++    {
++        FFPSPerformanceScope AllocationScope(this,TEXT("Hall.NativeAllocation"),PerfKey,true);
++        Monster = GetWorld()->SpawnActorDeferred<ACharacter>(Members[Slot.Member], Transform, this, nullptr,
++            ESpawnActorCollisionHandlingMethod::DontSpawnIfColliding);
++    }
+@@ -355,0 +391 @@
++        FFPSPerformanceScope FinishScope(this,TEXT("Hall.FinishSpawning"),PerfKey,true);
+@@ -372,0 +409,8 @@
++    bool& WaveObserved=Reinforcement?bSecondWaveObserved:bFirstWaveObserved;
++    if(!WaveObserved)
++    {
++        WaveObserved=true;
++        UFPSPerformanceMetricsSubsystem::StartCombatWindow(this,FString::Printf(TEXT("room=%d module=%s wave=%d first_spawn"),Room.Id,*Room.Module,Reinforcement?2:1));
++    }
++    UFPSPerformanceMetricsSubsystem::RecordMarker(this,TEXT("Hall.SpawnActivated"),
++        PerfKey+FString::Printf(TEXT(" prepared=%d actor=%s class=%s"),bPreparedHit?1:0,*Monster->GetPathName(),*Monster->GetClass()->GetPathName()),true);
+@@ -405,0 +450,2 @@
++        UFPSPerformanceMetricsSubsystem::RecordMarker(this,TEXT("Hall.Defeated"),
++            FString::Printf(TEXT("room=%d slot=%d elite=%d actor=%s"),Room.Id,Index,Slot.bObjectiveElite?1:0,*Actor->GetPathName()),true);
+@@ -416,0 +463 @@
++            UFPSPerformanceMetricsSubsystem::RecordMarker(this,TEXT("Hall.Wave2Triggered"),FString::Printf(TEXT("room=%d killed=%d first=%d"),Room.Id,FirstWaveKills,OrdinaryFirstWaveCount),true);
+@@ -480,0 +528,2 @@
++    if (!bCleared && !PreparedMonster.IsValid())
++        GetWorld()->GetSubsystem<UFacilityHallSpawnSubsystem>()->RequestPreparation(this);
+@@ -541,0 +591,43 @@
++bool AFacilityHallEncounter::PrepareNextSlot()
++{
++    // Only the known staff lifecycle, and standalone. Other species and
++    // network worlds keep the normal spawn path; their assets are still prepared.
++    if (bStopping || bCleared || PreparedMonster.IsValid() || GetNetMode()!=NM_Standalone
++        || !Run.IsValid() || !Run->IsRunActive() || !Generator.IsValid()) return false;
++    for (int32 Offset=0; Offset<Slots.Num(); ++Offset)
++    {
++        const int32 Index=(NextSlot+Offset)%Slots.Num();
++        const auto& Slot=Slots[Index];
++        if (Slot.bDefeated || Slot.Monster.IsValid() || Slot.Member>=StaffClassCount || Slot.bObjectiveElite) continue;
++        TRACE_CPUPROFILER_EVENT_SCOPE(FacilityHallSpawn_PrepareNative);
++        FFPSPerformanceScope PrepareScope(this,TEXT("Hall.PrepareNative"),FString::Printf(TEXT("room=%d slot=%d"),Room.Id,Index),true);
++        FActorSpawnParameters Params;
++        Params.Owner=this; Params.bDeferConstruction=true;
++        Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++        Params.CustomPreSpawnInitialization=[this](AActor* Actor)
++        {
++            bPreparedHidden=Actor->IsHidden(); bPreparedCollision=Actor->GetActorEnableCollision();
++            bPreparedDamage=Actor->CanBeDamaged(); PreparedTags=Actor->Tags;
++            Actor->Tags.Reset(); Actor->Tags.Add(TEXT("Dungeon.PreparedInstance"));
++            Actor->SetActorHiddenInGame(true); Actor->SetActorEnableCollision(false); Actor->SetCanBeDamaged(false);
++            CastChecked<ANurseZombie>(Actor)->PrepareDeferredAllocation();
++        };
++        // Allocate without construction/BeginPlay. Optional GPU warmup registers
++        // only the visual body; gameplay components stay deferred until activation.
++        const FTransform DeferredTransform(FRotator::ZeroRotator,Room.Origin);
++        PreparedMonster=GetWorld()->SpawnActor<ACharacter>(Members[Slot.Member],DeferredTransform,Params);
++        if (!PreparedMonster.IsValid()) { PreparedTags.Reset(); return false; }
++        PreparedSlot=Index;
++        PreparedGpuWarmup=MakeUnique<FFacilityMonsterGpuWarmup>(CastChecked<ANurseZombie>(PreparedMonster.Get()));
++        return true;
++    }
++    return false;
++}
++
++void AFacilityHallEncounter::DiscardPreparedMonster()
++{
++    PreparedGpuWarmup.Reset();
++    if (PreparedMonster.IsValid()) PreparedMonster->Destroy();
++    PreparedMonster.Reset(); PreparedSlot=INDEX_NONE; PreparedTags.Reset();
++}
++
+@@ -544,0 +637 @@
++    DiscardPreparedMonster();
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallEncounter.h b/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
+@@ -5,0 +6,2 @@
++#include "FacilityMonsterGpuWarmup.h"
++#include "FacilityMonsterGpuWarmup.h"
+@@ -7 +8,0 @@
+-
+@@ -42,0 +44 @@
++    virtual ~AFacilityHallEncounter();
+@@ -48 +50,2 @@
+-    static TArray<FString> PreparationAssetPaths();
++    static TArray<FString> SelectedMonsterClassPaths(int32 RunSeed);
++    static TArray<FString> PreparationAssetPaths(int32 RunSeed);
+@@ -59,0 +63,2 @@
++    bool PrepareNextSlot();
++    void DiscardPreparedMonster();
+@@ -82,0 +88,6 @@
++    // Separate from Slot.Monster: never contributes to wave/kill/door state.
++    TWeakObjectPtr<ACharacter> PreparedMonster;
++    TUniquePtr<FFacilityMonsterGpuWarmup> PreparedGpuWarmup;
++    int32 PreparedSlot = INDEX_NONE;
++    TArray<FName> PreparedTags;
++    bool bPreparedHidden = false, bPreparedCollision = true, bPreparedDamage = true;
+@@ -93,0 +105 @@
++    bool bFirstWaveObserved=false, bSecondWaveObserved=false;
+diff --git a/Source/FPSGAME/Monsters/NurseZombie.cpp b/Source/FPSGAME/Monsters/NurseZombie.cpp
+--- a/Source/FPSGAME/Monsters/NurseZombie.cpp
++++ b/Source/FPSGAME/Monsters/NurseZombie.cpp
+@@ -85,0 +86,11 @@
++void ANurseZombie::PrepareDeferredAllocation()
++{
++    TInlineComponentArray<UActorComponent*> Components(this);
++    for (auto* Component : Components)
++        if (Component->bAutoRegister)
++        {
++            DeferredRegistration.Add(Component);
++            Component->bAutoRegister=false;
++        }
++}
++
+@@ -89,0 +101,9 @@
++    if (!DeferredRegistration.IsEmpty())
++    {
++        for (const auto& Component : DeferredRegistration)
++            if (Component.IsValid()) Component->bAutoRegister=true;
++        DeferredRegistration.Reset();
++        // ExecuteConstruction has applied the final transform. Register here,
++        // before PostInitializeComponents/BeginPlay, never at the holding origin.
++        RegisterAllComponents();
++    }
+diff --git a/Source/FPSGAME/Monsters/NurseZombie.h b/Source/FPSGAME/Monsters/NurseZombie.h
+--- a/Source/FPSGAME/Monsters/NurseZombie.h
++++ b/Source/FPSGAME/Monsters/NurseZombie.h
+@@ -17,0 +18,2 @@
++    /** Called only before native registration on an unfinished deferred spawn. */
++    void PrepareDeferredAllocation();
+@@ -74,0 +77 @@
++    TArray<TWeakObjectPtr<UActorComponent>> DeferredRegistration;
+diff --git a/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp b/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
+--- a/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
++++ b/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
+@@ -41,0 +42,5 @@
++#if WITH_EDITOR
++#include "Engine/AssetManager.h"
++#include "NiagaraSystem.h"
++#include "ProfilingDebugging/CpuProfilerTrace.h"
++#endif
+@@ -291,0 +297 @@
++    if(StartupOverlay||(bCompletePreload&&ResourcePreparation&&!ResourcePreparation->IsReady()))return;
+@@ -351 +357,13 @@
+-    bDungeon=true;FinishedAt=0;
++    ResourcePreparation.Reset();
++    bDungeon=true;bScenePrepared=false;FinishedAt=0;
++#if WITH_EDITOR
++    EntryNiagaraLoad.Reset();bEntryNiagaraCompileRequested=false;
++    if(GetWorld()&&GetWorld()->GetNetMode()==NM_Standalone)
++    {
++        // This asset still marks its source as unsynchronized after a clean
++        // compile/save. Move the editor-only request work behind the entry UI;
++        // do not change the authored graph or wait synchronously during play.
++        EntryNiagaraLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(
++            FSoftObjectPath(TEXT("/Game/Skills/Lightning/NS_LightningChain.NS_LightningChain")));
++    }
++#endif
+@@ -357,0 +376,12 @@
++}
++
++void UTransitLoadingSubsystem::QueueDungeonResourceWarmup(AActor* Actor)
++{
++    if(!bCompletePreload||!bDungeon||bScenePrepared||bPreparationFailed||!View||
++        !GetWorld()||GetWorld()->GetNetMode()!=NM_Standalone)return;
++    if(!ResourcePreparation)
++    {
++        ApplyLoadingBudget();
++        ResourcePreparation=MakeShared<FGameResourcePreparation>(GetWorld(),true);
++    }
++    ResourcePreparation->QueueAssembledActor(Actor);
+@@ -371 +400,0 @@
+-            HoldPreparedPlayer();
+@@ -373 +401,0 @@
+-            View->Progress=.8f;
+@@ -374,0 +403,3 @@
++        HoldPreparedPlayer();
++        ResourcePreparation->FinishSceneAssembly();
++        View->Progress=.8f;
+@@ -379,0 +411,28 @@
++bool UTransitLoadingSubsystem::PrepareEditorNiagara()
++{
++#if WITH_EDITOR
++    if(!EntryNiagaraLoad)return true;
++    if(!EntryNiagaraLoad->HasLoadCompleted())return false;
++    auto* System=Cast<UNiagaraSystem>(EntryNiagaraLoad->GetLoadedAsset());
++    if(!System)
++    {
++        UE_LOG(LogTemp,Warning,TEXT("EntryNiagara: lightning asset unavailable; skip optional preparation"));
++        EntryNiagaraLoad.Reset();return true;
++    }
++    if(!bEntryNiagaraCompileRequested)
++    {
++        bEntryNiagaraCompileRequested=true;
++        if(System->NeedsRequestCompile())
++        {
++            TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Entry_NiagaraRequestCompile);
++            System->RequestCompile(false);
++        }
++    }
++    System->PollForCompilationComplete(false);
++    if(System->HasOutstandingCompilationRequests(true))return false;
++    UE_LOG(LogTemp,Display,TEXT("EntryNiagara prepared %s valid=%d"),*System->GetPathName(),System->IsValid());
++    EntryNiagaraLoad.Reset();
++#endif
++    return true;
++}
++
+@@ -382,0 +442,2 @@
++    if(!PrepareEditorNiagara())
++    {View->Status=FText::FromString(TEXT("正在准备技能特效…"));return;}
+@@ -422,0 +484,2 @@
++    if(!View && bDungeon && !bMapLoading && ResourcePreparation && ResourcePreparation->HasResidencyWork())
++        ResourcePreparation->TickResidency();
+@@ -447,0 +511 @@
++    if(FinishedAt==0&&!bPreparationFailed)PrepareEditorNiagara();
+@@ -453 +517,2 @@
+-        View->Status=ResourcePreparation->Status;View->Progress=.8f+.19f*ResourcePreparation->Progress;
++        if(bScenePrepared)
++        {View->Status=ResourcePreparation->Status;View->Progress=.8f+.19f*ResourcePreparation->Progress;}
+@@ -456,2 +521,4 @@
+-        else if(ResourcePreparation->IsReady())FinishPreparation();
+-    }
++        else if(bScenePrepared&&ResourcePreparation->IsReady())FinishPreparation();
++    }
++    if(bScenePrepared&&!bCompletePreload&&!StartupOverlay&&FinishedAt==0&&!bPreparationFailed)
++        FinishPreparation();
+@@ -464 +531,2 @@
+-            // Keep the prepared world's mip protection until the next map/entry.
++            // Keep visible entry textures protected; after fade-out, the bounded
++            // residency pass hands abandoned room/equipment textures back to streaming.
+@@ -482,0 +551,3 @@
++#if WITH_EDITOR
++    EntryNiagaraLoad.Reset();bEntryNiagaraCompileRequested=false;
++#endif
+@@ -855 +926,5 @@
+-bool UTransitLoadingSubsystem::IsTickable() const { return !IsTemplate()&&(View.IsValid()||StartupView.IsValid()); }
++bool UTransitLoadingSubsystem::IsTickable() const
++{
++    return !IsTemplate() && (View.IsValid() || StartupView.IsValid() ||
++        (bDungeon && ResourcePreparation && ResourcePreparation->HasResidencyWork()));
++}
+diff --git a/Source/FPSGAME/UI/TransitLoadingSubsystem.h b/Source/FPSGAME/UI/TransitLoadingSubsystem.h
+--- a/Source/FPSGAME/UI/TransitLoadingSubsystem.h
++++ b/Source/FPSGAME/UI/TransitLoadingSubsystem.h
+@@ -12,0 +13 @@
++class AActor;
+@@ -34,0 +36,2 @@
++    /** Register generated actors after their current assembly job completes. */
++    void QueueDungeonResourceWarmup(AActor* Actor);
+@@ -46 +49 @@
+-    /** Immediate GameOnly restore. Safe to call after dungeon/hills preparation completes. */
++    /** Restore GameOnly after preparation; a pending complete-preload phase keeps input. */
+@@ -83,0 +87,5 @@
++    bool PrepareEditorNiagara();
++#if WITH_EDITOR
++    TSharedPtr<FStreamableHandle> EntryNiagaraLoad;
++    bool bEntryNiagaraCompileRequested = false;
++#endif
