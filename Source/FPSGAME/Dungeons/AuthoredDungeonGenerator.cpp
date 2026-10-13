@@ -1248,22 +1248,29 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             {
             const bool Fill=LightRole==TEXT("fill");
             FString Type=(Fill||Corridor)?TEXT("spot"):TEXT("point");L->TryGetStringField(TEXT("type"),Type);
-            const bool Spot=bOptimizeLights&&Type==TEXT("spot");
+            const bool Spot=Type==TEXT("spot");
             const bool Rect=Type==TEXT("rect");
             double Outer=Corridor?80.0:65.0;L->TryGetNumberField(TEXT("outer_cone_degrees"),Outer);Outer=FMath::Clamp(Outer,10.0,85.0);
             const FVector Position=Piece.Transform.TransformPosition(Vec(L,TEXT("position")));
+            double Pitch=Spot||Rect?-90.0:0.0,Yaw=0,Roll=0;
+            L->TryGetNumberField(TEXT("pitch"),Pitch);L->TryGetNumberField(TEXT("yaw"),Yaw);L->TryGetNumberField(TEXT("roll"),Roll);
+            const FQuat LightRotation=Piece.Transform.TransformRotation(FQuat(FRotator(Pitch,Yaw,Roll)));
             ALight* A=nullptr;
-            if(Rect)
-            {
-                double Pitch=-90,Yaw=0,Roll=0;
-                L->TryGetNumberField(TEXT("pitch"),Pitch);L->TryGetNumberField(TEXT("yaw"),Yaw);L->TryGetNumberField(TEXT("roll"),Roll);
-                A=GetWorld()->SpawnActor<ARectLight>(Position,Piece.Transform.TransformRotation(FQuat(FRotator(Pitch,Yaw,Roll))).Rotator(),Params);
-            }
-            else if(Spot)A=GetWorld()->SpawnActor<ASpotLight>(Position,FRotator(-90,0,0),Params);
+            if(Rect)A=GetWorld()->SpawnActor<ARectLight>(Position,LightRotation.Rotator(),Params);
+            else if(Spot)A=GetWorld()->SpawnActor<ASpotLight>(Position,LightRotation.Rotator(),Params);
             else A=GetWorld()->SpawnActor<APointLight>(Position,FRotator::ZeroRotator,Params);
             if(!A){State->Error=TEXT("地牢灯光创建失败");return;}
+            auto* C=CastChecked<ULocalLightComponent>(A->GetLightComponent());
+            // In an initialized game world, Stationary roots reject movement.
+            // Mobility must change BEFORE applying the final light direction.
+            C->SetMobility(EComponentMobility::Movable);
+            // SpawnActor composes the native root's default transform with the
+            // requested pose. ASpotLight already has pitch -90 on that root,
+            // so passing -90 alone produces a horizontal light (double pitch).
+            // Set the authored WORLD pose after construction for every light.
+            A->SetActorLocationAndRotation(Position,LightRotation,false,nullptr,ETeleportType::TeleportPhysics);
             OwnGenerated(A,Index);A->Tags.Add(FName(*(TEXT("DungeonLight.")+(bOptimizeLights?LightRole:TEXT("legacy")))));
-            auto* C=CastChecked<ULocalLightComponent>(A->GetLightComponent());C->SetMobility(EComponentMobility::Movable);C->SetIntensityUnits(ELightUnits::Lumens);
+            C->SetIntensityUnits(ELightUnits::Lumens);
             float Intensity=L->GetNumberField(TEXT("intensity"));
             if(Spot)
             {
@@ -1325,7 +1332,6 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             if(L->TryGetNumberField(TEXT("volumetric_scattering_intensity"),AuthoredValue))C->SetVolumetricScatteringIntensity(AuthoredValue);
             if(L->TryGetNumberField(TEXT("light_function_fade_distance"),AuthoredValue))C->LightFunctionFadeDistance=AuthoredValue;
             if(L->TryGetNumberField(TEXT("disabled_brightness"),AuthoredValue))C->DisabledBrightness=AuthoredValue;
-            if(!Rect&&L->TryGetNumberField(TEXT("yaw"),AuthoredValue))A->SetActorRotation(Piece.Transform.TransformRotation(FQuat(FRotator(0,AuthoredValue,0))));
             C->SetMaxDrawDistance(FMath::Max(0.0,DrawDistance));C->SetMaxDistanceFadeRange(FMath::Clamp(FadeRange,0.0,FMath::Max(0.0,DrawDistance)));
             State->NextLights[Index].Lights.Add({C,Intensity,1.f});
             ++State->Lights;

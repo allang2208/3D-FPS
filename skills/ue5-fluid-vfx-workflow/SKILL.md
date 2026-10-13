@@ -63,3 +63,7 @@ description: 为 FPSGAME 制作和优化 UE5 流体特效，包括枪口烟、�
 处理连续金流、锻打火星、淬火蒸汽或工具架共用风场时，读取 [高炉、锻造热感与挂件风](references/furnace-forge-presentation.md)。
 
 从百目黑烟派生绿色原地毒雾、分别调整扩散速度与消散寿命时，读 [M10 原地毒雾派生](references/m10-local-poison-smoke.md)，同步可见烟团与暴露判定，保留父类黑烟默认值。
+
+## 遮住出怪设施内部
+
+需要黑色门腔、隐藏刷怪细节和低成本雾幕时，读取 [黑色遮蔽与雾幕](references/transparency-and-visibility.md#出怪门内的黑色遮蔽与廉价雾幕)。持续遮挡与雾气装饰分别保留，远距关闭装饰不能露出内部。

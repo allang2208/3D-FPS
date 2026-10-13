@@ -157,6 +157,16 @@ def apply_world():
                 settings.set_editor_property('override_'+key,True);settings.set_editor_property(key,value)
             # Preserve container outline blendables and all unrelated postprocessing.
             a.set_editor_property('settings',settings);changed['postprocess']+=1
+    # Keep the original layout coordinates for fixture geometry and fault masks;
+    # the installed emitter correction is replayed after brightness changes.
+    import runpy
+    fixture_recipe=PROJECT/'SourceAssets/ReceptionLighting20261009/recipe.py'
+    if fixture_recipe.exists():
+        fixture=runpy.run_path(str(fixture_recipe))
+        if fixture['installed']():changed['fixture_bindings']=fixture['apply_subject']()
+    dungeon_lights=PROJECT/'SourceAssets/DungeonFixtureLighting20261009/recipe.py'
+    if dungeon_lights.exists() and runpy.run_path(str(dungeon_lights))['installed']():
+        changed['transit_fixture_bindings']=runpy.run_path(str(dungeon_lights.parent/'world_lights.py'))['apply_subject']()
     return changed
 
 

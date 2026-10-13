@@ -1,0 +1,4301 @@
+{
+  "revision": "dungeon_floor_reach_20261009",
+  "changes": [
+    {
+      "module": "Distribution",
+      "index": 2,
+      "id": "2",
+      "position": [
+        816.3551940917969,
+        -742.1411743164062,
+        251.6999969482422
+      ],
+      "before": {
+        "radius": 386,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 450.0,
+        "optimized_radius_cm": 450.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_Distribution_Floors"
+      },
+      "height_cm": 251.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Distribution_Fixtures"
+    },
+    {
+      "module": "Drainage",
+      "index": 2,
+      "id": "2",
+      "position": [
+        218.96046447753906,
+        -1071.81591796875,
+        389.70001220703125
+      ],
+      "before": {
+        "radius": 438,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 700.0,
+        "optimized_radius_cm": 700.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 2.5,
+        "mesh": "SM_RS_Drainage_Bridge"
+      },
+      "height_cm": 387.2,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Drainage_Fixtures"
+    },
+    {
+      "module": "Drainage",
+      "index": 3,
+      "id": "3",
+      "position": [
+        -94.25344467163086,
+        -1774.17822265625,
+        286.70001220703125
+      ],
+      "before": {
+        "radius": 365,
+        "effective_radius": 292.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_Drainage_Floors"
+      },
+      "height_cm": 286.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/CombatExpansionV3_20260922/Meshes/SM_RS_Drainage_Fixtures"
+    },
+    {
+      "module": "ShoredBreach",
+      "index": 2,
+      "id": "2",
+      "position": [
+        2098.9356689453125,
+        -619.6454162597656,
+        301.6999816894531
+      ],
+      "before": {
+        "radius": 449,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_ShoredBreach_Floors"
+      },
+      "height_cm": 301.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_ShoredBreach_Fixtures"
+    },
+    {
+      "module": "Junction",
+      "index": 2,
+      "id": "2",
+      "position": [
+        509.99993896484375,
+        -600.0000610351562,
+        327.6999816894531
+      ],
+      "before": {
+        "radius": 500,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_Junction_Floors"
+      },
+      "height_cm": 327.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Fixtures"
+    },
+    {
+      "module": "Junction",
+      "index": 3,
+      "id": "3",
+      "position": [
+        -9.1552734375e-05,
+        -1050.0,
+        327.6999816894531
+      ],
+      "before": {
+        "radius": 500,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_Junction_Floors"
+      },
+      "height_cm": 327.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Fixtures"
+    },
+    {
+      "module": "RouteEnd",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -2.47955322265625e-05,
+        -290.0,
+        287.70001220703125
+      ],
+      "before": {
+        "radius": 360,
+        "effective_radius": 360,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_RouteEnd_Floors"
+      },
+      "height_cm": 287.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_RouteEnd_Fixtures"
+    },
+    {
+      "module": "Transit",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -1.71661376953125e-05,
+        -200.0,
+        251.6999969482422
+      ],
+      "before": {
+        "radius": 220,
+        "effective_radius": 220,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 450.0,
+        "optimized_radius_cm": 450.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_Transit_Floors"
+      },
+      "height_cm": 251.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Fixtures"
+    },
+    {
+      "module": "Treasure",
+      "index": 1,
+      "id": "1",
+      "position": [
+        -1.1444091796875e-05,
+        -119.99999618530273,
+        310.70001220703125
+      ],
+      "before": {
+        "radius": 320,
+        "effective_radius": 320,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_Treasure_Floors"
+      },
+      "height_cm": 310.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Treasure20260922/Meshes/SM_RS_Treasure_Fixtures"
+    },
+    {
+      "module": "VentilationLoop",
+      "index": 2,
+      "id": "2",
+      "position": [
+        299.99989318847656,
+        -1250.0000610351562,
+        356.6999816894531
+      ],
+      "before": {
+        "radius": 490,
+        "effective_radius": 300,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 650.0,
+        "optimized_radius_cm": 650.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_VentilationLoop_Floors"
+      },
+      "height_cm": 356.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Fixtures"
+    },
+    {
+      "module": "VentilationLoop",
+      "index": 3,
+      "id": "3",
+      "position": [
+        1479.9998779296875,
+        -1310.0001220703125,
+        359.70001220703125
+      ],
+      "before": {
+        "radius": 510,
+        "effective_radius": 300,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 650.0,
+        "optimized_radius_cm": 650.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_VentilationLoop_Floors"
+      },
+      "height_cm": 359.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_VentilationLoop_Fixtures"
+    },
+    {
+      "module": "FreightTransfer",
+      "index": 0,
+      "id": "0",
+      "position": [
+        899.9999694824219,
+        -170.0000762939453,
+        277.6999816894531
+      ],
+      "before": {
+        "radius": 430,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 500.0,
+        "optimized_radius_cm": 500.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_FreightTransfer_Floors"
+      },
+      "height_cm": 277.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Fixtures"
+    },
+    {
+      "module": "FreightTransfer",
+      "index": 3,
+      "id": "3",
+      "position": [
+        1449.9998779296875,
+        -1180.0001220703125,
+        372.70001220703125
+      ],
+      "before": {
+        "radius": 530,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 700.0,
+        "optimized_radius_cm": 700.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_FreightTransfer_Floors"
+      },
+      "height_cm": 372.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Fixtures"
+    },
+    {
+      "module": "FreightTransfer",
+      "index": 4,
+      "id": "4",
+      "position": [
+        899.9998474121094,
+        -1640.0000610351562,
+        382.6999816894531
+      ],
+      "before": {
+        "radius": 520,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 60.0,
+        "mesh": "SM_RS_FreightTransfer_Floors"
+      },
+      "height_cm": 322.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Fixtures"
+    },
+    {
+      "module": "BossConfluence",
+      "index": 2,
+      "id": "2",
+      "position": [
+        509.99993896484375,
+        -600.0000610351562,
+        327.6999816894531
+      ],
+      "before": {
+        "radius": 500,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_Junction_Floors"
+      },
+      "height_cm": 327.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Fixtures"
+    },
+    {
+      "module": "BossConfluence",
+      "index": 3,
+      "id": "3",
+      "position": [
+        -9.1552734375e-05,
+        -1050.0,
+        327.6999816894531
+      ],
+      "before": {
+        "radius": 500,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_Junction_Floors"
+      },
+      "height_cm": 327.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Fixtures"
+    },
+    {
+      "module": "BossApproach",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -1.71661376953125e-05,
+        -200.0,
+        251.6999969482422
+      ],
+      "before": {
+        "radius": 220,
+        "effective_radius": 220,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 450.0,
+        "optimized_radius_cm": 450.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_Transit_Floors"
+      },
+      "height_cm": 251.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/RouteRepairs20260922/Meshes/SM_RS_Transit_Fixtures"
+    },
+    {
+      "module": "BossPumpHall",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -400.0000305175781,
+        -499.9999694824219,
+        748.7000122070312
+      ],
+      "before": {
+        "radius": 1050,
+        "effective_radius": 1050,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1500.0,
+        "optimized_radius_cm": 1500.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_BossPumpHall_Floors"
+      },
+      "height_cm": 748.7,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Fixtures"
+    },
+    {
+      "module": "BossPumpHall",
+      "index": 1,
+      "id": "1",
+      "position": [
+        399.9998779296875,
+        -1400.0000610351562,
+        748.7000122070312
+      ],
+      "before": {
+        "radius": 1050,
+        "effective_radius": 1050,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1500.0,
+        "optimized_radius_cm": 1500.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_BossPumpHall_Floors"
+      },
+      "height_cm": 748.7,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Fixtures"
+    },
+    {
+      "module": "BossPumpHall",
+      "index": 2,
+      "id": "2",
+      "position": [
+        -900.0001525878906,
+        -1949.9999389648438,
+        653.7000122070312
+      ],
+      "before": {
+        "radius": 720,
+        "effective_radius": 720,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1150.0,
+        "optimized_radius_cm": 1150.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_BossPumpHall_Floors"
+      },
+      "height_cm": 653.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Fixtures"
+    },
+    {
+      "module": "BossPumpHall",
+      "index": 3,
+      "id": "3",
+      "position": [
+        919.9998474121094,
+        -2100.0001220703125,
+        653.7000122070312
+      ],
+      "before": {
+        "radius": 720,
+        "effective_radius": 720,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1150.0,
+        "optimized_radius_cm": 1150.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_BossPumpHall_Floors"
+      },
+      "height_cm": 653.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Fixtures"
+    },
+    {
+      "module": "BossPumpHall",
+      "index": 4,
+      "id": "4",
+      "position": [
+        -1300.0000610351562,
+        -899.9999084472656,
+        633.7000122070312
+      ],
+      "before": {
+        "radius": 650,
+        "effective_radius": 650,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1150.0,
+        "optimized_radius_cm": 1150.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_BossPumpHall_Floors"
+      },
+      "height_cm": 633.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Fixtures"
+    },
+    {
+      "module": "BossPumpHall",
+      "index": 5,
+      "id": "5",
+      "position": [
+        1299.9998779296875,
+        -1650.0000610351562,
+        633.7000122070312
+      ],
+      "before": {
+        "radius": 680,
+        "effective_radius": 680,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1150.0,
+        "optimized_radius_cm": 1150.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_BossPumpHall_Floors"
+      },
+      "height_cm": 633.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/BossHall20260922/Meshes/SM_RS_BossPumpHall_Fixtures"
+    },
+    {
+      "module": "ForkLeft",
+      "index": 2,
+      "id": "2",
+      "position": [
+        509.99993896484375,
+        -600.0000610351562,
+        327.6999816894531
+      ],
+      "before": {
+        "radius": 500,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_Junction_Floors"
+      },
+      "height_cm": 327.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Fixtures"
+    },
+    {
+      "module": "ForkLeft",
+      "index": 3,
+      "id": "3",
+      "position": [
+        -9.1552734375e-05,
+        -1050.0,
+        327.6999816894531
+      ],
+      "before": {
+        "radius": 500,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_Junction_Floors"
+      },
+      "height_cm": 327.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Fixtures"
+    },
+    {
+      "module": "ForkRight",
+      "index": 2,
+      "id": "2",
+      "position": [
+        509.99993896484375,
+        -600.0000610351562,
+        327.6999816894531
+      ],
+      "before": {
+        "radius": 500,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_Junction_Floors"
+      },
+      "height_cm": 327.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Fixtures"
+    },
+    {
+      "module": "ForkRight",
+      "index": 3,
+      "id": "3",
+      "position": [
+        -9.1552734375e-05,
+        -1050.0,
+        327.6999816894531
+      ],
+      "before": {
+        "radius": 500,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_Junction_Floors"
+      },
+      "height_cm": 327.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Routes20260922/Meshes/SM_RS_Junction_Fixtures"
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -1000.0,
+        855.0,
+        696.0
+      ],
+      "before": {
+        "radius": 1035,
+        "effective_radius": 1035,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1400.0,
+        "optimized_radius_cm": 1400.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_Station_Paving"
+      },
+      "height_cm": 695.8,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "index": 1,
+      "id": "1",
+      "position": [
+        50.0,
+        855.0,
+        696.0
+      ],
+      "before": {
+        "radius": 1035,
+        "effective_radius": 1035,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1250.0,
+        "optimized_radius_cm": 1250.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_Station_Paving"
+      },
+      "height_cm": 695.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "index": 2,
+      "id": "2",
+      "position": [
+        1100.0,
+        855.0,
+        696.0
+      ],
+      "before": {
+        "radius": 1035,
+        "effective_radius": 1035,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1400.0,
+        "optimized_radius_cm": 1400.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_Station_Paving"
+      },
+      "height_cm": 695.8,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "index": 3,
+      "id": "3",
+      "position": [
+        2000.0,
+        855.0,
+        696.0
+      ],
+      "before": {
+        "radius": 1035,
+        "effective_radius": 1035,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1250.0,
+        "optimized_radius_cm": 1250.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_Station_Paving"
+      },
+      "height_cm": 695.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "index": 4,
+      "id": "4",
+      "position": [
+        3020.0,
+        855.0,
+        696.0
+      ],
+      "before": {
+        "radius": 1035,
+        "effective_radius": 1035,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1400.0,
+        "optimized_radius_cm": 1400.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_Station_Paving"
+      },
+      "height_cm": 695.8,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "index": 5,
+      "id": "5",
+      "position": [
+        -1000.0,
+        -855.0,
+        696.0
+      ],
+      "before": {
+        "radius": 1035,
+        "effective_radius": 1035,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1400.0,
+        "optimized_radius_cm": 1400.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_Station_Paving"
+      },
+      "height_cm": 695.8,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "index": 6,
+      "id": "6",
+      "position": [
+        50.0,
+        -855.0,
+        696.0
+      ],
+      "before": {
+        "radius": 1035,
+        "effective_radius": 1035,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1250.0,
+        "optimized_radius_cm": 1250.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_Station_Paving"
+      },
+      "height_cm": 695.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "index": 7,
+      "id": "7",
+      "position": [
+        1100.0,
+        -855.0,
+        696.0
+      ],
+      "before": {
+        "radius": 1035,
+        "effective_radius": 1035,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1400.0,
+        "optimized_radius_cm": 1400.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_Station_Paving"
+      },
+      "height_cm": 695.8,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "index": 8,
+      "id": "8",
+      "position": [
+        2000.0,
+        -855.0,
+        696.0
+      ],
+      "before": {
+        "radius": 1035,
+        "effective_radius": 1035,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1250.0,
+        "optimized_radius_cm": 1250.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_Station_Paving"
+      },
+      "height_cm": 695.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "index": 9,
+      "id": "9",
+      "position": [
+        3020.0,
+        -855.0,
+        696.0
+      ],
+      "before": {
+        "radius": 1035,
+        "effective_radius": 1035,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1400.0,
+        "optimized_radius_cm": 1400.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_Station_Paving"
+      },
+      "height_cm": 695.8,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "index": 10,
+      "id": "10",
+      "position": [
+        -1075.0,
+        0.0,
+        741.0
+      ],
+      "before": {
+        "radius": 1005,
+        "effective_radius": 1005,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1300.0,
+        "optimized_radius_cm": 1300.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_Station_Paving"
+      },
+      "height_cm": 740.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -2600.0,
+        0.0,
+        523.0
+      ],
+      "before": {
+        "radius": 670,
+        "effective_radius": 670,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1050.0,
+        "optimized_radius_cm": 1050.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 1.5,
+        "mesh": "SM_Ward_FloorSlabs"
+      },
+      "height_cm": 521.5,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 1,
+      "id": "1",
+      "position": [
+        -1950.0,
+        0.0,
+        523.0
+      ],
+      "before": {
+        "radius": 670,
+        "effective_radius": 670,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1050.0,
+        "optimized_radius_cm": 1050.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 1.5,
+        "mesh": "SM_Ward_FloorSlabs"
+      },
+      "height_cm": 521.5,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 2,
+      "id": "2",
+      "position": [
+        -1300.0,
+        0.0,
+        523.0
+      ],
+      "before": {
+        "radius": 670,
+        "effective_radius": 670,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1050.0,
+        "optimized_radius_cm": 1050.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 1.5,
+        "mesh": "SM_Ward_FloorSlabs"
+      },
+      "height_cm": 521.5,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 3,
+      "id": "3",
+      "position": [
+        -650.0,
+        0.0,
+        523.0
+      ],
+      "before": {
+        "radius": 670,
+        "effective_radius": 670,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1050.0,
+        "optimized_radius_cm": 1050.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 1.5,
+        "mesh": "SM_Ward_FloorSlabs"
+      },
+      "height_cm": 521.5,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 4,
+      "id": "4",
+      "position": [
+        0.0,
+        0.0,
+        523.0
+      ],
+      "before": {
+        "radius": 670,
+        "effective_radius": 670,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1050.0,
+        "optimized_radius_cm": 1050.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 1.5,
+        "mesh": "SM_Ward_FloorSlabs"
+      },
+      "height_cm": 521.5,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 5,
+      "id": "5",
+      "position": [
+        650.0,
+        0.0,
+        523.0
+      ],
+      "before": {
+        "radius": 670,
+        "effective_radius": 670,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1050.0,
+        "optimized_radius_cm": 1050.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 1.5,
+        "mesh": "SM_Ward_FloorSlabs"
+      },
+      "height_cm": 521.5,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 6,
+      "id": "6",
+      "position": [
+        1300.0,
+        0.0,
+        523.0
+      ],
+      "before": {
+        "radius": 670,
+        "effective_radius": 670,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1050.0,
+        "optimized_radius_cm": 1050.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 1.5,
+        "mesh": "SM_Ward_FloorSlabs"
+      },
+      "height_cm": 521.5,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 7,
+      "id": "7",
+      "position": [
+        2600.0,
+        0.0,
+        523.0
+      ],
+      "before": {
+        "radius": 670,
+        "effective_radius": 670,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1050.0,
+        "optimized_radius_cm": 1050.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 1.5,
+        "mesh": "SM_Ward_FloorSlabs"
+      },
+      "height_cm": 521.5,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 8,
+      "id": "8",
+      "position": [
+        -1520.0,
+        -850.0,
+        407.0
+      ],
+      "before": {
+        "radius": 490,
+        "effective_radius": 490,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 9,
+      "id": "9",
+      "position": [
+        -880.0,
+        -850.0,
+        407.0
+      ],
+      "before": {
+        "radius": 490,
+        "effective_radius": 490,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 10,
+      "id": "10",
+      "position": [
+        80.0,
+        -850.0,
+        407.0
+      ],
+      "before": {
+        "radius": 490,
+        "effective_radius": 490,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 11,
+      "id": "11",
+      "position": [
+        1780.0,
+        -850.0,
+        407.0
+      ],
+      "before": {
+        "radius": 490,
+        "effective_radius": 490,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 12,
+      "id": "12",
+      "position": [
+        2420.0,
+        -850.0,
+        407.0
+      ],
+      "before": {
+        "radius": 490,
+        "effective_radius": 490,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 13,
+      "id": "13",
+      "position": [
+        -2320.0,
+        850.0,
+        407.0
+      ],
+      "before": {
+        "radius": 490,
+        "effective_radius": 490,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 14,
+      "id": "14",
+      "position": [
+        -1680.0,
+        850.0,
+        407.0
+      ],
+      "before": {
+        "radius": 490,
+        "effective_radius": 490,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 15,
+      "id": "15",
+      "position": [
+        -320.0,
+        850.0,
+        407.0
+      ],
+      "before": {
+        "radius": 490,
+        "effective_radius": 490,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 16,
+      "id": "16",
+      "position": [
+        320.0,
+        850.0,
+        407.0
+      ],
+      "before": {
+        "radius": 490,
+        "effective_radius": 490,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 17,
+      "id": "17",
+      "position": [
+        -2500.0,
+        -1475.0,
+        407.0
+      ],
+      "before": {
+        "radius": 520,
+        "effective_radius": 520,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 18,
+      "id": "18",
+      "position": [
+        -1250.0,
+        -1475.0,
+        407.0
+      ],
+      "before": {
+        "radius": 520,
+        "effective_radius": 520,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 19,
+      "id": "19",
+      "position": [
+        0.0,
+        -1475.0,
+        407.0
+      ],
+      "before": {
+        "radius": 520,
+        "effective_radius": 520,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 1.5,
+        "mesh": "SM_Ward_FloorSlabs"
+      },
+      "height_cm": 405.5,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 20,
+      "id": "20",
+      "position": [
+        1250.0,
+        -1475.0,
+        407.0
+      ],
+      "before": {
+        "radius": 520,
+        "effective_radius": 520,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 21,
+      "id": "21",
+      "position": [
+        2500.0,
+        -1475.0,
+        407.0
+      ],
+      "before": {
+        "radius": 520,
+        "effective_radius": 520,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 22,
+      "id": "22",
+      "position": [
+        -2500.0,
+        -850.0,
+        407.0
+      ],
+      "before": {
+        "radius": 600,
+        "effective_radius": 600,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 23,
+      "id": "23",
+      "position": [
+        2350.0,
+        750.0,
+        407.0
+      ],
+      "before": {
+        "radius": 550,
+        "effective_radius": 550,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 4.2,
+        "mesh": "SM_Ward_FloorFinish"
+      },
+      "height_cm": 402.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 24,
+      "id": "24",
+      "position": [
+        -3150.0,
+        0.0,
+        297.0
+      ],
+      "before": {
+        "radius": 330,
+        "effective_radius": 330,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 1.5,
+        "mesh": "SM_Ward_FloorSlabs"
+      },
+      "height_cm": 295.5,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "index": 25,
+      "id": "25",
+      "position": [
+        3150.0,
+        0.0,
+        297.0
+      ],
+      "before": {
+        "radius": 330,
+        "effective_radius": 330,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 1.5,
+        "mesh": "SM_Ward_FloorSlabs"
+      },
+      "height_cm": 295.5,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -1000.0,
+        -100.0,
+        631.0
+      ],
+      "before": {
+        "radius": 850.0,
+        "effective_radius": 850.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1300.0,
+        "optimized_radius_cm": 1300.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_Incinerator_Floors_AshV3"
+      },
+      "height_cm": 631.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 1,
+      "id": "1",
+      "position": [
+        -300.0,
+        -100.0,
+        631.0
+      ],
+      "before": {
+        "radius": 850.0,
+        "effective_radius": 850.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1300.0,
+        "optimized_radius_cm": 1300.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_Incinerator_Floors_AshV3"
+      },
+      "height_cm": 631.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 2,
+      "id": "2",
+      "position": [
+        400.0,
+        -100.0,
+        631.0
+      ],
+      "before": {
+        "radius": 850.0,
+        "effective_radius": 850.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1300.0,
+        "optimized_radius_cm": 1300.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_Incinerator_Floors_AshV3"
+      },
+      "height_cm": 631.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 3,
+      "id": "3",
+      "position": [
+        1100.0,
+        -100.0,
+        631.0
+      ],
+      "before": {
+        "radius": 850.0,
+        "effective_radius": 850.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1300.0,
+        "optimized_radius_cm": 1300.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_Incinerator_Floors_AshV3"
+      },
+      "height_cm": 631.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 4,
+      "id": "4",
+      "position": [
+        -600.0,
+        500.0,
+        611.0
+      ],
+      "before": {
+        "radius": 850.0,
+        "effective_radius": 850.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1250.0,
+        "optimized_radius_cm": 1250.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_Incinerator_Floors_AshV3"
+      },
+      "height_cm": 611.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 5,
+      "id": "5",
+      "position": [
+        0.0,
+        500.0,
+        611.0
+      ],
+      "before": {
+        "radius": 850.0,
+        "effective_radius": 850.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1250.0,
+        "optimized_radius_cm": 1250.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_Incinerator_Floors_AshV3"
+      },
+      "height_cm": 611.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 6,
+      "id": "6",
+      "position": [
+        600.0,
+        500.0,
+        611.0
+      ],
+      "before": {
+        "radius": 850.0,
+        "effective_radius": 850.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1250.0,
+        "optimized_radius_cm": 1250.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_Incinerator_Floors_AshV3"
+      },
+      "height_cm": 611.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 7,
+      "id": "7",
+      "position": [
+        -400.0,
+        -819.9999999999999,
+        631.0
+      ],
+      "before": {
+        "radius": 850.0,
+        "effective_radius": 850.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1300.0,
+        "optimized_radius_cm": 1300.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_Incinerator_Floors_AshV3"
+      },
+      "height_cm": 631.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 8,
+      "id": "8",
+      "position": [
+        400.0,
+        -819.9999999999999,
+        631.0
+      ],
+      "before": {
+        "radius": 850.0,
+        "effective_radius": 850.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1300.0,
+        "optimized_radius_cm": 1300.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_Incinerator_Floors_AshV3"
+      },
+      "height_cm": 631.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 9,
+      "id": "9",
+      "position": [
+        -1500.0,
+        0.0,
+        296.0
+      ],
+      "before": {
+        "radius": 420.0,
+        "effective_radius": 420.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_Incinerator_Floors_AshV3"
+      },
+      "height_cm": 296.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 10,
+      "id": "10",
+      "position": [
+        1500.0,
+        0.0,
+        296.0
+      ],
+      "before": {
+        "radius": 420.0,
+        "effective_radius": 420.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_Incinerator_Floors_AshV3"
+      },
+      "height_cm": 296.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 11,
+      "id": "11",
+      "position": [
+        -1050.0,
+        480.0,
+        291.0
+      ],
+      "before": {
+        "radius": 420.0,
+        "effective_radius": 420.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1100.0,
+        "optimized_radius_cm": 1100.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -255.0,
+        "mesh": "SM_Incinerator_Stairs_OpenB1V2"
+      },
+      "height_cm": 546.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 14,
+      "id": "14",
+      "position": [
+        -900.0,
+        -50.0,
+        -67.0
+      ],
+      "before": {
+        "radius": 430.0,
+        "effective_radius": 430.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -360.0,
+        "mesh": "SM_Incinerator_B1Floor_OpenB1V2"
+      },
+      "height_cm": 293.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 16,
+      "id": "16",
+      "position": [
+        830.0000000000001,
+        210.0,
+        -67.0
+      ],
+      "before": {
+        "radius": 440.0,
+        "effective_radius": 440.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -362.5,
+        "mesh": "SM_Incinerator_B1Floor_OpenB1V2"
+      },
+      "height_cm": 295.5,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 17,
+      "id": "17",
+      "position": [
+        -140.0,
+        -780.0,
+        -67.0
+      ],
+      "before": {
+        "radius": 320.0,
+        "effective_radius": 320.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -360.0,
+        "mesh": "SM_Incinerator_B1Floor_OpenB1V2"
+      },
+      "height_cm": 293.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "index": 18,
+      "id": "18",
+      "position": [
+        540.0,
+        -780.0,
+        -67.0
+      ],
+      "before": {
+        "radius": 280.0,
+        "effective_radius": 280.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -360.0,
+        "mesh": "SM_Incinerator_B1Floor_OpenB1V2"
+      },
+      "height_cm": 293.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedDataArchive",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -1300.0,
+        0.0,
+        296.0
+      ],
+      "before": {
+        "radius": 300.0,
+        "effective_radius": 300.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_DataArchive_Floors"
+      },
+      "height_cm": 296.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedDataArchive",
+      "index": 1,
+      "id": "1",
+      "position": [
+        1300.0,
+        0.0,
+        296.0
+      ],
+      "before": {
+        "radius": 300.0,
+        "effective_radius": 300.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_DataArchive_Floors"
+      },
+      "height_cm": 296.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedDataArchive",
+      "index": 2,
+      "id": "2",
+      "position": [
+        -300.0,
+        0.0,
+        481.00000000000006
+      ],
+      "before": {
+        "radius": 620.0,
+        "effective_radius": 620.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1100.0,
+        "optimized_radius_cm": 1100.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -62.5,
+        "mesh": "SM_DataArchive_Floors"
+      },
+      "height_cm": 543.5,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedDataArchive",
+      "index": 3,
+      "id": "3",
+      "position": [
+        300.0,
+        0.0,
+        481.00000000000006
+      ],
+      "before": {
+        "radius": 620.0,
+        "effective_radius": 620.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1100.0,
+        "optimized_radius_cm": 1100.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -62.5,
+        "mesh": "SM_DataArchive_Floors"
+      },
+      "height_cm": 543.5,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedDataArchive",
+      "index": 4,
+      "id": "4",
+      "position": [
+        -470.0,
+        -900.0,
+        500.99999999999994
+      ],
+      "before": {
+        "radius": 620.0,
+        "effective_radius": 620.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1050.0,
+        "optimized_radius_cm": 1050.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_DataArchive_Paving"
+      },
+      "height_cm": 501.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedDataArchive",
+      "index": 5,
+      "id": "5",
+      "position": [
+        470.0,
+        900.0,
+        500.99999999999994
+      ],
+      "before": {
+        "radius": 620.0,
+        "effective_radius": 620.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1050.0,
+        "optimized_radius_cm": 1050.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_DataArchive_Paving"
+      },
+      "height_cm": 501.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedDataArchive",
+      "index": 6,
+      "id": "6",
+      "position": [
+        -900.0,
+        420.0,
+        500.99999999999994
+      ],
+      "before": {
+        "radius": 620.0,
+        "effective_radius": 620.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1050.0,
+        "optimized_radius_cm": 1050.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_DataArchive_Paving"
+      },
+      "height_cm": 501.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedDataArchive",
+      "index": 7,
+      "id": "7",
+      "position": [
+        900.0,
+        -420.0,
+        500.99999999999994
+      ],
+      "before": {
+        "radius": 620.0,
+        "effective_radius": 620.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1050.0,
+        "optimized_radius_cm": 1050.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_DataArchive_Paving"
+      },
+      "height_cm": 501.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedDataArchive",
+      "index": 8,
+      "id": "8",
+      "position": [
+        0.0,
+        -930.0000000000001,
+        500.99999999999994
+      ],
+      "before": {
+        "radius": 620.0,
+        "effective_radius": 620.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1050.0,
+        "optimized_radius_cm": 1050.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_DataArchive_Paving"
+      },
+      "height_cm": 501.0,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -1500.0,
+        1000.0,
+        295.0
+      ],
+      "before": {
+        "radius": 330.0,
+        "effective_radius": 330.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_AnatomyTheatre_Floors"
+      },
+      "height_cm": 295.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "index": 1,
+      "id": "1",
+      "position": [
+        1500.0,
+        1000.0,
+        295.0
+      ],
+      "before": {
+        "radius": 330.0,
+        "effective_radius": 330.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_AnatomyTheatre_Floors"
+      },
+      "height_cm": 295.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "index": 4,
+      "id": "4",
+      "position": [
+        -1135.0,
+        459.99999999999994,
+        506.0
+      ],
+      "before": {
+        "radius": 480.0,
+        "effective_radius": 480.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 700.0,
+        "optimized_radius_cm": 700.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 126.0,
+        "mesh": "SM_AnatomyTheatre_SideStairs"
+      },
+      "height_cm": 380.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "index": 5,
+      "id": "5",
+      "position": [
+        1135.0,
+        459.99999999999994,
+        506.0
+      ],
+      "before": {
+        "radius": 480.0,
+        "effective_radius": 480.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 700.0,
+        "optimized_radius_cm": 700.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 126.0,
+        "mesh": "SM_AnatomyTheatre_SideStairs"
+      },
+      "height_cm": 380.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "index": 7,
+      "id": "7",
+      "position": [
+        -865.0,
+        -650.0,
+        621.0
+      ],
+      "before": {
+        "radius": 440.0,
+        "effective_radius": 440.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 216.0,
+        "mesh": "SM_AnatomyTheatre_Gallery"
+      },
+      "height_cm": 405.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "index": 8,
+      "id": "8",
+      "position": [
+        865.0,
+        -650.0,
+        621.0
+      ],
+      "before": {
+        "radius": 440.0,
+        "effective_radius": 440.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 216.0,
+        "mesh": "SM_AnatomyTheatre_Gallery"
+      },
+      "height_cm": 405.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -1500.0,
+        800.0,
+        296.0
+      ],
+      "before": {
+        "radius": 370,
+        "effective_radius": 370,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -2.0,
+        "mesh": "SM_FlueGas_Floors"
+      },
+      "height_cm": 298.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "index": 1,
+      "id": "1",
+      "position": [
+        1500.0,
+        800.0,
+        296.0
+      ],
+      "before": {
+        "radius": 370,
+        "effective_radius": 370,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -2.0,
+        "mesh": "SM_FlueGas_Floors"
+      },
+      "height_cm": 298.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "index": 4,
+      "id": "4",
+      "position": [
+        -800.0,
+        150.0,
+        681.0
+      ],
+      "before": {
+        "radius": 800,
+        "effective_radius": 800,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1200.0,
+        "optimized_radius_cm": 1200.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_FlueGas_Paving"
+      },
+      "height_cm": 680.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "index": 5,
+      "id": "5",
+      "position": [
+        830.0000000000001,
+        440.00000000000006,
+        531.0
+      ],
+      "before": {
+        "radius": 720,
+        "effective_radius": 720,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 950.0,
+        "optimized_radius_cm": 950.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_FlueGas_Paving"
+      },
+      "height_cm": 530.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "index": 6,
+      "id": "6",
+      "position": [
+        -1240.0,
+        -530.0,
+        531.0
+      ],
+      "before": {
+        "radius": 510,
+        "effective_radius": 510,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 112.0,
+        "mesh": "SM_FlueGas_StairTreads"
+      },
+      "height_cm": 419.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "index": 7,
+      "id": "7",
+      "position": [
+        1240.0,
+        -530.0,
+        531.0
+      ],
+      "before": {
+        "radius": 510,
+        "effective_radius": 510,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 750.0,
+        "optimized_radius_cm": 750.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 112.0,
+        "mesh": "SM_FlueGas_StairTreads"
+      },
+      "height_cm": 419.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -1600.0,
+        900.0,
+        296.0
+      ],
+      "before": {
+        "radius": 420.0,
+        "effective_radius": 420.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -2.0,
+        "mesh": "SM_CargoWarehouse_Floors"
+      },
+      "height_cm": 298.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "index": 4,
+      "id": "4",
+      "position": [
+        -1100.0,
+        -100.0,
+        541.0
+      ],
+      "before": {
+        "radius": 740.0,
+        "effective_radius": 740.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 950.0,
+        "optimized_radius_cm": 950.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_CargoWarehouse_Paving"
+      },
+      "height_cm": 540.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "index": 5,
+      "id": "5",
+      "position": [
+        1100.0,
+        100.0,
+        541.0
+      ],
+      "before": {
+        "radius": 750.0,
+        "effective_radius": 750.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 950.0,
+        "optimized_radius_cm": 950.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.2,
+        "mesh": "SM_CargoWarehouse_Paving"
+      },
+      "height_cm": 540.8,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Cool"
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "index": 8,
+      "id": "8",
+      "position": [
+        1600.0,
+        -500.0,
+        296.0
+      ],
+      "before": {
+        "radius": 430.0,
+        "effective_radius": 430.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -2.0,
+        "mesh": "SM_CargoWarehouse_Floors"
+      },
+      "height_cm": 298.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/IndustrialV1/Meshes/SM_CeilingLamp_Warm"
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "index": 0,
+      "id": "0",
+      "position": [
+        899.9999694824219,
+        -170.0000762939453,
+        277.6999816894531
+      ],
+      "before": {
+        "radius": 430,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 500.0,
+        "optimized_radius_cm": 500.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_FreightTransfer_Floors"
+      },
+      "height_cm": 277.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Fixtures"
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "index": 3,
+      "id": "3",
+      "position": [
+        1449.9998779296875,
+        -1180.0001220703125,
+        372.70001220703125
+      ],
+      "before": {
+        "radius": 530,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 700.0,
+        "optimized_radius_cm": 700.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_RS_FreightTransfer_Floors"
+      },
+      "height_cm": 372.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Fixtures"
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "index": 4,
+      "id": "4",
+      "position": [
+        899.9998474121094,
+        -1640.0000610351562,
+        382.6999816894531
+      ],
+      "before": {
+        "radius": 520,
+        "effective_radius": 300,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 60.0,
+        "mesh": "SM_RS_FreightTransfer_Floors"
+      },
+      "height_cm": 322.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/VentFreight20260922/Meshes/SM_RS_FreightTransfer_Fixtures"
+    },
+    {
+      "module": "StaffDormitory",
+      "index": 9,
+      "id": "Entry",
+      "position": [
+        -1500.0,
+        0.0,
+        309.15000009536743
+      ],
+      "before": {
+        "radius": 300,
+        "effective_radius": 300,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_Staff_Dormitory_FloorFinish_V3"
+      },
+      "height_cm": 309.15,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture"
+    },
+    {
+      "module": "StaffDormitory",
+      "index": 10,
+      "id": "Exit",
+      "position": [
+        1500.0,
+        0.0,
+        309.15000009536743
+      ],
+      "before": {
+        "radius": 300,
+        "effective_radius": 300,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_Staff_Dormitory_FloorFinish_V3"
+      },
+      "height_cm": 309.15,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture"
+    },
+    {
+      "module": "StaffChangingShowers",
+      "index": 7,
+      "id": "Entry",
+      "position": [
+        -1300.0,
+        0.0,
+        309.15000009536743
+      ],
+      "before": {
+        "radius": 300,
+        "effective_radius": 300,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -1.8,
+        "mesh": "SM_Staff_ChangingShowers_Floors_V3"
+      },
+      "height_cm": 310.95,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture"
+    },
+    {
+      "module": "StaffChangingShowers",
+      "index": 8,
+      "id": "Exit",
+      "position": [
+        1300.0,
+        0.0,
+        309.15000009536743
+      ],
+      "before": {
+        "radius": 300,
+        "effective_radius": 300,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -1.8,
+        "mesh": "SM_Staff_ChangingShowers_Floors_V3"
+      },
+      "height_cm": 310.95,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture"
+    },
+    {
+      "module": "StaffRecreation",
+      "index": 8,
+      "id": "Entry",
+      "position": [
+        -1600.0,
+        600.0,
+        309.15000009536743
+      ],
+      "before": {
+        "radius": 300,
+        "effective_radius": 300,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -2.0,
+        "mesh": "SM_Staff_Recreation_Floors"
+      },
+      "height_cm": 311.15,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture"
+    },
+    {
+      "module": "StaffRecreation",
+      "index": 9,
+      "id": "Exit",
+      "position": [
+        1600.0,
+        600.0,
+        309.15000009536743
+      ],
+      "before": {
+        "radius": 300,
+        "effective_radius": 300,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -2.0,
+        "mesh": "SM_Staff_Recreation_Floors"
+      },
+      "height_cm": 311.15,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture"
+    },
+    {
+      "module": "StaffRecreation",
+      "index": 10,
+      "id": "Bathroom",
+      "position": [
+        1220.0,
+        -1010.0,
+        328.65000009536743
+      ],
+      "before": {
+        "radius": 370,
+        "effective_radius": 370,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.3,
+        "mesh": "SM_Staff_BathroomInterior_V6"
+      },
+      "height_cm": 328.35,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture"
+    },
+    {
+      "module": "EcoNursery",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -1400.0,
+        0.00012254714965820312,
+        297.70001220703125
+      ],
+      "before": {
+        "radius": 400.0,
+        "effective_radius": 400.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoNursery_Floors"
+      },
+      "height_cm": 297.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV3/NurseryFinal/Meshes/SM_EcoNursery_LampDiffusers"
+    },
+    {
+      "module": "EcoNursery",
+      "index": 1,
+      "id": "1",
+      "position": [
+        1400.0,
+        -0.00012254714965820312,
+        297.70001220703125
+      ],
+      "before": {
+        "radius": 400.0,
+        "effective_radius": 400.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoNursery_Floors"
+      },
+      "height_cm": 297.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV3/NurseryFinal/Meshes/SM_EcoNursery_LampDiffusers"
+    },
+    {
+      "module": "EcoNursery",
+      "index": 8,
+      "id": "8",
+      "position": [
+        -399.9999237060547,
+        860.0000305175781,
+        301.6499938964844
+      ],
+      "before": {
+        "radius": 400.0,
+        "effective_radius": 400.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoNursery_Floors"
+      },
+      "height_cm": 301.65,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV3/NurseryFinal/Meshes/SM_EcoNursery_LampDiffusers"
+    },
+    {
+      "module": "EcoNursery",
+      "index": 9,
+      "id": "9",
+      "position": [
+        100.00008296966553,
+        859.9999694824219,
+        301.6499938964844
+      ],
+      "before": {
+        "radius": 400.0,
+        "effective_radius": 400.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoNursery_Floors"
+      },
+      "height_cm": 301.65,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV3/NurseryFinal/Meshes/SM_EcoNursery_LampDiffusers"
+    },
+    {
+      "module": "EcoNursery",
+      "index": 10,
+      "id": "10",
+      "position": [
+        600.0000610351562,
+        859.9999389648438,
+        301.6499938964844
+      ],
+      "before": {
+        "radius": 400.0,
+        "effective_radius": 400.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoNursery_Floors"
+      },
+      "height_cm": 301.65,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV3/NurseryFinal/Meshes/SM_EcoNursery_LampDiffusers"
+    },
+    {
+      "module": "EcoNursery",
+      "index": 11,
+      "id": "11",
+      "position": [
+        -400.00006103515625,
+        -859.9999694824219,
+        301.6499938964844
+      ],
+      "before": {
+        "radius": 400.0,
+        "effective_radius": 400.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoNursery_Floors"
+      },
+      "height_cm": 301.65,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV3/NurseryFinal/Meshes/SM_EcoNursery_LampDiffusers"
+    },
+    {
+      "module": "EcoNursery",
+      "index": 12,
+      "id": "12",
+      "position": [
+        99.99993133544922,
+        -860.0,
+        301.6499938964844
+      ],
+      "before": {
+        "radius": 400.0,
+        "effective_radius": 400.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoNursery_Floors"
+      },
+      "height_cm": 301.65,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV3/NurseryFinal/Meshes/SM_EcoNursery_LampDiffusers"
+    },
+    {
+      "module": "EcoNursery",
+      "index": 13,
+      "id": "13",
+      "position": [
+        599.9999237060547,
+        -860.0000305175781,
+        301.6499938964844
+      ],
+      "before": {
+        "radius": 400.0,
+        "effective_radius": 400.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoNursery_Floors"
+      },
+      "height_cm": 301.65,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV3/NurseryFinal/Meshes/SM_EcoNursery_LampDiffusers"
+    },
+    {
+      "module": "EcoHydroponics",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -2100.0,
+        0.00018358230590820312,
+        297.70001220703125
+      ],
+      "before": {
+        "radius": 400.0,
+        "effective_radius": 400.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoHydroponics_Floors"
+      },
+      "height_cm": 297.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV3/Meshes/SM_EcoHydroponics_LampDiffusers"
+    },
+    {
+      "module": "EcoHydroponics",
+      "index": 1,
+      "id": "1",
+      "position": [
+        2100.0,
+        -0.00018358230590820312,
+        297.70001220703125
+      ],
+      "before": {
+        "radius": 400.0,
+        "effective_radius": 400.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoHydroponics_Floors"
+      },
+      "height_cm": 297.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV3/Meshes/SM_EcoHydroponics_LampDiffusers"
+    },
+    {
+      "module": "EcoHydroponics",
+      "index": 13,
+      "id": "13",
+      "position": [
+        -1399.9998779296875,
+        1150.0001220703125,
+        479.70001220703125
+      ],
+      "before": {
+        "radius": 600.0,
+        "effective_radius": 600.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 850.0,
+        "optimized_radius_cm": 850.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoHydroponics_Floors"
+      },
+      "height_cm": 479.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV3/Meshes/SM_EcoHydroponics_LampDiffusers"
+    },
+    {
+      "module": "EcoHydroponics",
+      "index": 14,
+      "id": "14",
+      "position": [
+        0.0001010894775390625,
+        1150.0,
+        479.70001220703125
+      ],
+      "before": {
+        "radius": 600.0,
+        "effective_radius": 600.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 850.0,
+        "optimized_radius_cm": 850.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoHydroponics_Floors"
+      },
+      "height_cm": 479.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV3/Meshes/SM_EcoHydroponics_LampDiffusers"
+    },
+    {
+      "module": "EcoHydroponics",
+      "index": 15,
+      "id": "15",
+      "position": [
+        1400.0001220703125,
+        1149.9998779296875,
+        479.70001220703125
+      ],
+      "before": {
+        "radius": 600.0,
+        "effective_radius": 600.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 850.0,
+        "optimized_radius_cm": 850.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoHydroponics_Floors"
+      },
+      "height_cm": 479.7,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV3/Meshes/SM_EcoHydroponics_LampDiffusers"
+    },
+    {
+      "module": "EcoBiosphere",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -2500.0,
+        0.00021839141845703125,
+        299.0
+      ],
+      "before": {
+        "radius": 400.0,
+        "effective_radius": 400.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoBiosphere_Floors"
+      },
+      "height_cm": 299.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV5/Meshes/SM_EcoBiosphere_LampDiffusers"
+    },
+    {
+      "module": "EcoBiosphere",
+      "index": 1,
+      "id": "1",
+      "position": [
+        2500.0,
+        -0.00021839141845703125,
+        299.0
+      ],
+      "before": {
+        "radius": 400.0,
+        "effective_radius": 400.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_EcoBiosphere_Floors"
+      },
+      "height_cm": 299.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/Ecology20261004/RefineV5/Meshes/SM_EcoBiosphere_LampDiffusers"
+    },
+    {
+      "module": "SwitchgearGallery",
+      "index": 0,
+      "id": "0",
+      "position": [
+        -740.0,
+        0.0,
+        375.15000009536743
+      ],
+      "before": {
+        "radius": 470.0,
+        "effective_radius": 470.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 700.0,
+        "optimized_radius_cm": 700.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.1,
+        "mesh": "SM_Power_SwitchgearGallery_FloorFinish"
+      },
+      "height_cm": 375.05,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture"
+    },
+    {
+      "module": "SwitchgearGallery",
+      "index": 3,
+      "id": "3",
+      "position": [
+        0.0,
+        -910.0,
+        315.15000009536743
+      ],
+      "before": {
+        "radius": 380.0,
+        "effective_radius": 380.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.1,
+        "mesh": "SM_Power_SwitchgearGallery_FloorFinish"
+      },
+      "height_cm": 315.05,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture"
+    },
+    {
+      "module": "GeneratorHall",
+      "index": 5,
+      "id": "5",
+      "position": [
+        -1065.0,
+        -500.0,
+        515.1500000953674
+      ],
+      "before": {
+        "radius": 520.0,
+        "effective_radius": 520.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 700.0,
+        "optimized_radius_cm": 700.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 128.0,
+        "mesh": "SM_Power_GeneratorHall_Structure"
+      },
+      "height_cm": 387.15,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture"
+    },
+    {
+      "module": "GeneratorHall",
+      "index": 6,
+      "id": "6",
+      "position": [
+        1065.0,
+        -500.0,
+        515.1500000953674
+      ],
+      "before": {
+        "radius": 520.0,
+        "effective_radius": 520.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 700.0,
+        "optimized_radius_cm": 700.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 128.0,
+        "mesh": "SM_Power_GeneratorHall_Structure"
+      },
+      "height_cm": 387.15,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 1,
+      "id": "Atrium_-12_0",
+      "position": [
+        -1200.0,
+        0.0001049041748046875,
+        701.4500122070312
+      ],
+      "before": {
+        "radius": 1144.0,
+        "effective_radius": 1144.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1450.0,
+        "optimized_radius_cm": 1450.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -4.0,
+        "mesh": "SM_FT_Hall_Slab"
+      },
+      "height_cm": 705.45,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 2,
+      "id": "Atrium_-12_10",
+      "position": [
+        -1200.0001220703125,
+        -999.9999084472656,
+        701.4500122070312
+      ],
+      "before": {
+        "radius": 1144.0,
+        "effective_radius": 1144.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1450.0,
+        "optimized_radius_cm": 1450.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -4.0,
+        "mesh": "SM_FT_Hall_Slab"
+      },
+      "height_cm": 705.45,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 3,
+      "id": "Atrium_0_-10",
+      "position": [
+        8.7738037109375e-05,
+        1000.0,
+        701.4500122070312
+      ],
+      "before": {
+        "radius": 1144.0,
+        "effective_radius": 1144.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1450.0,
+        "optimized_radius_cm": 1450.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -4.0,
+        "mesh": "SM_FT_Hall_Slab"
+      },
+      "height_cm": 705.45,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 4,
+      "id": "Atrium_0_0",
+      "position": [
+        0.0,
+        0.0,
+        701.4500122070312
+      ],
+      "before": {
+        "radius": 1144.0,
+        "effective_radius": 1144.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1450.0,
+        "optimized_radius_cm": 1450.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -4.0,
+        "mesh": "SM_FT_Hall_Slab"
+      },
+      "height_cm": 705.45,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 5,
+      "id": "Atrium_0_10",
+      "position": [
+        -8.7738037109375e-05,
+        -1000.0,
+        701.4500122070312
+      ],
+      "before": {
+        "radius": 1144.0,
+        "effective_radius": 1144.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 1450.0,
+        "optimized_radius_cm": 1450.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -4.0,
+        "mesh": "SM_FT_Hall_Slab"
+      },
+      "height_cm": 705.45,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 6,
+      "id": "Atrium_13_-10",
+      "position": [
+        1300.0001220703125,
+        999.9999084472656,
+        701.4500122070312
+      ],
+      "before": {
+        "radius": 1144.0,
+        "effective_radius": 1144.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1450.0,
+        "optimized_radius_cm": 1450.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_FT_Hall_Floor"
+      },
+      "height_cm": 701.45,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 7,
+      "id": "Atrium_13_0",
+      "position": [
+        1300.0,
+        -0.00011396408081054688,
+        701.4500122070312
+      ],
+      "before": {
+        "radius": 1144.0,
+        "effective_radius": 1144.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 1450.0,
+        "optimized_radius_cm": 1450.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -4.0,
+        "mesh": "SM_FT_Hall_Slab"
+      },
+      "height_cm": 705.45,
+      "reason": "extend high main light",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 9,
+      "id": "UnderGallery-12",
+      "position": [
+        -1999.9999389648438,
+        1200.0001220703125,
+        367.8999938964844
+      ],
+      "before": {
+        "radius": 440.00000000000006,
+        "effective_radius": 440.00000000000006,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 700.0,
+        "optimized_radius_cm": 700.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -4.0,
+        "mesh": "SM_FT_Hall_Slab"
+      },
+      "height_cm": 371.9,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 10,
+      "id": "Gallery-12",
+      "position": [
+        -2099.9999389648438,
+        1200.0001831054688,
+        749.8999633789062
+      ],
+      "before": {
+        "radius": 484.0,
+        "effective_radius": 484.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 418.0,
+        "mesh": "SM_FT_Hall_GallerySlab"
+      },
+      "height_cm": 331.9,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 11,
+      "id": "UnderGallery-5",
+      "position": [
+        -1999.9999389648438,
+        500.00018310546875,
+        367.8999938964844
+      ],
+      "before": {
+        "radius": 440.00000000000006,
+        "effective_radius": 440.00000000000006,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 650.0,
+        "optimized_radius_cm": 650.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_FT_Hall_Floor"
+      },
+      "height_cm": 367.9,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 12,
+      "id": "Gallery-5",
+      "position": [
+        -2099.9999389648438,
+        500.00018310546875,
+        749.8999633789062
+      ],
+      "before": {
+        "radius": 484.0,
+        "effective_radius": 484.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 420.0,
+        "mesh": "SM_FT_Hall_UpperFloor"
+      },
+      "height_cm": 329.9,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 13,
+      "id": "UnderGallery6",
+      "position": [
+        -2000.0,
+        -599.9998168945312,
+        367.8999938964844
+      ],
+      "before": {
+        "radius": 440.00000000000006,
+        "effective_radius": 440.00000000000006,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 700.0,
+        "optimized_radius_cm": 700.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -4.0,
+        "mesh": "SM_FT_Hall_Slab"
+      },
+      "height_cm": 371.9,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 14,
+      "id": "Gallery6",
+      "position": [
+        -2100.0,
+        -599.9998168945312,
+        749.8999633789062
+      ],
+      "before": {
+        "radius": 484.0,
+        "effective_radius": 484.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 418.0,
+        "mesh": "SM_FT_Hall_GallerySlab"
+      },
+      "height_cm": 331.9,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 15,
+      "id": "UnderGallery13",
+      "position": [
+        -2000.0001220703125,
+        -1299.9998779296875,
+        367.8999938964844
+      ],
+      "before": {
+        "radius": 440.00000000000006,
+        "effective_radius": 440.00000000000006,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 650.0,
+        "optimized_radius_cm": 650.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_FT_Hall_Floor"
+      },
+      "height_cm": 367.9,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 16,
+      "id": "Gallery13",
+      "position": [
+        -2100.0001220703125,
+        -1299.9998168945312,
+        749.8999633789062
+      ],
+      "before": {
+        "radius": 484.0,
+        "effective_radius": 484.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 420.0,
+        "mesh": "SM_FT_Hall_UpperFloor"
+      },
+      "height_cm": 329.9,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 17,
+      "id": "Approach-29",
+      "position": [
+        -2900.0,
+        0.0002536773681640625,
+        276.0
+      ],
+      "before": {
+        "radius": 396.0,
+        "effective_radius": 396.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 500.0,
+        "optimized_radius_cm": 500.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -2.0,
+        "mesh": "SM_FT_Hall_Approach"
+      },
+      "height_cm": 278.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 18,
+      "id": "Approach-25.6",
+      "position": [
+        -2560.0,
+        0.00022363662719726562,
+        276.0
+      ],
+      "before": {
+        "radius": 396.0,
+        "effective_radius": 396.0,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 500.0,
+        "optimized_radius_cm": 500.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -2.0,
+        "mesh": "SM_FT_Hall_Approach"
+      },
+      "height_cm": 278.0,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 21,
+      "id": "21",
+      "position": [
+        2348.0,
+        8.262128687874792e-06,
+        430.1499938964844
+      ],
+      "before": {
+        "radius": 480,
+        "effective_radius": 480,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 800.0,
+        "optimized_radius_cm": 800.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": -4.0,
+        "mesh": "SM_FT_Hall_Slab"
+      },
+      "height_cm": 434.15,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_freight_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 23,
+      "id": "23",
+      "position": [
+        800.0000076293945,
+        -1748.0,
+        430.1499938964844
+      ],
+      "before": {
+        "radius": 480,
+        "effective_radius": 480,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 800.0,
+        "optimized_radius_cm": 800.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_FT_Hall_Floor"
+      },
+      "height_cm": 430.15,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_freight_Diffusers"
+    },
+    {
+      "module": "FacilityTransit",
+      "index": 25,
+      "id": "25",
+      "position": [
+        799.9999938818667,
+        1748.0,
+        430.1499938964844
+      ],
+      "before": {
+        "radius": 480,
+        "effective_radius": 480,
+        "cast_shadows": false
+      },
+      "fields": {
+        "radius": 800.0,
+        "optimized_radius_cm": 800.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_FT_Hall_Floor"
+      },
+      "height_cm": 430.15,
+      "reason": "extend floor reach",
+      "fixture_mesh": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_freight_Diffusers"
+    },
+    {
+      "module": "FixedStart",
+      "index": 0,
+      "id": "DGN_A_AV2_Light_Exit",
+      "position": [
+        2399.7509765625,
+        -1349.9963989257812,
+        371.13543701171875
+      ],
+      "before": {
+        "radius": 440.0,
+        "effective_radius": 440.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 650.0,
+        "optimized_radius_cm": 650.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.077,
+        "mesh": "SM_V2_EndLanding_Floor"
+      },
+      "height_cm": 371.058,
+      "reason": "extend floor reach"
+    },
+    {
+      "module": "FixedStart",
+      "index": 2,
+      "id": "DGN_A_WSTools_BenchArea",
+      "position": [
+        840.126220703125,
+        309.9985046386719,
+        304.2654724121094
+      ],
+      "before": {
+        "radius": 345.0,
+        "effective_radius": 345.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 550.0,
+        "optimized_radius_cm": 550.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.075,
+        "mesh": "SM_V2_Workshop_Floor"
+      },
+      "height_cm": 304.19,
+      "reason": "extend floor reach"
+    },
+    {
+      "module": "FixedStart",
+      "index": 4,
+      "id": "DGN_A_AV2_Light_Recess",
+      "position": [
+        1519.8673706054688,
+        135.0044059753418,
+        261.16180419921875
+      ],
+      "before": {
+        "radius": 320.0,
+        "effective_radius": 320.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 500.0,
+        "optimized_radius_cm": 500.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.0,
+        "mesh": "SM_V2_ServiceRecess_Floor"
+      },
+      "height_cm": 261.162,
+      "reason": "extend floor reach"
+    },
+    {
+      "module": "FixedStart",
+      "index": 9,
+      "id": "DGN_A_AV2_Light_Breach",
+      "position": [
+        1709.8348388671875,
+        -310.021728515625,
+        336.1615295410156
+      ],
+      "before": {
+        "radius": 500.0,
+        "effective_radius": 500.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 600.0,
+        "optimized_radius_cm": 600.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.105,
+        "mesh": "SM_V2_MainCorridor_Floor"
+      },
+      "height_cm": 336.057,
+      "reason": "extend floor reach"
+    },
+    {
+      "module": "FixedStart",
+      "index": 10,
+      "id": "DGN_A_AV2_Light_MachineBay",
+      "position": [
+        1069.9266967773438,
+        -660.0224304199219,
+        346.15716552734375
+      ],
+      "before": {
+        "radius": 450.0,
+        "effective_radius": 450.0,
+        "cast_shadows": true
+      },
+      "fields": {
+        "radius": 650.0,
+        "optimized_radius_cm": 650.0,
+        "cast_shadows": true
+      },
+      "floor": {
+        "z": 0.07,
+        "mesh": "SM_V2_MachineBay_Floor"
+      },
+      "height_cm": 346.087,
+      "reason": "extend floor reach"
+    }
+  ],
+  "policy": "General short lights: range/height < 1.5 -> 1.75; main lights >=5m: <1.65 -> 2.0; round up to 50cm. Preserve adequate lights and object lighting.",
+  "checked_catalog_lights": 305,
+  "checked_fixed_lights": 13,
+  "missed_floor_before": 26,
+  "brightness_changed": false,
+  "directions_changed": false,
+  "cones_changed": false,
+  "additional_shadow_sources": 97
+}

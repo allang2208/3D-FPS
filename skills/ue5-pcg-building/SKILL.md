@@ -189,3 +189,7 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 ## 冶炼点击存档（2026-09-24）
 
 熔炉的开始、加燃料、收取、升级、拆除与档案意图、立即刷盘和读档对账，读取 [冶炼点击意图](references/smelting-click-intents.md)。连续挖掘仍用约 2 秒合并存档。
+
+## 场景光源与最低照明
+
+制作或调整室内灯具、吊灯方向、廊下和暗角照明时，读取 [灯具与照明层次标准](references/fixture-lighting-standard.md)。向下灯不得向上直射天花板；保留已认可主灯，按实际楼层补光。

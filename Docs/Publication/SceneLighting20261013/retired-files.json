@@ -1,0 +1,1440 @@
+{
+  "scope": "Only confirmed retired artifacts from this reception-lighting/door-veil work",
+  "files": [
+    {
+      "source": "SourceAssets/DungeonLightDirection20261009/render_direction_probe.py",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/DungeonLightDirection20261009/render_direction_probe.py",
+      "bytes": 3935,
+      "sha256": "f77a8d3206ff61cd6404b663dbfecaa0fae464f0fb501abe2262c1c9f3d3efd5",
+      "reason": "Python render-target exporter produced identical black images; replaced by native GPU readback.",
+      "replacement": "Source/FPSGAME/Production/DungeonLightDirectionCommandlet.cpp; SourceAssets/DungeonHallCeilingLight20261009/Receipts/HallRender"
+    },
+    {
+      "source": "SourceAssets/DungeonLightDirection20261009/Receipts/Render/before.png",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/DungeonLightDirection20261009/Receipts/Render/before.png",
+      "bytes": 157982,
+      "sha256": "9dde94bd6e1864fcdaa23d7ed15bde169a075c52474f04c7d84c5001a4f6ef79",
+      "reason": "Explicitly marked invalid visual evidence by invalid-export.json.",
+      "replacement": "SourceAssets/DungeonHallCeilingLight20261009/Receipts/HallRender"
+    },
+    {
+      "source": "SourceAssets/DungeonLightDirection20261009/Receipts/Render/after.png",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/DungeonLightDirection20261009/Receipts/Render/after.png",
+      "bytes": 157982,
+      "sha256": "daf3473522ebca414d7b5bc9819ec80d371caea5d6a685f73fdbd4b87b2e0baf",
+      "reason": "Explicitly marked invalid visual evidence by invalid-export.json.",
+      "replacement": "SourceAssets/DungeonHallCeilingLight20261009/Receipts/HallRender"
+    },
+    {
+      "source": "SourceAssets/DungeonLightDirection20261009/Receipts/Render/capture.json",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/DungeonLightDirection20261009/Receipts/Render/capture.json",
+      "bytes": 495,
+      "sha256": "5e4d3beb2e8eae5ca433cb92cfc8cc4496fb8424f6bb17f155120d64488fd1d7",
+      "reason": "Explicitly marked invalid visual evidence by invalid-export.json.",
+      "replacement": "SourceAssets/DungeonHallCeilingLight20261009/Receipts/HallRender"
+    },
+    {
+      "source": "SourceAssets/DungeonLightDirection20261009/Receipts/Render/invalid-export.json",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/DungeonLightDirection20261009/Receipts/Render/invalid-export.json",
+      "bytes": 241,
+      "sha256": "34c6f8258b07906c098394c89949999778964cfb1100ca40750fb7d9bb74a54d",
+      "reason": "Explicitly marked invalid visual evidence by invalid-export.json.",
+      "replacement": "SourceAssets/DungeonHallCeilingLight20261009/Receipts/HallRender"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Receipts/import-20261012-200310.log",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Receipts/import-20261012-200310.log",
+      "bytes": 306921,
+      "sha256": "e8a926183cedb546b936925eb5a98eace31929385bda6ce8fb65c7b7a2e32d1b",
+      "reason": "Failed pre-map-save import; commandlet mesh subsystem fallback is now fixed.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Receipts/import-20261012-200627.log"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Receipts/stdout-20261012-200310.log",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Receipts/stdout-20261012-200310.log",
+      "bytes": 43937,
+      "sha256": "3b1b940872a632006a47a5d357b5e83a4b11fe15a2db71ceac194743c332acba",
+      "reason": "Failed pre-map-save import; commandlet mesh subsystem fallback is now fixed.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Receipts/import-20261012-200627.log"
+    },
+    {
+      "source": "SourceAssets/ReceptionGroundLighting20261009/inspection-output.json",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionGroundLighting20261009/inspection-output.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Empty intermediate output, not inspection evidence.",
+      "replacement": "SourceAssets/ReceptionGroundLighting20261009/Receipts/install.json"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/GameMaps/L_Dungeon_Randomized.umap",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/GameMaps/L_Dungeon_Randomized.umap",
+      "bytes": 31225,
+      "sha256": "df412561a7136201460a91a05f28e54e9cff94deff69bf274e392ba10d699b7e",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/GameMaps/L_Dungeon_Randomized.umap"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/0/21/1GXCE5F23LYITCJE9N3VNM.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/0/21/1GXCE5F23LYITCJE9N3VNM.uasset",
+      "bytes": 4583,
+      "sha256": "4ba1b8f8c1dc08531d3e4fb98bf0b3b9669d2751dfc0f74637a4de75524536b4",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/0/21/1GXCE5F23LYITCJE9N3VNM.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/0/7A/ZXQM3VKQDDY3K97FAYYHFG.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/0/7A/ZXQM3VKQDDY3K97FAYYHFG.uasset",
+      "bytes": 4620,
+      "sha256": "23b2da73bd662f956431543da7fd46f6eedf3ba9da34e18d0efc1aec3404ff11",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/0/7A/ZXQM3VKQDDY3K97FAYYHFG.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/0/G0/3XAUBXZ5OM3VM1QZNEGX4B.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/0/G0/3XAUBXZ5OM3VM1QZNEGX4B.uasset",
+      "bytes": 3962,
+      "sha256": "905ec8f462a52f0e239594489a59fab7421206d5b7764c09378f8b23e2d3f192",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/0/G0/3XAUBXZ5OM3VM1QZNEGX4B.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/0/VR/6OYM310FQ6QZ17G44WBO4Z.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/0/VR/6OYM310FQ6QZ17G44WBO4Z.uasset",
+      "bytes": 4010,
+      "sha256": "c2f0896180591ecdf6a9505817d02355becd344194203436f9c822424a366d27",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/0/VR/6OYM310FQ6QZ17G44WBO4Z.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/6E/L9QZREFA2RKYGQ3OXNKTIX.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/6E/L9QZREFA2RKYGQ3OXNKTIX.uasset",
+      "bytes": 3957,
+      "sha256": "226cb912364762b49b14e6c434fd61a990d893ac98fecec7880f27d3c5a0ba3f",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/6E/L9QZREFA2RKYGQ3OXNKTIX.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/DY/AMMRD53YHXJ1XVMLNTQN44.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/DY/AMMRD53YHXJ1XVMLNTQN44.uasset",
+      "bytes": 4607,
+      "sha256": "a989cd4877bd41ea47f00541e3936bf5217fbf657ae0ca622619fefa464c5d41",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/DY/AMMRD53YHXJ1XVMLNTQN44.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/EV/E7XF45AY8LFUCGAVXMLVS0.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/EV/E7XF45AY8LFUCGAVXMLVS0.uasset",
+      "bytes": 3925,
+      "sha256": "b26341ca0cafe0209af1cebe412f963cd5d33822fcb241518648c6a0c70a7a8d",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/EV/E7XF45AY8LFUCGAVXMLVS0.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/HR/40EMVXS1ILZWXC1VGYY6XO.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/HR/40EMVXS1ILZWXC1VGYY6XO.uasset",
+      "bytes": 11473,
+      "sha256": "5b7ac97ad84043874224345de1331449f2978674593b8e0213cc76c7da636241",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/HR/40EMVXS1ILZWXC1VGYY6XO.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/O4/M4MQKNZ7T6U1IYYAA8ZTS8.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/O4/M4MQKNZ7T6U1IYYAA8ZTS8.uasset",
+      "bytes": 4545,
+      "sha256": "8e440a977513e818bda197ee32ca82a3a719a776b4a00ffa9b89f813a760b3cc",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/O4/M4MQKNZ7T6U1IYYAA8ZTS8.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/Q6/OVO02GWKR0A0SW8PIMO164.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/Q6/OVO02GWKR0A0SW8PIMO164.uasset",
+      "bytes": 4613,
+      "sha256": "a976b85f8723a4dc1535abf028409306581589d2a0d3257df753a2e905da579a",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/Q6/OVO02GWKR0A0SW8PIMO164.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/UM/KYJEIKVG9NPA6LOUNT8374.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/UM/KYJEIKVG9NPA6LOUNT8374.uasset",
+      "bytes": 4015,
+      "sha256": "d055d7d2ff555bb1b1740864776a1b8ae3e96ab5f6b4d3a2d4ac1ed4ac191b18",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/UM/KYJEIKVG9NPA6LOUNT8374.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/ZL/I83BIX2VF00FLT4193FLQ7.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/ZL/I83BIX2VF00FLT4193FLQ7.uasset",
+      "bytes": 4009,
+      "sha256": "19921d37abe9bb1174eb03d064597f4db8797fe57beb5065680b4a54cac7e9e3",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/1/ZL/I83BIX2VF00FLT4193FLQ7.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/0X/032PJRH82F4H1XNDDDIEI9.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/0X/032PJRH82F4H1XNDDDIEI9.uasset",
+      "bytes": 4323,
+      "sha256": "6518a3ee8c152b89789ef584d7d2c7e9cf71471a8209e8539abfda417f9c8bc2",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/0X/032PJRH82F4H1XNDDDIEI9.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/6D/BWAI6372Q5KTS5RHSS428R.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/6D/BWAI6372Q5KTS5RHSS428R.uasset",
+      "bytes": 5329,
+      "sha256": "0a8bda824870f7a33d3a83512c5b260fe138808221fcb41c6bd5187a9b7fcd0b",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/6D/BWAI6372Q5KTS5RHSS428R.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/E9/MDITPHLR1WMDI8ZNMZZ8P1.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/E9/MDITPHLR1WMDI8ZNMZZ8P1.uasset",
+      "bytes": 4845,
+      "sha256": "5fcb36ea570ba5b04d2d231a37b30c9398e2927bf0f519b793427c9725df55dd",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/E9/MDITPHLR1WMDI8ZNMZZ8P1.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/J0/UI7YPFMCOALCW5OO2PPB8U.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/J0/UI7YPFMCOALCW5OO2PPB8U.uasset",
+      "bytes": 4873,
+      "sha256": "b2dd566c33e844fcd24656b669589c3351ff2f5a569f9b93d49be1ce5dc54822",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/J0/UI7YPFMCOALCW5OO2PPB8U.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/LG/NZTLHZFE6WEUWLXHCYMCEV.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/LG/NZTLHZFE6WEUWLXHCYMCEV.uasset",
+      "bytes": 3997,
+      "sha256": "aa3b9eed815b6830336a6ded984775a21738858d724497e1377e414cf6ce67b5",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/2/LG/NZTLHZFE6WEUWLXHCYMCEV.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/3C/50GKOGZ1F968BHEL6339MA.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/3C/50GKOGZ1F968BHEL6339MA.uasset",
+      "bytes": 3971,
+      "sha256": "1666c2d1b3d35a1b20a309e4d421440f3c4040e7154c835263662154c9c5aa5b",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/3C/50GKOGZ1F968BHEL6339MA.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/3S/I5FKD5ZEG8CG9HS29WJO3G.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/3S/I5FKD5ZEG8CG9HS29WJO3G.uasset",
+      "bytes": 3979,
+      "sha256": "8c0c42be17d02da2b9ada46404aac57ef3141508ab729c72df9da45f9a33c813",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/3S/I5FKD5ZEG8CG9HS29WJO3G.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/HW/EJKGHI2MCIOVVQAMOU710I.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/HW/EJKGHI2MCIOVVQAMOU710I.uasset",
+      "bytes": 4030,
+      "sha256": "51d995d9240c3c88c4f9dd5d4e7d8e3dabeef2637d7ba4f80ae62d110db36167",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/HW/EJKGHI2MCIOVVQAMOU710I.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/J8/LFQNLFWAU45974XZDF8OXF.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/J8/LFQNLFWAU45974XZDF8OXF.uasset",
+      "bytes": 4893,
+      "sha256": "720af3cf96fdca7cdb5f9d5691515155312b13d254470e781ca184ae607bc6f7",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/J8/LFQNLFWAU45974XZDF8OXF.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/RE/L78Z22V32OJOT6SVPOEOXW.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/RE/L78Z22V32OJOT6SVPOEOXW.uasset",
+      "bytes": 4954,
+      "sha256": "5d5d51e66c0b7331d87b3cf4288224a096e621a103b875c2bad09ea037f09cd2",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/RE/L78Z22V32OJOT6SVPOEOXW.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/U5/UEVTNAUFOL1BP0T47VY2Y5.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/U5/UEVTNAUFOL1BP0T47VY2Y5.uasset",
+      "bytes": 4714,
+      "sha256": "3ed28940ff321c0eb99039941a16f7b2326be29007ac6fd1937fe9fc27935f91",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/U5/UEVTNAUFOL1BP0T47VY2Y5.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/VK/9D2IW6GJE1HGK8ZXKMRLT7.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/VK/9D2IW6GJE1HGK8ZXKMRLT7.uasset",
+      "bytes": 4888,
+      "sha256": "be84c9c49cc792a15179b72fc2920ab0d68b95f128f0f1f1155b458e8be63562",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/VK/9D2IW6GJE1HGK8ZXKMRLT7.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/W1/RRZQANF4PUUTV450YTSER0.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/W1/RRZQANF4PUUTV450YTSER0.uasset",
+      "bytes": 4714,
+      "sha256": "dc10117356131f9e338b09f8fcc596880488114ba5db2f09b2499c68c97e4598",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/W1/RRZQANF4PUUTV450YTSER0.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/Z4/NJIE5HXGVVRKAN5H0U53FV.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/Z4/NJIE5HXGVVRKAN5H0U53FV.uasset",
+      "bytes": 4013,
+      "sha256": "1d15ea59a96ac85041509581cd8aaf354d3bb2dbaddbeebaddfcfdbac8000626",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/3/Z4/NJIE5HXGVVRKAN5H0U53FV.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/5R/A0T2DZILM2DX52NBFBFEYV.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/5R/A0T2DZILM2DX52NBFBFEYV.uasset",
+      "bytes": 4013,
+      "sha256": "03ce1ccd5d10d31219b4648cb5bb4e9fc8457c2897abd6320ae1fa0f57080bc2",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/5R/A0T2DZILM2DX52NBFBFEYV.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/7T/8U6X4H2AYY9I1F9J5CVGA2.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/7T/8U6X4H2AYY9I1F9J5CVGA2.uasset",
+      "bytes": 4436,
+      "sha256": "249c5683b374193f6692c01183aa5c60396c249d14a3a12077fca0b6ce0c9cc8",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/7T/8U6X4H2AYY9I1F9J5CVGA2.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/FH/BEOA4QGDJ4TJSQN3R6VWP1.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/FH/BEOA4QGDJ4TJSQN3R6VWP1.uasset",
+      "bytes": 3930,
+      "sha256": "046bd31e872d03ccfdead4fd937360f7c879b89d89bd60f5dcb83f408c05cdcc",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/FH/BEOA4QGDJ4TJSQN3R6VWP1.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/FP/ZGFI4SM9P7FY40F3S0LFFK.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/FP/ZGFI4SM9P7FY40F3S0LFFK.uasset",
+      "bytes": 4734,
+      "sha256": "6ad3da056c6aa25221d02c33b7660d79bd763e8cf8f642e5b5df8fda7406cbdb",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/FP/ZGFI4SM9P7FY40F3S0LFFK.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/HR/5AHHIH07ZG1H74IC3SFFIR.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/HR/5AHHIH07ZG1H74IC3SFFIR.uasset",
+      "bytes": 4927,
+      "sha256": "e61b0f2029b02d5f5ce6ef903bfc0a49c38190333ee2e5d7caa5835379afb7c0",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/HR/5AHHIH07ZG1H74IC3SFFIR.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/IW/P6GHMCDVVU7637C1XVIW5J.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/IW/P6GHMCDVVU7637C1XVIW5J.uasset",
+      "bytes": 4009,
+      "sha256": "839ef05f97274ed9f37ec20e676fa3b5b615da7c8682cc9b3b631e8ee2e914f9",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/IW/P6GHMCDVVU7637C1XVIW5J.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/JN/BLU4HEQK8WTTDSXQNK86NO.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/JN/BLU4HEQK8WTTDSXQNK86NO.uasset",
+      "bytes": 5377,
+      "sha256": "4e10428edda1b2309bb053c71a89c6ab09e27a5e6d2a292d0ee80667427ef073",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/JN/BLU4HEQK8WTTDSXQNK86NO.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/L4/3J40CGFNPZ4UZR0VAPRQY6.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/L4/3J40CGFNPZ4UZR0VAPRQY6.uasset",
+      "bytes": 3997,
+      "sha256": "3b52db60612827a9933191b434a89c9ebde9af6a1b6e50a07de8b98ed6165cc3",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/L4/3J40CGFNPZ4UZR0VAPRQY6.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/M1/M86D6ZC4ULQPEWYHKLU2PA.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/M1/M86D6ZC4ULQPEWYHKLU2PA.uasset",
+      "bytes": 6183,
+      "sha256": "0a526c1ec596c6ad132786b2ae570b74850e1a27a18f6e7d4080f9bb78cf3f2f",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/M1/M86D6ZC4ULQPEWYHKLU2PA.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/QW/JH3QXHGC28MER8ZYC4QIFW.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/QW/JH3QXHGC28MER8ZYC4QIFW.uasset",
+      "bytes": 3948,
+      "sha256": "587758c5e7516780fa274f0672e3eb38c2740cd70a62128c3771020d4ba27f65",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/QW/JH3QXHGC28MER8ZYC4QIFW.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/SW/ZAGCNXQ3DFJQFQEAEL6TO2.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/SW/ZAGCNXQ3DFJQFQEAEL6TO2.uasset",
+      "bytes": 3961,
+      "sha256": "f7eaddac301ea24ae77f59c08b8ba99644222f873eae485b22e37726724efb04",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/SW/ZAGCNXQ3DFJQFQEAEL6TO2.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/XF/XA3UO1DKKHARFHHDCINHK5.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/XF/XA3UO1DKKHARFHHDCINHK5.uasset",
+      "bytes": 4631,
+      "sha256": "0db974d4db6b5d150d3e2d92b2b93a805b4d2b26ec97d83f3465d46c424ab0ce",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/4/XF/XA3UO1DKKHARFHHDCINHK5.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/1S/7JCX27EB5JNRNBB1SSMINN.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/1S/7JCX27EB5JNRNBB1SSMINN.uasset",
+      "bytes": 4688,
+      "sha256": "bebecd8dfd4a4eb7d76f92d5cd2aa8b5952f5f5e9823fbd1689b1c60842c3397",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/1S/7JCX27EB5JNRNBB1SSMINN.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/67/R05YU92IASQJV12UAUAKFJ.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/67/R05YU92IASQJV12UAUAKFJ.uasset",
+      "bytes": 5185,
+      "sha256": "bc8056b0812726d27840d62cb5db638bafe1a9f6a619ec58c23f1c5a92f8fe60",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/67/R05YU92IASQJV12UAUAKFJ.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/72/FS30GD2FR7ZXGF5RGBLQZS.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/72/FS30GD2FR7ZXGF5RGBLQZS.uasset",
+      "bytes": 11390,
+      "sha256": "32b26d9023cc35a2765c9d87da1835ff74e77f173613f873905acd5a1108ccd0",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/72/FS30GD2FR7ZXGF5RGBLQZS.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/A0/D7X0YT3AQY0P2F4WYN7VPX.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/A0/D7X0YT3AQY0P2F4WYN7VPX.uasset",
+      "bytes": 3966,
+      "sha256": "30a0c762f3a1d12778f9233b6ed962fccb084a7dd7043e4b1175117b1f5849e3",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/A0/D7X0YT3AQY0P2F4WYN7VPX.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/A9/5NZMFI14LEGWHJMTQ929BG.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/A9/5NZMFI14LEGWHJMTQ929BG.uasset",
+      "bytes": 4714,
+      "sha256": "db667741d06d0ec3941994fdf14d6a9464d0b1b0af0647f6ef3db7a2effd39ad",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/A9/5NZMFI14LEGWHJMTQ929BG.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/KO/JFKLXT7SZ1CQEZAHQPHNZD.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/KO/JFKLXT7SZ1CQEZAHQPHNZD.uasset",
+      "bytes": 4647,
+      "sha256": "ce1a55c4bc4fd0e00ed1ca4723704eef475718eba9a12cfa95b9bd2dbb90606e",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/KO/JFKLXT7SZ1CQEZAHQPHNZD.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/KS/DJW830L0O8F1MEPCKK2ISR.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/KS/DJW830L0O8F1MEPCKK2ISR.uasset",
+      "bytes": 4919,
+      "sha256": "d754578fdd77b80e4ac3127f598dd14934fc142ac0015b21d526fcceed358a78",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/KS/DJW830L0O8F1MEPCKK2ISR.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/LD/H2AT7OH1Y18CJMAXH8NV7A.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/LD/H2AT7OH1Y18CJMAXH8NV7A.uasset",
+      "bytes": 3902,
+      "sha256": "275d8574e705d5fbfe94280277722f7475e909ba8015cd6c177fa6e7f09b082a",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/LD/H2AT7OH1Y18CJMAXH8NV7A.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/M8/0PMO6NA2SAS7DE85QI1SWV.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/M8/0PMO6NA2SAS7DE85QI1SWV.uasset",
+      "bytes": 4761,
+      "sha256": "afd089a6b23ace992af2814448343dc444e5068cf9aea2a76a136df4990eedd6",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/M8/0PMO6NA2SAS7DE85QI1SWV.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/MA/FQ7IF81622VCD9OLJK4AB3.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/MA/FQ7IF81622VCD9OLJK4AB3.uasset",
+      "bytes": 3997,
+      "sha256": "931e677314e175ab059fa78c988a9b90fe603686eef585ab4d9d05d0da516252",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/MA/FQ7IF81622VCD9OLJK4AB3.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/N4/31IPSE3RFV52DG4E3U023Q.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/N4/31IPSE3RFV52DG4E3U023Q.uasset",
+      "bytes": 5173,
+      "sha256": "9a91eaa4de3d73a871493db3f7dfb55d4e6082bffb8519e7596a5f6dc6127674",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/N4/31IPSE3RFV52DG4E3U023Q.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/NU/MYW58PWJXODPJOLCW6KSYP.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/NU/MYW58PWJXODPJOLCW6KSYP.uasset",
+      "bytes": 3966,
+      "sha256": "4c59ed5df20017dff149239d6cf22fbc533877b5158a0f277e01ae5bfb57694f",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/5/NU/MYW58PWJXODPJOLCW6KSYP.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/0H/UM3PBPGFGDTOPAWZ0YVZG0.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/0H/UM3PBPGFGDTOPAWZ0YVZG0.uasset",
+      "bytes": 4116,
+      "sha256": "47ca05173cfa1776b5d9abb3da884532b92938cde4c22ae573ef12c6265ed0d5",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/0H/UM3PBPGFGDTOPAWZ0YVZG0.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/AZ/12YYRGSC9U3T0FC1DVYTVD.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/AZ/12YYRGSC9U3T0FC1DVYTVD.uasset",
+      "bytes": 4005,
+      "sha256": "7d4bba794d6731fc0b8dcdf48361ba96e89f2d3cfeb2cc6788f67cfcd8deaf63",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/AZ/12YYRGSC9U3T0FC1DVYTVD.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/G3/X71M7AHQVV4TI7SQXK1PCW.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/G3/X71M7AHQVV4TI7SQXK1PCW.uasset",
+      "bytes": 3952,
+      "sha256": "89a384efcef4d68e5aac756ac105c69150ce5abdf838ba41803e7115209c87aa",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/G3/X71M7AHQVV4TI7SQXK1PCW.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/TK/WFSH0HYMZY28FPSUATD3DN.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/TK/WFSH0HYMZY28FPSUATD3DN.uasset",
+      "bytes": 4914,
+      "sha256": "7924acac1040f494c13c05524521632cbe63b4eb9c25533b50ff94a842217201",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/TK/WFSH0HYMZY28FPSUATD3DN.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/XO/9OL7YZKKZMGH5OO8FXUWM5.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/XO/9OL7YZKKZMGH5OO8FXUWM5.uasset",
+      "bytes": 4617,
+      "sha256": "4e276a4a6c901ed6e66c915119e534ebf89dc75ce17e2868d2eae36fe608a441",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/6/XO/9OL7YZKKZMGH5OO8FXUWM5.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/5E/KXUNKA36A0YDPE9629LG49.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/5E/KXUNKA36A0YDPE9629LG49.uasset",
+      "bytes": 4555,
+      "sha256": "ea3fd8640c8f2736b936ca2c5474df1d7e9f8d12e0854880701f4d1bf10ca440",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/5E/KXUNKA36A0YDPE9629LG49.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/99/JK45V59PDZEPH6G43S7ZMX.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/99/JK45V59PDZEPH6G43S7ZMX.uasset",
+      "bytes": 4018,
+      "sha256": "460faf3baac0fd618cf5a97cbb83316447e2203df2e86710474ae192eb494dbb",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/99/JK45V59PDZEPH6G43S7ZMX.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/AI/2LFDXQ5SRAQO7QRKSG6E4Q.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/AI/2LFDXQ5SRAQO7QRKSG6E4Q.uasset",
+      "bytes": 4922,
+      "sha256": "d85dd349225bef05b32f9ced0afb763941fc42234aa4b426db826b9c37eddc48",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/AI/2LFDXQ5SRAQO7QRKSG6E4Q.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/E2/0090KOLLEOJ223L72NJ2UP.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/E2/0090KOLLEOJ223L72NJ2UP.uasset",
+      "bytes": 4708,
+      "sha256": "59c974438738c1fff98eba458192fbb72fcd4226b4d41364a06e9390fe2ffd9d",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/E2/0090KOLLEOJ223L72NJ2UP.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/FJ/G4QNCKPAC6MOQ6IZ7FGACI.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/FJ/G4QNCKPAC6MOQ6IZ7FGACI.uasset",
+      "bytes": 3139,
+      "sha256": "d97617e4a8da40fee8af676d6b4c8624828d4ac657075c84ca05ac24a9efd6b7",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/FJ/G4QNCKPAC6MOQ6IZ7FGACI.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/HG/JDV3EW14CTHM8B0ZG3ZLBF.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/HG/JDV3EW14CTHM8B0ZG3ZLBF.uasset",
+      "bytes": 4920,
+      "sha256": "830c1246c1f61924919734da64bb58fc73765d8d2ffc3362eeccbd634eec510a",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/HG/JDV3EW14CTHM8B0ZG3ZLBF.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/J8/I4SOI703OD5HODBWJ0482T.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/J8/I4SOI703OD5HODBWJ0482T.uasset",
+      "bytes": 3964,
+      "sha256": "008588276813ff761823bc99f1e7fa570bc292a733c2bd109d12e1a3141f8692",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/J8/I4SOI703OD5HODBWJ0482T.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/PP/X1JJNFKI3I62ELPD484R7R.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/PP/X1JJNFKI3I62ELPD484R7R.uasset",
+      "bytes": 4012,
+      "sha256": "edf6ea4faf637b351f275cf1e7e8ccd1405cadd4f683a90a79701e40f1a00d67",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/PP/X1JJNFKI3I62ELPD484R7R.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/ZV/16TW2UF2M8DYJQAMM0A3GN.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/ZV/16TW2UF2M8DYJQAMM0A3GN.uasset",
+      "bytes": 4714,
+      "sha256": "aa41603b4fc3b378aba698192b10b00878a5fcaabc6765186765c9bd5efa5f93",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/7/ZV/16TW2UF2M8DYJQAMM0A3GN.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/3Z/4AYSCCLA4VY3CBP2L4EJJ5.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/3Z/4AYSCCLA4VY3CBP2L4EJJ5.uasset",
+      "bytes": 3902,
+      "sha256": "a3329e3038d56038fe5fd14d3f0891b9b49e09b7452b796ce80f822d230ea4e7",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/3Z/4AYSCCLA4VY3CBP2L4EJJ5.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/C4/0NR7W1M1UZE5TOWLLCAV37.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/C4/0NR7W1M1UZE5TOWLLCAV37.uasset",
+      "bytes": 4502,
+      "sha256": "c6f5dc0888f19776f63339c90a9f737e6d81e6afead57d1e562a2c8dbedc5e7f",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/C4/0NR7W1M1UZE5TOWLLCAV37.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/CG/PJ6JHMP8IU7HTEW9R76DMT.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/CG/PJ6JHMP8IU7HTEW9R76DMT.uasset",
+      "bytes": 3997,
+      "sha256": "a7e1d9db91cf77a7354b583d7953544f43a6f2c98d7f37c63f849fcd1bef120b",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/CG/PJ6JHMP8IU7HTEW9R76DMT.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/DB/ZYPSFYLGVK3Q3ZSJUVDUS2.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/DB/ZYPSFYLGVK3Q3ZSJUVDUS2.uasset",
+      "bytes": 4008,
+      "sha256": "c0e421070cf6156bde3b40aa66c51b9870001add6349060d92e30cf0de38d873",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/DB/ZYPSFYLGVK3Q3ZSJUVDUS2.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/J0/766UF1SL2MY5VUKAP1YKP1.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/J0/766UF1SL2MY5VUKAP1YKP1.uasset",
+      "bytes": 4691,
+      "sha256": "a474d4cbd70de5465c87e4db10e7d7725d3bf27b245e89bbd91e03f24427e74f",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/J0/766UF1SL2MY5VUKAP1YKP1.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/MT/C7C16TXISPVKJ6HG3GDG6X.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/MT/C7C16TXISPVKJ6HG3GDG6X.uasset",
+      "bytes": 3908,
+      "sha256": "324af4c7cf8b09b2146736abf33b38b6cda4c1aff66b2fcc5d99ef32d5652435",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/MT/C7C16TXISPVKJ6HG3GDG6X.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/N2/KZ839Z5RGFD4Y0908097LH.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/N2/KZ839Z5RGFD4Y0908097LH.uasset",
+      "bytes": 11952292,
+      "sha256": "2691f34ddb7780a9ed6eee0d6fc1c903658d4c1e7c81da17af73f07221bdd08e",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/N2/KZ839Z5RGFD4Y0908097LH.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/OS/YAHBCCUOBWLY0OMO0GS9S1.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/OS/YAHBCCUOBWLY0OMO0GS9S1.uasset",
+      "bytes": 4744,
+      "sha256": "e26cd309432c33007a67d05b3a1f38d3b1c9dd3f46cd5446fe49b22ea9b78ad2",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/8/OS/YAHBCCUOBWLY0OMO0GS9S1.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/9/3P/W8ASD0AH6RSE4YLZOWJJID.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/9/3P/W8ASD0AH6RSE4YLZOWJJID.uasset",
+      "bytes": 4703,
+      "sha256": "afad2fd0742f55f8dccc94f8511997db67090f77eb94cec07fe0c596e3f16cb2",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/9/3P/W8ASD0AH6RSE4YLZOWJJID.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/9/E9/884YBAD008WZDDJ44KK4XY.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/9/E9/884YBAD008WZDDJ44KK4XY.uasset",
+      "bytes": 4545,
+      "sha256": "db728a4fbb588c84f03dae52c0f774a77eae81498f74cf331961254c0ea804a8",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/9/E9/884YBAD008WZDDJ44KK4XY.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/9/NU/VKJ9D6S9TDAX3QTJ9Q1I3R.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/9/NU/VKJ9D6S9TDAX3QTJ9Q1I3R.uasset",
+      "bytes": 4442,
+      "sha256": "2af12538016e325dbcdab6372c8c704ada29e55aa5274af77f35907911487ca8",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/9/NU/VKJ9D6S9TDAX3QTJ9Q1I3R.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/9/TG/MX8QJGG45XPCEWFAL3E67Y.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/9/TG/MX8QJGG45XPCEWFAL3E67Y.uasset",
+      "bytes": 4650,
+      "sha256": "467ac4e7002427ef117702a93e31c65b765643215cbea39893833e5d5a994d89",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/9/TG/MX8QJGG45XPCEWFAL3E67Y.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/1U/TN5VOMPQ9DI2DCCZR5DPEO.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/1U/TN5VOMPQ9DI2DCCZR5DPEO.uasset",
+      "bytes": 4041,
+      "sha256": "2ba8f1c5d074e34a8eca578bc70409e20e7b9055c3104c593e9822be0f3da211",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/1U/TN5VOMPQ9DI2DCCZR5DPEO.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/2Z/KQ1T4NHHF09PFFTSFWO0TS.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/2Z/KQ1T4NHHF09PFFTSFWO0TS.uasset",
+      "bytes": 3927,
+      "sha256": "214d991773d53e0f1cdfa7bb4a433d85e1af7e72bf85c1a4bae5ede0d7da9a66",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/2Z/KQ1T4NHHF09PFFTSFWO0TS.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/39/09XG8H5FVEGBHJPGHYTBD5.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/39/09XG8H5FVEGBHJPGHYTBD5.uasset",
+      "bytes": 4043,
+      "sha256": "09adf5437971c25d0bc58e6a7afd61b9c2077640f661c0728bb4d95f740f693b",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/39/09XG8H5FVEGBHJPGHYTBD5.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/4F/YHL46RDLLRTMWS1W3VP0SP.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/4F/YHL46RDLLRTMWS1W3VP0SP.uasset",
+      "bytes": 4043,
+      "sha256": "600e3ace4f6acfd19d1cb309de49db73e3867f2f91a7b5353f0f4a3fb907b9ec",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/4F/YHL46RDLLRTMWS1W3VP0SP.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/67/DVKJS0OY6L7S9FF7UVA8FQ.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/67/DVKJS0OY6L7S9FF7UVA8FQ.uasset",
+      "bytes": 4883,
+      "sha256": "fafcf9dd856373668cd5c8376cc9b82fe2145fed555233b8da48d7fd5c2b267f",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/67/DVKJS0OY6L7S9FF7UVA8FQ.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/8X/E3HVJ2SK26SV2WR8IBY0RM.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/8X/E3HVJ2SK26SV2WR8IBY0RM.uasset",
+      "bytes": 4714,
+      "sha256": "14ce470608746189758d74cb272dc8b5911923d99e4e9b3abf8f54e42645f377",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/8X/E3HVJ2SK26SV2WR8IBY0RM.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/95/44G1BH0X0H5V99QO10P97O.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/95/44G1BH0X0H5V99QO10P97O.uasset",
+      "bytes": 3980,
+      "sha256": "f2cab1813e4e854394a5a137e847544d7777559c4afcdf79b3df96774c851d27",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/95/44G1BH0X0H5V99QO10P97O.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/CO/YQU9JYPO6PPGR6I2VHYKQ1.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/CO/YQU9JYPO6PPGR6I2VHYKQ1.uasset",
+      "bytes": 3980,
+      "sha256": "74cb18d00ee723ea41dfc3e14483bdd5f62e508c988ba87114cf75869b7db839",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/CO/YQU9JYPO6PPGR6I2VHYKQ1.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/F6/63HU5WGG2P4JXTBEDZKH5C.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/F6/63HU5WGG2P4JXTBEDZKH5C.uasset",
+      "bytes": 4641,
+      "sha256": "c8285df2280fe2ece8e8a5362a783ec724c2b6838ee9e070185e07303b277831",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/F6/63HU5WGG2P4JXTBEDZKH5C.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/ID/PVBMA5MSTRBOY3MU5BHQHA.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/ID/PVBMA5MSTRBOY3MU5BHQHA.uasset",
+      "bytes": 4882,
+      "sha256": "d009ecf6b186f9cb3695f36d95aa063001a0d15561ca0bca3f7c971fa09266de",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/ID/PVBMA5MSTRBOY3MU5BHQHA.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/KQ/9HX6X367TW2538BZIRV7L2.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/KQ/9HX6X367TW2538BZIRV7L2.uasset",
+      "bytes": 3920,
+      "sha256": "7b3ba35c373de226bdd0f9159bd5b1927cf49ad7227e08af3e9383cb2d37bbc0",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/KQ/9HX6X367TW2538BZIRV7L2.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/N8/O7YIM9IG3RQ2OIZ5P0EXUM.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/N8/O7YIM9IG3RQ2OIZ5P0EXUM.uasset",
+      "bytes": 3994,
+      "sha256": "351914841adc36c76ef33f47b2d6a47765e232de2d38f8dcb9f800829c256698",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/N8/O7YIM9IG3RQ2OIZ5P0EXUM.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/RM/JIHF766IRVZX689II2DFLK.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/RM/JIHF766IRVZX689II2DFLK.uasset",
+      "bytes": 3993,
+      "sha256": "f4f6617f9caef8d0f0baa899d74ecb7fdd1c6943cd0f6d3d1b38e09d208c8bdc",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/RM/JIHF766IRVZX689II2DFLK.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/SM/88VV87G58SPL0M100ZDY72.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/SM/88VV87G58SPL0M100ZDY72.uasset",
+      "bytes": 4870,
+      "sha256": "503c2c40062fbe386543389f30d990bd94220d9b75a43952102cf30c63dac69f",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/SM/88VV87G58SPL0M100ZDY72.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/SZ/HZ6FFC0G84AJ2N945ENM2M.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/SZ/HZ6FFC0G84AJ2N945ENM2M.uasset",
+      "bytes": 4647,
+      "sha256": "8753abda7a89bc61e0e49f5429f813fa39d96fd32ce43c1d28fbbcbc32616fb0",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/SZ/HZ6FFC0G84AJ2N945ENM2M.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/VD/RYF3XV2EJ1L9FLWT1CJ7DB.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/VD/RYF3XV2EJ1L9FLWT1CJ7DB.uasset",
+      "bytes": 3966,
+      "sha256": "053d3ac805633c6aaf5e68d09f828f8a0f7368ffd91dbbc4548cef19295f2a82",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/VD/RYF3XV2EJ1L9FLWT1CJ7DB.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/XO/J5QVNNW5SJVB0WDKSM6TXJ.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/XO/J5QVNNW5SJVB0WDKSM6TXJ.uasset",
+      "bytes": 3836,
+      "sha256": "9cd001ee4900a5d8817287cff1d381029fcdb3abf460d06263f36ecdfbe986e2",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/A/XO/J5QVNNW5SJVB0WDKSM6TXJ.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/60/2S0JA8NWJN0Z5YWM6C3SRL.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/60/2S0JA8NWJN0Z5YWM6C3SRL.uasset",
+      "bytes": 4042,
+      "sha256": "8b8e30e99c6b86465907e0ee0b5135c6e8f0727b4d8ea26b8378d9516289a2a6",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/60/2S0JA8NWJN0Z5YWM6C3SRL.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/ET/M51EGT8T42SYXOU7RXMLDR.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/ET/M51EGT8T42SYXOU7RXMLDR.uasset",
+      "bytes": 4057,
+      "sha256": "fdbe32fc581b88e84d47bf4ac6f3caac98d13fffeddd349bfb70d4b7c82d50c1",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/ET/M51EGT8T42SYXOU7RXMLDR.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/F8/Q2J7F1RUP97TMSQNMJLWRG.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/F8/Q2J7F1RUP97TMSQNMJLWRG.uasset",
+      "bytes": 4029,
+      "sha256": "34339967b5a567398e3395b8b48856973276dfbdb8d4238f488891740367bd93",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/F8/Q2J7F1RUP97TMSQNMJLWRG.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/H7/QYHX6YQRNAUG2O8YMEKTS7.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/H7/QYHX6YQRNAUG2O8YMEKTS7.uasset",
+      "bytes": 4647,
+      "sha256": "737d74403f6d988ebd6e9672b0449f0108eeaf8bdfe13d08d8d8b9353a83dc9f",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/H7/QYHX6YQRNAUG2O8YMEKTS7.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/I4/CYEPA2ZWT3KB9LM9OVPBLV.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/I4/CYEPA2ZWT3KB9LM9OVPBLV.uasset",
+      "bytes": 4662,
+      "sha256": "478bda03b227943943b450263e79c9c61a786bb27c444bb948baadef16039af0",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/I4/CYEPA2ZWT3KB9LM9OVPBLV.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/KI/YYWWQQX5VYVUBY6PJ8TQCN.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/KI/YYWWQQX5VYVUBY6PJ8TQCN.uasset",
+      "bytes": 4029,
+      "sha256": "e70dab72bd97a0ab28a5d11f28b9c8e624d696abdd46945d1a815640dfdc9f57",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/KI/YYWWQQX5VYVUBY6PJ8TQCN.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/TK/78HYA5NJOBSDAMO8U1O2PU.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/TK/78HYA5NJOBSDAMO8U1O2PU.uasset",
+      "bytes": 3941,
+      "sha256": "07d1c829a736fdf41fcad577f5518a19eb75fb68d0cf5e505583c923297ab3b1",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/TK/78HYA5NJOBSDAMO8U1O2PU.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/XL/Q7ZUXQXLP1LBGDYXIAMC8K.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/XL/Q7ZUXQXLP1LBGDYXIAMC8K.uasset",
+      "bytes": 3997,
+      "sha256": "0b0c5b5051a2518777fafb2b1cfc9cc7dca0260a959a5739d6f1f83a5cda7d17",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/B/XL/Q7ZUXQXLP1LBGDYXIAMC8K.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/3U/L6SCZ6DTC5S3QQX1HEQ4PX.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/3U/L6SCZ6DTC5S3QQX1HEQ4PX.uasset",
+      "bytes": 4714,
+      "sha256": "11612739166dae49e8c1d86223a7131ad4d17cbe346a68d403cb074dd5dab075",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/3U/L6SCZ6DTC5S3QQX1HEQ4PX.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/4S/K184KZ4QSD7RDEO0DAUADP.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/4S/K184KZ4QSD7RDEO0DAUADP.uasset",
+      "bytes": 3969,
+      "sha256": "20c6de2a357df178679dab707acb2e2f74f88f97f3721c2c3a947b31f0be0295",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/4S/K184KZ4QSD7RDEO0DAUADP.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/78/I1UUTR1DOZX3INXJRDWJ3N.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/78/I1UUTR1DOZX3INXJRDWJ3N.uasset",
+      "bytes": 4862,
+      "sha256": "1a65d90d993e3417900075ead055efd74345d23ca6aedbce3a02a1e549346133",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/78/I1UUTR1DOZX3INXJRDWJ3N.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/CT/HJ6YFKKORZXMFO0W10FXT5.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/CT/HJ6YFKKORZXMFO0W10FXT5.uasset",
+      "bytes": 4019,
+      "sha256": "88f16c356dc196e3144f7c614359c907e8e7f60a5f592e8b3c69859fe157ebe5",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/CT/HJ6YFKKORZXMFO0W10FXT5.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/VV/2VDYPF0X65E84O9EN8JIC5.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/VV/2VDYPF0X65E84O9EN8JIC5.uasset",
+      "bytes": 3987,
+      "sha256": "3e74e7f0d3b26fe43ad0c39dcaac9c19ccd03cb61e74fdbceeac48e49419ae66",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/VV/2VDYPF0X65E84O9EN8JIC5.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/XJ/SCQO81I5ITO74CQZKDLGOM.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/XJ/SCQO81I5ITO74CQZKDLGOM.uasset",
+      "bytes": 4675,
+      "sha256": "3b5c35b7252c8c074da4d43cc4cbd9041c52a84e017f29c64260264761ad691c",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/C/XJ/SCQO81I5ITO74CQZKDLGOM.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/07/A2SHU3EV5W15UCNA4HV5FL.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/07/A2SHU3EV5W15UCNA4HV5FL.uasset",
+      "bytes": 4540,
+      "sha256": "611e9106307adaeb6f6a934d09697d3d1e35826ef36da70b8dcbf62948f3faf8",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/07/A2SHU3EV5W15UCNA4HV5FL.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/2U/BY0VQK80SXX95WU2LX37LM.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/2U/BY0VQK80SXX95WU2LX37LM.uasset",
+      "bytes": 4593,
+      "sha256": "0f1b6b9b278c4f7609b875e068cd9a688d8ad04f610d43022f00066c36ae9119",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/2U/BY0VQK80SXX95WU2LX37LM.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/6V/LJWYT96ZGAKVNZMH2BNKAQ.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/6V/LJWYT96ZGAKVNZMH2BNKAQ.uasset",
+      "bytes": 4859,
+      "sha256": "4752b23689ac674bf326e5b5801969e35ed4ebf315ada2fe3bebaf607b7ec4b9",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/6V/LJWYT96ZGAKVNZMH2BNKAQ.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/G7/EBAJQD2RSQMDTJ0TSWAWA8.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/G7/EBAJQD2RSQMDTJ0TSWAWA8.uasset",
+      "bytes": 4574,
+      "sha256": "a8adbe17271bdcbcddd74430afa995ac543697de20808b5647951ad17dd942bd",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/G7/EBAJQD2RSQMDTJ0TSWAWA8.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/RU/87KE9JB2N2HAQGEE7GUON6.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/RU/87KE9JB2N2HAQGEE7GUON6.uasset",
+      "bytes": 3967,
+      "sha256": "76ff34e6aa8992fbcaf36ec017745a5f8bee51b3fdca4d501a7a0a9d3854aae2",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/RU/87KE9JB2N2HAQGEE7GUON6.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/SU/5AIWFCJ70VHTKGV858CM4C.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/SU/5AIWFCJ70VHTKGV858CM4C.uasset",
+      "bytes": 3973,
+      "sha256": "504d07a95983c8b55b9f6f6723d04ef2d45d3342028b27f51a1b20a5919c82e9",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/SU/5AIWFCJ70VHTKGV858CM4C.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/VB/JUCJ4GGK81YAJAON1F8N5Q.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/VB/JUCJ4GGK81YAJAON1F8N5Q.uasset",
+      "bytes": 4475,
+      "sha256": "8418b58cc8b325f5b4609b33a6220f5f1900d5a82cad3d6d2375383ac2062e9f",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/D/VB/JUCJ4GGK81YAJAON1F8N5Q.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/5X/IWEIEOX9ZHD3HW0385IK7C.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/5X/IWEIEOX9ZHD3HW0385IK7C.uasset",
+      "bytes": 23153,
+      "sha256": "ce323575b94fcea2e05c67c71f73b3681eb48d3096db0987118e6e608004c35d",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/5X/IWEIEOX9ZHD3HW0385IK7C.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/FW/AUJIZ7P26D6I9UTIJPWJ16.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/FW/AUJIZ7P26D6I9UTIJPWJ16.uasset",
+      "bytes": 3979,
+      "sha256": "300c4b5dd35ec9af713a1ae2b88707489f6d350be56d8cfed58c0b531f019715",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/FW/AUJIZ7P26D6I9UTIJPWJ16.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/S8/SLEAKLSTWOIKHN1ZTZDBHL.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/S8/SLEAKLSTWOIKHN1ZTZDBHL.uasset",
+      "bytes": 3934,
+      "sha256": "5347bcc75885c30817fcbbd508efbd654c66e2e98893a13befb27d4e6217827e",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/S8/SLEAKLSTWOIKHN1ZTZDBHL.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/WD/DPAIJPWS2EAKH9UR16D74F.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/WD/DPAIJPWS2EAKH9UR16D74F.uasset",
+      "bytes": 4612,
+      "sha256": "869d04b857f63c31ea90aafea544f5be9fb5913ffc1c8baefdb411c4a0a3c842",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/WD/DPAIJPWS2EAKH9UR16D74F.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/X1/OFDI3GFVOL5SU620UP2GX7.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/X1/OFDI3GFVOL5SU620UP2GX7.uasset",
+      "bytes": 3984,
+      "sha256": "5bfbb33b5e934675cd42bcdce3c42b7049f50c1205069b11feb273b5db595e39",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/E/X1/OFDI3GFVOL5SU620UP2GX7.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/F/1V/NBH1SIBVB24CHWBLR7Q4G0.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/F/1V/NBH1SIBVB24CHWBLR7Q4G0.uasset",
+      "bytes": 5777,
+      "sha256": "cf29b69652fc5f3efaa6531a16f9643508bd2c35d82f00ccabd963a43867a564",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/F/1V/NBH1SIBVB24CHWBLR7Q4G0.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/F/2G/PG9OJWQN1Z7DW43OTIJAGJ.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/F/2G/PG9OJWQN1Z7DW43OTIJAGJ.uasset",
+      "bytes": 4004,
+      "sha256": "cef44fae55d4d825391c235ce52f482425e2e94daaaca518ac3998950e61436e",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalActors__/GameMaps/L_Dungeon_Randomized/F/2G/PG9OJWQN1Z7DW43OTIJAGJ.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/0/2J/71HR5XYOJ6T20WLC4LXWDK.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/0/2J/71HR5XYOJ6T20WLC4LXWDK.uasset",
+      "bytes": 1965,
+      "sha256": "1ccc631816348e98b9b937be58572374079aae4fe20c57f9efa030a9f50a2d30",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/0/2J/71HR5XYOJ6T20WLC4LXWDK.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/0/9K/Q972FAEVDU7GIL5LWZKM5V.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/0/9K/Q972FAEVDU7GIL5LWZKM5V.uasset",
+      "bytes": 1957,
+      "sha256": "b6b6ef5fae56e3fb3fef6c1407af669ec3ddb26c31b01ea2e55ac37ee35693c1",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/0/9K/Q972FAEVDU7GIL5LWZKM5V.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/0/J3/IB8CFLSLVA9DDQSW0ZVE9O.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/0/J3/IB8CFLSLVA9DDQSW0ZVE9O.uasset",
+      "bytes": 1955,
+      "sha256": "e3af304d5fdda240f28b01253e44f261497eeab5d8f421582fe0ac78fb3e4eaf",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/0/J3/IB8CFLSLVA9DDQSW0ZVE9O.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/0/WW/ZOXBX5Y9CELKVJX8LIBQVQ.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/0/WW/ZOXBX5Y9CELKVJX8LIBQVQ.uasset",
+      "bytes": 1959,
+      "sha256": "6c2e2cefd8605142051b351c8b1646ae3378719cd48d96d2d01ccae8002deb18",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/0/WW/ZOXBX5Y9CELKVJX8LIBQVQ.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/1/6C/P75Z3TVDN81ZF2UKZVW9NX.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/1/6C/P75Z3TVDN81ZF2UKZVW9NX.uasset",
+      "bytes": 1977,
+      "sha256": "f6431efbdcafeacaf588e90381c25b7b5811483cdd8cb85f2ecd49846a3d4e12",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/1/6C/P75Z3TVDN81ZF2UKZVW9NX.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/2/EL/R097LNBNNN4ZFDGTS9J78L.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/2/EL/R097LNBNNN4ZFDGTS9J78L.uasset",
+      "bytes": 1971,
+      "sha256": "fec734e218ac2856dc7f6f7f95b343f237dbdeaa9141ddd4b3d4a77bed86ba0b",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/2/EL/R097LNBNNN4ZFDGTS9J78L.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/2/QK/OX7F6LMGK6F9J3P8TELE8W.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/2/QK/OX7F6LMGK6F9J3P8TELE8W.uasset",
+      "bytes": 1945,
+      "sha256": "c110f7e32fc0252d825bc7e593958c7695e101973b9242b614e9a3a91aed1e7f",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/2/QK/OX7F6LMGK6F9J3P8TELE8W.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/3/GV/FJQKSJ5Z1C0NSX9LSSPOSN.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/3/GV/FJQKSJ5Z1C0NSX9LSSPOSN.uasset",
+      "bytes": 1963,
+      "sha256": "ed8662c93b6d7c36098d7fbf256ad2064fd70b31780894bf5f77d73b82f3593a",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/3/GV/FJQKSJ5Z1C0NSX9LSSPOSN.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/3/LN/1IW9A10WSMDI65MMKKU6KK.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/3/LN/1IW9A10WSMDI65MMKKU6KK.uasset",
+      "bytes": 1979,
+      "sha256": "629069c65a880f942280f6ce7d3f21c981a0dceb6b468f12e5ac072e435267a6",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/3/LN/1IW9A10WSMDI65MMKKU6KK.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/3/O0/DRWCKCSKWXCKMUTDXJ382B.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/3/O0/DRWCKCSKWXCKMUTDXJ382B.uasset",
+      "bytes": 1879,
+      "sha256": "5c99878f31e51b8ce8a4b7a8e7ed4fa4cf8a5c666ad427fdca4d6bc03a4e690a",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/3/O0/DRWCKCSKWXCKMUTDXJ382B.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/4/4A/MMP6NR8FJQON0PT40QM5KW.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/4/4A/MMP6NR8FJQON0PT40QM5KW.uasset",
+      "bytes": 1985,
+      "sha256": "588f8d9623bef3e8ad3e689e11a4cdaa5509e46813aafbd8056cf21a594d1f90",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/4/4A/MMP6NR8FJQON0PT40QM5KW.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/4/5M/JFINXH3HBISM20NV588Z1M.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/4/5M/JFINXH3HBISM20NV588Z1M.uasset",
+      "bytes": 1887,
+      "sha256": "c9d7db10d16ab154e263ab4ca644cfa8460151d6ab6e4de59939ab817d57499c",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/4/5M/JFINXH3HBISM20NV588Z1M.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/4/C3/X14JIN63A0OHUGMV6RJJHL.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/4/C3/X14JIN63A0OHUGMV6RJJHL.uasset",
+      "bytes": 1959,
+      "sha256": "03cf4472672f973d68eded5958b0aa6a5051484a95b5d6a3cdfdc29d15a09a8c",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/4/C3/X14JIN63A0OHUGMV6RJJHL.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/4/FO/0DXB1Y1NI6EO8DLBJEXAHP.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/4/FO/0DXB1Y1NI6EO8DLBJEXAHP.uasset",
+      "bytes": 1955,
+      "sha256": "733128973a7ef769d5ef2cfe6bffd6b74debb606bf16263ddfbc774e349f3601",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/4/FO/0DXB1Y1NI6EO8DLBJEXAHP.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/5/5Y/QFLQYY4Z788X4F9F006QTZ.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/5/5Y/QFLQYY4Z788X4F9F006QTZ.uasset",
+      "bytes": 1971,
+      "sha256": "89998d2a3f67f61c2fde4bd70d4b6931b6eba41bf8ef31cb079b106d2c92c2f7",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/5/5Y/QFLQYY4Z788X4F9F006QTZ.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/6/EX/18TXED3CQR66KWSV4W25MC.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/6/EX/18TXED3CQR66KWSV4W25MC.uasset",
+      "bytes": 1957,
+      "sha256": "c0cb7bba652ab37663e8fb90d13559891d03057aad1546626fc476190da6083a",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/6/EX/18TXED3CQR66KWSV4W25MC.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/6/IA/77E71Z4T6LYEW5MK5RTSZ9.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/6/IA/77E71Z4T6LYEW5MK5RTSZ9.uasset",
+      "bytes": 1955,
+      "sha256": "4b074f721850638615ffd70637bb2393cbb2f4d81c2ef838df7b042dd80459dc",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/6/IA/77E71Z4T6LYEW5MK5RTSZ9.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/6/IQ/UFR7SEE9Y62SHVDAM5YXAK.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/6/IQ/UFR7SEE9Y62SHVDAM5YXAK.uasset",
+      "bytes": 1967,
+      "sha256": "6f8aef93b32fb76a63a06882e6044fa8066b1b78458a69125353f47bd5d72a30",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/6/IQ/UFR7SEE9Y62SHVDAM5YXAK.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/6/P1/B0MCJJK01ZOPEVW8PYGGHM.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/6/P1/B0MCJJK01ZOPEVW8PYGGHM.uasset",
+      "bytes": 1967,
+      "sha256": "fbabee80eef3dd24715cfefc7b3df44d942836155690af0aa42713625477a695",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/6/P1/B0MCJJK01ZOPEVW8PYGGHM.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/7S/0CUN6IYVNXPZ2N58Y8K05Z.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/7S/0CUN6IYVNXPZ2N58Y8K05Z.uasset",
+      "bytes": 1887,
+      "sha256": "a91c3ba95d29aec09a8d944c2eb340696e1d425ae0518399289064c9f2c14333",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/7S/0CUN6IYVNXPZ2N58Y8K05Z.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/9T/ADE1UEX7VMGC024K2JH6IM.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/9T/ADE1UEX7VMGC024K2JH6IM.uasset",
+      "bytes": 1971,
+      "sha256": "3665696c09457f3f10726a52574972e398b5ee3ca87c18470251ca17f877f9d9",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/9T/ADE1UEX7VMGC024K2JH6IM.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/M7/9TQV5KPLMIILNBAFMLIQZR.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/M7/9TQV5KPLMIILNBAFMLIQZR.uasset",
+      "bytes": 1977,
+      "sha256": "da6f9682f155820571c08e1dea8be096b4325885274084e3f5f7e214e9af4c79",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/M7/9TQV5KPLMIILNBAFMLIQZR.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/T8/LGR1MG0YDH06B6XH529K1K.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/T8/LGR1MG0YDH06B6XH529K1K.uasset",
+      "bytes": 1979,
+      "sha256": "d1dbf2196178884bb4e777686f313ab36a13c6c5a8c18897467d67bbee54835b",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/T8/LGR1MG0YDH06B6XH529K1K.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/TY/T92TVMPA7EV3CGRE34FYQA.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/TY/T92TVMPA7EV3CGRE34FYQA.uasset",
+      "bytes": 1951,
+      "sha256": "16333b61e00b86f5ae25124f5497181faa2429fca5daa9602d91588549d1d0da",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/7/TY/T92TVMPA7EV3CGRE34FYQA.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/8/BK/8LJ5PCQMM1HRZ7MZG4S4HZ.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/8/BK/8LJ5PCQMM1HRZ7MZG4S4HZ.uasset",
+      "bytes": 1989,
+      "sha256": "71451a394624e233ddd67e9e65c6b99851f0090c853a7f33e1f53175ab79cc4d",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/8/BK/8LJ5PCQMM1HRZ7MZG4S4HZ.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/8/J1/7JNNNNNZ9OKEN1NNURK0JX.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/8/J1/7JNNNNNZ9OKEN1NNURK0JX.uasset",
+      "bytes": 1997,
+      "sha256": "68e2ba60ef5e98542e5b0386017c59b2a1ffd330e5bbef28a074526990cc736b",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/8/J1/7JNNNNNZ9OKEN1NNURK0JX.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/8/J2/LRJBQFRKULZGY0QXKAV118.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/8/J2/LRJBQFRKULZGY0QXKAV118.uasset",
+      "bytes": 1901,
+      "sha256": "813b1988fb5ad3fc9d7173457d2bb5cab5399a859ea4bd12b182c4abde5912f4",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/8/J2/LRJBQFRKULZGY0QXKAV118.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/8/OI/TFTI624MQS4PK0C1W3EN65.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/8/OI/TFTI624MQS4PK0C1W3EN65.uasset",
+      "bytes": 1969,
+      "sha256": "be9bbcd1504cb165fe4c983829329a018b21cb71cc4b0d5bd38f2ca94669d531",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/8/OI/TFTI624MQS4PK0C1W3EN65.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/9/FG/L7J1NIFQWPWYNGT9XEK8ID.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/9/FG/L7J1NIFQWPWYNGT9XEK8ID.uasset",
+      "bytes": 1957,
+      "sha256": "d4a1a8fd2d912aa9437dbd7e68d0ed52ee4468558c7029ff0e07faa9f05bb9f6",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/9/FG/L7J1NIFQWPWYNGT9XEK8ID.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/9/TT/TWBDC4XJU4PG1UH0E251BK.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/9/TT/TWBDC4XJU4PG1UH0E251BK.uasset",
+      "bytes": 1985,
+      "sha256": "1af31ed15203ace4b1ddab971f4698399b0877d6fe97acb8a0aea41c47238889",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/9/TT/TWBDC4XJU4PG1UH0E251BK.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/A/1P/508MZB3FHKXO5BF5VE928F.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/A/1P/508MZB3FHKXO5BF5VE928F.uasset",
+      "bytes": 1955,
+      "sha256": "1a379e7d0be73cfa578e863f54776feeaa46fcd25281ca594259c8e2726e90e9",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/A/1P/508MZB3FHKXO5BF5VE928F.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/A/6Y/I11YQVF1W1F3DQV9Z35POZ.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/A/6Y/I11YQVF1W1F3DQV9Z35POZ.uasset",
+      "bytes": 1985,
+      "sha256": "16b525deb74431b7abd2847c9e4e921166d968c94d2d45d82cab668d3b315204",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/A/6Y/I11YQVF1W1F3DQV9Z35POZ.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/C/ND/PDKSJ7YB093EKUDMJ8EL5X.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/C/ND/PDKSJ7YB093EKUDMJ8EL5X.uasset",
+      "bytes": 1985,
+      "sha256": "1a67f0fc9256db336ce410a1241ba427d585d6ca9537e58f8a1ecc4f58722ebf",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/C/ND/PDKSJ7YB093EKUDMJ8EL5X.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/C/V3/7W8MLFUG6J3UEMKF2UD46H.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/C/V3/7W8MLFUG6J3UEMKF2UD46H.uasset",
+      "bytes": 1971,
+      "sha256": "bf8a3bc630d611bf4df9809b5e19c869f97a97b88cd2ff7711cb26e3a4bdfc6a",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/C/V3/7W8MLFUG6J3UEMKF2UD46H.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/C/Z5/4VZO3NO5IY5PMED6CLBT5J.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/C/Z5/4VZO3NO5IY5PMED6CLBT5J.uasset",
+      "bytes": 1877,
+      "sha256": "ead4af6925f9eb0f6a4d9c28a86f088b1afb1274b8508eda1cc6e6bea0a6f826",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/C/Z5/4VZO3NO5IY5PMED6CLBT5J.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/31/68ETYW4L4PVU77M137BRKQ.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/31/68ETYW4L4PVU77M137BRKQ.uasset",
+      "bytes": 1967,
+      "sha256": "9f4f8d26c0b5743ae6999f6e3ca3e601193585dbc858776f63aa1cd40c9d463c",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/31/68ETYW4L4PVU77M137BRKQ.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/6F/FDAT13Y0CNOBBVCRN792H3.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/6F/FDAT13Y0CNOBBVCRN792H3.uasset",
+      "bytes": 1977,
+      "sha256": "f9f2923e0aa3043e48254111d718e7ef948c303b455a1a4ae6a952b5c1103522",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/6F/FDAT13Y0CNOBBVCRN792H3.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/74/X4DICV9ERGLMO8KOFPMV38.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/74/X4DICV9ERGLMO8KOFPMV38.uasset",
+      "bytes": 1969,
+      "sha256": "eb4e5b80ad6dc1a51ccafbadff3c9f7e2bf13e72f348b32a9e2002f82e8face4",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/74/X4DICV9ERGLMO8KOFPMV38.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/J8/FBE9JQBDPL5OVS0XEKXVNL.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/J8/FBE9JQBDPL5OVS0XEKXVNL.uasset",
+      "bytes": 1951,
+      "sha256": "18b02dacc153b0669dcd40b00d30e926d9a49d31c613160d40375e1daae569e4",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/J8/FBE9JQBDPL5OVS0XEKXVNL.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/KP/15C7RU7IA8LR8IKYDT2ROS.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/KP/15C7RU7IA8LR8IKYDT2ROS.uasset",
+      "bytes": 1977,
+      "sha256": "c5e56e26d42b0185e1bab8b4983ca285ffd20d2fe895dbb17832a53d38e436cc",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/KP/15C7RU7IA8LR8IKYDT2ROS.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/X0/3FJ3EY8R11S4RXLNZH1UEX.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/X0/3FJ3EY8R11S4RXLNZH1UEX.uasset",
+      "bytes": 1959,
+      "sha256": "26eec32661b700c835b45571a73f3539078010be2ba99a679e6fbe1772dac2b0",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/D/X0/3FJ3EY8R11S4RXLNZH1UEX.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/7I/Y2NFN07HIQNF7C27XI9WAM.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/7I/Y2NFN07HIQNF7C27XI9WAM.uasset",
+      "bytes": 1967,
+      "sha256": "1b66f88dea1b86852d5d2e26ba2ebd961e0ba6be0624f3209c6721f3c703cb6b",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/7I/Y2NFN07HIQNF7C27XI9WAM.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/7Q/YQV9ANMG2V3KW19SBKPC90.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/7Q/YQV9ANMG2V3KW19SBKPC90.uasset",
+      "bytes": 1979,
+      "sha256": "5ec0de9fda8ffc64a923a3cf1c2d185994c29cb6e1f9a9665571ca0d1832d6a4",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/7Q/YQV9ANMG2V3KW19SBKPC90.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/8V/T5FLGW6FEPG1Y6YSW7FKIS.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/8V/T5FLGW6FEPG1Y6YSW7FKIS.uasset",
+      "bytes": 1965,
+      "sha256": "730dd9c4febbaa8381b566c441e54000211ceb11d36df40bc56b646c27db1d38",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/8V/T5FLGW6FEPG1Y6YSW7FKIS.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/OA/QEQWANCUN1WT7D6YFSOTAJ.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/OA/QEQWANCUN1WT7D6YFSOTAJ.uasset",
+      "bytes": 1945,
+      "sha256": "cb8477edb9e9bc27f0571f2496260fc974b8d68ce507eff052793b92d1793eb6",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/OA/QEQWANCUN1WT7D6YFSOTAJ.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/XN/0KS2UL7NLDNV66ITE60MT6.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/XN/0KS2UL7NLDNV66ITE60MT6.uasset",
+      "bytes": 1869,
+      "sha256": "91750b40bdfd213b7508731c3ae949e72de7501258e2d160d93b988e04915418",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/E/XN/0KS2UL7NLDNV66ITE60MT6.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/F/1N/KKS4N97IOQUN8VOQQFS7F1.uasset",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/F/1N/KKS4N97IOQUN8VOQQFS7F1.uasset",
+      "bytes": 1959,
+      "sha256": "2cc58d6f1396d4c96ecb43c21b1ea282322eeecaf14fea44a5be7b6c724697df",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/Content/__ExternalObjects__/GameMaps/L_Dungeon_Randomized/F/1N/KKS4N97IOQUN8VOQQFS7F1.uasset"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/SourceAssets/DungeonFacilityFlow20261007/Config/catalog.json",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/SourceAssets/DungeonFacilityFlow20261007/Config/catalog.json",
+      "bytes": 12676951,
+      "sha256": "853ae5d29989b8aa65d4af9346fcdccd899047c3ae0e186997a062c9817003a8",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/SourceAssets/DungeonFacilityFlow20261007/Config/catalog.json"
+    },
+    {
+      "source": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/SourceAssets/DungeonFacilityFlow20261007/Config/layout-bank-v1.json",
+      "archive": "trash/scene-lighting-retired-20261013/SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200327/SourceAssets/DungeonFacilityFlow20261007/Config/layout-bank-v1.json",
+      "bytes": 3286844,
+      "sha256": "a290a23b05e1f9decc325140e70b256b555e7f3663237224baacc8559844e7b6",
+      "reason": "Duplicate snapshot of failed import; byte-identical file retained in successful-install backup.",
+      "replacement": "SourceAssets/ReceptionDoorVeil20261012/Backups/20261012-200642/SourceAssets/DungeonFacilityFlow20261007/Config/layout-bank-v1.json"
+    }
+  ],
+  "moved_files": 179,
+  "bytes": 29269136,
+  "move_readback": "sha256 matched"
+}

@@ -72,6 +72,10 @@ def reception_and_entry():
     night=ROOT/'NightStreet20261009/install-receipt.json'
     if night.exists() and read(night).get('stage')=='map_saved':
         runpy.run_path(str(night.parent/'recipe.py'))['apply_module'](reception)
+    fixture_recipe=SOURCE/'ReceptionLighting20261009/recipe.py'
+    if fixture_recipe.exists():
+        fixture=runpy.run_path(str(fixture_recipe))
+        if fixture['installed']():fixture['apply_module'](reception)
     return reception,entrance
 
 def transit():
@@ -167,6 +171,26 @@ def extend(catalog):
     frame_fit=ROOT/'EntryFrameFit20261009/install-receipt.json'
     if frame_fit.exists() and read(frame_fit).get('stage')=='map_saved':
         result=runpy.run_path(str(frame_fit.parent/'recipe.py'))['extend'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    fixture_recipe=SOURCE/'ReceptionLighting20261009/recipe.py'
+    if fixture_recipe.exists():
+        result=runpy.run_path(str(fixture_recipe))['reapply_catalog'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    dungeon_lights=SOURCE/'DungeonFixtureLighting20261009/recipe.py'
+    if dungeon_lights.exists():
+        result=runpy.run_path(str(dungeon_lights))['reapply_catalog'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    coverage=SOURCE/'DungeonLightCoverage20261009/recipe.py'
+    if coverage.exists():
+        result=runpy.run_path(str(coverage))['reapply_catalog'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    ground_lighting=SOURCE/'ReceptionGroundLighting20261009/recipe.py'
+    if ground_lighting.exists():
+        result=runpy.run_path(str(ground_lighting))['reapply_catalog'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    door_veil=SOURCE/'ReceptionDoorVeil20261012/recipe.py'
+    if door_veil.exists():
+        result=runpy.run_path(str(door_veil))['reapply_catalog'](result,
             runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
     return result
 

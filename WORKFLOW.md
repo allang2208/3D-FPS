@@ -54,6 +54,8 @@ MCP 调用遵循 [效率与 token 约定](skills/ue5-auto-assistant/references/e
 
 技能／魔法制作遵循 [专用工作流](skills/ue5-skill-magic-workflow/SKILL.md)，施法手臂与蒙皮细节进入 [手臂技能](skills/ue5-fps-arms-animation/references/casting-arm-volume.md)。2026-09-14 火球左手 V3 为用户认可的制作基线；认可范围、构建和未测试部分分别记录。
 
+**场景灯光方向与最低照明（用户确定，2026-10-13）**：向下照明的吊灯、吸顶灯和廊下灯不得向上直射天花板；光源绑定实际灯具出光面，运行时先设 Movable 再设完整世界姿态。保留已认可吊灯，主入口、一楼廊下、楼梯和四角按本层保证最低可读照明。制作与落盘遵循 [灯具与照明层次标准](skills/ue5-pcg-building/references/fixture-lighting-standard.md)，不自动触发测试或验收。
+
 ## 7. 并行工作
 
 不 stash/reset/clean 工程，不覆盖他人未提交修改或暂存区。`D:/FPS3D/FPSGAME` 的 `.git` 独立管理当前工程；旧 E 盘仓库及发布工作区已归档，不再作为开发或同步入口。保留并行修改，按本次明确路径暂存，不为整理仓库夹带未验收功能。
