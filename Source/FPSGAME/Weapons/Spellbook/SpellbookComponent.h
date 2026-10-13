@@ -78,6 +78,7 @@ public:
     float FocusRecoveryBlend() const;
     USkeletalMeshComponent* ArmsMesh() const {return Arms;}
     UStaticMeshComponent* BookMesh() const {return Book;}
+    USkeletalMeshComponent* FloatingBookMesh() const {return FocusBook;}
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;

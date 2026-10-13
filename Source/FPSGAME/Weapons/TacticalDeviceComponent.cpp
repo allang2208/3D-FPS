@@ -9,6 +9,7 @@
 #include "SVDAttachments.h"
 #include "PKMAttachments.h"
 #include "../FPSGAMECharacter.h"
+#include "PistolDualWieldComponent.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "M16Attachments.h"
 #include "AKMSovietCalibration.h"
@@ -28,7 +29,7 @@
 
 namespace
 {
-FTransform ASH12TacticalMount(const USkeletalMeshComponent* Mesh)
+FTransform ASH12TacticalMount(const USkeletalMeshComponent* Mesh,bool OppositeSide)
 {
     const auto& Ref=Mesh->GetSkeletalMeshAsset()->GetRefSkeleton();
     auto Bone=[&Ref](const TCHAR* Name)
@@ -44,8 +45,8 @@ FTransform ASH12TacticalMount(const USkeletalMeshComponent* Mesh)
     // Local mesh is centimetres, +X forward, +Y outboard. Rotate around the
     // barrel to put the existing clamp on the left rail without mirroring or
     // scaling the body. The location is measured in the upright sight frame.
-    const FQuat LeftSideRotation=Rotation*FQuat(FVector::ForwardVector,PI);
-    const FTransform Mount(LeftSideRotation,Rear.GetLocation()+Rotation.RotateVector(FVector(29.5f,-3.19f,-8.25f)));
+    const FQuat SideRotation=OppositeSide?Rotation:Rotation*FQuat(FVector::ForwardVector,PI);
+    const FTransform Mount(SideRotation,Rear.GetLocation()+Rotation.RotateVector(FVector(29.5f,OppositeSide?3.19f:-3.19f,-8.25f)));
     return Mount.GetRelativeTransform(Root);
 }
 
@@ -59,6 +60,24 @@ FTransform Super90TacticalMount(const USkeletalMeshComponent* Mesh)
     // The fitted bearing sits ahead of the foregrip; source emitter is the origin.
     const FTransform Seat(Forward,FVector(0,-32.f,-84.f));
     return Seat.GetRelativeTransform(Root);
+}
+
+FTransform OppositeTacticalMount(const FString& Family,const FTransform& Original)
+{
+    // Centimetres in each fitted mesh's authored frame. Pivots use paired host
+    // surfaces, not an assumed origin or a negative mesh scale.
+    // Source: SourceAssets/DualTactical20261008/authoring.json.
+    FVector Pivot(-.015049f,0,7.799936f);
+    if(Family==TEXT("AKM"))Pivot=FVector(.080003f,0,5.699731f);
+    else if(Family==TEXT("QBZ191"))Pivot=FVector(.084883f,0,6.999806f);
+    else if(Family==TEXT("M16"))Pivot=FVector(-.003821f,0,9.154936f);
+    else if(Family==TEXT("A762"))Pivot=FVector(.056531f,0,6.199731f);
+    else if(Family==TEXT("SVD"))Pivot=FVector(.003636f,0,5.699731f);
+    else if(Family==TEXT("PKM"))Pivot=FVector(-.003824f,0,6.985000f);
+    else if(Family==TEXT("LMG201"))Pivot=FVector(.080003f,0,4.585000f);
+    else if(Family==TEXT("HK416"))Pivot=FVector(5.025823f,0,-.547877f);
+    const FQuat Turn(FVector::RightVector,PI);
+    return FTransform(Turn,Pivot-Turn.RotateVector(Pivot))*Original;
 }
 
 FTransform PistolTacticalMount(const USkeletalMeshComponent* Mesh, bool CanonicalForward)
@@ -90,7 +109,7 @@ FTransform PistolTacticalMount(const USkeletalMeshComponent* Mesh, bool Canonica
  * 垂直的方向。ASH 文档要求"Emitter / AimGuide 沿枪口前向"，ASH 自己又额外旋转了挂载网格，
  * 所以插座方向与网格旋转互相耦合、各家不一致。
  * 改用前/后瞄具轴线后，方向与 ComputeShotDirection/瞄具标定同一权威，
- * 腰射与开镜都沿枪管，不再依赖各网格的插座约定。
+ * 此轴用于手电与非射击姿态；准备就绪的镭射另行向真实瞄准落点归零。
  */
 bool WeaponForwardAxis(const USkeletalMeshComponent* Mesh,FVector& OutRootForward)
 {
@@ -120,25 +139,49 @@ UTacticalDeviceComponent::UTacticalDeviceComponent()
 }
 void UTacticalDeviceComponent::HideEffects()
 {
+    bLaserSampleValid=false;
+    ResetLaserAim();
     if(Dot)Dot->SetVisibility(false);
     if(Beam)Beam->SetVisibility(false);
     if(Light)Light->SetVisibility(false);
 }
 void UTacticalDeviceComponent::ResetLaserAim()
 {
-    bLaserSettled=false;
-    LaserSettleElapsed=0.f;
+    LaserAimBlend=0.f;
 }
 void UTacticalDeviceComponent::SetPresentationHidden(bool Hidden)
 {
     bPresentationHidden=Hidden;if(Body)Body->SetVisibility(!Hidden && IsComponentTickEnabled());if(Hidden)HideEffects();
 }
-void UTacticalDeviceComponent::ConfigureWorld(const FString& Variant,USkeletalMeshComponent* Rifle,UStaticMeshComponent* Device)
+bool UTacticalDeviceComponent::DescribePart(const UStaticMeshComponent* Part,FName& Variant,bool& bAuthoredAxis) const
 {
-    bWorldPresentation=true;Body=Device;
-    Configure(TEXT("Super90"),Variant,Rifle,Device!=nullptr);
+    if(bWorldPresentation||Part!=Body||!IsComponentTickEnabled())return false;
+    Variant=FName(*Kind);bAuthoredAxis=bUseAuthoredEmitterAxis;return true;
 }
-void UTacticalDeviceComponent::Configure(const FString& Family,const FString& RequestedVariant,USkeletalMeshComponent* Rifle,bool Enabled)
+bool UTacticalDeviceComponent::ReadLaserSample(FFPSBodyLaserSample& Out) const
+{
+    if(bWorldPresentation||!bLaserSampleValid||!IsComponentTickEnabled()
+        ||!GetWorld()||GetWorld()->GetTimeSeconds()-LaserSampleAt>.15)return false;
+    Out.End=LaserSampleEnd;Out.Normal=LaserSampleNormal;Out.bDot=bLaserSampleDot;return true;
+}
+void UTacticalDeviceComponent::ConfigureWorld(const FString& Variant,USkeletalMeshComponent* Rifle,UStaticMeshComponent* Device,
+    bool bAuthoredAxis,uint8 RigIndex,uint8 PartIndex,uint32 Schema)
+{
+    HideEffects();bWorldPresentation=true;Body=Device;Host=Rifle;Kind=Variant;
+    bUseAuthoredEmitterAxis=bAuthoredAxis;WorldRigIndex=RigIndex;WorldPartIndex=PartIndex;WorldSchema=Schema;
+    const bool Active=Rifle&&Device&&Device->GetStaticMesh();SetComponentTickEnabled(Active);
+    if(!Active)return;
+    // The world manifest already owns the correct mesh, fit and visibility.
+    // Configure effects only; never replace it with a Super90 attachment.
+    if(auto* WorldBody=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>())
+    {
+        AddTickPrerequisiteComponent(WorldBody);
+        if(auto* WorldMesh=WorldBody->GetBodyMesh())AddTickPrerequisiteComponent(WorldMesh);
+    }
+    AddTickPrerequisiteComponent(Rifle);
+    InitializeEffects();
+}
+void UTacticalDeviceComponent::Configure(const FString& Family,const FString& RequestedVariant,USkeletalMeshComponent* Rifle,bool Enabled,bool OppositeSide)
 {
     HideEffects();Kind=RequestedVariant;Host=Rifle;
     const FString Variant=TacticalDeviceVariants::MeshVariant(RequestedVariant);
@@ -165,13 +208,11 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Re
     const bool Pistol=Family==TEXT("M1911")||Family==TEXT("G18")||PitViper||Revolver||RSH;
     const bool ASH=Family==TEXT("ASH12");
     const bool Super90=Family==TEXT("Super90");
-    const FString Path=Super90?TacticalDeviceVariants::Super90MeshPath(Kind):Kind==TacticalDeviceVariants::BlessedLaser?TacticalDeviceVariants::BlessedMeshPath(Family):RSH?RSH12TacticalAssets::MeshPath(Variant):Family==TEXT("HK416")?HK416WeaponAssets::AttachmentPath(Variant):Family==TEXT("LMG201")?LMG201Attachments::MeshPath(Variant):Family==TEXT("SVD")?SVDAttachments::MeshPath(Variant):Family==TEXT("PKM")?PKMAttachments::MeshPath(Variant):Family==TEXT("A762")?A762Attachments::MeshPath(Variant):Family==TEXT("M16")?M16Attachments::MeshPath(Variant):ASH
-        ?FString::Printf(TEXT("/Game/Weapons/ASH12/TacticalDevices20260920/%s/SM_ASH12_%s"),*Variant,*Variant)
-        :PitViper?PitViper2011WeaponAssets::AttachmentPath(Variant):Family==TEXT("G18")?G18WeaponAssets::AttachmentPath(Variant):Revolver?DanWesson715WeaponAssets::AttachmentPath(Variant):Pistol
-        ?FString::Printf(TEXT("/Game/Weapons/M1911/CompactFit20260913/%s/SM_TacticalDevice"),*Variant)
-        :Variant==TEXT("flashlight")
-        ?FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/HunyuanV3/%s/flashlight/SM_TacticalDevice"),*Family)
-        :FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/%s/%s/SM_TacticalDevice"),*Family,*Variant);
+    const FString Path=!Pistol?TacticalDeviceVariants::FittedMeshPath(Family,Kind,OppositeSide)
+        :Kind==TacticalDeviceVariants::BlessedLaser?TacticalDeviceVariants::BlessedMeshPath(Family)
+        :RSH?RSH12TacticalAssets::MeshPath(Variant):PitViper?PitViper2011WeaponAssets::AttachmentPath(Variant)
+        :Family==TEXT("G18")?G18WeaponAssets::AttachmentPath(Variant):Revolver?DanWesson715WeaponAssets::AttachmentPath(Variant)
+        :FString::Printf(TEXT("/Game/Weapons/M1911/CompactFit20260913/%s/SM_TacticalDevice"),*Variant);
     if(!Body)
     {
         Body=NewObject<UStaticMeshComponent>(GetOwner());
@@ -206,9 +247,14 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Re
     if(!bWorldPresentation)Body->AttachToComponent(Rifle,FAttachmentTransformRules::KeepRelativeTransform,TEXT("WPN_root"));
     Body->SetOnlyOwnerSee(Rifle->bOnlyOwnerSee);
     Body->SetFirstPersonPrimitiveType(Rifle->FirstPersonPrimitiveType);
-    FTransform Mount=Super90?Super90TacticalMount(Rifle):RSH?RSH12TacticalAssets::Mount():Family==TEXT("HK416")?HK416Attachments::ReferenceMount(Rifle):ASH?ASH12TacticalMount(Rifle):Pistol?PistolTacticalMount(Rifle,PitViper):FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f));
+    FTransform Mount=Super90?Super90TacticalMount(Rifle):RSH?RSH12TacticalAssets::Mount():Family==TEXT("HK416")?HK416Attachments::ReferenceMount(Rifle):ASH?ASH12TacticalMount(Rifle,OppositeSide):Pistol?PistolTacticalMount(Rifle,PitViper):FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f));
+    if(OppositeSide&&!ASH&&!Pistol&&!Super90)Mount=OppositeTacticalMount(Family,Mount);
     if(!bWorldPresentation)Body->SetRelativeTransform(Mount);
     Body->SetVisibility(!bPresentationHidden&&Body->GetStaticMesh()!=nullptr);
+    InitializeEffects();
+}
+void UTacticalDeviceComponent::InitializeEffects()
+{
     auto MakeEffect=[&](const TCHAR* Name,const TCHAR* Mesh,const TCHAR* Material)
     {
         auto* C=NewObject<UStaticMeshComponent>(GetOwner());
@@ -263,23 +309,29 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     {HideEffects();return;}
     if(ThirdPerson)VisibleHost->UpdateChildTransforms();
     if(!VisibleDevice->DoesSocketExist(TEXT("Emitter"))){HideEffects();return;}
-    const FVector Origin=VisibleDevice->GetSocketLocation(TEXT("Emitter"));
+    const FVector RenderOrigin=VisibleDevice->GetSocketLocation(TEXT("Emitter"));
+    // F6 changes only the visible emitter, not the gameplay ray or shared dot.
+    const bool NativeRay=!bWorldPresentation&&TacticalDeviceVariants::IsLaser(Kind);
+    auto* RayDevice=NativeRay?Body.Get():VisibleDevice;
+    auto* RayHost=NativeRay?Host.Get():VisibleHost;
+    const FVector Origin=RayDevice->GetSocketLocation(TEXT("Emitter"));
     // Direction comes from the weapon's own sight axis; the mesh sockets only
     // supply the emitter position the player sees. See WeaponForwardAxis above.
     FVector LocalForward;
     FVector Direction;
-    if(bUseAuthoredEmitterAxis && VisibleDevice->DoesSocketExist(TEXT("AimGuide")))
-        Direction=(VisibleDevice->GetSocketLocation(TEXT("AimGuide"))-Origin).GetSafeNormal();
-    else if(WeaponForwardAxis(VisibleHost,LocalForward))
-        Direction=VisibleHost->GetSocketRotation(TEXT("WPN_root")).RotateVector(LocalForward);
-    else if(VisibleDevice->DoesSocketExist(TEXT("AimGuide")))
-        Direction=(VisibleDevice->GetSocketLocation(TEXT("AimGuide"))-Origin).GetSafeNormal();
+    if(bUseAuthoredEmitterAxis && RayDevice->DoesSocketExist(TEXT("AimGuide")))
+        Direction=(RayDevice->GetSocketLocation(TEXT("AimGuide"))-Origin).GetSafeNormal();
+    else if(WeaponForwardAxis(RayHost,LocalForward))
+        Direction=RayHost->GetSocketRotation(TEXT("WPN_root")).RotateVector(LocalForward);
+    else if(RayDevice->DoesSocketExist(TEXT("AimGuide")))
+        Direction=(RayDevice->GetSocketLocation(TEXT("AimGuide"))-Origin).GetSafeNormal();
     else
         {HideEffects();return;}
     FCollisionQueryParams Params(SCENE_QUERY_STAT(TacticalDevice),true,C);FHitResult Hit;
     FVector Eye=bWorldPresentation?C->GetPawnViewLocation():C->FirstPersonCamera->GetComponentLocation();
     // An emitter clipping through a wall must not light or lase the far side.
-    if(GetWorld()->LineTraceSingleByChannel(Hit,Eye,Origin,ECC_Visibility,Params)){HideEffects();return;}
+    if((!bWorldPresentation||Kind==TEXT("flashlight"))
+        &&GetWorld()->LineTraceSingleByChannel(Hit,Eye,Origin,ECC_Visibility,Params)){HideEffects();return;}
     if(Kind==TEXT("flashlight"))
     {
         Dot->SetVisibility(false);Beam->SetVisibility(false);
@@ -306,80 +358,135 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     const float ScopeAlpha=!ThirdPerson&&PC&&!PC->bShowMouseCursor?C->GetScopePresentationAlpha():0.f;
     Dot->SetCustomPrimitiveDataFloat(0,ScopeAlpha);
     Beam->SetCustomPrimitiveDataFloat(0,ScopeAlpha);
-    // Converge only once ADS has actually settled. bIsAiming is true from the
-    // instant the aim input lands, but WeaponADSFactor needs the whole ADS
-    // duration (0.45 s for PKM versus 0.24 s for M4), so keying off IsAiming
-    // swung the beam onto the crosshair for the entire raise. During the raise
-    // the beam stays on the barrel; afterwards it aligns inside a short window.
-    // The blend is evaluated from the elapsed settle time, not accumulated per
-    // frame: a repeated frame-to-frame lerp only approaches asymptotically and
-    // would take about 0.28 s at 60 fps to land a nominal 0.08 s window.
-    // World-body rifles now aim their physical barrel. Independently steering
-    // the world laser to the camera target conceals a stale or moving gun pose.
-    const bool bADSSettled = !ThirdPerson && C->WeaponADSFactor >= ADSSettleThreshold;
-    if(!bADSSettled)
+    // Hip lasers zero to the same deterministic centre as the reticle and
+    // projectile spread. Never call ComputeShotDirection here: hip shots sample
+    // randomness, which would make a supposedly steady laser wander every tick.
+    // Observers reuse the owner's final endpoint (including physical occlusion),
+    // indexed by the replicated equipment manifest, instead of tracing a new aim.
+    FFPSBodyLaserSample WorldSample;
+    if(bWorldPresentation&&(!WorldBody||!WorldBody->ResolveLaserSample(WorldRigIndex,WorldPartIndex,WorldSchema,WorldSample)))
+    {HideEffects();return;}
+    const bool ContinuousPistolAim=!C->HasOffhandPistol()&&C->IsPistolWeapon();
+    bool Ready=!bWorldPresentation&&!C->IsSprinting()&&!C->IsDodging()
+        &&!C->IsDoorPushActive()&&C->NearWallAlpha<.01f;
+    if(Ready&&C->HasOffhandPistol())
     {
-        bLaserSettled=false;
-        LaserSettleElapsed=0.f;
-    }
-    else if(TacticalDeviceVariants::IsLaser(Kind))
-    {
-        if(!bLaserSettled)
+        // A reloading left gun must not disable the independently firing right
+        // gun's laser (or a staff's independently usable pistol).
+        Ready=false;
+        for(int32 Side=C->DualPistols->IsOffhandOnly()?1:0;Side<2;++Side)
         {
-            bLaserSettled=true;
-            LaserSettleElapsed=0.f;
+            const auto& Hand=C->DualPistols->Hand(Side);
+            if(Hand.Mesh!=Host)continue;
+            const bool Firing=Hand.Action&&(Hand.Action==Hand.Clips.FindRef(TEXT("fire"))
+                ||Hand.Action==Hand.Clips.FindRef(TEXT("fire_last")));
+            Ready=!Hand.Reloading&&Hand.Sprint<.01f&&(!Hand.Action||Firing)
+                &&(Side!=1||!C->IsCastBlockingLeftHandAction());
+            break;
         }
-        else LaserSettleElapsed+=Delta;
-        FVector Target=Eye+C->ComputeShotDirection()*Range;
+    }
+    else if(Ready)
+    {
+        const bool HipReady=!C->IsAiming()&&C->WeaponADSFactor<.001f;
+        const bool ADSReady=C->WeaponADSFactor>=ADSSettleThreshold;
+        // A single pistol is still ready while being raised/lowered. Releasing
+        // zero here made its beam sweep to the barrel and then back to the sight.
+        // Retain the rifles' deliberately delayed ADS convergence.
+        Ready=C->GetWeaponState()==EAKMWeaponState::Idle&&!C->IsWeaponBusy()
+            &&FMath::SmoothStep(0.f,1.f,C->SprintPoseFactor)<.01f
+            &&(ContinuousPistolAim||HipReady||ADSReady);
+    }
+    LaserAimBlend=LaserConvergeSeconds>KINDA_SMALL_NUMBER
+        ?FMath::FInterpConstantTo(LaserAimBlend,Ready?1.f:0.f,Delta,1.f/LaserConvergeSeconds)
+        :(Ready?1.f:0.f);
+    if(LaserAimBlend>0.f&&TacticalDeviceVariants::IsLaser(Kind))
+    {
+        FVector Sight;
+        if(ContinuousPistolAim)
+        {
+            const FVector Forward=C->FirstPersonCamera->GetForwardVector();
+            FVector ADSSight=Forward;
+            if(C->bHolographicOptic)
+                ADSSight=(C->HolographicAimPoint()-Eye).GetSafeNormal();
+            else if(Host->DoesSocketExist(TEXT("WPN_FrontSight")))
+                ADSSight=(Host->GetSocketLocation(TEXT("WPN_FrontSight"))-Eye).GetSafeNormal();
+            // Keep the hip centre during the initial lift, then smoothly pick up
+            // the actual sight as it arrives. The pose clock works in both
+            // directions, including reversing ADS midway; input state does not.
+            // At full ADS, retain the same sight/recoil direction as the shot.
+            const float SightWeight=FMath::SmoothStep(.65f,1.f,C->WeaponADSFactor)
+                *(1.f-C->GetScopePresentationAlpha());
+            Sight=FMath::Lerp(Forward,ADSSight,SightWeight).GetSafeNormal();
+        }
+        else Sight=C->ComputeWeaponAimDirection();
+        FVector Target=Eye+Sight*Range;
         if(GetWorld()->LineTraceSingleByChannel(Hit,Eye,Target,ECC_Visibility,Params))Target=Hit.ImpactPoint;
-        const FVector AimDirection=(Target-Origin).GetSafeNormal();
-        // Barrel is this frame's Direction; at t=0 the beam is untouched, and by
-        // t=LaserConvergeSeconds it is exactly on the crosshair.
-        const float Blend=LaserConvergeSeconds>KINDA_SMALL_NUMBER
-            ? FMath::Clamp(LaserSettleElapsed/LaserConvergeSeconds,0.f,1.f) : 1.f;
-        Direction=FMath::Lerp(Direction,AimDirection,Blend).GetSafeNormal();
+        const FVector ToTarget=Target-Origin;
+        // A close surface behind the emitter cannot be reached by bending the
+        // beam backwards. The physical emitter ray/occlusion below stays active.
+        if(FVector::DotProduct(ToTarget,Sight)>1.f)
+        {
+            const float Blend=LaserAimBlend*LaserAimBlend*(3.f-2.f*LaserAimBlend);
+            Direction=FMath::Lerp(Direction,ToTarget.GetSafeNormal(),Blend).GetSafeNormal();
+        }
     }
     bool bShowDot=false;
+    FVector Normal=FVector::UpVector;
     FVector End=Origin+Direction*Range;
-    if(GetWorld()->LineTraceSingleByChannel(Hit,Origin,End,ECC_Visibility,Params))
+    if(bWorldPresentation)
+    {
+        End=WorldSample.End;Normal=WorldSample.Normal;bShowDot=WorldSample.bDot;
+    }
+    else if(GetWorld()->LineTraceSingleByChannel(Hit,Origin,End,ECC_Visibility,Params))
     {
         End=Hit.ImpactPoint;
-        const FVector Normal=Hit.ImpactNormal.GetSafeNormal();
+        Normal=Hit.ImpactNormal.GetSafeNormal();
         // A volumetric sphere can protrude through thin receivers or walls.
         // Keep the entire shallow spot on the struck side of the surface.
         const FVector Spot=End+Normal*.03f;
         FHitResult Occlusion;
-        if(!Hit.bStartPenetrating&&FVector::DotProduct(Normal,Eye-End)>0.f&&
-            !GetWorld()->LineTraceSingleByChannel(Occlusion,Eye,Spot,ECC_Visibility,Params))
+        bShowDot=!Hit.bStartPenetrating&&FVector::DotProduct(Normal,Eye-End)>0.f&&
+            !GetWorld()->LineTraceSingleByChannel(Occlusion,Eye,Spot,ECC_Visibility,Params);
+    }
+    if(bShowDot)
+    {
+        const FVector Spot=End+Normal*.03f;
+        float Diameter=1.6f;
+        if(ScopeAlpha>0.f)
         {
-            float Diameter=1.6f;
-            if(ScopeAlpha>0.f)
-            {
-                // Keep the real hit, parallax and depth test. Only cap its
-                // visual diameter (0.3% of view height, about 3.2 px at 1080p)
-                // so a close surface at 6x cannot cover the etched reticle.
-                // Use this frame's camera FOV, including smooth zoom/recoil.
-                const float Depth=FVector::DotProduct(Spot-Eye,C->FirstPersonCamera->GetForwardVector());
-                if(Depth<=0.f){HideEffects();return;}
-                const float TanHalfVFOV=FMath::Tan(FMath::DegreesToRadians(C->FirstPersonCamera->FieldOfView)*.5f)
-                    /FMath::Max(.01f,C->FirstPersonCamera->AspectRatio);
-                const float CappedDiameter=FMath::Min(Diameter,2.f*Depth*TanHalfVFOV*.003f);
-                Diameter=FMath::Lerp(Diameter,CappedDiameter,ScopeAlpha);
-            }
-            Dot->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(Normal).ToQuat(),Spot,
-                FVector(Diameter/100.f,Diameter/100.f,FMath::Min(.0004f,Diameter/100.f))));
-            bShowDot=true;
+            // Keep the real hit, parallax and depth test. Only cap its
+            // visual diameter (0.3% of view height, about 3.2 px at 1080p)
+            // so a close surface at 6x cannot cover the etched reticle.
+            // Use this frame's camera FOV, including smooth zoom/recoil.
+            const float Depth=FVector::DotProduct(Spot-Eye,C->FirstPersonCamera->GetForwardVector());
+            if(Depth<=0.f){HideEffects();return;}
+            const float TanHalfVFOV=FMath::Tan(FMath::DegreesToRadians(C->FirstPersonCamera->FieldOfView)*.5f)
+                /FMath::Max(.01f,C->FirstPersonCamera->AspectRatio);
+            const float CappedDiameter=FMath::Min(Diameter,2.f*Depth*TanHalfVFOV*.003f);
+            Diameter=FMath::Lerp(Diameter,CappedDiameter,ScopeAlpha);
         }
+        Dot->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(Normal).ToQuat(),Spot,
+            FVector(Diameter/100.f,Diameter/100.f,FMath::Min(.0004f,Diameter/100.f))));
     }
     Dot->SetVisibility(bShowDot);
-    const float Length=FVector::Distance(Origin,End);
+    if(!bWorldPresentation)
+    {
+        bLaserSampleValid=true;LaserSampleAt=GetWorld()->GetTimeSeconds();
+        LaserSampleEnd=End;LaserSampleNormal=Normal;bLaserSampleDot=bShowDot;
+    }
+    // Clip a differently positioned world/F6 beam at its own obstruction, but
+    // never replace the shared surface spot with a second observer-only hit.
+    FVector BeamEnd=End;
+    if((bWorldPresentation||(NativeRay&&ThirdPerson))
+        &&GetWorld()->LineTraceSingleByChannel(Hit,RenderOrigin,End,ECC_Visibility,Params))BeamEnd=Hit.ImpactPoint;
+    const float Length=FVector::Distance(RenderOrigin,BeamEnd);
     const bool bShowBeam=Length>.1f&&ScopeAlpha<1.f;
     if(bShowBeam)
     {
         // Physical centimetres keep the subtle flowing threads the same size
         // as the ray shortens at walls; GPU time drives motion without CPU particles.
         if(Kind==TacticalDeviceVariants::BlessedLaser)Beam->SetCustomPrimitiveDataFloat(1,Length);
-        Beam->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(End-Origin).ToQuat(),(Origin+End)*.5f,
+        Beam->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(BeamEnd-RenderOrigin).ToQuat(),(RenderOrigin+BeamEnd)*.5f,
             FVector(.004f,.004f,Length/100.f)));
     }
     Beam->SetVisibility(bShowBeam);
@@ -392,13 +499,22 @@ void UTacticalDeviceComponent::EndPlay(const EEndPlayReason::Type Reason)
     if(Light)Light->DestroyComponent();
     Super::EndPlay(Reason);
 }
-void AFPSGAMECharacter::SetGunsmithTactical(const FString& Variant)
+void AFPSGAMECharacter::SetGunsmithTactical(const FString& Variant,const FString& SecondaryVariant)
 {
-    if(!TacticalDevice)
-    {
-        if(!TacticalDeviceVariants::IsLaser(Variant)&&Variant!=TEXT("flashlight"))return;
-        TacticalDevice=NewObject<UTacticalDeviceComponent>(this,TEXT("TacticalDevice"));TacticalDevice->RegisterComponent();
-    }
+    const FString Secondary=TacticalDeviceVariants::SupportsSecondary(ActiveInventoryWeaponDefinition)?SecondaryVariant:FString();
     const FString Family=IsSuper90Weapon()?TEXT("Super90"):IsRSH12Weapon()?TEXT("RSH12"):IsHK416Weapon()?TEXT("HK416"):IsPitViperWeapon()?TEXT("PitViper2011"):IsG18Weapon()?TEXT("G18"):LMG201WeaponAssets::Matches(AKMViewmodel)?TEXT("LMG201"):SVDWeaponAssets::Matches(AKMViewmodel)?TEXT("SVD"):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?TEXT("PKM"):A762WeaponAssets::Matches(AKMViewmodel)?TEXT("A762"):bUseM16?TEXT("M16"):bUseASH12?TEXT("ASH12"):bUseDanWesson715?TEXT("DanWesson715"):bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
-    TacticalDevice->Configure(Family,Variant,AKMViewmodel,bInventoryWeaponReady);
+    auto ConfigureSlot=[&](TObjectPtr<UTacticalDeviceComponent>& Device,const FString& Id,bool Opposite)
+    {
+        if(!Device)
+        {
+            if(!TacticalDeviceVariants::IsLaser(Id)&&Id!=TEXT("flashlight"))return;
+            Device=NewObject<UTacticalDeviceComponent>(this,Opposite?TEXT("SecondaryTacticalDevice"):TEXT("TacticalDevice"));
+            Device->RegisterComponent();
+        }
+        // Each installed device emits independently. Laser priority only affects
+        // the numeric modifiers resolved by UGunsmithSystem::Calculate.
+        Device->Configure(Family,Id,AKMViewmodel,bInventoryWeaponReady,Opposite);
+    };
+    ConfigureSlot(TacticalDevice,Variant,false);
+    ConfigureSlot(SecondaryTacticalDevice,Secondary,true);
 }

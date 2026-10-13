@@ -1,0 +1,818 @@
+{
+  "base_commit": "c52fe14d7862b3cbb3ffde2a5526ce2864071939",
+  "kind": "direct scoped source publication; parallel hunks remain in the runtime worktree",
+  "files": [
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "base_sha256": "f30e85a8df3221c4a71780cad4fb824f7aebec7937cb6515ead8d6e2292da63a",
+      "scoped_sha256": "856864ec1a629623ff0ab8a1f02e8a35abfc6ff1c0e867872fe691b20f18d1b9",
+      "selected_hunks": [
+        2,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16,
+        17,
+        18,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "base_sha256": "e26140fdc1a118259dd05754800095b45f9ac580ee884c40c3e61eeedb2743e0",
+      "scoped_sha256": "86b2a566bebd87024c203b4d671b91b0c403d1f10cf572af95f52ef284021e16",
+      "selected_hunks": [
+        0,
+        4,
+        6,
+        7,
+        9,
+        10
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterReload.cpp",
+      "base_sha256": "b103e66981eb17a5d2b946a69418785090fa5c6ace85606fb9c2d9caeffb0ca0",
+      "scoped_sha256": "c27c7718e134c0aa20c19e5930ef1d6ccd6c6cedd82c9bbc2b041e0f1516a51a",
+      "selected_hunks": [
+        0,
+        1
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyMotionSample.cpp",
+      "base_sha256": "c46927aa36c90beb21426e1889685798fc4db212d5b283be528ad7d0f2533be4",
+      "scoped_sha256": "ebeb9a0956fec28f8d7789e50b4599ece6d060257ec4d7776c4aa9bc6b591f7e",
+      "selected_hunks": [
+        0,
+        1
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyMotionSample.h",
+      "base_sha256": "a2a533a1e898de904d36d7a79928925a603d7e4ede92288a5e9dfd2d3d89dcb1",
+      "scoped_sha256": "04bc968b3450adc19e31895e7c6f7e3a6a6bd7db3ed39d1e67b336f84b310d31",
+      "selected_hunks": [
+        0
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "base_sha256": "737b01ad28ed12b9f9c2e06ec2c5ffc3acaca59a030c6ccf2c18c98556a1c64b",
+      "scoped_sha256": "822a7fe76f8ffcdee1a228e3ffbb6ebd8859aff2e6ed9e944695ca9d240833a1",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        9,
+        11,
+        12,
+        13
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "base_sha256": "f68ab6d9cebcbe987d6a515074450bdf2f97af6a7a8ab8cc31257480ce347db2",
+      "scoped_sha256": "0dbde25355d70215791eb0e98545cb84c7fc92e383d91c648a1446625cddf2dc",
+      "selected_hunks": [
+        0,
+        3,
+        11,
+        12,
+        15,
+        24,
+        26,
+        30
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "base_sha256": "c68d97b4f0c4f9438319b53c5bf2b84149c86aa67981f3c4dc1fb97bd579a3f6",
+      "scoped_sha256": "f579d0f1924cda17011896e1833b7453b50c7cbc5983a469e4d12a96e20be984",
+      "selected_hunks": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "base_sha256": "1032bb292b220a80563070f5bd01ec708490d5f6b3a905cd3cf8648b0c98fc3e",
+      "scoped_sha256": "2f56086f7f23627388b1513b839818b61d7280e0ff3cebf300d1dce4d86df13a",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "base_sha256": "856ea7577f2efc44ced47e85254f833b09f2028752c2ae7b735ce127eae980c2",
+      "scoped_sha256": "44469c2acffa92db08cff3d129b030b826467295c25427c0e9bf8688f2cde718",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyGunEffects.cpp",
+      "base_sha256": "3de0b2920e7c6e8369215a2df9a1343129be78b7ce1fb10155bca8db13ab2f7d",
+      "scoped_sha256": "46beb0363cc61ac14e0c66b055bc6f2cc1af15255ca9553254fc0095be5d09fa",
+      "selected_hunks": [
+        0
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "base_sha256": "fd2ab965d17548e6c7a66db2294da6e2f37741f2c4291ce094a8b244780632e6",
+      "scoped_sha256": "d5ce822c2479fa83ca607548a3cd7d31bab16558a44d1afec41b9d1b91da4b03",
+      "selected_hunks": [
+        1,
+        6,
+        7
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "base_sha256": "27f976d51b491b36608ee0a4c9c826a9654dff996a11208b183eb578fc1efa59",
+      "scoped_sha256": "88806353f13a7ac86aabfa3ef4c672a8966400443000a670730f11671462cfb3",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+      "base_sha256": "48f54c19efb5c4d30edeeea97563b2185f80cf4e6b9bb403fa5ce308a0b2592d",
+      "scoped_sha256": "643393739fb745177d7faab0eac030e13d39025df70244dae0a29c4c9c2251ea",
+      "selected_hunks": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp",
+      "base_sha256": "1fdb2e7e5db20de8aaa694d3bc8178fcbc3804c32e51f872f6b8e9216ca9874b",
+      "scoped_sha256": "18a1bb1870638a4674e3cf5b46d06cf174e6aad53931910af1cc18b0dbb74b93",
+      "selected_hunks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.h",
+      "base_sha256": "7a3f1d8805d8a7a54ca55e7e07db96a47193ff4b68204407b351625b1be9733c",
+      "scoped_sha256": "3266a1117f053675660733721717ac390c7dea6b747f428e2d12df243e7cda7b",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSMeleeLungeMovement.cpp",
+      "base_sha256": "9a65b17545534763bf2306eea42e508f1df7a3fed4139454b6e02f5c860567ff",
+      "scoped_sha256": "d834209eced0ae7af70351d9d1913be9a41bc608ac8682d0f851151400598208",
+      "selected_hunks": [
+        0,
+        1
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalComponent.cpp",
+      "base_sha256": "bd911ca329793b3c4e1ec8692dc1475e266d921b2f6a025a2994f98d1181f719",
+      "scoped_sha256": "90bbf3ce2eeafa61335a1fb252e0b9c65afb9083e80850e9ec5a659402c894cb",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalComponent.h",
+      "base_sha256": "14fa5470dc69163275a7a52094f1ce13f7c31a03c344c74df2871113ec94ca21",
+      "scoped_sha256": "b83ed79c871803346a7b3ee143b6c25863f1b4878367aa5ccb69f6e6ccf07711",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalExecution.cpp",
+      "base_sha256": "36ec3e3bef29515ed50a577a7445e40c361bce76034310abb0cd83b79c28ad7e",
+      "scoped_sha256": "2e0f7e04b5179f1478aeb0c22779abf16ca925cb2ffc7e7eed8e71fdbb7da283",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalRules.cpp",
+      "base_sha256": "37f5630b5e1440d6c1bc06928c537be4269b45a078ae2966e8bdabbef690ccea",
+      "scoped_sha256": "94b86a048c95b86afa4283b05d82331cd2202c9d84cb7272d6abd2ad61dc5d8d",
+      "selected_hunks": [
+        0,
+        1
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalRules.h",
+      "base_sha256": "55fcca146b41a4e5dea36a6460bf6f9221fdda1b04b5b15428835f3e5fb04781",
+      "scoped_sha256": "7ec944434a70eb2f3a71c489e9c15f7082e8556fd41f2f773c94339a35bdea73",
+      "selected_hunks": [
+        0,
+        1
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldAim.cpp",
+      "base_sha256": "16e807f1c29104f2733a71f878298952560fbce5c45c51aebb404979b4ee6829",
+      "scoped_sha256": "cade395098e0bba2fcb0a45491615a0f396e69bbe771064f96b25861d853f5e1",
+      "selected_hunks": [
+        0
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+      "base_sha256": "d0722effdfa9dc3074cbffca3238da5b157c5e77d69fad95ea055dac53f5daaa",
+      "scoped_sha256": "0b6e894352217c5187b3b8766424af43e276bc9580f19821fe525e80feb54251",
+      "selected_hunks": [
+        0,
+        2,
+        3,
+        5,
+        6
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+      "base_sha256": "22b1a76e670e71c1b433ecf3a243799e2013160d1de0c29db3ad79d4dac3c581",
+      "scoped_sha256": "3da648577ff8a6b3ee3c96ade497611e2a5e679d042da9ec92ef7717e6b5cbac",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp",
+      "base_sha256": "75d06312ab85b3b800da60e3e08436f3cf10f34835cc54321a97dc8c8d700d3c",
+      "scoped_sha256": "4aa8ebad162feeb44679e2a074bebbe531e1d3ec3727a2d82641a0d8a407abe1",
+      "selected_hunks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalDeviceComponent.cpp",
+      "base_sha256": "92a295501e8a1fcb1333fe6aa8dc979f3e5ab8f74145cb3b4730458ab379dffa",
+      "scoped_sha256": "39719235802b617349ddf8f2dad2750225d95bf1663ff0e67d29239c59950e4c",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalDeviceComponent.h",
+      "base_sha256": "54a71c92656e40ea3483c7efcab1a1788e2e27c94d09af2c5bbe82e38e97b102",
+      "scoped_sha256": "9f81590efbccd30894daad415342ff7aeed675b14b3bf0cb91c1f2043424ddcd",
+      "selected_hunks": [
+        0,
+        1
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp",
+      "base_sha256": "d414f6b93a44f9180ffa21cd364fb9b8ea8cbffc405c9e399b0dd9e342545b38",
+      "scoped_sha256": "049b959334f249477c7dba73c64ecc90aa888451f69e5f01b84b4239af78d9ef",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.h",
+      "base_sha256": "f2b3338e11045e90d1f46527e51d0415e0c179fd2adbe44e9e9a28df5abc8aa5",
+      "scoped_sha256": "3c7270b3abd5a8a24be3476918187e6fe42612c5101eafe4b79b6fe7332085c8",
+      "selected_hunks": [
+        0,
+        1
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponActionCameraComponent.cpp",
+      "base_sha256": "8a91ec8ddf7b1208006c61d3f91b55bbc886de47b2f8c2513f257d7422b10e41",
+      "scoped_sha256": "1a4016f8ddb5bef69eaaea379e53b0c3ef7667728d61803ae2871a053d4bb191",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponActionCameraComponent.h",
+      "base_sha256": "628f396c610b1915a3f01fae12250a7ca7c858e72c0cbdd11989f8f86a08974f",
+      "scoped_sha256": "d819c3a571f712334b45ef6c95904bbed41976e642f8ea3eded91e998790aae2",
+      "selected_hunks": [
+        0,
+        1,
+        2
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp",
+      "base_sha256": "86b38ad94021cbffb0cbd56ed2f55eb878e4b9acadd91868c053206756ee6b71",
+      "scoped_sha256": "92584df2453b5bce07749574e5321f5d6fbddd0b3014110cfdd8e3c58bbf3842",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.h",
+      "base_sha256": "e397d92a1bd19db2e086be5508cfe425c4b14d85e9e97636fd601d20670f23cd",
+      "scoped_sha256": "7f8163add5bbce6f1ec18436660c8ae9da25746ba101f43e85398bda55178f62",
+      "selected_hunks": [
+        0
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+      "base_sha256": "859b59cb1a4c9e7cfb4876c38d417df7d61c575442c8827a1547a014e5d12366",
+      "scoped_sha256": "ecabdde196bf809a65466939c4db8192be00a3ba984b2a2c396d0993fbd2a67a",
+      "selected_hunks": [
+        0,
+        1
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "base_sha256": "d3b62af2b2fe7e86872d8e0a288d77642e6ec51163542d78785a940180759bad",
+      "scoped_sha256": "e7c5e8117894921094237082d54e62c97e4e40c882cb912edc208a881da907a6",
+      "selected_hunks": [
+        0,
+        4,
+        5,
+        8,
+        9,
+        10,
+        11,
+        13
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "base_sha256": "af8703169f546f58fbe3f1d8e496044acfb8c7ce34a8b2165836fe5c3f76504b",
+      "scoped_sha256": "4366a15dc4986072a87134526db7ae7b2bd083908355697c95107f52013e0e34",
+      "selected_hunks": [
+        4
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp",
+      "base_sha256": "0e8bdf212ed20866895779aaf0b568027de0daf1dfe93261661d8cbac8da956a",
+      "scoped_sha256": "8c5a2e56908ea1e868e2ea889985827e377d7c6a0b55350663a5534aa55744da",
+      "selected_hunks": [
+        0,
+        1
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordUppercut.cpp",
+      "base_sha256": "9471d51ec22d0704ff0e975af618cd632df582d930c60cb070e112f627907890",
+      "scoped_sha256": "ee3ecea4e38a5d9e9e732d53f6335fdf8dff036d761064e328e9c7b336002253",
+      "selected_hunks": [
+        0
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordWhirlwind.cpp",
+      "base_sha256": "2712bd12e64fcddd8139ed60dfcf4fdb9588faa58397cb7b1be202314176c097",
+      "scoped_sha256": "ec55902752912d12ea698a17028afb9a891117be9b97ab5f942174df4301ecbc",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookFocus.cpp",
+      "base_sha256": "0646e7f4cd8a2bc37f4ae2173452f0e37e47520dfd1cf738cdbed03b670dd815",
+      "scoped_sha256": "1e30b41afb767442de6ebccddca378d678eaae9e1d0bf61e518a77978730cfa8",
+      "selected_hunks": [
+        0,
+        1
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookFocusPose.cpp",
+      "base_sha256": "709be21da658d94da5b4568f2fb3d352522fdb6bd148e104cf4488c66e68afaa",
+      "scoped_sha256": "7f80fb56553fbeb52bdb48a9ae5e5e2b56e62526d132d32c508433b46030c1be",
+      "selected_hunks": [
+        0,
+        1
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookFocusMotion.h",
+      "base_sha256": "bd68989ea6ca8137a3ade9f545636a6ca2802cba65a4964b31d3699aeed327d1",
+      "scoped_sha256": "c57ca4e8a7562f32fbca434f5210aae5f7218dabf1366e915a2e342471cf2445",
+      "selected_hunks": [
+        0
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookComponent.cpp",
+      "base_sha256": "402331b8828d251d1608488f83d40fda2dc5fd791b92325c036d59599c20a4dc",
+      "scoped_sha256": "7158a22d74038670bc1ddf7800e1615cf73a9b4c1de0d6122367863428c5350d",
+      "selected_hunks": [
+        0,
+        1
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookComponent.h",
+      "base_sha256": "08ee3c8b4c28649f486af578ad17e1a603dac09313ea59885ba15a00153f5085",
+      "scoped_sha256": "95dd840a17469e74383fe7c17a8e8f5ac7f32a4c7065279b6ec628b5600bf762",
+      "selected_hunks": [
+        0
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "base_sha256": "f79450dfa2fc8aeda7c111993dfa58731e7867795c2da37578e752de56960c3a",
+      "scoped_sha256": "64e64441a5fc947e2d9abade9ab71fe75e001bb3131fc7d90114a7f8096da199",
+      "selected_hunks": [
+        0,
+        4
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Content/ColdSteelData/player_body.json",
+      "base_sha256": "4b77b876f739c19e50d1a1bc26972ebefc955aecb4173b73db41e60c2b004758",
+      "scoped_sha256": "a4268b635ed2667af9da2e1bedbc9f68dcabd33e979d058dde9be7adddcefee4",
+      "selected_hunks": [
+        3
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Content/ColdSteelData/skills.json",
+      "base_sha256": "32faa1d7040ac2093f58de0609af8682f01763ed2862e323a2069fd93f7bdc46",
+      "scoped_sha256": "045eddb121ea4d91dd18403abca65bec9ded7eb05be161aafc8b0b5872dae261",
+      "selected_hunks": [
+        5
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp",
+      "base_sha256": "b1d056bd5e2546a63dd214d4c40681693fd7981f85b0ed8655e13387acaa244a",
+      "scoped_sha256": "2422860b6c612bf8f5521570fe0a11d8c975b47b0dbf8cb46846ed86aef8a8ac",
+      "selected_hunks": [
+        0
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "base_sha256": "c9dc9d179ac62745119dcbaaae4b76f0c1fec66f72d1e686390d7c68d41910e0",
+      "scoped_sha256": "05f93c8cfdafe12fd8e1dc3ed3ba08ab229a1b50e276b998f5a6e4da96b523ea",
+      "selected_hunks": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        19,
+        22,
+        23
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "base_sha256": "d1cd3b881dd216c29d86445fe4eb3ad12e5557bc2e9466b739e42f65bd6b9259",
+      "scoped_sha256": "e923c72864d79dc26c886ac896b8deaeeb59382baa991fc240536e7107c8769a",
+      "selected_hunks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        12,
+        13
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "base_sha256": "49f8c367495da50329f9bee7ce44b0c7bb1cbf310b90ed49d1c290dffb2b1ad6",
+      "scoped_sha256": "1a8f427e3f6730b9f88ffdc934ee8671a6ab59a7c96be22a4e088e7457fbff63",
+      "selected_hunks": [
+        7
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSuper90Authority.cpp",
+      "base_sha256": "3ac40f6c7226798d996d89ab9a135056d40e5db6e6e8991c581ac63d68b5af36",
+      "scoped_sha256": "7f57e243a7a0649e82cec9df9cb6cc40fa402477e840d27a655e6e458e635cc9",
+      "selected_hunks": [
+        3,
+        4
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/WhirlwindTypes.h",
+      "base_sha256": "b04c46704fa0ca260b6a4867f9fd806171f99f72c968ef96d84671972614ae90",
+      "scoped_sha256": "478044ca923dfd94576ad96547dd08d3225f269c6071fb54a2d6898ad287d179",
+      "selected_hunks": [
+        0
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSPlayerDodge.cpp",
+      "base_sha256": "68f78f873877c9099e5bf8bf9b97614f5ddab54447f078de77b148021a5b449d",
+      "scoped_sha256": "7c3f357aa510659d2f8bbc731b8cc7579df3376dd2ae94b22403412f6f99e15a",
+      "selected_hunks": [
+        0,
+        1
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalAir.cpp",
+      "base_sha256": "286dea5642d5cda0a8e3c33603a2b8671acbd1b49550af2f2fd2027df56c3e58",
+      "scoped_sha256": "05e6305a7478160b94b8c5fb3f4ab38d248f2db7f1aab32ed456a3597bde83c7",
+      "selected_hunks": [
+        0
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "base_sha256": "1347afcbf762fb6baacc19b09f02284c84732539b645e78880428af299f0fa8e",
+      "scoped_sha256": "dffa109cc9739354af2899835b73b50034c84f2e70798561a2e28905e5b96e89",
+      "selected_hunks": [
+        0
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+      "base_sha256": "061c80e106387f8197e6842ab4456bf7843e7c1e37e81b406b794e65729e9d3f",
+      "scoped_sha256": "e6db199fa99cfd98bb1c6648aa59d4f00a47a72f554c5b5611f96641956ed9d7",
+      "selected_hunks": [
+        2,
+        6
+      ],
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterReloadCamera.cpp",
+      "base_sha256": null,
+      "scoped_sha256": "c8a865f9fd16ee047c24141019e69a26b2c8df238caa1cf76d8758040725fb3e",
+      "new": true,
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyTraversalLayer.inl",
+      "base_sha256": null,
+      "scoped_sha256": "3ffcd0fe9b9374ec43981032c0781d2982b1611c0dddbc5213bb7da2adc86b09",
+      "new": true,
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSGunPresentationTypes.h",
+      "base_sha256": null,
+      "scoped_sha256": "28fdbc5e36aba87c7ed00abac22fabef1a991c7cfabf6cb9de0d21c6b95d8efd",
+      "new": true,
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyLaser.cpp",
+      "base_sha256": null,
+      "scoped_sha256": "38dac0aec6a78667ce5ca2c87ff6ec4412dc9ec70cf4db50c21ce2b7d54298ab",
+      "new": true,
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodySpellbook.cpp",
+      "base_sha256": null,
+      "scoped_sha256": "c3570f8cdbf24963b1a14953b8b7fc671b1521b6a7023d891fc59370dd079098",
+      "new": true,
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSDodgeNetwork.cpp",
+      "base_sha256": null,
+      "scoped_sha256": "4d90f629a77f871d5a14e1fab029025a60cc560bf644c64c07a6d6e2e71ef99e",
+      "new": true,
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSMeleeMoveRequest.h",
+      "base_sha256": null,
+      "scoped_sha256": "37b098a7d2aac25ebc6eefd4af43914367c4e2ff458debb13c83c606444ac4ad",
+      "new": true,
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp",
+      "base_sha256": null,
+      "scoped_sha256": "d2779ca26ea0a9d5c7674bead2dd73c5152e408512d35446320c6b27ee776f7d",
+      "new": true,
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalNetwork.cpp",
+      "base_sha256": null,
+      "scoped_sha256": "c10ca76b765961bb075e539b9123928f2069d0dcd2d4e671ff4f3708b1161a0f",
+      "new": true,
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalTiming.h",
+      "base_sha256": null,
+      "scoped_sha256": "f67c935b4c969f7960af44d9a30a7a91246070e7eaf5e05b63c5c393616892ef",
+      "new": true,
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/DualPistolReloadTiming.h",
+      "base_sha256": null,
+      "scoped_sha256": "9121b613dd199352696de1ec84edad3271a08ddaa7a1d13fe1edcedd805b7582",
+      "new": true,
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SprintCameraMotion.h",
+      "base_sha256": null,
+      "scoped_sha256": "dd71c00a06bc71360000168dc5d195dc8317e9376c4de96b77ca7bc1eeeca914",
+      "new": true,
+      "delivery": "direct"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponReloadCamera.h",
+      "base_sha256": null,
+      "scoped_sha256": "76404b6fbea75e682d77596b4a6eb121988ee61b0d31c2dc6a11ad31f097fd80",
+      "new": true,
+      "delivery": "direct"
+    }
+  ],
+  "local_only_direct_include_dependencies": {}
+}

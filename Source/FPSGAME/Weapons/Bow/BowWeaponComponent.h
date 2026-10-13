@@ -63,6 +63,7 @@ public:
 
     /** 库存是唯一事实源：换弓、改改造、收起都从这里刷新。 */
     void RefreshEquipment(UColdSteelStatusModel* Profile);
+    void InitializePresentation();
     void ShowFeedback(const FString& Message);
 
     UFUNCTION(BlueprintPure, Category="Bow") bool IsEquipped() const { return !InstanceId.IsEmpty(); }
@@ -217,6 +218,7 @@ private:
 
     /** 当前正在采样手臂的片段名；换片段时才重新起播。 */
     FName CurrentClip;
+    bool bCurrentClipLoops=false;
     bool bPresentationReady = false, bHasGripMarker = false, bHasNockMarker = false;
     bool bNockSoundPlayed = false;
     /** Authored nock endpoints match Draw[0], including the loaded ready pose. */

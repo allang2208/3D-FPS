@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Characters/FPSPlayerBodyComponent.h"
 #include "FPSGAMEPlayerController.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Weapons/DanWesson715WeaponAssets.h"
@@ -46,7 +47,9 @@ void AFPSGAMECharacter::TryCowboyReload()
     InterruptReload();
     bRevolverReloadAfterFire=bReloadAfterCasting=false;
     PendingAmmoType.Reset();PendingAmmoWeapon.Reset();
-    PlaySound2D(bUseDanWesson715?MagOutSound.Get():MagInsertSound.Get(),.8f);
+    auto* Sound=bUseDanWesson715?MagOutSound.Get():MagInsertSound.Get();
+    PlaySound2D(Sound,.8f);
+    if(auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>())Body->ReportGunMechanical(0,Sound,.8f);
 }
 
 void AFPSGAMECharacter::InitializeReloadStages(bool CycleOnly)

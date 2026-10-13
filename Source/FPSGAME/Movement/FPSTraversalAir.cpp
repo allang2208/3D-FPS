@@ -11,8 +11,9 @@ void UFPSTraversalComponent::SetJumpHeld(bool bHeld)
 
 void UFPSTraversalComponent::TryAirCatch()
 {
-    if (!bJumpHeld || bJumpRequestConsumed) return;
+    if (!bJumpHeld || bJumpRequestConsumed || IsTraversing()) return;
     auto* C=Cast<AFPSGAMECharacter>(GetOwner());
+    if(C&&!C->IsLocallyControlled())return;
     if (!C || !C->Controller || C->Controller->IsMoveInputIgnored())
     { bJumpHeld=false; return; }
     if (!C->GetCharacterMovement()->IsFalling() || C->bIsCrouched || C->bIsSliding || C->IsWeaponBusy(true)) return;

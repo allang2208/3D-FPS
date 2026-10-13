@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "WeaponReloadCamera.h"
 #include "WeaponActionCameraComponent.generated.h"
 
 class UCameraComponent;
@@ -32,6 +33,10 @@ public:
     UPROPERTY(Config, EditAnywhere, Category="Weapon Camera", meta=(ClampMin="0.0", ClampMax="4.0"))
     float ImpactStrength = 2.6f;
 
+    // All reloads use semantic contacts and one gain, independently of equip.
+    UPROPERTY(Config, EditAnywhere, Category="Weapon Camera|Reload", meta=(ClampMin="0.0", ClampMax="2.0"))
+    float ReloadStrength = 1.f;
+
     UPROPERTY(Config, EditAnywhere, Category="Weapon Camera|Sprint", meta=(ClampMin="0.0", ClampMax="3.0"))
     float SprintStrength = 1.f;
     // Pitch, yaw, roll in degrees, before the character's camera motion scale.
@@ -47,9 +52,14 @@ public:
     float SprintCameraWeight() const { return SprintBlend * FMath::Clamp(SprintStrength, 0.f, 1.f); }
 
     void Apply(UCameraComponent& Camera, EM4CameraAction Action, float SourceSeconds,
-        float SourceDuration, TConstArrayView<float> ContactSeconds, float CameraMotionWeight) const;
+        float SourceDuration, TConstArrayView<float> ContactSeconds, float CameraMotionWeight,
+        TConstArrayView<FWeaponReloadCameraTrack> ReloadTracks={},float DeltaSeconds=0.f);
 
 private:
     float SprintBlend = 0.f;
     float SprintPhase = 0.f;
+    FVector ReloadAngles[2]={FVector::ZeroVector,FVector::ZeroVector};
+    FVector ReloadPosition[2]={FVector::ZeroVector,FVector::ZeroVector};
+    float ReloadReturnAge[2]={WeaponReloadCamera::CancelSeconds,WeaponReloadCamera::CancelSeconds};
+    bool bReloadWasActive[2]={false,false};
 };

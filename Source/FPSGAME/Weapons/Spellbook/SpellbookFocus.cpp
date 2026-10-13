@@ -125,7 +125,8 @@ float USpellbookComponent::FocusRecoveryBlend() const
 {
     if(bFocusInterrupted&&InterruptAge>=SpellbookFocusInterruptMotion::Catch)return 1.f;
     // Start at the actually displayed opening pose when cancelled mid-action.
-    return bFocusClosing?SpellbookFocusMotion::Ease(0.f,SpellbookFocusPolish::RecoveryBlendSeconds,CloseAge):0.f;
+    return bFocusClosing?SpellbookFocusMotion::Ease(0.f,
+        FMath::Min(SpellbookFocusPolish::RecoveryBlendSeconds,ReturnStartTime),CloseAge):0.f;
 }
 
 FTransform USpellbookComponent::FocusHandSway(float PoseTime) const
@@ -138,12 +139,11 @@ FTransform USpellbookComponent::FocusHandSway(float PoseTime) const
     if(Weight<=0.f)return FTransform::Identity;
     const float Time=Arms->MotionTime,Phase=Arms->StridePhase,Move=Arms->MoveWeight;
     const FVector Breath(.12f*FMath::Sin(Time*1.3f),.22f*FMath::Sin(Time*1.7f),.42f*FMath::Sin(Time*1.9f));
-    const FVector Step(.60f*FMath::Sin(2.f*Phase-.4f),.85f*FMath::Sin(Phase-.25f),-1.0f*FMath::Cos(2.f*Phase-.45f));
+    const FVector Step(.24f*FMath::Sin(2.f*Phase-.4f),.34f*FMath::Sin(Phase-.25f),-.40f*FMath::Cos(2.f*Phase-.45f));
     const FVector Tremor(.025f*FMath::Sin(Time*8.1f),.04f*FMath::Sin(Time*7.3f),.055f*FMath::Sin(Time*9.7f));
-    const FRotator Angles(.55f*FMath::Sin(Time*1.9f)+1.05f*Move*FMath::Sin(2.f*Phase-.5f),
-        .30f*FMath::Sin(Time*1.3f)+.65f*Move*FMath::Sin(Phase-.3f),
-        .60f*FMath::Sin(Time*1.7f)+1.35f*Move*FMath::Cos(Phase-.35f));
-    return FTransform((Angles*Weight).Quaternion(),(Breath+Step*Move+Tremor)*Weight);
+    // Reading retains one palm/elbow shape across walking, stopping and crouch.
+    // Transport the entire arm gently; movement never adds another palm roll.
+    return FTransform(FQuat::Identity,(Breath+Step*Move+Tremor)*Weight);
 }
 
 void USpellbookComponent::CancelFocus()

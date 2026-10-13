@@ -93,6 +93,12 @@ public:
     void SetIndependentPistol(bool Revolver,bool Suppressed,class USceneComponent* Exit);
     void SetWorldGunSuppressed(bool Suppressed){bWorldGun=true;bWorldGunSuppressed=Suppressed;bUseCharacterMuzzle=false;}
     void SetWorldMuzzle(UStaticMeshComponent* Part,FVector Tip,FVector Axis);
+    void SetWorldGunType(FName Definition,bool Pistol,bool Revolver,const FTransform& MuzzleInRoot)
+    { WorldGunDefinition=Definition;bWorldPistol=Pistol;bWorldRevolver=Revolver;WorldMuzzleInRoot=MuzzleInRoot; }
+    FName WorldGunDefinition;
+    USceneComponent* GetIndependentMuzzle() const { return IndependentExit; }
+    bool bWorldPistol=false,bWorldRevolver=false;
+    FTransform WorldMuzzleInRoot=FTransform::Identity;
     bool bWorldGun=false,bWorldGunSuppressed=false;
     TWeakObjectPtr<class APlayerCameraManager> WorldViewCamera;
     TWeakObjectPtr<UStaticMeshComponent> WorldMuzzlePart;

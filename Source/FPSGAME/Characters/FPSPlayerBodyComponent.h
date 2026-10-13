@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "FPSPlayerBodyTypes.h"
+#include "FPSGunPresentationTypes.h"
 #include "FPSPlayerBodyGrip.h"
 #include "FPSBodyMotionBinding.h"
 #include "FPSBodyReactionState.h"
@@ -56,8 +57,13 @@ public:
     void ApplyCameraView(struct FMinimalViewInfo& View);
     void ApplyInteractionView(FVector& Eye, FRotator& View) const;
     void RefreshViewMode();
-    void PresentSuper90Shot(bool bAiming,bool bSuppressed);
+    void PresentSuper90Shot(const FString& Instance,float FiredAt,bool bAiming,bool bSuppressed);
+    void ReportGunShot(uint8 Hand, class USoundBase* Sound,float Volume,float Pitch,bool bAiming);
+    void ReportGunMechanical(uint8 Hand,class USoundBase* Sound,float Volume,float StartTime=0.f);
+    void ReportGunMechanicalStop(uint8 Hand);
+    void ReportGunCartridge(uint8 Hand,class UStaticMesh* Mesh,const FTransform& Frame,const FVector& Velocity,float Age);
     class UFPSWeaponFXComponent* GetRemoteGunFX() const {return RemoteGunFX;}
+    bool ResolveLaserSample(uint8 Rig,uint8 Part,uint32 Schema,FFPSBodyLaserSample& Out) const;
     // The accepted first-person consumable executor supplies visual release events.
     bool PresentConsumableDiscard(class UStaticMeshComponent* Source,const FVector& Velocity,float Lifetime);
     /** Only catalog IDs are accepted. Persists the owning player's choice. */
@@ -76,9 +82,29 @@ private:
     UPROPERTY(Transient) TArray<TObjectPtr<class USkeletalMeshComponent>> WorldReloadProps;
     UPROPERTY(Transient) TArray<TObjectPtr<class UTacticalDeviceComponent>> WorldTacticalDevices;
     UPROPERTY(Transient) TObjectPtr<class UFPSWeaponFXComponent> RemoteGunFX;
-    UPROPERTY(Transient) TObjectPtr<class USoundBase> RemoteGunSound;
-    UPROPERTY(Transient) TObjectPtr<class USoundBase> RemoteSuppressedGunSound;
-    UPROPERTY(Transient) TObjectPtr<class USoundConcurrency> RemoteGunConcurrency;
+    UPROPERTY(Transient) FFPSRemoteGunHand RemoteGunHands[2];
+    TSharedPtr<struct FStreamableHandle> RemoteGunLoads[2];
+    TArray<FFPSGunEvent> PendingGunEvents;
+    TArray<FFPSGunEvent> PendingAuthorityGunEvents;
+    void RelayGunEvent(const FFPSGunEvent& Event);
+    void FlushAuthorityGunEvents();
+    uint32 SentGunSequence=0;
+    uint32 ReceivedGunSequence[2]={0,0};
+    uint32 ReceivedGunMechanicalSequence[2]={0,0};
+    void DescribeGun(FFPSBodyWeapon& Weapon) const;
+    bool CurrentGun(uint8 Hand,FFPSBodyWeapon& Weapon) const;
+    void SendGunEvent(FFPSGunEvent Event);
+    bool AcceptGunEvent(FFPSGunEvent& Event);
+    UFUNCTION(Server,Unreliable) void ServerGunShot(const FFPSGunEvent& Event);
+    UFUNCTION(NetMulticast,Unreliable) void MulticastGunShot(const FFPSGunEvent& Event);
+    UFUNCTION(Server,Reliable) void ServerGunMechanical(const FFPSGunEvent& Event);
+    UFUNCTION(NetMulticast,Reliable) void MulticastGunMechanical(const FFPSGunEvent& Event);
+    void QueueGunEvent(const FFPSGunEvent& Event);
+    void PresentGunEvents();
+    bool PresentGunEvent(const FFPSGunEvent& Event,float Age);
+    void BuildGunPresentation(const FFPSBodyWeapon& Weapon,class UFPSBodyWeaponMeshComponent* Mesh);
+    void ClearGunPresentation();
+    void StopRemoteGunMechanical(uint8 Hand);
     UPROPERTY(Transient) TArray<TObjectPtr<class UStaticMeshComponent>> WorldParts;
     // Includes the weapon and every copied part; array indices can change when an asset is absent.
     TMap<TWeakObjectPtr<class UPrimitiveComponent>, uint8> WorldEquipmentHands;
@@ -126,12 +152,19 @@ private:
     void UpdateWorldOwnerVisibility(bool bHideFromOwner);
 
     // State edges (including None/cancel) are reliable. Continuous cosmetic samples
-    // are bounded to 12.5 Hz; one sequence orders both RPC streams.
+    // use 25 Hz during actions and 12.5 Hz at rest; one sequence orders both RPC streams.
     UFUNCTION(Server, Reliable) void ServerBodyTransition(const FFPSBodyState& State, uint32 Sequence);
     UFUNCTION(Server, Unreliable) void ServerBodySnapshot(const FFPSBodyState& State, uint32 Sequence);
     void SendBodyPresentation(float Delta);
+    void CaptureLaserPresentation();
+    void SanitizeLaserPresentation(FFPSBodyState& State) const;
     void AcceptBodyPresentation(const FFPSBodyState& State, uint32 Sequence);
     static void AdvanceBodyPresentation(FFPSBodyState& State, float Now);
+    void PresentRecentGunShots(float Now);
+    float ReceivedShotAt[3]={-100.f,-100.f,-100.f};
+    float PresentedShotAt[3]={-100.f,-100.f,-100.f};
+    FString ShotWeaponInstance,ShotOffhandInstance;
+    bool bHaveShotPresentation=false;
     FFPSBodyState PreviousLocalPresentation;
     FFPSBodyState ReportedPresentation;
     bool bHasLocalPresentation = false;
@@ -177,6 +210,11 @@ private:
     FFPSBodyGripRig* MotionMap(class USkeletalMeshComponent* Source,FName Hand,int32 Side);
     void CaptureMotion(FFPSBodyState& State);
     void ApplyMotion(float Delta);
+    void UpdateFloatingBook(const FFPSBodyMotionSample& Sample,float Alpha);
+    UPROPERTY(Transient) TObjectPtr<class UFPSBodyWeaponMeshComponent> WorldFloatingBook;
+    TSharedPtr<struct FStreamableHandle> FloatingBookLoad;
+    FTransform SmoothedBookFrame=FTransform::Identity;
+    TArray<FTransform> SmoothedBookPose;
     void CaptureMotionHand(class USkeletalMeshComponent* Source,FName Hand,int32 Side,bool Wrist,FFPSBodyMotionSample& Sample,const TArray<FTransform>* PoseOverride=nullptr);
     void UpdateConsumable(const FFPSBodyMotionSample& Sample);
     void CreateConsumable(FName Definition);

@@ -2,6 +2,8 @@
 #include "RSH12WeaponAssets.h"
 #include "PitViper2011WeaponAssets.h"
 #include "PistolDualWieldComponent.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
+#include "DualPistolReloadTiming.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Skills/ColdSteelSkillRules.h"
@@ -55,7 +57,8 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
     // Both hands shoot the averaged akimbo cone, the same value the reticle shows.
     const float Spread=SharedConeSpread();
     const FVector Direction=FMath::VRandCone(SightDirection(),Spread);
-    const FVector Muzzle=H.FX->ShotOrigin()+H.FX->ShotForward()*2.f;
+    const FTransform ShotMuzzle=H.FX->ShotTransform();
+    const FVector Muzzle=ShotMuzzle.GetLocation()+ShotMuzzle.GetRotation().GetAxisX()*2.f;
     const float Range=FMath::Max(10000.f,float(H.Stats.Range)*300.f);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(DualPistolShot),true,Player);Query.bReturnPhysicalMaterial=true;Query.bReturnFaceIndex=true;
     FHitResult Sight,Blocked;
@@ -94,7 +97,7 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
         H.FX->OnImpact(Blocked);
     }
     else H.Ballistics->Launch(Muzzle,(Target-Muzzle).GetSafeNormal(),float(H.Stats.Speed)*100.f,Range,float(H.Stats.Damage),H.FX,Player->CriticalHitSound,float(H.Stats.Range)*100.f,&H.Item);
-    H.FX->OnShot(false);
+    H.FX->OnShotAtMuzzle(false,ShotMuzzle);
     USoundBase* Sound=H.Suppressed?H.Sounds.FindRef(TEXT("Suppressed")):nullptr;
     if(!Sound)Sound=H.Sounds.FindRef(TEXT("Fire"));
     if(H.Item.Definition==G18WeaponAssets::Definition)
@@ -114,6 +117,8 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
         if(Sound)Player->PlayFireVoice(Sound,H.Suppressed?.7f:1.5f);
     }
     else if(Sound)UGameplayStatics::PlaySound2D(this,Sound,H.Item.Definition==RSH12WeaponAssets::Definition?.9f:H.Suppressed?.7f:1.5f,1.f);
+    if(auto* Body=Player->FindComponentByClass<UFPSPlayerBodyComponent>())
+        Body->ReportGunShot(Index,Sound,H.Item.Definition==RSH12WeaponAssets::Definition?.9f:H.Suppressed?.7f:1.5f,1.f,false);
     UAISense_Hearing::ReportNoiseEvent(this,Player->GetActorLocation(),1.f,Player,H.Suppressed?1000.f:3600.f,
         H.Suppressed?TEXT("GunshotSuppressed"):TEXT("Gunshot"));
     const auto FeedbackHandling=ColdSteelCombat::ComposureHandling(Player,H.Stats.Handling);
@@ -180,18 +185,20 @@ void UPistolDualWieldComponent::BeginReload(int32 Index)
     const float Base=H.ReloadSpeedloader && H.Item.Definition==RSH12WeaponAssets::Definition?DanWesson715WeaponAssets::EmptyReload:
         W?float(UseEmpty?W->Base.EmptyReload:W->Base.Reload):H.SourceLength;
     const float Modified=float(UseEmpty?H.Stats.EmptyReload:H.Stats.Reload);
-    // +33% akimbo reload: the same source clip played slower, so mechanical cues
-    // and the ammo commit still land on the animation's own beats.
+    // Preserve the +33% total cost. SampleActionTime shapes only the opening
+    // throw; mechanics, cues and ammo commits all consume its source time.
     const float Duration=FMath::Max(.05f,Modified)*DualPistolReload::TimeScale;
     StartAction(Index,Clip,Base/Duration);
     H.Reloading=H.Action!=nullptr;
+    H.ReloadCameraBegin=0.f;
     H.Pending=false;
     if(ResumeCycle && H.Action)
     {
         H.Seated=FMath::Max(1,H.ReloadCount);
         const auto Stages=WeaponReloadStages::ForWeapon(H.Item.Definition,UseEmpty,false,H.Revolver&&!H.ReloadSpeedloader,H.ReloadCount);
         H.ActionTime=Stages.CycleBegin/H.SourceLength*H.Action->GetPlayLength();
-        H.ActionStarted-=H.ActionTime/FMath::Max(.001f,H.ActionRate);
+        H.ReloadCameraBegin=Stages.CycleBegin;
+        H.ActionStarted-=ReloadSecondsAtSource(Index,Stages.CycleBegin);
     }
 }
 
@@ -225,7 +232,15 @@ void UPistolDualWieldComponent::Cue(int32 Index,const FString& Name,float At,flo
     if(auto* Sound=H.Sounds.FindRef(SoundKey).Get())
     {
         if(auto* Voice=UGameplayStatics::SpawnSound2D(this,Sound,.8f,1.f,0.f,nullptr,false,true))H.Voices.Add(Voice);
+        if(auto* Body=Player->FindComponentByClass<UFPSPlayerBodyComponent>())Body->ReportGunMechanical(Index,Sound,.8f);
     }
+}
+
+float UPistolDualWieldComponent::ReloadSecondsAtSource(int32 Index,float Source) const
+{
+    const auto& H=Hands[Index];
+    const float Linear=DualPistolReloadTiming::LinearSourceTime(Source,H.Revolver,H.ReloadSpeedloader);
+    return Linear/FMath::Max(.001f,H.SourceLength)*H.Action->GetPlayLength()/FMath::Max(.001f,H.ActionRate);
 }
 
 void UPistolDualWieldComponent::AdvanceReload(int32 Index,float Previous)
@@ -261,8 +276,12 @@ void UPistolDualWieldComponent::AdvanceReload(int32 Index,float Previous)
     }
     if(H.ReloadSpeedloader)
     {
+        // Recorded clips contain real-time pre-roll. Subtract that lead AFTER
+        // inverting the new pose clock, so the audible impact still meets metal.
+        const float PreviousSeconds=ReloadSecondsAtSource(Index,Previous);
+        const float CurrentSeconds=ReloadSecondsAtSource(Index,Source);
         for(const auto& C:SpeedloaderSoundCues)
-            Cue(Index,C.Name,FMath::Max(0.f,C.Contact/NormalReload*3.85f-C.LeadSeconds*H.ActionRate),Previous,Source);
+            Cue(Index,C.Name,FMath::Max(0.f,ReloadSecondsAtSource(Index,C.Contact/NormalReload*3.85f)-C.LeadSeconds),PreviousSeconds,CurrentSeconds);
         if(!H.Seated && Source>=Seat/NormalReload*3.85f)
         {
             if(!CommitReloadInsertion(Index,H.ReloadCount,true)){StopAction(Index);return;}
@@ -304,7 +323,8 @@ bool UPistolDualWieldComponent::ReleaseReloadCases(int32 Index,float ReleaseSour
     const int32 Live=H.Rounds;
     const float Now=H.ActionTime;
     const float ReleaseTime=ReleaseSource/H.SourceLength*H.Action->GetPlayLength();
-    const float Age=FMath::Max(0.f,(Now-ReleaseTime)/FMath::Max(.001f,H.ActionRate));
+    const float NowSource=Now/H.Action->GetPlayLength()*H.SourceLength;
+    const float Age=FMath::Max(0.f,ReloadSecondsAtSource(Index,NowSource)-ReloadSecondsAtSource(Index,ReleaseSource));
     // Resolve the actual release pose before the inventory transaction masks
     // its case bones. Sampling the previous rendered frame causes a visible gap.
     H.ActionTime=ReleaseTime;
@@ -330,8 +350,12 @@ bool UPistolDualWieldComponent::ReleaseReloadCases(int32 Index,float ReleaseSour
     {
         const auto& Meshes=Chamber<Live?H.ReloadLiveMeshes:H.ReloadCaseMeshes;
         if(Meshes.IsValidIndex(Chamber) && Meshes[Chamber] && H.FX)
-            H.FX->OnReloadCartridge(Meshes[Chamber],Frames[Chamber-First],
-                Player->GetVelocity()-Bore*32.f+FVector(0,0,-18.f),Age);
+        {
+            const FVector Velocity=Player->GetVelocity()-Bore*32.f+FVector(0,0,-18.f);
+            H.FX->OnReloadCartridge(Meshes[Chamber],Frames[Chamber-First],Velocity,Age);
+            if(auto* Body=Player->FindComponentByClass<UFPSPlayerBodyComponent>())
+                Body->ReportGunCartridge(Index,Meshes[Chamber],Frames[Chamber-First],Velocity,Age);
+        }
     }
     Pose(Index,0.f);
     H.Mesh->TickAnimation(0.f,false);

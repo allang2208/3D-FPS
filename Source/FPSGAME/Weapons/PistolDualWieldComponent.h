@@ -34,8 +34,8 @@ namespace DualPistolSpread
 
 // Akimbo reloads cost more time: each hand is keeping its own gun up, so both
 // hands pay TimeScale times their gunsmith reload time. Cues, ammo commits and
-// the reaction clock all ride the animation's own clock, so only the wall-clock
-// length changes - the beats stay exactly where the source clip put them.
+// the reaction clock share the retimed animation source clock. The opening
+// throw has its own tempo; loading and the total +33% cost remain unchanged.
 namespace DualPistolReload
 {
     constexpr float TimeScale = 1.33f;
@@ -65,6 +65,7 @@ struct FDualPistolHand
     bool Held=false, Pending=false, Reloading=false, ReloadQueued=false, CasesCleared=false;
     bool ReloadCasesReleased=false;
     float ActionTime=0, ActionRate=1, SourceLength=0, Sprint=0, SprintBlend=0, Bloom=0;
+    float ReloadCameraBegin=0.f;
     double NextShot=0, LastShot=-10;
     double ActionStarted=0;
     double ActionBlendStarted=0;
@@ -96,6 +97,8 @@ public:
     void InterruptActions();
     bool LeftBusy() const;
     const FDualPistolHand& Hand(int32 Index) const { return Hands[Index]; }
+    // Shared absolute clock for the posed rig and the earlier camera update.
+    float SampleActionTime(int32 Index) const;
     bool MatchesEquipment(const UColdSteelStatusModel* Model, bool bWeaponReady) const;
     // This hand's own hip cone (radians of half angle) from its stance, bloom and
     // spread stat. Dual pistols never aim down sights, so the shared reticle reads
@@ -140,6 +143,7 @@ private:
     void StartAction(int32 Index,const FString& Name,float Rate=1.f);
     void BeginReload(int32 Index);
     void AdvanceReload(int32 Index,float PreviousSource);
+    float ReloadSecondsAtSource(int32 Index,float Source) const;
     bool ReleaseReloadCases(int32 Index,float ReleaseSource);
     bool CommitReloadInsertion(int32 Index,int32 Count,bool Completed);
     bool CompleteReloadMechanism(int32 Index,float Source);

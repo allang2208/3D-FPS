@@ -7,6 +7,7 @@
 #include "../Weapons/WeaponGripProfile.h"
 #include "../Weapons/Super90WeaponAssets.h"
 #include "../Weapons/TacticalDeviceComponent.h"
+#include "../Weapons/TacticalDeviceVariants.h"
 #include "../Weapons/FPSWeaponFXComponent.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
 #include "../FPSGAMECharacter.h"
@@ -163,6 +164,7 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
             Result.ReloadPropMaterials.Add(FPSBodyEquipment::PersistentMaterial(Prop->GetMaterial(M)));
         break;
     }
+    TInlineComponentArray<UTacticalDeviceComponent*> TacticalDevices(Source->GetOwner());
     for(auto* Child:Children)if(auto* Part=Cast<UStaticMeshComponent>(Child);Part&&Part->GetStaticMesh()&&Result.Parts.Num()<64)
     {
         FFPSBodyAttachment Entry;Entry.Mesh=Part->GetStaticMesh();
@@ -173,11 +175,17 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
         {Branch=Branch->GetAttachParent();Entry.RelativeTransform=Entry.RelativeTransform*Branch->GetRelativeTransform();}
         Entry.Socket=Branch->GetAttachSocketName();
         for(int32 I=0;I<Part->GetNumMaterials();++I)Entry.Materials.Add(FPSBodyEquipment::PersistentMaterial(Part->GetMaterial(I)));
-        if(bSuper90&&Character.IsValid()&&Part==Character->MuzzleAttachment)
+        if(Character.IsValid()&&Source==Character->AKMViewmodel&&Part==Character->MuzzleAttachment
+            &&!Character->MuzzleVariant.IsEmpty())
         {
             Result.MuzzlePart=Result.Parts.Num();Result.MuzzleTip=Character->MuzzleLocalTip;
             Result.MuzzleAxis=Character->MuzzleLocalAxis;
         }
+        TWeakObjectPtr<UTacticalDeviceComponent> TacticalSource;
+        for(auto* Device:TacticalDevices)
+            if(Device->DescribePart(Part,Entry.TacticalKind,Entry.bAuthoredEmitterAxis))
+            {TacticalSource=Device;break;}
+        Result.SourceTacticalDevices.Add(TacticalSource);
         Result.Parts.Add(MoveTemp(Entry));
         Result.SourceParts.Add(Part);
     }
@@ -273,7 +281,19 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
             Weapons.Add(MoveTemp(Entry));
         }
     }
-    if(const auto* Spellbook=Pawn->FindComponentByClass<USpellbookComponent>();Spellbook&&Spellbook->IsEquipped())
+    const auto* Spellbook=Pawn->FindComponentByClass<USpellbookComponent>();
+    const auto* RemoteProfile=Pawn->GetNetShadowProfile();
+    if(RemoteProfile&&RemoteProfile->ActiveSpellbook()&&!RemoteProfile->ActiveProductionTool())
+    {
+        // A remote/dedicated pawn does not load or equip the owner-only hand rig.
+        // Publish the same asset identity/schema from authoritative equipment.
+        FFPSBodyWeapon Entry;
+        Entry.StaticMesh=TSoftObjectPtr<UStaticMesh>(FSoftObjectPath(TEXT("/Game/Weapons/SpellbookEvildeer20261009/Meshes/SM_Spellbook_Alchemy_Closed.SM_Spellbook_Alchemy_Closed")));
+        Entry.Mesh=TSoftObjectPtr<USkeletalMesh>(FSoftObjectPath(TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7")));
+        Entry.GripBone=TEXT("hand_l");Entry.AttachHand=1;Entry.PoseFamily=TEXT("Spellbook");Entry.StaticGrip=SpellbookAuthoredGrip::BookInHand;
+        Weapons.Add(MoveTemp(Entry));
+    }
+    else if(Spellbook&&Spellbook->IsEquipped())
     {
         const auto* Book=Spellbook->BookMesh();auto* Arms=Spellbook->ArmsMesh();
         if(Book&&Book->GetStaticMesh()&&Arms&&Arms->GetSkeletalMeshAsset())
@@ -287,9 +307,10 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
     }
     for(auto& W:Weapons)
     {
+        DescribeGun(W);
         FString Schema=W.Mesh.ToSoftObjectPath().ToString()+W.StaticMesh.ToSoftObjectPath().ToString()+W.GripBone.ToString();
         for(int32 B:W.MotionBones)Schema+=FString::Printf(TEXT("|%d"),B);
-        for(const auto& P:W.Parts)Schema+=TEXT("|")+P.Mesh.ToSoftObjectPath().ToString()+P.Socket.ToString();
+        for(const auto& P:W.Parts)Schema+=TEXT("|")+P.Mesh.ToSoftObjectPath().ToString()+P.Socket.ToString()+P.TacticalKind.ToString();
         if(!W.ReloadPropMesh.IsNull())Schema+=TEXT("|")+W.ReloadPropMesh.ToSoftObjectPath().ToString();
         W.MotionSchema=FCrc::StrCrc32(*Schema);
     }
@@ -300,6 +321,10 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
         Key+=TEXT("|")+W.StaticMesh.ToSoftObjectPath().ToString()+TEXT("|")+W.StaticGrip.ToString();
         Key+=TEXT("|")+W.GripProfile.ToSoftObjectPath().ToString()+FString::Printf(TEXT("|%s:%d:%d"),*W.PoseFamily.ToString(),W.AttachHand,W.StaffVariant);
         Key+=TEXT("|")+W.ReloadPropMesh.ToSoftObjectPath().ToString();
+        Key+=TEXT("|")+W.GunInstance+W.GunDefinition.ToString();
+        Key+=W.GunFireSound.ToSoftObjectPath().ToString()+W.GunSuppressedSound.ToSoftObjectPath().ToString();
+        Key+=W.bGunSuppressed?TEXT("|suppressed"):TEXT("|open");
+        for(const auto& Sound:W.GunSounds)Key+=TEXT("|")+Sound.ToSoftObjectPath().ToString();
         for(const auto& Material:W.ReloadPropMaterials)Key+=TEXT("|")+Material.ToSoftObjectPath().ToString();
         if(W.MuzzlePart!=INDEX_NONE)Key+=FString::Printf(TEXT("|exit:%d|%s|%s"),W.MuzzlePart,*W.MuzzleTip.ToString(),*W.MuzzleAxis.ToString());
         // Discard cached fitted mounts/palm poses when this source-sharing
@@ -313,6 +338,7 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
         for(const auto& Part:W.Parts)
         {
             Key+=TEXT("|")+Part.Mesh.ToSoftObjectPath().ToString();
+            Key+=TEXT("|")+Part.TacticalKind.ToString()+(Part.bAuthoredEmitterAxis?TEXT("|axis-authored"):TEXT("|axis-sight"));
             if(!W.Source.IsValid())Key+=TEXT("|")+Part.RelativeTransform.ToString();
             Key+=TEXT("|")+Part.SkeletalMesh.ToSoftObjectPath().ToString()+Part.Slot.ToString()+TEXT("|")+Part.Socket.ToString();
             for(const auto& Material:Part.Materials)Key+=TEXT("|")+Material.ToSoftObjectPath().ToString();
@@ -354,8 +380,7 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
     if(FPSPlayerBodyWorldBodySuppressed())return;
     UFPSPerformanceMetricsSubsystem::CountEquipmentRebuild(this);
     for(auto Device:WorldTacticalDevices)if(Device)Device->DestroyComponent();WorldTacticalDevices.Reset();
-    if(RemoteGunFX){RemoteGunFX->DestroyComponent();RemoteGunFX=nullptr;}
-    RemoteGunSound=nullptr;RemoteSuppressedGunSound=nullptr;
+    ClearGunPresentation();
     for(auto Part:WorldParts)if(Part)Part->DestroyComponent();WorldParts.Reset();
     for(auto Prop:WorldReloadProps)if(Prop)Prop->DestroyComponent();WorldReloadProps.Reset();
     for(auto Weapon:WorldWeapons)if(Weapon)Weapon->DestroyComponent();WorldWeapons.Reset();
@@ -530,8 +555,10 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
                 }
             }
         }
-        for(const auto& DefinitionPart:Definition.Parts)if(auto* AssetPart=DefinitionPart.Mesh.LoadSynchronous())
+        for(int32 PartIndex=0;PartIndex<Definition.Parts.Num();++PartIndex)
         {
+            const auto& DefinitionPart=Definition.Parts[PartIndex];
+            auto* AssetPart=DefinitionPart.Mesh.LoadSynchronous();if(!AssetPart)continue;
             auto* Part=NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);
             GetOwner()->AddInstanceComponent(Part);Part->SetStaticMesh(AssetPart);
             Part->SetupAttachment(Weapon);
@@ -543,27 +570,17 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
             Part->RegisterComponent();WorldParts.Add(Part);
             Motion.Parts.Add(Part);
             MotionEquipmentIndices.Add(Part,Index);
-            if(!Character->IsLocallyControlled()&&AssetPart->GetPathName().Contains(TEXT("/Super90/TacticalBottom")))
+            if(!Character->IsLocallyControlled()&&(TacticalDeviceVariants::IsLaser(DefinitionPart.TacticalKind.ToString())
+                ||(Definition.GunDefinition==TEXT("ue_super90")&&DefinitionPart.TacticalKind==TEXT("flashlight"))))
             {
-                const FString Name=AssetPart->GetName();
-                const FString Kind=Name.Contains(TEXT("blessed_laser"))?TEXT("blessed_laser"):
-                    Name.Contains(TEXT("flashlight"))?TEXT("flashlight"):TEXT("laser");
                 auto* Device=NewObject<UTacticalDeviceComponent>(GetOwner(),NAME_None,RF_Transient);
                 GetOwner()->AddInstanceComponent(Device);Device->RegisterComponent();
-                Device->ConfigureWorld(Kind,Weapon,Part);WorldTacticalDevices.Add(Device);
+                Device->ConfigureWorld(DefinitionPart.TacticalKind.ToString(),Weapon,Part,
+                    DefinitionPart.bAuthoredEmitterAxis,Index,PartIndex,Definition.MotionSchema);
+                WorldTacticalDevices.Add(Device);
             }
         }
-        if(!Character->IsLocallyControlled()&&Asset->GetPathName()==Super90WeaponAssets::MeshPath)
-        {
-            RemoteGunFX=NewObject<UFPSWeaponFXComponent>(GetOwner(),NAME_None,RF_Transient);
-            GetOwner()->AddInstanceComponent(RemoteGunFX);RemoteGunFX->RegisterComponent();
-            RemoteGunFX->SetWorldGunSuppressed(false);
-            if(Motion.Parts.IsValidIndex(Definition.MuzzlePart))
-                RemoteGunFX->SetWorldMuzzle(Motion.Parts[Definition.MuzzlePart].Get(),Definition.MuzzleTip,Definition.MuzzleAxis);
-            RemoteGunFX->Initialize(Weapon,Character->FirstPersonCamera);
-            RemoteGunSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/Super90/GameDevAudio20261007/S_Super90_Fire.S_Super90_Fire"));
-            RemoteSuppressedGunSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/AKM/SuppressedAudio20260921/S_AKM_Suppressed"));
-        }
+        BuildGunPresentation(Definition,Weapon);
     }
     for(auto& Binding:MotionBindings)
     {

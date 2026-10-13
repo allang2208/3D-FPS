@@ -154,7 +154,7 @@ public:
     UFUNCTION(Server,Reliable) void ServerSuper90Cancel(uint32 Sequence,bool Soft);
     UFUNCTION(Client,Reliable) void ClientSuper90Ammo(const FSuper90NetAmmoState& State);
     UFUNCTION(NetMulticast,Unreliable) void MulticastSuper90Shot(class AFPSGAMECharacter* Shooter,FVector_NetQuantize Muzzle,
-        const TArray<FVector_NetQuantizeNormal>& Directions,float Speed,float Range,bool Aiming,bool Suppressed);
+        const TArray<FVector_NetQuantizeNormal>& Directions,float Speed,float Range,bool Aiming,bool Suppressed,const FString& Weapon,float FiredAt);
 
     /** 客户端命中上报：只报开火几何与武器声明，数值由服务端按影子档案重算。 */
     UFUNCTION(Server, Reliable)

@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-13",
+  "scope": "Current conversation weapon animation, laser and network work",
+  "files": [
+    {
+      "source": "Saved/BipodLaserSync20261013/Before/FPSPlayerBodyActions.cpp",
+      "destination": "trash/weapon-round-retired-20261013/Saved/BipodLaserSync20261013/Before/FPSPlayerBodyActions.cpp",
+      "bytes": 24591,
+      "sha256": "1a288e20c2dda494ed588013d2acdd0518abad39075d6e1a35817ef0c6af4d84",
+      "reason": "Superseded pre-fix source snapshot; final implementation and build receipt retained.",
+      "replacement": "Saved/BipodLaserSync20261013/change-receipt.json and current Source/FPSGAME"
+    },
+    {
+      "source": "Saved/BipodLaserSync20261013/Before/FPSPlayerBodyComponent.h",
+      "destination": "trash/weapon-round-retired-20261013/Saved/BipodLaserSync20261013/Before/FPSPlayerBodyComponent.h",
+      "bytes": 17281,
+      "sha256": "5e8878dd6bf23dbcfccd966ac6784fdc4ec4a0d242e307d6017df648d4ae78c9",
+      "reason": "Superseded pre-fix source snapshot; final implementation and build receipt retained.",
+      "replacement": "Saved/BipodLaserSync20261013/change-receipt.json and current Source/FPSGAME"
+    },
+    {
+      "source": "Saved/BipodLaserSync20261013/Before/FPSPlayerBodyEquipment.cpp",
+      "destination": "trash/weapon-round-retired-20261013/Saved/BipodLaserSync20261013/Before/FPSPlayerBodyEquipment.cpp",
+      "bytes": 46019,
+      "sha256": "5863521a34ff265f2b2073e06a33b041edda965ea9010dccc600f63654c16c5e",
+      "reason": "Superseded pre-fix source snapshot; final implementation and build receipt retained.",
+      "replacement": "Saved/BipodLaserSync20261013/change-receipt.json and current Source/FPSGAME"
+    },
+    {
+      "source": "Saved/BipodLaserSync20261013/Before/FPSPlayerBodyNetwork.cpp",
+      "destination": "trash/weapon-round-retired-20261013/Saved/BipodLaserSync20261013/Before/FPSPlayerBodyNetwork.cpp",
+      "bytes": 12764,
+      "sha256": "3f8842c80189e5c1c4a956f9e211e55adc7fe75ff5b1b97de78d3df076036dfa",
+      "reason": "Superseded pre-fix source snapshot; final implementation and build receipt retained.",
+      "replacement": "Saved/BipodLaserSync20261013/change-receipt.json and current Source/FPSGAME"
+    },
+    {
+      "source": "Saved/BipodLaserSync20261013/Before/FPSPlayerBodyTypes.h",
+      "destination": "trash/weapon-round-retired-20261013/Saved/BipodLaserSync20261013/Before/FPSPlayerBodyTypes.h",
+      "bytes": 10016,
+      "sha256": "e48274e85c889c93b5145f047c6ba950416a87a4eacfed0dcea3363906d0ad86",
+      "reason": "Superseded pre-fix source snapshot; final implementation and build receipt retained.",
+      "replacement": "Saved/BipodLaserSync20261013/change-receipt.json and current Source/FPSGAME"
+    },
+    {
+      "source": "Saved/BipodLaserSync20261013/Before/TacticalDeviceComponent.cpp",
+      "destination": "trash/weapon-round-retired-20261013/Saved/BipodLaserSync20261013/Before/TacticalDeviceComponent.cpp",
+      "bytes": 27599,
+      "sha256": "ed375108f019554ea02256c3bcdb4d3c5df4c0ac5120fd9b5d1644e1e7afa21c",
+      "reason": "Superseded pre-fix source snapshot; final implementation and build receipt retained.",
+      "replacement": "Saved/BipodLaserSync20261013/change-receipt.json and current Source/FPSGAME"
+    },
+    {
+      "source": "Saved/BipodLaserSync20261013/Before/TacticalDeviceComponent.h",
+      "destination": "trash/weapon-round-retired-20261013/Saved/BipodLaserSync20261013/Before/TacticalDeviceComponent.h",
+      "bytes": 1960,
+      "sha256": "c2fe9a537add071bc0c826f620f79933d12fc48e21db1f609f61e3e84eca171f",
+      "reason": "Superseded pre-fix source snapshot; final implementation and build receipt retained.",
+      "replacement": "Saved/BipodLaserSync20261013/change-receipt.json and current Source/FPSGAME"
+    },
+    {
+      "source": "Saved/BipodLaserSync20261013/Before/WeaponBipodDeploymentComponent.cpp",
+      "destination": "trash/weapon-round-retired-20261013/Saved/BipodLaserSync20261013/Before/WeaponBipodDeploymentComponent.cpp",
+      "bytes": 34210,
+      "sha256": "8b5b30ec1755f57517829a6631b42357fd70e31e26854b3f5722e95fe8d717e6",
+      "reason": "Superseded pre-fix source snapshot; final implementation and build receipt retained.",
+      "replacement": "Saved/BipodLaserSync20261013/change-receipt.json and current Source/FPSGAME"
+    },
+    {
+      "source": "Saved/BipodLaserSync20261013/Before/WeaponBipodDeploymentComponent.h",
+      "destination": "trash/weapon-round-retired-20261013/Saved/BipodLaserSync20261013/Before/WeaponBipodDeploymentComponent.h",
+      "bytes": 6686,
+      "sha256": "4afd3127730490e997bf3b50626f0745c04ed4c41c027090fbc2de51dd655b39",
+      "reason": "Superseded pre-fix source snapshot; final implementation and build receipt retained.",
+      "replacement": "Saved/BipodLaserSync20261013/change-receipt.json and current Source/FPSGAME"
+    },
+    {
+      "source": "Saved/PistolLaserADSTransition20261013/TacticalDeviceComponent.before.cpp",
+      "destination": "trash/weapon-round-retired-20261013/Saved/PistolLaserADSTransition20261013/TacticalDeviceComponent.before.cpp",
+      "bytes": 26267,
+      "sha256": "3ece4825adef8833992f6b504ecd5e51109e18efb1aac30b1a33d3856b7211ff",
+      "reason": "Superseded pre-fix source snapshot; final implementation and build receipt retained.",
+      "replacement": "Saved/BipodLaserSync20261013/change-receipt.json and current Source/FPSGAME"
+    },
+    {
+      "source": "Saved/PistolLaserADSTransition20261013/livecoding-request.json",
+      "destination": "trash/weapon-round-retired-20261013/Saved/PistolLaserADSTransition20261013/livecoding-request.json",
+      "bytes": 120,
+      "sha256": "a71c4701debf5e9116c1d0e20f1ee2be7138505158172f4e9f2ff02123364a66",
+      "reason": "Completed one-shot MCP discovery or live compilation request; actual result and build logs retained.",
+      "replacement": "Saved/BipodLaserSync20261013/change-receipt.json and current Source/FPSGAME"
+    },
+    {
+      "source": "Saved/PistolLaserADSTransition20261013/livecoding-schema.txt",
+      "destination": "trash/weapon-round-retired-20261013/Saved/PistolLaserADSTransition20261013/livecoding-schema.txt",
+      "bytes": 721,
+      "sha256": "d4e6916c22063b617f8cffdc9361c66a1aa6149bdb0684de947a9916cabfc53f",
+      "reason": "Completed one-shot MCP discovery or live compilation request; actual result and build logs retained.",
+      "replacement": "Saved/BipodLaserSync20261013/change-receipt.json and current Source/FPSGAME"
+    },
+    {
+      "source": "Saved/PistolLaserADSTransition20261013/toolsets.txt",
+      "destination": "trash/weapon-round-retired-20261013/Saved/PistolLaserADSTransition20261013/toolsets.txt",
+      "bytes": 13635,
+      "sha256": "61099bd615bdba81433d492ba5d370645c8671f9048b80cbfa80797addeb1d27",
+      "reason": "Completed one-shot MCP discovery or live compilation request; actual result and build logs retained.",
+      "replacement": "Saved/BipodLaserSync20261013/change-receipt.json and current Source/FPSGAME"
+    },
+    {
+      "source": "Docs/Publication/WeaponRound20261013/runtime-integration.patch",
+      "destination": "trash/weapon-round-retired-20261013/Docs/Publication/WeaponRound20261013/runtime-integration.patch",
+      "bytes": 288414,
+      "sha256": "ed4394571ecd6f1be0803db6d4d22b02b798f42e94e9ced96c90764877bbb963",
+      "reason": "Retired patch-only publication draft after publishing the scoped changes directly to their canonical source paths.",
+      "replacement": "Docs/Publication/WeaponRound20261013/source-manifest.json and the directly staged source files"
+    }
+  ]
+}

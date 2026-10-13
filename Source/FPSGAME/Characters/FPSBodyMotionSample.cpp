@@ -46,10 +46,21 @@ bool FFPSBodyMotionSample::NetSerialize(FArchive& Ar,UPackageMap*,bool& Success)
     }
     Ar<<Consumable;Ar<<ConsumableSerial;Ar<<DiscardFlags;Ar<<PropVisibility;
     if(!Consumable.IsNone()){for(auto& P:Props)Transform(Ar,P);Ar<<LiquidLevel;}
+    Ar.SerializeBits(&FloatingBook,1);
+    if(FloatingBook)
+    {
+        Transform(Ar,BookFrame);
+        uint8 N=Ar.IsSaving()?FMath::Min(BookPose.Num(),64):0;Ar<<N;
+        if(N>64){Success=false;return true;}if(Ar.IsLoading())BookPose.SetNum(N);
+        for(auto& Bone:BookPose)Transform(Ar,Bone);
+    }
+    else if(Ar.IsLoading()){BookPose.Reset();BookFrame=FTransform::Identity;}
     Ar<<Light;Success=!Ar.IsError();return true;
 }
 bool FFPSBodyMotionSample::IsSane() const
 {
+    if(!Good(BookFrame)||BookPose.Num()>64)return false;
+    for(const auto& Bone:BookPose)if(!Good(Bone))return false;
     if(Fingers>3||Wrists>3||Rigs.Num()>2||!FMath::IsFinite(LiquidLevel)||!FMath::IsFinite(Light)||!Good(SupportGrip))return false;
     for(const auto& H:Hands){if(!Good(H.Wrist))return false;for(const auto& Q:H.Fingers)if(Q.ContainsNaN())return false;}
     for(const auto& R:Rigs)
@@ -63,6 +74,12 @@ bool FFPSBodyMotionSample::IsSane() const
 bool FFPSBodyMotionSample::Identical(const FFPSBodyMotionSample* Other,uint32) const
 {
     if(!Other)return false;const auto& B=*Other;
+    if(FloatingBook!=B.FloatingBook)return false;
+    if(FloatingBook)
+    {
+        if(!BookFrame.Equals(B.BookFrame)||BookPose.Num()!=B.BookPose.Num())return false;
+        for(int32 I=0;I<BookPose.Num();++I)if(!BookPose[I].Equals(B.BookPose[I]))return false;
+    }
     if(Channel!=B.Channel||Consumable!=B.Consumable||ConsumableSerial!=B.ConsumableSerial||Fingers!=B.Fingers||Wrists!=B.Wrists
         ||PropVisibility!=B.PropVisibility||DiscardFlags!=B.DiscardFlags||CoupledWrists!=B.CoupledWrists||DroppedBottle!=B.DroppedBottle
         ||HasSupportGrip!=B.HasSupportGrip||(HasSupportGrip&&!SupportGrip.Equals(B.SupportGrip))

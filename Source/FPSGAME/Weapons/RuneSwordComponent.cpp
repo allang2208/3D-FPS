@@ -1,4 +1,5 @@
 #include "RuneSwordComponent.h"
+#include "SprintCameraMotion.h"
 #include "TangDaoGuardComponent.h"
 #include "PanChiGuardComponent.h"
 #include "RuneSwordMeshComponent.h"
@@ -427,7 +428,7 @@ void URuneSwordComponent::ReleasePrimaryAttack()
     ReleaseHeavyCharge();
 }
 
-bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride)
+bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride,bool bUseWeaponAttackSpeed)
 {
     if(bUppercut)return false;
     // Keep stage identity when a blade replaces the thrust's motion. Damage and
@@ -482,7 +483,10 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     // The independent quick-combat strike supplies its own skill damage below.
     HitActors.Reset();SwingDamage=Damage*(Heavy?MeleeModifiers.HeavyMultiplier(ChargedMultiplier):MeleeModifiers.ComboMultiplier(ComboStage));
     bHeavyTrainingPending=Heavy;HeavyTrainingHits=HeavyTrainingKills=0;bAutoHeavyRelease=false;
-    SwingRate=AttackRate;SwingReach=RuneSwordCombatTuning::ScaledReach(Reach,ComboStage==3?RuneSwordThrustRhythm::ReachBonus:0.f)*MeleeModifiers.Range;
+    // Martial skills keep their own action clock. Generic weapon/attribute
+    // attack speed applies only to ordinary attacks, including combo finishers.
+    SwingRate=!Heavy&&bUseWeaponAttackSpeed?AttackRate:1.f;
+    SwingReach=RuneSwordCombatTuning::ScaledReach(Reach,ComboStage==3?RuneSwordThrustRhythm::ReachBonus:0.f)*MeleeModifiers.Range;
     SwingRangeMultiplier=RuneSwordCombatTuning::RangeMultiplier*MeleeModifiers.Range;
     SwingHitReactionMultiplier=MeleeModifiers.HitReaction;
     // 两条独立通道：剑刃攻击（导魔符文）与配重锤快速近战（凝碧星核），互不混用。
@@ -545,7 +549,7 @@ bool URuneSwordComponent::StartQuickCombatStrike()
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Profile || !Animations.FindRef(TEXT("PommelStrike")))return false;
     // Quick combat pays its skill cost once, not the ordinary sword swing cost.
-    if(!StartSwing(TEXT("PommelStrike"),false,0.f))return false;
+    if(!StartSwing(TEXT("PommelStrike"),false,0.f,false))return false;
     const float Duration=RuneSwordPommelRhythm::QuickCombatTime(CurrentAnimation->GetPlayLength())/FMath::Max(.01f,SwingRate);
     if(!Profile->CommitQuickCombatCast(Duration)){CancelAction();return false;}
     bQuickCombatStrike=true;
@@ -688,7 +692,11 @@ FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
     {
         LungeDirection=Pawn->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
         bLungeStarted=true;
+        Movement->BeginMeleeLungeRequest(bUppercut?EFPSMeleeMove::Uppercut:IsRisingDragonFinisher()?EFPSMeleeMove::RisingDragon:
+            bDashAttack?EFPSMeleeMove::Dash:bOverheadFinisher?EFPSMeleeMove::OverheadFinisher:
+            bThrustAttack?EFPSMeleeMove::Thrust:EFPSMeleeMove::Pommel,LungeDirection);
     }
+    if(Movement->IsMeleeLungeRejected()){bLungeBlocked=true;return FVector::ZeroVector;}
     FVector Moved;
     if(bDashAttack&&Movement->IsFalling())
     {
@@ -696,7 +704,7 @@ FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
         // capsule. Native falling keeps vertical velocity, gravity and landing;
         // ordinary thrusts and pommel steps still require ground support.
         const auto* Controller=Pawn->GetController();
-        if(!Controller||Controller->IsMoveInputIgnored()||Pawn->GetNetMode()==NM_Client)
+        if(!Controller||Controller->IsMoveInputIgnored())
         {bLungeBlocked=true;return FVector::ZeroVector;}
         const FVector Before=Pawn->GetActorLocation();
         FHitResult Hit;
@@ -705,6 +713,7 @@ FVector URuneSwordComponent::AdvanceThrustLunge(float FromTime,float ToTime)
         if(Hit.bBlockingHit)bLungeBlocked=true;
     }
     else Moved=Movement->ApplyMeleeLungeStep(LungeDirection,Distance);
+    Movement->RecordMeleeLungeStep(FMath::Max(0.f,float(FVector::DotProduct(Moved,LungeDirection))));
     if(FVector::DotProduct(Moved,LungeDirection)+.01f<Distance)bLungeBlocked=true;
     return Moved;
 }
@@ -829,6 +838,13 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
         {
             const float Gather=FMath::SmoothStep(ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds,ContactStart,Elapsed);
             Location*=Gather;Rotation*=Gather;
+        }
+        // Dash releases and ordinary sprint chops share this camera profile.
+        // Stage-three combo finishers can reuse it without being sprint attacks.
+        if(bDashAttack || (SwingSkills.AttackMeta&0x0F)!=3)
+        {
+            Location*=SprintCameraMotion::AmplitudeScale;
+            Rotation*=SprintCameraMotion::AmplitudeScale;
         }
     }
     else if(bAttacking && bThrustAttack)

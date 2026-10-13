@@ -6,6 +6,7 @@
 #include "FPSBodyHandAttackMotion.h"
 #include "FPSBodyHandAttackData.h"
 #include "FPSBodyStaffCastData.h"
+#include "../Movement/FPSTraversalTiming.h"
 #include "../Weapons/Spellbook/SpellbookQuickCombatMotion.h"
 #include "Animation/AnimInstanceProxy.h"
 #include "Animation/AnimSequence.h"
@@ -198,6 +199,7 @@ struct FControls : FAnimNode_Base
     FFPSBodyState State;
     FFPSBodyState MotionState;
     float Clock=0.f,Crouch=0.f,MotionWeight=0.f,Aim=0.f,Sprint=0.f,Delta=0.f;
+    bool bAuthoredTraversal=false;
     FVector Handholds[2];
     FVector PoseScale=FVector::OneVector;
     FTransform LastHands[2],EntryHands[2];
@@ -371,7 +373,8 @@ struct FControls : FAnimNode_Base
         Source.Evaluate(Out);const auto& Bones=Out.Pose.GetBoneContainer();
         if(!Pelvis.IsValidToEvaluate(Bones)||!Spine.IsValidToEvaluate(Bones))return;
         FTransform FootTargets[2];FVector KneePoles[2];
-        if(Crouch>ZERO_ANIMWEIGHT_THRESH)
+        const float LegCrouch=bAuthoredTraversal?0.f:Crouch;
+        if(LegCrouch>ZERO_ANIMWEIGHT_THRESH)
         {
             FCSPose<FCompactPose> Before;Before.InitPose(Out.Pose);
             FPoseContext NeutralPose(Out);Neutral.Evaluate(NeutralPose);
@@ -386,31 +389,31 @@ struct FControls : FAnimNode_Base
                 // Keep the source left/right contact timing, but use short, low
                 // crouch steps around this weapon family's actual idle footprint.
                 const FVector ShortStep=Rest.GetLocation()+Offset*FVector(CrouchStrideScale,CrouchStrideScale,CrouchLiftScale);
-                FootTargets[I].SetLocation(FMath::Lerp(FootTargets[I].GetLocation(),ShortStep,Crouch));
-                FootTargets[I].SetRotation(FQuat::Slerp(FootTargets[I].GetRotation(),Rest.GetRotation(),.75f*Crouch).GetNormalized());
+                FootTargets[I].SetLocation(FMath::Lerp(FootTargets[I].GetLocation(),ShortStep,LegCrouch));
+                FootTargets[I].SetRotation(FQuat::Slerp(FootTargets[I].GetRotation(),Rest.GetRotation(),.75f*LegCrouch).GetNormalized());
                 if(Toes[I].IsValidToEvaluate(Bones))
                 {
                     const auto Toe=Toes[I].GetCompactPoseIndex(Bones);
-                    Out.Pose[Toe].SetRotation(FQuat::Slerp(Out.Pose[Toe].GetRotation(),NeutralPose.Pose[Toe].GetRotation(),.75f*Crouch).GetNormalized());
+                    Out.Pose[Toe].SetRotation(FQuat::Slerp(Out.Pose[Toe].GetRotation(),NeutralPose.Pose[Toe].GetRotation(),.75f*LegCrouch).GetNormalized());
                 }
                 // A foot-relative pole swings across the hip when strafing/backing
                 // up. Keep each knee forward and slightly outside its own hip.
-                const FVector HipPosition=Before.GetComponentSpaceTransform(Hip).GetLocation()+FVector(0,-6,-40)*PoseScale*Crouch;
+                const FVector HipPosition=Before.GetComponentSpaceTransform(Hip).GetLocation()+FVector(0,-6,-40)*PoseScale*LegCrouch;
                 const FVector ForwardPole=HipPosition+FVector(FMath::Sign(Rest.GetLocation().X)*18.f,85.f,-25.f)*PoseScale;
-                KneePoles[I]=FMath::Lerp(Before.GetComponentSpaceTransform(Knee).GetLocation(),ForwardPole,Crouch);
+                KneePoles[I]=FMath::Lerp(Before.GetComponentSpaceTransform(Knee).GetLocation(),ForwardPole,LegCrouch);
             }
         }
-        Out.Pose[Pelvis.GetCompactPoseIndex(Bones)].AddToTranslation(FVector(0,-6.f,-40.f)*PoseScale*Crouch);
+        Out.Pose[Pelvis.GetCompactPoseIndex(Bones)].AddToTranslation(FVector(0,-6.f,-40.f)*PoseScale*LegCrouch);
         FCSPose<FCompactPose> Pose;Pose.InitPose(Out.Pose);
         // Targets and pelvis already contain the crouch blend. Blending IK again
         // leaves the feet partway below their targets during crouch/stand changes.
-        if(Crouch>ZERO_ANIMWEIGHT_THRESH)for(int32 I=0;I<2;++I)if(Feet[I].IsValidToEvaluate(Bones))
+        if(LegCrouch>ZERO_ANIMWEIGHT_THRESH)for(int32 I=0;I<2;++I)if(Feet[I].IsValidToEvaluate(Bones))
             Solve(Pose,Feet[I],FootTargets[I],KneePoles[I],1.f);
 
         const auto Motion=MotionState.Motion;
         const float MT=MotionState.MotionProgress;
         const bool Traversing=FPSBodyPoses::Traversing(Motion);
-        if(MotionWeight>ZERO_ANIMWEIGHT_THRESH)
+        if(MotionWeight>ZERO_ANIMWEIGHT_THRESH&&!bAuthoredTraversal)
         {
             FPoseContext RestPose(Out);Neutral.Evaluate(RestPose);
             FCSPose<FCompactPose> RestCS;RestCS.InitPose(RestPose.Pose);
@@ -554,7 +557,7 @@ struct FControls : FAnimNode_Base
         const float Shot=FMath::Clamp(1.f-(Clock-State.LastShotAt)/.14f,0.f,1.f);
         auto SpinePose=Pose.GetComponentSpaceTransform(Spine.GetCompactPoseIndex(Bones));
         // Manny's mesh faces +Y; mesh-X is the pitch axis.
-        const float MotionPitch=Motion==EFPSBodyMotion::Slide?18.f:Motion==EFPSBodyMotion::Dodge?-12.f*MotionState.MotionDirection.Y*FMath::Sin(PI*MT):Traversing?-12.f*FMath::Sin(PI*MT):0.f;
+        const float MotionPitch=Motion==EFPSBodyMotion::Slide?18.f:Motion==EFPSBodyMotion::Dodge?-12.f*MotionState.MotionDirection.Y*FMath::Sin(PI*MT):Traversing&&!bAuthoredTraversal?-12.f*FMath::Sin(PI*MT):0.f;
         const float Pitch=FMath::Clamp(State.AimPitch,-70.f,70.f)*.65f-4.f*Shot-6.f*Crouch+MotionPitch*MotionWeight;
         SpinePose.SetRotation(FQuat(FVector::ForwardVector,FMath::DegreesToRadians(Pitch))*SpinePose.GetRotation());
         if(Motion==EFPSBodyMotion::Dodge)
@@ -856,9 +859,14 @@ struct FControls : FAnimNode_Base
 #include "FPSBodyBookCarryPose.inl"
 #include "FPSBodyStaffArmPose.inl"
 #include "FPSBodyConsumePose.inl"
+#include "FPSBodyTraversalLayer.inl"
+
 struct FProxy : FAnimInstanceProxy
 {
     FAnimNode_SequenceEvaluator_Standalone Idle,Neutral,WalkA,WalkB,JogA,JogB,Air,Action,Death,Grip,Sword,StaffCast,StaffCarry,BookCarry,BookPush,Consume;
+    FAnimNode_SequenceEvaluator_Standalone Traversal;
+    FTraversalLayer TraversalLayer;
+    FTraversalPlayback TraversalPlayback;
     FAnimNode_TwoWayBlend Walk,Jog,Pace,Movement,AirBlend,DeathBlend;
     FUpperLayer Upper,AirHold;
     FControls Controls;
@@ -893,12 +901,13 @@ struct FProxy : FAnimInstanceProxy
         Controls.BookCarry.SetLinkNode(&BookCarry);
         Controls.BookPush.SetLinkNode(&BookPush);
         Controls.Consume.SetLinkNode(&Consume);
-        DeathBlend.A.SetLinkNode(&Controls);DeathBlend.B.SetLinkNode(&Death);
+        TraversalLayer.Base.SetLinkNode(&Controls);TraversalLayer.Authored.SetLinkNode(&Traversal);
+        DeathBlend.A.SetLinkNode(&TraversalLayer);DeathBlend.B.SetLinkNode(&Death);
     }
     virtual FAnimNode_Base* GetCustomRootNode() override {return &DeathBlend;}
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {Nodes.Append({&Idle,&Neutral,&WalkA,&WalkB,&JogA,&JogB,&Walk,&Jog,&Pace,&Movement,
-        &Air,&AirBlend,&AirHold,&Action,&Upper,&Grip,&Sword,&StaffCast,&StaffCarry,&BookCarry,&BookPush,&Consume,&Controls,&Death,&DeathBlend});}
+        &Air,&AirBlend,&AirHold,&Action,&Upper,&Grip,&Sword,&StaffCast,&StaffCarry,&BookCarry,&BookPush,&Consume,&Controls,&Traversal,&TraversalLayer,&Death,&DeathBlend});}
     virtual void PreUpdate(UAnimInstance* Instance,float Delta) override
     {
         FAnimInstanceProxy::PreUpdate(Instance,Delta);
@@ -983,6 +992,18 @@ struct FProxy : FAnimInstanceProxy
             Controls.Handholds[1]=Mesh->GetComponentTransform().InverseTransformPosition(D->MotionState.LeftHandhold);
         }
         else {Controls.Handholds[0]=FVector(-25,45,160);Controls.Handholds[1]=FVector(25,45,160);}
+        TraversalPlayback.Update(*D,Dt,[&](FName Key)->UAnimSequence*
+        {
+            auto* Asset=D->Clips.FindRef(Key).Get();
+            return Asset&&IdleClip&&Asset->GetSkeleton()==IdleClip->GetSkeleton()?Asset:nullptr;
+        });
+        Set(Traversal,TraversalPlayback.Asset?TraversalPlayback.Asset:IdleClip,TraversalPlayback.Time,false);
+        TraversalLayer.bActive=TraversalPlayback.bActive;TraversalLayer.Weight=TraversalPlayback.Weight;
+        TraversalLayer.ContactWeight=D->BodyState.bHasHandholds?D->BodyState.MotionHandContact:0.f;
+        for(int32 I=0;I<2;++I)TraversalLayer.Handholds[I]=Controls.Handholds[I];
+        TraversalLayer.Alignment=FQuat::FindBetweenNormals(FVector::RightVector,D->MotionState.MotionDirection.GetSafeNormal2D(UE_SMALL_NUMBER,FVector::RightVector));
+        Controls.bAuthoredTraversal=TraversalPlayback.Asset&&TraversalPlayback.End>TraversalPlayback.Release&&
+            TraversalPlayback.Release>TraversalPlayback.Contact&&FPSBodyPoses::Traversing(D->MotionState.Motion);
         Controls.LeftGrip=D->LeftGripFromRight;Controls.bLeftGrip=D->bHasLeftGrip;
         Controls.EquipmentFingers=D->EquipmentFingers;Controls.EquipmentGripHands=D->EquipmentGripHands;
         if(D->BodyState.Family!=TEXT("Rifle")&&D->BodyState.Family!=TEXT("Pistol")&&D->BodyState.Family!=TEXT("Staff")&&D->BodyState.Family!=TEXT("Bow")&&D->BodyState.Family!=TEXT("Tool")&&D->BodyState.Family!=TEXT("Melee"))Controls.EquipmentGripHands=0;

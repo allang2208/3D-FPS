@@ -4,7 +4,6 @@
 #include "RuneSwordMeshComponent.h"
 #include "RuneSwordWhirlwindFeel.h"
 #include "ModularSwordVisual.h"
-#include "MeleeWeaponStats.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Skills/ColdSteelSkillRules.h"
@@ -31,6 +30,21 @@ float WhirlwindEntry(float Time,float Duration)
     const float U=FMath::Clamp(Time/Duration,0.f,1.f);
     return U*U*U*(U*(U*6.f-15.f)+10.f);
 }
+
+float WhirlwindPoseTime(float Time,const FWhirlwindTuning& T,float ClipLength)
+{
+    // V5/V6 clips retain their authored 0.5 / 0.8 / 0.52 second phases.
+    // Retiming the spin must not stretch the preparation or recovery poses.
+    constexpr float Ready=.5f,Spin=.8f,Recover=.52f;
+    float SourceTime;
+    if(Time<T.ReadySeconds)
+        SourceTime=Ready*FMath::Clamp(Time/T.ReadySeconds,0.f,1.f);
+    else if(Time<T.ReadySeconds+T.SpinSeconds)
+        SourceTime=Ready+Spin*FMath::Clamp((Time-T.ReadySeconds)/T.SpinSeconds,0.f,1.f);
+    else
+        SourceTime=Ready+Spin+Recover*FMath::Clamp((Time-T.ReadySeconds-T.SpinSeconds)/T.RecoverSeconds,0.f,1.f);
+    return SourceTime/(Ready+Spin+Recover)*ClipLength;
+}
 }
 
 bool URuneSwordComponent::BeginWhirlwind()
@@ -53,7 +67,7 @@ bool URuneSwordComponent::BeginWhirlwind()
     const FWhirlwindCast Cast=Profile->WhirlwindStats();
     if(!Profile->CommitWhirlwindCast(Cast))return false;
     WhirlwindCast=Cast;WhirlwindTuning=Profile->MasteryDefinition(TEXT("whirlwind")).Whirlwind;
-    SwingRate=ColdSteelMelee::Evaluate(*Item,Profile).AttackRate;
+    SwingRate=1.f; // Skill phase durations are independent of weapon attack speed.
     bWhirlwind=true;bWhirlwindTrainingPending=true;bSwingCuePlayed=false;
     WhirlwindHits=WhirlwindKills=0;WhirlwindPause=WhirlwindPauseSpent=0.f;
     ImpactAge=1.f;ImpactStrength=1.f;
@@ -157,7 +171,7 @@ void URuneSwordComponent::TickWhirlwind(float Delta)
     Viewmodel->SetRelativeLocation(FMath::Lerp(WhirlwindEntryLocation,FVector::ZeroVector,Entry));
     Viewmodel->SetRelativeRotation(FQuat::Slerp(WhirlwindEntryRotation.Quaternion(),FRotator(0,90,0).Quaternion(),Entry));
     if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetWhirlwindEntryTime(Elapsed);
-    SamplePose(Elapsed/End*CurrentAnimation->GetPlayLength());
+    SamplePose(WhirlwindPoseTime(Elapsed,T,CurrentAnimation->GetPlayLength()));
     SetWhirlwindFocus(WhirlwindPause>0.f?0.f:T.MotionBlur*WhirlwindFeel::Speed(Elapsed,T));
     if(Elapsed>=End-UE_SMALL_NUMBER)FinishWhirlwind();
 }

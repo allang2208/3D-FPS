@@ -89,7 +89,7 @@ bool URuneSwordComponent::TryBeginDashAttack()
     const double StatsSeconds=FPlatformTime::Seconds();
     const bool bFromHighCarry=IsTacticalSprintClip(CurrentClip)&&Animations.FindRef(TEXT("SprintOverhead"));
     // StartSwing 提交一次技能体力，替代本次普通挥击消耗；失败不进入动作。
-    if(!StartSwing(TEXT("Overhead"),false,Cast.StaminaCost))return false;
+    if(!StartSwing(TEXT("Overhead"),false,Cast.StaminaCost,false))return false;
     // Same attack contract and source-time contact window; only its entry pose
     // changes, allowing the held sword to drop directly from the sprint carry.
     if(bFromHighCarry)SetClip(TEXT("SprintOverhead"),false);
@@ -101,7 +101,7 @@ bool URuneSwordComponent::TryBeginDashAttack()
     SwingDamage=Cast.Damage;SwingReach=Cast.RangeCM;SwingKnockbackCM=Cast.KnockbackCM;
     // 冲刺持剑用0.25秒过渡到下劈接触起点；音效、裂隙和判定仍由
     // 同一接触窗触发，前摇期间不命中，接触后的落点与收势保持原时序。
-    // StartSwing already captured the common attack speed, including attachments.
+    // The skill's windup, strike and recovery do not scale with weapon attack speed.
     Elapsed=ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds;
     SamplePose(Elapsed);
     if(Pawn->IsSliding())Pawn->StopSlide(true);

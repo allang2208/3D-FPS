@@ -41,9 +41,13 @@ void USpellbookArmsMeshComponent::ApplyFocusPose(TArray<FTransform>& LocalPose)
     if(FocusEntry.Num()!=LocalPose.Num())FocusEntry=LocalPose;
     int32 A=0;while(A<Focus::KeyCount-2&&FocusPoseTime>=Focus::Times[A+1])++A;
     const float T=FMath::Clamp((FocusPoseTime-Focus::Times[A])/(Focus::Times[A+1]-Focus::Times[A]),0.f,1.f);
-    const float Entry=1.f-FMath::SmoothStep(0.f,Motion::Detach,FocusPoseTime);
     const auto* Spellbook=bFocusReturning&&GetOwner()?GetOwner()->FindComponentByClass<USpellbookComponent>():nullptr;
     const float Recovery=Spellbook?Spellbook->FocusRecoveryBlend():0.f;
+    // Only the opening owns the captured gait. During a partial cancellation,
+    // fade that same entry out from the displayed pose; a full close must never
+    // resurrect the walk/run state captured when the book was first opened.
+    const float Entry=(1.f-Motion::Ease(0.f,Motion::EntryBlendSource,FocusPoseTime))
+        *(bFocusReturning?1.f-Recovery:1.f);
     const int32 InterruptThumb=Spellbook&&Spellbook->IsFocusInterrupted()?GetBoneIndex(TEXT("thumb_01_l")):INDEX_NONE;
     for(int32 B=0;B<LeftBones.Num();++B)if(const int32 I=LeftBones[B];I>=0)
     {
@@ -63,12 +67,17 @@ void USpellbookArmsMeshComponent::ApplyFocusPose(TArray<FTransform>& LocalPose)
             namespace Hit=SpellbookFocusInterruptMotion;
             Target.SetRotation(Hit::ClearThumb(Target.GetRotation(),Motion::Ease(Hit::ThumbClearanceEndSource,Hit::CatchSource,FocusPoseTime)));
         }
-        const FQuat Delta=FocusEntry[I].GetRotation()*FocusKeys[0][I].GetRotation().Inverse();
-        Target.SetRotation((FQuat::Slerp(FQuat::Identity,Delta,Entry)*Target.GetRotation()).GetNormalized());
-        Target.AddToTranslation((FocusEntry[I].GetLocation()-FocusKeys[0][I].GetLocation())*Entry);
+        // Blend complete native local segments, including twist helpers. Adding
+        // a per-joint gait delta to the turning arm couples the old elbow bend
+        // and forearm roll into the focus gesture, differently for every stride.
+        if(Entry>0.f)
+        {
+            FTransform FromEntry;FromEntry.Blend(Target,FocusEntry[I],Entry);Target=FromEntry;
+        }
         if(bFocusReturning)
         {
-            FTransform Settled;Settled.Blend(Target,LocalPose[I],1.f-Motion::Ease(0.f,.12f,FocusPoseTime));
+            const float Carry=(1.f-Motion::Ease(0.f,Motion::CarryReturnSource,FocusPoseTime))*Recovery;
+            FTransform Settled;Settled.Blend(Target,LocalPose[I],Carry);
             Target=Settled;
         }
         Mixed.Blend(LocalPose[I],Target,FocusPoseWeight);LocalPose[I]=Mixed;

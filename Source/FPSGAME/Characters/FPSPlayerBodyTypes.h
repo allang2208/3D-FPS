@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/NetSerialization.h"
 #include "UObject/SoftObjectPath.h"
 #include "FPSBodyMotionSample.h"
 #include "FPSPlayerBodyTypes.generated.h"
@@ -52,12 +53,29 @@ struct FFPSBodyHandState
     UPROPERTY() float ProgressRate = 0.f;
 };
 
+/** Final owner-traced laser endpoint; observers never choose a second aim ray. */
+USTRUCT()
+struct FFPSBodyLaserSample
+{
+    GENERATED_BODY()
+    UPROPERTY() uint8 RigIndex=0;
+    UPROPERTY() uint8 PartIndex=0;
+    UPROPERTY() uint32 Schema=0;
+    UPROPERTY() FVector_NetQuantize100 End=FVector::ZeroVector;
+    UPROPERTY() FVector_NetQuantizeNormal Normal=FVector::UpVector;
+    UPROPERTY() bool bDot=false;
+};
+
 /** Presentation only. Ammo, hits and movement remain owned by their gameplay systems. */
 USTRUCT(BlueprintType)
 struct FFPSBodyState
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadOnly) FName Weapon;
+    // Runtime identity only: late snapshots from a different copy of the same
+    // weapon, or from the previous offhand loadout, must not drive this rig.
+    UPROPERTY() FString WeaponInstance;
+    UPROPERTY() FString OffhandInstance;
     UPROPERTY(BlueprintReadOnly) FName Family = TEXT("Unarmed");
     UPROPERTY(BlueprintReadOnly) EFPSBodyAction Action = EFPSBodyAction::None;
     UPROPERTY(BlueprintReadOnly) float ActionStartedAt = 0.f;
@@ -98,6 +116,8 @@ struct FFPSBodyState
     UPROPERTY() FName BowClip;
     UPROPERTY() float BowClipTime = 0.f;
     UPROPERTY() float BowClipRate = 0.f;
+    UPROPERTY() float BowClipLength = 0.f;
+    UPROPERTY() bool bBowClipLooping = false;
     UPROPERTY() FVector BowNock = FVector::ZeroVector;
     UPROPERTY() bool bBowArrow = false;
     UPROPERTY() bool bBowTakingArrow = false;
@@ -105,6 +125,7 @@ struct FFPSBodyState
     UPROPERTY() float BowStringContact = 0.f;
     UPROPERTY() bool bBowCarryAxis = false;
     UPROPERTY() FFPSBodyMotionSample Contacts;
+    UPROPERTY() TArray<FFPSBodyLaserSample> Lasers;
     UPROPERTY() float ActionEntryFraction=0.f;
     // Azure Dragon claws (cosmetic, see URuneSwordComponent::SampleAzureDragonNet): flags, strike clip
     // length and entry (source seconds), heavy charge start (server clock).
@@ -124,6 +145,8 @@ struct FFPSBodyAttachment
     UPROPERTY() FTransform RelativeTransform;
     UPROPERTY() TSoftObjectPtr<class USkeletalMesh> SkeletalMesh;
     UPROPERTY() FName Slot;
+    UPROPERTY() FName TacticalKind;
+    UPROPERTY() bool bAuthoredEmitterAxis=false;
     UPROPERTY() bool bVisible=true;
 };
 
@@ -173,6 +196,16 @@ struct FFPSBodyWeapon
     UPROPERTY() FVector StaffLightLocation=FVector::ZeroVector;
     UPROPERTY() TSoftObjectPtr<class USkeletalMesh> ReloadPropMesh;
     UPROPERTY() TArray<TSoftObjectPtr<class UMaterialInterface>> ReloadPropMaterials;
+    UPROPERTY() FString GunInstance;
+    UPROPERTY() FName GunDefinition;
+    UPROPERTY() bool bGunPistol=false;
+    UPROPERTY() bool bGunRevolver=false;
+    UPROPERTY() bool bGunSuppressed=false;
+    UPROPERTY() FTransform GunMuzzleInRoot=FTransform::Identity;
+    UPROPERTY() TSoftObjectPtr<class USoundBase> GunFireSound;
+    UPROPERTY() TSoftObjectPtr<class USoundBase> GunSuppressedSound;
+    UPROPERTY() TArray<TSoftObjectPtr<class USoundBase>> GunSounds;
+    UPROPERTY() TArray<TSoftObjectPtr<class UStaticMesh>> GunCartridges;
     UPROPERTY() int32 MuzzlePart=INDEX_NONE;
     UPROPERTY() FVector MuzzleTip=FVector::ZeroVector;
     UPROPERTY() FVector MuzzleAxis=FVector::ForwardVector;
@@ -181,6 +214,7 @@ struct FFPSBodyWeapon
     TWeakObjectPtr<class USkeletalMeshComponent> ReloadPropSource;
     TWeakObjectPtr<class UStaticMeshComponent> StaticSource;
     TArray<TWeakObjectPtr<class UStaticMeshComponent>> SourceParts;
+    TArray<TWeakObjectPtr<class UTacticalDeviceComponent>> SourceTacticalDevices;
 };
 
 USTRUCT(BlueprintType)

@@ -1,4 +1,6 @@
 #include "PistolDualWieldComponent.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
+#include "DualPistolReloadTiming.h"
 #include "TacticalDeviceVariants.h"
 #include "G18WeaponAssets.h"
 #include "PitViper2011WeaponAssets.h"
@@ -378,7 +380,9 @@ bool UPistolDualWieldComponent::IsSingleActionCocking() const
 }
 void UPistolDualWieldComponent::StopAction(int32 Index)
 {
-    auto& H=Hands[Index];H.Action=nullptr;H.Reloading=H.ReloadQueued=false;H.PendingAmmoType.Reset();
+    auto& H=Hands[Index];
+    if(H.Reloading||!H.Voices.IsEmpty())if(auto* Body=Player->FindComponentByClass<UFPSPlayerBodyComponent>())Body->ReportGunMechanicalStop(Index);
+    H.Action=nullptr;H.Reloading=H.ReloadQueued=false;H.PendingAmmoType.Reset();
     for(auto& Voice:H.Voices)if(IsValid(Voice))Voice->Stop();H.Voices.Empty();
 }
 void UPistolDualWieldComponent::CancelInputs()
@@ -405,7 +409,10 @@ void UPistolDualWieldComponent::TryCowboyReload()
         H.ReloadQueued=false;
         H.PendingAmmoType.Reset();
         if(auto* Sound=H.Sounds.FindRef(H.Revolver?TEXT("SingleOpen"):TEXT("MagInsert")).Get())
+        {
             UGameplayStatics::PlaySound2D(this,Sound,.8f);
+            if(auto* Body=Player->FindComponentByClass<UFPSPlayerBodyComponent>())Body->ReportGunMechanical(Side,Sound,.8f);
+        }
     }
 }
 
@@ -589,6 +596,20 @@ void UPistolDualWieldComponent::SyncInventory(TArray<FColdSteelItem>& Items) con
     }
 }
 
+float UPistolDualWieldComponent::SampleActionTime(int32 Index) const
+{
+    const auto& H=Hands[Index];
+    if(!H.Action)return H.ActionTime;
+    float Time=FMath::Max(0.f,float(GetWorld()->GetTimeSeconds()-H.ActionStarted)*H.ActionRate);
+    if(H.Reloading && H.SourceLength>0.f)
+    {
+        const float Length=FMath::Max(.001f,H.Action->GetPlayLength());
+        Time=DualPistolReloadTiming::SourceTime(Time/Length*H.SourceLength,H.Revolver,H.ReloadSpeedloader)
+            /H.SourceLength*Length;
+    }
+    return FMath::Max(H.ActionTime,Time);
+}
+
 void UPistolDualWieldComponent::Advance(float Delta)
 {
     if(!bActive)return;
@@ -646,7 +667,7 @@ void UPistolDualWieldComponent::Advance(float Delta)
         else if(H.Action)
         {
             const float Previous=H.ActionTime/FMath::Max(.001f,H.Action->GetPlayLength())*H.SourceLength;
-            H.ActionTime=FMath::Max(H.ActionTime,float(GetWorld()->GetTimeSeconds()-H.ActionStarted)*H.ActionRate);
+            H.ActionTime=SampleActionTime(Side);
             if(H.Reloading)AdvanceReload(Side,Previous);
             if(H.Action && H.ActionTime>=H.Action->GetPlayLength())
             {

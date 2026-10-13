@@ -25,6 +25,15 @@ bool AFPSGAMECharacter::IsDodging() const
 
 bool AFPSGAMECharacter::TryDodge()
 {
+    const FRotationMatrix Basis(FRotator(0.f,GetViewRotation().Yaw,0.f));
+    FVector Direction=Basis.GetUnitAxis(EAxis::X)*MoveInput.Y+Basis.GetUnitAxis(EAxis::Y)*MoveInput.X;
+    if(Direction.IsNearlyZero())Direction=Basis.GetUnitAxis(EAxis::X);
+    return TryDodgeInDirection(Direction);
+}
+
+bool AFPSGAMECharacter::TryDodgeInDirection(const FVector& Direction)
+{
+    if(Direction.ContainsNaN()||Direction.GetSafeNormal2D().IsNearlyZero())return false;
     if(IsMeleeSkillMovementLocked())return false;
     if(RuneSword && RuneSword->IsGuarding())return false;
     auto* Movement=Cast<UFPSCharacterMovementComponent>(GetCharacterMovement());
@@ -33,17 +42,16 @@ bool AFPSGAMECharacter::TryDodge()
     if (!Movement || !PC || PC->IsMoveInputIgnored() || PC->bShowMouseCursor ||
         IsTraversing() || Traversal->IsCameraRecovering() || bIsSliding || IsDodging() ||
         (Health && Health->IsDead())) return false;
-    const FRotationMatrix Basis(FRotator(0.f,GetViewRotation().Yaw,0.f));
-    FVector Direction=Basis.GetUnitAxis(EAxis::X)*MoveInput.Y+Basis.GetUnitAxis(EAxis::Y)*MoveInput.X;
-    if (Direction.IsNearlyZero()) Direction=Basis.GetUnitAxis(EAxis::X);
     // 联机：远端玩家的闪避消耗查影子档案（服务端副本上没有本机 GI 单例语义）。
     auto* Profile=GetNetShadowProfile();
+    if(HasAuthority()&&!IsLocallyControlled()&&!Profile)return false;
     if(!Profile)Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const float Cost=Profile?Profile->DodgeStaminaCost():0;
     if(Profile&&!Profile->CanSpendStamina(Cost)){Profile->SpendStamina(Cost);return false;}
     const float Distance=DodgeDistance+(Profile?Profile->DodgeEffect().DodgeDistanceCM:0.f);
     if (!Movement->StartDodge(Direction,Distance,DodgeDuration)) return false;
     if(Profile&&!Profile->SpendStamina(Cost)){Movement->CancelDodge();return false;}
+    if(GetLocalRole()==ROLE_AutonomousProxy)Movement->QueueDodgeRequest(Direction);
     bDodgeMeleeRewarded=bDodgeRangedRewarded=false;
     ExitSprintForWeapon();
     JumpBufferRemaining=0.f;

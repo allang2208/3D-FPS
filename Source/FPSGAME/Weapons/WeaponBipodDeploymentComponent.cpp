@@ -128,11 +128,19 @@ bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupp
 {
     const auto* C=Character.Get();if(!C)return false;
     const FRotator Aim=C->GetControlRotation();
-    if(FMath::Abs(FRotator::NormalizeAxis(Aim.Pitch))>40.f)return false;
     const FVector Forward=FRotator(0.,Aim.Yaw,0.).Vector();
     const FVector Right=FVector::CrossProduct(FVector::UpVector,Forward);
-    const FVector Hinge=Part.GetHingeWorld();
-    const FVector RestFeet[]={Part.GetRestFootWorld(0),Part.GetRestFootWorld(1)};
+    // Unpitch the actual weapon geometry into the pawn's level eye frame.
+    // Looking up/down must not move the search band, shorten its horizontal
+    // reach or put the bipod probes behind the cover. Keep the real foot span
+    // and the current stance, but exclude camera bob and old mount offsets.
+    const FTransform CameraFrame=C->FirstPersonCamera->GetComponentTransform();
+    const FTransform LevelFrame(FRotator(0.,Aim.Yaw,0.),C->GetMeleeAimTransform().GetLocation());
+    const auto LevelPoint=[&](const FVector& WorldPoint)
+    { return LevelFrame.TransformPosition(CameraFrame.InverseTransformPosition(WorldPoint)); };
+    const FVector Hinge=LevelPoint(Part.GetHingeWorld());
+    const FVector RestFeet[]={LevelPoint(Part.GetRestFootWorld(0)),LevelPoint(Part.GetRestFootWorld(1))};
+    const float SearchHeightRange=FMath::Min(MaximumHeightSnap,MaximumCameraReach);
     const float Offsets[]={0.f,ForwardSearch*.5f,-ForwardSearch*.5f,ForwardSearch,-ForwardSearch};
     const float MinNormal=FMath::Cos(FMath::DegreesToRadians(MaximumSlopeDegrees));
     // Use the collision that blocks the character for both acquisition and
@@ -180,7 +188,7 @@ bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupp
     };
     for(const float Offset:Offsets)
     {
-        if(TryFeet(RestFeet[0]+Forward*Offset,RestFeet[1]+Forward*Offset,MaximumHeightSnap) && bHintOnly)return true;
+        if(TryFeet(RestFeet[0]+Forward*Offset,RestFeet[1]+Forward*Offset,SearchHeightRange) && bHintOnly)return true;
     }
     if(bFound)return true;
 
@@ -189,7 +197,7 @@ bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupp
     const FVector FeetCenter=(RestFeet[0]+RestFeet[1])*.5;
     const FVector PawnLocation=C->GetActorLocation();
     const float CloseReach=C->GetCapsuleComponent()->GetScaledCapsuleRadius()+ForwardSearch;
-    const float CloseHeightRange=MaximumHeightSnap*1.5f;
+    const float CloseHeightRange=FMath::Min(MaximumHeightSnap*1.5f,MaximumCameraReach);
     const FVector Directions[]={Forward,Right,-Right,(Forward+Right).GetSafeNormal(),
         (Forward-Right).GetSafeNormal(),(-Forward+Right).GetSafeNormal(),
         (-Forward-Right).GetSafeNormal(),-Forward};
@@ -282,7 +290,14 @@ void UWeaponBipodDeploymentComponent::ClampAim() const
     const auto* C=Character.Get();if(!C || !C->Controller)return;
     FRotator Aim=C->Controller->GetControlRotation();
     Aim.Yaw=InitialAim.Yaw+FMath::Clamp(FMath::FindDeltaAngleDegrees(InitialAim.Yaw,Aim.Yaw),-YawLimitDegrees,YawLimitDegrees);
-    Aim.Pitch=InitialAim.Pitch+FMath::Clamp(FMath::FindDeltaAngleDegrees(InitialAim.Pitch,Aim.Pitch),-PitchLimitDegrees,PitchLimitDegrees);
+    // Deployment accepts any entry pitch. Bring an outlying view into the
+    // level-mounted aim window over the same .32 s as the placement blend;
+    // do not snap the view or lock the finished mount toward the ground/sky.
+    const float EntryPitchDelta=FMath::FindDeltaAngleDegrees(InitialAim.Pitch,EntryAimPitch);
+    const float Weight=FMath::SmoothStep(0.f,1.f,Blend);
+    const float MinPitch=FMath::Lerp(FMath::Min(-PitchLimitDegrees,EntryPitchDelta),-PitchLimitDegrees,Weight);
+    const float MaxPitch=FMath::Lerp(FMath::Max(PitchLimitDegrees,EntryPitchDelta),PitchLimitDegrees,Weight);
+    Aim.Pitch=InitialAim.Pitch+FMath::Clamp(FMath::FindDeltaAngleDegrees(InitialAim.Pitch,Aim.Pitch),MinPitch,MaxPitch);
     Aim.Roll=0.;C->Controller->SetControlRotation(Aim);
 }
 
@@ -296,7 +311,9 @@ bool UWeaponBipodDeploymentComponent::TryDeployFromADS()
     if(Blend>UE_SMALL_NUMBER)Release(true);
     RestoreCameraOffset();FSupport Candidate;
     if(!FindSupport(*Part,Candidate)){bCandidate=false;return false;}
-    Bipod=Part;Support=Candidate;InitialAim=C->GetControlRotation();InitialAim.Pitch=FRotator::NormalizeAxis(InitialAim.Pitch);
+    Bipod=Part;Support=Candidate;InitialAim=C->GetControlRotation();
+    EntryAimPitch=FRotator::NormalizeAxis(InitialAim.Pitch);
+    InitialAim.Pitch=0.f;InitialAim.Roll=0.f;
     PawnAnchor=C->GetActorLocation();bRequested=true;bCandidate=false;bSeatFired=false;
     NextSupportProbe=GetWorld()->GetTimeSeconds()+BipodSupportInterval;
     // Consume the input accumulated before the ADS event. Otherwise a held W
@@ -344,10 +361,10 @@ void UWeaponBipodDeploymentComponent::Advance(float DeltaSeconds)
     if(Probe)NextSupportProbe=Now+BipodSupportInterval;
     if(bRequested && (!Allowed || !C->bIsAiming || Bipod.Get()!=EquippedBipod()
         || FVector::DistSquared(C->GetActorLocation(),PawnAnchor)>4. || !SupportStillValid(Probe)))Release();
-    if(bRequested)ClampAim();
     // 锁定兜底：击退等外力给到的速度每帧掐掉，角色钉在架设点（>2cm 位移仍走解除）。
     if(bRequested){if(auto* M=C->GetCharacterMovement();!M->Velocity.IsNearlyZero())M->StopMovementImmediately();}
     Blend=FMath::FInterpConstantTo(Blend,bRequested?1.f:0.f,DeltaSeconds,bRequested?1.f/.32f:1.f/.16f);
+    if(bRequested)ClampAim();
     // 完全落位的瞬间：坐弹链咔哒 + 起枪身衰减抖（表现"架在固体上"的沉降）。
     if(bRequested&&!bSeatFired&&Blend>=.999f){bSeatFired=true;SettleClock=0.f;FireDeployCue(true);}
     if(SettleClock>=0.f){SettleClock+=DeltaSeconds;if(SettleClock>.9f)SettleClock=-1.f;}
@@ -436,8 +453,8 @@ FString UWeaponBipodDeploymentComponent::GetHint() const
         :TEXT("脚架部署中 · 取消瞄准解除");
     if(Blend>UE_SMALL_NUMBER)return TEXT("正在解除架设");
     if(bCandidate)
-        return Character.IsValid() && Character->bIsAiming ? TEXT("附近有支撑面 · 重新瞄准尝试架枪")
-            :TEXT("附近有支撑面 · 瞄准尝试架枪");
+        return Character.IsValid() && Character->bIsAiming ? TEXT("附近有支撑面 · 重新瞄准自动架枪")
+            :TEXT("附近有支撑面 · 瞄准自动架枪");
     return TEXT("脚架：靠近箱体、矮墙或窗台");
 }
 
@@ -493,11 +510,11 @@ bool UWeaponBipodDeploymentComponent::ResolveServerSupport(const FWeaponBipodNet
     // Remote first-person rigs do not evaluate their pose. Resolve actual server
     // collision from bounded world contacts; never trust a client component pointer.
     const FVector Eye=C->GetMeleeAimTransform().GetLocation();
-    if(FVector::DistSquared(Eye,Proposed.Anchor)>FMath::Square(100.f+MaximumCameraReach)||
-        FMath::Abs(FRotator::NormalizeAxis(Proposed.Aim.Pitch))>40.f)return false;
+    if(FVector::DistSquared(Eye,Proposed.Anchor)>FMath::Square(100.f+MaximumCameraReach))return false;
     const FRotator ServerAim=C->GetControlRotation();
-    if(FMath::Abs(FMath::FindDeltaAngleDegrees(ServerAim.Yaw,Proposed.Aim.Yaw))>30.f||
-        FMath::Abs(FMath::FindDeltaAngleDegrees(ServerAim.Pitch,Proposed.Aim.Pitch))>20.f)return false;
+    // Pitch is resolved by the mount, not an acquisition requirement. Keep the
+    // horizontal intent and all world-space support/reach/occlusion checks.
+    if(FMath::Abs(FMath::FindDeltaAngleDegrees(ServerAim.Yaw,Proposed.Aim.Yaw))>30.f)return false;
     const bool LMG=EquippedDefinition()==LMG201WeaponAssets::Definition;
     const float Span=LMG?float((LMG201WeaponAssets::BipodPivotsCm[0]+LMG201WeaponAssets::BipodFeetCm[0]
         -LMG201WeaponAssets::BipodPivotsCm[1]-LMG201WeaponAssets::BipodFeetCm[1]).Size()):12.469f;
@@ -539,6 +556,7 @@ void UWeaponBipodDeploymentComponent::ServerDeploy_Implementation(uint16 Sequenc
     const double Now=GetWorld()->GetTimeSeconds();
     FWeaponBipodNetState Proposed;Proposed.Sequence=Sequence;Proposed.FeetA=FeetA;Proposed.FeetB=FeetB;
     Proposed.Anchor=Anchor;Proposed.Aim=Aim;Proposed.Aim.Roll=0.;Proposed.Aim.Normalize();
+    Proposed.Aim.Pitch=0.;
     FSupport Resolved;
     const bool Accepted=(LastDeployRequest<0.||Now-LastDeployRequest>=.1)&&AuthorityEligible()&&ResolveServerSupport(Proposed,Resolved);
     LastDeployRequest=Now;
@@ -546,6 +564,7 @@ void UWeaponBipodDeploymentComponent::ServerDeploy_Implementation(uint16 Sequenc
     if(Accepted)
     {
         Support=Resolved;NetDeployment.FeetA=Support.Feet[0];NetDeployment.FeetB=Support.Feet[1];
+        EntryAimPitch=FRotator::NormalizeAxis(Character->GetControlRotation().Pitch);
         PawnAnchor=Character->GetActorLocation();InitialAim=Proposed.Aim;
         MountedDefinition=EquippedDefinition();NextSupportProbe=Now+BipodSupportInterval;
         bRequested=true;Character->GetCharacterMovement()->StopMovementImmediately();
@@ -601,8 +620,9 @@ void UWeaponBipodDeploymentComponent::AdvanceRemoteAuthority(float DeltaSeconds)
             (Now-NetDeployment.StartedAt>.35&&(!Move||!Move->bWantsToAim))||
             FVector::DistSquared(Character->GetActorLocation(),PawnAnchor)>4.||!SupportStillValid(Probe))
         {PublishRelease();bRequested=false;}
-        else {ClampAim();Character->GetCharacterMovement()->StopMovementImmediately();}
+        else Character->GetCharacterMovement()->StopMovementImmediately();
     }
     bRequested=NetDeployment.bActive;
     Blend=FMath::FInterpConstantTo(Blend,bRequested?1.f:0.f,DeltaSeconds,bRequested?1.f/.32f:1.f/.16f);
+    if(bRequested)ClampAim();
 }

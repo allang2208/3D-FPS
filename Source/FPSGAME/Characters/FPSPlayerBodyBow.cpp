@@ -45,6 +45,8 @@ void UFPSPlayerBodyComponent::SampleBowState(const UBowWeaponComponent& Bow,FFPS
 {
     State.Family=TEXT("Bow");State.Weapon=*Bow.Definition();State.Action=EFPSBodyAction::None;
     State.BowClip=Bow.CurrentClip;State.BowClipTime=Bow.Viewmodel?Bow.Viewmodel->GetPosition():0.f;
+    if(const auto* Clip=Bow.Animations.FindRef(Bow.CurrentClip).Get())State.BowClipLength=Clip->GetPlayLength();
+    State.bBowClipLooping=Bow.bCurrentClipLoops;State.BowClipRate=State.bBowClipLooping?1.f:0.f;
     State.BowNock=Bow.NockPoint();State.bAiming=Bow.IsAimHeld();
     const bool Entry=Bow.Stage==EBowStage::DrawEntry&&Bow.bEntryNeedsArrow;
     const float Phase=Entry?Bow.Elapsed/FMath::Max(.001f,Bow.DrawEntrySeconds):Bow.Elapsed/FMath::Max(.001f,Bow.NockSeconds);

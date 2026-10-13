@@ -3414,3 +3414,7 @@ __pycache__/
 /SourceAssets/SearchCollectiblesPublication20261013/**
 !/SourceAssets/SearchCollectiblesPublication20261013/*.py
 !/SourceAssets/SearchCollectiblesPublication20261013/*.ps1
+
+# Traversal author receipts stay local; the public donor manifest contains provenance only.
+/SourceAssets/ThirdPersonTraversal20261012/*
+!/SourceAssets/ThirdPersonTraversal20261012/donors.json

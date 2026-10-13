@@ -9,12 +9,17 @@
 bool UFPSCharacterMovementComponent::BeginMeleeDashMomentum(const FVector& IncomingVelocity)
 {
     if(UBoundCongregateCaptureComponent::IsCaptured(CharacterOwner))return false;
-    if(!CharacterOwner || !UpdatedComponent || GetNetMode()==NM_Client ||
+    if(!CharacterOwner || !UpdatedComponent || (!CharacterOwner->HasAuthority()&&!CharacterOwner->IsLocallyControlled()) ||
         (!IsMovingOnGround() && !IsFalling()) || IncomingVelocity.ContainsNaN() ||
         IncomingVelocity.SizeSquared2D()<=1.f)return false;
     Velocity.X=IncomingVelocity.X;
     Velocity.Y=IncomingVelocity.Y;
     bMeleeDashMomentum=true;
+    if(CharacterOwner->GetLocalRole()==ROLE_AutonomousProxy&&!CharacterOwner->bClientUpdating)
+    {
+        BeginMeleeLungeRequest(EFPSMeleeMove::AirMomentum,IncomingVelocity.GetSafeNormal2D());
+        MeleeRequest.Momentum=FVector(IncomingVelocity.X,IncomingVelocity.Y,0.f);bPendingMeleeMomentum=true;
+    }
     UpdateComponentVelocity();
     return true;
 }
@@ -61,7 +66,7 @@ void UFPSCharacterMovementComponent::StopMovementImmediately()
 
 FVector UFPSCharacterMovementComponent::ApplyMeleeLungeStep(const FVector& Direction,float DistanceCM)
 {
-    if(!CharacterOwner || !UpdatedComponent || GetNetMode()==NM_Client ||
+    if(!CharacterOwner || !UpdatedComponent || (!CharacterOwner->HasAuthority()&&!CharacterOwner->IsLocallyControlled()) ||
         !IsMovingOnGround() || IsDodging() || !CurrentFloor.IsWalkableFloor() || DistanceCM<=0.f)
         return FVector::ZeroVector;
     const auto* Controller=CharacterOwner->GetController();

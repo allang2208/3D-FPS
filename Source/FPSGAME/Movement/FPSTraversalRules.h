@@ -47,6 +47,7 @@ public:
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Geometry") float VaultMaxDepth = 120.f;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Geometry") float MaxEdgeDistance = 20.f;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Geometry") float MaxFacingAngle = 40.f;
+    // Direct animated landing range; a clear far-side exit may instead release into gravity.
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Geometry") float MaxLandingDrop = 60.f;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Geometry") float MaxLandingRise = 50.f;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Air") float AirMinLedgeHeight = 20.f;
@@ -62,9 +63,10 @@ public:
     bool IsValidConfiguration() const;
     EFPSTraversalAction ClassifyHeight(float Height) const;
     // Authored rails can land on stairs behind a reachable grip, in either direction.
-    // Default callers (including Blueprint EvaluateObstacle) retain ordinary limits.
+    // A fall exit needs measured capsule clearance, not a remote landing pad.
+    // Default callers (including Blueprint EvaluateObstacle) still require footing.
     EFPSTraversalAction Evaluate(const FFPSTraversalProbe& Probe, float SurfaceMaxLandingDrop = 0.f,
-        bool bGuardrailCrossing = false) const;
+        bool bGuardrailCrossing = false, bool bFallExitClear = false) const;
 };
 
 UCLASS()

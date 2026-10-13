@@ -10,6 +10,7 @@
 UFPSTraversalComponent::UFPSTraversalComponent()
 {
     PrimaryComponentTick.bCanEverTick = false;
+    SetIsReplicatedByDefault(true);
 }
 
 bool UFPSTraversalComponent::IsStableSurface(const UPrimitiveComponent* Surface)
@@ -190,6 +191,8 @@ FFPSTraversalTarget UFPSTraversalComponent::FindTarget(bool bJumpPressed, bool b
     const bool bBackHit=Result.Obstacle->LineTraceComponent(Back,DepthStart,Result.FrontEdge-Forward,Params);
     P.Depth=bBackHit && !Back.bStartPenetrating
         ? FVector::DotProduct(Back.ImpactPoint-Result.FrontEdge,Forward) : DepthLimit;
+    const bool bMeasuredThinObstacle=bBackHit && !Back.bStartPenetrating &&
+        P.Depth>0.f && P.Depth<=Rules->VaultMaxDepth;
     const auto StandingSpace=[&](FVector Foot)
     {
         return !GetWorld()->OverlapBlockingTestByProfile(Foot+Up*(Half+2.f),FQuat::Identity,Profile,
@@ -267,13 +270,14 @@ FFPSTraversalTarget UFPSTraversalComponent::FindTarget(bool bJumpPressed, bool b
         break;
     }
     FVector VaultEnd=FVector::ZeroVector, VaultRaised=FVector::ZeroVector;
+    bool bFallExitClear=false;
     if (HeightClass==EFPSTraversalAction::Vault || bGuardrailDrop)
     {
         const float LandingRiseLimit=bGuardrailDrop?FMath::Max(Rules->MaxLandingRise,P.Height):Rules->MaxLandingRise;
         const float LiftLimit=bGuardrailDrop?(P.bAirborne?Rules->AirMaxLedgeHeight:Rules->MantleMaxHeight):Rules->VaultMaxHeight;
         const float FirstDepth=P.Depth>0.f && P.Depth<=Rules->VaultMaxDepth?P.Depth:20.f;
-        // Bound the search by the allowed obstacle depth. Every candidate still
-        // needs standing support, headroom and the entire swept route.
+        // Bound the search by obstacle depth. Prefer a supported landing; a
+        // measured thin obstacle can also end in clear air beyond its back face.
         for (float Depth=FirstDepth;;Depth=FMath::Min(Depth+20.f,Rules->VaultMaxDepth))
         {
             const FVector LandingXY=Result.FrontEdge+Forward*(Depth+PadRadius+2.f);
@@ -300,25 +304,51 @@ FFPSTraversalTarget UFPSTraversalComponent::FindTarget(bool bJumpPressed, bool b
                     }
                 }
             }
+            if (!P.bVaultPathClear && bMeasuredThinObstacle)
+            {
+                // Only inspect the nearby exit column. No deep floor search or
+                // standing-pad requirement: ordinary falling collision owns the
+                // later descent. This sweep also rejects broad/compound tops
+                // whose front component alone looked like a thin wall.
+                const FVector ExitBottom(LandingXY.X,LandingXY.Y,FloorZ-LandingDropLimit+Half+2.f);
+                for (float Lift : {0.f,10.f,20.f})
+                {
+                    if (P.Height+Lift>LiftLimit) continue;
+                    const FVector Raised(Start.X,Start.Y,LipHeight+Half+3.f+Lift);
+                    const FVector Exit(LandingXY.X,LandingXY.Y,Raised.Z);
+                    if (!ClearSegment(Start,Raised) || !ClearSegment(Raised,Exit) ||
+                        !ClearSegment(Exit,ExitBottom)) continue;
+                    Result.RaisedStart=Raised;
+                    VaultEnd=VaultRaised=Exit;
+                    VaultSupports.Reset();
+                    P.bApproachClear=P.bVaultPathClear=bFallExitClear=true;
+                    P.bLandingStandingSpace=false;
+                    P.Depth=Depth;
+                    break;
+                }
+            }
             if (P.bVaultPathClear || Depth>=Rules->VaultMaxDepth) break;
         }
     }
-    Result.Action=Rules->Evaluate(P,SurfaceLandingDrop,bGuardrailDrop);
+    Result.Action=Rules->Evaluate(P,SurfaceLandingDrop,bGuardrailDrop,bFallExitClear);
     const bool bCrossing=Result.Action==EFPSTraversalAction::Vault ||
         (Result.Action==EFPSTraversalAction::Mantle && bGuardrailDrop && P.bVaultPathClear);
+    Result.bReleaseIntoFall=bCrossing && (bFallExitClear ||
+        (bGuardrailDrop && P.LandingHeightDelta < -NormalLandingDrop));
+    // Distant ground is not a hand support and must not cancel a committed fall.
+    if (Result.bReleaseIntoFall) VaultSupports.Reset();
     for (const auto& Support:bCrossing?VaultSupports:MantleSupports) Result.Supports.AddUnique(Support);
     Result.Destination=bCrossing?VaultEnd:MantleEnd;
     Result.RaisedEnd=bCrossing?VaultRaised:MantleRaised;
-    Result.bReleaseIntoFall=bCrossing && bGuardrailDrop && P.LandingHeightDelta < -NormalLandingDrop;
     if (Result.bReleaseIntoFall)
     {
-        // The landing pad and full descending capsule sweep were accepted above.
-        // Release outside the rail; gravity, falling collision and normal landing
+        // Release outside the obstacle; gravity, falling collision and normal landing
         // handling own the descent instead of accelerating metres of drop into
         // the last fraction of the vault animation.
         Result.Destination=VaultRaised;
     }
-    Result.Reason=Result.Action==EFPSTraversalAction::None?TEXT("InsufficientSpaceOrPath"):TEXT("Eligible");
+    Result.Reason=Result.Action==EFPSTraversalAction::None?TEXT("InsufficientSpaceOrPath"):
+        (Result.bReleaseIntoFall?TEXT("EligibleFallExit"):TEXT("Eligible"));
     return Result;
 }
 

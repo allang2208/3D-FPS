@@ -31,8 +31,8 @@ struct FPSGAME_API FFPSTraversalTarget
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UPrimitiveComponent> Obstacle = nullptr;
     UPROPERTY() TArray<TObjectPtr<UPrimitiveComponent>> Supports;
     UPROPERTY(BlueprintReadOnly) TArray<FFPSTraversalHandhold> Handholds;
-    // The ground was queried, but traversal ends just beyond the rail and CMC
-    // performs the drop. Keep a high fall out of the short vault landing phase.
+    // Traversal ends beyond the obstacle; CMC owns the fall and eventual landing.
+    // A clear exit does not require ground within the animated landing range.
     UPROPERTY(BlueprintReadOnly) bool bReleaseIntoFall = false;
 };
 
@@ -48,7 +48,7 @@ public:
     UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category="FPS|Traversal")
     FFPSTraversalTarget LastJumpTarget;
     void InspectJump(bool bAvailable);
-    // Single-player executor. Returns false without consuming jump when unavailable.
+    // Clients request a server-probed path; host/standalone commit it directly.
     bool TryStart(bool bAvailable, bool bLogRejection=true);
     void SetJumpHeld(bool bHeld);
     static bool IsStableSurface(const UPrimitiveComponent* Surface);
@@ -57,8 +57,11 @@ public:
     // World-anchored FPS hands are outside the camera's attachment tree.
     USkeletalMeshComponent* GetFirstPersonArms() const;
     void Cancel();
-    UFUNCTION(BlueprintPure, Category="FPS|Traversal") bool IsTraversing() const { return bTraversing; }
+    UFUNCTION(BlueprintPure, Category="FPS|Traversal") bool IsTraversing() const { return bTraversing||bAwaitingTraversal||bAwaitingTraversalEnd; }
+    bool IsExecutingTraversal() const {return bTraversing;}
+    float GetProgressRate() const {return Duration>0.f?PlaybackRate/Duration:0.f;}
     UFUNCTION(BlueprintPure, Category="FPS|Traversal") bool IsCameraRecovering() const { return bReturningCamera; }
+    bool IsWeaponRecovering() const { return bReturningWeapon; }
     float GetPresentationProgress() const { return Duration>0.f?FMath::Clamp(Elapsed/Duration,0.f,1.f):0.f; }
     float GetContactFraction() const { return Duration>0.f?Contact/Duration:0.f; }
     float GetReleaseFraction() const { return Duration>0.f?Release/Duration:1.f; }
@@ -73,6 +76,19 @@ protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
+    bool BeginTarget(const FFPSTraversalTarget& Target);
+    UFUNCTION(Server,Reliable) void ServerRequestTraversal(uint32 Request);
+    UFUNCTION(Server,Reliable) void ServerCancelTraversal(uint32 Request);
+    UFUNCTION(Client,Reliable) void ClientBeginTraversal(uint32 Request,const FFPSTraversalTarget& Target,FVector Start,FVector Velocity,float StartedAt);
+    UFUNCTION(Client,Reliable) void ClientEndTraversal(uint32 Request,bool Success,FVector Location,FVector Velocity,uint8 Mode);
+    UFUNCTION(Server,Reliable) void ServerAcknowledgeTraversalEnd(uint32 Request);
+    UFUNCTION(Client,Reliable) void ClientRejectTraversal(uint32 Request);
+    float NetworkClock() const;
+    void RestoreNetworkCorrections();
+    uint32 NetworkRequest=0;
+    bool bAwaitingTraversal=false,bAwaitingTraversalEnd=false,bApplyingNetworkEnd=false;
+    bool bNetworkCorrectionsHeld=false,bSavedIgnoreCorrections=false;
+    float NetworkCorrectionReleaseAt=0.f;
     void InitializePresentation();
     void SetWeaponHiddenForTraversal(bool bHidden);
     void RunRuntimeAudit();
@@ -84,6 +100,8 @@ private:
     bool IsBlockingSupport(const UPrimitiveComponent* Surface) const;
     FVector SweepCamera(FVector From,FVector To) const;
     void UpdateCameraReturn(float DeltaSeconds);
+    void ApplyWeaponStow();
+    void UpdateWeaponReturn(float DeltaSeconds);
     UPROPERTY(Transient) TObjectPtr<class USkeletalMeshComponent> Arms;
     UPROPERTY(Transient) TObjectPtr<class UAnimSequence> VaultClip;
     UPROPERTY(Transient) TObjectPtr<class UAnimSequence> MantleClip;
@@ -96,8 +114,11 @@ private:
     bool bJumpRequestConsumed = false;
     bool bSavedControllerYaw = true;
     bool bReturningCamera=false;
+    bool bReturningWeapon=false;
+    float WeaponStowWeight=0.f,WeaponRaiseElapsed=0.f,WeaponReturnWeight=1.f;
     float CameraReturnSpeed=0.f;
     FVector CameraReturnCapsule=FVector::ZeroVector;
+    FVector LastCameraCapsule=FVector::ZeroVector;
     FQuat LastCameraRotation=FQuat::Identity;
     float Elapsed=0.f, Duration=0.f, ClipDuration=0.f, Contact=0.f, Release=0.f;
     float PlaybackRate=1.f;

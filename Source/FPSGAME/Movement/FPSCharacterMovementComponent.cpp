@@ -20,6 +20,10 @@ FSavedMove_FPSCharacter::FSavedMove_FPSCharacter()
 void FSavedMove_FPSCharacter::Clear()
 {
     Super::Clear();
+    DodgeSequence=0;DodgeRequestDirection=FVector::ZeroVector;DodgeRequestTime=0.f;
+    MeleeRequest=FFPSMeleeMoveRequest();MeleeStep=0.f;bMeleeMomentumStart=bSavedMeleeMomentum=false;
+    SavedSlideAge=SavedSlideRemaining=0.f;bSavedSlideDownhill=false;
+    SlideJumpSequence=0;bSlideJumpStart=false;
     bSavedWantsToSprint = false;
     bSavedWantsToAim = false;
     bSavedWantsToSlide = false;
@@ -39,12 +43,21 @@ uint8 FSavedMove_FPSCharacter::GetCompressedFlags() const
 void FSavedMove_FPSCharacter::SetMoveFor(ACharacter* InCharacter, float InDeltaTime, FVector const& NewAccel, FNetworkPredictionData_Client_Character& ClientData)
 {
     Super::SetMoveFor(InCharacter, InDeltaTime, NewAccel, ClientData);
-    if (const UFPSCharacterMovementComponent* Move = Cast<UFPSCharacterMovementComponent>(InCharacter ? InCharacter->GetCharacterMovement() : nullptr))
+    if (UFPSCharacterMovementComponent* Move = Cast<UFPSCharacterMovementComponent>(InCharacter ? InCharacter->GetCharacterMovement() : nullptr))
     {
         bSavedWantsToSprint = Move->bWantsToSprint;
         bSavedWantsToAim = Move->bWantsToAim;
         bSavedWantsToSlide = Move->bWantsToSlide;
         bSavedWantsToMount = Move->bWantsToMount;
+        DodgeSequence=Move->IsDodging()?Move->DodgeRequestSequence:0;
+        DodgeRequestDirection=Move->DodgeRequestDirection;
+        DodgeRequestTime=Move->GetDodgeProgress()*CastChecked<AFPSGAMECharacter>(InCharacter)->DodgeDuration;
+        MeleeRequest=Move->MeleeRequest;MeleeStep=Move->PendingMeleeStep;Move->PendingMeleeStep=0.f;
+        bMeleeMomentumStart=Move->bPendingMeleeMomentum;Move->bPendingMeleeMomentum=false;
+        bSavedMeleeMomentum=Move->HasMeleeDashMomentum();
+        SlideJumpSequence=Move->SlideJumpRequestSequence;bSlideJumpStart=Move->bPendingSlideJump;Move->bPendingSlideJump=false;
+        if(const auto* Player=Cast<AFPSGAMECharacter>(InCharacter))
+        {SavedSlideAge=Player->SlideAge;SavedSlideRemaining=Player->SlideTimeRemaining;bSavedSlideDownhill=Player->bSlideDownhill;}
     }
 }
 
@@ -58,10 +71,12 @@ void FSavedMove_FPSCharacter::PrepMoveFor(ACharacter* InCharacter)
         Move->bWantsToAim = bSavedWantsToAim;
         Move->bWantsToSlide = bSavedWantsToSlide;
         Move->bWantsToMount = bSavedWantsToMount;
+        Move->RestoreMeleeDashMomentum(bSavedMeleeMomentum);
         // 滑铲态在回放里只还原状态位与摩擦（该帧速度由 move 重算，不能再注入入铲初速）。
         if (auto* Player = Cast<AFPSGAMECharacter>(InCharacter))
         {
             Player->ApplyNetSlideFlag(bSavedWantsToSlide, false);
+            Player->SlideAge=SavedSlideAge;Player->SlideTimeRemaining=SavedSlideRemaining;Player->bSlideDownhill=bSavedSlideDownhill;
         }
     }
 }
@@ -71,6 +86,10 @@ bool FSavedMove_FPSCharacter::CanCombineWith(const FSavedMovePtr& NewMove, AChar
     // 意图位不同的 move 不能合并，否则服务端会以错误的冲刺/瞄准/滑铲档执行这段合并 move。
     if (const FSavedMove_FPSCharacter* NewFPSMove = static_cast<const FSavedMove_FPSCharacter*>(NewMove.Get()))
     {
+        if(DodgeSequence!=NewFPSMove->DodgeSequence)return false;
+        if(bSlideJumpStart||NewFPSMove->bSlideJumpStart||SlideJumpSequence!=NewFPSMove->SlideJumpSequence)return false;
+        if(MeleeStep>0.f||NewFPSMove->MeleeStep>0.f||bMeleeMomentumStart||NewFPSMove->bMeleeMomentumStart
+            ||bSavedMeleeMomentum!=NewFPSMove->bSavedMeleeMomentum||MeleeRequest.Sequence!=NewFPSMove->MeleeRequest.Sequence)return false;
         if (bSavedWantsToSprint != NewFPSMove->bSavedWantsToSprint || bSavedWantsToAim != NewFPSMove->bSavedWantsToAim
             || bSavedWantsToSlide != NewFPSMove->bSavedWantsToSlide || bSavedWantsToMount != NewFPSMove->bSavedWantsToMount)
         {
@@ -78,6 +97,13 @@ bool FSavedMove_FPSCharacter::CanCombineWith(const FSavedMovePtr& NewMove, AChar
         }
     }
     return Super::CanCombineWith(NewMove, InCharacter, MaxDelta);
+}
+
+bool FSavedMove_FPSCharacter::IsImportantMove(const FSavedMovePtr& LastAckedMove) const
+{
+    if(bSlideJumpStart||MeleeStep>0.f||bMeleeMomentumStart)return true;
+    if(DodgeSequence&&(!LastAckedMove||DodgeSequence!=static_cast<const FSavedMove_FPSCharacter*>(LastAckedMove.Get())->DodgeSequence))return true;
+    return Super::IsImportantMove(LastAckedMove);
 }
 
 FNetworkPredictionData_Client_FPSCharacter::FNetworkPredictionData_Client_FPSCharacter(const UCharacterMovementComponent& ClientMovement)
@@ -132,6 +158,14 @@ FNetworkPredictionData_Client* UFPSCharacterMovementComponent::GetPredictionData
     return ClientPredictionData;
 }
 
+void UFPSCharacterMovementComponent::PerformMovement(float DeltaSeconds)
+{
+    // Slide decay belongs to the movement timestamp, including server packets
+    // and prediction replay. Actor Tick runs at a different cadence on each peer.
+    if(auto* Player=Cast<AFPSGAMECharacter>(CharacterOwner);Player&&Player->IsSliding())Player->UpdateSlide(DeltaSeconds);
+    Super::PerformMovement(DeltaSeconds);
+}
+
 bool UFPSCharacterMovementComponent::DoJump(bool bReplayingMoves, float DeltaTime)
 {
     if(UBoundCongregateCaptureComponent::IsCaptured(CharacterOwner))return false;
@@ -156,6 +190,8 @@ bool UFPSCharacterMovementComponent::IsValidLandingSpot(const FVector& CapsuleLo
 
 UFPSCharacterMovementComponent::UFPSCharacterMovementComponent()
 {
+    SetNetworkMoveDataContainer(FPSMoveData);
+    SetIsReplicatedByDefault(true);
     MaxStepHeight = 40.f;
     bWantsToSprint = false;
     bWantsToAim = false;

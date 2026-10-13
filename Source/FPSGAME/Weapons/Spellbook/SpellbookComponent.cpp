@@ -142,7 +142,10 @@ void USpellbookArmsMeshComponent::FinalizeBoneTransform()
         const float Alpha=Sample-A;
         const float Variation=.972f+.018f*FMath::Sin(MotionTime*.71f)+.010f*FMath::Sin(MotionTime*1.13f+.8f);
         const float CarryWeight=MoveWeight*Variation*FMath::Lerp(SpellbookCarryTuning::WalkScale,SpellbookCarryTuning::RunScale,RunWeight);
-        for(const int32 I:LeftBones)if(I>=0)
+        // Focus owns the complete chain. Keep sampling the live gait only as
+        // the destination for closing, never underneath the active gesture.
+        const bool FocusOwnsPose=FocusPoseTime>=0.f&&FocusPoseWeight>0.f;
+        if(!FocusOwnsPose||bFocusReturning)for(const int32 I:LeftBones)if(I>=0)
         {
             FTransform Walk,Run,Gait,Mixed;
             Walk.Blend(CarryKeys[1+A][I],CarryKeys[1+B][I],Alpha);
@@ -291,7 +294,9 @@ void USpellbookComponent::UpdateVisibility()
     const bool Floating=ShowBook&&IsFocusActive()&&bFocusDetached;
     if(Book->IsVisible()!=(ShowBook&&!Floating))Book->SetVisibility(ShowBook&&!Floating);
     if(FocusBook&&FocusBook->IsVisible()!=Floating)FocusBook->SetVisibility(Floating);
-    if(FocusWorldBook&&FocusWorldBook->IsVisible()!=Floating)FocusWorldBook->SetVisibility(Floating);
+    // The body presentation owns the world copy in both F6 and remote views.
+    // The old leader-pose copy was permanently OwnerNoSee and never replicated.
+    if(FocusWorldBook&&FocusWorldBook->IsVisible())FocusWorldBook->SetVisibility(false);
     ShowFocusGold(Floating&&GoldFade>UE_SMALL_NUMBER);
 }
 

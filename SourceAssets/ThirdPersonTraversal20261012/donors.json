@@ -1,0 +1,23 @@
+{
+  "source": "D:\\FPS3D\\游戏动画示例\\Content",
+  "clips": {
+    "Vault": "/Game/Characters/UEFN_Mannequin/Animations/Traversal/Vault/M_Neutral_Traversal_Vault_1_0_stand_F_Lfoot",
+    "Mantle": "/Game/Characters/UEFN_Mannequin/Animations/Traversal/Mantle/M_Neutral_Traversal_Mantle_1_0_stand_F_Lfoot",
+    "Climb": "/Game/Characters/UEFN_Mannequin/Animations/Traversal/Climb/M_Neutral_Traversal_Climb_Start_2_5_stand_F_Lfoot"
+  },
+  "files": [
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Traversal/Vault/M_Neutral_Traversal_Vault_1_0_stand_F_Lfoot.uasset",
+      "sha256": "6ac3cf0ae27a65c8e63e2079c832b48597334485659e5a92eed903a330e6c46c"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Traversal/Mantle/M_Neutral_Traversal_Mantle_1_0_stand_F_Lfoot.uasset",
+      "sha256": "1ec6a4baa411248397fb318c68b30ddcdaa69dc6640be7abef11e62218ed0cc5"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Traversal/Climb/M_Neutral_Traversal_Climb_Start_2_5_stand_F_Lfoot.uasset",
+      "sha256": "b77832ca6d9ec84edb44c6300eec236100633dfaa36e5e74163dce25da996f85"
+    }
+  ],
+  "provenance": "Epic Game Animation Sample, existing local library. See Docs/gasp-traversal-20260910.md. Source and derived binaries remain local."
+}

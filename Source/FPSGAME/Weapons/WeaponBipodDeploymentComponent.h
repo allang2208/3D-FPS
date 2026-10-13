@@ -61,8 +61,8 @@ protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 public:
-    // 2026-09-23 用户要求放宽架设条件：高度/前后窗口、坡面与相机校正上限整体放宽。
-    UPROPERTY(EditAnywhere, Category="Weapon|Bipod|Placement", meta=(ClampMin="1")) float MaximumHeightSnap=30.f;
+    // Search around the level weapon pose, independent of the crosshair's pitch.
+    UPROPERTY(EditAnywhere, Category="Weapon|Bipod|Placement", meta=(ClampMin="1")) float MaximumHeightSnap=60.f;
     UPROPERTY(EditAnywhere, Category="Weapon|Bipod|Placement", meta=(ClampMin="0")) float ForwardSearch=20.f;
     UPROPERTY(EditAnywhere, Category="Weapon|Bipod|Placement", meta=(ClampMin="0",ClampMax="45")) float MaximumSlopeDegrees=24.f;
     UPROPERTY(EditAnywhere, Category="Weapon|Bipod|Placement", meta=(ClampMin="1")) float MaximumCameraReach=60.f;
@@ -98,6 +98,7 @@ private:
     FVector AppliedCameraOffset=FVector::ZeroVector;
     FVector PawnAnchor=FVector::ZeroVector;
     FRotator InitialAim=FRotator::ZeroRotator;
+    float EntryAimPitch=0.f;
     float Blend=0.f;
     float SettleClock=-1.f;
     bool bSeatFired=false;

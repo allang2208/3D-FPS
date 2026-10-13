@@ -99,8 +99,9 @@ bool URuneSwordComponent::BeginUppercut()
     UPanChiGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
     SwingSkills.AttackForm=EMonsterAttackForm::Blade;
     SwingSkills.ToughnessDamageMultiplier*=Stats.Modifiers.HeavyToughness;
-    // Use the same attack speed snapshot as ordinary and quick-combat swings.
-    SwingRate=Stats.AttackRate;
+    // The active skill uses its authored clock; ordinary combo finishers still
+    // receive weapon attack speed through StartSwing.
+    SwingRate=1.f;
     bSwingCuePlayed=bImpactFeedbackPlayed=bThrustImpact=false;
     ContactStart=RuneSwordUppercutMotion::ReleaseStart;
     ContactEnd=RuneSwordUppercutMotion::Finish;

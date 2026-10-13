@@ -102,7 +102,10 @@
     "Staff.NativeArm.CastGather": "/Game/Characters/JasonPlayer20261003/StaffCarryClearance20261010/Animations/J_StaffClearance_CastGather.J_StaffClearance_CastGather",
     "Staff.NativeArm.CastRelease": "/Game/Characters/JasonPlayer20261003/StaffCarryClearance20261010/Animations/J_StaffClearance_CastRelease.J_StaffClearance_CastRelease",
     "Staff.BookCarry": "/Game/Characters/JasonPlayer20261003/BookCarryRelax20261010/Animations/J_BookCarry_Relaxed.J_BookCarry_Relaxed",
-    "Staff.BookPush": "/Game/Characters/JasonPlayer20261003/BookPush20261010/Animations/J_BookPush_NativeArm.J_BookPush_NativeArm"
+    "Staff.BookPush": "/Game/Characters/JasonPlayer20261003/BookPush20261010/Animations/J_BookPush_NativeArm.J_BookPush_NativeArm",
+    "Traversal.Vault": "/Game/Characters/JasonPlayer20261003/TraversalGASP20261012/Animations/J_M_Neutral_Traversal_Vault_1_0_stand_F_Lfoot.J_M_Neutral_Traversal_Vault_1_0_stand_F_Lfoot",
+    "Traversal.Mantle": "/Game/Characters/JasonPlayer20261003/TraversalGASP20261012/Animations/J_M_Neutral_Traversal_Mantle_1_0_stand_F_Lfoot.J_M_Neutral_Traversal_Mantle_1_0_stand_F_Lfoot",
+    "Traversal.Climb": "/Game/Characters/JasonPlayer20261003/TraversalGASP20261012/Animations/J_M_Neutral_Traversal_Climb_Start_2_5_stand_F_Lfoot.J_M_Neutral_Traversal_Climb_Start_2_5_stand_F_Lfoot"
   },
   "outfits": {
     "ue_mountain_backpack": {

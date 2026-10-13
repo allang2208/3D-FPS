@@ -193,6 +193,7 @@ void UFPSPlayerBodyComponent::BeginPlay()
 }
 void UFPSPlayerBodyComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    ClearGunPresentation();
     if(FirstPersonLowerBody){FirstPersonLowerBody->DestroyComponent();FirstPersonLowerBody=nullptr;}
     ClearBow();
     ClearMotion();
@@ -378,6 +379,8 @@ void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
         {
             RefreshCountdown=.1f;
             DisplayState=SampleRemoteAuthorityState();
+            if(DisplayState.WeaponInstance!=ReplicatedState.WeaponInstance||DisplayState.OffhandInstance!=ReplicatedState.OffhandInstance)
+                bEquipmentDirty=true;
             ReplicatedState=DisplayState;
         }
         RemoteEquipCountdown-=Delta;
@@ -385,10 +388,12 @@ void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
         {RemoteEquipCountdown=1.f;CaptureEquipment();bEquipmentDirty=false;}
     }
     else DisplayState=ReplicatedState;
+    if(GetOwner()->HasAuthority())FlushAuthorityGunEvents();
     if(!Local)
     {
         DisplayState=ReplicatedState;
         AdvanceBodyPresentation(DisplayState,ServerClock());
+        PresentRecentGunShots(ServerClock());
         PresentRemoteAzureDragon();
     }
     // Keep weapons stowed through the short return from an interrupted hand pose.
@@ -401,6 +406,7 @@ void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
     UpdateWorldWeaponPresentation();
     UpdateBow();
     ApplyMotion(Delta);
+    PresentGunEvents();
     if(BodyAnimation)
     {
         BodyAnimation->BodyState=DisplayState;BodyAnimation->Clock=ServerClock();

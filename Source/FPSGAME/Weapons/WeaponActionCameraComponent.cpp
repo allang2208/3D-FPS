@@ -1,4 +1,5 @@
 #include "WeaponActionCameraComponent.h"
+#include "SprintCameraMotion.h"
 #include "Camera/CameraComponent.h"
 #include "Super90LoaderCameraReference.h"
 #include "Super90LoaderAudioReference.h"
@@ -341,6 +342,65 @@ void Super90Loader(float Time, float End, bool bEmpty, bool bCycle, float Horizo
             {-.45f, .05f, 0.f}, {.10f, .01f, -.06f});
     }
 }
+
+void Authored(EM4CameraAction Action,float Time,float End,TConstArrayView<float> Contacts,float FOV,FPose& Follow,FPose& Impacts)
+{
+    if(Action==EM4CameraAction::None)return;
+    if(Action==EM4CameraAction::Super90Loader||Action==EM4CameraAction::Super90LoaderEmpty||Action==EM4CameraAction::Super90LoaderCycle)
+        Super90Loader(Time,End,Action!=EM4CameraAction::Super90Loader,Action==EM4CameraAction::Super90LoaderCycle,FOV,Follow,Impacts);
+    else if(Action==EM4CameraAction::RSH12Reload||Action==EM4CameraAction::RSH12ReloadEmpty)
+        ReloadRSH12(Time,End,Contacts,Action==EM4CameraAction::RSH12ReloadEmpty,Follow,Impacts);
+    else if(Action==EM4CameraAction::PKMEquip)EquipPKM(Time,End,Follow,Impacts);
+    else if(Action==EM4CameraAction::PKMReload||Action==EM4CameraAction::PKMReloadEmpty)
+        ReloadPKM(Time,End,Contacts,Action==EM4CameraAction::PKMReloadEmpty,Follow,Impacts);
+    else if(Action==EM4CameraAction::LMG201ClothReload||Action==EM4CameraAction::LMG201ClothReloadEmpty)
+        ReloadPKM(Time,End,Contacts,Action==EM4CameraAction::LMG201ClothReloadEmpty,Follow,Impacts,false);
+    else if(Action==EM4CameraAction::EquipCharge)Equip(Time,End,Follow,Impacts);
+    else Reload(Time,End,Contacts,
+        Action==EM4CameraAction::ReloadEmpty||Action==EM4CameraAction::DrumReloadEmpty||Action==EM4CameraAction::Ash12ReloadEmpty,
+        Action==EM4CameraAction::DrumReload||Action==EM4CameraAction::DrumReloadEmpty,
+        Action==EM4CameraAction::Ash12Reload||Action==EM4CameraAction::Ash12ReloadEmpty,Follow,Impacts);
+}
+
+FPose StandardReload(const FWeaponReloadCameraTrack& Track,float FOV)
+{
+    FPose Follow,IgnoredImpacts,Contacts;
+    Authored(Track.FollowAction,Track.Time,Track.End,Track.FollowContacts,FOV,Follow,IgnoredImpacts);
+    const bool Reference=Track.FollowAction==EM4CameraAction::Super90Loader||Track.FollowAction==EM4CameraAction::Super90LoaderEmpty;
+    const float FollowGain=Reference?1.f/.45f:WeaponReloadCamera::FollowScale;
+    Follow.Angles*=FollowGain;Follow.Position*=FollowGain;
+    for(const auto& Contact:Track.Contacts)
+    {
+        const auto Beat=WeaponReloadCamera::Beat(Contact.Kind);
+        Impact(Contacts,Track.Time,Contact.Time,FMath::Min(Beat.Seconds,Track.End-Contact.Time),Beat.Angles,Beat.Position);
+        if(Track.FollowAction==EM4CameraAction::None)
+        {
+            // Gentle preparation/settling around real contact, quiet while retrieving.
+            const float FollowWeight=FMath::SmoothStep(Contact.Time-.12f,Contact.Time,Track.Time)
+                *(1.f-FMath::SmoothStep(Contact.Time,Contact.Time+.16f,Track.Time));
+            Follow.Angles-=Beat.Angles*(.16f*FollowWeight);
+            Follow.Position-=Beat.Position*(.16f*FollowWeight);
+        }
+    }
+    const float Envelope=FMath::SmoothStep(Track.Begin,Track.Begin+.06f,Track.Time)
+        *(1.f-FMath::SmoothStep(FMath::Max(Track.Begin,Track.End-.08f),Track.End,Track.Time));
+    FPose Result{(Follow.Angles+Contacts.Angles)*Track.FamilyScale*Envelope,
+        (Follow.Position+Contacts.Position)*Track.FamilyScale*Envelope};
+    // A mirrored left hand uses the same contact strength and timing.
+    if(Track.Hand==1){Result.Angles.Y*=-1.f;Result.Angles.Z*=-1.f;Result.Position.Y*=-1.f;}
+    return Result;
+}
+
+void BoundReload(FVector& Angles,FVector& Position)
+{
+    // Smooth saturation preserves small pulses and avoids sharp clipped corners.
+    for(int32 I=0;I<3;++I)
+    {
+        const double Limit=WeaponReloadCamera::AngleLimit[I];
+        Angles[I]=Angles[I]/FMath::Sqrt(1.+FMath::Square(Angles[I]/Limit));
+    }
+    Position/=FMath::Sqrt(1.+Position.SizeSquared()/FMath::Square(WeaponReloadCamera::TravelLimit));
+}
 }
 UWeaponActionCameraComponent::UWeaponActionCameraComponent()
 {
@@ -371,46 +431,21 @@ void UWeaponActionCameraComponent::UpdateSprint(float DeltaSeconds, bool bEnable
 
 void UWeaponActionCameraComponent::Apply(UCameraComponent& Camera, EM4CameraAction Action,
     float SourceSeconds, float SourceDuration, TConstArrayView<float> ContactSeconds,
-    float CameraMotionWeight) const
+    float CameraMotionWeight,TConstArrayView<FWeaponReloadCameraTrack> ReloadTracks,float DeltaSeconds)
 {
     // Rebuild this layer once per camera update; never add onto last frame.
     // No other FPSGAME system currently owns CameraComponent's additive offset.
     Camera.ClearAdditiveOffset();
     const float Weight = FMath::Clamp(Strength, 0.f, 4.f) * FMath::Max(0.f, CameraMotionWeight)
         * FMath::Max(0.f, ActionShakeScale.GetValueOnGameThread());
-    if (CameraMotionWeight <= 0.f) return;
 
     const bool bSuper90Reference = Action == EM4CameraAction::Super90Loader
         || Action == EM4CameraAction::Super90LoaderEmpty || Action == EM4CameraAction::Super90LoaderCycle;
     WeaponActionCamera::FPose Follow, Impacts;
-    if (Action != EM4CameraAction::None && Weight > 0.f && SourceDuration > 0.f)
+    if (ReloadTracks.IsEmpty() && Action != EM4CameraAction::None && Weight > 0.f && SourceDuration > 0.f)
     {
         const float Time = FMath::Clamp(SourceSeconds, 0.f, SourceDuration);
-        if (Action == EM4CameraAction::Super90Loader || Action == EM4CameraAction::Super90LoaderEmpty
-            || Action == EM4CameraAction::Super90LoaderCycle)
-            WeaponActionCamera::Super90Loader(Time, SourceDuration,
-                Action != EM4CameraAction::Super90Loader, Action == EM4CameraAction::Super90LoaderCycle,
-                Camera.FieldOfView, Follow, Impacts);
-        else if (Action == EM4CameraAction::RSH12Reload || Action == EM4CameraAction::RSH12ReloadEmpty)
-            WeaponActionCamera::ReloadRSH12(Time, SourceDuration, ContactSeconds,
-                Action == EM4CameraAction::RSH12ReloadEmpty, Follow, Impacts);
-        else if (Action == EM4CameraAction::PKMEquip)
-            WeaponActionCamera::EquipPKM(Time, SourceDuration, Follow, Impacts);
-        else if (Action == EM4CameraAction::PKMReload || Action == EM4CameraAction::PKMReloadEmpty)
-            WeaponActionCamera::ReloadPKM(Time, SourceDuration, ContactSeconds,
-                Action == EM4CameraAction::PKMReloadEmpty, Follow, Impacts);
-        else if (Action == EM4CameraAction::LMG201ClothReload || Action == EM4CameraAction::LMG201ClothReloadEmpty)
-            WeaponActionCamera::ReloadPKM(Time, SourceDuration, ContactSeconds,
-                Action == EM4CameraAction::LMG201ClothReloadEmpty, Follow, Impacts, false);
-        else if (Action == EM4CameraAction::EquipCharge)
-            WeaponActionCamera::Equip(Time, SourceDuration, Follow, Impacts);
-        else
-            WeaponActionCamera::Reload(Time, SourceDuration, ContactSeconds,
-                Action == EM4CameraAction::ReloadEmpty || Action == EM4CameraAction::DrumReloadEmpty
-                    || Action == EM4CameraAction::Ash12ReloadEmpty,
-                Action == EM4CameraAction::DrumReload || Action == EM4CameraAction::DrumReloadEmpty,
-                Action == EM4CameraAction::Ash12Reload || Action == EM4CameraAction::Ash12ReloadEmpty,
-                Follow, Impacts);
+        WeaponActionCamera::Authored(Action,Time,SourceDuration,ContactSeconds,Camera.FieldOfView,Follow,Impacts);
     }
 
     // Only the recorded Super90 background follow is normalized. Its contact
@@ -419,7 +454,41 @@ void UWeaponActionCameraComponent::Apply(UCameraComponent& Camera, EM4CameraActi
     const float ImpactScale = FMath::Clamp(ImpactStrength, 0.f, 2.f);
     FVector Angles = (Follow.Angles * FollowScale + Impacts.Angles * ImpactScale) * Weight;
     FVector Position = (Follow.Position * FollowScale + Impacts.Position * ImpactScale) * Weight;
-    const float RunWeight = SprintBlend * FMath::Clamp(SprintStrength, 0.f, 3.f) * CameraMotionWeight;
+    FVector ReloadSumAngles=FVector::ZeroVector,ReloadSumPosition=FVector::ZeroVector;
+    float ContributingHands=0.f;
+    for(int32 Side=0;Side<2;++Side)
+    {
+        const FWeaponReloadCameraTrack* Track=nullptr;
+        for(const auto& Candidate:ReloadTracks)if(Candidate.Hand==Side){Track=&Candidate;break;}
+        float Presence=1.f;
+        if(Track)
+        {
+            const auto Pose=WeaponActionCamera::StandardReload(*Track,Camera.FieldOfView);
+            ReloadAngles[Side]=Pose.Angles;ReloadPosition[Side]=Pose.Position;
+            ReloadReturnAge[Side]=0.f;bReloadWasActive[Side]=true;
+        }
+        else
+        {
+            // Cancel/switch/interrupt eases the last offset out in real time;
+            // do not restart a source clip or replay any completed contact.
+            if(bReloadWasActive[Side]){ReloadReturnAge[Side]=0.f;bReloadWasActive[Side]=false;}
+            ReloadReturnAge[Side]=FMath::Min(WeaponReloadCamera::CancelSeconds,ReloadReturnAge[Side]+FMath::Max(0.f,DeltaSeconds));
+            Presence=1.f-FMath::SmoothStep(0.f,WeaponReloadCamera::CancelSeconds,ReloadReturnAge[Side]);
+        }
+        ContributingHands+=Presence;
+        ReloadSumAngles+=ReloadAngles[Side]*Presence;ReloadSumPosition+=ReloadPosition[Side]*Presence;
+    }
+    // Two simultaneous equal contacts peak at 1.25x one hand, before the shared
+    // ceiling. Opposite-handed yaw/roll can naturally cancel each other.
+    const float OverlapScale=1.f/(1.f+.6f*FMath::Max(0.f,ContributingHands-1.f));
+    const float ReloadGain=FMath::Clamp(ReloadStrength,0.f,2.f)*FMath::Max(0.f,ActionShakeScale.GetValueOnGameThread());
+    ReloadSumAngles*=OverlapScale*ReloadGain;ReloadSumPosition*=OverlapScale*ReloadGain;
+    WeaponActionCamera::BoundReload(ReloadSumAngles,ReloadSumPosition);
+    Angles+=ReloadSumAngles*FMath::Max(0.f,CameraMotionWeight);
+    Position+=ReloadSumPosition*FMath::Max(0.f,CameraMotionWeight);
+    // Do not halve SprintStrength/SprintCameraWeight: that would bring the old
+    // bob back into the crossfade and undo part of the requested reduction.
+    const float RunWeight = SprintBlend * FMath::Clamp(SprintStrength, 0.f, 3.f) * CameraMotionWeight * SprintCameraMotion::AmplitudeScale;
     const float Side = FMath::Cos(SprintPhase);
     const float Step = FMath::Cos(2.f * SprintPhase);
     // A broad stride plus a rounded footfall pulse, with its mean removed so

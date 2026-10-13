@@ -229,7 +229,7 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
         }
     }
 }
-FTransform AFPSGAMECharacter::GetEffectiveMuzzleTransform() const
+FTransform AFPSGAMECharacter::GetNativeMuzzleTransform() const
 {
     FVector Position,Forward;
     const USceneComponent* Anchor=nullptr;
@@ -252,7 +252,12 @@ FTransform AFPSGAMECharacter::GetEffectiveMuzzleTransform() const
             if(FVector::DotProduct(Forward,FirstPersonCamera->GetForwardVector())<0)Forward=-Forward;
         }
     }
-    FTransform Frame(Forward.Rotation(),Position);
+    return FTransform(Forward.Rotation(),Position);
+}
+FTransform AFPSGAMECharacter::GetEffectiveMuzzleTransform() const
+{
+    FTransform Frame=GetNativeMuzzleTransform();
+    const USceneComponent* Anchor=!MuzzleVariant.IsEmpty()?MuzzleAttachment.Get():nullptr;
     if(const auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>();Body&&Body->IsThirdPersonViewEnabled())
     {
         FTransform WorldFrame;

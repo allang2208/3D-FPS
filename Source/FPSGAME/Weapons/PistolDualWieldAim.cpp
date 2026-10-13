@@ -5,9 +5,10 @@
 
 FVector UPistolDualWieldComponent::SightDirection() const
 {
-    // The same stable aim centre as projectile spread. Cosmetic camera recoil
-    // and each random pellet/shot sample do not choose separate pose targets.
-    return Player->GetControlRotation().Vector();
+    // Pose, projectile cone and tactical laser share the visible reticle centre.
+    // Sampling the unshaken control rotation here displaced dual shots/lasers
+    // from the HUD when the rendered first-person camera moved.
+    return Player->ComputeWeaponAimDirection();
 }
 
 void UPistolDualWieldComponent::UpdateAimTarget(float Delta)

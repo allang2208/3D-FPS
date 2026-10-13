@@ -356,7 +356,7 @@
     "knockback": 250,
     "stunSeconds": 2.5,
     "readySeconds": 0.5,
-    "spinSeconds": 0.8,
+    "spinSeconds": 1.0666666666666667,
     "recoverSeconds": 0.52,
     "turnDegrees": -720,
     "hitStopSeconds": 0.045,

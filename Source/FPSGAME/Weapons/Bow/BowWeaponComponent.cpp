@@ -1,5 +1,6 @@
 ﻿#include "BowWeaponComponent.h"
 #include "BowArrow.h"
+#include "../../Characters/FPSPlayerBodyComponent.h"
 #include "BowArmsMeshComponent.h"
 #include "BowPartComponent.h"
 #include "BowQuickCombatMotion.h"
@@ -126,12 +127,24 @@ UBowWeaponComponent::UBowWeaponComponent()
 void UBowWeaponComponent::BeginPlay()
 {
     Super::BeginPlay();
+    Character=Cast<AFPSGAMECharacter>(GetOwner());
+    if(Character.IsValid()&&Character->IsLocallyControlled())
+    {
+        InitializePresentation();
+        if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+        {RefreshEquipment(Profile);}
+    }
+    else SetComponentTickEnabled(false);
+}
+void UBowWeaponComponent::InitializePresentation()
+{
+    if(Pivot)return;
     auto* Pawn = Cast<AFPSGAMECharacter>(GetOwner());
     auto* World = GetWorld();
     auto* GameInstance = World ? World->GetGameInstance() : nullptr;
     // 预览世界也会报 standalone，但没有玩家库存，会在别的 pawn 生成时收到 BeginPlay。
     if (!Pawn || !GameInstance || (World->WorldType != EWorldType::Game && World->WorldType != EWorldType::PIE)
-        || Pawn->GetNetMode() != NM_Standalone)
+        || (!Pawn->HasAuthority() && !Pawn->IsLocallyControlled()))
     {
         SetComponentTickEnabled(false);
         return;
@@ -178,8 +191,8 @@ void UBowWeaponComponent::BeginPlay()
     Viewmodel->RegisterComponent();
     Viewmodel->SetVisibility(false);
     // 与采集工具同一发放口径：目录里配了弓就补进背包（幂等，不覆盖玩家已有摆放）。
-    if (auto* Profile = GameInstance->GetSubsystem<UColdSteelStatusModel>()) Profile->GrantBow();
-    RefreshEquipment(GameInstance->GetSubsystem<UColdSteelStatusModel>());
+    if(Pawn->IsLocallyControlled())
+        if(auto* Profile=GameInstance->GetSubsystem<UColdSteelStatusModel>())Profile->GrantBow();
 }
 
 void UBowWeaponComponent::EndPlay(const EEndPlayReason::Type Reason)
@@ -201,6 +214,12 @@ void UBowWeaponComponent::EndPlay(const EEndPlayReason::Type Reason)
 
 void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
 {
+    if(!Character.IsValid())Character=Cast<AFPSGAMECharacter>(GetOwner());
+    if(!Character.IsValid()||(!Character->HasAuthority()&&!Character->IsLocallyControlled()))return;
+    // Authority needs equipped assets/parts for the replicated world bow, but
+    // never runs the remote owner's first-person input or ammo clock.
+    if(!Pivot&&(!Profile||!Profile->ActiveBow()))return;
+    InitializePresentation();SetComponentTickEnabled(Character->IsLocallyControlled());
     if (!Part(SlotRiser) || !Pivot) return;
     const auto* Item = Profile ? Profile->ActiveBow() : nullptr;
     const FString NewId = Item ? Item->InstanceId : FString();
@@ -264,6 +283,7 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     ArrowHeadMesh = nullptr;
     DrawSound = ReleaseSound = NockSound = TakeArrowSound = nullptr;
     CurrentClip = NAME_None;
+    bCurrentClipLoops=false;
     bUsesArms = false;
     bPresentationReady = false;
     bHasGripMarker = bHasNockMarker = false;
@@ -335,9 +355,9 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
         if (!Sound.IsNull()) Paths.Add(Sound);
     }
     LoadHandle = UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
-        FStreamableDelegate::CreateWeakLambda(this, [this, Prefix, GaitPrefix, ArmsPath, HeadPath, QuickPath, NewId, NewSignature, Resolved]()
+        FStreamableDelegate::CreateWeakLambda(this, [this, Prefix, GaitPrefix, ArmsPath, HeadPath, QuickPath, NewId, NewSignature, Resolved, OwnerProfile=TWeakObjectPtr<UColdSteelStatusModel>(Profile)]()
         {
-            auto* LiveProfile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+            auto* LiveProfile = OwnerProfile.Get();
             const auto* LiveItem = LiveProfile ? LiveProfile->ActiveBow() : nullptr;
             if (!LiveItem || LiveItem->InstanceId != NewId || InstanceId != NewId || EquippedSignature != NewSignature) return;
             const auto* Item=&Resolved;
@@ -391,7 +411,12 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
             Feedback = bReady ? FString()
                               : TEXT("弓模型未加载完成，重新装备试试");
             FeedbackSeconds = bReady ? 0.f : 3.f;
-            if (bReady) SetStage(EBowStage::Equip, EquipSeconds);
+            if(bReady)
+            {
+                if(Character->IsLocallyControlled())SetStage(EBowStage::Equip,EquipSeconds);
+                else {Stage=EBowStage::Ready;Elapsed=0.f;PlayClip(ClipIdle,0.f,true);}
+                if(auto* Body=Character->FindComponentByClass<UFPSPlayerBodyComponent>())Body->RefreshEquipment();
+            }
         }));
 }
 
@@ -402,7 +427,8 @@ void UBowWeaponComponent::ApplyNumbers(const FColdSteelItem* Item)
     auto Number = [&](const TCHAR* Key, float Default)
     { return static_cast<float>(ColdSteelInventory::Number(*Item, Key, Default)); };
     NockSeconds = FMath::Max(.12f, Number(TEXT("nock_seconds"), .68f));
-    const auto* Profile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const auto* Profile = Character.IsValid()&&Character->GetNetShadowProfile()
+        ? Character->GetNetShadowProfile() : GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     DrawSeconds = FMath::Max(.3f, float(ColdSteelWeaponStats::Interval(Item, Profile, Number(TEXT("draw_seconds"), 1.4f))));
     HoldSeconds = FMath::Max(0.f, Number(TEXT("hold_seconds"), 2.2f));
     ReleaseSeconds = FMath::Max(.08f, Number(TEXT("release_seconds"), .3f));
@@ -612,7 +638,7 @@ void UBowWeaponComponent::ApplyParts(const FColdSteelItem* Item)
 bool UBowWeaponComponent::CanPresent(bool bAllowDoorPushPresentation) const
 {
     auto* Pawn = Character.Get();
-    if (!Pawn) return false;
+    if (!Pawn || !Pawn->IsLocallyControlled()) return false;
     const auto* PC = Cast<APlayerController>(Pawn->GetController());
     const auto* Health = Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
     const auto* Building = PC ? PC->FindComponentByClass<UVoxelBuildComponent>() : nullptr;
@@ -1146,7 +1172,7 @@ void UBowWeaponComponent::AdvanceLocomotion(float Delta, bool bUsable)
 void UBowWeaponComponent::AdvanceActionBeforeCamera(float Delta)
 {
     // A contact query refreshes the camera with Delta=0. Do not re-enter the action clock.
-    if (!IsEquipped() || Delta <= 0.f) return;
+    if (!Character.IsValid() || !Character->IsLocallyControlled() || !IsEquipped() || Delta <= 0.f) return;
     // Door push owns input and its separate V7 fist, but the original bow
     // pose/locomotion clocks remain live for the shared return trajectory.
     const bool bUsable = CanUse(true);
@@ -1588,6 +1614,7 @@ void UBowWeaponComponent::PlayClip(const TCHAR* Name, float Position, bool bLoop
     }
     const float Length = Sequence->GetPlayLength();
     if (Length <= KINDA_SMALL_NUMBER) { Viewmodel->SetVisibility(false); return; }
+    bCurrentClipLoops=bLoop;
     Viewmodel->SetPosition(bLoop ? FMath::Fmod(Position, Length) : FMath::Clamp(Position, 0.f, Length), false);
     Viewmodel->TickAnimation(0.f, false);
     Viewmodel->RefreshBoneTransforms();
@@ -1645,6 +1672,7 @@ void UBowWeaponComponent::SampleArms()
 void UBowWeaponComponent::TickComponent(float Delta, ELevelTick Type, FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta, Type, Tick);
+    if(!Character.IsValid()||!Character->IsLocallyControlled()||!Viewmodel)return;
     const bool Present = IsEquipped() && CanPresent(true);
     if (!Present)
     {

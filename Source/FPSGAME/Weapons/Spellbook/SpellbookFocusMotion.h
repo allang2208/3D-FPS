@@ -9,6 +9,9 @@ namespace SpellbookFocusMotion
 inline constexpr float Detach=.95f, Gather=1.62f, OpenStart=1.28f, OpenDuration=.66f;
 inline constexpr float PlaybackRate=SpellbookFocusPolish::PlaybackRate, AuthoredLength=SpellbookFocusPolish::AuthoredLength;
 inline constexpr float Ready=1.95f, OpenLength=AuthoredLength/PlaybackRate, ReturnLength=OpenLength;
+// Source-time handoffs finish before the large authored palm turn. A moving
+// entry is a pose to blend out, not an additive rotation for every later joint.
+inline constexpr float EntryBlendSource=.24f, CarryReturnSource=.24f;
 // Seven leaves retain the approximate per-page pace of the original three.
 inline constexpr float PageCycle=16.f*7.f/3.f;
 inline constexpr float OpeningAt=1.40f/PlaybackRate;

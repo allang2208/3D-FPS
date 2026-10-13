@@ -146,6 +146,12 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
     const auto* Quick=Pawn->FindComponentByClass<UFPSQuickCombatComponent>();
     const auto* Book=Pawn->FindComponentByClass<USpellbookComponent>();
     const bool BookFocus=Book&&Book->IsFocusActive();
+    if(BookFocus)if(auto* Pages=Book->FloatingBookMesh();Drawn(Pages)&&Pages->GetSkeletalMeshAsset())
+    {
+        Sample.FloatingBook=true;
+        Sample.BookFrame=Pages->GetComponentTransform().GetRelativeTransform(GetBodyMesh()->GetComponentTransform());
+        Sample.BookPose=Pages->GetComponentSpaceTransforms();
+    }
     const auto* Staff=Pawn->FindComponentByClass<UStaffWeaponComponent>();
     const auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();
     const auto* Bipod=Pawn->FindComponentByClass<UWeaponBipodDeploymentComponent>();
@@ -368,7 +374,7 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
     }
     else PendingDiscardFlags=0;
     if(FPSBodyPoses::Traversing(State.Motion)||State.Action==EFPSBodyAction::Dead)
-    {Sample.Wrists=Sample.Fingers=0;Sample.PropVisibility=0;Sample.HasSupportGrip=false;Sample.Light=0.f;}
+    {Sample.Wrists=Sample.Fingers=0;Sample.PropVisibility=0;Sample.HasSupportGrip=false;Sample.Light=0.f;Sample.FloatingBook=false;Sample.BookPose.Reset();}
 }
 
 void UFPSPlayerBodyComponent::ApplyMotion(float Delta)
@@ -517,6 +523,7 @@ void UFPSPlayerBodyComponent::ApplyMotion(float Delta)
         }
     }
     UpdateConsumable(Incoming);
+    UpdateFloatingBook(Incoming,Alpha);
     if(WorldStaffLight&&LastWorldLight!=Incoming.Light)
     {
         LastWorldLight=Incoming.Light;WorldStaffLight->SetIntensity(1000.f*Incoming.Light);

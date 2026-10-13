@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "FPSMeleeMoveRequest.h"
 #include "FPSCharacterMovementComponent.generated.h"
 
 /**
@@ -19,6 +20,17 @@ public:
     virtual void SetMoveFor(ACharacter* InCharacter, float InDeltaTime, FVector const& NewAccel, class FNetworkPredictionData_Client_Character& ClientData) override;
     virtual void PrepMoveFor(ACharacter* InCharacter) override;
     virtual bool CanCombineWith(const FSavedMovePtr& NewMove, ACharacter* InCharacter, float MaxDelta) const override;
+    virtual bool IsImportantMove(const FSavedMovePtr& LastAckedMove) const override;
+    uint32 DodgeSequence=0;
+    FVector DodgeRequestDirection=FVector::ZeroVector;
+    float DodgeRequestTime=0.f;
+    FFPSMeleeMoveRequest MeleeRequest;
+    float MeleeStep=0.f;
+    bool bMeleeMomentumStart=false,bSavedMeleeMomentum=false;
+    float SavedSlideAge=0.f,SavedSlideRemaining=0.f;
+    bool bSavedSlideDownhill=false;
+    uint32 SlideJumpSequence=0;
+    bool bSlideJumpStart=false;
 
 private:
     uint8 bSavedWantsToSprint : 1;
@@ -33,6 +45,26 @@ public:
     typedef FNetworkPredictionData_Client_Character Super;
     FNetworkPredictionData_Client_FPSCharacter(const UCharacterMovementComponent& ClientMovement);
     virtual FSavedMovePtr AllocateNewMove() override;
+};
+
+struct FFPSNetworkMoveData : FCharacterNetworkMoveData
+{
+    using Super=FCharacterNetworkMoveData;
+    uint32 DodgeSequence=0;
+    FVector_NetQuantizeNormal DodgeDirection=FVector::ZeroVector;
+    float DodgeStartedAt=0.f;
+    FFPSMeleeMoveRequest MeleeRequest;
+    float ReplayMeleeStep=0.f;
+    bool bReplayMeleeMomentumStart=false;
+    uint32 SlideJumpSequence=0;
+    bool bReplaySlideJump=false;
+    virtual void ClientFillNetworkMoveData(const FSavedMove_Character& Move,ENetworkMoveType Type) override;
+    virtual bool Serialize(UCharacterMovementComponent& Movement,FArchive& Ar,UPackageMap* Map,ENetworkMoveType Type) override;
+};
+struct FFPSNetworkMoveDataContainer : FCharacterNetworkMoveDataContainer
+{
+    FFPSNetworkMoveData Moves[3];
+    FFPSNetworkMoveDataContainer(){NewMoveData=&Moves[0];PendingMoveData=&Moves[1];OldMoveData=&Moves[2];}
 };
 
 /** Native swept walking, with local first-person compensation for discrete stair corrections. */
@@ -58,8 +90,14 @@ public:
 
     void SetStairVisualRoot(USceneComponent* InRoot) { StairVisualRoot = InRoot; }
 
-    // Local single-player dodge. Direction is captured at activation, in world XY.
+    // Predicted dodge intent travels with the move that starts the root motion.
     bool StartDodge(const FVector& Direction, float DistanceCM, float DurationSeconds);
+    void QueueDodgeRequest(const FVector& Direction);
+    uint32 DodgeRequestSequence=0;
+    FVector DodgeRequestDirection=FVector::ZeroVector;
+    float DodgeRequestTime=0.f;
+    virtual void MoveAutonomous(float ClientTimeStamp,float DeltaTime,uint8 CompressedFlags,const FVector& NewAccel) override;
+    virtual void PerformMovement(float DeltaSeconds) override;
     void CancelDodge();
     bool IsDodging() const;
     float GetDodgeProgress() const;
@@ -67,6 +105,17 @@ public:
 
     // One grounded capsule sweep, with no residual velocity. Returns actual displacement.
     FVector ApplyMeleeLungeStep(const FVector& Direction, float DistanceCM);
+    void BeginMeleeLungeRequest(EFPSMeleeMove Kind,const FVector& Direction);
+    void RecordMeleeLungeStep(float Distance);
+    bool IsMeleeLungeRejected() const {return RejectedMeleeSequence!=0&&RejectedMeleeSequence==MeleeRequest.Sequence;}
+    FFPSMeleeMoveRequest MeleeRequest;
+    float PendingMeleeStep=0.f;
+    bool bPendingMeleeMomentum=false;
+    bool HasMeleeDashMomentum() const {return bMeleeDashMomentum;}
+    void RestoreMeleeDashMomentum(bool Active){bMeleeDashMomentum=Active;}
+    void QueueSlideJumpRequest();
+    uint32 SlideJumpRequestSequence=0;
+    bool bPendingSlideJump=false;
 
     // Carry a released airborne dash through native collision and landing.
     // Local single-player action; horizontal speed decays until rest or new input.
@@ -95,6 +144,17 @@ protected:
     float GetFrameStairDisplacement() const { return FrameStairDisplacement; }
 
 private:
+    FFPSNetworkMoveDataContainer FPSMoveData;
+    uint32 LastServerDodgeSequence=0;
+    uint32 LastServerSlideJumpSequence=0;
+    UFUNCTION(Client,Reliable) void ClientRejectDodge(uint32 Sequence);
+    void ProcessMeleeNetworkMove(const FFPSNetworkMoveData& Data,bool Authority);
+    bool AuthorizeMeleeMove(const FFPSMeleeMoveRequest& Request,float& Budget,float& Recovery) const;
+    UFUNCTION(Client,Reliable) void ClientRejectMeleeMove(uint32 Sequence);
+    uint32 LastServerMeleeSequence=0,RejectedMeleeSequence=0;
+    float ServerMeleeDistance=0.f,ServerMeleeBudget=0.f;
+    double ServerMeleeRecoveryUntil=0.;
+    bool bServerMeleeBlocked=false;
     void UpdateDodgeState();
     /** 服务端侧最后一次处理远端 move 的真实时刻（UpdateFromCompressedFlags 打点）。 */
     double LastServerMoveAppliedAt = 0.0;

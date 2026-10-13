@@ -130,7 +130,7 @@ void AColdSteelPlayerState::ServerSuper90Shot_Implementation(uint32 Sequence,con
     LastValidatedShotAt=Now;bServerDirty=true;ServerSaveTimer=20.f;
     UAISense_Hearing::ReportNoiseEvent(Pawn,Pawn->GetActorLocation(),1.f,Pawn,Suppressed?1000.f:3600.f,
         Suppressed?TEXT("GunshotSuppressed"):TEXT("Gunshot"));
-    MulticastSuper90Shot(Pawn,Start,Directions,Speed,TravelRange,Aiming,Suppressed);
+    MulticastSuper90Shot(Pawn,Start,Directions,Speed,TravelRange,Aiming,Suppressed,Weapon,GetWorld()->GetTimeSeconds());
     SendSuper90Ammo();
 }
 
@@ -323,11 +323,11 @@ void AColdSteelPlayerState::PreserveSuper90ClientAmmo(FColdSteelProfile& Incomin
         if(const auto* Local=Current.Items.FindByPredicate([&](const auto& V){return V.InstanceId==I.InstanceId;}))Super90Net::CopyMagazine(I,*Local);
 }
 void AColdSteelPlayerState::MulticastSuper90Shot_Implementation(AFPSGAMECharacter* Shooter,FVector_NetQuantize Muzzle,
-    const TArray<FVector_NetQuantizeNormal>& Directions,float Speed,float Range,bool Aiming,bool Suppressed)
+    const TArray<FVector_NetQuantizeNormal>& Directions,float Speed,float Range,bool Aiming,bool Suppressed,const FString& Weapon,float FiredAt)
 {
     if(!Shooter||Shooter->IsLocallyControlled()||GetNetMode()==NM_DedicatedServer)return;
     auto* Body=Shooter->FindComponentByClass<UFPSPlayerBodyComponent>();
-    if(Body)Body->PresentSuper90Shot(Aiming,Suppressed);
+    if(Body)Body->PresentSuper90Shot(Weapon,FiredAt,Aiming,Suppressed);
     // Remote tracers are cosmetic; only the server rounds above can apply hits.
     // Listen-server observers already have the authoritative rounds above.
     // Give those rounds their world FX at launch, never launch a duplicate here.

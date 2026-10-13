@@ -360,7 +360,7 @@ void UFPSWeaponFXComponent::UpdateBigBlindGlow()
 }
 void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCameraComponent* InCamera)
 {
-    if(const auto* ShotgunOwner=Cast<AFPSGAMECharacter>(GetOwner());ShotgunOwner&&ShotgunOwner->IsSuper90Weapon()&&!Super90CasingMesh)
+    if(InWeaponMesh&&InWeaponMesh->GetSkeletalMeshAsset()&&InWeaponMesh->GetSkeletalMeshAsset()->GetPathName()==Super90WeaponAssets::MeshPath&&!Super90CasingMesh)
     {
         Super90CasingMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/Super90/Cransh20261006/Parts/SM_Super90_Casing"));
         Super90CasingMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Weapons/Super90/Cransh20261006/Materials/M_S90_12gauge"));
@@ -484,7 +484,7 @@ void UFPSWeaponFXComponent::PrewarmShotFX()
     if (!ShouldHideCasings())
     {
         const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
-        const bool bRifle = bWorldGun||(!bIndependentPistol && Character && !Character->IsPistolWeapon());
+        const bool bRifle = bWorldGun?!bWorldPistol:(!bIndependentPistol && Character && !Character->IsPistolWeapon());
         const bool bSuper90 = bRifle && WeaponMesh && WeaponMesh->GetSkeletalMeshAsset()
             &&WeaponMesh->GetSkeletalMeshAsset()->GetPathName()==Super90WeaponAssets::MeshPath;
         UStaticMesh* Geometry = nullptr;
@@ -520,6 +520,7 @@ FTransform UFPSWeaponFXComponent::MuzzleTransform() const
     if(bWorldGun&&WorldMuzzlePart.IsValid())
         return FTransform(WorldMuzzlePart->GetComponentQuat().RotateVector(WorldMuzzleAxis).Rotation(),
             WorldMuzzlePart->GetComponentTransform().TransformPosition(WorldMuzzleTip));
+    if(bWorldGun)return WorldMuzzleInRoot*WeaponMesh->GetSocketTransform(TEXT("WPN_root"));
     if(IsValid(IndependentExit))return PresentationFrame(IndependentExit->GetComponentTransform(),IndependentExit);
     if(bUseCharacterMuzzle)if(const auto* C=Cast<AFPSGAMECharacter>(GetOwner()))return C->GetEffectiveMuzzleTransform();
     // Imported WPN local Y lies along the bore; mirrored source rigs need a sign correction.
@@ -1012,7 +1013,7 @@ float UFPSWeaponFXComponent::TracerBaseLengthCM() const
 {
     const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
     const float Scale=FMath::Clamp(TracerLengthScale.GetValueOnGameThread(),.1f,5.f);
-    return Scale*((bIndependentPistol||(Character&&Character->IsPistolWeapon()))
+    return Scale*((bWorldGun?bWorldPistol:(bIndependentPistol||(Character&&Character->IsPistolWeapon())))
         ?WeaponFX::TracerPistolLengthCM:WeaponFX::TracerRifleLengthCM);
 }
 
@@ -1020,7 +1021,7 @@ float UFPSWeaponFXComponent::TracerMaxLengthCM() const
 {
     const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
     const float Scale=FMath::Clamp(TracerLengthScale.GetValueOnGameThread(),.1f,5.f);
-    return Scale*((bIndependentPistol||(Character&&Character->IsPistolWeapon()))
+    return Scale*((bWorldGun?bWorldPistol:(bIndependentPistol||(Character&&Character->IsPistolWeapon())))
         ?WeaponFX::TracerPistolMaxCM:WeaponFX::TracerRifleMaxCM);
 }
 
@@ -1097,7 +1098,7 @@ void UFPSWeaponFXComponent::SpawnSmokeImpulse(bool bADS)
     if (!FX) return;
 
     const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
-    const bool bPistol = bIndependentPistol || (Character && Character->IsPistolWeapon());
+    const bool bPistol = bWorldGun?bWorldPistol:(bIndependentPistol || (Character && Character->IsPistolWeapon()));
     const bool bScope = ShouldHideCasings();
     const bool bSuppressed = LastSuppression < .5f;
     const float Size = .26f * (bPistol ? .8f : 1.f) * LastADSMultiplier
@@ -1193,7 +1194,7 @@ void UFPSWeaponFXComponent::OnShotAtMuzzle(bool bADS,const FTransform& ShotMuzzl
     const float Suppression=(bWorldGun?bWorldGunSuppressed:bIndependentPistol?IndependentSuppressed:(Character&&Character->IsMuzzleSuppressed()))?.12f:1.f;
     LastSuppression=Suppression;
     LastADSMultiplier = bADS ? (bRSH12?.88f:.78f) : 1.0f;
-    LastWeaponFlashMultiplier = bIndependentPistol || (Character && Character->IsPistolWeapon()) ? FMath::Clamp(PistolFlashScale, 0.f, 1.f) : 1.f;
+    LastWeaponFlashMultiplier = (bWorldGun?bWorldPistol:(bIndependentPistol || (Character && Character->IsPistolWeapon()))) ? FMath::Clamp(PistolFlashScale, 0.f, 1.f) : 1.f;
     if(bRSH12)LastWeaponFlashMultiplier=.88f;
     const float Scale = FMath::Clamp(FlashScale, 0.0f, 2.0f) * LastADSMultiplier * LastWeaponFlashMultiplier;
     LastFXShotTime=GetWorld()->GetTimeSeconds();
@@ -1230,7 +1231,7 @@ void UFPSWeaponFXComponent::OnShotAtMuzzle(bool bADS,const FTransform& ShotMuzzl
             ApplyParticleTransform(*P);
         }
     }
-    if (const auto* OwnerCharacter = Cast<AFPSGAMECharacter>(GetOwner()); bWorldGun||(bIndependentPistol?!bIndependentRevolver:(!OwnerCharacter || !OwnerCharacter->bUseDanWesson715))) SpawnCasing();
+    if (const auto* OwnerCharacter = Cast<AFPSGAMECharacter>(GetOwner()); bWorldGun?!bWorldRevolver:(bIndependentPistol?!bIndependentRevolver:(!OwnerCharacter || !OwnerCharacter->bUseDanWesson715))) SpawnCasing();
     PendingHeat = FMath::Min(1.0f, PendingHeat + (bRSH12?.24f:.18f));
     SmokeHeatAtLastShot = FMath::Min(1.f, BarrelHeat + PendingHeat);
     SmokeFeedUntil = LastFXShotTime + FMath::Lerp(.14f, .20f, SmokeHeatAtLastShot);
@@ -1267,7 +1268,7 @@ void UFPSWeaponFXComponent::SpawnCasing()
 {
     if (ShouldHideCasings()) return;
     const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
-    const bool bRifle = bWorldGun||(!bIndependentPistol && Character && !Character->IsPistolWeapon());
+    const bool bRifle = bWorldGun?!bWorldPistol:(!bIndependentPistol && Character && !Character->IsPistolWeapon());
     const bool bSuper90=bRifle&&WeaponMesh&&WeaponMesh->GetSkeletalMeshAsset()
         &&WeaponMesh->GetSkeletalMeshAsset()->GetPathName()==Super90WeaponAssets::MeshPath;
     UStaticMesh* Geometry=nullptr;
@@ -1288,8 +1289,8 @@ void UFPSWeaponFXComponent::SpawnCasing()
                 CasingOutwardSide * FMath::FRandRange(185.0f, 260.0f), FMath::FRandRange(70.0f, 125.0f)))
                 + GetOwner()->GetVelocity();
             P->Acceleration = FVector(0.0f, 0.0f, GetWorld()->GetGravityZ());
-            const float LengthCM = bSuper90 ? 7.f : PKMLowpolyWeaponAssets::Matches(WeaponMesh) ? 5.4f : Character->bUseASH12 ? ASH12WeaponAssets::TracerLengthCM
-                : Character->bUseQBZ191 ? 4.2f : (AKMSoviet::Matches(WeaponMesh) || A762WeaponAssets::Matches(WeaponMesh)) ? 3.9f : 4.5f;
+            const float LengthCM = bSuper90 ? 7.f : PKMLowpolyWeaponAssets::Matches(WeaponMesh) ? 5.4f : (bWorldGun?WorldGunDefinition==TEXT("ue_ash12"):(Character&&Character->bUseASH12)) ? ASH12WeaponAssets::TracerLengthCM
+                : (bWorldGun?WorldGunDefinition==TEXT("ue_qbz191"):(Character&&Character->bUseQBZ191)) ? 4.2f : (AKMSoviet::Matches(WeaponMesh) || A762WeaponAssets::Matches(WeaponMesh)) ? 3.9f : 4.5f;
             const FVector Extent = Geometry->GetBounds().BoxExtent;
             const int32 LongAxis = Extent.X > Extent.Y ? (Extent.X > Extent.Z ? 0 : 2) : (Extent.Y > Extent.Z ? 1 : 2);
             FVector MeshAxis = FVector::ZeroVector;

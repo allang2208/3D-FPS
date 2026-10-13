@@ -1,6 +1,7 @@
 #include "ProductionToolComponent.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "ProductionToolAppearance.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
 #include "ProductionPickaxeImpactMotion.h"
 #include "../Skills/FPSCastingMeshComponent.h"
 #include "../Skills/ColdSteelSkillRules.h"
@@ -56,14 +57,18 @@ UProductionToolComponent::UProductionToolComponent()
 
 void UProductionToolComponent::BeginPlay()
 {
-    Super::BeginPlay();LoadEnchantmentAnchors();
+    Super::BeginPlay();LoadEnchantmentAnchors();InitializeLocalTool();
+}
+void UProductionToolComponent::InitializeLocalTool()
+{
+    if(Pivot)return;
     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner()); Character=Pawn;
     auto* World=GetWorld();
     auto* GameInstance=World?World->GetGameInstance():nullptr;
     // Preview worlds also report standalone. They have no player inventory and
     // can receive BeginPlay while a different world's pawn is being spawned.
-    if (!Pawn || !GameInstance || (World->WorldType!=EWorldType::Game && World->WorldType!=EWorldType::PIE) || Pawn->GetNetMode()==NM_Client)
-    { SetComponentTickEnabled(false); return; }
+    if (!Pawn || !GameInstance || (World->WorldType!=EWorldType::Game && World->WorldType!=EWorldType::PIE) || (!Pawn->HasAuthority()&&!Pawn->IsLocallyControlled()))
+    { return; }
     AddTickPrerequisiteActor(Pawn);
     AxeMotion.Load();
     Camera=Pawn->FindComponentByClass<UCameraComponent>();
@@ -83,7 +88,8 @@ void UProductionToolComponent::BeginPlay()
     Viewmodel->RegisterComponent(); Viewmodel->SetVisibility(false);
     // Sample once from the harvest clock; hidden tools do not evaluate animation.
     Viewmodel->SetComponentTickEnabled(false);
-    if (auto* Profile=GameInstance->GetSubsystem<UColdSteelStatusModel>()) Profile->GrantProductionTools();
+    if(Pawn->IsLocallyControlled())
+        if(auto* Profile=GameInstance->GetSubsystem<UColdSteelStatusModel>())Profile->GrantProductionTools();
     RefreshHeldTool();
 }
 
@@ -118,7 +124,8 @@ void UProductionToolComponent::ApplyToolStats(const FColdSteelItem* Item,UColdSt
 void UProductionToolComponent::RefreshHeldTool()
 {
     if (!ToolMesh) return;
-    auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    auto* Profile=Character.IsValid()&&!Character->IsLocallyControlled()
+        ? Character->GetNetShadowProfile() : GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
     const FString Id=Item?Item->InstanceId:FString();
     // 改造应用会改写物品 Data：同一实例改了配件也要重新取数值，但资源不必重新请求。
@@ -167,7 +174,7 @@ void UProductionToolComponent::RefreshHeldTool()
     }
     else Paths.Add(MeshPath);
     LoadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
-        FStreamableDelegate::CreateWeakLambda(this,[this,Id,MeshPath,SoundPath,DustPath,ViewmodelPath,SwingPath,MotionPrefix]()
+        FStreamableDelegate::CreateWeakLambda(this,[this,Id,MeshPath,SoundPath,DustPath,ViewmodelPath,SwingPath,MotionPrefix,OwnerProfile=TWeakObjectPtr<UColdSteelStatusModel>(Profile)]()
         {
             if (EquippedId!=Id || !ToolMesh) return;
             if(bUsesArms)
@@ -177,13 +184,16 @@ void UProductionToolComponent::RefreshHeldTool()
                     if((Kind!=TEXT("axe") && Kind!=TEXT("pickaxe")) || FName(Clip)!=TEXT("Walk"))
                         Motions.Add(FName(Clip),Cast<UAnimSequence>(HarvestMotionPath(MotionPrefix,Clip).ResolveObject()));
                 SwingSound=Cast<USoundBase>(SwingPath.ResolveObject());
-                if(HasReadyPresentation()){EquipElapsed=0; SampleMotion(TEXT("Equip"),0);}
+                if(HasReadyPresentation())
+                {
+                    const bool Local=Character.IsValid()&&Character->IsLocallyControlled();
+                    EquipElapsed=Local?0.f:-1.f;SampleMotion(Local?TEXT("Equip"):TEXT("Idle"),0.f);
+                }
             }
             else ToolMesh->SetStaticMesh(Cast<UStaticMesh>(MeshPath.ResolveObject()));
             // 资源是异步到位的：槽在 SetMesh 之前不存在，所以路径 ③ 必须在这里补一次。
             // 等级读当前物品 Data（与 EquippedId/DataHash 同步），重复设置同一 MI 幂等。
-            auto* World=GetWorld(); auto* GameInstance=World?World->GetGameInstance():nullptr;
-            auto* LiveProfile=GameInstance?GameInstance->GetSubsystem<UColdSteelStatusModel>():nullptr;
+            auto* LiveProfile=OwnerProfile.Get();
             if(const auto* Current=LiveProfile?LiveProfile->ActiveProductionTool():nullptr)
             {
                 ProductionToolAppearance::ApplyLevel(ToolMesh,*Current);
@@ -192,6 +202,7 @@ void UProductionToolComponent::RefreshHeldTool()
             HitSound=Cast<USoundBase>(SoundPath.ResolveObject()); ImpactDust=Cast<UParticleSystem>(DustPath.ResolveObject());
             Feedback=HasReadyPresentation()?((Kind==TEXT("axe") || Kind==TEXT("pickaxe"))?TEXT("双手工具 · 左键攻击 / 采集 · G / 滚轮切换武器"):TEXT("左键采集 · F7 收起工具")):TEXT("工具或手部动作加载失败，请重新装备");
             FeedbackSeconds=3.f;
+            if(auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>())Body->RefreshEquipment();
         }));
 }
 
@@ -201,7 +212,7 @@ bool UProductionToolComponent::CanPresent() const
     const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
     const auto* Building=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
-    return PC && !Pawn->IsTraversing() && (!Health || !Health->IsDead())
+    return PC && Pawn->IsLocallyControlled() && !Pawn->IsTraversing() && (!Health || !Health->IsDead())
         && (!Building || !Building->IsBuilding() || Building->IsPanelOpen());
 }
 
@@ -328,7 +339,7 @@ void UProductionToolComponent::AdvanceActionBeforeCamera(float Delta)
 {
     // The owner calls this once, before its camera and before our presentation
     // tick. Contact audio, camera impulses and sampled arms see the same age.
-    if(!Character.IsValid()||!Pivot)return;
+    if(!Character.IsValid()||!Character->IsLocallyControlled()||!Pivot)return;
     if(!IsEquipped()||!CanUse()){CancelUse();return;}
     if (Elapsed>=0)
     {
@@ -370,6 +381,8 @@ void UProductionToolComponent::AdvanceActionBeforeCamera(float Delta)
 void UProductionToolComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
+    InitializeLocalTool();if(!Pivot)return;
+    if(!Character.IsValid()||!Character->IsLocallyControlled())return;
     const bool Present=IsEquipped() && CanPresent();
     const bool Usable=IsEquipped() && CanUse();
     if (ToolMesh) ToolMesh->SetVisibility(Present && !bUsesArms && ToolMesh->GetStaticMesh());

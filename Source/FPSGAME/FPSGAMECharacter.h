@@ -43,6 +43,8 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class AColdSteelPickup;
     friend class UM4GunsmithWidget;
     friend class UFPSTraversalComponent;
+    friend class UFPSCharacterMovementComponent;
+    friend class FSavedMove_FPSCharacter;
     friend class UFPSStairAudit;
     friend class UTacticalDeviceComponent;
     friend class UPistolDualWieldComponent;
@@ -147,6 +149,7 @@ public:
     bool IsMeleeSkillMovementLocked() const;
     UFUNCTION(BlueprintPure, Category="FPS Movement|Dodge") bool IsDodging() const;
     UFUNCTION(BlueprintCallable, Category="FPS Movement|Dodge") bool TryDodge();
+    bool TryDodgeInDirection(const FVector& Direction);
     virtual float TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent,
         AController* EventInstigator, AActor* DamageCauser) override;
     /** Menus swallow the key release, so a held trajectory preview is dropped here too. */
@@ -181,8 +184,9 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Weapon|Bipod") TObjectPtr<class UWeaponBipodDeploymentComponent> BipodDeployment;
     void SetGunsmithStock(const FString& Variant);
     void SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon = nullptr, const FString& GripBody = FString());
-    void SetGunsmithTactical(const FString& Variant);
+    void SetGunsmithTactical(const FString& Variant,const FString& SecondaryVariant=FString());
     UPROPERTY(Transient) TObjectPtr<class UTacticalDeviceComponent> TacticalDevice;
+    UPROPERTY(Transient) TObjectPtr<class UTacticalDeviceComponent> SecondaryTacticalDevice;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> RearGripAttachment;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> GripBodyAttachment;
     /** 联机：远端玩家在服务端持有的影子档案（ColdSteelNet 联机层注入；主机自己的 pawn 不用，走单例）。 */
@@ -202,6 +206,7 @@ public:
     bool HasCantedForegrip() const;
     bool HasAngledForegrip() const;
     FTransform GetEffectiveMuzzleTransform() const;
+    FTransform GetNativeMuzzleTransform() const;
     FVector GetEffectiveMuzzleLocation() const;
     FVector GetEffectiveMuzzleForward() const;
     bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"));}
@@ -551,6 +556,7 @@ private:
     void UpdateWeaponState(float DeltaSeconds);
     void UpdateWeaponFeedback(float DeltaSeconds);
     void UpdateCamera(float DeltaSeconds);
+    void BuildReloadCameraTracks(TArray<struct FWeaponReloadCameraTrack,TInlineAllocator<2>>& Tracks) const;
     void SetAimingState(bool bNewAiming);
     void UpdateADSProgress();
     FRotator GetViewmodelBaseRotation() const;
@@ -622,6 +628,8 @@ private:
     bool bReloadCycleOnly = false;
     float ReloadResumeElapsed = 0.f;
     void ApplyShotFeedback();
+    /** Sight/reticle centre before the individual round's random hip spread. */
+    FVector ComputeWeaponAimDirection() const;
     FVector ComputeShotDirection() const;
     void RunWeaponAudit(float DeltaSeconds);
     void RunGunplayAcceptance(float DeltaSeconds);

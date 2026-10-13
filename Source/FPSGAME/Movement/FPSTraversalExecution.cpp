@@ -1,8 +1,10 @@
 #include "FPSTraversalComponent.h"
 #include "FPSTraversalArmsComponent.h"
+#include "FPSTraversalTiming.h"
 #include "../FPSGAMECharacter.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
+#include "../Monsters/FPSCombatHealthComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -16,8 +18,31 @@ namespace
     float Ease(float A,float B,float T) { return FMath::SmoothStep(A,B,T); }
     constexpr float WeaponStowEnd=.06f;
     constexpr float ArmRetractDuration=.12f;
+    // Real seconds: a fast vault must not also compress the gun raise to 50 ms.
+    constexpr float WeaponRaiseSeconds=.24f;
     // Camera-space withdrawal: below the image and slightly away from the lens.
     const FVector ArmRetractOffset(12.f,0.f,-50.f);
+
+    float FallExitTangent(float Distance,float Seconds,float Speed)
+    { return Distance>UE_SMALL_NUMBER?FMath::Clamp(Speed*Seconds/Distance,0.f,1.f):0.f; }
+}
+
+void UFPSTraversalComponent::ApplyWeaponStow()
+{
+    auto* C=CastChecked<AFPSGAMECharacter>(GetOwner());
+    // UpdateViewmodel supplies a fresh calibrated pose every frame. Apply the
+    // handoff afterwards, in camera space, without accumulating old offsets.
+    C->AKMViewmodel->AddRelativeLocation(FVector(0,0,-38.f*WeaponStowWeight));
+    C->AKMViewmodel->SetRelativeRotation(FRotator(-12.f*WeaponStowWeight,0,0).Quaternion()
+        *C->AKMViewmodel->GetRelativeRotation().Quaternion());
+}
+
+void UFPSTraversalComponent::UpdateWeaponReturn(float DeltaSeconds)
+{
+    WeaponRaiseElapsed+=FMath::Max(0.f,DeltaSeconds);
+    WeaponStowWeight=WeaponReturnWeight*(1.f-Ease(0,WeaponRaiseSeconds,WeaponRaiseElapsed));
+    ApplyWeaponStow();
+    if(WeaponRaiseElapsed>=WeaponRaiseSeconds)bReturningWeapon=false;
 }
 
 void UFPSTraversalComponent::SetWeaponHiddenForTraversal(bool bHidden)
@@ -65,10 +90,11 @@ USkeletalMeshComponent* UFPSTraversalComponent::GetFirstPersonArms() const
 void UFPSTraversalComponent::InitializePresentation()
 {
     auto* C=Cast<AFPSGAMECharacter>(GetOwner());
-    if (!C || GetNetMode()==NM_Client) return;
+    if (!C) return;
     const auto* S=GetDefault<UFPSTraversalSettings>();
-    auto* Mesh=S->ArmsMesh.LoadSynchronous();
     VaultClip=S->VaultAnimation.LoadSynchronous(); MantleClip=S->MantleAnimation.LoadSynchronous(); ClimbClip=S->ClimbAnimation.LoadSynchronous();
+    if(Arms||GetNetMode()==NM_DedicatedServer||!C->IsLocallyControlled())return;
+    auto* Mesh=S->ArmsMesh.LoadSynchronous();
     if (!Mesh) return;
     Arms=NewObject<UFPSTraversalArmsComponent>(C,TEXT("TraversalArms"));
     C->AddInstanceComponent(Arms);
@@ -83,14 +109,13 @@ void UFPSTraversalComponent::InitializePresentation()
 
 bool UFPSTraversalComponent::TryStart(bool bAvailable, bool bLogRejection)
 {
-    if (bTraversing) return false;
+    if (IsTraversing()) return false;
     auto* C=Cast<AFPSGAMECharacter>(GetOwner());
     if (C && C->IsDodging()) return false;
     InspectJump(bAvailable && C && C->Controller && !C->Controller->IsMoveInputIgnored());
-    if (!C || !Arms || GetNetMode()==NM_Client) return false;
+    if (!C || (!C->HasAuthority()&&!C->IsLocallyControlled())) return false;
     const auto& T=LastJumpTarget;
     const bool bVault=T.Action==EFPSTraversalAction::Vault;
-    const bool bHigh=T.Probe.Height>GetDefault<UFPSTraversalSettings>()->VaultMaxHeight;
     if (!bVault && T.Action!=EFPSTraversalAction::Mantle)
     {
         if (bLogRejection || bDebugQueries) UE_LOG(LogTemp,Display,TEXT("TRAVERSAL_INPUT_REJECT reason=%s available=%d grounded=%d distance=%.2f facing=%.3f height=%.1f obstacle=%s mobility=%d pos=%s"),
@@ -98,21 +123,40 @@ bool UFPSTraversalComponent::TryStart(bool bAvailable, bool bLogRejection)
             *GetNameSafe(T.Obstacle),T.Obstacle?(int32)T.Obstacle->Mobility:-1,*C->GetActorLocation().ToString());
         return false;
     }
+    if(GetNetMode()==NM_Client)
+    {
+        bAwaitingTraversal=true;bJumpRequestConsumed=true;
+        ++NetworkRequest;ServerRequestTraversal(NetworkRequest);
+        return true;
+    }
+    return BeginTarget(T);
+}
+
+bool UFPSTraversalComponent::BeginTarget(const FFPSTraversalTarget& Target)
+{
+    auto* C=CastChecked<AFPSGAMECharacter>(GetOwner());
+    LastJumpTarget=Target;const auto& T=LastJumpTarget;
+    const bool bVault=T.Action==EFPSTraversalAction::Vault;
+    const bool bHigh=T.Probe.Height>GetDefault<UFPSTraversalSettings>()->VaultMaxHeight;
+    if(!VaultClip||(C->IsLocallyControlled()&&!Arms))InitializePresentation();
     ActiveClip=bVault?VaultClip:(bHigh?ClimbClip:MantleClip);
-    if (!ActiveClip || ActiveClip->GetPlayLength()<=0.f || ActiveClip->GetSkeleton()!=Arms->GetSkeletalMeshAsset()->GetSkeleton()) return false;
+    if(!ActiveClip||ActiveClip->GetPlayLength()<=0.f)return false;
+    if(C->IsLocallyControlled()&&(!Arms||ActiveClip->GetSkeleton()!=Arms->GetSkeletalMeshAsset()->GetSkeleton()))return false;
     // A normal jump leaves inspection playing. Only a committed grasp/push needs the hands.
     C->InterruptWeaponInspection();
     ClipDuration=ActiveClip->GetPlayLength(); Elapsed=0;
-    bReturningCamera=false; bLastTraversalSucceeded=false;
+    bReturningCamera=false; bReturningWeapon=false; bLastTraversalSucceeded=false;
+    WeaponStowWeight=WeaponRaiseElapsed=0.f; WeaponReturnWeight=1.f;
     PlaybackRate=bVault?GetDefault<UFPSTraversalSettings>()->VaultPlaybackRate:1.f;
-    CastChecked<UFPSTraversalArmsComponent>(Arms)->ResetSurfaceContact();
+    if(Arms)CastChecked<UFPSTraversalArmsComponent>(Arms)->ResetSurfaceContact();
     Contact=bVault?.27f:(bHigh?.74f:.345f); Release=bVault?.58f:(bHigh?2.25f:1.1f);
     // Keep grasp/push timing and the remaining time needed to reach safe footing.
-    // Presentation uses a separate withdrawal after release, not the full-body tail.
+    // Both rigs map the authored recovery into this same gameplay interval.
     Duration=FMath::Min(ClipDuration,Release+(bVault?.22f:.30f));
     EntryVelocity=T.Probe.bAirborne?C->GetVelocity():FVector::ZeroVector;
     EntryView=(C->Controller?C->Controller->GetControlRotation():C->GetActorRotation()).GetNormalized();
     StartLocation=C->GetActorLocation(); StartCamera=LastCamera=C->FirstPersonCamera->GetComponentLocation();
+    LastCameraCapsule=StartLocation;
     LastCameraRotation=C->FirstPersonCamera->GetComponentQuat();
     const float LiftDistance=T.RaisedStart.Z-StartLocation.Z;
     EntryLiftTangent=LiftDistance>1.f?FMath::Clamp(EntryVelocity.Z*(Duration*.4f/PlaybackRate)/LiftDistance,0.f,3.f):0.f;
@@ -126,14 +170,20 @@ bool UFPSTraversalComponent::TryStart(bool bAvailable, bool bLogRejection)
     // High ledges are gripped from their front face; the wrist stays outside the wall.
     if (bHigh) EdgeCorrection-=Facing.RotateVector(FVector(6,0,0));
     CameraLocalOffset=FVector(bVault?-12.f:(bHigh?0.f:8.f),0,3);
-    Arms->SetWorldLocationAndRotation(StartFoot,MeshRotation);
-    Arms->PlayAnimation(ActiveClip,false); Arms->Stop();
-    Arms->SetPosition(0,false); Arms->TickAnimation(0,false); Arms->RefreshBoneTransforms();
-    ObstacleTransform=T.Obstacle->GetComponentTransform();
+    if(Arms)
+    {
+        Arms->SetWorldLocationAndRotation(StartFoot,MeshRotation);
+        Arms->PlayAnimation(ActiveClip,false); Arms->Stop();
+        Arms->SetPosition(0,false); Arms->TickAnimation(0,false); Arms->RefreshBoneTransforms();
+    }
+    ObstacleTransform=T.Obstacle?T.Obstacle->GetComponentTransform():FTransform::Identity;
     SupportTransforms.Reset(T.Supports.Num());
-    for (const auto& Support:T.Supports) SupportTransforms.Add(Support->GetComponentTransform());
+    for (const auto& Support:T.Supports) SupportTransforms.Add(Support?Support->GetComponentTransform():FTransform::Identity);
     bSavedControllerYaw=C->bUseControllerRotationYaw; C->bUseControllerRotationYaw=false;
     C->FireReleased(); C->SetAimingState(false); C->bIsSprinting=false;
+    // Prepare the held pose before it is hidden; do not restart its animation
+    // midway through the visible raise when movement resumes.
+    C->ResumeWeaponPose();
     C->GetCharacterMovement()->StopMovementImmediately(); C->ConsumeMovementInputVector();
     C->JumpBufferRemaining=0.f; C->StopJumping(); bJumpRequestConsumed=true;
     C->GetCharacterMovement()->DisableMovement(); bTraversing=true;
@@ -146,12 +196,16 @@ bool UFPSTraversalComponent::TryStart(bool bAvailable, bool bLogRejection)
 
 void UFPSTraversalComponent::Advance(float DeltaSeconds)
 {
+    if(bNetworkCorrectionsHeld&&NetworkCorrectionReleaseAt>0.f&&NetworkClock()>=NetworkCorrectionReleaseAt)RestoreNetworkCorrections();
     if (bRuntimeAudit) RunRuntimeAudit();
     if (!bTraversing) TryAirCatch();
     if (!bTraversing) return;
     auto* C=CastChecked<AFPSGAMECharacter>(GetOwner());
-    if (!IsBlockingSupport(LastJumpTarget.Obstacle) || !LastJumpTarget.Obstacle->GetComponentTransform().Equals(ObstacleTransform,.1f)) { Finish(false); return; }
-    for (int32 I=0;I<LastJumpTarget.Supports.Num();++I)
+    if(const auto* Health=C->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead()){Finish(false);return;}
+    // Authority checks supports. Procedural components may have no network GUID
+    // on clients; their absence must not abort an approved path.
+    if(C->HasAuthority()&&(!IsBlockingSupport(LastJumpTarget.Obstacle) || !LastJumpTarget.Obstacle->GetComponentTransform().Equals(ObstacleTransform,.1f))) { Finish(false); return; }
+    for (int32 I=0;C->HasAuthority()&&I<LastJumpTarget.Supports.Num();++I)
         if (!IsBlockingSupport(LastJumpTarget.Supports[I]) ||
             !LastJumpTarget.Supports[I]->GetComponentTransform().Equals(SupportTransforms[I],.1f))
         { Finish(false); return; }
@@ -159,7 +213,10 @@ void UFPSTraversalComponent::Advance(float DeltaSeconds)
     // One source-time clock accelerates body, camera, grasp and release together.
     const float Next=FMath::Min(Duration,Elapsed+FMath::Max(0.f,DeltaSeconds)*PlaybackRate);
     // Visit each corner even on a long frame: never sweep diagonally through the wall.
-    const float Boundaries[]={Duration*.40f,Duration*.78f,Duration};
+    // A fall exit has no animated landing leg. Carry the crossing through the
+    // withdrawal instead of reaching the exit early and hovering for the tail.
+    const float CrossingEnd=LastJumpTarget.bReleaseIntoFall?Duration:Duration*.78f;
+    const float Boundaries[]={Duration*.40f,CrossingEnd,Duration};
     const FVector Points[]={StartLocation,LastJumpTarget.RaisedStart,LastJumpTarget.RaisedEnd,LastJumpTarget.Destination};
     float Cursor=Elapsed;
     for (int32 I=0;I<3;++I)
@@ -175,6 +232,15 @@ void UFPSTraversalComponent::Advance(float DeltaSeconds)
             // ease to zero at the corner, never overshoot the swept segment.
             Alpha+=EntryLiftTangent*T*(1.f-T)*(1.f-T);
         }
+        else if(I==1 && LastJumpTarget.bReleaseIntoFall)
+        {
+            const float T=FMath::Clamp((Time-Begin)/(End-Begin),0.f,1.f);
+            const float Tangent=FallExitTangent(FVector::Distance(Points[I],Points[I+1]),
+                (End-Begin)/PlaybackRate,C->GetCharacterMovement()->MaxWalkSpeed);
+            // End with the velocity that CMC will inherit, rather than braking
+            // to a suspended stop and starting the fall from rest.
+            Alpha+=Tangent*T*T*(T-1.f);
+        }
         const FVector Position=FMath::Lerp(Points[I],Points[I+1],Alpha);
         FHitResult Hit; C->SetActorLocation(Position,true,&Hit);
         if (Hit.bBlockingHit) { Finish(false); return; }
@@ -186,25 +252,35 @@ void UFPSTraversalComponent::Advance(float DeltaSeconds)
 
 void UFPSTraversalComponent::UpdatePresentation(float DeltaSeconds)
 {
-    if (!bTraversing) { if (bReturningCamera) UpdateCameraReturn(DeltaSeconds); return; }
+    if (!bTraversing)
+    {
+        if (bReturningCamera) UpdateCameraReturn(DeltaSeconds);
+        if (bReturningWeapon) UpdateWeaponReturn(DeltaSeconds);
+        return;
+    }
     auto* C=CastChecked<AFPSGAMECharacter>(GetOwner());
+    const FVector NormalCamera=C->FirstPersonCamera->GetComponentLocation();
     const float Enter=Ease(0.f,Contact,Elapsed), Exit=Ease(Release,Duration,Elapsed);
     const bool bReleased=Elapsed>Release;
     Arms->SetWorldLocation(StartFoot+EdgeCorrection*Enter);
-    // The source standing-up tail can swing the open shoulder/sleeve through the
-    // FPS camera. Stop at the authored release pose and withdraw that pose instead.
-    const float SampleTime=FMath::Min(Elapsed,Release);
-    const float Plant=Ease(Contact-.12f,Contact,Elapsed)*(1.f-Ease(Release-.12f,Release,Elapsed));
+    // Keep fingers, elbows and head on the body's source phase after release.
+    // The camera-relative withdrawal below keeps the sleeve clear of the lens.
+    const float SampleTime=FPSTraversalTiming::Sample(GetPresentationProgress(),
+        GetContactFraction(),GetReleaseFraction(),Contact,Release,ClipDuration);
+    const float Plant=GetHandContactWeight();
     CastChecked<UFPSTraversalArmsComponent>(Arms)->SetSurfaceContact(LastJumpTarget,Plant);
     Arms->SetPosition(SampleTime,false); Arms->TickAnimation(0,false); Arms->RefreshBoneTransforms();
     Arms->UpdateBounds(); Arms->MarkRenderTransformDirty(); Arms->MarkRenderDynamicDataDirty();
     const FVector HeadCamera=Arms->GetSocketLocation(TEXT("head"))+Facing.RotateVector(CameraLocalOffset);
     const float EntryTime=Elapsed/PlaybackRate;
     const FVector EntryCamera=StartCamera+FVector(0,0,EntryVelocity.Z)*EntryTime*(1.f-Ease(0.f,.15f,EntryTime));
-    FVector Camera=FMath::Lerp(EntryCamera,HeadCamera,Ease(0,.15f,Elapsed));
-    Camera=FMath::Lerp(Camera,LastJumpTarget.Destination+FVector(0,0,C->StandingCameraHeight),Exit);
+    FVector Camera=FMath::Lerp(EntryCamera,HeadCamera,Ease(0,.15f,EntryTime));
+    // Return to this frame's stance/capsule camera, not a future destination.
+    // UpdateCamera supplies an unsmoothed target while traversal owns the view.
+    Camera=FMath::Lerp(Camera,NormalCamera,Exit);
     Camera=SweepCamera(LastCamera,Camera);
     LastCamera=Camera; C->FirstPersonCamera->SetWorldLocation(Camera);
+    LastCameraCapsule=C->GetActorLocation();
     // After release the camera returns independently. Carry the visible pose with
     // that translation so the returning camera cannot move through a fixed arm.
     // Do not feed the withdrawal offset back into the head camera or its glance.
@@ -227,7 +303,8 @@ void UFPSTraversalComponent::UpdatePresentation(float DeltaSeconds)
     LastCameraRotation=C->FirstPersonCamera->GetComponentQuat();
     // Complete the weapon withdrawal before the traversal hands enter. Restore
     // it only after those hands have retracted: the two meshes never overlap.
-    const float Stow=Ease(0,WeaponStowEnd,Elapsed)*(1.f-Ease(HandsClearTime,Duration,Elapsed));
+    WeaponRaiseElapsed=FMath::Max(0.f,(Elapsed-HandsClearTime)/PlaybackRate);
+    WeaponStowWeight=Ease(0,WeaponStowEnd,Elapsed)*(1.f-Ease(0,WeaponRaiseSeconds,WeaponRaiseElapsed));
     const bool bTraversalOwnsHands=Elapsed>=WeaponStowEnd && Elapsed<HandsClearTime;
     // Withdraw below the current image even when looking down or sideways. World
     // -Z alone leaves the sleeve in view during a downward-looking mantle exit.
@@ -237,8 +314,7 @@ void UFPSTraversalComponent::UpdatePresentation(float DeltaSeconds)
     SetWeaponHiddenForTraversal(bTraversalOwnsHands);
     Arms->SetVisibility(bTraversalOwnsHands);
     C->AKMViewmodel->SetVisibility(C->bInventoryWeaponReady,true);
-    // Withdraw in camera space, independent of the equipped gun's mesh rotation.
-    C->AKMViewmodel->AddRelativeLocation(FVector(0,0,-30.f*Stow));
+    ApplyWeaponStow();
 }
 
 void UFPSTraversalComponent::Finish(bool bSuccess)
@@ -248,6 +324,12 @@ void UFPSTraversalComponent::Finish(bool bSuccess)
     if (Arms) Arms->SetVisibility(false);
     SetWeaponHiddenForTraversal(false);
     if (!C) return;
+    bReturningWeapon=WeaponStowWeight>UE_SMALL_NUMBER;
+    if(!bSuccess)
+    {
+        WeaponReturnWeight=WeaponStowWeight;
+        WeaponRaiseElapsed=0.f;
+    }
     LastExitLocation=C->GetActorLocation();
     C->bUseControllerRotationYaw=bSavedControllerYaw;
     C->GetCharacterMovement()->StopMovementImmediately(); C->ConsumeMovementInputVector();
@@ -267,25 +349,46 @@ void UFPSTraversalComponent::Finish(bool bSuccess)
     }
     bLastTraversalSucceeded=bSuccess;
     Movement->SetMovementMode(bSuccess && !bDropRelease?MOVE_Walking:MOVE_Falling);
-    if (!bSuccess || bDropRelease)
+    // Finish runs before presentation and can skip its last sample even on a
+    // grounded exit. Carry from the last rendered capsule, including that final
+    // swept step. Physics resumes immediately while only the view/held rig blend.
+    bReturningCamera=C->IsLocallyControlled();CameraReturnSpeed=0.f;CameraReturnCapsule=LastCameraCapsule;
+    if(bReturningCamera)C->FirstPersonCamera->SetWorldLocationAndRotation(LastCamera,LastCameraRotation);
+    if(bSuccess && bDropRelease)
     {
-        // Resume physics immediately. Only the rendered view returns gradually.
-        bReturningCamera=true; CameraReturnSpeed=0.f; CameraReturnCapsule=C->GetActorLocation();
-        C->FirstPersonCamera->SetWorldLocationAndRotation(LastCamera,LastCameraRotation);
+        const FVector Crossing=LastJumpTarget.RaisedEnd-LastJumpTarget.RaisedStart;
+        const float Seconds=Duration*.6f/PlaybackRate;
+        Movement->Velocity=Crossing/Seconds*FallExitTangent(Crossing.Size(),Seconds,Movement->MaxWalkSpeed);
     }
     if (bSuccess && C->Controller && !C->Controller->IsMoveInputIgnored())
     {
         const FRotationMatrix Basis(FRotator(0,C->Controller->GetControlRotation().Yaw,0));
         const FVector Wish=Basis.GetUnitAxis(EAxis::X)*C->MoveInput.Y+Basis.GetUnitAxis(EAxis::Y)*C->MoveInput.X;
-        Movement->Velocity=Wish.GetClampedToMaxSize(1.f)*Movement->MaxWalkSpeed;
+        if(!bDropRelease)Movement->Velocity=Wish.GetClampedToMaxSize(1.f)*Movement->MaxWalkSpeed;
         C->AddMovementInput(Wish.GetSafeNormal(),FMath::Min(1.f,Wish.Size()));
     }
     C->AKMViewmodel->SetVisibility(C->bInventoryWeaponReady,true);
-    C->FireReleased(); C->ResumeWeaponPose();
+    C->FireReleased();
+    if(GetNetMode()==NM_Client&&!bApplyingNetworkEnd)
+    {
+        // Wait for the authoritative swept exit before giving movement back.
+        bAwaitingTraversalEnd=true;Movement->DisableMovement();
+    }
+    if(C->HasAuthority()&&!C->IsLocallyControlled()&&NetworkRequest)
+    {
+        NetworkCorrectionReleaseAt=NetworkClock()+1.f;
+        ClientEndTraversal(NetworkRequest,bSuccess,C->GetActorLocation(),Movement->Velocity,uint8(Movement->MovementMode));
+        C->ForceNetUpdate();
+    }
     UE_LOG(LogTemp,Display,TEXT("TRAVERSAL_END success=%d location=%s"),bSuccess,*C->GetActorLocation().ToString());
 }
-void UFPSTraversalComponent::Cancel() { bJumpHeld=false; bJumpRequestConsumed=true; if (bTraversing) Finish(false); }
+void UFPSTraversalComponent::Cancel()
+{
+    bJumpHeld=false;bJumpRequestConsumed=true;
+    if(GetNetMode()==NM_Client&&IsTraversing()&&!bApplyingNetworkEnd)ServerCancelTraversal(NetworkRequest);
+    if(bTraversing)Finish(false);
+}
 void UFPSTraversalComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
-    Cancel(); Super::EndPlay(Reason);
+    Cancel();RestoreNetworkCorrections();Super::EndPlay(Reason);
 }
