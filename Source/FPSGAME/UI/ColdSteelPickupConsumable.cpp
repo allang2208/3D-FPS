@@ -63,7 +63,14 @@ bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
         Body->SetBoxExtent(Bounds.BoxExtent.ComponentMax(FVector(1)));
         return true;
     }
-    if(Id==TEXT("baguette_bread")||Id==TEXT("bread")||Id==TEXT("soda_can"))
+    const bool bDocumentCollectible=Id==TEXT("search_usb_drive")||Id==TEXT("search_archive_tape")||
+        Id==TEXT("search_encrypted_archive_case")||Id==TEXT("search_certified_admin_archive");
+    const bool bMaintenanceCollectible=Id==TEXT("search_forging_alloy_blank")||Id==TEXT("search_assembly_component_box")||
+        Id==TEXT("search_resin_adhesive")||Id==TEXT("search_laminated_strip")||Id==TEXT("search_precision_mechanism");
+    const bool bServerCollectible=Id==TEXT("search_ram_module")||Id==TEXT("search_network_card")||
+        Id==TEXT("search_hard_disk")||Id==TEXT("search_ssd")||Id==TEXT("search_processor")||
+        Id==TEXT("search_graphics_card")||Id==TEXT("search_raid_controller")||Id==TEXT("search_compute_accelerator");
+    if(Id==TEXT("baguette_bread")||Id==TEXT("bread")||Id==TEXT("soda_can")||bDocumentCollectible||bMaintenanceCollectible||bServerCollectible)
     {
         auto* Asset=LoadObject<UStaticMesh>(nullptr,*ColdSteelInventory::Text(Item,TEXT("world_mesh")));
         if(!Asset)return false;

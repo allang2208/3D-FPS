@@ -1,0 +1,282 @@
+{
+  "version": 1,
+  "date": "2026-10-12",
+  "status": "runtime_pools_integrated_20261013_pending_multiplayer_playtest",
+  "runtime_loot_config": "Content/ColdSteelData/scene_search_loot.json",
+  "runtime_loot_document": "Docs/Gameplay/facility-search-loot-20261013.md",
+  "groups": [
+    {
+      "id": "daily_supplies",
+      "name": "日常用品",
+      "definition": "水、食物、日常杂物",
+      "uses": {
+        "水和食物": "满足生存需求",
+        "日常杂物": "出售换取灵魂"
+      }
+    },
+    {
+      "id": "documents",
+      "name": "文件材料",
+      "definition": "卡片、U盘、设备资料盘、行政资料",
+      "uses": {
+        "文件材料": "出售换取灵魂"
+      }
+    },
+    {
+      "id": "maintenance",
+      "name": "检修设备",
+      "definition": "装备制作所需零件与耗材",
+      "uses": {
+        "制作材料": "在铁匠台、枪械组装台、木工台的具体配方中消耗"
+      },
+      "recipe_sources": [
+        "Content/ColdSteelData/forging-recipes.json",
+        "Content/ColdSteelData/gun-assembly.json",
+        "Content/ColdSteelData/woodworking-recipes.json"
+      ]
+    },
+    {
+      "id": "server_equipment",
+      "name": "机房设备",
+      "definition": "显卡、机械硬盘、内存条等高价值信息设备",
+      "proposed_primary_use": "高价值出售换取灵魂，具体用途待逐物品制定"
+    }
+  ],
+  "classification_notes": [
+    "容器分组独立于物品稀有度。",
+    "U盘和设备资料盘属于文件材料；机械硬盘、内存、显卡属于机房设备。",
+    "防护用品柜保留日常用品分组，V2偏应急生存补给，取消无功能防护杂物。",
+    "文件物品不因名称自动获得开门权限、研究或情报兑换功能。",
+    "来源于两个大厅的29个入口与发电区的服务器入口分别统计；样板副本不重复计数。"
+  ],
+  "container_bindings": [
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.VisitorLocker1",
+      "caption": "访客寄存柜 01",
+      "group": "daily_supplies",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.VisitorLocker2",
+      "caption": "访客寄存柜 02",
+      "group": "daily_supplies",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.VisitorLocker3",
+      "caption": "访客寄存柜 03",
+      "group": "daily_supplies",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.VisitorLocker4",
+      "caption": "访客寄存柜 04",
+      "group": "daily_supplies",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.VisitorLocker5",
+      "caption": "访客寄存柜 05",
+      "group": "daily_supplies",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.VisitorLocker6",
+      "caption": "访客寄存柜 06",
+      "group": "daily_supplies",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.ReceptionRecords0",
+      "caption": "访客记录 · 登记资料",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.ReceptionRecords1",
+      "caption": "访客记录 · 通行凭证",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.ReceptionRecords2",
+      "caption": "访客记录 · 接待档案",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.UpperRecordsSouth0",
+      "caption": "访客记录 · 登记资料",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.UpperRecordsSouth1",
+      "caption": "访客记录 · 通行凭证",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.UpperRecordsSouth2",
+      "caption": "访客记录 · 接待档案",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.UpperRecordsNorth0",
+      "caption": "访客记录 · 登记资料",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.UpperRecordsNorth1",
+      "caption": "访客记录 · 通行凭证",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.UpperRecordsNorth2",
+      "caption": "访客记录 · 接待档案",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.PPE0",
+      "caption": "中转厅 · 防护用品 1",
+      "group": "daily_supplies",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.PPE1",
+      "caption": "中转厅 · 防护用品 2",
+      "group": "daily_supplies",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.PPE2",
+      "caption": "中转厅 · 防护用品 3",
+      "group": "daily_supplies",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.PPE3",
+      "caption": "中转厅 · 防护用品 4",
+      "group": "daily_supplies",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.PPE4",
+      "caption": "中转厅 · 防护用品 5",
+      "group": "daily_supplies",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.PPE5",
+      "caption": "中转厅 · 防护用品 6",
+      "group": "daily_supplies",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Records00",
+      "caption": "区域通行记录",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Records01",
+      "caption": "区域通行记录",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Records02",
+      "caption": "区域通行记录",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Records10",
+      "caption": "区域通行记录",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Records11",
+      "caption": "区域通行记录",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Records12",
+      "caption": "区域通行记录",
+      "group": "documents",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Tool0",
+      "caption": "中转厅检修工具",
+      "group": "maintenance",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Tool1",
+      "caption": "中转厅检修工具",
+      "group": "maintenance",
+      "evidence": "saved_hall_recipe_and_subject_actor_readback"
+    },
+    {
+      "module": "AccumulatorControl",
+      "container_id": "PowerTheme20261004RefineV2.Server.ControlServerRack01",
+      "caption": "服务器模块",
+      "group": "server_equipment",
+      "evidence": "current_authoring_catalog_and_server_delivery_document"
+    },
+    {
+      "module": "AccumulatorControl",
+      "container_id": "PowerTheme20261004RefineV2.Server.ControlServerRack02",
+      "caption": "服务器模块",
+      "group": "server_equipment",
+      "evidence": "current_authoring_catalog_and_server_delivery_document"
+    }
+  ],
+  "not_in_this_step": [
+    "售卖实现",
+    "新物品模型与图标",
+    "配方扣料变更",
+    "新增售价调整",
+    "双客户端实机验收"
+  ],
+  "standard": "Docs/Gameplay/search-container-groups-20261012.md",
+  "item_catalog_specification": "Docs/Gameplay/search-item-catalog-v2-20261012.json",
+  "item_catalog_document": "Docs/Gameplay/search-item-catalog-v2-20261012.md",
+  "design_admission_rule": "每件物品必须有已明确的实用用途，或者足以支撑占格和带回成本的出售价值；两者均无则不进入拾取目录。"
+}

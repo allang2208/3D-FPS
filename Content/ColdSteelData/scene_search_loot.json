@@ -1,0 +1,356 @@
+{
+  "version": 1,
+  "selection": "weighted_without_replacement",
+  "units_per_entry": 1,
+  "scope_map": "L_Dungeon_Randomized",
+  "pools": [
+    {
+      "id": "visitor_daily",
+      "group": "daily_supplies",
+      "count_weights": [
+        0,
+        70,
+        25,
+        5
+      ],
+      "entries": [
+        {
+          "id": "mineral_water",
+          "weight": 35
+        },
+        {
+          "id": "soda_can",
+          "weight": 30
+        },
+        {
+          "id": "bread",
+          "weight": 15
+        },
+        {
+          "id": "baguette_bread",
+          "weight": 20
+        }
+      ]
+    },
+    {
+      "id": "ppe_daily",
+      "group": "daily_supplies",
+      "count_weights": [
+        0,
+        70,
+        25,
+        5
+      ],
+      "entries": [
+        {
+          "id": "mineral_water",
+          "weight": 35
+        },
+        {
+          "id": "soda_can",
+          "weight": 30
+        },
+        {
+          "id": "bread",
+          "weight": 15
+        },
+        {
+          "id": "baguette_bread",
+          "weight": 20
+        }
+      ]
+    },
+    {
+      "id": "office_documents",
+      "group": "documents",
+      "count_weights": [
+        0,
+        70,
+        25,
+        5
+      ],
+      "entries": [
+        {
+          "id": "search_usb_drive",
+          "weight": 70
+        },
+        {
+          "id": "search_archive_tape",
+          "weight": 18
+        },
+        {
+          "id": "search_certified_admin_archive",
+          "weight": 11
+        },
+        {
+          "id": "search_encrypted_archive_case",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "maintenance_parts",
+      "group": "maintenance",
+      "count_weights": [
+        0,
+        70,
+        25,
+        5
+      ],
+      "entries": [
+        {
+          "id": "search_forging_alloy_blank",
+          "weight": 30
+        },
+        {
+          "id": "search_assembly_component_box",
+          "weight": 30
+        },
+        {
+          "id": "search_precision_mechanism",
+          "weight": 25
+        },
+        {
+          "id": "search_resin_adhesive",
+          "weight": 10
+        },
+        {
+          "id": "search_laminated_strip",
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "id": "server_hardware",
+      "group": "server_equipment",
+      "count_weights": [
+        0,
+        70,
+        25,
+        5
+      ],
+      "entries": [
+        {
+          "id": "search_ram_module",
+          "weight": 2800
+        },
+        {
+          "id": "search_network_card",
+          "weight": 2200
+        },
+        {
+          "id": "search_hard_disk",
+          "weight": 2000
+        },
+        {
+          "id": "search_ssd",
+          "weight": 1300
+        },
+        {
+          "id": "search_processor",
+          "weight": 800
+        },
+        {
+          "id": "search_graphics_card",
+          "weight": 600
+        },
+        {
+          "id": "search_raid_controller",
+          "weight": 250
+        },
+        {
+          "id": "search_compute_accelerator",
+          "weight": 50
+        }
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "container_id": "ReceptionHall20261006.VisitorLocker1",
+      "pool": "visitor_daily",
+      "module": "FacilityReceptionHall",
+      "caption": "访客寄存柜 01"
+    },
+    {
+      "container_id": "ReceptionHall20261006.VisitorLocker2",
+      "pool": "visitor_daily",
+      "module": "FacilityReceptionHall",
+      "caption": "访客寄存柜 02"
+    },
+    {
+      "container_id": "ReceptionHall20261006.VisitorLocker3",
+      "pool": "visitor_daily",
+      "module": "FacilityReceptionHall",
+      "caption": "访客寄存柜 03"
+    },
+    {
+      "container_id": "ReceptionHall20261006.VisitorLocker4",
+      "pool": "visitor_daily",
+      "module": "FacilityReceptionHall",
+      "caption": "访客寄存柜 04"
+    },
+    {
+      "container_id": "ReceptionHall20261006.VisitorLocker5",
+      "pool": "visitor_daily",
+      "module": "FacilityReceptionHall",
+      "caption": "访客寄存柜 05"
+    },
+    {
+      "container_id": "ReceptionHall20261006.VisitorLocker6",
+      "pool": "visitor_daily",
+      "module": "FacilityReceptionHall",
+      "caption": "访客寄存柜 06"
+    },
+    {
+      "container_id": "ReceptionHall20261006.ReceptionRecords0",
+      "pool": "office_documents",
+      "module": "FacilityReceptionHall",
+      "caption": "访客记录 · 登记资料"
+    },
+    {
+      "container_id": "ReceptionHall20261006.ReceptionRecords1",
+      "pool": "office_documents",
+      "module": "FacilityReceptionHall",
+      "caption": "访客记录 · 通行凭证"
+    },
+    {
+      "container_id": "ReceptionHall20261006.ReceptionRecords2",
+      "pool": "office_documents",
+      "module": "FacilityReceptionHall",
+      "caption": "访客记录 · 接待档案"
+    },
+    {
+      "container_id": "ReceptionHall20261006.UpperRecordsSouth0",
+      "pool": "office_documents",
+      "module": "FacilityReceptionHall",
+      "caption": "访客记录 · 登记资料"
+    },
+    {
+      "container_id": "ReceptionHall20261006.UpperRecordsSouth1",
+      "pool": "office_documents",
+      "module": "FacilityReceptionHall",
+      "caption": "访客记录 · 通行凭证"
+    },
+    {
+      "container_id": "ReceptionHall20261006.UpperRecordsSouth2",
+      "pool": "office_documents",
+      "module": "FacilityReceptionHall",
+      "caption": "访客记录 · 接待档案"
+    },
+    {
+      "container_id": "ReceptionHall20261006.UpperRecordsNorth0",
+      "pool": "office_documents",
+      "module": "FacilityReceptionHall",
+      "caption": "访客记录 · 登记资料"
+    },
+    {
+      "container_id": "ReceptionHall20261006.UpperRecordsNorth1",
+      "pool": "office_documents",
+      "module": "FacilityReceptionHall",
+      "caption": "访客记录 · 通行凭证"
+    },
+    {
+      "container_id": "ReceptionHall20261006.UpperRecordsNorth2",
+      "pool": "office_documents",
+      "module": "FacilityReceptionHall",
+      "caption": "访客记录 · 接待档案"
+    },
+    {
+      "container_id": "FacilityTransit.PPE0",
+      "pool": "ppe_daily",
+      "module": "FacilityTransit",
+      "caption": "中转厅 · 防护用品 1"
+    },
+    {
+      "container_id": "FacilityTransit.PPE1",
+      "pool": "ppe_daily",
+      "module": "FacilityTransit",
+      "caption": "中转厅 · 防护用品 2"
+    },
+    {
+      "container_id": "FacilityTransit.PPE2",
+      "pool": "ppe_daily",
+      "module": "FacilityTransit",
+      "caption": "中转厅 · 防护用品 3"
+    },
+    {
+      "container_id": "FacilityTransit.PPE3",
+      "pool": "ppe_daily",
+      "module": "FacilityTransit",
+      "caption": "中转厅 · 防护用品 4"
+    },
+    {
+      "container_id": "FacilityTransit.PPE4",
+      "pool": "ppe_daily",
+      "module": "FacilityTransit",
+      "caption": "中转厅 · 防护用品 5"
+    },
+    {
+      "container_id": "FacilityTransit.PPE5",
+      "pool": "ppe_daily",
+      "module": "FacilityTransit",
+      "caption": "中转厅 · 防护用品 6"
+    },
+    {
+      "container_id": "FacilityTransit.Records00",
+      "pool": "office_documents",
+      "module": "FacilityTransit",
+      "caption": "区域通行记录"
+    },
+    {
+      "container_id": "FacilityTransit.Records01",
+      "pool": "office_documents",
+      "module": "FacilityTransit",
+      "caption": "区域通行记录"
+    },
+    {
+      "container_id": "FacilityTransit.Records02",
+      "pool": "office_documents",
+      "module": "FacilityTransit",
+      "caption": "区域通行记录"
+    },
+    {
+      "container_id": "FacilityTransit.Records10",
+      "pool": "office_documents",
+      "module": "FacilityTransit",
+      "caption": "区域通行记录"
+    },
+    {
+      "container_id": "FacilityTransit.Records11",
+      "pool": "office_documents",
+      "module": "FacilityTransit",
+      "caption": "区域通行记录"
+    },
+    {
+      "container_id": "FacilityTransit.Records12",
+      "pool": "office_documents",
+      "module": "FacilityTransit",
+      "caption": "区域通行记录"
+    },
+    {
+      "container_id": "FacilityTransit.Tool0",
+      "pool": "maintenance_parts",
+      "module": "FacilityTransit",
+      "caption": "中转厅检修工具"
+    },
+    {
+      "container_id": "FacilityTransit.Tool1",
+      "pool": "maintenance_parts",
+      "module": "FacilityTransit",
+      "caption": "中转厅检修工具"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.Server.ControlServerRack01",
+      "pool": "server_hardware",
+      "module": "AccumulatorControl",
+      "caption": "服务器模块"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.Server.ControlServerRack02",
+      "pool": "server_hardware",
+      "module": "AccumulatorControl",
+      "caption": "服务器模块"
+    }
+  ]
+}

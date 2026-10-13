@@ -123,7 +123,13 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
             Brush.OutlineSettings.bUseBrushTransparency=false;
             FSlateDrawElement::MakeBox(Out,Layer+Z,G.ToPaintGeometry((CardMax-CardMin)/Scale,FSlateLayoutTransform(CardMin/Scale)),&Brush,ESlateDrawEffect::NoPixelSnapping,Fill);
         };
-        DrawCard(Hovered?GunsmithUI::Gray(80,175):GunsmithUI::Gray(55,128),FLinearColor::Transparent,1);
+        FLinearColor CardFill=Hovered?GunsmithUI::Gray(80,175):GunsmithUI::Gray(55,128);
+        if(!bWarehouse&&Name&&P&&!P->Rarity.IsEmpty()){
+            // Reuse the cached, equipment-filtered rarity. A pale translucent wash keeps the art readable.
+            CardFill=FMath::Lerp(ColdSteelUI::RarityColor(P->Rarity),FLinearColor::White,.30f);
+            CardFill.A=Hovered?.24f:.18f;
+        }
+        DrawCard(CardFill,FLinearColor::Transparent,1);
         Box(X+8,Y+2,W-16,1,GunsmithUI::Gray(255,SelectedItem?90:30),FLinearColor::Transparent,0);
         if(SelectedItem)Box(X+2,Y+9,2,H-18,GunsmithUI::Silver,FLinearColor::Transparent,0,0,3);
         if(Name){for(int32 N=1;N<I.Width;++N)Box(X+N*L.Cell,Y+2,1,H-4,GunsmithUI::Gray(220,10),FLinearColor::Transparent,0);for(int32 N=1;N<I.Height;++N)Box(X+2,Y+N*L.Cell,W-4,1,GunsmithUI::Gray(220,10),FLinearColor::Transparent,0);}

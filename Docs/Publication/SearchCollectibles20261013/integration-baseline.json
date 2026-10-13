@@ -1,0 +1,46 @@
+{
+  "status": "requires_unpublished_shared_inventory_baseline",
+  "note": "Patch is already applied in the full local workspace. Do not apply it twice. This is not a standalone multiplayer framework.",
+  "files": [
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSceneContainer.h",
+      "base_sha256_lf": "8ca51b86137809371a519784d588181da4615b496acdbbc4bcb987396766941f",
+      "result_sha256_lf": "e010b1e359a4318e9dbc32ee81f472a7ca72e05f1cb3c1ff2de06edf90cad8da"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSceneContainer.cpp",
+      "base_sha256_lf": "f7c842bfa86729087dc197db89fba29dc6d399259d57fa1127e6bdcd7ee188d9",
+      "result_sha256_lf": "eef666704d5aca0073e04410f4095c5a109d8277f877634ce3ff32c0b2b0b8e8"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "base_sha256_lf": "ac567e56e721b4ac60a4bd3ae8df2b9fc84699b9c267f40f84a842615cc42c39",
+      "result_sha256_lf": "5f1c79daed910d1df1a014b5f953240943f70e2f61330b99be40044b0312c689"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp",
+      "base_sha256_lf": "8dcef4c80a3b895023e5e54625835477008840e93fc716e6bd31837c0c7d8309",
+      "result_sha256_lf": "bb7330773d2ef76a09cb5ca6d23820961bac16151a1b171a23bfe50708a8413c"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h",
+      "base_sha256_lf": "a9b7ac1d424b64acf81a70fd0406f2557b863bbd2039e990c69613265e26af95",
+      "result_sha256_lf": "6e2dec3f0ee793a6aa97ccdde7f12ac612b6d063cd1c661bec709b847fe692d4"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "base_sha256_lf": "6c67a051b3dd3da9c850b0270c016af726f145fe90419e2a21723d7dcebb2a8e",
+      "result_sha256_lf": "5c0781024bef16b4f62227f020fa7a5fe56248c7309c78f2041b2b15aea3fa9d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSceneLoot.h",
+      "base_sha256_lf": null,
+      "result_sha256_lf": "600c2d2b1da06b72081ac54ce381380dc6335fc400ef3feab854f5b38317abf0"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSceneLoot.cpp",
+      "base_sha256_lf": null,
+      "result_sha256_lf": "c892bb0bb099946e216e24878a9651c84cfd60a36fb0f61d53a1ef06fc3ece28"
+    }
+  ]
+}

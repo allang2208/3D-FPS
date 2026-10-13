@@ -564,6 +564,27 @@ bool UColdSteelStatusModel::ReloadProfile()
                     I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
                 }
             }
+            // Reference-remodeled server props keep their inventory identity and footprint.
+            if((I.Definition==TEXT("search_graphics_card")||I.Definition==TEXT("search_ram_module")||
+                I.Definition==TEXT("search_ssd"))&&CatalogData&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+            {
+                bool AppearanceUpdated=false;
+                for(const TCHAR* Key:{TEXT("icon"),TEXT("ue_icon"),TEXT("world_mesh"),TEXT("desc")})
+                {
+                    FString StoredValue,CatalogValue;
+                    ItemData->TryGetStringField(Key,StoredValue);
+                    if(CatalogData->TryGetStringField(Key,CatalogValue)&&!CatalogValue.IsEmpty()&&StoredValue!=CatalogValue)
+                    {
+                        ItemData->SetStringField(Key,CatalogValue);
+                        AppearanceUpdated=true;
+                    }
+                }
+                if(AppearanceUpdated)
+                {
+                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
             // Animated consumable effects and display timings follow the catalog
             // for existing stacks too. Keep instance identity, quantity and place.
             if(UFPSPotionUseComponent::IsAnimatedConsumable(I.Definition)&&CatalogData&&
@@ -580,6 +601,19 @@ bool UColdSteelStatusModel::ReloadProfile()
                         ItemData->SetField(Key,*CatalogValue);
                         PotionUpdated=true;
                     }
+                }
+                // These two consumables now use the green catalog tier, including saved stacks.
+                if(I.Definition==TEXT("soda_can")||I.Definition==TEXT("baguette_bread"))
+                {
+                    FString CatalogRarity;
+                    if(CatalogData->TryGetStringField(TEXT("rarity"),CatalogRarity)&&!CatalogRarity.IsEmpty())
+                        for(const TCHAR* Key:{TEXT("rarity"),TEXT("grade")})
+                        {
+                            if(FCString::Strcmp(Key,TEXT("grade"))==0&&!ItemData->HasField(Key))continue;
+                            FString StoredRarity;
+                            if(!ItemData->TryGetStringField(Key,StoredRarity)||StoredRarity!=CatalogRarity)
+                            {ItemData->SetStringField(Key,CatalogRarity);PotionUpdated=true;}
+                        }
                 }
                 if(PotionUpdated)
                 {

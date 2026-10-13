@@ -1,0 +1,1801 @@
+{
+    "root":  "D:/FPS3D/FPSGAME",
+    "archive":  "trash/search-collectibles-20261013",
+    "status":  "moved_and_sha256_verified",
+    "files":  [
+                  {
+                      "source":  "SourceAssets/SearchDocuments20261012/Before/ColdSteelProfileRuntime.cpp",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchDocuments20261012/Before/ColdSteelProfileRuntime.cpp",
+                      "bytes":  74115,
+                      "sha256":  "40fc90af597c26b89ced6e9f6f4cca0a93a7ee325ce55e5adb360c2270e73480",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchDocuments20261012/Before/items.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchDocuments20261012/Before/items.json",
+                      "bytes":  136413,
+                      "sha256":  "40daab5389803687ace778d2c0d12b9ec14cac27c031a0fb16287b0b0746d716",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchDocuments20261012/Before/InventoryIntegration/Config__DefaultGame.ini",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchDocuments20261012/Before/InventoryIntegration/Config__DefaultGame.ini",
+                      "bytes":  21621,
+                      "sha256":  "b82581356b463429afc4b42db23d48f19c30f4a2c8c9dbbc49989b4b998dbd09",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchDocuments20261012/Before/InventoryIntegration/Content__ColdSteelData__items.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchDocuments20261012/Before/InventoryIntegration/Content__ColdSteelData__items.json",
+                      "bytes":  136417,
+                      "sha256":  "b5d350dda33ef26170c44313d22e30c8c826a0e91412cac713a20870ab073630",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchDocuments20261012/Before/InventoryIntegration/Docs__Gameplay__search-item-catalog-v2-20261012.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchDocuments20261012/Before/InventoryIntegration/Docs__Gameplay__search-item-catalog-v2-20261012.json",
+                      "bytes":  58935,
+                      "sha256":  "1d7ade3ac62141d2ef5e718f6030011429b252ae1832db46f9dd17862916ac94",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchDocuments20261012/Before/InventoryIntegration/Docs__Gameplay__search-item-catalog-v2-20261012.md",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchDocuments20261012/Before/InventoryIntegration/Docs__Gameplay__search-item-catalog-v2-20261012.md",
+                      "bytes":  15111,
+                      "sha256":  "f0864e5c9979925c6e271f3279be5a0e4d5418055a24be3225bdc80e8d2e1715",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchDocuments20261012/Before/InventoryIntegration/Source__FPSGAME__UI__ColdSteelPickupConsumable.cpp",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchDocuments20261012/Before/InventoryIntegration/Source__FPSGAME__UI__ColdSteelPickupConsumable.cpp",
+                      "bytes":  6373,
+                      "sha256":  "18fa8b8571c5a076b888b17cf9ae38a3318dacbb594c11c5aebed13fd7765a77",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchDocuments20261012/Authored/SM_Search_ArchiveTape_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchDocuments20261012/Authored/SM_Search_ArchiveTape_Source.blend1",
+                      "bytes":  2090515,
+                      "sha256":  "8609da3917e923e655788012625460c34640761b1c5d84e1e7e60447c222d9d5",
+                      "reason":  "Blender automatic backup; active editable source retained",
+                      "replacement":  "SourceAssets\\SearchDocuments20261012\\Authored\\SM_Search_ArchiveTape_Source.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchDocuments20261012/Authored/SM_Search_CertifiedArchive_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchDocuments20261012/Authored/SM_Search_CertifiedArchive_Source.blend1",
+                      "bytes":  7398756,
+                      "sha256":  "b49f2cdaaa71436c0ec286e1e756e6298545b9ec46a474277469336c5a6868c4",
+                      "reason":  "Blender automatic backup; active editable source retained",
+                      "replacement":  "SourceAssets\\SearchDocuments20261012\\Authored\\SM_Search_CertifiedArchive_Source.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchDocuments20261012/Authored/SM_Search_EncryptedCase_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchDocuments20261012/Authored/SM_Search_EncryptedCase_Source.blend1",
+                      "bytes":  7348082,
+                      "sha256":  "4d54a7d15e9caff8aec860e4c9d85a5b9523c4f4f90e010e77f077a2a045dca4",
+                      "reason":  "Blender automatic backup; active editable source retained",
+                      "replacement":  "SourceAssets\\SearchDocuments20261012\\Authored\\SM_Search_EncryptedCase_Source.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchDocuments20261012/Authored/SM_Search_USBDrive_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchDocuments20261012/Authored/SM_Search_USBDrive_Source.blend1",
+                      "bytes":  1831218,
+                      "sha256":  "44dea3fcdf3b6cb19c5c1d68569a56c96ec05a7a615a194858ad32a489b1311e",
+                      "reason":  "Blender automatic backup; active editable source retained",
+                      "replacement":  "SourceAssets\\SearchDocuments20261012\\Authored\\SM_Search_USBDrive_Source.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchMaintenance20261012/Before/Config__DefaultGame.ini",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchMaintenance20261012/Before/Config__DefaultGame.ini",
+                      "bytes":  21692,
+                      "sha256":  "989c0df4de6b2879c43ebe31cdc37f9f33cf9d881898532e2a4df5d19630c26c",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchMaintenance20261012/Before/Content__ColdSteelData__items.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchMaintenance20261012/Before/Content__ColdSteelData__items.json",
+                      "bytes":  139823,
+                      "sha256":  "b2cdd08dc394e2cab8941eba83c426ae4f3ea692e258d99c3be879b9aa124a7c",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchMaintenance20261012/Before/Docs__Gameplay__search-item-catalog-v2-20261012.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchMaintenance20261012/Before/Docs__Gameplay__search-item-catalog-v2-20261012.json",
+                      "bytes":  59816,
+                      "sha256":  "b86bb1564bd58f3dfac826ba70039c14a7f76908dfef21294c2f7d4851a2ea2f",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchMaintenance20261012/Before/Docs__Gameplay__search-item-catalog-v2-20261012.md",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchMaintenance20261012/Before/Docs__Gameplay__search-item-catalog-v2-20261012.md",
+                      "bytes":  15455,
+                      "sha256":  "8f09dd5c317c640e4a9dab4b3ca7da9012978425b40b43975ce3c25d4939a41a",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchMaintenance20261012/Before/Source__FPSGAME__UI__ColdSteelPickupConsumable.cpp",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchMaintenance20261012/Before/Source__FPSGAME__UI__ColdSteelPickupConsumable.cpp",
+                      "bytes":  6590,
+                      "sha256":  "0a716df359a3ee17da6520acc5e1bb31be84b6df1ca14102cb6759111686d1e4",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Before/Docs__Gameplay__search-item-catalog-v2-20261012.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Before/Docs__Gameplay__search-item-catalog-v2-20261012.json",
+                      "bytes":  64434,
+                      "sha256":  "685bd8ce5365b24ce1ec0920794ce6968090748f7216e07626f92abc4235889d",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Before/Docs__Gameplay__search-item-catalog-v2-20261012.md",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Before/Docs__Gameplay__search-item-catalog-v2-20261012.md",
+                      "bytes":  15766,
+                      "sha256":  "b1dce88b9de2e877f74f68b15525b76746da0795cf00a033d0078647987f57bb",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Before/InventoryIntegration/Config__DefaultGame.ini",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Before/InventoryIntegration/Config__DefaultGame.ini",
+                      "bytes":  21843,
+                      "sha256":  "6283908a17fcf06221ec3e9215e64c21b4156a41698b192d7b64cc7478e7ff88",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Before/InventoryIntegration/Content__ColdSteelData__items.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Before/InventoryIntegration/Content__ColdSteelData__items.json",
+                      "bytes":  144205,
+                      "sha256":  "bad5617ca4318fade9d8a47c9f95c5ed619c7156385906cc1053798596524588",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Before/InventoryIntegration/Docs__Gameplay__search-item-catalog-v2-20261012.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Before/InventoryIntegration/Docs__Gameplay__search-item-catalog-v2-20261012.json",
+                      "bytes":  70679,
+                      "sha256":  "8fe77ba99b26e6986d5d57e69bdf80f88b1e15d4249f866fc8b320c6a89d5738",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Before/InventoryIntegration/Docs__Gameplay__search-item-catalog-v2-20261012.md",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Before/InventoryIntegration/Docs__Gameplay__search-item-catalog-v2-20261012.md",
+                      "bytes":  16097,
+                      "sha256":  "018d31d0ad62f87f70631126572ae021ef6df48b2d216f3ae1fb076c6a7f7583",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Before/InventoryIntegration/SourceAssets__SearchServerEquipment20261013__delivery.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Before/InventoryIntegration/SourceAssets__SearchServerEquipment20261013__delivery.json",
+                      "bytes":  772,
+                      "sha256":  "aa7c7b37dd8aa8e89dac1c456c52bfd6390e71c9d88d2709c948e43eda49acbb",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Before/InventoryIntegration/Source__FPSGAME__UI__ColdSteelPickupConsumable.cpp",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Before/InventoryIntegration/Source__FPSGAME__UI__ColdSteelPickupConsumable.cpp",
+                      "bytes":  6857,
+                      "sha256":  "38fa7bfa90222e313f49a89b59a0472740d5aea4c7ef623761dc266842607dc1",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ComputeAccelerator_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ComputeAccelerator_Source.blend1",
+                      "bytes":  6139474,
+                      "sha256":  "e3eb516b553673510bb1dc41afdeafc07f4476684ac9569bb190cf90602171ce",
+                      "reason":  "Blender automatic backup; active editable source retained",
+                      "replacement":  "SourceAssets\\SearchServerEquipment20261013\\Authored\\SM_Search_ComputeAccelerator_Source.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_GraphicsCard_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_GraphicsCard_Source.blend1",
+                      "bytes":  6208066,
+                      "sha256":  "2a56eb06dbd4c49b5f6b5ea54ab5e5991439a2c4465e0a49a34aa19f02babb64",
+                      "reason":  "Blender automatic backup; active editable source retained",
+                      "replacement":  "SourceAssets\\SearchServerEquipment20261013\\Authored\\SM_Search_GraphicsCard_Source.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_HardDisk_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_HardDisk_Source.blend1",
+                      "bytes":  1739342,
+                      "sha256":  "95acb2a7134ab81215b97d497ab3b1c7ad98b509381bfe13d3c1d7187080b530",
+                      "reason":  "Blender automatic backup; active editable source retained",
+                      "replacement":  "SourceAssets\\SearchServerEquipment20261013\\Authored\\SM_Search_HardDisk_Source.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_RAIDController_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_RAIDController_Source.blend1",
+                      "bytes":  6167775,
+                      "sha256":  "e83b93f7a3005b54402edeb87d44574f1f0accce73562bbae21951b7f287231b",
+                      "reason":  "Blender automatic backup; active editable source retained",
+                      "replacement":  "SourceAssets\\SearchServerEquipment20261013\\Authored\\SM_Search_RAIDController_Source.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ServerCPU_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ServerCPU_Source.blend1",
+                      "bytes":  1819741,
+                      "sha256":  "bf86fbec77cd9faae857252ba301c16c55146eaed4adf5a4c86eb69b4ee0e56a",
+                      "reason":  "Blender automatic backup; active editable source retained",
+                      "replacement":  "SourceAssets\\SearchServerEquipment20261013\\Authored\\SM_Search_ServerCPU_Source.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ServerNIC_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ServerNIC_Source.blend1",
+                      "bytes":  6098891,
+                      "sha256":  "f4428c11b48e63bbc201f1189245919b35f9787ef96c00207db432f66626680c",
+                      "reason":  "Blender automatic backup; active editable source retained",
+                      "replacement":  "SourceAssets\\SearchServerEquipment20261013\\Authored\\SM_Search_ServerNIC_Source.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ServerRAM_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ServerRAM_Source.blend1",
+                      "bytes":  1839594,
+                      "sha256":  "9685a8114a025f07d35830035af3876db60a5494c4127dc55c5ec78dba88b7f1",
+                      "reason":  "Blender automatic backup; active editable source retained",
+                      "replacement":  "SourceAssets\\SearchServerEquipment20261013\\Authored\\SM_Search_ServerRAM_Source.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_SSD_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_SSD_Source.blend1",
+                      "bytes":  1701722,
+                      "sha256":  "86390ab3e1c86cf62b3554b0cc4f651fa46905d74a9c2f83d1c25221e9f6b4a6",
+                      "reason":  "Blender automatic backup; active editable source retained",
+                      "replacement":  "SourceAssets\\SearchServerEquipment20261013\\Authored\\SM_Search_SSD_Source.blend"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Before/Config__DefaultGame.ini",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Before/Config__DefaultGame.ini",
+                      "bytes":  21920,
+                      "sha256":  "5493b5f7da88f05f42dce194960c11e0c27483aade30af10baf6e8b5923241d7",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Before/Content__ColdSteelData__items.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Before/Content__ColdSteelData__items.json",
+                      "bytes":  151284,
+                      "sha256":  "76c427a1f3a24151091e9f29565e8a2fd838d98aff774d0b79626c09356e230f",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Before/Docs__Gameplay__search-item-catalog-v2-20261012.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Before/Docs__Gameplay__search-item-catalog-v2-20261012.json",
+                      "bytes":  71793,
+                      "sha256":  "9dfa559db4c279499689e4fc419c93daa2c57df22bf940d7884eabf10aa33af1",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Before/Docs__Gameplay__search-item-catalog-v2-20261012.md",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Before/Docs__Gameplay__search-item-catalog-v2-20261012.md",
+                      "bytes":  16094,
+                      "sha256":  "3c5f2935bee845c60a738ac6e76b47ab3eac62438997295bfd934223aadf4c62",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Before/Source__FPSGAME__UI__ColdSteelProfileRuntime.cpp",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Before/Source__FPSGAME__UI__ColdSteelProfileRuntime.cpp",
+                      "bytes":  79037,
+                      "sha256":  "f2c0e156c0020f82c5c0c5e2a1357becf53e4bb5fc08c00c98f966e62326cc5d",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_FuryRAM_RefR2_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_FuryRAM_RefR2_Source.blend1",
+                      "bytes":  5199773,
+                      "sha256":  "97f6cfc51dcd7b4267a1209c6f1ff2cf3fed715ccaef6e9f01ca23d9365d247a",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_M2SSD_RefR2_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_M2SSD_RefR2_Source.blend1",
+                      "bytes":  5230451,
+                      "sha256":  "07132659121b04b0d9bf52660863917d9fd906b749ee6c1df962ead64bda9560",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_TripleFanGPU_RefR2_Source.blend1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_TripleFanGPU_RefR2_Source.blend1",
+                      "bytes":  5438776,
+                      "sha256":  "2416339d46c2a5a7847752c80e75e0715697b5c6d6b5680a25d335267c81a084",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLoot20261013/Before/Content/ColdSteelData/dungeon_loot.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLoot20261013/Before/Content/ColdSteelData/dungeon_loot.json",
+                      "bytes":  3526,
+                      "sha256":  "fa6622f8d53a115c1e7d8e9df95b03d1d2b158e83961d9745c5de9f8076a4c83",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLoot20261013/Before/Docs/Gameplay/search-container-groups-20261012.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLoot20261013/Before/Docs/Gameplay/search-container-groups-20261012.json",
+                      "bytes":  10386,
+                      "sha256":  "aac811a07450a661f39d8a350195192737556e935b8e3b1e13c4339cfe0ee2ae",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLoot20261013/Before/Docs/Gameplay/search-container-groups-20261012.md",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLoot20261013/Before/Docs/Gameplay/search-container-groups-20261012.md",
+                      "bytes":  5672,
+                      "sha256":  "5b9acd894e288456123a9f8f62954dadb2864df74078f687240a9d1b895d5f00",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLoot20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLoot20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+                      "bytes":  18187,
+                      "sha256":  "42b9961a99213adbc5dd45e587d41910fde557dded00a6599bc94a9b03c72cf2",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLoot20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLoot20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp",
+                      "bytes":  7321,
+                      "sha256":  "8dcef4c80a3b895023e5e54625835477008840e93fc716e6bd31837c0c7d8309",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLoot20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLoot20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h",
+                      "bytes":  4133,
+                      "sha256":  "89428ff25f63870a18260bcdcfeb48c4de877d020c6d57f9f745f020e2bc49ee",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLoot20261013/Before/Source/FPSGAME/UI/ColdSteelSceneContainer.cpp",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLoot20261013/Before/Source/FPSGAME/UI/ColdSteelSceneContainer.cpp",
+                      "bytes":  7997,
+                      "sha256":  "f7c842bfa86729087dc197db89fba29dc6d399259d57fa1127e6bdcd7ee188d9",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLoot20261013/Before/Source/FPSGAME/UI/ColdSteelSceneContainer.h",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLoot20261013/Before/Source/FPSGAME/UI/ColdSteelSceneContainer.h",
+                      "bytes":  3404,
+                      "sha256":  "8ca51b86137809371a519784d588181da4615b496acdbbc4bcb987396766941f",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLoot20261013/Before/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLoot20261013/Before/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+                      "bytes":  38628,
+                      "sha256":  "8d4487e9532b3a58ab344559d729d18864552d9482420fcccb4e82542ea85e80",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLootGuaranteed20261013/Before/Content/ColdSteelData/scene_search_loot.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLootGuaranteed20261013/Before/Content/ColdSteelData/scene_search_loot.json",
+                      "bytes":  9114,
+                      "sha256":  "ef08751fd835a03a316ea6ab56b81f7ced78886484d50432cf394f514cda17c2",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLootGuaranteed20261013/Before/Docs/Gameplay/facility-search-loot-20261013.md",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLootGuaranteed20261013/Before/Docs/Gameplay/facility-search-loot-20261013.md",
+                      "bytes":  4379,
+                      "sha256":  "6e02eef7df9970b5b955c09755b1e86d51f1babb846019c78bc5c7711075b538",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLootGuaranteed20261013/Before/Source/FPSGAME/UI/ColdSteelSceneLoot.cpp",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLootGuaranteed20261013/Before/Source/FPSGAME/UI/ColdSteelSceneLoot.cpp",
+                      "bytes":  13163,
+                      "sha256":  "9c9f39a9ebf6e0797025a9e660ae1769a34288ba385bd3302e36f58d1626b4a6",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLootGuaranteed20261013/Before/SourceAssets/FacilitySearchLoot20261013/Scripts/author_pools.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLootGuaranteed20261013/Before/SourceAssets/FacilitySearchLoot20261013/Scripts/author_pools.py",
+                      "bytes":  2167,
+                      "sha256":  "edc13dc466129867649fa6ea345e6b963c88465badf26c665c09ee49a6127366",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/FacilitySearchLootGuaranteed20261013/Before/SourceAssets/FacilitySearchLoot20261013/Scripts/check_pools.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/FacilitySearchLootGuaranteed20261013/Before/SourceAssets/FacilitySearchLoot20261013/Scripts/check_pools.py",
+                      "bytes":  8044,
+                      "sha256":  "d63e2896810ba15e1ac36fcdd6cfa3a2cafe1d170812071f0c025b3950b89c18",
+                      "reason":  "Superseded pre-edit snapshot; scoped integration differences exported before archival",
+                      "replacement":  "Current source/catalog plus Docs/Publication/SearchCollectibles20261013/scene-search-integration.patch"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchDocuments20261012/search_archive_tape.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchDocuments20261012/search_archive_tape.png",
+                      "bytes":  194990,
+                      "sha256":  "04db7e68cfba1c049c7c24c300236ac2c68838e6afb303419f33c273eeca4e1f",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchDocuments20261012/search_certified_admin_archive.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchDocuments20261012/search_certified_admin_archive.png",
+                      "bytes":  189772,
+                      "sha256":  "199f1355caa1ad172b88a97a6ec947d3d3b6ed6623df77f13c0eab4c50d778c0",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchDocuments20261012/search_encrypted_archive_case.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchDocuments20261012/search_encrypted_archive_case.png",
+                      "bytes":  179974,
+                      "sha256":  "e48b5644f860020dda847d265d97bdba8fb56c7f69b18a185b25d73e8d32284f",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchDocuments20261012/search_usb_drive.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchDocuments20261012/search_usb_drive.png",
+                      "bytes":  159127,
+                      "sha256":  "d1b47a774a875eb153965c63dfe46e3d704cece3e2a488ffd602696ff6031531",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_assembly_component_box.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_assembly_component_box.png",
+                      "bytes":  129194,
+                      "sha256":  "616333155c74bacf3c549c505aa4d6dd2e33ec0d44b3994597561f1b5fb9852b",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_forging_alloy_blank.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_forging_alloy_blank.png",
+                      "bytes":  110357,
+                      "sha256":  "ca1aa7de4c3910e57377e8966497ecf1c3e243e4d73fe6eed06df1200e8da561",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_laminated_strip.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_laminated_strip.png",
+                      "bytes":  137627,
+                      "sha256":  "8230b166d2c15a01e8e45204d1745c4069c27e143431a6e49557a1e121df6d76",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_precision_mechanism.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_precision_mechanism.png",
+                      "bytes":  129601,
+                      "sha256":  "5b141d620e39188da65ec3842ff36cf8dc35d485b981cd187b517c09eeced2a2",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_resin_adhesive.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_resin_adhesive.png",
+                      "bytes":  202835,
+                      "sha256":  "e591d8d7b96dcae06e7aa944944790e9f757375a20ad5d41a36ff6ee8cd2336f",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_compute_accelerator.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_compute_accelerator.png",
+                      "bytes":  421240,
+                      "sha256":  "e235c3ad6726dd23e8e5b50b5829de043a58ca9a4fbc9300f63b3032e4d40c95",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_hard_disk.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_hard_disk.png",
+                      "bytes":  114603,
+                      "sha256":  "6a3bc240fb1c71da967fdc868dfb1fa8689756bfae48989031644885ec23551b",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_network_card.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_network_card.png",
+                      "bytes":  120706,
+                      "sha256":  "601bc2810e71b7dd3b950c70f10791cac809949bb930d0224ccb0ed62338072a",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_processor.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_processor.png",
+                      "bytes":  234674,
+                      "sha256":  "3f034080879559b342b03e133eace7faed38d0ea63857efe1f82807d24597c13",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_raid_controller.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_raid_controller.png",
+                      "bytes":  235101,
+                      "sha256":  "0381b705269e2697c04557e1d72bc54f7048ad44f503f7c609c66be00ca2f632",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/ServerOriginalMarks20261013/search_graphics_card.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/ServerOriginalMarks20261013/search_graphics_card.png",
+                      "bytes":  398758,
+                      "sha256":  "4e528de7f213aaed22022d0cbcee403abff8bafa0446e2790c78dcf87670b8e5",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/ServerOriginalMarks20261013/search_ram_module.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/ServerOriginalMarks20261013/search_ram_module.png",
+                      "bytes":  172339,
+                      "sha256":  "00a1fe31db781483c986623ac35b623daf6a03471c8b901e95b13c54ecbe7196",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/ServerOriginalMarks20261013/search_ssd.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/PreviousIcons/Icons/ServerOriginalMarks20261013/search_ssd.png",
+                      "bytes":  120011,
+                      "sha256":  "a2be1e088d409fa88367993ae36a74d7019cfbf4550d161c40763c28e1f1d677",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchDocuments20261012/search_archive_tape.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchDocuments20261012/search_archive_tape.png",
+                      "bytes":  197876,
+                      "sha256":  "84501dc2dff9bb47761756930bcdaf98a87a9e93a31588622618e022494f8429",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchDocuments20261012/search_certified_admin_archive.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchDocuments20261012/search_certified_admin_archive.png",
+                      "bytes":  198318,
+                      "sha256":  "41417c15043a2ab9be19b9122eac512ff0ba09f95e36fc4fef232eed928f3f93",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchDocuments20261012/search_encrypted_archive_case.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchDocuments20261012/search_encrypted_archive_case.png",
+                      "bytes":  184590,
+                      "sha256":  "b6ef43e1410cd8d6486a03fcd900b2db3fbc6380ab065790168e2030eb49d376",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchDocuments20261012/search_usb_drive.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchDocuments20261012/search_usb_drive.png",
+                      "bytes":  188102,
+                      "sha256":  "d4fefbe730d52e08d8b5a5c5cfc3637f187977be949c7b544f0516beaa28cfd4",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_assembly_component_box.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_assembly_component_box.png",
+                      "bytes":  93943,
+                      "sha256":  "7316a190ea9cd8694b92d4336fe6a075ff6bb7b6ab8f5b439d9c99540cbfba93",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_forging_alloy_blank.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_forging_alloy_blank.png",
+                      "bytes":  110362,
+                      "sha256":  "6d8ec15f2e967569783eedfcdb6bdce5fc1a357896f54fbe817b258bbc182707",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_laminated_strip.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_laminated_strip.png",
+                      "bytes":  137640,
+                      "sha256":  "07dd8778a3edcd51ac81f84b508768f6cacbc1e18f84f09cce02227bcb753df2",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_precision_mechanism.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_precision_mechanism.png",
+                      "bytes":  92602,
+                      "sha256":  "2b32f3416621617423af234ee1fc988baa1614dac8e57377945fda335d908737",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_resin_adhesive.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchMaintenance20261012/search_resin_adhesive.png",
+                      "bytes":  208570,
+                      "sha256":  "c66a2ad2569eedd9acae5eff7d8a1e1f9a64575f0b11909a3c1a2afafb93ecc8",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_compute_accelerator.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_compute_accelerator.png",
+                      "bytes":  298860,
+                      "sha256":  "afeeca56588bad11268c24186ef8682c7bf528ce31672da3982f5aee077761e9",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_hard_disk.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_hard_disk.png",
+                      "bytes":  81638,
+                      "sha256":  "72d6d5421b896d8a3ceec85097c91e379bae2f9cb65da26b5d3aa96043139c95",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_network_card.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_network_card.png",
+                      "bytes":  81399,
+                      "sha256":  "07eadee0b1c80a0b140c3afe3a2b30c612a51f0e07662d1a6cde7ffb047fdf00",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_processor.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_processor.png",
+                      "bytes":  220705,
+                      "sha256":  "ff0201aafe098ccfd6bf4845541a76ed9547adda3559ff825584da37cf02c552",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_raid_controller.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/SearchServerEquipment20261013/search_raid_controller.png",
+                      "bytes":  244174,
+                      "sha256":  "fa6136a642c8029c94ddb7757fa16951c4295f249c6d399d72194ad5e0252002",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/ServerNeutralPCB20261013/search_network_card.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/ServerNeutralPCB20261013/search_network_card.png",
+                      "bytes":  81399,
+                      "sha256":  "07eadee0b1c80a0b140c3afe3a2b30c612a51f0e07662d1a6cde7ffb047fdf00",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/ServerNeutralPCB20261013/search_processor.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/ServerNeutralPCB20261013/search_processor.png",
+                      "bytes":  220705,
+                      "sha256":  "ff0201aafe098ccfd6bf4845541a76ed9547adda3559ff825584da37cf02c552",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/ServerNeutralPCB20261013/search_raid_controller.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/ServerNeutralPCB20261013/search_raid_controller.png",
+                      "bytes":  244174,
+                      "sha256":  "fa6136a642c8029c94ddb7757fa16951c4295f249c6d399d72194ad5e0252002",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/ServerOriginalMarks20261013/search_graphics_card.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/ServerOriginalMarks20261013/search_graphics_card.png",
+                      "bytes":  292242,
+                      "sha256":  "dae1181a947ab24fe37133deb113ede2cb382962e9ac540c09d1d41021d25770",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/ServerOriginalMarks20261013/search_ram_module.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/ServerOriginalMarks20261013/search_ram_module.png",
+                      "bytes":  191528,
+                      "sha256":  "ca3695daafd4c11b7f6251e9814171c1c1c7f664259d32df34d6a331eddc99aa",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/ServerOriginalMarks20261013/search_ssd.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconLayoutR2_20261013/PreviousIcons/Icons/ServerOriginalMarks20261013/search_ssd.png",
+                      "bytes":  75201,
+                      "sha256":  "97febe3511e2e67e39d426bf7fc160ee354b1d543a950bd8aecb9fa20026bc13",
+                      "reason":  "Superseded inventory textures",
+                      "replacement":  "Current Content/ColdSteelData/Icons paths and CollectionIconLayoutR2_20261013/Icons"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_archive_tape.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_archive_tape.png",
+                      "bytes":  197876,
+                      "sha256":  "84501dc2dff9bb47761756930bcdaf98a87a9e93a31588622618e022494f8429",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_assembly_component_box.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_assembly_component_box.png",
+                      "bytes":  93943,
+                      "sha256":  "7316a190ea9cd8694b92d4336fe6a075ff6bb7b6ab8f5b439d9c99540cbfba93",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_certified_admin_archive.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_certified_admin_archive.png",
+                      "bytes":  198318,
+                      "sha256":  "41417c15043a2ab9be19b9122eac512ff0ba09f95e36fc4fef232eed928f3f93",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_compute_accelerator.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_compute_accelerator.png",
+                      "bytes":  298860,
+                      "sha256":  "afeeca56588bad11268c24186ef8682c7bf528ce31672da3982f5aee077761e9",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_encrypted_archive_case.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_encrypted_archive_case.png",
+                      "bytes":  184590,
+                      "sha256":  "b6ef43e1410cd8d6486a03fcd900b2db3fbc6380ab065790168e2030eb49d376",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_forging_alloy_blank.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_forging_alloy_blank.png",
+                      "bytes":  110362,
+                      "sha256":  "6d8ec15f2e967569783eedfcdb6bdce5fc1a357896f54fbe817b258bbc182707",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_graphics_card.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_graphics_card.png",
+                      "bytes":  292242,
+                      "sha256":  "dae1181a947ab24fe37133deb113ede2cb382962e9ac540c09d1d41021d25770",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_hard_disk.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_hard_disk.png",
+                      "bytes":  81638,
+                      "sha256":  "72d6d5421b896d8a3ceec85097c91e379bae2f9cb65da26b5d3aa96043139c95",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_laminated_strip.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_laminated_strip.png",
+                      "bytes":  137640,
+                      "sha256":  "07dd8778a3edcd51ac81f84b508768f6cacbc1e18f84f09cce02227bcb753df2",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_network_card.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_network_card.png",
+                      "bytes":  84171,
+                      "sha256":  "73d28cd9bf4581f04f3bcf29e1ef22e7cf723884b502bfc790efbab0afc2952c",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_precision_mechanism.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_precision_mechanism.png",
+                      "bytes":  92602,
+                      "sha256":  "2b32f3416621617423af234ee1fc988baa1614dac8e57377945fda335d908737",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_processor.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_processor.png",
+                      "bytes":  228893,
+                      "sha256":  "9c82312c7118584c06f24bb727877e0c066a75cfba6d9df54299e3b86d0951cb",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_raid_controller.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_raid_controller.png",
+                      "bytes":  252172,
+                      "sha256":  "ab31da424c6054c9725e54d4896a1e71c5bfd7da6a9323e3664fbf9f57c5ad12",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_ram_module.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_ram_module.png",
+                      "bytes":  191528,
+                      "sha256":  "ca3695daafd4c11b7f6251e9814171c1c1c7f664259d32df34d6a331eddc99aa",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_resin_adhesive.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_resin_adhesive.png",
+                      "bytes":  208570,
+                      "sha256":  "c66a2ad2569eedd9acae5eff7d8a1e1f9a64575f0b11909a3c1a2afafb93ecc8",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_ssd.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_ssd.png",
+                      "bytes":  75201,
+                      "sha256":  "97febe3511e2e67e39d426bf7fc160ee354b1d543a950bd8aecb9fa20026bc13",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Icons/search_usb_drive.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Icons/search_usb_drive.png",
+                      "bytes":  188102,
+                      "sha256":  "d4fefbe730d52e08d8b5a5c5cfc3637f187977be949c7b544f0516beaa28cfd4",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Previews/collection-icons-contact-sheet.html",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Previews/collection-icons-contact-sheet.html",
+                      "bytes":  3900474,
+                      "sha256":  "fb57ec123f4ccf970f9c8100d1b8094a830c5c84a9a0c730585585d4ebc4b0b7",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Previews/collection-icons-contact-sheet.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Previews/collection-icons-contact-sheet.png",
+                      "bytes":  1308415,
+                      "sha256":  "78090397b2c8ea936df306135e5a0c51052c5c346a5ae1100dd646b1902c1d3d",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Previews/contact-sheet-sources.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Previews/contact-sheet-sources.json",
+                      "bytes":  4743,
+                      "sha256":  "bd1ab7096836b77d5528d60967cd658650133aba18771ec0581818355131ac6f",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/inventory_icons.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/inventory_icons.json",
+                      "bytes":  15216,
+                      "sha256":  "157013b7135bfd86dcee414f4b3f807c370e2ed718f8e3397249b99c9df9549d",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/model_manifest.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/model_manifest.json",
+                      "bytes":  183560,
+                      "sha256":  "1212bb79e437dbb7f45a4bee345588d8ddc65ef5ff401fb6d121e0c535f1367d",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Scripts/prepare_batch.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Scripts/prepare_batch.py",
+                      "bytes":  2261,
+                      "sha256":  "5c1d9d32867977aaf0cbaa919f23150681edf922faf27d222b2a9e0835e3554c",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Scripts/render_inventory_icons.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Scripts/render_inventory_icons.py",
+                      "bytes":  5733,
+                      "sha256":  "86874e8c235f1094528cecc9b8d0c0d43efe3a30f56b12b75301ccedc5cde86e",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/CollectionIconOrientation20261013/Scripts/install_icons.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/CollectionIconOrientation20261013/Scripts/install_icons.py",
+                      "bytes":  2576,
+                      "sha256":  "fa67e225ca7aa65925d8b6e83c72f0b3c9b4c253c7d0aea2d25eeb8a1ea49df1",
+                      "reason":  "Uniform diagonal icon revision superseded by footprint-oriented layout",
+                      "replacement":  "SourceAssets/CollectionIconLayoutR2_20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/ColdSteelData/Icons/SearchServerEquipment20261013/search_network_card.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/ColdSteelData/Icons/SearchServerEquipment20261013/search_network_card.png",
+                      "bytes":  84171,
+                      "sha256":  "73d28cd9bf4581f04f3bcf29e1ef22e7cf723884b502bfc790efbab0afc2952c",
+                      "reason":  "Replaced green PCB appearance backup",
+                      "replacement":  "Current neutral textures, including retained legacy package aliases"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/ColdSteelData/Icons/SearchServerEquipment20261013/search_processor.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/ColdSteelData/Icons/SearchServerEquipment20261013/search_processor.png",
+                      "bytes":  228893,
+                      "sha256":  "9c82312c7118584c06f24bb727877e0c066a75cfba6d9df54299e3b86d0951cb",
+                      "reason":  "Replaced green PCB appearance backup",
+                      "replacement":  "Current neutral textures, including retained legacy package aliases"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/ColdSteelData/Icons/SearchServerEquipment20261013/search_raid_controller.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/ColdSteelData/Icons/SearchServerEquipment20261013/search_raid_controller.png",
+                      "bytes":  252172,
+                      "sha256":  "ab31da424c6054c9725e54d4896a1e71c5bfd7da6a9323e3664fbf9f57c5ad12",
+                      "reason":  "Replaced green PCB appearance backup",
+                      "replacement":  "Current neutral textures, including retained legacy package aliases"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/Items/SearchServerEquipment20261013/Textures/T_SE_CPU_BaseColor.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/Items/SearchServerEquipment20261013/Textures/T_SE_CPU_BaseColor.uasset",
+                      "bytes":  612442,
+                      "sha256":  "7c9b94c46fee021a6f163f02bd2be8c403679536e8cdb16b3f9eb370bc8c368b",
+                      "reason":  "Replaced green PCB appearance backup",
+                      "replacement":  "Current neutral textures, including retained legacy package aliases"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/Items/SearchServerEquipment20261013/Textures/T_SE_CPU_ORM.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/Items/SearchServerEquipment20261013/Textures/T_SE_CPU_ORM.uasset",
+                      "bytes":  642645,
+                      "sha256":  "db7a4c542b9e1db165c2371ec63328c368affa9b9a4cffbff460f8fdcadfa25e",
+                      "reason":  "Replaced green PCB appearance backup",
+                      "replacement":  "Current neutral textures, including retained legacy package aliases"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/Items/SearchServerEquipment20261013/Textures/T_SE_NIC_BaseColor.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/Items/SearchServerEquipment20261013/Textures/T_SE_NIC_BaseColor.uasset",
+                      "bytes":  2182354,
+                      "sha256":  "db9cd3a766a6e3526a03c01d85fb6f68afb1bd7d83f2d53669f70b6dac975d88",
+                      "reason":  "Replaced green PCB appearance backup",
+                      "replacement":  "Current neutral textures, including retained legacy package aliases"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/Items/SearchServerEquipment20261013/Textures/T_SE_NIC_ORM.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/Items/SearchServerEquipment20261013/Textures/T_SE_NIC_ORM.uasset",
+                      "bytes":  2529375,
+                      "sha256":  "bc30bb101777b7d7e12c906971b8e2f2e340bd3797c29c291ee52c2bf842383f",
+                      "reason":  "Replaced green PCB appearance backup",
+                      "replacement":  "Current neutral textures, including retained legacy package aliases"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/Items/SearchServerEquipment20261013/Textures/T_SE_RAID_BaseColor.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/Items/SearchServerEquipment20261013/Textures/T_SE_RAID_BaseColor.uasset",
+                      "bytes":  2210166,
+                      "sha256":  "f466d6f7ec84e08f1876b3eef5c829b6ea8bf306edf0f1a0b911d955d3b4cb6a",
+                      "reason":  "Replaced green PCB appearance backup",
+                      "replacement":  "Current neutral textures, including retained legacy package aliases"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/Items/SearchServerEquipment20261013/Textures/T_SE_RAID_ORM.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerNeutralPCB20261013/PreviousRuntimeAppearance/Content/Items/SearchServerEquipment20261013/Textures/T_SE_RAID_ORM.uasset",
+                      "bytes":  2530838,
+                      "sha256":  "2ef457094a75f8fb3e3605c31496d0b71623a889229d752f01d7251731d7a1d9",
+                      "reason":  "Replaced green PCB appearance backup",
+                      "replacement":  "Current neutral textures, including retained legacy package aliases"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerNeutralPCB20261013/Scripts/build_inventory_migration.ps1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerNeutralPCB20261013/Scripts/build_inventory_migration.ps1",
+                      "bytes":  1702,
+                      "sha256":  "ec0b355d5ca2d988d04390c0ee87e4ad839dbca72837294186c68abeed0e73f5",
+                      "reason":  "Withdrawn native appearance migration route; resource aliases are the final implementation",
+                      "replacement":  "SourceAssets/ServerNeutralPCB20261013/Scripts/apply_legacy_appearance.py"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerOriginalMarks20261013/previous_models.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerOriginalMarks20261013/previous_models.json",
+                      "bytes":  53753,
+                      "sha256":  "b6c282107bd199e780910f0ba0a8aee6eb3f2386d89b14f5a355fdb7d835282f",
+                      "reason":  "Superseded model manifest snapshot",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/model_manifest.json"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerNeutralPCB20261013/previous_models.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerNeutralPCB20261013/previous_models.json",
+                      "bytes":  112214,
+                      "sha256":  "8f01109e6baf6d0c498e47f5f83f5a99012f850681be44a5e66a45478ec1ed32",
+                      "reason":  "Superseded model manifest snapshot",
+                      "replacement":  "SourceAssets/ServerNeutralPCB20261013/model_manifest.json"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_FuryRAM_RefR2_Source.blend",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_FuryRAM_RefR2_Source.blend",
+                      "bytes":  5203905,
+                      "sha256":  "111dc78074b0ec07c579ac59b48649d6f5d623ae6bf38722ffb233336fe8df9a",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_M2SSD_RefR2_Source.blend",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_M2SSD_RefR2_Source.blend",
+                      "bytes":  5230521,
+                      "sha256":  "f4d637412125eeb55419ccd6b306af0cccc17db9ead215b38aa5ffd4fd185978",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_TripleFanGPU_RefR2_Source.blend",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_TripleFanGPU_RefR2_Source.blend",
+                      "bytes":  5438758,
+                      "sha256":  "8fea26f4eb8fd5663af15dac63d1201a67c1f8a73bffc4ab043c0edc9ebbc00b",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_FuryRAM_RefR2.fbx",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_FuryRAM_RefR2.fbx",
+                      "bytes":  706492,
+                      "sha256":  "a7a31770cc3b8befa26b32de975ba278dc895782d16d1c3019652e2a83fe433e",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_FuryRAM_RefR2.glb",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_FuryRAM_RefR2.glb",
+                      "bytes":  5706412,
+                      "sha256":  "3b5f1b801e09cce315080a60f361f4e015e7ec4a1365c8a43c2686f2dc76b74c",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_M2SSD_RefR2.fbx",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_M2SSD_RefR2.fbx",
+                      "bytes":  425612,
+                      "sha256":  "f4bbf02daf9e5fbe7cc87457ab0e59cfb42bc781260f2c286e386125f3b200ec",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_M2SSD_RefR2.glb",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_M2SSD_RefR2.glb",
+                      "bytes":  5584276,
+                      "sha256":  "b5abf6efe225bcadfc85a3165bb271efa6fb7b67b915e11f78481944ffff252b",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_TripleFanGPU_RefR2.fbx",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_TripleFanGPU_RefR2.fbx",
+                      "bytes":  5969340,
+                      "sha256":  "5d296c6e2013e462f4fe9fffc342802391eeb11fcd5c4a5c335bf0e992deaf35",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_TripleFanGPU_RefR2.glb",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_TripleFanGPU_RefR2.glb",
+                      "bytes":  9399236,
+                      "sha256":  "b43539f9c30b137a6cc848558cc53604b8cee9b86cfe8332bdd9bc1f071b0bc4",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_GPU_BaseColor.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_GPU_BaseColor.png",
+                      "bytes":  1900484,
+                      "sha256":  "9c329441bbf267f8d24a955a6f0fccc223aacdddea915a6d983226b52ebc9d0b",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_GPU_Normal.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_GPU_Normal.png",
+                      "bytes":  807167,
+                      "sha256":  "398868faffdce1d6394272cea77413e82e879b4813e9c660608714f89502ddcb",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_GPU_ORM.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_GPU_ORM.png",
+                      "bytes":  2389034,
+                      "sha256":  "94908008e4e311644ebb466cbec16bc69e54f82b64b84c1180a9a3fbef2cd109",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_RAM_BaseColor.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_RAM_BaseColor.png",
+                      "bytes":  1902677,
+                      "sha256":  "17586f8a2e6fe0878c89deaca7be78579eb2cb3c461bb624cad1a72f88d3cf35",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_RAM_Normal.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_RAM_Normal.png",
+                      "bytes":  799130,
+                      "sha256":  "ee950164bf4d6c057a44d3c7168bdfc6a68db6ade9eb53f5ba7e02bafb709948",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_RAM_ORM.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_RAM_ORM.png",
+                      "bytes":  2397451,
+                      "sha256":  "618a579d879d689d8de02dc8c8ae57c3f4009d63474c3162e2fee906d039a85f",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_SSD_BaseColor.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_SSD_BaseColor.png",
+                      "bytes":  1914930,
+                      "sha256":  "8017e038868a3064a04f895a8d285a4fae5a387de8588057692107a267ea25cb",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_SSD_Normal.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_SSD_Normal.png",
+                      "bytes":  802959,
+                      "sha256":  "8e85dfeab2e89cc768bfc60c23e9d9e5ca4fb106bab68e1432140ec9c26232ae",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_SSD_ORM.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Textures/T_SR_SSD_ORM.png",
+                      "bytes":  2390533,
+                      "sha256":  "01d78e4eedc12c2a5e9d88e4caf1ccc4a8cd093b50690ba19b7edec57ac99559",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/author_models.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/author_models.py",
+                      "bytes":  4813,
+                      "sha256":  "d60d596db9abd524deafd47cc2f19f46132f6cf93aa22370cc84dbca6a4d1ba9",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/hardware_parts.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/hardware_parts.py",
+                      "bytes":  7130,
+                      "sha256":  "319da72d8385eea2a13d37175858c0f37c49173c2e77cf753e75ee8609b47d66",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/import_assets.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/import_assets.py",
+                      "bytes":  7757,
+                      "sha256":  "bc4c32e9664ab1bb06fccff5cd245889f67dc263794d442a6ca99350ea98996e",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/import_staged.ps1",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/import_staged.ps1",
+                      "bytes":  1113,
+                      "sha256":  "194631fa558ef3f85c6992fa1e8ec50093032c41ce087f359eb44cf21b7955e5",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/install_staged.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/install_staged.py",
+                      "bytes":  1862,
+                      "sha256":  "3bd133b54c35d4459753f8722e52da3ceced04c911965cf9beeabd36a613287d",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/mesh_helpers.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/mesh_helpers.py",
+                      "bytes":  8133,
+                      "sha256":  "a5e5153fc465e6079471f8c381fb6174d91b5f648a8de4092e6da657a42418b8",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/prepare_textures.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/prepare_textures.py",
+                      "bytes":  8675,
+                      "sha256":  "46415365350f18d5c76d175354d78462508a2c2c43cbfa8964094c60886badbd",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/publish_revision.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/publish_revision.py",
+                      "bytes":  4322,
+                      "sha256":  "059e1d8363d4d5847b4968e0494bd90cb1b8ae889081e9fd4b47dead9d76a212",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/record_delivery.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/record_delivery.py",
+                      "bytes":  2036,
+                      "sha256":  "e51cf720a8df5f4237913d28eb1119dfb958bb72107fa1ab0ad552bd7a5f7c2e",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/reference_models.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/reference_models.py",
+                      "bytes":  13043,
+                      "sha256":  "f4325fa32502083c67841f2152f9220b26ee9da3ade3533c9e62aa7cc6c79462",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/render_inventory_icons.py",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/render_inventory_icons.py",
+                      "bytes":  5679,
+                      "sha256":  "5a46c628fd28a61ad47dd9e9313569cd19fa5e3c6998735f451861ca8bbdf52d",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/__pycache__/hardware_parts.cpython-313.pyc",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/__pycache__/hardware_parts.cpython-313.pyc",
+                      "bytes":  16035,
+                      "sha256":  "19514cb962aca9cec5c5177d6db36af08312d4423750dbaaa7a1336f861a4118",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/__pycache__/mesh_helpers.cpython-313.pyc",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/__pycache__/mesh_helpers.cpython-313.pyc",
+                      "bytes":  19713,
+                      "sha256":  "25d77ebd6a0d745ed8a46bd57662444376f6caafa13d0033d2b1bac56b5122b1",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/Scripts/__pycache__/reference_models.cpython-313.pyc",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/Scripts/__pycache__/reference_models.cpython-313.pyc",
+                      "bytes":  23620,
+                      "sha256":  "d80c18a8a00ac695334107b69589befc3e096281474ae0a75ec970113c0e749d",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/ServerReferenceRemodelImport.uproject",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/ServerReferenceRemodelImport.uproject",
+                      "bytes":  333,
+                      "sha256":  "05bea3e455e61adfc4b8bade3e44a21ae29a23ee1c5abde14c1ef953a860f352",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Config/DefaultEngine.ini",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Config/DefaultEngine.ini",
+                      "bytes":  617,
+                      "sha256":  "74dac7c5acee82ca46480b3d86ca8cd22a01fa1c90b243232f076683e74ab154",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Materials/M_SR_GPU.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Materials/M_SR_GPU.uasset",
+                      "bytes":  8922,
+                      "sha256":  "fcaee3bed87ef90fc38662abb40c2b13cfc11e42d70cb8be44dcdcbaf1d72f18",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Materials/M_SR_RAM.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Materials/M_SR_RAM.uasset",
+                      "bytes":  8922,
+                      "sha256":  "c34d0a38b035432083b20e1fe655f464d3d936f28c2a12ca7b22e053ead0d013",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Materials/M_SR_SSD.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Materials/M_SR_SSD.uasset",
+                      "bytes":  8922,
+                      "sha256":  "2feb905e30ea9e3ac8b951b4e3ab6e3e30cf66fe6d065f7627347fdd27aeb33f",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Meshes/SM_Search_FuryRAM_RefR2.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Meshes/SM_Search_FuryRAM_RefR2.uasset",
+                      "bytes":  378632,
+                      "sha256":  "b90e7b6b9af643d4b92ac72d4868e072ea40c94a36bfa22eae2e3eaf8cabd10e",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Meshes/SM_Search_M2SSD_RefR2.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Meshes/SM_Search_M2SSD_RefR2.uasset",
+                      "bytes":  193469,
+                      "sha256":  "757f72659cd0273ada9116ee097999879a28449312a178514e2cb6bb89e9a48a",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Meshes/SM_Search_TripleFanGPU_RefR2.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Meshes/SM_Search_TripleFanGPU_RefR2.uasset",
+                      "bytes":  2673792,
+                      "sha256":  "fc2c51683895777e4e462e6252ea386766ff2a79d7d7a7d208ac3254b8daa18c",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_GPU_BaseColor.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_GPU_BaseColor.uasset",
+                      "bytes":  2025052,
+                      "sha256":  "64a93bc953cf5ba970aa42fe602a662febea1a15b85b90afca09162553a07baf",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_GPU_Normal.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_GPU_Normal.uasset",
+                      "bytes":  969793,
+                      "sha256":  "78c03395229b2ef8134dfa4475fa78f3067bfa3f6fac0b757c280bf682fc4e75",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_GPU_ORM.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_GPU_ORM.uasset",
+                      "bytes":  2472062,
+                      "sha256":  "d3119a05cf69304f1cdbc571143cd32792e9e87ceb22283020925e7845435a31",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_RAM_BaseColor.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_RAM_BaseColor.uasset",
+                      "bytes":  2023024,
+                      "sha256":  "e89b306aadce5f963082c7d07f792fbe0758a65a44b7852cb3b05ca83827d4bc",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_RAM_Normal.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_RAM_Normal.uasset",
+                      "bytes":  972761,
+                      "sha256":  "ed5fc637937d499f12a7aa3db6179e53115e35004bdf790fb926958a60133de2",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_RAM_ORM.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_RAM_ORM.uasset",
+                      "bytes":  2485476,
+                      "sha256":  "1ab43145cf35c1e7cfa3eb11faef7056516586351f8e7eaaef336ddd3cb65009",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_SSD_BaseColor.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_SSD_BaseColor.uasset",
+                      "bytes":  2031158,
+                      "sha256":  "35459db0ad149e5bea3efd1cad4e5ead49fc1ed88fe1821ecbec69df2a6ff4c1",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_SSD_Normal.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_SSD_Normal.uasset",
+                      "bytes":  970748,
+                      "sha256":  "6bdb900ca3fd0156b8b9004a2c0c2470c40bf79dfe6f98c46240237d6f3e1762",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_SSD_ORM.uasset",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Content/Items/ServerReferenceRemodel20261013/Textures/T_SR_SSD_ORM.uasset",
+                      "bytes":  2471910,
+                      "sha256":  "a02408ccff40e1bd352a626baf1807b5b683a21e317ae1c945dca6da17864375",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/Build/XmlConfigCache.bin",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/Build/XmlConfigCache.bin",
+                      "bytes":  319,
+                      "sha256":  "ac2475f9f22e9112df6cf1c14241f72766a9c8e4373d8e83d6ab69de57613f23",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/PipInstall/extra_urls.txt",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/PipInstall/extra_urls.txt",
+                      "bytes":  0,
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/PipInstall/merged_requirements.in",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/PipInstall/merged_requirements.in",
+                      "bytes":  0,
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/PipInstall/pyreqs_plugins.list",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/PipInstall/pyreqs_plugins.list",
+                      "bytes":  0,
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+                      "bytes":  108,
+                      "sha256":  "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+                      "bytes":  18709,
+                      "sha256":  "314de6fa71efac64e7e9e04ed46bcb55087472e0e2dadaeeb974239e1068f7bf",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+                      "bytes":  18808,
+                      "sha256":  "f85e4560aef648dc3f7c2d006f22646012e844c0e84d7111ca4eb213c529bb43",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/Config/CrashReportClient/UECC-Windows-9C21AEB942219B52128A5C9FCFA4221B/CrashReportClient.ini",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/Config/CrashReportClient/UECC-Windows-9C21AEB942219B52128A5C9FCFA4221B/CrashReportClient.ini",
+                      "bytes":  239,
+                      "sha256":  "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/Config/WindowsEditor/Editor.ini",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/Config/WindowsEditor/Editor.ini",
+                      "bytes":  95,
+                      "sha256":  "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+                      "bytes":  70591,
+                      "sha256":  "522a410b8144cb7d7ddd2e7091adfaae6816deb214dcc4ef7c1fec410e176668",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/Logs/AutoSDKInfo.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/Logs/AutoSDKInfo.json",
+                      "bytes":  12551,
+                      "sha256":  "a9fddc64475481dfeaeb0bc0fc1effb3ce31aa164778800ed654b4b28333e704",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/Logs/AutoSDKInfo.txt",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/Logs/AutoSDKInfo.txt",
+                      "bytes":  4134,
+                      "sha256":  "9ecb4500f0148569e39a883a21e589214708859bf71c64d7003ee270de824e2c",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/SourceControl/UncontrolledChangelists.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/SourceControl/UncontrolledChangelists.json",
+                      "bytes":  5088,
+                      "sha256":  "86c3834c8db857dcd73b6bf9cbfa918d793eb0d4638ff5ad78d9d549b967e282",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/UnrealBuildTool/BuildConfiguration.xml",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/UEImportHost/Saved/UnrealBuildTool/BuildConfiguration.xml",
+                      "bytes":  132,
+                      "sha256":  "1e7cd8512dedf37d7b103c5592f5600433e7fe97da23434e69990f8a3370508a",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/previous_models.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/previous_models.json",
+                      "bytes":  37954,
+                      "sha256":  "348b0823894d778c6cbe92a683e28103ba636f4b3b3525dca463e6372cc85cc9",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/model_manifest.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/model_manifest.json",
+                      "bytes":  53753,
+                      "sha256":  "b6c282107bd199e780910f0ba0a8aee6eb3f2386d89b14f5a355fdb7d835282f",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/texture_manifest.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/texture_manifest.json",
+                      "bytes":  11881,
+                      "sha256":  "f67e8c4f608355a5f30914903e2199bb4b825e689eef3474717b0809e14563cd",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerReferenceRemodel20261013/inventory_icons.json",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerReferenceRemodel20261013/inventory_icons.json",
+                      "bytes":  1647,
+                      "sha256":  "c46f76dbc4d8ff20c3f6a7cba43d23e1f2a766d50c50f06220694c059bfb8b2e",
+                      "reason":  "Branded reference production superseded; source reference photos retained separately",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013; reference images remain in ServerReferenceRemodel20261013/Reference"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerOriginalMarks20261013/Authored/SM_Search_ArmoredRAM_CSR3_Source.blend",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerOriginalMarks20261013/Authored/SM_Search_ArmoredRAM_CSR3_Source.blend",
+                      "bytes":  5184360,
+                      "sha256":  "8b73c9a855e525fed0cd97c6d15e3a811b2383ca5830aa289d981b5d074da660",
+                      "reason":  "First original-mark export superseded by corrected CSR3B geometry / CSR3C UE tangents",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/model_manifest.json"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerOriginalMarks20261013/Authored/SM_Search_M2SSD_CSR3_Source.blend",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerOriginalMarks20261013/Authored/SM_Search_M2SSD_CSR3_Source.blend",
+                      "bytes":  5219896,
+                      "sha256":  "eb5e51ee25f9c496c61b3241bfd2eb3a3913a5d583528943054c13e0f5375f10",
+                      "reason":  "First original-mark export superseded by corrected CSR3B geometry / CSR3C UE tangents",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/model_manifest.json"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerOriginalMarks20261013/Authored/SM_Search_TripleFanGPU_CSR3_Source.blend",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerOriginalMarks20261013/Authored/SM_Search_TripleFanGPU_CSR3_Source.blend",
+                      "bytes":  5567364,
+                      "sha256":  "50e88190edff8acc9c602c115b85c5af885904335fc903fabacd3b3eaec74aff",
+                      "reason":  "First original-mark export superseded by corrected CSR3B geometry / CSR3C UE tangents",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/model_manifest.json"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_ArmoredRAM_CSR3.fbx",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_ArmoredRAM_CSR3.fbx",
+                      "bytes":  706972,
+                      "sha256":  "2467fc40bcedd3bc4ace3f67250e8f7eba246d077eaa9fb4892625f8b1952051",
+                      "reason":  "First original-mark export superseded by corrected CSR3B geometry / CSR3C UE tangents",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/model_manifest.json"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_ArmoredRAM_CSR3.glb",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_ArmoredRAM_CSR3.glb",
+                      "bytes":  5690748,
+                      "sha256":  "cf11b433f2202860d2a1923cfdf284b802cb812014577ac8659fee4caca3a501",
+                      "reason":  "First original-mark export superseded by corrected CSR3B geometry / CSR3C UE tangents",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/model_manifest.json"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_M2SSD_CSR3.fbx",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_M2SSD_CSR3.fbx",
+                      "bytes":  425596,
+                      "sha256":  "b3f4e9cc2221ef5408cabb71559205c41fccbccd119012426b4195ea3a508491",
+                      "reason":  "First original-mark export superseded by corrected CSR3B geometry / CSR3C UE tangents",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/model_manifest.json"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_M2SSD_CSR3.glb",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_M2SSD_CSR3.glb",
+                      "bytes":  5571980,
+                      "sha256":  "953a5f7eeec671b25078b86af2fb368b9d7c6958c64e6d49c1d26ffd890b3af2",
+                      "reason":  "First original-mark export superseded by corrected CSR3B geometry / CSR3C UE tangents",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/model_manifest.json"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_TripleFanGPU_CSR3.fbx",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_TripleFanGPU_CSR3.fbx",
+                      "bytes":  8507260,
+                      "sha256":  "0ec9aaddce468320fe1630e9ddc23404fb43d883daf3a140ac4f683d5739fc5f",
+                      "reason":  "First original-mark export superseded by corrected CSR3B geometry / CSR3C UE tangents",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/model_manifest.json"
+                  },
+                  {
+                      "source":  "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_TripleFanGPU_CSR3.glb",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_TripleFanGPU_CSR3.glb",
+                      "bytes":  10878448,
+                      "sha256":  "397f0cfabf9f6310002757014fe70bd3b84d93e937a507cfa89c42270daf481c",
+                      "reason":  "First original-mark export superseded by corrected CSR3B geometry / CSR3C UE tangents",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/model_manifest.json"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_GraphicsCard_Source.blend",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_GraphicsCard_Source.blend",
+                      "bytes":  6176174,
+                      "sha256":  "93ab28ab66d8db48d2b7e047af2ec2d433ac105acc64703acbc6596d4f6080ad",
+                      "reason":  "Original hardware geometry replaced by reference-based original-mark models",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_GraphicsCard.fbx",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Export/SM_Search_GraphicsCard.fbx",
+                      "bytes":  3379996,
+                      "sha256":  "c95a2487180ce8f7530abf045592207e9769594878624a98692f4127c86ba64d",
+                      "reason":  "Original hardware geometry replaced by reference-based original-mark models",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_GraphicsCard.glb",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Export/SM_Search_GraphicsCard.glb",
+                      "bytes":  8745904,
+                      "sha256":  "765cb116a9c9ef1f1ee495c7a1d7f9cb82d4dcf3b90feb3d286f6a17092453fb",
+                      "reason":  "Original hardware geometry replaced by reference-based original-mark models",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Textures/T_SE_GPU_BaseColor.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Textures/T_SE_GPU_BaseColor.png",
+                      "bytes":  2048557,
+                      "sha256":  "b28f99e3ddf91a9733b0cc471e42cd7c051079ed5ba81b2e84aa1e8d777be867",
+                      "reason":  "Original hardware textures superseded",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/Textures"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Textures/T_SE_GPU_Normal.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Textures/T_SE_GPU_Normal.png",
+                      "bytes":  1471908,
+                      "sha256":  "dce2b663d71e62d4bf59bd70b614058ce22fb36f0ab11f5b5cb4cc1cf6f7ad8c",
+                      "reason":  "Original hardware textures superseded",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/Textures"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Textures/T_SE_GPU_ORM.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Textures/T_SE_GPU_ORM.png",
+                      "bytes":  2460503,
+                      "sha256":  "316577cc01271beab2798c44bffeb233a94e733f422c267bab5933661c1412aa",
+                      "reason":  "Original hardware textures superseded",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/Textures"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ServerRAM_Source.blend",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ServerRAM_Source.blend",
+                      "bytes":  1839609,
+                      "sha256":  "fb996a7e54c9cb7b3c8c4601edd0a13094e80300365731d6a3c4dab03056c23d",
+                      "reason":  "Original hardware geometry replaced by reference-based original-mark models",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_ServerRAM.fbx",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Export/SM_Search_ServerRAM.fbx",
+                      "bytes":  455132,
+                      "sha256":  "4b0438c99f748856c3b8f0f616c7c253607e5e4f0329872f4a81e0db77ce21ac",
+                      "reason":  "Original hardware geometry replaced by reference-based original-mark models",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_ServerRAM.glb",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Export/SM_Search_ServerRAM.glb",
+                      "bytes":  2141580,
+                      "sha256":  "7bd43450bfc5c9150d2c004ef7ca66eed3ece3b99ef188500c0920ba78f54941",
+                      "reason":  "Original hardware geometry replaced by reference-based original-mark models",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Textures/T_SE_RAM_BaseColor.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Textures/T_SE_RAM_BaseColor.png",
+                      "bytes":  600378,
+                      "sha256":  "28ff7c050e6dfe4ebaa4d7ac856abecd85d043012204da7d20a408efd68872ef",
+                      "reason":  "Original hardware textures superseded",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/Textures"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Textures/T_SE_RAM_Normal.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Textures/T_SE_RAM_Normal.png",
+                      "bytes":  398596,
+                      "sha256":  "0d1aed4c63a4a6cbc74e3da535bb95101fdb74a69c53180b8aef58400c7a981b",
+                      "reason":  "Original hardware textures superseded",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/Textures"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Textures/T_SE_RAM_ORM.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Textures/T_SE_RAM_ORM.png",
+                      "bytes":  630740,
+                      "sha256":  "2fa823729b217e1d516cd9a9272802dc0bc61719d67a0fc965ee9a348e361e1a",
+                      "reason":  "Original hardware textures superseded",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/Textures"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_SSD_Source.blend",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_SSD_Source.blend",
+                      "bytes":  1701566,
+                      "sha256":  "92589334325b55a1a841e9cfa68dfd3c86cd5edaa3adcd363a89467903c55f8a",
+                      "reason":  "Original hardware geometry replaced by reference-based original-mark models",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_SSD.fbx",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Export/SM_Search_SSD.fbx",
+                      "bytes":  675772,
+                      "sha256":  "467395e2838a9ceaeb8b4594b4514e36ed17b2a164d6e8c43d6dfffb57bc4d87",
+                      "reason":  "Original hardware geometry replaced by reference-based original-mark models",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_SSD.glb",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Export/SM_Search_SSD.glb",
+                      "bytes":  2104252,
+                      "sha256":  "eda93afcf0b080c9d1012f586e206559b6c1e6147a96f15f1fd527c6e593848d",
+                      "reason":  "Original hardware geometry replaced by reference-based original-mark models",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Textures/T_SE_SSD_BaseColor.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Textures/T_SE_SSD_BaseColor.png",
+                      "bytes":  591220,
+                      "sha256":  "db61611fa160747ecfa797ef34a48ce7bb2e219e6c329126fea1df6d0ef51dff",
+                      "reason":  "Original hardware textures superseded",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/Textures"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Textures/T_SE_SSD_Normal.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Textures/T_SE_SSD_Normal.png",
+                      "bytes":  400227,
+                      "sha256":  "63dfa5d24d02f287f96b43fef4765611f505f894308f4151f851edfb54ad860d",
+                      "reason":  "Original hardware textures superseded",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/Textures"
+                  },
+                  {
+                      "source":  "SourceAssets/SearchServerEquipment20261013/Textures/T_SE_SSD_ORM.png",
+                      "destination":  "trash/search-collectibles-20261013/SourceAssets/SearchServerEquipment20261013/Textures/T_SE_SSD_ORM.png",
+                      "bytes":  631202,
+                      "sha256":  "b793174f2e3d86b3b7a10053561dd2eeaa118e1fbc08dccb0dce1537e7d44195",
+                      "reason":  "Original hardware textures superseded",
+                      "replacement":  "SourceAssets/ServerOriginalMarks20261013/Textures"
+                  },
+                  {
+                      "source":  "Docs/Gameplay/search-item-catalog-v1-20261012.json",
+                      "destination":  "trash/search-collectibles-20261013/Docs/Gameplay/search-item-catalog-v1-20261012.json",
+                      "bytes":  72671,
+                      "sha256":  "a5f45a8864d314034914e93831be1d65c27b57067d0f496f0bc99dc8a2a7a2bb",
+                      "reason":  "V1 filler-item design explicitly superseded by utility/value V2",
+                      "replacement":  "Docs/Gameplay/search-item-catalog-v2-20261012.json"
+                  },
+                  {
+                      "source":  "Docs/Gameplay/search-item-catalog-v1-20261012.md",
+                      "destination":  "trash/search-collectibles-20261013/Docs/Gameplay/search-item-catalog-v1-20261012.md",
+                      "bytes":  17805,
+                      "sha256":  "638249c6592d36a74d154823ecd0fb29e79e17dfc0695dd7fb5f1e04949e36d5",
+                      "reason":  "V1 filler-item design explicitly superseded by utility/value V2",
+                      "replacement":  "Docs/Gameplay/search-item-catalog-v2-20261012.md"
+                  }
+              ],
+    "file_count":  224,
+    "total_bytes":  257557653
+}

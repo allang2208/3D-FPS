@@ -118,3 +118,5 @@ description: 为 FPSGAME 制作非枪械物品：写实图标、按形态分流�
 ## 生存与消耗品（2026-10-03）
 
 [补水与食物消耗品](references/survival-consumables.md)：真实模型、图标／剩余次数、接触事务、夹层右键与快捷绑定、卷轴分类及吞咽音效。
+
+- 文件、检修材料、服务器硬件与收集物图标：读取 [项目制作合同](references/search-collectible-assets.md)。

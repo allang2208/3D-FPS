@@ -1,0 +1,2496 @@
+{
+  "version": 2,
+  "date": "2026-10-12",
+  "status": "design_specification_not_runtime_integrated",
+  "supersedes": "Docs/Gameplay/search-item-catalog-v1-20261012.json",
+  "group_standard": "Docs/Gameplay/search-container-groups-20261012.md",
+  "counts": {
+    "items": 22,
+    "existing": 4,
+    "new": 18,
+    "groups": {
+      "daily_supplies": 5,
+      "documents": 4,
+      "maintenance": 5,
+      "server_equipment": 8
+    },
+    "rarities": {
+      "common": 2,
+      "uncommon": 4,
+      "rare": 8,
+      "epic": 5,
+      "mythic": 2,
+      "legendary": 1
+    },
+    "recipes": 15
+  },
+  "rules": {
+    "prices": "sell_souls 为本次制定的实际收购设计价，每个库存单位计价；与现有 price 分开，不覆盖 price、不再乘额外收购折扣。",
+    "existing_food_pricing": "四种现有食物饮水的满状态售卖价取 floor(当前目录 price × 0.5)：15、12、6、17。仅用于本四项的V1定价，不是其他物品统一折扣。",
+    "partial_water": {
+      "full_uses": 2,
+      "full_sell_souls": 15,
+      "half_uses": 1,
+      "half_sell_souls": 7,
+      "formula": "floor(15 × remainingUses / 2)"
+    },
+    "grid": "占格为未旋转的宽×高，沿用现有背包旋转规则；一个堆叠占用同一矩形格，不是每件分别占格。",
+    "units": "包、盒、组、束为完整库存单位。配方扣1就是消耗一个单位，不按包装中的单颗螺钉或单张磨料计数。",
+    "stack_sale": "一叠总售价 = 单位售价 × 数量；矿泉水不堆叠，按剩余次数单独计价。",
+    "rarity": "沿用现有六档；本版22项均为非装备。杂物不可装备且不附加属性。",
+    "uses": "日常杂物和文件只出售；机房设备本版统一按高价值出售品设计；检修材料可出售，但主要用于已列出的制作配方。",
+    "recipe_changes": "15条配方保持现有基础原料与产物；每条最多新增两类核心搜索材料，V1独立紧固件、磨料、油、缠带、助熔剂、弹簧和定位销不再作为拾取目录条目。",
+    "model_dimensions": "新增模型采用长×宽×高厘米，属于制作目标；现有4项复用正式模型尺寸。占格由玩法决定，不直接按厘米换算。",
+    "production": "全部写实；新增规则小件采用精确建模，分开表现金属、塑料、纸、布和PCB。图标与世界模型同一身份；不以稀有度给主体刷整体彩色。",
+    "distribution": "不通过保持原产量并统一抬价制造收益；按区域总收益配置有意义的产出数量与稀有概率，允许空容器，避免用大量廉价杂物填满搜索过程。目录品种比例不等于掉落概率。",
+    "admission": "每件物品必须有已明确的实用用途，或者足以支撑占格和带回成本的出售价值；两者均无则不进入拾取目录。",
+    "two_axes": "实用性与稀有度分别设计。实用性看能解决什么需求，稀有度由后续产出地点和概率兑现；颜色不替代用途或价值。",
+    "sale_item_floor_v2": {
+      "minimum_single_item_souls_per_cell": 300,
+      "scope": "本版纯售卖物品的设计筛选线；不套用于生存补给和制作材料，不代表已验证的最终经济平衡。",
+      "exception": "用户确认签章行政档案占格2×2，保留900灵魂设计价，225灵魂/格；不因扩格自动涨价。"
+    },
+    "selection": "不保证每种物品对每个玩家都值得拿；补给看当前状态，材料看制作计划，收藏与设备看有限背包中的出售收益。",
+    "ppe_locker": "保留日常用品分组，本版偏水和食物等应急补给；取消无功能的口罩和眼镜拾取物，不添加医疗或防护装备系统。",
+    "source_baseline": "配方基础原料沿用上一轮读取的三台现有配方快照；V2只修订设计追加材料，不改运行时文件。",
+    "collection_icon_orientation": "收集物条状图标按占格水平或竖直居中；细长的1×1物品也水平居中。2×2、3×2等较宽形态恢复原背包图标的作者视角。武器、可穿戴装备以及玩家主动旋转占格的交互沿用原规则。"
+  },
+  "items": [
+    {
+      "code": "D01",
+      "id": "mineral_water",
+      "name": "矿泉水",
+      "group": "daily_supplies",
+      "rarity": "common",
+      "sell_souls": 15,
+      "grid_w": 1,
+      "grid_h": 2,
+      "max_stack": 1,
+      "inventory_unit": "瓶",
+      "model": {
+        "appearance": "复用现有透明瓶、瓶盖、标签和液体；满瓶与半瓶沿用同一套外观。",
+        "dimensions_lwh_cm": null,
+        "status": "reuse_existing_asset"
+      },
+      "purpose": "饮用两次，每次水分+30；满瓶售15灵魂，半瓶售7灵魂。",
+      "selection_tags": [
+        "water",
+        "visitor",
+        "daily_locker",
+        "ppe_locker"
+      ],
+      "status": "existing_item_new_sale_design",
+      "source_definition": {
+        "rarity": "common",
+        "price": 30,
+        "grid_w": 1,
+        "grid_h": 2,
+        "stack_max": 1,
+        "maxUses": 2,
+        "remainingUses": 2,
+        "useEffect": {
+          "hydration": 30
+        },
+        "ue_icon": "Icons/mineral_water_full.png",
+        "world_mesh": null
+      },
+      "use_effect": {
+        "hydration": 30
+      },
+      "max_uses": 2,
+      "utility_role": "survival",
+      "sell_souls_per_cell": 7.5,
+      "full_stack_sell_souls_per_cell": 7.5,
+      "pickup_reason": "能立即缓解饥饿、水分或SAN需求；状态充足时允许玩家主动放弃，不靠售价强迫携带。"
+    },
+    {
+      "code": "D02",
+      "id": "soda_can",
+      "name": "罐装汽水",
+      "group": "daily_supplies",
+      "rarity": "uncommon",
+      "sell_souls": 12,
+      "grid_w": 1,
+      "grid_h": 1,
+      "max_stack": 1,
+      "inventory_unit": "罐",
+      "model": {
+        "appearance": "复用现有拉环铝罐、印刷罐身和底部卷边。",
+        "dimensions_lwh_cm": null,
+        "status": "reuse_existing_asset"
+      },
+      "purpose": "单次饮用：水分+20、SAN+10；也可出售。",
+      "selection_tags": [
+        "drink",
+        "visitor",
+        "daily_locker",
+        "ppe_locker"
+      ],
+      "status": "existing_item_new_sale_design",
+      "source_definition": {
+        "rarity": "uncommon",
+        "price": 25,
+        "grid_w": 1,
+        "grid_h": 1,
+        "stack_max": 1,
+        "maxUses": 1,
+        "remainingUses": null,
+        "useEffect": {
+          "hydration": 20,
+          "sanity": 10
+        },
+        "ue_icon": "Icons/soda_can.png",
+        "world_mesh": "/Game/Items/Consumables/SodaCan20261003/SM_SodaCan.SM_SodaCan"
+      },
+      "use_effect": {
+        "hydration": 20,
+        "sanity": 10
+      },
+      "max_uses": 1,
+      "utility_role": "survival",
+      "sell_souls_per_cell": 12.0,
+      "full_stack_sell_souls_per_cell": 12.0,
+      "pickup_reason": "能立即缓解饥饿、水分或SAN需求；状态充足时允许玩家主动放弃，不靠售价强迫携带。"
+    },
+    {
+      "code": "D03",
+      "id": "bread",
+      "name": "普通面包",
+      "group": "daily_supplies",
+      "rarity": "common",
+      "sell_souls": 6,
+      "grid_w": 1,
+      "grid_h": 1,
+      "max_stack": 1,
+      "inventory_unit": "个",
+      "model": {
+        "appearance": "复用现有金黄烤壳、切口和面包组织，不改轮廓。",
+        "dimensions_lwh_cm": null,
+        "status": "reuse_existing_asset"
+      },
+      "purpose": "单次食用：饥饿度+15、水分-10；也可出售。",
+      "selection_tags": [
+        "food",
+        "visitor",
+        "daily_locker",
+        "ppe_locker"
+      ],
+      "status": "existing_item_new_sale_design",
+      "source_definition": {
+        "rarity": "common",
+        "price": 12,
+        "grid_w": 1,
+        "grid_h": 1,
+        "stack_max": 1,
+        "maxUses": 1,
+        "remainingUses": null,
+        "useEffect": {
+          "hunger": 15,
+          "hydration": -10
+        },
+        "ue_icon": "Icons/bread.png",
+        "world_mesh": "/Game/Items/Consumables/Bread20261003/SM_Bread.SM_Bread"
+      },
+      "use_effect": {
+        "hunger": 15,
+        "hydration": -10
+      },
+      "max_uses": 1,
+      "utility_role": "survival",
+      "sell_souls_per_cell": 6.0,
+      "full_stack_sell_souls_per_cell": 6.0,
+      "pickup_reason": "能立即缓解饥饿、水分或SAN需求；状态充足时允许玩家主动放弃，不靠售价强迫携带。"
+    },
+    {
+      "code": "D04",
+      "id": "baguette_bread",
+      "name": "法棍面包",
+      "group": "daily_supplies",
+      "rarity": "uncommon",
+      "sell_souls": 17,
+      "grid_w": 1,
+      "grid_h": 3,
+      "max_stack": 1,
+      "inventory_unit": "根",
+      "model": {
+        "appearance": "复用现有细长法棍、斜切纹和烘烤表面。",
+        "dimensions_lwh_cm": null,
+        "status": "reuse_existing_asset"
+      },
+      "purpose": "单次食用：饥饿度+60、水分-30；也可出售。",
+      "selection_tags": [
+        "food",
+        "visitor",
+        "daily_locker",
+        "ppe_locker"
+      ],
+      "status": "existing_item_new_sale_design",
+      "source_definition": {
+        "rarity": "uncommon",
+        "price": 35,
+        "grid_w": 1,
+        "grid_h": 3,
+        "stack_max": 1,
+        "maxUses": 1,
+        "remainingUses": null,
+        "useEffect": {
+          "hunger": 60,
+          "hydration": -30
+        },
+        "ue_icon": "Icons/baguette_bread.png",
+        "world_mesh": "/Game/Items/Consumables/Baguette20261003/SM_Baguette.SM_Baguette"
+      },
+      "use_effect": {
+        "hunger": 60,
+        "hydration": -30
+      },
+      "max_uses": 1,
+      "utility_role": "survival",
+      "sell_souls_per_cell": 5.67,
+      "full_stack_sell_souls_per_cell": 5.67,
+      "pickup_reason": "能立即缓解饥饿、水分或SAN需求；状态充足时允许玩家主动放弃，不靠售价强迫携带。"
+    },
+    {
+      "code": "D12",
+      "id": "search_commemorative_watch",
+      "name": "纪念腕表",
+      "group": "daily_supplies",
+      "rarity": "rare",
+      "sell_souls": 360,
+      "grid_w": 1,
+      "grid_h": 1,
+      "max_stack": 1,
+      "inventory_unit": "只",
+      "model": {
+        "appearance": "圆形金属表壳、玻璃表镜与折叠皮表带，表盘使用原创纪念纹样。",
+        "dimensions_lwh_cm": [
+          8,
+          6,
+          3
+        ],
+        "status": "appearance_spec_only"
+      },
+      "purpose": "收藏杂物，出售换取灵魂；不是饰品装备。",
+      "selection_tags": [
+        "collectible",
+        "visitor"
+      ],
+      "status": "new_item_design",
+      "utility_role": "sale",
+      "sell_souls_per_cell": 360.0,
+      "full_stack_sell_souls_per_cell": 360.0,
+      "pickup_reason": "基础出售收益360灵魂/格，单件就有带回价值，不要求先攒满一叠。"
+    },
+    {
+      "code": "F07",
+      "id": "search_usb_drive",
+      "name": "U盘",
+      "group": "documents",
+      "rarity": "rare",
+      "sell_souls": 360,
+      "grid_w": 1,
+      "grid_h": 1,
+      "max_stack": 1,
+      "inventory_unit": "只",
+      "model": {
+        "appearance": "短条金属外壳配黑色端盖，USB接头和挂绳孔独立成形。",
+        "dimensions_lwh_cm": [
+          6,
+          2,
+          1
+        ],
+        "status": "ue_assets_saved_and_installed_not_loot_integrated",
+        "actual_dimensions_cm": [
+          5.934999704360962,
+          1.9199999570846558,
+          0.9930000007152557
+        ],
+        "source": "SourceAssets/SearchDocuments20261012/Authored/SM_Search_USBDrive_Source.blend",
+        "fbx": "SourceAssets/SearchDocuments20261012/Export/SM_Search_USBDrive.fbx",
+        "glb": "SourceAssets/SearchDocuments20261012/Export/SM_Search_USBDrive.glb",
+        "ue_mesh": "/Game/Items/SearchDocuments20261012/Meshes/SM_Search_USBDrive.SM_Search_USBDrive",
+        "ue_material": "/Game/Items/SearchDocuments20261012/Materials/M_SD_USB.M_SD_USB",
+        "triangles_lod0": 7916,
+        "texture_size": 2048
+      },
+      "purpose": "出售换取灵魂。",
+      "selection_tags": [
+        "data_record",
+        "reception_records",
+        "transit_records"
+      ],
+      "status": "runtime_catalog_and_icons_integrated_loot_pending",
+      "utility_role": "sale",
+      "sell_souls_per_cell": 360.0,
+      "full_stack_sell_souls_per_cell": 360.0,
+      "pickup_reason": "基础出售收益360灵魂/格，单件就有带回价值，不要求先攒满一叠。",
+      "ue_icon": "Icons/SearchDocuments20261012/search_usb_drive.png",
+      "icon_orientation": "horizontal_centered"
+    },
+    {
+      "code": "F09",
+      "id": "search_archive_tape",
+      "name": "档案备份磁带",
+      "group": "documents",
+      "rarity": "epic",
+      "sell_souls": 800,
+      "grid_w": 1,
+      "grid_h": 1,
+      "max_stack": 1,
+      "inventory_unit": "盒",
+      "model": {
+        "appearance": "方形深色数据磁带盒，滑动防尘口、编号标签和内部卷轴轮廓。",
+        "dimensions_lwh_cm": [
+          11,
+          10,
+          2
+        ],
+        "status": "ue_assets_saved_and_installed_not_loot_integrated",
+        "actual_dimensions_cm": [
+          10.989999771118164,
+          10.042499542236328,
+          2.0450000762939453
+        ],
+        "source": "SourceAssets/SearchDocuments20261012/Authored/SM_Search_ArchiveTape_Source.blend",
+        "fbx": "SourceAssets/SearchDocuments20261012/Export/SM_Search_ArchiveTape.fbx",
+        "glb": "SourceAssets/SearchDocuments20261012/Export/SM_Search_ArchiveTape.glb",
+        "ue_mesh": "/Game/Items/SearchDocuments20261012/Meshes/SM_Search_ArchiveTape.SM_Search_ArchiveTape",
+        "ue_material": "/Game/Items/SearchDocuments20261012/Materials/M_SD_Tape.M_SD_Tape",
+        "triangles_lod0": 21914,
+        "texture_size": 2048
+      },
+      "purpose": "高价值资料，出售换取灵魂。",
+      "selection_tags": [
+        "data_record",
+        "valuable_archive"
+      ],
+      "status": "runtime_catalog_and_icons_integrated_loot_pending",
+      "utility_role": "sale",
+      "sell_souls_per_cell": 800.0,
+      "full_stack_sell_souls_per_cell": 800.0,
+      "pickup_reason": "基础出售收益800灵魂/格，单件就有带回价值，不要求先攒满一叠。",
+      "ue_icon": "Icons/SearchDocuments20261012/search_archive_tape.png",
+      "icon_orientation": "standard_inventory"
+    },
+    {
+      "code": "F10",
+      "id": "search_encrypted_archive_case",
+      "name": "加密行政资料盒",
+      "group": "documents",
+      "rarity": "mythic",
+      "sell_souls": 1600,
+      "grid_w": 2,
+      "grid_h": 2,
+      "max_stack": 1,
+      "inventory_unit": "盒",
+      "model": {
+        "appearance": "深灰防震资料盒内含编号介质与密封文件袋，红色封签为身份细节。",
+        "dimensions_lwh_cm": [
+          24,
+          18,
+          6
+        ],
+        "status": "ue_assets_saved_and_installed_not_loot_integrated",
+        "actual_dimensions_cm": [
+          23.420000076293945,
+          18.13499927520752,
+          6.056000232696533
+        ],
+        "source": "SourceAssets/SearchDocuments20261012/Authored/SM_Search_EncryptedCase_Source.blend",
+        "fbx": "SourceAssets/SearchDocuments20261012/Export/SM_Search_EncryptedCase.fbx",
+        "glb": "SourceAssets/SearchDocuments20261012/Export/SM_Search_EncryptedCase.glb",
+        "ue_mesh": "/Game/Items/SearchDocuments20261012/Meshes/SM_Search_EncryptedCase.SM_Search_EncryptedCase",
+        "ue_material": "/Game/Items/SearchDocuments20261012/Materials/M_SD_Case.M_SD_Case",
+        "triangles_lod0": 27898,
+        "texture_size": 4096
+      },
+      "purpose": "珍贵行政资料，出售换取灵魂；不触发研究或支线。",
+      "selection_tags": [
+        "data_record",
+        "valuable_archive"
+      ],
+      "status": "runtime_catalog_and_icons_integrated_loot_pending",
+      "utility_role": "sale",
+      "sell_souls_per_cell": 400.0,
+      "full_stack_sell_souls_per_cell": 400.0,
+      "pickup_reason": "基础出售收益400灵魂/格，单件就有带回价值，不要求先攒满一叠。",
+      "ue_icon": "Icons/SearchDocuments20261012/search_encrypted_archive_case.png",
+      "icon_orientation": "standard_inventory"
+    },
+    {
+      "code": "F11",
+      "id": "search_certified_admin_archive",
+      "name": "签章行政档案",
+      "group": "documents",
+      "rarity": "epic",
+      "sell_souls": 900,
+      "grid_w": 2,
+      "grid_h": 2,
+      "max_stack": 1,
+      "inventory_unit": "份",
+      "model": {
+        "appearance": "完整归档卷宗装在硬纸档案套内，保留连续页码、签章、封条与编号脊背；普通散页不作为拾取物。",
+        "dimensions_lwh_cm": [
+          32,
+          24,
+          3
+        ],
+        "status": "ue_assets_saved_and_installed_not_loot_integrated",
+        "actual_dimensions_cm": [
+          32.0,
+          24.0,
+          3.0710737188346684
+        ],
+        "source": "SourceAssets/SearchDocuments20261012/Authored/SM_Search_CertifiedArchive_Source.blend",
+        "fbx": "SourceAssets/SearchDocuments20261012/Export/SM_Search_CertifiedArchive.fbx",
+        "glb": "SourceAssets/SearchDocuments20261012/Export/SM_Search_CertifiedArchive.glb",
+        "ue_mesh": "/Game/Items/SearchDocuments20261012/Meshes/SM_Search_CertifiedArchive.SM_Search_CertifiedArchive",
+        "ue_material": "/Game/Items/SearchDocuments20261012/Materials/M_SD_Archive.M_SD_Archive",
+        "triangles_lod0": 24276,
+        "texture_size": 4096
+      },
+      "purpose": "出售换取灵魂；整套经过签章归档的资料是有价值的收藏对象，不用于开门或解锁配方。",
+      "selection_tags": [
+        "valuable_archive",
+        "reception_records",
+        "transit_records"
+      ],
+      "status": "runtime_catalog_and_icons_integrated_loot_pending",
+      "utility_role": "sale",
+      "sell_souls_per_cell": 450.0,
+      "full_stack_sell_souls_per_cell": 450.0,
+      "pickup_reason": "基础出售收益450灵魂/格，单件就有带回价值，不要求先攒满一叠。",
+      "ue_icon": "Icons/SearchDocuments20261012/search_certified_admin_archive.png",
+      "icon_orientation": "standard_inventory"
+    },
+    {
+      "code": "M11",
+      "id": "search_forging_alloy_blank",
+      "name": "锻造合金坯",
+      "group": "maintenance",
+      "rarity": "rare",
+      "sell_souls": 320,
+      "grid_w": 1,
+      "grid_h": 2,
+      "max_stack": 4,
+      "inventory_unit": "块",
+      "model": {
+        "appearance": "一块窄长的加工合金坯，金属端面与编号压印清楚，保护纸包覆中段；作为整件锻造材料。",
+        "dimensions_lwh_cm": [
+          28,
+          7,
+          4
+        ],
+        "status": "ue_assets_saved_and_installed",
+        "actual_dimensions_cm": [
+          27.72599983215332,
+          7.008500099182129,
+          4.010499954223633
+        ],
+        "triangles_lod0": 4448,
+        "texture_size": 2048,
+        "source": "SourceAssets/SearchMaintenance20261012/Authored/SM_Search_Alloy_Source.blend",
+        "glb": "SourceAssets/SearchMaintenance20261012/Export/SM_Search_Alloy.glb",
+        "fbx": "SourceAssets/SearchMaintenance20261012/Export/SM_Search_Alloy.fbx",
+        "ue_mesh": "/Game/Items/SearchMaintenance20261012/Meshes/SM_Search_Alloy.SM_Search_Alloy",
+        "ue_material": "/Game/Items/SearchMaintenance20261012/Materials/M_SM_Alloy.M_SM_Alloy"
+      },
+      "purpose": "铁匠台三种剑的核心搜索材料，每次制作消耗1或2块；替代V1对多种细碎耗材的搜集要求。",
+      "selection_tags": [
+        "forging",
+        "maintenance_box"
+      ],
+      "status": "runtime_catalog_and_art_integrated_recipes_and_loot_pending",
+      "utility_role": "crafting",
+      "sell_souls_per_cell": 160.0,
+      "full_stack_sell_souls_per_cell": 640.0,
+      "pickup_reason": "对应明确制作计划，按配方需要保留；见recipe_uses中的制作台、产物和消耗量。",
+      "recipe_uses": [
+        {
+          "recipe_id": "forge_highland_claymore",
+          "recipe_code": "B01",
+          "station": "铁匠台",
+          "count": 1,
+          "output": "ue_highland_claymore"
+        },
+        {
+          "recipe_id": "forge_rune_sword",
+          "recipe_code": "B02",
+          "station": "铁匠台",
+          "count": 2,
+          "output": "ue_rune_sword"
+        },
+        {
+          "recipe_id": "forge_frost_crystal_sword",
+          "recipe_code": "B03",
+          "station": "铁匠台",
+          "count": 2,
+          "output": "ue_frost_crystal_sword"
+        }
+      ],
+      "ue_icon": "Icons/SearchMaintenance20261012/search_forging_alloy_blank.png",
+      "icon_orientation": "vertical_centered"
+    },
+    {
+      "code": "M12",
+      "id": "search_assembly_component_box",
+      "name": "装配组件盒",
+      "group": "maintenance",
+      "rarity": "rare",
+      "sell_souls": 360,
+      "grid_w": 2,
+      "grid_h": 1,
+      "max_stack": 3,
+      "inventory_unit": "盒",
+      "model": {
+        "appearance": "小型封装零件盒内按格收纳紧固件、弹簧和定位件，包含配套耗材；整体作为一个库存单位。",
+        "dimensions_lwh_cm": [
+          20,
+          13,
+          5
+        ],
+        "status": "ue_assets_saved_and_installed",
+        "actual_dimensions_cm": [
+          20.0,
+          13.210000038146973,
+          5.11299991607666
+        ],
+        "triangles_lod0": 27026,
+        "texture_size": 4096,
+        "source": "SourceAssets/SearchMaintenance20261012/Authored/SM_Search_Assembly_Source.blend",
+        "glb": "SourceAssets/SearchMaintenance20261012/Export/SM_Search_Assembly.glb",
+        "fbx": "SourceAssets/SearchMaintenance20261012/Export/SM_Search_Assembly.fbx",
+        "ue_mesh": "/Game/Items/SearchMaintenance20261012/Meshes/SM_Search_Assembly.SM_Search_Assembly",
+        "ue_material": "/Game/Items/SearchMaintenance20261012/Materials/M_SM_Assembly.M_SM_Assembly"
+      },
+      "purpose": "枪械组装台全部11条配方消耗1至3盒；整盒结算，不拆成多种低价值拾取物。",
+      "selection_tags": [
+        "gun_assembly",
+        "maintenance_box"
+      ],
+      "status": "runtime_catalog_and_art_integrated_recipes_and_loot_pending",
+      "utility_role": "crafting",
+      "sell_souls_per_cell": 180.0,
+      "full_stack_sell_souls_per_cell": 540.0,
+      "pickup_reason": "对应明确制作计划，按配方需要保留；见recipe_uses中的制作台、产物和消耗量。",
+      "recipe_uses": [
+        {
+          "recipe_id": "assemble_m4",
+          "recipe_code": "G01",
+          "station": "枪械组装台",
+          "count": 1,
+          "output": "ue_m4a1"
+        },
+        {
+          "recipe_id": "assemble_akm",
+          "recipe_code": "G02",
+          "station": "枪械组装台",
+          "count": 1,
+          "output": "ue_akm"
+        },
+        {
+          "recipe_id": "assemble_qbz191",
+          "recipe_code": "G03",
+          "station": "枪械组装台",
+          "count": 2,
+          "output": "ue_qbz191"
+        },
+        {
+          "recipe_id": "assemble_m1911",
+          "recipe_code": "G04",
+          "station": "枪械组装台",
+          "count": 1,
+          "output": "ue_m1911"
+        },
+        {
+          "recipe_id": "assemble_dan_wesson715",
+          "recipe_code": "G05",
+          "station": "枪械组装台",
+          "count": 1,
+          "output": "ue_dan_wesson715"
+        },
+        {
+          "recipe_id": "assemble_ash12",
+          "recipe_code": "G06",
+          "station": "枪械组装台",
+          "count": 2,
+          "output": "ue_ash12"
+        },
+        {
+          "recipe_id": "assemble_m16a2",
+          "recipe_code": "G07",
+          "station": "枪械组装台",
+          "count": 1,
+          "output": "ue_m16a2"
+        },
+        {
+          "recipe_id": "assemble_a762",
+          "recipe_code": "G08",
+          "station": "枪械组装台",
+          "count": 2,
+          "output": "ue_a762"
+        },
+        {
+          "recipe_id": "assemble_svd",
+          "recipe_code": "G09",
+          "station": "枪械组装台",
+          "count": 2,
+          "output": "ue_svd"
+        },
+        {
+          "recipe_id": "assemble_pkm_lowpoly",
+          "recipe_code": "G10",
+          "station": "枪械组装台",
+          "count": 3,
+          "output": "ue_pkm_lowpoly"
+        },
+        {
+          "recipe_id": "assemble_lmg201",
+          "recipe_code": "G11",
+          "station": "枪械组装台",
+          "count": 3,
+          "output": "ue_lmg201"
+        }
+      ],
+      "ue_icon": "Icons/SearchMaintenance20261012/search_assembly_component_box.png",
+      "icon_orientation": "horizontal_centered"
+    },
+    {
+      "code": "M04",
+      "id": "search_resin_adhesive",
+      "name": "树脂胶包",
+      "group": "maintenance",
+      "rarity": "uncommon",
+      "sell_souls": 60,
+      "grid_w": 1,
+      "grid_h": 1,
+      "max_stack": 5,
+      "inventory_unit": "包",
+      "model": {
+        "appearance": "双腔一次性胶袋带剪口与纸质说明贴，内容物保持不透明。",
+        "dimensions_lwh_cm": [
+          12,
+          8,
+          2
+        ],
+        "status": "ue_assets_saved_and_installed",
+        "actual_dimensions_cm": [
+          12.0,
+          8.0,
+          1.6645667552947998
+        ],
+        "triangles_lod0": 15044,
+        "texture_size": 2048,
+        "source": "SourceAssets/SearchMaintenance20261012/Authored/SM_Search_Resin_Source.blend",
+        "glb": "SourceAssets/SearchMaintenance20261012/Export/SM_Search_Resin.glb",
+        "fbx": "SourceAssets/SearchMaintenance20261012/Export/SM_Search_Resin.fbx",
+        "ue_mesh": "/Game/Items/SearchMaintenance20261012/Meshes/SM_Search_Resin.SM_Search_Resin",
+        "ue_material": "/Game/Items/SearchMaintenance20261012/Materials/M_SM_Resin.M_SM_Resin"
+      },
+      "purpose": "木工台制作木制弓臂消耗。",
+      "selection_tags": [
+        "woodworking",
+        "maintenance_box"
+      ],
+      "status": "runtime_catalog_and_art_integrated_recipes_and_loot_pending",
+      "utility_role": "crafting",
+      "sell_souls_per_cell": 60.0,
+      "full_stack_sell_souls_per_cell": 300.0,
+      "pickup_reason": "对应明确制作计划，按配方需要保留；见recipe_uses中的制作台、产物和消耗量。",
+      "recipe_uses": [
+        {
+          "recipe_id": "woodwork_bow_limb",
+          "recipe_code": "W01",
+          "station": "木工台",
+          "count": 1,
+          "output": "woodworked_bow_limb"
+        }
+      ],
+      "ue_icon": "Icons/SearchMaintenance20261012/search_resin_adhesive.png",
+      "icon_orientation": "standard_inventory"
+    },
+    {
+      "code": "M09",
+      "id": "search_laminated_strip",
+      "name": "层压木条",
+      "group": "maintenance",
+      "rarity": "uncommon",
+      "sell_souls": 90,
+      "grid_w": 1,
+      "grid_h": 3,
+      "max_stack": 5,
+      "inventory_unit": "束",
+      "model": {
+        "appearance": "几根窄长木条用两道纸带捆束，端部清楚呈现层压纹理。",
+        "dimensions_lwh_cm": [
+          55,
+          6,
+          3
+        ],
+        "status": "ue_assets_saved_and_installed",
+        "actual_dimensions_cm": [
+          54.855125427246094,
+          6.0360002517700195,
+          3.007999897003174
+        ],
+        "triangles_lod0": 5488,
+        "texture_size": 2048,
+        "source": "SourceAssets/SearchMaintenance20261012/Authored/SM_Search_Wood_Source.blend",
+        "glb": "SourceAssets/SearchMaintenance20261012/Export/SM_Search_Wood.glb",
+        "fbx": "SourceAssets/SearchMaintenance20261012/Export/SM_Search_Wood.fbx",
+        "ue_mesh": "/Game/Items/SearchMaintenance20261012/Meshes/SM_Search_Wood.SM_Search_Wood",
+        "ue_material": "/Game/Items/SearchMaintenance20261012/Materials/M_SM_Wood.M_SM_Wood"
+      },
+      "purpose": "木工台制作木制弓臂消耗，与现有原木材料 wood 分开。",
+      "selection_tags": [
+        "woodworking",
+        "maintenance_box"
+      ],
+      "status": "runtime_catalog_and_art_integrated_recipes_and_loot_pending",
+      "utility_role": "crafting",
+      "sell_souls_per_cell": 30.0,
+      "full_stack_sell_souls_per_cell": 150.0,
+      "pickup_reason": "对应明确制作计划，按配方需要保留；见recipe_uses中的制作台、产物和消耗量。",
+      "recipe_uses": [
+        {
+          "recipe_id": "woodwork_bow_limb",
+          "recipe_code": "W01",
+          "station": "木工台",
+          "count": 1,
+          "output": "woodworked_bow_limb"
+        }
+      ],
+      "ue_icon": "Icons/SearchMaintenance20261012/search_laminated_strip.png",
+      "icon_orientation": "vertical_centered"
+    },
+    {
+      "code": "M10",
+      "id": "search_precision_mechanism",
+      "name": "精密机件组",
+      "group": "maintenance",
+      "rarity": "rare",
+      "sell_souls": 240,
+      "grid_w": 2,
+      "grid_h": 1,
+      "max_stack": 3,
+      "inventory_unit": "组",
+      "model": {
+        "appearance": "小防震盒内排列抽象机械衬套、短轴和齿形件，以加工金属为主。",
+        "dimensions_lwh_cm": [
+          18,
+          12,
+          4
+        ],
+        "status": "ue_assets_saved_and_installed",
+        "actual_dimensions_cm": [
+          18.0,
+          12.026000022888184,
+          3.808000087738037
+        ],
+        "triangles_lod0": 27222,
+        "texture_size": 4096,
+        "source": "SourceAssets/SearchMaintenance20261012/Authored/SM_Search_Precision_Source.blend",
+        "glb": "SourceAssets/SearchMaintenance20261012/Export/SM_Search_Precision.glb",
+        "fbx": "SourceAssets/SearchMaintenance20261012/Export/SM_Search_Precision.fbx",
+        "ue_mesh": "/Game/Items/SearchMaintenance20261012/Meshes/SM_Search_Precision.SM_Search_Precision",
+        "ue_material": "/Game/Items/SearchMaintenance20261012/Materials/M_SM_Precision.M_SM_Precision"
+      },
+      "purpose": "枪械组装台 ASH-12、SVD、PKM、201轻机枪配方消耗。",
+      "selection_tags": [
+        "precision_hardware",
+        "maintenance_box"
+      ],
+      "status": "runtime_catalog_and_art_integrated_recipes_and_loot_pending",
+      "utility_role": "crafting",
+      "sell_souls_per_cell": 120.0,
+      "full_stack_sell_souls_per_cell": 360.0,
+      "pickup_reason": "对应明确制作计划，按配方需要保留；见recipe_uses中的制作台、产物和消耗量。",
+      "recipe_uses": [
+        {
+          "recipe_id": "assemble_ash12",
+          "recipe_code": "G06",
+          "station": "枪械组装台",
+          "count": 1,
+          "output": "ue_ash12"
+        },
+        {
+          "recipe_id": "assemble_svd",
+          "recipe_code": "G09",
+          "station": "枪械组装台",
+          "count": 1,
+          "output": "ue_svd"
+        },
+        {
+          "recipe_id": "assemble_pkm_lowpoly",
+          "recipe_code": "G10",
+          "station": "枪械组装台",
+          "count": 2,
+          "output": "ue_pkm_lowpoly"
+        },
+        {
+          "recipe_id": "assemble_lmg201",
+          "recipe_code": "G11",
+          "station": "枪械组装台",
+          "count": 2,
+          "output": "ue_lmg201"
+        }
+      ],
+      "ue_icon": "Icons/SearchMaintenance20261012/search_precision_mechanism.png",
+      "icon_orientation": "horizontal_centered"
+    },
+    {
+      "code": "S01",
+      "id": "search_ram_module",
+      "name": "服务器内存条",
+      "group": "server_equipment",
+      "rarity": "rare",
+      "sell_souls": 450,
+      "grid_w": 1,
+      "grid_h": 1,
+      "max_stack": 2,
+      "inventory_unit": "条",
+      "model": {
+        "appearance": "CS-D4 内存：原创三轨标识与 COLD STEEL 字样，黑色金属散热马甲、折边开槽及完整金手指。",
+        "dimensions_lwh_cm": [
+          13.4,
+          3.45,
+          0.76
+        ],
+        "status": "original_marks_assets_installed",
+        "actual_dimensions_cm": [
+          13.399999618530273,
+          3.325000047683716,
+          0.7970000505447388
+        ],
+        "triangles_lod0": 11330,
+        "texture_size": 4096,
+        "source": "SourceAssets/ServerOriginalMarks20261013/Authored/SM_Search_ArmoredRAM_CSR3B_Source.blend",
+        "fbx": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_ArmoredRAM_CSR3B.fbx",
+        "glb": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_ArmoredRAM_CSR3B.glb",
+        "ue_mesh": "/Game/Items/ServerOriginalMarks20261013/Final/Meshes/SM_Search_ArmoredRAM_CSR3B.SM_Search_ArmoredRAM_CSR3B",
+        "ue_material": "/Game/Items/ServerOriginalMarks20261013/Final/Materials/M_SR_RAM.M_SR_RAM"
+      },
+      "purpose": "高价值信息设备，出售换取灵魂。",
+      "selection_tags": [
+        "server_hardware",
+        "server_cartridge"
+      ],
+      "status": "original_marks_catalog_integrated",
+      "utility_role": "sale",
+      "sell_souls_per_cell": 450.0,
+      "full_stack_sell_souls_per_cell": 900.0,
+      "pickup_reason": "基础出售收益450灵魂/格，单件就有带回价值，不要求先攒满一叠。",
+      "ue_icon": "Icons/ServerOriginalMarks20261013/search_ram_module.png",
+      "previous_model_revisions": [
+        {
+          "appearance": "长条绿色PCB、黑色存储颗粒、金手指及原创序列标签。",
+          "dimensions_lwh_cm": [
+            14,
+            3,
+            0.5
+          ],
+          "status": "ue_assets_saved_and_installed",
+          "actual_dimensions_cm": [
+            13.800000190734863,
+            3.0,
+            0.5070000290870667
+          ],
+          "triangles_lod0": 9066,
+          "texture_size": 2048,
+          "source": "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ServerRAM_Source.blend",
+          "fbx": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_ServerRAM.fbx",
+          "glb": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_ServerRAM.glb",
+          "ue_mesh": "/Game/Items/SearchServerEquipment20261013/Meshes/SM_Search_ServerRAM.SM_Search_ServerRAM",
+          "ue_material": "/Game/Items/SearchServerEquipment20261013/Materials/M_SE_RAM.M_SE_RAM"
+        },
+        {
+          "appearance": "参考图 DDR4 内存：黑色金属散热马甲、折边开槽、银白标识及完整金手指。",
+          "dimensions_lwh_cm": [
+            13.4,
+            3.45,
+            0.76
+          ],
+          "status": "reference_remodel_assets_installed",
+          "actual_dimensions_cm": [
+            13.399999618530273,
+            3.325000047683716,
+            0.7970000505447388
+          ],
+          "triangles_lod0": 11330,
+          "texture_size": 4096,
+          "source": "SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_FuryRAM_RefR2_Source.blend",
+          "fbx": "SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_FuryRAM_RefR2.fbx",
+          "glb": "SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_FuryRAM_RefR2.glb",
+          "ue_mesh": "/Game/Items/ServerReferenceRemodel20261013/Meshes/SM_Search_FuryRAM_RefR2.SM_Search_FuryRAM_RefR2",
+          "ue_material": "/Game/Items/ServerReferenceRemodel20261013/Materials/M_SR_RAM.M_SR_RAM"
+        },
+        {
+          "appearance": "CS-D4 内存：原创三轨标识与 COLD STEEL 字样，黑色金属散热马甲、折边开槽及完整金手指。",
+          "dimensions_lwh_cm": [
+            13.4,
+            3.45,
+            0.76
+          ],
+          "status": "original_marks_assets_installed",
+          "actual_dimensions_cm": [
+            13.399999618530273,
+            3.325000047683716,
+            0.7970000505447388
+          ],
+          "triangles_lod0": 11330,
+          "texture_size": 4096,
+          "source": "SourceAssets/ServerOriginalMarks20261013/Authored/SM_Search_ArmoredRAM_CSR3_Source.blend",
+          "fbx": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_ArmoredRAM_CSR3.fbx",
+          "glb": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_ArmoredRAM_CSR3.glb",
+          "ue_mesh": "/Game/Items/ServerOriginalMarks20261013/Meshes/SM_Search_ArmoredRAM_CSR3.SM_Search_ArmoredRAM_CSR3",
+          "ue_material": "/Game/Items/ServerOriginalMarks20261013/Materials/M_SR_RAM.M_SR_RAM"
+        }
+      ],
+      "icon_orientation": "horizontal_centered"
+    },
+    {
+      "code": "S02",
+      "id": "search_network_card",
+      "name": "服务器网卡",
+      "group": "server_equipment",
+      "rarity": "rare",
+      "sell_souls": 600,
+      "grid_w": 2,
+      "grid_h": 1,
+      "max_stack": 1,
+      "inventory_unit": "块",
+      "model": {
+        "appearance": "白色阻焊 PCB 与灰白板边，银色接口和散热片、黑色芯片、白色网口指示灯，无绿色表面。",
+        "dimensions_lwh_cm": [
+          15,
+          8,
+          2
+        ],
+        "status": "neutral_pcb_assets_installed",
+        "actual_dimensions_cm": [
+          14.513999938964844,
+          7.905853271484375,
+          1.9758116006851196
+        ],
+        "triangles_lod0": 14738,
+        "texture_size": 4096,
+        "source": "SourceAssets/ServerNeutralPCB20261013/Authored/SM_Search_ServerNIC_NeutralR2_Source.blend",
+        "fbx": "SourceAssets/ServerNeutralPCB20261013/Export/SM_Search_ServerNIC_NeutralR2.fbx",
+        "glb": "SourceAssets/ServerNeutralPCB20261013/Export/SM_Search_ServerNIC_NeutralR2.glb",
+        "ue_mesh": "/Game/Items/ServerNeutralPCB20261013/Meshes/SM_Search_ServerNIC_NeutralR2.SM_Search_ServerNIC_NeutralR2",
+        "ue_material": "/Game/Items/ServerNeutralPCB20261013/Materials/M_NPCB_NIC.M_NPCB_NIC"
+      },
+      "purpose": "高价值信息设备，出售换取灵魂。",
+      "selection_tags": [
+        "server_hardware",
+        "server_cartridge"
+      ],
+      "status": "neutral_pcb_catalog_integrated",
+      "utility_role": "sale",
+      "sell_souls_per_cell": 300.0,
+      "full_stack_sell_souls_per_cell": 300.0,
+      "pickup_reason": "基础出售收益300灵魂/格，单件就有带回价值，不要求先攒满一叠。",
+      "ue_icon": "Icons/ServerNeutralPCB20261013/search_network_card.png",
+      "icon_orientation": "horizontal_centered",
+      "previous_model_revisions": [
+        {
+          "appearance": "短PCB、金属挡板、双接口与小散热片，接口孔有真实深度。",
+          "dimensions_lwh_cm": [
+            15,
+            8,
+            2
+          ],
+          "status": "ue_assets_saved_and_installed",
+          "actual_dimensions_cm": [
+            14.513999938964844,
+            7.905853271484375,
+            1.9758116006851196
+          ],
+          "triangles_lod0": 14738,
+          "texture_size": 4096,
+          "source": "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ServerNIC_Source.blend",
+          "fbx": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_ServerNIC.fbx",
+          "glb": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_ServerNIC.glb",
+          "ue_mesh": "/Game/Items/SearchServerEquipment20261013/Meshes/SM_Search_ServerNIC.SM_Search_ServerNIC",
+          "ue_material": "/Game/Items/SearchServerEquipment20261013/Materials/M_SE_NIC.M_SE_NIC"
+        }
+      ]
+    },
+    {
+      "code": "S03",
+      "id": "search_hard_disk",
+      "name": "机械硬盘",
+      "group": "server_equipment",
+      "rarity": "rare",
+      "sell_souls": 700,
+      "grid_w": 2,
+      "grid_h": 1,
+      "max_stack": 1,
+      "inventory_unit": "块",
+      "model": {
+        "appearance": "银色冲压顶盖、黑色底壳、固定螺钉、底部电路板和后接头。",
+        "dimensions_lwh_cm": [
+          15,
+          10,
+          3
+        ],
+        "status": "ue_assets_saved_and_installed",
+        "actual_dimensions_cm": [
+          14.854999542236328,
+          10.052000045776367,
+          2.7109999656677246
+        ],
+        "triangles_lod0": 23878,
+        "texture_size": 2048,
+        "source": "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_HardDisk_Source.blend",
+        "fbx": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_HardDisk.fbx",
+        "glb": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_HardDisk.glb",
+        "ue_mesh": "/Game/Items/SearchServerEquipment20261013/Meshes/SM_Search_HardDisk.SM_Search_HardDisk",
+        "ue_material": "/Game/Items/SearchServerEquipment20261013/Materials/M_SE_HDD.M_SE_HDD"
+      },
+      "purpose": "高价值硬件，出售换取灵魂；归机房设备。",
+      "selection_tags": [
+        "server_hardware",
+        "server_cartridge"
+      ],
+      "status": "runtime_catalog_and_art_integrated_loot_pending",
+      "utility_role": "sale",
+      "sell_souls_per_cell": 350.0,
+      "full_stack_sell_souls_per_cell": 350.0,
+      "pickup_reason": "基础出售收益350灵魂/格，单件就有带回价值，不要求先攒满一叠。",
+      "ue_icon": "Icons/SearchServerEquipment20261013/search_hard_disk.png",
+      "icon_orientation": "horizontal_centered"
+    },
+    {
+      "code": "S04",
+      "id": "search_ssd",
+      "name": "固态硬盘",
+      "group": "server_equipment",
+      "rarity": "epic",
+      "sell_souls": 1000,
+      "grid_w": 2,
+      "grid_h": 1,
+      "max_stack": 1,
+      "inventory_unit": "块",
+      "model": {
+        "appearance": "CS-S2 M.2 SSD：原创三轨标识、COLD STEEL 标签与 CS 芯片丝印，黑色裸板、两侧贴片元件、M-key 缺口与半圆安装孔。",
+        "dimensions_lwh_cm": [
+          8,
+          2.2,
+          0.29
+        ],
+        "status": "original_marks_assets_installed",
+        "actual_dimensions_cm": [
+          8.014150619506836,
+          2.202301025390625,
+          0.27399998903274536
+        ],
+        "triangles_lod0": 7808,
+        "texture_size": 4096,
+        "source": "SourceAssets/ServerOriginalMarks20261013/Authored/SM_Search_M2SSD_CSR3B_Source.blend",
+        "fbx": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_M2SSD_CSR3B.fbx",
+        "glb": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_M2SSD_CSR3B.glb",
+        "ue_mesh": "/Game/Items/ServerOriginalMarks20261013/Final/Meshes/SM_Search_M2SSD_CSR3B.SM_Search_M2SSD_CSR3B",
+        "ue_material": "/Game/Items/ServerOriginalMarks20261013/Final/Materials/M_SR_SSD.M_SR_SSD"
+      },
+      "purpose": "高价值信息设备，出售换取灵魂。",
+      "selection_tags": [
+        "server_hardware",
+        "server_cartridge"
+      ],
+      "status": "original_marks_catalog_integrated",
+      "utility_role": "sale",
+      "sell_souls_per_cell": 500.0,
+      "full_stack_sell_souls_per_cell": 500.0,
+      "pickup_reason": "基础出售收益500灵魂/格，单件就有带回价值，不要求先攒满一叠。",
+      "ue_icon": "Icons/ServerOriginalMarks20261013/search_ssd.png",
+      "previous_model_revisions": [
+        {
+          "appearance": "薄矩形金属外壳、凹入接头和原创容量标签，区别于机械硬盘厚壳。",
+          "dimensions_lwh_cm": [
+            10,
+            7,
+            1
+          ],
+          "status": "ue_assets_saved_and_installed",
+          "actual_dimensions_cm": [
+            9.984999656677246,
+            6.980000019073486,
+            0.875999927520752
+          ],
+          "triangles_lod0": 9154,
+          "texture_size": 2048,
+          "source": "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_SSD_Source.blend",
+          "fbx": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_SSD.fbx",
+          "glb": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_SSD.glb",
+          "ue_mesh": "/Game/Items/SearchServerEquipment20261013/Meshes/SM_Search_SSD.SM_Search_SSD",
+          "ue_material": "/Game/Items/SearchServerEquipment20261013/Materials/M_SE_SSD.M_SE_SSD"
+        },
+        {
+          "appearance": "参考图 M.2 2280 NVMe SSD：黑色裸板、窄长标签、两侧贴片元件、M-key 缺口与半圆安装孔。",
+          "dimensions_lwh_cm": [
+            8,
+            2.2,
+            0.29
+          ],
+          "status": "reference_remodel_assets_installed",
+          "actual_dimensions_cm": [
+            8.014150619506836,
+            2.202301025390625,
+            0.27399998903274536
+          ],
+          "triangles_lod0": 8172,
+          "texture_size": 4096,
+          "source": "SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_M2SSD_RefR2_Source.blend",
+          "fbx": "SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_M2SSD_RefR2.fbx",
+          "glb": "SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_M2SSD_RefR2.glb",
+          "ue_mesh": "/Game/Items/ServerReferenceRemodel20261013/Meshes/SM_Search_M2SSD_RefR2.SM_Search_M2SSD_RefR2",
+          "ue_material": "/Game/Items/ServerReferenceRemodel20261013/Materials/M_SR_SSD.M_SR_SSD"
+        },
+        {
+          "appearance": "CS-S2 M.2 SSD：原创三轨标识、COLD STEEL 标签与 CS 芯片丝印，黑色裸板、两侧贴片元件、M-key 缺口与半圆安装孔。",
+          "dimensions_lwh_cm": [
+            8,
+            2.2,
+            0.29
+          ],
+          "status": "original_marks_assets_installed",
+          "actual_dimensions_cm": [
+            8.014150619506836,
+            2.202301025390625,
+            0.27399998903274536
+          ],
+          "triangles_lod0": 8172,
+          "texture_size": 4096,
+          "source": "SourceAssets/ServerOriginalMarks20261013/Authored/SM_Search_M2SSD_CSR3_Source.blend",
+          "fbx": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_M2SSD_CSR3.fbx",
+          "glb": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_M2SSD_CSR3.glb",
+          "ue_mesh": "/Game/Items/ServerOriginalMarks20261013/Meshes/SM_Search_M2SSD_CSR3.SM_Search_M2SSD_CSR3",
+          "ue_material": "/Game/Items/ServerOriginalMarks20261013/Materials/M_SR_SSD.M_SR_SSD"
+        }
+      ],
+      "icon_orientation": "horizontal_centered"
+    },
+    {
+      "code": "S05",
+      "id": "search_processor",
+      "name": "服务器处理器",
+      "group": "server_equipment",
+      "rarity": "epic",
+      "sell_souls": 1500,
+      "grid_w": 1,
+      "grid_h": 1,
+      "max_stack": 1,
+      "inventory_unit": "枚",
+      "model": {
+        "appearance": "银色顶盖、黑色封装基板及保护托，灰白元件与丝印，无绿色表面。",
+        "dimensions_lwh_cm": [
+          6,
+          6,
+          1
+        ],
+        "status": "neutral_pcb_assets_installed",
+        "actual_dimensions_cm": [
+          6.0,
+          6.0,
+          0.8600000143051147
+        ],
+        "triangles_lod0": 7854,
+        "texture_size": 2048,
+        "source": "SourceAssets/ServerNeutralPCB20261013/Authored/SM_Search_ServerCPU_NeutralR2_Source.blend",
+        "fbx": "SourceAssets/ServerNeutralPCB20261013/Export/SM_Search_ServerCPU_NeutralR2.fbx",
+        "glb": "SourceAssets/ServerNeutralPCB20261013/Export/SM_Search_ServerCPU_NeutralR2.glb",
+        "ue_mesh": "/Game/Items/ServerNeutralPCB20261013/Meshes/SM_Search_ServerCPU_NeutralR2.SM_Search_ServerCPU_NeutralR2",
+        "ue_material": "/Game/Items/ServerNeutralPCB20261013/Materials/M_NPCB_CPU.M_NPCB_CPU"
+      },
+      "purpose": "高价值信息设备，出售换取灵魂。",
+      "selection_tags": [
+        "server_hardware",
+        "server_cartridge"
+      ],
+      "status": "neutral_pcb_catalog_integrated",
+      "utility_role": "sale",
+      "sell_souls_per_cell": 1500.0,
+      "full_stack_sell_souls_per_cell": 1500.0,
+      "pickup_reason": "基础出售收益1500灵魂/格，单件就有带回价值，不要求先攒满一叠。",
+      "ue_icon": "Icons/ServerNeutralPCB20261013/search_processor.png",
+      "icon_orientation": "standard_inventory",
+      "previous_model_revisions": [
+        {
+          "appearance": "方形金属顶盖、绿色基板，装在薄防静电保护托中。",
+          "dimensions_lwh_cm": [
+            6,
+            6,
+            1
+          ],
+          "status": "ue_assets_saved_and_installed",
+          "actual_dimensions_cm": [
+            6.0,
+            6.0,
+            0.8600000143051147
+          ],
+          "triangles_lod0": 7854,
+          "texture_size": 2048,
+          "source": "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ServerCPU_Source.blend",
+          "fbx": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_ServerCPU.fbx",
+          "glb": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_ServerCPU.glb",
+          "ue_mesh": "/Game/Items/SearchServerEquipment20261013/Meshes/SM_Search_ServerCPU.SM_Search_ServerCPU",
+          "ue_material": "/Game/Items/SearchServerEquipment20261013/Materials/M_SE_CPU.M_SE_CPU"
+        }
+      ]
+    },
+    {
+      "code": "S06",
+      "id": "search_graphics_card",
+      "name": "显卡",
+      "group": "server_equipment",
+      "rarity": "epic",
+      "sell_souls": 2400,
+      "grid_w": 2,
+      "grid_h": 1,
+      "max_stack": 1,
+      "inventory_unit": "块",
+      "model": {
+        "appearance": "CS-G3 三风扇显卡：原创三轨标识，银灰切面护罩、凹入装配缝、曲面薄刃扇叶、垫圈、线束、鳍片与热管，独立 HDMI / DP 形状接口和供电卡扣。",
+        "dimensions_lwh_cm": [
+          32.3,
+          12.5,
+          5.4
+        ],
+        "status": "original_marks_assets_installed",
+        "actual_dimensions_cm": [
+          32.45000076293945,
+          11.9399995803833,
+          5.119999885559082
+        ],
+        "triangles_lod0": 118706,
+        "texture_size": 4096,
+        "source": "SourceAssets/ServerOriginalMarks20261013/Authored/SM_Search_TripleFanGPU_CSR3B_Source.blend",
+        "fbx": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_TripleFanGPU_CSR3B.fbx",
+        "glb": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_TripleFanGPU_CSR3B.glb",
+        "ue_mesh": "/Game/Items/ServerOriginalMarks20261013/Final/Meshes/SM_Search_TripleFanGPU_CSR3C.SM_Search_TripleFanGPU_CSR3C",
+        "ue_material": "/Game/Items/ServerOriginalMarks20261013/Final/Materials/M_SR_GPU.M_SR_GPU"
+      },
+      "purpose": "高价值信息设备，出售换取灵魂。",
+      "selection_tags": [
+        "server_hardware",
+        "server_cartridge"
+      ],
+      "status": "original_marks_catalog_integrated",
+      "utility_role": "sale",
+      "sell_souls_per_cell": 1200.0,
+      "full_stack_sell_souls_per_cell": 1200.0,
+      "pickup_reason": "基础出售收益1200灵魂/格，单件就有带回价值，不要求先攒满一叠。",
+      "ue_icon": "Icons/ServerOriginalMarks20261013/search_graphics_card.png",
+      "previous_model_revisions": [
+        {
+          "appearance": "双风扇厚卡、散热鳍片、背板、接口挡板和金手指，使用原创外壳。",
+          "dimensions_lwh_cm": [
+            28,
+            12,
+            4
+          ],
+          "status": "ue_assets_saved_and_installed",
+          "actual_dimensions_cm": [
+            27.94499969482422,
+            11.680000305175781,
+            3.950000286102295
+          ],
+          "triangles_lod0": 48208,
+          "texture_size": 4096,
+          "source": "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_GraphicsCard_Source.blend",
+          "fbx": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_GraphicsCard.fbx",
+          "glb": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_GraphicsCard.glb",
+          "ue_mesh": "/Game/Items/SearchServerEquipment20261013/Meshes/SM_Search_GraphicsCard.SM_Search_GraphicsCard",
+          "ue_material": "/Game/Items/SearchServerEquipment20261013/Materials/M_SE_GPU.M_SE_GPU"
+        },
+        {
+          "appearance": "参考图三风扇显卡：银灰切面外壳、黑色弧形扇叶、密集鳍片、热管、背板与独立接口挡板。",
+          "dimensions_lwh_cm": [
+            32.3,
+            12.5,
+            5.4
+          ],
+          "status": "reference_remodel_assets_installed",
+          "actual_dimensions_cm": [
+            32.470001220703125,
+            11.9399995803833,
+            5.125
+          ],
+          "triangles_lod0": 86316,
+          "texture_size": 4096,
+          "source": "SourceAssets/ServerReferenceRemodel20261013/Authored/SM_Search_TripleFanGPU_RefR2_Source.blend",
+          "fbx": "SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_TripleFanGPU_RefR2.fbx",
+          "glb": "SourceAssets/ServerReferenceRemodel20261013/Export/SM_Search_TripleFanGPU_RefR2.glb",
+          "ue_mesh": "/Game/Items/ServerReferenceRemodel20261013/Meshes/SM_Search_TripleFanGPU_RefR2.SM_Search_TripleFanGPU_RefR2",
+          "ue_material": "/Game/Items/ServerReferenceRemodel20261013/Materials/M_SR_GPU.M_SR_GPU"
+        },
+        {
+          "appearance": "CS-G3 三风扇显卡：原创三轨标识，银灰切面护罩、凹入装配缝、曲面薄刃扇叶、垫圈、线束、鳍片与热管，独立 HDMI / DP 形状接口和供电卡扣。",
+          "dimensions_lwh_cm": [
+            32.3,
+            12.5,
+            5.4
+          ],
+          "status": "original_marks_assets_installed",
+          "actual_dimensions_cm": [
+            32.45000076293945,
+            11.9399995803833,
+            5.119999885559082
+          ],
+          "triangles_lod0": 120754,
+          "texture_size": 4096,
+          "source": "SourceAssets/ServerOriginalMarks20261013/Authored/SM_Search_TripleFanGPU_CSR3_Source.blend",
+          "fbx": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_TripleFanGPU_CSR3.fbx",
+          "glb": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_TripleFanGPU_CSR3.glb",
+          "ue_mesh": "/Game/Items/ServerOriginalMarks20261013/Meshes/SM_Search_TripleFanGPU_CSR3.SM_Search_TripleFanGPU_CSR3",
+          "ue_material": "/Game/Items/ServerOriginalMarks20261013/Materials/M_SR_GPU.M_SR_GPU"
+        },
+        {
+          "appearance": "CS-G3 三风扇显卡：原创三轨标识，银灰切面护罩、凹入装配缝、曲面薄刃扇叶、垫圈、线束、鳍片与热管，独立 HDMI / DP 形状接口和供电卡扣。",
+          "dimensions_lwh_cm": [
+            32.3,
+            12.5,
+            5.4
+          ],
+          "status": "original_marks_assets_installed",
+          "actual_dimensions_cm": [
+            32.45000076293945,
+            11.9399995803833,
+            5.119999885559082
+          ],
+          "triangles_lod0": 118706,
+          "texture_size": 4096,
+          "source": "SourceAssets/ServerOriginalMarks20261013/Authored/SM_Search_TripleFanGPU_CSR3B_Source.blend",
+          "fbx": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_TripleFanGPU_CSR3B.fbx",
+          "glb": "SourceAssets/ServerOriginalMarks20261013/Export/SM_Search_TripleFanGPU_CSR3B.glb",
+          "ue_mesh": "/Game/Items/ServerOriginalMarks20261013/Final/Meshes/SM_Search_TripleFanGPU_CSR3B.SM_Search_TripleFanGPU_CSR3B",
+          "ue_material": "/Game/Items/ServerOriginalMarks20261013/Final/Materials/M_SR_GPU.M_SR_GPU"
+        }
+      ],
+      "icon_orientation": "horizontal_centered"
+    },
+    {
+      "code": "S07",
+      "id": "search_raid_controller",
+      "name": "阵列控制卡",
+      "group": "server_equipment",
+      "rarity": "mythic",
+      "sell_souls": 3600,
+      "grid_w": 2,
+      "grid_h": 2,
+      "max_stack": 1,
+      "inventory_unit": "块",
+      "model": {
+        "appearance": "石墨黑主 PCB 和缓存副板，银色金属散热片与数据接口，灰白丝印，无绿色表面。",
+        "dimensions_lwh_cm": [
+          18,
+          12,
+          3
+        ],
+        "status": "neutral_pcb_assets_installed",
+        "actual_dimensions_cm": [
+          17.904998779296875,
+          11.859999656677246,
+          2.5
+        ],
+        "triangles_lod0": 23014,
+        "texture_size": 4096,
+        "source": "SourceAssets/ServerNeutralPCB20261013/Authored/SM_Search_RAIDController_NeutralR2_Source.blend",
+        "fbx": "SourceAssets/ServerNeutralPCB20261013/Export/SM_Search_RAIDController_NeutralR2.fbx",
+        "glb": "SourceAssets/ServerNeutralPCB20261013/Export/SM_Search_RAIDController_NeutralR2.glb",
+        "ue_mesh": "/Game/Items/ServerNeutralPCB20261013/Meshes/SM_Search_RAIDController_NeutralR2.SM_Search_RAIDController_NeutralR2",
+        "ue_material": "/Game/Items/ServerNeutralPCB20261013/Materials/M_NPCB_RAID.M_NPCB_RAID"
+      },
+      "purpose": "珍贵信息设备，出售换取灵魂。",
+      "selection_tags": [
+        "server_hardware",
+        "advanced_server"
+      ],
+      "status": "neutral_pcb_catalog_integrated",
+      "utility_role": "sale",
+      "sell_souls_per_cell": 900.0,
+      "full_stack_sell_souls_per_cell": 900.0,
+      "pickup_reason": "基础出售收益900灵魂/格，单件就有带回价值，不要求先攒满一叠。",
+      "ue_icon": "Icons/ServerNeutralPCB20261013/search_raid_controller.png",
+      "icon_orientation": "standard_inventory",
+      "previous_model_revisions": [
+        {
+          "appearance": "中型扩展卡带独立散热片、缓存小板和多组数据接口。",
+          "dimensions_lwh_cm": [
+            18,
+            12,
+            3
+          ],
+          "status": "ue_assets_saved_and_installed",
+          "actual_dimensions_cm": [
+            17.904998779296875,
+            11.859999656677246,
+            2.5
+          ],
+          "triangles_lod0": 23014,
+          "texture_size": 4096,
+          "source": "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_RAIDController_Source.blend",
+          "fbx": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_RAIDController.fbx",
+          "glb": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_RAIDController.glb",
+          "ue_mesh": "/Game/Items/SearchServerEquipment20261013/Meshes/SM_Search_RAIDController.SM_Search_RAIDController",
+          "ue_material": "/Game/Items/SearchServerEquipment20261013/Materials/M_SE_RAID.M_SE_RAID"
+        }
+      ]
+    },
+    {
+      "code": "S08",
+      "id": "search_compute_accelerator",
+      "name": "计算加速模块",
+      "group": "server_equipment",
+      "rarity": "legendary",
+      "sell_souls": 6400,
+      "grid_w": 3,
+      "grid_h": 2,
+      "max_stack": 1,
+      "inventory_unit": "块",
+      "model": {
+        "appearance": "无风扇双槽模块，长条被动散热鳍片、厚背板与侧面设备编号。",
+        "dimensions_lwh_cm": [
+          30,
+          12,
+          5
+        ],
+        "status": "ue_assets_saved_and_installed",
+        "actual_dimensions_cm": [
+          29.875,
+          11.959999084472656,
+          4.915935039520264
+        ],
+        "triangles_lod0": 17126,
+        "texture_size": 4096,
+        "source": "SourceAssets/SearchServerEquipment20261013/Authored/SM_Search_ComputeAccelerator_Source.blend",
+        "fbx": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_ComputeAccelerator.fbx",
+        "glb": "SourceAssets/SearchServerEquipment20261013/Export/SM_Search_ComputeAccelerator.glb",
+        "ue_mesh": "/Game/Items/SearchServerEquipment20261013/Meshes/SM_Search_ComputeAccelerator.SM_Search_ComputeAccelerator",
+        "ue_material": "/Game/Items/SearchServerEquipment20261013/Materials/M_SE_Compute.M_SE_Compute"
+      },
+      "purpose": "高价值服务器核心模块，出售换取灵魂；不作为普通制作的必需材料。",
+      "selection_tags": [
+        "server_hardware",
+        "advanced_server"
+      ],
+      "status": "runtime_catalog_and_art_integrated_loot_pending",
+      "utility_role": "sale",
+      "sell_souls_per_cell": 1066.67,
+      "full_stack_sell_souls_per_cell": 1066.67,
+      "pickup_reason": "基础出售收益1066.67灵魂/格，单件就有带回价值，不要求先攒满一叠。",
+      "ue_icon": "Icons/SearchServerEquipment20261013/search_compute_accelerator.png",
+      "icon_orientation": "standard_inventory"
+    }
+  ],
+  "recipe_plan": [
+    {
+      "code": "B01",
+      "recipe_id": "forge_highland_claymore",
+      "station": "铁匠台",
+      "source_file": "Content/ColdSteelData/forging-recipes.json",
+      "output": {
+        "item": "ue_highland_claymore",
+        "count": 1
+      },
+      "output_name": "高地·双手剑",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 8
+        },
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 8
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        }
+      ],
+      "additional_material_sell_value": 320,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "B02",
+      "recipe_id": "forge_rune_sword",
+      "station": "铁匠台",
+      "source_file": "Content/ColdSteelData/forging-recipes.json",
+      "output": {
+        "item": "ue_rune_sword",
+        "count": 1
+      },
+      "output_name": "苍蓝星辉·双手符文剑",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 8
+        },
+        {
+          "item": "silverIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "magic_dust",
+          "count": 6
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 2
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 8
+        },
+        {
+          "item": "silverIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "magic_dust",
+          "count": 6
+        },
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 2
+        }
+      ],
+      "additional_material_sell_value": 640,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "B03",
+      "recipe_id": "forge_frost_crystal_sword",
+      "station": "铁匠台",
+      "source_file": "Content/ColdSteelData/forging-recipes.json",
+      "output": {
+        "item": "ue_frost_crystal_sword",
+        "count": 1
+      },
+      "output_name": "寒晶·双手剑",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 6
+        },
+        {
+          "item": "silverIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "quartz",
+          "count": 8
+        },
+        {
+          "item": "magic_dust",
+          "count": 8
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 2
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 6
+        },
+        {
+          "item": "silverIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "quartz",
+          "count": 8
+        },
+        {
+          "item": "magic_dust",
+          "count": 8
+        },
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 2
+        }
+      ],
+      "additional_material_sell_value": 640,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "G01",
+      "recipe_id": "assemble_m4",
+      "station": "枪械组装台",
+      "source_file": "Content/ColdSteelData/gun-assembly.json",
+      "output": {
+        "item": "ue_m4a1",
+        "count": 1
+      },
+      "output_name": "M4A1",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 12
+        },
+        {
+          "item": "copperIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 12
+        },
+        {
+          "item": "copperIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "additional_material_sell_value": 360,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "G02",
+      "recipe_id": "assemble_akm",
+      "station": "枪械组装台",
+      "source_file": "Content/ColdSteelData/gun-assembly.json",
+      "output": {
+        "item": "ue_akm",
+        "count": 1
+      },
+      "output_name": "AKM",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 12
+        },
+        {
+          "item": "copperIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 4
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 12
+        },
+        {
+          "item": "copperIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 4
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "additional_material_sell_value": 360,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "G03",
+      "recipe_id": "assemble_qbz191",
+      "station": "枪械组装台",
+      "source_file": "Content/ColdSteelData/gun-assembly.json",
+      "output": {
+        "item": "ue_qbz191",
+        "count": 1
+      },
+      "output_name": "QBZ-191",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 14
+        },
+        {
+          "item": "copperIngot",
+          "count": 5
+        },
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 14
+        },
+        {
+          "item": "copperIngot",
+          "count": 5
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
+      "additional_material_sell_value": 720,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "G04",
+      "recipe_id": "assemble_m1911",
+      "station": "枪械组装台",
+      "source_file": "Content/ColdSteelData/gun-assembly.json",
+      "output": {
+        "item": "ue_m1911",
+        "count": 1
+      },
+      "output_name": "M1911",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 6
+        },
+        {
+          "item": "copperIngot",
+          "count": 2
+        },
+        {
+          "item": "wood",
+          "count": 1
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 6
+        },
+        {
+          "item": "copperIngot",
+          "count": 2
+        },
+        {
+          "item": "wood",
+          "count": 1
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "additional_material_sell_value": 360,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "G05",
+      "recipe_id": "assemble_dan_wesson715",
+      "station": "枪械组装台",
+      "source_file": "Content/ColdSteelData/gun-assembly.json",
+      "output": {
+        "item": "ue_dan_wesson715",
+        "count": 1
+      },
+      "output_name": "Dan-Wesson 715",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 8
+        },
+        {
+          "item": "copperIngot",
+          "count": 3
+        },
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 8
+        },
+        {
+          "item": "copperIngot",
+          "count": 3
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "additional_material_sell_value": 360,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "G06",
+      "recipe_id": "assemble_ash12",
+      "station": "枪械组装台",
+      "source_file": "Content/ColdSteelData/gun-assembly.json",
+      "output": {
+        "item": "ue_ash12",
+        "count": 1
+      },
+      "output_name": "ASH-12",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 18
+        },
+        {
+          "item": "copperIngot",
+          "count": 6
+        },
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 1
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 18
+        },
+        {
+          "item": "copperIngot",
+          "count": 6
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 1
+        }
+      ],
+      "additional_material_sell_value": 960,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "G07",
+      "recipe_id": "assemble_m16a2",
+      "station": "枪械组装台",
+      "source_file": "Content/ColdSteelData/gun-assembly.json",
+      "output": {
+        "item": "ue_m16a2",
+        "count": 1
+      },
+      "output_name": "M16A2",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 14
+        },
+        {
+          "item": "copperIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 14
+        },
+        {
+          "item": "copperIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "additional_material_sell_value": 360,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "G08",
+      "recipe_id": "assemble_a762",
+      "station": "枪械组装台",
+      "source_file": "Content/ColdSteelData/gun-assembly.json",
+      "output": {
+        "item": "ue_a762",
+        "count": 1
+      },
+      "output_name": "A762",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 16
+        },
+        {
+          "item": "copperIngot",
+          "count": 5
+        },
+        {
+          "item": "wood",
+          "count": 3
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 16
+        },
+        {
+          "item": "copperIngot",
+          "count": 5
+        },
+        {
+          "item": "wood",
+          "count": 3
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
+      "additional_material_sell_value": 720,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "G09",
+      "recipe_id": "assemble_svd",
+      "station": "枪械组装台",
+      "source_file": "Content/ColdSteelData/gun-assembly.json",
+      "output": {
+        "item": "ue_svd",
+        "count": 1
+      },
+      "output_name": "SVD",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 18
+        },
+        {
+          "item": "copperIngot",
+          "count": 6
+        },
+        {
+          "item": "wood",
+          "count": 4
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 1
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 18
+        },
+        {
+          "item": "copperIngot",
+          "count": 6
+        },
+        {
+          "item": "wood",
+          "count": 4
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 1
+        }
+      ],
+      "additional_material_sell_value": 960,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "G10",
+      "recipe_id": "assemble_pkm_lowpoly",
+      "station": "枪械组装台",
+      "source_file": "Content/ColdSteelData/gun-assembly.json",
+      "output": {
+        "item": "ue_pkm_lowpoly",
+        "count": 1
+      },
+      "output_name": "PKM",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 24
+        },
+        {
+          "item": "copperIngot",
+          "count": 8
+        },
+        {
+          "item": "wood",
+          "count": 4
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_assembly_component_box",
+          "count": 3
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 2
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 24
+        },
+        {
+          "item": "copperIngot",
+          "count": 8
+        },
+        {
+          "item": "wood",
+          "count": 4
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 3
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 2
+        }
+      ],
+      "additional_material_sell_value": 1560,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "G11",
+      "recipe_id": "assemble_lmg201",
+      "station": "枪械组装台",
+      "source_file": "Content/ColdSteelData/gun-assembly.json",
+      "output": {
+        "item": "ue_lmg201",
+        "count": 1
+      },
+      "output_name": "201轻机枪",
+      "current_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 26
+        },
+        {
+          "item": "copperIngot",
+          "count": 8
+        },
+        {
+          "item": "wood",
+          "count": 3
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_assembly_component_box",
+          "count": 3
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 2
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 26
+        },
+        {
+          "item": "copperIngot",
+          "count": 8
+        },
+        {
+          "item": "wood",
+          "count": 3
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 3
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 2
+        }
+      ],
+      "additional_material_sell_value": 1560,
+      "status": "design_only_not_applied"
+    },
+    {
+      "code": "W01",
+      "recipe_id": "woodwork_bow_limb",
+      "station": "木工台",
+      "source_file": "Content/ColdSteelData/woodworking-recipes.json",
+      "output": {
+        "item": "woodworked_bow_limb",
+        "count": 1
+      },
+      "output_name": "木制弓臂",
+      "current_inputs": [
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "additional_inputs": [
+        {
+          "item": "search_resin_adhesive",
+          "count": 1
+        },
+        {
+          "item": "search_laminated_strip",
+          "count": 1
+        }
+      ],
+      "proposed_inputs": [
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_resin_adhesive",
+          "count": 1
+        },
+        {
+          "item": "search_laminated_strip",
+          "count": 1
+        }
+      ],
+      "additional_material_sell_value": 150,
+      "status": "design_only_not_applied"
+    }
+  ],
+  "removed_v1_entries": [
+    {
+      "id": "search_soap",
+      "name": "盒装香皂",
+      "previous_rarity": "common",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_toothpaste",
+      "name": "牙膏",
+      "previous_rarity": "common",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_enamel_mug",
+      "name": "搪瓷杯",
+      "previous_rarity": "common",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_metal_lighter",
+      "name": "金属打火机",
+      "previous_rarity": "uncommon",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_dust_mask_pack",
+      "name": "防尘口罩包",
+      "previous_rarity": "common",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_goggle_case",
+      "name": "防护眼镜盒",
+      "previous_rarity": "uncommon",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_thermos",
+      "name": "不锈钢保温杯",
+      "previous_rarity": "uncommon",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_visitor_card",
+      "name": "旧访客卡",
+      "previous_rarity": "common",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_blank_card_pack",
+      "name": "空白磁卡包",
+      "previous_rarity": "uncommon",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_admin_file",
+      "name": "行政文件夹",
+      "previous_rarity": "common",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_visitor_ledger",
+      "name": "访客登记簿",
+      "previous_rarity": "uncommon",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_staff_roster",
+      "name": "职员名册",
+      "previous_rarity": "uncommon",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_equipment_disc",
+      "name": "设备资料盘",
+      "previous_rarity": "uncommon",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_maintenance_manual",
+      "name": "设备维修手册",
+      "previous_rarity": "rare",
+      "reason": "无直接实用功能，单件占格收益不足；取消拾取条目，可保留为场景装饰。"
+    },
+    {
+      "id": "search_fastener_pack",
+      "name": "紧固件包",
+      "previous_rarity": "common",
+      "reason": "取消独立拾取条目，制作需求合并为合金坯或装配组件盒。"
+    },
+    {
+      "id": "search_abrasive_set",
+      "name": "磨料片组",
+      "previous_rarity": "common",
+      "reason": "取消独立拾取条目，制作需求合并为合金坯或装配组件盒。"
+    },
+    {
+      "id": "search_lubricant",
+      "name": "润滑油",
+      "previous_rarity": "uncommon",
+      "reason": "取消独立拾取条目，制作需求合并为合金坯或装配组件盒。"
+    },
+    {
+      "id": "search_leather_wrap",
+      "name": "皮革缠带",
+      "previous_rarity": "common",
+      "reason": "取消独立拾取条目，制作需求合并为合金坯或装配组件盒。"
+    },
+    {
+      "id": "search_forging_flux",
+      "name": "锻造助熔剂",
+      "previous_rarity": "common",
+      "reason": "取消独立拾取条目，制作需求合并为合金坯或装配组件盒。"
+    },
+    {
+      "id": "search_spring_set",
+      "name": "精密弹簧组",
+      "previous_rarity": "uncommon",
+      "reason": "取消独立拾取条目，制作需求合并为合金坯或装配组件盒。"
+    },
+    {
+      "id": "search_pin_set",
+      "name": "定位销组",
+      "previous_rarity": "uncommon",
+      "reason": "取消独立拾取条目，制作需求合并为合金坯或装配组件盒。"
+    }
+  ],
+  "sources": [
+    "Content/ColdSteelData/items.json",
+    "Content/ColdSteelData/forging-recipes.json",
+    "Content/ColdSteelData/gun-assembly.json",
+    "Content/ColdSteelData/woodworking-recipes.json",
+    "Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp"
+  ],
+  "delivery": {
+    "models_created": false,
+    "runtime_items_changed": true,
+    "runtime_recipes_changed": false,
+    "tests_run": false,
+    "document_models_created": true,
+    "modeled_item_ids": [
+      "search_usb_drive",
+      "search_archive_tape",
+      "search_encrypted_archive_case",
+      "search_certified_admin_archive",
+      "search_forging_alloy_blank",
+      "search_assembly_component_box",
+      "search_resin_adhesive",
+      "search_laminated_strip",
+      "search_precision_mechanism",
+      "search_ram_module",
+      "search_network_card",
+      "search_hard_disk",
+      "search_ssd",
+      "search_processor",
+      "search_graphics_card",
+      "search_raid_controller",
+      "search_compute_accelerator"
+    ],
+    "runtime_item_changes": [
+      "soda_can rarity=uncommon",
+      "baguette_bread rarity=uncommon"
+    ],
+    "new_runtime_items_added": true,
+    "loot_pool_changed": false,
+    "model_delivery": "Docs/Art/search-documents-models-20261012.md",
+    "runtime_added_item_ids": [
+      "search_usb_drive",
+      "search_archive_tape",
+      "search_encrypted_archive_case",
+      "search_certified_admin_archive",
+      "search_forging_alloy_blank",
+      "search_assembly_component_box",
+      "search_resin_adhesive",
+      "search_laminated_strip",
+      "search_precision_mechanism",
+      "search_ram_module",
+      "search_network_card",
+      "search_hard_disk",
+      "search_ssd",
+      "search_processor",
+      "search_graphics_card",
+      "search_raid_controller",
+      "search_compute_accelerator"
+    ],
+    "icons_created": true,
+    "inventory_icons": "SourceAssets/SearchDocuments20261012/inventory_icons.json",
+    "maintenance_models_created": true,
+    "maintenance_icons_created": true,
+    "maintenance_model_delivery": "Docs/Art/search-maintenance-models-20261012.md",
+    "maintenance_icons": "SourceAssets/SearchMaintenance20261012/inventory_icons.json",
+    "server_models_created": true,
+    "server_model_delivery": "Docs/Art/search-server-equipment-models-20261013.md",
+    "server_icons_created": true,
+    "server_runtime_items_added": true,
+    "server_inventory_icons": "SourceAssets/SearchServerEquipment20261013/inventory_icons.json",
+    "server_reference_remodel": "Docs/Art/server-reference-remodel-20261013.md",
+    "server_original_marks": "Docs/Art/server-original-marks-20261013.md",
+    "collection_icon_orientation": "Docs/Art/collection-icon-layout-r2-20261013.md",
+    "server_neutral_pcb": "Docs/Art/server-neutral-pcb-20261013.md"
+  }
+}

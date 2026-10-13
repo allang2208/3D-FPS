@@ -462,6 +462,7 @@ bool MigrateAuthoredGridFootprints(FColdSteelProfile& Profile,bool& Changed,FStr
         {nullptr,TEXT("silverIngot"),2,1},
         {nullptr,TEXT("goldIngot"),2,1},
         {nullptr,TEXT("ue_alchemy_spellbook"),2,2},
+        {nullptr,TEXT("search_graphics_card"),2,1},
     };
     if(!ValidateProfile(Profile,Reason,false))return false;
     auto Next=Profile;
@@ -477,7 +478,8 @@ bool MigrateAuthoredGridFootprints(FColdSteelProfile& Profile,bool& Changed,FStr
         if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)continue;
         Data->SetNumberField(TEXT("grid_w"),W);Data->SetNumberField(TEXT("grid_h"),H);
         Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));
-        ApplyOrientation(Item,0);
+        // GPU shrinks from 3x2 to 2x1; preserve its chosen rotation and cell.
+        ApplyOrientation(Item,Item.Definition==TEXT("search_graphics_card")?-1:0);
         if(Item.Place==0||(Item.Place==4&&Next.WarehouseLayoutVersion==1)||Item.Place==ColdSteelCompartment::Place)
         {
             auto Others=Next.Items;Others.RemoveAt(N);

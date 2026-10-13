@@ -1,0 +1,552 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelSceneContainer.h b/Source/FPSGAME/UI/ColdSteelSceneContainer.h
+--- a/Source/FPSGAME/UI/ColdSteelSceneContainer.h
++++ b/Source/FPSGAME/UI/ColdSteelSceneContainer.h
+@@ -33,7 +33,8 @@
+     void SetViewHighlighted(bool bHighlighted);
+     FString GetPromptLabel() const;
+     bool IsOpening() const { return bOpening; }
+-    const FString& StorageKey() const {return RuntimeStorageKey;}
++    FString StorageKey() const;
++    const FString& LegacyStorageKey() const {return RuntimeStorageKey;}
+     bool IsWithinPanelReach(const APlayerController* Controller) const;
+     void OpenSharedVisual(bool bInstant=false);
+     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+diff --git a/Source/FPSGAME/UI/ColdSteelSceneContainer.cpp b/Source/FPSGAME/UI/ColdSteelSceneContainer.cpp
+--- a/Source/FPSGAME/UI/ColdSteelSceneContainer.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSceneContainer.cpp
+@@ -2,6 +2,11 @@
+ 
+ #include "ColdSteelHUDWidget.h"
+ #include "ColdSteelWorldInteraction.h"
++#include "ColdSteelSceneLoot.h"
++#include "ColdSteelStatusModel.h"
++#include "../Dungeons/DungeonRunSubsystem.h"
++#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
++#include "Engine/GameInstance.h"
+ #include "../FPSGAMEPlayerController.h"
+ #include "Components/SceneComponent.h"
+ #include "Components/StaticMeshComponent.h"
+@@ -39,8 +44,7 @@
+     Super::BeginPlay();
+     ClosedDoorRotation=DoorHinge->GetRelativeRotation();
+     ClosedMovingPartLocation=DoorHinge->GetRelativeLocation();
+-    // No profile claim/reward is generated here. Each cabinet has its own grid;
+-    // the reward table will populate this key in a later production step.
++    // Preserve this legacy key for old private contents and authored door poses.
+     FString MapName=GetWorld()->GetMapName();
+     MapName.RemoveFromStart(GetWorld()->StreamingLevelsPrefix);
+     RuntimeStorageKey=TEXT("SceneSearch.")+MapName+TEXT(".")
+@@ -67,6 +71,26 @@
+     }
+     SetViewHighlighted(false);
+     bVisualInitialized=true;if(bSearched)OnRep_Searched();
++    if(ColdSteelSceneLoot::IsBound(this)&&GetNetMode()!=NM_Client)
++    {
++        if(GetNetMode()==NM_Standalone)
++        {
++            const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++            const auto* Run=UDungeonRunSubsystem::Get(GetWorld());
++            if(Model&&Run&&Run->IsRunActive()&&Model->Snapshot().DungeonRun.RunId==Run->RunId()
++                &&Model->HasDungeonClaim(ColdSteelSceneLoot::Claim(ContainerId)))OpenSharedVisual(true);
++        }
++        else if(auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>();Shared&&Shared->InitializeAuthority())
++            if(const auto* Stored=Shared->Data().Containers.Find(StorageKey());Stored&&Stored->bSceneLootResolved)OpenSharedVisual(true);
++    }
++}
++
++FString AColdSteelSceneContainer::StorageKey() const
++{
++    if(ColdSteelSceneLoot::IsBound(this))
++        if(const auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&Run->IsRunActive())
++            return RuntimeStorageKey+TEXT(".Run.")+Run->RunId();
++    return RuntimeStorageKey;
+ }
+ 
+ void AColdSteelSceneContainer::ApplyOutline()
+@@ -103,7 +127,7 @@
+     const auto* PC=Cast<AFPSGAMEPlayerController>(Controller);
+     auto* HUD=PC?PC->GetColdSteelHUD():nullptr;
+     if(HUD&&!HUD->IsInventoryOpen()&&IsWithinPanelReach(Controller))
+-        HUD->OpenChestLootStorage(this,RuntimeStorageKey,FMath::Clamp(StoragePages,1,8),Caption+TEXT(" · 搜寻物品"));
++        HUD->OpenChestLootStorage(this,StorageKey(),FMath::Clamp(StoragePages,1,8),Caption+TEXT(" · 搜寻物品"));
+ }
+ 
+ bool AColdSteelSceneContainer::TrySearch(APlayerController* Controller)
+@@ -115,6 +139,17 @@
+     {
+         auto* PS=Controller->GetPlayerState<AColdSteelPlayerState>();
+         return PS&&PS->RequestInventoryAction(EColdSteelInventoryAction::ContainerOpen,FString(),this);
++    }
++    if(ColdSteelSceneLoot::IsBound(this))
++    {
++        auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++        if(!Model)return false;
++        if(!Model->HasDungeonClaim(ColdSteelSceneLoot::Claim(ContainerId)))
++        {
++            Model->SyncRuntime();auto State=Model->Snapshot();FString Reason;
++            if(!Model->AppendSceneSearchLoot(State,this,Reason)||!Model->CommitState(MoveTemp(State)))
++            {Model->PostNotice(TEXT("搜索失败"),Reason.IsEmpty()?Model->ResultMessage():Reason);return false;}
++        }
+     }
+     if(bSearched){OpenLootPanel(Controller);return true;}
+     OpeningController=Controller;OpenSharedVisual();return true;
+diff --git a/Source/FPSGAME/UI/ColdSteelStatusModel.h b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -294,6 +294,8 @@
+         const FString& ContainerKey,int32 Pages,bool bHubTest=false);
+     /** 该领取标记在当前运行里是否已发放过（重复开箱不重 roll，只开面板）。 */
+     bool HasDungeonClaim(FName Claim) const { return Current.DungeonRun.Claimed.Contains(Claim); }
++    /** Stage a facility search result and its claim together; caller owns the durable commit. */
++    bool AppendSceneSearchLoot(FColdSteelProfile& State,const class AColdSteelSceneContainer* Scene,FString& Reason) const;
+     /** 测试箱专用：领取标记在案但容器已空＝清除标记，下次开箱重新 roll。 */
+     bool ReleaseHubTestClaimIfEmpty(const FString& ContainerKey,FName Claim);
+     /** 弹药物品离开储物箱进背包＝按拾取口径转弹药池（MoveItem/TransferWarehouse 共用）。 */
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp b/Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp
+@@ -3,6 +3,8 @@
+ #include "ColdSteelInventoryRequestTypes.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../UI/ColdSteelSceneContainer.h"
++#include "../UI/ColdSteelSceneLoot.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
+ #include "../UI/ColdSteelDungeonLoot.h"
+ #include "../UI/ColdSteelWorldInteraction.h"
+ #include "../UI/ColdSteelWarehouseRules.h"
+@@ -15,6 +17,15 @@
+ 
+ namespace
+ {
++bool CanAccessContainer(const APawn* Pawn,const AActor* Target)
++{
++    if(!IsValid(Pawn)||!IsValid(Target)||Pawn->GetWorld()!=Target->GetWorld()||!Pawn->GetController()
++        ||FVector::DistSquared(Pawn->GetActorLocation(),Target->GetActorLocation()+FVector(0,0,70))>FMath::Square(250.f))return false;
++    if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(SharedContainerReach),false,Pawn);Query.AddIgnoredActor(Target);
++    FHitResult Wall;
++    return !Pawn->GetWorld()->LineTraceSingleByChannel(Wall,Pawn->GetPawnViewLocation(),Target->GetActorLocation()+FVector(0,0,70),ECC_Visibility,Query);
++}
+ bool ResolveContainer(AActor* Target,FString& Key,int32& Pages,FString& Caption)
+ {
+     if(auto* Scene=Cast<AColdSteelSceneContainer>(Target))
+@@ -24,11 +35,11 @@
+     return false;
+ }
+ }
+-void UColdSteelSharedInventorySubsystem::FillContainerReply(AActor* Target,UColdSteelInventoryReply* Reply) const
++void UColdSteelSharedInventorySubsystem::FillContainerReply(AActor* Target,UColdSteelInventoryReply* Reply,const APawn* Viewer) const
+ {
+     FString Key,Caption;int32 Pages=1;
+-    if(!Reply||!ResolveContainer(Target,Key,Pages,Caption))return;
+-    const auto* Container=Current.Containers.Find(Key);if(!Container)return;
++    if(!Reply||!CanAccessContainer(Viewer,Target)||!ResolveContainer(Target,Key,Pages,Caption))return;
++    const auto* Container=Current.Containers.Find(Key);if(!Container||!Container->bSeeded)return;
+     Reply->bContainerView=true;Reply->ContainerKey=Key;Reply->ContainerCaption=Caption;
+     Reply->ContainerPages=Container->Pages;Reply->ContainerRevision=Container->Revision;Reply->ContainerItems=Container->Items;
+ }
+@@ -38,26 +49,39 @@
+     FString Key,Caption;int32 Pages=1;
+     auto* Pawn=Model?Model->RuntimePawn():nullptr;
+     auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
+-    if(!InitializeAuthority()||!PC||!IsValid(Request.Target)||Request.Target->GetWorld()!=GetWorld()
+-        ||!ResolveContainer(Request.Target,Key,Pages,Caption)
+-        ||FVector::DistSquared(Pawn->GetActorLocation(),Request.Target->GetActorLocation()+FVector(0,0,70))>FMath::Square(250.f))
++    if(!InitializeAuthority()||!PC||!CanAccessContainer(Pawn,Request.Target)||Request.Target->GetWorld()!=GetWorld()
++        ||!ResolveContainer(Request.Target,Key,Pages,Caption))
+     {Reason=TEXT("容器不可达");return false;}
+-    FCollisionQueryParams Query(SCENE_QUERY_STAT(SharedContainerReach),false,Pawn);Query.AddIgnoredActor(Request.Target);
+-    FHitResult Wall;
+-    if(GetWorld()->LineTraceSingleByChannel(Wall,Pawn->GetPawnViewLocation(),Request.Target->GetActorLocation()+FVector(0,0,70),ECC_Visibility,Query))
+-    {Reason=TEXT("容器被遮挡");return false;}
+     Model->SyncRuntime();const auto Before=Model->Snapshot();auto Working=Before;
+     UColdSteelStatusModel::StripNetworkContainerView(Working);
+     CaptureDropTransforms();auto After=Current;auto& Container=After.Containers.FindOrAdd(Key);Container.Pages=Pages;
+     const bool Open=Request.Action==EColdSteelInventoryAction::ContainerOpen;
++    auto* SearchScene=Cast<AColdSteelSceneContainer>(Request.Target);
++    const bool SearchLoot=ColdSteelSceneLoot::IsBound(SearchScene);
++    const FString LegacyKey=SearchLoot?SearchScene->LegacyStorageKey():Key;
++    // Older network saves used the map-only key; move the whole record, including contents.
++    if(SearchLoot&&!Current.Containers.Contains(Key))
++        if(const auto* Legacy=After.Containers.Find(LegacyKey))
++        {const auto Copy=*Legacy;After.Containers.Remove(LegacyKey);After.Containers.FindChecked(Key)=Copy;
++         for(auto& Item:Container.Items)Item.Container=Key;}
++    auto HasPrivate=[&](const FColdSteelProfile& Profile)
++    {return Profile.Items.ContainsByPredicate([&](const auto& I){return I.Place==4&&(I.Container==Key||I.Container==LegacyKey);});};
++    if(!Open&&(!Container.bSeeded||(SearchLoot&&!Container.bSceneLootResolved)))
++    {Reason=TEXT("请先搜索此容器");return false;}
++    // Changing from solo to co-op can leave a host-owned private claim/content.
++    // Only the host can move that profile and shared inventory in one existing journal.
++    if(Open&&Guest&&SearchLoot&&!Container.bSceneLootResolved)
++        if(const auto* Host=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();Host
++            &&(HasPrivate(Host->Snapshot())||Host->HasDungeonClaim(ColdSteelSceneLoot::Claim(SearchScene->ContainerId))))
++        {Reason=TEXT("此旧存档容器需要房主先打开一次");return false;}
+     if(Open&&Request.Target->ActorHasTag(TEXT("DungeonTreasure.HubTest"))&&Container.Items.IsEmpty())Container.bSeeded=false;
+-    if(Open&&Container.bSeeded&&!Working.Items.ContainsByPredicate([&](const auto& I){return I.Place==4&&I.Container==Key;}))
++    if(Open&&Container.bSeeded&&(!SearchLoot||Container.bSceneLootResolved)&&!HasPrivate(Working))
+     {
+         if(auto* Scene=Cast<AColdSteelSceneContainer>(Request.Target))Scene->OpenSharedVisual();
+         else if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())PS->MulticastSharedChestOpened(Request.Target);
+         Reason=TEXT("已打开共享容器");return true;
+     }
+-    if(!Open&&Request.ContainerRevision!=Container.Revision)
++    if(!Open&&!Container.CanMutate(Request.ContainerRevision,SearchLoot))
+     {Reason=TEXT("箱内物品已被更新，请重新操作");return false;}
+     const FString ViewKey=TEXT("NetView.")+Key;
+     bool Success=false;
+@@ -71,13 +95,26 @@
+         if(!Guest)
+         {
+             for(int32 I=Working.Items.Num()-1;I>=0;--I)
+-                if(Working.Items[I].Place==4&&Working.Items[I].Container==Key)
++                if(Working.Items[I].Place==4&&(Working.Items[I].Container==Key||Working.Items[I].Container==LegacyKey))
+                 {
+                     auto Item=Working.Items[I];Item.Container=Key;
+                     if(!ColdSteelWarehouse::Insert(Container.Items,Item,Pages*ColdSteelWarehouse::CellsPerPage))
+                     {Reason=TEXT("共享容器空间不足，旧存档物品保留");return false;}
+                     Working.Items.RemoveAt(I);
+                 }
++        }
++        if(Open&&SearchLoot&&!Container.bSceneLootResolved)
++        {
++            if(Container.Items.IsEmpty())
++            {
++                if(!Model->AppendSceneSearchLoot(Working,SearchScene,Reason))return false;
++                for(int32 I=Working.Items.Num()-1;I>=0;--I)
++                    if(Working.Items[I].Place==4&&Working.Items[I].Container==Key)
++                    {Container.Items.Add(Working.Items[I]);Working.Items.RemoveAt(I);}
++            }
++            // Existing stored items consume the initial rollout without adding rewards.
++            Container.bSceneLootResolved=true;
++            Working.DungeonRun.Claimed.Add(ColdSteelSceneLoot::Claim(SearchScene->ContainerId));
+         }
+         if(!Container.bSeeded&&ColdSteelWorldInteraction::IsTreasureChest(Request.Target))
+         {
+@@ -113,7 +150,7 @@
+     if(!Commit(Model,Guest,MoveTemp(Working),MoveTemp(After),Reason))return false;
+     if(auto* Scene=Cast<AColdSteelSceneContainer>(Request.Target))Scene->OpenSharedVisual();
+     else if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())PS->MulticastSharedChestOpened(Request.Target);
+-    Reason=Open?TEXT("已打开共享容器"):TEXT("共享物品已更新");
++    if(Reason.IsEmpty()||!bBlocked)Reason=Open?TEXT("已打开共享容器"):TEXT("共享物品已更新");
+     if(!Open)for(TActorIterator<AColdSteelPlayerState> It(GetWorld());It;++It)
+         if(*It!=Pawn->GetPlayerState<AColdSteelPlayerState>())It->ClientContainerInvalidated(Request.Target);
+     return true;
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h b/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h
+--- a/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h
+@@ -29,6 +29,10 @@
+     UPROPERTY() int32 Pages=1;
+     UPROPERTY() int64 Revision=0;
+     UPROPERTY() bool bSeeded=false;
++    // Separate from the legacy empty-cabinet marker; never reset when looted empty.
++    UPROPERTY() bool bSceneLootResolved=false;
++    bool CanMutate(int64 ExpectedRevision,bool RequiresSceneLoot) const
++    {return bSeeded&&(!RequiresSceneLoot||bSceneLootResolved)&&Revision<MAX_int64&&ExpectedRevision==Revision;}
+ };
+ 
+ USTRUCT()
+@@ -79,7 +83,7 @@
+     bool Pickup(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest,AColdSteelPickup* Actor,bool Nearby,FString& Reason);
+     bool PickupNearby(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest,FString& Reason);
+     bool ContainerOperation(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest,const FColdSteelInventoryRequest& Request,FString& Reason);
+-    void FillContainerReply(AActor* Target,UColdSteelInventoryReply* Reply) const;
++    void FillContainerReply(AActor* Target,UColdSteelInventoryReply* Reply,const class APawn* Viewer) const;
+     bool Commit(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest,FColdSteelProfile Profile,
+         FColdSteelSharedInventoryData After,FString& Reason);
+     static UColdSteelStatusModel* HarvestModel(const UObject* Context);
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+@@ -38,6 +38,7 @@
+     auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+     if(GetNetMode()==NM_Standalone||!PC||!PC->IsLocalController()||!PC->GetPawn()||!Model
+         ||bInventoryRequestPending||bCampfirePending)return false;
++    if(TeamTravelId.IsValid()){Model->PostNotice(TEXT("队伍换图"),TEXT("正在保存档案，请稍候"));return false;}
+     Request.Sequence=++InventoryRequestSequence;
+     if(!Request.Sequence)Request.Sequence=++InventoryRequestSequence;
+     Request.Revision=Model->Snapshot().CampfireInventoryRevision;
+@@ -113,6 +114,7 @@
+     if(!HasAuthority()||!PC||PC->PlayerState!=this||!Request.Sequence
+         ||static_cast<int32>(Request.Sequence-LastInventoryRequestSequence)<=0)return;
+     LastInventoryRequestSequence=Request.Sequence;
++    InvalidateTeamTravelReady();
+     auto* Pawn=Cast<AFPSGAMECharacter>(PC->GetPawn());
+     auto* Model=PC->IsLocalController()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():ShadowModel.Get();
+     if(Model)Model->SyncRuntime();
+@@ -192,7 +194,11 @@
+     Reply->Sequence=Request.Sequence;Reply->Revision=After.CampfireInventoryRevision;
+     Reply->bSuccess=Success;Reply->Message=Reason;Reply->WorldReceipts=After.CampfireWorldReceipts;
+     if(Request.Action>=EColdSteelInventoryAction::ContainerOpen&&Request.Action<=EColdSteelInventoryAction::ContainerRetrieveAll)
+-        if(auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())Shared->FillContainerReply(Request.Target,Reply);
++        if(auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())
++        {
++            const auto* OwnerPC=Cast<APlayerController>(GetOwner());
++            Shared->FillContainerReply(Request.Target,Reply,OwnerPC?OwnerPC->GetPawn().Get():nullptr);
++        }
+     Reply->ServerSoulCredits=After.ServerSoulCredits;Reply->ServerSoulDebits=After.ServerSoulDebits;
+     Reply->bWorldAction=Request.Action>=EColdSteelInventoryAction::Shrine&&Request.Action<=EColdSteelInventoryAction::Workstation;
+     if(Reply->bWorldAction){Reply->DungeonRun=After.DungeonRun;Reply->ForgeJob=After.ForgeJob;Reply->GunAssemblyJob=After.GunAssemblyJob;Reply->WoodworkingJob=After.WoodworkingJob;}
+diff --git a/Source/FPSGAME/UI/ColdSteelSceneLoot.h b/Source/FPSGAME/UI/ColdSteelSceneLoot.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelSceneLoot.h
+@@ -0,0 +1,12 @@
++#pragma once
++#include "CoreMinimal.h"
++
++class AColdSteelSceneContainer;
++
++/** Authored facility search pools. No player, actor-spawn order or global RNG in a roll. */
++namespace ColdSteelSceneLoot
++{
++    bool IsBound(const AColdSteelSceneContainer* Container);
++    bool Roll(const FString& ContainerId,int32 RunSeed,TArray<TPair<FString,int64>>& OutLoot);
++    FName Claim(const FString& ContainerId);
++}
+diff --git a/Source/FPSGAME/UI/ColdSteelSceneLoot.cpp b/Source/FPSGAME/UI/ColdSteelSceneLoot.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/ColdSteelSceneLoot.cpp
+@@ -0,0 +1,242 @@
++#include "ColdSteelSceneLoot.h"
++#include "ColdSteelSceneContainer.h"
++#include "ColdSteelStatusModel.h"
++#include "ColdSteelWarehouseRules.h"
++#include "../Dungeons/DungeonRunSubsystem.h"
++#include "Engine/World.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/Crc.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Dom/JsonObject.h"
++#include "Serialization/JsonSerializer.h"
++
++namespace
++{
++struct FSearchEntry { FString Id; int32 Weight=0; };
++struct FSearchPool { TArray<int32> CountWeights; TArray<FSearchEntry> Entries; };
++struct FSearchTable { TMap<FString,FSearchPool> Pools; TMap<FString,FString> Bindings; bool Valid=false; };
++
++bool ReadInteger(const TSharedPtr<FJsonValue>& Value,int32 Min,int32 Max,int32& Out)
++{
++    double Number=0;
++    if(!Value||!Value->TryGetNumber(Number)||!FMath::IsFinite(Number)||Number<Min||Number>Max||Number!=FMath::FloorToDouble(Number))return false;
++    Out=int32(Number);return true;
++}
++bool ParseTable(const FString& Text,FSearchTable& Out)
++{
++    TSharedPtr<FJsonObject> Root;
++    if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root)||!Root)return false;
++    int32 Version=0;
++    if(!ReadInteger(Root->TryGetField(TEXT("version")),1,1,Version))return false;
++    const TArray<TSharedPtr<FJsonValue>>* Pools=nullptr;
++    const TArray<TSharedPtr<FJsonValue>>* Bindings=nullptr;
++    if(!Root->TryGetArrayField(TEXT("pools"),Pools)||!Root->TryGetArrayField(TEXT("bindings"),Bindings))return false;
++    FSearchTable Result;
++    for(const auto& Value:*Pools)
++    {
++        const TSharedPtr<FJsonObject>* Object=nullptr;
++        if(!Value||!Value->TryGetObject(Object)||!Object->IsValid())return false;
++        FString Id;const TArray<TSharedPtr<FJsonValue>>* Counts=nullptr;const TArray<TSharedPtr<FJsonValue>>* Entries=nullptr;
++        if(!(*Object)->TryGetStringField(TEXT("id"),Id)||Id.IsEmpty()||Result.Pools.Contains(Id)
++            ||!(*Object)->TryGetArrayField(TEXT("count_weights"),Counts)||Counts->IsEmpty()||Counts->Num()>4
++            ||!(*Object)->TryGetArrayField(TEXT("entries"),Entries)||Entries->IsEmpty()||Entries->Num()>64)return false;
++        FSearchPool Pool;int32 Sum=0;TSet<FString> Ids;
++        for(const auto& Count:*Counts)
++        {int32 Weight=0;if(!ReadInteger(Count,0,10000,Weight))return false;Pool.CountWeights.Add(Weight);Sum+=Weight;}
++        if(Sum!=100)return false;
++        for(const auto& EntryValue:*Entries)
++        {
++            const TSharedPtr<FJsonObject>* Entry=nullptr;FSearchEntry Row;
++            if(!EntryValue||!EntryValue->TryGetObject(Entry)||!Entry->IsValid()
++                ||!(*Entry)->TryGetStringField(TEXT("id"),Row.Id)||Row.Id.IsEmpty()||Ids.Contains(Row.Id)
++                ||!ReadInteger((*Entry)->TryGetField(TEXT("weight")),1,10000,Row.Weight))return false;
++            Ids.Add(Row.Id);Pool.Entries.Add(MoveTemp(Row));
++        }
++        if(Pool.CountWeights.Num()-1>Pool.Entries.Num())return false;
++        Result.Pools.Add(Id,MoveTemp(Pool));
++    }
++    for(const auto& Value:*Bindings)
++    {
++        const TSharedPtr<FJsonObject>* Object=nullptr;FString Id,Pool;
++        if(!Value||!Value->TryGetObject(Object)||!Object->IsValid()
++            ||!(*Object)->TryGetStringField(TEXT("container_id"),Id)||Id.IsEmpty()||Result.Bindings.Contains(Id)
++            ||!(*Object)->TryGetStringField(TEXT("pool"),Pool)||!Result.Pools.Contains(Pool))return false;
++        Result.Bindings.Add(Id,Pool);
++    }
++    if(Result.Bindings.IsEmpty())return false;
++    Result.Valid=true;Out=MoveTemp(Result);return true;
++}
++const FSearchTable& Table()
++{
++    // Loaded once per process; no file reads from tick, highlighting or HUD refresh.
++    static const FSearchTable Cached=[]
++    {
++        FSearchTable Result;FString Text;
++        if(!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/scene_search_loot.json")))||!ParseTable(Text,Result))
++            UE_LOG(LogTemp,Error,TEXT("[SceneSearchLoot] Invalid scene_search_loot.json; search rewards were not consumed."));
++        return Result;
++    }();
++    return Cached;
++}
++}
++
++bool ColdSteelSceneLoot::IsBound(const AColdSteelSceneContainer* Container)
++{
++    return IsValid(Container)&&UGameplayStatics::GetCurrentLevelName(Container,true)==TEXT("L_Dungeon_Randomized")
++        &&Table().Bindings.Contains(Container->ContainerId);
++}
++FName ColdSteelSceneLoot::Claim(const FString& ContainerId)
++{return FName(*(TEXT("SceneSearch.")+ContainerId));}
++
++bool ColdSteelSceneLoot::Roll(const FString& ContainerId,int32 RunSeed,TArray<TPair<FString,int64>>& OutLoot)
++{
++    OutLoot.Reset();const auto& Data=Table();const auto* PoolId=Data.Bindings.Find(ContainerId);
++    const auto* Pool=PoolId?Data.Pools.Find(*PoolId):nullptr;if(!Data.Valid||!Pool)return false;
++    FRandomStream Random(int32(uint32(RunSeed)^FCrc::StrCrc32(*ContainerId)^0x534C5431u));
++    int32 Ticket=Random.RandRange(0,99),Draws=0;
++    for(;Draws<Pool->CountWeights.Num();++Draws){Ticket-=Pool->CountWeights[Draws];if(Ticket<0)break;}
++    auto Remaining=Pool->Entries;
++    for(int32 Draw=0;Draw<Draws;++Draw)
++    {
++        int32 Total=0;for(const auto& Entry:Remaining)Total+=Entry.Weight;
++        Ticket=Random.RandRange(0,Total-1);
++        for(int32 I=0;I<Remaining.Num();++I)
++        {
++            Ticket-=Remaining[I].Weight;if(Ticket>=0)continue;
++            OutLoot.Emplace(Remaining[I].Id,1);Remaining.RemoveAt(I);break;
++        }
++    }
++    return true; // The authored zero-count weight is 0: fresh searches yield 1-3 entries.
++}
++
++bool UColdSteelStatusModel::AppendSceneSearchLoot(FColdSteelProfile& State,const AColdSteelSceneContainer* Scene,FString& Reason) const
++{
++    const auto* Run=Scene?UDungeonRunSubsystem::Get(Scene->GetWorld()):nullptr;
++    if(!ColdSteelSceneLoot::IsBound(Scene)||Scene->GetNetMode()==NM_Client||!Run||!Run->IsRunActive()
++        ||Run->RunId().IsEmpty()||State.DungeonRun.RunId!=Run->RunId())
++    {Reason=TEXT("搜索物品尚未就绪");return false;}
++    const FName Claim=ColdSteelSceneLoot::Claim(Scene->ContainerId);
++    if(State.DungeonRun.Claimed.Contains(Claim))return true;
++    const FString Key=Scene->StorageKey(),Legacy=Scene->LegacyStorageKey(),Prefix=Legacy+TEXT(".Run.");
++    auto Staged=State;
++    // Items left inside this cabinet in an ended run are not player possessions.
++    Staged.Items.RemoveAll([&](const auto& I){return I.Place==ColdSteelWarehouse::Place&&I.Container.StartsWith(Prefix)&&I.Container!=Key;});
++    for(auto It=Staged.StoragePages.CreateIterator();It;++It)
++        if(It.Key().StartsWith(Prefix)&&It.Key()!=Key)It.RemoveCurrent();
++    bool HasExisting=false;
++    for(auto& Item:Staged.Items)
++        if(Item.Place==ColdSteelWarehouse::Place&&(Item.Container==Legacy||Item.Container==Key))
++        {Item.Container=Key;HasExisting=true;}
++    Staged.StoragePages.Remove(Legacy);
++    const int32 Pages=FMath::Clamp(Scene->StoragePages,1,8);Staged.StoragePages.Add(Key,Pages);
++    if(!HasExisting)
++    {
++        TArray<TPair<FString,int64>> Loot;
++        if(!ColdSteelSceneLoot::Roll(Scene->ContainerId,Run->RunSeed(),Loot))
++        {Reason=TEXT("搜索池配置不可用");return false;}
++        for(const auto& Entry:Loot)
++        {
++            if(!Definitions.Contains(Entry.Key)){Reason=TEXT("搜索物品定义缺失");return false;}
++            auto Item=CreateItem(Entry.Key,Entry.Value);Item.Place=ColdSteelWarehouse::Place;Item.Container=Key;
++            if(!ColdSteelWarehouse::Insert(Staged.Items,Item,Pages*ColdSteelWarehouse::CellsPerPage))
++            {Reason=TEXT("搜索容器空间不足");return false;}
++        }
++    }
++    Staged.DungeonRun.Claimed.Add(Claim);State=MoveTemp(Staged);return true;
++}
++
++#if WITH_DEV_AUTOMATION_TESTS
++#include "Misc/AutomationTest.h"
++#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
++#include "../Multiplayer/ColdSteelProfileTransfer.h"
++
++IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSceneSearchPoolTest,"FPSGAME.SceneSearch.Pools",
++    EAutomationTestFlags::EditorContext|EAutomationTestFlags::EngineFilter)
++bool FSceneSearchPoolTest::RunTest(const FString& Parameters)
++{
++    const auto& Data=Table();if(!TestTrue(TEXT("valid production table"),Data.Valid))return false;
++    TestEqual(TEXT("scope is exactly 31 containers"),Data.Bindings.Num(),31);
++    TestEqual(TEXT("five profiles"),Data.Pools.Num(),5);
++    TArray<TPair<FString,int64>> Unknown;
++    TestFalse(TEXT("outside scope has no roll"),ColdSteelSceneLoot::Roll(TEXT("FacilityTransit.Unknown"),7,Unknown));
++    TSet<FString> Items;
++    for(const auto& Binding:Data.Bindings)
++    {
++        TArray<TPair<FString,int64>> A,B;
++        TestTrue(TEXT("every binding rolls"),ColdSteelSceneLoot::Roll(Binding.Key,417,A));
++        ColdSteelSceneLoot::Roll(Binding.Key,417,B);
++        TestTrue(TEXT("reopening seed is independent of player/order"),A==B);
++    }
++    for(const auto& Pair:Data.Pools)
++    {
++        FString Id;for(const auto& Binding:Data.Bindings)if(Binding.Value==Pair.Key){Id=Binding.Key;break;}
++        if(!TestEqual(TEXT("zero through three count weights"),Pair.Value.CountWeights.Num(),4))return false;
++        TestEqual(TEXT("no empty initial searches"),Pair.Value.CountWeights[0],0);
++        int32 Counts[4]={0,0,0,0};TMap<FString,int32> Hits;constexpr int32 Samples=100000;
++        for(const auto& Entry:Pair.Value.Entries)Items.Add(Entry.Id);
++        for(int32 Seed=0;Seed<Samples;++Seed)
++        {
++            TArray<TPair<FString,int64>> Loot;ColdSteelSceneLoot::Roll(Id,Seed,Loot);
++            if(Loot.Num()<1||Loot.Num()>3){AddError(TEXT("initial search must yield one to three entries"));return false;}
++            ++Counts[Loot.Num()];TSet<FString> Seen;
++            for(const auto& Entry:Loot)
++            {
++                if(Seen.Contains(Entry.Key)||Entry.Value!=1){AddError(TEXT("duplicate entry or invalid quantity"));return false;}
++                Seen.Add(Entry.Key);++Hits.FindOrAdd(Entry.Key);
++            }
++        }
++        for(int32 N=0;N<4;++N)
++            TestTrue(*FString::Printf(TEXT("%s count %d frequency"),*Pair.Key,N),FMath::Abs(double(Counts[N])/Samples-Pair.Value.CountWeights[N]/100.)<.005);
++        double Total=0;for(const auto& Entry:Pair.Value.Entries)Total+=Entry.Weight;
++        for(const auto& Entry:Pair.Value.Entries)
++        {
++            double Twice=Entry.Weight/Total;
++            for(const auto& Other:Pair.Value.Entries)if(Other.Id!=Entry.Id)Twice+=(Other.Weight/Total)*(Entry.Weight/(Total-Other.Weight));
++            double Thrice=Twice;
++            for(const auto& First:Pair.Value.Entries)if(First.Id!=Entry.Id)
++                for(const auto& Second:Pair.Value.Entries)if(Second.Id!=Entry.Id&&Second.Id!=First.Id)
++                    Thrice+=(First.Weight/Total)*(Second.Weight/(Total-First.Weight))*(Entry.Weight/(Total-First.Weight-Second.Weight));
++            const double Expected=Pair.Value.CountWeights[1]/100.*Entry.Weight/Total+Pair.Value.CountWeights[2]/100.*Twice+Pair.Value.CountWeights[3]/100.*Thrice;
++            TestTrue(*(Pair.Key+TEXT(" ")+Entry.Id+TEXT(" marginal probability")),FMath::Abs(double(Hits.FindRef(Entry.Id))/Samples-Expected)<.005);
++        }
++    }
++    TestEqual(TEXT("21 existing items"),Items.Num(),21);
++    FSearchTable Bad;
++    TestFalse(TEXT("missing pools rejected"),ParseTable(TEXT("{\"version\":1}"),Bad));
++    TestFalse(TEXT("unknown schema rejected"),ParseTable(TEXT("{\"version\":2,\"pools\":[],\"bindings\":[]}"),Bad));
++    return true;
++}
++
++IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSceneSearchSharedSaveTest,"FPSGAME.SceneSearch.SharedSaveAndRevision",
++    EAutomationTestFlags::EditorContext|EAutomationTestFlags::EngineFilter)
++bool FSceneSearchSharedSaveTest::RunTest(const FString& Parameters)
++{
++    // Memory-only serialization, no player profile, map travel or disk save slot.
++    auto* Save=NewObject<UColdSteelSharedInventorySave>();
++    auto& Empty=Save->Data.Containers.Add(TEXT("empty"));Empty.bSeeded=true;Empty.bSceneLootResolved=true;Empty.Revision=4;
++    auto& Full=Save->Data.Containers.Add(TEXT("full"));Full.bSeeded=true;Full.bSceneLootResolved=true;Full.Revision=10;
++    FColdSteelItem Card;Card.InstanceId=TEXT("shared-card");Card.Definition=TEXT("search_graphics_card");
++    Card.Place=4;Card.Container=TEXT("full");Card.Width=2;Card.Height=1;Full.Items.Add(Card);
++    FColdSteelSharedContainer Legacy;Legacy.bSeeded=true;
++    TestFalse(TEXT("cannot mutate before search"),FColdSteelSharedContainer().CanMutate(0,true));
++    TestFalse(TEXT("old empty cabinet needs new loot resolution"),Legacy.CanMutate(0,true));
++    TestTrue(TEXT("ordinary containers retain prior behavior"),Legacy.CanMutate(0,false));
++    TestTrue(TEXT("first competing request accepted"),Full.CanMutate(10,true));
++    const auto Transfer=ColdSteelWarehouse::Transfer(Full.Items,Card.InstanceId,0,-1,216,0,-1,TEXT("full"));
++    if(TestTrue(TEXT("GPU fits normal backpack with 2x1 footprint"),Transfer.bValid))
++    {
++        Full.Items.Reset();++Full.Revision;
++        TestFalse(TEXT("second request with previous revision rejected"),Full.CanMutate(10,true));
++        TestTrue(TEXT("refresh uses new revision"),Full.CanMutate(11,true));
++    }
++    TArray<uint8> Blob;TestTrue(TEXT("serialize shared empty result"),ColdSteelProfileTransfer::SaveToBlob(Save,Blob));
++    auto* Restored=NewObject<UColdSteelSharedInventorySave>();
++    TestTrue(TEXT("restore shared state"),ColdSteelProfileTransfer::BlobToSaveObject(Blob,Restored));
++    const auto* Stored=Restored->Data.Containers.Find(TEXT("empty"));
++    TestTrue(TEXT("empty claim survives reload without reroll"),Stored&&Stored->bSeeded&&Stored->bSceneLootResolved&&Stored->Items.IsEmpty()&&Stored->Revision==4);
++    const auto* Taken=Restored->Data.Containers.Find(TEXT("full"));
++    TestTrue(TEXT("taken item stays absent after reload"),Taken&&Taken->bSceneLootResolved&&Taken->Items.IsEmpty()&&Taken->Revision==11);
++    return true;
++}
++#endif
