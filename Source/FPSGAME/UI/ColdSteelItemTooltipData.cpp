@@ -1,5 +1,6 @@
 #include "ColdSteelItemTooltipData.h"
 #include "ColdSteelItemRarity.h"
+#include "../Building/WoodworkingQuality.h"
 #include "ColdSteelWeaponText.h"
 #include "ColdSteelStaffModificationUI.h"
 #include "../Combat/CombatItemFormula.h"
@@ -94,6 +95,20 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(C,TEXT("工艺倍率"),FString::Printf(TEXT("×%.3f"),Multiplier));
         Row(C,TEXT("作用范围"),TEXT("作用于基础伤害计算，已计入武器总伤害；附加伤害按各自公式结算，不统一乘此倍率。"));
         Row(C,TEXT("品质说明"),TEXT("工艺品质由本次锻打表现决定，与强化等级独立记录。"));
+    }
+    double WoodScore=0;
+    if(ColdSteelWoodQuality::Read(I,WoodScore))
+    {
+        const double Multiplier=ColdSteelWoodQuality::FromScore(WoodScore),Percent=(Multiplier-1)*100;
+        auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("木工工艺");C.MinimumWidth=300;
+        Row(C,TEXT("工艺评分"),N(WoodScore)+TEXT(" / 100"));
+        Row(C,ColdSteelWoodQuality::StatLabel(I),Signed(Percent,TEXT("%")),Percent>0?1:Percent<0?-1:0);
+        ForgeSummary.Append(C.Rows);
+        Row(C,TEXT("工艺倍率"),FString::Printf(TEXT("×%.3f"),Multiplier));
+        Note(C,TEXT("作用"),ColdSteelWoodQuality::Channel(I)==ColdSteelWoodQuality::EChannel::Physical?
+            TEXT("已计入本弓物理伤害；附加魔法伤害不受此修正影响"):
+            TEXT("已计入本件法杖魔法攻击，参与法术伤害计算；挥杖物理伤害不受此修正影响"));
+        Note(C,TEXT("评分规则"),TEXT("50 分无修正，100 分 +25%，最低 -25%；品质随成品保存"));
     }
     if(const J Assembly=Object(O,TEXT("_assemblyQuality")))
     {
@@ -638,7 +653,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     if(!ForgeSummary.IsEmpty())
     {
         Out.Summary.Append(MoveTemp(ForgeSummary));
-        Out.ValueScope+=TEXT(" 锻造伤害修正已计入当前伤害，无需再次相乘。");
+        Out.ValueScope+=TEXT(" 工艺修正已计入当前属性，无需再次相乘。");
     }
     return Out;
 }

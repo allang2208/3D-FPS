@@ -1,0 +1,1325 @@
+[
+  {
+    "original": "Docs/UI/woodworking-entry-selection-plan-20261009.md",
+    "destination": "trash/Woodworking20261013/Docs/UI/woodworking-entry-selection-plan-20261009.md",
+    "bytes": 2427,
+    "sha256": "95b89d7ea32064a266a9ac468ed5e0adf809cae3ad170b41e87ce5b7804c2e80",
+    "reason": "Superseded practice/card selection design; user required forge dropdown management.",
+    "retained_replacement": "Docs/UI/woodworking-forge-panel-parity-plan-20261013.md",
+    "state": "archived"
+  },
+  {
+    "original": "Docs/UI/woodworking-selection-cards-plan-20261013.md",
+    "destination": "trash/Woodworking20261013/Docs/UI/woodworking-selection-cards-plan-20261013.md",
+    "bytes": 4348,
+    "sha256": "7140afb7e3ab5d7d9f1df9cfed39b6381bbe068a0c430350960b767795669a67",
+    "reason": "Superseded practice/card selection design; user required forge dropdown management.",
+    "retained_replacement": "Docs/UI/woodworking-forge-panel-parity-plan-20261013.md",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingAdjustMode20261013/Before/Content/ColdSteelData/woodworking.json",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingAdjustMode20261013/Before/Content/ColdSteelData/woodworking.json",
+    "bytes": 4279,
+    "sha256": "0b62f1ceedb1b715f77adcb6ee71b4f8de4c2a98240143838db829462532bdc1",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingAdjustMode20261013/Before/Source/FPSGAME/Building/WoodworkingSawVisualComponent.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingAdjustMode20261013/Before/Source/FPSGAME/Building/WoodworkingSawVisualComponent.cpp",
+    "bytes": 3886,
+    "sha256": "4de2dc8e8fae5b921f5f662cd77bde6cd0950db32f36fe308e151d10b82bc0a2",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingAdjustMode20261013/Before/Source/FPSGAME/Building/WoodworkingSawVisualComponent.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingAdjustMode20261013/Before/Source/FPSGAME/Building/WoodworkingSawVisualComponent.h",
+    "bytes": 1130,
+    "sha256": "1205e70962210776da0c3d614998c5d6bca3548a71c8da855bf74764204c8fb8",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingAdjustMode20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingAdjustMode20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "bytes": 19751,
+    "sha256": "affb434dc36831c9d097b54926706db30964d166d592758bbc02e214111f7601",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingAdjustMode20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingAdjustMode20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.h",
+    "bytes": 4435,
+    "sha256": "44d778d1b3f6c2c9368b74d09f29073773a2b113d1fb3a4584f64c97004f715a",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingAdjustMode20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingAdjustMode20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "bytes": 32083,
+    "sha256": "59e343229a0a73435cade330e84e0724870f911580b57b6c3bcbd72d40aee957",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingAdjustMode20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingAdjustMode20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "bytes": 21615,
+    "sha256": "42f4294b6b940d9478325b599c3eec73968f1b0c4e5116a802e503a21cf8aa14",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/AGENTS.md",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/AGENTS.md",
+    "bytes": 12783,
+    "sha256": "9300d3526f15da11e187d039064dde116e1e075431fab0716b4b6930675d242a",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Docs/UI/ui-cold-steel-design-system.md",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Docs/UI/ui-cold-steel-design-system.md",
+    "bytes": 76431,
+    "sha256": "cfec0dcff8e27c9c9fdf0c1986c9d5072b5f037f9f1937b5067b5153990b7cad",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/Building/VoxelBuildWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/Building/VoxelBuildWidget.cpp",
+    "bytes": 53616,
+    "sha256": "761fd3c9aad8fdefd154d9b6bfa6d0af0c8815849293b0c859cd106174cc5468",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/Building/WoodworkingSawVisualComponent.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/Building/WoodworkingSawVisualComponent.cpp",
+    "bytes": 3771,
+    "sha256": "bed70c7d5deccc584f22e6944d67e8535ce328cff29f5961b9edf3258e1bed02",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/Building/WoodworkingWorldView.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/Building/WoodworkingWorldView.cpp",
+    "bytes": 19916,
+    "sha256": "c916a74506e4122e2b9504a478927f2847ceacc10e94bce1ec772ff8399006b0",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/Monsters/QuadrupedAnimationTemplate.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/Monsters/QuadrupedAnimationTemplate.cpp",
+    "bytes": 15396,
+    "sha256": "3840af4080ca23273029ec9d7e6c0c6e450f910624bb2be28c22305d50a53b5b",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "bytes": 17021,
+    "sha256": "cf2460f5f3eb2f06886cfa12ddea4a07aabe21fb613ac0cdefc29b785a23ed50",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/Multiplayer/Super90NetworkTypes.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/Multiplayer/Super90NetworkTypes.h",
+    "bytes": 1104,
+    "sha256": "434926de0df6763e2f53973eb4f00b30a41927b5e5d7015faa1dc6933c867177",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp",
+    "bytes": 30660,
+    "sha256": "f816bb66f3716cf394680c5f350af873441b9544bd21f2c80ef892cfc6f3c363",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelExpeditionLayout.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelExpeditionLayout.cpp",
+    "bytes": 19907,
+    "sha256": "e23533184a8099858d658fba022c8640ab57433e5beed764cfc7a21363830040",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelForgeActionWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelForgeActionWidget.cpp",
+    "bytes": 7559,
+    "sha256": "97dba6ec0a48cc589f8aa5a8d31d782d18aeb21fb09e1d370503d98a48e46edb",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelForgingWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelForgingWidget.cpp",
+    "bytes": 32351,
+    "sha256": "25bce8858753ae374eaa529488a11005afd6a175f3c2b347bd52afb11c1b56fa",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelGunAssemblyWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelGunAssemblyWidget.cpp",
+    "bytes": 30664,
+    "sha256": "0ccf5c7db7bd18c97db40d11ee7c2db40ce86448a914a827e67b74c9978768b0",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelGunRecipeOptionWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelGunRecipeOptionWidget.cpp",
+    "bytes": 1171,
+    "sha256": "dfdd54bcf4bb2669a1bf6c6c498cd1bb2915dd25990736267477b2c2bb72e95b",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp",
+    "bytes": 10802,
+    "sha256": "122019279a1b0d8046fad7eb27b5dac0804aa43c9d493e6d9de2f3853d9033ed",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp",
+    "bytes": 12770,
+    "sha256": "b81b137ad6422f5cbbf3233b4cf6fd0f2b811bb5fbab3f026de13ed0a7bd890b",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp",
+    "bytes": 87009,
+    "sha256": "aaf7312743e17eb6e41c51f71d8b34d542162371a43fa970115d0e196ef981f6",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "bytes": 31115,
+    "sha256": "58ccb138654118f52c604e5e40727998e1ad92ad9c9151d6015b328e4f2437b4",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelWorkbenchWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/ColdSteelWorkbenchWidget.cpp",
+    "bytes": 60958,
+    "sha256": "75370cd70a10ae9b5e16d3d2cdf95b3734601692ba37203b298f6d6d78e2a7be",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/DevelopmentItemPicker.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/DevelopmentItemPicker.cpp",
+    "bytes": 7146,
+    "sha256": "346240f247cf92231b6c7e27ffb98e47f2bd9e90c60971dbb491633e3ea9afdb",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/GunAssemblyActionWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/GunAssemblyActionWidget.cpp",
+    "bytes": 9697,
+    "sha256": "ed0167f8cee330d8877f1b926a592949e9edabd058e89bd8b1458375c71c959c",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+    "bytes": 34254,
+    "sha256": "9336731868378054765c9f6c7ac648220bf84e62ff2c6fccadc1a9d3667eed7e",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/M4GunsmithOverview.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/M4GunsmithOverview.cpp",
+    "bytes": 13707,
+    "sha256": "97eaf6aae67f3f691c117295b7313f0bd65d4892545ab00eca7c19ec01895041",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/WeatherControlWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/WeatherControlWidget.cpp",
+    "bytes": 11415,
+    "sha256": "a09f7e50446a8ba005baae5736839f3f5d98fd929d6d956324a06368cb2c4b20",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "bytes": 20456,
+    "sha256": "d16e6fd7050a294eb815984a785998d5c5e76fda60227580f583886f4a4ad022",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingClearTable20261012/Before/Tools/Building/register_woodworking_bench.py",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingClearTable20261012/Before/Tools/Building/register_woodworking_bench.py",
+    "bytes": 9835,
+    "sha256": "cdc03f429498ad2b49d2927400cbf9584c94baf6a4b3039ed99ae1e6b7410da5",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingControls20261013/Before/Content/ColdSteelData/woodworking.json",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingControls20261013/Before/Content/ColdSteelData/woodworking.json",
+    "bytes": 4262,
+    "sha256": "bf90a5a02c8728a3204b96938638079bb3b3b06f2087bf07ab099a0e582540dd",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingMask.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingMask.cpp",
+    "bytes": 9289,
+    "sha256": "8015f97543dbfb1159eafec775fdfe9b89e623b49383d4ec40614b73700a24c0",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingMask.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingMask.h",
+    "bytes": 2935,
+    "sha256": "fbcdf8d67b48505ce74e83f385b20cf5814a09ea7887d08fd1e99e524158e66b",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingSaw.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingSaw.h",
+    "bytes": 989,
+    "sha256": "b168d4f70620b936f5965af31960b688b9031e55918a65f0b93098f7a53e3bf4",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingSawVisualComponent.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingSawVisualComponent.cpp",
+    "bytes": 3784,
+    "sha256": "4c82a5c7bfda491302847574e87187d32905d8f65cc3b44a6124fffcf0f7ee40",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "bytes": 19430,
+    "sha256": "fc9d3428854e240b3aba34a2bddc1f780c60eb05ba6ace0afee4ad7f2c0d7388",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.h",
+    "bytes": 4495,
+    "sha256": "6db84129bc42e9594fadb548df78798d8f7f761b11f2fb95b06a485cb77a77ca",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingWorldView.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingWorldView.cpp",
+    "bytes": 19996,
+    "sha256": "a291f929566205315c7732e9fda3b15bf27c47e7b5a58c4be927c66fe79d2444",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingWorldView.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingControls20261013/Before/Source/FPSGAME/Building/WoodworkingWorldView.h",
+    "bytes": 2982,
+    "sha256": "9e3b2267246235f04c10a8a492fef81d1b5e8d02fdc2b754e923fd55841032dd",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingControls20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingControls20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "bytes": 31156,
+    "sha256": "4bb3557dbf58bae8ad526a36403fc8d51aa898602e866ee0d94bec6d6dc600b4",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingControls20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingControls20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.h",
+    "bytes": 4114,
+    "sha256": "deb73cad9b15ced2e933cdf33e16a02ff4d15d9a954b053b0209143ecde2e40f",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingControls20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingControls20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "bytes": 21529,
+    "sha256": "101454241b77a3e4e0f8248e13ae45637b0edfa6feddd882a3327d2ac1cc38de",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingControls20261013/Before/Tools/Building/register_woodworking_bench.py",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingControls20261013/Before/Tools/Building/register_woodworking_bench.py",
+    "bytes": 9773,
+    "sha256": "7c41b6ae8543c8320a1bd4cd47ee0fc72eb97758e41df1f8a6e09bb1ae8ed159",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingCraftOnly20261013/Before/Content/ColdSteelData/woodworking.json",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingCraftOnly20261013/Before/Content/ColdSteelData/woodworking.json",
+    "bytes": 4523,
+    "sha256": "8202c63aeb7c1f2f3e8c88d8fab4c3c055232a75ccf73eee3a0ce5be7fa84b35",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "bytes": 21955,
+    "sha256": "b19180c23a9c2ccb4ca964138af2d699cac52db0f20fffcccad5b3de55312328",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.h",
+    "bytes": 4649,
+    "sha256": "2a409e64a291ac643700f390485affc4dba2d1940b8fcb02dcc33cb756fa7f2a",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/Building/WoodworkingWorldView.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/Building/WoodworkingWorldView.cpp",
+    "bytes": 20541,
+    "sha256": "76a626f0dbee6bdc1177f1a44c1ff5869f53afb669b04e3d4dcc528db020fdaa",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/Building/WoodworkingWorldView.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/Building/WoodworkingWorldView.h",
+    "bytes": 3057,
+    "sha256": "d2579d0a94028296b98764ed301a8272c11f802da067e8312b4a62a32244f7de",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/FPSGAMEPlayerController.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/FPSGAMEPlayerController.h",
+    "bytes": 4467,
+    "sha256": "3562665273d3035d1ffe580e94300e9e3abc078e895590f100704afd7e3f6508",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingController.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingController.cpp",
+    "bytes": 3738,
+    "sha256": "ac1f9bd0c4c2685ccdd0fd9b1a11cb58f712262a9b2787d624066ffa4e9031b0",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "bytes": 32770,
+    "sha256": "283fde5379900aba19d98d29ccb0ec57deeec50f25f694140ce3ff0d189dc197",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.h",
+    "bytes": 4178,
+    "sha256": "e8a01b11470255e902b696f72f2783dc2909fd0a1d8fdd7a74bb3d038927f4fd",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingCraftOnly20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "bytes": 32664,
+    "sha256": "b9bf239bde983c28d1f270df0dd71a9afa4ecb2fe274f234379c8cba06b589d1",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingEquipmentRecipes20261013/Before/Content/ColdSteelData/woodworking-recipes.json",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingEquipmentRecipes20261013/Before/Content/ColdSteelData/woodworking-recipes.json",
+    "bytes": 467,
+    "sha256": "3794291c2d108069a9eba07fb0ae93a4d2c3eb932978b77fb8c264ddfab5b847",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingEquipmentRecipes20261013/Before/Content/ColdSteelData/woodworking.json",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingEquipmentRecipes20261013/Before/Content/ColdSteelData/woodworking.json",
+    "bytes": 4637,
+    "sha256": "4cb5f516b31986f012123a5e878da1d2955004be79a9efbd5ebbc2867f5a7549",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingEquipmentRecipes20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingEquipmentRecipes20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "bytes": 34545,
+    "sha256": "bdd17f40fd0e0c42724f00c182868ae26a6f1ef1c50c4aba7906c92f12818b6a",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+    "bytes": 3729,
+    "sha256": "2c2d9ac0b680c72b0bce578ff25a9c8accdf8ce153ec355207f3165c6f5e5275",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/Monsters/PoisonMaggotSpawner.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/Monsters/PoisonMaggotSpawner.cpp",
+    "bytes": 3966,
+    "sha256": "fa167439620c3830ae83aa0b954d2cd3d6f0297c549604e9e367abbb81c3b7f3",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/Monsters/WitchProjectile.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/Monsters/WitchProjectile.cpp",
+    "bytes": 22115,
+    "sha256": "e98681d811909a8b0be31eb92c8cd888a663a79308c2d7e7486e2ad4c97061bd",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/UI/ColdSteelForgingWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/UI/ColdSteelForgingWidget.cpp",
+    "bytes": 32869,
+    "sha256": "7040bdbf9f0e0480800433a017ea09dc713b7184cb49aec894dac5a0ceaf6631",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/UI/ColdSteelForgingWidget.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/UI/ColdSteelForgingWidget.h",
+    "bytes": 5640,
+    "sha256": "17aa1751c1acebe61ac1b383db8f0078044552775710b561558c07f14f21c1e2",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/UI/ColdSteelPreviewScene.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/UI/ColdSteelPreviewScene.cpp",
+    "bytes": 2980,
+    "sha256": "2a47029d71a9e654ff1607a6b42f0c39b7659274d960bf2839e066489f17b671",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "bytes": 31988,
+    "sha256": "e447bb56de2cd8111524d88ad7a9b6b08902757aa70ca7db3f9841599b7682d2",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.h",
+    "bytes": 4089,
+    "sha256": "db9d4c024daba2605436ca73e25ec933fbe9c60008bde345debaa0ba05cf4700",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingForgePanelParity20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "bytes": 34545,
+    "sha256": "b7b0e02785c635b5ea18eff23425f61618040bf10d5a11d00d3569a2bd0565e2",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Content/ColdSteelData/bow-gunsmith.json",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Content/ColdSteelData/bow-gunsmith.json",
+    "bytes": 16293,
+    "sha256": "aa8dce2d616ce4ac13828ee3df64f596b9c441e6ef663198229f0a9b32069233",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Content/ColdSteelData/items.json",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Content/ColdSteelData/items.json",
+    "bytes": 136009,
+    "sha256": "b42aa0224601e223f14af7aecd53f0e098c2f5c040ba104a188c9884a5e518a0",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Content/ColdSteelData/woodworking.json",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Content/ColdSteelData/woodworking.json",
+    "bytes": 2580,
+    "sha256": "a6cbd394278ca45878e24cde17594b7810684135fb027aca989222d2b382af2f",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/CraftingSystem.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/CraftingSystem.cpp",
+    "bytes": 8636,
+    "sha256": "acded3669b6ac107121e3fad132e3efe6677756e2d5c4d3622154ebd5bcc8307",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/CraftingSystem.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/CraftingSystem.h",
+    "bytes": 2604,
+    "sha256": "781b41d5fe63df405f01df41e2f8fa20b915a850a43788962403e1d74380af1a",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingMask.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingMask.cpp",
+    "bytes": 9135,
+    "sha256": "c8cf931eff861eec3447541d4bc257fd1863635f1fd5c9b381718c61f4c6fdde",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingMask.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingMask.h",
+    "bytes": 2749,
+    "sha256": "5b922871035f599e1e385021d48fc945bc611010b00cdc1d4800921f74dea816",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingSaw.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingSaw.h",
+    "bytes": 822,
+    "sha256": "94d9e4511266bfe59b36f6b862e2aa2370a0505053f94c6d90e76b961c15505c",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "bytes": 14887,
+    "sha256": "974f296b4532866d460f36231de2c082b6031cd42f935272eed2a111f16393d1",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingSystem.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingSystem.h",
+    "bytes": 3933,
+    "sha256": "9de92581708e7f33fb54f19c804b0a5bbb4d0bf7bbb056f629547dbf38964d93",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingWorldView.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingWorldView.cpp",
+    "bytes": 14060,
+    "sha256": "c83fed1bdbdd3b67075df6a9c1756e9be935a661c66576da3754066a502a851d",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingWorldView.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Building/WoodworkingWorldView.h",
+    "bytes": 2346,
+    "sha256": "0a9577c5a4d8418839b4e909c987a5bb2b96a4d0243e7b085bb0f16cf4c6c474",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "bytes": 53168,
+    "sha256": "8f39d0db65c98c2eded53da939c6713445efde5a8384de49fc815e7c0964d8d8",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.h",
+    "bytes": 3666,
+    "sha256": "03411f27916aa83db5aa461c545e4da2fd48296f5a1d73dd5fa11eede2596098",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Weapons/Bow/BowGunsmith.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Weapons/Bow/BowGunsmith.cpp",
+    "bytes": 5237,
+    "sha256": "9ce55a47995445a918ef6327047b89ebc57f7fbe8fb29e66eed6fab97c01643b",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+    "bytes": 30488,
+    "sha256": "0bc31ab60f6546da88d1515689d40cf9ee3e07b1d3aa67e0e9d2ef293bc2d0f1",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Weapons/GunsmithSystem.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingOverhaul20261012/Before/Source/FPSGAME/Weapons/GunsmithSystem.h",
+    "bytes": 12989,
+    "sha256": "d48f11e4a6d625ef48d88eccd37f5a78145d1c66346fa3a684ea085a4969de5b",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingQuality20261013/before/Content/ColdSteelData/woodworking-recipes.json",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingQuality20261013/before/Content/ColdSteelData/woodworking-recipes.json",
+    "bytes": 610,
+    "sha256": "64b6e68a42ec1c43fc624c84793c6d97a204b0a94803bab3809a636fa503da66",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingQuality20261013/before/Content/ColdSteelData/woodworking.json",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingQuality20261013/before/Content/ColdSteelData/woodworking.json",
+    "bytes": 3629,
+    "sha256": "855ce81844945259a1b8f98cf250705cc54ab62370331539258b466c03608552",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingQuality20261013/before/Source/FPSGAME/Building/WoodworkingJob.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingQuality20261013/before/Source/FPSGAME/Building/WoodworkingJob.cpp",
+    "bytes": 11703,
+    "sha256": "d101cb9faeb65b63636d577a2df32a25cb4b0c764c9b365a359beaaaf25fcef3",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingQuality20261013/before/Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingQuality20261013/before/Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "bytes": 25891,
+    "sha256": "985bc620d2e057b589f330d8b8b66c3a3e92fe3f1ee7a0d817d2cc0142ccd9fc",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingQuality20261013/before/Source/FPSGAME/Combat/ColdSteelFormulaBonuses.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingQuality20261013/before/Source/FPSGAME/Combat/ColdSteelFormulaBonuses.cpp",
+    "bytes": 14436,
+    "sha256": "bd538165453a253549fd16a324ca1405416aacaf85902663ff7bb58e25c3c1d8",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingQuality20261013/before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingQuality20261013/before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "bytes": 81939,
+    "sha256": "a3ec05088434ed95d5ac45fedbda27f3e79fdd5eb642adeba79571b1406116a6",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingQuality20261013/before/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingQuality20261013/before/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+    "bytes": 12917,
+    "sha256": "2954578ed8a94ded67b54c18eadcd388552340e213e23603b61f47fe3ac46423",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingQuality20261013/before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingQuality20261013/before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+    "bytes": 58098,
+    "sha256": "28cbcbff3bca1ba73e200a4a51a078c1b8c1f9ceefff4c323456fc1ad889fb69",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingQuality20261013/before/Source/FPSGAME/UI/ColdSteelItemTooltipFormula.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingQuality20261013/before/Source/FPSGAME/UI/ColdSteelItemTooltipFormula.cpp",
+    "bytes": 7759,
+    "sha256": "30b53ff1c19864ca06b4a78794b6361e33fac3ae7929b651c02e468929b641ec",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingQuality20261013/before/Source/FPSGAME/UI/ColdSteelWoodworkingManagementWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingQuality20261013/before/Source/FPSGAME/UI/ColdSteelWoodworkingManagementWidget.cpp",
+    "bytes": 33430,
+    "sha256": "a75fd069efb50c3d60dfd521c73ca9e9f8ef62a25684d9548e149dab623c6654",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingQuality20261013/before/Source/FPSGAME/Weapons/WeaponDamagePanel.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingQuality20261013/before/Source/FPSGAME/Weapons/WeaponDamagePanel.cpp",
+    "bytes": 3230,
+    "sha256": "89ad1ff6657f42df2248f6afdd44bfc252ef0f8e58884f2dc951df1ed667452e",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/Building/CraftingSystem.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/Building/CraftingSystem.cpp",
+    "bytes": 9179,
+    "sha256": "8f4d993daffbeee786bedc127ca035891cda90c2ca6a4f3e2e28b7065d388366",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/Building/WoodworkingJob.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/Building/WoodworkingJob.cpp",
+    "bytes": 6715,
+    "sha256": "5789002a41d65dbc2aa44cccb64f4935f062141e42fa361d8240a27246dc0ec6",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/Building/WoodworkingSystem.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/Building/WoodworkingSystem.cpp",
+    "bytes": 25677,
+    "sha256": "d9cdb28931c2963698ee049ce0c71974876710706e902e0d558319258dca3c5b",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/Building/WoodworkingSystem.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/Building/WoodworkingSystem.h",
+    "bytes": 5383,
+    "sha256": "881d80bf529d6f32bd94002a49e457d02ae89dd04ca58562378fa38ee1a9fba8",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/Building/WoodworkingWorldView.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/Building/WoodworkingWorldView.cpp",
+    "bytes": 21344,
+    "sha256": "fc68b1e9190573fd5ff3859af2646c5955322fc9a3fc3b28a38612f24b73a068",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/Building/WoodworkingWorldView.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/Building/WoodworkingWorldView.h",
+    "bytes": 3114,
+    "sha256": "8ef80d646e85466d4b10d6ef27b15d43c520fd9ebf47ef4a2b35a3703373c693",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/Multiplayer/ColdSteelCampfireRequests.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/Multiplayer/ColdSteelCampfireRequests.cpp",
+    "bytes": 6441,
+    "sha256": "433e527ccfbeb72c8dd0c28884b24511b6a6a168607c26c547f85059e1d5da7d",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/Multiplayer/ColdSteelStationNetwork.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/Multiplayer/ColdSteelStationNetwork.cpp",
+    "bytes": 12506,
+    "sha256": "9b44078186bc3aa8073877f63643357afc59ce8b2989daee72f85125be078420",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/UI/ColdSteelHUDWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/UI/ColdSteelHUDWidget.cpp",
+    "bytes": 90007,
+    "sha256": "a3c121eb2a5b56c2858deb744e377c46bf0c055636fb582f95202cce78678d0c",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/UI/ColdSteelHUDWidget.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/UI/ColdSteelHUDWidget.h",
+    "bytes": 33369,
+    "sha256": "0e560eec99a26406c761e6e22204d06d9a8a91bb366ec33bf77381052823a5ff",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/UI/ColdSteelInventoryTheme.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/UI/ColdSteelInventoryTheme.cpp",
+    "bytes": 7635,
+    "sha256": "97a868403b87be033ac3a7cd8a2a0bb8faec463ca3f73abc9080d07b1ac8207a",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/UI/ColdSteelStatusModel.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/UI/ColdSteelStatusModel.h",
+    "bytes": 38852,
+    "sha256": "3a46ea8dd007f56f02e10772b1227ea5e99cdcbbcee5efda62d3842c1319a775",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/UI/ColdSteelWoodworkingController.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/UI/ColdSteelWoodworkingController.cpp",
+    "bytes": 4275,
+    "sha256": "38f684dffd8c3235bcfb3e2d8cbc84a709dcb4e7b98aae792d4e3b821843654c",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/UI/ColdSteelWoodworkingManagementWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/UI/ColdSteelWoodworkingManagementWidget.cpp",
+    "bytes": 32608,
+    "sha256": "1f227cadee714884661611de88f3ec3ee3835d8dfd6bfb63ea030c61c29db209",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/UI/ColdSteelWoodworkingManagementWidget.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/UI/ColdSteelWoodworkingManagementWidget.h",
+    "bytes": 5528,
+    "sha256": "e78e0864857c2f4b0015f086a3e3fe0362b845349a3e84e4254a35a043fbf3c1",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/UI/ColdSteelWoodworkingWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/UI/ColdSteelWoodworkingWidget.cpp",
+    "bytes": 32811,
+    "sha256": "7b01c991c28865ea02b6ce44b71b7f67a292ead6a62fd4a2b961530742bf53ee",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/UI/ColdSteelWoodworkingWidget.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/UI/ColdSteelWoodworkingWidget.h",
+    "bytes": 4275,
+    "sha256": "badcdc6221c1376e84021832b4e9392f040a11348fd585df212d4525771ecd12",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingRepair20261013/before/UI/WoodworkingPanel.inl",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingRepair20261013/before/UI/WoodworkingPanel.inl",
+    "bytes": 13972,
+    "sha256": "b72c7dcbf814a9da113964f6d58e888b325a246332e7a411ccc0f7cefc354771",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingSawHighlight20261013/before/Config/DefaultGame.ini",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingSawHighlight20261013/before/Config/DefaultGame.ini",
+    "bytes": 22389,
+    "sha256": "cab9feedf8acbbe01d6ad47b2d718098ba85584746c178558dee3f0f0be38819",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingSawHighlight20261013/before/Content/Building/WoodworkingBenchV6Controls20261013/Materials/M_SawEdgePaint.uasset",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingSawHighlight20261013/before/Content/Building/WoodworkingBenchV6Controls20261013/Materials/M_SawEdgePaint.uasset",
+    "bytes": 14011,
+    "sha256": "75253cb1cece138320d16c3d071373699f893b6d7f921a93988bd0195589f54e",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingSawHighlight20261013/before/Content/Building/WoodworkingBenchV6Controls20261013/Materials/MI_SawEdgeMerged.uasset",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingSawHighlight20261013/before/Content/Building/WoodworkingBenchV6Controls20261013/Materials/MI_SawEdgeMerged.uasset",
+    "bytes": 3385,
+    "sha256": "d146cc5d32d49156b2be37cbb34425685d704d9bae18b5fad72774b635c7c42c",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingSawHighlight20261013/before/Source/FPSGAME/Building/WoodworkingSawVisualComponent.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingSawHighlight20261013/before/Source/FPSGAME/Building/WoodworkingSawVisualComponent.cpp",
+    "bytes": 4360,
+    "sha256": "9567963031388cbd17a1012545286ab6e1f867ae3c607f54d8d957028e6ec417",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingSawHighlight20261013/before/Source/FPSGAME/Building/WoodworkingWorldView.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingSawHighlight20261013/before/Source/FPSGAME/Building/WoodworkingWorldView.cpp",
+    "bytes": 21369,
+    "sha256": "12d8edd8dcb675d62b16c08b4551ecb4d19857d6c970a8f290518165c1857d37",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingSawHighlight20261013/before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingSawHighlight20261013/before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "bytes": 35953,
+    "sha256": "1c1b7abb9c592e9ce995e0a197cf916be7b416160fdbcab487a3afc6d079c65f",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingSawHighlight20261013/before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingSawHighlight20261013/before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "bytes": 14410,
+    "sha256": "467fffeb4895ae779bb349d47a11420fb762ad749f3bfb7f37a5a14509d9a2d3",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingSawHighlight20261013/before/SourceAssets/WoodworkingBenchV6Controls20261013/paint_material.py",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingSawHighlight20261013/before/SourceAssets/WoodworkingBenchV6Controls20261013/paint_material.py",
+    "bytes": 3622,
+    "sha256": "ee899f2a78ba3cc91842b040ae268a265dd6fc81d9154e69b763feb4dc10928e",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingSelectionCards20261013/Before/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingSelectionCards20261013/Before/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+    "bytes": 1769,
+    "sha256": "5cadacb6d91d570486f8dc94612bb4db5bf568a1e36888425389189e85d1bf86",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingSelectionCards20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingSelectionCards20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "bytes": 22443,
+    "sha256": "45ea14df4e9cf40acb5003122468bd4184493442d8bd54fed2a0c9aa1186e727",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingSelectionCrash20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingSelectionCrash20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "bytes": 32624,
+    "sha256": "08778b77a1ba271ab96a6da51aade6e9d74a0d12efbc6d4ef89f34f4781a4de5",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Content/ColdSteelData/woodworking-recipes.json",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Content/ColdSteelData/woodworking-recipes.json",
+    "bytes": 442,
+    "sha256": "141e8253bd7dd6fecaf3aff3b847db2e176893fe50c4acd7dac45dde9284cdc1",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Content/ColdSteelData/woodworking.json",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Content/ColdSteelData/woodworking.json",
+    "bytes": 4619,
+    "sha256": "368b4f33d28ef083c310dd2004d2ce02674864340d9415781af01ce0576f90a3",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "bytes": 24697,
+    "sha256": "ee4fe9870404c34e71f77d334705008e1188ca74c205789fa6f31eebdcdf9ec0",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Building/WoodworkingSystem.h",
+    "bytes": 4823,
+    "sha256": "fe6d7765c0a4d4c15cf620f595de21b34c12958bac00915b27c7ac4b414c08ee",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+    "bytes": 17987,
+    "sha256": "95163be0e6cb382b8578fe3547e3c0b4cb3ebad615c08cc33d4c19e8336b94c1",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+    "bytes": 3345,
+    "sha256": "1b9f8110a4a1c1f5070fcd26041823d182e63cf37ccdaa4ad4643cf2025e3a47",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "bytes": 73244,
+    "sha256": "dd4066627fdc026d60b66bb5cf943a9ddc26eb69f10f77ace38f59cb3077bf4d",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+    "bytes": 10963,
+    "sha256": "e186197ff9342abef98f00868d4af3f3242fa8a619df6d3df2b31469bb8c7ddd",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h",
+    "bytes": 2410,
+    "sha256": "61c360ea82f3278bd7f7867db6295717d35c11fb16ab9c2dc395a4367325839d",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+    "bytes": 89714,
+    "sha256": "c9413e3bda5895cec08be5d9b6f8535a1b7aa47920bb44f6527130a17e409087",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "bytes": 33169,
+    "sha256": "bc74036abf388e1ed8723c68091d6be38c379bbb9504197dd16b1cfbd9bdbbb7",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+    "bytes": 35526,
+    "sha256": "cd4c0267039f9bb14a3dc249a5f98ae38fa1bb7aa826f38fc5b8682d07e64e79",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp",
+    "bytes": 7611,
+    "sha256": "18b9fe5c96c3cda0d49bbdeb8be80300c3305d8bbc3f79623c7872bf71ff7a97",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+    "bytes": 19318,
+    "sha256": "1d8e051ed6058ad6ab6943ed6518f996cdc9143160305fbe0f60ae4e993ebcfd",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+    "bytes": 2930,
+    "sha256": "4d79eac67802696e7b2139cb0836702b4bc19aa0c9ea40d4717222cab2b50d1c",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "bytes": 38402,
+    "sha256": "73d8e7a8b7f5295d40694c91e0ba30ce5b4bab80674d05f30bd544fd390de97f",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingController.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingController.cpp",
+    "bytes": 3645,
+    "sha256": "80e8a6d51ec92cb9f0e0ff8aee0c3e33e96adb8c05e204c4a7e00b5a4505ac94",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp",
+    "bytes": 31334,
+    "sha256": "0f34f98a175f5a3a71e50e300f03b945627511227c37872bb047329180f2cf4e",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.h",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/ColdSteelWoodworkingWidget.h",
+    "bytes": 4010,
+    "sha256": "3d8dfe70cb159826b497c7041999a77e28b5362ca02a59d4978640967f4bd4ba",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  },
+  {
+    "original": "Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "destination": "trash/Woodworking20261013/Saved/WoodworkingTwoStage20261013/Before/Source/FPSGAME/UI/WoodworkingPanel.inl",
+    "bytes": 30149,
+    "sha256": "fee7f0138bcec7ff2711f83a2124f635ca2e8263750d49cdee6e766014bc4922",
+    "reason": "Superseded before-change snapshot; current implementation and build receipts retained.",
+    "retained_replacement": "Source/FPSGAME/Building/Woodworking*; Source/FPSGAME/UI/*Woodworking*; Saved/Woodworking*/delivery and build receipts",
+    "state": "archived"
+  }
+]

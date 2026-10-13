@@ -49,6 +49,7 @@ void UColdSteelCraftingSystem::Initialize(FSubsystemCollectionBase& Collection)
     Super::Initialize(Collection);
     LoadCatalog(TEXT("crafting-recipes.json"),Recipes);
     LoadCatalog(TEXT("ammo-crafting-recipes.json"),AmmoRecipes);
+    LoadCatalog(TEXT("woodworking-recipes.json"),WoodworkingRecipes);
 }
 void UColdSteelCraftingSystem::LoadCatalog(const FString& File,TArray<FColdSteelCraftingRecipe>& Target)
 {
@@ -103,6 +104,7 @@ const FColdSteelCraftingRecipe* UColdSteelCraftingSystem::Find(FName Id) const
     if(Id.IsNone())return nullptr;
     for(const FColdSteelCraftingRecipe& R:Recipes)if(R.Id==Id)return &R;
     for(const FColdSteelCraftingRecipe& R:AmmoRecipes)if(R.Id==Id)return &R;
+    for(const FColdSteelCraftingRecipe& R:WoodworkingRecipes)if(R.Id==Id)return &R;
     return nullptr;
 }
 
@@ -127,6 +129,8 @@ bool UColdSteelCraftingSystem::Craft(FName Recipe,int64 Batch,FString& Reason)
 
 bool UColdSteelCraftingSystem::Craft(const FColdSteelCraftingRecipe& R,int64 Batch,FString& Reason)
 {
+    if(WoodworkingRecipes.ContainsByPredicate([&](const auto& Entry){return Entry.Id==R.Id;}))
+    {Reason=TEXT("该装备需要在木工工作台完成加工后领取");return false;}
     auto* M=Model();
     if(!M){Reason=TEXT("角色数据未就绪");return false;}
     M->SyncRuntime();
@@ -145,6 +149,8 @@ bool UColdSteelCraftingSystem::CanCraft(const FColdSteelCraftingRecipe& R,int64 
 bool UColdSteelCraftingSystem::PrepareCraft(const FColdSteelCraftingRecipe& R,int64 Batch,FColdSteelProfile& Proposed,FString& Reason) const
 {
     Reason.Reset();
+    if(WoodworkingRecipes.ContainsByPredicate([&](const auto& Entry){return Entry.Id==R.Id;}))
+    {Reason=TEXT("该装备需要在木工工作台完成加工后领取");return false;}
     auto* M=Model();
     if(!M){Reason=TEXT("角色数据未就绪");return false;}
     if(R.Id.IsNone()||R.Inputs.Num()==0||R.Output.IsEmpty()){Reason=TEXT("该配方不存在");return false;}

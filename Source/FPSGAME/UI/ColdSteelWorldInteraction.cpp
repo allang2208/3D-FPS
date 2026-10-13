@@ -212,6 +212,12 @@ FString ColdSteelWorldInteraction::SmeltingFurnacePrompt(const AActor* Target)
     return TEXT("冶炼高炉 · 打开冶炼面板");
 }
 
+bool ColdSteelWorldInteraction::IsWoodworkingBench(const AActor* Target)
+{
+    const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
+    return Piece&&Piece->PrefabId()==VoxelWoodworkingBenchId&&!Piece->IsFalling();
+}
+
 bool ColdSteelWorldInteraction::IsWorkbench(const AActor* Target)
 {
     // 工作台与高炉同一口径：普通静态构件（调色板 `workbench_table`，无逻辑件），
@@ -327,6 +333,7 @@ ColdSteelWorldInteraction::FInteractionHint ColdSteelWorldInteraction::ResolveIn
     if(const auto* Arrow=Cast<ABowArrow>(Target)){Hint.Text=Arrow->RecoveryPrompt();Hint.bAction=Arrow->CanRecover();return Hint;}
     if(IsForgingStation(Target)){Hint.Text=TEXT("铸造台 · 锻造 / 冶炼领锭");return Hint;}
     if(IsSmeltingFurnace(Target)){Hint.Text=SmeltingFurnacePrompt(Target);return Hint;}
+    if(IsWoodworkingBench(Target)){Hint.Text=TEXT("木工工作台 · 打开加工界面");return Hint;}
     if(IsWorkbench(Target)){Hint.Text=WorkbenchPrompt(Target);return Hint;}
     if(UColdSteelDoorInteraction::IsDoor(Target))
     {

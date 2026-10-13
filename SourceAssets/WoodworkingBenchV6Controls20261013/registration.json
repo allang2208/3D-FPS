@@ -1,0 +1,11 @@
+{
+  "revision": "V6Controls20261013",
+  "ready_for_registration": true,
+  "mesh": "/Game/Building/WoodworkingBenchV6Controls20261013/SM_WoodworkingBench",
+  "source_manifest": "layout_manifest.json",
+  "menu_category": "other",
+  "material_group": "",
+  "blade_mesh": "/Game/Building/WoodworkingBenchV6Controls20261013/SM_WoodworkingSawBlade",
+  "body_mesh": "/Game/Building/WoodworkingBenchV6Controls20261013/SM_WoodworkingBenchBody",
+  "note": "Overhead hood and support removed. Red outer blade paint. V5 prop layout and original placement preserved. No runtime acceptance."
+}

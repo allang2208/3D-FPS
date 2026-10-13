@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "_comment": "木工台只制作现有猎手长弓和学徒长杖。管理面板投入材料后进入实景加工，调整时暂停计时；结束返回管理面板，合格装备可领取，未领取工件可逐材料折半返还。旧图样 ID 与几何保留以兼容已付工件。评分提供 -25% 至 +25% 成品工艺修正，50 分不变；弓只修正物理伤害，法杖只修正本件魔法攻击。",
+  "settings": {
+    "maskWidth": 512,
+    "maskHeight": 256,
+    "timeSeconds": 90,
+    "undoCount": 3,
+    "edgeBandPixels": 4,
+    "requiredClearance": 0.8,
+    "maximumDamage": 0.2,
+    "autoPeel": true,
+    "checkConnections": true,
+    "integrityWeight": 0.5,
+    "edgeWeight": 0.25,
+    "clearanceWeight": 0.2,
+    "speedWeight": 0.05
+  },
+  "patterns": [
+    {
+      "id": "bow_limb",
+      "name": "弓 · 猎手长弓",
+      "craftRecipe": "woodwork_bow",
+      "outline": [
+        [
+          0.07,
+          0.239519499
+        ],
+        [
+          0.93,
+          0.39
+        ],
+        [
+          0.9525,
+          0.435
+        ],
+        [
+          0.884641016,
+          0.570717968
+        ],
+        [
+          0.79,
+          0.68
+        ],
+        [
+          0.678038476,
+          0.74
+        ],
+        [
+          0.539899097,
+          0.74
+        ],
+        [
+          0.43,
+          0.66
+        ],
+        [
+          0.07,
+          0.324258486
+        ]
+      ],
+      "connections": [
+        [
+          0.14,
+          0.3
+        ],
+        [
+          0.48,
+          0.62
+        ],
+        [
+          0.88,
+          0.51
+        ]
+      ],
+      "description": "制作一把猎手长弓。加工达标后返回工作面板，领取完整装备。",
+      "instructions": "01 自由调整并对准长边，沿目标线外侧保留少量余量，按空格进入切割。\n02 每切完一边按空格切回调整，自由转向下一条边，再进入切割。\n03 修去端部余料，保持两端与中段相连。",
+      "difficulty": "进阶 · 多段直线",
+      "timeSeconds": 150,
+      "requiredClearance": 0.8,
+      "maximumDamage": 0.2
+    },
+    {
+      "id": "staff_core",
+      "name": "法杖 · 学徒长杖",
+      "craftRecipe": "woodwork_staff",
+      "outline": [
+        [
+          0.07,
+          0.396980955
+        ],
+        [
+          0.91,
+          0.25
+        ],
+        [
+          0.96,
+          0.333909963
+        ],
+        [
+          0.96,
+          0.48
+        ],
+        [
+          0.911322524,
+          0.619037281
+        ],
+        [
+          0.835817217,
+          0.67400065
+        ],
+        [
+          0.07,
+          0.54
+        ]
+      ],
+      "connections": [
+        [
+          0.12,
+          0.5
+        ],
+        [
+          0.52,
+          0.51
+        ],
+        [
+          0.88,
+          0.46
+        ]
+      ],
+      "description": "制作一把学徒长杖。保留细长主体与端部连接，加工达标后领取完整装备。",
+      "instructions": "01 对准虚线后按空格进入切割，先切两条长边，留出轮廓余量。\n02 按空格切回调整，自由移动和转向，再逐段切除端部废料。\n03 修去残余废料，完成后返回工作面板领取法杖。",
+      "difficulty": "熟练 · 细长工件",
+      "timeSeconds": 120,
+      "requiredClearance": 0.8,
+      "maximumDamage": 0.2
+    }
+  ],
+  "saw": {
+    "kerfPixels": 1.8181818181818183,
+    "rotationStepDegrees": 1,
+    "maximumFeedStepPixels": 8,
+    "centimetersPerPixel": 0.22
+  }
+}

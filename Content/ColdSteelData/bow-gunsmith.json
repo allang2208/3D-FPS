@@ -17,6 +17,36 @@
       },
       "options": [
         {
+          "id": "woodcrafted_heavy",
+          "name": "手制磐木弓体",
+          "description": "由两件木制弓臂成对装配的磐木弓体。",
+          "appearance": "深栗木宽厚弓臂，饱满截面和自然嵌合的深色背衬。",
+          "visual": {
+            "bow_part_riser_mesh": "/Game/Weapons/DarkBow20260925/ElasticV15/SK_Bow_Flex_Heavy.SK_Bow_Flex_Heavy",
+            "bow_part_riser_material": "",
+            "bow_part_riser_scale": 1.0,
+            "bow_flex_distribution": 1.45,
+            "bow_release_return_seconds": 0.04,
+            "bow_release_ring_seconds": 0.2,
+            "bow_feedback_scale": 1.25
+          },
+          "stats": {
+            "damage_mult": 1.25,
+            "draw_mult": 1.25,
+            "speed_mult": 1.1,
+            "stamina_mult": 1.3,
+            "hold_mult": 0.8,
+            "sway_mult": 1.15,
+            "spread_mult": 1.05,
+            "ads_mult": 1.15
+          },
+          "required_item": "woodworked_bow_limb",
+          "required_count": 2,
+          "special_effects": [
+            "木工装配｜应用时使用 2 件木制弓臂，换下时返还至背包。沿用磐木弓体的外观与属性，工艺评分不另加伤害。"
+          ]
+        },
+        {
           "id": "strong_draw",
           "name": "强拉力弓胎",
           "description": "以更长拉弓时间和更高耐力消耗，换取满弓伤害与子弹速度。",

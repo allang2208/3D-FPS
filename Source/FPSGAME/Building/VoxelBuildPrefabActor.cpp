@@ -1,5 +1,6 @@
 #include "VoxelBuildPrefabActor.h"
 #include "CastingToolRackComponent.h"
+#include "WoodworkingSawVisualComponent.h"
 #include "Engine/World.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "Components/StaticMeshComponent.h"
@@ -38,6 +39,7 @@ void AVoxelBuildPrefabActor::Configure(FName InId,FIntVector InCell,int32 InYaw,
     Id=InId;Cell=InCell;QuarterTurns=InYaw;
     if(!MeshComponent)return;
     if(auto* PreviousRack=FindComponentByClass<UCastingToolRackComponent>())PreviousRack->DestroyComponent();
+    if(auto* PreviousSaw=FindComponentByClass<UWoodworkingSawVisualComponent>())PreviousSaw->DestroyComponent();
     MeshComponent->SetStaticMesh(Mesh);
     if(Surface)MeshComponent->SetMaterial(0,Surface);
     if(Contact)MeshComponent->SetPhysMaterialOverride(Contact);
@@ -46,6 +48,11 @@ void AVoxelBuildPrefabActor::Configure(FName InId,FIntVector InCell,int32 InYaw,
     {
         auto* Rack=NewObject<UCastingToolRackComponent>(this,NAME_None,RF_Transient);
         AddInstanceComponent(Rack);Rack->RegisterComponent();Rack->Configure(MeshComponent);
+    }
+    if(Id==VoxelWoodworkingBenchId&&GetWorld()->IsGameWorld()&&MeshComponent->DoesSocketExist(TEXT("WoodworkingSawPivot")))
+    {
+        auto* Saw=NewObject<UWoodworkingSawVisualComponent>(this,NAME_None,RF_Transient);
+        AddInstanceComponent(Saw);Saw->RegisterComponent();Saw->Configure(MeshComponent);
     }
 }
 

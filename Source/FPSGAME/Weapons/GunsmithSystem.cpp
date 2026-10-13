@@ -388,6 +388,42 @@ bool UGunsmithSystem::CanApply(FString& Reason)const
             && (Pawn->IsReloading() || Pawn->GetWeaponState()==EAKMWeaponState::Equipping))
         {Reason=TEXT("请等待换弹或装备动作结束");return false;}
     }
+    if(IsBow(DefinitionId))
+    {
+        bool MaterialChange=false;
+        for(const auto& Slot:Slots(DefinitionId))if(Part(Original,Slot)!=Part(Preview,Slot))
+        {
+            const auto* Old=Option(DefinitionId,Slot,Part(Original,Slot));const auto* New=Option(DefinitionId,Slot,Part(Preview,Slot));
+            MaterialChange|=(Old&&!Old->RequiredItem.IsEmpty())||(New&&!New->RequiredItem.IsEmpty());
+        }
+        if(MaterialChange){auto State=P->Snapshot();if(!PreparePartMaterials(State,Reason))return false;}
+    }
+    return true;
+}
+bool UGunsmithSystem::PreparePartMaterials(FColdSteelProfile& State,FString& Reason) const
+{
+    auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();TMap<FString,int64> Delta;
+    for(const auto& Slot:Slots(DefinitionId))if(Part(Original,Slot)!=Part(Preview,Slot))
+    {
+        const auto* Old=Option(DefinitionId,Slot,Part(Original,Slot));const auto* New=Option(DefinitionId,Slot,Part(Preview,Slot));
+        if(Old&&!Old->RequiredItem.IsEmpty())Delta.FindOrAdd(Old->RequiredItem)+=Old->RequiredCount;
+        if(New&&!New->RequiredItem.IsEmpty())Delta.FindOrAdd(New->RequiredItem)-=New->RequiredCount;
+    }
+    for(const auto& Change:Delta)if(Change.Value<0)
+    {
+        int64 Left=-Change.Value;
+        for(int32 Place:{0,5,4})for(int32 Index=State.Items.Num()-1;Index>=0&&Left>0;--Index)
+        {
+            auto& Item=State.Items[Index];if(Item.Place!=Place||Item.Definition!=Change.Key||(Place==4&&!Item.Container.IsEmpty()))continue;
+            const int64 Count=FMath::Min(Left,Item.Count);Item.Count-=Count;Left-=Count;if(Item.Count<=0)State.Items.RemoveAt(Index);
+        }
+        if(Left>0){Reason=FString::Printf(TEXT("还需 %lld 件%s（背包 + 主仓库）"),Left,*ColdSteelInventory::Text(Profile->CreateItem(Change.Key),TEXT("name")));return false;}
+    }
+    for(const auto& Change:Delta)if(Change.Value>0)
+    {
+        const auto Returned=Profile->CreateItem(Change.Key,Change.Value);
+        if(Returned.Data.IsEmpty()||!ColdSteelInventory::Insert(State.Items,Returned)){Reason=TEXT("背包放不下换回的弓臂，请先整理背包");return false;}
+    }
     return true;
 }
 FString UGunsmithSystem::ApplyFeedback()const
@@ -400,6 +436,7 @@ bool UGunsmithSystem::Apply()
 {
     if(!CanApply(Status))return false;
     auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();Profile->SyncRuntime();auto State=Profile->Snapshot();
+    if(IsBow(DefinitionId)&&!PreparePartMaterials(State,Status))return false;
     const int32 Index=State.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==InstanceId;});if(Index<0)return false;
     auto& I=State.Items[Index];TSharedPtr<FJsonObject> Data;if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data))return false;
     auto Parts=MakeShared<FJsonObject>();for(const auto& P:Preview){if(P.Value==TEXT("true"))Parts->SetBoolField(P.Key,true);else Parts->SetStringField(P.Key,P.Value);}

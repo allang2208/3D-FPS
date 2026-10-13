@@ -1,5 +1,6 @@
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
+#include "../Building/WoodworkingQuality.h"
 #include "../UI/StatusEffectsComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "Engine/GameInstance.h"
@@ -120,7 +121,8 @@ double UColdSteelStatusModel::ItemMagicAttack(const FColdSteelItem& Item)const
     if(Type!=TEXT("staff")&&Type!=TEXT("spellbook"))return 0;
     const auto F=Obj(Read(&Item),TEXT("matkFormula"));if(!F)return 0;
     const double L=ColdSteelInventory::Number(Item,TEXT("enhanceLevel"));
-    return CoreCombatFormula::Round(Num(F,TEXT("base"))+L*Num(F,TEXT("enhanceBase"))+Attribute(TEXT("intt"))*(Num(F,TEXT("intMul"))+L*Num(F,TEXT("enhanceIntMul")))+Attribute(TEXT("wis"))*(Num(F,TEXT("wisMul"))+L*Num(F,TEXT("enhanceWisMul"))));
+    const double Base=CoreCombatFormula::Round(Num(F,TEXT("base"))+L*Num(F,TEXT("enhanceBase"))+Attribute(TEXT("intt"))*(Num(F,TEXT("intMul"))+L*Num(F,TEXT("enhanceIntMul")))+Attribute(TEXT("wis"))*(Num(F,TEXT("wisMul"))+L*Num(F,TEXT("enhanceWisMul"))));
+    return CoreCombatFormula::Round(Base*ColdSteelWoodQuality::Multiplier(Item,ColdSteelWoodQuality::EChannel::MagicAttack));
 }
 const FColdSteelItem* UColdSteelStatusModel::ActiveSpellbook()const
 {

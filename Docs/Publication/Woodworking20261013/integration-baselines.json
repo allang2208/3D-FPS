@@ -1,0 +1,61 @@
+{
+  "baseline_kind": "synthetic current shared framework with woodworking additions removed; NOT public HEAD",
+  "hash_normalization": "UTF-8 without BOM, LF",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "baseline_sha256_lf_utf8": "015e84c2e96ff30587026f10ae7f1a4097db7b47332ee1a7ec77564396acb123",
+      "current_sha256_lf_utf8": "ad78147a4ba808d5177d72ed1d3967696c8b84217acb2fcd001828c9fdea5be5"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "baseline_sha256_lf_utf8": "eedfbbb19be4f30e56f8cff40478e5e614aeab1346cc719c690c66749511bc89",
+      "current_sha256_lf_utf8": "93f37cd3ba327bf38fdf9513187ed393adf3e3653f498990a271063166f80bdb"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+      "baseline_sha256_lf_utf8": "aa09a93a3728bb44eec48401ead3114ab329503b92dba9bbe9b99a2a7d8496e4",
+      "current_sha256_lf_utf8": "32a7a1a16825133f23b1f18b78ca3de14df25dc7f30ae95673186393a125c977"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h",
+      "baseline_sha256_lf_utf8": "9c50ea716f293819ea08caae61ad945d3ecc0a3e918adc1feeb00819c4c7dae9",
+      "current_sha256_lf_utf8": "e388f2c7aa1706b9209ca68eea8c1b28a7210afc1c0640cc41132829a4ebe9d9"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+      "baseline_sha256_lf_utf8": "a1a338b305e2f7d681685c3702e720c47a1da5f923532895851b57c631b6823c",
+      "current_sha256_lf_utf8": "3404fc2722e9be9607e45f9df60d870c23a45443451e9ef2322c1b1600f7a815"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "baseline_sha256_lf_utf8": "7ca453a35f46c1ddbc7cd95490e7ddd628fba0a3a865b65fad96163c15ebcfce",
+      "current_sha256_lf_utf8": "baaf27abd91c6b328b57c0cab320d45631da23e43e63bdf8fc7b83b145b71a61"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+      "baseline_sha256_lf_utf8": "33daf532b5c9b407134427cb0898a494e810f00c6fa508fefd094b132a3b0f67",
+      "current_sha256_lf_utf8": "7a50e233a3b009575d43dfb869be71285885ca10486b07b4ed24ed2ddb263764"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "baseline_sha256_lf_utf8": "867f680bced59755b27c0a4a02fbd7be2536571e9310022fb4342a5c54350641",
+      "current_sha256_lf_utf8": "139d57789bf8e2ebafde35e4bdc785969252c2ca2b84c051474237e174a004b2"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp",
+      "baseline_sha256_lf_utf8": "3d414056d0bfe66986b1e801024120233f900452a2798bcb5faf035f8892f7d0",
+      "current_sha256_lf_utf8": "b5c886f54ca05a239eb7c256b4c135264fbdb5a25e1ad6e63809d97862f4dc22"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+      "baseline_sha256_lf_utf8": "098e6ac5fe293ea1222100e46bd462501691021d4218af610a5ef9332650c05f",
+      "current_sha256_lf_utf8": "60eacff2ef41acc9c53087643800c55a18c701aa3fa9f2ad8d5c6b722552154a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "baseline_sha256_lf_utf8": "b3f4919e86b5ace39a5ca3e3b59bfe8d2c66f609daf950aa86df71be53af2f82",
+      "current_sha256_lf_utf8": "22fcf208f2d268dae15205e1a7ce8f265c9d3ff8fdecb56ac2c888dafca16bf7"
+    }
+  ]
+}

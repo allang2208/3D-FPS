@@ -124,6 +124,29 @@ struct FColdSteelForgeJob
     UPROPERTY() TMap<FString,int64> PaidMaterials;
 };
 
+/** Paid woodworking result, kept outside inventory until claimed or recycled. */
+USTRUCT()
+struct FColdSteelWoodworkingJob
+{
+    GENERATED_BODY()
+    UPROPERTY() int32 Version=1;
+    UPROPERTY() FString Id;
+    UPROPERTY() FName Pattern;
+    UPROPERTY() FName Recipe;
+    UPROPERTY() FString Name;
+    UPROPERTY() FColdSteelItem Item;
+    UPROPERTY() TMap<FString,int64> PaidMaterials;
+    UPROPERTY() bool bFinished=false;
+    UPROPERTY() bool bPassed=false;
+    UPROPERTY() double Quality=0;
+    UPROPERTY() double Elapsed=0;
+    UPROPERTY() double Clearance=0;
+    UPROPERTY() double Integrity=1;
+    UPROPERTY() double EdgeFit=0;
+    UPROPERTY() FString Result;
+    UPROPERTY() TArray<uint8> Mask;
+};
+
 /** One paid firearm workpiece. Tagged fields keep older profiles compatible. */
 USTRUCT()
 struct FColdSteelGunAssemblyJob
@@ -230,6 +253,7 @@ struct FColdSteelProfile
     UPROPERTY() TArray<FColdSteelSmeltIntent> SmeltIntents;
     UPROPERTY() FColdSteelForgeJob ForgeJob;
     UPROPERTY() FColdSteelGunAssemblyJob GunAssemblyJob;
+    UPROPERTY() FColdSteelWoodworkingJob WoodworkingJob;
     // Skill schema v17: the preparation reserves cooldown, release starts its clock.
     UPROPERTY() float IceWallCooldown = 0;
     UPROPERTY() float IceWallCooldownDuration = 0;

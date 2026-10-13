@@ -31,6 +31,7 @@ namespace ColdSteelWorldInteraction
     /** Placed crafting / gun workbench (not a falling piece); drives the
      *  workbench prompt and the E action that opens the backpack plus the crafting panel
      *  (Docs/UI/workbench-panel-plan-20260924.md — shell mirrors the smelting panel). */
+    bool IsWoodworkingBench(const AActor* Target);
     bool IsWorkbench(const AActor* Target);
     FString WorkbenchPrompt(const AActor* Target);
     /** 2026-09-24 用户统一口径：准星下小浮窗（毛玻璃灰黑＋白字）承载一切 E 交互提示，

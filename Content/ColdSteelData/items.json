@@ -3230,6 +3230,17 @@
     "type": "祭品",
     "ue_icon": "Icons/wheat.png"
   },
+  "woodworked_bow_limb": {
+    "category": "material",
+    "desc": "木工台切制的弓臂毛坯。两件可在弓改造台的弓体栏目中装配手制磐木弓体；换下该弓体时返还弓臂。",
+    "grid_w": 1,
+    "grid_h": 3,
+    "name": "木制弓臂",
+    "rarity": "common",
+    "stack_max": 20,
+    "type": "制作部件",
+    "ue_icon": "Icons/woodworked_bow_limb.png"
+  },
   "wood": {
     "category": "material",
     "desc": "砍伐树木后收集的木材。用于搭建木质体素，每块消耗 1 份。",

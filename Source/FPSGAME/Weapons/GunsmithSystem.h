@@ -6,6 +6,7 @@
 #include "GunsmithSystem.generated.h"
 
 struct FColdSteelItem;
+struct FColdSteelProfile;
 using FGunsmithParts = TMap<FString,FString>;
 struct FMeleeModifiers
 {
@@ -108,6 +109,8 @@ struct FGunsmithOption
     FString Id, Name, Description;
     /** 数值改造先行时如实说明当前外观归属；空串表示沿用本槽 factory 外形。 */
     FString Appearance;
+    FString RequiredItem;
+    int32 RequiredCount=0;
     TArray<TPair<FString,int32>> Effects;
     // Conditional mechanics are independent of the permanent numeric cards.
     TArray<FString> SpecialEffects;
@@ -174,6 +177,7 @@ public:
     bool Select(const FString& Slot,const FString& OptionId);
     bool Apply();
     bool CanApply(FString& Reason) const;
+    bool PreparePartMaterials(FColdSteelProfile& State,FString& Reason) const;
     FString ApplyFeedback() const;
     void Undo();
     void Close();

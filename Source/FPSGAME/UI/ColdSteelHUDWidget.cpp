@@ -219,7 +219,7 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     {
         // 整体骑乘收回时抽屉行程加长面板宽（多出的行程本就在屏幕外不可见），
         // 让面板与抽屉共用同一条位移曲线＝一个刚体向右缩回（2026-09-24 用户定稿口径）。
-        const float DrawerWidth = FMath::Max(1.0f, (InventoryWidth+ColdSteelUI::NavigationDrawerInset+(bSmeltRiding?SmeltSlidePx:0.f)+(bWorkbenchRiding?WorkbenchSlidePx:0.f)+(bForgeRiding?ForgeSlidePx:0.f)) / ColdSteelUI::PixelScale(this));
+        const float DrawerWidth = FMath::Max(1.0f, (InventoryWidth+ColdSteelUI::NavigationDrawerInset+(bSmeltRiding?SmeltSlidePx:0.f)+(bWorkbenchRiding?WorkbenchSlidePx:0.f)+(bForgeRiding?ForgeSlidePx:0.f)+(bWoodworkingManagement&&!bInventoryOpen?InventoryWidth+24.f:0.f)) / ColdSteelUI::PixelScale(this));
         InventoryPanel->SetRenderTranslation(FVector2D((1.0f - DrawerEase) * DrawerWidth, 0.0f));
     }
     if (InventoryBackdrop)
@@ -1257,6 +1257,10 @@ void UColdSteelHUDWidget::SetExternalDrawerOpen(bool bOpen)
 
 void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
 {
+    if(!bOpen&&bWoodworkingManagement&&!bWoodworkingInventoryTransition)
+    {
+        if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer());PC&&PC->IsWoodworkingOpen()){PC->CloseWoodworking();return;}
+    }
     if(!bOpen)CancelQuickDrag();
     if(!bOpen)HideItemTooltip(true);
     if(!bOpen)CloseWarehouse();
@@ -1283,7 +1287,7 @@ void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
         InventoryBackdrop->SetVisibility(ESlateVisibility::Visible);
         InventoryPanel->SetVisibility(ESlateVisibility::Visible);
     }
-    if (APlayerController* PC = GetOwningPlayer())
+    if (APlayerController* PC = GetOwningPlayer();PC&&!bWoodworkingInventoryTransition)
     {
         PC->SetIgnoreMoveInput(bOpen);
         PC->SetIgnoreLookInput(bOpen);

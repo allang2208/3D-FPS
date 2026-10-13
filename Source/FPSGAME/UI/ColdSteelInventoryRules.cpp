@@ -334,6 +334,17 @@ static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool Allo
     for(const auto& Pair:P.AmmoPouch)if(Pair.Key.IsEmpty()||Pair.Value<0||Pair.Value>9007199254740991ll){Reason=TEXT("弹药袋数量无效");return false;}
     if(!ColdSteelSkills::Validate(P,Reason))return false;
     if(!ColdSteelQuickBar::Validate(P,Reason))return false;
+    if(!P.WoodworkingJob.Id.IsEmpty())
+    {
+        const auto& J=P.WoodworkingJob;
+        if(J.Version!=1||J.Pattern.IsNone()||J.Recipe.IsNone()||J.Item.InstanceId.IsEmpty()||!Object(J.Item)
+            ||J.Item.Count<=0||J.PaidMaterials.IsEmpty()||!FMath::IsFinite(J.Quality)||J.Quality<0||J.Quality>100
+            ||!FMath::IsFinite(J.Elapsed)||J.Elapsed<0||J.Mask.Num()>4*1024*1024
+            ||(J.bPassed&&!J.bFinished)||P.Items.ContainsByPredicate([&J](const auto& I){return I.InstanceId==J.Item.InstanceId;}))
+        {Reason=TEXT("木工工件数据无效，保留原记录");return false;}
+        for(const auto& Paid:J.PaidMaterials)if(Paid.Key.IsEmpty()||Paid.Value<=0||Paid.Value>9007199254740991ll)
+        {Reason=TEXT("木工实付材料数据无效");return false;}
+    }
     if(!P.GunAssemblyJob.Id.IsEmpty())
     {
         const auto& J=P.GunAssemblyJob;

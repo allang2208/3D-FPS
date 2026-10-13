@@ -1,0 +1,28 @@
+{
+  "note": "Direct local headers missing from the public baseline and this source scope; not a full transitive dependency graph. Shared framework implementations and host API versions are required as documented.",
+  "public_base": "2124b9974b8e38d984abe81b426bdbd3143b61db",
+  "dependencies": [
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelAuthorityContext.h",
+      "sha256": "263ab450e97482708f54b5f2b6863fa3a9342a6d807754b70eaa1f559dda734c",
+      "referenced_by": [
+        "Source/FPSGAME/Building/WoodworkingJob.cpp"
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelProfileTransfer.h",
+      "sha256": "1025345567e8454668eb9a1f862c6c467f2422e2c55b94a1e35e6b9725a5fc87",
+      "referenced_by": [
+        "Source/FPSGAME/Multiplayer/ColdSteelWoodworkingNetwork.cpp"
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h",
+      "sha256": "e388f2c7aa1706b9209ca68eea8c1b28a7210afc1c0640cc41132829a4ebe9d9",
+      "referenced_by": [
+        "Source/FPSGAME/Building/WoodworkingSystem.cpp",
+        "Source/FPSGAME/Building/WoodworkingJob.cpp"
+      ]
+    }
+  ]
+}

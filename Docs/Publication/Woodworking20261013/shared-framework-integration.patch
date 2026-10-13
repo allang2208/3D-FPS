@@ -1,0 +1,374 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -4,6 +4,7 @@
+ #include "../Combat/ProgressiveInfectionComponent.h"
+ #include "ColdSteelProfileTransfer.h"
+ #include "ColdSteelProfileMerge.h"
++#include "../Building/WoodworkingQuality.h"
+ #include "../UI/ColdSteelProfileRecovery.h"
+ #include "../Dungeons/WardBreakableGlass.h"
+ #include "../Combat/CombatStatusFormula.h"
+@@ -103,6 +104,7 @@
+     TickTeamTravel();
+     TickWorldNetwork(DeltaSeconds);
+     TickStations(DeltaSeconds);
++    TickWoodNetwork();
+
+     if (GetLocalRole() == ROLE_Authority)
+     {
+@@ -342,7 +344,8 @@
+         ColdSteelProfileRecovery::NetworkSpells(Adopted,Prev);
+         ColdSteelProfileRecovery::MartialCooldowns(Adopted,Prev);
+         Adopted.CampfireWorldReceipts=Prev.CampfireWorldReceipts;
+-        Adopted.ForgeJob=Prev.ForgeJob;Adopted.GunAssemblyJob=Prev.GunAssemblyJob;Adopted.DungeonRun=Prev.DungeonRun;
++        Adopted.ForgeJob=Prev.ForgeJob;Adopted.GunAssemblyJob=Prev.GunAssemblyJob;Adopted.WoodworkingJob=Prev.WoodworkingJob;Adopted.DungeonRun=Prev.DungeonRun;
++        ColdSteelWoodQuality::PreserveAuthoritative(Adopted.Items,Prev.Items);
+         if(!RebaseSuper90Upload(Adopted,Prev,KeepServerPouch)){SendSuper90Ammo(true);return false;}
+         // A profile upload may have been captured before the focus-break RPC.
+         SpellbookFocusMana::Merge(Adopted,Prev.SpellbookFocusManaLoss);
+@@ -398,7 +401,7 @@
+         ShadowModel->AttachPawn(Character);
+         // An unfinished download belongs to the old pawn. Publish the new life promptly.
+         PendingMirrorBlob.Reset();LastMirrorBlob.Reset();ShadowMirrorTimer=3.f;
+-        bStationDirty=true;
++        WoodOutgoing.Reset();bWoodDirty=bStationDirty=true;
+         Super90Reload.Active=false;SendSuper90Ammo();
+     }
+     else Character->ApplyColdSteelProfile(ShadowModel);
+@@ -530,7 +533,7 @@
+     P.IceWallCooldown = P.IceWallCooldownDuration = 0.f;
+     P.IceWallReservedMana = 0.f;
+     P.TreeGrowthDay = 0.0;
+-    P.ForgeJob={};P.GunAssemblyJob={};
++    P.ForgeJob={};P.GunAssemblyJob={};P.WoodworkingJob={};
+     P.Infection = FInfectionState();
+     P.DungeonRun = FDungeonRunState();
+     // 弹药经济随每次开火/装填漂移（SyncRuntime 把 MagazineAmmo 回写进 item），
+@@ -686,7 +689,7 @@
+         Save->Profile.Items=CurrentInventory.Items;
+         Save->Profile.ActiveWeaponSlot=CurrentInventory.ActiveWeaponSlot;Save->Profile.ActiveProductionTool=CurrentInventory.ActiveProductionTool;
+         Save->Profile.ForgeJob=CurrentInventory.ForgeJob;Save->Profile.GunAssemblyJob=CurrentInventory.GunAssemblyJob;
+-        Save->Profile.DungeonRun=CurrentInventory.DungeonRun;
++        Save->Profile.WoodworkingJob=CurrentInventory.WoodworkingJob;Save->Profile.DungeonRun=CurrentInventory.DungeonRun;
+         Save->Profile.AmmoPouch=CurrentInventory.AmmoPouch;
+         Save->Profile.CampfireInventoryRevision=CurrentInventory.CampfireInventoryRevision;
+         Save->Profile.CampfireWorldReceipts=CurrentInventory.CampfireWorldReceipts;
+@@ -763,7 +766,8 @@
+         Merged.SoulCurrencyVersion=CurrencyState.SoulCurrencyVersion;
+         if(!bInventoryRequestPending&&Save->Profile.CampfireInventoryRevision>=CurrentInventory.CampfireInventoryRevision)
+         {
+-            Merged.ForgeJob=Save->Profile.ForgeJob;Merged.GunAssemblyJob=Save->Profile.GunAssemblyJob;Merged.DungeonRun=Save->Profile.DungeonRun;
++            Merged.ForgeJob=Save->Profile.ForgeJob;Merged.GunAssemblyJob=Save->Profile.GunAssemblyJob;Merged.WoodworkingJob=Save->Profile.WoodworkingJob;Merged.DungeonRun=Save->Profile.DungeonRun;
++            ColdSteelWoodQuality::PreserveAuthoritative(Merged.Items,Save->Profile.Items);
+         }
+         Merged.Survival=Save->Profile.Survival;
+         ColdSteelProfileMerge::Progression(Merged,Save->Profile);
+@@ -775,7 +779,8 @@
+         if(auto* Pawn=Cast<AFPSGAMECharacter>(GetPawn()))Pawn->ApplyColdSteelProfile(Model);
+     if(bCampfireInventoryChanged||
+         !FColdSteelForgeJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.ForgeJob,&Save->Profile.ForgeJob,0)||
+-        !FColdSteelGunAssemblyJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.GunAssemblyJob,&Save->Profile.GunAssemblyJob,0))
++        !FColdSteelGunAssemblyJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.GunAssemblyJob,&Save->Profile.GunAssemblyJob,0)||
++        !FColdSteelWoodworkingJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.WoodworkingJob,&Save->Profile.WoodworkingJob,0))
+         Model->NotifyChanged();
+     UE_LOG(LogTemp, Warning, TEXT("MPTEST mirror applied: %dB lv=%d"), MirrorBlob.Num(), Save->Profile.Level);
+     TickSuper90Recovery();
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -260,10 +260,19 @@
+     void InitializeStations(UColdSteelStatusModel* M);
+     void TickStations(float Delta);
+     bool CloseStationSessions();
+-    UFUNCTION(Server,Reliable) void ServerStationInput(APawn* InputPawn,const FString& JobId,FName System,uint8 Op,FName Recipe,int32 Index,FVector2D A,FVector2D B);
++    UFUNCTION(Server,Reliable) void ServerStationInput(APawn* InputPawn,const FString& JobId,FName System,uint8 Op,FName Recipe,int32 Index,FVector2D A,FVector2D B,uint32 Sequence);
++    void TickWoodNetwork();
++    UFUNCTION(Client,Reliable) void ClientWoodChunk(int32 Transfer,uint32 Ack,int32 Index,int32 Total,const TArray<uint8>& Bytes,APawn* SourcePawn);
++    uint32 WoodInputSerial=0,WoodAuthoritySequence=0,WoodOutgoingAck=0,WoodIncomingAck=0;
++    int32 WoodTransfer=0,WoodChunk=0,WoodReceiving=0,WoodTotal=0;
++    TArray<uint8> WoodOutgoing,WoodIncoming;
++    TWeakObjectPtr<APawn> WoodOutgoingPawn;
++    double WoodSendAt=0.,WoodPublishAt=0.;
++    bool bWoodDirty=false;
+     UFUNCTION(Client,Reliable) void ClientStationState(const FColdSteelForgeNetState& Forge,const FColdSteelAssemblyNetState& Assembly,APawn* SourcePawn);
+     UPROPERTY() TObjectPtr<class UColdSteelForgingSystem> GuestForge;
+     UPROPERTY() TObjectPtr<class UGunAssemblySystem> GuestAssembly;
++    UPROPERTY() TObjectPtr<class UWoodworkingSystem> GuestWood;
+     double StationPublishAt=0,CalibrationAt=0,HarvestAt=0;
+     bool bStationDirty=false;
+     UFUNCTION(Client,Reliable) void ClientWorldChunk(int32 Serial,int32 Index,int32 Total,const TArray<uint8>& Bytes);
+--- a/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp
+@@ -7,6 +7,7 @@
+ #include "../UI/ColdSteelWorldInteraction.h"
+ #include "../Building/ForgingSystem.h"
+ #include "../Building/GunAssemblySystem.h"
++#include "../Building/WoodworkingSystem.h"
+ #include "../Building/CraftingSystem.h"
+ #include "../Building/SmeltingSystem.h"
+ #include "../Building/VoxelBuildWorld.h"
+@@ -25,7 +26,7 @@
+ FString StationInputJobId(const UColdSteelStatusModel* Model,FName Kind)
+ {
+     if(!Model)return {};
+-    return Kind==TEXT("forge")?Model->ForgeJob().Id:Model->GunAssemblyJob().Id;
++    return Kind==TEXT("forge")?Model->ForgeJob().Id:Kind==TEXT("assembly")?Model->GunAssemblyJob().Id:Model->WoodworkingJob().Id;
+ }
+ }
+ ColdSteelStationNet::FInputScope::FInputScope():Root(InputDepth++==0){}
+@@ -35,13 +36,15 @@
+ {
+     auto* PC=UGameplayStatics::GetPlayerController(C,0);auto* PS=PC?PC->GetPlayerState<AColdSteelPlayerState>():nullptr;
+     if(!PS)return false;FColdSteelInventoryRequest R;R.Action=EColdSteelInventoryAction::Workstation;R.Mode=Mode;R.Definition=Recipe;R.Count=Count;R.Target=Target;R.Anchor=Cell;
++    if(Mode.StartsWith(TEXT("wood."))&&Mode!=TEXT("wood.start"))
++        if(const auto* M=ColdSteelAuthority::Model(C))R.Item=M->WoodworkingJob().Id;
+     return PS->RequestInventoryAction(R);
+ }
+ void ColdSteelStationNet::Input(const UObject* C,FName System,uint8 Op,FName Recipe,int32 Index,FVector2D A,FVector2D B)
+ {
+     if(!IsClient(C))return;auto* PC=UGameplayStatics::GetPlayerController(C,0);
+     if(auto* PS=PC?PC->GetPlayerState<AColdSteelPlayerState>():nullptr)
+-        PS->ServerStationInput(PC->GetPawn(),StationInputJobId(ColdSteelAuthority::ForPawn(PC->GetPawn()),System),System,Op,Recipe,Index,A,B);
++        PS->ServerStationInput(PC->GetPawn(),StationInputJobId(ColdSteelAuthority::ForPawn(PC->GetPawn()),System),System,Op,Recipe,Index,A,B,System==TEXT("wood")?++PS->WoodInputSerial:0);
+ }
+ bool AColdSteelPlayerState::StationReach(FName Kind) const
+ {
+@@ -51,7 +54,7 @@
+     {
+         const auto* Piece=*It;const auto* World=Cast<AVoxelBuildWorld>(Piece->GetOwner());
+         if(Piece->IsFalling()||!World||!World->HasPrefabAt(Piece->AnchorCell()))continue;
+-        const bool Matches=Kind==TEXT("forge")?ColdSteelWorldInteraction::IsForgingStation(Piece):ColdSteelWorldInteraction::IsWorkbench(Piece);
++        const bool Matches=Kind==TEXT("forge")?ColdSteelWorldInteraction::IsForgingStation(Piece):Kind==TEXT("wood")?ColdSteelWorldInteraction::IsWoodworkingBench(Piece):ColdSteelWorldInteraction::IsWorkbench(Piece);
+         if(!Matches)continue;
+         const FVector Near=Piece->GetComponentsBoundingBox(true).GetClosestPointTo(Pawn->GetPawnViewLocation());
+         if(FVector::DistSquared(Near,Pawn->GetPawnViewLocation())>FMath::Square(500.f))continue;
+@@ -63,9 +66,10 @@
+ void AColdSteelPlayerState::InitializeStations(UColdSteelStatusModel* M)
+ {
+     auto* GI=GetGameInstance();if(!M||!GI)return;
+-    if(!GuestForge||!GuestAssembly)bStationDirty=true;
++    if(!GuestForge||!GuestAssembly||!GuestWood)bStationDirty=bWoodDirty=true;
+     if(!GuestForge)GuestForge=GI->GetSubsystem<UColdSteelForgingSystem>()->CreateNetworkSession(M);
+     if(!GuestAssembly)GuestAssembly=GI->GetSubsystem<UGunAssemblySystem>()->CreateNetworkSession(M);
++    if(!GuestWood)GuestWood=GI->GetSubsystem<UWoodworkingSystem>()->CreateNetworkSession(M);
+ }
+ bool AColdSteelPlayerState::ExecuteWorldAction(const FColdSteelInventoryRequest& R,UColdSteelStatusModel* M,FString& Reason)
+ {
+@@ -93,6 +97,20 @@
+         else if(Mode==TEXT("assembly.finish"))Ok=GuestAssembly->Finish(Reason);
+         else if(Mode==TEXT("assembly.claim"))Ok=GuestAssembly->Claim(Reason);
+         else if(Mode==TEXT("assembly.discard"))Ok=GuestAssembly->Discard(Reason);
++    }
++    else if(Mode.StartsWith(TEXT("wood.")))
++    {
++        if(!StationReach(TEXT("wood"))){Reason=TEXT("请靠近木工工作台");return false;}
++        if(Mode!=TEXT("wood.start")&&(R.Item.IsEmpty()||R.Item!=M->WoodworkingJob().Id))
++        {Reason=TEXT("木工工件已变化，请同步后重试");return false;}
++        if(Mode==TEXT("wood.start"))
++        {if(!GuestWood->NetworkOpen())GuestWood->Open(false);if(GuestWood->Select(R.Definition))Ok=GuestWood->StartMode(EWoodworkingMode::Craft);}
++        else if(Mode==TEXT("wood.resume"))
++        {if(!GuestWood->NetworkOpen())GuestWood->Open(false);Ok=GuestWood->Resume();}
++        else if(Mode==TEXT("wood.claim"))Ok=GuestWood->Claim();
++        else if(Mode==TEXT("wood.discard"))Ok=GuestWood->Discard();
++        else if(Mode==TEXT("wood.settle"))Ok=GuestWood->Settle();
++        Reason=GuestWood->Message();
+     }
+     else if(Mode==TEXT("craft"))
+     {if(!StationReach(TEXT("craft")))return false;Ok=GetGameInstance()->GetSubsystem<UColdSteelCraftingSystem>()->Craft(R.Definition,R.Count,Reason);}
+@@ -107,16 +125,22 @@
+         else if(Mode==TEXT("smelt.collect"))Ok=Smelt->CollectSmelting(W,R.Anchor,Reason);
+         else if(Mode==TEXT("smelt.upgrade"))Ok=Smelt->UpgradeFurnace(W,R.Anchor,Reason,int32(R.Count));
+     }
+-    bStationDirty=true;return Ok;
+-}
+-void AColdSteelPlayerState::ServerStationInput_Implementation(APawn* InputPawn,const FString& JobId,FName System,uint8 Op,FName Recipe,int32 Index,FVector2D A,FVector2D B)
++    bStationDirty=true;if(Mode.StartsWith(TEXT("wood.")))bWoodDirty=true;return Ok;
++}
++void AColdSteelPlayerState::ServerStationInput_Implementation(APawn* InputPawn,const FString& JobId,FName System,uint8 Op,FName Recipe,int32 Index,FVector2D A,FVector2D B,uint32 Sequence)
+ {
+     auto* M=ColdSteelAuthority::ForPawn(GetPawn());if(!M||A.ContainsNaN()||B.ContainsNaN())return;
+     InitializeStations(M);ColdSteelAuthority::FScope Context(M);FString Reason;
++    if(System==TEXT("wood"))
++    {
++        if(!Sequence||static_cast<int32>(Sequence-WoodAuthoritySequence)<=0)return;
++        WoodAuthoritySequence=Sequence;bWoodDirty=true;
++    }
+     if(InputPawn!=GetPawn()||JobId!=StationInputJobId(M,System)){bStationDirty=true;return;}
+     InvalidateTeamTravelReady();
+     if(!StationReach(System))
+     {
++        if(System==TEXT("wood"))GuestWood->NetworkUnavailable(TEXT("已离开木工工作台或角色无法操作，本次加工已停止"));
+         return;
+     }
+     if(System==TEXT("forge"))
+@@ -131,6 +155,20 @@
+         {
+             const double Now=GetWorld()->GetTimeSeconds();float Dt=float(FMath::Clamp(FMath::Min(A.X,Now-CalibrationAt),0.,.25));CalibrationAt=Now;
+             while(Dt>0){const float Step=FMath::Min(Dt,.05f);GuestAssembly->Calibrate(Step,float(A.Y));Dt-=Step;}
++        }
++    }
++    else if(System==TEXT("wood"))
++    {
++        switch(Op)
++        {
++            case 0:GuestWood->Open(Index!=0);break;case 1:GuestWood->Select(Recipe);break;
++            case 2:break; // Paid starts use the inventory transaction and its receipt.
++            case 3:GuestWood->BeginFeed();break;case 4:if(A.Size()<=4096)GuestWood->MoveBoard(A);break;
++            case 5:GuestWood->RotateBoard(Index,A.X!=0);break;case 6:GuestWood->ToggleMotor();break;
++            case 7:GuestWood->EndStroke();break;case 8:GuestWood->Undo();break;case 9:GuestWood->Finish();break;
++            case 10:GuestWood->Abandon();break;case 11:GuestWood->Close();break;
++            case 12:GuestWood->Settle();break;
++            case 13:GuestWood->Suspend();break;
+         }
+     }
+     bStationDirty=true;bServerDirty=true;
+@@ -178,8 +216,13 @@
+     auto* PC=Cast<APlayerController>(GetOwner());
+     const bool Local=PC&&PC->IsLocalController();
+     auto* Forge=Local?GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>():GuestForge.Get();
++    auto* Wood=Local?GetGameInstance()->GetSubsystem<UWoodworkingSystem>():GuestWood.Get();
+     FString Reason;
+     if(Forge&&Forge->Active()&&!Forge->Finish(Reason))return false;
++    if(Wood)
++    {
++        bWoodDirty=true;if(!Wood->Close())return false;
++    }
+     bServerDirty=true;
+     return !ShadowModel||SaveShadowToHostDisk();
+ }
+--- a/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h
+@@ -35,6 +35,34 @@
+     UPROPERTY() float Quality=0;
+     UPROPERTY() bool Finished=false;
+ };
++// Compressed on the existing profile envelope, then sent as paced owner-only chunks.
++UCLASS()
++class UColdSteelWoodNetState : public USaveGame
++{
++    GENERATED_BODY()
++public:
++    UPROPERTY() FColdSteelWoodworkingJob Job;
++    UPROPERTY() int64 InventoryRevision=0;
++    UPROPERTY() FName Selected;
++    UPROPERTY() uint8 Phase=0;
++    UPROPERTY() uint8 Mode=0;
++    UPROPERTY() bool Open=false;
++    UPROPERTY() bool Motor=false;
++    UPROPERTY() bool Feeding=false;
++    UPROPERTY() bool UndoPoseValid=false;
++    UPROPERTY() bool StrokeChanged=false;
++    UPROPERTY() double Elapsed=0.;
++    UPROPERTY() double ServerTime=0.;
++    UPROPERTY() FVector2D Offset=FVector2D::ZeroVector;
++    UPROPERTY() FVector2D StrokeOffset=FVector2D::ZeroVector;
++    UPROPERTY() FVector2D UndoOffset=FVector2D::ZeroVector;
++    UPROPERTY() double Angle=0.;
++    UPROPERTY() double StrokeAngle=0.;
++    UPROPERTY() double UndoAngle=0.;
++    UPROPERTY() TArray<uint8> Mask;
++    UPROPERTY() FString Notice;
++};
++
+ namespace ColdSteelStationNet
+ {
+     struct FInputScope {FInputScope();~FInputScope();bool Root;};
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h
+@@ -98,6 +98,7 @@
+     UPROPERTY() FDungeonRunState DungeonRun;
+     UPROPERTY() FColdSteelForgeJob ForgeJob;
+     UPROPERTY() FColdSteelGunAssemblyJob GunAssemblyJob;
++    UPROPERTY() FColdSteelWoodworkingJob WoodworkingJob;
+     UPROPERTY() bool bContainerView=false;
+     UPROPERTY() FString ContainerKey;
+     UPROPERTY() FString ContainerCaption;
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+@@ -1,6 +1,7 @@
+ #include "ColdSteelPlayerState.h"
+ #include "../UI/ColdSteelShopModel.h"
+ #include "../Dungeons/DungeonRunSubsystem.h"
++#include "../Building/WoodworkingSystem.h"
+ #include "ColdSteelProfileTransfer.h"
+ #include "ColdSteelSharedInventorySubsystem.h"
+ #include "../UI/ColdSteelPickup.h"
+@@ -200,7 +201,7 @@
+         }
+     Reply->ServerSoulCredits=After.ServerSoulCredits;Reply->ServerSoulDebits=After.ServerSoulDebits;
+     Reply->bWorldAction=Request.Action>=EColdSteelInventoryAction::Shrine&&Request.Action<=EColdSteelInventoryAction::Workstation;
+-    if(Reply->bWorldAction){Reply->DungeonRun=After.DungeonRun;Reply->ForgeJob=After.ForgeJob;Reply->GunAssemblyJob=After.GunAssemblyJob;}
++    if(Reply->bWorldAction){Reply->DungeonRun=After.DungeonRun;Reply->ForgeJob=After.ForgeJob;Reply->GunAssemblyJob=After.GunAssemblyJob;Reply->WoodworkingJob=After.WoodworkingJob;}
+     if(Success)
+     {
+         for(const auto& Item:After.Items)
+@@ -277,6 +278,9 @@
+     {
+         Model->SetCampfireInventoryPending(false);
+         const bool Applied=Decoded&&(!Reply->bSuccess||Model->ApplyNetworkInventoryReply(Reply,InventoryRequestPawn.Get()));
++        if(PendingInventoryRequest.Mode.StartsWith(TEXT("wood.")))
++            GetGameInstance()->GetSubsystem<UWoodworkingSystem>()->NetworkTransactionFinished(PendingInventoryRequest.Mode,Decoded&&Reply->bSuccess&&Applied,
++                Decoded&&Applied?Reply->Message:TEXT("工件结算正在重新同步"));
+         if(PendingInventoryRequest.Action==EColdSteelInventoryAction::Shop)
+             GetGameInstance()->GetSubsystem<UColdSteelShopModel>()->NetworkTradeFinished(Decoded&&Reply->bSuccess,
+                 Decoded&&Applied?Reply->Message:TEXT("交易结果等待档案同步"));
+--- a/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp
++++ b/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp
+@@ -39,7 +39,7 @@
+     {Next.Mana=FMath::Min(float(ResourceMaximum(Next,true)),Next.Mana+Reply->ManaRestored);}
+     if(SameLivingPawn&&Reply->StaminaSpent>0.f)
+     {Next.Stamina=FMath::Max(0.f,Next.Stamina-Reply->StaminaSpent);Next.StaminaRecoveryDelay=StaminaTuning.RecoveryDelay;}
+-    if(Reply->bWorldAction){Next.DungeonRun=Reply->DungeonRun;Next.ForgeJob=Reply->ForgeJob;Next.GunAssemblyJob=Reply->GunAssemblyJob;}
++    if(Reply->bWorldAction){Next.DungeonRun=Reply->DungeonRun;Next.ForgeJob=Reply->ForgeJob;Next.GunAssemblyJob=Reply->GunAssemblyJob;Next.WoodworkingJob=Reply->WoodworkingJob;}
+     FString Reason;
+     if(!ColdSteelInventory::Validate(Next,Reason)){Message=Reason;return false;}
+     AdoptNetMirror(Next,true);
+--- a/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
+@@ -4,6 +4,7 @@
+ #include "ColdSteelProfileTransfer.h"
+ #include "../Building/ColdSteelCampfire.h"
+ #include "../Building/SmeltingSystem.h"
++#include "../Building/WoodworkingSystem.h"
+ #include "../Building/ForgingSystem.h"
+ #include "../Building/GunAssemblySystem.h"
+ #include "../Building/VoxelBuildWorld.h"
+@@ -111,6 +112,7 @@
+     const auto* OwningPlayer=Cast<APlayerController>(GetOwner());
+     if((OwningPlayer&&OwningPlayer->IsLocalController())||(!OwningPlayer&&GetNetMode()==NM_Client&&(bCampfirePending||bInventoryRequestPending)))
+     {
++        if(auto* Wood=GetGameInstance()?GetGameInstance()->GetSubsystem<UWoodworkingSystem>():nullptr)Wood->NetworkSessionEnded();
+         if(auto* Forge=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>():nullptr)Forge->NetworkSessionEnded();
+         if(auto* Assembly=GetGameInstance()?GetGameInstance()->GetSubsystem<UGunAssemblySystem>():nullptr)Assembly->NetworkSessionEnded();
+         if(bCampfirePending||bInventoryRequestPending)
+--- a/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp
+@@ -52,7 +52,7 @@
+     bTravelFlush=true;bTravelNeedsFreshUpload=true;bHasLastSent=false;HeartbeatTimer=0;
+     if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwner()))
+     {
+-        PC->CloseExpedition();
++        PC->CloseExpedition();PC->CloseWoodworking();
+         if(auto* Pawn=Cast<AFPSGAMECharacter>(PC->GetPawn()))
+         {
+             Pawn->InterruptActionsForPriority(false);
+--- a/Source/FPSGAME/UI/ColdSteelProfileRecovery.h
++++ b/Source/FPSGAME/UI/ColdSteelProfileRecovery.h
+@@ -109,5 +109,8 @@
+             Assembly.CalibrationError=PreviousAssembly.CalibrationError;
+         }
+     }
++    auto& Wood=Into.WoodworkingJob;const auto& PreviousWood=Other.WoodworkingJob;
++    if(!Wood.Id.IsEmpty()&&Wood.Id==PreviousWood.Id&&
++        ((PreviousWood.bFinished&&!Wood.bFinished)||(!Wood.bFinished&&PreviousWood.Elapsed>Wood.Elapsed)))Wood=PreviousWood;
+ }
+ }
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -454,6 +454,7 @@
+     const FColdSteelGunAssemblyJob& GunAssemblyJob() const {return Current.GunAssemblyJob;}
+     const FColdSteelWoodworkingJob& WoodworkingJob() const {return Current.WoodworkingJob;}
+     bool CommitWoodworkingProgress(const FColdSteelWoodworkingJob& Job);
++    int64 InventoryRevision() const {return Current.CampfireInventoryRevision;}
+     void StageGunCalibration(const FString& JobId,float Held,float Time,float Error);
+     // Hit feedback cannot run the synchronous checked-save transaction every click.
+     void StageForgeHit(const FString& JobId,int32 Hits);

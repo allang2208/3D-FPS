@@ -23,6 +23,8 @@ void UGunsmithSystem::LoadBowCatalog()
             auto O=Entry->AsObject();FGunsmithOption Part;
             Part.Id=O->GetStringField(TEXT("id"));Part.Name=O->GetStringField(TEXT("name"));Part.Description=O->GetStringField(TEXT("description"));
             Part.ReadSpecialEffects(O);
+            O->TryGetStringField(TEXT("required_item"),Part.RequiredItem);
+            if(!Part.RequiredItem.IsEmpty()){double Count=1;O->TryGetNumberField(TEXT("required_count"),Count);Part.RequiredCount=FMath::Clamp(FMath::RoundToInt(Count),1,99);}
             O->TryGetStringField(TEXT("appearance"),Part.Appearance);Part.BowVisual=O->GetObjectField(TEXT("visual"));
             const auto S=O->GetObjectField(TEXT("stats"));
             S->TryGetNumberField(TEXT("damage_mult"),Part.Bow.Damage);S->TryGetNumberField(TEXT("draw_mult"),Part.Bow.Draw);

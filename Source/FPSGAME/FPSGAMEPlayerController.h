@@ -27,6 +27,9 @@ public:
     static bool BlocksOngoingActions(const APlayerController* Player);
     bool OpenGunsmith(const FString& Instance=TEXT(""));
     void CloseGunsmith();
+    bool OpenWoodworking(AActor* Station,bool PracticeOnly=false);
+    bool IsWoodworkingOpen() const { return WoodworkingPanel!=nullptr; }
+    void CloseWoodworking();
     bool OpenEnhancement(const FString& Instance=TEXT(""));
     void CloseEnhancement();
     UFUNCTION(BlueprintCallable, Category="Cold Steel UI") bool OpenExpedition();
@@ -79,4 +82,6 @@ private:
 
     UPROPERTY(Transient)
     TObjectPtr<UWeatherControlWidget> WeatherPanel;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelWoodworkingWidget> WoodworkingPanel;
+    bool bWoodworkingReturnToCursor=false;
 };

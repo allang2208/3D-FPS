@@ -430,6 +430,8 @@ public:
     void AdoptNetMirror(const FColdSteelProfile& External);
     const FColdSteelForgeJob& ForgeJob() const {return Current.ForgeJob;}
     const FColdSteelGunAssemblyJob& GunAssemblyJob() const {return Current.GunAssemblyJob;}
+    const FColdSteelWoodworkingJob& WoodworkingJob() const {return Current.WoodworkingJob;}
+    bool CommitWoodworkingProgress(const FColdSteelWoodworkingJob& Job);
     void StageGunCalibration(const FString& JobId,float Held,float Time,float Error);
     // Hit feedback cannot run the synchronous checked-save transaction every click.
     void StageForgeHit(const FString& JobId,int32 Hits);

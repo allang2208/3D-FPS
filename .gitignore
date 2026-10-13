@@ -3418,3 +3418,23 @@ __pycache__/
 # Traversal author receipts stay local; the public donor manifest contains provenance only.
 /SourceAssets/ThirdPersonTraversal20261012/*
 !/SourceAssets/ThirdPersonTraversal20261012/donors.json
+
+# Woodworking authoring sources only; raw assets and production receipts stay local.
+/SourceAssets/WoodworkingBenchV2/**
+/SourceAssets/WoodworkingBenchV4/**
+/SourceAssets/WoodworkingBenchV5Clean20261012/**
+/SourceAssets/WoodworkingBenchV6Controls20261013/**
+/SourceAssets/WoodworkingOverhaul20261012/**
+!/SourceAssets/WoodworkingBenchV2/**/
+!/SourceAssets/WoodworkingBenchV4/**/
+!/SourceAssets/WoodworkingBenchV5Clean20261012/**/
+!/SourceAssets/WoodworkingBenchV6Controls20261013/**/
+!/SourceAssets/WoodworkingOverhaul20261012/**/
+!/SourceAssets/WoodworkingBenchV4/ProductionRecords/*.py
+!/SourceAssets/WoodworkingBenchV4/README.md
+!/SourceAssets/WoodworkingBenchV5Clean20261012/*.py
+!/SourceAssets/WoodworkingBenchV5Clean20261012/layout_manifest.json
+!/SourceAssets/WoodworkingBenchV6Controls20261013/*.py
+!/SourceAssets/WoodworkingBenchV6Controls20261013/layout_manifest.json
+!/SourceAssets/WoodworkingOverhaul20261012/*.py
+!/SourceAssets/WoodworkingBenchV6Controls20261013/registration.json

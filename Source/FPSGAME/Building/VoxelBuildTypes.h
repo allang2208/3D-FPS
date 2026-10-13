@@ -101,6 +101,7 @@ struct FVoxelCastingProduct
  *  Docs/UI/workbench-panel-plan-20260924.md）：E 交互与制作面板引用这一个键。 */
 inline const FName VoxelWorkbenchId(TEXT("workbench_table"));
 inline const FName VoxelGunWorkbenchId(TEXT("gun_workbench_table"));
+inline const FName VoxelWoodworkingBenchId(TEXT("woodworking_bench"));
 
 // VBX v5（只读兼容）：纯挂钟冶炼任务——今天引入 v5 后当天就升级成燃料模型，
 // 老档按"挂钟全额补进度"迁移进 v6（见 AVoxelBuildWorld::Initialize）。

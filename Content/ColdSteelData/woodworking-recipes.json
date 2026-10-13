@@ -1,0 +1,15 @@
+{
+  "_comment": "木工专用配方，仅制作现有完整装备：猎手长弓与学徒长杖。每件投入 2 木材，合格后领取对应装备 1 件；未领取工件可废弃返还 1 木材。评分映射 -25% 至 +25% 工艺修正，50 分不变：弓作用于物理伤害，法杖作用于本件魔法攻击。品质随成品保存，由服务器结算。普通工作台不展示这些配方。",
+  "recipes": [
+    {
+      "id": "woodwork_bow",
+      "inputs": [{ "item": "wood", "count": 2 }],
+      "output": { "item": "bow_dark", "count": 1 }
+    },
+    {
+      "id": "woodwork_staff",
+      "inputs": [{ "item": "wood", "count": 2 }],
+      "output": { "item": "ue_apprentice_staff", "count": 1 }
+    }
+  ]
+}

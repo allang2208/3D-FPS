@@ -1,5 +1,6 @@
 #include "ColdSteelItemTooltipData.h"
 #include "ColdSteelWeaponText.h"
+#include "../Building/WoodworkingQuality.h"
 #include "ColdSteelEnhancementSystem.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelItemReadCache.h"
@@ -47,7 +48,8 @@ void AppendColdSteelTooltipAttackFormula(const FColdSteelItem& Item,UColdSteelSt
             (*Forge)->TryGetNumberField(TEXT("multiplier"),ForgeMultiplier);
     }
     ForgeMultiplier=FMath::Clamp(ForgeMultiplier,.75,1.25);
-    // Match ProcessedDamage: forging scales the base formula, not every added damage term.
+    // Bow physical quality is applied after damage channels are separated in WeaponDamagePanel.
+    ForgeMultiplier*=ColdSteelWoodQuality::Multiplier(Item,ColdSteelWoodQuality::EChannel::Physical);
     auto WithForging=[&](const FString& Expression)
     {return FMath::IsNearlyEqual(ForgeMultiplier,1.)?Expression:TEXT("(")+Expression+TEXT(")×")+FormulaNumber(ForgeMultiplier);};
     if(const auto Formula=Enhancement->AttackFormula(Item))
@@ -128,6 +130,9 @@ void AppendColdSteelTooltipMagicFormula(const FColdSteelItem& Item,UColdSteelSta
         const FString Factor=Group.PerLevel==0?FormulaNumber(Group.Base):TEXT("(")+FormulaNumber(Group.Base)+TEXT("+")+FormulaNumber(Group.PerLevel)+TEXT("L)");
         Enhanced+=TEXT("+")+Factor+TEXT("×")+Names;
     }
+    const double Quality=ColdSteelWoodQuality::Multiplier(Item,ColdSteelWoodQuality::EChannel::MagicAttack);
+    if(!FMath::IsNearlyEqual(Quality,1.))
+    {Base=TEXT("(")+Base+TEXT(")×")+FormulaNumber(Quality);Enhanced=TEXT("(")+Enhanced+TEXT(")×")+FormulaNumber(Quality);}
     FormulaRow(Card,ColdSteelWeaponText::MagicAttackFormula,Base);
     FormulaRow(Card,ColdSteelWeaponText::EnhancedMagicAttackFormula,Enhanced);
 }

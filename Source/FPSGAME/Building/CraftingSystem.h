@@ -51,4 +51,6 @@ private:
     UColdSteelStatusModel* Model() const;
     TArray<FColdSteelCraftingRecipe> Recipes;
     TArray<FColdSteelCraftingRecipe> AmmoRecipes;
+    // Find-only: woodworking recipes cannot bypass the minigame through the ordinary workbench.
+    TArray<FColdSteelCraftingRecipe> WoodworkingRecipes;
 };
