@@ -1,0 +1,141 @@
+> 2026-10-10 整理前的工程技能快照。仅维护源不可用或查找工程独有经验时读取；不是当前通用执行规范。
+
+
+## UE5 默认开发方式（用户确定，2026-09-23）
+
+后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
+
+## FPSGAME 性能开发约束（2026-09-23）
+
+新增 Tick、定时器、属性查询或加载路径时，读取 [性能开发约束](../ue5-performance-packaging/references/fpsgame-performance-development.md) 的高频路径部分。复用有界只读数据缓存，保留完整失效语义，避免同步加载与同一调用链重复计算；最终战斗状态仍实时参与原公式。
+
+# Quick Start
+- Confirm target class type (`AActor`, `UActorComponent`, `UObject`, `USaveGame`, etc.).
+- Define required Blueprint-facing API before implementation.
+- Output both header and source files together.
+
+# API Anchors (UE5.6-UE5.8)
+- Reflection and UObject anchors:
+  - `UCLASS`, `USTRUCT`, `UENUM`, `UINTERFACE`, `GENERATED_BODY()`
+  - `UPROPERTY(...)`, `UFUNCTION(...)`
+- Core gameplay type anchors:
+  - `AActor`, `UActorComponent`, `UDataAsset`, `UGameInstanceSubsystem`
+  - `TObjectPtr<>` in headers and `TSubclassOf<>` for class references
+- Replication anchors:
+  - `GetLifetimeReplicatedProps(...)`
+  - `DOREPLIFETIME(...)` in `Net/UnrealNetwork.h`
+  - `ReplicatedUsing=OnRep_*`, `UFUNCTION(Server/Client/NetMulticast, ...)`
+- Gameplay tag anchors:
+  - `FGameplayTag`, `FGameplayTagContainer`
+  - explicit tag request/match checks with safe fallback behavior
+
+# Implementation Stage Contract
+- Every gameplay C++ task must define:
+  - Public header API surface (Blueprint/API visibility)
+  - Private runtime implementation path (`.cpp`)
+  - Ownership/lifetime model (constructor, init, teardown)
+  - Network authority rules (single-player only or replicated flow)
+  - Validation method (compile assumptions, usage examples, edge-case behavior)
+- If any item is missing, the implementation spec is incomplete.
+
+# Workflow
+For FPSGAME active/passive skills, magic, progression and cast-hand arbitration, start with [skill and magic workflow](../ue5-skill-magic-workflow/SKILL.md).
+For FPSGAME weapon work, start with [UE5 weapon workflow](../ue5-weapon-workflow/SKILL.md); arms/reload/MAT use [arms animation](../ue5-fps-arms-animation/SKILL.md).
+
+For Godot first-person weapon ports, read [migration contracts and validation](references/godot-weapon-migration.md) before translating camera transforms, animation timing, recoil, or action audio.
+
+## 1) Type and File Shape
+- Create type declarations with Unreal macros and UE5 pointer conventions (`TObjectPtr` in headers).
+- Produce paired `.h` and `.cpp` with forward declarations in header and concrete includes in source.
+- Keep class responsibility narrow and reusable.
+
+## 2) Public API Design
+- Define Blueprint API (`BlueprintCallable`, `BlueprintPure`, categories, metadata) before implementation.
+- Expose minimal callable surface; keep helper methods non-UFUNCTION unless needed.
+- Declare clear input/output contracts and failure behavior.
+
+## 3) Runtime Implementation
+- Implement logic in `.cpp` with null checks, authority guards, and explicit branch behavior.
+- Keep tick usage opt-in; prefer event-driven updates.
+- Handle initialization order (`BeginPlay`, `InitializeComponent`, or subsystem init) explicitly.
+
+## 4) Replication and RPC (When Needed)
+- Add replicated properties and `OnRep_*` handlers only for true client-visible state.
+- Register properties in `GetLifetimeReplicatedProps(...)` with `DOREPLIFETIME(...)`.
+- Use server-authoritative RPC entry points for client requests.
+
+## 5) GameplayTags and Data-Driven Hooks
+- Use `FGameplayTag`/`FGameplayTagContainer` with explicit tag names.
+- Validate required tags at runtime and provide fallback for missing tags.
+- Prefer DataAsset-driven config for tunables over hard-coded constants.
+
+## 6) Validation Output
+- Ensure output includes both files and required includes.
+- Confirm Blueprint exposure, replication behavior, and error-handling paths are documented.
+- Provide usage snippet or invocation flow when behavior is non-trivial.
+
+# Constraints
+- Always provide matching `.h` and `.cpp` when creating a class.
+- Use non-deprecated APIs compatible with UE5.6-UE5.8.
+- Keep includes minimal; use forward declarations in headers.
+- Avoid hardcoded asset paths unless explicitly requested.
+- Prefer `TObjectPtr<>` in UPROPERTY object references in headers.
+- Append new reflected members at the end of a class, never in the middle. Inserting a `UPROPERTY` moves every member declared after it, and any translation unit that was not rebuilt then reads those members at the old offset.
+- Keep server-authoritative checks explicit for any network-affecting gameplay action.
+
+# Failure Handling
+- Symptom: adding an unrelated source file causes ambiguous names in Unity builds.
+  - Locate: file-scope `using namespace` directives leaking into other `.cpp` files in the generated Unity translation unit (FPSGAME example: UI names such as `Tooltip` colliding with other modules).
+  - Fix: qualify symbols or import only the names the file uses, then validate the normal Unity build; disabling Unity alone does not repair the source dependency.
+- Symptom: UHT rejects a reflected parameter name, or compilation rejects direct physics-field access.
+  - Locate: parameter shadowing of inherited members and the current engine header's access modifiers.
+  - Fix: use distinct parameter names and the supported setter (UE 5.8 example: `FBodyInstance::SetMassOverride`); include `Engine/DamageEvents.h` when accessing `FDamageEvent` members.
+- Symptom: class compiles but is missing from Blueprint.
+  - Locate: missing `BlueprintType`/`Blueprintable`/`BlueprintCallable` metadata.
+  - Fix: add required reflection specifiers and regenerate project files/build.
+- Symptom: unresolved symbol or include cycles.
+  - Locate: header include graph and forward declaration misuse.
+  - Fix: move heavy includes to `.cpp`, keep forward declarations in headers.
+- Symptom: replicated property does not update on clients.
+  - Locate: `GetLifetimeReplicatedProps(...)` and actor/component replication flags.
+  - Fix: register with `DOREPLIFETIME(...)`, ensure owning actor replicates.
+- Symptom: `OnRep_*` never fires.
+  - Locate: property write path and net role.
+  - Fix: mutate on server authority path and verify property actually changes.
+- Symptom: RPC callable but ignored at runtime.
+  - Locate: RPC specifier and call site authority.
+  - Fix: enforce client->server request path and server-side validation.
+- Symptom: GameplayTag logic silently fails.
+  - Locate: invalid tag names or missing tag config.
+  - Fix: validate tags on startup and guard with explicit fallback behavior.
+- Symptom: the editor crashes while constructing a class CDO, or a member reads as zero/garbage right after a header edit.
+  - Locate: whether the header added or reordered reflected members, and whether every dependent translation unit really recompiled. This project has been built with `-NoUBTMakefiles`, which skips dependents, so stale object files keep the previous class layout while the regenerated reflection uses the new one.
+  - Fix: append new reflected members instead of inserting them; if a layout change is already in flight, delete the affected objects under `Intermediate/Build/<Platform>/.../` (or build with `-Clean`) and rebuild before changing logic. Confirm by comparing each dependent `.cpp.obj` timestamp against the header's.
+
+# UE5.6-UE5.8 Compatibility Notes
+- Reflection, replication, and GameplayTag APIs above are stable across UE5.6-UE5.8.
+- Favor stable core APIs over editor-only helpers when runtime behavior is required.
+- 5.8 removes/renames hit while bringing up a camera-space weapon component (each one is a compile error, not a warning):
+  `FString::CreateParseDelimiter` and `FParse::ParseVector` are gone (use `FString::ParseIntoArray` and, for `"x,y,z"`
+  data keys, a local three-float parser — `LexFromString` no longer covers `FVector`/`FRotator`);
+  `TAutoConsoleVariable` accepts scalars and strings only, so vector/rotator tuning cvars must be `FString` (`"0,0,0"`)
+  and parsed at use; `USkeleton::GetRefSkeleton` is no longer public (query the component: `USkeletalMeshComponent::DoesSocketExist`);
+  `USkeletalMeshComponent::GetSkeletalMesh` → `GetSkeletalMeshAsset`; `FRotator::ClampAxis` → `Clamp`;
+  `FHitResult::GetBoneName` → the `BoneName` field; `TObjectPtr` has no `Reset()` and `FName` has no `Reset()`
+  (assign `nullptr` / `NAME_None`), and a ternary must call `.Get()` on both arms when mixing `TObjectPtr` with raw pointers.
+- Component setters must not name parameters after inherited fields: `bool bVisible` already exists on `USceneComponent`,
+  so a `SetPartVisible(bool bVisible)` definition fails C4458. Use an `bIn…` prefix.
+
+# Escalation
+- Escalate when user asks for plugin/module-level refactor beyond a single gameplay class.
+- Escalate when solution needs custom engine source modifications.
+
+FPSGAME traversal geometry, camera handoff and surface IK: [traversal contact](../ue5-fps-arms-animation/references/traversal-contact.md).
+
+FPSGAME directional dodge, Shift tap/hold and invulnerability: [player dodge](references/player-dodge.md).
+
+FPSGAME first/third person animation, world equipment and outfits: [player world body](references/player-world-body.md).
+
+## 生存与消耗品（2026-10-03）
+
+[饥饿、水分与 SAN](references/survival-state-and-attribute-penalties.md)：组件真源、分段消耗、组合属性倍率、归零边界通知与存档保持。

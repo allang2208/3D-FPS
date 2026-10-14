@@ -115,6 +115,8 @@
 
 ## 配件数值与说明分工（2026-09-17 定稿；2026-09-23 全文复审计径）
 
+**2026-10-09 编写入口**：新增或修改介绍先读 [详情与介绍编写标准](attachment-detail-presentation.md)。常驻属性、条件特效、外观与武器背景各归其位；精简规则以该标准为准，以下历史数值示例不自动成为当前配置或测试要求。
+
 ### 1 数据口径（`Content/ColdSteelData/gunsmith.json`）
 
 - 配件数值路径是 `weapons[].options[<slot>][].stats`；`common_options[<slot>]` 由 `GunsmithSystem.cpp::Initialize` 合并进每把武器并追加 `allowed`。枪管改造已取消，公共目录不再声明 barrel；通用手枪防滑纹通过宿主显式绑定合并，不向所有枪广播。

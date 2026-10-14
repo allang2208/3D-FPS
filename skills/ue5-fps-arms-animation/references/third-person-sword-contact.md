@@ -18,6 +18,8 @@ PostPhysics 执行器推进 ControlRotation 后，Pawn 可能仍停在上一帧�
 
 用户最后明确要求反转，当前 skills.json 的 turnDegrees=-720。保留该指令与唐刀专用段，两者不是同一项修复。作者 edge-roll.json 的 +720 记录描述最初的刃面适配基准，不能用它覆盖当前游戏方向。
 
+2026-10-12 用户进一步指定反转第三人称动画：现用三段已剥离全局转向，运行时在最终全身根姿态追加同相位的 -2θ，使角色朝向 θ 下的模型可见转向成为 -θ。技能配置仍为 -720，第三人称可见旋转为 +720；三段正向播放、唐刀刃面曲线及第一人称／伤害时钟保留。不得把这次表现修订改成反播整个动作或再次改技能全局方向。实现与交付状态见 `Docs/Weapons/third-person-whirlwind-reverse-20261012.md`；未作实机观感验收。
+
 ## 制作依赖与保存
 
 20261010 竖劈恢复链：Kwang 原始认可源 → MeleeRegression → DashArm → HandClearance → GripPair → ArmSwap → LeftContact。中间版本曾被用户否定其整体效果，但其数据仍被下一步读取，不能按名称或日期归档整个目录。ThirdPersonSwordGrip20261007/refine_kwang_grip.py 的初始化／数学函数被后续脚本复用，禁止执行其已否定的完整优化器来“恢复”现版。

@@ -1,0 +1,146 @@
+> 2026-10-10 整理前的工程技能快照。仅维护源不可用或查找工程独有经验时读取；不是当前通用执行规范。
+
+
+## UE5 默认开发方式（用户确定，2026-09-23）
+
+后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
+
+# Quick Start
+- FPSGAME 场景储物柜、抽屉等搜寻容器，读取 [可搜索场景容器](references/scene-search-containers.md)，复用宝箱取物会话、独立身份和永久开门状态。
+- 地牢进房封门、完整编成清除、档案至 Boss 推进锁，读取 [主题路线与房间闸门](../ue5-pcg-building/references/themed-routes-and-room-gates.md)，以实际节点和 alive/pending 状态定位。
+- FPSGAME 场景栏杆、楼梯与家具翻越，读取 [场景开发标准：统一翻越制作合同](../ue5-pcg-building/references/scene-development-standard.md)。复用现有判定；专用栏杆需连续碰撞及 `Traversal.GuardrailDrop`，样板和生成模块保持一致。
+- For harvested trees, original stumps, cut-plane hinges, or Nanite tree crowns, read [tree cutting and falling](references/tree-harvest-cut-and-fall.md).
+- For FPSGAME dropped weapon models, gravity, camera-aimed E interactions, or drop hitches, read [physical pickups and preview reuse](references/fpsgame-physical-pickups.md).
+- For FPSGAME 20 cm voxel building (grid snapping, ghost preview, instanced gold outline, snap vs free placement), read [voxel placement interaction](references/fpsgame-voxel-placement.md).
+- For FPSGAME heightfield terrain destruction (explosion craters, shovel dig/refill, 20 cm grid quantization, sink/rise caps, per-cell rebuild and edit bucketing), read [terrain destruction](references/fpsgame-terrain-destruction.md).
+- For FPSGAME ore vein rocks (mineral single source of truth, spatial weighting, minable scale gate, variant mesh swap, asset rebuild path), read [ore vein rock variants](references/ore-vein-rock-variants.md).
+- For FPSGAME GPU grass interaction (paused after failed visual feedback; mf-v14 is only partially integrated), read [grass GPU deform RT window](references/grass-gpu-deform-rt-window.md). Keep RT/time assertions separate from final vertex motion and visible flattening; resume authoring or tests only when requested.
+- For FPSGAME item art, three-view references, or RTX 5080 model generation, use the `ue5-item-asset-workflow` skill for photorealistic item style and asset validation.
+- Define interaction model: overlap-driven, trace-driven, or explicit use key.
+- Define actor set: pickup actor, optional spawner, optional visual mapping data asset.
+- Output runtime state transitions from spawn to interaction resolution.
+
+# API Anchors (UE5.6-UE5.8)
+- Detection anchors:
+  - `USphereComponent`, `UBoxComponent`
+  - `UPrimitiveComponent::OnComponentBeginOverlap`
+  - `UPrimitiveComponent::OnComponentEndOverlap`
+  - `FHitResult`
+- Trace anchors:
+  - `UWorld::LineTraceSingleByChannel(...)`
+  - `UWorld::SweepSingleByChannel(...)`
+  - `UKismetSystemLibrary::SphereTraceSingle(...)`
+- Lifecycle anchors:
+  - `AActor::SetActorHiddenInGame(...)`
+  - `AActor::SetActorEnableCollision(...)`
+  - `AActor::Destroy(...)`
+  - `AActor::SetActorTickEnabled(...)`
+- Networking anchors:
+  - server authority validation for interaction success
+  - replicated result state for client feedback
+
+# Interaction Stage Contract
+- Every interaction feature must define:
+  - Detection source (overlap/trace/use-key)
+  - Eligibility checks (distance, tags, inventory/capacity, authority)
+  - Success and failure result payloads
+  - Feedback path (VFX/SFX/UI)
+  - Post-interaction lifecycle policy (destroy/disable/cooldown/respawn)
+- If any item is missing, interaction behavior is underspecified.
+
+# Workflow
+## 1) Actor and Component Setup
+- Build root + collision + visual components with explicit collision channels.
+- Define default states (`active`, `cooldown`, `consumed`) and replication needs.
+- Keep collision shape and bounds aligned with intended interaction distance.
+
+## 2) Detection Path
+- Overlap model: bind begin/end overlap delegates on collision component.
+- Trace model: run line/sphere traces on input request and validate hit actor/component.
+- Keep detection deterministic by explicit channels/profiles.
+
+## 3) Eligibility and Authority
+- Validate target state, range, actor validity, and gameplay conditions.
+- In multiplayer, validate success on server before mutating shared state.
+- Return structured failure reason on rejection.
+
+## 4) Resolve Interaction
+- On success: apply effect (grant item, trigger state change, start cooldown).
+- On failure: keep state stable and emit reason-specific feedback.
+- Prevent re-entrant execution during in-progress resolution.
+
+## 5) Feedback Path
+- Emit VFX/SFX/UI feedback for both success and failure paths.
+- Separate cosmetic-only effects from authoritative gameplay mutations.
+- Keep feedback idempotent for repeated client updates.
+
+## 6) Lifecycle and Cleanup
+- Choose lifecycle explicitly: destroy, hide+disable collision, or reuse via respawn timer.
+- If spawner exists, track spawned instances and cleanup on reset/despawn.
+- Disable tick for dormant interaction actors when not needed.
+
+# Constraints
+- Keep interaction validation server-authoritative in multiplayer.
+- Ensure collision channels and trace responses are explicit.
+- Keep spawner randomization deterministic when reproducibility is needed.
+- Avoid hidden side effects in `Tick` without clear need.
+- Do not destroy actors before broadcasting required success/failure feedback.
+- Keep overlap and trace paths functionally equivalent when both are enabled.
+
+# Failure Handling
+- Symptom: overlap never triggers.
+  - Locate: collision enabled state, overlap flags, collision channel responses.
+  - Fix: enable overlap generation, set proper channel responses, verify component bounds.
+- Symptom: trace path misses obvious targets.
+  - Locate: trace channel/profile and ignore actor list.
+  - Fix: align trace channel/profile and reduce self/owner ignore misuse.
+- Symptom: interaction triggers multiple times.
+  - Locate: missing in-progress guard and duplicated delegate bindings.
+  - Fix: add state guard and ensure single bind per component.
+- Symptom: client sees success but server rejects.
+  - Locate: authority checks and RPC validation path.
+  - Fix: move final validation to server and replicate authoritative result.
+- Symptom: consumed pickup remains interactable.
+  - Locate: lifecycle state and collision disable logic.
+  - Fix: disable collision/interaction immediately after confirmed success.
+- Symptom: spawned interactables leak over time.
+  - Locate: spawner bookkeeping and reset cleanup path.
+  - Fix: track spawned instances and destroy/disable stale instances on respawn cycle.
+- Symptom: frame spikes near dense interaction areas.
+  - Locate: per-frame trace/overlap workload and unnecessary ticking.
+  - Fix: reduce polling frequency, gate traces by input/distance, disable idle tick.
+- Symptom: a dig tool only reaches the ground right at the player's feet.
+  - Locate: the tool is still using the melee/production reach (e.g. 3.2 m), so at eye height the ray only meets the ground at a steep downward angle.
+  - Fix: give aiming tools their own trace length (project: `fps.Tool.DigReach`), keep the short reach for harvesting, and drive dig/refill from the crosshair ray.
+- Symptom: a terrain edit raises the ground where it should sink (or the reverse).
+  - Locate: the height delta is already signed (negative = sink) but the call site subtracts it again.
+  - Fix: define the edit value as "the delta added to the generated height" and use `+` at every site (height lookup, mesh vertex, numeric normal); one extra negation turns every pit into a mound.
+- Symptom: preview ghost or highlight survives after leaving the interaction mode.
+  - Locate: cached component pointers kept in file-scope statics (reset by a Live Coding reload), instance buffer cleared but never hidden (or hidden but never cleared), no cleanup on the non-key exit paths.
+  - Fix: clear instances + visibility + the rebuild signature cache on every exit path, re-resolve the component by name from a UPROPERTY host when the cache is empty, and add a cheap per-frame safety net while the mode is off.
+- Symptom: a material change on the highlight has no visible effect.
+  - Locate: material missing the "Used with Instanced Static Meshes" usage flag (the engine silently swaps in the default material), or an unlit emissive left at ~1.0 in a daylight scene.
+  - Fix: set the usage flag and push the emissive into HDR range; check the one-line engine warning in the log.
+
+# Interaction Authority Ops
+- Use server-validated interaction resolution for shared gameplay effects.
+- Use client-side prediction only for cosmetic feedback when acceptable.
+- Replicate result state, not raw input spam.
+- Keep cooldown/timer ownership on authority side for deterministic multiplayer behavior.
+
+# UE5.6-UE5.8 Compatibility Notes
+- Overlap, trace, and actor lifecycle APIs listed above are stable across UE5.6-UE5.8.
+- Prefer explicit collision profile/channel configuration across all supported versions.
+
+# Escalation
+- Escalate when design requires persistent world state synchronization across sessions.
+- Escalate when system must integrate with GAS ability targeting rules.
+
+## 持续环境声：喷泉 V9（2026-09-19）
+
+场景柜子、工具箱及抽屉的独立搜寻身份和活动分件，读取 [场景搜寻容器](references/scene-search-containers.md)。实体箱柜数与可搜寻门/抽屉数分别统计；随机布局由建筑技能处理，不另建背包或奖励系统。
+
+- 水流采用已处理首尾交叉淡化的循环音源和持续 `UAudioComponent`；避免用定时重播或脚步水花模拟连续流动。两层用不同长度及实例相位，进出范围只淡入淡出并保留距离回差。
+- 3D 单声道、距离衰减/低通与共享并发预算一起接入；声源不依赖画面可见性。并发替换用释放淡化，被拒绝后限频重试，EndPlay 停止组件。
+- UE 5.8 衰减低通字段为 `bAttenuateWithLPF`。并发最大数量可用 `SetMaxCount`；`VolumeScale` 是私有字段，不能直接赋值。
+- 记录作者、许可、实际下载版本和处理参数。公开 HQ MP3 与原始 WAV 分开说明；导出 PCM 不代表恢复原始无损质量。资产制作与编译完成不代表已试听。

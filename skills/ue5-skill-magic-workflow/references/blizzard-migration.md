@@ -1,5 +1,35 @@
 # 暴风雪迁移
 
+## 立体范围与分层表现（2026-10-13 当前口径）
+
+用户明确完整楼板仍阻挡，只在开放楼梯、中庭中跨高度。当前伤害改为以落点为中心的椭圆柱体：水平半轴沿用施法快照，垂直上、下各 `RadiusY * 2.3 + 150` cm；目标身体多点同时满足体积与无遮挡视线即可命中，不再依赖贴地或视觉网格。传播起点受本层天花板限制，实墙、门和楼板保留；不是绕墙扩散。
+
+环境按 2 Hz 采样 25 列、每列最多 3 个可见地面层，复制 75 单元。各有效层独立云雪雾霜，最多 9 个激活 Niagara；48 个落冰／碎片槽仍全区域共享。3 层只限制特效，不限制伤害的楼层数。雷暴云副本新增同层台阶插值及时间平滑，并立即限制在真实天花板下；云的基础高度沿各层地面调整，区域仍固定于释放点。定向作者 `Tools/Skills/build_blizzard_volume_cloud.py`，完整云作者同步。交付状态及明确边界见 `Docs/Skills/blizzard-volume-20261013.md`。下文单层 25 单元及最多 3 个 Niagara 均为历史实现；未做游戏或性能测试。
+
+## 暴风雪直接复用雷暴云层（2026-10-12 后续修订）
+
+用户截图否定初版 RollingV1 的 50 个细小网格云团，现用暴风雪资产保持同一路径，改为直接复制雷暴的五层云发射器：48 个核心粒子加有界边缘，尺寸／分布／密度／材质沿用雷暴，不带放电和电火花。25 个房间单元只约束实际云团的净空与墙边宽度，不再决定云团的 XY 排列。定向作者 `Tools/Skills/reuse_storm_domain_blizzard_cloud.py`，完整作者的 `blizzard()` 同步；已在现有编辑器中编译保存，无 C++ 变更，未游戏测试。说明 `Docs/Skills/blizzard-storm-cloud-reuse-20261012.md`。下文 50 云团配置是被替代的历史。
+
+## 翻卷乌云 RollingV1（2026-10-12）
+
+雷暴、暴风雪区域云与近手凝聚云的运行引用改为 `/Game/Skills/StormClouds/RollingV1` 三个独立 Niagara，当前作者 `Tools/Skills/build_rolling_storm_clouds.py`；制作和实际保存状态见 `Docs/Skills/rolling-storm-clouds-20261012.md`。参考百目 SmokeVisibilityFixV21／沉匣毒雾共用的 Mantaflow 密度图集，独立时间循环密集帧，采用深灰／冷灰配色，保留怪物源资产。
+
+雷暴仍按头顶锚点同步 XYZ、压缩净空内厚度并保留原电光；暴风雪云仍依 IndoorV5 的 25 单元地面／净空／宽度定位，雪、寒雾、落冰、伤害与预览继续沿用 IndoorV5；近手云保留 ChargedV3 的局部跟随。48／50／29 个主体粒子不增加，新材质每像素两次密度采样。旧版本作者仍是恢复输入，完整恢复最后执行 RollingV1 作者；下文旧云资产路径只描述历史，不能覆盖当前加载引用。未游戏测试或观感验收。
+
+
+## 室内适配 IndoorV5（2026-10-12）
+
+用户已授权实施室内方案，交付状态见 `Docs/Skills/blizzard-indoor-implementation-20261012.md`。运行引用转入 `/Game/Skills/Blizzard/IndoorV5` 的三套区域 Niagara 及地霜／预览材质，近手凝聚云仍为 V3；作者 `Tools/Skills/build_blizzard_indoor_v5.py`，完整 V3 作者末尾衔接 V5。以下 V4 描述为修复历史。
+
+`BlizzardEnvironment` 共用落点、地面、空间和通路判定，墙／顶命中从障碍前方向下找同室地面。25 单元保存局部地面、净空和宽度，2 Hz 复制；预览 5 Hz 共用足迹。低顶逐步转薄云、短落冰、贴地寒雾和横向飞雪，基础雪雾保留最低发射量。伤害独立于装饰，35／90／150 cm 通路限制在各自净空内，保留真实墙／门／楼板；不再按中心固定 100 cm 高差排除楼梯。装饰云／冰／声音缺失可降级，有效基础反馈全缺失则失败退款。仍最多三区域 Niagara、48 冰槽、四区域；没有实机验收。
+
+## 暴风雪修复口径（2026-10-12）
+
+本节替代下文区域云仍为 ChargedV3 的历史描述。区域云使用 `/Game/Skills/Blizzard/ClearanceV4/NS_BlizzardStormCloud`，近手云、雨雪、寒雾与冰锥继续使用当前 V3／FrostV2。25 个邻接盒体扫掠以 2 Hz 更新净空，服务端复制高度与厚度；四层 49 团云按表面法线对齐、零旋转，低顶压薄且不缩小伤害范围。定向作者 `Tools/Skills/build_blizzard_clearance_v4.py`，完整 V3 恢复作者末尾会接着恢复 V4。
+
+联机凝聚等成功回执后才可释放；释放回执前保留付款，成功提交、失败两端退款。取消和释放不得被节流静默丢弃；服务端重新核对地面、距离、视线与四区上限，并对死亡／丢失 pawn／持有超时回收预留。区域异步加载资源，显示年龄来自服务端起始时间，客户端结束不发修炼奖励。技能已补升级通知、F6 调级与两阶段施法说明；原等级成长和 `requiresStaff=false` 保留。修改与交付状态见 `Docs/Skills/blizzard-fixes-20261012.md`，未做游戏或联机测试。
+
+
 案例：`Docs/Skills/blizzard-migration-20260930.md`。数值真源：`Content/ColdSteelData/skills.json:blizzard`；原来源 `game-dev/data/skills.json:skills.blizzard` 与 `src/entities/components/blizzard-system.js`、`src/effects/blizzard-zone.js`。
 
 2026-10-01 当前版本转入 `/Game/Skills/Blizzard/ChargedV3`，制作记录 `Docs/Skills/blizzard-charged-storm-20261001.md`。首次按键凝聚，在火球默认施法位置保留浓密乌云；完成后再次长按同键显示地面椭圆预览，松键锁定最后显示的位置和法线，前挥接触时提交。菜单只收起预览，完成积蓄的乌云仍占用魔法；未完成凝聚被打断、死亡、离场、30 秒持有到期或读档弃置退还实际付款。Profile 预留期间冻结冷却，包括冷却缩减入口，实际释放后开始计时。组件独立持有未释放付款，不使用共享手势的临时付款槽。

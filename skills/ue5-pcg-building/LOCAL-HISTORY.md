@@ -1,0 +1,189 @@
+> 2026-10-10 整理前的工程技能快照。仅维护源不可用或查找工程独有经验时读取；不是当前通用执行规范。
+
+
+## UE5 默认开发方式（用户确定，2026-09-23）
+
+后台优先：不主动启动 UE 编辑器；不主动检查、测试、启动 PIE、截图或验收渲染；不向其他对话/任务发协调消息。完整规则与「按改动选执行方式」表见仓库根 `AGENTS.md` 和 [后台开发与编辑器使用条件](../ue5-auto-assistant/references/editor-open-development.md)。
+
+## FPSGAME 性能开发约束（2026-09-23）
+
+扩展地牢、灯光或高密度模块时，读取 [性能开发约束](../ue5-performance-packaging/references/fpsgame-performance-development.md) 的灯光与几何部分。固定起始区与新增房间都接入灯光调度；模型资产和后续导入脚本同步保留 Nanite／LOD、材质用途与碰撞策略。
+
+# Quick Start
+
+- 大厅门框漏空/闪动、告示牌、关闭出怪设施基础、双主题路线和门外街景，读取 [设施收口与静态布景](references/facility-reveals-and-static-fixtures.md)。区分活跃母版与废案、场景模型与刷怪玩法。
+
+- 固定主题组合、错层坡道、路线预算及清房后开闸，读取 [主题路线与房间闸门](references/themed-routes-and-room-gates.md)。
+
+- 新场景/房间开发、统一栏杆翻越、控制台直达预览及用户确认后的样板清理，先读 [场景开发标准流程](references/scene-development-standard.md)。默认不新增祭坛出征入口；正式接入收尾包含样板退役。
+
+- 地牢墙面扫描、颗粒/视差、霉斑与渗水贴花，读取 [地牢表面制作](references/dungeon-surface-authoring.md)，先确定实际材质入口与污渍层，再调整密度和表现。
+
+- 扩展已认可样板、随机房间池、门洞拼接、岔路和 Boss 终点时，读取 [保留设计语义的随机地牢](references/authored-dungeon-generation.md)。
+
+- 特殊战斗房入池、玻璃门窗、随机家具/血迹/海报和临时测试退役，读取 [特殊地牢房间与室内接入](references/special-dungeon-interiors.md)。
+
+- 工作台、维修墙、货架等含许多小件的室内布景，读取 [可复用室内组合件](references/reusable-interior-assemblies.md)：以配置和锚点维护组合件，受约束随机摆放，按依赖局部重建。
+
+- For decorative fountain overflow, natural water variation and seamless spatial water loops, read [fountain water and audio](references/fountain-water-audio.md).
+- For the accepted white-marble pavilion dome, real constellation inlays and finial authoring, read [pavilion roof decoration](references/pavilion-roof-decoration.md).
+
+## 统一模型生成入口（2026-09-13）
+
+制作建筑模块本体、建材和装饰网格时，先用 [通用模型生成工作流](../asset-model-workflow/SKILL.md)。生成外观后按明确尺寸、枢轴、拼接面和碰撞制作模块，再接续本文 PCG 排布；PCG 本身不是图生模型。默认不主动测试或验收。
+
+- For the runtime heightfield **ground material** (layered families, height blending, parallax
+  relief, vertex-colour contract, offline HLSL validation) read
+  [ground surface material](references/ground-surface-material.md). The hills world has no
+  Landscape actor, so none of the Landscape nodes apply there.
+- Define generation target: blockout towers, modular facades, or lot-based building sets.
+- Define deterministic inputs: lot splines/points, district tags, style preset, and seed.
+- Define runtime mode: static bake, on-demand, or runtime scheduled generation.
+- Define output mode: Static Mesh instances first, Spawn Actor only for interactive/stateful parts.
+
+# API Anchors (UE5.6-UE5.8)
+- Runtime trigger and radii live on `UPCGComponent`:
+  - `EPCGComponentGenerationTrigger::GenerateAtRuntime`
+  - `bOverrideGenerationRadii`, `GenerationRadii`, `SchedulingPolicyClass`, `SchedulingPolicy`
+  - `GenerateLocal(...)`, `Cleanup(...)`
+- Runtime scheduler refresh lives on `UPCGSubsystem`:
+  - UE5.6/UE5.7: `RefreshRuntimeGenComponent(...)`, `RefreshAllRuntimeGenComponents(...)`
+  - UE5.8: `RefreshRuntimeGenExecutionSource(...)`, `RefreshAllRuntimeGenExecutionSources(...)`
+  - UE5.8 deferred refresh: `DirtyRuntimeGenExecutionSources(...)`
+  - Shared cleanup API: `CleanupLocalComponentsImmediate(...)`
+- Output selection anchor classes:
+  - `UPCGStaticMeshSpawnerSettings` for high-count rendering
+  - `UPCGSpawnActorSettings` for interactive/stateful outputs
+- Shape Grammar anchor classes:
+  - `UPCGSubdivisionBaseSettings::GrammarSelection`
+  - Do not rely on deprecated grammar fields (`bGrammarAsAttribute_DEPRECATED`, `Grammar_DEPRECATED`)
+
+# Graph Stage Contract
+- Every stage must explicitly declare:
+  - Input data type (`EPCGDataType` or asset source)
+  - Core node/classes (minimum two)
+  - Required parameters (seed, tags, ranges, radii, or style keys)
+  - Output data type
+  - Debug method (node-level checks, debug node, or log/assert path)
+- If a stage cannot satisfy these five items, treat the graph design as incomplete.
+
+# Workflow
+## 1) Input
+- Input data type: actor/spline/point sources.
+- Core node/classes: `UPCGDataFromActorSettings`, `UPCGGetActorPropertySettings`, `UPCGCreatePointsSettings`.
+- Required parameters: lot tag filters, district/style tags, seed source, source bounds.
+- Output: normalized lot point or spline data with stable ordering.
+- Debug method: run `UPCGDebugSettings` after input stage and verify point count and bounds.
+
+## 2) Filter
+- Input data type: point/spline data from Input stage.
+- Core node/classes: `UPCGAttributeFilteringSettings`, `UPCGDensityFilterSettings`, `UPCGFilterByTagSettings`.
+- Required parameters: slope range, exclusion tags, min lot area/width, occupancy constraints.
+- Output: only buildable lots/candidates.
+- Debug method: compare candidate count before/after filter and inspect rejected tag distribution.
+
+## 3) Transform
+- Input data type: filtered buildable candidates.
+- Core node/classes: `UPCGCopyPointsSettings`, `UPCGCreateSplineSettings`, `UPCGApplyScaleToBoundsSettings`.
+- Required parameters: floor height, pivot convention, facade orientation basis, local axes.
+- Output: footprint transforms and per-floor transforms.
+- Debug method: inspect transform axes and floor index attributes on output points.
+
+## 4) Grammar
+- Input data type: segment/spline/point data from Transform stage.
+- Core node/classes: `UPCGSubdivideSplineSettings`, `UPCGSubdivideSegmentSettings`, `UPCGSelectGrammarSettings`.
+- Required parameters: `GrammarSelection`, module size limits, style-based grammar key mapping.
+- Output: grammar-resolved module placements/attributes.
+- Debug method: use `UPCGPrintGrammarSettings` for grammar parse and token validation.
+- Rule: use `GrammarSelection` only; avoid deprecated grammar fields.
+
+## 5) Output
+- Input data type: grammar-resolved placements.
+- Core node/classes: `UPCGStaticMeshSpawnerSettings`, `UPCGSpawnActorSettings`, `UPCGCreateTargetActor`.
+- Required parameters:
+  - Static path: mesh selector, instance packer, ISM/HISM policy.
+  - Actor path: actor class, spawn attributes, state/interaction requirements.
+- Output: rendered buildings and optional interactive building elements.
+- Debug method: split output by layer/tag and validate per-layer counts.
+- Default policy: prefer Static Mesh Spawner; use Spawn Actor only when stateful behavior is required.
+
+## 6) Validate
+- Input data type: final spawned result and runtime generation state.
+- Core node/classes: `UPCGDebugSettings`, `UPCGComponent`, `UPCGSubsystem`.
+- Required parameters: expected cell bounds, max per-update spawn budget, nav/collision expectations.
+- Output: pass/fail signals and fix actions.
+- Debug method: run staged checks for overlap, navigation impact, per-cell generation time, and deterministic replay.
+
+# Constraints
+- Keep the main pipeline compatible with UE5.6-UE5.8 unless a version-specific note is required.
+- Runtime generation must explicitly set:
+  - `GenerationTrigger = GenerateAtRuntime`
+  - explicit `GenerationRadii` (do not rely on implicit defaults)
+  - explicit `SchedulingPolicyClass` for predictable scheduler behavior
+- Prefer ISM/HISM style output for large counts; avoid spawning heavyweight actors for each small part.
+- Keep runtime generation bounds explicit to avoid uncontrolled world-wide regeneration.
+- Avoid hidden dependency on editor-only data when runtime generation is expected.
+- Treat World Partition boundaries as hard constraints for runtime scopes.
+
+# Failure Handling
+- Symptom: no buildings spawn.
+  - Locate: Input stage output count, source bounds, lot tags.
+  - Fix: verify source actor/spline ingestion and lot filter tags; confirm non-empty candidate set.
+- Symptom: output exists in editor preview but not runtime.
+  - Locate: `GenerationTrigger` and runtime radii/scheduling settings.
+  - Fix: set `GenerateAtRuntime`, radii override, and valid scheduling policy.
+- Symptom: runtime update regenerates too wide an area.
+  - Locate: runtime radii and generation source movement.
+  - Fix: reduce generation/cleanup radii and tighten source bounds.
+- Symptom: stale generated pieces remain after rules shrink.
+  - Locate: cleanup path and local component lifecycle.
+  - Fix: trigger cleanup with remove-components behavior and force local cleanup when needed.
+- Symptom: heavy hitching during runtime generation.
+  - Locate: points-per-cell, actor spawn count, per-update workload.
+  - Fix: reduce per-cell complexity, cap actor spawns, move non-interactive parts to static mesh instances.
+- Symptom: deterministic replay mismatch with same seed.
+  - Locate: unstable upstream point ordering or non-seeded random branch.
+  - Fix: normalize ordering before random selection and bind every stochastic path to explicit seed inputs.
+- Symptom: facade grammar fails or produces empty modules.
+  - Locate: grammar parse logs and module token mapping.
+  - Fix: validate grammar string, module dictionary, and segment size constraints.
+- Symptom: overlap and collision issues.
+  - Locate: filter thresholds and final placement constraints.
+  - Fix: add clearance/slope filters and occupancy rejection before output stage.
+- Symptom: navmesh degradation around generated buildings.
+  - Locate: collision profile and nav-affecting flags on spawned outputs.
+  - Fix: split nav-affecting vs non-nav-affecting outputs and rebuild nav only where required.
+- Symptom: runtime changes do not apply after parameter edits.
+  - Locate: scheduler refresh flow.
+  - Fix: request runtime scheduler refresh for the modified component or all runtime components.
+
+# Runtime Scheduler Ops
+- Use component refresh when one runtime component changed style/radii/scheduling inputs.
+- Use global refresh when style/global rules changed for many runtime components.
+- Use immediate local cleanup when bounds shrink or partition ownership changed.
+- After cleanup, trigger local regeneration only for affected runtime scope.
+
+# UE5.6-UE5.8 Compatibility Notes
+- Core runtime trigger and grammar APIs above are stable in UE5.6-UE5.8.
+- UE5.8 adds non-destructive manual editing and complex metadata attribute values; treat these as optional 5.8 capabilities rather than requirements for cross-version graphs.
+- Header path difference for subsystem:
+  - UE5.6 commonly uses `Public/PCGSubsystem.h`
+  - UE5.7/UE5.8 use `Public/Subsystems/PCGSubsystem.h` and include `Subsystems/PCGSubsystem.h`
+- UE5.8 deprecates component-named scheduler refresh calls. Use the `IPCGGraphExecutionSource`-based APIs in 5.8 code; retain the component-based calls only for 5.6/5.7 branches.
+
+# Escalation
+- Escalate when architecture requires custom C++ PCG elements or engine plugin extension.
+- Escalate when city-scale generation must be integrated with World Partition streaming policy.
+- Escalate when generated layout must be synchronized with save/load or multiplayer authority rules.
+
+## Vibe3D 模块本体制作（2026-09-19）
+
+楼梯、梁柱、栏杆、管件等明确尺寸的规则模块，优先考虑 [Vibe3D 制作分支](../asset-model-workflow/references/vibe3d-workflow.md) 在 UE 内直接制作；参考与尺寸充分时无需先跑图生模型。生成资产或已有资产可按需做局部几何、UV、碰撞和 LOD。保持本项目尺寸、枢轴、拼接面与建筑放置合同，完成模块后再由 PCG 排布。Vibe3D 是编辑器制作工具，不替代运行时地貌破坏或 20 cm 玩家建造系统；不自动执行本技能或插件文档中的测试与预览。
+
+## 已生成构件的批量优化
+
+制作局部 Nanite/ISM 分组及后台关卡保存时，读取 [静态构件实例化](references/static-mesh-instance-production.md)，保留碰撞、变换及独立玩法对象语义。
+
+## 冶炼点击存档（2026-09-24）
+
+熔炉的开始、加燃料、收取、升级、拆除与档案意图、立即刷盘和读档对账，读取 [冶炼点击意图](references/smelting-click-intents.md)。连续挖掘仍用约 2 秒合并存档。

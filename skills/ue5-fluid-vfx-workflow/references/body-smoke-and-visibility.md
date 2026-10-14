@@ -2,6 +2,15 @@
 
 用于从移动角色身上持续产生烟雾、离体后独立扩散，以及排查“范围或目盲存在，烟却看不到”。案例为百目炉渣 V19–V21，2026-10-02。V21 资产保存和 Editor 玩法模块构建已完成，用户尚未反馈修复后的实际画面；本页记录方法和已读配置，不将其写成已验收效果。
 
+## 派生随身／区域乌云（2026-10-12）
+
+后续用户截图否定暴风雪按 25 个房间单元排列的小云块，改为直接复制雷暴的五层重叠云团；单元仅约束净空，不作为视觉排布。引擎 AddEmitter 会让副本继承系统内部的私有 emitter，跨包保存会报 Illegal reference；复制完整图表后，按原生 RemoveParent 语义清空 VersionedParent／VersionedParentAtLastMerge 即可保存独立副本。作者同步 `build_rolling_storm_clouds.py`，当前制作状态见 `Docs/Skills/blizzard-storm-cloud-reuse-20261012.md`；未游戏验收。
+
+参考黑烟形态不等于复制离体烟迹运动。雷暴与暴风雪的 RollingV1 派生仅复用本例的 R 密度图集与双帧插值，改用持续时间循环密集段、独立云团相位、深浅灰层次及边缘散开。雷暴仍每帧读取施法者当前 XYZ，暴风雪保留局部房间单元净空，近手云保留局部空间；不引入怪物毒性、目盲或固定出生点行为。
+
+独立材质／三个 Niagara 位于 `/Game/Skills/StormClouds/RollingV1`；作者 `Tools/Skills/build_rolling_storm_clouds.py`，源 `SourceAssets/StormCloudRolling20261012`，保存与构建状态见 `Docs/Skills/rolling-storm-clouds-20261012.md`。保持深度测试与现有并发，世界／近手材质分别处理 AA 和深度淡出；每像素两次密度采样，不新增图集，未实测性能或视觉验收。
+
+
 ## 出生跟随，离体独立
 
 - 身体骨骼／socket 只驱动新的出生位置。世界空间发射器在 Particle Spawn 保存出生位置和初始漂移，在 Particle Update 使用这份快照与粒子年龄；持续读取移动身体坐标会把旧烟也拖着走。

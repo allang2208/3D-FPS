@@ -4,6 +4,8 @@
 
 ## 关闭与焦点
 
+- **面板保留手部待机（2026-10-09）**：`BlocksOngoingActions`、忽略移动／视角输入和显示光标只用于动作输入限制，不能直接作为装备视模的隐藏条件。开面板继续走 `SuspendWeaponForMenu` 取消活动动作，各武器展示层独立保留 Idle；法书展示所有权和推击资格也必须分开。新面板不要通过隐藏手臂来阻断操作，暂停菜单仍沿用世界暂停语义。
+
 - `ColdSteelInventoryPopup` 通过 `AddToViewport` 成为独立根，其背景点击不会冒泡到 `ColdSteelHUDWidget`。背包与独立弹窗共用 `HandleInventoryOutsideClick`，避免只关菜单、背包仍打开。不要复制两份几何判断。
 - 使用同一套屏幕绝对坐标与 `GetCachedGeometry().IsUnderLocation` 判断背包、仓库、详情与可见浮窗范围；点击受保护区域内继续原操作，区域外关闭并消费点击。
 - 打开时根控件必须能接收外部点击，关闭时恢复原游戏输入。复查拖放结束后的根/背景可命中状态，不能只验证第一次打开；抽屉透明度不等于命中状态。
