@@ -423,6 +423,8 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTextBlock> EquipmentDamageValue;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> EquipmentCapacityValue;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> EquipmentIntervalValue;
+    UPROPERTY(Transient) TObjectPtr<UVerticalBox> EquipmentTraitsBox;
+    FString EquipmentTraitsWeapon;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> EquipmentReloadValue;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> EquipmentAmmoValue;
 

@@ -13,11 +13,11 @@ FDashAttackCast UColdSteelStatusModel::DashAttackStats(int32 AtLevel) const
     C.DamageMultiplier=T.DamageBase+L*T.DamagePerLevel;
     C.ReadySeconds=FMath::Max(.01f,T.ReadySeconds*(1.f-(L-1)*T.ReadyReductionPerLevel));
     C.StaminaCost=T.StaminaCost;
-    C.DistanceCM=FMath::Max(0.f,T.Distance);C.BounceRatio=0.f; // 距离直接使用厘米，不套用旧版范围换算。
+    C.DistanceCM=FMath::Max(0.f,T.Distance); // 距离直接使用厘米，不套用旧版范围换算。
     C.RangeBonusCM=(T.RangeBase+L*T.RangePerLevel+T.RangeFlat)*T.UnitsToCM;
     C.KnockbackBonusCM=(T.KnockbackBonus+L*T.KnockbackPerLevel)*T.UnitsToCM;
-    // 当前下劈固定为前方左右各30度；也覆盖热更新前已缓存的旧120度定义。
-    C.ArcDegrees=60.f;
+    // 扇区宽度由 skills.json:arcDegrees 配置（当前 45°）；限幅防止旧缓存值回灌。
+    C.ArcDegrees=FMath::Clamp(T.ArcDegrees,10.f,90.f);
     const auto* Item=Equipped();
     if(Item&&!ActiveProductionTool()&&ColdSteelInventory::IsMeleeWeapon(*Item))
     {

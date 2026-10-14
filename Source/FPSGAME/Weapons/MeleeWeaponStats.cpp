@@ -38,12 +38,15 @@ FMeleeWeaponStats ColdSteelMelee::Evaluate(const FColdSteelItem& Item,const UCol
     R.ComboSecondDamage=R.Damage*R.Modifiers.ComboMultiplier(2);
     R.ComboThirdDamage=R.Damage*R.Modifiers.ComboMultiplier(3);
     R.HeavyMultiplier=R.Modifiers.HeavyMultiplier(Profile?Profile->MasteryEffect(TEXT("heavyStrike")).HeavyMultiplier:2.5);
-    R.HeavyChargeSpeedBonus=R.Modifiers.HeavyChargeSpeedBonus+(Enhance?Enhance->Effect(Item,TEXT("heavyChargeSpeedBonus")):0.);
+    R.HeavyChargeSpeedBonus=R.Modifiers.HeavyChargeSpeedBonus+(Enhance?Enhance->Effect(Item,TEXT("heavyChargeSpeedBonus")):0.)+ColdSteelInventory::Number(Item,TEXT("heavy_charge_speed_bonus"),0.);
     const double SkillCharge=Profile?Profile->MasteryEffect(TEXT("heavyStrike")).HeavyChargeSeconds:2.;
     R.HeavyChargeSeconds=(SkillCharge>0.?SkillCharge:2.)/FMath::Max(.1,1.+R.HeavyChargeSpeedBonus);
     R.KnockbackCM=ColdSteelInventory::Number(Item,TEXT("melee_knockback_cm"),Item.Definition==TEXT("ue_frost_crystal_sword")?20:0)*R.Modifiers.Knockback*R.Modifiers.AllAttackKnockback;
     const double Berserk=Profile?Profile->BerserkAttackSpeedMultiplier():1.;
-    R.AttackRate=FMath::Clamp((Profile?double(Profile->Derived(TEXT("aspd")))/Berserk:1.)*R.Modifiers.AttackSpeed*Temporary.AttackSpeed/
+    // Per-weapon base duration: attack_seconds scales the whole swing clock
+    // (animation, contact window, camera, lunge) through AttackRate.
+    const double WeaponSpeed=RuneSwordRhythm::AttackEnd/FMath::Max(.1,ColdSteelInventory::Number(Item,TEXT("attack_seconds"),RuneSwordRhythm::AttackEnd));
+    R.AttackRate=FMath::Clamp((Profile?double(Profile->Derived(TEXT("aspd")))/Berserk:1.)*R.Modifiers.AttackSpeed*Temporary.AttackSpeed*WeaponSpeed/
         FMath::Max(.1,Enhance?Enhance->Effect(Item,TEXT("attackIntervalMul"),1):1.)/
         (Profile?1-Profile->MasteryEffect(TEXT("swordMastery")).CooldownReduction:1.),.2,4.)*Berserk;
     R.AttackSeconds=RuneSwordRhythm::AttackEnd/R.AttackRate;

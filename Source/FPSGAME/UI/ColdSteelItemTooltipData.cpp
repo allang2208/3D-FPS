@@ -8,6 +8,7 @@
 #include "ColdSteelEnhancementSystem.h"
 #include "Engine/GameInstance.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/FullAutoTrigger.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/WeaponStatEvaluation.h"
@@ -47,7 +48,7 @@ void DamageRows(FColdSteelTooltipCard& C,const FWeaponDamageParts& D)
 void Section(FColdSteelTooltipCard& C,const FString& Label){C.Rows.Add({Label,TEXT(""),0,true});}
 // 附魔说明用整行宽行：标签折进内容前缘（标签：内容），文字从最左开始，尽量一行读完。
 void Note(FColdSteelTooltipCard& C,const FString& Label,const FString& Val,int32 Tone=0){if(Val.IsEmpty())return;C.Rows.Add({TEXT(""),Label.IsEmpty()?Val:Label+TEXT("：")+Val,Tone});}
-FString Category(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon_ranged"),TEXT("远程武器")},{TEXT("weapon_bow"),TEXT("远程武器")},{TEXT("weapon_melee"),TEXT("近战武器")},{TEXT("weapon_magic"),TEXT("魔法武器")},{TEXT("magic_book"),TEXT("魔法书")},{TEXT("weapon"),TEXT("武器")},{TEXT("tool"),TEXT("生产工具")},{TEXT("armor"),TEXT("防具")},{TEXT("equipment"),TEXT("装备")},{TEXT("accessory"),TEXT("饰品")},{TEXT("consumable"),TEXT("消耗品")},{TEXT("material"),TEXT("材料")},{TEXT("enhancement"),TEXT("强化道具")},{TEXT("tribute"),TEXT("贡品")},{TEXT("gold"),TEXT("金币")}};const auto* V=M.Find(K);return V?*V:K;}
+FString Category(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon_ranged"),TEXT("远程武器")},{TEXT("weapon_bow"),TEXT("远程武器")},{TEXT("weapon_melee"),TEXT("近战武器")},{TEXT("weapon_magic"),TEXT("魔法武器")},{TEXT("magic_book"),TEXT("魔法书")},{TEXT("weapon"),TEXT("武器")},{TEXT("tool"),TEXT("生产工具")},{TEXT("armor"),TEXT("防具")},{TEXT("equipment"),TEXT("装备")},{TEXT("accessory"),TEXT("饰品")},{TEXT("consumable"),TEXT("消耗品")},{TEXT("material"),TEXT("材料")},{TEXT("enhancement"),TEXT("强化道具")},{TEXT("tribute"),TEXT("贡品")},{TEXT("gold"),TEXT("灵魂")}};const auto* V=M.Find(K);return V?*V:K;}
 FString EquipSlotLabel(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon"),TEXT("武器槽")},{TEXT("offhand"),TEXT("副手槽")},{TEXT("armor"),TEXT("防具槽")},{TEXT("gloves"),TEXT("手套槽")},{TEXT("pants"),TEXT("裤子槽")},{TEXT("boots"),TEXT("鞋靴槽")},{TEXT("backpack"),TEXT("背包装备槽")}};const auto* V=M.Find(K);return V?*V:K;}
 void Delta(FColdSteelTooltipCard& C,const FString& Label,double V,const TCHAR* Unit,bool Lower=false){if(FMath::Abs(V)>.00001)Row(C,Label,Signed(V,Unit),(V>0)!=Lower?1:-1);}
 // 附魔只存攻击间隔倍率；玩家口径用射速倍率表达，1/3 与 2 倍都读得懂。
@@ -78,9 +79,9 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     {
         const double Multiplier=G?G->Calculate(I.Definition,G->Installed(I)).Melee.InnateErosionMultiplier:1.;
         auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("武器自带效果 · 侵蚀");C.MinimumWidth=460;
-        Row(C,TEXT("常驻附加魔法伤害"),TEXT("智力×")+N(InnateInt*100)+TEXT("% + 精神×")+N(InnateWis*100)+TEXT("%"),1);
-        if(Multiplier!=1)Row(C,TEXT("精神迸发后"),TEXT("智力×")+N(InnateInt*Multiplier*100)+TEXT("% + 精神×")+N(InnateWis*Multiplier*100)+TEXT("%"),1);
-        Row(C,TEXT("结算"),TEXT("随连击、重击等攻击倍率放大，按魔法防御减免；更换其他符文仍保留自带侵蚀。"));
+        Note(C,TEXT("附加魔伤"),TEXT("智力×")+N(InnateInt*100)+TEXT("% + 精神×")+N(InnateWis*100)+TEXT("%"),1);
+        if(Multiplier!=1)Note(C,TEXT("迸发后"),TEXT("智力×")+N(InnateInt*Multiplier*100)+TEXT("% + 精神×")+N(InnateWis*Multiplier*100)+TEXT("%"),1);
+        Note(C,TEXT("结算"),TEXT("随连击·重击倍率放大，按魔防减免；换其他符文仍保留"));
     }
 
     if(const J Forge=Object(O,TEXT("_forgeQuality")))
@@ -93,8 +94,9 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         ForgeSummary=C.Rows;
         Row(C,TEXT("有效命中"),N(Number(Forge,TEXT("hits")))+TEXT(" / ")+N(Number(Forge,TEXT("total"),20)));
         Row(C,TEXT("工艺倍率"),FString::Printf(TEXT("×%.3f"),Multiplier));
-        Row(C,TEXT("作用范围"),TEXT("作用于基础伤害计算，已计入武器总伤害；附加伤害按各自公式结算，不统一乘此倍率。"));
-        Row(C,TEXT("品质说明"),TEXT("工艺品质由本次锻打表现决定，与强化等级独立记录。"));
+        Note(C,TEXT("作用"),TEXT("乘于基础伤害，已计入武器总伤害"));
+        Note(C,TEXT("例外"),TEXT("附加伤害按各自公式结算，不乘此倍率"));
+        Note(C,TEXT("说明"),TEXT("工艺品质由本次锻打表现决定，与强化等级独立记录"));
     }
     double WoodScore=0;
     if(ColdSteelWoodQuality::Read(I,WoodScore))
@@ -117,7 +119,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(C,TEXT("工艺评分"),N(Number(Assembly,TEXT("score")))+TEXT(" / 100"));
         Row(C,TEXT("后坐力降低"),N((1-FMath::Clamp(Number(Assembly,TEXT("recoil"),1),.88,1.))*100)+TEXT("%"),1);
         Row(C,TEXT("腰射散布降低"),N((1-FMath::Clamp(Number(Assembly,TEXT("spread"),1),.85,1.))*100)+TEXT("%"),1);
-        Row(C,TEXT("作用范围"),TEXT("已计入实战和合计参数，随本枪保存；更换配件保留装配工艺。"));
+        Note(C,TEXT("作用"),TEXT("已计入实战与合计参数，随本枪保存；更换配件保留"));
     }
     const J Enchant=Object(O,TEXT("_enchantData"));const J EE=Object(O,TEXT("_enchantEffects"));
     if(Enchant&&(Object(Enchant,TEXT("prefix"))||Object(Enchant,TEXT("suffix")))){
@@ -133,30 +135,21 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             bool Calm=false;EE->TryGetBoolField(TEXT("calmFirearm"),Calm);
             if(Calm)
             {
-                Row(C,TEXT("沉着冷静触发"),TEXT("附魔枪械每次暴击敌人获得 1 层"),1);
-                Row(C,TEXT("每层稳定性"),TEXT("+")+N(Number(EE,TEXT("composureStabilityPerStack"))*100.)+TEXT("%"),1);
-                Row(C,TEXT("每层后坐力"),TEXT("−")+N(Number(EE,TEXT("composureRecoilReductionPerStack"))*100.)+TEXT("%"),1);
-                Row(C,TEXT("层数上限"),N(Number(EE,TEXT("composureMaxStacks")))+TEXT(" 层"),1);
-                Row(C,TEXT("持续时间"),N(Number(EE,TEXT("composureSeconds")))+TEXT(" 秒；暴击加层并刷新，满层也刷新；到期全部清除"));
+                Section(C,TEXT("沉着冷静"));
+                Note(C,TEXT("每层"),TEXT("稳定 +")+N(Number(EE,TEXT("composureStabilityPerStack"))*100.)+TEXT("% · 后坐 −")+N(Number(EE,TEXT("composureRecoilReductionPerStack"))*100.)+TEXT("% · 上限 ")+N(Number(EE,TEXT("composureMaxStacks")))+TEXT(" 层"),1);
+                Note(C,TEXT("规则"),TEXT("暴击 +1 层；")+N(Number(EE,TEXT("composureSeconds")))+TEXT(" 秒内再暴击加层刷新，到期清空"));
             }
             if(ColdSteelInventory::IsBow(I))
             {
                 if(const double DrawBonus=Number(EE,TEXT("bowDrawSpeedBonus"));DrawBonus!=0.)
-                {
-                    Delta(C,TEXT("拉弓速度"),DrawBonus*100.,TEXT("%"));
-                    Row(C,TEXT("拉弓叠加规则"),TEXT("与改造件及装备同类加成相加，基础拉弓时间 ÷（1 + 总加成）"));
-                }
+                    Note(C,TEXT("拉弓速度"),Signed(DrawBonus*100.,TEXT("%"))+TEXT(" · 与同类相加，耗时 ÷(1+总和)"),1);
             }
             else if(const double ChargeBonus=Number(EE,TEXT("heavyChargeSpeedBonus"));ChargeBonus!=0.)
-            {
-                Delta(C,TEXT("重击蓄力速度"),ChargeBonus*100.,TEXT("%"));
-                Row(C,TEXT("蓄力叠加规则"),TEXT("与改造件同类加成相加，基础蓄力时间 ÷（1 + 总加成）"));
-            }
+                Note(C,TEXT("重击蓄力速度"),Signed(ChargeBonus*100.,TEXT("%"))+TEXT(" · 与改造件相加，蓄力 ÷(1+总和)"),1);
             bool Poison=false;if(EE->TryGetBoolField(TEXT("poisonOnHit"),Poison)&&Poison)Row(C,TEXT("特殊效果"),TEXT("攻击叠加中毒"),1);
             const double TurboStart=Number(EE,TEXT("turboRampStartMul")),TurboPeak=Number(EE,TEXT("turboRampPeakMul")),TurboSeconds=Number(EE,TEXT("turboRampSeconds"));
             if(TurboStart>0.&&TurboPeak>0.&&TurboSeconds>0.)
-            {Row(C,TEXT("射速倍率"),RateMultiplier(TurboStart)+TEXT(" → ")+RateMultiplier(TurboPeak)+TEXT(" 倍"),1);
-                Row(C,TEXT("加速时间"),N(TurboSeconds)+TEXT(" 秒，停火立即复位"),1);}
+                Note(C,TEXT("射速倍率"),RateMultiplier(TurboStart)+TEXT(" → ")+RateMultiplier(TurboPeak)+TEXT(" 倍 · ")+N(TurboSeconds)+TEXT(" 秒加速，停火复位"),1);
             bool ConvergenceShot=false;EE->TryGetBoolField(TEXT("convergenceShot"),ConvergenceShot);
             bool Cowboy=false;EE->TryGetBoolField(TEXT("cowboyReload"),Cowboy);
             bool BigBlind=false;EE->TryGetBoolField(TEXT("bigBlind"),BigBlind);
@@ -166,49 +159,53 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
                 const auto* DragonRules=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
                 const double Required=FMath::Max(1.,DragonRules?DragonRules->Effect(I,TEXT("azureDragonHitsToSummon"),9.):9.);
                 const double ActiveSeconds=DragonRules?DragonRules->Effect(I,TEXT("azureDragonActiveSeconds"),30.):30.;
-                Row(C,TEXT("苍龙蓄能"),FString::Printf(TEXT("每次攻击有效命中积蓄 %g%%，%.0f 次攻击积满后激活 %.0f 秒；同次攻击只充能一次"),100./Required,Required,ActiveSeconds));
-                Row(C,TEXT("苍龙激活"),TEXT("从下一次出手开始，持续期间每次攻击都生效"));
-                Row(C,TEXT("能量保留"),TEXT("停止攻击保留，切换武器、移除附魔或死亡清空"));
-                Row(C,TEXT("苍龙范围"),FString::Printf(TEXT("斩击、重击、上挑从自身延伸到龙爪爪尖约 %.1f 米，沿原挥击轨迹；突刺、冲刺、旋风、快速近战距离 +%g%%；保留墙体遮挡"),
-                    AzureDragonReach::ClawReachCM/100.,(Number(EE,TEXT("azureDragonReachMultiplier"),1.5)-1.)*100.));
-                Row(C,TEXT("苍龙物理"),FString::Printf(TEXT("原物理伤害 ×%g；原魔法伤害不变"),Number(EE,TEXT("azureDragonPhysicalMultiplier"),2.)));
-                Row(C,TEXT("苍龙魔法"),FString::Printf(TEXT("另行结算翻倍前角色物理攻击值的 %g%% 魔法伤害，独立计算魔法防御"),Number(EE,TEXT("azureDragonMagicAttackScale"),1.)*100.));
-                Row(C,TEXT("苍龙幻爪"),TEXT("龙爪摆动、逐指抓握与剑击共用时钟；激活时能量条随剩余时间燃烧消耗，不再蓄能或刷新"));
+                Section(C,TEXT("苍龙"));
+                Note(C,TEXT("蓄能"),FString::Printf(TEXT("命中 %.0f 次积满 → 激活 %.0f 秒 · 同一挥击只充 1 次"),Required,ActiveSeconds),1);
+                Note(C,TEXT("伤害"),FString::Printf(TEXT("物理 ×%g · 另结算物攻 %g%% 魔法伤害（独立魔防）"),Number(EE,TEXT("azureDragonPhysicalMultiplier"),2.),Number(EE,TEXT("azureDragonMagicAttackScale"),1.)*100.),1);
+                Note(C,TEXT("范围"),FString::Printf(TEXT("斩击·重击·上挑延伸至龙爪尖 ~%.1f 米，保留墙体遮挡"),AzureDragonReach::ClawReachCM/100.));
+                Note(C,TEXT("加距"),FString::Printf(TEXT("突刺·冲刺·旋风·快速近战距离 +%g%%"),(Number(EE,TEXT("azureDragonReachMultiplier"),1.5)-1.)*100.),1);
+                Note(C,TEXT("规则"),TEXT("停攻保留；换武器·移除附魔·死亡清空"));
+                Note(C,TEXT("激活期"),TEXT("能量条随剩余时间燃烧，不再蓄能或刷新"));
+            }
+            bool Dealer=false;EE->TryGetBoolField(TEXT("dealerPoker"),Dealer);
+            if(Dealer)
+            {
+                Section(C,TEXT("庄家牌局"));
+                Note(C,TEXT("抽牌"),TEXT("每轮 2 底牌；左轮命中抽一张公共牌，同手不重复"));
+                Note(C,TEXT("结算"),TEXT("第 5 次命中取 7 张最佳结算并开新一手；暴击优先凑同花顺"));
+                Note(C,TEXT("牌型"),FString::Printf(TEXT("高×%g · 对×%g · 两对×%g · 三条×%g · 顺×%g · 花×%g · 葫×%g · 四×%g · 花顺×%g"),
+                    Number(EE,TEXT("dealerHighCard")),Number(EE,TEXT("dealerPair")),Number(EE,TEXT("dealerTwoPair")),Number(EE,TEXT("dealerThree")),
+                    Number(EE,TEXT("dealerStraight")),Number(EE,TEXT("dealerFlush")),Number(EE,TEXT("dealerFullHouse")),Number(EE,TEXT("dealerFour")),Number(EE,TEXT("dealerStraightFlush"))),1);
             }
             if(BigBlind)
             {
-                Row(C,TEXT("赌注触发"),TEXT("附魔手枪命中敌人获得 1 层，暴击这一击新增的层数也计入伤害"),1);
-                Row(C,TEXT("每层暴伤"),TEXT("暴击伤害倍率 +")+N(Number(EE,TEXT("wagerCriticalBonusPerStack"))),1);
-                Row(C,TEXT("赌注上限"),N(Number(EE,TEXT("wagerMaxStacks")))+TEXT(" 层"),1);
-                Row(C,TEXT("持续时间"),N(Number(EE,TEXT("wagerSeconds")))+TEXT(" 秒；命中刷新，到期全部清除"));
-                Row(C,TEXT("暴击消耗"),TEXT("仅带「大盲注」的手枪暴击时消耗全部层数"));
-                Row(C,TEXT("附魔外观"),TEXT("枪口持续脉冲金色光芒"),1);
+                Section(C,TEXT("大盲注"));
+                Note(C,TEXT("每层暴伤"),TEXT("+")+N(Number(EE,TEXT("wagerCriticalBonusPerStack")))+TEXT(" · 上限 ")+N(Number(EE,TEXT("wagerMaxStacks")))+TEXT(" 层"),1);
+                Note(C,TEXT("规则"),TEXT("命中 +1 层，暴击新增计入该击；仅本枪暴击消耗全层"));
+                Note(C,TEXT("持续"),N(Number(EE,TEXT("wagerSeconds")))+TEXT(" 秒 · 命中刷新到期清空；枪口脉冲金光"));
             }
             bool Berserk=false;EE->TryGetBoolField(TEXT("berserkMelee"),Berserk);
             const double BerserkSpeed=Number(EE,TEXT("berserkSpeedPerStack")),BerserkPeriod=Number(EE,TEXT("berserkDecaySeconds"));
             const int32 BerserkLimit=int32(Number(EE,TEXT("berserkMaxStacks")));
             if(Berserk&&BerserkSpeed>0.&&BerserkPeriod>0.&&BerserkLimit>0)
             {
-                Row(C,TEXT("狂暴触发"),TEXT("当前附魔武器命中敌人获得 1 层；普通攻击、快速近战、旋风与武器特殊攻击均可触发"),1);
-                Row(C,TEXT("每层攻速"),TEXT("+")+N(BerserkSpeed*100.)+TEXT("%"),1);
-                Row(C,TEXT("叠加上限"),FString::Printf(TEXT("%d 层，攻击速度 +%s%%"),BerserkLimit,*N(BerserkSpeed*BerserkLimit*100.)),1);
-                Row(C,TEXT("减层规则"),TEXT("首次获得后每 ")+N(BerserkPeriod)+TEXT(" 秒减少 1 层；命中只加层，不刷新倒计时"));
+                Section(C,TEXT("狂暴"));
+                Note(C,TEXT("每层攻速"),TEXT("+")+N(BerserkSpeed*100.)+TEXT("% · 上限 ")+FString::FromInt(BerserkLimit)+TEXT(" 层（+")+N(BerserkSpeed*BerserkLimit*100.)+TEXT("%）"),1);
+                Note(C,TEXT("规则"),TEXT("命中 +1 层（普攻·快近·旋风·特殊攻击均计）；每 ")+N(BerserkPeriod)+TEXT(" 秒 −1 层，命中不刷新"));
             }
             if(Cowboy)
             {
-                Row(C,TEXT("牛仔补弹"),TEXT("进入滑铲状态 0.25 秒后，瞬间补满本枪弹匣"),1);
-                Row(C,TEXT("弹药消耗"),TEXT("扣除弹药袋中当前对应弹药；不足时补入剩余数量"));
-                Row(C,TEXT("触发限制"),TEXT("每次滑铲仅一次；无对应弹药或满弹匣不触发；双持仅附魔枪生效"));
-                Row(C,TEXT("换弹表现"),TEXT("无换弹动画，仅播放一次开弹巢声或插弹匣声"));
+                Section(C,TEXT("牛仔补弹"));
+                Note(C,TEXT("滑铲"),TEXT("0.25 秒后瞬间补满本枪弹匣，扣弹药袋对应弹药"),1);
+                Note(C,TEXT("规则"),TEXT("每次滑铲仅一次；无弹药或满弹匣不触发；双持仅附魔枪生效；仅声效无动画"));
             }
             bool RiftSlash=false;EE->TryGetBoolField(TEXT("riftSlash"),RiftSlash);
             if(RiftSlash)
             {
-                Row(C,TEXT("裂空剑气"),TEXT("蓄满重击挥出时，向前发射一道蓝白弧形剑气"),1);
-                Row(C,TEXT("剑气射程"),N(Number(EE,TEXT("riftSlashRangeM")))+TEXT(" 米"),1);
-                Row(C,TEXT("剑气伤害"),N(Number(EE,TEXT("riftSlashDamageScale"))*100.)+TEXT("% 本次重击伤害，继承伤害类型与穿透属性"),1);
-                Row(C,TEXT("穿透规则"),TEXT("穿透敌人，每个敌人仅命中一次；遇墙消散"));
-                Row(C,TEXT("触发规则"),TEXT("未蓄满不触发；不额外消耗法力；剑气不再触发附魔连锁"));
+                Section(C,TEXT("裂空剑气"));
+                Note(C,TEXT("剑气"),TEXT("蓄满重击挥出弧形剑气 · 射程 ")+N(Number(EE,TEXT("riftSlashRangeM")))+TEXT(" 米"),1);
+                Note(C,TEXT("伤害"),N(Number(EE,TEXT("riftSlashDamageScale"))*100.)+TEXT("% 本次重击，继承类型与穿透"),1);
+                Note(C,TEXT("规则"),TEXT("穿透敌人各命中一次，遇墙消散；未蓄满不触发；不耗蓝不连锁"));
             }
             bool Shatter=false;EE->TryGetBoolField(TEXT("shatterBullet"),Shatter);
             bool Electrified=false;EE->TryGetBoolField(TEXT("electrifiedMelee"),Electrified);
@@ -217,28 +214,24 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             if(Electrified&&ElectricRadius>0.&&ElectricFloor>0)
             {
                 const int32 Level=FMath::Max(ElectricFloor,Model?Model->LightningProgress().Level:0);
-                Row(C,TEXT("命中放电"),TEXT("25% 概率，")+N(ElectricRadius)+TEXT(" 米内随机一名其他敌人"),1);
-                Row(C,TEXT("近战击杀"),TEXT("100% 放电，")+N(ElectricRadius)+TEXT(" 米内随机一名其他敌人"),1);
-                Row(C,TEXT("闪电击杀"),N(ElectricRadius)+TEXT(" 米内所有其他敌人，可继续击杀连锁"),1);
-                Row(C,TEXT("闪电等级"),FString::Printf(TEXT("Lv.%d（至少 %d 级，随自身闪电等级提高）"),Level,ElectricFloor),1);
+                Section(C,TEXT("雷电"));
+                Note(C,TEXT("放电"),TEXT("命中 25% · 击杀 100% → ")+N(ElectricRadius)+TEXT(" 米内随机敌人"),1);
+                Note(C,TEXT("连锁"),TEXT("闪电击杀对 ")+N(ElectricRadius)+TEXT(" 米内全敌，可继续连锁"));
                 if(Model){const auto Spell=Model->LightningStats(Level);
-                    Row(C,TEXT("首跳基础伤害"),N(Spell.Damage)+TEXT(" · 闪电魔法，暴击与目标防御另计"),1);
-                    Row(C,TEXT("逐跳衰减"),N(Spell.ChainDecay*100.)+TEXT("%，同层每个目标独立结算"));}
-                Row(C,TEXT("连锁规则"),TEXT("同一轮不重复命中；受墙体遮挡；不消耗法力、不占用技能冷却"));
-                Row(C,TEXT("武器特效"),TEXT("刃部环绕紫色闪电"),1);
+                    Note(C,TEXT("伤害"),N(Spell.Damage)+TEXT(" · 逐跳衰减 ")+N(Spell.ChainDecay*100.)+TEXT("% · Lv.")+FString::FromInt(Level),1);}
+                else Note(C,TEXT("闪电等级"),TEXT("Lv.")+FString::FromInt(Level));
+                Note(C,TEXT("规则"),TEXT("同轮不重复命中；受墙遮挡；不耗蓝不占冷却；刃部环绕紫电"));
             }
             const double ShatterRadius=Number(EE,TEXT("shatterRadiusM")),ShatterScale=Number(EE,TEXT("shatterDamageScale"));
             if(Shatter&&ShatterRadius>0.&&ShatterScale>0.)
             {
-                Row(C,TEXT("命中弹射"),N(ShatterRadius)+TEXT(" 米内随机一名其他敌人"),1);
-                Row(C,TEXT("击杀弹射"),N(ShatterRadius)+TEXT(" 米内所有其他敌人，各一颗子弹"),1);
-                Row(C,TEXT("弹射伤害"),N(ShatterScale*100.)+TEXT("% 原命中伤害，继承类型与暴击，由新目标防御结算"),1);
-                Row(C,TEXT("弹射限制"),TEXT("仅一次，不连锁；受墙体遮挡"));
+                Section(C,TEXT("碎裂弹"));
+                Note(C,TEXT("弹射"),N(ShatterRadius)+TEXT(" 米内随机敌人 · 击杀时全敌各一颗"),1);
+                Note(C,TEXT("规则"),N(ShatterScale*100.)+TEXT("% 原命中伤害，继承类型与暴击；仅一次不连锁；受墙遮挡"));
             }
             const double ConvergenceScale=Number(EE,TEXT("convergenceDamageScale"));
             if(ConvergenceShot&&ConvergenceScale>0.)
-            {Row(C,TEXT("射击模式"),TEXT("一次射击打空弹匣"),1);
-                Row(C,TEXT("聚合伤害"),TEXT("消耗发数合计的 ")+N(ConvergenceScale*100.)+TEXT("%，类型沿用原枪械"),1);}}
+                Note(C,TEXT("聚合射击"),TEXT("一次打空弹匣，按消耗发数合计的 ")+N(ConvergenceScale*100.)+TEXT("% 结算，类型沿用"),1);}
     }
     const auto* Weapon=G?G->Weapon(I.Definition):nullptr;const FGunsmithParts Parts=G&&G->ModifiableWeapon(I.Definition)?G->Installed(I):FGunsmithParts();
     bool Installed=false;for(const auto& P:Parts)if(G->Option(I.Definition,P.Key,P.Value))Installed=true;
@@ -316,15 +309,14 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
                 if(S.Melee.QuickCombatBleedChance>0)Row(C,ColdSteelWeaponText::QuickCombatBleed,N(S.Melee.QuickCombatBleedChance*100)+TEXT("% 概率施加1层"),1);
                 if(S.Melee.QuickCombatTigerRoarSeconds>0)
                 {
-                    Row(C,TEXT("快速近战·虎啸"),TEXT("命中敌人：冲击、利器、钝器韧性抵抗归零"),1);
-                    Row(C,ColdSteelWeaponText::TigerRoarToughnessTaken,TEXT("+")+N(S.Melee.QuickCombatTigerRoarToughnessBonus*100)+TEXT("%"),1);
-                    Row(C,ColdSteelWeaponText::TigerRoarDuration,N(S.Melee.QuickCombatTigerRoarSeconds)+TEXT(" 秒 · 重复命中刷新，不叠加"),1);
+                    Note(C,TEXT("虎啸"),TEXT("命中使冲击·利器·钝器韧性抵抗归零 · 承受韧性 +")+N(S.Melee.QuickCombatTigerRoarToughnessBonus*100)+TEXT("%"),1);
+                    Note(C,TEXT("持续"),N(S.Melee.QuickCombatTigerRoarSeconds)+TEXT(" 秒 · 重复命中刷新，不叠加"));
                 }
                 if(S.Melee.bQuickCombatAOE)Row(C,ColdSteelWeaponText::QuickCombatHitMode,TEXT("范围多目标 · 判定范围不变"),1);
                 if(S.Melee.QuickCombatPhysicalVulnerabilitySeconds>0)
                 {
-                    Row(C,ColdSteelWeaponText::QuickCombatPhysicalVulnerability,TEXT("命中后目标受到物理伤害 +")+N(S.Melee.QuickCombatPhysicalVulnerabilityBonus*100)+TEXT("%"),1);
-                    Row(C,ColdSteelWeaponText::PhysicalVulnerabilityDuration,N(S.Melee.QuickCombatPhysicalVulnerabilitySeconds)+TEXT(" 秒 · 重复命中刷新，不叠加"),1);
+                    Note(C,TEXT("物理易伤"),TEXT("命中后目标受物理伤害 +")+N(S.Melee.QuickCombatPhysicalVulnerabilityBonus*100)+TEXT("%"),1);
+                    Note(C,TEXT("持续"),N(S.Melee.QuickCombatPhysicalVulnerabilitySeconds)+TEXT(" 秒 · 重复命中刷新，不叠加"));
                 }
                 Delta(C,ColdSteelWeaponText::RuneVulnerability,S.Melee.RuneVulnerability*100,TEXT("%"));
                 Delta(C,ColdSteelWeaponText::CooldownReducePerHit,S.Melee.CooldownReduceSecondsPerHit,TEXT(" s"));
@@ -386,8 +378,8 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,TEXT("快速近战伤害倍率"),N(Melee.QuickCombat.DamageMultiplier)+TEXT("×"));
         Row(Main,TEXT("快速近战伤害"),N(Melee.QuickCombat.Damage));
         Row(Main,TEXT("快速近战击退距离"),N(Melee.QuickCombat.KnockbackCM)+TEXT(" cm"));
-        if(Melee.Modifiers.AllAttackKnockback!=1.)Row(Main,TEXT("全部攻击击退倍率"),N(Melee.Modifiers.AllAttackKnockback)+TEXT("× · 含快速近战、旋风和冲刺斩"));
-        if(Melee.Modifiers.AllAttackDamage!=1.)Row(Main,TEXT("全部近战攻击伤害倍率"),N(Melee.Modifiers.AllAttackDamage)+TEXT("× · 含属性、附加伤害和快速近战"));
+        if(Melee.Modifiers.AllAttackKnockback!=1.)Note(Main,TEXT("全部攻击击退"),N(Melee.Modifiers.AllAttackKnockback)+TEXT("× · 含快速近战、旋风、冲刺斩"));
+        if(Melee.Modifiers.AllAttackDamage!=1.)Note(Main,TEXT("全部近战伤害"),N(Melee.Modifiers.AllAttackDamage)+TEXT("× · 含属性、附加与快速近战"));
         Row(Main,TEXT("快速近战韧性伤害倍率"),N(Melee.QuickCombat.ToughnessMultiplier)+TEXT("×"));
         if(Melee.QuickCombat.BleedChance>0)Row(Main,TEXT("快速近战流血"),N(Melee.QuickCombat.BleedChance*100)+TEXT("% 概率施加1层"));
         Row(Main,TEXT("快速近战命中方式"),Melee.QuickCombat.bAreaHit?TEXT("范围多目标 · 判定范围不变"):TEXT("单目标"));
@@ -417,15 +409,15 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(Melee.Modifiers.DragonSeconds>0)
         {
             Row(Main,TEXT("成功弹反 · 龙威"),N(Melee.Modifiers.DragonSeconds)+TEXT(" s · 冷却 ")+N(Melee.Modifiers.DragonCooldown)+TEXT(" s"));
-            Row(Main,TEXT("龙威下次刀刃命中"),TEXT("伤害 ×")+N(Melee.Modifiers.DragonDamage)+TEXT(" · 基础削韧 +")+N(Melee.Modifiers.DragonToughness));
-            Row(Main,TEXT("龙威规则"),TEXT("只增强首个敌人；挥空不消耗，切换清除；不含快速近战、剑气与持续伤害"));
+            Note(Main,TEXT("龙威"),TEXT("下次刀刃命中伤害 ×")+N(Melee.Modifiers.DragonDamage)+TEXT(" · 基础削韧 +")+N(Melee.Modifiers.DragonToughness));
+            Note(Main,TEXT("规则"),TEXT("只增强首个敌人；挥空不消耗，切换清除；不含快近·剑气·持续伤害"));
         }
         if(Melee.Modifiers.PhoenixSeconds>0)
         {
             Row(Main,TEXT("闪避躲过攻击 · 凤舞"),N(Melee.Modifiers.PhoenixSeconds)+TEXT(" s · 冷却 ")+N(Melee.Modifiers.PhoenixCooldown)+TEXT(" s"));
             Row(Main,TEXT("凤舞攻击速度"),TEXT("×")+N(Melee.Modifiers.PhoenixSpeed));
-            Row(Main,TEXT("凤舞刀刃命中回血"),TEXT("前 ")+N(Melee.Modifiers.PhoenixHealHits)+TEXT(" 次，各恢复生命上限 ")+N(Melee.Modifiers.PhoenixHealRatio*100)+TEXT("%"));
-            Row(Main,TEXT("凤舞规则"),TEXT("每次出手只回血一次；空闪不触发，切换清除；不含快速近战、剑气与持续伤害"));
+            Note(Main,TEXT("凤舞回血"),TEXT("刀刃命中前 ")+N(Melee.Modifiers.PhoenixHealHits)+TEXT(" 次，各恢复生命上限 ")+N(Melee.Modifiers.PhoenixHealRatio*100)+TEXT("%"));
+            Note(Main,TEXT("规则"),TEXT("每次出手只回血一次；空闪不触发，切换清除；不含快近·剑气·持续伤害"));
         }
         Row(Main,TEXT("弹反判定时间"),N(Melee.ParrySeconds)+TEXT(" s"));
         if(Melee.Modifiers.RiposteSeconds>0)Row(Main,TEXT("成功弹反"),TEXT("反击激励 · ")+N(Melee.Modifiers.RiposteSeconds)+TEXT(" s"));
@@ -437,6 +429,17 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         }
         Row(Main,ColdSteelWeaponText::BlockStaminaCost,N(Melee.BlockStamina));
         Row(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
+    }else if(ColdSteelInventory::IsTwoHandedBlunt(I)){
+        const auto Blunt=ColdSteelTool::Evaluate(I,Model);
+        Section(Main,ColdSteelWeaponText::CombatParameters);
+        AppendColdSteelTooltipAttackFormula(I,Model,Number(O,TEXT("melee_damage"),55),Main);
+        Row(Main,ColdSteelWeaponText::TotalDamage,N(Blunt.Damage.Total()));
+        Row(Main,ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(Blunt.SwingSeconds*1000))+TEXT(" ms"));
+        Row(Main,ColdSteelWeaponText::AttackDistance,N(Blunt.CombatReachCM/100)+TEXT(" m"));
+        Row(Main,ColdSteelWeaponText::StaminaCost,N(Blunt.StaminaCost));
+        Row(Main,TEXT("命中类型"),TEXT("钝击"));
+        Row(Main,TEXT("握持"),TEXT("双手 · 占用同组主手与副手槽"));
+        Note(Main,TEXT("攻击方式"),TEXT("左键三连击：右上斜挥、左上斜挥、举顶下砸；第三击伤害为普通攻击的 1.25 倍。"));
     }else if(ColdSteelInventory::IsEquippedProductionTool(I)){
         const bool bPickaxe=I.Definition==TEXT("tool_pickaxe");
         // Same 近战参数 layout as the swords: formula, then total/base/added damage, then
@@ -454,7 +457,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,ColdSteelWeaponText::StaminaCost,N(Tool.StaminaCost));
         Row(Main,TEXT("握持"),TEXT("双手 · 占用同组主手与副手槽"));
         Section(Main,TEXT("采集参数"));
-        Row(Main,TEXT("装备方式"),TEXT("背包右键 / 拖入主手武器槽；G / 滚轮切换"));
+        Note(Main,TEXT("装备"),TEXT("背包右键 / 拖入主手武器槽；G / 滚轮切换"));
         Row(Main,ColdSteelWeaponText::HarvestDistance,N(Tool.HarvestReachCM/100)+TEXT(" m"));
         if(Tool.HarvestRadiusCM>0)Row(Main,ColdSteelWeaponText::HarvestRadius,N(Tool.HarvestRadiusCM)+TEXT(" cm"));
         if(!FMath::IsNearlyEqual(Tool.HarvestYield,1.))Row(Main,TEXT("采集产出倍率"),N(Tool.HarvestYield)+TEXT("×"));
@@ -462,7 +465,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(bPickaxe)
         {
             Row(Main,TEXT("采矿伤害"),N(ProductionTreeHealth::StrikeDamage(Tool))+TEXT(" / 挥"));
-            Row(Main,TEXT("采集规则"),TEXT("岩石有生命值，按采矿伤害扣血，归零才碎；伤害随属性与改造提升"));
+            Note(Main,TEXT("采集规则"),TEXT("岩石有生命值，按采矿伤害扣血归零才碎；伤害随属性与改造提升"));
         }
         else
         {
@@ -470,7 +473,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             Row(Main,TEXT("伐木伤害"),N(ProductionTreeHealth::StrikeDamage(Tool))+TEXT(" / 挥"));
             // Actual swings depend on the target tree's species, size and remaining health.
             // The hit-modifier baseline is not an actual "standard tree" swing count.
-            Row(Main,TEXT("采集规则"),TEXT("树木有生命值，按伐木伤害扣血，归零才倒；挥砍数随伤害与命中改造变化"));
+            Note(Main,TEXT("采集规则"),TEXT("树木有生命值，按伐木伤害扣血归零才倒；挥砍数随伤害与命中改造变化"));
         }
     }else if(I.Definition==TEXT("tool_shovel")){
         // 铁铲不进武器槽、没有战斗参数：地形挖/填规则单独成段。数值取目录 dig
@@ -494,6 +497,8 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"));CritBonus>0)
             Row(Main,ColdSteelWeaponText::CriticalBonus,TEXT("+")+N(CritBonus*100)+TEXT("%"));
         Row(Main,ColdSteelWeaponText::DrawTime,N(Bow.Draw)+TEXT(" s"));
+        Note(Main,TEXT("完美节拍"),FString::Printf(TEXT("满拉后 %.2f s 内手动松手，本箭伤害 +%.0f%%；力竭自动放箭无加成"),
+            ColdSteelBow::PerfectReleaseWindow,(ColdSteelBow::PerfectReleaseMultiplier-1.f)*100.f));
         Row(Main,TEXT("拉弓速度加成"),N(Bow.DrawSpeedBonus*100.)+TEXT("%"));
         Row(Main,ColdSteelWeaponText::NockTime,N(Bow.Nock)+TEXT(" s"));
         Row(Main,ColdSteelWeaponText::ProjectileSpeed,N(Bow.Speed)+TEXT(" m/s"));
@@ -506,10 +511,10 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(Model)
         {
             Row(Main,ColdSteelWeaponText::Ammo,Model->AmmoLabel(Model->AmmoDefinitionFor(I)));
-            Row(Main,ColdSteelWeaponText::AmmoEffect,Model->AmmoEffectSummary(Model->AmmoDefinitionFor(I)));
+            Note(Main,ColdSteelWeaponText::AmmoEffect,Model->AmmoEffectSummary(Model->AmmoDefinitionFor(I)));
             Row(Main,ColdSteelWeaponText::AmmoAdjustedDamage,N(BowDamage.Total()*Model->AmmoDamageMultiplier(I)));
         }
-        Row(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
+        Note(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
     }else if(I.Definition==TEXT("ue_alchemy_spellbook")){
         Section(Main,TEXT("魔攻与强化"));AppendColdSteelTooltipMagicFormula(I,Model,Main);
         if(const auto* Enhancement=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr)
@@ -534,8 +539,10 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         DamageRows(Main,ColdSteelWeaponStats::DamageParts(I,Model,3));
         Row(Main,ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,.5)*1000))+TEXT(" ms"));
         AppendColdSteelTooltipMagicFormula(I,Model,Main);
-        Row(Main,TEXT("握持"),TEXT("单手主手；左键挥杖，技能快捷键施法"));
+        Note(Main,TEXT("握持"),TEXT("单手主手；左键挥杖，技能快捷键施法"));
     }else if(Weapon){Section(Main,ColdSteelWeaponText::CombatParameters);AppendColdSteelTooltipAttackFormula(I,Model,S.Damage,Main);
+        if(FullAutoTrigger::Installed(I.Definition,Parts))
+            Row(Main,TEXT("射击模式"),FullAutoTrigger::Automatic(I,true)?TEXT("全自动（可切换半自动）"):TEXT("半自动（可切换全自动）"));
         const auto DamageParts=ColdSteelWeaponStats::DamageParts(I,Model,S.Damage);
         DamageRows(Main,DamageParts);
         Row(Main,TEXT("子弹数"),FString::Printf(TEXT("%d / %d 发"),I.Magazine,S.Capacity));Row(Main,ColdSteelWeaponText::Ammo,Model?Model->AmmoLabel(Model->AmmoDefinitionFor(I)):ColdSteelWeaponStats::AmmoName(Weapon->Ammo));
@@ -561,14 +568,14 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(ConvergenceShot&&ConvergenceScale>0.&&S.Capacity>0&&DamageParts.Total()>0.)
         {
             const double MagazineTotal=DamageParts.Total()*S.Capacity;
-            Row(Main,TEXT("满匣聚合伤害"),N(MagazineTotal*ConvergenceScale)+TEXT("（")+FString::FromInt(S.Capacity)+TEXT(" 发合计 ")+N(MagazineTotal)+TEXT("）"));
-            Row(Main,TEXT("射击模式"),TEXT("一次射击打空弹匣，伤害类型沿用原枪械"));
+            Note(Main,TEXT("满匣聚合"),N(MagazineTotal*ConvergenceScale)+TEXT("（")+FString::FromInt(S.Capacity)+TEXT(" 发合计 ")+N(MagazineTotal)+TEXT("）"));
+            Note(Main,TEXT("射击模式"),TEXT("一次打空弹匣，伤害类型沿用原枪械"));
         }
         if(S.BurstCount>1)
         {
             const double BurstDelay=ColdSteelWeaponStats::Interval(&I,Model,S.BurstDelay);
             const double Cycle=(S.BurstCount-1)*FireInterval+FMath::Max(FireInterval,BurstDelay);
-            Row(Main,TEXT("开火模式"),FString::Printf(TEXT("%d 连发 · 每组重新扣动扳机"),S.BurstCount));
+            Note(Main,TEXT("开火模式"),FString::Printf(TEXT("%d 连发 · 每组重新扣动扳机"),S.BurstCount));
             Row(Main,TEXT("连发组末发后间隔"),N(FMath::RoundToInt(BurstDelay*1000))+TEXT(" ms"));
             Row(Main,TEXT("含组间隔理论射速"),N(60.*S.BurstCount/Cycle)+TEXT(" 发/分"));
         }
@@ -580,7 +587,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,TEXT("ADS首发水平/发"),FString::Printf(TEXT("%.3f°"),S.Handling.FirstHorizontalDegrees()));
         Row(Main,TEXT("ADS水平上限/发"),FString::Printf(TEXT("%.3f°"),S.Handling.MaxHorizontalDegrees()));
         Row(Main,TEXT("枪械稳定性·回稳90%"),N(FMath::RoundToInt(S.Handling.ADSRecoveryMilliseconds()))+TEXT(" ms"));
-        Row(Main,ColdSteelWeaponText::EffectiveRange,N(S.Range)+TEXT(" m"));
+        Row(Main,ColdSteelWeaponText::EffectiveRange,N(S.Range*(Model?Model->AmmoRangeMultiplier(I):1.f))+TEXT(" m"));
         Row(Main,ColdSteelWeaponText::ProjectileSpeed,S.Speed<=0?TEXT("即时命中"):N(S.Speed)+TEXT(" m/s"));
         Row(Main,ColdSteelWeaponText::HipSpreadMultiplier,N(S.Spread)+TEXT("×"));
         if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"));CritBonus>0)
@@ -604,8 +611,8 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     const J Bonuses=Object(O,TEXT("bonusStats"));if(Bonuses&&!Bonuses->Values.IsEmpty()){
         Section(Main,TEXT("属性加成"));const TMap<FString,FString> Names={{TEXT("str"),TEXT("力量")},{TEXT("dex"),TEXT("敏捷")},{TEXT("int"),TEXT("智力")},{TEXT("con"),TEXT("体质")},{TEXT("wis"),TEXT("精神")},{TEXT("luck"),TEXT("幸运")},{TEXT("atk"),TEXT("物理攻击")},{TEXT("matk"),TEXT("魔法攻击")},{TEXT("crit"),TEXT("暴击率")},{TEXT("maxHp"),TEXT("最大生命")},{TEXT("maxMp"),TEXT("最大魔法")},{TEXT("meleeAttackSpeed"),TEXT("近战攻击速度")},{TEXT("meleeStaminaCost"),TEXT("近战体力消耗")},{TEXT("moveSpeedPercent"),TEXT("移动速度")},{TEXT("reloadSpeed"),TEXT("换弹速度")},{TEXT("bowDrawSpeed"),TEXT("拉弓速度")}};
         for(const auto& P:Bonuses->Values){FString Key(*P.Key);if(const auto* Label=Names.Find(Key)){const bool Percent=Key==TEXT("crit")||Key==TEXT("meleeAttackSpeed")||Key==TEXT("meleeStaminaCost")||Key==TEXT("moveSpeedPercent")||Key==TEXT("reloadSpeed")||Key==TEXT("bowDrawSpeed");Delta(Main,*Label,P.Value->AsNumber()*(Percent&&Key!=TEXT("crit")?100.:1.),Percent?TEXT("%"):TEXT(""),Key==TEXT("meleeStaminaCost"));}}}
-    if(O->HasField(TEXT("armorSet"))){Section(Main,TEXT("套装效果"));FString Bonus=String(O,TEXT("setBonusDesc"));if(Bonus.IsEmpty())Bonus=String(Object(O,TEXT("setBonuses")),*String(O,TEXT("armorSet")));Row(Main,TEXT("效果"),Bonus);}
-    if(auto Special=Object(O,TEXT("specialAttack"))){Section(Main,TEXT("特殊攻击"));Row(Main,TEXT("伤害类型"),String(Special,TEXT("damageType")));Row(Main,TEXT("伤害公式"),String(Special,TEXT("damageFormula")));for(const auto& F:TArray<TPair<FString,FString>>{{TEXT("duration"),TEXT("持续时间")},{TEXT("cooldown"),TEXT("冷却时间")}})if(Special->HasField(F.Key))Row(Main,F.Value,N(Number(Special,*F.Key))+TEXT("秒"));}
+    if(O->HasField(TEXT("armorSet"))){Section(Main,TEXT("套装效果"));FString Bonus=String(O,TEXT("setBonusDesc"));if(Bonus.IsEmpty())Bonus=String(Object(O,TEXT("setBonuses")),*String(O,TEXT("armorSet")));Note(Main,TEXT(""),Bonus);}
+    if(auto Special=Object(O,TEXT("specialAttack"))){Section(Main,TEXT("特殊攻击"));Row(Main,TEXT("伤害类型"),String(Special,TEXT("damageType")));Note(Main,TEXT("公式"),String(Special,TEXT("damageFormula")));for(const auto& F:TArray<TPair<FString,FString>>{{TEXT("duration"),TEXT("持续时间")},{TEXT("cooldown"),TEXT("冷却时间")}})if(Special->HasField(F.Key))Row(Main,F.Value,N(Number(Special,*F.Key))+TEXT("秒"));}
     if(Cat==TEXT("consumable")){const auto Effect=Object(O,TEXT("useEffect"));if(Effect&&!Effect->Values.IsEmpty()){
         Section(Main,TEXT("使用效果"));if(Effect->HasField(TEXT("hp")))Row(Main,TEXT("恢复生命"),Signed(Number(Effect,TEXT("hp"))),1);if(Effect->HasField(TEXT("mp")))Row(Main,TEXT("恢复魔法"),Signed(Number(Effect,TEXT("mp"))),1);
         if(Effect->HasField(TEXT("hydration")))
@@ -624,9 +631,9 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         }
         if(I.Definition==TEXT("baguette_bread")||I.Definition==TEXT("bread"))Row(Main,TEXT("食用次数"),TEXT("单次使用"));
         if(Number(O,TEXT("useDuration"))>0)Row(Main,TEXT("使用时长"),N(Number(O,TEXT("useDuration")))+TEXT("秒"));
-        if(Number(O,TEXT("useCooldown"))>0)Row(Main,TEXT("冷却时间"),N(Number(O,TEXT("useCooldown")))+TEXT("秒"));Row(Main,TEXT("使用方式"),TEXT("右键 / 双击 / Enter / 快捷栏"));}
+        if(Number(O,TEXT("useCooldown"))>0)Row(Main,TEXT("冷却时间"),N(Number(O,TEXT("useCooldown")))+TEXT("秒"));Note(Main,TEXT("使用方式"),TEXT("右键 / 双击 / Enter / 快捷栏"));}
     if(I.Count>1)Row(Main,TEXT("堆叠数量"),FString::Printf(TEXT("%lld / %lld"),I.Count,I.StackMax));
-    if(I.Place==4)Row(Main,TEXT("取出方式"),TEXT("右键 / 双击 / Enter / 拖入背包"));
+    if(I.Place==4)Note(Main,TEXT("取出方式"),TEXT("右键 / 双击 / Enter / 拖入背包"));
     // 武器特殊性质取自枪匠目录，而不是物品实例快照：目录每次读盘解析，
     // 所以新增或修改 traits 不必走存档迁移就能生效（文案 desc 则需要迁移）。
     // 用 ModifiableWeapon 而不是 Weapon：后者只覆盖枪械，近战在 MeleeWeapons 里。

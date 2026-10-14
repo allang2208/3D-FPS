@@ -148,7 +148,7 @@ void UGunsmithSystem::LoadMeleeCatalog()
             if(auto* Runes=Weapon.Options.Find(TEXT("blade_2"));Runes&&!Runes->IsEmpty())
                 (*Runes)[0].Description=TEXT("寒晶自带紫色侵蚀裂纹，近战附加智力与精神转化的魔法伤害；其他符文改造仍保留此效果。");
         Weapon.Base.Damage=ColdSteelInventory::Number(Item,TEXT("melee_damage"),55);
-        Weapon.Base.Interval=RuneSwordRhythm::AttackEnd;
+        Weapon.Base.Interval=ColdSteelInventory::Number(Item,TEXT("attack_seconds"),RuneSwordRhythm::AttackEnd);
         Weapon.Base.Range=ColdSteelInventory::Number(Item,TEXT("melee_reach_cm"),180)/100.;
         Weapon.Base.ADS=Weapon.Base.Reload=Weapon.Base.EmptyReload=Weapon.Base.Speed=0;
         Weapon.Base.Recoil=Weapon.Base.Shake=Weapon.Base.Spread=0;Weapon.Base.Capacity=0;

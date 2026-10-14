@@ -32,13 +32,16 @@ SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / 'Content' / 'ColdSteelD
 
 KNOWN_KEYS = {'ads_percent', 'ads_seconds', 'recoil_mult', 'shake_mult', 'stability_mult',
               'hip_spread_mult', 'reload_mult', 'empty_reload_mult', 'fire_interval_mult',
-              'range_mult', 'bullet_speed_mult', 'mag_delta'}
+              'range_mult', 'bullet_speed_mult', 'mag_delta', 'equip_speed_bonus'}
 FORBIDDEN = ['瞄准耗时', 'ADS瞄准', '开镜时间', '后坐力控制', '后坐力减少', '枪械稳定性增加']
 MODEL_TOKENS = ['QBZ-191', 'M1911', 'ASH-12', 'M16A2', 'A762', '715', 'SVD', 'PKM',
-                'PSO-1', 'M4', 'M16', '5.56', '7.62', '5.45']
+                'PSO-1', 'M4', 'M16', '5.56', '7.62', '5.45', 'RSH-12', 'RSH', '2011',
+                '201', 'SUPER90', 'Super90', 'HK416', 'G18', 'Pit Viper', '蝮蛇']
 # 静态规格白名单；来源：80 米 = TacticalDeviceComponent.cpp `Range=8000.f`，
 # 口径/倍率 = 瞄具与弹药物理规格，非 stats 可推导值。
 SPEC_PATTERNS = [r'12\.7×55\s*mm', r'80\s*米',
+                 r'(?:[0-9]+(?:\.[0-9]+)?/)+[0-9]+(?:\.[0-9]+)?\s*倍',
+                 r'[0-9]+(?:\.[0-9]+)?[～至][0-9]+(?:\.[0-9]+)?\s*倍',
                  r'[0-9]+(?:\.[0-9]+)?(?:～[0-9]+(?:\.[0-9]+)?)?\s*×',
                  r'[0-9]+(?:\.[0-9]+)?\s*倍']
 
@@ -174,6 +177,8 @@ def check(where, base, slot, op):
 d = json.load(io.open(SRC, encoding='utf-8'))
 raw = io.open(SRC, encoding='utf-8').read()
 slots = d['slots']
+# 代码追加的每枪专属槽（GunsmithSystem.cpp RSHSlotKeys/BowSlotKeys 等），不进全局 slots
+EXTRA_SLOTS = {'ue_rsh12': {'grip_body'}}
 
 # 0) 结构 + 5) 全局禁用词
 for kw in FORBIDDEN:
@@ -183,7 +188,7 @@ if re.search(r'。 [^"\n]', raw):
     problems.append('存在「。 」拼接残句')
 for w in d['weapons']:
     for s, arr in (w.get('options', {}) or {}).items():
-        if s not in slots:
+        if s not in slots and s not in EXTRA_SLOTS.get(w['id'], set()):
             problems.append('%s: slot %s 不在 slots 列表' % (w['id'], s))
         ids = [o['id'] for o in arr]
         dup = {i for i in ids if ids.count(i) > 1}
@@ -215,8 +220,9 @@ for (slot, oid), variants in sorted(shared.items()):
 # 6) traits 断言：槽位清单 = 运行时实际槽集（options∪allowed∪common_options）、
 #    旧称「下挂」禁用（UI 类别为「前握把」）、数字回 base 核对；items 静态 stats 与 base 一致。
 LABEL2SLOT = {'瞄具': 'optic', '枪口': 'muzzle', '弹匣': 'magazine', '枪管': 'barrel',
-              '后握把': 'reargrip', '枪托': 'stock', '扳机': 'trigger', '战术挂件': 'tactical',
-              '前握把': 'underbarrel', '装填装置': 'reload_device', '脚架': 'bipod'}
+              '后握把': 'reargrip', '握把防滑纹': 'reargrip', '枪托': 'stock', '扳机': 'trigger',
+              '战术挂件': 'tactical', '战术挂件Ⅰ': 'tactical', '战术挂件Ⅱ': 'tactical_secondary',
+              '前握把': 'underbarrel', '装填装置': 'reload_device', '脚架': 'bipod', '握把本体': 'grip_body'}
 import math
 
 

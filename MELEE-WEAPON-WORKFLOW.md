@@ -2,6 +2,14 @@
 
 当前宿主与 Git 根目录：`D:/FPS3D/FPSGAME`。
 
+2026-10-09 冲刺攻击判定收缩：`arcDegrees` 60°→45°（`skills.json`，`DashAttackStats` 恢复读 JSON 并限幅 10–90°）；`RuneSwordCombat::QuerySector` 增加"目标包围圈整体在出手平面后方即排除"（此前贴身目标跳过角度测试，正后方贴脸也会命中）。半径公式不变（武器 reach×2 + 技能加成 ×range 改造）。未测试，由用户测试。
+
+2026-10-08 五把双手剑伤害公式分档：统一力量主属性，副属性各异（镇岳-精神、高地-敏捷、唐刀-敏捷、苍蓝-智力、寒晶-智力），各项系数按约 3.75% 一档等比阶梯，顶底物伤差约 15%（寒晶另有智力/精神侵蚀魔伤补偿）；终伤排序镇岳>高地>唐刀>苍蓝>寒晶，任意加点下成立。寒晶由兜底路径（55×(1+0.05L)+atk）迁入公式表。口径在 `Content/ColdSteelData/combat-weapon-formulas.json`，未测试，由用户测试。
+
+2026-10-08 攻速统一标准：五把剑 `attack_seconds` 均为 1.775s（挥击时钟原始口径）。该字段已由展示接入结算——`MeleeWeaponStats::Evaluate` 折算为 AttackRate 系数、`MeleeGunsmith` 目录基础间隔同步读取，后续如需差异化只改 `items.json` 数值即可。攻击距离维持现状（四剑 180cm、镇岳 225cm）。未测试，由用户测试。
+
+2026-10-08 唐刀/高地专属加成：唐刀 `attack_seconds` 1.42（默认攻速 +25%，挥击时钟整体等比加快）；高地 `heavy_charge_speed_bonus` 0.25（`items.json` 原生字段，`Evaluate` 与改造/附魔加法叠加，重击蓄力 2s→1.6s），其余四剑不变。两把武器的 traits 与全五剑既有特殊性质同步在装备栏简略浮窗展示——`ColdSteelHUDWidget` 新增 `EquipmentTraitsBox`，从 `UGunsmithSystem::ModifiableWeapon` 的 `Source.traits` 按装备定义重建区块，近战攻击间隔行改显示 `Evaluate` 实值。traits 口径同步收紧：只列武器独有数值/机制（玄螭补「攻击距离 +25%」），五剑共有的基础操作、占用副手、可改造部件清单与纯外观描述已从 traits 移除。未测试，由用户测试。
+
 2026-09-19 当前剑类普通连击：右向左横斩 → 左向右横斩 → 突刺 → 返回第一段横斩，按三段循环。第四段配重锤攻击已从普通连击移除；独立快速近战技能继续使用配重锤动作。改造栏只列第二段横斩与第三段突刺的连击伤害。本次未测试，由用户测试。
 
 - [模块化拆分与可替换改造件](skills/ue5-weapon-workflow/references/modular-melee.md)：五栏目/四实体、原装安装端、无缝过渡、剑身符文、共用装配和长柄手部联动。

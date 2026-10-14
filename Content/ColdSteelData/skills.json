@@ -400,7 +400,7 @@
   },
   "dashAttack": {
     "name": "冲刺攻击",
-    "description": "持近战兵器连续向前奔跑，就绪后可在滑铲、滑铲跳或空中按左键释放；前摇向前突进1米，经0.25秒衔接下劈，命中前方60°扇区，每个目标只结算一次。滑铲和跳跃保留已蓄满的就绪，松开冲刺或发动其他动作会重置。",
+    "description": "持近战兵器连续向前奔跑，就绪后可在滑铲、滑铲跳或空中按左键释放；前摇向前突进1米，经0.25秒衔接下劈，命中前方45°扇区，每个目标只结算一次。滑铲和跳跃保留已蓄满的就绪，松开冲刺或发动其他动作会重置。",
     "icon": "Skills/dash_attack.png",
     "maxLevel": 20,
     "experiencePerLevel": 100,
@@ -421,7 +421,7 @@
     "rangeBonusFlat": 55,
     "knockbackBonus": 188,
     "knockbackPerLevel": 6,
-    "arcDegrees": 60,
+    "arcDegrees": 45,
     "source": "game-dev/data/skills.json:skills.dashAttack; dash-system.js base branch; readySeconds in dash-attack-config.js"
   },
   "meteor": {

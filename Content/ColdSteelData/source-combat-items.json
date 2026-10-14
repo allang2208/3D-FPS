@@ -53,24 +53,6 @@
       ]
     }
   },
-  "G18": {
-    "attackFormula": {
-      "base": 5,
-      "enhanceFlat": 1,
-      "attrs": [
-        {
-          "key": "dex",
-          "base": 0.35,
-          "perEnhance": 0.15
-        },
-        {
-          "key": "wis",
-          "base": 0.4,
-          "perEnhance": 0.15
-        }
-      ]
-    }
-  },
   "weapon10": {
     "attackFormula": {
       "base": 30,
@@ -505,43 +487,7 @@
       ]
     }
   },
-  "PKM": {
-    "attackFormula": {
-      "base": 7,
-      "enhanceFlat": 0.45,
-      "attrs": [
-        {
-          "key": "str",
-          "base": 0.3,
-          "perEnhance": 0.045
-        },
-        {
-          "key": "wis",
-          "base": 0.25,
-          "perEnhance": 0.04
-        }
-      ]
-    }
-  },
   "weapon7": {
-    "attackFormula": {
-      "base": 8,
-      "enhanceFlat": 0.6,
-      "attrs": [
-        {
-          "key": "int",
-          "base": 0.29,
-          "perEnhance": 0.045
-        },
-        {
-          "key": "wis",
-          "base": 0.29,
-          "perEnhance": 0.045
-        }
-      ]
-    }
-  },
-  "AKM": {
     "attackFormula": {
       "base": 8,
       "enhanceFlat": 0.6,
@@ -884,24 +830,6 @@
     }
   },
   "weapon8": {
-    "attackFormula": {
-      "base": 6,
-      "enhanceFlat": 0.4,
-      "attrs": [
-        {
-          "key": "int",
-          "base": 0.21,
-          "perEnhance": 0.035
-        },
-        {
-          "key": "wis",
-          "base": 0.21,
-          "perEnhance": 0.035
-        }
-      ]
-    }
-  },
-  "QBZ-191": {
     "attackFormula": {
       "base": 6,
       "enhanceFlat": 0.4,

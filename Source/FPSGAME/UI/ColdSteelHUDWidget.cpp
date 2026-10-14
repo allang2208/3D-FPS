@@ -18,6 +18,8 @@
 #include "ColdSteelWorldClock.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/GunsmithSystem.h"
+#include "Dom/JsonValue.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Engine/GameInstance.h"
 
@@ -800,6 +802,8 @@ void UColdSteelHUDWidget::BuildEquipmentTooltip(UCanvasPanel* Root)
     EquipmentIntervalValue = AddTooltipRow(Main, TEXT("攻击间隔"), TEXT("120ms"), ColdSteelUI::TextPrimary, true);
     EquipmentReloadValue = AddTooltipRow(Main, TEXT("换弹时间"), TEXT("2700ms"), ColdSteelUI::TextPrimary, true);
     EquipmentAmmoValue = AddTooltipRow(Main, TEXT("当前弹药"), TEXT("30 / 90"), ColdSteelUI::TextPrimary, true);
+    EquipmentTraitsBox = WidgetTree->ConstructWidget<UVerticalBox>();
+    Main->AddChildToVerticalBox(EquipmentTraitsBox)->SetPadding(FMargin(0, ReferenceUnits(4), 0, 0));
 }
 
 UTextBlock* UColdSteelHUDWidget::AddTooltipRow(UVerticalBox* Parent, const FString& Label, const FString& Value, const FLinearColor& ValueColor, bool bNumericValue)
@@ -1417,15 +1421,52 @@ void UColdSteelHUDWidget::RefreshStatus()
         if (const FFloatProperty* Property = FindFProperty<FFloatProperty>(Character->GetClass(), TEXT("FireInterval"))) Interval = Property->GetPropertyValue_InContainer(Character);
         if (const FFloatProperty* Property = FindFProperty<FFloatProperty>(Character->GetClass(), TEXT("ReloadDuration"))) Reload = Property->GetPropertyValue_InContainer(Character);
         if (const FIntProperty* Property = FindFProperty<FIntProperty>(Character->GetClass(), TEXT("MagazineCapacity"))) Capacity = Property->GetPropertyValue_InContainer(Character);
-        if(StatusModel&&StatusModel->Equipped()&&ColdSteelInventory::IsTwoHandedSword(*StatusModel->Equipped()))
-            Damage=ColdSteelMelee::Evaluate(*StatusModel->Equipped(),StatusModel).Damage;
+        const FColdSteelItem* Equipped=StatusModel?StatusModel->Equipped():nullptr;
+        const bool Sword=Equipped&&ColdSteelInventory::IsTwoHandedSword(*Equipped);
+        double MeleeInterval=0.;
+        if(Sword)
+        {
+            const FMeleeWeaponStats Melee=ColdSteelMelee::Evaluate(*Equipped,StatusModel);
+            Damage=Melee.Damage;
+            MeleeInterval=Melee.AttackSeconds;
+        }
         EquipmentDamageValue->SetText(FText::FromString(FString::Printf(TEXT("%.2f"), Damage)));
         EquipmentCapacityValue->SetText(FText::FromString(FString::Printf(TEXT("%d 发"), Capacity)));
-        EquipmentIntervalValue->SetText(FText::FromString(FString::Printf(TEXT("%.0fms"), Interval * 1000.0f)));
+        EquipmentIntervalValue->SetText(FText::FromString(FString::Printf(TEXT("%.0fms"), (Sword?MeleeInterval:Interval) * 1000.0)));
         EquipmentReloadValue->SetText(FText::FromString(FString::Printf(TEXT("%.0fms"), Reload * 1000.0f)));
         EquipmentAmmoValue->SetText(FText::FromString(FString::Printf(TEXT("%d / %d"), Character->GetMagazineAmmo(), Character->GetReserveAmmo())));
-        if(StatusModel&&StatusModel->Equipped()&&ColdSteelInventory::IsTwoHandedSword(*StatusModel->Equipped()))
+        if(Sword)
         {EquipmentCapacityValue->SetText(FText::FromString(TEXT("—")));EquipmentReloadValue->SetText(FText::FromString(TEXT("—")));EquipmentAmmoValue->SetText(FText::FromString(TEXT("近战")));}
+    }
+    if (EquipmentTraitsBox)
+    {
+        const FString Def=StatusModel&&StatusModel->Equipped()?StatusModel->Equipped()->Definition:FString();
+        if (Def!=EquipmentTraitsWeapon)
+        {
+            EquipmentTraitsWeapon=Def;
+            EquipmentTraitsBox->ClearChildren();
+            const UGunsmithSystem* Gunsmith=GetGameInstance()?GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
+            const FGunsmithWeapon* Weapon=Gunsmith?Gunsmith->ModifiableWeapon(Def):nullptr;
+            const TArray<TSharedPtr<FJsonValue>>* Traits=nullptr;
+            if (Weapon&&Weapon->Source.IsValid()&&Weapon->Source->TryGetArrayField(TEXT("traits"),Traits)&&Traits)
+            {
+                int32 Shown=0;
+                for (const TSharedPtr<FJsonValue>& Entry:*Traits)
+                {
+                    const TSharedPtr<FJsonObject> Trait=Entry.IsValid()?Entry->AsObject():nullptr;
+                    if (!Trait.IsValid())continue;
+                    FString Icon,Text;
+                    Trait->TryGetStringField(TEXT("icon"),Icon);
+                    Trait->TryGetStringField(TEXT("text"),Text);
+                    if (Text.IsEmpty())continue;
+                    if (!Shown++)AddTooltipSection(EquipmentTraitsBox,TEXT("特殊性质"));
+                    const FLinearColor Color=Icon==TEXT("special")?ColdSteelUI::ItemTraitSpecial:Icon==TEXT("magic")?ColdSteelUI::ItemTraitMagic:Icon==TEXT("mechanic")?ColdSteelUI::ItemTraitMechanic:Icon==TEXT("drawback")?ColdSteelUI::ItemTraitDrawback:ColdSteelUI::ItemTraitNeutral;
+                    UTextBlock* Line=MakeReferenceText(Text,13,Color);
+                    Line->SetAutoWrapText(true);
+                    EquipmentTraitsBox->AddChildToVerticalBox(Line)->SetPadding(FMargin(0,ReferenceUnits(2),0,ReferenceUnits(2)));
+                }
+            }
+        }
     }
 }
 

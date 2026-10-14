@@ -911,7 +911,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
             for(int32 I=0;I<UE_ARRAY_COUNT(Rows);++I)Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(Rows[I],I)];
             Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("持近战兵器按住左 Shift 向前奔跑，就绪后按左键，经0.25秒前摇衔接下劈。准备时间从1级1秒降至20级0.43秒；蓄满后滑铲、滑铲跳和空中减速均保留就绪，可继续按住 Shift 在空中释放。松开冲刺、发动其他动作，或落地后不再奔跑会重新计时；未蓄满时只在地面奔跑积累。未就绪按左键使用普通攻击；被动技能不需绑定快捷栏。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("伤害倍率=1.75+0.05×等级。基础消耗20体力，受当前近战配装耗体修正；一次出招只扣一次。0.25秒前摇向前突进1米，空中释放保留竖直运动和重力；碰撞阻挡突进，保留原有收势且无回弹。下劈命中正前方60°扇区（左右各30°），每个目标一次；基础版附带击退。完整收势后恢复操作，下一次需重新奔跑准备，无独立冷却。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("伤害倍率=1.75+0.05×等级。基础消耗20体力，受当前近战配装耗体修正；一次出招只扣一次。0.25秒前摇向前突进1米，空中释放保留竖直运动和重力；碰撞阻挡突进，保留原有收势且无回弹。下劈命中正前方45°扇区（左右各22.5°），每个目标一次；基础版附带击退。完整收势后恢复操作，下一次需重新奔跑准备，无独立冷却。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
         }
         else if(SelectedSkill==TEXT("whirlwind"))
         {

@@ -63,6 +63,9 @@ TArray<FHitResult> RuneSwordCombat::QuerySector(UWorld* World,AActor* Owner,cons
         const FVector Delta=Bounds.Origin-Origin;
         const float R=FMath::Max(Bounds.BoxExtent.X,Bounds.BoxExtent.Y),Distance=Delta.Size2D();
         if(Distance>Radius+R||FMath::Abs(Delta.Z)>HalfHeight+Bounds.BoxExtent.Z)continue;
+        // 包围圈整体落在出手平面后方即排除——贴身目标（Distance<=R）不走角度测试，
+        // 没有这条会在正后方贴身处产生背向命中。
+        if(FVector::DotProduct(Delta,Forward)<-R)continue;
         const float Angle=FMath::Acos(FMath::Clamp(float(FVector::DotProduct(Delta.GetSafeNormal2D(),Forward)),-1.f,1.f));
         const float FootprintAngle=FMath::Asin(FMath::Clamp(R/FMath::Max(Distance,1.f),0.f,1.f));
         if(Distance>R&&Angle>FMath::DegreesToRadians(ArcDegrees*.5f)+FootprintAngle)continue;
