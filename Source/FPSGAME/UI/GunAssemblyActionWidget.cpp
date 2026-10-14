@@ -22,7 +22,7 @@
 UTextBlock* UGunAssemblyActionWidget::Text(const FString& Caption,float Pixels,bool bNumeric)
 {
     auto* Label=WidgetTree->ConstructWidget<UTextBlock>();
-    Label->SetText(FText::FromString(Caption));Label->SetAutoWrapText(true);
+    Label->SetText(FText::FromString(Caption));Label->SetAutoWrapText(false);
     Label->SetColorAndOpacity(ColdSteelUI::TextPrimary);
     Labels.Add({Label,Pixels,bNumeric});return Label;
 }
@@ -42,7 +42,7 @@ void UGunAssemblyActionWidget::NativeOnInitialized()
     auto* ContentSlot=Layers->AddChildToOverlay(Content);ContentSlot->SetHorizontalAlignment(HAlign_Fill);ContentSlot->SetVerticalAlignment(VAlign_Fill);
     auto* Stack=WidgetTree->ConstructWidget<UVerticalBox>();Content->SetContent(Stack);
     Heading=Text(TEXT("枪械组装 · 准备"),16);HeadingSlot=Stack->AddChildToVerticalBox(Heading);
-    Details=Text(TEXT(""),14);Details->SetColorAndOpacity(ColdSteelUI::TextSecondary);DetailsSlot=Stack->AddChildToVerticalBox(Details);
+    Details=Text(TEXT(""),14);Details->SetAutoWrapText(true);Details->SetColorAndOpacity(ColdSteelUI::TextSecondary);DetailsSlot=Stack->AddChildToVerticalBox(Details);
     auto* Metrics=WidgetTree->ConstructWidget<UHorizontalBox>();Stack->AddChildToVerticalBox(Metrics);
     auto Metric=[&](const FString& Caption,UTextBlock*& Label)
     {
@@ -56,7 +56,7 @@ void UGunAssemblyActionWidget::NativeOnInitialized()
     HitsValue=Metric(TEXT("组件装配"),Label);QualityValue=Metric(TEXT("工艺评分"),Label);
     TimerSize=WidgetTree->ConstructWidget<USizeBox>();Timer=WidgetTree->ConstructWidget<UProgressBar>();TimerSize->SetContent(Timer);
     Timer->SetFillColorAndOpacity(ColdSteelUI::Accent);TimerSlot=Stack->AddChildToVerticalBox(TimerSize);
-    Hint=Text(TEXT("左键拖放 · 滚轮 / Q、R 旋转 · 右键放回 · Esc 返回"),12);
+    Hint=Text(TEXT("左键拖放 · 滚轮 / Q、R 旋转 · 右键放回 · Esc 返回"),12);Hint->SetAutoWrapText(true);
     Hint->SetColorAndOpacity(ColdSteelUI::TextSecondary);HintSlot=Stack->AddChildToVerticalBox(Hint);
     UpdateLayout();
 }

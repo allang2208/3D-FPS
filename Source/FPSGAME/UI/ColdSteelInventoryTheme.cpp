@@ -3,6 +3,7 @@
 #include "ColdSteelCodexPage.h"
 #include "ColdSteelSmeltingWidget.h"
 #include "ColdSteelWorkbenchWidget.h"
+#include "ColdSteelIncineratorWidget.h"
 #include "ColdSteelUIStyle.h"
 #include "GunsmithUIStyle.h"
 #include "ColdSteelDetailRow.h"
@@ -31,7 +32,7 @@ void UColdSteelHUDWidget::UpdateInventoryLayout(const FGeometry& Geometry)
     const float RightInset=ColdSteelUI::NavigationDrawerInset;
     float Width=FMath::Min(float(Pixels.X)-RightInset-12.f,FMath::Clamp(float(Pixels.X)*.48f,720.f,1040.f));
     // Both drawers share their actual size; keep that layout until the left drawer finishes closing.
-    if(bWarehouseOpen||WarehouseMotion>.001f)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-24.f)*.5f);
+    if(bWarehouseOpen||WarehouseMotion>.001f||bShopOpen||ShopMotion>.001f)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-24.f)*.5f);
     const bool bForgeOut=bForgingOpen||bForgeRiding||ForgeMotion>.001f;
     const bool bGunOut=bGunWorkbenchPanel&&(bWorkbenchOpen||bWorkbenchRiding||WorkbenchMotion>.001f);
     // 制造栏 2026-09-28 起全宽（打铁/装配同规格）：非枪械工作台打开时连同抽屉对半夹取。
@@ -69,10 +70,19 @@ void UColdSteelHUDWidget::UpdateInventoryLayout(const FGeometry& Geometry)
         if(ForgingSlot&&Forge>1)ForgingSlot->SetOffsets(FMargin(-(Width+RightInset)/Scale,12/Scale,Forge/Scale,12/Scale));
         ForgeWidth=Forge;
         if(GunAssemblySlot&&bGunOut)GunAssemblySlot->SetOffsets(FMargin(-WBDock/Scale,12/Scale,WB/Scale,12/Scale));
+        if(IncineratorSlot&&bIncineratorPanel)IncineratorSlot->SetOffsets(FMargin(-WBDock/Scale,12/Scale,WB/Scale,12/Scale));
         InventoryHeaderSurface->SetPadding(FMargin(18/Scale,12/Scale));InventoryHeaderSize->SetHeightOverride(36/Scale);
         for(auto& WeakSize:InventoryTabSizes)if(auto* Size=WeakSize.Get())Size->SetHeightOverride(40/Scale);
         Cast<UButtonSlot>(CloseButton->GetContent()->Slot)->SetPadding(FMargin(12/Scale,8/Scale));
         if(WarehouseSlot){WarehouseSlot->SetAnchors(FAnchors(0,0,0,1));WarehouseSlot->SetAlignment(FVector2D::ZeroVector);WarehouseSlot->SetOffsets(FMargin(12/Scale,12/Scale,Width/Scale,12/Scale));}
+        // Shop shares the warehouse dimensions, docked flush against the backpack's left edge.
+        if(ShopSlot)
+        {
+            ShopSlot->SetAnchors(InventoryPanelSlot->GetAnchors());ShopSlot->SetAlignment(InventoryPanelSlot->GetAlignment());
+            ShopSlot->SetAutoSize(false);
+            auto ShopBounds=InventoryPanelSlot->GetOffsets();ShopBounds.Left-=Width/Scale;
+            ShopSlot->SetOffsets(ShopBounds);
+        }
         if(SmeltingSlot)
         {
             // 槽位＝屏幕左缘→面板右缘的全宽命中区（2026-09-24 修复：挂在父边界外负坐标的子控件

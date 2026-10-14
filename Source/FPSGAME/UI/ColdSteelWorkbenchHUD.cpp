@@ -1,5 +1,6 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelWorkbenchWidget.h"
+#include "ColdSteelIncineratorWidget.h"
 #include "ColdSteelGunAssemblyWidget.h"
 #include "../Building/GunAssemblySystem.h"
 #include "Engine/GameInstance.h"
@@ -30,31 +31,43 @@ void UColdSteelHUDWidget::BuildWorkbench(UCanvasPanel* Root)
     GunAssemblySlot->SetAnchors(FAnchors(1,0,1,1));GunAssemblySlot->SetAlignment(FVector2D(1,0));
     GunAssemblySlot->SetOffsets(FMargin(0,ReferenceUnits(12),ReferenceUnits(720),ReferenceUnits(12)));
     GunAssemblySlot->SetZOrder(42);GunAssemblyWidget->SetVisibility(ESlateVisibility::Collapsed);
+    IncineratorWidget=CreateWidget<UColdSteelIncineratorWidget>(GetOwningPlayer());IncineratorWidget->Configure(this);
+    IncineratorSlot=Root->AddChildToCanvas(IncineratorWidget);
+    IncineratorSlot->SetAnchors(FAnchors(1,0,1,1));IncineratorSlot->SetAlignment(FVector2D(1,0));
+    IncineratorSlot->SetOffsets(FMargin(0,ReferenceUnits(12),ReferenceUnits(720),ReferenceUnits(12)));
+    IncineratorSlot->SetZOrder(42);IncineratorWidget->SetVisibility(ESlateVisibility::Collapsed);
 }
 
 void UColdSteelHUDWidget::OpenWorkbench(AActor* Workbench)
 {
     auto* Piece=Cast<AVoxelBuildPrefabActor>(Workbench);
     auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
-    if(!Piece||(Piece->PrefabId()!=VoxelWorkbenchId&&Piece->PrefabId()!=VoxelGunWorkbenchId)
+    if(!Piece||(Piece->PrefabId()!=VoxelWorkbenchId&&Piece->PrefabId()!=VoxelGunWorkbenchId&&Piece->PrefabId()!=VoxelIncineratorId)
         ||Piece->IsFalling()||!World||!World->HasPrefabAt(Piece->AnchorCell()))return;
+    CloseShop();
     if(GunAssemblyInteraction){auto* Previous=GunAssemblyInteraction.Get();GunAssemblyInteraction=nullptr;if(Previous->IsRunning())Previous->Stop(false);Previous->Destroy();}
     GunWorkbenchStation.Reset();
     // 工作台 E＝背包＋制作面板一起开（高炉同款生命周期）；打开背包本身永远不带出面板。
     if(bSmeltingOpen)HideSmeltingInstantly();   // 同贴位互斥：瞬收冶炼面板，避免两层叠画
     if(bForgingOpen||bForgeRiding)HideForgingInstantly();
+    if(IncineratorWidget)IncineratorWidget->CloseStation();
+    bIncineratorPanel=Piece->PrefabId()==VoxelIncineratorId;
+    if(bIncineratorPanel&&bWarehouseOpen)CloseWarehouse();
     if(!bInventoryOpen){SetInventoryTab(false);SetInventoryOpen(true);}
     WorkbenchWorld=World;WorkbenchCell=Piece->AnchorCell();
     bWorkbenchOpen=true;bWorkbenchRiding=false;   // 弹出相位：抽屉到位后面板从其左缘滑出
     bGunWorkbenchPanel=Piece->PrefabId()==VoxelGunWorkbenchId;
     WorkbenchWidget->SetVisibility(ESlateVisibility::Collapsed);GunAssemblyWidget->SetVisibility(ESlateVisibility::Collapsed);
+    IncineratorWidget->SetVisibility(ESlateVisibility::Collapsed);IncineratorWidget->SetInputReady(false);
     WorkbenchWidget->SetInputReady(false);
     if(Piece->PrefabId()==VoxelGunWorkbenchId)
     {
         GunWorkbenchStation=Piece;GunAssemblyInteraction=GetWorld()->SpawnActor<AGunAssemblyInteraction>();
         if(GunAssemblyInteraction)GunAssemblyInteraction->Prepare(GetOwningPlayer(),Piece,this);
     }
-    if(bGunWorkbenchPanel&&GunAssemblyWidget)
+    if(bIncineratorPanel&&IncineratorWidget)
+    {IncineratorWidget->OpenStation(Piece);IncineratorWidget->SetKeyboardFocus();}
+    else if(bGunWorkbenchPanel&&GunAssemblyWidget)
     {GunAssemblyWidget->OpenStation();GunAssemblyWidget->SetKeyboardFocus();}
     else if(WorkbenchWidget)
     {
@@ -68,6 +81,7 @@ void UColdSteelHUDWidget::CloseWorkbench()
 {
     if(!bWorkbenchOpen)return;
     bWorkbenchOpen=false;
+    if(IncineratorWidget)IncineratorWidget->CloseStation();
     if(WorkbenchWidget)WorkbenchWidget->SetInputReady(false);
     WorkbenchWorld.Reset();
     if(GunAssemblyInteraction&&!GunAssemblyInteraction->IsRunning()){GunAssemblyInteraction->Destroy();GunAssemblyInteraction=nullptr;GunWorkbenchStation.Reset();}
@@ -93,6 +107,8 @@ void UColdSteelHUDWidget::HideWorkbenchInstantly()
         WorkbenchWidget->SetRenderTranslation(FVector2D::ZeroVector);
     }
     if(WorkbenchSlot)WorkbenchSlot->SetZOrder(42);
+    if(IncineratorWidget){IncineratorWidget->CloseStation();IncineratorWidget->SetVisibility(ESlateVisibility::Collapsed);IncineratorWidget->SetRenderTranslation(FVector2D::ZeroVector);}
+    if(IncineratorSlot)IncineratorSlot->SetZOrder(42);
     if(GunAssemblyWidget){GunAssemblyWidget->SetVisibility(ESlateVisibility::Collapsed);GunAssemblyWidget->SetRenderTranslation(FVector2D::ZeroVector);GunAssemblyWidget->SetInputReady(false);}
     if(GunAssemblySlot)GunAssemblySlot->SetZOrder(42);
 }

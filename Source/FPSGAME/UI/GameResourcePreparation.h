@@ -14,9 +14,14 @@ class UTexture2D;
 class FGameResourcePreparation
 {
 public:
-    explicit FGameResourcePreparation(UWorld* World);
+    explicit FGameResourcePreparation(UWorld* World, bool bDuringSceneAssembly = false);
     ~FGameResourcePreparation();
     void Tick();
+    void QueueAssembledActor(AActor* Actor);
+    void FinishSceneAssembly();
+    /** Bounded handoff of unused entry textures to normal streaming after gameplay starts. */
+    void TickResidency();
+    bool HasResidencyWork() const { return bReady && !Protected.IsEmpty(); }
     bool IsReady() const { return bReady; }
     bool HasFailed() const { return bFailed; }
     FText Status;
@@ -27,7 +32,24 @@ private:
     void CollectComponent(UPrimitiveComponent* Component);
     void Fail(const FString& Reason);
     void ReleaseProtection();
+    void TrackActor(AActor* Actor);
+    void StopTrackingActors();
+    void PumpAssemblyWarmup(double Deadline);
+    void GetMaterialTextures(UMaterialInterface* Material, TArray<UTexture*>& Out);
     TWeakObjectPtr<UWorld> Scene;
+    FDelegateHandle ActorSpawnedHandle;
+    TArray<TWeakObjectPtr<AActor>> KnownActors;
+    TSet<TWeakObjectPtr<AActor>> SeenActors;
+    TArray<TWeakObjectPtr<AActor>> WarmActors;
+    TSet<TWeakObjectPtr<AActor>> QueuedWarmActors;
+    TSet<TWeakObjectPtr<UMaterialInterface>> WarmMaterials;
+    TArray<TWeakObjectPtr<UTexture2D>> WarmTextures;
+    TSet<TWeakObjectPtr<UTexture2D>> SeenWarmTextures;
+    TSet<TWeakObjectPtr<UTexture2D>> RequestedWarmTextures;
+    TMap<TWeakObjectPtr<UMaterialInterface>, TArray<TWeakObjectPtr<UTexture>>> MaterialTextures;
+    int32 WarmActorCursor = 0, WarmTextureCursor = 0;
+    int64 WarmRequestBytes = 0;
+    bool bSceneAssembling = false;
     TArray<TWeakObjectPtr<AActor>> Actors;
     TArray<TWeakObjectPtr<UPrimitiveComponent>> Components;
     TSet<TWeakObjectPtr<UPrimitiveComponent>> SeenComponents;
@@ -37,6 +59,11 @@ private:
     TSet<TWeakObjectPtr<UMaterialInterface>> QueriedMaterials;
     TSet<TWeakObjectPtr<UTexture>> SeenTextures;
     TSet<TWeakObjectPtr<UTexture2D>> Protected;
+    TSet<TWeakObjectPtr<UTexture2D>> ResidencyInUse;
+    TSet<TWeakObjectPtr<UMaterialInterface>> ResidencyMaterials;
+    TMap<TWeakObjectPtr<UTexture2D>, double> UnusedSince;
+    int32 ResidencyCursor = INDEX_NONE;
+    double NextResidencyPass = 0.;
     FRenderCommandFence Fence;
     int32 ActorCursor = 0;
     int32 MaterialCursor = 0;

@@ -59,7 +59,7 @@ private:
     TSharedPtr<class SVerticalBox> Rail,Inspector,ProjectSummary,Costs;
     TSharedPtr<class SHorizontalBox> Options;
     TSharedPtr<class STextBlock> ItemTitle,ItemLevel,Footer,ConfirmText;
-    TSharedPtr<class STextBlock> LevelBadge,LevelMax,GoldChip,StoneChip,DustChip;
+    TSharedPtr<class STextBlock> LevelBadge,LevelMax,SoulChip,StoneChip,DustChip;
     TSharedPtr<class SHorizontalBox> LevelTrack,AffixRow;
     TSharedPtr<class SBorder> FlashOverlay;
     TSharedPtr<class SBox> BodyHost;
@@ -71,4 +71,14 @@ private:
     FSlateBrush TrackDone,TrackNext,TrackIdle,FlashBrush;
     FButtonStyle Normal,SelectedStyle,PrimaryStyle;
     UPROPERTY(Transient) TObjectPtr<class UTexture2D> BackgroundTexture;
+    void LoadArcaneBackground();
+    void SetScrollFilter(int32 Filter);
+    FString EquipmentSearch;
+    int32 ScrollFilter=0,BackgroundRequest=0;
+    bool bClosing=false;
+    TSharedPtr<class SColdSteelArcaneSeal> RitualSeal;
+    TSharedPtr<class SHorizontalBox> ScrollFilters;
+    TSharedPtr<class SButton> ScrollFilterControls[3];
+    TSharedPtr<class STextBlock> DirectoryCount,OperationBadge,OutcomeText;
+    FSearchBoxStyle EquipmentSearchStyle;
 };

@@ -78,6 +78,7 @@ void UFPSPerformanceMetricsSubsystem::Deinitialize()
     FWorldDelegates::OnWorldTickEnd.Remove(WorldTickEndHandle);
     UnbindPhaseDelegates();
     bRecording = false;
+    ResetEncounterDiagnostics();
     InvalidateActiveEvents();
     CompletedEvents.Empty();
     FrameSamples.Empty();
@@ -85,12 +86,21 @@ void UFPSPerformanceMetricsSubsystem::Deinitialize()
     UiSamples.Empty();
     RecentHitches.Empty();
     WorstHitches.Empty();
+    RenderResourceSamples.Empty();
+    PreviousRenderHandles.Empty();
     Super::Deinitialize();
 }
 
 void UFPSPerformanceMetricsSubsystem::ClearSamples()
 {
     ++CaptureGeneration;
+    ResetEncounterDiagnostics();
+    RenderResourceSamples.Reset();
+    PreviousRenderHandles.Reset();
+    RenderResourceWriteIndex = 0;
+    RenderResourceSamplesOverwritten = 0;
+    NextRenderResourceSampleSeconds = 0.0;
+    bRenderResourceSamplePending = false;
     EventsDiscardedAtBoundary = 0;
     InvalidateActiveEvents();
     EventCount = EventWriteIndex = 0;
@@ -117,7 +127,7 @@ void UFPSPerformanceMetricsSubsystem::SetRecording(bool bEnabled)
     PreviousActions = TotalActions;
     PreviousIconActions = TotalIconActions;
     if (bEnabled) ClearSamples();
-    else InvalidateActiveEvents();
+    else { ArchiveCombatWindow(false); InvalidateActiveEvents(); GpuInventoryRequests.Reset(); }
 }
 
 void UFPSPerformanceMetricsSubsystem::SampleEngineFrame()
@@ -168,6 +178,8 @@ void UFPSPerformanceMetricsSubsystem::SampleEngineFrame()
     WriteIndex = (WriteIndex + 1) % MaxSamples;
     SampleCount = FMath::Min(SampleCount + 1, MaxSamples);
     UpdateHitchHistory(Sample);
+    UpdateEncounterCapture(Sample);
+    SampleRenderResources(Now);
     const double Cutoff = Now - FMath::Max(.1f, WindowSeconds);
     // Keep the frame crossing the window boundary, including an arbitrarily long hitch.
     while (SampleCount > 1)
@@ -231,6 +243,12 @@ void UFPSPerformanceMetricsSubsystem::ReadWindow(FFPSPerformanceSnapshot& Snapsh
     Snapshot.WorstHitchCapacity = MaxWorstHitches;
     Snapshot.HitchEventCapacity = MaxHitchEvents;
     Snapshot.HitchesOverwritten = HitchesOverwritten;
+    Snapshot.RenderResourceSamplesOverwritten = RenderResourceSamplesOverwritten;
+    ReadEncounterDiagnostics(Snapshot);
+    Snapshot.RenderResourceSamples.Reserve(RenderResourceSamples.Num());
+    const int32 FirstResource = RenderResourceSamples.Num() == MaxRenderResourceSamples ? RenderResourceWriteIndex : 0;
+    for (int32 I = 0; I < RenderResourceSamples.Num(); ++I)
+        Snapshot.RenderResourceSamples.Add(RenderResourceSamples[(FirstResource + I) % RenderResourceSamples.Num()]);
     if (SampleCount == 0) return;
 
     TArray<float> Frame, Game, Draw, Rhi, Gpu, GameWait, DrawWait, GameCritical, DrawCritical;

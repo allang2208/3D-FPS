@@ -32,6 +32,8 @@ private:
     FSlateRect PressedSkillBounds;
     UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> Model;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> IconTexture;
+    UPROPERTY(Transient) TMap<FName,TObjectPtr<UTexture2D>> MasteryIconTextures;
+    TMap<FName,FSlateBrush> MasteryIconBrushes;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> DodgeIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> DexterousHandsIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> PistolIconTexture;
@@ -79,6 +81,9 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTexture2D> FlameArmorIconTexture;
     TSharedPtr<SButton> MeteorDetailButton,FlameArmorDetailButton;
     FSlateBrush MeteorIconBrush,FlameArmorIconBrush;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> DragonBreathIconTexture;
+    TSharedPtr<SButton> DragonBreathDetailButton;
+    FSlateBrush DragonBreathIconBrush;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> IceWallIconTexture;
     TSharedPtr<SButton> IceWallDetailButton;
     FSlateBrush IceWallIconBrush;

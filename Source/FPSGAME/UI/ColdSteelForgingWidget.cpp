@@ -1,5 +1,6 @@
-﻿#include "ColdSteelForgingWidget.h"
+#include "ColdSteelForgingWidget.h"
 #include "ColdSteelForgeBoard.h"
+#include "ColdSteelGunRecipeOptionWidget.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
@@ -41,7 +42,7 @@ void SetText(UTextBlock* Widget,const FString& Value)
 void UColdSteelForgingWidget::Configure(UColdSteelHUDWidget* Owner){HUD=Owner;}
 UTextBlock* UColdSteelForgingWidget::Text(const FString& Caption,float Pixels,bool bNumeric,bool bMedium)
 {
-    auto* T=WidgetTree->ConstructWidget<UTextBlock>();T->SetText(FText::FromString(Caption));T->SetAutoWrapText(true);
+    auto* T=WidgetTree->ConstructWidget<UTextBlock>();T->SetText(FText::FromString(Caption));T->SetAutoWrapText(false);
     const float FontScale=Scale>0?Scale:1.f;
     T->SetFont(bNumeric?GunsmithUI::NumberFont(Pixels/FontScale,bMedium):GunsmithUI::TextFont(Pixels/FontScale,bMedium));
     T->SetColorAndOpacity(ColdSteelUI::TextPrimary);Labels.Add({T,Pixels,bNumeric,bMedium});return T;
@@ -143,7 +144,7 @@ void UColdSteelForgingWidget::NativeOnInitialized()
     Stage=Text(TEXT("准备锻造"),16,false,true);Space(StateCard->AddChildToVerticalBox(Stage),FMargin(0,0,0,8));
     Stats=Text(TEXT(""),16,true);Space(StateCard->AddChildToVerticalBox(Stats),FMargin(0,0,0,4));
     StatLegend=Text(TEXT("剩余时间   /   有效命中   /   工艺伤害"),12);StatLegend->SetColorAndOpacity(ColdSteelUI::TextTertiary);StateCard->AddChildToVerticalBox(StatLegend);
-    RefundPreview=Text(TEXT(""),12);RefundPreview->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(StateCard->AddChildToVerticalBox(RefundPreview),FMargin(0,8,0,0));
+    RefundPreview=Text(TEXT(""),12);RefundPreview->SetAutoWrapText(true);RefundPreview->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(StateCard->AddChildToVerticalBox(RefundPreview),FMargin(0,8,0,0));
     Timer=WidgetTree->ConstructWidget<UProgressBar>();Timer->SetFillColorAndOpacity(ColdSteelUI::Accent);
     TimerSize=WidgetTree->ConstructWidget<USizeBox>();TimerSize->SetContent(Timer);Space(StateCard->AddChildToVerticalBox(TimerSize),FMargin(0,8,0,0));
     auto* PreviewCaption=Text(TEXT("成品预览 · 剑类共用剑胚"),14,false,true);Space(Content->AddChildToVerticalBox(PreviewCaption),FMargin(0,4,0,8));
@@ -162,15 +163,15 @@ void UColdSteelForgingWidget::NativeOnInitialized()
     Space(ParameterContent->AddChildToVerticalBox(PreviewStage),FMargin(0,0,0,12));
     PreviewParameterGrid=WidgetTree->ConstructWidget<UGridPanel>();PreviewParameterGrid->SetColumnFill(0,1.f);
     ParameterContent->AddChildToVerticalBox(PreviewParameterGrid);
-    PreviewScope=Text(TEXT(""),12);PreviewScope->SetColorAndOpacity(ColdSteelUI::TextTertiary);
+    PreviewScope=Text(TEXT(""),12);PreviewScope->SetAutoWrapText(true);PreviewScope->SetColorAndOpacity(ColdSteelUI::TextTertiary);
     Space(ParameterContent->AddChildToVerticalBox(PreviewScope),FMargin(0,12,0,0));
     auto* Instructions=Card(Content);Space(Instructions->AddChildToVerticalBox(Text(TEXT("操作说明"),16,false,true)),FMargin(0,0,0,8));
-    auto* Help=Text(TEXT("光圈与命中范围随时间缩小，直到消失。移动鼠标对准后左键落锤，出锤时锁定大小，锤头接触时判定。"),14);Space(Instructions->AddChildToVerticalBox(Help),FMargin(0,0,0,8));
-    auto* Rule=Text(FString::Printf(TEXT("每轮 20 处光圈 · 单处随机停留 %.1f～%.1f 秒，出锤后锁定至接触\n落锤后随机间隔 %.2f～%.2f 秒，且等待回锤完成 · 10 次命中为基础品质\n伤害浮动 −25%% ～ ＋25%%"),System->HitWindowMin,System->HitWindowMax,System->TargetGapMin,System->TargetGapMax),12);Rule->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(Instructions->AddChildToVerticalBox(Rule),FMargin(0,0,0,8));
-    auto* Exit=Text(TEXT("开始时扣除材料。中途返回按当前命中数结算；成品可领取或直接废弃。废弃返还一半材料至背包，每种材料的零头向下取整。"),12);Exit->SetColorAndOpacity(ColdSteelUI::TextTertiary);Instructions->AddChildToVerticalBox(Exit);
+    auto* Help=Text(TEXT("光圈与命中范围随时间缩小，直到消失。移动鼠标对准后左键落锤，出锤时锁定大小，锤头接触时判定。"),14);Help->SetAutoWrapText(true);Space(Instructions->AddChildToVerticalBox(Help),FMargin(0,0,0,8));
+    auto* Rule=Text(FString::Printf(TEXT("每轮 20 处光圈 · 单处随机停留 %.1f～%.1f 秒，出锤后锁定至接触\n落锤后随机间隔 %.2f～%.2f 秒，且等待回锤完成 · 10 次命中为基础品质\n伤害浮动 −25%% ～ ＋25%%"),System->HitWindowMin,System->HitWindowMax,System->TargetGapMin,System->TargetGapMax),12);Rule->SetAutoWrapText(true);Rule->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(Instructions->AddChildToVerticalBox(Rule),FMargin(0,0,0,8));
+    auto* Exit=Text(TEXT("开始时扣除材料。中途返回按当前命中数结算；成品可领取或直接废弃。废弃返还一半材料至背包，每种材料的零头向下取整。"),12);Exit->SetAutoWrapText(true);Exit->SetColorAndOpacity(ColdSteelUI::TextTertiary);Instructions->AddChildToVerticalBox(Exit);
     Footer=WidgetTree->ConstructWidget<UBorder>();Footer->SetBrushColor(ColdSteelUI::HeaderTint);Stack->AddChildToVerticalBox(Footer);
     auto* Foot=WidgetTree->ConstructWidget<UVerticalBox>();Footer->SetContent(Foot);
-    Status=Text(TEXT(""),14);Status->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(Foot->AddChildToVerticalBox(Status),FMargin(0,0,0,8));
+    Status=Text(TEXT(""),14);Status->SetAutoWrapText(true);Status->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(Foot->AddChildToVerticalBox(Status),FMargin(0,0,0,8));
     auto* Actions=WidgetTree->ConstructWidget<UHorizontalBox>();Foot->AddChildToVerticalBox(Actions);
     UTextBlock* NewActionLabel=nullptr;ActionButton=Button(TEXT("开始锻造"),NewActionLabel);ActionLabel=NewActionLabel;ActionButton->OnClicked.AddDynamic(this,&ThisClass::HandleAction);
     auto* ActionSize=WidgetTree->ConstructWidget<USizeBox>();ActionSize->SetContent(ActionButton);ButtonSizes.Add(ActionSize);Actions->AddChildToHorizontalBox(ActionSize)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
@@ -245,6 +246,8 @@ void UColdSteelForgingWidget::UpdateScale()
 {
     const float NewScale=ColdSteelUI::PixelScale(this);if(FMath::IsNearlyEqual(Scale,NewScale,.001f))return;Scale=FMath::Max(.1f,NewScale);
     for(const auto& L:Labels)if(auto* T=L.Widget.Get())T->SetFont(L.Numeric?GunsmithUI::NumberFont(L.Pixels/Scale,L.Medium):GunsmithUI::TextFont(L.Pixels/Scale,L.Medium));
+    RecipeOptionWidgets.RemoveAll([](const auto& Entry){return !Entry.IsValid();});
+    for(const auto& Option:RecipeOptionWidgets)if(auto* Widget=Option.Get())Widget->SetPixelScale(Scale);
     for(const auto& W:Buttons)if(auto* B=W.Get()){B->SetStyle(ColdSteelUI::ButtonStyle(Scale));if(auto* ButtonSlot=Cast<UButtonSlot>(B->GetContent()->Slot))ButtonSlot->SetPadding(FMargin(12/Scale,4/Scale));}
     for(const auto& W:ButtonSizes)if(auto* S=W.Get())S->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);
     CloseSize->SetWidthOverride(ColdSteelUI::ActionHeight/Scale);SecondaryActionSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));
@@ -399,10 +402,14 @@ void UColdSteelForgingWidget::HandleDiscard()
 void UColdSteelForgingWidget::HandleSmelting(){if(HUD&&!System->Active())HUD->OpenForgingSmelting();}
 UWidget* UColdSteelForgingWidget::GenerateRecipeOption(FString Option)
 {
-    auto* Label=Text(Option,14,false,true);Label->SetJustification(ETextJustify::Center);
-    auto* OptionBox=WidgetTree->ConstructWidget<USizeBox>();OptionBox->SetMinDesiredHeight(ColdSteelUI::ActionHeight/FMath::Max(.1f,ColdSteelUI::PixelScale(this)));
-    OptionBox->SetContent(Label);Cast<USizeBoxSlot>(Label->Slot)->SetVerticalAlignment(VAlign_Center);
-    return OptionBox;
+    // ComboBoxString retains TakeWidget(), not a detached UMG subtree.
+    // SObjectWidget keeps the text and its StrikeBrush alive for selected content and menu rows.
+    auto* Widget=CreateWidget<UColdSteelGunRecipeOptionWidget>(this);
+    if(!Widget)return nullptr;
+    Widget->Configure(Option,ColdSteelUI::PixelScale(this));
+    RecipeOptionWidgets.RemoveAll([](const auto& Entry){return !Entry.IsValid();});
+    RecipeOptionWidgets.Add(Widget);
+    return Widget;
 }
 void UColdSteelForgingWidget::HandleRecipeSelected(FString Option,ESelectInfo::Type SelectionType)
 {

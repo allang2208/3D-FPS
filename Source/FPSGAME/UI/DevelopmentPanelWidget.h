@@ -90,6 +90,7 @@ private:
     UFUNCTION() void PerformanceRecordingClicked();
     UFUNCTION() void PerformanceResetClicked();
     UFUNCTION() void PerformanceExportClicked();
+    UFUNCTION() void PerformanceGpuInventoryClicked();
     UFUNCTION() void PerformanceIntervalChanged(FString Selected, ESelectInfo::Type Type);
     UFUNCTION() void PerformanceRowsChanged(FString Selected, ESelectInfo::Type Type);
     UFUNCTION() void InvincibleClicked();
@@ -147,6 +148,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UButton> PerformanceRecordingButton;
     UPROPERTY(Transient) TObjectPtr<UButton> PerformanceResetButton;
     UPROPERTY(Transient) TObjectPtr<UButton> PerformanceExportButton;
+    UPROPERTY(Transient) TObjectPtr<UButton> PerformanceGpuInventoryButton;
     UPROPERTY(Transient) TObjectPtr<UComboBoxString> PerformanceInterval;
     UPROPERTY(Transient) TObjectPtr<UComboBoxString> PerformanceRowCount;
     UPROPERTY(Transient) TObjectPtr<UVerticalBox> PerformanceList;

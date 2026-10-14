@@ -109,7 +109,7 @@ UButton* UWeatherControlWidget::CreatePanelButton(const FString& Caption, FName 
     auto* Button = WidgetTree->ConstructWidget<UButton>(UButton::StaticClass(), Name);
     Button->SetStyle(ColdSteelUI::ButtonStyle(1.f / ColdSteelUI::PixelScale(this)));
     auto* Text = CreatePanelText(Caption, 14, ColdSteelUI::TextPrimary);
-    Text->SetJustification(ETextJustify::Center);
+    Text->SetJustification(ETextJustify::Center);Text->SetAutoWrapText(false);Text->SetWrapTextAt(0);
     Button->AddChild(Text);
     return Button;
 }

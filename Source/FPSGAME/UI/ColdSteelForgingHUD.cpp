@@ -21,6 +21,7 @@ void UColdSteelHUDWidget::OpenForging(AActor* Station)
     auto* Piece=Cast<AVoxelBuildPrefabActor>(Station);auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
     if(!Piece||Piece->PrefabId()!=VoxelCastingStationId||Piece->IsFalling()||!World||!World->HasPrefabAt(Piece->AnchorCell()))return;
     if(bForgingOpen&&ForgingStation.Get()==Station)return;
+    CloseShop();
     HideForgingInstantly();HideSmeltingInstantly();HideWorkbenchInstantly();CloseWarehouse();
     if(!bInventoryOpen){SetInventoryTab(false);SetInventoryOpen(true);}
     ForgingWorld=World;ForgingCell=Piece->AnchorCell();ForgingStation=Station;bForgingOpen=true;bForgeRiding=false;

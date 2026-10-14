@@ -1,4 +1,5 @@
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelCurrency.h"
 #include "ColdSteelWarehouseRules.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -18,6 +19,7 @@ bool UColdSteelStatusModel::AppendDungeonReward(FColdSteelProfile& State,FName C
     for(const auto& Pair:Loot)
     {
         if(Pair.Value<=0||Pair.Value>9007199254740991ll)return false;
+        if(ColdSteelCurrency::IsCurrency(Pair.Key)){if(!CreditCombatSouls(State,Pair.Value))return false;continue;}
         if(AmmoType(Pair.Key)){if(!AddAmmoToState(State,Pair.Key,Pair.Value))return false;continue;}
         if(!Definitions.Contains(Pair.Key))return false;
         auto Item=CreateItem(Pair.Key,Pair.Value);
@@ -45,6 +47,7 @@ bool UColdSteelStatusModel::StoreDungeonChestLoot(const FString& RunId,FName Cla
     for(const auto& Pair:Loot)
     {
         if(Pair.Value<=0||Pair.Value>9007199254740991ll)return false;
+        if(ColdSteelCurrency::IsCurrency(Pair.Key)){if(!ColdSteelCurrency::Credit(State,Pair.Value))return false;continue;}
         if(AmmoType(Pair.Key)){if(!AddAmmoToState(State,Pair.Key,Pair.Value))return false;continue;}
         if(!Definitions.Contains(Pair.Key))return false;
         auto Item=CreateItem(Pair.Key,Pair.Value);
@@ -69,7 +72,7 @@ bool UColdSteelStatusModel::ConvertChestAmmoToPool(const FString& Id)
 {
     auto State=Snapshot();
     const int32 N=State.Items.IndexOfByPredicate([&](const auto& V){return V.InstanceId==Id;});
-    if(N<0)return false;
+    if(N<0||State.Items[N].Place!=4||State.Items[N].Container!=ActiveContainer)return false;
     const FString Definition=State.Items[N].Definition;const int64 Count=State.Items[N].Count;
     State.Items.RemoveAt(N);
     if(!AddAmmoToState(State,Definition,Count))return false;

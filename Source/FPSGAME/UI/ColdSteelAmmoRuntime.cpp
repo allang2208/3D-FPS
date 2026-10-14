@@ -108,8 +108,9 @@ bool UColdSteelStatusModel::SpendAmmo(const FString& Id,int64 Count)
 bool UColdSteelStatusModel::NormalizeAmmo(FColdSteelProfile& State,bool& Changed) const
 {
     if(State.AmmoPouchVersion<0||State.AmmoPouchVersion>1)return false;
+    for(const auto& Item:State.Items)if(Item.bIncineratorAmmo&&(!AmmoType(Item.Definition)||Item.Place!=4||!Item.Container.StartsWith(TEXT("incinerator."))))return false;
     TSet<FString> Removed;
-    for(const auto& Item:State.Items)if(AmmoType(Item.Definition))
+    for(const auto& Item:State.Items)if(AmmoType(Item.Definition)&&!Item.bIncineratorAmmo)
     {
         if(!AddAmmoToState(State,Item.Definition,Item.Count))return false;
         Removed.Add(Item.InstanceId);

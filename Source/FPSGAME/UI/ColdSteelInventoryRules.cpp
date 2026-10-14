@@ -104,7 +104,7 @@ FIntPoint CompartmentGrid(const TArray<FColdSteelItem>& Items)
 bool Compatible(const FColdSteelItem& A,const FColdSteelItem& B)
 {
     if(Text(A,TEXT("category"))==TEXT("gold") && Text(B,TEXT("category"))==TEXT("gold")) return true;
-    if(A.StackMax<=1||A.StackMax!=B.StackMax||A.Definition!=B.Definition||A.Cooldown!=B.Cooldown)return false;
+    if(A.bIncineratorAmmo!=B.bIncineratorAmmo||A.StackMax<=1||A.StackMax!=B.StackMax||A.Definition!=B.Definition||A.Cooldown!=B.Cooldown)return false;
     auto Left=Object(A),Right=Object(B);if(!Left||!Right)return false;
     // Match Godot dictionary equality: ordering and placement metadata are not identity.
     for(const TCHAR* Key:{TEXT("instance_id"),TEXT("itemId"),TEXT("slot"),TEXT("backpack_slot"),TEXT("stack"),TEXT("_price"),TEXT("grid_x"),TEXT("grid_y"),TEXT("grid_w"),TEXT("grid_h")}){Left->RemoveField(Key);Right->RemoveField(Key);}
@@ -189,6 +189,49 @@ static bool InsertEquipment(TArray<FColdSteelItem>& Items,FColdSteelItem Item,in
     ApplyOrientation(Item,Item.bRotated?0:1);
     return Insert(Items,MoveTemp(Item),Preferred);
 }
+bool ReconcileBagCapacity(const TArray<FColdSteelItem>& Before,TArray<FColdSteelItem>& After,FString& Reason)
+{
+    const FIntPoint OldGrid=CompartmentGrid(Before),NewGrid=CompartmentGrid(After);
+    const int32 NewRows=BagRows(After);
+    if(OldGrid==NewGrid&&BagRows(Before)==NewRows)return true;
+    auto Next=After;
+    TArray<FColdSteelItem> Compartment,Overflow;
+    for(const auto& I:Next)if(I.Place==ColdSteelCompartment::Place)Compartment.Add(I);
+    Next.RemoveAll([](const auto& I){return I.Place==ColdSteelCompartment::Place;});
+    for(auto I:Compartment)
+    {
+        const auto* Previous=Before.FindByPredicate([&](const auto& V){return V.InstanceId==I.InstanceId;});
+        // Only retained contents use the old column stride. Newly returned gear
+        // already carries a cell in the new grid.
+        if(Previous&&Previous->Place==ColdSteelCompartment::Place&&OldGrid.X>0)
+        {
+            const int32 X=Previous->Cell%OldGrid.X,Y=Previous->Cell/OldGrid.X;
+            I.Cell=NewGrid.X>0&&X+I.Width<=NewGrid.X&&Y+I.Height<=NewGrid.Y?Y*NewGrid.X+X:-1;
+        }
+        if(ColdSteelCompartment::Fits(Next,I,I.Cell,NewGrid))Next.Add(I);
+        else Overflow.Add(I);
+    }
+    for(int32 N=Next.Num()-1;N>=0;--N)if(Next[N].Place==0)
+    {
+        const auto& I=Next[N];
+        if(I.Cell<0||I.Cell%18+I.Width>18||I.Cell/18+I.Height>NewRows)
+        {Overflow.Add(I);Next.RemoveAt(N);}
+    }
+    if(Overflow.IsEmpty()){After=MoveTemp(Next);return true;}
+    Overflow.Sort([](const auto& A,const auto& B){return A.Width*A.Height>B.Width*B.Height;});
+    auto Packed=Next;bool FitsAll=true;
+    for(const auto& I:Overflow)if(!InsertEquipment(Packed,I)){FitsAll=false;break;}
+    if(FitsAll){After=MoveTemp(Packed);return true;}
+    // Search all overflow together when a greedy return blocks another item.
+    FColdSteelItem Anchor;Anchor.Place=0;Anchor.Cell=0;Anchor.Width=18;Anchor.Height=NewRows;
+    bool Exhausted=false;
+    if(!PlaceDisplaced(Next,Overflow,Anchor,0,Exhausted,0,0,NewRows,FString(),true))
+    {
+        Reason=Exhausted?TEXT("自动摆放较复杂，请调整背包空间后重试"):TEXT("更换后空间不足，无法容纳背包和夹层物品");
+        return false;
+    }
+    After=MoveTemp(Next);return true;
+}
 FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,int32 Place,int32 Cell,int32 Orientation)
 {
     FColdSteelProposal R; R.Items=Items; R.Reason=TEXT("目标位置无法容纳物品");
@@ -196,57 +239,17 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
     if(From<0||(Place!=0&&Place!=1)||Items[From].Place>1) return R;
     auto Moving=Items[From];
     // Equipment slots keep the authored shape; only bag placement carries an orientation.
-    if(Place==0)ApplyOrientation(Moving,Orientation);
+    ApplyOrientation(Moving,Place==1?0:Orientation);
     const int32 OldPlace=Moving.Place,OldCell=Moving.Cell;
     const bool bTurned=Moving.Width!=Items[From].Width||Moving.Height!=Items[From].Height;
     if(Place==OldPlace&&Cell==OldCell&&!bTurned){R.bValid=true;if(Place==1&&(Cell==6||Cell==9))R.ActiveWeaponSlot=Cell;return R;}
-    // 背包装备槽(14)占有者即将变更（卸下或被替换）的统一卸下规则：容量收缩后所有物品必须
-    // 仍能存放——扩展格里放不进的随事务自动回落重排，夹层里放不进的自动搬进背包（可堆叠
-    // 先并堆）；任何一步装不下（连同放回的背包本体）＝背包空间不足，整体拒绝，不发布半成品。
-    const int32 BagOwner=Owner(Items,1,14);
-    TArray<FColdSteelItem> BagCompartmentMigrate,BagRowOverflow;
-    int32 BagChangeRows=-1; // 槽14占有者变更后的主背包行数；-1＝本次移动不改变容量。
-    if(BagOwner>=0&&(From==BagOwner||(Place==1&&Cell==14&&From!=BagOwner)))
-    {
-        const bool bReequip=Place==1&&Cell==14;
-        const FIntPoint OldGrid=CompartmentGrid(Items);
-        const FIntPoint NewGrid=bReequip?CompartmentGridOf(Items[From]):FIntPoint::ZeroValue;
-        const int32 NewRowCells=(bReequip?4+FMath::Max(0,int32(Number(Items[From],TEXT("bagExtraCells"))))/18:4)*18;
-        BagChangeRows=NewRowCells/18;
-        for(const auto& I:Items)
-        {
-            if(I.Place==0&&I.Cell+(I.Height-1)*18+I.Width-1>=NewRowCells)BagRowOverflow.Add(I);
-            if(I.Place==ColdSteelCompartment::Place)
-            {
-                // 物品在旧网格里合法放置；换新网格后放不下（容量不足或列宽不够）才随事务搬进背包。
-                const int32 End=I.Cell+(I.Height-1)*FMath::Max(1,OldGrid.X)+I.Width-1;
-                if(End>=NewGrid.X*NewGrid.Y||I.Width>NewGrid.X)BagCompartmentMigrate.Add(I);
-            }
-        }
-    }
+    // Work with final equipment capacity. Reflow retained contents once the
+    // destination and replacement gear are known, never duplicate moved rows.
     R.Items.RemoveAt(From);
-    // 扩展格物品回落：从布局取出，优先落回缩减后网格的原列底部，装不下再全格找位。
-    for(const auto& M:BagRowOverflow)
-    {
-        const int32 N=R.Items.IndexOfByPredicate([&](const auto& V){return V.InstanceId==M.InstanceId;});
-        if(N<0)continue;
-        auto Copy=M;R.Items.RemoveAt(N);
-        const int32 RowsNow=BagRows(R.Items);
-        auto TryIn=[&](FColdSteelItem& C){bool bIn=Insert(R.Items,C,(RowsNow-1)*18+C.Cell%18);if(!bIn)bIn=Insert(R.Items,C);return bIn;};
-        bool bIn=TryIn(Copy);
-        if(!bIn&&CanRotate(Copy)){ApplyOrientation(Copy,Copy.bRotated?0:1);bIn=TryIn(Copy);}
-        if(!bIn){R.Items=Items;R.Reason=TEXT("背包空间不足，无法卸下背包装备");return R;}
-    }
-    for(const auto& M:BagCompartmentMigrate)
-    {
-        auto Copy=M;bool bIn=Insert(R.Items,Copy);
-        if(!bIn&&CanRotate(Copy)){ApplyOrientation(Copy,Copy.bRotated?0:1);bIn=Insert(R.Items,Copy);}
-        if(!bIn){R.Items=Items;R.Reason=TEXT("背包空间不足，无法卸下背包装备");return R;}
-    }
     if(Place==1) {
         if(Cell==6||Cell==9)R.ActiveWeaponSlot=Cell;
         if(!CanEquip(Moving,Cell)){R.Reason=TEXT("物品与装备槽不兼容");return R;}
-        if(Locked(Items,Cell)){R.Reason=TEXT("双手武器占用，请先卸下主手");return R;}
+        if(Locked(R.Items,Cell)){R.Reason=TEXT("双手武器占用，请先卸下主手");return R;}
         if(OldPlace==1) {
             int32 Target=Owner(R.Items,1,Cell);
             if(Target>=0) { if(!CanEquip(R.Items[Target],OldCell)) return R; R.Items[Target].Cell=OldCell; }
@@ -255,6 +258,9 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
             if(Flag(Moving,TEXT("isTwoHanded")))Slots.Add(Cell==6?8:11);
             TArray<FColdSteelItem> Displaced;
             for(int32 S:Slots)if(const int32 N=Owner(R.Items,1,S);N>=0){Displaced.Add(R.Items[N]);R.Items.RemoveAt(N);}
+            if(OldPlace==0)Moving.BackpackCell=OldCell;
+            Moving.Place=1;Moving.Cell=Cell;R.Items.Add(Moving);
+            if(!ReconcileBagCapacity(Items,R.Items,R.Reason)){R.Items=Items;return R;}
             // Keep the established placement/stacking result when it works.
             auto Packed=R.Items;bool OriginalFits=true;
             for(const auto& Old:Displaced)if(!Insert(Packed,Old,OldCell)){OriginalFits=false;break;}
@@ -264,9 +270,9 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
                 // Plan main hand and offhand together: a greedy first placement
                 // must not consume the only rectangle available to the other item.
                 bool Exhausted=false;
-                // 回填边界同样按移动后的行数（BagChangeRows）：换装后装备中的扩行以新背包为准，
+                // 回填边界同样按移动后的行数：换装后装备中的扩行以新背包为准，
                 // 否则旧装备可能被塞进即将消失的扩展行。
-                if(!PlaceDisplaced(R.Items,MoveTemp(Displaced),Items[From],Cell,Exhausted,0,0,BagChangeRows>=0?BagChangeRows:BagRows(Items),FString(),true))
+                if(!PlaceDisplaced(R.Items,MoveTemp(Displaced),Items[From],Cell,Exhausted,0,0,BagRows(R.Items),FString(),true))
                 {
                     R.Items=Items;
                     R.Reason=Exhausted?TEXT("自动摆放较复杂，请调整背包空间后重试"):TEXT("尝试两种朝向后仍没有连续空间安置替换下的装备");
@@ -274,14 +280,16 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
                 }
             }
         }
-        if(OldPlace==0)Moving.BackpackCell=OldCell;
-        Moving.Place=1;Moving.Cell=Cell; R.Items.Add(Moving);
+        if(OldPlace==1){Moving.Place=1;Moving.Cell=Cell;R.Items.Add(Moving);}
     } else {
         if(Cell==-1 && OldPlace==1) { if(!InsertEquipment(R.Items,Moving,Moving.BackpackCell)){R.Items=Items;R.Reason=TEXT("尝试两种朝向后仍没有连续空间卸下装备");return R;} }
         else {
             // 目标边界按"移动后的行数"算：卸下/换装背包的同一事务里，装备中的扩行已经
             // 不再有效（否则矮物品能落进即将消失的扩展行，卸下后越界成坏档）。
-            const int32 RowsAfter=BagChangeRows>=0?BagChangeRows:BagRows(Items);
+            int32 RowsAfter=BagRows(R.Items);
+            if(OldPlace==1&&OldCell==14)
+                if(const int32 N=Owner(R.Items,0,Cell);N>=0&&CanEquip(R.Items[N],14))
+                    RowsAfter=4+FMath::Max(0,int32(Number(R.Items[N],TEXT("bagExtraCells"))))/18;
             const int32 BagCells=RowsAfter*18;
             if(Cell<0||Cell>=BagCells||Cell%18+Moving.Width>18||Cell/18+Moving.Height>RowsAfter){R.Reason=TEXT("物品超出背包边界，请向内移动");return R;}
             TSet<int32> Blockers;
@@ -306,7 +314,7 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
                 int32 N=*Blockers.CreateConstIterator(); auto Other=R.Items[N];
                 if(OldPlace==0&&Compatible(Moving,Other)) {
                     const int64 Amount=FMath::Min(Moving.Count,Other.StackMax-Other.Count); if(Amount<=0){R.Reason=TEXT("目标堆叠已满");return R;}
-                    R.Items[N].Count+=Amount; Moving.Count-=Amount; if(Moving.Count>0)R.Items.Add(Moving);
+                    R.Items[N].Count+=Amount; Moving.Count-=Amount; if(Moving.Count>0){auto Remainder=Items[From];Remainder.Count=Moving.Count;R.Items.Add(Remainder);}
                     R.bValid=true;return R;
                 }
                 R.Items.RemoveAt(N); Moving.Place=0;Moving.Cell=Cell;
@@ -316,20 +324,30 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
                 if(OldPlace==0) { if(!Fits(R.Items,Other,OldCell)){R.Reason=TEXT("原位置放不下被交换物品");return R;} }
                 else if(!CanEquip(Other,OldCell)){R.Reason=TEXT("目标物品不能换入装备槽，请选空位");return R;}
                 if(OldPlace==1)Other.BackpackCell=Other.Cell;
+                if(OldPlace==1)ApplyOrientation(Other,0);
                 Other.Place=OldPlace;Other.Cell=OldCell;R.Items.Add(Other);
             } else {Moving.Place=0;Moving.Cell=Cell;R.Items.Add(Moving);}
         }
     }
-    for(int32 S:{8,11}) if(Locked(R.Items,S)&&Owner(R.Items,1,S)>=0){
-        if(OldPlace!=1||Place!=0)return R;
-        const int32 N=Owner(R.Items,1,S);auto Offhand=R.Items[N];R.Items.RemoveAt(N);if(!InsertEquipment(R.Items,Offhand)){R.Items=Items;R.Reason=TEXT("尝试两种朝向后仍没有连续空间安置副手装备");return R;}
+    TArray<FColdSteelItem> Offhands;
+    for(int32 S:{8,11})if(Locked(R.Items,S))if(const int32 N=Owner(R.Items,1,S);N>=0)
+    {Offhands.Add(R.Items[N]);R.Items.RemoveAt(N);}
+    if(!Offhands.IsEmpty())
+    {
+        auto Anchor=Items[From];Anchor.Cell=0;
+        bool Exhausted=false;
+        if(!PlaceDisplaced(R.Items,Offhands,Anchor,0,Exhausted,0,0,BagRows(R.Items),FString(),true))
+        {R.Items=Items;R.Reason=TEXT("没有连续空间安置副手装备，原装备保持不变");return R;}
     }
+    if(!(Place==1&&OldPlace==0)&&!ReconcileBagCapacity(Items,R.Items,R.Reason)){R.Items=Items;return R;}
     R.bValid=true; R.Reason.Empty();return R;
 }
 static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool AllowLegacyWood)
 {
     if(!FMath::IsFinite(P.SpellbookFocusManaLoss)||P.SpellbookFocusManaLoss<0.0)
     {Reason=TEXT("专注打断扣魔记录无效");return false;}
+    if(P.SoulCurrencyVersion<0||P.SoulCurrencyVersion>1||P.Souls<0||P.Souls>9007199254740991ll||P.ServerSoulCredits<0||P.ServerSoulCredits>9007199254740991ll||P.ServerSoulDebits<0||P.ServerSoulDebits>9007199254740991ll)
+    {Reason=TEXT("灵魂余额或版本无效");return false;}
     if(P.AmmoPouchVersion<0||P.AmmoPouchVersion>1){Reason=TEXT("弹药袋版本无效");return false;}
     for(const auto& Pair:P.AmmoPouch)if(Pair.Key.IsEmpty()||Pair.Value<0||Pair.Value>9007199254740991ll){Reason=TEXT("弹药袋数量无效");return false;}
     if(!ColdSteelSkills::Validate(P,Reason))return false;
@@ -384,6 +402,8 @@ static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool Allo
     for(const auto& I:P.Items) {
         if(I.VirtualMagazineAmmo<0||I.VirtualMagazineAmmo>I.Magazine){Reason=TEXT("训练弹数量无效");return false;}
         // Rows are bounded per container by Fits below; a rotated instance may exceed the backpack's four.
+        if(I.bIncineratorAmmo&&(I.Place!=4||!I.Container.StartsWith(TEXT("incinerator."))||I.Magazine!=0||I.Reserve!=0||I.Width!=1||I.Height!=1))
+        {Reason=TEXT("弹药暂存归属无效，原档保留");return false;}
         if(I.InstanceId.IsEmpty()||Ids.Contains(I.InstanceId)||I.Definition.IsEmpty()||!Object(I)||I.Count<=0||I.StackMax<1||I.Count>I.StackMax||I.StackMax>9007199254740991ll||I.Width<1||I.Width>18||I.Height<1||I.Height>ColdSteelWarehouse::Rows||I.Place<0||(I.Place>2&&I.Place!=4&&I.Place!=ColdSteelCompartment::Place)||!FMath::IsFinite(I.Cooldown)||I.Cooldown<0||I.Magazine<0||I.Reserve<0)return false;
         Ids.Add(I.InstanceId);
         if(Footprint(I)!=FIntPoint(I.Width,I.Height)&&
@@ -489,7 +509,10 @@ bool MigrateAuthoredGridFootprints(FColdSteelProfile& Profile,bool& Changed,FStr
         if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)continue;
         Data->SetNumberField(TEXT("grid_w"),W);Data->SetNumberField(TEXT("grid_h"),H);
         Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));
+        // A formerly rotated 2x3 book now has one square footprint and upright art.
+        if(W==H)Item.bRotated=false;
         // GPU shrinks from 3x2 to 2x1; preserve its chosen rotation and cell.
+        // Other authored migrations retain their existing upright policy.
         ApplyOrientation(Item,Item.Definition==TEXT("search_graphics_card")?-1:0);
         if(Item.Place==0||(Item.Place==4&&Next.WarehouseLayoutVersion==1)||Item.Place==ColdSteelCompartment::Place)
         {

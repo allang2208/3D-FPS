@@ -1,4 +1,5 @@
 #include "ColdSteelSmeltingWidget.h"
+#include "ColdSteelSmeltingPresentation.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelInventoryTypes.h"
@@ -30,25 +31,13 @@
 
 namespace
 {
+    using ColdSteelSmeltingPresentation::SmeltingProgressColor;
+    using ColdSteelSmeltingPresentation::FuelFillColor;
     /**
      * 复刻原项目 game-dev `game-ui-manager.js:51-68` 的 `timelineProgressColor`：
      * 四个色标之间按进度线性插值。**方向按冶炼语义正向化**（规划文档第 2.2 节）：
      * 0%=红 → 1/3=黄 → 2/3=蓝 → 100%=绿；原项目为倒计时威胁语义（0 绿 1 红），常量在此不混用。
      */
-    FLinearColor SmeltingProgressColor(float T)
-    {
-        static const FLinearColor Stops[4]=
-        {
-            FLinearColor::FromSRGBColor(FColor(0xE5,0x41,0x3E)),   // #E5413E 红
-            FLinearColor::FromSRGBColor(FColor(0xF1,0xC1,0x3F)),   // #F1C13F 黄
-            FLinearColor::FromSRGBColor(FColor(0x41,0x8B,0xE7)),   // #418BE7 蓝
-            FLinearColor::FromSRGBColor(FColor(0x3D,0xC4,0x5B))    // #3DC45B 绿
-        };
-        const float X=FMath::Clamp(T,0.f,1.f)*3.f;
-        const int32 Step=FMath::Clamp(FMath::FloorToInt(X),0,2);
-        const float A=X-Step;
-        return Stops[Step]*(1.f-A)+Stops[Step+1]*A;   // 线性插值（sRGB 空间，与原项目 CSS 侧一致）
-    }
 
     FString DefinitionName(UColdSteelStatusModel* Model,const FString& Definition)
     {
@@ -59,13 +48,6 @@ namespace
 
     /** 燃料条底色：按存料占比从暖橙 #F0BE71（Warning 档）渐变到亮黄 #F1C13F——
      *  越满越"有货"，与左侧进度条的四段色语义分开（燃料=存量、进度=时间）。 */
-    FLinearColor FuelFillColor(float Ratio)
-    {
-        const FLinearColor Low=FLinearColor::FromSRGBColor(FColor(0xF0,0xBE,0x71));
-        const FLinearColor High=FLinearColor::FromSRGBColor(FColor(0xF1,0xC1,0x3F));
-        const float X=FMath::Clamp(Ratio,0.f,1.f);
-        return Low*(1.f-X)+High*X;
-    }
 
     /** 秒数 → 人类可读：≥60 秒折算"X 分 Y 秒"（整分省秒），否则原样。燃料每件 1 分钟，界面按分读。 */
     FString ReadableSeconds(double Seconds)
@@ -141,7 +123,8 @@ void UColdSteelSmeltingWidget::NativeOnInitialized()
     HeaderSize=WidgetTree->ConstructWidget<USizeBox>();HeaderSurface->SetContent(HeaderSize);
     auto* Heading=WidgetTree->ConstructWidget<UHorizontalBox>();HeaderSize->SetContent(Heading);
     // 顶栏＝标题（20px Medium 档）＋ × 关闭：面板独立于背包后需要自带出口（Esc 同效）。
-    auto* TitleSlot=Heading->AddChildToHorizontalBox(Text(TEXT("冶炼"),20,ColdSteelUI::TextPrimary,false,true));
+    StationTitle=Text(TEXT("冶炼"),20,ColdSteelUI::TextPrimary,false,true);
+    auto* TitleSlot=Heading->AddChildToHorizontalBox(StationTitle);
     TitleSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));TitleSlot->SetVerticalAlignment(VAlign_Center);
     auto* PanelClose=Action(TEXT("×"));
     PanelClose->OnClicked.AddDynamic(this,&ThisClass::HandleClose);
@@ -172,7 +155,8 @@ void UColdSteelSmeltingWidget::NativeOnInitialized()
     // 2026-09-23 拆分：燃料不再与它同排双列，移到面板底部的独立燃料卡（FuelCard）。
     SmeltSection=WidgetTree->ConstructWidget<UVerticalBox>();
     JobStack->AddChildToVerticalBox(SmeltSection)->SetPadding(FMargin(0,0,0,6/Scale));
-    SmeltSection->AddChildToVerticalBox(Text(TEXT("冶炼进度"),12,ColdSteelUI::TextTertiary));
+    ProgressTitle=Text(TEXT("冶炼进度"),12,ColdSteelUI::TextTertiary);
+    SmeltSection->AddChildToVerticalBox(ProgressTitle);
     BarSize=WidgetTree->ConstructWidget<USizeBox>();BarSize->SetHeightOverride(12/Scale);
     SmeltSection->AddChildToVerticalBox(BarSize)->SetPadding(FMargin(0,4/Scale,0,0));
     SmeltOverlay=WidgetTree->ConstructWidget<UOverlay>();SmeltOverlay->SetVisibility(ESlateVisibility::HitTestInvisible);
@@ -360,7 +344,8 @@ void UColdSteelSmeltingWidget::NativeOnInitialized()
     FuelCard->SetVisibility(ESlateVisibility::Collapsed);   // 有高炉上下文时由 RefreshJob 打开
 
     // 页脚快捷键/语义说明（12px 辅助档，可换行）——与背包页脚同一位置语义；燃料语义写明"没油不推进"。
-    FooterSlot=Stack->AddChildToVerticalBox(Text(TEXT("Esc 或 × 关闭 · 存料持续燃烧（没矿也烧）· 有燃料才推进冶炼（关闭游戏也计入）"),12,ColdSteelUI::TextTertiary,false,false,true));
+    StationFooter=Text(TEXT("Esc 或 × 关闭 · 存料持续燃烧（没矿也烧）· 有燃料才推进冶炼（关闭游戏也计入）"),12,ColdSteelUI::TextTertiary,false,false,true);
+    FooterSlot=Stack->AddChildToVerticalBox(StationFooter);
 
     // —— 升级页签（2026-09-24 用户"在冶炼栏的左边添加一个类似事件进度栏的扩大箭头小方块，
     // 小箭头替换成升级二字，点击后左方弹出针对这个冶炼炉的升级界面"）：
@@ -368,11 +353,10 @@ void UColdSteelSmeltingWidget::NativeOnInitialized()
     UpgradeTab=WidgetTree->ConstructWidget<UBorder>();
     UpgradeTab->SetPadding(FMargin(0));   // v12：无描边并入主体，不再需要卡片内衬
     UpgradeTabBtn=WidgetTree->ConstructWidget<UButton>();
-    // v11c（2026-09-24 用户"升级、收回两字从上到下排列，居中"）：竖排两字＋逐行居中——
-    // 此前看着不居中的根因是块内每行默认左对齐，SetJustification(Center) 修正；展开态文案由 RefreshJob 换"收\n回"。
-    UpgradeTabText=Text(TEXT("升\n级"),14,ColdSteelUI::TextPrimary,false,true);
+    // 2026-10-12：升级／收回使用横排，页签扩为 64 × 36。
+    UpgradeTabText=Text(TEXT("升级"),14,ColdSteelUI::TextPrimary,false,true);
     UpgradeTabText->SetJustification(ETextJustify::Center);
-    UpgradeTabText->SetLineHeightPercentage(.88f);   // 收紧两字行距，墨迹块更接近方片几何中心
+    UpgradeTabText->SetAutoWrapText(false);UpgradeTabText->SetWrapTextAt(0); // 横向单行页签。
     UpgradeTabBtn->SetContent(UpgradeTabText);
     // v12：不进 StyledButtons（共享样式带描边），外观由 ApplyUpgradeTabVisual 统一给无描边样式。
     UpgradeTabBtn->OnClicked.AddDynamic(this,&ThisClass::HandleUpgradeToggled);   // 收回态点击＝与关闭升级栏同一功能（互斥翻转）
@@ -380,9 +364,9 @@ void UColdSteelSmeltingWidget::NativeOnInitialized()
     ApplyUpgradeTabVisual();
     UpgradeTabSlot=RootCanvas->AddChildToCanvas(UpgradeTab);
     // 页签＝36×60 竖排方块（字由上至下），大小随字收，右缘紧贴面板左缘零缝、垂直居中
-    //（2026-09-24 用户"字体由上至下顺序排列，调整器大小匹配，并且跟冶炼栏无缝衔接，不要留有缝隙"）。
+    // 页签靠面板边缘，文字保持横向。
     UpgradeTabSlot->SetAnchors(FAnchors(0,.5f));UpgradeTabSlot->SetAlignment(FVector2D(0,.5f));
-    UpgradeTabSlot->SetSize(FVector2D(36/Scale,60/Scale));
+    UpgradeTabSlot->SetSize(FVector2D(64/Scale,36/Scale));
     UpgradeTabSlot->SetPosition(FVector2D(8/Scale,0.f));
     UpgradeTabSlot->SetZOrder(1);
     UpgradeTab->SetVisibility(ESlateVisibility::Collapsed);   // 有高炉上下文时由 RefreshJob 打开
@@ -514,7 +498,7 @@ void UColdSteelSmeltingWidget::UpdateScale()
     if(auto* TS=Cast<UHorizontalBoxSlot>(BatchText->Slot))TS->SetPadding(FMargin(8/Scale,0,8/Scale,0));
     for(auto* B:{BatchMinus.Get(),BatchPlus.Get()})if(B)if(auto* SZ=Cast<USizeBox>(B->GetParent()))
         {SZ->SetWidthOverride(30/Scale);SZ->SetHeightOverride(30/Scale);}
-    if(UpgradeTabSlot)UpgradeTabSlot->SetSize(FVector2D(36/Scale,60/Scale));
+    if(UpgradeTabSlot)UpgradeTabSlot->SetSize(FVector2D(64/Scale,36/Scale));
     ApplyScreenLayout();   // Shell/页签/弹层按新 Scale 重排（坐标源＝主题层推送的屏幕像素）
     ApplyUpgradeTabVisual();   // v12：hover/pressed 圆角随 Scale 重建
     UpgradeFlyout->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content,10.f/Scale,GunsmithUI::Edge,1/Scale));
@@ -566,13 +550,26 @@ void UColdSteelSmeltingWidget::Configure(UColdSteelHUDWidget* Owner){HUD=Owner;}
 
 void UColdSteelSmeltingWidget::SetFurnace(AVoxelBuildWorld* InWorld,FIntVector InCell)
 {
+    Campfire.Reset();
     World=InWorld;Cell=InCell;SelectedRecipe=NAME_None;
+    bCampfire=InWorld&&InWorld->IsCampfireAt(Cell);
+    RowsSignature.Reset();
+    StationTitle->SetText(FText::FromString(bCampfire?TEXT("篝火 · 烧烤"):TEXT("冶炼")));
+    ProgressTitle->SetText(FText::FromString(bCampfire?TEXT("烧烤进度"):TEXT("冶炼进度")));
+    SectionTitle->SetText(FText::FromString(bCampfire?TEXT("可烧烤食材"):TEXT("可冶炼矿石")));
+    const bool bHasRecipes=System&&System->Catalog().ContainsByPredicate([](const auto& R){return R.bCampfire;});
+    RowsEmpty->SetText(FText::FromString(bCampfire?(bHasRecipes?TEXT("背包与仓库中没有可烧烤的食材")
+        :TEXT("暂无已接入的烧烤菜谱；仍可在下方添加木材取暖。")):TEXT("背包与仓库中没有可冶炼的矿石")));
+    StationFooter->SetText(FText::FromString(bCampfire
+        ?TEXT("Esc / × 关闭 · 木材持续燃烧，离线也计时 · 燃烧时 5 米内饥饿与缺水自然消耗各减缓 50%，不叠加")
+        :TEXT("Esc 或 × 关闭 · 存料持续燃烧（没矿也烧）· 有燃料才推进冶炼（关闭游戏也计入）")));
     bUpgradeOpen=false;   // 换炉上下文时收起升级弹层（等级是逐炉数据，别把上一座的弹层带过来）
     UpgSel=VoxelFurnaceAxisSpeed;   // 页签选择同样归零：新炉从默认轴看起
     CdLastBranch=-1;CdLastFuelSec=CdLastNeedSec=-1;   // 换炉后燃料行强制重绘一次
     FlyMotion=0.f;   // 换炉上下文时弹层瞬关（不播收回动画，防残影随面板滑入）
     if(UpgradeFlyout){UpgradeFlyout->SetVisibility(ESlateVisibility::Collapsed);UpgradeFlyout->SetRenderScale(FVector2D(1.f,1.f));}
-    SetStatus(FString());RefreshRows();RefreshJob();
+    SetStatus(bCampfire&&InWorld->GetNetMode()!=NM_Standalone?TEXT("联机添柴与烧烤尚未接入"):FString());
+    RefreshRows();RefreshJob();
 }
 
 void UColdSteelSmeltingWidget::SetLayoutWidth(float PixelsX)
@@ -610,7 +607,7 @@ void UColdSteelSmeltingWidget::LayoutUpgradeTab()
     const float P=PanelScreenPx/Scale;                      // 面板左缘（单位系）
     const float W=FMath::Max(1.f,LayoutWidth)/Scale;
     const float L=FMath::Max(8.f/Scale,P-W);                // 弹层全开左缘（与 ApplyScreenLayout 同式）
-    const float TabW=36.f/Scale;
+    const float TabW=64.f/Scale;
     // v12：方片已无自身描边（并入主体），右缘压线 1px 只为消掉抗锯齿发丝缝。
     // 展开态跟随：EaseSmooth(FlyMotion) 与弹层 RenderScale 同曲线同拍，方片右缘钉在弹层左缘上推到最左；
     // 屏幕边钳制：1280 宽下弹层左缘仅 8px，方片贴到 x=0 盖在弹层角上（ZOrder 1，可点收回）。
@@ -683,9 +680,9 @@ void UColdSteelSmeltingWidget::NativeTick(const FGeometry& MyGeometry,float InDe
 void UColdSteelSmeltingWidget::RefreshRows()
 {
     if(!RowsBox||!Model||!System)return;
-    FString Signature;
+    FString Signature=bCampfire?TEXT("campfire;"):TEXT("furnace;");
     for(const FColdSteelSmeltingRecipe& R:System->Catalog())
-        Signature+=FString::Printf(TEXT("%s:%lld;"),*R.Id.ToString(),Model->CountMaterial(R.Input));
+        if(R.bCampfire==bCampfire)Signature+=FString::Printf(TEXT("%s:%lld;"),*R.Id.ToString(),Model->CountMaterial(R.Input));
     if(Signature==RowsSignature)
     {
         // 持有量没变就不重建行（保住选择与滚动位置），但换炉子后的选中高亮仍要刷一次。
@@ -697,6 +694,7 @@ void UColdSteelSmeltingWidget::RefreshRows()
     RowsBox->ClearChildren();Rows.Reset();RowProxies.Reset();
     for(const FColdSteelSmeltingRecipe& R:System->Catalog())
     {
+        if(R.bCampfire!=bCampfire)continue;
         const int64 Have=Model->CountMaterial(R.Input);
         if(Have<=0)continue;   // 未持有不生成卡片（与附魔卷轴同一口径），列表只报价可负担的配方。
         auto* Card=WidgetTree->ConstructWidget<UBorder>();
@@ -762,11 +760,12 @@ void UColdSteelSmeltingWidget::RefreshSelection()
 void UColdSteelSmeltingWidget::RefreshJob()
 {
     if(!JobTitle||!System)return;
+    if(bCampfire&&Campfire.IsValid()){RefreshCampfireJob();return;}
     AVoxelBuildWorld* W=World.Get();
     const FVoxelSmeltingJob* Job=W?W->FindSmelting(Cell):nullptr;
     const FColdSteelSmeltingRecipe* Recipe=Job?System->Find(Job->Recipe):nullptr;
-    const bool bFurnace=W&&W->IsFurnaceAt(Cell);
-    const bool bCasting=bFurnace&&System->HasCastingStation(W,Cell);
+    const bool bFurnace=W&&W->IsFuelStationAt(Cell);
+    const bool bCasting=bFurnace&&!bCampfire&&System->HasCastingStation(W,Cell);
     // 列表区只在炉内空闲时开放（规划文档第 6 节：空闲=选料，冶炼中=进度，完成=取出）；
     // 任务中同一区域交给炉况视觉区（A），分区标题随列表一起收起，不留空标题。
     const bool bShowRows=(!Job||bCasting)&&bFurnace&&GetVisibility()!=ESlateVisibility::Collapsed;
@@ -782,18 +781,19 @@ void UColdSteelSmeltingWidget::RefreshJob()
     if(bShowRows&&!SelectedRecipe.IsNone())
         if(const auto* R=System->Find(SelectedRecipe);R&&Model&&W)
             MaxBatch=FMath::Clamp<int64>(FMath::Min<int64>(Model->CountMaterial(R->Input)/R->InputCount,
-                UColdSteelSmeltingSystem::BatchCapFor(W->FurnaceUpgradeLevel(Cell,VoxelFurnaceAxisBatch))),1,99);   // 上限＝min(持有, 批量轴×5)，v9 起受升级约束
+                UColdSteelSmeltingSystem::BatchCapFor(bCampfire?1:W->FurnaceUpgradeLevel(Cell,VoxelFurnaceAxisBatch))),1,99);
     Batch=FMath::Clamp<int64>(Batch,1,FMath::Max<int64>(1,MaxBatch));
     BatchText->SetText(FText::FromString(FString::Printf(TEXT("批量 ×%lld（最多 %lld）"),Batch,MaxBatch)));
     BatchMinus->SetIsEnabled(Batch>1);BatchPlus->SetIsEnabled(Batch<MaxBatch);
     if(auto* Cap=Cast<UTextBlock>(StartButton->GetContent()))
-        Cap->SetText(FText::FromString(Batch>1?FString::Printf(TEXT("开始冶炼 ×%lld"),Batch):TEXT("开始冶炼")));
+        Cap->SetText(FText::FromString(bCampfire?FString::Printf(TEXT("开始烧烤 ×%lld"),Batch)
+            :(Batch>1?FString::Printf(TEXT("开始冶炼 ×%lld"),Batch):TEXT("开始冶炼"))));
 
     // —— 升级页签/弹层：有炉子上下文才存在；弹层打开时数字跟着数据走（复用 10Hz 节拍，不加定时器）。——
-    UpgradeTab->SetVisibility(bFurnace?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
-    if(!bFurnace)bUpgradeOpen=false;
+    UpgradeTab->SetVisibility(bFurnace&&!bCampfire?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+    if(!bFurnace||bCampfire)bUpgradeOpen=false;
     if(UpgradeTabText)   // v11（用户"打开升级栏后替换为收回二字，点击收回＝关闭"）：收回态点页签走的就是 HandleUpgradeToggled 的关闭分支。
-    {   const FText Want=FText::FromString(bUpgradeOpen?TEXT("收\n回"):TEXT("升\n级"));   // v11c 竖排两字
+    {   const FText Want=FText::FromString(bUpgradeOpen?TEXT("收回"):TEXT("升级"));   // 横排两字
         if(!UpgradeTabText->GetText().EqualTo(Want))UpgradeTabText->SetText(Want);
         if(bTabVisualOpen!=bUpgradeOpen){bTabVisualOpen=bUpgradeOpen;ApplyUpgradeTabVisual();}   // v12：换色跟随所贴主体
     }
@@ -859,7 +859,6 @@ void UColdSteelSmeltingWidget::RefreshJob()
     const double Cap=bFurnace?System->FurnaceCapacity(W,Cell):FC.Capacity;   // v9：容量随燃料仓轴升级
     AnimFuelRatio=Cap>0?FMath::Clamp(static_cast<float>(Fuel/Cap),0.f,1.f):0.f;
     bFuelAlive=bFurnace&&Fuel>0;
-    FuelBar->SetFillColorAndOpacity(FuelFillColor(AnimFuelRatio));
     // 用户 2026-09-24：燃料区也要看到剩余时间——任务中显示"存料 vs 还需烧"直接对比，
     // 存料不够烧完就转 Warning 橙（要不要添柴一眼可判）；空闲/完成态维持"存料 · 上限"。
     // 2026-09-24 实时化整改：这里只校准锚点，文案由 PaintFuelLine 每帧外推＋变化门控写一次。
@@ -877,19 +876,21 @@ void UColdSteelSmeltingWidget::RefreshJob()
         Caption->SetText(FText::FromString(FString::Printf(TEXT("添加燃料 +%s"),*ReadableSeconds(FC.SecondsPerUnit))));
     if(!Job)
     {
-        JobTitle->SetText(FText::FromString(TEXT("炉内空闲")));
+        JobTitle->SetText(FText::FromString(bCampfire?(Fuel>0?TEXT("篝火燃烧中"):TEXT("篝火已熄灭")):TEXT("炉内空闲")));
         JobTitle->SetColorAndOpacity(ColdSteelUI::TextTertiary);
         if(const auto* R=SelectedRecipe.IsNone()?nullptr:System->Find(SelectedRecipe))
         {   // 预览＝批量投料/产出与预计秒数（含这座炉的等级提速）。
-            const double Mul=W&&bFurnace?UColdSteelSmeltingSystem::SpeedMultiplier(W->FurnaceLevel(Cell)):1.0;
+            const double Mul=W&&bFurnace&&!bCampfire?UColdSteelSmeltingSystem::SpeedMultiplier(W->FurnaceLevel(Cell)):1.0;
             JobDetail->SetText(FText::FromString(FString::Printf(TEXT("%s ×%lld → %s ×%lld · %g 秒"),
                 *DefinitionName(Model,R->Input),R->InputCount*Batch,*DefinitionName(Model,R->Output),R->OutputCount*Batch,
                 R->Seconds*Batch/Mul)));
         }
-        else JobDetail->SetText(FText::FromString(TEXT("从下方选择矿石投料")));
+        else JobDetail->SetText(FText::FromString(bCampfire?TEXT("添加木材取暖；有燃料才推进烧烤，无燃料时保留进度。")
+            :TEXT("从下方选择矿石投料")));
         JobDetail->SetColorAndOpacity(ColdSteelUI::TextTertiary);
         AnimSmeltT=0;bBurning=false;
-        JobTime->SetText(FText::FromString(Fuel>0?TEXT("待投料起火"):TEXT("未起火")));
+        JobTime->SetText(FText::FromString(bCampfire?(Fuel>0?TEXT("5 米内减耗生效"):TEXT("添柴后点燃"))
+            :(Fuel>0?TEXT("待投料起火"):TEXT("未起火"))));
         JobTime->SetColorAndOpacity(ColdSteelUI::TextTertiary);
         CollectButton->SetVisibility(ESlateVisibility::Collapsed);
         CollectGlow->SetVisibility(ESlateVisibility::Collapsed);
@@ -907,7 +908,8 @@ void UColdSteelSmeltingWidget::RefreshJob()
         const float T=System->Progress(W,Cell);
         AnimSmeltT=T;bBurning=bBurn&&!bDone;
         // 三态：完成（Success）｜燃烧（TextPrimary＋脉冲）｜停炉（Warning，等添燃料）。
-        JobTitle->SetText(FText::FromString(bDone?TEXT("冶炼完成"):bBurn?TEXT("冶炼中"):TEXT("燃料耗尽")));
+        JobTitle->SetText(FText::FromString(bDone?(bCampfire?TEXT("烧烤完成"):TEXT("冶炼完成"))
+            :bBurn?(bCampfire?TEXT("烧烤中"):TEXT("冶炼中")):TEXT("燃料耗尽")));
         JobTitle->SetColorAndOpacity(bDone?ColdSteelUI::Success:bBurn?ColdSteelUI::TextPrimary:ColdSteelUI::Warning);
         JobDetail->SetText(FText::FromString(Recipe
             ?FString::Printf(TEXT("%s ×%lld → %s ×%lld · %g 秒"),
@@ -936,7 +938,7 @@ void UColdSteelSmeltingWidget::RefreshJob()
             else ShowOutIcon->SetVisibility(ESlateVisibility::Hidden);
             ShowCaption->SetText(FText::FromString(FString::Printf(TEXT("%s ×%lld · %s"),
                 *DefinitionName(Model,Recipe->Output),Recipe->OutputCount*FMath::Max<int64>(1,Job->BatchCount),
-                bDone?TEXT("出炉待取"):bBurn?TEXT("冶炼中"):TEXT("停炉待燃"))));
+                bDone?TEXT("出炉待取"):bBurn?(bCampfire?TEXT("烧烤中"):TEXT("冶炼中")):TEXT("停炉待燃"))));
             ShowCaption->SetColorAndOpacity(bDone?ColdSteelUI::Success:bBurn?ColdSteelUI::TextSecondary:ColdSteelUI::Warning);
             ShowRing->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,12.f/Scale,
                 bDone?ColdSteelUI::Success:bBurn?ColdSteelUI::Warning:ColdSteelUI::Border,1.5f/Scale));
@@ -983,12 +985,11 @@ void UColdSteelSmeltingWidget::RefreshJob()
         if(auto* Caption=Cast<UTextBlock>(StartButton->GetContent()))Caption->SetText(FText::FromString(
             Queued>=System->CastingQueueCapacity?TEXT("待冶炼队列已满"):FString::Printf(TEXT("加入队列 ×%lld"),Batch)));
     }
-    else if(auto* Caption=Cast<UTextBlock>(CollectButton->GetContent()))Caption->SetText(FText::FromString(TEXT("取出矿锭")));
-    // 两条都是通栏 UProgressBar：percent 驱动，轨道与填充同几何（无黑边、不溢出）。
-    SmeltBar->SetPercent(FMath::Clamp(AnimSmeltT,0.f,1.f));
-    FuelBar->SetPercent(FMath::Clamp(bFuelAlive?AnimFuelRatio:0.f,0.f,1.f));
-    if(!bBurning)SmeltBar->SetFillColorAndOpacity(SmeltingProgressColor(AnimSmeltT));   // 燃烧时让 AnimateBars 每帧控色
+    else if(auto* Caption=Cast<UTextBlock>(CollectButton->GetContent()))
+        Caption->SetText(FText::FromString(bCampfire?TEXT("领取菜品"):TEXT("取出矿锭")));
+    ColdSteelSmeltingPresentation::RefreshProgressBars(SmeltBar,FuelBar,AnimSmeltT,AnimFuelRatio,bBurning,bFuelAlive);
 }
+
 
 FString UColdSteelSmeltingWidget::DebugFuelLineText() const {return FuelTime?FuelTime->GetText().ToString():FString();}
 
@@ -1013,7 +1014,7 @@ void UColdSteelSmeltingWidget::PaintFuelLine()
     else
     {
         FuelTime->SetText(FText::FromString(FString::Printf(TEXT("%s · 上限 %s"),
-            *ReadableSeconds(Fuel),*ReadableSeconds(System->FurnaceCapacity(World.Get(),Cell)))));   // v9：上限随燃料仓轴升级
+            *ReadableSeconds(Fuel),*ReadableSeconds(bCampfire?System->FuelConfig().Capacity:System->FurnaceCapacity(World.Get(),Cell)))));   // v9：上限随燃料仓轴升级
         FuelTime->SetColorAndOpacity(Fuel>0?ColdSteelUI::TextSecondary:ColdSteelUI::TextTertiary);
     }
 }
@@ -1042,11 +1043,12 @@ const FSlateBrush* UColdSteelSmeltingWidget::IconFor(const FString& Definition)
 
 void UColdSteelSmeltingWidget::HandleStart()
 {
+    if(bCampfire){SubmitCampfire(1);return;}
     if(SelectedRecipe.IsNone()||!World.IsValid()||!System)return;
     const FColdSteelSmeltingRecipe* R=System->Find(SelectedRecipe);
     if(!R){SetStatus(TEXT("该配方不存在"),true);return;}
     const FString InputName=DefinitionName(Model,R->Input);
-    const double Mul=UColdSteelSmeltingSystem::SpeedMultiplier(World->FurnaceLevel(Cell));
+    const double Mul=bCampfire?1.0:UColdSteelSmeltingSystem::SpeedMultiplier(World->FurnaceLevel(Cell));
     const double Seconds=R->Seconds*Batch/Mul;   // 与结算同一口径：批量÷等级速度
     const int64 SubmittedBatch=Batch;
     FString Reason;
@@ -1120,6 +1122,7 @@ void UColdSteelSmeltingWidget::UpgradeAxis(int32 Axis)
 
 void UColdSteelSmeltingWidget::HandleCollect()
 {
+    if(bCampfire){SubmitCampfire(2);return;}
     if(!World.IsValid()||!System)return;
     const FVoxelSmeltingJob* Job=World->FindSmelting(Cell);
     const FColdSteelSmeltingRecipe* R=Job?System->Find(Job->Recipe):nullptr;
@@ -1137,6 +1140,7 @@ void UColdSteelSmeltingWidget::HandleCollect()
 
 void UColdSteelSmeltingWidget::HandleAddFuel()
 {
+    if(bCampfire){SubmitCampfire(0);return;}
     if(!World.IsValid()||!System)return;
     FString Reason;
     if(System->AddFuel(World.Get(),Cell,Reason))

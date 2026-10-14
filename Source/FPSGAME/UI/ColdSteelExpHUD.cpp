@@ -45,7 +45,9 @@ void UColdSteelHUDWidget::RefreshExpBar()
     const float Percent = Need > 0
         ? FMath::Clamp(static_cast<float>(static_cast<double>(Have) / static_cast<double>(Need)), 0.f, 1.f)
         : 0.f;
-    // 低频 Tick 每次都进来：值没变不写 SetPercent，避免无谓的布局失效。
-    if (!FMath::IsNearlyEqual(Percent, ExperienceBar->GetPercent()))
-        ExperienceBar->SetPercent(Percent);
+    const bool bLevelUp = ExperienceBarLevel != INDEX_NONE && StatusModel->Level > ExperienceBarLevel;
+    ExperienceBarLevel = StatusModel->Level;
+    // Independent references keep the bottom strip and character-sheet meter in sync.
+    SetAnimatedBarValue(ExperienceBar,Percent,bLevelUp);
+    SetAnimatedBarValue(ExperienceSheetBar,Percent,bLevelUp);
 }

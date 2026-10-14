@@ -60,6 +60,9 @@ private:
     void UpdateScale();
     UFUNCTION() void Close();
     UFUNCTION() void StoreAll();
+    UFUNCTION() void RetrieveIncinerator();
+    UPROPERTY() TObjectPtr<UButton> IncineratorRecovery;
+    UPROPERTY() TObjectPtr<class USizeBox> IncineratorRecoverySize;
     UFUNCTION() void Matching();
     UFUNCTION() void StoreMatching();
     UFUNCTION() void PreviousPage();

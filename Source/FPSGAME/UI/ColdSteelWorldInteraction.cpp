@@ -18,7 +18,9 @@
 #include "../Building/ColdSteelFountain.h"
 #include "../Survival/FPSSurvivalComponent.h"
 #include "../Items/FPSPotionUseComponent.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "ColdSteelStatusModel.h"
+#include "../Building/ColdSteelCampfire.h"
 #include "Kismet/GameplayStatics.h"
 #include "ColdSteelWarehouseChest.h"
 #include "ColdSteelSceneContainer.h"
@@ -29,6 +31,7 @@
 #include "../FPSGAMEPlayerController.h"
 #include "ColdSteelHUDWidget.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
@@ -59,13 +62,17 @@ AActor* ColdSteelWorldInteraction::TraceTarget(const APlayerController* PC,float
     for (const FHitResult& Hit : Hits)
     {
         if (const auto* Arrow = Cast<ABowArrow>(Hit.GetActor()); Arrow && Arrow->CanRecover())
-            return PC->GetNetMode()==NM_Client?nullptr:Hit.GetActor();
+            return Hit.GetActor();
         if (Hit.bBlockingHit)
         {
             AActor* Target=Hit.GetActor();
             // 客户端只放行服务器权威的原生门族（E 走 pawn 上的 DoorPush RPC 枢纽）；
-            // 直接用同一套 IsNativeDoor 口径，避免新增门子类时这条白名单漏项。
-            return PC->GetNetMode()!=NM_Client||UFPSDoorPushComponent::IsNativeDoor(Target)?Target:nullptr;
+            // 直接用同一个 IsNativeDoor 口径，避免新增门子类时这条白名单漏项。
+            return PC->GetNetMode()!=NM_Client||UFPSDoorPushComponent::IsNativeDoor(Target)
+                ||Cast<AColdSteelCampfire>(Target)||Cast<AColdSteelFountain>(Target)||Cast<AColdSteelPickup>(Target)
+                ||Cast<AColdSteelWarehouseChest>(Target)||Cast<AColdSteelSceneContainer>(Target)||IsTreasureChest(Target)||IsExpeditionAltar(Target)
+                ||Cast<AVoxelBuildPrefabActor>(Target)
+                ||(UDungeonRunSubsystem::Get(PC->GetWorld())&&UDungeonRunSubsystem::Get(PC->GetWorld())->IsShrine(Target))?Target:nullptr;
         }
     }
     return nullptr;
@@ -74,9 +81,22 @@ bool ColdSteelWorldInteraction::IsFocused(const APawn* Pawn,const AActor* Target
 {
     return IsValid(Pawn)&&IsValid(Target)&&Pawn->GetWorld()==Target->GetWorld()&&TraceTarget(Cast<APlayerController>(Pawn->GetController()),Reach)==Target;
 }
+bool ColdSteelWorldInteraction::CanReachPickup(const UWorld* World,const APawn* Pawn,const AActor* Target,const FVector& Position)
+{
+    if(!World||!Pawn)return false;
+    const auto* Capsule=Pawn->FindComponentByClass<UCapsuleComponent>();
+    const float HalfHeight=Capsule?Capsule->GetScaledCapsuleHalfHeight():88.f;
+    const FVector Feet=Pawn->GetActorLocation()-FVector(0,0,HalfHeight);
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(SharedAreaPickup),false,Pawn);
+    if(Target)Query.AddIgnoredActor(Target);
+    TArray<FHitResult> Hits;
+    World->LineTraceMultiByChannel(Hits,Feet+FVector(0,0,HalfHeight*.6f),Position+FVector(0,0,10),ECC_Visibility,Query);
+    for(const auto& Hit:Hits)if(Hit.GetActor()&&Hit.ImpactPoint.Z-Feet.Z>40.f)return false;
+    return true;
+}
 AColdSteelSceneContainer* ColdSteelWorldInteraction::FocusedSceneContainer(const APlayerController* PC)
 {
-    if(!IsValid(PC)||!PC->GetPawn()||PC->bShowMouseCursor||PC->GetNetMode()==NM_Client)return nullptr;
+    if(!IsValid(PC)||!PC->GetPawn()||PC->bShowMouseCursor)return nullptr;
     if(auto* Exact=Cast<AColdSteelSceneContainer>(TraceTarget(PC)))return Exact;
     FVector Eye;FRotator View;GetReachViewPoint(PC,Eye,View);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(ColdSteelContainerFocus),false,PC->GetPawn());
@@ -133,7 +153,12 @@ bool ColdSteelWorldInteraction::DrinkFromFountain(const APlayerController* PC,AA
     // the basin itself is almost ten metres wide and is approached at its rim.
     if(!IsBlessingFountain(Target)||TraceTarget(PC)!=Target)return false;
     APawn* Pawn=PC->GetPawn();
-    if(!Pawn||!Pawn->HasAuthority())return false;
+    if(!Pawn)return false;
+    if(!Pawn->HasAuthority())
+    {
+        auto* State=Pawn->GetPlayerState<AColdSteelPlayerState>();
+        return State&&State->RequestInventoryAction(EColdSteelInventoryAction::Fountain,FString(),Target);
+    }
     auto* Survival=Pawn->FindComponentByClass<UFPSSurvivalComponent>();
     if(!Survival||!Survival->DrinkBlessedWater())return false;
     if(auto* Consumable=Pawn->FindComponentByClass<UFPSPotionUseComponent>())Consumable->PlayHydrationAudio();
@@ -176,7 +201,9 @@ bool ColdSteelWorldInteraction::IsSmeltingFurnace(const AActor* Target)
     // 高炉是普通静态构件（调色板 `blast_furnace`，无逻辑件）：命中 Actor 就是占位记录本身。
     // 落体件（BeginFall 后）已不在构件记录里，不再可交互——与门对 `VoxelDetached` 的免疫同一口径。
     const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
-    return Piece&&(Piece->PrefabId()==VoxelSmeltingFurnaceId||Piece->PrefabId()==VoxelCastingStationId)&&!Piece->IsFalling();
+    if(const auto* Fire=Cast<AColdSteelCampfire>(Target))return Fire->IsAvailable();
+    return Piece&&(Piece->PrefabId()==VoxelSmeltingFurnaceId||Piece->PrefabId()==VoxelCastingStationId
+        ||Piece->PrefabId()==FName(TEXT("campfire")))&&!Piece->IsFalling();
 }
 
 bool ColdSteelWorldInteraction::IsForgingStation(const AActor* Target)
@@ -188,6 +215,8 @@ bool ColdSteelWorldInteraction::IsForgingStation(const AActor* Target)
 FString ColdSteelWorldInteraction::SmeltingFurnacePrompt(const AActor* Target)
 {
     const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
+    if(const auto* Fire=Cast<AColdSteelCampfire>(Target))
+        return TEXT("篝火 · 共享添柴 / 烧烤");
     if(!IsSmeltingFurnace(Target))return FString();
     const auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
     FIntVector Cell=Piece->AnchorCell();
@@ -223,13 +252,14 @@ bool ColdSteelWorldInteraction::IsWorkbench(const AActor* Target)
     // 工作台与高炉同一口径：普通静态构件（调色板 `workbench_table`，无逻辑件），
     // 命中 Actor 就是占位记录本身；落体件不再可交互。
     const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
-    return Piece&&(Piece->PrefabId()==VoxelWorkbenchId||Piece->PrefabId()==VoxelGunWorkbenchId)&&!Piece->IsFalling();
+    return Piece&&(Piece->PrefabId()==VoxelWorkbenchId||Piece->PrefabId()==VoxelGunWorkbenchId||Piece->PrefabId()==VoxelIncineratorId)&&!Piece->IsFalling();
 }
 
 FString ColdSteelWorldInteraction::WorkbenchPrompt(const AActor* Target)
 {
     if(!IsWorkbench(Target))return FString();
     const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
+    if(Piece->PrefabId()==VoxelIncineratorId)return TEXT("焚化炉 · 打开销毁面板");
     return Piece->PrefabId()==VoxelGunWorkbenchId?TEXT("枪械工作台 · 打开拼装界面"):TEXT("工作台 · 打开制作面板");
 }
 
@@ -252,6 +282,11 @@ bool ColdSteelWorldInteraction::OpenTreasureChest(const APlayerController* PC,AA
 {
     // TraceTarget also enforces standalone mode, cursor state, occlusion and 2.5 m eye reach.
     if(!IsTreasureChest(Target)||TraceTarget(PC)!=Target)return false;
+    if(PC->GetNetMode()!=NM_Standalone)
+    {
+        auto* PS=PC->GetPlayerState<AColdSteelPlayerState>();
+        return PS&&PS->RequestInventoryAction(EColdSteelInventoryAction::ContainerOpen,FString(),Target);
+    }
     if(Target->ActorHasTag(TreasureOpeningTag))return false;
     if(Target->ActorHasTag(TreasureOpenedTag)){OpenChestLootPanel(PC,Target);return true;} // 重复按 E＝重开面板
     if(Target->ActorHasTag(TEXT("DungeonReward.Locked")))return false;
@@ -332,6 +367,8 @@ ColdSteelWorldInteraction::FInteractionHint ColdSteelWorldInteraction::ResolveIn
     if(const auto* Pickup=Cast<AColdSteelPickup>(Target)){Hint.Text=Pickup->GetPromptText();return Hint;}
     if(const auto* Arrow=Cast<ABowArrow>(Target)){Hint.Text=Arrow->RecoveryPrompt();Hint.bAction=Arrow->CanRecover();return Hint;}
     if(IsForgingStation(Target)){Hint.Text=TEXT("铸造台 · 锻造 / 冶炼领锭");return Hint;}
+    if(Cast<AColdSteelCampfire>(Target))
+    {Hint.Text=SmeltingFurnacePrompt(Target);Hint.bAction=CastChecked<AColdSteelCampfire>(Target)->IsAvailable();return Hint;}
     if(IsSmeltingFurnace(Target)){Hint.Text=SmeltingFurnacePrompt(Target);return Hint;}
     if(IsWoodworkingBench(Target)){Hint.Text=TEXT("木工工作台 · 打开加工界面");return Hint;}
     if(IsWorkbench(Target)){Hint.Text=WorkbenchPrompt(Target);return Hint;}

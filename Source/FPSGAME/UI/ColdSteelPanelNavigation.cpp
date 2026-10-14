@@ -71,7 +71,7 @@ void UColdSteelHUDWidget::BuildPanelNavigation(UCanvasPanel* Root)
         Fit->SetContent(Icon);Fill(Fit);Fit->SetRenderTransformPivot(FVector2D(.5f,.5f));
         PanelNavigationSubjects.Add(Fit);
         auto* Fallback=MakeReferenceText(Names[Index],12,ColdSteelUI::TextPrimary);
-        Fallback->SetJustification(ETextJustify::Center);Fallback->SetAutoWrapText(true);
+        Fallback->SetJustification(ETextJustify::Center);Fallback->SetAutoWrapText(false);
         auto* FallbackSlot=Layers->AddChildToOverlay(Fallback);
         FallbackSlot->SetHorizontalAlignment(HAlign_Fill);FallbackSlot->SetVerticalAlignment(VAlign_Center);
         Fallback->SetVisibility(Texture?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);

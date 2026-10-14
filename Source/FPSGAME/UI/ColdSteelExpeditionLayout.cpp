@@ -1,4 +1,4 @@
-﻿#include "ColdSteelExpeditionWidget.h"
+#include "ColdSteelExpeditionWidget.h"
 #include "ColdSteelUIStyle.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "ImageUtils.h"
@@ -82,7 +82,7 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::Row(const FString& Name, const F
         +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(0, 7)
             [SNew(STextBlock).Text(FText::FromString(Value))
                 .Font(Numeric?ColdSteelUI::NumberFont(14*.75f):ColdSteelUI::TextFont(14*.75f))
-                .ColorAndOpacity(ColdSteelUI::TextPrimary).Justification(ETextJustify::Right).AutoWrapText(true)];
+                .ColorAndOpacity(ColdSteelUI::TextPrimary).Justification(ETextJustify::Right).AutoWrapText(false).OverflowPolicy(ETextOverflowPolicy::Ellipsis).ToolTipText(FText::FromString(Value))];
 }
 
 TSharedRef<SButton> UColdSteelExpeditionWidget::Action(const FString& Text, TFunction<void()> Callback, bool Primary)

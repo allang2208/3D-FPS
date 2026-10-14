@@ -148,7 +148,7 @@ FReply UColdSteelGunAssemblyWidget::NativeOnMouseButtonDown(const FGeometry& Geo
 
 UTextBlock* UColdSteelGunAssemblyWidget::Text(const FString& Caption,float Pixels,bool bNumeric,bool bMedium)
 {
-    auto* T=WidgetTree->ConstructWidget<UTextBlock>();T->SetText(FText::FromString(Caption));T->SetAutoWrapText(true);
+    auto* T=WidgetTree->ConstructWidget<UTextBlock>();T->SetText(FText::FromString(Caption));T->SetAutoWrapText(false);
     const float FontScale=Scale>0?Scale:1.f;
     T->SetFont(bNumeric?GunsmithUI::NumberFont(Pixels/FontScale,bMedium):GunsmithUI::TextFont(Pixels/FontScale,bMedium));
     T->SetColorAndOpacity(ColdSteelUI::TextPrimary);Labels.Add({T,Pixels,bNumeric,bMedium});return T;
@@ -261,8 +261,8 @@ void UColdSteelGunAssemblyWidget::NativeOnInitialized()
     Stage=Text(TEXT("准备组装"),16,false,true);Space(StateCard->AddChildToVerticalBox(Stage),FMargin(0,0,0,8));
     Stats=Text(TEXT(""),16,true);Space(StateCard->AddChildToVerticalBox(Stats),FMargin(0,0,0,4));
     StatLegend=Text(TEXT("已装组件   /   持稳校准   /   工艺评分"),12);StatLegend->SetColorAndOpacity(ColdSteelUI::TextTertiary);StateCard->AddChildToVerticalBox(StatLegend);
-    PartsLabel=Text(TEXT(""),12);PartsLabel->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(StateCard->AddChildToVerticalBox(PartsLabel),FMargin(0,8,0,0));
-    RefundPreview=Text(TEXT(""),12);RefundPreview->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(StateCard->AddChildToVerticalBox(RefundPreview),FMargin(0,8,0,0));
+    PartsLabel=Text(TEXT(""),12);PartsLabel->SetAutoWrapText(true);PartsLabel->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(StateCard->AddChildToVerticalBox(PartsLabel),FMargin(0,8,0,0));
+    RefundPreview=Text(TEXT(""),12);RefundPreview->SetAutoWrapText(true);RefundPreview->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(StateCard->AddChildToVerticalBox(RefundPreview),FMargin(0,8,0,0));
     Timer=WidgetTree->ConstructWidget<UProgressBar>();Timer->SetFillColorAndOpacity(ColdSteelUI::Accent);
     TimerSize=WidgetTree->ConstructWidget<USizeBox>();TimerSize->SetContent(Timer);Space(StateCard->AddChildToVerticalBox(TimerSize),FMargin(0,8,0,0));
     auto* PreviewCaption=Text(TEXT("成品预览 · 枪械参数"),14,false,true);Space(Content->AddChildToVerticalBox(PreviewCaption),FMargin(0,4,0,8));
@@ -281,11 +281,11 @@ void UColdSteelGunAssemblyWidget::NativeOnInitialized()
     Space(ParameterContent->AddChildToVerticalBox(PreviewStage),FMargin(0,0,0,12));
     PreviewParameterGrid=WidgetTree->ConstructWidget<UGridPanel>();PreviewParameterGrid->SetColumnFill(0,1.f);
     ParameterContent->AddChildToVerticalBox(PreviewParameterGrid);
-    PreviewScope=Text(TEXT(""),12);PreviewScope->SetColorAndOpacity(ColdSteelUI::TextTertiary);
+    PreviewScope=Text(TEXT(""),12);PreviewScope->SetAutoWrapText(true);PreviewScope->SetColorAndOpacity(ColdSteelUI::TextTertiary);
     Space(ParameterContent->AddChildToVerticalBox(PreviewScope),FMargin(0,12,0,0));
     auto* Instructions=Card(Content);Space(Instructions->AddChildToVerticalBox(Text(TEXT("操作说明"),16,false,true)),FMargin(0,0,0,8));
-    Space(Instructions->AddChildToVerticalBox(Text(TEXT("按住左键拿取组件，拖到枪身轮廓；滚轮或 Q / R 调整朝向，松开左键安装。"),14)),FMargin(0,0,0,8));
-    auto* Help=Text(TEXT("Tab 选择下一件 · 右键放回 · 全部装好后按住左键持稳校准 · Esc 保存并返回\n成品可领取或直接废弃。废弃返还一半投入材料至背包，每种材料的零头向下取整。"),12);
+    auto* DragHelp=Text(TEXT("按住左键拿取组件，拖到枪身轮廓；滚轮或 Q / R 调整朝向，松开左键安装。"),14);DragHelp->SetAutoWrapText(true);Space(Instructions->AddChildToVerticalBox(DragHelp),FMargin(0,0,0,8));
+    auto* Help=Text(TEXT("Tab 选择下一件 · 右键放回 · 全部装好后按住左键持稳校准 · Esc 保存并返回\n成品可领取或直接废弃。废弃返还一半投入材料至背包，每种材料的零头向下取整。"),12);Help->SetAutoWrapText(true);
     Help->SetColorAndOpacity(ColdSteelUI::TextSecondary);Instructions->AddChildToVerticalBox(Help);
     Footer=WidgetTree->ConstructWidget<UBorder>();Footer->SetBrushColor(ColdSteelUI::HeaderTint);Stack->AddChildToVerticalBox(Footer);
     ManufacturingActions=WidgetTree->ConstructWidget<UWidgetSwitcher>();Footer->SetContent(ManufacturingActions);
@@ -293,7 +293,7 @@ void UColdSteelGunAssemblyWidget::NativeOnInitialized()
     BuildAmmoCard(AmmoContent,AmmoFoot);
     auto* Foot=WidgetTree->ConstructWidget<UVerticalBox>();ManufacturingActions->AddChild(Foot);
     ManufacturingActions->SetActiveWidgetIndex(bAmmoPage?0:1);
-    Status=Text(TEXT(""),14);Status->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(Foot->AddChildToVerticalBox(Status),FMargin(0,0,0,8));
+    Status=Text(TEXT(""),14);Status->SetAutoWrapText(true);Status->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(Foot->AddChildToVerticalBox(Status),FMargin(0,0,0,8));
     auto* Actions=WidgetTree->ConstructWidget<UHorizontalBox>();Foot->AddChildToVerticalBox(Actions);
     UTextBlock* NewActionLabel=nullptr;ActionButton=Button(TEXT("开始组装"),NewActionLabel);ActionLabel=NewActionLabel;ActionButton->OnClicked.AddDynamic(this,&ThisClass::HandleAction);
     auto* ActionSize=WidgetTree->ConstructWidget<USizeBox>();ActionSize->SetContent(ActionButton);ButtonSizes.Add(ActionSize);Actions->AddChildToHorizontalBox(ActionSize)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));

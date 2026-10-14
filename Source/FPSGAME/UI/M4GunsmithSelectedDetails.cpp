@@ -1,5 +1,6 @@
 #include "ColdSteelWeaponText.h"
 #include "M4GunsmithWidget.h"
+#include "../Weapons/TacticalDeviceVariants.h"
 #include "../Weapons/Staff/StaffCatalog.h"
 #include "ColdSteelEnhancementSystem.h"
 #include "ColdSteelStaffModificationUI.h"
@@ -123,6 +124,19 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     int32 RowCount = 0;
     TArray<FString> SpecialEffects=Option->SpecialEffects;
     auto AddEffect=[&](const FString& Text){SpecialEffects.AddUnique(Text);};
+    if(TacticalDeviceVariants::IsSlot(SelectedCategory)&&TacticalDeviceVariants::SupportsSecondary(Gunsmith->Definition()))
+    {
+        const auto& Parts=Gunsmith->Draft();
+        const FString Primary=Parts.FindRef(TacticalDeviceVariants::PrimarySlot),Secondary=Parts.FindRef(TacticalDeviceVariants::SecondarySlot);
+        FString Note=TEXT("两侧可独立安装镭射或手电，可同时使用镭射与照明。双镭射均显示各自的光束与光点，属性数值只取最强的一件，不重复叠加；同强度优先战术挂件Ⅰ。");
+        if(TacticalDeviceVariants::IsLaser(Primary)&&TacticalDeviceVariants::IsLaser(Secondary))
+        {
+            const FString Active=TacticalDeviceVariants::ActiveLaserSlot(Primary,Secondary);
+            const auto* Effective=Gunsmith->Option(Gunsmith->Definition(),Active,Parts.FindRef(Active));
+            if(Effective)Note+=TEXT(" 当前数值生效：")+Gunsmith->CategoryLabel(Gunsmith->Definition(),Active)+TEXT(" · ")+Effective->Name+TEXT("。两件镭射均正常发光。");
+        }
+        AddEffect(TEXT("双侧战术配件｜")+Note);
+    }
     // The card keeps only the basic description, so every numeric change belongs
     // here and is derived from the catalog multipliers - never hand written.
     // The percent reads exactly like the catalog field: minus is faster (green),

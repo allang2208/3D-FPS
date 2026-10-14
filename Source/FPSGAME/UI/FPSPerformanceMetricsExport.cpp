@@ -12,6 +12,34 @@
 
 namespace
 {
+// Snapshot JSON is immutable, but its default shared reference counters are
+// not thread-safe. Read without copying those references; build worker-owned
+// values for serialization, and return the retained snapshot to the game thread.
+TSharedRef<FJsonObject> CopyResourceObject(const FJsonObject& Source);
+TSharedPtr<FJsonValue> CopyResourceValue(const FJsonValue& Source)
+{
+    switch(Source.Type)
+    {
+    case EJson::Object:return MakeShared<FJsonValueObject>(CopyResourceObject(*Source.AsObject()));
+    case EJson::Array:
+    {
+        TArray<TSharedPtr<FJsonValue>> Values;
+        for(const auto& Value:Source.AsArray())Values.Add(Value?CopyResourceValue(*Value):MakeShared<FJsonValueNull>());
+        return MakeShared<FJsonValueArray>(MoveTemp(Values));
+    }
+    case EJson::String:return MakeShared<FJsonValueString>(Source.AsString());
+    case EJson::Number:return MakeShared<FJsonValueNumber>(Source.AsNumber());
+    case EJson::Boolean:return MakeShared<FJsonValueBoolean>(Source.AsBool());
+    default:return MakeShared<FJsonValueNull>();
+    }
+}
+TSharedRef<FJsonObject> CopyResourceObject(const FJsonObject& Source)
+{
+    auto Result=MakeShared<FJsonObject>();
+    for(const auto& Pair:Source.Values)Result->SetField(Pair.Key,Pair.Value?CopyResourceValue(*Pair.Value):MakeShared<FJsonValueNull>());
+    return Result;
+}
+
 TSharedRef<FJsonObject> LightingJson(const FFPSPerformanceSnapshot& Snapshot)
 {
     auto Result = MakeShared<FJsonObject>();
@@ -367,8 +395,85 @@ void AddRecordedDetails(const TSharedRef<FJsonObject>& Root, const FFPSPerforman
 bool UFPSPerformanceMetricsSubsystem::ExportSnapshot(const FFPSPerformanceSnapshot& Snapshot, FString& OutPath)
 {
     const TSharedRef<FJsonObject> Root = MakeShared<FJsonObject>();
-    Root->SetNumberField(TEXT("schema_version"), 9);
+    Root->SetNumberField(TEXT("schema_version"), 11);
     AddRecordedDetails(Root, Snapshot);
+    auto Encounters=MakeShared<FJsonObject>();
+    Encounters->SetStringField(TEXT("contract"),TEXT("Automatic on each hall wave's first successful spawn: up to 3s preceding and 20s following frames, nearby triggers merged up to 30s. Four archived windows plus one active, max 4096 frames each. Independent from UI rolling window; clear/restart discards history. Timers retain their original asynchronous/process-wide semantics. No per-actor GPU time is inferred."));
+    Encounters->SetNumberField(TEXT("archived_window_capacity"),MaxCombatWindows);
+    Encounters->SetNumberField(TEXT("frame_capacity_per_window"),MaxCombatFrames);
+    Encounters->SetNumberField(TEXT("event_capacity"),MaxEncounterEvents);
+    Encounters->SetStringField(TEXT("windows_overwritten_since_clear"),LexToString(Snapshot.CombatWindowsOverwritten));
+    Encounters->SetStringField(TEXT("events_overwritten_since_clear"),LexToString(Snapshot.EncounterEventsOverwritten));
+    const auto RetainedEvents=[](const TArray<FFPSPerformanceEvent>& Events)
+    {
+        TSet<uint64> Ids;for(const auto& E:Events)Ids.Add(E.Id);
+        TArray<TSharedPtr<FJsonValue>> Rows;
+        for(auto E:Events){E.bParentMissing=E.ParentId!=0&&!Ids.Contains(E.ParentId);Rows.Add(MakeShared<FJsonValueObject>(EventJson(E)));}
+        return Rows;
+    };
+    Encounters->SetArrayField(TEXT("lifecycle_events"),RetainedEvents(Snapshot.EncounterEvents));
+    TArray<TSharedPtr<FJsonValue>> Windows;
+    for(const auto& Ptr:Snapshot.CombatWindows)
+    {
+        if(!Ptr)continue;const auto& Window=*Ptr;auto Row=MakeShared<FJsonObject>();
+        Row->SetStringField(TEXT("trigger"),Window.Trigger);
+        Row->SetNumberField(TEXT("trigger_seconds"),Window.TriggerSeconds);
+        Row->SetNumberField(TEXT("requested_end_seconds"),Window.RequestedEndSeconds);
+        Row->SetBoolField(TEXT("post_window_complete"),Window.bComplete);
+        Row->SetBoolField(TEXT("frame_capacity_limited"),Window.bFrameCapacityLimited);
+        Row->SetStringField(TEXT("events_discarded"),LexToString(Window.EventsDiscarded));
+        TArray<TSharedPtr<FJsonValue>> Frames;TArray<float> Durations;
+        int32 Over50=0,Over100=0,Paused=0,Background=0;double Sum=0.;
+        for(const auto& Frame:Window.Frames)
+        {
+            Frames.Add(MakeShared<FJsonValueObject>(RecordedFrameJson(Frame)));
+            Durations.Add(Frame.FrameMs);Sum+=Frame.FrameMs;
+            Over50+=Frame.FrameMs>=50.f;Over100+=Frame.FrameMs>=100.f;Paused+=Frame.bPaused;Background+=Frame.bBackground;
+        }
+        Row->SetArrayField(TEXT("frames"),Frames);
+        Row->SetArrayField(TEXT("events"),RetainedEvents(Window.Events));
+        TArray<TSharedPtr<FJsonValue>> WindowResources;
+        for(const auto& Resource:Window.ResourceSamples)WindowResources.Add(MakeShared<FJsonValueObject>(CopyResourceObject(*Resource)));
+        Row->SetArrayField(TEXT("completed_resource_samples"),WindowResources);
+        Row->SetStringField(TEXT("resource_sample_contract"),TEXT("Completed 2Hz observations available when window archived/snapshotted. Late asynchronous results may be absent; game/render/RHI timestamps remain separate."));
+        Row->SetNumberField(TEXT("frame_count"),Frames.Num());
+        Row->SetNumberField(TEXT("frames_at_least_50ms"),Over50);Row->SetNumberField(TEXT("frames_at_least_100ms"),Over100);
+        Row->SetNumberField(TEXT("paused_frames"),Paused);Row->SetNumberField(TEXT("background_frames"),Background);
+        if(!Durations.IsEmpty())
+        {
+            Durations.Sort();
+            Row->SetNumberField(TEXT("actual_start_seconds"),Window.Frames[0].StartSeconds);
+            Row->SetNumberField(TEXT("actual_end_seconds"),Window.Frames.Last().Seconds);
+            Row->SetNumberField(TEXT("frame_average_ms"),Sum/Durations.Num());
+            Row->SetNumberField(TEXT("frame_p95_ms"),Durations[FMath::CeilToInt(.95f*Durations.Num())-1]);
+            Row->SetNumberField(TEXT("frame_p99_ms"),Durations[FMath::CeilToInt(.99f*Durations.Num())-1]);
+            Row->SetNumberField(TEXT("frame_peak_ms"),Durations.Last());
+        }
+        Windows.Add(MakeShared<FJsonValueObject>(Row));
+    }
+    Encounters->SetArrayField(TEXT("windows"),Windows);
+    Root->SetObjectField(TEXT("encounter_diagnostics"),Encounters);
+    auto Inventory=MakeShared<FJsonObject>();
+    Inventory->SetStringField(TEXT("contract"),TEXT("Opt-in tracked RHI resource inventory, process-wide including editor/other worlds. Minimum 5s between submissions, one in flight; event requests may be coalesced/delayed. Engine enumeration holds a resource-tracking lock and is indivisible: its explicit start/end/ms is diagnostic overhead. Aggregation is on a worker. Allocation sums/resident flags are NOT unique physical VRAM usage; transient aliases may overlap, untracked/driver allocations and per-resource page-fault/eviction/allocation call stacks are unavailable. Owner None remains unknown. No rendering flush or GPU wait."));
+    Inventory->SetBoolField(TEXT("enabled_at_snapshot"),Snapshot.bGpuInventoryEnabled);
+    Inventory->SetBoolField(TEXT("pending_at_snapshot"),Snapshot.bGpuInventoryPending);
+    Inventory->SetNumberField(TEXT("queued_at_snapshot"),Snapshot.GpuInventoryQueued);
+    Inventory->SetNumberField(TEXT("capacity"),MaxGpuInventories);
+    Inventory->SetStringField(TEXT("overwritten_since_clear"),LexToString(Snapshot.GpuInventoriesOverwritten));
+    TArray<TSharedPtr<FJsonValue>> Inventories;
+    for(const auto& Row:Snapshot.GpuResourceInventories)Inventories.Add(MakeShared<FJsonValueObject>(CopyResourceObject(*Row)));
+    Inventory->SetArrayField(TEXT("snapshots"),Inventories);
+    Root->SetObjectField(TEXT("gpu_resource_inventory"),Inventory);
+    auto Resources = MakeShared<FJsonObject>();
+    Resources->SetStringField(TEXT("contract"), TEXT("At most 2Hz since clear/restart while recording; newest 360 completed observations, separate from the frame window. GPU memory is process-wide RHI-published data including editor/other worlds. monster_classes counts current-World Characters with MonsterCombatComponent; body simulation/Tick flags are not measured solver/animation execution. Detailed staff morph observations cover FacelessResearcher/FacelessReceptionist only. Game/render/RHI timestamps are separate, not same-frame GPU timings. Missing data is null. No flush, texture-streaming update or gameplay mutation."));
+    Resources->SetNumberField(TEXT("capacity"), MaxRenderResourceSamples);
+    Resources->SetNumberField(TEXT("sample_interval_seconds"), .5);
+    Resources->SetStringField(TEXT("overwritten_since_clear"), LexToString(Snapshot.RenderResourceSamplesOverwritten));
+    TArray<TSharedPtr<FJsonValue>> ResourceRows;
+    for (const auto& Row : Snapshot.RenderResourceSamples)
+        ResourceRows.Add(MakeShared<FJsonValueObject>(CopyResourceObject(*Row)));
+    Resources->SetArrayField(TEXT("samples"), ResourceRows);
+    Root->SetObjectField(TEXT("render_resource_history"), Resources);
     Root->SetNumberField(TEXT("event_capacity"), MaxEvents);
     Root->SetStringField(TEXT("icon_counter_scope"), TEXT("Current GameInstance icon request/completion paths, deltas between sampled frame boundaries; cache hits count Request hits, not paint-time Find lookups"));
     Root->SetStringField(TEXT("captured_at_utc"), Snapshot.CapturedAtUtc);
@@ -379,7 +484,7 @@ bool UFPSPerformanceMetricsSubsystem::ExportSnapshot(const FFPSPerformanceSnapsh
     Root->SetStringField(TEXT("counter_scope"), TEXT("Current World; instrumented player-body paths only; changed fields are not render-state recreates"));
     Root->SetStringField(TEXT("rank_contract"), TEXT("Source geometry complexity: (triangles + .1 * vertices + 2500 * material slots) * total instances; not measured time"));
     Root->SetStringField(TEXT("percentile_method"), TEXT("nearest-rank: sorted[ceil(p*n)-1]"));
-    Root->SetStringField(TEXT("unavailable"), TEXT("CPU subsystems outside instrumented scopes, detailed engine waits, aligned thread/GPU source frames, GPU passes, actual animation evaluations, actual rendered LOD/Nanite/instances/occlusion, Niagara particles, memory, loading durations"));
+    Root->SetStringField(TEXT("unavailable"), TEXT("CPU subsystems outside instrumented scopes, detailed engine waits, aligned thread/GPU source frames, GPU passes, actual animation evaluations, general actual rendered LOD/Nanite/instances/occlusion, Niagara particles, per-resource residency/page faults and exact SkinCache allocation bytes, loading durations"));
     Root->SetStringField(TEXT("phase_contract"), TEXT("Slate.WindowPaint covers process-wide window Paint only, not prepass, buffer acquisition or GPU execution; Slate minus Paint is unattributed, not pure wait. GC is process-wide; sync load / async flush starts are markers, not durations."));
 #if WITH_SLATE_DEBUGGING
     Root->SetBoolField(TEXT("window_paint_instrumentation_available"), true);
@@ -577,8 +682,9 @@ void UFPSPerformanceMetricsSubsystem::ExportSnapshotAsync(const FFPSPerformanceS
         FString Path;
         const bool bSaved = ExportSnapshot(Copy, Path);
         const double ElapsedMs = (FPlatformTime::Seconds() - Submitted) * 1000.0;
-        AsyncTask(ENamedThreads::GameThread, [Completion = MoveTemp(Completion), bSaved, Path = MoveTemp(Path), ElapsedMs]() mutable
+        AsyncTask(ENamedThreads::GameThread, [Completion = MoveTemp(Completion), bSaved, Path = MoveTemp(Path), ElapsedMs, Retained=MoveTemp(Copy)]() mutable
         {
+            Retained.RenderResourceSamples.Reset();Retained.GpuResourceInventories.Reset();Retained.CombatWindows.Reset();
             Completion(bSaved, Path, ElapsedMs);
         });
     });

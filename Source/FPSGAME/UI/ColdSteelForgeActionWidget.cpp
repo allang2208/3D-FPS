@@ -21,7 +21,7 @@
 UTextBlock* UColdSteelForgeActionWidget::Text(const FString& Caption,float Pixels,bool bNumeric)
 {
     auto* Label=WidgetTree->ConstructWidget<UTextBlock>();
-    Label->SetText(FText::FromString(Caption));Label->SetAutoWrapText(true);
+    Label->SetText(FText::FromString(Caption));Label->SetAutoWrapText(false);
     Label->SetColorAndOpacity(ColdSteelUI::TextPrimary);
     Labels.Add({Label,Pixels,bNumeric});return Label;
 }
@@ -54,7 +54,7 @@ void UColdSteelForgeActionWidget::NativeOnInitialized()
     HitsValue=Metric(TEXT("有效命中"),Label);QualityValue=Metric(TEXT("工艺伤害"),Label);
     TimerSize=WidgetTree->ConstructWidget<USizeBox>();Timer=WidgetTree->ConstructWidget<UProgressBar>();TimerSize->SetContent(Timer);
     Timer->SetFillColorAndOpacity(ColdSteelUI::Accent);TimerSlot=Stack->AddChildToVerticalBox(TimerSize);
-    Hint=Text(TEXT("光圈逐渐缩小 · 对准后左键落锤 · 回锤后等待下一处 · Esc 结算返回"),12);
+    Hint=Text(TEXT("光圈逐渐缩小 · 对准后左键落锤 · 回锤后等待下一处 · Esc 结算返回"),12);Hint->SetAutoWrapText(true);
     Hint->SetColorAndOpacity(ColdSteelUI::TextSecondary);HintSlot=Stack->AddChildToVerticalBox(Hint);
     UpdateLayout();
 }

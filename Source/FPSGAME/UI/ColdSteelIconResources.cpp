@@ -3,6 +3,7 @@
 #include "../Weapons/AR416Furniture.h"
 #include "../Weapons/LegendaryTacticalStock.h"
 #include "../Weapons/CommonHK416Parts.h"
+#include "../Weapons/ThermalScopeAssets.h"
 #include "ColdSteelWeaponIcons.h"
 #include "../Weapons/Super90WeaponAssets.h"
 #include "../Weapons/Super90SpeedloaderAssets.h"
@@ -182,19 +183,31 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
                 Add(LegendaryTacticalStock::MeshPath(D),true);
                 continue;
             }
-            if(Part.Key==TEXT("tactical")&&D==Super90WeaponAssets::Definition)
+            if(TacticalDeviceVariants::IsSlot(Part.Key)&&(TacticalDeviceVariants::SupportsSecondary(D)||D==Super90WeaponAssets::Definition))
             {
                 if(TacticalDeviceVariants::IsLaser(Key)||Key==TEXT("flashlight"))
-                    Add(TacticalDeviceVariants::Super90MeshPath(Key),true);
+                    Add(TacticalDeviceVariants::FittedMeshPath(TacticalDeviceVariants::FamilyForDefinition(D),Key,Part.Key==TacticalDeviceVariants::SecondarySlot),true);
                 continue;
             }
-            if(Part.Key==TEXT("tactical")&&Key==TacticalDeviceVariants::BlessedLaser)
+            if(TacticalDeviceVariants::IsSlot(Part.Key)&&Key==TacticalDeviceVariants::BlessedLaser)
             {
                 Add(TacticalDeviceVariants::BlessedMeshPath(TacticalDeviceVariants::FamilyForDefinition(D)));
                 continue;
             }
-            if(Part.Key==TEXT("tactical"))Key=TacticalDeviceVariants::MeshVariant(Key);
+            if(TacticalDeviceVariants::IsSlot(Part.Key))Key=TacticalDeviceVariants::MeshVariant(Key);
             if(Key.IsEmpty()||Key==TEXT("false")||Key==TEXT("factory"))continue;
+            if(TacticalDeviceVariants::IsSlot(Part.Key)&&(D==TEXT("ue_m4a1")||D==TEXT("ue_akm")||D==TEXT("ue_qbz191")||D==TEXT("ue_ash12")))
+            {
+                if(D==TEXT("ue_ash12"))Add(TEXT("/Game/Weapons/ASH12/TacticalDevices20260920/")+Key+TEXT("/SM_ASH12_")+Key,true);
+                else
+                {
+                    const FString Root=TEXT("/Game/Weapons/TacticalDevices20260913/");
+                    Add(Root+(Key==TEXT("flashlight")?TEXT("HunyuanV3/"):TEXT(""))+Family+TEXT("/")+Key+TEXT("/SM_TacticalDevice"),true);
+                    Add(Key==TEXT("flashlight")?Root+TEXT("HunyuanV3/")+Family+TEXT("/flashlight/M_")+Family+TEXT("_flashlight_Body_MetalTail")
+                        :Root+Family+TEXT("/laser/M_")+Family+TEXT("_laser_Body_OpticalV2"),true);
+                }
+                continue;
+            }
             if(D==Super90WeaponAssets::Definition&&Part.Key==TEXT("reload_device")&&Key==Super90SpeedloaderAssets::Id)
             {
                 Add(Super90SpeedloaderAssets::Guide,true);
@@ -219,6 +232,11 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             {
                 Add(RSH12MuzzleAssets::FittedMeshPath(Key), true);
                 continue;
+            }
+            if(Part.Key==TEXT("optic")&&Key==TEXT("thermal_scope"))
+            {
+                Add(ThermalScopeAssets::MeshPath(D),true);Add(ThermalScopeAssets::SelectorPath(D),true);
+                Key=CommonHK416Parts::OpticInterface(D);
             }
             if (D == TEXT("ue_super90") && Part.Key == TEXT("optic") && Super90OpticAssets::Supports(Key))
             {
@@ -321,7 +339,7 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             else if(D==TEXT("ue_dan_wesson715"))
             {
                 if(DanWesson715FittedParts::Supports(Key))Add(DanWesson715FittedParts::MeshPath(Key),true);
-                else if(Part.Key==TEXT("optic")||Part.Key==TEXT("tactical"))Add(DanWesson715WeaponAssets::AttachmentPath(Key));
+                else if(Part.Key==TEXT("optic")||TacticalDeviceVariants::IsSlot(Part.Key))Add(DanWesson715WeaponAssets::AttachmentPath(Key));
             }
             if(D==TEXT("ue_m4a1")||D==TEXT("ue_akm"))
             {

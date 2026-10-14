@@ -93,7 +93,7 @@ void UColdSteelExpeditionWidget::BuildRewardPreview()
         }
         if(Row.Content.Name.IsEmpty())continue;
         Row.Group=Candidate.Definition.StartsWith(TEXT("enchant_scroll_"))?2:
-            (Ammo||Candidate.Definition==TEXT("gold")||Candidate.Definition.StartsWith(TEXT("hp_potion"))||Candidate.Definition.StartsWith(TEXT("mp_potion")))?0:1;
+            (Ammo||Candidate.Definition.StartsWith(TEXT("hp_potion"))||Candidate.Definition.StartsWith(TEXT("mp_potion")))?0:1;
         Row.Availability=Candidate.MinimumDepth<=0?TEXT("起始区域可出现"):Candidate.MinimumDepth<8?TEXT("深入设施后可出现"):TEXT("深层区域可出现");
         if(Candidate.bInFinalTier)Row.Availability+=TEXT(" · 最终宝箱候选");
         if(!Row.Content.Icon.IsEmpty())Row.IconPath=FPaths::ProjectContentDir()/TEXT("ColdSteelData")/Row.Content.Icon;

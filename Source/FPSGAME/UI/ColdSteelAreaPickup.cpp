@@ -1,7 +1,10 @@
 // 2026-09-16: Z 键范围拾取、残骸转体素块、以及屏幕上方的通用提示栏。
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelCurrency.h"
 #include "ColdSteelInventoryTypes.h"
 #include "../FPSGAMECharacter.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
+#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
@@ -76,6 +79,7 @@ bool UColdSteelStatusModel::GrantWorldBlocks(const TMap<FString,int64>& Blocks,c
 
 bool UColdSteelStatusModel::ConsumeItem(const FString& Definition,int64 Count,FString& OutReason)
 {
+    if(ColdSteelCurrency::IsCurrency(Definition)){const bool Spent=SpendSouls(Count);if(!Spent)OutReason=ResultMessage();return Spent;}
     if(AmmoType(Definition)){const bool Spent=SpendAmmo(Definition,Count);if(!Spent)OutReason=TEXT("弹药不足或保存失败");return Spent;}
     if(Count<=0||!Definitions.Contains(Definition)){OutReason=TEXT("物品目录缺少该材料");return false;}
     SyncRuntime();auto P=Snapshot();
@@ -107,6 +111,16 @@ bool UColdSteelStatusModel::ConsumeItem(const FString& Definition,int64 Count,FS
 int32 UColdSteelStatusModel::PickupNearby(float RadiusCm)
 {
     if(!CurrentPawn.IsValid()||!GetWorld())return 0;
+    if(GetWorld()->GetNetMode()!=NM_Standalone)
+    {
+        if(GetWorld()->GetNetMode()==NM_Client)
+        {
+            auto* PS=CurrentPawn->GetPlayerState<AColdSteelPlayerState>();
+            return PS&&PS->RequestInventoryAction(EColdSteelInventoryAction::PickupNearby)?1:0;
+        }
+        auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>();
+        return Shared&&Shared->PickupNearby(this,bNetShadowProfile?CurrentPawn->GetPlayerState<AColdSteelPlayerState>():nullptr,Message)?1:0;
+    }
     SyncRuntime();auto P=Snapshot();
     const FVector Origin=CurrentPawn->GetActorLocation();
     const double RadiusSq=FMath::Square(double(FMath::Max(25.f,RadiusCm)));

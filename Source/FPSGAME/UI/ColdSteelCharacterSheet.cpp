@@ -53,6 +53,12 @@ void UColdSteelHUDWidget::NativeConstruct()
 }
 void UColdSteelHUDWidget::NativeDestruct()
 {
+    ResourceBarTransitions.Reset();
+    ResourceMeterPawn.Reset();
+    ExperienceBarLevel=INDEX_NONE;
+    HUDMeterTarget.Reset();
+    HUDTargetHealthTransition=FColdSteelMeterTransition{};
+    HUDTargetToughnessTransition=FColdSteelMeterTransition{};
     HideWorkbenchInstantly();
     CancelQuickDrag();
     if (StatusModel) StatusModel->OnChanged.Remove(StatusModelHandle);
@@ -129,7 +135,7 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
     HealthBar = AddCharacterRow(State, TEXT("生命"), TEXT("hp"), TEXT("当前生命 / 当前生命上限。受伤与恢复直接读取角色生命组件。"))->AddMeter(ColdSteelUI::Health, Scale);
     ManaBar = AddCharacterRow(State, TEXT("魔法"), TEXT("mp"), TEXT("当前魔法 / 魔法上限。药水可恢复，随角色保存。"))->AddMeter(ColdSteelUI::Mana, Scale);
     StaminaSheetBar=AddCharacterRow(State, TEXT("体力"), TEXT("stamina"), TEXT("奔跑、近战攻击、采集与闪避消耗体力；不足时无法开始对应动作。体力上限为 100 + 体质×5 + 装备加成，基础敏捷与装备敏捷提高恢复速度。"))->AddMeter(ColdSteelUI::Stamina, Scale);
-    ExperienceBar = AddCharacterRow(State, TEXT("经验"), TEXT("exp"), TEXT("升级经验 = (20 + 等级×20 + 等级²×12)×8；每级 3 点，余下经验保留。"))->AddMeter(ColdSteelUI::Warning, Scale);
+    ExperienceSheetBar = AddCharacterRow(State, TEXT("经验"), TEXT("exp"), TEXT("升级经验 = (20 + 等级×20 + 等级²×12)×8；每级 3 点，余下经验保留。"))->AddMeter(ColdSteelUI::Warning, Scale);
 
     auto* Attributes = AddCharacterCard(Content, TEXT("基础属性"));
     auto* Grid = WidgetTree->ConstructWidget<UUniformGridPanel>(); Grid->SetSlotPadding(FMargin(ReferenceUnits(4), ReferenceUnits(2))); Attributes->AddChildToVerticalBox(Grid);
@@ -194,6 +200,7 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
 {
     RefreshTopVitals();
     RefreshStamina();
+    RefreshExpBar();
     if (!StatusModel && GetGameInstance()) StatusModel = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if (StatusModel)
     {
@@ -202,16 +209,15 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
         if (CharacterLevelText) CharacterLevelText->SetText(FText::FromString(FString::Printf(TEXT("Lv.%d"), StatusModel->Level)));
         if (AttributePointsText) AttributePointsText->SetText(FText::FromString(FString::Printf(TEXT("属性点 %d"), StatusModel->AttributePoints)));
         SetCharacterValue(TEXT("exp"),FString::Printf(TEXT("%lld/%lld"),StatusModel->Experience(),StatusModel->MaxExperience()));
-        if(ExperienceBar)ExperienceBar->SetPercent(float(StatusModel->Experience())/StatusModel->MaxExperience());
         SetCharacterValue(TEXT("mp"),FString::Printf(TEXT("%.0f/%.0f"),StatusModel->Mana(),StatusModel->Derived(TEXT("maxMp"))));
-        if(ManaBar)ManaBar->SetPercent(StatusModel->Mana()/FMath::Max(1.f,StatusModel->Derived(TEXT("maxMp"))));
+        SetAnimatedBarValue(ManaBar,StatusModel->Mana()/FMath::Max(1.f,StatusModel->Derived(TEXT("maxMp"))));
         SetCharacterValue(TEXT("kills"),FString::FromInt(StatusModel->Kills()));
         CharacterDetails.Add(TEXT("kills"),TEXT("实际击杀累计，每个敌人死亡只结算一次，随角色保存。"));
         CharacterDetails.Add(TEXT("wis"),FString::Printf(TEXT("精神提升魔法防御、魔法攻击与魔力上限。基础 %d + 步枪精通 %d；技能加成常驻，不占用属性点。"),StatusModel->Attributes.FindRef(TEXT("wis")),StatusModel->RifleEffect().Wisdom));
         CharacterDetails.Add(TEXT("luck"),FString::Printf(TEXT("基础 %d + 暴击技能 %d；暴击率 = 2 + 总幸运，扣除目标体质抗暴后掷随机暴击。要害命中不重复叠加暴击倍率。"),StatusModel->Attributes.FindRef(TEXT("luck")),StatusModel->CriticalStrikeEffect().Luck));
         SetCharacterValue(TEXT("critMultiplier"),FString::Printf(TEXT("%.2fx"),1+StatusModel->CriticalStrikeEffect().CriticalDamageBonus));
         CharacterDetails.Add(TEXT("critMultiplier"),FString::Printf(TEXT("暴击技能提供额外 %.0f%% 伤害；技能倍率 %.2f。随机暴击或要害命中只应用一次；步枪要害倍率仍独立。"),StatusModel->CriticalStrikeEffect().CriticalDamageBonus*100,1+StatusModel->CriticalStrikeEffect().CriticalDamageBonus));
-        CharacterDetails.Add(TEXT("dex"),FString::Printf(TEXT("基础 %d + 巧手 %d + 手枪精通 %d；技能加成常驻，不占用属性点。\n近战攻速倍率 = 1 + 总敏捷×0.02（枪械射速取武器基础值，不受敏捷影响）\n体力恢复倍率 = 1 + (基础敏捷+装备敏捷)×0.015\n换弹速度 ×（1 + (基础敏捷+装备敏捷)×0.003），与快手、附魔各自相乘\n巧手额外提供换弹速度 +%.0f%%。"),StatusModel->Attributes.FindRef(TEXT("dex")),StatusModel->DexterousHandsEffect().Dexterity,StatusModel->PistolEffect().Dexterity,StatusModel->DexterousHandsEffect().ReloadSpeed*100));
+        CharacterDetails.Add(TEXT("dex"),FString::Printf(TEXT("基础 %d + 巧手 %d + 手枪精通 %d + 弓精通 %d；技能加成常驻，不占用属性点。\n近战攻速倍率 = 1 + 总敏捷×0.02（枪械射速取武器基础值，不受敏捷影响）\n体力恢复倍率 = 1 + (基础敏捷+装备敏捷)×0.015\n换弹速度 ×（1 + (基础敏捷+装备敏捷)×0.003），与快手、附魔各自相乘\n巧手额外提供换弹速度 +%.0f%%、拉弓速度 +%.2f%%；拉弓与同类速度加成相加。"),StatusModel->Attributes.FindRef(TEXT("dex")),StatusModel->DexterousHandsEffect().Dexterity,StatusModel->PistolEffect().Dexterity,StatusModel->MasteryEffect(TEXT("bowMastery")).Dexterity,StatusModel->DexterousHandsEffect().ReloadSpeed*100,StatusModel->DexterousHandsEffect().BowDrawSpeed*100));
         // 一个乘区承载两类持械修正：手枪精通加成与机枪类持械减速，两者不会同时生效。
         const float MachineGunMultiplier=StatusModel->MachineGunMovementMultiplier();
         const FString MovementDetail=FString::Printf(TEXT("持械移速乘区：手枪按（1 + 手枪精通移速加成）提速，机枪类按机枪精通固定倍率减速（当前 %.2f，即减速 %.0f%%）；其余枪械为 1.00。收起武器或改持工具时恢复 1.00。当前总倍率 %.2f。"),
@@ -242,15 +248,15 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
     const auto* Character = GetOwningPlayerPawn<AFPSGAMECharacter>();
     // Clear former-pawn values when possession changes or no compatible pawn exists.
     for (const TCHAR* Key : {TEXT("hp"), TEXT("moveSpeed"), TEXT("moveSpeedDetail"), TEXT("weapon"), TEXT("damage"), TEXT("fireInterval"), TEXT("reload"), TEXT("emptyReload"), TEXT("ads"), TEXT("ammo"), TEXT("collisionRadius"), TEXT("viewRange"), TEXT("attackRange")}) SetCharacterValue(Key, TEXT("—"), false);
-    if (HealthBar) HealthBar->SetPercent(0);
-    if (!Character) return;
+    if (!Character) { SetAnimatedBarValue(HealthBar,0); return; }
     const auto* Health = Character->FindComponentByClass<UFPSCombatHealthComponent>();
     if (Health && Health->MaxHealth > 0)
     {
         const float Ratio = FMath::Clamp(Health->Health / Health->MaxHealth, 0.f, 1.f);
-        if (HealthBar) { HealthBar->SetPercent(Ratio); HealthBar->SetFillColorAndOpacity(Ratio <= .25f ? ColdSteelUI::Danger : Ratio <= .5f ? ColdSteelUI::Warning : ColdSteelUI::Health); }
+        if (HealthBar) { SetAnimatedBarValue(HealthBar,Ratio); HealthBar->SetFillColorAndOpacity(Ratio <= .25f ? ColdSteelUI::Danger : Ratio <= .5f ? ColdSteelUI::Warning : ColdSteelUI::Health); }
         SetCharacterValue(TEXT("hp"), FString::Printf(TEXT("%.0f/%.0f"), FMath::Max(0.f, Health->Health), Health->MaxHealth));
     }
+    else SetAnimatedBarValue(HealthBar,0);
     SetCharacterValue(TEXT("moveSpeed"), FString::Printf(TEXT("%.1f m/s"), ReadFloat(Character, TEXT("WalkSpeed")) / 100));
     SetCharacterValue(TEXT("moveSpeedDetail"), FString::Printf(TEXT("%.1f m/s"), ReadFloat(Character, TEXT("SprintSpeed")) / 100));
     const auto* Equipped = StatusModel ? StatusModel->Equipped() : nullptr;
@@ -285,7 +291,7 @@ void UColdSteelHUDWidget::ShowStatusTooltip(const FString& InKey)
     auto* CurrentLabel=CurrentRow->AddChildToHorizontalBox(MakeReferenceText(TEXT("当前值"),12,ColdSteelUI::TextSecondary));
     CurrentLabel->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CurrentLabel->SetVerticalAlignment(VAlign_Center);
     auto* CurrentValue=MakeReferenceText(Value,14,ColdSteelUI::TextPrimary,Key!=TEXT("weapon")&&Key!=TEXT("crit")&&Key!=TEXT("rank"),true);
-    CurrentValue->SetAutoWrapText(true);CurrentValue->SetJustification(ETextJustify::Right);
+    CurrentValue->SetAutoWrapText(false);CurrentValue->SetJustification(ETextJustify::Right);
     auto* CurrentValueSlot=CurrentRow->AddChildToHorizontalBox(CurrentValue);CurrentValueSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CurrentValueSlot->SetPadding(FMargin(ReferenceUnits(8),0,0,0));
     const bool bBase = StatusModel && (StatusModel->Attributes.Contains(*Key) || Key == TEXT("atk") || Key == TEXT("def") || Key == TEXT("matk") || Key == TEXT("mdef") || Key == TEXT("critRes") || Key == TEXT("aspd") || Key == TEXT("staminaRegen"));
     StatusTooltipNote->SetText(FText::FromString(bBase ? TEXT("武器按独立属性系数计算伤害；物防和魔防按比例减伤。生命与魔法上限含每级成长，魔法值按秒恢复。") : TEXT("")));

@@ -22,6 +22,7 @@ protected:
 private:
     UPROPERTY(Transient) TObjectPtr<class UColdSteelStatusModel> Model;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelHUDWidget> HUD;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UColdSteelIncineratorAmmoSource>> TransferRows;
     TSharedPtr<class SVerticalBox> Surface;
     TSharedPtr<class SScrollBox> List;
     FDelegateHandle ChangedHandle;

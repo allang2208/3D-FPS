@@ -9,6 +9,7 @@ UCLASS()
 class UColdSteelItemDrag : public UDragDropOperation
 {
     GENERATED_BODY()
+    friend void RunIncineratorUIAudit(class AFPSGAMEPlayerController*);
 public:
     FString ItemId;
     FIntPoint GrabOffset=FIntPoint::ZeroValue;
@@ -37,6 +38,7 @@ UCLASS()
 class FPSGAME_API UColdSteelInventoryWidget : public UUserWidget
 {
     GENERATED_BODY()
+    friend void RunIncineratorUIAudit(class AFPSGAMEPlayerController*);
 public:
     void SelectItem(const FString& Id){Selected=Id;}
     void PerformAction(int32 Action);
@@ -103,7 +105,8 @@ private:
     bool bPendingClick=false;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelInventoryPopup> ItemMenu;
     bool bPreviewValid=false;
-    TArray<FIntRect> SwapDestinations;
+    struct FSwapDestination {int32 Place,Cell,Columns;FIntPoint Size;};
+    TArray<FSwapDestination> SwapDestinations;
     int32 PreviewPlace=-1,PreviewCell=-1;
     // Highlight footprint follows the pending orientation of the drag in progress.
     FIntPoint PreviewCells=FIntPoint(1,1);
@@ -120,6 +123,7 @@ private:
     void OnWeaponIconReady(const FString& Recipe);
     void RefreshPresentation();
     void ClearDragPreview();
+    void ApplyProposalPreview(const FColdSteelProposal& Proposal,const FString& MovingId);
     FIntPoint PendingFootprint(const FColdSteelItem& Item,const UColdSteelItemDrag& Drag)const;
     bool PreviewItemDrag(UColdSteelItemDrag& Drag,FVector2D Screen);
     void UpdateDragGhost(UColdSteelItemDrag& Drag,const FGeometry& G,FVector2D CursorPos)const;

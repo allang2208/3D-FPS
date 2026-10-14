@@ -1,4 +1,5 @@
 #include "ColdSteelAmmoPouchWidget.h"
+#include "ColdSteelIncineratorAmmoDrag.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
@@ -85,13 +86,13 @@ void UColdSteelAmmoPouchWidget::CollectPouchView(FString& Key,FColdSteelAmmoPouc
             FColdSteelAmmoRowView& Row=GroupView.Rows.AddDefaulted_GetRef();
             const bool Compatible=Gun&&GroupKey==Group&&Type.Enabled;
             Row.Id=Type.Id;Row.Count=Model->PouchCount(Type.Id);
-            Row.bActive=Loaded==Type.Id;Row.bChosen=Selected==Type.Id;Row.bEnabled=Compatible&&Row.Count>0&&!Row.bActive;
+            Row.bActive=Loaded==Type.Id;Row.bChosen=Selected==Type.Id;Row.bEnabled=Model->bIncineratorOpen?Row.Count>0:Compatible&&Row.Count>0&&!Row.bActive;
             Row.Title=Type.Name+(Type.TierName.IsEmpty()?FString():TEXT(" · ")+Type.TierName);
             Row.Effect=Model->AmmoEffectSummary(Type.Id);Row.Description=Type.Description;
             Row.Icon=Model->AmmoIcon(Type.Id);
             Row.Color=Row.Count>0?ColdSteelUI::TextPrimary:ColdSteelUI::TextTertiary;
             Row.bTier=Type.TierColor.A>0;Row.TierColor=Type.TierColor;
-            Row.State=Row.bActive?TEXT("当前装填"):!Type.Enabled?TEXT("暂不可用"):Row.bChosen?TEXT("待切换"):!Compatible?TEXT("未装备兼容枪械"):Row.Count==0?TEXT("已用尽"):TEXT("选择");
+            Row.State=Model->bIncineratorOpen?(Row.Count>0?TEXT("右键投入"):TEXT("已用尽")):Row.bActive?TEXT("当前装填"):!Type.Enabled?TEXT("暂不可用"):Row.bChosen?TEXT("待切换"):!Compatible?TEXT("未装备兼容枪械"):Row.Count==0?TEXT("已用尽"):TEXT("选择");
             if(Row.bActive&&bBow)Row.State=TEXT("当前箭种");
             else if(!Compatible&&Type.Group==TEXT("arrow"))Row.State=TEXT("未装备兼容弓");
             Key+=FString::Printf(TEXT("%s:%lld:%d%d%d:%s:%s:%s:"),*Row.Id,Row.Count,Row.bActive?1:0,Row.bChosen?1:0,Row.bEnabled?1:0,*Row.State,*Row.Title,*Row.Effect);
@@ -113,7 +114,7 @@ void UColdSteelAmmoPouchWidget::Refresh()
     // 一次，训练待写盘时最快每 1 秒一次，广播时弹药袋的显示内容往往完全没变。旧实现每次都
     // ClearChildren 重建整页（含 SScrollBox、全部 SButton 与图标），行的悬停／按下态随之丢失，
     // 观感就是无操作闪动。现在先采集视图模型与内容键，内容没变直接返回，不碰控件树。
-    FColdSteelAmmoPouchView View;FString Key=FString::Printf(TEXT("%.4f|"),Scale);
+    FColdSteelAmmoPouchView View;FString Key=FString::Printf(TEXT("%.4f|%d|"),Scale,Model&&Model->bIncineratorOpen?1:0);
     CollectPouchView(Key,View);
     const uint32 Hash=FCrc::StrCrc32(*Key);
     if(FMath::IsNearlyEqual(LastScale,Scale)&&Hash==ContentKey&&Surface->GetChildren()->Num()>0)return;
@@ -124,7 +125,7 @@ void UColdSteelAmmoPouchWidget::Refresh()
 void UColdSteelAmmoPouchWidget::BuildPage(const FColdSteelAmmoPouchView& View,float U)
 {
     const float Offset=List?List->GetScrollOffset():0;
-    Surface->ClearChildren();
+    Surface->ClearChildren();TransferRows.Reset();
     auto Label=[&](const FString& Text,float Pixels,FLinearColor Color=ColdSteelUI::TextPrimary,bool Numeric=false,bool Wrap=true)->TSharedRef<SWidget>
     {return SNew(STextBlock).Text(FText::FromString(Text)).Font(Numeric?ColdSteelUI::NumberFont(Pixels*.75f*U):ColdSteelUI::TextFont(Pixels*.75f*U)).ColorAndOpacity(Color).AutoWrapText(Wrap);};
     // 右侧数字列与状态列按本页最长内容定宽。定宽之后每张卡的左栏可用宽度完全相同，
@@ -191,11 +192,22 @@ void UColdSteelAmmoPouchWidget::BuildPage(const FColdSteelAmmoPouchView& View,fl
             [SNew(SBox).MinDesiredWidth(StateColumn).HAlign(HAlign_Left)
                 [Label(Row.State,12,ColdSteelUI::TextSecondary,false,false)]];
             const FString Id=Row.Id;
-            List->AddSlot().Padding(8*U,2*U,0,2*U)
+            if(Model->bIncineratorOpen)
+            {
+                auto* Source=CreateWidget<UColdSteelIncineratorAmmoSource>(GetOwningPlayer());
+                Source->Configure(HUD,Id,Contents);Source->SetIsEnabled(Row.Count>0);TransferRows.Add(Source);
+                List->AddSlot().Padding(8*U,2*U,0,2*U)[Source->TakeWidget()];
+            }
+            else List->AddSlot().Padding(8*U,2*U,0,2*U)
             [SNew(SButton).ButtonStyle(RowStyle.Get()).ContentPadding(FMargin(14*U,12*U)).IsEnabled(Row.bEnabled)
                 .OnClicked_Lambda([this,Id](){if(const auto* Equipped=Model->Equipped()){Selected=Id;WeaponInstance=Equipped->InstanceId;}Refresh();return FReply::Handled();})
                 [Contents]];
         }
+    }
+    if(Model->bIncineratorOpen)
+    {
+        Surface->AddSlot().AutoHeight().Padding(16*U,12*U)[Label(TEXT("右键或拖到投入区选择数量；取回弹药时直接回弹药袋。\n关闭面板保留已投入弹药。"),12,ColdSteelUI::TextSecondary)];
+        List->SetScrollOffset(Offset);return;
     }
     if(View.bEmpty)List->AddSlot()[Label(TEXT("尚未获得弹药，获得后会自动收纳"),14,ColdSteelUI::TextSecondary)];
     List->SetScrollOffset(Offset);

@@ -3,7 +3,7 @@
 #include "Components/Widget.h"
 #include "ColdSteelResourceMeter.generated.h"
 
-/** Thin cold-steel resource track. Its fill always represents the current value. */
+/** Cold-steel resource track with a short visual transition toward the current value. */
 UCLASS()
 class FPSGAME_API UColdSteelResourceMeter : public UWidget
 {
@@ -13,11 +13,13 @@ public:
     void SetStaminaValue(float InRatio);
     void SetSemanticValue(float InRatio,const FLinearColor& Fill,const FLinearColor& Deep);
     float Ratio() const { return Value; }
+    void ResetAnimation();
     virtual void ReleaseSlateResources(bool bReleaseChildren) override;
 protected:
     virtual TSharedRef<SWidget> RebuildWidget() override;
 private:
     float Value=0;
+    bool bHasValue=false;
     bool bMana=false;
     bool bStamina=false;
     TSharedPtr<class SColdSteelResourceMeter> Meter;

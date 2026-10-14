@@ -1,0 +1,13 @@
+{
+  "weapon": "ue_super90",
+  "source": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+  "appearance": "Four 80-degree white arcs; four 10-degree cardinal gaps; hollow center; dark outline",
+  "spread_feedback": "Existing projected hip-fire spread",
+  "ads": "Existing hidden state",
+  "hud_source_compile": "Succeeded in regular Editor build",
+  "live_coding": "Patch application failed; editor exited after UObjectHash fatal error; do not count as deployed",
+  "regular_editor_build": "Succeeded; regular DLL updated together with the three shotgun ammunition types",
+  "build_log": "Saved/BuildEditor/build-20261012-204018.log",
+  "runtime_tested": false,
+  "visual_acceptance": false
+}

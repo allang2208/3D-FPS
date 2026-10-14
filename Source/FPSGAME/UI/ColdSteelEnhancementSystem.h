@@ -5,6 +5,8 @@
 #include "Dom/JsonObject.h"
 #include "ColdSteelEnhancementSystem.generated.h"
 
+class UColdSteelStatusModel;
+
 struct FColdSteelEnhanceCost {FString Definition,Name;int64 Need=0,Have=0;bool BackpackOnly=false;};
 struct FColdSteelEnchantOption {FString Id,Item,Name,Slot,Restriction,Description;int64 Dust=0;TSharedPtr<FJsonObject> Effects;};
 struct FColdSteelEnhanceQuote
@@ -28,9 +30,9 @@ public:
     FColdSteelEnhanceQuote Quote(const FString& ItemId,const FString& ScrollId=TEXT("")) const;
     bool Apply(const FColdSteelEnhanceQuote& Quote,FString& Message);
     // Negative override uses the instance's installed melee parts; previews pass their draft multiplier.
-    double ProcessedDamage(const FColdSteelItem&,double WeaponBase,double CharacterAttack,double MeleeDamageMultiplier=-1) const;
+    double ProcessedDamage(const FColdSteelItem&,double WeaponBase,double CharacterAttack,double MeleeDamageMultiplier=-1,const UColdSteelStatusModel* Profile=nullptr) const;
     TSharedPtr<const FJsonObject> AttackFormula(const FColdSteelItem&) const;
-    double AttackFormulaAttribute(const FColdSteelItem&,FName Key) const;
+    double AttackFormulaAttribute(const FColdSteelItem&,FName Key,const UColdSteelStatusModel* Profile=nullptr) const;
     double Defense(const FColdSteelItem&) const;
     double Effect(const FColdSteelItem&,const TCHAR* Key,double Default=0) const;
     double CraftEffect(const FColdSteelItem&,const TCHAR* Key,double Default=0) const;
@@ -43,7 +45,7 @@ private:
     TSharedPtr<FJsonObject> WeaponFormulas;
     TArray<FColdSteelEnchantOption> Options;
     int32 WeaponMax=15,ArmorMax=10;
-    int64 BaseGold=100,Stones=1;
+    int64 BaseSouls=100,Stones=1;
     double Growth=1.5,Increase=.05;
     bool Ready=false;
 };

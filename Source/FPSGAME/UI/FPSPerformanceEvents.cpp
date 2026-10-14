@@ -1,4 +1,5 @@
 #include "FPSPerformanceMetrics.h"
+#include "ProfilingDebugging/MiscTrace.h"
 
 FFPSIconActions FFPSIconActions::operator-(const FFPSIconActions& Other) const
 {
@@ -22,12 +23,13 @@ void UFPSPerformanceMetricsSubsystem::CountIconAction(const UObject* Context, EF
     if (auto* Metrics = Find(Context)) ++Metrics->TotalIconActions.Values[Index];
 }
 
-uint64 UFPSPerformanceMetricsSubsystem::BeginEvent(FName Stage, const FString& Key)
+uint64 UFPSPerformanceMetricsSubsystem::BeginEvent(FName Stage, const FString& Key, bool bRetainForEncounter)
 {
     if (!bRecording) return 0;
     FFPSPerformanceEvent Event;
     Event.Id = ++NextEventId;
     Event.Stage = Stage;
+    Event.bRetainForEncounter = bRetainForEncounter;
     Event.StartFrame = GFrameCounter;
     Event.StartSeconds = FPlatformTime::Seconds();
     Event.ParentId = ActiveEvents.IsEmpty() ? 0 : ActiveEvents.Last().Id;
@@ -52,6 +54,7 @@ void UFPSPerformanceMetricsSubsystem::EndEvent(uint64 EventId, uint64 Generation
 void UFPSPerformanceMetricsSubsystem::AppendEvent(FFPSPerformanceEvent Event)
 {
     if (CompletedEvents.IsEmpty()) return;
+    KeepEncounterEvent(Event);
     if (EventCount == MaxEvents)
     {
         ++EventsOverwritten;
@@ -70,7 +73,7 @@ void UFPSPerformanceMetricsSubsystem::InvalidateActiveEvents()
     ActiveEvents.Reset();
 }
 
-void UFPSPerformanceMetricsSubsystem::RecordMarker(const UObject* Context, FName Stage, const FString& Detail)
+void UFPSPerformanceMetricsSubsystem::RecordMarker(const UObject* Context, FName Stage, const FString& Detail, bool bRetainForEncounter)
 {
     auto* Metrics = Find(Context);
     if (!Metrics || !Metrics->bRecording) return;
@@ -79,8 +82,10 @@ void UFPSPerformanceMetricsSubsystem::RecordMarker(const UObject* Context, FName
     Event.Stage = Stage;
     Event.Key = Detail;
     Event.bMarker = true;
+    Event.bRetainForEncounter = bRetainForEncounter;
     Event.StartFrame = Event.EndFrame = GFrameCounter;
     Event.StartSeconds = Event.EndSeconds = FPlatformTime::Seconds();
+    if (bRetainForEncounter) TRACE_BOOKMARK(TEXT("FPS.%s %s"), *Stage.ToString(), *Detail);
     Metrics->AppendEvent(MoveTemp(Event));
 }
 
@@ -133,13 +138,13 @@ void UFPSPerformanceMetricsSubsystem::EndWorldTick(UWorld* World, ELevelTick, fl
     WorldTickEventId = 0;
 }
 
-FFPSPerformanceScope::FFPSPerformanceScope(const UObject* Context, FName Stage, const FString& Key)
+FFPSPerformanceScope::FFPSPerformanceScope(const UObject* Context, FName Stage, const FString& Key, bool bRetainForEncounter)
 {
     if (auto* Owner = UFPSPerformanceMetricsSubsystem::Find(Context))
     {
         Metrics = Owner;
         Generation = Owner->EventEpoch;
-        EventId = Owner->BeginEvent(Stage, Key);
+        EventId = Owner->BeginEvent(Stage, Key, bRetainForEncounter);
     }
 }
 

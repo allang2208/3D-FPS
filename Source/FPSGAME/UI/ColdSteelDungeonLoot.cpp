@@ -180,7 +180,7 @@ FString FColdSteelDungeonLoot::ChestStorageKey(AActor* Chest)
     return TEXT("DungeonChest.")+Ctx.ClaimId;
 }
 
-bool FColdSteelDungeonLoot::StoreFromChest(AActor* Chest,FString& OutContainerKey)
+bool FColdSteelDungeonLoot::StoreFromChest(AActor* Chest,FString& OutContainerKey,UColdSteelStatusModel* ActingModel)
 {
     OutContainerKey.Empty();
     if(!IsValid(Chest))return false;
@@ -188,7 +188,7 @@ bool FColdSteelDungeonLoot::StoreFromChest(AActor* Chest,FString& OutContainerKe
     if(!ResolveChestContext(Chest,Ctx))return true; // 非运行场景：不发放不开面板，与旧行为一致
 
     UGameInstance* GameInstance=Chest->GetWorld()->GetGameInstance();
-    UColdSteelStatusModel* Model=GameInstance?GameInstance->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    UColdSteelStatusModel* Model=ActingModel?ActingModel:GameInstance?GameInstance->GetSubsystem<UColdSteelStatusModel>():nullptr;
     if(!Model)
     {
         UE_LOG(LogTemp,Warning,TEXT("[DungeonLoot] StatusModel 不可用，宝箱战利品未写入。"));

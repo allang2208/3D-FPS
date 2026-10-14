@@ -198,7 +198,7 @@ FFPSPerformanceSnapshot UFPSPerformanceMetricsSubsystem::BuildSnapshot(int32 Max
         TEXT("r.MegaLights.Enable"), TEXT("r.MegaLights.Allow"), TEXT("r.Lumen.HardwareRayTracing"),
         TEXT("r.DynamicGlobalIlluminationMethod"), TEXT("r.ReflectionMethod"),
         TEXT("r.VolumetricFog"), TEXT("r.LightMaxDrawDistanceScale"), TEXT("sg.ShadowQuality"),
-        TEXT("sg.GlobalIlluminationQuality"), TEXT("sg.ReflectionQuality"),
+        TEXT("sg.GlobalIlluminationQuality"), TEXT("sg.ReflectionQuality"), TEXT("r.PurgeEditorSceneDuringPIE"),
         TEXT("fps.Dungeon.Lighting.Optimize"), TEXT("fps.Dungeon.Lighting.RoomCulling")})
         Snapshot.LightingCVars.Add(Name, CVarValue(Name));
     FFPSPerformanceCoverage& Coverage = Snapshot.Coverage;

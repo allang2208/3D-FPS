@@ -21,6 +21,7 @@ public:
     SLATE_END_ARGS()
     void Construct(const FArguments& Args);
     void SetFraction(float Value);
+    void SetCornerRadius(float Value);
     virtual FVector2D ComputeDesiredSize(float) const override { return FVector2D::ZeroVector; }
     virtual int32 OnPaint(const FPaintArgs&, const FGeometry&, const FSlateRect&,
         FSlateWindowElementList&, int32, const FWidgetStyle&, bool) const override;

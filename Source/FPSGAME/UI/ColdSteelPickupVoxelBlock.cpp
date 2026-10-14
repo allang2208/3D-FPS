@@ -32,7 +32,7 @@ bool AColdSteelPickup::BuildVoxelBlock(const FColdSteelItem& Item)
     Body->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     Body->SetCollisionResponseToChannel(ECC_PhysicsBody,ECR_Ignore);
     Body->SetLinearDamping(.6f);Body->SetAngularDamping(2.f);
-    Body->SetSimulatePhysics(true);
+    Body->SetSimulatePhysics(HasAuthority());
     if(auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Fluid->RegisterWaterBody(Body);
     return true;
 }

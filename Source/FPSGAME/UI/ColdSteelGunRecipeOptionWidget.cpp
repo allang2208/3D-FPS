@@ -13,7 +13,7 @@ void UColdSteelGunRecipeOptionWidget::NativeOnInitialized()
     OptionBox=WidgetTree->ConstructWidget<USizeBox>();
     WidgetTree->RootWidget=OptionBox;
     Label=WidgetTree->ConstructWidget<UTextBlock>();
-    Label->SetAutoWrapText(true);
+    Label->SetAutoWrapText(false);
     Label->SetJustification(ETextJustify::Center);
     Label->SetColorAndOpacity(ColdSteelUI::TextPrimary);
     OptionBox->SetContent(Label);

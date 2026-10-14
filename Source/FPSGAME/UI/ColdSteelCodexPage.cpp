@@ -1109,7 +1109,7 @@ TArray<TSharedRef<SWidget>> UColdSteelCodexPage::MonsterDetailRows(const FString
         TArray<TSharedRef<SWidget>> Rows;
         Rows.Add(DetailRow(TEXT("战力加值"), FormatNumber(MonsterCoreStats::RankCombatBonus(Stats.Rank), 0), ColdSteelUI::TextPrimary));
         Rows.Add(DetailRow(TEXT("经验倍率"), FString::Printf(TEXT("×%s"), *FormatNumber(MonsterCoreStats::RankExperienceMultiplier(Stats.Rank), 1)), ColdSteelUI::Success));
-        Rows.Add(DetailRow(TEXT("金币倍率"), FString::Printf(TEXT("×%s"), *FormatNumber(MonsterCoreStats::RankGoldMultiplier(Stats.Rank), 1)), ColdSteelUI::Success));
+        Rows.Add(DetailRow(TEXT("灵魂倍率"), FString::Printf(TEXT("×%s"), *FormatNumber(MonsterCoreStats::RankGoldMultiplier(Stats.Rank), 1)), ColdSteelUI::Success));
         Cards.Add(SectionCard(TEXT("品阶奖励"), Rows));
     }
 

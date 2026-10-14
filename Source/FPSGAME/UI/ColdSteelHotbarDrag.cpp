@@ -2,6 +2,8 @@
 #include "ColdSteelQuickDrag.h"
 #include "ColdSteelInventoryWidget.h"
 #include "ColdSteelWarehouseWidget.h"
+#include "ColdSteelShopWidget.h"
+#include "ColdSteelIncineratorWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
 #include "Components/Border.h"
@@ -47,10 +49,12 @@ void UColdSteelHUDWidget::UpdateInventoryDrag(UColdSteelItemDrag* Drag,FVector2D
 {
     if(InventoryDrag.Get()!=Drag||!bInventoryOpen)return;
     const bool OverWarehouse=bWarehouseOpen&&WarehouseWidget&&WarehouseWidget->GetCachedGeometry().IsUnderLocation(Position);
-    const bool Outside=!InventoryDragBounds.ContainsPoint(Position)&&!OverWarehouse;
+    const bool OverShop=bShopOpen&&ShopWidget&&ShopWidget->GetCachedGeometry().IsUnderLocation(Position);
+    const bool OverIncinerator=bWorkbenchOpen&&bIncineratorPanel&&IncineratorWidget&&IncineratorWidget->GetCachedGeometry().IsUnderLocation(Position);
+    const bool Outside=!InventoryDragBounds.ContainsPoint(Position)&&!OverWarehouse&&!OverIncinerator&&!OverShop;
     if(Outside!=bInventoryDragOutside){
         bInventoryDragOutside=Outside;
-        const bool Hide=Outside&&!bWarehouseOpen;
+        const bool Hide=Outside&&!bWarehouseOpen&&!(bWorkbenchOpen&&bIncineratorPanel);
         InventoryPanel->SetRenderOpacity(Hide?0.f:1.f);
         InventoryPanel->SetVisibility(Hide?ESlateVisibility::Hidden:ESlateVisibility::Visible);
         InventoryBackdrop->SetRenderOpacity(Hide?0.f:DrawerProgress);
@@ -99,12 +103,13 @@ bool UColdSteelHUDWidget::NativeOnDrop(const FGeometry& Geometry,const FDragDrop
         EndInventoryDrag();return true;
     }
     // Re-evaluate on release: stale instances or a failed save cannot bind a shortcut.
+    if(bShopOpen&&ShopWidget&&ShopWidget->HandleItemDrop(Drag,Event.GetScreenSpacePosition())){EndInventoryDrag();return true;}
     UpdateInventoryDrag(Drag,Event.GetScreenSpacePosition());
     const int32 Target=HotbarDropIndex(Event.GetScreenSpacePosition());
     if(Target<0&&!bInventoryDragOutside&&Drag->SourceBoard.IsValid()){
         // A rapid return-and-release may still route through last frame's backdrop.
         auto* Scroll=Cast<UScrollBox>(EquipmentPage);
-        auto* Board=bWarehouseOpen&&WarehouseWidget->GetCachedGeometry().IsUnderLocation(Event.GetScreenSpacePosition())?WarehouseWidget->Board.Get():Scroll?Cast<UColdSteelInventoryWidget>(Scroll->GetChildAt(0)):Drag->SourceBoard.Get();
+        auto* Board=bWorkbenchOpen&&bIncineratorPanel&&IncineratorWidget&&IncineratorWidget->GetCachedGeometry().IsUnderLocation(Event.GetScreenSpacePosition())?IncineratorWidget->InputBoard():bWarehouseOpen&&WarehouseWidget->GetCachedGeometry().IsUnderLocation(Event.GetScreenSpacePosition())?WarehouseWidget->Board.Get():Scroll?Cast<UColdSteelInventoryWidget>(Scroll->GetChildAt(0)):Drag->SourceBoard.Get();
         Board->NativeOnDrop(Board->GetCachedGeometry(),Event,Operation);
     }
     if(Target>=0&&CanDropOnHotbar(Drag)){
@@ -115,7 +120,7 @@ bool UColdSteelHUDWidget::NativeOnDrop(const FGeometry& Geometry,const FDragDrop
     }
     const FVector2D Position=Event.GetScreenSpacePosition();
     const bool OverHotbar=HotbarCanvasSlot&&HotbarCanvasSlot->GetContent()&&HotbarCanvasSlot->GetContent()->GetCachedGeometry().IsUnderLocation(Position);
-    if(Target<0&&bInventoryDragOutside&&!OverHotbar&&Geometry.IsUnderLocation(Position)){
+    if(Target<0&&bInventoryDragOutside&&!OverHotbar&&Geometry.IsUnderLocation(Position)&&!(bWorkbenchOpen&&bIncineratorPanel)){
         auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
         const auto* Item=Model->FindItem(Drag->ItemId);
         if(Item&&(Item->Place<=1||(Item->Place==4&&bWarehouseOpen))&&Item->Place==Drag->SourcePlace&&Item->Cell==Drag->SourceCell){

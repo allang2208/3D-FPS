@@ -1,4 +1,5 @@
 #include "DevelopmentPanelWidget.h"
+#include "DevelopmentListOptionWidget.h"
 #include "DevelopmentItemPicker.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelHUDWidget.h"
@@ -170,10 +171,16 @@ UWidget* UDevelopmentPanelWidget::GenerateMonsterOption(FString Item)
 
 UWidget* UDevelopmentPanelWidget::GenerateListOption(FString Item)
 {
-    // 怪物与技能下拉的条目：正文档 14px，固定不换行。
-    auto* Text = CreatePanelText(Item, 14, ColdSteelUI::TextPrimary);
-    Text->SetAutoWrapText(false);
-    return Text;
+    // UComboBoxString only retains TakeWidget(); SObjectWidget keeps this UMG
+    // tree (including the text's StrikeBrush) alive until Slate releases it.
+    auto* Option = CreateWidget<UDevelopmentListOptionWidget>(this);
+    if (!Option) return nullptr;
+    auto* Text = Option->GetLabel();
+    Text->SetText(FText::FromString(Item));
+    Text->SetFont(ColdSteelUI::TextFont(14.f * .75f / ColdSteelUI::PixelScale(this)));
+    Text->SetColorAndOpacity(ColdSteelUI::TextPrimary);
+    TextSizes.Emplace(Text, 14.f);
+    return Option;
 }
 
 UDevelopmentSpawnComponent* UDevelopmentPanelWidget::ResolveSpawner() const

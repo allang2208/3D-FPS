@@ -7,6 +7,7 @@ class UColdSteelHUDWidget;
 class UColdSteelStatusModel;
 class UColdSteelForgingSystem;
 class UColdSteelForgeBoard;
+class UColdSteelGunRecipeOptionWidget;
 class UBackgroundBlur;
 class UBorder;
 class UButton;
@@ -63,6 +64,8 @@ private:
     FString Notice,LoadedMold,StartReason;
     struct FLabel {TWeakObjectPtr<UTextBlock> Widget;float Pixels;bool Numeric,Medium;};
     TArray<FLabel> Labels;
+    // Slate owns the option's SObjectWidget; this cache only updates visible rows for DPI changes.
+    TArray<TWeakObjectPtr<UColdSteelGunRecipeOptionWidget>> RecipeOptionWidgets;
     TArray<TWeakObjectPtr<UButton>> Buttons;
     TArray<TWeakObjectPtr<USizeBox>> ButtonSizes;
     TArray<TWeakObjectPtr<UBorder>> Cards;

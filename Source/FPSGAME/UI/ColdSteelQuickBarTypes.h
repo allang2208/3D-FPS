@@ -18,10 +18,11 @@ struct FColdSteelQuickBinding
 struct FColdSteelProfile;
 namespace ColdSteelQuickBar
 {
-    constexpr int32 Count=7, ItemOffset=3;
+    constexpr int32 Count=13, ItemOffset=3, LegacyCount=7, Version=2;
     bool Migrate(FColdSteelProfile& Profile);
     void MirrorLegacy(FColdSteelProfile& Profile);
     bool Validate(const FColdSteelProfile& Profile,FString& Reason);
     const TCHAR* KeyLabel(int32 Index);
+    FKey Key(int32 Index);
     int32 KeyIndex(const FKey& Key);
 }

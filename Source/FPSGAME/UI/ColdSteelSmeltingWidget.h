@@ -24,6 +24,7 @@ class UColdSteelStatusModel;
 class UColdSteelSmeltingSystem;
 class UColdSteelSmeltingRowProxy;
 class AVoxelBuildWorld;
+class AColdSteelCampfire;
 
 /**
  * 冶炼面板（Docs/UI/smelting-panel-plan-20260923.md）：只由高炉 E 交互打开的独立右侧面板，
@@ -40,6 +41,7 @@ public:
     void Configure(UColdSteelHUDWidget* Owner);
     /** 指向一座已放置的高炉（20 cm 建造格锚格）；换炉子时清选择与状态行。 */
     void SetFurnace(AVoxelBuildWorld* InWorld,FIntVector InCell);
+    void SetCampfire(AColdSteelCampfire* Fire);
     /** 抽屉布局推送面板宽度（像素），进度条填充按它折算。 */
     void SetLayoutWidth(float PixelsX);
     /** 主题层推送面板左缘的屏幕像素 X（升级弹层贴屏钳制的唯一可信坐标源，2026-09-24 实测
@@ -87,6 +89,8 @@ private:
     void ApplyUpgradeTabVisual();
     void RefreshRows();
     void RefreshJob();
+    void RefreshCampfireJob();
+    void SubmitCampfire(uint8 Action);
     /** 燃料读数行实时化（2026-09-24 用户"下方剩余时间没有实时更新，要性能友好的实时方案"）：
      *  10Hz 的 RefreshJob 只更新锚点（存料/还需烧/挂钟戳），本函数每帧按挂钟外推，
      *  显示整数秒没变就一个字节都不写——每秒至多一次 SetText，稳态零分配零无效化。 */
@@ -109,7 +113,13 @@ private:
     UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> Model;
     UPROPERTY(Transient) TObjectPtr<UColdSteelSmeltingSystem> System;
     TWeakObjectPtr<AVoxelBuildWorld> World;
+    TWeakObjectPtr<AColdSteelCampfire> Campfire;
+    TMap<FString,FString> CampfireNames;
     FIntVector Cell=FIntVector::ZeroValue;
+    bool bCampfire=false;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> StationTitle;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> ProgressTitle;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> StationFooter;
     FDelegateHandle ChangedHandle;
 
     UPROPERTY(Transient) TObjectPtr<UBackgroundBlur> Blur;

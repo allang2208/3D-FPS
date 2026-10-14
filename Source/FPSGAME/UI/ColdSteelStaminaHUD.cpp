@@ -14,6 +14,7 @@
 #include "Engine/GameInstance.h"
 #include "GameFramework/Pawn.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Production/ProductionToolComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/WeaponBipodDeploymentComponent.h"
 #include "../Skills/FPSElectricMagicComponent.h"
@@ -26,12 +27,13 @@ void UColdSteelHUDWidget::BuildStamina(UCanvasPanel* Root)
     StaminaSlot=Root->AddChildToCanvas(Row);StaminaSlot->SetAnchors(FAnchors(.5f,1));StaminaSlot->SetAlignment(FVector2D(.5f,1));StaminaSlot->SetZOrder(29);
     StaminaMeterSize=WidgetTree->ConstructWidget<USizeBox>();
     auto* MeterSlot=Row->AddChildToHorizontalBox(StaminaMeterSize);MeterSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));MeterSlot->SetVerticalAlignment(VAlign_Center);
-    StaminaMeter=WidgetTree->ConstructWidget<UColdSteelResourceMeter>();StaminaMeterSize->SetContent(StaminaMeter);StaminaMeter->SetStaminaValue(0);
+    StaminaMeter=WidgetTree->ConstructWidget<UColdSteelResourceMeter>();StaminaMeterSize->SetContent(StaminaMeter);
     StaminaValue=WidgetTree->ConstructWidget<UTextBlock>();StaminaValue->SetJustification(ETextJustify::Right);StaminaValue->SetAutoWrapText(false);
     StaminaValue->SetShadowOffset(FVector2D(1,1));StaminaValue->SetShadowColorAndOpacity(FLinearColor(0,0,0,.8f));
     Row->AddChildToHorizontalBox(StaminaValue)->SetVerticalAlignment(VAlign_Center);
     DashAttackReadyText=WidgetTree->ConstructWidget<UTextBlock>();
     DashAttackReadyText->SetJustification(ETextJustify::Center);
+    DashAttackReadyText->SetAutoWrapText(false);
     DashAttackReadyText->SetShadowOffset(FVector2D(1,1));DashAttackReadyText->SetShadowColorAndOpacity(FLinearColor(0,0,0,.8f));
     auto* DashSlot=Root->AddChildToCanvas(DashAttackReadyText);
     DashSlot->SetAnchors(FAnchors(.5f,1));DashSlot->SetAlignment(FVector2D(.5f,1));DashSlot->SetZOrder(29);
@@ -51,7 +53,7 @@ void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
     const float S=ColdSteelUI::PixelScale(this);
     FVector2D View=Geometry.GetLocalSize();if(View.X<100)View=UWidgetLayoutLibrary::GetViewportSize(this)/S;
     if(View.X<100)return;
-    const float HotbarHeight=HotbarCanvasSlot&&HotbarCanvasSlot->Content?HotbarCanvasSlot->Content->GetDesiredSize().Y:66/S;
+    const float HotbarHeight=HotbarCanvasSlot?HotbarCanvasSlot->GetSize().Y:66/S;
     const float Bottom=HotbarCanvasSlot?-HotbarCanvasSlot->GetPosition().Y:12/S;
     StaminaSlot->SetPosition(FVector2D(0,-Bottom-FMath::Max(HotbarHeight,66/S)-10/S));
     if(DashAttackReadyText)
@@ -84,7 +86,8 @@ void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
         else
         {
             const auto* Sword=Pawn?Pawn->FindComponentByClass<URuneSwordComponent>():nullptr;
-            const float Charge=Sword?FMath::Clamp(Sword->HeavyChargeFraction(),0.f,1.f):0.f;
+            const auto* Tool=Pawn?Pawn->FindComponentByClass<UProductionToolComponent>():nullptr;
+            const float Charge=FMath::Clamp(Tool&&Tool->IsEquipped()?Tool->HeavyChargeFraction():Sword?Sword->HeavyChargeFraction():0.f,0.f,1.f);
             if(Charge>0.f)
             {
                 Complete=Charge>=1.f;PreparationProgress=Charge;
@@ -94,7 +97,7 @@ void UColdSteelHUDWidget::UpdateStaminaLayout(const FGeometry& Geometry)
             }
             else
             {
-                const float Ready=Sword?Sword->DashReadyFraction():0.f;
+                const float Ready=Tool&&Tool->IsEquipped()?Tool->DashReadyFraction():Sword?Sword->DashReadyFraction():0.f;
                 Complete=Ready>=1.f;PreparationProgress=FMath::Clamp(Ready,0.f,1.f);
                 if(Ready>0.f)
                     ActionHint=Complete
@@ -153,5 +156,5 @@ void UColdSteelHUDWidget::RefreshStamina()
     const FString Value=FString::Printf(TEXT("%.1f / %.0f"),Current,Max);
     const FText Text=FText::FromString(Value);if(!StaminaValue->GetText().EqualTo(Text))StaminaValue->SetText(Text);
     StaminaValue->SetColorAndOpacity(Ratio<=.25f?ColdSteelUI::Warning:ColdSteelUI::TextPrimary);
-    SetCharacterValue(TEXT("stamina"),Value);if(StaminaSheetBar)StaminaSheetBar->SetPercent(Ratio);
+    SetCharacterValue(TEXT("stamina"),Value);SetAnimatedBarValue(StaminaSheetBar,Ratio);
 }

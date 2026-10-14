@@ -9,37 +9,38 @@ namespace ColdSteelInventory
 // Place is the warehouse grid; pass "" (default) for backpack moves and the main warehouse.
 // Equipment returns may opt into rotation after all original-orientation passes fail.
 inline bool PlaceDisplaced(TArray<FColdSteelItem>& Items, TArray<FColdSteelItem> Displaced,
-    const FColdSteelItem& Source, int32 TargetCell, bool& Exhausted,int32 Place=0,int32 PageStart=0,int32 Rows=4,const FString& Container=FString(),bool AutoRotate=false)
+    const FColdSteelItem& Source, int32 TargetCell, bool& Exhausted,int32 Place=0,int32 PageStart=0,int32 Rows=4,const FString& Container=FString(),bool AutoRotate=false,int32 Columns=18)
 {
+    if(Columns<1||Columns>18||Rows<1)return false;
     struct FCandidate { int32 Cell, Outside, Distance, Height; uint32 Mask; bool bTurned; };
     struct FEntry { FColdSteelItem Item; TArray<FCandidate> Candidates; };
     TArray<FEntry> Entries;
     TArray<uint32> Occupied;Occupied.Init(0,Rows);
-    for(const auto& I:Items) if(I.Place==Place&&I.Container==Container&&I.Cell>=PageStart&&I.Cell<PageStart+Rows*18)
-        for(int32 Y=0;Y<I.Height;++Y){const int32 Row=(I.Cell-PageStart)/18+Y;
+    for(const auto& I:Items) if(I.Place==Place&&(Place!=4||I.Container==Container)&&I.Cell>=PageStart&&I.Cell<PageStart+Rows*Columns)
+        for(int32 Y=0;Y<I.Height;++Y){const int32 Row=(I.Cell-PageStart)/Columns+Y;
             // 行数由调用方按当前背包装备传入；跨行物品只可能溢出到更高行（那里不会产生
             // 候选位），钳掉越界写防止掩码数组越界崩溃。
-            if(Row>=0&&Row<Rows)Occupied[Row]|=((1u<<I.Width)-1)<< (I.Cell%18);}
+            if(Row>=0&&Row<Rows)Occupied[Row]|=((1u<<I.Width)-1)<< (I.Cell%Columns);}
     for(const auto& I:Displaced)
     {
         FEntry Entry; Entry.Item=I;
         // Equipment slot numbers are not grid coordinates. Returned gear shares
         // the vacated bag anchor; ordinary grid swaps retain their relative offset.
-        const bool KeepOffset=Displaced.Num()>1&&(!AutoRotate||I.Place==Place);
-        const int32 PreferredX=Source.Cell%18+(KeepOffset?I.Cell%18-TargetCell%18:0);
-        const int32 PreferredY=(Source.Cell-PageStart)/18+(KeepOffset?I.Cell/18-TargetCell/18:0);
+        const bool KeepOffset=Displaced.Num()>1&&I.Place==Place;
+        const int32 PreferredX=Source.Cell%Columns+(KeepOffset?I.Cell%Columns-TargetCell%Columns:0);
+        const int32 PreferredY=(Source.Cell-PageStart)/Columns+(KeepOffset?I.Cell/Columns-TargetCell/Columns:0);
         const int32 Orientations=AutoRotate&&CanRotate(I)?2:1;
         for(int32 Turn=0;Turn<Orientations;++Turn)
         {
             auto Shape=I;if(Turn)ApplyOrientation(Shape,I.bRotated?0:1);
-            for(int32 Y=0;Y+Shape.Height<=Rows;++Y) for(int32 X=0;X+Shape.Width<=18;++X)
+            for(int32 Y=0;Y+Shape.Height<=Rows;++Y) for(int32 X=0;X+Shape.Width<=Columns;++X)
             {
                 const uint32 Mask=((1u<<Shape.Width)-1)<<X;
                 bool Free=true;for(int32 Row=Y;Row<Y+Shape.Height;++Row) if(Occupied[Row]&Mask){Free=false;break;}
                 if(!Free)continue;
-                const int32 InsideW=FMath::Max(0,FMath::Min(X+Shape.Width,Source.Cell%18+Source.Width)-FMath::Max(X,Source.Cell%18));
-                const int32 InsideH=FMath::Max(0,FMath::Min(Y+Shape.Height,(Source.Cell-PageStart)/18+Source.Height)-FMath::Max(Y,(Source.Cell-PageStart)/18));
-                Entry.Candidates.Add({PageStart+Y*18+X,Shape.Width*Shape.Height-InsideW*InsideH,FMath::Abs(X-PreferredX)+FMath::Abs(Y-PreferredY),Shape.Height,Mask,Turn!=0});
+                const int32 InsideW=FMath::Max(0,FMath::Min(X+Shape.Width,Source.Cell%Columns+Source.Width)-FMath::Max(X,Source.Cell%Columns));
+                const int32 InsideH=FMath::Max(0,FMath::Min(Y+Shape.Height,(Source.Cell-PageStart)/Columns+Source.Height)-FMath::Max(Y,(Source.Cell-PageStart)/Columns));
+                Entry.Candidates.Add({PageStart+Y*Columns+X,Shape.Width*Shape.Height-InsideW*InsideH,FMath::Abs(X-PreferredX)+FMath::Abs(Y-PreferredY),Shape.Height,Mask,Turn!=0});
             }
         }
         if(Entry.Candidates.IsEmpty())return false;
@@ -69,7 +70,7 @@ inline bool PlaceDisplaced(TArray<FColdSteelItem>& Items, TArray<FColdSteelItem>
             const auto& C=E.Candidates[Choice];
             if((SourceOnly&&C.Outside)||(!AllowTurns&&C.bTurned))continue;
             if(--Budget<0){Exhausted=true;return false;}
-            const int32 Row=(C.Cell-PageStart)/18;
+            const int32 Row=(C.Cell-PageStart)/Columns;
             bool Free=true;for(int32 Y=Row;Y<Row+C.Height;++Y)if(Occupied[Y]&C.Mask){Free=false;break;}
             if(!Free)continue;
             for(int32 Y=Row;Y<Row+C.Height;++Y)Occupied[Y]|=C.Mask;
@@ -97,7 +98,7 @@ inline bool PlaceDisplaced(TArray<FColdSteelItem>& Items, TArray<FColdSteelItem>
     {
         auto I=Entries[N].Item;const auto& C=Entries[N].Candidates[Choices[N]];
         if(C.bTurned)ApplyOrientation(I,I.bRotated?0:1);
-        I.Place=Place;I.Container=Container;I.Cell=C.Cell;Items.Add(MoveTemp(I));
+        I.Place=Place;I.Container=Place==4?Container:FString();I.Cell=C.Cell;I.Map.Empty();I.Position=FVector::ZeroVector;Items.Add(MoveTemp(I));
     }
     return true;
 }

@@ -60,7 +60,7 @@ void UColdSteelHUDWidget::BuildTopVitals(UCanvasPanel* Root)
         auto* Height=WidgetTree->ConstructWidget<USizeBox>();Column->AddChildToVerticalBox(Height);TopMeterSizes.Add(Height);
         Meter=WidgetTree->ConstructWidget<UColdSteelResourceMeter>();Height->SetContent(Meter);
     };
-    AddResource(TEXT("生命"),TopHealthMeter,TopHealthValue);AddResource(TEXT("魔法"),TopManaMeter,TopManaValue);TopManaMeter->SetValue(0,true);
+    AddResource(TEXT("生命"),TopHealthMeter,TopHealthValue);AddResource(TEXT("魔法"),TopManaMeter,TopManaValue);
     TopLevelSize=WidgetTree->ConstructWidget<USizeBox>();CoreGrid->AddChildToGrid(TopLevelSize,0,0);
     TopLevelSurface=MakeSurface(ColdSteelUI::Content,ColdSteelUI::CardRadius,ColdSteelUI::Border,1);TopLevelSurface->SetVerticalAlignment(VAlign_Center);TopLevelSize->SetContent(TopLevelSurface);
     auto* LevelColumn=WidgetTree->ConstructWidget<UVerticalBox>();TopLevelSurface->SetContent(LevelColumn);
@@ -101,13 +101,14 @@ void UColdSteelHUDWidget::UpdateTopHUDLayout(const FGeometry& Geometry)
     TopHUDViewport=View;TopHUDScale=S;
     const float ViewWidth=View.X*S,Gap=ColdSteelUI::HUDGap;
     const FColdSteelHUDLayout Layout(ViewWidth);
-    // Keep the existing central skill bar at its original anchor. Small windows lift
-    // the left card above the bar instead of shrinking text or overlapping slots.
-    const float LeftSpace=ViewWidth*.5f-330.f-2*Gap;
+    // The fixed-pixel bar can wrap and its G action can appear/disappear.
+    // Lift the left card above its actual footprint instead of overlapping slots.
+    const float LeftSpace=ViewWidth*.5f-float(HotbarPixelSize.X)*.5f-2*Gap;
     const bool LiftVitals=LeftSpace<340.f;
     const float VitalsWidth=FMath::Min(440.f,FMath::Max(1.f,LiftVitals?ViewWidth-2*Gap:LeftSpace));
-    const float Height=Variant==1?292.f:184.f,Bottom=LiftVitals?132.f:Gap;
+    const float Height=Variant==1?292.f:184.f,Bottom=LiftVitals?FMath::Max(132.f,12.f+float(HotbarPixelSize.Y)+54.f):Gap;
     auto* VitalsSlot=Cast<UCanvasPanelSlot>(TopVitalsSurface->Slot);VitalsSlot->SetPosition(FVector2D(Gap/S,-Bottom/S));VitalsSlot->SetSize(FVector2D(VitalsWidth/S,Height/S));
+    LayoutSoulHUD(S,Gap,Bottom+Height+8.f,VitalsWidth);
     auto* ClockSlot=Cast<UCanvasPanelSlot>(WorldClock->Slot);ClockSlot->SetPosition(FVector2D(-Gap/S,Layout.CornerTop/S));ClockSlot->SetSize(FVector2D(Layout.CornerWidth/S,Layout.CornerHeight/S));
     TopHUDBottom=(Layout.CornerTop+Layout.CornerHeight)/S;
     TopVitalsTint->SetPadding(FMargin(12/S,10/S));TopVitalsTint->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint,10/S,ColdSteelUI::Border,1/S));

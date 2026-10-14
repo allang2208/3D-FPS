@@ -1,5 +1,6 @@
 """Restore the selected Cold Steel skill icons from their local authoring sources."""
 from pathlib import Path
+import json
 import shutil
 
 PROJECT = Path(__file__).resolve().parents[2]
@@ -13,6 +14,7 @@ ICONS = {
     "rune_orb_blades_cold_steel.png": "SourceAssets/RuneOrbBladePolish20260927/rune_orb_blades_cold_steel.png",
     "meteor_hex.png": "SourceAssets/FireMagicPolish20260921/meteor_hex.png",
     "flame_armor_hex.png": "SourceAssets/FireMagicPolish20260921/flame_armor_hex.png",
+    "dragon_breath_hex.png": "SourceAssets/DragonBreath20261013/dragon_breath_hex.png",
     "meteor_cold_steel.png": "SourceAssets/FireMagic20260921/meteor_cold_steel.png",
     "flame_armor_cold_steel.png": "SourceAssets/FireMagic20260921/flame_armor_cold_steel.png",
     "holy_light_cold_steel.png": "SourceAssets/HolyLight20260920/holy_light_cold_steel.png",
@@ -28,6 +30,14 @@ ICONS = {
     "dodge_cold_steel.png": "SourceAssets/DexterousHands20260913/dodge_cold_steel.png",
     "quick_combat_placeholder.png": "SourceAssets/QuickCombat20260917/quick_combat_placeholder.png",
 }
+
+
+# The current square-frame series supersedes the legacy subject-source paths.
+# Keep the four accepted martial icons above on their original selected sources.
+_unified = PROJECT / "SourceAssets/SkillIconUnified20261013/manifest.json"
+if _unified.is_file():
+    for entry in json.loads(_unified.read_text(encoding="utf-8"))["icons"]:
+        ICONS[entry["file"]] = "SourceAssets/SkillIconUnified20261013/Selected/" + entry["file"]
 
 
 def main():

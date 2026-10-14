@@ -292,9 +292,9 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
     UpgradeTab=WidgetTree->ConstructWidget<UBorder>();
     UpgradeTab->SetPadding(FMargin(0));   // v12：无描边并入主体，不再需要卡片内衬
     UpgradeTabBtn=WidgetTree->ConstructWidget<UButton>();
-    UpgradeTabText=Text(TEXT("升\n级"),14,ColdSteelUI::TextPrimary,false,true);
+    UpgradeTabText=Text(TEXT("升级"),14,ColdSteelUI::TextPrimary,false,true);
     UpgradeTabText->SetJustification(ETextJustify::Center);   // 块内每行默认左对齐——居中修正（冶炼 v11c 根因）
-    UpgradeTabText->SetLineHeightPercentage(.88f);   // 收紧两字行距，墨迹块更接近方片几何中心
+    UpgradeTabText->SetAutoWrapText(false);UpgradeTabText->SetWrapTextAt(0); // 横向单行页签。
     UpgradeTabBtn->SetContent(UpgradeTabText);
     // v12：不进 StyledButtons（共享样式带描边），外观由 ApplyUpgradeTabVisual 统一给无描边样式。
     UpgradeTabBtn->OnClicked.AddDynamic(this,&ThisClass::HandleUpgradeToggled);   // 收回态点击＝关闭升级栏（互斥翻转）
@@ -302,7 +302,7 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
     ApplyUpgradeTabVisual();
     UpgradeTabSlot=RootCanvas->AddChildToCanvas(UpgradeTab);
     UpgradeTabSlot->SetAnchors(FAnchors(0,.5f));UpgradeTabSlot->SetAlignment(FVector2D(0,.5f));
-    UpgradeTabSlot->SetSize(FVector2D(36/Scale,60/Scale));
+    UpgradeTabSlot->SetSize(FVector2D(64/Scale,36/Scale));
     UpgradeTabSlot->SetPosition(FVector2D(8/Scale,0.f));
     UpgradeTabSlot->SetZOrder(1);
     UpgradeTab->SetVisibility(ESlateVisibility::Collapsed);   // 有工作台上下文时由 SetWorkbench 打开
@@ -427,7 +427,7 @@ void UColdSteelWorkbenchWidget::UpdateScale()
     if(auto* TS=Cast<UHorizontalBoxSlot>(BatchText->Slot))TS->SetPadding(FMargin(8/Scale,0,8/Scale,0));
     for(auto* B:{BatchMinus.Get(),BatchPlus.Get()})if(B)if(auto* SZ=Cast<USizeBox>(B->GetParent()))
         {SZ->SetWidthOverride(ColdSteelUI::ActionHeight/Scale);SZ->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);}
-    if(auto* TS=Cast<UCanvasPanelSlot>(UpgradeTabSlot))TS->SetSize(FVector2D(36/Scale,60/Scale));
+    if(auto* TS=Cast<UCanvasPanelSlot>(UpgradeTabSlot))TS->SetSize(FVector2D(64/Scale,36/Scale));
     ApplyScreenLayout();   // Shell/页签/弹层按新 Scale 重排（坐标源＝主题层推送的屏幕像素）
     ApplyUpgradeTabVisual();   // v12：hover/pressed 圆角随 Scale 重建
     UpgradeFlyout->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content,10/Scale,GunsmithUI::Edge,1/Scale));
@@ -533,7 +533,7 @@ void UColdSteelWorkbenchWidget::LayoutUpgradeTab()
     const float P=PanelScreenPx/Scale;                      // 面板左缘（单位系）
     const float W=FMath::Max(1.f,LayoutWidth)/Scale;
     const float L=FMath::Max(8.f/Scale,P-W);                // 弹层全开左缘（与 ApplyScreenLayout 同式）
-    const float TabW=36.f/Scale;
+    const float TabW=64.f/Scale;
     // v12（冶炼 §7.23 同款）：方片已无自身描边（并入主体），右缘压线 1px 只为消掉抗锯齿发丝缝。
     // 展开态跟随：EaseSmooth(FlyMotion) 与弹层 RenderScale 同曲线同拍，方片右缘钉在弹层左缘上推到最左；
     // 屏幕边钳制：方片贴到 x=0 盖在弹层角上（ZOrder 1，可点收回）。
@@ -652,7 +652,7 @@ void UColdSteelWorkbenchWidget::RefreshJob()
     MaxBatch=Sel?Crafting->MaxCraftable(Model,*Sel):0;
     Batch=FMath::Clamp<int64>(Batch,1,FMath::Max<int64>(1,MaxBatch));
     RecipeTitle->SetText(FText::FromString(Sel?FString::Printf(TEXT("%d / %d · %s"),Index+1,Catalog.Num(),*DefinitionName(Sel->Output)):TEXT("暂无制作配方")));
-    RecipeTitle->SetAutoWrapText(true);
+    RecipeTitle->SetAutoWrapText(false);RecipeTitle->SetTextOverflowPolicy(ETextOverflowPolicy::Ellipsis);
     // —— 材料三列表（打铁同款）：需求＝单份×批量；持有不足标红并报差额。——
     EnsureMaterialRows(Sel?Sel->Inputs.Num():0);
     for(int32 I=0;I<MaterialRows.Num();++I)
@@ -869,7 +869,7 @@ FString UColdSteelWorkbenchWidget::DefinitionName(const FString& Definition) con
 void UColdSteelWorkbenchWidget::RefreshUpgrade()
 {
     if(UpgradeTabText)   // v11：展开态文案换"收回"，点击收回＝关闭升级栏（同一页签互斥翻转）
-    {   const FText Want=FText::FromString(bUpgradeOpen?TEXT("收\n回"):TEXT("升\n级"));
+    {   const FText Want=FText::FromString(bUpgradeOpen?TEXT("收回"):TEXT("升级"));
         if(!UpgradeTabText->GetText().EqualTo(Want))UpgradeTabText->SetText(Want);   }
     if(bTabVisualOpen!=bUpgradeOpen){bTabVisualOpen=bUpgradeOpen;ApplyUpgradeTabVisual();}   // v12：换色跟随所贴主体
     if(!bUpgradeOpen)return;   // 弹层收回时不刷内容（冶炼同款：数据只在展开期跟随刷）

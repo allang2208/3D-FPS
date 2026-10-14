@@ -29,8 +29,10 @@ public:
     AColdSteelCrateChest();
     /** 关卡里直接摆放本 Actor 并选档位；同一档位默认共用一个容器键，
      *  需要多只独立箱子时给 StorageKeyOverride 填互不相同的稳定字符串。 */
-    UPROPERTY(EditAnywhere,Category="Crate") EColdSteelCrateTier Tier=EColdSteelCrateTier::Wood;
-    UPROPERTY(EditAnywhere,Category="Crate") FString StorageKeyOverride;
+    UPROPERTY(EditAnywhere,ReplicatedUsing=OnRep_Tier,Category="Crate") EColdSteelCrateTier Tier=EColdSteelCrateTier::Wood;
+    UPROPERTY(EditAnywhere,Replicated,Category="Crate") FString StorageKeyOverride;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+    UFUNCTION() void OnRep_Tier();
     static FString TierKey(EColdSteelCrateTier Tier);
     static FString TierCaption(EColdSteelCrateTier Tier);
     static int32 TierPages(EColdSteelCrateTier Tier);

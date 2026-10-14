@@ -1,5 +1,6 @@
 #include "ColdSteelEnhancementSystem.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelCurrency.h"
 #include "ColdSteelItemReadCache.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "Engine/GameInstance.h"
@@ -28,10 +29,10 @@ void UColdSteelEnhancementSystem::Initialize(FSubsystemCollectionBase& C)
     FString S;if(!FFileHelper::LoadFileToString(S,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/enhancement.json"))))return;
     const auto Root=Read(S);if(!Root)return;
     WeaponMax=Num(Root,TEXT("maxWeaponLevel"),15);ArmorMax=Num(Root,TEXT("maxArmorLevel"),10);
-    BaseGold=Num(Root,TEXT("baseGold"),100);Growth=Num(Root,TEXT("goldGrowth"),1.5);Stones=Num(Root,TEXT("stones"),1);Increase=Num(Root,TEXT("weaponIncreasePerLevel"),.05);
+    BaseSouls=Num(Root,TEXT("baseSouls"),Num(Root,TEXT("baseGold"),100));Growth=Num(Root,TEXT("soulGrowth"),Num(Root,TEXT("goldGrowth"),1.5));Stones=Num(Root,TEXT("stones"),1);Increase=Num(Root,TEXT("weaponIncreasePerLevel"),.05);
     const TArray<TSharedPtr<FJsonValue>>* List=nullptr;if(!Root->TryGetArrayField(TEXT("scrolls"),List))return;
     for(const auto& V:*List){const auto O=V->AsObject();if(!O)continue;Options.Add({Str(O,TEXT("id")),Str(O,TEXT("item")),Str(O,TEXT("name")),Str(O,TEXT("slot")),Str(O,TEXT("restriction")),Str(O,TEXT("description")),int64(Num(O,TEXT("dust"))),Obj(O,TEXT("effects"))});}
-    Ready=WeaponMax>0&&WeaponMax<=100&&ArmorMax>0&&BaseGold>0&&Growth>=1&&Growth<=2&&Increase>0&&Increase<=1&&Stones>0;
+    Ready=WeaponMax>0&&WeaponMax<=100&&ArmorMax>0&&BaseSouls>0&&Growth>=1&&Growth<=2&&Increase>0&&Increase<=1&&Stones>0;
 }
 bool UColdSteelEnhancementSystem::Supports(const FColdSteelItem& I)const
 {
@@ -51,6 +52,8 @@ bool UColdSteelEnhancementSystem::CanEnchant(const FColdSteelItem& I,const FCold
     if(O.Restriction==TEXT("sniper"))return ColdSteelInventory::Text(I,TEXT("weaponTypeTag"))==TEXT("狙击步枪");
     if(O.Restriction==TEXT("machineGun"))return ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("machineGun");
     if(O.Restriction==TEXT("pistol"))return ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("pistol");
+    if(O.Restriction==TEXT("revolver"))return ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("pistol")
+        &&ColdSteelInventory::Text(I,TEXT("weaponTypeTag"))==TEXT("左轮手枪");
     if(O.Restriction==TEXT("firearm"))
     {
         const auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
@@ -92,10 +95,10 @@ TSharedPtr<const FJsonObject> UColdSteelEnhancementSystem::AttackFormula(const F
     if(const auto Formula=Obj(WeaponFormulas,*I.Definition))return Formula;
     return ReadObj(CombatItemFormula::ReadOnly(I),TEXT("attackFormula"));
 }
-double UColdSteelEnhancementSystem::AttackFormulaAttribute(const FColdSteelItem& I,FName Key)const
+double UColdSteelEnhancementSystem::AttackFormulaAttribute(const FColdSteelItem& I,FName Key,const UColdSteelStatusModel* Profile)const
 {
     if(Key==TEXT("int"))Key=TEXT("intt");
-    const auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const auto* P=Profile?Profile:GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     // Match raw allocated + equipment attributes used by the original weapon formulas.
     // 加工预览的 I 尚未提交；替换当前实例的附魔属性贡献，不重加已装备的 +15 力量。
     const auto* Published=P->FindItem(I.InstanceId);
@@ -103,7 +106,7 @@ double UColdSteelEnhancementSystem::AttackFormulaAttribute(const FColdSteelItem&
     const double EnchantDelta=Effect(I,*EnchantKey)-(Published&&Published->Place==1?Effect(*Published,*EnchantKey):0.);
     return (double(P->Attributes.FindRef(Key))+P->EquipmentBonus(Key)+EnchantDelta+(Key==TEXT("str")&&P->WeaponMastery(&I)==TEXT("swordMastery")?P->MasteryEffect(TEXT("heavyStrike")).Strength:0))*P->EffectiveAttributeMultiplier();
 }
-double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,double Base,double Attack,double MeleeDamageMultiplier)const
+double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,double Base,double Attack,double MeleeDamageMultiplier,const UColdSteelStatusModel* Profile)const
 {
     const double Forge=FMath::Clamp(Num(ReadObj(ColdSteelItemData::Read(I.Data),TEXT("_forgeQuality")),TEXT("multiplier"),1),.75,1.25);
     const auto* Gunsmith=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
@@ -112,12 +115,12 @@ double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,doub
     const double L=FMath::Clamp(ColdSteelInventory::Number(I,TEXT("enhanceLevel")),0.,double(WeaponMax));
     if(const auto Formula=AttackFormula(I))
     {
-        const auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+        const auto* P=Profile?Profile:GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
         std::vector<CoreCombatFormula::WeaponTerm> Terms;
         for(const auto& V:Formula->GetArrayField(TEXT("attrs")))
         {
             const auto T=V->AsObject();const FName Key(*Str(T,TEXT("key")));
-            Terms.push_back({AttackFormulaAttribute(I,Key),Num(T,TEXT("base")),Num(T,TEXT("perEnhance"))});
+            Terms.push_back({AttackFormulaAttribute(I,Key,P),Num(T,TEXT("base")),Num(T,TEXT("perEnhance"))});
         }
         double Result=CoreCombatFormula::Weapon(Num(Formula,TEXT("base")),Num(Formula,TEXT("enhanceFlat")),L,Terms);
         // Keep current gunsmith part ratios while replacing the obsolete native damage baseline.
@@ -135,7 +138,8 @@ double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,doub
     if(ColdSteelInventory::IsBow(I))
     {
         Result=CoreCombatFormula::Round(Result*(1+CraftEffect(I,TEXT("damagePercent"))));
-        Result=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AdditionalWeaponDamage(I,Result);
+        const auto* P=Profile?Profile:GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+        Result=P->AdditionalWeaponDamage(I,Result);
     }
     return Result*(1+FMath::Clamp(Effect(I,TEXT("damagePercent")),0.,10.));
 }
@@ -156,12 +160,12 @@ FColdSteelEnhanceQuote UColdSteelEnhancementSystem::Quote(const FString& Id,cons
     auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();FColdSteelEnhanceQuote Q;Q.ItemId=Id;Q.ScrollId=ScrollId;Q.Revision=P->Snapshot().Generation;
     Q.Reason=TEXT("请选择可强化的装备");const auto* I=P->FindItem(Id);if(!I||!Supports(*I))return Q;
     Q.Before=*I;Q.After=*I;auto Data=Read(I->Data);if(!Data)return Q;
-    auto Cost=[&](const FString& Def,int64 Need,bool BackpackOnly=false){Q.Costs.Add({Def,ColdSteelInventory::Text(P->CreateItem(Def),TEXT("name")),Need,BackpackOnly?BackpackScrollCount(Def):P->CountMaterial(Def),BackpackOnly});};
+    auto Cost=[&](const FString& Def,int64 Need,bool BackpackOnly=false){Q.Costs.Add({Def,ColdSteelCurrency::IsCurrency(Def)?FString(TEXT("灵魂")):ColdSteelInventory::Text(P->CreateItem(Def),TEXT("name")),Need,BackpackOnly?BackpackScrollCount(Def):P->CountMaterial(Def),BackpackOnly});};
     if(ScrollId.IsEmpty())
     {
         const int32 Level=ColdSteelInventory::Number(*I,TEXT("enhanceLevel"));
         if(Level<0||Level>=MaxLevel(*I)){Q.Reason=TEXT("已达到强化上限");return Q;}
-        Cost(TEXT("enhancement_stone"),Stones);Cost(TEXT("gold"),int64(FMath::FloorToDouble(BaseGold*FMath::Pow(Growth,Level))));
+        Cost(TEXT("enhancement_stone"),Stones);Cost(ColdSteelCurrency::Definition,int64(FMath::FloorToDouble(BaseSouls*FMath::Pow(Growth,Level))));
         Data->SetNumberField(TEXT("enhanceLevel"),Level+1);
     }
     else
@@ -192,7 +196,7 @@ bool UColdSteelEnhancementSystem::Apply(const FColdSteelEnhanceQuote& Expected,F
     auto Next=P->Snapshot();auto* I=Next.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Q.ItemId;});if(!I)return false;
     // Only processing JSON changes: identity, cells, ammo, cooldown, attachments stay intact.
     I->Data=Q.After.Data;
-    for(const auto& C:Q.Costs){int64 Left=C.Need;for(int32 Place:{0,5,4}){if(C.BackpackOnly&&Place!=0&&Place!=ColdSteelInventory::ColdSteelCompartment::Place)continue;for(auto& M:Next.Items)if(M.Place==Place&&(Place!=4||M.Container.IsEmpty())&&M.Definition==C.Definition&&Left>0){const int64 Used=FMath::Min(Left,M.Count);M.Count-=Used;Left-=Used;}}if(Left){Message=TEXT("材料已变化");return false;}}
+    for(const auto& C:Q.Costs){if(ColdSteelCurrency::IsCurrency(C.Definition)){if(!ColdSteelCurrency::Debit(Next,C.Need)){Message=TEXT("灵魂不足");return false;}continue;}int64 Left=C.Need;for(int32 Place:{0,5,4}){if(C.BackpackOnly&&Place!=0&&Place!=ColdSteelInventory::ColdSteelCompartment::Place)continue;for(auto& M:Next.Items)if(M.Place==Place&&(Place!=4||M.Container.IsEmpty())&&M.Definition==C.Definition&&Left>0){const int64 Used=FMath::Min(Left,M.Count);M.Count-=Used;Left-=Used;}}if(Left){Message=TEXT("材料已变化");return false;}}
     Next.Items.RemoveAll([](const auto& V){return V.Count<=0;});
     if(!P->CommitState(Next)){Message=P->ResultMessage();return false;}Message=Q.ScrollId.IsEmpty()?TEXT("强化成功，已保存"):TEXT("附魔成功，已保存");return true;
 }

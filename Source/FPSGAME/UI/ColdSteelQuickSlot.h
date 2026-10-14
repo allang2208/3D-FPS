@@ -12,6 +12,7 @@ public:
     /** FixedSkill 非空时为只读专属槽（如快速进战的 F 键）：显示固定技能，不参与混放拖放。 */
     void Configure(class UColdSteelHUDWidget* Owner,int32 Slot,FName InFixedSkill=NAME_None);
     void Refresh();
+    void SetDisplayScale(float Scale);
 protected:
     virtual void NativeTick(const FGeometry&,float DeltaTime) override;
     virtual int32 NativePaint(const FPaintArgs&,const FGeometry&,const FSlateRect&,FSlateWindowElementList&,int32,const FWidgetStyle&,bool) const override;
@@ -46,4 +47,5 @@ private:
     UPROPERTY(Transient) TObjectPtr<class UTexture2D> Texture;
     UPROPERTY(Transient) TMap<FString,TObjectPtr<UTexture2D>> Textures;
     FString DisplayedWaterIcon;
+    float DisplayScale=0.f;
 };

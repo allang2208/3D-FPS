@@ -10,6 +10,7 @@ struct FWorldContext;
 struct FTransitLoadingView;
 class UGameViewportClient;
 class APlayerController;
+class AActor;
 class ACharacter;
 class FGameResourcePreparation;
 class SWidget;
@@ -32,6 +33,8 @@ public:
     void BeginTransition(const FString& Map, FSimpleDelegate OnCancel = FSimpleDelegate());
     void UpdatePreparation(const FText& Status, float Progress);
     void BeginDungeonPreparation();
+    /** Register generated actors after their current assembly job completes. */
+    void QueueDungeonResourceWarmup(AActor* Actor);
     void CompletePreparation();
     void FailPreparation(const FText& Reason);
     void CancelTransition();
@@ -43,7 +46,7 @@ public:
     // 启动方式菜单或加载遮罩当前是否持有玩家光标与输入模式。Pawn 的 BeginPlay 晚于
     // ShowStartupMenu，需要据此跳过"恢复第一人称默认"的抢占，否则初始界面看不见鼠标。
     bool OwnsPlayerCursor() const { return IsHoldingGameplayInput(); }
-    /** Immediate GameOnly restore. Safe to call after dungeon/hills preparation completes. */
+    /** Restore GameOnly after preparation; a pending complete-preload phase keeps input. */
     void ReleaseToGameplay();
 
 private:
@@ -65,6 +68,7 @@ private:
     double StartedAt = 0;
     double FinishedAt = 0;
     bool bMapLoading = false;
+    bool bOwnsCurrentMapLoad = false;
     bool bDestinationLoaded = false;
     bool bDungeon=false;
     bool bHills = false;
@@ -80,6 +84,11 @@ private:
     void ApplyLoadingBudget();
     void RestoreLoadingBudget();
     void FinishPreparation();
+    bool PrepareEditorNiagara();
+#if WITH_EDITOR
+    TSharedPtr<FStreamableHandle> EntryNiagaraLoad;
+    bool bEntryNiagaraCompileRequested = false;
+#endif
     void HoldPreparedPlayer();
     void ReleasePreparedPlayer();
     void RetryResources();

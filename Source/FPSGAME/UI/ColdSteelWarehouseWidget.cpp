@@ -1,4 +1,5 @@
 #include "ColdSteelWarehouseWidget.h"
+#include "ColdSteelIncineratorStorage.h"
 #include "ColdSteelWarehouseSortOption.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelHUDWidget.h"
@@ -52,7 +53,7 @@ void UColdSteelWarehouseWidget::NativeOnInitialized()
     auto* DepositMatching=Button(TEXT("存入同类"));AddAction(DepositMatching);DepositMatching->OnClicked.AddDynamic(this,&ThisClass::StoreMatching);
     DepositMatching->SetToolTipText(FText::FromString(TEXT("存入背包中仓库已有的同种物品，优先合并堆叠；武器与装备不参与。")));
     SortMenu=WidgetTree->ConstructWidget<UComboBoxString>();SortMenu->OnGenerateWidgetEvent.BindDynamic(this,&ThisClass::SortOption);
-    for(const FString Option:{TEXT("整理仓库"),TEXT("按稀有度"),TEXT("按价值"),TEXT("近战武器"),TEXT("远程武器"),TEXT("盾牌"),TEXT("防具与饰品"),TEXT("消耗品"),TEXT("强化材料"),TEXT("材料"),TEXT("贡品"),TEXT("金币"),TEXT("其他")})SortMenu->AddOption(Option);
+    for(const FString Option:{TEXT("整理仓库"),TEXT("按稀有度"),TEXT("按价值"),TEXT("近战武器"),TEXT("远程武器"),TEXT("盾牌"),TEXT("防具与饰品"),TEXT("消耗品"),TEXT("强化材料"),TEXT("材料"),TEXT("贡品"),TEXT("其他")})SortMenu->AddOption(Option);
     SortMenu->SetSelectedIndex(0);AddAction(SortMenu);SortMenu->OnSelectionChanged.AddDynamic(this,&ThisClass::SortChanged);
     Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetAllowOverscroll(false);Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Never);Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     Board=CreateWidget<UColdSteelInventoryWidget>(GetOwningPlayer());Board->ConfigureWarehouse(HUD);Scroll->AddChild(Board);
@@ -60,11 +61,17 @@ void UColdSteelWarehouseWidget::NativeOnInitialized()
     Previous=Button(TEXT("上一页"));Footer->AddChildToHorizontalBox(Previous);Previous->OnClicked.AddDynamic(this,&ThisClass::PreviousPage);
     Page=Text(TEXT(""),12,true);Page->SetJustification(ETextJustify::Center);auto* PageSlot=Footer->AddChildToHorizontalBox(Page);PageSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));PageSlot->SetVerticalAlignment(VAlign_Center);
     Next=Button(TEXT("下一页"));Footer->AddChildToHorizontalBox(Next);Next->OnClicked.AddDynamic(this,&ThisClass::NextPage);
+    IncineratorRecovery=Button(TEXT("取回焚化暂存"));
+    IncineratorRecovery->SetToolTipText(FText::FromString(TEXT("取回本档案各焚化炉的暂存物品，包括已拆除或尚未载入的炉子；放不下的物品原处保留。")));
+    IncineratorRecovery->OnClicked.AddDynamic(this,&ThisClass::RetrieveIncinerator);
+    IncineratorRecoverySize=WidgetTree->ConstructWidget<USizeBox>();IncineratorRecoverySize->SetContent(IncineratorRecovery);
+    Stack->AddChildToVerticalBox(IncineratorRecoverySize)->SetPadding(FMargin(12/Scale,0,12/Scale,8/Scale));
     UpdateScale();Refresh();
 }
 void UColdSteelWarehouseWidget::UpdateScale()
 {
     Scale=ColdSteelUI::PixelScale(this);Header->SetPadding(FMargin(18/Scale,12/Scale));HeaderSize->SetHeightOverride(36/Scale);
+    if(IncineratorRecoverySize)IncineratorRecoverySize->SetHeightOverride(36/Scale);
     ActionSize->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);ActionSlot->SetPadding(FMargin(10/Scale,8/Scale));FooterSlot->SetPadding(FMargin(12/Scale,10/Scale));Scroll->SetScrollbarThickness(FVector2D(6/Scale));
     for(auto Weak:ActionSlots)if(auto* ActionButtonSlot=Weak.Get())ActionButtonSlot->SetPadding(FMargin(ColdSteelUI::ActionGap*.5f/Scale,0));
     for(const auto& L:Labels)if(auto* T=L.Widget.Get())T->SetFont(L.Numeric?GunsmithUI::NumberFont(L.Pixels/Scale,L.Medium):GunsmithUI::TextFont(L.Pixels/Scale,L.Medium));
@@ -85,7 +92,9 @@ void UColdSteelWarehouseWidget::ResetPage(){Model->WarehousePage=0;Board->ResetS
 void UColdSteelWarehouseWidget::SetTitle(const FString& Caption){if(Title&&Title->GetText().ToString()!=Caption)Title->SetText(FText::FromString(Caption));}
 void UColdSteelWarehouseWidget::Refresh()
 {
-    if(!Model||!Capacity)return;int32 Used=0,Count=0;for(const auto& I:Model->Items())if(Model->InOpenStorage(I)){Used+=I.Width*I.Height;++Count;}
+    if(!Model||!Capacity)return;
+    if(IncineratorRecovery)IncineratorRecovery->SetIsEnabled(ColdSteelIncineratorStorage::HasInputs(Model->Snapshot()));
+    int32 Used=0,Count=0;for(const auto& I:Model->Items())if(Model->InOpenStorage(I)){Used+=I.Width*I.Height;++Count;}
     // 容量与页数按当前储物会话容器（主仓库=全部页；储物箱/宝箱=自己登记的页数），不再用主仓库口径。
     const int32 Pages=FMath::Max(1,Model->OpenStorageCapacity()/ColdSteelWarehouse::CellsPerPage);Model->WarehousePage=FMath::Clamp(Model->WarehousePage,0,Pages-1);
     if(ShownPage!=Model->WarehousePage){ShownPage=Model->WarehousePage;if(Board)Board->ResetStoragePage();Scroll->ScrollToStart();}
@@ -108,6 +117,7 @@ FReply UColdSteelWarehouseWidget::NativeOnMouseWheel(const FGeometry& G,const FP
 void UColdSteelWarehouseWidget::SetLootSession(bool bLoot)
 {
     bLootSession=bLoot;
+    if(IncineratorRecoverySize)IncineratorRecoverySize->SetVisibility(bLoot?ESlateVisibility::Collapsed:ESlateVisibility::Visible);
     if(ActionSize)ActionSize->SetVisibility(bLoot?ESlateVisibility::Collapsed:ESlateVisibility::Visible);
     if(auto* T=CloseButton?Cast<UTextBlock>(CloseButton->GetContent()):nullptr)T->SetText(FText::FromString(bLoot?TEXT("×"):TEXT("收起仓库")));
 }
@@ -119,3 +129,5 @@ void UColdSteelWarehouseWidget::StoreMatching(){Model->StoreMatchingToWarehouse(
 void UColdSteelWarehouseWidget::PreviousPage(){FSlateApplication::Get().CancelDragDrop();Model->WarehousePage=FMath::Max(0,Model->WarehousePage-1);Board->ResetStoragePage();Scroll->ScrollToStart();Refresh();}
 void UColdSteelWarehouseWidget::NextPage(){FSlateApplication::Get().CancelDragDrop();Model->WarehousePage=FMath::Min(Model->OpenStorageCapacity()/ColdSteelWarehouse::CellsPerPage-1,Model->WarehousePage+1);Board->ResetStoragePage();Scroll->ScrollToStart();Refresh();}
 void UColdSteelWarehouseWidget::SortChanged(FString Selection,ESelectInfo::Type Type){const int32 N=SortMenu->FindOptionIndex(Selection);if(N<1)return;Model->SortWarehouse(N==1?TEXT("rarity"):N==2?TEXT("price"):TEXT("category"),N-3);SortMenu->SetSelectedIndex(0);Board->InteractionMessage=Model->ResultMessage();Scroll->ScrollToStart();Refresh();}
+
+void UColdSteelWarehouseWidget::RetrieveIncinerator(){FString Reason;ColdSteelIncineratorStorage::Retrieve(*Model,FString(),Reason);Model->PostNotice(TEXT("焚化暂存取回"),Reason);Refresh();}

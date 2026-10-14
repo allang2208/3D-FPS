@@ -87,6 +87,9 @@ void UDevelopmentPanelWidget::BuildPerformancePage(UVerticalBox* Page)
     PerformanceExportButton = CreatePanelButton(TEXT("导出 JSON"), TEXT("DevelopmentPerformanceExport"));
     PerformanceExportButton->OnClicked.AddDynamic(this, &ThisClass::PerformanceExportClicked);
     AddControl(PerformanceExportButton, 100.f);
+    PerformanceGpuInventoryButton=CreatePanelButton(TEXT("GPU 资源详采：关"),TEXT("DevelopmentGpuInventory"));
+    PerformanceGpuInventoryButton->OnClicked.AddDynamic(this,&ThisClass::PerformanceGpuInventoryClicked);
+    AddControl(PerformanceGpuInventoryButton,184.f);
 
     PerformanceInterval = WidgetTree->ConstructWidget<UComboBoxString>();
     for (const TCHAR* Option : {TEXT("0.25 秒"), TEXT("0.5 秒"), TEXT("1 秒"), TEXT("2 秒")})
@@ -104,6 +107,7 @@ void UDevelopmentPanelWidget::BuildPerformancePage(UVerticalBox* Page)
     AddControl(PerformanceRowCount, 88.f);
     PerformanceLiveState = Body(TEXT("等待首个引擎帧；关闭面板后轻量采集继续。"));
     PerformanceMessage = Body(TEXT("重新开始/清空采样会清除长帧历史；图标失败状态保留。导出保存当前显示快照。"));
+    Body(TEXT("刷怪会自动保留前 3 秒、后 20 秒记录；无需在卡顿瞬间导出。GPU 资源详采为可选项，开启后按事件限频采集，额外枚举耗时单独记录。"));
 
     Section(TEXT("帧预算 · 引擎帧边界墙钟"));
     PerformanceBudget = CreatePanelText(TEXT("采样中…"), 14, ColdSteelUI::TextPrimary);
@@ -152,7 +156,7 @@ void UDevelopmentPanelWidget::UpdatePerformanceLayout(float Scale)
             Box->SetHeightOverride(ColdSteelUI::ActionHeight / Scale);
         }
     for (auto* Button : {PerformancePauseButton.Get(), PerformanceRecordingButton.Get(),
-        PerformanceResetButton.Get(), PerformanceExportButton.Get()})
+        PerformanceResetButton.Get(), PerformanceExportButton.Get(), PerformanceGpuInventoryButton.Get()})
     {
         if (!Button) continue;
         Button->SetStyle(ColdSteelUI::ButtonStyle(1.f / Scale));
@@ -169,6 +173,17 @@ void UDevelopmentPanelWidget::UpdatePerformanceLayout(float Scale)
 }
 
 void UDevelopmentPanelWidget::PerformanceClicked() { SetPage(3); }
+
+void UDevelopmentPanelWidget::PerformanceGpuInventoryClicked()
+{
+    const bool Enabled=!UFPSPerformanceMetricsSubsystem::IsGpuInventoryEnabled();
+    UFPSPerformanceMetricsSubsystem::SetGpuInventoryEnabled(Enabled);
+    if(Enabled)UFPSPerformanceMetricsSubsystem::RequestGpuResourceInventory(this,TEXT("F6 inventory enabled / baseline"));
+    ButtonText(PerformanceGpuInventoryButton,Enabled?TEXT("GPU 资源详采：开"):TEXT("GPU 资源详采：关"));
+    if(PerformanceMessage)SetPerformanceText(PerformanceMessage,FText::FromString(Enabled
+        ?TEXT("已开启事件资源详采；采集耗时会写入 JSON。正常进入地牢、刷怪后再导出即可。")
+        :TEXT("已关闭新的 GPU 明细请求；已完成记录保留，普通刷怪记录继续。")));
+}
 
 void UDevelopmentPanelWidget::SetPerformancePaused(bool bPaused)
 {
@@ -266,6 +281,7 @@ void UDevelopmentPanelWidget::RefreshPerformance(float)
     if (Now >= PerformanceNextStatus)
     {
         PerformanceNextStatus = Now + .5;
+        ButtonText(PerformanceGpuInventoryButton,Metrics->IsGpuInventoryEnabled()?TEXT("GPU 资源详采：开"):TEXT("GPU 资源详采：关"));
         ButtonText(PerformanceRecordingButton, Metrics->IsRecording() ? TEXT("停止采集") : TEXT("开始新采集"));
         if (PerformanceLiveState)
         {

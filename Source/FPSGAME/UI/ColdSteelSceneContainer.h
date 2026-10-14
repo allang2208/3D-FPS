@@ -33,6 +33,11 @@ public:
     void SetViewHighlighted(bool bHighlighted);
     FString GetPromptLabel() const;
     bool IsOpening() const { return bOpening; }
+    FString StorageKey() const;
+    const FString& LegacyStorageKey() const {return RuntimeStorageKey;}
+    bool IsWithinPanelReach(const APlayerController* Controller) const;
+    void OpenSharedVisual(bool bInstant=false);
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Container") TObjectPtr<UStaticMeshComponent> Body;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Container") TObjectPtr<USceneComponent> DoorHinge;
@@ -43,12 +48,13 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Container", meta=(ClampMin="1",ClampMax="8")) int32 StoragePages=1;
     UPROPERTY(EditAnywhere, Category="Container", meta=(ClampMin="0.1",ClampMax="3")) float OpeningDuration=.55f;
     UPROPERTY(EditAnywhere, Category="Container") float OpenedYaw=100.f;
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Transient, Category="Container") bool bSearched=false;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Transient, ReplicatedUsing=OnRep_Searched, Category="Container") bool bSearched=false;
 
 private:
     void ApplyOutline();
     void OpenLootPanel(APlayerController* Controller);
-    bool IsWithinPanelReach(const APlayerController* Controller) const;
+    UFUNCTION() void OnRep_Searched();
+    bool bVisualInitialized=false;
     bool bOpening=false;
     float OpeningElapsed=0.f;
     FRotator ClosedDoorRotation=FRotator::ZeroRotator;

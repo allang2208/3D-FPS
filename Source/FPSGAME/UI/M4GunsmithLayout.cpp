@@ -1,5 +1,6 @@
 #include "../Weapons/GunsmithModificationTier.h"
 #include "M4GunsmithWidget.h"
+#include "../Weapons/TacticalDeviceVariants.h"
 #include "SM4PreviewSurface.h"
 #include "SMeleePartIcon.h"
 #include "SAttachmentSelectionPulse.h"
@@ -34,7 +35,7 @@
 namespace
 {
 TSharedRef<STextBlock> Label(const FString& Text,int32 Size=14,FLinearColor Color=GunsmithUI::Text,bool Medium=false)
-{return SNew(STextBlock).Text(FText::FromString(Text)).Font(GunsmithUI::TextFont(Size,Medium)).ColorAndOpacity(Color).AutoWrapText(true);}
+{return SNew(STextBlock).Text(FText::FromString(Text)).Font(GunsmithUI::TextFont(Size,Medium)).ColorAndOpacity(Color).AutoWrapText(false).OverflowPolicy(ETextOverflowPolicy::Ellipsis).ToolTipText(FText::FromString(Text));}
 }
 
 TSharedRef<SWidget> UM4GunsmithWidget::GlassPanel(TSharedRef<SWidget> Content,FMargin PanelPadding)
@@ -58,16 +59,17 @@ void UM4GunsmithWidget::LoadCategoryIcons()
     for(const auto& Key:IconKeys)
     {
         if(Key!=TEXT("enhance")&&!IsCategoryAvailable(Key))continue;
+        const FString IconSlot=TacticalDeviceVariants::IconSlot(Key);
         FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
         const FString FramedDirectory=IconDirectory/(IsBowWorkbench()?TEXT("FramedBows"):TEXT("FramedFirearms"));
-        const FString SharedFramedPath=FramedDirectory/(TEXT("category_")+Key+TEXT(".png"));
+        const FString SharedFramedPath=FramedDirectory/(TEXT("category_")+IconSlot+TEXT(".png"));
         const bool SharedFirearmCategory=!IsStandaloneWorkbench()&&FPaths::FileExists(SharedFramedPath);
-        if(SharedFirearmCategory||((!IsStandaloneWorkbench()||IsBowWorkbench())&&(FPaths::FileExists(FramedDirectory/(Model()->Definition()+TEXT("_category_")+Key+TEXT(".png")))
-            ||(!FPaths::FileExists(IconDirectory/(Model()->Definition()+TEXT("_category_")+Key+TEXT(".png")))
+        if(SharedFirearmCategory||((!IsStandaloneWorkbench()||IsBowWorkbench())&&(FPaths::FileExists(FramedDirectory/(Model()->Definition()+TEXT("_category_")+IconSlot+TEXT(".png")))
+            ||(!FPaths::FileExists(IconDirectory/(Model()->Definition()+TEXT("_category_")+IconSlot+TEXT(".png")))
                 &&FPaths::FileExists(SharedFramedPath)))))IconDirectory=FramedDirectory;
-        const FString WeaponIconPath=IconDirectory/(Model()->Definition()+TEXT("_category_")+Key+TEXT(".png"));
+        const FString WeaponIconPath=IconDirectory/(Model()->Definition()+TEXT("_category_")+IconSlot+TEXT(".png"));
         // 近战新改造件允许缺武器专属图：回退通用分类图/SMeleePartIcon，不再整卡隐藏。
-        const FString IconPath=SharedFirearmCategory?SharedFramedPath:FPaths::FileExists(WeaponIconPath)?WeaponIconPath:IconDirectory/(TEXT("category_")+Key+TEXT(".png"));
+        const FString IconPath=SharedFirearmCategory?SharedFramedPath:FPaths::FileExists(WeaponIconPath)?WeaponIconPath:IconDirectory/(TEXT("category_")+IconSlot+TEXT(".png"));
         if(auto* Texture=FImageUtils::ImportFileAsTexture2D(IconPath))
         {
             CategoryTextures.Add(Texture);
@@ -76,8 +78,8 @@ void UM4GunsmithWidget::LoadCategoryIcons()
             CategoryBrushes.Add(Key,Brush);
             continue;
         }
-        const FString Asset=TEXT("/Game/UI/GunsmithWorkbench/ColdGlass/T_Category_")+Key;
-        auto* Texture=LoadObject<UTexture2D>(nullptr,*(Asset+TEXT(".T_Category_")+Key));
+        const FString Asset=TEXT("/Game/UI/GunsmithWorkbench/ColdGlass/T_Category_")+IconSlot;
+        auto* Texture=LoadObject<UTexture2D>(nullptr,*(Asset+TEXT(".T_Category_")+IconSlot));
         if(!Texture)continue;
         CategoryTextures.Add(Texture);
         auto Brush=MakeShared<FSlateBrush>();Brush->ImageSize=FVector2D(48,48);Brush->DrawAs=ESlateBrushDrawType::Image;
@@ -235,7 +237,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
         +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
         [SNew(STextBlock).Text_Lambda([this](){return FText::FromString(FString::Printf(TEXT("%d 项 · 滚轮浏览"),OptionsCount()));}).Font(GunsmithUI::TextFont(12)).ColorAndOpacity(Muted)];
     auto Options=SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight().Padding(0,0,0,10)[OptionsHeader]
-        +SVerticalBox::Slot().AutoHeight()[SNew(SBox).HeightOverride(158)
+        +SVerticalBox::Slot().AutoHeight()[SNew(SBox).HeightOverride(186)
             [SAssignNew(OptionScroll,SScrollBox).Orientation(Orient_Horizontal).ScrollBarThickness(FVector2D(6,6)).ScrollBarAlwaysVisible(true)
                 .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::Always).WheelScrollMultiplier(2.f).AnimateWheelScrolling(false)]];
     CenterContent=SNew(SVerticalBox)
@@ -344,10 +346,11 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
     // Retained RSH models keep their existing pictograms; only catalog identity changes.
     const FString IconId=Weapon==TEXT("ue_rsh12")&&SlotKey==TEXT("optic")?RSH12OpticAssets::SourceVariant(Id):Id;
-    const FString WeaponIconKey=Model()->Definition()+TEXT("_")+SlotKey+TEXT("_")+IconId;
+    const FString IconSlot=TacticalDeviceVariants::IconSlot(SlotKey);
+    const FString WeaponIconKey=Model()->Definition()+TEXT("_")+IconSlot+TEXT("_")+IconId;
     // The shared fast-trigger pictogram also represents Pit Viper's numeric option.
     const FString CommonIconKey=SlotKey==TEXT("trigger")&&Id==TEXT("pit_viper_lightweight_fast")
-        ?TEXT("trigger_m1911_lightweight_fast"):SlotKey+TEXT("_")+IconId;
+        ?TEXT("trigger_m1911_lightweight_fast"):IconSlot+TEXT("_")+IconId;
     const FString FramedDirectory=IconDirectory/(IsBowWorkbench()?TEXT("FramedBows"):TEXT("FramedFirearms"));
     const bool SharedFirearmOption=!IsStandaloneWorkbench()&&Id!=TEXT("false")
         &&FPaths::FileExists(FramedDirectory/(CommonIconKey+TEXT(".png")));

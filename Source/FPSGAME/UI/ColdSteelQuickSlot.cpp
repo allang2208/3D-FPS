@@ -59,7 +59,7 @@ void UColdSteelQuickSlot::Configure(UColdSteelHUDWidget* Owner,int32 SlotIndex,F
     auto* I=Overlay->AddChildToOverlay(IconFrame);I->SetHorizontalAlignment(HAlign_Center);I->SetVerticalAlignment(VAlign_Center);
     auto Text=[&](const FString& Value)
     {
-        auto* T=WidgetTree->ConstructWidget<UTextBlock>();T->SetText(FText::FromString(Value));
+        auto* T=WidgetTree->ConstructWidget<UTextBlock>();T->SetText(FText::FromString(Value));T->SetAutoWrapText(false);
         T->SetFont(ColdSteelUI::TextFont(9/Scale));T->SetColorAndOpacity(ColdSteelUI::TextPrimary);
         T->SetShadowOffset(FVector2D(0,1/Scale));T->SetShadowColorAndOpacity(FLinearColor(0,0,0,.86f));
         T->SetVisibility(ESlateVisibility::HitTestInvisible);return T;
@@ -76,15 +76,32 @@ void UColdSteelQuickSlot::Configure(UColdSteelHUDWidget* Owner,int32 SlotIndex,F
     auto* K=Overlay->AddChildToOverlay(Key);K->SetHorizontalAlignment(HAlign_Right);K->SetVerticalAlignment(VAlign_Bottom);K->SetPadding(FMargin(0,0,4/Scale,2/Scale));
     Count=Text(TEXT(""));Count->SetFont(ColdSteelUI::NumberFont(9/Scale,true));auto* C=Overlay->AddChildToOverlay(Count);
     C->SetHorizontalAlignment(HAlign_Center);C->SetVerticalAlignment(VAlign_Top);C->SetPadding(FMargin(0,1/Scale,0,0));
-    Refresh();
+    SetDisplayScale(Scale);Refresh();
+}
+
+void UColdSteelQuickSlot::SetDisplayScale(float Scale)
+{
+    Scale=FMath::Max(.01f,Scale);
+    if(!IconFrame||FMath::IsNearlyEqual(DisplayScale,Scale,.0001f))return;
+    DisplayScale=Scale;
+    const float Pixels=Displayed.Skill.IsNone()?40.f:48.f;
+    IconFrame->SetWidthOverride(Pixels/Scale);IconFrame->SetHeightOverride(Pixels/Scale);
+    FallbackIcon->SetFont(ColdSteelUI::TextFont(15/Scale));
+    auto StateFont=State->GetFont();StateFont.Size=9/Scale;State->SetFont(StateFont);
+    Key->SetFont(ColdSteelUI::NumberFont(9/Scale));Count->SetFont(ColdSteelUI::NumberFont(9/Scale,true));
+    for(auto* Label:{FallbackIcon.Get(),State.Get(),Key.Get(),Count.Get()})Label->SetShadowOffset(FVector2D(0,1/Scale));
+    CastChecked<UOverlaySlot>(Key->Slot)->SetPadding(FMargin(0,0,4/Scale,2/Scale));
+    CastChecked<UOverlaySlot>(Count->Slot)->SetPadding(FMargin(0,1/Scale,0,0));
+    ReadyFlash->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::White,6/Scale,FLinearColor::Transparent,0));
+    CooldownMask->SetCornerRadius(7/Scale);
 }
 
 void UColdSteelQuickSlot::NativeTick(const FGeometry& Geometry,float DeltaTime)
 {
     Super::NativeTick(Geometry,DeltaTime);
     const auto* PC=GetOwningPlayer();
-    const FString KeyLabel=FixedSkill.IsNone()?ColdSteelQuickBar::KeyLabel(Index):FixedKeyLabel;
-    const bool Gold=!Displayed.IsEmpty()&&(IsHovered()||bGoldPrepared||(PC&&!KeyLabel.IsEmpty()&&PC->IsInputKeyDown(FKey(FName(*KeyLabel)))));
+    const FKey InputKey=FixedSkill.IsNone()?ColdSteelQuickBar::Key(Index):FixedSkill==TEXT("runeBlades")?EKeys::G:EKeys::F;
+    const bool Gold=!Displayed.IsEmpty()&&(IsHovered()||bGoldPrepared||(PC&&PC->IsInputKeyDown(InputKey)));
     if(Gold!=bGoldHighlighted){bGoldHighlighted=Gold;if(const auto Widget=GetCachedWidget())Widget->Invalidate(EInvalidateWidgetReason::Paint);}
     BlinkElapsed=FMath::Fmod(BlinkElapsed+DeltaTime,ColdSteelQuickSlotFX::KeyPeriod);
     if(Key)Key->SetRenderOpacity(ColdSteelQuickSlotFX::KeyOpacity(BlinkElapsed));
@@ -149,7 +166,7 @@ void UColdSteelQuickSlot::NativeTick(const FGeometry& Geometry,float DeltaTime)
     if(State)
     {
         State->SetRenderOpacity(Notice?NoticeAlpha:1.f);
-        State->SetRenderTranslation(FVector2D(0,Notice?-NoticeRise:0));
+        State->SetRenderTranslation(FVector2D(0,Notice?-NoticeRise/FMath::Max(.01f,DisplayScale):0));
     }
 }
 
@@ -199,7 +216,7 @@ void UColdSteelQuickSlot::Refresh()
                 Count->SetText(FText::FromString(FString::Printf(TEXT("%.0fs"),FMath::CeilToFloat(Ability->ArmorRemaining()))));
         }
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice(Binding.Skill)))Remaining=Model->FireMagicCooldown(Binding.Skill);
-        Dim=!Model->CanSpendMana(Model->FireMagicStats(Binding.Skill).ManaCost);
+        Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill));
         if(Model->FireMagicDefinition(Binding.Skill).FireMagic.bRequiresStaff&&!Model->HasEquippedStaff())
         {Dim=true;Remaining=0;Message=TEXT("需要法杖");}
     }
@@ -209,21 +226,21 @@ void UColdSteelQuickSlot::Refresh()
         if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();bGoldPrepared=Ability->IsPrepared();}
         // The refusal notice answers the press itself, so it outranks the countdown.
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->FireballCooldown();
-        Dim=!Model->CanSpendMana(Model->FireballStats().ManaCost)&&(!Ability||(!Ability->IsPrepared()&&!Ability->IsFlying()));
+        Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill))&&(!Ability||(!Ability->IsPrepared()&&!Ability->IsFlying()));
     }
     else if(Binding.Skill==TEXT("blizzard"))
     {
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSBlizzardComponent>():nullptr;
         if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();}
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->BlizzardCooldown();
-        Dim=!Model->CanSpendMana(Model->BlizzardStats().ManaCost)&&(!Ability||!Ability->HasUnreleasedCast());
+        Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill))&&(!Ability||!Ability->HasUnreleasedCast());
     }
     else if(Binding.Skill==TEXT("iceWall"))
     {
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSIceWallComponent>():nullptr;
         if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();bGoldPrepared=Ability->IsPrepared();}
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->IceWallCooldown();
-        Dim=!Model->CanSpendMana(Model->IceWallStats().ManaCost)&&(!Ability||!Ability->IsPrepared());
+        Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill))&&(!Ability||!Ability->IsPrepared());
         if(Model->IceWallDefinition().IceWall.bRequiresStaff&&!Model->HasEquippedStaff())
         {Dim=true;bGoldPrepared=false;Remaining=0;Message=TEXT("需要法杖");}
     }
@@ -233,7 +250,7 @@ void UColdSteelQuickSlot::Refresh()
         if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();if(Ability->ActiveCount()>0)Count->SetText(FText::AsNumber(Ability->ActiveCount()));}
         // The refusal notice answers the press itself, so it outranks the countdown.
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->IceSpikeCooldown();
-        Dim=!Model->CanSpendMana(Model->IceSpikeStats().ManaCost)&&(!Ability||Ability->ActiveCount()==0);
+        Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill))&&(!Ability||Ability->ActiveCount()==0);
     }
     else if(ElectricMagic::IsSkill(Binding.Skill))
     {
@@ -246,7 +263,7 @@ void UColdSteelQuickSlot::Refresh()
                 Count->SetText(FText::FromString(FString::Printf(TEXT("%.0fs"),FMath::CeilToFloat(Ability->DomainRemaining()))));
         }
         if(Fraction>0&&!bGoldPrepared&&!(Ability&&Ability->IsHandOccupiedNotice(Binding.Skill)))Remaining=Model->ElectricMagicCooldown(Binding.Skill);
-        Dim=!Model->CanSpendMana(Model->ElectricMagicStats(Binding.Skill).Hit.ManaCost)&&!bGoldPrepared;
+        Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill))&&!bGoldPrepared;
         if(Model->ElectricMagicDefinition(Binding.Skill).ElectricMagic.bRequiresStaff&&!Model->HasEquippedStaff())
         {Dim=true;bGoldPrepared=false;Remaining=0;Message=TEXT("需要法杖");}
     }
@@ -255,14 +272,14 @@ void UColdSteelQuickSlot::Refresh()
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSLightningComponent>():nullptr;
         if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();}
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->LightningCooldown();
-        Dim=!Model->CanSpendMana(Model->LightningStats().ManaCost);
+        Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill));
     }
     else if(Binding.Skill==TEXT("holyLight"))
     {
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSHolyLightComponent>():nullptr;
         if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();}
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->HolyLightCooldown();
-        Dim=!Model->CanSpendMana(Model->HolyLightStats().ManaCost);
+        Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill));
     }
     else if(Binding.Skill==TEXT("swordUppercut"))
     {

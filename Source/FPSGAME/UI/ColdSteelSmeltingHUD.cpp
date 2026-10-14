@@ -3,6 +3,7 @@
 #include "ColdSteelUIStyle.h"
 #include "../Building/VoxelBuildPrefabActor.h"
 #include "../Building/VoxelBuildWorld.h"
+#include "../Building/ColdSteelCampfire.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
@@ -23,21 +24,28 @@ void UColdSteelHUDWidget::BuildSmelting(UCanvasPanel* Root)
 
 void UColdSteelHUDWidget::OpenSmelting(AActor* Furnace)
 {
+    auto* Campfire=Cast<AColdSteelCampfire>(Furnace);
     auto* Piece=Cast<AVoxelBuildPrefabActor>(Furnace);
+    if(!Campfire&&Piece)Campfire=Cast<AColdSteelCampfire>(Piece->Logic());
+    if(Cast<AColdSteelCampfire>(Furnace))Piece=Cast<AVoxelBuildPrefabActor>(Furnace->GetAttachParentActor());
     auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
-    if(!Piece||!World||!World->HasPrefabAt(Piece->AnchorCell()))return;
-    FIntVector FurnaceCell=Piece->AnchorCell();
-    if(Piece->PrefabId()==VoxelCastingStationId&&!World->FindCastingFurnace(FurnaceCell,FurnaceCell))return;
+    if(Campfire){if(!Campfire->CanOperate(GetOwningPlayer()))return;}
+    else if(!Piece||!World||!World->HasPrefabAt(Piece->AnchorCell()))return;
+    CloseShop();
+    FIntVector FurnaceCell=Piece?Piece->AnchorCell():FIntVector::ZeroValue;
+    if(!Campfire&&Piece->PrefabId()==VoxelCastingStationId&&!World->FindCastingFurnace(FurnaceCell,FurnaceCell))return;
     // 高炉 E＝背包＋面板一起开（2026-09-23 用户澄清）；但打开背包本身永远不带出面板——
     // 面板只在 bSmeltingOpen 时显示，而它只能由这里的 E 交互置真。
     if(bWorkbenchOpen)HideWorkbenchInstantly();   // 与工作台制作面板同贴位互斥：瞬收，避免两层叠画
     if(bForgingOpen||bForgeRiding)HideForgingInstantly();
     if(!bInventoryOpen){SetInventoryTab(false);SetInventoryOpen(true);}
     SmeltingWorld=World;SmeltingCell=FurnaceCell;
+    SmeltingCampfire=Campfire;
     bSmeltingOpen=true;bSmeltRiding=false;   // 弹出相位：抽屉到位后面板从其左缘滑出
     if(SmeltingWidget)
     {
-        SmeltingWidget->SetFurnace(World,SmeltingCell);
+        if(Campfire)SmeltingWidget->SetCampfire(Campfire);
+        else SmeltingWidget->SetFurnace(World,SmeltingCell);
         // 可见性与滑动进度统一由 NativeTick 的 SmeltMotion 驱动（与背包抽屉同动画，2026-09-24）。
         SmeltingWidget->SetKeyboardFocus();
     }
@@ -48,6 +56,7 @@ void UColdSteelHUDWidget::CloseSmelting()
     if(!bSmeltingOpen)return;
     bSmeltingOpen=false;
     SmeltingWorld.Reset();
+    SmeltingCampfire.Reset();
     // 关闭＝冶炼栏＋背包一个整体向右缩回（2026-09-24 用户定稿）：立即关抽屉，
     // 面板在 Tick 里与抽屉同一位移曲线刚体骑乘（抽屉行程加长面板宽）。
     if(bInventoryOpen){bSmeltRiding=true;SetInventoryOpen(false);}
@@ -63,6 +72,7 @@ void UColdSteelHUDWidget::HideSmeltingInstantly()
     bSmeltRiding=false;
     SmeltMotion=0.f;
     SmeltingWorld.Reset();
+    SmeltingCampfire.Reset();
     if(SmeltingWidget)
     {
         SmeltingWidget->SetVisibility(ESlateVisibility::Collapsed);

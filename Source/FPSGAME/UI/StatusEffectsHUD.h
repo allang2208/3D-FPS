@@ -12,17 +12,29 @@ class FPSGAME_API UStatusEffectTile : public UUserWidget
  GENERATED_BODY()
 public:
  void Update(const FStatusEffectView& InView);FStatusEffectView View;
+ void TickCountdown(double Now);
  TWeakObjectPtr<UStatusEffectsHUD> HUD;
 protected:
  virtual void NativeOnInitialized() override;
+ virtual int32 NativePaint(const FPaintArgs&,const FGeometry&,const FSlateRect&,FSlateWindowElementList&,int32,const FWidgetStyle&,bool) const override;
  virtual void NativeOnMouseEnter(const FGeometry& Geometry,const FPointerEvent& Event) override;
  virtual void NativeOnMouseLeave(const FPointerEvent& Event) override;
 private:
  UPROPERTY(Transient) TObjectPtr<UBorder> Surface;
  UPROPERTY(Transient) TObjectPtr<UTextBlock> Icon;
+ UPROPERTY(Transient) TObjectPtr<UTextBlock> NameText;
+ UPROPERTY(Transient) TObjectPtr<UBorder> StackBadge;
  UPROPERTY(Transient) TObjectPtr<UTextBlock> StackText;
  UPROPERTY(Transient) TObjectPtr<UTextBlock> TimeText;
- UPROPERTY(Transient) TObjectPtr<UImage> Progress;
+ bool IsTimed() const;
+ float RemainingAt(double Now) const;
+ float ProgressAt(double Now) const;
+ void RefreshAppearance();
+ double SampledAt=0,RefillStartedAt=0,LastPaintTime=-1;
+ float RefillFrom=0;
+ bool bHasSnapshot=false,bRefilling=false;
+ int32 DisplaySecond=INDEX_NONE;
+ bool bExpiryWarning=false;
  bool Hover=false;
 };
 
@@ -33,6 +45,7 @@ class FPSGAME_API UStatusEffectsHUD : public UUserWidget
 public:
  void BindPawn(APawn* Pawn);void Refresh();void ShowTip(UStatusEffectTile* Tile);void HideTip();
  int32 VisibleEffectCount() const {return Tiles.Num();}
+ float OccupiedBottomPixels() const;
  bool IsTipVisible() const;
  FName TooltipType() const;
  FVector2D TooltipPosition() const;
@@ -51,9 +64,16 @@ private:
  UPROPERTY(Transient) TObjectPtr<UTextBlock> TipDescription;
  UPROPERTY(Transient) TObjectPtr<UTextBlock> TipStacks;
  UPROPERTY(Transient) TObjectPtr<UTextBlock> TipTime;
+ UPROPERTY(Transient) TObjectPtr<class USizeBox> TipSize;
+ UPROPERTY(Transient) TObjectPtr<UScrollBox> TipScroll;
  UPROPERTY(Transient) TArray<TObjectPtr<UStatusEffectTile>> Tiles;
  TWeakObjectPtr<UStatusEffectsComponent> Source;TWeakObjectPtr<UStatusEffectTile> HoverTile;
  FDelegateHandle Changed;float Clock=0;
+ void UpdateLayout();
+ void PositionTip();
+ FVector2D LayoutViewport=FVector2D::ZeroVector;
+ int32 LayoutEffectCount=INDEX_NONE;
+ float TipLeaveTime=0;
 };
 
 /** Owns one passive HUD per game world and rebinds after possession/respawn. */

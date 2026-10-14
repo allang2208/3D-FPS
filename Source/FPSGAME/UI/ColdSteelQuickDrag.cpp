@@ -47,11 +47,12 @@ int32 UColdSteelHUDWidget::QuickBarDropIndex(FVector2D Position) const
 {for(int32 I=0;I<QuickSlotSurfaces.Num();++I)if(QuickSlotSurfaces[I]->GetCachedGeometry().IsUnderLocation(Position))return I;return INDEX_NONE;}
 void UColdSteelHUDWidget::HighlightQuickBar(int32 Index,bool Valid)
 {
+    const float Scale=ColdSteelUI::PixelScale(this);
     for(int32 I=0;I<QuickSlotSurfaces.Num();++I)
     {
         const bool Hover=I==Index;
-        QuickSlotSurfaces[I]->SetBrush(ColdSteelUI::RoundedBrush(Hover?ColdSteelUI::ButtonHover:ColdSteelUI::Content,7.f,
-            Hover?(Valid?ColdSteelUI::Success:ColdSteelUI::Danger):ColdSteelUI::Border,Hover?2.f:1.f));
+        QuickSlotSurfaces[I]->SetBrush(ColdSteelUI::RoundedBrush(Hover?ColdSteelUI::ButtonHover:ColdSteelUI::Content,7.f/Scale,
+            Hover?(Valid?ColdSteelUI::Success:ColdSteelUI::Danger):ColdSteelUI::Border,(Hover?2.f:1.f)/Scale));
     }
 }
 void UColdSteelHUDWidget::UpdateQuickDrag(UColdSteelQuickDrag* Drag,FVector2D Position)

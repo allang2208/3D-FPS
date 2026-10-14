@@ -16,7 +16,7 @@
 
 namespace {
 TSharedRef<STextBlock> Text(const FString& S,int32 Size,FLinearColor Color,bool Number=false)
-{return SNew(STextBlock).Text(FText::FromString(S)).Font(Number?GunsmithUI::NumberFont(Size):GunsmithUI::TextFont(Size)).ColorAndOpacity(Color).AutoWrapText(true).Justification(Number?ETextJustify::Right:ETextJustify::Left);}
+{return SNew(STextBlock).Text(FText::FromString(S)).Font(Number?GunsmithUI::NumberFont(Size):GunsmithUI::TextFont(Size)).ColorAndOpacity(Color).AutoWrapText(false).OverflowPolicy(ETextOverflowPolicy::Ellipsis).ToolTipText(FText::FromString(S)).Justification(Number?ETextJustify::Right:ETextJustify::Left);}
 FString Value(double N,int32 Digits,const TCHAR* Unit){return FString::Printf(TEXT("%.*f%s"),Digits,N,Unit);}
 FLinearColor BenefitColor(int32 Benefit){return Benefit>0?ColdSteelUI::Success:Benefit<0?ColdSteelUI::Danger:GunsmithUI::Secondary;}
 }
@@ -107,6 +107,7 @@ void UM4GunsmithWidget::RefreshPresentation()
         const FString Optic=Parts.FindRef(TEXT("optic"));
         if(Optic==TEXT("pso1_4x")||(G->Definition()==TEXT("ue_svd")&&(Optic.IsEmpty()||Optic==TEXT("false"))))return TEXT("4×");
         if(Optic==TEXT("lpvo_1_6x"))return TEXT("1–6×");
+        if(Optic==TEXT("thermal_scope"))return TEXT("1.5/3/8× 热成像");
         return (Optic==TEXT("prism_scope_2x")||Optic==TEXT("dw715_handgun_scope_2x"))?TEXT("2×"):TEXT("1×");
     };
     Overview.Add({TEXT("瞄具倍率"),MagnificationLabel(BeforeParts),MagnificationLabel(G->Draft()),TEXT("—"),0});

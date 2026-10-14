@@ -119,7 +119,7 @@ TSharedRef<SWidget> UDevelopmentItemPicker::BuildMenu()
         [
             SNew(STextBlock).Text(FText::FromString(Entry.Name))
                 .Font(ColdSteelUI::TextFont(14.f / PixelScale))
-                .ColorAndOpacity(ColdSteelUI::TextPrimary).AutoWrapText(true)
+                .ColorAndOpacity(ColdSteelUI::TextPrimary).AutoWrapText(false).OverflowPolicy(ETextOverflowPolicy::Ellipsis)
         ];
         Rows->AddSlot().AutoHeight().Padding(FMargin(Entry.Subgroup.IsEmpty() ? 18.f : 28.f, 0.f, 6.f, 2.f) * InverseScale)[Item];
         if (!FocusItem || Entry.Definition == SelectedDefinition) FocusItem = Item;

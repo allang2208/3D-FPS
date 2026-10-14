@@ -1,7 +1,10 @@
 #include "ColdSteelHUDWidget.h"
+#include "../FPSGAMEPlayerController.h"
+#include "../Building/ColdSteelCampfire.h"
 #include "ColdSteelSceneContainer.h"
 #include "Framework/Application/SlateApplication.h"
 #include "ColdSteelGunAssemblyWidget.h"
+#include "ColdSteelIncineratorWidget.h"
 #include "ColdSteelSmeltingWidget.h"
 #include "ColdSteelWorkbenchWidget.h"
 #include "../Building/VoxelBuildWorld.h"
@@ -9,6 +12,8 @@
 #include "ColdSteelSkillPage.h"
 #include "ColdSteelCodexPage.h"
 #include "ColdSteelProgressNotification.h"
+#include "ColdSteelDungeonTracker.h"
+#include "ColdSteelAcquisitionFeed.h"
 #include "ColdSteelAmmoReadout.h"
 #include "ColdSteelAmmoPouchWidget.h"
 #include "ColdSteelInventoryWidget.h"
@@ -18,7 +23,6 @@
 #include "ColdSteelWorldClock.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/MeleeWeaponStats.h"
-#include "../Weapons/GunsmithSystem.h"
 #include "Dom/JsonValue.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Engine/GameInstance.h"
@@ -71,8 +75,6 @@
 namespace
 {
     // Preserve the 3x5 equipment and 18x4 storage contract while the drawer adapts.
-    constexpr float HotbarSlotSize = 48.0f;
-    constexpr float HotbarGap = 8.0f;
     constexpr int32 InventoryColumns = 18;
     constexpr int32 InventoryRows = 4;
     constexpr int32 WeatherSegmentsPerDay = AFPSWeatherManager::ScheduleSegmentsPerDay;
@@ -163,15 +165,18 @@ void UColdSteelHUDWidget::NativeOnInitialized()
 void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
     Super::NativeTick(MyGeometry, InDeltaTime);
+    TickResourceBarAnimations();
     // NativePaint reads transient aim/hit data outside UMG property bindings.
     // Paint-only invalidation also removes the last frame when a hit expires.
     if (const auto Widget=GetCachedWidget()) Widget->Invalidate(EInvalidateWidgetReason::Paint);
+    UpdateHotbarLayout(MyGeometry);
     UpdateTopHUDLayout(MyGeometry);
     UpdateStaminaLayout(MyGeometry);
     UpdateInventoryLayout(MyGeometry);
     TickPanelNavigation(MyGeometry,InDeltaTime);
     UpdateInteractHint();
     TickWarehouse(MyGeometry,InDeltaTime);
+    TickShop(InDeltaTime);
     AmmoRefreshAccumulator += InDeltaTime;
     if (AmmoRefreshAccumulator >= 0.05f)
     {
@@ -179,6 +184,7 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
         // RefreshAmmo already refreshes the quick bar for all of its callers.
         { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshAmmo); RefreshAmmo(); }
         { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshTopVitals); RefreshTopVitals(); }
+        RefreshSoulBalance();
         RefreshHUDTargetDisplay();
         { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshWorldClock); RefreshWorldClock(); }
     }
@@ -240,7 +246,13 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     //（HitTestInvisible 会连子树一起屏蔽命中——按钮全灭的根因，已入档）。
     if(SmeltingWidget)
     {
-        if(bSmeltingOpen&&(!SmeltingWorld.IsValid()||!SmeltingWorld->HasPrefabAt(SmeltingCell)))CloseSmelting();
+        if(bSmeltingOpen)
+        {
+            if(!SmeltingCampfire.IsExplicitlyNull())
+            {if(!SmeltingCampfire.IsValid()||!SmeltingCampfire->IsAvailable()||!GetOwningPlayerPawn()
+                ||FVector::DistSquared(GetOwningPlayerPawn()->GetActorLocation(),SmeltingCampfire->GetActorLocation())>FMath::Square(350.f))CloseSmelting();}
+            else if(!SmeltingWorld.IsValid()||!SmeltingWorld->HasPrefabAt(SmeltingCell))CloseSmelting();
+        }
         const float S=ColdSteelUI::PixelScale(this);
         if(bSmeltRiding)
         {   SmeltMotion=FMath::FInterpConstantTo(SmeltMotion,0.f,InDeltaTime,4.0f);   // 复位进度，下次弹出重新起步
@@ -266,10 +278,11 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     // 抽屉行程加长项两旗标互斥相加即可；Docs/UI/workbench-panel-plan-20260924.md）。
     if(WorkbenchWidget&&GunAssemblyWidget)
     {
-        UUserWidget* Panel=bGunWorkbenchPanel?static_cast<UUserWidget*>(GunAssemblyWidget.Get()):static_cast<UUserWidget*>(WorkbenchWidget.Get());
-        UCanvasPanelSlot* PanelSlot=bGunWorkbenchPanel?GunAssemblySlot.Get():WorkbenchSlot.Get();
+        UUserWidget* Panel=bIncineratorPanel?static_cast<UUserWidget*>(IncineratorWidget.Get()):bGunWorkbenchPanel?static_cast<UUserWidget*>(GunAssemblyWidget.Get()):static_cast<UUserWidget*>(WorkbenchWidget.Get());
+        UCanvasPanelSlot* PanelSlot=bIncineratorPanel?IncineratorSlot.Get():bGunWorkbenchPanel?GunAssemblySlot.Get():WorkbenchSlot.Get();
         GunAssemblyWidget->SetInputReady(bGunWorkbenchPanel&&bWorkbenchOpen&&!bWorkbenchRiding&&WorkbenchMotion>.999f);
-        WorkbenchWidget->SetInputReady(!bGunWorkbenchPanel&&bWorkbenchOpen&&!bWorkbenchRiding&&WorkbenchMotion>.999f);
+        WorkbenchWidget->SetInputReady(!bGunWorkbenchPanel&&!bIncineratorPanel&&bWorkbenchOpen&&!bWorkbenchRiding&&WorkbenchMotion>.999f);
+        if(IncineratorWidget)IncineratorWidget->SetInputReady(bIncineratorPanel&&bWorkbenchOpen&&!bWorkbenchRiding&&WorkbenchMotion>.999f);
 
         if(bWorkbenchOpen&&(!WorkbenchWorld.IsValid()||!WorkbenchWorld->HasPrefabAt(WorkbenchCell)))CloseWorkbench();
         const float S=ColdSteelUI::PixelScale(this);
@@ -308,7 +321,10 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     }
     // The drawer hugs the right edge, so the world clock yields the corner while it is out.
     if (WorldClock) WorldClock->SetVisibility(bDrawerOut ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
-    if (TopVitalsSurface) TopVitalsSurface->SetVisibility(bWarehouseOpen||WarehouseMotion>KINDA_SMALL_NUMBER ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
+    if (TopVitalsSurface) TopVitalsSurface->SetVisibility(bWarehouseOpen||WarehouseMotion>KINDA_SMALL_NUMBER||bShopOpen||ShopMotion>KINDA_SMALL_NUMBER ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
+    if(AcquisitionFeed)AcquisitionFeed->SetPresentationSuppressed(bWarehouseOpen||WarehouseMotion>KINDA_SMALL_NUMBER
+        ||bShopOpen||ShopMotion>KINDA_SMALL_NUMBER||bForgingOpen||bForgeRiding||ForgeMotion>KINDA_SMALL_NUMBER
+        ||bWorkbenchOpen||bWorkbenchRiding||WorkbenchMotion>KINDA_SMALL_NUMBER||bSmeltingOpen||bSmeltRiding||SmeltMotion>KINDA_SMALL_NUMBER);
 }
 
 FReply UColdSteelHUDWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
@@ -364,6 +380,7 @@ void UColdSteelHUDWidget::ToggleInventory()
 
 bool UColdSteelHUDWidget::HandlePanelShortcut(const FKey& Key, bool bRepeat)
 {
+    if(HandleShopConfirmationKey(Key))return true;
     // 文本输入焦点守卫（2026-09-29，图鉴状态栏搜索栏引入）：PlayerController 的输入层
     // 调用本函数时不经过 Slate 焦点，在搜索框打字时按到 P/N/Tab/Caps 会误切抽屉。
     // 焦点落在 SEditableText（SEditableTextBox 的内部焦点控件）时一律放行给输入框。
@@ -373,6 +390,7 @@ bool UColdSteelHUDWidget::HandlePanelShortcut(const FKey& Key, bool bRepeat)
         if (FocusedType == TEXT("SEditableText") || FocusedType == TEXT("SEditableTextBox")) return false;
     }
     // 注意：K／J 属强化台与改造台（FPSGAMEPlayerController 先消费），C 是滑铲，图鉴用 N。
+    if(Key==EKeys::O){if(!bRepeat)ToggleShop();return true;}
     if (Key != EKeys::Tab && Key != EKeys::CapsLock && Key != EKeys::P && Key != EKeys::N) return false;
     if (bRepeat) return true;
     if(IsQuickDragging()){CancelQuickDrag();return true;}
@@ -388,7 +406,7 @@ bool UColdSteelHUDWidget::HandlePanelShortcut(const FKey& Key, bool bRepeat)
     UWidgetBlueprintLibrary::CancelDragDrop();
     if (auto* Scroll = Cast<UScrollBox>(EquipmentPage))
         if (auto* Board = Cast<UColdSteelInventoryWidget>(Scroll->GetChildAt(0))) Board->CancelInteraction();
-    if (bStatus || bSkills || bCodex) CloseWarehouse();
+    if (bStatus || bSkills || bCodex) {CloseWarehouse();CloseShop();}
     SetInventoryPage(bCodex?4:(bSkills?2:(bStatus?0:1)));
     SetInventoryOpen(true);
     if (CloseButton) CloseButton->SetKeyboardFocus();
@@ -461,6 +479,7 @@ void UColdSteelHUDWidget::BuildInterface()
     BuildStamina(Root);
     BuildExpBar(Root);
     BuildEventTimeline(Root);
+    BuildSoulHUD(Root);
     BuildInventory(Root);
     BuildCharacterSummary(Root);
     BuildWarehouse(Root);
@@ -469,6 +488,8 @@ void UColdSteelHUDWidget::BuildInterface()
     BuildForging(Root);
     BuildPanelNavigation(Root);
     BuildInteractHint(Root); // 统一 E 交互小浮窗（在面板 Z 之下：面板打开时本就不显示）
+    TaskTracker = CreateWidget<UColdSteelDungeonTracker>(GetOwningPlayer());
+    FillSlot(Root->AddChildToCanvas(TaskTracker),FAnchors(0,0,1,1),FMargin(0),12);
     ProgressNotification=CreateWidget<UColdSteelProgressNotification>(GetOwningPlayer());
     FillSlot(Root->AddChildToCanvas(ProgressNotification),FAnchors(0,0,1,1),FMargin(0),90);
     RefreshAmmo();
@@ -486,76 +507,6 @@ void UColdSteelHUDWidget::BuildAmmoReadout(UCanvasPanel* Root)
     CanvasSlot->SetAutoSize(true);
     CanvasSlot->SetZOrder(10);
     AmmoReadout->UpdateLayout(UColdSteelAmmoReadout::PreferredWidth,20.f);
-}
-
-void UColdSteelHUDWidget::BuildHotbar(UCanvasPanel* Root)
-{
-    UBorder* Surface = MakeSurface(FLinearColor(0.063f, 0.082f, 0.102f, 0.90f), 10.0f, ColdSteelUI::Border);
-    Surface->SetPadding(FMargin(ReferenceUnits(9)));
-    UHorizontalBox* Row = WidgetTree->ConstructWidget<UHorizontalBox>();
-    Surface->SetContent(Row);
-
-    const TArray<TPair<FString, FString>> Slots = {
-        {TEXT("Q"), TEXT("")}, {TEXT("E"), TEXT("")}, {TEXT("X"), TEXT("")},
-        {TEXT("1"), TEXT("")}, {TEXT("2"), TEXT("")}, {TEXT("3"), TEXT("")}, {TEXT("4"), TEXT("")}
-    };
-    for (int32 Index = 0; Index < Slots.Num(); ++Index)
-    {
-        if (Index == 0 || Index == 3)
-        {
-            UBorder* Divider = MakeSurface(ColdSteelUI::Border, 0.0f, FLinearColor::Transparent, 0.0f);
-            USizeBox* DividerSize = WidgetTree->ConstructWidget<USizeBox>();
-            DividerSize->SetWidthOverride(ReferenceUnits(1));
-            DividerSize->SetHeightOverride(ReferenceUnits(HotbarSlotSize - 16));
-            Divider->SetContent(DividerSize);
-            Row->AddChildToHorizontalBox(Divider)->SetPadding(FMargin(ReferenceUnits(4), ReferenceUnits(8)));
-        }
-        auto* ItemSlot=MakeHotbarSlot(Slots[Index].Key, Slots[Index].Value);
-        QuickSlotSurfaces.Add(ItemSlot);
-        if(Index>=3)HotbarDropSlots.Add(ItemSlot);
-        Row->AddChildToHorizontalBox(ItemSlot)
-            ->SetPadding(FMargin(Index == 0 ? 0.0f : ReferenceUnits(HotbarGap * .5f), 0, ReferenceUnits(HotbarGap * .5f), 0));
-    }
-
-    // F 专属槽（快速进战）：与前三个分组一样用细分隔线隔开。不进 QuickSlotSurfaces
-    // （QuickBarDropIndex/HighlightQuickBar 遍历它解析投放目标）也不进 HotbarDropSlots，
-    // 拖动高亮与投放都不会落到它上面；槽位自身再挡一层拖放入口。
-    {
-        UBorder* Divider = MakeSurface(ColdSteelUI::Border, 0.0f, FLinearColor::Transparent, 0.0f);
-        USizeBox* DividerSize = WidgetTree->ConstructWidget<USizeBox>();
-        DividerSize->SetWidthOverride(ReferenceUnits(1));
-        DividerSize->SetHeightOverride(ReferenceUnits(HotbarSlotSize - 16));
-        Divider->SetContent(DividerSize);
-        Row->AddChildToHorizontalBox(Divider)->SetPadding(FMargin(ReferenceUnits(4), ReferenceUnits(8)));
-        auto* FixedSlot = MakeHotbarSlot(TEXT("F"), TEXT(""));
-        Row->AddChildToHorizontalBox(FixedSlot)
-            ->SetPadding(FMargin(ReferenceUnits(HotbarGap * .5f), 0, 0.0f, 0));
-    }
-    // G 专属槽（符文长剑·环绕飞剑）：与 F 槽同一口径，只读、不接拖放；
-    // 整格与分隔线按装备状态显隐（RefreshQuickBar 驱动，收起时不占位）。
-    {
-        UBorder* Divider = MakeSurface(ColdSteelUI::Border, 0.0f, FLinearColor::Transparent, 0.0f);
-        USizeBox* DividerSize = WidgetTree->ConstructWidget<USizeBox>();
-        DividerSize->SetWidthOverride(ReferenceUnits(1));
-        DividerSize->SetHeightOverride(ReferenceUnits(HotbarSlotSize - 16));
-        Divider->SetContent(DividerSize);
-        Row->AddChildToHorizontalBox(Divider)->SetPadding(FMargin(ReferenceUnits(4), ReferenceUnits(8)));
-        auto* BladesSlot = MakeHotbarSlot(TEXT("G"), TEXT(""));
-        Row->AddChildToHorizontalBox(BladesSlot)
-            ->SetPadding(FMargin(ReferenceUnits(HotbarGap * .5f), 0, 0.0f, 0));
-        BladesSlot->SetVisibility(ESlateVisibility::Collapsed);
-        Divider->SetVisibility(ESlateVisibility::Collapsed);
-        RuneBladesSlotSurface = BladesSlot;
-        RuneBladesDivider = Divider;
-    }
-
-    UCanvasPanelSlot* CanvasSlot = Root->AddChildToCanvas(Surface);
-    HotbarCanvasSlot=CanvasSlot;
-    CanvasSlot->SetAnchors(FAnchors(0.5f, 1.0f));
-    CanvasSlot->SetAlignment(FVector2D(0.5f, 1.0f));
-    CanvasSlot->SetPosition(FVector2D(0, -ReferenceUnits(12)));
-    CanvasSlot->SetAutoSize(true);
-    CanvasSlot->SetZOrder(30);
 }
 
 void UColdSteelHUDWidget::BuildInventory(UCanvasPanel* Root)
@@ -652,6 +603,7 @@ void UColdSteelHUDWidget::BuildInventory(UCanvasPanel* Root)
     AmmoTab->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::OpenAmmoPouch);
     EquipmentAmmoTabs->AddChildToHorizontalBox(AmmoTab)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     Body->AddChildToVerticalBox(EquipmentAmmoTabs)->SetPadding(FMargin(ReferenceUnits(16),ReferenceUnits(6),ReferenceUnits(16),ReferenceUnits(8)));
+    BuildSoulWallet(Body);
 
     StatusPage = BuildStatusPage();
     EquipmentPage = BuildEquipmentPage();
@@ -1268,6 +1220,7 @@ void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
     if(!bOpen)CancelQuickDrag();
     if(!bOpen)HideItemTooltip(true);
     if(!bOpen)CloseWarehouse();
+    if(!bOpen)CloseShop();
     if(!bOpen)CloseSmelting();   // 收背包连带收面板：保证"再打开背包"永远不会带出上次的面板
     if(!bOpen)CloseForging();
     if(!bOpen)CloseWorkbench();  // 工作台制作面板同一连带口径（同文件同规则）
@@ -1316,6 +1269,7 @@ void UColdSteelHUDWidget::SetInventoryTab(bool bStatusTab)
 
 void UColdSteelHUDWidget::OpenSkills()
 {
+    CloseShop();
     UWidgetBlueprintLibrary::CancelDragDrop(); CloseWarehouse();
     SetInventoryPage(2); SetInventoryOpen(true);
     if(CloseButton)CloseButton->SetKeyboardFocus();
@@ -1323,6 +1277,7 @@ void UColdSteelHUDWidget::OpenSkills()
 
 void UColdSteelHUDWidget::OpenCodex()
 {
+    CloseShop();
     UWidgetBlueprintLibrary::CancelDragDrop(); CloseWarehouse();
     SetInventoryPage(4); SetInventoryOpen(true);
     if(CloseButton)CloseButton->SetKeyboardFocus();
@@ -1334,6 +1289,7 @@ void UColdSteelHUDWidget::SetInventoryPage(int32 Page)
     bStatusTabActive=Page==0; bSkillsTabActive=Page==2; bCodexTabActive=Page==4;
     if (StatusPage) StatusPage->SetVisibility(Page==0?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
     if (EquipmentPage) EquipmentPage->SetVisibility(Page==1?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+    if (SoulWalletSize) SoulWalletSize->SetVisibility(Page==1||Page==3?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
     if (EquipmentAmmoTabs) EquipmentAmmoTabs->SetVisibility(Page==1||Page==3?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
     if (AmmoPouchPage) AmmoPouchPage->SetVisibility(Page==3?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
     if (SkillPage) SkillPage->SetVisibility(Page==2?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
@@ -1374,7 +1330,7 @@ void UColdSteelHUDWidget::RefreshAmmo()
         if(View.X>0)
         {
             const float Width=FMath::Min(UColdSteelAmmoReadout::PreferredWidth,FMath::Max(1.f,float(View.X)*S-40.f));
-            const FVector2D HotbarSize=HotbarCanvasSlot&&HotbarCanvasSlot->Content?HotbarCanvasSlot->Content->GetDesiredSize():FVector2D::ZeroVector;
+            const FVector2D HotbarSize=HotbarCanvasSlot?HotbarCanvasSlot->GetSize():FVector2D::ZeroVector;
             const float HotbarRight=View.X*.5f+FMath::Max(float(HotbarSize.X),424/S)*.5f;
             float Bottom=20/S;
             if(View.X-20/S-Width/S<HotbarRight+12/S)
@@ -1399,7 +1355,7 @@ void UColdSteelHUDWidget::RefreshStatus()
     if (Health && HealthBar && HealthValueText)
     {
         const float MaxHealth = FMath::Max(1.0f, Health->MaxHealth);
-        HealthBar->SetPercent(FMath::Clamp(Health->Health / MaxHealth, 0.0f, 1.0f));
+        SetAnimatedBarValue(HealthBar,FMath::Clamp(Health->Health / MaxHealth, 0.0f, 1.0f));
         HealthValueText->SetText(FText::FromString(FString::Printf(TEXT("%.0f/%.0f"), Health->Health, MaxHealth)));
     }
     if (AmmoStatusValueText)
@@ -1592,26 +1548,6 @@ UBorder* UColdSteelHUDWidget::MakeSurface(const FLinearColor& Fill, float Radius
     UBorder* Surface = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass(), *FString::Printf(TEXT("Surface_%d"), WidgetSerial++));
     Surface->SetBrush(ColdSteelUI::RoundedBrush(Fill, Radius, Outline, OutlineWidth));
     return Surface;
-}
-
-UBorder* UColdSteelHUDWidget::MakeHotbarSlot(const FString& KeyHint, const FString& Caption)
-{
-    UBorder* SlotSurface = MakeSurface(ColdSteelUI::Content, 7.0f, ColdSteelUI::Border);
-    SlotSurface->SetPadding(FMargin(0));
-    SlotSurface->SetHorizontalAlignment(HAlign_Fill);
-    SlotSurface->SetVerticalAlignment(VAlign_Fill);
-    USizeBox* Size = WidgetTree->ConstructWidget<USizeBox>();
-    Size->SetWidthOverride(ReferenceUnits(HotbarSlotSize));
-    Size->SetHeightOverride(ReferenceUnits(HotbarSlotSize));
-    SlotSurface->SetContent(Size);
-    UOverlay* Overlay = WidgetTree->ConstructWidget<UOverlay>();
-    Size->SetContent(Overlay);
-    // F/G 专属槽：快速进战与环绕飞剑的固定键位，只读显示，不占七槽混放绑定。
-    if(KeyHint==TEXT("F")){BuildQuickSlot(Overlay,QuickSlots.Num(),TEXT("quickCombat"));return SlotSurface;}
-    if(KeyHint==TEXT("G")){BuildQuickSlot(Overlay,QuickSlots.Num(),TEXT("runeBlades"));return SlotSurface;}
-    const int32 Index=KeyHint.IsNumeric()?FCString::Atoi(*KeyHint)+2:KeyHint==TEXT("Q")?0:KeyHint==TEXT("E")?1:2;
-    BuildQuickSlot(Overlay,Index);
-    return SlotSurface;
 }
 
 UBorder* UColdSteelHUDWidget::MakeEquipmentSlot(const FString& Caption, bool bEquipped)

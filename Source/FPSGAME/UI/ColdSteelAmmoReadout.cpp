@@ -4,6 +4,7 @@
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/PistolDualWieldComponent.h"
+#include "../Weapons/FullAutoTrigger.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
@@ -143,6 +144,7 @@ void UColdSteelAmmoReadout::PresentDual(const UPistolDualWieldComponent& Dual,co
         const bool Low=Count>0&&Count<=FMath::Max(1,FMath::CeilToInt(Capacity*.2f));
         Names[Index]->SetText(FText::FromString(FString(Index==0?TEXT("主手 · "):TEXT("副手 · "))+ColdSteelInventory::Text(Hand.Item,TEXT("name"))));
         FString Detail=FString(Index==0?TEXT("左键 · "):TEXT("右键 · "))+Model.AmmoLabel(Model.AmmoDefinitionFor(Hand.Item));
+        if(Hand.SelectableAutomatic)Detail+=TEXT("\n")+FullAutoTrigger::Hint(Hand.Automatic,Index);
         if(!Hand.PendingAmmoType.IsEmpty())if(const auto* Target=Model.AmmoType(Hand.PendingAmmoType))Detail+=TEXT(" → ")+Target->Name;
         if(Hand.Reloading)Detail+=TEXT(" · 换弹中");
         Details[Index]->SetText(FText::FromString(Detail));
@@ -180,6 +182,7 @@ void UColdSteelAmmoReadout::PresentStaffPistol(const FColdSteelItem& Staff,const
     const auto& Hand=Dual.Hand(1);
     OffhandName->SetText(FText::FromString(TEXT("副手 · ")+ColdSteelInventory::Text(Hand.Item,TEXT("name"))));
     FString Detail=TEXT("右键 · ")+Model.AmmoLabel(Model.AmmoDefinitionFor(Hand.Item));
+    if(Hand.SelectableAutomatic)Detail+=TEXT("\n")+FullAutoTrigger::Hint(Hand.Automatic,1);
     if(!Hand.PendingAmmoType.IsEmpty())if(const auto* Target=Model.AmmoType(Hand.PendingAmmoType))Detail+=TEXT(" → ")+Target->Name;
     if(Hand.Reloading)Detail+=TEXT(" · 换弹中");
     OffhandCalibre->SetText(FText::FromString(Detail));
@@ -246,6 +249,7 @@ void UColdSteelAmmoReadout::Refresh(const AFPSGAMECharacter* Character,const UCo
         SetDualVisible(false);
         const auto& Hand=Dual->Hand(1);
         FString AmmoName=Model->AmmoLabel(Model->AmmoDefinitionFor(Hand.Item));
+        if(Hand.SelectableAutomatic)AmmoName+=TEXT("\n")+FullAutoTrigger::Hint(Hand.Automatic,1);
         if(!Hand.PendingAmmoType.IsEmpty())AmmoName+=TEXT(" → ")+Model->AmmoLabel(Hand.PendingAmmoType)+TEXT(" · 换弹中");
         Present(TEXT("副手 · ")+ColdSteelInventory::Text(Hand.Item,TEXT("name")),AmmoName,
             Hand.Rounds,Dual->Reserve(1),Hand.Stats.Capacity,Hand.Reloading,true);
@@ -264,6 +268,8 @@ void UColdSteelAmmoReadout::Refresh(const AFPSGAMECharacter* Character,const UCo
         if(Character)
         {
             const FString BipodHint=Character->GetBipodDeploymentHint();
+            const FString FireModeHint=Character->GetFireModeHint();
+            if(!FireModeHint.IsEmpty())AmmoName+=TEXT("\n")+FireModeHint;
             if(!BipodHint.IsEmpty())AmmoName+=TEXT("\n")+BipodHint;
         }
         if(Character&&Model&&!Character->GetPendingAmmoType().IsEmpty())if(const auto* Target=Model->AmmoType(Character->GetPendingAmmoType()))AmmoName+=TEXT(" → ")+Target->Name+TEXT(" · 换弹中");

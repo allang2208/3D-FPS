@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 
 class AActor;
+class UColdSteelStatusModel;
 
 struct FColdSteelDungeonLootPreview
 {
@@ -29,5 +30,5 @@ public:
     static FString ChestStorageKey(AActor* Chest);
     /** roll 全量写进宝箱容器（同事务打领取标记），失败返回 false 允许宝箱重试；
      *  已领取（重复开箱）不重 roll，返回 true 并经 OutContainerKey 让交互层重开面板。 */
-    static bool StoreFromChest(AActor* Chest,FString& OutContainerKey);
+    static bool StoreFromChest(AActor* Chest,FString& OutContainerKey,UColdSteelStatusModel* ActingModel=nullptr);
 };

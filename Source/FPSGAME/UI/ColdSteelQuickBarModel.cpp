@@ -18,23 +18,31 @@ namespace ColdSteelQuickBar
 {
 const TCHAR* KeyLabel(int32 Index)
 {
-    static const TCHAR* Labels[]={TEXT("Q"),TEXT("E"),TEXT("X"),TEXT("1"),TEXT("2"),TEXT("3"),TEXT("4")};
+    static const TCHAR* Labels[]={TEXT("Q"),TEXT("E"),TEXT("X"),TEXT("1"),TEXT("2"),TEXT("3"),TEXT("4"),TEXT("5"),TEXT("6"),TEXT("7"),TEXT("8"),TEXT("9"),TEXT("0")};
     return Index>=0&&Index<Count?Labels[Index]:TEXT("");
 }
-int32 KeyIndex(const FKey& Key)
+FKey Key(int32 Index)
 {
-    const FKey Keys[]={EKeys::Q,EKeys::E,EKeys::X,EKeys::One,EKeys::Two,EKeys::Three,EKeys::Four};
-    for(int32 I=0;I<Count;++I)if(Key==Keys[I])return I;
+    static const FKey Keys[]={EKeys::Q,EKeys::E,EKeys::X,EKeys::One,EKeys::Two,EKeys::Three,EKeys::Four,EKeys::Five,EKeys::Six,EKeys::Seven,EKeys::Eight,EKeys::Nine,EKeys::Zero};
+    return Index>=0&&Index<Count?Keys[Index]:EKeys::Invalid;
+}
+int32 KeyIndex(const FKey& Input)
+{
+    for(int32 I=0;I<Count;++I)if(Input==Key(I))return I;
     return INDEX_NONE;
 }
 void MirrorLegacy(FColdSteelProfile& P)
 {
-    if(P.QuickBarVersion!=1||P.QuickBindings.Num()!=Count)return;
+    if(P.QuickBarVersion!=Version||P.QuickBindings.Num()!=Count)return;
     P.Hotbar.SetNum(4);P.HotbarDefinitions.SetNum(4);
     for(int32 I=0;I<4;++I){P.Hotbar[I]=P.QuickBindings[I+ItemOffset].ItemId;P.HotbarDefinitions[I]=P.QuickBindings[I+ItemOffset].ItemDefinition;}
 }
 bool Migrate(FColdSteelProfile& P)
 {
+    if(P.QuickBarVersion==1&&P.QuickBindings.Num()==LegacyCount)
+    {
+        P.QuickBindings.SetNum(Count);P.QuickBarVersion=Version;MirrorLegacy(P);return true;
+    }
     if(P.QuickBarVersion!=0)return false;
     P.QuickBindings.SetNum(Count);P.QuickBindings[0].Skill=TEXT("fireball");
     TSet<FString> Seen;
@@ -44,13 +52,14 @@ bool Migrate(FColdSteelProfile& P)
         if(!P.Hotbar[I].IsEmpty()&&Seen.Contains(P.Hotbar[I]))continue;
         auto& B=P.QuickBindings[I+ItemOffset];B.ItemId=P.Hotbar[I];B.ItemDefinition=P.HotbarDefinitions[I];Seen.Add(B.ItemId);
     }
-    P.QuickBarVersion=1;MirrorLegacy(P);return true;
+    P.QuickBarVersion=Version;MirrorLegacy(P);return true;
 }
 bool Validate(const FColdSteelProfile& P,FString& Reason)
 {
     if(P.QuickBarVersion==0)return true;
     Reason=TEXT("快捷栏绑定无效，保留原存档");
-    if(P.QuickBarVersion!=1||P.QuickBindings.Num()!=Count)return false;
+    if(!((P.QuickBarVersion==1&&P.QuickBindings.Num()==LegacyCount)||
+        (P.QuickBarVersion==Version&&P.QuickBindings.Num()==Count)))return false;
     TSet<FName> Skills;TSet<FString> Items;
     for(const auto& B:P.QuickBindings)
     {
@@ -75,7 +84,7 @@ FColdSteelQuickBinding UColdSteelStatusModel::QuickBinding(int32 Index) const
 const FColdSteelSkillDefinition* UColdSteelStatusModel::QuickSkillDefinition(FName Id) const
 { if(Id==TEXT("swordUppercut"))return &MasteryDefinition(Id);if(ElectricMagic::IsSkill(Id))return &ElectricMagicDefinition(Id);if(Id==TEXT("blizzard"))return &BlizzardSkill;if(Id==TEXT("iceWall"))return &IceWallSkill;if(Id==TEXT("staffLight"))return &StaffLightSkill;if(FireMagic::IsSkill(Id))return &FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return &HolyLightSkill;if(Id==TEXT("lightningStrike"))return &LightningSkill;if(Id==TEXT("iceSpike"))return &IceSpikeSkill;if(Id==TEXT("heavyStrike")||Id==TEXT("whirlwind"))return &MasteryDefinition(Id);if(Id==TEXT("quickCombat"))return &QuickCombatSkill;if(Id==TEXT("runeBlades"))return &RuneBladesSkill;return Id==TEXT("fireball")?&FireballSkill:Id==TEXT("dodge")?&DodgeSkill:nullptr; }
 bool UColdSteelStatusModel::CanBindQuickSkill(FName Id) const
-{ if(Id==TEXT("swordUppercut"))return true;const auto* P=Current.Skills.Find(Id);return QuickSkillDefinition(Id)&&P&&P->Level>0; }
+{ if(Id==TEXT("runeBlades")||Id==TEXT("staffLight"))return false;if(Id==TEXT("swordUppercut"))return true;const auto* P=Current.Skills.Find(Id);return QuickSkillDefinition(Id)&&P&&P->Level>0; }
 const FColdSteelItem* UColdSteelStatusModel::ResolveQuickItem(int32 Index) const
 {
     const auto B=QuickBinding(Index);if(!B.Skill.IsNone()||B.ItemDefinition.IsEmpty())return nullptr;
@@ -166,7 +175,7 @@ bool UColdSteelStatusModel::BeginSpellAimPreview(int32 Index)
 {
     if(UBoundCongregateCaptureComponent::IsCaptured(UGameplayStatics::GetPlayerPawn(this,0)))return false;
     const FName Skill=QuickBinding(Index).Skill;
-    if(Skill==TEXT("thunderLance")){auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);if(!CanBindQuickSkill(Skill)||!Pawn)return false;if(auto* Ability=Pawn->FindComponentByClass<UFPSElectricMagicComponent>()){Ability->Trigger(Skill);return true;}return false;}
+    if(Skill==TEXT("thunderLance")){auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);if(!CanBindQuickSkill(Skill)||!Pawn)return false;if(auto* Ability=Pawn->FindComponentByClass<UFPSElectricMagicComponent>()){Ability->Trigger(Skill);AimPreviewIndex=Index;AimPreviewPawn=Cast<AFPSGAMECharacter>(Pawn);AimPreviewSkill=Skill;return true;}return false;}
     if(Skill!=TEXT("fireball")&&Skill!=TEXT("iceSpike")&&Skill!=TEXT("blizzard"))return false;
     auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
     if(!Player)return false;
@@ -191,18 +200,18 @@ bool UColdSteelStatusModel::BeginSpellAimPreview(int32 Index)
         Ability->SetAimPreview(true);
         if(!Ability->IsAimPreviewActive())return false;
     }
-    AimPreviewIndex=Index;
+    AimPreviewIndex=Index;AimPreviewPawn=Player;AimPreviewSkill=Skill;
     return true;
 }
 
 bool UColdSteelStatusModel::EndSpellAimPreview(int32 Index)
 {
-    if(QuickBinding(Index).Skill==TEXT("thunderLance")){if(auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0))if(auto* Ability=Pawn->FindComponentByClass<UFPSElectricMagicComponent>())Ability->ReleaseLance();return true;}
     if(AimPreviewIndex!=Index)return false;
-    AimPreviewIndex=INDEX_NONE;
+    const auto ExpectedPawn=AimPreviewPawn;const FName Skill=AimPreviewSkill;
+    AimPreviewIndex=INDEX_NONE;AimPreviewPawn.Reset();AimPreviewSkill=NAME_None;
     auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
-    if(!Player)return true;
-    const FName Skill=QuickBinding(Index).Skill;
+    if(!Player||ExpectedPawn.Get()!=Player)return true;
+    if(Skill==TEXT("thunderLance")){if(auto* Ability=Player->FindComponentByClass<UFPSElectricMagicComponent>())Ability->ReleaseLance();return true;}
     // The release fires only while this preview is still alive: a projectile that expired
     // (hover timeout, death, loadout change) must not start a fresh cast instead.
     if(Skill==TEXT("fireball"))
@@ -225,7 +234,7 @@ bool UColdSteelStatusModel::EndSpellAimPreview(int32 Index)
 
 void UColdSteelStatusModel::CancelSpellAimPreview()
 {
-    AimPreviewIndex=INDEX_NONE;
+    AimPreviewIndex=INDEX_NONE;AimPreviewPawn.Reset();AimPreviewSkill=NAME_None;
     auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
     if(!Player)return;
     if(auto* Fireball=Player->FindComponentByClass<UFPSFireballComponent>())Fireball->SetAimPreview(false);

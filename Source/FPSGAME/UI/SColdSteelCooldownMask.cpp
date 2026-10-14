@@ -40,6 +40,12 @@ void SColdSteelCooldownMask::Construct(const FArguments& Args)
     SetVisibility(EVisibility::HitTestInvisible);
 }
 
+void SColdSteelCooldownMask::SetCornerRadius(float Value)
+{
+    Brush=ColdSteelUI::RoundedBrush(FLinearColor(0,0,0,.65f),Value,FLinearColor::Transparent,0);
+    Invalidate(EInvalidateWidgetReason::Paint);
+}
+
 void SColdSteelCooldownMask::SetFraction(float Value)
 {
     Value = FMath::Clamp(Value,0.f,1.f);

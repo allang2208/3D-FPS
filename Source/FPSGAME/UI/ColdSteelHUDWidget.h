@@ -2,9 +2,11 @@
 
 #include "CoreMinimal.h"
 #include "CommonActivatableWidget.h"
+#include "ColdSteelMeterPresentation.h"
 #include "ColdSteelHUDWidget.generated.h"
 
 class UBorder;
+class APawn;
 class UBackgroundBlur;
 class UButton;
 class UCanvasPanel;
@@ -26,6 +28,7 @@ UCLASS()
 class FPSGAME_API UColdSteelHUDWidget : public UCommonActivatableWidget
 {
     GENERATED_BODY()
+    friend void RunIncineratorUIAudit(class AFPSGAMEPlayerController*);
 
 public:
     UFUNCTION() void OpenAmmoPouch();
@@ -88,6 +91,12 @@ public:
     void OpenChestLootStorage(class AActor* Anchor,const FString& ContainerKey,int32 Pages,const FString& Caption);
     void CloseWarehouse();
     bool IsWarehouseOpen() const { return bWarehouseOpen; }
+    void OpenShop();
+    void CloseShop();
+    void ToggleShop();
+    bool IsShopOpen() const { return bShopOpen; }
+    bool AddShopSaleItem(const FString& Id);
+    bool HandleShopConfirmationKey(const FKey& Key);
     /** 冶炼高炉 E 交互：打开背包并把冶炼面板挂到背包左侧（同一开合生命周期）。
      *  参数是命中的占位构件 Actor（内部校验为 blast_furnace），无效时静默不响应。 */
     void OpenSmelting(AActor* Furnace);
@@ -98,6 +107,7 @@ public:
     void OpenWorkbench(AActor* Workbench);
     void CloseWorkbench();
     bool IsWorkbenchOpen() const { return bWorkbenchOpen; }
+    class UColdSteelIncineratorWidget* IncineratorPanel() const { return IncineratorWidget.Get(); }
     bool SelectGunAssemblyRecipe(FName Recipe);
     void RunWarehouseAudit();
     void RunWarehouseGlassAudit();
@@ -119,6 +129,17 @@ protected:
     virtual UWidget* NativeGetDesiredFocusTarget() const override;
 
 private:
+    void BuildSoulHUD(UCanvasPanel* Root);
+    void BuildSoulWallet(UVerticalBox* Body);
+    void LayoutSoulHUD(float Scale,float Left,float Bottom,float Width);
+    void RefreshSoulBalance();
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelSoulCounter> SoulHUD;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelAcquisitionFeed> AcquisitionFeed;
+    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> AcquisitionFeedSlot;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelDungeonTracker> TaskTracker;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelSoulCounter> SoulWallet;
+    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> SoulHUDSlot;
+    UPROPERTY(Transient) TObjectPtr<USizeBox> SoulWalletSize;
     friend struct FWeatherWorldAudit;
     UPROPERTY() TObjectPtr<class UColdSteelItemTooltip> ItemTooltip;
     void BuildInterface();
@@ -153,12 +174,18 @@ private:
     TWeakObjectPtr<class AActor> WarehouseAnchor;
     bool bWarehouseOpen=false;
     float WarehouseMotion=0,WarehouseStart=0,WarehouseElapsed=.3f;
+    void TickShop(float Delta);
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelShopWidget> ShopWidget;
+    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> ShopSlot;
+    bool bShopOpen=false;
+    float ShopMotion=0.f;
     // 冶炼面板：贴在背包抽屉左侧的半宽侧板（Docs/UI/smelting-panel-plan-20260923.md）。
     // 与抽屉共用同一条 DrawerProgress 滑入滑出；上下文（哪座炉子）在 E 交互时写入、关背包时清空。
     void BuildSmelting(UCanvasPanel* Root);
     UPROPERTY() TObjectPtr<class UColdSteelSmeltingWidget> SmeltingWidget;
     UPROPERTY() TObjectPtr<UCanvasPanelSlot> SmeltingSlot;
     TWeakObjectPtr<class AVoxelBuildWorld> SmeltingWorld;
+    TWeakObjectPtr<class AColdSteelCampfire> SmeltingCampfire;
     FIntVector SmeltingCell=FIntVector::ZeroValue;
     bool bSmeltingOpen=false;
     float SmeltWidth=0;
@@ -204,6 +231,12 @@ private:
     void UpdateStaminaLayout(const FGeometry& Geometry);
     void BuildExpBar(UCanvasPanel* Root);   // 底部全宽金色经验条（原 game-dev 形式，冷钢化）
     void RefreshExpBar();
+    void SetAnimatedBarValue(UProgressBar* Bar, float Ratio, bool bLevelUp=false);
+    void TickResourceBarAnimations();
+    TMap<TWeakObjectPtr<UProgressBar>, FColdSteelMeterTransition> ResourceBarTransitions;
+    TWeakObjectPtr<APawn> ResourceMeterPawn;
+    int32 ExperienceBarLevel=INDEX_NONE;
+    UPROPERTY(Transient) TObjectPtr<UProgressBar> ExperienceSheetBar;
     FDelegateHandle StaminaHandle;
     UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> StaminaSlot;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> StaminaValue;
@@ -260,6 +293,9 @@ private:
     int32 PaintHUDNavigation(const FGeometry&,FSlateWindowElementList&,int32,const FWidgetStyle&) const;
     void RefreshHUDTargetDisplay();
     TWeakObjectPtr<AActor> HUDDisplayTarget;
+    TWeakObjectPtr<AActor> HUDMeterTarget;
+    FColdSteelMeterTransition HUDTargetHealthTransition;
+    FColdSteelMeterTransition HUDTargetToughnessTransition;
     FString HUDTargetLevel;
     struct FHUDTargetEffect { FString Text; FLinearColor Color; };
     TArray<FHUDTargetEffect> HUDTargetEffects;
@@ -307,7 +343,7 @@ private:
     void UpdateInteractHint();
     float ReferenceUnits(float PixelSize) const;
     UBorder* MakeSurface(const FLinearColor& Fill, float Radius, const FLinearColor& Outline, float OutlineWidth = 1.0f);
-    UBorder* MakeHotbarSlot(const FString& KeyHint, const FString& Caption);
+    UBorder* MakeHotbarSlot(int32 Index, FName FixedSkill=NAME_None);
     UBorder* MakeEquipmentSlot(const FString& Caption, bool bEquipped = false);
     UBorder* MakeTab(const FString& Caption, bool bActive);
     UWidget* MakeAttributeRow(const FString& Label, const FString& Key, UTextBlock*& OutValue);
@@ -423,10 +459,10 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTextBlock> EquipmentDamageValue;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> EquipmentCapacityValue;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> EquipmentIntervalValue;
-    UPROPERTY(Transient) TObjectPtr<UVerticalBox> EquipmentTraitsBox;
-    FString EquipmentTraitsWeapon;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> EquipmentReloadValue;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> EquipmentAmmoValue;
+    UPROPERTY(Transient) TObjectPtr<UVerticalBox> EquipmentTraitsBox;
+    FString EquipmentTraitsWeapon;
 
     UPROPERTY(Transient)
     TObjectPtr<USizeBox> TimelineWidthBox;
@@ -594,4 +630,18 @@ private:
     UPROPERTY(Transient) TArray<TObjectPtr<class UColdSteelResourceMeter>> SurvivalMeters;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> SurvivalWarning;
     int32 SurvivalLayoutVariant=-1;
+    // Append only: independent incinerator, shared drawer lifecycle.
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelIncineratorWidget> IncineratorWidget;
+    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> IncineratorSlot;
+    bool bIncineratorPanel=false;
+    void UpdateHotbarLayout(const FGeometry& Geometry);
+    UPROPERTY(Transient) TObjectPtr<UCanvasPanel> HotbarLayoutPanel;
+    UPROPERTY(Transient) TObjectPtr<USizeBox> HotbarLayoutSize;
+    UPROPERTY(Transient) TObjectPtr<UBorder> QuickCombatSlotSurface;
+    UPROPERTY(Transient) TObjectPtr<UBorder> HotbarNumberDivider;
+    UPROPERTY(Transient) TObjectPtr<UBorder> HotbarSpecialDivider;
+    FVector2D HotbarPixelSize=FVector2D::ZeroVector;
+    float HotbarLayoutScale=0.f;
+    int32 HotbarLayoutMode=INDEX_NONE;
+    bool bHotbarLayoutHasSpecial=false;
 };

@@ -4,6 +4,8 @@
 #include "Engine/World.h"
 #include "Animation/AnimSequence.h"
 #include "EngineUtils.h"
+#include "Net/UnrealNetwork.h"
+#include "Components/SkeletalMeshComponent.h"
 
 namespace
 {
@@ -42,6 +44,17 @@ void AColdSteelCrateChest::BeginPlay()
     if(!OpenClip)OpenClip=LoadObject<UAnimSequence>(nullptr,SharedOpenClip);
     if(!CloseClip)CloseClip=LoadObject<UAnimSequence>(nullptr,SharedCloseClip);
     Super::BeginPlay();
+}
+void AColdSteelCrateChest::OnRep_Tier()
+{
+    ChestAsset=LoadObject<USkeletalMesh>(nullptr,TierMeshPaths[TierIndex(Tier)]);
+    Mesh->SetSkeletalMesh(ChestAsset);
+}
+void AColdSteelCrateChest::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME_CONDITION(AColdSteelCrateChest,Tier,COND_InitialOnly);
+    DOREPLIFETIME_CONDITION(AColdSteelCrateChest,StorageKeyOverride,COND_InitialOnly);
 }
 
 FString AColdSteelCrateChest::GetStorageKey()const

@@ -1,11 +1,22 @@
 # 当前 UE5 UI 与库存
 
+- [商店买卖面板与快捷键（2026-10-13）](shop-panel-plan-20261013.md)
+
+- [任务与目标标准工作流](../../TASK-WORKFLOW.md)
+- [追踪栏扩展机制排查（2026-10-13）](task-tracker-extensibility-audit-20261013.md)
+- [任务与主客机共享进度复查（2026-10-13）](task-shared-progress-audit-20261013.md)
+- [收获动态栏（2026-10-13）](acquisition-feed-plan-20261013.md)
+- [收获动态栏联机检查与 100 项后台验证（2026-10-13）](acquisition-network-audit-20261013.md)
+
 - [武器与装备取消稀有度](equipment-no-rarity-plan-20261009.md)
 - [强化等级掉落光束与鲜红传说色](../Art/equipment-enhancement-loot-glow-20261009.md)
 - [装备稀有度与光束整理发布（2026-10-10）](../Publication/equipment-rarity-loot-glow-20261010.md)
 
 实现位于 `Source/FPSGAME/UI/`，物品与枪匠数据位于 `Content/ColdSteelData/`。新面板和栏目先走 [面板与栏目工作流](../../UI-WORKFLOW.md)，使用 [规划模板](panel-column-plan-template.md)；视觉统一使用 [冷钢 UI 正式规则](ui-cold-steel-design-system.md)，冲突的旧字体、配色、透明度和按钮条款由该文替换。
 
+- [现行详情与介绍编写标准（2026-10-09）](../../skills/ue5-weapon-workflow/references/attachment-detail-presentation.md)
+- [配件详情统一结构接入记录（2026-10-08）](attachment-details-standard-plan-20261008.md)
+- [剑刃详情精简接入记录（2026-10-09）](melee-blade-details-plan-20261009.md)
 - [2026-09-15 UI 与必要系统发布、归档和资源恢复](ui-panel-publication-20260915.md)
 - [背包与装备栏图标的改造同步修复](backpack-icon-gunsmith-mods-20260916.md)
 - [F6 开发面板抽屉规格与开发功能](development-panel-tools-plan-20260916.md)
@@ -51,6 +62,8 @@
 - [剑的动态预览与背包装备图标](sword-preview-icons-plan-20260914.md)
 - [浮窗关闭按钮对齐与完整参数](item-inspector-close-details-plan-20260914.md)
 - [装备与背包加工角标圆角匹配](item-processing-rounded-corners-plan-20260914.md)
+
+- [爆炸物屏幕边缘箭头与红色警示光带](explosive-edge-warnings-20261012.md)
 
 以下是历史实现记录，结果只代表对应版本；默认由用户自行测试：
 

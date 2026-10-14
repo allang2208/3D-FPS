@@ -10,6 +10,7 @@ class APlayerController;
 class UGameViewportClient;
 class ULightComponent;
 class FSlateWindowElementList;
+class FJsonObject;
 struct FConvexVolume;
 
 /** Valid observations only. Percentile = sorted[ceil(p * n) - 1]; empty means unknown. */
@@ -121,6 +122,7 @@ struct FFPSPerformanceEvent
     FName Stage;
     FString Key;
     bool bMarker = false;
+    bool bRetainForEncounter = false;
     bool bCrossesWindowStart = false, bCrossesWindowEnd = false;
     bool bParentMissing = false;
 };
@@ -134,6 +136,18 @@ struct FFPSHitchRecord
     TArray<FFPSPerformanceEvent> Events;
     int32 ActiveScopesAtContextEnd = 0;
     bool bEventsCapacityLimited = false;
+};
+
+/** Immutable once archived; independent of the UI's rolling window. */
+struct FFPSCombatWindow
+{
+    double TriggerSeconds=0., RequestedEndSeconds=0.;
+    FString Trigger;
+    TArray<FFPSRecordedFrame> Frames;
+    TArray<FFPSPerformanceEvent> Events;
+    TArray<TSharedPtr<FJsonObject>> ResourceSamples;
+    bool bComplete=false, bFrameCapacityLimited=false;
+    uint64 EventsDiscarded=0;
 };
 
 struct FFPSIconFailure
@@ -255,6 +269,15 @@ struct FFPSPerformanceSnapshot
     TArray<FFPSRecordedFrame> SlowestFrames;
     TArray<FFPSHitchRecord> RecentHitches;
     TArray<FFPSHitchRecord> WorstHitches;
+    // Published rows are immutable; snapshot/export copies share their values.
+    TArray<TSharedPtr<FJsonObject>> RenderResourceSamples;
+    uint64 RenderResourceSamplesOverwritten = 0;
+    TArray<TSharedPtr<const FFPSCombatWindow>> CombatWindows;
+    TArray<FFPSPerformanceEvent> EncounterEvents;
+    TArray<TSharedPtr<FJsonObject>> GpuResourceInventories;
+    uint64 CombatWindowsOverwritten=0, EncounterEventsOverwritten=0, GpuInventoriesOverwritten=0;
+    int32 GpuInventoryQueued=0;
+    bool bGpuInventoryEnabled=false, bGpuInventoryPending=false;
     int32 OverBudgetFrames = 0, SlowFrames = 0, FramesAtLeast50Ms = 0, FramesAtLeast100Ms = 0;
     int32 HitchHistoryCapacity = 16;
     int32 WorstHitchCapacity = 4, HitchEventCapacity = 128;
@@ -297,13 +320,23 @@ public:
     void ClearSamples();
     void SetRecording(bool bEnabled);
     bool IsRecording() const { return bRecording; }
+    /** Optional preparation only; unknown/stale samples must not delay gameplay. */
+    bool HasRecentRenderHeadroom(uint64 ReserveBytes) const
+    {
+        return RenderBudgetBytes>0 && FPlatformTime::Seconds()-RenderBudgetSeconds<2.0
+            && RenderUsedBytes<RenderBudgetBytes && RenderBudgetBytes-RenderUsedBytes>=ReserveBytes;
+    }
     void RecordUiUpdate(float Milliseconds);
     static bool ExportSnapshot(const FFPSPerformanceSnapshot& Snapshot, FString& OutPath);
     /** Copies only captured values; completion is delivered on the game thread. */
     static void ExportSnapshotAsync(const FFPSPerformanceSnapshot& Snapshot,
         TFunction<void(bool, const FString&, double)> Completion);
     static void CountIconAction(const UObject* Context, EFPSIconAction Action);
-    static void RecordMarker(const UObject* Context, FName Stage, const FString& Detail = FString());
+    static void RecordMarker(const UObject* Context, FName Stage, const FString& Detail = FString(), bool bRetainForEncounter=false);
+    static void StartCombatWindow(const UObject* Context, const FString& Reason);
+    static void RequestGpuResourceInventory(const UObject* Context, const FString& Reason, double DelaySeconds=0.);
+    static bool IsGpuInventoryEnabled();
+    static void SetGpuInventoryEnabled(bool bEnabled);
 
     static void CountVisibilityFlagChange(const UObject* Context, int32 ChangedFields = 1);
     static void CountEquipmentRebuild(const UObject* Context);
@@ -323,8 +356,16 @@ private:
     struct FObserverSample { double Seconds; float Milliseconds; };
     static UFPSPerformanceMetricsSubsystem* Find(const UObject* Context);
     void SampleEngineFrame();
+    void SampleRenderResources(double Now);
+    void UpdateEncounterCapture(const FFPSRecordedFrame& Frame);
+    void ArchiveCombatWindow(bool bComplete);
+    void CopyResourcesForWindow(FFPSCombatWindow& Window) const;
+    void KeepEncounterEvent(const FFPSPerformanceEvent& Event);
+    void PumpGpuResourceInventory(double Now);
+    void ResetEncounterDiagnostics();
+    void ReadEncounterDiagnostics(FFPSPerformanceSnapshot& Snapshot) const;
     void ReadWindow(FFPSPerformanceSnapshot& Snapshot, double Now) const;
-    uint64 BeginEvent(FName Stage, const FString& Key);
+    uint64 BeginEvent(FName Stage, const FString& Key, bool bRetainForEncounter=false);
     void EndEvent(uint64 EventId, uint64 Generation);
     void AppendEvent(FFPSPerformanceEvent Event);
     void ReadEvents(FFPSPerformanceSnapshot& Snapshot) const;
@@ -380,6 +421,29 @@ private:
     int32 EventWriteIndex = 0, EventCount = 0, EventsDiscardedAtBoundary = 0;
     int32 WriteIndex = 0, SampleCount = 0;
     double PreviousFrameSeconds = 0.0;
+    double NextRenderResourceSampleSeconds = 0.0;
+    uint64 RenderBudgetBytes = 0, RenderUsedBytes = 0;
+    double RenderBudgetSeconds = -100.;
+    bool bRenderResourceSamplePending = false;
+    TArray<TSharedPtr<FJsonObject>> RenderResourceSamples;
+    int32 RenderResourceWriteIndex = 0;
+    uint64 RenderResourceSamplesOverwritten = 0;
+    struct FObservedRenderHandles { uint64 Mesh = 0, SkinCache = 0; };
+    TMap<FString, FObservedRenderHandles> PreviousRenderHandles;
+    TUniquePtr<FFPSCombatWindow> ActiveCombatWindow;
+    TArray<TSharedPtr<const FFPSCombatWindow>> CombatWindows;
+    TArray<FFPSPerformanceEvent> EncounterEvents;
+    TArray<TSharedPtr<FJsonObject>> GpuResourceInventories;
+    uint64 CombatWindowsOverwritten=0, EncounterEventsOverwritten=0, GpuInventoriesOverwritten=0;
+    struct FInventoryRequest { FString Reason; double Due=0., RequestedSeconds=0.; uint64 RequestedFrame=0; };
+    TArray<FInventoryRequest> GpuInventoryRequests;
+    bool bGpuInventoryPending=false;
+    double NextGpuInventorySeconds=0.;
+    static constexpr int32 MaxCombatWindows=4;
+    static constexpr int32 MaxCombatFrames=4096;
+    static constexpr int32 MaxEncounterEvents=512;
+    static constexpr int32 MaxGpuInventories=6;
+    static constexpr int32 MaxRenderResourceSamples = 360;
     uint64 LastObservedFrame = MAX_uint64;
     bool bRecording = true;
     static constexpr int32 MaxSamples = 8192;
@@ -393,7 +457,7 @@ private:
 class FPSGAME_API FFPSPerformanceScope
 {
 public:
-    FFPSPerformanceScope(const UObject* Context, FName Stage, const FString& Key = FString());
+    FFPSPerformanceScope(const UObject* Context, FName Stage, const FString& Key = FString(), bool bRetainForEncounter=false);
     ~FFPSPerformanceScope();
     void Finish();
     FFPSPerformanceScope(const FFPSPerformanceScope&) = delete;

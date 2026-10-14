@@ -344,6 +344,43 @@ int32 ULPVOScopeWidget::NativePaint(const FPaintArgs& Args,const FGeometry& Geom
     const auto* PC=GetOwningPlayer();
     const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
     const float Alpha=Character&&!PC->bShowMouseCursor?Character->GetScopePresentationAlpha():0.f;
+    if(Alpha>0.f&&Character->HasThermalScope())
+    {
+        const FVector2f Size(Geometry.GetLocalSize()),Center=Size*.5f;
+        const float Height=FMath::Min(Size.Y*.78f,Size.X*.88f*28.f/34.4f);
+        const FVector2f Half(Height*.5f*34.4f/28.f,Height*.5f),TL=Center-Half,BR=Center+Half;
+        const auto* Brush=FCoreStyle::Get().GetBrush("WhiteBrush");
+        auto Box=[&](FVector2f Position,FVector2f Extent,FLinearColor Color,int32 Z=0)
+        {
+            Color.A*=Alpha;
+            FSlateDrawElement::MakeBox(Elements,Result+Z,Geometry.ToPaintGeometry(Extent,FSlateLayoutTransform(Position)),Brush,ESlateDrawEffect::None,Color);
+        };
+        Box(FVector2f(0,0),FVector2f(Size.X,TL.Y),FLinearColor::Black);
+        Box(FVector2f(0,BR.Y),FVector2f(Size.X,Size.Y-BR.Y),FLinearColor::Black);
+        Box(FVector2f(0,TL.Y),FVector2f(TL.X,Height),FLinearColor::Black);
+        Box(FVector2f(BR.X,TL.Y),FVector2f(Size.X-BR.X,Height),FLinearColor::Black);
+        const float Rim=FMath::Max(3.f,Height*.009f);
+        const FLinearColor Frame(.10f,.105f,.11f,1);
+        Box(TL-FVector2f(Rim,Rim),FVector2f(Half.X*2+Rim*2,Rim),Frame,1);
+        Box(FVector2f(TL.X-Rim,BR.Y),FVector2f(Half.X*2+Rim*2,Rim),Frame,1);
+        Box(TL-FVector2f(Rim,0),FVector2f(Rim,Height),Frame,1);
+        Box(FVector2f(BR.X,TL.Y),FVector2f(Rim,Height),Frame,1);
+        // Reticle is an independent display layer and remains centered on the
+        // existing camera/shot ray at every magnification and recoil position.
+        const float Arm=Height*.035f,Gap=Height*.007f;
+        const FLinearColor Reticle(.45f,1.f,.74f,1);
+        Box(Center+FVector2f(-Arm,-.7f),FVector2f(Arm-Gap,1.4f),Reticle,2);
+        Box(Center+FVector2f(Gap,-.7f),FVector2f(Arm-Gap,1.4f),Reticle,2);
+        Box(Center+FVector2f(-.7f,-Arm),FVector2f(1.4f,Arm-Gap),Reticle,2);
+        Box(Center+FVector2f(-.7f,Gap),FVector2f(1.4f,Arm-Gap),Reticle,2);
+        Box(Center-FVector2f(1,1),FVector2f(2,2),Reticle,2);
+        auto Font=FCoreStyle::GetDefaultFontStyle("Regular",FMath::Max(10,FMath::RoundToInt(Height*.022f)));
+        FSlateDrawElement::MakeText(Elements,Result+3,
+            Geometry.ToPaintGeometry(FVector2f(160,28),FSlateLayoutTransform(TL+FVector2f(14,12))),
+            FString::Printf(TEXT("THERMAL   %gX"),Character->GetOpticMagnification()),Font,
+            ESlateDrawEffect::None,FLinearColor(.7f,.9f,.8f,Alpha));
+        return Result+4;
+    }
     if(Alpha>0.f)
     {
         // Facts only: the shot clock and its per-shot seed. Nothing here feeds back

@@ -19,6 +19,6 @@ struct FColdSteelHUDLayout
         const bool SeparateRow=CenterSpace<360.f;
         CompassTop=SeparateRow?CornerTop+CornerHeight+32.f:Gap;
         CompassWidth=FMath::Min(640.f,SeparateRow?FMath::Max(1.f,Width-2*Gap):CenterSpace);
-        TargetTop=CompassTop+94.f;
+        TargetTop=CompassTop+77.f; // Compass badge ends at 71px; keep a compact 6px gap.
     }
 };
