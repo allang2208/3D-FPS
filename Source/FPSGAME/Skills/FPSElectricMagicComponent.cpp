@@ -1,8 +1,10 @@
 #include "FPSElectricMagicComponent.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "FPSFireballComponent.h"
 #include "FPSLightningArc.h"
 #include "LightningDamage.h"
+#include "MagicOcclusion.h"
 #include "HolyLightTargets.h"
 #include "IceWallLandingCameraShake.h"
 #include "FPSIceWall.h"
@@ -17,6 +19,7 @@
 #include "Camera/CameraComponent.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInstanceDynamic.h"
@@ -51,7 +54,7 @@ void UFPSElectricMagicComponent::BeginPlay()
 {
     Super::BeginPlay();AddTickPrerequisiteActor(GetOwner());
     if(auto* H=Hands())AddTickPrerequisiteComponent(H);
-    const TCHAR* Paths[]={TEXT("/Game/Skills/ElectricMagic/NS_StormDomainCloud.NS_StormDomainCloud"),TEXT("/Game/Skills/Lightning/NS_LightningChain.NS_LightningChain"),
+    const TCHAR* Paths[]={TEXT("/Game/Skills/StormClouds/RollingV1/NS_StormDomainCloud.NS_StormDomainCloud"),TEXT("/Game/Skills/Lightning/NS_LightningChain.NS_LightningChain"),
         TEXT("/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceBeam.M_ThunderLanceBeam"),TEXT("/Game/Skills/ElectricMagic/NS_ThunderCharge.NS_ThunderCharge"),
         TEXT("/Game/Skills/ElectricMagic/NS_ElectricImpact.NS_ElectricImpact"),TEXT("/Game/Skills/ElectricMagic/S_ElectricCast1.S_ElectricCast1"),TEXT("/Game/Skills/ElectricMagic/S_ElectricCast2.S_ElectricCast2"),
         TEXT("/Game/Skills/ElectricMagic/ThunderLanceV2/M_ThunderLanceCircle.M_ThunderLanceCircle"),TEXT("/Engine/BasicShapes/Plane.Plane"),
@@ -67,7 +70,7 @@ UColdSteelStatusModel* UFPSElectricMagicComponent::Model() const
 {return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
 UFPSFireballComponent* UFPSElectricMagicComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
 bool UFPSElectricMagicComponent::Enemy(AActor* Actor) const
-{const auto* C=IsValid(Actor)?Actor->FindComponentByClass<UMonsterCombatComponent>():nullptr;return Actor!=GetOwner()&&C&&!C->IsDead()&&!HolyLightTargets::IsFriendly(Actor);}
+{const auto* C=IsValid(Actor)?Actor->FindComponentByClass<UMonsterCombatComponent>():nullptr;return Actor!=GetOwner()&&C&&!C->IsDead()&&!RangedAttackQuery::IsFriendlyUnit(GetOwner(),Actor);}
 TArray<AActor*> UFPSElectricMagicComponent::Nearby(const FVector& Center,float Radius) const
 {
     TArray<FOverlapResult> Hits;TArray<AActor*> Result;
@@ -79,7 +82,7 @@ TArray<AActor*> UFPSElectricMagicComponent::Nearby(const FVector& Center,float R
 bool UFPSElectricMagicComponent::Visible(AActor* Origin,AActor* Target,const FVector& Start) const
 {
     FCollisionQueryParams Q(SCENE_QUERY_STAT(ElectricSight),false,Origin);Q.AddIgnoredActor(GetOwner());Q.AddIgnoredActor(Target);
-    FHitResult H;return !GetWorld()->LineTraceSingleByChannel(H,Start,UWardBreakableGlass::TargetPoint(Target),ECC_Visibility,Q);
+    return MagicOcclusion::HasExposure(GetWorld(),Target,Start,Q,GetOwner());
 }
 FVector UFPSElectricMagicComponent::CastOrigin() const
 {
@@ -165,6 +168,8 @@ void UFPSElectricMagicComponent::Trigger(FName Skill)
     if(CommittedSkill==TEXT("thunderLance")&&Skill==CommittedSkill){ReleaseLance();return;}
     if(!CommittedSkill.IsNone())return;
     if(const auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead())return;
+    if(M->ElectricMagicDefinition(Skill).ElectricMagic.bRequiresStaff&&!M->HasEquippedStaff())
+    {QueuedSkill=NAME_None;Feedback(Skill,TEXT("需要法杖"));return;}
     if(const auto* H=Hands();H&&H->HasOtherPreparedSpell(this))
     {QueuedSkill=NAME_None;Feedback(Skill,TEXT("先释放已积蓄魔法"));return;}
     if(P->IsSpellHandHeld()){NoticeSkill=Skill;HandNotice.Show(GetWorld()->GetTimeSeconds());return;}
@@ -202,6 +207,8 @@ void UFPSElectricMagicComponent::GrantCastBuffs(const FLightningCast& C)
 void UFPSElectricMagicComponent::AtContact()
 {
     if(CommittedSkill.IsNone())return;auto* M=Model();if(!M)return;
+    if(PendingCast.bRequiresStaff&&!M->HasEquippedStaff())
+    {const FName Skill=CommittedSkill;CancelPending();Feedback(Skill,TEXT("需要法杖"));return;}
     if(IsCharging())
     {
         bChargeAtContact=true;ChargeAge=0;
@@ -248,17 +255,99 @@ void UFPSElectricMagicComponent::AtContact()
 // 雷云 FX——本地/服务端/远端 OnRep 共用同一套参数。
 void UFPSElectricMagicComponent::SpawnDomainFX()
 {
+    CloudTop=330.f;CloudThickness=110.f;CloudRadiusX=DomainCast.Radius;CloudRadiusY=DomainCast.Radius*.78f;
+    CloudCeilingZ=TNumericLimits<double>::Max();
     CloudFX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Assets[0]),GetOwner()->GetActorLocation(),FRotator::ZeroRotator,FVector(1),true,false);
     if(CloudFX)
     {
+        CloudFX->AddTickPrerequisiteComponent(this);CloudFX->SetTickBehavior(ENiagaraTickBehavior::UsePrereqs);
         CloudFX->SetVariablePosition(TEXT("User.CurrentPosition"),GetOwner()->GetActorLocation());
         CloudFX->SetVariableVec3(TEXT("User.Side"),FVector::ForwardVector);CloudFX->SetVariableVec3(TEXT("User.Up"),FVector::RightVector);
         CloudFX->SetVariableVec3(TEXT("User.SurfaceNormal"),FVector::UpVector);CloudFX->SetVariableVec3(TEXT("User.Wind"),FVector(10,4,0));
-        CloudFX->SetVariableFloat(TEXT("User.RadiusX"),DomainCast.Radius);CloudFX->SetVariableFloat(TEXT("User.RadiusY"),DomainCast.Radius*.62f);
-        CloudFX->SetVariableFloat(TEXT("User.CloudHeight"),330);CloudFX->SetVariableFloat(TEXT("User.StormDuration"),DomainCast.Duration);
+        CloudFX->SetVariableFloat(TEXT("User.StormDuration"),DomainCast.Duration);
         CloudFX->SetVariableFloat(TEXT("User.CloudEmission"),1);CloudFX->SetVariableFloat(TEXT("User.Strength"),1);
-        CloudFX->SetVariableFloat(TEXT("User.DetailReduction"),0);CloudFX->Activate(true);
+        CloudFX->SetVariableFloat(TEXT("User.DetailReduction"),0);
     }
+    UpdateDomainCloud(0.f,true);
+    if(CloudFX)CloudFX->Activate(true);
+}
+void UFPSElectricMagicComponent::UpdateDomainCloud(float Delta,bool bForce)
+{
+    const FVector Base=GetOwner()->GetActorLocation();
+    const auto* Capsule=GetOwner()->FindComponentByClass<UCapsuleComponent>();
+    const float Head=Capsule?Capsule->GetScaledCapsuleHalfHeight():96.f;
+    constexpr float HeadGap=24.f,MaxThickness=110.f;
+    // A bounded environment sample, independent of the authoritative damage radius.
+    // Recheck immediately after a large movement; otherwise at ~8 Hz while active.
+    if(bForce||DomainVisualAge>=NextCloudProbe||FVector::DistSquared(Base,CloudProbePosition)>FMath::Square(60.f)||
+        FMath::Abs(Base.Z-CloudProbePosition.Z)>8.f)
+    {
+        NextCloudProbe=DomainVisualAge+.12f;CloudProbePosition=Base;
+        const float ProbeHeight=Head+4.f;
+        FCollisionQueryParams Q(SCENE_QUERY_STAT(StormCloudClearance),false,GetOwner());
+        const FCollisionShape Probe=FCollisionShape::MakeSphere(8.f);
+        const FVector ProbeStart=Base+FVector(0,0,ProbeHeight);
+        float RadiusX=DomainCast.Radius,RadiusY=DomainCast.Radius*.78f;
+        for(int32 Axis=0;Axis<2;++Axis)
+        {
+            float& Radius=Axis==0?RadiusX:RadiusY;
+            for(float Sign:{-1.f,1.f})
+            {
+                const FVector Direction=Axis==0?FVector(Sign,0,0):FVector(0,Sign,0);
+                FHitResult Wall;
+                if(RangedAttackQuery::SweepSingle(GetWorld(), GetOwner(), Wall,ProbeStart,ProbeStart+Direction*Radius,FQuat::Identity,ECC_Visibility,Probe,Q))
+                    Radius=FMath::Min(Radius,FMath::Max(24.f,Wall.Distance-16.f));
+            }
+        }
+        CloudCeilingZ=TNumericLimits<double>::Max();
+        for(int32 Sample=0;Sample<9;++Sample)
+        {
+            const float Angle=float(Sample-1)*PI*.25f;
+            const FVector Offset=Sample==0?FVector::ZeroVector:FVector(FMath::Cos(Angle)*RadiusX*.85f,FMath::Sin(Angle)*RadiusY*.85f,0);
+            const FVector Start=ProbeStart+Offset;
+            FHitResult Wall,Ceiling;
+            // A lower stair landing or a room across a wall is not this head's roof.
+            if(Sample>0&&RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Wall,ProbeStart,Start,ECC_Visibility,Q))continue;
+            if(RangedAttackQuery::SweepSingle(GetWorld(), GetOwner(), Ceiling,Start,Base+Offset+FVector(0,0,Head+HeadGap+MaxThickness),FQuat::Identity,ECC_Visibility,Probe,Q)&&
+                !Ceiling.bStartPenetrating&&Ceiling.Location.Z>Base.Z+Head+8.f)
+                CloudCeilingZ=FMath::Min(CloudCeilingZ,Ceiling.Location.Z-8.);
+        }
+        // Only the visual footprint is smoothed here; head translation is never delayed.
+        const float Step=bForce?0.f:FMath::Max(.12f,Delta);
+        CloudRadiusX=bForce||RadiusX<CloudRadiusX?RadiusX:FMath::FInterpTo(CloudRadiusX,RadiusX,Step,5.f);
+        CloudRadiusY=bForce||RadiusY<CloudRadiusY?RadiusY:FMath::FInterpTo(CloudRadiusY,RadiusY,Step,5.f);
+    }
+    // Anchor the bottom above the CURRENT head every frame. The old roof-clamped
+    // top allowed the cloud to stay at the same world Z while the player climbed
+    // into it. Ceilings now compress its thickness, never lower it into the body.
+    const double Headroom=CloudCeilingZ-(Base.Z+Head);
+    const float Gap=float(FMath::Clamp(Headroom*.25,4.,double(HeadGap)));
+    const float Bottom=Head+Gap;
+    const float Thickness=float(FMath::Clamp(CloudCeilingZ-(Base.Z+Bottom),6.,double(MaxThickness)));
+    CloudThickness=bForce||Thickness<CloudThickness?Thickness:FMath::FInterpTo(CloudThickness,Thickness,Delta,5.f);
+    CloudTop=Bottom+CloudThickness;
+    if(CloudFX)
+    {
+        CloudFX->SetWorldLocation(Base);CloudFX->SetVariablePosition(TEXT("User.CurrentPosition"),Base);
+        CloudFX->SetVariableFloat(TEXT("User.RadiusX"),CloudRadiusX);CloudFX->SetVariableFloat(TEXT("User.RadiusY"),CloudRadiusY);
+        CloudFX->SetVariableFloat(TEXT("User.CloudHeight"),CloudTop);CloudFX->SetVariableFloat(TEXT("User.CloudThickness"),CloudThickness);
+    }
+}
+FVector UFPSElectricMagicComponent::DomainStrikeOrigin(AActor* Target) const
+{
+    const FVector End=UWardBreakableGlass::TargetPoint(Target);
+    const FVector Cloud=GetOwner()->GetActorLocation()+FVector(0,0,CloudTop-CloudThickness*.55f);
+    FCollisionQueryParams Q(SCENE_QUERY_STAT(StormStrikeClearance),false,GetOwner());Q.AddIgnoredActor(Target);
+    const FCollisionShape Clearance=FCollisionShape::MakeSphere(8.f);
+    FHitResult Block;
+    if(!RangedAttackQuery::SweepSingle(GetWorld(), GetOwner(), Block,End,Cloud,FQuat::Identity,ECC_Visibility,Clearance,Q))return Cloud;
+    // A beam/roof may hide the main cloud without hiding the enemy from the caster.
+    // Form a short discharge in the target's own room, below its actual ceiling.
+    const FVector Above=End+FVector(0,0,FMath::Clamp(float(Cloud.Z-End.Z),65.f,240.f));
+    if(!RangedAttackQuery::SweepSingle(GetWorld(), GetOwner(), Block,End,Above,FQuat::Identity,ECC_Visibility,Clearance,Q))return Above;
+    if(!Block.bStartPenetrating&&Block.Distance>20.f)return Block.Location-FVector(0,0,10.f);
+    // Virtually no headroom: use the same body-height route used to select this target.
+    return GetOwner()->GetActorLocation();
 }
 void UFPSElectricMagicComponent::OnRep_Domain()
 {
@@ -343,10 +432,11 @@ void UFPSElectricMagicComponent::Strike()
         }
         if(!Best)break;Chain.Add(Best);Cursor=Best;
     }
-    FVector Start=P->GetActorLocation()+FVector(0,0,285);int32 Hits=0;
+    FVector Start=Chain.IsEmpty()?P->GetActorLocation():DomainStrikeOrigin(Chain[0]);int32 Hits=0;
     for(int32 I=0;I<Chain.Num();++I)
     {
         auto* Target=Chain[I];if(!Enemy(Target))continue;const auto End=UWardBreakableGlass::TargetPoint(Target);
+        if(I==0)SpawnBurst(Start,.32f);
         SpawnArc(Start,End,DomainCast.Hit);SpawnBurst(End,.6f);
         if(M->ApplyLightningHit(P,Target,Start,DomainCast.Hit,FMath::FloorToFloat(DomainCast.Hit.Damage*FMath::Pow(1-DomainCast.Hit.ChainDecay,I)),DomainRewards.Hit))
         {++Hits;ApplyStatus(Target,DomainCast.Hit,DomainRewards);}Start=End;
@@ -388,7 +478,7 @@ void UFPSElectricMagicComponent::FireLanceBody(APawn* P,UColdSteelStatusModel* M
     const FVector Start=CastOrigin();
     const auto Targets=Nearby(Eye+Dir*Spell.Hit.Range*.5f,Spell.Hit.Range*.5f+Spell.HalfWidth+120);
     FCollisionQueryParams Walls(SCENE_QUERY_STAT(ThunderLanceWalls),true,P);for(auto* T:Targets)Walls.AddIgnoredActor(T);
-    FHitResult EndHit;const bool Blocked=GetWorld()->LineTraceSingleByChannel(EndHit,Eye,Eye+Dir*Spell.Hit.Range,ECC_Visibility,Walls);
+    FHitResult EndHit;const bool Blocked=MagicOcclusion::TraceBlocker(GetWorld(),Eye,Eye+Dir*Spell.Hit.Range,Walls,EndHit,P);
     const FVector End=Blocked?EndHit.ImpactPoint:Eye+Dir*Spell.Hit.Range;
     const float Reach=FVector::DotProduct(End-Eye,Dir);
     SpawnArc(Start,End,Spell.Hit,true,Ratio);MuzzleFlashFX(Start,Dir,Visual);FElectricMagicRewards Rewards;
@@ -419,15 +509,14 @@ void UFPSElectricMagicComponent::FireLanceBody(APawn* P,UColdSteelStatusModel* M
         const FVector Offset=UWardBreakableGlass::TargetPoint(T)-Eye;const float Along=FVector::DotProduct(Offset,Dir);
         FVector BoundsOrigin,Extent;T->GetActorBounds(true,BoundsOrigin,Extent);
         const float BodyRadius=FMath::Min(Extent.X,Extent.Y)*.6f;
-        FHitResult Obstacle;
-        if(Along>0&&Along<=Reach&&(Offset-Dir*Along).Size()<=Spell.HalfWidth+BodyRadius&&!GetWorld()->LineTraceSingleByChannel(Obstacle,Eye,UWardBreakableGlass::TargetPoint(T),ECC_Visibility,Walls))Ordered.Emplace(Along,T);
+        if(Along>0&&Along<=Reach&&(Offset-Dir*Along).Size()<=Spell.HalfWidth+BodyRadius&&MagicOcclusion::HasExposure(GetWorld(),T,Eye,Walls,P))Ordered.Emplace(Along,T);
     }
     Ordered.Sort([](const auto& A,const auto& B){return A.Key<B.Key;});
     for(const auto& Entry:Ordered)
     {
         auto* T=Entry.Value;if(!Enemy(T))continue;const auto* Status=T->FindComponentByClass<UCombatStatusFormula>();const int32 Stacks=Status?Status->ElectrifiedCount():0;
         FCollisionQueryParams Direct(SCENE_QUERY_STAT(ThunderLanceWeakpoint),true,P);for(auto* Other:Targets)if(Other!=T)Direct.AddIgnoredActor(Other);
-        FHitResult BoneHit;const bool DirectContact=GetWorld()->LineTraceSingleByChannel(BoneHit,Eye,End,ECC_Visibility,Direct)&&BoneHit.GetActor()==T;
+        FHitResult BoneHit;const bool DirectContact=RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), BoneHit,Eye,End,ECC_Visibility,Direct)&&BoneHit.GetActor()==T;
         const float Damage=FMath::FloorToFloat(Spell.Hit.Damage*Ratio*Spell.ChargeBonus*(1+Stacks*Spell.StackDamage));
         if(M->ApplyLightningHit(P,T,Eye,Spell.Hit,Damage,Rewards.Hit,true,DirectContact?&BoneHit:nullptr))
         {
@@ -567,7 +656,7 @@ void UFPSElectricMagicComponent::TickComponent(float Delta,ELevelTick Type,FActo
     if(bDomainActive)
     {
         DomainAge+=Delta;DomainVisualAge+=Delta;
-        if(CloudFX){CloudFX->SetWorldLocation(GetOwner()->GetActorLocation());CloudFX->SetVariablePosition(TEXT("User.CurrentPosition"),GetOwner()->GetActorLocation());}
+        UpdateDomainCloud(Delta);
         if(!bDomainFading&&DomainAge>=DomainCast.Duration)
         {if(auto* M=Model())M->FinishElectricMagicCast(TEXT("stormDomain"),DomainRewards);DomainRewards={};bDomainFading=true;if(CloudFX)CloudFX->SetVariableFloat(TEXT("User.CloudEmission"),0);}
         if(bDomainFading)

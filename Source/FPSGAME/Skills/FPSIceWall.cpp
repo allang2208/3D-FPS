@@ -1,4 +1,5 @@
 #include "FPSIceWall.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "FPSIceWallComponent.h"
 #include "IceWallPlacement.h"
 #include "IceWallLandingCameraShake.h"
@@ -21,6 +22,7 @@
 #include "NiagaraFunctionLibrary.h"
 #include "Net/UnrealNetwork.h"
 #include "NetCastUtils.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
 
 AFPSIceWall::AFPSIceWall()
 {
@@ -167,7 +169,7 @@ void AFPSIceWall::BeginDrop()
         const float Bottom=S.MaxGround+4,HalfHeight=(S.Top-Bottom)*.5f;
         const FVector Center=Plan.Location+Plan.Rotation.RotateVector(FVector(0,S.Center(),Bottom+HalfHeight));
         TArray<FHitResult> Hits;
-        GetWorld()->SweepMultiByObjectType(Hits,Center,Center+FVector(0,0,DropHeight),Plan.Rotation.Quaternion(),
+        RangedAttackQuery::SweepObjects(GetWorld(),GetInstigator(),Hits,Center,Center+FVector(0,0,DropHeight),Plan.Rotation.Quaternion(),
             FCollisionObjectQueryParams::AllObjects,FCollisionShape::MakeBox(
                 FVector(Tuning.Thickness*.5f,(S.MaxAlong-S.MinAlong)*.5f,FMath::Max(1.f,HalfHeight))),Query);
         for(const auto& Hit:Hits)
@@ -195,8 +197,8 @@ void AFPSIceWall::Land()
     SetActorLocationAndRotation(Plan.Location,Plan.Rotation);
     FString Reason;
     if(!Component.IsValid()||!Component->ValidatePlacement(Plan,Tuning,Reason)){Shatter();return;}
-    auto* M=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     auto* Shooter=GetInstigator();
+    auto* M=ColdSteelAuthority::ForPawn(Shooter);
     if(!M||!Shooter){Destroy();return;}
     TSet<AActor*> Impacted;
     M->ApplyIceWallSpawn(Shooter,Plan,Tuning,&Impacted);
@@ -405,7 +407,7 @@ float AFPSIceWall::TakeDamage(float Damage,const FDamageEvent& Event,AController
 {
     if(!HasAuthority()||!IsSolid()||!CanBeDamaged()||Damage<=0||!FMath::IsFinite(Damage))return 0;
     const float Applied=FMath::Min(Health,Damage);
-    Health-=Applied;
+    Health-=Applied;NetHealth=Health;ForceNetUpdate();
     Super::TakeDamage(Applied,Event,EventInstigator,Causer);
     if(Health<=0)Shatter();
     return Applied;
@@ -442,7 +444,7 @@ void AFPSIceWall::Tick(float Delta)
         if(AuraAge>=Tuning.ChillInterval)
         {
             AuraAge=FMath::Fmod(AuraAge,Tuning.ChillInterval);
-            if(auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())M->ApplyIceWallChill(GetInstigator(),Plan,Tuning);
+            if(auto* M=ColdSteelAuthority::ForPawn(GetInstigator()))M->ApplyIceWallChill(GetInstigator(),Plan,Tuning);
         }
     }
     UpdateColdMist(Delta);
@@ -542,6 +544,9 @@ void AFPSIceWall::OnRep_State()
         }
     }
 }
+void AFPSIceWall::OnRep_Health()
+{Health=NetHealth;}
+
 void AFPSIceWall::NetLanded()
 {
     SetActorLocationAndRotation(Plan.Location,Plan.Rotation);

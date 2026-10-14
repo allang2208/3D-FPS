@@ -1,5 +1,6 @@
 #include "ColdSteelSkillRules.h"
 #include "../Weapons/ZhenmoRuneComponent.h"
+#include "../Weapons/DealerEnchantmentComponent.h"
 #include "MeleeToughnessTuning.h"
 #include "SwordUppercutTuning.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -24,6 +25,7 @@
 #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../FPSGAMECharacter.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "GameFramework/Character.h"
@@ -121,10 +123,13 @@ float UColdSteelStatusModel::QuickCombatCooldown() const
 bool UColdSteelStatusModel::CommitQuickCombatCast(float ActionDuration)
 {
     if(Current.bQuickCombatReserved)return false;
-    if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()==NM_Client))return false;
+    if(bPersistenceBlocked&&!bNetShadowProfile)return false;
+    auto* PS=CurrentPawn.IsValid()?CurrentPawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
+    if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&!PS)return false;
     if(!SpendStamina(QuickCombatStaminaCost()))return false;
     Current.bQuickCombatReserved=true;
     UpdateQuickCombatAction(ActionDuration,ActionDuration);
+    if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client)PS->RequestQuickCombat(ActionDuration,QuickCombatStaminaCost());
     // Like other stamina actions, keep this high-frequency clock in memory;
     // training/autosave owns persistence instead of writing twice per swing.
     return true;
@@ -137,6 +142,8 @@ void UColdSteelStatusModel::UpdateQuickCombatAction(float Remaining,float Durati
 }
 void UColdSteelStatusModel::FinishQuickCombatCast()
 {
+    if(Current.bQuickCombatReserved&&GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&CurrentPawn.IsValid())
+        if(auto* PS=CurrentPawn->GetPlayerState<AColdSteelPlayerState>())PS->FinishQuickCombat();
     Current.bQuickCombatReserved=false;
     Current.QuickCombatCooldown=Current.QuickCombatCooldownDuration=0.f;
 }
@@ -195,7 +202,13 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     const FName Mastery=Shot.MasteryId.IsNone()?(Shot.bPistol?FName(TEXT("pistolMastery")):(Shot.bRifle?FName(TEXT("rifleMastery")):NAME_None)):Shot.MasteryId;
     const auto& Skill=MasteryDefinition(Mastery);
     Training.SkillId=Mastery;Training.ExtraExperience=Shot.ExtraMasteryExperience;Training.bMelee=Shot.bMelee;
-    Training.bEligible=Combat && !Combat->IsDead() && !Victim->ActorHasTag(TEXT("Summoned")) && !Victim->ActorHasTag(TEXT("NoSkillTraining"));
+    const bool bBowEnemy=Mastery==TEXT("bowMastery") && UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter);
+    // Both bow skills must share the same live enemy gate. Friendly/companion
+    // contacts previously trained bow mastery while correctly rejecting Hands.
+    Training.bEligible=Combat && !Combat->IsDead() && !Victim->ActorHasTag(TEXT("Summoned")) && !Victim->ActorHasTag(TEXT("NoSkillTraining"))
+        && (Mastery!=TEXT("bowMastery") || bBowEnemy);
+    Training.bPerfectBowHit=Shot.bPerfectBowRelease && bBowEnemy && !Shot.bRicochet
+        && Shooter && Shooter->HasAuthority();
     const bool Weakpoint=!Shot.bRicochet&&ColdSteelSkills::IsCriticalHit(Hit);
     Training.bCritical=Shot.bRicochet?Shot.bInheritedCritical:
         (Weakpoint||(Combat&&FMath::FRand()*100<CoreCombatFormula::CriticalChance(Shot.CriticalChance,CombatFormulaRuntime::MonsterCriticalResistance(Victim))));
@@ -226,6 +239,11 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
         if(Training.bCritical){WagerBonus=Status->WagerCriticalBonus();Status->ConsumeWager();}
     }
     if(!Shot.bRicochet&&Training.bCritical&&(Shot.CriticalDamageBonus+WagerBonus)>0)Amount*=1+Shot.CriticalDamageBonus+WagerBonus;
+    // The fifth valid enemy contact adds its card before scaling the entire damage panel.
+    if(Shooter&&Shooter->HasAuthority()&&bAliveBefore&&Damage>0.f&&!Shot.bRicochet&&Shot.Dealer.Enabled
+        &&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
+        if(auto* Dealer=Shooter->FindComponentByClass<UDealerEnchantmentComponent>())
+            Amount*=Dealer->Hit(Shot.DealerSourceInstance,Shot.Dealer,Training.bCritical);
     TGuardValue<FTrainingHit*> HitScope(ActiveTrainingHit,&Training);
     CombatFormulaRuntime::WeaponHit WeaponHit;WeaponHit.Target=Victim;WeaponHit.bMelee=Shot.bMelee||Shot.bMeleeStrike;
     // Damage already contains this attack's heavy/combo/range multiplier. Apply
@@ -360,6 +378,7 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
         if(!Training.SkillId.IsNone())Train(Skill,Skill.HitExperience+Training.ExtraExperience+(Training.bCritical?Skill.CriticalExperience:0));
         if(Training.bCritical)Train(CriticalStrikeSkill,CriticalStrikeSkill.CriticalHitExperience);
         if(Training.bMelee)Train(DexterousHandsSkill,DexterousHandsSkill.MeleeHitExperience);
+        if(Training.bPerfectBowHit)Train(DexterousHandsSkill,DexterousHandsSkill.PerfectBowHitExperience);
         // Hit experience is high-frequency: stage it in the live profile and let
         // the coalesced save own the disk transaction instead of saving per hit.
         if(Trained)StageTraining(MoveTemp(P));
@@ -376,7 +395,7 @@ void UColdSteelStatusModel::QueueProgressNotices(const FColdSteelProfile& Before
         N.Detail=FString::Printf(TEXT("获得 %d 点属性点 · 打开角色状态进行分配"),After.Points-Before.Points);
         ProgressNotices.Add(MoveTemp(N));
     }
-    const FColdSteelSkillDefinition* NoticeDefinitions[]={&StormDomainSkill,&ThunderLanceSkill,&RifleSkill,&PistolSkill,&CriticalStrikeSkill,&FireballSkill,&IceSpikeSkill,&IceWallSkill,&LightningSkill,&HolyLightSkill,&MeteorSkill,&FlameArmorSkill,&DodgeSkill,&DexterousHandsSkill,&QuickCombatSkill,&MasteryDefinition(TEXT("swordMastery")),&MasteryDefinition(TEXT("machineGunMastery")),&MasteryDefinition(TEXT("shotgunMastery")),&MasteryDefinition(TEXT("bowMastery")),&MasteryDefinition(TEXT("heavyStrike")),&MasteryDefinition(TEXT("swordUppercut")),&MasteryDefinition(TEXT("whirlwind")),&MasteryDefinition(TEXT("dashAttack"))};
+    const FColdSteelSkillDefinition* NoticeDefinitions[]={&StormDomainSkill,&ThunderLanceSkill,&RifleSkill,&PistolSkill,&CriticalStrikeSkill,&FireballSkill,&IceSpikeSkill,&IceWallSkill,&BlizzardSkill,&LightningSkill,&HolyLightSkill,&MeteorSkill,&FlameArmorSkill,&DragonBreathSkill,&DodgeSkill,&DexterousHandsSkill,&QuickCombatSkill,&MasteryDefinition(TEXT("swordMastery")),&MasteryDefinition(TEXT("machineGunMastery")),&MasteryDefinition(TEXT("shotgunMastery")),&MasteryDefinition(TEXT("bowMastery")),&MasteryDefinition(TEXT("heavyStrike")),&MasteryDefinition(TEXT("swordUppercut")),&MasteryDefinition(TEXT("whirlwind")),&MasteryDefinition(TEXT("dashAttack"))};
     for(const auto* Definition:NoticeDefinitions)
     {
     const auto* Old=Before.Skills.Find(Definition->Id); const auto* New=After.Skills.Find(Definition->Id);
@@ -384,11 +403,14 @@ void UColdSteelStatusModel::QueueProgressNotices(const FColdSteelProfile& Before
     {
         FColdSteelProgressNotice N; N.Title=FString::Printf(TEXT("%s升级   Lv.%d → %d"),*Definition->Name,Old->Level,New->Level);
         N.Detail=ColdSteelSkills::EffectSummary(ColdSteelSkills::Effect(*Definition,New->Level)); N.Icon=Definition->Icon;
+        if(Definition->Id==TEXT("swordMastery")){const auto E=ColdSteelSkills::Effect(*Definition,New->Level);N.Detail=FString::Printf(TEXT("剑精通固定伤害 +%.0f · 攻速 +%.0f%%"),E.FlatDamage,(1.f/FMath::Max(.05f,1.f-E.CooldownReduction)-1.f)*100);}
         if(Definition->Id==TEXT("swordUppercut")){const auto E=ColdSteelSkills::Effect(*Definition,New->Level);N.Detail=FString::Printf(TEXT("上挑 ×%.2f · 力量 +%d · 距离 ×%.3f"),SwordUppercut::HeavyDamageScale*E.HeavyMultiplier,E.Strength,E.UppercutReachMultiplier);}
         if(Definition->Id==TEXT("fireball"))N.Detail=FString::Printf(TEXT("火球威力提升 · 爆炸半径 %.2f 米"),FireballStats(New->Level).Radius/100);
         if(Definition->Id==TEXT("iceSpike"))N.Detail=FString::Printf(TEXT("冰锥威力提升 · 当前 %d 枚"),IceSpikeStats(New->Level).Count);
         if(Definition->Id==TEXT("iceWall"))N.Detail=FString::Printf(TEXT("冰墙成长 · %d 段 · %.1f 秒"),IceWallStats(New->Level).Count,IceWallStats(New->Level).Duration);
+        if(Definition->Id==TEXT("blizzard")){const auto C=BlizzardStats(New->Level);N.Detail=FString::Printf(TEXT("暴风雪成长 · 范围 %.2f × %.2f 米 · 持续 %.0f 秒"),C.RadiusX*.02f,C.RadiusY*.02f,C.Duration);}
         if(FireMagic::IsSkill(Definition->Id))N.Detail=FString::Printf(TEXT("火系魔法提升 · 持续 %.0f 秒"),FireMagicStats(Definition->Id,New->Level).Duration);
+        if(Definition->Id==TEXT("dragonBreath")){const auto C=FireMagicStats(Definition->Id,New->Level);N.Detail=FString::Printf(TEXT("龙息成长 · 半径 %.2f 米 · 每跳 %.0f 伤害"),C.Radius/100,C.Damage);}
         if(Definition->Id==TEXT("holyLight"))N.Detail=TEXT("圣光伤害与治疗提升");
         if(ElectricMagic::IsSkill(Definition->Id))N.Detail=TEXT("电系魔法威力提升");
         if(Definition->Id==TEXT("lightningStrike"))N.Detail=FString::Printf(TEXT("闪电威力提升 · 最多传导 %d 个目标"),LightningStats(New->Level).Count);

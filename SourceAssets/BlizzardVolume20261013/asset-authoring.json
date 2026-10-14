@@ -1,0 +1,22 @@
+{
+  "revision": "BlizzardVolume20261013",
+  "saved_assets": [
+    "/Game/Skills/StormClouds/RollingV1/NS_BlizzardStormCloud.NS_BlizzardStormCloud"
+  ],
+  "gameplay_tested": false,
+  "rendered": false,
+  "blizzard_layout": "StormDomainLayers20261012",
+  "blizzard_source": "/Game/Skills/StormClouds/RollingV1/NS_StormDomainCloud.NS_StormDomainCloud",
+  "blizzard_cloud_emitters": [
+    "DenseDarkBase",
+    "RollingCloudBody",
+    "SlateCloudCrown",
+    "ElectricCloudRim",
+    "SoftCloudFringe"
+  ],
+  "blizzard_height_interpolation": "bilinear stairs; separate decks; physical ceiling clamp",
+  "stage": "assets_saved",
+  "max_visual_layers": 3,
+  "source_storm_modified": false,
+  "native_build_required": true
+}

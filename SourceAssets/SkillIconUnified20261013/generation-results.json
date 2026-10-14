@@ -1,0 +1,189 @@
+{
+  "tool": "built-in image_gen",
+  "icons": [
+    {
+      "id": "dexterousHands",
+      "file": "dexterous_hands.png",
+      "subject": "gloved hand and magazine",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-ee386ffd-d499-4289-932c-af2d79c8ca76.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the gloved hand holding a pistol magazine and its silver speed streaks."
+    },
+    {
+      "id": "pistolMastery",
+      "file": "pistol_mastery_cold_steel.png",
+      "subject": "1911 pistol",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-b556742b-e70d-41e5-9d30-dc9aa2b2dee0.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the existing realistic 1911 pistol, with the same orientation and construction."
+    },
+    {
+      "id": "rifleMastery",
+      "file": "rifle_mastery_cold_steel.png",
+      "subject": "M4 rifle",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-1488aa19-848c-4921-a763-395f5c5c89bf.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the existing realistic M4 rifle, with the same orientation and construction."
+    },
+    {
+      "id": "swordMastery",
+      "file": "sword_mastery_cold_steel.png",
+      "subject": "a single realistic silver straight double-edged longsword, simple crossguard and dark grip, diagonally from bottom-left pommel to upper-right tip; full weapon visible",
+      "mode": "new",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-bc33f63e-a95e-45ce-8413-097c7a49b1e3.png",
+      "prompt": "Edit the provided approved skill icon as a FRAME TEMPLATE. Make ONE square production game mastery icon. Preserve the exact rounded-square brushed silver frame, its corner radius, metal thickness, 4% outer margin, upper-left lighting and charcoal inset background. Remove the person and sword trail completely from the interior. Replace only the inner subject with a single realistic silver straight double-edged longsword, simple crossguard and dark grip, diagonally from bottom-left pommel to upper-right tip; full weapon visible. Realistic crafted steel and dark graphite materials, silver highlights readable at 48 pixels. Center the complete weapon, subject spans about 78–82% of the inside square, safely inside frame. No person, no text, no badge, no second border, no hexagon, no labels, no watermark. Square PNG; opaque dark interior, transparent only outside the rounded frame."
+    },
+    {
+      "id": "machineGunMastery",
+      "file": "machine_gun_mastery_cold_steel.png",
+      "subject": "a realistic black and silver belt-fed light machine gun, identifiable box ammunition feed, short visible brass belt and folded bipod, full silhouette diagonally muzzle upper right and stock lower left; strongly distinct from a rifle",
+      "mode": "new",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-427f3dcc-e05c-49eb-9a06-ff01a7255de0.png",
+      "prompt": "Edit the provided approved skill icon as a FRAME TEMPLATE. Make ONE square production game mastery icon. Preserve the exact rounded-square brushed silver frame, its corner radius, metal thickness, 4% outer margin, upper-left lighting and charcoal inset background. Remove the person and sword trail completely from the interior. Replace only the inner subject with a realistic black and silver belt-fed light machine gun, identifiable box ammunition feed, short visible brass belt and folded bipod, full silhouette diagonally muzzle upper right and stock lower left; strongly distinct from a rifle. Realistic crafted steel and dark graphite materials, silver highlights readable at 48 pixels. Center the complete weapon, subject spans about 78–82% of the inside square, safely inside frame. No person, no text, no badge, no second border, no hexagon, no labels, no watermark. Square PNG; opaque dark interior, transparent only outside the rounded frame."
+    },
+    {
+      "id": "shotgunMastery",
+      "file": "shotgun_mastery_cold_steel.png",
+      "subject": "a realistic black and silver tactical pump shotgun with full stock, ribbed pump fore-end and under-barrel magazine tube; no rifle box magazine, full silhouette diagonal from stock lower left to barrel upper right",
+      "mode": "new",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-fa29e73b-3322-4338-b5c6-9a94eda692de.png",
+      "prompt": "Edit the provided approved skill icon as a FRAME TEMPLATE. Make ONE square production game mastery icon. Preserve the exact rounded-square brushed silver frame, its corner radius, metal thickness, 4% outer margin, upper-left lighting and charcoal inset background. Remove the person and sword trail completely from the interior. Replace only the inner subject with a realistic black and silver tactical pump shotgun with full stock, ribbed pump fore-end and under-barrel magazine tube; no rifle box magazine, full silhouette diagonal from stock lower left to barrel upper right. Realistic crafted steel and dark graphite materials, silver highlights readable at 48 pixels. Center the complete weapon, subject spans about 78–82% of the inside square, safely inside frame. No person, no text, no badge, no second border, no hexagon, no labels, no watermark. Square PNG; opaque dark interior, transparent only outside the rounded frame."
+    },
+    {
+      "id": "bowMastery",
+      "file": "bow_mastery_cold_steel.png",
+      "subject": "planar recurve bow, one straight string, no arrow",
+      "mode": "new",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-5ca26f5d-d561-4cd8-857b-98fe1364713d.png",
+      "prompt": "Keep this corrected, physically coherent recurve bow EXACTLY the same shape: simple mirrored upper and lower limbs in one flat plane, central leather grip, one straight taut string connecting both tip nocks, no arrow. Change the presentation only: rotate the ENTIRE bow AND its string together as one rigid object about 35 degrees clockwise, so upper tip is toward upper-right and lower tip toward lower-left, and enlarge the whole object to use the icon space well while leaving both tips fully inside the frame. Do NOT bend, twist, warp, stretch or redraw the bow's geometry; the string stays one perfectly straight line. Give the existing silver accents enough brighter upper-left highlights for readability at 48px. Preserve the exact rounded-square silver frame and charcoal backdrop unchanged. One square PNG, transparency outside the frame only. No extra bow, arrow, string, person, symbol or text."
+    },
+    {
+      "id": "criticalStrike",
+      "file": "critical_strike_cold_steel.png",
+      "subject": "the silver lightning breaking a steel shield motif",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-5150a63c-2a4c-4416-8ec6-a337184e334f.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the silver lightning breaking a steel shield motif."
+    },
+    {
+      "id": "dodge",
+      "file": "dodge_cold_steel.png",
+      "subject": "the existing full-body sidestepping figure and its silver motion streaks",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-1d874c08-735a-4cb3-bdfc-92d105f29e7e.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the existing full-body sidestepping figure and its silver motion streaks."
+    },
+    {
+      "id": "quickCombat",
+      "file": "quick_combat_placeholder.png",
+      "subject": "faceless training figure performing a fast forward punch",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-414f6888-ed8f-4725-a3d2-926d368a22e8.png",
+      "prompt": "Edit the approved uppercut skill icon into a QUICK MELEE martial skill icon. Preserve EXACTLY the rounded-square brushed silver border, corner radius, outside margin, charcoal background, lighting and the same faceless neutral figure with dark simple training tunic, trousers and boots. Change only the figure's action: low forward stepping stance, torso leaning into a very quick straight punch towards upper-right, front fist extended and rear hand close to chest. Clear full-body anatomically coherent pose with two arms and two legs. No sword or other weapon. A SHORT silver-white speed arc behind the punching forearm and a compact contact glint at the fist express a fast close-range strike, not a giant blast. Figure fills about 76% of the inner frame with both feet and hands fully within it. No armor, helmet, hair, facial features, double arrows, text, letters, numbers, labels or watermark. One square PNG, interior opaque graphite, transparent only OUTSIDE the rounded silver frame. Match the original figure's material and the approved martial icon family's composition."
+    },
+    {
+      "id": "fireball",
+      "file": "fireball_ember_red.png",
+      "subject": "the red-orange fireball and flowing flame trail; red-orange remains the dominant subject color",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-f671a0bb-0d90-4cbf-8c42-56800da3c298.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the red-orange fireball and flowing flame trail; red-orange remains the dominant subject color."
+    },
+    {
+      "id": "iceSpike",
+      "file": "ice_spike_cold_steel.png",
+      "subject": "the blue crystalline flying icicles and their diagonal movement",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-6950f4db-2697-42d0-b493-877b131dbe8e.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the blue crystalline flying icicles and their diagonal movement."
+    },
+    {
+      "id": "iceWall",
+      "file": "ice_wall_cold_steel.png",
+      "subject": "the realistic frosted blue wall made of rough ice blocks",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-0813388f-9fda-4987-8ad3-5612bbcf88bb.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the realistic frosted blue wall made of rough ice blocks."
+    },
+    {
+      "id": "blizzard",
+      "file": "blizzard_cold_steel.png",
+      "subject": "the storm clouds, swirling snow and falling blue ice shards",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-2d050707-293a-474e-9274-b8e13603e3f1.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the storm clouds, swirling snow and falling blue ice shards."
+    },
+    {
+      "id": "lightningStrike",
+      "file": "lightning_cold_steel.png",
+      "subject": "the electric violet-blue branched lightning bolt",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-4f880c44-86b7-46a4-9cf7-569ee30db59c.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the electric violet-blue branched lightning bolt."
+    },
+    {
+      "id": "holyLight",
+      "file": "holy_light_cold_steel.png",
+      "subject": "the radiant gold-white vertical light column and circular light on the ground. Remove the old ornate frame; keep the magical golden artwork contained inside the reference frame",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-c5c0a3ab-acdf-49fa-b7fd-006560db96f5.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the radiant gold-white vertical light column and circular light on the ground. Remove the old ornate frame; keep the magical golden artwork contained inside the reference frame."
+    },
+    {
+      "id": "meteor",
+      "file": "meteor_hex.png",
+      "subject": "the craggy glowing molten meteor and red-orange falling flame trail",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-096299b9-2f90-40a5-a1b7-a408eab88107.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the craggy glowing molten meteor and red-orange falling flame trail."
+    },
+    {
+      "id": "flameArmor",
+      "file": "flame_armor_hex.png",
+      "subject": "the steel armor and silver sword surrounded by red-orange flames",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-f5e15c86-8050-45f0-8ca7-16123a287053.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the steel armor and silver sword surrounded by red-orange flames."
+    },
+    {
+      "id": "stormDomain",
+      "file": "storm_domain_cold_steel.png",
+      "subject": "the massive dark thundercloud and branching pale violet lightning striking the ground. Remove the old angular thin frame",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-1b6ee628-4f79-4baf-8ecf-bf67b374a7fc.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the massive dark thundercloud and branching pale violet lightning striking the ground. Remove the old angular thin frame."
+    },
+    {
+      "id": "thunderLance",
+      "file": "thunder_lance_cold_steel.png",
+      "subject": "the bright blue electric lance with spiral energy rings; keep full diagonal energy beam visible and remove old angular thin frame",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-c1b4fff1-ec0b-4d77-b415-ec8f1f29f5ab.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the bright blue electric lance with spiral energy rings; keep full diagonal energy beam visible and remove old angular thin frame."
+    },
+    {
+      "id": "dragonBreath",
+      "file": "dragon_breath_hex.png",
+      "subject": "the metal-gray dragon head exhaling a broad orange flame fan towards the right",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-6bac60ca-130a-4f39-961b-bac22e860077.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the metal-gray dragon head exhaling a broad orange flame fan towards the right."
+    },
+    {
+      "id": "runeBlades",
+      "file": "rune_orb_blades_cold_steel.png",
+      "subject": "the FOUR blue magical swords floating above a blue elliptical ring",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-59255748-45b0-4368-9049-318b83683d57.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the FOUR blue magical swords floating above a blue elliptical ring."
+    },
+    {
+      "id": "staffLight",
+      "file": "staff_light_cold_steel.png",
+      "subject": "the same glowing amber-white quartz crystal on the rustic wood staff tip and its short light rays. Add the approved square frame around the artwork, no hexagon",
+      "mode": "edit",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a13038-798e-7ab0-9faf-91785d7004fb\\exec-7ef8db26-6653-4995-954b-8247f53ffec6.png",
+      "prompt": "Make ONE 1:1 square production game skill icon. Image 1 is the APPROVED FRAME reference: copy its rounded square brushed silver frame, inner charcoal background, upper-left lighting, corner radius, thickness, 4% outside margin exactly; do NOT copy its person or sword trail. Image 2 is the EDIT TARGET: preserve its central subject and identity, remove its old hexagon frame entirely. Fit the subject centrally inside the new frame at approximately 76–82% of inner width/height, fully visible with safe padding. Equal square dimensions; image fills the same space as Image 1. No hexagon, no nested badge, no extra rim, no text, no letters, no numbers, no watermark. Opaque dark graphite interior; transparent only outside the rounded square frame. Preserve subject colors and realistic detail. Preserve the same glowing amber-white quartz crystal on the rustic wood staff tip and its short light rays. Add the approved square frame around the artwork, no hexagon."
+    }
+  ]
+}

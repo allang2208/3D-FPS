@@ -4,10 +4,10 @@
 
 namespace FireMagic
 {
-inline bool IsSkill(FName Id){return Id==TEXT("meteor")||Id==TEXT("flameArmor");}
+inline bool IsSkill(FName Id){return Id==TEXT("meteor")||Id==TEXT("flameArmor")||Id==TEXT("dragonBreath");}
 }
 
-/** Both spells retain game-dev's level K (1..20), not K-1, in damage terms. */
+/** Legacy meteor/armor use level K; Dragon Breath uses K-1 in damage terms. */
 struct FFireMagicTuning
 {
     float DamageBase=120,DamagePerLevel=12,MagicBase=2.2f,MagicPerLevel=.4f,IntelligenceBase=2.4f,IntelligencePerLevel=.45f;
@@ -18,6 +18,7 @@ struct FFireMagicTuning
     float AuraBurnSeconds=2.5f,AuraBurnMultiplier=.3f;
     int32 BurnStacks=3,AuraBurnStacks=1,HitExperience=2,KillExperience=10,MultiHitExperience=8,MultiKillExperience=10;
     bool bRequiresStaff=false;
+    float RadiusMaximum=1500.f,ArcDegrees=90.f;
 };
 
 USTRUCT()
@@ -34,6 +35,26 @@ struct FFireMagicCast
     UPROPERTY() float PendantBurnMultiplier=0;
     UPROPERTY() float PendantBurnSeconds=3;
     UPROPERTY() float PendantBurnTick=.5f;
+    UPROPERTY() float ArcDegrees=90.f;
+};
+
+USTRUCT()
+struct FFlameArmorNetState
+{
+    GENERATED_BODY()
+    UPROPERTY() FFireMagicCast Cast;
+    UPROPERTY() double StartedAt=0;
+    UPROPERTY() uint32 Serial=0;
+    UPROPERTY() bool bActive=false;
+};
+
+USTRUCT()
+struct FDragonBreathState
+{
+    GENERATED_BODY()
+    UPROPERTY() FFireMagicCast Cast;
+    UPROPERTY() double StartedAt=0;
+    UPROPERTY() bool bActive=false;
 };
 
 /** Skill training is aggregated until the field / buff ends; character kills are immediate. */

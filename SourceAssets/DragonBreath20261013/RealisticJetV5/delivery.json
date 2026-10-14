@@ -1,0 +1,26 @@
+{
+  "revision": "DragonBreathRealisticJetV5_20261013",
+  "source": "/Game/Realistic_Starter_VFX_Pack_Vol2/Particles/Fire/P_flamethrower",
+  "saved_assets": [
+    "/Game/Skills/DragonBreath20261013/M_DragonNativeJetV5.M_DragonNativeJetV5",
+    "/Game/Skills/DragonBreath20261013/M_DragonNativeSparkV5.M_DragonNativeSparkV5",
+    "/Game/Skills/DragonBreath20261013/NS_DragonBreath.NS_DragonBreath"
+  ],
+  "layers": [
+    "JetSource",
+    "JetCore",
+    "JetRoll",
+    "JetSparks"
+  ],
+  "spawn_rate_total": 218,
+  "max_particle_lifetime": 0.72,
+  "native_flame_material": "/Game/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Fire_C",
+  "atlas": [
+    6,
+    6
+  ],
+  "gameplay_changed": false,
+  "gameplay_tested": false,
+  "rendered": false,
+  "stage": "assets_saved"
+}

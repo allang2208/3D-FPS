@@ -1,4 +1,5 @@
 #include "FPSIceSpikeVolley.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "FPSIceWall.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
@@ -183,7 +184,7 @@ void AFPSIceSpikeVolley::UpdateHover()
         // so it is added once here; each spike still meanders independently without orbit or spin.
         FVector Desired=Eye+Forward*ForwardDistance+Right*(Slot+DriftX)+Up*(OverheadHeight+DriftY);
         FHitResult Cover;
-        if(GetWorld()->SweepSingleByChannel(Cover,Eye,Desired,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(18),Query))Desired=Cover.Location;
+        if(RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Cover,Eye,Desired,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(18),Query))Desired=Cover.Location;
         const FVector Previous=Age==0?Desired:Flights[I].Position;
         Flights[I].Position=Desired;
         auto* Core=Cores[I].Get();Core->SetWorldLocation(Desired);
@@ -313,7 +314,7 @@ void AFPSIceSpikeVolley::Tick(float Delta)
         bool bBlocked=false;
         for(int32 Pass=0;Pass<8;++Pass)
         {
-            bBlocked=GetWorld()->SweepSingleByChannel(Hit,F.Position,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(18),Query);
+            bBlocked=RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Hit,F.Position,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(18),Query);
             if(!bBlocked)break;
             const auto* Blocking=IsValid(Hit.GetActor())?Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>():nullptr;
             if(!Blocking||!Blocking->IsDead())break;
@@ -336,7 +337,7 @@ void AFPSIceSpikeVolley::Tick(float Delta)
                 Settled.Add(Target);if(M)M->ApplyIceSpikeHit(Shooter.Get(),Hit,Cast,Rewards);
                 Query.AddIgnoredActor(Target);
             }
-            while(GetWorld()->SweepSingleByChannel(Hit,F.Position,ClusterEnd,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(18),Query));
+            while(RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Hit,F.Position,ClusterEnd,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(18),Query));
             F.Position=First.Location;Shatter(I,First.ImpactPoint,First.ImpactNormal,true);
         }
         else

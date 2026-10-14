@@ -1,4 +1,6 @@
 #include "FPSFireballProjectile.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "../Weapons/ThermalTargetSubsystem.h"
 #include "../WorldGeneration/RiverPilotFXSubsystem.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "FPSMagicPreview.h"
@@ -81,6 +83,7 @@ FVector AFPSFireballProjectile::HoverPosition(APawn* Caster)
 }
 void AFPSFireballProjectile::SetPresentationAssets(UNiagaraSystem* CoreFX,UNiagaraSystem* TrailFX,UNiagaraSystem* ImpactFX,UMaterialInterface* WaveMaterial,USoundBase* HitSound)
 {
+    UThermalTargetSubsystem::RegisterFire(Core,FVector(22));
     Explosion=ImpactFX;Wave=WaveMaterial;ImpactSound=HitSound;bAssetsAttached=1;
     if(CoreFX){Core->SetAsset(CoreFX);Core->SetVariableFloat(TEXT("User.Flight"),0.f);Core->SetVariableFloat(TEXT("User.FlightAge"),0.f);Core->Activate(true);}
     if(TrailFX)Trail->SetAsset(TrailFX);
@@ -160,7 +163,7 @@ void AFPSFireballProjectile::UpdateHover()
     // windup, without a second interpolator or freezing at input release.
     FCollisionQueryParams Query(SCENE_QUERY_STAT(FireballMove),false,Shooter.Get());Query.AddIgnoredActor(this);
     FHitResult Hit;
-    const bool Blocked=GetWorld()->SweepSingleByChannel(Hit,GetActorLocation(),Desired,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
+    const bool Blocked=RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Hit,GetActorLocation(),Desired,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
     SetActorLocation(Blocked?Hit.Location:Desired);
     if(const auto* Camera=Shooter->FindComponentByClass<UCameraComponent>())Core->SetVisibility(FVector::Distance(Camera->GetComponentLocation(),GetActorLocation())>30);
 }
@@ -239,7 +242,7 @@ void AFPSFireballProjectile::Tick(float Delta)
     const FVector NextPosition=FPSMagicPreview::LimitStep(PreviousPosition,
         LaunchPosition+LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge,Cast.Range-Distance);
     Velocity=LaunchVelocity+Gravity*FlightAge;
-    const bool Blocked=GetWorld()->SweepSingleByChannel(Hit,PreviousPosition,NextPosition,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
+    const bool Blocked=RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Hit,PreviousPosition,NextPosition,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
     SetActorLocation(Blocked?Hit.Location:NextPosition);
     if(!bWaterContact)
         if(auto* Water=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())
@@ -265,6 +268,7 @@ void AFPSFireballProjectile::PresentExplosion(const FVector& Contact,const FVect
     if(auto* FX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,Explosion,Contact+Normal*8,ImpactRotation,FVector(EffectScale*FireballImpactVisuals::BaselineCombustionScale),true,false,ENCPoolMethod::AutoRelease))
     {
         FX->SetVariableFloat(TEXT("User.SurfaceHit"),bSurfaceHit?1.f:0.f);
+        UThermalTargetSubsystem::RegisterFire(FX,FVector(45,45,65)*EffectScale,FVector(0,0,25),.85f);
         FX->SetVariableVec3(TEXT("User.LocalUp"),ImpactRotation.UnrotateVector(FVector::UpVector));
         FX->SetVariableFloat(TEXT("User.ImpactGrowth"),EffectScale-1.f);
         if(auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Budget->ConfigureSmoke(FX,9,bWaterContact);

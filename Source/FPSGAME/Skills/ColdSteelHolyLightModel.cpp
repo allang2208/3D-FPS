@@ -29,14 +29,14 @@ FHolyLightCast UColdSteelStatusModel::HolyLightStats(int32 AtLevel) const
     C.IntelligenceMultiplier=T.IntelligenceBase+L*T.IntelligencePerLevel;
     C.WisdomMultiplier=T.WisdomBase+L*T.WisdomPerLevel;
     const double Base=FMath::FloorToDouble(C.AmountBase+Derived(TEXT("matk"))*C.MagicMultiplier+Attribute(TEXT("int"))*C.IntelligenceMultiplier+Attribute(TEXT("wis"))*C.WisdomMultiplier);
-    C.ManaCost=T.ManaCost;C.Cooldown=T.Cooldown-(L-1)/T.CooldownLevelStep*T.CooldownStepReduction;
+    C.Cooldown=T.Cooldown-(L-1)/T.CooldownLevelStep*T.CooldownStepReduction;
     C.Range=T.Range*T.UnitsToCM;C.AimRadius=T.AimRadius*T.UnitsToCM;
     C.ZombieMultiplier=T.ZombieMultiplier;C.Duration=T.Duration;C.Fade=T.Fade;
     C.TopWidth=T.TopWidth*T.UnitsToCM;C.BottomWidth=T.BottomWidth*T.UnitsToCM;C.Height=T.Height*T.UnitsToCM;C.DissolveRatio=T.DissolveRatio;
     C.CriticalChance=Derived(TEXT("crit"));C.CriticalDamageBonus=CriticalStrikeEffect().CriticalDamageBonus;
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     C.MagicDamageBonus=(1+SetEffect(TEXT("magicDamage")))*Rune.MagicDamage-1;
-    double DamageFactor=1,HealFactor=1,CostFactor=1,CooldownReduction=0;
+    double DamageFactor=1,HealFactor=1,CooldownReduction=0;
     const auto* Player=RuntimePawn();
     const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
     const int32 Chain=Status?Status->ChainSpellStacks():0;
@@ -46,7 +46,6 @@ FHolyLightCast UColdSteelStatusModel::HolyLightStats(int32 AtLevel) const
             auto Craft=[&](const TCHAR* Key){return E->CraftEffect(*Item,Key);};
             C.CriticalChance+=100*(E->Effect(*Item,TEXT("critRate"))+Craft(TEXT("critChancePercent"))+Craft(TEXT("magicCritPercent")));
             C.MagicPenetration=E->Effect(*Item,TEXT("magicPenetrationPercent"))+Craft(TEXT("magicPenetrationPercent"));
-            CostFactor+=Craft(TEXT("magicMpCostPercent"))+Chain*Craft(TEXT("chainSpellMpCostPercent"));
             CooldownReduction=Craft(TEXT("magicCooldownPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));C.AimRadius*=1+Craft(TEXT("magicRangePercent"));
             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
             DamageFactor=(1+Craft(TEXT("magicDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent")));
@@ -61,7 +60,7 @@ FHolyLightCast UColdSteelStatusModel::HolyLightStats(int32 AtLevel) const
     // Light healing never inherits damage-only, chain damage or critical modifiers.
     C.Healing=FMath::FloorToFloat(Base*HealFactor);
     C.Damage=FMath::FloorToFloat(Base*DamageFactor*MagicImplementMultiplier());
-    C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor)*float(Rune.MagicCost));
+    C.ManaCost=SpellManaCostBeforeFocus(TEXT("holyLight"),L);
     C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.MagicCooldown;
     ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
     return C;

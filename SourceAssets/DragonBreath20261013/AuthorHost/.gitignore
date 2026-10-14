@@ -1,0 +1,6 @@
+# Content is a local junction to the main project, not an asset copy.
+/Content/
+/Binaries/
+/Intermediate/
+/Saved/
+/.vs/

@@ -1,0 +1,23 @@
+{
+  "revision": "BlizzardStormCloudReuse20261012",
+  "saved_assets": [
+    "/Game/Skills/StormClouds/RollingV1/NS_BlizzardStormCloud.NS_BlizzardStormCloud"
+  ],
+  "gameplay_tested": false,
+  "rendered": false,
+  "blizzard_layout": "StormDomainLayers20261012",
+  "blizzard_source": "/Game/Skills/StormClouds/RollingV1/NS_StormDomainCloud.NS_StormDomainCloud",
+  "blizzard_cloud_emitters": [
+    "DenseDarkBase",
+    "RollingCloudBody",
+    "SlateCloudCrown",
+    "ElectricCloudRim",
+    "SoftCloudFringe"
+  ],
+  "stage": "assets_saved",
+  "core_particles": 48,
+  "fringe_max_approx": 8,
+  "source_cloud_modified": false,
+  "gameplay_modified": false,
+  "native_build_required": false
+}

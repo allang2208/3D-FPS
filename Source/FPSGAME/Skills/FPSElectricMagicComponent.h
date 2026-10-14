@@ -67,6 +67,9 @@ private:
     FString Message;
     double MessageUntil=0;
     float ChargeAge=0,DomainAge=0,DomainVisualAge=0,NextStrike=0;
+    float CloudTop=330.f,CloudThickness=110.f,CloudRadiusX=0.f,CloudRadiusY=0.f,NextCloudProbe=0.f;
+    double CloudCeilingZ=TNumericLimits<double>::Max();
+    FVector CloudProbePosition=FVector::ZeroVector;
     bool bAssetsReady=false,bChargeAtContact=false,bDomainActive=false,bDomainFading=false;
     FFPSLeftHandNotice HandNotice;
     UColdSteelStatusModel* Model() const;
@@ -94,6 +97,8 @@ private:
     void FireLanceBody(APawn* P,UColdSteelStatusModel* M,const FVector& Eye,const FVector& Dir,float Ratio,const FElectricMagicCast& Spell);
     /** 雷云 FX——本地激活与服务端激活共用（远端靠复制态重演）。 */
     void SpawnDomainFX();
+    void UpdateDomainCloud(float Delta,bool bForce=false);
+    FVector DomainStrikeOrigin(AActor* Target) const;
     // ── 联机：雷云激活态复制（远端副本看云；电弧/雷枪柱经 AFPSLightningArc 复制）──
     UPROPERTY(ReplicatedUsing=OnRep_Domain) bool bNetDomain=false;
     UPROPERTY(Replicated) FElectricMagicCast NetDomainCast;

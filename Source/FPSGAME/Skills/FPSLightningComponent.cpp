@@ -1,7 +1,9 @@
 #include "FPSLightningComponent.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "FPSLightningArc.h"
+#include "MagicOcclusion.h"
 #include "FPSFireballComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -34,20 +36,21 @@ bool UFPSLightningComponent::IsTarget(AActor* Target) const
 {
     if(UWardBreakableGlass::IntactPane(Target))return true;
     const auto* C=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
-    return Target!=GetOwner()&&C&&!C->IsDead()&&!Target->ActorHasTag(TEXT("Friendly"));
+    return Target!=GetOwner()&&C&&!C->IsDead()&&!RangedAttackQuery::IsFriendlyUnit(GetOwner(),Target);
 }
 bool UFPSLightningComponent::VisibleFrom(AActor* Origin,AActor* Target,const FVector& Start) const
 {
     FCollisionQueryParams Query(SCENE_QUERY_STAT(LightningSight),true,Origin);Query.AddIgnoredActor(GetOwner());
-    const auto* Pane=UWardBreakableGlass::IntactPane(Target);if(!Pane)Query.AddIgnoredActor(Target);
-    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Start,UWardBreakableGlass::TargetPoint(Target),ECC_Visibility,Query) || (Pane && Hit.GetComponent()==Pane);
+    const auto* Pane=UWardBreakableGlass::IntactPane(Target);
+    if(!Pane)return MagicOcclusion::HasExposure(GetWorld(),Target,Start,Query,GetOwner());
+    FHitResult Hit;return !MagicOcclusion::TraceBlocker(GetWorld(),Start,UWardBreakableGlass::TargetPoint(Target),Query,Hit,GetOwner()) || Hit.GetComponent()==Pane;
 }
 AActor* UFPSLightningComponent::SelectTarget(const FLightningCast& Spell,FString& Failure) const
 {
     const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();if(!Camera)return nullptr;
     const FVector Eye=Camera->GetComponentLocation(),Forward=Camera->GetForwardVector();
     FHitResult AimHit;FCollisionQueryParams AimQuery(SCENE_QUERY_STAT(LightningGlassAim),false,GetOwner());
-    if(GetWorld()->LineTraceSingleByChannel(AimHit,Eye,Eye+Forward*Spell.Range,ECC_Visibility,AimQuery)
+    if(MagicOcclusion::TraceBlocker(GetWorld(),Eye,Eye+Forward*Spell.Range,AimQuery,AimHit,GetOwner())
         && Cast<UWardBreakableGlass>(AimHit.GetComponent())){Failure.Empty();return AimHit.GetActor();}
     AActor* Best=nullptr;double Score=DBL_MAX;bool NearAim=false,InRange=false;
     for(TActorIterator<AActor> It(GetWorld());It;++It)
@@ -119,7 +122,7 @@ void UFPSLightningComponent::ServiceQueue()
     CastSnapshot=Spell;LockedTarget=Target;bCommitted=true;MessageUntil=0;
     if(auto* Status=Player->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
     // 联机客人：凝聚扣账上报；链式结算由服务端在释放相位权威执行。
-    if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;NetCast::Send(Player,TEXT("lightning"),0);}
+    if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;bNetResultPending=true;NetPaidMana=FMath::Max(0.f,BeforeMana-M->Snapshot().Mana);NetCast::Send(Player,TEXT("lightning"),0);}
 }
 void UFPSLightningComponent::SpawnArc(const FVector& Start,const FVector& End,float Width,bool bOverload)
 {
@@ -130,9 +133,9 @@ void UFPSLightningComponent::SpawnArc(const FVector& Start,const FVector& End,fl
         Arc->InitializeArc(ArcSystem,Start,End,Visual,Width);Arcs.Add(Arc);
     }
 }
-void UFPSLightningComponent::Overload(AActor* Origin,FLightningRewards& Rewards)
+void UFPSLightningComponent::Overload(AActor* Origin,FLightningRewards& Rewards,UColdSteelStatusModel* M)
 {
-    auto* Player=Cast<APawn>(GetOwner());auto* M=Model();if(!Origin||!Player||!M)return;
+    auto* Player=Cast<APawn>(GetOwner());if(!Origin||!Player||!M)return;
     if(auto* C=Origin->FindComponentByClass<UMonsterCombatComponent>())C->ReceiveStun(Player,CastSnapshot.OverloadStun,0);
     if(auto* S=UCombatStatusFormula::GetOrAdd(Origin))S->AddStun(CastSnapshot.OverloadStun); // 过载眩晕 1.2s：旧 applyStun 口径
     const FVector Start=Origin->GetActorLocation();
@@ -146,7 +149,7 @@ void UFPSLightningComponent::Overload(AActor* Origin,FLightningRewards& Rewards)
         M->ApplyLightningHit(Player,Target,Start,CastSnapshot,CastSnapshot.OverloadDamage,Rewards,false);
         // 旧 _triggerElectrifiedOverload：传导电击给每个被链到的敌人 +1 感电层（其自身满层可再过载，级联同旧行为）。
         if(auto* S=UCombatStatusFormula::GetOrAdd(Target))
-            if(!S->IsImmune()&&S->AddElectrified(1,CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack))Overload(Target,Rewards);
+            if(!S->IsImmune()&&S->AddElectrified(1,CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack))Overload(Target,Rewards,M);
     }
 }
 void UFPSLightningComponent::ReleaseAtContact()
@@ -155,7 +158,12 @@ void UFPSLightningComponent::ReleaseAtContact()
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();
     AActor* First=LockedTarget.Get();LockedTarget.Reset();
     if(!Player||!M||!Camera||!IsTarget(First)||FVector::Dist(Player->GetActorLocation(),UWardBreakableGlass::TargetPoint(First))>CastSnapshot.Range||!VisibleFrom(Player,First,Camera->GetComponentLocation()))
-    {if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("lightning"));Feedback(TEXT("目标已失效或被遮挡"));return;}
+    {
+        if(GetWorld()->GetNetMode()==NM_Client&&bNetPaid)NetCast::Send(GetOwner(),TEXT("lightning"),2);
+        bNetPaid=false;bNetResultPending=false;NetPaidMana=0;
+        if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("lightning"));
+        Feedback(TEXT("目标已失效或被遮挡"));return;
+    }
     // 联机客人：首目标上行，服务端权威跑链+结算+生成复制电弧；本地收尾预扣账。
     if(GetWorld()->GetNetMode()==NM_Client)
     {
@@ -210,7 +218,7 @@ void UFPSLightningComponent::RunChain(APawn* Player,UColdSteelStatusModel* M,AAc
                 if(!Status->IsImmune())
                 {
                     // Native stun and bell extension were applied once with damage.
-                    if(Status->AddElectrified(CastSnapshot.ElectrifyStacks,CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack))Overload(Target,Rewards);
+                    if(Status->AddElectrified(CastSnapshot.ElectrifyStacks,CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack))Overload(Target,Rewards,M);
                 }
             }
         From=End;
@@ -233,22 +241,30 @@ bool UFPSLightningComponent::NetRelease(APawn* Caster,const FColdSteelNetCastReq
     {if(Spell.bGrantChain)Status->AddChainSpell();if(Spell.CastHasteStacks>0)Status->AddHaste(Spell.CastHasteStacks,Spell.CastHasteDuration);}
     return true;
 }
+void UFPSLightningComponent::NetCastAccepted(uint8 Phase)
+{if(Phase==1){NetPaidMana=0.f;bNetResultPending=false;}}
 void UFPSLightningComponent::NetCastRejected(uint8 /*Phase*/,uint8 /*Code*/)
 {
     bNetPaid=false;
-    if(bCommitted){bCommitted=false;LockedTarget.Reset();if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("lightning"));}
+    // A release has already cleared bCommitted. Keep its exact local payment
+    // until the receipt so server target rejection also refunds the owning UI.
+    const bool HadPayment=bNetResultPending;
+    if(bCommitted&&Hands())Hands()->TakeGesturePayment();
+    bCommitted=false;LockedTarget.Reset();
+    if(HadPayment)if(auto* M=Model())M->RefundUnreleasedCast(NetPaidMana,TEXT("lightning"));
+    NetPaidMana=0.f;bNetResultPending=false;
     if(auto* H=Hands())H->CancelSpellGesture(this);
     Feedback(TEXT("施法失败"));
 }
 void UFPSLightningComponent::NetCastCancelled(uint8 /*Phase*/)
 {
-    bNetPaid=false;
+    bNetPaid=false;NetPaidMana=0.f;bNetResultPending=false;
 }
 void UFPSLightningComponent::Cancel()
 {
     // 联机客人：凝聚期取消——上报服务端退预留。
     if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bCommitted&&bNetPaid)NetCast::Send(GetOwner(),TEXT("lightning"),2);
-    bNetPaid=false;
+    bNetPaid=false;NetPaidMana=0.f;bNetResultPending=false;
     bQueued=false;bCommitted=false;LockedTarget.Reset();
     if(auto* H=Hands())H->CancelSpellGesture(this);
     for(auto& Arc:Arcs)if(Arc.IsValid())Arc->Destroy();Arcs.Reset();
@@ -257,7 +273,7 @@ void UFPSLightningComponent::InterruptPending()
 {
     if(bCommitted)Feedback(TEXT("施法中断"));
     if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bCommitted&&bNetPaid)NetCast::Send(GetOwner(),TEXT("lightning"),2);
-    bNetPaid=false;
+    bNetPaid=false;NetPaidMana=0.f;bNetResultPending=false;
     bQueued=bCommitted=false;LockedTarget.Reset();
     // Contact already applied its damage; cancelling recovery does not undo it.
 }

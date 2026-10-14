@@ -24,7 +24,7 @@ FBlizzardCast UColdSteelStatusModel::BlizzardStats(int32 AtLevel) const
     C.Damage=FMath::FloorToFloat(T.DamageBase+L*T.DamagePerLevel+Derived(TEXT("matk"))*(T.MagicBase+L*T.MagicPerLevel)+Attribute(TEXT("int"))*(T.IntelligenceBase+L*T.IntelligencePerLevel));
     C.RadiusX=(T.RadiusXBase+L*T.RadiusXPerLevel)*T.UnitsToCM;
     C.RadiusY=(T.RadiusYBase+L*T.RadiusYPerLevel)*T.UnitsToCM;
-    C.Range=T.Range*T.UnitsToCM;C.ManaCost=T.ManaCost;
+    C.Range=T.Range*T.UnitsToCM;
     C.Cooldown=T.Cooldown-FMath::FloorToFloat(Growth*T.CooldownReduction);
     C.Duration=T.Duration+FMath::FloorToFloat(Growth*T.DurationGrowth);
     C.TickSeconds=T.TickSeconds;C.ChillSeconds=T.ChillSeconds;C.ChillSlow=T.ChillSlow;C.ChillStacks=T.ChillStacks;C.bRequiresStaff=T.bRequiresStaff;
@@ -34,14 +34,13 @@ FBlizzardCast UColdSteelStatusModel::BlizzardStats(int32 AtLevel) const
     const auto* Player=RuntimePawn();
     const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
     const int32 Chain=Status?Status->ChainSpellStacks():0;
-    float DamageFactor=MagicImplementMultiplier(),CostFactor=1,CooldownReduction=0;
+    float DamageFactor=MagicImplementMultiplier(),CooldownReduction=0;
     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {
             auto Craft=[&](const TCHAR* Key){return E->CraftEffect(*Item,Key);};
             C.CriticalChance+=100*(E->Effect(*Item,TEXT("critRate"))+Craft(TEXT("critChancePercent"))+Craft(TEXT("magicCritPercent")));
             C.MagicPenetration=E->Effect(*Item,TEXT("magicPenetrationPercent"))+Craft(TEXT("magicPenetrationPercent"));
-            CostFactor+=Craft(TEXT("magicMpCostPercent"))+Chain*Craft(TEXT("chainSpellMpCostPercent"));
             CooldownReduction=Craft(TEXT("magicCooldownPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));
             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
             DamageFactor*=(1+Craft(TEXT("magicDamagePercent"))+Craft(TEXT("iceDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent")));
@@ -51,7 +50,7 @@ FBlizzardCast UColdSteelStatusModel::BlizzardStats(int32 AtLevel) const
             C.PendantChillSeconds=E->CraftEffect(*Item,TEXT("iceChillDuration"),3000)/1000;
         }
     C.Damage=FMath::FloorToFloat(C.Damage*DamageFactor);
-    C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor)*float(Rune.MagicCost));
+    C.ManaCost=SpellManaCostBeforeFocus(TEXT("blizzard"),L);
     C.Cooldown=FMath::Clamp(C.Cooldown*float(FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown")))))*float(Rune.MagicCooldown),0.f,300.f);
     ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
     return C;

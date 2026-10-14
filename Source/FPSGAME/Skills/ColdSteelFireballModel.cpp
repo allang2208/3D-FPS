@@ -1,11 +1,14 @@
 #include "../Dungeon/DungeonLayout.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../UI/ColdSteelCurrency.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "ColdSteelSkillRules.h"
 #include "FireballDamage.h"
+#include "MagicOcclusion.h"
 #include "FPSIceWall.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "FPSMagicPreview.h"
@@ -24,33 +27,25 @@ namespace
 bool IsFireballTarget(AActor* Target,APawn* Shooter)
 {
     const auto* Combat=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
-    return Target!=Shooter&&Combat&&!Combat->IsDead()&&!Target->ActorHasTag(TEXT("Friendly"));
+    return Target!=Shooter&&Combat&&!Combat->IsDead()&&!RangedAttackQuery::IsFriendlyUnit(Shooter,Target);
 }
 
-bool FireballExposure(UWorld* World,AActor* Target,const FVector& Center,float Radius,
+bool FireballExposure(UWorld* World,APawn* Shooter,AActor* Target,const FVector& Center,float Radius,
     const FCollisionQueryParams& Query,float& Distance)
 {
     const auto* Body=Cast<UPrimitiveComponent>(Target->GetRootComponent());
     if(!Body)return false;
-    // Sample the nearest collision surface and the body at multiple heights. A
-    // hidden centre must not reject an exposed shoulder or the top of a capsule.
-    TArray<FVector,TInlineAllocator<4>> Samples;
+    // Keep the closest collision point for blast falloff, plus exposed body probes.
+    MagicOcclusion::FBodySamples Samples;MagicOcclusion::BodySamples(Target,Center,Samples);
     FVector Closest=Body->GetComponentLocation();
     if(Body->GetClosestPointOnCollision(Center,Closest)>=0)Samples.Add(Closest);
-    Samples.Add(Body->GetComponentLocation());
-    if(const auto* Capsule=Cast<UCapsuleComponent>(Body))
-    {
-        const float HalfSegment=FMath::Max(0.f,Capsule->GetScaledCapsuleHalfHeight()-Capsule->GetScaledCapsuleRadius());
-        Samples.Add(Capsule->GetComponentLocation()+Capsule->GetUpVector()*HalfSegment);
-        Samples.Add(Capsule->GetComponentLocation()-Capsule->GetUpVector()*HalfSegment);
-    }
     bool Visible=false;Distance=Radius;
     for(const FVector& Sample:Samples)
     {
         const float SampleDistance=FVector::Distance(Center,Sample);
         if(SampleDistance>Radius)continue;
         FHitResult Cover;
-        if(World->LineTraceSingleByChannel(Cover,Center,Sample,ECC_Visibility,Query))continue;
+        if(MagicOcclusion::TraceBlocker(World,Center,Sample,Query,Cover,Shooter))continue;
         Visible=true;Distance=FMath::Min(Distance,SampleDistance);
     }
     return Visible;
@@ -91,8 +86,6 @@ FFireballCast UColdSteelStatusModel::FireballStats(int32 AtLevel) const
     C.Radius=(F.RadiusBase+L*F.RadiusPerLevel)*F.UnitsToCM*F.RadiusScale;
     C.Speed=F.Speed*F.UnitsToCM;C.Range=F.Range*F.UnitsToCM;
     C.Gravity=F.Gravity*FPSMagicPreview::GravityScale();
-    C.ManaCost=F.ManaCost+(L-1)*F.ManaCostPerLevel;
-    C.ManaCost*=Rune.MagicCost;
     const float Growth=float(L-1)/FMath::Max(1,FireballSkill.MaxLevel-1);
     const float BaseCooldown=FMath::Lerp(F.Cooldown,F.MinimumCooldown,Growth);
     C.Cooldown=FMath::Max(F.MinimumCooldown,BaseCooldown*float(1-SetEffect(TEXT("cooldown"))));
@@ -106,13 +99,13 @@ FFireballCast UColdSteelStatusModel::FireballStats(int32 AtLevel) const
             const int32 Chain=Status?Status->ChainSpellStacks():0;
             C.Damage=FMath::FloorToFloat(C.Damage*(1+Craft(TEXT("magicDamagePercent"))+Craft(TEXT("fireDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent"))));
             C.Radius*=1+Craft(TEXT("fireballExplosionRadiusPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));
-            C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*(1+Craft(TEXT("magicMpCostPercent"))+Chain*Craft(TEXT("chainSpellMpCostPercent")))));
             C.Cooldown=BaseCooldown*FMath::Max(.2,(1-Craft(TEXT("magicCooldownPercent")))*(1-SetEffect(TEXT("cooldown"))))*Rune.MagicCooldown;
             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
             C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*I,TEXT("castHasteDuration"),5000)/1000;
             C.BurnMagicAttack=Derived(TEXT("matk"));C.BurnMultiplier=Craft(TEXT("fireBurnDamageMul"));
             C.BurnSeconds=E->CraftEffect(*I,TEXT("fireBurnDuration"),3000)/1000;C.BurnTick=E->CraftEffect(*I,TEXT("fireBurnTickMs"),500)/1000;
         }
+    C.ManaCost=SpellManaCostBeforeFocus(TEXT("fireball"),L);
     C.HoverDuration=F.HoverDuration;ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
     return C;
 }
@@ -138,6 +131,7 @@ bool UColdSteelStatusModel::RefundUnreleasedCast(float PaidMana,FName Skill)
     if(PaidMana<=0.f&&Skill.IsNone())return true;
     SyncRuntime();auto P=Snapshot();
     if(Skill==TEXT("blizzard"))PaidMana=P.bBlizzardReserved?P.BlizzardReservedMana:0.f;
+    if(Skill==TEXT("dragonBreath"))PaidMana=P.bDragonBreathReserved?P.DragonBreathReservedMana:0.f;
     if(ElectricMagic::IsSkill(Skill))PaidMana=P.ElectricReservedMana.FindRef(Skill);
     if(Skill==TEXT("iceWall"))PaidMana=P.bIceWallReserved?P.IceWallReservedMana:0.f;
     if(PaidMana>0.f)P.Mana=FMath::Min(float(Derived(TEXT("maxMp"))),P.Mana+PaidMana);
@@ -147,6 +141,7 @@ bool UColdSteelStatusModel::RefundUnreleasedCast(float PaidMana,FName Skill)
     else if(Skill==TEXT("lightning"))Clear(P.LightningCooldown,P.LightningCooldownDuration);
     else if(Skill==TEXT("meteor"))Clear(P.MeteorCooldown,P.MeteorCooldownDuration);
     else if(Skill==TEXT("flameArmor"))Clear(P.FlameArmorCooldown,P.FlameArmorCooldownDuration);
+    else if(Skill==TEXT("dragonBreath")){P.bDragonBreathReserved=false;P.DragonBreathReservedMana=0;Clear(P.DragonBreathCooldown,P.DragonBreathCooldownDuration);}
     else if(Skill==TEXT("fireball")){P.bFireballReserved=false;Clear(P.FireballCooldown,P.FireballCooldownDuration);}
     else if(Skill==TEXT("blizzard")){P.bBlizzardReserved=false;P.BlizzardReservedMana=0;Clear(P.BlizzardCooldown,P.BlizzardCooldownDuration);}
     else if(Skill==TEXT("iceSpike"))Clear(P.IceSpikeCooldown,P.IceSpikeCooldownDuration);
@@ -192,7 +187,7 @@ void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector&
         auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
         if(!Combat || Combat->IsDead())continue;
         float Distance=0;
-        if(Target!=DirectTarget&&!FireballExposure(GetWorld(),Target,Center,Cast.Radius,Query,Distance))continue;
+        if(Target!=DirectTarget&&!FireballExposure(GetWorld(),Shooter,Target,Center,Cast.Radius,Query,Distance))continue;
         const float Ratio=FMath::Clamp(Distance/Cast.Radius,0.f,1.f);
         const bool Eligible=!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining"));
         Rewards.Victim=Target;
@@ -220,7 +215,14 @@ void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector&
     const auto& F=FireballSkill.Fireball;
     ColdSteelSkills::AddExperience(P,FireballSkill,HitCount*F.HitExperience+KillCount*FireballSkill.KillExperience+(HitCount>=2?F.MultiHitExperience:0)+(KillCount>=2?F.MultiKillExperience:0));
     ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,CriticalHits*CriticalStrikeSkill.CriticalHitExperience+CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
-    for(const auto& K:Rewards.Kills){if(!DungeonLayout::RecordKill(P.DungeonRun,K.Key.Get()))continue;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);auto* Dead=K.Key.Get();P.Experience+=FMath::FloorToInt64(MonsterCoreStats::ScaleKillExperience(Dead,Level,K.Value)*TributeEffect(TEXT("expPercent")));if(const int64 Gold=MonsterCoreStats::RollKillGold(Dead))ColdSteelInventory::Insert(P.Items,CreateItem(TEXT("gold"),Gold));}
+    for(const auto& K:Rewards.Kills)
+    {
+        if(!DungeonLayout::RecordKill(P.DungeonRun,K.Key.Get()))continue;
+        P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);
+        const int64 Granted=FMath::FloorToInt64(MonsterCoreStats::ScaleKillExperience(K.Key.Get(),Level,K.Value)*TributeEffect(TEXT("expPercent")));
+        P.Experience+=Granted;
+        if(Granted>0 && !CreditCombatSouls(P,Granted))return;
+    }
     while(P.Level<10000){const int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
     if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
     if(StageTraining(MoveTemp(P)))for(const auto& K:Rewards.Kills)RewardedVictims.Add(K.Key);

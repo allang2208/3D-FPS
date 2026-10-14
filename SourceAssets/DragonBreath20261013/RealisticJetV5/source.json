@@ -1,0 +1,14 @@
+{
+  "game_world": "None",
+  "source": "/Game/Realistic_Starter_VFX_Pack_Vol2/Particles/Fire/P_flamethrower",
+  "textures": {
+    "T_Fire_F": {
+      "path": "/Game/Realistic_Starter_VFX_Pack_Vol2/Textures/T_Fire_F.T_Fire_F",
+      "srgb": true
+    },
+    "T_Fire_B": {
+      "path": "/Game/Realistic_Starter_VFX_Pack_Vol2/Textures/T_Fire_B.T_Fire_B",
+      "srgb": true
+    }
+  }
+}

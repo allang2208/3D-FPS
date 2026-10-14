@@ -31,11 +31,11 @@ FIceWallCast UColdSteelStatusModel::IceWallStats(int32 AtLevel) const
     C.HoverDuration=T.HoverDuration;C.RiseSeconds=T.RiseSeconds;C.RiseHeight=T.RiseHeight;
     C.DropSeconds=T.DropSeconds;C.DropHeight=T.DropHeight;
     C.MaxHealth=T.MaxHealth+(L-1)*T.MaxHealthPerLevel;
-    C.ManaCost=T.ManaCost;C.Cooldown=T.Cooldown;
+    C.Cooldown=T.Cooldown;
     C.Knockback=T.Knockback*T.UnitsToCM;C.PushDistanceMultiplier=T.PushDistanceMultiplier;
     C.ChillRadius=T.ChillRadius*T.UnitsToCM;C.ChillInterval=T.ChillInterval;
     C.ChillDuration=T.ChillDuration;C.ChillSlow=T.ChillSlow;C.ChillStacks=T.ChillStacks;
-    double CostFactor=1,CooldownReduction=0,ChainDamage=1;
+    double CooldownReduction=0,ChainDamage=1;
     const auto* Player=RuntimePawn();
     const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
     const int32 Chain=Status?Status->ChainSpellStacks():0;
@@ -43,7 +43,6 @@ FIceWallCast UColdSteelStatusModel::IceWallStats(int32 AtLevel) const
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {
             auto Craft=[&](const TCHAR* Key){return E->CraftEffect(*Item,Key);};
-            CostFactor+=Craft(TEXT("magicMpCostPercent"))+Chain*Craft(TEXT("chainSpellMpCostPercent"));
             CooldownReduction=Craft(TEXT("magicCooldownPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));
             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
             ChainDamage+=Chain*Craft(TEXT("chainSpellDamagePercent"));
@@ -55,7 +54,7 @@ FIceWallCast UColdSteelStatusModel::IceWallStats(int32 AtLevel) const
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     // Original identity: INT + WIS physical impact, no magic critical/penetration.
     C.Damage=FMath::FloorToFloat(FMath::FloorToFloat(C.FixedDamage+C.IntelligenceContribution+C.WisdomContribution)*ChainDamage);
-    C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor)*float(Rune.MagicCost));
+    C.ManaCost=SpellManaCostBeforeFocus(TEXT("iceWall"),L);
     C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.MagicCooldown;
     ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
     return C;

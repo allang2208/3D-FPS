@@ -12,6 +12,7 @@
 #include "DashAttackTypes.h"
 #include "../Combat/WeaponDamageTypes.h"
 #include "../Combat/MonsterToughnessTypes.h"
+#include "../Weapons/DealerPokerTypes.h"
 #include "ColdSteelSkillTypes.generated.h"
 
 USTRUCT(BlueprintType)
@@ -59,7 +60,9 @@ struct FColdSteelSkillDefinition
     int32 UseExperience = 1, MeleeDodgeExperience = 5, RangedDodgeExperience = 10;
     int32 DexterityPerLevel = 1, ReloadExperience = 5;
     int32 MeleeHitExperience=0,MeleeKillExperience=0;
+    int32 PerfectBowHitExperience=0,PerfectBowKillExperience=0;
     float ReloadSpeedPerLevel = .01f;
+    float BowDrawSpeedPerLevel = 0.f;
     float MoveSpeedPerLevel = .01f;
     /**
      * 持械移速倍率（技能满级前的固定档）。机枪精通把它压到 1 以下作为持械减速；
@@ -96,6 +99,7 @@ struct FColdSteelSkillEffect
     float DodgeDistanceCM = 0, DodgeCostReduction = 0;
     int32 Dexterity = 0;
     float ReloadSpeed = 0;
+    float BowDrawSpeed = 0;
     float MoveSpeed = 0;
     /** 持械移速固定档：1 = 不影响；机枪精通用它承载持械减速。 */
     float MovementMultiplier = 1.f;
@@ -127,6 +131,8 @@ struct FColdSteelSkillShot
     bool bRifle = false;
     bool bPistol = false;
     bool bMelee = false;
+    /** Frozen by the authoritative arrow launch, never inferred again at impact. */
+    bool bPerfectBowRelease = false;
     float WeakpointPercent = 0;
     float CriticalDamageBonus = 0;
     /** Guaranteed ammo effects captured on release, independent of later selection. */
@@ -159,6 +165,9 @@ struct FColdSteelSkillShot
     /** 冷静的：实际附魔枪械的攻击快照；直接暴击才增加沉着冷静。 */
     float ComposureStabilityPerStack=0.f,ComposureRecoilReductionPerStack=0.f,ComposureSeconds=0.f;
     int32 ComposureMaxStacks=0;
+    /** 庄家只捕获实际左轮射出的主子弹；快速近战和次生弹不抽牌。 */
+    FString DealerSourceInstance;
+    DealerPoker::FShot Dealer;
     // Direct blade action identity; shared by every target hit by the same swing.
     uint32 GuardAttackSerial=0;
     FString GuardSourceInstance;

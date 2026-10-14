@@ -1,4 +1,5 @@
 #include "FPSFireballComponent.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
@@ -237,8 +238,8 @@ void UFPSFireballComponent::Trigger()
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* P=Model();
     if(!Player||!P||!Player->IsLocallyControlled()||!GetWorld())return;
     // 联机：客人照常走本地手势与门槛，只有"生球/发射"两个世界效果换成服务端权威。
-    const ENetMode NM=GetWorld()->GetNetMode();
-    if(NM!=NM_Standalone&&NM!=NM_Client)return;
+    // IsLocallyControlled above admits the listen host as well as the owning
+    // client. The existing cast/release branches already separate their authority.
     if(auto* H=Player->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead())return;
     if(HasOtherPreparedSpell(this)){bQueuedCast=bQueuedLaunch=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
     if(auto* Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>();Sword && Sword->IsGuarding())Sword->ReleaseGuard();
@@ -294,7 +295,7 @@ void UFPSFireballComponent::TryBeginQueuedCast()
     auto* Camera=Player->FindComponentByClass<UCameraComponent>();if(!Camera)return;
     const FVector Eye=Camera->GetComponentLocation();FVector Position=AFPSFireballProjectile::HoverPosition(Player);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(FireballPrepare),false,Player);FHitResult Wall;
-    if(GetWorld()->SweepSingleByChannel(Wall,Eye,Position,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query))Position=Wall.Location;
+    if(RangedAttackQuery::SweepSingle(GetWorld(), GetOwner(), Wall,Eye,Position,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query))Position=Wall.Location;
     if(FVector::Distance(Eye,Position)<35){Feedback(TEXT("受阻"));return;}
     FActorSpawnParameters Spawn;Spawn.Owner=Player;Spawn.Instigator=Player;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     auto* Ball=GetWorld()->SpawnActor<AFPSFireballProjectile>(Position,FRotator::ZeroRotator,Spawn);
@@ -526,7 +527,7 @@ void UFPSFireballComponent::SendNetCast(uint8 Phase,const FVector& AimPoint)
     {
         FColdSteelNetCastRequest R;
         R.SkillId=TEXT("fireball");R.Phase=Phase;R.AimPoint=AimPoint;
-        PS->ServerCastSpell(R);
+        PS->RequestCastSpell(R);
     }
 }
 AFPSFireballProjectile* UFPSFireballComponent::SpawnOrbForCast(APawn* Caster,const FFireballCast& Stats)

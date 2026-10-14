@@ -1,4 +1,5 @@
 #include "FPSHolyLightComponent.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "FPSHolyLightEffect.h"
@@ -40,7 +41,7 @@ bool UFPSHolyLightComponent::VisibleFrom(AActor* Origin,AActor* Target,const FVe
 {
     FCollisionQueryParams Query(SCENE_QUERY_STAT(HolyLightSight),true,Origin);Query.AddIgnoredActor(GetOwner());
     const auto* Pane=UWardBreakableGlass::IntactPane(Target);if(!Pane)Query.AddIgnoredActor(Target);
-    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Start,UWardBreakableGlass::TargetPoint(Target),ECC_Visibility,Query) || (Pane && Hit.GetComponent()==Pane);
+    FHitResult Hit;return !RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Hit,Start,UWardBreakableGlass::TargetPoint(Target),ECC_Visibility,Query) || (Pane && Hit.GetComponent()==Pane);
 }
 AActor* UFPSHolyLightComponent::SelectTarget(const FHolyLightCast& Spell,FString& Failure) const
 {
@@ -121,7 +122,7 @@ void UFPSHolyLightComponent::ServiceQueue()
     CastSnapshot=Spell;LockedTarget=Target;bCommitted=true;MessageUntil=0;
     if(auto* Status=Player->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
     // 联机客人：凝聚即扣账上报；治疗/伤害由服务端在释放相位结算。
-    if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;NetCast::Send(Player,TEXT("holyLight"),0,FVector::ZeroVector,FVector::UpVector,Target==Player?1:0);}
+    if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;bNetResultPending=true;NetPaidMana=FMath::Max(0.f,BeforeMana-M->Snapshot().Mana);NetCast::Send(Player,TEXT("holyLight"),0,FVector::ZeroVector,FVector::UpVector,Target==Player?1:0);}
 }
 void UFPSHolyLightComponent::ReleaseAtContact()
 {
@@ -129,7 +130,12 @@ void UFPSHolyLightComponent::ReleaseAtContact()
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();
     AActor* Target=LockedTarget.Get();LockedTarget.Reset();
     if(!Player||!M||!Camera||!IsTarget(Target)||(Target!=Player&&(FVector::Dist(Player->GetActorLocation(),UWardBreakableGlass::TargetPoint(Target))>CastSnapshot.Range||!VisibleFrom(Player,Target,Camera->GetComponentLocation()))))
-    {if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("holyLight"));Feedback(TEXT("目标已失效或被遮挡"));return;}
+    {
+        if(GetWorld()->GetNetMode()==NM_Client&&bNetPaid)NetCast::Send(GetOwner(),TEXT("holyLight"),2);
+        bNetPaid=false;bNetResultPending=false;NetPaidMana=0;
+        if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("holyLight"));
+        Feedback(TEXT("目标已失效或被遮挡"));return;
+    }
     // 联机客人：目标引用上行，服务端权威结算治疗/伤害并生成复制光柱；本地收尾预扣账。
     if(GetWorld()->GetNetMode()==NM_Client)
     {
@@ -160,14 +166,14 @@ void UFPSHolyLightComponent::Cancel()
     for(auto& Arc:Effects)if(Arc.IsValid())Arc->Destroy();Effects.Reset();
     // 联机客人：已扣账未释放的凝聚取消——上报服务端退预留。
     if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bNetPaid)NetCast::Send(GetOwner(),TEXT("holyLight"),2);
-    bNetPaid=false;
+    bNetPaid=false;NetPaidMana=0.f;bNetResultPending=false;
 }
 void UFPSHolyLightComponent::InterruptPending()
 {
     if(bCommitted)Feedback(TEXT("施法中断"));
     // 联机客人：中断视同凝聚取消——Phase2 退款。
     if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bCommitted&&bNetPaid)NetCast::Send(GetOwner(),TEXT("holyLight"),2);
-    bNetPaid=false;
+    bNetPaid=false;NetPaidMana=0.f;bNetResultPending=false;
     bQueued=bCommitted=false;LockedTarget.Reset();
     // Healing/damage and an already released light keep their own lifetime.
 }
@@ -198,16 +204,24 @@ bool UFPSHolyLightComponent::NetRelease(APawn* Caster,const FColdSteelNetCastReq
     {if(Spell.bGrantChain)Status->AddChainSpell();if(Spell.CastHasteStacks>0)Status->AddHaste(Spell.CastHasteStacks,Spell.CastHasteDuration);}
     return true;
 }
+void UFPSHolyLightComponent::NetCastAccepted(uint8 Phase)
+{if(Phase==1){NetPaidMana=0.f;bNetResultPending=false;}}
 void UFPSHolyLightComponent::NetCastRejected(uint8 /*Phase*/,uint8 /*Code*/)
 {
     bNetPaid=false;
-    if(bCommitted){bCommitted=false;LockedTarget.Reset();if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("holyLight"));}
+    // A release has already cleared bCommitted. Keep its exact local payment
+    // until the receipt so server target rejection also refunds the owning UI.
+    const bool HadPayment=bNetResultPending;
+    if(bCommitted&&Hands())Hands()->TakeGesturePayment();
+    bCommitted=false;LockedTarget.Reset();
+    if(HadPayment)if(auto* M=Model())M->RefundUnreleasedCast(NetPaidMana,TEXT("holyLight"));
+    NetPaidMana=0.f;bNetResultPending=false;
     if(auto* H=Hands())H->CancelSpellGesture(this);
     Feedback(TEXT("施法失败"));
 }
 void UFPSHolyLightComponent::NetCastCancelled(uint8 /*Phase*/)
 {
-    bNetPaid=false;
+    bNetPaid=false;NetPaidMana=0.f;bNetResultPending=false;
 }
 void UFPSHolyLightComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {

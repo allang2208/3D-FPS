@@ -1,0 +1,44 @@
+{
+  "revision": "DragonBreathFlameRestoreR3_20261013",
+  "emissive_output": "MaterialExpressionEyeAdaptationInverse",
+  "shading": "unlit",
+  "textures": {
+    "SubUV": "/Game/RPG-FlameAttackVFX/Essentials/Textures/T_SmokeSubUV.T_SmokeSubUV",
+    "SilhouetteAtlas": "/Game/RPG-FlameAttackVFX/Essentials/Textures/T_SmokeSubUV.T_SmokeSubUV",
+    "FlameTexture": "/Game/RPG-FlameAttackVFX/Essentials/Textures/T_TiledFire.T_TiledFire"
+  },
+  "renderers": {
+    "Flame-Smoke": {
+      "Material": {
+        "refPath": "/Game/Skills/DragonBreath20261013/MI_DragonFlame.MI_DragonFlame"
+      },
+      "Alignment": "VelocityAligned",
+      "SubImageSize": {
+        "x": 8,
+        "y": 8
+      }
+    },
+    "Embers": {
+      "Material": {
+        "refPath": "/Game/Skills/DragonBreath20261013/MI_DragonEmber.MI_DragonEmber"
+      },
+      "Alignment": "Unaligned",
+      "SubImageSize": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    "EmbersBig": {
+      "Material": {
+        "refPath": "/Game/Skills/DragonBreath20261013/MI_DragonEmber.MI_DragonEmber"
+      },
+      "Alignment": "Unaligned",
+      "SubImageSize": {
+        "x": 1,
+        "y": 1
+      }
+    }
+  },
+  "gameplay_tested": false,
+  "rendered": false
+}

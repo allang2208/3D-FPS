@@ -1,4 +1,5 @@
 #include "FPSMagicPreview.h"
+#include "../Combat/RangedAttackQuery.h"
 
 #include "../Monsters/MonsterCombatComponent.h"
 #include "Camera/CameraComponent.h"
@@ -32,7 +33,7 @@ FVector FPSMagicPreview::AimPoint(const APawn* Shooter,const AActor* Ignore)
     FCollisionQueryParams Query(SCENE_QUERY_STAT(MagicAimPreview),true,Shooter);
     if(Ignore)Query.AddIgnoredActor(Ignore);
     FHitResult Hit;
-    Shooter->GetWorld()->LineTraceSingleByChannel(Hit,Eye,End,ECC_Visibility,Query);
+    RangedAttackQuery::LineTraceSingle(Shooter->GetWorld(), Shooter, Hit,Eye,End,ECC_Visibility,Query);
     return Hit.bBlockingHit?Hit.ImpactPoint:End;
 }
 
@@ -58,7 +59,7 @@ bool FPSMagicPreview::SweepSegment(const APawn* Shooter,const AActor* Ignore,con
     // sweep continues; walls and living targets end the segment at their contact point.
     for(int32 Pass=0;Pass<8;++Pass)
     {
-        if(!Shooter->GetWorld()->SweepSingleByChannel(Hit,Start,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(SweepRadius),Query))break;
+        if(!RangedAttackQuery::SweepSingle(Shooter->GetWorld(), Shooter, Hit,Start,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(SweepRadius),Query))break;
         const auto* Blocking=IsValid(Hit.GetActor())?Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>():nullptr;
         // The arc follows the projectile centre; ImpactPoint is a surface point
         // up to one collision radius away from the centre used by actual flight.

@@ -1,0 +1,120 @@
+{
+  "icons": [
+    {
+      "id": "dexterousHands",
+      "asset": "/Game/ColdSteelData/Skills/dexterous_hands.dexterous_hands",
+      "saved": true
+    },
+    {
+      "id": "pistolMastery",
+      "asset": "/Game/ColdSteelData/Skills/pistol_mastery_cold_steel.pistol_mastery_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "rifleMastery",
+      "asset": "/Game/ColdSteelData/Skills/rifle_mastery_cold_steel.rifle_mastery_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "swordMastery",
+      "asset": "/Game/ColdSteelData/Skills/sword_mastery_cold_steel.sword_mastery_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "machineGunMastery",
+      "asset": "/Game/ColdSteelData/Skills/machine_gun_mastery_cold_steel.machine_gun_mastery_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "shotgunMastery",
+      "asset": "/Game/ColdSteelData/Skills/shotgun_mastery_cold_steel.shotgun_mastery_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "criticalStrike",
+      "asset": "/Game/ColdSteelData/Skills/critical_strike_cold_steel.critical_strike_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "dodge",
+      "asset": "/Game/ColdSteelData/Skills/dodge_cold_steel.dodge_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "fireball",
+      "asset": "/Game/ColdSteelData/Skills/fireball_ember_red.fireball_ember_red",
+      "saved": true
+    },
+    {
+      "id": "iceSpike",
+      "asset": "/Game/ColdSteelData/Skills/ice_spike_cold_steel.ice_spike_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "iceWall",
+      "asset": "/Game/ColdSteelData/Skills/ice_wall_cold_steel.ice_wall_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "blizzard",
+      "asset": "/Game/ColdSteelData/Skills/blizzard_cold_steel.blizzard_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "lightningStrike",
+      "asset": "/Game/ColdSteelData/Skills/lightning_cold_steel.lightning_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "holyLight",
+      "asset": "/Game/ColdSteelData/Skills/holy_light_cold_steel.holy_light_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "meteor",
+      "asset": "/Game/ColdSteelData/Skills/meteor_hex.meteor_hex",
+      "saved": true
+    },
+    {
+      "id": "flameArmor",
+      "asset": "/Game/ColdSteelData/Skills/flame_armor_hex.flame_armor_hex",
+      "saved": true
+    },
+    {
+      "id": "stormDomain",
+      "asset": "/Game/ColdSteelData/Skills/storm_domain_cold_steel.storm_domain_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "thunderLance",
+      "asset": "/Game/ColdSteelData/Skills/thunder_lance_cold_steel.thunder_lance_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "dragonBreath",
+      "asset": "/Game/ColdSteelData/Skills/dragon_breath_hex.dragon_breath_hex",
+      "saved": true
+    },
+    {
+      "id": "runeBlades",
+      "asset": "/Game/ColdSteelData/Skills/rune_orb_blades_cold_steel.rune_orb_blades_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "staffLight",
+      "asset": "/Game/ColdSteelData/Skills/staff_light_cold_steel.staff_light_cold_steel",
+      "saved": true
+    },
+    {
+      "id": "quickCombat",
+      "asset": "/Game/ColdSteelData/Skills/quick_combat_placeholder.quick_combat_placeholder",
+      "saved": true
+    },
+    {
+      "id": "bowMastery",
+      "asset": "/Game/ColdSteelData/Skills/bow_mastery_cold_steel.bow_mastery_cold_steel",
+      "saved": true
+    }
+  ],
+  "game_tested": false
+}

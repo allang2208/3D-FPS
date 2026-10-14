@@ -1,0 +1,35 @@
+{
+  "revision": "DragonBreathFlameRestoreR3_20261013",
+  "author_exit_code": 0,
+  "readback_exit_code": 0,
+  "niagara_valid": true,
+  "assets": [
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Skills\\DragonBreath20261013\\M_DragonEmber.uasset",
+      "size": 17286,
+      "sha256": "3E50A68C33D8A77C0A9D3D2B5E8C11D8F493CF3CB9C463B90F977A3186ED1A38"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Skills\\DragonBreath20261013\\M_DragonFlame.uasset",
+      "size": 23985,
+      "sha256": "0FCEC3B66AFD4121007F57518ADB74C7B6B26E2BEE201F031A0511D0E404ED83"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Skills\\DragonBreath20261013\\MI_DragonEmber.uasset",
+      "size": 6836,
+      "sha256": "D0C08152439BFA4A381072348A9AB3CAC1C296502FCD73F49DC79864047CDF7A"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Skills\\DragonBreath20261013\\MI_DragonFlame.uasset",
+      "size": 11965,
+      "sha256": "B26749CF5817BD18FBAB8B16361CE6C3799E271424B4ECDEAF8D4BEE64156537"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Skills\\DragonBreath20261013\\NS_DragonBreath.uasset",
+      "size": 731328,
+      "sha256": "B8BC66A8A5CEC57BFF5D6B77A092D61735191900CC9E37B34D4AEFD465A80E77"
+    }
+  ],
+  "rendered": false,
+  "gameplay_tested": false
+}

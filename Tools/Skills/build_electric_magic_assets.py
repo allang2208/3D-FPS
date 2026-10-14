@@ -13,7 +13,6 @@ from build_fireball_assets import API,LIB,TOOLS,ref,emitters,setdata,put,assignm
 from build_fireball_flames import trim,FLOAT,VEC2,VEC3,POSITION,COLOR
 from build_fireball_flight import user_parameter,expression
 from build_blizzard_assets import custom
-from build_blizzard_storm_cloud import layer
 
 DEST='/Game/Skills/ElectricMagic'
 EAL=u.EditorAssetLibrary
@@ -90,28 +89,8 @@ def sprite(system,name,material,rate=None,burst=None,life=.7,position='float3(0,
     assignments(system,name,'ParticleUpdateScript',{'Particles.Position':(POSITION,moving),'Particles.SpriteSize':(VEC2,size),'Particles.Color':(COLOR,f'({color})*float4(1,1,1,saturate(Particles.NormalizedAge*12)*saturate((1-Particles.NormalizedAge)*3))'),'Particles.SubImageIndex':(FLOAT,'0')})
 
 def cloud(filament,spark):
-    system=empty('NS_StormDomainCloud')
-    for name,typ in [('CurrentPosition',POSITION),('Side',VEC3),('Up',VEC3),('SurfaceNormal',VEC3),('Wind',VEC3),('RadiusX',FLOAT),('RadiusY',FLOAT),('CloudHeight',FLOAT),('StormDuration',FLOAT),('CloudEmission',FLOAT),('Strength',FLOAT),('DetailReduction',FLOAT)]:user_parameter(system,name,typ)
-    material=u.load_asset('/Game/Skills/Blizzard/StormV2/MI_BlizzardStormCloud')
-    if not material:raise RuntimeError('Restore build_blizzard_storm_cloud.py first')
-    state=lifecycle()
-    layer(system,material,'DarkElectricBase',18,1,.62,1,.36,(.07,.095,.18),.92,state)
-    layer(system,material,'IndigoCloudBody',14,.84,.5,.82,.20,(.12,.20,.40),.88,state)
-    layer(system,material,'BlueCloudCrown',10,.62,.4,.64,.06,(.22,.35,.63),.82,state)
-    layer(system,material,'ElectricHighlights',6,.42,.28,.46,0,(.38,.55,.84),.66,state)
-    layer(system,material,'DriftingElectricFringe',0,1,.45,.60,.25,(.08,.14,.29),.24,state)
-    emission='saturate(User.CloudEmission)*saturate(User.Strength)*(1-saturate(User.DetailReduction))'
-    theta=f'{SEED}*6.2831853'
-    position=f'User.CurrentPosition+User.Side*cos({theta})*User.RadiusX*.45+User.Up*sin({theta})*User.RadiusY*.5+User.SurfaceNormal*(User.CloudHeight-50-{SEED2}*55)'
-    for name,mat,rate,life,size,color in [
-        ('CloudDischarges',filament,f'12*{emission}',.15,f'float2(45+{SEED3}*65,16)',f'float4(.55,.73,1,User.Strength)'),
-        ('FallingElectricSparks',spark,f'14*{emission}',.5,'float2(3,12)',f'float4(.35,.57,1,User.Strength)')]:
-        sprite(system,name,mat,rate=rate,life=life,position=position,size=size,color=color,rotation=f'{SEED3}*95',loop_seconds='max(.6,User.StormDuration+.6)')
-        setdata('SetEmitterData',u.NiagaraExt_EmitterData,ref(system,name),{'bLocalSpace':False})
-        if name=='FallingElectricSparks':assignments(system,name,'ParticleUpdateScript',{'Particles.Position':(POSITION,position+'-User.SurfaceNormal*Particles.Age*95')})
-    system.set_editor_property('fixed_bounds',u.Box(min=u.Vector(-1150,-1150,-120),max=u.Vector(1150,1150,750)))
-    EAL.set_metadata_tag(system,'Electric.Source','storm-cloud-fx.js; Normandy layered material; 48 core cloud sprites + bounded fringe/discharges')
-    save(system)
+    from build_storm_domain_cloud import build_cloud
+    return build_cloud(filament,spark)
 
 def beam():
     # Lance beam moved to author_thunder_lance_ray.py (M09-ray recipe);
@@ -164,7 +143,7 @@ def main():
     cloud(filament,spark);beam();charge(spark,filament,ring);impact(spark,filament,ring);audio()
     from build_thunder_lance_circle import build_circle
     CREATED.append(build_circle().get_path_name())
-    receipt={'saved_assets':list(CREATED),'cloud_source':'/Game/UnrealNormandy/Materials/M_Master_StormCloud','cloud_owned_parent':'/Game/Skills/Blizzard/StormV2/MI_BlizzardStormCloud','beam_source':'SourceAssets/ThunderLanceFlux20261001','beam_runtime':'/Game/Skills/ElectricMagic/ThunderFluxV3',
+    receipt={'saved_assets':list(CREATED),'cloud_source':'/Game/UnrealNormandy/Materials/M_Master_StormCloud','cloud_owned_parent':'/Game/Skills/ElectricMagic/StormDomainV2/MI_StormDomainCloud','cloud_runtime':'/Game/Skills/ElectricMagic/StormDomainV2/NS_StormDomainCloud','beam_source':'SourceAssets/ThunderLanceFlux20261001','beam_runtime':'/Game/Skills/ElectricMagic/ThunderFluxV3',
              'sounds_original':['game-dev/public/assets/sounds/skills/lightning-1.mp3','game-dev/public/assets/sounds/skills/lightning-2.mp3'],
              'cloud_core_particles':48,'charge_particles_approx_max':40,'impact_particles':43,'max_local_arc_actors':48,'max_local_impact_systems':24,'max_audio_voices':6,
              'gameplay_tested':False,'rendered':False,'audio_played':False}

@@ -1,0 +1,66 @@
+{
+  "/Game/Skills/DragonBreath20261013/NS_DragonBreath": {
+    "Flame-Smoke": {
+      "InitializeParticle/Color Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagara_ColorInitializationMode.ENiagara_ColorInitializationMode'\",EnumName=\"ENiagara_ColorInitializationMode::NewEnumerator1\",DisplayName=NSLOCTEXT(\"[CC78DD2D4C0D7DF3E62477A0656BE4F9]\", \"DF3A1A6E40C75C0EADD2B6915E17AD8D\", \"Direct Set\"))",
+      "InitializeParticle/Color": "(R=1.000000,G=1.000000,B=1.000000,A=1.000000)",
+      "InitializeParticle/Color Minimum": "()",
+      "InitializeParticle/Color Maximum": "()",
+      "ScaleColor/Scale Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagaraScaleColorMode.ENiagaraScaleColorMode'\",EnumName=\"ENiagaraScaleColorMode::NewEnumerator0\",DisplayName=NSLOCTEXT(\"[DCC15DCD48BAB8AB093EF49563C3B2BF]\", \"5CC6955C43D0A1A6B1431F87F2A5C4C6\", \"RGB and Alpha Separately\"))",
+      "ScaleColor/Scale RGB": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/TypeConversions/MakeVectorFromLinearColorRGB.MakeVectorFromLinearColorRGB'\")",
+      "ScaleColor/Scale Alpha": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/ValueFromCurve/FloatFromCurve.FloatFromCurve'\")",
+      "ScaleColor/Color Value To Scale": "(LinkedVariable=(Name=\"Particles.Initial.Color\",Type=(ClassStructOrEnum=\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'\",UnderlyingType=2)))"
+    },
+    "Embers": {
+      "InitializeParticle/Color Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagara_ColorInitializationMode.ENiagara_ColorInitializationMode'\",EnumName=\"ENiagara_ColorInitializationMode::NewEnumerator1\",DisplayName=NSLOCTEXT(\"[CC78DD2D4C0D7DF3E62477A0656BE4F9]\", \"DF3A1A6E40C75C0EADD2B6915E17AD8D\", \"Direct Set\"))",
+      "InitializeParticle/Color": "(R=1.000000,G=1.000000,B=1.000000,A=1.000000)",
+      "InitializeParticle/Color Minimum": "()",
+      "InitializeParticle/Color Maximum": "()",
+      "ScaleColor/Scale Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagaraScaleColorMode.ENiagaraScaleColorMode'\",EnumName=\"ENiagaraScaleColorMode::NewEnumerator0\",DisplayName=NSLOCTEXT(\"[DCC15DCD48BAB8AB093EF49563C3B2BF]\", \"5CC6955C43D0A1A6B1431F87F2A5C4C6\", \"RGB and Alpha Separately\"))",
+      "ScaleColor/Scale RGB": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/TypeConversions/MakeVectorFromLinearColorRGB.MakeVectorFromLinearColorRGB'\")",
+      "ScaleColor/Scale Alpha": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/ValueFromCurve/FloatFromCurve.FloatFromCurve'\")",
+      "ScaleColor/Color Value To Scale": "(LinkedVariable=(Name=\"Particles.Initial.Color\",Type=(ClassStructOrEnum=\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'\",UnderlyingType=2)))"
+    },
+    "EmbersBig": {
+      "InitializeParticle/Color Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagara_ColorInitializationMode.ENiagara_ColorInitializationMode'\",EnumName=\"ENiagara_ColorInitializationMode::NewEnumerator1\",DisplayName=NSLOCTEXT(\"[CC78DD2D4C0D7DF3E62477A0656BE4F9]\", \"DF3A1A6E40C75C0EADD2B6915E17AD8D\", \"Direct Set\"))",
+      "InitializeParticle/Color": "(R=1.000000,G=1.000000,B=1.000000,A=1.000000)",
+      "InitializeParticle/Color Minimum": "()",
+      "InitializeParticle/Color Maximum": "()",
+      "ScaleColor/Scale Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagaraScaleColorMode.ENiagaraScaleColorMode'\",EnumName=\"ENiagaraScaleColorMode::NewEnumerator0\",DisplayName=NSLOCTEXT(\"[DCC15DCD48BAB8AB093EF49563C3B2BF]\", \"5CC6955C43D0A1A6B1431F87F2A5C4C6\", \"RGB and Alpha Separately\"))",
+      "ScaleColor/Scale RGB": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/TypeConversions/MakeVectorFromLinearColorRGB.MakeVectorFromLinearColorRGB'\")",
+      "ScaleColor/Scale Alpha": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/ValueFromCurve/FloatFromCurve.FloatFromCurve'\")",
+      "ScaleColor/Color Value To Scale": "(LinkedVariable=(Name=\"Particles.Initial.Color\",Type=(ClassStructOrEnum=\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'\",UnderlyingType=2)))"
+    }
+  },
+  "/Game/RPG-FlameAttackVFX/VFX/Niagara/N_FlameAttack": {
+    "Flame-Smoke": {
+      "InitializeParticle/Color Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagara_ColorInitializationMode.ENiagara_ColorInitializationMode'\",EnumName=\"ENiagara_ColorInitializationMode::NewEnumerator1\",DisplayName=NSLOCTEXT(\"[CC78DD2D4C0D7DF3E62477A0656BE4F9]\", \"DF3A1A6E40C75C0EADD2B6915E17AD8D\", \"Direct Set\"))",
+      "InitializeParticle/Color": "(R=1.000000,G=1.000000,B=1.000000,A=1.000000)",
+      "InitializeParticle/Color Minimum": "()",
+      "InitializeParticle/Color Maximum": "()",
+      "ScaleColor/Scale Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagaraScaleColorMode.ENiagaraScaleColorMode'\",EnumName=\"ENiagaraScaleColorMode::NewEnumerator0\",DisplayName=NSLOCTEXT(\"[DCC15DCD48BAB8AB093EF49563C3B2BF]\", \"5CC6955C43D0A1A6B1431F87F2A5C4C6\", \"RGB and Alpha Separately\"))",
+      "ScaleColor/Scale RGB": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/TypeConversions/MakeVectorFromLinearColorRGB.MakeVectorFromLinearColorRGB'\")",
+      "ScaleColor/Scale Alpha": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/ValueFromCurve/FloatFromCurve.FloatFromCurve'\")",
+      "ScaleColor/Color Value To Scale": "(LinkedVariable=(Name=\"Particles.Initial.Color\",Type=(ClassStructOrEnum=\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'\",UnderlyingType=2)))"
+    },
+    "Embers": {
+      "InitializeParticle/Color Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagara_ColorInitializationMode.ENiagara_ColorInitializationMode'\",EnumName=\"ENiagara_ColorInitializationMode::NewEnumerator1\",DisplayName=NSLOCTEXT(\"[CC78DD2D4C0D7DF3E62477A0656BE4F9]\", \"DF3A1A6E40C75C0EADD2B6915E17AD8D\", \"Direct Set\"))",
+      "InitializeParticle/Color": "(R=1.000000,G=1.000000,B=1.000000,A=1.000000)",
+      "InitializeParticle/Color Minimum": "()",
+      "InitializeParticle/Color Maximum": "()",
+      "ScaleColor/Scale Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagaraScaleColorMode.ENiagaraScaleColorMode'\",EnumName=\"ENiagaraScaleColorMode::NewEnumerator0\",DisplayName=NSLOCTEXT(\"[DCC15DCD48BAB8AB093EF49563C3B2BF]\", \"5CC6955C43D0A1A6B1431F87F2A5C4C6\", \"RGB and Alpha Separately\"))",
+      "ScaleColor/Scale RGB": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/TypeConversions/MakeVectorFromLinearColorRGB.MakeVectorFromLinearColorRGB'\")",
+      "ScaleColor/Scale Alpha": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/ValueFromCurve/FloatFromCurve.FloatFromCurve'\")",
+      "ScaleColor/Color Value To Scale": "(LinkedVariable=(Name=\"Particles.Initial.Color\",Type=(ClassStructOrEnum=\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'\",UnderlyingType=2)))"
+    },
+    "EmbersBig": {
+      "InitializeParticle/Color Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagara_ColorInitializationMode.ENiagara_ColorInitializationMode'\",EnumName=\"ENiagara_ColorInitializationMode::NewEnumerator1\",DisplayName=NSLOCTEXT(\"[CC78DD2D4C0D7DF3E62477A0656BE4F9]\", \"DF3A1A6E40C75C0EADD2B6915E17AD8D\", \"Direct Set\"))",
+      "InitializeParticle/Color": "(R=1.000000,G=1.000000,B=1.000000,A=1.000000)",
+      "InitializeParticle/Color Minimum": "()",
+      "InitializeParticle/Color Maximum": "()",
+      "ScaleColor/Scale Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagaraScaleColorMode.ENiagaraScaleColorMode'\",EnumName=\"ENiagaraScaleColorMode::NewEnumerator0\",DisplayName=NSLOCTEXT(\"[DCC15DCD48BAB8AB093EF49563C3B2BF]\", \"5CC6955C43D0A1A6B1431F87F2A5C4C6\", \"RGB and Alpha Separately\"))",
+      "ScaleColor/Scale RGB": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/TypeConversions/MakeVectorFromLinearColorRGB.MakeVectorFromLinearColorRGB'\")",
+      "ScaleColor/Scale Alpha": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/ValueFromCurve/FloatFromCurve.FloatFromCurve'\")",
+      "ScaleColor/Color Value To Scale": "(LinkedVariable=(Name=\"Particles.Initial.Color\",Type=(ClassStructOrEnum=\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'\",UnderlyingType=2)))"
+    }
+  }
+}

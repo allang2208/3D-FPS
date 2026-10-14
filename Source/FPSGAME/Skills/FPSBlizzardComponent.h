@@ -27,7 +27,7 @@ public:
     bool IsAimPreviewActive() const{return bAimPreview;}
     bool IsPrepared() const{return bCommitted&&bGathered&&!bReleaseRequested;}
     bool HasQueuedAction() const{return bQueued||bReleaseRequested;}
-    bool HasUnreleasedCast() const{return bCommitted;}
+    bool HasUnreleasedCast() const{return bCommitted||bNetAwaitingCancel;}
     FString StatusText() const;
     float CooldownFraction() const;
     bool IsHandOccupiedNotice() const;
@@ -36,6 +36,7 @@ public:
     // ── 联机 ──
     bool NetCommitZone(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FBlizzardCast& Spell);
     void NetCastRejected(uint8 Phase,uint8 Code);
+    void NetCastAccepted(uint8 Phase);
     void NetCastCancelled(uint8 Phase);
 protected:
     virtual void BeginPlay() override;
@@ -72,6 +73,8 @@ private:
     float PaidMana=0,PreparedAge=0,PreviewAge=0;
     /** 联机客人：本地扣账已发生、等待服务端区复制的窗口。 */
     bool bNetPaid=false;
-    double NetPaidAt=-100.0;
+    bool bNetPrepared=false,bNetAwaitingRelease=false,bNetAwaitingCancel=false;
+    bool ValidateGround(APawn* Caster,const FBlizzardCast& Spell,FVector& Point,FVector& Normal,FVector& Axis,FString& Failure) const;
+    void CompleteRelease();
     FString PreviewFailure;
 };

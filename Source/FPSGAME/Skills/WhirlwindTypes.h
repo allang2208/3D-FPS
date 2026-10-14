@@ -10,7 +10,7 @@ struct FWhirlwindTuning
     float RadiusBase=120.f,RadiusPerLevel=5.f,MeleeRadiusBonus=80.f,UnitsToCM=1.5f;
     float Knockback=250.f,StunSeconds=2.5f;
     float ReadySeconds=.5f,SpinSeconds=.8f/.75f,RecoverSeconds=.52f;
-    float TurnDegrees=-720.f,HitStopSeconds=.045f,HitStopBudget=.135f,MotionBlur=.65f;
+    float TurnDegrees=720.f,HitStopSeconds=.045f,HitStopBudget=.135f,MotionBlur=.65f;
 };
 
 struct FWhirlwindCast

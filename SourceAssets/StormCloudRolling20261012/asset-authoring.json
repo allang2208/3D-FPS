@@ -1,0 +1,23 @@
+{
+  "revision": "StormCloudRolling20261012",
+  "saved_assets": [
+    "/Game/Skills/StormClouds/RollingV1/M_RollingStormCloud.M_RollingStormCloud",
+    "/Game/Skills/StormClouds/RollingV1/M_RollingGatherCloud.M_RollingGatherCloud",
+    "/Game/Skills/StormClouds/RollingV1/NS_StormDomainCloud.NS_StormDomainCloud",
+    "/Game/Skills/StormClouds/RollingV1/NS_BlizzardStormCloud.NS_BlizzardStormCloud",
+    "/Game/Skills/StormClouds/RollingV1/NS_BlizzardGatherCloud.NS_BlizzardGatherCloud"
+  ],
+  "gameplay_tested": false,
+  "rendered": false,
+  "stage": "assets_saved",
+  "atlas_source": "HundredEyedSlag SmokeVisibilityFixV21 / M10 LocalGas",
+  "texture_samples_per_pixel": 2,
+  "new_density_textures": 0,
+  "core_particles": {
+    "storm_domain": 48,
+    "blizzard": 50,
+    "gather": 29
+  },
+  "monster_assets_modified": false,
+  "gameplay_modified": false
+}

@@ -1,0 +1,152 @@
+{
+  "revision": "SkillIconUnified20261013",
+  "frame": "SourceAssets/SkillIconRoundedSquare20261004/UppercutSilhouetteV5/sword_uppercut_silhouette_v5.png",
+  "tool": "built-in image_gen",
+  "icons": [
+    {
+      "id": "dexterousHands",
+      "file": "dexterous_hands.png",
+      "subject": "gloved hand and magazine",
+      "mode": "edit"
+    },
+    {
+      "id": "pistolMastery",
+      "file": "pistol_mastery_cold_steel.png",
+      "subject": "1911 pistol",
+      "mode": "edit"
+    },
+    {
+      "id": "rifleMastery",
+      "file": "rifle_mastery_cold_steel.png",
+      "subject": "M4 rifle",
+      "mode": "edit"
+    },
+    {
+      "id": "swordMastery",
+      "file": "sword_mastery_cold_steel.png",
+      "subject": "a single realistic silver straight double-edged longsword, simple crossguard and dark grip, diagonally from bottom-left pommel to upper-right tip; full weapon visible",
+      "mode": "new"
+    },
+    {
+      "id": "machineGunMastery",
+      "file": "machine_gun_mastery_cold_steel.png",
+      "subject": "a realistic black and silver belt-fed light machine gun, identifiable box ammunition feed, short visible brass belt and folded bipod, full silhouette diagonally muzzle upper right and stock lower left; strongly distinct from a rifle",
+      "mode": "new"
+    },
+    {
+      "id": "shotgunMastery",
+      "file": "shotgun_mastery_cold_steel.png",
+      "subject": "a realistic black and silver tactical pump shotgun with full stock, ribbed pump fore-end and under-barrel magazine tube; no rifle box magazine, full silhouette diagonal from stock lower left to barrel upper right",
+      "mode": "new"
+    },
+    {
+      "id": "bowMastery",
+      "file": "bow_mastery_cold_steel.png",
+      "subject": "a single realistic dark recurve bow with silver-edged limbs, taut clear bowstring and one long silver-tipped arrow; full recognizable bow silhouette diagonally across the square",
+      "mode": "new"
+    },
+    {
+      "id": "criticalStrike",
+      "file": "critical_strike_cold_steel.png",
+      "subject": "the silver lightning breaking a steel shield motif",
+      "mode": "edit"
+    },
+    {
+      "id": "dodge",
+      "file": "dodge_cold_steel.png",
+      "subject": "the existing full-body sidestepping figure and its silver motion streaks",
+      "mode": "edit"
+    },
+    {
+      "id": "quickCombat",
+      "file": "quick_combat_placeholder.png",
+      "subject": "faceless training figure performing a fast forward punch",
+      "mode": "edit"
+    },
+    {
+      "id": "fireball",
+      "file": "fireball_ember_red.png",
+      "subject": "the red-orange fireball and flowing flame trail; red-orange remains the dominant subject color",
+      "mode": "edit"
+    },
+    {
+      "id": "iceSpike",
+      "file": "ice_spike_cold_steel.png",
+      "subject": "the blue crystalline flying icicles and their diagonal movement",
+      "mode": "edit"
+    },
+    {
+      "id": "iceWall",
+      "file": "ice_wall_cold_steel.png",
+      "subject": "the realistic frosted blue wall made of rough ice blocks",
+      "mode": "edit"
+    },
+    {
+      "id": "blizzard",
+      "file": "blizzard_cold_steel.png",
+      "subject": "the storm clouds, swirling snow and falling blue ice shards",
+      "mode": "edit"
+    },
+    {
+      "id": "lightningStrike",
+      "file": "lightning_cold_steel.png",
+      "subject": "the electric violet-blue branched lightning bolt",
+      "mode": "edit"
+    },
+    {
+      "id": "holyLight",
+      "file": "holy_light_cold_steel.png",
+      "subject": "the radiant gold-white vertical light column and circular light on the ground. Remove the old ornate frame; keep the magical golden artwork contained inside the reference frame",
+      "mode": "edit"
+    },
+    {
+      "id": "meteor",
+      "file": "meteor_hex.png",
+      "subject": "the craggy glowing molten meteor and red-orange falling flame trail",
+      "mode": "edit"
+    },
+    {
+      "id": "flameArmor",
+      "file": "flame_armor_hex.png",
+      "subject": "the steel armor and silver sword surrounded by red-orange flames",
+      "mode": "edit"
+    },
+    {
+      "id": "stormDomain",
+      "file": "storm_domain_cold_steel.png",
+      "subject": "the massive dark thundercloud and branching pale violet lightning striking the ground. Remove the old angular thin frame",
+      "mode": "edit"
+    },
+    {
+      "id": "thunderLance",
+      "file": "thunder_lance_cold_steel.png",
+      "subject": "the bright blue electric lance with spiral energy rings; keep full diagonal energy beam visible and remove old angular thin frame",
+      "mode": "edit"
+    },
+    {
+      "id": "dragonBreath",
+      "file": "dragon_breath_hex.png",
+      "subject": "the metal-gray dragon head exhaling a broad orange flame fan towards the right",
+      "mode": "edit"
+    },
+    {
+      "id": "runeBlades",
+      "file": "rune_orb_blades_cold_steel.png",
+      "subject": "the FOUR blue magical swords floating above a blue elliptical ring",
+      "mode": "edit"
+    },
+    {
+      "id": "staffLight",
+      "file": "staff_light_cold_steel.png",
+      "subject": "the same glowing amber-white quartz crystal on the rustic wood staff tip and its short light rays. Add the approved square frame around the artwork, no hexagon",
+      "mode": "edit"
+    }
+  ],
+  "preserved_martial": [
+    "swordUppercut",
+    "heavyStrike",
+    "dashAttack",
+    "whirlwind"
+  ],
+  "game_tested": false
+}

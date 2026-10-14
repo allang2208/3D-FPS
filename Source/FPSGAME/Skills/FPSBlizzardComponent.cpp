@@ -1,6 +1,7 @@
 #include "FPSBlizzardComponent.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "FPSBlizzardZone.h"
+#include "BlizzardEnvironment.h"
 #include "FPSFireballComponent.h"
 #include "FireMagicArea.h"
 #include "../FPSGAMECharacter.h"
@@ -36,7 +37,8 @@ void UFPSBlizzardComponent::BeginPlay()
     TArray<FSoftObjectPath> Requests;for(int32 I=0;I<15;++I)Requests.Emplace(Paths[I]);
     AssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Requests,FStreamableDelegate::CreateWeakLambda(this,[this,Requests]()
     {
-        bAssetsReady=true;for(const auto& Path:Requests){UObject* Asset=Path.ResolveObject();bAssetsReady&=Asset!=nullptr;Assets.Add(Asset);}
+        for(const auto& Path:Requests)Assets.Add(Path.ResolveObject());
+        bAssetsReady=Assets.Num()==15&&Assets[11]&&Assets[12]&&AFPSBlizzardZone::HasBasicAssets(Assets);
     }));
 }
 UColdSteelStatusModel* UFPSBlizzardComponent::Model() const
@@ -76,26 +78,22 @@ bool UFPSBlizzardComponent::Allowed(const FBlizzardCast& Spell,FString& Failure)
     if(Spell.bRequiresStaff&&!M->HasEquippedStaff()){Failure=TEXT("需要法杖");return false;}
     if(M->BlizzardCooldown()>0){Failure=TEXT("冷却");return false;}
     if(!M->CanSpendMana(Spell.ManaCost)){Failure=TEXT("缺蓝");return false;}
-    if(!bAssetsReady){Failure=TEXT("冰雪素材加载中");return false;}
+    if(!bAssetsReady){Failure=Assets.Num()==15?TEXT("冰雪基础素材不可用"):TEXT("冰雪素材加载中");return false;}
+    if(GetWorld()->GetNetMode()==NM_Client&&!NetCast::StateFor(Cast<APawn>(GetOwner())))
+    {Failure=TEXT("等待联机角色就绪");return false;}
     if(Zones.Num()>=4){Failure=TEXT("暴风雪数量上限");return false;}
     return true;
 }
 bool UFPSBlizzardComponent::SelectGround(const FBlizzardCast& Spell,FString& Failure)
 {
     const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();auto* P=Cast<APawn>(GetOwner());if(!Camera||!P)return false;
-    FHitResult Hit;
-    // Skip creature bodies so the locked point is the ground beneath the crosshair.
-    if(!FireMagic::TraceSurface(P,Camera->GetComponentLocation(),Camera->GetComponentLocation()+Camera->GetForwardVector()*(Spell.Range+250),Hit))
-    {Failure=TEXT("准星未指向地面");return false;}
-    if(Hit.ImpactNormal.Z<.45f){Failure=TEXT("需要可落地表面");return false;}
-    if(FVector::Dist2D(P->GetActorLocation(),Hit.ImpactPoint)>Spell.Range){Failure=TEXT("超出施法距离");return false;}
-    LockedPoint=Hit.ImpactPoint;LockedNormal=Hit.ImpactNormal;
-    LockedAxis=FVector::VectorPlaneProject(Camera->GetRightVector(),LockedNormal).GetSafeNormal();
-    if(LockedAxis.IsNearlyZero()){FVector Other;LockedNormal.FindBestAxisVectors(LockedAxis,Other);}
-    return true;
+    LockedAxis=Camera->GetRightVector();
+    return BlizzardEnvironment::Select(P,Spell.Range,P->GetPawnViewLocation(),P->GetViewRotation().Vector(),
+        LockedPoint,LockedNormal,LockedAxis,Failure);
 }
 void UFPSBlizzardComponent::Trigger()
 {
+    if(bNetAwaitingRelease||bNetAwaitingCancel)return;
     if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return;
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
     if(!P||!M||!P->IsLocallyControlled()||!InputAvailable())return;
@@ -116,6 +114,7 @@ void UFPSBlizzardComponent::Trigger()
 }
 void UFPSBlizzardComponent::ServiceQueue()
 {
+    if(bNetAwaitingRelease||bNetAwaitingCancel)return;
     if(!bQueued&&!bReleaseRequested)return;
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();auto* H=Hands();if(!P||!M||!H)return;
     if(H->HasOtherPreparedSpell(this)){bQueued=bReleaseRequested=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
@@ -138,40 +137,45 @@ void UFPSBlizzardComponent::ServiceQueue()
         UpdateGatherCloud();GatherFX->Activate(true);MessageUntil=0;
         if(auto* Status=P->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
         // 联机客人：凝聚云/预览是本地表现；权威暴风雪区由服务端生成复制回来。
-        if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;NetPaidAt=GetWorld()->GetTimeSeconds();NetCast::Send(P,TEXT("blizzard"),0);}
+        if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;bNetPrepared=false;NetCast::Send(P,TEXT("blizzard"),0);}
         return;
     }
-    if(bReleaseRequested&&bCommitted&&bGathered)
+    if(bReleaseRequested&&bCommitted&&bGathered&&(GetWorld()->GetNetMode()!=NM_Client||bNetPrepared))
         H->TryBeginSpellGesture(this,true,CastSnapshot.CastSpeed,FSimpleDelegate::CreateUObject(this,&ThisClass::ReleaseAtContact));
 }
 void UFPSBlizzardComponent::Gathered(){if(bCommitted){bGathered=true;PreparedAge=0;}}
 void UFPSBlizzardComponent::ReleaseAtContact()
 {
-    if(!bCommitted||!bGathered||!bReleaseRequested)return;
-    auto* P=Cast<APawn>(GetOwner());auto* M=Model();const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();FHitResult Hit;
-    if(!P||!M||!Camera||!InputAvailable()||(CastSnapshot.bRequiresStaff&&!M->HasEquippedStaff())||
-        FVector::Dist2D(P->GetActorLocation(),LockedPoint)>CastSnapshot.Range||
-        FireMagic::TraceSurface(P,Camera->GetComponentLocation(),LockedPoint+LockedNormal*12,Hit))
-    {bReleaseRequested=false;Feedback(TEXT("落点被遮挡或超距"));return;}
-    // 联机客人：落点/法线/长轴上报服务端，权威区复制回来；本地即刻收尾。
+    if(!bCommitted||!bGathered||!bReleaseRequested||bNetAwaitingRelease)return;
+    auto* P=Cast<APawn>(GetOwner());auto* M=Model();
+    if(!P||!M||!InputAvailable()||(CastSnapshot.bRequiresStaff&&!M->HasEquippedStaff()))
+    {bReleaseRequested=false;Feedback(TEXT("当前无法施法"));return;}
+    FString Failure;
+    if(!ValidateGround(P,CastSnapshot,LockedPoint,LockedNormal,LockedAxis,Failure))
+    {bReleaseRequested=false;Feedback(Failure);return;}
+    // Keep the reservation until the authoritative receipt: rejection must still refund it.
     if(GetWorld()->GetNetMode()==NM_Client)
     {
-        if(!M->CommitBlizzardRelease()){CancelPending();return;}
+        bNetAwaitingRelease=true;SetAimPreview(false);
+        if(GatherFX)GatherFX->SetVisibility(false);
         NetCast::Send(P,TEXT("blizzard"),1,LockedPoint,LockedNormal,0,nullptr,0.f,LockedAxis);
-        bCommitted=bGathered=bReleaseRequested=false;PaidMana=0;bNetPaid=false;SetAimPreview(false);
-        if(GatherFX){GatherFX->DestroyComponent();GatherFX=nullptr;}
-        UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[8]),P->GetActorLocation());
-        if(auto* Status=UCombatStatusFormula::GetOrAdd(P))
-        {if(CastSnapshot.bGrantChain)Status->AddChainSpell();if(CastSnapshot.CastHasteStacks>0)Status->AddHaste(CastSnapshot.CastHasteStacks,CastSnapshot.CastHasteDuration);}
         return;
     }
+    Zones.RemoveAll([](const auto& Z){return !Z.IsValid();});
+    if(Zones.Num()>=4){bReleaseRequested=false;Feedback(TEXT("暴风雪数量上限"));return;}
     FActorSpawnParameters Params;Params.Owner=P;Params.Instigator=P;Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     auto* Zone=GetWorld()->SpawnActor<AFPSBlizzardZone>(LockedPoint,FRotator::ZeroRotator,Params);
     if(!Zone||!Zone->InitializeZone(P,CastSnapshot,LockedPoint,LockedNormal,LockedAxis,Assets)||!M->CommitBlizzardRelease())
     {if(Zone)Zone->Destroy();CancelPending();Feedback(TEXT("暴风雪释放失败"));return;}
-    bCommitted=bGathered=bReleaseRequested=false;PaidMana=0;SetAimPreview(false);
-    if(GatherFX){GatherFX->DestroyComponent();GatherFX=nullptr;}
     Zones.Add(Zone);Zone->ActivateZone();
+    CompleteRelease();
+}
+void UFPSBlizzardComponent::CompleteRelease()
+{
+    bCommitted=bGathered=bReleaseRequested=bNetPaid=bNetPrepared=bNetAwaitingRelease=false;
+    PaidMana=0;PreparedAge=0;SetAimPreview(false);
+    if(GatherFX){GatherFX->DestroyComponent();GatherFX=nullptr;}
+    auto* P=Cast<APawn>(GetOwner());if(!P)return;
     UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[8]),P->GetActorLocation());
     if(auto* Status=UCombatStatusFormula::GetOrAdd(P))
     {if(CastSnapshot.bGrantChain)Status->AddChainSpell();if(CastSnapshot.CastHasteStacks>0)Status->AddHaste(CastSnapshot.CastHasteStacks,CastSnapshot.CastHasteDuration);}
@@ -181,39 +185,59 @@ void UFPSBlizzardComponent::CancelPending()
     bQueued=bAimPreview=bPreviewValid=bReleaseRequested=bGathered=false;
     if(AimDecal)AimDecal->SetHiddenInGame(true);
     if(GatherFX){GatherFX->DestroyComponent();GatherFX=nullptr;}
+    if(auto* H=Hands())H->CancelSpellGesture(this);
+    // Phase 1 has already left this client. Its receipt owns commit/refund even
+    // if the player dies or opens a menu before that receipt arrives.
+    if(bNetAwaitingRelease)return;
     if(bCommitted)
     {
         bCommitted=false;if(auto* M=Model())M->RefundUnreleasedCast(PaidMana,TEXT("blizzard"));
-        if(auto* H=Hands())H->CancelSpellGesture(this);
         // 联机客人：把已扣账的凝聚取消上报，服务端同口径退预留。
-        if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bNetPaid)NetCast::Send(GetOwner(),TEXT("blizzard"),2);
+        if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bNetPaid)
+        {bNetAwaitingCancel=true;NetCast::Send(GetOwner(),TEXT("blizzard"),2);}
     }
-    bNetPaid=false;
+    bNetPaid=bNetPrepared=false;
     PaidMana=0;PreparedAge=0;
+}
+bool UFPSBlizzardComponent::ValidateGround(APawn* Caster,const FBlizzardCast& Spell,FVector& Point,FVector& Normal,FVector& Axis,FString& Failure) const
+{
+    return BlizzardEnvironment::Validate(Caster,Spell.Range,Point,Normal,Axis,Failure);
 }
 // ── 联机服务端入口：客人上报落点→重验→权威暴风雪区生成（复制回各端） ──
 bool UFPSBlizzardComponent::NetCommitZone(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FBlizzardCast& Spell)
 {
-    if(FVector::Dist2D(Caster->GetActorLocation(),Req.AimPoint)>Spell.Range)return false;
-    if(Req.AimNormal.Z<.45f)return false;
-    FVector Axis=FVector::VectorPlaneProject(Req.AimAxis,Req.AimNormal.GetSafeNormal()).GetSafeNormal();
-    if(Axis.IsNearlyZero()){FVector Other;Req.AimNormal.GetSafeNormal().FindBestAxisVectors(Axis,Other);}
+    Zones.RemoveAll([](const auto& Z){return !Z.IsValid();});
+    if(!Caster||!Caster->HasAuthority()||!Shadow||!bAssetsReady||Zones.Num()>=4||
+        (Spell.bRequiresStaff&&!Shadow->HasEquippedStaff()))return false;
+    FVector Point=Req.AimPoint,Normal=Req.AimNormal,Axis=Req.AimAxis;
+    FString Failure;if(!ValidateGround(Caster,Spell,Point,Normal,Axis,Failure))return false;
     FActorSpawnParameters Params;Params.Owner=Caster;Params.Instigator=Caster;Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-    auto* Zone=GetWorld()->SpawnActor<AFPSBlizzardZone>(Req.AimPoint,FRotator::ZeroRotator,Params);
-    if(!Zone||!Zone->InitializeZone(Caster,Spell,Req.AimPoint,Req.AimNormal,Axis,Assets)||!Shadow->CommitBlizzardRelease())
+    auto* Zone=GetWorld()->SpawnActor<AFPSBlizzardZone>(Point,FRotator::ZeroRotator,Params);
+    if(!Zone||!Zone->InitializeZone(Caster,Spell,Point,Normal,Axis,Assets)||!Shadow->CommitBlizzardRelease())
     {if(Zone)Zone->Destroy();return false;}
     Zones.Add(Zone);Zone->ActivateZone();
     if(auto* Status=UCombatStatusFormula::GetOrAdd(Caster))
     {if(Spell.bGrantChain)Status->AddChainSpell();if(Spell.CastHasteStacks>0)Status->AddHaste(Spell.CastHasteStacks,Spell.CastHasteDuration);}
     return true;
 }
-void UFPSBlizzardComponent::NetCastRejected(uint8 /*Phase*/,uint8 /*Code*/)
+void UFPSBlizzardComponent::NetCastAccepted(uint8 Phase)
 {
-    bNetPaid=false;CancelPending();Feedback(TEXT("施法失败"));
+    if(Phase==0){if(bNetPaid&&!bNetAwaitingCancel)bNetPrepared=true;return;}
+    if(Phase!=1||!bNetAwaitingRelease)return;
+    // A profile mirror may already have committed the same reservation.
+    if(auto* M=Model();M&&M->Snapshot().bBlizzardReserved)M->CommitBlizzardRelease();
+    CompleteRelease();
+}
+void UFPSBlizzardComponent::NetCastRejected(uint8 Phase,uint8 /*Code*/)
+{
+    if(bNetAwaitingCancel&&Phase<2)return; // The ordered cancel receipt still owns this slot.
+    if(!bNetPaid&&!bNetAwaitingRelease&&!bNetAwaitingCancel)return;
+    bNetPaid=bNetAwaitingRelease=bNetAwaitingCancel=false;
+    CancelPending();Feedback(TEXT("施法失败，已退还消耗"));
 }
 void UFPSBlizzardComponent::NetCastCancelled(uint8 /*Phase*/)
 {
-    bNetPaid=false; // 本地壳的清理在 CancelPending 走完了
+    bNetAwaitingCancel=false;
 }
 void UFPSBlizzardComponent::InterruptPending(bool bCancelCloud)
 {
@@ -222,6 +246,7 @@ void UFPSBlizzardComponent::InterruptPending(bool bCancelCloud)
 }
 void UFPSBlizzardComponent::SuspendPreview()
 {
+    if(bNetAwaitingRelease){SetAimPreview(false);return;}
     bQueued=bReleaseRequested=false;SetAimPreview(false);
     if(bCommitted&&!bGathered){CancelPending();return;}
     if(auto* H=Hands();H&&H->IsSpellGesture(this))H->CancelSpellGesture(this);
@@ -243,12 +268,18 @@ void UFPSBlizzardComponent::RefreshPreview()
         AimDecal=NewObject<UDecalComponent>(GetOwner(),TEXT("BlizzardAimDecal"));GetOwner()->AddInstanceComponent(AimDecal);
         AimDecal->SetDecalMaterial(Cast<UMaterialInterface>(Assets[12]));AimDecal->RegisterComponent();AimMID=AimDecal->CreateDynamicMaterialInstance();
     }
-    AimDecal->SetWorldLocation(LockedPoint+LockedNormal*8);
-    AimDecal->SetWorldRotation(FRotationMatrix::MakeFromXZ(-LockedNormal,FVector::CrossProduct(LockedNormal,LockedAxis)).Rotator());
-    const FVector Size(45,CastSnapshot.RadiusX,CastSnapshot.RadiusY);
+    AimDecal->SetWorldLocation(LockedPoint+FVector(0,0,8));
+    AimDecal->SetWorldRotation(FRotationMatrix::MakeFromXZ(-FVector::UpVector,FVector::CrossProduct(FVector::UpVector,LockedAxis)).Rotator());
+    const FVector Size(900,CastSnapshot.RadiusX,CastSnapshot.RadiusY);
     if(AimDecal->DecalSize!=Size){AimDecal->DecalSize=Size;AimDecal->MarkRenderStateDirty();}
     AimDecal->SetHiddenInGame(false);
-    if(AimMID)AimMID->SetScalarParameterValue(TEXT("Fade"),1.f);
+    if(AimMID)
+    {
+        TArray<FVector> Cells;
+        BlizzardEnvironment::BuildCells(Cast<APawn>(GetOwner()),LockedPoint,LockedAxis,CastSnapshot.RadiusX,CastSnapshot.RadiusY,Cells);
+        BlizzardEnvironment::MaterialCells(AimMID,LockedPoint,LockedAxis,CastSnapshot.RadiusX,CastSnapshot.RadiusY,Cells);
+        AimMID->SetScalarParameterValue(TEXT("Fade"),1.f);
+    }
 }
 void UFPSBlizzardComponent::ReleaseAimPreview()
 {
@@ -299,12 +330,24 @@ void UFPSBlizzardComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
     const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
     if(Health&&Health->IsDead()){CancelPending();ClearZones();return;}
     if(!InputAvailable())SuspendPreview();else ServiceQueue();
-    if(bCommitted)
+    if(bCommitted&&!bNetAwaitingRelease)
     {
         UpdateGatherCloud();
         if(bGathered){PreparedAge+=Delta;if(PreparedAge>=30.f){CancelPending();Feedback(TEXT("凝聚到期"));return;}}
-        if(bAimPreview){PreviewAge+=Delta;if(PreviewAge>=.05f){PreviewAge=0;RefreshPreview();}}
+        if(bAimPreview){PreviewAge+=Delta;if(PreviewAge>=.2f){PreviewAge=0;RefreshPreview();}}
     }
 }
 void UFPSBlizzardComponent::EndPlay(EEndPlayReason::Type Reason)
-{CancelPending();ClearZones();if(AimDecal){AimDecal->DestroyComponent();AimDecal=nullptr;AimMID=nullptr;}if(AssetLoad)AssetLoad->CancelHandle();AssetLoad.Reset();Assets.Reset();Super::EndPlay(Reason);}
+{
+    // A sent release can already be dealing authoritative damage. Do not leave
+    // a refundable held-cloud save behind when its pawn disappears before ACK.
+    // A rejected request is refunded in the server profile and mirrored back.
+    if(bNetAwaitingRelease)
+    {
+        if(auto* M=Model();M&&M->Snapshot().bBlizzardReserved)M->CommitBlizzardRelease();
+        bCommitted=bNetPaid=bNetAwaitingRelease=false;
+    }
+    CancelPending();ClearZones();
+    if(AimDecal){AimDecal->DestroyComponent();AimDecal=nullptr;AimMID=nullptr;}
+    if(AssetLoad)AssetLoad->CancelHandle();AssetLoad.Reset();Assets.Reset();Super::EndPlay(Reason);
+}

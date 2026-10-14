@@ -1,4 +1,5 @@
 #include "../Dungeon/DungeonLayout.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
@@ -25,7 +26,7 @@ FLightningCast UColdSteelStatusModel::LightningStats(int32 AtLevel,bool bApplyFo
     C.DamageBase=T.DamageBase+L*T.DamagePerLevel;
     C.MagicMultiplier=T.MagicBase+L*T.MagicPerLevel;C.IntelligenceMultiplier=T.IntelligenceBase+L*T.IntelligencePerLevel;
     const double Matk=Derived(TEXT("matk")),Intelligence=Attribute(TEXT("int"));
-    C.Count=T.CountBase+(L-1)/T.CountLevelStep;C.ManaCost=T.ManaCost;C.Cooldown=T.Cooldown;
+    C.Count=T.CountBase+(L-1)/T.CountLevelStep;C.Cooldown=T.Cooldown;
     C.Range=T.Range*T.UnitsToCM;C.AimRadius=T.AimRadius*T.UnitsToCM;C.ChainRange=T.ChainRange*T.UnitsToCM;
     C.StunSeconds=T.StunBase+L*T.StunPerLevel;C.ChainDecay=T.ChainDecay;
     C.Duration=T.Duration;C.Fade=T.Fade;C.Segments=T.Segments;C.Jitter=T.Jitter;
@@ -35,7 +36,7 @@ FLightningCast UColdSteelStatusModel::LightningStats(int32 AtLevel,bool bApplyFo
     C.CriticalChance=Derived(TEXT("crit"));C.CriticalDamageBonus=CriticalStrikeEffect().CriticalDamageBonus;
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     C.MagicDamageBonus=(1+SetEffect(TEXT("magicDamage")))*Rune.MagicDamage-1;
-    double DamageFactor=1,CostFactor=1,CooldownReduction=0;
+    double DamageFactor=1,CooldownReduction=0;
     const auto* Player=RuntimePawn();
     const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
     const int32 Chain=Status?Status->ChainSpellStacks():0;
@@ -46,7 +47,6 @@ FLightningCast UColdSteelStatusModel::LightningStats(int32 AtLevel,bool bApplyFo
             C.Count+=int32(Craft(TEXT("lightningChainTargetsDelta")));
             C.CriticalChance+=100*(E->Effect(*Item,TEXT("critRate"))+Craft(TEXT("critChancePercent"))+Craft(TEXT("magicCritPercent")));
             C.MagicPenetration=E->Effect(*Item,TEXT("magicPenetrationPercent"))+Craft(TEXT("magicPenetrationPercent"));
-            CostFactor+=Craft(TEXT("magicMpCostPercent"))+Chain*Craft(TEXT("chainSpellMpCostPercent"));
             CooldownReduction=Craft(TEXT("magicCooldownPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));
             const double Area=1+Craft(TEXT("magicRangePercent"));C.AimRadius*=Area;C.ChainRange*=Area;
             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
@@ -61,7 +61,7 @@ FLightningCast UColdSteelStatusModel::LightningStats(int32 AtLevel,bool bApplyFo
         }
     C.Count=FMath::Max(1,C.Count);
     C.Damage=FMath::FloorToFloat(FMath::FloorToDouble(C.DamageBase+Matk*C.MagicMultiplier+Intelligence*C.IntelligenceMultiplier)*DamageFactor*MagicImplementMultiplier());
-    C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor)*float(Rune.MagicCost));
+    C.ManaCost=SpellManaCostBeforeFocus(TEXT("lightningStrike"),L);
     C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.MagicCooldown;
     if(bApplyFocus)ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
     return C;
@@ -82,7 +82,7 @@ bool UColdSteelStatusModel::ApplyLightningHit(APawn* Shooter,AActor* Target,cons
         if(auto* Pane=UWardBreakableGlass::IntactPane(Target))
         {Pane->BreakAt(Pane->GetComponentLocation(),Pane->GetComponentLocation()-Origin);return false;}
     auto* Combat=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
-    if(!Shooter||!Shooter->IsPlayerControlled()||!Shooter->HasAuthority()||Target==Shooter||!Combat||Combat->IsDead()||Target->ActorHasTag(TEXT("Friendly")))return false;
+    if(!Shooter||!Shooter->IsPlayerControlled()||!Shooter->HasAuthority()||Target==Shooter||!Combat||Combat->IsDead()||RangedAttackQuery::IsFriendlyUnit(Shooter,Target))return false;
     FFireballRewards Rewards;Rewards.Victim=Target;TGuardValue<FFireballRewards*> Scope(ActiveFireballRewards,&Rewards);
     bool Critical=false;
     // Only a real beam trace against this target can grant a guaranteed weakpoint critical.

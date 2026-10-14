@@ -1,4 +1,5 @@
 #include "../Dungeon/DungeonLayout.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "FPSIceWall.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
@@ -26,8 +27,7 @@ FIceSpikeCast UColdSteelStatusModel::IceSpikeStats(int32 AtLevel) const
     C.MagicMultiplier=T.MagicBase+L*T.MagicPerLevel;
     C.MagicContribution=Derived(TEXT("matk"))*C.MagicMultiplier;
     C.Count=T.CountBase+(L-1)/T.CountLevelStep;
-    // Mana grows and the base cooldown shortens with level, both on the fireball's curve.
-    C.ManaCost=T.ManaCost+(L-1)*T.ManaCostPerLevel;
+    // The base cooldown shortens with level on the fireball's curve.
     const float Growth=float(L-1)/FMath::Max(1,IceSpikeSkill.MaxLevel-1);
     C.Cooldown=FMath::Max(T.MinimumCooldown,FMath::Lerp(T.Cooldown,T.MinimumCooldown,Growth));
     C.HoverDuration=T.HoverDuration;
@@ -36,7 +36,7 @@ FIceSpikeCast UColdSteelStatusModel::IceSpikeStats(int32 AtLevel) const
     C.CriticalChance=Derived(TEXT("crit"));C.CriticalDamageBonus=CriticalStrikeEffect().CriticalDamageBonus;
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     C.MagicDamageBonus=(1+SetEffect(TEXT("magicDamage")))*Rune.MagicDamage-1;
-    double DamageFactor=1,CostFactor=1,CooldownReduction=0;
+    double DamageFactor=1,CooldownReduction=0;
     const auto* Player=RuntimePawn();
     const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
     const int32 Chain=Status?Status->ChainSpellStacks():0;
@@ -48,10 +48,9 @@ FIceSpikeCast UColdSteelStatusModel::IceSpikeStats(int32 AtLevel) const
             C.Count+=int32(Craft(TEXT("iceSpikeCountDelta")));
             C.CriticalChance+=100*(E->Effect(*Item,TEXT("critRate"))+Craft(TEXT("critChancePercent"))+Craft(TEXT("magicCritPercent")));
             C.MagicPenetration=E->Effect(*Item,TEXT("magicPenetrationPercent"))+Craft(TEXT("magicPenetrationPercent"));
-            CostFactor+=Craft(TEXT("magicMpCostPercent"));CooldownReduction=Craft(TEXT("magicCooldownPercent"));
+            CooldownReduction=Craft(TEXT("magicCooldownPercent"));
             C.Range*=1+Craft(TEXT("magicRangePercent"));C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
             DamageFactor+=Craft(TEXT("magicDamagePercent"));
-            CostFactor+=Chain*Craft(TEXT("chainSpellMpCostPercent"));
             C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
             C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
             C.ChillSlow=Craft(TEXT("iceChillSlowPercent"));C.ChillDuration=E->CraftEffect(*Item,TEXT("iceChillDuration"),3000)/1000;
@@ -63,7 +62,7 @@ FIceSpikeCast UColdSteelStatusModel::IceSpikeStats(int32 AtLevel) const
     C.Count=FMath::Max(1,C.Count);
     // The wand hook multiplies every magic spell, so the two spells stay on one damage factor.
     C.Damage=FMath::FloorToFloat(FMath::FloorToDouble(C.DamageBase+C.MagicContribution)*DamageFactor*MagicImplementMultiplier());
-    C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor)*float(Rune.MagicCost));
+    C.ManaCost=SpellManaCostBeforeFocus(TEXT("iceSpike"),L);
     C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));
     C.Cooldown*=Rune.MagicCooldown;
     ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
@@ -88,7 +87,7 @@ void UColdSteelStatusModel::ApplyIceSpikeHit(APawn* Shooter,const FHitResult& Hi
         return;
     }
     auto* Combat=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
-    if(!Shooter||!Shooter->IsPlayerControlled()||!Shooter->HasAuthority()||Target==Shooter||!Combat||Combat->IsDead()||Target->ActorHasTag(TEXT("Friendly")))return;
+    if(!Shooter||!Shooter->IsPlayerControlled()||!Shooter->HasAuthority()||Target==Shooter||!Combat||Combat->IsDead()||RangedAttackQuery::IsFriendlyUnit(Shooter,Target))return;
     FFireballRewards Rewards;Rewards.Victim=Target;TGuardValue<FFireballRewards*> Scope(ActiveFireballRewards,&Rewards);
     bool Critical=false;
     const CombatFormulaRuntime::MagicHit Context{Cast.CriticalChance,Cast.CriticalDamageBonus,Cast.MagicPenetration,Cast.MagicDamageBonus,&Critical,ColdSteelSkills::IsCriticalHit(Hit)};

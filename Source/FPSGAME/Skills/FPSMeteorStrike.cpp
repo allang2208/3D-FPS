@@ -1,4 +1,5 @@
 #include "FPSMeteorStrike.h"
+#include "../Weapons/ThermalTargetSubsystem.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "../WorldGeneration/RiverPilotFXSubsystem.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
@@ -84,6 +85,8 @@ bool AFPSMeteorStrike::InitializeStrike(APawn* Caster,const FFireMagicCast& Spel
     GroundFlames->SetVariableFloat(TEXT("User.Radius"),Spell.AuraRadius);GroundFlames->SetVariableFloat(TEXT("User.Fade"),1);
     GroundFlames->SetVariableFloat(TEXT("User.Spread"),.22f);
     Glow->SetAttenuationRadius(380);Glow->SetIntensity(2600);
+    UThermalTargetSubsystem::RegisterFire(Mantle,FVector(52));
+    UThermalTargetSubsystem::RegisterFire(GroundFlames,FVector(Spell.AuraRadius,Spell.AuraRadius,38),FVector(0,0,22));
     return true;
 }
 void AFPSMeteorStrike::DamageArea(bool bExplosion)

@@ -147,15 +147,15 @@ def cloud_particle_fields(level, color, gather):
     a = 'frac(float(Particles.UniqueID)*.618033989)'
     b = 'frac(float(Particles.UniqueID)*.754877666)'
     c = 'frac(float(Particles.UniqueID)*.569840296)'
-    width = f'User.RadiusX*(.88+{c}*.48)'
-    height = f'min(({width})*.80,User.CloudHeight*.62)'
+    width = f'min(User.RadiusX,User.RadiusY)*(.88+{c}*.48)'
+    height = f'min(({width})*.80,max(8,User.CloudThickness)*.65)'
     radial = f'sqrt({b})*' + ('.66' if level < .2 else '.85')
     theta = f'({a}*6.2831853+{level}+.065*sin(Particles.Age*.5+{c}*6.2831853))'
     pos = (f'User.CurrentPosition+(User.Side*cos({theta})*User.RadiusX+User.Up*sin({theta})*User.RadiusY)*({radial})'
-           f'+User.SurfaceNormal*(User.CloudHeight-({height})*.5-min(User.RadiusY*.90,User.CloudHeight*.26)*{level})')
-    size = f'float2({width},{height})*(1+.028*sin(Particles.Age*.6+{c}*6.2831853))'
+           f'+User.SurfaceNormal*(User.CloudHeight-({height})*.5-(User.CloudThickness-({height}))*{level/1.26})')
+    size = f'float2(({width})*(1+.028*sin(Particles.Age*.6+{c}*6.2831853)),{height})'
     rgba = f'float4({color[0]},{color[1]},{color[2]},saturate(User.Strength))'
-    rotation = f'({c}-.5)*32'
+    rotation = '0'
     if gather:
         # The component already follows CloudOrigin late in the frame. Simulate
         # offsets locally so old world positions cannot remain behind the player.
@@ -181,6 +181,8 @@ def cloud_particle_fields(level, color, gather):
              'Particles.Position': (POSITION, pos), 'Particles.SpriteSize': (VEC2, size),
              'Particles.SpriteRotation': (FLOAT, rotation), 'Particles.Color': (COLOR, rgba),
              'Particles.SubImageIndex': (FLOAT, '0')}
+    if not gather:
+        spawn['Particles.SpriteAlignment'] = (VEC3, 'User.SurfaceNormal')
     update = {key: value for key, value in spawn.items() if key not in ['Particles.Lifetime', 'Particles.SpriteRotation']}
     if gather:
         update['Particles.SpriteRotation'] = (FLOAT, rotation)
@@ -198,7 +200,9 @@ def cloud_layer(system, mat, name, count, level, color, lifecycle, gather):
         'InterpolatedSpawnMode': 'NoInterpolation' if gather else 'Interpolation'})
     setdata('SetRendererData', u.NiagaraExt_RendererData, ref(system, name, renderer=0), {
         'Material': mat.get_path_name(), 'MaterialUserParamBinding': {'Parameter': {'Name': 'None'}},
-        'SubImageSize': {'X': 1, 'Y': 1}, 'bSubImageBlend': False, 'Alignment': 'Unaligned', 'FacingMode': 'FaceCamera',
+        'SubImageSize': {'X': 1, 'Y': 1}, 'bSubImageBlend': False,
+        'Alignment': 'Unaligned' if gather else 'CustomAlignment',
+        'FacingMode': 'FaceCamera' if gather else 'FaceCameraPosition',
         'SortMode': 'ViewDepth', 'bCastShadows': False, 'CutoutTexture': None, 'bUseMaterialCutoutTexture': False,
         'MotionVectorSetting': 'Precise' if gather else 'Disable'})
     for key, val in lifecycle.items():
@@ -235,7 +239,7 @@ def clouds():
         for en in emitters(system):
             API.call_method('RemoveEmitter', (ref(system, en),))
         for key, typ in [('CurrentPosition', POSITION), ('Side', VEC3), ('Up', VEC3), ('SurfaceNormal', VEC3), ('Wind', VEC3),
-                         ('RadiusX', FLOAT), ('RadiusY', FLOAT), ('CloudHeight', FLOAT), ('StormDuration', FLOAT),
+                         ('RadiusX', FLOAT), ('RadiusY', FLOAT), ('CloudHeight', FLOAT), ('CloudThickness', FLOAT), ('StormDuration', FLOAT),
                          ('CloudEmission', FLOAT), ('Strength', FLOAT), ('DetailReduction', FLOAT)]:
             user_parameter(system, key, typ)
         # The explosion template's system ends after five seconds. Match the
@@ -338,6 +342,11 @@ def main():
     rain = surfaces()
     clouds()
     precipitation(rain)
+    # Restore the runtime clearance-aware world cloud after its shared V3 sources.
+    from build_blizzard_clearance_v4 import build_cloud
+    build_cloud()
+    from build_blizzard_indoor_v5 import build_assets
+    build_assets()
     receipt = {'saved_assets': list(CREATED), 'cloud_core_particles': 49, 'gather_core_particles': 29,
                'gather_local_space': True, 'gather_motion_vectors': 'Precise',
                'gather_material': DEST + '/MI_BlizzardGatherCloud',

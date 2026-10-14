@@ -12,13 +12,13 @@
 #include "Kismet/GameplayStatics.h"
 
 const FColdSteelSkillDefinition& UColdSteelStatusModel::FireMagicDefinition(FName Id) const
-{return Id==TEXT("flameArmor")?FlameArmorSkill:MeteorSkill;}
+{return Id==TEXT("dragonBreath")?DragonBreathSkill:Id==TEXT("flameArmor")?FlameArmorSkill:MeteorSkill;}
 FColdSteelSkillProgress UColdSteelStatusModel::FireMagicProgress(FName Id) const
 {const auto* P=Current.Skills.Find(Id);return P?*P:FColdSteelSkillProgress();}
 float UColdSteelStatusModel::FireMagicCooldown(FName Id) const
-{return HasNoAbilityCooldown()?0.f:(Id==TEXT("flameArmor")?Current.FlameArmorCooldown:Current.MeteorCooldown);}
+{return HasNoAbilityCooldown()?0.f:Id==TEXT("dragonBreath")?Current.DragonBreathCooldown:(Id==TEXT("flameArmor")?Current.FlameArmorCooldown:Current.MeteorCooldown);}
 float UColdSteelStatusModel::FireMagicCooldownDuration(FName Id) const
-{return Id==TEXT("flameArmor")?Current.FlameArmorCooldownDuration:Current.MeteorCooldownDuration;}
+{return Id==TEXT("dragonBreath")?Current.DragonBreathCooldownDuration:Id==TEXT("flameArmor")?Current.FlameArmorCooldownDuration:Current.MeteorCooldownDuration;}
 
 FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) const
 {
@@ -27,11 +27,13 @@ FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) con
     const float Growth=float(L-1)/FMath::Max(1,D.MaxLevel-1);
     FFireMagicCast C;C.Skill=Id;C.MagicAttack=Derived(TEXT("matk"));
     const float Intelligence=Attribute(TEXT("int"));
-    C.Damage=FMath::FloorToFloat(T.DamageBase+L*T.DamagePerLevel+C.MagicAttack*(T.MagicBase+L*T.MagicPerLevel)+Intelligence*(T.IntelligenceBase+L*T.IntelligencePerLevel));
+    const int32 DamageLevel=Id==TEXT("dragonBreath")?L-1:L;
+    C.Damage=FMath::FloorToFloat(T.DamageBase+DamageLevel*T.DamagePerLevel+C.MagicAttack*(T.MagicBase+DamageLevel*T.MagicPerLevel)+Intelligence*(T.IntelligenceBase+DamageLevel*T.IntelligencePerLevel));
     C.AuraDamage=FMath::FloorToFloat(T.AuraDamageBase+L*T.AuraDamagePerLevel+C.MagicAttack*(T.AuraMagicBase+L*T.AuraMagicPerLevel)+Intelligence*(T.AuraIntelligenceBase+L*T.AuraIntelligencePerLevel));
     C.Radius=(T.RadiusBase+L*T.RadiusPerLevel)*T.UnitsToCM;
+    if(Id==TEXT("dragonBreath"))C.Radius=FMath::Lerp(T.RadiusBase,T.RadiusMaximum,Growth);
+    C.ArcDegrees=T.ArcDegrees;
     C.AuraRadius=(T.AuraRadiusBase+L*T.AuraRadiusPerLevel)*T.UnitsToCM;
-    C.ManaCost=T.ManaBase+FMath::FloorToFloat(Growth*T.ManaGrowth);
     C.Cooldown=T.Cooldown-FMath::FloorToFloat(Growth*T.CooldownReduction);
     C.Duration=T.DurationBase+FMath::FloorToFloat(Growth*T.DurationGrowth);
     C.Range=T.Range*T.UnitsToCM;C.FallSeconds=T.FallSeconds;C.TickSeconds=T.TickSeconds;
@@ -40,7 +42,7 @@ FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) con
     C.CriticalChance=Derived(TEXT("crit"));C.CriticalDamageBonus=CriticalStrikeEffect().CriticalDamageBonus;
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     C.MagicDamageBonus=(1+SetEffect(TEXT("magicDamage")))*Rune.MagicDamage-1;
-    float DamageFactor=1,CostFactor=1,CooldownReduction=0;
+    float DamageFactor=1,CooldownReduction=0;
     const auto* Player=RuntimePawn();
     const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
     const int32 Chain=Status?Status->ChainSpellStacks():0;
@@ -50,7 +52,6 @@ FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) con
             auto Craft=[&](const TCHAR* Key){return E->CraftEffect(*Item,Key);};
             C.CriticalChance+=100*(E->Effect(*Item,TEXT("critRate"))+Craft(TEXT("critChancePercent"))+Craft(TEXT("magicCritPercent")));
             C.MagicPenetration=E->Effect(*Item,TEXT("magicPenetrationPercent"))+Craft(TEXT("magicPenetrationPercent"));
-            CostFactor+=Craft(TEXT("magicMpCostPercent"))+Chain*Craft(TEXT("chainSpellMpCostPercent"));
             CooldownReduction=Craft(TEXT("magicCooldownPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));
             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
             DamageFactor=(1+Craft(TEXT("magicDamagePercent"))+Craft(TEXT("fireDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent")));
@@ -61,7 +62,7 @@ FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) con
             C.PendantBurnTick=E->CraftEffect(*Item,TEXT("fireBurnTickMs"),500)/1000;
         }
     DamageFactor*=MagicImplementMultiplier();C.Damage=FMath::FloorToFloat(C.Damage*DamageFactor);C.AuraDamage=FMath::FloorToFloat(C.AuraDamage*DamageFactor);
-    C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor)*float(Rune.MagicCost));
+    C.ManaCost=SpellManaCostBeforeFocus(Id,L);
     C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.MagicCooldown;
     ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
     return C;
@@ -70,11 +71,20 @@ FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) con
 bool UColdSteelStatusModel::BeginFireMagicCast(const FFireMagicCast& Spell)
 {
     if(!FireMagic::IsSkill(Spell.Skill)||FireMagicCooldown(Spell.Skill)>0||!CanSpendMana(Spell.ManaCost))return false;
+    if(Spell.Skill==TEXT("dragonBreath")&&Current.bDragonBreathReserved)return false;
     if(FireMagicDefinition(Spell.Skill).FireMagic.bRequiresStaff&&!HasEquippedStaff())return false;
     SyncRuntime();auto P=Snapshot();if(!HasInfiniteMana())P.Mana-=Spell.ManaCost;
-    float& Remaining=Spell.Skill==TEXT("meteor")?P.MeteorCooldown:P.FlameArmorCooldown;
-    float& Duration=Spell.Skill==TEXT("meteor")?P.MeteorCooldownDuration:P.FlameArmorCooldownDuration;
+    float& Remaining=Spell.Skill==TEXT("dragonBreath")?P.DragonBreathCooldown:Spell.Skill==TEXT("meteor")?P.MeteorCooldown:P.FlameArmorCooldown;
+    float& Duration=Spell.Skill==TEXT("dragonBreath")?P.DragonBreathCooldownDuration:Spell.Skill==TEXT("meteor")?P.MeteorCooldownDuration:P.FlameArmorCooldownDuration;
+    if(Spell.Skill==TEXT("dragonBreath")){P.bDragonBreathReserved=true;P.DragonBreathReservedMana=HasInfiniteMana()?0.f:Spell.ManaCost;}
     Duration=Remaining=HasNoAbilityCooldown()?0.f:Spell.Cooldown;return CommitState(P);
+}
+
+bool UColdSteelStatusModel::CommitDragonBreathRelease()
+{
+    if(!Current.bDragonBreathReserved)return false;
+    SyncRuntime();auto P=Snapshot();P.bDragonBreathReserved=false;P.DragonBreathReservedMana=0;
+    return CommitState(MoveTemp(P));
 }
 
 bool UColdSteelStatusModel::ApplyFireMagicHit(APawn* Shooter,AActor* Target,const FFireMagicCast& Spell,float Damage,FFireMagicRewards& Batch)

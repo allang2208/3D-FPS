@@ -26,7 +26,6 @@ FElectricMagicCast UColdSteelStatusModel::ElectricMagicStats(FName Id,int32 AtLe
     FElectricMagicCast C;C.Hit=LightningStats(-1,false);auto& H=C.Hit;
     H.DamageBase=T.DamageBase+L*T.DamagePerLevel;
     H.MagicMultiplier=T.MagicBase+L*T.MagicPerLevel;H.IntelligenceMultiplier=T.IntelligenceBase+L*T.IntelligencePerLevel;
-    H.ManaCost=T.ManaBase+FMath::FloorToFloat(Growth*T.ManaGrowth);
     H.Cooldown=T.Cooldown-FMath::FloorToFloat(Growth*T.CooldownReduction);
     H.Range=(T.RangeBase+L*T.RangePerLevel)*T.UnitsToCM;
     H.ChainRange=T.ChainRange*T.UnitsToCM;H.Count=1+T.ChainExtraBase+(L-1)/FMath::Max(1,T.ChainLevelStep);
@@ -43,12 +42,11 @@ FElectricMagicCast UColdSteelStatusModel::ElectricMagicStats(FName Id,int32 AtLe
     const auto* Player=RuntimePawn();
     const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
     const int32 Chain=Status?Status->ChainSpellStacks():0;
-    double DamageFactor=1,CostFactor=1,CooldownReduction=0;
+    double DamageFactor=1,CooldownReduction=0;
     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {
             auto Craft=[&](const TCHAR* Key){return E->CraftEffect(*Item,Key);};
-            CostFactor+=Craft(TEXT("magicMpCostPercent"))+Chain*Craft(TEXT("chainSpellMpCostPercent"));
             CooldownReduction=Craft(TEXT("magicCooldownPercent"));
             const float Range=float(1+Craft(TEXT("magicRangePercent")));H.Range*=Range;H.ChainRange*=Range;C.Radius*=Range;
             H.StunExtensionSeconds=Craft(TEXT("electricStunExtendMs"))/1000;
@@ -59,7 +57,7 @@ FElectricMagicCast UColdSteelStatusModel::ElectricMagicStats(FName Id,int32 AtLe
             DamageFactor*=1+Chain*Craft(TEXT("chainSpellDamagePercent"));
         }
     H.Damage=FMath::FloorToFloat(FMath::FloorToDouble(H.DamageBase+Derived(TEXT("matk"))*H.MagicMultiplier+Attribute(TEXT("int"))*H.IntelligenceMultiplier)*DamageFactor*MagicImplementMultiplier());
-    H.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(H.ManaCost*CostFactor)*float(Rune.MagicCost));
+    H.ManaCost=SpellManaCostBeforeFocus(Id,L);
     H.Cooldown=FMath::Clamp(H.Cooldown*float(FMath::Max(.2,(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown")))))*float(Rune.MagicCooldown),0.f,300.f);
     ApplySpellbookFocus(H.CastSpeed,H.ManaCost);
     return C;
@@ -77,6 +75,7 @@ bool UColdSteelStatusModel::BeginElectricMagicCast(FName Id,const FElectricMagic
 bool UColdSteelStatusModel::CommitElectricMagicRelease(FName Id)
 {
     if(!Current.ElectricReservedMana.Contains(Id))return false;
+    if(ElectricMagicDefinition(Id).ElectricMagic.bRequiresStaff&&!HasEquippedStaff())return false;
     SyncRuntime();auto P=Snapshot();P.ElectricReservedMana.Remove(Id);return CommitState(MoveTemp(P));
 }
 void UColdSteelStatusModel::FinishElectricMagicCast(FName Id,const FElectricMagicRewards& Batch)

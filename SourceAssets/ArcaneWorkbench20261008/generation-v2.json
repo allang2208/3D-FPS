@@ -1,0 +1,35 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-08",
+  "revision": 2,
+  "direction": "Close worktable, brighter blue/cyan/gold magic",
+  "images": [
+    {
+      "variant": "A",
+      "title": "蓝晶炼器台",
+      "filename": "azure-forge-table-v2.png",
+      "reference": "Content/ColdSteelUI/ArcaneWorkbench/ember-forge.png",
+      "source": "C:/Users/allan/.codex/generated_images/01a1161d-84f3-7c22-8473-a05e617198d7/exec-b53594ea-c853-4da6-8525-3646cf75997f.png",
+      "prompt": "Use case: precise-object-edit. Edit the supplied dark fantasy workbench backdrop into a NEW V2: AZURE CRYSTAL FORGE TABLE. The reference is the existing background to redesign, not a fixed composition. Keep realistic premium game-art materials and widescreen 16:9. IMPORTANT CHANGE: replace the distant floor altar and huge empty dark hall with a CLOSE practical waist-height magician's workbench. Camera at standing operator eye level looking down approximately 20 degrees onto the work surface, fairly tight shot, no distant floor plinth. A sturdy broad rectangular workshop table spans the foreground; its back edge sits near 45% of image height, front edge near 90%; central clear tabletop occupies x25%-75%, y48%-80%. Slate-blue stone top with brass/gold perimeter metalwork and fine inlaid CYAN rune circuits, large faint gold transmutation circle centered at x50%, y66%. Leave that central work area clean and empty so a REAL weapon model can be placed on it later; NO weapon, NO floating central orb. Behind it a modest magical workshop: blue stone walls, cyan crystal lamps, softly illuminated brass instruments around the edges. Restrained blue and cyan crystal clusters at extreme sides, tiny gold sparks, thin azure magical vapor above table, materials legible. Overall moderately BRIGHT, clearly brighter than the reference: balanced luminous midtones and soft blue daylight, controlled cyan highlights and warm gold accents, no crushed black center, no blinding bloom. Main colors rich slate blue, teal/cyan, brushed antique GOLD. UI readability: quieter upper quarter for white titles, slightly subdued side edges for overlay panels, center table visible. No people, no UI, no readable text, no symbols resembling real writing, no watermark, no pegboard, no gun racks, no orange fire, no sci-fi laboratory. Output one finished production background only.",
+      "file": "Content/ColdSteelUI/ArcaneWorkbench/azure-forge-table-v2.png"
+    },
+    {
+      "variant": "B",
+      "title": "星仪附魔圆台",
+      "filename": "celestial-worktable-v2.png",
+      "reference": "Content/ColdSteelUI/ArcaneWorkbench/lunar-sanctum.png",
+      "source": "C:/Users/allan/.codex/generated_images/01a1161d-84f3-7c22-8473-a05e617198d7/exec-eb0f86ce-cb0f-494d-92ac-8f457f2933cc.png",
+      "prompt": "Use case: precise-object-edit. Redesign the supplied fantasy observatory backdrop into variant B V2: CELESTIAL ENCHANTER'S WORKBENCH. Preserve premium realistic fantasy game materials and wide 16:9 framing; replace the empty distant floor dais with a large tangible waist-high circular/oval magical WORKTABLE close to the viewer. Camera at a standing crafter's eye level looking down onto the tabletop, not an aerial view. The worktable fills the lower 60% of the picture, back edge at roughly y40%, front edge around y87%, with a broad EMPTY sapphire-blue stone surface and a delicate GOLD astronomical inlay circle centered at x50%, y60%. Concentric thin rings, compass-like markings and cyan luminous seams are engraved INTO the tabletop, no huge floating circle in the air. Table has elegant sturdy brass/gold rim and visible crafted supports. A few small astrolabes and azure crystals only at far side edges. Background is an approachable moderately bright arcane observatory workshop with soft blue daylight through high windows, cyan crystal lights and warm gold metal accents. Main palette BLUE / CYAN / GOLD, no dominance of gray or black; rich readable midtones, soft cinematic light, good material detail, controlled restrained bloom. Central work surface x25%-75% must be entirely free of props for an actual equipment preview later. Keep upper middle relatively uncluttered for UI titles and maintain subdued side edges behind overlay panels. No people, no weapon or equipment on the table, no central orb, no UI, no legible writing, no watermarks, no pegboard, no orange fire, no sci-fi panels. One beautiful practical enchanting workbench background image only.",
+      "file": "Content/ColdSteelUI/ArcaneWorkbench/celestial-worktable-v2.png"
+    },
+    {
+      "variant": "C",
+      "title": "秘法铭刻长桌",
+      "filename": "arcanist-desk-v2.png",
+      "reference": "Content/ColdSteelUI/ArcaneWorkbench/occult-archive.png",
+      "source": "C:/Users/allan/.codex/generated_images/01a1161d-84f3-7c22-8473-a05e617198d7/exec-19a56be4-e421-4ed8-9c68-8fa433363845.png",
+      "prompt": "Use case: precise-object-edit. Redesign the supplied occult library background into variant C V2: CYAN AND GOLD ARCANIST'S CRAFTING DESK. Preserve premium realistic fantasy game-art detail and wide 16:9 framing, but make it noticeably brighter and replace the purple black mood with rich BLUE, luminous CYAN and antique GOLD as the dominant color palette. Composition is a close standing craftsman's view looking gently down onto a large tangible rectangular enchanting WORKBENCH, whose empty work surface fills the lower 55% of the frame (back edge around y40%, front edge y86%). Blue lacquered hardwood table with a slate-blue central stone inlay, gold brass edging, practical wood drawers beneath, fine hand-engraved gold alchemical circles and delicate cyan luminous lines centered at x50%, y60%. Keep the large central tabletop empty x25%-75% for an actual game equipment model later, no hovering orb. At extreme left and right edges: closed ancient blue leather books with gold clasps, a few small vials of cyan light, turquoise crystals on little stands, brass engraving tools. Background shelves with blue-bound tomes, gold celestial ornaments, soft daylight from one high window and crystal lanterns, cozy usable magical workshop scale, not a giant cathedral. Clear pleasant medium brightness, readable blue table texture, warm gold highlights, atmospheric and magical without excessive glow. Tiny cyan and gold motes only around perimeter. Upper center and side edges relatively quiet to support white text and cold-steel UI overlays. NO people, NO weapon, NO UI, NO text or legible writing, NO labels or watermark, NO pegboard, NO purple-dominant coloring, NO orange flames, NO sci-fi screens. One beautiful finished background image only.",
+      "file": "Content/ColdSteelUI/ArcaneWorkbench/arcanist-desk-v2.png"
+    }
+  ]
+}

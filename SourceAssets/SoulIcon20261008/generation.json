@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-08",
+  "name": "Cold Steel Soul / Golden Flame",
+  "generator": "OpenAI image_gen",
+  "original": "C:/Users/allan/.codex/generated_images/01a1161d-84f3-7c22-8473-a05e617198d7/exec-bb9fe59b-a9d5-4f5f-8043-ad89b2e3813f.png",
+  "output": "Content/ColdSteelData/Currency/soul-gold-flame.png",
+  "transparent_background": true,
+  "prompt": "Use case: stylized-concept. Asset type: ONE finished transparent inventory/HUD currency icon for a realistic dark fantasy FPS with Cold Steel UI. Subject: SOUL, represented by a single elegant GOLDEN SPIRIT FLAME. Square 1:1 canvas, true transparent alpha background, isolated complete subject. Create a cohesive tall flame silhouette with three broad graceful tongues that curl upward around a small teardrop-shaped golden soul core. The central flame is luminous pale gold, outer flowing lobes are rich antique gold and warm amber. Sculptural realistic material treatment: extremely fine cold brushed-steel/silver edge accents and dark graphite recessed separation between the main flame lobes, subtle shallow bevels, soft upper-left light. The flame itself should feel magical and alive, combining warm golden light with finely crafted metal-like contour definition, NOT a campfire or a torch. Strong simple silhouette and broad readable shapes so it remains identifiable at 20-32 pixels. The subject fills approximately 82% of square canvas height and 65-75% width, evenly centered, not clipped. Restrained small inner glow only, crisp alpha edge, no diffuse cloudy background, no giant halo. Premium realistic game icon; no cartoon, no glossy cheap plastic. No text, no letters, no numbers, no currency coin, no skull or face, no human, no pedestal, no square card, no frame or border tile, no hexagonal badge, no starburst, no ground shadow, no checkered pattern, no watermark. Output only the golden soul-flame icon on genuine transparency.",
+  "provenance": "AI-generated for this project. No external reference image or third-party asset used.",
+  "integration": "HUD and backpack balance icon; catalog ue_icon for enhancement soul costs."
+}
