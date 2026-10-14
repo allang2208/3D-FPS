@@ -1,4 +1,5 @@
 #include "LurkerM08Monster.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "M08AirCannonProjectile.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterAIController.h"
@@ -90,7 +91,7 @@ bool ALurkerM08Monster::CanAirCannon(APawn* Victim) const
     FHitResult Hit;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(M08AirSight), false, this);
     Query.AddIgnoredActor(Victim);
-    return !GetWorld()->LineTraceSingleByChannel(Hit, MuzzleFrame.GetLocation(), Victim->GetActorLocation(), ECC_Visibility, Query);
+    return !RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit, MuzzleFrame.GetLocation(), Victim->GetActorLocation(), ECC_Visibility, Query);
 }
 
 bool ALurkerM08Monster::CanAttack(APawn* Victim) const

@@ -227,12 +227,12 @@ place(y, lowp(wet, 2400), 0.89, .45)
 place(y, clang(.25, 300), 0.86, .3)
 manifest["S_M14_Bite"] = save("S_M14_Bite", norm(fade(y, .01, .3), .85))
 
-# --- S_M14_Spit: 1.3 s pressure windup -> acid jet at 1.10 s -------------------
+# --- S_M14_Spit: silent prefix -> acid jet at 1.10 s ---------------------------
 # V03 (user feedback: squelch family too cartoonish, source retired). All watery
 # gurgle is gone. Release = a recorded acid-spit attack over an air-burst crack,
 # with a sub shove and short spray tail.
-# V04 (user: no windup cue): the first 1.05 s stays silent so only the jet is
-# heard at the 1.10 s release point.
+# User reaffirmed no windup cue on 2026-10-13. The first 1.10 s stays silent;
+# runtime starts only at release and seeks to 1.10 s, including for old assets.
 dur = 1.3
 t = np.arange(int(dur * SR)) / SR
 y = np.zeros(int(dur * SR))
@@ -245,7 +245,7 @@ tt = np.arange(int(.22 * SR)) / SR
 place(y, np.sin(2 * np.pi * (95 - 35 * tt) * tt) * np.exp(-tt * 11), 1.10, .5)
 tail = band(noise(.22), 2600, 9000) * np.exp(-np.arange(int(.22 * SR)) / SR * 11)
 place(y, tail, 1.14, .2)
-y[: int(1.08 * SR)] = 0.0
+y[: int(1.10 * SR)] = 0.0
 manifest["S_M14_Spit"] = save("S_M14_Spit", norm(fade(y, .01, .22), .8))
 
 # --- S_M14_SpitImpact: 0.8 s venom splat at the hit point -----------------------

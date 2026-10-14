@@ -1,0 +1,150 @@
+{
+  "species": "M10Mawcrawler",
+  "complete": true,
+  "ue_imported": true,
+  "tested": false,
+  "input_origin": "User remeshed the original Meshy source",
+  "materials": {
+    "R3_Material_0": {
+      "source_material_name": "Material_0",
+      "new_texture": true
+    },
+    "Kept_M_M10_OralInterior": {
+      "source_material_name": "M_M10_OralInterior",
+      "new_texture": false
+    },
+    "Kept_M_M10_OralTeeth": {
+      "source_material_name": "M_M10_OralTeeth",
+      "new_texture": false
+    },
+    "Kept_M_M10_OralGum": {
+      "source_material_name": "M_M10_OralGum",
+      "new_texture": false
+    }
+  },
+  "lods": [
+    {
+      "level": 0,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_LOD0.fbx",
+      "triangles": 202841,
+      "vertices": 170707,
+      "morphs": [
+        "M10_MouthOpenTissue",
+        "M10_MouthWideTissue"
+      ]
+    },
+    {
+      "level": 1,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_LOD1.fbx",
+      "triangles": 77074,
+      "vertices": 96880,
+      "morphs": [
+        "M10_MouthOpenTissue",
+        "M10_MouthWideTissue"
+      ]
+    },
+    {
+      "level": 2,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_LOD2.fbx",
+      "triangles": 28395,
+      "vertices": 55761,
+      "morphs": [
+        "M10_MouthOpenTissue",
+        "M10_MouthWideTissue"
+      ]
+    },
+    {
+      "level": 3,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_LOD3.fbx",
+      "triangles": 10138,
+      "vertices": 39145,
+      "morphs": [
+        "M10_MouthOpenTissue",
+        "M10_MouthWideTissue"
+      ]
+    }
+  ],
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M10ChenXia20261003\\SurfaceRigV5\\Delivery\\M10_SurfaceRigV5_Editable.blend",
+  "input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\Input\\Meshy_AI_M_10_Mawcrawler_1006155813_texture.glb",
+  "input_sha256": "d86eecabcfa2c36d9bf9be2d48e941e1207e6efa08e8a6e32d7cd225eb3023ba",
+  "input_triangles": 197675,
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\Textures\\BaseColor.png",
+    "MetallicRoughness": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\Textures\\MetallicRoughness.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\Textures\\Normal.png"
+  },
+  "retained_design": [
+    "V5 eye and face displacement",
+    "opened oral seam",
+    "authored mouth liner, gums and teeth",
+    "two tissue morphs",
+    "62-bone production skeleton"
+  ],
+  "seconds": 13.13,
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_RemeshV3.blend",
+  "bones": [
+    "root",
+    "body_center",
+    "body_front",
+    "head",
+    "jaw",
+    "mouth_socket",
+    "mantle_front_L",
+    "mantle_front_R",
+    "leg_01_L_upper",
+    "leg_01_L_lower",
+    "leg_01_L_foot",
+    "leg_01_L_toes_inner",
+    "leg_01_L_toes_outer",
+    "leg_01_R_upper",
+    "leg_01_R_lower",
+    "leg_01_R_foot",
+    "leg_01_R_toes_inner",
+    "leg_01_R_toes_outer",
+    "leg_01_L_socket",
+    "leg_01_R_socket",
+    "body_rear",
+    "rump",
+    "leg_04_L_upper",
+    "leg_04_L_lower",
+    "leg_04_L_foot",
+    "leg_04_L_toes_inner",
+    "leg_04_L_toes_outer",
+    "leg_04_R_upper",
+    "leg_04_R_lower",
+    "leg_04_R_foot",
+    "leg_04_R_toes_inner",
+    "leg_04_R_toes_outer",
+    "leg_04_L_socket",
+    "leg_04_R_socket",
+    "mantle_rear_L",
+    "mantle_rear_R",
+    "leg_03_L_upper",
+    "leg_03_L_lower",
+    "leg_03_L_foot",
+    "leg_03_L_toes_inner",
+    "leg_03_L_toes_outer",
+    "leg_03_R_upper",
+    "leg_03_R_lower",
+    "leg_03_R_foot",
+    "leg_03_R_toes_inner",
+    "leg_03_R_toes_outer",
+    "leg_03_L_socket",
+    "leg_03_R_socket",
+    "mantle_center_L",
+    "mantle_center_R",
+    "leg_02_L_upper",
+    "leg_02_L_lower",
+    "leg_02_L_foot",
+    "leg_02_L_toes_inner",
+    "leg_02_L_toes_outer",
+    "leg_02_R_upper",
+    "leg_02_R_lower",
+    "leg_02_R_foot",
+    "leg_02_R_toes_inner",
+    "leg_02_R_toes_outer",
+    "leg_02_L_socket",
+    "leg_02_R_socket"
+  ],
+  "animations_reauthored": false
+}

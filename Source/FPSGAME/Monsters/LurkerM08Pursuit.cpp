@@ -1,4 +1,5 @@
 #include "LurkerM08Monster.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
 
@@ -19,7 +20,7 @@ bool ALurkerM08Monster::HasHuntingSight(const APawn* Victim) const
         for (const FVector SightPoint : Targets)
         {
             FHitResult Hit;
-            if (!GetWorld()->LineTraceSingleByChannel(Hit, Origin, SightPoint, ECC_Visibility, Query)) return true;
+            if (!RangedAttackQuery::LineTraceSingle(GetWorld(),this,Hit, Origin, SightPoint, ECC_Visibility, Query)) return true;
         }
     return false;
 }

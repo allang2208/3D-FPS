@@ -1,4 +1,6 @@
 #include "WitchMonster.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "Net/UnrealNetwork.h"
 #include "../Skills/FPSIceWall.h"
 #include "MonsterReactionTiming.h"
 #include "HumanoidKnockdownComponent.h"
@@ -95,7 +97,7 @@ bool AWitchMonster::CanCast(APawn* Candidate) const
     if (FVector::DotProduct(GetActorForwardVector(), Aim) < .98f) return false;
     FHitResult Hit; FCollisionQueryParams Query(SCENE_QUERY_STAT(WitchSight), false, this);
     Query.AddIgnoredActor(Candidate);
-    const bool Blocked=GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation() + FVector(0,0,35),
+    const bool Blocked=RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit, GetActorLocation() + FVector(0,0,35),
         Candidate->GetActorLocation(), ECC_Visibility, Query);
     const auto* Wall=Cast<AFPSIceWall>(Hit.GetActor());
     return !Blocked||(Wall&&Wall->IsSolid());
@@ -189,7 +191,7 @@ void AWitchMonster::StartStateAnimation(UAnimSequence* Clip, bool bLoop)
     if (State == ENurseState::Attack)
     {
         const double Now = GetWorld()->GetTimeSeconds();
-        bThrowing = Now < NextMagicAt && Now >= NextBottleAt;
+        if(HasAuthority())bThrowing = Now < NextMagicAt && Now >= NextBottleAt;
         AttackClip = bThrowing ? ThrowClip : CastClip;
         Clip = AttackClip; bReleased = false;
         Bottle->SetVisibility(true);
@@ -209,7 +211,7 @@ void AWitchMonster::SetAttackAnimationTime(float Seconds)
     const float Release = bThrowing ? .75f : 1.5f * 5.f / 14.f;
     if (!bReleased && State == ENurseState::Attack && Seconds >= Release)
     {
-        bReleased = true; ReleaseSpell();
+        bReleased = true;if(bThrowing&&Bottle)Bottle->SetVisibility(false); ReleaseSpell();
     }
 }
 
@@ -300,3 +302,8 @@ void AWitchMonster::EndPlay(const EEndPlayReason::Type Reason)
     for (const auto& Spell : Spells) if (Spell.IsValid()) Spell->Destroy();
     Spells.Reset(); Super::EndPlay(Reason);
 }
+
+void AWitchMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AWitchMonster,bThrowing);}
+void AWitchMonster::OnRep_Throwing()
+{if(!HasAuthority()&&State==ENurseState::Attack){StartStateAnimation(bThrowing?ThrowClip:CastClip,false);}}

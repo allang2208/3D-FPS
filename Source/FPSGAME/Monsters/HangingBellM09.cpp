@@ -1,4 +1,6 @@
 #include "HangingBellM09.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "M09ResonanceDamage.h"
 #include "M09GazeParameters.h"
 #include "M09ClawParameters.h"
@@ -64,7 +66,7 @@ float Smooth(float T){T=FMath::Clamp(T,0.f,1.f);return T*T*(3.f-2.f*T);}
 AHangingBellM09::AHangingBellM09()
 {
  PrimaryActorTick.bCanEverTick=true;bReplicates=true;SetReplicateMovement(true);
- Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+ Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
  Corpse=CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
  Corpse->Rig=EMonsterCorpseRig::HangingBell;
  Voice=CreateDefaultSubobject<UAudioComponent>(TEXT("OrganVoice"));Voice->SetupAttachment(GetMesh());Voice->bAutoActivate=false;
@@ -256,7 +258,7 @@ FVector AHangingBellM09::GetPawnViewLocation() const{return VisualMesh?Eye():Get
 bool AHangingBellM09::HasAttackSight(const APawn* P) const
 {
  if(!IsValid(P))return false;FHitResult H;FCollisionQueryParams Q(SCENE_QUERY_STAT(M09Sight),false,this);Q.AddIgnoredActor(P);
- return !GetWorld()->LineTraceSingleByChannel(H,Eye(),P->GetActorLocation()+FVector(0,0,35),ECC_Visibility,Q);
+ return !RangedAttackQuery::LineTraceSingle(GetWorld(), this, H,Eye(),P->GetActorLocation()+FVector(0,0,35),ECC_Visibility,Q);
 }
 void AHangingBellM09::SetLocomotion(bool Moving,bool Returning)
 {
@@ -462,7 +464,7 @@ bool AHangingBellM09::HasResonanceSight(const APawn* P,FVector Origin) const
 {
  if(!IsValid(P))return false;
  FHitResult Hit;FCollisionQueryParams Q(SCENE_QUERY_STAT(M09ResonanceSight),false,this);Q.AddIgnoredActor(P);
- return !GetWorld()->LineTraceSingleByChannel(Hit,Origin,P->GetActorLocation()+FVector(0,0,35),ECC_Visibility,Q);
+ return !RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit,Origin,P->GetActorLocation()+FVector(0,0,35),ECC_Visibility,Q);
 }
 void AHangingBellM09::Deal(APawn* P,float Damage,bool Magic,FVector Point)
 {
@@ -650,8 +652,7 @@ float AHangingBellM09::TakeDamage(float D,const FDamageEvent& E,AController* Eve
   if(!bRewarded)
   {
    bRewarded=true;ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),EventInstigator,this);
-   if(auto* PC=Cast<APlayerController>(EventInstigator);PC&&PC->IsLocalController()&&GetGameInstance())
-    GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
+   ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);
   }
  }
  else Combat->ReceiveHit(Applied,EventInstigator?EventInstigator->GetPawn().Get():Cast<APawn>(Causer),MonsterToughness::FormOf(E.DamageTypeClass));

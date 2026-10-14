@@ -1,4 +1,5 @@
 #include "M10Mawcrawler.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "M10HowlDamage.h"
 #include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
@@ -23,7 +24,7 @@ bool AM10Mawcrawler::IsInHowlSector(const APawn* Victim) const
     // through thin geometry cannot put the wave origin behind a blocking wall.
     FCollisionQueryParams Query(SCENE_QUERY_STAT(M10HowlSight),false,this);Query.AddIgnoredActor(Victim);
     FHitResult Hit;
-    return !GetWorld()->LineTraceSingleByChannel(Hit,GetMesh()->GetSocketLocation(TEXT("body_front")),Mouth(),ECC_Visibility,Query)
+    return !RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit,GetMesh()->GetSocketLocation(TEXT("body_front")),Mouth(),ECC_Visibility,Query)
         &&CanSee(Victim);
 }
 bool AM10Mawcrawler::CanHowl(APawn* Victim) const

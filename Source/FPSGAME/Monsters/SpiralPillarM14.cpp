@@ -1,4 +1,6 @@
 #include "SpiralPillarM14.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCorpseRagdollComponent.h"
 #include "M14SoftBodyDeath.h"
@@ -34,7 +36,7 @@ ASpiralPillarM14::ASpiralPillarM14(const FObjectInitializer& Initializer)
     : Super(Initializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(CharacterMovementComponentName))
 {
     PrimaryActorTick.bCanEverTick=true;bReplicates=true;
-    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
     CorpseRagdoll=CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
     CorpseRagdoll->Rig=EMonsterCorpseRig::SpiralPillar;
     SoftBodyDeath=CreateDefaultSubobject<UM14SoftBodyDeathComponent>(TEXT("SoftBodyDeath"));
@@ -150,7 +152,8 @@ void ASpiralPillarM14::PresentState()
         switch(State)
         {
         case EM14State::Bite: Cue=BiteSound;At=Mouth();Volume=.95f;break;
-        case EM14State::Spit: Cue=SpitSound;At=Mouth();break;
+        // Spit audio starts at the release clock in TickAttack; no windup cue.
+        case EM14State::Spit: break;
         case EM14State::TrunkSlam: Cue=TrunkSlamSound;At=GetMesh()->GetSocketLocation(TEXT("spine_01"));break;
         case EM14State::Whirlwind: Cue=WhirlwindSound;At=GetMesh()->GetSocketLocation(TEXT("spine_01"));break;
         case EM14State::Dying: Cue=DeathSound;At=GetMesh()->GetSocketLocation(TEXT("spine_01"));break;
@@ -205,7 +208,7 @@ bool ASpiralPillarM14::CanSee(const APawn* Victim) const
 {
     if(!IsValid(Victim))return false;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(M14BiteSight),false,this);Query.AddIgnoredActor(Victim);
-    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Mouth(),Victim->GetActorLocation(),ECC_Visibility,Query);
+    FHitResult Hit;return !RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit,Mouth(),Victim->GetActorLocation(),ECC_Visibility,Query);
 }
 bool ASpiralPillarM14::CanAttack(APawn* Victim) const
 {
@@ -363,8 +366,7 @@ float ASpiralPillarM14::TakeDamage(float Damage,const FDamageEvent& Event,AContr
         SetState(EM14State::Dying);SetLifeSpan(CorpseSeconds);
         if(auto* AI=Cast<AMonsterAIController>(GetController())){AI->StopMovement();AI->UpdateKnowledge();}
         ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),EventInstigator,this);
-        if(auto* PC=Cast<APlayerController>(EventInstigator);PC&&PC->IsLocalController()&&GetGameInstance())
-            GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
+        ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);
     }
     else Combat->ReceiveHit(Applied,EventInstigator?EventInstigator->GetPawn().Get():Cast<APawn>(Causer),MonsterToughness::FormOf(Event.DamageTypeClass));
     return Applied;

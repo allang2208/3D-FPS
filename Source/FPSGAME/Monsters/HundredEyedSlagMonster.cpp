@@ -1,4 +1,7 @@
 #include "HundredEyedSlagMonster.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "GameFramework/GameStateBase.h"
+#include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "HumanoidRagdollBudget.h"
 #include "MonsterCorpsePoseAnimInstance.h"
 #include "PhysicsEngine/BodyInstance.h"
@@ -45,7 +48,7 @@ AHundredEyedSlagMonster::AHundredEyedSlagMonster(const FObjectInitializer& Initi
         .SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
     PrimaryActorTick.bCanEverTick = true;
-    Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+    Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
     Status = CreateDefaultSubobject<UCombatStatusFormula>(TEXT("CombatStatus"));
     GetCapsuleComponent()->InitCapsuleSize(70.f, 70.f);
     GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
@@ -157,8 +160,8 @@ void AHundredEyedSlagMonster::BeginPlay()
 {
     Super::BeginPlay();
     Home = GetActorLocation();
-    MaxHealth *= static_cast<float>(MonsterCoreStats::HealthMultiplier());
-    Health = FMath::Max(1.f, MaxHealth);
+    if(HasAuthority()){MaxHealth *= static_cast<float>(MonsterCoreStats::HealthMultiplier());
+    Health = FMath::Max(1.f, MaxHealth);}
     AlignVisual();
     GetMesh()->AddTickPrerequisiteActor(this);
     GetMesh()->AddTickPrerequisiteComponent(Combat);
@@ -173,7 +176,7 @@ void AHundredEyedSlagMonster::BeginPlay()
         EyeBindOffsets[0] = Reference.InverseTransformPosition(LaserPrimaryEyePosition);
         EyeBindOffsets[1] = Reference.InverseTransformPosition(LaserSecondaryEyePosition);
     }
-    EnterState(ESlagState::Idle);
+    EnterState(HasAuthority()?ESlagState::Idle:State);
     if (HasAuthority() && bEnableBlackMist)
     {
         const FVector MistOffset = BlackMistOffset - FVector(0, 0, GetCapsuleComponent()->GetScaledCapsuleHalfHeight());
@@ -222,7 +225,11 @@ void AHundredEyedSlagMonster::SampleClip(FName Name, float Seconds, bool Loop)
 void AHundredEyedSlagMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AHundredEyedSlagMonster,Health);DOREPLIFETIME(AHundredEyedSlagMonster,MaxHealth);
     DOREPLIFETIME(AHundredEyedSlagMonster, State);
+    DOREPLIFETIME(AHundredEyedSlagMonster,StateStartedAt);
+    DOREPLIFETIME(AHundredEyedSlagMonster,LaserDirection);
+    DOREPLIFETIME(AHundredEyedSlagMonster,LaserEnd);
 }
 void AHundredEyedSlagMonster::OnRep_State()
 {
@@ -231,8 +238,13 @@ void AHundredEyedSlagMonster::OnRep_State()
 }
 void AHundredEyedSlagMonster::EnterState(ESlagState Next)
 {
-    if (State != Next) ClearLaserFX();
+    ClearLaserFX();
     State = Next; StateSeconds = 0.f; CurrentClip = NAME_None;
+    if(HasAuthority())
+    {
+        StateStartedAt=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+        ForceNetUpdate();
+    }
     const bool Moving = Next == ESlagState::Chase || Next == ESlagState::Returning;
     // Begin the windup within the expanded claw corridor, without requiring
     // the monster to press its capsule against the player.
@@ -277,7 +289,7 @@ bool AHundredEyedSlagMonster::CanSee(const APawn* Victim) const
     FCollisionQueryParams Query(SCENE_QUERY_STAT(SlagVisibility), false, this);
     Query.AddIgnoredActor(Victim);
     FHitResult Hit;
-    return !GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation(), Victim->GetActorLocation(), ECC_Visibility, Query);
+    return !RangedAttackQuery::LineTraceSingle(GetWorld(),this,Hit, GetActorLocation(), Victim->GetActorLocation(), ECC_Visibility, Query);
 }
 bool AHundredEyedSlagMonster::CanAttack(APawn* Victim) const
 {
@@ -373,7 +385,7 @@ void AHundredEyedSlagMonster::Strike(float PreviousTime, float CurrentTime)
 void AHundredEyedSlagMonster::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
-    if (!HasAuthority()) return;
+    if (!HasAuthority()){TickRemotePresentation();return;}
     const float PreviousTime = StateSeconds;
     StateSeconds += DeltaSeconds;
     AttackCooldown = FMath::Max(0.f, AttackCooldown - DeltaSeconds);
@@ -572,8 +584,7 @@ float AHundredEyedSlagMonster::TakeDamage(float Damage, const FDamageEvent& Even
         {
             bRewarded = true;
             ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),EventInstigator,this);
-            if (auto* PC = Cast<APlayerController>(EventInstigator))
-                if (PC->IsLocalController() && GetGameInstance()) GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this, ExperienceReward);
+            ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);
         }
     }
     else Combat->ReceiveHit(Applied, EventInstigator ? EventInstigator->GetPawn().Get() : Cast<APawn>(Causer), MonsterToughness::FormOf(Event.DamageTypeClass));

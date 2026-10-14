@@ -1,4 +1,6 @@
 #include "WolfMonster.h"
+#include "GameFramework/GameStateBase.h"
+#include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "ZombieDogAppearanceComponent.h"
 #include "QuadrupedAnimationTemplate.h"
@@ -34,7 +36,7 @@ AWolfMonster::AWolfMonster(const FObjectInitializer& ObjectInitializer)
         .SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
     PrimaryActorTick.bCanEverTick = true;
-    Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+    Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
     WoundAppearance = CreateDefaultSubobject<UZombieDogAppearanceComponent>(TEXT("WoundAppearance"));
     CorpseRagdoll = CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
     CorpseRagdoll->Rig = EMonsterCorpseRig::Canine;
@@ -63,6 +65,22 @@ AWolfMonster::AWolfMonster(const FObjectInitializer& ObjectInitializer)
     static ConstructorHelpers::FClassFinder<AMonsterAIController> AI(TEXT("/Game/Monsters/AI/BP_MonsterAIController"));
     AIControllerClass = AI.Succeeded() ? AI.Class.Get() : AMonsterAIController::StaticClass();
     Tags.Add(TEXT("Enemy")); Tags.Add(TEXT("Wolf"));
+    // Pack pursuit: stronger bend and a wider lane spread than the shambling zombies.
+    ArcPathing.ArcStrength = .75f;
+    ArcPathing.ArcMidPoints = 4;
+    ArcPathing.LaneOffset = 170.f;
+}
+
+void AWolfMonster::GetMoveToParameters_Implementation(float& ArcStrength, int32& NumMidPoints,
+    EAPSArcMidpointMode& MidpointMode, float& LaneOffset) const
+{
+    MonsterArcPathing::FillMoveParameters(this, ArcPathing, ArcStrength, NumMidPoints, MidpointMode, LaneOffset);
+}
+
+void AWolfMonster::FindCustomPath_Implementation(FVector const& StartLocation, FVector const& EndLocation,
+    TArray<FVector>& OutPath, float ArcStrength, UWorld* World, bool& bUseCustomPath, bool& bFound) const
+{
+    MonsterArcPathing::IgnoreCustomPath(StartLocation, EndLocation, OutPath, ArcStrength, World, bUseCustomPath, bFound);
 }
 
 void AWolfMonster::AlignVisual()
@@ -89,7 +107,7 @@ float AWolfMonster::ClipLength(FName Action) const
 void AWolfMonster::BeginPlay()
 {
     Super::BeginPlay();
-    Home = GetActorLocation(); MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier()); Health = FMath::Max(1.f, MaxHealth); // 全局生命成长层；归巢回血读取的也是放大后的 MaxHealth
+    Home = GetActorLocation(); if(HasAuthority()){MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier()); Health = FMath::Max(1.f, MaxHealth);} // 全局生命成长层；归巢回血读取的也是放大后的 MaxHealth
     AlignVisual();
     WoundAppearance->ApplyAppearance(GetMesh());
     if (!Animation() || !Animation()->SetAnimationSet(AnimationSet))
@@ -101,7 +119,7 @@ void AWolfMonster::BeginPlay()
     // Character state and contact sampling precede presentation's ordinary tick.
     GetMesh()->AddTickPrerequisiteActor(this);
     GetMesh()->AddTickPrerequisiteComponent(Combat);
-    EnterState(EWolfState::Idle);
+    EnterState(HasAuthority()?EWolfState::Idle:State);
     if (auto* AI = Cast<AMonsterAIController>(GetController())) AI->UpdateKnowledge();
 }
 bool AWolfMonster::Busy() const
@@ -180,8 +198,9 @@ bool AWolfMonster::StartAttack(APawn* Victim)
 }
 void AWolfMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-    DOREPLIFETIME(AWolfMonster, State);
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AWolfMonster,NetworkStateStarted);
+    DOREPLIFETIME(AWolfMonster,Health);DOREPLIFETIME(AWolfMonster,MaxHealth);
+    DOREPLIFETIME(AWolfMonster, State);DOREPLIFETIME(AWolfMonster,ActivePounceFlightSeconds);
     DOREPLIFETIME(AWolfMonster, SoftDeathLeadSeconds);
 }
 void AWolfMonster::OnRep_State()
@@ -191,6 +210,7 @@ void AWolfMonster::OnRep_State()
 }
 void AWolfMonster::EnterState(EWolfState NewState)
 {
+    if(HasAuthority())NetworkStateStarted=GetWorld()->GetTimeSeconds();
     State = NewState; StateSeconds = 0.f;
     if (Dead()) OnDeathPresentationStarted();
     // A replicated handoff may arrive before the client's last lead-in frame.
@@ -418,6 +438,21 @@ void AWolfMonster::Tick(float DeltaSeconds)
     Super::Tick(DeltaSeconds);
     if (!HasAuthority())
     {
+        const auto* GS=GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds(); StateSeconds=FMath::Max(0.,Now-NetworkStateStarted);
+        if(State==EWolfState::Howl)SampleAction(TEXT("Howl"),FMath::Min(StateSeconds,ClipLength(TEXT("Howl"))));
+        if(State==EWolfState::Bite||State==EWolfState::Pounce)
+        {
+            const FName Action=State==EWolfState::Pounce?TEXT("AttackPounce"):TEXT("AttackBite");
+            const float Windup=State==EWolfState::Pounce?PounceWindup:BiteWindup;
+            if(StateSeconds>=Windup)
+            {
+                if(!bAttackAnimationStarted){bAttackAnimationStarted=true;if(auto* Anim=Animation())Anim->PlayTemplateAction(Action,true);}
+                float T=StateSeconds-Windup;
+                if(State==EWolfState::Pounce&&ActivePounceFlightSeconds>0.f&&T>PounceTravelStart)
+                {const float Flight=T-PounceTravelStart;T=Flight<ActivePounceFlightSeconds?PounceTravelStart+Flight/ActivePounceFlightSeconds*(PounceTravelEnd-PounceTravelStart):PounceTravelEnd+Flight-ActivePounceFlightSeconds;}
+                SampleAction(Action,FMath::Min(T,ClipLength(Action)));
+            }
+        }
         if (State == EWolfState::Dying && SoftDeathLeadSeconds > 0.f)
         {
             StateSeconds = FMath::Min(SoftDeathLeadSeconds, StateSeconds + FMath::Max(0.f, DeltaSeconds));
@@ -532,9 +567,7 @@ void AWolfMonster::Die(AController* Killer)
     if (auto* AI = Cast<AMonsterAIController>(GetController())) AI->UpdateKnowledge();
     SetLifeSpan(FMath::Max(CorpseSeconds, ClipLength(TEXT("Death")) + 3.f));
     ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),Killer,this);
-    if (auto* Player = Cast<APlayerController>(Killer))
-        if (Player->IsLocalController() && GetGameInstance())
-            GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this, ExperienceReward);
+    ColdSteelSkills::AwardKillByOwner(GetGameInstance(),Killer,this,ExperienceReward);
 }
 void AWolfMonster::EnterRagdoll()
 {

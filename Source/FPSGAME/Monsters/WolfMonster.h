@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "MonsterCoreStats.h"
+#include "MonsterArcPathing.h"
 #include "WolfMonster.generated.h"
 
 class UQuadrupedAnimationSet;
@@ -16,11 +17,15 @@ enum class EWolfState : uint8 { Idle, Howl, Chase, Returning, Bite, Pounce, Stag
 
 /** Ground predator. The shared behavior tree chooses actions; this owns their execution. */
 UCLASS(Blueprintable)
-class FPSGAME_API AWolfMonster : public ACharacter
+class FPSGAME_API AWolfMonster : public ACharacter, public IAPS_MoveToInterface
 {
     GENERATED_BODY()
 public:
     AWolfMonster(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+    // APS arc shaping: the per-instance lane split spreads a pursuing pack off one line.
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Pathing") FMonsterArcPathingTuning ArcPathing;
+    virtual void GetMoveToParameters_Implementation(float& ArcStrength, int32& NumMidPoints, EAPSArcMidpointMode& MidpointMode, float& LaneOffset) const override;
+    virtual void FindCustomPath_Implementation(FVector const& StartLocation, FVector const& EndLocation, TArray<FVector>& OutPath, float ArcStrength, UWorld* World, bool& bUseCustomPath, bool& bFound) const override;
     virtual void OnConstruction(const FTransform& Transform) override;
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
@@ -31,7 +36,7 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf|Appearance") TObjectPtr<UZombieDogAppearanceComponent> WoundAppearance;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Wolf|Animation") TObjectPtr<UQuadrupedAnimationSet> AnimationSet;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Identity") FText MonsterDisplayName = FText::FromString(TEXT("野狼"));
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") float MaxHealth = 220.f;
+    UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") float MaxHealth = 220.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") float PhysicalDefense = 12.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") float MagicDefense = 8.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") float CriticalResistance = 5.f;
@@ -77,7 +82,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Death", meta=(Units="s")) float CorpseSeconds = 15.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Death", meta=(ClampMin="0", ClampMax="1")) float DeathAnimationFraction = .6f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Death") bool bUseRagdoll = true;
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf") float Health = 220.f;
+    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Wolf") float Health = 220.f;
     /** 复制给远端：客户端 OnRep 重放 EnterState 驱动同款动画/表现切换。 */
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf", ReplicatedUsing=OnRep_State) EWolfState State = EWolfState::Idle;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf") float StateSeconds = 0.f;
@@ -118,7 +123,8 @@ public:
  protected:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
  private:
-    UFUNCTION() void OnRep_State();
+    UPROPERTY(Replicated) double NetworkStateStarted=0.;
+ UFUNCTION() void OnRep_State();
     bool CanSee(const AActor* Actor) const;
     FVector Mouth() const;
     void SampleAction(FName Action, float SourceSeconds);
@@ -140,7 +146,7 @@ public:
     float PounceDistance = 0.f;
     float PounceHeightDelta = 0.f;
     float LastPounceSourceTime = 0.f;
-    float ActivePounceFlightSeconds = 0.f;
+    UPROPERTY(Replicated) float ActivePounceFlightSeconds = 0.f;
     float BiteCooldownLeft = 0.f;
     float PounceCooldownLeft = 0.f;
     float ReactionSeconds = 0.f;

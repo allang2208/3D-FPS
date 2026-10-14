@@ -1,0 +1,57 @@
+{
+  "complete": true,
+  "saved": [
+    "/Game/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.BP_BlindSupplicantM07",
+    "/Game/Monsters/SpiralPillarM14/BP_SpiralPillarM14.BP_SpiralPillarM14"
+  ],
+  "settings": {
+    "M07": {
+      "before": {
+        "walk_speed": 63.0,
+        "chase_speed": 129.0
+      },
+      "actor": {
+        "walk_speed": 82.0,
+        "chase_speed": 168.0
+      },
+      "old_movement": {
+        "max_walk_speed": 129.0,
+        "rotation_rate_yaw": 180.0
+      },
+      "movement": {
+        "max_walk_speed": 168.0
+      },
+      "rotation_rate_yaw": 180.0,
+      "unchanged_animation_sources": {
+        "source_walk_speed": 42.0,
+        "source_chase_speed": 86.0
+      }
+    },
+    "M14": {
+      "before": {
+        "walk_speed": 112.0
+      },
+      "actor": {
+        "walk_speed": 112.0
+      },
+      "old_movement": {
+        "max_walk_speed": 112.0,
+        "max_acceleration": 200.0,
+        "braking_deceleration_walking": 360.0,
+        "rotation_rate_yaw": 75.0
+      },
+      "movement": {
+        "max_walk_speed": 112.0,
+        "max_acceleration": 200.0,
+        "braking_deceleration_walking": 360.0
+      },
+      "rotation_rate_yaw": 75.0,
+      "unchanged_animation_sources": {
+        "animation_walk_speed": 28.0
+      }
+    }
+  },
+  "tested": false,
+  "rendered": false,
+  "user_testing_pending": true
+}

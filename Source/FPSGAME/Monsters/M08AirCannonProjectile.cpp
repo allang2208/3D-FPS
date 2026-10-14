@@ -1,4 +1,5 @@
 #include "M08AirCannonProjectile.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "LurkerM08Monster.h"
 #include "FPSCombatHealthComponent.h"
 #include "../Combat/CombatStatusFormula.h"
@@ -97,7 +98,7 @@ void AM08AirCannonProjectile::Tick(float Dt)
         FCollisionObjectQueryParams Objects;
         Objects.AddObjectTypesToQuery(ECC_WorldStatic); Objects.AddObjectTypesToQuery(ECC_WorldDynamic); Objects.AddObjectTypesToQuery(ECC_Pawn);
         TArray<FHitResult> Contacts;
-        GetWorld()->SweepMultiByObjectType(Contacts, Start, End, FQuat::Identity, Objects, FCollisionShape::MakeSphere(34.f), Query);
+        RangedAttackQuery::SweepObjects(GetWorld(), Shooter.Get(), Contacts, Start, End, FQuat::Identity, Objects, FCollisionShape::MakeSphere(34.f), Query);
         const FHitResult* First = nullptr;
         for (const auto& Contact : Contacts)
         {

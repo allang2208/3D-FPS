@@ -1,4 +1,5 @@
 #include "M07MagicAttack.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "FPSCombatHealthComponent.h"
 #include "MonsterCombatComponent.h"
 #include "../Skills/EnemyAttackDamage.h"
@@ -203,7 +204,7 @@ bool AM07MagicAttack::FirstBlockingContact(const FVector& Start, const FVector& 
     FCollisionQueryParams Query(SCENE_QUERY_STAT(M07MagicFlight), false, this);
     if (Shooter.IsValid()) Query.AddIgnoredActor(Shooter.Get());
     TArray<FHitResult> Contacts;
-    GetWorld()->SweepMultiByObjectType(Contacts, Start, End, FQuat::Identity, SpellObjectTypes(),
+    RangedAttackQuery::SweepObjects(GetWorld(), Shooter.Get(), Contacts, Start, End, FQuat::Identity, SpellObjectTypes(),
         FCollisionShape::MakeSphere(FMath::Max(.1f, Radius)), Query);
     bool bBlocked = false;
     for (const FHitResult& Contact : Contacts)
@@ -224,7 +225,7 @@ bool AM07MagicAttack::BlastVisible(APawn* Target, const FVector& Start, const FV
     Query.AddIgnoredActor(Target);
     if (Shooter.IsValid()) Query.AddIgnoredActor(Shooter.Get());
     FHitResult Blocker;
-    return !GetWorld()->LineTraceSingleByChannel(Blocker, Start, End, ECC_Visibility, Query);
+    return !RangedAttackQuery::LineTraceSingle(GetWorld(), Shooter.Get(), Blocker, Start, End, ECC_Visibility, Query);
 }
 
 void AM07MagicAttack::BeginAttack()

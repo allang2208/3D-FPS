@@ -49,10 +49,12 @@ try:
         save(asset);concurrency[role]=asset
         report['saved_concurrency'].append(asset.get_path_name());receipt()
     # Later additive palettes (V11 footsteps/hurt) survive a V10 rebuild.
-    # User removed the inhaling charge cue on 2026-10-12; rebuilding must keep it disabled.
-    sounds={key:value for key,value in defaults.get_editor_property('bellow_sounds').items() if str(key)!='Charge'}
+    # User removed charge (2026-10-12) and the standing discovery inhales
+    # (2026-10-13). Rebuilding must not restore those rejected voices.
+    disabled_roles={'Charge','AlertA','AlertB'}
+    sounds={key:value for key,value in defaults.get_editor_property('bellow_sounds').items() if str(key) not in disabled_roles}
     for role,clip in manifest['clips'].items():
-        if role=='Charge': continue
+        if role in disabled_roles: continue
         name=Path(clip['file']).stem;path=DEST+'/'+name
         old=u.load_asset(path) if lib.does_asset_exist(path) else None
         if old and lib.get_metadata_tag(old,'Bellow.CreatureAudioRevision')!=REV:
@@ -81,7 +83,7 @@ try:
     report['blueprint']=bp.get_path_name()
     report['gain']=1.35
     report['complete']=True
-    print(f'BELLOW_CREATURE_AUDIO_V10_SAVED: {len(report["saved_sounds"])} SoundWaves, 3 concurrency assets and Blueprint; Charge disabled; no playback.',flush=True)
+    print(f'BELLOW_CREATURE_AUDIO_V10_SAVED: {len(report["saved_sounds"])} SoundWaves, 3 concurrency assets and Blueprint; Charge/AlertA/AlertB disabled; no playback.',flush=True)
 except Exception:
     report['error']=traceback.format_exc()
     raise

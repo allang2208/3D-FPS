@@ -1,0 +1,61 @@
+{
+  "species": "LurkerM08",
+  "complete": true,
+  "saved": [
+    "/Game/Monsters/RemeshV3/LurkerM08/Textures/T_LurkerM08_BaseColor.T_LurkerM08_BaseColor",
+    "/Game/Monsters/RemeshV3/LurkerM08/Textures/T_LurkerM08_MetallicRoughness.T_LurkerM08_MetallicRoughness",
+    "/Game/Monsters/RemeshV3/LurkerM08/Textures/T_LurkerM08_Normal.T_LurkerM08_Normal",
+    "/Game/Monsters/RemeshV3/LurkerM08/Materials/M_M08_Skin_RemeshV3.M_M08_Skin_RemeshV3",
+    "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+    "/Game/Monsters/RemeshV3/LurkerM08/SKEL_LurkerM08_SoftCorpse.SKEL_LurkerM08_SoftCorpse",
+    "/Game/Monsters/RemeshV3/LurkerM08/CorpseMaterials/M_M08_InnerArch_4aa7e351_Corpse.M_M08_InnerArch_4aa7e351_Corpse",
+    "/Game/Monsters/RemeshV3/LurkerM08/CorpseMaterials/M_M08_Skin_RemeshV3_1af7ca6c_Corpse.M_M08_Skin_RemeshV3_1af7ca6c_Corpse",
+    "/Game/Monsters/RemeshV3/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse",
+    "/Game/Monsters/RemeshV3/LurkerM08/DA_LurkerM08_SoftCorpse.DA_LurkerM08_SoftCorpse"
+  ],
+  "tested": false,
+  "rendered": false,
+  "stage": "saved_and_bound",
+  "original_skeleton": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03_Skeleton.SK_LurkerM08_CanineV03_Skeleton",
+  "original_physics": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03_PhysicsAsset.SK_LurkerM08_CanineV03_PhysicsAsset",
+  "live_imported": true,
+  "mesh": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+  "offline_lods": [
+    {
+      "level": 0,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\LurkerM08_LOD0.fbx",
+      "triangles": 233467,
+      "vertices": 116724,
+      "morphs": []
+    },
+    {
+      "level": 1,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\LurkerM08_LOD1.fbx",
+      "triangles": 88717,
+      "vertices": 44349,
+      "morphs": []
+    },
+    {
+      "level": 2,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\LurkerM08_LOD2.fbx",
+      "triangles": 32685,
+      "vertices": 16333,
+      "morphs": []
+    },
+    {
+      "level": 3,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\LurkerM08_LOD3.fbx",
+      "triangles": 11672,
+      "vertices": 5826,
+      "morphs": []
+    }
+  ],
+  "import_seconds": 19.13,
+  "corpse": "/Game/Monsters/RemeshV3/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse",
+  "corpse_data": "/Game/Monsters/RemeshV3/LurkerM08/DA_LurkerM08_SoftCorpse.DA_LurkerM08_SoftCorpse",
+  "corpse_lods": 1,
+  "animations_reimported": false,
+  "native_build_required": false,
+  "user_testing_pending": true,
+  "corpse_seconds": 6.2
+}

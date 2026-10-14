@@ -1,0 +1,292 @@
+{
+  "species": "M10Mawcrawler",
+  "revision": "AnatomyRepairV5",
+  "complete": true,
+  "ue_imported": true,
+  "tested": false,
+  "rendered": false,
+  "animations_reauthored": false,
+  "materials": {
+    "R3_Material_0": {
+      "source_material_name": "Material_0",
+      "new_texture": true
+    },
+    "Kept_M_M10_OralInterior": {
+      "source_material_name": "M_M10_OralInterior",
+      "new_texture": false
+    },
+    "Kept_M_M10_OralTeeth": {
+      "source_material_name": "M_M10_OralTeeth",
+      "new_texture": false
+    },
+    "Kept_M_M10_OralGum": {
+      "source_material_name": "M_M10_OralGum",
+      "new_texture": false
+    }
+  },
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\Textures\\BaseColor.png",
+    "MetallicRoughness": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\Textures\\MetallicRoughness.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\Textures\\Normal.png"
+  },
+  "lods": [
+    {
+      "level": 0,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\M10Mawcrawler\\M10Mawcrawler_LOD0.fbx",
+      "triangles": 202805,
+      "vertices": 101504,
+      "parts": [
+        {
+          "name": "M10_RemeshV3_V5",
+          "kind": "body",
+          "triangles": 193895,
+          "boundary_edges": 339,
+          "over_shared_edges": 51
+        },
+        {
+          "name": "M10_OralLiner_KeptV5_V5",
+          "kind": "liner",
+          "triangles": 1470,
+          "boundary_edges": 64,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M10_OralTeeth_KeptV5_V5",
+          "kind": "teeth",
+          "triangles": 5904,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M10_OralGum_KeptV5_V5",
+          "kind": "gum",
+          "triangles": 1536,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": [
+        "M10_MouthOpenTissue",
+        "M10_MouthWideTissue"
+      ]
+    },
+    {
+      "level": 1,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\M10Mawcrawler\\M10Mawcrawler_LOD1.fbx",
+      "triangles": 79083,
+      "vertices": 39643,
+      "parts": [
+        {
+          "name": "M10_RemeshV3_V5",
+          "kind": "body",
+          "triangles": 73679,
+          "boundary_edges": 339,
+          "over_shared_edges": 51
+        },
+        {
+          "name": "M10_OralLiner_KeptV5_V5",
+          "kind": "liner",
+          "triangles": 950,
+          "boundary_edges": 64,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M10_OralTeeth_KeptV5_V5",
+          "kind": "teeth",
+          "triangles": 3454,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M10_OralGum_KeptV5_V5",
+          "kind": "gum",
+          "triangles": 1000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": [
+        "M10_MouthOpenTissue",
+        "M10_MouthWideTissue"
+      ]
+    },
+    {
+      "level": 2,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\M10Mawcrawler\\M10Mawcrawler_LOD2.fbx",
+      "triangles": 30241,
+      "vertices": 15222,
+      "parts": [
+        {
+          "name": "M10_RemeshV3_V5",
+          "kind": "body",
+          "triangles": 27145,
+          "boundary_edges": 339,
+          "over_shared_edges": 51
+        },
+        {
+          "name": "M10_OralLiner_KeptV5_V5",
+          "kind": "liner",
+          "triangles": 650,
+          "boundary_edges": 64,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M10_OralTeeth_KeptV5_V5",
+          "kind": "teeth",
+          "triangles": 1726,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M10_OralGum_KeptV5_V5",
+          "kind": "gum",
+          "triangles": 720,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": [
+        "M10_MouthOpenTissue",
+        "M10_MouthWideTissue"
+      ]
+    },
+    {
+      "level": 3,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\M10Mawcrawler\\M10Mawcrawler_LOD3.fbx",
+      "triangles": 11765,
+      "vertices": 5984,
+      "parts": [
+        {
+          "name": "M10_RemeshV3_V5",
+          "kind": "body",
+          "triangles": 9695,
+          "boundary_edges": 339,
+          "over_shared_edges": 51
+        },
+        {
+          "name": "M10_OralLiner_KeptV5_V5",
+          "kind": "liner",
+          "triangles": 438,
+          "boundary_edges": 64,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M10_OralTeeth_KeptV5_V5",
+          "kind": "teeth",
+          "triangles": 1152,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M10_OralGum_KeptV5_V5",
+          "kind": "gum",
+          "triangles": 480,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": [
+        "M10_MouthOpenTissue",
+        "M10_MouthWideTissue"
+      ]
+    }
+  ],
+  "construction": [
+    {
+      "object": "M10_RemeshV3",
+      "operation": "weld_geometry_keep_loop_uv",
+      "before_vertices": 166147,
+      "after_vertices": 96944
+    },
+    {
+      "object": "M10_OralLiner_KeptV5",
+      "operation": "weld_geometry_keep_loop_uv",
+      "before_vertices": 768,
+      "after_vertices": 768
+    },
+    {
+      "object": "M10_OralTeeth_KeptV5",
+      "operation": "weld_geometry_keep_loop_uv",
+      "before_vertices": 3024,
+      "after_vertices": 3024
+    },
+    {
+      "object": "M10_OralGum_KeptV5",
+      "operation": "weld_geometry_keep_loop_uv",
+      "before_vertices": 768,
+      "after_vertices": 768
+    }
+  ],
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_RemeshV3.blend",
+  "repairs": [
+    "Welded coincident UV-split geometry before all LOD reduction",
+    "Retained all 36 closed teeth with independent LOD budgets",
+    "Preserved two V5 tissue morphs and 62 bones"
+  ],
+  "seconds": 8.02,
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\M10Mawcrawler\\M10Mawcrawler_AnatomyRepairV5.blend",
+  "bones": [
+    "root",
+    "body_center",
+    "body_front",
+    "head",
+    "jaw",
+    "mouth_socket",
+    "mantle_front_L",
+    "mantle_front_R",
+    "leg_01_L_upper",
+    "leg_01_L_lower",
+    "leg_01_L_foot",
+    "leg_01_L_toes_inner",
+    "leg_01_L_toes_outer",
+    "leg_01_R_upper",
+    "leg_01_R_lower",
+    "leg_01_R_foot",
+    "leg_01_R_toes_inner",
+    "leg_01_R_toes_outer",
+    "leg_01_L_socket",
+    "leg_01_R_socket",
+    "body_rear",
+    "rump",
+    "leg_04_L_upper",
+    "leg_04_L_lower",
+    "leg_04_L_foot",
+    "leg_04_L_toes_inner",
+    "leg_04_L_toes_outer",
+    "leg_04_R_upper",
+    "leg_04_R_lower",
+    "leg_04_R_foot",
+    "leg_04_R_toes_inner",
+    "leg_04_R_toes_outer",
+    "leg_04_L_socket",
+    "leg_04_R_socket",
+    "mantle_rear_L",
+    "mantle_rear_R",
+    "leg_03_L_upper",
+    "leg_03_L_lower",
+    "leg_03_L_foot",
+    "leg_03_L_toes_inner",
+    "leg_03_L_toes_outer",
+    "leg_03_R_upper",
+    "leg_03_R_lower",
+    "leg_03_R_foot",
+    "leg_03_R_toes_inner",
+    "leg_03_R_toes_outer",
+    "leg_03_L_socket",
+    "leg_03_R_socket",
+    "mantle_center_L",
+    "mantle_center_R",
+    "leg_02_L_upper",
+    "leg_02_L_lower",
+    "leg_02_L_foot",
+    "leg_02_L_toes_inner",
+    "leg_02_L_toes_outer",
+    "leg_02_R_upper",
+    "leg_02_R_lower",
+    "leg_02_R_foot",
+    "leg_02_R_toes_inner",
+    "leg_02_R_toes_outer",
+    "leg_02_L_socket",
+    "leg_02_R_socket"
+  ]
+}

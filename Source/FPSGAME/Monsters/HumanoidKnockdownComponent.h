@@ -4,6 +4,7 @@
 #include "Animation/PoseSnapshot.h"
 #include "MonsterObstacleCollision.h"
 #include "MonsterRagdollPhysics.h"
+#include "UObject/SoftObjectPath.h"
 #include "HumanoidKnockdownComponent.generated.h"
 class ANurseZombie;
 class APawn;
@@ -21,6 +22,8 @@ class FPSGAME_API UHumanoidKnockdownComponent : public UActorComponent
     GENERATED_BODY()
 public:
     UHumanoidKnockdownComponent();
+    /** Runtime fallback dependencies, also requested by dungeon preparation before staff spawn. */
+    static TArray<FSoftObjectPath> DefaultAnimationPaths(const FString& Role);
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     virtual void TickComponent(float Dt, ELevelTick Type, FActorComponentTickFunction* Tick) override;

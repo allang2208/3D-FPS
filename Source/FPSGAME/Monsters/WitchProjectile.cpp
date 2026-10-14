@@ -1,4 +1,8 @@
 #include "WitchProjectile.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "GameFramework/PlayerController.h"
+#include "Net/UnrealNetwork.h"
+#include "GameFramework/GameStateBase.h"
 #include "../Skills/FPSIceWall.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "../WorldGeneration/GrassDeform/GrassDeformSubsystem.h"
@@ -21,6 +25,7 @@
 AWitchProjectile::AWitchProjectile()
 {
     PrimaryActorTick.bCanEverTick = true;
+    bReplicates=true;SetReplicateMovement(true);SetNetUpdateFrequency(20.f);
     RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("SpellRoot"));
     Visual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SpellVisual"));
     Visual->SetupAttachment(RootComponent);
@@ -60,8 +65,9 @@ void AWitchProjectile::Launch(AWitchMonster* Source, bool Bottle, FVector Destin
     if (bBottle)
     {
         FHitResult Ground; FCollisionQueryParams Query(SCENE_QUERY_STAT(WitchBottleLanding), false, Source);
-        if (auto* Target = UGameplayStatics::GetPlayerPawn(this, 0)) Query.AddIgnoredActor(Target);
-        if (GetWorld()->LineTraceSingleByChannel(Ground, Goal + FVector(0,0,100), Goal - FVector(0,0,500), ECC_Visibility, Query)) Goal = Ground.ImpactPoint;
+        for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+            if(const auto* PC=It->Get())if(const APawn* Target=PC->GetPawn())Query.AddIgnoredActor(Target);
+        if (RangedAttackQuery::LineTraceSingle(GetWorld(), Shooter.Get(), Ground, Goal + FVector(0,0,100), Goal - FVector(0,0,500), ECC_Visibility, Query)) Goal = Ground.ImpactPoint;
         if (Source->Bottle->GetStaticMesh())
         {
             const FTransform Held = Source->Bottle->GetComponentTransform();
@@ -95,6 +101,7 @@ void AWitchProjectile::Launch(AWitchMonster* Source, bool Bottle, FVector Destin
         SetActorRotation(Velocity.Rotation());
         SetLifeSpan(1000.f / FMath::Max(1.f, Speed));
     }
+    PublishPresentation();
 }
 
 void AWitchProjectile::UpdateLiquidVisual(float DeltaTime, const FVector& Start, const FVector& End)
@@ -127,7 +134,7 @@ void AWitchProjectile::Land(const FHitResult& Contact, const FVector& IncomingVe
 {
     const FVector Position = Contact.ImpactPoint;
     const FVector Normal = Contact.ImpactNormal.GetSafeNormal();
-    if (auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>()) FX->AddBottleImpact(Position,Normal,IncomingVelocity,PoolRadius);
+    MulticastImpact(Contact,IncomingVelocity,true);
     // One bottle, one flatten: stamped before the steep-ground reject below, because the glass
     // really did hit here even when no pool forms, and a second stamp on the eventually flat
     // ground would double the event. PoolRadius is the pool's own outward limit, so the two
@@ -140,6 +147,13 @@ void AWitchProjectile::Land(const FHitResult& Contact, const FVector& IncomingVe
     bPool = true; Age = 0.f; NextPulse = .5f; NextPoolVapor = .35f;
     SetActorLocation(Position + Normal * 2.f); SetActorRotation(FRotationMatrix::MakeFromZ(Normal).Rotator());
     PoolSlope=Normal;BuildPoolFootprint();
+    NetworkPresentation.PoolStarted=GetWorld()->GetTimeSeconds();
+    BuildPoolVisual(Position,Normal);PublishPresentation();ForceNetUpdate();
+    SetLifeSpan(6.65f);
+}
+void AWitchProjectile::BuildPoolVisual(const FVector& Position,const FVector& Normal)
+{
+    if(PoolSurface)return;
     PoolSurface = NewObject<UDecalComponent>(this,TEXT("PoisonPoolSurface"));
     PoolSurface->SetupAttachment(RootComponent);
     PoolSurface->SetDecalMaterial(PoolMaterial);
@@ -154,14 +168,13 @@ void AWitchProjectile::Land(const FHitResult& Contact, const FVector& IncomingVe
         Material->SetVectorParameterValue(TEXT("PoolCenter"),FLinearColor(Center.X,Center.Y,Center.Z));
         Material->SetVectorParameterValue(TEXT("PoolNormal"),FLinearColor(Normal.X,Normal.Y,Normal.Z));
         Material->SetScalarParameterValue(TEXT("PoolRadius"),PoolRadius);
-        Material->SetScalarParameterValue(TEXT("PoolStartTime"),GetWorld()->GetTimeSeconds());
+        Material->SetScalarParameterValue(TEXT("PoolStartTime"),GetWorld()->GetTimeSeconds()-Age);
         Material->SetScalarParameterValue(TEXT("PoolSeed"),LiquidPhase/(2.f*PI));
         for(int32 I=0;I<4;++I)
             Material->SetVectorParameterValue(FName(*FString::Printf(TEXT("PoolReach%d"),I)),
                 FLinearColor(PoolReach[I*4],PoolReach[I*4+1],PoolReach[I*4+2],PoolReach[I*4+3]));
     }
-    // Six seconds of damage, then a cosmetic-only drying tail.
-    SetLifeSpan(6.65f);
+    // Lifetime is owned by the authority; late joins use the original start time.
 }
 
 void AWitchProjectile::BuildPoolFootprint()
@@ -184,14 +197,14 @@ float AWitchProjectile::SamplePoolSector(int32 Index) const
     {
         const FVector Sample=Center+Direction*(PoolRadius*Step/3.f);
         FHitResult Floor;
-        if(!GetWorld()->LineTraceSingleByChannel(Floor,Sample+FVector(0,0,50),Sample-FVector(0,0,50),ECC_Visibility,Query)
+        if(!RangedAttackQuery::LineTraceSingle(GetWorld(), Shooter.Get(), Floor,Sample+FVector(0,0,50),Sample-FVector(0,0,50),ECC_Visibility,Query)
             ||Floor.ImpactNormal.Z<.65f)break;
         Reach=float(Step)/3.f;End=Floor.ImpactPoint;
     }
     if(Reach>0)
     {
         FHitResult Wall;
-        if(GetWorld()->LineTraceSingleByChannel(Wall,Center+FVector(0,0,15),End+FVector(0,0,15),ECC_Visibility,Query))
+        if(RangedAttackQuery::LineTraceSingle(GetWorld(), Shooter.Get(), Wall,Center+FVector(0,0,15),End+FVector(0,0,15),ECC_Visibility,Query))
             Reach=FMath::Max(0.f,float(FVector::Dist2D(Center,Wall.ImpactPoint)-5.f)/FMath::Max(1.f,PoolRadius));
     }
     return Reach;
@@ -217,7 +230,7 @@ void AWitchProjectile::RefreshPoolFootprint()
         Changed|=!FMath::IsNearlyEqual(Reach,PoolReach[Sector],.001f);
         PoolReach[Sector]=Reach;
     }
-    if(Changed)PushPoolFootprint(); // Publish the same values damage uses, in the same frame.
+    if(Changed){PushPoolFootprint();NetworkPresentation.Reach.Reset();NetworkPresentation.Reach.Append(PoolReach,16);} // Publish the same values damage uses, in the same frame.
     NextFootprintUpdate=Age+.10f+.02f*FMath::Frac(LiquidPhase+FootprintCursor*.618f);
 }
 
@@ -244,7 +257,7 @@ void AWitchProjectile::Pulse()
             || FMath::Abs(Feet.Z - GetActorLocation().Z) > 50.f) continue;
         FHitResult Wall; FCollisionQueryParams Query(SCENE_QUERY_STAT(WitchPoisonOcclusion), false, this);
         Query.AddIgnoredActor(Shooter.Get()); Query.AddIgnoredActor(Player);
-        if (GetWorld()->LineTraceSingleByChannel(Wall, GetActorLocation() + FVector(0,0,15), Feet + FVector(0,0,15), ECC_Visibility, Query)) continue;
+        if (RangedAttackQuery::LineTraceSingle(GetWorld(), Shooter.Get(), Wall, GetActorLocation() + FVector(0,0,15), Feet + FVector(0,0,15), ECC_Visibility, Query)) continue;
         const float Applied = UGameplayStatics::ApplyDamage(Player, HitDamage, Shooter->GetController(), Shooter.Get(), UWitchMagicDamage::StaticClass());
         if (Applied > 0 && !Health->IsDead())
         {
@@ -257,7 +270,22 @@ void AWitchProjectile::Pulse()
 
 void AWitchProjectile::Tick(float Delta)
 {
-    Super::Tick(Delta); if (!HasAuthority()) return;
+    Super::Tick(Delta);
+    if(!HasAuthority())
+    {
+        const FVector Now=GetActorLocation();if(!bHasVisualLocation){LastVisualLocation=Now;bHasVisualLocation=true;}
+        if(!bPool&&!bBottle)UpdateLiquidVisual(Delta,LastVisualLocation,Now);
+        if(bPool)
+        {
+            const auto* GS=GetWorld()->GetGameState();Age=FMath::Max(0.,(GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds())-NetworkPresentation.PoolStarted);
+            if(Age>=NextPoolVapor&&Age<5.8f)
+            {
+                if(auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>())FX->AddPoolVapor(GetActorLocation(),PoolSlope,0);
+                NextPoolVapor=Age+.7f;
+            }
+        }
+        LastVisualLocation=Now;return;
+    }
     if (!Shooter.IsValid()) { Destroy(); return; }
     Age += Delta;
     if (bPool)
@@ -296,7 +324,7 @@ void AWitchProjectile::Tick(float Delta)
     }
     FCollisionQueryParams Query(SCENE_QUERY_STAT(WitchSpellCollision), false, this); Query.AddIgnoredActor(Shooter.Get());
     FCollisionObjectQueryParams Objects; Objects.AddObjectTypesToQuery(ECC_WorldStatic); Objects.AddObjectTypesToQuery(ECC_WorldDynamic); Objects.AddObjectTypesToQuery(ECC_Pawn);
-    TArray<FHitResult> Contacts; GetWorld()->SweepMultiByObjectType(Contacts, Start, End, FQuat::Identity, Objects, FCollisionShape::MakeSphere(5.f), Query);
+    TArray<FHitResult> Contacts; RangedAttackQuery::SweepObjects(GetWorld(), Shooter.Get(), Contacts, Start, End, FQuat::Identity, Objects, FCollisionShape::MakeSphere(5.f), Query);
     const FHitResult* First = nullptr;
     for (const auto& Hit : Contacts)
     {
@@ -315,7 +343,7 @@ void AWitchProjectile::Tick(float Delta)
             if (Cast<APawn>(First->GetActor()))
             {
                 FHitResult Ground; auto GroundQuery = Query; GroundQuery.AddIgnoredActor(First->GetActor());
-                if (GetWorld()->LineTraceSingleByChannel(Ground, First->ImpactPoint, First->ImpactPoint - FVector(0,0,300), ECC_Visibility, GroundQuery)) Land(Ground,ImpactVelocity);
+                if (RangedAttackQuery::LineTraceSingle(GetWorld(), Shooter.Get(), Ground, First->ImpactPoint, First->ImpactPoint - FVector(0,0,300), ECC_Visibility, GroundQuery)) Land(Ground,ImpactVelocity);
                 else Destroy();
             }
             else Land(*First,ImpactVelocity);
@@ -323,7 +351,7 @@ void AWitchProjectile::Tick(float Delta)
         else
         {
             UpdateLiquidVisual(Delta * First->Time, Start, First->Location);
-            if (auto* FX = GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>()) FX->AddImpact(*First, Velocity);
+            MulticastImpact(*First,Velocity,false);
             if (auto* Pawn = Cast<APawn>(First->GetActor())) if (Pawn->IsPlayerControlled())
                 UGameplayStatics::ApplyDamage(Pawn, HitDamage, Shooter->GetController(), Shooter.Get(), UWitchMagicDamage::StaticClass());
             Destroy();
@@ -334,4 +362,36 @@ void AWitchProjectile::Tick(float Delta)
     if (bBottle)
         SetActorRotation(FQuat(BottleSpinAxis, FMath::DegreesToRadians(Age * 360.f)) * BottleReleaseRotation);
     else UpdateLiquidVisual(Delta, Start, End);
+}
+
+void AWitchProjectile::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AWitchProjectile,NetworkPresentation);}
+void AWitchProjectile::PublishPresentation()
+{
+    NetworkPresentation.Mesh=Visual->GetStaticMesh();NetworkPresentation.Materials.Reset();
+    for(int32 I=0;I<Visual->GetNumMaterials();++I)NetworkPresentation.Materials.Add(Visual->GetMaterial(I));
+    NetworkPresentation.VisualTransform=Visual->GetRelativeTransform();NetworkPresentation.Bottle=bBottle;
+    NetworkPresentation.Pool=bPool;NetworkPresentation.Radius=PoolRadius;NetworkPresentation.Phase=LiquidPhase;
+    NetworkPresentation.Velocity=Velocity;NetworkPresentation.Normal=PoolSlope;NetworkPresentation.Point=GetActorLocation();
+    if(bPool){NetworkPresentation.Reach.Reset();NetworkPresentation.Reach.Append(PoolReach,16);}
+}
+void AWitchProjectile::OnRep_Presentation()
+{
+    bBottle=NetworkPresentation.Bottle;bPool=NetworkPresentation.Pool;PoolRadius=NetworkPresentation.Radius;
+    LiquidPhase=NetworkPresentation.Phase;Velocity=NetworkPresentation.Velocity;PoolSlope=NetworkPresentation.Normal;
+    Visual->SetStaticMesh(NetworkPresentation.Mesh);Visual->SetRelativeTransform(NetworkPresentation.VisualTransform);
+    for(int32 I=0;I<NetworkPresentation.Materials.Num();++I)Visual->SetMaterial(I,NetworkPresentation.Materials[I]);
+    Visual->SetVisibility(!bPool,true);LiquidCore->SetVisibility(!bBottle&&!bPool);
+    if(bPool)
+    {
+        for(int32 I=0;I<16;++I)PoolReach[I]=NetworkPresentation.Reach.IsValidIndex(I)?NetworkPresentation.Reach[I]:0.f;
+        const auto* GS=GetWorld()->GetGameState();Age=FMath::Max(0.,(GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds())-NetworkPresentation.PoolStarted);
+        SetActorLocation(NetworkPresentation.Point);BuildPoolVisual(NetworkPresentation.Point-PoolSlope*2.f,PoolSlope);PushPoolFootprint();
+    }
+}
+void AWitchProjectile::MulticastImpact_Implementation(const FHitResult& Hit,FVector_NetQuantize Incoming,bool BottleImpact)
+{
+    if(GetNetMode()==NM_DedicatedServer)return;
+    if(auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>())
+    {if(BottleImpact)FX->AddBottleImpact(Hit.ImpactPoint,Hit.ImpactNormal,Incoming,PoolRadius);else FX->AddImpact(Hit,Incoming);}
 }

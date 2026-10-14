@@ -1,4 +1,7 @@
 #include "PoisonMaggotMonster.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "GameFramework/GameStateBase.h"
+#include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "../Skills/FPSIceWall.h"
 #include "../Combat/CombatFormulaRuntime.h"
@@ -39,7 +42,7 @@ APoisonMaggotMonster::APoisonMaggotMonster(const FObjectInitializer& ObjectIniti
  : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName)
     .SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
- PrimaryActorTick.bCanEverTick=true;Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+ PrimaryActorTick.bCanEverTick=true;Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
  CorpseRagdoll=CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
  CorpseRagdoll->Rig=EMonsterCorpseRig::Maggot;
  Combat->StaggerDuration=.45f;
@@ -54,14 +57,15 @@ APoisonMaggotMonster::APoisonMaggotMonster(const FObjectInitializer& ObjectIniti
 void APoisonMaggotMonster::OnConstruction(const FTransform& T){Super::OnConstruction(T);if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);}
 void APoisonMaggotMonster::BeginPlay()
 {
- Super::BeginPlay();MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;Home=GetActorLocation();if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
+ Super::BeginPlay();if(HasAuthority()){MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;}Home=GetActorLocation();if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
  if(!VisualMesh||!IdleClip||!MoveClip||!SpitClip||!DeathClip||!Combat->HitClip||!GetMesh()->GetPhysicsAsset())
  {UE_LOG(LogTemp,Error,TEXT("MAGGOT_ASSET_MISSING %s"),*GetName());SetActorTickEnabled(false);return;}
- SetState(EPoisonMaggotState::Idle);UE_LOG(LogTemp,Display,TEXT("MAGGOT_READY mesh=%s home=%s"),*VisualMesh->GetPathName(),*Home.ToString());
+ SetState(HasAuthority()?EPoisonMaggotState::Idle:State);UE_LOG(LogTemp,Display,TEXT("MAGGOT_READY mesh=%s home=%s"),*VisualMesh->GetPathName(),*Home.ToString());
 }
 void APoisonMaggotMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(APoisonMaggotMonster,NetworkStateStarted);
+    DOREPLIFETIME(APoisonMaggotMonster,Health);DOREPLIFETIME(APoisonMaggotMonster,MaxHealth);
     DOREPLIFETIME(APoisonMaggotMonster, State);
 }
 void APoisonMaggotMonster::OnRep_State()
@@ -71,6 +75,7 @@ void APoisonMaggotMonster::OnRep_State()
 }
 void APoisonMaggotMonster::SetState(EPoisonMaggotState New)
 {
+ if(HasAuthority())NetworkStateStarted=GetWorld()->GetTimeSeconds();
  State=New;StateSeconds=0;const bool Moving=New==EPoisonMaggotState::Chase||New==EPoisonMaggotState::Returning;
  if((New==EPoisonMaggotState::Dying||New==EPoisonMaggotState::Ragdoll)&&CorpseRagdoll->TryStartSoftDeath(GetMesh()))return;
  if(!Moving)GetCharacterMovement()->StopMovementImmediately();GetCharacterMovement()->bOrientRotationToMovement=Moving;
@@ -84,7 +89,7 @@ bool APoisonMaggotMonster::CanSpit(APawn* Victim) const
  if(!IsValid(Victim)||Combat->IsBusy()||CooldownLeft>0||FVector::Dist2D(Victim->GetActorLocation(),GetActorLocation())>MonsterCombatTuning::AttackDistance(AttackRange))return false;
  auto* H=Victim->FindComponentByClass<UFPSCombatHealthComponent>();if(H&&H->IsDead())return false;
  FCollisionQueryParams Q(SCENE_QUERY_STAT(MaggotSight),false,this);Q.AddIgnoredActor(Victim);FHitResult Hit;
- const bool Blocked=GetWorld()->LineTraceSingleByChannel(Hit,Mouth(),Victim->GetActorLocation(),ECC_Visibility,Q);
+ const bool Blocked=RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit,Mouth(),Victim->GetActorLocation(),ECC_Visibility,Q);
  const auto* Wall=Cast<AFPSIceWall>(Hit.GetActor());
  return !Blocked||(Wall&&Wall->IsSolid());
 }
@@ -105,7 +110,13 @@ void APoisonMaggotMonster::Emit(float Scheduled)
 }
 void APoisonMaggotMonster::Tick(float Dt)
 {
- Super::Tick(Dt);if(!HasAuthority())return;StateSeconds+=Dt;CooldownLeft=FMath::Max(0.f,CooldownLeft-Dt);
+ Super::Tick(Dt);if(!HasAuthority())
+ {
+  const auto* GS=GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds(); StateSeconds=FMath::Max(0.,Now-NetworkStateStarted);
+  if(State==EPoisonMaggotState::Spitting&&SpitClip)GetMesh()->SetPosition(FMath::Min(StateSeconds,Duration),false);
+  else if(State==EPoisonMaggotState::Chase||State==EPoisonMaggotState::Returning)GetMesh()->SetPlayRate(FMath::Clamp(GetVelocity().Size2D()/WalkSpeed,0.f,1.5f));
+  return;
+ }StateSeconds+=Dt;CooldownLeft=FMath::Max(0.f,CooldownLeft-Dt);
  if(State==EPoisonMaggotState::Spitting)
  {
   auto* H=Target.IsValid()?Target->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
@@ -145,7 +156,7 @@ float APoisonMaggotMonster::TakeDamage(float Damage,const FDamageEvent& Event,AC
   CorpseRagdoll->PrepareDeath(GetMesh());ClearProjectiles();Target.Reset();SetState(EPoisonMaggotState::Dying);GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);if(!CorpseRagdoll->HasSoftDeath())GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);SetLifeSpan(CorpseSeconds);
   if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();
   ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),EventInstigator,this);
-  if(auto* PC=Cast<APlayerController>(EventInstigator))if(PC->IsLocalController()&&GetGameInstance()){GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);++RewardCount;}
+  if(Cast<APlayerController>(EventInstigator)){ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);++RewardCount;}
  }
  else Combat->ReceiveHit(Applied,EventInstigator?EventInstigator->GetPawn().Get():Cast<APawn>(Causer),
   MonsterToughness::FormOf(Event.DamageTypeClass));return Applied;

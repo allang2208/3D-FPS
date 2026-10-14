@@ -1,4 +1,5 @@
 #include "BellowSacProjectile.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "FPSCombatHealthComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/DynamicMeshComponent.h"
@@ -76,7 +77,7 @@ bool ABellowSacProjectile::ExposureTo(APawn* Player,float& Distance) const
     Distance=FVector::Dist(GetActorLocation(),Closest);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(BellowSacExposure),false,this);
     Query.AddIgnoredActor(Player);
-    return !GetWorld()->LineTraceTestByChannel(GetActorLocation(),Closest,ECC_Visibility,Query);
+    return !RangedAttackQuery::LineTraceTest(GetWorld(), DamageSource.Get(), GetActorLocation(),Closest,ECC_Visibility,Query);
 }
 double ABellowSacProjectile::Clock() const
 {
@@ -108,7 +109,7 @@ bool ABellowSacProjectile::Sweep(UWorld* World, const AActor* Ignore, const AAct
     Objects.AddObjectTypesToQuery(ECC_WorldStatic); Objects.AddObjectTypesToQuery(ECC_WorldDynamic);
     Objects.AddObjectTypesToQuery(ECC_Pawn); Objects.AddObjectTypesToQuery(ECC_PhysicsBody);
     TArray<FHitResult> Contacts;
-    World->SweepMultiByObjectType(Contacts, Start, End, FQuat::Identity, Objects, FCollisionShape::MakeSphere(Radius), Query);
+    RangedAttackQuery::SweepObjects(World, Shooter, Contacts, Start, End, FQuat::Identity, Objects, FCollisionShape::MakeSphere(Radius), Query);
     bool Found = false;
     for (const FHitResult& Contact : Contacts)
     {

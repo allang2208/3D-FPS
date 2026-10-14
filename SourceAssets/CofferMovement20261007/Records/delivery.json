@@ -1,0 +1,71 @@
+{
+  "editor_build_exit": 0,
+  "walk_speed_cm_s": 110,
+  "user_testing_pending": true,
+  "saved": [
+    "/Game/Monsters/M10Mawcrawler/BP_M10Mawcrawler.BP_M10Mawcrawler",
+    "/Game/Monsters/VortexCofferM25/BP_VortexCofferM25.BP_VortexCofferM25"
+  ],
+  "rendered": false,
+  "complete": true,
+  "species": [
+    "M10",
+    "M25"
+  ],
+  "settings": {
+    "M10": {
+      "before": {
+        "walk_speed": 110.0,
+        "moving_turn_speed": 72.0,
+        "pivot_turn_speed": 60.0,
+        "turn_acceleration": 195.0
+      },
+      "actor": {
+        "walk_speed": 110.0,
+        "moving_turn_speed": 72.0,
+        "pivot_turn_speed": 60.0,
+        "turn_acceleration": 195.0
+      },
+      "old_movement": {
+        "max_walk_speed": 110.0,
+        "max_acceleration": 480.0,
+        "braking_deceleration_walking": 720.0,
+        "rotation_rate_yaw": 150.0
+      },
+      "movement": {
+        "max_walk_speed": 110.0,
+        "max_acceleration": 480.0,
+        "braking_deceleration_walking": 720.0
+      },
+      "rotation_rate_yaw": 150.0,
+      "unchanged_animation_source_speed": 46.153846740722656,
+      "full_speed_animation_rate": 2.3833333030276833
+    },
+    "M25": {
+      "before": {
+        "walk_speed": 55.0
+      },
+      "actor": {
+        "walk_speed": 110.0
+      },
+      "old_movement": {
+        "max_walk_speed": 55.0,
+        "max_acceleration": 240.0,
+        "braking_deceleration_walking": 360.0,
+        "rotation_rate_yaw": 75.0
+      },
+      "movement": {
+        "max_walk_speed": 110.0,
+        "max_acceleration": 480.0,
+        "braking_deceleration_walking": 720.0
+      },
+      "rotation_rate_yaw": 150.0,
+      "unchanged_animation_source_speed": 16.0,
+      "full_speed_animation_rate": 6.875
+    }
+  },
+  "game_build_exit": 0,
+  "finished_at": "2026-10-07T19:59:19.6954270+08:00",
+  "tested": false,
+  "movement_multiplier": 2
+}

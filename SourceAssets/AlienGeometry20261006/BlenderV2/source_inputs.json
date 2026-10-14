@@ -1,0 +1,2060 @@
+{
+  "HangingBellM09": {
+    "source": "SourceAssets/HangingBellM09Meshy20261003/ArmContinuityV16/Authoring/M09_ContinuousArms_V16.blend",
+    "units": 1.0,
+    "objects": [
+      {
+        "name": "M09_Body_RootBand",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.21363823115825653
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            2.4067156314849854
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 228764,
+        "triangles": 425420,
+        "materials": [
+          "M09_Body_SourcePBR.001",
+          "M09_Closure_SourcePBR.001"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_Membrane_L1",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.19821393489837646
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.20047391951084137
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.8383198976516724
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 168245,
+        "triangles": 313644,
+        "materials": [
+          "M09_Membrane_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_Membrane_L2",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.16172908246517181
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.230164036154747
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.437131404876709
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 77735,
+        "triangles": 144040,
+        "materials": [
+          "M09_Membrane_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_Membrane_L3",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.12334689497947693
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.09776872396469116
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.2067737579345703
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 49296,
+        "triangles": 91728,
+        "materials": [
+          "M09_Membrane_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_Membrane_R1",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.20012947916984558
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.21375545859336853
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.838377833366394
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 189552,
+        "triangles": 353102,
+        "materials": [
+          "M09_Membrane_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_Membrane_R2",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.13779540359973907
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.31605756282806396
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.3901333808898926
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 49505,
+        "triangles": 92290,
+        "materials": [
+          "M09_Membrane_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_Membrane_R3",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.12748771905899048
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.08018967509269714
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.1564081907272339
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 49364,
+        "triangles": 92430,
+        "materials": [
+          "M09_Membrane_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_EyeCrown",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.19153772294521332
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.7020298838615417
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 121378,
+        "triangles": 234684,
+        "materials": [
+          "M09_Body_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_SmallArm_L",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.1930110901594162
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.3300342261791229
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.2280219793319702
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 86034,
+        "triangles": 172064,
+        "materials": [
+          "M09_Body_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_SmallArm_R",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.1930110901594162
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.3300342261791229
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            1.2280219793319702
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 87928,
+        "triangles": 175852,
+        "materials": [
+          "M09_Body_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_MainEye_01",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.10581284761428833
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.3708629906177521
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.5472888350486755
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 2270,
+        "triangles": 4502,
+        "materials": [
+          "M09_Eye_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_MainEye_02",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.1060938909649849
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.36675551533699036
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.4181082248687744
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 3020,
+        "triangles": 5804,
+        "materials": [
+          "M09_Eye_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_MainEye_03",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.10831913352012634
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.34995195269584656
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.32256391644477844
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 2473,
+        "triangles": 4842,
+        "materials": [
+          "M09_Eye_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_MainEye_04",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.046563271433115005
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.34269359707832336
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.24810568988323212
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 1500,
+        "triangles": 2958,
+        "materials": [
+          "M09_Eye_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_MainEye_05",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.05178065225481987
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.3124655783176422
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.16300645470619202
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 1029,
+        "triangles": 1966,
+        "materials": [
+          "M09_Eye_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_HookFinger_L_01",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.18859098851680756
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.24605229496955872
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            2.587939739227295
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 1697,
+        "triangles": 3160,
+        "materials": [
+          "M09_Body_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_HookFinger_L_02",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.21363823115825653
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.24605229496955872
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            2.587939739227295
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 4350,
+        "triangles": 8232,
+        "materials": [
+          "M09_Body_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_HookFinger_L_03",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.2475256621837616
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.24605229496955872
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            2.587939739227295
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 4245,
+        "triangles": 7992,
+        "materials": [
+          "M09_Body_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_HookFinger_L_04",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.2769930064678192
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.24605229496955872
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            2.587939739227295
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 3592,
+        "triangles": 6850,
+        "materials": [
+          "M09_Body_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_HookFinger_L_05",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.29762014746665955
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.24605229496955872
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            2.587939739227295
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 3245,
+        "triangles": 6078,
+        "materials": [
+          "M09_Body_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_HookFinger_R_01",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.18859098851680756
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.24605229496955872
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            2.587939739227295
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 1739,
+        "triangles": 3220,
+        "materials": [
+          "M09_Body_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_HookFinger_R_02",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.21363823115825653
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.24605229496955872
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            2.587939739227295
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 4313,
+        "triangles": 8182,
+        "materials": [
+          "M09_Body_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_HookFinger_R_03",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.2475256621837616
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.24605229496955872
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            2.587939739227295
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 4293,
+        "triangles": 8088,
+        "materials": [
+          "M09_Body_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_HookFinger_R_04",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.2769930064678192
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.24605229496955872
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            2.587939739227295
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 3746,
+        "triangles": 7088,
+        "materials": [
+          "M09_Body_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_HookFinger_R_05",
+        "type": "MESH",
+        "parent": "M09_Rig_V03",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -0.29762014746665955
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -0.24605229496955872
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            2.587939739227295
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 3019,
+        "triangles": 5682,
+        "materials": [
+          "M09_Body_SourcePBR",
+          "M09_Closure_SourcePBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M09_SkeletalDeform_V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M09_Rig_V03",
+        "type": "ARMATURE",
+        "parent": null,
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "bones": [
+          "root",
+          "suspension",
+          "spine_01",
+          "spine_02",
+          "spine_03",
+          "spine_04",
+          "crown_neck",
+          "eye_crown",
+          "eye_01",
+          "eye_02",
+          "eye_03",
+          "eye_04",
+          "eye_05",
+          "small_upperarm_L",
+          "small_forearm_L",
+          "small_hand_L",
+          "smallfinger_L_01_01",
+          "smallfinger_L_01_02",
+          "smallfinger_L_01_03",
+          "smallfinger_L_02_01",
+          "smallfinger_L_02_02",
+          "smallfinger_L_02_03",
+          "smallfinger_L_03_01",
+          "smallfinger_L_03_02",
+          "smallfinger_L_03_03",
+          "smallfinger_L_04_01",
+          "smallfinger_L_04_02",
+          "smallfinger_L_04_03",
+          "smallfinger_L_05_01",
+          "smallfinger_L_05_02",
+          "smallfinger_L_05_03",
+          "small_upperarm_R",
+          "small_forearm_R",
+          "small_hand_R",
+          "smallfinger_R_01_01",
+          "smallfinger_R_01_02",
+          "smallfinger_R_01_03",
+          "smallfinger_R_02_01",
+          "smallfinger_R_02_02",
+          "smallfinger_R_02_03",
+          "smallfinger_R_03_01",
+          "smallfinger_R_03_02",
+          "smallfinger_R_03_03",
+          "smallfinger_R_04_01",
+          "smallfinger_R_04_02",
+          "smallfinger_R_04_03",
+          "smallfinger_R_05_01",
+          "smallfinger_R_05_02",
+          "smallfinger_R_05_03",
+          "membrane_L3_01",
+          "membrane_L3_02",
+          "membrane_L3_03",
+          "membrane_L3_04",
+          "membrane_R3_01",
+          "membrane_R3_02",
+          "membrane_R3_03",
+          "membrane_R3_04",
+          "membrane_L2_01",
+          "membrane_L2_02",
+          "membrane_L2_03",
+          "membrane_L2_04",
+          "membrane_R2_01",
+          "membrane_R2_02",
+          "membrane_R2_03",
+          "membrane_R2_04",
+          "big_clavicle_L",
+          "big_upperarm_L",
+          "big_forearm_L",
+          "big_hand_L",
+          "hook_L_01_01",
+          "hook_L_01_02",
+          "hook_L_01_03",
+          "hook_L_02_01",
+          "hook_L_02_02",
+          "hook_L_02_03",
+          "hook_L_03_01",
+          "hook_L_03_02",
+          "hook_L_03_03",
+          "hook_L_04_01",
+          "hook_L_04_02",
+          "hook_L_04_03",
+          "hook_L_05_01",
+          "hook_L_05_02",
+          "hook_L_05_03",
+          "big_forearm_twist_L",
+          "big_clavicle_R",
+          "big_upperarm_R",
+          "big_forearm_R",
+          "big_hand_R",
+          "hook_R_01_01",
+          "hook_R_01_02",
+          "hook_R_01_03",
+          "hook_R_02_01",
+          "hook_R_02_02",
+          "hook_R_02_03",
+          "hook_R_03_01",
+          "hook_R_03_02",
+          "hook_R_03_03",
+          "hook_R_04_01",
+          "hook_R_04_02",
+          "hook_R_04_03",
+          "hook_R_05_01",
+          "hook_R_05_02",
+          "hook_R_05_03",
+          "big_forearm_twist_R",
+          "membrane_L1_01",
+          "membrane_L1_02",
+          "membrane_L1_03",
+          "membrane_L1_04",
+          "membrane_R1_01",
+          "membrane_R1_02",
+          "membrane_R1_03",
+          "membrane_R1_04",
+          "CTRL_big_grip_L",
+          "CTRL_big_elbow_L",
+          "CTRL_small_grip_L",
+          "CTRL_small_elbow_L",
+          "CTRL_big_grip_R",
+          "CTRL_big_elbow_R",
+          "CTRL_small_grip_R",
+          "CTRL_small_elbow_R"
+        ]
+      }
+    ]
+  },
+  "SpiralPillarM14": {
+    "source": "SourceAssets/SpiralPillarM14Meshy20261004/ProductionV15/Authoring/M14_SupportSkin_v15.blend",
+    "units": 1.0,
+    "objects": [
+      {
+        "name": "M14_Rig",
+        "type": "ARMATURE",
+        "parent": null,
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "bones": [
+          "root",
+          "base",
+          "spine_01",
+          "spine_02",
+          "spine_03",
+          "spine_04",
+          "spine_05",
+          "mem_L_0",
+          "mem_L_1",
+          "mem_L_2",
+          "sac_L",
+          "chain_L_0",
+          "chain_L_1",
+          "chain_L_2",
+          "mem_R_0",
+          "mem_R_1",
+          "mem_R_2",
+          "sac_R",
+          "chain_R_0",
+          "chain_R_1",
+          "chain_R_2",
+          "restraint",
+          "maw",
+          "mouth_socket",
+          "jaw_00",
+          "jaw_01",
+          "jaw_02",
+          "jaw_03",
+          "jaw_04",
+          "jaw_05",
+          "jaw_06",
+          "jaw_07",
+          "rootfan_00",
+          "roottoe_00",
+          "rootfan_01",
+          "roottoe_01",
+          "rootfan_02",
+          "roottoe_02",
+          "rootfan_03",
+          "roottoe_03",
+          "rootfan_04",
+          "roottoe_04",
+          "rootfan_05",
+          "roottoe_05",
+          "rootfan_06",
+          "roottoe_06",
+          "rootfan_07",
+          "roottoe_07"
+        ]
+      },
+      {
+        "name": "M14_SoftDeathMesh",
+        "type": "MESH",
+        "parent": "M14_Rig",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 1080412,
+        "triangles": 1936942,
+        "materials": [
+          "M14_Body",
+          "M14_Mouth",
+          "M14_Membrane",
+          "M14_Metal"
+        ],
+        "morphs": [
+          "Basis",
+          "M14_DeathSoft_01",
+          "M14_DeathSoft_02",
+          "M14_DeathSoft_03",
+          "M14_DeathSoft_04",
+          "M14_DeathSoft_05",
+          "M14_DeathSoft_06",
+          "M14_DeathSoft_07",
+          "M14_DeathSoft_08",
+          "M14_DeathSoft_09"
+        ],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M14_Skin",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      }
+    ]
+  },
+  "M10Mawcrawler": {
+    "source": "SourceAssets/M10ChenXia20261003/SurfaceRigV5/Delivery/M10_SurfaceRigV5_Editable.blend",
+    "units": 1.0,
+    "objects": [
+      {
+        "name": "M10_OriginalSurface",
+        "type": "MESH",
+        "parent": "Armature",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 692280,
+        "triangles": 1249713,
+        "materials": [
+          "Material_0"
+        ],
+        "morphs": [
+          "Basis",
+          "M10_MouthOpenTissue",
+          "M10_MouthWideTissue"
+        ],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M10_DedicatedSurfaceSkin",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "Armature",
+        "type": "ARMATURE",
+        "parent": null,
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "bones": [
+          "root",
+          "body_center",
+          "body_front",
+          "head",
+          "jaw",
+          "mouth_socket",
+          "mantle_front_L",
+          "mantle_front_R",
+          "leg_01_L_upper",
+          "leg_01_L_lower",
+          "leg_01_L_foot",
+          "leg_01_L_toes_inner",
+          "leg_01_L_toes_outer",
+          "leg_01_R_upper",
+          "leg_01_R_lower",
+          "leg_01_R_foot",
+          "leg_01_R_toes_inner",
+          "leg_01_R_toes_outer",
+          "leg_01_L_socket",
+          "leg_01_R_socket",
+          "body_rear",
+          "rump",
+          "leg_04_L_upper",
+          "leg_04_L_lower",
+          "leg_04_L_foot",
+          "leg_04_L_toes_inner",
+          "leg_04_L_toes_outer",
+          "leg_04_R_upper",
+          "leg_04_R_lower",
+          "leg_04_R_foot",
+          "leg_04_R_toes_inner",
+          "leg_04_R_toes_outer",
+          "leg_04_L_socket",
+          "leg_04_R_socket",
+          "mantle_rear_L",
+          "mantle_rear_R",
+          "leg_03_L_upper",
+          "leg_03_L_lower",
+          "leg_03_L_foot",
+          "leg_03_L_toes_inner",
+          "leg_03_L_toes_outer",
+          "leg_03_R_upper",
+          "leg_03_R_lower",
+          "leg_03_R_foot",
+          "leg_03_R_toes_inner",
+          "leg_03_R_toes_outer",
+          "leg_03_L_socket",
+          "leg_03_R_socket",
+          "mantle_center_L",
+          "mantle_center_R",
+          "leg_02_L_upper",
+          "leg_02_L_lower",
+          "leg_02_L_foot",
+          "leg_02_L_toes_inner",
+          "leg_02_L_toes_outer",
+          "leg_02_R_upper",
+          "leg_02_R_lower",
+          "leg_02_R_foot",
+          "leg_02_R_toes_inner",
+          "leg_02_R_toes_outer",
+          "leg_02_L_socket",
+          "leg_02_R_socket"
+        ]
+      },
+      {
+        "name": "SM_M10_HowlWave",
+        "type": "MESH",
+        "parent": null,
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": true,
+        "vertices": 585,
+        "triangles": 1024,
+        "materials": [],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": []
+      },
+      {
+        "name": "M10_OralLiner",
+        "type": "MESH",
+        "parent": "Armature",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 768,
+        "triangles": 1470,
+        "materials": [
+          "M_M10_OralInterior"
+        ],
+        "morphs": [],
+        "uv_layers": [],
+        "modifiers": [
+          {
+            "name": "M10_OralLinerSkin",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M10_OralTeeth",
+        "type": "MESH",
+        "parent": "Armature",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 3024,
+        "triangles": 5904,
+        "materials": [
+          "M_M10_OralTeeth"
+        ],
+        "morphs": [],
+        "uv_layers": [],
+        "modifiers": [
+          {
+            "name": "M10_OralTeethSkin",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      },
+      {
+        "name": "M10_OralGum",
+        "type": "MESH",
+        "parent": "Armature",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 768,
+        "triangles": 1536,
+        "materials": [
+          "M_M10_OralGum"
+        ],
+        "morphs": [],
+        "uv_layers": [],
+        "modifiers": [
+          {
+            "name": "M10_OralGumSkin",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      }
+    ]
+  },
+  "LurkerM08": {
+    "source": "SourceAssets/Monsters/LurkerM08/CanineRigV03_20261004/M08_CanineRig_Skin_V03.blend",
+    "units": 1.0,
+    "objects": [
+      {
+        "name": "Armature",
+        "type": "ARMATURE",
+        "parent": null,
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "bones": [
+          "root",
+          "pelvis",
+          "spine_01",
+          "spine_02",
+          "chest",
+          "neck",
+          "head",
+          "jaw",
+          "Wolf_-Head",
+          "scapula.L",
+          "upperarm.L",
+          "forearm.L",
+          "hand.L",
+          "finger1_01.L",
+          "finger1_02.L",
+          "finger2_01.L",
+          "finger2_02.L",
+          "finger3_01.L",
+          "finger3_02.L",
+          "finger4_01.L",
+          "finger4_02.L",
+          "finger5_01.L",
+          "finger5_02.L",
+          "forearm_twist.L",
+          "upperarm_twist.L",
+          "elbow_support.L",
+          "arch_front.L",
+          "arch_front_mid.L",
+          "scapula.R",
+          "upperarm.R",
+          "forearm.R",
+          "hand.R",
+          "finger1_01.R",
+          "finger1_02.R",
+          "finger2_01.R",
+          "finger2_02.R",
+          "finger3_01.R",
+          "finger3_02.R",
+          "finger4_01.R",
+          "finger4_02.R",
+          "finger5_01.R",
+          "finger5_02.R",
+          "forearm_twist.R",
+          "upperarm_twist.R",
+          "elbow_support.R",
+          "arch_front.R",
+          "arch_front_mid.R",
+          "arch_crown",
+          "arch_crown.L",
+          "arch_crown.R",
+          "thigh.L",
+          "calf.L",
+          "ankle.L",
+          "hindfoot.L",
+          "toe1.L",
+          "toe2.L",
+          "toe3.L",
+          "knee_support.L",
+          "arch_rear.L",
+          "arch_rear_mid.L",
+          "thigh.R",
+          "calf.R",
+          "ankle.R",
+          "hindfoot.R",
+          "toe1.R",
+          "toe2.R",
+          "toe3.R",
+          "knee_support.R",
+          "arch_rear.R",
+          "arch_rear_mid.R"
+        ]
+      },
+      {
+        "name": "SK_LurkerM08",
+        "type": "MESH",
+        "parent": "Armature",
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "hidden": false,
+        "vertices": 625042,
+        "triangles": 1250160,
+        "materials": [
+          "Material_0",
+          "M08_RebuiltInnerArch_PBR"
+        ],
+        "morphs": [],
+        "uv_layers": [
+          "UVMap"
+        ],
+        "modifiers": [
+          {
+            "name": "M08 anatomical skin V03",
+            "type": "ARMATURE",
+            "viewport": true,
+            "render": true
+          }
+        ]
+      }
+    ]
+  }
+}

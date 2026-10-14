@@ -117,6 +117,73 @@ void StabilizeDrapeMapping(FSkelMeshSection& Section,const UClothingAssetCommon*
     UE_LOG(LogTemp,Display,TEXT("WITCH_DRAPE05 %s mapping_repaired=%d local_skin_fallback=%d total=%d"),*Cloth->GetName(),Repaired,Fallback,Mapping.Num());
 }
 
+// V23 exports the exact same triangulated surface twice. Bind positions directly
+// to their own physical particle, including vertices split by FBX UV seams. A
+// subdivided display shell or a locally skinned fallback cannot grow a spike.
+bool BindCoincidentGarment(FSkelMeshSection& Section,const UClothingAssetCommon* Cloth)
+{
+    const auto& Physical=Cloth->LodData[0].PhysicalMeshData;
+    const auto Normals=DrapeMappingNormals(Physical);
+    const auto* MaxDistances=Physical.FindWeightMap(EWeightMapTargetCommon::MaxDistance);
+    auto& Mapping=Section.ClothMappingDataLODs[0];
+    if(Mapping.Num()!=Section.SoftVertices.Num())return false;
+    TArray<int32> Triangles;Triangles.Init(INDEX_NONE,Physical.Vertices.Num());
+    TArray<float> Areas;Areas.Init(0.f,Physical.Vertices.Num());
+    for(int32 T=0;T<Physical.Indices.Num();T+=3)
+    {
+        const auto& A=Physical.Vertices[Physical.Indices[T]];
+        const float Area=FVector3f::CrossProduct(Physical.Vertices[Physical.Indices[T+1]]-A,
+            Physical.Vertices[Physical.Indices[T+2]]-A).SizeSquared();
+        for(int32 J=0;J<3;++J)
+        {
+            const int32 V=Physical.Indices[T+J];
+            if(Area>Areas[V]){Areas[V]=Area;Triangles[V]=T;}
+        }
+    }
+    for(int32 I=0;I<Mapping.Num();++I)
+    {
+        const auto& Vertex=Section.SoftVertices[I];
+        int32 Source=INDEX_NONE;float Best=MAX_flt;
+        for(int32 V=0;V<Physical.Vertices.Num();++V)
+        {
+            const float D=FVector3f::DistSquared(Vertex.Position,Physical.Vertices[V]);
+            if(D<Best){Best=D;Source=V;}
+        }
+        // This is an authoring contract, not a runtime fallback to another bone.
+        if(Source==INDEX_NONE||Best>.0001f||Triangles[Source]==INDEX_NONE)return false;
+        FVector P[3],N[3];int32 Corner=0;
+        auto& M=Mapping[I];
+        for(int32 J=0;J<3;++J)
+        {
+            const int32 V=Physical.Indices[Triangles[Source]+J];
+            M.SourceMeshVertIndices[J]=V;P[J]=FVector(Physical.Vertices[V]);N[J]=FVector(Normals[V]);
+            if(V==Source)Corner=J;
+        }
+        M.PositionBaryCoordsAndDist=FVector4f(0,0,0,0);
+        M.PositionBaryCoordsAndDist[Corner]=1.f;
+        const FVector Target(Vertex.Position);
+        if(!FitDrapePoint(Target+FVector(Vertex.TangentZ),P,N,M.NormalBaryCoordsAndDist,false))
+        {
+            M.NormalBaryCoordsAndDist=M.PositionBaryCoordsAndDist;
+            M.NormalBaryCoordsAndDist.W=-1.f;
+        }
+        if(!FitDrapePoint(Target+FVector(Vertex.TangentX),P,N,M.TangentBaryCoordsAndDist,false))
+        {
+            // A one-centimetre endpoint along an incident edge is well defined
+            // even when the interpolated normal prism has no inverse.
+            const int32 Next=(Corner+1)%3;
+            const float Amount=1.f/FMath::Max(.01, (P[Next]-P[Corner]).Size());
+            M.TangentBaryCoordsAndDist=M.PositionBaryCoordsAndDist;
+            M.TangentBaryCoordsAndDist[Corner]-=Amount;
+            M.TangentBaryCoordsAndDist[Next]+=Amount;
+        }
+        M.SourceMeshVertIndices[3]=MaxDistances&&(*MaxDistances)[Source]<=0.f?0xffff:0;
+        M.Weight=1.f;
+    }
+    UE_LOG(LogTemp,Display,TEXT("BC_GARMENT_V23 bound %d coincident render vertices"),Mapping.Num());
+    return true;
+}
+
 // Read the installed render-to-simulation data, which is not exposed by editor Python.
 // Invoked explicitly by the Witch authoring script; never starts a simulation.
 void DescribeWitchDrapeMapping()
@@ -216,7 +283,11 @@ bool UWitchRebuiltClothingAsset::BindToSkeletalMesh(USkeletalMesh* InSkelMesh,in
 {
     const bool Bound=Super::BindToSkeletalMesh(InSkelMesh,InMeshLodIndex,InSectionIndex,InAssetLodIndex);
     if (Bound && InMeshLodIndex==0 && InAssetLodIndex==0)
+    {
+        if(InSkelMesh->GetName().Contains(TEXT("GarmentDrapeV23"))||InSkelMesh->GetName().Contains(TEXT("GarmentDrapeV24"))||InSkelMesh->GetName().Contains(TEXT("GarmentDrapeV25"))||InSkelMesh->GetName().Contains(TEXT("TentacleReachV29")))
+            return BindCoincidentGarment(InSkelMesh->GetImportedModel()->LODModels[InMeshLodIndex].Sections[InSectionIndex],this);
         StabilizeDrapeMapping(InSkelMesh->GetImportedModel()->LODModels[InMeshLodIndex].Sections[InSectionIndex],this);
+    }
     return Bound;
 }
 #endif

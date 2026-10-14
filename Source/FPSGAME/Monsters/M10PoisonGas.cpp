@@ -1,4 +1,5 @@
 #include "M10PoisonGas.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "M10Mawcrawler.h"
 #include "HandBrainMonster.h"
 #include "PoisonMaggotProjectile.h"
@@ -45,7 +46,7 @@ void AM10PoisonGas::GetEmissionSources(FVector (&Origins)[3],FVector& Drift) con
     for(const FVector& Origin:Origins)
     {
         FHitResult Hit;
-        if(GetWorld()->LineTraceSingleByChannel(Hit,Origin,Origin+Drift*Lifetime+FVector(0,0,.45f*Lifetime*Lifetime),ECC_Visibility,Query))
+        if(RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Hit,Origin,Origin+Drift*Lifetime+FVector(0,0,.45f*Lifetime*Lifetime),ECC_Visibility,Query))
             Fraction=FMath::Min(Fraction,FMath::Max(0.f,Hit.Time-.04f));
     }
     Drift*=Fraction;

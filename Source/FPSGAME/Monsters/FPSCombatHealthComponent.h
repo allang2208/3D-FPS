@@ -11,6 +11,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category="Combat") float MaxHealth = 100.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, ReplicatedUsing=OnRep_Health, Category="Combat") float Health = 100.f;
     UFUNCTION(BlueprintPure, Category="Combat") bool IsDead() const { return Health <= 0.f; }
+    float GetDeathStartedAt() const { return DeathStartedAt; }
+    bool DeathFromCrouch() const { return bDeathFromCrouch; }
     UFUNCTION(BlueprintPure, Category="Combat") bool IsInvulnerable() const;
     float DamageAfterArmor(float Damage,const UDamageType* Type,AActor* Attacker=nullptr) const;
     void ApplySurvivalDamage(float Amount);
@@ -26,10 +28,16 @@ protected:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 private:
+    UPROPERTY(Replicated) float DeathStartedAt=-1.f;
+    UPROPERTY(Replicated) bool bDeathFromCrouch=false;
+    bool bDeathApplied=false;
+    void ApplyPlayerDeath();
     UFUNCTION() void OnRep_Health();
     UFUNCTION() void OnDamage(AActor* Actor, float Damage, const UDamageType* Type, AController* Instigator, AActor* Causer);
     UFUNCTION(Client,Reliable) void ClientApplyM10HowlCripple(double ServerExpiresAt);
     UFUNCTION(Client,Reliable) void ClientApplyM27HitStatus(AActor* Source, bool bPounce, bool bBleeding, double ServerHitAt);
+    UFUNCTION(Client,Unreliable) void ClientDamageFeedback(float RemainingHealth);
+    UFUNCTION(Client,Reliable) void ClientPeachRevive();
     void Respawn();
     void RecordLagPose();
     struct FFPSLagPose { double Time; FVector Center; FVector Top; };

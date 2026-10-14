@@ -1,0 +1,221 @@
+{
+  "complete": true,
+  "species": [
+    {
+      "species": "SpiralPillarM14",
+      "complete": true,
+      "mesh": "/Game/Monsters/SpiralPillarM14/SK_M14_SupportSkin_v15.SK_M14_SupportSkin_v15",
+      "corpse": "/Game/Monsters/RemeshV3/SpiralPillarM14/SK_SpiralPillarM14_SoftCorpse.SK_SpiralPillarM14_SoftCorpse",
+      "corpse_data": "/Game/Monsters/RemeshV3/SpiralPillarM14/DA_SpiralPillarM14_SoftCorpse.DA_SpiralPillarM14_SoftCorpse",
+      "living_lods": [
+        {
+          "level": 0,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\SpiralPillarM14_LOD0.fbx",
+          "triangles": 198345,
+          "vertices": 174953,
+          "morphs": [
+            "M14_DeathSoft_01",
+            "M14_DeathSoft_02",
+            "M14_DeathSoft_03",
+            "M14_DeathSoft_04",
+            "M14_DeathSoft_05",
+            "M14_DeathSoft_06",
+            "M14_DeathSoft_07",
+            "M14_DeathSoft_08",
+            "M14_DeathSoft_09"
+          ]
+        },
+        {
+          "level": 1,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\SpiralPillarM14_LOD1.fbx",
+          "triangles": 75371,
+          "vertices": 93401,
+          "morphs": [
+            "M14_DeathSoft_01",
+            "M14_DeathSoft_02",
+            "M14_DeathSoft_03",
+            "M14_DeathSoft_04",
+            "M14_DeathSoft_05",
+            "M14_DeathSoft_06",
+            "M14_DeathSoft_07",
+            "M14_DeathSoft_08",
+            "M14_DeathSoft_09"
+          ]
+        },
+        {
+          "level": 2,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\SpiralPillarM14_LOD2.fbx",
+          "triangles": 27768,
+          "vertices": 50006,
+          "morphs": [
+            "M14_DeathSoft_01",
+            "M14_DeathSoft_02",
+            "M14_DeathSoft_03",
+            "M14_DeathSoft_04",
+            "M14_DeathSoft_05",
+            "M14_DeathSoft_06",
+            "M14_DeathSoft_07",
+            "M14_DeathSoft_08",
+            "M14_DeathSoft_09"
+          ]
+        },
+        {
+          "level": 3,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\SpiralPillarM14_LOD3.fbx",
+          "triangles": 9917,
+          "vertices": 33563,
+          "morphs": [
+            "M14_DeathSoft_01",
+            "M14_DeathSoft_02",
+            "M14_DeathSoft_03",
+            "M14_DeathSoft_04",
+            "M14_DeathSoft_05",
+            "M14_DeathSoft_06",
+            "M14_DeathSoft_07",
+            "M14_DeathSoft_08",
+            "M14_DeathSoft_09"
+          ]
+        }
+      ],
+      "corpse_lods": 1,
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\SpiralPillarM14_RemeshV3.blend",
+      "receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\installation.json"
+    },
+    {
+      "species": "M10Mawcrawler",
+      "complete": true,
+      "mesh": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5",
+      "corpse": "/Game/Monsters/RemeshV3/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse.SK_M10Mawcrawler_SoftCorpse",
+      "corpse_data": "/Game/Monsters/RemeshV3/M10Mawcrawler/DA_M10Mawcrawler_SoftCorpse.DA_M10Mawcrawler_SoftCorpse",
+      "living_lods": [
+        {
+          "level": 0,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_LOD0.fbx",
+          "triangles": 202841,
+          "vertices": 170707,
+          "morphs": [
+            "M10_MouthOpenTissue",
+            "M10_MouthWideTissue"
+          ]
+        },
+        {
+          "level": 1,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_LOD1.fbx",
+          "triangles": 77074,
+          "vertices": 96880,
+          "morphs": [
+            "M10_MouthOpenTissue",
+            "M10_MouthWideTissue"
+          ]
+        },
+        {
+          "level": 2,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_LOD2.fbx",
+          "triangles": 28395,
+          "vertices": 55761,
+          "morphs": [
+            "M10_MouthOpenTissue",
+            "M10_MouthWideTissue"
+          ]
+        },
+        {
+          "level": 3,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_LOD3.fbx",
+          "triangles": 10138,
+          "vertices": 39145,
+          "morphs": [
+            "M10_MouthOpenTissue",
+            "M10_MouthWideTissue"
+          ]
+        }
+      ],
+      "corpse_lods": 1,
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_RemeshV3.blend",
+      "receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\installation.json"
+    },
+    {
+      "species": "HangingBellM09",
+      "complete": true,
+      "mesh": "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09",
+      "corpse": "/Game/Monsters/RemeshV3/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse",
+      "corpse_data": "/Game/Monsters/RemeshV3/HangingBellM09/DA_HangingBellM09_SoftCorpse.DA_HangingBellM09_SoftCorpse",
+      "living_lods": [
+        {
+          "level": 0,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\HangingBellM09\\HangingBellM09_LOD0.fbx",
+          "triangles": 235218,
+          "vertices": 119469,
+          "morphs": []
+        },
+        {
+          "level": 1,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\HangingBellM09\\HangingBellM09_LOD1.fbx",
+          "triangles": 89357,
+          "vertices": 46389,
+          "morphs": []
+        },
+        {
+          "level": 2,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\HangingBellM09\\HangingBellM09_LOD2.fbx",
+          "triangles": 33022,
+          "vertices": 17945,
+          "morphs": []
+        },
+        {
+          "level": 3,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\HangingBellM09\\HangingBellM09_LOD3.fbx",
+          "triangles": 12160,
+          "vertices": 6855,
+          "morphs": []
+        }
+      ],
+      "corpse_lods": 1,
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\HangingBellM09\\HangingBellM09_RemeshV3.blend",
+      "receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\HangingBellM09\\installation.json"
+    },
+    {
+      "species": "LurkerM08",
+      "complete": true,
+      "mesh": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+      "corpse": "/Game/Monsters/RemeshV3/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse",
+      "corpse_data": "/Game/Monsters/RemeshV3/LurkerM08/DA_LurkerM08_SoftCorpse.DA_LurkerM08_SoftCorpse",
+      "living_lods": [
+        {
+          "level": 0,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\LurkerM08_LOD0.fbx",
+          "triangles": 233467,
+          "vertices": 116724,
+          "morphs": []
+        },
+        {
+          "level": 1,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\LurkerM08_LOD1.fbx",
+          "triangles": 88717,
+          "vertices": 44349,
+          "morphs": []
+        },
+        {
+          "level": 2,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\LurkerM08_LOD2.fbx",
+          "triangles": 32685,
+          "vertices": 16333,
+          "morphs": []
+        },
+        {
+          "level": 3,
+          "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\LurkerM08_LOD3.fbx",
+          "triangles": 11672,
+          "vertices": 5826,
+          "morphs": []
+        }
+      ],
+      "corpse_lods": 1,
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\LurkerM08_RemeshV3.blend",
+      "receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\installation.json"
+    }
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "animations_reauthored": false,
+  "user_testing_pending": true
+}

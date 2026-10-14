@@ -1,4 +1,5 @@
 #include "M10Mawcrawler.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "M10PoisonGas.h"
 #include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
@@ -46,8 +47,8 @@ bool AM10Mawcrawler::CanRearGas(APawn* Victim) const
     if(!IsInRearGasRange(Victim))return false;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(M10RearGasSight),false,this);Query.AddIgnoredActor(Victim);
     FHitResult Hit;
-    return !GetWorld()->LineTraceSingleByChannel(Hit,GetMesh()->GetSocketLocation(TEXT("rump")),Outlet,ECC_Visibility,Query)
-        &&!GetWorld()->LineTraceSingleByChannel(Hit,Outlet,Victim->GetActorLocation(),ECC_Visibility,Query);
+    return !RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit,GetMesh()->GetSocketLocation(TEXT("rump")),Outlet,ECC_Visibility,Query)
+        &&!RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit,Outlet,Victim->GetActorLocation(),ECC_Visibility,Query);
 }
 void AM10Mawcrawler::TickRearGas()
 {

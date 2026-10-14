@@ -1,4 +1,4 @@
-param([int]$MaximumWaitSeconds=600,[string[]]$Targets=@('FPSGAMEEditor','FPSGAME'))
+﻿param([int]$MaximumWaitSeconds=600,[string[]]$Targets=@('FPSGAMEEditor','FPSGAME'))
 $ErrorActionPreference='Stop'
 $projectRoot='D:/FPS3D/FPSGAME'
 $recordRoot=Join-Path $projectRoot 'SourceAssets/HangingBellM09Meshy20261003/GazeV08/Records'

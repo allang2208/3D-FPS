@@ -1,4 +1,5 @@
 #include "BoundCongregate.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "BoundCongregateCaptureComponent.h"
 #include "BoundCongregateTentacleTiming.h"
 #include "MonsterAIController.h"
@@ -99,11 +100,11 @@ void ABoundCongregate::TickTentacle(float Dt)
         const FVector Tip=GetMesh()->GetSocketLocation(TEXT("attack_tentacle_56"));
         FCollisionQueryParams Query(SCENE_QUERY_STAT(CongregateTentacle),false,this);FHitResult Hit;
         const auto Shape=FCollisionShape::MakeSphere(BoundCongregateTentacleTiming::ContactRadius);
-        bool bContact=GetWorld()->SweepSingleByChannel(Hit,PreviousTentacleTip,Tip,FQuat::Identity,ECC_Pawn,Shape,Query);
+        bool bContact=RangedAttackQuery::SweepSingle(GetWorld(), this, Hit,PreviousTentacleTip,Tip,FQuat::Identity,ECC_Pawn,Shape,Query);
         // Include the visible terminal shaft as well as the moving tip. The
         // faster throw keeps its continuous temporal sweep and cover blocking.
         for(int32 I=48;I<56&&!bContact;++I)
-            bContact=GetWorld()->SweepSingleByChannel(Hit,
+            bContact=RangedAttackQuery::SweepSingle(GetWorld(), this, Hit,
                 GetMesh()->GetSocketLocation(FName(FString::Printf(TEXT("attack_tentacle_%02d"),I))),
                 GetMesh()->GetSocketLocation(FName(FString::Printf(TEXT("attack_tentacle_%02d"),I+1))),
                 FQuat::Identity,ECC_Pawn,Shape,Query);

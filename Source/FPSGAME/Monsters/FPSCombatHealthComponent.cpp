@@ -1,4 +1,5 @@
 #include "FPSCombatHealthComponent.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Weapons/JingangRuneComponent.h"
 #include "../Survival/FPSSurvivalComponent.h"
@@ -8,6 +9,7 @@
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../FPSGAMECharacter.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
+#include "../Characters/FPSPlayerDeathMotion.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "HandBrainMonster.h"
 #include "M10HowlDamage.h"
@@ -18,6 +20,7 @@
 #include "../Skills/CorrosivePusDamage.h"
 #include "../Skills/LightningDamage.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "Engine/GameInstance.h"
 #include "Engine/Engine.h"
@@ -46,6 +49,8 @@ void UFPSCombatHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimePrope
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(UFPSCombatHealthComponent, Health);
     DOREPLIFETIME(UFPSCombatHealthComponent, MaxHealth);
+    DOREPLIFETIME(UFPSCombatHealthComponent, DeathStartedAt);
+    DOREPLIFETIME(UFPSCombatHealthComponent, bDeathFromCrouch);
 }
 void UFPSCombatHealthComponent::OnRep_Health()
 {
@@ -53,17 +58,22 @@ void UFPSCombatHealthComponent::OnRep_Health()
     UE_LOG(LogTemp, Warning, TEXT("MPTEST Health replicated: %s -> %.1f (dead=%d)"), *GetNameSafe(GetOwner()), Health, IsDead() ? 1 : 0);
     // 联机：服务端判死的本地 pawn 停止本地移动预测——否则死亡窗口内客户端继续走动，
     // 与服务端副本位置硬发散，直到 Respawn 换 pawn 才收束。重生销毁本 pawn，无需恢复。
-    if (IsDead() && GetOwner() && !GetOwner()->HasAuthority())
-    {
-        if (auto* Character = Cast<ACharacter>(GetOwner()))
-        {
-            if (auto* Move = Character->GetCharacterMovement())
-            {
-                Move->StopMovementImmediately();
-                Move->DisableMovement();
-            }
-        }
-    }
+    if(IsDead())ApplyPlayerDeath();
+}
+void UFPSCombatHealthComponent::ApplyPlayerDeath()
+{
+    auto* Character=Cast<ACharacter>(GetOwner());
+    if(!Character||bDeathApplied)return;
+    bDeathApplied=true;
+    // Use the existing priority cancellation path without reapplying a profile
+    // snapshot: a stale health snapshot must not revive a confirmed death.
+    if(auto* FPS=Cast<AFPSGAMECharacter>(Character))FPS->InterruptActionsForPriority(true);
+    if(auto* PC=Cast<APlayerController>(Character->GetController()))Character->DisableInput(PC);
+    if(auto* Move=Character->GetCharacterMovement())
+    {Move->StopMovementImmediately();Move->DisableMovement();}
+    // CameraManager still calls CalcCamera. The body component/mesh tick
+    // independently, so the death pose and camera continue after gameplay stops.
+    Character->SetActorTickEnabled(false);
 }
 void UFPSCombatHealthComponent::BeginPlay()
 {
@@ -229,12 +239,8 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
     }
     else if(!bSurvivalLoss)if(auto* Survival=Actor->FindComponentByClass<UFPSSurvivalComponent>())Survival->ApplySanityAttack(Attacker);
     UE_LOG(LogTemp, Display, TEXT("PLAYER_DAMAGE amount=%.1f health=%.1f"), Damage, Health);
-    if (GEngine) GEngine->AddOnScreenDebugMessage(91401, 3.f, FColor::Red,
-        FString::Printf(TEXT("HP %.0f / %.0f%s"), Health, MaxHealth, IsDead() ? TEXT(" - Respawning...") : TEXT("")));
     ACharacter* Character = Cast<ACharacter>(Actor);
     APlayerController* PC = Character ? Cast<APlayerController>(Character->GetController()) : nullptr;
-    if (PC && PC->PlayerCameraManager)
-        PC->PlayerCameraManager->StartCameraFade(.3f, 0.f, .3f, FLinearColor(.6f,0,0), false, false);
     if (IsDead() && Character && PC)
     {
         // 蟠桃续命：一次生命机会，原地以复活比例站起并清算中毒/控制（旧 _reviveInPlace），不走重生换 pawn。
@@ -251,15 +257,18 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
             if(auto* Poison=Actor->FindComponentByClass<UMaggotPoisonComponent>())Poison->ClearPoison();
             if(auto* S=Actor->FindComponentByClass<UCombatStatusFormula>())S->PurgeTransient();
             UE_LOG(LogTemp, Display, TEXT("PEACH_REVIVE hp=%.0f ratio=%.2f"), Health, ReviveRatio);
-            if(GEngine) GEngine->AddOnScreenDebugMessage(91402, 3.f, FColor(255, 215, 0), TEXT("蟠桃续命：原地复活"));
+            Actor->ForceNetUpdate();ClientDamageFeedback(Health);ClientPeachRevive();
             return;
         }
-        Character->DisableInput(PC);
-        Character->GetCharacterMovement()->StopMovementImmediately();
-        Character->GetCharacterMovement()->DisableMovement();
-        Character->SetActorTickEnabled(false); // Stops held-fire and movement updates until the new pawn exists.
-        GetWorld()->GetTimerManager().SetTimer(RespawnTimer, this, &UFPSCombatHealthComponent::Respawn, 2.f, false);
+        const auto* GS=GetWorld()->GetGameState();
+        DeathStartedAt=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+        bDeathFromCrouch=Character->bIsCrouched;
+        if(const auto* FPS=Cast<AFPSGAMECharacter>(Character))bDeathFromCrouch|=FPS->IsSliding();
+        ApplyPlayerDeath();
+        Actor->ForceNetUpdate();
+        GetWorld()->GetTimerManager().SetTimer(RespawnTimer, this, &UFPSCombatHealthComponent::Respawn, FPSPlayerDeathMotion::RespawnSeconds, false);
     }
+    if(PC)ClientDamageFeedback(Health);
     if(IsDead())ColdSteelSkills::NotifyKillByOwner(GetWorld()->GetGameInstance(),Instigator,Actor);
 }
 
@@ -289,12 +298,33 @@ void UFPSCombatHealthComponent::ClientApplyM27HitStatus_Implementation(AActor* S
     if(bBleeding)Status->AddBleeding(Source,1);
 }
 
+void UFPSCombatHealthComponent::ClientDamageFeedback_Implementation(float RemainingHealth)
+{
+    const auto* Pawn=Cast<APawn>(GetOwner());
+    auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
+    if(!PC||!PC->IsLocalController())return;
+    if(PC->PlayerCameraManager)PC->PlayerCameraManager->StartCameraFade(.3f,0.f,.3f,FLinearColor(.6f,0,0),false,false);
+    if(GEngine)GEngine->AddOnScreenDebugMessage(91401,3.f,FColor::Red,
+        FString::Printf(TEXT("HP %.0f / %.0f%s"),RemainingHealth,MaxHealth,RemainingHealth<=0?TEXT(" - Respawning..."):TEXT("")));
+}
+
+void UFPSCombatHealthComponent::ClientPeachRevive_Implementation()
+{
+    const auto* Pawn=Cast<APawn>(GetOwner());if(!Pawn||!Pawn->IsLocallyControlled())return;
+    if(auto* Model=ColdSteelAuthority::ForPawn(Pawn))Model->PostNotice(TEXT("蟠桃续命"),TEXT("已原地复活"));
+}
+
 void UFPSCombatHealthComponent::Respawn()
 {
     APawn* Pawn = Cast<APawn>(GetOwner());
     AController* Controller = Pawn ? Pawn->GetController() : nullptr;
     AGameModeBase* Mode = GetWorld()->GetAuthGameMode();
     if (!Pawn || !Controller || !Mode) return;
+    // Checkpoint paid work while its original authority pawn still exists.
+    if(auto* State=Pawn->GetPlayerState<AColdSteelPlayerState>())State->CloseStationSessions();
+    // Capture the final dead state before destroying the old pawn. The new
+    // attachment then performs the normal health/stamina/survival reset once.
+    if(auto* Model=ColdSteelAuthority::ForPawn(Pawn))Model->SyncRuntime();
     Controller->UnPossess();
     Pawn->Destroy();
     Mode->RestartPlayer(Controller);

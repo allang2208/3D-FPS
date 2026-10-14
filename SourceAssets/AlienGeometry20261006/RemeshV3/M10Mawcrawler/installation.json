@@ -1,0 +1,77 @@
+{
+  "species": "M10Mawcrawler",
+  "complete": true,
+  "saved": [
+    "/Game/Monsters/RemeshV3/M10Mawcrawler/Textures/T_M10Mawcrawler_BaseColor.T_M10Mawcrawler_BaseColor",
+    "/Game/Monsters/RemeshV3/M10Mawcrawler/Textures/T_M10Mawcrawler_MetallicRoughness.T_M10Mawcrawler_MetallicRoughness",
+    "/Game/Monsters/RemeshV3/M10Mawcrawler/Textures/T_M10Mawcrawler_Normal.T_M10Mawcrawler_Normal",
+    "/Game/Monsters/RemeshV3/M10Mawcrawler/Materials/M_M10_MeshySurface_RemeshV3.M_M10_MeshySurface_RemeshV3",
+    "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5_Skeleton.SK_M10_SurfaceRig_V5_Skeleton",
+    "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5",
+    "/Game/Monsters/M10Mawcrawler/BP_M10Mawcrawler.BP_M10Mawcrawler",
+    "/Game/Monsters/RemeshV3/M10Mawcrawler/SKEL_M10Mawcrawler_SoftCorpse.SKEL_M10Mawcrawler_SoftCorpse",
+    "/Game/Monsters/RemeshV3/M10Mawcrawler/CorpseMaterials/M_M10_MeshySurface_RemeshV3_96e232f2_Corpse.M_M10_MeshySurface_RemeshV3_96e232f2_Corpse",
+    "/Game/Monsters/RemeshV3/M10Mawcrawler/CorpseMaterials/M_M10_OralGum_901612d3_Corpse.M_M10_OralGum_901612d3_Corpse",
+    "/Game/Monsters/RemeshV3/M10Mawcrawler/CorpseMaterials/M_M10_OralInterior_2fd133e3_Corpse.M_M10_OralInterior_2fd133e3_Corpse",
+    "/Game/Monsters/RemeshV3/M10Mawcrawler/CorpseMaterials/M_M10_OralTeeth_197586dc_Corpse.M_M10_OralTeeth_197586dc_Corpse",
+    "/Game/Monsters/RemeshV3/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse.SK_M10Mawcrawler_SoftCorpse",
+    "/Game/Monsters/RemeshV3/M10Mawcrawler/DA_M10Mawcrawler_SoftCorpse.DA_M10Mawcrawler_SoftCorpse"
+  ],
+  "tested": false,
+  "rendered": false,
+  "stage": "saved_and_bound",
+  "original_skeleton": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5_Skeleton.SK_M10_SurfaceRig_V5_Skeleton",
+  "original_physics": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5_PhysicsAsset.SK_M10_SurfaceRig_V5_PhysicsAsset",
+  "live_imported": true,
+  "mesh": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5",
+  "offline_lods": [
+    {
+      "level": 0,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_LOD0.fbx",
+      "triangles": 202841,
+      "vertices": 170707,
+      "morphs": [
+        "M10_MouthOpenTissue",
+        "M10_MouthWideTissue"
+      ]
+    },
+    {
+      "level": 1,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_LOD1.fbx",
+      "triangles": 77074,
+      "vertices": 96880,
+      "morphs": [
+        "M10_MouthOpenTissue",
+        "M10_MouthWideTissue"
+      ]
+    },
+    {
+      "level": 2,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_LOD2.fbx",
+      "triangles": 28395,
+      "vertices": 55761,
+      "morphs": [
+        "M10_MouthOpenTissue",
+        "M10_MouthWideTissue"
+      ]
+    },
+    {
+      "level": 3,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\M10Mawcrawler\\M10Mawcrawler_LOD3.fbx",
+      "triangles": 10138,
+      "vertices": 39145,
+      "morphs": [
+        "M10_MouthOpenTissue",
+        "M10_MouthWideTissue"
+      ]
+    }
+  ],
+  "import_seconds": 26.65,
+  "corpse": "/Game/Monsters/RemeshV3/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse.SK_M10Mawcrawler_SoftCorpse",
+  "corpse_data": "/Game/Monsters/RemeshV3/M10Mawcrawler/DA_M10Mawcrawler_SoftCorpse.DA_M10Mawcrawler_SoftCorpse",
+  "corpse_lods": 1,
+  "animations_reimported": false,
+  "native_build_required": false,
+  "user_testing_pending": true,
+  "corpse_seconds": 10.42
+}

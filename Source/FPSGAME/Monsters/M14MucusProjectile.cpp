@@ -1,4 +1,5 @@
 #include "M14MucusProjectile.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "SpiralPillarM14.h"
 #include "PoisonMaggotVenomFX.h"
 #include "FPSCombatHealthComponent.h"
@@ -122,7 +123,7 @@ void AM14MucusProjectile::Tick(float Dt)
     FCollisionObjectQueryParams Objects;
     Objects.AddObjectTypesToQuery(ECC_WorldStatic);Objects.AddObjectTypesToQuery(ECC_WorldDynamic);Objects.AddObjectTypesToQuery(ECC_Pawn);
     TArray<FHitResult> Contacts;
-    GetWorld()->SweepMultiByObjectType(Contacts,Start,End,FQuat::Identity,Objects,FCollisionShape::MakeSphere(9.5f),Query);
+    RangedAttackQuery::SweepObjects(GetWorld(), Shooter.Get(), Contacts,Start,End,FQuat::Identity,Objects,FCollisionShape::MakeSphere(9.5f),Query);
     const FHitResult* First=nullptr;
     for(const auto& Contact:Contacts)
     {

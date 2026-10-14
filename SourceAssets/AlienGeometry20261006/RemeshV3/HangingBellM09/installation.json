@@ -1,0 +1,61 @@
+{
+  "species": "HangingBellM09",
+  "complete": true,
+  "saved": [
+    "/Game/Monsters/RemeshV3/HangingBellM09/Textures/T_HangingBellM09_BaseColor.T_HangingBellM09_BaseColor",
+    "/Game/Monsters/RemeshV3/HangingBellM09/Textures/T_HangingBellM09_MetallicRoughness.T_HangingBellM09_MetallicRoughness",
+    "/Game/Monsters/RemeshV3/HangingBellM09/Textures/T_HangingBellM09_Normal.T_HangingBellM09_Normal",
+    "/Game/Monsters/RemeshV3/HangingBellM09/Materials/M_M09_Body_RemeshV3.M_M09_Body_RemeshV3",
+    "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09",
+    "/Game/Monsters/RemeshV3/HangingBellM09/SKEL_HangingBellM09_SoftCorpse.SKEL_HangingBellM09_SoftCorpse",
+    "/Game/Monsters/RemeshV3/HangingBellM09/CorpseMaterials/M_M09_Body_RemeshV3_4e51c6d4_Corpse.M_M09_Body_RemeshV3_4e51c6d4_Corpse",
+    "/Game/Monsters/RemeshV3/HangingBellM09/CorpseMaterials/M_M09_Body_b221fa66_Corpse.M_M09_Body_b221fa66_Corpse",
+    "/Game/Monsters/RemeshV3/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse",
+    "/Game/Monsters/RemeshV3/HangingBellM09/DA_HangingBellM09_SoftCorpse.DA_HangingBellM09_SoftCorpse"
+  ],
+  "tested": false,
+  "rendered": false,
+  "stage": "saved_and_bound",
+  "original_skeleton": "/Game/Monsters/HangingBellM09/V04/SK_M09_Skeleton.SK_M09_Skeleton",
+  "original_physics": "/Game/Monsters/HangingBellM09/V04/SK_M09_PhysicsAsset.SK_M09_PhysicsAsset",
+  "live_imported": true,
+  "mesh": "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09",
+  "offline_lods": [
+    {
+      "level": 0,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\HangingBellM09\\HangingBellM09_LOD0.fbx",
+      "triangles": 235218,
+      "vertices": 119469,
+      "morphs": []
+    },
+    {
+      "level": 1,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\HangingBellM09\\HangingBellM09_LOD1.fbx",
+      "triangles": 89357,
+      "vertices": 46389,
+      "morphs": []
+    },
+    {
+      "level": 2,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\HangingBellM09\\HangingBellM09_LOD2.fbx",
+      "triangles": 33022,
+      "vertices": 17945,
+      "morphs": []
+    },
+    {
+      "level": 3,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\HangingBellM09\\HangingBellM09_LOD3.fbx",
+      "triangles": 12160,
+      "vertices": 6855,
+      "morphs": []
+    }
+  ],
+  "import_seconds": 16.55,
+  "corpse": "/Game/Monsters/RemeshV3/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse",
+  "corpse_data": "/Game/Monsters/RemeshV3/HangingBellM09/DA_HangingBellM09_SoftCorpse.DA_HangingBellM09_SoftCorpse",
+  "corpse_lods": 1,
+  "animations_reimported": false,
+  "native_build_required": false,
+  "user_testing_pending": true,
+  "corpse_seconds": 6.62
+}

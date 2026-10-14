@@ -1,0 +1,94 @@
+{
+  "species": "LurkerM08",
+  "complete": true,
+  "saved": [
+    "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+    "/Game/Monsters/AnatomyRepairV5/LurkerM08/SKEL_LurkerM08_SoftCorpse.SKEL_LurkerM08_SoftCorpse",
+    "/Game/Monsters/AnatomyRepairV5/LurkerM08/CorpseMaterials/M_M08_InnerArch_4aa7e351_Corpse.M_M08_InnerArch_4aa7e351_Corpse",
+    "/Game/Monsters/AnatomyRepairV5/LurkerM08/CorpseMaterials/M_M08_Skin_RemeshV3_1af7ca6c_Corpse.M_M08_Skin_RemeshV3_1af7ca6c_Corpse",
+    "/Game/Monsters/AnatomyRepairV5/LurkerM08/CorpseMaterials/M_M08_Skin_ce4de6ba_Corpse.M_M08_Skin_ce4de6ba_Corpse",
+    "/Game/Monsters/AnatomyRepairV5/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse",
+    "/Game/Monsters/AnatomyRepairV5/LurkerM08/DA_LurkerM08_SoftCorpse.DA_LurkerM08_SoftCorpse"
+  ],
+  "tested": false,
+  "rendered": false,
+  "stage": "saved_and_bound",
+  "original_skeleton": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03_Skeleton.SK_LurkerM08_CanineV03_Skeleton",
+  "original_physics": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03_PhysicsAsset.SK_LurkerM08_CanineV03_PhysicsAsset",
+  "live_imported": true,
+  "mesh": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+  "offline_lods": [
+    {
+      "level": 0,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\LurkerM08\\LurkerM08_LOD0.fbx",
+      "triangles": 233324,
+      "vertices": 116657,
+      "parts": [
+        {
+          "name": "M08_AnatomyRepairV5",
+          "kind": "m08",
+          "triangles": 233324,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": []
+    },
+    {
+      "level": 1,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\LurkerM08\\LurkerM08_LOD1.fbx",
+      "triangles": 88500,
+      "vertices": 44245,
+      "parts": [
+        {
+          "name": "M08_AnatomyRepairV5",
+          "kind": "m08",
+          "triangles": 88500,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": []
+    },
+    {
+      "level": 2,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\LurkerM08\\LurkerM08_LOD2.fbx",
+      "triangles": 34500,
+      "vertices": 17245,
+      "parts": [
+        {
+          "name": "M08_AnatomyRepairV5",
+          "kind": "m08",
+          "triangles": 34500,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": []
+    },
+    {
+      "level": 3,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\LurkerM08\\LurkerM08_LOD3.fbx",
+      "triangles": 13798,
+      "vertices": 6894,
+      "parts": [
+        {
+          "name": "M08_AnatomyRepairV5",
+          "kind": "m08",
+          "triangles": 13798,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": []
+    }
+  ],
+  "import_seconds": 15.09,
+  "corpse": "/Game/Monsters/AnatomyRepairV5/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse",
+  "corpse_data": "/Game/Monsters/AnatomyRepairV5/LurkerM08/DA_LurkerM08_SoftCorpse.DA_LurkerM08_SoftCorpse",
+  "corpse_lods": 1,
+  "animations_reimported": false,
+  "native_build_required": false,
+  "user_testing_pending": true,
+  "corpse_seconds": 4.9
+}

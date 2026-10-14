@@ -1,0 +1,764 @@
+{
+  "species": "HangingBellM09",
+  "complete": true,
+  "saved": [
+    "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09",
+    "/Game/Monsters/AnatomyRepairV5/HangingBellM09/SKEL_HangingBellM09_SoftCorpse.SKEL_HangingBellM09_SoftCorpse",
+    "/Game/Monsters/AnatomyRepairV5/HangingBellM09/CorpseMaterials/M_M09_Body_b221fa66_Corpse.M_M09_Body_b221fa66_Corpse",
+    "/Game/Monsters/AnatomyRepairV5/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse",
+    "/Game/Monsters/AnatomyRepairV5/HangingBellM09/DA_HangingBellM09_SoftCorpse.DA_HangingBellM09_SoftCorpse"
+  ],
+  "tested": false,
+  "rendered": false,
+  "stage": "saved_and_bound",
+  "original_skeleton": "/Game/Monsters/HangingBellM09/V04/SK_M09_Skeleton.SK_M09_Skeleton",
+  "original_physics": "/Game/Monsters/HangingBellM09/V04/SK_M09_PhysicsAsset.SK_M09_PhysicsAsset",
+  "live_imported": true,
+  "mesh": "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09",
+  "offline_lods": [
+    {
+      "level": 0,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\HangingBellM09\\HangingBellM09_LOD0.fbx",
+      "triangles": 274092,
+      "vertices": 136940,
+      "parts": [
+        {
+          "name": "M09_Body_RootBand_V5",
+          "kind": "body",
+          "triangles": 45000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_L1_V5",
+          "kind": "membrane",
+          "triangles": 36068,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_L2_V5",
+          "kind": "membrane",
+          "triangles": 16562,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_L3_V5",
+          "kind": "membrane",
+          "triangles": 10548,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_R1_V5",
+          "kind": "membrane",
+          "triangles": 40604,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_R2_V5",
+          "kind": "membrane",
+          "triangles": 10612,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_R3_V5",
+          "kind": "membrane",
+          "triangles": 10628,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_EyeCrown_V5",
+          "kind": "crown",
+          "triangles": 28000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_SmallArm_L_V5",
+          "kind": "arm",
+          "triangles": 18000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_SmallArm_R_V5",
+          "kind": "arm",
+          "triangles": 18000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_01_V5",
+          "kind": "eye",
+          "triangles": 4502,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_02_V5",
+          "kind": "eye",
+          "triangles": 5804,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_03_V5",
+          "kind": "eye",
+          "triangles": 4842,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_04_V5",
+          "kind": "eye",
+          "triangles": 2958,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_05_V5",
+          "kind": "eye",
+          "triangles": 1966,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_01_V5",
+          "kind": "finger",
+          "triangles": 2000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_02_V5",
+          "kind": "finger",
+          "triangles": 2000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_03_V5",
+          "kind": "finger",
+          "triangles": 2000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_04_V5",
+          "kind": "finger",
+          "triangles": 1998,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_05_V5",
+          "kind": "finger",
+          "triangles": 2000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_01_V5",
+          "kind": "finger",
+          "triangles": 2000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_02_V5",
+          "kind": "finger",
+          "triangles": 2000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_03_V5",
+          "kind": "finger",
+          "triangles": 2000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_04_V5",
+          "kind": "finger",
+          "triangles": 2000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_05_V5",
+          "kind": "finger",
+          "triangles": 2000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": []
+    },
+    {
+      "level": 1,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\HangingBellM09\\HangingBellM09_LOD1.fbx",
+      "triangles": 123960,
+      "vertices": 61874,
+      "parts": [
+        {
+          "name": "M09_Body_RootBand_V5",
+          "kind": "body",
+          "triangles": 18000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_L1_V5",
+          "kind": "membrane",
+          "triangles": 15682,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_L2_V5",
+          "kind": "membrane",
+          "triangles": 8742,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_L3_V5",
+          "kind": "membrane",
+          "triangles": 4586,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_R1_V5",
+          "kind": "membrane",
+          "triangles": 17654,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_R2_V5",
+          "kind": "membrane",
+          "triangles": 4614,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_R3_V5",
+          "kind": "membrane",
+          "triangles": 4622,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_EyeCrown_V5",
+          "kind": "crown",
+          "triangles": 12000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_SmallArm_L_V5",
+          "kind": "arm",
+          "triangles": 9000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_SmallArm_R_V5",
+          "kind": "arm",
+          "triangles": 9000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_01_V5",
+          "kind": "eye",
+          "triangles": 2250,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_02_V5",
+          "kind": "eye",
+          "triangles": 2902,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_03_V5",
+          "kind": "eye",
+          "triangles": 2420,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_04_V5",
+          "kind": "eye",
+          "triangles": 1478,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_05_V5",
+          "kind": "eye",
+          "triangles": 982,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_01_V5",
+          "kind": "finger",
+          "triangles": 1000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_02_V5",
+          "kind": "finger",
+          "triangles": 1000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_03_V5",
+          "kind": "finger",
+          "triangles": 1012,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_04_V5",
+          "kind": "finger",
+          "triangles": 998,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_05_V5",
+          "kind": "finger",
+          "triangles": 1000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_01_V5",
+          "kind": "finger",
+          "triangles": 1000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_02_V5",
+          "kind": "finger",
+          "triangles": 1000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_03_V5",
+          "kind": "finger",
+          "triangles": 1018,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_04_V5",
+          "kind": "finger",
+          "triangles": 1000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_05_V5",
+          "kind": "finger",
+          "triangles": 1000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": []
+    },
+    {
+      "level": 2,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\HangingBellM09\\HangingBellM09_LOD2.fbx",
+      "triangles": 64650,
+      "vertices": 32219,
+      "parts": [
+        {
+          "name": "M09_Body_RootBand_V5",
+          "kind": "body",
+          "triangles": 7500,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_L1_V5",
+          "kind": "membrane",
+          "triangles": 6898,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_L2_V5",
+          "kind": "membrane",
+          "triangles": 8742,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_L3_V5",
+          "kind": "membrane",
+          "triangles": 2016,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_R1_V5",
+          "kind": "membrane",
+          "triangles": 7768,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_R2_V5",
+          "kind": "membrane",
+          "triangles": 3240,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_R3_V5",
+          "kind": "membrane",
+          "triangles": 2032,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_EyeCrown_V5",
+          "kind": "crown",
+          "triangles": 5500,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_SmallArm_L_V5",
+          "kind": "arm",
+          "triangles": 4000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_SmallArm_R_V5",
+          "kind": "arm",
+          "triangles": 4000,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_01_V5",
+          "kind": "eye",
+          "triangles": 1126,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_02_V5",
+          "kind": "eye",
+          "triangles": 1450,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_03_V5",
+          "kind": "eye",
+          "triangles": 1210,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_04_V5",
+          "kind": "eye",
+          "triangles": 740,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_05_V5",
+          "kind": "eye",
+          "triangles": 492,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_01_V5",
+          "kind": "finger",
+          "triangles": 500,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_02_V5",
+          "kind": "finger",
+          "triangles": 928,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_03_V5",
+          "kind": "finger",
+          "triangles": 1012,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_04_V5",
+          "kind": "finger",
+          "triangles": 904,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_05_V5",
+          "kind": "finger",
+          "triangles": 500,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_01_V5",
+          "kind": "finger",
+          "triangles": 734,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_02_V5",
+          "kind": "finger",
+          "triangles": 952,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_03_V5",
+          "kind": "finger",
+          "triangles": 1018,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_04_V5",
+          "kind": "finger",
+          "triangles": 888,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_05_V5",
+          "kind": "finger",
+          "triangles": 500,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": []
+    },
+    {
+      "level": 3,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\HangingBellM09\\HangingBellM09_LOD3.fbx",
+      "triangles": 52030,
+      "vertices": 25909,
+      "parts": [
+        {
+          "name": "M09_Body_RootBand_V5",
+          "kind": "body",
+          "triangles": 7178,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_L1_V5",
+          "kind": "membrane",
+          "triangles": 5820,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_L2_V5",
+          "kind": "membrane",
+          "triangles": 8742,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_L3_V5",
+          "kind": "membrane",
+          "triangles": 1148,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_R1_V5",
+          "kind": "membrane",
+          "triangles": 6916,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_R2_V5",
+          "kind": "membrane",
+          "triangles": 3240,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_Membrane_R3_V5",
+          "kind": "membrane",
+          "triangles": 1184,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_EyeCrown_V5",
+          "kind": "crown",
+          "triangles": 3398,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_SmallArm_L_V5",
+          "kind": "arm",
+          "triangles": 1798,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_SmallArm_R_V5",
+          "kind": "arm",
+          "triangles": 1800,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_01_V5",
+          "kind": "eye",
+          "triangles": 674,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_02_V5",
+          "kind": "eye",
+          "triangles": 870,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_03_V5",
+          "kind": "eye",
+          "triangles": 726,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_04_V5",
+          "kind": "eye",
+          "triangles": 444,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_MainEye_05_V5",
+          "kind": "eye",
+          "triangles": 300,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_01_V5",
+          "kind": "finger",
+          "triangles": 416,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_02_V5",
+          "kind": "finger",
+          "triangles": 928,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_03_V5",
+          "kind": "finger",
+          "triangles": 1012,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_04_V5",
+          "kind": "finger",
+          "triangles": 904,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_L_05_V5",
+          "kind": "finger",
+          "triangles": 494,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_01_V5",
+          "kind": "finger",
+          "triangles": 734,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_02_V5",
+          "kind": "finger",
+          "triangles": 952,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_03_V5",
+          "kind": "finger",
+          "triangles": 1018,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_04_V5",
+          "kind": "finger",
+          "triangles": 888,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        },
+        {
+          "name": "M09_HookFinger_R_05_V5",
+          "kind": "finger",
+          "triangles": 446,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": []
+    }
+  ],
+  "import_seconds": 24.58,
+  "corpse": "/Game/Monsters/AnatomyRepairV5/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse",
+  "corpse_data": "/Game/Monsters/AnatomyRepairV5/HangingBellM09/DA_HangingBellM09_SoftCorpse.DA_HangingBellM09_SoftCorpse",
+  "corpse_lods": 1,
+  "animations_reimported": false,
+  "native_build_required": false,
+  "user_testing_pending": true,
+  "corpse_seconds": 5.46
+}

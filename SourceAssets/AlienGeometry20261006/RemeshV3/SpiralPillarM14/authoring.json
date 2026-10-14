@@ -1,0 +1,163 @@
+{
+  "species": "SpiralPillarM14",
+  "complete": true,
+  "ue_imported": true,
+  "tested": false,
+  "input_origin": "User remeshed the original Meshy source",
+  "materials": {
+    "R3_M14_Body": {
+      "source_material_name": "M14_Body",
+      "new_texture": true
+    },
+    "R3_M14_Mouth": {
+      "source_material_name": "M14_Mouth",
+      "new_texture": true
+    },
+    "R3_M14_Membrane": {
+      "source_material_name": "M14_Membrane",
+      "new_texture": true
+    },
+    "R3_M14_Metal": {
+      "source_material_name": "M14_Metal",
+      "new_texture": true
+    }
+  },
+  "lods": [
+    {
+      "level": 0,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\SpiralPillarM14_LOD0.fbx",
+      "triangles": 198345,
+      "vertices": 174953,
+      "morphs": [
+        "M14_DeathSoft_01",
+        "M14_DeathSoft_02",
+        "M14_DeathSoft_03",
+        "M14_DeathSoft_04",
+        "M14_DeathSoft_05",
+        "M14_DeathSoft_06",
+        "M14_DeathSoft_07",
+        "M14_DeathSoft_08",
+        "M14_DeathSoft_09"
+      ]
+    },
+    {
+      "level": 1,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\SpiralPillarM14_LOD1.fbx",
+      "triangles": 75371,
+      "vertices": 93401,
+      "morphs": [
+        "M14_DeathSoft_01",
+        "M14_DeathSoft_02",
+        "M14_DeathSoft_03",
+        "M14_DeathSoft_04",
+        "M14_DeathSoft_05",
+        "M14_DeathSoft_06",
+        "M14_DeathSoft_07",
+        "M14_DeathSoft_08",
+        "M14_DeathSoft_09"
+      ]
+    },
+    {
+      "level": 2,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\SpiralPillarM14_LOD2.fbx",
+      "triangles": 27768,
+      "vertices": 50006,
+      "morphs": [
+        "M14_DeathSoft_01",
+        "M14_DeathSoft_02",
+        "M14_DeathSoft_03",
+        "M14_DeathSoft_04",
+        "M14_DeathSoft_05",
+        "M14_DeathSoft_06",
+        "M14_DeathSoft_07",
+        "M14_DeathSoft_08",
+        "M14_DeathSoft_09"
+      ]
+    },
+    {
+      "level": 3,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\SpiralPillarM14_LOD3.fbx",
+      "triangles": 9917,
+      "vertices": 33563,
+      "morphs": [
+        "M14_DeathSoft_01",
+        "M14_DeathSoft_02",
+        "M14_DeathSoft_03",
+        "M14_DeathSoft_04",
+        "M14_DeathSoft_05",
+        "M14_DeathSoft_06",
+        "M14_DeathSoft_07",
+        "M14_DeathSoft_08",
+        "M14_DeathSoft_09"
+      ]
+    }
+  ],
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpiralPillarM14Meshy20261004\\ProductionV15\\Authoring\\M14_SupportSkin_v15.blend",
+  "input": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\Input\\Meshy_AI_Veiled_Maw_M_14_1006155759_texture.glb",
+  "input_sha256": "f5100305c8d4a1f589560e660798ad0c4c0f8a56f17d986a43025af522b0d05a",
+  "input_triangles": 198345,
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\Textures\\BaseColor.png",
+    "MetallicRoughness": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\Textures\\MetallicRoughness.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\Textures\\Normal.png"
+  },
+  "retained_design": [
+    "V15 support skin weights",
+    "nine existing death shape keys",
+    "four material regions",
+    "49-bone production skeleton"
+  ],
+  "seconds": 19.79,
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\SpiralPillarM14_RemeshV3.blend",
+  "bones": [
+    "root",
+    "base",
+    "spine_01",
+    "spine_02",
+    "spine_03",
+    "spine_04",
+    "spine_05",
+    "mem_L_0",
+    "mem_L_1",
+    "mem_L_2",
+    "sac_L",
+    "chain_L_0",
+    "chain_L_1",
+    "chain_L_2",
+    "mem_R_0",
+    "mem_R_1",
+    "mem_R_2",
+    "sac_R",
+    "chain_R_0",
+    "chain_R_1",
+    "chain_R_2",
+    "restraint",
+    "maw",
+    "mouth_socket",
+    "jaw_00",
+    "jaw_01",
+    "jaw_02",
+    "jaw_03",
+    "jaw_04",
+    "jaw_05",
+    "jaw_06",
+    "jaw_07",
+    "rootfan_00",
+    "roottoe_00",
+    "rootfan_01",
+    "roottoe_01",
+    "rootfan_02",
+    "roottoe_02",
+    "rootfan_03",
+    "roottoe_03",
+    "rootfan_04",
+    "roottoe_04",
+    "rootfan_05",
+    "roottoe_05",
+    "rootfan_06",
+    "roottoe_06",
+    "rootfan_07",
+    "roottoe_07"
+  ],
+  "animations_reauthored": false
+}

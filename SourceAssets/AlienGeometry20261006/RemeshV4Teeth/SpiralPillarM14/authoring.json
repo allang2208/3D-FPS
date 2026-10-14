@@ -1,0 +1,242 @@
+{
+  "species": "SpiralPillarM14",
+  "revision": "TeethRemeshV4",
+  "complete": true,
+  "ue_imported": true,
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SpiralPillarM14Meshy20261004\\ProductionV15\\Authoring\\M14_SupportSkin_v15.blend",
+  "reduced_body": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\SpiralPillarM14_RemeshV3.blend",
+  "lods": [
+    {
+      "level": 0,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV4Teeth\\SpiralPillarM14\\SpiralPillarM14_LOD0.fbx",
+      "triangles": 251981,
+      "vertices": 125621,
+      "mouth_triangles": 60000,
+      "seams": [
+        {
+          "source_border": 726,
+          "body_border": 250,
+          "center_distance_m": 0.01752675697207451
+        },
+        {
+          "source_border": 183,
+          "body_border": 35,
+          "center_distance_m": 0.016724158078432083
+        },
+        {
+          "source_border": 53,
+          "body_border": 19,
+          "center_distance_m": 0.014500218443572521
+        }
+      ],
+      "morphs": [
+        "M14_DeathSoft_01",
+        "M14_DeathSoft_02",
+        "M14_DeathSoft_03",
+        "M14_DeathSoft_04",
+        "M14_DeathSoft_05",
+        "M14_DeathSoft_06",
+        "M14_DeathSoft_07",
+        "M14_DeathSoft_08",
+        "M14_DeathSoft_09"
+      ]
+    },
+    {
+      "level": 1,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV4Teeth\\SpiralPillarM14\\SpiralPillarM14_LOD1.fbx",
+      "triangles": 101737,
+      "vertices": 50499,
+      "mouth_triangles": 28000,
+      "seams": [
+        {
+          "source_border": 726,
+          "body_border": 250,
+          "center_distance_m": 0.01752675697207451
+        },
+        {
+          "source_border": 183,
+          "body_border": 35,
+          "center_distance_m": 0.016724158078432083
+        },
+        {
+          "source_border": 53,
+          "body_border": 19,
+          "center_distance_m": 0.014500218443572521
+        }
+      ],
+      "morphs": [
+        "M14_DeathSoft_01",
+        "M14_DeathSoft_02",
+        "M14_DeathSoft_03",
+        "M14_DeathSoft_04",
+        "M14_DeathSoft_05",
+        "M14_DeathSoft_06",
+        "M14_DeathSoft_07",
+        "M14_DeathSoft_08",
+        "M14_DeathSoft_09"
+      ]
+    },
+    {
+      "level": 2,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV4Teeth\\SpiralPillarM14\\SpiralPillarM14_LOD2.fbx",
+      "triangles": 41965,
+      "vertices": 20613,
+      "mouth_triangles": 14000,
+      "seams": [
+        {
+          "source_border": 726,
+          "body_border": 250,
+          "center_distance_m": 0.01752675697207451
+        },
+        {
+          "source_border": 183,
+          "body_border": 35,
+          "center_distance_m": 0.016724204644560814
+        },
+        {
+          "source_border": 53,
+          "body_border": 19,
+          "center_distance_m": 0.014500260353088379
+        }
+      ],
+      "morphs": [
+        "M14_DeathSoft_01",
+        "M14_DeathSoft_02",
+        "M14_DeathSoft_03",
+        "M14_DeathSoft_04",
+        "M14_DeathSoft_05",
+        "M14_DeathSoft_06",
+        "M14_DeathSoft_07",
+        "M14_DeathSoft_08",
+        "M14_DeathSoft_09"
+      ]
+    },
+    {
+      "level": 3,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV4Teeth\\SpiralPillarM14\\SpiralPillarM14_LOD3.fbx",
+      "triangles": 17801,
+      "vertices": 8531,
+      "mouth_triangles": 7000,
+      "seams": [
+        {
+          "source_border": 726,
+          "body_border": 250,
+          "center_distance_m": 0.01752675324678421
+        },
+        {
+          "source_border": 183,
+          "body_border": 35,
+          "center_distance_m": 0.016724158078432083
+        },
+        {
+          "source_border": 53,
+          "body_border": 19,
+          "center_distance_m": 0.014500260353088379
+        }
+      ],
+      "morphs": [
+        "M14_DeathSoft_01",
+        "M14_DeathSoft_02",
+        "M14_DeathSoft_03",
+        "M14_DeathSoft_04",
+        "M14_DeathSoft_05",
+        "M14_DeathSoft_06",
+        "M14_DeathSoft_07",
+        "M14_DeathSoft_08",
+        "M14_DeathSoft_09"
+      ]
+    }
+  ],
+  "tested": false,
+  "animations_reauthored": false,
+  "repair": "Restore full tooth shells, roots and oral surface; stitched fixed borders",
+  "original_triangles": 1936942,
+  "previous_triangles": 198345,
+  "removed_damaged_triangles": 7590,
+  "source_oral_triangles": 137490,
+  "materials": {
+    "R3_M14_Body": {
+      "source_material_name": "M14_Body",
+      "new_texture": true
+    },
+    "R3_M14_Mouth": {
+      "source_material_name": "M14_Mouth",
+      "new_texture": true
+    },
+    "R3_M14_Membrane": {
+      "source_material_name": "M14_Membrane",
+      "new_texture": true
+    },
+    "R3_M14_Metal": {
+      "source_material_name": "M14_Metal",
+      "new_texture": true
+    },
+    "Kept_M14_Mouth": {
+      "source_material_name": "M14_Mouth",
+      "new_texture": false
+    }
+  },
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\Textures\\BaseColor.png",
+    "MetallicRoughness": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\Textures\\MetallicRoughness.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\SpiralPillarM14\\Textures\\Normal.png"
+  },
+  "retained_design": [
+    "V15 49 bone production rig",
+    "nine existing death shape keys",
+    "V21 bite and slam animations unchanged",
+    "complete tooth shells and oral cavity"
+  ],
+  "seconds": 23.4,
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV4Teeth\\SpiralPillarM14\\SpiralPillarM14_TeethRemeshV4.blend",
+  "bones": [
+    "root",
+    "base",
+    "spine_01",
+    "spine_02",
+    "spine_03",
+    "spine_04",
+    "spine_05",
+    "mem_L_0",
+    "mem_L_1",
+    "mem_L_2",
+    "sac_L",
+    "chain_L_0",
+    "chain_L_1",
+    "chain_L_2",
+    "mem_R_0",
+    "mem_R_1",
+    "mem_R_2",
+    "sac_R",
+    "chain_R_0",
+    "chain_R_1",
+    "chain_R_2",
+    "restraint",
+    "maw",
+    "mouth_socket",
+    "jaw_00",
+    "jaw_01",
+    "jaw_02",
+    "jaw_03",
+    "jaw_04",
+    "jaw_05",
+    "jaw_06",
+    "jaw_07",
+    "rootfan_00",
+    "roottoe_00",
+    "rootfan_01",
+    "roottoe_01",
+    "rootfan_02",
+    "roottoe_02",
+    "rootfan_03",
+    "roottoe_03",
+    "rootfan_04",
+    "roottoe_04",
+    "rootfan_05",
+    "roottoe_05",
+    "rootfan_06",
+    "roottoe_06",
+    "rootfan_07",
+    "roottoe_07"
+  ]
+}

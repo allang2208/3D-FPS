@@ -1,4 +1,5 @@
 #include "HangingBellM09.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "M09GazeParameters.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -15,7 +16,7 @@
 
 namespace
 {
-float Ease(float T){T=FMath::Clamp(T,0.f,1.f);return T*T*(3.f-2.f*T);}
+float M09GazeEase(float T){T=FMath::Clamp(T,0.f,1.f);return T*T*(3.f-2.f*T);}
 const FName EyeNames[M09Gaze::Eyes]={TEXT("eye_01"),TEXT("eye_02"),TEXT("eye_03"),TEXT("eye_04"),TEXT("eye_05")};
 const float IrisRadius[M09Gaze::Eyes]={4.2f,4.f,3.1f,3.2f,2.6f};
 FTransform Ribbon(FVector A,FVector B,float Radius)
@@ -109,8 +110,8 @@ void AHangingBellM09::QueryGazeBeam(FVector& From,FVector& End,FHitResult& Hit) 
  FHitResult Cover,Pawn;
  // Cover may block Visibility without blocking Pawn. Use the same nearest
  // blocker for the visible ray and all three damage samples.
- const bool WallHit=GetWorld()->SweepSingleByChannel(Cover,From,End,FQuat::Identity,ECC_Visibility,Shape,Q);
- const bool PawnHit=GetWorld()->SweepSingleByChannel(Pawn,From,End,FQuat::Identity,ECC_Pawn,Shape,Q);
+ const bool WallHit=RangedAttackQuery::SweepSingle(GetWorld(), this, Cover,From,End,FQuat::Identity,ECC_Visibility,Shape,Q);
+ const bool PawnHit=RangedAttackQuery::SweepSingle(GetWorld(), this, Pawn,From,End,FQuat::Identity,ECC_Pawn,Shape,Q);
  if(WallHit)Hit=Cover;
  if(PawnHit&&(!WallHit||Pawn.Distance<Cover.Distance))Hit=Pawn;
  if(Hit.bBlockingHit)End=Hit.Location;
@@ -128,12 +129,12 @@ void AHangingBellM09::UpdateGazeFX()
  if(State!=EM09State::Gaze)return;
  const float T=StateSeconds;
  const bool Firing=T>=M09Gaze::FirstPulse&&T<M09Gaze::FireEnd;
- const float Fade=1.f-Ease((T-1.92f)/.55f);
- const float Energy=Ease(T/.85f)*Fade;
- const float Discharge=Firing?(.65f+.35f*Ease((T-M09Gaze::FirstPulse)/.035f))*(1.f-Ease((T-1.76f)/.09f)):0.f;
- const float GatherProgress=Ease((T-.08f)/(M09Gaze::FirstPulse-.08f));
+ const float Fade=1.f-M09GazeEase((T-1.92f)/.55f);
+ const float Energy=M09GazeEase(T/.85f)*Fade;
+ const float Discharge=Firing?(.65f+.35f*M09GazeEase((T-M09Gaze::FirstPulse)/.035f))*(1.f-M09GazeEase((T-1.76f)/.09f)):0.f;
+ const float GatherProgress=M09GazeEase((T-.08f)/(M09Gaze::FirstPulse-.08f));
  const float GatherFocus=T<M09Gaze::FirstPulse?FMath::Pow(GatherProgress,6.f):0.f;
- const float ReleaseFlash=Firing?1.f-Ease((T-M09Gaze::FirstPulse)/.10f):0.f;
+ const float ReleaseFlash=Firing?1.f-M09GazeEase((T-M09Gaze::FirstPulse)/.10f):0.f;
  const auto* PC=GetWorld()->GetFirstPlayerController();
  const bool ChargeInViewRange=PC&&PC->PlayerCameraManager&&
   FVector::DistSquared(PC->PlayerCameraManager->GetCameraLocation(),GetActorLocation())<FMath::Square(3000.f);
@@ -142,7 +143,7 @@ void AHangingBellM09::UpdateGazeFX()
  const float Length=Delta.Size();
  const float MergeDistance=FMath::Min(24.f,Length*.35f);
  const FVector Merge=From+Direction*MergeDistance;
- const float Preview=Ease((T-.30f)/.25f)*.16f;
+ const float Preview=M09GazeEase((T-.30f)/.25f)*.16f;
  const bool BeamVisible=T>=.30f&&T<M09Gaze::FireEnd&&Length>1.f;
  Beam->SetVisibility(BeamVisible);
  if(BeamVisible)Beam->SetWorldTransform(Ribbon(Merge,End,Firing?M09Gaze::Radius:2.8f));
@@ -165,7 +166,7 @@ void AHangingBellM09::UpdateGazeFX()
   const FTransform EyeFrame=GetMesh()->GetSocketTransform(EyeNames[I]);
   const FVector Normal=EyeFrame.TransformVectorNoScale(GazeEyeLocalForward[I]).GetSafeNormal();
   const FVector Iris=EyeFrame.GetLocation()+Normal*2.f;
-  const float EyeAlpha=Ease((T-.06f-I*.055f)/.38f);
+  const float EyeAlpha=M09GazeEase((T-.06f-I*.055f)/.38f);
   const float Radius=IrisRadius[I]*(.82f+.18f*Energy);
   GazeIrises->UpdateInstanceTransform(I,FTransform(FRotationMatrix::MakeFromZ(Normal).ToQuat(),Iris,FVector(Radius)),true,false,true);
   GazeIrises->SetCustomDataValue(I,0,EyeAlpha,false);
@@ -180,7 +181,7 @@ void AHangingBellM09::UpdateGazeFX()
     // the same release time; auxiliary eyes remain smaller than the main eye.
     const float Scale=I==0?.90f:.38f;
     Gather->SetWorldTransform(FTransform(FRotationMatrix::MakeFromX(Normal).ToQuat(),Iris,FVector(Scale)));
-    Gather->SetVariableFloat(TEXT("User.Charge"),Ease((T-Begin)/(M09Gaze::FirstPulse-Begin)));
+    Gather->SetVariableFloat(TEXT("User.Charge"),M09GazeEase((T-Begin)/(M09Gaze::FirstPulse-Begin)));
     Gather->SetVisibility(true);
     if(!Gather->IsActive()){Gather->SetComponentTickEnabled(true);Gather->Activate(true);}
    }
@@ -199,7 +200,7 @@ void AHangingBellM09::UpdateGazeFX()
    const FVector B=FMath::Square(1.f-U)*Iris+2.f*(1.f-U)*U*Control+U*U*Merge;
    const int32 Index=I*M09Gaze::SegmentsPerEye+Segment;
    GazeFilaments->UpdateInstanceTransform(Index,Ribbon(A,B,Firing?1.7f:1.15f),true,false,true);
-   GazeFilaments->SetCustomDataValue(Index,0,EyeAlpha*Ease((T-.22f)/.4f)*(Firing?1.f:.32f),false);
+   GazeFilaments->SetCustomDataValue(Index,0,EyeAlpha*M09GazeEase((T-.22f)/.4f)*(Firing?1.f:.32f),false);
    A=B;
   }
  }

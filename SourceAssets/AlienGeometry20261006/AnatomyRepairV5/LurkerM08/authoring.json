@@ -1,0 +1,194 @@
+{
+  "species": "LurkerM08",
+  "revision": "AnatomyRepairV5",
+  "complete": true,
+  "ue_imported": true,
+  "tested": false,
+  "rendered": false,
+  "animations_reauthored": false,
+  "materials": {
+    "R3_Material_0": {
+      "source_material_name": "Material_0",
+      "new_texture": true
+    },
+    "Kept_M08_RebuiltInnerArch_PBR": {
+      "source_material_name": "M08_RebuiltInnerArch_PBR",
+      "new_texture": false
+    },
+    "Repair_M08_OriginalSkin": {
+      "source_material_name": "Material_0",
+      "new_texture": false
+    }
+  },
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\Textures\\BaseColor.png",
+    "MetallicRoughness": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\Textures\\MetallicRoughness.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\Textures\\Normal.png"
+  },
+  "lods": [
+    {
+      "level": 0,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\LurkerM08\\LurkerM08_LOD0.fbx",
+      "triangles": 233324,
+      "vertices": 116657,
+      "parts": [
+        {
+          "name": "M08_AnatomyRepairV5",
+          "kind": "m08",
+          "triangles": 233324,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": []
+    },
+    {
+      "level": 1,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\LurkerM08\\LurkerM08_LOD1.fbx",
+      "triangles": 88500,
+      "vertices": 44245,
+      "parts": [
+        {
+          "name": "M08_AnatomyRepairV5",
+          "kind": "m08",
+          "triangles": 88500,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": []
+    },
+    {
+      "level": 2,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\LurkerM08\\LurkerM08_LOD2.fbx",
+      "triangles": 34500,
+      "vertices": 17245,
+      "parts": [
+        {
+          "name": "M08_AnatomyRepairV5",
+          "kind": "m08",
+          "triangles": 34500,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": []
+    },
+    {
+      "level": 3,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\LurkerM08\\LurkerM08_LOD3.fbx",
+      "triangles": 13798,
+      "vertices": 6894,
+      "parts": [
+        {
+          "name": "M08_AnatomyRepairV5",
+          "kind": "m08",
+          "triangles": 13798,
+          "boundary_edges": 0,
+          "over_shared_edges": 0
+        }
+      ],
+      "morphs": []
+    }
+  ],
+  "construction": [
+    {
+      "object": "M08_AnatomyRepairV5",
+      "operation": "close_local_defects",
+      "before": {
+        "triangles": 233442,
+        "boundary_edges": 63,
+        "over_shared_edges": 32
+      },
+      "after": {
+        "triangles": 233324,
+        "boundary_edges": 0,
+        "over_shared_edges": 0
+      },
+      "removed_local_vertices": 99,
+      "new_faces": 211
+    }
+  ],
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV3\\LurkerM08\\LurkerM08_RemeshV3.blend",
+  "repair_guide": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Monsters\\LurkerM08\\CanineRigV03_20261004\\M08_CanineRig_Skin_V03.blend",
+  "repairs": [
+    "Repaired lower tooth and foreclaw openings against original source surface",
+    "Preserved V3 dorsal bore and inner-wall UV atlas",
+    "Head/teeth reduced separately from the body with protected interface",
+    "Retained original 70 bone interface"
+  ],
+  "seconds": 11.48,
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\LurkerM08\\LurkerM08_AnatomyRepairV5.blend",
+  "bones": [
+    "root",
+    "pelvis",
+    "spine_01",
+    "spine_02",
+    "chest",
+    "neck",
+    "head",
+    "jaw",
+    "Wolf_-Head",
+    "scapula.L",
+    "upperarm.L",
+    "forearm.L",
+    "hand.L",
+    "finger1_01.L",
+    "finger1_02.L",
+    "finger2_01.L",
+    "finger2_02.L",
+    "finger3_01.L",
+    "finger3_02.L",
+    "finger4_01.L",
+    "finger4_02.L",
+    "finger5_01.L",
+    "finger5_02.L",
+    "forearm_twist.L",
+    "upperarm_twist.L",
+    "elbow_support.L",
+    "arch_front.L",
+    "arch_front_mid.L",
+    "scapula.R",
+    "upperarm.R",
+    "forearm.R",
+    "hand.R",
+    "finger1_01.R",
+    "finger1_02.R",
+    "finger2_01.R",
+    "finger2_02.R",
+    "finger3_01.R",
+    "finger3_02.R",
+    "finger4_01.R",
+    "finger4_02.R",
+    "finger5_01.R",
+    "finger5_02.R",
+    "forearm_twist.R",
+    "upperarm_twist.R",
+    "elbow_support.R",
+    "arch_front.R",
+    "arch_front_mid.R",
+    "arch_crown",
+    "arch_crown.L",
+    "arch_crown.R",
+    "thigh.L",
+    "calf.L",
+    "ankle.L",
+    "hindfoot.L",
+    "toe1.L",
+    "toe2.L",
+    "toe3.L",
+    "knee_support.L",
+    "arch_rear.L",
+    "arch_rear_mid.L",
+    "thigh.R",
+    "calf.R",
+    "ankle.R",
+    "hindfoot.R",
+    "toe1.R",
+    "toe2.R",
+    "toe3.R",
+    "knee_support.R",
+    "arch_rear.R",
+    "arch_rear_mid.R"
+  ]
+}

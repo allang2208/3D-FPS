@@ -1,4 +1,7 @@
 #include "HandBrainMonster.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "GameFramework/GameStateBase.h"
+#include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
@@ -47,7 +50,7 @@ AHandBrainMonster::AHandBrainMonster(const FObjectInitializer& ObjectInitializer
  : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName)
     .SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
- Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+ Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
  CorpseRagdoll=CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
  CorpseRagdoll->Rig=EMonsterCorpseRig::HandBrain;
  Combat->StaggerDuration=.6f;
@@ -72,16 +75,17 @@ AHandBrainMonster::AHandBrainMonster(const FObjectInitializer& ObjectInitializer
 void AHandBrainMonster::OnConstruction(const FTransform& T){Super::OnConstruction(T);if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);}
 void AHandBrainMonster::BeginPlay()
 {
- Super::BeginPlay();MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;Home=GetActorLocation();if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);
+ Super::BeginPlay();if(HasAuthority()){MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;}Home=GetActorLocation();if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);
  GetCharacterMovement()->MaxWalkSpeed=WalkSpeed*FMath::Max(.05f,MoveSpeedMultiplier);
  if(!VisualMesh||!IdleClip||!MoveClip||!SlamClip||!HowlClip||!DeathClip||!GetMesh()->GetPhysicsAsset()){UE_LOG(LogTemp,Error,TEXT("HANDBRAIN_ASSET_MISSING %s"),*GetName());SetActorTickEnabled(false);return;}
  if(GroundRingMaterial){SlamMaterial=UMaterialInstanceDynamic::Create(GroundRingMaterial,this);HowlMaterial=UMaterialInstanceDynamic::Create(GroundRingMaterial,this);SlamRing->SetMaterial(0,SlamMaterial);HowlRing->SetMaterial(0,HowlMaterial);}
- SetState(EHandBrainState::Idle);UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_READY hp=%.0f home=%s physics=%s"),Health,*Home.ToString(),*GetMesh()->GetPhysicsAsset()->GetName());
+ SetState(HasAuthority()?EHandBrainState::Idle:State);UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_READY hp=%.0f home=%s physics=%s"),Health,*Home.ToString(),*GetMesh()->GetPhysicsAsset()->GetName());
 }
 void AHandBrainMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-    DOREPLIFETIME(AHandBrainMonster, State);
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AHandBrainMonster,NetworkStateStarted);
+    DOREPLIFETIME(AHandBrainMonster,Health);DOREPLIFETIME(AHandBrainMonster,MaxHealth);
+    DOREPLIFETIME(AHandBrainMonster, State);DOREPLIFETIME(AHandBrainMonster,SlamCenter);
 }
 void AHandBrainMonster::OnRep_State()
 {
@@ -90,7 +94,9 @@ void AHandBrainMonster::OnRep_State()
 }
 void AHandBrainMonster::SetState(EHandBrainState New)
 {
- State=New;StateSeconds=0;SlamRing->SetVisibility(false);HowlRing->SetVisibility(false);
+ if(HasAuthority())NetworkStateStarted=GetWorld()->GetTimeSeconds();
+ State=New;StateSeconds=0;if(!HasAuthority()&&New==EHandBrainState::Slam)bSlamConsumed=false;
+ if(!HasAuthority()&&New==EHandBrainState::Howl){Voice->SetSound(HowlSound);Voice->Play();}SlamRing->SetVisibility(false);HowlRing->SetVisibility(false);
  if(New!=EHandBrainState::Howl)Voice->Stop();
  if((New==EHandBrainState::Dying||New==EHandBrainState::Ragdoll)&&CorpseRagdoll->TryStartSoftDeath(GetMesh()))return;
  UAnimSequence* Clip=New==EHandBrainState::Slam?SlamClip:New==EHandBrainState::Howl?HowlClip:New==EHandBrainState::Dying?DeathClip:(New==EHandBrainState::Chase||New==EHandBrainState::Returning)?MoveClip:IdleClip;
@@ -108,7 +114,7 @@ FVector AHandBrainMonster::GroundPoint(FVector P) const
 bool AHandBrainMonster::CanSee(const AActor* A,FVector From) const
 {
  if(!IsValid(A))return false;FHitResult H;FCollisionQueryParams Q(SCENE_QUERY_STAT(HandBrainSight),false,this);Q.AddIgnoredActor(A);
- return !GetWorld()->LineTraceSingleByChannel(H,From,A->GetActorLocation(),ECC_Visibility,Q);
+ return !RangedAttackQuery::LineTraceSingle(GetWorld(), this, H,From,A->GetActorLocation(),ECC_Visibility,Q);
 }
 bool AHandBrainMonster::CanSlamTarget(const APawn* P) const
 {
@@ -180,7 +186,22 @@ void AHandBrainMonster::DealHowl()
 }
 void AHandBrainMonster::Tick(float Dt)
 {
- Super::Tick(Dt);if(!HasAuthority())return;StateSeconds+=Dt;SlamLeft=FMath::Max(0.f,SlamLeft-Dt);HowlLeft=FMath::Max(0.f,HowlLeft-Dt);
+ Super::Tick(Dt);if(!HasAuthority())
+ {
+  const auto* GS=GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds(); StateSeconds=FMath::Max(0.,Now-NetworkStateStarted);
+  if(State==EHandBrainState::Slam)
+  {
+   if(SlamClip)GetMesh()->SetPosition(FMath::Min(StateSeconds,2.f),false);
+   ShowRing(SlamRing,SlamCenter,SlamRadius,StateSeconds<1?FLinearColor(1,.12f,.015f):FLinearColor(1,.75f,.2f),StateSeconds<1?.8f:FMath::Max(0.f,1-(StateSeconds-1)*3));
+   if(!bSlamConsumed&&StateSeconds>=1.f){bSlamConsumed=true;if(SlamSound)UGameplayStatics::PlaySoundAtLocation(this,SlamSound,SlamCenter,.9f);}
+  }
+  else if(State==EHandBrainState::Howl)
+  {
+   if(HowlClip)GetMesh()->SetPosition(FMath::Min(StateSeconds,3.f),false);
+   const float Pulse=FMath::Fmod(StateSeconds,.5f)/.5f;ShowRing(HowlRing,GroundPoint(GetActorLocation()),HowlRadius*FMath::Max(.02f,Pulse),FLinearColor(.65f,.05f,1),1-Pulse);
+  }
+  return;
+ }StateSeconds+=Dt;SlamLeft=FMath::Max(0.f,SlamLeft-Dt);HowlLeft=FMath::Max(0.f,HowlLeft-Dt);
  if(State==EHandBrainState::Ragdoll)return;
  if(State==EHandBrainState::Dying)
  {
@@ -227,7 +248,7 @@ float AHandBrainMonster::TakeDamage(float Damage,const FDamageEvent& Event,ACont
  {
   CorpseRagdoll->PrepareDeath(GetMesh());SetState(EHandBrainState::Dying);if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();Target.Reset();bSlamConsumed=true;GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);if(!CorpseRagdoll->HasSoftDeath())GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);SetLifeSpan(CorpseSeconds);
   ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),DamageInstigator,this);
-  if(auto* PC=Cast<APlayerController>(DamageInstigator))if(PC->IsLocalController()&&GetGameInstance())GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
+  ColdSteelSkills::AwardKillByOwner(GetGameInstance(),DamageInstigator,this,ExperienceReward);
   UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_KILLED %s"),*GetName());
  }
  else Combat->ReceiveHit(Applied,DamageInstigator?DamageInstigator->GetPawn().Get():Cast<APawn>(Causer),

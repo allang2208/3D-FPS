@@ -1,4 +1,5 @@
 #include "BellowSacLobber.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "BellowSacProjectile.h"
 #include "QuadrupedAnimationTemplate.h"
 #include "MonsterCombatComponent.h"
@@ -60,7 +61,7 @@ bool ABellowSacLobber::Visible(APawn* Victim) const
     if (HealthComponent && HealthComponent->IsDead()) return false;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(BellowSight), false, this);
     Query.AddIgnoredActor(Victim); FHitResult Hit;
-    return !GetWorld()->LineTraceSingleByChannel(Hit, Muzzle(), Victim->GetPawnViewLocation(), ECC_Visibility, Query);
+    return !RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit, Muzzle(), Victim->GetPawnViewLocation(), ECC_Visibility, Query);
 }
 bool ABellowSacLobber::GroundTarget(APawn* Victim, FVector& Ground) const
 {
@@ -68,7 +69,7 @@ bool ABellowSacLobber::GroundTarget(APawn* Victim, FVector& Ground) const
     const FVector Feet = Victim->GetNavAgentLocation();
     FCollisionQueryParams Query(SCENE_QUERY_STAT(BellowGround), false, this);
     Query.AddIgnoredActor(Victim); FHitResult Hit;
-    if (!GetWorld()->LineTraceSingleByChannel(Hit, Feet+FVector(0,0,35), Feet-FVector(0,0,400), ECC_Visibility, Query)
+    if (!RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit, Feet+FVector(0,0,35), Feet-FVector(0,0,400), ECC_Visibility, Query)
         || Hit.ImpactNormal.Z < .4f) return false;
     Ground = Hit.ImpactPoint + Hit.ImpactNormal * (ABellowSacProjectile::CollisionRadius + 1.f);
     return true;

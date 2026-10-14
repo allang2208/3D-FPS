@@ -1,0 +1,172 @@
+{
+  "species": "SpiralPillarM14",
+  "complete": true,
+  "saved": [
+    "/Game/Monsters/SpiralPillarM14/SK_M14_SupportSkin_v15.SK_M14_SupportSkin_v15",
+    "/Game/Monsters/RemeshV4Teeth/SpiralPillarM14/SKEL_SpiralPillarM14_SoftCorpse.SKEL_SpiralPillarM14_SoftCorpse",
+    "/Game/Monsters/RemeshV4Teeth/SpiralPillarM14/CorpseMaterials/M_M14_Body_RemeshV3_b71d6a8b_Corpse.M_M14_Body_RemeshV3_b71d6a8b_Corpse",
+    "/Game/Monsters/RemeshV4Teeth/SpiralPillarM14/CorpseMaterials/M_M14_Membrane_RemeshV3_a7607a97_Corpse.M_M14_Membrane_RemeshV3_a7607a97_Corpse",
+    "/Game/Monsters/RemeshV4Teeth/SpiralPillarM14/CorpseMaterials/M_M14_Metal_RemeshV3_a1e1c37d_Corpse.M_M14_Metal_RemeshV3_a1e1c37d_Corpse",
+    "/Game/Monsters/RemeshV4Teeth/SpiralPillarM14/CorpseMaterials/M_M14_Mouth_12622c83_Corpse.M_M14_Mouth_12622c83_Corpse",
+    "/Game/Monsters/RemeshV4Teeth/SpiralPillarM14/SK_SpiralPillarM14_SoftCorpse.SK_SpiralPillarM14_SoftCorpse",
+    "/Game/Monsters/RemeshV4Teeth/SpiralPillarM14/DA_SpiralPillarM14_SoftCorpse.DA_SpiralPillarM14_SoftCorpse",
+    "/Game/Monsters/SpiralPillarM14/BP_SpiralPillarM14.BP_SpiralPillarM14"
+  ],
+  "tested": false,
+  "rendered": false,
+  "stage": "saved_and_bound",
+  "original_skeleton": "/Game/Monsters/SpiralPillarM14/SK_M14_Skeleton.SK_M14_Skeleton",
+  "original_physics": "/Game/Monsters/SpiralPillarM14/SK_M14_PhysicsAsset.SK_M14_PhysicsAsset",
+  "live_imported": true,
+  "mesh": "/Game/Monsters/SpiralPillarM14/SK_M14_SupportSkin_v15.SK_M14_SupportSkin_v15",
+  "offline_lods": [
+    {
+      "level": 0,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV4Teeth\\SpiralPillarM14\\SpiralPillarM14_LOD0.fbx",
+      "triangles": 251981,
+      "vertices": 125621,
+      "mouth_triangles": 60000,
+      "seams": [
+        {
+          "source_border": 726,
+          "body_border": 250,
+          "center_distance_m": 0.01752675697207451
+        },
+        {
+          "source_border": 183,
+          "body_border": 35,
+          "center_distance_m": 0.016724158078432083
+        },
+        {
+          "source_border": 53,
+          "body_border": 19,
+          "center_distance_m": 0.014500218443572521
+        }
+      ],
+      "morphs": [
+        "M14_DeathSoft_01",
+        "M14_DeathSoft_02",
+        "M14_DeathSoft_03",
+        "M14_DeathSoft_04",
+        "M14_DeathSoft_05",
+        "M14_DeathSoft_06",
+        "M14_DeathSoft_07",
+        "M14_DeathSoft_08",
+        "M14_DeathSoft_09"
+      ]
+    },
+    {
+      "level": 1,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV4Teeth\\SpiralPillarM14\\SpiralPillarM14_LOD1.fbx",
+      "triangles": 101737,
+      "vertices": 50499,
+      "mouth_triangles": 28000,
+      "seams": [
+        {
+          "source_border": 726,
+          "body_border": 250,
+          "center_distance_m": 0.01752675697207451
+        },
+        {
+          "source_border": 183,
+          "body_border": 35,
+          "center_distance_m": 0.016724158078432083
+        },
+        {
+          "source_border": 53,
+          "body_border": 19,
+          "center_distance_m": 0.014500218443572521
+        }
+      ],
+      "morphs": [
+        "M14_DeathSoft_01",
+        "M14_DeathSoft_02",
+        "M14_DeathSoft_03",
+        "M14_DeathSoft_04",
+        "M14_DeathSoft_05",
+        "M14_DeathSoft_06",
+        "M14_DeathSoft_07",
+        "M14_DeathSoft_08",
+        "M14_DeathSoft_09"
+      ]
+    },
+    {
+      "level": 2,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV4Teeth\\SpiralPillarM14\\SpiralPillarM14_LOD2.fbx",
+      "triangles": 41965,
+      "vertices": 20613,
+      "mouth_triangles": 14000,
+      "seams": [
+        {
+          "source_border": 726,
+          "body_border": 250,
+          "center_distance_m": 0.01752675697207451
+        },
+        {
+          "source_border": 183,
+          "body_border": 35,
+          "center_distance_m": 0.016724204644560814
+        },
+        {
+          "source_border": 53,
+          "body_border": 19,
+          "center_distance_m": 0.014500260353088379
+        }
+      ],
+      "morphs": [
+        "M14_DeathSoft_01",
+        "M14_DeathSoft_02",
+        "M14_DeathSoft_03",
+        "M14_DeathSoft_04",
+        "M14_DeathSoft_05",
+        "M14_DeathSoft_06",
+        "M14_DeathSoft_07",
+        "M14_DeathSoft_08",
+        "M14_DeathSoft_09"
+      ]
+    },
+    {
+      "level": 3,
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\RemeshV4Teeth\\SpiralPillarM14\\SpiralPillarM14_LOD3.fbx",
+      "triangles": 17801,
+      "vertices": 8531,
+      "mouth_triangles": 7000,
+      "seams": [
+        {
+          "source_border": 726,
+          "body_border": 250,
+          "center_distance_m": 0.01752675324678421
+        },
+        {
+          "source_border": 183,
+          "body_border": 35,
+          "center_distance_m": 0.016724158078432083
+        },
+        {
+          "source_border": 53,
+          "body_border": 19,
+          "center_distance_m": 0.014500260353088379
+        }
+      ],
+      "morphs": [
+        "M14_DeathSoft_01",
+        "M14_DeathSoft_02",
+        "M14_DeathSoft_03",
+        "M14_DeathSoft_04",
+        "M14_DeathSoft_05",
+        "M14_DeathSoft_06",
+        "M14_DeathSoft_07",
+        "M14_DeathSoft_08",
+        "M14_DeathSoft_09"
+      ]
+    }
+  ],
+  "import_seconds": 16.51,
+  "corpse": "/Game/Monsters/RemeshV4Teeth/SpiralPillarM14/SK_SpiralPillarM14_SoftCorpse.SK_SpiralPillarM14_SoftCorpse",
+  "corpse_data": "/Game/Monsters/RemeshV4Teeth/SpiralPillarM14/DA_SpiralPillarM14_SoftCorpse.DA_SpiralPillarM14_SoftCorpse",
+  "corpse_lods": 1,
+  "animations_reimported": false,
+  "native_build_required": false,
+  "user_testing_pending": true,
+  "corpse_seconds": 4.92
+}

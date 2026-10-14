@@ -46,6 +46,7 @@ try:
     for name,ring in [('M_BellowSacCapsule',False),('M_BellowRuptureRing',True)]:
         mat=create(name,VERSION2+'/Projectile',u.Material,u.MaterialFactoryNew())
         ME.delete_all_material_expressions(mat);mat.set_editor_property('two_sided',True)
+        if not ring: mat.set_editor_property('used_with_instanced_static_meshes',True)
         slab=ME.create_material_expression(mat,u.MaterialExpressionSubstrateShadingModels)
         if ring:
             color=vec(mat,(.45,.14,.035,1.));rough=scalar(mat,.65)

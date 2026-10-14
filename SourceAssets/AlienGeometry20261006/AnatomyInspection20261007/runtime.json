@@ -1,0 +1,387 @@
+{
+  "started": "2026-10-07T15:00:51.890964",
+  "complete": true,
+  "assets_saved": false,
+  "gameplay_run": false,
+  "actors": [
+    {
+      "species": "LurkerM08",
+      "class_path": "/Game/Monsters/LurkerM08/BP_LurkerM08.BP_LurkerM08_C",
+      "live_mesh": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+      "corpse_meshes": [
+        "/Game/Monsters/RemeshV3/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse"
+      ]
+    },
+    {
+      "species": "HangingBellM09",
+      "class_path": "/Script/FPSGAME.HangingBellM09",
+      "live_mesh": "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09",
+      "corpse_meshes": [
+        "/Game/Monsters/RemeshV3/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse"
+      ]
+    },
+    {
+      "species": "M10Mawcrawler",
+      "class_path": "/Game/Monsters/M10Mawcrawler/BP_M10Mawcrawler.BP_M10Mawcrawler_C",
+      "live_mesh": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5",
+      "corpse_meshes": [
+        "/Game/Monsters/RemeshV3/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse.SK_M10Mawcrawler_SoftCorpse"
+      ]
+    }
+  ],
+  "meshes": {
+    "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03": {
+      "path": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 233467,
+          "vertices": 239885,
+          "sections": 2
+        },
+        {
+          "level": 1,
+          "triangles": 88717,
+          "vertices": 70748,
+          "sections": 2
+        },
+        {
+          "level": 2,
+          "triangles": 32685,
+          "vertices": 31248,
+          "sections": 2
+        },
+        {
+          "level": 3,
+          "triangles": 11672,
+          "vertices": 14380,
+          "sections": 2
+        }
+      ],
+      "materials": [
+        {
+          "slot": "Material_0",
+          "imported": "R3_Material_0",
+          "asset": "/Game/Monsters/RemeshV3/LurkerM08/Materials/M_M08_Skin_RemeshV3.M_M08_Skin_RemeshV3"
+        },
+        {
+          "slot": "M08_RebuiltInnerArch_PBR",
+          "imported": "Kept_M08_RebuiltInnerArch_PBR",
+          "asset": "/Game/Monsters/LurkerM08/Materials/M_M08_InnerArch.M_M08_InnerArch"
+        }
+      ],
+      "tags": {
+        "Triangles": "233467",
+        "Vertices": "239885",
+        "Bones": "70",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "8"
+      },
+      "skeleton": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03_Skeleton.SK_LurkerM08_CanineV03_Skeleton",
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/AlienGeometry20261006/RemeshV3/LurkerM08/LurkerM08_LOD0.fbx"
+      ],
+      "soft_corpse_data_dependencies": [
+        "/Game/Monsters/RemeshV3/LurkerM08/DA_LurkerM08_SoftCorpse"
+      ],
+      "binding_present": true
+    },
+    "/Game/Monsters/RemeshV3/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse": {
+      "path": "/Game/Monsters/RemeshV3/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 233467,
+          "vertices": 239885,
+          "sections": 2
+        }
+      ],
+      "materials": [
+        {
+          "slot": "Material_0",
+          "imported": "R3_Material_0",
+          "asset": "/Game/Monsters/RemeshV3/LurkerM08/CorpseMaterials/M_M08_Skin_RemeshV3_1af7ca6c_Corpse.M_M08_Skin_RemeshV3_1af7ca6c_Corpse"
+        },
+        {
+          "slot": "M08_RebuiltInnerArch_PBR",
+          "imported": "Kept_M08_RebuiltInnerArch_PBR",
+          "asset": "/Game/Monsters/RemeshV3/LurkerM08/CorpseMaterials/M_M08_InnerArch_4aa7e351_Corpse.M_M08_InnerArch_4aa7e351_Corpse"
+        }
+      ],
+      "tags": {
+        "Triangles": "233467",
+        "Vertices": "239885",
+        "Bones": "725",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4"
+      },
+      "skeleton": "/Game/Monsters/RemeshV3/LurkerM08/SKEL_LurkerM08_SoftCorpse.SKEL_LurkerM08_SoftCorpse",
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/AlienGeometry20261006/RemeshV3/LurkerM08/LurkerM08_LOD0.fbx"
+      ],
+      "soft_corpse_data_dependencies": [],
+      "binding_present": false
+    },
+    "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09": {
+      "path": "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 235218,
+          "vertices": 176151,
+          "sections": 7
+        },
+        {
+          "level": 1,
+          "triangles": 89357,
+          "vertices": 81064,
+          "sections": 7
+        },
+        {
+          "level": 2,
+          "triangles": 33022,
+          "vertices": 38855,
+          "sections": 7
+        },
+        {
+          "level": 3,
+          "triangles": 12160,
+          "vertices": 18889,
+          "sections": 7
+        }
+      ],
+      "materials": [
+        {
+          "slot": "M09_Body_SourcePBR",
+          "imported": "R3_M09_Body_SourcePBR",
+          "asset": "/Game/Monsters/RemeshV3/HangingBellM09/Materials/M_M09_Body_RemeshV3.M_M09_Body_RemeshV3"
+        },
+        {
+          "slot": "M09_Closure_SourcePBR",
+          "imported": "R3_M09_Closure_SourcePBR",
+          "asset": "/Game/Monsters/RemeshV3/HangingBellM09/Materials/M_M09_Body_RemeshV3.M_M09_Body_RemeshV3"
+        },
+        {
+          "slot": "M09_Eye_SourcePBR",
+          "imported": "R3_M09_Eye_SourcePBR",
+          "asset": "/Game/Monsters/RemeshV3/HangingBellM09/Materials/M_M09_Body_RemeshV3.M_M09_Body_RemeshV3"
+        },
+        {
+          "slot": "M09_Membrane_SourcePBR",
+          "imported": "R3_M09_Membrane_SourcePBR",
+          "asset": "/Game/Monsters/RemeshV3/HangingBellM09/Materials/M_M09_Body_RemeshV3.M_M09_Body_RemeshV3"
+        },
+        {
+          "slot": "M09_Body_SourcePBR_001",
+          "imported": "R3_M09_Body_SourcePBR_001",
+          "asset": "/Game/Monsters/RemeshV3/HangingBellM09/Materials/M_M09_Body_RemeshV3.M_M09_Body_RemeshV3"
+        },
+        {
+          "slot": "M09_Closure_SourcePBR_001",
+          "imported": "R3_M09_Closure_SourcePBR_001",
+          "asset": "/Game/Monsters/RemeshV3/HangingBellM09/Materials/M_M09_Body_RemeshV3.M_M09_Body_RemeshV3"
+        },
+        {
+          "slot": "Kept_M09_Body_SourcePBR",
+          "imported": "Kept_M09_Body_SourcePBR",
+          "asset": "/Game/Monsters/HangingBellM09/V04/Materials/M_M09_Body.M_M09_Body"
+        }
+      ],
+      "tags": {
+        "Triangles": "235218",
+        "Vertices": "176151",
+        "Bones": "114",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "6"
+      },
+      "skeleton": "/Game/Monsters/HangingBellM09/V04/SK_M09_Skeleton.SK_M09_Skeleton",
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/AlienGeometry20261006/RemeshV3/HangingBellM09/HangingBellM09_LOD0.fbx"
+      ],
+      "soft_corpse_data_dependencies": [
+        "/Game/Monsters/RemeshV3/HangingBellM09/DA_HangingBellM09_SoftCorpse"
+      ],
+      "binding_present": true
+    },
+    "/Game/Monsters/RemeshV3/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse": {
+      "path": "/Game/Monsters/RemeshV3/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 235218,
+          "vertices": 176151,
+          "sections": 7
+        }
+      ],
+      "materials": [
+        {
+          "slot": "M09_Body_SourcePBR",
+          "imported": "R3_M09_Body_SourcePBR",
+          "asset": "/Game/Monsters/RemeshV3/HangingBellM09/CorpseMaterials/M_M09_Body_RemeshV3_4e51c6d4_Corpse.M_M09_Body_RemeshV3_4e51c6d4_Corpse"
+        },
+        {
+          "slot": "M09_Closure_SourcePBR",
+          "imported": "R3_M09_Closure_SourcePBR",
+          "asset": "/Game/Monsters/RemeshV3/HangingBellM09/CorpseMaterials/M_M09_Body_RemeshV3_4e51c6d4_Corpse.M_M09_Body_RemeshV3_4e51c6d4_Corpse"
+        },
+        {
+          "slot": "M09_Eye_SourcePBR",
+          "imported": "R3_M09_Eye_SourcePBR",
+          "asset": "/Game/Monsters/RemeshV3/HangingBellM09/CorpseMaterials/M_M09_Body_RemeshV3_4e51c6d4_Corpse.M_M09_Body_RemeshV3_4e51c6d4_Corpse"
+        },
+        {
+          "slot": "M09_Membrane_SourcePBR",
+          "imported": "R3_M09_Membrane_SourcePBR",
+          "asset": "/Game/Monsters/RemeshV3/HangingBellM09/CorpseMaterials/M_M09_Body_RemeshV3_4e51c6d4_Corpse.M_M09_Body_RemeshV3_4e51c6d4_Corpse"
+        },
+        {
+          "slot": "M09_Body_SourcePBR_001",
+          "imported": "R3_M09_Body_SourcePBR_001",
+          "asset": "/Game/Monsters/RemeshV3/HangingBellM09/CorpseMaterials/M_M09_Body_RemeshV3_4e51c6d4_Corpse.M_M09_Body_RemeshV3_4e51c6d4_Corpse"
+        },
+        {
+          "slot": "M09_Closure_SourcePBR_001",
+          "imported": "R3_M09_Closure_SourcePBR_001",
+          "asset": "/Game/Monsters/RemeshV3/HangingBellM09/CorpseMaterials/M_M09_Body_RemeshV3_4e51c6d4_Corpse.M_M09_Body_RemeshV3_4e51c6d4_Corpse"
+        },
+        {
+          "slot": "Kept_M09_Body_SourcePBR",
+          "imported": "Kept_M09_Body_SourcePBR",
+          "asset": "/Game/Monsters/RemeshV3/HangingBellM09/CorpseMaterials/M_M09_Body_b221fa66_Corpse.M_M09_Body_b221fa66_Corpse"
+        }
+      ],
+      "tags": {
+        "Triangles": "235218",
+        "Vertices": "176151",
+        "Bones": "729",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4"
+      },
+      "skeleton": "/Game/Monsters/RemeshV3/HangingBellM09/SKEL_HangingBellM09_SoftCorpse.SKEL_HangingBellM09_SoftCorpse",
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/AlienGeometry20261006/RemeshV3/HangingBellM09/HangingBellM09_LOD0.fbx"
+      ],
+      "soft_corpse_data_dependencies": [],
+      "binding_present": false
+    },
+    "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5": {
+      "path": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 202841,
+          "vertices": 174211,
+          "sections": 4
+        },
+        {
+          "level": 1,
+          "triangles": 77074,
+          "vertices": 100633,
+          "sections": 4
+        },
+        {
+          "level": 2,
+          "triangles": 28395,
+          "vertices": 39240,
+          "sections": 4
+        },
+        {
+          "level": 3,
+          "triangles": 10138,
+          "vertices": 14208,
+          "sections": 4
+        }
+      ],
+      "materials": [
+        {
+          "slot": "M_M10_OralGum",
+          "imported": "Kept_M_M10_OralGum",
+          "asset": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/M_M10_OralGum.M_M10_OralGum"
+        },
+        {
+          "slot": "M_M10_OralInterior",
+          "imported": "Kept_M_M10_OralInterior",
+          "asset": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/M_M10_OralInterior.M_M10_OralInterior"
+        },
+        {
+          "slot": "M_M10_OralTeeth",
+          "imported": "Kept_M_M10_OralTeeth",
+          "asset": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/M_M10_OralTeeth.M_M10_OralTeeth"
+        },
+        {
+          "slot": "Material_0",
+          "imported": "R3_Material_0",
+          "asset": "/Game/Monsters/RemeshV3/M10Mawcrawler/Materials/M_M10_MeshySurface_RemeshV3.M_M10_MeshySurface_RemeshV3"
+        }
+      ],
+      "tags": {
+        "Triangles": "202841",
+        "Vertices": "174211",
+        "Bones": "62",
+        "MorphTargets": "2",
+        "MaxBoneInfluences": "6"
+      },
+      "skeleton": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5_Skeleton.SK_M10_SurfaceRig_V5_Skeleton",
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/AlienGeometry20261006/RemeshV3/M10Mawcrawler/M10Mawcrawler_LOD0.fbx"
+      ],
+      "soft_corpse_data_dependencies": [
+        "/Game/Monsters/RemeshV3/M10Mawcrawler/DA_M10Mawcrawler_SoftCorpse"
+      ],
+      "binding_present": true
+    },
+    "/Game/Monsters/RemeshV3/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse.SK_M10Mawcrawler_SoftCorpse": {
+      "path": "/Game/Monsters/RemeshV3/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse.SK_M10Mawcrawler_SoftCorpse",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 202841,
+          "vertices": 174211,
+          "sections": 4
+        }
+      ],
+      "materials": [
+        {
+          "slot": "M_M10_OralGum",
+          "imported": "Kept_M_M10_OralGum",
+          "asset": "/Game/Monsters/RemeshV3/M10Mawcrawler/CorpseMaterials/M_M10_OralGum_901612d3_Corpse.M_M10_OralGum_901612d3_Corpse"
+        },
+        {
+          "slot": "M_M10_OralInterior",
+          "imported": "Kept_M_M10_OralInterior",
+          "asset": "/Game/Monsters/RemeshV3/M10Mawcrawler/CorpseMaterials/M_M10_OralInterior_2fd133e3_Corpse.M_M10_OralInterior_2fd133e3_Corpse"
+        },
+        {
+          "slot": "M_M10_OralTeeth",
+          "imported": "Kept_M_M10_OralTeeth",
+          "asset": "/Game/Monsters/RemeshV3/M10Mawcrawler/CorpseMaterials/M_M10_OralTeeth_197586dc_Corpse.M_M10_OralTeeth_197586dc_Corpse"
+        },
+        {
+          "slot": "Material_0",
+          "imported": "R3_Material_0",
+          "asset": "/Game/Monsters/RemeshV3/M10Mawcrawler/CorpseMaterials/M_M10_MeshySurface_RemeshV3_96e232f2_Corpse.M_M10_MeshySurface_RemeshV3_96e232f2_Corpse"
+        }
+      ],
+      "tags": {
+        "Triangles": "202841",
+        "Vertices": "174211",
+        "Bones": "728",
+        "MorphTargets": "0",
+        "MaxBoneInfluences": "4"
+      },
+      "skeleton": "/Game/Monsters/RemeshV3/M10Mawcrawler/SKEL_M10Mawcrawler_SoftCorpse.SKEL_M10Mawcrawler_SoftCorpse",
+      "import_sources": [
+        "D:/FPS3D/FPSGAME/SourceAssets/AlienGeometry20261006/RemeshV3/M10Mawcrawler/M10Mawcrawler_LOD0.fbx"
+      ],
+      "soft_corpse_data_dependencies": [],
+      "binding_present": false
+    }
+  },
+  "errors": [],
+  "dirty_before": [
+    "/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18"
+  ],
+  "dirty_after": [
+    "/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18"
+  ]
+}

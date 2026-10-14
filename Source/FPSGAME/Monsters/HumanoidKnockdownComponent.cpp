@@ -39,6 +39,17 @@ void UHumanoidKnockdownComponent::OffsetRecoverySupport(const FVector& Delta)
     if(!bCorpse&&Phase==EHumanoidKnockdownPhase::GettingUp)RecoveryFloorPoint+=Delta;
 }
 
+TArray<FSoftObjectPath> UHumanoidKnockdownComponent::DefaultAnimationPaths(const FString& Role)
+{
+    TArray<FSoftObjectPath> Paths;
+    for (const TCHAR* Suffix : { TEXT("Hit_Knockback"), TEXT("LayToIdle"), TEXT("ProneToIdle") })
+    {
+        const FString Name = TEXT("A_") + Role + TEXT("_") + Suffix;
+        Paths.Emplace(TEXT("/Game/Monsters/HumanoidKnockdown/") + Role + TEXT("/") + Name + TEXT(".") + Name);
+    }
+    return Paths;
+}
+
 void UHumanoidKnockdownComponent::BeginPlay()
 {
     Super::BeginPlay();
@@ -47,14 +58,17 @@ void UHumanoidKnockdownComponent::BeginPlay()
     const FString Role=N->ActorHasTag(TEXT("WitchRebuilt"))?TEXT("Witch"):
         N->ActorHasTag(TEXT("Mutant3"))?TEXT("Mutant3"):
         N->ActorHasTag(TEXT("FatZombie"))?TEXT("FatZombie"):TEXT("Nurse");
-    auto Load=[&](const TCHAR* Suffix)
+    const TArray<FSoftObjectPath> AnimationPaths = DefaultAnimationPaths(Role);
+    auto Load=[&](int32 Index)
     {
-        const FString Name=TEXT("A_")+Role+TEXT("_")+Suffix;
-        return LoadObject<UAnimSequence>(nullptr,*(TEXT("/Game/Monsters/HumanoidKnockdown/")+Role+TEXT("/")+Name+TEXT(".")+Name));
+        if (auto* Prepared = Cast<UAnimSequence>(AnimationPaths[Index].ResolveObject())) return Prepared;
+        // Standalone subject maps retain the legacy fallback. Dungeon staff paths
+        // are resolved and held by the generator's async preparation stage.
+        return LoadObject<UAnimSequence>(nullptr, *AnimationPaths[Index].ToString());
     };
-    if (!FallClip) FallClip=Load(TEXT("Hit_Knockback"));
-    if (!GetUpClip) GetUpClip=Load(TEXT("LayToIdle"));
-    if (!ProneGetUpClip) ProneGetUpClip=Load(TEXT("ProneToIdle"));
+    if (!FallClip) FallClip=Load(0);
+    if (!GetUpClip) GetUpClip=Load(1);
+    if (!ProneGetUpClip) ProneGetUpClip=Load(2);
     // The legacy Witch uses a different skeleton. Never apply the rebuilt rig to it.
     if (GetUpClip && GetUpClip->GetSkeleton()!=Mesh->GetSkeletalMeshAsset()->GetSkeleton())
     { FallClip=nullptr; GetUpClip=nullptr; ProneGetUpClip=nullptr; }

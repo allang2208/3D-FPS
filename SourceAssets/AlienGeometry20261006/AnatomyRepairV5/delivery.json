@@ -1,0 +1,96 @@
+{
+  "revision": "AnatomyRepairV5",
+  "date": "2026-10-07",
+  "complete": true,
+  "species": [
+    {
+      "species": "M10Mawcrawler",
+      "complete": true,
+      "stage": "saved_and_bound",
+      "live_imported": true,
+      "mesh": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5",
+      "skeleton": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5_Skeleton.SK_M10_SurfaceRig_V5_Skeleton",
+      "physics": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5_PhysicsAsset.SK_M10_SurfaceRig_V5_PhysicsAsset",
+      "offline_lod_triangles": [
+        202805,
+        79083,
+        30241,
+        11765
+      ],
+      "corpse": "/Game/Monsters/AnatomyRepairV5/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse.SK_M10Mawcrawler_SoftCorpse",
+      "corpse_data": "/Game/Monsters/AnatomyRepairV5/M10Mawcrawler/DA_M10Mawcrawler_SoftCorpse.DA_M10Mawcrawler_SoftCorpse",
+      "saved": [
+        "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5_Skeleton.SK_M10_SurfaceRig_V5_Skeleton",
+        "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5.SK_M10_SurfaceRig_V5",
+        "/Game/Monsters/M10Mawcrawler/BP_M10Mawcrawler.BP_M10Mawcrawler",
+        "/Game/Monsters/AnatomyRepairV5/M10Mawcrawler/SKEL_M10Mawcrawler_SoftCorpse.SKEL_M10Mawcrawler_SoftCorpse",
+        "/Game/Monsters/AnatomyRepairV5/M10Mawcrawler/CorpseMaterials/M_M10_MeshySurface_RemeshV3_96e232f2_Corpse.M_M10_MeshySurface_RemeshV3_96e232f2_Corpse",
+        "/Game/Monsters/AnatomyRepairV5/M10Mawcrawler/CorpseMaterials/M_M10_OralGum_901612d3_Corpse.M_M10_OralGum_901612d3_Corpse",
+        "/Game/Monsters/AnatomyRepairV5/M10Mawcrawler/CorpseMaterials/M_M10_OralInterior_2fd133e3_Corpse.M_M10_OralInterior_2fd133e3_Corpse",
+        "/Game/Monsters/AnatomyRepairV5/M10Mawcrawler/CorpseMaterials/M_M10_OralTeeth_197586dc_Corpse.M_M10_OralTeeth_197586dc_Corpse",
+        "/Game/Monsters/AnatomyRepairV5/M10Mawcrawler/SK_M10Mawcrawler_SoftCorpse.SK_M10Mawcrawler_SoftCorpse",
+        "/Game/Monsters/AnatomyRepairV5/M10Mawcrawler/DA_M10Mawcrawler_SoftCorpse.DA_M10Mawcrawler_SoftCorpse"
+      ],
+      "receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\M10Mawcrawler\\installation.json"
+    },
+    {
+      "species": "HangingBellM09",
+      "complete": true,
+      "stage": "saved_and_bound",
+      "live_imported": true,
+      "mesh": "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09",
+      "skeleton": "/Game/Monsters/HangingBellM09/V04/SK_M09_Skeleton.SK_M09_Skeleton",
+      "physics": "/Game/Monsters/HangingBellM09/V04/SK_M09_PhysicsAsset.SK_M09_PhysicsAsset",
+      "offline_lod_triangles": [
+        274092,
+        123960,
+        64650,
+        52030
+      ],
+      "corpse": "/Game/Monsters/AnatomyRepairV5/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse",
+      "corpse_data": "/Game/Monsters/AnatomyRepairV5/HangingBellM09/DA_HangingBellM09_SoftCorpse.DA_HangingBellM09_SoftCorpse",
+      "saved": [
+        "/Game/Monsters/HangingBellM09/V04/SK_M09.SK_M09",
+        "/Game/Monsters/AnatomyRepairV5/HangingBellM09/SKEL_HangingBellM09_SoftCorpse.SKEL_HangingBellM09_SoftCorpse",
+        "/Game/Monsters/AnatomyRepairV5/HangingBellM09/CorpseMaterials/M_M09_Body_b221fa66_Corpse.M_M09_Body_b221fa66_Corpse",
+        "/Game/Monsters/AnatomyRepairV5/HangingBellM09/SK_HangingBellM09_SoftCorpse.SK_HangingBellM09_SoftCorpse",
+        "/Game/Monsters/AnatomyRepairV5/HangingBellM09/DA_HangingBellM09_SoftCorpse.DA_HangingBellM09_SoftCorpse"
+      ],
+      "receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\HangingBellM09\\installation.json"
+    },
+    {
+      "species": "LurkerM08",
+      "complete": true,
+      "stage": "saved_and_bound",
+      "live_imported": true,
+      "mesh": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+      "skeleton": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03_Skeleton.SK_LurkerM08_CanineV03_Skeleton",
+      "physics": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03_PhysicsAsset.SK_LurkerM08_CanineV03_PhysicsAsset",
+      "offline_lod_triangles": [
+        233324,
+        88500,
+        34500,
+        13798
+      ],
+      "corpse": "/Game/Monsters/AnatomyRepairV5/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse",
+      "corpse_data": "/Game/Monsters/AnatomyRepairV5/LurkerM08/DA_LurkerM08_SoftCorpse.DA_LurkerM08_SoftCorpse",
+      "saved": [
+        "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03.SK_LurkerM08_CanineV03",
+        "/Game/Monsters/AnatomyRepairV5/LurkerM08/SKEL_LurkerM08_SoftCorpse.SKEL_LurkerM08_SoftCorpse",
+        "/Game/Monsters/AnatomyRepairV5/LurkerM08/CorpseMaterials/M_M08_InnerArch_4aa7e351_Corpse.M_M08_InnerArch_4aa7e351_Corpse",
+        "/Game/Monsters/AnatomyRepairV5/LurkerM08/CorpseMaterials/M_M08_Skin_RemeshV3_1af7ca6c_Corpse.M_M08_Skin_RemeshV3_1af7ca6c_Corpse",
+        "/Game/Monsters/AnatomyRepairV5/LurkerM08/CorpseMaterials/M_M08_Skin_ce4de6ba_Corpse.M_M08_Skin_ce4de6ba_Corpse",
+        "/Game/Monsters/AnatomyRepairV5/LurkerM08/SK_LurkerM08_SoftCorpse.SK_LurkerM08_SoftCorpse",
+        "/Game/Monsters/AnatomyRepairV5/LurkerM08/DA_LurkerM08_SoftCorpse.DA_LurkerM08_SoftCorpse"
+      ],
+      "receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AlienGeometry20261006\\AnatomyRepairV5\\LurkerM08\\installation.json"
+    }
+  ],
+  "geometry_created_offline": true,
+  "ue_import_mode": "background commandlet NullRHI",
+  "gui_started": false,
+  "game_started": false,
+  "tests_run": false,
+  "renders_run": false,
+  "user_testing_pending": true
+}

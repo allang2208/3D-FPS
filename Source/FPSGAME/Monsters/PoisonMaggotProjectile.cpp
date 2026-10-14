@@ -1,4 +1,6 @@
 #include "PoisonMaggotProjectile.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "Net/UnrealNetwork.h"
 #include "PoisonMaggotMonster.h"
 #include "PoisonMaggotVenomFX.h"
 #include "FPSCombatHealthComponent.h"
@@ -16,7 +18,7 @@
 #include "../Skills/FPSIceWall.h"
 APoisonMaggotProjectile::APoisonMaggotProjectile()
 {
- PrimaryActorTick.bCanEverTick=true;
+ PrimaryActorTick.bCanEverTick=true;bReplicates=true;SetReplicateMovement(true);SetNetUpdateFrequency(20.f);
  Visual=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VenomDroplet"));RootComponent=Visual;
  static ConstructorHelpers::FObjectFinder<UStaticMesh> Sphere(TEXT("/Engine/BasicShapes/Sphere.Sphere"));
  static ConstructorHelpers::FObjectFinder<UMaterialInterface> Liquid(TEXT("/Game/Fluids/VenomProjectiles20260924/M_VenomBody.M_VenomBody"));
@@ -65,7 +67,11 @@ void APoisonMaggotProjectile::UpdateLiquidVisual(float Dt,const FVector& Start,c
 }
 void APoisonMaggotProjectile::Tick(float Dt)
 {
- Super::Tick(Dt);if(!HasAuthority())return;
+ Super::Tick(Dt);if(!HasAuthority())
+ {
+  const FVector Now=GetActorLocation();if(!bHasVisualLocation){LastVisualLocation=Now;bHasVisualLocation=true;}
+  UpdateLiquidVisual(Dt,LastVisualLocation,Now);LastVisualLocation=Now;return;
+ }
  if(!Shooter.IsValid()||Shooter->Dead()){Destroy();return;}
  const float Step=FMath::Min(Remaining,Velocity.Size()*Dt);const FVector Start=GetActorLocation(),End=Start+Velocity.GetSafeNormal()*Step;
  FCollisionQueryParams Q(SCENE_QUERY_STAT(MaggotVenom),false,this);Q.AddIgnoredActor(Shooter.Get());FHitResult Hit;
@@ -73,7 +79,7 @@ void APoisonMaggotProjectile::Tick(float Dt)
  FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_WorldStatic);Objects.AddObjectTypesToQuery(ECC_WorldDynamic);Objects.AddObjectTypesToQuery(ECC_Pawn);
  // Object queries include overlap-only fog/trigger boxes. Gather all contacts so
  // an overlap volume cannot hide a real blocking surface or the player capsule.
- TArray<FHitResult> Contacts;GetWorld()->SweepMultiByObjectType(Contacts,Start,End,FQuat::Identity,Objects,FCollisionShape::MakeSphere(4.75f),Q);
+ TArray<FHitResult> Contacts;RangedAttackQuery::SweepObjects(GetWorld(), Shooter.Get(), Contacts,Start,End,FQuat::Identity,Objects,FCollisionShape::MakeSphere(4.75f),Q);
  bool Blocking=false;
  for(const auto& Contact:Contacts)
  {
@@ -85,7 +91,7 @@ void APoisonMaggotProjectile::Tick(float Dt)
  if(Blocking)
  {
   UpdateLiquidVisual(Dt*Hit.Time,Start,Hit.Location);
-  if(auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>())FX->AddImpact(Hit,Velocity);
+  MulticastImpact(Hit,Velocity);
   if(auto* Wall=Cast<AFPSIceWall>(Hit.GetActor()))
    UGameplayStatics::ApplyDamage(Wall,HitDamage,Shooter->GetController(),Shooter.Get(),UMaggotVenomDamage::StaticClass());
   if(FParse::Param(FCommandLine::Get(),TEXT("MonsterFeedbackProbe")))UE_LOG(LogTemp,Display,TEXT("MAGGOT_IMPACT_PROBE actor=%s component=%s profile=%s visibility=%d pawn=%d initial=%d"),*GetPathNameSafe(Hit.GetActor()),*GetNameSafe(Hit.GetComponent()),Hit.GetComponent()?*Hit.GetComponent()->GetCollisionProfileName().ToString():TEXT("none"),Hit.GetComponent()?int32(Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Visibility)):-1,Hit.GetComponent()?int32(Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Pawn)):-1,Hit.bStartPenetrating);
@@ -145,3 +151,8 @@ void UMaggotPoisonComponent::TickComponent(float Dt,ELevelTick Type,FActorCompon
  if(Dead())Stacks=0;if(Stacks==0)SetComponentTickEnabled(false);
  if(Stacks!=Before)UStatusEffectsComponent::Notify(GetOwner());
 }
+
+void APoisonMaggotProjectile::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(APoisonMaggotProjectile,Velocity);}
+void APoisonMaggotProjectile::MulticastImpact_Implementation(const FHitResult& Hit,FVector_NetQuantize Incoming)
+{if(GetNetMode()!=NM_DedicatedServer)if(auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>())FX->AddImpact(Hit,Incoming);}

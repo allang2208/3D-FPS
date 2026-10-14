@@ -1,0 +1,251 @@
+{
+  "captured_at": "2026-10-07T21:53:02.455731",
+  "kind": "saved_class_defaults",
+  "assets_saved": false,
+  "game_started": false,
+  "monsters": {
+    "M07": {
+      "class_path": "/Game/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.BP_BlindSupplicantM07_C",
+      "properties": {
+        "walk_speed": 63.0,
+        "chase_speed": 129.0,
+        "source_walk_speed": 42.0,
+        "source_chase_speed": 86.0
+      },
+      "movement": {
+        "max_walk_speed": 129.0,
+        "max_fly_speed": 600.0,
+        "max_acceleration": 2048.0,
+        "braking_deceleration_walking": 2048.0,
+        "orient_rotation_to_movement": true,
+        "rotation_rate_yaw": 180.0
+      },
+      "movement_class": "MonsterCharacterMovementComponent",
+      "clips": {
+        "slow_walk_clip": {
+          "path": "/Game/Monsters/BlindSupplicantM07/AnimationsClearanceSweepV25/A_M07_SlowWalk.A_M07_SlowWalk",
+          "seconds": 3.200000047683716,
+          "rate_scale": 1.0
+        },
+        "chase_clip": {
+          "path": "/Game/Monsters/BlindSupplicantM07/AnimationsClearanceSweepV25/A_M07_Chase.A_M07_Chase",
+          "seconds": 2.4000000953674316,
+          "rate_scale": 1.0
+        }
+      }
+    },
+    "M08": {
+      "class_path": "/Game/Monsters/LurkerM08/BP_LurkerM08.BP_LurkerM08_C",
+      "properties": {
+        "walk_speed": 150.0,
+        "chase_speed": 315.0,
+        "climb_speed": 270.0,
+        "surface_turn_speed": 240.0
+      },
+      "movement": {
+        "max_walk_speed": 315.0,
+        "max_fly_speed": 600.0,
+        "max_acceleration": 1400.0,
+        "braking_deceleration_walking": 1600.0,
+        "orient_rotation_to_movement": true,
+        "rotation_rate_yaw": 220.0
+      },
+      "movement_class": "MonsterCharacterMovementComponent",
+      "clips": {},
+      "animation_set": {
+        "path": "/Game/Monsters/LurkerM08/DA_M08_AnimationSet.DA_M08_AnimationSet",
+        "walk_speed": 100.0,
+        "run_speed": 210.0
+      }
+    },
+    "M09": {
+      "class_path": "/Script/FPSGAME.HangingBellM09",
+      "properties": {
+        "ceiling_speed": 55.0
+      },
+      "movement": {
+        "max_walk_speed": 600.0,
+        "max_fly_speed": 600.0,
+        "max_acceleration": 2048.0,
+        "braking_deceleration_walking": 2048.0,
+        "orient_rotation_to_movement": false,
+        "rotation_rate_yaw": 360.0
+      },
+      "movement_class": "CharacterMovementComponent",
+      "clips": {
+        "Idle": {
+          "path": "/Game/Monsters/HangingBellM09/V04/Animations/A_M09_Idle.A_M09_Idle",
+          "seconds": 3.200000047683716,
+          "rate_scale": 1.0
+        },
+        "Travel": {
+          "path": "/Game/Monsters/HangingBellM09/V04/Animations/A_M09_Travel.A_M09_Travel",
+          "seconds": 1.2000000476837158,
+          "rate_scale": 1.0
+        },
+        "SwingLeft": {
+          "path": "/Game/Monsters/HangingBellM09/V04/Animations/A_M09_SwingLeft.A_M09_SwingLeft",
+          "seconds": 2.299999952316284,
+          "rate_scale": 1.0
+        },
+        "SwingRight": {
+          "path": "/Game/Monsters/HangingBellM09/V04/Animations/A_M09_SwingRight.A_M09_SwingRight",
+          "seconds": 2.299999952316284,
+          "rate_scale": 1.0
+        },
+        "Resonance": {
+          "path": "/Game/Monsters/HangingBellM09/V07/Animations/A_M09_Resonance_V07.A_M09_Resonance_V07",
+          "seconds": 5.599999904632568,
+          "rate_scale": 1.0
+        },
+        "Gaze": {
+          "path": "/Game/Monsters/HangingBellM09/V08/Animations/A_M09_Gaze_V08.A_M09_Gaze_V08",
+          "seconds": 3.0,
+          "rate_scale": 1.0
+        },
+        "Claw": {
+          "path": "/Game/Monsters/HangingBellM09/V04/Animations/A_M09_Claw.A_M09_Claw",
+          "seconds": 1.100000023841858,
+          "rate_scale": 1.0
+        },
+        "Stagger": {
+          "path": "/Game/Monsters/HangingBellM09/V04/Animations/A_M09_Stagger.A_M09_Stagger",
+          "seconds": 1.399999976158142,
+          "rate_scale": 1.0
+        },
+        "Death": {
+          "path": "/Game/Monsters/HangingBellM09/V04/Animations/A_M09_Death.A_M09_Death",
+          "seconds": 1.0,
+          "rate_scale": 1.0
+        }
+      }
+    },
+    "M10": {
+      "class_path": "/Game/Monsters/M10Mawcrawler/BP_M10Mawcrawler.BP_M10Mawcrawler_C",
+      "properties": {
+        "walk_speed": 110.0,
+        "animation_walk_speed": 46.153846740722656,
+        "moving_turn_speed": 72.0,
+        "pivot_turn_speed": 60.0,
+        "turn_acceleration": 195.0
+      },
+      "movement": {
+        "max_walk_speed": 110.0,
+        "max_fly_speed": 600.0,
+        "max_acceleration": 480.0,
+        "braking_deceleration_walking": 720.0,
+        "orient_rotation_to_movement": true,
+        "rotation_rate_yaw": 150.0
+      },
+      "movement_class": "M10MovementComponent",
+      "clips": {
+        "move_clip": {
+          "path": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/Animations/A_M10_Walk_V5.A_M10_Walk_V5",
+          "seconds": 1.2000000476837158,
+          "rate_scale": 1.0
+        },
+        "curve_left_clip": {
+          "path": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/Animations/A_M10_CurveLeft_V5.A_M10_CurveLeft_V5",
+          "seconds": 1.2000000476837158,
+          "rate_scale": 1.0
+        },
+        "curve_right_clip": {
+          "path": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/Animations/A_M10_CurveRight_V5.A_M10_CurveRight_V5",
+          "seconds": 1.2000000476837158,
+          "rate_scale": 1.0
+        },
+        "pivot_left_clip": {
+          "path": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/Animations/A_M10_PivotLeft_V5.A_M10_PivotLeft_V5",
+          "seconds": 1.2000000476837158,
+          "rate_scale": 1.0
+        },
+        "pivot_right_clip": {
+          "path": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/Animations/A_M10_PivotRight_V5.A_M10_PivotRight_V5",
+          "seconds": 1.2000000476837158,
+          "rate_scale": 1.0
+        }
+      }
+    },
+    "M14": {
+      "class_path": "/Game/Monsters/SpiralPillarM14/BP_SpiralPillarM14.BP_SpiralPillarM14_C",
+      "properties": {
+        "walk_speed": 56.0,
+        "animation_walk_speed": 28.0
+      },
+      "movement": {
+        "max_walk_speed": 56.0,
+        "max_fly_speed": 600.0,
+        "max_acceleration": 100.0,
+        "braking_deceleration_walking": 180.0,
+        "orient_rotation_to_movement": true,
+        "rotation_rate_yaw": 25.0
+      },
+      "movement_class": "MonsterCharacterMovementComponent",
+      "clips": {
+        "move_clip": {
+          "path": "/Game/Monsters/SpiralPillarM14/Animations/A_M14_Move_v07.A_M14_Move_v07",
+          "seconds": 2.4000000953674316,
+          "rate_scale": 1.0
+        },
+        "turn_left_clip": {
+          "path": "/Game/Monsters/SpiralPillarM14/Animations/A_M14_TurnLeft_v07.A_M14_TurnLeft_v07",
+          "seconds": 2.4000000953674316,
+          "rate_scale": 1.0
+        },
+        "turn_right_clip": {
+          "path": "/Game/Monsters/SpiralPillarM14/Animations/A_M14_TurnRight_v07.A_M14_TurnRight_v07",
+          "seconds": 2.4000000953674316,
+          "rate_scale": 1.0
+        }
+      }
+    },
+    "M25": {
+      "class_path": "/Game/Monsters/VortexCofferM25/BP_VortexCofferM25.BP_VortexCofferM25_C",
+      "properties": {
+        "walk_speed": 110.0,
+        "animation_walk_speed": 16.0
+      },
+      "movement": {
+        "max_walk_speed": 110.0,
+        "max_fly_speed": 600.0,
+        "max_acceleration": 480.0,
+        "braking_deceleration_walking": 720.0,
+        "orient_rotation_to_movement": true,
+        "rotation_rate_yaw": 150.0
+      },
+      "movement_class": "MonsterCharacterMovementComponent",
+      "clips": {
+        "move_clip": {
+          "path": "/Game/Monsters/VortexCofferM25/Animations/A_M25_Crawl_InPlace.A_M25_Crawl_InPlace",
+          "seconds": 2.799999952316284,
+          "rate_scale": 1.0
+        }
+      }
+    },
+    "M27": {
+      "class_path": "/Game/Monsters/MantisM27/BP_MantisM27.BP_MantisM27_C",
+      "properties": {
+        "walk_speed": 340.0,
+        "source_move_speed": 356.97857666015625,
+        "cloak_move_speed": 340.0
+      },
+      "movement": {
+        "max_walk_speed": 109.71878051757812,
+        "max_fly_speed": 600.0,
+        "max_acceleration": 2048.0,
+        "braking_deceleration_walking": 2048.0,
+        "orient_rotation_to_movement": true,
+        "rotation_rate_yaw": 180.0
+      },
+      "movement_class": "MonsterCharacterMovementComponent",
+      "clips": {
+        "walk_clip": {
+          "path": "/Game/Monsters/MantisM27/RunV4/Animations/A_M27_HunchedRun_RunV4.A_M27_HunchedRun_RunV4",
+          "seconds": 2.0,
+          "rate_scale": 1.0
+        }
+      }
+    }
+  },
+  "errors": {}
+}

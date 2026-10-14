@@ -1,5 +1,7 @@
 # 鼓囊 M-09 本体声音 V10
 
+**2026-10-13 后续调整：** 用户确认删除站着时突然发出的吸气低吼，即 `AlertA / AlertB`。两项正式蓝图绑定已后台移除、编译并保存；重导脚本也保持禁用。下文警戒音规格保留为历史，当前状态和飞行音建议见 [声音优化记录](BellowSacAudioCleanup20261013.md)。
+
 用户授权加入警戒、蓄压吐弹和死亡声音，由用户自行测试。使用既有 V03 动作、V08 连续软体死亡与 V09 听觉/伤害数值；不启动编辑器界面或游戏，不进行试听、自测或验收。
 
 **2026-10-12 后续调整：用户要求去除过吵的吸气蓄力声。** 已从正式 `BP_BellowSacLobber` 的 `BellowSounds` 移除 `Charge`（`S_Bellow_Charge`），蓝图已编译并保存。下表 Charge 行仅保留为制作历史，不再播放；其他 14 个音效映射继续保留。`import_creature_audio_v10.py` 同步跳过并移除 Charge，避免重新导入恢复声音。制作脚本为 `Tools/BellowSacLobber/disable_charge_audio_v14.py`，保存回执为 `Saved/BellowMuteCharge20261012/asset-receipt.json`，修改前蓝图保存在同目录 `Before/`。本次仅修改音效绑定，无原生代码变更；结束现有 PIE 后使用原编辑器完成保存，未重开游戏或试听。

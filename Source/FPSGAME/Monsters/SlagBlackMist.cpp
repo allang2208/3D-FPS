@@ -1,4 +1,5 @@
 #include "SlagBlackMist.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "HundredEyedSlagMonster.h"
 #include "SlagMistViewComponent.h"
 #include "Components/SceneComponent.h"
@@ -95,7 +96,7 @@ bool ASlagBlackMist::ContainsExposedEye(const FVector& Eye, const AActor* Player
             const FVector Center = PuffCenter(Origin, Puff.Drift, Age);
             if (FVector::DistSquared(Eye, Center) > FMath::Square(Core)) continue;
             FHitResult Cover;
-            if (!GetWorld()->LineTraceSingleByChannel(Cover, Center, Eye, ECC_Visibility, Query)) return true;
+            if (!RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Cover, Center, Eye, ECC_Visibility, Query)) return true;
         }
     }
     return false;

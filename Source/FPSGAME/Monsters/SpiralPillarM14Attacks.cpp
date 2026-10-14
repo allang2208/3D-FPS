@@ -1,4 +1,5 @@
 #include "SpiralPillarM14.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "M14MucusProjectile.h"
 #include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
@@ -10,6 +11,7 @@
 #include "Engine/World.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
 
 namespace
 {
@@ -108,6 +110,16 @@ void ASpiralPillarM14::TickAttack(float Dt)
     UAnimSequence* Clip=AttackClip(State);
     const float Duration=Clip?Clip->GetPlayLength():2.4f;
     Sample(FMath::Min(StateSeconds,Duration));
+    // The existing recording includes a 1.10 s windup. Never play that prefix,
+    // even if an older SoundWave is loaded. Preserve only the synchronized jet
+    // tail, on the same release crossing for authority and replicated clients.
+    if(GetNetMode()!=NM_DedicatedServer&&State==EM14State::Spit&&SpitSound&&
+        StateSeconds>=SpitReleaseSeconds&&StateSeconds-Dt<SpitReleaseSeconds)
+    {
+        const float SourceTime=1.10f+StateSeconds-SpitReleaseSeconds;
+        if(SourceTime<SpitSound->GetDuration())
+            UGameplayStatics::PlaySoundAtLocation(this,SpitSound,Mouth(),1.f,1.f,SourceTime,OneShotAttenuation(2400.f));
+    }
     if(!HasAuthority())return;
     const EM14State StartedState=State;
     if(State==EM14State::Spit&&!bSpitAimLocked)
@@ -171,7 +183,7 @@ void ASpiralPillarM14::ReleaseSpit()
     FCollisionQueryParams Query(SCENE_QUERY_STAT(M14SpitExit),false,this);
     Query.AddIgnoredActor(Victim);
     FHitResult Block;
-    if(GetWorld()->LineTraceSingleByChannel(Block,GetMesh()->GetSocketLocation(TEXT("spine_01")),From,ECC_Visibility,Query))return;
+    if(RangedAttackQuery::LineTraceSingle(GetWorld(), this, Block,GetMesh()->GetSocketLocation(TEXT("spine_01")),From,ECC_Visibility,Query))return;
     // Retain the readable final windup lock. Extrapolate its motion snapshot
     // to release, then solve travel time from the actual sampled mouth position.
     const FVector Aim=M14SpitIntercept(From,SpitAimPoint,SpitAimVelocity,

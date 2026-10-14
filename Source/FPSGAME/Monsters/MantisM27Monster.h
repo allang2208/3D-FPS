@@ -18,6 +18,8 @@ class FPSGAME_API AMantisM27Monster : public ANurseZombie
     GENERATED_BODY()
 public:
     AMantisM27Monster(const FObjectInitializer& Initializer = FObjectInitializer::Get());
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M27|Hearing", meta=(ClampMin="0", Units="cm"))
+    float GunshotHearingRadius = 3600.f;
     virtual void OnConstruction(const FTransform& Transform) override;
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;

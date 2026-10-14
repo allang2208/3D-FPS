@@ -1,4 +1,6 @@
 #include "M10Mawcrawler.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCorpseRagdollComponent.h"
 #include "MonsterCharacterMovementComponent.h"
@@ -33,7 +35,7 @@ AM10Mawcrawler::AM10Mawcrawler(const FObjectInitializer& Initializer)
     : Super(Initializer.SetDefaultSubobjectClass<UM10MovementComponent>(CharacterMovementComponentName))
 {
     PrimaryActorTick.bCanEverTick=true;
-    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
     CorpseRagdoll=CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
     CorpseRagdoll->Rig=EMonsterCorpseRig::Mawcrawler;
     HowlVoice=CreateDefaultSubobject<UAudioComponent>(TEXT("HowlVoice"));
@@ -164,7 +166,7 @@ bool AM10Mawcrawler::CanSee(const AActor* Victim) const
 {
     if(!IsValid(Victim))return false;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(M10BiteSight),false,this);Query.AddIgnoredActor(Victim);
-    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Mouth(),Victim->GetActorLocation(),ECC_Visibility,Query);
+    FHitResult Hit;return !RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit,Mouth(),Victim->GetActorLocation(),ECC_Visibility,Query);
 }
 bool AM10Mawcrawler::CanAttack(APawn* Victim) const
 {
@@ -341,8 +343,7 @@ float AM10Mawcrawler::TakeDamage(float Damage,const FDamageEvent& Event,AControl
         bConsumed=true;Target.Reset();CorpseRagdoll->PrepareDeath(GetMesh());SetState(EM10State::Dying);SetLifeSpan(CorpseSeconds);
         if(auto* AI=Cast<AMonsterAIController>(GetController())){AI->StopMovement();AI->UpdateKnowledge();}
         ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),EventInstigator,this);
-        if(auto* PC=Cast<APlayerController>(EventInstigator);PC&&PC->IsLocalController()&&GetGameInstance())
-            GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
+        ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);
     }
     else Combat->ReceiveHit(Applied,EventInstigator?EventInstigator->GetPawn().Get():Cast<APawn>(Causer),MonsterToughness::FormOf(Event.DamageTypeClass));
     return Applied;

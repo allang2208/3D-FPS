@@ -1,4 +1,6 @@
 #include "HundredEyedSlagMonster.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "GameFramework/GameStateBase.h"
 #include "HumanoidRagdollBudget.h"
 #include "SlagBlackMist.h"
 #include "FPSCombatHealthComponent.h"
@@ -145,7 +147,7 @@ void AHundredEyedSlagMonster::ReleaseEyeLaser(bool DamagePulse)
         // between damage pulses. Damage reuses this same beam segment.
         LaserEnd = Origin+LaserDirection*LaserRange;
         FHitResult Wall;
-        if (GetWorld()->LineTraceSingleByChannel(Wall,Origin,LaserEnd,ECC_Visibility,Query)) LaserEnd = Wall.ImpactPoint;
+        if (RangedAttackQuery::LineTraceSingle(GetWorld(), this, Wall,Origin,LaserEnd,ECC_Visibility,Query)) LaserEnd = Wall.ImpactPoint;
         return;
     }
     TArray<FHitResult> Hits;
@@ -161,13 +163,31 @@ void AHundredEyedSlagMonster::ReleaseEyeLaser(bool DamagePulse)
         FCollisionQueryParams Occlusion = Query;
         Occlusion.AddIgnoredActor(Victim);
         FHitResult Cover;
-        if (GetWorld()->LineTraceSingleByChannel(Cover,Origin,Hit.ImpactPoint,ECC_Visibility,Occlusion)) continue;
+        if (RangedAttackQuery::LineTraceSingle(GetWorld(), this, Cover,Origin,Hit.ImpactPoint,ECC_Visibility,Occlusion)) continue;
         // Multiple collision bodies still receive only one hit in this
         // pulse; later pulses may damage the same living target again.
         PulseHitVictims.Add(Victim);
         UGameplayStatics::ApplyDamage(Victim,MagicAttack*LaserDamageMultiplier,
             GetController(),this,UHandBrainMagicDamage::StaticClass());
         if (State != ESlagState::EyeLaserFire || Dead()) return;
+    }
+}
+
+void AHundredEyedSlagMonster::TickRemotePresentation()
+{
+    const double Now=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+    StateSeconds=float(FMath::Max(0.,Now-StateStartedAt));
+    float Duration=0.f;
+    if(State==ESlagState::EyeLaserWindup)Duration=FMath::Max(1.5f,LaserWindupSeconds);
+    else if(State==ESlagState::EyeLaserFire)Duration=FMath::Max(.1f,LaserFireSeconds);
+    else if(State==ESlagState::EyeLaserRecover)Duration=FMath::Max(.1f,LaserRecoverSeconds);
+    if(Duration<=0.f)return;
+    if(auto* Asset=Clip(CurrentClip))SampleClip(CurrentClip,Asset->GetPlayLength()*FMath::Clamp(StateSeconds/Duration,0.f,1.f));
+    if(StateSeconds>=Duration){ClearLaserFX();return;}
+    if(State==ESlagState::EyeLaserWindup||State==ESlagState::EyeLaserFire)
+    {
+        GetMesh()->TickAnimation(0.f,false);GetMesh()->RefreshBoneTransforms();
+        UpdateLaserFX(State==ESlagState::EyeLaserFire?1.f:StateSeconds/Duration,State==ESlagState::EyeLaserFire);
     }
 }
 

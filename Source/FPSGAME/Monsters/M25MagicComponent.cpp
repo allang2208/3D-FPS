@@ -1,4 +1,5 @@
 #include "M25MagicComponent.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "VortexCofferM25.h"
 #include "MonsterAIController.h"
 #include "MonsterCombatComponent.h"
@@ -112,7 +113,7 @@ bool UM25MagicComponent::ClearChargeOrigin(EM25Spell Spell) const
 {
     FCollisionQueryParams Query(SCENE_QUERY_STAT(M25ChargeClearance), false, GetOwner());
     FHitResult Hit;
-    return !GetWorld()->SweepSingleByChannel(Hit, ElectrodeLocation() + FVector(0, 0, 2),
+    return !RangedAttackQuery::SweepSingle(GetWorld(), GetOwner(), Hit, ElectrodeLocation() + FVector(0, 0, 2),
         Origin(Spell), FQuat::Identity, ECC_Visibility, FCollisionShape::MakeSphere(8.f), Query);
 }
 
@@ -132,7 +133,7 @@ bool UM25MagicComponent::HasSight(const APawn* Target, EM25Spell Spell) const
     FCollisionQueryParams Query(SCENE_QUERY_STAT(M25MagicSight), false, GetOwner());
     Query.AddIgnoredActor(Target);
     FHitResult Hit;
-    return !GetWorld()->LineTraceSingleByChannel(Hit, Origin(Spell), TargetPoint(Target), ECC_Visibility, Query);
+    return !RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Hit, Origin(Spell), TargetPoint(Target), ECC_Visibility, Query);
 }
 
 EM25Spell UM25MagicComponent::SelectSpell(APawn* Target) const
@@ -191,7 +192,7 @@ FVector UM25MagicComponent::PredictAim(const APawn* Target, float Seconds) const
     FCollisionQueryParams Query(SCENE_QUERY_STAT(M25LeadObstruction), false, GetOwner());
     Query.AddIgnoredActor(Target);
     FHitResult Hit;
-    return GetWorld()->LineTraceSingleByChannel(Hit, Point, Point + Offset, ECC_Visibility, Query)
+    return RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Hit, Point, Point + Offset, ECC_Visibility, Query)
         ? Hit.ImpactPoint - Offset.GetSafeNormal() * 3.f : Point + Offset;
 }
 
@@ -397,7 +398,7 @@ bool UM25MagicComponent::FirstContact(FVector Start, FVector End, float Radius, 
     for (ECollisionChannel Channel : {ECC_WorldStatic, ECC_WorldDynamic, ECC_Pawn, ECC_PhysicsBody})
         Objects.AddObjectTypesToQuery(Channel);
     TArray<FHitResult> Hits;
-    GetWorld()->SweepMultiByObjectType(Hits, Start, End, FQuat::Identity, Objects,
+    RangedAttackQuery::SweepObjects(GetWorld(), GetOwner(), Hits, Start, End, FQuat::Identity, Objects,
         FCollisionShape::MakeSphere(FMath::Max(.1f, Radius)), Query);
     bool Found = false;
     for (const FHitResult& Contact : Hits)

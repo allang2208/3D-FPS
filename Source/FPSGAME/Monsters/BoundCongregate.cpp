@@ -1,4 +1,6 @@
 #include "BoundCongregate.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "BoundCongregateAnimInstance.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCorpseRagdollComponent.h"
@@ -29,7 +31,7 @@ ABoundCongregate::ABoundCongregate(const FObjectInitializer& Initializer)
     :Super(Initializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(CharacterMovementComponentName))
 {
     PrimaryActorTick.bCanEverTick=true;bReplicates=true;
-    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
     CorpseRagdoll=CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
     Voice=CreateDefaultSubobject<UAudioComponent>(TEXT("BodyVoice"));Voice->SetupAttachment(GetMesh());Voice->bAutoActivate=false;
     Voice->bOverrideAttenuation=true;Voice->AttenuationOverrides.bAttenuate=true;
@@ -141,7 +143,7 @@ bool ABoundCongregate::HasSight(APawn* Victim) const
 {
     if(!IsValid(Victim))return false;
     FCollisionQueryParams Q(SCENE_QUERY_STAT(CongregateSight),false,this);Q.AddIgnoredActor(Victim);FHitResult Hit;
-    return !GetWorld()->LineTraceSingleByChannel(Hit,GetMesh()->GetSocketLocation(TEXT("maw")),Victim->GetActorLocation(),ECC_Visibility,Q);
+    return !RangedAttackQuery::LineTraceSingle(GetWorld(), this, Hit,GetMesh()->GetSocketLocation(TEXT("maw")),Victim->GetActorLocation(),ECC_Visibility,Q);
 }
 bool ABoundCongregate::CanAttack(APawn* Victim) const
 {
@@ -258,8 +260,7 @@ float ABoundCongregate::TakeDamage(float Damage,const FDamageEvent& Event,AContr
         EndTentacle(false);Target.Reset();SetState(EBoundCongregateState::Dead);SetLifeSpan(CorpseSeconds);
         if(auto* AI=Cast<AMonsterAIController>(GetController())){AI->StopMovement();AI->UpdateKnowledge();}
         ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),EventInstigator,this);
-        if(auto* PC=Cast<APlayerController>(EventInstigator);PC&&PC->IsLocalController()&&GetGameInstance())
-            GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
+        ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);
     }
     else Combat->ReceiveHit(Applied,EventInstigator?EventInstigator->GetPawn().Get():Cast<APawn>(Causer),MonsterToughness::FormOf(Event.DamageTypeClass));
     return Applied;
