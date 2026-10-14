@@ -9,6 +9,7 @@ class UStaticMeshComponent;
 class UStaticMesh;
 class UMaterialInterface;
 class USoundBase;
+class UBoxComponent;
 
 /**
  * 本工程自己的门（单扇平开＋门框），用于建造面板与关卡里的可交互门。
@@ -31,6 +32,8 @@ class FPSGAME_API AColdSteelDoor : public AActor
     GENERATED_BODY()
 public:
     AColdSteelDoor();
+    const FColdSteelDoorNetState& NetworkSwing() const { return NetSwing; }
+    void ApplyNetworkSwing(const FColdSteelDoorNetState& State,bool bSound=false);
     virtual void Tick(float DeltaSeconds) override;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     /** 尝试开门：返回 false 表示被拒（两侧摆动空间都被实体挡住时不开门，2026-10-04 用户拍板）。 */
@@ -49,6 +52,8 @@ public:
     void PrepareBuildPreview() {AlignGeometry();}
     /** Reuse the production hinge/interaction with a separately owned shared frame. */
     void ConfigureStandaloneLeaf(UStaticMesh* Mesh,bool bPositiveHinge,float OpeningSeconds,float ClosingDelay);
+    /** Opt in only for generated medical doors; player-built doors keep their existing policy. */
+    void EnableMonsterAccess() { bMonsterAccess=true; }
 
 protected:
     virtual void BeginPlay() override;
@@ -122,4 +127,10 @@ protected:
     UPROPERTY(ReplicatedUsing=OnRep_Setup) TObjectPtr<UMaterialInterface> NetSurface;
     UPROPERTY(ReplicatedUsing=OnRep_Setup) FVector NetScale=FVector::OneVector;
     UPROPERTY(ReplicatedUsing=OnRep_Setup) FColdSteelDoorLeafConfig NetLeaf;
+private:
+    bool bMonsterAccess=false;
+    UPROPERTY(Transient) TObjectPtr<UBoxComponent> MonsterAccessZone;
+    bool HasLivingMonsterAtDoor() const;
+    UFUNCTION() void MonsterContact(UPrimitiveComponent* Component,AActor* OtherActor,UPrimitiveComponent* OtherComponent,
+        int32 OtherBodyIndex,bool bFromSweep,const FHitResult& Sweep);
 };

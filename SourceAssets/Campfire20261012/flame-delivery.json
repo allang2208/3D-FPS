@@ -1,0 +1,21 @@
+{
+  "system": "/Game/Building/Campfire20261012/NS_CampfireFlame.NS_CampfireFlame",
+  "assets": [
+    "/Game/Building/Campfire20261012/M_CampfireDenseFlame.M_CampfireDenseFlame",
+    "/Game/Building/Campfire20261012/M_CampfireTongues.M_CampfireTongues",
+    "/Game/Building/Campfire20261012/MI_CampfireTongue01.MI_CampfireTongue01",
+    "/Game/Building/Campfire20261012/MI_CampfireTongue02.MI_CampfireTongue02",
+    "/Game/Building/Campfire20261012/NS_CampfireFlame.NS_CampfireFlame"
+  ],
+  "source_torch_sha256": "ef3902d5a800a26e3a8f4c32ee9a108f9e2940fd55e2e4505edd6a4087422828",
+  "shared_torch_unchanged": true,
+  "refraction": "disabled in campfire materials; no distortion emitter",
+  "sparks": 0,
+  "body_particles": 2,
+  "tongue_rate_per_second": 16,
+  "tongue_max_lifetime": 1.3,
+  "offline_field": "/Game/Skills/Fireball/FluidCore20260923/T_FireballCombustionFields",
+  "asset_compiled_and_saved": true,
+  "runtime_tested": false,
+  "visual_tested": false
+}

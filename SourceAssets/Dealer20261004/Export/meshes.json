@@ -1,0 +1,20 @@
+[
+  {
+    "name": "SM_DealerCard",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Dealer20261004\\Export\\SM_DealerCard.fbx",
+    "slots": [
+      "DealerFace",
+      "DealerBack",
+      "DealerEdge"
+    ],
+    "triangles": 284
+  },
+  {
+    "name": "SM_DealerResult",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Dealer20261004\\Export\\SM_DealerResult.fbx",
+    "slots": [
+      "DealerResult"
+    ],
+    "triangles": 2
+  }
+]

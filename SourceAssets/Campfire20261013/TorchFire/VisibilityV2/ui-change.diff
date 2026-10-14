@@ -1,0 +1,143 @@
+--- Before/Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp
++++ Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelSmeltingWidget.h"
++#include "ColdSteelSmeltingPresentation.h"
+ #include "ColdSteelHUDWidget.h"
+ #include "ColdSteelStatusModel.h"
+ #include "ColdSteelInventoryTypes.h"
+@@ -30,25 +31,13 @@
+ 
+ namespace
+ {
++    using ColdSteelSmeltingPresentation::SmeltingProgressColor;
++    using ColdSteelSmeltingPresentation::FuelFillColor;
+     /**
+      * 复刻原项目 game-dev `game-ui-manager.js:51-68` 的 `timelineProgressColor`：
+      * 四个色标之间按进度线性插值。**方向按冶炼语义正向化**（规划文档第 2.2 节）：
+      * 0%=红 → 1/3=黄 → 2/3=蓝 → 100%=绿；原项目为倒计时威胁语义（0 绿 1 红），常量在此不混用。
+      */
+-    FLinearColor SmeltingProgressColor(float T)
+-    {
+-        static const FLinearColor Stops[4]=
+-        {
+-            FLinearColor::FromSRGBColor(FColor(0xE5,0x41,0x3E)),   // #E5413E 红
+-            FLinearColor::FromSRGBColor(FColor(0xF1,0xC1,0x3F)),   // #F1C13F 黄
+-            FLinearColor::FromSRGBColor(FColor(0x41,0x8B,0xE7)),   // #418BE7 蓝
+-            FLinearColor::FromSRGBColor(FColor(0x3D,0xC4,0x5B))    // #3DC45B 绿
+-        };
+-        const float X=FMath::Clamp(T,0.f,1.f)*3.f;
+-        const int32 Step=FMath::Clamp(FMath::FloorToInt(X),0,2);
+-        const float A=X-Step;
+-        return Stops[Step]*(1.f-A)+Stops[Step+1]*A;   // 线性插值（sRGB 空间，与原项目 CSS 侧一致）
+-    }
+ 
+     FString DefinitionName(UColdSteelStatusModel* Model,const FString& Definition)
+     {
+@@ -59,13 +48,6 @@
+ 
+     /** 燃料条底色：按存料占比从暖橙 #F0BE71（Warning 档）渐变到亮黄 #F1C13F——
+      *  越满越"有货"，与左侧进度条的四段色语义分开（燃料=存量、进度=时间）。 */
+-    FLinearColor FuelFillColor(float Ratio)
+-    {
+-        const FLinearColor Low=FLinearColor::FromSRGBColor(FColor(0xF0,0xBE,0x71));
+-        const FLinearColor High=FLinearColor::FromSRGBColor(FColor(0xF1,0xC1,0x3F));
+-        const float X=FMath::Clamp(Ratio,0.f,1.f);
+-        return Low*(1.f-X)+High*X;
+-    }
+ 
+     /** 秒数 → 人类可读：≥60 秒折算"X 分 Y 秒"（整分省秒），否则原样。燃料每件 1 分钟，界面按分读。 */
+     FString ReadableSeconds(double Seconds)
+@@ -877,7 +859,6 @@
+     const double Cap=bFurnace?System->FurnaceCapacity(W,Cell):FC.Capacity;   // v9：容量随燃料仓轴升级
+     AnimFuelRatio=Cap>0?FMath::Clamp(static_cast<float>(Fuel/Cap),0.f,1.f):0.f;
+     bFuelAlive=bFurnace&&Fuel>0;
+-    FuelBar->SetFillColorAndOpacity(FuelFillColor(AnimFuelRatio));
+     // 用户 2026-09-24：燃料区也要看到剩余时间——任务中显示"存料 vs 还需烧"直接对比，
+     // 存料不够烧完就转 Warning 橙（要不要添柴一眼可判）；空闲/完成态维持"存料 · 上限"。
+     // 2026-09-24 实时化整改：这里只校准锚点，文案由 PaintFuelLine 每帧外推＋变化门控写一次。
+@@ -1006,11 +987,9 @@
+     }
+     else if(auto* Caption=Cast<UTextBlock>(CollectButton->GetContent()))
+         Caption->SetText(FText::FromString(bCampfire?TEXT("领取菜品"):TEXT("取出矿锭")));
+-    // 两条都是通栏 UProgressBar：percent 驱动，轨道与填充同几何（无黑边、不溢出）。
+-    SmeltBar->SetPercent(FMath::Clamp(AnimSmeltT,0.f,1.f));
+-    FuelBar->SetPercent(FMath::Clamp(bFuelAlive?AnimFuelRatio:0.f,0.f,1.f));
+-    if(!bBurning)SmeltBar->SetFillColorAndOpacity(SmeltingProgressColor(AnimSmeltT));   // 燃烧时让 AnimateBars 每帧控色
+-}
++    ColdSteelSmeltingPresentation::RefreshProgressBars(SmeltBar,FuelBar,AnimSmeltT,AnimFuelRatio,bBurning,bFuelAlive);
++}
++
+ 
+ FString UColdSteelSmeltingWidget::DebugFuelLineText() const {return FuelTime?FuelTime->GetText().ToString():FString();}
+ 
+@@ -1035,7 +1014,7 @@
+     else
+     {
+         FuelTime->SetText(FText::FromString(FString::Printf(TEXT("%s · 上限 %s"),
+-            *ReadableSeconds(Fuel),*ReadableSeconds(System->FurnaceCapacity(World.Get(),Cell)))));   // v9：上限随燃料仓轴升级
++            *ReadableSeconds(Fuel),*ReadableSeconds(bCampfire?System->FuelConfig().Capacity:System->FurnaceCapacity(World.Get(),Cell)))));   // v9：上限随燃料仓轴升级
+         FuelTime->SetColorAndOpacity(Fuel>0?ColdSteelUI::TextSecondary:ColdSteelUI::TextTertiary);
+     }
+ }
+--- Before/Source/FPSGAME/UI/ColdSteelCampfireWidget.cpp
++++ Source/FPSGAME/UI/ColdSteelCampfireWidget.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelSmeltingWidget.h"
++#include "ColdSteelSmeltingPresentation.h"
+ #include "ColdSteelStatusModel.h"
+ #include "ColdSteelUIStyle.h"
+ #include "../Building/ColdSteelCampfire.h"
+@@ -67,8 +68,8 @@
+     JobTime->SetText(FText::FromString(S.bSaveBlocked?TEXT("等待存档恢复"):R?FString::Printf(TEXT("本份剩余 %.1f 秒"),R->Seconds-Progress)
+         :Fuel>0?TEXT("5 米内减耗生效"):TEXT("添柴后点燃")));
+     AnimSmeltT=R?static_cast<float>(Progress/R->Seconds):0;bBurning=R&&Fuel>0&&!Blocked&&!S.bSaveBlocked;
+-    AnimFuelRatio=static_cast<float>(FMath::Clamp(Fuel/FC.Capacity,0.0,1.0));bFuelAlive=Fuel>0&&!S.bSaveBlocked;
+-    FuelBar->SetFillColorAndOpacity(ColdSteelUI::Warning);
++    AnimFuelRatio=FC.Capacity>0?static_cast<float>(FMath::Clamp(Fuel/FC.Capacity,0.0,1.0)):0.f;bFuelAlive=Fuel>0&&!S.bSaveBlocked;
++    ColdSteelSmeltingPresentation::RefreshProgressBars(SmeltBar,FuelBar,AnimSmeltT,AnimFuelRatio,bBurning,bFuelAlive);
+     CdFuel=Fuel;CdNeed=R?FMath::Max(0.0,R->Seconds-Progress):0;CdStamp=FPlatformTime::Seconds();
+     bCdRunning=R&&!Blocked;bCdBurning=Fuel>0&&!S.bSaveBlocked;PaintFuelLine();
+     if(const auto* B=IconFor(FC.Item))FuelIcon->SetBrush(*B);
+--- Before/Source/FPSGAME/UI/ColdSteelSmeltingPresentation.h
++++ Source/FPSGAME/UI/ColdSteelSmeltingPresentation.h
+@@ -0,0 +1,39 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "Components/ProgressBar.h"
++
++// One presentation path for furnace and campfire. No inventory or fuel mutation.
++namespace ColdSteelSmeltingPresentation
++{
++    inline FLinearColor SmeltingProgressColor(float T)
++    {
++        static const FLinearColor Stops[4]=
++        {
++            FLinearColor::FromSRGBColor(FColor(0xE5,0x41,0x3E)),   // #E5413E 红
++            FLinearColor::FromSRGBColor(FColor(0xF1,0xC1,0x3F)),   // #F1C13F 黄
++            FLinearColor::FromSRGBColor(FColor(0x41,0x8B,0xE7)),   // #418BE7 蓝
++            FLinearColor::FromSRGBColor(FColor(0x3D,0xC4,0x5B))    // #3DC45B 绿
++        };
++        const float X=FMath::Clamp(T,0.f,1.f)*3.f;
++        const int32 Step=FMath::Clamp(FMath::FloorToInt(X),0,2);
++        const float A=X-Step;
++        return Stops[Step]*(1.f-A)+Stops[Step+1]*A;   // 线性插值（sRGB 空间，与原项目 CSS 侧一致）
++    }
++
++    inline FLinearColor FuelFillColor(float Ratio)
++    {
++        const FLinearColor Low=FLinearColor::FromSRGBColor(FColor(0xF0,0xBE,0x71));
++        const FLinearColor High=FLinearColor::FromSRGBColor(FColor(0xF1,0xC1,0x3F));
++        const float X=FMath::Clamp(Ratio,0.f,1.f);
++        return Low*(1.f-X)+High*X;
++    }
++
++    inline void RefreshProgressBars(UProgressBar* SmeltBar,UProgressBar* FuelBar,
++        float SmeltRatio,float FuelRatio,bool bBurning,bool bFuelAlive)
++    {
++        SmeltBar->SetPercent(FMath::Clamp(SmeltRatio,0.f,1.f));
++        FuelBar->SetPercent(FMath::Clamp(bFuelAlive?FuelRatio:0.f,0.f,1.f));
++        FuelBar->SetFillColorAndOpacity(FuelFillColor(FuelRatio));
++        if(!bBurning)SmeltBar->SetFillColorAndOpacity(SmeltingProgressColor(SmeltRatio));
++    }
++}

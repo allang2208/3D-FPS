@@ -1,0 +1,14 @@
+[
+  {
+    "emitter": "Fire",
+    "material": "/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchFire.M_CampfireTorchFire",
+    "contact_fade_cm": 4.0,
+    "input": "FadeDistance"
+  },
+  {
+    "emitter": "Smoke",
+    "material": "/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchSmoke.M_CampfireTorchSmoke",
+    "contact_fade_cm": 8.0,
+    "input": "FadeDistance"
+  }
+]

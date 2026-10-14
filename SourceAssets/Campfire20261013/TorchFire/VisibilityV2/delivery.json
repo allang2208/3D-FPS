@@ -1,0 +1,43 @@
+{
+  "completed_at_utc": "2026-10-13T11:10:41.926294+00:00",
+  "status": "assets_saved_game_built_editor_live_coding_applied",
+  "changed_sha256": {
+    "Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp": "c4d28da38961525b8af78810704f198d7a2185c84cf1b64c71202780319d51c9",
+    "Source/FPSGAME/UI/ColdSteelCampfireWidget.cpp": "16e33cb1987a5c166847294959af819e55bd1b6ee892832374f283b54bbdb6a8",
+    "Source/FPSGAME/UI/ColdSteelSmeltingPresentation.h": "f9f875abeece2d87f6d7aaebf7aaf01578860bdf7189cb017505a66afa2fec72",
+    "Content/Building/Campfire20261013/TorchFire/NS_CampfireTorchFire.uasset": "25d102c2e79cb5828e465a161b80b53a0603530765c6bc89a02915dca5d94475",
+    "Content/Building/Campfire20261013/TorchFire/M_CampfireTorchFire.uasset": "e3d87260965949028d23d482ae23762719979e08b4a86ed55ea588f5aca7b4b4"
+  },
+  "vendor_smoke_native_actor_and_reflection_header_unchanged": true,
+  "source_bar_root_cause": "Campfire early-return skipped SetPercent; fixed Warning tint differed from furnace gradient. Both now call the same presentation helper.",
+  "fuel_capacity_or_consumption_changed": false,
+  "expected_fill_55_of_600_seconds": 0.09166666666666666,
+  "niagara_saved_readback_valid": true,
+  "game_build": {
+    "result": "Succeeded",
+    "log": "Saved/CampfireVisibility20261013/build-game.log",
+    "exe_size": 362178048,
+    "exe_mtime_utc": "2026-10-13T11:09:23.381906+00:00"
+  },
+  "editor_live_coding": {
+    "result": "Success",
+    "log": "Saved/CampfireVisibility20261013/live-coding-result.txt"
+  },
+  "editor_base_dll_rebuilt_by_this_task": false,
+  "editor_note": "Existing user editor was preserved; current session received a successful Live Coding patch. Regular base Editor DLL relink was not performed while it was open.",
+  "reference_images": {
+    "library_ids": [
+      "libfile_c12f8e6427f88191ba0265edee865d32",
+      "libfile_ea00ab8b28b48191bb53865191acab37"
+    ],
+    "official_materialization_attempted": true,
+    "local_paths_exist": false,
+    "pixels_viewed": false,
+    "failure": "Official helper failed: Windows Python os has no setxattr. Did not bypass metadata failure or inspect temporary residual files."
+  },
+  "game_or_pie_started": false,
+  "visual_preview_performed": false,
+  "real_save_written": false,
+  "committed": false,
+  "pushed": false
+}

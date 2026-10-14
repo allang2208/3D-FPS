@@ -1,0 +1,242 @@
+{
+  "revision": "layout-20261004",
+  "formal_mesh": "/Game/Building/Workbench/Meshes/SM_WBStandalone_Workbench",
+  "checks": {
+    "layout_validation.json": {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WorkbenchBuildable20260924\\Authored\\WorkbenchLayout_Editable.blend",
+      "object_count": 32,
+      "triangle_intersections": []
+    },
+    "ue_import_receipt.json": {
+      "saved": true,
+      "mesh": "/Game/Building/Workbench/Meshes/SM_WBStandalone_Workbench.SM_WBStandalone_Workbench",
+      "fbx_sha256": "49583259bbcb0b77d1fc734631d355bd4302930aecafc083d3d9102ada95a71d",
+      "material_slots": 32,
+      "material_mapping_preserved": true,
+      "nanite_settings_preserved": true,
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>",
+      "bounds": "<Struct 'BoxSphereBounds' (0x000002700D56EF00) {origin: {x: -0.000004, y: 0.846626, z: 79.464043}, box_extent: {x: 120.910992, y: 129.499992, z: 79.464043}, sphere_radius: 191.134634}>",
+      "other_dirty_content": []
+    },
+    "placement_bounds_receipt.json": {
+      "bounds": "<Struct 'BoxSphereBounds' (0x0000026FAC075980) {origin: {x: -0.000000, y: 0.000000, z: 79.464043}, box_extent: {x: 120.910995, y: 130.346626, z: 79.464043}, sphere_radius: 194.741485}>",
+      "negative_extension": "<Struct 'Vector' (0x0000026ED7FCA670) {x: 0.000000, y: 1.693260, z: 0.000000}>",
+      "positive_extension": "<Struct 'Vector' (0x0000026ED7FCA658) {x: 0.000007, y: 0.000007, z: 0.000001}>"
+    },
+    "transform_import_validation.json": {
+      "production_importer_executed": true,
+      "same_bounds_and_triangles": true,
+      "transform_only_second_import_ran": true,
+      "imports": [
+        {
+          "asset": "/Game/Building/Workbench/TransientLayoutReview/Meshes/SM_WBStandalone_Workbench.SM_WBStandalone_Workbench",
+          "geometry_signature": "49583259bbcb0b77d1fc734631d355bd4302930aecafc083d3d9102ada95a71d"
+        },
+        {
+          "asset": "/Game/Building/Workbench/TransientLayoutReview/Meshes/SM_WBStandalone_Workbench.SM_WBStandalone_Workbench",
+          "geometry_signature": "290104d6c5513c566f61637918daac9c71963b7ac9e26385cfb0e26f9a158042"
+        }
+      ],
+      "formal_asset_untouched": true
+    },
+    "native_ui.json": {
+      "inventory_open": true,
+      "workbench_visibility": "<SlateVisibility.SELF_HIT_TEST_INVISIBLE: 4>",
+      "widget": "/Engine/Transient.UnrealEdEngine_0:GameInstance_0.ColdSteelWorkbenchWidget_0",
+      "widget_api": [
+        "on_preview_key_down",
+        "on_preview_mouse_button_down",
+        "set_desired_focus_widget",
+        "tool_tip_widget"
+      ],
+      "combos": [
+        {
+          "path": "/Engine/Transient.UnrealEdEngine_0:GameInstance_0.ColdSteelWorkbenchWidget_0.WidgetTree.ComboBoxString_0",
+          "options": [
+            "伐木斧 ×1",
+            "矿镐 ×1"
+          ],
+          "selected": "伐木斧 ×1"
+        }
+      ]
+    },
+    "native_pickaxe.json": {
+      "selected": "矿镐 ×1",
+      "inventory_open": true,
+      "workbench_visibility": "<SlateVisibility.SELF_HIT_TEST_INVISIBLE: 4>",
+      "visible_content": [
+        "制作 · 工作台",
+        "×",
+        "配方 · 制作",
+        "2 / 2 · 矿镐",
+        "所需材料",
+        "材料来源 · 背包 + 主仓库",
+        "材料",
+        "持有 / 需要",
+        "状态",
+        "木材",
+        "0",
+        " / ",
+        "1",
+        "缺 1",
+        "石块",
+        "0",
+        " / ",
+        "2",
+        "缺 2",
+        "材料不足",
+        "0",
+        "材料可制作 / 份",
+        "1",
+        "本次制作 / 份",
+        "1",
+        "本次产出 / 件",
+        "材料可制作份数不含背包容量限制，单批最多 99 份。",
+        "成品预览 · 参数",
+        "暂无物品图像",
+        "矿镐",
+        "全新成品 · 基础品质",
+        "按当前角色与改造计算，以单次挥砍为准；伤害未计暴击、要害、目标防御及距离衰减。采集数值独立列出。",
+        "操作说明",
+        "选择配方和制作份数，点击「直接制作」，成品立即放入背包。",
+        "优先消耗背包材料，再使用主仓库。材料不足或背包放不下时不扣除材料。",
+        "Esc 或 × 关闭 · 工作台升级尚未开放",
+        "",
+        "缺少 1 个木材（背包+仓库共 0）",
+        "−",
+        "1 份",
+        "+",
+        "直接制作",
+        "升\n级",
+        "工作台升级",
+        "×",
+        "升级轴一",
+        "Lv.—",
+        "升级轴二",
+        "Lv.—",
+        "升级轴三",
+        "Lv.—",
+        "升级轴一",
+        "Lv.—",
+        "升级效果",
+        "效果数值后续设计",
+        "所需材料",
+        "材料",
+        "×—",
+        "",
+        "升级内容与消耗后续设计",
+        "升级",
+        "升级只对这台工作台生效 · 升级轴与数值后续设计",
+        "武器总伤害",
+        "22",
+        "攻击间隔",
+        "1160 ms",
+        "体力消耗",
+        "10",
+        "最大攻击距离",
+        "1.8 m",
+        "矿镐 ×1",
+        "矿镐 ×1",
+        "伐木斧 ×1"
+      ]
+    },
+    "ue_final_readback.json": {
+      "mesh": "/Game/Building/Workbench/Meshes/SM_WBStandalone_Workbench.SM_WBStandalone_Workbench",
+      "triangles": 134110,
+      "material_slots": 32,
+      "materials_identical_to_before": true,
+      "footprint": [
+        13,
+        14,
+        8
+      ],
+      "bounds": "<Struct 'BoxSphereBounds' (0x00000277C9BF0080) {origin: {x: -0.000000, y: 0.000000, z: 79.464043}, box_extent: {x: 120.910995, y: 130.346626, z: 79.464043}, sphere_radius: 194.741485}>",
+      "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>",
+      "nanite_enabled": true,
+      "content_sha256_matches": true,
+      "dirty_content": [],
+      "dirty_maps": [],
+      "temporary_assets": [],
+      "pie_stopped": true
+    },
+    "final_file_audit.json": {
+      "changed_existing_files": [
+        {
+          "path": "SourceAssets\\WorkbenchBuildable20260924\\README.md",
+          "unchanged": false,
+          "sha256": "f868c7157ee770affe3ed3140728a66e5ee849234320a0d507ee3d2c635f2c7a"
+        },
+        {
+          "path": "SourceAssets\\WorkbenchBuildable20260924\\Authored\\manifest_build.json",
+          "unchanged": false,
+          "sha256": "e6991edf4babb169bbd5c062dbc5356f5d1383d6fb2b93a4aadcc4b8ab92c681"
+        },
+        {
+          "path": "SourceAssets\\WorkbenchBuildable20260924\\Authored\\SM_WBStandalone_Workbench.fbx",
+          "unchanged": false,
+          "sha256": "49583259bbcb0b77d1fc734631d355bd4302930aecafc083d3d9102ada95a71d"
+        },
+        {
+          "path": "SourceAssets\\WorkbenchBuildable20260924\\Authored\\StandaloneWorkbench.blend",
+          "unchanged": false,
+          "sha256": "580fa8ab56c2ce6d4994631e9b3862f2002fff3c597ee6f1a93f2aed084a9aec"
+        },
+        {
+          "path": "SourceAssets\\WorkbenchBuildable20260924\\Authored\\StandaloneWorkbench.blend1",
+          "unchanged": false,
+          "sha256": "7e7d96578f20ea4104fb77d883e2ef3f0b409b2c8fd8a0ed23a3d02e962e7d93"
+        },
+        {
+          "path": "SourceAssets\\WorkbenchBuildable20260924\\Scripts\\author_standalone.py",
+          "unchanged": false,
+          "sha256": "0f5b96a8fcbee59fd32da707cc096e007aac8b9945608b2881454b103b0cbd44"
+        },
+        {
+          "path": "SourceAssets\\WorkbenchBuildable20260924\\Scripts\\import_standalone.py",
+          "unchanged": false,
+          "sha256": "835167786f4834f1c22f75052b8c539ae5cc2558a14f824d04fc62ab58c6f50a"
+        },
+        {
+          "path": "Content\\Building\\Workbench\\Meshes\\SM_WBStandalone_Workbench.uasset",
+          "unchanged": false,
+          "sha256": "9e4e6f7631cff54590fec86dec83d7400c1de9f6a2fabe22ad83bdafda74c214"
+        }
+      ],
+      "protected_files": [
+        {
+          "path": "Content\\Building\\Voxels\\Rounded\\DA_VoxelBuildPalette.uasset",
+          "unchanged": true,
+          "sha256": "391110b3307ba7d45be3d35b9d4f096d174c55be90dd8d9e4f9410fdda7b29f5"
+        },
+        {
+          "path": "Content\\ColdSteelData\\crafting-recipes.json",
+          "unchanged": true,
+          "sha256": "24f54554548652668d5a09a5ab1ba5ded75c82f9feb494787c345082e9c75fa9"
+        },
+        {
+          "path": "Saved\\SaveGames\\ColdSteelPlayer_A.sav",
+          "unchanged": true,
+          "sha256": "bac71a6a653e8cc1f4b86881b8343dedcd315a44a3c19ad465044920ddc218c2"
+        },
+        {
+          "path": "Saved\\SaveGames\\ColdSteelPlayer_A.sha1",
+          "unchanged": true,
+          "sha256": "83f655a031f4bb897e27a4f02c6c27445c751119569a2a3e3f9c1b516c02e018"
+        },
+        {
+          "path": "Saved\\SaveGames\\ColdSteelPlayer_B.sav",
+          "unchanged": true,
+          "sha256": "c0e8ff26589482decd42aa998ab69beb3b74a2c4ff096c9bff96da919f8a1435"
+        },
+        {
+          "path": "Saved\\SaveGames\\ColdSteelPlayer_B.sha1",
+          "unchanged": true,
+          "sha256": "a9e79546a0caed30426b240e1c24a1daf4b437c3f40a0baec8925f551fc5ccdd"
+        }
+      ],
+      "hub_map_unchanged": true,
+      "changed_content_count": 1,
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\workbench_layout_20261004\\backup"
+    }
+  }
+}

@@ -1,4 +1,6 @@
 #include "VoxelBuildWorld.h"
+#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
+#include "ColdSteelCampfire.h"
 #include "VoxelBuildDebug.h"
 #include "VoxelBuildPalette.h"
 #include "VoxelBuildRuntime.h"
@@ -58,6 +60,7 @@ namespace
 
 AVoxelBuildWorld::AVoxelBuildWorld()
 {
+    bReplicates=true;bAlwaysRelevant=true;
     PrimaryActorTick.bCanEverTick=true;PrimaryActorTick.TickGroup=TG_PrePhysics;
     SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("VoxelRoot")));
     Runtime=MakeUnique<FVoxelBuildRuntime>();SetCanBeDamaged(true);
@@ -107,7 +110,7 @@ bool AVoxelBuildWorld::ResolveHit(const FHitResult& Hit,FVoxelBuildKey& Key) con
 
 bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* InPalette)
 {
-    if(GetNetMode()==NM_Client||bReady||!InPalette)return false;
+    if(bReady||!InPalette)return false;
     Palette=InPalette;WorldKey=InWorldKey;
     StructuralContact=NewObject<UPhysicalMaterial>(this);
     StructuralContact->Friction=.8f;StructuralContact->Restitution=.03f;
@@ -128,7 +131,7 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
     // 审计 C6：原来任何失败都笼统报"建筑存档版本不兼容，已保留原档"并直接让初始化失败——
     // 于是一个 CRC 损坏（而非版本问题）的存档会让整个建造功能不可用，且玩家看到的原因是错的，
     // 也没有日志。现在按 ELoadResult 区分原因，损坏时尝试 .pre-structure 备份。
-    if(UGameplayStatics::DoesSaveGameExist(SaveSlot,0))
+    if(HasAuthority()&&UGameplayStatics::DoesSaveGameExist(SaveSlot,0))
     {
         VoxelPersistence::ELoadResult LoadResult=VoxelPersistence::ELoadResult::Ok;
         LoadedData=VoxelPersistence::Load(SaveSlot,LoadResult);
@@ -220,6 +223,7 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
             if(!Definition||Piece.Yaw<0||Piece.Yaw>3||(Definition->ActorClass.IsNull()&&!Definition->Mesh.LoadSynchronous()))
             {UE_LOG(LogTemp,Warning,TEXT("Voxel structure skipped an unknown prefab piece: %s"),*Piece.Id.ToString());continue;}
             Piece.Footprint=AVoxelBuildPrefabActor::RotatedFootprint(Definition->Footprint,Piece.Yaw);
+            Piece.InstanceId=VoxelPersistence::StablePrefabId(Piece,WorldKey);
             Prefabs.Add(Piece);
         }
         // VBX v6：燃料模型的炉内状态——任务（锚格→配方+积累秒数+燃烧段）与存料（锚格→燃料秒）
@@ -229,11 +233,12 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
         {
             const FVoxelBuildPrefabInstance* Piece=Prefabs.FindByPredicate(
                 [Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;});
-            return Piece&&Piece->Id==VoxelSmeltingFurnaceId;
+            return Piece&&(Piece->Id==VoxelSmeltingFurnaceId||Piece->Id==FName(TEXT("campfire")));
         };
         for(const FVoxelSmeltingJob& Job:LoadedData->Smelting)
         {
-            if(!IsFurnaceCell(Job.Cell)||(!Job.bCasting&&Job.Recipe.IsNone())||Job.ProgressSeconds<0||Job.BurnStartTicks<0)
+            if(!IsFurnaceCell(Job.Cell)||(IsCampfireAt(Job.Cell)&&Job.bCasting)
+                ||(!Job.bCasting&&!IsCampfireAt(Job.Cell)&&Job.Recipe.IsNone())||Job.ProgressSeconds<0||Job.BurnStartTicks<0)
             {UE_LOG(LogTemp,Warning,TEXT("Voxel structure skipped an orphan smelting job @格(%d,%d,%d)"),
                 Job.Cell.X,Job.Cell.Y,Job.Cell.Z);continue;}
             SmeltingJobs.Add(Job);
@@ -290,11 +295,13 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
     // 占格表必须在支持图之前刷新：构件如今为贴靠它的体素提供支撑锚（2026-09-19），
     // RefreshSupportGraph 里的锚定判定要读 PrefabCells。
     RefreshPrefabOccupancy();
-    // 审计 P17：断键必须在 RefreshSupportGraph 之前打进图里。原实现在 RefreshSupportGraph()
-    // 返回后（它自己末尾已经 SolveConnectivity 一次）再 Break + 第二次 SolveConnectivity，
-    // 加载时白跑一遍全图 BFS。现在只解一次连通性。
-    if(LoadedData)for(const auto& B:LoadedData->BrokenBonds)SupportGraph->Break(B);
-    RefreshSupportGraph();
+    // 自由体积世界格反查表整表重建（加载路径不走 SetCell；2026-10-13 中危#3）。
+    for(const auto& V:FreeVolumes)for(const auto& E:V.Value.Cells)
+        FreeVolumeWorldCells.Add(ToCell(V.Value.Origin+CellMin(E.Key)));
+    // 审计 P17 原意图（只解一次连通性）保留；断键改为随图重建继承（2026-10-13 联机审计 B1：
+    // 原先在重建前对尚未创建的 SupportGraph 调 Break——首次加载即空指针解引用，且图重建
+    // 不继承 Broken，两条路都让断键从未生效，已碎裂的接缝会被重新连通）。
+    RefreshSupportGraph(LoadedData?&LoadedData->BrokenBonds:nullptr);
     if(LoadedData&&LoadedData->Version<3)for(const auto& E:SupportGraph->Nodes)LegacyProtected.Add(E.Key);
     TArray<FVoxelEditCell> Loaded;for(const auto& E:Cells)Loaded.Add({E.Key,NAME_None,E.Value,{}});
     for(const auto& V:FreeVolumes)for(const auto& E:V.Value.Cells)Loaded.Add({E.Key,NAME_None,E.Value,V.Key});
@@ -318,8 +325,13 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
     }
     Message=(Prefabs.IsEmpty()?(LegacyProtected.IsEmpty()?FString(TEXT("建筑已载入 · 承重系统已启用")):FString(TEXT("旧建筑已保留 · 编辑相关结构后启用承重")))
         :FString::Printf(TEXT("建筑已载入 · 构件 %d 件 · 承重系统已启用"),Prefabs.Num()))+LoadSkipNote;
-    if(UGameInstance* GI=GetGameInstance())
-        if(auto* Smelting=GI->GetSubsystem<UColdSteelSmeltingSystem>())Smelting->ReconcileIntents(this);
+    if(UGameInstance* GI=HasAuthority()?GetGameInstance():nullptr)
+        if(auto* Smelting=GI->GetSubsystem<UColdSteelSmeltingSystem>())
+        {Smelting->RecoverCampfireJournal(this);Smelting->ReconcileIntents(this);}
+    if(HasAuthority()&&GetNetMode()!=NM_Standalone)
+        if(auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())Shared->RestoreBuilding(this);
+    for(const auto& Pair:PrefabActors)if(const auto* Piece=Cast<AVoxelBuildPrefabActor>(Pair.Value.Get()))
+        if(auto* Fire=Cast<AColdSteelCampfire>(Piece->Logic()))Fire->PublishSharedState(true);
     return true;
 }
 
@@ -359,9 +371,14 @@ bool AVoxelBuildWorld::CanPlaceFree(FVector Origin,const TArray<FIntVector>& Pos
     return CanPlaceAt(Origin,Positions,Material,Reason);
 }
 
-void AVoxelBuildWorld::RefreshSupportGraph()
+void AVoxelBuildWorld::RefreshSupportGraph(const TSet<FVoxelBrokenBond>* InheritBroken)
 {
     SupportGraph=MakeShared<FVoxelSupportGraph>();
+    // 2026-10-13 联机审计 B1：断键必须在新图 Add 任何节点之前就位——FVoxelSupportGraph::Add
+    // 建边时按 Broken 跳过断开的接缝。原实现重建后图的 Broken 恒空，调用侧就算先 Break 也
+    // 会随旧图一起被丢弃（P17 的"断键在重建前打进图"实际从未生效，且 Initialize 首次加载
+    // 时 SupportGraph 还是空指针——带断键的存档加载即解引用空指针）。
+    if(InheritBroken)SupportGraph->Broken=*InheritBroken;
     auto Add=[&](FGuid Volume,FIntVector Cell,FName Material)
     {
         const FVoxelBuildKey Key{Volume,Cell};const FVector Min=VolumeOrigin(Volume)+CellMin(Cell);
@@ -372,12 +389,14 @@ void AVoxelBuildWorld::RefreshSupportGraph()
     for(const auto& V:FreeVolumes)for(const auto& E:V.Value.Cells)Add(V.Key,E.Key,E.Value);
     // Only exposed bottoms can form a foundation. Interior voxels in tall
     // solid structures need no terrain raycasts during world initialization.
-    // 审计 W2（2026-09-23）：查询参数整轮共用一次；锚定判定按 (Volume, X, Y) 列记忆化——
-    // 同一竖直列只有最底格会被射线命中，其余格子查表即可。2 万格城堡的载入从 N×5 条同步
-    // 射线降到"列数 × 每列首格一次"。语义不变：同列下方有格 ⇒ Covered ⇒ 不调 IsGroundAnchor；
-    // 走到采样时说明该列首格就是候选，结果对整列一致。
+    // 审计 W2（2026-09-23）：查询参数整轮共用一次；同列连续堆叠时只有最底格需要射线
+    // （其余格 Covered＝正下方紧贴有格）。
+    // 2026-10-13 审计修复（高危#2）：删掉按 (Volume,X,Y) 的列锚定记忆化。它假设"同列非
+    // Covered 格共享地面锚定结果"，但 IsGroundAnchor 的射线只探各自格底 ±(40.5/0.5) cm——
+    // 同列空洞上下两格（如 Z=0 贴地、Z=4 悬空）结果本就独立，复用会把悬空格误判成锚
+    // （孤岛永存）或把贴地格误判失锚（TMap 迭代序确定，读档即塌）。健康建筑上该缓存
+    // 本来一次射线都不省（非底格全 Covered），只在病态列上"省"且省出错——直接逐格判定。
     const FCollisionQueryParams GroundParams=VoxelGrounding::Query(GetWorld(),this);
-    TMap<TTuple<FGuid,FIntVector>,bool> ColumnAnchored;
     for(auto& E:SupportGraph->Nodes)
     {
         bool Covered=false;
@@ -388,18 +407,7 @@ void AVoxelBuildWorld::RefreshSupportGraph()
         }
         // 支撑锚（2026-09-19）：地面锚定之外，面对面贴着已放置构件（门／窗／柱）也算有着落——
         // 以前贴窗框侧面砌的块没有地基路径，整条被"缺少与地基相连的接触面"拒绝。
-        bool bAnchor=false;
-        if(!Covered)
-        {
-            if(PrefabSupportAt(E.Value.Min))bAnchor=true;
-            else
-            {
-                const auto Column=MakeTuple(E.Key.Volume,FIntVector(E.Key.Cell.X,E.Key.Cell.Y,0));
-                if(const bool* Known=ColumnAnchored.Find(Column))bAnchor=*Known;
-                else {const bool bNew=IsGroundAnchor(E.Value.Min,&GroundParams);ColumnAnchored.Add(Column,bNew);bAnchor=bNew;}
-            }
-        }
-        E.Value.bAnchor=bAnchor;
+        E.Value.bAnchor=Covered?false:(PrefabSupportAt(E.Value.Min)||IsGroundAnchor(E.Value.Min,&GroundParams));
     }
     SupportGraph->SolveConnectivity();
 }
@@ -525,10 +533,25 @@ void AVoxelBuildWorld::SetCell(const FVoxelEditCell& E,bool bAfter)
     const FName Material=bAfter?E.After:E.Before;
     auto& Target=E.Volume.IsValid()?FreeVolumes.FindChecked(E.Volume).Cells:Cells;
     if(Material.IsNone())Target.Remove(E.Position);else Target.Add(E.Position,Material);
+    // 自由体积格的世界格反查表随格增删同步（2026-10-13 中危#3：构件放置校验查这张表）。
+    if(E.Volume.IsValid())
+    {
+        const FIntVector World=ToCell(VolumeOrigin(E.Volume)+CellMin(E.Position));
+        if(Material.IsNone())FreeVolumeWorldCells.Remove(World);else FreeVolumeWorldCells.Add(World);
+    }
 }
 
 void AVoxelBuildWorld::ApplyChanges(const TArray<FVoxelEditCell>& Edit)
 {
+    // A removed/replaced cell is no longer the instance recorded in any player's undo batch.
+    // Compare edit keys, not only materials: another player may rebuild the same material here.
+    TSet<FVoxelBuildKey> Touched;for(const auto& E:Edit)Touched.Add({E.Volume,E.Position});
+    const auto Invalidate=[&](TArray<TArray<FVoxelEditCell>>& Batches)
+    {
+        for(auto& Batch:Batches)Batch.RemoveAll([&](const FVoxelEditCell& E){return Touched.Contains({E.Volume,E.Position});});
+        Batches.RemoveAll([](const auto& Batch){return Batch.IsEmpty();});
+    };
+    Invalidate(History);for(auto& Entry:PlayerHistory)Invalidate(Entry.Value);
     // 审计 W1（2026-09-23）：地面锚定的查询参数提到格循环外构造一次。IsGroundAnchor 每次内部
     // 都要做一次全 Pawn 遍历 + 5 条射线；拆一面 500 格的墙原来就是 500 次重复 Query。
     const FCollisionQueryParams GroundParams=VoxelGrounding::Query(GetWorld(),this);
@@ -593,7 +616,23 @@ bool AVoxelBuildWorld::Undo()
 
 bool AVoxelBuildWorld::Undo(TMap<FName,int32>* OutRemovedBlocks)
 {
-    if(!bReady||History.IsEmpty()){Message=TEXT("没有可撤销的建造");return false;}
+    if(!bReady||History.IsEmpty())
+    {
+        // 2026-10-13 审计修复（中危#5）：体素历史空时回落到构件撤销——拆除最近一次放置的构件。
+        // 校验"还是那一件"（同格、同 Id、同朝向、记录仍在、非落体）后才走 RemovePrefab：
+        // 它自带熔炉退料/焚化炉暂存拒拆等保护，撤销语义与手动右键完全一致。
+        if(bHasLastPlacedPrefab)
+        {
+            const FVoxelBuildPrefabInstance Recent=LastPlacedPrefab;
+            bHasLastPlacedPrefab=false;
+            AVoxelBuildPrefabActor* Piece=PrefabActorAt(Recent.Cell);
+            const bool bStillCurrent=Piece&&!Piece->IsFalling()&&Piece->PrefabId()==Recent.Id
+                &&Piece->Yaw()==Recent.Yaw&&HasPrefabAt(Recent.Cell);
+            if(bStillCurrent&&RemovePrefab(Piece))
+            {Message=TEXT("已撤销最近放置的构件");return true;}
+        }
+        Message=TEXT("没有可撤销的建造");return false;
+    }
     // 撤销 = 拆除最后一批放置（方块交回调用方回收），而不是恢复之前拆掉的东西。
     const TArray<FVoxelEditCell> Batch=History.Last();History.Pop();
     TArray<FVoxelEditCell> Reverse;TMap<FName,int32> Removed;
@@ -625,6 +664,7 @@ bool AVoxelBuildWorld::Undo(TMap<FName,int32>* OutRemovedBlocks)
 void AVoxelBuildWorld::Tick(float Delta)
 {
     Super::Tick(Delta);if(!bReady||bClosing)return;
+    if(!HasAuthority()){TickMeshes();TickFragments();return;}
     for(const auto& E:Fragments)if(IsValid(E.Value))E.Value->SampleVelocity();
     TickDamage();TickMeshes();TickFragments();TickStructure();TickPersistence();TickSmelting(Delta);
 }
@@ -649,7 +689,7 @@ void AVoxelBuildWorld::TickSmelting(float Delta)
 void AVoxelBuildWorld::EndPlay(const EEndPlayReason::Type Reason)
 {
     bClosing=true;
-    if(bReady)
+    if(bReady&&HasAuthority())
     {
         // 审计 W7（2026-09-23）：TickDamage 的残骸替换路径会向队列回灌，正常连锁应当收敛，
         // 但这里没有任何上限——病态连锁（大量残骸同时落地）可以把关卡切换卡死在这行。
@@ -741,7 +781,9 @@ FString AVoxelBuildWorld::StructureStatus() const
     if(Runtime->Stress.IsValid()||!Runtime->DirtySupport.IsEmpty()||!Runtime->GatherQueue.IsEmpty())return TEXT("正在计算承重");
     if(Runtime->bStressApproximate)return TEXT("结构求解未收敛 · 未应用估算破坏");
     if(!LegacyProtected.IsEmpty())return TEXT("旧建筑保留 · 编辑或破坏后计算承重");
-    return (Runtime->bSaveDirty||Runtime->SaveJob.IsValid()?FString(TEXT("正在保存")):FString(TEXT("承重已更新")))
+    // 2026-10-13 联机审计 B6：客户端不解算不落盘，末分支原来恒显"承重已更新"误导玩家。
+    return (Runtime->bSaveDirty||Runtime->SaveJob.IsValid()?FString(TEXT("正在保存")):
+        HasAuthority()?FString(TEXT("承重已更新")):FString(TEXT("结构已与主机同步")))
         +JointSummary(Runtime->WorstBond,true)
         +SolverSummary();
 }

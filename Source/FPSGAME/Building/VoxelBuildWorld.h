@@ -26,7 +26,7 @@ public:
     // count to jobs and furnace upgrade level to fuel records; version 8 adds the idle-fire clock;
     // version 9 splits upgrades into three axes; version 10 adds casting queues and output racks.
     // 该默认值是 UHT 字面量，升版本时必须与 VoxelBuildPersistence.h 的 GVoxelBuildSaveVersion 同步。
-    UPROPERTY() int32 Version=10;
+    UPROPERTY() int32 Version=11;
     UPROPERTY() int32 CellSizeCm=20;
     UPROPERTY() FString WorldKey;
     UPROPERTY() TArray<FVoxelSavedCell> Cells;
@@ -63,6 +63,12 @@ public:
     static FVector CellCenter(FIntVector Cell);
     static FIntVector ChunkFor(FIntVector Cell);
     bool Initialize(const FString& InWorldKey,UVoxelBuildPalette* InPalette);
+    bool MakeNetworkSnapshot(TArray<uint8>& Out) const;
+    bool ApplyNetworkSnapshot(const TArray<uint8>& Bytes);
+    uint64 NetworkRevision=1;
+    bool bNetworkTransaction=false;
+    bool ExecuteNetworkEdit(const struct FColdSteelInventoryRequest& Request,class UColdSteelStatusModel* Model,FString& Reason);
+    TMap<TWeakObjectPtr<class APlayerState>,TArray<TArray<FVoxelEditCell>>> PlayerHistory;
     /** Test/diagnostic entry: initialise with the default palette and no player controller
         so Tools/Building/audit_voxel_placement.py can reproduce placement reports headless. */
     UFUNCTION(BlueprintCallable,Category="Building|Debug") bool DebugInitialize(const FString& InWorldKey);
@@ -76,6 +82,9 @@ public:
     UFUNCTION(BlueprintCallable,Category="Building") bool Save();
     /** 点击冶炼用：立刻把当前快照写入建筑档，不走 2 秒合并。 */
     bool FlushPersistenceNow();
+    bool FlushCampfirePersistence();
+    FGuid CampfireIdentity(FIntVector Cell) const;
+    void WriteCampfireState(FIntVector Cell,const struct FCampfireSharedState& State);
     const FString& BuildingWorldKey() const { return WorldKey; }
     UFUNCTION(BlueprintCallable,Category="Building|Structure") void SetAppliedLoad(FName LoadId,FVector ContactPoint,float MassKg);
     UFUNCTION(BlueprintCallable,Category="Building|Damage") void DamageBuilding(FVector Position,float Amount,float RadiusCm=0);
@@ -115,6 +124,7 @@ public:
     FString StructureStatus() const;
     /** 存档槽名（不带扩展名）；验收工具会用它核对磁盘文件。 */
     const FString& SaveSlotName() const;
+    FString IncineratorContainerAt(FIntVector Cell) const;
     /** 最弱接缝占比（1.0 = 断裂）。面板与提示栏用它做结构预警。 */
     float WeakestJointRatio() const;
     /** 最弱接缝摘要："抗剪 92% · 格(39,-30,10)"；没有解算结果时为空。 */
@@ -147,6 +157,9 @@ public:
     /** 该锚格上是一件**在记录里**的高炉（Id 匹配稳定键）。燃料/开炉入口用它把关。 */
     bool IsFurnaceAt(FIntVector Cell) const
     {return Prefabs.ContainsByPredicate([Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell&&E.Id==VoxelSmeltingFurnaceId;});}
+    bool IsCampfireAt(FIntVector Cell) const
+    {return Prefabs.ContainsByPredicate([Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell&&E.Id==FName(TEXT("campfire"));});}
+    bool IsFuelStationAt(FIntVector Cell) const {return IsFurnaceAt(Cell)||IsCampfireAt(Cell);}
     /** 结算改写任务字段后标脏存档（FindSmeltingMutable 的写回配套；SetFuel 自带标脏）。 */
     void MarkSmeltingDirty(){MarkSaveDirty();}
     bool BeginSmelting(FIntVector Cell,FName Recipe,FString& Reason,int64 Batch=1);
@@ -211,6 +224,10 @@ private:
     /** 各炉存料（秒）：跨批次保留，拆除时折回木材退库。 */
     TArray<FVoxelFurnaceFuel> Fuels;
     TSet<FIntVector> PrefabCells;
+    /** 自由体积格 → 世界格反查表（2026-10-13 审计修复中危#3）：构件放置校验要用。
+     *  CanPlaceAt 的 Overlaps 已保证任意格的世界位置唯一（世界格/各体积格互不重叠），
+     *  所以一张以世界格为键的表就无歧义。由 SetCell 增量维护，加载与网络快照路径整表重建。 */
+    TSet<FIntVector> FreeVolumeWorldCells;
     /** 占格 → 所属构件的锚格：支撑判定要区分"这格是别的构件"（含自己的格子）。 */
     TMap<FIntVector,FIntVector> PrefabCellOwner;
     // 审计 P23（2026-09-21 移除）：原 `TMap<FVoxelBuildKey,bool> AnchorCache` 全目录只有写入
@@ -222,6 +239,11 @@ private:
     TSharedPtr<FVoxelSupportGraph> SupportGraph;
     TUniquePtr<FVoxelBuildRuntime> Runtime;
     TArray<TArray<FVoxelEditCell>> History;
+    /** 最近一次放置的构件（2026-10-13 审计修复中危#5）：体素撤销历史为空时，Ctrl+Z 回落到
+     *  拆除它。单槽、免料放置→免料撤销（无物品流）；手动拆除/脱落即失效（"拆除后不可撤销"
+     *  与体素同一口径）。多人下是全局槽：任何玩家可撤最近放置的构件（按玩家分栈待后续立项）。 */
+    FVoxelBuildPrefabInstance LastPlacedPrefab;
+    bool bHasLastPlacedPrefab=false;
     TMap<FName,int32> MaterialSlots;
     FString WorldKey,SaveSlot,Message;
     uint64 Revision=0;
@@ -234,7 +256,10 @@ private:
     /** CachedParams：审计 W1——批循环外构造一次共享；为空时自行 Query。 */
     bool IsGroundAnchor(FVector Min,const FCollisionQueryParams* CachedParams=nullptr) const;
     bool CanCommit(const TArray<FVoxelEditCell>& Edit,FString& Reason) const;
-    void RefreshSupportGraph();
+    /** InheritBroken：随图重建恢复的断键集合（必须在 Add 之前进图，建边时跳过）。
+     *  2026-10-13 联机审计 B1：图重建不继承旧图 Broken——加载与网络快照路径都要把
+     *  存档/快照里的断键显式传进来，否则已碎裂的接缝会重新连通（详见调用点注释）。 */
+    void RefreshSupportGraph(const TSet<FVoxelBrokenBond>* InheritBroken=nullptr);
     AVoxelBuildPrefabActor* SpawnPrefab(const FVoxelBuildPrefabInstance& Instance);
     void RefreshPrefabOccupancy();
     void SetCell(const FVoxelEditCell& Edit,bool bAfter);

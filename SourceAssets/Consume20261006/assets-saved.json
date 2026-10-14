@@ -1,0 +1,31 @@
+{
+  "runtime_clips": {
+    "Consume.Drink": "/Game/Characters/JasonPlayer20261003/Consume20261006/Animations/J_UAL2_Consume_Drink.J_UAL2_Consume_Drink",
+    "Consume.EatBread": "/Game/Characters/JasonPlayer20261003/Consume20261006/Animations/J_UAL2_Consume_EatBread.J_UAL2_Consume_EatBread",
+    "Consume.EatBaguette": "/Game/Characters/JasonPlayer20261003/Consume20261006/Animations/J_UAL2_Consume_EatBaguette.J_UAL2_Consume_EatBaguette"
+  },
+  "clips": {
+    "Drink": {
+      "asset": "/Game/Characters/JasonPlayer20261003/Consume20261006/Animations/J_UAL2_Consume_Drink.J_UAL2_Consume_Drink",
+      "keys": 41,
+      "duration": 1.3333333730697632
+    },
+    "EatBread": {
+      "asset": "/Game/Characters/JasonPlayer20261003/Consume20261006/Animations/J_UAL2_Consume_EatBread.J_UAL2_Consume_EatBread",
+      "keys": 41,
+      "duration": 1.3333333730697632
+    },
+    "EatBaguette": {
+      "asset": "/Game/Characters/JasonPlayer20261003/Consume20261006/Animations/J_UAL2_Consume_EatBaguette.J_UAL2_Consume_EatBaguette",
+      "keys": 41,
+      "duration": 1.3333333730697632
+    }
+  },
+  "mouth_in_head": [
+    1.7976117506468363,
+    10.382977287936123,
+    0.5845123614372896
+  ],
+  "provenance": "Quaternius UAL2 Standard CC0 Consume; retargeted body/left arm with prop and lip contact fit",
+  "source_url": "https://quaternius.itch.io/universal-animation-library-2"
+}

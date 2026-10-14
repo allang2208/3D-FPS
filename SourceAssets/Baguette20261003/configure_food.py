@@ -13,7 +13,7 @@ items = json.loads(path.read_text(encoding='utf-8-sig'))
 items['baguette_bread'] = {
     'id': 'baguette_bread', 'name': '法棍面包', 'category': 'consumable', 'type': '食物',
     'desc': '表皮酥脆、内部松软的细长面包，可握住中部直接食用。随身携带能在探索途中充饥，细长外形会占用较多背包空间。',
-    'rarity': 'common', 'level': 1, 'price': 35, 'grid_w': 1, 'grid_h': 3,
+    'rarity': 'uncommon', 'level': 1, 'price': 35, 'grid_w': 1, 'grid_h': 3,
     'stack': 1, 'stack_max': 1, 'maxStack': 1, 'maxUses': 1,
     'useEffect': {'hunger': 60, 'hydration': -30}, 'useCooldown': 0, 'useDuration': duration,
     'stats': [{'name': '恢复饥饿度', 'value': '+60'}, {'name': '消耗水分', 'value': '-30'}, {'name': '食用方式', 'value': '单次使用'}],

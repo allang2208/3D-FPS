@@ -1,0 +1,83 @@
+{
+  "recorded_utc": "2026-10-12T14:11:40.662447+00:00",
+  "status": "fuel_ui_and_flame_built_saved; cooking_catalog_ready_but_empty; multiplayer_station_operations_unavailable",
+  "entry": "B > Other > Campfire; E opens reused smelting widget in campfire mode",
+  "radius_cm": 500,
+  "natural_hunger_and_hydration_rate": 0.5,
+  "stacks": false,
+  "fuel": {
+    "item": "wood",
+    "seconds_per_unit": 60,
+    "capacity_seconds": 600,
+    "idle_and_offline_burn": true
+  },
+  "requires_burning_for_warmth": true,
+  "restoration_or_damage_changed": false,
+  "cooking_recipe_count": 0,
+  "cooking_blocker": "No registered raw/cooked chicken, wing or skewer items/models. FAB candidates recorded only; no downloads or license acceptance.",
+  "network": "Warmth authority and flame on/off replication retained. Fuel/cooking transactions restricted to standalone because existing workbench inventory/persistence lacks remote-player RPC.",
+  "builds": {
+    "editor": {
+      "result": "Succeeded",
+      "evidence": "Saved\\Campfire20261012\\expansion-editor-build.log",
+      "seconds": 3.86,
+      "invocation": "own normal Editor build after user confirmed UE closed; target up to date",
+      "preceding_compile_evidence": "Saved\\Campfire20261012\\observed-expansion-editor-build.log"
+    },
+    "game": {
+      "result": "Succeeded",
+      "evidence": "Saved\\Campfire20261012\\expansion-game-build.log",
+      "seconds": 14.99,
+      "invocation": "own normal UBT Game build"
+    }
+  },
+  "flame_authoring": {
+    "result": "Compiled and saved, exit 0",
+    "packages": 5,
+    "evidence": "Saved/Campfire20261012/author-flame-cmd-2.log",
+    "startup_warning": "Authoring startup preceded the new flame package. Later static commandlet confirmed the native startup loaded the saved system; no missing campfire asset warning remained."
+  },
+  "asset_hashes": {
+    "Content/Building/Campfire20261012/M_CampfireDenseFlame.uasset": "768033e06f320e351ab518bd0800d60393d7fc57e5c5244b9d25a8d6efc82ec4",
+    "Content/Building/Campfire20261012/M_CampfireTongues.uasset": "58cc2a089bc238d389f5464c267dffe9611375dc0e74635f2281032e655ff2f4",
+    "Content/Building/Campfire20261012/MI_CampfireTongue01.uasset": "1a0036e2c30eff425d6b4a64636aaf85807053ccec088f99811c2337242d452b",
+    "Content/Building/Campfire20261012/MI_CampfireTongue02.uasset": "b1878f5d90c1de407f1ecc0ecd5a4165a6dec7414b1bd499ee26f2a9e3bbc3d6",
+    "Content/Building/Campfire20261012/NS_CampfireFlame.uasset": "cb22423088e70c08d0ad119144e6d4199eb5840dd67d31d3fc1b21e79cd4cab1"
+  },
+  "source_hashes": {
+    "Source/FPSGAME/Building/ColdSteelCampfire.h": "560826c776e66ad8a2be89a2092e1698b7222ff714baa5725df0d6aeb8f17c74",
+    "Source/FPSGAME/Building/ColdSteelCampfire.cpp": "d3a27e32c3be1c889bd412c45295e6cfeb61fc9207d90e4d0a4e81d400251b49",
+    "Source/FPSGAME/Building/CampfireCooking.cpp": "7512ae78e73bd4c58263109b577279e457f5da4e45b05a0e8f7038e91750f070",
+    "Source/FPSGAME/Building/SmeltingSystem.h": "a81470131d93d320910989fcc3349f9da2a97f486c663bbffedb10b1462b3d84",
+    "Source/FPSGAME/Building/SmeltingSystem.cpp": "3b85a27eb9dfe28fabdc4f9c56ad37a9fbf89d4b4a0f2b8a477a97bf715fd0a0",
+    "Source/FPSGAME/Building/SmeltingCasting.cpp": "bc045fd2cbba93f7385a6fb47f1d69f465bbf8fd377c23d74606d80a3c84a8d0",
+    "Source/FPSGAME/Building/VoxelBuildWorld.cpp": "dad56325391171fbc99a9623d404dcfc8a5122ddad602674797c65cb479e1e87",
+    "Source/FPSGAME/Building/VoxelBuildWorld.h": "83492c317176f787cb7e96711189e74c9014b65877eb681307b4c3374517457e",
+    "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp": "bcde834b9961e6da613d555f6cdf638d37f4adfdcc40b6c06ca1a4ac23148d52",
+    "Source/FPSGAME/Building/VoxelBuildComponent.cpp": "7fa287c7f6e3ae8de74e065fd73a2bf79d9f23582a86b5f8b450a4dfc1ced37c",
+    "Source/FPSGAME/UI/ColdSteelSmeltingHUD.cpp": "7964af93d0e56aede57fdda592ac964c4b01d6d4a04a402e48e40a73a117522f",
+    "Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp": "df9f5d1b6637f48ab645ae9c6707c3d643cd49707663f787330ad82d2067a542",
+    "Source/FPSGAME/UI/ColdSteelSmeltingWidget.h": "d600ff86aba3b373d9ed0b83368f3ba65d26e697cf2c98f23fdb3739f8abd9db",
+    "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp": "74f0380e60658e8394abb4121b7d85efd416db601eba417fbfa28de4536f3ec7",
+    "Content/ColdSteelData/campfire-recipes.json": "06981a6d5198f32a79e76b1dc80d3793d9b39fa627e923778030c3a77720c720",
+    "Tools/Building/read_campfire_flame.py": "026f083e554cd651d5f1691c912d3506d343bd9933a2570a0b38a1236e591d57",
+    "Tools/Building/author_campfire_flame.py": "9bababc2aa63c26e932744e52a2a64837ed8d9b49fd89178b96eb84d95000892",
+    "SourceAssets/Campfire20261012/CampfireBody.hlsl": "6e7c5614e8da972a1699471838f99a346b32d78dd958e171d473738767b69783",
+    "Tools/Building/inspect_campfire_integration.py": "0b3bae6df17754fab94ec389876ab96629cbb5eabbde4d4d7039276deb341184",
+    "Tools/Building/register_campfire.py": "9710665e445fe8bd82c12beed739a257330f0e6eaefdf273ae46e94927065e30"
+  },
+  "static_checks": "Focused whitespace, Python AST, recipe JSON; user-requested native startup/500 cm sphere/catalog/Niagara/material readback",
+  "static_integration": {
+    "result": "Passed, exit 0, 0 errors, 5 pre-existing Python export warnings",
+    "evidence": "Saved/Campfire20261012/static-integration-2.log",
+    "report": "SourceAssets/Campfire20261012/static-integration.json"
+  },
+  "runtime_tested": false,
+  "visual_tested": false,
+  "network_tested": false,
+  "performance_measured": false,
+  "committed": false,
+  "pushed": false,
+  "editor_started_by_this_task": false,
+  "guide": "Docs/Building/campfire-fuel-cooking-and-flame-20261012.md"
+}

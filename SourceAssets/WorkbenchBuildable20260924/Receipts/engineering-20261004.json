@@ -1,0 +1,201 @@
+{
+  "date_utc": "2026-10-04T12:59:53.807375+00:00",
+  "stable_id": "workbench_table",
+  "actual_paper_texture": "/Game/Building/Workbench/Textures/T_WBKC_Paper_BaseColor.T_WBKC_Paper_BaseColor",
+  "source_png": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WorkbenchBuildable20260924\\Authored\\Textures\\T_WBKC_Blueprint_BaseColor.png",
+  "source_png_sha256": "8f34c3675d9b91a13cf38e95ab37c3e6ef0822afc68f026c30d7ef9a0fa47abc",
+  "ue": {
+    "mesh": "/Game/Building/Workbench/Meshes/SM_WBStandalone_Workbench.SM_WBStandalone_Workbench",
+    "source_triangles": 149982,
+    "geometry_script_dynamic_mesh_triangles": 149975,
+    "source_vs_dynamic_mesh_triangle_difference": 7,
+    "triangle_difference_reason": "Not investigated; dynamic mesh conversion is distinct from source count. Formal FBX hash matches.",
+    "material_slots": 32,
+    "materials_identical_to_before": true,
+    "footprint": [
+      13,
+      14,
+      8
+    ],
+    "bounds": "<Struct 'BoxSphereBounds' (0x0000023FDDFA5B80) {origin: {x: -0.000000, y: 0.000000, z: 79.464043}, box_extent: {x: 120.910995, y: 130.346626, z: 79.464043}, sphere_radius: 194.741485}>",
+    "collision_trace_flag": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>",
+    "nanite_enabled": true,
+    "content_sha256_matches": true,
+    "actual_paper_texture": "/Game/Building/Workbench/Textures/T_WBKC_Paper_BaseColor.T_WBKC_Paper_BaseColor",
+    "paper_texture_source_sha256": "8f34c3675d9b91a13cf38e95ab37c3e6ef0822afc68f026c30d7ef9a0fa47abc",
+    "accidental_texture_referencers": [],
+    "dirty_content": [],
+    "dirty_maps": [],
+    "pie_stopped": true,
+    "native_e_entry_passed": true,
+    "quit_requested": true
+  },
+  "native_e": {
+    "profile": "WorkbenchEngineeringAudit_20261004",
+    "input": "native Slate PressKey E",
+    "inventory_open": true,
+    "workbench_visibility": "<SlateVisibility.SELF_HIT_TEST_INVISIBLE: 4>",
+    "widget": "/Engine/Transient.UnrealEdEngine_0:GameInstance_0.ColdSteelWorkbenchWidget_0",
+    "recipe_options": [
+      {
+        "options": [
+          "伐木斧 ×1",
+          "矿镐 ×1"
+        ],
+        "selected": "伐木斧 ×1"
+      }
+    ],
+    "crafting_transaction_tested": false,
+    "e_entry_passed": true
+  },
+  "layout": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WorkbenchBuildable20260924\\Authored\\WorkbenchLayout_Editable.blend",
+    "object_count": 35,
+    "triangle_intersections": []
+  },
+  "protected_files": [
+    {
+      "path": "Content\\Building\\Voxels\\Rounded\\DA_VoxelBuildPalette.uasset",
+      "sha256": "391110b3307ba7d45be3d35b9d4f096d174c55be90dd8d9e4f9410fdda7b29f5",
+      "unchanged": true
+    },
+    {
+      "path": "Content\\ColdSteelData\\crafting-recipes.json",
+      "sha256": "24f54554548652668d5a09a5ab1ba5ded75c82f9feb494787c345082e9c75fa9",
+      "unchanged": true
+    },
+    {
+      "path": "Saved\\SaveGames\\ColdSteelPlayer_A.sav",
+      "sha256": "bac71a6a653e8cc1f4b86881b8343dedcd315a44a3c19ad465044920ddc218c2",
+      "unchanged": true
+    },
+    {
+      "path": "Saved\\SaveGames\\ColdSteelPlayer_A.sha1",
+      "sha256": "83f655a031f4bb897e27a4f02c6c27445c751119569a2a3e3f9c1b516c02e018",
+      "unchanged": true
+    },
+    {
+      "path": "Saved\\SaveGames\\ColdSteelPlayer_B.sav",
+      "sha256": "c0e8ff26589482decd42aa998ab69beb3b74a2c4ff096c9bff96da919f8a1435",
+      "unchanged": true
+    },
+    {
+      "path": "Saved\\SaveGames\\ColdSteelPlayer_B.sha1",
+      "sha256": "a9e79546a0caed30426b240e1c24a1daf4b437c3f40a0baec8925f551fc5ccdd",
+      "unchanged": true
+    }
+  ],
+  "hub_map": {
+    "map": "D:\\FPS3D\\FPSGAME\\Content\\GameMaps\\DayNight_Lighting.umap",
+    "sha256": "0df7e2f30477db6476e9957ff1bacc78ef67b55072210730a6f5404ddc47354f",
+    "sha256_after": "0df7e2f30477db6476e9957ff1bacc78ef67b55072210730a6f5404ddc47354f",
+    "unchanged": true
+  },
+  "changed_existing_files": [
+    {
+      "path": "SourceAssets\\WorkbenchBuildable20260924\\README.md",
+      "sha256_before": "f868c7157ee770affe3ed3140728a66e5ee849234320a0d507ee3d2c635f2c7a",
+      "sha256_after": "9dde5b652c2759b9799eca6b9886f1058938a454fea1e1132218f55aab287b54"
+    },
+    {
+      "path": "SourceAssets\\WorkbenchBuildable20260924\\Authored\\layout_tabletop.json",
+      "sha256_before": "4c6e824369eb44fd43b5da787a1cd71a657dfc8a66fce2e5f4e18fac3095d4cf",
+      "sha256_after": "9ebd18d377bddffd86666718d9b3b3e5e10a67fdc319103feb2d385244b52a3f"
+    },
+    {
+      "path": "SourceAssets\\WorkbenchBuildable20260924\\Authored\\manifest_build.json",
+      "sha256_before": "e6991edf4babb169bbd5c062dbc5356f5d1383d6fb2b93a4aadcc4b8ab92c681",
+      "sha256_after": "f0117b769c65cbbbd8d04ee9c569450d5948acca7b7c049240407cabfdf2c53f"
+    },
+    {
+      "path": "SourceAssets\\WorkbenchBuildable20260924\\Authored\\SM_WBStandalone_Workbench.fbx",
+      "sha256_before": "49583259bbcb0b77d1fc734631d355bd4302930aecafc083d3d9102ada95a71d",
+      "sha256_after": "ed1622287f205c31ebf7cd1e2fc3e62c8e208c5f861c526c0060fc13cd4accf4"
+    },
+    {
+      "path": "SourceAssets\\WorkbenchBuildable20260924\\Authored\\StandaloneWorkbench.blend",
+      "sha256_before": "580fa8ab56c2ce6d4994631e9b3862f2002fff3c597ee6f1a93f2aed084a9aec",
+      "sha256_after": "bef0111e0c8ecd2324d883ce7215bfafe3b6a7eb5781e4705f5aaa71643ce20f"
+    },
+    {
+      "path": "SourceAssets\\WorkbenchBuildable20260924\\Authored\\StandaloneWorkbench.blend1",
+      "sha256_before": "7e7d96578f20ea4104fb77d883e2ef3f0b409b2c8fd8a0ed23a3d02e962e7d93",
+      "sha256_after": "166e9cab2162cb37eb783909f4f74e01b7996d63fc41f442137b57f3a8b154f8"
+    },
+    {
+      "path": "SourceAssets\\WorkbenchBuildable20260924\\Authored\\WorkbenchLayout_Editable.blend",
+      "sha256_before": "843f04d346d183d7dbcb7c569132b46672dde030bd666b9c79c9ba08429f38d1",
+      "sha256_after": "2d30ce922d403aac99da547207a412f5db62f57b0fd5ee67bd1a9f907dd834ed"
+    },
+    {
+      "path": "SourceAssets\\WorkbenchBuildable20260924\\Authored\\WorkbenchLayout_Editable.blend1",
+      "sha256_before": "048508d32a006acc6edce1b235e9a66c1be6eea9a00a9110298d32ec9683cf70",
+      "sha256_after": "f4b8da0bf9eb309029bdcfcccafbfe5ccec8daa9645cfec21fe631272e12ebf5"
+    },
+    {
+      "path": "SourceAssets\\WorkbenchBuildable20260924\\Authored\\Textures\\T_WBKC_Blueprint_BaseColor.png",
+      "sha256_before": "b33813524825e8a6de9168dacfe3e29dc639590ebe4d67208b6e0aea6cd6328e",
+      "sha256_after": "8f34c3675d9b91a13cf38e95ab37c3e6ef0822afc68f026c30d7ef9a0fa47abc"
+    },
+    {
+      "path": "SourceAssets\\WorkbenchBuildable20260924\\Scripts\\author_standalone.py",
+      "sha256_before": "0f5b96a8fcbee59fd32da707cc096e007aac8b9945608b2881454b103b0cbd44",
+      "sha256_after": "66a7d5dbcf29eeed2893b38450074a92a59c9b903f254e3b0cac3f1855e24be3"
+    },
+    {
+      "path": "SourceAssets\\WorkbenchBuildable20260924\\Scripts\\make_clutter_textures.py",
+      "sha256_before": "94dfb7d70d462951840a34fc561549350ceff2797b83c38ecbb16109bcb0f1eb",
+      "sha256_after": "478edd2b3739cc6783355b7d769a0b4dcc16c93dd730969d69b2d30c05617b08"
+    },
+    {
+      "path": "Content\\Building\\Workbench\\Meshes\\SM_WBStandalone_Workbench.uasset",
+      "sha256_before": "9e4e6f7631cff54590fec86dec83d7400c1de9f6a2fabe22ad83bdafda74c214",
+      "sha256_after": "87c86df0f586ae7a5e86f878ccf27ff7ef8c2c549bb9dfcbd134d1279537d436"
+    },
+    {
+      "path": "Content\\Building\\Workbench\\Textures\\T_WBKC_Paper_BaseColor.uasset",
+      "sha256_before": "8635de66be84309f8d797fdc52da0348c81ba1289b313f5c4106af43be874b6f",
+      "sha256_after": "d05ebf7aeb6e66629a4dcf8449ce3f13fbf9388f6a81c41913165a6cd2f0cc80"
+    }
+  ],
+  "new_files_before_this_receipt": [
+    {
+      "path": "SourceAssets/WorkbenchBuildable20260924/Scripts/engineering_drawings.py",
+      "sha256": "1f574b226233c23bc7da6bc85285c72eed1f9170f419dbea3e725ace3f2bbb1b"
+    },
+    {
+      "path": "SourceAssets/WorkbenchBuildable20260924/Scripts/engineering_tools.py",
+      "sha256": "c1b97b24de076c672e2ebdc6973c38bdd1fb09e38a756dbbb0411e45e78ddfd4"
+    },
+    {
+      "path": "SourceAssets/WorkbenchBuildable20260924/Scripts/__pycache__/engineering_tools.cpython-313.pyc",
+      "sha256": "551efde364b75f9bf7a28cdbc45f1becde21c01b2aca9ce4e36c194cb072a94e"
+    }
+  ],
+  "quarantine": {
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\Building\\Workbench\\Textures\\T_WBKC_Blueprint_BaseColor.uasset",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\workbench-engineering-20261004-misimport\\Content\\Building\\Workbench\\Textures\\T_WBKC_Blueprint_BaseColor.uasset",
+    "sha256": "c3a26f8421dd9727c4c56fd9c8499070f08c8c9cb9dbe1e4822ae5723dc9e65d",
+    "reason": "Task-created duplicate; zero package referencers confirmed before owned editor exit.",
+    "recoverable": true,
+    "original_path_absent": true,
+    "editor_pid": 93068,
+    "editor_closed": true
+  },
+  "library_image": {
+    "file_name": "Workbench_Engineering_Vertical_Top_Verified.png",
+    "library_file_id": "libfile_8436984074e081918caf5f7a1a6fd605",
+    "file_id": "file_00000000d18881f58a2609fe7fad3517",
+    "path": "/Workbench_Engineering_Vertical_Top_Verified.png"
+  },
+  "additional_library_views_uploaded": false,
+  "not_tested": [
+    "crafting consumption and output transaction",
+    "full recipe workflow",
+    "formal save reload",
+    "comprehensive collision",
+    "performance"
+  ],
+  "editor_closed": true,
+  "git_commit_or_push": false
+}

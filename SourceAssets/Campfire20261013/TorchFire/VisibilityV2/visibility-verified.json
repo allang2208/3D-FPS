@@ -1,0 +1,86 @@
+{
+  "loaded_from_saved_packages": true,
+  "niagara_valid": true,
+  "emitters": {
+    "Fire": {
+      "renderers": [
+        "<Object '/Script/Niagara.NiagaraSpriteRendererProperties' (0x00000210A4DDF500) Class 'Class'>"
+      ],
+      "local_space": true,
+      "bounds": {
+        "min": {
+          "x": -115,
+          "y": -115,
+          "z": -15
+        },
+        "max": {
+          "x": 115,
+          "y": 115,
+          "z": 225
+        },
+        "isValid": true
+      },
+      "rate": "(Value=16.000000)"
+    },
+    "Sparks": {
+      "renderers": [
+        "<Object '/Script/Niagara.NiagaraSpriteRendererProperties' (0x00000210A4DDF500) Class 'Class'>"
+      ],
+      "local_space": true,
+      "bounds": {
+        "min": {
+          "x": -115,
+          "y": -115,
+          "z": -15
+        },
+        "max": {
+          "x": 115,
+          "y": 115,
+          "z": 225
+        },
+        "isValid": true
+      },
+      "rate": "(Value=2.500000)"
+    },
+    "Smoke": {
+      "renderers": [
+        "<Object '/Script/Niagara.NiagaraSpriteRendererProperties' (0x00000210A4DDF500) Class 'Class'>"
+      ],
+      "local_space": true,
+      "bounds": {
+        "min": {
+          "x": -115,
+          "y": -115,
+          "z": -15
+        },
+        "max": {
+          "x": 115,
+          "y": 115,
+          "z": 225
+        },
+        "isValid": true
+      },
+      "rate": "(Value=1.400000)"
+    }
+  },
+  "alpha": "(HlslExpression=\".95*smoothstep(0.0,.08,Particles.NormalizedAge)*(1.0-smoothstep(.65,1.0,Particles.NormalizedAge))\")",
+  "dissolve": "(HlslExpression=\".9+.4*smoothstep(.65,1.0,Particles.NormalizedAge)\")",
+  "eye_adaptation_inverse_nodes": 1,
+  "emissive_gain": 0.11999999731779099,
+  "fixed_bounds": {
+    "min": {
+      "x": -115,
+      "y": -115,
+      "z": -15
+    },
+    "max": {
+      "x": 115,
+      "y": 115,
+      "z": 225
+    },
+    "isValid": true
+  },
+  "runtime_tested": false,
+  "visual_preview_performed": false,
+  "gpu_render_validation": false
+}

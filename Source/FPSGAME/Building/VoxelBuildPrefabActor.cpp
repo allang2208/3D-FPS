@@ -1,4 +1,6 @@
 #include "VoxelBuildPrefabActor.h"
+#include "Net/UnrealNetwork.h"
+#include "ColdSteelCampfire.h"
 #include "CastingToolRackComponent.h"
 #include "WoodworkingSawVisualComponent.h"
 #include "Engine/World.h"
@@ -8,16 +10,24 @@
 
 AVoxelBuildPrefabActor::AVoxelBuildPrefabActor()
 {
+    bReplicates=true;SetReplicateMovement(true);
     PrimaryActorTick.bCanEverTick=false;
-    SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("PrefabRoot")));
+    // Actor movement replication follows the simulated root, including detached prefabs.
     MeshComponent=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PrefabMesh"));
-    MeshComponent->SetupAttachment(GetRootComponent());
+    SetRootComponent(MeshComponent);
     MeshComponent->SetMobility(EComponentMobility::Movable);
     MeshComponent->SetCollisionProfileName(TEXT("BlockAll"));
     MeshComponent->SetCollisionObjectType(ECC_WorldDynamic);
     MeshComponent->SetCanEverAffectNavigation(false);
 }
 
+void AVoxelBuildPrefabActor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AVoxelBuildPrefabActor,Id);DOREPLIFETIME(AVoxelBuildPrefabActor,Cell);DOREPLIFETIME(AVoxelBuildPrefabActor,QuarterTurns);
+    DOREPLIFETIME(AVoxelBuildPrefabActor,NetMesh);DOREPLIFETIME(AVoxelBuildPrefabActor,NetSurface);DOREPLIFETIME(AVoxelBuildPrefabActor,LogicActor);DOREPLIFETIME(AVoxelBuildPrefabActor,bFalling);
+}
+void AVoxelBuildPrefabActor::OnRep_Configuration(){if(!Id.IsNone())Configure(Id,Cell,QuarterTurns,NetMesh,NetSurface,nullptr);OnRep_Falling();}
 FIntVector AVoxelBuildPrefabActor::RotatedFootprint(FIntVector Footprint,int32 QuarterTurns)
 {
     const int32 Turns=((QuarterTurns%4)+4)%4;
@@ -36,7 +46,7 @@ FTransform AVoxelBuildPrefabActor::ComputeTransform(const FVoxelBuildPrefab& Def
 
 void AVoxelBuildPrefabActor::Configure(FName InId,FIntVector InCell,int32 InYaw,UStaticMesh* Mesh,UMaterialInterface* Surface,UPhysicalMaterial* Contact)
 {
-    Id=InId;Cell=InCell;QuarterTurns=InYaw;
+    Id=InId;Cell=InCell;QuarterTurns=InYaw;NetMesh=Mesh;NetSurface=Surface;
     if(!MeshComponent)return;
     if(auto* PreviousRack=FindComponentByClass<UCastingToolRackComponent>())PreviousRack->DestroyComponent();
     if(auto* PreviousSaw=FindComponentByClass<UWoodworkingSawVisualComponent>())PreviousSaw->DestroyComponent();
@@ -58,7 +68,8 @@ void AVoxelBuildPrefabActor::Configure(FName InId,FIntVector InCell,int32 InYaw,
 
 bool AVoxelBuildPrefabActor::BeginFall(UStaticMesh* FallbackMesh,float LifeSeconds)
 {
-    if(MeshComponent&&!MeshComponent->GetStaticMesh()&&FallbackMesh)MeshComponent->SetStaticMesh(FallbackMesh);
+    if(!HasAuthority()||bFalling)return false;
+    if(MeshComponent&&!MeshComponent->GetStaticMesh()&&FallbackMesh){NetMesh=FallbackMesh;MeshComponent->SetStaticMesh(FallbackMesh);}
     if(!MeshComponent||!MeshComponent->GetStaticMesh())return false;
     MeshComponent->SetMobility(EComponentMobility::Movable);
     MeshComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
@@ -69,6 +80,7 @@ bool AVoxelBuildPrefabActor::BeginFall(UStaticMesh* FallbackMesh,float LifeSecon
     MeshComponent->AddImpulse(FVector(FMath::FRandRange(-40.f,40.f),FMath::FRandRange(-40.f,40.f),0.f),NAME_None,true);
     if(LogicActor)
     {
+        if(auto* Campfire=Cast<AColdSteelCampfire>(LogicActor))Campfire->Extinguish();
         // 逻辑构件只留外观：挂到刚体网格上跟随落体，停止交互、Tick，并让碰撞完全由刚体承担。
         LogicActor->AttachToComponent(MeshComponent,FAttachmentTransformRules::KeepWorldTransform);
         LogicActor->Tags.AddUnique(TEXT("VoxelDetached"));
@@ -82,6 +94,32 @@ bool AVoxelBuildPrefabActor::BeginFall(UStaticMesh* FallbackMesh,float LifeSecon
     SetLifeSpan(FMath::Max(1.f,LifeSeconds));
     // 标记为落体件：它已不在 AVoxelBuildWorld::Prefabs 记录里，拆除路径要据此区分处理
     // （见 IsFalling() 的说明）。
-    bFalling=true;
+    bFalling=true;OnRep_Falling();ForceNetUpdate();
     return true;
+}
+
+void AVoxelBuildPrefabActor::OnRep_Falling()
+{
+    if(!bFalling||!MeshComponent)return;
+    Tags.AddUnique(TEXT("VoxelDetached"));
+    if(NetMesh)MeshComponent->SetStaticMesh(NetMesh);
+    if(MeshComponent->GetStaticMesh())
+    {
+        MeshComponent->SetCollisionProfileName(TEXT("BlockAll"));
+        MeshComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+        if(!HasAuthority())MeshComponent->SetSimulatePhysics(true);
+    }
+    if(!IsValid(LogicActor))return;
+    LogicActor->AttachToComponent(MeshComponent,FAttachmentTransformRules::KeepWorldTransform);
+    LogicActor->Tags.AddUnique(TEXT("VoxelDetached"));LogicActor->SetActorTickEnabled(false);
+    TInlineComponentArray<UPrimitiveComponent*> Primitives;LogicActor->GetComponents(Primitives);
+    for(auto* Primitive:Primitives)Primitive->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    MeshComponent->SetVisibility(false);
+}
+
+void AVoxelBuildPrefabActor::EndPlay(const EEndPlayReason::Type Reason)
+{
+    // Includes falling-piece lifespan and direct parent destruction, not only RemovePrefab.
+    if(HasAuthority()&&Reason==EEndPlayReason::Destroyed&&IsValid(LogicActor))LogicActor->Destroy();
+    Super::EndPlay(Reason);
 }

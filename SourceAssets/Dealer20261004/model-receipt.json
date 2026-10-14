@@ -1,0 +1,32 @@
+{
+  "complete": true,
+  "meshes": [
+    {
+      "name": "SM_DealerCard",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Dealer20261004\\Export\\SM_DealerCard.fbx",
+      "slots": [
+        "DealerFace",
+        "DealerBack",
+        "DealerEdge"
+      ],
+      "triangles": 284
+    },
+    {
+      "name": "SM_DealerResult",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Dealer20261004\\Export\\SM_DealerResult.fbx",
+      "slots": [
+        "DealerResult"
+      ],
+      "triangles": 2
+    }
+  ],
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Dealer20261004\\DealerDeck.blend",
+  "card_dimensions_cm": [
+    6.3,
+    8.8,
+    0.07
+  ],
+  "corner_radius_cm": 0.3,
+  "runtime_tested": false,
+  "rendered": false
+}

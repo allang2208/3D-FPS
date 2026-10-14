@@ -1,0 +1,886 @@
+ M AGENTS.md
+ M Config/DefaultEngine.ini
+ M Config/DefaultGame.ini
+ M Config/DefaultInput.ini
+ M Content/ColdSteelData/bow-gunsmith.json
+ M Content/ColdSteelData/dungeon_loot.json
+ M Content/ColdSteelData/enhancement.json
+ M Content/ColdSteelData/items.json
+ M Content/ColdSteelData/player_body.json
+ M Content/ColdSteelData/potion_use_motion.json
+ M Content/ColdSteelData/skills.json
+ M Content/ColdSteelData/tooltip-reference.json
+ M Docs/AssetSetup.md
+ M Docs/Characters/bare-palm-native-default-v7-20260925.md
+ M Docs/Characters/traversal-view-visibility-20261007.md
+ M Docs/Gameplay/dungeon-spawn-entries-20261009.md
+ M Docs/Monsters/continuous-soft-corpse-standard-20261005.md
+ M Docs/UI/README.md
+ M Docs/UI/ui-cold-steel-design-system.md
+ M Docs/Weapons/adjustable-tactical-stock-20261006.md
+ M Docs/Weapons/bipod-close-cover-20260927.md
+ M Docs/Weapons/frost-spirit-burst-20260922.md
+ M Docs/Weapons/pso1-russian-attachments-20260923.md
+ M Docs/Weapons/spellbook-focus-v30-20261012.md
+ M Docs/Weapons/thermal-scope-20261006.md
+ M Docs/Weapons/weapon-accessories-publication-20261006.md
+ M FPSGAME.uproject
+ M MELEE-WEAPON-WORKFLOW.md
+ M Source/FPSGAME/Building/BronzeTorch.cpp
+ M Source/FPSGAME/Building/ColdSteelRevolvingDoor.cpp
+ M Source/FPSGAME/Building/CraftingSystem.cpp
+ M Source/FPSGAME/Building/CraftingSystem.h
+ M Source/FPSGAME/Building/SmeltingCasting.cpp
+ M Source/FPSGAME/Building/SmeltingSystem.cpp
+ M Source/FPSGAME/Building/SmeltingSystem.h
+ M Source/FPSGAME/Building/VoxelBuildComponent.cpp
+ M Source/FPSGAME/Building/VoxelBuildPersistence.cpp
+ M Source/FPSGAME/Building/VoxelBuildPersistence.h
+ M Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp
+ M Source/FPSGAME/Building/VoxelBuildPrefabActor.h
+ M Source/FPSGAME/Building/VoxelBuildTypes.h
+ M Source/FPSGAME/Building/VoxelBuildWidget.cpp
+ M Source/FPSGAME/Building/VoxelBuildWorld.cpp
+ M Source/FPSGAME/Building/VoxelBuildWorld.h
+ M Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
+ M Source/FPSGAME/Building/VoxelBuildWorldSave.cpp
+ M Source/FPSGAME/Characters/FPSBodyGrounding.cpp
+ M Source/FPSGAME/Characters/FPSBodyGrounding.h
+ M Source/FPSGAME/Characters/FPSBodyMotionBinding.h
+ M Source/FPSGAME/Characters/FPSBodyMotionSample.cpp
+ M Source/FPSGAME/Characters/FPSBodyMotionSample.h
+ M Source/FPSGAME/Characters/FPSBodySwordMotion.h
+ M Source/FPSGAME/Characters/FPSBodySwordPose.inl
+ M Source/FPSGAME/Characters/FPSOutfitSecondaryMotion.cpp
+ M Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+ M Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+ M Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h
+ M Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp
+ M Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
+ M Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
+ M Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
+ M Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+ M Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+ M Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+ M Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
+ M Source/FPSGAME/Characters/FPSPlayerBodyPoses.h
+ M Source/FPSGAME/Characters/FPSPlayerBodyReactions.cpp
+ M Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
+ M Source/FPSGAME/Characters/FPSPlayerHeadAnimInstance.cpp
+ M Source/FPSGAME/Combat/ColdSteelFormulaBonuses.cpp
+ M Source/FPSGAME/Development/ColdSteelDevelopmentTools.cpp
+ M Source/FPSGAME/Dungeons/AuthoredDungeonCompactRouting.inl
+ M Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+ M Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h
+ M Source/FPSGAME/Dungeons/AuthoredDungeonJointRouting.inl
+ M Source/FPSGAME/Dungeons/AuthoredDungeonLayoutBank.inl
+ M Source/FPSGAME/Dungeons/AuthoredDungeonSplitLevels.inl
+ M Source/FPSGAME/Dungeons/AuthoredDungeonThemedRoutes.inl
+ M Source/FPSGAME/Dungeons/AuthoredDungeonWallStains.inl
+ M Source/FPSGAME/Dungeons/DungeonBossEncounter.cpp
+ M Source/FPSGAME/Dungeons/DungeonBossEncounter.h
+ M Source/FPSGAME/Dungeons/DungeonRoomEncounter.cpp
+ M Source/FPSGAME/Dungeons/DungeonRoomEncounter.h
+ M Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+ M Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+ M Source/FPSGAME/Dungeons/DungeonShrine.cpp
+ M Source/FPSGAME/Dungeons/DungeonSpawnDirector.cpp
+ M Source/FPSGAME/Dungeons/DungeonSpawnDirector.h
+ M Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
+ M Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
+ M Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+ M Source/FPSGAME/Dungeons/FacilityHallEncounter.h
+ M Source/FPSGAME/Dungeons/WardBreakableGlass.cpp
+ M Source/FPSGAME/FPSGAME.Build.cs
+ M Source/FPSGAME/FPSGAMECharacter.cpp
+ M Source/FPSGAME/FPSGAMECharacter.h
+ M Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
+ M Source/FPSGAME/FPSGAMECharacterProfile.cpp
+ M Source/FPSGAME/FPSGAMEPlayerController.cpp
+ M Source/FPSGAME/FPSGAMEPlayerController.h
+ M Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
+ M Source/FPSGAME/Monsters/FPSCombatHealthComponent.h
+ M Source/FPSGAME/Monsters/FatZombieAnimInstance.cpp
+ M Source/FPSGAME/Monsters/FatZombieAnimInstance.h
+ M Source/FPSGAME/Monsters/HumanoidKnockdownComponent.cpp
+ M Source/FPSGAME/Monsters/HumanoidKnockdownComponent.h
+ M Source/FPSGAME/Monsters/M09Gaze.cpp
+ M Source/FPSGAME/Monsters/MonsterAIController.cpp
+ M Source/FPSGAME/Monsters/MonsterAIController.h
+ M Source/FPSGAME/Monsters/MonsterCombatComponent.cpp
+ M Source/FPSGAME/Monsters/Mutant3.cpp
+ M Source/FPSGAME/Monsters/NurseZombie.cpp
+ M Source/FPSGAME/Monsters/WitchRebuiltAuthoring.cpp
+ M Source/FPSGAME/Monsters/WolfMonster.cpp
+ M Source/FPSGAME/Monsters/WolfMonster.h
+ M Source/FPSGAME/Movement/DoorPushPoseLayer.cpp
+ M Source/FPSGAME/Movement/DoorPushPoseLayer.h
+ M Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp
+ M Source/FPSGAME/Movement/FPSCharacterMovementComponent.h
+ M Source/FPSGAME/Movement/FPSDodgeMovement.cpp
+ M Source/FPSGAME/Movement/FPSDoorPushComponent.cpp
+ M Source/FPSGAME/Movement/FPSMeleeLungeMovement.cpp
+ M Source/FPSGAME/Movement/FPSPlayerDodge.cpp
+ M Source/FPSGAME/Movement/FPSTraversalAir.cpp
+ M Source/FPSGAME/Movement/FPSTraversalComponent.cpp
+ M Source/FPSGAME/Movement/FPSTraversalComponent.h
+ M Source/FPSGAME/Movement/FPSTraversalExecution.cpp
+ M Source/FPSGAME/Movement/FPSTraversalRules.cpp
+ M Source/FPSGAME/Movement/FPSTraversalRules.h
+ M Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+ M Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+ M Source/FPSGAME/Production/ProductionToolComponent.cpp
+ M Source/FPSGAME/RainAssetEditor.cpp
+ M Source/FPSGAME/SceneSpawnValidation.cpp
+ M Source/FPSGAME/Skills/ColdSteelBlizzardModel.cpp
+ M Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp
+ M Source/FPSGAME/Skills/ColdSteelElectricMagicModel.cpp
+ M Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp
+ M Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
+ M Source/FPSGAME/Skills/ColdSteelHolyLightModel.cpp
+ M Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp
+ M Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp
+ M Source/FPSGAME/Skills/ColdSteelLightningModel.cpp
+ M Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+ M Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+ M Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+ M Source/FPSGAME/Skills/FPSBlizzardComponent.cpp
+ M Source/FPSGAME/Skills/FPSBlizzardComponent.h
+ M Source/FPSGAME/Skills/FPSBlizzardZone.cpp
+ M Source/FPSGAME/Skills/FPSBlizzardZone.h
+ M Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp
+ M Source/FPSGAME/Skills/FPSElectricMagicComponent.h
+ M Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
+ M Source/FPSGAME/Skills/FPSFireMagicComponent.h
+ M Source/FPSGAME/Skills/FPSFireballComponent.cpp
+ M Source/FPSGAME/Skills/FPSFireballProjectile.cpp
+ M Source/FPSGAME/Skills/FPSLightningComponent.cpp
+ M Source/FPSGAME/Skills/FPSMeteorStrike.cpp
+ M Source/FPSGAME/Skills/FireMagicArea.cpp
+ M Source/FPSGAME/Skills/FireMagicArea.h
+ M Source/FPSGAME/Skills/FireMagicTypes.h
+ M Source/FPSGAME/Skills/WhirlwindTypes.h
+ M Source/FPSGAME/Survival/FPSSurvivalComponent.cpp
+ M Source/FPSGAME/UI/ColdSteelAmmoPouchWidget.cpp
+ M Source/FPSGAME/UI/ColdSteelAmmoPouchWidget.h
+ M Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp
+ M Source/FPSGAME/UI/ColdSteelAmmoRuntime.cpp
+ M Source/FPSGAME/UI/ColdSteelAreaPickup.cpp
+ M Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp
+ M Source/FPSGAME/UI/ColdSteelCodexPage.cpp
+ M Source/FPSGAME/UI/ColdSteelCompartmentRules.cpp
+ M Source/FPSGAME/UI/ColdSteelCrateChest.cpp
+ M Source/FPSGAME/UI/ColdSteelCrateChest.h
+ M Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+ M Source/FPSGAME/UI/ColdSteelDungeonLoot.cpp
+ M Source/FPSGAME/UI/ColdSteelDungeonLoot.h
+ M Source/FPSGAME/UI/ColdSteelDungeonRewards.cpp
+ M Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp
+ M Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp
+ M Source/FPSGAME/UI/ColdSteelEnhancementSystem.h
+ M Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp
+ M Source/FPSGAME/UI/ColdSteelEnhancementWidget.h
+ M Source/FPSGAME/UI/ColdSteelExpHUD.cpp
+ M Source/FPSGAME/UI/ColdSteelExpeditionDetails.cpp
+ M Source/FPSGAME/UI/ColdSteelExpeditionLayout.cpp
+ M Source/FPSGAME/UI/ColdSteelForgeActionWidget.cpp
+ M Source/FPSGAME/UI/ColdSteelForgingWidget.cpp
+ M Source/FPSGAME/UI/ColdSteelGunAssemblyWidget.cpp
+ M Source/FPSGAME/UI/ColdSteelGunRecipeOptionWidget.cpp
+ M Source/FPSGAME/UI/ColdSteelHUDLayout.h
+ M Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
+ M Source/FPSGAME/UI/ColdSteelHUDWidget.h
+ M Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp
+ M Source/FPSGAME/UI/ColdSteelIconResources.cpp
+ M Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp
+ M Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp
+ M Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+ M Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp
+ M Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+ M Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp
+ M Source/FPSGAME/UI/ColdSteelInventoryWidget.h
+ M Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+ M Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
+ M Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp
+ M Source/FPSGAME/UI/ColdSteelPickup.cpp
+ M Source/FPSGAME/UI/ColdSteelPickup.h
+ M Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp
+ M Source/FPSGAME/UI/ColdSteelPickupMaterial.cpp
+ M Source/FPSGAME/UI/ColdSteelPickupStudio.cpp
+ M Source/FPSGAME/UI/ColdSteelPickupStudio.h
+ M Source/FPSGAME/UI/ColdSteelPickupVoxelBlock.cpp
+ M Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp
+ M Source/FPSGAME/UI/ColdSteelProductionTools.cpp
+ M Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+ M Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+ M Source/FPSGAME/UI/ColdSteelQuickBarTypes.h
+ M Source/FPSGAME/UI/ColdSteelQuickDrag.cpp
+ M Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
+ M Source/FPSGAME/UI/ColdSteelQuickSlot.h
+ M Source/FPSGAME/UI/ColdSteelResourceMeter.cpp
+ M Source/FPSGAME/UI/ColdSteelResourceMeter.h
+ M Source/FPSGAME/UI/ColdSteelSceneContainer.cpp
+ M Source/FPSGAME/UI/ColdSteelSceneContainer.h
+ M Source/FPSGAME/UI/ColdSteelSkillPage.cpp
+ M Source/FPSGAME/UI/ColdSteelSkillPage.h
+ M Source/FPSGAME/UI/ColdSteelSmeltingHUD.cpp
+ M Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp
+ M Source/FPSGAME/UI/ColdSteelSmeltingWidget.h
+ M Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp
+ M Source/FPSGAME/UI/ColdSteelStatusModel.h
+ M Source/FPSGAME/UI/ColdSteelSwapPlacement.h
+ M Source/FPSGAME/UI/ColdSteelTopVitals.cpp
+ M Source/FPSGAME/UI/ColdSteelWarehouseChest.cpp
+ M Source/FPSGAME/UI/ColdSteelWarehouseChest.h
+ M Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp
+ M Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp
+ M Source/FPSGAME/UI/ColdSteelWarehouseRules.cpp
+ M Source/FPSGAME/UI/ColdSteelWarehouseWidget.cpp
+ M Source/FPSGAME/UI/ColdSteelWarehouseWidget.h
+ M Source/FPSGAME/UI/ColdSteelWeaponIconReadback.cpp
+ M Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp
+ M Source/FPSGAME/UI/ColdSteelWeaponIcons.h
+ M Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp
+ M Source/FPSGAME/UI/ColdSteelWorkbenchWidget.cpp
+ M Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+ M Source/FPSGAME/UI/ColdSteelWorldInteraction.h
+ M Source/FPSGAME/UI/DevelopmentItemPicker.cpp
+ M Source/FPSGAME/UI/DevelopmentPanelWidget.cpp
+ M Source/FPSGAME/UI/FPSPerformanceMetrics.cpp
+ M Source/FPSGAME/UI/FPSPerformanceMetrics.h
+ M Source/FPSGAME/UI/FPSPerformanceMetricsExport.cpp
+ M Source/FPSGAME/UI/GameResourcePreparation.cpp
+ M Source/FPSGAME/UI/GameResourcePreparation.h
+ M Source/FPSGAME/UI/GunAssemblyActionWidget.cpp
+ M Source/FPSGAME/UI/LPVOScopeWidget.cpp
+ M Source/FPSGAME/UI/M4GunsmithLayout.cpp
+ M Source/FPSGAME/UI/M4GunsmithOverview.cpp
+ M Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+ M Source/FPSGAME/UI/M4StandalonePreview.cpp
+ M Source/FPSGAME/UI/SColdSteelCooldownMask.cpp
+ M Source/FPSGAME/UI/SColdSteelCooldownMask.h
+ M Source/FPSGAME/UI/StatusEffectsComponent.cpp
+ M Source/FPSGAME/UI/StatusEffectsHUD.cpp
+ M Source/FPSGAME/UI/StatusEffectsHUD.h
+ M Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
+ M Source/FPSGAME/UI/TransitLoadingSubsystem.h
+ M Source/FPSGAME/UI/WeatherControlWidget.cpp
+ M Source/FPSGAME/Weapons/Bow/BowArrow.cpp
+ M Source/FPSGAME/Weapons/Bow/BowArrow.h
+ M Source/FPSGAME/Weapons/Bow/BowGunsmith.cpp
+ M Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp
+ M Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h
+ M Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.cpp
+ M Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.h
+ M Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp
+ M Source/FPSGAME/Weapons/FPSRiftBladeComponent.cpp
+ M Source/FPSGAME/Weapons/GunsmithModificationTier.h
+ M Source/FPSGAME/Weapons/GunsmithSystem.cpp
+ M Source/FPSGAME/Weapons/GunsmithSystem.h
+ M Source/FPSGAME/Weapons/M4GunsmithVisual.cpp
+ M Source/FPSGAME/Weapons/MeleeGunsmith.cpp
+ M Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
+ M Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp
+ M Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp
+ M Source/FPSGAME/Weapons/PistolDualWieldComponent.h
+ M Source/FPSGAME/Weapons/RuneOrbBladeProjectile.cpp
+ M Source/FPSGAME/Weapons/RuneOrbBladeProjectile.h
+ M Source/FPSGAME/Weapons/RuneOrbBladesComponent.cpp
+ M Source/FPSGAME/Weapons/RuneOrbBladesComponent.h
+ M Source/FPSGAME/Weapons/RuneSwordComponent.cpp
+ M Source/FPSGAME/Weapons/RuneSwordComponent.h
+ M Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp
+ M Source/FPSGAME/Weapons/RuneSwordHitQuery.cpp
+ M Source/FPSGAME/Weapons/RuneSwordHitQuery.h
+ M Source/FPSGAME/Weapons/RuneSwordUppercut.cpp
+ M Source/FPSGAME/Weapons/RuneSwordUppercutMotion.h
+ M Source/FPSGAME/Weapons/RuneSwordWhirlwind.cpp
+ M Source/FPSGAME/Weapons/RuneSwordWhirlwindFeel.h
+ M Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp
+ M Source/FPSGAME/Weapons/Spellbook/SpellbookComponent.cpp
+ M Source/FPSGAME/Weapons/Spellbook/SpellbookComponent.h
+ M Source/FPSGAME/Weapons/Spellbook/SpellbookFocus.cpp
+ M Source/FPSGAME/Weapons/Spellbook/SpellbookFocusMotion.h
+ M Source/FPSGAME/Weapons/Spellbook/SpellbookFocusPose.cpp
+ M Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
+ M Source/FPSGAME/Weapons/TacticalDeviceComponent.cpp
+ M Source/FPSGAME/Weapons/TacticalDeviceComponent.h
+ M Source/FPSGAME/Weapons/TacticalDeviceVariants.h
+ M Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.h
+ M Source/FPSGAME/Weapons/WeaponActionCameraComponent.cpp
+ M Source/FPSGAME/Weapons/WeaponActionCameraComponent.h
+ M Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp
+ M Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.h
+ M Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp
+ M Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h
+ M SourceAssets/Baguette20261003/configure_food.py
+ M SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Config/module.json
+ M SourceAssets/DungeonAnatomyTheatre20261001/Pool20261001/Scripts/extend_catalog.py
+ M SourceAssets/DungeonFacilityFlow20261007/Config/layout-bank-v1.json
+ M SourceAssets/DungeonFacilityFlow20261007/Config/original-entry-actors.json
+ M SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/placements.json
+ M SourceAssets/DungeonFacilityFlow20261007/extend_catalog.py
+ M SourceAssets/DungeonFacilityFlow20261007/prepare_original_entry.py
+ M SourceAssets/DungeonFacilityFlow20261007/restore_original_entry.py
+ M SourceAssets/DungeonFreightDoor20260923/Scripts/import_assets.py
+ M SourceAssets/DungeonHospitalLine20261003/Config/line.json
+ M SourceAssets/DungeonHospitalLine20261003/Config/production-catalog-snapshot.json
+ M SourceAssets/DungeonHospitalLine20261003/Scripts/create_subject.py
+ M SourceAssets/DungeonIncineratorHall20260929/Pool20260930/Config/module.json
+ M SourceAssets/DungeonIncineratorLine20261003/Config/source-modules.json
+ M SourceAssets/DungeonIsolationWard20260929/Scripts/author_glass_doors.py
+ M SourceAssets/DungeonIsolationWard20260929/Scripts/author_ward.py
+ M SourceAssets/DungeonIsolationWard20260929/Scripts/import_assets.py
+ M SourceAssets/DungeonPowerTheme20261004RefineV2/Config/module-drafts.json
+ M SourceAssets/DungeonPowerTheme20261004RefineV2/Config/scene.json
+ M SourceAssets/DungeonPowerTheme20261004RefineV2/UpperControlRoom20261005/layout.py
+ M SourceAssets/DungeonRoutes20260922/Config/catalog.json
+ M SourceAssets/DungeonSplitLevels20261001/Config/catalog.json
+ M SourceAssets/DungeonStaffLiving20261002/Config/modules-draft.json
+ M SourceAssets/DungeonStaffLiving20261002/Config/room.json
+ M SourceAssets/DungeonStaffLiving20261002/Scripts/author_scene_polish_v4.py
+ M SourceAssets/DungeonStaffLiving20261002/Scripts/build_room_details_materials_v5.py
+ M SourceAssets/DungeonStaffLiving20261002/Scripts/build_scene_polish_materials_v4.py
+ M SourceAssets/DungeonStaffLiving20261002/Scripts/build_wall_inset_materials_v6.py
+ M SourceAssets/DungeonStaffLiving20261002/Scripts/dormitory_layout_polish_v4.py
+ M SourceAssets/DungeonStaffLiving20261002/Scripts/import_dormitory_variants_v2.py
+ M SourceAssets/DungeonThemedRoutes20261001/Config/catalog.json
+ M SourceAssets/DungeonWorkbenchKit20260921/Scripts/import_kit.py
+ M SourceAssets/FoodGrip20261003/README.md
+ M SourceAssets/FoodGrip20261003/grip_profiles.json
+ M SourceAssets/GodSpaceLayout20260927/Integration/export_accepted_layout.py
+ M SourceAssets/GodSpaceLayout20260927/Integration/import_assets.py
+ M SourceAssets/GodSpaceLayout20260927/Integration/placements.json
+ M SourceAssets/HK416CommonAttachments20260930/import_assets.py
+ M SourceAssets/HK416Reworked20260930/import_assets.py
+ M SourceAssets/HighlandClaymoreMeshy20260922/Broadblade20260922/import_and_install.py
+ M SourceAssets/IncineratorContainers20261003/Config/layout.json
+ M SourceAssets/IncineratorContainers20261003/Scripts/catalog_rules.py
+ M SourceAssets/IncineratorContainers20261003/Scripts/materials.py
+ M SourceAssets/IncineratorContainers20261003/Scripts/prepare_layout.py
+ M SourceAssets/RSH12InventoryIcon20261006/export_icon.ps1
+ M SourceAssets/SodaCan20261003/configure_soda.py
+ M SourceAssets/StationWorkshop20261003/RefineV2/Scripts/materials.py
+ M SourceAssets/StationWorkshop20261003/Scripts/materials.py
+ M SourceAssets/Super90CranshRelease20261012/build_native.ps1
+ M SourceAssets/Super90LoaderArmCheck20261012/build_native.ps1
+ M SourceAssets/Super90LoaderRelease20261012/build_native.ps1
+ M SourceAssets/Super90ReviewFix20261012/build_native.ps1
+ M SourceAssets/TangDaoMeshy20261002/TengyunBlade20261002/catalog_extension.py
+ M SourceAssets/TangDaoMeshy20261002/YanlingBlade20261002/catalog_extension.py
+ D SourceAssets/ThunderLanceFlux20261001/FluxCommon.hlsl
+ D SourceAssets/ThunderLanceFlux20261001/FluxDisplacement.hlsl
+ D SourceAssets/ThunderLanceFlux20261001/FluxFilaments.hlsl
+ D SourceAssets/ThunderLanceFlux20261001/FluxMask.hlsl
+ D SourceAssets/ThunderLanceFlux20261001/README.md
+ M SourceAssets/WarehouseContainers20261002/Scripts/materials.py
+ M SourceAssets/WeaponSurface20260930/HK416/current_surface_bindings.json
+ M SourceAssets/WorkbenchBuildable20260924/Authored/manifest_build.json
+ M SourceAssets/WorkbenchBuildable20260924/README.md
+ M SourceAssets/WorkbenchBuildable20260924/Scripts/author_standalone.py
+ M SourceAssets/WorkbenchBuildable20260924/Scripts/import_standalone.py
+ M SourceAssets/WorkbenchBuildable20260924/Scripts/make_clutter_textures.py
+ M Tools/BellowSacLobber/import_combat_assets_v02.py
+ M Tools/Build/Build-Editor.ps1
+ M Tools/HangingBellM09/Build-AttackSelectionV14.ps1
+ M Tools/HangingBellM09/Build-CrownClawV11.ps1
+ M Tools/HangingBellM09/Build-GazeChargeV10.ps1
+ M Tools/HangingBellM09/Build-GazeV08.ps1
+ M Tools/HangingBellM09/Build-HitSurfaceV23.ps1
+ M Tools/HangingBellM09/Build-LocomotionV19.ps1
+ M Tools/HangingBellM09/Build-ResonanceV07.ps1
+ M Tools/HangingBellM09/Build-SkinDeathV13.ps1
+ M Tools/HangingBellM09/Build-TurnRateV20.ps1
+ D Tools/Skills/bake_thunder_flux_fields.py
+ M Tools/Skills/build_blizzard_charged_v3.py
+ M Tools/Skills/build_electric_magic_assets.py
+ D Tools/Skills/build_thunder_flux_v3.py
+ D Tools/Skills/build_thunder_lance_column.py
+ D Tools/Skills/make_thunder_flux_mesh.py
+ M Tools/UI/prepare_cold_steel_skill_icons.py
+ M Tools/Weapons/LegendaryStock20261006/fit_models.py
+ M Tools/Weapons/LegendaryStock20261006/import_fitted.py
+ M Tools/Weapons/RifleAxialRecoil20261009/finish_backend.ps1
+ M UI-WORKFLOW.md
+ M skills/asset-model-workflow/SKILL.md
+ M skills/ue5-auto-assistant/SKILL.md
+ M skills/ue5-cpp-gameplay/SKILL.md
+ M skills/ue5-debug-validation/SKILL.md
+ M skills/ue5-fluid-vfx-workflow/SKILL.md
+ M skills/ue5-fluid-vfx-workflow/references/body-smoke-and-visibility.md
+ M skills/ue5-fps-arms-animation/SKILL.md
+ M skills/ue5-fps-arms-animation/references/spellbook-transitions.md
+ M skills/ue5-fps-arms-animation/references/third-person-sword-contact.md
+ M skills/ue5-fps-arms-animation/references/traversal-contact.md
+ M skills/ue5-item-asset-workflow/SKILL.md
+ D skills/ue5-module-router/SKILL.md
+ M skills/ue5-monster-workflow/SKILL.md
+ M skills/ue5-monster-workflow/references/monster-ai.md
+ M skills/ue5-pcg-building/SKILL.md
+ M skills/ue5-performance-packaging/SKILL.md
+ M skills/ue5-skill-magic-workflow/SKILL.md
+ M skills/ue5-skill-magic-workflow/references/blizzard-migration.md
+ M skills/ue5-skill-magic-workflow/references/electric-magic-migration.md
+ M skills/ue5-skill-magic-workflow/references/melee-lunge-contact.md
+ M skills/ue5-ui-umg-slate/SKILL.md
+ M skills/ue5-ui-umg-slate/references/fpsgame-inventory-input.md
+ M skills/ue5-ui-umg-slate/references/weapon-tooltip-schema.md
+ M skills/ue5-weapon-workflow/SKILL.md
+ M skills/ue5-weapon-workflow/references/attachment-standard.md
+ M skills/ue5-weapon-workflow/references/enchantment-scrolls.md
+ M skills/ue5-weapon-workflow/references/rune-surfaces.md
+ M skills/ue5-weapon-workflow/references/weapon-copy-and-traits.md
+ M skills/ue5-weather-workflow/SKILL.md
+ M skills/ue5-world-interaction/SKILL.md
+?? Content/ColdSteelData/campfire-recipes.json
+?? Content/ColdSteelData/incinerator-recipes.json
+?? Content/ColdSteelData/incinerator-recipes.schema.json
+?? Content/ColdSteelData/woodworking-recipes.json
+?? Content/ColdSteelData/woodworking.json
+?? Docs/Art/collection-icon-orientation-20261013.md
+?? Docs/Art/search-documents-models-20261012.md
+?? Docs/Art/search-maintenance-models-20261012.md
+?? Docs/Art/search-server-equipment-models-20261013.md
+?? Docs/Art/server-original-marks-20261013.md
+?? Docs/Art/server-reference-remodel-20261013.md
+?? Docs/Building/campfire-20261012.md
+?? Docs/Building/campfire-fuel-cooking-and-flame-20261012.md
+?? Docs/Building/campfire-local-fire-candidates-20261012.md
+?? Docs/Building/campfire-realistic-fire-20261012.md
+?? Docs/Building/campfire-shared-operations-20261012.md
+?? Docs/Building/door-family-expansion-20261004.md
+?? Docs/Building/woodworking-bench-v4-import-20261008.md
+?? Docs/Characters/bare-skin-mpfb-20261010.md
+?? Docs/Characters/bare-skin-surface-rework-20261010.md
+?? Docs/Characters/first-person-traversal-handoff-20261012.md
+?? Docs/Characters/player-death-camera-20261006.md
+?? Docs/Characters/third-person-crouch-library-20261005.md
+?? Docs/Characters/third-person-free-sword-sources-20261005.md
+?? Docs/Characters/third-person-rifle-actions-20261006.md
+?? Docs/Characters/third-person-rifle-shoulder-aim-20261006.md
+?? Docs/Characters/third-person-slide-20261005.md
+?? Docs/Characters/third-person-sword-actions-20261006.md
+?? Docs/Characters/third-person-sword-donor-repair-20261006.md
+?? Docs/Characters/third-person-sword-stairs-20261005.md
+?? Docs/Characters/third-person-traversal-gasp-20261012.md
+?? Docs/Characters/third-person-whirlwind-20261006.md
+?? Docs/Combat/enchant-dealer-demon-laugh-20261004.md
+?? Docs/Combat/enchant-dealer-holdem-20261004.md
+?? Docs/Combat/enchant-dealer-infernal-v2-20261004.md
+?? Docs/Combat/enchant-dealer-revolver-20261004.md
+?? Docs/Combat/enchant-dealer-seven-card-selection-20261004.md
+?? Docs/Gameplay/bookcase-shelf-joints-20261010.md
+?? Docs/Gameplay/dungeon-fixture-lighting-20261009.md
+?? Docs/Gameplay/dungeon-old-spawning-removed-20261009.md
+?? Docs/Gameplay/facility-detail-repair-20261010.md
+?? Docs/Gameplay/hall-stair-corner-20261010.md
+?? Docs/Gameplay/incinerator-hatch-clearance-20261010.md
+?? Docs/Gameplay/reception-entry-gallery-vent-finish-20261010.md
+?? Docs/Gameplay/search-container-groups-20261012.json
+?? Docs/Gameplay/search-container-groups-20261012.md
+?? Docs/Gameplay/search-item-catalog-v1-20261012.json
+?? Docs/Gameplay/search-item-catalog-v1-20261012.md
+?? Docs/Gameplay/search-item-catalog-v2-20261012.json
+?? Docs/Gameplay/search-item-catalog-v2-20261012.md
+?? Docs/Gameplay/transit-finish-20261010.md
+?? Docs/Gameplay/transit-incident-detail-20261010.md
+?? Docs/Gameplay/transit-incident-dressing-20261010.md
+?? Docs/Gameplay/traversal-unlimited-drop-20261012.md
+?? Docs/Multiplayer/basic-feature-audit-20261013.md
+?? Docs/Multiplayer/basic-feature-repairs-20261013.md
+?? Docs/Multiplayer/client-melee-and-profile-mirror-20261013.md
+?? Docs/Multiplayer/movement-profile-congestion-20261013.md
+?? Docs/Multiplayer/player-actions-and-spellbook-20261012.md
+?? Docs/Performance/dungeon-async-room-rendering-20261008.md
+?? Docs/Performance/dungeon-entry-autocapture-20261012.md
+?? Docs/Performance/dungeon-entry-collision-fix-20261012.md
+?? Docs/Performance/dungeon-entry-overlap-20261012.md
+?? Docs/Performance/dungeon-entry-pipeline-20261012.md
+?? Docs/Performance/dungeon-post-entry-stutter-20261012.md
+?? Docs/Performance/dungeon-resource-fix-20261013.txt
+?? Docs/Performance/dungeon-spawn-scheduling-20261012.md
+?? Docs/Performance/monster-crowd-trace-20261012.md
+?? Docs/Performance/preview-niagara-first-batch-20261012.txt
+?? Docs/Performance/staff-morph-resource-observation-20261013.txt
+?? Docs/Skills/area-skill-open-barriers-20261013.md
+?? Docs/Skills/blizzard-audit-20261012.md
+?? Docs/Skills/blizzard-fixes-20261012.md
+?? Docs/Skills/blizzard-indoor-implementation-20261012.md
+?? Docs/Skills/blizzard-indoor-plan-20261012.md
+?? Docs/Skills/blizzard-storm-cloud-reuse-20261012.md
+?? Docs/Skills/blizzard-volume-20261013.md
+?? Docs/Skills/martial-skill-independent-speed-20261012.md
+?? Docs/Skills/rolling-storm-clouds-20261012.md
+?? Docs/Skills/storm-domain-head-follow-20261012.md
+?? Docs/Skills/storm-domain-upgrade-20261012.md
+?? Docs/Skills/uppercut-forward-stride-20261013.md
+?? Docs/UI/arcane-workbench-backgrounds-20261008.html
+?? Docs/UI/arcane-workbench-plan-20261008.md
+?? Docs/UI/arcane-worktable-v2-plan-20261008.md
+?? Docs/UI/ash12-exclusive-gold-plan-20261004.md
+?? Docs/UI/backpack-compartment-interaction-plan-20261007.md
+?? Docs/UI/campfire-building-plan-20261012.md
+?? Docs/UI/campfire-shared-plan-20261012.md
+?? Docs/UI/dragon-breath-plan-20261013.md
+?? Docs/UI/dungeon-tracker-plan-20261013.md
+?? Docs/UI/game-menu-plan-20261008.md
+?? Docs/UI/hotbar-fixed-pixels-plan-20261008.md
+?? Docs/UI/incinerator-batch-plan-20261006.md
+?? Docs/UI/incinerator-grid-plan-20261006.md
+?? Docs/UI/incinerator-horizontal-text-20261007.md
+?? Docs/UI/incinerator-integration-status-20261006.md
+?? Docs/UI/incinerator-panel-plan-20261006.md
+?? Docs/UI/melee-blade-details-plan-20261009.md
+?? Docs/UI/soul-currency-plan-20261008.md
+?? Docs/UI/soul-icon-plan-20261008.md
+?? Docs/UI/spellbook-tooltip-20261012.md
+?? Docs/UI/status-effects-cards-plan-20261007.md
+?? Docs/UI/status-model-init-layout-crash-20261013.md
+?? Docs/UI/target-bar-compact-plan-20261007.md
+?? Docs/UI/target-resource-animation-plan-20261007.md
+?? Docs/UI/woodworking-adjust-mode-plan-20261013.md
+?? Docs/UI/woodworking-clear-table-horizontal-ui-20261012.md
+?? Docs/UI/woodworking-controls-red-edge-20261013.md
+?? Docs/UI/woodworking-entry-flow-20261009.md
+?? Docs/UI/woodworking-entry-selection-plan-20261009.md
+?? Docs/UI/woodworking-minigame-20261007.md
+?? Docs/UI/woodworking-onpaint-array-alias-fix-20261009.md
+?? Docs/UI/woodworking-overhaul-implementation-20261012.md
+?? Docs/UI/woodworking-overhaul-plan-20261012.md
+?? Docs/UI/woodworking-selection-cards-plan-20261013.md
+?? Docs/UI/woodworking-selection-crash-fix-20261013.md
+?? Docs/UI/woodworking-table-saw-plan-20261008.md
+?? Docs/UI/woodworking-world-work-plan-20261009.md
+?? Docs/Weapons/bipod-pitch-independent-placement-20261012.md
+?? Docs/Weapons/dual-tactical-fit-review-20261008.md
+?? Docs/Weapons/dual-tactical-slots-20261008.md
+?? Docs/Weapons/full-auto-trigger-20261007.md
+?? Docs/Weapons/hk416-accessory-finish-20261008.md
+?? Docs/Weapons/hk416-native-tactical-rails-20261008.md
+?? Docs/Weapons/hk416-quick-melee-20261008.md
+?? Docs/Weapons/lmg201-reargrip-junction-20261007.md
+?? Docs/Weapons/reargrip-surface-20261007.md
+?? Docs/Weapons/reload-camera-standard-20261013.md
+?? Docs/Weapons/spellbook-focus-movement-handoff-20261012.md
+?? Docs/Weapons/sprint-camera-half-amplitude-20261013.md
+?? Docs/Weapons/thermal-scope-integration-20261007.md
+?? Docs/Weapons/third-person-kwang-grip-20261007.md
+?? Docs/Weapons/third-person-kwang-sword-20261006.md
+?? Docs/Weapons/third-person-muzzle-origin-20261006.md
+?? Docs/Weapons/third-person-staff-strike-carry-20261010.md
+?? Docs/Weapons/third-person-whirlwind-reverse-20261012.md
+?? Source/FPSGAME/Building/CampfireCooking.cpp
+?? Source/FPSGAME/Building/CampfireSharedTransactions.cpp
+?? Source/FPSGAME/Building/CampfireSharedTypes.h
+?? Source/FPSGAME/Building/ColdSteelCampfire.cpp
+?? Source/FPSGAME/Building/ColdSteelCampfire.h
+?? Source/FPSGAME/Building/ColdSteelCampfireNetwork.cpp
+?? Source/FPSGAME/Building/WoodworkingMask.cpp
+?? Source/FPSGAME/Building/WoodworkingMask.h
+?? Source/FPSGAME/Building/WoodworkingSaw.h
+?? Source/FPSGAME/Building/WoodworkingSawVisualComponent.cpp
+?? Source/FPSGAME/Building/WoodworkingSawVisualComponent.h
+?? Source/FPSGAME/Building/WoodworkingStockGeometry.cpp
+?? Source/FPSGAME/Building/WoodworkingStockGeometry.h
+?? Source/FPSGAME/Building/WoodworkingSystem.cpp
+?? Source/FPSGAME/Building/WoodworkingSystem.h
+?? Source/FPSGAME/Building/WoodworkingWorldView.cpp
+?? Source/FPSGAME/Building/WoodworkingWorldView.h
+?? Source/FPSGAME/Characters/FPSBodyRifleHold.cpp
+?? Source/FPSGAME/Characters/FPSBodyRifleHold.h
+?? Source/FPSGAME/Characters/FPSBodyRifleMotion.h
+?? Source/FPSGAME/Characters/FPSBodyRifleStockContacts.h
+?? Source/FPSGAME/Characters/FPSBodySlideLayer.inl
+?? Source/FPSGAME/Characters/FPSBodyStunPose.inl
+?? Source/FPSGAME/Characters/FPSBodyTraversalLayer.inl
+?? Source/FPSGAME/Characters/FPSPlayerBodyDeath.cpp
+?? Source/FPSGAME/Characters/FPSPlayerBodySpellbook.cpp
+?? Source/FPSGAME/Characters/FPSPlayerDeathMotion.h
+?? Source/FPSGAME/Characters/FPSPlayerReactionCamera.cpp
+?? Source/FPSGAME/Characters/FPSPlayerReactionCamera.h
+?? Source/FPSGAME/Development/EcologyWindowDiagnosisCommandlet.cpp
+?? Source/FPSGAME/Development/EcologyWindowDiagnosisCommandlet.h
+?? Source/FPSGAME/Dungeons/DungeonMonsterRenderPreparation.h
+?? Source/FPSGAME/FPSGAMECharacterReloadCamera.cpp
+?? Source/FPSGAME/FPSGAMEGameMenu.cpp
+?? Source/FPSGAME/Monsters/MonsterAPSMigration.cpp
+?? Source/FPSGAME/Monsters/MonsterAPSMigration.h
+?? Source/FPSGAME/Monsters/MonsterArcPathing.cpp
+?? Source/FPSGAME/Monsters/MonsterArcPathing.h
+?? Source/FPSGAME/Movement/FPSDodgeNetwork.cpp
+?? Source/FPSGAME/Movement/FPSMeleeMoveRequest.h
+?? Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp
+?? Source/FPSGAME/Movement/FPSTraversalNetwork.cpp
+?? Source/FPSGAME/Movement/FPSTraversalTiming.h
+?? Source/FPSGAME/Multiplayer/ColdSteelAuthorityContext.cpp
+?? Source/FPSGAME/Multiplayer/ColdSteelAuthorityContext.h
+?? Source/FPSGAME/Multiplayer/ColdSteelBowAuthority.cpp
+?? Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
+?? Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h
+?? Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+?? Source/FPSGAME/Multiplayer/ColdSteelProfileTransfer.cpp
+?? Source/FPSGAME/Multiplayer/ColdSteelProfileTransfer.h
+?? Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
+?? Source/FPSGAME/Multiplayer/ColdSteelSharedChestVisual.cpp
+?? Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp
+?? Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp
+?? Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h
+?? Source/FPSGAME/Production/DungeonLightDirectionCommandlet.cpp
+?? Source/FPSGAME/Production/DungeonLightDirectionCommandlet.h
+?? Source/FPSGAME/Production/DungeonMaterialUsageRepairCommandlet.cpp
+?? Source/FPSGAME/Production/DungeonMaterialUsageRepairCommandlet.h
+?? Source/FPSGAME/Skills/BlizzardEnvironment.cpp
+?? Source/FPSGAME/Skills/BlizzardEnvironment.h
+?? Source/FPSGAME/Skills/ColdSteelSpellMana.cpp
+?? Source/FPSGAME/Skills/FPSDragonBreath.cpp
+?? Source/FPSGAME/Skills/MagicOcclusion.cpp
+?? Source/FPSGAME/Skills/MagicOcclusion.h
+?? Source/FPSGAME/Tasks/
+?? Source/FPSGAME/UI/ColdSteelCampfireWidget.cpp
+?? Source/FPSGAME/UI/ColdSteelCurrency.cpp
+?? Source/FPSGAME/UI/ColdSteelCurrency.h
+?? Source/FPSGAME/UI/ColdSteelDungeonTracker.cpp
+?? Source/FPSGAME/UI/ColdSteelDungeonTracker.h
+?? Source/FPSGAME/UI/ColdSteelEnhancementBackdrop.cpp
+?? Source/FPSGAME/UI/ColdSteelGameMenuWidget.cpp
+?? Source/FPSGAME/UI/ColdSteelGameMenuWidget.h
+?? Source/FPSGAME/UI/ColdSteelHUDMeters.cpp
+?? Source/FPSGAME/UI/ColdSteelHotbarLayout.cpp
+?? Source/FPSGAME/UI/ColdSteelIncineration.cpp
+?? Source/FPSGAME/UI/ColdSteelIncineration.h
+?? Source/FPSGAME/UI/ColdSteelIncineratorAmmoDrag.cpp
+?? Source/FPSGAME/UI/ColdSteelIncineratorAmmoDrag.h
+?? Source/FPSGAME/UI/ColdSteelIncineratorAuditCommandlet.cpp
+?? Source/FPSGAME/UI/ColdSteelIncineratorAuditCommandlet.h
+?? Source/FPSGAME/UI/ColdSteelIncineratorStorage.cpp
+?? Source/FPSGAME/UI/ColdSteelIncineratorStorage.h
+?? Source/FPSGAME/UI/ColdSteelIncineratorUIAudit.cpp
+?? Source/FPSGAME/UI/ColdSteelIncineratorWidget.cpp
+?? Source/FPSGAME/UI/ColdSteelIncineratorWidget.h
+?? Source/FPSGAME/UI/ColdSteelMeterPresentation.h
+?? Source/FPSGAME/UI/ColdSteelNetworkContainer.cpp
+?? Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp
+?? Source/FPSGAME/UI/ColdSteelSoulCounter.cpp
+?? Source/FPSGAME/UI/ColdSteelSoulCounter.h
+?? Source/FPSGAME/UI/ColdSteelSoulHUD.cpp
+?? Source/FPSGAME/UI/ColdSteelWoodworkingController.cpp
+?? Source/FPSGAME/UI/ColdSteelWoodworkingWidget.cpp
+?? Source/FPSGAME/UI/ColdSteelWoodworkingWidget.h
+?? Source/FPSGAME/UI/DevelopmentListOptionWidget.cpp
+?? Source/FPSGAME/UI/DevelopmentListOptionWidget.h
+?? Source/FPSGAME/UI/FPSPerformanceMetricsResources.cpp
+?? Source/FPSGAME/UI/SColdSteelArcaneSeal.cpp
+?? Source/FPSGAME/UI/SColdSteelArcaneSeal.h
+?? Source/FPSGAME/UI/StatusEffectIconPainter.cpp
+?? Source/FPSGAME/UI/StatusEffectIconPainter.h
+?? Source/FPSGAME/UI/WoodworkingEntryFlow.h
+?? Source/FPSGAME/UI/WoodworkingPanel.inl
+?? Source/FPSGAME/UI/WoodworkingPresentation.cpp
+?? Source/FPSGAME/UI/WoodworkingPresentation.h
+?? Source/FPSGAME/Weapons/DealerEnchantmentComponent.cpp
+?? Source/FPSGAME/Weapons/DealerEnchantmentComponent.h
+?? Source/FPSGAME/Weapons/DealerPokerTypes.cpp
+?? Source/FPSGAME/Weapons/DealerPokerTypes.h
+?? Source/FPSGAME/Weapons/FullAutoTrigger.cpp
+?? Source/FPSGAME/Weapons/FullAutoTrigger.h
+?? Source/FPSGAME/Weapons/RuneOrbBladesNetwork.cpp
+?? Source/FPSGAME/Weapons/SprintCameraMotion.h
+?? Source/FPSGAME/Weapons/ThermalScopeAssets.h
+?? Source/FPSGAME/Weapons/ThermalScopeVisual.cpp
+?? Source/FPSGAME/Weapons/ThermalTargetSubsystem.cpp
+?? Source/FPSGAME/Weapons/ThermalTargetSubsystem.h
+?? Source/FPSGAME/Weapons/WeaponReloadCamera.h
+?? Source/FPSGAME/WorldGeneration/FluidCampfirePresentation.cpp
+?? SourceAssets/AlienGeometry20261006/
+?? SourceAssets/Ammo12Gauge20261012/stop_authorized_pie.py
+?? SourceAssets/ArcaneWorkbench20261008/
+?? SourceAssets/BellowSacLobberMeshy20261012/CreatureAudioV10/
+?? SourceAssets/BellowSacLobberMeshy20261012/StepsHurtV11/
+?? SourceAssets/BlizzardStormCloudReuse20261012/
+?? SourceAssets/BlizzardVolume20261013/
+?? SourceAssets/BodyCombatRepair20261006V2/
+?? SourceAssets/Campfire20261012/
+?? SourceAssets/CofferMovement20261007/
+?? SourceAssets/CollectionIconOrientation20261013/
+?? SourceAssets/Consume20261006/
+?? SourceAssets/Dealer20261004/
+?? SourceAssets/DoorAudio20261003/
+?? SourceAssets/DragonBreath20261013/
+?? SourceAssets/DualTactical20261008/
+?? SourceAssets/DungeonHallCeilingLight20261009/
+?? SourceAssets/DungeonHospitalLine20261003/Config/source-modules.json
+?? SourceAssets/DungeonLightDirection20261009/
+?? SourceAssets/DungeonSpawnReset20261009/
+?? SourceAssets/DungeonStaffLiving20261002/BookcaseJoints20261010/
+?? SourceAssets/DungeonStaffLivingTest20261004/
+?? SourceAssets/FacilityDetailRepair20261010/
+?? SourceAssets/GamedevTreasureChestV3_20261004/
+?? SourceAssets/GodSpaceCoreStarfield20261005/
+?? SourceAssets/GunWorkbenchApproved20261006/
+?? SourceAssets/HK416QuickMelee20261008/
+?? SourceAssets/HallStairCorner20261010/
+?? SourceAssets/Incinerator20261006/
+?? SourceAssets/IncineratorHatchClearance20261010/
+?? SourceAssets/LMG201GripJunction20261007/
+?? SourceAssets/LMG201GripSolidJunction20261007/
+?? SourceAssets/LegendaryFullAutoTrigger20261007/
+?? SourceAssets/LegendaryStock20261006/
+?? SourceAssets/M07M14Movement20261007/
+?? SourceAssets/MedicalExecutiveOffice20261010/
+?? SourceAssets/MedicalOfficeLighting20261010/
+?? SourceAssets/MedicalOfficeWaitingFinish20261010/
+?? SourceAssets/MedicalOfficeWing20261010/
+?? SourceAssets/PlayerDeath20261006/
+?? SourceAssets/PlayerStun20261006/
+?? SourceAssets/RearGripSurface20261007/
+?? SourceAssets/ReceptionFinish20261010/
+?? SourceAssets/SearchDocuments20261012/
+?? SourceAssets/SearchMaintenance20261012/
+?? SourceAssets/SearchServerEquipment20261013/
+?? SourceAssets/ServerOriginalMarks20261013/
+?? SourceAssets/ServerReferenceRemodel20261013/
+?? SourceAssets/SoulIcon20261008/
+?? SourceAssets/StormCloudRolling20261012/
+?? SourceAssets/Super90CranshRelease20261012/editor_save_state.py
+?? SourceAssets/Super90CranshRelease20261012/end_play.py
+?? SourceAssets/Super90CranshRelease20261012/exit_for_build.py
+?? SourceAssets/Super90MountedShellColor20261012/end_play.py
+?? SourceAssets/Super90TacticalBottom20261012/live_compile.py
+?? SourceAssets/ThermalScopeRuntime20261007/
+?? SourceAssets/ThirdPersonCrouch20261005/
+?? SourceAssets/ThirdPersonRifle20261006/
+?? SourceAssets/ThirdPersonRifleShoulder20261006/
+?? SourceAssets/ThirdPersonSlide20261005/
+?? SourceAssets/ThirdPersonSwordActions20261006/
+?? SourceAssets/ThirdPersonSwordCandidates20261006/
+?? SourceAssets/ThirdPersonSwordDonorRepair20261006/adapted-actions.json
+?? SourceAssets/ThirdPersonSwordDonorRepair20261006/assets-saved.json
+?? SourceAssets/ThirdPersonSwordDonorRepair20261006/imported-sources.json
+?? SourceAssets/ThirdPersonSwordDonorRepair20261006/original-poses.json
+?? SourceAssets/ThirdPersonSwordDonorRepair20261006/published.json
+?? SourceAssets/ThirdPersonSwordDonorRepair20261006/retargeted-poses.json
+?? SourceAssets/ThirdPersonSwordFree20261005/
+?? SourceAssets/ThirdPersonSwordGrip20261007/refine_kwang_grip_before_review.py
+?? SourceAssets/ThirdPersonSwordLibrary20261005/
+?? SourceAssets/ThirdPersonSwordSearch20261006/
+?? SourceAssets/ThirdPersonSwordStairs20261005/
+?? SourceAssets/ThirdPersonTraversal20261012/
+?? SourceAssets/ThirdPersonWhirlwind20261006/
+?? SourceAssets/TransitFinish20261010/
+?? SourceAssets/TransitIncidentDetail20261010/
+?? SourceAssets/TransitIncidentDressing20261010/
+?? SourceAssets/WeaponSurface20260930/HK416/Accessories20261008/
+?? SourceAssets/WoodworkingBenchV2/
+?? SourceAssets/WoodworkingBenchV4/
+?? SourceAssets/WoodworkingBenchV5Clean20261012/
+?? SourceAssets/WoodworkingBenchV6Controls20261013/
+?? SourceAssets/WoodworkingOverhaul20261012/
+?? SourceAssets/WorkbenchBuildable20260924/Authored/layout_tabletop.json
+?? SourceAssets/WorkbenchBuildable20260924/Receipts/engineering-20261004.json
+?? SourceAssets/WorkbenchBuildable20260924/Receipts/layout-20261004.json
+?? SourceAssets/WorkbenchBuildable20260924/Scripts/engineering_drawings.py
+?? SourceAssets/WorkbenchBuildable20260924/Scripts/engineering_tools.py
+?? SourceAssets/WorkbenchBuildable20260924/Scripts/layout_tabletop.py
+?? Tools/AssetPipeline/collection_icon_orientation.py
+?? Tools/AssetPipeline/import_door_audio_20261004.py
+?? Tools/AssetPipeline/register_door_prefabs_20261004.py
+?? Tools/Building/author_campfire_flame.py
+?? Tools/Building/author_campfire_realistic.py
+?? Tools/Building/inspect_campfire_integration.py
+?? Tools/Building/inventory_local_fire_assets.py
+?? Tools/Building/inventory_local_fire_sources.py
+?? Tools/Building/read_campfire_flame.py
+?? Tools/Building/read_campfire_sources.py
+?? Tools/Building/register_campfire.py
+?? Tools/Building/register_woodworking_bench.py
+?? Tools/Building/summarize_local_fire_inventory.py
+?? Tools/MonsterAI/Invoke-APSMigration.ps1
+?? Tools/MonsterAI/migrate_aps_navigation.py
+?? Tools/Multiplayer/
+?? Tools/Performance/capture_dungeon_entry.py
+?? Tools/Performance/capture_dungeon_render_resources.py
+?? Tools/Performance/dungeon_material_usage_20261013.json
+?? Tools/Performance/prepare_traced_niagara.py
+?? Tools/PlayerBody/audit_kwang_grip_assets.py
+?? Tools/PlayerBody/audit_kwang_grip_data.py
+?? Tools/PlayerBody/author_slide_ranges.py
+?? Tools/PlayerBody/author_whirlwind_jason.py
+?? Tools/PlayerBody/catalog_free_sword_sources.py
+?? Tools/PlayerBody/import_free_sword_sources.py
+?? Tools/PlayerBody/import_player_death_donor.py
+?? Tools/PlayerBody/import_sword_donor_repair.py
+?? Tools/PlayerBody/inspect_crouch_joints.py
+?? Tools/PlayerBody/prepare_crouch_sources.py
+?? Tools/PlayerBody/prepare_kwang_sword.py
+?? Tools/PlayerBody/prepare_player_death.py
+?? Tools/PlayerBody/prepare_slide_sources.py
+?? Tools/PlayerBody/prepare_stun20261006.py
+?? Tools/PlayerBody/prepare_sword_actions_jason.py
+?? Tools/PlayerBody/prepare_sword_donor_grip.py
+?? Tools/PlayerBody/prepare_traversal_sources.py
+?? Tools/PlayerBody/prepare_whirlwind_jason.py
+?? Tools/PlayerBody/publish_consume20261006.py
+?? Tools/PlayerBody/publish_crouch_jason.py
+?? Tools/PlayerBody/publish_free_sword_jason.py
+?? Tools/PlayerBody/publish_kwang_sword.py
+?? Tools/PlayerBody/publish_kwang_sword_grip.py
+?? Tools/PlayerBody/publish_player_death.py
+?? Tools/PlayerBody/publish_slide_jason.py
+?? Tools/PlayerBody/publish_sword_actions_jason.py
+?? Tools/PlayerBody/publish_sword_donor_repair.py
+?? Tools/PlayerBody/publish_traversal_jason.py
+?? Tools/PlayerBody/publish_whirlwind_jason.py
+?? Tools/PlayerBody/read_combat_repair_inputs.py
+?? Tools/PlayerBody/read_crouch_sources.py
+?? Tools/PlayerBody/read_fullbody_sword_sources.py
+?? Tools/PlayerBody/read_kwang_blade_geometry.py
+?? Tools/PlayerBody/read_slide_sources.py
+?? Tools/PlayerBody/read_sword_stair_state.py
+?? Tools/PlayerBody/retarget_crouch_jason.py
+?? Tools/PlayerBody/retarget_free_sword_jason.py
+?? Tools/PlayerBody/retarget_kwang_sword.py
+?? Tools/PlayerBody/retarget_slide_jason.py
+?? Tools/PlayerBody/retarget_traversal_jason.py
+?? Tools/PlayerBody/save_combat_repair_v2.py
+?? Tools/PlayerBody/save_consume20261006.py
+?? Tools/PlayerBody/save_kwang_sword.py
+?? Tools/PlayerBody/save_kwang_sword_grip.py
+?? Tools/PlayerBody/save_player_death.py
+?? Tools/PlayerBody/save_stun20261006.py
+?? Tools/PlayerBody/save_sword_actions_jason.py
+?? Tools/PlayerBody/save_sword_donor_repair.py
+?? Tools/PlayerBody/save_whirlwind_jason.py
+?? Tools/Skills/build_blizzard_clearance_v4.py
+?? Tools/Skills/build_blizzard_indoor_v5.py
+?? Tools/Skills/build_blizzard_volume_cloud.py
+?? Tools/Skills/build_dragon_breath.py
+?? Tools/Skills/build_rolling_storm_clouds.py
+?? Tools/Skills/build_storm_domain_cloud.py
+?? Tools/Skills/read_dragon_breath_source.py
+?? Tools/Skills/reuse_storm_domain_blizzard_cloud.py
+?? Tools/UI/ShotgunCrosshair20261012/
+?? Tools/UI/check_woodworking_polylines.py
+?? Tools/Weapons/ThermalScope20261006/author_runtime.py
+?? Tools/Weapons/ThermalScope20261006/compile_runtime_materials.py
+?? Tools/Weapons/ThermalScope20261006/import_runtime.py
+?? Tools/Weapons/ThermalScope20261006/render_icon.py
+?? Tools/Weapons/ThermalScope20261006/thermal_scene.hlsl
+?? Tools/Weapons/ThermalScope20261006/update_thermal_presentation.py
+?? skills/asset-model-workflow/LOCAL-HISTORY.md
+?? skills/ue5-auto-assistant/LOCAL-HISTORY.md
+?? skills/ue5-cpp-gameplay/LOCAL-HISTORY.md
+?? skills/ue5-debug-validation/LOCAL-HISTORY.md
+?? skills/ue5-fluid-vfx-workflow/LOCAL-HISTORY.md
+?? skills/ue5-fps-arms-animation/LOCAL-HISTORY.md
+?? skills/ue5-item-asset-workflow/LOCAL-HISTORY.md
+?? skills/ue5-module-router/LOCAL-HISTORY.md
+?? skills/ue5-module-router/ROUTING.md
+?? skills/ue5-monster-workflow/LOCAL-HISTORY.md
+?? skills/ue5-pcg-building/LOCAL-HISTORY.md
+?? skills/ue5-performance-packaging/LOCAL-HISTORY.md
+?? skills/ue5-skill-magic-workflow/LOCAL-HISTORY.md
+?? skills/ue5-skill-magic-workflow/references/area-skill-occlusion.md
+?? skills/ue5-ui-umg-slate/LOCAL-HISTORY.md
+?? skills/ue5-weapon-workflow/LOCAL-HISTORY.md
+?? skills/ue5-weather-workflow/LOCAL-HISTORY.md
+?? skills/ue5-world-interaction/LOCAL-HISTORY.md

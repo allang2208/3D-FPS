@@ -1,0 +1,147 @@
+{
+  "DynamicMaterialParameters/Index 0 Param 1|Minimum": "(Value=1.000000)",
+  "DynamicMaterialParameters/Index 0 Param 1|Maximum": "(Value=2.000000)",
+  "DynamicMaterialParameters/Index 0 Param 2|Curve": "",
+  "DynamicMaterialParameters/Index 0 Param 2|FloatCurve": "(PropertyValues=\"{\\\"Curve\\\":{\\\"keys\\\":[{\\\"interpMode\\\":\\\"RCIM_Cubic\\\",\\\"tangentMode\\\":\\\"RCTM_Auto\\\",\\\"tangentWeightMode\\\":\\\"RCTWM_WeightedNone\\\",\\\"time\\\":0,\\\"value\\\":1,\\\"arriveTangent\\\":0,\\\"arriveTangentWeight\\\":0,\\\"leaveTangent\\\":0,\\\"leaveTangentWeight\\\":0},{\\\"interpMode\\\":\\\"RCIM_Cubic\\\",\\\"tangentMode\\\":\\\"RCTM_Auto\\\",\\\"tangentWeightMode\\\":\\\"RCTWM_WeightedNone\\\",\\\"time\\\":1,\\\"value\\\":2,\\\"arriveTangent\\\":0,\\\"arriveTangentWeight\\\":0,\\\"leaveTangent\\\":0,\\\"leaveTangentWeight\\\":0}],\\\"defaultValue\\\":3.4028234663852886e+38,\\\"preInfinityExtrap\\\":\\\"RCCE_Constant\\\",\\\"postInfinityExtrap\\\":\\\"RCCE_Constant\\\"},\\\"CurveAsset\\\":\\\"None\\\",\\\"bUseLUT\\\":true,\\\"bExposeCurve\\\":false,\\\"bOptimizeLUT\\\":true,\\\"bOverrideOptimizeThreshold\\\":false,\\\"OptimizeThreshold\\\":0.0099999997764825821,\\\"ExposedName\\\":\\\"Float Curve\\\"}\")",
+  "ScaleColor/Scale Alpha|Curve": "",
+  "ScaleColor/Scale Alpha|FloatCurve": "(PropertyValues=\"{\\\"Curve\\\":{\\\"keys\\\":[{\\\"interpMode\\\":\\\"RCIM_Cubic\\\",\\\"tangentMode\\\":\\\"RCTM_User\\\",\\\"tangentWeightMode\\\":\\\"RCTWM_WeightedNone\\\",\\\"time\\\":0,\\\"value\\\":2.5694484762084357e-08,\\\"arriveTangent\\\":9.0724811553955078,\\\"arriveTangentWeight\\\":0,\\\"leaveTangent\\\":9.0724811553955078,\\\"leaveTangentWeight\\\":0},{\\\"interpMode\\\":\\\"RCIM_Cubic\\\",\\\"tangentMode\\\":\\\"RCTM_User\\\",\\\"tangentWeightMode\\\":\\\"RCTWM_WeightedNone\\\",\\\"time\\\":0.15000000596046448,\\\"value\\\":1,\\\"arriveTangent\\\":-0.68234163522720337,\\\"arriveTangentWeight\\\":0,\\\"leaveTangent\\\":-0.68234163522720337,\\\"leaveTangentWeight\\\":0},{\\\"interpMode\\\":\\\"RCIM_Cubic\\\",\\\"tangentMode\\\":\\\"RCTM_User\\\",\\\"tangentWeightMode\\\":\\\"RCTWM_WeightedNone\\\",\\\"time\\\":1,\\\"value\\\":0,\\\"arriveTangent\\\":-0.040518201887607574,\\\"arriveTangentWeight\\\":0,\\\"leaveTangent\\\":-0.040518201887607574,\\\"leaveTangentWeight\\\":0}],\\\"defaultValue\\\":3.4028234663852886e+38,\\\"preInfinityExtrap\\\":\\\"RCCE_Constant\\\",\\\"postInfinityExtrap\\\":\\\"RCCE_Constant\\\"},\\\"CurveAsset\\\":\\\"None\\\",\\\"bUseLUT\\\":true,\\\"bExposeCurve\\\":false,\\\"bOptimizeLUT\\\":true,\\\"bOverrideOptimizeThreshold\\\":false,\\\"OptimizeThreshold\\\":0.0099999997764825821,\\\"ExposedName\\\":\\\"Float Curve\\\"}\")",
+  "material_nodes": [
+    {
+      "name": "MaterialExpressionMultiply_0",
+      "class": "MaterialExpressionMultiply",
+      "const_a": 0.0,
+      "const_b": 0.10000000149011612,
+      "input_outputs": [
+        {
+          "source": "MaterialExpressionPower_1",
+          "output": ""
+        }
+      ]
+    },
+    {
+      "name": "MaterialExpressionDepthFade_0",
+      "class": "MaterialExpressionDepthFade",
+      "input_outputs": [
+        {
+          "source": "MaterialExpressionMultiply_3",
+          "output": ""
+        },
+        {
+          "source": "MaterialExpressionConstant_0",
+          "output": ""
+        }
+      ]
+    },
+    {
+      "name": "MaterialExpressionTextureSample_0",
+      "class": "MaterialExpressionTextureSample",
+      "input_outputs": []
+    },
+    {
+      "name": "MaterialExpressionMultiply_2",
+      "class": "MaterialExpressionMultiply",
+      "const_a": 0.0,
+      "const_b": 1.0,
+      "input_outputs": [
+        {
+          "source": "MaterialExpressionParticleColor_1",
+          "output": "RGB"
+        },
+        {
+          "source": "MaterialExpressionDesaturation_0",
+          "output": ""
+        }
+      ]
+    },
+    {
+      "name": "MaterialExpressionParticleColor_1",
+      "class": "MaterialExpressionParticleColor",
+      "input_outputs": []
+    },
+    {
+      "name": "MaterialExpressionMultiply_3",
+      "class": "MaterialExpressionMultiply",
+      "const_a": 0.0,
+      "const_b": 1.0,
+      "input_outputs": [
+        {
+          "source": "MaterialExpressionParticleColor_1",
+          "output": "A"
+        },
+        {
+          "source": "MaterialExpressionPower_0",
+          "output": ""
+        }
+      ]
+    },
+    {
+      "name": "MaterialExpressionDynamicParameter_1",
+      "class": "MaterialExpressionDynamicParameter",
+      "input_outputs": []
+    },
+    {
+      "name": "MaterialExpressionPower_0",
+      "class": "MaterialExpressionPower",
+      "const_exponent": 2.0,
+      "input_outputs": [
+        {
+          "source": "MaterialExpressionTextureSample_0",
+          "output": "A"
+        },
+        {
+          "source": "MaterialExpressionDynamicParameter_1",
+          "output": "DIssolve"
+        }
+      ]
+    },
+    {
+      "name": "MaterialExpressionPower_1",
+      "class": "MaterialExpressionPower",
+      "const_exponent": 2.0,
+      "input_outputs": [
+        {
+          "source": "MaterialExpressionMultiply_2",
+          "output": ""
+        },
+        {
+          "source": "MaterialExpressionDynamicParameter_1",
+          "output": "Emissive"
+        }
+      ]
+    },
+    {
+      "name": "MaterialExpressionDesaturation_0",
+      "class": "MaterialExpressionDesaturation",
+      "input_outputs": [
+        {
+          "source": "MaterialExpressionTextureSample_0",
+          "output": "RGB"
+        },
+        {
+          "source": "MaterialExpressionOneMinus_0",
+          "output": ""
+        }
+      ]
+    },
+    {
+      "name": "MaterialExpressionScalarParameter_0",
+      "class": "MaterialExpressionScalarParameter",
+      "input_outputs": []
+    },
+    {
+      "name": "MaterialExpressionOneMinus_0",
+      "class": "MaterialExpressionOneMinus",
+      "input_outputs": [
+        {
+          "source": "MaterialExpressionScalarParameter_0",
+          "output": ""
+        }
+      ]
+    },
+    {
+      "name": "MaterialExpressionConstant_0",
+      "class": "MaterialExpressionConstant",
+      "input_outputs": []
+    }
+  ]
+}

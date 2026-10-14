@@ -1,0 +1,11 @@
+--- Before/ColdSteelCampfire.cpp
++++ Source/FPSGAME/Building/ColdSteelCampfire.cpp
+@@ -27,7 +27,7 @@
+     static ConstructorHelpers::FObjectFinder<UStaticMesh> Mesh(
+         TEXT("/Game/EasyBuildingSystem/Meshes/Props/Stylized/SM_Stylized_Campfire.SM_Stylized_Campfire"));
+     static ConstructorHelpers::FObjectFinder<UNiagaraSystem> Fire(
+-        TEXT("/Game/Building/Campfire20261012/Realistic/NS_CampfireRealisticFlame.NS_CampfireRealisticFlame"));
++        TEXT("/Game/Building/Campfire20261013/TorchFire/NS_CampfireTorchFire.NS_CampfireTorchFire"));
+     if(Mesh.Succeeded())
+     {
+         Body->SetStaticMesh(Mesh.Object);

@@ -1,4 +1,8 @@
 #include "VoxelBuildWorld.h"
+#include "ColdSteelCampfire.h"
+#include "../UI/ColdSteelIncineratorStorage.h"
+#include "../UI/ColdSteelStatusModel.h"
+#include "Engine/GameInstance.h"
 #include "VoxelBuildRuntime.h"
 #include "VoxelBuildPalette.h"
 #include "VoxelBuildPrefabActor.h"
@@ -6,10 +10,14 @@
 #include "SmeltingSystem.h"
 #include "ColdSteelDoor.h"
 #include "ColdSteelWindow.h"
+#include "ColdSteelSlidingDoor.h"
+#include "ColdSteelRevolvingDoor.h"
 #include "ColdSteelFountain.h"
-#include "../UI/ColdSteelStatusModel.h"
 #include "Engine/StaticMesh.h"
-#include "Engine/GameInstance.h"
+#include "EngineUtils.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
+#include "GameFramework/PlayerController.h"
 
 namespace
 {
@@ -195,9 +203,13 @@ void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
     TSet<FIntVector> Candidates;
     for(const FVoxelEditCell& E:Edit)
     {
-        if(const FIntVector* CellOwner=PrefabCellOwner.Find(E.Position))Candidates.Add(*CellOwner);
+        // 2026-10-13 审计修复（中危#4）：自由体积编辑的 E.Position 是体积本地格，查世界占格表
+        // 前必须换算（与 IsPrefabCell 同口径）——原实现直接拿本地格查 PrefabCellOwner，只有体积
+        // 原点恰在原点附近才碰巧命中，自由建筑内拆格子会漏判/误判邻接构件的支撑重判。
+        const FIntVector World=E.Volume.IsValid()?ToCell(VolumeOrigin(E.Volume)+CellMin(E.Position)):E.Position;
+        if(const FIntVector* CellOwner=PrefabCellOwner.Find(World))Candidates.Add(*CellOwner);
         for(const FIntVector& Face:SupportFaces)
-            if(const FIntVector* CellOwner=PrefabCellOwner.Find(E.Position+Face))Candidates.Add(*CellOwner);
+            if(const FIntVector* CellOwner=PrefabCellOwner.Find(World+Face))Candidates.Add(*CellOwner);
     }
     if(Candidates.IsEmpty())return;
     // 审计 W3（2026-09-23）：Drop 从 TArray 换成 TSet——脱落循环里的 Drop.Contains 与
@@ -208,6 +220,7 @@ void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
             Drop.Add(Instance.Cell);
     if(Drop.IsEmpty())return;
     FString Names;
+    TSet<FIntVector> RetainedCampfires;
     for(const FIntVector& Anchor:Drop)
     {
         const FVoxelBuildPrefabInstance* Instance=Prefabs.FindByPredicate(
@@ -219,11 +232,14 @@ void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
         // 逻辑构件挂上去跟随、停止交互，8 秒后一起销毁。没有可用网格／物理体时退回直接移除。
         // 炉内冶炼/存料的高炉脱落：尽力退料（落体无法像手动拆除那样拒绝）；背包放不下则随炉
         // 清任务与存料并在提示栏点名，不留孤儿条目（读档侧同样会丢弃孤儿，双保险）。
-        if(FindSmelting(Anchor)||FuelAt(Anchor)>0)
+        if(IsCampfireAt(Anchor)||FindSmelting(Anchor)||FuelAt(Anchor)>0)
         {
             FString RefundReason;
             if(!RefundSmeltingAt(Anchor,RefundReason))
             {
+                // Keep campfire escrow intact if a durable transaction or refund is blocked.
+                // A later removal can retry; never discard a guest's paid order on save failure.
+                if(IsCampfireAt(Anchor)){RetainedCampfires.Add(Anchor);continue;}
                 UE_LOG(LogTemp,Warning,TEXT("PREFAB_DROP %s 炉内冶炼无法退料（%s），任务随炉清理"),*Label,*RefundReason);
                 ClearSmelting(Anchor);SetFuel(Anchor,0);
                 if(UGameInstance* Game=GetWorld()?GetWorld()->GetGameInstance():nullptr)
@@ -231,6 +247,7 @@ void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
                         Model->PostNotice(TEXT("构件脱落"),FString::Printf(TEXT("%s 炉内冶炼随炉丢失（背包已满）"),*Label),FString(),3.2f);
             }
         }
+        if(IsCampfireAt(Anchor))ClearSmelting(Anchor);
         AActor* Piece=PrefabActors.FindRef(Anchor).Get();
         // 审计 W3（2026-09-23）：记录里还有这件构件、占位 Actor 却已经没了（外部销毁/GC 边界），
         // 原来会**无声**走完"删记录+清占格"——玩家只看到构件凭空消失。现在点名记日志。
@@ -244,6 +261,11 @@ void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
         UE_LOG(LogTemp,Warning,TEXT("PREFAB_DROP %s 失去支撑 @格(%d,%d,%d) %s"),
             *Label,Anchor.X,Anchor.Y,Anchor.Z,bFalling?TEXT("落体"):TEXT("直接移除"));
     }
+    for(const auto& Cell:RetainedCampfires)Drop.Remove(Cell);
+    // 脱落的构件不可再撤销放置（2026-10-13 中危#5）：它已离开记录，撤销校验虽会跳过，
+    // 但先失效可以给出准确的"没有可撤销的建造"而不是静默吞掉这次 Ctrl+Z。
+    if(bHasLastPlacedPrefab&&Drop.Contains(LastPlacedPrefab.Cell))bHasLastPlacedPrefab=false;
+    if(Drop.IsEmpty())return;
     // 先记下将被腾空的全部占格（RemoveAll 之后 Footprint 就没处查了）。
     TArray<FIntVector> Vacated;TArray<FIntVector> Scratch;
     for(const FVoxelBuildPrefabInstance& Entry:Prefabs)
@@ -278,6 +300,10 @@ bool AVoxelBuildWorld::CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString
     {
         if(PrefabCells.Contains(Entry)){Reason=TEXT("该位置已有构件");return false;}
         if(!VolumeMaterialAt({},Entry).IsNone()){Reason=TEXT("该位置已有体素方块");return false;}
+        // 2026-10-13 审计修复（中危#3）：自由体积的格子（F 键自由建造，原点不取整）换算成
+        // 世界格后同样不允许被构件压占——体素侧一直查构件占格（IsPrefabCell），反向此前漏查，
+        // 重叠时出现渲染穿插与双重碰撞。反查表由 SetCell/加载/快照三处维护。
+        if(FreeVolumeWorldCells.Contains(Entry)){Reason=TEXT("该位置已有体素方块");return false;}
     }
     if(bWallMount)
     {
@@ -318,6 +344,13 @@ AVoxelBuildPrefabActor* AVoxelBuildWorld::SpawnPrefab(const FVoxelBuildPrefabIns
     Spawn.Owner=this;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     auto* Piece=GetWorld()->SpawnActor<AVoxelBuildPrefabActor>(AVoxelBuildPrefabActor::StaticClass(),Transform,Spawn);
     if(!Piece)return nullptr;
+    if(LogicClass&&LogicClass->IsChildOf(AColdSteelCampfire::StaticClass()))
+    {
+        // This new replicated child needs a replicated attachment anchor. Other prefab families
+        // retain their current network path; client construction remains outside this feature.
+        Piece->SetReplicates(true);
+        Piece->SetReplicateMovement(true);
+    }
     Piece->Configure(Instance.Id,Instance.Cell,Instance.Yaw,Mesh,Definition->Surface.LoadSynchronous(),StructuralContact);
     if(LogicClass)
     {
@@ -329,9 +362,12 @@ AVoxelBuildPrefabActor* AVoxelBuildWorld::SpawnPrefab(const FVoxelBuildPrefabIns
         LogicTransform.SetLocation(Transform.GetLocation()+Transform.GetRotation().RotateVector(Definition->ActorOffsetCm));
         if(AActor* Logic=GetWorld()->SpawnActor<AActor>(LogicClass,LogicTransform,LogicSpawn))
         {
+            Logic->SetReplicates(true);Logic->SetReplicateMovement(true);
             // 逻辑构件自己接管外观：门／窗按调色板条目的材质整体替换（框与扇同一材质）。
             if(auto* Door=Cast<AColdSteelDoor>(Logic))Door->Configure(Definition->Surface.LoadSynchronous());
             else if(auto* Window=Cast<AColdSteelWindow>(Logic))Window->Configure(Definition->Surface.LoadSynchronous());
+            else if(auto* Slide=Cast<AColdSteelSlidingDoor>(Logic))Slide->Configure(Definition->Surface.LoadSynchronous());
+            else if(auto* Revolving=Cast<AColdSteelRevolvingDoor>(Logic))Revolving->Configure(Definition->Surface.LoadSynchronous());
             else if(auto* Fountain=Cast<AColdSteelFountain>(Logic))Fountain->Configure(Definition->Surface.LoadSynchronous());
             Logic->AttachToActor(Piece,FAttachmentTransformRules::KeepWorldTransform);
             Piece->AttachLogicActor(Logic);
@@ -353,8 +389,31 @@ bool AVoxelBuildWorld::PlacePrefab(FName Id,FIntVector Cell,int32 Yaw)
     FVoxelBuildPrefabInstance Instance;
     Instance.Id=Id;Instance.Cell=Cell;Instance.Yaw=((Yaw%4)+4)%4;
     Instance.Footprint=AVoxelBuildPrefabActor::RotatedFootprint(Definition->Footprint,Instance.Yaw);
+    // 2026-10-13 联机审计 B4：壁挂件的服务端复验。上面传给 CanPlacePrefab 的 bSurfaceBacked
+    // 只来自"定义是壁挂"，不是"真的有面"——单机时组件侧已校验瞄准面为竖直表面；联机下请求
+    // 可直接构造，不验表面就能凭空悬挂壁挂件（壁挂又豁免脱落判定，悬空永存）。从占格背面
+    // 打一条 15 cm 短射线：命中竖直 blocking 面（体素/构件/关卡网格都算）才放行。
+    if(Looking->Mount==EVoxelPrefabMount::Wall)
+    {
+        const bool bEvenYaw=(Instance.Yaw&1)==0;
+        FVector Axis=FVector::ZeroVector;Axis[bEvenYaw?0:1]=Instance.Yaw<2?1:-1;   // 局部+X 旋转 Yaw*90°：0→+X 1→+Y 2→−X 3→−Y
+        const double Depth=(bEvenYaw?Instance.Footprint.X:Instance.Footprint.Y)*10.;
+        const FVector Center=FVector(Instance.Cell)*20.+FVector(Instance.Footprint)*10.;
+        const FVector Back=Center-Axis*(Depth+.5);
+        FCollisionQueryParams Params(SCENE_QUERY_STAT(PrefabWallVerify),true);
+        for(TActorIterator<APawn> PawnIt(GetWorld());PawnIt;++PawnIt)Params.AddIgnoredActor(*PawnIt);
+        FHitResult Surface;
+        if(!GetWorld()->LineTraceSingleByChannel(Surface,Back,Back-Axis*15.,ECC_Visibility,Params)
+            ||FMath::Abs(Surface.ImpactNormal.Z)>.5)
+        {Message=TEXT("必须贴在墙面或结构表面才能放置");return false;}
+    }
+    Instance.InstanceId=FGuid::NewGuid();
     if(!SpawnPrefab(Instance)){Message=TEXT("构件网格生成失败");return false;}
     Prefabs.Add(Instance);RefreshPrefabOccupancy();MarkSaveDirty();
+    // 记录撤销槽（2026-10-13 中危#5）：体素历史空时 Ctrl+Z 拆除这一件。
+    LastPlacedPrefab=Instance;bHasLastPlacedPrefab=true;
+    if(Id==TEXT("campfire"))if(const auto* Piece=PrefabActorAt(Cell))
+        if(auto* Fire=Cast<AColdSteelCampfire>(Piece->Logic()))Fire->PublishSharedState(true);
     Message=FString::Printf(TEXT("已放置构件 · 共 %d 件 · 正在保存"),Prefabs.Num());
     return true;
 }
@@ -365,7 +424,7 @@ bool AVoxelBuildWorld::RemovePrefab(AActor* Piece)
     // 传进来的可能是逻辑构件（门）本身：向上找承载它的占位记录。
     if(!Target)for(AActor* Parent=Piece?Piece->GetAttachParentActor():nullptr;Parent;Parent=Parent->GetAttachParentActor())
         if(auto* Found=Cast<AVoxelBuildPrefabActor>(Parent)){Target=Found;break;}
-    if(!bReady||GetNetMode()==NM_Client||!Target){Message=TEXT("只能拆除自己放置的构件");return false;}
+    if(!bReady||GetNetMode()==NM_Client||!IsValid(Target)||Target->GetOwner()!=this){Message=TEXT("只能拆除自己放置的构件");return false;}
     // 正在下落的构件（失去支撑后脱落）已经不在 Prefabs 记录里，但 Actor 还要飞一段时间。
     // 不特判的话会走到下面的 RemoveAll，提示"不在建筑记录中"——玩家清不掉它；
     // 更糟的是若同一格已经放了**新**构件，用 AnchorCell 查记录会命中新构件并把它销毁。
@@ -379,6 +438,23 @@ bool AVoxelBuildWorld::RemovePrefab(AActor* Piece)
         return true;
     }
     const FIntVector Cell=Target->AnchorCell();
+    if(PrefabActorAt(Cell)!=Target){Message=TEXT("构件已被替换，请重新选择");return false;}
+    if(Target->PrefabId()==VoxelIncineratorId)
+    {
+        const FString Container=IncineratorContainerAt(Cell);
+        const auto Occupied=[&](const UColdSteelStatusModel* Model)
+        {return Model&&!Container.IsEmpty()&&ColdSteelIncineratorStorage::HasInputs(Model->Snapshot(),Container);};
+        bool HasInputs=Occupied(ColdSteelAuthority::Model(this));
+        // Each connected player's staged inputs belong to that player's profile.
+        for(auto It=GetWorld()->GetPlayerControllerIterator();It&&!HasInputs;++It)
+            if(const auto* PC=It->Get())
+            {
+                const auto* State=PC->GetPlayerState<AColdSteelPlayerState>();
+                const auto* Model=PC->IsLocalController()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():(State?State->GetShadowModel():nullptr);
+                HasInputs=Occupied(Model);
+            }
+        if(HasInputs){Message=TEXT("焚化炉仍有暂存物品，请先取回再拆除");return false;}
+    }
     if(Target->PrefabId()==VoxelCastingStationId)
     {
         FIntVector Furnace;
@@ -388,11 +464,12 @@ bool AVoxelBuildWorld::RemovePrefab(AActor* Piece)
     }
     // 高炉拆除特判（2026-09-23 冶炼）：炉内有矿料或存料先退料（完成退产物、未完退原料、燃料折木材）；
     // 背包放不下就拒绝拆除——与放置"先扣料再提交"同一口径，不静默吞料也不凭空产锭。
-    if(FindSmelting(Cell)||FuelAt(Cell)>0)
+    if(IsCampfireAt(Cell)||FindSmelting(Cell)||FuelAt(Cell)>0)
     {
         FString RefundReason;
         if(!RefundSmeltingAt(Cell,RefundReason)){Message=RefundReason;return false;}
     }
+    if(IsCampfireAt(Cell))ClearSmelting(Cell);
     // 先记下这件构件的占格（RemoveAll 之后 Footprint 就没处查了）：拆除后贴着它的体素要重判锚定。
     TArray<FIntVector> Vacated;
     if(const FVoxelBuildPrefabInstance* Entry=Prefabs.FindByPredicate(
@@ -418,6 +495,8 @@ bool AVoxelBuildWorld::RemovePrefab(AActor* Piece)
     RefreshPrefabOccupancy();
     ReanchorVoxelsAround(Vacated);
     MarkSaveDirty();
+    // 手动拆除后本次建筑不再可撤销（2026-10-13 中危#5）：与体素"任何拆除清空撤销历史"同口径。
+    bHasLastPlacedPrefab=false;
     Message=Prefabs.IsEmpty()?TEXT("已拆除构件 · 正在保存"):FString::Printf(TEXT("已拆除构件 · 余 %d 件 · 正在保存"),Prefabs.Num());
     return true;
 }
@@ -429,13 +508,13 @@ bool AVoxelBuildWorld::RemovePrefab(AActor* Piece)
 const FVoxelSmeltingJob* AVoxelBuildWorld::FindSmelting(FIntVector Cell) const
 {
     const FVoxelSmeltingJob* Job=SmeltingJobs.FindByPredicate([Cell](const FVoxelSmeltingJob& E){return E.Cell==Cell;});
-    return Job&&(!Job->Recipe.IsNone()||Job->bCasting)?Job:nullptr;
+    return Job&&(!Job->Recipe.IsNone()||Job->bCasting||IsCampfireAt(Cell))?Job:nullptr;
 }
 
 FVoxelSmeltingJob* AVoxelBuildWorld::FindSmeltingMutable(FIntVector Cell)
 {
     FVoxelSmeltingJob* Job=SmeltingJobs.FindByPredicate([Cell](const FVoxelSmeltingJob& E){return E.Cell==Cell;});
-    return Job&&(!Job->Recipe.IsNone()||Job->bCasting)?Job:nullptr;
+    return Job&&(!Job->Recipe.IsNone()||Job->bCasting||IsCampfireAt(Cell))?Job:nullptr;
 }
 
 bool AVoxelBuildWorld::BeginSmelting(FIntVector Cell,FName Recipe,FString& Reason,int64 Batch)
@@ -443,13 +522,14 @@ bool AVoxelBuildWorld::BeginSmelting(FIntVector Cell,FName Recipe,FString& Reaso
     if(!bReady||GetNetMode()==NM_Client){Reason=TEXT("建筑世界未就绪");return false;}
     const FVoxelBuildPrefabInstance* Piece=Prefabs.FindByPredicate(
         [Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;});
-    if(!Piece||Piece->Id!=VoxelSmeltingFurnaceId){Reason=TEXT("目标不是已放置的冶炼高炉");return false;}
+    if(!Piece||!IsFuelStationAt(Cell)){Reason=TEXT("目标不是已放置的燃料工作台");return false;}
     if(FindSmelting(Cell)){Reason=TEXT("这座高炉正在冶炼");return false;}
     if(Recipe.IsNone()){Reason=TEXT("冶炼任务无效");return false;}
     // 以"待燃"落账：是否立刻起燃由系统层 EnsureBurning 按存料决定。
     FVoxelSmeltingJob& Job=SmeltingJobs.AddDefaulted_GetRef();
     Job.Cell=Cell;Job.Recipe=Recipe;Job.ProgressSeconds=0;Job.BurnStartTicks=0;
     Job.BatchCount=FMath::Max<int64>(1,Batch);
+    if(IsCampfireAt(Cell)&&FuelAt(Cell)>0)Job.BurnStartTicks=FDateTime::UtcNow().GetTicks();
     MarkSaveDirty();
     return true;
 }
@@ -506,6 +586,8 @@ double AVoxelBuildWorld::FuelAt(FIntVector Cell) const
 
 void AVoxelBuildWorld::SetFuel(FIntVector Cell,double Seconds)
 {
+    if(auto* Piece=PrefabActorAt(Cell))if(auto* Campfire=Cast<AColdSteelCampfire>(Piece->Logic()))
+        Campfire->SetFuelSeconds(Seconds);
     const int32 Index=Fuels.IndexOfByPredicate([Cell](const FVoxelFurnaceFuel& E){return E.Cell==Cell;});
     if(Seconds<=0)
     {
@@ -552,4 +634,10 @@ bool AVoxelBuildWorld::RefundSmeltingAt(FIntVector Cell,FString& Reason)
     auto* System=Game?Game->GetSubsystem<UColdSteelSmeltingSystem>():nullptr;
     if(!System){Reason=TEXT("冶炼系统未就绪");return false;}
     return System->RefundForTeardown(this,Cell,Reason);
+}
+
+FString AVoxelBuildWorld::IncineratorContainerAt(FIntVector Cell) const
+{
+    const auto* Piece=Prefabs.FindByPredicate([&](const auto& P){return P.Cell==Cell&&P.Id==VoxelIncineratorId;});
+    return bReady&&Piece&&Piece->InstanceId.IsValid()?TEXT("incinerator.")+SaveSlot+TEXT(".")+Piece->InstanceId.ToString(EGuidFormats::Digits):FString();
 }

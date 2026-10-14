@@ -103,7 +103,16 @@ FVoxelStressResult VoxelStress::Solve(FVoxelStressInput Input)
 {
     FVoxelStressResult Result;Result.Revision=Input.Revision;Result.Iterations=Input.Iterations;
     FVoxelSupportGraph Graph;Graph.Broken=MoveTemp(Input.Broken);
-    for(const auto& Node:Input.Nodes){Graph.Add(Node);Result.Evaluated.Add(Node.Key);}
+    // 2026-10-13 审计修复（高危#1）：边界节点随 Input.Nodes 进图并置 bAnchor——固定支撑端
+    // 必须与贴地格同为 SolveConnectivity 的传播源，否则通过边界获撑的圈内格不进
+    // Result.Supported，落地后主图会把它们标成"无支撑"，连带放置邻接判定拒绝。
+    // 图是值拷贝，置位不影响主图节点；Evaluated 仍排除边界（主图状态留给覆盖它的解算）。
+    for(const auto& Node:Input.Nodes)
+    {
+        auto Copy=Node;if(Input.Boundary.Contains(Node.Key))Copy.bAnchor=true;
+        Graph.Add(Copy);
+        if(!Input.Boundary.Contains(Node.Key))Result.Evaluated.Add(Node.Key);
+    }
     Graph.SolveConnectivity();Result.Supported=Graph.Supported;
     TSet<FVoxelBuildKey> Seen;
     // 审计 P1：过载格的键 → Result.Overload 下标。替代每条接缝一次的全表线性扫描。

@@ -61,3 +61,35 @@ python SourceAssets/WorkbenchBuildable20260924/Scripts/make_clutter_textures.py
 
 预览图：`Renders/preview-*.png`（提取子集）、`Renders/built-*.png`（成品四视图）、`Renders/zoom-*.png`（桌面特写）。
 回执：`Receipts/ue-import.json`、`Receipts/kit-blend-inventory.json`。
+
+
+## 桌面布局修正（2026-10-04）
+
+针对实际用于斧头／矿镐制作的 `workbench_table`，仅修正独立工作台，不修改枪械工作台或地牢母版。
+
+- 保留桌架、台灯、抹布、台钳、套筒架与原金属盘；书堆移出台钳，书、锯、纸卷、瓶罐、工具与零件盘分区摆放。锤子和活动扳手按实际薄轴平放；铅笔落在图纸上，七枚钉子在盘内分开。
+- 作者入口 `Scripts/author_standalone.py` 调用 `Scripts/layout_tabletop.py`；分件编辑源 `Authored/WorkbenchLayout_Editable.blend`，位置与支撑面回执 `Authored/layout_tabletop.json`。合并 FBX 和 `StandaloneWorkbench.blend` 已同步。
+- 源网格仍为 **134,110 三角 / 68,705 顶点 / 34 源材质槽**；UE 保留原 **32 个实际材质槽**（无面源槽由 FBX 导出剔除）、Nanite 设置、复杂网格碰撞以及原资产路径。
+- 保留原枢轴和放置包围盒、`13 × 14 × 8` 格占地。收回原来伸出台缘的图纸后，通过 Bounds Extension 保留放置边界，不改变既有调色板或建筑存档合同。`manifest_build.json` 中 `placement_bounds_cm` 随作者入口复现。
+- 导入门限改为完整 FBX SHA-256，修正已有网格替换判断。实际执行生产导入器的网格段，在临时未保存资产上将钳子平移 1 cm，保持面数和总包围盒完全相同，确认二次导入触发；临时资产随后移除。
+
+本轮已在 UE 保存正式网格并拍摄前后俯视、观察及原生玩家相机对比。Blender 对移动摆件与其余分件逐对检查，未发现三角面交叉。独立 `WorkbenchLayoutAudit_20261004` 存档通过原建筑 `PlacePrefab` 入口放置，原生 E 打开工作台＋背包，原生键盘选择矿镐后显示木材 1／石块 2；伐木斧显示木材 1／石块 1。隔离存档没有材料，未测试扣料和成品入包事务。
+
+验证没有修改正式玩家存档、配方 JSON、建造调色板、地图或 C++。运行画面存在引擎光追驻留几何预算提示，本次未调整渲染设置，不能据此归因于桌面布局。
+
+
+## 工程图纸与小工具（2026-10-04）
+
+本轮升级同一个 `workbench_table`，正式网格仍为 `/Game/Building/Workbench/Meshes/SM_WBStandalone_Workbench`。
+
+- 米白工程纸包含斧头正／侧视、矿镐正视、尺寸线、连接剖面、装配细节和标题栏。它是游戏装饰图案，标注 NTS，不作为精密制造图。
+- 新增游标卡尺、直角尺与手锉，复用既有材质。保留上轮布局及固定构件；作者源包含 35 个分件，移动摆件三角面交叉检查为空。
+- `Scripts/engineering_drawings.py` 生成图集，`make_clutter_textures.py` 调用同一入口；`Scripts/engineering_tools.py` 由 `author_standalone.py` 调用。编辑 Blend、合并 Blend、FBX、清单和布局回执同步。
+- 源文件为 `Authored/Textures/T_WBKC_Blueprint_BaseColor.png`；实际 UE 纹理身份是 `/Game/Building/Workbench/Textures/T_WBKC_Paper_BaseColor`，由 `MI_WBKC_Paper` 的 `BaseColorMap` 引用。不要按 PNG 文件名猜 UE 资产名；生产导入器按 `WBKC_Paper` 材质键生成目标名。
+- 源网格 149,982 三角／79,509 顶点；UE GeometryScript 转为 DynamicMesh 后读取 149,975 三角（差 7，转换差异原因未追查），32 个 UE 材质槽。原材质映射、Nanite、复杂碰撞、枢轴与 13×14×8 格占地保持。源 FBX SHA-256 与 UE 导入元数据一致。
+
+已完成：UE 严格正交垂直俯视截图；独立 `WorkbenchEngineeringAudit_20261004` 存档使用原生 PlacePrefab 放置并按 E 打开工作台和背包，列表显示伐木斧与矿镐。正式四份玩家存档／校验文件、配方 JSON、建造调色板与 Hub 地图哈希未变。本任务编辑器已关闭，没有提交或推送。
+
+误导入的同目录 `T_WBKC_Blueprint_BaseColor.uasset` 经确认是本任务新增且无包引用，编辑器退出后移入 `trash/workbench-engineering-20261004-misimport/`，保留原路径和 SHA-256，可恢复，未永久删除。
+
+未测试：实际制作扣料／成品入包、完整配方流程、正式存档重载、全面碰撞和性能。回执与修改清单见 `Receipts/engineering-20261004.json`。本轮不把上轮验收结果算作重复通过。

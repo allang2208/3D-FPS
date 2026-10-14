@@ -19,12 +19,13 @@ namespace
      * 而不是被无限推后（把崩溃丢失窗口从 0.75 s 放宽到约 2 s，换取快照次数降到约三分之一）。
      */
     constexpr double SaveIntervalSeconds=2.0;
-    /** 上一次存档**开始**的时刻（用开始时刻，保证间隔是 开始→开始）。 */
-    double LastSaveStartedSeconds=0.0;
+
 }
 
 void AVoxelBuildWorld::MarkSaveDirty()
 {
+    if(!HasAuthority())return;
+    ++NetworkRevision;
     // 注意顺序：先判 bSaveDirty 再置位。本函数在持续编辑时会被**反复调用**，
     // 若每次都重算截止时间，就会一直把 SaveAt 推到 Now 之后 —— TickPersistence 的
     // `Now >= SaveAt` 永远不成立，存档彻底停摆（我第一版就是这样，靠一次调度模拟才发现）。
@@ -34,19 +35,27 @@ void AVoxelBuildWorld::MarkSaveDirty()
     {
         const double Now=GetWorld()->GetTimeSeconds();
         // 降频：不早于「上次存档开始 + 最小间隔」，从而把相邻两次完整快照拉开到 2 s。
-        Runtime->SaveAt=FMath::Max(Now+.75,LastSaveStartedSeconds+SaveIntervalSeconds);
+        Runtime->SaveAt=FMath::Max(Now+.75,Runtime->LastSaveStartedSeconds+SaveIntervalSeconds);
     }
     Runtime->bSaveDirty=true;
 }
 
 bool AVoxelBuildWorld::Save()
 {
-    if(!bReady||GetNetMode()!=NM_Standalone)return false;
+    if(!bReady||!HasAuthority())return false;
     MarkSaveDirty();Runtime->SaveAt=0;Message=TEXT("建筑保存已排队");return true;
 }
 bool AVoxelBuildWorld::FlushPersistenceNow()
 {
-    if(!bReady||GetNetMode()!=NM_Standalone)return false;
+    if(bNetworkTransaction)return true;
+    if(!bReady||!HasAuthority())return false;
+    TickPersistence(true);
+    if(!Runtime->bSaveFailed)Runtime->bSaveDirty=false;
+    return !Runtime->bSaveFailed;
+}
+bool AVoxelBuildWorld::FlushCampfirePersistence()
+{
+    if(!bReady||!HasAuthority()||GetNetMode()==NM_Client)return false;
     TickPersistence(true);
     if(!Runtime->bSaveFailed)Runtime->bSaveDirty=false;
     return !Runtime->bSaveFailed;
@@ -77,6 +86,7 @@ UVoxelBuildSave* AVoxelBuildWorld::MakeSnapshot() const
 
 void AVoxelBuildWorld::TickPersistence(bool bFlush)
 {
+    if(!HasAuthority())return;
     if(Runtime->SaveJob.IsValid())
     {
         if(bFlush)Runtime->SaveJob.Wait();
@@ -92,7 +102,7 @@ void AVoxelBuildWorld::TickPersistence(bool bFlush)
     }
     if(!Runtime->bSaveDirty||GetWorld()->GetTimeSeconds()<Runtime->SaveAt)return;
     // 记录本次存档的开始时刻，供 MarkSaveDirty 做"相邻两次存档至少间隔 N 秒"的降频判定。
-    LastSaveStartedSeconds=GetWorld()->GetTimeSeconds();
+    Runtime->LastSaveStartedSeconds=GetWorld()->GetTimeSeconds();
     auto Payload=VoxelPersistence::Take(MakeSnapshot());Runtime->bSaveDirty=false;
     Runtime->SaveJob=Async(EAsyncExecution::ThreadPool,[Slot=SaveSlot,Payload=MoveTemp(Payload)]() mutable
     {return VoxelPersistence::Write(MoveTemp(Slot),MoveTemp(Payload));});

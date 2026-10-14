@@ -76,6 +76,7 @@ struct FVoxelFragmentSave
 struct FVoxelBuildPrefabInstance
 {
     FName Id;
+    FGuid InstanceId; // v11: stable placed-piece identity; new placements never reuse a retired container.
     FIntVector Cell=FIntVector::ZeroValue;
     int32 Yaw=0;
     FIntVector Footprint=FIntVector(1,1,1);
@@ -102,6 +103,7 @@ struct FVoxelCastingProduct
 inline const FName VoxelWorkbenchId(TEXT("workbench_table"));
 inline const FName VoxelGunWorkbenchId(TEXT("gun_workbench_table"));
 inline const FName VoxelWoodworkingBenchId(TEXT("woodworking_bench"));
+inline const FName VoxelIncineratorId(TEXT("incinerator"));
 
 // VBX v5（只读兼容）：纯挂钟冶炼任务——今天引入 v5 后当天就升级成燃料模型，
 // 老档按"挂钟全额补进度"迁移进 v6（见 AVoxelBuildWorld::Initialize）。

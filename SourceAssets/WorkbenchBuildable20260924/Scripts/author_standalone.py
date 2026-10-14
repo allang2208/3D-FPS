@@ -133,6 +133,8 @@ mat_paper = load_mat('WBKC_Paper', 'T_WBKC_Blueprint_BaseColor.png', 0.82)
 mat_books = load_mat('WBKC_Books', 'T_WBKC_Books_BaseColor.png', 0.55)
 mat_misc = load_mat('WBKC_Misc', 'T_WBKC_Misc_BaseColor.png', 0.40, metal=0.6)
 
+MAIN_PAPER_RECT = (0., 1.-1454/2048., 1., 1.)
+DETAIL_PAPER_RECT = (0., 1.-2040/2048., 720/2048., 1.-1536/2048.)
 SWATCH = (0.0215, 0.9785)          # plain-paper corner of the blueprint sheet (Blender v-up)
 # Atlas quadrants, converted for Blender UVs (v = 1 - PIL_y/H).
 # books atlas (3 cols x 2 rows, PIL): row0 red/navy/green leather, row1 text page/page block/brown
@@ -214,15 +216,15 @@ def join(objs, name):
 clutter = []
 
 # --- two unrolled blueprint sheets (main work area)
-a = new_box('clutter_blueprint_a', 0.62, 0.44, 0.0012, mat_paper, (0, 0, 1, 1))
+a = new_box('clutter_blueprint_a', 0.62, 0.44, 0.0012, mat_paper, MAIN_PAPER_RECT)
 place(a.data, 58, 150, 8); clutter.append(a)
-b = new_box('clutter_blueprint_b', 0.30, 0.21, 0.0012, mat_paper, (0.08, 0.08, 0.92, 0.92))
+b = new_box('clutter_blueprint_b', 0.30, 0.21, 0.0012, mat_paper, DETAIL_PAPER_RECT)
 place(b.data, 55, 14, -24); clutter.append(b)
 
 # --- rolled scrolls (return section), axis along X after yaw
-s1 = new_cyl('clutter_scroll_1', 0.022, 0.30, mat_paper, (0, 0, 1, 1), axis='x', verts=14, mode='side')
+s1 = new_cyl('clutter_scroll_1', 0.022, 0.30, mat_paper, MAIN_PAPER_RECT, axis='x', verts=14, mode='side')
 place(s1.data, 115, 196, 12); clutter.append(s1)
-s2 = new_cyl('clutter_scroll_2', 0.019, 0.26, mat_paper, (0.15, 0.15, 0.85, 0.85), axis='x', verts=14, mode='side')
+s2 = new_cyl('clutter_scroll_2', 0.019, 0.26, mat_paper, MAIN_PAPER_RECT, axis='x', verts=14, mode='side')
 place(s2.data, 112, 243, -8); clutter.append(s2)
 
 # --- stack of three books (return section) + page blocks
@@ -285,6 +287,14 @@ for i in range(7):
     nails.append(nail)
 clutter.extend(nails)
 
+# Keep loose props on explicit support surfaces and away from retained fixtures.
+import sys
+sys.path.insert(0, str(ROOT / 'Scripts'))
+from engineering_tools import add_engineering_tools
+clutter.extend(add_engineering_tools(parts + clutter))
+from layout_tabletop import apply_layout
+apply_layout(parts, clutter, OUT)
+
 # ---------------------------------------------------------------- final assembly
 allparts = parts + clutter
 canon = {}
@@ -307,7 +317,7 @@ final.name = 'SM_WBStandalone_Workbench'
 final.data.name = 'SM_WBStandalone_Workbench'
 
 mn, mx = data_bbox(final.data)
-cx, cy, cz = (mn[0] + mx[0]) / 2, (mn[1] + mx[1]) / 2, mn[2]
+cx, cy, cz = -1.380890130, -1.286533453, mn[2]  # preserve original placement pivot
 final.data.transform(Matrix.Translation(Vector((-cx, -cy, -cz))))
 final.matrix_world = Matrix.Identity(4)
 final.data.update()
@@ -340,6 +350,7 @@ manifest = {
     'triangles': tri_count(final),
     'vertices': len(final.data.vertices),
     'bounds_cm': bounds,
+    'placement_bounds_cm': {'min': [-120.910995, -130.346626, 0.0], 'max': [120.910995, 130.346626, 158.928086]},  # retain the installed 13 x 14 x 8 cell footprint
     'slots': slots,
     'slot_sources': slot_sources,
     'new_materials': {

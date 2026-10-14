@@ -1,0 +1,40 @@
+--- before
++++ current
+@@ -98,8 +98,11 @@
+     {Reason=TEXT("篝火或操作者未就绪");return false;}
+     if(IsCampfireSaveBlocked(W))
+     {Reason=TEXT("篝火保存尚待恢复，请保留存档并重新进入主机世界");return false;}
++    // Building removal already stages this operator and the complete building snapshot
++    // in the shared inventory transaction. Do not nest a separate campfire journal.
++    const bool bStagedTeardown=Action==3&&Operator->bStagingNetworkContainer;
+     const FString PlayerSlot=Guest?Guest->CampfireGuestSlot():Operator->ProfileSlot();
+-    if(PlayerSlot.IsEmpty()||(Guest&&Guest->GetShadowModel()!=Operator))
++    if((!bStagedTeardown&&PlayerSlot.IsEmpty())||(Guest&&Guest->GetShadowModel()!=Operator))
+     {Reason=TEXT("操作者档案未就绪");return false;}
+     SettleCampfire(W,Cell);
+     FCampfireSharedState After=CampfireState(W,Cell);
+@@ -145,7 +148,7 @@
+         if(Taken==0){Reason=TEXT("暂无成品或背包空间不足，成品仍保留在篝火");return false;}
+         Reason=FString::Printf(TEXT("已领取 %lld 份；剩余成品保留在公共篝火"),Taken);
+     }
+-    else // existing host teardown path only; not exposed as a client request
++    else // validated building removal; never exposed by the campfire RPC
+     {
+         auto Known=[&](FName Id){const auto* R=Find(Id);return R&&R->bCampfire;};
+         if((!After.Recipe.IsNone()&&!Known(After.Recipe))||After.Queue.ContainsByPredicate([&](const auto& Q){return !Known(Q.Recipe);}))
+@@ -157,6 +160,15 @@
+         Ok=Ok&&GrantCampfire(Operator,P,Fuel.Item,FMath::FloorToInt64(After.Fuel/Fuel.SecondsPerUnit));
+         if(!Ok){Reason=TEXT("背包放不下篝火退料，请先领取或整理");return false;}
+         After=FCampfireSharedState();
++    }
++    if(bStagedTeardown)
++    {
++        // CommitState validates/publishes only while staging. The caller owns the
++        // guest slot, durable receipt, building save and rollback as one operation.
++        if(!Operator->CommitState(MoveTemp(P)))
++        {Reason=Operator->ResultMessage();return false;}
++        W->WriteCampfireState(Cell,After);
++        return true;
+     }
+     if(After.Fuel>0&&!After.Recipe.IsNone())After.BurnTicks=FDateTime::UtcNow().GetTicks();
+     auto* J=NewObject<UColdSteelCampfireJournal>();

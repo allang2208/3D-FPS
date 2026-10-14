@@ -1,0 +1,58 @@
+{
+  "meshes": [
+    {
+      "path": "/Game/EasyBuildingSystem/Meshes/Props/Stylized/SM_Stylized_Campfire.SM_Stylized_Campfire",
+      "origin": [
+        0.19515228271484375,
+        1.3091621398925781,
+        11.767292022705078
+      ],
+      "extent": [
+        43.20232391357422,
+        44.499202728271484,
+        19.744962692260742
+      ],
+      "materials": [
+        "/Game/EasyBuildingSystem/Materials/Instances/Stylized/MI_Stylized_Props.MI_Stylized_Props"
+      ],
+      "collision": "<CollisionTraceFlag.CTF_USE_DEFAULT: 0>"
+    },
+    {
+      "path": "/Game/EasyBuildingSystem/Meshes/Props/Polygonal/SM_Polygonal_Campfire.SM_Polygonal_Campfire",
+      "origin": [
+        0.178985595703125,
+        1.3488922119140625,
+        11.695149421691895
+      ],
+      "extent": [
+        43.502498626708984,
+        45.032752990722656,
+        19.83411979675293
+      ],
+      "materials": [
+        "/Game/EasyBuildingSystem/Materials/Instances/Polygonal/MI_Polygonal_Structures_Wood.MI_Polygonal_Structures_Wood"
+      ],
+      "collision": "<CollisionTraceFlag.CTF_USE_DEFAULT: 0>"
+    },
+    {
+      "path": "/Game/EasyBuildingSystem/Meshes/Props/Dummy/SM_Dummy_Campfire.SM_Dummy_Campfire",
+      "origin": [
+        0.178985595703125,
+        1.3488922119140625,
+        11.695149421691895
+      ],
+      "extent": [
+        43.502498626708984,
+        45.032752990722656,
+        19.83411979675293
+      ],
+      "materials": [
+        "/Game/EasyBuildingSystem/Materials/Instances/Dummy/MI_Dummy_Structures_Base.MI_Dummy_Structures_Base"
+      ],
+      "collision": "<CollisionTraceFlag.CTF_USE_DEFAULT: 0>"
+    }
+  ],
+  "blueprint_components": [],
+  "/Game/EasyBuildingSystem/Effects/PS_CampFire": "ParticleSystem",
+  "/Game/Props/RomanColumn20260915/NS_TorchFlame": "NiagaraSystem"
+}

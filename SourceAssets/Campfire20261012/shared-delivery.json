@@ -1,0 +1,102 @@
+{
+  "recorded_at_utc": "2026-10-12T15:21:25.042482+00:00",
+  "scope": "Shared host/client campfire operations and authorized P_Fire_Small-derived dedicated Niagara replacement",
+  "entry": "B -> Other -> Campfire; E within 350 cm with line of sight",
+  "buildable_id": "campfire",
+  "warmth_radius_cm": 500,
+  "hunger_natural_drain_multiplier": 0.5,
+  "hydration_natural_drain_multiplier": 0.5,
+  "warmth_requires_fuel": true,
+  "warmth_stacks": false,
+  "restores_vitals": false,
+  "starvation_or_dehydration_damage_changed": false,
+  "wood_seconds_per_unit": 60,
+  "fuel_capacity_seconds": 600,
+  "batch_max": 5,
+  "waiting_orders_max": 8,
+  "public_products_max": 60,
+  "recipe_count": 0,
+  "new_food_assets": false,
+  "server_owned": [
+    "public fuel",
+    "cooking queue and progress",
+    "public products",
+    "operator debit and collection"
+  ],
+  "owned_request_actor": "AColdSteelPlayerState",
+  "guest_inventory_model": "per-player ShadowModel",
+  "journal_protocol": [
+    "save station before-state and stable identity",
+    "write journal",
+    "durably commit operator profile and world receipt",
+    "save station after-state",
+    "delete journal"
+  ],
+  "client_building_save": false,
+  "client_profile_revision_barrier": true,
+  "source_flame": "/Game/Realistic_Starter_VFX_Pack_Vol2/Particles/Fire/P_Fire_Small",
+  "active_flame": "/Game/Building/Campfire20261012/Realistic/NS_CampfireRealisticFlame.NS_CampfireRealisticFlame",
+  "saved_packages": [
+    "/Game/Building/Campfire20261012/Realistic/M_CampfireNative8x4.M_CampfireNative8x4",
+    "/Game/Building/Campfire20261012/Realistic/M_CampfireNative6x6.M_CampfireNative6x6",
+    "/Game/Building/Campfire20261012/Realistic/M_CampfireNativeSmoke.M_CampfireNativeSmoke",
+    "/Game/Building/Campfire20261012/Realistic/NS_CampfireRealisticFlame.NS_CampfireRealisticFlame"
+  ],
+  "shared_source_assets_unchanged": true,
+  "stone_ring_replaced": false,
+  "niagara_compiled_and_saved": true,
+  "author_commandlet_exit": 0,
+  "editor_build": {
+    "result": "Succeeded",
+    "seconds": 4.03,
+    "target_up_to_date": true,
+    "log": "Saved/Campfire20261012/shared-realistic-editor-final.log"
+  },
+  "game_build": {
+    "result": "Succeeded",
+    "seconds": 3.87,
+    "target_up_to_date": true,
+    "log": "Saved/Campfire20261012/shared-realistic-game-final.log"
+  },
+  "static_readback": {
+    "result": "passed",
+    "exit": 0,
+    "errors": 0,
+    "warnings": 5,
+    "log": "Saved/Campfire20261012/static-realistic-integration.log",
+    "data": "SourceAssets/Campfire20261012/static-realistic-integration.json"
+  },
+  "runtime_tested": false,
+  "multiplayer_tested": false,
+  "visual_tested": false,
+  "render_or_screenshot": false,
+  "remaining_build_or_asset_blockers": [],
+  "remaining_limitations": [
+    "Recipes remain empty; no actual dishes can be cooked until separately authorized item/recipe integration.",
+    "Client building placement/removal remains outside this scope.",
+    "Multiplayer, disconnect recovery, save failure and visual behavior are not runtime-tested."
+  ],
+  "implementation_and_manual_steps": "Docs/Building/campfire-shared-operations-20261012.md",
+  "fire_production": "Docs/Building/campfire-realistic-fire-20261012.md",
+  "commit_created": false,
+  "pushed": false,
+  "source_sha256_at_delivery": {
+    "Source/FPSGAME/Building/CampfireSharedTypes.h": "92dc466370666e262d3e8a8851072fc803f602323c06fdf235ae9d3dd16ce914",
+    "Source/FPSGAME/Building/CampfireSharedTransactions.cpp": "6c29c5ba1b8ff3349ea46cb21cf36b4792de3361c2da968d15e1c344616e7737",
+    "Source/FPSGAME/Building/ColdSteelCampfireNetwork.cpp": "6bcb669a266313879d22e31d55764ecae523795ebba5ef00ad0e7ba8dad9cbf6",
+    "Source/FPSGAME/Building/ColdSteelCampfire.cpp": "403fcedafe6ed72dcdf51066d8e706d19a9e37615e2cd810eb2f376e65d3a50d",
+    "Source/FPSGAME/Building/ColdSteelCampfire.h": "ed1e4555c9f815f6766982d59cda00fd316ed128483bec317ae2c949d943549a",
+    "Source/FPSGAME/Building/CampfireCooking.cpp": "84018a1333e5bacf6ff1f5f5dca165fcfcdd86014dabeb1386df68463a88c26e",
+    "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp": "27f7faa2e292abafc1f692cdca8a3e5ea6f0c6f4fe54043b5be16d7bf2d7be50",
+    "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp": "5af9b4e36d275edb712453e9061e161521b39e07639bce840df03d2ecbf21856",
+    "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h": "0d62faa26c97086a661e8e4bd07d6613bad9e5f5fe2f37237df4d00a1a490453",
+    "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp": "391ff21f957886edbf0ba1c7fd90a1d8e09912948caca9845f824178cead95ec",
+    "Source/FPSGAME/Building/VoxelBuildWorld.cpp": "839cbdb1117e32de0957d7da10281e69fd1dc7729b4cccd281bbd3dfd453d87e",
+    "Source/FPSGAME/Building/VoxelBuildWorldSave.cpp": "d12a6342d4c366d5445859febe9cdbcc9a9a0dd6497c9cddd440befa693b4d66",
+    "Source/FPSGAME/UI/ColdSteelCampfireWidget.cpp": "c9b0166fbcbbc7161ba2a92ca9cab0417fca7968b0e4661063c1a103873a7f8a",
+    "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp": "0cf6b9425afbc1999cc35dfb78b36360425ceb397813ff99e1d7e75eab11fa5c",
+    "Source/FPSGAME/UI/ColdSteelInventoryTypes.h": "ce4ea75c675d93bdb0028b46222deebeab81fd02d9f174ea78870ed732f0477e",
+    "Tools/Building/author_campfire_realistic.py": "c25e28a7fa24c9eb950c0b37d3723c6cdf917a159e54602cd558457f2c109e11",
+    "Tools/Building/inspect_campfire_integration.py": "be0fd611b677dfc20ac34ad5fd69fa67069a14c8186c87e9f2aaa2e67015c288"
+  }
+}

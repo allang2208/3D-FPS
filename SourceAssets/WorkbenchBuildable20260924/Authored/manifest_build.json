@@ -2,8 +2,8 @@
   "id": "Workbench_Standalone",
   "name": "SM_WBStandalone_Workbench",
   "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WorkbenchBuildable20260924\\Authored\\SM_WBStandalone_Workbench.fbx",
-  "triangles": 134110,
-  "vertices": 68705,
+  "triangles": 149982,
+  "vertices": 79509,
   "bounds_cm": {
     "min": [
       -120.9,
@@ -12,8 +12,20 @@
     ],
     "max": [
       120.9,
-      130.3,
+      128.7,
       158.9
+    ]
+  },
+  "placement_bounds_cm": {
+    "min": [
+      -120.910995,
+      -130.346626,
+      0.0
+    ],
+    "max": [
+      120.910995,
+      130.346626,
+      158.928086
     ]
   },
   "slots": [
@@ -22,6 +34,8 @@
     "WBKC_Paper",
     "WBKC_Books",
     "WBKC_Misc",
+    "WSBench_CableRubber",
+    "WSSculpt_RubberGrip",
     "WBKBottle_OilPaint",
     "WBKBottle_SpoutSteel",
     "WBKBottle_CapPolymer",
@@ -30,7 +44,6 @@
     "WBKBottle_CleanerLabel",
     "WSDetail_RackPaint",
     "WSSculpt_Machined",
-    "WSSculpt_RubberGrip",
     "WSTools_Canvas",
     "FabGarage_Wall_Adjustable_Wrench",
     "FabGarage_Wall_Hammer",
@@ -47,7 +60,6 @@
     "WSTools_Enamel",
     "WSSculpt_RedGrip",
     "WSBench_LampPaint",
-    "WSBench_CableRubber",
     "WSBench_Reflector",
     "WSBench_SocketCeramic",
     "WSBench_LampBulb"
@@ -58,6 +70,8 @@
     "WBKC_Paper": null,
     "WBKC_Books": null,
     "WBKC_Misc": null,
+    "WSBench_CableRubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_CableRubber.M_WSBench_CableRubber",
+    "WSSculpt_RubberGrip": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_RubberGrip.M_WSSculpt_RubberGrip",
     "WBKBottle_OilPaint": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/BottleSources/MI_WBKBottle_OilPaint",
     "WBKBottle_SpoutSteel": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/BottleSources/MI_WBKBottle_SpoutSteel",
     "WBKBottle_CapPolymer": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/BottleSources/MI_WBKBottle_CapPolymer",
@@ -66,7 +80,6 @@
     "WBKBottle_CleanerLabel": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/BottleSources/MI_WBKBottle_CleanerLabel",
     "WSDetail_RackPaint": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopDetail/Materials/M_WSDetail_RackPaint.M_WSDetail_RackPaint",
     "WSSculpt_Machined": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_Machined.M_WSSculpt_Machined",
-    "WSSculpt_RubberGrip": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_RubberGrip.M_WSSculpt_RubberGrip",
     "WSTools_Canvas": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Materials/M_WSTools_Canvas.M_WSTools_Canvas",
     "FabGarage_Wall_Adjustable_Wrench": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopFabTools/Materials/MI_WSFab_Wall_Adjustable_Wrench.MI_WSFab_Wall_Adjustable_Wrench",
     "FabGarage_Wall_Hammer": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopFabTools/Materials/MI_WSFab_Wall_Hammer.MI_WSFab_Wall_Hammer",
@@ -83,7 +96,6 @@
     "WSTools_Enamel": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopTools/Materials/M_WSTools_Enamel.M_WSTools_Enamel",
     "WSSculpt_RedGrip": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopSculpt/Materials/M_WSSculpt_RedGrip.M_WSSculpt_RedGrip",
     "WSBench_LampPaint": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_LampPaint.M_WSBench_LampPaint",
-    "WSBench_CableRubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_CableRubber.M_WSBench_CableRubber",
     "WSBench_Reflector": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_Reflector.M_WSBench_Reflector",
     "WSBench_SocketCeramic": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_SocketCeramic.M_WSBench_SocketCeramic",
     "WSBench_LampBulb": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkshopBenchPolish/Materials/M_WSBench_LampBulb.M_WSBench_LampBulb"

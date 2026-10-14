@@ -43,8 +43,21 @@ bool AVoxelBuildWorld::ApplyNetworkSnapshot(const TArray<uint8>& Bytes)
     }
     Prefabs=Data->Prefabs;SmeltingJobs=Data->Smelting;Fuels=Data->Fuel;
     CellDamage=Data->Damage;LegacyProtected=Data->LegacyProtected;
+    // 自由体积整表替换后重建世界格反查表（2026-10-13 中危#3，与 Initialize 同口径）。
+    FreeVolumeWorldCells.Reset();
+    for(const auto& V:FreeVolumes)for(const auto& E:V.Value.Cells)
+        FreeVolumeWorldCells.Add(ToCell(V.Value.Origin+CellMin(E.Key)));
+    // 2026-10-13 联机审计 B1：快照应用（含服务端失败回滚）整图重建——丢弃在飞的应力解算
+    // 与半途收集。否则结果按回滚前的图落地：Supported/LoadRatios 写进野键，Detached 会给
+    // 已回滚掉的格生成幽灵残骸。（NodeEpoch 不随回滚变化，既有 stale 检测拦不住这条路。）
+    if(Runtime->Stress.IsValid())Runtime->Stress=TFuture<FVoxelStressResult>();
+    Runtime->JobKeys.Reset();Runtime->JobEpoch.Reset();Runtime->DirtySupport.Reset();
+    Runtime->GatherQueue.Reset();Runtime->GatherSeen.Reset();Runtime->GatherHops.Reset();Runtime->Gather={};
+    // 2026-10-13 联机审计 B1：快照里的断键必须随图重建继承。该函数不只服务客户端——
+    // 服务端在请求失败回滚（ColdSteelHarvestAuthority WorldAction）与恢复回灌
+    // （RestoreBuilding）时也会把快照应用回自己，丢断键会污染权威图并把断键写丢进存档。
     RefreshPrefabOccupancy();
-    RefreshSupportGraph();RebuildAffected(Changed);
+    RefreshSupportGraph(&Data->BrokenBonds);RebuildAffected(Changed);
     PrefabActors.Reset();for(TActorIterator<AVoxelBuildPrefabActor> It(GetWorld());It;++It)
         if(It->GetOwner()==this&&!It->IsFalling())PrefabActors.Add(It->AnchorCell(),*It);
     if(!HasAuthority())

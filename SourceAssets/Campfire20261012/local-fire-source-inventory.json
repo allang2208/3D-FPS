@@ -1,0 +1,144 @@
+{
+  "method": "Read files and manifest/archive member names. Raw strings establish references only; runtime property values are in local-fire-inventory.json.",
+  "packages": [
+    {
+      "package": "/Game/NiagaraExamples/FX_Misc/NS_Fire",
+      "file": "D:\\FPS3D\\FPSGAME\\Content\\NiagaraExamples\\FX_Misc\\NS_Fire.uasset",
+      "bytes": 3471503,
+      "sha256": "3bb5faa88f7e305cb202b78d3d81a3b886dac3e940873ecbd3617b1b02f48ba1",
+      "raw_game_references": [
+        "/Game/NiagaraExamples/EffectTypes/NET_Environment_Looping",
+        "/Game/NiagaraExamples/FX_Misc/NS_Fire",
+        "/Game/NiagaraExamples/FX_Misc/NS_Fire.NS_Fire",
+        "/Game/NiagaraExamples/Materials/MI_Flames",
+        "/Game/NiagaraExamples/Materials/MI_SmokePuffLight_8x8",
+        "/Game/NiagaraExamples/NPC_NiagaraExamples",
+        "/Game/NiagaraExamples/StaticMesh/SM_Disk",
+        "/Game/NiagaraExamples/Textures/Utils/CutoutMask_8x8"
+      ]
+    },
+    {
+      "package": "/Game/Vefects/Free_Fire/Shared/Particles/NS_Fire_Medium",
+      "file": "D:\\FPS3D\\FPSGAME\\Content\\Vefects\\Free_Fire\\Shared\\Particles\\NS_Fire_Medium.uasset",
+      "bytes": 4986891,
+      "sha256": "a1e9d03fe51f71f4322b897243f9766a9941b834c3f6ce9c814cefe29c5c5421",
+      "raw_game_references": [
+        "/Game/Vefects/Flipbook_VFX/Shared/Particles/NE_FireFlame_System.NE_FireFlame_System",
+        "/Game/Vefects/Free_Fire/Shared/Materials/MI_VFX_Ashes_01",
+        "/Game/Vefects/Free_Fire/Shared/Materials/MI_VFX_Fire_01",
+        "/Game/Vefects/Free_Fire/Shared/Materials/MI_VFX_Fire_02",
+        "/Game/Vefects/Free_Fire/Shared/Materials/MI_VFX_Glow_01",
+        "/Game/Vefects/Free_Fire/Shared/Materials/MI_VFX_HeatDistortion_Strong",
+        "/Game/Vefects/Free_Fire/Shared/Particles/NE_FireFlame",
+        "/Game/Vefects/Free_Fire/Shared/Particles/NE_Heat",
+        "/Game/Vefects/Free_Fire/Shared/Particles/NE_Lights",
+        "/Game/Vefects/Free_Fire/Shared/Particles/NE_Sparkles",
+        "/Game/Vefects/Free_Fire/Shared/Particles/NS_Fire_Medium",
+        "/Game/Vefects/Free_Fire/Shared/Particles/NS_Fire_Medium.NS_Fire_Medium"
+      ]
+    },
+    {
+      "package": "/Game/Vefects/Free_Fire/Shared/Particles/NS_Fire_Small",
+      "file": "D:\\FPS3D\\FPSGAME\\Content\\Vefects\\Free_Fire\\Shared\\Particles\\NS_Fire_Small.uasset",
+      "bytes": 1815497,
+      "sha256": "30362015e6fb841723f8fd1f2e19032f918e54ea64156718d483e418943a4a22",
+      "raw_game_references": [
+        "/Game/Vefects/Free_Fire/Shared/Materials/MI_VFX_Ashes_01",
+        "/Game/Vefects/Free_Fire/Shared/Materials/MI_VFX_Fire_01",
+        "/Game/Vefects/Free_Fire/Shared/Materials/MI_VFX_Fire_02",
+        "/Game/Vefects/Free_Fire/Shared/Materials/MI_VFX_Glow_01",
+        "/Game/Vefects/Free_Fire/Shared/Materials/MI_VFX_HeatDistortion_Strong",
+        "/Game/Vefects/Free_Fire/Shared/Particles/NE_FireFlame",
+        "/Game/Vefects/Free_Fire/Shared/Particles/NE_Heat",
+        "/Game/Vefects/Free_Fire/Shared/Particles/NE_Lights",
+        "/Game/Vefects/Free_Fire/Shared/Particles/NE_Sparkles",
+        "/Game/Vefects/Free_Fire/Shared/Particles/NS_Fire_Small",
+        "/Game/Vefects/Free_Fire/Shared/Particles/NS_Fire_Small.NS_Fire_Small"
+      ]
+    },
+    {
+      "package": "/Game/MilitaryTrench/Particles/P_Fire",
+      "file": "D:\\FPS3D\\FPSGAME\\Content\\MilitaryTrench\\Particles\\P_Fire.uasset",
+      "bytes": 311739,
+      "sha256": "ca499dec291292ec477175e7f2f9e15625ee3969315f5053fcd0c946f599a506",
+      "raw_game_references": [
+        "/Game/MilitaryTrench/Particles/Materials/M_Fire_SubUV",
+        "/Game/MilitaryTrench/Particles/Materials/M_Heat_Distortion",
+        "/Game/MilitaryTrench/Particles/Materials/M_Radial_Gradient",
+        "/Game/MilitaryTrench/Particles/Materials/M_smoke_subUV",
+        "/Game/MilitaryTrench/Particles/P_Fire"
+      ]
+    },
+    {
+      "package": "/Game/EasyBuildingSystem/Effects/PS_CampFire",
+      "file": "D:\\FPS3D\\FPSGAME\\Content\\EasyBuildingSystem\\Effects\\PS_CampFire.uasset",
+      "bytes": 321884,
+      "sha256": "3a322f4fce1d49d066627e7b7cdf58aae6b7b80143770e2c6e009b698230cd9e",
+      "raw_game_references": [
+        "/Game/EasyBuildingSystem/Effects/PS_CampFire",
+        "/Game/EasyBuildingSystem/Effects/VF_Noise",
+        "/Game/EasyBuildingSystem/Materials/Instances/Effects/MI_Fire_001",
+        "/Game/EasyBuildingSystem/Materials/Instances/Effects/MI_Fire_Wave_001",
+        "/Game/EasyBuildingSystem/Materials/Instances/Effects/MI_Fire_Wave_002",
+        "/Game/EasyBuildingSystem/Materials/Masters/Effects/MM_Fire_Embers"
+      ]
+    },
+    {
+      "package": "/Game/_SplineVFX/NS/NS_Spline_Fire",
+      "file": "D:\\FPS3D\\FPSGAME\\Content\\_SplineVFX\\NS\\NS_Spline_Fire.uasset",
+      "bytes": 4940973,
+      "sha256": "9781d6141b4a6cc65c3e020283d71fa056982d93d8a55d6dd6fdca7c90a4255c",
+      "raw_game_references": [
+        "/Game/_SplineVFX/NS/NS_Spline_EnergyFlow.NS_Spline_EnergyFlow",
+        "/Game/_SplineVFX/NS/NS_Spline_Fire",
+        "/Game/_SplineVFX/NS/NS_Spline_Fire.NS_Spline_Fire",
+        "/Game/_SplineVFX/NS/NS_Spline_ParticleFollow.NS_Spline_ParticleFollow",
+        "/Game/_SplineVFX/_GenericSource/Material/MI/MI_Vfx_DecalMark_Cave7",
+        "/Game/_SplineVFX/_GenericSource/Material/MI/MI_Vfx_FlipBook_Stamp_FireFlame_88_Vertical",
+        "/Game/_SplineVFX/_GenericSource/Material/MI/MI_Vfx_FlipBook_fireFlip_fade_slow",
+        "/Game/_SplineVFX/_GenericSource/Material/MI/MI_Vfx_FlipBookp_Stamp_FireFury_88_Vertical",
+        "/Game/_SplineVFX/_GenericSource/Material/MI/MI_Vfx_ParticleSubUV_Stamp_GroundFireRea_1111_add",
+        "/Game/_SplineVFX/_GenericSource/Material/MI/MI_Vfx_ParticleSubUV_fog03_88_fade"
+      ]
+    }
+  ],
+  "vault_roots": [
+    "AsianMal966eb352b6caV1",
+    "BattleWi0a4eb9a01192V1",
+    "EasyBuila55ea970921aV10",
+    "EasyImpa76514c37f081V1",
+    "FabLibrary",
+    "FreeGame393314207f08V2",
+    "IceMater4682d374365dV1",
+    "Material1ceacec75f17V1",
+    "MayusOrb5cc8afa10c92V1",
+    "ParagonKhaimera",
+    "ParagonKwang",
+    "ParagonRampage",
+    "PerfectFbbf41cddaf26V1",
+    "PostSoviaf015efee058V2",
+    "RuralAus2b4566deea9fV7",
+    "SplineVF0c12c9b3d930V1",
+    "SubstrateMaterials",
+    "Untitlede28cc9a0a786V1",
+    "WaterMat2ed5823f48feV1",
+    "ZombieAncd274d19f2c1V1",
+    "interactb6925a747911V3",
+    "tropical642a3631208aV1"
+  ],
+  "external_fire_archive_members": [],
+  "engine_templates": [
+    "E:\\Program Files (x86)\\UE_5.8\\Engine\\Plugins\\FX\\NiagaraFluids\\Content\\Templates\\Gas\\2D\\Systems\\Grid2D_Gas_MovingFire.uasset",
+    "E:\\Program Files (x86)\\UE_5.8\\Engine\\Plugins\\FX\\NiagaraFluids\\Content\\Templates\\Gas\\2D\\Systems\\Grid2D_Gas_SmokeFire.uasset",
+    "E:\\Program Files (x86)\\UE_5.8\\Engine\\Plugins\\FX\\NiagaraFluids\\Content\\Templates\\Gas\\3D\\Systems\\Grid3D_Gas_ColoredFire.uasset",
+    "E:\\Program Files (x86)\\UE_5.8\\Engine\\Plugins\\FX\\NiagaraFluids\\Content\\Templates\\Gas\\3D\\Systems\\Grid3D_Gas_Fire.uasset",
+    "E:\\Program Files (x86)\\UE_5.8\\Engine\\Plugins\\FX\\NiagaraFluids\\Content\\Templates\\Gas\\3D\\Systems\\Grid3D_MovingGridFire.uasset"
+  ],
+  "known_source_copies": [
+    "D:\\FPS3D\\VaultCache\\PerfectFbbf41cddaf26V1\\data\\Content\\Vefects\\Free_Fire\\Shared\\Particles\\NS_Fire_Medium.uasset",
+    "D:\\FPS3D\\VaultCache\\SplineVF0c12c9b3d930V1\\data\\Content\\_SplineVFX\\NS\\NS_Spline_Fire.uasset",
+    "D:\\FPS3D\\VaultCache\\EasyBuila55ea970921aV10\\data\\Content\\EasyBuildingSystem\\Effects\\PS_CampFire.uasset",
+    "D:\\FPS3D\\EasyBuildingSystemV10\\Content\\EasyBuildingSystem\\Effects\\PS_CampFire.uasset",
+    "D:\\FPS3D\\VaultCache\\Untitlede28cc9a0a786V1\\data\\Content\\DoorSystem\\Demo\\StarterContent\\Particles\\P_Fire.uasset"
+  ]
+}

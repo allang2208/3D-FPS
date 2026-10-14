@@ -1,0 +1,27 @@
+{
+  "static_readback_passed": true,
+  "native_class": "/Script/FPSGAME.ColdSteelCampfire",
+  "startup_loaded_flame": "/Game/Building/Campfire20261012/NS_CampfireFlame.NS_CampfireFlame",
+  "radius_cm": 500.0,
+  "default_fuel_burning_source": false,
+  "palette_campfire_entries": 1,
+  "palette_name": "篝火",
+  "palette_class": "/Script/FPSGAME.ColdSteelCampfire",
+  "menu_material": "None",
+  "emitters": [
+    "CampfireBody",
+    "CampfireTongues01",
+    "CampfireTongues02"
+  ],
+  "materials": [
+    "/Game/Building/Campfire20261012/M_CampfireDenseFlame.M_CampfireDenseFlame",
+    "/Game/Building/Campfire20261012/MI_CampfireTongue01.MI_CampfireTongue01",
+    "/Game/Building/Campfire20261012/MI_CampfireTongue02.MI_CampfireTongue02"
+  ],
+  "all_flame_material_refraction_disabled": true,
+  "cooking_recipes": 0,
+  "cooking_dishes_available": [],
+  "game_or_pie_started": false,
+  "actor_spawned": false,
+  "assets_modified": false
+}

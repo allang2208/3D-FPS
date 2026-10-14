@@ -3,6 +3,7 @@
 #include "VoxelBuildRuntime.h"
 #include "VoxelBuildPalette.h"
 #include "VoxelCollapseFragment.h"
+#include "EngineUtils.h"
 #include "Async/Async.h"
 #include "HAL/IConsoleManager.h"
 #include "GameFramework/WorldSettings.h"
@@ -22,7 +23,7 @@ namespace
      *     改为失败后退避 1 s。
      */
     TMap<FName,FString> BlockItemIds;
-    TMap<FGuid,double> RecycleRetryAt;
+
     const FString& BlockItemId(FName Material)
     {
         if(FString* Found=BlockItemIds.Find(Material))return *Found;
@@ -51,6 +52,10 @@ void AVoxelBuildWorld::EnqueueFragment(FVoxelFragmentSave State,TArray<FVoxelBui
 
 void AVoxelBuildWorld::TickFragments()
 {
+    TMap<FGuid,AVoxelCollapseFragment*> Replicas;
+    if(!HasAuthority()&&!Runtime->PendingFragments.IsEmpty())
+        for(TActorIterator<AVoxelCollapseFragment> It(GetWorld());It;++It)
+            if(It->GetOwner()==this&&It->Id().IsValid())Replicas.Add(It->Id(),*It);
     bool WorkerBusy=false;
     for(auto& E:Runtime->PendingFragments)
     {
@@ -91,8 +96,24 @@ void AVoxelBuildWorld::TickFragments()
         {
             auto& Ready=P.Prepared[P.NextSpawn];
             FActorSpawnParameters Parameters;Parameters.Owner=this;Parameters.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-            auto* Actor=GetWorld()->SpawnActor<AVoxelCollapseFragment>(AVoxelCollapseFragment::StaticClass(),Ready.State.Transform,Parameters);
-            if(!Actor)break;
+            auto* Actor=HasAuthority()
+                ?GetWorld()->SpawnActor<AVoxelCollapseFragment>(AVoxelCollapseFragment::StaticClass(),Ready.State.Transform,Parameters)
+                :Replicas.FindRef(Ready.State.Id);
+            if(!Actor)
+            {
+                // 2026-10-13 联机审计 B2：复制实例还没到，或快照里的这件已被服务端销毁。
+                // 600 帧（约 10 s，覆盖 2 s 快照间隔与常规传输）后放弃：置 NextSpawn 到
+                // 末尾走正常收尾（Sources 清理/记账），不再每帧空转；下个建筑快照的
+                // Wanted 过滤仍是兜底。
+                if(++P.SpawnRetries>=600)
+                {
+                    UE_LOG(LogTemp,Warning,TEXT("Voxel fragment replica never arrived, dropping pending id=%s cells=%d"),
+                        *P.State.Id.ToString(),P.State.Cells.Num());
+                    P.NextSpawn=P.Prepared.Num();
+                }
+                break;
+            }
+            P.SpawnRetries=0;
             Actor->Initialize(this,Ready.State,MoveTemp(Ready.Geometry),SurfaceMaterials);
             Actor->SetFailureDebris(P.bFailureDebris);
             P.Spawned.Add(Actor);++P.NextSpawn;++Spawned;
@@ -124,6 +145,11 @@ void AVoxelBuildWorld::TickFragments()
         if(Spawned>=FMath::Clamp(SpawnLimit.GetValueOnGameThread(),1,16)||FPlatformTime::Seconds()-Start>.0015)break;
     }
     for(FGuid Id:Finished)Runtime->PendingFragments.Remove(Id);
+    // 2026-10-13 联机审计 B5：复制通道销毁的残骸只让 actor 失效，本地 map 条目原本要等
+    // 下一个建筑快照的 Wanted 过滤才清。这里顺手剔除死条目（服务端 Destroy 路径都有显式
+    // Remove，此清理主要服务客户端——所以必须放在客户端 return 之前）。
+    for(auto It=Fragments.CreateIterator();It;++It)if(!IsValid(It.Value()))It.RemoveCurrent();
+    if(!HasAuthority()){Runtime->Activation.Reset();return;}
     // 审计 P21：原来这段对 Fragments 有三个各自独立的完整遍历（这里统计醒着的块与 KillZ、
     // 下面回收、再下面激活）。醒着统计与 KillZ 判定合并成一遍；回收扫描本来就要求碎片静止
     // （AccrueRestSeconds 只在 IsMoving()==false 时累加），因此不会与醒着统计互相影响，
@@ -144,7 +170,7 @@ void AVoxelBuildWorld::TickFragments()
         if(Fragment->GetActorLocation().Z<KillZ){OutsideWorld.Add(E.Key);continue;}
         if(!Fragment->AccrueRestSeconds(FrameDelta,2.f))continue;
         // 上一次转换失败（通常是物品达上限）：退避期内不再重做整份转换工作。
-        if(const double* RetryAt=RecycleRetryAt.Find(E.Key))if(NowSeconds<*RetryAt)continue;
+        if(const double* RetryAt=Runtime->RecycleRetryAt.Find(E.Key))if(NowSeconds<*RetryAt)continue;
         // 审计 P18：不再每帧 `Snapshot()` 拷一份完整 cells。`State.Cells` 就是当前格的权威副本
         // （由 UpdateCellDamage 维护，FreezeForReplacement 会自行保存），这里只需要材料计数。
         TMap<FString,int64> Blocks;
@@ -152,17 +178,17 @@ void AVoxelBuildWorld::TickFragments()
             if(!Cell.Material.IsNone())Blocks.FindOrAdd(BlockItemId(Cell.Material))++;
         auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
         if(Model&&!Blocks.IsEmpty()&&Model->GrantWorldBlocks(Blocks,Fragment->GetActorLocation()))
-        {Recycled.Add(E.Key);RecycleRetryAt.Remove(E.Key);}
-        else RecycleRetryAt.Add(E.Key,NowSeconds+RecycleRetrySeconds);
+        {Recycled.Add(E.Key);Runtime->RecycleRetryAt.Remove(E.Key);}
+        else Runtime->RecycleRetryAt.Add(E.Key,NowSeconds+RecycleRetrySeconds);
     }
     for(const FGuid Id:Recycled)
     {
-        RecycleRetryAt.Remove(Id);
+        Runtime->RecycleRetryAt.Remove(Id);
         if(AVoxelCollapseFragment* Fragment=Fragments.FindRef(Id))Fragment->Destroy();
         Fragments.Remove(Id);MarkSaveDirty();
     }
     // KillZ 之下的碎片在回收之后统一销毁（顺序与改动前一致：先统计、再回收、最后销毁落出世界的）。
-    for(const FGuid Id:OutsideWorld){RecycleRetryAt.Remove(Id);Fragments.FindChecked(Id)->Destroy();Fragments.Remove(Id);MarkSaveDirty();}
+    for(const FGuid Id:OutsideWorld){Runtime->RecycleRetryAt.Remove(Id);Fragments.FindChecked(Id)->Destroy();Fragments.Remove(Id);MarkSaveDirty();}
     int32 Activated=0;
     for(int32 I=0;I<Runtime->Activation.Num();)
     {

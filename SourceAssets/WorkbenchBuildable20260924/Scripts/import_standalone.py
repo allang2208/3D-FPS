@@ -101,8 +101,9 @@ write()
 
 # ---------------------------------------------------------------- merged mesh
 mesh_path = DEST + '/Meshes/' + MAN['name']
-geometry_sig = str(MAN['triangles']) + '|' + json.dumps(MAN['bounds_cm'], sort_keys=True)
+geometry_sig = hashlib.sha256(Path(MAN['fbx']).read_bytes()).hexdigest()
 mesh = u.load_asset(mesh_path)
+mesh_exists = bool(mesh)
 if mesh and E.get_metadata_tag(mesh, 'WBStandaloneGeometry') != geometry_sig:
     mesh = None
 if not mesh:
@@ -111,7 +112,7 @@ if not mesh:
     task.destination_path = DEST + '/Meshes'
     task.destination_name = MAN['name']
     task.automated = True
-    task.replace_existing = bool(mesh)
+    task.replace_existing = mesh_exists
     task.replace_existing_settings = True
     task.save = False
     opt = u.FbxImportUI()
@@ -155,6 +156,18 @@ if not mesh:
     mesh.get_editor_property('body_setup').set_editor_property('collision_trace_flag', u.CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE)
     E.set_metadata_tag(mesh, 'WBStandaloneGeometry', geometry_sig)
     save(mesh)
+# Loose-prop layout must not move existing placements or shrink the build footprint.
+if MAN.get('placement_bounds_cm'):
+    mesh.set_editor_property('positive_bounds_extension', u.Vector(0, 0, 0))
+    mesh.set_editor_property('negative_bounds_extension', u.Vector(0, 0, 0))
+    b = mesh.get_bounds()
+    lo = [b.origin.x-b.box_extent.x, b.origin.y-b.box_extent.y, b.origin.z-b.box_extent.z]
+    hi = [b.origin.x+b.box_extent.x, b.origin.y+b.box_extent.y, b.origin.z+b.box_extent.z]
+    contract = MAN['placement_bounds_cm']
+    mesh.set_editor_property('negative_bounds_extension', u.Vector(*[max(0, lo[i]-contract['min'][i]) for i in range(3)]))
+    mesh.set_editor_property('positive_bounds_extension', u.Vector(*[max(0, contract['max'][i]-hi[i]) for i in range(3)]))
+    save(mesh)
+
 receipt['mesh'] = mesh.get_path_name()
 bounds = mesh.get_bounds()
 ext = bounds.box_extent

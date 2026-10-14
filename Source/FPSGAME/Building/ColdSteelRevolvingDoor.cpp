@@ -14,7 +14,7 @@
 namespace
 {
     const TCHAR* RevolvingLeafMesh=TEXT("/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40");
-    const TCHAR* CubeMeshPath=TEXT("/Engine/BasicShapes/Cube.Cube");
+    const TCHAR* RevolvingCubeMeshPath=TEXT("/Engine/BasicShapes/Cube.Cube");
     constexpr float ContactZoneHalf=70.f;   // 门口触发盒半宽：比叶扇外缘略大，走近即转
     const TCHAR* RevolvingSoundPath=TEXT("/Game/Audio/Interactions/DoorAudio20261004/S_Door_Open.S_Door_Open");
 }
@@ -36,7 +36,7 @@ AColdSteelRevolvingDoor::AColdSteelRevolvingDoor()
     CenterPost->SetCanEverAffectNavigation(false);
 
     static ConstructorHelpers::FObjectFinder<UStaticMesh> LeafAsset(RevolvingLeafMesh);
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> Cube(CubeMeshPath);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> Cube(RevolvingCubeMeshPath);
     for(int32 Index=0;Index<3;++Index)
     {
         UStaticMeshComponent* Leaf=CreateDefaultSubobject<UStaticMeshComponent>(*FString::Printf(TEXT("Leaf%d"),Index));

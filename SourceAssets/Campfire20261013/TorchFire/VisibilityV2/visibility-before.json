@@ -1,0 +1,2017 @@
+{
+  "asset": "/Game/Building/Campfire20261013/TorchFire/NS_CampfireTorchFire.NS_CampfireTorchFire",
+  "system": {
+    "TemplateAssetDescription": "",
+    "PreviewMoviePath": {
+      "refPath": ""
+    },
+    "bBakeOutRapidIteration": false,
+    "bBakeOutRapidIterationOnCook": true,
+    "bCompressAttributes": false,
+    "bTrimAttributes": false,
+    "bTrimAttributesOnCook": true,
+    "bIgnoreParticleReadsForAttributeTrim": false,
+    "bDisableDebugSwitches": false,
+    "bDisableDebugSwitchesOnCook": true,
+    "bSupportLargeWorldCoordinates": true,
+    "bOverrideCastShadow": false,
+    "bOverrideReceivesDecals": false,
+    "bOverrideRenderCustomDepth": false,
+    "bOverrideCustomDepthStencilValue": false,
+    "bOverrideCustomDepthStencilWriteMask": false,
+    "bOverrideTranslucencySortPriority": false,
+    "bOverrideTranslucencySortDistanceOffset": false,
+    "bCastShadow": false,
+    "bReceivesDecals": false,
+    "bRenderCustomDepth": false,
+    "bInitialOwnerVelocityFromActor": false,
+    "LargeWorldCoordinateTileUpdateMode": null,
+    "CustomDepthStencilWriteMask": "ERSM_Default",
+    "CustomDepthStencilValue": 0,
+    "TranslucencySortPriority": 0,
+    "TranslucencySortDistanceOffset": 0,
+    "bDumpDebugSystemInfo": false,
+    "bDumpDebugEmitterInfo": false,
+    "bRequireCurrentFrameData": true,
+    "bOverrideScalabilitySettings": false,
+    "bFixedBounds": true,
+    "EffectType": "None",
+    "bOverrideAllowCullingForLocalPlayers": false,
+    "bAllowCullingForLocalPlayersOverride": false,
+    "SystemScalabilityOverrides": {
+      "overrides": []
+    },
+    "Platforms": {
+      "deviceProfileStates": [],
+      "cVarConditions": [],
+      "qualityLevelMask": -1
+    },
+    "ParameterCollectionOverrides": [],
+    "FixedBounds": {
+      "min": {
+        "x": -115,
+        "y": -115,
+        "z": -15
+      },
+      "max": {
+        "x": 115,
+        "y": 115,
+        "z": 225
+      },
+      "isValid": true
+    },
+    "bUseInitialStreamingBounds": false,
+    "InitialStreamingBounds": {
+      "min": {
+        "x": -100,
+        "y": -100,
+        "z": -100
+      },
+      "max": {
+        "x": 100,
+        "y": 100,
+        "z": 100
+      },
+      "isValid": true
+    },
+    "bDeterminism": false,
+    "bFixedTickDelta": false,
+    "RandomSeed": 0,
+    "WarmupTime": 0,
+    "WarmupTickCount": 0,
+    "WarmupTickDelta": 0.06666667014360428,
+    "FixedTickDeltaTime": 0.016669999808073044,
+    "bAllowSystemStateFastPath": true,
+    "MaxPoolSize": 32,
+    "PoolPrimeSize": 0
+  },
+  "fire_inputs": {
+    "EmitterUpdateScript/SpawnRate": {
+      "SpawnRate": "(Value=12.000000)"
+    },
+    "ParticleSpawnScript/InitializeParticle": {
+      "Lifetime Min": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/Multiply/Multiply_Float.Multiply_Float'\")",
+      "Lifetime Max": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/Multiply/Multiply_Float.Multiply_Float'\")",
+      "Color": "(R=20.000000,G=8.126107,B=0.768903,A=1.000000)",
+      "Uniform Sprite Size Min": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/Multiply/Multiply_Float.Multiply_Float'\")",
+      "Uniform Sprite Size Max": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/Multiply/Multiply_Float.Multiply_Float'\")"
+    },
+    "ParticleUpdateScript/SubUVAnimation": {
+      "SubUV Animation Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagara_SubUVLookupModeV2.ENiagara_SubUVLookupModeV2'\",EnumName=\"ENiagara_SubUVLookupModeV2::NewEnumerator0\",DisplayName=NSLOCTEXT(\"[84FD05374794B6EF5BE955B5CAAAF152]\", \"8FB6AA09432E8BB33E1917AA7A1B0999\", \"Linear\"))",
+      "Renderer Type": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagaraMeshOrSprite.ENiagaraMeshOrSprite'\",EnumName=\"ENiagaraMeshOrSprite::NewEnumerator0\",DisplayName=NSLOCTEXT(\"[48153DC541AF6B01D13662950D9AC56E]\", \"727EB0AF48359149D8F97BBC16F7C149\", \"Sprite\"))",
+      "Sprite Renderer ": "(PropertyValues=\"{\\\"SpriteRenderer\\\":{\\\"refPath\\\":\\\"/Game/Building/Campfire20261013/TorchFire/NS_CampfireTorchFire.NS_CampfireTorchFire:Fire_0.NiagaraSpriteRendererProperties_0\\\"}}\")",
+      "Define SubUV Setup Manually": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/SpriteRenderer/ENiagara_AutomaticManual.ENiagara_AutomaticManual'\",EnumName=\"ENiagara_AutomaticManual::NewEnumerator0\",DisplayName=NSLOCTEXT(\"[540C43AD433254A1D75000BEFDF6EE55]\", \"5DEF9ED94C8D5C16ED49CDB9172D1EF0\", \"Automatic (From Renderer SubImage Size)\"))",
+      "Random Start Frame": "()",
+      "Start Frame Offset": "()",
+      "SubUV Lookup Index": "(LinkedVariable=(Name=\"Particles.NormalizedAge\",Type=(ClassStructOrEnum=\"/Script/CoreUObject.ScriptStruct'/Script/Niagara.NiagaraFloat'\",UnderlyingType=2)))",
+      "SubUV Lookup Index Scale": "(Value=1.000000)",
+      "Output Alternate Renderer Binding": "()",
+      "UseStartFrame": "()",
+      "Start Frame Range Override": "()",
+      "UseEndFrame": "()",
+      "End Frame Range Override": "(Value=63)"
+    },
+    "ParticleUpdateScript/DynamicMaterialParameters": {
+      "Write Parameter Index 0": "(Value=-1)",
+      "Module.Param0WriteEnabled": "(Value=-1)",
+      "Index 0 Param 1": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/UniformRange/V2/RandomRangeFloat.RandomRangeFloat'\")",
+      "Module.Param1WriteEnabled": "(Value=-1)",
+      "Index 0 Param 2": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/ValueFromCurve/FloatFromCurve.FloatFromCurve'\")",
+      "Module.Param2WriteEnabled": "(Value=-1)",
+      "Index 0 Param 3": "()",
+      "Module.Param3WriteEnabled": "(Value=-1)",
+      "Index 0 Param 4": "()",
+      "Write Parameter Index 1": "()",
+      "Write Parameter Index 2": "()",
+      "Write Parameter Index 3": "()"
+    },
+    "ParticleUpdateScript/ScaleColor": {
+      "Scale Mode": "(Enum=\"/Script/Engine.UserDefinedEnum'/Niagara/Enums/ENiagaraScaleColorMode.ENiagaraScaleColorMode'\",EnumName=\"ENiagaraScaleColorMode::NewEnumerator0\",DisplayName=NSLOCTEXT(\"[DCC15DCD48BAB8AB093EF49563C3B2BF]\", \"5CC6955C43D0A1A6B1431F87F2A5C4C6\", \"RGB and Alpha Separately\"))",
+      "ScaleRGB": "()",
+      "Scale RGB": "(X=1.000000,Y=1.000000,Z=1.000000)",
+      "ScaleA": "(Value=-1)",
+      "Scale Alpha": "(DynamicInputAsset=\"/Script/Niagara.NiagaraScript'/Niagara/DynamicInputs/ValueFromCurve/FloatFromCurve.FloatFromCurve'\")",
+      "Color Value To Scale": "(LinkedVariable=(Name=\"Particles.Initial.Color\",Type=(ClassStructOrEnum=\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'\",UnderlyingType=2)))"
+    }
+  },
+  "materials": {
+    "M_CampfireTorchFire": {
+      "blend": "<BlendMode.BLEND_TRANSLUCENT: 2>",
+      "shading": "<MaterialShadingModel.MSM_UNLIT: 0>",
+      "expressions": [
+        {
+          "name": "MaterialExpressionMultiply_0",
+          "class": "MaterialExpressionMultiply",
+          "inputs": [
+            "A",
+            "B"
+          ],
+          "links": [
+            "MaterialExpressionPower_1",
+            null
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionDepthFade_0",
+          "class": "MaterialExpressionDepthFade",
+          "inputs": [
+            "Opacity",
+            "FadeDistance"
+          ],
+          "links": [
+            "MaterialExpressionMultiply_3",
+            "MaterialExpressionConstant_0"
+          ],
+          "fade_distance_default": "4.0",
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionTextureSample_0",
+          "class": "MaterialExpressionTextureSample",
+          "inputs": [
+            "UVs",
+            "Tex",
+            "Apply View MipBias"
+          ],
+          "links": [
+            null,
+            null,
+            null
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionMultiply_2",
+          "class": "MaterialExpressionMultiply",
+          "inputs": [
+            "A",
+            "B"
+          ],
+          "links": [
+            "MaterialExpressionParticleColor_1",
+            "MaterialExpressionDesaturation_0"
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionParticleColor_1",
+          "class": "MaterialExpressionParticleColor",
+          "inputs": [],
+          "links": [],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionMultiply_3",
+          "class": "MaterialExpressionMultiply",
+          "inputs": [
+            "A",
+            "B"
+          ],
+          "links": [
+            "MaterialExpressionParticleColor_1",
+            "MaterialExpressionPower_0"
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionDynamicParameter_1",
+          "class": "MaterialExpressionDynamicParameter",
+          "inputs": [],
+          "links": [],
+          "default_value": "<Struct 'LinearColor' (0x00000256686E73D8) {r: 4.000000, g: 1.000000, b: 1.000000, a: 1.000000}>",
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionPower_0",
+          "class": "MaterialExpressionPower",
+          "inputs": [
+            "Base",
+            "Exp"
+          ],
+          "links": [
+            "MaterialExpressionTextureSample_0",
+            "MaterialExpressionDynamicParameter_1"
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionPower_1",
+          "class": "MaterialExpressionPower",
+          "inputs": [
+            "Base",
+            "Exp"
+          ],
+          "links": [
+            "MaterialExpressionMultiply_2",
+            "MaterialExpressionDynamicParameter_1"
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionDesaturation_0",
+          "class": "MaterialExpressionDesaturation",
+          "inputs": [
+            "None",
+            "Fraction"
+          ],
+          "links": [
+            "MaterialExpressionTextureSample_0",
+            "MaterialExpressionOneMinus_0"
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionScalarParameter_0",
+          "class": "MaterialExpressionScalarParameter",
+          "inputs": [],
+          "links": [],
+          "default_value": "1.0",
+          "parameter_name": "Saturation",
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionOneMinus_0",
+          "class": "MaterialExpressionOneMinus",
+          "inputs": [
+            "None"
+          ],
+          "links": [
+            "MaterialExpressionScalarParameter_0"
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionConstant_0",
+          "class": "MaterialExpressionConstant",
+          "inputs": [],
+          "links": [],
+          "r": "4.0",
+          "desc": "Campfire contact fade in cm; preserve native flame/smoke shading"
+        }
+      ],
+      "outputs": {
+        "<MaterialProperty.MP_OPACITY: 1>": "<Object '/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchFire.M_CampfireTorchFire:MaterialExpressionDepthFade_0' (0x0000025682626CC0) Class 'MaterialExpressionDepthFade'>",
+        "<MaterialProperty.MP_EMISSIVE_COLOR: 0>": "<Object '/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchFire.M_CampfireTorchFire:MaterialExpressionMultiply_0' (0x0000025682626F40) Class 'MaterialExpressionMultiply'>"
+      }
+    },
+    "M_CampfireTorchSmoke": {
+      "blend": "<BlendMode.BLEND_TRANSLUCENT: 2>",
+      "shading": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>",
+      "expressions": [
+        {
+          "name": "MaterialExpressionMultiply_2",
+          "class": "MaterialExpressionMultiply",
+          "inputs": [
+            "A",
+            "B"
+          ],
+          "links": [
+            "MaterialExpressionAdd_1",
+            "MaterialExpressionParticleColor_1"
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionDepthFade_1",
+          "class": "MaterialExpressionDepthFade",
+          "inputs": [
+            "Opacity",
+            "FadeDistance"
+          ],
+          "links": [
+            "MaterialExpressionClamp_0",
+            "MaterialExpressionConstant_0"
+          ],
+          "fade_distance_default": "8.0",
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionParticleSubUV_0",
+          "class": "MaterialExpressionParticleSubUV",
+          "inputs": [
+            "UVs",
+            "Tex",
+            "Apply View MipBias"
+          ],
+          "links": [
+            null,
+            null,
+            null
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionClamp_0",
+          "class": "MaterialExpressionClamp",
+          "inputs": [
+            "None",
+            "Min",
+            "Max"
+          ],
+          "links": [
+            "MaterialExpressionMultiply_3",
+            null,
+            null
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionParticleColor_1",
+          "class": "MaterialExpressionParticleColor",
+          "inputs": [],
+          "links": [],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionMultiply_3",
+          "class": "MaterialExpressionMultiply",
+          "inputs": [
+            "A",
+            "B"
+          ],
+          "links": [
+            "MaterialExpressionParticleColor_1",
+            "MaterialExpressionParticleSubUV_0"
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionTextureSample_3",
+          "class": "MaterialExpressionTextureSample",
+          "inputs": [
+            "UVs",
+            "Tex",
+            "Apply View MipBias"
+          ],
+          "links": [
+            "MaterialExpressionTextureCoordinate_0",
+            null,
+            null
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionTextureCoordinate_0",
+          "class": "MaterialExpressionTextureCoordinate",
+          "inputs": [],
+          "links": [],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionAdd_1",
+          "class": "MaterialExpressionAdd",
+          "inputs": [
+            "A",
+            "B"
+          ],
+          "links": [
+            "MaterialExpressionTextureSample_3",
+            "MaterialExpressionParticleSubUV_0"
+          ],
+          "desc": ""
+        },
+        {
+          "name": "MaterialExpressionConstant_0",
+          "class": "MaterialExpressionConstant",
+          "inputs": [],
+          "links": [],
+          "r": "8.0",
+          "desc": "Campfire contact fade in cm; preserve native flame/smoke shading"
+        }
+      ],
+      "outputs": {
+        "<MaterialProperty.MP_OPACITY: 1>": "<Object '/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchSmoke.M_CampfireTorchSmoke:MaterialExpressionDepthFade_1' (0x0000025682627800) Class 'MaterialExpressionDepthFade'>",
+        "<MaterialProperty.MP_EMISSIVE_COLOR: 0>": "None"
+      }
+    }
+  },
+  "native_default_read_error": "ColdSteelCampfire: Failed to find property 'flame_system' for attribute 'flame_system' on 'ColdSteelCampfire'",
+  "native_startup_loaded_asset": true,
+  "emitters": {
+    "Fire": {
+      "data": {
+        "Name": "Fire",
+        "bIsEnabled": true,
+        "Id": "C0A7EC0E-4BAD-1677-3954-9AA22A7C957F",
+        "IdName": "C0A7EC0E4BAD167739549AA22A7C957F",
+        "bLocalSpace": true,
+        "bDeterminism": false,
+        "RandomSeed": 0,
+        "InterpolatedSpawnMode": "Interpolation",
+        "SimTarget": "GPUComputeSim",
+        "Importance": "Normal",
+        "CalculateBoundsMode": "Fixed",
+        "FixedBounds": {
+          "min": {
+            "x": -115,
+            "y": -115,
+            "z": -15
+          },
+          "max": {
+            "x": 115,
+            "y": 115,
+            "z": 225
+          },
+          "isValid": true
+        },
+        "bRequiresPersistentIDs": false,
+        "Platforms": {
+          "deviceProfileStates": [],
+          "cVarConditions": [],
+          "qualityLevelMask": 31
+        },
+        "ScalabilityOverrides": {
+          "overrides": []
+        },
+        "MaxGPUParticlesSpawnPerFrame": 0,
+        "AllocationMode": "AutomaticEstimate",
+        "PreAllocationCount": 0,
+        "EmitterDependencies": [],
+        "AttributesToPreserve": [],
+        "AddEmitterDefaultViewState": "Default",
+        "SimStageExecutionLoopEditorData": []
+      },
+      "renderer": {
+        "Material": {
+          "refPath": "/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchFire.M_CampfireTorchFire"
+        },
+        "MaterialUserParamBinding": {
+          "parameter": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 2
+            }
+          }
+        },
+        "SourceMode": "Particles",
+        "Alignment": "Unaligned",
+        "FacingMode": "FaceCamera",
+        "SortMode": "ViewDepth",
+        "MacroUVRadius": 0,
+        "PivotInUVSpace": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "SubImageSize": {
+          "x": 8,
+          "y": 8
+        },
+        "bSubImageBlend": false,
+        "bRemoveHMDRollInVR": false,
+        "bSortOnlyWhenTranslucent": true,
+        "bEnableCameraDistanceCulling": false,
+        "bCastShadows": false,
+        "bIncludeInHitProxy": true,
+        "SortPrecision": "Default",
+        "GpuTranslucentLatency": "ProjectDefault",
+        "PixelCoverageMode": "Automatic",
+        "PixelCoverageBlend": 1,
+        "MinFacingCameraBlendDistance": 0,
+        "MaxFacingCameraBlendDistance": 0,
+        "MinCameraDistance": 0,
+        "MaxCameraDistance": 1000,
+        "RendererVisibility": 0,
+        "PositionBinding": {
+          "rootName": "Position",
+          "paramMapVariable": {
+            "name": "Particles.Position",
+            "typeDefHandle": {
+              "registeredTypeIndex": 107
+            }
+          },
+          "dataSetName": "Position",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.Position",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "ColorBinding": {
+          "rootName": "Color",
+          "paramMapVariable": {
+            "name": "Particles.Color",
+            "typeDefHandle": {
+              "registeredTypeIndex": 106
+            }
+          },
+          "dataSetName": "Color",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.Color",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "VelocityBinding": {
+          "rootName": "Velocity",
+          "paramMapVariable": {
+            "name": "Particles.Velocity",
+            "typeDefHandle": {
+              "registeredTypeIndex": 104
+            }
+          },
+          "dataSetName": "Velocity",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.Velocity",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "SpriteRotationBinding": {
+          "rootName": "SpriteRotation",
+          "paramMapVariable": {
+            "name": "Particles.SpriteRotation",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "SpriteRotation",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SpriteRotation",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "SpriteSizeBinding": {
+          "rootName": "SpriteSize",
+          "paramMapVariable": {
+            "name": "Particles.SpriteSize",
+            "typeDefHandle": {
+              "registeredTypeIndex": 103
+            }
+          },
+          "dataSetName": "SpriteSize",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SpriteSize",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "SpriteFacingBinding": {
+          "rootName": "SpriteFacing",
+          "paramMapVariable": {
+            "name": "Particles.SpriteFacing",
+            "typeDefHandle": {
+              "registeredTypeIndex": 104
+            }
+          },
+          "dataSetName": "SpriteFacing",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SpriteFacing",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "SpriteAlignmentBinding": {
+          "rootName": "SpriteAlignment",
+          "paramMapVariable": {
+            "name": "Particles.SpriteAlignment",
+            "typeDefHandle": {
+              "registeredTypeIndex": 104
+            }
+          },
+          "dataSetName": "SpriteAlignment",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SpriteAlignment",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "SubImageIndexBinding": {
+          "rootName": "SubImageIndex",
+          "paramMapVariable": {
+            "name": "Particles.SubImageIndex",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "SubImageIndex",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SubImageIndex",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "DynamicMaterialBinding": {
+          "rootName": "DynamicMaterialParameter",
+          "paramMapVariable": {
+            "name": "Particles.DynamicMaterialParameter",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "dataSetName": "DynamicMaterialParameter",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.DynamicMaterialParameter",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "DynamicMaterial1Binding": {
+          "rootName": "DynamicMaterialParameter1",
+          "paramMapVariable": {
+            "name": "Particles.DynamicMaterialParameter1",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "dataSetName": "DynamicMaterialParameter1",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.DynamicMaterialParameter1",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "DynamicMaterial2Binding": {
+          "rootName": "DynamicMaterialParameter2",
+          "paramMapVariable": {
+            "name": "Particles.DynamicMaterialParameter2",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "dataSetName": "DynamicMaterialParameter2",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.DynamicMaterialParameter2",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "DynamicMaterial3Binding": {
+          "rootName": "DynamicMaterialParameter3",
+          "paramMapVariable": {
+            "name": "Particles.DynamicMaterialParameter3",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "dataSetName": "DynamicMaterialParameter3",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.DynamicMaterialParameter3",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "CameraOffsetBinding": {
+          "rootName": "CameraOffset",
+          "paramMapVariable": {
+            "name": "Particles.CameraOffset",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "CameraOffset",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.CameraOffset",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "UVScaleBinding": {
+          "rootName": "UVScale",
+          "paramMapVariable": {
+            "name": "Particles.UVScale",
+            "typeDefHandle": {
+              "registeredTypeIndex": 103
+            }
+          },
+          "dataSetName": "UVScale",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.UVScale",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "PivotOffsetBinding": {
+          "rootName": "PivotOffset",
+          "paramMapVariable": {
+            "name": "Particles.PivotOffset",
+            "typeDefHandle": {
+              "registeredTypeIndex": 103
+            }
+          },
+          "dataSetName": "PivotOffset",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.PivotOffset",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "MaterialRandomBinding": {
+          "rootName": "MaterialRandom",
+          "paramMapVariable": {
+            "name": "Particles.MaterialRandom",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "MaterialRandom",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.MaterialRandom",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "CustomSortingBinding": {
+          "rootName": "NormalizedAge",
+          "paramMapVariable": {
+            "name": "Particles.NormalizedAge",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "NormalizedAge",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.NormalizedAge",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "NormalizedAgeBinding": {
+          "rootName": "NormalizedAge",
+          "paramMapVariable": {
+            "name": "Particles.NormalizedAge",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "NormalizedAge",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.NormalizedAge",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "RendererVisibilityTagBinding": {
+          "rootName": "VisibilityTag",
+          "paramMapVariable": {
+            "name": "Particles.VisibilityTag",
+            "typeDefHandle": {
+              "registeredTypeIndex": 101
+            }
+          },
+          "dataSetName": "VisibilityTag",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.VisibilityTag",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "MaterialParameters": {
+          "attributeBindings": [],
+          "scalarParameters": [],
+          "vectorParameters": [],
+          "textureParameters": [],
+          "staticBoolParameters": []
+        },
+        "bUseMaterialCutoutTexture": false,
+        "bCutoutIgnoreSubUV": false,
+        "CutoutTexture": "None",
+        "BoundingMode": "BVC_EightVertices",
+        "OpacitySourceMode": "OSM_Alpha",
+        "AlphaThreshold": 0.10000000149011612,
+        "Platforms": {
+          "deviceProfileStates": [],
+          "cVarConditions": [],
+          "qualityLevelMask": -1
+        },
+        "SortOrderHint": 0,
+        "MotionVectorSetting": "AutoDetect",
+        "bIsEnabled": true,
+        "bAllowInCullProxies": true,
+        "RendererEnabledBinding": {
+          "rootName": "None",
+          "paramMapVariable": {
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 102
+            }
+          },
+          "dataSetName": "None",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "None",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        }
+      }
+    },
+    "Sparks": {
+      "data": {
+        "Name": "Sparks",
+        "bIsEnabled": true,
+        "Id": "0D46D89D-452B-2549-7FA8-83A2C959014A",
+        "IdName": "0D46D89D452B25497FA883A2C959014A",
+        "bLocalSpace": true,
+        "bDeterminism": false,
+        "RandomSeed": 0,
+        "InterpolatedSpawnMode": "Interpolation",
+        "SimTarget": "GPUComputeSim",
+        "Importance": "Normal",
+        "CalculateBoundsMode": "Fixed",
+        "FixedBounds": {
+          "min": {
+            "x": -115,
+            "y": -115,
+            "z": -15
+          },
+          "max": {
+            "x": 115,
+            "y": 115,
+            "z": 225
+          },
+          "isValid": true
+        },
+        "bRequiresPersistentIDs": false,
+        "Platforms": {
+          "deviceProfileStates": [],
+          "cVarConditions": [],
+          "qualityLevelMask": 31
+        },
+        "ScalabilityOverrides": {
+          "overrides": []
+        },
+        "MaxGPUParticlesSpawnPerFrame": 0,
+        "AllocationMode": "AutomaticEstimate",
+        "PreAllocationCount": 0,
+        "EmitterDependencies": [],
+        "AttributesToPreserve": [],
+        "AddEmitterDefaultViewState": "Default",
+        "SimStageExecutionLoopEditorData": []
+      },
+      "renderer": {
+        "Material": {
+          "refPath": "/Game/TorchFire/Material/M_Spark.M_Spark"
+        },
+        "MaterialUserParamBinding": {
+          "parameter": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 2
+            }
+          }
+        },
+        "SourceMode": "Particles",
+        "Alignment": "VelocityAligned",
+        "FacingMode": "FaceCamera",
+        "SortMode": "None",
+        "MacroUVRadius": 0,
+        "PivotInUVSpace": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "SubImageSize": {
+          "x": 1,
+          "y": 1
+        },
+        "bSubImageBlend": false,
+        "bRemoveHMDRollInVR": false,
+        "bSortOnlyWhenTranslucent": true,
+        "bEnableCameraDistanceCulling": false,
+        "bCastShadows": false,
+        "bIncludeInHitProxy": true,
+        "SortPrecision": "Default",
+        "GpuTranslucentLatency": "ProjectDefault",
+        "PixelCoverageMode": "Automatic",
+        "PixelCoverageBlend": 1,
+        "MinFacingCameraBlendDistance": 0,
+        "MaxFacingCameraBlendDistance": 0,
+        "MinCameraDistance": 0,
+        "MaxCameraDistance": 1000,
+        "RendererVisibility": 0,
+        "PositionBinding": {
+          "rootName": "Position",
+          "paramMapVariable": {
+            "name": "Particles.Position",
+            "typeDefHandle": {
+              "registeredTypeIndex": 107
+            }
+          },
+          "dataSetName": "Position",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.Position",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "ColorBinding": {
+          "rootName": "Color",
+          "paramMapVariable": {
+            "name": "Particles.Color",
+            "typeDefHandle": {
+              "registeredTypeIndex": 106
+            }
+          },
+          "dataSetName": "Color",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.Color",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "VelocityBinding": {
+          "rootName": "Velocity",
+          "paramMapVariable": {
+            "name": "Particles.Velocity",
+            "typeDefHandle": {
+              "registeredTypeIndex": 104
+            }
+          },
+          "dataSetName": "Velocity",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.Velocity",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "SpriteRotationBinding": {
+          "rootName": "SpriteRotation",
+          "paramMapVariable": {
+            "name": "Particles.SpriteRotation",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "SpriteRotation",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SpriteRotation",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "SpriteSizeBinding": {
+          "rootName": "SpriteSize",
+          "paramMapVariable": {
+            "name": "Particles.SpriteSize",
+            "typeDefHandle": {
+              "registeredTypeIndex": 103
+            }
+          },
+          "dataSetName": "SpriteSize",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SpriteSize",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "SpriteFacingBinding": {
+          "rootName": "SpriteFacing",
+          "paramMapVariable": {
+            "name": "Particles.SpriteFacing",
+            "typeDefHandle": {
+              "registeredTypeIndex": 104
+            }
+          },
+          "dataSetName": "SpriteFacing",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SpriteFacing",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "SpriteAlignmentBinding": {
+          "rootName": "SpriteAlignment",
+          "paramMapVariable": {
+            "name": "Particles.SpriteAlignment",
+            "typeDefHandle": {
+              "registeredTypeIndex": 104
+            }
+          },
+          "dataSetName": "SpriteAlignment",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SpriteAlignment",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "SubImageIndexBinding": {
+          "rootName": "SubImageIndex",
+          "paramMapVariable": {
+            "name": "Particles.SubImageIndex",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "SubImageIndex",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SubImageIndex",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "DynamicMaterialBinding": {
+          "rootName": "DynamicMaterialParameter",
+          "paramMapVariable": {
+            "name": "Particles.DynamicMaterialParameter",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "dataSetName": "DynamicMaterialParameter",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.DynamicMaterialParameter",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "DynamicMaterial1Binding": {
+          "rootName": "DynamicMaterialParameter1",
+          "paramMapVariable": {
+            "name": "Particles.DynamicMaterialParameter1",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "dataSetName": "DynamicMaterialParameter1",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.DynamicMaterialParameter1",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "DynamicMaterial2Binding": {
+          "rootName": "DynamicMaterialParameter2",
+          "paramMapVariable": {
+            "name": "Particles.DynamicMaterialParameter2",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "dataSetName": "DynamicMaterialParameter2",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.DynamicMaterialParameter2",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "DynamicMaterial3Binding": {
+          "rootName": "DynamicMaterialParameter3",
+          "paramMapVariable": {
+            "name": "Particles.DynamicMaterialParameter3",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "dataSetName": "DynamicMaterialParameter3",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.DynamicMaterialParameter3",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "CameraOffsetBinding": {
+          "rootName": "CameraOffset",
+          "paramMapVariable": {
+            "name": "Particles.CameraOffset",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "CameraOffset",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.CameraOffset",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "UVScaleBinding": {
+          "rootName": "UVScale",
+          "paramMapVariable": {
+            "name": "Particles.UVScale",
+            "typeDefHandle": {
+              "registeredTypeIndex": 103
+            }
+          },
+          "dataSetName": "UVScale",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.UVScale",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "PivotOffsetBinding": {
+          "rootName": "PivotOffset",
+          "paramMapVariable": {
+            "name": "Particles.PivotOffset",
+            "typeDefHandle": {
+              "registeredTypeIndex": 103
+            }
+          },
+          "dataSetName": "PivotOffset",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.PivotOffset",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "MaterialRandomBinding": {
+          "rootName": "MaterialRandom",
+          "paramMapVariable": {
+            "name": "Particles.MaterialRandom",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "MaterialRandom",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.MaterialRandom",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "CustomSortingBinding": {
+          "rootName": "NormalizedAge",
+          "paramMapVariable": {
+            "name": "Particles.NormalizedAge",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "NormalizedAge",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.NormalizedAge",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "NormalizedAgeBinding": {
+          "rootName": "NormalizedAge",
+          "paramMapVariable": {
+            "name": "Particles.NormalizedAge",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "NormalizedAge",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.NormalizedAge",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "RendererVisibilityTagBinding": {
+          "rootName": "VisibilityTag",
+          "paramMapVariable": {
+            "name": "Particles.VisibilityTag",
+            "typeDefHandle": {
+              "registeredTypeIndex": 101
+            }
+          },
+          "dataSetName": "VisibilityTag",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.VisibilityTag",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "MaterialParameters": {
+          "attributeBindings": [],
+          "scalarParameters": [],
+          "vectorParameters": [],
+          "textureParameters": [],
+          "staticBoolParameters": []
+        },
+        "bUseMaterialCutoutTexture": false,
+        "bCutoutIgnoreSubUV": false,
+        "CutoutTexture": "None",
+        "BoundingMode": "BVC_EightVertices",
+        "OpacitySourceMode": "OSM_Alpha",
+        "AlphaThreshold": 0.10000000149011612,
+        "Platforms": {
+          "deviceProfileStates": [],
+          "cVarConditions": [],
+          "qualityLevelMask": -1
+        },
+        "SortOrderHint": 0,
+        "MotionVectorSetting": "AutoDetect",
+        "bIsEnabled": true,
+        "bAllowInCullProxies": true,
+        "RendererEnabledBinding": {
+          "rootName": "None",
+          "paramMapVariable": {
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 102
+            }
+          },
+          "dataSetName": "None",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "None",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        }
+      }
+    },
+    "Smoke": {
+      "data": {
+        "Name": "Smoke",
+        "bIsEnabled": true,
+        "Id": "0912C2A3-4D57-EFE5-4FDE-8BAD938BB06E",
+        "IdName": "0912C2A34D57EFE54FDE8BAD938BB06E",
+        "bLocalSpace": true,
+        "bDeterminism": false,
+        "RandomSeed": 0,
+        "InterpolatedSpawnMode": "Interpolation",
+        "SimTarget": "GPUComputeSim",
+        "Importance": "Normal",
+        "CalculateBoundsMode": "Fixed",
+        "FixedBounds": {
+          "min": {
+            "x": -115,
+            "y": -115,
+            "z": -15
+          },
+          "max": {
+            "x": 115,
+            "y": 115,
+            "z": 225
+          },
+          "isValid": true
+        },
+        "bRequiresPersistentIDs": false,
+        "Platforms": {
+          "deviceProfileStates": [],
+          "cVarConditions": [],
+          "qualityLevelMask": 31
+        },
+        "ScalabilityOverrides": {
+          "overrides": []
+        },
+        "MaxGPUParticlesSpawnPerFrame": 0,
+        "AllocationMode": "AutomaticEstimate",
+        "PreAllocationCount": 0,
+        "EmitterDependencies": [],
+        "AttributesToPreserve": [],
+        "AddEmitterDefaultViewState": "Default",
+        "SimStageExecutionLoopEditorData": []
+      },
+      "renderer": {
+        "Material": {
+          "refPath": "/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchSmoke.M_CampfireTorchSmoke"
+        },
+        "MaterialUserParamBinding": {
+          "parameter": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 2
+            }
+          }
+        },
+        "SourceMode": "Particles",
+        "Alignment": "Unaligned",
+        "FacingMode": "FaceCamera",
+        "SortMode": "ViewDepth",
+        "MacroUVRadius": 0,
+        "PivotInUVSpace": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "SubImageSize": {
+          "x": 8,
+          "y": 8
+        },
+        "bSubImageBlend": false,
+        "bRemoveHMDRollInVR": false,
+        "bSortOnlyWhenTranslucent": true,
+        "bEnableCameraDistanceCulling": false,
+        "bCastShadows": false,
+        "bIncludeInHitProxy": true,
+        "SortPrecision": "Default",
+        "GpuTranslucentLatency": "ProjectDefault",
+        "PixelCoverageMode": "Automatic",
+        "PixelCoverageBlend": 1,
+        "MinFacingCameraBlendDistance": 0,
+        "MaxFacingCameraBlendDistance": 0,
+        "MinCameraDistance": 0,
+        "MaxCameraDistance": 1000,
+        "RendererVisibility": 0,
+        "PositionBinding": {
+          "rootName": "Position",
+          "paramMapVariable": {
+            "name": "Particles.Position",
+            "typeDefHandle": {
+              "registeredTypeIndex": 107
+            }
+          },
+          "dataSetName": "Position",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.Position",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "ColorBinding": {
+          "rootName": "Color",
+          "paramMapVariable": {
+            "name": "Particles.Color",
+            "typeDefHandle": {
+              "registeredTypeIndex": 106
+            }
+          },
+          "dataSetName": "Color",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.Color",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "VelocityBinding": {
+          "rootName": "Velocity",
+          "paramMapVariable": {
+            "name": "Particles.Velocity",
+            "typeDefHandle": {
+              "registeredTypeIndex": 104
+            }
+          },
+          "dataSetName": "Velocity",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.Velocity",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "SpriteRotationBinding": {
+          "rootName": "SpriteRotation",
+          "paramMapVariable": {
+            "name": "Particles.SpriteRotation",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "SpriteRotation",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SpriteRotation",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "SpriteSizeBinding": {
+          "rootName": "SpriteSize",
+          "paramMapVariable": {
+            "name": "Particles.SpriteSize",
+            "typeDefHandle": {
+              "registeredTypeIndex": 103
+            }
+          },
+          "dataSetName": "SpriteSize",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SpriteSize",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "SpriteFacingBinding": {
+          "rootName": "SpriteFacing",
+          "paramMapVariable": {
+            "name": "Particles.SpriteFacing",
+            "typeDefHandle": {
+              "registeredTypeIndex": 104
+            }
+          },
+          "dataSetName": "SpriteFacing",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SpriteFacing",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "SpriteAlignmentBinding": {
+          "rootName": "SpriteAlignment",
+          "paramMapVariable": {
+            "name": "Particles.SpriteAlignment",
+            "typeDefHandle": {
+              "registeredTypeIndex": 104
+            }
+          },
+          "dataSetName": "SpriteAlignment",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SpriteAlignment",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "SubImageIndexBinding": {
+          "rootName": "SubImageIndex",
+          "paramMapVariable": {
+            "name": "Particles.SubImageIndex",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "SubImageIndex",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.SubImageIndex",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "DynamicMaterialBinding": {
+          "rootName": "DynamicMaterialParameter",
+          "paramMapVariable": {
+            "name": "Particles.DynamicMaterialParameter",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "dataSetName": "DynamicMaterialParameter",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.DynamicMaterialParameter",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "DynamicMaterial1Binding": {
+          "rootName": "DynamicMaterialParameter1",
+          "paramMapVariable": {
+            "name": "Particles.DynamicMaterialParameter1",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "dataSetName": "DynamicMaterialParameter1",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.DynamicMaterialParameter1",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "DynamicMaterial2Binding": {
+          "rootName": "DynamicMaterialParameter2",
+          "paramMapVariable": {
+            "name": "Particles.DynamicMaterialParameter2",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "dataSetName": "DynamicMaterialParameter2",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.DynamicMaterialParameter2",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "DynamicMaterial3Binding": {
+          "rootName": "DynamicMaterialParameter3",
+          "paramMapVariable": {
+            "name": "Particles.DynamicMaterialParameter3",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "dataSetName": "DynamicMaterialParameter3",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.DynamicMaterialParameter3",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "CameraOffsetBinding": {
+          "rootName": "CameraOffset",
+          "paramMapVariable": {
+            "name": "Particles.CameraOffset",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "CameraOffset",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.CameraOffset",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "UVScaleBinding": {
+          "rootName": "UVScale",
+          "paramMapVariable": {
+            "name": "Particles.UVScale",
+            "typeDefHandle": {
+              "registeredTypeIndex": 103
+            }
+          },
+          "dataSetName": "UVScale",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.UVScale",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "PivotOffsetBinding": {
+          "rootName": "PivotOffset",
+          "paramMapVariable": {
+            "name": "Particles.PivotOffset",
+            "typeDefHandle": {
+              "registeredTypeIndex": 103
+            }
+          },
+          "dataSetName": "PivotOffset",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.PivotOffset",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "MaterialRandomBinding": {
+          "rootName": "MaterialRandom",
+          "paramMapVariable": {
+            "name": "Particles.MaterialRandom",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "MaterialRandom",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.MaterialRandom",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "CustomSortingBinding": {
+          "rootName": "NormalizedAge",
+          "paramMapVariable": {
+            "name": "Particles.NormalizedAge",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "NormalizedAge",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.NormalizedAge",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "NormalizedAgeBinding": {
+          "rootName": "NormalizedAge",
+          "paramMapVariable": {
+            "name": "Particles.NormalizedAge",
+            "typeDefHandle": {
+              "registeredTypeIndex": 99
+            }
+          },
+          "dataSetName": "NormalizedAge",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.NormalizedAge",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": true,
+          "bIsCachedParticleValue": true
+        },
+        "RendererVisibilityTagBinding": {
+          "rootName": "VisibilityTag",
+          "paramMapVariable": {
+            "name": "Particles.VisibilityTag",
+            "typeDefHandle": {
+              "registeredTypeIndex": 101
+            }
+          },
+          "dataSetName": "VisibilityTag",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "Particles.VisibilityTag",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        },
+        "MaterialParameters": {
+          "attributeBindings": [],
+          "scalarParameters": [],
+          "vectorParameters": [],
+          "textureParameters": [],
+          "staticBoolParameters": []
+        },
+        "bUseMaterialCutoutTexture": false,
+        "bCutoutIgnoreSubUV": false,
+        "CutoutTexture": "None",
+        "BoundingMode": "BVC_EightVertices",
+        "OpacitySourceMode": "OSM_Alpha",
+        "AlphaThreshold": 0.10000000149011612,
+        "Platforms": {
+          "deviceProfileStates": [],
+          "cVarConditions": [],
+          "qualityLevelMask": -1
+        },
+        "SortOrderHint": 0,
+        "MotionVectorSetting": "AutoDetect",
+        "bIsEnabled": true,
+        "bAllowInCullProxies": true,
+        "RendererEnabledBinding": {
+          "rootName": "None",
+          "paramMapVariable": {
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 102
+            }
+          },
+          "dataSetName": "None",
+          "boundVariable": {
+            "varData": [],
+            "name": "None",
+            "typeDefHandle": {
+              "registeredTypeIndex": 105
+            }
+          },
+          "cachedDisplayName": "None",
+          "bindingSourceMode": "ImplicitFromSource",
+          "bBindingExistsOnSource": false,
+          "bIsCachedParticleValue": true
+        }
+      }
+    }
+  }
+}

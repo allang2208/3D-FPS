@@ -1,0 +1,48 @@
+{
+  "system": "/Game/Building/Campfire20261013/TorchFire/NS_CampfireTorchFire.NS_CampfireTorchFire",
+  "material": "/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchFire.M_CampfireTorchFire",
+  "changes": [
+    {
+      "stage": "EmitterUpdateScript",
+      "module": "SpawnRate",
+      "input": "SpawnRate",
+      "readback": "(Value=16.000000)"
+    },
+    {
+      "stage": "ParticleUpdateScript",
+      "module": "ScaleColor",
+      "input": "Scale Alpha",
+      "readback": "(HlslExpression=\".95*smoothstep(0.0,.08,Particles.NormalizedAge)*(1.0-smoothstep(.65,1.0,Particles.NormalizedAge))\")"
+    },
+    {
+      "stage": "ParticleUpdateScript",
+      "module": "DynamicMaterialParameters",
+      "input": "Index 0 Param 1",
+      "readback": "(HlslExpression=\"1.15+.25*frac(float(Particles.UniqueID)*.41421356237)\")"
+    },
+    {
+      "stage": "ParticleUpdateScript",
+      "module": "DynamicMaterialParameters",
+      "input": "Index 0 Param 2",
+      "readback": "(HlslExpression=\".9+.4*smoothstep(.65,1.0,Particles.NormalizedAge)\")"
+    }
+  ],
+  "emissive_gain": 0.12,
+  "exposure_compensation": 1.0,
+  "depth_fade_cm": 4.0,
+  "sprite_size_cm": [
+    62,
+    76
+  ],
+  "birth_radius_cm": 14,
+  "fire_lifetime_s": [
+    1.1,
+    1.55
+  ],
+  "emitter_count": 3,
+  "particle_light_renderers": 0,
+  "estimated_upper_live_particles": 38,
+  "new_lights": 0,
+  "runtime_tested": false,
+  "visual_preview_performed": false
+}

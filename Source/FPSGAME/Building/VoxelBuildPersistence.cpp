@@ -1,4 +1,5 @@
 #include "VoxelBuildPersistence.h"
+#include "Misc/SecureHash.h"
 #include "VoxelBuildWorld.h"
 #include "Kismet/GameplayStatics.h"
 #include "Serialization/MemoryReader.h"
@@ -65,6 +66,20 @@ namespace
         else if(S.Version==8){ReadListV6(Ar,S.Smelting,ReadSmeltingJobV9);ReadListV6(Ar,S.Fuel,ReadFurnaceFuelV8);}
         else if(S.Version==9){ReadListV6(Ar,S.Smelting,ReadSmeltingJobV9);Ar<<S.Fuel;}
         else if(S.Version>=10){Ar<<S.Smelting;Ar<<S.Fuel;}
+        // Append identities, preserving every byte/layout of v1-v10 prefab records.
+        if(S.Version>=11)
+        {
+            TArray<FGuid> Identities;
+            if(Ar.IsSaving())for(const auto& P:S.Prefabs)Identities.Add(VoxelPersistence::StablePrefabId(P,S.WorldKey));
+            Ar<<Identities;
+            if(Identities.Num()!=S.Prefabs.Num()){Ar.SetError();return;}
+            TSet<FGuid> Seen;
+            for(int32 N=0;N<Identities.Num();++N)
+            {
+                if(!Identities[N].IsValid()||Seen.Contains(Identities[N])){Ar.SetError();return;}
+                Seen.Add(Identities[N]);S.Prefabs[N].InstanceId=Identities[N];
+            }
+        }
     }
     FString Path(const FString& Slot){return FPaths::ProjectSavedDir()/TEXT("SaveGames")/(Slot+TEXT(".sav"));}
     // 审计 C6：Write 在首次覆盖前保留的备份路径（原来只在 Write 内部拼一次字符串）。
@@ -164,12 +179,19 @@ UVoxelBuildSave* VoxelPersistence::LoadFromFile(const FString& FullPath,ELoadRes
     return LoadBytes(Bytes,OutResult,bAllowLegacy);
 }
 
-bool VoxelPersistence::Write(FString Slot,FVoxelDiskSnapshot Snapshot)
+UVoxelBuildSave* VoxelPersistence::Decode(TArray<uint8> Bytes)
+{ELoadResult Result;return LoadBytes(Bytes,Result,false);}
+bool VoxelPersistence::Encode(FVoxelDiskSnapshot Snapshot,TArray<uint8>& Bytes)
 {
-    TArray<uint8> Bytes;FMemoryWriter Writer(Bytes,true);uint32 Tag=Magic,Size=0,Crc=0;
+    Bytes.Reset();FMemoryWriter Writer(Bytes,true);uint32 Tag=Magic,Size=0,Crc=0;
     Writer<<Tag<<Size<<Crc;
     FNameAsStringProxyArchive Ar(Writer);Serialize(Ar,Snapshot);if(Ar.IsError())return false;
     Size=Bytes.Num()-12;Crc=FCrc::MemCrc32(Bytes.GetData()+12,Size);Writer.Seek(0);Writer<<Tag<<Size<<Crc;
+    return !Ar.IsError();
+}
+bool VoxelPersistence::Write(FString Slot,FVoxelDiskSnapshot Snapshot)
+{
+    TArray<uint8> Bytes;if(!Encode(Snapshot,Bytes))return false;
     auto& Files=IFileManager::Get();const FString Target=Path(Slot),Temporary=Target+TEXT(".pending");
     // 审计 C7：失败时清掉 .pending。原来初次写入失败会直接 return，把临时文件留在磁盘上；
     // 之后每次存档失败都会再留一个同名文件（同名覆盖，但残留本身会让"存档目录里有东西"
@@ -191,6 +213,17 @@ bool VoxelPersistence::Write(FString Slot,FVoxelDiskSnapshot Snapshot)
             *Old<<OldTag;Old.Reset();
             if(OldTag!=Magic&&Files.Copy(*Original,*Target,false,false)!=COPY_OK){Files.Delete(*Temporary,false);return false;}
         }
+    }
+    // Preserve the immediately preceding pre-v11 building file once before its normal save upgrade.
+    // Loading/migration alone never rewrites a real save.
+    const FString BeforeIdentity=Target+TEXT(".pre-incinerator-v11");
+    if(Snapshot.Version>=11&&Files.FileExists(*Target)&&!Files.FileExists(*BeforeIdentity))
+    {
+        TUniquePtr<FArchive> Old(Files.CreateFileReader(*Target));uint32 OldTag=0;int32 OldVersion=0;
+        if(!Old||Old->TotalSize()<16){Files.Delete(*Temporary,false);return false;}
+        *Old<<OldTag;Old->Seek(12);*Old<<OldVersion;Old.Reset();
+        if(OldTag==Magic&&OldVersion<11&&Files.Copy(*BeforeIdentity,*Target,false,false)!=COPY_OK)
+        {Files.Delete(*Temporary,false);return false;}
     }
     // FFileManagerGeneric::Move deletes the destination before renaming
     // (FileManagerGeneric.cpp:303 — `if(FileExists(Dest) && Replace && !DeleteFile(Dest))`),
@@ -214,4 +247,11 @@ bool VoxelPersistence::Write(FString Slot,FVoxelDiskSnapshot Snapshot)
     Files.Delete(*Temporary,false);
     return false;
 #endif
+}
+
+FGuid VoxelPersistence::StablePrefabId(const FVoxelBuildPrefabInstance& Piece,const FString& WorldKey)
+{
+    if(Piece.InstanceId.IsValid())return Piece.InstanceId;
+    const FString Seed=WorldKey+TEXT("|")+Piece.Id.ToString()+TEXT("|")+Piece.Cell.ToString();
+    FGuid Id;FGuid::ParseExact(FMD5::HashAnsiString(*Seed),EGuidFormats::Digits,Id);return Id;
 }

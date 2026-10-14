@@ -1,0 +1,92 @@
+{
+  "columns": 3,
+  "rows": 3,
+  "atlas_size": [
+    4096,
+    1024
+  ],
+  "author_tile_size": [
+    1024,
+    256
+  ],
+  "mask_channels": {
+    "R": "solid original glyph",
+    "G": "incandescent bevel",
+    "B": "flame anchor tongues",
+    "A": "soft glyph glow"
+  },
+  "titles": [
+    {
+      "index": 0,
+      "english": "HIGH CARD",
+      "multiplier": 1.0,
+      "tier": 0,
+      "column": 0,
+      "row": 0
+    },
+    {
+      "index": 1,
+      "english": "ONE PAIR",
+      "multiplier": 1.5,
+      "tier": 0,
+      "column": 1,
+      "row": 0
+    },
+    {
+      "index": 2,
+      "english": "TWO PAIR",
+      "multiplier": 1.75,
+      "tier": 0,
+      "column": 2,
+      "row": 0
+    },
+    {
+      "index": 3,
+      "english": "THREE OF A KIND",
+      "multiplier": 2.0,
+      "tier": 0,
+      "column": 0,
+      "row": 1
+    },
+    {
+      "index": 4,
+      "english": "STRAIGHT",
+      "multiplier": 2.5,
+      "tier": 0,
+      "column": 1,
+      "row": 1
+    },
+    {
+      "index": 5,
+      "english": "FLUSH",
+      "multiplier": 3.0,
+      "tier": 0,
+      "column": 2,
+      "row": 1
+    },
+    {
+      "index": 6,
+      "english": "FULL HOUSE",
+      "multiplier": 4.0,
+      "tier": 1,
+      "column": 0,
+      "row": 2
+    },
+    {
+      "index": 7,
+      "english": "FOUR OF A KIND",
+      "multiplier": 5.0,
+      "tier": 2,
+      "column": 1,
+      "row": 2
+    },
+    {
+      "index": 8,
+      "english": "STRAIGHT FLUSH",
+      "multiplier": 7.0,
+      "tier": 3,
+      "column": 2,
+      "row": 2
+    }
+  ]
+}

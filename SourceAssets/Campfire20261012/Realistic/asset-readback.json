@@ -1,0 +1,69 @@
+{
+  "system": "/Game/Building/Campfire20261012/Realistic/NS_CampfireRealisticFlame.NS_CampfireRealisticFlame",
+  "emitters": [
+    {
+      "name": "ShortNativeFlames",
+      "material": {
+        "refPath": "/Game/Building/Campfire20261012/Realistic/M_CampfireNative8x4.M_CampfireNative8x4"
+      },
+      "subimage_size": {
+        "x": 8,
+        "y": 4
+      },
+      "frame_blending": true
+    },
+    {
+      "name": "RollingNativeFlames",
+      "material": {
+        "refPath": "/Game/Building/Campfire20261012/Realistic/M_CampfireNative6x6.M_CampfireNative6x6"
+      },
+      "subimage_size": {
+        "x": 6,
+        "y": 6
+      },
+      "frame_blending": true
+    },
+    {
+      "name": "SparseNativeSmoke",
+      "material": {
+        "refPath": "/Game/Building/Campfire20261012/Realistic/M_CampfireNativeSmoke.M_CampfireNativeSmoke"
+      },
+      "subimage_size": {
+        "x": 8,
+        "y": 8
+      },
+      "frame_blending": true
+    }
+  ],
+  "materials": [
+    {
+      "path": "/Game/Building/Campfire20261012/Realistic/M_CampfireNative8x4.M_CampfireNative8x4",
+      "blend": "<BlendMode.BLEND_TRANSLUCENT: 2>",
+      "refraction": "<RefractionMode.RM_NONE: 3>",
+      "opacity_node": "MaterialExpressionDepthFade_1",
+      "textures": [
+        "/Game/Realistic_Starter_VFX_Pack_Vol2/Textures/T_Fire_D.T_Fire_D"
+      ]
+    },
+    {
+      "path": "/Game/Building/Campfire20261012/Realistic/M_CampfireNative6x6.M_CampfireNative6x6",
+      "blend": "<BlendMode.BLEND_TRANSLUCENT: 2>",
+      "refraction": "<RefractionMode.RM_NONE: 3>",
+      "opacity_node": "MaterialExpressionDepthFade_0",
+      "textures": [
+        "/Game/Realistic_Starter_VFX_Pack_Vol2/Textures/T_Fire_F.T_Fire_F",
+        "/Game/Realistic_Starter_VFX_Pack_Vol2/Textures/T_Fire_B.T_Fire_B"
+      ]
+    },
+    {
+      "path": "/Game/Building/Campfire20261012/Realistic/M_CampfireNativeSmoke.M_CampfireNativeSmoke",
+      "blend": "<BlendMode.BLEND_TRANSLUCENT: 2>",
+      "refraction": "<RefractionMode.RM_NONE: 3>",
+      "opacity_node": "MaterialExpressionDepthFade_1",
+      "textures": [
+        "/Game/Realistic_Starter_VFX_Pack_Vol2/Textures/T_Smoke_A.T_Smoke_A",
+        "/Game/Realistic_Starter_VFX_Pack_Vol2/Textures/T_Smoke_B.T_Smoke_B"
+      ]
+    }
+  ]
+}

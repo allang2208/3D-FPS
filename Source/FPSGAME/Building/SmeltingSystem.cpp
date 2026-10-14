@@ -1,4 +1,6 @@
 #include "SmeltingSystem.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
+#include "../Multiplayer/ColdSteelStationNetwork.h"
 #include "VoxelBuildWorld.h"
 #include "VoxelBuildPrefabActor.h"
 #include "VoxelBuildTypes.h"
@@ -130,6 +132,7 @@ void UColdSteelSmeltingSystem::Initialize(FSubsystemCollectionBase& Collection)
             Fuel.Capacity=FMath::Max(Capacity,Seconds);
         }
     }
+    LoadCampfireRecipes();
     UE_LOG(LogTemp,Display,TEXT("Smelting: loaded %d recipe(s) from smelting-recipes.json, fuel=%s %.1fs/unit cap %.1fs"),
         Recipes.Num(),*Fuel.Item,Fuel.SecondsPerUnit,Fuel.Capacity);
 }
@@ -141,7 +144,7 @@ const FColdSteelSmeltingRecipe* UColdSteelSmeltingSystem::Find(FName Id) const
 
 UColdSteelStatusModel* UColdSteelSmeltingSystem::Model() const
 {
-    return GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    return ColdSteelAuthority::Model(this);
 }
 
 double UColdSteelSmeltingSystem::SpeedMultiplier(int32 Level)
@@ -156,6 +159,7 @@ int64 UColdSteelSmeltingSystem::UpgradeCostFor(int32 Level)
 
 double UColdSteelSmeltingSystem::FurnaceCapacity(const AVoxelBuildWorld* World,FIntVector Cell) const
 {
+    if(World&&World->IsCampfireAt(Cell))return Fuel.Capacity;
     const int32 L=IsValid(World)?World->FurnaceUpgradeLevel(Cell,VoxelFurnaceAxisFuelCapacity):1;
     return Fuel.Capacity*L;   // 2026-09-24 数值调参：初始 10 分钟，每级 +10 分钟，Lv6＝60 分钟
 }
@@ -164,13 +168,15 @@ double UColdSteelSmeltingSystem::JobTotalSeconds(const AVoxelBuildWorld* World,c
     const FColdSteelSmeltingRecipe& R) const
 {
     // 批量与等级都只进分母/分子这一个口径：结算、进度条、剩余时间不会再各算各的。
-    const double Mul=IsValid(World)?SpeedMultiplier(World->FurnaceLevel(Job.Cell)):1.0;
+    const double Mul=IsValid(World)&&!World->IsCampfireAt(Job.Cell)?SpeedMultiplier(World->FurnaceLevel(Job.Cell)):1.0;
     return FMath::Max(.001,R.Seconds*FMath::Max<int64>(1,Job.BatchCount)/Mul);
 }
 
 bool UColdSteelSmeltingSystem::SettleFurnace(AVoxelBuildWorld* World,FIntVector Cell)
 {
+    if(!World||!World->HasAuthority())return false;
     if(!IsValid(World))return false;
+    if(World->IsCampfireAt(Cell))return SettleCampfire(World,Cell);
     FVoxelSmeltingJob* Job=World->FindSmeltingMutable(Cell);
     if(Job&&Job->bCasting)return SettleCasting(World,Cell);
     const FColdSteelSmeltingRecipe* R=Job?Find(Job->Recipe):nullptr;
@@ -286,14 +292,17 @@ double UColdSteelSmeltingSystem::RemainingSeconds(const AVoxelBuildWorld* World,
 
 bool UColdSteelSmeltingSystem::BeginSmelting(AVoxelBuildWorld* World,FIntVector Cell,FName Recipe,FString& Reason,int64 Batch)
 {
+    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("smelt.start"),Recipe,Batch,World,Cell);}
     if(!IsValid(World)){Reason=TEXT("建筑世界未就绪");return false;}
+    if(!CanUseCampfireTransaction(World,Cell,Reason))return false;
     const FColdSteelSmeltingRecipe* R=Find(Recipe);
     if(!R){Reason=TEXT("该配方不存在");return false;}
-    if(!World->IsFurnaceAt(Cell)){Reason=TEXT("目标不是已放置的冶炼高炉");return false;}
+    if(!World->IsFuelStationAt(Cell)||R->bCampfire!=World->IsCampfireAt(Cell))
+    {Reason=TEXT("该配方不适用于这座工作台");return false;}
     SettleFurnace(World,Cell);
     FIntVector Station;
     const auto* Existing=World->FindSmelting(Cell);
-    const bool bCasting=(Existing&&Existing->bCasting)||World->FindAvailableCastingStation(Cell,Station);
+    const bool bCasting=!World->IsCampfireAt(Cell)&&((Existing&&Existing->bCasting)||World->FindAvailableCastingStation(Cell,Station));
     if(Existing&&Existing->bCasting)
     {
         Station=Existing->StationCell;
@@ -302,16 +311,18 @@ bool UColdSteelSmeltingSystem::BeginSmelting(AVoxelBuildWorld* World,FIntVector 
             &&!World->FindAvailableCastingStation(Cell,Station))
         {Reason=TEXT("铸造台已移除，请在高炉旁重新放置；已有成品仍可领取");return false;}
     }
-    if(Existing&&!bCasting){Reason=TEXT("这座高炉正在冶炼；在旁边放置铸造台可开启连续队列");return false;}
+    if(Existing&&!bCasting){Reason=World->IsCampfireAt(Cell)?TEXT("篝火中已有菜品，请完成并领取后再放入")
+        :TEXT("这座高炉正在冶炼；在旁边放置铸造台可开启连续队列");return false;}
     if(bCasting&&Existing&&Existing->Queue.Num()>=CastingQueueCapacity)
     {Reason=TEXT("待冶炼队列已满（最多 8 项）");return false;}
     if(World->FuelAt(Cell)<=0.0){Reason=TEXT("炉内没有燃料，先添加燃料");return false;}
-    Batch=FMath::Clamp(Batch,1LL,FMath::Min<int64>(99,BatchCapFor(World->FurnaceUpgradeLevel(Cell,VoxelFurnaceAxisBatch))));   // 面板按持有量夹，这里按批量轴封顶兜底
-    auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    Batch=FMath::Clamp(Batch,1LL,FMath::Min<int64>(99,BatchCapFor(R->bCampfire?1:World->FurnaceUpgradeLevel(Cell,VoxelFurnaceAxisBatch))));
+    auto* Model=ColdSteelAuthority::Model(this);
     if(!Model){Reason=TEXT("角色数据未就绪");return false;}
     // 全有或全无：不足时 ConsumeItem 不扣任何东西并给出"缺少 N（背包+仓库共 M）"文案。
     const int64 Ore=R->InputCount*Batch;
-    if(Model->CreateItem(R->Input).Data.IsEmpty()){Reason=TEXT("物品目录缺少该材料");return false;}
+    if(Model->CreateItem(R->Input).Data.IsEmpty()||Model->CreateItem(R->Output).Data.IsEmpty())
+    {Reason=TEXT("物品目录缺少该配方的原料或成品");return false;}
     Model->SyncRuntime();auto P=Model->Snapshot();
     if(!Deduct(P,R->Input,Ore)){Reason=FString::Printf(TEXT("缺少 %lld 块（背包+仓库）"),Ore);return false;}
     if(bCasting)
@@ -367,14 +378,16 @@ bool UColdSteelSmeltingSystem::BeginSmelting(AVoxelBuildWorld* World,FIntVector 
 
 bool UColdSteelSmeltingSystem::AddFuel(AVoxelBuildWorld* World,FIntVector Cell,FString& Reason)
 {
+    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("smelt.fuel"),NAME_None,1,World,Cell);}
     if(!IsValid(World)){Reason=TEXT("建筑世界未就绪");return false;}
-    if(!World->IsFurnaceAt(Cell)){Reason=TEXT("目标不是已放置的冶炼高炉");return false;}
+    if(!CanUseCampfireTransaction(World,Cell,Reason))return false;
+    if(!World->IsFuelStationAt(Cell)){Reason=TEXT("目标不是已放置的燃料工作台");return false;}
     SettleFurnace(World,Cell);   // 先把挂钟落账，容量判定才准
     const double Stored=World->FuelAt(Cell);
     const double Cap=FurnaceCapacity(World,Cell);
     if(Stored+Fuel.SecondsPerUnit>Cap+1e-6)
     {Reason=FString::Printf(TEXT("燃料仓剩余不足（上限 %d 分钟）"),FMath::RoundToInt32(Cap/60.0));return false;}
-    auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    auto* Model=ColdSteelAuthority::Model(this);
     if(!Model){Reason=TEXT("角色数据未就绪");return false;}
     if(Model->CreateItem(Fuel.Item).Data.IsEmpty()){Reason=TEXT("物品目录缺少该材料");return false;}
     Model->SyncRuntime();auto P=Model->Snapshot();
@@ -384,6 +397,7 @@ bool UColdSteelSmeltingSystem::AddFuel(AVoxelBuildWorld* World,FIntVector Cell,F
     P.SmeltIntents.Add(Intent);
     if(!Model->CommitState(MoveTemp(P))){Reason=TEXT("保存失败，材料未扣除");return false;}
     World->SetFuel(Cell,Stored+Fuel.SecondsPerUnit);
+    if(World->IsCampfireAt(Cell))World->SetFurnaceFireTicks(Cell,NowTicks());
     if(!World->FlushPersistenceNow())
     {
         World->SetFuel(Cell,Stored);
@@ -397,7 +411,8 @@ bool UColdSteelSmeltingSystem::AddFuel(AVoxelBuildWorld* World,FIntVector Cell,F
 
 bool UColdSteelSmeltingSystem::CanAddFuel(const AVoxelBuildWorld* World,FIntVector Cell) const
 {
-    if(!IsValid(World)||!World->IsFurnaceAt(Cell))return false;
+    if(!IsValid(World)||!World->IsFuelStationAt(Cell))return false;
+    if(World->IsCampfireAt(Cell)&&World->GetNetMode()!=NM_Standalone)return false;
     if(World->FuelAt(Cell)+Fuel.SecondsPerUnit>FurnaceCapacity(World,Cell)+1e-6)return false;
     auto* Model=this->Model();
     return Model&&Model->CountMaterial(Fuel.Item)>=1;
@@ -405,7 +420,9 @@ bool UColdSteelSmeltingSystem::CanAddFuel(const AVoxelBuildWorld* World,FIntVect
 
 bool UColdSteelSmeltingSystem::CollectSmelting(AVoxelBuildWorld* World,FIntVector Cell,FString& Reason)
 {
+    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("smelt.collect"),NAME_None,1,World,Cell);}
     if(!IsValid(World)){Reason=TEXT("建筑世界未就绪");return false;}
+    if(!CanUseCampfireTransaction(World,Cell,Reason))return false;
     SettleFurnace(World,Cell);   // 取出前结算：挂钟能兑现的最后几秒不落空
     const FVoxelSmeltingJob* Job=World->FindSmelting(Cell);
     if(!Job){Reason=TEXT("炉内没有矿料");return false;}
@@ -447,7 +464,7 @@ bool UColdSteelSmeltingSystem::CollectSmelting(AVoxelBuildWorld* World,FIntVecto
     const FColdSteelSmeltingRecipe* R=Find(Job->Recipe);
     if(!R){Reason=TEXT("配方已下架，炉内矿料无法结算");return false;}
     if(!IsDone(World,Cell)){Reason=TEXT("冶炼尚未完成");return false;}
-    auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    auto* Model=ColdSteelAuthority::Model(this);
     if(!Model){Reason=TEXT("角色数据未就绪");return false;}
     const int64 OutCount=R->OutputCount*FMath::Max<int64>(1,Job->BatchCount);
     Model->SyncRuntime();auto P=Model->Snapshot();
@@ -465,11 +482,13 @@ bool UColdSteelSmeltingSystem::CollectSmelting(AVoxelBuildWorld* World,FIntVecto
 bool UColdSteelSmeltingSystem::RefundForTeardown(AVoxelBuildWorld* World,FIntVector Cell,FString& Reason)
 {
     if(!IsValid(World)){Reason=TEXT("建筑世界未就绪");return false;}
+    if(World->IsCampfireAt(Cell))return ExecuteCampfire(World,Cell,Model(),nullptr,3,NAME_None,1,Reason);
     SettleFurnace(World,Cell);
     const FVoxelSmeltingJob* Job=World->FindSmelting(Cell);
     const double Stored=World->FuelAt(Cell);
     if(!Job&&Stored<=0.0)return true;   // 炉内本就没有矿料和存料，拆除照常。
-    auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    if(!CanUseCampfireTransaction(World,Cell,Reason))return false;
+    auto* Model=ColdSteelAuthority::Model(this);
     if(!Model){Reason=TEXT("角色数据未就绪");return false;}
     const FColdSteelSmeltingRecipe* R=Job?Find(Job->Recipe):nullptr;
     // 存料按整件折回木材（不足一件的零头随炉损失——封顶整数件，口径与投入一致）。
@@ -506,12 +525,13 @@ bool UColdSteelSmeltingSystem::RefundForTeardown(AVoxelBuildWorld* World,FIntVec
 
 bool UColdSteelSmeltingSystem::UpgradeFurnace(AVoxelBuildWorld* World,FIntVector Cell,FString& Reason,int32 Axis)
 {
+    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("smelt.upgrade"),NAME_None,Axis,World,Cell);}
     if(!IsValid(World)){Reason=TEXT("建筑世界未就绪");return false;}
     if(!World->IsFurnaceAt(Cell)){Reason=TEXT("目标不是已放置的冶炼高炉");return false;}
     const int32 Level=World->FurnaceUpgradeLevel(Cell,Axis);
     if(Level>=VoxelFurnaceAxisMax(Axis)){Reason=TEXT("这座高炉已满级");return false;}
     const int64 Cost=UpgradeCostFor(Level);
-    auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    auto* Model=ColdSteelAuthority::Model(this);
     if(!Model){Reason=TEXT("角色数据未就绪");return false;}
     if(Model->CreateItem(TEXT("ironIngot")).Data.IsEmpty()){Reason=TEXT("物品目录缺少该材料");return false;}
     Model->SyncRuntime();auto P=Model->Snapshot();

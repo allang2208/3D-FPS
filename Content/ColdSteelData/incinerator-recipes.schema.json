@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cold Steel incinerator rules",
+  "type": "object",
+  "required": ["version", "allowUnconfiguredDestruction", "recipes"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "version": {"const": 1},
+    "allowUnconfiguredDestruction": {"type": "boolean", "description": "Whether explicit confirmation may destroy inputs with no configured recipe and no reward."},
+    "recipes": {"type": "array", "maxItems": 10000, "items": {
+      "type": "object", "required": ["input", "inputCount", "outputs"], "additionalProperties": false,
+      "properties": {
+        "input": {"type": "string", "minLength": 1},
+        "inputCount": {"type": "integer", "minimum": 1, "maximum": 9007199254740991},
+        "outputs": {"type": "array", "maxItems": 256, "items": {
+          "type": "object", "required": ["item", "count"], "additionalProperties": false,
+          "properties": {"item": {"type": "string", "minLength": 1}, "count": {"type": "integer", "minimum": 1, "maximum": 9007199254740991}}
+        }}
+      }
+    }}
+  },
+  "additionalProperties": false
+}

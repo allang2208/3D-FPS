@@ -6,6 +6,8 @@
 
 class AVoxelBuildWorld;
 class UColdSteelStatusModel;
+class AColdSteelPlayerState;
+struct FCampfireSharedState;
 struct FVoxelSmeltingJob;
 
 /** One ore→ingot recipe from Content/ColdSteelData/smelting-recipes.json.
@@ -18,6 +20,7 @@ struct FColdSteelSmeltingRecipe
     FString Output;
     int64 OutputCount=1;
     double Seconds=8.0;
+    bool bCampfire=false;
 };
 
 /** 燃料配置（smelting-recipes.json 顶层 "fuel" 对象）：一件燃料折算的燃烧秒数与炉内上限。
@@ -93,7 +96,17 @@ public:
     bool SettleCasting(AVoxelBuildWorld* World,FIntVector Cell);
     /** True when an existing casting session or a nearby unclaimed station can accept a queue. */
     bool HasCastingStation(const AVoxelBuildWorld* World,FIntVector Cell) const;
+    // Campfire-only server transactions; no guest call may resolve the host's inventory implicitly.
+    bool ExecuteCampfire(AVoxelBuildWorld* World,FIntVector Cell,UColdSteelStatusModel* Operator,
+        AColdSteelPlayerState* Guest,uint8 Action,FName Recipe,int64 Batch,FString& Reason);
+    void RecoverCampfireJournal(AVoxelBuildWorld* World);
+    bool IsCampfireSaveBlocked(const AVoxelBuildWorld* World) const;
+    FCampfireSharedState CampfireState(const AVoxelBuildWorld* World,FIntVector Cell) const;
 private:
+    TSet<TWeakObjectPtr<AVoxelBuildWorld>> CampfireBlockedWorlds;
+    void LoadCampfireRecipes();
+    bool SettleCampfire(AVoxelBuildWorld* World,FIntVector Cell);
+    bool CanUseCampfireTransaction(const AVoxelBuildWorld* World,FIntVector Cell,FString& Reason) const;
     /** 实时进度秒数（不写档）：已积累 + 当前段 min(挂钟,配方剩余,存料)。无任务/无配方返回 -1。 */
     double LiveProgress(const AVoxelBuildWorld* World,FIntVector Cell,const FColdSteelSmeltingRecipe*& OutRecipe) const;
     UColdSteelStatusModel* Model() const;

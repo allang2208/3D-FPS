@@ -1,0 +1,220 @@
+{
+  "asset": "/Game/Building/Campfire20261013/TorchFire/NS_CampfireTorchFire",
+  "system_fixed_bounds": {
+    "min": {
+      "x": -115,
+      "y": -115,
+      "z": -15
+    },
+    "max": {
+      "x": 115,
+      "y": 115,
+      "z": 225
+    },
+    "isValid": true
+  },
+  "system_fixed_bounds_enabled": true,
+  "emitters": {
+    "Fire": {
+      "local_space": true,
+      "bounds": {
+        "min": {
+          "x": -115,
+          "y": -115,
+          "z": -15
+        },
+        "max": {
+          "x": 115,
+          "y": 115,
+          "z": 225
+        },
+        "isValid": true
+      },
+      "renderers": [
+        "<Object '/Script/Niagara.NiagaraSpriteRendererProperties' (0x000002727FE40C80) Class 'Class'>"
+      ],
+      "material": {
+        "refPath": "/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchFire.M_CampfireTorchFire"
+      },
+      "sub_image_size": {
+        "x": 8,
+        "y": 8
+      },
+      "rate": "(Value=12.000000)",
+      "assignments": {
+        "ParticleSpawnScript": {
+          "Particles.Position": "(HlslExpression=\"float3(cos((6.2831853*frac(float(Particles.UniqueID)*.61803398875)))*(14.0*sqrt(frac(float(Particles.UniqueID)*.41421356237))),sin((6.2831853*frac(float(Particles.UniqueID)*.61803398875)))*(14.0*sqrt(frac(float(Particles.UniqueID)*.41421356237))),(lerp(62.0,76.0,frac(float(Particles.UniqueID)*.41421356237)))*.5)\")",
+          "Particles.Lifetime": "(HlslExpression=\"lerp(1.1,1.55,frac(float(Particles.UniqueID)*.61803398875))\")",
+          "Particles.SpriteSize": "(HlslExpression=\"float2(lerp(62.0,76.0,frac(float(Particles.UniqueID)*.41421356237)),lerp(62.0,76.0,frac(float(Particles.UniqueID)*.41421356237)))\")",
+          "Particles.Velocity": "(HlslExpression=\"float3(0,0,lerp(10,16,frac(float(Particles.UniqueID)*.61803398875)))\")"
+        }
+      }
+    },
+    "Sparks": {
+      "local_space": true,
+      "bounds": {
+        "min": {
+          "x": -115,
+          "y": -115,
+          "z": -15
+        },
+        "max": {
+          "x": 115,
+          "y": 115,
+          "z": 225
+        },
+        "isValid": true
+      },
+      "renderers": [
+        "<Object '/Script/Niagara.NiagaraSpriteRendererProperties' (0x000002727FE40C80) Class 'Class'>"
+      ],
+      "material": {
+        "refPath": "/Game/TorchFire/Material/M_Spark.M_Spark"
+      },
+      "sub_image_size": {
+        "x": 1,
+        "y": 1
+      },
+      "rate": "(Value=2.500000)",
+      "assignments": {
+        "ParticleSpawnScript": {
+          "Particles.Position": "(HlslExpression=\"float3(cos((6.2831853*frac(float(Particles.UniqueID)*.61803398875)))*(18.0*sqrt(frac(float(Particles.UniqueID)*.41421356237))),sin((6.2831853*frac(float(Particles.UniqueID)*.61803398875)))*(18.0*sqrt(frac(float(Particles.UniqueID)*.41421356237))),10)\")",
+          "Particles.Lifetime": "(HlslExpression=\"lerp(1.1,1.7,frac(float(Particles.UniqueID)*.61803398875))\")",
+          "Particles.SpriteSize": "(HlslExpression=\"float2(lerp(1.1,1.8,frac(float(Particles.UniqueID)*.41421356237)),lerp(1.1,1.8,frac(float(Particles.UniqueID)*.41421356237)))\")",
+          "Particles.Velocity": "(HlslExpression=\"float3(cos((6.2831853*frac(float(Particles.UniqueID)*.61803398875)))*5,sin((6.2831853*frac(float(Particles.UniqueID)*.61803398875)))*5,lerp(35,52,frac(float(Particles.UniqueID)*.61803398875)))\")"
+        }
+      }
+    },
+    "Smoke": {
+      "local_space": true,
+      "bounds": {
+        "min": {
+          "x": -115,
+          "y": -115,
+          "z": -15
+        },
+        "max": {
+          "x": 115,
+          "y": 115,
+          "z": 225
+        },
+        "isValid": true
+      },
+      "renderers": [
+        "<Object '/Script/Niagara.NiagaraSpriteRendererProperties' (0x000002727FE40C80) Class 'Class'>"
+      ],
+      "material": {
+        "refPath": "/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchSmoke.M_CampfireTorchSmoke"
+      },
+      "sub_image_size": {
+        "x": 8,
+        "y": 8
+      },
+      "rate": "(Value=1.400000)",
+      "assignments": {
+        "ParticleSpawnScript": {
+          "Particles.Position": "(HlslExpression=\"float3(cos((6.2831853*frac(float(Particles.UniqueID)*.61803398875)))*(12.0*sqrt(frac(float(Particles.UniqueID)*.41421356237))),sin((6.2831853*frac(float(Particles.UniqueID)*.61803398875)))*(12.0*sqrt(frac(float(Particles.UniqueID)*.41421356237))),45)\")",
+          "Particles.Lifetime": "(HlslExpression=\"lerp(2.3,3.0,frac(float(Particles.UniqueID)*.61803398875))\")",
+          "Particles.SpriteSize": "(HlslExpression=\"float2(lerp(35.0,45.0,frac(float(Particles.UniqueID)*.41421356237)),lerp(35.0,45.0,frac(float(Particles.UniqueID)*.41421356237)))\")",
+          "Particles.Velocity": "(HlslExpression=\"float3(0,0,22)\")"
+        },
+        "ParticleUpdateScript": {
+          "Particles.SpriteSize": "(HlslExpression=\"min(Particles.SpriteSize,float2(72,72))\")"
+        }
+      }
+    }
+  },
+  "materials": [
+    {
+      "asset": "/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchFire.M_CampfireTorchFire",
+      "contact_fade_cm": 4.0
+    },
+    {
+      "asset": "/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchSmoke.M_CampfireTorchSmoke",
+      "contact_fade_cm": 8.0
+    }
+  ],
+  "loaded_from_disk": true,
+  "niagara_valid": true,
+  "runtime_tested": false,
+  "visual_preview_performed": false,
+  "gpu_shader_or_render_validation": false,
+  "all_game_dependencies_exist": true,
+  "dependencies": {
+    "/Game/Building/Campfire20261013/TorchFire/NS_CampfireTorchFire": [
+      "/Script/DataHierarchyEditor",
+      "/Script/Niagara",
+      "/Script/NiagaraEditor",
+      "/Niagara/Enums/ENiagaraRandomnessMode",
+      "/Niagara/Modules/System/SystemState",
+      "/Game/TorchFire/Material/M_Spark",
+      "/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchFire",
+      "/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchSmoke",
+      "/Niagara/DynamicInputs/Multiply/Multiply_Float",
+      "/Niagara/DynamicInputs/Multiply/Multiply_Vector2D_ByFloat",
+      "/Niagara/DynamicInputs/UniformRange/V2/RandomRangeFloat",
+      "/Niagara/DynamicInputs/ValueFromCurve/FloatFromCurve",
+      "/Niagara/Enums/ENiagara_ColorInitializationMode",
+      "/Niagara/Enums/ENiagara_EmitterStateOptions",
+      "/Niagara/Enums/ENiagara_InfiniteLoopDuration",
+      "/Niagara/Enums/ENiagara_LifetimeMode",
+      "/Niagara/Enums/ENiagara_MassInitializationMode",
+      "/Niagara/Enums/ENiagara_PositionInitializationMode",
+      "/Niagara/Enums/ENiagara_SizeScaleMode",
+      "/Niagara/Enums/ENiagara_SpriteRotationMode",
+      "/Niagara/Enums/ENiagara_SubUVLookupModeV2",
+      "/Niagara/Enums/ENiagara_UVFlippingMode",
+      "/Niagara/Enums/ENiagara_WrapClamp",
+      "/Niagara/Enums/ENiagaraChannelCorrelation",
+      "/Niagara/Enums/ENiagaraCurlNoiseQuality",
+      "/Niagara/Enums/ENiagaraEmitterLifeCycleMode",
+      "/Niagara/Enums/ENiagaraEmitterScalabilityMode_Limited",
+      "/Niagara/Enums/ENiagaraInactiveMode",
+      "/Niagara/Enums/ENiagaraMeshOrSprite",
+      "/Niagara/Enums/ENiagaraRandomnessEvaluation",
+      "/Niagara/Enums/ENiagaraScaleColorMode",
+      "/Niagara/Enums/ENiagaraSystemInactiveMode",
+      "/Niagara/Enums/Ribbons/ENiagara_UnsetDirectSet",
+      "/Niagara/Enums/Ribbons/ENiagara_UnsetDirectSetRandom",
+      "/Niagara/Enums/SpriteRenderer/ENiagara_AutomaticManual",
+      "/Niagara/Enums/SpriteRenderer/ENiagara_FPSPlayrate",
+      "/Niagara/Enums/SpriteRenderer/ENiagara_ScaleSpriteSize",
+      "/Niagara/Modules/Emitter/EmitterState",
+      "/Niagara/Modules/Emitter/SpawnRate",
+      "/Niagara/Modules/Solvers/SolveForcesAndVelocity",
+      "/Niagara/Modules/Spawn/Initialization/V2/InitializeParticle",
+      "/Niagara/Modules/Update/Color/ScaleColor",
+      "/Niagara/Modules/Update/Forces/AccelerationForce",
+      "/Niagara/Modules/Update/Forces/Drag",
+      "/Niagara/Modules/Update/Forces/V2/CurlNoiseForce",
+      "/Niagara/Modules/Update/Lifetime/ParticleState",
+      "/Niagara/Modules/Update/Material/DynamicMaterialParameters",
+      "/Niagara/Modules/Update/Size/ScaleSpriteSize",
+      "/Niagara/Modules/Update/SubUV/V2/SubUVAnimation",
+      "/Niagara/ParameterDefinitions/CoreParameters",
+      "/Niagara/ParameterDefinitions/LightRenderer",
+      "/Niagara/ParameterDefinitions/RibbonRenderer",
+      "/Niagara/ParameterDefinitions/SpriteRenderer",
+      "/Niagara/VectorFields/Assets/TilingCurl16"
+    ],
+    "/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchSmoke": [
+      "/Game/TorchFire/Texture/T_Smoke_A",
+      "/Game/TorchFire/Texture/T_Smoke_B"
+    ],
+    "/Game/TorchFire/Texture/T_Smoke_B": [],
+    "/Game/TorchFire/Texture/T_Smoke_A": [],
+    "/Game/Building/Campfire20261013/TorchFire/M_CampfireTorchFire": [
+      "/Game/TorchFire/Texture/T_TorchFire"
+    ],
+    "/Game/TorchFire/Texture/T_TorchFire": [
+      "/Script/InterchangeCore",
+      "/Script/InterchangeEngine",
+      "/Script/InterchangeFactoryNodes",
+      "/Script/InterchangePipelines"
+    ],
+    "/Game/TorchFire/Material/M_Spark": [
+      "/Game/TorchFire/Texture/T_Spark"
+    ],
+    "/Game/TorchFire/Texture/T_Spark": []
+  }
+}

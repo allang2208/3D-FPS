@@ -1,0 +1,14 @@
+{
+  "isolated_commandlet_exit": 0,
+  "asset_save_called": false,
+  "game_or_render_run": false,
+  "temporary_host_removed": true,
+  "source_candidate_sha256_unchanged": {
+    "/Game/NiagaraExamples/FX_Misc/NS_Fire": true,
+    "/Game/Vefects/Free_Fire/Shared/Particles/NS_Fire_Medium": true,
+    "/Game/Vefects/Free_Fire/Shared/Particles/NS_Fire_Small": true,
+    "/Game/MilitaryTrench/Particles/P_Fire": true,
+    "/Game/EasyBuildingSystem/Effects/PS_CampFire": true,
+    "/Game/_SplineVFX/NS/NS_Spline_Fire": true
+  }
+}

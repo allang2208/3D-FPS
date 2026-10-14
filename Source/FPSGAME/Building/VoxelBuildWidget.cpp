@@ -609,8 +609,8 @@ void UVoxelBuildWidget::AddGridCard(UWrapBox* Grid,const FVoxelBuildPanelCard& E
     if(ShortCaption.FindChar(TEXT('（'),DetailStart)&&DetailStart>0)ShortCaption.LeftInline(DetailStart);
     ShortCaption.ReplaceInline(TEXT("\r"),TEXT(" "));ShortCaption.ReplaceInline(TEXT("\n"),TEXT(" "));
     auto* Label=Text(ShortCaption.TrimStartAndEnd(),14);Label->SetJustification(ETextJustify::Center);
-    // Explicit full-width wrapping avoids AutoWrap's narrow desired size under a centered slot.
-    Label->SetAutoWrapText(false);Label->SetWrapTextAt(GridNameWidth/Scale);
+    // Keep build-card captions horizontal; the full name remains available in the tooltip.
+    Label->SetAutoWrapText(false);Label->SetWrapTextAt(0);Label->SetTextOverflowPolicy(ETextOverflowPolicy::Ellipsis);Label->SetToolTipText(FText::FromString(Entry.Caption));
     auto* LabelBox=WidgetTree->ConstructWidget<USizeBox>();
     LabelBox->SetWidthOverride(GridNameWidth/Scale);LabelBox->SetMinDesiredHeight(44/Scale);LabelBox->SetContent(Label);
     if(auto* ContentSlot=Cast<USizeBoxSlot>(Label->Slot))

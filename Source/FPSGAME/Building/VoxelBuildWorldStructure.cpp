@@ -249,7 +249,19 @@ void AVoxelBuildWorld::TickStructure()
         if(Count>=512&&FPlatformTime::Seconds()-Start>.001)break;   // 帧预算：下一帧接着收
     }
     if(Runtime->GatherRead<Runtime->GatherQueue.Num())return;
-    Runtime->JobKeys=MoveTemp(Runtime->GatherSeen);Runtime->DirtySupport.Reset();Runtime->GatherQueue.Reset();
+    // 2026-10-13 审计修复（高危#1）：边界节点此前只进 Gather.Boundary 计数、从不进求解图——
+    // Solve 里两处 Input.Boundary.Contains(Key) 因此恒 false（图内节点都在 GatherSeen 里，
+    // 而 Boundary 只收 GatherSeen 不含的键，两集合互斥）。局部圈内没有贴地格时整圈被误判
+    // Detached：高建筑顶部拆一格可塌掉整段 24-hop 邻域。现在把边界节点按快照补进 Nodes，
+    // 它们在 Solve 里当固定支撑端参与连通与地键；不进 GatherSeen（不是求解对象），但并入
+    // JobKeys/JobEpoch，让解算飞行中边界格被编辑时同样触发陈旧重解。
+    for(const auto& Key:Runtime->Gather.Boundary)
+        if(const auto* Node=SupportGraph->Nodes.Find(Key);Node&&!Runtime->PendingCells.Contains(Key))
+            Runtime->Gather.Nodes.Add(*Node);
+    Runtime->JobKeys=MoveTemp(Runtime->GatherSeen);
+    for(const auto& Key:Runtime->Gather.Boundary)
+        if(!Runtime->JobKeys.Contains(Key))Runtime->JobKeys.Add(Key);
+    Runtime->DirtySupport.Reset();Runtime->GatherQueue.Reset();
     Runtime->JobEpoch.Reset();for(const auto& Key:Runtime->JobKeys)Runtime->JobEpoch.Add(Key,Runtime->NodeEpoch.FindRef(Key));
     // 求解观测：节点数/边界数现在就记，耗时在结果回来时补上。
     Runtime->LastSolveNodes=Runtime->Gather.Nodes.Num();

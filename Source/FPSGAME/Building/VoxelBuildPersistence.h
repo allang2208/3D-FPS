@@ -6,7 +6,7 @@ class UVoxelBuildSave;
 /** 建筑存档格式版本单一源（2026-09-24 修）：写侧默认值与世界层读取闸门的上界共用它。
  *  历史教训：v8/v9 加字段时只动了序列化器，VoxelBuildWorld 闸门还写死 `>7`，
  *  结果新档读回一律被误判“版本不兼容”。升版本必须只改这里＋序列化分支。 */
-inline constexpr int32 GVoxelBuildSaveVersion=10;
+inline constexpr int32 GVoxelBuildSaveVersion=11;
 
 /** Plain payload, safe to encode and write on a worker. */
 struct FVoxelDiskSnapshot
@@ -61,7 +61,10 @@ namespace VoxelPersistence
     /** 从**完整文件路径**读取（审计 C6：备份文件不在槽位命名规则内，不能走 Load）。 */
     UVoxelBuildSave* LoadFromFile(const FString& FullPath,ELoadResult& OutResult,bool bAllowLegacy=true);
     FVoxelDiskSnapshot Take(UVoxelBuildSave* Source);
+    FGuid StablePrefabId(const FVoxelBuildPrefabInstance& Piece,const FString& WorldKey);
     bool Write(FString Slot,FVoxelDiskSnapshot Snapshot);
+    bool Encode(FVoxelDiskSnapshot Snapshot,TArray<uint8>& Bytes);
+    UVoxelBuildSave* Decode(TArray<uint8> Bytes);
     /** 审计 C6：`.pre-structure` 备份路径（Write 会在首次写入前保留一份）。 */
     FString PreStructurePath(const FString& Slot);
 }

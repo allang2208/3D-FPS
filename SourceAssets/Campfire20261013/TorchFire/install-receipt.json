@@ -1,0 +1,20 @@
+{
+  "installed_at_utc": "2026-10-13T03:05:37.328377+00:00",
+  "asset": "Content/Building/Campfire20261013/TorchFire/NS_CampfireTorchFire.uasset",
+  "asset_sha256": "24f9767c36a9b9524859443f46f52d34c6f03ed9648a6ad4d9923be7b6be638c",
+  "source": "Source/FPSGAME/Building/ColdSteelCampfire.cpp",
+  "source_sha256": "8dc4bf179a639ea5f3cb54b90117e4f4a65cba5a2d06881af5a0eef87c952ce8",
+  "source_before_sha256": "403fcedafe6ed72dcdf51066d8e706d19a9e37615e2cd810eb2f376e65d3a50d",
+  "old_reference": "/Game/Building/Campfire20261012/Realistic/NS_CampfireRealisticFlame.NS_CampfireRealisticFlame",
+  "new_reference": "/Game/Building/Campfire20261013/TorchFire/NS_CampfireTorchFire.NS_CampfireTorchFire",
+  "vendor_and_previous_assets_unchanged": true,
+  "editor_build": "Failed (OtherCompilationError)",
+  "game_build": "not_run_editor_build_blocked",
+  "game_or_pie_started": false,
+  "visual_preview_performed": false,
+  "installed_assets": {
+    "Content/Building/Campfire20261013/TorchFire/M_CampfireTorchFire.uasset": "8aa4ee6136f2194e8f6006dff2e5c1dcdb881dd21816a67147478db643ccbda2",
+    "Content/Building/Campfire20261013/TorchFire/M_CampfireTorchSmoke.uasset": "4748941944904c386f5574991fc00c4ffb72d181d7b046121afe4da9674f05db",
+    "Content/Building/Campfire20261013/TorchFire/NS_CampfireTorchFire.uasset": "24f9767c36a9b9524859443f46f52d34c6f03ed9648a6ad4d9923be7b6be638c"
+  }
+}

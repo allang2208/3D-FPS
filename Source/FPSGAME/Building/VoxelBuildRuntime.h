@@ -28,6 +28,10 @@ struct FVoxelPendingFragment
     TArray<FVoxelPreparedFragment> Prepared;
     TArray<TWeakObjectPtr<AVoxelCollapseFragment>> Spawned;
     int32 NextSpawn=0;
+    /** 2026-10-13 联机审计 B2：客户端等复制实例时的连续落空次数。快照里的残骸可能已被
+     *  服务端销毁（回收/替换），复制实例永不到达——超过上限直接走收尾丢弃这份几何，
+     *  否则每帧空转重试、worker 白算一次拆分。服务端路径 SpawnActor 失败同样计数。 */
+    int32 SpawnRetries=0;
     bool bPrepared=false;
 };
 struct FVoxelActivation
@@ -69,6 +73,7 @@ struct FVoxelBuildRuntime
     TMap<FVoxelBuildKey,uint64> MeshRevisions,AppliedRevisions;
     TArray<FVoxelMeshJob> MeshJobs;
     TMap<FGuid,TSharedPtr<FVoxelPendingFragment>> PendingFragments;
+    TMap<FGuid,double> RecycleRetryAt;
     TArray<FVoxelActivation> Activation;
     TArray<FVoxelDamageRequest> DamageQueue;
     TMap<FName,FVoxelExternalLoad> Loads;
@@ -84,6 +89,8 @@ struct FVoxelBuildRuntime
     FVoxelBondStress WorstBond,FailureBond;
     bool bSaveDirty=false,bSaveFailed=false,bStressApproximate=false;
     double SaveAt=0,StructureAt=0,LoadSampleAt=0,MotionSaveAt=0;
+    // World time must not survive this world or leak into another PIE instance.
+    double LastSaveStartedSeconds=0;
     /** 上次结算过载损伤的时间；过载期间以固定步长持续累积。 */
     double OverloadAt=0;
     int32 AwakeBodies=0,AwakeShapes=0;

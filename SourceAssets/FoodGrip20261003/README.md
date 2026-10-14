@@ -1,5 +1,12 @@
 # Food grasp revision
 
+The baguette profile was superseded on 2026-10-06 by
+`SourceAssets/Consume20261006/fit_baguette.py`, using the current saved UE mesh
+and the whole sampled V7 palm/finger surface. Use that fitter and
+`Tools/PlayerBody/publish_consume20261006.py` for future baguette changes;
+rerunning the original `author_grips.py` alone restores the rejected grasp.
+See `SourceAssets/Consume20261006/README.md` for the independent body motions.
+
 Ordinary bread and baguette have separate V7 native hand contact profiles in
 `grip_profiles.json`. `author_grips.py` authors the bounded four-finger wrap and
 opposing thumb against their saved Quixel meshes and the accepted V7 skin.

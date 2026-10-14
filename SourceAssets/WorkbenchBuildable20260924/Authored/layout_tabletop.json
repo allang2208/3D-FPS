@@ -1,0 +1,496 @@
+{
+  "revision": "layout-20261004",
+  "support_z_cm": 93.9,
+  "components": [
+    {
+      "name": "SM_WBK_Bench_BenchTop",
+      "min_cm": [
+        -259.0,
+        -259.0,
+        87.7009
+      ],
+      "max_cm": [
+        -17.178,
+        0.0,
+        93.8749
+      ],
+      "moved": false
+    },
+    {
+      "name": "SM_WBK_Sculpt_BenchFrame",
+      "min_cm": [
+        -258.2961,
+        -257.996,
+        0.1
+      ],
+      "max_cm": [
+        -17.7044,
+        -1.0044,
+        87.698
+      ],
+      "moved": false
+    },
+    {
+      "name": "SM_WBK_Fab_BenchRetained",
+      "min_cm": [
+        -254.3001,
+        -253.925,
+        93.85
+      ],
+      "max_cm": [
+        -23.0795,
+        -7.5795,
+        117.4222
+      ],
+      "moved": false
+    },
+    {
+      "name": "SM_WBK_Bench_TaskLamp",
+      "min_cm": [
+        -85.5666,
+        -93.6593,
+        93.9
+      ],
+      "max_cm": [
+        -19.8767,
+        -57.8851,
+        157.5489
+      ],
+      "moved": false
+    },
+    {
+      "name": "SM_WBK_LampFlex",
+      "min_cm": [
+        -76.385,
+        -77.8958,
+        95.2308
+      ],
+      "max_cm": [
+        -19.1295,
+        -64.4144,
+        159.028
+      ],
+      "moved": false
+    },
+    {
+      "name": "SM_WBK_Sculpt_Rag",
+      "min_cm": [
+        -93.9579,
+        -94.0307,
+        76.1778
+      ],
+      "max_cm": [
+        -57.0095,
+        -59.5571,
+        95.2704
+      ],
+      "moved": false
+    },
+    {
+      "name": "SM_WBK_Fab_Bench_Wrench",
+      "min_cm": [
+        -41.1714,
+        -118.0217,
+        93.92
+      ],
+      "max_cm": [
+        -30.8286,
+        -93.9783,
+        96.3793
+      ],
+      "moved": true
+    },
+    {
+      "name": "SM_WBK_Fab_Bench_Screwdriver",
+      "min_cm": [
+        -93.1475,
+        -254.2749,
+        93.92
+      ],
+      "max_cm": [
+        -80.8525,
+        -227.7251,
+        96.3383
+      ],
+      "moved": true
+    },
+    {
+      "name": "SM_WBK_Fab_Bench_Pliers",
+      "min_cm": [
+        -83.2368,
+        -188.4083,
+        93.92
+      ],
+      "max_cm": [
+        -72.7632,
+        -171.5917,
+        95.9949
+      ],
+      "moved": true
+    },
+    {
+      "name": "SM_WBK_Fab_Bench_Chisel",
+      "min_cm": [
+        -67.5194,
+        -186.2063,
+        93.92
+      ],
+      "max_cm": [
+        -40.4806,
+        -179.7937,
+        97.3835
+      ],
+      "moved": true
+    },
+    {
+      "name": "SM_WBK_Bottle_OilCan",
+      "min_cm": [
+        -116.3817,
+        -253.1798,
+        93.92
+      ],
+      "max_cm": [
+        -106.82,
+        -244.82,
+        118.9873
+      ],
+      "moved": false
+    },
+    {
+      "name": "SM_WBK_Bottle_Degreaser",
+      "min_cm": [
+        -128.126,
+        -253.12,
+        93.92
+      ],
+      "max_cm": [
+        -119.874,
+        -244.8682,
+        115.02
+      ],
+      "moved": false
+    },
+    {
+      "name": "SM_WBK_Fab_Wall_Hammer",
+      "min_cm": [
+        -46.6934,
+        -233.1842,
+        93.92
+      ],
+      "max_cm": [
+        -29.3066,
+        -200.8158,
+        97.5381
+      ],
+      "moved": true
+    },
+    {
+      "name": "SM_WBK_Fab_Wall_Adjustable_Wrench",
+      "min_cm": [
+        -70.0035,
+        -229.9731,
+        93.92
+      ],
+      "max_cm": [
+        -61.9965,
+        -200.027,
+        95.6604
+      ],
+      "moved": true
+    },
+    {
+      "name": "SM_WBK_Fab_Wall_Hand_Saw",
+      "min_cm": [
+        -227.2599,
+        -205.2531,
+        93.92
+      ],
+      "max_cm": [
+        -156.7401,
+        -192.7469,
+        97.3635
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_blueprint_a",
+      "min_cm": [
+        -88.0,
+        -167.0,
+        93.92
+      ],
+      "max_cm": [
+        -26.0,
+        -123.0,
+        94.04
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_blueprint_b",
+      "min_cm": [
+        -80.8581,
+        -29.7674,
+        93.92
+      ],
+      "max_cm": [
+        -49.1419,
+        -6.2326,
+        94.04
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_scroll_1",
+      "min_cm": [
+        -30.2,
+        -46.0,
+        93.92
+      ],
+      "max_cm": [
+        -25.8,
+        -16.0,
+        98.2097
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_scroll_2",
+      "min_cm": [
+        -37.9,
+        -46.0,
+        93.92
+      ],
+      "max_cm": [
+        -34.1,
+        -20.0,
+        97.6247
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_book_1",
+      "min_cm": [
+        -85.5833,
+        -118.7443,
+        94.0
+      ],
+      "max_cm": [
+        -58.4167,
+        -97.2557,
+        98.2
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_book_2",
+      "min_cm": [
+        -82.1657,
+        -118.8537,
+        98.3
+      ],
+      "max_cm": [
+        -57.8343,
+        -101.1464,
+        101.9
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_book_3",
+      "min_cm": [
+        -86.7907,
+        -116.2414,
+        102.0
+      ],
+      "max_cm": [
+        -61.2093,
+        -95.7586,
+        106.0
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_openbook",
+      "min_cm": [
+        -141.7501,
+        -234.7504,
+        93.92
+      ],
+      "max_cm": [
+        -104.2499,
+        -207.2496,
+        97.6903
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_pencil",
+      "min_cm": [
+        -84.38,
+        -156.8,
+        94.06
+      ],
+      "max_cm": [
+        -83.62,
+        -139.2,
+        94.7182
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_tray",
+      "min_cm": [
+        -75.0,
+        -256.0,
+        93.92
+      ],
+      "max_cm": [
+        -57.0,
+        -238.0,
+        95.52
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_nail_0",
+      "min_cm": [
+        -72.09,
+        -250.42,
+        95.54
+      ],
+      "max_cm": [
+        -68.91,
+        -249.58,
+        96.38
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_nail_1",
+      "min_cm": [
+        -67.79,
+        -250.42,
+        95.54
+      ],
+      "max_cm": [
+        -64.61,
+        -249.58,
+        96.38
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_nail_2",
+      "min_cm": [
+        -63.49,
+        -250.42,
+        95.54
+      ],
+      "max_cm": [
+        -60.31,
+        -249.58,
+        96.38
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_nail_3",
+      "min_cm": [
+        -72.09,
+        -247.42,
+        95.54
+      ],
+      "max_cm": [
+        -68.91,
+        -246.58,
+        96.38
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_nail_4",
+      "min_cm": [
+        -67.79,
+        -247.42,
+        95.54
+      ],
+      "max_cm": [
+        -64.61,
+        -246.58,
+        96.38
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_nail_5",
+      "min_cm": [
+        -63.49,
+        -247.42,
+        95.54
+      ],
+      "max_cm": [
+        -60.31,
+        -246.58,
+        96.38
+      ],
+      "moved": true
+    },
+    {
+      "name": "clutter_nail_6",
+      "min_cm": [
+        -67.59,
+        -243.62,
+        95.54
+      ],
+      "max_cm": [
+        -64.41,
+        -242.78,
+        96.38
+      ],
+      "moved": true
+    },
+    {
+      "name": "detail_vernier_caliper",
+      "min_cm": [
+        -47.7939,
+        -86.875,
+        93.92
+      ],
+      "max_cm": [
+        -40.2061,
+        -59.125,
+        94.97
+      ],
+      "moved": false
+    },
+    {
+      "name": "detail_try_square",
+      "min_cm": [
+        -238.275,
+        -253.8,
+        93.92
+      ],
+      "max_cm": [
+        -219.725,
+        -242.2,
+        95.165
+      ],
+      "moved": false
+    },
+    {
+      "name": "detail_hand_file",
+      "min_cm": [
+        -149.4996,
+        -238.7774,
+        93.92
+      ],
+      "max_cm": [
+        -146.5004,
+        -207.2226,
+        96.9175
+      ],
+      "moved": false
+    }
+  ]
+}

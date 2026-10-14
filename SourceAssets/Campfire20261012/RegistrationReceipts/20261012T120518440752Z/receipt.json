@@ -1,0 +1,33 @@
+{
+  "utc": "20261012T120518440752Z",
+  "palette": "/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette",
+  "added_id": "campfire",
+  "display_name": "篝火",
+  "menu": "B → 其他 → 篝火",
+  "actor_class": "/Script/FPSGAME.ColdSteelCampfire",
+  "mesh": "/Game/EasyBuildingSystem/Meshes/Props/Stylized/SM_Stylized_Campfire.SM_Stylized_Campfire",
+  "flame": "/Game/Props/RomanColumn20260915/NS_TorchFlame.NS_TorchFlame",
+  "radius_cm": 500,
+  "natural_consumption_multiplier": 0.5,
+  "dimensions_cm": [
+    86.40464782714844,
+    88.99840545654297,
+    39.489925384521484
+  ],
+  "footprint_cells": [
+    5,
+    5,
+    2
+  ],
+  "simple_collision_count": 0,
+  "convex_collision_count": 1,
+  "original_entry_count": 37,
+  "saved_entry_count": 38,
+  "before_sha256": "d081a6f2c377185d565d012a41dc1d98a93cc904c122b0126ed1f35bceb1f436",
+  "after_sha256": "aa407c2c76f2950ff14d2093087805718775368f236fc55b26bb94f1724982ae",
+  "mode": "offline_commandlet",
+  "saved": true,
+  "maps_saved": false,
+  "gameplay_tested": false,
+  "new_models": false
+}

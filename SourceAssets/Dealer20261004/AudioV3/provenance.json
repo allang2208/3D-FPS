@@ -1,0 +1,48 @@
+{
+  "complete": true,
+  "created_utc": "2026-10-04T08:08:24.925418+00:00",
+  "source_title": "Demonic Laugh",
+  "author": "scorpion67890",
+  "sound_id": 169317,
+  "source_page": "https://freesound.org/people/scorpion67890/sounds/169317/",
+  "source_audio": "https://cdn.freesound.org/previews/169/169317_2389125-hq.mp3",
+  "license": "CC0-1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "acquisition": "Public HQ MP3 preview; the original WAV download requires a Freesound login.",
+  "source_description": "Author recorded their own laugh and lowered its pitch.",
+  "source_page_sha256": "f51b69631faee394f28e9851e9b193b90532a57f0db6d6ff013f0dd1fc12b93b",
+  "license_page_sha256": "abb4d48fc8b85de52b377dd105532c6c549f515d492a8e1712bc99e7316a1f12",
+  "source_sha256": "1ac359f7dde20b4cce0da488883b51fc702df9a03c503f483b32de39a35b4972",
+  "source_file": "Original\\169317_2389125-hq.mp3",
+  "output": "Masters\\S_Dealer_DemonLaugh.wav",
+  "output_sha256": "7fa94ea7683e59a5799acd13aca0623e2f2033288dfd23d387d7884015822e9b",
+  "output_rate_hz": 48000,
+  "output_channels": 1,
+  "output_bits": 16,
+  "duration_seconds": 1.4288125,
+  "trim_lead_seconds": 0.0,
+  "processing": {
+    "highpass_hz": 40,
+    "lowpass_hz": 9000,
+    "peak_target_dbfs": -3,
+    "gain": 0.5161730790182061,
+    "fade_in_seconds": 0.003,
+    "fade_out_seconds": 0.06
+  },
+  "runtime_tiers": {
+    "4": {
+      "volume": 0.65,
+      "pitch": 1.0
+    },
+    "5": {
+      "volume": 0.75,
+      "pitch": 0.96
+    },
+    "7": {
+      "volume": 0.85,
+      "pitch": 0.9
+    }
+  },
+  "listened": false,
+  "gameplay_tested": false
+}

@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "complete": true,
+  "saved_assets": [
+    "/Game/Weapons/Dealer20261004/InfernalV2/Textures/T_DealerInfernalMasks.T_DealerInfernalMasks",
+    "/Game/Weapons/Dealer20261004/InfernalV2/Materials/M_DealerInfernalTitle.M_DealerInfernalTitle",
+    "/Game/Weapons/Dealer20261004/InfernalV2/Materials/M_DealerInfernalBurst.M_DealerInfernalBurst",
+    "/Game/Weapons/Dealer20261004/Meshes/SM_DealerResult.SM_DealerResult"
+  ],
+  "runtime_tested": false,
+  "rendered": false,
+  "title_grid": [
+    3,
+    3
+  ],
+  "high_results": [
+    "FULL HOUSE",
+    "FOUR OF A KIND",
+    "STRAIGHT FLUSH"
+  ]
+}

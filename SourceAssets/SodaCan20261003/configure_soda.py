@@ -14,7 +14,7 @@ for key, cost in (('bread',10),('baguette_bread',30)):
 items['soda_can'] = {
     'id':'soda_can', 'name':'罐装汽水', 'category':'consumable', 'type':'饮料',
     'desc':'铝罐密封的碳酸饮料，轻便包装适合随身携带。饮用后补充水分，清甜口感让紧绷的精神稍作放松；一罐饮用后即消耗。',
-    'rarity':'common', 'level':1, 'price':25,
+    'rarity':'uncommon', 'level':1, 'price':25,
     'grid_w':1, 'grid_h':1, 'stack':1, 'stack_max':1, 'maxStack':1, 'maxUses':1,
     'useEffect':{'hydration':20,'sanity':10}, 'useCooldown':0, 'useDuration':2.0,
     'stats':[{'name':'恢复水分','value':'+20'}, {'name':'恢复 SAN','value':'+10'}, {'name':'饮用方式','value':'单次使用'}],

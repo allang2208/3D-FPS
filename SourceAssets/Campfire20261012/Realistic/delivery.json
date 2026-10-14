@@ -1,0 +1,108 @@
+{
+  "system": "/Game/Building/Campfire20261012/Realistic/NS_CampfireRealisticFlame.NS_CampfireRealisticFlame",
+  "assets": [
+    "/Game/Building/Campfire20261012/Realistic/M_CampfireNative8x4.M_CampfireNative8x4",
+    "/Game/Building/Campfire20261012/Realistic/M_CampfireNative6x6.M_CampfireNative6x6",
+    "/Game/Building/Campfire20261012/Realistic/M_CampfireNativeSmoke.M_CampfireNativeSmoke",
+    "/Game/Building/Campfire20261012/Realistic/NS_CampfireRealisticFlame.NS_CampfireRealisticFlame"
+  ],
+  "source_cascade": "/Game/Realistic_Starter_VFX_Pack_Vol2/Particles/Fire/P_Fire_Small",
+  "source_parameters": "../local-fire-cascade-profiles.json",
+  "layers": [
+    {
+      "name": "ShortNativeFlames",
+      "material": "M_CampfireNative8x4",
+      "source": "/Game/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Fire_B",
+      "cols": 8,
+      "rows": 4,
+      "rate": 7.0,
+      "life_min": 0.85,
+      "life_max": 1.15,
+      "width_min": 23.0,
+      "width_max": 31.0,
+      "height_min": 44.0,
+      "height_max": 60.0,
+      "alpha": 0.82,
+      "smoke": false
+    },
+    {
+      "name": "RollingNativeFlames",
+      "material": "M_CampfireNative6x6",
+      "source": "/Game/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Fire_C",
+      "cols": 6,
+      "rows": 6,
+      "rate": 6.0,
+      "life_min": 1.0,
+      "life_max": 1.35,
+      "width_min": 24.0,
+      "width_max": 34.0,
+      "height_min": 49.0,
+      "height_max": 68.0,
+      "alpha": 0.62,
+      "smoke": false
+    },
+    {
+      "name": "SparseNativeSmoke",
+      "material": "M_CampfireNativeSmoke",
+      "source": "/Game/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_C",
+      "cols": 8,
+      "rows": 8,
+      "rate": 1.2,
+      "life_min": 1.9,
+      "life_max": 2.6,
+      "width_min": 32.0,
+      "width_max": 42.0,
+      "height_min": 37.0,
+      "height_max": 46.0,
+      "alpha": 0.075,
+      "smoke": true
+    }
+  ],
+  "upper_live_particles_estimate": 25,
+  "shared_source_and_rejected_assets_unchanged": true,
+  "protected_sha256": {
+    "/Game/Realistic_Starter_VFX_Pack_Vol2/Particles/Fire/P_Fire_Small": "293211d804b287bba3b7b96e002edafa34eb747cfe9a72b07dab885a248ed5f2",
+    "/Game/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Fire_B": "a8731c788235d43e284a85d8cf3ffe370ac1c59d15bef121b5ae13f8b90f6a67",
+    "/Game/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Fire_C": "45290c5a98ac6920ffec9ec8db8408436dc86e82ebafa30d74f4370fe034e051",
+    "/Game/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_C": "258732aede7c1f395101233b1ab3b654ce81202902d5dfea47c5c4b305ce48c5",
+    "/Game/Building/Campfire20261012/NS_CampfireFlame": "cb22423088e70c08d0ad119144e6d4199eb5840dd67d31d3fc1b21e79cd4cab1",
+    "/Game/Building/Campfire20261012/M_CampfireDenseFlame": "768033e06f320e351ab518bd0800d60393d7fc57e5c5244b9d25a8d6efc82ec4",
+    "/Game/Building/Campfire20261012/M_CampfireTongues": "58cc2a089bc238d389f5464c267dffe9611375dc0e74635f2281032e655ff2f4"
+  },
+  "particle_lights": 0,
+  "heat_distortion_emitters": 0,
+  "sparks": 0,
+  "runtime_budget_preserved": "8 visible systems; 30m enter/35m leave; existing parent 350lm no-shadow light",
+  "component_anchor_contract_cm": {
+    "existing_parent_z": 20,
+    "new_sprite_bottom_at_birth_relative_z": 6
+  },
+  "niagara_compiled": true,
+  "assets_saved": true,
+  "runtime_tested": false,
+  "visual_tested": false,
+  "author_commandlet_exit_code": 0,
+  "author_log": "Saved/Campfire20261012/author-realistic-cmd.log",
+  "asset_files": [
+    {
+      "path": "Content/Building/Campfire20261012/Realistic/M_CampfireNative6x6.uasset",
+      "bytes": 15602,
+      "sha256": "6555e96197809aba210bb6e10db0d3ce79556d44a784f26a6893823f75ec35bb"
+    },
+    {
+      "path": "Content/Building/Campfire20261012/Realistic/M_CampfireNative8x4.uasset",
+      "bytes": 9194,
+      "sha256": "cde7003c24cdefc849510df69b1664f4426b3a0d333616d9b458b44efea2638c"
+    },
+    {
+      "path": "Content/Building/Campfire20261012/Realistic/M_CampfireNativeSmoke.uasset",
+      "bytes": 10368,
+      "sha256": "187ce120d962469395b586d830cc9523ad81df61d02ced1ee16e764035d71ddb"
+    },
+    {
+      "path": "Content/Building/Campfire20261012/Realistic/NS_CampfireRealisticFlame.uasset",
+      "bytes": 1528032,
+      "sha256": "abf6b71c36991ff0f26798d7cbaff8d8c00badd56ea3962849e9795224687448"
+    }
+  ]
+}

@@ -1,8 +1,11 @@
 #include "ColdSteelDoor.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "ColdSteelSlidingDoor.h"
 #include "ColdSteelRevolvingDoor.h"
 #include "ColdSteelWindow.h"
 #include "Components/SceneComponent.h"
+#include "Components/BoxComponent.h"
+#include "../Monsters/MonsterCombatComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/OverlapResult.h"
 #include "Engine/World.h"
@@ -83,6 +86,37 @@ void AColdSteelDoor::BeginPlay()
     AlignGeometry();
     if(!HasAuthority())OnRep_Swing();
     LogGeometryOnce();
+    if (HasAuthority() && bMonsterAccess)
+    {
+        MonsterAccessZone=NewObject<UBoxComponent>(this,TEXT("MedicalMonsterDoorAccess"));
+        MonsterAccessZone->SetupAttachment(GetRootComponent());
+        MonsterAccessZone->SetRelativeLocation(FVector(0,0,LeafExtentCm.Z));
+        MonsterAccessZone->SetBoxExtent(FVector(180,LeafExtentCm.Y+60,LeafExtentCm.Z+35));
+        MonsterAccessZone->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+        MonsterAccessZone->SetCollisionResponseToAllChannels(ECR_Ignore);
+        MonsterAccessZone->SetCollisionResponseToChannel(ECC_Pawn,ECR_Overlap);
+        MonsterAccessZone->SetCanEverAffectNavigation(false);
+        MonsterAccessZone->SetGenerateOverlapEvents(true);
+        MonsterAccessZone->OnComponentBeginOverlap.AddDynamic(this,&AColdSteelDoor::MonsterContact);
+        MonsterAccessZone->RegisterComponent();
+    }
+}
+
+void AColdSteelDoor::MonsterContact(UPrimitiveComponent*,AActor* OtherActor,UPrimitiveComponent*,int32,bool,const FHitResult&)
+{
+    if (!HasAuthority() || !bMonsterAccess) return;
+    const auto* Pawn=Cast<APawn>(OtherActor);
+    const auto* Combat=Pawn ? Pawn->FindComponentByClass<UMonsterCombatComponent>() : nullptr;
+    if (Combat && !Combat->IsDead()) OpenDoorFrom(Pawn);
+}
+
+bool AColdSteelDoor::HasLivingMonsterAtDoor() const
+{
+    if (!MonsterAccessZone) return false;
+    TArray<AActor*> Actors; MonsterAccessZone->GetOverlappingActors(Actors,APawn::StaticClass());
+    for (const AActor* Actor:Actors)
+        if (const auto* Combat=Actor->FindComponentByClass<UMonsterCombatComponent>(); Combat && !Combat->IsDead()) return true;
+    return false;
 }
 
 void AColdSteelDoor::Configure(UMaterialInterface* Surface)
@@ -257,7 +291,7 @@ void AColdSteelDoor::ToggleDoor()
 
 void AColdSteelDoor::ToggleDoorFrom(const APawn* InstigatorPawn)
 {
-    if(!HasAuthority())return;
+    if(GetNetMode()==NM_Client||!HasAuthority())return;
     if(bOpen)CloseDoor();else OpenDoorFrom(InstigatorPawn);
 }
 
@@ -284,7 +318,7 @@ void AColdSteelDoor::OpenDoor()
 
 bool AColdSteelDoor::OpenDoorFrom(const APawn* InstigatorPawn)
 {
-    if(!HasAuthority()||bOpen)return bOpen;
+    if(GetNetMode()==NM_Client||!HasAuthority()||bOpen)return bOpen;
     // 默认方向由玩家决定：门朝玩家的**反侧**开（等于玩家把门推开），而不是固定方向。
     // 只有在拿不到玩家位置时才退回配置方向 OpenAngleDegrees 的符号。
     float Preferred=(OpenAngleDegrees>=0.f)?1.f:-1.f;
@@ -321,7 +355,7 @@ bool AColdSteelDoor::OpenDoorFrom(const APawn* InstigatorPawn)
 
 void AColdSteelDoor::CloseDoor()
 {
-    if(!HasAuthority()||!bOpen)return;
+    if(GetNetMode()==NM_Client||!HasAuthority()||!bOpen)return;
     bOpen=false;
     TargetAngle=0.f;
     AutoCloseRemaining=0.f;
@@ -332,13 +366,17 @@ void AColdSteelDoor::CloseDoor()
 void AColdSteelDoor::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
-    if(!HasAuthority())CurrentAngle=NetSwing.Angle(GetWorld());
+    if(GetNetMode()==NM_Client)CurrentAngle=NetSwing.Angle(GetWorld());
     ApplyAngle(DeltaSeconds);
     UpdateLeafPawnCollision();
-    if(HasAuthority()&&bOpen&&AutoCloseSeconds>0.f&&FMath::IsNearlyEqual(CurrentAngle,TargetAngle,.5f))
+    if(GetNetMode()!=NM_Client&&HasAuthority()&&bOpen&&AutoCloseSeconds>0.f&&FMath::IsNearlyEqual(CurrentAngle,TargetAngle,.5f))
     {
         AutoCloseRemaining-=DeltaSeconds;
-        if(AutoCloseRemaining<=0.f)CloseDoor();
+        if(AutoCloseRemaining<=0.f)
+        {
+            if(bMonsterAccess && HasLivingMonsterAtDoor())AutoCloseRemaining=1.f;
+            else CloseDoor();
+        }
     }
 }
 
@@ -353,7 +391,7 @@ void AColdSteelDoor::ApplyAngle(float DeltaSeconds)
         return;
     }
     const float Step=FMath::Max(1.f,OpenSeconds>KINDA_SMALL_NUMBER?OpenAngleDegrees/OpenSeconds:180.f);
-    CurrentAngle=FMath::FInterpConstantTo(CurrentAngle,TargetAngle,HasAuthority()?DeltaSeconds:0.f,Step);
+    CurrentAngle=FMath::FInterpConstantTo(CurrentAngle,TargetAngle,GetNetMode()!=NM_Client&&HasAuthority()?DeltaSeconds:0.f,Step);
     Hinge->SetRelativeRotation(FRotator(0.f,CurrentAngle,0.f));
 }
 
@@ -368,10 +406,23 @@ void AColdSteelDoor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 void AColdSteelDoor::PublishSwing()
 {
+    if(GetNetMode()==NM_Client)return;
     NetSwing.bOpen=bOpen;NetSwing.From=CurrentAngle;NetSwing.To=TargetAngle;
     NetSwing.Direction=OpenDirection;NetSwing.StartedAt=FColdSteelDoorNetState::Now(GetWorld());
     NetSwing.Speed=FMath::Max(1.f,OpenSeconds>KINDA_SMALL_NUMBER?FMath::Abs(OpenAngleDegrees)/OpenSeconds:180.f);
     UpdateLeafPawnCollision();ForceNetUpdate();
+    if(GetNetMode()!=NM_Client&&!GetIsReplicated())
+        for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+            if(auto* PC=It->Get();PC&&!PC->IsLocalController())
+                if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGeneratedDoorSwing(GetName(),NetSwing);
+}
+
+void AColdSteelDoor::ApplyNetworkSwing(const FColdSteelDoorNetState& State,bool bSound)
+{
+    if(GetNetMode()!=NM_Client||State.StartedAt<NetSwing.StartedAt)return;
+    const bool Changed=State.StartedAt!=NetSwing.StartedAt||State.To!=NetSwing.To;
+    NetSwing=State;OnRep_Swing();
+    if(bSound&&Changed)MulticastDoorSound_Implementation(State.bOpen);
 }
 
 void AColdSteelDoor::OnRep_Swing()

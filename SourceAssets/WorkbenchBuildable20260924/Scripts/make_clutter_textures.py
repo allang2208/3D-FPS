@@ -12,74 +12,10 @@ OUT.mkdir(parents=True, exist_ok=True)
 rng = random.Random(21921)
 
 
-def blueprint_sheet(size=1024):
-    img = Image.new('RGB', (size, size), (13, 43, 74))
-    d = ImageDraw.Draw(img)
-    # subtle fibre noise
-    noise = Image.effect_noise((size, size), 14).convert('L')
-    img = Image.composite(Image.blend(img, Image.new('RGB', (size, size), (30, 60, 90)), 0.25), img, noise.point(lambda p: p // 6))
-    d = ImageDraw.Draw(img)
-    line = (205, 225, 240)
-    faint = (120, 150, 175)
-    g = size // 16
-    for i in range(1, 16):
-        d.line([(i * g, 0), (i * g, size)], fill=faint, width=1)
-        d.line([(0, i * g), (size, i * g)], fill=faint, width=1)
-    # border
-    m = size // 24
-    d.rectangle([m, m, size - m, size - m], outline=line, width=3)
-    # main view: gear/plate with bolt circle
-    cx, cy, r = size * 0.40, size * 0.42, size * 0.22
-    d.ellipse([cx - r, cy - r, cx + r, cy + r], outline=line, width=3)
-    d.ellipse([cx - r * .62, cy - r * .62, cx + r * .62, cy + r * .62], outline=line, width=2)
-    d.ellipse([cx - r * .18, cy - r * .18, cx + r * .18, cy + r * .18], outline=line, width=3)
-    for i in range(8):
-        a = i * math.tau / 8
-        bx, by = cx + math.cos(a) * r * .82, cy + math.sin(a) * r * .82
-        d.ellipse([bx - 9, by - 9, bx + 9, by + 9], outline=line, width=2)
-    # teeth
-    for i in range(24):
-        a = i * math.tau / 24
-        d.line([cx + math.cos(a) * r, cy + math.sin(a) * r,
-                cx + math.cos(a) * (r + 22), cy + math.sin(a) * (r + 22)], fill=line, width=3)
-    # centre cross + dimension lines
-    d.line([(cx - r - 40, cy), (cx + r + 40, cy)], fill=faint, width=1)
-    d.line([(cx, cy - r - 40), (cx, cy + r + 40)], fill=faint, width=1)
-    dy = cy + r + 55
-    d.line([(cx - r, dy), (cx + r, dy)], fill=line, width=2)
-    for sx in (cx - r, cx + r):
-        d.line([(sx, dy - 10), (sx, dy + 10)], fill=line, width=2)
-    # side elevation view
-    ex, ey = size * 0.74, size * 0.30
-    d.rectangle([ex - 90, ey - 60, ex + 90, ey + 60], outline=line, width=3)
-    d.line([(ex - 90, ey - 18), (ex + 90, ey - 18)], fill=faint, width=2)
-    d.line([(ex - 90, ey + 18), (ex + 90, ey + 18)], fill=faint, width=2)
-    d.ellipse([ex - 26, ey - 26, ex + 26, ey + 26], outline=line, width=2)
-    # hatched section
-    sx0, sy0 = size * 0.70, size * 0.55
-    d.rectangle([sx0, sy0, sx0 + 150, sy0 + 110], outline=line, width=2)
-    for i in range(0, 260, 14):
-        d.line([(sx0 + i, sy0), (sx0, sy0 + i)], fill=faint, width=1)
-        d.line([(sx0 + 150, sy0 + i - 110), (sx0 + i - 150 + 110, sy0 + 110)], fill=faint, width=1)
-    # title block bottom-right
-    tb = [size - m - 300, size - m - 130, size - m, size - m]
-    d.rectangle(tb, outline=line, width=3)
-    d.line([(tb[0], tb[1] + 46), (tb[2], tb[1] + 46)], fill=line, width=2)
-    d.line([(tb[0], tb[1] + 88), (tb[2], tb[1] + 88)], fill=line, width=2)
-    d.line([(tb[0] + 150, tb[1]), (tb[0] + 150, tb[3])], fill=line, width=2)
-    for row, y in enumerate((tb[1] + 12, tb[1] + 58, tb[1] + 100)):
-        w = 120 - row * 30
-        d.line([(tb[0] + 14, y), (tb[0] + 14 + w, y)], fill=line, width=4)
-        d.line([(tb[0] + 164, y), (tb[0] + 164 + 90, y)], fill=faint, width=3)
-    # annotation leaders
-    d.line([(cx + r * .62, cy - r * .62), (cx + 180, cy - 210)], fill=line, width=2)
-    d.line([(cx + 180, cy - 210), (cx + 260, cy - 210)], fill=line, width=2)
-    d.line([(cx - r, cy + r * .3), (cx - 200, cy + 200)], fill=line, width=2)
-    d.line([(cx - 200, cy + 200), (cx - 120, cy + 200)], fill=line, width=2)
-    # plain paper swatch (top-left corner): sheet edges and scroll end caps sample this
-    d.rectangle([0, 0, 44, 44], fill=(238, 233, 216))
-    img.save(OUT / 'T_WBKC_Blueprint_BaseColor.png')
-    return img
+def blueprint_sheet(size=2048):
+    # Keep the established texture identity while authoring engineering paper.
+    from engineering_drawings import generate_atlas
+    return generate_atlas(OUT)
 
 
 def books_atlas(size=1024):

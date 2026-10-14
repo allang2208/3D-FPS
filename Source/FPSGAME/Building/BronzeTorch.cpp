@@ -1,4 +1,5 @@
 #include "BronzeTorch.h"
+#include "../Weapons/ThermalTargetSubsystem.h"
 
 #include "../FPSWeatherManager.h"
 #include "Components/PointLightComponent.h"
@@ -87,6 +88,7 @@ void ABronzeTorch::OnConstruction(const FTransform& Transform)
 void ABronzeTorch::BeginPlay()
 {
     Super::BeginPlay();
+    UThermalTargetSubsystem::RegisterFire(TorchFlame,FVector(12,12,32),FVector(0,0,20));
     // Migrate the old authored defaults on already placed/saved torches too.
     // Keep deliberately customized values; do not rewrite the user's world save.
     if (FMath::IsNearlyEqual(LightLumens, 600.0f)) LightLumens = 350.0f;
